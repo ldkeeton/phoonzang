@@ -142,7 +142,7 @@ loc_RLUJ:
     mov cx, word [bp - 0x0002]       ; 0x3521
     shl cx, 1                        ; 0x3524
     mov bx, cx                       ; 0x3526
-    mov word [bx + bss_8490], ax     ; 0x3528
+    mov word [bx + party_char_ext], ax ; 0x3528
     mov ax, 0x1a4                    ; 0x352c
     push ax                          ; 0x352f
     call aztec_malloc                ; 0x3530
@@ -150,10 +150,10 @@ loc_RLUJ:
     mov cx, word [bp - 0x0002]       ; 0x3534
     shl cx, 1                        ; 0x3537
     mov bx, cx                       ; 0x3539
-    mov word [bx + bss_8482], ax     ; 0x353b
-    cmp word [bx + bss_8490], byte 0 ; 0x353f
+    mov word [bx + party_char], ax   ; 0x353b
+    cmp word [bx + party_char_ext], byte 0 ; 0x353f
     je short @..loc_RLUJ.l6          ; 0x3544
-    cmp word [bx + bss_8482], byte 0 ; 0x3546
+    cmp word [bx + party_char], byte 0 ; 0x3546
     jne short @..loc_RLUJ.l7         ; 0x354b
 @..loc_RLUJ.l6:
     mov ax, 0x1d                     ; 0x354d

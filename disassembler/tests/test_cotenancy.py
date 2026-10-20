@@ -57,7 +57,11 @@ _TREE = _ASM_DIR.parent / 'src_DSAVANT'
 #: its own (``runner``, 2026-10-17): a generic category name (``string_loc_``,
 #: ``leaf_loc_``) used to cut the dispatching routine into one fragment per arm
 #: that branched back into it.  241/266/4 -> **202/137/4**.
-COTENANCY_BASELINE = {'glued_files': 202, 'code_outside': 137, 'data_outside': 4}
+#: A code-segment string handed to a ``DS:DX`` DOS service or pushed for a
+#: callee is proven a pointer (``segdataflow``), so the strings embedded in
+#: the drivers' and ds's routines are labelled ``cseg_`` and used from inside
+#: their own fragment: 202/137/4 -> **209/82/2**.
+COTENANCY_BASELINE = {'glued_files': 209, 'code_outside': 82, 'data_outside': 2}
 
 
 def _write(path, text):

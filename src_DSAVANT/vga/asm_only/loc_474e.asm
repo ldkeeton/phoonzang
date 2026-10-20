@@ -3,4 +3,4 @@
 loc_474e:
     mov ax, cs                       ; 0x474e
     mov ds, ax                       ; 0x4750
-    mov dx, dseg_485e                ; 0x4752
+    mov dx, cseg_475e - IMAGE_BASE   ; 0x4752

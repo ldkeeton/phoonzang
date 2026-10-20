@@ -291,14 +291,14 @@ api_idx_0094_NVHQ:
     mov ax, 0x2c                     ; 0x367a
     imul word [bp + 0x4]             ; 0x367d
     mov si, ax                       ; 0x3680
-    mov bx, word [bss_8482]          ; 0x3682
+    mov bx, word [party_char]        ; 0x3682
     mov byte [bx + si + 0x1f], 0     ; 0x3686
     mov al, byte [bp - 0x0094]       ; 0x368a
     push ax                          ; 0x368e
     mov ax, 0x2c                     ; 0x368f
     imul word [bp + 0x4]             ; 0x3692
     mov si, ax                       ; 0x3695
-    mov bx, word [bss_8482]          ; 0x3697
+    mov bx, word [party_char]        ; 0x3697
     pop ax                           ; 0x369b
     mov byte [bx + si + 0x20], al    ; 0x369c
 @..api_idx_0094_NVHQ.l15:

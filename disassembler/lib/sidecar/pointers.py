@@ -10,8 +10,7 @@ def _validate_pointer_assertions(assertions, description):
 
     Each entry asserts a fact about the 16-bit word that lives at a file
     ``offset`` (required).  ``space`` names the segment the pointer lives in
-    (one of the segment names); ``target`` is an optional review-only symbolic
-    name for the pointed-at location, and ``note`` an optional explanation.
+    (one of the segment names), and ``note`` is an optional explanation.
     """
     if not isinstance(assertions, list):
         raise SidecarError(f'{description} must be a list')
@@ -24,9 +23,8 @@ def _validate_pointer_assertions(assertions, description):
         if space is not None and space not in _SEGMENT_NAMES:
             raise SidecarError(
                 f'{where}.space must be one of {sorted(_SEGMENT_NAMES)}')
-        for key in ('target', 'note'):
-            if key in entry and not isinstance(entry[key], str):
-                raise SidecarError(f'{where}.{key} must be a string')
+        if 'note' in entry and not isinstance(entry['note'], str):
+            raise SidecarError(f'{where}.note must be a string')
 
 
 def _pointer_assertions(raw, description):

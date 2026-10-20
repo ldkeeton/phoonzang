@@ -15,7 +15,7 @@ api_idx_0056_KOPT:
     mov ax, 0x2c                     ; 0x31bf
     imul word [bp - 0x0002]          ; 0x31c2
     mov si, ax                       ; 0x31c5
-    mov bx, word [bss_8482]          ; 0x31c7
+    mov bx, word [party_char]        ; 0x31c7
     cmp byte [bx + si + 0x1f], 1     ; 0x31cb
     jb short @..api_idx_0056_KOPT.l2 ; 0x31cf
     mov al, byte [bx + si + 0x1f]    ; 0x31d1
@@ -56,18 +56,18 @@ api_idx_0056_KOPT:
     mov ax, 0x2c                     ; 0x3225
     imul word [bp - 0x0002]          ; 0x3228
     mov si, ax                       ; 0x322b
-    mov bx, word [bss_8482]          ; 0x322d
+    mov bx, word [party_char]        ; 0x322d
     mov byte [bx + si + 0x22], 0     ; 0x3231
     mov ax, 0x2c                     ; 0x3235
     imul word [bp - 0x0002]          ; 0x3238
     mov si, ax                       ; 0x323b
-    mov bx, word [bss_8482]          ; 0x323d
+    mov bx, word [party_char]        ; 0x323d
     mov ax, word [bx + si + 0x8]     ; 0x3241
     mov word [bx + si + 0x6], ax     ; 0x3244
     mov ax, 0x2c                     ; 0x3247
     imul word [bp - 0x0002]          ; 0x324a
     mov si, ax                       ; 0x324d
-    mov bx, word [bss_8482]          ; 0x324f
+    mov bx, word [party_char]        ; 0x324f
     mov ax, word [bx + si + 0x4]     ; 0x3253
     mov word [bx + si + 0x2], ax     ; 0x3256
     mov word [bp - 0x0004], 0        ; 0x3259
@@ -76,7 +76,7 @@ api_idx_0056_KOPT:
     imul word [bp - 0x0002]          ; 0x3261
     add ax, word [bp - 0x0004]       ; 0x3264
     mov si, ax                       ; 0x3267
-    mov bx, word [bss_8482]          ; 0x3269
+    mov bx, word [party_char]        ; 0x3269
     mov byte [bx + si + 0xe], 0      ; 0x326d
     inc word [bp - 0x0004]           ; 0x3271
     mov ax, word [bp - 0x0004]       ; 0x3274

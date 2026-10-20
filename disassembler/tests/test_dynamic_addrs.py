@@ -2154,22 +2154,6 @@ class DataPointerCorpusTests(unittest.TestCase):
         data = self._read(binary)
         return struct.unpack_from('<H', data, 8)[0] * 16
 
-    def test_corpus_targets_match_the_stored_words(self):
-        seen = 0
-        for binary in self._FILES:
-            data = self._read(binary)
-            for entry in per_binary(self.sidecar, binary)['data_pointers']:
-                target = entry.get('target', '')
-                if not target.startswith('dseg_'):
-                    continue
-                value = struct.unpack_from('<H', data, entry['offset'])[0]
-                self.assertEqual(
-                    value, int(target[len('dseg_'):], 16),
-                    f'{binary}: word at {entry["offset"]:#x} is {value:#06x}, '
-                    f'not {target}')
-                seen += 1
-        self.assertGreater(seen, 0, 'the seed corpus is empty')
-
     def test_corpus_offsets_lie_in_the_loaded_image(self):
         # The F7 candidate space is every non-code span of the image, not only
         # the DS data segment: e.g. vinstall 0x113c/0x1b44 are DS-pointer tables

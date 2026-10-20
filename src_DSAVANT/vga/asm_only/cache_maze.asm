@@ -176,4 +176,4 @@ cseg_3f06:
 @..cache_maze.l10:
     mov ax, cs                       ; 0x3f3e
     mov ds, ax                       ; 0x3f40
-    mov dx, dseg_404e                ; 0x3f42
+    mov dx, cseg_3f4e - IMAGE_BASE   ; 0x3f42

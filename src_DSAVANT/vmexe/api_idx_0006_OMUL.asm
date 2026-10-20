@@ -14,7 +14,7 @@ api_idx_0006_OMUL:
     mov ax, word [bp + 0x4]          ; 0x25ee
     shl ax, 1                        ; 0x25f1
     mov bx, ax                       ; 0x25f3
-    mov bx, word [bx + bss_8482]     ; 0x25f5
+    mov bx, word [bx + party_char]   ; 0x25f5
     mov al, byte [bx + 0x1a1]        ; 0x25f9
     sub ah, ah                       ; 0x25fd
     mov word [bp - 0x0002], ax       ; 0x25ff
@@ -46,7 +46,7 @@ api_idx_0006_OMUL:
     mov ax, word [bp + 0x4]          ; 0x2638
     shl ax, 1                        ; 0x263b
     mov bx, ax                       ; 0x263d
-    mov bx, word [bx + bss_8482]     ; 0x263f
+    mov bx, word [bx + party_char]   ; 0x263f
     cmp byte [bx + si + 0x22], 3     ; 0x2643
     jne short @..api_idx_0006_OMUL.l5 ; 0x2647
     dec word [bp - 0x0006]           ; 0x2649

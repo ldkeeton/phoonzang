@@ -19,7 +19,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1a42
     shl ax, 1                        ; 0x1a45
     mov bx, ax                       ; 0x1a47
-    mov bx, word [bx + bss_8482]     ; 0x1a49
+    mov bx, word [bx + party_char]   ; 0x1a49
     cmp byte [bx + si + 0x22], 0     ; 0x1a4d
     je short @..loc_QUVM.l3          ; 0x1a51
     jmp near @..loc_QUVM.l7          ; 0x1a53
@@ -40,7 +40,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1a7a
     shl ax, 1                        ; 0x1a7d
     mov bx, ax                       ; 0x1a7f
-    mov bx, word [bx + bss_8482]     ; 0x1a81
+    mov bx, word [bx + party_char]   ; 0x1a81
     cmp byte [bx + si + 0xe], 0      ; 0x1a85
     jbe short @..loc_QUVM.l6         ; 0x1a89
     mov ax, 0x2c                     ; 0x1a8b
@@ -62,7 +62,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1ab2
     shl ax, 1                        ; 0x1ab5
     mov bx, ax                       ; 0x1ab7
-    mov bx, word [bx + bss_8482]     ; 0x1ab9
+    mov bx, word [bx + party_char]   ; 0x1ab9
     mov ax, word [bx + si + 0x2]     ; 0x1abd
     cmp ax, word [bp - 0x000c]       ; 0x1ac0
     jle short @..loc_QUVM.l7         ; 0x1ac3
@@ -79,7 +79,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1ada
     shl ax, 1                        ; 0x1add
     mov bx, ax                       ; 0x1adf
-    mov bx, word [bx + bss_8482]     ; 0x1ae1
+    mov bx, word [bx + party_char]   ; 0x1ae1
     mov al, byte [bx + 0x1a1]        ; 0x1ae5
     sub ah, ah                       ; 0x1ae9
     cmp ax, word [bp - 0x0004]       ; 0x1aeb
@@ -89,7 +89,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1af3
     shl ax, 1                        ; 0x1af6
     mov bx, ax                       ; 0x1af8
-    mov bx, word [bx + bss_8490]     ; 0x1afa
+    mov bx, word [bx + party_char_ext] ; 0x1afa
     cmp byte [bx + 0xae], 0          ; 0x1afe
     jbe short @..loc_QUVM.l10        ; 0x1b03
     mov bx, ax                       ; 0x1b05
@@ -99,7 +99,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1b0d
     shl ax, 1                        ; 0x1b10
     mov si, ax                       ; 0x1b12
-    mov si, word [si + bss_8490]     ; 0x1b14
+    mov si, word [si + party_char_ext] ; 0x1b14
     mov al, byte [si + 0xae]         ; 0x1b18
     sub ah, ah                       ; 0x1b1c
     mov cx, 0xa                      ; 0x1b1e
@@ -116,7 +116,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1b30
     shl ax, 1                        ; 0x1b33
     mov bx, ax                       ; 0x1b35
-    mov bx, word [bx + bss_8490]     ; 0x1b37
+    mov bx, word [bx + party_char_ext] ; 0x1b37
     cmp byte [bx + 0xb0], 0          ; 0x1b3b
     jbe short @..loc_QUVM.l11        ; 0x1b40
     mov bx, ax                       ; 0x1b42
@@ -126,7 +126,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1b4a
     shl ax, 1                        ; 0x1b4d
     mov bx, ax                       ; 0x1b4f
-    mov bx, word [bx + bss_8490]     ; 0x1b51
+    mov bx, word [bx + party_char_ext] ; 0x1b51
     mov al, byte [bx + 0xb0]         ; 0x1b55
     sub ah, ah                       ; 0x1b59
     mov cx, ax                       ; 0x1b5b
@@ -159,7 +159,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1b90
     shl ax, 1                        ; 0x1b93
     mov bx, ax                       ; 0x1b95
-    mov bx, word [bx + bss_8490]     ; 0x1b97
+    mov bx, word [bx + party_char_ext] ; 0x1b97
     cmp byte [bx + 0xb1], 0          ; 0x1b9b
     jbe short @..loc_QUVM.l12        ; 0x1ba0
     mov bx, ax                       ; 0x1ba2
@@ -169,7 +169,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1baa
     shl ax, 1                        ; 0x1bad
     mov bx, ax                       ; 0x1baf
-    mov bx, word [bx + bss_8490]     ; 0x1bb1
+    mov bx, word [bx + party_char_ext] ; 0x1bb1
     mov al, byte [bx + 0xb1]         ; 0x1bb5
     sub ah, ah                       ; 0x1bb9
     mov cx, ax                       ; 0x1bbb
@@ -202,7 +202,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1bf0
     shl ax, 1                        ; 0x1bf3
     mov bx, ax                       ; 0x1bf5
-    mov bx, word [bx + bss_8482]     ; 0x1bf7
+    mov bx, word [bx + party_char]   ; 0x1bf7
     cmp byte [bx + 0x19f], 0xff      ; 0x1bfb
     je short @..loc_QUVM.l13         ; 0x1c00
     mov al, byte [bx + 0x19f]        ; 0x1c02
@@ -210,7 +210,7 @@ loc_QUVM:
     mov cx, 0x15e                    ; 0x1c07
     imul cx                          ; 0x1c0a
     mov bx, ax                       ; 0x1c0c
-    cmp byte [bx + bss_6b75], 0      ; 0x1c0e
+    cmp byte [bx + slot_rec_forced], 0 ; 0x1c0e
     je short @..loc_QUVM.l13         ; 0x1c13
     mov ax, word [bp - 0x0002]       ; 0x1c15
     shl ax, 1                        ; 0x1c18
@@ -261,7 +261,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1c76
     shl ax, 1                        ; 0x1c79
     mov bx, ax                       ; 0x1c7b
-    mov bx, word [bx + bss_8482]     ; 0x1c7d
+    mov bx, word [bx + party_char]   ; 0x1c7d
     cmp byte [bx + 0x1a1], 1         ; 0x1c81
     jne short @..loc_QUVM.l18        ; 0x1c86
     mov ax, 0                        ; 0x1c88
@@ -282,7 +282,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1ca6
     shl ax, 1                        ; 0x1ca9
     mov bx, ax                       ; 0x1cab
-    mov ax, word [bx + bss_8490]     ; 0x1cad
+    mov ax, word [bx + party_char_ext] ; 0x1cad
     add ax, cx                       ; 0x1cb1
     push ax                          ; 0x1cb3
     lea ax, word [bp - 0x006c]       ; 0x1cb4
@@ -307,7 +307,7 @@ loc_QUVM:
     mov ax, word [bp - 0x0002]       ; 0x1cdf
     shl ax, 1                        ; 0x1ce2
     mov bx, ax                       ; 0x1ce4
-    mov bx, word [bx + bss_8482]     ; 0x1ce6
+    mov bx, word [bx + party_char]   ; 0x1ce6
     cmp byte [bx + 0x1a1], 1         ; 0x1cea
     jne short @..loc_QUVM.l20        ; 0x1cef
     mov ax, 0xdb6                    ; 0x1cf1
@@ -432,7 +432,7 @@ loc_QUVM:
     shl ax, 1                        ; 0x1e14
     mov bx, ax                       ; 0x1e16
     push word [bx - 0x7b80]          ; 0x1e18
-    push word [bx + bss_8482]        ; 0x1e1c
+    push word [bx + party_char]      ; 0x1e1c
     call string_loc_SJPQ             ; 0x1e20
     add sp, byte 6                   ; 0x1e23
     mov ax, 0xe8                     ; 0x1e26
@@ -441,7 +441,7 @@ loc_QUVM:
     shl ax, 1                        ; 0x1e2d
     mov bx, ax                       ; 0x1e2f
     push word [bx + bss_848e]        ; 0x1e31
-    push word [bx + bss_8490]        ; 0x1e35
+    push word [bx + party_char_ext]  ; 0x1e35
     call string_loc_SJPQ             ; 0x1e39
     add sp, byte 6                   ; 0x1e3c
     mov word [bp - 0x000e], 0        ; 0x1e3f
@@ -450,7 +450,7 @@ loc_QUVM:
     mov ax, 0x2c                     ; 0x1e46
     imul word [bp - 0x000e]          ; 0x1e49
     mov si, ax                       ; 0x1e4c
-    mov bx, word [bss_8482]          ; 0x1e4e
+    mov bx, word [party_char]        ; 0x1e4e
     mov al, byte [bx + si + 0x1f]    ; 0x1e52
     sub ah, ah                       ; 0x1e55
     cmp ax, word [bp - 0x0002]       ; 0x1e57
@@ -463,7 +463,7 @@ loc_QUVM:
     mov ax, 0x2c                     ; 0x1e65
     imul word [bp - 0x000e]          ; 0x1e68
     mov si, ax                       ; 0x1e6b
-    mov bx, word [bss_8482]          ; 0x1e6d
+    mov bx, word [party_char]        ; 0x1e6d
     mov al, byte [bx + si + 0x1f]    ; 0x1e71
     sub ah, ah                       ; 0x1e74
     mov cx, word [bp - 0x0002]       ; 0x1e76
@@ -503,7 +503,7 @@ loc_JQLR:
     mov ax, 0x2c                     ; 0x1eba
     imul word [bp + 0x4]             ; 0x1ebd
     mov si, ax                       ; 0x1ec0
-    mov bx, word [bss_8482]          ; 0x1ec2
+    mov bx, word [party_char]        ; 0x1ec2
     mov ax, word [bx + si + 0x2]     ; 0x1ec6
     push ax                          ; 0x1ec9
     mov ax, 0x248                    ; 0x1eca
@@ -511,7 +511,7 @@ loc_JQLR:
     mov bx, ax                       ; 0x1ed0
     pop ax                           ; 0x1ed2
     mov word [bx + 0x5c0c], ax       ; 0x1ed3
-    mov bx, word [bss_8482]          ; 0x1ed7
+    mov bx, word [party_char]        ; 0x1ed7
     mov ax, word [bx + si + 0x6]     ; 0x1edb
     push ax                          ; 0x1ede
     mov ax, 0x248                    ; 0x1edf
@@ -519,7 +519,7 @@ loc_JQLR:
     mov bx, ax                       ; 0x1ee5
     pop ax                           ; 0x1ee7
     mov word [bx + 0x5c10], ax       ; 0x1ee8
-    mov bx, word [bss_8482]          ; 0x1eec
+    mov bx, word [party_char]        ; 0x1eec
     mov al, byte [bx + si + 0x22]    ; 0x1ef0
     push ax                          ; 0x1ef3
     mov ax, 0x248                    ; 0x1ef4
@@ -532,7 +532,7 @@ loc_JQLR:
     add bx, strict word 0x5d5a       ; 0x1f05
     mov ax, bx                       ; 0x1f09
     push ax                          ; 0x1f0b
-    mov ax, word [bss_8482]          ; 0x1f0c
+    mov ax, word [party_char]        ; 0x1f0c
     add ax, si                       ; 0x1f0f
     add ax, strict word 0xe          ; 0x1f11
     push ax                          ; 0x1f14
@@ -541,7 +541,7 @@ loc_JQLR:
     mov ax, 0x2c                     ; 0x1f1b
     imul word [bp + 0x4]             ; 0x1f1e
     mov si, ax                       ; 0x1f21
-    mov bx, word [bss_8482]          ; 0x1f23
+    mov bx, word [party_char]        ; 0x1f23
     mov al, byte [bx + si + 0x23]    ; 0x1f27
     push ax                          ; 0x1f2a
     mov ax, 0x248                    ; 0x1f2b

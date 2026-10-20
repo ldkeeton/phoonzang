@@ -89,13 +89,13 @@ bss_598b equ __zbss_598b - __zdseg_start
 bss_5b55 equ __zbss_5b55 - __zdseg_start
 bss_5c08 equ __zbss_5c08 - __zdseg_start
 bss_5c0a equ __zbss_5c0a - __zdseg_start
-bss_6a1e equ __zbss_6a1e - __zdseg_start
-bss_6a22 equ __zbss_6a22 - __zdseg_start
-bss_6a2c equ __zbss_6a2c - __zdseg_start
-bss_6a40 equ __zbss_6a40 - __zdseg_start
-bss_6a4a equ __zbss_6a4a - __zdseg_start
-bss_6ac1 equ __zbss_6ac1 - __zdseg_start
-bss_6b75 equ __zbss_6b75 - __zdseg_start
+slot_rec_count equ __zbss_6a1e - __zdseg_start
+slot_rec_action equ __zbss_6a22 - __zdseg_start
+slot_rec_action_rand equ __zbss_6a2c - __zdseg_start
+slot_rec_target equ __zbss_6a40 - __zdseg_start
+slot_rec_target_rand equ __zbss_6a4a - __zdseg_start
+slot_rec_ranges equ __zbss_6ac1 - __zdseg_start
+slot_rec_forced equ __zbss_6b75 - __zdseg_start
 bss_7abc equ __zbss_7abc - __zdseg_start
 bss_7abe equ __zbss_7abe - __zdseg_start
 bss_7b04 equ __zbss_7b04 - __zdseg_start
@@ -114,8 +114,8 @@ bss_8306 equ __zbss_8306 - __zdseg_start
 bss_830e equ __zbss_830e - __zdseg_start
 bss_831a equ __zbss_831a - __zdseg_start
 bss_8320 equ __zbss_8320 - __zdseg_start
-bss_8322 equ __zbss_8322 - __zdseg_start
-bss_8430 equ __zbss_8430 - __zdseg_start
+action_slot_table equ __zbss_8322 - __zdseg_start
+action_slot_mode equ __zbss_8430 - __zdseg_start
 bss_843a equ __zbss_843a - __zdseg_start
 bss_844c equ __zbss_844c - __zdseg_start
 bss_844e equ __zbss_844e - __zdseg_start
@@ -132,10 +132,10 @@ bss_8462 equ __zbss_8462 - __zdseg_start
 bss_8464 equ __zbss_8464 - __zdseg_start
 bss_8466 equ __zbss_8466 - __zdseg_start
 bss_8468 equ __zbss_8468 - __zdseg_start
-bss_8482 equ __zbss_8482 - __zdseg_start
+party_char equ __zbss_8482 - __zdseg_start
 bss_8484 equ __zbss_8484 - __zdseg_start
 bss_848e equ __zbss_848e - __zdseg_start
-bss_8490 equ __zbss_8490 - __zdseg_start
+party_char_ext equ __zbss_8490 - __zdseg_start
 bss_8492 equ __zbss_8492 - __zdseg_start
 bss_849e equ __zbss_849e - __zdseg_start
 bss_84a0 equ __zbss_84a0 - __zdseg_start
@@ -473,8 +473,8 @@ bss_5926  equ __zbss_5926 - __zdseg_start
 ; bss_5987 equ __zbss_5987 - __zdseg_start
 %include "ds/ds_app_IMTG.asm"              ; 0x27e9
 
-dseg_0bcd equ __zdseg_0bcd - __zdseg_start
-bss_6a1a  equ __zbss_6a1a - __zdseg_start
+dseg_0bcd      equ __zdseg_0bcd - __zdseg_start
+slot_rec_first equ __zbss_6a1a - __zdseg_start
 %include "ds/ds_app_file_TSNH.asm"         ; 0x2863
 
 %include "ds/ds_app_SOQK.asm"              ; 0x290d
@@ -755,15 +755,25 @@ cseg_384a:
     db 0xff, 0xff
 
 dseg_0110 equ __zdseg_0110 - __zdseg_start
-bss_373f  equ __zbss_373f - __zdseg_start
 %include "ds/asm_only/dos_alloc_mem.asm"            ; 0x3860
 
 %include "ds/asm_only/ds_dos_con_loc_RKPT.asm"      ; 0x3936
 
-bss_376b equ __zbss_376b - __zdseg_start
+cseg_393f:
+
+    db 0x07, 0x0d, 0x0a
+    db 'I/O error loading font'
+    db 0x0d, 0x0a, 0x24
+
 %include "ds/asm_only/ds_loc_395b.asm"              ; 0x395b
 
 %include "ds/asm_only/ds_dos_con_loc_RGGK.asm"      ; 0x3962
+
+cseg_396b:
+
+    db 0x07, 0x0d, 0x0a
+    db 'Memory error loading font'
+    db 0x0d, 0x0a, 0x24
 
 ; dseg_0110 equ __zdseg_0110 - __zdseg_start
 %include "ds/asm_only/dos_read_file.asm"            ; 0x398a
@@ -827,10 +837,15 @@ cseg_3c7f:
 
 %include "ds/asm_only/ds_dos_con_loc_QJHU.asm"      ; 0x3f81
 
-bss_3dde equ __zbss_3dde - __zdseg_start
 %include "ds/asm_only/dos_read_file_2.asm"          ; 0x3fa9
 
 %include "ds/asm_only/ds_dos_con_loc_NHHR.asm"      ; 0x3fd5
+
+cseg_3fde:
+
+    db 0x07, 0x0d, 0x0a
+    db 'I/O error loading Misc. table.'
+    db 0x0d, 0x0a, 0x24
 
 %include "ds/asm_only/ds_string_loc_HTNS.asm"       ; 0x4002
 
@@ -1612,13 +1627,7 @@ __zbss_100c:
 __zbss_2d40:
     resb 0x0018
 __zbss_2d58:
-    resb 0x09e7
-__zbss_373f:
-    resb 0x002c
-__zbss_376b:
-    resb 0x0673
-__zbss_3dde:
-    resb 0x0034
+    resb 0x10ba
 __zbss_3e12:
     resb 0x1400
 __zbss_5212:

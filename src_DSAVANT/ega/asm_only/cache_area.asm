@@ -248,4 +248,4 @@ cache_area:
 @..cache_area.l17:
     mov ax, cs                       ; 0x4369
     mov ds, ax                       ; 0x436b
-    mov dx, dseg_4479                ; 0x436d
+    mov dx, cseg_4379 - IMAGE_BASE   ; 0x436d

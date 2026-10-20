@@ -5,7 +5,7 @@ api_idx_0002_LKMM:
     mov ax, word [bp + 0x4]          ; 0x1f06
     shl ax, 1                        ; 0x1f09
     mov bx, ax                       ; 0x1f0b
-    mov bx, word [bx + bss_8490]     ; 0x1f0d
+    mov bx, word [bx + party_char_ext] ; 0x1f0d
     mov si, word [bp + 0x8]          ; 0x1f11
     mov al, byte [bx + si + 0x9a]    ; 0x1f14
     sub ah, ah                       ; 0x1f18

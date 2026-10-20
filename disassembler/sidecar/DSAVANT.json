@@ -127,14 +127,14 @@
       "fingerprint-start": "9e68e13368a5e977af6f4921d01938b5d8932faa7c4a526c5a2dc1c7082dd9fa",
       "fingerprint-end": "b94811b8e00674347f4917bc5eda18025b74473bed7ed5aadc3638184285f0de",
       "immediate_pointers": [
-        {"offset": "288e", "space": "ds", "target": "bss_6a1a", "note": "`mov ax, 0x15e; imul bx; add ax, 0x6a1a; push ax`: row bx of the 350-byte-row array bss_6a1a (the overlays' C declares it `unsigned char [][350]`), passed to ds_app_file_MPPM as the buffer"},
-        {"offset": "293e", "space": "ds", "target": "bss_5576", "note": "`mov ax, 0xc; imul word [bp + 0x6]; add ax, 0x5576; push ax`: element of a 12-byte-record array inside bss_552a, passed to ds_app_file_MPPM"}
+        {"offset": "288e", "space": "ds", "note": "`mov ax, 0x15e; imul bx; add ax, 0x6a1a; push ax`: row bx of the 350-byte-row array bss_6a1a (the overlays' C declares it `unsigned char [][350]`), passed to ds_app_file_MPPM as the buffer"},
+        {"offset": "293e", "space": "ds", "note": "`mov ax, 0xc; imul word [bp + 0x6]; add ax, 0x5576; push ax`: element of a 12-byte-record array inside bss_552a, passed to ds_app_file_MPPM"}
       ],
       "data_pointers": [
-        {"offset": "10dd0", "space": "ds", "target": "dseg_b198", "note": "Aztec heap-base pointer (dseg_0c70): read as `mov di, word es:[dseg_0c70]` then `stosb es:[di]` (0x4e24) and advanced by the malloc/brk routines (0x4daf, 0x51dc). Target 0xb198 lies past bss_boundary (0xcf6) but is a real DS offset at the end of the image; the CRT recomputes it at startup from psp_top_of_memory, so it must track the data end"},
-        {"offset": "10dfc", "space": "cs", "target": "__zcp_4ea3", "note": "Aztec exit hook (dseg_0c9c): called as `call [dseg_0c9c]` by aztec_exit, so the CPU loads IP from the word; its default target CS 0x4ca3 (file 0x4ea3) is a `mov ax, 0; ret` stub"},
-        {"offset": "10e50", "space": "cs", "target": "aztec_impl_tty_rd", "note": "Aztec console read vector (dseg_0cf0): aztec_write dispatches a tty handle with `cmp ah, 0x3f; je; ...; jmp [dseg_0cf0]` (0x4fd6), so the word is the read routine's CS offset (file 0x505c)"},
-        {"offset": "10e52", "space": "cs", "target": "aztec_impl_tty_wr", "note": "Aztec console write vector (dseg_0cf2): the other arm of the same dispatch, `jmp [dseg_0cf2]` (0x4fd2); target file 0x50c1"}
+        {"offset": "10dd0", "space": "ds", "note": "Aztec heap-base pointer (dseg_0c70): read as `mov di, word es:[dseg_0c70]` then `stosb es:[di]` (0x4e24) and advanced by the malloc/brk routines (0x4daf, 0x51dc). Target 0xb198 lies past bss_boundary (0xcf6) but is a real DS offset at the end of the image; the CRT recomputes it at startup from psp_top_of_memory, so it must track the data end"},
+        {"offset": "10dfc", "space": "cs", "note": "Aztec exit hook (dseg_0c9c): called as `call [dseg_0c9c]` by aztec_exit, so the CPU loads IP from the word; its default target CS 0x4ca3 (file 0x4ea3) is a `mov ax, 0; ret` stub"},
+        {"offset": "10e50", "space": "cs", "note": "Aztec console read vector (dseg_0cf0): aztec_write dispatches a tty handle with `cmp ah, 0x3f; je; ...; jmp [dseg_0cf0]` (0x4fd6), so the word is the read routine's CS offset (file 0x505c)"},
+        {"offset": "10e52", "space": "cs", "note": "Aztec console write vector (dseg_0cf2): the other arm of the same dispatch, `jmp [dseg_0cf2]` (0x4fd2); target file 0x50c1"}
       ],
       "not_pointers": [
         {"offset": "10162", "note": "far-pointer offset half; ds/app_09a5.asm does `les bx, word [dseg_0002]` -> ES:BX = 0000:046c, the BIOS timer tick. The target is an absolute external, so this offset must not move"},
@@ -209,6 +209,20 @@
         {"table": "4822", "jmp": "490a", "entry_size": 2, "count": 21, "note": "Switch table for the 0x490a cs:[di+0x4622] indirect jump"}
       ],
       "ghidra_base_offset": -512,
+      "data_names": {
+        "8482": {"name": "party_char", "note": "char *[] per party member; [0x19f] is the member's record slot in slot_rec_*, -1 when none"},
+        "8490": {"name": "party_char_ext", "note": "char *[] per party member, a second record; draw_fill_action_slot_table tests [0xd7] == 0x47"},
+        "6a1a": {"name": "slot_rec_first", "note": "unsigned char [][350]: per-slot 350-byte records read from file 8 (ds_app_file_TSNH, 0x288e); +0x00 first entry per mode"},
+        "6a1e": {"name": "slot_rec_count", "note": "+0x04 of the slot record: entry count per mode"},
+        "6a22": {"name": "slot_rec_action", "note": "+0x08 of the slot record: base action per entry"},
+        "6a2c": {"name": "slot_rec_action_rand", "note": "+0x12 of the slot record: random range added to the action"},
+        "6a40": {"name": "slot_rec_target", "note": "+0x26 of the slot record: base target per action"},
+        "6a4a": {"name": "slot_rec_target_rand", "note": "+0x30 of the slot record: random range added to the target"},
+        "6ac1": {"name": "slot_rec_ranges", "note": "+0xa7 of the slot record: 4-byte entries per target, [0] base and [1] random range"},
+        "6b75": {"name": "slot_rec_forced", "note": "+0x15b of the slot record: forced target; 0xfd/0xfe special, 0 none"},
+        "8322": {"name": "action_slot_table", "note": "unsigned char [6][3][10][3]: {action, target, range} per member, mode and entry"},
+        "8430": {"name": "action_slot_mode", "note": "unsigned char [6][3]: the mode each member's slot was filled for"}
+      },
       "external_data": {
         "0x0410": {
           "name": "bios_data_0410",
@@ -240,33 +254,33 @@
       "fingerprint-start": "fb5d5fd11d5fdc063d401656b35c0a397e10e3e236f8f29430d4e25ff30bb79d",
       "fingerprint-end": "105b0e1220f2cd4aaf5875f0e21b57df404a94b71a00ea33ebdb80066e129e0b",
       "data_pointers": [
-        {"offset": "3ae2", "space": "ds", "target": "dseg_000e", "note": "graphics-adapter menu 0 ('0-NO GRAPHICS BOARD   '); read at 0x164a as `push word [dseg_0004]` and indexed as `[bx+2]` in vinstall/leaf_loc_10a4.asm"},
-        {"offset": "3ae4", "space": "ds", "target": "dseg_0025", "note": "graphics-adapter menu 1 ('1-VGA/MCGA (256 Color)')"},
-        {"offset": "3ae6", "space": "ds", "target": "dseg_003c", "note": "graphics-adapter menu 2 ('2-EGA      (16 Color) '); read at 0x1674"},
-        {"offset": "3ae8", "space": "ds", "target": "dseg_0053", "note": "graphics-adapter menu 3 ('3-CGA      (4 Color)  ')"},
-        {"offset": "3aea", "space": "ds", "target": "dseg_006a", "note": "graphics-adapter menu 4 ('4-HERCULES B/W Mono   ')"},
-        {"offset": "3aec", "space": "ds", "target": "dseg_0081", "note": "graphics-adapter menu 5 ('5-TANDY    (16 Color) ')"},
-        {"offset": "3b78", "space": "ds", "target": "dseg_009c", "note": "ON/OFF toggle: near pointer to 'ON '"},
-        {"offset": "3b7a", "space": "ds", "target": "dseg_00a0", "note": "near pointer to 'OFF'"},
-        {"offset": "3b84", "space": "ds", "target": "dseg_00b4", "note": "sound-device menu entry 0 ('PC INTERNAL SPEAKER'); 8 near pointers, 0x14 stride, read as `push word [bx+0xa4]`"},
-        {"offset": "3b86", "space": "ds", "target": "dseg_00c8", "note": "sound-device menu entry 1 ('AD LIB BOARD       ')"},
-        {"offset": "3b88", "space": "ds", "target": "dseg_00dc", "note": "sound-device menu entry 2 ('COVOX SOUNDMASTER  ')"},
-        {"offset": "3b8a", "space": "ds", "target": "dseg_00f0", "note": "sound-device menu entry 3 ('COVOX VOICEMASTER  ')"},
-        {"offset": "3b8c", "space": "ds", "target": "dseg_0104", "note": "sound-device menu entry 4 ('SOUND BLASTER      ')"},
-        {"offset": "3b8e", "space": "ds", "target": "dseg_0118", "note": "sound-device menu entry 5 ('ROLAND LAPC-1/MT-32')"},
-        {"offset": "3b90", "space": "ds", "target": "dseg_012c", "note": "sound-device menu entry 6 ('COVOX SMII         ')"},
-        {"offset": "3b92", "space": "ds", "target": "dseg_0140", "note": "sound-device menu entry 7 ('NONE            ')"},
-        {"offset": "3c34", "space": "ds", "target": "dseg_0158", "note": "NO/YES toggle: near pointer to 'NO '; read as `push word [bx+0x154]`"},
-        {"offset": "3c36", "space": "ds", "target": "dseg_015c", "note": "near pointer to 'YES'"},
-        {"offset": "3c40", "space": "ds", "target": "dseg_016a", "note": "disk-type menu entry 0 ('Floppy 5.25L (360k)   '); 5 near pointers, read as `push word [bx+0x160]`"},
-        {"offset": "3c42", "space": "ds", "target": "dseg_0181", "note": "disk-type menu entry 1 ('Floppy 5.25H (1.2Meg) ')"},
-        {"offset": "3c44", "space": "ds", "target": "dseg_0198", "note": "disk-type menu entry 2 ('Floppy 3.5L  (720k)   ')"},
-        {"offset": "3c46", "space": "ds", "target": "dseg_01af", "note": "disk-type menu entry 3 ('Floppy 3.5H  (1.4Meg)')"},
-        {"offset": "3c48", "space": "ds", "target": "dseg_01c6", "note": "disk-type menu entry 4 ('Hard (Fixed) Drive    ')"},
-        {"offset": "5fb4", "space": "ds", "target": "dseg_2afe", "note": "Aztec heap-base pointer (dseg_24d4): read as `mov di, word es:[dseg_24d4]` then `stosb es:[di]` (0x36bc) and advanced by malloc/brk. Target 0x2afe lies past bss_boundary (0x2534) but is a real DS offset; the same value is used as a code immediate (`add bx, 0x2afe` at 0x3621, `mov cx, 0x2afe` at 0x367b)"},
-        {"offset": "5fe0", "space": "cs", "target": "__zcp_373b", "note": "Aztec exit hook (dseg_2500): called as `call [dseg_2500]` by aztec_exit, so the CPU loads IP from the word; its default target CS 0x353b (file 0x373b) is a `mov ax, 0; ret` stub"},
-        {"offset": "600e", "space": "cs", "target": "aztec_impl_tty_rd", "note": "Aztec console read vector (dseg_252e): aztec_write does `cmp ah, 0x3f; je; ...; jmp [dseg_252e]` (0x3853) for a tty handle; target file 0x38d9"},
-        {"offset": "6010", "space": "cs", "target": "aztec_impl_tty_wr", "note": "Aztec console write vector (dseg_2530): the other arm, `jmp [dseg_2530]` (0x384f); target file 0x393e"}
+        {"offset": "3ae2", "space": "ds", "note": "graphics-adapter menu 0 ('0-NO GRAPHICS BOARD   '); read at 0x164a as `push word [dseg_0004]` and indexed as `[bx+2]` in vinstall/leaf_loc_10a4.asm"},
+        {"offset": "3ae4", "space": "ds", "note": "graphics-adapter menu 1 ('1-VGA/MCGA (256 Color)')"},
+        {"offset": "3ae6", "space": "ds", "note": "graphics-adapter menu 2 ('2-EGA      (16 Color) '); read at 0x1674"},
+        {"offset": "3ae8", "space": "ds", "note": "graphics-adapter menu 3 ('3-CGA      (4 Color)  ')"},
+        {"offset": "3aea", "space": "ds", "note": "graphics-adapter menu 4 ('4-HERCULES B/W Mono   ')"},
+        {"offset": "3aec", "space": "ds", "note": "graphics-adapter menu 5 ('5-TANDY    (16 Color) ')"},
+        {"offset": "3b78", "space": "ds", "note": "ON/OFF toggle: near pointer to 'ON '"},
+        {"offset": "3b7a", "space": "ds", "note": "near pointer to 'OFF'"},
+        {"offset": "3b84", "space": "ds", "note": "sound-device menu entry 0 ('PC INTERNAL SPEAKER'); 8 near pointers, 0x14 stride, read as `push word [bx+0xa4]`"},
+        {"offset": "3b86", "space": "ds", "note": "sound-device menu entry 1 ('AD LIB BOARD       ')"},
+        {"offset": "3b88", "space": "ds", "note": "sound-device menu entry 2 ('COVOX SOUNDMASTER  ')"},
+        {"offset": "3b8a", "space": "ds", "note": "sound-device menu entry 3 ('COVOX VOICEMASTER  ')"},
+        {"offset": "3b8c", "space": "ds", "note": "sound-device menu entry 4 ('SOUND BLASTER      ')"},
+        {"offset": "3b8e", "space": "ds", "note": "sound-device menu entry 5 ('ROLAND LAPC-1/MT-32')"},
+        {"offset": "3b90", "space": "ds", "note": "sound-device menu entry 6 ('COVOX SMII         ')"},
+        {"offset": "3b92", "space": "ds", "note": "sound-device menu entry 7 ('NONE            ')"},
+        {"offset": "3c34", "space": "ds", "note": "NO/YES toggle: near pointer to 'NO '; read as `push word [bx+0x154]`"},
+        {"offset": "3c36", "space": "ds", "note": "near pointer to 'YES'"},
+        {"offset": "3c40", "space": "ds", "note": "disk-type menu entry 0 ('Floppy 5.25L (360k)   '); 5 near pointers, read as `push word [bx+0x160]`"},
+        {"offset": "3c42", "space": "ds", "note": "disk-type menu entry 1 ('Floppy 5.25H (1.2Meg) ')"},
+        {"offset": "3c44", "space": "ds", "note": "disk-type menu entry 2 ('Floppy 3.5L  (720k)   ')"},
+        {"offset": "3c46", "space": "ds", "note": "disk-type menu entry 3 ('Floppy 3.5H  (1.4Meg)')"},
+        {"offset": "3c48", "space": "ds", "note": "disk-type menu entry 4 ('Hard (Fixed) Drive    ')"},
+        {"offset": "5fb4", "space": "ds", "note": "Aztec heap-base pointer (dseg_24d4): read as `mov di, word es:[dseg_24d4]` then `stosb es:[di]` (0x36bc) and advanced by malloc/brk. Target 0x2afe lies past bss_boundary (0x2534) but is a real DS offset; the same value is used as a code immediate (`add bx, 0x2afe` at 0x3621, `mov cx, 0x2afe` at 0x367b)"},
+        {"offset": "5fe0", "space": "cs", "note": "Aztec exit hook (dseg_2500): called as `call [dseg_2500]` by aztec_exit, so the CPU loads IP from the word; its default target CS 0x353b (file 0x373b) is a `mov ax, 0; ret` stub"},
+        {"offset": "600e", "space": "cs", "note": "Aztec console read vector (dseg_252e): aztec_write does `cmp ah, 0x3f; je; ...; jmp [dseg_252e]` (0x3853) for a tty handle; target file 0x38d9"},
+        {"offset": "6010", "space": "cs", "note": "Aztec console write vector (dseg_2530): the other arm, `jmp [dseg_2530]` (0x384f); target file 0x393e"}
       ],
       "not_pointers": [
         {"offset": "113c", "note": "entry 1 of the 5-way jump table at 0x113a (jumptable_113a), NOT a DS string pointer. The dispatch is `cmp ax,5; jae; xchg bx,ax; shl bx,1; jmp word [cs:bx + 0x193c]` (vinstall/leaf_loc_10a4.asm, 0x1144-0x114c), so the word is a CS code offset; each target is a case body ending at the join point. The DS reading (0x0eca -> 'MON36.PIC') is a numeric coincidence"},
@@ -480,23 +494,23 @@
         {"start": "00df", "end": "0292", "note": "(value,size) pairs + the 8-entry host callback ladder up to the first routine at 0x0293 -- not code"}
       ],
       "data_pointers": [
-        {"offset": "1ad5", "space": "cs", "target": "__zcp_1afd", "note": "cursor save-buffer pointer (CS 0x1bfd -> file 0x1afd, a 0x480-byte buffer): loaded as `mov si, word [cs:cseg_1ad5]` (0x1838, 0x184a, 0x1860, 0x1876) and handed to leaf_loc_PUST, which copies from it with `rep movsb` (0x18b1) under DS = CS; it is also added to a row offset (`add ax, word [cs:cseg_1ad5]`, 0x0a33, 0x2c37). Its partner cseg_1ad7 (CS 0x207d, the second buffer) is proven by the scorer's own consumer scan (leaf_loc_KNIM 0x0bb3). The scan stops at a call, so this one is stated here"}
+        {"offset": "1ad5", "space": "cs", "note": "cursor save-buffer pointer (CS 0x1bfd -> file 0x1afd, a 0x480-byte buffer): loaded as `mov si, word [cs:cseg_1ad5]` (0x1838, 0x184a, 0x1860, 0x1876) and handed to leaf_loc_PUST, which copies from it with `rep movsb` (0x18b1) under DS = CS; it is also added to a row offset (`add ax, word [cs:cseg_1ad5]`, 0x0a33, 0x2c37). Its partner cseg_1ad7 (CS 0x207d, the second buffer) is proven by the scorer's own consumer scan (leaf_loc_KNIM 0x0bb3). The scan stops at a call, so this one is stated here"}
       ],
       "immediate_pointers": [
-        {"offset": "17bd", "space": "cs", "target": "cseg_32b3", "note": "`mov bx, 0x33b3`: the nibble table leaf_loc_OHGP translates through with `cs xlatb` (0x3254). Handed in bx to leaf_loc_TTKL, which reaches that `cs xlatb` only past a conditional jump, so the automatic scan stops short"},
-        {"offset": "3202", "space": "cs", "target": "cseg_32b3", "note": "`mov bx, 0x33b3; add bx, word [bp + 0xc]; mov word [cs:bx], 0xff` (0x3210): an entry of the same 0x32b3 table, indexed by an argument the scan cannot prove is an index"},
-        {"offset": "2cab", "space": "cs", "target": "cseg_2502", "note": "`mov si, 0x2602`: the four 0x100-byte plane buffers at 0x2502 that io_loc_QMLN adds to si (0x2f7a). si is overwritten by `xor si, si` (0x2cb2) before any read"},
-        {"offset": "2f7a", "space": "cs", "target": "cseg_2502", "note": "`add si, 0x2602`: the caller passes si = plane * 0x100 (0x2cb2-0x2cc9) and sets DS = CS (0x2cb0); the sum is read as `mov al, byte [si]` (0x2fa8)"},
-        {"offset": "2d5c", "space": "cs", "target": "cseg_23fd", "note": "`add di, 0x24fd` after `mul bx; mov di, ax`: a row of the 0x80-byte mask buffer at 0x23fd (filled at 0x2d2a), later written by `rep movsb` under ES = CS (0x2dbc). The `inc di` loop's backward jump ends the automatic scan"},
-        {"offset": "2d6e", "space": "cs", "target": "cseg_247d", "note": "`mov bx, 0x257d`: the scratch row at 0x247d, built with `mov byte [bx], ah` (0x2d8e, DS = CS since 0x2d28) and copied out of as `mov si, cseg_247d` (0x2db6). A backward jump ends the automatic scan"},
-        {"offset": "2daa", "space": "cs", "target": "cseg_247d", "note": "`sub bx, 0x257d`: the end pointer into the 0x247d row minus its start, the byte count copied at 0x2dbc"},
-        {"offset": "36f7", "space": "cs", "target": "cseg_35dd", "note": "`mov di, 0x36dd`: the 0x28-byte bit row at 0x35dd (cleared by `lea di` at 0x36ac). Handed in di to leaf_loc_NOSG, which sets bits as `or byte [cs:bx + di], al`; a [bx + di] read names no single pointer register"},
-        {"offset": "3736", "space": "cs", "target": "cseg_3605", "note": "`mov di, 0x3705`: the 0x19-byte bit row at 0x3605 (cleared by `lea di` at 0x36b7), handed to leaf_loc_NOSG as 36f7"},
-        {"offset": "3a92", "space": "cs", "target": "cseg_3605", "note": "`mov ax, 0x3705; mov word [bp - 0x36], ax`: read back through the frame slot as `mov bx, word [bp - 0x36]; mov al, byte [cs:bx]` (0x3dcf)"},
-        {"offset": "3af9", "space": "cs", "target": "cseg_35dd", "note": "`mov ax, 0x36dd; mov word [bp - 0x34], ax`: read back by leaf_loc_VGLT as `mov bx, word [bp - 0x34]; mov al, byte [cs:bx]` (0x3c19)"},
-        {"offset": "3c53", "space": "cs", "target": "cseg_35dd", "note": "as 3af9"},
-        {"offset": "3d93", "space": "cs", "target": "cseg_35dd", "note": "as 3af9; also read as `mov bx, word [bp - 0x34]; mov al, byte [cs:bx]` at 0x3dad"},
-        {"offset": "3ed6", "space": "cs", "target": "cseg_35dd", "note": "as 3af9"}
+        {"offset": "17bd", "space": "cs", "note": "`mov bx, 0x33b3`: the nibble table leaf_loc_OHGP translates through with `cs xlatb` (0x3254). Handed in bx to leaf_loc_TTKL, which reaches that `cs xlatb` only past a conditional jump, so the automatic scan stops short"},
+        {"offset": "3202", "space": "cs", "note": "`mov bx, 0x33b3; add bx, word [bp + 0xc]; mov word [cs:bx], 0xff` (0x3210): an entry of the same 0x32b3 table, indexed by an argument the scan cannot prove is an index"},
+        {"offset": "2cab", "space": "cs", "note": "`mov si, 0x2602`: the four 0x100-byte plane buffers at 0x2502 that io_loc_QMLN adds to si (0x2f7a). si is overwritten by `xor si, si` (0x2cb2) before any read"},
+        {"offset": "2f7a", "space": "cs", "note": "`add si, 0x2602`: the caller passes si = plane * 0x100 (0x2cb2-0x2cc9) and sets DS = CS (0x2cb0); the sum is read as `mov al, byte [si]` (0x2fa8)"},
+        {"offset": "2d5c", "space": "cs", "note": "`add di, 0x24fd` after `mul bx; mov di, ax`: a row of the 0x80-byte mask buffer at 0x23fd (filled at 0x2d2a), later written by `rep movsb` under ES = CS (0x2dbc). The `inc di` loop's backward jump ends the automatic scan"},
+        {"offset": "2d6e", "space": "cs", "note": "`mov bx, 0x257d`: the scratch row at 0x247d, built with `mov byte [bx], ah` (0x2d8e, DS = CS since 0x2d28) and copied out of as `mov si, cseg_247d` (0x2db6). A backward jump ends the automatic scan"},
+        {"offset": "2daa", "space": "cs", "note": "`sub bx, 0x257d`: the end pointer into the 0x247d row minus its start, the byte count copied at 0x2dbc"},
+        {"offset": "36f7", "space": "cs", "note": "`mov di, 0x36dd`: the 0x28-byte bit row at 0x35dd (cleared by `lea di` at 0x36ac). Handed in di to leaf_loc_NOSG, which sets bits as `or byte [cs:bx + di], al`; a [bx + di] read names no single pointer register"},
+        {"offset": "3736", "space": "cs", "note": "`mov di, 0x3705`: the 0x19-byte bit row at 0x3605 (cleared by `lea di` at 0x36b7), handed to leaf_loc_NOSG as 36f7"},
+        {"offset": "3a92", "space": "cs", "note": "`mov ax, 0x3705; mov word [bp - 0x36], ax`: read back through the frame slot as `mov bx, word [bp - 0x36]; mov al, byte [cs:bx]` (0x3dcf)"},
+        {"offset": "3af9", "space": "cs", "note": "`mov ax, 0x36dd; mov word [bp - 0x34], ax`: read back by leaf_loc_VGLT as `mov bx, word [bp - 0x34]; mov al, byte [cs:bx]` (0x3c19)"},
+        {"offset": "3c53", "space": "cs", "note": "as 3af9"},
+        {"offset": "3d93", "space": "cs", "note": "as 3af9; also read as `mov bx, word [bp - 0x34]; mov al, byte [cs:bx]` at 0x3dad"},
+        {"offset": "3ed6", "space": "cs", "note": "as 3af9"}
       ]
     },
     "play": {
@@ -528,13 +542,13 @@
         {"table": "11b3", "jmp": "11ac", "entry_size": 2, "count": 6, "note": "Mode dispatch through `call [cs:bx+0x12b3]`; six entries, as 115b. The bytes after it (03 03 03 03 02 02 03 ff ...) are a byte table, not code pointers"}
       ],
       "immediate_pointers": [
-        {"offset": "05b6", "space": "cs", "target": "cseg_193a", "note": "`mov bx, 0x1a3a`: the CS address of the 0x193a byte table the timer handlers read with `mov bx, 0x1a3a; cs xlatb`. bl is overwritten by `mov bl, 0x48` before any read, so no use proves it"},
-        {"offset": "065c", "space": "cs", "target": "cseg_193a", "note": "`mov di, 0x1a3a`: the table this routine fills as `[cs:bx + 0x1a3a]`; di is saved/restored around it and never read"},
-        {"offset": "065f", "space": "cs", "target": "cseg_1a3a", "note": "`mov si, 0x1b3a`: the table this routine reads as `[cs:si + 0x1b3a]`; si is overwritten by `mov si, ax` before any read"},
-        {"offset": "0072", "space": "cs", "target": "cseg_0d3a", "note": "`cmp bx, 0xe3a`: the end of the eleven 5-byte records at 0x0d03 that the loop walks from `mov bx, cseg_0d03` with `add bx, 5`"},
-        {"offset": "0f34", "space": "cs", "target": "cseg_0d3a", "note": "as 0072 (loop from 0x0f2a)"},
-        {"offset": "0f6a", "space": "cs", "target": "cseg_0d3a", "note": "as 0072"},
-        {"offset": "0e57", "space": "cs", "target": "cseg_1a3a", "note": "`mov bx, 0x1b3a` in the force_code routine at 0x0e51: the volume-curve table the sibling at 0x130d loads for `cs xlatb` after the same `cs:[0x0e3f] * cs:[0x0ba8]` product. Here the xlat was replaced by `mov cl, 0x3f; sub cl, al` and bx is overwritten (helper at 0x0f12) before any read"}
+        {"offset": "05b6", "space": "cs", "note": "`mov bx, 0x1a3a`: the CS address of the 0x193a byte table the timer handlers read with `mov bx, 0x1a3a; cs xlatb`. bl is overwritten by `mov bl, 0x48` before any read, so no use proves it"},
+        {"offset": "065c", "space": "cs", "note": "`mov di, 0x1a3a`: the table this routine fills as `[cs:bx + 0x1a3a]`; di is saved/restored around it and never read"},
+        {"offset": "065f", "space": "cs", "note": "`mov si, 0x1b3a`: the table this routine reads as `[cs:si + 0x1b3a]`; si is overwritten by `mov si, ax` before any read"},
+        {"offset": "0072", "space": "cs", "note": "`cmp bx, 0xe3a`: the end of the eleven 5-byte records at 0x0d03 that the loop walks from `mov bx, cseg_0d03` with `add bx, 5`"},
+        {"offset": "0f34", "space": "cs", "note": "as 0072 (loop from 0x0f2a)"},
+        {"offset": "0f6a", "space": "cs", "note": "as 0072"},
+        {"offset": "0e57", "space": "cs", "note": "`mov bx, 0x1b3a` in the force_code routine at 0x0e51: the volume-curve table the sibling at 0x130d loads for `cs xlatb` after the same `cs:[0x0e3f] * cs:[0x0ba8]` product. Here the xlat was replaced by `mov cl, 0x3f; sub cl, al` and bx is overwritten (helper at 0x0f12) before any read"}
       ]
     }
   },

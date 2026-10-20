@@ -370,7 +370,14 @@ async function makeC(uri) {
     const build = shared ? `make build ${where.project}` : `make build`;
     const table = shared ? 'the top-level `routines` object' : `\`binaries.${where.binary}.function_names\``;
 
-    const flags = (readJson(sidecarPath(where.project)) || {}).compiler_flags || {};
+    const sidecar = readJson(sidecarPath(where.project)) || {};
+    const flags = sidecar.compiler_flags || {};
+    // An overlay or shared routine runs in the host's data segment, so its data names are
+    // the host's; the host is `ds` when present, else the first MZ (lib/link.py host_name).
+    const bins = sidecar.binaries || {};
+    const own = bins[where.binary];
+    const dataOwner = own && own.type === 'mz' ? where.binary
+        : ('ds' in bins ? 'ds' : Object.keys(bins).sort().find((b) => bins[b].type === 'mz'));
     const flagList = [`default \`${(flags.default || []).join(' ')}\``].concat(
         Object.entries(flags.prefixes || {}).map(([p, f]) => `\`${p}\` → \`${f.join(' ')}\``)).join('; ');
 
@@ -386,6 +393,12 @@ async function makeC(uri) {
             `${table} (keep any "note", keep keys sorted); (2) run \`${build}\`, which regenerates the asm as ` +
             `NAME.asm; (3) rename the C file to NAME.c and the function in it (and any C callers) to NAME; ` +
             `(4) run \`make rebuild\`.`,
+        `Name the data too. Give parameters and locals descriptive names in the C itself. For each ` +
+            `address-named global (\`bss_XXXX\`/\`dseg_XXXX\`) the routine uses, set ` +
+            `\`"XXXX": {"name": "NAME", "note": "..."}\` under \`binaries.${dataOwner}.data_names\` (keyed by DS ` +
+            `offset, keep keys sorted; skip any already named there), run \`${build}\`, change the C's \`extern\` ` +
+            `and uses to NAME, and run \`make rebuild\`. A C still spelling a named global by address fails ` +
+            `the link and gives the build's name for it.`,
         `Once it matches, give the routine a descriptive lowercase_underscore name this way, keeping any prefix ` +
             `its flags need. Your final message: only the name.`,
     ].join('\n\n');

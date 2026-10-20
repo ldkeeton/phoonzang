@@ -47,7 +47,7 @@ api_idx_0018_TROH:
     mov ax, 0x15e                    ; 0x0794
     imul word [bp - 0x0002]          ; 0x0797
     mov bx, ax                       ; 0x079a
-    cmp byte [bx + bss_6b75], 0      ; 0x079c
+    cmp byte [bx + slot_rec_forced], 0 ; 0x079c
     je short @..api_idx_0018_TROH.l5 ; 0x07a1
     mov word [bp + 0x8], 0           ; 0x07a3
 @..api_idx_0018_TROH.l5:

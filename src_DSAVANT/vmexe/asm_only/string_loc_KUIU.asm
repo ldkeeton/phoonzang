@@ -21,7 +21,7 @@ string_loc_KUIU:
     mov ax, word [bp - 0x0004]       ; 0x364e
     shl ax, 1                        ; 0x3651
     mov bx, ax                       ; 0x3653
-    mov bx, word [bx + bss_8482]     ; 0x3655
+    mov bx, word [bx + party_char]   ; 0x3655
     cmp byte [bx + 0x1a1], 0         ; 0x3659
     jbe short @..string_loc_KUIU.l2  ; 0x365e
     mov ax, 2                        ; 0x3660
@@ -62,7 +62,7 @@ string_loc_KUIU:
     mov ax, word [bp - 0x0004]       ; 0x36a9
     shl ax, 1                        ; 0x36ac
     mov bx, ax                       ; 0x36ae
-    push word [bx + bss_8482]        ; 0x36b0
+    push word [bx + party_char]      ; 0x36b0
     call aztec_setmem                ; 0x36b4
     add sp, byte 6                   ; 0x36b7
     mov word [bp - 0x01ac], 0        ; 0x36ba
@@ -137,7 +137,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x3752
     shl ax, 1                        ; 0x3755
     mov bx, ax                       ; 0x3757
-    push word [bx + bss_8490]        ; 0x3759
+    push word [bx + party_char_ext]  ; 0x3759
     mov ax, 4                        ; 0x375d
     push ax                          ; 0x3760
     call ds_app_file_MPPM            ; 0x3761
@@ -150,7 +150,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x3776
     shl ax, 1                        ; 0x3779
     mov bx, ax                       ; 0x377b
-    mov bx, word [bx + bss_8490]     ; 0x377d
+    mov bx, word [bx + party_char_ext] ; 0x377d
     mov al, byte [bx + 0xd7]         ; 0x3781
     sub ah, ah                       ; 0x3785
     push ax                          ; 0x3787
@@ -173,12 +173,12 @@ jumptable_372d:
     mov cx, word [bp - 0x0004]       ; 0x37ac
     shl cx, 1                        ; 0x37af
     mov bx, cx                       ; 0x37b1
-    mov bx, word [bx + bss_8482]     ; 0x37b3
+    mov bx, word [bx + party_char]   ; 0x37b3
     mov byte [bx + 0x19e], al        ; 0x37b7
     mov ax, word [bp - 0x0004]       ; 0x37bb
     shl ax, 1                        ; 0x37be
     mov bx, ax                       ; 0x37c0
-    mov bx, word [bx + bss_8490]     ; 0x37c2
+    mov bx, word [bx + party_char_ext] ; 0x37c2
     mov al, byte [bx + 0x7d]         ; 0x37c6
     sub ah, ah                       ; 0x37c9
     add ax, word [bp - 0x01ac]       ; 0x37cb
@@ -200,12 +200,12 @@ jumptable_372d:
     mov cx, word [bp - 0x0004]       ; 0x37ef
     shl cx, 1                        ; 0x37f2
     mov bx, cx                       ; 0x37f4
-    mov bx, word [bx + bss_8482]     ; 0x37f6
+    mov bx, word [bx + party_char]   ; 0x37f6
     mov byte [bx + 0x1a1], al        ; 0x37fa
     mov ax, word [bp - 0x0004]       ; 0x37fe
     shl ax, 1                        ; 0x3801
     mov bx, ax                       ; 0x3803
-    mov bx, word [bx + bss_8482]     ; 0x3805
+    mov bx, word [bx + party_char]   ; 0x3805
     cmp byte [bx + 0x1a1], 1         ; 0x3809
     jae short @..string_loc_KUIU.l13 ; 0x380e
     mov byte [bx + 0x1a1], 1         ; 0x3810
@@ -213,7 +213,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x3815
     shl ax, 1                        ; 0x3818
     mov bx, ax                       ; 0x381a
-    mov bx, word [bx + bss_8482]     ; 0x381c
+    mov bx, word [bx + party_char]   ; 0x381c
     cmp byte [bx + 0x1a1], 9         ; 0x3820
     jbe short @..string_loc_KUIU.l14 ; 0x3825
     mov byte [bx + 0x1a1], 9         ; 0x3827
@@ -223,7 +223,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x3831
     shl ax, 1                        ; 0x3834
     mov bx, ax                       ; 0x3836
-    mov bx, word [bx + bss_8482]     ; 0x3838
+    mov bx, word [bx + party_char]   ; 0x3838
     mov si, word [bp - 0x0002]       ; 0x383c
     mov byte [bx + si + 0x18c], 0    ; 0x383f
     inc word [bp - 0x0002]           ; 0x3844
@@ -235,7 +235,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x3854
     shl ax, 1                        ; 0x3857
     mov bx, ax                       ; 0x3859
-    mov bx, word [bx + bss_8482]     ; 0x385b
+    mov bx, word [bx + party_char]   ; 0x385b
     mov si, word [bp - 0x0002]       ; 0x385f
     mov byte [bx + si + 0x192], 0    ; 0x3862
     inc word [bp - 0x0002]           ; 0x3867
@@ -245,7 +245,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x3872
     shl ax, 1                        ; 0x3875
     mov bx, ax                       ; 0x3877
-    mov bx, word [bx + bss_8482]     ; 0x3879
+    mov bx, word [bx + party_char]   ; 0x3879
     mov byte [bx + 0x1a0], 0         ; 0x387d
     mov word [bp - 0x0002], 0        ; 0x3882
     jmp near @..string_loc_KUIU.l18  ; 0x3887
@@ -253,7 +253,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x388a
     shl ax, 1                        ; 0x388d
     mov bx, ax                       ; 0x388f
-    mov bx, word [bx + bss_8490]     ; 0x3891
+    mov bx, word [bx + party_char_ext] ; 0x3891
     mov al, byte [bx + 0x80]         ; 0x3895
     sub ah, ah                       ; 0x3899
     push ax                          ; 0x389b
@@ -263,13 +263,13 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x38a4
     shl ax, 1                        ; 0x38a7
     mov bx, ax                       ; 0x38a9
-    mov bx, word [bx + bss_8482]     ; 0x38ab
+    mov bx, word [bx + party_char]   ; 0x38ab
     pop ax                           ; 0x38af
     mov word [bx + si], ax           ; 0x38b0
     mov ax, word [bp - 0x0004]       ; 0x38b2
     shl ax, 1                        ; 0x38b5
     mov bx, ax                       ; 0x38b7
-    mov cx, word [bx + bss_8490]     ; 0x38b9
+    mov cx, word [bx + party_char_ext] ; 0x38b9
     add cx, byte 0x7e                ; 0x38bd
     sub sp, byte 4                   ; 0x38c0
     mov ax, sp                       ; 0x38c3
@@ -288,7 +288,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x38de
     shl ax, 1                        ; 0x38e1
     mov bx, ax                       ; 0x38e3
-    mov bx, word [bx + bss_8482]     ; 0x38e5
+    mov bx, word [bx + party_char]   ; 0x38e5
     pop ax                           ; 0x38e9
     mov word [bx + si + 0x4], ax     ; 0x38ea
     mov ax, 0x2c                     ; 0x38ed
@@ -297,13 +297,13 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x38f5
     shl ax, 1                        ; 0x38f8
     mov bx, ax                       ; 0x38fa
-    mov bx, word [bx + bss_8482]     ; 0x38fc
+    mov bx, word [bx + party_char]   ; 0x38fc
     mov ax, word [bx + si + 0x4]     ; 0x3900
     mov word [bx + si + 0x2], ax     ; 0x3903
     mov ax, word [bp - 0x0004]       ; 0x3906
     shl ax, 1                        ; 0x3909
     mov bx, ax                       ; 0x390b
-    mov cx, word [bx + bss_8490]     ; 0x390d
+    mov cx, word [bx + party_char_ext] ; 0x390d
     add cx, strict word 0x82         ; 0x3911
     sub sp, byte 4                   ; 0x3915
     mov ax, sp                       ; 0x3918
@@ -322,7 +322,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x3933
     shl ax, 1                        ; 0x3936
     mov bx, ax                       ; 0x3938
-    mov bx, word [bx + bss_8482]     ; 0x393a
+    mov bx, word [bx + party_char]   ; 0x393a
     pop ax                           ; 0x393e
     mov word [bx + si + 0x8], ax     ; 0x393f
     mov ax, 0x2c                     ; 0x3942
@@ -331,7 +331,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x394a
     shl ax, 1                        ; 0x394d
     mov bx, ax                       ; 0x394f
-    mov bx, word [bx + bss_8482]     ; 0x3951
+    mov bx, word [bx + party_char]   ; 0x3951
     mov ax, word [bx + si + 0x8]     ; 0x3955
     mov word [bx + si + 0x6], ax     ; 0x3958
     mov ax, 0x2c                     ; 0x395b
@@ -340,7 +340,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x3963
     shl ax, 1                        ; 0x3966
     mov bx, ax                       ; 0x3968
-    mov bx, word [bx + bss_8482]     ; 0x396a
+    mov bx, word [bx + party_char]   ; 0x396a
     mov byte [bx + si + 0x2a], 0xff  ; 0x396e
     mov ax, 0x2c                     ; 0x3972
     imul word [bp - 0x0002]          ; 0x3975
@@ -348,7 +348,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x397a
     shl ax, 1                        ; 0x397d
     mov bx, ax                       ; 0x397f
-    mov bx, word [bx + bss_8482]     ; 0x3981
+    mov bx, word [bx + party_char]   ; 0x3981
     mov byte [bx + si + 0x1e], 0xa   ; 0x3985
     mov ax, 0x2c                     ; 0x3989
     imul word [bp - 0x0002]          ; 0x398c
@@ -356,7 +356,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x3991
     shl ax, 1                        ; 0x3994
     mov bx, ax                       ; 0x3996
-    mov bx, word [bx + bss_8482]     ; 0x3998
+    mov bx, word [bx + party_char]   ; 0x3998
     mov byte [bx + si + 0x21], 0     ; 0x399c
     mov ax, 0x2c                     ; 0x39a0
     imul word [bp - 0x0002]          ; 0x39a3
@@ -364,14 +364,14 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x39a8
     shl ax, 1                        ; 0x39ab
     mov bx, ax                       ; 0x39ad
-    mov bx, word [bx + bss_8482]     ; 0x39af
+    mov bx, word [bx + party_char]   ; 0x39af
     mov byte [bx + si + 0x18], 0     ; 0x39b3
     inc word [bp - 0x0002]           ; 0x39b7
 @..string_loc_KUIU.l18:
     mov ax, word [bp - 0x0004]       ; 0x39ba
     shl ax, 1                        ; 0x39bd
     mov bx, ax                       ; 0x39bf
-    mov bx, word [bx + bss_8482]     ; 0x39c1
+    mov bx, word [bx + party_char]   ; 0x39c1
     mov al, byte [bx + 0x1a1]        ; 0x39c5
     sub ah, ah                       ; 0x39c9
     cmp ax, word [bp - 0x0002]       ; 0x39cb
@@ -389,7 +389,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x39e6
     shl ax, 1                        ; 0x39e9
     mov bx, ax                       ; 0x39eb
-    mov bx, word [bx + bss_8482]     ; 0x39ed
+    mov bx, word [bx + party_char]   ; 0x39ed
     mov al, byte [bx + 0x1a1]        ; 0x39f1
     sub ah, ah                       ; 0x39f5
     push ax                          ; 0x39f7
@@ -398,7 +398,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x39fe
     shl ax, 1                        ; 0x3a01
     mov bx, ax                       ; 0x3a03
-    mov bx, word [bx + bss_8482]     ; 0x3a05
+    mov bx, word [bx + party_char]   ; 0x3a05
     cmp byte [bx + 0x1a1], 1         ; 0x3a09
     jne short @..string_loc_KUIU.l20 ; 0x3a0e
     mov ax, 0                        ; 0x3a10
@@ -412,7 +412,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x3a1f
     shl ax, 1                        ; 0x3a22
     mov bx, ax                       ; 0x3a24
-    mov ax, word [bx + bss_8490]     ; 0x3a26
+    mov ax, word [bx + party_char_ext] ; 0x3a26
     add ax, cx                       ; 0x3a2a
     push ax                          ; 0x3a2c
     mov ax, bss_9136                 ; 0x3a2d
@@ -424,7 +424,7 @@ jumptable_372d:
     mov ax, word [bp - 0x0004]       ; 0x3a3b
     shl ax, 1                        ; 0x3a3e
     mov bx, ax                       ; 0x3a40
-    mov bx, word [bx + bss_8482]     ; 0x3a42
+    mov bx, word [bx + party_char]   ; 0x3a42
     cmp byte [bx + 0x1a1], 1         ; 0x3a46
     jne short @..string_loc_KUIU.l22 ; 0x3a4b
     mov ax, 0xc8f                    ; 0x3a4d

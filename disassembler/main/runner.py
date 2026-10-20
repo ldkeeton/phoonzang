@@ -577,6 +577,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         ctx.segments.data_names = _data_names(
             project, name, data, ctx.label_map, ctx.segments, foreign_prefix,
             _entries)
+        _apply_sidecar_data_names(ctx.segments, ctx.sidecar_entry)
     t_aztec_end = time.perf_counter()
 
     if AZTEC_PREBUILD_ONLY:
@@ -676,6 +677,29 @@ def _data_names(project, name, data, label_map, segments, host, entries):
     from lib.aztec import libnames
     return libnames.data_symbols(project, name, data, label_map, segments,
                                  entries)
+
+
+def _apply_sidecar_data_names(segments, sidecar_entry):
+    """Name the data objects the sidecar's ``data_names`` names.
+
+    The sidecar outranks the library's name at the same offset.  An overlay's
+    entries go on top of the names it took from its host.
+    """
+    entries = (sidecar_entry or {}).get('data_names') or {}
+    if not entries:
+        return
+    from lib.compare.symbols import _data_space
+    use = sidecar_entry.get('use') or SidecarUse('binaries.?')
+    for offset, info in entries.items():
+        ident = f'{offset:04x}'
+        if segments.data_space(offset) is None:
+            use.skipped('data_names', ident,
+                        f'DS offset 0x{offset:04x} is not in the data segment')
+            continue
+        segments.data_names[offset] = Symbol(
+            info['name'], kind=Kind.DATA, source=Source.SIDECAR, offset=offset,
+            space=_data_space(segments, offset))
+        use.applied('data_names', ident)
 
 
 def _foreign_pointer_params(project, host):

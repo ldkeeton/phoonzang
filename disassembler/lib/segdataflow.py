@@ -427,8 +427,12 @@ def _immediate_definition(insns, k, joins):
     return None
 
 
+#: :func:`_pointer_use` reads ``DS`` at the definition (not a callee's entry).
+_AT_DEFINITION = object()
+
+
 def _pointer_use(insns, index_of, joins, k, parent, flow, limit,
-                 follow_calls):
+                 follow_calls, ds_space=_AT_DEFINITION):
     """``(space, extended)`` of *parent*'s first use as a pointer after *k*.
 
     *extended* is true when the proof needed an index addition or a callee.
@@ -436,6 +440,12 @@ def _pointer_use(insns, index_of, joins, k, parent, flow, limit,
     from capstone import CS_OP_REG
 
     extended = False
+    # ``DS`` on this path: the definition's, until the path writes it.  The
+    # state at a later instruction can be another routine's entry state (a
+    # ``mov ah, 9; int 21h`` tail with its own label is seeded DS=DATA).
+    if ds_space is _AT_DEFINITION:
+        ds_space = flow.space_of(insns[k].address, 'ds')
+    ds_written = ds_space is None
     j = k + 1
     for _ in range(limit):
         if j >= len(insns):
@@ -468,15 +478,20 @@ def _pointer_use(insns, index_of, joins, k, parent, flow, limit,
         if (parent == 'dx' and nxt.mnemonic == 'int' and ops
                 and ops[0].imm == 0x21
                 and _dos_function(insns, j, joins) in _DOS_DS_DX):
-            space = flow.space_of(nxt.address, 'ds')
+            space = (flow.space_of(nxt.address, 'ds') if ds_written
+                     else ds_space)
             if space in (LOAD, DATA, PSP):
                 return space, extended
+        if 'ds' in {nxt.reg_name(r).lower() for r in nxt.regs_access()[1]}:
+            ds_written = True
         if follow_calls and nxt.mnemonic == 'call' and nxt.bytes[0] == 0xE8:
             target = index_of.get(_direct_target(nxt))
             if target is not None:
                 space, _ = _pointer_use(insns, index_of, joins, target - 1,
                                         parent, flow, limit,
-                                        follow_calls=False)
+                                        follow_calls=False,
+                                        ds_space=None if ds_written
+                                        else ds_space)
                 if space is not None:
                     return space, True
         if nxt.mnemonic == 'jmp':

@@ -157,6 +157,17 @@ class ImmediatePointerTest(unittest.TestCase):
         self.assertEqual(self._proven('8cc8' '8ed8' 'ba3a1a' 'b409' 'cd21'),
                          {(0x204, 1): LOAD})
 
+    def test_a_dos_ds_dx_service_in_a_labelled_tail(self):
+        # mov ax, cs; mov ds, ax; mov dx, 0x1a3a / 0x207: mov ah, 9; int 21h
+        # -- the tail is its own entry root, seeded DS=DATA (ega 0x1211).
+        insns = _disasm(bytes.fromhex('8cc8' '8ed8' 'ba3a1a' 'b409' 'cd21'),
+                        0x200)
+        flow = analyze(insns, _model(), binary_data=bytes(0x2000),
+                       function_roots={0x200, 0x207}, entry_roots={0x207})
+        self.assertEqual(flow.space_of(0x209, 'ds'), DATA)
+        self.assertEqual(immediate_pointer_spaces(insns, flow),
+                         {(0x204, 1): LOAD})
+
     def test_a_dos_service_without_an_address_proves_nothing(self):
         # mov ax, cs; mov ds, ax; mov dx, 0x1a3a; mov ah, 2; int 21h (putc)
         self.assertEqual(self._proven('8cc8' '8ed8' 'ba3a1a' 'b402' 'cd21'),

@@ -8,7 +8,7 @@ api_idx_0002_UTVG:
     mov ax, word [bp + 0x4]          ; 0x1fa6
     shl ax, 1                        ; 0x1fa9
     mov bx, ax                       ; 0x1fab
-    mov bx, word [bx + bss_8482]     ; 0x1fad
+    mov bx, word [bx + party_char]   ; 0x1fad
     mov al, byte [bx + si + 0x22]    ; 0x1fb1
     sub ah, ah                       ; 0x1fb4
     cmp ax, word [bp + 0xc]          ; 0x1fb6
@@ -26,7 +26,7 @@ api_idx_0002_UTVG:
     jne short @..api_idx_0002_UTVG.l3 ; 0x1fd0
     mov ax, 0xe                      ; 0x1fd2
     push ax                          ; 0x1fd5
-    mov ax, word [bss_8490]          ; 0x1fd6
+    mov ax, word [party_char_ext]    ; 0x1fd6
     add ax, 0x9a                     ; 0x1fd9
     push ax                          ; 0x1fdc
     mov ax, 0x248                    ; 0x1fdd
@@ -47,7 +47,7 @@ api_idx_0002_UTVG:
     mov ax, word [bp + 0x4]          ; 0x2001
     shl ax, 1                        ; 0x2004
     mov bx, ax                       ; 0x2006
-    mov bx, word [bx + bss_8490]     ; 0x2008
+    mov bx, word [bx + party_char_ext] ; 0x2008
     mov si, word [bp + 0xa]          ; 0x200c
     mov al, byte [bx + si + 0x9a]    ; 0x200f
     sub ah, ah                       ; 0x2013
@@ -66,7 +66,7 @@ api_idx_0002_UTVG:
     mov ax, word [bp + 0x4]          ; 0x202d
     shl ax, 1                        ; 0x2030
     mov bx, ax                       ; 0x2032
-    mov bx, word [bx + bss_8482]     ; 0x2034
+    mov bx, word [bx + party_char]   ; 0x2034
     pop ax                           ; 0x2038
     mov byte [bx + si + 0x22], al    ; 0x2039
     cmp word [bp + 0xc], byte 3      ; 0x203c

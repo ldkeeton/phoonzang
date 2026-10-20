@@ -15,7 +15,7 @@ api_idx_0006_MRPM:
     mov ax, word [bss_8464]          ; 0x90b1
     shl ax, 1                        ; 0x90b4
     mov bx, ax                       ; 0x90b6
-    mov bx, word [bx + bss_8482]     ; 0x90b8
+    mov bx, word [bx + party_char]   ; 0x90b8
     cmp byte [bx + si + 0x2a], 0xff  ; 0x90bc
     je short @..api_idx_0006_MRPM.l1 ; 0x90c0
     mov al, byte [bx + si + 0x2a]    ; 0x90c2
@@ -107,7 +107,7 @@ api_idx_0006_MRPM:
     mov ax, word [bss_8464]          ; 0x9192
     shl ax, 1                        ; 0x9195
     mov bx, ax                       ; 0x9197
-    mov bx, word [bx + bss_8490]     ; 0x9199
+    mov bx, word [bx + party_char_ext] ; 0x9199
     mov al, byte [bx + 0xd8]         ; 0x919d
     mov bx, word [bss_8492]          ; 0x91a1
     cmp al, byte [bx + 0xd8]         ; 0x91a5

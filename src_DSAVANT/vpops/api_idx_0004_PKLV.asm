@@ -12,7 +12,7 @@ api_idx_0004_PKLV:
     mov ax, word [bp + 0x6]          ; 0x4542
     shl ax, 1                        ; 0x4545
     mov bx, ax                       ; 0x4547
-    mov bx, word [bx + bss_8482]     ; 0x4549
+    mov bx, word [bx + party_char]   ; 0x4549
     mov ax, word [bx + si + 0x4]     ; 0x454d
     mov cx, word [bx + si + 0x2]     ; 0x4550
     sub ax, cx                       ; 0x4553
@@ -36,7 +36,7 @@ api_idx_0004_PKLV:
     mov ax, word [bp + 0x6]          ; 0x4580
     shl ax, 1                        ; 0x4583
     mov bx, ax                       ; 0x4585
-    mov bx, word [bx + bss_8482]     ; 0x4587
+    mov bx, word [bx + party_char]   ; 0x4587
     mov ax, word [bx + si + 0x4]     ; 0x458b
     mov cx, word [bx + si + 0x2]     ; 0x458e
     sub ax, cx                       ; 0x4591
@@ -47,7 +47,7 @@ api_idx_0004_PKLV:
     mov ax, word [bp + 0x6]          ; 0x4599
     shl ax, 1                        ; 0x459c
     mov bx, ax                       ; 0x459e
-    mov bx, word [bx + bss_8482]     ; 0x45a0
+    mov bx, word [bx + party_char]   ; 0x45a0
     mov al, byte [bx + 0x1a1]        ; 0x45a4
     sub ah, ah                       ; 0x45a8
     cmp ax, word [bp - 0x0002]       ; 0x45aa

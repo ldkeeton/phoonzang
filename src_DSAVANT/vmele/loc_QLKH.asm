@@ -8,7 +8,7 @@ loc_QLKH:
     mov ax, 0x2c                     ; 0x1f46
     imul word [bp - 0x0002]          ; 0x1f49
     mov si, ax                       ; 0x1f4c
-    mov bx, word [bss_8482]          ; 0x1f4e
+    mov bx, word [party_char]        ; 0x1f4e
     cmp byte [bx + si + 0x22], 3     ; 0x1f52
     jae short @..loc_QLKH.l2         ; 0x1f56
     mov ax, 0x248                    ; 0x1f58
@@ -99,13 +99,13 @@ loc_QLKH:
     mov ax, 0x2c                     ; 0x2022
     imul word [bp - 0x0004]          ; 0x2025
     mov cx, ax                       ; 0x2028
-    mov ax, word [bss_8482]          ; 0x202a
+    mov ax, word [party_char]        ; 0x202a
     add ax, cx                       ; 0x202d
     push ax                          ; 0x202f
     mov ax, 0x2c                     ; 0x2030
     imul word [bp - 0x0002]          ; 0x2033
     mov cx, ax                       ; 0x2036
-    mov ax, word [bss_8482]          ; 0x2038
+    mov ax, word [party_char]        ; 0x2038
     add ax, cx                       ; 0x203b
     push ax                          ; 0x203d
     call string_loc_SJPQ             ; 0x203e
@@ -175,7 +175,7 @@ loc_QLKH:
     mov ax, 0x2c                     ; 0x20e9
     imul word [bp - 0x0002]          ; 0x20ec
     mov si, ax                       ; 0x20ef
-    mov bx, word [bss_8482]          ; 0x20f1
+    mov bx, word [party_char]        ; 0x20f1
     cmp byte [bx + si + 0x2b], 2     ; 0x20f5
     jne short @..loc_QLKH.l16        ; 0x20f9
     mov word [bp - 0x027c], 1        ; 0x20fb

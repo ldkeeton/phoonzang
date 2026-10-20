@@ -53,6 +53,37 @@ class SidecarUseTest(unittest.TestCase):
             'binaries.ds.not_pointers[113c]: applied to nothing'])
 
 
+class DataNamesTest(unittest.TestCase):
+    def validate(self, block):
+        from lib.sidecar.data_names import _validate_data_names
+        _validate_data_names(block, 'binaries.ds.data_names')
+
+    def test_per_binary_maps_and_expects_each_name(self):
+        sidecar = {'binaries': {'ds': {
+            'data_names': {'8482': {'name': 'party_char'}}}}}
+        entry = per_binary(sidecar, 'ds')
+        self.assertEqual(entry['data_names'], {0x8482: {'name': 'party_char'}})
+        self.assertEqual(entry['use'].problems(),
+                         ['binaries.ds.data_names[8482]: applied to nothing'])
+
+    def test_a_name_must_be_an_identifier(self):
+        with self.assertRaisesRegex(SidecarError, 'identifier'):
+            self.validate({'8482': {'name': 'party char'}})
+
+    def test_an_address_spelling_is_not_a_name(self):
+        with self.assertRaisesRegex(SidecarError, 'address spelling'):
+            self.validate({'8482': {'name': 'bss_8490'}})
+
+    def test_a_name_names_one_object(self):
+        with self.assertRaisesRegex(SidecarError, r'also names \[8482\]'):
+            self.validate({'8482': {'name': 'party_char'},
+                           '8490': {'name': 'party_char'}})
+
+    def test_the_key_is_a_hex_offset(self):
+        with self.assertRaisesRegex(SidecarError, 'hexadecimal'):
+            self.validate({'zz': {'name': 'party_char'}})
+
+
 class BuildWideUseTest(unittest.TestCase):
     def test_a_routine_no_binary_has_fails(self):
         from lib.link import write_sidecar_use_export

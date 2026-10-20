@@ -9,7 +9,7 @@ api_idx_0006_QJOL:
     mov ax, word [bp + 0x4]          ; 0x20aa
     shl ax, 1                        ; 0x20ad
     mov bx, ax                       ; 0x20af
-    mov bx, word [bx + bss_8482]     ; 0x20b1
+    mov bx, word [bx + party_char]   ; 0x20b1
     cmp byte [bx + si + 0x22], 2     ; 0x20b5
     jae short @..api_idx_0006_QJOL.l1 ; 0x20b9
     push word [bp + 0x6]             ; 0x20bb
@@ -25,7 +25,7 @@ api_idx_0006_QJOL:
     jne short @..api_idx_0006_QJOL.l4 ; 0x20d0
     mov ax, 0xe                      ; 0x20d2
     push ax                          ; 0x20d5
-    mov ax, word [bss_8490]          ; 0x20d6
+    mov ax, word [party_char_ext]    ; 0x20d6
     add ax, 0x9a                     ; 0x20d9
     push ax                          ; 0x20dc
     mov ax, 0x248                    ; 0x20dd
@@ -85,7 +85,7 @@ api_idx_0006_QJOL:
     mov ax, word [bp + 0x4]          ; 0x215d
     shl ax, 1                        ; 0x2160
     mov bx, ax                       ; 0x2162
-    mov bx, word [bx + bss_8490]     ; 0x2164
+    mov bx, word [bx + party_char_ext] ; 0x2164
     mov si, word [bp + 0xa]          ; 0x2168
     mov al, byte [bx + si + 0x9a]    ; 0x216b
     sub ah, ah                       ; 0x216f
@@ -106,7 +106,7 @@ api_idx_0006_QJOL:
     mov ax, word [bp + 0x4]          ; 0x2192
     shl ax, 1                        ; 0x2195
     mov bx, ax                       ; 0x2197
-    mov bx, word [bx + bss_8482]     ; 0x2199
+    mov bx, word [bx + party_char]   ; 0x2199
     mov byte [bx + si + 0xe], 0xff   ; 0x219d
     jmp short @..api_idx_0006_QJOL.l9 ; 0x21a1
 @..api_idx_0006_QJOL.l7:
@@ -117,7 +117,7 @@ api_idx_0006_QJOL:
     mov ax, word [bp + 0x4]          ; 0x21ae
     shl ax, 1                        ; 0x21b1
     mov bx, ax                       ; 0x21b3
-    mov bx, word [bx + bss_8482]     ; 0x21b5
+    mov bx, word [bx + party_char]   ; 0x21b5
     mov al, byte [bx + si + 0xe]     ; 0x21b9
     sub ah, ah                       ; 0x21bc
     add ax, word [bp - 0x0006]       ; 0x21be
@@ -136,7 +136,7 @@ api_idx_0006_QJOL:
     mov ax, word [bp + 0x4]          ; 0x21dd
     shl ax, 1                        ; 0x21e0
     mov bx, ax                       ; 0x21e2
-    mov bx, word [bx + bss_8482]     ; 0x21e4
+    mov bx, word [bx + party_char]   ; 0x21e4
     pop ax                           ; 0x21e8
     add byte [bx + si + 0xe], al     ; 0x21e9
 @..api_idx_0006_QJOL.l9:
@@ -150,7 +150,7 @@ api_idx_0006_QJOL:
     mov ax, word [bp + 0x4]          ; 0x21fe
     shl ax, 1                        ; 0x2201
     mov bx, ax                       ; 0x2203
-    mov bx, word [bx + bss_8482]     ; 0x2205
+    mov bx, word [bx + party_char]   ; 0x2205
     pop ax                           ; 0x2209
     mov byte [bx + si + 0x23], al    ; 0x220a
 @..api_idx_0006_QJOL.l10:

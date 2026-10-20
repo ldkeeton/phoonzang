@@ -10,7 +10,7 @@ loc_OTGM:
     mov ax, word [bp + 0x4]          ; 0x0f7b
     shl ax, 1                        ; 0x0f7e
     mov bx, ax                       ; 0x0f80
-    mov bx, word [bx + bss_8482]     ; 0x0f82
+    mov bx, word [bx + party_char]   ; 0x0f82
     cmp byte [bx + si + 0x1f], 0     ; 0x0f86
     jne short @..loc_OTGM.l1         ; 0x0f8a
     ret                              ; 0x0f8c

@@ -78,4 +78,4 @@ set_mouse_pointer:
 @..set_mouse_pointer.l8:
     mov ax, cs                       ; 0x1476
     mov ds, ax                       ; 0x1478
-    mov dx, dseg_1586                ; 0x147a
+    mov dx, cseg_1486 - IMAGE_BASE   ; 0x147a

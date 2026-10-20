@@ -3,7 +3,7 @@ api_idx_0002_GMMK:
     mov ax, 0xfffe                   ; 0x4d91
     call aztec_csav                  ; 0x4d94
     mov al, byte [bss_69c8]          ; 0x4d97
-    mov bx, word [bss_8482]          ; 0x4d9a
+    mov bx, word [party_char]        ; 0x4d9a
     mov byte [bx + 0x1a1], al        ; 0x4d9e
     mov word [bp - 0x0002], 1        ; 0x4da2
     jmp short @..api_idx_0002_GMMK.l5 ; 0x4da7
@@ -20,7 +20,7 @@ api_idx_0002_GMMK:
     mov ax, word [bp - 0x0002]       ; 0x4dc1
     shl ax, 1                        ; 0x4dc4
     mov bx, ax                       ; 0x4dc6
-    mov bx, word [bx + bss_8490]     ; 0x4dc8
+    mov bx, word [bx + party_char_ext] ; 0x4dc8
     cmp byte [bx + 0xd6], 0x16       ; 0x4dcc
     je short @..api_idx_0002_GMMK.l2 ; 0x4dd1
     cmp word [bss_0e36], strict word 0xe1 ; 0x4dd3

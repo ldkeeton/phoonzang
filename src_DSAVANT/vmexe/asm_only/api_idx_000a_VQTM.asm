@@ -10,7 +10,7 @@ api_idx_000a_VQTM:
     mov ax, word [bp + 0x8]          ; 0x7448
     shl ax, 1                        ; 0x744b
     mov bx, ax                       ; 0x744d
-    mov bx, word [bx + bss_8482]     ; 0x744f
+    mov bx, word [bx + party_char]   ; 0x744f
     mov cx, word [bx + si]           ; 0x7453
     mov bx, word [bp + 0x4]          ; 0x7455
     mov ax, word [bx]                ; 0x7458
@@ -158,14 +158,14 @@ jumptable_78e5_case_5:
     mov ax, word [bss_8464]          ; 0x7591
     shl ax, 1                        ; 0x7594
     mov bx, ax                       ; 0x7596
-    mov bx, word [bx + bss_8490]     ; 0x7598
+    mov bx, word [bx + party_char_ext] ; 0x7598
     mov byte [bx + 0xdf], 3          ; 0x759c
 @..api_idx_000a_VQTM.l3:
     mov word [bp - 0x0008], 0        ; 0x75a1
     mov ax, word [bss_8464]          ; 0x75a6
     shl ax, 1                        ; 0x75a9
     mov bx, ax                       ; 0x75ab
-    mov bx, word [bx + bss_8490]     ; 0x75ad
+    mov bx, word [bx + party_char_ext] ; 0x75ad
     mov al, byte [bx + 0xdf]         ; 0x75b1
     sub ah, ah                       ; 0x75b5
     jmp near @..api_idx_000a_VQTM.l11 ; 0x75b7
@@ -178,7 +178,7 @@ jumptable_78e5_case_5:
     mov ax, word [bp + 0x8]          ; 0x75c3
     shl ax, 1                        ; 0x75c6
     mov bx, ax                       ; 0x75c8
-    mov bx, word [bx + bss_8490]     ; 0x75ca
+    mov bx, word [bx + party_char_ext] ; 0x75ca
     mov al, byte [bx + 0xa5]         ; 0x75ce
     sub ah, ah                       ; 0x75d2
     mov cx, ax                       ; 0x75d4
@@ -214,7 +214,7 @@ jumptable_78e5_case_5:
     mov ax, word [bp + 0x8]          ; 0x7615
     shl ax, 1                        ; 0x7618
     mov bx, ax                       ; 0x761a
-    mov ax, word [bx + bss_8482]     ; 0x761c
+    mov ax, word [bx + party_char]   ; 0x761c
     add ax, cx                       ; 0x7620
     push ax                          ; 0x7622
     call loc_TGJH                    ; 0x7623
@@ -231,7 +231,7 @@ jumptable_78e5_case_5:
     mov ax, word [bp + 0x8]          ; 0x763a
     shl ax, 1                        ; 0x763d
     mov bx, ax                       ; 0x763f
-    mov bx, word [bx + bss_8490]     ; 0x7641
+    mov bx, word [bx + party_char_ext] ; 0x7641
     mov al, byte [bx + 0xa5]         ; 0x7645
     sub ah, ah                       ; 0x7649
     mov cx, ax                       ; 0x764b
@@ -268,7 +268,7 @@ jumptable_78e5_case_5:
     mov ax, word [bp + 0x8]          ; 0x768d
     shl ax, 1                        ; 0x7690
     mov bx, ax                       ; 0x7692
-    mov bx, word [bx + bss_8482]     ; 0x7694
+    mov bx, word [bx + party_char]   ; 0x7694
     pop ax                           ; 0x7698
     sub word [bx + si + 0x4], ax     ; 0x7699
     mov ax, word [bp - 0x0008]       ; 0x769c
@@ -279,7 +279,7 @@ jumptable_78e5_case_5:
     mov ax, word [bp + 0x8]          ; 0x76a8
     shl ax, 1                        ; 0x76ab
     mov bx, ax                       ; 0x76ad
-    mov bx, word [bx + bss_8482]     ; 0x76af
+    mov bx, word [bx + party_char]   ; 0x76af
     pop ax                           ; 0x76b3
     sub word [bx + si + 0x2], ax     ; 0x76b4
     mov ax, 0x2c                     ; 0x76b7
@@ -288,7 +288,7 @@ jumptable_78e5_case_5:
     mov ax, word [bp + 0x8]          ; 0x76bf
     shl ax, 1                        ; 0x76c2
     mov bx, ax                       ; 0x76c4
-    mov bx, word [bx + bss_8482]     ; 0x76c6
+    mov bx, word [bx + party_char]   ; 0x76c6
     cmp word [bx + si + 0x4], byte 1 ; 0x76ca
     jge short @..api_idx_000a_VQTM.l8 ; 0x76ce
     mov word [bx + si + 0x4], 1      ; 0x76d0
@@ -301,7 +301,7 @@ jumptable_78e5_case_5:
     mov ax, word [bp + 0x8]          ; 0x76e3
     shl ax, 1                        ; 0x76e6
     mov bx, ax                       ; 0x76e8
-    mov bx, word [bx + bss_8482]     ; 0x76ea
+    mov bx, word [bx + party_char]   ; 0x76ea
     mov ax, word [bx + si + 0x2]     ; 0x76ee
     push ax                          ; 0x76f1
     mov ax, 0x248                    ; 0x76f2
@@ -312,7 +312,7 @@ jumptable_78e5_case_5:
     mov ax, word [bp + 0x8]          ; 0x76ff
     shl ax, 1                        ; 0x7702
     mov bx, ax                       ; 0x7704
-    mov bx, word [bx + bss_8482]     ; 0x7706
+    mov bx, word [bx + party_char]   ; 0x7706
     mov ax, word [bx + si + 0x4]     ; 0x770a
     push ax                          ; 0x770d
     mov ax, 0x248                    ; 0x770e
@@ -419,7 +419,7 @@ jumptable_78e5_case_5:
     mov ax, word [bp + 0x8]          ; 0x77f4
     shl ax, 1                        ; 0x77f7
     mov bx, ax                       ; 0x77f9
-    mov bx, word [bx + bss_8482]     ; 0x77fb
+    mov bx, word [bx + party_char]   ; 0x77fb
     cmp word [bx + si + 0x2], byte 0 ; 0x77ff
     jg short @..api_idx_000a_VQTM.l18 ; 0x7803
     mov ax, 0                        ; 0x7805
@@ -454,7 +454,7 @@ jumptable_78e5_case_6:
     mov ax, word [bp + 0x8]          ; 0x7843
     shl ax, 1                        ; 0x7846
     mov bx, ax                       ; 0x7848
-    mov bx, word [bx + bss_8490]     ; 0x784a
+    mov bx, word [bx + party_char_ext] ; 0x784a
     mov si, word [bp - 0x000a]       ; 0x784e
     mov al, byte [bx + si + 0x9a]    ; 0x7851
     sub ah, ah                       ; 0x7855

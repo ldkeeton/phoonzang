@@ -24,4 +24,4 @@ dos_read_file_2:
 @..dos_read_file_2.l1:
     mov ax, cs                       ; 0x3fce
     mov ds, ax                       ; 0x3fd0
-    mov dx, bss_3dde                 ; 0x3fd2
+    mov dx, cseg_3fde - IMAGE_BASE   ; 0x3fd2

@@ -28,4 +28,4 @@ dos_file_loc_RQKL:
 @..dos_file_loc_RQKL.l2:
     mov ax, cs                       ; 0x45eb
     mov ds, ax                       ; 0x45ed
-    mov dx, dseg_46fb                ; 0x45ef
+    mov dx, cseg_45fb - IMAGE_BASE   ; 0x45ef

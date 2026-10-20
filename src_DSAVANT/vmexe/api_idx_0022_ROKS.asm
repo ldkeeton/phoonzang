@@ -9,7 +9,7 @@ api_idx_0022_ROKS:
     mov ax, word [bp + 0x4]          ; 0x2256
     shl ax, 1                        ; 0x2259
     mov bx, ax                       ; 0x225b
-    mov bx, word [bx + bss_8482]     ; 0x225d
+    mov bx, word [bx + party_char]   ; 0x225d
     cmp byte [bx + si + 0x22], 3     ; 0x2261
     jae short @..api_idx_0022_ROKS.l1 ; 0x2265
     push word [bp + 0x6]             ; 0x2267
@@ -49,7 +49,7 @@ api_idx_0022_ROKS:
     jne short @..api_idx_0022_ROKS.l7 ; 0x22b4
     mov ax, 0xe                      ; 0x22b6
     push ax                          ; 0x22b9
-    mov ax, word [bss_8490]          ; 0x22ba
+    mov ax, word [party_char_ext]    ; 0x22ba
     add ax, 0x9a                     ; 0x22bd
     push ax                          ; 0x22c0
     mov ax, 0x248                    ; 0x22c1
@@ -67,7 +67,7 @@ api_idx_0022_ROKS:
     mov ax, word [bp + 0x4]          ; 0x22da
     shl ax, 1                        ; 0x22dd
     mov bx, ax                       ; 0x22df
-    mov bx, word [bx + bss_8490]     ; 0x22e1
+    mov bx, word [bx + party_char_ext] ; 0x22e1
     mov si, word [bp + 0xe]          ; 0x22e5
     mov al, byte [bx + si + 0x9a]    ; 0x22e8
     sub ah, ah                       ; 0x22ec
@@ -162,7 +162,7 @@ api_idx_0022_ROKS:
     mov ax, word [bp + 0x4]          ; 0x23b8
     shl ax, 1                        ; 0x23bb
     mov bx, ax                       ; 0x23bd
-    mov bx, word [bx + bss_8482]     ; 0x23bf
+    mov bx, word [bx + party_char]   ; 0x23bf
     pop ax                           ; 0x23c3
     sub word [bx + si + 0x2], ax     ; 0x23c4
     mov ax, 0x2c                     ; 0x23c7
@@ -171,7 +171,7 @@ api_idx_0022_ROKS:
     mov ax, word [bp + 0x4]          ; 0x23cf
     shl ax, 1                        ; 0x23d2
     mov bx, ax                       ; 0x23d4
-    mov bx, word [bx + bss_8482]     ; 0x23d6
+    mov bx, word [bx + party_char]   ; 0x23d6
     mov byte [bx + si + 0x10], 0     ; 0x23da
     mov ax, 3                        ; 0x23de
     push ax                          ; 0x23e1
@@ -187,7 +187,7 @@ api_idx_0022_ROKS:
     mov ax, word [bp + 0x4]          ; 0x23f4
     shl ax, 1                        ; 0x23f7
     mov bx, ax                       ; 0x23f9
-    mov bx, word [bx + bss_8482]     ; 0x23fb
+    mov bx, word [bx + party_char]   ; 0x23fb
     mov al, byte [bx + si + 0x11]    ; 0x23ff
     sub ah, ah                       ; 0x2402
     sub ax, cx                       ; 0x2404
@@ -204,7 +204,7 @@ api_idx_0022_ROKS:
     mov ax, word [bp + 0x4]          ; 0x2421
     shl ax, 1                        ; 0x2424
     mov bx, ax                       ; 0x2426
-    mov bx, word [bx + bss_8482]     ; 0x2428
+    mov bx, word [bx + party_char]   ; 0x2428
     cmp word [bx + si + 0x2], byte 0 ; 0x242c
     jg short @..api_idx_0022_ROKS.l13 ; 0x2430
     mov ax, word [bss_9058]          ; 0x2432

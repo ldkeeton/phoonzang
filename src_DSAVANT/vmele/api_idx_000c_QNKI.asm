@@ -11,7 +11,7 @@ api_idx_000c_QNKI:
     mov ax, word [bp + 0x4]          ; 0x11c6
     shl ax, 1                        ; 0x11c9
     mov bx, ax                       ; 0x11cb
-    mov bx, word [bx + bss_8482]     ; 0x11cd
+    mov bx, word [bx + party_char]   ; 0x11cd
     mov al, byte [bx + si + 0x2a]    ; 0x11d1
     cbw                              ; 0x11d4
     mov word [bp - 0x0004], ax       ; 0x11d5
@@ -34,7 +34,7 @@ api_idx_000c_QNKI:
     mov ax, word [bp + 0x4]          ; 0x1200
     shl ax, 1                        ; 0x1203
     mov bx, ax                       ; 0x1205
-    mov bx, word [bx + bss_8482]     ; 0x1207
+    mov bx, word [bx + party_char]   ; 0x1207
     mov byte [bx + si + 0x2a], 0xff  ; 0x120b
     mov ax, 6                        ; 0x120f
     imul word [bp - 0x0006]          ; 0x1212
@@ -70,7 +70,7 @@ api_idx_000c_QNKI:
     mov ax, word [bp + 0x4]          ; 0x1262
     shl ax, 1                        ; 0x1265
     mov bx, ax                       ; 0x1267
-    mov bx, word [bx + bss_8482]     ; 0x1269
+    mov bx, word [bx + party_char]   ; 0x1269
     pop ax                           ; 0x126d
     mov byte [bx + si + 0x2a], al    ; 0x126e
     mov ax, 0xffff                   ; 0x1271
@@ -86,7 +86,7 @@ api_idx_000c_QNKI:
     mov ax, word [bp + 0x4]          ; 0x1287
     shl ax, 1                        ; 0x128a
     mov bx, ax                       ; 0x128c
-    mov bx, word [bx + bss_8482]     ; 0x128e
+    mov bx, word [bx + party_char]   ; 0x128e
     mov al, byte [bx + 0x1a1]        ; 0x1292
     sub ah, ah                       ; 0x1296
     cmp ax, word [bp - 0x0002]       ; 0x1298

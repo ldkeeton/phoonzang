@@ -14,7 +14,7 @@ api_idx_005c_UIOK:
     mov ax, word [bp + 0x4]          ; 0x1506
     shl ax, 1                        ; 0x1509
     mov bx, ax                       ; 0x150b
-    mov bx, word [bx + bss_8482]     ; 0x150d
+    mov bx, word [bx + party_char]   ; 0x150d
     cmp byte [bx + si + 0x22], 3     ; 0x1511
     jae short @..api_idx_005c_UIOK.l2 ; 0x1515
     mov ax, 0                        ; 0x1517
@@ -22,7 +22,7 @@ api_idx_005c_UIOK:
     mov ax, word [bp + 0x4]          ; 0x151b
     shl ax, 1                        ; 0x151e
     mov bx, ax                       ; 0x1520
-    mov bx, word [bx + bss_8490]     ; 0x1522
+    mov bx, word [bx + party_char_ext] ; 0x1522
     mov al, byte [bx + 0xdd]         ; 0x1526
     sub ah, ah                       ; 0x152a
     push ax                          ; 0x152c
@@ -40,7 +40,7 @@ api_idx_005c_UIOK:
     mov ax, word [bp + 0x4]          ; 0x1549
     shl ax, 1                        ; 0x154c
     mov bx, ax                       ; 0x154e
-    mov bx, word [bx + bss_8482]     ; 0x1550
+    mov bx, word [bx + party_char]   ; 0x1550
     cmp byte [bx + si + 0x22], 3     ; 0x1554
     jae short @..api_idx_005c_UIOK.l4 ; 0x1558
     add bx, si                       ; 0x155a
@@ -51,7 +51,7 @@ api_idx_005c_UIOK:
     mov ax, word [bp + 0x4]          ; 0x1566
     shl ax, 1                        ; 0x1569
     mov bx, ax                       ; 0x156b
-    mov ax, word [bx + bss_8482]     ; 0x156d
+    mov ax, word [bx + party_char]   ; 0x156d
     add ax, cx                       ; 0x1571
     mov di, ax                       ; 0x1573
     mov cx, ds                       ; 0x1575
@@ -64,7 +64,7 @@ api_idx_005c_UIOK:
     mov ax, word [bp + 0x4]          ; 0x1586
     shl ax, 1                        ; 0x1589
     mov bx, ax                       ; 0x158b
-    mov bx, word [bx + bss_8482]     ; 0x158d
+    mov bx, word [bx + party_char]   ; 0x158d
     cmp byte [bx + si + 0x2a], 0xff  ; 0x1591
     je short @..api_idx_005c_UIOK.l3 ; 0x1595
     mov al, byte [bx + si + 0x2a]    ; 0x1597
@@ -99,7 +99,7 @@ api_idx_005c_UIOK:
     mov ax, word [bp + 0x4]          ; 0x15d3
     shl ax, 1                        ; 0x15d6
     mov bx, ax                       ; 0x15d8
-    mov bx, word [bx + bss_8482]     ; 0x15da
+    mov bx, word [bx + party_char]   ; 0x15da
     mov al, byte [bx + 0x1a1]        ; 0x15de
     sub ah, ah                       ; 0x15e2
     cmp ax, word [bp - 0x0004]       ; 0x15e4
@@ -121,7 +121,7 @@ api_idx_005c_UIOK:
     mov ax, word [bp + 0x4]          ; 0x1605
     shl ax, 1                        ; 0x1608
     mov bx, ax                       ; 0x160a
-    mov bx, word [bx + bss_8482]     ; 0x160c
+    mov bx, word [bx + party_char]   ; 0x160c
     cmp byte [bx + 0x1a1], 1         ; 0x1610
     jne short @..api_idx_005c_UIOK.l8 ; 0x1615
     mov byte [bp - 0x005c], 0        ; 0x1617
@@ -151,7 +151,7 @@ api_idx_005c_UIOK:
     mov ax, word [bp + 0x4]          ; 0x164c
     shl ax, 1                        ; 0x164f
     mov bx, ax                       ; 0x1651
-    mov bx, word [bx + bss_8482]     ; 0x1653
+    mov bx, word [bx + party_char]   ; 0x1653
     mov al, byte [bx + 0x1a0]        ; 0x1657
     sub ah, ah                       ; 0x165b
     mov cx, 5                        ; 0x165d
@@ -161,7 +161,7 @@ api_idx_005c_UIOK:
     mov ax, word [bp + 0x4]          ; 0x1665
     shl ax, 1                        ; 0x1668
     mov bx, ax                       ; 0x166a
-    mov ax, word [bx + bss_8490]     ; 0x166c
+    mov ax, word [bx + party_char_ext] ; 0x166c
     add ax, cx                       ; 0x1670
     push ax                          ; 0x1672
     lea ax, word [bp - 0x005c]       ; 0x1673
@@ -201,6 +201,6 @@ api_idx_005c_UIOK:
     mov cx, word [bp + 0x4]          ; 0x16c1
     shl cx, 1                        ; 0x16c4
     mov bx, cx                       ; 0x16c6
-    mov bx, word [bx + bss_8482]     ; 0x16c8
+    mov bx, word [bx + party_char]   ; 0x16c8
     mov byte [bx + 0x1a1], al        ; 0x16cc
     ret                              ; 0x16d0

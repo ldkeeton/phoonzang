@@ -1,6 +1,7 @@
 """Per-binary sidecar validation and lookup."""
 
 from .constants import _BINARY_TYPES, _IDENTIFIER
+from .data_names import _data_names_map, _validate_data_names
 from .errors import SidecarError
 from .external_data import _external_data_map, _validate_external_data
 from .offsets import _parse_offset
@@ -49,6 +50,9 @@ def _validate_binary(name, info):
     if 'external_data' in info:
         _validate_external_data(info['external_data'],
                                 f'binaries.{name}.external_data')
+
+    if 'data_names' in info:
+        _validate_data_names(info['data_names'], f'binaries.{name}.data_names')
 
     _validate_corpus(info, f'binaries.{name}')
 
@@ -106,7 +110,8 @@ def per_binary(sidecar, short_name):
     """Return the sidecar data for *short_name* within this project sidecar.
 
     Returns a dict with keys:
-        file, type, start_offset, entry_symbol, function_names, force_data,
+        file, type, start_offset, entry_symbol, function_names, data_names,
+        force_data,
         force_code, external_data, data_pointers (with each
         ``pointer_arrays`` word expanded into it), not_pointers,
         immediate_pointers,
@@ -125,6 +130,7 @@ def per_binary(sidecar, short_name):
         'driver_slots': [],
         'immediate_labels': {},
         'external_data': {},
+        'data_names': {},
         'jump_tables': [],
         'code_tables': [],
         'data_pointers': _pointer_assertions(
@@ -154,6 +160,7 @@ def per_binary(sidecar, short_name):
                 for slots in b.get('driver_slots', [])]
             result['immediate_labels'] = b.get('immediate_labels', {})
             result['external_data'] = _external_data_map(b.get('external_data', {}))
+            result['data_names'] = _data_names_map(b.get('data_names', {}))
             result['jump_tables'] = b.get('jump_tables', [])
             result['code_tables'] = b.get('code_tables', [])
             result['ghidra_base_offset'] = b.get('ghidra_base_offset', 0)
@@ -210,4 +217,6 @@ def _expected_use(result, short_name):
             use.expect('data_pointers', f'{entry["offset"]:04x}')
     for offset in result['external_data']:
         use.expect('external_data', f'0x{offset:04x}')
+    for offset in result['data_names']:
+        use.expect('data_names', f'{offset:04x}')
     return use

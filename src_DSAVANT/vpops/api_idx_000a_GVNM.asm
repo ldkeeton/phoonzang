@@ -40,14 +40,14 @@ api_idx_000a_GVNM:
     mov ax, 0x2c                     ; 0x29a1
     imul word [bp + 0x4]             ; 0x29a4
     mov si, ax                       ; 0x29a7
-    mov bx, word [bss_8482]          ; 0x29a9
+    mov bx, word [party_char]        ; 0x29a9
     mov byte [bx + si + 0x1f], 0     ; 0x29ad
     mov al, byte [bp - 0x000a]       ; 0x29b1
     push ax                          ; 0x29b4
     mov ax, 0x2c                     ; 0x29b5
     imul word [bp + 0x4]             ; 0x29b8
     mov si, ax                       ; 0x29bb
-    mov bx, word [bss_8482]          ; 0x29bd
+    mov bx, word [party_char]        ; 0x29bd
     pop ax                           ; 0x29c1
     mov byte [bx + si + 0x20], al    ; 0x29c2
 @..api_idx_000a_GVNM.l3:
@@ -62,7 +62,7 @@ api_idx_000a_GVNM:
     mov ax, 0x2c                     ; 0x29d7
     imul word [bp + 0x4]             ; 0x29da
     mov si, ax                       ; 0x29dd
-    mov bx, word [bss_8482]          ; 0x29df
+    mov bx, word [party_char]        ; 0x29df
     mov byte [bx + si + 0x1f], 0     ; 0x29e3
 @..api_idx_000a_GVNM.l5:
     mov ax, word [bp - 0x0006]       ; 0x29e7

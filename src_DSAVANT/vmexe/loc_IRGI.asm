@@ -19,13 +19,13 @@ loc_IRGI:
     mov ax, 0x2c                     ; 0x9db5
     imul word [bp + 0x4]             ; 0x9db8
     mov cx, ax                       ; 0x9dbb
-    mov ax, word [bss_8482]          ; 0x9dbd
+    mov ax, word [party_char]        ; 0x9dbd
     add ax, cx                       ; 0x9dc0
     push ax                          ; 0x9dc2
     mov ax, 0x2c                     ; 0x9dc3
     imul word [bp + 0x6]             ; 0x9dc6
     mov cx, ax                       ; 0x9dc9
-    mov ax, word [bss_8482]          ; 0x9dcb
+    mov ax, word [party_char]        ; 0x9dcb
     add ax, cx                       ; 0x9dce
     push ax                          ; 0x9dd0
     call string_loc_QJPU             ; 0x9dd1

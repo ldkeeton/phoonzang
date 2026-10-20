@@ -94,4 +94,4 @@ load_sound:
 @..load_sound.l4:
     mov ax, cs                       ; 0x4228
     mov ds, ax                       ; 0x422a
-    mov dx, dseg_4338                ; 0x422c
+    mov dx, cseg_4238 - IMAGE_BASE   ; 0x422c

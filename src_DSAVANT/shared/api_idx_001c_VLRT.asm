@@ -28,7 +28,7 @@ api_idx_001c_VLRT:
     mov ax, word [bp - 0x0002]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx + bss_8482]
+    mov bx, word [bx + party_char]
     cmp byte [bx + 0x19f], 0xff
     jne short @..api_idx_001c_VLRT.l3
     ret
@@ -60,7 +60,7 @@ api_idx_001c_VLRT:
     mov ax, 0x15e
     imul word [bp - 0x0006]
     mov bx, ax
-    cmp byte [bx + bss_6b75], 0
+    cmp byte [bx + slot_rec_forced], 0
     je short @..api_idx_001c_VLRT.l5
     mov word [bp + 0x8], 0
 @..api_idx_001c_VLRT.l5:

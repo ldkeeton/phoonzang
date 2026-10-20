@@ -12,7 +12,7 @@ api_idx_0008_MNJN:
     mov ax, 0x2c
     imul word [bp + 0x4]
     mov si, ax
-    mov bx, word [bss_8482]
+    mov bx, word [party_char]
     cmp byte [bx + si + 0x2b], 1
     je short @..api_idx_0008_MNJN.l2
     cmp byte [bx + si + 0x2b], 3

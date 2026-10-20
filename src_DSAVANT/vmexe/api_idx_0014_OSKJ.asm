@@ -2,7 +2,7 @@
 api_idx_0014_OSKJ:
     mov ax, 0xffec                   ; 0x6476
     call aztec_csav                  ; 0x6479
-    mov bx, word [bss_8490]          ; 0x647c
+    mov bx, word [party_char_ext]    ; 0x647c
     mov byte [bx + 0xe2], 0          ; 0x6480
     mov word [bss_90de], 6           ; 0x6485
     mov word [bss_91d8], 0           ; 0x648b
@@ -13,7 +13,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x64a0
     shl ax, 1                        ; 0x64a3
     mov bx, ax                       ; 0x64a5
-    mov ax, word [bx + bss_8482]     ; 0x64a7
+    mov ax, word [bx + party_char]   ; 0x64a7
     add ax, cx                       ; 0x64ab
     mov word [bp - 0x0002], ax       ; 0x64ad
     mov bx, ax                       ; 0x64b0
@@ -106,7 +106,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x6593
     shl ax, 1                        ; 0x6596
     mov bx, ax                       ; 0x6598
-    mov bx, word [bx + bss_8490]     ; 0x659a
+    mov bx, word [bx + party_char_ext] ; 0x659a
     mov al, byte [bx + 0xe2]         ; 0x659e
     sub ah, ah                       ; 0x65a2
     test ax, 4                       ; 0x65a4
@@ -117,7 +117,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x65b2
     shl ax, 1                        ; 0x65b5
     mov bx, ax                       ; 0x65b7
-    mov bx, word [bx + bss_8482]     ; 0x65b9
+    mov bx, word [bx + party_char]   ; 0x65b9
     mov ax, word [bx + si + 0x2]     ; 0x65bd
     push ax                          ; 0x65c0
     mov ax, word [bx + si + 0x4]     ; 0x65c1
@@ -180,7 +180,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x664b
     shl ax, 1                        ; 0x664e
     mov bx, ax                       ; 0x6650
-    mov bx, word [bx + bss_8482]     ; 0x6652
+    mov bx, word [bx + party_char]   ; 0x6652
     cmp byte [bx + si + 0x2a], 0xff  ; 0x6656
     je short @..api_idx_0014_OSKJ.l11 ; 0x665a
     mov al, byte [bx + si + 0x2a]    ; 0x665c
@@ -217,7 +217,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x66af
     shl ax, 1                        ; 0x66b2
     mov bx, ax                       ; 0x66b4
-    mov bx, word [bx + bss_8482]     ; 0x66b6
+    mov bx, word [bx + party_char]   ; 0x66b6
     mov byte [bx + si + 0x2a], 0xff  ; 0x66ba
     cmp word [bp - 0x0008], byte 1   ; 0x66be
     jne short @..api_idx_0014_OSKJ.l12 ; 0x66c2
@@ -227,7 +227,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x66cd
     shl ax, 1                        ; 0x66d0
     mov bx, ax                       ; 0x66d2
-    mov bx, word [bx + bss_8482]     ; 0x66d4
+    mov bx, word [bx + party_char]   ; 0x66d4
     mov byte [bx + si + 0x22], 3     ; 0x66d8
     mov ax, 0x2c                     ; 0x66dc
     imul word [bss_8462]             ; 0x66df
@@ -235,7 +235,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x66e5
     shl ax, 1                        ; 0x66e8
     mov bx, ax                       ; 0x66ea
-    mov bx, word [bx + bss_8482]     ; 0x66ec
+    mov bx, word [bx + party_char]   ; 0x66ec
     mov word [bx + si + 0x2], 0      ; 0x66f0
 @..api_idx_0014_OSKJ.l12:
     mov word [bp - 0x000e], 0        ; 0x66f5
@@ -247,7 +247,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x6706
     shl ax, 1                        ; 0x6709
     mov bx, ax                       ; 0x670b
-    mov bx, word [bx + bss_8482]     ; 0x670d
+    mov bx, word [bx + party_char]   ; 0x670d
     mov byte [bx + si + 0x18], 0     ; 0x6711
     inc word [bp - 0x000e]           ; 0x6715
     mov ax, word [bp - 0x000e]       ; 0x6718
@@ -326,7 +326,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x67e4
     shl ax, 1                        ; 0x67e7
     mov bx, ax                       ; 0x67e9
-    mov ax, word [bx + bss_8490]     ; 0x67eb
+    mov ax, word [bx + party_char_ext] ; 0x67eb
     add ax, strict word 0x53         ; 0x67ef
     push ax                          ; 0x67f2
     call ds_leaf_loc_PRVP            ; 0x67f3
@@ -346,7 +346,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x6817
     shl ax, 1                        ; 0x681a
     mov bx, ax                       ; 0x681c
-    mov bx, word [bx + bss_8490]     ; 0x681e
+    mov bx, word [bx + party_char_ext] ; 0x681e
     mov si, word [bp - 0x0014]       ; 0x6822
     cmp byte [bx + si + 0x86], 3     ; 0x6825
     jne short @..api_idx_0014_OSKJ.l22 ; 0x682a
@@ -368,7 +368,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x6858
     shl ax, 1                        ; 0x685b
     mov bx, ax                       ; 0x685d
-    mov bx, word [bx + bss_8482]     ; 0x685f
+    mov bx, word [bx + party_char]   ; 0x685f
     mov al, byte [bx + 0x1a1]        ; 0x6863
     sub ah, ah                       ; 0x6867
     push ax                          ; 0x6869
@@ -390,7 +390,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x6892
     shl ax, 1                        ; 0x6895
     mov bx, ax                       ; 0x6897
-    mov bx, word [bx + bss_8482]     ; 0x6899
+    mov bx, word [bx + party_char]   ; 0x6899
     cmp byte [bx + si + 0x22], 3     ; 0x689d
     jae short @..api_idx_0014_OSKJ.l24 ; 0x68a1
     cmp byte [bx + si + 0x2b], 0     ; 0x68a3
@@ -467,7 +467,7 @@ api_idx_0014_OSKJ:
     sub ah, ah                       ; 0x6949
     shl ax, 1                        ; 0x694b
     mov bx, ax                       ; 0x694d
-    mov bx, word [bx + bss_8482]     ; 0x694f
+    mov bx, word [bx + party_char]   ; 0x694f
     cmp byte [bx + si + 0x22], 3     ; 0x6953
     jae short @..api_idx_0014_OSKJ.l29 ; 0x6957
     cmp byte [bx + si + 0x2b], 0     ; 0x6959
@@ -523,29 +523,29 @@ api_idx_0014_OSKJ:
     imul word [bss_8462]             ; 0x69d8
     mov bx, ax                       ; 0x69dc
     mov al, byte [bx + 0x5d64]       ; 0x69de
-    mov bx, word [bss_8490]          ; 0x69e2
+    mov bx, word [party_char_ext]    ; 0x69e2
     mov byte [bx + 0x8c], al         ; 0x69e6
     mov ax, 0x248                    ; 0x69ea
     imul word [bss_8462]             ; 0x69ed
     mov bx, ax                       ; 0x69f1
     mov al, byte [bx + 0x5d65]       ; 0x69f3
-    mov bx, word [bss_8490]          ; 0x69f7
+    mov bx, word [party_char_ext]    ; 0x69f7
     mov byte [bx + 0x8d], al         ; 0x69fb
     mov ax, 0x248                    ; 0x69ff
     imul word [bss_8462]             ; 0x6a02
     mov bx, ax                       ; 0x6a06
     mov al, byte [bx + 0x5d68]       ; 0x6a08
-    mov bx, word [bss_8490]          ; 0x6a0c
+    mov bx, word [party_char_ext]    ; 0x6a0c
     mov byte [bx + 0x8e], al         ; 0x6a10
     mov ax, 0x248                    ; 0x6a14
     imul word [bss_8462]             ; 0x6a17
     mov bx, ax                       ; 0x6a1b
     mov al, byte [bx + 0x5d69]       ; 0x6a1d
-    mov bx, word [bss_8490]          ; 0x6a21
+    mov bx, word [party_char_ext]    ; 0x6a21
     mov byte [bx + 0x8f], al         ; 0x6a25
     mov ax, 0xe                      ; 0x6a29
     push ax                          ; 0x6a2c
-    mov ax, word [bss_8490]          ; 0x6a2d
+    mov ax, word [party_char_ext]    ; 0x6a2d
     add ax, 0x9a                     ; 0x6a30
     push ax                          ; 0x6a33
     mov ax, 0x248                    ; 0x6a34
@@ -556,7 +556,7 @@ api_idx_0014_OSKJ:
     add sp, byte 6                   ; 0x6a42
     mov ax, 8                        ; 0x6a45
     push ax                          ; 0x6a48
-    mov ax, word [bss_8490]          ; 0x6a49
+    mov ax, word [party_char_ext]    ; 0x6a49
     add ax, 0xc4                     ; 0x6a4c
     push ax                          ; 0x6a4f
     mov ax, 0x248                    ; 0x6a50
@@ -565,7 +565,7 @@ api_idx_0014_OSKJ:
     push ax                          ; 0x6a5a
     call aztec_movmem                ; 0x6a5b
     add sp, byte 6                   ; 0x6a5e
-    mov bx, word [bss_8490]          ; 0x6a61
+    mov bx, word [party_char_ext]    ; 0x6a61
     mov al, byte [bx + 0xc4]         ; 0x6a65
     cbw                              ; 0x6a69
     push ax                          ; 0x6a6a
@@ -585,31 +585,31 @@ api_idx_0014_OSKJ:
     imul word [bss_8462]             ; 0x6a87
     mov bx, ax                       ; 0x6a8b
     mov al, byte [bx + 0x5e39]       ; 0x6a8d
-    mov bx, word [bss_8490]          ; 0x6a91
+    mov bx, word [party_char_ext]    ; 0x6a91
     mov byte [bx + 0xd9], al         ; 0x6a95
     mov ax, 0x248                    ; 0x6a99
     imul word [bss_8462]             ; 0x6a9c
     mov bx, ax                       ; 0x6aa0
     mov al, byte [bx + 0x5e38]       ; 0x6aa2
-    mov bx, word [bss_8490]          ; 0x6aa6
+    mov bx, word [party_char_ext]    ; 0x6aa6
     mov byte [bx + 0xdb], al         ; 0x6aaa
     mov ax, 0x248                    ; 0x6aae
     imul word [bss_8462]             ; 0x6ab1
     mov bx, ax                       ; 0x6ab5
     mov al, byte [bx + 0x5e37]       ; 0x6ab7
-    mov bx, word [bss_8490]          ; 0x6abb
+    mov bx, word [party_char_ext]    ; 0x6abb
     mov byte [bx + 0xda], al         ; 0x6abf
     mov ax, 0x248                    ; 0x6ac3
     imul word [bss_8462]             ; 0x6ac6
     mov bx, ax                       ; 0x6aca
     mov al, byte [bx + 0x5e2c]       ; 0x6acc
-    mov bx, word [bss_8490]          ; 0x6ad0
+    mov bx, word [party_char_ext]    ; 0x6ad0
     mov byte [bx + 0xdc], al         ; 0x6ad4
     mov ax, 0x248                    ; 0x6ad8
     imul word [bss_8462]             ; 0x6adb
     mov bx, ax                       ; 0x6adf
     mov al, byte [bx + 0x5e2d]       ; 0x6ae1
-    mov bx, word [bss_8490]          ; 0x6ae5
+    mov bx, word [party_char_ext]    ; 0x6ae5
     mov byte [bx + 0xd6], al         ; 0x6ae9
     jmp near @..api_idx_0014_OSKJ.l38 ; 0x6aed
 @..api_idx_0014_OSKJ.l34:
@@ -624,7 +624,7 @@ api_idx_0014_OSKJ:
     imul cx                          ; 0x6b04
     mov bx, ax                       ; 0x6b06
     mov al, byte [bx + 0x5d64]       ; 0x6b08
-    mov bx, word [bss_8490]          ; 0x6b0c
+    mov bx, word [party_char_ext]    ; 0x6b0c
     mov byte [bx + 0x8c], al         ; 0x6b10
     mov bx, word [bp - 0x0002]       ; 0x6b14
     mov al, byte [bx + 0x20]         ; 0x6b17
@@ -632,7 +632,7 @@ api_idx_0014_OSKJ:
     imul cx                          ; 0x6b1c
     mov bx, ax                       ; 0x6b1e
     mov al, byte [bx + 0x5d65]       ; 0x6b20
-    mov bx, word [bss_8490]          ; 0x6b24
+    mov bx, word [party_char_ext]    ; 0x6b24
     mov byte [bx + 0x8d], al         ; 0x6b28
     mov bx, word [bp - 0x0002]       ; 0x6b2c
     mov al, byte [bx + 0x20]         ; 0x6b2f
@@ -640,7 +640,7 @@ api_idx_0014_OSKJ:
     imul cx                          ; 0x6b34
     mov bx, ax                       ; 0x6b36
     mov al, byte [bx + 0x5d68]       ; 0x6b38
-    mov bx, word [bss_8490]          ; 0x6b3c
+    mov bx, word [party_char_ext]    ; 0x6b3c
     mov byte [bx + 0x8e], al         ; 0x6b40
     mov bx, word [bp - 0x0002]       ; 0x6b44
     mov al, byte [bx + 0x20]         ; 0x6b47
@@ -648,11 +648,11 @@ api_idx_0014_OSKJ:
     imul cx                          ; 0x6b4c
     mov bx, ax                       ; 0x6b4e
     mov al, byte [bx + 0x5d69]       ; 0x6b50
-    mov bx, word [bss_8490]          ; 0x6b54
+    mov bx, word [party_char_ext]    ; 0x6b54
     mov byte [bx + 0x8f], al         ; 0x6b58
     mov ax, 0xe                      ; 0x6b5c
     push ax                          ; 0x6b5f
-    mov ax, word [bss_8490]          ; 0x6b60
+    mov ax, word [party_char_ext]    ; 0x6b60
     add ax, 0x9a                     ; 0x6b63
     push ax                          ; 0x6b66
     mov bx, word [bp - 0x0002]       ; 0x6b67
@@ -665,7 +665,7 @@ api_idx_0014_OSKJ:
     add sp, byte 6                   ; 0x6b78
     mov ax, 8                        ; 0x6b7b
     push ax                          ; 0x6b7e
-    mov ax, word [bss_8490]          ; 0x6b7f
+    mov ax, word [party_char_ext]    ; 0x6b7f
     add ax, 0xc4                     ; 0x6b82
     push ax                          ; 0x6b85
     mov bx, word [bp - 0x0002]       ; 0x6b86
@@ -684,7 +684,7 @@ api_idx_0014_OSKJ:
     cmp word [bp - 0x0004], byte 2   ; 0x6ba8
     je short @..api_idx_0014_OSKJ.l37 ; 0x6bac
     mov si, word [bp - 0x0004]       ; 0x6bae
-    mov bx, word [bss_8490]          ; 0x6bb1
+    mov bx, word [party_char_ext]    ; 0x6bb1
     mov al, byte [bx + si + 0xc4]    ; 0x6bb5
     cbw                              ; 0x6bb9
     push ax                          ; 0x6bba
@@ -712,7 +712,7 @@ api_idx_0014_OSKJ:
     imul cx                          ; 0x6bea
     mov bx, ax                       ; 0x6bec
     mov al, byte [bx + 0x5e39]       ; 0x6bee
-    mov bx, word [bss_8490]          ; 0x6bf2
+    mov bx, word [party_char_ext]    ; 0x6bf2
     mov byte [bx + 0xd9], al         ; 0x6bf6
     mov bx, word [bp - 0x0002]       ; 0x6bfa
     mov al, byte [bx + 0x20]         ; 0x6bfd
@@ -720,7 +720,7 @@ api_idx_0014_OSKJ:
     imul cx                          ; 0x6c02
     mov bx, ax                       ; 0x6c04
     mov al, byte [bx + 0x5e38]       ; 0x6c06
-    mov bx, word [bss_8490]          ; 0x6c0a
+    mov bx, word [party_char_ext]    ; 0x6c0a
     mov byte [bx + 0xdb], al         ; 0x6c0e
     mov bx, word [bp - 0x0002]       ; 0x6c12
     mov al, byte [bx + 0x20]         ; 0x6c15
@@ -728,7 +728,7 @@ api_idx_0014_OSKJ:
     imul cx                          ; 0x6c1a
     mov bx, ax                       ; 0x6c1c
     mov al, byte [bx + 0x5e37]       ; 0x6c1e
-    mov bx, word [bss_8490]          ; 0x6c22
+    mov bx, word [party_char_ext]    ; 0x6c22
     mov byte [bx + 0xda], al         ; 0x6c26
     mov bx, word [bp - 0x0002]       ; 0x6c2a
     mov al, byte [bx + 0x20]         ; 0x6c2d
@@ -736,7 +736,7 @@ api_idx_0014_OSKJ:
     imul cx                          ; 0x6c32
     mov bx, ax                       ; 0x6c34
     mov al, byte [bx + 0x5e2c]       ; 0x6c36
-    mov bx, word [bss_8490]          ; 0x6c3a
+    mov bx, word [party_char_ext]    ; 0x6c3a
     mov byte [bx + 0xdc], al         ; 0x6c3e
     mov bx, word [bp - 0x0002]       ; 0x6c42
     mov al, byte [bx + 0x20]         ; 0x6c45
@@ -744,7 +744,7 @@ api_idx_0014_OSKJ:
     imul cx                          ; 0x6c4a
     mov bx, ax                       ; 0x6c4c
     mov al, byte [bx + 0x5e2d]       ; 0x6c4e
-    mov bx, word [bss_8490]          ; 0x6c52
+    mov bx, word [party_char_ext]    ; 0x6c52
     mov byte [bx + 0xd6], al         ; 0x6c56
 @..api_idx_0014_OSKJ.l38:
     mov bx, word [bp - 0x0002]       ; 0x6c5a
@@ -762,7 +762,7 @@ jumptable_6ea7_case_0:
     sub ah, ah                       ; 0x6c77
     shl ax, 1                        ; 0x6c79
     mov bx, ax                       ; 0x6c7b
-    mov bx, word [bx + bss_8482]     ; 0x6c7d
+    mov bx, word [bx + party_char]   ; 0x6c7d
     cmp byte [bx + si + 0x22], 3     ; 0x6c81
     jb short @..api_idx_0014_OSKJ.l39 ; 0x6c85
     jmp near @..api_idx_0014_OSKJ.l44 ; 0x6c87

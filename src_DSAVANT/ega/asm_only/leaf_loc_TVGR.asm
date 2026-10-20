@@ -15,4 +15,4 @@ leaf_loc_TVGR:
     or byte [cs:cseg_3a35 - IMAGE_BASE], dl ; 0x3a03
     mov bx, cs                       ; 0x3a08
     mov ds, bx                       ; 0x3a0a
-    mov dx, dseg_3b18                ; 0x3a0c
+    mov dx, cseg_3a18 - IMAGE_BASE   ; 0x3a0c

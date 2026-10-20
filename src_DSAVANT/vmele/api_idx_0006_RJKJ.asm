@@ -16,7 +16,7 @@ api_idx_0006_RJKJ:
     mov ax, word [bp - 0x0002]       ; 0x1733
     shl ax, 1                        ; 0x1736
     mov bx, ax                       ; 0x1738
-    mov bx, word [bx + bss_8482]     ; 0x173a
+    mov bx, word [bx + party_char]   ; 0x173a
     cmp byte [bx + 0x1a0], 1         ; 0x173e
     jne short @..api_idx_0006_RJKJ.l4 ; 0x1743
     mov ax, 0x248                    ; 0x1745
@@ -40,7 +40,7 @@ api_idx_0006_RJKJ:
     mov ax, word [bp - 0x0002]       ; 0x1770
     shl ax, 1                        ; 0x1773
     mov bx, ax                       ; 0x1775
-    mov bx, word [bx + bss_8482]     ; 0x1777
+    mov bx, word [bx + party_char]   ; 0x1777
     mov byte [bx + 0x1a0], 0         ; 0x177b
     mov ax, 0                        ; 0x1780
     push ax                          ; 0x1783

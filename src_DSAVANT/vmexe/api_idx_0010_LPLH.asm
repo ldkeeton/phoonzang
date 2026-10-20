@@ -57,7 +57,7 @@ api_idx_0010_LPLH:
     jne short @..api_idx_0010_LPLH.l8 ; 0x26e4
     mov ax, 0xe                      ; 0x26e6
     push ax                          ; 0x26e9
-    mov ax, word [bss_8490]          ; 0x26ea
+    mov ax, word [party_char_ext]    ; 0x26ea
     add ax, 0x9a                     ; 0x26ed
     push ax                          ; 0x26f0
     mov ax, 0x248                    ; 0x26f1
@@ -73,7 +73,7 @@ api_idx_0010_LPLH:
     mov ax, word [bp + 0x4]          ; 0x2709
     shl ax, 1                        ; 0x270c
     mov bx, ax                       ; 0x270e
-    mov bx, word [bx + bss_8482]     ; 0x2710
+    mov bx, word [bx + party_char]   ; 0x2710
     cmp byte [bx + si + 0x22], 3     ; 0x2714
     jb short @..api_idx_0010_LPLH.l9 ; 0x2718
     jmp near @..api_idx_0010_LPLH.l22 ; 0x271a
@@ -117,7 +117,7 @@ api_idx_0010_LPLH:
     mov ax, word [bp + 0x4]          ; 0x276e
     shl ax, 1                        ; 0x2771
     mov bx, ax                       ; 0x2773
-    mov bx, word [bx + bss_8490]     ; 0x2775
+    mov bx, word [bx + party_char_ext] ; 0x2775
     mov si, word [bp + 0xe]          ; 0x2779
     mov al, byte [bx + si + 0x9a]    ; 0x277c
     sub ah, ah                       ; 0x2780
@@ -220,7 +220,7 @@ api_idx_0010_LPLH:
     mov ax, word [bp + 0x4]          ; 0x2862
     shl ax, 1                        ; 0x2865
     mov bx, ax                       ; 0x2867
-    mov ax, word [bx + bss_8482]     ; 0x2869
+    mov ax, word [bx + party_char]   ; 0x2869
     add ax, cx                       ; 0x286d
     push ax                          ; 0x286f
     call loc_TGJH                    ; 0x2870

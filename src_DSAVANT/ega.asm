@@ -280,10 +280,15 @@ cseg_10cd:
 
 %include "ega/asm_only/dos_con_loc_GRVO.asm"        ; 0x10ff
 
-dseg_1331 equ 0x1331
 %include "ega/asm_only/loc_1211.asm"                ; 0x1211
 
 %include "ega/asm_only/dos_con_loc_QUMT.asm"        ; 0x1218
+
+cseg_1231:
+
+    db 0x0d, 0x0a, 0x07
+    db 'LOAD_MAZE called with bad slot number.', 0
+    db 0x0a, 0x24
 
 cseg_125d:
 
@@ -467,20 +472,29 @@ leaf_loc_UQHV.cseg1 equ cseg_2a02
 
 %include "ega/asm_only/loc_QNIQ.asm"                ; 0x303d
 
-dseg_3286 equ 0x3286
 %include "ega/asm_only/load_picture.asm"            ; 0x3085
 
 %include "ega/asm_only/dos_con_loc_GQSN.asm"        ; 0x317d
+
+cseg_3186:
+
+    db 0x0d, 0x0a, 0x07
+    db 'Picture slot '
 
 cseg_3196:
     db 0x30
 cseg_3197:
     db '0 not freed.', 0
     db 0x0a, 0x24
-dseg_32b6 equ 0x32b6
 %include "ega/asm_only/loc_31a6.asm"                ; 0x31a6
 
 %include "ega/asm_only/dos_con_loc_HPRK.asm"        ; 0x31ad
+
+cseg_31b6:
+
+    db 0x0d, 0x0a, 0x07
+    db 'Memory unavailable loading picture.', 0
+    db 0x0a, 0x24
 
 %include "ega/graphics_loc_VROJ.asm"       ; 0x31df
 
@@ -553,11 +567,13 @@ cseg_3605:
 
 %include "ega/asm_only/draw_text.asm"               ; 0x361e
 
-dseg_3b18 equ 0x3b18
 %include "ega/asm_only/leaf_loc_TVGR.asm"           ; 0x39e3
 
 %include "ega/asm_only/dos_con_loc_NRSG.asm"        ; 0x3a0f
 
+cseg_3a18:
+    db 0x0d, 0x0a, 0x07
+    db 'Frame '
 cseg_3a21:
     db 0x30
 cseg_3a22:
@@ -584,27 +600,47 @@ cseg_3a35:
 
 %include "ega/loc_3e8a.asm"                ; 0x3e8a
 
-dseg_41dd equ 0x41dd
 %include "ega/asm_only/loc_40cd.asm"                ; 0x40cd
 
 %include "shared/dos_con_loc_KIIN.asm"        ; 0x40d4
 
-dseg_4479 equ 0x4479
+cseg_40dd:
+
+    db 0x0d, 0x0a, 0x07
+    db 'Error occurred writing to disk in CACHEAREA().', 0
+    db 0x0a, 0x24
+
 %include "ega/asm_only/cache_area.asm"              ; 0x4111
 
 %include "ega/asm_only/dos_con_loc_GKKQ.asm"        ; 0x4370
 
+cseg_4379:
+
+    db 0x0d, 0x0a, 0x07
+    db 'CACHEAREA out of EMS.', 0
+    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2
+
 %include "ega/loc_4398.asm"                ; 0x4398
 
-dseg_44b0 equ 0x44b0
 %include "ega/asm_only/loc_43a0.asm"                ; 0x43a0
 
 %include "ega/asm_only/dos_con_loc_NQOR.asm"        ; 0x43a7
 
-dseg_44e1 equ 0x44e1
+cseg_43b0:
+
+    db 0x0d, 0x0a, 0x07
+    db 'CACHEAREA out of EMS slots.', 0
+    db 0x0a, 0x24
+
 %include "ega/asm_only/loc_43d1.asm"                ; 0x43d1
 
 %include "ega/asm_only/dos_con_loc_THNU.asm"        ; 0x43d8
+
+cseg_43e1:
+
+    db 0x0d, 0x0a, 0x07
+    db 'CACHEAREA out of MAZE/PIC memory.', 0
+    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0x8a
 
 %include "ega/asm_only/loc_440e.asm"                ; 0x440e
 
@@ -614,46 +650,81 @@ cseg_4440:
 
 %include "ega/asm_only/restore_screen.asm"          ; 0x4457
 
-dseg_46fb equ 0x46fb
 %include "ega/asm_only/dos_file_loc_RQKL.asm"       ; 0x45bd
 
 %include "ega/asm_only/dos_con_loc_OHJU.asm"        ; 0x45f2
 
+cseg_45fb:
+
+    db 0x0d, 0x0a, 0x07
+    db 'Error occurred writing to disk', 0
+    db 0x0a, 0x24
+
 %include "ega/loc_461f.asm"                ; 0x461f
 
-dseg_48b8 equ 0x48b8
 %include "ega/asm_only/cache_maze.asm"              ; 0x4624
 
 %include "ega/asm_only/dos_con_loc_HJHM.asm"        ; 0x47af
 
-dseg_4900 equ 0x4900
+cseg_47b8:
+
+    db 0x0d, 0x0a, 0x07
+    db 'CACHEMAZE().  Requested slot already in use.', 0
+    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xb0
+
 %include "ega/asm_only/loc_47f0.asm"                ; 0x47f0
 
 %include "shared/dos_con_loc_URMP.asm"        ; 0x47f7
 
-dseg_4a43 equ 0x4a43
+cseg_4800:
+
+    db 0x0d, 0x0a, 0x07
+    db 'CACHEMAZE().  Insufficient EMS.', 0
+    db 0x0a, 0x24
+
 %include "ega/asm_only/dos_file_loc_GRNS.asm"       ; 0x4825
 
 %include "ega/asm_only/dos_con_loc_PMRV.asm"        ; 0x493a
 
-dseg_4a8d equ 0x4a8d
+cseg_4943:
+
+    db 0x0d, 0x0a, 0x07
+    db 'CACHESCREEN().  Requested slot already in use.', 0
+    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xae
+
 %include "ega/asm_only/loc_497d.asm"                ; 0x497d
 
 %include "shared/dos_con_loc_MQTN.asm"        ; 0x4984
+
+cseg_498d:
+
+    db 0x0d, 0x0a, 0x07
+    db 'CACHESCREEN().  Insufficient EMS.', 0
+    db 0x0a, 0x24
 
 cseg_49b4:
 
     times 84 db 0
 
-dseg_4bea equ 0x4bea
 %include "ega/asm_only/load_sound.asm"              ; 0x4a08
 
 %include "ega/asm_only/dos_con_loc_MSRN.asm"        ; 0x4ae1
 
-dseg_4c26 equ 0x4c26
+cseg_4aea:
+
+    db 0x0d, 0x0a, 0x07
+    db 'In LOAD_SOUND() ... slot already used.', 0
+    db 0x0a, 0x24
+
 %include "ega/asm_only/loc_4b16.asm"                ; 0x4b16
 
 %include "shared/dos_con_loc_KPVH.asm"        ; 0x4b1d
+
+cseg_4b26:
+
+    db 0x0d, 0x0a, 0x07
+    db 'In LOAD_SOUND() ... not enough memory.', 0
+    db 0x0a, 0x24
 
 %include "ega/asm_only/loc_4b52.asm"                ; 0x4b52
 
