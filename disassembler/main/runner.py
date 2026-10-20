@@ -58,7 +58,7 @@ from lib.names import (
     is_data, is_label, rename_generics, set_generic_prefix, tag_generics,
 )
 from lib import symtab
-from lib.symtab import GENERIC, Kind, Source, Symbol
+from lib.symtab import GENERIC, Kind, Source, Space, Symbol
 from lib.sidecar.usage import SidecarUse
 from lib import stagelog
 from lib.report import write_report, write_layers, write_summary, print_short_report
@@ -578,6 +578,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
             project, name, data, ctx.label_map, ctx.segments, foreign_prefix,
             _entries)
         _apply_sidecar_data_names(ctx.segments, ctx.sidecar_entry)
+        _apply_sidecar_code_data_names(ctx.segments, ctx.sidecar_entry)
     t_aztec_end = time.perf_counter()
 
     if AZTEC_PREBUILD_ONLY:
@@ -700,6 +701,24 @@ def _apply_sidecar_data_names(segments, sidecar_entry):
             info['name'], kind=Kind.DATA, source=Source.SIDECAR, offset=offset,
             space=_data_space(segments, offset))
         use.applied('data_names', ident)
+
+
+def _apply_sidecar_code_data_names(segments, sidecar_entry):
+    """Name the CS-reached data the sidecar's ``code_data_names`` names."""
+    entries = (sidecar_entry or {}).get('code_data_names') or {}
+    if not entries:
+        return
+    use = sidecar_entry.get('use') or SidecarUse('binaries.?')
+    for offset, info in entries.items():
+        ident = f'{offset:04x}'
+        if not 0 <= offset < (segments.file_size or 0):
+            use.skipped('code_data_names', ident,
+                        f'file offset 0x{offset:04x} is not in the image')
+            continue
+        segments.cseg_names[offset] = Symbol(
+            info['name'], kind=Kind.DATA, source=Source.SIDECAR, offset=offset,
+            space=Space.CSEG)
+        use.applied('code_data_names', ident)
 
 
 def _foreign_pointer_params(project, host):

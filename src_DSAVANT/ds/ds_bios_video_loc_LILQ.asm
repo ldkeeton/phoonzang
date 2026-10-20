@@ -12,7 +12,7 @@ ds_bios_video_loc_LILQ:
     mov es, ax                       ; 0x3074
     call ds_leaf_loc_OIUO            ; 0x3076
     call ds_leaf_loc_QNNO            ; 0x3079
-    call bios_get_video_mode         ; 0x307c
+    call detect_video_adapter        ; 0x307c
     call ds_dos_mem_loc_TGHM         ; 0x307f
     call ds_bios_mouse_loc_RUQG      ; 0x3082
     call ds_dos_intvec_loc_OHRJ      ; 0x3085

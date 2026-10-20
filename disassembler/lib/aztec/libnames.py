@@ -265,6 +265,7 @@ def sibling_symbols(project, image, label_map, entries, start_offset=0):
     prebuild's object cache; nothing is compiled here.
     """
     from lib.cachedirs import prebuild_dir
+    from lib.sidecar.compiler import asm_flags
     from lib.sidecar.vendor import vendor_patches
     from lib.symtab import Kind, Source, Symbol
     from . import cache, objcache
@@ -272,7 +273,8 @@ def sibling_symbols(project, image, label_map, entries, start_offset=0):
     from .mux import MuxEngine, compare
     objs = os.path.join(prebuild_dir(project), 'objs')
     lib = _library(project)
-    engine = MuxEngine(objcache_dir=objs, patches=vendor_patches(project))
+    engine = MuxEngine(objcache_dir=objs, patches=vendor_patches(project),
+                       asm_flags=asm_flags(project))
     starts = {str(sym): at for at, sym in label_map.items()}
     taken = set(starts)
     found = {}

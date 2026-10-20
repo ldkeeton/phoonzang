@@ -12,7 +12,7 @@ from lib.compare.interrupts import _set_insn_fields
 from lib.compare.cgate import CGateError, check_against_original
 from lib.compare.records import _label_record, _record_span
 from lib.compare.symbols import data_symbol
-from lib.symtab import Kind, Symbol
+from lib.symtab import Kind, Space, Symbol
 
 
 def _ref_operands(insn, off, refs):
@@ -54,17 +54,24 @@ def _numeric_form(text, refs):
     return text
 
 
+#: Mnemonics after which execution never reaches the next byte.
+_NO_FALLTHROUGH = frozenset(('ret', 'retf', 'iret', 'jmp', 'ljmp'))
+
+
 def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
                         immediate_labels, exact_bytes=False, data_labels=None,
                         mem_symbols=None, mem_equ=None, image_base=None,
-                        linked=None, skip=0):
+                        linked=None, skip=0, data_spans=(), label_offsets=()):
     """Disassemble compiler-produced code into emission records.
 
     *linked* (a :class:`lib.aztec.relink.Linked`) names the operands the C
     relocations patch; those render as their symbol (``call aztec_open``)
     instead of being inferred from the relocated bytes.  The first *skip*
     bytes are not code (a module's data before its first routine) and are
-    left to the caller.
+    left to the caller.  *data_spans* (``[(start, end)]`` offsets into
+    *data*, :func:`lib.aztec.listing.data_spans`) are the source's own data
+    directives, emitted as ``db`` rather than decoded; each is split at the
+    *label_offsets* (absolute) inside it, so a label lands on its byte.
     """
     from lib.format import format_instruction
     md = Cs(CS_ARCH_X86, CS_MODE_16)
@@ -79,7 +86,54 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
                 'offset': base + k, 'size': 1,
             })
 
-    for insn in md.disasm(data[skip:], base + skip):
+    # An absolute external (``bios_data_0410``) is an ``equ`` in the
+    # binary's asm; the round-trip assemble needs it too.
+    absolute = {name: addr for addr, name in (data_labels or {}).items()
+                if getattr(name, 'space', None) is Space.ABS}
+    if absolute:
+        mem_equ = {**absolute, **(mem_equ or {})}
+
+    def decode():
+        """Instructions, and ``(lo, hi)`` for each data span, in order.
+
+        A span that code falls into (``caller``'s ``db 0cbH``, a ``retf``)
+        is an instruction spelled as bytes, and is decoded as one.
+        """
+        pos = skip
+        last = None             # the instruction before *pos*; None: none
+        for lo, hi in sorted(data_spans or ()):
+            lo = max(lo, pos)
+            if hi <= lo:
+                continue
+            for insn in md.disasm(data[pos:lo], base + pos):
+                last = insn.mnemonic
+                yield insn
+            if last is not None and last not in _NO_FALLTHROUGH:
+                pos = lo
+                continue
+            hi = min(hi, len(data))
+            # A label inside the span (``cseg_3532``, a word after the strings)
+            # starts its own block, so it is placed on its byte.
+            cuts = sorted({addr - base for addr in (*(label_map or ()),
+                                                    *(local_labels or ()),
+                                                    *label_offsets)
+                           if base + lo < addr < base + hi})
+            for a, b in zip([lo, *cuts], [*cuts, hi]):
+                yield a, b
+            pos, last = hi, None
+        yield from md.disasm(data[pos:], base + pos)
+
+    for insn in decode():
+        if isinstance(insn, tuple):
+            lo, hi = insn
+            if lo > consumed:
+                emit_db(consumed, lo)
+            records.append({
+                'type': 'data_block', 'start': base + lo, 'end': base + hi,
+                'bytes': [f'0x{b:02x}' for b in data[lo:hi]],
+            })
+            consumed = hi
+            continue
         off = insn.address - base
         if off > consumed:
             emit_db(consumed, off)
@@ -444,7 +498,8 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             bytes(final), start, label_map, record_labels, foreign_label_map,
             immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
-            linked=linked, skip=lead)
+            linked=linked, skip=lead, data_spans=override.get('data_spans', ()),
+            label_offsets=[r['offset'] for r in labels_in])
         if linked is not None:
             _check_linked(label, linked)
         replacements.append((start, end,

@@ -18,6 +18,13 @@ def data_symbol(segments, offset):
     return named or Symbol.data(_data_space(segments, offset), offset)
 
 
+def cseg_symbol(segments, file_off):
+    """The symbol for a CS-reached byte at *file_off*: its sidecar name
+    (``code_data_names``), else generated ``cseg_<file>``."""
+    named = getattr(segments, 'cseg_names', {}).get(file_off)
+    return named or Symbol.data(Space.CSEG, file_off)
+
+
 def _load_offset(segments):
     """Where file offset 0 runs inside a raw driver's segment (plan.md D7.6).
 
@@ -99,7 +106,7 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset,
                     continue
                 name = (label_map or {}).get(file_off)
                 if name is None:
-                    name = Symbol.data(Space.CSEG, file_off)
+                    name = cseg_symbol(segments, file_off)
                     equ.setdefault(name, file_off)
                 symbols[(insn.address, idx)] = f'{name} - IMAGE_BASE'
             elif space == PSP:
@@ -219,7 +226,7 @@ def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
                 continue
             name = (label_map or {}).get(file_off)
             if name is None:
-                name = Symbol.data(Space.CSEG, file_off)
+                name = cseg_symbol(segments, file_off)
                 mem_equ.setdefault(name, file_off)
             result[(addr, idx)] = f'{name} - IMAGE_BASE'
         elif space == PSP:
@@ -359,7 +366,7 @@ def _resolve_declared_immediates(insns, declared, segments, label_map, mem_equ,
                 f'{where}: 0x{value:04x} names no byte of the image')
         name = (label_map or {}).get(file_off)
         if name is None:
-            name = Symbol.data(Space.CSEG, file_off)
+            name = cseg_symbol(segments, file_off)
             mem_equ.setdefault(name, file_off)
         result[(insn.address, 1)] = f'{name} - IMAGE_BASE'
     return result

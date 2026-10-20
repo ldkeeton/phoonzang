@@ -5,34 +5,19 @@
   "dos_compilers": ["Manx Aztec C86 v42b"],
   "compiler_flags": {
     "default": ["-n", "+b"],
+    "asm": ["-dMODEL=0", "-l"],
     "prefixes": { 
       "aztec_": ["-n"],
       "draw_" : ["-n", "+b", "+m"]
     }
   },
   "vendor_patches": {
-    "aztec_lfree": {
-      "version": "v42b",
-      "file": "lmalloc.asm",
-      "note": "The library was assembled with `as`, which keeps lfree's forward `jmp exit` near (e9 0002); cc's #asm pass squeezes every forward jmp to short (eb), `near ptr` included, so the near jmp is spelled out. A `dw exit-$-2` would be an expression relocation obd cannot dump.",
-      "edits": [
-        { "find": "\tjmp\texit\n", "replace": "\tdb\t0e9h\t\t;jmp exit (near, as `as` assembles it)\n\tdw\t2\n" }
-      ]
-    },
     "aztec_fexec": {
       "version": "v42b",
       "file": "fexec.asm",
       "note": "`param equ this word` aliases `env` (the EXEC parameter block starts with it); one DS address takes one name in the build, so the block is addressed by its first field's name.",
       "edits": [
         { "find": "\tmov\tbx,offset param\n", "replace": "\tmov\tbx,offset env\t;param\n" }
-      ]
-    },
-    "aztec_lud": {
-      "version": "v42b",
-      "file": "lsubs.asm",
-      "note": "As aztec_lfree: comdivide's forward `jmp answer_ok` (which $lud falls into) is near (e9 0012) in the `as`-built library; cc's #asm pass would squeeze it to short.",
-      "edits": [
-        { "find": "\tjmp\tanswer_ok\n", "replace": "\tdb\t0e9h\t\t;jmp answer_ok (near, as `as` assembles it)\n\tdw\t18\n" }
       ]
     },
     "aztec_begin": {
@@ -55,10 +40,6 @@
     "bios_mouse_loc_KLNH": {
       "name": "mouse_init",
       "note": "vga: resets the mouse (INT 33h AX=0) and sets its range and pointer"
-    },
-    "bios_video_loc_TLVT": {
-      "name": "bios_get_video_mode",
-      "note": "ds: reads the video mode (INT 10h AH=0Fh) and probes for VGA (AX=1A00h)"
     },
     "dos_mem_loc_JGSR": {
       "name": "dos_alloc_mem",
@@ -129,6 +110,8 @@
       "immediate_pointers": [
         {"offset": "288e", "space": "ds", "note": "`mov ax, 0x15e; imul bx; add ax, 0x6a1a; push ax`: row bx of the 350-byte-row array bss_6a1a (the overlays' C declares it `unsigned char [][350]`), passed to ds_app_file_MPPM as the buffer"},
         {"offset": "4a52", "space": "cs", "note": "format.asm's `mov di,offset nofltmsg` (' -lm first', printed for %e/%f/%g without the float library): a CS string after the conversion table (file 0x485c)"},
+        {"offset": "3477", "space": "cs", "note": "select_vga_driver's `mov dx, vga_palette` (es = cs): the 256-colour table for INT 10h AX=1012h"},
+        {"offset": "34e2", "space": "cs", "note": "select_ega_driver's `mov dx, ega_palette` (es = cs): the 17 palette registers for INT 10h AX=1002h"},
         {"offset": "293e", "space": "ds", "note": "`mov ax, 0xc; imul word [bp + 0x6]; add ax, 0x5576; push ax`: element of a 12-byte-record array inside bss_552a, passed to ds_app_file_MPPM"}
       ],
       "data_pointers": [
@@ -174,6 +157,18 @@
         },
         "2dd5": {
           "name": "main"
+        },
+        "30f7": {
+          "name": "detect_video_adapter",
+          "note": "saves the video mode (INT 10h AH=0Fh), then picks VGA (AX=1A00h display code 7/8) or EGA (0040:0087) and jumps to select_vga_driver / select_ega_driver; [bp+4] bit 0 clear skips the VGA probe"
+        },
+        "343e": {
+          "name": "select_vga_driver",
+          "note": "hand-written asm, shares its caller's frame: mode 13h, the 256-colour palette at cs 0x2f3e, [bp-2] = 1, [bp-4] = 'vga.drv'"
+        },
+        "3490": {
+          "name": "select_ega_driver",
+          "note": "hand-written asm, shares its caller's frame: no EGA (0040:0087 zero) gives [bp-2] = 0; else mode 0eh, the 16-colour palette at cs 0x32f6, [bp-2] = 2, [bp-4] = 'ega.drv'"
         },
         "3e88": {
           "name": "set_bitmap_bit",
@@ -239,6 +234,19 @@
         "0c74": {"name": "_dsval", "note": "sbegin.asm's `_dsval_` startup word; the vendor's name so the #asm aztec_begin links against it"},
         "0c76": {"name": "_csval", "note": "sbegin.asm's `_csval_` startup word; the vendor's name so the #asm aztec_begin links against it"},
         "0c82": {"name": "bad8087", "note": "sbegin.asm's `bad8087` message ('8087/80287 is required!'); the vendor's name so the #asm aztec_begin links against it"}
+      },
+      "code_data_names": {
+        "2f36": {"name": "saved_video_mode", "note": "the video mode at startup (INT 10h AH=0Fh, bios_get_video_mode); ds_bios_video_loc_PHVR sets it back"},
+        "2f37": {"name": "saved_equip_byte", "note": "the BIOS equipment byte (0040:0010) before its video bits are cleared; ds_bios_video_loc_PHVR restores it"},
+        "2f38": {"name": "video_is_ega", "note": "1 when select_ega_driver picked EGA"},
+        "2f39": {"name": "video_is_vga", "note": "1 when select_vga_driver picked VGA"},
+        "2f3a": {"name": "video_is_cga", "note": "only cleared here, never set in DS; by the driver order (vga, ega, cga, herc, tandy) presumably CGA: unconfirmed"},
+        "2f3b": {"name": "video_is_herc", "note": "only cleared here, never set in DS; by the driver order presumably Hercules: unconfirmed"},
+        "313e": {"name": "vga_palette", "note": "256 RGB triples loaded by INT 10h AX=1012h"},
+        "34f6": {"name": "ega_palette", "note": "16 palette registers and the overscan colour, INT 10h AX=1002h"},
+        "3507": {"name": "vga_drv_name", "note": "'vga.drv': select_vga_driver leaves it at [bp-4]"},
+        "350f": {"name": "ega_drv_name", "note": "'ega.drv': select_ega_driver leaves it at [bp-4]; 'cga.drv', 'herc.drv', 'tandy.drv' follow"},
+        "3532": {"name": "drv_file_handle", "note": "DOS handle of the driver file while ds_dos_file_loc_SJIH/NKUS read it"}
       },
       "external_data": {
         "0x0410": {

@@ -56,11 +56,10 @@ class EngineSourceTest(unittest.TestCase):
 class DsavantPatchTest(unittest.TestCase):
     def test_patches_only_reshape_v42b_sources_for_cc(self):
         """The game links v4.2b's library unmodified (``make libcheck``), so
-        a patch only lets ``cc``'s ``#asm`` pass produce the bytes ``as``
-        made: a near ``jmp`` spelled out, an ``equ`` alias by its field."""
+        a patch only reshapes a source for the build: an ``equ`` alias by
+        its field, a renamed startup routine."""
         patches = vendor_patches('DSAVANT')
-        self.assertEqual(sorted(patches),
-                         ['aztec_begin', 'aztec_fexec', 'aztec_lfree', 'aztec_lud'])
+        self.assertEqual(sorted(patches), ['aztec_begin', 'aztec_fexec'])
         engine = MuxEngine(patches=patches)
         for label, patch in patches.items():
             self.assertEqual(patch['version'], 'v42b', label)

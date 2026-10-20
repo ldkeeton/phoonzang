@@ -372,6 +372,7 @@ def resplice_c(app, binary, check_only=False):
                 if hashlib.sha1(f.read()).hexdigest() == prev['out']:
                     continue
         func = cache.compile_source(app, label, entry, text)
+        spans_here = cache.data_spans(app, label, entry, text)
         # The .c compiles to exactly its fragment.  One that no longer does is
         # a real edit that moves code, which only a full build can relayout.
         if len(func.code) != span_len and not lenient:
@@ -470,7 +471,8 @@ def resplice_c(app, binary, check_only=False):
             bytes(final), start, label_map, local_labels, foreign_label_map,
             immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
-            linked=linked, skip=lead)
+            linked=linked, skip=lead, data_spans=spans_here,
+            label_offsets=[r['offset'] for r in label_records])
         head = _leading_lines(apath, str(label_map.get(first, label)), lead)
         if lead:
             # The leading lines already carry the labels up to the root.

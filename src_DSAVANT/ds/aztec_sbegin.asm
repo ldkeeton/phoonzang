@@ -156,9 +156,9 @@ aztec_impl_exit:
 ds_loc_QOUK:
     jmp far [cs:cseg_4d36 - IMAGE_BASE] ; 0x4e84
 @..aztec_sbegin.retip:
-    add byte [bx + si], al           ; 0x4e89
+    db 0x00, 0x00
 @..aztec_sbegin.retcs:
-    add byte [bx + si], al           ; 0x4e8b
+    db 0x00, 0x00
     pop word [cs:@..aztec_sbegin.retip - IMAGE_BASE] ; 0x4e8d
     pop word [cs:@..aztec_sbegin.retcs - IMAGE_BASE] ; 0x4e92
     pop ds                           ; 0x4e97

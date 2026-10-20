@@ -27,9 +27,9 @@ from lib.autogen import MARKER_C
 from lib.cachedirs import prebuild_dir
 
 from . import listing, objcache, sources
-from .compile import CompiledModule
+from .compile import CompiledModule, is_asm_module
 from .compile import VERSION
-from .mux import C_FLAGS, MuxEngine, is_asm, tool_flags
+from .mux import C_FLAGS, MuxEngine, is_asm
 from .objread import fixup_width
 
 _ASM_DIR = os.path.dirname(os.path.dirname(os.path.dirname(
@@ -63,9 +63,10 @@ def is_asm_entry(entry):
 def asm_stub(module_text):
     """C for a vendor assembly module: the whole module in one ``#asm`` block.
 
-    ``cc`` hands the block to the same ``as`` the library makefiles use, so
-    the module's equates, macros (``lmacros.h``) and neighbours come along,
-    and the whole module compiles to its fragment like any C module.
+    The build assembles the block with ``as``, as the library makefiles do
+    (:func:`lib.aztec.compile.asm_source`), so the module's equates, macros
+    (``lmacros.h``) and neighbours come along, and the whole module compiles
+    to its fragment like any C module.
     """
     return '#asm\n' + module_text.rstrip('\n') + '\n#endasm\n'
 
@@ -150,9 +151,11 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose,
     from . import compile as azc
     objcache_dir = os.path.join(prebuild_dir(project), 'objs')
     os.makedirs(objcache_dir, exist_ok=True)
+    from lib.sidecar.compiler import asm_flags
     from lib.sidecar.vendor import vendor_patches
     engine = MuxEngine(objcache_dir=objcache_dir,
-                       patches=vendor_patches(project))
+                       patches=vendor_patches(project),
+                       asm_flags=asm_flags(project))
 
     # Phase 1: batch-compile every candidate module not already cached.  One
     # DOSBox session per (compiler, includes) pair instead of one per module.
@@ -168,7 +171,7 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose,
     for index, (key, (version, filename, source, compiler)) in enumerate(
             requests.items()):
         if objcache.load(objcache_dir, key) is None:
-            flags = tool_flags(filename)
+            flags = engine.tool_flags(filename)
             missing.append((key, f'T{index:04d}', source, compiler, version,
                             flags, 'asm' if is_asm(filename) else 'c'))
     if missing:
@@ -281,9 +284,17 @@ def default_entry(label, project):
 def _flags_for(entry):
     if entry.get('flags') is not None:
         return tuple(entry['flags'])
-    if is_asm_entry(entry):
-        return C_FLAGS      # the seed is the module wrapped in ``#asm``
-    return tool_flags(entry['file'])
+    return C_FLAGS
+
+
+def _tool(project, entry, source_text):
+    """``(kind, flags)`` that build *source_text*: ``as`` with the sidecar's
+    ``compiler_flags.asm`` for C made of one ``#asm`` block (a wrapped vendor
+    module or a hand-written one), else ``cc`` with the routine's flags."""
+    if is_asm_module(source_text):
+        from lib.sidecar.compiler import asm_flags
+        return 'asm', asm_flags(project)
+    return 'c', _flags_for(entry)
 
 
 def _cname(label, entry=None):
@@ -300,9 +311,10 @@ def own_key(label, entry=None):
     return normalize(_cname(label, entry))
 
 
-def _module_key(entry, source_text):
+def _module_key(project, entry, source_text):
     return objcache.module_key(entry['includes'], entry['file'],
-                               entry['compiler'], _flags_for(entry),
+                               entry['compiler'],
+                               _tool(project, entry, source_text)[1],
                                source_text)
 
 
@@ -323,12 +335,13 @@ def _compile_seeds(engine, project, binary, functions, objcache_dir,
         text = seed_source_text(project, binary, label, entry, engine)
         if text is None:
             continue
-        key = _module_key(entry, text)
+        key = _module_key(project, entry, text)
+        kind, flags = _tool(project, entry, text)
         requests.setdefault(
             key, (f'X{len(requests):04d}', text, entry['compiler'],
-                  entry['includes'], _flags_for(entry)))
-    missing = [(key, dos, text, compiler, includes, flags)
-               for key, (dos, text, compiler, includes, flags)
+                  entry['includes'], flags, kind))
+    missing = [(key, dos, text, compiler, includes, flags, kind)
+               for key, (dos, text, compiler, includes, flags, kind)
                in requests.items()
                if _stale(objcache.load(objcache_dir, key))]
     if missing:
@@ -366,6 +379,13 @@ def compile_source(project, label, entry, source_text):
     return compile_source_module(project, label, entry, source_text)[1]
 
 
+def data_spans(project, label, entry, source_text):
+    """``[(start, end)]``: the module's own data directives, from its ``as``
+    listing (:func:`lib.aztec.listing.data_spans`); none for C ``cc`` built."""
+    module = compile_source_module(project, label, entry, source_text)[0]
+    return listing.data_spans(module.listing)
+
+
 def _stale(module):
     """True for a cache miss, or a module cached before its segment and its
     data were kept (the build needs both)."""
@@ -379,12 +399,13 @@ def compile_source_module(project, label, entry, source_text):
     (:meth:`lib.aztec.compile.CompiledModule.whole`)."""
     from . import compile as azc
 
-    key = _module_key(entry, source_text)
+    key = _module_key(project, entry, source_text)
     module = objcache.load(objs_dir(project), key)
     if _stale(module):
+        kind, flags = _tool(project, entry, source_text)
         module = azc.compile_module(
             source_text, label, compiler=entry['compiler'],
-            includes=entry['includes'], flags=_flags_for(entry))
+            includes=entry['includes'], flags=flags, kind=kind)
         # Keep it: an unedited seed hits this cache on every later build.
         objcache.save(objs_dir(project), key, module)
     if isinstance(module, Exception):

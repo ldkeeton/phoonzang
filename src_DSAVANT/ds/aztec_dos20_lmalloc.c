@@ -40,8 +40,7 @@ lmret:
 	int	21h
 	jnc	other_return
 	mov	ax,-1
-	db	0e9h		;jmp exit (near, as `as` assembles it)
-	dw	2
+	jmp	exit
 other_return:
 	xor	ax,ax
 exit:

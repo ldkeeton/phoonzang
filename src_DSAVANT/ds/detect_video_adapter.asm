@@ -1,13 +1,13 @@
 ; auto-generated
-bios_get_video_mode:
+detect_video_adapter:
     mov ah, 0xf                      ; 0x30f7
     int 0x10 ; BIOS video: get video mode
-    mov byte [cs:cseg_2f36 - IMAGE_BASE], al ; 0x30fb
+    mov byte [cs:saved_video_mode - IMAGE_BASE], al ; 0x30fb
     mov ax, word [bp + 0x4]          ; 0x30ff
     and ax, strict word 1            ; 0x3102
-    jne short @..bios_get_video_mode.l1 ; 0x3105
-    jmp near ds_loc_QOUG             ; 0x3107
-@..bios_get_video_mode.l1:
+    jne short @..detect_video_adapter.l1 ; 0x3105
+    jmp near select_ega_driver       ; 0x3107
+@..detect_video_adapter.l1:
     mov ax, 0                        ; 0x310a
     push ds                          ; 0x310d
     mov ds, ax                       ; 0x310e
@@ -15,23 +15,24 @@ bios_get_video_mode:
     mov al, byte [bx]                ; 0x3113
     pop ds                           ; 0x3115
     or al, al                        ; 0x3116
-    je short @..bios_get_video_mode.l3 ; 0x3118
+    je short @..detect_video_adapter.l3 ; 0x3118
     xor bx, bx                       ; 0x311a
     mov ax, 0x1a00                   ; 0x311c
     int 0x10 ; BIOS video
     cmp bl, 7                        ; 0x3121
-    je short @..bios_get_video_mode.l2 ; 0x3124
+    je short @..detect_video_adapter.l2 ; 0x3124
     cmp bh, 7                        ; 0x3126
-    je short @..bios_get_video_mode.l2 ; 0x3129
+    je short @..detect_video_adapter.l2 ; 0x3129
     cmp bl, 8                        ; 0x312b
-    je short @..bios_get_video_mode.l2 ; 0x312e
+    je short @..detect_video_adapter.l2 ; 0x312e
     cmp bh, 8                        ; 0x3130
-    jne short @..bios_get_video_mode.l3 ; 0x3133
-@..bios_get_video_mode.l2:
-    jmp near ds_loc_GVHR             ; 0x3135
-@..bios_get_video_mode.l3:
+    jne short @..detect_video_adapter.l3 ; 0x3133
+@..detect_video_adapter.l2:
+    jmp near select_vga_driver       ; 0x3135
+@..detect_video_adapter.l3:
     mov word [bp - 0x0002], 0        ; 0x3138
     ret                              ; 0x313d
+vga_palette:
 
     db 0x00, 0x00, 0x00
     db '???888333...)))$$$   '
@@ -88,80 +89,4 @@ bios_get_video_mode:
     db 0x07, 0x18, 0x04, 0x04, 0x30, 0x29, 0x3f, 0x29, 0x19, 0x3f, 0x20, 0x00, 0x3f, 0x1c, 0x00, 0x38
     db 0x18, 0x00, 0x30, 0x14, 0x00, 0x28, 0x10, 0x00, 0x20, 0x0c, 0x00, 0x18, 0x08, 0x00, 0x10, 0x18
     db 0x18, 0x20
-
-ds_loc_GVHR:
-    mov byte [cs:cseg_2f3a - IMAGE_BASE], 0 ; 0x343e
-    mov byte [cs:cseg_2f3b - IMAGE_BASE], 0 ; 0x3444
-    mov byte [cs:cseg_2f38 - IMAGE_BASE], 0 ; 0x344a
-    mov byte [cs:cseg_2f39 - IMAGE_BASE], 1 ; 0x3450
-    push es                          ; 0x3456
-    sub ax, ax                       ; 0x3457
-    mov es, ax                       ; 0x3459
-    mov dl, byte [es:bios_data_0410] ; 0x345b
-    mov byte [cs:cseg_2f37 - IMAGE_BASE], dl ; 0x3460
-    and dl, 0xcf                     ; 0x3465
-    mov byte [es:bios_data_0410], dl ; 0x3468
-    pop es                           ; 0x346d
-    mov ax, 0x13                     ; 0x346e
-    int 0x10 ; BIOS video
-    mov ax, cs                       ; 0x3473
-    mov es, ax                       ; 0x3475
-    mov dx, 0x2f3e                   ; 0x3477
-    xor bx, bx                       ; 0x347a
-    mov cx, 0x100                    ; 0x347c
-    mov ax, 0x1012                   ; 0x347f
-    int 0x10 ; BIOS video
-    mov word [bp - 0x0002], 1        ; 0x3484
-    mov bx, cseg_3507 - IMAGE_BASE   ; 0x3489
-    mov word [bp - 0x0004], bx       ; 0x348c
-    ret                              ; 0x348f
-ds_loc_QOUG:
-    mov ax, 0                        ; 0x3490
-    push ds                          ; 0x3493
-    mov ds, ax                       ; 0x3494
-    mov bx, 0x487                    ; 0x3496
-    mov al, byte [bx]                ; 0x3499
-    pop ds                           ; 0x349b
-    or al, al                        ; 0x349c
-    je short @..ds_loc_QOUG.l1       ; 0x349e
-    jmp near @..ds_loc_QOUG.l2       ; 0x34a0
-@..ds_loc_QOUG.l1:
-    mov word [bp - 0x0002], 0        ; 0x34a3
-    ret                              ; 0x34a8
-@..ds_loc_QOUG.l2:
-    mov byte [cs:cseg_2f3a - IMAGE_BASE], 0 ; 0x34a9
-    mov byte [cs:cseg_2f3b - IMAGE_BASE], 0 ; 0x34af
-    mov byte [cs:cseg_2f38 - IMAGE_BASE], 1 ; 0x34b5
-    mov byte [cs:cseg_2f39 - IMAGE_BASE], 0 ; 0x34bb
-    push es                          ; 0x34c1
-    sub ax, ax                       ; 0x34c2
-    mov es, ax                       ; 0x34c4
-    mov dl, byte [es:bios_data_0410] ; 0x34c6
-    mov byte [cs:cseg_2f37 - IMAGE_BASE], dl ; 0x34cb
-    and dl, 0xcf                     ; 0x34d0
-    mov byte [es:bios_data_0410], dl ; 0x34d3
-    pop es                           ; 0x34d8
-    mov ax, 0xe                      ; 0x34d9
-    int 0x10 ; BIOS video
-    mov ax, cs                       ; 0x34de
-    mov es, ax                       ; 0x34e0
-    mov dx, 0x32f6                   ; 0x34e2
-    mov ax, 0x1002                   ; 0x34e5
-    int 0x10 ; BIOS video
-    mov word [bp - 0x0002], 2        ; 0x34ea
-    mov bx, cseg_350f - IMAGE_BASE   ; 0x34ef
-    mov word [bp - 0x0004], bx       ; 0x34f2
-    ret                              ; 0x34f5
-
-    db 0x00, 0x17, 0x11, 0x15, 0x14, 0x16, 0x12, 0x13, 0x10, 0x07, 0x01, 0x05, 0x04, 0x06, 0x02, 0x03
-    db 0x00
-
-cseg_3507:
-    db 'vga.drv', 0
-cseg_350f:
-
-    db 'ega.drv', 0
-    db 'cga.drv', 0
-    db 'herc.drv', 0
-    db 'tandy.drv', 0
 

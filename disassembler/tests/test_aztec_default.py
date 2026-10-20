@@ -39,6 +39,7 @@ class DefaultEntryTests(unittest.TestCase):
     def test_malformed_block_rejected(self):
         for bad in ({'compiler_flags': {'default': 'x'}},
                     {'compiler_flags': {'prefixes': {'a': 'x'}}},
+                    {'compiler_flags': {'asm': '-l'}},
                     {'compiler_flags': []}):
             with self.assertRaises(SidecarError):
                 _validate({'app': 'X', **bad})

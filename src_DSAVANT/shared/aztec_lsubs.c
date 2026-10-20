@@ -151,8 +151,7 @@ shiftit:
 	add	cx,1
 	adc	bx,0
 	mov	ax,es
-	db	0e9h		;jmp answer_ok (near, as `as` assembles it)
-	dw	18
+	jmp	answer_ok
 normal_path:
 	mov	dx,bx		;high half
 	mov	ax,cx		;restore quotient to ax for return

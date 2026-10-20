@@ -156,9 +156,9 @@ aztec_impl_exit:
 loc_HVSK:
     jmp far [cs:cseg_35ce - IMAGE_BASE] ; 0x371c
 @..aztec_sbegin.retip:
-    add byte [bx + si], al           ; 0x3721
+    db 0x00, 0x00
 @..aztec_sbegin.retcs:
-    add byte [bx + si], al           ; 0x3723
+    db 0x00, 0x00
     pop word [cs:@..aztec_sbegin.retip - IMAGE_BASE] ; 0x3725
     pop word [cs:@..aztec_sbegin.retcs - IMAGE_BASE] ; 0x372a
     pop ds                           ; 0x372f

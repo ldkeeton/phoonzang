@@ -142,3 +142,52 @@ def annotate(listing, func):
         if start < off < end:
             names[off - start] = _IDENT_RE.sub('_', found[0])
     return {'labels': names, 'comments': comments}
+
+
+_DATA_RE = re.compile(r'^(?:[A-Za-z_$@?][\w$@?]*\s+)?(db|dw|dd)\b', re.I)
+
+
+def data_spans(listing):
+    """``[(start, end)]`` code-segment offsets that data directives emitted.
+
+    A routine's own tables (a palette after its ``ret``) are bytes, not
+    instructions, so the build renders them as ``db``.  A long ``db`` wraps
+    onto unnumbered listing lines; it runs to the next listed offset.
+    Consecutive directives form one span unless a label starts the next.
+    """
+    spans = []
+    stack = []
+    open_at = None          # (offset, labelled) of the directive being read
+    labelled = False        # a label line precedes the next directive
+    for raw in (listing or '').splitlines():
+        m = _LINE_RE.match(raw)
+        if not m:
+            continue
+        off = int(m.group(1), 16)
+        text = m.group(5)
+        body = text.strip()
+        if open_at is not None:
+            at, named = open_at
+            if off > at:
+                if spans and spans[-1][1] == at and not named:
+                    spans[-1] = (spans[-1][0], off)
+                else:
+                    spans.append((at, off))
+            open_at = None
+        seg = _SEGMENT_RE.match(text)
+        if seg and not m.group(4):
+            if seg.group(2).lower() == 'segment':
+                stack.append(seg.group(1))
+            elif stack:
+                stack.pop()
+            continue
+        if not m.group(2):
+            labelled = labelled or bool(_LABEL_RE.match(body))
+            continue
+        directive = _DATA_RE.match(body)
+        if directive and _is_code_segment(stack):
+            # ``retip dw 0`` names its own bytes.
+            own = not body.lower().startswith(directive.group(1).lower())
+            open_at = (off, labelled or own)
+        labelled = False
+    return spans

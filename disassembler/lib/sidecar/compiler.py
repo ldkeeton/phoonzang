@@ -12,11 +12,12 @@ def _validate_compiler_flags(block):
 
     prefixes = block.get('prefixes', {}) if isinstance(block, dict) else None
     if (not isinstance(block, dict) or not flag_list(block.get('default', []))
+            or not flag_list(block.get('asm', []))
             or not isinstance(prefixes, dict)
             or not all(isinstance(k, str) and flag_list(v)
                        for k, v in prefixes.items())):
-        raise SidecarError('"compiler_flags" must be an object with a '
-                           '"default" list and a "prefixes" map of lists')
+        raise SidecarError('"compiler_flags" must be an object with "default" '
+                           'and "asm" lists and a "prefixes" map of lists')
 
 
 def matching_prefix(project, label):
@@ -46,3 +47,18 @@ def compiler_flags(project, label):
             return list(prefixes[prefix])
     default = block.get('default')
     return list(default) if default is not None else None
+
+
+def asm_flags(project):
+    """The ``as`` flags from the sidecar's ``compiler_flags.asm``.
+
+    They build every assembly module: a vendor ``.asm`` and a C file made of
+    one ``#asm`` block alike (:func:`lib.aztec.compile.asm_source`).
+    """
+    from .loader import load
+
+    block = (load(project) or {}).get('compiler_flags') or {}
+    if block.get('asm') is None:
+        raise SidecarError(f'{project}: "compiler_flags" has no "asm" list '
+                           'for assembling #asm modules')
+    return tuple(block['asm'])

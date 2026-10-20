@@ -9,7 +9,7 @@ ds_dos_file_loc_SJIH:
     mov dx, word [bp - 0x0004]       ; 0x353e
     int 0x21 ; DOS open file handle
     jb short @..ds_dos_file_loc_SJIH.l3 ; 0x3543
-    mov word [cs:cseg_3532 - IMAGE_BASE], ax ; 0x3545
+    mov word [cs:drv_file_handle - IMAGE_BASE], ax ; 0x3545
     mov bx, ax                       ; 0x3549
     mov ah, 0x3f                     ; 0x354b
     mov cx, 0x5300                   ; 0x354d
@@ -18,7 +18,7 @@ ds_dos_file_loc_SJIH:
     mov dx, 0x100                    ; 0x3557
     int 0x21 ; DOS read file (handle)
     mov ah, 0x3e                     ; 0x355c
-    mov bx, word [cs:cseg_3532 - IMAGE_BASE] ; 0x355e
+    mov bx, word [cs:drv_file_handle - IMAGE_BASE] ; 0x355e
     int 0x21 ; DOS close file handle
     mov ax, cs                       ; 0x3565
     mov es, ax                       ; 0x3567

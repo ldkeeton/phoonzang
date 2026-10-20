@@ -51,8 +51,9 @@ def _validate_binary(name, info):
         _validate_external_data(info['external_data'],
                                 f'binaries.{name}.external_data')
 
-    if 'data_names' in info:
-        _validate_data_names(info['data_names'], f'binaries.{name}.data_names')
+    for block in ('data_names', 'code_data_names'):
+        if block in info:
+            _validate_data_names(info[block], f'binaries.{name}.{block}')
 
     _validate_corpus(info, f'binaries.{name}')
 
@@ -131,6 +132,7 @@ def per_binary(sidecar, short_name):
         'immediate_labels': {},
         'external_data': {},
         'data_names': {},
+        'code_data_names': {},
         'jump_tables': [],
         'code_tables': [],
         'data_pointers': _pointer_assertions(
@@ -161,6 +163,8 @@ def per_binary(sidecar, short_name):
             result['immediate_labels'] = b.get('immediate_labels', {})
             result['external_data'] = _external_data_map(b.get('external_data', {}))
             result['data_names'] = _data_names_map(b.get('data_names', {}))
+            result['code_data_names'] = _data_names_map(
+                b.get('code_data_names', {}))
             result['jump_tables'] = b.get('jump_tables', [])
             result['code_tables'] = b.get('code_tables', [])
             result['ghidra_base_offset'] = b.get('ghidra_base_offset', 0)
@@ -219,4 +223,6 @@ def _expected_use(result, short_name):
         use.expect('external_data', f'0x{offset:04x}')
     for offset in result['data_names']:
         use.expect('data_names', f'{offset:04x}')
+    for offset in result['code_data_names']:
+        use.expect('code_data_names', f'{offset:04x}')
     return use

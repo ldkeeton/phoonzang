@@ -22,20 +22,14 @@ from .compile import VERSION
 from .objread import fixup_width
 
 #: The library makefiles' recipe (small model): ``cc +$(MODEL) -n`` for C and
-#: ``as -dMODEL=$(AMODEL)`` for assembly, ``MODEL=``/``AMODEL=0``.  Their
-#: final ``sqz`` only packs the object, never changing a code byte.  ``-l``
-#: additionally writes the listing used for annotations.
+#: ``as -dMODEL=$(AMODEL)`` for assembly (the sidecar's ``compiler_flags.asm``),
+#: ``MODEL=``/``AMODEL=0``.  Their final ``sqz`` only packs the object, never
+#: changing a code byte.
 C_FLAGS = ('-n',)
-ASM_FLAGS = ('-dMODEL=0', '-l')
 
 
 def is_asm(filename):
     return filename.lower().endswith('.asm')
-
-
-def tool_flags(filename):
-    """Switches for the tool (``cc`` or ``as``) that builds *filename*."""
-    return ASM_FLAGS if is_asm(filename) else C_FLAGS
 
 
 def normalize(name):
@@ -89,8 +83,10 @@ class Match:
 
 
 class MuxEngine:
-    def __init__(self, objcache_dir=None, patches=None):
+    def __init__(self, objcache_dir=None, patches=None, asm_flags=None):
         self.objcache_dir = objcache_dir
+        # Sidecar ``compiler_flags.asm``: how ``as`` builds a vendor ``.asm``.
+        self.asm_flags = asm_flags
         # Sidecar ``vendor_patches``: how the game's copy of a library asm
         # routine differs from the vendor source, keyed by (version, file).
         self._patches = {(p.get('version', VERSION), p['file'].lower()): p
@@ -100,7 +96,7 @@ class MuxEngine:
         self.errors = []
 
     def _compile(self, version, filename, source, compiler):
-        flags = tool_flags(filename)
+        flags = self.tool_flags(filename)
         key = (version, filename, compiler, flags)
         cached = self._modules.get(key)
         if cached is not None:
@@ -159,9 +155,17 @@ class MuxEngine:
             for filename in sources.asm_definition_files(VERSION, name):
                 yield name, VERSION, filename, self.source(VERSION, filename), VERSION
 
+    def tool_flags(self, filename):
+        """Switches for the tool (``cc`` or ``as``) that builds *filename*."""
+        if not is_asm(filename):
+            return C_FLAGS
+        if self.asm_flags is None:
+            raise ValueError(f'no "as" flags to assemble {filename}')
+        return tuple(self.asm_flags)
+
     def compile_key(self, version, filename, source, compiler):
         return objcache.module_key(version, filename, compiler,
-                                   tool_flags(filename), source)
+                                   self.tool_flags(filename), source)
 
     def resolve(self, symbol, data, gstart):
         """Return a list of :class:`Match` candidates for *symbol*.

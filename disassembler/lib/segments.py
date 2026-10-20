@@ -147,6 +147,9 @@ class SegmentModel:
         # Known names for data-segment offsets, ``{offset: Symbol}`` (the
         # runtime library's ``errno``); everything else gets ``dseg_<off>``.
         self.data_names = {}
+        # Sidecar names for data the code reaches through CS, ``{file offset:
+        # Symbol}``; everything else gets ``cseg_<file>``.
+        self.cseg_names = {}
 
     def resolve(self, segment, offset):
         """Resolve *segment*:*offset* to a concrete location.

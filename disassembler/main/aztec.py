@@ -129,6 +129,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'code': func.code,
             'fixups': [(fx.offset, fixup_width(fx.kind))
                        for fx in func.fixups],
+            'data_spans': cache.data_spans(project, module, entry, text),
             # The module's first byte, and where its first routine starts.
             'start': span.start, 'lead': span.lead,
             'length': span.length,
@@ -165,6 +166,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'code': func.code,
             'fixups': [(fx.offset, fixup_width(fx.kind))
                        for fx in func.fixups],
+            'data_spans': cache.data_spans(project, label, entry, text),
             'length': (following[0] - start) if following else len(func.code),
             'source_version': entry['source_version'],
             'file': entry['file'], 'compiler': entry['compiler'],

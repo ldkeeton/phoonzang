@@ -7,14 +7,15 @@ from .errors import SidecarError
 from .offsets import _parse_offset
 
 #: The build's address spelling of a data object (``dseg_8482``/``bss_8482``).
-_ADDRESS_NAME = re.compile(r'(?:dseg|bss)_[0-9a-f]{4}$')
+_ADDRESS_NAME = re.compile(r'(?:dseg|bss|cseg)_[0-9a-f]{4,5}$')
 
 
 def _validate_data_names(block, where):
     """``data_names``: ``{DS offset: {"name": ..., "note": ...}}``.
 
     The offset is the object's DS offset (what an operand encodes), not a
-    file offset.  A name must be an identifier, unique in the block, and not
+    file offset.  ``code_data_names`` has the same shape, keyed by the file
+    offset of data the code reaches through CS.  A name must be an identifier, unique in the block, and not
     an address spelling, which would read as the generated name of some other
     object.
     """

@@ -537,17 +537,17 @@ bss_830a  equ __zbss_830a - __zdseg_start
 bss_830c  equ __zbss_830c - __zdseg_start
 %include "ds/main.asm"                     ; 0x2dd5
 
-cseg_2f36:
+saved_video_mode:
     db 0x00
-cseg_2f37:
+saved_equip_byte:
     db 0x00
-cseg_2f38:
+video_is_ega:
     db 0x00
-cseg_2f39:
+video_is_vga:
     db 0x00
-cseg_2f3a:
+video_is_cga:
     db 0x00
-cseg_2f3b:
+video_is_herc:
     times 5 db 0
 cseg_2f40:
     db 0x80, 0x41, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x40, 0x01
@@ -702,11 +702,14 @@ cseg_30e0:
     db 0x2f, 0x75
 %include "ds/ds_leaf_loc_OIUO.asm"         ; 0x30e2
 
-; bios_data_0410 equ 0x0410
-%include "ds/bios_get_video_mode.asm"      ; 0x30f7
+%include "ds/detect_video_adapter.asm"     ; 0x30f7
 
-cseg_3532:
-    db 0x00, 0x00
+; bios_data_0410 equ 0x0410
+%include "ds/select_vga_driver.asm"        ; 0x343e
+
+; bios_data_0410 equ 0x0410
+%include "ds/select_ega_driver.asm"        ; 0x3490
+
 %include "ds/ds_dos_file_loc_SJIH.asm"     ; 0x3534
 
 %include "ds/ds_dos_con_loc_OQQL.asm"      ; 0x35b8

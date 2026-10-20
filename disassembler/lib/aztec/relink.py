@@ -26,7 +26,7 @@ linker and the emitted source stays valid when layout moves.
 
 import re
 
-from lib.symtab import Kind, Source, Symbol
+from lib.symtab import Kind, Source, Space, Symbol
 
 from .objread import external_label
 
@@ -86,8 +86,16 @@ class SymbolIndex:
         self.data = {}
         for addr, name in (data_labels or {}).items():
             if isinstance(name, str):
-                self.data.setdefault(name, addr)
+                self._add_data(name, addr)
         for name, value in (mem_equ or {}).items():
+            self._add_data(name, value)
+
+    def _add_data(self, name, value):
+        # Data the code reaches through CS (``drv_file_handle``) is a file
+        # offset like a code label, its value as an operand the CS offset.
+        if getattr(name, 'space', None) is Space.CSEG:
+            self.code.setdefault(name, value)
+        else:
             self.data.setdefault(name, value)
 
 

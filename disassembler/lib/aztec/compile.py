@@ -284,11 +284,12 @@ def available(version=VERSION):
             and shutil.which(DOSBOX) is not None)
 
 
-# A C file whose only code is one ``#asm`` block: a vendor assembly module
-# wrapped so ``cc`` builds it (lib.aztec.cache.asm_stub).
+# A C file whose only code is one ``#asm`` block: an assembly module wrapped
+# in C (lib.aztec.cache.asm_stub, or a hand-written routine).
 _ASM_MODULE = re.compile(
     r'\A(?:\s|/\*.*?\*/)*^[ \t]*#asm\b.*?^[ \t]*#endasm\b(?:\s|/\*.*?\*/)*\Z',
     re.S | re.M)
+_ASM_BODY = re.compile(r'^[ \t]*#asm\b[^\n]*\n(.*?)^[ \t]*#endasm\b', re.S | re.M)
 
 
 def is_asm_module(source_text):
@@ -298,6 +299,20 @@ def is_asm_module(source_text):
     so the module is read as an assembled one.
     """
     return bool(_ASM_MODULE.match(source_text))
+
+
+def asm_source(source_text):
+    """The assembly ``as`` builds from *source_text*.
+
+    A C file made of one ``#asm`` block goes to ``as`` itself, not ``cc``:
+    ``cc``'s ``#asm`` pass squeezes every forward ``jmp`` to short (``near
+    ptr`` included), while ``as`` makes its two passes without squeezing, as
+    the library makefiles and the game's own assembly were built.  Any other
+    text is already assembly.
+    """
+    if is_asm_module(source_text):
+        return _ASM_BODY.search(source_text).group(1)
+    return source_text
 
 
 def _dos_name(name):
@@ -319,11 +334,14 @@ def compile_module(source_text, name, *, compiler=VERSION, includes=None,
     """Compile *source_text* and return a :class:`CompiledModule`.
 
     ``kind='asm'`` assembles a hand-written Manx ``.ASM`` module with ``as``
-    instead of compiling C with ``cc``.
+    instead of compiling C with ``cc``; the module may be C made of one
+    ``#asm`` block (:func:`asm_source`).
 
     ``compiler`` selects the code generator; ``includes`` selects the header
     tree (defaults to the same version as the compiler).
     """
+    if kind == 'asm':
+        source_text = asm_source(source_text)
     inc_version = includes or compiler
     cbin = _compiler_dir(compiler)
     incdir = sources.include_dir(inc_version)
@@ -377,8 +395,7 @@ def compile_module(source_text, name, *, compiler=VERSION, includes=None,
             raise err
 
         dump = attach_locals(parse_obd(_read(obd_path)), _read_bytes(obj_path))
-        result = _build_module(module, omf_path, dump, compiler,
-                               'asm' if is_asm_module(source_text) else kind)
+        result = _build_module(module, omf_path, dump, compiler, kind)
         result.listing = _read(os.path.join(work, f'{module}.LST'))
         result.log = log + cc_log
         result.cc_log = cc_log
@@ -437,6 +454,8 @@ def compile_batch(requests, *, verbose=False):
     groups = {}
     for key, dos_name, source_text, compiler, includes, flags, *rest in requests:
         kind = rest[0] if rest else 'c'
+        if kind == 'asm':
+            source_text = asm_source(source_text)
         groups.setdefault((compiler, includes, tuple(flags), kind), []).append(
             (key, dos_name, source_text))
     results = {}
@@ -474,11 +493,8 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
         lines = []
         names = []
         converter = _obj_converter(compiler)
-        asm_labels = set()
         for key, dos_name, source_text in members:
             dos = dos_name.upper()
-            if is_asm_module(source_text):
-                asm_labels.add(key)
             ext = 'ASM' if kind == 'asm' else 'C'
             with open(os.path.join(work, f'{dos}.{ext}'), 'w') as f:
                 f.write(source_text)
@@ -521,8 +537,7 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
                 dump = attach_locals(parse_obd(_read(obd_path)),
                                      _read_bytes(obj_path))
                 results[key] = _build_module(
-                    dos, omf_path, dump, compiler,
-                    'asm' if key in asm_labels else kind)
+                    dos, omf_path, dump, compiler, kind)
                 results[key].listing = _read(os.path.join(work, f'{dos}.LST'))
             elif os.path.exists(cc_path) and os.path.getsize(cc_path) > 0:
                 results[key] = AztecCompileError(
