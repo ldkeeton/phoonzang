@@ -1,5 +1,6 @@
 """Per-binary sidecar validation and lookup."""
 
+from .compiler import _validate_compiler_flags
 from .constants import _BINARY_TYPES, _IDENTIFIER
 from .data_names import _data_names_map, _validate_data_names
 from .errors import SidecarError
@@ -50,6 +51,9 @@ def _validate_binary(name, info):
     if 'external_data' in info:
         _validate_external_data(info['external_data'],
                                 f'binaries.{name}.external_data')
+
+    _validate_compiler_flags(info.get('compiler_flags'),
+                             f'binaries.{name}.compiler_flags', asm=False)
 
     for block in ('data_names', 'code_data_names'):
         if block in info:

@@ -393,7 +393,13 @@ async function makeC(uri) {
     const table = shared ? 'the top-level `routines` object' : `\`binaries.${where.binary}.function_names\``;
 
     const sidecar = readJson(sidecarPath(where.project)) || {};
-    const flags = sidecar.compiler_flags || {};
+    // A binary's own ``compiler_flags`` (``default``/``prefixes``) override the project's.
+    const projectFlags = sidecar.compiler_flags || {};
+    const ownFlags = ((sidecar.binaries || {})[where.binary] || {}).compiler_flags || {};
+    const flags = {
+        default: ownFlags.default || projectFlags.default,
+        prefixes: { ...(projectFlags.prefixes || {}), ...(ownFlags.prefixes || {}) },
+    };
     // An overlay or shared routine runs in the host's data segment, so its data names are
     // the host's; the host is `ds` when present, else the first MZ (lib/link.py host_name).
     const bins = sidecar.binaries || {};

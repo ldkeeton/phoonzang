@@ -300,6 +300,10 @@
     },
     "vinstall": {
       "file": "VINSTALL.EXE",
+      "compiler_flags": {
+        "default": ["-n"],
+        "note": "Built without +b: its own routines open with push bp/mov bp,sp, not DS's mov ax,N/call csav (loc_TUNS, loc_JTRN_03b3, loc_JJNP_0815 compile byte-exact with -n)"
+      },
       "force_data": [
         {"start": "2a23", "end": "2a26", "note": "fexec.asm's code-segment save_ss/save_sp words just before aztec_fexec (0x2a27), not code"},
         {"start": "3721", "end": "373a", "note": "sbegin.asm's retip/retcs words and the never-called $dbgentry/caller debugger entry after the exitad jmp: kept as bytes, as before that jmp was decoded"}
@@ -316,17 +320,45 @@
       "start_offset": 512,
       "entry_symbol": "aztec_begin",
       "function_names": {
-        "361d": {
-          "name": "aztec_fltinit",
-          "note": "c.lib's non-float $fltinit (`clc; ret`, too short for a signature), called by $begin; named so the #asm aztec_begin links against it"
+        "00b2": {
+          "name": "int_to_str",
+          "note": "(n, buf): writes n in decimal into buf, with a leading - when negative, and returns buf"
+        },
+        "01b3": {
+          "name": "put_int_at",
+          "note": "(row, col, n): bios_set_cursor, int_to_str into a 255-byte buffer, bios_put_text"
+        },
+        "020f": {
+          "name": "put_text_at",
+          "note": "(row, col, s): bios_set_cursor, then bios_put_text"
+        },
+        "0615": {
+          "name": "parse_long",
+          "note": "(s): returns atol(s); no caller"
+        },
+        "0b12": {
+          "name": "next_sound_device",
+          "note": "(n): steps n to the next of the 8 sound_device_names (mod 8), shows it at row 0x12 col 0x29 and returns it"
+        },
+        "2351": {
+          "name": "bios_set_cursor",
+          "note": "(row, col): INT 10h AH=2 on page 0"
+        },
+        "2421": {
+          "name": "bios_put_text",
+          "note": "(s): writes s at the cursor through INT 10h AH=9 in the text attribute (bss_2644, 0x1f from loc_VRLL); a newline moves to column 0 of the next row"
+        },
+        "2b86": {
+          "name": "aztec_flsh_",
+          "note": "v3.40 putc.c output flush; the v5.2a _filbuf signature matched it on a shared 10-byte epilogue only"
         },
         "353b": {
           "name": "aztec_noper",
           "note": "croot.c's noper(), `return 0;`: the default `cls_` exit hook (file 0x373b) until putc.c installs closall"
         },
-        "2b86": {
-          "name": "aztec_flsh_",
-          "note": "v3.40 putc.c output flush; the v5.2a _filbuf signature matched it on a shared 10-byte epilogue only"
+        "361d": {
+          "name": "aztec_fltinit",
+          "note": "c.lib's non-float $fltinit (`clc; ret`, too short for a signature), called by $begin; named so the #asm aztec_begin links against it"
         }
       },
       "fingerprint-start": "fb5d5fd11d5fdc063d401656b35c0a397e10e3e236f8f29430d4e25ff30bb79d",
@@ -335,6 +367,7 @@
         {"offset": "3283", "space": "cs", "note": "format.asm's `mov di,offset nofltmsg` (' -lm first'): a CS string after the conversion table (file 0x308d)"}
       ],
       "data_names": {
+        "00a4": {"name": "sound_device_names", "note": "char *[8]: the sound-device menu ('PC INTERNAL SPEAKER' ... 'NONE'), cycled by next_sound_device"},
         "252e": {"name": "_ttrd", "note": "Aztec console read vector (io.asm's `_ttrd`); the vendor's name so the #asm aztec_write links against it"},
         "2530": {"name": "_ttwr", "note": "Aztec console write vector (io.asm's `_ttwr`); the vendor's name so the #asm aztec_write links against it"},
         "24d8": {"name": "_dsval", "note": "sbegin.asm's `_dsval_` startup word; the vendor's name so the #asm aztec_begin links against it"},

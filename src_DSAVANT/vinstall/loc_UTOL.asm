@@ -65,7 +65,7 @@ loc_UTOL:
     push ax                          ; 0x0cc4
     mov ax, 0xd                      ; 0x0cc5
     push ax                          ; 0x0cc8
-    call loc_STSN_040f               ; 0x0cc9
+    call put_text_at                 ; 0x0cc9
     add sp, byte 6                   ; 0x0ccc
     mov ax, word [bp + 0x4]          ; 0x0ccf
     mov sp, bp                       ; 0x0cd2

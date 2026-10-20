@@ -365,7 +365,7 @@ def resplice_c(app, binary, check_only=False):
         apath = where(label, '.asm')
         # The tool and flags too: the entry carries none, they come from the
         # sidecar's ``compiler_flags`` by name.
-        tool = cache._tool(app, label, text)
+        tool = cache._tool(app, binary, label, text)
         in_stamp = hashlib.sha1(
             (env.hexdigest() + json.dumps(entry, sort_keys=True)
              + repr(tool) + text)
@@ -375,8 +375,8 @@ def resplice_c(app, binary, check_only=False):
             with open(apath, 'rb') as f:
                 if hashlib.sha1(f.read()).hexdigest() == prev['out']:
                     continue
-        func = cache.compile_source(app, label, entry, text)
-        spans_here = cache.data_spans(app, label, entry, text)
+        func = cache.compile_source(app, binary, label, entry, text)
+        spans_here = cache.data_spans(app, binary, label, entry, text)
         # The .c compiles to exactly its fragment.  One that no longer does is
         # a real edit that moves code, which only a full build can relayout.
         if len(func.code) != span_len and not lenient:

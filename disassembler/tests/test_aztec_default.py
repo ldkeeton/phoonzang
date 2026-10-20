@@ -10,16 +10,20 @@ from lib.sidecar.loader import _validate
 BLOCK = {'compiler_flags': {
     'default': ['-n', '+b'],
     'asm': ['-dMODEL=0'],
-    'prefixes': {'aztec_': ['-n'], 'aztec_x': ['-n', '+m']}}}
+    'prefixes': {'aztec_': ['-n'], 'aztec_x': ['-n', '+m']}},
+    'binaries': {
+        'inst': {'compiler_flags': {'default': ['-n']}},
+        'pfx': {'compiler_flags': {'prefixes': {'aztec_': ['+m'],
+                                                'app_': ['-n', '+c']}}}}}
 
 
-def _tool(label, data=BLOCK, text='int f() { return 0; }\n'):
+def _tool(label, data=BLOCK, text='int f() { return 0; }\n', binary='bin'):
     with mock.patch('lib.sidecar.loader.load', return_value=data):
-        return cache._tool('P', label, text)
+        return cache._tool('P', binary, label, text)
 
 
-def _flags(label, data=BLOCK):
-    return _tool(label, data)[1]
+def _flags(label, data=BLOCK, binary='bin'):
+    return _tool(label, data, binary=binary)[1]
 
 
 class FlagsByNameTests(unittest.TestCase):
@@ -52,6 +56,30 @@ class FlagsByNameTests(unittest.TestCase):
         self.assertNotIn('flags', entry)
         self.assertEqual((entry['compiler'], entry['includes']),
                          ('v42b', 'v42b'))
+
+    def test_binary_default_overrides_project_default(self):
+        self.assertEqual(_flags('app_free', binary='inst'), ('-n',))
+
+    def test_project_prefix_applies_in_overriding_binary(self):
+        self.assertEqual(_flags('aztec_xyz', binary='inst'), ('-n', '+m'))
+
+    def test_binary_prefix_beats_project_prefix(self):
+        self.assertEqual(_flags('aztec_open', binary='pfx'), ('+m',))
+        self.assertEqual(_flags('app_free', binary='pfx'), ('-n', '+c'))
+        # The longer project prefix still wins over the binary's shorter one.
+        self.assertEqual(_flags('aztec_xyz', binary='pfx'), ('-n', '+m'))
+        self.assertEqual(_flags('main', binary='pfx'), ('-n', '+b'))
+
+    def test_no_binary_takes_project_flags(self):
+        self.assertEqual(_flags('app_free', binary=None), ('-n', '+b'))
+
+    def test_binary_block_rejects_asm(self):
+        with self.assertRaises(SidecarError):
+            _validate({'app': 'X', 'binaries': {
+                'b': {'compiler_flags': {'asm': ['-l']}}}})
+        with self.assertRaises(SidecarError):
+            _validate({'app': 'X', 'binaries': {
+                'b': {'compiler_flags': {'default': '-n'}}}})
 
     def test_malformed_block_rejected(self):
         for bad in ({'compiler_flags': {'default': 'x'}},

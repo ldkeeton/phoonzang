@@ -7,7 +7,7 @@ Usage::
 
 The compiler and header tree are those the build uses for that routine (from
 the prebuild mux manifest, else Aztec v4.2b); the switches are the sidecar's
-``compiler_flags`` for its name, as in the build.  Each Manx message
+``compiler_flags`` for its name and binary, as in the build.  Each Manx message
 (``FILE.C:LINE: ERROR|WARNING n: text``) is re-printed as
 ``path:line:col: error|warning: text [Manx n]`` so a VS Code problem matcher
 (or the asm-nav extension) can read it.  Exit status is 1 when the compiler reports errors.
@@ -30,16 +30,18 @@ _MSG = re.compile(r'^\S+\.C:(\d+): (ERROR|WARNING) (\d+): ?(.*?):?\s*$', re.I)
 
 
 def _entry(path):
-    """``(project, label, entry)`` for *path* (``src_<PROJECT>/<bin>/<name>.c``):
-    the mux manifest's provenance for a vendor module (``aztec_croot.c`` is
-    ``croot.c``), else the default; *project* is None outside a ``src_``."""
+    """``(project, binary, label, entry)`` for *path*
+    (``src_<PROJECT>/<bin>/<name>.c``): the mux manifest's provenance for a
+    vendor module (``aztec_croot.c`` is ``croot.c``), else the default;
+    *project* and *binary* are None outside a ``src_`` (``shared`` takes the
+    project's flags)."""
     parts = os.path.normpath(os.path.abspath(path)).split(os.sep)
     label = os.path.splitext(parts[-1])[0]
     try:
         index = next(i for i, p in enumerate(parts) if p.startswith('src_'))
         project, binary = parts[index][len('src_'):], parts[index + 1]
     except (StopIteration, IndexError):
-        return None, label, cache.default_entry(label, None)
+        return None, None, label, cache.default_entry(label, None)
     manifest = os.path.join(_ROOT, '.cache', project, 'prebuild',
                             f'{binary}_aztec_mux.json')
     try:
@@ -50,16 +52,16 @@ def _entry(path):
         entry = None
     if entry is None:
         entry = cache.default_entry(label, project)
-    return project, label, entry
+    return project, binary, label, entry
 
 
 def check(path):
     """Return ``(diagnostic lines, error count)`` for the C file at *path*."""
-    project, label, entry = _entry(path)
+    project, binary, label, entry = _entry(path)
     compiler, includes = entry['compiler'], entry['includes']
     with open(path, errors='replace') as f:
         source = f.read()
-    kind, flags = cache._tool(project, label, source)
+    kind, flags = cache._tool(project, binary, label, source)
     try:
         cc_log = azc.compile_module(source, 'check', compiler=compiler,
                                     includes=includes, flags=flags,

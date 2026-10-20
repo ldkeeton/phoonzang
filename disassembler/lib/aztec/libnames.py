@@ -189,7 +189,7 @@ def _compiled_routines(lib, project, binary, image, label_map, entries,
             continue
         try:
             module, func = cache.compile_source_module(
-                project, label, entry,
+                project, binary, label, entry,
                 cache.seed_source_text(project, binary, label, entry))
         except Exception:
             continue
@@ -254,7 +254,8 @@ def _static_routines(func, image, pos, start_offset, span, publics):
     return found
 
 
-def sibling_symbols(project, image, label_map, entries, start_offset=0):
+def sibling_symbols(project, binary, image, label_map, entries,
+                    start_offset=0):
     """``{offset: Symbol}`` for the vendor module's other routines.
 
     A routine the mux matched exactly came from a vendor module whose other
@@ -276,7 +277,8 @@ def sibling_symbols(project, image, label_map, entries, start_offset=0):
     lib = _library(project)
     engine = MuxEngine(objcache_dir=objs, patches=vendor_patches(project),
                        asm_flags=asm_flags(project),
-                       c_flags=compiler_flags(project, LIBRARY_PREFIX))
+                       c_flags=compiler_flags(project, LIBRARY_PREFIX,
+                                              binary))
     starts = {str(sym): at for at, sym in label_map.items()}
     taken = set(starts)
     found = {}

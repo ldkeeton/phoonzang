@@ -13,7 +13,7 @@ loc_PQHH:
     push word [bx + 0x154]           ; 0x0d53
     push word [bp + 0x6]             ; 0x0d57
     push word [bp + 0x4]             ; 0x0d5a
-    call loc_STSN_040f               ; 0x0d5d
+    call put_text_at                 ; 0x0d5d
     add sp, byte 6                   ; 0x0d60
     mov ax, word [bp + 0x8]          ; 0x0d63
     mov sp, bp                       ; 0x0d66
@@ -51,7 +51,7 @@ loc_UIJJ:
     push ax                          ; 0x0da9
     mov ax, 0x16                     ; 0x0daa
     push ax                          ; 0x0dad
-    call loc_STSN_040f               ; 0x0dae
+    call put_text_at                 ; 0x0dae
     add sp, byte 6                   ; 0x0db1
     lea ax, word [bp - 0x0052]       ; 0x0db4
     push ax                          ; 0x0db7
@@ -68,7 +68,7 @@ loc_UIJJ:
     push ax                          ; 0x0dcb
     mov ax, 0x16                     ; 0x0dcc
     push ax                          ; 0x0dcf
-    call loc_STSN_040f               ; 0x0dd0
+    call put_text_at                 ; 0x0dd0
     add sp, byte 6                   ; 0x0dd3
     mov sp, bp                       ; 0x0dd6
     pop bp                           ; 0x0dd8

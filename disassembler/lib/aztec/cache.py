@@ -157,7 +157,8 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose,
     engine = MuxEngine(objcache_dir=objcache_dir,
                        patches=vendor_patches(project),
                        asm_flags=asm_flags(project),
-                       c_flags=compiler_flags(project, LIBRARY_PREFIX))
+                       c_flags=compiler_flags(project, LIBRARY_PREFIX,
+                                               binary))
 
     # Phase 1: batch-compile every candidate module not already cached.  One
     # DOSBox session per (compiler, includes) pair instead of one per module.
@@ -276,21 +277,22 @@ def default_entry(label, project):
             'source_version': VERSION, 'file': f'{label}.c'}
 
 
-def _tool(project, label, source_text):
+def _tool(project, binary, label, source_text):
     """``(kind, flags)`` that build *source_text*: ``as`` with the sidecar's
     ``compiler_flags.asm`` for C made of one ``#asm`` block (a wrapped vendor
     module or a hand-written one), else ``cc`` with the flags *label*'s name
-    picks from ``compiler_flags`` -- the same rule whether or not the
-    prebuild matched it to a vendor source."""
+    picks from ``compiler_flags`` (*binary*'s own over the project's) -- the
+    same rule whether or not the prebuild matched it to a vendor source."""
     if is_asm_module(source_text):
         from lib.sidecar.compiler import asm_flags
         return 'asm', asm_flags(project)
     from lib.sidecar.compiler import compiler_flags
-    flags = compiler_flags(project, label)
+    flags = compiler_flags(project, label, binary)
     if flags is None:
         from lib.sidecar.errors import SidecarError
         raise SidecarError(f'{project}: "compiler_flags" has no flags for '
-                           f'{label} (no matching prefix, no "default")')
+                           f'{label} in {binary} (no matching prefix, no '
+                           '"default")')
     return 'c', tuple(flags)
 
 
@@ -308,10 +310,10 @@ def own_key(label, entry=None):
     return normalize(_cname(label, entry))
 
 
-def _module_key(project, label, entry, source_text):
+def _module_key(project, binary, label, entry, source_text):
     return objcache.module_key(entry['includes'], entry['file'],
                                entry['compiler'],
-                               _tool(project, label, source_text)[1],
+                               _tool(project, binary, label, source_text)[1],
                                source_text)
 
 
@@ -332,8 +334,8 @@ def _compile_seeds(engine, project, binary, functions, objcache_dir,
         text = seed_source_text(project, binary, label, entry, engine)
         if text is None:
             continue
-        key = _module_key(project, label, entry, text)
-        kind, flags = _tool(project, label, text)
+        key = _module_key(project, binary, label, entry, text)
+        kind, flags = _tool(project, binary, label, text)
         requests.setdefault(
             key, (f'X{len(requests):04d}', text, entry['compiler'],
                   entry['includes'], flags, kind))
@@ -367,19 +369,21 @@ def seed_source_text(project, binary, label, entry, engine=None):
     return source_header(label, entry) + text
 
 
-def compile_source(project, label, entry, source_text):
+def compile_source(project, binary, label, entry, source_text):
     """Compile a ``.c`` and return its whole code as one :class:`Func`.
 
     The prebuild ``objs`` cache is consulted first (no DOSBox on a hit);
     otherwise the source is compiled in a fresh DOSBox session.
     """
-    return compile_source_module(project, label, entry, source_text)[1]
+    return compile_source_module(project, binary, label, entry,
+                                 source_text)[1]
 
 
-def data_spans(project, label, entry, source_text):
+def data_spans(project, binary, label, entry, source_text):
     """``[(start, end)]``: the module's own data directives, from its ``as``
     listing (:func:`lib.aztec.listing.data_spans`); none for C ``cc`` built."""
-    module = compile_source_module(project, label, entry, source_text)[0]
+    module = compile_source_module(project, binary, label, entry,
+                                   source_text)[0]
     return listing.data_spans(module.listing)
 
 
@@ -391,15 +395,15 @@ def _stale(module):
         or any(f.data_locals is None for f in module.functions.values())))
 
 
-def compile_source_module(project, label, entry, source_text):
+def compile_source_module(project, binary, label, entry, source_text):
     """``(module, whole)``: the compiled module and its whole code segment
     (:meth:`lib.aztec.compile.CompiledModule.whole`)."""
     from . import compile as azc
 
-    key = _module_key(project, label, entry, source_text)
+    key = _module_key(project, binary, label, entry, source_text)
     module = objcache.load(objs_dir(project), key)
     if _stale(module):
-        kind, flags = _tool(project, label, source_text)
+        kind, flags = _tool(project, binary, label, source_text)
         module = azc.compile_module(
             source_text, label, compiler=entry['compiler'],
             includes=entry['includes'], flags=flags, kind=kind)

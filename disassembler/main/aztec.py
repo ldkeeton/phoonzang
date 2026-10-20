@@ -109,7 +109,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         text, generated = _seed_aztec_c(cache, project, name, module, entry,
                                         dest)
         try:
-            func = cache.compile_source(project, module, entry, text)
+            func = cache.compile_source(project, name, module, entry, text)
         except Exception as exc:
             raise SystemExit(
                 f'error: {module}.c: compile failed ({exc})') from exc
@@ -122,11 +122,12 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'pristine': text == cache.seed_source_text(
                 project, name, module, entry),
             'compile': (lambda t, _l=module, _e=entry:
-                        cache.compile_source(project, _l, _e, t)),
+                        cache.compile_source(project, name, _l, _e, t)),
             'code': func.code,
             'fixups': [(fx.offset, fixup_width(fx.kind))
                        for fx in func.fixups],
-            'data_spans': cache.data_spans(project, module, entry, text),
+            'data_spans': cache.data_spans(project, name, module, entry,
+                                           text),
             # The module's first byte, and where its first routine starts.
             'start': span.start, 'lead': span.lead,
             'length': span.length,
@@ -149,7 +150,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             text = f.read()
         entry = cache.default_entry(label, project)
         try:
-            func = cache.compile_source(project, label, entry, text)
+            func = cache.compile_source(project, name, label, entry, text)
         except Exception as exc:
             raise SystemExit(f'error: {label}.c: compile failed ({exc})')
         start = starts.get(label)
@@ -159,11 +160,12 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'own_keys': {cache.own_key(label, entry): label},
             'pristine': False,
             'compile': (lambda t, _l=label, _e=entry:
-                        cache.compile_source(project, _l, _e, t)),
+                        cache.compile_source(project, name, _l, _e, t)),
             'code': func.code,
             'fixups': [(fx.offset, fixup_width(fx.kind))
                        for fx in func.fixups],
-            'data_spans': cache.data_spans(project, label, entry, text),
+            'data_spans': cache.data_spans(project, name, label, entry,
+                                           text),
             'length': (following[0] - start) if following else len(func.code),
             'source_version': entry['source_version'],
             'file': entry['file'], 'compiler': entry['compiler'],
@@ -199,7 +201,8 @@ def _name_routines(project, binary, data, entries, label_map,
         _name_c_callees(project, binary, data, entries, label_map,
                         function_roots, start_offset)
         for off, sym in libnames.sibling_symbols(
-                project, data, label_map, entries, start_offset).items():
+                project, binary, data, label_map, entries,
+                start_offset).items():
             if function_roots is not None and \
                     function_roots.get(off) == label_map[off]:
                 function_roots[off] = sym
@@ -272,7 +275,7 @@ def _name_c_callees(project, binary, data, entries, label_map,
             continue
         try:
             func = cache.compile_source(
-                project, label, entry,
+                project, binary, label, entry,
                 cache.seed_source_text(project, binary, label, entry))
         except Exception:
             continue    # the override's own compile reports it

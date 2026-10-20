@@ -113,7 +113,7 @@ class ModuleSpanTest(unittest.TestCase):
         entries = {'aztec_mkdir': _entry('mkdir.asm', 'mkdir'),
                    'aztec_chdir': _entry('other.asm', 'chdir')}
 
-        def compile_source(project, label, entry, text):
+        def compile_source(project, binary, label, entry, text):
             if entry['file'] == 'mkdir.asm':
                 return _whole(self.CODE, {'mkdir': 0, 'rmdir': 23, 'chdir': 30})
             return _whole(self.CODE[30:], {'chdir': 0})

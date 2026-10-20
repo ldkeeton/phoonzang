@@ -1,5 +1,5 @@
 ; auto-generated
-bios_video_loc_RRQH:
+bios_set_cursor:
     push bp                          ; 0x2551
     mov bp, sp                       ; 0x2552
     push di                          ; 0x2554

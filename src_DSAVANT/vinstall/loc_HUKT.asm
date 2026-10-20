@@ -21,7 +21,7 @@ loc_HUKT:
     mov ax, 0x16                     ; 0x0cfd
     push ax                          ; 0x0d00
     push word [bp + 0x4]             ; 0x0d01
-    call loc_STSN_040f               ; 0x0d04
+    call put_text_at                 ; 0x0d04
     add sp, byte 6                   ; 0x0d07
     mov ax, word [bp + 0x6]          ; 0x0d0a
     pop si                           ; 0x0d0d

@@ -3,7 +3,9 @@
 from .errors import SidecarError
 
 
-def _validate_compiler_flags(block):
+def _validate_compiler_flags(block, where='"compiler_flags"', asm=True):
+    """Check a ``compiler_flags`` block: the project's, or (``asm=False``) a
+    binary's override, which has no ``asm`` list of its own."""
     if block is None:
         return
 
@@ -16,36 +18,52 @@ def _validate_compiler_flags(block):
             or not isinstance(prefixes, dict)
             or not all(isinstance(k, str) and flag_list(v)
                        for k, v in prefixes.items())):
-        raise SidecarError('"compiler_flags" must be an object with "default" '
+        raise SidecarError(f'{where} must be an object with "default" '
                            'and "asm" lists and a "prefixes" map of lists')
+    if not asm and 'asm' in block:
+        raise SidecarError(f'{where}: "asm" is project-wide; a binary '
+                           'overrides only "default" and "prefixes"')
 
 
-def matching_prefix(project, label):
-    """The ``compiler_flags`` prefix that sets *label*'s flags, or None."""
+def _blocks(project, binary):
+    """``(project block, binary block)`` of ``compiler_flags``, each a dict."""
     from .loader import load
 
-    block = (load(project) or {}).get('compiler_flags') or {}
-    for prefix in sorted(block.get('prefixes', {}), key=len, reverse=True):
+    data = load(project) or {}
+    own = ((data.get('binaries') or {}).get(binary) or {}) if binary else {}
+    return data.get('compiler_flags') or {}, own.get('compiler_flags') or {}
+
+
+def _prefixes(project, binary):
+    """The name prefixes in force for *binary*: its own over the project's."""
+    block, own = _blocks(project, binary)
+    return {**block.get('prefixes', {}), **own.get('prefixes', {})}
+
+
+def matching_prefix(project, label, binary=None):
+    """The ``compiler_flags`` prefix that sets *label*'s flags, or None."""
+    for prefix in sorted(_prefixes(project, binary), key=len, reverse=True):
         if label.startswith(prefix):
             return prefix
     return None
 
 
-def compiler_flags(project, label):
-    """Flags for *label* from the sidecar's ``compiler_flags``, or ``None``.
+def compiler_flags(project, label, binary=None):
+    """Flags for *label* in *binary* from the sidecar's ``compiler_flags``,
+    or ``None``.
 
-    The longest matching name prefix wins; no match uses ``default``.
+    A binary may carry its own ``compiler_flags`` (``default`` and/or
+    ``prefixes``) over the project's: the longest name prefix of either
+    wins (the binary's on a tie), else the binary's ``default``, else the
+    project's.
     """
-    from .loader import load
-
-    block = (load(project) or {}).get('compiler_flags')
-    if not block:
+    block, own = _blocks(project, binary)
+    if not block and not own:
         return None
-    prefixes = block.get('prefixes', {})
-    for prefix in sorted(prefixes, key=len, reverse=True):
-        if label.startswith(prefix):
-            return list(prefixes[prefix])
-    default = block.get('default')
+    prefix = matching_prefix(project, label, binary)
+    if prefix is not None:
+        return list(_prefixes(project, binary)[prefix])
+    default = own.get('default', block.get('default'))
     return list(default) if default is not None else None
 
 

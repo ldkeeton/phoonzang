@@ -1,5 +1,5 @@
 ; auto-generated
-loc_JJNP_0815:
+parse_long:
     push bp                          ; 0x0815
     mov bp, sp                       ; 0x0816
     push word [bp + 0x4]             ; 0x0818

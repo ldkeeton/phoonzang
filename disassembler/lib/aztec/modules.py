@@ -167,7 +167,7 @@ def _place(project, binary, data, label_map, starts, entries, name):
     first, entry = next(iter(entries.items()))
     text = cache.seed_source_text(project, binary, first, entry)
     try:
-        whole = cache.compile_source(project, first, entry, text)
+        whole = cache.compile_source(project, binary, first, entry, text)
     except ModuleShapeError as exc:
         return None, str(exc)
     except Exception as exc:

@@ -12,7 +12,7 @@ main:
     push ax                          ; 0x12cf
     mov ax, 0                        ; 0x12d0
     push ax                          ; 0x12d3
-    call loc_STSN_040f               ; 0x12d4
+    call put_text_at                 ; 0x12d4
     add sp, byte 6                   ; 0x12d7
     mov ax, dseg_1767                ; 0x12da
     push ax                          ; 0x12dd
@@ -20,7 +20,7 @@ main:
     push ax                          ; 0x12e1
     mov ax, 1                        ; 0x12e2
     push ax                          ; 0x12e5
-    call loc_STSN_040f               ; 0x12e6
+    call put_text_at                 ; 0x12e6
     add sp, byte 6                   ; 0x12e9
     mov ax, dseg_179c                ; 0x12ec
     push ax                          ; 0x12ef
@@ -28,7 +28,7 @@ main:
     push ax                          ; 0x12f3
     mov ax, 2                        ; 0x12f4
     push ax                          ; 0x12f7
-    call loc_STSN_040f               ; 0x12f8
+    call put_text_at                 ; 0x12f8
     add sp, byte 6                   ; 0x12fb
     mov ax, dseg_17d1                ; 0x12fe
     push ax                          ; 0x1301
@@ -36,7 +36,7 @@ main:
     push ax                          ; 0x1305
     mov ax, 3                        ; 0x1306
     push ax                          ; 0x1309
-    call loc_STSN_040f               ; 0x130a
+    call put_text_at                 ; 0x130a
     add sp, byte 6                   ; 0x130d
     mov ax, dseg_1806                ; 0x1310
     push ax                          ; 0x1313
@@ -44,7 +44,7 @@ main:
     push ax                          ; 0x1317
     mov ax, 4                        ; 0x1318
     push ax                          ; 0x131b
-    call loc_STSN_040f               ; 0x131c
+    call put_text_at                 ; 0x131c
     add sp, byte 6                   ; 0x131f
     mov ax, word [bp - 0x01c8]       ; 0x1322
     mov cx, 0x64                     ; 0x1326
@@ -55,11 +55,11 @@ main:
     push ax                          ; 0x1330
     mov ax, 3                        ; 0x1331
     push ax                          ; 0x1334
-    call loc_JTRN_03b3               ; 0x1335
+    call put_int_at                  ; 0x1335
     add sp, byte 6                   ; 0x1338
     mov ax, dseg_183b                ; 0x133b
     push ax                          ; 0x133e
-    call bios_video_loc_QRGV         ; 0x133f
+    call bios_put_text               ; 0x133f
     pop cx                           ; 0x1342
     lea ax, word [bp - 0x02d6]       ; 0x1343
     push ax                          ; 0x1347
@@ -69,7 +69,7 @@ main:
     idiv cx                          ; 0x1350
     mov ax, dx                       ; 0x1352
     push ax                          ; 0x1354
-    call loc_KOGV                    ; 0x1355
+    call int_to_str                  ; 0x1355
     add sp, byte 4                   ; 0x1358
     lea ax, word [bp - 0x02d6]       ; 0x135b
     push ax                          ; 0x135f
@@ -84,7 +84,7 @@ main:
 @..main.l1:
     lea ax, word [bp - 0x02d6]       ; 0x137b
     push ax                          ; 0x137f
-    call bios_video_loc_QRGV         ; 0x1380
+    call bios_put_text               ; 0x1380
     pop cx                           ; 0x1383
     mov ax, dseg_183d                ; 0x1384
     push ax                          ; 0x1387
@@ -92,7 +92,7 @@ main:
     push ax                          ; 0x138b
     mov ax, 7                        ; 0x138c
     push ax                          ; 0x138f
-    call loc_STSN_040f               ; 0x1390
+    call put_text_at                 ; 0x1390
     add sp, byte 6                   ; 0x1393
     mov ax, dseg_1882                ; 0x1396
     push ax                          ; 0x1399
@@ -100,7 +100,7 @@ main:
     push ax                          ; 0x139d
     mov ax, 8                        ; 0x139e
     push ax                          ; 0x13a1
-    call loc_STSN_040f               ; 0x13a2
+    call put_text_at                 ; 0x13a2
     add sp, byte 6                   ; 0x13a5
     mov ax, dseg_18b2                ; 0x13a8
     push ax                          ; 0x13ab
@@ -108,7 +108,7 @@ main:
     push ax                          ; 0x13af
     mov ax, 0xa                      ; 0x13b0
     push ax                          ; 0x13b3
-    call loc_STSN_040f               ; 0x13b4
+    call put_text_at                 ; 0x13b4
     add sp, byte 6                   ; 0x13b7
     mov ax, dseg_18f6                ; 0x13ba
     push ax                          ; 0x13bd
@@ -116,7 +116,7 @@ main:
     push ax                          ; 0x13c1
     mov ax, 0xb                      ; 0x13c2
     push ax                          ; 0x13c5
-    call loc_STSN_040f               ; 0x13c6
+    call put_text_at                 ; 0x13c6
     add sp, byte 6                   ; 0x13c9
     mov ax, dseg_1911                ; 0x13cc
     push ax                          ; 0x13cf
@@ -124,7 +124,7 @@ main:
     push ax                          ; 0x13d3
     mov ax, 0xd                      ; 0x13d4
     push ax                          ; 0x13d7
-    call loc_STSN_040f               ; 0x13d8
+    call put_text_at                 ; 0x13d8
     add sp, byte 6                   ; 0x13db
     mov ax, dseg_1957                ; 0x13de
     push ax                          ; 0x13e1
@@ -132,7 +132,7 @@ main:
     push ax                          ; 0x13e5
     mov ax, 0xe                      ; 0x13e6
     push ax                          ; 0x13e9
-    call loc_STSN_040f               ; 0x13ea
+    call put_text_at                 ; 0x13ea
     add sp, byte 6                   ; 0x13ed
     mov ax, dseg_199e                ; 0x13f0
     push ax                          ; 0x13f3
@@ -140,7 +140,7 @@ main:
     push ax                          ; 0x13f7
     mov ax, 0xf                      ; 0x13f8
     push ax                          ; 0x13fb
-    call loc_STSN_040f               ; 0x13fc
+    call put_text_at                 ; 0x13fc
     add sp, byte 6                   ; 0x13ff
     mov ax, dseg_19e4                ; 0x1402
     push ax                          ; 0x1405
@@ -148,7 +148,7 @@ main:
     push ax                          ; 0x1409
     mov ax, 0x10                     ; 0x140a
     push ax                          ; 0x140d
-    call loc_STSN_040f               ; 0x140e
+    call put_text_at                 ; 0x140e
     add sp, byte 6                   ; 0x1411
     mov ax, dseg_1a2b                ; 0x1414
     push ax                          ; 0x1417
@@ -156,7 +156,7 @@ main:
     push ax                          ; 0x141b
     mov ax, 0x11                     ; 0x141c
     push ax                          ; 0x141f
-    call loc_STSN_040f               ; 0x1420
+    call put_text_at                 ; 0x1420
     add sp, byte 6                   ; 0x1423
     mov ax, dseg_1a72                ; 0x1426
     push ax                          ; 0x1429
@@ -164,7 +164,7 @@ main:
     push ax                          ; 0x142d
     mov ax, 0x12                     ; 0x142e
     push ax                          ; 0x1431
-    call loc_STSN_040f               ; 0x1432
+    call put_text_at                 ; 0x1432
     add sp, byte 6                   ; 0x1435
     mov ax, dseg_1a91                ; 0x1438
     push ax                          ; 0x143b
@@ -183,7 +183,7 @@ main:
     push ax                          ; 0x1458
     mov ax, 0                        ; 0x1459
     push ax                          ; 0x145c
-    call loc_STSN_040f               ; 0x145d
+    call put_text_at                 ; 0x145d
     add sp, byte 6                   ; 0x1460
     mov ax, dseg_1af6                ; 0x1463
     push ax                          ; 0x1466
@@ -191,7 +191,7 @@ main:
     push ax                          ; 0x146a
     mov ax, 1                        ; 0x146b
     push ax                          ; 0x146e
-    call loc_STSN_040f               ; 0x146f
+    call put_text_at                 ; 0x146f
     add sp, byte 6                   ; 0x1472
     mov ax, dseg_1b2b                ; 0x1475
     push ax                          ; 0x1478
@@ -199,7 +199,7 @@ main:
     push ax                          ; 0x147c
     mov ax, 2                        ; 0x147d
     push ax                          ; 0x1480
-    call loc_STSN_040f               ; 0x1481
+    call put_text_at                 ; 0x1481
     add sp, byte 6                   ; 0x1484
     mov ax, dseg_1b60                ; 0x1487
     push ax                          ; 0x148a
@@ -207,7 +207,7 @@ main:
     push ax                          ; 0x148e
     mov ax, 3                        ; 0x148f
     push ax                          ; 0x1492
-    call loc_STSN_040f               ; 0x1493
+    call put_text_at                 ; 0x1493
     add sp, byte 6                   ; 0x1496
     mov ax, dseg_1b95                ; 0x1499
     push ax                          ; 0x149c
@@ -215,7 +215,7 @@ main:
     push ax                          ; 0x14a0
     mov ax, 4                        ; 0x14a1
     push ax                          ; 0x14a4
-    call loc_STSN_040f               ; 0x14a5
+    call put_text_at                 ; 0x14a5
     add sp, byte 6                   ; 0x14a8
     call loc_UMUK                    ; 0x14ab
     mov word [bp - 0x0006], ax       ; 0x14ae
@@ -268,7 +268,7 @@ main:
     push ax                          ; 0x154c
     mov ax, 6                        ; 0x154d
     push ax                          ; 0x1550
-    call loc_STSN_040f               ; 0x1551
+    call put_text_at                 ; 0x1551
     add sp, byte 6                   ; 0x1554
     mov ax, dseg_1c1b                ; 0x1557
     push ax                          ; 0x155a
@@ -276,7 +276,7 @@ main:
     push ax                          ; 0x155e
     mov ax, 7                        ; 0x155f
     push ax                          ; 0x1562
-    call loc_STSN_040f               ; 0x1563
+    call put_text_at                 ; 0x1563
     add sp, byte 6                   ; 0x1566
     lea ax, word [bp - 0x0032]       ; 0x1569
     push ax                          ; 0x156c
@@ -313,7 +313,7 @@ main:
     push ax                          ; 0x15bb
     mov ax, 0xb                      ; 0x15bc
     push ax                          ; 0x15bf
-    call loc_STSN_040f               ; 0x15c0
+    call put_text_at                 ; 0x15c0
     add sp, byte 6                   ; 0x15c3
     mov ax, word [bp - 0x01a0]       ; 0x15c6
     shl ax, 1                        ; 0x15ca
@@ -323,7 +323,7 @@ main:
     push ax                          ; 0x15d5
     mov ax, 0xb                      ; 0x15d6
     push ax                          ; 0x15d9
-    call loc_STSN_040f               ; 0x15da
+    call put_text_at                 ; 0x15da
     add sp, byte 6                   ; 0x15dd
     mov ax, word [bp - 0x01a2]       ; 0x15e0
     shl ax, 1                        ; 0x15e4
@@ -333,7 +333,7 @@ main:
     push ax                          ; 0x15ef
     mov ax, 0xb                      ; 0x15f0
     push ax                          ; 0x15f3
-    call loc_STSN_040f               ; 0x15f4
+    call put_text_at                 ; 0x15f4
     add sp, byte 6                   ; 0x15f7
     lea ax, word [bp - 0x01b8]       ; 0x15fa
     push ax                          ; 0x15fe
@@ -341,7 +341,7 @@ main:
     push ax                          ; 0x1602
     mov ax, 0xb                      ; 0x1603
     push ax                          ; 0x1606
-    call loc_STSN_040f               ; 0x1607
+    call put_text_at                 ; 0x1607
     add sp, byte 6                   ; 0x160a
     mov ax, dseg_1cc7                ; 0x160d
     push ax                          ; 0x1610
@@ -349,7 +349,7 @@ main:
     push ax                          ; 0x1614
     mov ax, 0xd                      ; 0x1615
     push ax                          ; 0x1618
-    call loc_STSN_040f               ; 0x1619
+    call put_text_at                 ; 0x1619
     add sp, byte 6                   ; 0x161c
     mov ax, dseg_1d0a                ; 0x161f
     push ax                          ; 0x1622
@@ -357,7 +357,7 @@ main:
     push ax                          ; 0x1626
     mov ax, 0xe                      ; 0x1627
     push ax                          ; 0x162a
-    call loc_STSN_040f               ; 0x162b
+    call put_text_at                 ; 0x162b
     add sp, byte 6                   ; 0x162e
     mov word [bp - 0x0196], 0        ; 0x1631
     mov word [bp - 0x01be], 0xf      ; 0x1637
@@ -368,7 +368,7 @@ main:
     mov ax, 0xa                      ; 0x164e
     push ax                          ; 0x1651
     push word [bp - 0x01be]          ; 0x1652
-    call loc_STSN_040f               ; 0x1656
+    call put_text_at                 ; 0x1656
     add sp, byte 6                   ; 0x1659
     inc word [bp - 0x01be]           ; 0x165c
 @..main.l5:
@@ -382,7 +382,7 @@ main:
     mov ax, 0xa                      ; 0x1678
     push ax                          ; 0x167b
     push word [bp - 0x01be]          ; 0x167c
-    call loc_STSN_040f               ; 0x1680
+    call put_text_at                 ; 0x1680
     add sp, byte 6                   ; 0x1683
     inc word [bp - 0x01be]           ; 0x1686
 @..main.l7:
@@ -394,7 +394,7 @@ main:
     push ax                          ; 0x1699
     mov ax, 0xd                      ; 0x169a
     push ax                          ; 0x169d
-    call loc_STSN_040f               ; 0x169e
+    call put_text_at                 ; 0x169e
     add sp, byte 6                   ; 0x16a1
     mov word [bp - 0x01ba], 0        ; 0x16a4
     mov word [bp - 0x01bc], 0        ; 0x16aa
@@ -404,14 +404,14 @@ main:
     push ax                          ; 0x16b7
     mov ax, 0xf                      ; 0x16b8
     push ax                          ; 0x16bb
-    call loc_STSN_040f               ; 0x16bc
+    call put_text_at                 ; 0x16bc
     add sp, byte 6                   ; 0x16bf
     push word [bp - 0x01ba]          ; 0x16c2
     mov ax, 0x3e                     ; 0x16c6
     push ax                          ; 0x16c9
     mov ax, 0xf                      ; 0x16ca
     push ax                          ; 0x16cd
-    call loc_JTRN_03b3               ; 0x16ce
+    call put_int_at                  ; 0x16ce
     add sp, byte 6                   ; 0x16d1
     mov ax, dseg_1d58                ; 0x16d4
     push ax                          ; 0x16d7
@@ -419,14 +419,14 @@ main:
     push ax                          ; 0x16db
     mov ax, 0x10                     ; 0x16dc
     push ax                          ; 0x16df
-    call loc_STSN_040f               ; 0x16e0
+    call put_text_at                 ; 0x16e0
     add sp, byte 6                   ; 0x16e3
     push word [bp - 0x01bc]          ; 0x16e6
     mov ax, 0x3e                     ; 0x16ea
     push ax                          ; 0x16ed
     mov ax, 0x10                     ; 0x16ee
     push ax                          ; 0x16f1
-    call loc_JTRN_03b3               ; 0x16f2
+    call put_int_at                  ; 0x16f2
     add sp, byte 6                   ; 0x16f5
     mov ax, word [bss_2afa]          ; 0x16f8
     mov word [bp - 0x019a], ax       ; 0x16fb
@@ -436,7 +436,7 @@ main:
     push ax                          ; 0x1706
     mov ax, 0x12                     ; 0x1707
     push ax                          ; 0x170a
-    call loc_STSN_040f               ; 0x170b
+    call put_text_at                 ; 0x170b
     add sp, byte 6                   ; 0x170e
     mov ax, word [bp - 0x019a]       ; 0x1711
     shl ax, 1                        ; 0x1715
@@ -446,7 +446,7 @@ main:
     push ax                          ; 0x1720
     mov ax, 0x12                     ; 0x1721
     push ax                          ; 0x1724
-    call loc_STSN_040f               ; 0x1725
+    call put_text_at                 ; 0x1725
     add sp, byte 6                   ; 0x1728
     mov word [bp - 0x0198], 0        ; 0x172b
     mov ax, dseg_1d6b                ; 0x1731
@@ -455,7 +455,7 @@ main:
     push ax                          ; 0x1738
     mov ax, 0x12                     ; 0x1739
     push ax                          ; 0x173c
-    call loc_STSN_040f               ; 0x173d
+    call put_text_at                 ; 0x173d
     add sp, byte 6                   ; 0x1740
     mov ax, word [bp - 0x0198]       ; 0x1743
     shl ax, 1                        ; 0x1747
@@ -465,7 +465,7 @@ main:
     push ax                          ; 0x1752
     mov ax, 0x12                     ; 0x1753
     push ax                          ; 0x1756
-    call loc_STSN_040f               ; 0x1757
+    call put_text_at                 ; 0x1757
     add sp, byte 6                   ; 0x175a
     mov ax, dseg_1d73                ; 0x175d
     push ax                          ; 0x1760
@@ -473,7 +473,7 @@ main:
     push ax                          ; 0x1764
     mov ax, 0x14                     ; 0x1765
     push ax                          ; 0x1768
-    call loc_STSN_040f               ; 0x1769
+    call put_text_at                 ; 0x1769
     add sp, byte 6                   ; 0x176c
     mov ax, dseg_1d9f                ; 0x176f
     push ax                          ; 0x1772
@@ -481,7 +481,7 @@ main:
     push ax                          ; 0x1776
     mov ax, 0x16                     ; 0x1777
     push ax                          ; 0x177a
-    call loc_STSN_040f               ; 0x177b
+    call put_text_at                 ; 0x177b
     add sp, byte 6                   ; 0x177e
     cmp word [bp - 0x0196], byte 0   ; 0x1781
     jne short @..main.l8             ; 0x1786
@@ -523,7 +523,7 @@ jumptable_1969_case_1:
     push ax                          ; 0x17dd
     mov ax, 8                        ; 0x17de
     push ax                          ; 0x17e1
-    call loc_STSN_040f               ; 0x17e2
+    call put_text_at                 ; 0x17e2
     add sp, byte 6                   ; 0x17e5
     jmp near @..main.l11             ; 0x17e8
 jumptable_1969_case_2:
@@ -533,7 +533,7 @@ jumptable_1969_case_2:
     push ax                          ; 0x17f2
     mov ax, 8                        ; 0x17f3
     push ax                          ; 0x17f6
-    call loc_STSN_040f               ; 0x17f7
+    call put_text_at                 ; 0x17f7
     add sp, byte 6                   ; 0x17fa
     jmp near @..main.l11             ; 0x17fd
 jumptable_1969_case_3:
@@ -543,7 +543,7 @@ jumptable_1969_case_3:
     push ax                          ; 0x1807
     mov ax, 8                        ; 0x1808
     push ax                          ; 0x180b
-    call loc_STSN_040f               ; 0x180c
+    call put_text_at                 ; 0x180c
     add sp, byte 6                   ; 0x180f
     jmp near @..main.l11             ; 0x1812
 jumptable_1969_case_4:
@@ -555,7 +555,7 @@ jumptable_1969_case_4:
     push ax                          ; 0x1823
     mov ax, 9                        ; 0x1824
     push ax                          ; 0x1827
-    call loc_STSN_040f               ; 0x1828
+    call put_text_at                 ; 0x1828
     add sp, byte 6                   ; 0x182b
     jmp near @..main.l11             ; 0x182e
 jumptable_1969_case_5:
@@ -565,7 +565,7 @@ jumptable_1969_case_5:
     push ax                          ; 0x1838
     mov ax, 9                        ; 0x1839
     push ax                          ; 0x183c
-    call loc_STSN_040f               ; 0x183d
+    call put_text_at                 ; 0x183d
     add sp, byte 6                   ; 0x1840
     jmp near @..main.l11             ; 0x1843
 jumptable_1969_case_6:
@@ -575,7 +575,7 @@ jumptable_1969_case_6:
     push ax                          ; 0x184d
     mov ax, 9                        ; 0x184e
     push ax                          ; 0x1851
-    call loc_STSN_040f               ; 0x1852
+    call put_text_at                 ; 0x1852
     add sp, byte 6                   ; 0x1855
     jmp near @..main.l11             ; 0x1858
 jumptable_1969_case_7:
@@ -587,7 +587,7 @@ jumptable_1969_case_7:
     push ax                          ; 0x186a
     mov ax, 0xb                      ; 0x186b
     push ax                          ; 0x186e
-    call loc_STSN_040f               ; 0x186f
+    call put_text_at                 ; 0x186f
     add sp, byte 6                   ; 0x1872
     jmp near @..main.l11             ; 0x1875
 jumptable_1969_case_8:
@@ -599,7 +599,7 @@ jumptable_1969_case_8:
     push ax                          ; 0x1887
     mov ax, 0xb                      ; 0x1888
     push ax                          ; 0x188b
-    call loc_STSN_040f               ; 0x188c
+    call put_text_at                 ; 0x188c
     add sp, byte 6                   ; 0x188f
     jmp near @..main.l11             ; 0x1892
 jumptable_1969_case_9:
@@ -609,7 +609,7 @@ jumptable_1969_case_9:
     push ax                          ; 0x189d
     mov ax, 0xb                      ; 0x189e
     push ax                          ; 0x18a1
-    call loc_STSN_040f               ; 0x18a2
+    call put_text_at                 ; 0x18a2
     add sp, byte 6                   ; 0x18a5
     jmp near @..main.l11             ; 0x18a8
 jumptable_1969_case_10:
@@ -621,7 +621,7 @@ jumptable_1969_case_10:
     push ax                          ; 0x18ba
     mov ax, 0xd                      ; 0x18bb
     push ax                          ; 0x18be
-    call loc_STSN_040f               ; 0x18bf
+    call put_text_at                 ; 0x18bf
     add sp, byte 6                   ; 0x18c2
     jmp near @..main.l11             ; 0x18c5
 jumptable_1969_case_11:
@@ -630,7 +630,7 @@ jumptable_1969_case_11:
     push ax                          ; 0x18cf
     mov ax, 0xf                      ; 0x18d0
     push ax                          ; 0x18d3
-    call loc_JTRN_03b3               ; 0x18d4
+    call put_int_at                  ; 0x18d4
     add sp, byte 6                   ; 0x18d7
     jmp near @..main.l11             ; 0x18da
 jumptable_1969_case_12:
@@ -639,7 +639,7 @@ jumptable_1969_case_12:
     push ax                          ; 0x18e4
     mov ax, 0x10                     ; 0x18e5
     push ax                          ; 0x18e8
-    call loc_JTRN_03b3               ; 0x18e9
+    call put_int_at                  ; 0x18e9
     add sp, byte 6                   ; 0x18ec
     jmp near @..main.l11             ; 0x18ef
 jumptable_1969_case_13:
@@ -651,7 +651,7 @@ jumptable_1969_case_13:
     push ax                          ; 0x1901
     mov ax, 0x12                     ; 0x1902
     push ax                          ; 0x1905
-    call loc_STSN_040f               ; 0x1906
+    call put_text_at                 ; 0x1906
     add sp, byte 6                   ; 0x1909
     jmp near @..main.l11             ; 0x190c
 jumptable_1969_case_14:
@@ -663,7 +663,7 @@ jumptable_1969_case_14:
     push ax                          ; 0x191e
     mov ax, 0x12                     ; 0x191f
     push ax                          ; 0x1922
-    call loc_STSN_040f               ; 0x1923
+    call put_text_at                 ; 0x1923
     add sp, byte 6                   ; 0x1926
     jmp short @..main.l11            ; 0x1929
 jumptable_1969_case_15:
@@ -673,7 +673,7 @@ jumptable_1969_case_15:
     push ax                          ; 0x1932
     mov ax, 0x14                     ; 0x1933
     push ax                          ; 0x1936
-    call loc_STSN_040f               ; 0x1937
+    call put_text_at                 ; 0x1937
     add sp, byte 6                   ; 0x193a
     jmp short @..main.l11            ; 0x193d
 jumptable_1969_case_16:
@@ -683,7 +683,7 @@ jumptable_1969_case_16:
     push ax                          ; 0x1946
     mov ax, 0x14                     ; 0x1947
     push ax                          ; 0x194a
-    call loc_STSN_040f               ; 0x194b
+    call put_text_at                 ; 0x194b
     add sp, byte 6                   ; 0x194e
     jmp short @..main.l11            ; 0x1951
 jumptable_1969_case_17:
@@ -693,7 +693,7 @@ jumptable_1969_case_17:
     push ax                          ; 0x195a
     mov ax, 0x14                     ; 0x195b
     push ax                          ; 0x195e
-    call loc_STSN_040f               ; 0x195f
+    call put_text_at                 ; 0x195f
     add sp, byte 6                   ; 0x1962
     jmp short @..main.l11            ; 0x1965
 jumptable_1969_case_0:
@@ -736,7 +736,7 @@ jumptable_1b3c_case_0:
     push ax                          ; 0x19b2
     mov ax, 8                        ; 0x19b3
     push ax                          ; 0x19b6
-    call loc_STSN_0429               ; 0x19b7
+    call loc_STSN                    ; 0x19b7
     add sp, byte 6                   ; 0x19ba
     jmp near @..main.l13             ; 0x19bd
 jumptable_1b3c_case_1:
@@ -746,7 +746,7 @@ jumptable_1b3c_case_1:
     push ax                          ; 0x19c7
     mov ax, 8                        ; 0x19c8
     push ax                          ; 0x19cb
-    call loc_STSN_0429               ; 0x19cc
+    call loc_STSN                    ; 0x19cc
     add sp, byte 6                   ; 0x19cf
     jmp near @..main.l13             ; 0x19d2
 jumptable_1b3c_case_2:
@@ -756,7 +756,7 @@ jumptable_1b3c_case_2:
     push ax                          ; 0x19dc
     mov ax, 8                        ; 0x19dd
     push ax                          ; 0x19e0
-    call loc_STSN_0429               ; 0x19e1
+    call loc_STSN                    ; 0x19e1
     add sp, byte 6                   ; 0x19e4
     jmp near @..main.l13             ; 0x19e7
 jumptable_1b3c_case_3:
@@ -768,7 +768,7 @@ jumptable_1b3c_case_3:
     push ax                          ; 0x19f8
     mov ax, 9                        ; 0x19f9
     push ax                          ; 0x19fc
-    call loc_STSN_0429               ; 0x19fd
+    call loc_STSN                    ; 0x19fd
     add sp, byte 6                   ; 0x1a00
     jmp near @..main.l13             ; 0x1a03
 jumptable_1b3c_case_4:
@@ -778,7 +778,7 @@ jumptable_1b3c_case_4:
     push ax                          ; 0x1a0d
     mov ax, 9                        ; 0x1a0e
     push ax                          ; 0x1a11
-    call loc_STSN_0429               ; 0x1a12
+    call loc_STSN                    ; 0x1a12
     add sp, byte 6                   ; 0x1a15
     jmp near @..main.l13             ; 0x1a18
 jumptable_1b3c_case_5:
@@ -788,7 +788,7 @@ jumptable_1b3c_case_5:
     push ax                          ; 0x1a22
     mov ax, 9                        ; 0x1a23
     push ax                          ; 0x1a26
-    call loc_STSN_0429               ; 0x1a27
+    call loc_STSN                    ; 0x1a27
     add sp, byte 6                   ; 0x1a2a
     jmp near @..main.l13             ; 0x1a2d
 jumptable_1b3c_case_6:
@@ -800,7 +800,7 @@ jumptable_1b3c_case_6:
     push ax                          ; 0x1a3f
     mov ax, 0xb                      ; 0x1a40
     push ax                          ; 0x1a43
-    call loc_STSN_0429               ; 0x1a44
+    call loc_STSN                    ; 0x1a44
     add sp, byte 6                   ; 0x1a47
     jmp near @..main.l13             ; 0x1a4a
 jumptable_1b3c_case_7:
@@ -812,7 +812,7 @@ jumptable_1b3c_case_7:
     push ax                          ; 0x1a5c
     mov ax, 0xb                      ; 0x1a5d
     push ax                          ; 0x1a60
-    call loc_STSN_0429               ; 0x1a61
+    call loc_STSN                    ; 0x1a61
     add sp, byte 6                   ; 0x1a64
     jmp near @..main.l13             ; 0x1a67
 jumptable_1b3c_case_8:
@@ -822,7 +822,7 @@ jumptable_1b3c_case_8:
     push ax                          ; 0x1a72
     mov ax, 0xb                      ; 0x1a73
     push ax                          ; 0x1a76
-    call loc_STSN_0429               ; 0x1a77
+    call loc_STSN                    ; 0x1a77
     add sp, byte 6                   ; 0x1a7a
     jmp near @..main.l13             ; 0x1a7d
 jumptable_1b3c_case_9:
@@ -834,7 +834,7 @@ jumptable_1b3c_case_9:
     push ax                          ; 0x1a8f
     mov ax, 0xd                      ; 0x1a90
     push ax                          ; 0x1a93
-    call loc_STSN_0429               ; 0x1a94
+    call loc_STSN                    ; 0x1a94
     add sp, byte 6                   ; 0x1a97
     jmp near @..main.l13             ; 0x1a9a
 jumptable_1b3c_case_10:
@@ -843,7 +843,7 @@ jumptable_1b3c_case_10:
     push ax                          ; 0x1aa4
     mov ax, 0xf                      ; 0x1aa5
     push ax                          ; 0x1aa8
-    call loc_JTRN_03e1               ; 0x1aa9
+    call loc_JTRN                    ; 0x1aa9
     add sp, byte 6                   ; 0x1aac
     jmp near @..main.l13             ; 0x1aaf
 jumptable_1b3c_case_11:
@@ -852,7 +852,7 @@ jumptable_1b3c_case_11:
     push ax                          ; 0x1ab9
     mov ax, 0x10                     ; 0x1aba
     push ax                          ; 0x1abd
-    call loc_JTRN_03e1               ; 0x1abe
+    call loc_JTRN                    ; 0x1abe
     add sp, byte 6                   ; 0x1ac1
     jmp near @..main.l13             ; 0x1ac4
 jumptable_1b3c_case_12:
@@ -864,7 +864,7 @@ jumptable_1b3c_case_12:
     push ax                          ; 0x1ad6
     mov ax, 0x12                     ; 0x1ad7
     push ax                          ; 0x1ada
-    call loc_STSN_0429               ; 0x1adb
+    call loc_STSN                    ; 0x1adb
     add sp, byte 6                   ; 0x1ade
     jmp near @..main.l13             ; 0x1ae1
 jumptable_1b3c_case_13:
@@ -876,7 +876,7 @@ jumptable_1b3c_case_13:
     push ax                          ; 0x1af3
     mov ax, 0x12                     ; 0x1af4
     push ax                          ; 0x1af7
-    call loc_STSN_0429               ; 0x1af8
+    call loc_STSN                    ; 0x1af8
     add sp, byte 6                   ; 0x1afb
     jmp short @..main.l13            ; 0x1afe
 jumptable_1b3c_case_14:
@@ -886,7 +886,7 @@ jumptable_1b3c_case_14:
     push ax                          ; 0x1b07
     mov ax, 0x14                     ; 0x1b08
     push ax                          ; 0x1b0b
-    call loc_STSN_0429               ; 0x1b0c
+    call loc_STSN                    ; 0x1b0c
     add sp, byte 6                   ; 0x1b0f
     jmp short @..main.l13            ; 0x1b12
 jumptable_1b3c_case_15:
@@ -896,7 +896,7 @@ jumptable_1b3c_case_15:
     push ax                          ; 0x1b1b
     mov ax, 0x14                     ; 0x1b1c
     push ax                          ; 0x1b1f
-    call loc_STSN_0429               ; 0x1b20
+    call loc_STSN                    ; 0x1b20
     add sp, byte 6                   ; 0x1b23
     jmp short @..main.l13            ; 0x1b26
 jumptable_1b3c_case_16:
@@ -906,7 +906,7 @@ jumptable_1b3c_case_16:
     push ax                          ; 0x1b2f
     mov ax, 0x14                     ; 0x1b30
     push ax                          ; 0x1b33
-    call loc_STSN_0429               ; 0x1b34
+    call loc_STSN                    ; 0x1b34
     add sp, byte 6                   ; 0x1b37
     jmp short @..main.l13            ; 0x1b3a
 jumptable_1b3c:
@@ -1049,7 +1049,7 @@ jumptable_1f81_case_3:
     push ax                          ; 0x1c7b
     mov ax, 9                        ; 0x1c7c
     push ax                          ; 0x1c7f
-    call loc_STSN_040f               ; 0x1c80
+    call put_text_at                 ; 0x1c80
     add sp, byte 6                   ; 0x1c83
     lea ax, word [bp - 0x003e]       ; 0x1c86
     push ax                          ; 0x1c89
@@ -1057,7 +1057,7 @@ jumptable_1f81_case_3:
     push ax                          ; 0x1c8d
     mov ax, 9                        ; 0x1c8e
     push ax                          ; 0x1c91
-    call loc_STSN_040f               ; 0x1c92
+    call put_text_at                 ; 0x1c92
     add sp, byte 6                   ; 0x1c95
     lea ax, word [bp - 0x0054]       ; 0x1c98
     push ax                          ; 0x1c9b
@@ -1065,7 +1065,7 @@ jumptable_1f81_case_3:
     push ax                          ; 0x1c9f
     mov ax, 9                        ; 0x1ca0
     push ax                          ; 0x1ca3
-    call loc_STSN_040f               ; 0x1ca4
+    call put_text_at                 ; 0x1ca4
     add sp, byte 6                   ; 0x1ca7
     jmp near @..main.l47             ; 0x1caa
 jumptable_1f81_case_4:
@@ -1269,7 +1269,7 @@ jumptable_1f81_case_12:
     jmp near @..main.l47             ; 0x1e68
 jumptable_1f81_case_13:
     push word [bp - 0x0198]          ; 0x1e6b
-    call loc_TUNS                    ; 0x1e6f
+    call next_sound_device           ; 0x1e6f
     pop cx                           ; 0x1e72
     mov word [bp - 0x0198], ax       ; 0x1e73
     jmp near @..main.l47             ; 0x1e77

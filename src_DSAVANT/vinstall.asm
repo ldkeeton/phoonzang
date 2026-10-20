@@ -68,16 +68,28 @@ __zbss_size equ __zbss_end - __zimage_end
 
 %include "vinstall/loc_ILSL.asm"           ; 0x0200
 
-%include "vinstall/loc_JTRN_03b3.asm"      ; 0x03b3
+%include "vinstall/loc_MPOT.asm"           ; 0x026d
 
-%include "vinstall/loc_JTRN_03e1.asm"      ; 0x03e1
+%include "vinstall/int_to_str.asm"         ; 0x02b2
+
+%include "vinstall/put_int_at.asm"         ; 0x03b3
+
+%include "vinstall/loc_JTRN.asm"           ; 0x03e1
+
+%include "vinstall/put_text_at.asm"        ; 0x040f
+
+%include "vinstall/loc_STSN.asm"           ; 0x0429
 
 dseg_1444 equ __zdseg_1444 - __zdseg_start
-%include "vinstall/loc_STSN_0429.asm"      ; 0x0429
+%include "vinstall/loc_MSKU.asm"           ; 0x0443
+
+%include "vinstall/loc_GPOQ.asm"           ; 0x05b6
 
 %include "vinstall/loc_NPPN.asm"           ; 0x06f1
 
-%include "vinstall/loc_JJNP_0815.asm"      ; 0x0815
+%include "vinstall/loc_JJNP.asm"           ; 0x0807
+
+%include "vinstall/parse_long.asm"         ; 0x0815
 
 dseg_144b equ __zdseg_144b - __zdseg_start
 %include "vinstall/loc_NOVO.asm"           ; 0x0823
@@ -133,7 +145,8 @@ bss_29ec equ __zbss_29ec - __zdseg_start
 
 %include "vinstall/loc_HUKT.asm"           ; 0x0cd6
 
-%include "vinstall/loc_TUNS.asm"           ; 0x0d12
+sound_device_names equ __zsound_device_names - __zdseg_start
+%include "vinstall/next_sound_device.asm"  ; 0x0d12
 
 dseg_156d equ __zdseg_156d - __zdseg_start
 %include "vinstall/loc_PQHH.asm"           ; 0x0d3f
@@ -334,13 +347,13 @@ cseg_2479:
 ; bss_2647 equ __zbss_2647 - __zdseg_start
 %include "vinstall/bios_video_loc_RSQH.asm" ; 0x252e
 
-%include "vinstall/bios_video_loc_RRQH.asm" ; 0x2551
+%include "vinstall/bios_set_cursor.asm"    ; 0x2551
 
 ; bss_2645 equ __zbss_2645 - __zdseg_start
 %include "vinstall/bios_video_loc_HMPN.asm" ; 0x25d3
 
 ; bss_2644 equ __zbss_2644 - __zdseg_start
-%include "vinstall/bios_video_loc_QRGV.asm" ; 0x2621
+%include "vinstall/bios_put_text.asm"      ; 0x2621
 
 %include "vinstall/bios_video_loc_VJJP.asm" ; 0x2720
 
@@ -531,6 +544,7 @@ __zdseg_009c:
     db 0x4f, 0x4e, 0x20, 0x00
 __zdseg_00a0:
     db 0x4f, 0x46, 0x46, 0x00
+__zsound_device_names:
     dw dseg_00b4                               ; 0x3b84
     dw dseg_00c8                               ; 0x3b86
     dw dseg_00dc                               ; 0x3b88

@@ -1,5 +1,5 @@
 ; auto-generated
-loc_TUNS:
+next_sound_device:
     push bp                          ; 0x0d12
     mov bp, sp                       ; 0x0d13
     mov ax, word [bp + 0x4]          ; 0x0d15
@@ -10,12 +10,12 @@ loc_TUNS:
     mov word [bp + 0x4], dx          ; 0x0d1f
     shl dx, 1                        ; 0x0d22
     mov bx, dx                       ; 0x0d24
-    push word [bx + 0xa4]            ; 0x0d26
+    push word [bx + sound_device_names] ; 0x0d26
     mov ax, 0x29                     ; 0x0d2a
     push ax                          ; 0x0d2d
     mov ax, 0x12                     ; 0x0d2e
     push ax                          ; 0x0d31
-    call loc_STSN_040f               ; 0x0d32
+    call put_text_at                 ; 0x0d32
     add sp, byte 6                   ; 0x0d35
     mov ax, word [bp + 0x4]          ; 0x0d38
     mov sp, bp                       ; 0x0d3b
