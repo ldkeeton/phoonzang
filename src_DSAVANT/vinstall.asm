@@ -1,6 +1,4 @@
 ; auto-generated
-%include "inc/structs/structs.inc"
-%include "inc/structs/vinstall.inc"
 bits 16
 %ifndef VBASE
 %ifdef ELF_BUILD

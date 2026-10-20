@@ -1,6 +1,4 @@
 ; auto-generated
-%include "inc/structs/structs.inc"
-%include "inc/structs/vmaze.inc"
 bits 16
 %include "include/host_symbols.inc"
 %ifndef VBASE

@@ -20,7 +20,7 @@ from lib.report import (
 
 NUMERIC = (
     'size', 'code_bytes', 'data_bytes', 'unknown_bytes', 'code_pct',
-    'instructions', 'labels', 'data_blocks', 'structs',
+    'instructions', 'labels', 'data_blocks',
     'jt_count', 'jt_validated', 'jt_targets',
     'code_loss', 'bare_mem', 'bare_call', 'iterations',
 )

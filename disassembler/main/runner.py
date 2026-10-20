@@ -25,7 +25,6 @@ from lib.compare.analysis import (
     _local_branch_targets,
 )
 from lib.verify.assemble import assemble_stats, reset_assemble_stats
-from lib.struct_analysis import build_structs
 from lib.match.pattern import match_patterns
 from lib.match.trampoline import match_trampolines
 from lib.match.driver_slots import (driver_thunk_entries, entry_handlers,
@@ -586,8 +585,6 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         # this point (emit/NASM/build_out) belongs to a prebuild.
         return SimpleNamespace(prebuild_only=True, ctx=ctx, label_map=label_map)
 
-    structs = build_structs(instructions)
-
     carve_1 = ctx.layers['carve_1'].to_numpy() if 'carve_1' in ctx.layers.columns else None
 
     raw_imm = (ctx.sidecar_entry or {}).get('immediate_labels', {})
@@ -634,7 +631,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         instructions=instructions, label_map=label_map,
         function_roots=function_roots, extra_flow_edges=extra_flow_edges,
         foreign_label_map=foreign_label_map, entry_symbol=entry_symbol,
-        foreign_prefix=foreign_prefix, structs=structs, carve_1=carve_1, immediate_labels=immediate_labels,
+        foreign_prefix=foreign_prefix, carve_1=carve_1, immediate_labels=immediate_labels,
         label_comments=label_comments, split_functions=split_functions,
         out_dir=out_dir, c_overrides=c_overrides, entries=_entries,
         header_files=header_files,
@@ -747,18 +744,17 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
     """
     (name, project, data, start_offset, ctx, instructions, label_map,
      function_roots, extra_flow_edges, foreign_label_map, entry_symbol,
-     structs, carve_1, immediate_labels, label_comments, split_functions,
+     carve_1, immediate_labels, label_comments, split_functions,
      out_dir, c_overrides, asm_annotations) = (
         a.name, a.project, a.data, a.start_offset, a.ctx, a.instructions,
         a.label_map, a.function_roots, a.extra_flow_edges,
-        a.foreign_label_map, a.entry_symbol, a.structs, a.carve_1,
+        a.foreign_label_map, a.entry_symbol, a.carve_1,
         a.immediate_labels, a.label_comments, a.split_functions, a.out_dir,
         a.c_overrides, a.asm_annotations)
     asm_text, stats, emit_bytes, label_positions, split_sources = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
         exact_bytes=exact_bytes, show_offsets=show_offsets,
-        structs=structs,
         carve_1=carve_1,
         trace=ctx.trace,
         foreign_label_map=foreign_label_map,
@@ -872,7 +868,7 @@ def _emit(a, r, exact_bytes):
         if include_path.endswith('.asm'):
             split_sources[include_path] = stamp(split_sources[include_path],
                                                 include_path)
-    files = {**a.header_files, **stats.get('struct_files', {}), **seeds,
+    files = {**a.header_files, **seeds,
              **split_sources}
     asm_path = os.path.join(out_dir, f'{name}.asm')
     files[f'{name}.asm'] = asm_text
@@ -903,7 +899,7 @@ def _emit(a, r, exact_bytes):
         print(f'{name}: {len(instructions)} insns -> {asm_path}  '
               f'mnem={stats["mnemonic"]} db={stats["data"]} '
               f'dbc={dbc} blocks={stats["data_blocks"]} '
-              f'lbl={stats["labels"]}  structs={stats["structs"]}  '
+              f'lbl={stats["labels"]}  '
               f'code={code_bytes}({pct:.0f}%) data={data_bytes}  '
               f'bare=[mem:{stats["bare_mem"]} call:{stats["bare_call"]} '
               f'dbc:{stats["bare_dbc"]}]  '
@@ -942,7 +938,6 @@ def _emit(a, r, exact_bytes):
         'with_comment': stats.get('with_comment', 0),
         'data_blocks': stats['data_blocks'],
         'labels': stats['labels'],
-        'structs': stats['structs'],
         'bare_mem': stats.get('bare_mem', 0),
         'bare_call': stats.get('bare_call', 0),
         'bare_dbc': stats.get('bare_dbc', 0),

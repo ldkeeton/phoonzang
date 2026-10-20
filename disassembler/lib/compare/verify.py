@@ -59,7 +59,7 @@ from lib.compare.analysis import (
 from lib.compare.coverrides import _apply_c_overrides
 from lib.compare.vendor import _apply_asm_annotations
 from lib.compare.interrupts import _set_insn_fields, _annotate_interrupts
-from lib.names import data_space, generic_prefix, is_data, is_label, loc_name
+from lib.names import data_space, is_data, is_label, loc_name
 from lib.symtab import Kind, Source, Space, Symbol
 from lib.compare.jumptables import (
     _merge_jump_table_specs,
@@ -299,7 +299,7 @@ def _note_immediate_labels(use, immediate_labels, text):
 
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
            bitmap=None, code_targets=None, exact_bytes=False, show_offsets=True,
-           structs=None, cascade_promoted=None,
+           cascade_promoted=None,
            carve_1=None, trace=None,
            foreign_label_map=None,
            immediate_labels=None, split_functions=None, hard_data=None,
@@ -334,7 +334,6 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         Sidecar ``external_data`` map (``{offset: {'name', 'segment'?}}``)
         naming fixed external-segment fields (e.g. the BIOS Data Area).  A
         field is named only when the operand's segment matches the entry's.
-    structs : list | None
     cascade_promoted : set | None
 
     Returns (asm_text, stats, emit_bytes, label_positions, split_sources).
@@ -1310,28 +1309,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             if is_label(lname) and off < total and emit_class[off] == IS_DATA:
                 code_loss += 1
 
-    struct_count = 0
-    struct_files = {}
-    if structs:
-        from lib.struct_analysis import struct_inc_files
-        struct_files, inc_line = struct_inc_files(structs, name)
-        if inc_line:
-            includes = '%include "inc/structs/structs.inc"\n' + inc_line + '\n'
-            if generic_prefix():
-                # An overlay includes the host only for its symbols; the host's
-                # struct layouts would clash with the overlay's own.
-                includes = f'%ifndef HOST_SYMS_ONLY\n{includes}%endif\n'
-            src_lines = includes + src_lines
-            struct_count = len(structs)
-
     return src_lines, {
         'mnemonic': mnem_count,
         'data': db_count,
         'with_comment': dbc_count,
         'data_blocks': data_blocks,
         'labels': label_count,
-        'structs': struct_count,
-        'struct_files': struct_files,
         'bare_mem': bare_mem,
         'bare_call': bare_call,
         'bare_dbc': bare_dbc,

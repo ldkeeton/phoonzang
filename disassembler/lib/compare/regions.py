@@ -204,7 +204,7 @@ def carve(data, start=0, end=None, *, code_ranges=(), typed_ranges=(),
     code_ranges : iterable of ``(start, end)``
         Bytes already known to be code (kept as ``code`` regions).
     typed_ranges : iterable of ``(start, end, note)``
-        Struct/array regions supplied by ``lib.struct_analysis``.
+        Struct/array regions known from elsewhere.
     is_addr : callable | None
         Predicate for a 16-bit word value that maps into a loaded space; enables
         the ``pointer_table`` detector when supplied.

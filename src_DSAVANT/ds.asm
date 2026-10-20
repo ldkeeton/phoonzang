@@ -1,8 +1,4 @@
 ; auto-generated
-%ifndef HOST_SYMS_ONLY
-%include "inc/structs/structs.inc"
-%include "inc/structs/ds.inc"
-%endif
 bits 16
 %ifndef VBASE
 %ifdef ELF_BUILD

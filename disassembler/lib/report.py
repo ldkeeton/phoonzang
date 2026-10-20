@@ -199,7 +199,6 @@ def summarize(ctx):
         'instructions': _int(cls.get('instructions')),
         'labels': _int(verify.get('labels')),
         'data_blocks': _int(verify.get('data_blocks')),
-        'structs': _int(verify.get('structs')),
         'verify_status': str(verify.get('status', '')),
         'jt_count': len(jts),
         'jt_validated': sum(1 for jt in jts if jt.get('validated')),
