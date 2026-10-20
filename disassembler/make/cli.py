@@ -35,7 +35,6 @@ Commands (space-separated):
                             --allow-diff to relax) + nasm; default: everything
   make elf-rebuild [PROJECT [BIN]]  full rebuild from current sources (C resplice +
                             link + all binaries); ELF/DWARF for BIN (default host)
-  make decompile PROJECT BIN  disassemble + decompile binary to .c
   make set-baseline         pin current stats as the local baseline
   make stats-diff           current-vs-baseline KPI delta (+ delta.json)
   make charts               regenerate all PNGs + CSVs from existing stats
