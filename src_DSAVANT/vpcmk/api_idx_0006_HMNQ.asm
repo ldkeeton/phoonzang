@@ -50,7 +50,7 @@ api_idx_0006_HMNQ:
     add sp, byte 0x0c                ; 0x6145
     mov word [bp - 0x0004], dx       ; 0x6148
     mov word [bp - 0x0006], ax       ; 0x614b
-    call bios_kbd_check              ; 0x614e
+    call flush_keyboard              ; 0x614e
 @..api_idx_0006_HMNQ.l1:
     mov ax, 0                        ; 0x6151
     push ax                          ; 0x6154

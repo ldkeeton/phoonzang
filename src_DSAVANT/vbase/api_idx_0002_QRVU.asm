@@ -72,5 +72,5 @@ api_idx_0002_QRVU:
 @..api_idx_0002_QRVU.l5:
     mov word [bss_0e32], 0           ; 0x4056
 @..api_idx_0002_QRVU.l6:
-    call bios_kbd_check              ; 0x405c
+    call flush_keyboard              ; 0x405c
     ret                              ; 0x405f

@@ -51,7 +51,7 @@ api_idx_006a_QKPT:
     add sp, byte 6                   ; 0xac20
     push word [bss_0e2c]             ; 0xac23
     push word [bss_0e2a]             ; 0xac27
-    call ds_app_io_TSGV              ; 0xac2b
+    call ds_app_TSGV                 ; 0xac2b
     add sp, byte 4                   ; 0xac2e
     mov ax, 0                        ; 0xac31
     push ax                          ; 0xac34
@@ -213,7 +213,7 @@ api_idx_006a_QKPT:
     mov dx, 0                        ; 0xadfe
     push dx                          ; 0xae01
     push ax                          ; 0xae02
-    call ds_app_io_TSGV              ; 0xae03
+    call ds_app_TSGV                 ; 0xae03
     add sp, byte 4                   ; 0xae06
     mov word [bss_93ee], 1           ; 0xae09
     ret                              ; 0xae0f

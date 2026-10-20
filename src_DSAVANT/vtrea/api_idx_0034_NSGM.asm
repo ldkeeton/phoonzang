@@ -2,7 +2,7 @@
 api_idx_0034_NSGM:
     mov ax, 0xffcc                   ; 0x6ff5
     call aztec_csav                  ; 0x6ff8
-    call bios_kbd_check              ; 0x6ffb
+    call flush_keyboard              ; 0x6ffb
     mov ax, word [bp + 0x6]          ; 0x6ffe
     shl ax, 1                        ; 0x7001
     mov si, ax                       ; 0x7003

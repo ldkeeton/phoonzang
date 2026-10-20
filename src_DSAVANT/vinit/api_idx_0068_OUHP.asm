@@ -906,7 +906,7 @@ api_idx_0068_OUHP:
     jne short @..api_idx_0068_OUHP.l56 ; 0x12ca
     jmp short @..api_idx_0068_OUHP.l55 ; 0x12cc
 @..api_idx_0068_OUHP.l56:
-    call bios_kbd_check              ; 0x12ce
+    call flush_keyboard              ; 0x12ce
     mov ax, 0                        ; 0x12d1
     push ax                          ; 0x12d4
     push ax                          ; 0x12d5

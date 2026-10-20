@@ -5,7 +5,7 @@ loc_LPNP:
     push word [bp + 0x4]             ; 0x12d9
     call api_idx_0050_JLOV           ; 0x12dc
     pop cx                           ; 0x12df
-    call bios_kbd_check              ; 0x12e0
+    call flush_keyboard              ; 0x12e0
     push word [bp + 0x6]             ; 0x12e3
     call ds_app_HKIJ                 ; 0x12e6
     pop cx                           ; 0x12e9

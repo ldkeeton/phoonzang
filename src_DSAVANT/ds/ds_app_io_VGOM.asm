@@ -110,7 +110,7 @@ ds_app_io_VGOM: ; Aztec csav frame=0x0012
 @..ds_app_io_VGOM.l6:
     push word [bss_0e30]             ; 0x21f2
     push word [bss_0e2e]             ; 0x21f6
-    call ds_app_io_TSGV              ; 0x21fa
+    call ds_app_TSGV                 ; 0x21fa
     add sp, byte 4                   ; 0x21fd
     mov word [bp - 0x0002], 0        ; 0x2200
     jmp short @..ds_app_io_VGOM.l8   ; 0x2205
@@ -196,7 +196,7 @@ ds_app_io_VGOM: ; Aztec csav frame=0x0012
     mov dx, 0                        ; 0x22bf
     push dx                          ; 0x22c2
     push ax                          ; 0x22c3
-    call ds_app_io_TSGV              ; 0x22c4
+    call ds_app_TSGV                 ; 0x22c4
     add sp, byte 4                   ; 0x22c7
     mov ax, 0xffff                   ; 0x22ca
     ret                              ; 0x22cd
@@ -207,7 +207,7 @@ ds_app_io_VGOM: ; Aztec csav frame=0x0012
     mov dx, 0                        ; 0x22d8
     push dx                          ; 0x22db
     push ax                          ; 0x22dc
-    call ds_app_io_TSGV              ; 0x22dd
+    call ds_app_TSGV                 ; 0x22dd
     add sp, byte 4                   ; 0x22e0
     mov ax, word [bp - 0x0004]       ; 0x22e3
     ret                              ; 0x22e6
@@ -220,7 +220,7 @@ ds_app_io_VGOM: ; Aztec csav frame=0x0012
     mov dx, 0                        ; 0x22f6
     push dx                          ; 0x22f9
     push ax                          ; 0x22fa
-    call ds_app_io_TSGV              ; 0x22fb
+    call ds_app_TSGV                 ; 0x22fb
     add sp, byte 4                   ; 0x22fe
     mov ax, 0xffff                   ; 0x2301
     ret                              ; 0x2304

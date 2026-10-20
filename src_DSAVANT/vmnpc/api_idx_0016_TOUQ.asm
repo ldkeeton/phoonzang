@@ -146,7 +146,7 @@ api_idx_0016_TOUQ:
     mov bx, word [bp + 0x4]          ; 0xa6af
     mov si, word [bp - 0x0006]       ; 0xa6b2
     mov byte [bx + si], 0            ; 0xa6b5
-    call bios_kbd_check              ; 0xa6b8
+    call flush_keyboard              ; 0xa6b8
     mov ax, 1                        ; 0xa6bb
     push ax                          ; 0xa6be
     push word [bp - 0x0010]          ; 0xa6bf

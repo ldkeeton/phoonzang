@@ -12,7 +12,7 @@ loc_NRTK:
     push ax                          ; 0x3a7f
     call gfx_entry_16                ; 0x3a80
     add sp, byte 8                   ; 0x3a83
-    call bios_kbd_check              ; 0x3a86
+    call flush_keyboard              ; 0x3a86
 @..loc_NRTK.l1:
     call ds_app_TMKJ                 ; 0x3a89
     test ax, ax                      ; 0x3a8c

@@ -87,5 +87,5 @@ api_idx_0008_QLVR:
     push word [bp - 0x0008]          ; 0x0237
     call gfx_restore_area            ; 0x023a
     add sp, byte 6                   ; 0x023d
-    call bios_kbd_check              ; 0x0240
+    call flush_keyboard              ; 0x0240
     ret                              ; 0x0243

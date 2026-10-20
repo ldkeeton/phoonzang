@@ -2,7 +2,7 @@
 api_idx_0004_TTGQ:
     mov ax, 0xfffc
     call aztec_csav
-    call bios_kbd_check
+    call flush_keyboard
     mov ax, word [bp + 0x4]
     cwd
     les bx, word [dseg_0002]

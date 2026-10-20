@@ -192,7 +192,7 @@ api_idx_0012_GQSK:
 @..api_idx_0012_GQSK.l8:
     push word [bss_0e30]             ; 0x06dc
     push word [bss_0e2e]             ; 0x06e0
-    call ds_app_io_TSGV              ; 0x06e4
+    call ds_app_TSGV                 ; 0x06e4
     add sp, byte 4                   ; 0x06e7
     mov word [bp - 0x0008], 0        ; 0x06ea
 @..api_idx_0012_GQSK.l9:
@@ -225,7 +225,7 @@ api_idx_0012_GQSK:
     mov dx, 0                        ; 0x072d
     push dx                          ; 0x0730
     push ax                          ; 0x0731
-    call ds_app_io_TSGV              ; 0x0732
+    call ds_app_TSGV                 ; 0x0732
     add sp, byte 4                   ; 0x0735
     mov ax, 0xffff                   ; 0x0738
     ret                              ; 0x073b
@@ -242,7 +242,7 @@ api_idx_0012_GQSK:
     mov dx, 0                        ; 0x0754
     push dx                          ; 0x0757
     push ax                          ; 0x0758
-    call ds_app_io_TSGV              ; 0x0759
+    call ds_app_TSGV                 ; 0x0759
     add sp, byte 4                   ; 0x075c
     mov ax, word [bp - 0x0004]       ; 0x075f
     ret                              ; 0x0762
@@ -255,7 +255,7 @@ api_idx_0012_GQSK:
     mov dx, 0                        ; 0x0772
     push dx                          ; 0x0775
     push ax                          ; 0x0776
-    call ds_app_io_TSGV              ; 0x0777
+    call ds_app_TSGV                 ; 0x0777
     add sp, byte 4                   ; 0x077a
     mov ax, 0xffff                   ; 0x077d
     ret                              ; 0x0780

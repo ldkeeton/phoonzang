@@ -98,7 +98,7 @@ api_idx_0002_OHVL:
     push ax                          ; 0x1a3d
     mov ax, 0x37                     ; 0x1a3e
     push ax                          ; 0x1a41
-    call ds_app_io_VRKV              ; 0x1a42
+    call ds_app_VRKV                 ; 0x1a42
     add sp, byte 8                   ; 0x1a45
     mov ax, word [bss_905a]          ; 0x1a48
     cmp byte [bss_598c], 0           ; 0x1a4b

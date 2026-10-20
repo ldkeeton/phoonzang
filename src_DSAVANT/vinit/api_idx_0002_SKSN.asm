@@ -76,5 +76,5 @@ api_idx_0002_SKSN:
     call ds_app_gfx_entry_22_VNHP    ; 0x13fb
     pop cx                           ; 0x13fe
     mov word [bss_830a], 2           ; 0x13ff
-    call bios_kbd_check              ; 0x1405
+    call flush_keyboard              ; 0x1405
     ret                              ; 0x1408

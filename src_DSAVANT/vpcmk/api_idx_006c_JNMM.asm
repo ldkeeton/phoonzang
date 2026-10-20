@@ -27,7 +27,7 @@ api_idx_006c_JNMM:
     add sp, byte 0x0c                ; 0x46cf
     mov word [bp - 0x006a], dx       ; 0x46d2
     mov word [bp - 0x006c], ax       ; 0x46d5
-    call bios_kbd_check              ; 0x46d8
+    call flush_keyboard              ; 0x46d8
 @..api_idx_006c_JNMM.l1:
     mov ax, 0                        ; 0x46db
     push ax                          ; 0x46de

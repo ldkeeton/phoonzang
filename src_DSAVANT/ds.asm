@@ -334,7 +334,7 @@ bss_59f6 equ __zbss_59f6 - __zdseg_start
 bss_59f8 equ __zbss_59f8 - __zdseg_start
 %include "ds/ds_app_RMGT.asm"              ; 0x0ad7
 
-%include "ds/ds_app_io_TSGV.asm"           ; 0x0af6
+%include "ds/ds_app_TSGV.asm"              ; 0x0af6
 
 ; bss_0e32 equ __zbss_0e32 - __zdseg_start
 bss_59fa equ __zbss_59fa - __zdseg_start
@@ -360,7 +360,7 @@ bss_5b46 equ __zbss_5b46 - __zdseg_start
 ; bss_0e2c equ __zbss_0e2c - __zdseg_start
 ; bss_0e32 equ __zbss_0e32 - __zdseg_start
 bss_598c equ __zbss_598c - __zdseg_start
-%include "ds/ds_app_io_VRKV.asm"           ; 0x0d7a
+%include "ds/ds_app_VRKV.asm"              ; 0x0d7a
 
 %include "ds/ds_app_GIKM.asm"              ; 0x0e03
 
@@ -828,7 +828,7 @@ cseg_3c7f:
 
 %include "ds/dos_con_in_noecho_2.asm"      ; 0x3d79
 
-%include "ds/bios_kbd_check.asm"           ; 0x3e5e
+%include "ds/flush_keyboard.asm"           ; 0x3e5e
 
 %include "ds/set_bitmap_bit.asm"           ; 0x3e88
 

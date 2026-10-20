@@ -45,5 +45,5 @@ api_idx_0004_MIJS:
     push word [bp - 0x0004]          ; 0x1140
     call gfx_restore_area            ; 0x1143
     add sp, byte 6                   ; 0x1146
-    call bios_kbd_check              ; 0x1149
+    call flush_keyboard              ; 0x1149
     ret                              ; 0x114c

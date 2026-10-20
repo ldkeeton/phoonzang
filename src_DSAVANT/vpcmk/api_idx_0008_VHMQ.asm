@@ -42,7 +42,7 @@ api_idx_0008_VHMQ:
     add sp, byte 0x0c                ; 0x4991
     mov word [bp - 0x0006], dx       ; 0x4994
     mov word [bp - 0x0008], ax       ; 0x4997
-    call bios_kbd_check              ; 0x499a
+    call flush_keyboard              ; 0x499a
 @..api_idx_0008_VHMQ.l1:
     mov ax, 0x13                     ; 0x499d
     push ax                          ; 0x49a0

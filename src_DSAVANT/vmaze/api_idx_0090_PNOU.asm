@@ -40,7 +40,7 @@ jumptable_6e12_case_1:
     push ax                          ; 0x6d1a
     mov ax, 0x37                     ; 0x6d1b
     push ax                          ; 0x6d1e
-    call ds_app_io_VRKV              ; 0x6d1f
+    call ds_app_VRKV                 ; 0x6d1f
     add sp, byte 8                   ; 0x6d22
     push word [bss_905a]             ; 0x6d25
     call api_idx_0006_LIGG           ; 0x6d29
@@ -68,7 +68,7 @@ jumptable_6e12_case_2:
     push ax                          ; 0x6d61
     mov ax, 0x37                     ; 0x6d62
     push ax                          ; 0x6d65
-    call ds_app_io_VRKV              ; 0x6d66
+    call ds_app_VRKV                 ; 0x6d66
     add sp, byte 8                   ; 0x6d69
 @..api_idx_0090_PNOU.l4:
     jmp near @..api_idx_0090_PNOU.l7 ; 0x6d6c

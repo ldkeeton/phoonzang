@@ -1372,7 +1372,7 @@ jumptable_5e7f_case_2:
 @..loc_RMVR.l32:
     jmp near @..loc_RMVR.l52         ; 0x5943
 jumptable_5e7f_case_3:
-    call bios_kbd_check              ; 0x5946
+    call flush_keyboard              ; 0x5946
     mov ax, 0x12                     ; 0x5949
     push ax                          ; 0x594c
     mov ax, word [bp - 0x000a]       ; 0x594d
@@ -1411,7 +1411,7 @@ jumptable_5e7f_case_3:
     add sp, byte 6                   ; 0x599a
     jmp near @..loc_RMVR.l52         ; 0x599d
 jumptable_5e7f_case_4:
-    call bios_kbd_check              ; 0x59a0
+    call flush_keyboard              ; 0x59a0
     mov ax, 0x12                     ; 0x59a3
     push ax                          ; 0x59a6
     mov ax, word [bp - 0x000a]       ; 0x59a7
@@ -1731,7 +1731,7 @@ jumptable_5e7f_case_18:
     test ax, ax                      ; 0x5c83
     jne short @..loc_RMVR.l47        ; 0x5c85
 @..loc_RMVR.l46:
-    call bios_kbd_check              ; 0x5c87
+    call flush_keyboard              ; 0x5c87
     mov ax, 0xa                      ; 0x5c8a
     push ax                          ; 0x5c8d
     mov ax, word [bp - 0x000a]       ; 0x5c8e

@@ -26,7 +26,7 @@ loc_KPLK:
     push word [bp + 0x4]             ; 0x153e
     call api_idx_0004_VUIP           ; 0x1541
     add sp, byte 0x0e                ; 0x1544
-    call bios_kbd_check              ; 0x1547
+    call flush_keyboard              ; 0x1547
     mov ax, 0                        ; 0x154a
     push ax                          ; 0x154d
     call ds_app_HKIJ                 ; 0x154e

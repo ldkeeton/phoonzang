@@ -265,7 +265,7 @@ api_idx_0026_NRVO:
     push ax                          ; 0x1449
     call gfx_entry_16                ; 0x144a
     add sp, byte 8                   ; 0x144d
-    call bios_kbd_check              ; 0x1450
+    call flush_keyboard              ; 0x1450
     mov ax, 0                        ; 0x1453
     push ax                          ; 0x1456
     mov ax, 1                        ; 0x1457
@@ -335,7 +335,7 @@ api_idx_0026_NRVO:
 @..api_idx_0026_NRVO.l2:
     jmp near @..api_idx_0026_NRVO.l10 ; 0x14ed
 @..api_idx_0026_NRVO.l3:
-    call bios_kbd_check              ; 0x14f0
+    call flush_keyboard              ; 0x14f0
     mov ax, 1                        ; 0x14f3
     push ax                          ; 0x14f6
     mov ax, 0                        ; 0x14f7

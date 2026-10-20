@@ -2,7 +2,7 @@
 api_idx_0006_LIGG:
     mov ax, 0xfffa                   ; 0x0f8e
     call aztec_csav                  ; 0x0f91
-    call bios_kbd_check              ; 0x0f94
+    call flush_keyboard              ; 0x0f94
     mov ax, word [bp + 0x4]          ; 0x0f97
     cwd                              ; 0x0f9a
     les bx, word [dseg_0002]         ; 0x0f9b

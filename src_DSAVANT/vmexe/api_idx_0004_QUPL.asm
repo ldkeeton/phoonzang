@@ -3,7 +3,7 @@ api_idx_0004_QUPL:
     mov ax, 0xfffc                   ; 0x1a5f
     call aztec_csav                  ; 0x1a62
     mov word [bss_90e4], 1           ; 0x1a65
-    call bios_kbd_check              ; 0x1a6b
+    call flush_keyboard              ; 0x1a6b
     mov ax, word [bp + 0x4]          ; 0x1a6e
     cwd                              ; 0x1a71
     les bx, word [dseg_0002]         ; 0x1a72

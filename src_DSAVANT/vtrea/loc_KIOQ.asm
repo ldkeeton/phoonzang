@@ -47,6 +47,6 @@ loc_KIOQ:
     push ax                          ; 0x0df7
     mov ax, 0x37                     ; 0x0df8
     push ax                          ; 0x0dfb
-    call ds_app_io_VRKV              ; 0x0dfc
+    call ds_app_VRKV                 ; 0x0dfc
     add sp, byte 8                   ; 0x0dff
     ret                              ; 0x0e02

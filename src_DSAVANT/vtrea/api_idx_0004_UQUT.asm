@@ -2,7 +2,7 @@
 api_idx_0004_UQUT:
     mov ax, 0xfffc                   ; 0x08eb
     call aztec_csav                  ; 0x08ee
-    call bios_kbd_check              ; 0x08f1
+    call flush_keyboard              ; 0x08f1
     mov ax, word [bp + 0x4]          ; 0x08f4
     cwd                              ; 0x08f7
     les bx, word [dseg_0002]         ; 0x08f8

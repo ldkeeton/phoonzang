@@ -110,7 +110,7 @@ api_idx_0008_LLVT:
     mov bx, word [bp + 0x4]
     mov si, word [bp - 0x0004]
     mov byte [bx + si], 0
-    call bios_kbd_check
+    call flush_keyboard
     ret
 @..api_idx_0008_LLVT.l8:
     cmp word [bp - 0x0002], byte 8

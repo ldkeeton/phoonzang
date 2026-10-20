@@ -265,7 +265,7 @@ api_idx_0026_QIGS:
     push ax                          ; 0x8cc3
     call gfx_entry_16                ; 0x8cc4
     add sp, byte 8                   ; 0x8cc7
-    call bios_kbd_check              ; 0x8cca
+    call flush_keyboard              ; 0x8cca
     mov ax, 0                        ; 0x8ccd
     push ax                          ; 0x8cd0
     mov ax, 1                        ; 0x8cd1
@@ -335,7 +335,7 @@ api_idx_0026_QIGS:
 @..api_idx_0026_QIGS.l2:
     jmp near @..api_idx_0026_QIGS.l10 ; 0x8d67
 @..api_idx_0026_QIGS.l3:
-    call bios_kbd_check              ; 0x8d6a
+    call flush_keyboard              ; 0x8d6a
     mov ax, 1                        ; 0x8d6d
     push ax                          ; 0x8d70
     mov ax, 0                        ; 0x8d71

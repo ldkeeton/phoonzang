@@ -278,7 +278,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x656d
     call ds_app_HKIJ                 ; 0x656e
     pop cx                           ; 0x6571
-    call bios_kbd_check              ; 0x6572
+    call flush_keyboard              ; 0x6572
     mov ax, 1                        ; 0x6575
     push ax                          ; 0x6578
     mov ax, 0                        ; 0x6579

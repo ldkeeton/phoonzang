@@ -72,5 +72,5 @@ api_idx_000c_LVHV:
     push ax                          ; 0x03b0
     call api_idx_000a_UUIH           ; 0x03b1
     pop cx                           ; 0x03b4
-    call bios_kbd_check              ; 0x03b5
+    call flush_keyboard              ; 0x03b5
     ret                              ; 0x03b8

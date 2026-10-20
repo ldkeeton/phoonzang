@@ -12,7 +12,7 @@ api_idx_0050_MUIG:
     pop cx                           ; 0x7f6f
     push word [bss_0e2c]             ; 0x7f70
     push word [bss_0e2a]             ; 0x7f74
-    call ds_app_io_TSGV              ; 0x7f78
+    call ds_app_TSGV                 ; 0x7f78
     add sp, byte 4                   ; 0x7f7b
     mov ax, 0                        ; 0x7f7e
     push ax                          ; 0x7f81
@@ -111,7 +111,7 @@ api_idx_0050_MUIG:
     mov dx, 0                        ; 0x805a
     push dx                          ; 0x805d
     push ax                          ; 0x805e
-    call ds_app_io_TSGV              ; 0x805f
+    call ds_app_TSGV                 ; 0x805f
     add sp, byte 4                   ; 0x8062
     cmp word [bss_84a0], byte 0xff   ; 0x8065
     je short @..api_idx_0050_MUIG.l8 ; 0x806a

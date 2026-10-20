@@ -168,7 +168,7 @@ api_idx_00d4_LUPQ:
     call aztec_setmem                ; 0x38bd
     add sp, byte 6                   ; 0x38c0
     mov word [bp - 0x00b4], 0        ; 0x38c3
-    call bios_kbd_check              ; 0x38c9
+    call flush_keyboard              ; 0x38c9
     mov word [bp - 0x0006], 0        ; 0x38cc
 @..api_idx_00d4_LUPQ.l13:
     mov ax, word [bp - 0x0006]       ; 0x38d1
@@ -1217,7 +1217,7 @@ jumptable_4058:
     mov word [bp - 0x0026], 0        ; 0x42f8
 @..api_idx_00d4_LUPQ.l85:
     mov word [bp - 0x0022], 0xffff   ; 0x42fd
-    call bios_kbd_check              ; 0x4302
+    call flush_keyboard              ; 0x4302
     lea ax, word [bp - 0x0028]       ; 0x4305
     push ax                          ; 0x4308
     mov ax, 1                        ; 0x4309

@@ -111,7 +111,7 @@ api_idx_0012_SHRT:
 @..api_idx_0012_SHRT.l6:
     push word [bss_0e28]             ; 0x087b
     push word [bss_0e26]             ; 0x087f
-    call ds_app_io_TSGV              ; 0x0883
+    call ds_app_TSGV                 ; 0x0883
     add sp, byte 4                   ; 0x0886
     mov word [bp - 0x0002], 0        ; 0x0889
 @..api_idx_0012_SHRT.l7:
@@ -211,7 +211,7 @@ api_idx_0012_SHRT:
     mov dx, 0                        ; 0x095b
     push dx                          ; 0x095e
     push ax                          ; 0x095f
-    call ds_app_io_TSGV              ; 0x0960
+    call ds_app_TSGV                 ; 0x0960
     add sp, byte 4                   ; 0x0963
     mov ax, 0xffff                   ; 0x0966
     ret                              ; 0x0969
@@ -222,7 +222,7 @@ api_idx_0012_SHRT:
     mov dx, 0                        ; 0x0974
     push dx                          ; 0x0977
     push ax                          ; 0x0978
-    call ds_app_io_TSGV              ; 0x0979
+    call ds_app_TSGV                 ; 0x0979
     add sp, byte 4                   ; 0x097c
     mov ax, word [bp - 0x0004]       ; 0x097f
     ret                              ; 0x0982
@@ -235,7 +235,7 @@ api_idx_0012_SHRT:
     mov dx, 0                        ; 0x0992
     push dx                          ; 0x0995
     push ax                          ; 0x0996
-    call ds_app_io_TSGV              ; 0x0997
+    call ds_app_TSGV                 ; 0x0997
     add sp, byte 4                   ; 0x099a
     mov ax, 0xffff                   ; 0x099d
     ret                              ; 0x09a0

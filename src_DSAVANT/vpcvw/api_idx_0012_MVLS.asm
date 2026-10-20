@@ -77,7 +77,7 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0b35
     call gfx_set_mouse_pointer       ; 0x0b36
     add sp, byte 0x0c                ; 0x0b39
-    call bios_kbd_check              ; 0x0b3c
+    call flush_keyboard              ; 0x0b3c
     jmp near @..api_idx_0012_MVLS.l5 ; 0x0b3f
 @..api_idx_0012_MVLS.l4:
     mov ax, word [bp - 0x000a]       ; 0x0b42
@@ -199,7 +199,7 @@ api_idx_0012_MVLS:
     push word [bss_0e1e]             ; 0x0c6b
     call gfx_set_mouse_pointer       ; 0x0c6f
     add sp, byte 0x0c                ; 0x0c72
-    call bios_kbd_check              ; 0x0c75
+    call flush_keyboard              ; 0x0c75
 @..api_idx_0012_MVLS.l5:
     jmp short @..api_idx_0012_MVLS.l8 ; 0x0c78
 @..api_idx_0012_MVLS.l6:

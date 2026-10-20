@@ -2,7 +2,7 @@
 api_idx_0004_RGUG:
     mov ax, 0xfffc                   ; 0x0102
     call aztec_csav                  ; 0x0105
-    call bios_kbd_check              ; 0x0108
+    call flush_keyboard              ; 0x0108
     mov ax, word [bp + 0x4]          ; 0x010b
     cwd                              ; 0x010e
     les bx, word [dseg_0002]         ; 0x010f

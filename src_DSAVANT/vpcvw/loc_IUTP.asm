@@ -1877,7 +1877,7 @@ jumptable_76e2:
 @..loc_IUTP.l81:
     jmp short @..loc_IUTP.l84        ; 0x82ad
 @..loc_IUTP.l82:
-    call bios_kbd_check              ; 0x82af
+    call flush_keyboard              ; 0x82af
 @..loc_IUTP.l83:
     call ds_app_TMKJ                 ; 0x82b2
     test ax, ax                      ; 0x82b5

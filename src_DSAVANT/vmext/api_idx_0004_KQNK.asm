@@ -2,7 +2,7 @@
 api_idx_0004_KQNK:
     mov ax, 0xfffc                   ; 0x05e6
     call aztec_csav                  ; 0x05e9
-    call bios_kbd_check              ; 0x05ec
+    call flush_keyboard              ; 0x05ec
     mov ax, word [bp + 0x4]          ; 0x05ef
     cwd                              ; 0x05f2
     les bx, word [dseg_0002]         ; 0x05f3

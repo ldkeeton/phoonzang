@@ -255,7 +255,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
 @..ds_app_file_QQMM.l7:
     cmp word [bp - 0x00a4], byte 0   ; 0x2662
     jne short @..ds_app_file_QQMM.l6 ; 0x2667
-    call bios_kbd_check              ; 0x2669
+    call flush_keyboard              ; 0x2669
     mov ax, 0                        ; 0x266c
     push ax                          ; 0x266f
     push word [bp - 0x00b8]          ; 0x2670
@@ -366,7 +366,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push word [bp - 0x00ba]          ; 0x277c
     call gfx_restore_area            ; 0x2780
     add sp, byte 6                   ; 0x2783
-    call bios_kbd_check              ; 0x2786
+    call flush_keyboard              ; 0x2786
     cmp word [bp + 0xa], byte 0      ; 0x2789
     je short @..ds_app_file_QQMM.l19 ; 0x278d
     mov ax, 0                        ; 0x278f

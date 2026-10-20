@@ -10,7 +10,7 @@ loc_NQGV:
     push ax                          ; 0x0a2b
     mov ax, 0x37                     ; 0x0a2c
     push ax                          ; 0x0a2f
-    call ds_app_io_VRKV              ; 0x0a30
+    call ds_app_VRKV                 ; 0x0a30
     add sp, byte 8                   ; 0x0a33
     cmp word [bp + 0x4], byte 0      ; 0x0a36
     je short @..loc_NQGV.l2          ; 0x0a3a

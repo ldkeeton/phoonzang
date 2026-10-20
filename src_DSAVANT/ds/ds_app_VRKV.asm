@@ -1,14 +1,14 @@
 ; auto-generated
-ds_app_io_VRKV: ; Aztec csav frame=0x0000
+ds_app_VRKV: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x0d7a
     call aztec_csav                  ; 0x0d7d
     cmp byte [bss_598c], 0           ; 0x0d80
-    jne short @..ds_app_io_VRKV.l3   ; 0x0d85
+    jne short @..ds_app_VRKV.l3      ; 0x0d85
     cmp word [bss_0e32], byte 0      ; 0x0d87
-    je short @..ds_app_io_VRKV.l1    ; 0x0d8c
+    je short @..ds_app_VRKV.l1       ; 0x0d8c
     push word [bss_0e2c]             ; 0x0d8e
     push word [bss_0e2a]             ; 0x0d92
-    call ds_app_io_TSGV              ; 0x0d96
+    call ds_app_TSGV                 ; 0x0d96
     add sp, byte 4                   ; 0x0d99
     mov ax, 0                        ; 0x0d9c
     push ax                          ; 0x0d9f
@@ -18,7 +18,7 @@ ds_app_io_VRKV: ; Aztec csav frame=0x0000
     push ax                          ; 0x0da7
     call gfx_entry_33                ; 0x0da8
     add sp, byte 6                   ; 0x0dab
-@..ds_app_io_VRKV.l1:
+@..ds_app_VRKV.l1:
     mov ax, 0                        ; 0x0dae
     push ax                          ; 0x0db1
     push word [bp + 0xa]             ; 0x0db2
@@ -28,7 +28,7 @@ ds_app_io_VRKV: ; Aztec csav frame=0x0000
     call gfx_entry_27                ; 0x0dbe
     add sp, byte 0x0a                ; 0x0dc1
     cmp word [bss_0e32], byte 0      ; 0x0dc4
-    je short @..ds_app_io_VRKV.l2    ; 0x0dc9
+    je short @..ds_app_VRKV.l2       ; 0x0dc9
     mov ax, 0                        ; 0x0dcb
     push ax                          ; 0x0dce
     mov ax, 0xa4                     ; 0x0dcf
@@ -41,17 +41,17 @@ ds_app_io_VRKV: ; Aztec csav frame=0x0000
     mov dx, 0                        ; 0x0de0
     push dx                          ; 0x0de3
     push ax                          ; 0x0de4
-    call ds_app_io_TSGV              ; 0x0de5
+    call ds_app_TSGV                 ; 0x0de5
     add sp, byte 4                   ; 0x0de8
-@..ds_app_io_VRKV.l2:
-    jmp short @..ds_app_io_VRKV.l4   ; 0x0deb
-@..ds_app_io_VRKV.l3:
+@..ds_app_VRKV.l2:
+    jmp short @..ds_app_VRKV.l4      ; 0x0deb
+@..ds_app_VRKV.l3:
     push word [bp + 0xa]             ; 0x0ded
     push word [bp + 0x8]             ; 0x0df0
     push word [bp + 0x6]             ; 0x0df3
     push word [bp + 0x4]             ; 0x0df6
     call gfx_entry_16                ; 0x0df9
     add sp, byte 8                   ; 0x0dfc
-@..ds_app_io_VRKV.l4:
-    call bios_kbd_check              ; 0x0dff
+@..ds_app_VRKV.l4:
+    call flush_keyboard              ; 0x0dff
     ret                              ; 0x0e02

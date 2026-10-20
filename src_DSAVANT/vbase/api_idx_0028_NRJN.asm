@@ -373,7 +373,7 @@ api_idx_0028_NRJN:
     mov ax, word [bp - 0x000e]       ; 0x1250
     jmp near @..api_idx_0028_NRJN.l8 ; 0x1253
 jumptable_14d6_case_0:
-    call bios_kbd_check              ; 0x1256
+    call flush_keyboard              ; 0x1256
     mov ax, 1                        ; 0x1259
     push ax                          ; 0x125c
     mov ax, 0                        ; 0x125d
@@ -462,7 +462,7 @@ jumptable_14d6_case_0:
     add sp, byte 8                   ; 0x131c
     jmp near @..api_idx_0028_NRJN.l9 ; 0x131f
 jumptable_14d6_case_1:
-    call bios_kbd_check              ; 0x1322
+    call flush_keyboard              ; 0x1322
     mov ax, 1                        ; 0x1325
     push ax                          ; 0x1328
     push ax                          ; 0x1329

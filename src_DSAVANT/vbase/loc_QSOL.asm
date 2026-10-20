@@ -10,6 +10,6 @@ loc_QSOL:
     push ax                          ; 0x6c50
     mov ax, 0xc                      ; 0x6c51
     push ax                          ; 0x6c54
-    call ds_app_io_VRKV              ; 0x6c55
+    call ds_app_VRKV                 ; 0x6c55
     add sp, byte 8                   ; 0x6c58
     ret                              ; 0x6c5b

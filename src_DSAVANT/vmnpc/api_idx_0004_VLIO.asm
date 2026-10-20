@@ -61,7 +61,7 @@ loc_USTG:
     mov word [bss_93d4], 0           ; 0x2404
     push word [bss_0e2c]             ; 0x240a
     push word [bss_0e2a]             ; 0x240e
-    call ds_app_io_TSGV              ; 0x2412
+    call ds_app_TSGV                 ; 0x2412
     add sp, byte 4                   ; 0x2415
     mov ax, 0                        ; 0x2418
     push ax                          ; 0x241b
@@ -103,6 +103,6 @@ loc_SOOS:
     mov dx, 0                        ; 0x2466
     push dx                          ; 0x2469
     push ax                          ; 0x246a
-    call ds_app_io_TSGV              ; 0x246b
+    call ds_app_TSGV                 ; 0x246b
     add sp, byte 4                   ; 0x246e
     ret                              ; 0x2471

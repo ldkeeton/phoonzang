@@ -28,7 +28,7 @@ api_idx_000a_HIIM:
     mov dx, 0                        ; 0x9425
     push dx                          ; 0x9428
     push ax                          ; 0x9429
-    call ds_app_io_TSGV              ; 0x942a
+    call ds_app_TSGV                 ; 0x942a
     add sp, byte 4                   ; 0x942d
 @..api_idx_000a_HIIM.l4:
     call ds_app_TMKJ                 ; 0x9430
@@ -39,7 +39,7 @@ api_idx_000a_HIIM:
 @..api_idx_000a_HIIM.l5:
     push word [bss_0e2c]             ; 0x943c
     push word [bss_0e2a]             ; 0x9440
-    call ds_app_io_TSGV              ; 0x9444
+    call ds_app_TSGV                 ; 0x9444
     add sp, byte 4                   ; 0x9447
     mov ax, 0                        ; 0x944a
     push ax                          ; 0x944d

@@ -14,7 +14,7 @@ loc_MVHP:
     push ax                          ; 0x6b73
     mov ax, 0x37                     ; 0x6b74
     push ax                          ; 0x6b77
-    call ds_app_io_VRKV              ; 0x6b78
+    call ds_app_VRKV                 ; 0x6b78
     add sp, byte 8                   ; 0x6b7b
     mov ax, 0x3c                     ; 0x6b7e
     push ax                          ; 0x6b81

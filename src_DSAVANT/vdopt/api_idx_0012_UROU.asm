@@ -767,7 +767,7 @@ jumptable_147e_case_0:
     push ax                          ; 0x178a
     call gfx_entry_16                ; 0x178b
     add sp, byte 8                   ; 0x178e
-    call bios_kbd_check              ; 0x1791
+    call flush_keyboard              ; 0x1791
     mov ax, word [bp - 0x0008]       ; 0x1794
     mov cx, 2                        ; 0x1797
     cwd                              ; 0x179a

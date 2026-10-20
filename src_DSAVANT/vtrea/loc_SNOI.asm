@@ -103,7 +103,7 @@ loc_SNOI:
     mov word [bss_91d4], 1           ; 0x7e8b
     mov word [bss_9124], 5           ; 0x7e91
     mov word [bss_911c], 0x8f        ; 0x7e97
-    call bios_kbd_check              ; 0x7e9d
+    call flush_keyboard              ; 0x7e9d
     mov word [bss_9126], 0           ; 0x7ea0
     cmp word [bp + 0x4], byte 0      ; 0x7ea6
     jle short @..loc_SNOI.l2         ; 0x7eaa

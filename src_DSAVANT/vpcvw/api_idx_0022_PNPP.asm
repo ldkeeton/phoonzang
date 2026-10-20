@@ -107,7 +107,7 @@ api_idx_0022_PNPP:
     add sp, byte 0x0c                ; 0x957d
     mov word [bp - 0x0004], dx       ; 0x9580
     mov word [bp - 0x0006], ax       ; 0x9583
-    call bios_kbd_check              ; 0x9586
+    call flush_keyboard              ; 0x9586
 @..api_idx_0022_PNPP.l4:
     mov ax, 0                        ; 0x9589
     push ax                          ; 0x958c

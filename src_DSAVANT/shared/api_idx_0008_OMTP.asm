@@ -73,5 +73,5 @@ api_idx_0008_OMTP:
     push word [bp - 0x0008]
     call gfx_restore_area
     add sp, byte 6
-    call bios_kbd_check
+    call flush_keyboard
     ret
