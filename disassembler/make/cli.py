@@ -23,9 +23,9 @@ Commands (space-separated):
   make init                 sparse-clone only the dos_compilers folders listed in sidecars,
                             then unpack the Aztec runtime sources into dos_compilers/aztec_src/
   make libcheck             rebuild Aztec v4.2b C.LIB from dos_compilers/aztec_src/ and compare to the shipped one
-  make all                  prebuild (clean + Aztec mux), build, verify all, elf-rebuild, make test, make test slow
+  make all                  prebuild (clean .cache + Aztec mux), build, verify all, elf-rebuild, make test, make test slow
   make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if missing)
-  make prebuild [PROJECT...]  clean, rebuild aztec libs + signature DB, run the Aztec C mux
+  make prebuild [PROJECT...]  clean .cache, rebuild aztec libs + signature DB, run the Aztec C mux
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox-x
   make verify [PROJECT...]  verify one or all projects
@@ -81,7 +81,7 @@ def main():
     if '--all' in flags:
         for project in all_projects:
             cmd_prebuild(project)
-        _build_projects(all_projects, all_projects, clean=False, prebuild=False)
+        _build_projects(all_projects, all_projects, prebuild=False)
         cmd_verify([])
         cmd_elf_rebuild(None, None, all_projects)
         fast_ok = run_tests([])

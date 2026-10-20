@@ -18,7 +18,7 @@ from lib.link import LinkError
 from lib.report import clear_project_stats
 from lib.sidecar.errors import SidecarError
 
-from .clean import clean_output
+from main.clean import clear_build_out
 from .common import APPS, JOBS, PROJECT, Workers, _extra_flags
 from .prebuild import _ensure_prebuild
 
@@ -80,10 +80,11 @@ def asm_app(app):
     print(f'{app}: build OK')
 
 
-def _prepare(app, *, clean=True, prebuild=True):
-    """What every build does first: drop stale output, make sure prebuild exists."""
-    if clean:
-        clean_output(app)
+def _prepare(app, *, prebuild=True):
+    """What every build does first: drop the built binaries, make sure prebuild
+    exists.  ``src_<app>/`` itself is left alone until the build has laid out
+    every file (:func:`main.build._sync`)."""
+    clear_build_out(app)
     if prebuild:
         _ensure_prebuild(app)
     if _stats_enabled():
@@ -134,15 +135,12 @@ def cmd_rebuild(app=None, binary=None, all_projects=()):
         _rebuild_project(project, binary)
 
 
-def _build_projects(targets, all_projects, *, clean=True, prebuild=True):
+def _build_projects(targets, all_projects, *, prebuild=True):
     for project in targets:
         if project not in all_projects:
             print(f'Unknown project: {project}')
             print(f'Known: {", ".join(all_projects)}')
             sys.exit(1)
     for project in targets:
-        if clean:
-            clean_output(project)
-    for project in targets:
-        _prepare(project, clean=False, prebuild=prebuild)
+        _prepare(project, prebuild=prebuild)
         asm_app(project)

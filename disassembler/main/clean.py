@@ -3,11 +3,17 @@
 import os
 import shutil
 
-from lib.autogen import  remove_generated
+from lib.autogen import remove_generated
 from lib.cachedirs import src_dir
 
 from .options import PROJECT_ROOT
 from .projects import get_projects
+
+
+def clear_build_out(project):
+    """Remove ``build_out/``: every build copies and assembles it afresh."""
+    shutil.rmtree(os.path.join(src_dir(project, PROJECT_ROOT), 'build_out'),
+                  ignore_errors=True)
 
 
 def clean_project(project):
@@ -20,7 +26,7 @@ def clean_project(project):
     out_dir = src_dir(project, PROJECT_ROOT)
     if not os.path.isdir(out_dir):
         return False
-    shutil.rmtree(os.path.join(out_dir, 'build_out'), ignore_errors=True)
+    clear_build_out(project)
     removed, kept = remove_generated(out_dir)
     print(f'Removed {removed} generated files from {out_dir}')
     return True

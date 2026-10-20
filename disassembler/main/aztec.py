@@ -2,6 +2,7 @@
 
 import os
 
+from lib.autogen import hand_owned
 from lib.shared import FOLDER
 
 #: Where the vendor headers the C includes are copied (``src_<project>/include``).
@@ -27,9 +28,10 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     ``ASM_AZTEC_PREBUILD=1`` runs the DOSBox search and writes
     ``.cache/<project>/prebuild/``; otherwise the prebuilt manifest is read and a
     missing prebuild is a hard error.  The seed ``.c`` files live in
-    ``<out_dir>/<binary>/``; a routine with no file there gets a seed
-    (``generated``, written with the binary's sources), so a no-clean debug
-    rebuild respects hand edits.
+    ``<out_dir>/<binary>/``.  Only a hand-owned one (its marker line removed)
+    is read; any other module gets its seed (``generated``, written with the
+    binary's sources), so a ``.c`` an earlier build wrote is never mistaken
+    for a human's.
     """
     if not project or AZTEC_MUX_DISABLED:
         return {}, {}, {}
@@ -37,14 +39,11 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
               if getattr(nm, 'role', None) == 'aztec']
     dest = os.path.join(out_dir, name)
     known = {nm for nm in label_map.values() if isinstance(nm, str)}
-    hand_c = sorted(f[:-2] for f in (os.listdir(dest) if os.path.isdir(dest)
-                                     else ()) if f.endswith('.c'))
+    hand_c = _hand_c(dest)
     shared_dir = os.path.join(out_dir, FOLDER)
     # C shared between binaries (lib.shared) lives in shared/; only the labels
     # this binary has are its own.
-    shared_c = sorted(f[:-2] for f in (os.listdir(shared_dir)
-                                       if os.path.isdir(shared_dir) else ())
-                      if f.endswith('.c') and f[:-2] in known)
+    shared_c = [label for label in _hand_c(shared_dir) if label in known]
     if not labels and not hand_c and not shared_c:
         return {}, {}, {}
     from lib.aztec import cache
@@ -89,9 +88,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         print(f'  aztec module {filename}: stays assembly ({why})')
     known = {nm for nm in label_map.values() if isinstance(nm, str)}
     known |= set(spans)
-    shared_c = sorted(f[:-2] for f in (os.listdir(shared_dir)
-                                       if os.path.isdir(shared_dir) else ())
-                      if f.endswith('.c') and f[:-2] in known)
+    shared_c = [label for label in _hand_c(shared_dir) if label in known]
 
     orphans = sorted(f'{label}.c' for label in hand_c if label not in known)
     if orphans:
@@ -342,9 +339,9 @@ def _headers(out_dir, sources_in):
             rel = f'{INCLUDE_FOLDER}/{name}'
             path = os.path.join(out_dir, rel)
             want = stamp(header, path)
-            if os.path.exists(path):
+            if hand_owned(path):
                 with open(path) as f:
-                    if f.read() == want:
+                    if f.read() == header:
                         continue
             elif files.get(rel, want) == want:
                 files[rel] = want
@@ -352,24 +349,32 @@ def _headers(out_dir, sources_in):
             raise SystemExit(
                 f'error: {path} differs from the {version} header the C '
                 f'compiles with; the compile reads the vendor copy, so '
-                f'this one must match it (make clean regenerates it)')
+                f'this one must match it (delete it to have it regenerated)')
     return files
 
 
+def _hand_c(folder):
+    """The labels of the hand-owned ``.c`` files in *folder*, sorted."""
+    if not os.path.isdir(folder):
+        return []
+    return sorted(f[:-2] for f in os.listdir(folder)
+                  if f.endswith('.c') and hand_owned(os.path.join(folder, f)))
+
+
 def c_path(dest, label):
-    """The routine's ``.c``: the shared ``shared/`` copy when there is one."""
+    """The routine's ``.c``: the hand-owned ``shared/`` copy when there is one."""
     shared = os.path.join(os.path.dirname(dest), FOLDER, f'{label}.c')
-    return shared if os.path.exists(shared) else os.path.join(dest, f'{label}.c')
+    return shared if hand_owned(shared) else os.path.join(dest, f'{label}.c')
 
 
 def _seed_aztec_c(cache, project, binary, label, entry, dest):
     """``(text, generated)``: the routine's C, and whether it is a new seed.
 
-    A file already there (hand-written, or kept by a no-clean rebuild) is
-    read; otherwise the seed is returned for the build to write.
+    A hand-owned file already there is read; otherwise the seed is returned
+    for the build to write.
     """
     path = c_path(dest, label)
-    if os.path.exists(path):
+    if hand_owned(path):
         with open(path) as f:
             return f.read(), False
     return cache.seed_source_text(project, binary, label, entry), True

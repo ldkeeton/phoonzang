@@ -40,7 +40,7 @@ import os
 import subprocess
 
 from lib import stagelog
-from lib.autogen import write_once
+from lib.autogen import sync, write_once
 from lib.cachedirs import labels_dir, src_dir
 from lib.cross_ref import detect as detect_cross_refs, read_label_json
 from lib.link import (
@@ -57,7 +57,6 @@ from lib.symtab import project_tables
 
 from .options import APPS_DIR, PROJECT_ROOT
 from .projects import copy_assets, discover_binaries
-from .runner import write_files
 
 
 def check_build_sidecar_use(project, bins):
@@ -159,6 +158,16 @@ def merge_files(emitted):
                                 f'differently')
             files[rel], owner[rel] = text, owner.get(rel, name)
     return files
+
+
+def _sync(out_dir, files, report, scopes=None):
+    """Bring *out_dir* to this build's *files*: the tree is left alone until
+    the layout is final, then only what changed is written or removed.  A
+    partial build prunes only its own *scopes*."""
+    written, unchanged, removed = sync(out_dir, files, scopes,
+                                       skip=('build_out',))
+    report(f'  {os.path.basename(out_dir)}: {written} written, '
+           f'{unchanged} unchanged, {removed} removed')
 
 
 def build_project(project, run_batch, nasm_batch, *, only=None, report=print):
@@ -272,7 +281,8 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     if only is not None:
         # A partial build makes no whole-project decision, and assembling it
         # alone must not leave the others' stale artifacts in build_out.
-        write_files(out_dir, merge_files(emitted))
+        _sync(out_dir, merge_files(emitted), report,
+              scopes=[f'{only}.asm', only])
         copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
                     {bins[only][0]})
         return _batch(nasm_batch, [(only, bins[only][0])])
@@ -315,7 +325,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
         metrics={k: cotenancy[k] for k in ('files', 'glued_files', 'co_tenants',
                                             'code', 'data')})
 
-    write_files(out_dir, files)
+    _sync(out_dir, files, report)
     copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
                 {rel for rel, _s in bins.values()})
 

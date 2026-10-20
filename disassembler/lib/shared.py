@@ -24,7 +24,7 @@ import os
 import re
 from collections import defaultdict
 
-from .autogen import is_generated
+from .autogen import hand_owned, is_generated
 from .cachedirs import project_of_src_dir
 from .symtab import project_tables
 
@@ -164,7 +164,8 @@ def _read(path):
 
 
 def _on_disk(out_dir, rel):
-    return os.path.exists(os.path.join(out_dir, rel))
+    """A hand-owned file at *rel*: what an earlier build wrote is not input."""
+    return hand_owned(os.path.join(out_dir, rel))
 
 
 def _fragments(files, out_dir):

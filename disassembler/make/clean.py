@@ -18,6 +18,16 @@ def clean_output(project):
     return clean_project(project)
 
 
+def clean_cache(project):
+    """Remove one project's ``.cache``; True when there was one."""
+    cache = project_cache(project)
+    if not os.path.isdir(cache):
+        return False
+    shutil.rmtree(cache)
+    print(f'Removed {cache}')
+    return True
+
+
 def cmd_clean(apps):
     """Remove generated output and ``.cache`` for *apps* (none: everything).
 
@@ -39,10 +49,6 @@ def cmd_clean(apps):
         return
     for app in apps:
         removed = clean_output(app)
-        cache = project_cache(app)
-        if os.path.isdir(cache):
-            shutil.rmtree(cache)
-            print(f'Removed {cache}')
-            removed = True
+        removed = clean_cache(app) or removed
         if not removed:
             print(f'Nothing to clean for {app}')

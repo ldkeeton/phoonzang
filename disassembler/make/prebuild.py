@@ -8,17 +8,19 @@ from lib.aztec import build_db
 from lib.cachedirs import aztec_funcs_path, prebuild_dir
 from main.projects import discover_binaries
 
-from .clean import cmd_clean
+from .clean import clean_cache
 from .common import APPS, JOBS, _asm_one
 
 
 def cmd_prebuild(app):
-    """``make prebuild``: clean *app*, then rebuild what the Aztec C mux needs.
+    """``make prebuild``: clean *app*'s ``.cache``, then rebuild what the Aztec
+    C mux needs.
 
     ``.cache`` carries no version stamps; the clean here is what invalidates
-    it.  Prebuild is a whole-project step.
+    it.  Prebuild is a whole-project step.  ``src_<app>/`` is the build's to
+    bring up to date (:func:`main.build._sync`), so it is left alone.
     """
-    cmd_clean([app])
+    clean_cache(app)
     _run_prebuild(app)
 
 
