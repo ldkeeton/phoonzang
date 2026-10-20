@@ -551,7 +551,7 @@ video_is_herc:
     times 5 db 0
 cseg_2f40:
     db 0x80, 0x41, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x40, 0x01
-cseg_2f4a:
+font_header_seg:
     db 0x00, 0x00, 0x40, 0x00
 cseg_2f4e:
     db 0x00, 0x00, 0x30, 0x05
@@ -752,23 +752,23 @@ cseg_37d1:
 
 %include "ds/ds_leaf_loc_PUGK.asm"         ; 0x383e
 
-cseg_384a:
+font_seg_table:
 
     times 20 db 0
     db 0xff, 0xff
 
-dseg_0110 equ __zdseg_0110 - __zdseg_start
-%include "ds/dos_alloc_mem.asm"            ; 0x3860
+file_param_word equ __zfile_param_word - __zdseg_start
+%include "ds/load_font_file.asm"           ; 0x3860
 
-%include "ds/ds_dos_con_loc_RKPT.asm"      ; 0x3936
+%include "ds/ds_dos_con_loc_PGIN.asm"      ; 0x3936
 
-cseg_393f:
+font_io_error_msg:
 
     db 0x07, 0x0d, 0x0a
     db 'I/O error loading font'
     db 0x0d, 0x0a, 0x24
 
-%include "ds/ds_loc_395b.asm"              ; 0x395b
+%include "ds/font_memory_error.asm"        ; 0x395b
 
 %include "ds/ds_dos_con_loc_RGGK.asm"      ; 0x3962
 
@@ -778,10 +778,10 @@ cseg_396b:
     db 'Memory error loading font'
     db 0x0d, 0x0a, 0x24
 
-; dseg_0110 equ __zdseg_0110 - __zdseg_start
+; file_param_word equ __zfile_param_word - __zdseg_start
 %include "ds/dos_read_file.asm"            ; 0x398a
 
-; dseg_0110 equ __zdseg_0110 - __zdseg_start
+; file_param_word equ __zfile_param_word - __zdseg_start
 %include "ds/ds_loc_UQOV.asm"              ; 0x39f6
 
 %include "ds/gfx_entry_13.asm"             ; 0x3a50
@@ -1101,7 +1101,7 @@ __zdseg_010c:
     db 0x21, 0x00
 __zdseg_010e:
     db 0x27, 0x00
-__zdseg_0110:
+__zfile_param_word:
     db 0x26, 0x00
 __zdseg_0112:
     db 0x20, 0x00

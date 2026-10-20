@@ -79,7 +79,7 @@ api_idx_0050_MUIG:
     push word [bss_91d4]             ; 0x800e
     call api_idx_0004_IMVS           ; 0x8012
     add sp, byte 4                   ; 0x8015
-    mov ax, word [dseg_0110]         ; 0x8018
+    mov ax, word [file_param_word]   ; 0x8018
     mov word [bss_844e], ax          ; 0x801b
     mov ax, 1                        ; 0x801e
     push ax                          ; 0x8021

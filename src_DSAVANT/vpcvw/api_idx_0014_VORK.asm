@@ -208,7 +208,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x6350
     call ds_app_file_KRUQ            ; 0x6351
     add sp, byte 4                   ; 0x6354
-    mov ax, word [dseg_0110]         ; 0x6357
+    mov ax, word [file_param_word]   ; 0x6357
     mov word [bss_844e], ax          ; 0x635a
     mov ax, 1                        ; 0x635d
     push ax                          ; 0x6360

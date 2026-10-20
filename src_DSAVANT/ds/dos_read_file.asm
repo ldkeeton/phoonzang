@@ -13,7 +13,7 @@ dos_read_file:
     mov ax, cs                       ; 0x3999
     mov ds, ax                       ; 0x399b
     mov ax, word [bp + 0x6]          ; 0x399d
-    mov bx, cseg_384a - IMAGE_BASE   ; 0x39a0
+    mov bx, font_seg_table - IMAGE_BASE ; 0x39a0
     shl ax, 1                        ; 0x39a3
     add bx, ax                       ; 0x39a5
     mov ax, word [bx]                ; 0x39a7
@@ -40,7 +40,7 @@ dos_read_file:
     xor bx, bx                       ; 0x39d6
     mov cx, word [bx + 0xa]          ; 0x39d8
     mul cx                           ; 0x39db
-    add ax, dseg_0110                ; 0x39dd
+    add ax, file_param_word          ; 0x39dd
     mov dx, ax                       ; 0x39e0
     mov cx, word [bx + 0xa]          ; 0x39e2
     mov bx, word [bp + 0x4]          ; 0x39e5

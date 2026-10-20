@@ -21,7 +21,7 @@ api_idx_0002_JOSN:
 @..api_idx_0002_JOSN.l1:
     push word [bp + 0x6]             ; 0x0070
     push word [bp - 0x0002]          ; 0x0073
-    call dos_alloc_mem               ; 0x0076
+    call load_font_file              ; 0x0076
     add sp, byte 4                   ; 0x0079
     push word [bp - 0x0002]          ; 0x007c
     call aztec_close                 ; 0x007f

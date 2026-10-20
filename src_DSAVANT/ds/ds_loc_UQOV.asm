@@ -13,7 +13,7 @@ ds_loc_UQOV:
     mov ax, cs                       ; 0x3a05
     mov ds, ax                       ; 0x3a07
     mov ax, word [bp + 0x4]          ; 0x3a09
-    mov bx, cseg_384a - IMAGE_BASE   ; 0x3a0c
+    mov bx, font_seg_table - IMAGE_BASE ; 0x3a0c
     shl ax, 1                        ; 0x3a0f
     add bx, ax                       ; 0x3a11
     mov ax, word [bx]                ; 0x3a13
@@ -36,7 +36,7 @@ ds_loc_UQOV:
     xor bx, bx                       ; 0x3a3c
     mov cx, word [bx + 0xa]          ; 0x3a3e
     mul cx                           ; 0x3a41
-    add ax, dseg_0110                ; 0x3a43
+    add ax, file_param_word          ; 0x3a43
     mov dx, ds                       ; 0x3a46
     pop es                           ; 0x3a48
     pop ds                           ; 0x3a49

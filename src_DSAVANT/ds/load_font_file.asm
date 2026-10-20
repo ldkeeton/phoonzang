@@ -1,5 +1,5 @@
 ; auto-generated
-dos_alloc_mem:
+load_font_file:
     push bp                          ; 0x3860
     mov bp, sp                       ; 0x3861
     cld                              ; 0x3863
@@ -10,31 +10,31 @@ dos_alloc_mem:
     push es                          ; 0x386a
     mov ax, ds                       ; 0x386b
     mov es, ax                       ; 0x386d
-    mov bx, word [cs:cseg_2f4a - IMAGE_BASE] ; 0x386f
+    mov bx, word [cs:font_header_seg - IMAGE_BASE] ; 0x386f
     mov ds, bx                       ; 0x3874
     xor dx, dx                       ; 0x3876
     mov bx, word [bp + 0x4]          ; 0x3878
     mov cx, 0x10                     ; 0x387b
     mov ah, 0x3f                     ; 0x387e
     int 0x21 ; DOS read file (handle)
-    jae short @..dos_alloc_mem.l1    ; 0x3882
-    jmp near @..dos_alloc_mem.l5     ; 0x3884
-@..dos_alloc_mem.l1:
+    jae short @..load_font_file.l1   ; 0x3882
+    jmp near @..load_font_file.l5    ; 0x3884
+@..load_font_file.l1:
     xor bx, bx                       ; 0x3887
     mov ax, word [bx + 0xa]          ; 0x3889
     xor cx, cx                       ; 0x388c
     mov cl, byte [bx + 0x5]          ; 0x388e
     mul cx                           ; 0x3891
     mov word [bp - 0x0008], ax       ; 0x3893
-    add ax, dseg_0110                ; 0x3896
+    add ax, file_param_word          ; 0x3896
     mov word [bp - 0x0002], ax       ; 0x3899
     mov word [bp - 0x0004], ax       ; 0x389c
     mov al, byte [bx + 0x2]          ; 0x389f
     or al, al                        ; 0x38a2
-    jne short @..dos_alloc_mem.l2    ; 0x38a4
+    jne short @..load_font_file.l2   ; 0x38a4
     mov dl, byte [bx + 0x6]          ; 0x38a6
     test dl, 2                       ; 0x38a9
-    je short @..dos_alloc_mem.l2     ; 0x38ac
+    je short @..load_font_file.l2    ; 0x38ac
     mov ax, word [bx + 0xe]          ; 0x38ae
     xor ch, ch                       ; 0x38b1
     mov cl, byte [bx + 0x5]          ; 0x38b3
@@ -42,9 +42,9 @@ dos_alloc_mem:
     add word [bp - 0x0004], ax       ; 0x38b8
     mov dl, byte [bx + 0x6]          ; 0x38bb
     test dl, 4                       ; 0x38be
-    je short @..dos_alloc_mem.l2     ; 0x38c1
+    je short @..load_font_file.l2    ; 0x38c1
     add word [bp - 0x0002], ax       ; 0x38c3
-@..dos_alloc_mem.l2:
+@..load_font_file.l2:
     mov dx, word [bp - 0x0004]       ; 0x38c6
     add dx, byte 0x0f                ; 0x38c9
     mov cl, 4                        ; 0x38cc
@@ -52,10 +52,10 @@ dos_alloc_mem:
     mov bx, dx                       ; 0x38d0
     mov ah, 0x48                     ; 0x38d2
     int 0x21 ; DOS allocate memory
-    jae short @..dos_alloc_mem.l3    ; 0x38d6
-    jmp near ds_loc_395b             ; 0x38d8
-@..dos_alloc_mem.l3:
-    mov bx, cseg_384a - IMAGE_BASE   ; 0x38db
+    jae short @..load_font_file.l3   ; 0x38d6
+    jmp near font_memory_error       ; 0x38d8
+@..load_font_file.l3:
+    mov bx, font_seg_table - IMAGE_BASE ; 0x38db
     mov cx, word [bp + 0x6]          ; 0x38de
     shl cx, 1                        ; 0x38e1
     add bx, cx                       ; 0x38e3
@@ -72,22 +72,22 @@ dos_alloc_mem:
     sub cx, dx                       ; 0x38fe
     mov ah, 0x3f                     ; 0x3900
     int 0x21 ; DOS read file (handle)
-    jb short @..dos_alloc_mem.l5     ; 0x3904
+    jb short @..load_font_file.l5    ; 0x3904
     xor bx, bx                       ; 0x3906
     mov al, byte [bx + 0x6]          ; 0x3908
     and al, 6                        ; 0x390b
     cmp al, 2                        ; 0x390d
-    jne short @..dos_alloc_mem.l4    ; 0x390f
+    jne short @..load_font_file.l4   ; 0x390f
     mov al, byte [bx + 0x2]          ; 0x3911
     or al, al                        ; 0x3914
-    jne short @..dos_alloc_mem.l4    ; 0x3916
+    jne short @..load_font_file.l4   ; 0x3916
     mov ax, ds                       ; 0x3918
     mov es, ax                       ; 0x391a
     mov di, word [bx + 0xc]          ; 0x391c
     mov si, 0x110                    ; 0x391f
     mov cx, word [bp - 0x0008]       ; 0x3922
     rep movsb                        ; 0x3925
-@..dos_alloc_mem.l4:
+@..load_font_file.l4:
     pop es                           ; 0x3927
     pop ds                           ; 0x3928
     pop di                           ; 0x3929
@@ -95,7 +95,7 @@ dos_alloc_mem:
     mov sp, bp                       ; 0x392b
     pop bp                           ; 0x392d
     ret                              ; 0x392e
-@..dos_alloc_mem.l5:
+@..load_font_file.l5:
     mov ax, cs                       ; 0x392f
     mov ds, ax                       ; 0x3931
-    mov dx, cseg_393f - IMAGE_BASE   ; 0x3933
+    mov dx, font_io_error_msg - IMAGE_BASE ; 0x3933

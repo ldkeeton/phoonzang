@@ -1,7 +1,7 @@
 ; auto-generated
 ds_dos_mem_loc_GMLT:
     push es                          ; 0x377b
-    mov si, cseg_384a - IMAGE_BASE   ; 0x377c
+    mov si, font_seg_table - IMAGE_BASE ; 0x377c
 @..ds_dos_mem_loc_GMLT.l1:
     mov bx, word [cs:si]             ; 0x377f
     cmp bx, byte 0xff                ; 0x3782
