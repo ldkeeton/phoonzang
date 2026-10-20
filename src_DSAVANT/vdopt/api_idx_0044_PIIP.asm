@@ -7,7 +7,7 @@ api_idx_0044_PIIP:
     mov ax, word [bp - 0x0002]       ; 0x2993
     shl ax, 1                        ; 0x2996
     mov bx, ax                       ; 0x2998
-    mov word [bx + bss_830e], 0      ; 0x299a
+    mov word [bx + party_slot_frame], 0 ; 0x299a
     inc word [bp - 0x0002]           ; 0x29a0
     mov ax, word [bp - 0x0002]       ; 0x29a3
     cmp ax, strict word 6            ; 0x29a6
@@ -509,7 +509,7 @@ api_idx_0044_PIIP:
     add sp, byte 4                   ; 0x2e49
     mov ax, 0x59fe                   ; 0x2e4c
     push ax                          ; 0x2e4f
-    call ds_app_io_UHMG              ; 0x2e50
+    call ds_app_UHMG                 ; 0x2e50
     pop cx                           ; 0x2e53
     dec ax                           ; 0x2e54
     mov word [bp - 0x001a], ax       ; 0x2e55

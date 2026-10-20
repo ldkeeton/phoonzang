@@ -328,7 +328,7 @@ api_idx_0038_PVVG:
 @..api_idx_0038_PVVG.l7:
     mov ax, 0x59fe                   ; 0x2f99
     push ax                          ; 0x2f9c
-    call ds_app_io_UHMG              ; 0x2f9d
+    call ds_app_UHMG                 ; 0x2f9d
     pop cx                           ; 0x2fa0
     dec ax                           ; 0x2fa1
     mov word [bp - 0x0018], ax       ; 0x2fa2

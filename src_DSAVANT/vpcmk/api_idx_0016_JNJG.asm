@@ -17,7 +17,7 @@ api_idx_0016_JNJG:
     push ax                          ; 0x60a3
     lea ax, word [bp - 0x0016]       ; 0x60a4
     push ax                          ; 0x60a7
-    call ds_app_string_UUHT          ; 0x60a8
+    call data_file_path              ; 0x60a8
     add sp, byte 4                   ; 0x60ab
     push ax                          ; 0x60ae
     call aztec_open                  ; 0x60af
@@ -27,7 +27,7 @@ api_idx_0016_JNJG:
     jne short @..api_idx_0016_JNJG.l1 ; 0x60bb
     mov ax, 0x13                     ; 0x60bd
     push ax                          ; 0x60c0
-    call ds_app_UKIP                 ; 0x60c1
+    call fatal_error                 ; 0x60c1
     pop cx                           ; 0x60c4
 @..api_idx_0016_JNJG.l1:
     push word [bp + 0x6]             ; 0x60c5

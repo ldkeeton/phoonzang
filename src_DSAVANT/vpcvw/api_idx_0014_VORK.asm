@@ -242,7 +242,7 @@ api_idx_0014_VORK:
     mov ax, word [bp - 0x0002]       ; 0x63b0
     shl ax, 1                        ; 0x63b3
     mov bx, ax                       ; 0x63b5
-    mov word [bx + bss_830e], 0      ; 0x63b7
+    mov word [bx + party_slot_frame], 0 ; 0x63b7
     inc word [bp - 0x0002]           ; 0x63bd
     mov ax, word [bp - 0x0002]       ; 0x63c0
     cmp ax, strict word 6            ; 0x63c3
@@ -608,7 +608,7 @@ api_idx_0014_VORK:
     pop cx                           ; 0x66c6
     mov ax, 0x59fe                   ; 0x66c7
     push ax                          ; 0x66ca
-    call ds_app_io_UHMG              ; 0x66cb
+    call ds_app_UHMG                 ; 0x66cb
     pop cx                           ; 0x66ce
     dec ax                           ; 0x66cf
     mov word [bp - 0x0004], ax       ; 0x66d0

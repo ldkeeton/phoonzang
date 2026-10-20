@@ -4,7 +4,7 @@ ds_app_OOHU: ; Aztec csav frame=0x0000
     call aztec_csav                  ; 0x1cb4
     mov ax, 0x4b                     ; 0x1cb7
     push ax                          ; 0x1cba
-    call ds_app_PUNN                 ; 0x1cbb
+    call random_below                ; 0x1cbb
     pop cx                           ; 0x1cbe
     mov word [bss_59f4], ax          ; 0x1cbf
     mov al, byte [bss_59f4]          ; 0x1cc2

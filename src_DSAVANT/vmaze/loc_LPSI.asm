@@ -8,7 +8,7 @@ loc_LPSI:
     push word [bss_0e14]             ; 0x09d9
     mov ax, 2                        ; 0x09dd
     push ax                          ; 0x09e0
-    call ds_app_file_MPPM            ; 0x09e1
+    call data_record_io              ; 0x09e1
     add sp, byte 8                   ; 0x09e4
     mov ax, 0                        ; 0x09e7
     push ax                          ; 0x09ea
@@ -16,7 +16,7 @@ loc_LPSI:
     push word [bss_0e12]             ; 0x09ef
     mov ax, 3                        ; 0x09f3
     push ax                          ; 0x09f6
-    call ds_app_file_MPPM            ; 0x09f7
+    call data_record_io              ; 0x09f7
     add sp, byte 8                   ; 0x09fa
     mov ax, 0x80                     ; 0x09fd
     push ax                          ; 0x0a00

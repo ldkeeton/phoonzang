@@ -6,7 +6,7 @@ api_idx_0002_GHOH:
     push ax                          ; 0x00d3
     push ax                          ; 0x00d4
     push word [bp + 0x4]             ; 0x00d5
-    call ds_app_string_UUHT          ; 0x00d8
+    call data_file_path              ; 0x00d8
     add sp, byte 4                   ; 0x00db
     push ax                          ; 0x00de
     call aztec_open                  ; 0x00df
@@ -16,7 +16,7 @@ api_idx_0002_GHOH:
     jne short @..api_idx_0002_GHOH.l1 ; 0x00eb
     mov ax, 8                        ; 0x00ed
     push ax                          ; 0x00f0
-    call ds_app_UKIP                 ; 0x00f1
+    call fatal_error                 ; 0x00f1
     pop cx                           ; 0x00f4
 @..api_idx_0002_GHOH.l1:
     push word [bp + 0x8]             ; 0x00f5

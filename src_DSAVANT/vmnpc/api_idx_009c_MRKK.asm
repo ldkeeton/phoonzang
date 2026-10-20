@@ -35,7 +35,7 @@ api_idx_009c_MRKK:
     jbe short @..api_idx_009c_MRKK.l3 ; 0x67da
     mov ax, 3                        ; 0x67dc
     push ax                          ; 0x67df
-    call ds_app_PUNN                 ; 0x67e0
+    call random_below                ; 0x67e0
     pop cx                           ; 0x67e3
     test ax, ax                      ; 0x67e4
     jne short @..api_idx_009c_MRKK.l3 ; 0x67e6
@@ -423,7 +423,7 @@ jumptable_6c16_case_7:
     push ax                          ; 0x6b89
     mov ax, 0xf                      ; 0x6b8a
     push ax                          ; 0x6b8d
-    call ds_app_PUNN                 ; 0x6b8e
+    call random_below                ; 0x6b8e
     pop cx                           ; 0x6b91
     mov cx, ax                       ; 0x6b92
     add ax, strict word 0xf          ; 0x6b94
@@ -453,7 +453,7 @@ jumptable_6c16_case_7:
 @..api_idx_009c_MRKK.l41:
     mov ax, 0xf                      ; 0x6bd1
     push ax                          ; 0x6bd4
-    call ds_app_PUNN                 ; 0x6bd5
+    call random_below                ; 0x6bd5
     pop cx                           ; 0x6bd8
     mov cx, ax                       ; 0x6bd9
     add ax, strict word 0xf          ; 0x6bdb
@@ -505,13 +505,13 @@ jumptable_6c16:
     jl short @..api_idx_009c_MRKK.l44 ; 0x6c44
     mov ax, 4                        ; 0x6c46
     push ax                          ; 0x6c49
-    call ds_app_PUNN                 ; 0x6c4a
+    call random_below                ; 0x6c4a
     pop cx                           ; 0x6c4d
     test ax, ax                      ; 0x6c4e
     jne short @..api_idx_009c_MRKK.l45 ; 0x6c50
 @..api_idx_009c_MRKK.l44:
     push word [bss_69c8]             ; 0x6c52
-    call ds_app_PUNN                 ; 0x6c56
+    call random_below                ; 0x6c56
     pop cx                           ; 0x6c59
     mov word [bp - 0x000c], ax       ; 0x6c5a
 @..api_idx_009c_MRKK.l45:
@@ -548,7 +548,7 @@ jumptable_6c16:
 @..api_idx_009c_MRKK.l46:
     mov ax, 0x64                     ; 0x6cae
     push ax                          ; 0x6cb1
-    call ds_app_PUNN                 ; 0x6cb2
+    call random_below                ; 0x6cb2
     pop cx                           ; 0x6cb5
     add ax, strict word 0xff9c       ; 0x6cb6
     mov word [bp - 0x0008], ax       ; 0x6cb9
@@ -559,7 +559,7 @@ jumptable_6c16:
 @..api_idx_009c_MRKK.l47:
     mov ax, 2                        ; 0x6cc6
     push ax                          ; 0x6cc9
-    call ds_app_PUNN                 ; 0x6cca
+    call random_below                ; 0x6cca
     pop cx                           ; 0x6ccd
     cmp ax, strict word 1            ; 0x6cce
     jne short @..api_idx_009c_MRKK.l48 ; 0x6cd1
@@ -595,7 +595,7 @@ jumptable_6c16:
     jne short @..api_idx_009c_MRKK.l51 ; 0x6d1e
     mov ax, 5                        ; 0x6d20
     push ax                          ; 0x6d23
-    call ds_app_PUNN                 ; 0x6d24
+    call random_below                ; 0x6d24
     pop cx                           ; 0x6d27
     mov cx, ax                       ; 0x6d28
     add ax, strict word 5            ; 0x6d2a

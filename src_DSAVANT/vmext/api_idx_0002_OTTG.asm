@@ -7,7 +7,7 @@ api_idx_0002_OTTG:
     mov ax, 1                        ; 0x0226
     push ax                          ; 0x0229
     push word [bp + 0x4]             ; 0x022a
-    call ds_app_string_UUHT          ; 0x022d
+    call data_file_path              ; 0x022d
     add sp, byte 4                   ; 0x0230
     push ax                          ; 0x0233
     call aztec_open                  ; 0x0234
@@ -17,7 +17,7 @@ api_idx_0002_OTTG:
     jne short @..api_idx_0002_OTTG.l1 ; 0x0240
     mov ax, 0x1b                     ; 0x0242
     push ax                          ; 0x0245
-    call ds_app_UKIP                 ; 0x0246
+    call fatal_error                 ; 0x0246
     pop cx                           ; 0x0249
 @..api_idx_0002_OTTG.l1:
     mov ax, 0                        ; 0x024a

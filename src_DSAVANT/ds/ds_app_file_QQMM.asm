@@ -220,7 +220,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
 @..ds_app_file_QQMM.l6:
     mov ax, 0x59fe                   ; 0x260c
     push ax                          ; 0x260f
-    call ds_app_io_UHMG              ; 0x2610
+    call ds_app_UHMG                 ; 0x2610
     pop cx                           ; 0x2613
     cmp word [bss_5b3e], byte 1      ; 0x2614
     jne short @..ds_app_file_QQMM.l7 ; 0x2619
@@ -374,7 +374,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x2793
     mov ax, dseg_0bb8                ; 0x2794
     push ax                          ; 0x2797
-    call ds_app_string_UUHT          ; 0x2798
+    call data_file_path              ; 0x2798
     add sp, byte 4                   ; 0x279b
     push ax                          ; 0x279e
     call aztec_open                  ; 0x279f
@@ -384,7 +384,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     jne short @..ds_app_file_QQMM.l17 ; 0x27ab
     mov ax, 0x19                     ; 0x27ad
     push ax                          ; 0x27b0
-    call ds_app_UKIP                 ; 0x27b1
+    call fatal_error                 ; 0x27b1
     pop cx                           ; 0x27b4
 @..ds_app_file_QQMM.l17:
     mov ax, 0                        ; 0x27b5
@@ -397,7 +397,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x27c6
     mov ax, dseg_0bc0                ; 0x27c7
     push ax                          ; 0x27ca
-    call ds_app_string_UUHT          ; 0x27cb
+    call data_file_path              ; 0x27cb
     add sp, byte 4                   ; 0x27ce
     push ax                          ; 0x27d1
     call aztec_open                  ; 0x27d2
@@ -407,7 +407,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     jne short @..ds_app_file_QQMM.l19 ; 0x27de
     mov ax, 0x1a                     ; 0x27e0
     push ax                          ; 0x27e3
-    call ds_app_UKIP                 ; 0x27e4
+    call fatal_error                 ; 0x27e4
     pop cx                           ; 0x27e7
 @..ds_app_file_QQMM.l19:
     ret                              ; 0x27e8

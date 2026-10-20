@@ -127,7 +127,7 @@ api_idx_000e_RTSO:
     mov word [bp - 0x000a], ax       ; 0x8179
 @..api_idx_000e_RTSO.l10:
     push word [bp - 0x0006]          ; 0x817c
-    call ds_app_PUNN                 ; 0x817f
+    call random_below                ; 0x817f
     pop cx                           ; 0x8182
     mov word [bp - 0x000c], ax       ; 0x8183
     cmp ax, word [bp - 0x000a]       ; 0x8186

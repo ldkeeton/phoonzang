@@ -12,7 +12,7 @@ api_idx_007a_NHII:
     jne short @..api_idx_007a_NHII.l2 ; 0x4f29
 @..api_idx_007a_NHII.l1:
     push word [bss_69c8]             ; 0x4f2b
-    call ds_app_PUNN                 ; 0x4f2f
+    call random_below                ; 0x4f2f
     pop cx                           ; 0x4f32
     mov word [bp - 0x0006], ax       ; 0x4f33
     push word [bp - 0x0006]          ; 0x4f36

@@ -21,7 +21,7 @@ loc_IUTP:
     push ax                          ; 0x70fb
     mov ax, 1                        ; 0x70fc
     push ax                          ; 0x70ff
-    call ds_app_file_MPPM            ; 0x7100
+    call data_record_io              ; 0x7100
     add sp, byte 8                   ; 0x7103
     cmp word [bp + 0xa], byte 0      ; 0x7106
     je short @..loc_IUTP.l4          ; 0x710a

@@ -22,7 +22,7 @@ api_idx_0054_TIQK:
 @..api_idx_0054_TIQK.l2:
     mov ax, 0x64                     ; 0x4288
     push ax                          ; 0x428b
-    call ds_app_PUNN                 ; 0x428c
+    call random_below                ; 0x428c
     pop cx                           ; 0x428f
     mov word [bp - 0x0002], ax       ; 0x4290
     cmp ax, word [bp - 0x0004]       ; 0x4293

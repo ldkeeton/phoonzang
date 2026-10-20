@@ -39,7 +39,7 @@ api_idx_0006_NNTR:
     jne short @..api_idx_0006_NNTR.l2 ; 0x9a3f
     mov ax, 4                        ; 0x9a41
     push ax                          ; 0x9a44
-    call ds_app_PUNN                 ; 0x9a45
+    call random_below                ; 0x9a45
     pop cx                           ; 0x9a48
     test ax, ax                      ; 0x9a49
     jne short @..api_idx_0006_NNTR.l2 ; 0x9a4b

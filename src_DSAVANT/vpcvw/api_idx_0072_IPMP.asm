@@ -51,7 +51,7 @@ api_idx_0072_IPMP:
     push ax                          ; 0x4ab7
     mov ax, 1                        ; 0x4ab8
     push ax                          ; 0x4abb
-    call ds_app_file_MPPM            ; 0x4abc
+    call data_record_io              ; 0x4abc
     add sp, byte 8                   ; 0x4abf
     lea ax, word [bp - 0x0066]       ; 0x4ac2
     push ax                          ; 0x4ac5

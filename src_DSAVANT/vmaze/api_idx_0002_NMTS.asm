@@ -15,7 +15,7 @@ api_idx_0002_NMTS:
     je short @..api_idx_0002_NMTS.l1 ; 0x98ee
     mov ax, 4                        ; 0x98f0
     push ax                          ; 0x98f3
-    call ds_app_PUNN                 ; 0x98f4
+    call random_below                ; 0x98f4
     pop cx                           ; 0x98f7
     test ax, ax                      ; 0x98f8
     jne short @..api_idx_0002_NMTS.l1 ; 0x98fa

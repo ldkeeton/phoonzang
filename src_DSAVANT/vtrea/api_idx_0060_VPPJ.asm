@@ -5,7 +5,7 @@ api_idx_0060_VPPJ:
     mov word [bss_91fe], 0           ; 0x1fdb
     mov ax, 0x64                     ; 0x1fe1
     push ax                          ; 0x1fe4
-    call ds_app_PUNN                 ; 0x1fe5
+    call random_below                ; 0x1fe5
     pop cx                           ; 0x1fe8
     inc ax                           ; 0x1fe9
     mov word [bp - 0x0002], ax       ; 0x1fea
@@ -393,7 +393,7 @@ api_idx_0060_VPPJ:
 @..api_idx_0060_VPPJ.l39:
     mov ax, 0x64                     ; 0x23b3
     push ax                          ; 0x23b6
-    call ds_app_PUNN                 ; 0x23b7
+    call random_below                ; 0x23b7
     pop cx                           ; 0x23ba
     cmp ax, word [bp - 0x0060]       ; 0x23bb
     jge short @..api_idx_0060_VPPJ.l43 ; 0x23be

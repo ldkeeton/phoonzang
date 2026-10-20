@@ -25,7 +25,7 @@ api_idx_000c_RTIP:
 @..api_idx_000c_RTIP.l3:
     mov ax, 3                        ; 0x2a06
     push ax                          ; 0x2a09
-    call ds_app_PUNN                 ; 0x2a0a
+    call random_below                ; 0x2a0a
     pop cx                           ; 0x2a0d
     mov word [bp - 0x0004], ax       ; 0x2a0e
     mov ax, word [bp - 0x0004]       ; 0x2a11

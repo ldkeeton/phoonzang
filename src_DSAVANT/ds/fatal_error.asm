@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_UKIP: ; Aztec csav frame=0x0000
+fatal_error: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x03b8
     call aztec_csav                  ; 0x03bb
     push word [bp + 0x4]             ; 0x03be

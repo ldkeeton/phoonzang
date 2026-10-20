@@ -129,7 +129,7 @@ api_idx_00a8_KNHJ:
 @..api_idx_00a8_KNHJ.l7:
     mov ax, 8                        ; 0x05d9
     push ax                          ; 0x05dc
-    call ds_app_PUNN                 ; 0x05dd
+    call random_below                ; 0x05dd
     pop cx                           ; 0x05e0
     inc ax                           ; 0x05e1
     mov word [bp - 0x000c], ax       ; 0x05e2

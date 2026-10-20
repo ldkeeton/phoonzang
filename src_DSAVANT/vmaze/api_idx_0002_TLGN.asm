@@ -62,7 +62,7 @@ api_idx_0002_TLGN:
 @..api_idx_0002_TLGN.l4:
     mov ax, 0x10                     ; 0xa847
     push ax                          ; 0xa84a
-    call ds_app_PUNN                 ; 0xa84b
+    call random_below                ; 0xa84b
     pop cx                           ; 0xa84e
     push ax                          ; 0xa84f
     mov ax, 0x26                     ; 0xa850

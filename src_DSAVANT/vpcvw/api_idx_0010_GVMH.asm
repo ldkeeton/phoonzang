@@ -134,7 +134,7 @@ jumptable_532e_case_3:
 jumptable_532e_case_4:
     mov ax, 5                        ; 0x51a4
     push ax                          ; 0x51a7
-    call ds_app_PUNN                 ; 0x51a8
+    call random_below                ; 0x51a8
     pop cx                           ; 0x51ab
     inc ax                           ; 0x51ac
     inc ax                           ; 0x51ad
@@ -199,7 +199,7 @@ jumptable_532e_case_7:
     dec byte [bx + 0x5d6b]           ; 0x5244
     mov ax, 3                        ; 0x5248
     push ax                          ; 0x524b
-    call ds_app_PUNN                 ; 0x524c
+    call random_below                ; 0x524c
     pop cx                           ; 0x524f
     mov word [bp - 0x0002], ax       ; 0x5250
     jmp short @..api_idx_0010_GVMH.l14 ; 0x5253

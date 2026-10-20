@@ -197,11 +197,11 @@ api_idx_0012_SHRT:
     or word [bp - 0x0008], ax        ; 0x093a
     mov ax, 0x14                     ; 0x093d
     push ax                          ; 0x0940
-    call ds_leaf_loc_UJPS            ; 0x0941
+    call delay_ticks                 ; 0x0941
     pop cx                           ; 0x0944
     mov ax, 0x59fe                   ; 0x0945
     push ax                          ; 0x0948
-    call ds_app_io_UHMG              ; 0x0949
+    call ds_app_UHMG                 ; 0x0949
     pop cx                           ; 0x094c
     dec ax                           ; 0x094d
     mov word [bp - 0x0004], ax       ; 0x094e

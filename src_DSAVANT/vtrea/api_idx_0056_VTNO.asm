@@ -30,7 +30,7 @@ api_idx_0056_VTNO:
     je short @..api_idx_0056_VTNO.l2 ; 0x130f
     mov ax, 0x64                     ; 0x1311
     push ax                          ; 0x1314
-    call ds_app_PUNN                 ; 0x1315
+    call random_below                ; 0x1315
     pop cx                           ; 0x1318
     push ax                          ; 0x1319
     mov ax, 0x248                    ; 0x131a

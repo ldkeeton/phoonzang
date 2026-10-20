@@ -1,16 +1,16 @@
 ; auto-generated
-ds_app_string_UUHT: ; Aztec csav frame=0x0000
+data_file_path: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x23a8
     call aztec_csav                  ; 0x23ab
     cmp byte [bss_5987], 5           ; 0x23ae
-    jne short @..ds_app_string_UUHT.l1 ; 0x23b3
+    jne short @..data_file_path.l1   ; 0x23b3
     cmp word [bp + 0x6], byte 1      ; 0x23b5
-    jne short @..ds_app_string_UUHT.l1 ; 0x23b9
+    jne short @..data_file_path.l1   ; 0x23b9
     mov ax, 1                        ; 0x23bb
-    jmp short @..ds_app_string_UUHT.l2 ; 0x23be
-@..ds_app_string_UUHT.l1:
+    jmp short @..data_file_path.l2   ; 0x23be
+@..data_file_path.l1:
     mov ax, 0                        ; 0x23c0
-@..ds_app_string_UUHT.l2:
+@..data_file_path.l2:
     mov word [bp + 0x6], ax          ; 0x23c3
     mov ax, 0x3a                     ; 0x23c6
     push ax                          ; 0x23c9

@@ -4,25 +4,25 @@ ds_app_string_KVNI: ; Aztec csav frame=0x0054
     call aztec_csav                  ; 0x0c0e
     mov ax, 0x18                     ; 0x0c11
     push ax                          ; 0x0c14
-    call ds_app_PUNN                 ; 0x0c15
+    call random_below                ; 0x0c15
     pop cx                           ; 0x0c18
     inc ax                           ; 0x0c19
     mov word [bss_5b40], ax          ; 0x0c1a
     mov ax, 0x19                     ; 0x0c1d
     push ax                          ; 0x0c20
-    call ds_app_PUNN                 ; 0x0c21
+    call random_below                ; 0x0c21
     pop cx                           ; 0x0c24
     add ax, strict word 0x19         ; 0x0c25
     mov word [bss_5b42], ax          ; 0x0c28
     mov ax, 0x19                     ; 0x0c2b
     push ax                          ; 0x0c2e
-    call ds_app_PUNN                 ; 0x0c2f
+    call random_below                ; 0x0c2f
     pop cx                           ; 0x0c32
     add ax, strict word 0x32         ; 0x0c33
     mov word [bss_5b44], ax          ; 0x0c36
     mov ax, 0x19                     ; 0x0c39
     push ax                          ; 0x0c3c
-    call ds_app_PUNN                 ; 0x0c3d
+    call random_below                ; 0x0c3d
     pop cx                           ; 0x0c40
     add ax, strict word 0x4b         ; 0x0c41
     mov word [bss_5b46], ax          ; 0x0c44

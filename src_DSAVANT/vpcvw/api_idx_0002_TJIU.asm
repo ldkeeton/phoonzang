@@ -3,7 +3,7 @@ api_idx_0002_TJIU:
     mov ax, 0xfffe                   ; 0x5006
     call aztec_csav                  ; 0x5009
     push word [bp + 0xa]             ; 0x500c
-    call ds_app_PUNN                 ; 0x500f
+    call random_below                ; 0x500f
     pop cx                           ; 0x5012
     add ax, word [bp + 0x8]          ; 0x5013
     mov word [bp - 0x0002], ax       ; 0x5016

@@ -78,7 +78,7 @@ api_idx_0006_QJOL:
 @..api_idx_0006_QJOL.l5:
     mov ax, 0x64                     ; 0x2154
     push ax                          ; 0x2157
-    call ds_app_PUNN                 ; 0x2158
+    call random_below                ; 0x2158
     pop cx                           ; 0x215b
     push ax                          ; 0x215c
     mov ax, word [bp + 0x4]          ; 0x215d

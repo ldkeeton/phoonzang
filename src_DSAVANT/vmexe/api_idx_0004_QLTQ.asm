@@ -11,7 +11,7 @@ api_idx_0004_QLTQ:
     sub ah, ah                       ; 0x2508
     mov word [bp - 0x0002], ax       ; 0x250a
     push word [bp + 0xa]             ; 0x250d
-    call ds_app_PUNN                 ; 0x2510
+    call random_below                ; 0x2510
     pop cx                           ; 0x2513
     mov cx, ax                       ; 0x2514
     mov ax, word [bp - 0x0002]       ; 0x2516
@@ -28,7 +28,7 @@ api_idx_0004_QLTQ:
     jle short @..api_idx_0004_QLTQ.l2 ; 0x2532
     mov ax, 2                        ; 0x2534
     push ax                          ; 0x2537
-    call ds_app_PUNN                 ; 0x2538
+    call random_below                ; 0x2538
     pop cx                           ; 0x253b
     sub word [bp + 0x8], ax          ; 0x253c
     dec word [bp - 0x0004]           ; 0x253f

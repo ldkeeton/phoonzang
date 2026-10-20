@@ -18,7 +18,7 @@ loc_MVHP:
     add sp, byte 8                   ; 0x6b7b
     mov ax, 0x3c                     ; 0x6b7e
     push ax                          ; 0x6b81
-    call ds_app_PUNN                 ; 0x6b82
+    call random_below                ; 0x6b82
     pop cx                           ; 0x6b85
     cwd                              ; 0x6b86
     les bx, word [dseg_0002]         ; 0x6b87

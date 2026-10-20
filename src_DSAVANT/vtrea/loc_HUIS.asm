@@ -9,7 +9,7 @@ loc_HUIS:
     push ax                          ; 0x579a
     mov ax, 7                        ; 0x579b
     push ax                          ; 0x579e
-    call ds_app_file_MPPM            ; 0x579f
+    call data_record_io              ; 0x579f
     add sp, byte 8                   ; 0x57a2
     mov word [bss_84a0], 0xffff      ; 0x57a5
     cmp byte [bp - 0x0005], 0        ; 0x57ab
@@ -116,7 +116,7 @@ loc_HUIS:
 @..loc_HUIS.l10:
     mov ax, 0x64                     ; 0x58af
     push ax                          ; 0x58b2
-    call ds_app_PUNN                 ; 0x58b3
+    call random_below                ; 0x58b3
     pop cx                           ; 0x58b6
     push ax                          ; 0x58b7
     mov ax, 6                        ; 0x58b8
@@ -143,7 +143,7 @@ loc_HUIS:
     mov cx, word [bx - 0x0038]       ; 0x58e6
     sub ax, cx                       ; 0x58e9
     push ax                          ; 0x58eb
-    call ds_app_PUNN                 ; 0x58ec
+    call random_below                ; 0x58ec
     pop cx                           ; 0x58ef
     cwd                              ; 0x58f0
     push ax                          ; 0x58f1
@@ -181,7 +181,7 @@ loc_HUIS:
     mov bx, ax                       ; 0x593b
     add bx, bp                       ; 0x593d
     push word [bx - 0x0038]          ; 0x593f
-    call ds_app_PUNN                 ; 0x5942
+    call random_below                ; 0x5942
     pop cx                           ; 0x5945
     push ax                          ; 0x5946
     mov ax, 6                        ; 0x5947
@@ -307,7 +307,7 @@ loc_HUIS:
     push ax                          ; 0x5a6e
     mov ax, 1                        ; 0x5a6f
     push ax                          ; 0x5a72
-    call ds_app_file_MPPM            ; 0x5a73
+    call data_record_io              ; 0x5a73
     add sp, byte 8                   ; 0x5a76
     mov al, byte [bp - 0x004b]       ; 0x5a79
     sub ah, ah                       ; 0x5a7c

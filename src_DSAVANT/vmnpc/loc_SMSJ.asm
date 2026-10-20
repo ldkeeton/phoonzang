@@ -83,7 +83,7 @@ jumptable_9baa_case_6:
     push ax                          ; 0x9ad4
     mov ax, 5                        ; 0x9ad5
     push ax                          ; 0x9ad8
-    call ds_app_PUNN                 ; 0x9ad9
+    call random_below                ; 0x9ad9
     pop cx                           ; 0x9adc
     mov cx, ax                       ; 0x9add
     inc ax                           ; 0x9adf
@@ -96,7 +96,7 @@ jumptable_9baa_case_6:
     add sp, byte 6                   ; 0x9aef
     mov ax, 2                        ; 0x9af2
     push ax                          ; 0x9af5
-    call ds_app_PUNN                 ; 0x9af6
+    call random_below                ; 0x9af6
     pop cx                           ; 0x9af9
     cmp ax, strict word 1            ; 0x9afa
     jne short @..loc_SMSJ.l2         ; 0x9afd
@@ -137,7 +137,7 @@ jumptable_9baa_case_9:
     jne short @..loc_SMSJ.l3         ; 0x9b67
     mov ax, 2                        ; 0x9b69
     push ax                          ; 0x9b6c
-    call ds_app_PUNN                 ; 0x9b6d
+    call random_below                ; 0x9b6d
     pop cx                           ; 0x9b70
     cmp ax, strict word 1            ; 0x9b71
     jne short @..loc_SMSJ.l3         ; 0x9b74
@@ -151,7 +151,7 @@ jumptable_9baa_case_9:
     push ax                          ; 0x9b8d
     mov ax, 3                        ; 0x9b8e
     push ax                          ; 0x9b91
-    call ds_app_PUNN                 ; 0x9b92
+    call random_below                ; 0x9b92
     pop cx                           ; 0x9b95
     inc ax                           ; 0x9b96
     push ax                          ; 0x9b97

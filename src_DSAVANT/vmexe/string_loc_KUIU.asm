@@ -72,7 +72,7 @@ string_loc_KUIU:
     jle short @..string_loc_KUIU.l7  ; 0x36cb
     mov ax, 3                        ; 0x36cd
     push ax                          ; 0x36d0
-    call ds_app_PUNN                 ; 0x36d1
+    call random_below                ; 0x36d1
     pop cx                           ; 0x36d4
     test ax, ax                      ; 0x36d5
     jne short @..string_loc_KUIU.l7  ; 0x36d7
@@ -139,7 +139,7 @@ jumptable_372d:
     push word [bx + party_char_ext]  ; 0x3759
     mov ax, 4                        ; 0x375d
     push ax                          ; 0x3760
-    call ds_app_file_MPPM            ; 0x3761
+    call data_record_io              ; 0x3761
     add sp, byte 8                   ; 0x3764
     cmp word [bss_8464], byte 0      ; 0x3767
     je short @..string_loc_KUIU.l12  ; 0x376c

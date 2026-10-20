@@ -34,7 +34,7 @@ ds_app_VIGG: ; Aztec csav frame=0x0000
     je short @..ds_app_VIGG.l1       ; 0x10f4
     mov ax, 0x23                     ; 0x10f6
     push ax                          ; 0x10f9
-    call ds_leaf_loc_UJPS            ; 0x10fa
+    call delay_ticks                 ; 0x10fa
     pop cx                           ; 0x10fd
 @..ds_app_VIGG.l1:
     ret                              ; 0x10fe

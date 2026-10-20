@@ -13,7 +13,7 @@ loc_RMVR:
     push ax                          ; 0x4d28
     mov ax, dseg_90fb                ; 0x4d29
     push ax                          ; 0x4d2c
-    call ds_app_string_UUHT          ; 0x4d2d
+    call data_file_path              ; 0x4d2d
     add sp, byte 4                   ; 0x4d30
     push ax                          ; 0x4d33
     call aztec_open                  ; 0x4d34
@@ -23,7 +23,7 @@ loc_RMVR:
     jne short @..loc_RMVR.l1         ; 0x4d40
     mov ax, 0x1a                     ; 0x4d42
     push ax                          ; 0x4d45
-    call ds_app_UKIP                 ; 0x4d46
+    call fatal_error                 ; 0x4d46
     pop cx                           ; 0x4d49
 @..loc_RMVR.l1:
     mov ax, 0x300                    ; 0x4d4a
@@ -1026,7 +1026,7 @@ loc_RMVR:
     je short @..loc_RMVR.l6          ; 0x563f
     mov ax, 0x59fe                   ; 0x5641
     push ax                          ; 0x5644
-    call ds_app_io_UHMG              ; 0x5645
+    call ds_app_UHMG                 ; 0x5645
     pop cx                           ; 0x5648
     dec ax                           ; 0x5649
     mov word [bp - 0x0014], ax       ; 0x564a

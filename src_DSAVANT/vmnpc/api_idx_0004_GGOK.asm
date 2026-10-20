@@ -67,7 +67,7 @@ api_idx_0004_GGOK:
     call api_idx_0008_HUTJ           ; 0x3b34
     add sp, byte 8                   ; 0x3b37
     push word [bp - 0x0004]          ; 0x3b3a
-    call ds_app_PUNN                 ; 0x3b3d
+    call random_below                ; 0x3b3d
     pop cx                           ; 0x3b40
     push ax                          ; 0x3b41
     mov ax, 6                        ; 0x3b42
@@ -90,7 +90,7 @@ api_idx_0004_GGOK:
     mov word [bx + 0x5c10], 0        ; 0x3b6d
     mov ax, 6                        ; 0x3b73
     push ax                          ; 0x3b76
-    call ds_app_PUNN                 ; 0x3b77
+    call random_below                ; 0x3b77
     pop cx                           ; 0x3b7a
     add ax, strict word 6            ; 0x3b7b
     push ax                          ; 0x3b7e

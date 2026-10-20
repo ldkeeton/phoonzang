@@ -1990,7 +1990,7 @@ jumptable_59e2_case_0:
 @..api_idx_0030_JQMM.l67:
     mov ax, 0x64                     ; 0x6532
     push ax                          ; 0x6535
-    call ds_app_PUNN                 ; 0x6536
+    call random_below                ; 0x6536
     pop cx                           ; 0x6539
     cmp ax, word [bp - 0x0006]       ; 0x653a
     jle short @..api_idx_0030_JQMM.l68 ; 0x653d
@@ -1998,7 +1998,7 @@ jumptable_59e2_case_0:
 @..api_idx_0030_JQMM.l68:
     mov ax, 2                        ; 0x6542
     push ax                          ; 0x6545
-    call ds_app_PUNN                 ; 0x6546
+    call random_below                ; 0x6546
     pop cx                           ; 0x6549
     mov cx, word [bp - 0x0006]       ; 0x654a
     shl cx, 1                        ; 0x654d
@@ -2012,7 +2012,7 @@ jumptable_59e2_case_0:
     test ax, ax                      ; 0x6560
     je short @..api_idx_0030_JQMM.l69 ; 0x6562
     push cx                          ; 0x6564
-    call ds_app_PUNN                 ; 0x6565
+    call random_below                ; 0x6565
     pop cx                           ; 0x6568
     jmp short @..api_idx_0030_JQMM.l70 ; 0x6569
 @..api_idx_0030_JQMM.l69:
@@ -2045,12 +2045,12 @@ jumptable_59e2_case_0:
     cmp word [bx - 0x6e38], byte 0   ; 0x65a6
     je short @..api_idx_0030_JQMM.l74 ; 0x65ab
     push ax                          ; 0x65ad
-    call ds_app_PUNN                 ; 0x65ae
+    call random_below                ; 0x65ae
     pop cx                           ; 0x65b1
     jmp short @..api_idx_0030_JQMM.l75 ; 0x65b2
 @..api_idx_0030_JQMM.l74:
     push word [bp - 0x0002]          ; 0x65b4
-    call ds_app_PUNN                 ; 0x65b7
+    call random_below                ; 0x65b7
     pop cx                           ; 0x65ba
     mov cx, ax                       ; 0x65bb
     mov ax, 0                        ; 0x65bd
@@ -2062,7 +2062,7 @@ jumptable_59e2_case_0:
     mov word [bx - 0x6e44], ax       ; 0x65c9
     mov ax, 5                        ; 0x65cd
     push ax                          ; 0x65d0
-    call ds_app_PUNN                 ; 0x65d1
+    call random_below                ; 0x65d1
     pop cx                           ; 0x65d4
     mov cx, word [bp - 0x0006]       ; 0x65d5
     shl cx, 1                        ; 0x65d8
@@ -2150,7 +2150,7 @@ jumptable_59e2_case_0:
 @..api_idx_0030_JQMM.l86:
     mov ax, 2                        ; 0x66a9
     push ax                          ; 0x66ac
-    call ds_app_PUNN                 ; 0x66ad
+    call random_below                ; 0x66ad
     pop cx                           ; 0x66b0
     add ax, word [bss_8f46]          ; 0x66b1
     add ax, word [bss_8f44]          ; 0x66b5

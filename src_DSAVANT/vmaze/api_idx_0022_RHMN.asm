@@ -170,12 +170,12 @@ api_idx_0022_RHMN:
     jne short @..api_idx_0022_RHMN.l15 ; 0x23cd
     mov ax, 0x64                     ; 0x23cf
     push ax                          ; 0x23d2
-    call ds_app_PUNN                 ; 0x23d3
+    call random_below                ; 0x23d3
     pop cx                           ; 0x23d6
     mov word [bp - 0x0004], ax       ; 0x23d7
     mov ax, 0x64                     ; 0x23da
     push ax                          ; 0x23dd
-    call ds_app_PUNN                 ; 0x23de
+    call random_below                ; 0x23de
     pop cx                           ; 0x23e1
     mov bx, word [bp - 0x0004]       ; 0x23e2
     mov byte [bx + bss_5990], al     ; 0x23e5
@@ -415,7 +415,7 @@ api_idx_0022_RHMN:
 @..api_idx_0022_RHMN.l37:
     mov ax, 0x3e8                    ; 0x2622
     push ax                          ; 0x2625
-    call ds_app_PUNN                 ; 0x2626
+    call random_below                ; 0x2626
     pop cx                           ; 0x2629
     cmp ax, 0x3e3                    ; 0x262a
     jl short @..api_idx_0022_RHMN.l38 ; 0x262d
@@ -929,7 +929,7 @@ jumptable_2a3c_case_3:
 @..api_idx_0022_RHMN.l59:
     mov ax, 0x59fe                   ; 0x2a9a
     push ax                          ; 0x2a9d
-    call ds_app_io_UHMG              ; 0x2a9e
+    call ds_app_UHMG                 ; 0x2a9e
     pop cx                           ; 0x2aa1
     dec ax                           ; 0x2aa2
     mov word [bp - 0x0002], ax       ; 0x2aa3
@@ -1006,7 +1006,7 @@ jumptable_2a3c_case_3:
     pop cx                           ; 0x2b5e
     mov ax, 0x32                     ; 0x2b5f
     push ax                          ; 0x2b62
-    call ds_leaf_loc_UJPS            ; 0x2b63
+    call delay_ticks                 ; 0x2b63
     pop cx                           ; 0x2b66
 @..api_idx_0022_RHMN.l68:
     mov ax, word [bp - 0x0002]       ; 0x2b67

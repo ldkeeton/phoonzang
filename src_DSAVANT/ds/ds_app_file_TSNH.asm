@@ -22,7 +22,7 @@ ds_app_file_TSNH: ; Aztec csav frame=0x0018
     push ax                          ; 0x2891
     mov ax, 8                        ; 0x2892
     push ax                          ; 0x2895
-    call ds_app_file_MPPM            ; 0x2896
+    call data_record_io              ; 0x2896
     add sp, byte 8                   ; 0x2899
     mov ax, dseg_0bcd                ; 0x289c
     push ax                          ; 0x289f
@@ -45,7 +45,7 @@ ds_app_file_TSNH: ; Aztec csav frame=0x0018
     push ax                          ; 0x28c8
     lea ax, word [bp - 0x0018]       ; 0x28c9
     push ax                          ; 0x28cc
-    call ds_app_string_UUHT          ; 0x28cd
+    call data_file_path              ; 0x28cd
     add sp, byte 4                   ; 0x28d0
     push ax                          ; 0x28d3
     call aztec_open                  ; 0x28d4
@@ -55,7 +55,7 @@ ds_app_file_TSNH: ; Aztec csav frame=0x0018
     jne short @..ds_app_file_TSNH.l2 ; 0x28e0
     mov ax, 0x12                     ; 0x28e2
     push ax                          ; 0x28e5
-    call ds_app_UKIP                 ; 0x28e6
+    call fatal_error                 ; 0x28e6
     pop cx                           ; 0x28e9
 @..ds_app_file_TSNH.l2:
     push word [bp + 0x6]             ; 0x28ea

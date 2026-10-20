@@ -613,7 +613,7 @@ jumptable_30fe:
     push ax                          ; 0x3172
     mov ax, 1                        ; 0x3173
     push ax                          ; 0x3176
-    call ds_app_file_MPPM            ; 0x3177
+    call data_record_io              ; 0x3177
     add sp, byte 8                   ; 0x317a
     lea ax, word [bp - 0x0052]       ; 0x317d
     push ax                          ; 0x3180

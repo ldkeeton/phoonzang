@@ -180,7 +180,7 @@ loc_LSRQ:
 @..loc_LSRQ.l6:
     mov ax, 0x59fe                   ; 0x03e1
     push ax                          ; 0x03e4
-    call ds_app_io_UHMG              ; 0x03e5
+    call ds_app_UHMG                 ; 0x03e5
     pop cx                           ; 0x03e8
     mov word [bp - 0x0004], ax       ; 0x03e9
     cmp word [bss_5b3e], byte 0      ; 0x03ec
@@ -250,7 +250,7 @@ loc_LSRQ:
 @..loc_LSRQ.l9:
     mov ax, 1                        ; 0x0485
     push ax                          ; 0x0488
-    call dos_con_in_noecho           ; 0x0489
+    call poll_filtered_key           ; 0x0489
     pop cx                           ; 0x048c
     test ax, ax                      ; 0x048d
     jne short @..loc_LSRQ.l10        ; 0x048f

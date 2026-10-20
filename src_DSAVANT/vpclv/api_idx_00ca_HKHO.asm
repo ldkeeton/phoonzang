@@ -200,7 +200,7 @@ api_idx_00ca_HKHO:
     cwd                              ; 0x2021
     idiv cx                          ; 0x2022
     push ax                          ; 0x2024
-    call ds_app_PUNN                 ; 0x2025
+    call random_below                ; 0x2025
     pop cx                           ; 0x2028
     push ax                          ; 0x2029
     mov ax, 6                        ; 0x202a

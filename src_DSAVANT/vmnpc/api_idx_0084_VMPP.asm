@@ -55,7 +55,7 @@ api_idx_0084_VMPP:
     mov word [bp - 0x0054], ax       ; 0x8cfb
 @..api_idx_0084_VMPP.l3:
     push word [bp - 0x0054]          ; 0x8cfe
-    call ds_app_PUNN                 ; 0x8d01
+    call random_below                ; 0x8d01
     pop cx                           ; 0x8d04
     mov word [bp - 0x0080], ax       ; 0x8d05
     jmp short @..api_idx_0084_VMPP.l5 ; 0x8d08
@@ -63,7 +63,7 @@ api_idx_0084_VMPP:
     mov ax, word [bp - 0x0084]       ; 0x8d0a
     sub word [bp - 0x0054], ax       ; 0x8d0e
     push word [bp - 0x0054]          ; 0x8d11
-    call ds_app_PUNN                 ; 0x8d14
+    call random_below                ; 0x8d14
     pop cx                           ; 0x8d17
     mov cx, ax                       ; 0x8d18
     mov ax, word [bp - 0x0084]       ; 0x8d1a

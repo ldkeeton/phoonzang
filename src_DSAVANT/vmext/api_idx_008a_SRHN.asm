@@ -109,7 +109,7 @@ api_idx_008a_SRHN:
 @..api_idx_008a_SRHN.l9:
     mov ax, 4                        ; 0x0d1b
     push ax                          ; 0x0d1e
-    call ds_app_PUNN                 ; 0x0d1f
+    call random_below                ; 0x0d1f
     pop cx                           ; 0x0d22
     test ax, ax                      ; 0x0d23
     jne short @..api_idx_008a_SRHN.l14 ; 0x0d25
@@ -173,7 +173,7 @@ api_idx_008a_SRHN:
 @..api_idx_008a_SRHN.l16:
     mov ax, 2                        ; 0x0dac
     push ax                          ; 0x0daf
-    call ds_app_PUNN                 ; 0x0db0
+    call random_below                ; 0x0db0
     pop cx                           ; 0x0db3
     test ax, ax                      ; 0x0db4
     jne short @..api_idx_008a_SRHN.l17 ; 0x0db6
@@ -274,7 +274,7 @@ api_idx_008a_SRHN:
     add sp, byte 8                   ; 0x0e85
     mov ax, 2                        ; 0x0e88
     push ax                          ; 0x0e8b
-    call ds_app_PUNN                 ; 0x0e8c
+    call random_below                ; 0x0e8c
     pop cx                           ; 0x0e8f
     test ax, ax                      ; 0x0e90
     je short @..api_idx_008a_SRHN.l24 ; 0x0e92

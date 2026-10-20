@@ -19,7 +19,7 @@ api_idx_0004_KJII:
 jumptable_48eb_case_0:
     mov ax, 4                        ; 0x48b0
     push ax                          ; 0x48b3
-    call ds_app_PUNN                 ; 0x48b4
+    call random_below                ; 0x48b4
     pop cx                           ; 0x48b7
     inc ax                           ; 0x48b8
     inc ax                           ; 0x48b9
@@ -28,7 +28,7 @@ jumptable_48eb_case_0:
 jumptable_48eb_case_1:
     mov ax, 3                        ; 0x48bf
     push ax                          ; 0x48c2
-    call ds_app_PUNN                 ; 0x48c3
+    call random_below                ; 0x48c3
     pop cx                           ; 0x48c6
     inc ax                           ; 0x48c7
     mov word [bp - 0x0002], ax       ; 0x48c8
@@ -36,7 +36,7 @@ jumptable_48eb_case_1:
 jumptable_48eb_case_2:
     mov ax, 4                        ; 0x48cd
     push ax                          ; 0x48d0
-    call ds_app_PUNN                 ; 0x48d1
+    call random_below                ; 0x48d1
     pop cx                           ; 0x48d4
     inc ax                           ; 0x48d5
     mov word [bp - 0x0002], ax       ; 0x48d6
@@ -44,7 +44,7 @@ jumptable_48eb_case_2:
 jumptable_48eb_case_11:
     mov ax, 4                        ; 0x48db
     push ax                          ; 0x48de
-    call ds_app_PUNN                 ; 0x48df
+    call random_below                ; 0x48df
     pop cx                           ; 0x48e2
     inc ax                           ; 0x48e3
     inc ax                           ; 0x48e4

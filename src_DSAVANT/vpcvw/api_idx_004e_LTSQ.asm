@@ -10,7 +10,7 @@ api_idx_004e_LTSQ:
     push ax                          ; 0x42f5
     mov ax, 1                        ; 0x42f6
     push ax                          ; 0x42f9
-    call ds_app_file_MPPM            ; 0x42fa
+    call data_record_io              ; 0x42fa
     add sp, byte 8                   ; 0x42fd
     mov bx, word [bp + 0x6]          ; 0x4300
     mov al, byte [bx + 0x6]          ; 0x4303

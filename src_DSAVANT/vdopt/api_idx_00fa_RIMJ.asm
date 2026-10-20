@@ -78,7 +78,7 @@ jumptable_1aa5_case_0:
 @..api_idx_00fa_RIMJ.l4:
     mov ax, 0x64                     ; 0x1b14
     push ax                          ; 0x1b17
-    call ds_app_PUNN                 ; 0x1b18
+    call random_below                ; 0x1b18
     pop cx                           ; 0x1b1b
     cmp ax, word [bp - 0x0008]       ; 0x1b1c
     jl short @..api_idx_00fa_RIMJ.l7 ; 0x1b1f
@@ -96,7 +96,7 @@ jumptable_1aa5_case_0:
     jne short @..api_idx_00fa_RIMJ.l5 ; 0x1b3e
     mov ax, 0x64                     ; 0x1b40
     push ax                          ; 0x1b43
-    call ds_app_PUNN                 ; 0x1b44
+    call random_below                ; 0x1b44
     pop cx                           ; 0x1b47
     cmp ax, word [bp - 0x0006]       ; 0x1b48
     jl short @..api_idx_00fa_RIMJ.l7 ; 0x1b4b
@@ -112,7 +112,7 @@ jumptable_1aa5_case_0:
 @..api_idx_00fa_RIMJ.l6:
     mov ax, 0x64                     ; 0x1b64
     push ax                          ; 0x1b67
-    call ds_app_PUNN                 ; 0x1b68
+    call random_below                ; 0x1b68
     pop cx                           ; 0x1b6b
     cmp ax, word [bp - 0x0004]       ; 0x1b6c
     jl short @..api_idx_00fa_RIMJ.l7 ; 0x1b6f

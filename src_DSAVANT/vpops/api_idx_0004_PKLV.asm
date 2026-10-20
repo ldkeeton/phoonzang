@@ -20,7 +20,7 @@ api_idx_0004_PKLV:
     jle short @..api_idx_0004_PKLV.l2 ; 0x4558
     mov ax, 2                        ; 0x455a
     push ax                          ; 0x455d
-    call ds_app_PUNN                 ; 0x455e
+    call random_below                ; 0x455e
     pop cx                           ; 0x4561
     test ax, ax                      ; 0x4562
     jne short @..api_idx_0004_PKLV.l2 ; 0x4564

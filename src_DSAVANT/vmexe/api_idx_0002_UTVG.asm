@@ -41,7 +41,7 @@ api_idx_0002_UTVG:
     je short @..api_idx_0002_UTVG.l4 ; 0x1ff6
     mov ax, 0x64                     ; 0x1ff8
     push ax                          ; 0x1ffb
-    call ds_app_PUNN                 ; 0x1ffc
+    call random_below                ; 0x1ffc
     pop cx                           ; 0x1fff
     push ax                          ; 0x2000
     mov ax, word [bp + 0x4]          ; 0x2001

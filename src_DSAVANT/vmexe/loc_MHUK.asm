@@ -16,7 +16,7 @@ loc_MHUK:
     jne short @..loc_MHUK.l2         ; 0x1f81
     mov ax, 3                        ; 0x1f83
     push ax                          ; 0x1f86
-    call ds_app_PUNN                 ; 0x1f87
+    call random_below                ; 0x1f87
     pop cx                           ; 0x1f8a
     test ax, ax                      ; 0x1f8b
     jne short @..loc_MHUK.l2         ; 0x1f8d

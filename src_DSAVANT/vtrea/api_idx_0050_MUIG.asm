@@ -73,7 +73,7 @@ api_idx_0050_MUIG:
 @..api_idx_0050_MUIG.l3:
     mov ax, 0x190                    ; 0x8002
     push ax                          ; 0x8005
-    call ds_leaf_loc_UJPS            ; 0x8006
+    call delay_ticks                 ; 0x8006
     pop cx                           ; 0x8009
     push word [bss_91d4]             ; 0x800a
     push word [bss_91d4]             ; 0x800e

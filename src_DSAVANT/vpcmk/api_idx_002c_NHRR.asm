@@ -218,7 +218,7 @@ api_idx_002c_NHRR:
     mov ax, word [bp - 0x0002]       ; 0x6c42
     shl ax, 1                        ; 0x6c45
     mov bx, ax                       ; 0x6c47
-    mov word [bx + bss_830e], 0      ; 0x6c49
+    mov word [bx + party_slot_frame], 0 ; 0x6c49
     inc word [bp - 0x0002]           ; 0x6c4f
     mov ax, word [bp - 0x0002]       ; 0x6c52
     cmp ax, strict word 6            ; 0x6c55

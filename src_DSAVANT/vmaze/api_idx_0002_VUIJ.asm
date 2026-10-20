@@ -10,7 +10,7 @@ api_idx_0002_VUIJ:
 @..api_idx_0002_VUIJ.l1:
     mov ax, 3                        ; 0x011b
     push ax                          ; 0x011e
-    call ds_app_PUNN                 ; 0x011f
+    call random_below                ; 0x011f
     pop cx                           ; 0x0122
     cmp ax, strict word 2            ; 0x0123
     jne short @..api_idx_0002_VUIJ.l2 ; 0x0126

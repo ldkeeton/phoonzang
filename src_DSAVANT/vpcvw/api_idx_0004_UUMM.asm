@@ -59,7 +59,7 @@ api_idx_0004_UUMM:
     pop ax                           ; 0x39ff
     sub word [bx + 0x5c1c], ax       ; 0x3a00
     push word [bp - 0x0004]          ; 0x3a04
-    call ds_app_PUNN                 ; 0x3a07
+    call random_below                ; 0x3a07
     pop cx                           ; 0x3a0a
     push ax                          ; 0x3a0b
     mov ax, 6                        ; 0x3a0c
@@ -82,7 +82,7 @@ api_idx_0004_UUMM:
     mov word [bx + 0x5c10], 0        ; 0x3a37
     mov ax, 6                        ; 0x3a3d
     push ax                          ; 0x3a40
-    call ds_app_PUNN                 ; 0x3a41
+    call random_below                ; 0x3a41
     pop cx                           ; 0x3a44
     add ax, strict word 6            ; 0x3a45
     push ax                          ; 0x3a48

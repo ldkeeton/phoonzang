@@ -277,7 +277,7 @@ api_idx_0072_OUII:
     jne short @..api_idx_0072_OUII.l16 ; 0x2224
     mov ax, 0x1d                     ; 0x2226
     push ax                          ; 0x2229
-    call ds_app_UKIP                 ; 0x222a
+    call fatal_error                 ; 0x222a
     pop cx                           ; 0x222d
 @..api_idx_0072_OUII.l16:
     mov word [bp - 0x0008], 0        ; 0x222e
@@ -477,7 +477,7 @@ api_idx_0072_OUII:
     push ax                          ; 0x2419
     mov ax, 4                        ; 0x241a
     push ax                          ; 0x241d
-    call ds_app_PUNN                 ; 0x241e
+    call random_below                ; 0x241e
     pop cx                           ; 0x2421
     mov cx, ax                       ; 0x2422
     pop ax                           ; 0x2424
@@ -513,7 +513,7 @@ api_idx_0072_OUII:
     jge short @..api_idx_0072_OUII.l32 ; 0x2471
     mov ax, 8                        ; 0x2473
     push ax                          ; 0x2476
-    call ds_app_PUNN                 ; 0x2477
+    call random_below                ; 0x2477
     pop cx                           ; 0x247a
     mov bx, word [bp - 0x0014]       ; 0x247b
     mov cx, word [bx + 0x24]         ; 0x247e
@@ -620,7 +620,7 @@ api_idx_0072_OUII:
     jge short @..api_idx_0072_OUII.l39 ; 0x2585
     mov ax, 7                        ; 0x2587
     push ax                          ; 0x258a
-    call ds_app_PUNN                 ; 0x258b
+    call random_below                ; 0x258b
     pop cx                           ; 0x258e
     push ax                          ; 0x258f
     mov bx, word [bp - 0x0014]       ; 0x2590
@@ -762,7 +762,7 @@ jumptable_2668:
     push cx                          ; 0x26d7
     mov ax, 3                        ; 0x26d8
     push ax                          ; 0x26db
-    call ds_app_PUNN                 ; 0x26dc
+    call random_below                ; 0x26dc
     pop cx                           ; 0x26df
     pop cx                           ; 0x26e0
     add ax, cx                       ; 0x26e1
@@ -829,7 +829,7 @@ jumptable_2668:
     cmp byte [bx + 0x621], 4         ; 0x2781
     jae short @..api_idx_0072_OUII.l50 ; 0x2786
     push cx                          ; 0x2788
-    call ds_app_PUNN                 ; 0x2789
+    call random_below                ; 0x2789
     pop cx                           ; 0x278c
     push ax                          ; 0x278d
     mov ax, 6                        ; 0x278e
@@ -952,7 +952,7 @@ jumptable_2668:
     jle short @..api_idx_0072_OUII.l52 ; 0x28d5
     mov ax, 5                        ; 0x28d7
     push ax                          ; 0x28da
-    call ds_app_PUNN                 ; 0x28db
+    call random_below                ; 0x28db
     pop cx                           ; 0x28de
     mov cx, 0x64                     ; 0x28df
     mov bx, word [bp - 0x0014]       ; 0x28e2
@@ -1252,7 +1252,7 @@ jumptable_2af5:
     je short @..api_idx_0072_OUII.l74 ; 0x2bd5
     mov ax, 3                        ; 0x2bd7
     push ax                          ; 0x2bda
-    call ds_app_PUNN                 ; 0x2bdb
+    call random_below                ; 0x2bdb
     pop cx                           ; 0x2bde
     test ax, ax                      ; 0x2bdf
     jne short @..api_idx_0072_OUII.l75 ; 0x2be1
@@ -1338,7 +1338,7 @@ jumptable_2af5:
     je short @..api_idx_0072_OUII.l82 ; 0x2c9f
     mov ax, 3                        ; 0x2ca1
     push ax                          ; 0x2ca4
-    call ds_app_PUNN                 ; 0x2ca5
+    call random_below                ; 0x2ca5
     pop cx                           ; 0x2ca8
     test ax, ax                      ; 0x2ca9
     jne short @..api_idx_0072_OUII.l83 ; 0x2cab

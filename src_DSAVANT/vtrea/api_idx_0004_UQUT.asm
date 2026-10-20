@@ -31,7 +31,7 @@ api_idx_0004_UQUT:
 @..api_idx_0004_UQUT.l4:
     mov ax, 1                        ; 0x092e
     push ax                          ; 0x0931
-    call dos_con_in_noecho           ; 0x0932
+    call poll_filtered_key           ; 0x0932
     pop cx                           ; 0x0935
     test ax, ax                      ; 0x0936
     je short @..api_idx_0004_UQUT.l5 ; 0x0938

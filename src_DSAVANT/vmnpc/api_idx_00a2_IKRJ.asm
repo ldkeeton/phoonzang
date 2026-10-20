@@ -95,7 +95,7 @@ api_idx_00a2_IKRJ:
 @..api_idx_00a2_IKRJ.l4:
     mov ax, 2                        ; 0x992b
     push ax                          ; 0x992e
-    call ds_app_PUNN                 ; 0x992f
+    call random_below                ; 0x992f
     pop cx                           ; 0x9932
     test ax, ax                      ; 0x9933
     jne short @..api_idx_00a2_IKRJ.l5 ; 0x9935

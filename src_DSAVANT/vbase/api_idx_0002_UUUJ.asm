@@ -116,7 +116,7 @@ api_idx_0002_UUUJ:
     mov word [bx + bss_a5da], 0x140  ; 0x8996
     mov ax, 0x3c                     ; 0x899c
     push ax                          ; 0x899f
-    call ds_app_PUNN                 ; 0x89a0
+    call random_below                ; 0x89a0
     pop cx                           ; 0x89a3
     add ax, strict word 0x28         ; 0x89a4
     mov cx, word [bp - 0x0002]       ; 0x89a7

@@ -4,7 +4,7 @@ api_idx_0002_KUOJ:
     call aztec_csav                  ; 0x7004
     mov ax, 4                        ; 0x7007
     push ax                          ; 0x700a
-    call ds_app_PUNN                 ; 0x700b
+    call random_below                ; 0x700b
     pop cx                           ; 0x700e
     mov word [bp - 0x0002], ax       ; 0x700f
 @..api_idx_0002_KUOJ.l1:

@@ -225,7 +225,7 @@ loc_HTRU:
 @..loc_HTRU.l11:
     mov ax, 0x59fe                   ; 0x132e
     push ax                          ; 0x1331
-    call ds_app_io_UHMG              ; 0x1332
+    call ds_app_UHMG                 ; 0x1332
     pop cx                           ; 0x1335
     mov word [bp - 0x0004], ax       ; 0x1336
     call api_idx_0006_HRUL           ; 0x1339
@@ -314,7 +314,7 @@ loc_HTRU:
 @..loc_HTRU.l16:
     mov ax, 1                        ; 0x1401
     push ax                          ; 0x1404
-    call dos_con_in_noecho           ; 0x1405
+    call poll_filtered_key           ; 0x1405
     pop cx                           ; 0x1408
     test ax, ax                      ; 0x1409
     jne short @..loc_HTRU.l17        ; 0x140b
@@ -656,7 +656,7 @@ loc_HTRU:
     add sp, byte 8                   ; 0x1719
     mov ax, 0x19                     ; 0x171c
     push ax                          ; 0x171f
-    call ds_leaf_loc_UJPS            ; 0x1720
+    call delay_ticks                 ; 0x1720
     pop cx                           ; 0x1723
     mov ax, word [bp + 0xc]          ; 0x1724
     add ax, word [bp - 0x000c]       ; 0x1727

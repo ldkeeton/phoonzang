@@ -105,7 +105,7 @@ api_idx_000c_VJPM:
 @..api_idx_000c_VJPM.l12:
     mov ax, 0xa                      ; 0x7039
     push ax                          ; 0x703c
-    call ds_app_PUNN                 ; 0x703d
+    call random_below                ; 0x703d
     pop cx                           ; 0x7040
     mov cx, ax                       ; 0x7041
     mov ax, word [bss_8460]          ; 0x7043

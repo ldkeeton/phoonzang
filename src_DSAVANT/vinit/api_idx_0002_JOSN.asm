@@ -6,7 +6,7 @@ api_idx_0002_JOSN:
     push ax                          ; 0x004e
     push ax                          ; 0x004f
     push word [bp + 0x4]             ; 0x0050
-    call ds_app_string_UUHT          ; 0x0053
+    call data_file_path              ; 0x0053
     add sp, byte 4                   ; 0x0056
     push ax                          ; 0x0059
     call aztec_open                  ; 0x005a
@@ -16,7 +16,7 @@ api_idx_0002_JOSN:
     jne short @..api_idx_0002_JOSN.l1 ; 0x0066
     mov ax, 5                        ; 0x0068
     push ax                          ; 0x006b
-    call ds_app_UKIP                 ; 0x006c
+    call fatal_error                 ; 0x006c
     pop cx                           ; 0x006f
 @..api_idx_0002_JOSN.l1:
     push word [bp + 0x6]             ; 0x0070

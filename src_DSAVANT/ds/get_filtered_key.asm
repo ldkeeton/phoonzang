@@ -10,7 +10,7 @@ get_filtered_key:
     mov ax, cs                       ; 0x3d81
     mov ds, ax                       ; 0x3d83
     mov es, ax                       ; 0x3d85
-    lea si, word [cseg_3c7f - IMAGE_BASE] ; 0x3d87
+    lea si, word [key_queue - IMAGE_BASE] ; 0x3d87
 @..get_filtered_key.l1:
     mov bx, word [si]                ; 0x3d8b
     or bx, bx                        ; 0x3d8d
@@ -79,7 +79,7 @@ get_filtered_key:
 @..get_filtered_key.l7:
     xor ax, ax                       ; 0x3dfe
     push ax                          ; 0x3e00
-    call far [cs:cseg_2f83 - IMAGE_BASE] ; 0x3e01
+    call far [cs:play_drv_wait - IMAGE_BASE] ; 0x3e01
     pop ax                           ; 0x3e06
     mov ah, 7                        ; 0x3e07
     int 0x21 ; DOS keyboard input (no echo)

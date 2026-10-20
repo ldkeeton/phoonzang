@@ -66,7 +66,7 @@ api_idx_0016_TOUQ:
 @..api_idx_0016_TOUQ.l2:
     mov ax, 1                        ; 0xa5f3
     push ax                          ; 0xa5f6
-    call dos_con_in_noecho           ; 0xa5f7
+    call poll_filtered_key           ; 0xa5f7
     pop cx                           ; 0xa5fa
     test ax, ax                      ; 0xa5fb
     jne short @..api_idx_0016_TOUQ.l6 ; 0xa5fd
@@ -113,7 +113,7 @@ api_idx_0016_TOUQ:
 @..api_idx_0016_TOUQ.l4:
     mov ax, 0xa                      ; 0xa666
     push ax                          ; 0xa669
-    call ds_leaf_loc_UJPS            ; 0xa66a
+    call delay_ticks                 ; 0xa66a
     pop cx                           ; 0xa66d
     dec word [bp - 0x000a]           ; 0xa66e
 @..api_idx_0016_TOUQ.l5:

@@ -11,7 +11,7 @@ api_idx_0002_LVPS:
     mov ax, 1
     push ax
     push word [bp + 0x4]
-    call ds_app_string_UUHT
+    call data_file_path
     add sp, byte 4
     push ax
     call aztec_open
@@ -21,7 +21,7 @@ api_idx_0002_LVPS:
     jne short @..api_idx_0002_LVPS.l1
     mov ax, 0xe
     push ax
-    call ds_app_UKIP
+    call fatal_error
     pop cx
 @..api_idx_0002_LVPS.l1:
     mov ax, 0

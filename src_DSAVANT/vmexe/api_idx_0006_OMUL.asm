@@ -34,7 +34,7 @@ api_idx_0006_OMUL:
     mov ax, word [bp - 0x0002]       ; 0x261c
     sub ax, word [bp - 0x0004]       ; 0x261f
     push ax                          ; 0x2622
-    call ds_app_PUNN                 ; 0x2623
+    call random_below                ; 0x2623
     pop cx                           ; 0x2626
     mov word [bp - 0x0006], ax       ; 0x2627
 @..api_idx_0006_OMUL.l4:

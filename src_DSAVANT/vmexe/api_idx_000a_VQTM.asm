@@ -21,7 +21,7 @@ api_idx_000a_VQTM:
 @..api_idx_000a_VQTM.l1:
     mov ax, 0x64                     ; 0x7469
     push ax                          ; 0x746c
-    call ds_app_PUNN                 ; 0x746d
+    call random_below                ; 0x746d
     pop cx                           ; 0x7470
     push ax                          ; 0x7471
     mov bx, word [bp + 0x6]          ; 0x7472
@@ -171,7 +171,7 @@ jumptable_78e5_case_5:
 @..api_idx_000a_VQTM.l4:
     mov ax, 0x64                     ; 0x75ba
     push ax                          ; 0x75bd
-    call ds_app_PUNN                 ; 0x75be
+    call random_below                ; 0x75be
     pop cx                           ; 0x75c1
     push ax                          ; 0x75c2
     mov ax, word [bp + 0x8]          ; 0x75c3
@@ -224,7 +224,7 @@ jumptable_78e5_case_5:
 @..api_idx_000a_VQTM.l6:
     mov ax, 0x64                     ; 0x7631
     push ax                          ; 0x7634
-    call ds_app_PUNN                 ; 0x7635
+    call random_below                ; 0x7635
     pop cx                           ; 0x7638
     push ax                          ; 0x7639
     mov ax, word [bp + 0x8]          ; 0x763a
@@ -447,7 +447,7 @@ jumptable_78e5_case_6:
     mov word [bp - 0x000a], ax       ; 0x7837
     mov ax, 0x64                     ; 0x783a
     push ax                          ; 0x783d
-    call ds_app_PUNN                 ; 0x783e
+    call random_below                ; 0x783e
     pop cx                           ; 0x7841
     push ax                          ; 0x7842
     mov ax, word [bp + 0x8]          ; 0x7843

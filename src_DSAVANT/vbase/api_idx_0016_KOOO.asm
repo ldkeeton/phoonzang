@@ -17,7 +17,7 @@ api_idx_0016_KOOO:
     push ax                          ; 0x0579
     lea ax, word [bp - 0x0016]       ; 0x057a
     push ax                          ; 0x057d
-    call ds_app_string_UUHT          ; 0x057e
+    call data_file_path              ; 0x057e
     add sp, byte 4                   ; 0x0581
     push ax                          ; 0x0584
     call aztec_open                  ; 0x0585
@@ -27,7 +27,7 @@ api_idx_0016_KOOO:
     jne short @..api_idx_0016_KOOO.l1 ; 0x0591
     mov ax, 0x13                     ; 0x0593
     push ax                          ; 0x0596
-    call ds_app_UKIP                 ; 0x0597
+    call fatal_error                 ; 0x0597
     pop cx                           ; 0x059a
 @..api_idx_0016_KOOO.l1:
     push word [bp + 0x6]             ; 0x059b

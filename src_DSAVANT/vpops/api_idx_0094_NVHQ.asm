@@ -33,7 +33,7 @@ api_idx_0094_NVHQ:
     push ax                          ; 0x3425
     mov ax, 1                        ; 0x3426
     push ax                          ; 0x3429
-    call ds_app_file_MPPM            ; 0x342a
+    call data_record_io              ; 0x342a
     add sp, byte 8                   ; 0x342d
     mov ax, 0x248                    ; 0x3430
     imul word [bp + 0x4]             ; 0x3433
@@ -256,7 +256,7 @@ api_idx_0094_NVHQ:
     push ax                          ; 0x3626
     mov ax, 1                        ; 0x3627
     push ax                          ; 0x362a
-    call ds_app_file_MPPM            ; 0x362b
+    call data_record_io              ; 0x362b
     add sp, byte 8                   ; 0x362e
     cmp word [bp - 0x0028], byte 0   ; 0x3631
     je short @..api_idx_0094_NVHQ.l15 ; 0x3635

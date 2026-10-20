@@ -9,7 +9,7 @@ flush_keyboard:
     mov ax, ds                       ; 0x3e65
     mov es, ax                       ; 0x3e67
     mov ax, 0                        ; 0x3e69
-    mov word [cs:cseg_3c7f - IMAGE_BASE], ax ; 0x3e6c
+    mov word [cs:key_queue - IMAGE_BASE], ax ; 0x3e6c
 @..flush_keyboard.l1:
     mov ah, 1                        ; 0x3e70
     int 0x16 ; BIOS keyboard: check keystroke
@@ -18,7 +18,7 @@ flush_keyboard:
     int 0x16 ; BIOS keyboard: read keystroke
     jmp short @..flush_keyboard.l1   ; 0x3e7a
 @..flush_keyboard.l2:
-    call far [cs:cseg_2faf - IMAGE_BASE] ; 0x3e7c
+    call far [cs:gfx_drv_slot_10 - IMAGE_BASE] ; 0x3e7c
     pop es                           ; 0x3e81
     pop si                           ; 0x3e82
     pop di                           ; 0x3e83

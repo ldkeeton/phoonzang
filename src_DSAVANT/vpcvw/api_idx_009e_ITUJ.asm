@@ -10,7 +10,7 @@ api_idx_009e_ITUJ:
     push ax                          ; 0x3d10
     mov ax, 1                        ; 0x3d11
     push ax                          ; 0x3d14
-    call ds_app_file_MPPM            ; 0x3d15
+    call data_record_io              ; 0x3d15
     add sp, byte 8                   ; 0x3d18
     cmp byte [bp - 0x000b], 0        ; 0x3d1b
     ja short @..api_idx_009e_ITUJ.l1 ; 0x3d1f
@@ -263,7 +263,7 @@ jumptable_3f96_case_10:
     dec byte [bx + 0x5d6b]           ; 0x3f5e
     mov ax, 3                        ; 0x3f62
     push ax                          ; 0x3f65
-    call ds_app_PUNN                 ; 0x3f66
+    call random_below                ; 0x3f66
     pop cx                           ; 0x3f69
     mov word [bp - 0x0002], ax       ; 0x3f6a
     jmp short @..api_idx_009e_ITUJ.l10 ; 0x3f6d

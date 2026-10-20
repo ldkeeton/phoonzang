@@ -156,14 +156,14 @@ api_idx_0018_TROH:
     jne short @..api_idx_0018_TROH.l9 ; 0x089b
     mov ax, 3                        ; 0x089d
     push ax                          ; 0x08a0
-    call ds_app_PUNN                 ; 0x08a1
+    call random_below                ; 0x08a1
     pop cx                           ; 0x08a4
     add ax, word [bp - 0x000a]       ; 0x08a5
     dec ax                           ; 0x08a8
     mov word [bp - 0x000a], ax       ; 0x08a9
     mov ax, 2                        ; 0x08ac
     push ax                          ; 0x08af
-    call ds_app_PUNN                 ; 0x08b0
+    call random_below                ; 0x08b0
     pop cx                           ; 0x08b3
     add word [bp - 0x000c], ax       ; 0x08b4
 @..api_idx_0018_TROH.l9:

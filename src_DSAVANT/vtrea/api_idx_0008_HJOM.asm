@@ -90,7 +90,7 @@ jumptable_4a7d_case_33:
 @..api_idx_0008_HJOM.l1:
     mov ax, 0x64                     ; 0x4443
     push ax                          ; 0x4446
-    call ds_app_PUNN                 ; 0x4447
+    call random_below                ; 0x4447
     pop cx                           ; 0x444a
     push ax                          ; 0x444b
     mov ax, 0xa                      ; 0x444c
@@ -313,7 +313,7 @@ jumptable_4a7d_case_31:
     dec byte [bx + 0x5d67]           ; 0x465b
     mov ax, 0xb7                     ; 0x465f
     push ax                          ; 0x4662
-    call ds_app_PUNN                 ; 0x4663
+    call random_below                ; 0x4663
     pop cx                           ; 0x4666
     add ax, 0xb7                     ; 0x4667
     cwd                              ; 0x466a
@@ -328,7 +328,7 @@ jumptable_4a7d_case_31:
     adc word [bx + 0x5bfe], dx       ; 0x467b
     mov ax, 0x12                     ; 0x467f
     push ax                          ; 0x4682
-    call ds_app_PUNN                 ; 0x4683
+    call random_below                ; 0x4683
     pop cx                           ; 0x4686
     push ax                          ; 0x4687
     mov ax, 0x248                    ; 0x4688
@@ -609,7 +609,7 @@ jumptable_4a7d_case_41:
     inc word [bx + 0x5c1a]           ; 0x4929
     mov ax, 0xb7                     ; 0x492d
     push ax                          ; 0x4930
-    call ds_app_PUNN                 ; 0x4931
+    call random_below                ; 0x4931
     pop cx                           ; 0x4934
     add ax, 0x16d                    ; 0x4935
     cwd                              ; 0x4938

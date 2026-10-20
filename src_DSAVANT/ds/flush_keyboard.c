@@ -1,9 +1,9 @@
-/* clears the key queue word, drains the BIOS keyboard buffer, then calls the far vector */
+/* clears key_queue, drains the BIOS keyboard buffer, then calls the graphics driver slot 10 */
 #asm
 	include	lmacros.h
 	assume	cs:codeseg
-	extrn	cseg_3c7f_:word
-	extrn	cseg_2faf_:dword
+	extrn	key_queue_:word
+	extrn	gfx_drv_slot_10_:dword
 	public	flush_keyboard_
 flush_keyboard_ proc near
 	push	bp
@@ -15,7 +15,7 @@ flush_keyboard_ proc near
 	mov	ax,ds
 	mov	es,ax
 	mov	ax,0
-	mov	word ptr cs:cseg_3c7f_,ax
+	mov	word ptr cs:key_queue_,ax
 drain:
 	mov	ah,1
 	int	16h
@@ -24,7 +24,7 @@ drain:
 	int	16h
 	jmp	drain
 drained:
-	call	dword ptr cs:cseg_2faf_
+	call	dword ptr cs:gfx_drv_slot_10_
 	pop	es
 	pop	si
 	pop	di

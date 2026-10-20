@@ -459,7 +459,7 @@ api_idx_00c2_OUOT:
 @..api_idx_00c2_OUOT.l16:
     mov ax, 0x59fe                   ; 0x5942
     push ax                          ; 0x5945
-    call ds_app_io_UHMG              ; 0x5946
+    call ds_app_UHMG                 ; 0x5946
     pop cx                           ; 0x5949
     dec ax                           ; 0x594a
     mov word [bp - 0x0004], ax       ; 0x594b
@@ -537,7 +537,7 @@ api_idx_00c2_OUOT:
 @..api_idx_00c2_OUOT.l20:
     mov ax, 1                        ; 0x59f5
     push ax                          ; 0x59f8
-    call dos_con_in_noecho           ; 0x59f9
+    call poll_filtered_key           ; 0x59f9
     pop cx                           ; 0x59fc
     test ax, ax                      ; 0x59fd
     jne short @..api_idx_00c2_OUOT.l21 ; 0x59ff
@@ -637,7 +637,7 @@ api_idx_00c2_OUOT:
 @..api_idx_00c2_OUOT.l35:
     mov ax, 1                        ; 0x5acb
     push ax                          ; 0x5ace
-    call dos_con_in_noecho           ; 0x5acf
+    call poll_filtered_key           ; 0x5acf
     pop cx                           ; 0x5ad2
     test ax, ax                      ; 0x5ad3
     jne short @..api_idx_00c2_OUOT.l36 ; 0x5ad5
@@ -959,7 +959,7 @@ api_idx_00c2_OUOT:
 @..api_idx_00c2_OUOT.l54:
     mov ax, 0x12c                    ; 0x5de5
     push ax                          ; 0x5de8
-    call ds_leaf_loc_UJPS            ; 0x5de9
+    call delay_ticks                 ; 0x5de9
     pop cx                           ; 0x5dec
     mov ax, 0                        ; 0x5ded
     push ax                          ; 0x5df0
@@ -1053,7 +1053,7 @@ api_idx_00c2_OUOT:
     jne short @..api_idx_00c2_OUOT.l58 ; 0x5ebd
     mov ax, 0x12c                    ; 0x5ebf
     push ax                          ; 0x5ec2
-    call ds_leaf_loc_UJPS            ; 0x5ec3
+    call delay_ticks                 ; 0x5ec3
     pop cx                           ; 0x5ec6
     mov ax, 0                        ; 0x5ec7
     push ax                          ; 0x5eca

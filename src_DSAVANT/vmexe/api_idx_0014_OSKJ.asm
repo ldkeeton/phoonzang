@@ -40,7 +40,7 @@ api_idx_0014_OSKJ:
     jbe short @..api_idx_0014_OSKJ.l3 ; 0x64e9
     mov ax, 0x64                     ; 0x64eb
     push ax                          ; 0x64ee
-    call ds_app_PUNN                 ; 0x64ef
+    call random_below                ; 0x64ef
     pop cx                           ; 0x64f2
     cmp ax, strict word 0x50         ; 0x64f3
     jle short @..api_idx_0014_OSKJ.l3 ; 0x64f6
@@ -56,19 +56,19 @@ api_idx_0014_OSKJ:
     jbe short @..api_idx_0014_OSKJ.l4 ; 0x6513
     mov ax, 0x64                     ; 0x6515
     push ax                          ; 0x6518
-    call ds_app_PUNN                 ; 0x6519
+    call random_below                ; 0x6519
     pop cx                           ; 0x651c
     cmp ax, strict word 0x28         ; 0x651d
     jle short @..api_idx_0014_OSKJ.l4 ; 0x6520
     mov ax, 3                        ; 0x6522
     push ax                          ; 0x6525
-    call ds_app_PUNN                 ; 0x6526
+    call random_below                ; 0x6526
     pop cx                           ; 0x6529
     add ax, 0xc85                    ; 0x652a
     mov word [bp - 0x0004], ax       ; 0x652d
     mov ax, 0x64                     ; 0x6530
     push ax                          ; 0x6533
-    call ds_app_PUNN                 ; 0x6534
+    call random_below                ; 0x6534
     pop cx                           ; 0x6537
     cmp ax, strict word 0x50         ; 0x6538
     jle short @..api_idx_0014_OSKJ.l4 ; 0x653b
@@ -82,7 +82,7 @@ api_idx_0014_OSKJ:
     jbe short @..api_idx_0014_OSKJ.l5 ; 0x6554
     mov ax, 0x64                     ; 0x6556
     push ax                          ; 0x6559
-    call ds_app_PUNN                 ; 0x655a
+    call random_below                ; 0x655a
     pop cx                           ; 0x655d
     cmp ax, strict word 0x50         ; 0x655e
     jle short @..api_idx_0014_OSKJ.l5 ; 0x6561
@@ -96,7 +96,7 @@ api_idx_0014_OSKJ:
     jbe short @..api_idx_0014_OSKJ.l6 ; 0x657a
     mov ax, 0x64                     ; 0x657c
     push ax                          ; 0x657f
-    call ds_app_PUNN                 ; 0x6580
+    call random_below                ; 0x6580
     pop cx                           ; 0x6583
     cmp ax, strict word 0x4b         ; 0x6584
     jle short @..api_idx_0014_OSKJ.l6 ; 0x6587
@@ -372,7 +372,7 @@ api_idx_0014_OSKJ:
     mov al, byte [bx + 0x1a1]        ; 0x6863
     sub ah, ah                       ; 0x6867
     push ax                          ; 0x6869
-    call ds_app_PUNN                 ; 0x686a
+    call random_below                ; 0x686a
     pop cx                           ; 0x686d
     mov bx, word [bp - 0x0002]       ; 0x686e
     mov byte [bx + 0x20], al         ; 0x6871
@@ -819,7 +819,7 @@ jumptable_6ea7_case_0:
     jne short @..api_idx_0014_OSKJ.l42 ; 0x6d07
     mov ax, 8                        ; 0x6d09
     push ax                          ; 0x6d0c
-    call ds_app_PUNN                 ; 0x6d0d
+    call random_below                ; 0x6d0d
     pop cx                           ; 0x6d10
     add ax, strict word 5            ; 0x6d11
     push ax                          ; 0x6d14
@@ -832,7 +832,7 @@ jumptable_6ea7_case_0:
     jne short @..api_idx_0014_OSKJ.l43 ; 0x6d24
     mov ax, 4                        ; 0x6d26
     push ax                          ; 0x6d29
-    call ds_app_PUNN                 ; 0x6d2a
+    call random_below                ; 0x6d2a
     pop cx                           ; 0x6d2d
     inc ax                           ; 0x6d2e
     inc ax                           ; 0x6d2f
@@ -845,7 +845,7 @@ jumptable_6ea7_case_0:
 @..api_idx_0014_OSKJ.l43:
     mov ax, 3                        ; 0x6d3d
     push ax                          ; 0x6d40
-    call ds_app_PUNN                 ; 0x6d41
+    call random_below                ; 0x6d41
     pop cx                           ; 0x6d44
     inc ax                           ; 0x6d45
     inc ax                           ; 0x6d46
@@ -893,7 +893,7 @@ jumptable_6ea7_case_1:
     call aztec_ldv                   ; 0x6da3
     mov word [bp - 0x0004], ax       ; 0x6da6
     push ax                          ; 0x6da9
-    call ds_app_PUNN                 ; 0x6daa
+    call random_below                ; 0x6daa
     pop cx                           ; 0x6dad
     mov bx, word [bp - 0x0002]       ; 0x6dae
     mov cx, word [bx + 0x6]          ; 0x6db1
@@ -915,7 +915,7 @@ jumptable_6ea7_case_8:
     call loc_SKVJ                    ; 0x6dd3
     mov ax, 4                        ; 0x6dd6
     push ax                          ; 0x6dd9
-    call ds_app_PUNN                 ; 0x6dda
+    call random_below                ; 0x6dda
     pop cx                           ; 0x6ddd
     inc ax                           ; 0x6dde
     inc ax                           ; 0x6ddf
@@ -944,7 +944,7 @@ jumptable_6ea7_case_4:
     pop cx                           ; 0x6e17
     mov ax, 3                        ; 0x6e18
     push ax                          ; 0x6e1b
-    call ds_app_PUNN                 ; 0x6e1c
+    call random_below                ; 0x6e1c
     pop cx                           ; 0x6e1f
     inc ax                           ; 0x6e20
     push ax                          ; 0x6e21
@@ -964,7 +964,7 @@ jumptable_6ea7_case_7:
     add sp, byte 4                   ; 0x6e43
     mov ax, 4                        ; 0x6e46
     push ax                          ; 0x6e49
-    call ds_app_PUNN                 ; 0x6e4a
+    call random_below                ; 0x6e4a
     pop cx                           ; 0x6e4d
     inc ax                           ; 0x6e4e
     inc ax                           ; 0x6e4f
@@ -984,7 +984,7 @@ jumptable_6ea7_case_2:
     pop cx                           ; 0x6e6b
     mov ax, 3                        ; 0x6e6c
     push ax                          ; 0x6e6f
-    call ds_app_PUNN                 ; 0x6e70
+    call random_below                ; 0x6e70
     pop cx                           ; 0x6e73
     inc ax                           ; 0x6e74
     push ax                          ; 0x6e75
@@ -1002,7 +1002,7 @@ jumptable_6ea7_case_6:
     pop cx                           ; 0x6e8f
     mov ax, 5                        ; 0x6e90
     push ax                          ; 0x6e93
-    call ds_app_PUNN                 ; 0x6e94
+    call random_below                ; 0x6e94
     pop cx                           ; 0x6e97
     add ax, strict word 5            ; 0x6e98
     push ax                          ; 0x6e9b

@@ -43,7 +43,7 @@ api_idx_0004_IHHI:
 @..api_idx_0004_IHHI.l4:
     mov ax, 4                        ; 0x145d
     push ax                          ; 0x1460
-    call ds_app_PUNN                 ; 0x1461
+    call random_below                ; 0x1461
     pop cx                           ; 0x1464
     mov cx, ax                       ; 0x1465
     add ax, strict word 7            ; 0x1467
@@ -67,7 +67,7 @@ api_idx_0004_IHHI:
     cwd                              ; 0x1491
     idiv cx                          ; 0x1492
     push ax                          ; 0x1494
-    call ds_app_PUNN                 ; 0x1495
+    call random_below                ; 0x1495
     pop cx                           ; 0x1498
     mov cx, ax                       ; 0x1499
     pop ax                           ; 0x149b

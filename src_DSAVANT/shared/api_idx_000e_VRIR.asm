@@ -161,7 +161,7 @@ api_idx_000e_VRIR:
     mov al, byte [bx + slot_rec_action_rand]
     sub ah, ah
     push ax
-    call ds_app_PUNN
+    call random_below
     pop cx
     push ax
     mov ax, 0x15e
@@ -224,7 +224,7 @@ api_idx_000e_VRIR:
     mov al, byte [bx + 0x6ac2]
     sub ah, ah
     push ax
-    call ds_app_PUNN
+    call random_below
     pop cx
     push ax
     mov ax, 0x15e

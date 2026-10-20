@@ -18,7 +18,7 @@ ds_app_QOOL: ; Aztec csav frame=0x0000
     je short @..ds_app_QOOL.l1       ; 0x112d
     mov ax, 0x23                     ; 0x112f
     push ax                          ; 0x1132
-    call ds_leaf_loc_UJPS            ; 0x1133
+    call delay_ticks                 ; 0x1133
     pop cx                           ; 0x1136
 @..ds_app_QOOL.l1:
     ret                              ; 0x1137

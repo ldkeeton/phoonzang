@@ -350,7 +350,7 @@ api_idx_0028_NRJN:
 @..api_idx_0028_NRJN.l1:
     mov ax, 0x59fe                   ; 0x1217
     push ax                          ; 0x121a
-    call ds_app_io_UHMG              ; 0x121b
+    call ds_app_UHMG                 ; 0x121b
     pop cx                           ; 0x121e
     dec ax                           ; 0x121f
     mov word [bp - 0x000e], ax       ; 0x1220

@@ -281,7 +281,7 @@ jumptable_4b3c:
     mov al, byte [bx + 0x5d54]       ; 0x4c3e
     sub ah, ah                       ; 0x4c42
     push ax                          ; 0x4c44
-    call ds_app_PUNN                 ; 0x4c45
+    call random_below                ; 0x4c45
     pop cx                           ; 0x4c48
     push ax                          ; 0x4c49
     mov ax, 0x248                    ; 0x4c4a
@@ -294,7 +294,7 @@ jumptable_4b3c:
     cwd                              ; 0x4c5e
     idiv cx                          ; 0x4c5f
     push ax                          ; 0x4c61
-    call ds_app_PUNN                 ; 0x4c62
+    call random_below                ; 0x4c62
     pop cx                           ; 0x4c65
     mov cx, ax                       ; 0x4c66
     pop ax                           ; 0x4c68

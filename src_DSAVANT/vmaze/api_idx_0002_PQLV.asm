@@ -7,7 +7,7 @@ api_idx_0002_PQLV:
     mov ax, 1                        ; 0x0308
     push ax                          ; 0x030b
     push word [bp + 0x4]             ; 0x030c
-    call ds_app_string_UUHT          ; 0x030f
+    call data_file_path              ; 0x030f
     add sp, byte 4                   ; 0x0312
     push ax                          ; 0x0315
     call aztec_open                  ; 0x0316
@@ -17,7 +17,7 @@ api_idx_0002_PQLV:
     jne short @..api_idx_0002_PQLV.l1 ; 0x0322
     mov ax, 0x1b                     ; 0x0324
     push ax                          ; 0x0327
-    call ds_app_UKIP                 ; 0x0328
+    call fatal_error                 ; 0x0328
     pop cx                           ; 0x032b
 @..api_idx_0002_PQLV.l1:
     mov ax, 0                        ; 0x032c

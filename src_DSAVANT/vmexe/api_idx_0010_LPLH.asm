@@ -98,7 +98,7 @@ api_idx_0010_LPLH:
     cmp word [bp - 0x000e], byte 0   ; 0x2747
     jle short @..api_idx_0010_LPLH.l13 ; 0x274b
     push word [bp - 0x000a]          ; 0x274d
-    call ds_app_PUNN                 ; 0x2750
+    call random_below                ; 0x2750
     pop cx                           ; 0x2753
     add ax, word [bp - 0x000c]       ; 0x2754
     inc ax                           ; 0x2757
@@ -111,7 +111,7 @@ api_idx_0010_LPLH:
 @..api_idx_0010_LPLH.l14:
     mov ax, 0x64                     ; 0x2765
     push ax                          ; 0x2768
-    call ds_app_PUNN                 ; 0x2769
+    call random_below                ; 0x2769
     pop cx                           ; 0x276c
     push ax                          ; 0x276d
     mov ax, word [bp + 0x4]          ; 0x276e

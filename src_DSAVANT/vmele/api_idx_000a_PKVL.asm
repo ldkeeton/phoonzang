@@ -92,7 +92,7 @@ api_idx_000a_PKVL:
     mov al, byte [bx + slot_rec_action_rand] ; 0x1086
     sub ah, ah                       ; 0x108a
     push ax                          ; 0x108c
-    call ds_app_PUNN                 ; 0x108d
+    call random_below                ; 0x108d
     pop cx                           ; 0x1090
     add word [bp - 0x0006], ax       ; 0x1091
     mov ax, 0x15e                    ; 0x1094
@@ -107,7 +107,7 @@ api_idx_000a_PKVL:
     mov al, byte [bx + slot_rec_target_rand] ; 0x10ae
     sub ah, ah                       ; 0x10b2
     push ax                          ; 0x10b4
-    call ds_app_PUNN                 ; 0x10b5
+    call random_below                ; 0x10b5
     pop cx                           ; 0x10b8
     add word [bp - 0x0008], ax       ; 0x10b9
 @..api_idx_000a_PKVL.l9:
@@ -176,7 +176,7 @@ api_idx_000a_PKVL:
     mov al, byte [bx + 0x6ac2]       ; 0x1155
     sub ah, ah                       ; 0x1159
     push ax                          ; 0x115b
-    call ds_app_PUNN                 ; 0x115c
+    call random_below                ; 0x115c
     pop cx                           ; 0x115f
     pop cx                           ; 0x1160
     add ax, cx                       ; 0x1161

@@ -4,7 +4,7 @@ api_idx_0006_KUNS:
     call aztec_csav                  ; 0x0a71
     mov ax, 0x64                     ; 0x0a74
     push ax                          ; 0x0a77
-    call ds_app_PUNN                 ; 0x0a78
+    call random_below                ; 0x0a78
     pop cx                           ; 0x0a7b
     mov cx, 4                        ; 0x0a7c
     cwd                              ; 0x0a7f
@@ -12,7 +12,7 @@ api_idx_0006_KUNS:
     mov word [bp - 0x0002], dx       ; 0x0a82
     mov ax, 0x64                     ; 0x0a85
     push ax                          ; 0x0a88
-    call ds_app_PUNN                 ; 0x0a89
+    call random_below                ; 0x0a89
     pop cx                           ; 0x0a8c
     mov word [bp - 0x0004], ax       ; 0x0a8d
     mov ax, 0                        ; 0x0a90

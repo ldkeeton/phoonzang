@@ -4,7 +4,7 @@ api_idx_0002_TOSS:
     call aztec_csav                  ; 0x0acf
     mov ax, 0x64                     ; 0x0ad2
     push ax                          ; 0x0ad5
-    call ds_app_PUNN                 ; 0x0ad6
+    call random_below                ; 0x0ad6
     pop cx                           ; 0x0ad9
     push ax                          ; 0x0ada
     mov bx, word [bss_0e14]          ; 0x0adb

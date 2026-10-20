@@ -178,7 +178,7 @@ loc_RSHV:
 @..loc_RSHV.l8:
     mov ax, 0x59fe                   ; 0x19cc
     push ax                          ; 0x19cf
-    call ds_app_io_UHMG              ; 0x19d0
+    call ds_app_UHMG                 ; 0x19d0
     pop cx                           ; 0x19d3
     mov word [bp - 0x0004], ax       ; 0x19d4
     call api_idx_0006_SQTK           ; 0x19d7
@@ -267,7 +267,7 @@ loc_RSHV:
 @..loc_RSHV.l13:
     mov ax, 1                        ; 0x1a9f
     push ax                          ; 0x1aa2
-    call dos_con_in_noecho           ; 0x1aa3
+    call poll_filtered_key           ; 0x1aa3
     pop cx                           ; 0x1aa6
     test ax, ax                      ; 0x1aa7
     jne short @..loc_RSHV.l14        ; 0x1aa9
@@ -504,7 +504,7 @@ loc_RSHV:
     add sp, byte 8                   ; 0x1cc8
     mov ax, 0x19                     ; 0x1ccb
     push ax                          ; 0x1cce
-    call ds_leaf_loc_UJPS            ; 0x1ccf
+    call delay_ticks                 ; 0x1ccf
     pop cx                           ; 0x1cd2
     mov ax, word [bp + 0xc]          ; 0x1cd3
     add ax, word [bp - 0x000c]       ; 0x1cd6

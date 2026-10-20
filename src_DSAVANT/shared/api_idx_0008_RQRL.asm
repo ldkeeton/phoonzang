@@ -25,7 +25,7 @@ api_idx_0008_RQRL:
     je short @..api_idx_0008_RQRL.l3
     mov ax, 7
     push ax
-    call ds_app_PUNN
+    call random_below
     pop cx
     test ax, ax
     jne short @..api_idx_0008_RQRL.l5

@@ -66,7 +66,7 @@ api_idx_005e_SHOL:
     je short @..api_idx_005e_SHOL.l7 ; 0x148d
     mov ax, 2                        ; 0x148f
     push ax                          ; 0x1492
-    call ds_app_PUNN                 ; 0x1493
+    call random_below                ; 0x1493
     pop cx                           ; 0x1496
 @..api_idx_005e_SHOL.l7:
     mov word [bp - 0x000a], ax       ; 0x1497

@@ -73,13 +73,13 @@ api_idx_005e_QNLK:
 @..api_idx_005e_QNLK.l6:
     mov ax, 0x64                     ; 0x6078
     push ax                          ; 0x607b
-    call ds_app_PUNN                 ; 0x607c
+    call random_below                ; 0x607c
     pop cx                           ; 0x607f
     add ax, word [bss_9d60]          ; 0x6080
     mov word [bp - 0x0004], ax       ; 0x6084
     mov ax, 5                        ; 0x6087
     push ax                          ; 0x608a
-    call ds_app_PUNN                 ; 0x608b
+    call random_below                ; 0x608b
     pop cx                           ; 0x608e
     add ax, word [bss_9d60]          ; 0x608f
     add ax, strict word 0xa          ; 0x6093
@@ -118,7 +118,7 @@ api_idx_005e_QNLK:
     mov word [bp - 0x000a], 0        ; 0x60e3
 @..api_idx_005e_QNLK.l7:
     push word [bss_9cd2]             ; 0x60e8
-    call ds_app_PUNN                 ; 0x60ec
+    call random_below                ; 0x60ec
     pop cx                           ; 0x60ef
     cmp ax, word [bp - 0x000a]       ; 0x60f0
     jle short @..api_idx_005e_QNLK.l8 ; 0x60f3
@@ -127,7 +127,7 @@ api_idx_005e_QNLK:
 @..api_idx_005e_QNLK.l8:
     mov ax, 0x64                     ; 0x60fa
     push ax                          ; 0x60fd
-    call ds_app_PUNN                 ; 0x60fe
+    call random_below                ; 0x60fe
     pop cx                           ; 0x6101
     push ax                          ; 0x6102
     mov al, byte [bss_91c5]          ; 0x6103
@@ -186,7 +186,7 @@ api_idx_005e_QNLK:
     jne short @..api_idx_005e_QNLK.l13 ; 0x617d
     mov ax, 0x64                     ; 0x617f
     push ax                          ; 0x6182
-    call ds_app_PUNN                 ; 0x6183
+    call random_below                ; 0x6183
     pop cx                           ; 0x6186
     cmp ax, strict word 0x21         ; 0x6187
     jge short @..api_idx_005e_QNLK.l16 ; 0x618a
@@ -308,7 +308,7 @@ api_idx_005e_QNLK:
     je short @..api_idx_005e_QNLK.l20 ; 0x6295
     mov ax, 0xf                      ; 0x6297
     push ax                          ; 0x629a
-    call ds_app_PUNN                 ; 0x629b
+    call random_below                ; 0x629b
     pop cx                           ; 0x629e
     mov cx, ax                       ; 0x629f
     add ax, strict word 0xf          ; 0x62a1
@@ -318,7 +318,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x62ab
     mov ax, 0x19                     ; 0x62ac
     push ax                          ; 0x62af
-    call ds_app_PUNN                 ; 0x62b0
+    call random_below                ; 0x62b0
     pop cx                           ; 0x62b3
     mov cx, ax                       ; 0x62b4
     add ax, strict word 0x19         ; 0x62b6

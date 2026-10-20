@@ -234,7 +234,7 @@ loc_QUVM:
     mov bx, ax                       ; 0x1c40
     add bx, bp                       ; 0x1c42
     push word [bx - 0x001c]          ; 0x1c44
-    call ds_app_PUNN                 ; 0x1c47
+    call random_below                ; 0x1c47
     pop cx                           ; 0x1c4a
     push ax                          ; 0x1c4b
     mov ax, word [bp - 0x0002]       ; 0x1c4c
@@ -242,7 +242,7 @@ loc_QUVM:
     mov bx, ax                       ; 0x1c51
     add bx, bp                       ; 0x1c53
     push word [bx - 0x001e]          ; 0x1c55
-    call ds_app_PUNN                 ; 0x1c58
+    call random_below                ; 0x1c58
     pop cx                           ; 0x1c5b
     mov cx, ax                       ; 0x1c5c
     pop ax                           ; 0x1c5e

@@ -62,7 +62,7 @@ api_idx_0004_PMJJ:
     call api_idx_0008_JRPS           ; 0x4671
     add sp, byte 8                   ; 0x4674
     push word [bp - 0x0004]          ; 0x4677
-    call ds_app_PUNN                 ; 0x467a
+    call random_below                ; 0x467a
     pop cx                           ; 0x467d
     push ax                          ; 0x467e
     mov ax, 6                        ; 0x467f
@@ -85,7 +85,7 @@ api_idx_0004_PMJJ:
     mov word [bx + 0x5c10], 0        ; 0x46aa
     mov ax, 6                        ; 0x46b0
     push ax                          ; 0x46b3
-    call ds_app_PUNN                 ; 0x46b4
+    call random_below                ; 0x46b4
     pop cx                           ; 0x46b7
     add ax, strict word 6            ; 0x46b8
     push ax                          ; 0x46bb

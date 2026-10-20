@@ -63,7 +63,7 @@ api_idx_0038_POGI:
 @..api_idx_0038_POGI.l6:
     mov ax, 0x16                     ; 0x254d
     push ax                          ; 0x2550
-    call ds_app_PUNN                 ; 0x2551
+    call random_below                ; 0x2551
     pop cx                           ; 0x2554
     mov word [bp - 0x0002], ax       ; 0x2555
     mov ax, word [bp - 0x0002]       ; 0x2558
@@ -80,7 +80,7 @@ api_idx_0038_POGI:
     dec word [bp - 0x0004]           ; 0x2575
     mov ax, 5                        ; 0x2578
     push ax                          ; 0x257b
-    call ds_app_PUNN                 ; 0x257c
+    call random_below                ; 0x257c
     pop cx                           ; 0x257f
     mov word [bp - 0x0006], ax       ; 0x2580
     mov word [bp - 0x0008], 0        ; 0x2583

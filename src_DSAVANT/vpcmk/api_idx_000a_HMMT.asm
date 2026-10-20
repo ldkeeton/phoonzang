@@ -9,7 +9,7 @@ api_idx_000a_HMMT:
     mov byte [bx + 0x5e35], 0xa      ; 0x5a9d
     mov ax, 0x3e8                    ; 0x5aa2
     push ax                          ; 0x5aa5
-    call ds_app_PUNN                 ; 0x5aa6
+    call random_below                ; 0x5aa6
     pop cx                           ; 0x5aa9
     add ax, 0x19aa                   ; 0x5aaa
     cwd                              ; 0x5aad
@@ -34,7 +34,7 @@ api_idx_000a_HMMT:
 jumptable_5cb4_case_0:
     mov ax, 5                        ; 0x5add
     push ax                          ; 0x5ae0
-    call ds_app_PUNN                 ; 0x5ae1
+    call random_below                ; 0x5ae1
     pop cx                           ; 0x5ae4
     add ax, strict word 6            ; 0x5ae5
     mov word [bp - 0x0002], ax       ; 0x5ae8
@@ -49,7 +49,7 @@ jumptable_5cb4_case_0:
 jumptable_5cb4_case_1:
     mov ax, 3                        ; 0x5b02
     push ax                          ; 0x5b05
-    call ds_app_PUNN                 ; 0x5b06
+    call random_below                ; 0x5b06
     pop cx                           ; 0x5b09
     inc ax                           ; 0x5b0a
     inc ax                           ; 0x5b0b
@@ -61,7 +61,7 @@ jumptable_5cb4_case_1:
 jumptable_5cb4_case_2:
     mov ax, 4                        ; 0x5b19
     push ax                          ; 0x5b1c
-    call ds_app_PUNN                 ; 0x5b1d
+    call random_below                ; 0x5b1d
     pop cx                           ; 0x5b20
     add ax, strict word 4            ; 0x5b21
     mov word [bp - 0x0002], ax       ; 0x5b24
@@ -72,7 +72,7 @@ jumptable_5cb4_case_2:
 jumptable_5cb4_case_3:
     mov ax, 4                        ; 0x5b31
     push ax                          ; 0x5b34
-    call ds_app_PUNN                 ; 0x5b35
+    call random_below                ; 0x5b35
     pop cx                           ; 0x5b38
     inc ax                           ; 0x5b39
     inc ax                           ; 0x5b3a
@@ -89,12 +89,12 @@ jumptable_5cb4_case_3:
 jumptable_5cb4_case_4:
     mov ax, 4                        ; 0x5b55
     push ax                          ; 0x5b58
-    call ds_app_PUNN                 ; 0x5b59
+    call random_below                ; 0x5b59
     pop cx                           ; 0x5b5c
     push ax                          ; 0x5b5d
     mov ax, 4                        ; 0x5b5e
     push ax                          ; 0x5b61
-    call ds_app_PUNN                 ; 0x5b62
+    call random_below                ; 0x5b62
     pop cx                           ; 0x5b65
     mov cx, ax                       ; 0x5b66
     pop ax                           ; 0x5b68
@@ -113,7 +113,7 @@ jumptable_5cb4_case_4:
 jumptable_5cb4_case_5:
     mov ax, 4                        ; 0x5b8b
     push ax                          ; 0x5b8e
-    call ds_app_PUNN                 ; 0x5b8f
+    call random_below                ; 0x5b8f
     pop cx                           ; 0x5b92
     inc ax                           ; 0x5b93
     inc ax                           ; 0x5b94
@@ -126,7 +126,7 @@ jumptable_5cb4_case_5:
 jumptable_5cb4_case_6:
     mov ax, 4                        ; 0x5ba3
     push ax                          ; 0x5ba6
-    call ds_app_PUNN                 ; 0x5ba7
+    call random_below                ; 0x5ba7
     pop cx                           ; 0x5baa
     inc ax                           ; 0x5bab
     inc ax                           ; 0x5bac
@@ -138,7 +138,7 @@ jumptable_5cb4_case_6:
 jumptable_5cb4_case_7:
     mov ax, 3                        ; 0x5bba
     push ax                          ; 0x5bbd
-    call ds_app_PUNN                 ; 0x5bbe
+    call random_below                ; 0x5bbe
     pop cx                           ; 0x5bc1
     inc ax                           ; 0x5bc2
     inc ax                           ; 0x5bc3
@@ -151,7 +151,7 @@ jumptable_5cb4_case_7:
 jumptable_5cb4_case_8:
     mov ax, 5                        ; 0x5bd2
     push ax                          ; 0x5bd5
-    call ds_app_PUNN                 ; 0x5bd6
+    call random_below                ; 0x5bd6
     pop cx                           ; 0x5bd9
     add ax, strict word 5            ; 0x5bda
     mov word [bp - 0x0002], ax       ; 0x5bdd
@@ -166,7 +166,7 @@ jumptable_5cb4_case_8:
 jumptable_5cb4_case_9:
     mov ax, 4                        ; 0x5bf7
     push ax                          ; 0x5bfa
-    call ds_app_PUNN                 ; 0x5bfb
+    call random_below                ; 0x5bfb
     pop cx                           ; 0x5bfe
     inc ax                           ; 0x5bff
     inc ax                           ; 0x5c00
@@ -179,7 +179,7 @@ jumptable_5cb4_case_9:
 jumptable_5cb4_case_10:
     mov ax, 7                        ; 0x5c0f
     push ax                          ; 0x5c12
-    call ds_app_PUNN                 ; 0x5c13
+    call random_below                ; 0x5c13
     pop cx                           ; 0x5c16
     add ax, strict word 8            ; 0x5c17
     mov word [bp - 0x0002], ax       ; 0x5c1a
@@ -194,12 +194,12 @@ jumptable_5cb4_case_10:
 jumptable_5cb4_case_11:
     mov ax, 4                        ; 0x5c34
     push ax                          ; 0x5c37
-    call ds_app_PUNN                 ; 0x5c38
+    call random_below                ; 0x5c38
     pop cx                           ; 0x5c3b
     push ax                          ; 0x5c3c
     mov ax, 4                        ; 0x5c3d
     push ax                          ; 0x5c40
-    call ds_app_PUNN                 ; 0x5c41
+    call random_below                ; 0x5c41
     pop cx                           ; 0x5c44
     mov cx, ax                       ; 0x5c45
     pop ax                           ; 0x5c47
@@ -217,7 +217,7 @@ jumptable_5cb4_case_11:
 jumptable_5cb4_case_12:
     mov ax, 4                        ; 0x5c66
     push ax                          ; 0x5c69
-    call ds_app_PUNN                 ; 0x5c6a
+    call random_below                ; 0x5c6a
     pop cx                           ; 0x5c6d
     add ax, strict word 4            ; 0x5c6e
     mov word [bp - 0x0002], ax       ; 0x5c71
@@ -233,7 +233,7 @@ jumptable_5cb4_case_12:
 jumptable_5cb4_case_13:
     mov ax, 5                        ; 0x5c8d
     push ax                          ; 0x5c90
-    call ds_app_PUNN                 ; 0x5c91
+    call random_below                ; 0x5c91
     pop cx                           ; 0x5c94
     add ax, strict word 4            ; 0x5c95
     mov word [bp - 0x0002], ax       ; 0x5c98

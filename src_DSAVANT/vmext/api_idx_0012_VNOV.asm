@@ -269,7 +269,7 @@ jumptable_12fa_case_8:
     push cx                          ; 0x117c
     mov ax, 6                        ; 0x117d
     push ax                          ; 0x1180
-    call ds_app_PUNN                 ; 0x1181
+    call random_below                ; 0x1181
     pop cx                           ; 0x1184
     pop cx                           ; 0x1185
     add ax, cx                       ; 0x1186

@@ -1136,7 +1136,7 @@ jumptable_5eb8_case_36:
     add sp, byte 0x0a                ; 0x455b
     mov ax, 0x64                     ; 0x455e
     push ax                          ; 0x4561
-    call ds_app_PUNN                 ; 0x4562
+    call random_below                ; 0x4562
     pop cx                           ; 0x4565
     push ax                          ; 0x4566
     mov ax, 5                        ; 0x4567
@@ -1953,7 +1953,7 @@ jumptable_5eb8_case_64:
 @..api_idx_000e_ORJG.l37:
     mov ax, 0x64                     ; 0x4caa
     push ax                          ; 0x4cad
-    call ds_app_PUNN                 ; 0x4cae
+    call random_below                ; 0x4cae
     pop cx                           ; 0x4cb1
     push ax                          ; 0x4cb2
     mov ax, 0xa                      ; 0x4cb3
@@ -2364,7 +2364,7 @@ jumptable_5eb8_case_83:
     cwd                              ; 0x503a
     idiv cx                          ; 0x503b
     push ax                          ; 0x503d
-    call ds_app_PUNN                 ; 0x503e
+    call random_below                ; 0x503e
     pop cx                           ; 0x5041
     push ax                          ; 0x5042
     mov ax, word [bss_8460]          ; 0x5043
@@ -2411,7 +2411,7 @@ jumptable_5eb8_case_85:
 @..api_idx_000e_ORJG.l52:
     mov ax, 2                        ; 0x50a4
     push ax                          ; 0x50a7
-    call ds_app_PUNN                 ; 0x50a8
+    call random_below                ; 0x50a8
     pop cx                           ; 0x50ab
     test ax, ax                      ; 0x50ac
     jne short @..api_idx_000e_ORJG.l53 ; 0x50ae
@@ -2452,7 +2452,7 @@ jumptable_5eb8_case_85:
 @..api_idx_000e_ORJG.l55:
     mov ax, 2                        ; 0x50f6
     push ax                          ; 0x50f9
-    call ds_app_PUNN                 ; 0x50fa
+    call random_below                ; 0x50fa
     pop cx                           ; 0x50fd
     test ax, ax                      ; 0x50fe
     jne short @..api_idx_000e_ORJG.l56 ; 0x5100
@@ -2795,7 +2795,7 @@ jumptable_5eb8_case_56:
     dec byte [bx + 0x5d67]           ; 0x5408
     mov ax, 0xb7                     ; 0x540c
     push ax                          ; 0x540f
-    call ds_app_PUNN                 ; 0x5410
+    call random_below                ; 0x5410
     pop cx                           ; 0x5413
     add ax, 0xb7                     ; 0x5414
     cwd                              ; 0x5417
@@ -2810,7 +2810,7 @@ jumptable_5eb8_case_56:
     adc word [bx + 0x5bfe], dx       ; 0x5428
     mov ax, 0x12                     ; 0x542c
     push ax                          ; 0x542f
-    call ds_app_PUNN                 ; 0x5430
+    call random_below                ; 0x5430
     pop cx                           ; 0x5433
     push ax                          ; 0x5434
     mov ax, 0x248                    ; 0x5435
@@ -2955,7 +2955,7 @@ jumptable_5eb8_case_94:
     inc word [bx + 0x5c1a]           ; 0x5593
     mov ax, 0xb7                     ; 0x5597
     push ax                          ; 0x559a
-    call ds_app_PUNN                 ; 0x559b
+    call random_below                ; 0x559b
     pop cx                           ; 0x559e
     add ax, 0x16d                    ; 0x559f
     cwd                              ; 0x55a2

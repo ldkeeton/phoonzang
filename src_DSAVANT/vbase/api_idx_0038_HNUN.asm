@@ -44,7 +44,7 @@ api_idx_0038_HNUN:
     push ax                          ; 0x3056
     mov ax, dseg_90cf                ; 0x3057
     push ax                          ; 0x305a
-    call ds_app_string_UUHT          ; 0x305b
+    call data_file_path              ; 0x305b
     add sp, byte 4                   ; 0x305e
     push ax                          ; 0x3061
     mov ax, bss_91ee                 ; 0x3062
@@ -733,7 +733,7 @@ api_idx_0038_HNUN:
 @..api_idx_0038_HNUN.l41:
     mov ax, 0x64                     ; 0x36d6
     push ax                          ; 0x36d9
-    call ds_app_PUNN                 ; 0x36da
+    call random_below                ; 0x36da
     pop cx                           ; 0x36dd
     mov bx, word [bp - 0x0002]       ; 0x36de
     mov byte [bx + bss_5990], al     ; 0x36e1

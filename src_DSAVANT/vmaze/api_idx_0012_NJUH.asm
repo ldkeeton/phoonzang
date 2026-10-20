@@ -4,7 +4,7 @@ api_idx_0012_NJUH:
     call aztec_csav                  ; 0x9efa
     mov ax, 0xf                      ; 0x9efd
     push ax                          ; 0x9f00
-    call ds_app_PUNN                 ; 0x9f01
+    call random_below                ; 0x9f01
     pop cx                           ; 0x9f04
     mov cx, ax                       ; 0x9f05
     add ax, strict word 0xf          ; 0x9f07
@@ -18,7 +18,7 @@ api_idx_0012_NJUH:
     add sp, byte 6                   ; 0x9f1b
     mov ax, 0xf                      ; 0x9f1e
     push ax                          ; 0x9f21
-    call ds_app_PUNN                 ; 0x9f22
+    call random_below                ; 0x9f22
     pop cx                           ; 0x9f25
     mov cx, ax                       ; 0x9f26
     add ax, strict word 0xf          ; 0x9f28
@@ -59,7 +59,7 @@ api_idx_0012_NJUH:
     cwd                              ; 0x9f88
     idiv cx                          ; 0x9f89
     push ax                          ; 0x9f8b
-    call ds_app_PUNN                 ; 0x9f8c
+    call random_below                ; 0x9f8c
     pop cx                           ; 0x9f8f
     inc ax                           ; 0x9f90
     mov word [bp - 0x0006], ax       ; 0x9f91
@@ -73,7 +73,7 @@ api_idx_0012_NJUH:
     cwd                              ; 0x9fa7
     idiv cx                          ; 0x9fa8
     push ax                          ; 0x9faa
-    call ds_app_PUNN                 ; 0x9fab
+    call random_below                ; 0x9fab
     pop cx                           ; 0x9fae
     inc ax                           ; 0x9faf
     mov word [bp - 0x0008], ax       ; 0x9fb0
@@ -84,7 +84,7 @@ api_idx_0012_NJUH:
     mov al, byte [bx - 0x7b00]       ; 0x9fbe
     cbw                              ; 0x9fc2
     push ax                          ; 0x9fc3
-    call ds_app_PUNN                 ; 0x9fc4
+    call random_below                ; 0x9fc4
     pop cx                           ; 0x9fc7
     cmp ax, word [bp - 0x000a]       ; 0x9fc8
     jge short @..api_idx_0012_NJUH.l5 ; 0x9fcb
@@ -103,7 +103,7 @@ api_idx_0012_NJUH:
     cwd                              ; 0x9fee
     idiv cx                          ; 0x9fef
     push ax                          ; 0x9ff1
-    call ds_app_PUNN                 ; 0x9ff2
+    call random_below                ; 0x9ff2
     pop cx                           ; 0x9ff5
     push ax                          ; 0x9ff6
     mov ax, word [bp - 0x0008]       ; 0x9ff7
@@ -144,7 +144,7 @@ api_idx_0012_NJUH:
     jge short @..api_idx_0012_NJUH.l8 ; 0xa049
     mov ax, 3                        ; 0xa04b
     push ax                          ; 0xa04e
-    call ds_app_PUNN                 ; 0xa04f
+    call random_below                ; 0xa04f
     pop cx                           ; 0xa052
     test ax, ax                      ; 0xa053
     jne short @..api_idx_0012_NJUH.l8 ; 0xa055
@@ -195,7 +195,7 @@ api_idx_0012_NJUH:
     je short @..api_idx_0012_NJUH.l11 ; 0xa0d5
     mov ax, 0xa                      ; 0xa0d7
     push ax                          ; 0xa0da
-    call ds_app_PUNN                 ; 0xa0db
+    call random_below                ; 0xa0db
     pop cx                           ; 0xa0de
     add ax, strict word 0xa          ; 0xa0df
     push ax                          ; 0xa0e2
@@ -233,7 +233,7 @@ api_idx_0012_NJUH:
     jle short @..api_idx_0012_NJUH.l14 ; 0xa134
     mov ax, 3                        ; 0xa136
     push ax                          ; 0xa139
-    call ds_app_PUNN                 ; 0xa13a
+    call random_below                ; 0xa13a
     pop cx                           ; 0xa13d
     test ax, ax                      ; 0xa13e
     jne short @..api_idx_0012_NJUH.l14 ; 0xa140
@@ -286,7 +286,7 @@ api_idx_0012_NJUH:
     jg short @..api_idx_0012_NJUH.l17 ; 0xa1ba
     mov ax, 3                        ; 0xa1bc
     push ax                          ; 0xa1bf
-    call ds_app_PUNN                 ; 0xa1c0
+    call random_below                ; 0xa1c0
     pop cx                           ; 0xa1c3
     inc ax                           ; 0xa1c4
     push ax                          ; 0xa1c5

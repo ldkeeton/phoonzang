@@ -13,7 +13,7 @@ api_idx_0002_ROVK:
     je short @..api_idx_0002_ROVK.l2 ; 0x45d1
     mov ax, 2                        ; 0x45d3
     push ax                          ; 0x45d6
-    call ds_app_PUNN                 ; 0x45d7
+    call random_below                ; 0x45d7
     pop cx                           ; 0x45da
     cmp ax, strict word 1            ; 0x45db
     jne short @..api_idx_0002_ROVK.l3 ; 0x45de

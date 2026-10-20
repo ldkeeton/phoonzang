@@ -84,7 +84,7 @@ jumptable_1fa3_case_1:
     jne short @..api_idx_00b8_LTRM.l7 ; 0x15a2
     mov ax, 0x64                     ; 0x15a4
     push ax                          ; 0x15a7
-    call ds_app_PUNN                 ; 0x15a8
+    call random_below                ; 0x15a8
     pop cx                           ; 0x15ab
     push ax                          ; 0x15ac
     mov ax, 0x248                    ; 0x15ad
@@ -149,7 +149,7 @@ jumptable_1fa3_case_2:
     jne short @..api_idx_00b8_LTRM.l11 ; 0x162e
     mov ax, 0x64                     ; 0x1630
     push ax                          ; 0x1633
-    call ds_app_PUNN                 ; 0x1634
+    call random_below                ; 0x1634
     pop cx                           ; 0x1637
     push ax                          ; 0x1638
     mov ax, 0x248                    ; 0x1639
@@ -278,7 +278,7 @@ jumptable_1fa3_case_4:
 @..api_idx_00b8_LTRM.l14:
     mov ax, 0x15                     ; 0x174a
     push ax                          ; 0x174d
-    call ds_app_PUNN                 ; 0x174e
+    call random_below                ; 0x174e
     pop cx                           ; 0x1751
     push ax                          ; 0x1752
     mov ax, 0x248                    ; 0x1753
@@ -331,7 +331,7 @@ jumptable_1fa3_case_4:
     je short @..api_idx_00b8_LTRM.l16 ; 0x17ba
     mov ax, 0x15                     ; 0x17bc
     push ax                          ; 0x17bf
-    call ds_app_PUNN                 ; 0x17c0
+    call random_below                ; 0x17c0
     pop cx                           ; 0x17c3
     push ax                          ; 0x17c4
     mov ax, 0x248                    ; 0x17c5
@@ -399,7 +399,7 @@ jumptable_1fa3_case_5:
     jne short @..api_idx_00b8_LTRM.l20 ; 0x184d
     mov ax, 0x64                     ; 0x184f
     push ax                          ; 0x1852
-    call ds_app_PUNN                 ; 0x1853
+    call random_below                ; 0x1853
     pop cx                           ; 0x1856
     push ax                          ; 0x1857
     mov ax, 0x248                    ; 0x1858
@@ -465,7 +465,7 @@ jumptable_1fa3_case_6:
     jne short @..api_idx_00b8_LTRM.l24 ; 0x18db
     mov ax, 0x64                     ; 0x18dd
     push ax                          ; 0x18e0
-    call ds_app_PUNN                 ; 0x18e1
+    call random_below                ; 0x18e1
     pop cx                           ; 0x18e4
     push ax                          ; 0x18e5
     mov ax, 0x248                    ; 0x18e6
@@ -547,7 +547,7 @@ jumptable_1fa3_case_7:
     jne short @..api_idx_00b8_LTRM.l28 ; 0x198b
     mov ax, 0x64                     ; 0x198d
     push ax                          ; 0x1990
-    call ds_app_PUNN                 ; 0x1991
+    call random_below                ; 0x1991
     pop cx                           ; 0x1994
     push ax                          ; 0x1995
     mov ax, 0x248                    ; 0x1996
@@ -631,7 +631,7 @@ jumptable_1fa3_case_8:
 @..api_idx_00b8_LTRM.l31:
     mov ax, 0x64                     ; 0x1a41
     push ax                          ; 0x1a44
-    call ds_app_PUNN                 ; 0x1a45
+    call random_below                ; 0x1a45
     pop cx                           ; 0x1a48
     push ax                          ; 0x1a49
     mov ax, 0x248                    ; 0x1a4a
@@ -650,7 +650,7 @@ jumptable_1fa3_case_8:
 @..api_idx_00b8_LTRM.l32:
     mov ax, 6                        ; 0x1a6a
     push ax                          ; 0x1a6d
-    call ds_app_PUNN                 ; 0x1a6e
+    call random_below                ; 0x1a6e
     pop cx                           ; 0x1a71
     jmp near @..api_idx_00b8_LTRM.l33 ; 0x1a72
 jumptable_1b19_case_0:
@@ -787,7 +787,7 @@ jumptable_1fa3_case_9:
     jne short @..api_idx_00b8_LTRM.l39 ; 0x1b83
     mov ax, 0x64                     ; 0x1b85
     push ax                          ; 0x1b88
-    call ds_app_PUNN                 ; 0x1b89
+    call random_below                ; 0x1b89
     pop cx                           ; 0x1b8c
     push ax                          ; 0x1b8d
     mov ax, 0x248                    ; 0x1b8e
@@ -935,7 +935,7 @@ jumptable_1fa3_case_12:
 @..api_idx_00b8_LTRM.l47:
     mov ax, 0x64                     ; 0x1cc3
     push ax                          ; 0x1cc6
-    call ds_app_PUNN                 ; 0x1cc7
+    call random_below                ; 0x1cc7
     pop cx                           ; 0x1cca
     push ax                          ; 0x1ccb
     mov ax, 0x248                    ; 0x1ccc
@@ -1098,7 +1098,7 @@ jumptable_1fa3_case_15:
     push ax                          ; 0x1e34
     mov ax, 4                        ; 0x1e35
     push ax                          ; 0x1e38
-    call ds_app_PUNN                 ; 0x1e39
+    call random_below                ; 0x1e39
     pop cx                           ; 0x1e3c
     mov cx, ax                       ; 0x1e3d
     mov ax, 0x248                    ; 0x1e3f
@@ -1153,7 +1153,7 @@ jumptable_1fa3_case_15:
     pop cx                           ; 0x1eb4
     mov ax, 0x64                     ; 0x1eb5
     push ax                          ; 0x1eb8
-    call ds_app_PUNN                 ; 0x1eb9
+    call random_below                ; 0x1eb9
     pop cx                           ; 0x1ebc
     push ax                          ; 0x1ebd
     mov ax, 0x248                    ; 0x1ebe

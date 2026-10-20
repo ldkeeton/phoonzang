@@ -182,11 +182,11 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     or word [bp - 0x0008], ax        ; 0x229e
     mov ax, 0x14                     ; 0x22a1
     push ax                          ; 0x22a4
-    call ds_leaf_loc_UJPS            ; 0x22a5
+    call delay_ticks                 ; 0x22a5
     pop cx                           ; 0x22a8
     mov ax, 0x59fe                   ; 0x22a9
     push ax                          ; 0x22ac
-    call ds_app_io_UHMG              ; 0x22ad
+    call ds_app_UHMG                 ; 0x22ad
     pop cx                           ; 0x22b0
     dec ax                           ; 0x22b1
     mov word [bp - 0x0004], ax       ; 0x22b2

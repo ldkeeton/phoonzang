@@ -7,7 +7,7 @@ api_idx_0044_NJQJ:
     mov ax, word [bp - 0x0002]       ; 0x8d29
     shl ax, 1                        ; 0x8d2c
     mov bx, ax                       ; 0x8d2e
-    mov word [bx + bss_830e], 0      ; 0x8d30
+    mov word [bx + party_slot_frame], 0 ; 0x8d30
     inc word [bp - 0x0002]           ; 0x8d36
     mov ax, word [bp - 0x0002]       ; 0x8d39
     cmp ax, strict word 6            ; 0x8d3c
@@ -509,7 +509,7 @@ api_idx_0044_NJQJ:
     add sp, byte 4                   ; 0x91df
     mov ax, 0x59fe                   ; 0x91e2
     push ax                          ; 0x91e5
-    call ds_app_io_UHMG              ; 0x91e6
+    call ds_app_UHMG                 ; 0x91e6
     pop cx                           ; 0x91e9
     dec ax                           ; 0x91ea
     mov word [bp - 0x001a], ax       ; 0x91eb

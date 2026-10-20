@@ -7,7 +7,7 @@ api_idx_0044_NORP:
     mov ax, word [bp - 0x0002]       ; 0x7877
     shl ax, 1                        ; 0x787a
     mov bx, ax                       ; 0x787c
-    mov word [bx + bss_830e], 0      ; 0x787e
+    mov word [bx + party_slot_frame], 0 ; 0x787e
     inc word [bp - 0x0002]           ; 0x7884
     mov ax, word [bp - 0x0002]       ; 0x7887
     cmp ax, strict word 6            ; 0x788a
@@ -507,7 +507,7 @@ api_idx_0044_NORP:
     add sp, byte 4                   ; 0x7d2b
     mov ax, 0x59fe                   ; 0x7d2e
     push ax                          ; 0x7d31
-    call ds_app_io_UHMG              ; 0x7d32
+    call ds_app_UHMG                 ; 0x7d32
     pop cx                           ; 0x7d35
     dec ax                           ; 0x7d36
     mov word [bp - 0x001a], ax       ; 0x7d37

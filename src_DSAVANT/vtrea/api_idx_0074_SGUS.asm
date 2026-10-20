@@ -256,7 +256,7 @@ api_idx_0074_SGUS:
 @..api_idx_0074_SGUS.l19:
     mov ax, 0x36                     ; 0x7b50
     push ax                          ; 0x7b53
-    call ds_app_PUNN                 ; 0x7b54
+    call random_below                ; 0x7b54
     pop cx                           ; 0x7b57
     push ax                          ; 0x7b58
     mov ax, 0x248                    ; 0x7b59
@@ -311,7 +311,7 @@ api_idx_0074_SGUS:
     je short @..api_idx_0074_SGUS.l25 ; 0x7bce
     mov ax, 0x64                     ; 0x7bd0
     push ax                          ; 0x7bd3
-    call ds_app_PUNN                 ; 0x7bd4
+    call random_below                ; 0x7bd4
     pop cx                           ; 0x7bd7
     cmp ax, word [bp - 0x001e]       ; 0x7bd8
     jle short @..api_idx_0074_SGUS.l24 ; 0x7bdb
@@ -330,7 +330,7 @@ api_idx_0074_SGUS:
     jle short @..api_idx_0074_SGUS.l28 ; 0x7bf8
     mov ax, 0x64                     ; 0x7bfa
     push ax                          ; 0x7bfd
-    call ds_app_PUNN                 ; 0x7bfe
+    call random_below                ; 0x7bfe
     pop cx                           ; 0x7c01
     cmp ax, word [bp - 0x001e]       ; 0x7c02
     jge short @..api_idx_0074_SGUS.l28 ; 0x7c05
@@ -339,7 +339,7 @@ api_idx_0074_SGUS:
     jle short @..api_idx_0074_SGUS.l27 ; 0x7c0e
     mov ax, 0x64                     ; 0x7c10
     push ax                          ; 0x7c13
-    call ds_app_PUNN                 ; 0x7c14
+    call random_below                ; 0x7c14
     pop cx                           ; 0x7c17
     cmp ax, word [bp - 0x001e]       ; 0x7c18
     jge short @..api_idx_0074_SGUS.l27 ; 0x7c1b

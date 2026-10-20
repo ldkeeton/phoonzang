@@ -19,7 +19,7 @@ api_idx_0008_LLVT:
 @..api_idx_0008_LLVT.l2:
     mov ax, 1
     push ax
-    call dos_con_in_noecho
+    call poll_filtered_key
     pop cx
     test ax, ax
     je short @..api_idx_0008_LLVT.l3
@@ -72,7 +72,7 @@ api_idx_0008_LLVT:
 @..api_idx_0008_LLVT.l5:
     mov ax, 0xa
     push ax
-    call ds_leaf_loc_UJPS
+    call delay_ticks
     pop cx
     dec word [bp - 0x0008]
 @..api_idx_0008_LLVT.l6:

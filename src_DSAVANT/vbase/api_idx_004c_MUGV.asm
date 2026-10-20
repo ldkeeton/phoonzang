@@ -9,7 +9,7 @@ api_idx_004c_MUGV:
     push ax                          ; 0x157e
     mov ax, 1                        ; 0x157f
     push ax                          ; 0x1582
-    call ds_app_file_MPPM            ; 0x1583
+    call data_record_io              ; 0x1583
     add sp, byte 8                   ; 0x1586
     cmp word [bp + 0xa], byte 0xfe   ; 0x1589
     jne short @..api_idx_004c_MUGV.l1 ; 0x158d

@@ -78,7 +78,7 @@ api_idx_001c_ITKQ:
     mov ax, cx                       ; 0x564b
     inc ax                           ; 0x564d
     push ax                          ; 0x564e
-    call ds_app_PUNN                 ; 0x564f
+    call random_below                ; 0x564f
     pop cx                           ; 0x5652
     mov cx, ax                       ; 0x5653
     mov ax, word [bp - 0x0004]       ; 0x5655
@@ -107,7 +107,7 @@ api_idx_001c_ITKQ:
     jbe short @..api_idx_001c_ITKQ.l7 ; 0x5691
     mov ax, 2                        ; 0x5693
     push ax                          ; 0x5696
-    call ds_app_PUNN                 ; 0x5697
+    call random_below                ; 0x5697
     pop cx                           ; 0x569a
     add ax, word [bss_960c]          ; 0x569b
     inc ax                           ; 0x569f

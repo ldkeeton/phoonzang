@@ -326,7 +326,7 @@ api_idx_0032_HGIM:
 @..api_idx_0032_HGIM.l18:
     mov ax, 0x59fe                   ; 0x29ea
     push ax                          ; 0x29ed
-    call ds_app_io_UHMG              ; 0x29ee
+    call ds_app_UHMG                 ; 0x29ee
     pop cx                           ; 0x29f1
     dec ax                           ; 0x29f2
     mov word [bp - 0x0008], ax       ; 0x29f3
@@ -379,7 +379,7 @@ api_idx_0032_HGIM:
 @..api_idx_0032_HGIM.l21:
     mov ax, 1                        ; 0x2a65
     push ax                          ; 0x2a68
-    call dos_con_in_noecho           ; 0x2a69
+    call poll_filtered_key           ; 0x2a69
     pop cx                           ; 0x2a6c
     test ax, ax                      ; 0x2a6d
     jne short @..api_idx_0032_HGIM.l22 ; 0x2a6f

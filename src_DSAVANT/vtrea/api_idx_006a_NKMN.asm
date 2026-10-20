@@ -389,7 +389,7 @@ api_idx_006a_NKMN:
     jmp near @..api_idx_006a_NKMN.l18 ; 0x638e
 @..api_idx_006a_NKMN.l10:
     push word [bp - 0x001a]          ; 0x6391
-    call ds_app_PUNN                 ; 0x6394
+    call random_below                ; 0x6394
     pop cx                           ; 0x6397
     mov word [bp - 0x0014], ax       ; 0x6398
     mov ax, 1                        ; 0x639b
@@ -523,12 +523,12 @@ api_idx_006a_NKMN:
     jne short @..api_idx_006a_NKMN.l21 ; 0x64c0
     mov ax, 0x19                     ; 0x64c2
     push ax                          ; 0x64c5
-    call ds_leaf_loc_UJPS            ; 0x64c6
+    call delay_ticks                 ; 0x64c6
     pop cx                           ; 0x64c9
 @..api_idx_006a_NKMN.l21:
     mov ax, 0x59fe                   ; 0x64ca
     push ax                          ; 0x64cd
-    call ds_app_io_UHMG              ; 0x64ce
+    call ds_app_UHMG                 ; 0x64ce
     pop cx                           ; 0x64d1
     dec ax                           ; 0x64d2
     mov word [bp - 0x0012], ax       ; 0x64d3
@@ -632,7 +632,7 @@ api_idx_006a_NKMN:
     jne short @..api_idx_006a_NKMN.l28 ; 0x65c3
     mov ax, 3                        ; 0x65c5
     push ax                          ; 0x65c8
-    call ds_app_PUNN                 ; 0x65c9
+    call random_below                ; 0x65c9
     pop cx                           ; 0x65cc
     test ax, ax                      ; 0x65cd
     jne short @..api_idx_006a_NKMN.l27 ; 0x65cf
@@ -654,7 +654,7 @@ api_idx_006a_NKMN:
 @..api_idx_006a_NKMN.l29:
     mov ax, 0xc8                     ; 0x65f7
     push ax                          ; 0x65fa
-    call ds_leaf_loc_UJPS            ; 0x65fb
+    call delay_ticks                 ; 0x65fb
     pop cx                           ; 0x65fe
     mov ax, word [bp - 0x0002]       ; 0x65ff
     shl ax, 1                        ; 0x6602

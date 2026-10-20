@@ -36,7 +36,7 @@ api_idx_0004_JLQH:
 @..api_idx_0004_JLQH.l4:
     mov ax, 4                        ; 0x1365
     push ax                          ; 0x1368
-    call ds_app_PUNN                 ; 0x1369
+    call random_below                ; 0x1369
     pop cx                           ; 0x136c
     mov word [bss_82ee], ax          ; 0x136d
     mov bx, word [bss_0e14]          ; 0x1370

@@ -147,7 +147,7 @@ api_idx_0018_USPR:
     jne short @..api_idx_0018_USPR.l15 ; 0x1e1d
     mov ax, 0xa                      ; 0x1e1f
     push ax                          ; 0x1e22
-    call ds_leaf_loc_UJPS            ; 0x1e23
+    call delay_ticks                 ; 0x1e23
     pop cx                           ; 0x1e26
 @..api_idx_0018_USPR.l15:
     cmp word [bp - 0x0014], byte 0   ; 0x1e27
@@ -170,12 +170,12 @@ api_idx_0018_USPR:
     jne short @..api_idx_0018_USPR.l18 ; 0x1e59
     mov ax, 0x64                     ; 0x1e5b
     push ax                          ; 0x1e5e
-    call ds_app_PUNN                 ; 0x1e5f
+    call random_below                ; 0x1e5f
     pop cx                           ; 0x1e62
     mov word [bp - 0x0002], ax       ; 0x1e63
     mov ax, 0x64                     ; 0x1e66
     push ax                          ; 0x1e69
-    call ds_app_PUNN                 ; 0x1e6a
+    call random_below                ; 0x1e6a
     pop cx                           ; 0x1e6d
     mov bx, word [bp - 0x0002]       ; 0x1e6e
     mov byte [bx + bss_5990], al     ; 0x1e71
@@ -234,7 +234,7 @@ api_idx_0018_USPR:
     add sp, byte 0x0a                ; 0x1ede
     mov ax, 5                        ; 0x1ee1
     push ax                          ; 0x1ee4
-    call ds_app_PUNN                 ; 0x1ee5
+    call random_below                ; 0x1ee5
     pop cx                           ; 0x1ee8
     push ax                          ; 0x1ee9
     mov ax, 0x248                    ; 0x1eea
@@ -261,7 +261,7 @@ api_idx_0018_USPR:
     jmp near @..api_idx_0018_USPR.l19 ; 0x1f1d
 @..api_idx_0018_USPR.l28:
     push word [bss_69c8]             ; 0x1f20
-    call ds_app_PUNN                 ; 0x1f24
+    call random_below                ; 0x1f24
     pop cx                           ; 0x1f27
     mov cx, 0x248                    ; 0x1f28
     imul cx                          ; 0x1f2b
@@ -288,7 +288,7 @@ api_idx_0018_USPR:
     jne short @..api_idx_0018_USPR.l31 ; 0x1f64
     mov ax, 0x3e8                    ; 0x1f66
     push ax                          ; 0x1f69
-    call ds_app_PUNN                 ; 0x1f6a
+    call random_below                ; 0x1f6a
     pop cx                           ; 0x1f6d
     mov cx, ax                       ; 0x1f6e
     mov ax, word [bp - 0x0010]       ; 0x1f70
@@ -319,7 +319,7 @@ api_idx_0018_USPR:
     add sp, byte 8                   ; 0x1fa3
     mov ax, 2                        ; 0x1fa6
     push ax                          ; 0x1fa9
-    call ds_app_PUNN                 ; 0x1faa
+    call random_below                ; 0x1faa
     pop cx                           ; 0x1fad
     mov word [bp - 0x0004], ax       ; 0x1fae
     mov word [bp - 0x0002], 0        ; 0x1fb1

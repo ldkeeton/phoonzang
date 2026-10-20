@@ -79,7 +79,7 @@ api_idx_003a_HOUV:
 @..api_idx_003a_HOUV.l6:
     mov ax, 0x1a                     ; 0x95b7
     push ax                          ; 0x95ba
-    call ds_app_PUNN                 ; 0x95bb
+    call random_below                ; 0x95bb
     pop cx                           ; 0x95be
     mov word [bp - 0x0002], ax       ; 0x95bf
     shl ax, 1                        ; 0x95c2
@@ -112,14 +112,14 @@ api_idx_003a_HOUV:
     je short @..api_idx_003a_HOUV.l6 ; 0x9607
     mov ax, 0x64                     ; 0x9609
     push ax                          ; 0x960c
-    call ds_app_PUNN                 ; 0x960d
+    call random_below                ; 0x960d
     pop cx                           ; 0x9610
     add ax, word [bp - 0x0006]       ; 0x9611
     cmp ax, strict word 0xffdd       ; 0x9614
     jl short @..api_idx_003a_HOUV.l6 ; 0x9617
     mov ax, 4                        ; 0x9619
     push ax                          ; 0x961c
-    call ds_app_PUNN                 ; 0x961d
+    call random_below                ; 0x961d
     pop cx                           ; 0x9620
     test ax, ax                      ; 0x9621
     je short @..api_idx_003a_HOUV.l8 ; 0x9623

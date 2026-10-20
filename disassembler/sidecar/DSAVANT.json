@@ -127,11 +127,27 @@
           "name": "aztec_noper",
           "note": "croot.c's noper(), `return 0;`: the default `cls_` exit hook (dseg_0c9c, file 0x4ea3) until putc.c installs closall"
         },
+        "03b8": {
+          "name": "fatal_error",
+          "note": "calls ds_app_file_RKTP(code), then aztec_exit(code); draw_load_sound_file and draw_restore_saved_screen call it on open/load failures"
+        },
+        "0883": {
+          "name": "data_record_io",
+          "note": "(type, buf, index, dir): seeks the data file (handle at DS 0x0e22) to the type's base (DS 0x521c) + index * the type's record size (bss_5524), then reads (dir 0) or writes (dir 1) one record; types 2-8 first map index through a per-type byte table, and a nonzero DS 0x556c[type] reads and unpacks it via ds_string_loc_HTNS"
+        },
+        "09f0": {
+          "name": "random_below",
+          "note": "random(n): 0 if n <= 0, else ds_loc_JRJK() % n"
+        },
         "0a09": {
           "name": "clamp_between"
         },
         "16a0": {
           "name": "draw_restore_saved_screen"
+        },
+        "23a8": {
+          "name": "data_file_path",
+          "note": "(name, alt): copies one of two 20-byte path prefixes at DS 0x5912 (the second only when alt == 1 and DS 0x5987 == 5) into DS 0x69ca via ds_app_HVHT, appends name and returns 0x69ca"
         },
         "2923": {
           "name": "draw_load_sound_file"
@@ -154,6 +170,10 @@
           "name": "select_ega_driver",
           "note": "hand-written asm, shares its caller's frame: no EGA (0040:0087 zero) gives [bp-2] = 0; else mode 0eh, the 16-colour palette at cs 0x32f6, [bp-2] = 2, [bp-4] = 'ega.drv'"
         },
+        "36d0": {
+          "name": "delay_ticks",
+          "note": "hand-written asm: n times, spins until the cs tick word at 0x36ce matches a countdown of the calibrated loop count at cs 0x3672"
+        },
         "3860": {
           "name": "load_font_file",
           "note": "hand-written asm: reads the 16-byte font header from handle [bp+4] into the segment at cs 0x2f4a, allocates a DOS block for the font, records it in font_seg_table[[bp+6]] and reads the rest; I/O errors print font_io_error_msg and exit"
@@ -161,6 +181,14 @@
         "395b": {
           "name": "font_memory_error",
           "note": "load_font_file's INT 21h AH=48h failure: prints 'Memory error loading font' and exits"
+        },
+        "3c0d": {
+          "name": "stir_random_seeds",
+          "note": "hand-written asm leaf: steps the three cs Wichmann-Hill seeds (random_seed_a/b/c: 171 mod 30269, 172 mod 30307, 170 mod 30323, Schrage's method); preserves ax-dx"
+        },
+        "3c97": {
+          "name": "poll_filtered_key",
+          "note": "hand-written asm: calls stir_random_seeds, then returns 1 if a key allowed by mode [bp+4] is in key_queue (dropping disallowed ones), else polls INT 16h AH=01h and, for nonzero mode, moves the key into the queue as get_filtered_key does; 0 if none"
         },
         "3d79": {
           "name": "get_filtered_key",
@@ -234,8 +262,15 @@
         "0110": {"name": "file_param_word", "note": "word in a small table (DS 0x10c.. = 0x21, 0x27, 0x26, 0x20, 0x26); vpcvw/vtrea read it after ds_app_file_KRUQ(2, ...) into bss_844e for ds_app_UKGP. The DS font loaders' `add ax, 0x110` (16-byte header + 256-byte table) only coincides with its address"},
         "0c74": {"name": "_dsval", "note": "sbegin.asm's `_dsval_` startup word; the vendor's name so the #asm aztec_begin links against it"},
         "0c76": {"name": "_csval", "note": "sbegin.asm's `_csval_` startup word; the vendor's name so the #asm aztec_begin links against it"},
-        "0c82": {"name": "bad8087", "note": "sbegin.asm's `bad8087` message ('8087/80287 is required!'); the vendor's name so the #asm aztec_begin links against it"}
-      },
+        "0c82": {"name": "bad8087", "note": "sbegin.asm's `bad8087` message ('8087/80287 is required!'); the vendor's name so the #asm aztec_begin links against it"},
+        "01a4": {"name": "party_slot_x", "note": "int [2][6]: x of each party slot's letter for row 0/1; draw_party_slot_letters adds its x"},
+        "01bc": {"name": "party_slot_y", "note": "int [2][6]: y of each party slot's letter for row 0/1; draw_party_slot_letters adds its y"},
+        "01d4": {"name": "party_slot_glyphs", "note": "int [6][10]: per party slot, the glyph codes of its letter animation, 0xffff ends; draw_party_slot_letters reads the low byte of [slot][party_slot_frame[slot]]"},
+        "5576": {"name": "sound_slot_info", "note": "12-byte records per sound slot, read by data_record_io type 9: +0 alias sound number, +4 long size (0 means use the alias)"},
+        "5b72": {"name": "saved_screen_kind", "note": "int [] per saved-screen slot: 3 when the screen was saved to the file saved_screen_file[n], -1 once freed"},
+        "5b7c": {"name": "saved_screen_file", "note": "char [][20] per saved-screen slot: file name of a screen saved to disk"},
+        "5be0": {"name": "saved_screen_ref", "note": "long [] per saved-screen slot: the driver's reference passed to gfx_restore_screen"},
+        "830e": {"name": "party_slot_frame", "note": "int [6]: current frame in party_slot_glyphs for each slot; api_idx_0002_TIUI advances it, wrapping at 0xffff"}      },
       "code_data_names": {
         "2f36": {"name": "saved_video_mode", "note": "the video mode at startup (INT 10h AH=0Fh, bios_get_video_mode); ds_bios_video_loc_PHVR sets it back"},
         "2f37": {"name": "saved_equip_byte", "note": "the BIOS equipment byte (0040:0010) before its video bits are cleared; ds_bios_video_loc_PHVR restores it"},
@@ -244,13 +279,19 @@
         "2f3a": {"name": "video_is_cga", "note": "only cleared here, never set in DS; by the driver order (vga, ega, cga, herc, tandy) presumably CGA: unconfirmed"},
         "2f3b": {"name": "video_is_herc", "note": "only cleared here, never set in DS; by the driver order presumably Hercules: unconfirmed"},
         "2f4a": {"name": "font_header_seg", "note": "segment load_font_file reads the 16-byte font header into (0 until set at run time)"},
+        "2f83": {"name": "play_drv_wait", "note": "far pointer to PLAY.DRV jump-table slot 7 (0x011f, leaf_loc_IUKK): with arg 0 busy-waits on the driver's flags; get_filtered_key calls it before reading a key"},
+        "2faf": {"name": "gfx_drv_slot_10", "note": "far pointer to the graphics driver's jump-table slot 10 (0x012b, leaf_loc_UQHV: zeroes a driver word); flush_keyboard calls it"},
+        "30dc": {"name": "random_seed_a", "note": "Wichmann-Hill seed 1 (mod 30269), stepped by stir_random_seeds"},
+        "30de": {"name": "random_seed_b", "note": "Wichmann-Hill seed 2 (mod 30307), stepped by stir_random_seeds"},
+        "30e0": {"name": "random_seed_c", "note": "Wichmann-Hill seed 3 (mod 30323), stepped by stir_random_seeds"},
         "313e": {"name": "vga_palette", "note": "256 RGB triples loaded by INT 10h AX=1012h"},
         "34f6": {"name": "ega_palette", "note": "16 palette registers and the overscan colour, INT 10h AX=1002h"},
         "3507": {"name": "vga_drv_name", "note": "'vga.drv': select_vga_driver leaves it at [bp-4]"},
         "350f": {"name": "ega_drv_name", "note": "'ega.drv': select_ega_driver leaves it at [bp-4]; 'cga.drv', 'herc.drv', 'tandy.drv' follow"},
         "3532": {"name": "drv_file_handle", "note": "DOS handle of the driver file while ds_dos_file_loc_SJIH/NKUS read it"},
         "384a": {"name": "font_seg_table", "note": "word [10] + 0xffff end: DOS segment of each loaded font, set by load_font_file"},
-        "393f": {"name": "font_io_error_msg", "note": "'I/O error loading font' ($-terminated), printed on a load_font_file read error"}
+        "393f": {"name": "font_io_error_msg", "note": "'I/O error loading font' ($-terminated), printed on a load_font_file read error"},
+        "3c7f": {"name": "key_queue", "note": "word count, then up to 22 queued key bytes: filled and drained by poll_filtered_key/get_filtered_key, cleared by flush_keyboard"}
       },
       "external_data": {
         "0x0410": {

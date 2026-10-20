@@ -39,15 +39,15 @@ int a, b, c, d;
 				}
 			}
 		} else {
-			j += ds_app_PUNN(slot_rec_action_rand[v1][i]);
+			j += random_below(slot_rec_action_rand[v1][i]);
 			k = slot_rec_target[v1][j];
 			if (flag != 0)
-				k += ds_app_PUNN(slot_rec_target_rand[v1][j]);
+				k += random_below(slot_rec_target_rand[v1][j]);
 		}
 		action_slot_mode[b * 3 + c] = d;
 		action_slot_table[b * 90 + c * 30 + i * 3] = j;
 		action_slot_table[b * 90 + c * 30 + i * 3 + 1] = k;
 		action_slot_table[b * 90 + c * 30 + i * 3 + 2] = slot_rec_ranges[v1][k * 4] + 1;
-		action_slot_table[b * 90 + c * 30 + i * 3 + 2] += ds_app_PUNN(slot_rec_ranges[v1][k * 4 + 1]);
+		action_slot_table[b * 90 + c * 30 + i * 3 + 2] += random_below(slot_rec_ranges[v1][k * 4 + 1]);
 	}
 }

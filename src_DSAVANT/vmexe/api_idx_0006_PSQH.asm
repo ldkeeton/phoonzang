@@ -125,7 +125,7 @@ api_idx_0006_PSQH:
     pop cx                           ; 0x99be
     mov ax, 0x64                     ; 0x99bf
     push ax                          ; 0x99c2
-    call ds_app_PUNN                 ; 0x99c3
+    call random_below                ; 0x99c3
     pop cx                           ; 0x99c6
     cmp ax, word [bp - 0x0006]       ; 0x99c7
     jge short @..api_idx_0006_PSQH.l10 ; 0x99ca

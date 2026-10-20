@@ -10,7 +10,7 @@ api_idx_0006_RJKJ:
 @..api_idx_0006_RJKJ.l2:
     mov ax, 0x64                     ; 0x1728
     push ax                          ; 0x172b
-    call ds_app_PUNN                 ; 0x172c
+    call random_below                ; 0x172c
     pop cx                           ; 0x172f
     mov word [bp - 0x0006], ax       ; 0x1730
     mov ax, word [bp - 0x0002]       ; 0x1733

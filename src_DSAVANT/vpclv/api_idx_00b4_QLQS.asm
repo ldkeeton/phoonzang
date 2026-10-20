@@ -18,7 +18,7 @@ api_idx_00b4_QLQS:
 @..api_idx_00b4_QLQS.l3:
     mov ax, 7                        ; 0x4cee
     push ax                          ; 0x4cf1
-    call ds_app_PUNN                 ; 0x4cf2
+    call random_below                ; 0x4cf2
     pop cx                           ; 0x4cf5
     mov word [bp - 0x0002], ax       ; 0x4cf6
     inc word [bp - 0x0004]           ; 0x4cf9
@@ -128,7 +128,7 @@ api_idx_00b4_QLQS:
 @..api_idx_00b4_QLQS.l8:
     mov ax, 2                        ; 0x4df3
     push ax                          ; 0x4df6
-    call ds_app_PUNN                 ; 0x4df7
+    call random_below                ; 0x4df7
     pop cx                           ; 0x4dfa
     test ax, ax                      ; 0x4dfb
     je short @..api_idx_00b4_QLQS.l9 ; 0x4dfd

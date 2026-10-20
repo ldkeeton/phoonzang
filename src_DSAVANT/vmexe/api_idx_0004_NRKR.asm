@@ -4,7 +4,7 @@ api_idx_0004_NRKR:
     call aztec_csav                  ; 0x73f9
     mov ax, 0x64                     ; 0x73fc
     push ax                          ; 0x73ff
-    call ds_app_PUNN                 ; 0x7400
+    call random_below                ; 0x7400
     pop cx                           ; 0x7403
     mov word [bp - 0x0004], ax       ; 0x7404
     mov word [bp - 0x0002], 0        ; 0x7407

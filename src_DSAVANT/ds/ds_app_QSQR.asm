@@ -10,7 +10,7 @@ ds_app_QSQR: ; Aztec csav frame=0x0002
     mov al, byte [bp + 0x7]          ; 0x2317
     sub ah, ah                       ; 0x231a
     push ax                          ; 0x231c
-    call ds_app_PUNN                 ; 0x231d
+    call random_below                ; 0x231d
     pop cx                           ; 0x2320
     add ax, word [bp - 0x0002]       ; 0x2321
     inc ax                           ; 0x2324

@@ -61,13 +61,13 @@ loc_MIPR:
     pop cx                           ; 0x638e
     mov ax, 6                        ; 0x638f
     push ax                          ; 0x6392
-    call ds_app_PUNN                 ; 0x6393
+    call random_below                ; 0x6393
     pop cx                           ; 0x6396
     add ax, strict word 5            ; 0x6397
     mov word [bss_9594], ax          ; 0x639a
     mov ax, 0x14                     ; 0x639d
     push ax                          ; 0x63a0
-    call ds_app_PUNN                 ; 0x63a1
+    call random_below                ; 0x63a1
     pop cx                           ; 0x63a4
     test ax, ax                      ; 0x63a5
     jne short @..loc_MIPR.l1         ; 0x63a7
@@ -75,7 +75,7 @@ loc_MIPR:
 @..loc_MIPR.l1:
     mov ax, 0x14                     ; 0x63ae
     push ax                          ; 0x63b1
-    call ds_app_PUNN                 ; 0x63b2
+    call random_below                ; 0x63b2
     pop cx                           ; 0x63b5
     test ax, ax                      ; 0x63b6
     jne short @..loc_MIPR.l2         ; 0x63b8
@@ -85,7 +85,7 @@ loc_MIPR:
     jge short @..loc_MIPR.l3         ; 0x63c4
     mov ax, 4                        ; 0x63c6
     push ax                          ; 0x63c9
-    call ds_app_PUNN                 ; 0x63ca
+    call random_below                ; 0x63ca
     pop cx                           ; 0x63cd
     add ax, strict word 8            ; 0x63ce
     mov word [bss_9594], ax          ; 0x63d1
@@ -94,7 +94,7 @@ loc_MIPR:
     jne short @..loc_MIPR.l4         ; 0x63d9
     mov ax, 0xa                      ; 0x63db
     push ax                          ; 0x63de
-    call ds_app_PUNN                 ; 0x63df
+    call random_below                ; 0x63df
     pop cx                           ; 0x63e2
     add ax, strict word 0x15         ; 0x63e3
     mov word [bss_9594], ax          ; 0x63e6
@@ -293,7 +293,7 @@ loc_MIPR:
     push ax                          ; 0x65ce
     mov ax, dseg_94f6                ; 0x65cf
     push ax                          ; 0x65d2
-    call ds_app_string_UUHT          ; 0x65d3
+    call data_file_path              ; 0x65d3
     add sp, byte 4                   ; 0x65d6
     push ax                          ; 0x65d9
     call aztec_open                  ; 0x65da

@@ -37,7 +37,7 @@ api_idx_005e_OJVJ:
     push ax                          ; 0x3510
     lea ax, word [bp - 0x005e]       ; 0x3511
     push ax                          ; 0x3514
-    call ds_app_string_UUHT          ; 0x3515
+    call data_file_path              ; 0x3515
     add sp, byte 4                   ; 0x3518
     push ax                          ; 0x351b
     call aztec_open                  ; 0x351c

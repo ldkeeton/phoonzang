@@ -4,7 +4,7 @@ loc_LGQU:
     call aztec_csav                  ; 0x94a9
     mov ax, 3                        ; 0x94ac
     push ax                          ; 0x94af
-    call ds_app_PUNN                 ; 0x94b0
+    call random_below                ; 0x94b0
     pop cx                           ; 0x94b3
     test ax, ax                      ; 0x94b4
     je short @..loc_LGQU.l1          ; 0x94b6

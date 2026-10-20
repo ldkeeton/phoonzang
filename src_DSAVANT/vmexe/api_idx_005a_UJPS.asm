@@ -54,7 +54,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0x9fd7
     mov ax, 1                        ; 0x9fd8
     push ax                          ; 0x9fdb
-    call ds_app_file_MPPM            ; 0x9fdc
+    call data_record_io              ; 0x9fdc
     add sp, byte 8                   ; 0x9fdf
     mov ax, 0x248                    ; 0x9fe2
     imul word [bss_8462]             ; 0x9fe5
@@ -193,7 +193,7 @@ api_idx_005a_UJPS:
     jle short @..api_idx_005a_UJPS.l14 ; 0xa118
     mov ax, 0x64                     ; 0xa11a
     push ax                          ; 0xa11d
-    call ds_app_PUNN                 ; 0xa11e
+    call random_below                ; 0xa11e
     pop cx                           ; 0xa121
     push ax                          ; 0xa122
     mov ax, 0xa                      ; 0xa123
@@ -222,7 +222,7 @@ api_idx_005a_UJPS:
     call ds_app_mem_TIMR             ; 0xa153
     add sp, byte 4                   ; 0xa156
     push word [bp - 0x0004]          ; 0xa159
-    call ds_app_PUNN                 ; 0xa15c
+    call random_below                ; 0xa15c
     pop cx                           ; 0xa15f
     add ax, word [bp - 0x0004]       ; 0xa160
     inc ax                           ; 0xa163
@@ -429,7 +429,7 @@ api_idx_005a_UJPS:
     pop ax                           ; 0xa343
     add ax, cx                       ; 0xa344
     push ax                          ; 0xa346
-    call ds_app_PUNN                 ; 0xa347
+    call random_below                ; 0xa347
     pop cx                           ; 0xa34a
     add ax, strict word 0xfff6       ; 0xa34b
     mov word [bp - 0x0010], ax       ; 0xa34e
@@ -455,7 +455,7 @@ api_idx_005a_UJPS:
     je short @..api_idx_005a_UJPS.l35 ; 0xa38b
     mov ax, 0x24                     ; 0xa38d
     push ax                          ; 0xa390
-    call ds_app_PUNN                 ; 0xa391
+    call random_below                ; 0xa391
     pop cx                           ; 0xa394
     push ax                          ; 0xa395
     mov ax, 0x248                    ; 0xa396
@@ -494,7 +494,7 @@ api_idx_005a_UJPS:
     je short @..api_idx_005a_UJPS.l38 ; 0xa3e8
     mov ax, 7                        ; 0xa3ea
     push ax                          ; 0xa3ed
-    call ds_app_PUNN                 ; 0xa3ee
+    call random_below                ; 0xa3ee
     pop cx                           ; 0xa3f1
     test ax, ax                      ; 0xa3f2
     jne short @..api_idx_005a_UJPS.l38 ; 0xa3f4

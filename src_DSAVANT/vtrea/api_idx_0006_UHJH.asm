@@ -5,7 +5,7 @@ api_idx_0006_UHJH:
     mov ax, word [bp + 0xc]          ; 0x1493
     inc ax                           ; 0x1496
     push ax                          ; 0x1497
-    call ds_app_PUNN                 ; 0x1498
+    call random_below                ; 0x1498
     pop cx                           ; 0x149b
     add ax, word [bp + 0xa]          ; 0x149c
     mov word [bp - 0x0004], ax       ; 0x149f
@@ -18,11 +18,11 @@ api_idx_0006_UHJH:
     sub ax, word [bp - 0x0004]       ; 0x14b1
     inc ax                           ; 0x14b4
     push ax                          ; 0x14b5
-    call ds_app_PUNN                 ; 0x14b6
+    call random_below                ; 0x14b6
     pop cx                           ; 0x14b9
     mov word [bp - 0x0002], ax       ; 0x14ba
     push word [bp - 0x0004]          ; 0x14bd
-    call ds_app_PUNN                 ; 0x14c0
+    call random_below                ; 0x14c0
     pop cx                           ; 0x14c3
     mov cx, ax                       ; 0x14c4
     mov ax, word [bp - 0x0002]       ; 0x14c6

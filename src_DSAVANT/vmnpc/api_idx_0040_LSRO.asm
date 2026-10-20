@@ -14,7 +14,7 @@ api_idx_0040_LSRO:
     push ax                          ; 0x2bac
     mov ax, 6                        ; 0x2bad
     push ax                          ; 0x2bb0
-    call ds_app_file_MPPM            ; 0x2bb1
+    call data_record_io              ; 0x2bb1
     add sp, byte 8                   ; 0x2bb4
     mov word [bp - 0x0002], 0        ; 0x2bb7
 @..api_idx_0040_LSRO.l1:
@@ -489,7 +489,7 @@ jumptable_36f8_case_13:
 @..api_idx_0040_LSRO.l41:
     mov ax, 3                        ; 0x3031
     push ax                          ; 0x3034
-    call ds_app_PUNN                 ; 0x3035
+    call random_below                ; 0x3035
     pop cx                           ; 0x3038
     test ax, ax                      ; 0x3039
     jne short @..api_idx_0040_LSRO.l42 ; 0x303b
@@ -516,7 +516,7 @@ jumptable_36f8_case_13:
     add sp, byte 6                   ; 0x3070
     mov ax, 3                        ; 0x3073
     push ax                          ; 0x3076
-    call ds_app_PUNN                 ; 0x3077
+    call random_below                ; 0x3077
     pop cx                           ; 0x307a
     test ax, ax                      ; 0x307b
     jne short @..api_idx_0040_LSRO.l42 ; 0x307d
@@ -709,7 +709,7 @@ jumptable_36f8_case_22:
 jumptable_36f8_case_24:
     mov ax, 0x64                     ; 0x3227
     push ax                          ; 0x322a
-    call ds_app_PUNN                 ; 0x322b
+    call random_below                ; 0x322b
     pop cx                           ; 0x322e
     cmp ax, word [bp - 0x0026]       ; 0x322f
     jle short @..api_idx_0040_LSRO.l58 ; 0x3232
@@ -798,7 +798,7 @@ jumptable_36f8_case_28:
 jumptable_36f8_case_29:
     mov ax, 0x64                     ; 0x32f1
     push ax                          ; 0x32f4
-    call ds_app_PUNN                 ; 0x32f5
+    call random_below                ; 0x32f5
     pop cx                           ; 0x32f8
     cmp ax, word [bp - 0x0026]       ; 0x32f9
     jge short @..api_idx_0040_LSRO.l63 ; 0x32fc
@@ -835,7 +835,7 @@ jumptable_36f8_case_31:
     neg ax                           ; 0x334b
 @..api_idx_0040_LSRO.l64:
     push ax                          ; 0x334d
-    call ds_app_PUNN                 ; 0x334e
+    call random_below                ; 0x334e
     pop cx                           ; 0x3351
     mov cx, ax                       ; 0x3352
     mov ax, 0                        ; 0x3354
@@ -844,7 +844,7 @@ jumptable_36f8_case_31:
     jmp short @..api_idx_0040_LSRO.l66 ; 0x335c
 @..api_idx_0040_LSRO.l65:
     push word [bp - 0x003a]          ; 0x335e
-    call ds_app_PUNN                 ; 0x3361
+    call random_below                ; 0x3361
     pop cx                           ; 0x3364
     mov word [bp - 0x003a], ax       ; 0x3365
 @..api_idx_0040_LSRO.l66:
@@ -881,7 +881,7 @@ jumptable_36f8_case_32:
     jle short @..api_idx_0040_LSRO.l68 ; 0x33b0
     mov ax, 8                        ; 0x33b2
     push ax                          ; 0x33b5
-    call ds_app_PUNN                 ; 0x33b6
+    call random_below                ; 0x33b6
     pop cx                           ; 0x33b9
     mov word [bp - 0x003a], ax       ; 0x33ba
 @..api_idx_0040_LSRO.l68:

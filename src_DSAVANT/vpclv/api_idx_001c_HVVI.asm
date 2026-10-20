@@ -78,7 +78,7 @@ api_idx_001c_HVVI:
     mov ax, cx                       ; 0x420b
     inc ax                           ; 0x420d
     push ax                          ; 0x420e
-    call ds_app_PUNN                 ; 0x420f
+    call random_below                ; 0x420f
     pop cx                           ; 0x4212
     mov cx, ax                       ; 0x4213
     mov ax, word [bp - 0x0004]       ; 0x4215
@@ -107,7 +107,7 @@ api_idx_001c_HVVI:
     jbe short @..api_idx_001c_HVVI.l7 ; 0x4251
     mov ax, 2                        ; 0x4253
     push ax                          ; 0x4256
-    call ds_app_PUNN                 ; 0x4257
+    call random_below                ; 0x4257
     pop cx                           ; 0x425a
     add ax, word [bss_95f4]          ; 0x425b
     inc ax                           ; 0x425f

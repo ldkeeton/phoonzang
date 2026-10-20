@@ -61,7 +61,7 @@ api_idx_0004_PHNO:
 @..api_idx_0004_PHNO.l4:
     mov ax, 3                        ; 0x292d
     push ax                          ; 0x2930
-    call ds_app_PUNN                 ; 0x2931
+    call random_below                ; 0x2931
     pop cx                           ; 0x2934
     test ax, ax                      ; 0x2935
     jne short @..api_idx_0004_PHNO.l5 ; 0x2937

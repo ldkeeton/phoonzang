@@ -6,7 +6,7 @@ api_idx_000c_QTSG:
     push ax                          ; 0x014f
     push ax                          ; 0x0150
     push word [bp + 0x4]             ; 0x0151
-    call ds_app_string_UUHT          ; 0x0154
+    call data_file_path              ; 0x0154
     add sp, byte 4                   ; 0x0157
     push ax                          ; 0x015a
     call aztec_open                  ; 0x015b
@@ -16,7 +16,7 @@ api_idx_000c_QTSG:
     jne short @..api_idx_000c_QTSG.l1 ; 0x0167
     mov ax, 6                        ; 0x0169
     push ax                          ; 0x016c
-    call ds_app_UKIP                 ; 0x016d
+    call fatal_error                 ; 0x016d
     pop cx                           ; 0x0170
 @..api_idx_000c_QTSG.l1:
     mov ax, 2                        ; 0x0171
@@ -50,7 +50,7 @@ api_idx_000c_QTSG:
 @..api_idx_000c_QTSG.l3:
     mov ax, 6                        ; 0x01ba
     push ax                          ; 0x01bd
-    call ds_app_UKIP                 ; 0x01be
+    call fatal_error                 ; 0x01be
     pop cx                           ; 0x01c1
 @..api_idx_000c_QTSG.l4:
     mov ax, 0                        ; 0x01c2

@@ -1,9 +1,10 @@
-/* returns the next key from the code-segment key queue (filtering by mode), else reads DOS keyboard input */
+/* returns the next key from key_queue (filtering by mode), else waits on play_drv_wait and reads DOS keyboard input */
 #asm
 	include	lmacros.h
 	assume	cs:codeseg
-	extrn	cseg_3c7f_:word
-	extrn	cseg_2f83_:dword
+	extrn	key_queue_:word
+	extrn	play_drv_wait_:dword
+mode		equ	4	;arg: 0 any key, 2 digits, else printable/control
 	public	get_filtered_key_
 get_filtered_key_ proc near
 	push	bp
@@ -16,12 +17,12 @@ get_filtered_key_ proc near
 	mov	ax,cs
 	mov	ds,ax
 	mov	es,ax
-	lea	si,cseg_3c7f_
+	lea	si,key_queue_
 next_key:
 	mov	bx,word ptr [si]
 	or	bx,bx
 	je	read_key
-	mov	ax,word ptr [bp+4]
+	mov	ax,word ptr [bp+mode]
 	cmp	al,0
 	je	take_key
 	cmp	al,2
@@ -85,12 +86,12 @@ drop_key:
 read_key:
 	xor	ax,ax
 	push	ax
-	call	dword ptr cs:cseg_2f83_
+	call	dword ptr cs:play_drv_wait_
 	pop	ax
 	mov	ah,7
 	int	21h
 	mov	ah,0
-	cmp	word ptr [bp+4],0
+	cmp	word ptr [bp+mode],0
 	je	done
 	mov	bx,word ptr [si]
 	mov	byte ptr [bx+si+2],al

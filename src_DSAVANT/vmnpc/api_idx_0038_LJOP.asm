@@ -441,7 +441,7 @@ api_idx_0038_LJOP:
 @..api_idx_0038_LJOP.l8:
     mov ax, 0x59fe                   ; 0x4be7
     push ax                          ; 0x4bea
-    call ds_app_io_UHMG              ; 0x4beb
+    call ds_app_UHMG                 ; 0x4beb
     pop cx                           ; 0x4bee
     dec ax                           ; 0x4bef
     mov word [bp - 0x0018], ax       ; 0x4bf0

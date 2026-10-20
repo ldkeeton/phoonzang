@@ -152,7 +152,7 @@ jumptable_6599_case_1:
     mov word [bss_9d62], 2           ; 0x6495
     mov ax, 4                        ; 0x649b
     push ax                          ; 0x649e
-    call ds_app_PUNN                 ; 0x649f
+    call random_below                ; 0x649f
     pop cx                           ; 0x64a2
     mov cx, 0xa                      ; 0x64a3
     imul cx                          ; 0x64a6
@@ -318,13 +318,13 @@ jumptable_6599:
     mov word [bp - 0x0002], ax       ; 0x661d
     mov ax, 0x64                     ; 0x6620
     push ax                          ; 0x6623
-    call ds_app_PUNN                 ; 0x6624
+    call random_below                ; 0x6624
     pop cx                           ; 0x6627
     add ax, word [bss_9d64]          ; 0x6628
     mov word [bp - 0x0004], ax       ; 0x662c
     mov ax, 5                        ; 0x662f
     push ax                          ; 0x6632
-    call ds_app_PUNN                 ; 0x6633
+    call random_below                ; 0x6633
     pop cx                           ; 0x6636
     add ax, word [bss_9d64]          ; 0x6637
     add ax, strict word 0xa          ; 0x663b
@@ -380,13 +380,13 @@ jumptable_6599:
     add sp, byte 8                   ; 0x66b2
     mov ax, 0xa                      ; 0x66b5
     push ax                          ; 0x66b8
-    call ds_app_PUNN                 ; 0x66b9
+    call random_below                ; 0x66b9
     pop cx                           ; 0x66bc
     add ax, strict word 5            ; 0x66bd
     mov word [bp - 0x0006], ax       ; 0x66c0
     mov ax, 0xa                      ; 0x66c3
     push ax                          ; 0x66c6
-    call ds_app_PUNN                 ; 0x66c7
+    call random_below                ; 0x66c7
     pop cx                           ; 0x66ca
     add ax, strict word 5            ; 0x66cb
     mov word [bp - 0x0008], ax       ; 0x66ce
@@ -411,7 +411,7 @@ jumptable_6599:
     add sp, byte 8                   ; 0x66fb
     mov ax, 0xa                      ; 0x66fe
     push ax                          ; 0x6701
-    call ds_app_PUNN                 ; 0x6702
+    call random_below                ; 0x6702
     pop cx                           ; 0x6705
     mov cx, ax                       ; 0x6706
     add ax, strict word 0xa          ; 0x6708
@@ -421,7 +421,7 @@ jumptable_6599:
     mov word [bp - 0x0006], ax       ; 0x6712
     mov ax, 0xa                      ; 0x6715
     push ax                          ; 0x6718
-    call ds_app_PUNN                 ; 0x6719
+    call random_below                ; 0x6719
     pop cx                           ; 0x671c
     mov cx, ax                       ; 0x671d
     add ax, strict word 0xa          ; 0x671f
@@ -443,13 +443,13 @@ jumptable_6599:
     add sp, byte 8                   ; 0x6743
     mov ax, 0xa                      ; 0x6746
     push ax                          ; 0x6749
-    call ds_app_PUNN                 ; 0x674a
+    call random_below                ; 0x674a
     pop cx                           ; 0x674d
     add ax, strict word 0xfffb       ; 0x674e
     mov word [bp - 0x0006], ax       ; 0x6751
     mov ax, 0xa                      ; 0x6754
     push ax                          ; 0x6757
-    call ds_app_PUNN                 ; 0x6758
+    call random_below                ; 0x6758
     pop cx                           ; 0x675b
     add ax, strict word 0xfffb       ; 0x675c
     mov word [bp - 0x0008], ax       ; 0x675f

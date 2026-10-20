@@ -40,7 +40,7 @@ api_idx_0032_RMHI:
 @..api_idx_0032_RMHI.l3:
     mov ax, 0x16                     ; 0xabf7
     push ax                          ; 0xabfa
-    call ds_app_PUNN                 ; 0xabfb
+    call random_below                ; 0xabfb
     pop cx                           ; 0xabfe
     mov word [bp - 0x0002], ax       ; 0xabff
     mov ax, word [bp - 0x0002]       ; 0xac02

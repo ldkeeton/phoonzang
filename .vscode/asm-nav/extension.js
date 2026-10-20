@@ -421,6 +421,12 @@ async function makeC(uri) {
             `offset, keep keys sorted; skip any already named there), run \`${build}\`, change the C's \`extern\` ` +
             `and uses to NAME, and run \`make rebuild\`. A C still spelling a named global by address fails ` +
             `the link and gives the build's name for it.`,
+        `Name every other address-named symbol it references the same way, including those only in ` +
+            `\`extrn\` lines of #asm: each code-segment global (\`cseg_XXXX\`) under ` +
+            `\`binaries.${where.binary}.code_data_names\` (keyed by CS offset, same form and rules), and each ` +
+            `auto-named routine it calls (e.g. \`*_loc_XXXX\`) under ${table} as in renaming (keyed like the ` +
+            `routine's own entry, with a "note"). Give #asm stack arguments and locals \`equ\` names. Then run ` +
+            `\`${build}\`, update the C, and run \`make rebuild\`. No address-named symbol may remain in the C.`,
         `Once it matches, give the routine a descriptive lowercase_underscore name this way, keeping any prefix ` +
             `its flags need. Your final message: only the name.`,
     ].join('\n\n');

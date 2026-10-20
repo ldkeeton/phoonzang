@@ -290,7 +290,7 @@ loc_MOVJ:
 @..loc_MOVJ.l10:
     mov ax, 0x59fe                   ; 0x1fd7
     push ax                          ; 0x1fda
-    call ds_app_io_UHMG              ; 0x1fdb
+    call ds_app_UHMG                 ; 0x1fdb
     pop cx                           ; 0x1fde
     mov word [bp - 0x0004], ax       ; 0x1fdf
     cmp word [bss_5b3e], byte 0      ; 0x1fe2
@@ -365,7 +365,7 @@ loc_MOVJ:
 @..loc_MOVJ.l13:
     mov ax, 1                        ; 0x2085
     push ax                          ; 0x2088
-    call dos_con_in_noecho           ; 0x2089
+    call poll_filtered_key           ; 0x2089
     pop cx                           ; 0x208c
     test ax, ax                      ; 0x208d
     jne short @..loc_MOVJ.l14        ; 0x208f

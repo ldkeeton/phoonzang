@@ -13,7 +13,7 @@ api_idx_0002_GMMK:
     jbe short @..api_idx_0002_GMMK.l2 ; 0x4db2
     mov ax, 4                        ; 0x4db4
     push ax                          ; 0x4db7
-    call ds_app_PUNN                 ; 0x4db8
+    call random_below                ; 0x4db8
     pop cx                           ; 0x4dbb
     cmp ax, strict word 1            ; 0x4dbc
     jne short @..api_idx_0002_GMMK.l2 ; 0x4dbf
@@ -54,7 +54,7 @@ api_idx_0002_GMMK:
     jge short @..api_idx_0002_GMMK.l7 ; 0x4e1a
     mov ax, 3                        ; 0x4e1c
     push ax                          ; 0x4e1f
-    call ds_app_PUNN                 ; 0x4e20
+    call random_below                ; 0x4e20
     pop cx                           ; 0x4e23
     test ax, ax                      ; 0x4e24
     jne short @..api_idx_0002_GMMK.l7 ; 0x4e26

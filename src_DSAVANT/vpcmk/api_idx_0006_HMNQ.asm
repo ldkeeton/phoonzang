@@ -88,7 +88,7 @@ api_idx_0006_HMNQ:
 @..api_idx_0006_HMNQ.l2:
     mov ax, 0x59fe                   ; 0x61a1
     push ax                          ; 0x61a4
-    call ds_app_io_UHMG              ; 0x61a5
+    call ds_app_UHMG                 ; 0x61a5
     pop cx                           ; 0x61a8
     dec ax                           ; 0x61a9
     mov word [bp - 0x0002], ax       ; 0x61aa

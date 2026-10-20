@@ -10,7 +10,7 @@ api_idx_0048_RUIH:
     push ax                          ; 0x4a2e
     mov ax, 1                        ; 0x4a2f
     push ax                          ; 0x4a32
-    call ds_app_file_MPPM            ; 0x4a33
+    call data_record_io              ; 0x4a33
     add sp, byte 8                   ; 0x4a36
     mov al, byte [bp - 0x000a]       ; 0x4a39
     sub ah, ah                       ; 0x4a3c

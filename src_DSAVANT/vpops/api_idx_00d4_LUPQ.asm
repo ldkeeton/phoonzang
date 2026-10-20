@@ -19,7 +19,7 @@ api_idx_00d4_LUPQ:
     mov word [bp - 0x00aa], ax       ; 0x373a
     mov ax, 0xa                      ; 0x373e
     push ax                          ; 0x3741
-    call ds_app_PUNN                 ; 0x3742
+    call random_below                ; 0x3742
     pop cx                           ; 0x3745
     push ax                          ; 0x3746
     mov ax, 0x248                    ; 0x3747
@@ -67,12 +67,12 @@ api_idx_00d4_LUPQ:
     cwd                              ; 0x37b8
     idiv cx                          ; 0x37b9
     push ax                          ; 0x37bb
-    call ds_app_PUNN                 ; 0x37bc
+    call random_below                ; 0x37bc
     pop cx                           ; 0x37bf
     push ax                          ; 0x37c0
     mov ax, 0x14                     ; 0x37c1
     push ax                          ; 0x37c4
-    call ds_app_PUNN                 ; 0x37c5
+    call random_below                ; 0x37c5
     pop cx                           ; 0x37c8
     mov cx, ax                       ; 0x37c9
     pop ax                           ; 0x37cb
@@ -983,7 +983,7 @@ jumptable_4058:
     pop cx                           ; 0x40ab
     mov ax, 0x32                     ; 0x40ac
     push ax                          ; 0x40af
-    call ds_leaf_loc_UJPS            ; 0x40b0
+    call delay_ticks                 ; 0x40b0
     pop cx                           ; 0x40b3
     cmp word [bp - 0x00a0], byte 0   ; 0x40b4
     je short @..api_idx_00d4_LUPQ.l69 ; 0x40b9
@@ -1367,7 +1367,7 @@ jumptable_4058:
     jbe short @..api_idx_00d4_LUPQ.l98 ; 0x4473
     mov ax, 0x64                     ; 0x4475
     push ax                          ; 0x4478
-    call ds_app_PUNN                 ; 0x4479
+    call random_below                ; 0x4479
     pop cx                           ; 0x447c
     push ax                          ; 0x447d
     mov ax, 0x248                    ; 0x447e

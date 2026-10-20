@@ -5,7 +5,7 @@ api_idx_0004_VSSI:
     mov word [bp - 0x0004], 0        ; 0x144d
 @..api_idx_0004_VSSI.l1:
     push word [bss_69c8]             ; 0x1452
-    call ds_app_PUNN                 ; 0x1456
+    call random_below                ; 0x1456
     pop cx                           ; 0x1459
     mov word [bp - 0x0002], ax       ; 0x145a
     inc word [bp - 0x0004]           ; 0x145d

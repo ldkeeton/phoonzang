@@ -11,7 +11,7 @@ api_idx_0008_SJOG:
     push word [bx + party_char_ext]  ; 0x07c1
     mov ax, 4                        ; 0x07c5
     push ax                          ; 0x07c8
-    call ds_app_file_MPPM            ; 0x07c9
+    call data_record_io              ; 0x07c9
     add sp, byte 8                   ; 0x07cc
     cmp word [bp + 0x6], byte 1      ; 0x07cf
     jle short @..api_idx_0008_SJOG.l1 ; 0x07d3
@@ -391,7 +391,7 @@ api_idx_0008_SJOG:
 @..api_idx_0008_SJOG.l25:
     mov ax, 0x64                     ; 0x0b98
     push ax                          ; 0x0b9b
-    call ds_app_PUNN                 ; 0x0b9c
+    call random_below                ; 0x0b9c
     pop cx                           ; 0x0b9f
     cmp ax, strict word 0x19         ; 0x0ba0
     jle short @..api_idx_0008_SJOG.l27 ; 0x0ba3
@@ -401,7 +401,7 @@ api_idx_0008_SJOG:
     add sp, byte 4                   ; 0x0bae
     mov word [bp + 0x4], ax          ; 0x0bb1
     push word [bp - 0x0004]          ; 0x0bb4
-    call ds_app_PUNN                 ; 0x0bb7
+    call random_below                ; 0x0bb7
     pop cx                           ; 0x0bba
     push ax                          ; 0x0bbb
     mov ax, word [bp + 0x6]          ; 0x0bbc
@@ -438,7 +438,7 @@ api_idx_0008_SJOG:
     cmp byte [bx + si + 0xac], 0     ; 0x0c0b
     jbe short @..api_idx_0008_SJOG.l30 ; 0x0c10
     push word [bp - 0x0004]          ; 0x0c12
-    call ds_app_PUNN                 ; 0x0c15
+    call random_below                ; 0x0c15
     pop cx                           ; 0x0c18
     push ax                          ; 0x0c19
     mov ax, word [bp + 0x6]          ; 0x0c1a

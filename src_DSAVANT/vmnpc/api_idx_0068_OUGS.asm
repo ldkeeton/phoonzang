@@ -98,7 +98,7 @@ api_idx_0068_OUGS:
     push ax                          ; 0x5295
     mov ax, 1                        ; 0x5296
     push ax                          ; 0x5299
-    call ds_app_file_MPPM            ; 0x529a
+    call data_record_io              ; 0x529a
     add sp, byte 8                   ; 0x529d
     cmp word [bp - 0x0028], byte 0   ; 0x52a0
     je short @..api_idx_0068_OUGS.l6 ; 0x52a4

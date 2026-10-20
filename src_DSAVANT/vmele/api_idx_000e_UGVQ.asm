@@ -23,7 +23,7 @@ api_idx_000e_UGVQ:
     call aztec_ldv                   ; 0x12e5
     mov word [bp - 0x0002], ax       ; 0x12e8
     push ax                          ; 0x12eb
-    call ds_app_PUNN                 ; 0x12ec
+    call random_below                ; 0x12ec
     pop cx                           ; 0x12ef
     mov bx, word [bp - 0x0004]       ; 0x12f0
     mov cx, word [bx + 0x6]          ; 0x12f3
@@ -42,7 +42,7 @@ api_idx_000e_UGVQ:
     mov word [bx + 0x6], 0           ; 0x1313
     mov ax, 6                        ; 0x1318
     push ax                          ; 0x131b
-    call ds_app_PUNN                 ; 0x131c
+    call random_below                ; 0x131c
     pop cx                           ; 0x131f
     add ax, strict word 6            ; 0x1320
     mov bx, word [bp - 0x0004]       ; 0x1323

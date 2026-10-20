@@ -149,7 +149,7 @@ api_idx_0010_UUTT:
     pop cx                           ; 0x9b95
     mov ax, 0x64                     ; 0x9b96
     push ax                          ; 0x9b99
-    call ds_app_PUNN                 ; 0x9b9a
+    call random_below                ; 0x9b9a
     pop cx                           ; 0x9b9d
     cmp ax, word [bp - 0x000e]       ; 0x9b9e
     jl short @..api_idx_0010_UUTT.l7 ; 0x9ba1

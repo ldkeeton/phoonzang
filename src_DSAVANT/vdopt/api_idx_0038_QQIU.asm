@@ -333,7 +333,7 @@ api_idx_0038_QQIU:
 @..api_idx_0038_QQIU.l7:
     mov ax, 0x59fe                   ; 0x3d3a
     push ax                          ; 0x3d3d
-    call ds_app_io_UHMG              ; 0x3d3e
+    call ds_app_UHMG                 ; 0x3d3e
     pop cx                           ; 0x3d41
     dec ax                           ; 0x3d42
     mov word [bp - 0x0018], ax       ; 0x3d43

@@ -181,7 +181,7 @@ api_idx_0024_NKNU:
     mov word [bp - 0x0008], ax       ; 0x47ab
     mov ax, 0xa                      ; 0x47ae
     push ax                          ; 0x47b1
-    call ds_app_PUNN                 ; 0x47b2
+    call random_below                ; 0x47b2
     pop cx                           ; 0x47b5
     push ax                          ; 0x47b6
     mov ax, 0x2c                     ; 0x47b7
@@ -239,12 +239,12 @@ api_idx_0024_NKNU:
     cwd                              ; 0x4836
     idiv cx                          ; 0x4837
     push ax                          ; 0x4839
-    call ds_app_PUNN                 ; 0x483a
+    call random_below                ; 0x483a
     pop cx                           ; 0x483d
     push ax                          ; 0x483e
     mov ax, 0x14                     ; 0x483f
     push ax                          ; 0x4842
-    call ds_app_PUNN                 ; 0x4843
+    call random_below                ; 0x4843
     pop cx                           ; 0x4846
     mov cx, ax                       ; 0x4847
     pop ax                           ; 0x4849
@@ -329,7 +329,7 @@ api_idx_0024_NKNU:
     mov al, byte [bx + 0x1a1]        ; 0x490f
     sub ah, ah                       ; 0x4913
     push ax                          ; 0x4915
-    call ds_app_PUNN                 ; 0x4916
+    call random_below                ; 0x4916
     pop cx                           ; 0x4919
     mov bx, word [bp - 0x0008]       ; 0x491a
     mov byte [bx + 0x20], al         ; 0x491d
@@ -348,7 +348,7 @@ api_idx_0024_NKNU:
     jae short @..api_idx_0024_NKNU.l25 ; 0x4940
     mov ax, 0x64                     ; 0x4942
     push ax                          ; 0x4945
-    call ds_app_PUNN                 ; 0x4946
+    call random_below                ; 0x4946
     pop cx                           ; 0x4949
     push ax                          ; 0x494a
     mov ax, word [bp + 0x4]          ; 0x494b
@@ -368,7 +368,7 @@ api_idx_0024_NKNU:
     mov byte [bx + 0x1e], 3          ; 0x496e
     mov ax, 0x64                     ; 0x4972
     push ax                          ; 0x4975
-    call ds_app_PUNN                 ; 0x4976
+    call random_below                ; 0x4976
     pop cx                           ; 0x4979
     mov word [bp - 0x0012], ax       ; 0x497a
     mov word [bp - 0x0016], 5        ; 0x497d
@@ -442,7 +442,7 @@ api_idx_0024_NKNU:
     test ax, ax                      ; 0x4a2c
     jne short @..api_idx_0024_NKNU.l35 ; 0x4a2e
     push word [bss_8466]             ; 0x4a30
-    call ds_app_PUNN                 ; 0x4a34
+    call random_below                ; 0x4a34
     pop cx                           ; 0x4a37
     inc ax                           ; 0x4a38
     push ax                          ; 0x4a39
@@ -479,7 +479,7 @@ api_idx_0024_NKNU:
 @..api_idx_0024_NKNU.l37:
     mov bx, word [bp - 0x0008]       ; 0x4a81
     push word [bx]                   ; 0x4a84
-    call ds_app_PUNN                 ; 0x4a86
+    call random_below                ; 0x4a86
     pop cx                           ; 0x4a89
     inc ax                           ; 0x4a8a
     cmp ax, word [bp - 0x0012]       ; 0x4a8b
@@ -498,7 +498,7 @@ api_idx_0024_NKNU:
     jne short @..api_idx_0024_NKNU.l40 ; 0x4aa9
     mov ax, 0x64                     ; 0x4aab
     push ax                          ; 0x4aae
-    call ds_app_PUNN                 ; 0x4aaf
+    call random_below                ; 0x4aaf
     pop cx                           ; 0x4ab2
     push ax                          ; 0x4ab3
     mov ax, word [bp + 0x4]          ; 0x4ab4
@@ -618,7 +618,7 @@ api_idx_0024_NKNU:
     mov bx, word [bp - 0x0008]       ; 0x4bdc
     mov byte [bx + 0x1f], al         ; 0x4bdf
     push word [bp - 0x0010]          ; 0x4be2
-    call ds_app_PUNN                 ; 0x4be5
+    call random_below                ; 0x4be5
     pop cx                           ; 0x4be8
     mov bx, word [bp - 0x0008]       ; 0x4be9
     mov byte [bx + 0x20], al         ; 0x4bec
@@ -670,7 +670,7 @@ api_idx_0024_NKNU:
 @..api_idx_0024_NKNU.l57:
     mov ax, 0x64                     ; 0x4c64
     push ax                          ; 0x4c67
-    call ds_app_PUNN                 ; 0x4c68
+    call random_below                ; 0x4c68
     pop cx                           ; 0x4c6b
     mov word [bp - 0x0006], ax       ; 0x4c6c
     mov bx, word [bp - 0x0008]       ; 0x4c6f

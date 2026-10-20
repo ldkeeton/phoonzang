@@ -33,7 +33,7 @@ api_idx_0002_NURV:
     call api_idx_0002_VNLG           ; 0x0071
     mov ax, 0xa                      ; 0x0074
     push ax                          ; 0x0077
-    call ds_app_PUNN                 ; 0x0078
+    call random_below                ; 0x0078
     pop cx                           ; 0x007b
     add ax, strict word 4            ; 0x007c
     push ax                          ; 0x007f

@@ -5,13 +5,13 @@ draw_restore_saved_screen: ; Aztec csav frame=0x0002
     mov ax, word [bp + 0x4]          ; 0x16a6
     shl ax, 1                        ; 0x16a9
     mov bx, ax                       ; 0x16ab
-    cmp word [bx + bss_5b72], byte 3 ; 0x16ad
+    cmp word [bx + saved_screen_kind], byte 3 ; 0x16ad
     jne short @..draw_restore_saved_screen.l2 ; 0x16b2
     mov ax, 0                        ; 0x16b4
     push ax                          ; 0x16b7
     mov ax, 0x14                     ; 0x16b8
     imul word [bp + 0x4]             ; 0x16bb
-    add ax, strict word bss_5b7c     ; 0x16be
+    add ax, strict word saved_screen_file ; 0x16be
     push ax                          ; 0x16c1
     call aztec_open                  ; 0x16c2
     add sp, byte 4                   ; 0x16c5
@@ -20,7 +20,7 @@ draw_restore_saved_screen: ; Aztec csav frame=0x0002
     jne short @..draw_restore_saved_screen.l1 ; 0x16ce
     mov ax, 0x18                     ; 0x16d0
     push ax                          ; 0x16d3
-    call ds_app_UKIP                 ; 0x16d4
+    call fatal_error                 ; 0x16d4
     pop cx                           ; 0x16d7
 @..draw_restore_saved_screen.l1:
     jmp short @..draw_restore_saved_screen.l3 ; 0x16d8
@@ -33,14 +33,14 @@ draw_restore_saved_screen: ; Aztec csav frame=0x0002
     shl ax, 1                        ; 0x16e8
     shl ax, 1                        ; 0x16ea
     mov bx, ax                       ; 0x16ec
-    push word [bx + bss_5be0 + 0x2]  ; 0x16ee
-    push word [bx + bss_5be0]        ; 0x16f2
+    push word [bx + saved_screen_ref + 0x2] ; 0x16ee
+    push word [bx + saved_screen_ref] ; 0x16f2
     call gfx_restore_screen          ; 0x16f6
     add sp, byte 8                   ; 0x16f9
     mov ax, word [bp + 0x4]          ; 0x16fc
     shl ax, 1                        ; 0x16ff
     mov bx, ax                       ; 0x1701
-    cmp word [bx + bss_5b72], byte 3 ; 0x1703
+    cmp word [bx + saved_screen_kind], byte 3 ; 0x1703
     jne short @..draw_restore_saved_screen.l4 ; 0x1708
     push word [bp - 0x0002]          ; 0x170a
     call aztec_close                 ; 0x170d
@@ -51,11 +51,11 @@ draw_restore_saved_screen: ; Aztec csav frame=0x0002
     mov ax, word [bp + 0x4]          ; 0x1717
     shl ax, 1                        ; 0x171a
     mov bx, ax                       ; 0x171c
-    cmp word [bx + bss_5b72], byte 3 ; 0x171e
+    cmp word [bx + saved_screen_kind], byte 3 ; 0x171e
     jne short @..draw_restore_saved_screen.l5 ; 0x1723
     mov ax, 0x14                     ; 0x1725
     imul word [bp + 0x4]             ; 0x1728
-    add ax, strict word bss_5b7c     ; 0x172b
+    add ax, strict word saved_screen_file ; 0x172b
     push ax                          ; 0x172e
     call aztec_unlink                ; 0x172f
     pop cx                           ; 0x1732
@@ -63,6 +63,6 @@ draw_restore_saved_screen: ; Aztec csav frame=0x0002
     mov ax, word [bp + 0x4]          ; 0x1733
     shl ax, 1                        ; 0x1736
     mov bx, ax                       ; 0x1738
-    mov word [bx + bss_5b72], 0xffff ; 0x173a
+    mov word [bx + saved_screen_kind], 0xffff ; 0x173a
 @..draw_restore_saved_screen.l6:
     ret                              ; 0x1740

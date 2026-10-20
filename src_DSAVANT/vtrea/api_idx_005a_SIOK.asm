@@ -6,7 +6,7 @@ api_idx_005a_SIOK:
     je short @..api_idx_005a_SIOK.l1 ; 0x1105
     mov ax, 0x64                     ; 0x1107
     push ax                          ; 0x110a
-    call ds_app_PUNN                 ; 0x110b
+    call random_below                ; 0x110b
     pop cx                           ; 0x110e
     push ax                          ; 0x110f
     mov ax, 0x248                    ; 0x1110

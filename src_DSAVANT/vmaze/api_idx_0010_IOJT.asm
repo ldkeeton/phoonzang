@@ -204,7 +204,7 @@ api_idx_0010_IOJT:
     jle short @..api_idx_0010_IOJT.l12 ; 0x9c6d
     mov ax, 5                        ; 0x9c6f
     push ax                          ; 0x9c72
-    call ds_app_PUNN                 ; 0x9c73
+    call random_below                ; 0x9c73
     pop cx                           ; 0x9c76
     push ax                          ; 0x9c77
     push word [bp + 0x6]             ; 0x9c78
@@ -213,7 +213,7 @@ api_idx_0010_IOJT:
     add sp, byte 6                   ; 0x9c81
     mov ax, 5                        ; 0x9c84
     push ax                          ; 0x9c87
-    call ds_app_PUNN                 ; 0x9c88
+    call random_below                ; 0x9c88
     pop cx                           ; 0x9c8b
     push ax                          ; 0x9c8c
     push word [bp + 0x4]             ; 0x9c8d
@@ -270,7 +270,7 @@ api_idx_0010_IOJT:
     jge short @..api_idx_0010_IOJT.l13 ; 0x9d14
     mov ax, 3                        ; 0x9d16
     push ax                          ; 0x9d19
-    call ds_app_PUNN                 ; 0x9d1a
+    call random_below                ; 0x9d1a
     pop cx                           ; 0x9d1d
     test ax, ax                      ; 0x9d1e
     jne short @..api_idx_0010_IOJT.l13 ; 0x9d20
@@ -291,7 +291,7 @@ api_idx_0010_IOJT:
     jg short @..api_idx_0010_IOJT.l15 ; 0x9d46
     mov ax, 0xa                      ; 0x9d48
     push ax                          ; 0x9d4b
-    call ds_app_PUNN                 ; 0x9d4c
+    call random_below                ; 0x9d4c
     pop cx                           ; 0x9d4f
     inc ax                           ; 0x9d50
     cmp ax, word [bp - 0x000e]       ; 0x9d51
@@ -363,7 +363,7 @@ api_idx_0010_IOJT:
     jg short @..api_idx_0010_IOJT.l20 ; 0x9deb
     mov ax, 0xa                      ; 0x9ded
     push ax                          ; 0x9df0
-    call ds_app_PUNN                 ; 0x9df1
+    call random_below                ; 0x9df1
     pop cx                           ; 0x9df4
     inc ax                           ; 0x9df5
     cmp ax, word [bp - 0x0010]       ; 0x9df6

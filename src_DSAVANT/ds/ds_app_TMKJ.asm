@@ -30,7 +30,7 @@ ds_app_TMKJ: ; Aztec csav frame=0x0000
     add sp, byte 0x0e                ; 0x0d6b
     mov ax, 0x59fe                   ; 0x0d6e
     push ax                          ; 0x0d71
-    call ds_app_io_UHMG              ; 0x0d72
+    call ds_app_UHMG                 ; 0x0d72
     pop cx                           ; 0x0d75
     mov ax, word [bss_5b3e]          ; 0x0d76
     ret                              ; 0x0d79

@@ -34,7 +34,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x41cd
     mov ax, 1                        ; 0x41ce
     push ax                          ; 0x41d1
-    call ds_app_file_MPPM            ; 0x41d2
+    call data_record_io              ; 0x41d2
     add sp, byte 8                   ; 0x41d5
     mov ax, 0x248                    ; 0x41d8
     imul word [bp + 0x4]             ; 0x41db
@@ -251,7 +251,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x43c9
     mov ax, 1                        ; 0x43ca
     push ax                          ; 0x43cd
-    call ds_app_file_MPPM            ; 0x43ce
+    call data_record_io              ; 0x43ce
     add sp, byte 8                   ; 0x43d1
     cmp word [bp - 0x002a], byte 0   ; 0x43d4
     jne short @..api_idx_0094_LUVH.l16 ; 0x43d8

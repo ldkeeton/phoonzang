@@ -30,7 +30,7 @@ api_idx_0004_OIGN:
 @..api_idx_0004_OIGN.l4:
     mov ax, 0xa                      ; 0x09c8
     push ax                          ; 0x09cb
-    call ds_leaf_loc_UJPS            ; 0x09cc
+    call delay_ticks                 ; 0x09cc
     pop cx                           ; 0x09cf
     jmp short @..api_idx_0004_OIGN.l1 ; 0x09d0
 @..api_idx_0004_OIGN.l5:

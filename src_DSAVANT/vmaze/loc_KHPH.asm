@@ -4,7 +4,7 @@ loc_KHPH:
     call aztec_csav                  ; 0xa218
     mov ax, 3                        ; 0xa21b
     push ax                          ; 0xa21e
-    call ds_app_PUNN                 ; 0xa21f
+    call random_below                ; 0xa21f
     pop cx                           ; 0xa222
     test ax, ax                      ; 0xa223
     jne short @..loc_KHPH.l1         ; 0xa225
@@ -18,7 +18,7 @@ loc_KHPH:
     add sp, byte 8                   ; 0xa238
     mov ax, 0xf                      ; 0xa23b
     push ax                          ; 0xa23e
-    call ds_app_PUNN                 ; 0xa23f
+    call random_below                ; 0xa23f
     pop cx                           ; 0xa242
     add ax, strict word 0xfffb       ; 0xa243
     push ax                          ; 0xa246
@@ -28,7 +28,7 @@ loc_KHPH:
     add sp, byte 6                   ; 0xa250
     mov ax, 0xf                      ; 0xa253
     push ax                          ; 0xa256
-    call ds_app_PUNN                 ; 0xa257
+    call random_below                ; 0xa257
     pop cx                           ; 0xa25a
     add ax, strict word 0xfffb       ; 0xa25b
     push ax                          ; 0xa25e

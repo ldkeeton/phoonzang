@@ -11,7 +11,7 @@ loc_SIKN:
     mov al, byte [bx + 0x5d6c]
     sub ah, ah
     push ax
-    call ds_app_PUNN
+    call random_below
     pop cx
     push ax
     mov ax, 0x248

@@ -35,7 +35,7 @@ api_idx_004e_PHKR:
     push ax                          ; 0x5bc2
     mov ax, 1                        ; 0x5bc3
     push ax                          ; 0x5bc6
-    call ds_app_file_MPPM            ; 0x5bc7
+    call data_record_io              ; 0x5bc7
     add sp, byte 8                   ; 0x5bca
     push word [bp - 0x0002]          ; 0x5bcd
     call loc_GMVH                    ; 0x5bd0
@@ -101,7 +101,7 @@ api_idx_004e_PHKR:
 @..api_idx_004e_PHKR.l4:
     mov ax, 5                        ; 0x5c54
     push ax                          ; 0x5c57
-    call ds_app_PUNN                 ; 0x5c58
+    call random_below                ; 0x5c58
     pop cx                           ; 0x5c5b
     add ax, strict word 5            ; 0x5c5c
     push ax                          ; 0x5c5f

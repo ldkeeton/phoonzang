@@ -72,7 +72,7 @@ api_idx_001e_GOQP:
     jne short @..api_idx_001e_GOQP.l6 ; 0x7160
     mov ax, 0x1d                     ; 0x7162
     push ax                          ; 0x7165
-    call ds_app_UKIP                 ; 0x7166
+    call fatal_error                 ; 0x7166
     pop cx                           ; 0x7169
 @..api_idx_001e_GOQP.l6:
     mov ax, word [bp - 0x0002]       ; 0x716a
@@ -175,7 +175,7 @@ api_idx_001e_GOQP:
     push ax                          ; 0x727e
     mov ax, 5                        ; 0x727f
     push ax                          ; 0x7282
-    call ds_app_file_MPPM            ; 0x7283
+    call data_record_io              ; 0x7283
     add sp, byte 8                   ; 0x7286
     mov ax, 2                        ; 0x7289
     push ax                          ; 0x728c

@@ -9,7 +9,7 @@ api_idx_004c_RQSO:
     push ax
     mov ax, 1
     push ax
-    call ds_app_file_MPPM
+    call data_record_io
     add sp, byte 8
     cmp word [bp + 0xa], byte 0xfe
     jne short @..api_idx_004c_RQSO.l1

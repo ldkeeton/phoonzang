@@ -161,7 +161,7 @@ api_idx_001e_KGSI:
     cmp word [bp - 0x001c], byte 1   ; 0x71bc
     jne short @..api_idx_001e_KGSI.l12 ; 0x71c0
     push word [bp - 0x0012]          ; 0x71c2
-    call ds_app_PUNN                 ; 0x71c5
+    call random_below                ; 0x71c5
     pop cx                           ; 0x71c8
     inc ax                           ; 0x71c9
     push ax                          ; 0x71ca

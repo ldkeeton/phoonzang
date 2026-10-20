@@ -8,8 +8,8 @@ ds_loc_JRJK:
     push es                          ; 0x3ba9
     mov ax, ds                       ; 0x3baa
     mov es, ax                       ; 0x3bac
-    call ds_leaf_loc_MPVL            ; 0x3bae
-    mov ax, word [cs:cseg_30dc - IMAGE_BASE] ; 0x3bb1
+    call stir_random_seeds           ; 0x3bae
+    mov ax, word [cs:random_seed_a - IMAGE_BASE] ; 0x3bb1
     xor dx, dx                       ; 0x3bb5
     mov bx, 0x763d                   ; 0x3bb7
     div bx                           ; 0x3bba
@@ -19,7 +19,7 @@ ds_loc_JRJK:
     div bx                           ; 0x3bc4
     and ax, 0x7fff                   ; 0x3bc6
     mov cx, ax                       ; 0x3bc9
-    mov ax, word [cs:cseg_30de - IMAGE_BASE] ; 0x3bcb
+    mov ax, word [cs:random_seed_b - IMAGE_BASE] ; 0x3bcb
     xor dx, dx                       ; 0x3bcf
     mov bx, 0x7663                   ; 0x3bd1
     div bx                           ; 0x3bd4
@@ -30,7 +30,7 @@ ds_loc_JRJK:
     and ax, 0x7fff                   ; 0x3be0
     add cx, ax                       ; 0x3be3
     and cx, strict word 0x7fff       ; 0x3be5
-    mov ax, word [cs:cseg_30e0 - IMAGE_BASE] ; 0x3be9
+    mov ax, word [cs:random_seed_c - IMAGE_BASE] ; 0x3be9
     xor dx, dx                       ; 0x3bed
     mov bx, 0x7673                   ; 0x3bef
     div bx                           ; 0x3bf2

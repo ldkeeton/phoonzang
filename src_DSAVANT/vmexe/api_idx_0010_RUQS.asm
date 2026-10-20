@@ -71,7 +71,7 @@ api_idx_0010_RUQS:
 @..api_idx_0010_RUQS.l5:
     mov ax, 0x64                     ; 0x2f02
     push ax                          ; 0x2f05
-    call ds_app_PUNN                 ; 0x2f06
+    call random_below                ; 0x2f06
     pop cx                           ; 0x2f09
     push ax                          ; 0x2f0a
     mov ax, word [bp + 0x4]          ; 0x2f0b

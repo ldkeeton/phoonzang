@@ -42,7 +42,7 @@ api_idx_0006_OUPU:
     jae short @..api_idx_0006_OUPU.l5 ; 0x5579
     mov ax, 0xc8                     ; 0x557b
     push ax                          ; 0x557e
-    call ds_app_PUNN                 ; 0x557f
+    call random_below                ; 0x557f
     pop cx                           ; 0x5582
     push ax                          ; 0x5583
     mov ax, 0x248                    ; 0x5584

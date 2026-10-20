@@ -7,5 +7,5 @@ ds_leaf_loc_OIUO:
     mov ax, word [es:bx]             ; 0x30eb
     pop es                           ; 0x30ee
     add ax, strict word 2            ; 0x30ef
-    mov word [cs:cseg_30de - IMAGE_BASE], ax ; 0x30f2
+    mov word [cs:random_seed_b - IMAGE_BASE], ax ; 0x30f2
     ret                              ; 0x30f6

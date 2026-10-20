@@ -79,7 +79,7 @@ api_idx_000e_HLRI:
     add ax, cx                       ; 0x606a
     inc ax                           ; 0x606c
     push ax                          ; 0x606d
-    call ds_app_PUNN                 ; 0x606e
+    call random_below                ; 0x606e
     pop cx                           ; 0x6071
     push ax                          ; 0x6072
     mov ax, word [bss_8464]          ; 0x6073
@@ -158,7 +158,7 @@ api_idx_000e_HLRI:
 @..api_idx_000e_HLRI.l6:
     mov ax, 0x64                     ; 0x6123
     push ax                          ; 0x6126
-    call ds_app_PUNN                 ; 0x6127
+    call random_below                ; 0x6127
     pop cx                           ; 0x612a
     cmp ax, word [bp - 0x000e]       ; 0x612b
     jle short @..api_idx_000e_HLRI.l8 ; 0x612e
@@ -166,7 +166,7 @@ api_idx_000e_HLRI:
     je short @..api_idx_000e_HLRI.l7 ; 0x6135
     mov ax, 0x24                     ; 0x6137
     push ax                          ; 0x613a
-    call ds_app_PUNN                 ; 0x613b
+    call random_below                ; 0x613b
     pop cx                           ; 0x613e
     push ax                          ; 0x613f
     mov ax, 0x248                    ; 0x6140
@@ -212,7 +212,7 @@ api_idx_000e_HLRI:
     mov word [bp - 0x000e], ax       ; 0x61a6
     mov ax, 0x64                     ; 0x61a9
     push ax                          ; 0x61ac
-    call ds_app_PUNN                 ; 0x61ad
+    call random_below                ; 0x61ad
     pop cx                           ; 0x61b0
     mov cx, ax                       ; 0x61b1
     mov ax, word [bp - 0x000e]       ; 0x61b3
@@ -222,7 +222,7 @@ api_idx_000e_HLRI:
     je short @..api_idx_000e_HLRI.l10 ; 0x61bf
     mov ax, 7                        ; 0x61c1
     push ax                          ; 0x61c4
-    call ds_app_PUNN                 ; 0x61c5
+    call random_below                ; 0x61c5
     pop cx                           ; 0x61c8
     test ax, ax                      ; 0x61c9
     jne short @..api_idx_000e_HLRI.l10 ; 0x61cb
@@ -382,7 +382,7 @@ api_idx_000e_HLRI:
     sub word [bx + 0x5c1c], ax       ; 0x6351
 @..api_idx_000e_HLRI.l23:
     push word [bp - 0x0004]          ; 0x6355
-    call ds_app_PUNN                 ; 0x6358
+    call random_below                ; 0x6358
     pop cx                           ; 0x635b
     push ax                          ; 0x635c
     mov ax, 6                        ; 0x635d

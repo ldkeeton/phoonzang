@@ -79,7 +79,7 @@ api_idx_00ac_OJJU:
     push ax                          ; 0x7a58
     mov ax, 2                        ; 0x7a59
     push ax                          ; 0x7a5c
-    call ds_app_PUNN                 ; 0x7a5d
+    call random_below                ; 0x7a5d
     pop cx                           ; 0x7a60
     add ax, 0xd39                    ; 0x7a61
     push ax                          ; 0x7a64
@@ -106,7 +106,7 @@ api_idx_00ac_OJJU:
     push ax                          ; 0x7a95
     mov ax, 1                        ; 0x7a96
     push ax                          ; 0x7a99
-    call ds_app_file_MPPM            ; 0x7a9a
+    call data_record_io              ; 0x7a9a
     add sp, byte 8                   ; 0x7a9d
     mov ax, 0x248                    ; 0x7aa0
     imul word [bss_8462]             ; 0x7aa3
@@ -322,7 +322,7 @@ jumptable_7c0e_case_32:
     push ax                          ; 0x7c95
     mov ax, 2                        ; 0x7c96
     push ax                          ; 0x7c99
-    call ds_app_PUNN                 ; 0x7c9a
+    call random_below                ; 0x7c9a
     pop cx                           ; 0x7c9d
     add ax, 0xd39                    ; 0x7c9e
     push ax                          ; 0x7ca1
@@ -1451,7 +1451,7 @@ jumptable_8145:
     sub ah, ah                       ; 0x878f
     sub ax, cx                       ; 0x8791
     push ax                          ; 0x8793
-    call ds_app_PUNN                 ; 0x8794
+    call random_below                ; 0x8794
     pop cx                           ; 0x8797
     inc ax                           ; 0x8798
     mov word [bp - 0x0064], ax       ; 0x8799
@@ -1890,7 +1890,7 @@ jumptable_883a:
     jne short @..api_idx_00ac_OJJU.l114 ; 0x8bd9
     mov ax, 0x64                     ; 0x8bdb
     push ax                          ; 0x8bde
-    call ds_app_PUNN                 ; 0x8bdf
+    call random_below                ; 0x8bdf
     pop cx                           ; 0x8be2
 @..api_idx_00ac_OJJU.l114:
     mov word [bp - 0x0060], ax       ; 0x8be3
@@ -1963,7 +1963,7 @@ jumptable_883a:
     je short @..api_idx_00ac_OJJU.l119 ; 0x8c88
     mov ax, 8                        ; 0x8c8a
     push ax                          ; 0x8c8d
-    call ds_app_PUNN                 ; 0x8c8e
+    call random_below                ; 0x8c8e
     pop cx                           ; 0x8c91
     mov cx, ax                       ; 0x8c92
     mov ax, 3                        ; 0x8c94
@@ -1984,7 +1984,7 @@ jumptable_883a:
     jne short @..api_idx_00ac_OJJU.l121 ; 0x8cb7
     mov ax, 0x64                     ; 0x8cb9
     push ax                          ; 0x8cbc
-    call ds_app_PUNN                 ; 0x8cbd
+    call random_below                ; 0x8cbd
     pop cx                           ; 0x8cc0
     push ax                          ; 0x8cc1
     mov ax, word [bp - 0x004e]       ; 0x8cc2
@@ -2185,7 +2185,7 @@ jumptable_883a:
     mov byte [bx + si + 0x10], 0     ; 0x8ea0
     mov ax, 3                        ; 0x8ea4
     push ax                          ; 0x8ea7
-    call ds_app_PUNN                 ; 0x8ea8
+    call random_below                ; 0x8ea8
     pop cx                           ; 0x8eab
     mov cx, ax                       ; 0x8eac
     inc ax                           ; 0x8eae
@@ -2245,7 +2245,7 @@ jumptable_883a:
     jne short @..api_idx_00ac_OJJU.l135 ; 0x8f34
     mov ax, 3                        ; 0x8f36
     push ax                          ; 0x8f39
-    call ds_app_PUNN                 ; 0x8f3a
+    call random_below                ; 0x8f3a
     pop cx                           ; 0x8f3d
     cmp ax, strict word 0            ; 0x8f3e
     jle short @..api_idx_00ac_OJJU.l135 ; 0x8f41
@@ -2295,7 +2295,7 @@ jumptable_883a:
     mov bx, ax                       ; 0x8fa9
     mov bx, word [bx + party_char]   ; 0x8fab
     push word [bx + si]              ; 0x8faf
-    call ds_app_PUNN                 ; 0x8fb1
+    call random_below                ; 0x8fb1
     pop cx                           ; 0x8fb4
     test ax, ax                      ; 0x8fb5
     jne short @..api_idx_00ac_OJJU.l138 ; 0x8fb7

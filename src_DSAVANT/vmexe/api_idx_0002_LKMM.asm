@@ -32,7 +32,7 @@ api_idx_0002_LKMM:
     mov ax, word [bp - 0x0002]       ; 0x1f4c
     inc ax                           ; 0x1f4f
     push ax                          ; 0x1f50
-    call ds_app_PUNN                 ; 0x1f51
+    call random_below                ; 0x1f51
     pop cx                           ; 0x1f54
     mov cx, ax                       ; 0x1f55
     mov ax, word [bp + 0x6]          ; 0x1f57

@@ -61,7 +61,7 @@ api_idx_0004_GKHR:
     call api_idx_0008_HJOM           ; 0x4b66
     add sp, byte 8                   ; 0x4b69
     push word [bp - 0x0004]          ; 0x4b6c
-    call ds_app_PUNN                 ; 0x4b6f
+    call random_below                ; 0x4b6f
     pop cx                           ; 0x4b72
     push ax                          ; 0x4b73
     mov ax, 6                        ; 0x4b74
@@ -84,7 +84,7 @@ api_idx_0004_GKHR:
     mov word [bx + 0x5c10], 0        ; 0x4b9f
     mov ax, 6                        ; 0x4ba5
     push ax                          ; 0x4ba8
-    call ds_app_PUNN                 ; 0x4ba9
+    call random_below                ; 0x4ba9
     pop cx                           ; 0x4bac
     add ax, strict word 6            ; 0x4bad
     push ax                          ; 0x4bb0

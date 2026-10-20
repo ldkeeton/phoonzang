@@ -89,7 +89,7 @@ api_idx_000e_NSGM:
     jne short @..api_idx_000e_NSGM.l9 ; 0x1704
     mov ax, 0x64                     ; 0x1706
     push ax                          ; 0x1709
-    call ds_app_PUNN                 ; 0x170a
+    call random_below                ; 0x170a
     pop cx                           ; 0x170d
     push ax                          ; 0x170e
     mov ax, 0x248                    ; 0x170f
@@ -107,7 +107,7 @@ api_idx_000e_NSGM:
     push ax                          ; 0x172b
     mov ax, 5                        ; 0x172c
     push ax                          ; 0x172f
-    call ds_app_PUNN                 ; 0x1730
+    call random_below                ; 0x1730
     pop cx                           ; 0x1733
     push ax                          ; 0x1734
     mov ax, 0x248                    ; 0x1735

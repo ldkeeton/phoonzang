@@ -211,11 +211,11 @@ api_idx_0012_GQSK:
     or word [bp - 0x0008], ax        ; 0x070c
     mov ax, 0x14                     ; 0x070f
     push ax                          ; 0x0712
-    call ds_leaf_loc_UJPS            ; 0x0713
+    call delay_ticks                 ; 0x0713
     pop cx                           ; 0x0716
     mov ax, 0x59fe                   ; 0x0717
     push ax                          ; 0x071a
-    call ds_app_io_UHMG              ; 0x071b
+    call ds_app_UHMG                 ; 0x071b
     pop cx                           ; 0x071e
     dec ax                           ; 0x071f
     mov word [bp - 0x0004], ax       ; 0x0720

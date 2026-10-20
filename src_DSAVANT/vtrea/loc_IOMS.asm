@@ -273,7 +273,7 @@ loc_IOMS:
 @..loc_IOMS.l10:
     mov ax, 0x59fe                   ; 0x86b8
     push ax                          ; 0x86bb
-    call ds_app_io_UHMG              ; 0x86bc
+    call ds_app_UHMG                 ; 0x86bc
     pop cx                           ; 0x86bf
     mov word [bp - 0x0004], ax       ; 0x86c0
     cmp word [bss_5b3e], byte 0      ; 0x86c3
@@ -352,7 +352,7 @@ loc_IOMS:
 @..loc_IOMS.l14:
     mov ax, 1                        ; 0x8770
     push ax                          ; 0x8773
-    call dos_con_in_noecho           ; 0x8774
+    call poll_filtered_key           ; 0x8774
     pop cx                           ; 0x8777
     test ax, ax                      ; 0x8778
     jne short @..loc_IOMS.l15        ; 0x877a

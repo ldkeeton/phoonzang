@@ -273,7 +273,7 @@ loc_UGOG:
 @..loc_UGOG.l10:
     mov ax, 0x59fe                   ; 0x1f17
     push ax                          ; 0x1f1a
-    call ds_app_io_UHMG              ; 0x1f1b
+    call ds_app_UHMG                 ; 0x1f1b
     pop cx                           ; 0x1f1e
     mov word [bp - 0x0004], ax       ; 0x1f1f
     cmp word [bss_5b3e], byte 0      ; 0x1f22
@@ -348,7 +348,7 @@ loc_UGOG:
 @..loc_UGOG.l13:
     mov ax, 1                        ; 0x1fc5
     push ax                          ; 0x1fc8
-    call dos_con_in_noecho           ; 0x1fc9
+    call poll_filtered_key           ; 0x1fc9
     pop cx                           ; 0x1fcc
     test ax, ax                      ; 0x1fcd
     jne short @..loc_UGOG.l14        ; 0x1fcf

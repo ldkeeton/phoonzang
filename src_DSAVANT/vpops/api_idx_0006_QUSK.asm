@@ -6,7 +6,7 @@ api_idx_0006_QUSK:
     mov word [bp - 0x0006], 0        ; 0x36cb
     mov ax, 8                        ; 0x36d0
     push ax                          ; 0x36d3
-    call ds_app_PUNN                 ; 0x36d4
+    call random_below                ; 0x36d4
     pop cx                           ; 0x36d7
     inc ax                           ; 0x36d8
     mov word [bp - 0x0004], ax       ; 0x36d9

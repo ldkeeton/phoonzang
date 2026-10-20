@@ -17,7 +17,7 @@ api_idx_0016_TVKP:
     push ax                          ; 0x9454
     lea ax, word [bp - 0x0016]       ; 0x9455
     push ax                          ; 0x9458
-    call ds_app_string_UUHT          ; 0x9459
+    call data_file_path              ; 0x9459
     add sp, byte 4                   ; 0x945c
     push ax                          ; 0x945f
     call aztec_open                  ; 0x9460
@@ -27,7 +27,7 @@ api_idx_0016_TVKP:
     jne short @..api_idx_0016_TVKP.l1 ; 0x946c
     mov ax, 0x13                     ; 0x946e
     push ax                          ; 0x9471
-    call ds_app_UKIP                 ; 0x9472
+    call fatal_error                 ; 0x9472
     pop cx                           ; 0x9475
 @..api_idx_0016_TVKP.l1:
     push word [bp + 0x6]             ; 0x9476

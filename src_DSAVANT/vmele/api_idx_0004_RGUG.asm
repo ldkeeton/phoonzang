@@ -31,7 +31,7 @@ api_idx_0004_RGUG:
 @..api_idx_0004_RGUG.l4:
     mov ax, 1                        ; 0x0145
     push ax                          ; 0x0148
-    call dos_con_in_noecho           ; 0x0149
+    call poll_filtered_key           ; 0x0149
     pop cx                           ; 0x014c
     test ax, ax                      ; 0x014d
     je short @..api_idx_0004_RGUG.l5 ; 0x014f

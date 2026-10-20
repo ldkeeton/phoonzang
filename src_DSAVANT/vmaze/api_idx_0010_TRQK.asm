@@ -50,7 +50,7 @@ api_idx_0010_TRQK:
     jle short @..api_idx_0010_TRQK.l3 ; 0xa354
     mov ax, 4                        ; 0xa356
     push ax                          ; 0xa359
-    call ds_app_PUNN                 ; 0xa35a
+    call random_below                ; 0xa35a
     pop cx                           ; 0xa35d
     test ax, ax                      ; 0xa35e
     jne short @..api_idx_0010_TRQK.l3 ; 0xa360
@@ -68,7 +68,7 @@ api_idx_0010_TRQK:
     mov word [bp - 0x000a], ax       ; 0xa37f
     mov ax, 0x64                     ; 0xa382
     push ax                          ; 0xa385
-    call ds_app_PUNN                 ; 0xa386
+    call random_below                ; 0xa386
     pop cx                           ; 0xa389
     mov cx, ax                       ; 0xa38a
     add ax, strict word 0xff9c       ; 0xa38c
@@ -78,7 +78,7 @@ api_idx_0010_TRQK:
     jle short @..api_idx_0010_TRQK.l3 ; 0xa396
     mov ax, 4                        ; 0xa398
     push ax                          ; 0xa39b
-    call ds_app_PUNN                 ; 0xa39c
+    call random_below                ; 0xa39c
     pop cx                           ; 0xa39f
     test ax, ax                      ; 0xa3a0
     jne short @..api_idx_0010_TRQK.l3 ; 0xa3a2
@@ -132,7 +132,7 @@ api_idx_0010_TRQK:
 @..api_idx_0010_TRQK.l9:
     mov ax, 4                        ; 0xa41b
     push ax                          ; 0xa41e
-    call ds_app_PUNN                 ; 0xa41f
+    call random_below                ; 0xa41f
     pop cx                           ; 0xa422
     test ax, ax                      ; 0xa423
     je short @..api_idx_0010_TRQK.l10 ; 0xa425
@@ -160,7 +160,7 @@ api_idx_0010_TRQK:
     mov word [bp - 0x000e], ax       ; 0xa458
     mov ax, 0xa                      ; 0xa45b
     push ax                          ; 0xa45e
-    call ds_app_PUNN                 ; 0xa45f
+    call random_below                ; 0xa45f
     pop cx                           ; 0xa462
     mov cx, ax                       ; 0xa463
     add ax, strict word 0x19         ; 0xa465
@@ -177,7 +177,7 @@ api_idx_0010_TRQK:
 @..api_idx_0010_TRQK.l11:
     mov ax, 0x19                     ; 0xa481
     push ax                          ; 0xa484
-    call ds_app_PUNN                 ; 0xa485
+    call random_below                ; 0xa485
     pop cx                           ; 0xa488
     mov cx, ax                       ; 0xa489
     mov ax, 0x26                     ; 0xa48b
@@ -200,7 +200,7 @@ api_idx_0010_TRQK:
     jl short @..api_idx_0010_TRQK.l15 ; 0xa4b3
     mov ax, 3                        ; 0xa4b5
     push ax                          ; 0xa4b8
-    call ds_app_PUNN                 ; 0xa4b9
+    call random_below                ; 0xa4b9
     pop cx                           ; 0xa4bc
     test ax, ax                      ; 0xa4bd
     je short @..api_idx_0010_TRQK.l14 ; 0xa4bf
@@ -231,7 +231,7 @@ api_idx_0010_TRQK:
     jne short @..api_idx_0010_TRQK.l12 ; 0xa4fc
     mov ax, 3                        ; 0xa4fe
     push ax                          ; 0xa501
-    call ds_app_PUNN                 ; 0xa502
+    call random_below                ; 0xa502
     pop cx                           ; 0xa505
     test ax, ax                      ; 0xa506
     jne short @..api_idx_0010_TRQK.l13 ; 0xa508
@@ -249,7 +249,7 @@ api_idx_0010_TRQK:
     add sp, byte 4                   ; 0xa51c
     mov ax, 5                        ; 0xa51f
     push ax                          ; 0xa522
-    call ds_app_PUNN                 ; 0xa523
+    call random_below                ; 0xa523
     pop cx                           ; 0xa526
     test ax, ax                      ; 0xa527
     jne short @..api_idx_0010_TRQK.l16 ; 0xa529
@@ -260,7 +260,7 @@ api_idx_0010_TRQK:
 @..api_idx_0010_TRQK.l16:
     mov ax, 3                        ; 0xa538
     push ax                          ; 0xa53b
-    call ds_app_PUNN                 ; 0xa53c
+    call random_below                ; 0xa53c
     pop cx                           ; 0xa53f
     test ax, ax                      ; 0xa540
     jne short @..api_idx_0010_TRQK.l17 ; 0xa542

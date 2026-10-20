@@ -68,7 +68,7 @@ api_idx_004a_LKJS:
     jne short @..api_idx_004a_LKJS.l12 ; 0x6ad6
     mov ax, 0x15                     ; 0x6ad8
     push ax                          ; 0x6adb
-    call ds_app_UKIP                 ; 0x6adc
+    call fatal_error                 ; 0x6adc
     pop cx                           ; 0x6adf
 @..api_idx_004a_LKJS.l12:
     lea ax, word [bp - 0x0022]       ; 0x6ae0

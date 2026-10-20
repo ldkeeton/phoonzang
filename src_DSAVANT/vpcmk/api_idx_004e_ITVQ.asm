@@ -9,7 +9,7 @@ api_idx_004e_ITVQ:
     push ax                          ; 0x4b15
     mov ax, 1                        ; 0x4b16
     push ax                          ; 0x4b19
-    call ds_app_file_MPPM            ; 0x4b1a
+    call data_record_io              ; 0x4b1a
     add sp, byte 8                   ; 0x4b1d
     mov word [bp - 0x0002], 0        ; 0x4b20
 @..api_idx_004e_ITVQ.l1:

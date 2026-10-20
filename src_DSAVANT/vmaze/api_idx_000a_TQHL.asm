@@ -15,7 +15,7 @@ api_idx_000a_TQHL:
 @..api_idx_000a_TQHL.l2:
     mov ax, 0x64                     ; 0x197e
     push ax                          ; 0x1981
-    call ds_app_PUNN                 ; 0x1982
+    call random_below                ; 0x1982
     pop cx                           ; 0x1985
     test ax, ax                      ; 0x1986
     je short @..api_idx_000a_TQHL.l3 ; 0x1988
@@ -23,7 +23,7 @@ api_idx_000a_TQHL:
 @..api_idx_000a_TQHL.l3:
     mov ax, 6                        ; 0x198d
     push ax                          ; 0x1990
-    call ds_app_PUNN                 ; 0x1991
+    call random_below                ; 0x1991
     pop cx                           ; 0x1994
     jmp short @..api_idx_000a_TQHL.l4 ; 0x1995
 jumptable_19c1_case_0:
@@ -67,7 +67,7 @@ jumptable_19c1:
     jne short @..api_idx_000a_TQHL.l6 ; 0x19ee
     mov ax, 2                        ; 0x19f0
     push ax                          ; 0x19f3
-    call ds_app_PUNN                 ; 0x19f4
+    call random_below                ; 0x19f4
     pop cx                           ; 0x19f7
     push ax                          ; 0x19f8
     mov ax, 0x248                    ; 0x19f9
@@ -83,12 +83,12 @@ jumptable_19c1:
 @..api_idx_000a_TQHL.l6:
     mov ax, 7                        ; 0x1a11
     push ax                          ; 0x1a14
-    call ds_app_PUNN                 ; 0x1a15
+    call random_below                ; 0x1a15
     pop cx                           ; 0x1a18
     mov word [bp - 0x000a], ax       ; 0x1a19
     mov ax, 0xa                      ; 0x1a1c
     push ax                          ; 0x1a1f
-    call ds_app_PUNN                 ; 0x1a20
+    call random_below                ; 0x1a20
     pop cx                           ; 0x1a23
     test ax, ax                      ; 0x1a24
     jne short @..api_idx_000a_TQHL.l7 ; 0x1a26
@@ -102,7 +102,7 @@ jumptable_19c1:
 @..api_idx_000a_TQHL.l7:
     mov ax, 0xa                      ; 0x1a3e
     push ax                          ; 0x1a41
-    call ds_app_PUNN                 ; 0x1a42
+    call random_below                ; 0x1a42
     pop cx                           ; 0x1a45
     test ax, ax                      ; 0x1a46
     jne short @..api_idx_000a_TQHL.l8 ; 0x1a48
@@ -113,7 +113,7 @@ jumptable_19c1:
     jle short @..api_idx_000a_TQHL.l8 ; 0x1a57
     mov ax, 3                        ; 0x1a59
     push ax                          ; 0x1a5c
-    call ds_app_PUNN                 ; 0x1a5d
+    call random_below                ; 0x1a5d
     pop cx                           ; 0x1a60
     push ax                          ; 0x1a61
     mov ax, 0x248                    ; 0x1a62
@@ -160,7 +160,7 @@ jumptable_19c1:
     jmp near @..api_idx_000a_TQHL.l23 ; 0x1ac8
 @..api_idx_000a_TQHL.l11:
     push word [bp + 0x6]             ; 0x1acb
-    call ds_app_PUNN                 ; 0x1ace
+    call random_below                ; 0x1ace
     pop cx                           ; 0x1ad1
     push ax                          ; 0x1ad2
     mov ax, 0x248                    ; 0x1ad3
@@ -210,7 +210,7 @@ jumptable_19c1:
     mov word [bx + 0x5c10], 0        ; 0x1b43
     mov ax, 6                        ; 0x1b49
     push ax                          ; 0x1b4c
-    call ds_app_PUNN                 ; 0x1b4d
+    call random_below                ; 0x1b4d
     pop cx                           ; 0x1b50
     add ax, strict word 6            ; 0x1b51
     push ax                          ; 0x1b54
@@ -237,7 +237,7 @@ jumptable_19c1:
     cwd                              ; 0x1b8a
     idiv cx                          ; 0x1b8b
     push ax                          ; 0x1b8d
-    call ds_app_PUNN                 ; 0x1b8e
+    call random_below                ; 0x1b8e
     pop cx                           ; 0x1b91
     push ax                          ; 0x1b92
     mov ax, 0x248                    ; 0x1b93
@@ -311,7 +311,7 @@ jumptable_19c1:
     sub ah, ah                       ; 0x1c48
     inc ax                           ; 0x1c4a
     push ax                          ; 0x1c4b
-    call ds_app_PUNN                 ; 0x1c4c
+    call random_below                ; 0x1c4c
     pop cx                           ; 0x1c4f
     push ax                          ; 0x1c50
     mov ax, 0x248                    ; 0x1c51

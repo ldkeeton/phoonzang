@@ -32,7 +32,7 @@ api_idx_0004_QUPL:
 @..api_idx_0004_QUPL.l4:
     mov ax, 1                        ; 0x1aa8
     push ax                          ; 0x1aab
-    call dos_con_in_noecho           ; 0x1aac
+    call poll_filtered_key           ; 0x1aac
     pop cx                           ; 0x1aaf
     test ax, ax                      ; 0x1ab0
     je short @..api_idx_0004_QUPL.l5 ; 0x1ab2

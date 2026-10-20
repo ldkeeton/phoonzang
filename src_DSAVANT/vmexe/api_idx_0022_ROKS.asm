@@ -34,7 +34,7 @@ api_idx_0022_ROKS:
     cmp word [bp - 0x0008], byte 0   ; 0x2292
     jle short @..api_idx_0022_ROKS.l5 ; 0x2296
     push word [bp + 0xa]             ; 0x2298
-    call ds_app_PUNN                 ; 0x229b
+    call random_below                ; 0x229b
     pop cx                           ; 0x229e
     add ax, word [bp - 0x0002]       ; 0x229f
     inc ax                           ; 0x22a2
@@ -61,7 +61,7 @@ api_idx_0022_ROKS:
 @..api_idx_0022_ROKS.l7:
     mov ax, 0x64                     ; 0x22d1
     push ax                          ; 0x22d4
-    call ds_app_PUNN                 ; 0x22d5
+    call random_below                ; 0x22d5
     pop cx                           ; 0x22d8
     push ax                          ; 0x22d9
     mov ax, word [bp + 0x4]          ; 0x22da
@@ -175,7 +175,7 @@ api_idx_0022_ROKS:
     mov byte [bx + si + 0x10], 0     ; 0x23da
     mov ax, 3                        ; 0x23de
     push ax                          ; 0x23e1
-    call ds_app_PUNN                 ; 0x23e2
+    call random_below                ; 0x23e2
     pop cx                           ; 0x23e5
     mov cx, ax                       ; 0x23e6
     inc ax                           ; 0x23e8

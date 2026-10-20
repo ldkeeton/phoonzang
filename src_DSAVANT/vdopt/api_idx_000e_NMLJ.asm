@@ -52,13 +52,13 @@ api_idx_000e_NMLJ:
     mov ax, word [bp + 0x4]          ; 0x076e
     shl ax, 1                        ; 0x0771
     push ax                          ; 0x0773
-    call ds_app_PUNN                 ; 0x0774
+    call random_below                ; 0x0774
     pop cx                           ; 0x0777
     push ax                          ; 0x0778
     mov ax, word [bp + 0x4]          ; 0x0779
     shl ax, 1                        ; 0x077c
     push ax                          ; 0x077e
-    call ds_app_PUNN                 ; 0x077f
+    call random_below                ; 0x077f
     pop cx                           ; 0x0782
     mov cx, ax                       ; 0x0783
     pop ax                           ; 0x0785
@@ -67,7 +67,7 @@ api_idx_000e_NMLJ:
     mov ax, word [bp + 0x4]          ; 0x0789
     shl ax, 1                        ; 0x078c
     push ax                          ; 0x078e
-    call ds_app_PUNN                 ; 0x078f
+    call random_below                ; 0x078f
     pop cx                           ; 0x0792
     mov cx, ax                       ; 0x0793
     pop ax                           ; 0x0795

@@ -7,7 +7,7 @@ api_idx_0044_NJNI:
     mov ax, word [bp - 0x0002]       ; 0x1cad
     shl ax, 1                        ; 0x1cb0
     mov bx, ax                       ; 0x1cb2
-    mov word [bx + bss_830e], 0      ; 0x1cb4
+    mov word [bx + party_slot_frame], 0 ; 0x1cb4
     inc word [bp - 0x0002]           ; 0x1cba
     mov ax, word [bp - 0x0002]       ; 0x1cbd
     cmp ax, strict word 6            ; 0x1cc0
@@ -507,7 +507,7 @@ api_idx_0044_NJNI:
     add sp, byte 4                   ; 0x2161
     mov ax, 0x59fe                   ; 0x2164
     push ax                          ; 0x2167
-    call ds_app_io_UHMG              ; 0x2168
+    call ds_app_UHMG                 ; 0x2168
     pop cx                           ; 0x216b
     dec ax                           ; 0x216c
     mov word [bp - 0x001a], ax       ; 0x216d

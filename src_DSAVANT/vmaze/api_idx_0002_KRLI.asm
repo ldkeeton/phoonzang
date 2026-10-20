@@ -12,7 +12,7 @@ api_idx_0002_KRLI:
     mov al, byte [bx - 0x7b13]       ; 0xa9bf
     sub ah, ah                       ; 0xa9c3
     push ax                          ; 0xa9c5
-    call ds_app_PUNN                 ; 0xa9c6
+    call random_below                ; 0xa9c6
     pop cx                           ; 0xa9c9
     cmp ax, strict word 0x18         ; 0xa9ca
     jle short @..api_idx_0002_KRLI.l1 ; 0xa9cd
@@ -65,7 +65,7 @@ loc_OGGM:
     call aztec_csav                  ; 0xaa42
     mov ax, 0x10                     ; 0xaa45
     push ax                          ; 0xaa48
-    call ds_app_PUNN                 ; 0xaa49
+    call random_below                ; 0xaa49
     pop cx                           ; 0xaa4c
     push ax                          ; 0xaa4d
     mov ax, 0x26                     ; 0xaa4e
@@ -78,7 +78,7 @@ loc_OGGM:
     jne short @..loc_OGGM.l2         ; 0xaa63
     mov ax, 0xa                      ; 0xaa65
     push ax                          ; 0xaa68
-    call ds_app_PUNN                 ; 0xaa69
+    call random_below                ; 0xaa69
     pop cx                           ; 0xaa6c
     test ax, ax                      ; 0xaa6d
     jne short @..loc_OGGM.l2         ; 0xaa6f
@@ -89,7 +89,7 @@ loc_OGGM:
     mov byte [bx - 0x7b00], al       ; 0xaa7d
     mov ax, 0xa                      ; 0xaa81
     push ax                          ; 0xaa84
-    call ds_app_PUNN                 ; 0xaa85
+    call random_below                ; 0xaa85
     pop cx                           ; 0xaa88
     test ax, ax                      ; 0xaa89
     jne short @..loc_OGGM.l1         ; 0xaa8b

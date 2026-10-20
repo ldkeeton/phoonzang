@@ -33,7 +33,7 @@ api_idx_0008_HUTJ:
     mov ax, word [bp + 0x8]          ; 0x3947
     inc ax                           ; 0x394a
     push ax                          ; 0x394b
-    call ds_app_PUNN                 ; 0x394c
+    call random_below                ; 0x394c
     pop cx                           ; 0x394f
     test ax, ax                      ; 0x3950
     jne short @..api_idx_0008_HUTJ.l3 ; 0x3952
@@ -102,7 +102,7 @@ api_idx_0008_HUTJ:
     pop ax                           ; 0x39dc
     add ax, cx                       ; 0x39dd
     push ax                          ; 0x39df
-    call ds_app_PUNN                 ; 0x39e0
+    call random_below                ; 0x39e0
     pop cx                           ; 0x39e3
     add ax, word [bp + 0x8]          ; 0x39e4
     push ax                          ; 0x39e7
@@ -139,7 +139,7 @@ api_idx_0008_HUTJ:
 @..api_idx_0008_HUTJ.l7:
     mov ax, 2                        ; 0x3a27
     push ax                          ; 0x3a2a
-    call ds_app_PUNN                 ; 0x3a2b
+    call random_below                ; 0x3a2b
     pop cx                           ; 0x3a2e
     test ax, ax                      ; 0x3a2f
     je short @..api_idx_0008_HUTJ.l8 ; 0x3a31

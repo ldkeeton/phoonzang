@@ -7,7 +7,7 @@ api_idx_0002_OGHR:
     mov ax, 1                        ; 0x008e
     push ax                          ; 0x0091
     push word [bp + 0x4]             ; 0x0092
-    call ds_app_string_UUHT          ; 0x0095
+    call data_file_path              ; 0x0095
     add sp, byte 4                   ; 0x0098
     push ax                          ; 0x009b
     call aztec_open                  ; 0x009c
@@ -17,7 +17,7 @@ api_idx_0002_OGHR:
     jne short @..api_idx_0002_OGHR.l1 ; 0x00a8
     mov ax, 7                        ; 0x00aa
     push ax                          ; 0x00ad
-    call ds_app_UKIP                 ; 0x00ae
+    call fatal_error                 ; 0x00ae
     pop cx                           ; 0x00b1
 @..api_idx_0002_OGHR.l1:
     mov ax, 0                        ; 0x00b2

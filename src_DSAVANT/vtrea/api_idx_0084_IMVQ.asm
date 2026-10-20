@@ -603,7 +603,7 @@ api_idx_0084_IMVQ:
 @..api_idx_0084_IMVQ.l12:
     mov ax, 0x64                     ; 0x2b4e
     push ax                          ; 0x2b51
-    call ds_app_PUNN                 ; 0x2b52
+    call random_below                ; 0x2b52
     pop cx                           ; 0x2b55
     mov word [bp - 0x0084], ax       ; 0x2b56
     mov ax, 0x64                     ; 0x2b5a
@@ -673,12 +673,12 @@ api_idx_0084_IMVQ:
     jne short @..api_idx_0084_IMVQ.l18 ; 0x2bf3
     mov ax, 0x19                     ; 0x2bf5
     push ax                          ; 0x2bf8
-    call ds_leaf_loc_UJPS            ; 0x2bf9
+    call delay_ticks                 ; 0x2bf9
     pop cx                           ; 0x2bfc
 @..api_idx_0084_IMVQ.l18:
     mov ax, 0x59fe                   ; 0x2bfd
     push ax                          ; 0x2c00
-    call ds_app_io_UHMG              ; 0x2c01
+    call ds_app_UHMG                 ; 0x2c01
     pop cx                           ; 0x2c04
     dec ax                           ; 0x2c05
     mov word [bp - 0x001a], ax       ; 0x2c06
@@ -1492,7 +1492,7 @@ jumptable_34f1_case_5:
 @..api_idx_0084_IMVQ.l41:
     mov ax, 0xc8                     ; 0x338e
     push ax                          ; 0x3391
-    call ds_leaf_loc_UJPS            ; 0x3392
+    call delay_ticks                 ; 0x3392
     pop cx                           ; 0x3395
     mov ax, word [bp - 0x0002]       ; 0x3396
     shl ax, 1                        ; 0x3399

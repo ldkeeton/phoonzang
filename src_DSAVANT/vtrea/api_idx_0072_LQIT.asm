@@ -31,7 +31,7 @@ api_idx_0072_LQIT:
 @..api_idx_0072_LQIT.l2:
     mov ax, 5                        ; 0x71a2
     push ax                          ; 0x71a5
-    call ds_app_PUNN                 ; 0x71a6
+    call random_below                ; 0x71a6
     pop cx                           ; 0x71a9
     mov cx, word [bp - 0x0002]       ; 0x71aa
     shl cx, 1                        ; 0x71ad

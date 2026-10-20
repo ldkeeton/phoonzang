@@ -7,13 +7,13 @@ api_idx_0050_QTGU:
     mov ax, word [bp - 0x0002]       ; 0x2c8f
     shl ax, 1                        ; 0x2c92
     mov bx, ax                       ; 0x2c94
-    mov ax, word [bx + bss_830e]     ; 0x2c96
+    mov ax, word [bx + party_slot_frame] ; 0x2c96
     add bx, bp                       ; 0x2c9a
     mov word [bx - 0x0050], ax       ; 0x2c9c
     mov ax, word [bp - 0x0002]       ; 0x2c9f
     shl ax, 1                        ; 0x2ca2
     mov bx, ax                       ; 0x2ca4
-    mov word [bx + bss_830e], 0      ; 0x2ca6
+    mov word [bx + party_slot_frame], 0 ; 0x2ca6
     inc word [bp - 0x0002]           ; 0x2cac
     mov ax, word [bp - 0x0002]       ; 0x2caf
     cmp ax, strict word 6            ; 0x2cb2
@@ -515,7 +515,7 @@ api_idx_0050_QTGU:
     add sp, byte 4                   ; 0x3155
     mov ax, 0x59fe                   ; 0x3158
     push ax                          ; 0x315b
-    call ds_app_io_UHMG              ; 0x315c
+    call ds_app_UHMG                 ; 0x315c
     pop cx                           ; 0x315f
     dec ax                           ; 0x3160
     mov word [bp - 0x001a], ax       ; 0x3161
@@ -1373,7 +1373,7 @@ jumptable_38dd:
     mov cx, word [bp - 0x0002]       ; 0x3938
     shl cx, 1                        ; 0x393b
     mov bx, cx                       ; 0x393d
-    mov word [bx + bss_830e], ax     ; 0x393f
+    mov word [bx + party_slot_frame], ax ; 0x393f
     inc word [bp - 0x0002]           ; 0x3943
     mov ax, word [bp - 0x0002]       ; 0x3946
     cmp ax, strict word 6            ; 0x3949

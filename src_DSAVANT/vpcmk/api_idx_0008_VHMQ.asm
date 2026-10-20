@@ -46,7 +46,7 @@ api_idx_0008_VHMQ:
 @..api_idx_0008_VHMQ.l1:
     mov ax, 0x13                     ; 0x499d
     push ax                          ; 0x49a0
-    call ds_app_PUNN                 ; 0x49a1
+    call random_below                ; 0x49a1
     pop cx                           ; 0x49a4
     push ax                          ; 0x49a5
     mov ax, 0x248                    ; 0x49a6
@@ -100,7 +100,7 @@ api_idx_0008_VHMQ:
     add sp, byte 8                   ; 0x4a1a
     mov ax, 0x59fe                   ; 0x4a1d
     push ax                          ; 0x4a20
-    call ds_app_io_UHMG              ; 0x4a21
+    call ds_app_UHMG                 ; 0x4a21
     pop cx                           ; 0x4a24
     cmp word [bss_5b3e], byte 0      ; 0x4a25
     jne short @..api_idx_0008_VHMQ.l3 ; 0x4a2a

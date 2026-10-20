@@ -59,7 +59,7 @@ api_idx_0008_JGKT:
     mov al, byte [bx + slot_rec_action_rand] ; 0x00a8
     sub ah, ah                       ; 0x00ac
     push ax                          ; 0x00ae
-    call ds_app_PUNN                 ; 0x00af
+    call random_below                ; 0x00af
     pop cx                           ; 0x00b2
     add word [bp - 0x0004], ax       ; 0x00b3
     mov ax, 0x15e                    ; 0x00b6
@@ -74,7 +74,7 @@ api_idx_0008_JGKT:
     mov al, byte [bx + slot_rec_target_rand] ; 0x00d0
     sub ah, ah                       ; 0x00d4
     push ax                          ; 0x00d6
-    call ds_app_PUNN                 ; 0x00d7
+    call random_below                ; 0x00d7
     pop cx                           ; 0x00da
     add word [bp - 0x0006], ax       ; 0x00db
 @..api_idx_0008_JGKT.l6:
@@ -143,7 +143,7 @@ api_idx_0008_JGKT:
     mov al, byte [bx + 0x6ac2]       ; 0x0177
     sub ah, ah                       ; 0x017b
     push ax                          ; 0x017d
-    call ds_app_PUNN                 ; 0x017e
+    call random_below                ; 0x017e
     pop cx                           ; 0x0181
     pop cx                           ; 0x0182
     add ax, cx                       ; 0x0183

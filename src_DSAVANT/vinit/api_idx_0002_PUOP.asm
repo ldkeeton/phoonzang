@@ -9,7 +9,7 @@ api_idx_0002_PUOP:
 @..api_idx_0002_PUOP.l1:
     mov ax, 1                        ; 0x095b
     push ax                          ; 0x095e
-    call dos_con_in_noecho           ; 0x095f
+    call poll_filtered_key           ; 0x095f
     pop cx                           ; 0x0962
     test ax, ax                      ; 0x0963
     je short @..api_idx_0002_PUOP.l3 ; 0x0965

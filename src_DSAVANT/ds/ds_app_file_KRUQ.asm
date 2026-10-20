@@ -42,7 +42,7 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     push ax                          ; 0x2a94
     lea ax, word [bp - 0x0054]       ; 0x2a95
     push ax                          ; 0x2a98
-    call ds_app_string_UUHT          ; 0x2a99
+    call data_file_path              ; 0x2a99
     add sp, byte 4                   ; 0x2a9c
     push ax                          ; 0x2a9f
     call aztec_open                  ; 0x2aa0
@@ -52,7 +52,7 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     jne short @..ds_app_file_KRUQ.l2 ; 0x2aac
     mov ax, 0xf                      ; 0x2aae
     push ax                          ; 0x2ab1
-    call ds_app_UKIP                 ; 0x2ab2
+    call fatal_error                 ; 0x2ab2
     pop cx                           ; 0x2ab5
 @..ds_app_file_KRUQ.l2:
     lea ax, word [bp - 0x00a4]       ; 0x2ab6
@@ -84,7 +84,7 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     push ax                          ; 0x2af1
     lea ax, word [bp - 0x0054]       ; 0x2af2
     push ax                          ; 0x2af5
-    call ds_app_string_UUHT          ; 0x2af6
+    call data_file_path              ; 0x2af6
     add sp, byte 4                   ; 0x2af9
     push ax                          ; 0x2afc
     call aztec_open                  ; 0x2afd
@@ -94,7 +94,7 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     jne short @..ds_app_file_KRUQ.l5 ; 0x2b09
     mov ax, 0x10                     ; 0x2b0b
     push ax                          ; 0x2b0e
-    call ds_app_UKIP                 ; 0x2b0f
+    call fatal_error                 ; 0x2b0f
     pop cx                           ; 0x2b12
 @..ds_app_file_KRUQ.l5:
     push word [bp + 0x6]             ; 0x2b13
@@ -108,7 +108,7 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     je short @..ds_app_file_KRUQ.l6  ; 0x2b2f
     mov ax, 0x11                     ; 0x2b31
     push ax                          ; 0x2b34
-    call ds_app_UKIP                 ; 0x2b35
+    call fatal_error                 ; 0x2b35
     pop cx                           ; 0x2b38
 @..ds_app_file_KRUQ.l6:
     push word [bp - 0x0002]          ; 0x2b39

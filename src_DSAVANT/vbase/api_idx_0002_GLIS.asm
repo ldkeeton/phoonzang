@@ -46,7 +46,7 @@ api_idx_0002_GLIS:
     mov word [bx + bss_a5da], 0x140  ; 0x87c5
     mov ax, 0x3c                     ; 0x87cb
     push ax                          ; 0x87ce
-    call ds_app_PUNN                 ; 0x87cf
+    call random_below                ; 0x87cf
     pop cx                           ; 0x87d2
     add ax, strict word 0x28         ; 0x87d3
     mov cx, word [bp - 0x0002]       ; 0x87d6

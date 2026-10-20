@@ -405,7 +405,7 @@ api_idx_0038_ULQM:
 @..api_idx_0038_ULQM.l11:
     mov ax, 0x59fe                   ; 0x3e0c
     push ax                          ; 0x3e0f
-    call ds_app_io_UHMG              ; 0x3e10
+    call ds_app_UHMG                 ; 0x3e10
     pop cx                           ; 0x3e13
     dec ax                           ; 0x3e14
     mov word [bp - 0x0018], ax       ; 0x3e15

@@ -473,7 +473,7 @@ api_idx_0074_MHUG:
     jg short @..api_idx_0074_MHUG.l13 ; 0x6b28
     mov ax, 6                        ; 0x6b2a
     push ax                          ; 0x6b2d
-    call ds_app_PUNN                 ; 0x6b2e
+    call random_below                ; 0x6b2e
     pop cx                           ; 0x6b31
     add ax, strict word 6            ; 0x6b32
     push ax                          ; 0x6b35
@@ -577,11 +577,11 @@ api_idx_0074_MHUG:
     idiv word [bss_69c8]             ; 0x6c1a
     mov word [bp - 0x001c], dx       ; 0x6c1e
     push word [bp - 0x0022]          ; 0x6c21
-    call ds_app_PUNN                 ; 0x6c24
+    call random_below                ; 0x6c24
     pop cx                           ; 0x6c27
     push ax                          ; 0x6c28
     push word [bp - 0x0022]          ; 0x6c29
-    call ds_app_PUNN                 ; 0x6c2c
+    call random_below                ; 0x6c2c
     pop cx                           ; 0x6c2f
     mov cx, ax                       ; 0x6c30
     pop ax                           ; 0x6c32
@@ -652,12 +652,12 @@ api_idx_0074_MHUG:
     jne short @..api_idx_0074_MHUG.l23 ; 0x6cc9
     mov ax, 0x19                     ; 0x6ccb
     push ax                          ; 0x6cce
-    call ds_leaf_loc_UJPS            ; 0x6ccf
+    call delay_ticks                 ; 0x6ccf
     pop cx                           ; 0x6cd2
 @..api_idx_0074_MHUG.l23:
     mov ax, 0x59fe                   ; 0x6cd3
     push ax                          ; 0x6cd6
-    call ds_app_io_UHMG              ; 0x6cd7
+    call ds_app_UHMG                 ; 0x6cd7
     pop cx                           ; 0x6cda
     dec ax                           ; 0x6cdb
     mov word [bp - 0x0016], ax       ; 0x6cdc

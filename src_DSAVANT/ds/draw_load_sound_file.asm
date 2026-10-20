@@ -11,22 +11,22 @@ draw_load_sound_file: ; Aztec csav frame=0x0018
     push word [bp + 0x4]             ; 0x2935
     mov ax, 0xc                      ; 0x2938
     imul word [bp + 0x6]             ; 0x293b
-    add ax, strict word bss_5576     ; 0x293e
+    add ax, strict word sound_slot_info ; 0x293e
     push ax                          ; 0x2941
     mov ax, 9                        ; 0x2942
     push ax                          ; 0x2945
-    call ds_app_file_MPPM            ; 0x2946
+    call data_record_io              ; 0x2946
     add sp, byte 8                   ; 0x2949
     mov word [bp - 0x0002], 1        ; 0x294c
     mov ax, 0xc                      ; 0x2951
     imul word [bp + 0x6]             ; 0x2954
     mov bx, ax                       ; 0x2957
-    cmp word [bx + bss_5576 + 0x6], byte 0 ; 0x2959
+    cmp word [bx + sound_slot_info + 0x6], byte 0 ; 0x2959
     jne short @..draw_load_sound_file.l1 ; 0x295e
-    cmp word [bx + bss_5576 + 0x4], byte 0 ; 0x2960
+    cmp word [bx + sound_slot_info + 0x4], byte 0 ; 0x2960
 @..draw_load_sound_file.l1:
     jne short @..draw_load_sound_file.l3 ; 0x2965
-    mov ax, word [bx + bss_5576]     ; 0x2967
+    mov ax, word [bx + sound_slot_info] ; 0x2967
     mov word [bp + 0x4], ax          ; 0x296b
     mov ax, 1                        ; 0x296e
     cmp word [bp + 0x8], byte 0      ; 0x2971
@@ -58,7 +58,7 @@ draw_load_sound_file: ; Aztec csav frame=0x0018
     push ax                          ; 0x29af
     lea ax, word [bp - 0x0018]       ; 0x29b0
     push ax                          ; 0x29b3
-    call ds_app_string_UUHT          ; 0x29b4
+    call data_file_path              ; 0x29b4
     add sp, byte 4                   ; 0x29b7
     push ax                          ; 0x29ba
     call aztec_open                  ; 0x29bb
@@ -68,7 +68,7 @@ draw_load_sound_file: ; Aztec csav frame=0x0018
     jne short @..draw_load_sound_file.l4 ; 0x29c7
     mov ax, 0xb                      ; 0x29c9
     push ax                          ; 0x29cc
-    call ds_app_UKIP                 ; 0x29cd
+    call fatal_error                 ; 0x29cd
     pop cx                           ; 0x29d0
 @..draw_load_sound_file.l4:
     push word [bp + 0x6]             ; 0x29d1
@@ -79,7 +79,7 @@ draw_load_sound_file: ; Aztec csav frame=0x0018
     je short @..draw_load_sound_file.l5 ; 0x29df
     mov ax, 0xc                      ; 0x29e1
     push ax                          ; 0x29e4
-    call ds_app_UKIP                 ; 0x29e5
+    call fatal_error                 ; 0x29e5
     pop cx                           ; 0x29e8
 @..draw_load_sound_file.l5:
     push word [bp - 0x0004]          ; 0x29e9

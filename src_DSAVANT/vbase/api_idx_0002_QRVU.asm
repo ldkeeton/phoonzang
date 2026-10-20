@@ -8,7 +8,7 @@ api_idx_0002_QRVU:
     push ax                          ; 0x3fb9
     mov ax, dseg_90e8                ; 0x3fba
     push ax                          ; 0x3fbd
-    call ds_app_string_UUHT          ; 0x3fbe
+    call data_file_path              ; 0x3fbe
     add sp, byte 4                   ; 0x3fc1
     push ax                          ; 0x3fc4
     call aztec_open                  ; 0x3fc5
@@ -18,7 +18,7 @@ api_idx_0002_QRVU:
     jne short @..api_idx_0002_QRVU.l1 ; 0x3fd1
     mov ax, 0x14                     ; 0x3fd3
     push ax                          ; 0x3fd6
-    call ds_app_UKIP                 ; 0x3fd7
+    call fatal_error                 ; 0x3fd7
     pop cx                           ; 0x3fda
 @..api_idx_0002_QRVU.l1:
     mov ax, 0                        ; 0x3fdb
@@ -42,7 +42,7 @@ api_idx_0002_QRVU:
     jne short @..api_idx_0002_QRVU.l2 ; 0x4009
     mov ax, 0x14                     ; 0x400b
     push ax                          ; 0x400e
-    call ds_app_UKIP                 ; 0x400f
+    call fatal_error                 ; 0x400f
     pop cx                           ; 0x4012
 @..api_idx_0002_QRVU.l2:
     push word [bss_9088]             ; 0x4013

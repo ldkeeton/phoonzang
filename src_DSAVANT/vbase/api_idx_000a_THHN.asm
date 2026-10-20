@@ -273,7 +273,7 @@ jumptable_85d0_case_1:
     jge short @..api_idx_000a_THHN.l12 ; 0x7673
     mov ax, 7                        ; 0x7675
     push ax                          ; 0x7678
-    call ds_app_PUNN                 ; 0x7679
+    call random_below                ; 0x7679
     pop cx                           ; 0x767c
     test ax, ax                      ; 0x767d
     je short @..api_idx_000a_THHN.l10 ; 0x767f
@@ -313,7 +313,7 @@ jumptable_85d0_case_1:
     push ax                          ; 0x76c4
     mov ax, 4                        ; 0x76c5
     push ax                          ; 0x76c8
-    call ds_app_PUNN                 ; 0x76c9
+    call random_below                ; 0x76c9
     pop cx                           ; 0x76cc
     add ax, strict word 0x22         ; 0x76cd
     push ax                          ; 0x76d0
@@ -470,7 +470,7 @@ jumptable_85d0_case_2:
 @..api_idx_000a_THHN.l26:
     mov ax, 0x28                     ; 0x783e
     push ax                          ; 0x7841
-    call ds_app_PUNN                 ; 0x7842
+    call random_below                ; 0x7842
     pop cx                           ; 0x7845
     cmp ax, word [bp - 0x0004]       ; 0x7846
     jne short @..api_idx_000a_THHN.l27 ; 0x7849
@@ -480,7 +480,7 @@ jumptable_85d0_case_2:
     mov word [bx + bss_a5da], 0x13e  ; 0x7852
     mov ax, 0x3c                     ; 0x7858
     push ax                          ; 0x785b
-    call ds_app_PUNN                 ; 0x785c
+    call random_below                ; 0x785c
     pop cx                           ; 0x785f
     add ax, strict word 0x28         ; 0x7860
     mov cx, word [bp - 0x0004]       ; 0x7863
@@ -530,7 +530,7 @@ jumptable_85d0_case_2:
     push word [bss_a5e2]             ; 0x78de
     mov ax, 4                        ; 0x78e2
     push ax                          ; 0x78e5
-    call ds_app_PUNN                 ; 0x78e6
+    call random_below                ; 0x78e6
     pop cx                           ; 0x78e9
     inc ax                           ; 0x78ea
     inc ax                           ; 0x78eb
@@ -582,7 +582,7 @@ jumptable_85d0_case_3:
 @..api_idx_000a_THHN.l34:
     mov ax, 0x28                     ; 0x7965
     push ax                          ; 0x7968
-    call ds_app_PUNN                 ; 0x7969
+    call random_below                ; 0x7969
     pop cx                           ; 0x796c
     cmp ax, word [bp - 0x0004]       ; 0x796d
     jne short @..api_idx_000a_THHN.l35 ; 0x7970
@@ -592,7 +592,7 @@ jumptable_85d0_case_3:
     mov word [bx + bss_a5da], 0x13e  ; 0x7979
     mov ax, 0x3c                     ; 0x797f
     push ax                          ; 0x7982
-    call ds_app_PUNN                 ; 0x7983
+    call random_below                ; 0x7983
     pop cx                           ; 0x7986
     add ax, strict word 0x28         ; 0x7987
     mov cx, word [bp - 0x0004]       ; 0x798a
@@ -689,7 +689,7 @@ jumptable_85d0_case_3:
     push word [bss_a5e4]             ; 0x7a67
     mov ax, 2                        ; 0x7a6b
     push ax                          ; 0x7a6e
-    call ds_app_PUNN                 ; 0x7a6f
+    call random_below                ; 0x7a6f
     pop cx                           ; 0x7a72
     add ax, strict word 0x10         ; 0x7a73
     push ax                          ; 0x7a76
@@ -733,7 +733,7 @@ jumptable_85d0_case_3:
     push ax                          ; 0x7ae2
     mov ax, 4                        ; 0x7ae3
     push ax                          ; 0x7ae6
-    call ds_app_PUNN                 ; 0x7ae7
+    call random_below                ; 0x7ae7
     pop cx                           ; 0x7aea
     add ax, strict word 0xc          ; 0x7aeb
     push ax                          ; 0x7aee
@@ -955,7 +955,7 @@ jumptable_85d0_case_4:
     push word [bss_a5e2]             ; 0x7ce8
     mov ax, 2                        ; 0x7cec
     push ax                          ; 0x7cef
-    call ds_app_PUNN                 ; 0x7cf0
+    call random_below                ; 0x7cf0
     pop cx                           ; 0x7cf3
     add ax, strict word 7            ; 0x7cf4
     push ax                          ; 0x7cf7
@@ -1078,7 +1078,7 @@ jumptable_85d0_case_5:
 @..api_idx_000a_THHN.l55:
     mov ax, 0x1e                     ; 0x7e30
     push ax                          ; 0x7e33
-    call ds_app_PUNN                 ; 0x7e34
+    call random_below                ; 0x7e34
     pop cx                           ; 0x7e37
     cmp ax, word [bp - 0x0004]       ; 0x7e38
     jne short @..api_idx_000a_THHN.l57 ; 0x7e3b
@@ -1101,7 +1101,7 @@ jumptable_85d0_case_5:
     mov word [bx + bss_a5da], 0x13e  ; 0x7e64
     mov ax, 0x10                     ; 0x7e6a
     push ax                          ; 0x7e6d
-    call ds_app_PUNN                 ; 0x7e6e
+    call random_below                ; 0x7e6e
     pop cx                           ; 0x7e71
     add ax, strict word 4            ; 0x7e72
     mov cx, word [bp - 0x0004]       ; 0x7e75
@@ -1157,7 +1157,7 @@ jumptable_85d0_case_5:
     push word [bss_a5e2]             ; 0x7eef
     mov ax, 2                        ; 0x7ef3
     push ax                          ; 0x7ef6
-    call ds_app_PUNN                 ; 0x7ef7
+    call random_below                ; 0x7ef7
     pop cx                           ; 0x7efa
     add ax, strict word 7            ; 0x7efb
     push ax                          ; 0x7efe
@@ -1256,7 +1256,7 @@ jumptable_85d0_case_6:
     jne short @..api_idx_000a_THHN.l67 ; 0x7fe0
     mov ax, 3                        ; 0x7fe2
     push ax                          ; 0x7fe5
-    call ds_app_PUNN                 ; 0x7fe6
+    call random_below                ; 0x7fe6
     pop cx                           ; 0x7fe9
     test ax, ax                      ; 0x7fea
     jne short @..api_idx_000a_THHN.l67 ; 0x7fec
@@ -1286,7 +1286,7 @@ jumptable_85d0_case_6:
     jne short @..api_idx_000a_THHN.l72 ; 0x8028
     mov ax, 5                        ; 0x802a
     push ax                          ; 0x802d
-    call ds_app_PUNN                 ; 0x802e
+    call random_below                ; 0x802e
     pop cx                           ; 0x8031
     test ax, ax                      ; 0x8032
     jne short @..api_idx_000a_THHN.l72 ; 0x8034
@@ -1390,7 +1390,7 @@ jumptable_85d0_case_7:
     jge short @..api_idx_000a_THHN.l74 ; 0x810e
     mov ax, 4                        ; 0x8110
     push ax                          ; 0x8113
-    call ds_app_PUNN                 ; 0x8114
+    call random_below                ; 0x8114
     pop cx                           ; 0x8117
 @..api_idx_000a_THHN.l74:
     mov word [bp - 0x0002], ax       ; 0x8118
@@ -1411,7 +1411,7 @@ jumptable_85d0_case_7:
     jle short @..api_idx_000a_THHN.l75 ; 0x813e
     mov ax, 4                        ; 0x8140
     push ax                          ; 0x8143
-    call ds_app_PUNN                 ; 0x8144
+    call random_below                ; 0x8144
     pop cx                           ; 0x8147
 @..api_idx_000a_THHN.l75:
     mov word [bp - 0x0002], ax       ; 0x8148
@@ -1428,7 +1428,7 @@ jumptable_85d0_case_7:
     add sp, byte 8                   ; 0x8161
     mov ax, 4                        ; 0x8164
     push ax                          ; 0x8167
-    call ds_app_PUNN                 ; 0x8168
+    call random_below                ; 0x8168
     pop cx                           ; 0x816b
     test ax, ax                      ; 0x816c
     je short @..api_idx_000a_THHN.l76 ; 0x816e
@@ -1472,7 +1472,7 @@ jumptable_85d0_case_7:
     jne short @..api_idx_000a_THHN.l82 ; 0x81c5
     mov ax, 0xf                      ; 0x81c7
     push ax                          ; 0x81ca
-    call ds_app_PUNN                 ; 0x81cb
+    call random_below                ; 0x81cb
     pop cx                           ; 0x81ce
     test ax, ax                      ; 0x81cf
     jne short @..api_idx_000a_THHN.l82 ; 0x81d1
@@ -1522,7 +1522,7 @@ jumptable_85d0_case_7:
 @..api_idx_000a_THHN.l83:
     mov ax, 0xf                      ; 0x823b
     push ax                          ; 0x823e
-    call ds_app_PUNN                 ; 0x823f
+    call random_below                ; 0x823f
     pop cx                           ; 0x8242
     test ax, ax                      ; 0x8243
     jne short @..api_idx_000a_THHN.l88 ; 0x8245
@@ -1643,14 +1643,14 @@ jumptable_85d0_case_7:
     jg short @..api_idx_000a_THHN.l90 ; 0x8346
     mov ax, 0xa                      ; 0x8348
     push ax                          ; 0x834b
-    call ds_app_PUNN                 ; 0x834c
+    call random_below                ; 0x834c
     pop cx                           ; 0x834f
     test ax, ax                      ; 0x8350
     jne short @..api_idx_000a_THHN.l93 ; 0x8352
 @..api_idx_000a_THHN.l90:
     mov ax, 3                        ; 0x8354
     push ax                          ; 0x8357
-    call ds_app_PUNN                 ; 0x8358
+    call random_below                ; 0x8358
     pop cx                           ; 0x835b
     test ax, ax                      ; 0x835c
     jne short @..api_idx_000a_THHN.l91 ; 0x835e
@@ -1664,7 +1664,7 @@ jumptable_85d0_case_7:
     jne short @..api_idx_000a_THHN.l93 ; 0x8376
     mov ax, 2                        ; 0x8378
     push ax                          ; 0x837b
-    call ds_app_PUNN                 ; 0x837c
+    call random_below                ; 0x837c
     pop cx                           ; 0x837f
     test ax, ax                      ; 0x8380
     je short @..api_idx_000a_THHN.l93 ; 0x8382
@@ -1728,27 +1728,27 @@ jumptable_85d0_case_8:
     jg short @..api_idx_000a_THHN.l95 ; 0x8409
     mov ax, 3                        ; 0x840b
     push ax                          ; 0x840e
-    call ds_app_PUNN                 ; 0x840f
+    call random_below                ; 0x840f
     pop cx                           ; 0x8412
     test ax, ax                      ; 0x8413
     jne short @..api_idx_000a_THHN.l96 ; 0x8415
 @..api_idx_000a_THHN.l95:
     mov ax, 2                        ; 0x8417
     push ax                          ; 0x841a
-    call ds_app_PUNN                 ; 0x841b
+    call random_below                ; 0x841b
     pop cx                           ; 0x841e
     test ax, ax                      ; 0x841f
     je short @..api_idx_000a_THHN.l96 ; 0x8421
     mov ax, 3                        ; 0x8423
     push ax                          ; 0x8426
-    call ds_app_PUNN                 ; 0x8427
+    call random_below                ; 0x8427
     pop cx                           ; 0x842a
     inc ax                           ; 0x842b
     mov word [bss_a5fc], ax          ; 0x842c
 @..api_idx_000a_THHN.l96:
     mov ax, 8                        ; 0x842f
     push ax                          ; 0x8432
-    call ds_app_PUNN                 ; 0x8433
+    call random_below                ; 0x8433
     pop cx                           ; 0x8436
     test ax, ax                      ; 0x8437
     jne short @..api_idx_000a_THHN.l97 ; 0x8439
@@ -1778,13 +1778,13 @@ jumptable_85d0_case_8:
     add sp, byte 8                   ; 0x8470
     mov ax, 2                        ; 0x8473
     push ax                          ; 0x8476
-    call ds_app_PUNN                 ; 0x8477
+    call random_below                ; 0x8477
     pop cx                           ; 0x847a
     test ax, ax                      ; 0x847b
     je short @..api_idx_000a_THHN.l98 ; 0x847d
     mov ax, 6                        ; 0x847f
     push ax                          ; 0x8482
-    call ds_app_PUNN                 ; 0x8483
+    call random_below                ; 0x8483
     pop cx                           ; 0x8486
     mov word [bss_a5fe], ax          ; 0x8487
 @..api_idx_000a_THHN.l98:
@@ -1918,7 +1918,7 @@ jumptable_85d0_case_8:
     jg short @..api_idx_000a_THHN.l108 ; 0x85a1
     mov ax, 0xa                      ; 0x85a3
     push ax                          ; 0x85a6
-    call ds_app_PUNN                 ; 0x85a7
+    call random_below                ; 0x85a7
     pop cx                           ; 0x85aa
     test ax, ax                      ; 0x85ab
     jne short @..api_idx_000a_THHN.l110 ; 0x85ad

@@ -54,9 +54,9 @@ dseg_010e equ __zdseg_010e - __zdseg_start
 dseg_0112 equ __zdseg_0112 - __zdseg_start
 dseg_0114 equ __zdseg_0114 - __zdseg_start
 dseg_0116 equ __zdseg_0116 - __zdseg_start
-dseg_01a4 equ __zdseg_01a4 - __zdseg_start
-dseg_01bc equ __zdseg_01bc - __zdseg_start
-dseg_01d4 equ __zdseg_01d4 - __zdseg_start
+party_slot_x equ __zparty_slot_x - __zdseg_start
+party_slot_y equ __zparty_slot_y - __zdseg_start
+party_slot_glyphs equ __zparty_slot_glyphs - __zdseg_start
 dseg_03ae equ __zdseg_03ae - __zdseg_start
 dseg_03dc equ __zdseg_03dc - __zdseg_start
 dseg_0c9f equ __zdseg_0c9f - __zdseg_start
@@ -111,7 +111,7 @@ bss_8300 equ __zbss_8300 - __zdseg_start
 bss_8302 equ __zbss_8302 - __zdseg_start
 bss_8304 equ __zbss_8304 - __zdseg_start
 bss_8306 equ __zbss_8306 - __zdseg_start
-bss_830e equ __zbss_830e - __zdseg_start
+party_slot_frame equ __zbss_830e - __zdseg_start
 bss_831a equ __zbss_831a - __zdseg_start
 bss_8320 equ __zbss_8320 - __zdseg_start
 action_slot_table equ __zbss_8322 - __zdseg_start
@@ -271,7 +271,7 @@ bss_0e30 equ __zbss_0e30 - __zdseg_start
 bss_0e32 equ __zbss_0e32 - __zdseg_start
 %include "ds/ds_app_file_RKTP.asm"         ; 0x0242
 
-%include "ds/ds_app_UKIP.asm"              ; 0x03b8
+%include "ds/fatal_error.asm"              ; 0x03b8
 
 bss_0e34 equ __zbss_0e34 - __zdseg_start
 %include "ds/ds_app_OGNR.asm"              ; 0x03cd
@@ -312,19 +312,19 @@ bss_5216 equ __zbss_5216 - __zdseg_start
 
 ; bss_0e22 equ __zbss_0e22 - __zdseg_start
 bss_5524 equ __zbss_5524 - __zdseg_start
-%include "ds/ds_app_file_MPPM.asm"         ; 0x0883
+%include "ds/data_record_io.asm"           ; 0x0883
 
 dseg_0002 equ __zdseg_0002 - __zdseg_start
 %include "ds/ds_app_OIGN.asm"              ; 0x09a5
 
-%include "ds/ds_app_PUNN.asm"              ; 0x09f0
+%include "ds/random_below.asm"             ; 0x09f0
 
 %include "ds/clamp_between.asm"            ; 0x0a09
 
-bss_5576 equ __zbss_5576 - __zdseg_start
-bss_597c equ __zbss_597c - __zdseg_start
-bss_5984 equ __zbss_5984 - __zdseg_start
-bss_598e equ __zbss_598e - __zdseg_start
+sound_slot_info equ __zbss_5576 - __zdseg_start
+bss_597c        equ __zbss_597c - __zdseg_start
+bss_5984        equ __zbss_5984 - __zdseg_start
+bss_598e        equ __zbss_598e - __zdseg_start
 %include "ds/ds_app_HKIJ.asm"              ; 0x0a27
 
 ; bss_0e34 equ __zbss_0e34 - __zdseg_start
@@ -340,7 +340,7 @@ bss_59f8 equ __zbss_59f8 - __zdseg_start
 bss_59fa equ __zbss_59fa - __zdseg_start
 bss_59fc equ __zbss_59fc - __zdseg_start
 bss_5b3e equ __zbss_5b3e - __zdseg_start
-%include "ds/ds_app_io_UHMG.asm"           ; 0x0b54
+%include "ds/ds_app_UHMG.asm"              ; 0x0b54
 
 ; bss_0fd6 equ __zbss_0fd6 - __zdseg_start
 ; bss_5990 equ __zbss_5990 - __zdseg_start
@@ -394,17 +394,17 @@ bss_5b6e equ __zbss_5b6e - __zdseg_start
 bss_5b70 equ __zbss_5b70 - __zdseg_start
 %include "ds/ds_app_VKRR.asm"              ; 0x138c
 
-bss_5962 equ __zbss_5962 - __zdseg_start
-bss_5963 equ __zbss_5963 - __zdseg_start
-bss_5964 equ __zbss_5964 - __zdseg_start
-bss_5b72 equ __zbss_5b72 - __zdseg_start
-bss_5b7c equ __zbss_5b7c - __zdseg_start
-bss_5be0 equ __zbss_5be0 - __zdseg_start
+bss_5962          equ __zbss_5962 - __zdseg_start
+bss_5963          equ __zbss_5963 - __zdseg_start
+bss_5964          equ __zbss_5964 - __zdseg_start
+saved_screen_kind equ __zbss_5b72 - __zdseg_start
+saved_screen_file equ __zbss_5b7c - __zdseg_start
+saved_screen_ref  equ __zbss_5be0 - __zdseg_start
 %include "ds/ds_app_file_LMRK.asm"         ; 0x14ca
 
-; bss_5b72 equ __zbss_5b72 - __zdseg_start
-; bss_5b7c equ __zbss_5b7c - __zdseg_start
-; bss_5be0 equ __zbss_5be0 - __zdseg_start
+; saved_screen_kind equ __zbss_5b72 - __zdseg_start
+; saved_screen_file equ __zbss_5b7c - __zdseg_start
+; saved_screen_ref  equ __zbss_5be0 - __zdseg_start
 %include "ds/draw_restore_saved_screen.asm" ; 0x16a0
 
 %include "ds/ds_app_VOML.asm"              ; 0x1741
@@ -451,7 +451,7 @@ bss_0cf8 equ __zbss_0cf8 - __zdseg_start
 bss_5912 equ __zbss_5912 - __zdseg_start
 bss_5987 equ __zbss_5987 - __zdseg_start
 bss_69ca equ __zbss_69ca - __zdseg_start
-%include "ds/ds_app_string_UUHT.asm"       ; 0x23a8
+%include "ds/data_file_path.asm"           ; 0x23a8
 
 dseg_0b74 equ __zdseg_0b74 - __zdseg_start
 dseg_0b89 equ __zdseg_0b89 - __zdseg_start
@@ -479,8 +479,8 @@ slot_rec_first equ __zbss_6a1a - __zdseg_start
 
 %include "ds/ds_app_SOQK.asm"              ; 0x290d
 
-dseg_0bd7 equ __zdseg_0bd7 - __zdseg_start
-; bss_5576  equ __zbss_5576 - __zdseg_start
+dseg_0bd7       equ __zdseg_0bd7 - __zdseg_start
+; sound_slot_info equ __zbss_5576 - __zdseg_start
 %include "ds/draw_load_sound_file.asm"     ; 0x2923
 
 ; bss_598e equ __zbss_598e - __zdseg_start
@@ -577,7 +577,7 @@ cseg_2f67:
 
 cseg_2f7b:
     db 0x17, 0x01, 0x00, 0x00, 0x1b, 0x01, 0x00, 0x00
-cseg_2f83:
+play_drv_wait:
     db 0x1f, 0x01, 0x00, 0x00
 cseg_2f87:
     db 0x03, 0x01, 0x00, 0x00
@@ -595,7 +595,7 @@ cseg_2fa7:
     db 0x23, 0x01, 0x00, 0x00
 cseg_2fab:
     db 0x27, 0x01, 0x00, 0x00
-cseg_2faf:
+gfx_drv_slot_10:
     db 0x2b, 0x01, 0x00, 0x00
 cseg_2fb3:
     db 0x2f, 0x01, 0x00, 0x00
@@ -694,11 +694,11 @@ cseg_3063:
 bios_data_0410 equ 0x0410
 %include "ds/ds_bios_video_loc_PHVR.asm"   ; 0x30c3
 
-cseg_30dc:
+random_seed_a:
     db 0xb8, 0x0b
-cseg_30de:
+random_seed_b:
     db 0x01, 0x00
-cseg_30e0:
+random_seed_c:
     db 0x2f, 0x75
 %include "ds/ds_leaf_loc_OIUO.asm"         ; 0x30e2
 
@@ -730,7 +730,7 @@ cseg_3672:
 
 cseg_36ce:
     db 0x00, 0x00
-%include "ds/ds_leaf_loc_UJPS.asm"         ; 0x36d0
+%include "ds/delay_ticks.asm"              ; 0x36d0
 
 %include "ds/ds_dos_mem_loc_TGHM.asm"      ; 0x36f5
 
@@ -818,13 +818,13 @@ cseg_396b:
 
 %include "ds/ds_loc_JRJK.asm"              ; 0x3ba3
 
-%include "ds/ds_leaf_loc_MPVL.asm"         ; 0x3c0d
+%include "ds/stir_random_seeds.asm"        ; 0x3c0d
 
-cseg_3c7f:
+key_queue:
 
     times 24 db 0
 
-%include "ds/dos_con_in_noecho.asm"        ; 0x3c97
+%include "ds/poll_filtered_key.asm"        ; 0x3c97
 
 %include "ds/get_filtered_key.asm"         ; 0x3d79
 
@@ -1120,17 +1120,17 @@ __zdseg_0116:
     db 0x42, 0x00, 0x88, 0x00, 0x36, 0x00, 0x9e, 0x00, 0x42, 0x00, 0xba, 0x00, 0x72, 0x00, 0x88, 0x00
     db 0x7e, 0x00, 0x9e, 0x00, 0x72, 0x00, 0xba, 0x00
 
-__zdseg_01a4:
+__zparty_slot_x:
 
     db 0xc9, 0x00, 0xb8, 0x00, 0xd7, 0x00, 0x00, 0x01, 0x28, 0x01, 0x23, 0x01, 0x14, 0x00, 0x00, 0x00
     db 0x11, 0x00, 0x3a, 0x00, 0x4d, 0x00, 0x3f, 0x00
 
-__zdseg_01bc:
+__zparty_slot_y:
 
     db 0x7e, 0x00, 0x95, 0x00, 0xa5, 0x00, 0x81, 0x00, 0x92, 0x00, 0xa5, 0x00, 0x01, 0x00, 0x1d, 0x00
     db 0x32, 0x00, 0x04, 0x00, 0x1e, 0x00, 0x33, 0x00
 
-__zdseg_01d4:
+__zparty_slot_glyphs:
 
     db 0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0xff, 0xff, 0xff, 0xff
     db 0xff, 0xff, 0xff, 0xff, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0a, 0x00, 0x0b, 0x00, 0xff, 0xff

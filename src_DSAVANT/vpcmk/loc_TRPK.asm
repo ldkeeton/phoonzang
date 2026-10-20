@@ -273,7 +273,7 @@ loc_TRPK:
 @..loc_TRPK.l10:
     mov ax, 0x59fe                   ; 0x06bc
     push ax                          ; 0x06bf
-    call ds_app_io_UHMG              ; 0x06c0
+    call ds_app_UHMG                 ; 0x06c0
     pop cx                           ; 0x06c3
     mov word [bp - 0x0004], ax       ; 0x06c4
     cmp word [bss_5b3e], byte 0      ; 0x06c7
@@ -348,7 +348,7 @@ loc_TRPK:
 @..loc_TRPK.l13:
     mov ax, 1                        ; 0x076a
     push ax                          ; 0x076d
-    call dos_con_in_noecho           ; 0x076e
+    call poll_filtered_key           ; 0x076e
     pop cx                           ; 0x0771
     test ax, ax                      ; 0x0772
     jne short @..loc_TRPK.l14        ; 0x0774

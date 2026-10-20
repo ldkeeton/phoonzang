@@ -106,7 +106,7 @@ api_idx_004c_LTUL:
     push ax                          ; 0x6e0a
     mov ax, 1                        ; 0x6e0b
     push ax                          ; 0x6e0e
-    call ds_app_file_MPPM            ; 0x6e0f
+    call data_record_io              ; 0x6e0f
     add sp, byte 8                   ; 0x6e12
     mov ax, 0x248                    ; 0x6e15
     imul word [bp + 0x4]             ; 0x6e18
