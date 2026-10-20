@@ -31,7 +31,7 @@ __zcode_start:
 %include "vmexe/api_idx_0004_QUVO.asm"     ; 0x0034
 
 bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
-%include "vmexe/asm_only/api_idx_0012_PGSL.asm"     ; 0x00db
+%include "vmexe/api_idx_0012_PGSL.asm"     ; 0x00db
 
 %include "shared/api_idx_0008_MNJN.asm"     ; 0x0257
 
@@ -70,7 +70,7 @@ bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
 
 %include "vmexe/api_idx_0004_QSNR.asm"     ; 0x16c1
 
-%include "vmexe/asm_only/api_idx_000e_PTNT.asm"     ; 0x178e
+%include "vmexe/api_idx_000e_PTNT.asm"     ; 0x178e
 
 bss_90e0 equ __zdseg_end + (__zobss_90e0 - __zdata_start)
 %include "vmexe/loc_QRIN.asm"              ; 0x17d1
@@ -118,7 +118,7 @@ bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 
 %include "vmexe/api_idx_0002_UTVG.asm"     ; 0x1f98
 
-%include "vmexe/asm_only/api_idx_0006_QJOL.asm"     ; 0x209c
+%include "vmexe/api_idx_0006_QJOL.asm"     ; 0x209c
 
 ; bss_90e6 equ __zdseg_end + (__zobss_90e6 - __zdata_start)
 ; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
@@ -175,7 +175,7 @@ dseg_90a6 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
 ; bss_90e6 equ __zdseg_end + (__zobss_90e6 - __zdata_start)
 ; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
 ; bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
-%include "vmexe/asm_only/string_loc_KUIU.asm"       ; 0x3620
+%include "vmexe/string_loc_KUIU.asm"       ; 0x3620
 
 dseg_90b0 equ __zdseg_end + (__zdseg_90b0 - __zdata_start)
 ; bss_90e6  equ __zdseg_end + (__zobss_90e6 - __zdata_start)
@@ -183,7 +183,7 @@ dseg_90b0 equ __zdseg_end + (__zdseg_90b0 - __zdata_start)
 %include "vmexe/loc_RKLS.asm"              ; 0x3aa3
 
 ; bss_90e4 equ __zdseg_end + (__zobss_90e4 - __zdata_start)
-%include "vmexe/asm_only/api_idx_000e_ORJG.asm"     ; 0x3b07
+%include "vmexe/api_idx_000e_ORJG.asm"     ; 0x3b07
 
 ; bss_90e6 equ __zdseg_end + (__zobss_90e6 - __zdata_start)
 ; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
@@ -215,9 +215,9 @@ bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
 ; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
 ; bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
 ; bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
-%include "vmexe/asm_only/api_idx_000a_VQTM.asm"     ; 0x7434
+%include "vmexe/api_idx_000a_VQTM.asm"     ; 0x7434
 
-%include "vmexe/asm_only/api_idx_000c_NRPK.asm"     ; 0x7911
+%include "vmexe/api_idx_000c_NRPK.asm"     ; 0x7911
 
 ; bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
 ; bss_90e6 equ __zdseg_end + (__zobss_90e6 - __zdata_start)
@@ -225,7 +225,7 @@ bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
 ; bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
 ; bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 ; bss_91d8 equ __zdseg_end + (__zobss_91d8 - __zdata_start)
-%include "vmexe/asm_only/api_idx_00ac_OJJU.asm"     ; 0x7962
+%include "vmexe/api_idx_00ac_OJJU.asm"     ; 0x7962
 
 ; bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
 ; bss_90e6 equ __zdseg_end + (__zobss_90e6 - __zdata_start)
@@ -272,11 +272,11 @@ dseg_90b6 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
 dseg_90b8 equ __zdseg_end + (__zdseg_90b8 - __zdata_start)
 dseg_90ba equ __zdseg_end + (__zdseg_90ba - __zdata_start)
 ; bss_90bc  equ __zdseg_end + (__zobss_90bc - __zdata_start)
-%include "vmexe/asm_only/string_loc_KPHK.asm"       ; 0xa4ca
+%include "vmexe/string_loc_KPHK.asm"       ; 0xa4ca
 
 %include "shared/leaf_loc_RJLR.asm"         ; 0xa508
 
-%include "vmexe/asm_only/string_loc_QJPU.asm"       ; 0xa520
+%include "vmexe/string_loc_QJPU.asm"       ; 0xa520
 
 __zdseg_9098:
 __zdata_start:

@@ -8,8 +8,8 @@ from lib.sidecar.errors import SidecarError
 from lib.sidecar.loader import _validate
 
 BLOCK = {'compiler_flags': {
-    'default': ['-n', '+y', '+b'],
-    'prefixes': {'aztec_': ['-n', '+y'], 'aztec_x': ['-n']}}}
+    'default': ['-n', '+b'],
+    'prefixes': {'aztec_': ['-n'], 'aztec_x': ['-n', '+m']}}}
 
 
 def _flags(label, data=BLOCK):
@@ -19,22 +19,22 @@ def _flags(label, data=BLOCK):
 
 class DefaultEntryTests(unittest.TestCase):
     def test_prefix_match(self):
-        self.assertEqual(_flags('aztec_open'), ['-n', '+y'])
+        self.assertEqual(_flags('aztec_open'), ['-n'])
 
     def test_default_when_no_prefix(self):
-        self.assertEqual(_flags('app_free'), ['-n', '+y', '+b'])
+        self.assertEqual(_flags('app_free'), ['-n', '+b'])
 
     def test_longest_prefix_wins(self):
-        self.assertEqual(_flags('aztec_xyz'), ['-n'])
+        self.assertEqual(_flags('aztec_xyz'), ['-n', '+m'])
 
     def test_absent_block_leaves_flags_unset(self):
         self.assertIsNone(_flags('app_free', {}))
 
-    def test_pairing_comes_from_mux(self):
+    def test_release_is_the_games(self):
         with mock.patch('lib.sidecar.loader.load', return_value=BLOCK):
             entry = cache.default_entry('app_free', 'P')
         self.assertEqual((entry['compiler'], entry['includes']),
-                         ('v52a', 'v340a'))
+                         ('v42b', 'v42b'))
 
     def test_malformed_block_rejected(self):
         for bad in ({'compiler_flags': {'default': 'x'}},

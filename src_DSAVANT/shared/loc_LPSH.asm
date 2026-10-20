@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 loc_LPSH:
     jmp near loc_JTQK_0003           ; 0x0000
 loc_JTQK_0003:

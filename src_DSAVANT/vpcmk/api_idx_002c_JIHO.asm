@@ -53,7 +53,7 @@ api_idx_002c_JIHO:
     push ax                          ; 0x67b4
     mov ax, dseg_9501                ; 0x67b5
     push ax                          ; 0x67b8
-    call ds_app_UUHT                 ; 0x67b9
+    call ds_app_string_UUHT          ; 0x67b9
     add sp, byte 4                   ; 0x67bc
     push ax                          ; 0x67bf
     call aztec_open                  ; 0x67c0

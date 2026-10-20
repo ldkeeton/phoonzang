@@ -17,7 +17,7 @@ api_idx_0016_JNJG:
     push ax                          ; 0x60a3
     lea ax, word [bp - 0x0016]       ; 0x60a4
     push ax                          ; 0x60a7
-    call ds_app_UUHT                 ; 0x60a8
+    call ds_app_string_UUHT          ; 0x60a8
     add sp, byte 4                   ; 0x60ab
     push ax                          ; 0x60ae
     call aztec_open                  ; 0x60af

@@ -88,7 +88,7 @@ dseg_91b2 equ __zdseg_end + (__zdseg_91b2 - __zdata_start)
 dseg_91b4 equ __zdseg_end + (__zdseg_91b4 - __zdata_start)
 dseg_91b6 equ __zdseg_end + (__zdseg_91b6 - __zdata_start)
 ; bss_91b8  equ __zdseg_end + (__zobss_91b8 - __zdata_start)
-%include "vinit/asm_only/loc_SPOT.asm"              ; 0x15d9
+%include "vinit/loc_SPOT.asm"              ; 0x15d9
 
 __zdseg_9098:
 __zdata_start:

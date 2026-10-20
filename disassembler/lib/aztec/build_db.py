@@ -1,8 +1,8 @@
-"""Build an Aztec C86 v5.2a runtime function-signature database.
+"""Build an Aztec C86 v4.2b runtime function-signature database.
 
 Inputs are OMF object modules produced by :mod:`.libobjs`, which converts the
-Aztec C86 runtime objects with the vendor `OBJMS` utility (Aztec -> Microsoft OMF).  The modules
-come from C.LIB (non-float), M.LIB/MS.LIB (float), S.LIB (screen), and the
+Aztec C86 runtime objects with the vendor `OBJ` utility (Aztec -> Microsoft OMF).  The modules
+come from C.LIB (non-float), M.LIB (float), S.LIB (screen), and the
 overlay support objects (OVLD/OVLDPATH/OVBGN).
 
 For every public code symbol we pick a byte window that
@@ -59,7 +59,6 @@ def _boundaries(data):
 LIB_DIRS = [
     'c',
     'm',
-    'ms',
     's',
     'ovl',
 ]
@@ -100,6 +99,8 @@ def load_functions(here):
                 funcs = omflib.public_functions(open(path, 'rb').read())
             except Exception:
                 continue
+            funcs = [{**f, 'name': libobjs.aztec_spelling(f['name'])}
+                     for f in funcs]
             for f in _collapse_aliases(funcs):
                 if f['length'] >= 6:
                     by_name[normalize(f['name'])].append(f)
@@ -116,6 +117,32 @@ def _build_win_names(by_name):
                 for off in range(0, len(data) - L + 1):
                     win_names[(L, data[off:off + L])].add(name)
     return win_names
+
+
+_MD_DETAIL = Cs(CS_ARCH_X86, CS_MODE_16)
+_MD_DETAIL.detail = True
+
+
+def _frame_only(window):
+    """True when *window* is only C frame setup: ``push bp; mov bp, sp``,
+    ``sub sp, N``, register saves and argument loads (``mov ax, [bp+4]``).
+
+    Every compiled routine starts that way, so such a window is unique in the
+    library only by chance and fires on any program function that happens to
+    share it (``atof``'s ``push bp; mov bp,sp; sub sp,4`` on a mouse driver).
+    """
+    insns = list(_MD_DETAIL.disasm(window, 0))
+    if not insns or sum(i.size for i in insns) != len(window):
+        return False
+    for insn in insns:
+        if insn.mnemonic == 'push' or insn.mnemonic in ('sub', 'add') and \
+                insn.op_str.startswith('sp,'):
+            continue
+        if insn.mnemonic == 'mov' and (insn.op_str == 'bp, sp'
+                                       or '[bp' in insn.op_str):
+            continue
+        return False
+    return True
 
 
 def _select(by_name, names, binaries, win_names, allow_zeros):
@@ -140,6 +167,8 @@ def _select(by_name, names, binaries, win_names, allow_zeros):
                     if not allow_zeros and w.count(0) >= MIN_ZEROS:
                         continue
                     if len(win_names[(L, w)]) != 1:
+                        continue
+                    if _frame_only(w):
                         continue
                     occurrences = [bd.count(w) for bd in binaries.values()
                                    if w in bd]
@@ -189,7 +218,7 @@ def build(here, apps_dir, out_path, exes):
             'name': routine_label(name),
             'role': 'aztec',
             'library': name,
-            'notes': f'Aztec C86 v5.2a runtime {name} (entry+{off}, {L} bytes)',
+            'notes': f'Aztec C86 v4.2b runtime {name} (entry+{off}, {L} bytes)',
             'entries': [],
             'entry_offset': off,
             'has_prologue': has_prologue,
@@ -199,8 +228,8 @@ def build(here, apps_dir, out_path, exes):
 
     payload = {
         'version': 1,
-        'source': ('Manx Aztec C86 v5.2a runtime libraries '
-                   '(C/M/MS/S + overlay OVLD/OVLDPATH/OVBGN)'),
+        'source': ('Manx Aztec C86 v4.2b runtime libraries '
+                   '(C/M/S + overlay OVLD/OVLDPATH/OVBGN)'),
         'signatures': signatures,
     }
     with open(out_path, 'w') as fh:

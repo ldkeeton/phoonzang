@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 leaf_loc_IPJP:
     push bp
     mov bp, sp

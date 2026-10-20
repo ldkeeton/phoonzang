@@ -8,7 +8,7 @@ api_idx_0002_QRVU:
     push ax                          ; 0x3fb9
     mov ax, dseg_90e8                ; 0x3fba
     push ax                          ; 0x3fbd
-    call ds_app_UUHT                 ; 0x3fbe
+    call ds_app_string_UUHT          ; 0x3fbe
     add sp, byte 4                   ; 0x3fc1
     push ax                          ; 0x3fc4
     call aztec_open                  ; 0x3fc5

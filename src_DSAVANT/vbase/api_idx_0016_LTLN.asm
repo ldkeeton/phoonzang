@@ -27,7 +27,7 @@ api_idx_0016_LTLN:
     push ax                          ; 0x730a
     lea ax, word [bp - 0x0016]       ; 0x730b
     push ax                          ; 0x730e
-    call ds_app_UUHT                 ; 0x730f
+    call ds_app_string_UUHT          ; 0x730f
     add sp, byte 4                   ; 0x7312
     push ax                          ; 0x7315
     call aztec_open                  ; 0x7316

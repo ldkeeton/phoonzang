@@ -1,0 +1,183 @@
+; auto-generated
+aztec_realloc:
+    push bp                          ; 0x467b
+    mov bp, sp                       ; 0x467c
+    add sp, byte 0xfc                ; 0x467e
+    push di                          ; 0x4681
+    push si                          ; 0x4682
+    mov si, word [bp + 0x4]          ; 0x4683
+    mov ax, word [si - 0x0002]       ; 0x4686
+    and ax, strict word 0xfffe       ; 0x4689
+    mov word [bp - 0x0002], ax       ; 0x468c
+    sub ax, si                       ; 0x468f
+    mov word [bp - 0x0004], ax       ; 0x4691
+    cmp ax, word [bp + 0x6]          ; 0x4694
+    jbe short @..aztec_realloc.l1    ; 0x4697
+    mov ax, word [bp + 0x6]          ; 0x4699
+    mov word [bp - 0x0004], ax       ; 0x469c
+    mov cx, si                       ; 0x469f
+    add cx, ax                       ; 0x46a1
+    mov word [bp - 0x0002], cx       ; 0x46a3
+@..aztec_realloc.l1:
+    push si                          ; 0x46a6
+    call aztec_free                  ; 0x46a7
+    pop cx                           ; 0x46aa
+    push word [bp + 0x6]             ; 0x46ab
+    call aztec_malloc                ; 0x46ae
+    pop cx                           ; 0x46b1
+    mov di, ax                       ; 0x46b2
+    test di, di                      ; 0x46b4
+    je short @..aztec_realloc.l2     ; 0x46b6
+    cmp di, si                       ; 0x46b8
+    je short @..aztec_realloc.l2     ; 0x46ba
+    push word [bp - 0x0004]          ; 0x46bc
+    push di                          ; 0x46bf
+    push si                          ; 0x46c0
+    call aztec_movmem                ; 0x46c1
+    add sp, byte 6                   ; 0x46c4
+    cmp si, word [current]           ; 0x46c7
+    ja short @..aztec_realloc.l2     ; 0x46cb
+    mov ax, word [current]           ; 0x46cd
+    cmp ax, word [bp - 0x0002]       ; 0x46d0
+    jae short @..aztec_realloc.l2    ; 0x46d3
+    mov ax, word [keep]              ; 0x46d5
+    mov cx, word [current]           ; 0x46d8
+    sub cx, si                       ; 0x46dc
+    mov bx, cx                       ; 0x46de
+    mov word [bx + di], ax           ; 0x46e0
+@..aztec_realloc.l2:
+    mov ax, di                       ; 0x46e2
+    pop si                           ; 0x46e4
+    pop di                           ; 0x46e5
+    mov sp, bp                       ; 0x46e6
+    pop bp                           ; 0x46e8
+    ret                              ; 0x46e9
+aztec_malloc:
+    push bp                          ; 0x46ea
+    mov bp, sp                       ; 0x46eb
+    add sp, byte 0xfa                ; 0x46ed
+    push di                          ; 0x46f0
+    push si                          ; 0x46f1
+    mov ax, word [bp + 0x4]          ; 0x46f2
+    inc ax                           ; 0x46f5
+    inc ax                           ; 0x46f6
+    inc ax                           ; 0x46f7
+    shr ax, 1                        ; 0x46f8
+    shl ax, 1                        ; 0x46fa
+    mov word [bp + 0x4], ax          ; 0x46fc
+    cmp word [current], byte 0       ; 0x46ff
+    jne short @..aztec_malloc.l1     ; 0x4704
+    mov word [first], first          ; 0x4706
+    or word [first], 1               ; 0x470c
+    mov word [current], first        ; 0x4712
+@..aztec_malloc.l1:
+    mov word [bp - 0x0006], 0        ; 0x4718
+    mov si, word [current]           ; 0x471d
+    mov word [bp - 0x0002], si       ; 0x4721
+@..aztec_malloc.l2:
+    cmp si, word [endmarker]         ; 0x4724
+    jne short @..aztec_malloc.l5     ; 0x4728
+    inc word [bp - 0x0006]           ; 0x472a
+    mov ax, word [bp - 0x0006]       ; 0x472d
+    cmp ax, strict word 1            ; 0x4730
+    jle short @..aztec_malloc.l5     ; 0x4733
+    mov word [bp - 0x0004], 0x400    ; 0x4735
+    push word [bp - 0x0004]          ; 0x473a
+    call aztec_sbrk                  ; 0x473d
+    pop cx                           ; 0x4740
+    mov di, ax                       ; 0x4741
+    mov ax, di                       ; 0x4743
+    cmp ax, strict word 0xffff       ; 0x4745
+    jne short @..aztec_malloc.l3     ; 0x4748
+    mov ax, 0                        ; 0x474a
+ds_loc_QQHT:
+    pop si                           ; 0x474d
+    pop di                           ; 0x474e
+    mov sp, bp                       ; 0x474f
+    pop bp                           ; 0x4751
+    ret                              ; 0x4752
+@..aztec_malloc.l3:
+    mov ax, si                       ; 0x4753
+    add ax, strict word 2            ; 0x4755
+    cmp di, ax                       ; 0x4758
+    je short @..aztec_malloc.l4      ; 0x475a
+    mov word [si], di                ; 0x475c
+    or word [si], 1                  ; 0x475e
+    dec word [bp - 0x0004]           ; 0x4762
+    dec word [bp - 0x0004]           ; 0x4765
+    mov si, di                       ; 0x4768
+@..aztec_malloc.l4:
+    mov di, si                       ; 0x476a
+    add di, word [bp - 0x0004]       ; 0x476c
+    mov word [si], di                ; 0x476f
+    mov word [di], first             ; 0x4771
+    or word [di], 1                  ; 0x4775
+    mov word [endmarker], di         ; 0x4779
+    mov bx, word [bp - 0x0002]       ; 0x477d
+    mov ax, word [bx]                ; 0x4780
+    and ax, strict word 0xfffe       ; 0x4782
+    cmp ax, si                       ; 0x4785
+    jne short @..aztec_malloc.l5     ; 0x4787
+    mov si, bx                       ; 0x4789
+@..aztec_malloc.l5:
+    test word [si], 1                ; 0x478b
+    jne short @..aztec_malloc.l9     ; 0x478f
+    mov word [bp - 0x0002], si       ; 0x4791
+@..aztec_malloc.l6:
+    mov ax, word [si]                ; 0x4794
+    and ax, strict word 0xfffe       ; 0x4796
+    mov di, ax                       ; 0x4799
+    mov bx, di                       ; 0x479b
+    test word [bx], 1                ; 0x479d
+    jne short @..aztec_malloc.l7     ; 0x47a1
+    mov ax, word [di]                ; 0x47a3
+    mov word [si], ax                ; 0x47a5
+    jmp short @..aztec_malloc.l6     ; 0x47a7
+@..aztec_malloc.l7:
+    sub bx, si                       ; 0x47a9
+    mov word [bp - 0x0004], bx       ; 0x47ab
+    cmp bx, word [bp + 0x4]          ; 0x47ae
+    jb short @..aztec_malloc.l9      ; 0x47b1
+    cmp bx, word [bp + 0x4]          ; 0x47b3
+    jbe short @..aztec_malloc.l8     ; 0x47b6
+    mov ax, si                       ; 0x47b8
+    add ax, word [bp + 0x4]          ; 0x47ba
+    mov word [si], ax                ; 0x47bd
+    mov bx, ax                       ; 0x47bf
+    mov ax, word [bx]                ; 0x47c1
+    mov word [keep], ax              ; 0x47c3
+    mov bx, word [si]                ; 0x47c6
+    mov word [bx], di                ; 0x47c8
+@..aztec_malloc.l8:
+    mov ax, word [si]                ; 0x47ca
+    mov word [current], ax           ; 0x47cc
+    or word [si], 1                  ; 0x47cf
+    mov ax, si                       ; 0x47d3
+    add ax, strict word 2            ; 0x47d5
+    jmp near ds_loc_QQHT             ; 0x47d8
+@..aztec_malloc.l9:
+    mov ax, word [si]                ; 0x47db
+    and ax, strict word 0xfffe       ; 0x47dd
+    mov si, ax                       ; 0x47e0
+    jmp near @..aztec_malloc.l2      ; 0x47e2
+ds_leaf_loc_LPSH:
+    jmp near ds_loc_QQHT             ; 0x47e5
+aztec_free:
+    push bp                          ; 0x47e8
+    mov bp, sp                       ; 0x47e9
+    push si                          ; 0x47eb
+    mov si, word [bp + 0x4]          ; 0x47ec
+    add si, byte 0xfe                ; 0x47ef
+    test word [si], 1                ; 0x47f2
+    jne short @..aztec_free.l2       ; 0x47f6
+    mov ax, 0xffff                   ; 0x47f8
+@..aztec_free.l1:
+    pop si                           ; 0x47fb
+    mov sp, bp                       ; 0x47fc
+    pop bp                           ; 0x47fe
+    ret                              ; 0x47ff
+@..aztec_free.l2:
+    and word [si], strict word 0xfffe ; 0x4800
+    mov word [current], si           ; 0x4804
+    mov ax, 0                        ; 0x4808
+    jmp short @..aztec_free.l1       ; 0x480b

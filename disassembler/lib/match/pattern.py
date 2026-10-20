@@ -168,8 +168,8 @@ def _is_filler_window(window):
     Branches, ``push``/``pop``, ``ret`` and register/immediate ``mov``/``xor``
     appear in every compiled routine's frame teardown and early exits, so a
     window made of nothing else says nothing about *which* routine it is (the
-    v5.2a ``_filbuf`` window ``je +9; mov ax,-1; pop si; pop di; mov sp,bp;
-    pop bp`` also ends the v3.40 flush routine).  No call, compare, arithmetic
+    ``_filbuf`` window ``je +9; mov ax,-1; pop si; pop di; mov sp,bp;
+    pop bp`` also ends a flush routine).  No call, compare, arithmetic
     or memory operand appears in such a window.
     """
     md = _detail_md()

@@ -12,7 +12,7 @@ api_idx_0002_SJMT:
     push ax
     mov ax, dseg_9098
     push ax
-    call ds_app_UUHT
+    call ds_app_string_UUHT
     add sp, byte 4
     push ax
     call aztec_open

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 leaf_loc_JHTT:
     cmp byte [cs:leaf_loc_JHTT.cseg1 - IMAGE_BASE], 0
     je short @..leaf_loc_JHTT.l1

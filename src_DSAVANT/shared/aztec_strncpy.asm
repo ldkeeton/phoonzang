@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 aztec_strncpy:
     push bp
     mov bp, sp

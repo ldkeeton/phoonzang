@@ -1,4 +1,4 @@
-"""Aztec C86 v5.2a object handling for the C-overlay rebuild.
+"""Aztec C86 object handling for the C-overlay rebuild.
 
 The vendor ``OBD`` utility (``BIN/OBD.EXE``) decodes a native Aztec ``.O``
 object into a regular text listing.  We parse that listing to recover the
@@ -109,6 +109,11 @@ class Fixup:
         """True for a branch to a label inside the same module (``LCLSYM``)."""
         return self.is_reloc and self.symbol_kind == 'LCLSYM'
 
+    def rebased(self, delta):
+        """A copy *delta* bytes further into the code."""
+        return Fixup(self.offset + delta, self.kind, self.symbol_kind,
+                     self.symbol_index, self.symbol, self.addend, self.expr)
+
     def to_list(self):
         return [self.offset, self.kind, self.symbol_kind, self.symbol_index,
                 self.symbol, self.addend, self.expr]
@@ -135,6 +140,9 @@ class ObjDump:
         self.data_locals = {}
         self.bss_locals = set()
         self.statics = {}           # static routine C name -> code offset
+        # Every non-public code symbol, as the object spells it -> offset: in
+        # an assembled module these are its labels (``cpyloop``).
+        self.code_labels = {}
         # The module's initialized data, ``{data offset: byte}`` (uninitialized
         # storage has no entry).
         self.data = {}
@@ -379,6 +387,10 @@ def attach_locals(dump, blob):
     dump.bss_locals = {f'.{n}' for n, (kind, seg, _) in enumerate(typed)
                        if seg == _SEG_DATA and kind == _TYPE_BSS}
     dump.statics = o_static_routines(blob)
+    dump.code_labels = {name: value
+                        for kind, flags, value, name in o_symbols(blob)
+                        if kind == _SYM_DEFINED_CODE
+                        and not flags & _SYM_GLOBAL}
     return dump
 
 

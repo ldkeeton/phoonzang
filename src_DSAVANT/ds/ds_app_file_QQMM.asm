@@ -374,7 +374,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x2793
     mov ax, dseg_0bb8                ; 0x2794
     push ax                          ; 0x2797
-    call ds_app_UUHT                 ; 0x2798
+    call ds_app_string_UUHT          ; 0x2798
     add sp, byte 4                   ; 0x279b
     push ax                          ; 0x279e
     call aztec_open                  ; 0x279f
@@ -397,7 +397,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x27c6
     mov ax, dseg_0bc0                ; 0x27c7
     push ax                          ; 0x27ca
-    call ds_app_UUHT                 ; 0x27cb
+    call ds_app_string_UUHT          ; 0x27cb
     add sp, byte 4                   ; 0x27ce
     push ax                          ; 0x27d1
     call aztec_open                  ; 0x27d2

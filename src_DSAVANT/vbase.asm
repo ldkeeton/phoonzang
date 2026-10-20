@@ -143,7 +143,7 @@ bss_9a2e  equ __zdseg_end + (__zobss_9a2e - __zdata_start)
 bss_9a30  equ __zdseg_end + (__zobss_9a30 - __zdata_start)
 bss_9a4a  equ __zdseg_end + (__zobss_9a4a - __zdata_start)
 bss_9a4c  equ __zdseg_end + (__zobss_9a4c - __zdata_start)
-%include "vbase/asm_only/api_idx_0038_HNUN.asm"     ; 0x2fef
+%include "vbase/api_idx_0038_HNUN.asm"     ; 0x2fef
 
 dseg_90db equ __zdseg_end + (__zdseg_90db - __zdata_start)
 ; bss_91c6  equ __zdseg_end + (__zobss_91c6 - __zdata_start)
@@ -178,7 +178,7 @@ dseg_90db equ __zdseg_end + (__zdseg_90db - __zdata_start)
 ; bss_9a30  equ __zdseg_end + (__zobss_9a30 - __zdata_start)
 ; bss_9a4a  equ __zdseg_end + (__zobss_9a4a - __zdata_start)
 ; bss_9a4c  equ __zdseg_end + (__zobss_9a4c - __zdata_start)
-%include "vbase/asm_only/api_idx_004e_HUKL.asm"     ; 0x388c
+%include "vbase/api_idx_004e_HUKL.asm"     ; 0x388c
 
 dseg_90e8 equ __zdseg_end + (__zdseg_90e8 - __zdata_start)
 %include "vbase/api_idx_0002_QRVU.asm"     ; 0x3fac
@@ -215,11 +215,11 @@ dseg_90f5 equ __zdseg_end + (__zdseg_90f5 - __zdata_start)
 dseg_90fb equ __zdseg_end + (__zdseg_90fb - __zdata_start)
 dseg_9107 equ __zdseg_end + (__zdseg_9107 - __zdata_start)
 ; bss_9c94  equ __zdseg_end + (__zobss_9c94 - __zdata_start)
-%include "vbase/asm_only/loc_RMVR.asm"              ; 0x4d0e
+%include "vbase/loc_RMVR.asm"              ; 0x4d0e
 
-%include "vbase/asm_only/loc_LQIO.asm"              ; 0x606d
+%include "vbase/loc_LQIO.asm"              ; 0x606d
 
-%include "vbase/asm_only/api_idx_0006_MROT.asm"     ; 0x61db
+%include "vbase/api_idx_0006_MROT.asm"     ; 0x61db
 
 %include "vbase/loc_ROTV.asm"              ; 0x62c6
 
@@ -455,14 +455,11 @@ dseg_91c0 equ __zdseg_end + (__zdseg_91c0 - __zdata_start)
 dseg_91c2 equ __zdseg_end + (__zdseg_91c2 - __zdata_start)
 dseg_91c4 equ __zdseg_end + (__zdseg_91c4 - __zdata_start)
 ; bss_91c6  equ __zdseg_end + (__zobss_91c6 - __zdata_start)
-%include "vbase/asm_only/string_loc_LOVO.asm"       ; 0x9330
+%include "vbase/string_loc_LOVO.asm"       ; 0x9330
 
 %include "shared/leaf_loc_RJLR.asm"         ; 0x936e
 
 %include "shared/aztec_strcmp.asm"          ; 0x9386
-
-loc_NQQK equ aztec_strncmp.loc1
-%include "shared/aztec_strncmp.asm"         ; 0x93a4
 
 __zdseg_9098:
 __zdata_start:

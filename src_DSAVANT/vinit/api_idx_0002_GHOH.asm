@@ -6,7 +6,7 @@ api_idx_0002_GHOH:
     push ax                          ; 0x00d3
     push ax                          ; 0x00d4
     push word [bp + 0x4]             ; 0x00d5
-    call ds_app_UUHT                 ; 0x00d8
+    call ds_app_string_UUHT          ; 0x00d8
     add sp, byte 4                   ; 0x00db
     push ax                          ; 0x00de
     call aztec_open                  ; 0x00df

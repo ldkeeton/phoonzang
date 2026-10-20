@@ -33,7 +33,7 @@ __zcode_start:
 %include "shared/api_idx_000e_TIOP.asm"     ; 0x008b
 
 bss_93e0 equ __zdseg_end + (__zobss_93e0 - __zdata_start)
-%include "vpcvw/asm_only/api_idx_0012_PJTU.asm"     ; 0x014b
+%include "vpcvw/api_idx_0012_PJTU.asm"     ; 0x014b
 
 %include "shared/api_idx_0004_PMIU.asm"     ; 0x02c7
 
@@ -93,7 +93,7 @@ bss_93f4  equ __zdseg_end + (__zobss_93f4 - __zdata_start)
 ; bss_942e  equ __zdseg_end + (__zobss_942e - __zdata_start)
 ; bss_9430  equ __zdseg_end + (__zobss_9430 - __zdata_start)
 bss_9432  equ __zdseg_end + (__zobss_9432 - __zdata_start)
-%include "vpcvw/asm_only/api_idx_007c_OKMO.asm"     ; 0x1046
+%include "vpcvw/api_idx_007c_OKMO.asm"     ; 0x1046
 
 ; bss_93ee equ __zdseg_end + (__zobss_93ee - __zdata_start)
 ; bss_93f0 equ __zdseg_end + (__zobss_93f0 - __zdata_start)
@@ -110,7 +110,7 @@ dseg_90a1 equ __zdseg_end + (__zdseg_90a1 - __zdata_start)
 %include "shared/loc_QQUT.asm"              ; 0x21ad
 
 bss_9434 equ __zdseg_end + (__zobss_9434 - __zdata_start)
-%include "vpcvw/asm_only/api_idx_0008_NOPG.asm"     ; 0x21fd
+%include "vpcvw/api_idx_0008_NOPG.asm"     ; 0x21fd
 
 %include "vpcvw/api_idx_0004_NONK.asm"     ; 0x297e
 
@@ -195,7 +195,7 @@ loc_TTSP.bss2 equ bss_9432
 %include "vpcvw/api_idx_0048_RUIH.asm"     ; 0x4a1c
 
 bss_95ea equ __zdseg_end + (__zobss_95ea - __zdata_start)
-%include "vpcvw/asm_only/api_idx_0072_IPMP.asm"     ; 0x4a3f
+%include "vpcvw/api_idx_0072_IPMP.asm"     ; 0x4a3f
 
 %include "vpcvw/api_idx_0002_TJIU.asm"     ; 0x5006
 
@@ -209,7 +209,7 @@ bss_95ea equ __zdseg_end + (__zobss_95ea - __zdata_start)
 ; bss_95ea equ __zdseg_end + (__zobss_95ea - __zdata_start)
 bss_9614 equ __zdseg_end + (__zobss_9614 - __zdata_start)
 bss_967a equ __zdseg_end + (__zobss_967a - __zdata_start)
-%include "vpcvw/asm_only/api_idx_00c2_OUOT.asm"     ; 0x54fb
+%include "vpcvw/api_idx_00c2_OUOT.asm"     ; 0x54fb
 
 dseg_90b3 equ __zdseg_end + (__zdseg_90b3 - __zdata_start)
 ; bss_93ee  equ __zdseg_end + (__zobss_93ee - __zdata_start)
@@ -402,9 +402,9 @@ dseg_93da equ __zdseg_end + (__zdseg_93da - __zdata_start)
 dseg_93dc equ __zdseg_end + (__zdseg_93dc - __zdata_start)
 dseg_93de equ __zdseg_end + (__zdseg_93de - __zdata_start)
 ; bss_93e0  equ __zdseg_end + (__zobss_93e0 - __zdata_start)
-%include "vpcvw/asm_only/loc_ILSJ.asm"              ; 0x97ee
+%include "vpcvw/loc_ILSJ.asm"              ; 0x97ee
 
-%include "vpcvw/asm_only/leaf_loc_PVVV.asm"         ; 0x982c
+%include "vpcvw/leaf_loc_PVVV.asm"         ; 0x982c
 
     db 0x31, 0x30, 0x30, 0x30, 0x00
 __zdseg_9284:

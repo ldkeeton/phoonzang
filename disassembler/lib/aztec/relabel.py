@@ -69,6 +69,7 @@ def learn_names(label, start, func, original, index, names_at, image_base=0):
     at file offsets, so it is looked up at ``target + image_base``.
     """
     from .compile import aztec_name, routine_label
+    from .relink import PLACE_SYMBOLS
     code_at = {}
     for name, addr in index.code.items():
         code_at.setdefault(addr, []).append(name)
@@ -84,6 +85,8 @@ def learn_names(label, start, func, original, index, names_at, image_base=0):
             target = (site + 2 + raw) & 0xFFFF
             what = f'calls 0x{target:04x}'
         elif fx.kind == 'WABS':
+            if c_name in PLACE_SYMBOLS:
+                continue
             target = (raw - fx.addend) & 0xFFFF
             names = names_at.get(target, [])
             code = code_at.get(target + image_base, [])
@@ -122,32 +125,38 @@ def data_names(data_labels, mem_equ):
     return {addr: sorted(set(names)) for addr, names in at.items()}
 
 
-def _own_names(text, label, own_key):
-    """Identifiers in *text* that spell the routine's own name.
+def _own_names(text, own_keys):
+    """Identifiers in *text* that spell one of the module's own routines.
 
-    The C name itself, or its assembler spelling inside ``#asm``
-    (``ovloader_``).
+    *own_keys* maps each routine's normalized name to its label.  The C name
+    itself counts, or its assembler spelling inside ``#asm`` (``ovloader_``).
     """
     from .compile import aztec_name, symbol_key
-    return {m.group(0): label for m in _TOKEN.finditer(text)
-            if m.group(0)[0] != '/' and m.group(0)[0] not in '"\''
-            and own_key in (symbol_key(m.group(0)),
-                            symbol_key(aztec_name(m.group(0))))}
+    found = {}
+    for m in _TOKEN.finditer(text):
+        token = m.group(0)
+        if token[0] == '/' or token[0] in '"\'':
+            continue
+        for key in (symbol_key(token), symbol_key(aztec_name(token))):
+            if key in own_keys:
+                found[token] = own_keys[key]
+                break
+    return found
 
 
-def upgrade(label, own_key, start, text, original, index, names_at, compile_,
+def upgrade(label, own_keys, start, text, original, index, names_at, compile_,
             image_base=0):
     """Return ``(new_text, new_func)`` with asm names in place of Manx ones.
 
-    *own_key* is the normalized name the routine defines (``creat``); every
-    spelling of it becomes *label*.  *compile_* compiles C text to a
+    *own_keys* maps each normalized name the module defines (``creat``) to its
+    label; every spelling of it becomes that label.  *compile_* compiles C text to a
     :class:`lib.aztec.compile.Func`.  The renamed seed must compile to the
     identical code and relocations.
     """
     func = compile_(text)
     mapping = learn_names(label, start, func, original, index, names_at,
                           image_base)
-    mapping.update(_own_names(text, label, own_key))
+    mapping.update(_own_names(text, own_keys))
     new_text = rewrite_identifiers(text, mapping)
     new_func = compile_(new_text)
     if new_func.code != func.code or len(new_func.fixups) != len(func.fixups):

@@ -193,6 +193,11 @@ def scan(out_dir, symbols=None, files=None):
     entries = []
     for rel, text in sorted(frags.items()):
         root = os.path.basename(rel)[:-4]
+        # A fragment with a .c is one compiled object (a vendor module's
+        # entry points, ``mkdir``/``rmdir``/``chdir``): every label is its own.
+        c_rel = rel[:-4] + '.c'
+        if c_rel in files or os.path.isfile(os.path.join(out_dir, c_rel)):
+            continue
         extras = [n for n in _defined_labels(text, symbols) if n != root]
         if not extras:
             continue

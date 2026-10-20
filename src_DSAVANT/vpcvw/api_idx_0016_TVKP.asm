@@ -17,7 +17,7 @@ api_idx_0016_TVKP:
     push ax                          ; 0x9454
     lea ax, word [bp - 0x0016]       ; 0x9455
     push ax                          ; 0x9458
-    call ds_app_UUHT                 ; 0x9459
+    call ds_app_string_UUHT          ; 0x9459
     add sp, byte 4                   ; 0x945c
     push ax                          ; 0x945f
     call aztec_open                  ; 0x9460

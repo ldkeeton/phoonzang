@@ -112,7 +112,8 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
 
     def test_shared_epilogue_label_uses_its_function_scope(self):
         self.assertEqual(
-            self.local_labels.get(0x47fb), '@..aztec_impl_free.l1',
+            # v4.2b's C.LIB names it ``free`` (v5.2a's library said ``_free``).
+            self.local_labels.get(0x47fb), '@..aztec_free.l1',
         )
 
     def test_sidecar_data_anchors_remain_data(self):
@@ -158,13 +159,9 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         self.assertEqual(len(generic), 1, generic)
         for function_name in ('main', generic[0]):
             with self.subTest(function=function_name):
-                # A hand-only routine (``int``, port I/O...) is filed under
-                # ``ds/asm_only/``; the split itself is what is under test.
-                folder = next(
-                    (d for d in ('ds', 'ds/asm_only')
-                     if (output / d / f'{function_name}.asm').is_file()), None)
-                self.assertIsNotNone(folder, function_name)
-                self.assertIn(f'%include "{folder}/{function_name}.asm"', master)
+                self.assertTrue((output / 'ds' / f'{function_name}.asm').is_file(),
+                                function_name)
+                self.assertIn(f'%include "ds/{function_name}.asm"', master)
 
         self.assertFalse((output / 'ds' / 'ds_loc_23ef.asm').exists())
 

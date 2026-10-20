@@ -1,15 +1,19 @@
-"""Aztec C86 v5.2a runtime-library objects as OMF, regenerated from the vendor tree.
+"""Aztec C86 v4.2b runtime-library objects as OMF, regenerated from the vendor tree.
 
 :mod:`.build_db` fingerprints the runtime routines from OMF
 modules.  Those modules are produced here, under
 ``.cache/<project>/aztec_lib_obj/<group>/*.OBJ``, entirely from ``dos_compilers``::
 
     lb LIB.LIB -x            -> one MODULE.O per library member
-    objms -u MODULE.O        -> MODULE.OBJ   (Aztec -> MS OMF, ``-u``: the
-                                              trailing-underscore symbol form)
+    obj -u MODULE.O          -> MODULE.OBJ   (Aztec -> MS OMF, ``-u``: keep
+                                              the trailing-underscore form)
 
-``c``/``m``/``ms``/``s`` come from ``C.LIB``/``M.LIB``/``MS.LIB``/``S.LIB``
-(``LIB/LIBS``); ``ovl`` converts the standalone overlay support objects.
+``obj`` also prefixes the MS ``_`` (``_putc_``, ``_$csav``);
+:func:`aztec_spelling` takes it off again, giving the name as the Aztec
+object and the compiler's ``obd`` spell it (``putc_``, ``$csav``).
+
+``c``/``m``/``s`` come from the small-model ``C.LIB``/``M.LIB``/``S.LIB``
+(``LIB``); ``ovl`` converts the standalone overlay support objects.
 Everything runs in one headless DOSBox session behind the same lock the
 compile pipeline uses.
 """
@@ -21,12 +25,18 @@ import tempfile
 
 from ..dosbox import DOSBOX
 from . import compile as _compile
+from .compile import VERSION
 from lib.cachedirs import aztec_lib_obj_dir
 
 # group -> library to extract (extension-less); ``ovl`` has loose objects.
-LIBRARIES = {'c': 'C', 'm': 'M', 'ms': 'MS', 's': 'S'}
+LIBRARIES = {'c': 'C', 'm': 'M', 's': 'S'}
 OVERLAY_OBJECTS = ('OVBGN.O', 'OVLD.O', 'OVLDPATH.O')
 GROUPS = tuple(LIBRARIES) + ('ovl',)
+
+
+def aztec_spelling(public):
+    """The Aztec spelling of a converted public (``_putc_`` -> ``putc_``)."""
+    return public[1:] if public.startswith('_') else public
 
 
 def present(project):
@@ -39,7 +49,7 @@ def present(project):
 
 
 def _libs_dir():
-    return os.path.join(_compile._COMPILER_DIRS['v52a'], 'LIB', 'LIBS')
+    return os.path.join(_compile._COMPILER_DIRS[VERSION], 'LIB')
 
 
 def build(project, *, force=False, verbose=False):
@@ -47,14 +57,14 @@ def build(project, *, force=False, verbose=False):
     out = aztec_lib_obj_dir(project)
     if present(project) and not force:
         return out
-    if not _compile.available('v52a'):
+    if not _compile.available(VERSION):
         raise _compile.AztecCompileError(
-            'Aztec v52a compiler and DOSBox are required; run `make init`')
+            f'Aztec {VERSION} compiler and DOSBox are required; run `make init`')
 
     libs = _libs_dir()
     work = tempfile.mkdtemp(prefix='asmazlib-')
     try:
-        os.symlink(_compile._COMPILER_DIRS['v52a'], os.path.join(work, 'azbin'))
+        os.symlink(_compile._COMPILER_DIRS[VERSION], os.path.join(work, 'azbin'))
         with open(os.path.join(work, 'dosbox.conf'), 'w') as f:
             f.write(_compile._CONF)
 
@@ -70,7 +80,7 @@ def build(project, *, force=False, verbose=False):
                 lib = LIBRARIES[group]
                 shutil.copy(os.path.join(libs, f'{lib}.LIB'), gdir)
                 lines.append(f'lb {lib}.LIB -x > LB.LOG')
-            lines.append('for %%f in (*.O) do objms -u %%f')
+            lines.append('for %%f in (*.O) do obj -u %%f')
             lines.append('cd \\')
         with open(os.path.join(work, 'BUILD.BAT'), 'w') as f:
             f.write('\r\n'.join(lines) + '\r\n')
@@ -86,8 +96,8 @@ def build(project, *, force=False, verbose=False):
         argv = _compile._dosbox_argv(DOSBOX, work, cmds)
         env = dict(os.environ, HOME=work, SDL_VIDEODRIVER='dummy',
                    SDL_AUDIODRIVER='dummy')
-        print('  aztec libs: extracting + converting C/M/MS/S libs and overlay '
-              'objects via v52a', flush=True)
+        print('  aztec libs: extracting + converting C/M/S libs and overlay '
+              f'objects via {VERSION}', flush=True)
         if verbose:
             print(f'    {" ".join(argv)}', flush=True)
         with _compile._dosbox_lock():

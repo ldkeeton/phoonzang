@@ -9,7 +9,8 @@ import subprocess
 import sys
 import tempfile
 
-from lib.autogen import stamp, write_text
+from lib.autogen import marker_for, stamp, write_text
+from lib.compare.interrupts import _annotate_interrupts
 from lib.cachedirs import src_dir
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
 from lib.link import include_args
@@ -197,6 +198,21 @@ def _segment_model(app, bins, binary, data, data_names):
     return model
 
 
+def _leading_lines(apath, label, lead):
+    """The fragment's text before its root *label*: the module's leading data,
+    as the build rendered it from the disassembly ('' when *lead* is 0)."""
+    if not lead:
+        return ''
+    with open(apath) as f:
+        lines = f.read().split('\n')
+    if lines and lines[0].rstrip() == marker_for(apath):
+        lines = lines[1:]
+    if f'{label}:' not in lines:
+        raise SystemExit(f'error: {apath}: no {label}: line after the '
+                         f'module\'s leading data; run "make build"')
+    return '\n'.join(lines[:lines.index(f'{label}:')]) + '\n'
+
+
 def _fragment_labels(label_records, start, end):
     """Select the build's label lines owned by a fragment span."""
     return [{'type': 'label', 'text': text, 'name': name, 'offset': offset}
@@ -240,6 +256,7 @@ def resplice_c(app, binary, check_only=False):
     without them.
     """
     from lib.aztec import cache, relink
+    from lib.aztec.modules import entry_for
     from lib.aztec.objread import fixup_width
     from lib.compare.cgate import check_against_original
     from lib.compare.coverrides import (
@@ -293,8 +310,7 @@ def resplice_c(app, binary, check_only=False):
     shared_dir = os.path.join(out_dir, FOLDER)
     def has_own_asm(label):
         # a same-named routine owned by this binary is not the shared one
-        return any(os.path.exists(os.path.join(dest, sub, label + '.asm'))
-                   for sub in ('', 'asm_only'))
+        return os.path.exists(os.path.join(dest, label + '.asm'))
 
     c_labels |= {name[:-2] for name in (os.listdir(shared_dir)
                                         if os.path.isdir(shared_dir) else ())
@@ -342,9 +358,10 @@ def resplice_c(app, binary, check_only=False):
         span_len = end - start
         with open(cpath) as f:
             text = f.read()
-        entry = entries.get(label)
-        if entry is None or cache.is_asm_entry(entry):
-            entry = cache.default_entry(label, app)
+        # A vendor module's fragment is named after its source file
+        # (aztec_croot); anything else is a hand-written routine's.
+        module = entry_for(app, label, entries)
+        entry = module or cache.default_entry(label, app)
         apath = where(label, '.asm')
         in_stamp = hashlib.sha1(
             (env.hexdigest() + json.dumps(entry, sort_keys=True) + text)
@@ -355,18 +372,22 @@ def resplice_c(app, binary, check_only=False):
                 if hashlib.sha1(f.read()).hexdigest() == prev['out']:
                     continue
         func = cache.compile_source(app, label, entry, text)
-        # A routine's object extent runs to the next public symbol, so a
-        # trailing ``static`` neighbour is compiled inside it (``putc`` swallows
-        # ``closall``).  The fragment span is where this routine ends; own only
-        # those bytes so relink never mints the neighbour's ``.N`` labels into
-        # this fragment.  A compile that outgrew its own recovered length is a
-        # real edit and needs a full relayout.
-        declared = entry.get('original_length') or len(func.code)
-        if len(func.code) > declared:
+        # The .c compiles to exactly its fragment.  One that no longer does is
+        # a real edit that moves code, which only a full build can relayout.
+        if len(func.code) != span_len and not lenient:
             raise SystemExit(
-                f'error: {label}: compiled {len(func.code)} bytes, no longer '
-                f'the routine it was ({declared}); run "make build {app}"')
-        func = func.truncate(min(len(func.code), span_len))
+                f'error: {label}: {os.path.relpath(cpath, out_dir)} compiles '
+                f'to {len(func.code)} bytes, its fragment is {span_len}; run '
+                f'"make build {app}"')
+        # A vendor module's bytes before its first routine are data the build
+        # rendered from the disassembly; they stay as the fragment has them.
+        first = start
+        if module is not None:
+            first = min((addr for addr, name in label_map.items()
+                         if start <= addr < end
+                         and getattr(name, 'role', None) == 'aztec'),
+                        default=start)
+        lead = first - start
 
         linked = None
         if index is not None:
@@ -375,9 +396,13 @@ def resplice_c(app, binary, check_only=False):
             labels_in = [(offset, name)
                          for offset, name, _ in context['label_records']
                          if start <= offset < end]
+            labels_at = {offset: name
+                         for offset, name, _ in context['label_records']}
+            for offset, name in context.get('table_labels', {}).items():
+                labels_at.setdefault(offset, name)
             try:
                 linked = relink.link(label, start, func, index, data,
-                                     labels_in)
+                                     labels_in, labels_at)
             except relink.RelinkError as exc:
                 raise SystemExit(f'error: {exc}')
             compiled = linked.code
@@ -393,45 +418,19 @@ def resplice_c(app, binary, check_only=False):
                 compiled[fx.offset:fx.offset + n] = chunk
 
         if not lenient:
-            expected = min(entry.get('original_length') or span_len, span_len)
             report = check_against_original(
-                label, start, data[start:start + expected], compiled,
-                exact=exact_here)
+                label, start, data[start:end], compiled, exact=exact_here)
             if report:
                 failures.extend(report)
                 continue
 
-        # Overlay the compiled code onto the original span.  The fragment's
-        # span is fixed because the master listing addresses code absolutely.
-        # A routine whose recovered code is *longer* than its own fragment (its
-        # tail lies in a neighbouring fragment) keeps that tail there, so only
-        # the part inside this fragment is rewritten.  This is defensive only:
-        # ``_select_split_ranges`` gives a C routine its full recovered extent,
-        # so it should not fire (an old build tree can still trigger it).
-        # Otherwise the routine's recorded code length is NOP-padded
-        # so an edited-but-shorter routine keeps its byte count, while the tail
-        # beyond it (data, padding) survives untouched.
-        original = entry.get('original_length') or len(compiled)
-        spilled = len(compiled) > span_len
-        if spilled and len(compiled) > original:
-            # The routine *grew* past its fragment; the overflow would have to
-            # be written into a neighbouring fragment, which only a full build
-            # can relayout.
-            raise SystemExit(
-                f'error: {label}: compiled {len(compiled)} bytes no longer fits '
-                f'its {span_len}-byte fragment (was {original}); run '
-                f'"make build {app}"')
-        if spilled:
-            print(f'  resplice {app}/{binary}: {label}: {len(compiled)} compiled '
-                  f'bytes span the {span_len}-byte fragment; shared tail left '
-                  f'to the neighbouring fragment')
-        write_len = min(len(compiled), span_len)
+        # Overlay the compiled code onto the original span (an --allow-diff
+        # compile shorter than its fragment is NOP-padded to keep its size).
         final = bytearray(data[start:end])
+        write_len = min(len(compiled), span_len)
         final[:write_len] = compiled[:write_len]
-        code_len = span_len if spilled else min(max(len(compiled), original),
-                                                span_len)
-        if write_len < code_len:
-            final[write_len:code_len] = b'\x90' * (code_len - write_len)
+        final[write_len:] = b'\x90' * (span_len - write_len)
+        code_len = span_len
 
         if context is not None:
             # Re-render with the build's own maps so an unedited fragment comes
@@ -471,11 +470,22 @@ def resplice_c(app, binary, check_only=False):
             bytes(final), start, label_map, local_labels, foreign_label_map,
             immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
-            linked=linked)
+            linked=linked, skip=lead)
+        head = _leading_lines(apath, str(label_map.get(first, label)), lead)
+        if lead:
+            # The leading lines already carry the labels up to the root.
+            kept = set(head.split('\n'))
+            label_records = [r for r in label_records
+                             if r['offset'] >= start + lead
+                             and r['text'] not in kept]
+            if linked is not None:
+                linked.consumed.update(s for s in linked.refs if s < lead)
+        # The build annotates ``int`` calls after its splice (lib.compare.verify).
+        _annotate_interrupts(records)
         if linked is not None:
             _report_linked(app, binary, label, linked)
         records = _merge_label_records(records, label_records)
-        fragment = '\n'.join(_render_records(records, data, True)) + '\n'
+        fragment = (head + '\n'.join(_render_records(records, data, True)) + '\n')
         if os.path.dirname(apath) == shared_dir:
             # Shared by several binaries: no one binary's addresses.
             from lib.shared import neutral

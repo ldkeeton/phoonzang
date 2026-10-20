@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 api_idx_0080_MHMQ:
     mov ax, 0xff80
     call aztec_csav

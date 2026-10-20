@@ -21,7 +21,7 @@ If a `file.c` exists, it's used instead of the matching `file.asm`. This allows 
 Some sources seem to be ASM-only: they have no way to be represented as C. Examples: low level interrupts, IRQ usage, self-modifying code
 ## Wizardry 7 coverage
 
-Progress: **39 / 933** (4.2%).
+Progress: **89 / 1404** (6.3%).
 
 ![C coverage heatmap](readme/heatmap.svg)
  
@@ -31,8 +31,9 @@ Run from the repo root.
 
 | command | what |
 |---|---|
-| `make init` | sparse-clone only the dos_compilers folders listed in sidecars |
-| `make all` | prebuild (clean + Aztec mux), build, verify all, make test, make test slow |
+| `make init` | sparse-clone only the dos_compilers folders listed in sidecars, |
+| `make libcheck` | rebuild Aztec v4.2b C.LIB from dos_compilers/aztec_src/ and compare to the shipped one |
+| `make all` | prebuild (clean + Aztec mux), build, verify all, elf-rebuild, make test, make test slow |
 | `make build PROJECT [BIN]` | asm + nasm + assets (seeds .c; runs prebuild first if missing) |
 | `make prebuild [PROJECT...]` | clean, rebuild aztec libs + signature DB, run the Aztec C mux |
 | `make run PROJECT` | run game in dosbox-x |

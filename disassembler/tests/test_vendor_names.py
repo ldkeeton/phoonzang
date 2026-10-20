@@ -5,7 +5,7 @@ import unittest
 from lib.aztec import sources
 from lib.match import pattern
 
-# v5.2a ``_filbuf`` window: je +9; mov ax,-1; pop si; pop di; mov sp,bp; pop bp
+# A ``_filbuf`` window: je +9; mov ax,-1; pop si; pop di; mov sp,bp; pop bp
 EPILOGUE = bytes.fromhex('7409b8ffff5e5f8be55d')
 # A window with a call and a memory operand is real code.
 REAL = bytes.fromhex('8b4604e80000')
@@ -16,23 +16,23 @@ class DefinitionNameTest(unittest.TestCase):
 
     def test_trailing_underscore_is_part_of_the_name(self):
         # ``flsh_`` is the C name in putc.c; ``flsh`` is a different routine.
-        self.assertIn('putc.c', sources.definition_files('v340a', 'flsh_'))
-        self.assertEqual(sources.definition_files('v340a', 'flsh'), [])
+        self.assertIn('putc.c', sources.definition_files('v42b', 'flsh_'))
+        self.assertEqual(sources.definition_files('v42b', 'flsh'), [])
 
     def test_leading_underscores_are_significant(self):
-        self.assertIn('putc.c', sources.definition_files('v340a', 'putc'))
-        self.assertEqual(sources.definition_files('v340a', '_putc'), [])
-        self.assertIn('ttyio.c', sources.definition_files('v340a', '__tty_rd'))
-        self.assertNotEqual(sources.definition_files('v340a', 'tty_rd'),
-                            sources.definition_files('v340a', '__tty_rd'))
+        self.assertIn('putc.c', sources.definition_files('v42b', 'putc'))
+        self.assertEqual(sources.definition_files('v42b', '_putc'), [])
+        self.assertIn('ttyio.c', sources.definition_files('v42b', '__tty_rd'))
+        self.assertNotEqual(sources.definition_files('v42b', 'tty_rd'),
+                            sources.definition_files('v42b', '__tty_rd'))
 
     def test_dollar_and_case_fold(self):
-        self.assertEqual(sources.definition_files('v340a', '$PUTC'),
-                         sources.definition_files('v340a', 'putc'))
+        self.assertEqual(sources.definition_files('v42b', '$PUTC'),
+                         sources.definition_files('v42b', 'putc'))
 
     def test_asm_block_routine_is_defined_by_its_c_file(self):
         self.assertIn('ovloader.c',
-                      sources.definition_files('v340a', 'ovloader'))
+                      sources.definition_files('v42b', 'ovloader'))
 
 
 class AsmBlockRenameTest(unittest.TestCase):

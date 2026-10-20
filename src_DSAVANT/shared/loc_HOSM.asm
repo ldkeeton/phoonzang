@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 loc_HOSM:
     push bp
     mov bp, sp

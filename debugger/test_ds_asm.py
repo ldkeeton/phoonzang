@@ -9,7 +9,7 @@ import subprocess
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ELF = ROOT / "src_DSAVANT" / "build_out" / "DS.elf"
-INCLUDE_SOURCE = ROOT / "src_DSAVANT" / "ds" / "asm_only" / "bios_get_video_mode.asm"
+INCLUDE_SOURCE = ROOT / "src_DSAVANT" / "ds" / "bios_get_video_mode.asm"
 MASTER_SOURCE = ROOT / "src_DSAVANT" / "ds.asm"
 FLOW_ADDRESS = re.compile(
     r"\b(?:call|jmp|j[a-z]+|loop(?:e|ne)?)\s+"
@@ -52,7 +52,7 @@ def first_mapped_line(source_name):
 
 
 def main():
-    if '%include "ds/asm_only/bios_get_video_mode.asm"' not in MASTER_SOURCE.read_text():
+    if '%include "ds/bios_get_video_mode.asm"' not in MASTER_SOURCE.read_text():
         raise AssertionError("ds.asm does not include bios_get_video_mode.asm")
     for source_path in (MASTER_SOURCE, INCLUDE_SOURCE):
         unresolved = [

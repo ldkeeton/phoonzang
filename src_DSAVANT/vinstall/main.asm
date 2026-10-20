@@ -59,7 +59,7 @@ main:
     add sp, byte 6                   ; 0x1338
     mov ax, dseg_183b                ; 0x133b
     push ax                          ; 0x133e
-    call bios_video_loc_QTQU         ; 0x133f
+    call bios_video_loc_QRGV         ; 0x133f
     pop cx                           ; 0x1342
     lea ax, word [bp - 0x02d6]       ; 0x1343
     push ax                          ; 0x1347
@@ -69,7 +69,7 @@ main:
     idiv cx                          ; 0x1350
     mov ax, dx                       ; 0x1352
     push ax                          ; 0x1354
-    call aztec_raise                 ; 0x1355
+    call loc_KOGV                    ; 0x1355
     add sp, byte 4                   ; 0x1358
     lea ax, word [bp - 0x02d6]       ; 0x135b
     push ax                          ; 0x135f
@@ -84,7 +84,7 @@ main:
 @..main.l1:
     lea ax, word [bp - 0x02d6]       ; 0x137b
     push ax                          ; 0x137f
-    call bios_video_loc_QTQU         ; 0x1380
+    call bios_video_loc_QRGV         ; 0x1380
     pop cx                           ; 0x1383
     mov ax, dseg_183d                ; 0x1384
     push ax                          ; 0x1387
@@ -289,7 +289,7 @@ main:
     push ax                          ; 0x157b
     mov ax, 8                        ; 0x157c
     push ax                          ; 0x157f
-    call aztec_vfprintf              ; 0x1580
+    call loc_PUJU                    ; 0x1580
     add sp, byte 0x0c                ; 0x1583
     lea ax, word [bp - 0x0054]       ; 0x1586
     push ax                          ; 0x1589
@@ -302,7 +302,7 @@ main:
     push ax                          ; 0x1598
     mov ax, 9                        ; 0x1599
     push ax                          ; 0x159c
-    call aztec_vfprintf              ; 0x159d
+    call loc_PUJU                    ; 0x159d
     add sp, byte 0x0c                ; 0x15a0
     mov word [bp - 0x01a0], 0        ; 0x15a3
     mov word [bp - 0x01a2], 0        ; 0x15a9
@@ -1890,7 +1890,7 @@ jumptable_23bc:
     push ax                          ; 0x2421
     lea ax, word [bp - 0x003e]       ; 0x2422
     push ax                          ; 0x2425
-    call aztec_impl_scan             ; 0x2426
+    call loc_QKVM                    ; 0x2426
     add sp, byte 0x1a                ; 0x2429
     test ax, ax                      ; 0x242c
     je short @..main.l65             ; 0x242e

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 dos_mem_loc_NGNH:
     push bp
     mov bp, sp

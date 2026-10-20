@@ -2,7 +2,7 @@
 
 Layout::
 
-    .cache/<project>/prebuild/          mux manifests, extracted C seeds, objs/
+    .cache/<project>/prebuild/          mux manifests, compiled module seeds (objs/)
     .cache/<project>/aztec_lib_obj/     runtime-library OMF (c m ms s ovl)
     .cache/<project>/aztec_funcs.json   runtime signature DB built from those
     .cache/<project>/render/            render contexts

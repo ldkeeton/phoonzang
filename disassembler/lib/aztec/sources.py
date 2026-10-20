@@ -1,25 +1,15 @@
-"""Catalog of original Manx Aztec C86 runtime sources.
+"""Catalog of the Manx Aztec C86 v4.2b runtime sources.
 
-Two vendored distributions are relevant to the Wizardry 7 rebuild:
+The game was built with Aztec C86 v4.2b: its runtime is that release's
+small-model ``C.LIB``, every member of which :mod:`.libcheck` rebuilds
+byte-exact from these sources.  ``make init`` unpacks the release's
+``ARC/*.ARC`` bundles into ``dos_compilers/aztec_src/v42b/<archive>/<file>``.
 
-``v340a`` (a.k.a. 3.40b)
-    The matching runtime for the game.  Its ``SRC/*.ARC`` files are *not*
-    real archives -- they are plain text concatenations separated by a form
-    feed followed by the file name (``\\f<name>\\n<body>``), so they can be
-    read directly.  Most DOS runtime routines ship here as C.
-
-``v52a``
-    A later compiler/library.  Its C sources are loose files under ``LIB``,
-    but its headline runtime changed (word ``_ioflg`` etc.), so it is useful
-    mostly as an alternative compiler and as a source for routines v340a
-    does not have.
-
-Sources are keyed by lower-case base name.  A "source version" is the tree
-the C came from; it is independent of the compiler used to build it, which
-is what makes the mixed-version mux possible.
+Sources are keyed by lower-case base name.  Names repeat across archives
+(``croot.c`` is in both ``cpm86`` and ``dos20``); the directories the DOS
+library is built from (``build/c.bld``) win.
 """
 
-import glob
 import os
 import re
 
@@ -27,18 +17,25 @@ _ASM_DIR = os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__))))
 _DOSCOMP = os.path.join(_ASM_DIR, 'dos_compilers')
 
+#: The one Aztec release the game was built with (lib.aztec.compile.VERSION).
+VERSION = 'v42b'
+
 VERSIONS = {
-    'v340a': os.path.join(_DOSCOMP, 'Manx Aztec C86 v340a'),
-    'v52a': os.path.join(_DOSCOMP, 'Manx Aztec C86 v52a'),
+    VERSION: os.path.join(_DOSCOMP, 'Manx Aztec C86 v42b'),
 }
 
-# Default per-version include roots (headers that go with the source).
+# Per-version include roots (headers that go with the source).
 INCLUDE_DIRS = {
-    'v340a': os.path.join(VERSIONS['v340a'], 'INCLUDE'),
-    'v52a': os.path.join(VERSIONS['v52a'], 'INCLUDE'),
+    VERSION: os.path.join(VERSIONS[VERSION], 'INCLUDE'),
 }
 
 _CACHE = {}
+
+
+def src_root(version):
+    """``dos_compilers/aztec_src/<version>``: the sources ``make init``
+    unpacks from the release's ``ARC/*.ARC``, one dir per archive."""
+    return os.path.join(_DOSCOMP, 'aztec_src', version)
 
 
 def version_root(version):
@@ -53,6 +50,8 @@ def include_dir(version):
 
 
 _INCLUDE = re.compile(r'^[ \t]*#[ \t]*include[ \t]*[<"]([^>"]+)[>"]', re.M)
+# The assembler's own form, inside ``#asm`` or a ``.asm`` (``include lmacros.h``).
+_ASM_INCLUDE = re.compile(r'^[ \t]*include[ \t]+([\w.]+)', re.M | re.I)
 
 
 def headers(version, text):
@@ -70,7 +69,8 @@ def headers(version, text):
     out = {}
     pending = [text]
     while pending:
-        for name in _INCLUDE.findall(pending.pop()):
+        text = pending.pop()
+        for name in _INCLUDE.findall(text) + _ASM_INCLUDE.findall(text):
             name = name.lower()
             if name in out or name not in on_disk:
                 continue
@@ -80,72 +80,56 @@ def headers(version, text):
     return out
 
 
-def _parse_arc(text):
-    """Yield ``(name, body)`` pairs from a concatenated ``\\f`` dump."""
-    for part in text.split(b'\x0c')[1:]:
-        nl = part.find(b'\n')
-        if nl < 0:
-            continue
-        name = part[:nl].strip().decode('latin1')
-        body = part[nl + 1:]
-        if not name:
-            continue
-        try:
-            yield name, body.decode('latin1')
-        except Exception:
-            continue
-
-
-def _load_v340a():
-    # Later archives win on name clashes.  Alphabetical order already places
-    # the DOS 2.x sources (DOS20) after the CP/M and DOS 1.x variants, which
-    # is what the game's handle-based runtime uses.
-    out = {}
-    src = os.path.join(version_root('v340a'), 'SRC')
-    for arc in sorted(glob.glob(os.path.join(src, '*.ARC'))):
-        with open(arc, 'rb') as f:
-            data = f.read()
-        for name, body in _parse_arc(data):
-            out[name.lower()] = body
-    return out
-
-
-def _load_v52a():
-    out = {}
-    lib = os.path.join(version_root('v52a'), 'LIB')
-    for root, _dirs, files in os.walk(lib):
-        for fn in files:
-            if not fn.upper().endswith(('.C', '.ASM')):
-                continue
-            path = os.path.join(root, fn)
-            try:
-                with open(path, 'r', errors='replace') as f:
-                    out.setdefault(fn.lower(), f.read())
-            except OSError:
-                continue
-    return out
-
-
-_LOADERS = {'v340a': _load_v340a, 'v52a': _load_v52a}
+def library_dirs(version):
+    """The archive directories ``C.LIB`` is built from, in ``c.bld`` order."""
+    path = os.path.join(src_root(version), 'build', 'c.bld')
+    try:
+        with open(path, errors='replace') as f:
+            names = f.read().split()
+    except OSError:
+        return []
+    return list(dict.fromkeys(n.split('/')[0] for n in names if '/' in n))
 
 
 def catalog(version):
-    """Return ``{lower-case filename: source text}`` for *version*."""
-    if version not in _CACHE:
-        _CACHE[version] = _LOADERS[version]()
-    return _CACHE[version]
+    """Return ``{lower-case filename: source text}`` for *version*.
+
+    Every unpacked archive contributes; on a name clash the ``C.LIB``
+    directories win over the others (CP/M, math, screen, graphics).
+    """
+    if version in _CACHE:
+        return _CACHE[version]
+    root = src_root(version)
+    if not os.path.isdir(root):
+        raise FileNotFoundError(f'{root} missing; run "make init"')
+    preferred = library_dirs(version)
+    dirs = sorted(d for d in os.listdir(root)
+                  if os.path.isdir(os.path.join(root, d)))
+    order = [d for d in dirs if d not in preferred] + \
+            [d for d in preferred if d in dirs]
+    out = {}
+    for d in order:
+        for fn in sorted(os.listdir(os.path.join(root, d))):
+            if fn.endswith(('.c', '.asm')):
+                with open(os.path.join(root, d, fn), errors='replace') as f:
+                    out[fn] = f.read()
+    _CACHE[version] = out
+    return out
 
 
-def find_source(version, name):
-    """Find a source file that defines C symbol *name* (with/without ``_``)."""
-    cat = catalog(version)
-    base = name
-    for prefix in ('_', ''):
-        stem = (prefix + base).lower()
-        for cand in (stem + '.c', stem + '.asm'):
-            if cand in cat:
-                return cand, cat[cand]
-    return None
+def source_dir(version, filename):
+    """The archive directory ``catalog`` takes *filename* from, or None."""
+    root = src_root(version)
+    preferred = library_dirs(version)
+    dirs = sorted(d for d in os.listdir(root)
+                  if os.path.isdir(os.path.join(root, d)))
+    order = [d for d in dirs if d not in preferred] + \
+            [d for d in preferred if d in dirs]
+    found = None
+    for d in order:
+        if os.path.isfile(os.path.join(root, d, filename)):
+            found = d
+    return found
 
 
 class PatchError(ValueError):

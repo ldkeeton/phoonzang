@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 aztec_strcpy:
     push bp
     mov bp, sp
@@ -12,7 +11,7 @@ aztec_strcpy:
     mov cx, 0xffff
     mov al, 0
     repne scasb
-    not cx ; real length of string
+    not cx
     mov di, word [bp + 0x4]
     mov si, word [bp + 0x6]
     shr cx, 1

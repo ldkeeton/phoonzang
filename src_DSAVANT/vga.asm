@@ -237,50 +237,50 @@ cseg_0291:
 
 %include "vga/leaf_loc_LMRM.asm"           ; 0x0447
 
-%include "vga/asm_only/leaf_loc_UNNV.asm"           ; 0x045c
+%include "vga/leaf_loc_UNNV.asm"           ; 0x045c
 
-%include "vga/asm_only/leaf_loc_OITH.asm"           ; 0x0477
+%include "vga/leaf_loc_OITH.asm"           ; 0x0477
 
-%include "vga/asm_only/leaf_loc_TKRV.asm"           ; 0x0496
+%include "vga/leaf_loc_TKRV.asm"           ; 0x0496
 
-%include "vga/asm_only/loc_QVUN.asm"                ; 0x04b5
+%include "vga/loc_QVUN.asm"                ; 0x04b5
 
 cseg_0515:
     db 0x00
-%include "vga/asm_only/graphics_loc_RNOG.asm"       ; 0x0516
+%include "vga/graphics_loc_RNOG.asm"       ; 0x0516
 
-%include "vga/asm_only/leaf_loc_PRNU.asm"           ; 0x067f
+%include "vga/leaf_loc_PRNU.asm"           ; 0x067f
 
 %include "shared/leaf_loc_QSOP.asm"           ; 0x06b2
 
 %include "shared/leaf_loc_GHVP.asm"           ; 0x06d9
 
-%include "vga/asm_only/string_loc_RQOL.asm"         ; 0x0728
+%include "vga/string_loc_RQOL.asm"         ; 0x0728
 
-%include "vga/asm_only/save_area.asm"               ; 0x077a
+%include "vga/save_area.asm"               ; 0x077a
 
-%include "vga/asm_only/dos_con_loc_PJHN.asm"        ; 0x07fd
+%include "vga/dos_con_loc_PJHN.asm"        ; 0x07fd
 
 %include "vga/loc_082e.asm"                ; 0x082e
 
-%include "vga/asm_only/restore_area.asm"            ; 0x0836
+%include "vga/restore_area.asm"            ; 0x0836
 
-%include "vga/asm_only/dos_con_loc_SUSK.asm"        ; 0x088f
+%include "vga/dos_con_loc_SUSK.asm"        ; 0x088f
 
 %include "vga/loc_08ca.asm"                ; 0x08ca
 
 data_0251 equ __zdata_0251 - IMAGE_BASE
 data_02d7 equ __zdata_02d7 - IMAGE_BASE
 data_0bda equ __zdata_0bda - IMAGE_BASE
-%include "vga/asm_only/load_screen.asm"             ; 0x08d2
+%include "vga/load_screen.asm"             ; 0x08d2
 
 ; data_0251 equ __zdata_0251 - IMAGE_BASE
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
-%include "vga/asm_only/save_screen.asm"             ; 0x099c
+%include "vga/save_screen.asm"             ; 0x099c
 
-%include "vga/asm_only/dos_con_loc_VOMM.asm"        ; 0x0a4f
+%include "vga/dos_con_loc_VOMM.asm"        ; 0x0a4f
 
-%include "vga/asm_only/dos_con_loc_HUUH.asm"        ; 0x0a8d
+%include "vga/dos_con_loc_HUUH.asm"        ; 0x0a8d
 
 __zdata_0bc6:
 cseg_0ac6:
@@ -298,7 +298,7 @@ cseg_0bac:
     db 0x00, 0x00
 data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
-%include "vga/asm_only/load_maze.asm"               ; 0x0bae
+%include "vga/load_maze.asm"               ; 0x0bae
 
 data_029b equ __zdata_029b - IMAGE_BASE
 ; data_02d7 equ __zdata_02d7 - IMAGE_BASE
@@ -313,18 +313,18 @@ loc_KLNH.cseg2     equ cseg_0e6f
 loc_KLNH.leaf_loc1 equ leaf_loc_VKOL
 %include "shared/loc_KLNH.asm"                ; 0x0e71
 
-%include "vga/asm_only/leaf_loc_VKOL.asm"           ; 0x0f3b
+%include "vga/leaf_loc_VKOL.asm"           ; 0x0f3b
 
 ; data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
-%include "vga/asm_only/loc_NRVQ.asm"                ; 0x0f6f
+%include "vga/loc_NRVQ.asm"                ; 0x0f6f
 
 ; data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
-%include "vga/asm_only/draw_maze_piece.asm"         ; 0x0fb7
+%include "vga/draw_maze_piece.asm"         ; 0x0fb7
 
-%include "vga/asm_only/mouse_init.asm"              ; 0x11f8
+%include "vga/mouse_init.asm"              ; 0x11f8
 
-%include "vga/asm_only/mouse_off.asm"               ; 0x126c
+%include "vga/mouse_off.asm"               ; 0x126c
 
 bios_mouse_loc_PTIM.cseg1 equ cseg_14ac
 bios_mouse_loc_PTIM.cseg2 equ cseg_14ae
@@ -340,9 +340,9 @@ bios_mouse_loc_JGGM.cseg3 equ cseg_1dd1
 %include "shared/bios_mouse_loc_NPNG.asm"     ; 0x139a
 
 data_1e5c equ __zdata_1e5c - IMAGE_BASE
-%include "vga/asm_only/set_mouse_pointer.asm"       ; 0x13c9
+%include "vga/set_mouse_pointer.asm"       ; 0x13c9
 
-%include "vga/asm_only/dos_con_loc_TUKI.asm"        ; 0x147d
+%include "vga/dos_con_loc_TUKI.asm"        ; 0x147d
 
 cseg_1486:
 
@@ -434,26 +434,26 @@ leaf_loc_JHTT.cseg3 equ cseg_14b2
 
 data_1dc4 equ __zdata_1dc4 - IMAGE_BASE
 data_1e4c equ __zdata_1e4c - IMAGE_BASE
-%include "vga/asm_only/graphics_loc_OSKV.asm"       ; 0x1e35
+%include "vga/graphics_loc_OSKV.asm"       ; 0x1e35
 
 leaf_loc_UQHV.cseg1 equ cseg_1dcd
 %include "shared/leaf_loc_UQHV.asm"           ; 0x217d
 
 data_0229 equ __zdata_0229 - IMAGE_BASE
-%include "vga/asm_only/loc_QNIQ.asm"                ; 0x2185
+%include "vga/loc_QNIQ.asm"                ; 0x2185
 
 ; data_0229 equ __zdata_0229 - IMAGE_BASE
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
-%include "vga/asm_only/load_picture.asm"            ; 0x21cd
+%include "vga/load_picture.asm"            ; 0x21cd
 
-%include "vga/asm_only/dos_con_loc_QRKT.asm"        ; 0x22be
+%include "vga/dos_con_loc_QRKT.asm"        ; 0x22be
 
 cseg_22de:
     db 0x30
 cseg_22df:
     db '0 not freed.', 0
     db 0x0a, 0x24
-%include "vga/asm_only/dos_con_loc_KORI.asm"        ; 0x22ee
+%include "vga/dos_con_loc_KORI.asm"        ; 0x22ee
 
 cseg_2327:
 
@@ -491,25 +491,25 @@ cseg_2327:
     db 0x56, 0xb5, 0xb2, 0xff, 0xe3, 0xd7, 0x11, 0xff, 0x55, 0xff, 0xb1, 0xb0, 0xff, 0x52, 0x50, 0x10
     db 0x00
 
-%include "vga/asm_only/loc_JTQT.asm"                ; 0x2528
+%include "vga/loc_JTQT.asm"                ; 0x2528
 
-%include "vga/asm_only/bios_video_loc_KVON.asm"     ; 0x277f
+%include "vga/bios_video_loc_KVON.asm"     ; 0x277f
 
-%include "vga/asm_only/bios_video_loc_TVOT.asm"     ; 0x27d0
+%include "vga/bios_video_loc_TVOT.asm"     ; 0x27d0
 
-%include "vga/asm_only/fade_in.asm"                 ; 0x2802
+%include "vga/fade_in.asm"                 ; 0x2802
 
-%include "vga/asm_only/bios_video_loc_GGUP.asm"     ; 0x28ba
+%include "vga/bios_video_loc_GGUP.asm"     ; 0x28ba
 
-%include "vga/asm_only/fade_out.asm"                ; 0x28f0
+%include "vga/fade_out.asm"                ; 0x28f0
 
-%include "vga/asm_only/dos_mem_loc_QHMQ.asm"        ; 0x29bf
+%include "vga/dos_mem_loc_QHMQ.asm"        ; 0x29bf
 
-%include "vga/asm_only/reset_rgb.asm"               ; 0x29f6
+%include "vga/reset_rgb.asm"               ; 0x29f6
 
-%include "vga/asm_only/dos_con_loc_HJPN.asm"        ; 0x2a97
+%include "vga/dos_con_loc_HJPN.asm"        ; 0x2a97
 
-%include "vga/asm_only/leaf_loc_PIJK.asm"           ; 0x2acf
+%include "vga/leaf_loc_PIJK.asm"           ; 0x2acf
 
 dos_mem_loc_NGNH.cseg1 equ cseg_0bac
 %include "shared/dos_mem_loc_NGNH.asm"        ; 0x2b01
@@ -521,7 +521,7 @@ bios_mouse_loc_JLUV.cseg2 equ cseg_14ae
 %include "shared/bios_mouse_loc_JLUV.asm"     ; 0x2c0e
 
 ; data_0251 equ __zdata_0251 - IMAGE_BASE
-%include "vga/asm_only/loc_ROPT.asm"                ; 0x2cbe
+%include "vga/loc_ROPT.asm"                ; 0x2cbe
 
 %include "shared/leaf_loc_IPJP.asm"           ; 0x2d08
 
@@ -539,16 +539,16 @@ cseg_2d53:
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
 data_2e2b equ __zdata_2e2b - IMAGE_BASE
 data_2e53 equ __zdata_2e53 - IMAGE_BASE
-%include "vga/asm_only/draw_text.asm"               ; 0x2d6c
+%include "vga/draw_text.asm"               ; 0x2d6c
 
-%include "vga/asm_only/dos_con_loc_PILL.asm"        ; 0x3131
+%include "vga/dos_con_loc_PILL.asm"        ; 0x3131
 
 %include "shared/leaf_loc_NOSG.asm"           ; 0x319f
 
 ; data_2e2b equ __zdata_2e2b - IMAGE_BASE
 ; data_2e53 equ __zdata_2e53 - IMAGE_BASE
 data_381b equ __zdata_381b - IMAGE_BASE
-%include "vga/asm_only/graphics_loc_PVIU.asm"       ; 0x31d9
+%include "vga/graphics_loc_PVIU.asm"       ; 0x31d9
 
 %include "shared/leaf_loc_MTKK.asm"           ; 0x3340
 
@@ -566,7 +566,7 @@ data_381b equ __zdata_381b - IMAGE_BASE
 ; data_381b equ __zdata_381b - IMAGE_BASE
 %include "vga/loc_35d8.asm"                ; 0x35d8
 
-%include "vga/asm_only/loc_381b.asm"                ; 0x381b
+%include "vga/loc_381b.asm"                ; 0x381b
 
 %include "shared/dos_con_loc_KIIN.asm"        ; 0x3822
 
@@ -579,17 +579,17 @@ cseg_382b:
 data_025b equ __zdata_025b - IMAGE_BASE
 ; data_029b equ __zdata_029b - IMAGE_BASE
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
-%include "vga/asm_only/cache_area.asm"              ; 0x385f
+%include "vga/cache_area.asm"              ; 0x385f
 
-%include "vga/asm_only/dos_con_loc_GKQH.asm"        ; 0x3ab7
+%include "vga/dos_con_loc_GKQH.asm"        ; 0x3ab7
 
 %include "vga/loc_3ae6.asm"                ; 0x3ae6
 
-%include "vga/asm_only/dos_con_loc_QORG.asm"        ; 0x3aee
+%include "vga/dos_con_loc_QORG.asm"        ; 0x3aee
 
-%include "vga/asm_only/dos_con_loc_RSSU.asm"        ; 0x3b1f
+%include "vga/dos_con_loc_RSSU.asm"        ; 0x3b1f
 
-%include "vga/asm_only/dos_con_loc_UHSU.asm"        ; 0x3b5c
+%include "vga/dos_con_loc_UHSU.asm"        ; 0x3b5c
 
 cseg_3b8e:
     db 0x00, 0x00
@@ -598,15 +598,15 @@ cseg_3b8e:
 ; data_025b equ __zdata_025b - IMAGE_BASE
 ; data_029b equ __zdata_029b - IMAGE_BASE
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
-%include "vga/asm_only/restore_screen.asm"          ; 0x3ba5
+%include "vga/restore_screen.asm"          ; 0x3ba5
 
-%include "vga/asm_only/dos_file_loc_MUHV.asm"       ; 0x3d0b
+%include "vga/dos_file_loc_MUHV.asm"       ; 0x3d0b
 
-%include "vga/asm_only/dos_con_loc_KVVK.asm"        ; 0x3d39
+%include "vga/dos_con_loc_KVVK.asm"        ; 0x3d39
 
 %include "vga/loc_3d6d.asm"                ; 0x3d6d
 
-%include "vga/asm_only/cache_maze.asm"              ; 0x3d72
+%include "vga/cache_maze.asm"              ; 0x3d72
 
 %include "shared/dos_con_loc_URMP.asm"        ; 0x3f45
 
@@ -617,9 +617,9 @@ cseg_3f4e:
     db 0x0a, 0x24
 
 ; data_02d7 equ __zdata_02d7 - IMAGE_BASE
-%include "vga/asm_only/dos_file_loc_JRGK.asm"       ; 0x3f73
+%include "vga/dos_file_loc_JRGK.asm"       ; 0x3f73
 
-%include "vga/asm_only/dos_con_loc_GQSQ.asm"        ; 0x4088
+%include "vga/dos_con_loc_GQSQ.asm"        ; 0x4088
 
 cseg_4091:
 
@@ -627,7 +627,7 @@ cseg_4091:
     db 'CACHESCREEN().  Requested slot already in use.', 0
     db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xae
 
-%include "vga/asm_only/loc_40cb.asm"                ; 0x40cb
+%include "vga/loc_40cb.asm"                ; 0x40cb
 
 %include "shared/dos_con_loc_MQTN.asm"        ; 0x40d2
 
@@ -644,9 +644,9 @@ cseg_4102:
 
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
 data_4202 equ __zdata_4202 - IMAGE_BASE
-%include "vga/asm_only/load_sound.asm"              ; 0x4156
+%include "vga/load_sound.asm"              ; 0x4156
 
-%include "vga/asm_only/dos_con_loc_VTSU.asm"        ; 0x422f
+%include "vga/dos_con_loc_VTSU.asm"        ; 0x422f
 
 cseg_4238:
 
@@ -654,7 +654,7 @@ cseg_4238:
     db 'In LOAD_SOUND() ... slot already used.', 0
     db 0x0a, 0x24
 
-%include "vga/asm_only/loc_4264.asm"                ; 0x4264
+%include "vga/loc_4264.asm"                ; 0x4264
 
 %include "shared/dos_con_loc_KPVH.asm"        ; 0x426b
 
@@ -664,15 +664,15 @@ cseg_4274:
     db 'In LOAD_SOUND() ... not enough memory.', 0
     db 0x0a, 0x24
 
-%include "vga/asm_only/loc_42a0.asm"                ; 0x42a0
+%include "vga/loc_42a0.asm"                ; 0x42a0
 
 string_loc_RQON.dos_file_loc1 equ dos_file_loc_VKSU
 %include "shared/string_loc_RQON.asm"         ; 0x4300
 
-%include "vga/asm_only/dos_file_loc_VKSU.asm"       ; 0x4319
+%include "vga/dos_file_loc_VKSU.asm"       ; 0x4319
 
 ; data_4202 equ __zdata_4202 - IMAGE_BASE
-%include "vga/asm_only/loc_ISSO.asm"                ; 0x439a
+%include "vga/loc_ISSO.asm"                ; 0x439a
 
 ; data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
 %include "vga/leaf_loc_PTSI.asm"           ; 0x43f7
@@ -690,14 +690,14 @@ string_loc_RQON.dos_file_loc1 equ dos_file_loc_VKSU
 %include "vga/leaf_loc_VRNL.asm"           ; 0x444b
 
 data_46d9 equ __zdata_46d9 - IMAGE_BASE
-%include "vga/asm_only/dos_con_loc_GOSI.asm"        ; 0x4461
+%include "vga/dos_con_loc_GOSI.asm"        ; 0x4461
 
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
-%include "vga/asm_only/leaf_loc_KQVI.asm"           ; 0x44a3
+%include "vga/leaf_loc_KQVI.asm"           ; 0x44a3
 
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
 ; data_4202 equ __zdata_4202 - IMAGE_BASE
-%include "vga/asm_only/loc_SRSO.asm"                ; 0x4527
+%include "vga/loc_SRSO.asm"                ; 0x4527
 
 %include "shared/loc_LSLP.asm"                ; 0x4596
 
@@ -714,9 +714,9 @@ cseg_45f1:
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
 ; data_46d9 equ __zdata_46d9 - IMAGE_BASE
 data_46f1 equ __zdata_46f1 - IMAGE_BASE
-%include "vga/asm_only/load_score.asm"              ; 0x45fb
+%include "vga/load_score.asm"              ; 0x45fb
 
-%include "vga/asm_only/dos_con_loc_HNTO.asm"        ; 0x4719
+%include "vga/dos_con_loc_HNTO.asm"        ; 0x4719
 
 cseg_4722:
 
@@ -724,9 +724,9 @@ cseg_4722:
     db 'In LOAD_SCORE() ... slot already used.', 0
     db 0x0a, 0x24
 
-%include "vga/asm_only/loc_474e.asm"                ; 0x474e
+%include "vga/loc_474e.asm"                ; 0x474e
 
-%include "vga/asm_only/dos_con_loc_PJJM.asm"        ; 0x4755
+%include "vga/dos_con_loc_PJJM.asm"        ; 0x4755
 
 cseg_475e:
 
@@ -737,14 +737,14 @@ cseg_475e:
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
 ; data_46d9 equ __zdata_46d9 - IMAGE_BASE
 ; data_46f1 equ __zdata_46f1 - IMAGE_BASE
-%include "vga/asm_only/loc_RKRU.asm"                ; 0x478a
+%include "vga/loc_RKRU.asm"                ; 0x478a
 
 ; data_46d9 equ __zdata_46d9 - IMAGE_BASE
-%include "vga/asm_only/loc_VHQQ.asm"                ; 0x481f
+%include "vga/loc_VHQQ.asm"                ; 0x481f
 
-%include "vga/asm_only/loc_PORS_4866.asm"           ; 0x4866
+%include "vga/loc_PORS_4866.asm"           ; 0x4866
 
-%include "vga/asm_only/loc_PORS_487e.asm"           ; 0x487e
+%include "vga/loc_PORS_487e.asm"           ; 0x487e
 
 %include "shared/loc_MMLT.asm"                ; 0x4896
 

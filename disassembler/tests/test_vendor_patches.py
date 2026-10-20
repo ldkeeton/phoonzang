@@ -43,23 +43,30 @@ class ValidationTest(unittest.TestCase):
 class EngineSourceTest(unittest.TestCase):
     def test_patched_source_only_for_the_named_file(self):
         patches = {'aztec_begin': {
-            'version': 'v52a', 'file': 'sbegin.asm',
+            'version': 'v42b', 'file': 'sbegin.asm',
             'edits': [{'find': 'notcom:\n', 'replace': 'notcom:\n\tnop\n'}]}}
         engine = MuxEngine(patches=patches)
-        pristine = sources.catalog('v52a')['sbegin.asm']
-        self.assertIn('notcom:\n\tnop\n', engine.source('v52a', 'sbegin.asm'))
-        self.assertEqual(MuxEngine().source('v52a', 'sbegin.asm'), pristine)
-        self.assertEqual(engine.source('v52a', 'lbegin.asm'),
-                         sources.catalog('v52a')['lbegin.asm'])
+        pristine = sources.catalog('v42b')['sbegin.asm']
+        self.assertIn('notcom:\n\tnop\n', engine.source('v42b', 'sbegin.asm'))
+        self.assertEqual(MuxEngine().source('v42b', 'sbegin.asm'), pristine)
+        self.assertEqual(engine.source('v42b', 'lbegin.asm'),
+                         sources.catalog('v42b')['lbegin.asm'])
 
 
 class DsavantPatchTest(unittest.TestCase):
-    def test_shipped_patch_applies_to_the_vendor_source(self):
+    def test_patches_only_reshape_v42b_sources_for_cc(self):
+        """The game links v4.2b's library unmodified (``make libcheck``), so
+        a patch only lets ``cc``'s ``#asm`` pass produce the bytes ``as``
+        made: a near ``jmp`` spelled out, an ``equ`` alias by its field."""
         patches = vendor_patches('DSAVANT')
-        self.assertIn('aztec_begin', patches)
-        text = MuxEngine(patches=patches).source('v52a', 'sbegin.asm')
-        self.assertIn('mov\tcs:cseg_4d38_,ds', text)
-        self.assertNotIn('_exitinit_\t', text)
+        self.assertEqual(sorted(patches),
+                         ['aztec_begin', 'aztec_fexec', 'aztec_lfree', 'aztec_lud'])
+        engine = MuxEngine(patches=patches)
+        for label, patch in patches.items():
+            self.assertEqual(patch['version'], 'v42b', label)
+            text = engine.source('v42b', patch['file'])
+            for edit in patch['edits']:
+                self.assertIn(edit['replace'], text, label)
 
 
 if __name__ == '__main__':

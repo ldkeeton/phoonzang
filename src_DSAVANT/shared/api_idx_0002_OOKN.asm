@@ -11,7 +11,7 @@ api_idx_0002_OOKN:
     mov ax, 1
     push ax
     push word [bp + 0x4]
-    call ds_app_UUHT
+    call ds_app_string_UUHT
     add sp, byte 4
     push ax
     call aztec_open

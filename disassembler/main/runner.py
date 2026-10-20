@@ -64,7 +64,6 @@ from lib import stagelog
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
 from .aztec import _aztec_asm_annotations, _aztec_c_overrides
-from lib import asm_only
 from lib.autogen import is_generated, stamp, write_text
 from .emit import _write_address_inventory, _write_render_context
 from .options import (
@@ -563,7 +562,8 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     c_overrides, _entries, header_files = _aztec_c_overrides(
         project, name, data, ctx.label_map, out_dir, function_roots,
         start_offset)
-    asm_annotations = _aztec_asm_annotations(_entries, ctx.label_map)
+    asm_annotations = _aztec_asm_annotations(_entries, ctx.label_map,
+                                             c_overrides)
     stagelog.step('aztec.overrides', 1, metrics={'c': len(c_overrides),
                                          'asm': len(asm_annotations)})
     if project:
@@ -843,39 +843,14 @@ def _emit(a, r, exact_bytes):
         a.asm_annotations)
     asm_text, stats = r.asm_text, r.stats
     split_sources = dict(r.split_sources)
-    _entries = entries
     # The new C seeds (main.aztec) are this binary's files too, with the text
     # the render left them (a pristine seed is relabelled there).
     seeds = {os.path.relpath(ov['path'], out_dir): ov['text']
              for ov in (a.c_overrides or {}).values() if ov.get('generated')}
-    # Asm-only routines (lib.asm_only) live in an ``asm_only`` subfolder so they
-    # are not mixed with the routines that can become C.  A routine with a
-    # hand-written .c stays where its .c is.
-    moved = {}
-    # Routines the compiler vendor wrote in assembly (per the mux manifest) can
-    # never become C, whatever instructions they happen to contain.
-    vendor_asm = set()
-    if _entries:
-        from lib.aztec.cache import is_asm_entry
-        vendor_asm = {label for label, entry in _entries.items()
-                      if is_asm_entry(entry)}
     for include_path in list(split_sources):
-        if not include_path.endswith('.asm'):
-            continue
-        folder, filename = os.path.split(include_path)
-        text = asm_only.stamp(stamp(split_sources[include_path], include_path),
-                              force=filename[:-4] in vendor_asm)
-        c_rel = os.path.join(folder, filename[:-4] + '.c')
-        has_c = c_rel in seeds or os.path.exists(os.path.join(out_dir, c_rel))
-        if text.split('\n', 2)[1:2] == [asm_only.MARKER] and not has_c:
-            moved[include_path] = f'{folder}/{asm_only.FOLDER}/{filename}'
-        split_sources[include_path] = text
-    for old_path, new_path in moved.items():
-        split_sources[new_path] = split_sources.pop(old_path)
-        old_inc, new_inc = f'%include "{old_path}"', f'%include "{new_path}"'
-        asm_text = asm_text.replace(old_inc, new_inc)
-        for key in split_sources:
-            split_sources[key] = split_sources[key].replace(old_inc, new_inc)
+        if include_path.endswith('.asm'):
+            split_sources[include_path] = stamp(split_sources[include_path],
+                                                include_path)
     files = {**a.header_files, **stats.get('struct_files', {}), **seeds,
              **split_sources}
     asm_path = os.path.join(out_dir, f'{name}.asm')

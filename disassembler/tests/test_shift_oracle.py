@@ -46,7 +46,7 @@ _TREE = shift_oracle.TREE
 # Code 29 -> 28, data 358 -> 369: every C relocation is now named (none is
 # copied from the exe), so vinstall's ``cls_ = closall`` reads
 # ``aztec_closall - IMAGE_BASE``.  The C now names ``bss_8322 + 1``/``+ 2`` and
-# ``bss_6ac1 + 1``, which exposes the same 5 displacements in the asm-only
+# ``bss_6ac1 + 1``, which exposes the same 5 displacements in the
 # sibling ``shared/api_idx_000e_VRIR.asm`` (counted in vmexe and vpops: 10),
 # and ``dseg_0cf5`` (tty_wr's ``crbuf``) exposes vmexe's message number 0xcf5
 # passed to ``ds_app_mem_TIMR``.
@@ -73,20 +73,20 @@ class ShiftOracleSanityTests(unittest.TestCase):
     def test_a_known_frozen_ds_address_is_reported(self):
         # ``mov si, 0x110`` names ``dseg_0110`` (ds.asm) as a number.
         r = shift_oracle.run('ds', 'data')
-        self.assertIn(('ds/asm_only/dos_alloc_mem.asm', 88), _sites(r))
+        self.assertIn(('ds/dos_alloc_mem.asm', 87), _sites(r))
 
     def test_binding_the_address_clears_the_report(self):
         with tempfile.TemporaryDirectory() as d:
             tree = Path(d) / 'src_DSAVANT'
             shutil.copytree(_TREE, tree, ignore=shutil.ignore_patterns(
                 'build_out', '*.c', '*.o', '*.bin'))
-            frag = tree / 'ds/asm_only/dos_alloc_mem.asm'
+            frag = tree / 'ds/dos_alloc_mem.asm'
             text = frag.read_text()
             self.assertIn('mov si, 0x110 ', text)
             frag.write_text(text.replace('mov si, 0x110 ',
                                          'mov si, dseg_0110 ', 1))
             r = shift_oracle.run('ds', 'data', tree=tree)
-        self.assertNotIn(('ds/asm_only/dos_alloc_mem.asm', 88), _sites(r))
+        self.assertNotIn(('ds/dos_alloc_mem.asm', 87), _sites(r))
 
     def test_a_displacement_counts_only_in_its_segment(self):
         # ``lea cx, [bp - 0x156]`` is a frame slot that equals a code label.

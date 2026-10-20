@@ -1,4 +1,4 @@
-"""Tests for the mixed-version Aztec C mux.
+"""Tests for the Aztec C mux (v4.2b sources and toolchain).
 
 The compile-backed checks are skipped when DOSBox or the vendored toolchain is
 unavailable.  The cache checks always run if a prebuild manifest exists.
@@ -22,8 +22,7 @@ from lib.cross_ref import read_label_json  # noqa: E402
 
 def _have_toolchain():
     from lib.aztec import compile as azc
-    return azc.available('v52a') and os.path.isdir(
-        sources.version_root('v340a'))
+    return azc.available('v42b') and os.path.isdir(sources.src_root('v42b'))
 
 
 def _ds_labels_path():
@@ -33,15 +32,21 @@ def _ds_labels_path():
 
 
 class SourceCatalogTest(unittest.TestCase):
-    def test_v340a_open_is_plaintext(self):
-        text = sources.catalog('v340a').get('open.c')
+    def test_v42b_open_is_plaintext(self):
+        text = sources.catalog('v42b').get('open.c')
         self.assertIsNotNone(text)
         self.assertIn('_ioflg[fd] = isatty(fd)', text)
         self.assertNotIn('netware', text)
 
     def test_definition_index(self):
-        self.assertIn('open.c', sources.definition_files('v340a', 'open'))
-        self.assertIn('lseek.c', sources.definition_files('v340a', 'lseek'))
+        self.assertIn('open.c', sources.definition_files('v42b', 'open'))
+        self.assertIn('io.asm', sources.asm_definition_files('v42b', 'lseek'))
+
+    def test_dos_library_dirs_win_name_clashes(self):
+        # croot.c is in both the CP/M and the DOS 2 archives.
+        self.assertEqual(sources.catalog('v42b')['croot.c'],
+                         open(os.path.join(sources.src_root('v42b'), 'dos20',
+                                           'croot.c'), errors='replace').read())
 
 
 class CacheTest(unittest.TestCase):
@@ -78,7 +83,7 @@ class CacheTest(unittest.TestCase):
 @unittest.skipUnless(_have_toolchain(), 'Aztec toolchain/DOSBox missing')
 class MuxCompileTest(unittest.TestCase):
     @slow
-    def test_open_recovers_from_v340a_source_v52a_compiler(self):
+    def test_open_recovers_from_v42b(self):
         with open(os.path.join(PROJECT, 'apps', 'DSAVANT', 'DS.EXE'),
                   'rb') as f:
             data = f.read()
@@ -90,9 +95,9 @@ class MuxCompileTest(unittest.TestCase):
         matches = engine.resolve('open', data, labels['aztec_open'])
         self.assertTrue(any(m.exact for m in matches))
         best = matches[0]
-        self.assertEqual(best.version, 'v340a')
+        self.assertEqual(best.version, 'v42b')
         self.assertEqual(best.filename, 'open.c')
-        self.assertEqual(best.compiler, 'v52a')
+        self.assertEqual(best.compiler, 'v42b')
 
 
 class ObdParseTest(unittest.TestCase):
@@ -154,42 +159,51 @@ class StaticRoutineTest(unittest.TestCase):
         self.assertEqual(o_static_routines(self._blob()), {'closall': 0x34})
 
 
-class FuncTruncateTest(unittest.TestCase):
-    """A routine owns its fragment span, not its object's public extent.
+class ModuleWholeTest(unittest.TestCase):
+    """A ``.c`` compiles to its module's whole code segment.
 
-    A trailing ``static`` neighbour is compiled inside the preceding public
-    function (``putc`` swallows ``closall``), so the object's extent and the
-    module-wide local-label table hand it the neighbour's ``.N`` labels.
-    ``Func.truncate`` drops what lies past the routine's real end.
+    The linker places an object as a unit, so the build compares and splices
+    the whole segment: every public, the ``static`` after one (``putc``'s
+    ``closall``) and any bytes before the first public (``csav.asm``'s
+    ``dw $begin``).  Nothing is cut off.
     """
 
-    def _func(self):
-        from lib.aztec.compile import Func
+    def _module(self):
+        from lib.aztec.compile import CompiledModule, Func
         from lib.aztec.objread import Fixup
-        code = bytes(74)
-        fixups = [
-            Fixup(0xd, 'BREL', 'LCLSYM', None, '.0'),   # width 1
-            Fixup(0x33, 'BREL', 'LCLSYM', None, '.1'),  # width 1
-            Fixup(0x34, 'WREL', 'GBLSYM', None, 'x_'),  # straddles 52
-            Fixup(0x47, 'BREL', 'LCLSYM', None, '.2'),  # in the neighbour
+        module = CompiledModule()
+        segment_fixups = [
+            Fixup(0x0, 'WABS', 'GBLSYM', None, '$begin'),   # leading dw
+            Fixup(0xd, 'BREL', 'LCLSYM', None, '.0'),
+            Fixup(0x34, 'WREL', 'GBLSYM', None, 'x_'),
         ]
-        locals_ = {'.0': 0x21, '.1': 0x1c, '.2': 0x38}
-        return Func('putc', 'putc.c', 0, code, fixups, locals_)
+        module.segment = Func('csav', 'csav.asm', 0, bytes(0x40),
+                              segment_fixups, {'.0': 0x21})
+        module.functions = {
+            'csav': Func('csav', 'csav.asm', 2, bytes(0x1e), []),
+            'cret': Func('cret', 'csav.asm', 0x20, bytes(0x20), []),
+        }
+        return module
 
-    def test_drops_the_neighbours_code_labels_and_fixups(self):
-        capped = self._func().truncate(52)
-        self.assertEqual(len(capped.code), 52)
-        self.assertEqual(capped.locals, {'.0': 0x21, '.1': 0x1c})
-        self.assertEqual([fx.offset for fx in capped.fixups], [0xd, 0x33])
+    def test_whole_is_the_segment_with_every_member_offset(self):
+        whole = self._module().whole()
+        self.assertEqual(len(whole.code), 0x40)
+        self.assertEqual(whole.members, {'csav': 2, 'cret': 0x20})
+        self.assertEqual([fx.offset for fx in whole.fixups], [0, 0xd, 0x34])
+        self.assertEqual(whole.locals, {'.0': 0x21})
 
-    def test_a_fixup_straddling_the_boundary_is_dropped(self):
-        # 0x34 + 2 > 52, so the word relocation is not kept.
-        self.assertNotIn(0x34, [fx.offset for fx in self._func().truncate(52).fixups])
+    def test_a_module_cached_without_its_segment_is_recompiled(self):
+        from lib.aztec.compile import ModuleShapeError
+        module = self._module()
+        module.segment = None
+        with self.assertRaises(ModuleShapeError):
+            module.whole()
 
-    def test_a_length_at_or_past_the_code_is_a_noop(self):
-        func = self._func()
-        self.assertIs(func.truncate(len(func.code)), func)
-        self.assertIs(func.truncate(len(func.code) + 10), func)
+    def test_the_segment_survives_the_object_cache(self):
+        from lib.aztec.compile import CompiledModule
+        module = CompiledModule.from_dict(self._module().to_dict())
+        self.assertEqual(module.whole().members, {'csav': 2, 'cret': 0x20})
+        self.assertEqual(len(module.whole().code), 0x40)
 
 
 if __name__ == '__main__':

@@ -38,6 +38,20 @@ class ForeignObjectTests(unittest.TestCase):
             _split_off_foreign_objects([(0x1000, 0x1030, 'root')], records, owners),
             [(0x1000, 0x1010, 'root'), (0x1010, 0x1030, 'loc_1010')])
 
+    def test_a_c_fragment_is_never_cut(self):
+        # The same layout, but the range is a whole vendor module compiled
+        # from one .c: its other entry point stays inside it.
+        records = [
+            _label(0x1000, 'root'), _insn(0x1000, 'ret'),
+            _label(0x1010, loc(0x1010)), _insn(0x1010, 'ret'),
+            _insn(0x1030, 'call loc_1010'),
+        ]
+        owners = {0x1000: {0x1000}, 0x1010: {0x1010}, 0x1030: {0x2000}}
+        self.assertEqual(
+            _split_off_foreign_objects([(0x1000, 0x1030, 'root')], records,
+                                       owners, fixed={0x1000: 0x30}),
+            [(0x1000, 0x1030, 'root')])
+
     def test_foreign_data_is_cut_and_stays_in_master(self):
         records = [
             _label(0x1000, 'root'), _insn(0x1000, 'ret'),

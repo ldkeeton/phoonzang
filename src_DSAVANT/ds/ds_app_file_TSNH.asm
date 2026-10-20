@@ -45,7 +45,7 @@ ds_app_file_TSNH: ; Aztec csav frame=0x0018
     push ax                          ; 0x28c8
     lea ax, word [bp - 0x0018]       ; 0x28c9
     push ax                          ; 0x28cc
-    call ds_app_UUHT                 ; 0x28cd
+    call ds_app_string_UUHT          ; 0x28cd
     add sp, byte 4                   ; 0x28d0
     push ax                          ; 0x28d3
     call aztec_open                  ; 0x28d4

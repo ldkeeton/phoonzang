@@ -1,4 +1,4 @@
-"""``make prebuild`` — run the slow Aztec C mux and cache extracted seeds."""
+"""``make prebuild`` — run the slow Aztec C mux and compile its module seeds."""
 
 import os
 import sys

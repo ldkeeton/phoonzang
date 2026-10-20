@@ -72,7 +72,7 @@ loc_GUOQ:
     mov byte [bp - 0x0001], 0        ; 0x059f
     lea ax, word [bp - 0x0002]       ; 0x05a3
     push ax                          ; 0x05a6
-    call bios_video_loc_QTQU         ; 0x05a7
+    call bios_video_loc_QRGV         ; 0x05a7
     pop cx                           ; 0x05aa
     push word [bp - 0x0004]          ; 0x05ab
     call bios_video_loc_IVQL         ; 0x05ae
@@ -133,7 +133,7 @@ loc_GPOQ:
     mov byte [bp - 0x0002], 0x20     ; 0x062e
     lea ax, word [bp - 0x0002]       ; 0x0632
     push ax                          ; 0x0635
-    call bios_video_loc_QTQU         ; 0x0636
+    call bios_video_loc_QRGV         ; 0x0636
     pop cx                           ; 0x0639
     push word [bp + 0x6]             ; 0x063a
     push word [bp + 0x4]             ; 0x063d
@@ -167,7 +167,7 @@ loc_GPOQ:
     mov byte [bp - 0x0002], al       ; 0x0680
     lea ax, word [bp - 0x0002]       ; 0x0683
     push ax                          ; 0x0686
-    call bios_video_loc_QTQU         ; 0x0687
+    call bios_video_loc_QRGV         ; 0x0687
     pop cx                           ; 0x068a
     inc word [bp + 0x6]              ; 0x068b
 @..loc_GPOQ.l8:

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 string_loc_RQON:
     mov word [bp - 0x0002], 8
     lodsb

@@ -366,19 +366,22 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
                 break
 
     # — Jump / call distance keywords ---------------------------------------
+    # The keyword is the operand's first word: a label may contain one
+    # (format.asm's ``shortload``, ``FARopt``).
+    distance = ops.split(' ', 1)[0]
     if mnem == 'jmp':
         if b0 == 0xEB:
-            if 'short' not in ops:
+            if distance != 'short':
                 ops = 'short ' + ops
         elif b0 == 0xE9:
-            if 'near' not in ops and 'short' not in ops:
+            if distance not in ('near', 'short'):
                 ops = 'near ' + ops
         elif far:
-            if 'far' not in ops:
+            if distance != 'far':
                 ops = 'far ' + ops
     elif mnem == 'call':
         if far:
-            if 'far' not in ops:
+            if distance != 'far':
                 ops = 'far ' + ops
 
     # — Far jmp/call with seg:off immediates --------------------------------
@@ -402,11 +405,12 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
 
     # — Conditional jumps ---------------------------------------------------
     is_cond_near = (len(b) >= 2 and b[0] == 0x0F and 0x80 <= b[1] <= 0x8F)
+    distance = ops.split(' ', 1)[0]
     if is_cond_near:
-        if 'near' not in ops:
+        if distance != 'near':
             ops = f'near {ops}'
     elif 0x70 <= b0 <= 0x7F and mnem not in ('jmp','call'):
-        if 'short' not in ops and 'near' not in ops:
+        if distance not in ('short', 'near'):
             ops = f'short {ops}'
 
     # — Loop instructions (E0–E3): always short, no keyword needed ----------

@@ -7,7 +7,7 @@ api_idx_0002_PQLV:
     mov ax, 1                        ; 0x0308
     push ax                          ; 0x030b
     push word [bp + 0x4]             ; 0x030c
-    call ds_app_UUHT                 ; 0x030f
+    call ds_app_string_UUHT          ; 0x030f
     add sp, byte 4                   ; 0x0312
     push ax                          ; 0x0315
     call aztec_open                  ; 0x0316

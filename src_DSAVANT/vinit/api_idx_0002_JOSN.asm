@@ -6,7 +6,7 @@ api_idx_0002_JOSN:
     push ax                          ; 0x004e
     push ax                          ; 0x004f
     push word [bp + 0x4]             ; 0x0050
-    call ds_app_UUHT                 ; 0x0053
+    call ds_app_string_UUHT          ; 0x0053
     add sp, byte 4                   ; 0x0056
     push ax                          ; 0x0059
     call aztec_open                  ; 0x005a

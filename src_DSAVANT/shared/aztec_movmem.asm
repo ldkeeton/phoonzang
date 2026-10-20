@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 aztec_movmem:
     push bp
     mov bp, sp

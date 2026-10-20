@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 leaf_loc_HLGJ:
     push ax
     mov ah, 0x44

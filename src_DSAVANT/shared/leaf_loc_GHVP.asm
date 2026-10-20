@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 leaf_loc_GHVP:
     push bp
     mov bp, sp

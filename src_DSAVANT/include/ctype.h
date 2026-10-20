@@ -1,6 +1,7 @@
 /* auto-generated */
-/* Copyright (C) 1984 by Manx Software Systems */
+/* Copyright Manx Software Systems, Inc. 1984.  All rights reserved */
 
+#ifndef __CTP
 extern char ctp_[];
 
 #define isalpha(x) (ctp_[(x)+1]&0x03)
@@ -19,3 +20,5 @@ extern char ctp_[];
 #define toascii(x) ((x)&127)
 #define _tolower(x) ((x)|0x20)
 #define _toupper(x) ((x)&0x5f)
+#define __CTP
+#endif

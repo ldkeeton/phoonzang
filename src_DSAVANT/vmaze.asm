@@ -468,7 +468,7 @@ dseg_918c equ __zdseg_end + (__zdseg_918c - __zdata_start)
 dseg_918e equ __zdseg_end + (__zdseg_918e - __zdata_start)
 dseg_9190 equ __zdseg_end + (__zdseg_9190 - __zdata_start)
 ; bss_9192  equ __zdseg_end + (__zobss_9192 - __zdata_start)
-%include "vmaze/asm_only/loc_TKPQ.asm"              ; 0xac30
+%include "vmaze/loc_TKPQ.asm"              ; 0xac30
 
 __zdseg_9098:
 __zdata_start:

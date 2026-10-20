@@ -15,7 +15,7 @@ from lib.cachedirs import aztec_funcs_path
 
 
 def _load_aztec_signatures(project=None):
-    """The compiler-runtime signatures (Manx Aztec C86 v5.2a) ``make prebuild``
+    """The compiler-runtime signatures (Manx Aztec C86 v4.2b) ``make prebuild``
     builds per project (.cache/<project>/aztec_funcs.json).  The program's own
     routines are named by the sidecar's ``routines``, by content tag."""
     db = {'signatures': []}

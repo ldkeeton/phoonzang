@@ -487,20 +487,23 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                   track={'function_roots': roots, 'owners': owners,
                          'label_map': label_map or {}})
     c_override_lengths = {}
+    c_override_roots = {}
     if c_overrides:
         override_name_to_addr = {}
         for off, nm in label_map.items():
             if isinstance(nm, str):
                 override_name_to_addr.setdefault(nm, off)
         for label, override in c_overrides.items():
-            off = override_name_to_addr.get(label)
+            off = override.get('start', override_name_to_addr.get(label))
             length = override.get('length')
             if off is not None and length:
                 c_override_lengths[off] = length
+                c_override_roots[off] = label
 
     split_ranges = _select_split_ranges(
         label_map, split_functions, func_boundaries, binary_size=total,
-        c_override_lengths=c_override_lengths, declared_roots=declared_roots,
+        c_override_lengths=c_override_lengths,
+        c_override_roots=c_override_roots, declared_roots=declared_roots,
         code_end=max((i.address + i.size for i in insns), default=None),
         code_start=min((i.address for i in insns), default=None),
     )
@@ -1197,11 +1200,14 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                   metrics={'records': len(records)})
     bare_mem, bare_call, bare_dbc = _count_bare_addrs(records)
 
-    split_ranges = _extend_split_ranges_with_local_tails(split_ranges, records)
+    # A C fragment is exactly what its .c compiles to: no pass moves it.
+    split_ranges = _extend_split_ranges_with_local_tails(
+        split_ranges, records, fixed=c_override_lengths)
     stagelog.step('verify.split_local_tails', 2, 'repair', repairs='verify.split_select',
                   why='a referenced @.. local block belongs to its root',
                   track={'split_ranges': stagelog.ranges_by_start(split_ranges)})
-    split_ranges = _split_off_foreign_objects(split_ranges, records, owners)
+    split_ranges = _split_off_foreign_objects(split_ranges, records, owners,
+                                              fixed=c_override_lengths)
     stagelog.step('verify.split_foreign', 2, 'repair', repairs='verify.split_select',
                   why='an unnamed tail (data blob, bare loc_ callee) is not its routine',
                   track={'split_ranges': stagelog.ranges_by_start(split_ranges)})
@@ -1395,6 +1401,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 getattr(segments, 'ds_size', None)),
             'label_records': [(rec['offset'], rec['name'], rec['text'])
                               for rec in records if rec['type'] == 'label'],
+            'table_labels': {rec['start']: rec['label'] for rec in records
+                             if rec['type'] == 'jump_table'},
             # The DS names the pipeline learned, which resplice's rebuilt
             # segment model cannot.
             'data_names': dict(getattr(segments, 'data_names', None) or {}),

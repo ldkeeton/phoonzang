@@ -40,13 +40,13 @@ aztec_impl_ovld()
 		cp = "";
 	xp = path;
 	for (;;) {
-		strcpy(xp, ovname);
-		strcat(path, ".ovr");
-		if ((fd = open(path, 0)) != -1)
+		aztec_strcpy(xp, ovname);
+		aztec_strcat(path, ".ovr");
+		if ((fd = aztec_open(path, 0)) != -1)
 			break;
 		do {
 			if (*cp == 0)
-				loadabort(10);
+				aztec_loadabort(10);
 			xp = path;
 			while (*cp) {
 				if (*cp == ';') {
@@ -60,36 +60,36 @@ aztec_impl_ovld()
 	}
 
 #else
-	strcpy(path, ovname);
-	strcat(path, ".ovr");
-	if ((fd = open(path, 0)) == -1)
-		loadabort(10);
+	aztec_strcpy(path, ovname);
+	aztec_strcat(path, ".ovr");
+	if ((fd = aztec_open(path, 0)) == -1)
+		aztec_loadabort(10);
 #endif
 
-	if (read(fd, &hdr, sizeof hdr) != sizeof hdr)
-		loadabort(20);
+	if (aztec_read(fd, &hdr, sizeof hdr) != sizeof hdr)
+		aztec_loadabort(20);
 
 	/* safety check overlay header */
 	if (hdr.o_magic != OV_MAGIC)
-		loadabort(30);
+		aztec_loadabort(30);
 	if (_mbot < hdr.o_dorg+hdr.o_dsize+hdr.o_bss)
-		loadabort(40);
+		aztec_loadabort(40);
 	if (_Cend > hdr.o_corg || _Uend > hdr.o_dorg)
-		loadabort(60);
+		aztec_loadabort(60);
 
-	if (_csread(fd, hdr.o_corg, hdr.o_csize) < hdr.o_csize
-			|| read(fd, hdr.o_dorg, hdr.o_dsize) < hdr.o_dsize)
-		loadabort(50);
-	close(fd);
+	if (aztec_impl_csread(fd, hdr.o_corg, hdr.o_csize) < hdr.o_csize
+			|| aztec_read(fd, hdr.o_dorg, hdr.o_dsize) < hdr.o_dsize)
+		aztec_loadabort(50);
+	aztec_close(fd);
 	return hdr.o_entry;
 }
 
 static
-loadabort(code)
+aztec_loadabort(code)
 {
 	char buffer[80];
 
-	sprintf(buffer, "Error %d loading overlay: %s$", code, ovname);
-	bdos(9, buffer);
-	exit(100);
+	aztec_sprintf(buffer, "Error %d loading overlay: %s$", code, ovname);
+	aztec_bdos(9, buffer);
+	aztec_exit(100);
 }

@@ -451,7 +451,7 @@ bss_0cf8 equ __zbss_0cf8 - __zdseg_start
 bss_5912 equ __zbss_5912 - __zdseg_start
 bss_5987 equ __zbss_5987 - __zdseg_start
 bss_69ca equ __zbss_69ca - __zdseg_start
-%include "ds/ds_app_UUHT.asm"              ; 0x23a8
+%include "ds/ds_app_string_UUHT.asm"       ; 0x23a8
 
 dseg_0b74 equ __zdseg_0b74 - __zdseg_start
 dseg_0b89 equ __zdseg_0b89 - __zdseg_start
@@ -687,12 +687,12 @@ cseg_305f:
     db 0xdb, 0x01, 0x00, 0x00
 cseg_3063:
     db 0xdf, 0x01, 0x00, 0x00
-%include "ds/asm_only/ds_bios_video_loc_LILQ.asm"   ; 0x3067
+%include "ds/ds_bios_video_loc_LILQ.asm"   ; 0x3067
 
-%include "ds/asm_only/ds_loc_IGLJ.asm"              ; 0x30a3
+%include "ds/ds_loc_IGLJ.asm"              ; 0x30a3
 
 bios_data_0410 equ 0x0410
-%include "ds/asm_only/ds_bios_video_loc_PHVR.asm"   ; 0x30c3
+%include "ds/ds_bios_video_loc_PHVR.asm"   ; 0x30c3
 
 cseg_30dc:
     db 0xb8, 0x0b
@@ -700,28 +700,28 @@ cseg_30de:
     db 0x01, 0x00
 cseg_30e0:
     db 0x2f, 0x75
-%include "ds/asm_only/ds_leaf_loc_OIUO.asm"         ; 0x30e2
+%include "ds/ds_leaf_loc_OIUO.asm"         ; 0x30e2
 
 ; bios_data_0410 equ 0x0410
-%include "ds/asm_only/bios_get_video_mode.asm"      ; 0x30f7
+%include "ds/bios_get_video_mode.asm"      ; 0x30f7
 
 cseg_3532:
     db 0x00, 0x00
-%include "ds/asm_only/ds_dos_file_loc_SJIH.asm"     ; 0x3534
+%include "ds/ds_dos_file_loc_SJIH.asm"     ; 0x3534
 
-%include "ds/asm_only/ds_dos_con_loc_OQQL.asm"      ; 0x35b8
+%include "ds/ds_dos_con_loc_OQQL.asm"      ; 0x35b8
 
 cseg_35ec:
     db 'play.drv', 0
-%include "ds/asm_only/ds_dos_file_loc_NKUS.asm"     ; 0x35f5
+%include "ds/ds_dos_file_loc_NKUS.asm"     ; 0x35f5
 
-%include "ds/asm_only/ds_dos_con_loc_GOVO.asm"      ; 0x3640
+%include "ds/ds_dos_con_loc_GOVO.asm"      ; 0x3640
 
 cseg_3672:
     db 0x90, 0x01
-%include "ds/asm_only/ds_leaf_loc_QNNO.asm"         ; 0x3674
+%include "ds/ds_leaf_loc_QNNO.asm"         ; 0x3674
 
-%include "ds/asm_only/ds_dos_mem_loc_OHLH.asm"      ; 0x36bc
+%include "ds/ds_dos_mem_loc_OHLH.asm"      ; 0x36bc
 
 %include "ds/ds_dos_mem_loc_PLIR.asm"      ; 0x36cd
 
@@ -729,23 +729,23 @@ cseg_36ce:
     db 0x00, 0x00
 %include "ds/ds_leaf_loc_UJPS.asm"         ; 0x36d0
 
-%include "ds/asm_only/ds_dos_mem_loc_TGHM.asm"      ; 0x36f5
+%include "ds/ds_dos_mem_loc_TGHM.asm"      ; 0x36f5
 
-%include "ds/asm_only/ds_dos_mem_loc_JMGG.asm"      ; 0x371d
+%include "ds/ds_dos_mem_loc_JMGG.asm"      ; 0x371d
 
-%include "ds/asm_only/ds_dos_mem_loc_GSMJ.asm"      ; 0x3760
+%include "ds/ds_dos_mem_loc_GSMJ.asm"      ; 0x3760
 
-%include "ds/asm_only/ds_dos_mem_loc_GMLT.asm"      ; 0x377b
+%include "ds/ds_dos_mem_loc_GMLT.asm"      ; 0x377b
 
 %include "ds/ds_loc_RMTO.asm"              ; 0x3796
 
-%include "ds/asm_only/ds_bios_mouse_loc_RUQG.asm"   ; 0x37a5
+%include "ds/ds_bios_mouse_loc_RUQG.asm"   ; 0x37a5
 
 cseg_37d1:
     db 'EMMXXXX0'
-%include "ds/asm_only/ds_dos_intvec_loc_OHRJ.asm"   ; 0x37d9
+%include "ds/ds_dos_intvec_loc_OHRJ.asm"   ; 0x37d9
 
-%include "ds/asm_only/ds_leaf_loc_KIKO.asm"         ; 0x382c
+%include "ds/ds_leaf_loc_KIKO.asm"         ; 0x382c
 
 %include "ds/ds_leaf_loc_PUGK.asm"         ; 0x383e
 
@@ -755,9 +755,9 @@ cseg_384a:
     db 0xff, 0xff
 
 dseg_0110 equ __zdseg_0110 - __zdseg_start
-%include "ds/asm_only/dos_alloc_mem.asm"            ; 0x3860
+%include "ds/dos_alloc_mem.asm"            ; 0x3860
 
-%include "ds/asm_only/ds_dos_con_loc_RKPT.asm"      ; 0x3936
+%include "ds/ds_dos_con_loc_RKPT.asm"      ; 0x3936
 
 cseg_393f:
 
@@ -765,9 +765,9 @@ cseg_393f:
     db 'I/O error loading font'
     db 0x0d, 0x0a, 0x24
 
-%include "ds/asm_only/ds_loc_395b.asm"              ; 0x395b
+%include "ds/ds_loc_395b.asm"              ; 0x395b
 
-%include "ds/asm_only/ds_dos_con_loc_RGGK.asm"      ; 0x3962
+%include "ds/ds_dos_con_loc_RGGK.asm"      ; 0x3962
 
 cseg_396b:
 
@@ -776,44 +776,44 @@ cseg_396b:
     db 0x0d, 0x0a, 0x24
 
 ; dseg_0110 equ __zdseg_0110 - __zdseg_start
-%include "ds/asm_only/dos_read_file.asm"            ; 0x398a
+%include "ds/dos_read_file.asm"            ; 0x398a
 
 ; dseg_0110 equ __zdseg_0110 - __zdseg_start
-%include "ds/asm_only/ds_loc_UQOV.asm"              ; 0x39f6
+%include "ds/ds_loc_UQOV.asm"              ; 0x39f6
 
-%include "ds/asm_only/gfx_entry_13.asm"             ; 0x3a50
+%include "ds/gfx_entry_13.asm"             ; 0x3a50
 
-%include "ds/asm_only/gfx_entry_14.asm"             ; 0x3a5d
+%include "ds/gfx_entry_14.asm"             ; 0x3a5d
 
-%include "ds/asm_only/gfx_entry_12.asm"             ; 0x3a6a
+%include "ds/gfx_entry_12.asm"             ; 0x3a6a
 
-%include "ds/asm_only/ds_loc_TJTV.asm"              ; 0x3a77
+%include "ds/ds_loc_TJTV.asm"              ; 0x3a77
 
-%include "ds/asm_only/ds_string_loc_QRJV.asm"       ; 0x3a95
+%include "ds/ds_string_loc_QRJV.asm"       ; 0x3a95
 
-%include "ds/asm_only/ds_loc_JJGM.asm"              ; 0x3aca
+%include "ds/ds_loc_JJGM.asm"              ; 0x3aca
 
-%include "ds/asm_only/gfx_entry_16.asm"             ; 0x3b21
+%include "ds/gfx_entry_16.asm"             ; 0x3b21
 
-%include "ds/asm_only/gfx_entry_15.asm"             ; 0x3b2e
+%include "ds/gfx_entry_15.asm"             ; 0x3b2e
 
-%include "ds/asm_only/gfx_entry_17.asm"             ; 0x3b3b
+%include "ds/gfx_entry_17.asm"             ; 0x3b3b
 
-%include "ds/asm_only/gfx_entry_18.asm"             ; 0x3b48
+%include "ds/gfx_entry_18.asm"             ; 0x3b48
 
-%include "ds/asm_only/gfx_entry_19.asm"             ; 0x3b55
+%include "ds/gfx_entry_19.asm"             ; 0x3b55
 
-%include "ds/asm_only/gfx_entry_40.asm"             ; 0x3b62
+%include "ds/gfx_entry_40.asm"             ; 0x3b62
 
-%include "ds/asm_only/gfx_save_area.asm"            ; 0x3b6f
+%include "ds/gfx_save_area.asm"            ; 0x3b6f
 
-%include "ds/asm_only/gfx_cache_area.asm"           ; 0x3b7c
+%include "ds/gfx_cache_area.asm"           ; 0x3b7c
 
-%include "ds/asm_only/gfx_restore_screen.asm"       ; 0x3b89
+%include "ds/gfx_restore_screen.asm"       ; 0x3b89
 
-%include "ds/asm_only/gfx_restore_area.asm"         ; 0x3b96
+%include "ds/gfx_restore_area.asm"         ; 0x3b96
 
-%include "ds/asm_only/ds_loc_JRJK.asm"              ; 0x3ba3
+%include "ds/ds_loc_JRJK.asm"              ; 0x3ba3
 
 %include "ds/ds_leaf_loc_MPVL.asm"         ; 0x3c0d
 
@@ -821,25 +821,25 @@ cseg_3c7f:
 
     times 24 db 0
 
-%include "ds/asm_only/dos_con_in_noecho.asm"        ; 0x3c97
+%include "ds/dos_con_in_noecho.asm"        ; 0x3c97
 
-%include "ds/asm_only/dos_con_in_noecho_2.asm"      ; 0x3d79
+%include "ds/dos_con_in_noecho_2.asm"      ; 0x3d79
 
-%include "ds/asm_only/bios_kbd_check.asm"           ; 0x3e5e
+%include "ds/bios_kbd_check.asm"           ; 0x3e5e
 
-%include "ds/asm_only/set_bitmap_bit.asm"           ; 0x3e88
+%include "ds/set_bitmap_bit.asm"           ; 0x3e88
 
-%include "ds/asm_only/ds_leaf_loc_PRVP.asm"         ; 0x3ebb
+%include "ds/ds_leaf_loc_PRVP.asm"         ; 0x3ebb
 
-%include "ds/asm_only/ds_leaf_loc_OOUU.asm"         ; 0x3eeb
+%include "ds/ds_leaf_loc_OOUU.asm"         ; 0x3eeb
 
-%include "ds/asm_only/ds_leaf_loc_NPSL.asm"         ; 0x3f3d
+%include "ds/ds_leaf_loc_NPSL.asm"         ; 0x3f3d
 
-%include "ds/asm_only/ds_dos_con_loc_QJHU.asm"      ; 0x3f81
+%include "ds/ds_dos_con_loc_QJHU.asm"      ; 0x3f81
 
-%include "ds/asm_only/dos_read_file_2.asm"          ; 0x3fa9
+%include "ds/dos_read_file_2.asm"          ; 0x3fa9
 
-%include "ds/asm_only/ds_dos_con_loc_NHHR.asm"      ; 0x3fd5
+%include "ds/ds_dos_con_loc_NHHR.asm"      ; 0x3fd5
 
 cseg_3fde:
 
@@ -847,293 +847,190 @@ cseg_3fde:
     db 'I/O error loading Misc. table.'
     db 0x0d, 0x0a, 0x24
 
-%include "ds/asm_only/ds_string_loc_HTNS.asm"       ; 0x4002
+%include "ds/ds_string_loc_HTNS.asm"       ; 0x4002
 
-%include "ds/asm_only/ds_string_loc_SSGO.asm"       ; 0x4046
+%include "ds/ds_string_loc_SSGO.asm"       ; 0x4046
 
-%include "ds/asm_only/strpos.asm"                   ; 0x4091
+%include "ds/strpos.asm"                   ; 0x4091
 
-%include "ds/asm_only/strstr.asm"                   ; 0x40ca
+%include "ds/strstr.asm"                   ; 0x40ca
 
-%include "ds/asm_only/gfx_entry_45.asm"             ; 0x4134
+%include "ds/gfx_entry_45.asm"             ; 0x4134
 
-%include "ds/asm_only/gfx_load_sound.asm"           ; 0x4141
+%include "ds/gfx_load_sound.asm"           ; 0x4141
 
-%include "ds/asm_only/gfx_entry_46.asm"             ; 0x414e
+%include "ds/gfx_entry_46.asm"             ; 0x414e
 
-%include "ds/asm_only/gfx_entry_47.asm"             ; 0x415b
+%include "ds/gfx_entry_47.asm"             ; 0x415b
 
-%include "ds/asm_only/gfx_entry_48.asm"             ; 0x4168
+%include "ds/gfx_entry_48.asm"             ; 0x4168
 
-%include "ds/asm_only/ds_loc_QURR.asm"              ; 0x4175
+%include "ds/ds_loc_QURR.asm"              ; 0x4175
 
-%include "ds/asm_only/gfx_load_score.asm"           ; 0x41a3
+%include "ds/gfx_load_score.asm"           ; 0x41a3
 
-%include "ds/asm_only/gfx_entry_50.asm"             ; 0x41b0
+%include "ds/gfx_entry_50.asm"             ; 0x41b0
 
-%include "ds/asm_only/gfx_entry_51.asm"             ; 0x41bd
+%include "ds/gfx_entry_51.asm"             ; 0x41bd
 
-%include "ds/asm_only/gfx_entry_52.asm"             ; 0x41ca
+%include "ds/gfx_entry_52.asm"             ; 0x41ca
 
-%include "ds/asm_only/gfx_entry_53.asm"             ; 0x41d7
+%include "ds/gfx_entry_53.asm"             ; 0x41d7
 
-%include "ds/asm_only/gfx_entry_54.asm"             ; 0x41e4
+%include "ds/gfx_entry_54.asm"             ; 0x41e4
 
-%include "ds/asm_only/gfx_load_picture.asm"         ; 0x41f1
+%include "ds/gfx_load_picture.asm"         ; 0x41f1
 
-%include "ds/asm_only/gfx_entry_22.asm"             ; 0x41fe
+%include "ds/gfx_entry_22.asm"             ; 0x41fe
 
-%include "ds/asm_only/gfx_entry_35.asm"             ; 0x420b
+%include "ds/gfx_entry_35.asm"             ; 0x420b
 
-%include "ds/asm_only/gfx_draw_text.asm"            ; 0x4218
+%include "ds/gfx_draw_text.asm"            ; 0x4218
 
-%include "ds/asm_only/gfx_load_screen.asm"          ; 0x4225
+%include "ds/gfx_load_screen.asm"          ; 0x4225
 
-%include "ds/asm_only/gfx_entry_36.asm"             ; 0x4232
+%include "ds/gfx_entry_36.asm"             ; 0x4232
 
-%include "ds/asm_only/gfx_save_screen.asm"          ; 0x423f
+%include "ds/gfx_save_screen.asm"          ; 0x423f
 
-%include "ds/asm_only/gfx_entry_27.asm"             ; 0x424c
+%include "ds/gfx_entry_27.asm"             ; 0x424c
 
-%include "ds/asm_only/gfx_load_maze.asm"            ; 0x4259
+%include "ds/gfx_load_maze.asm"            ; 0x4259
 
-%include "ds/asm_only/gfx_draw_maze_piece.asm"      ; 0x4266
+%include "ds/gfx_draw_maze_piece.asm"      ; 0x4266
 
-%include "ds/asm_only/gfx_entry_00.asm"             ; 0x4273
+%include "ds/gfx_entry_00.asm"             ; 0x4273
 
-%include "ds/asm_only/gfx_mouse_off.asm"            ; 0x4280
+%include "ds/gfx_mouse_off.asm"            ; 0x4280
 
-%include "ds/asm_only/gfx_entry_02.asm"             ; 0x428d
+%include "ds/gfx_entry_02.asm"             ; 0x428d
 
-%include "ds/asm_only/gfx_entry_23.asm"             ; 0x429a
+%include "ds/gfx_entry_23.asm"             ; 0x429a
 
-%include "ds/asm_only/gfx_set_mouse_pointer.asm"    ; 0x42a7
+%include "ds/gfx_set_mouse_pointer.asm"    ; 0x42a7
 
-%include "ds/asm_only/mouse_set_pos.asm"            ; 0x42b4
+%include "ds/mouse_set_pos.asm"            ; 0x42b4
 
-%include "ds/asm_only/gfx_entry_25.asm"             ; 0x42dd
+%include "ds/gfx_entry_25.asm"             ; 0x42dd
 
-%include "ds/asm_only/gfx_entry_28.asm"             ; 0x42ea
+%include "ds/gfx_entry_28.asm"             ; 0x42ea
 
-%include "ds/asm_only/gfx_entry_29.asm"             ; 0x42f7
+%include "ds/gfx_entry_29.asm"             ; 0x42f7
 
-%include "ds/asm_only/gfx_fade_in.asm"              ; 0x4304
+%include "ds/gfx_fade_in.asm"              ; 0x4304
 
-%include "ds/asm_only/gfx_fade_out.asm"             ; 0x4311
+%include "ds/gfx_fade_out.asm"             ; 0x4311
 
-%include "ds/asm_only/gfx_reset_rgb.asm"            ; 0x431e
+%include "ds/gfx_reset_rgb.asm"            ; 0x431e
 
-%include "ds/asm_only/gfx_entry_33.asm"             ; 0x432b
+%include "ds/gfx_entry_33.asm"             ; 0x432b
 
-%include "ds/asm_only/gfx_entry_34.asm"             ; 0x4338
+%include "ds/gfx_entry_34.asm"             ; 0x4338
 
-%include "ds/asm_only/gfx_entry_37.asm"             ; 0x4345
+%include "ds/gfx_entry_37.asm"             ; 0x4345
 
-%include "ds/asm_only/gfx_entry_38.asm"             ; 0x4352
+%include "ds/gfx_entry_38.asm"             ; 0x4352
 
-%include "ds/asm_only/gfx_cache_maze.asm"           ; 0x435f
+%include "ds/gfx_cache_maze.asm"           ; 0x435f
 
-%include "ds/asm_only/gfx_entry_43.asm"             ; 0x436c
-
-ovname equ __zbss_0cfa - __zdseg_start
-%include "ds/aztec_ovloader.asm"           ; 0x4379
+%include "ds/gfx_entry_43.asm"             ; 0x436c
 
 dseg_0c48   equ __zdseg_0c48 - __zdseg_start
+dseg_0c4d   equ __zdseg_0c4d - __zdseg_start
 _mbot       equ __z_mbot - __zdseg_start
-; ovname      equ __zbss_0cfa - __zdseg_start
+ovname      equ __zbss_0cfa - __zdseg_start
 __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
-%include "ds/aztec_impl_ovld.asm"          ; 0x4386
+%include "ds/aztec_ovloader.asm"           ; 0x4379
 
-dseg_0c4d equ __zdseg_0c4d - __zdseg_start
-; ovname    equ __zbss_0cfa - __zdseg_start
-%include "ds/aztec_loadabort.asm"          ; 0x4462
-
-%include "ds/asm_only/aztec_bdos.asm"               ; 0x4497
+%include "ds/aztec_bdos.asm"               ; 0x4497
 
 errno equ __zerrno - __zdseg_start
-%include "ds/asm_only/aztec_impl_csread.asm"        ; 0x44b4
+%include "ds/aztec_csread.asm"             ; 0x44b4
 
 buff equ __zbss_0cfc - __zdseg_start
 %include "ds/aztec_sprintf.asm"            ; 0x44d4
 
-; buff equ __zbss_0cfc - __zdseg_start
-%include "ds/aztec_spsub.asm"              ; 0x44ff
+%include "ds/aztec_movblock.asm"           ; 0x4517
 
-%include "ds/asm_only/aztec_movblock.asm"           ; 0x4517
-
-%include "ds/asm_only/aztec_setmem.asm"             ; 0x454d
+%include "ds/aztec_setmem.asm"             ; 0x454d
 
 %include "shared/aztec_strcat.asm"             ; 0x4574
 
-%include "shared/aztec_strncat.asm"            ; 0x457c
-
 %include "shared/aztec_strcpy.asm"             ; 0x45ab
 
-%include "ds/asm_only/aztec_lmalloc.asm"            ; 0x45d7
-
-%include "ds/asm_only/aztec_lfree.asm"              ; 0x460d
-
-%include "ds/asm_only/aztec_lrealloc.asm"           ; 0x4625
+%include "ds/aztec_dos20_lmalloc.asm"      ; 0x45d7
 
 _sbot     equ __z_sbot - __zdseg_start
 _lowwater equ __z_lowwater - __zdseg_start
-%include "ds/asm_only/aztec_csav.asm"               ; 0x4652
-
-%include "ds/asm_only/aztec_cret.asm"               ; 0x4670
-
-keep    equ __zbss_0cfe - __zdseg_start
-current equ __zbss_0d00 - __zdseg_start
-%include "shared/aztec_realloc.asm"            ; 0x467b
+%include "ds/aztec_csav.asm"               ; 0x4650
 
 endmarker equ __zendmarker - __zdseg_start
-; keep      equ __zbss_0cfe - __zdseg_start
-; current   equ __zbss_0d00 - __zdseg_start
+keep      equ __zbss_0cfe - __zdseg_start
+current   equ __zbss_0d00 - __zdseg_start
 first     equ __zbss_0d02 - __zdseg_start
-%include "ds/aztec_malloc.asm"             ; 0x46ea
+%include "ds/aztec_misc_lmalloc.asm"       ; 0x467b
 
-%include "ds/ds_leaf_loc_LPSH.asm"         ; 0x47e5
-
-; current equ __zbss_0d00 - __zdseg_start
-%include "shared/aztec_free.asm"               ; 0x47e8
-
-cseg_480d:
-    db 0x4c
-cseg_480e:
-
-    db 'lhFNoxXudiscpneEfgG%'
-
-jumptable_4822:
-    dw jumptable_4822_case_0 - IMAGE_BASE      ; 0x4822
-    dw jumptable_4822_case_1 - IMAGE_BASE      ; 0x4824
-    dw jumptable_4822_case_2 - IMAGE_BASE      ; 0x4826
-    dw jumptable_4822_case_3 - IMAGE_BASE      ; 0x4828
-    dw jumptable_4822_case_2 - IMAGE_BASE      ; 0x482a
-    dw jumptable_4822_case_5 - IMAGE_BASE      ; 0x482c
-    dw jumptable_4822_case_6 - IMAGE_BASE      ; 0x482e
-    dw jumptable_4822_case_7 - IMAGE_BASE      ; 0x4830
-    dw jumptable_4822_case_8 - IMAGE_BASE      ; 0x4832
-    dw jumptable_4822_case_9 - IMAGE_BASE      ; 0x4834
-    dw jumptable_4822_case_9 - IMAGE_BASE      ; 0x4836
-    dw jumptable_4822_case_11 - IMAGE_BASE     ; 0x4838
-    dw jumptable_4822_case_12 - IMAGE_BASE     ; 0x483a
-    dw jumptable_4822_case_13 - IMAGE_BASE     ; 0x483c
-    dw jumptable_4822_case_14 - IMAGE_BASE     ; 0x483e
-    dw jumptable_4822_case_15 - IMAGE_BASE     ; 0x4840
-    dw jumptable_4822_case_16 - IMAGE_BASE     ; 0x4842
-    dw jumptable_4822_case_15 - IMAGE_BASE     ; 0x4844
-    dw jumptable_4822_case_15 - IMAGE_BASE     ; 0x4846
-    dw jumptable_4822_case_16 - IMAGE_BASE     ; 0x4848
-    dw jumptable_4822_case_20 - IMAGE_BASE     ; 0x484a
-cseg_484c:
-
-    db '0123456789abcdef -lm first', 0
-
-%include "ds/asm_only/aztec_format.asm"             ; 0x4867
-
-%include "ds/ds_leaf_loc_GSJQ.asm"         ; 0x4aed
-
-%include "ds/asm_only/ds_string_loc_TRQP.asm"       ; 0x4b07
-
-%include "shared/aztec_creat.asm"              ; 0x4b39
+; first equ __zbss_0d02 - __zdseg_start
+%include "ds/aztec_format.asm"             ; 0x480d
 
 ; errno  equ __zerrno - __zdseg_start
 _ioflg equ __z_ioflg - __zdseg_start
-%include "shared/aztec_open.asm"               ; 0x4b50
+%include "shared/aztec_open.asm"               ; 0x4b39
 
-%include "shared/aztec_ldv.asm"                ; 0x4be6
-
-%include "shared/aztec_lrm.asm"                ; 0x4c14
-
-%include "shared/aztec_lum.asm"                ; 0x4c38
-
-%include "shared/aztec_lud.asm"                ; 0x4c40
+%include "shared/aztec_lsubs.asm"              ; 0x4be6
 
 %include "shared/aztec_strlen.asm"             ; 0x4cd7
 
 ; errno equ __zerrno - __zdseg_start
-%include "shared/aztec_impl_sys.asm"           ; 0x4cf4
+%include "shared/aztec_sys.asm"                ; 0x4cf4
 
-cseg_4d38:
-    db 0x00, 0x00
 psp_top_of_memory equ 0x0002
 psp_env_segment   equ 0x002c
 psp_cmd_tail_len  equ 0x0080
 aztec_MEMRY       equ __zaztec_MEMRY - __zdseg_start
-dseg_0c74         equ __zdseg_0c74 - __zdseg_start
-dseg_0c76         equ __zdseg_0c76 - __zdseg_start
+_dsval            equ __z_dsval - __zdseg_start
+_csval            equ __z_csval - __zdseg_start
 ; _mbot             equ __z_mbot - __zdseg_start
 ; _sbot             equ __z_sbot - __zdseg_start
 _mtop             equ __z_mtop - __zdseg_start
 _PSP              equ __z_PSP - __zdseg_start
-dseg_0c82         equ __zdseg_0c82 - __zdseg_start
-dseg_0cd4         equ __zdseg_0cd4 - __zdseg_start
+bad8087           equ __zbad8087 - __zdseg_start
+_STKSIZ           equ __z_STKSIZ - __zdseg_start
 _STKRED           equ __z_STKRED - __zdseg_start
-dseg_0cd8         equ __zdseg_0cd8 - __zdseg_start
+_HEAPSIZ          equ __z_HEAPSIZ - __zdseg_start
 _STKLOW           equ __z_STKLOW - __zdseg_start
 ; bss_0cf6          equ __zbss_0cf6 - __zdseg_start
 ; __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
-%include "ds/asm_only/aztec_begin.asm"              ; 0x4d3a
+%include "ds/aztec_sbegin.asm"             ; 0x4d36
 
-%include "ds/asm_only/aztec_impl_exit.asm"          ; 0x4e7e
-
-__zcp_4ea3:
-    db 0xb8, 0x00, 0x00, 0xc3
+cls_      equ __zcls_ - __zdseg_start
 dseg_0c9e equ __zdseg_0c9e - __zdseg_start
 ; _ioflg    equ __z_ioflg - __zdseg_start
 Argc      equ __zbss_0d04 - __zdseg_start
 Argv      equ __zbss_0d06 - __zdseg_start
-%include "ds/aztec_Croot.asm"              ; 0x4ea7
+%include "ds/aztec_croot.asm"              ; 0x4ea3
 
-cls_ equ __zcls_ - __zdseg_start
-%include "shared/aztec_exit.asm"               ; 0x4f73
-
-%include "ds/ds_leaf_loc_UTMK.asm"         ; 0x4f85
+%include "shared/aztec_fltstub.asm"            ; 0x4f85
 
 dseg_0cae equ __zdseg_0cae - __zdseg_start
-%include "ds/aztec_impl_stkover.asm"       ; 0x4f87
+%include "ds/aztec_stkover.asm"            ; 0x4f87
 
-%include "shared/aztec_impl_read.asm"          ; 0x4fa2
+; errno  equ __zerrno - __zdseg_start
+; _ioflg equ __z_ioflg - __zdseg_start
+_ttrd  equ __z_ttrd - __zdseg_start
+_ttwr  equ __z_ttwr - __zdseg_start
+%include "shared/aztec_io.asm"                 ; 0x4fa2
 
-%include "shared/aztec_impl_write.asm"         ; 0x4fac
-
-%include "shared/aztec_read.asm"               ; 0x4fb6
-
-; errno     equ __zerrno - __zdseg_start
-; _ioflg    equ __z_ioflg - __zdseg_start
-dseg_0cf0 equ __zdseg_0cf0 - __zdseg_start
-dseg_0cf2 equ __zdseg_0cf2 - __zdseg_start
-aztec_write.dseg1 equ dseg_0cf2
-aztec_write.dseg2 equ dseg_0cf0
-%include "shared/aztec_write.asm"              ; 0x4fbd
-
-; errno equ __zerrno - __zdseg_start
-%include "shared/aztec_close.asm"              ; 0x4fec
-
-; errno equ __zerrno - __zdseg_start
-%include "shared/aztec_lseek.asm"              ; 0x5004
-
-; errno equ __zerrno - __zdseg_start
-%include "shared/aztec_unlink.asm"             ; 0x5023
-
-; errno equ __zerrno - __zdseg_start
-%include "shared/aztec_rename.asm"             ; 0x503b
-
-_Eol     equ __z_Eol - __zdseg_start
-bss_0d08 equ __zbss_0d08 - __zdseg_start
-bss_0e0c equ __zbss_0e0c - __zdseg_start
-_TTrem   equ __zbss_9096 - __zdseg_start
-%include "ds/aztec_impl_tty_rd.asm"        ; 0x505c
-
+_Eol      equ __z_Eol - __zdseg_start
 dseg_0cf5 equ __zdseg_0cf5 - __zdseg_start
-%include "ds/aztec_impl_tty_wr.asm"        ; 0x50c1
+bss_0d08  equ __zbss_0d08 - __zdseg_start
+bss_0e0c  equ __zbss_0e0c - __zdseg_start
+_TTrem    equ __zbss_9096 - __zdseg_start
+%include "ds/aztec_ttyio.asm"              ; 0x505c
 
 %include "shared/aztec_movmem.asm"             ; 0x5123
 
 %include "shared/aztec_isatty.asm"             ; 0x5168
-
-; aztec_MEMRY equ __zaztec_MEMRY - __zdseg_start
-; errno       equ __zerrno - __zdseg_start
-%include "shared/aztec_sbrk.asm"               ; 0x5188
 
 ; aztec_MEMRY equ __zaztec_MEMRY - __zdseg_start
 ; errno       equ __zerrno - __zdseg_start
@@ -1143,10 +1040,7 @@ dseg_0cf5 equ __zdseg_0cf5 - __zdseg_start
 ; _PSP        equ __z_PSP - __zdseg_start
 ; _STKRED     equ __z_STKRED - __zdseg_start
 ; _STKLOW     equ __z_STKLOW - __zdseg_start
-%include "shared/aztec_brk.asm"                ; 0x51bc
-
-; _STKRED equ __z_STKRED - __zdseg_start
-%include "shared/aztec_rsvstk.asm"             ; 0x5248
+%include "shared/aztec_ssbrk.asm"              ; 0x5188
 
 
 ; End of host resident code
@@ -1489,9 +1383,9 @@ __zaztec_MEMRY:
     dw bss_b198                                ; 0x10dd0
 __zerrno:
     db 0x00, 0x00
-__zdseg_0c74:
+__z_dsval:
     db 0x00, 0x00
-__zdseg_0c76:
+__z_csval:
     db 0x00, 0x00
 __z_mbot:
     db 0x00, 0x00
@@ -1503,13 +1397,13 @@ __z_lowwater:
     db 0xff, 0xff
 __z_PSP:
     db 0x00, 0x00
-__zdseg_0c82:
+__zbad8087:
 
     db '8087/80287 is required!'
     db 0x0d, 0x0a, 0x24
 
 __zcls_:
-    dw __zcp_4ea3 - IMAGE_BASE                 ; 0x10dfc
+    dw aztec_noper - IMAGE_BASE                ; 0x10dfc
 __zdseg_0c9e:
     db 0x00
 __zdseg_0c9f:
@@ -1519,11 +1413,11 @@ __zdseg_0cae:
     db 'STACK OVERFLOW, INCREASE STACK SIZE'
     db 0x0a, 0x00, 0x00
 
-__zdseg_0cd4:
+__z_STKSIZ:
     db 0x00, 0x01
 __z_STKRED:
     db 0x00, 0x08
-__zdseg_0cd8:
+__z_HEAPSIZ:
     db 0x00, 0x01
 __z_STKLOW:
     db 0x00, 0x00
@@ -1535,9 +1429,9 @@ __zdseg_0cde:
 
     times 18 db 0
 
-__zdseg_0cf0:
+__z_ttrd:
     dw aztec_impl_tty_rd - IMAGE_BASE          ; 0x10e50
-__zdseg_0cf2:
+__z_ttwr:
     dw aztec_impl_tty_wr - IMAGE_BASE          ; 0x10e52
 __z_Eol:
     db 0x0a

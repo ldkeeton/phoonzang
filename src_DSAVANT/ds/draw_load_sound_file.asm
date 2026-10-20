@@ -58,7 +58,7 @@ draw_load_sound_file: ; Aztec csav frame=0x0018
     push ax                          ; 0x29af
     lea ax, word [bp - 0x0018]       ; 0x29b0
     push ax                          ; 0x29b3
-    call ds_app_UUHT                 ; 0x29b4
+    call ds_app_string_UUHT          ; 0x29b4
     add sp, byte 4                   ; 0x29b7
     push ax                          ; 0x29ba
     call aztec_open                  ; 0x29bb

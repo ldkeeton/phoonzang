@@ -32,7 +32,7 @@ bss_9134 equ __zdseg_end + (__zobss_9134 - __zdata_start)
 bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
 %include "vmnpc/api_idx_000c_POTM.asm"     ; 0x01d2
 
-%include "vmnpc/asm_only/api_idx_0004_SMTU.asm"     ; 0x062d
+%include "vmnpc/api_idx_0004_SMTU.asm"     ; 0x062d
 
 ; bss_9134 equ __zdseg_end + (__zobss_9134 - __zdata_start)
 ; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
@@ -177,7 +177,7 @@ bss_91cb equ __zdseg_end + (__zobss_91cb - __zdata_start)
 ; bss_95a8 equ __zdseg_end + (__zobss_95a8 - __zdata_start)
 ; bss_95fa equ __zdseg_end + (__zobss_95fa - __zdata_start)
 bss_964e equ __zdseg_end + (__zobss_964e - __zdata_start)
-%include "vmnpc/asm_only/api_idx_0008_HUTJ.asm"     ; 0x3900
+%include "vmnpc/api_idx_0008_HUTJ.asm"     ; 0x3900
 
 bss_9650 equ __zdseg_end + (__zobss_9650 - __zdata_start)
 %include "vmnpc/api_idx_0004_GGOK.asm"     ; 0x3a96
@@ -622,14 +622,11 @@ dseg_912e equ __zdseg_end + (__zdseg_912e - __zdata_start)
 dseg_9130 equ __zdseg_end + (__zdseg_9130 - __zdata_start)
 dseg_9132 equ __zdseg_end + (__zdseg_9132 - __zdata_start)
 ; bss_9134  equ __zdseg_end + (__zobss_9134 - __zdata_start)
-%include "vmnpc/asm_only/string_loc_NVTI.asm"       ; 0xae10
+%include "vmnpc/string_loc_NVTI.asm"       ; 0xae10
 
 %include "shared/aztec_strncpy.asm"         ; 0xae4e
 
 %include "shared/aztec_strcmp.asm"          ; 0xae76
-
-loc_LNNU equ aztec_strncmp.loc1
-%include "shared/aztec_strncmp.asm"         ; 0xae94
 
 __zdseg_9098:
 __zdata_start:

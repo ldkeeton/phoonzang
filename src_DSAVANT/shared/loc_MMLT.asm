@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 loc_MMLT:
     push bp
     mov bp, sp

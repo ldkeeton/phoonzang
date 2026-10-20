@@ -7,7 +7,7 @@ api_idx_0002_OTTG:
     mov ax, 1                        ; 0x0226
     push ax                          ; 0x0229
     push word [bp + 0x4]             ; 0x022a
-    call ds_app_UUHT                 ; 0x022d
+    call ds_app_string_UUHT          ; 0x022d
     add sp, byte 4                   ; 0x0230
     push ax                          ; 0x0233
     call aztec_open                  ; 0x0234

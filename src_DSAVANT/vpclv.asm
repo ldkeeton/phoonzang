@@ -31,7 +31,7 @@ __zcode_start:
 %include "shared/api_idx_0002_OOKN.asm"     ; 0x0022
 
 bss_9408 equ __zdseg_end + (__zobss_9408 - __zdata_start)
-%include "vpclv/asm_only/api_idx_0012_RLJJ.asm"     ; 0x0086
+%include "vpclv/api_idx_0012_RLJJ.asm"     ; 0x0086
 
 %include "shared/draw_party_slot_letters.asm" ; 0x0202
 
@@ -65,7 +65,7 @@ bss_941c  equ __zdseg_end + (__zobss_941c - __zdata_start)
 ; bss_9436  equ __zdseg_end + (__zobss_9436 - __zdata_start)
 ; bss_9438  equ __zdseg_end + (__zobss_9438 - __zdata_start)
 bss_943a  equ __zdseg_end + (__zobss_943a - __zdata_start)
-%include "vpclv/asm_only/api_idx_007c_MOJH.asm"     ; 0x0572
+%include "vpclv/api_idx_007c_MOJH.asm"     ; 0x0572
 
 %include "vpclv/loc_MNNG.asm"              ; 0x0dc0
 
@@ -291,7 +291,7 @@ dseg_9402 equ __zdseg_end + (__zdseg_9402 - __zdata_start)
 dseg_9404 equ __zdseg_end + (__zdseg_9404 - __zdata_start)
 dseg_9406 equ __zdseg_end + (__zdseg_9406 - __zdata_start)
 ; bss_9408  equ __zdseg_end + (__zobss_9408 - __zdata_start)
-%include "vpclv/asm_only/loc_HJNO.asm"              ; 0x5472
+%include "vpclv/loc_HJNO.asm"              ; 0x5472
 
 __zdseg_9098:
 __zdata_start:

@@ -17,7 +17,7 @@ draw_load_sound_file(num, n, flag)
 		aztec_strcpy(name, "SOUND00.SND");
 		name[5] = num / 10 + '0';
 		name[6] = num % 10 + '0';
-		if ((fd = aztec_open(ds_app_UUHT(name, 1), 0)) == -1)
+		if ((fd = aztec_open(ds_app_string_UUHT(name, 1), 0)) == -1)
 			ds_app_UKIP(11);
 		if (gfx_load_sound(fd, n))
 			ds_app_UKIP(12);

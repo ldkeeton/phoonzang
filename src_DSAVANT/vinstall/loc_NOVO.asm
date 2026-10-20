@@ -13,7 +13,7 @@ loc_NOVO:
     lea ax, word [bp - 0x0101]       ; 0x083c
     push ax                          ; 0x0840
     push word [bp - 0x0002]          ; 0x0841
-    call aztec_raise                 ; 0x0844
+    call loc_KOGV                    ; 0x0844
     add sp, byte 4                   ; 0x0847
     lea ax, word [bp - 0x0101]       ; 0x084a
     push ax                          ; 0x084e
@@ -21,7 +21,7 @@ loc_NOVO:
     pop cx                           ; 0x0852
     mov ax, dseg_144b                ; 0x0853
     push ax                          ; 0x0856
-    call bios_video_loc_QTQU         ; 0x0857
+    call bios_video_loc_QRGV         ; 0x0857
     pop cx                           ; 0x085a
     push word [bp + 0xa]             ; 0x085b
     lea ax, word [bp - 0x0101]       ; 0x085e

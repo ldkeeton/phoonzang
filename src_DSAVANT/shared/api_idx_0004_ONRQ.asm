@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 api_idx_0004_ONRQ:
     mov ax, 0xfffc
     call aztec_csav

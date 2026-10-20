@@ -36,7 +36,7 @@ def _file_stem(name):
 def _select_split_ranges(label_map, split_functions, func_boundaries=None,
                          binary_size=None, c_override_lengths=None,
                          declared_roots=None, code_end=None,
-                         code_start=None):
+                         code_start=None, c_override_roots=None):
     """Select named function boundaries, ending each at the next split root.
 
     Starts come straight from the label offsets so a function's file always
@@ -67,7 +67,9 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
 
     Functions that have a C override own exactly ``length`` bytes; their split
     range is capped there so non-C data after the routine stays in the master
-    file instead of being absorbed into the C fragment.
+    file instead of being absorbed into the C fragment.  *c_override_roots*
+    (``{start: label}``) is where each C fragment starts: a vendor module's
+    first byte, which can come before the routine that names it.
     """
     requested = set(split_functions or ())
     declared = set(declared_roots or ())
@@ -87,9 +89,19 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
             and name is not None and not is_data(name)):
         selected.insert(0, (code_start, name))
 
-    # A split root strictly inside a C routine's own recovered extent (e.g. the
-    # one-instruction ``jmp`` exit tail a routine's branches share) is part of
-    # that routine, not a neighbour; it must not truncate the fragment.
+    if c_override_roots:
+        symbols = {str(sym): sym for sym in (label_map or {}).values()}
+        moved = set(c_override_roots.values())
+        selected = sorted(
+            [(off, name) for off, name in selected
+             if str(name) not in moved and off not in c_override_roots]
+            + [(off, symbols.get(name, name))
+               for off, name in c_override_roots.items()])
+
+    # A split root strictly inside a C routine's own recovered extent (a
+    # module's other entry points, or the one-instruction ``jmp`` exit tail a
+    # routine's branches share) is part of that routine, not a neighbour; it
+    # must not truncate the fragment.
     covered = [(off, off + c_override_lengths[off])
                for off, _ in selected if off in c_override_lengths]
     selected = [
@@ -132,8 +144,11 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
     return ranges
 
 
-def _extend_split_ranges_with_local_tails(split_ranges, records):
-    """Keep immediately following, referenced local blocks with their root."""
+def _extend_split_ranges_with_local_tails(split_ranges, records, fixed=()):
+    """Keep immediately following, referenced local blocks with their root.
+
+    A range starting in *fixed* (a C fragment) is left as it is.
+    """
     if not split_ranges:
         return split_ranges
 
@@ -152,7 +167,7 @@ def _extend_split_ranges_with_local_tails(split_ranges, records):
         return label.kind is Kind.LOCAL and label.owner == name
 
     for start, end, name in split_ranges:
-        while True:
+        while start not in fixed:
             local_labels = [
                 label for label in labels_at.get(end, ()) if scoped(label, name)
             ]
@@ -195,7 +210,7 @@ def _extend_split_ranges_with_local_tails(split_ranges, records):
     return extended
 
 
-def _split_off_foreign_objects(split_ranges, records, owners=None):
+def _split_off_foreign_objects(split_ranges, records, owners=None, fixed=()):
     """Cut a fragment's trailing neighbours into their own ranges.
 
     A fragment is cut at *named* routines only, so an unnamed tail -- a data blob
@@ -211,7 +226,8 @@ def _split_off_foreign_objects(split_ranges, records, owners=None):
     routine's own code is left alone.  A foreign *code* label (a subroutine) is
     promoted to its own range, so it gets its own file like any other routine.  A
     foreign *data* label is left for the master file -- a data-only fragment
-    would be neither a routine nor asm-only.
+    would not be a routine.  A range starting in *fixed* (a C fragment: a whole
+    vendor module, its other entry points included) is never cut.
     """
     if not split_ranges:
         return split_ranges
@@ -246,6 +262,9 @@ def _split_off_foreign_objects(split_ranges, records, owners=None):
 
     result = []
     for index, (start, end, name) in enumerate(split_ranges):
+        if start in fixed:
+            result.append((start, end, name))
+            continue
         own_end = start - 1
         for span_start, span_end, rec in spans:
             if (rec['type'] == 'mnem' and start <= span_start < end

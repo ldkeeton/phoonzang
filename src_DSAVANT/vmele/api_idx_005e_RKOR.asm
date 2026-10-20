@@ -37,7 +37,7 @@ api_idx_005e_RKOR:
     push ax                          ; 0x069d
     lea ax, word [bp - 0x005e]       ; 0x069e
     push ax                          ; 0x06a1
-    call ds_app_UUHT                 ; 0x06a2
+    call ds_app_string_UUHT          ; 0x06a2
     add sp, byte 4                   ; 0x06a5
     push ax                          ; 0x06a8
     call aztec_open                  ; 0x06a9

@@ -7,7 +7,7 @@ api_idx_0002_OGHR:
     mov ax, 1                        ; 0x008e
     push ax                          ; 0x0091
     push word [bp + 0x4]             ; 0x0092
-    call ds_app_UUHT                 ; 0x0095
+    call ds_app_string_UUHT          ; 0x0095
     add sp, byte 4                   ; 0x0098
     push ax                          ; 0x009b
     call aztec_open                  ; 0x009c

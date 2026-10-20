@@ -98,11 +98,11 @@ dseg_90b0 equ __zdseg_end + (__zdseg_90b0 - __zdata_start)
 dseg_90b1 equ __zdseg_end + (__zdseg_90b1 - __zdata_start)
 %include "vtrea/api_idx_005a_SIOK.asm"     ; 0x10fb
 
-%include "vtrea/asm_only/api_idx_003e_JGVR.asm"     ; 0x11bc
+%include "vtrea/api_idx_003e_JGVR.asm"     ; 0x11bc
 
 dseg_90b2 equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
 dseg_90b3 equ __zdseg_end + (__zdseg_90b3 - __zdata_start)
-%include "vtrea/asm_only/api_idx_0056_VTNO.asm"     ; 0x12cc
+%include "vtrea/api_idx_0056_VTNO.asm"     ; 0x12cc
 
 ; bss_9116 equ __zdseg_end + (__zobss_9116 - __zdata_start)
 ; bss_9118 equ __zdseg_end + (__zobss_9118 - __zdata_start)
@@ -125,7 +125,7 @@ dseg_90b8 equ __zdseg_end + (__zdseg_90b8 - __zdata_start)
 dseg_90b9 equ __zdseg_end + (__zdseg_90b9 - __zdata_start)
 dseg_90ba equ __zdseg_end + (__zdseg_90ba - __zdata_start)
 ; bss_91d4  equ __zdseg_end + (__zobss_91d4 - __zdata_start)
-%include "vtrea/asm_only/api_idx_00b8_LTRM.asm"     ; 0x14e7
+%include "vtrea/api_idx_00b8_LTRM.asm"     ; 0x14e7
 
 dseg_90bb equ __zdseg_end + (__zdseg_90bb - __zdata_start)
 dseg_90c4 equ __zdseg_end + (__zdseg_90c4 - __zdata_start)
@@ -182,7 +182,7 @@ bss_95e0 equ __zdseg_end + (__zobss_95e0 - __zdata_start)
 ; bss_91fe equ __zdseg_end + (__zobss_91fe - __zdata_start)
 ; bss_9250 equ __zdseg_end + (__zobss_9250 - __zdata_start)
 ; bss_95de equ __zdseg_end + (__zobss_95de - __zdata_start)
-%include "vtrea/asm_only/api_idx_0008_HJOM.asm"     ; 0x4368
+%include "vtrea/api_idx_0008_HJOM.asm"     ; 0x4368
 
 bss_95e2 equ __zdseg_end + (__zobss_95e2 - __zdata_start)
 %include "vtrea/api_idx_0004_GKHR.asm"     ; 0x4ad8
@@ -258,7 +258,7 @@ dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 
 %include "shared/loc_QTKU.asm"              ; 0x788f
 
-%include "vtrea/asm_only/api_idx_0074_SGUS.asm"     ; 0x78ed
+%include "vtrea/api_idx_0074_SGUS.asm"     ; 0x78ed
 
 ; bss_911c equ __zdseg_end + (__zobss_911c - __zdata_start)
 ; bss_9124 equ __zdseg_end + (__zobss_9124 - __zdata_start)
@@ -321,9 +321,9 @@ dseg_910e equ __zdseg_end + (__zdseg_910e - __zdata_start)
 dseg_9110 equ __zdseg_end + (__zdseg_9110 - __zdata_start)
 dseg_9112 equ __zdseg_end + (__zdseg_9112 - __zdata_start)
 ; bss_9114  equ __zdseg_end + (__zobss_9114 - __zdata_start)
-%include "vtrea/asm_only/loc_SQUK.asm"              ; 0x99c5
+%include "vtrea/loc_SQUK.asm"              ; 0x99c5
 
-%include "vtrea/asm_only/leaf_loc_GTUT.asm"         ; 0x9a03
+%include "vtrea/leaf_loc_GTUT.asm"         ; 0x9a03
 
 
 __zimage_end:

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 leaf_loc_RJLR:
     pop bx
     push di

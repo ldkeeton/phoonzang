@@ -11,6 +11,11 @@ from .common import ASM
 DOS_COMPILERS_URL = 'https://github.com/ldkeeton/dos_compilers'
 DOS_COMPILERS_DIR = os.path.join(ASM, 'dos_compilers')
 SIDECAR_DIR = os.path.join(ASM, 'sidecar')
+# Manx ships its runtime sources as ``ARC/*.ARC`` text bundles; ``make init``
+# splits them into ``dos_compilers/aztec_src/<version>/<archive>/<file>``
+# (lib.aztec.sources), next to the release folders.
+AZTEC_SRC_DIR = os.path.join(DOS_COMPILERS_DIR, 'aztec_src')
+_AZTEC_PREFIX = 'Manx Aztec C86 '
 
 
 def _git(*args, cwd=None, stdin=None):
@@ -89,3 +94,65 @@ def cmd_init():
          cwd=DOS_COMPILERS_DIR, stdin=''.join(f'/{f}/\n' for f in folders))
     _git('checkout', cwd=DOS_COMPILERS_DIR)
     _verify(folders)
+    _unpack_sources(folders)
+
+
+def _unpack_sources(folders):
+    """Split each Aztec folder's ``ARC/*.ARC`` into ``aztec_src/<version>/``.
+
+    The archives are plain ``\\f<name>\\n<body>`` concatenations (Manx's
+    ``mkarcv``), one directory per archive because names repeat across them
+    (``croot.c`` is in both ``cpm86`` and ``dos20``).  Files whose bytes are
+    unchanged are left alone, so a re-run touches nothing.  ``aztec_src/``
+    is not in the dos_compilers repo, so the clone's ``info/exclude`` hides it.
+    """
+    _exclude('/aztec_src/')
+    for folder in folders:
+        if not folder.startswith(_AZTEC_PREFIX):
+            continue
+        version = folder[len(_AZTEC_PREFIX):]
+        arcs = sorted(glob.glob(os.path.join(DOS_COMPILERS_DIR, folder, 'ARC', '*.ARC')))
+        written = total = 0
+        for arc in arcs:
+            dest = os.path.join(AZTEC_SRC_DIR, version,
+                                os.path.splitext(os.path.basename(arc))[0].lower())
+            os.makedirs(dest, exist_ok=True)
+            with open(arc, 'rb') as f:
+                data = f.read()
+            for name, body in _arc_members(data):
+                total += 1
+                path = os.path.join(dest, name.lower())
+                if os.path.isfile(path):
+                    with open(path, 'rb') as f:
+                        if f.read() == body:
+                            continue
+                with open(path, 'wb') as f:
+                    f.write(body)
+                written += 1
+        if arcs:
+            print(f'aztec sources {version}: {total} files from {len(arcs)} '
+                  f'archives ({written} written) -> '
+                  f'{os.path.relpath(os.path.join(AZTEC_SRC_DIR, version), ASM)}')
+
+
+def _exclude(pattern):
+    """Add *pattern* to the dos_compilers clone's ``.git/info/exclude``."""
+    path = os.path.join(DOS_COMPILERS_DIR, '.git', 'info', 'exclude')
+    lines = open(path).read().splitlines() if os.path.isfile(path) else []
+    if pattern not in lines:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, 'a') as f:
+            f.write(pattern + '\n')
+
+
+def _arc_members(data):
+    """``(name, body bytes)`` of a ``\\f<name>\\n<body>`` bundle.
+
+    The bundle's last member carries its DOS end-of-file byte (``^Z``); DOS
+    tools stop reading there, so it is not part of the file.
+    """
+    for part in data.split(b'\x0c')[1:]:
+        nl = part.find(b'\n')
+        name = part[:nl].strip().decode('latin1') if nl >= 0 else ''
+        if name:
+            yield name, part[nl + 1:].rstrip(b'\x1a')

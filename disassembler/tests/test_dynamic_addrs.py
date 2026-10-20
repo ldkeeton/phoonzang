@@ -347,7 +347,7 @@ def _binary_sources(binary):
         out.append(master)
     frag_dir = _TREE / binary
     if frag_dir.is_dir():
-        out += sorted(frag_dir.rglob('*.asm'))   # incl. asm_only/
+        out += sorted(frag_dir.rglob('*.asm'))
     if master.is_file():
         # Fragments shared with other binaries live in shared/ (lib.shared).
         for name in re.findall(r'%include "(shared/[^"]+)"', master.read_text()):
@@ -369,8 +369,8 @@ def _tree_labels(binary):
     record, whose ``; 0x<hex>`` comment gives the address.  Local (``@..``)
     labels never displace a global one and never start a file.  The path is
     relative to the tree root because a fragment no longer has to sit beside its
-    master: ``asm_only/`` holds the hand-written ones and ``shared/`` the shared
-    ones (`disassembler/lib/asm_only.py`), so a bare basename would not resolve.
+    master: ``shared/`` holds the ones binaries share (`disassembler/lib/shared.py`),
+    so a bare basename would not resolve.
     """
     out = {}
     for path in _binary_sources(binary):
@@ -1314,8 +1314,8 @@ class HostIncludeTests(unittest.TestCase):
             # CS offset, ``label - IMAGE_BASE + __zres_end``.
             case = struct.unpack_from('<H', original, 0x17f4)[0]
 
-            self._edit_host(d, '%include "ds/asm_only/aztec_csav.asm"',
-                            '    db 0xee\n%include "ds/asm_only/aztec_csav.asm"')
+            self._edit_host(d, '%include "ds/aztec_csav.asm"',
+                            '    db 0xee\n%include "ds/aztec_csav.asm"')
             grown = self._build_overlay(d)
             self.assertEqual(len(grown), len(original))
             self.assertEqual(grown[2:4], b'\x56\x50')               # o_corg 0x5056
@@ -2113,7 +2113,7 @@ class InsertBytePropertyTests(unittest.TestCase):
             self.assertEqual(original[0x8ff:0x902], b'\xbb\xda\x0b')
             self.assertEqual(original[0x456e:0x4571], b'\xbb\xda\x0b')
 
-            frag = os.path.join(d, 'vga', 'asm_only', 'load_screen.asm')
+            frag = os.path.join(d, 'vga', 'load_screen.asm')
             with open(frag) as f:
                 text = f.read()
             needle = '    mov bx, data_0bda                ; 0x08ff\n'

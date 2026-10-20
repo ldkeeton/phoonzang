@@ -51,7 +51,7 @@ bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 %include "vmele/api_idx_005e_RKOR.asm"     ; 0x0649
 
-%include "vmele/asm_only/api_idx_0008_SJOG.asm"     ; 0x07ad
+%include "vmele/api_idx_0008_SJOG.asm"     ; 0x07ad
 
 %include "vmele/api_idx_0004_TJKU.asm"     ; 0x0c67
 
@@ -63,7 +63,7 @@ dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 %include "vmele/api_idx_000e_UGVQ.asm"     ; 0x12ac
 
 dseg_90a2 equ __zdseg_end + (__zdseg_90a2 - __zdata_start)
-%include "vmele/asm_only/api_idx_005c_UIOK.asm"     ; 0x14e6
+%include "vmele/api_idx_005c_UIOK.asm"     ; 0x14e6
 
 %include "shared/loc_SIKN.asm"              ; 0x16d1
 
@@ -71,7 +71,7 @@ dseg_90a2 equ __zdseg_end + (__zdseg_90a2 - __zdata_start)
 
 %include "vmele/api_idx_0004_TTLU.asm"     ; 0x17ad
 
-%include "vmele/asm_only/api_idx_0014_UOQI.asm"     ; 0x1844
+%include "vmele/api_idx_0014_UOQI.asm"     ; 0x1844
 
 %include "vmele/loc_QUVM.asm"              ; 0x1a16
 
@@ -136,9 +136,9 @@ dseg_90b0 equ __zdseg_end + (__zdseg_90b0 - __zdata_start)
 dseg_90b2 equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
 dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 ; bss_90b6  equ __zdseg_end + (__zobss_90b6 - __zdata_start)
-%include "vmele/asm_only/string_loc_PQLL.asm"       ; 0x3710
+%include "vmele/string_loc_PQLL.asm"       ; 0x3710
 
-%include "vmele/asm_only/string_loc_SJPQ.asm"       ; 0x374e
+%include "vmele/string_loc_SJPQ.asm"       ; 0x374e
 
 __zdseg_9098:
 __zdata_start:

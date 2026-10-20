@@ -7,7 +7,21 @@ FILE Cbuffs[MAXSTREAM] = {
 	{ 0,0,0, _BUSY,0,0,1 },
 	{ 0,0,0, _BUSY,1,0,1 },
 	{ 0,0,0, _BUSY,2,0,1 },
+	{ 0,0,0, _BUSY,3,0,1 },
+	{ 0,0,0, _BUSY,4,0,1 },
 };
+
+FILE *
+aztec_newstream()
+{
+	register FILE *fp;
+
+	fp = Cbuffs;
+	while (fp->_flags)
+		if (++fp >= &Cbuffs[MAXSTREAM])
+			return NULL;
+	return fp;
+}
 
 aztec_getbuff(ptr)
 register FILE *ptr;

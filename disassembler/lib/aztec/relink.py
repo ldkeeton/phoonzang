@@ -26,7 +26,7 @@ linker and the emitted source stays valid when layout moves.
 
 import re
 
-from lib.symtab import Kind, Symbol
+from lib.symtab import Kind, Source, Symbol
 
 from .objread import external_label
 
@@ -38,6 +38,11 @@ _DATA_BY_ADDRESS = re.compile(r'(?:dseg|bss)_([0-9a-f]{4})')
 #: Symbols the Aztec linker itself defines (no C module does), by the name the
 #: renderer gives the same value (``lib.compare.render.image_geometry``).
 LINKER_SYMBOLS = {'_Cend': '__zres_end', '_Uend': '__zdseg_end'}
+
+#: Linker symbols that mark a place rather than name an object: ``_Uorg`` is
+#: where uninitialized data starts, so the build names it after the object
+#: that starts there (``keep`` in vinstall, ``bss_0cf6`` in ds).
+PLACE_SYMBOLS = {'_Uorg'}
 
 
 def linked_name(c_name):
@@ -123,6 +128,11 @@ def _addend_text(addend):
     return f' + 0x{addend:x}' if addend > 0 else f' - 0x{-addend:x}'
 
 
+def _code_value(name, addend):
+    """A code label's CS offset, the addend on the label (``conversions+1``)."""
+    return f'{name}{_addend_text(addend)} - IMAGE_BASE'
+
+
 def _resolved_branches(code, fixups):
     """``{operand offset: (width, target offset)}`` of in-routine branches
     the assembler resolved itself, so the object has no fixup for them.
@@ -159,13 +169,35 @@ def _put(code, offset, width, value):
     code[offset:offset + width] = value.to_bytes(width, 'little')
 
 
-def link(label, start, func, index, original, labels_in=()):
+def _neighbour_target(label, start, fx, func, index, original, labels_at):
+    """``(name, address)`` of a module label outside the routine, read from
+    the branch's displacement in the *original* image.  *labels_at* maps an
+    address to the label the build placed there (a neighbour's own labels)."""
+    site = start + fx.offset
+    disp = int.from_bytes(original[site:site + fx.width], 'little', signed=True)
+    target = site + fx.width + disp
+    if start <= target < start + len(func.code):
+        raise RelinkError(f'{label}: branch at +0x{fx.offset:x} targets '
+                          f'undefined local label {fx.symbol}')
+    names = sorted(name for name, addr in index.code.items() if addr == target)
+    if not names and target in labels_at:
+        names = [labels_at[target]]
+    if not names:
+        raise RelinkError(
+            f'{label}: branch at +0x{fx.offset:x} to {fx.symbol} leaves the '
+            f'routine for 0x{target:x}, where the build has no label')
+    return names[0], target
+
+
+def link(label, start, func, index, original, labels_in=(), labels_at=None):
     """Resolve *func*'s relocations for placement at file offset *start*.
 
     *original* is the original image: its relocated words say where the
     original link put the module's own data.  *labels_in* are the
     ``(offset, name)`` labels the build already placed inside the routine;
     non-local ones keep their name when a derived branch target lands on them.
+    *labels_at* (``{offset: name}``) is every label the build placed, for a
+    branch that leaves the routine for a module label beside it.
     """
     code = bytearray(func.code)
     out = Linked(code)
@@ -187,28 +219,51 @@ def link(label, start, func, index, original, labels_in=()):
         out.refs[fx.offset] = Ref(fx.offset, 2, name + _addend_text(fx.addend),
                                   False, {name: value})
 
-    named = {}
+    # A target keeps the name the build gave it: a global, or a local label
+    # (``@..aztec_mkdir.dircommon``, the vendor's) that a neighbour's branch
+    # into this routine names too.  Only a target with neither is numbered.
+    named, kept = {}, {}
     for offset, name in labels_in:
         if name.kind is not Kind.LOCAL:
             named.setdefault(offset, name)
+        else:
+            kept.setdefault(offset, name)
 
-    locals_ = [fx for fx in func.fixups
-               if fx.symbol_kind == 'LCLSYM' and fx.kind in ('BREL', 'WREL')]
+    branches = [fx for fx in func.fixups
+                if fx.symbol_kind == 'LCLSYM' and fx.kind in ('BREL', 'WREL')]
+    # A module's own label past this routine's end (an assembly module's
+    # ``call emitchar`` into a neighbour proc the build splits off): the
+    # original image says where the branch lands, the build's label there
+    # names it.
+    leaving = {id(fx): _neighbour_target(label, start, fx, func, index,
+                                         original, labels_at or {})
+               for fx in branches if not fx.symbol.startswith('.')
+               and not 0 <= func.locals.get(fx.symbol, -1) < len(code)}
+    locals_ = [fx for fx in branches if id(fx) not in leaving]
     local_ids = {id(fx) for fx in locals_}
     targets = set()
     for fx in locals_:
-        if fx.symbol not in func.locals:
-            raise RelinkError(
-                f'{label}: branch at +0x{fx.offset:x} targets undefined '
-                f'local label {fx.symbol}')
         targets.add(start + func.locals[fx.symbol])
     resolved = _resolved_branches(code, func.fixups)
     targets.update(start + target for _width, target in resolved.values())
-    fresh = sorted(t for t in targets if t not in named)
     for t in targets & set(named):
         out.local_names[t] = named[t]
-    for i, t in enumerate(fresh):
-        name = Symbol.local(label, t, i + 1)
+    # Every kept local stays, branched to from here or not: a neighbour's
+    # branch (``chdir``'s ``jmp dircommon`` into ``mkdir``) names it too.
+    for t in sorted(set(kept) - set(named)):
+        if not start <= t < start + len(code):
+            continue
+        out.local_names[t] = kept[t]
+        out.local_records.append(
+            {'type': 'label', 'text': f'{kept[t]}:', 'name': kept[t],
+             'offset': t})
+    taken = {name.index for name in kept.values() if name.index is not None}
+    number = 0
+    for t in sorted(targets - set(named) - set(kept)):
+        number += 1
+        while number in taken:
+            number += 1
+        name = Symbol.local(label, t, number)
         out.local_names[t] = name
         out.local_records.append(
             {'type': 'label', 'text': f'{name}:', 'name': name, 'offset': t})
@@ -221,7 +276,11 @@ def link(label, start, func, index, original, labels_in=()):
         width = fx.width
         if site + width > len(code):
             unknown(fx, 'runs past the end of the routine')
-        if id(fx) in local_ids:
+        if id(fx) in leaving:
+            name, target = leaving[id(fx)]
+            _put(code, site, width, target - (start + site + width))
+            out.refs[site] = Ref(site, width, name, True, {name: target})
+        elif id(fx) in local_ids:
             target = start + func.locals[fx.symbol]
             disp = target - (start + site + width)
             if width == 1 and not -128 <= disp <= 127:
@@ -243,7 +302,16 @@ def link(label, start, func, index, original, labels_in=()):
             out.refs[site] = Ref(site, 2, name, True, {name: target})
         elif fx.symbol_kind == 'GBLSYM' and fx.kind == 'WABS':
             name = linked_name(external_label(fx.symbol))
-            if name in index.data:
+            if name in PLACE_SYMBOLS:
+                word = int.from_bytes(original[start + site:start + site + 2],
+                                      'little')
+                value = (word - fx.addend) & 0xffff
+                there = sorted(n for n, v in index.data.items() if v == value)
+                sym = there[0] if there else canonical_data(fx, value)
+                put_data(fx, sym, value)
+                if not there:
+                    out.minted[sym] = value
+            elif name in index.data:
                 put_data(fx, name, index.data[name])
             elif name in index.code:
                 # A code address as a value (a function pointer): the label
@@ -254,7 +322,7 @@ def link(label, start, func, index, original, labels_in=()):
                 target = index.code[name]
                 _put(code, site, 2, target - index.image_base + fx.addend)
                 out.refs[site] = Ref(
-                    site, 2, f'{name} - IMAGE_BASE' + _addend_text(fx.addend),
+                    site, 2, _code_value(name, fx.addend),
                     False, {name: target})
             elif name in index.named_data:
                 # A known DS name (``ctp_``) no asm operand uses yet: the C
@@ -298,6 +366,36 @@ def link(label, start, func, index, original, labels_in=()):
                             f'{have.hex() if have else "no initialized data"}')
             put_data(fx, name, value)
             out.minted[name] = value
+        elif fx.symbol_kind == 'LCLSYM' and fx.kind == 'WABS':
+            # An assembly module's own code label as a value (``conversions``,
+            # a jump table in its code): a CS offset, read from the original.
+            if index.image_base is None:
+                unknown(fx, 'a code address as a value needs the image '
+                            'base, which this image does not have')
+            word = int.from_bytes(original[start + site:start + site + 2],
+                                  'little')
+            target = ((word - fx.addend) & 0xffff) + index.image_base
+            names = sorted(n for n, addr in index.code.items() if addr == target)
+            name = (names[0] if names else (labels_at or {}).get(target)
+                    or out.local_names.get(target))
+            if name is None and start <= target < start + len(code):
+                name = Symbol.local(label, target, name=fx.symbol,
+                                    source=Source.SIGNATURE)
+                out.local_names[target] = name
+                out.local_records.append({'type': 'label', 'text': f'{name}:',
+                                          'name': name, 'offset': target})
+            if name is None:
+                unknown(fx, f'the build has no label at 0x{target:x}')
+            _put(code, site, 2, target - index.image_base + fx.addend)
+            out.refs[site] = Ref(
+                site, 2, _code_value(name, fx.addend),
+                False, {name: target})
+        elif fx.symbol_kind == 'DATASEG' and fx.kind == 'WABS':
+            # The data segment's paragraph (``mov bp,dataseg``): DOS adds the
+            # load segment through the exe's relocation table, so the word is
+            # the original's and the operand stays the number it decodes to.
+            _put(code, site, 2, int.from_bytes(
+                original[start + site:start + site + 2], 'little'))
         else:
             unknown(fx, 'not a relocation the linker can name')
     return out

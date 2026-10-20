@@ -2,48 +2,48 @@
   "app": "DSAVANT",
   "title": "Wizardry 7: Crusaders of the Dark Savant",
   "version": 1,
-  "dos_compilers": ["Manx Aztec C86 v52a", "Manx Aztec C86 v340a"],
+  "dos_compilers": ["Manx Aztec C86 v42b"],
   "compiler_flags": {
-    "default": ["-n", "+y", "+b"],
+    "default": ["-n", "+b"],
     "prefixes": { 
-      "aztec_": ["-n", "+y"],
-      "draw_" : ["-n", "+y", "+b", "+m"]
+      "aztec_": ["-n"],
+      "draw_" : ["-n", "+b", "+m"]
     }
   },
   "vendor_patches": {
-    "aztec_begin": {
-      "version": "v52a",
-      "file": "sbegin.asm",
-      "note": "DS.EXE's $begin saves CS:PSP in a code-segment word instead of calling _exitinit_, and ends by jumping to a DOS-exit routine with AL set instead of pushing the code and calling _exit_; the debugger entry ($dbgentry) is not linked in.",
+    "aztec_lfree": {
+      "version": "v42b",
+      "file": "lmalloc.asm",
+      "note": "The library was assembled with `as`, which keeps lfree's forward `jmp exit` near (e9 0002); cc's #asm pass squeezes every forward jmp to short (eb), `near ptr` included, so the near jmp is spelled out. A `dw exit-$-2` would be an expression relocation obd cannot dump.",
       "edits": [
-        {
-          "find": "\textrn\t_PSP_:word\n",
-          "replace": "\textrn\t_PSP_:word\n\textrn\tcseg_4d38_:word\n"
-        },
-        {
-          "find": "notcom:\n",
-          "replace": "notcom:\n\tmov\tcs:cseg_4d38_,ds\n"
-        },
-        {
-          "find": "\tcall\t_exitinit_\t\n",
-          "replace": ""
-        },
-        {
-          "find": "\tmov\tax,254\n\tpush\tax\n\tcall\t_exit_\n",
-          "replace": "\tmov\tal,254\n\tjmp\t_exit_\n"
-        },
-        {
-          "find": "\txor\tax,ax\n\tpush\tax\t\t;Croot or caller should call _exit\n\tcall\t_exit_\t\t;but just in case...\n",
-          "replace": "\tjmp\tshort _exit_\n"
-        },
-        {
-          "find": "\tmov\tax,253\n\tpush\tax\n\tcall\t_exit_\n",
-          "replace": "\tmov\tal,253\n\tjmp\tshort _exit_\n"
-        },
-        {
-          "find": "retip\tdw\t0\nretcs\tdw\t0\n\n\tpublic $dbgentry\n$dbgentry proc far\n\tpop\tcs:retip\n\tpop\tcs:retcs\t; save return address into debugger\n\tpop\tds\t\t;set DS\n\tcall\tcaller\n\tjmp\tdword ptr cs:retip ; return to debugger\n$dbgentry endp\n\ncaller\tproc\n\tpush\tdi\t\t;CS value of local function\n\tpush\tsi\t\t;IP value call local function\n\tdb\t0cbH\t\t;far return instruction\ncaller\tendp\n\n",
-          "replace": ""
-        }
+        { "find": "\tjmp\texit\n", "replace": "\tdb\t0e9h\t\t;jmp exit (near, as `as` assembles it)\n\tdw\t2\n" }
+      ]
+    },
+    "aztec_fexec": {
+      "version": "v42b",
+      "file": "fexec.asm",
+      "note": "`param equ this word` aliases `env` (the EXEC parameter block starts with it); one DS address takes one name in the build, so the block is addressed by its first field's name.",
+      "edits": [
+        { "find": "\tmov\tbx,offset param\n", "replace": "\tmov\tbx,offset env\t;param\n" }
+      ]
+    },
+    "aztec_lud": {
+      "version": "v42b",
+      "file": "lsubs.asm",
+      "note": "As aztec_lfree: comdivide's forward `jmp answer_ok` (which $lud falls into) is near (e9 0012) in the `as`-built library; cc's #asm pass would squeeze it to short.",
+      "edits": [
+        { "find": "\tjmp\tanswer_ok\n", "replace": "\tdb\t0e9h\t\t;jmp answer_ok (near, as `as` assembles it)\n\tdw\t18\n" }
+      ]
+    },
+    "aztec_begin": {
+      "version": "v42b",
+      "file": "sbegin.asm",
+      "note": "cc declares `extrn $begin:near` in every module, so a module defining $begin cannot go through cc (\"Multiply defined symbol\"). The startup routine is renamed `begin` (same lookup key, same bytes) so it compiles as an #asm stub.",
+      "edits": [
+        { "find": "\tpublic\t$begin\n", "replace": "\tpublic\tbegin\n" },
+        { "find": "$begin\tproc\tfar\n", "replace": "begin\tproc\tfar\n" },
+        { "find": "$begin\tendp\n", "replace": "begin\tendp\n" },
+        { "find": "\tend\t$begin\n", "replace": "\tend\tbegin\n" }
       ]
     }
   },
@@ -128,6 +128,7 @@
       "fingerprint-end": "b94811b8e00674347f4917bc5eda18025b74473bed7ed5aadc3638184285f0de",
       "immediate_pointers": [
         {"offset": "288e", "space": "ds", "note": "`mov ax, 0x15e; imul bx; add ax, 0x6a1a; push ax`: row bx of the 350-byte-row array bss_6a1a (the overlays' C declares it `unsigned char [][350]`), passed to ds_app_file_MPPM as the buffer"},
+        {"offset": "4a52", "space": "cs", "note": "format.asm's `mov di,offset nofltmsg` (' -lm first', printed for %e/%f/%g without the float library): a CS string after the conversion table (file 0x485c)"},
         {"offset": "293e", "space": "ds", "note": "`mov ax, 0xc; imul word [bp + 0x6]; add ax, 0x5576; push ax`: element of a 12-byte-record array inside bss_552a, passed to ds_app_file_MPPM"}
       ],
       "data_pointers": [
@@ -151,6 +152,14 @@
         {"offset": "10e38", "note": "stack/heap size constant 0x0100; read as `mov si, word es:[dseg_0cd8]; shl si, cl` (0x4da7) - a number"}
       ],
       "function_names": {
+        "4f85": {
+          "name": "aztec_fltinit",
+          "note": "c.lib's non-float $fltinit (`clc; ret`, too short for a signature), called by $begin; named so the #asm aztec_begin links against it"
+        },
+        "4ea3": {
+          "name": "aztec_noper",
+          "note": "croot.c's noper(), `return 0;`: the default `cls_` exit hook (dseg_0c9c, file 0x4ea3) until putc.c installs closall"
+        },
         "0a09": {
           "name": "clamp_between"
         },
@@ -180,6 +189,7 @@
         {"start": "3140", "end": "343d", "note": "Video palette/data table before code resumes at 0x343e"},
         {"start": "3940", "end": "395a", "note": "I/O error loading font message"},
         {"start": "396c", "end": "3988", "note": "Memory error loading file message"},
+        {"start": "4e89", "end": "4ea2", "note": "sbegin.asm's retip/retcs words and the never-called $dbgentry/caller debugger entry after the exitad jmp: kept as bytes, as before that jmp was decoded"},
         {"start": "10161", "end": "10e55", "note": "Structured data tail through end of DS.EXE"}
       ],
       "force_code": [
@@ -188,7 +198,9 @@
         {"start": "30f7", "end": "313d", "note": "BIOS get-video-mode routine following the return at 0x30f6"},
         {"start": "343e", "end": "348f", "note": "Code resumes immediately after the data table"},
         {"start": "3490", "end": "34f5", "note": "Code entries immediately following the return at 0x348f"},
-        {"start": "457c", "end": "45aa", "note": "Alternate strlen_3 entry with BP-frame prologue"}
+        {"start": "457c", "end": "45aa", "note": "Alternate strlen_3 entry with BP-frame prologue"},
+        {"start": "4e84", "end": "4e88", "note": "sbegin.asm's `jmp dword ptr cs:exitad` after aztec_impl_exit's DOS exit (unreached: Croot exits through DOS); decoding it labels exitad (file 0x4d36) for the #asm aztec_impl_exit"},
+        {"start": "4ea3", "end": "4ea6", "note": "croot.c's noper() (`mov ax, 0; ret`), reached only through the `cls_` pointer at DS 0x0c9c"}
       ],
       "driver_slots": [
         {
@@ -221,7 +233,12 @@
         "6ac1": {"name": "slot_rec_ranges", "note": "+0xa7 of the slot record: 4-byte entries per target, [0] base and [1] random range"},
         "6b75": {"name": "slot_rec_forced", "note": "+0x15b of the slot record: forced target; 0xfd/0xfe special, 0 none"},
         "8322": {"name": "action_slot_table", "note": "unsigned char [6][3][10][3]: {action, target, range} per member, mode and entry"},
-        "8430": {"name": "action_slot_mode", "note": "unsigned char [6][3]: the mode each member's slot was filled for"}
+        "8430": {"name": "action_slot_mode", "note": "unsigned char [6][3]: the mode each member's slot was filled for"},
+        "0cf0": {"name": "_ttrd", "note": "Aztec console read vector (io.asm's `_ttrd`, dos20/write.asm's read arm); the vendor's name so the #asm aztec_write links against it"},
+        "0cf2": {"name": "_ttwr", "note": "Aztec console write vector (io.asm's `_ttwr`, dos20/write.asm `jmp [_ttwr]`); the vendor's name so the #asm aztec_write links against it"},
+        "0c74": {"name": "_dsval", "note": "sbegin.asm's `_dsval_` startup word; the vendor's name so the #asm aztec_begin links against it"},
+        "0c76": {"name": "_csval", "note": "sbegin.asm's `_csval_` startup word; the vendor's name so the #asm aztec_begin links against it"},
+        "0c82": {"name": "bad8087", "note": "sbegin.asm's `bad8087` message ('8087/80287 is required!'); the vendor's name so the #asm aztec_begin links against it"}
       },
       "external_data": {
         "0x0410": {
@@ -234,10 +251,13 @@
     "vinstall": {
       "file": "VINSTALL.EXE",
       "force_data": [
-        {"start": "2a23", "end": "2a26", "note": "00 00 00 00 padding between aztec_chdir and aztec_fexec (0x2a27), not code"}
+        {"start": "2a23", "end": "2a26", "note": "fexec.asm's code-segment save_ss/save_sp words just before aztec_fexec (0x2a27), not code"},
+        {"start": "3721", "end": "373a", "note": "sbegin.asm's retip/retcs words and the never-called $dbgentry/caller debugger entry after the exitad jmp: kept as bytes, as before that jmp was decoded"}
       ],
       "force_code": [
-        {"start": "1155", "end": "11b9", "note": "BP-frame routine after the ret at 0x1154, no caller; the only reader of the install file list (push word [bx+0x2ad], record*10 + disk*2)"}
+        {"start": "1155", "end": "11b9", "note": "BP-frame routine after the ret at 0x1154, no caller; the only reader of the install file list (push word [bx+0x2ad], record*10 + disk*2)"},
+        {"start": "371c", "end": "3720", "note": "sbegin.asm's `jmp dword ptr cs:exitad` after aztec_impl_exit's DOS exit (unreached); decoding it labels exitad (file 0x35ce) for the #asm aztec_impl_exit"},
+        {"start": "373b", "end": "373e", "note": "croot.c's noper() (`mov ax, 0; ret`), reached only through the `cls_` pointer at DS 0x5fe0"}
       ],
       "pointer_arrays": [
         {"table": "3d89", "stride": 10, "count": 156, "fields": [2, 4, 6, 8], "space": "ds", "note": "install file list at DS 0x02a9: {disk number, file name, disk letter for each of three floppy formats}; 155 files ('PLAYBANE.BAT' ... 'MON58.PIC') and a 0xffff record of four empty strings"}
@@ -246,6 +266,14 @@
       "start_offset": 512,
       "entry_symbol": "aztec_begin",
       "function_names": {
+        "361d": {
+          "name": "aztec_fltinit",
+          "note": "c.lib's non-float $fltinit (`clc; ret`, too short for a signature), called by $begin; named so the #asm aztec_begin links against it"
+        },
+        "353b": {
+          "name": "aztec_noper",
+          "note": "croot.c's noper(), `return 0;`: the default `cls_` exit hook (file 0x373b) until putc.c installs closall"
+        },
         "2b86": {
           "name": "aztec_flsh_",
           "note": "v3.40 putc.c output flush; the v5.2a _filbuf signature matched it on a shared 10-byte epilogue only"
@@ -253,6 +281,20 @@
       },
       "fingerprint-start": "fb5d5fd11d5fdc063d401656b35c0a397e10e3e236f8f29430d4e25ff30bb79d",
       "fingerprint-end": "105b0e1220f2cd4aaf5875f0e21b57df404a94b71a00ea33ebdb80066e129e0b",
+      "immediate_pointers": [
+        {"offset": "3283", "space": "cs", "note": "format.asm's `mov di,offset nofltmsg` (' -lm first'): a CS string after the conversion table (file 0x308d)"}
+      ],
+      "data_names": {
+        "252e": {"name": "_ttrd", "note": "Aztec console read vector (io.asm's `_ttrd`); the vendor's name so the #asm aztec_write links against it"},
+        "2530": {"name": "_ttwr", "note": "Aztec console write vector (io.asm's `_ttwr`); the vendor's name so the #asm aztec_write links against it"},
+        "24d8": {"name": "_dsval", "note": "sbegin.asm's `_dsval_` startup word; the vendor's name so the #asm aztec_begin links against it"},
+        "24da": {"name": "_csval", "note": "sbegin.asm's `_csval_` startup word; the vendor's name so the #asm aztec_begin links against it"},
+        "24e6": {"name": "bad8087", "note": "sbegin.asm's `bad8087` message ('8087/80287 is required!'); the vendor's name so the #asm aztec_begin links against it"},
+        "230e": {"name": "env", "note": "fexec.asm's EXEC parameter block (`param`): environment segment; the vendor's names so the #asm aztec_fexec links against them"},
+        "2310": {"name": "cline", "note": "fexec.asm's parameter block: command-tail far pointer"},
+        "2314": {"name": "fcb1", "note": "fexec.asm's parameter block: first FCB far pointer"},
+        "2318": {"name": "fcb2", "note": "fexec.asm's parameter block: second FCB far pointer"}
+      },
       "data_pointers": [
         {"offset": "3ae2", "space": "ds", "note": "graphics-adapter menu 0 ('0-NO GRAPHICS BOARD   '); read at 0x164a as `push word [dseg_0004]` and indexed as `[bx+2]` in vinstall/leaf_loc_10a4.asm"},
         {"offset": "3ae4", "space": "ds", "note": "graphics-adapter menu 1 ('1-VGA/MCGA (256 Color)')"},

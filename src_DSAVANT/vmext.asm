@@ -97,7 +97,7 @@ loc_HILS.bss1 equ bss_918a
 
 %include "vmext/loc_TLQV.asm"              ; 0x0eac
 
-%include "vmext/asm_only/api_idx_0012_VNOV.asm"     ; 0x0ee0
+%include "vmext/api_idx_0012_VNOV.asm"     ; 0x0ee0
 
 %include "shared/api_idx_004c_RQSO.asm"     ; 0x1356
 
@@ -107,7 +107,7 @@ loc_HILS.bss1 equ bss_918a
 
 %include "vmext/api_idx_0008_OTKN.asm"     ; 0x151e
 
-%include "vmext/asm_only/loc_HTTH.asm"              ; 0x15af
+%include "vmext/loc_HTTH.asm"              ; 0x15af
 
 ; bss_9188 equ __zdseg_end + (__zobss_9188 - __zdata_start)
 loc_GPIH.bss1 equ bss_9188
@@ -214,7 +214,7 @@ dseg_917a equ __zdseg_end + (__zdseg_917a - __zdata_start)
 dseg_917c equ __zdseg_end + (__zdseg_917c - __zdata_start)
 dseg_917e equ __zdseg_end + (__zdseg_917e - __zdata_start)
 ; bss_9180  equ __zdseg_end + (__zobss_9180 - __zdata_start)
-%include "vmext/asm_only/loc_TQTV.asm"              ; 0x521b
+%include "vmext/loc_TQTV.asm"              ; 0x521b
 
 __zdseg_9098:
 __zdata_start:

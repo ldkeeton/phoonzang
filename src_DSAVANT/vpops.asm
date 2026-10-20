@@ -141,7 +141,7 @@ dseg_90d0 equ __zdseg_end + (__zdseg_90d0 - __zdata_start)
 dseg_90d2 equ __zdseg_end + (__zdseg_90d2 - __zdata_start)
 dseg_90d4 equ __zdseg_end + (__zdseg_90d4 - __zdata_start)
 ; bss_90d6  equ __zdseg_end + (__zobss_90d6 - __zdata_start)
-%include "vpops/asm_only/loc_JHJT.asm"              ; 0x4e9d
+%include "vpops/loc_JHJT.asm"              ; 0x4e9d
 
 __zdseg_9098:
 __zdata_start:

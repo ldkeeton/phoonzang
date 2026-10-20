@@ -20,8 +20,10 @@ from .verify import cmd_verify
 HELP = '''Usage: make [command] [project...]
 
 Commands (space-separated):
-  make init                 sparse-clone only the dos_compilers folders listed in sidecars
-  make all                  prebuild (clean + Aztec mux), build, verify all, make test, make test slow
+  make init                 sparse-clone only the dos_compilers folders listed in sidecars,
+                            then unpack the Aztec runtime sources into dos_compilers/aztec_src/
+  make libcheck             rebuild Aztec v4.2b C.LIB from dos_compilers/aztec_src/ and compare to the shipped one
+  make all                  prebuild (clean + Aztec mux), build, verify all, elf-rebuild, make test, make test slow
   make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if missing)
   make prebuild [PROJECT...]  clean, rebuild aztec libs + signature DB, run the Aztec C mux
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
@@ -82,6 +84,7 @@ def main():
             cmd_prebuild(project)
         _build_projects(all_projects, all_projects, clean=False, prebuild=False)
         cmd_verify([])
+        cmd_elf_rebuild(None, None, all_projects)
         fast_ok = run_tests([])
         slow_ok = run_tests(['slow'])
         sys.exit(0 if fast_ok and slow_ok else 1)
@@ -89,6 +92,10 @@ def main():
     if '--init' in flags:
         cmd_init()
         return
+
+    if '--libcheck' in flags:
+        from lib.aztec.libcheck import cmd_libcheck
+        sys.exit(0 if cmd_libcheck() else 1)
 
     if '--verify' in flags:
         cmd_verify(args)

@@ -17,7 +17,7 @@ api_idx_0016_KOOO:
     push ax                          ; 0x0579
     lea ax, word [bp - 0x0016]       ; 0x057a
     push ax                          ; 0x057d
-    call ds_app_UUHT                 ; 0x057e
+    call ds_app_string_UUHT          ; 0x057e
     add sp, byte 4                   ; 0x0581
     push ax                          ; 0x0584
     call aztec_open                  ; 0x0585

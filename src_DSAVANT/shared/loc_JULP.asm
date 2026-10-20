@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 loc_JULP:
     call loc_MMLT                    ; 0x00db
     retf                             ; 0x00de

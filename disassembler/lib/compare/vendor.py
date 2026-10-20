@@ -16,9 +16,9 @@ def _vendor_named_tails(label_map, annotations):
     }
 
 
-def _numbered_local(name, routine):
-    """True for one of *routine*'s ``@..<routine>.lN`` branch targets."""
-    return (name.kind is Kind.LOCAL and name.owner == routine
+def _numbered_local(name, owners):
+    """True for an ``@..<owner>.lN`` branch target of one of *owners*."""
+    return (name.kind is Kind.LOCAL and name.owner in owners
             and name.index is not None)
 
 
@@ -58,8 +58,10 @@ def _apply_asm_annotations(records, annotations, label_map=None):
             addr = rec['offset']
             vendor = note['labels'].get(addr)
             old = rec['name']
+            # A module's note (``owners``) covers each of its routines.
+            owners = note.get('owners', (routine,))
             if (vendor is None or not (note['start'] < addr < note['end'])
-                    or not (_numbered_local(old, routine)
+                    or not (_numbered_local(old, owners)
                             or _plain_loc(old))):
                 continue
             new = Symbol.local(routine, addr, name=vendor,

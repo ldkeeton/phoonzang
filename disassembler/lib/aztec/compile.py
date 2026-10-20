@@ -1,16 +1,14 @@
 """Compile Aztec C source and recover per-function machine code.
 
 The Manx compilers are DOS programs, so compilation is driven through an
-isolated, headless DOSBox session.  We deliberately separate the *source
-version* (whose headers define the runtime's data layout) from the
-*compiler version* (whose code generator produced the bytes), because the
-Wizardry 7 binaries mix them: e.g. the game's ``_open`` is the v3.40b
-source compiled by the v5.2a code generator.
+isolated, headless DOSBox session.  Wizardry 7 was built with Aztec C86 v4.2b
+throughout: its runtime is that release's ``C.LIB`` (rebuilt byte-exact by
+:mod:`.libcheck`) and its own C compiles identically with that ``cc``.
 
 Pipeline inside DOSBox::
 
     cc <flags> MODULE.C        -> MODULE.O    (compile + assemble)
-    objms MODULE.O             -> MODULE.OBJ  (Aztec -> MS OMF)
+    obj MODULE.O               -> MODULE.OBJ  (Aztec -> MS OMF)
     obd MODULE.O > OBD.TXT     -> relocation records
 
 ``MODULE.OBJ`` yields the per-symbol code ranges (via :mod:`.omflib`)
@@ -20,6 +18,7 @@ offsets, so relocations can be attributed to each function.
 
 import contextlib
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -38,17 +37,16 @@ _DOSCOMP = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
     'dos_compilers')
 
+#: The one Aztec release the game was built with.
+VERSION = 'v42b'
+
 _COMPILER_DIRS = {
-    'v340a': os.path.join(_DOSCOMP, 'Manx Aztec C86 v340a'),
-    'v52a': os.path.join(_DOSCOMP, 'Manx Aztec C86 v52a'),
+    VERSION: os.path.join(_DOSCOMP, 'Manx Aztec C86 v42b'),
 }
 
-# Aztec's object->OMF converter was renamed between releases.  The verifier
-# reads OMF, so we must use the tool that ships with the chosen compiler:
-# v3.40a has OBJ.EXE ("Object Converter"), v5.2a has OBJMS.EXE.
+# The verifier reads OMF, made by the converter that ships with the compiler.
 _OBJ_CONVERTERS = {
-    'v340a': 'obj',
-    'v52a': 'objms',
+    VERSION: 'obj',
 }
 
 
@@ -100,6 +98,10 @@ def _dosbox_lock():
             fcntl.flock(fh, fcntl.LOCK_UN)
 
 
+class ModuleShapeError(ValueError):
+    """A compiled module's functions do not tile its code segment."""
+
+
 class AztecCompileError(RuntimeError):
     #: The compiler's own output (``CC.LOG``), untruncated, when it ran.
     cc_log = ''
@@ -137,9 +139,9 @@ def routine_label(cname):
     return 'aztec_' + cname
 
 
-#: OMF converters that prefix ``_`` to every public (v5.2a OBJMS: ``_putc``,
-#: ``___read`` for ``__read``).  The v3.40a OBJ keeps the C name as it is.
-_PREFIXING_CONVERTERS = {'v52a'}
+#: OMF converters that prefix ``_`` to every public (``_putc``, ``___read``
+#: for ``__read``, ``_$csav`` for ``$csav``).
+_PREFIXING_CONVERTERS = {VERSION}
 
 
 def omf_name(public, compiler):
@@ -153,11 +155,14 @@ class Func:
     """A public function recovered from a compiled module."""
 
     __slots__ = ('name', 'cname', 'module', 'offset', 'code', 'fixups',
-                 'locals', 'data_locals')
+                 'locals', 'data_locals', 'members')
 
     def __init__(self, name, module, offset, code, fixups, locals_=None,
                  cname=None, data_locals=None):
         self.name = name
+        # ``{key: offset}`` of every function inside *code*: just this one,
+        # or each member of a whole module (:meth:`CompiledModule.whole`).
+        self.members = {symbol_key(cname or name): 0}
         self.cname = cname or name   # the C name (``__read``, ``flsh_``)
         self.module = module
         self.offset = offset
@@ -209,26 +214,6 @@ class Func:
                    blob.get('offset', 0), bytes.fromhex(blob['code']), fixups,
                    blob.get('locals'), blob.get('cname'), data_locals)
 
-    def truncate(self, length):
-        """A copy owning only the first *length* bytes of *code*.
-
-        A public function's object extent runs to the next public symbol
-        (:func:`omflib.public_functions`), so a trailing ``static`` neighbour
-        is compiled inside it -- ``putc``'s extent swallows ``closall``, and
-        the module-wide local-label table hands ``putc`` the neighbour's
-        ``.N`` labels.  When the build knows where the routine really ends (the
-        fragment span the splitter chose), take only those bytes so the
-        neighbour's code, fixups and local labels are not claimed here.
-        """
-        if length >= len(self.code):
-            return self
-        length = max(0, length)
-        return Func(
-            self.name, self.module, self.offset, self.code[:length],
-            [fx for fx in self.fixups if fx.offset + fx.width <= length],
-            {name: off for name, off in self.locals.items() if off < length},
-            self.cname, self.data_locals)
-
     def __repr__(self):
         return (f'Func({self.name!r}, off=0x{self.offset:x}, '
                 f'len={len(self.code)}, fixups={len(self.fixups)})')
@@ -237,6 +222,9 @@ class Func:
 class CompiledModule:
     def __init__(self):
         self.functions = {}
+        # The whole code segment as one :class:`Func` (:meth:`whole`), or
+        # None for a module cached before it was kept.
+        self.segment = None
         self.log = ''
         self.cc_log = ''
         # Assembler listing (``as -l``) of a hand-written module, else ''.
@@ -245,9 +233,31 @@ class CompiledModule:
     def get(self, name):
         return self.functions.get(symbol_key(name))
 
+    def whole(self):
+        """The module's whole code segment as one :class:`Func`.
+
+        The linker places an object as a unit, so the segment sits in the
+        image exactly as it sits here: every routine, every ``static``, and
+        any code before the first public (``sbegin.asm``).  ``members`` gives
+        each function's offset by C key.  Raises :class:`ModuleShapeError`
+        for a module cached before the segment was kept.
+        """
+        if self.segment is None:
+            raise ModuleShapeError('compiled before the module segment was '
+                                   'kept; recompile it')
+        whole = Func(self.segment.name, self.segment.module, 0,
+                     self.segment.code, self.segment.fixups,
+                     self.segment.locals, self.segment.cname,
+                     self.segment.data_locals)
+        whole.members = {key: func.offset
+                         for key, func in self.functions.items()}
+        return whole
+
     def to_dict(self):
         return {'functions': {name: func.to_dict()
                               for name, func in self.functions.items()},
+                'segment': (None if self.segment is None
+                            else self.segment.to_dict()),
                 'listing': self.listing}
 
     @classmethod
@@ -256,6 +266,8 @@ class CompiledModule:
         funcs = [Func.from_dict(func)
                  for func in blob.get('functions', {}).values()]
         result.functions = {func.key: func for func in funcs}
+        if blob.get('segment'):
+            result.segment = Func.from_dict(blob['segment'])
         result.listing = blob.get('listing', '')
         return result
 
@@ -267,9 +279,25 @@ def _compiler_dir(version):
         raise ValueError(f'unknown Aztec compiler version {version!r}')
 
 
-def available(version='v52a'):
+def available(version=VERSION):
     return (os.path.isdir(_compiler_dir(version))
             and shutil.which(DOSBOX) is not None)
+
+
+# A C file whose only code is one ``#asm`` block: a vendor assembly module
+# wrapped so ``cc`` builds it (lib.aztec.cache.asm_stub).
+_ASM_MODULE = re.compile(
+    r'\A(?:\s|/\*.*?\*/)*^[ \t]*#asm\b.*?^[ \t]*#endasm\b(?:\s|/\*.*?\*/)*\Z',
+    re.S | re.M)
+
+
+def is_asm_module(source_text):
+    """True when *source_text* is C made of a single ``#asm`` block.
+
+    Its labels (``cpyloop``) are the assembler's, not C ``static`` routines,
+    so the module is read as an assembled one.
+    """
+    return bool(_ASM_MODULE.match(source_text))
 
 
 def _dos_name(name):
@@ -286,8 +314,8 @@ def _tool_line(kind, flags, module, log):
     return ' '.join(['cc', *flags, f'{module}.C', f'> {log}'])
 
 
-def compile_module(source_text, name, *, compiler='v52a', includes=None,
-                   flags=('-n', '+y'), keep=False, kind='c'):
+def compile_module(source_text, name, *, compiler=VERSION, includes=None,
+                   flags=('-n',), keep=False, kind='c'):
     """Compile *source_text* and return a :class:`CompiledModule`.
 
     ``kind='asm'`` assembles a hand-written Manx ``.ASM`` module with ``as``
@@ -349,7 +377,8 @@ def compile_module(source_text, name, *, compiler='v52a', includes=None,
             raise err
 
         dump = attach_locals(parse_obd(_read(obd_path)), _read_bytes(obj_path))
-        result = _build_module(module, omf_path, dump, compiler, kind)
+        result = _build_module(module, omf_path, dump, compiler,
+                               'asm' if is_asm_module(source_text) else kind)
         result.listing = _read(os.path.join(work, f'{module}.LST'))
         result.log = log + cc_log
         result.cc_log = cc_log
@@ -445,8 +474,11 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
         lines = []
         names = []
         converter = _obj_converter(compiler)
+        asm_labels = set()
         for key, dos_name, source_text in members:
             dos = dos_name.upper()
+            if is_asm_module(source_text):
+                asm_labels.add(key)
             ext = 'ASM' if kind == 'asm' else 'C'
             with open(os.path.join(work, f'{dos}.{ext}'), 'w') as f:
                 f.write(source_text)
@@ -488,8 +520,9 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
                 obd_path = os.path.join(work, f'{dos}.OBD')
                 dump = attach_locals(parse_obd(_read(obd_path)),
                                      _read_bytes(obj_path))
-                results[key] = _build_module(dos, omf_path, dump, compiler,
-                                             kind)
+                results[key] = _build_module(
+                    dos, omf_path, dump, compiler,
+                    'asm' if key in asm_labels else kind)
                 results[key].listing = _read(os.path.join(work, f'{dos}.LST'))
             elif os.path.exists(cc_path) and os.path.getsize(cc_path) > 0:
                 results[key] = AztecCompileError(
@@ -528,7 +561,13 @@ def _local_data(dump, name):
 def _build_module(module, omf_path, dump, compiler, kind='c'):
     result = CompiledModule()
     if kind != 'c':
-        dump.statics = {}   # an assembler's symbols are its labels
+        # An assembler's symbols are its labels, not routines: a branch to one
+        # is the module's own, like a C ``.N`` local.
+        dump.statics = {}
+        for fx in dump.fixups:
+            if fx.symbol_kind == 'GBLSYM' and fx.symbol in dump.code_labels:
+                fx.symbol_kind = 'LCLSYM'
+                dump.locals[fx.symbol] = dump.code_labels[fx.symbol]
     if not os.path.exists(omf_path):
         return result
     with open(omf_path, 'rb') as f:
@@ -567,6 +606,7 @@ def _build_module(module, omf_path, dump, compiler, kind='c'):
                      until_next(off, code_len))
         if func is not None:
             result.functions[func.key] = func
+    result.segment = _func(dump, module, module, module, 0, len(dump.code))
     return result
 
 

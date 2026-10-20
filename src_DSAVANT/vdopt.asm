@@ -144,7 +144,7 @@ dseg_9099 equ __zdseg_end + (__zdseg_9099 - __zdata_start)
 
 %include "shared/loc_QQUT.asm"              ; 0x1c7f
 
-%include "vdopt/asm_only/api_idx_0008_JRPS.asm"     ; 0x1ccf
+%include "vdopt/api_idx_0008_JRPS.asm"     ; 0x1ccf
 
 ; bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 ; bss_90b8 equ __zdseg_end + (__zobss_90b8 - __zdata_start)
@@ -207,9 +207,9 @@ dseg_90b0 equ __zdseg_end + (__zdseg_90b0 - __zdata_start)
 dseg_90b2 equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
 dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 ; bss_90b6  equ __zdseg_end + (__zobss_90b6 - __zdata_start)
-%include "vdopt/asm_only/loc_QVSH.asm"              ; 0x46d9
+%include "vdopt/loc_QVSH.asm"              ; 0x46d9
 
-%include "vdopt/asm_only/leaf_loc_MKTK.asm"         ; 0x4717
+%include "vdopt/leaf_loc_MKTK.asm"         ; 0x4717
 
 
 __zimage_end:

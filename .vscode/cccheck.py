@@ -7,7 +7,7 @@ Usage::
 
 The compiler, header tree and switches are those the build uses for that
 routine (from the prebuild mux manifest); a file the manifest does not know
-falls back to v5.2a with the v3.40 headers.  Each Manx message
+gets the project's default (Aztec v4.2b, the sidecar's ``compiler_flags``).  Each Manx message
 (``FILE.C:LINE: ERROR|WARNING n: text``) is re-printed as
 ``path:line:col: error|warning: text [Manx n]`` so a VS Code problem matcher
 (or the asm-nav extension) can read it.  Exit status is 1 when the compiler reports errors.
@@ -22,37 +22,42 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _ASM = os.path.join(_ROOT, 'disassembler')
 sys.path.insert(0, _ASM)
 
+from lib.aztec import cache  # noqa: E402
 from lib.aztec import compile as azc  # noqa: E402
-from lib.aztec.mux import tool_flags  # noqa: E402
+from lib.aztec.modules import entry_for  # noqa: E402
 
 _MSG = re.compile(r'^\S+\.C:(\d+): (ERROR|WARNING) (\d+): ?(.*?):?\s*$', re.I)
 
 
-def _manifest_entry(path):
-    """The mux manifest entry for *path* (``src_<PROJECT>/<bin>/<label>.c``)."""
+def _entry(path):
+    """The provenance for *path* (``src_<PROJECT>/<bin>/<name>.c``): the mux
+    manifest's for a vendor module (``aztec_croot.c`` is ``croot.c``), else
+    the project's default for that name."""
     parts = os.path.normpath(os.path.abspath(path)).split(os.sep)
+    label = os.path.splitext(parts[-1])[0]
     try:
         index = next(i for i, p in enumerate(parts) if p.startswith('src_'))
         project, binary = parts[index][len('src_'):], parts[index + 1]
     except (StopIteration, IndexError):
-        return {}
+        return cache.default_entry(label, None)
     manifest = os.path.join(_ROOT, '.cache', project, 'prebuild',
                             f'{binary}_aztec_mux.json')
-    label = os.path.splitext(parts[-1])[0]
     try:
         with open(manifest) as f:
-            return json.load(f).get('functions', {}).get(label, {})
+            entry = entry_for(project, label,
+                              json.load(f).get('functions', {}))
     except (OSError, ValueError):
-        return {}
+        entry = None
+    if entry is None:
+        entry = cache.default_entry(label, project)
+    return entry
 
 
 def check(path):
     """Return ``(diagnostic lines, error count)`` for the C file at *path*."""
-    entry = _manifest_entry(path)
-    compiler = entry.get('compiler', 'v52a')
-    includes = entry.get('includes', 'v340a')
-    flags = tuple(entry['flags']) if entry.get('flags') is not None \
-        else tool_flags('x.c', compiler)
+    entry = _entry(path)
+    compiler, includes = entry['compiler'], entry['includes']
+    flags = cache._flags_for(entry)
     with open(path, errors='replace') as f:
         source = f.read()
     try:

@@ -250,7 +250,7 @@ loc_RVQR:
     push ax                          ; 0x0604
     mov ax, dseg_9166                ; 0x0605
     push ax                          ; 0x0608
-    call ds_app_UUHT                 ; 0x0609
+    call ds_app_string_UUHT          ; 0x0609
     add sp, byte 4                   ; 0x060c
     push ax                          ; 0x060f
     call aztec_open                  ; 0x0610
@@ -300,7 +300,7 @@ loc_RVQR:
     push ax                          ; 0x0694
     mov ax, dseg_916e                ; 0x0695
     push ax                          ; 0x0698
-    call ds_app_UUHT                 ; 0x0699
+    call ds_app_string_UUHT          ; 0x0699
     add sp, byte 4                   ; 0x069c
     push ax                          ; 0x069f
     call aztec_open                  ; 0x06a0
@@ -481,7 +481,7 @@ loc_RVQR:
     push ax                          ; 0x0860
     mov ax, dseg_917b                ; 0x0861
     push ax                          ; 0x0864
-    call ds_app_UUHT                 ; 0x0865
+    call ds_app_string_UUHT          ; 0x0865
     add sp, byte 4                   ; 0x0868
     push ax                          ; 0x086b
     call aztec_open                  ; 0x086c

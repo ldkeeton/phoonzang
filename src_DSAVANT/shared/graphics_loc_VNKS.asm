@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 graphics_loc_VNKS:
     push bp                          ; 0x0293
     mov bp, sp                       ; 0x0294

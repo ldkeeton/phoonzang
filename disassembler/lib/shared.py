@@ -25,7 +25,6 @@ import re
 from collections import defaultdict
 
 from .autogen import is_generated
-from .asm_only import MARKER as ASM_ONLY_MARKER
 from .cachedirs import project_of_src_dir
 from .symtab import project_tables
 
@@ -213,21 +212,20 @@ def share_files(files, out_dir, tables):
     groups = defaultdict(list)
     for rel, (text, ctext) in fragments.items():
         stem = os.path.basename(rel)[:-4]
-        marked = text.split('\n', 2)[1:2] == [ASM_ONLY_MARKER]
-        groups[(stem, marked, ctext)].append(rel)
+        groups[(stem, ctext)].append(rel)
 
     # Names carry a content tag (lib.names), so one stem is one body.  Where a
     # stem still has several (a label that differs only in which generic
     # routine it calls), the largest group is shared and the rest stay.
     best = {}
     for key in sorted(groups, key=repr):
-        for members, binds in _clusters(fragments, groups[key], key[2],
+        for members, binds in _clusters(fragments, groups[key], key[1],
                                         tables):
             if len({p.split('/')[0] for p in members}) < 2:
                 continue
             stem = key[0]
             if stem not in best or len(members) > len(best[stem][0]):
-                best[stem] = (members, binds, key[2])
+                best[stem] = (members, binds, key[1])
 
     shared, bindings = {}, {}
     for stem, (members, binds, ctext) in best.items():

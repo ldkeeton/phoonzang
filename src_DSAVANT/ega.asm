@@ -230,39 +230,39 @@ cseg_0291:
 
 %include "shared/leaf_loc_ILKH.asm"           ; 0x0439
 
-%include "ega/asm_only/leaf_loc_UNNV_0447.asm"      ; 0x0447
+%include "ega/leaf_loc_UNNV_0447.asm"      ; 0x0447
 
-%include "ega/asm_only/leaf_loc_UNNV_0462.asm"      ; 0x0462
+%include "ega/leaf_loc_UNNV_0462.asm"      ; 0x0462
 
 %include "ega/leaf_loc_PNKN.asm"           ; 0x047d
 
-%include "ega/asm_only/leaf_loc_LGQQ.asm"           ; 0x0496
+%include "ega/leaf_loc_LGQQ.asm"           ; 0x0496
 
-%include "ega/asm_only/loc_OMPG.asm"                ; 0x04b1
+%include "ega/loc_OMPG.asm"                ; 0x04b1
 
 cseg_0948:
     db 0x00
-%include "ega/asm_only/graphics_loc_IMOU.asm"       ; 0x0949
+%include "ega/graphics_loc_IMOU.asm"       ; 0x0949
 
-%include "ega/asm_only/leaf_loc_KNIM.asm"           ; 0x0b91
+%include "ega/leaf_loc_KNIM.asm"           ; 0x0b91
 
 %include "shared/leaf_loc_QSOP.asm"           ; 0x0bcf
 
 %include "shared/leaf_loc_GHVP.asm"           ; 0x0bf6
 
-%include "ega/asm_only/string_loc_SSTM.asm"         ; 0x0c45
+%include "ega/string_loc_SSTM.asm"         ; 0x0c45
 
-%include "ega/asm_only/save_area.asm"               ; 0x0c9b
+%include "ega/save_area.asm"               ; 0x0c9b
 
-%include "ega/asm_only/restore_area.asm"            ; 0x0d57
+%include "ega/restore_area.asm"            ; 0x0d57
 
-%include "ega/asm_only/load_screen.asm"             ; 0x0df3
+%include "ega/load_screen.asm"             ; 0x0df3
 
-%include "ega/asm_only/save_screen.asm"             ; 0x0ebd
+%include "ega/save_screen.asm"             ; 0x0ebd
 
-%include "ega/asm_only/dos_con_loc_KOIJ.asm"        ; 0x0f70
+%include "ega/dos_con_loc_KOIJ.asm"        ; 0x0f70
 
-%include "ega/asm_only/dos_con_loc_UNVT.asm"        ; 0x0fae
+%include "ega/dos_con_loc_UNVT.asm"        ; 0x0fae
 
 cseg_0fe7:
 
@@ -276,13 +276,13 @@ cseg_10cb:
     db 0x00, 0x00
 cseg_10cd:
     db 0x00, 0x00
-%include "ega/asm_only/load_maze.asm"               ; 0x10cf
+%include "ega/load_maze.asm"               ; 0x10cf
 
-%include "ega/asm_only/dos_con_loc_GRVO.asm"        ; 0x10ff
+%include "ega/dos_con_loc_GRVO.asm"        ; 0x10ff
 
-%include "ega/asm_only/loc_1211.asm"                ; 0x1211
+%include "ega/loc_1211.asm"                ; 0x1211
 
-%include "ega/asm_only/dos_con_loc_QUMT.asm"        ; 0x1218
+%include "ega/dos_con_loc_QUMT.asm"        ; 0x1218
 
 cseg_1231:
 
@@ -302,7 +302,7 @@ cseg_128c:
     db 'oops... LOAD_MAZE filled its memory area.', 0
     db 0x0a, 0x24
 
-%include "ega/asm_only/loc_LQTO.asm"                ; 0x12bb
+%include "ega/loc_LQTO.asm"                ; 0x12bb
 
 %include "ega/leaf_loc_MIUO.asm"           ; 0x1355
 
@@ -315,19 +315,19 @@ loc_KLNH.cseg2     equ cseg_1390
 loc_KLNH.leaf_loc1 equ leaf_loc_QTJL
 %include "shared/loc_KLNH.asm"                ; 0x1392
 
-%include "ega/asm_only/leaf_loc_QTJL.asm"           ; 0x145c
+%include "ega/leaf_loc_QTJL.asm"           ; 0x145c
 
-%include "ega/asm_only/loc_HMVQ.asm"                ; 0x1490
+%include "ega/loc_HMVQ.asm"                ; 0x1490
 
-%include "ega/asm_only/draw_maze_piece.asm"         ; 0x14d8
+%include "ega/draw_maze_piece.asm"         ; 0x14d8
 
-%include "ega/asm_only/mouse_init.asm"              ; 0x1719
+%include "ega/mouse_init.asm"              ; 0x1719
 
-%include "ega/asm_only/string_loc_RHHH.asm"         ; 0x17a1
+%include "ega/string_loc_RHHH.asm"         ; 0x17a1
 
-%include "ega/asm_only/mouse_off.asm"               ; 0x1810
+%include "ega/mouse_off.asm"               ; 0x1810
 
-%include "ega/asm_only/leaf_loc_PUST.asm"           ; 0x189f
+%include "ega/leaf_loc_PUST.asm"           ; 0x189f
 
 bios_mouse_loc_PTIM.cseg1 equ cseg_1ad9
 bios_mouse_loc_PTIM.cseg2 equ cseg_1adb
@@ -342,9 +342,9 @@ bios_mouse_loc_JGGM.cseg3 equ cseg_2a06
 
 %include "shared/bios_mouse_loc_NPNG.asm"     ; 0x1992
 
-%include "ega/asm_only/set_mouse_pointer.asm"       ; 0x19c1
+%include "ega/set_mouse_pointer.asm"       ; 0x19c1
 
-%include "ega/asm_only/dos_con_loc_NUII.asm"        ; 0x1a9f
+%include "ega/dos_con_loc_NUII.asm"        ; 0x1a9f
 
 cseg_1ad5:
     dw __zcp_1afd - IMAGE_BASE                 ; 0x1ad5
@@ -457,24 +457,24 @@ leaf_loc_JHTT.cseg2 equ cseg_1aeb
 leaf_loc_JHTT.cseg3 equ cseg_1aed
 %include "shared/leaf_loc_JHTT.asm"           ; 0x2a4f
 
-%include "ega/asm_only/io_loc_UQHG.asm"             ; 0x2a6a
+%include "ega/io_loc_UQHG.asm"             ; 0x2a6a
 
-%include "ega/asm_only/io_loc_SRLG.asm"             ; 0x2e35
+%include "ega/io_loc_SRLG.asm"             ; 0x2e35
 
-%include "ega/asm_only/io_loc_JGUP.asm"             ; 0x2e7d
+%include "ega/io_loc_JGUP.asm"             ; 0x2e7d
 
-%include "ega/asm_only/io_loc_TSTG.asm"             ; 0x2f46
+%include "ega/io_loc_TSTG.asm"             ; 0x2f46
 
-%include "ega/asm_only/io_loc_QMLN.asm"             ; 0x2f70
+%include "ega/io_loc_QMLN.asm"             ; 0x2f70
 
 leaf_loc_UQHV.cseg1 equ cseg_2a02
 %include "shared/leaf_loc_UQHV.asm"           ; 0x3035
 
-%include "ega/asm_only/loc_QNIQ.asm"                ; 0x303d
+%include "ega/loc_QNIQ.asm"                ; 0x303d
 
-%include "ega/asm_only/load_picture.asm"            ; 0x3085
+%include "ega/load_picture.asm"            ; 0x3085
 
-%include "ega/asm_only/dos_con_loc_GQSN.asm"        ; 0x317d
+%include "ega/dos_con_loc_GQSN.asm"        ; 0x317d
 
 cseg_3186:
 
@@ -486,9 +486,9 @@ cseg_3196:
 cseg_3197:
     db '0 not freed.', 0
     db 0x0a, 0x24
-%include "ega/asm_only/loc_31a6.asm"                ; 0x31a6
+%include "ega/loc_31a6.asm"                ; 0x31a6
 
-%include "ega/asm_only/dos_con_loc_HPRK.asm"        ; 0x31ad
+%include "ega/dos_con_loc_HPRK.asm"        ; 0x31ad
 
 cseg_31b6:
 
@@ -503,7 +503,7 @@ cseg_31e2:
     db 0x05, 0x00, 0x08, 0x0a, 0x0a, 0xaa, 0x11, 0x2a, 0x13, 0x22, 0x16, 0x2f, 0x19, 0xff, 0x1a, 0x7f
     db 0x1c, 0x77
 
-%include "ega/asm_only/leaf_loc_SVVM.asm"           ; 0x31f4
+%include "ega/leaf_loc_SVVM.asm"           ; 0x31f4
 
 %include "ega/leaf_loc_PLIR_3240.asm"      ; 0x3240
 
@@ -553,7 +553,7 @@ bios_mouse_loc_JLUV.cseg1 equ cseg_1ad9
 bios_mouse_loc_JLUV.cseg2 equ cseg_1adb
 %include "shared/bios_mouse_loc_JLUV.asm"     ; 0x34c0
 
-%include "ega/asm_only/loc_ROPT.asm"                ; 0x3570
+%include "ega/loc_ROPT.asm"                ; 0x3570
 
 %include "shared/leaf_loc_IPJP.asm"           ; 0x35ba
 
@@ -565,11 +565,11 @@ cseg_3605:
 
     times 25 db 0
 
-%include "ega/asm_only/draw_text.asm"               ; 0x361e
+%include "ega/draw_text.asm"               ; 0x361e
 
-%include "ega/asm_only/leaf_loc_TVGR.asm"           ; 0x39e3
+%include "ega/leaf_loc_TVGR.asm"           ; 0x39e3
 
-%include "ega/asm_only/dos_con_loc_NRSG.asm"        ; 0x3a0f
+%include "ega/dos_con_loc_NRSG.asm"        ; 0x3a0f
 
 cseg_3a18:
     db 0x0d, 0x0a, 0x07
@@ -584,11 +584,11 @@ cseg_3a34:
     db 0x30
 cseg_3a35:
     db 0x30, 0x2e, 0x00, 0x0a, 0x24
-%include "ega/asm_only/loc_3a3a.asm"                ; 0x3a3a
+%include "ega/loc_3a3a.asm"                ; 0x3a3a
 
 %include "shared/leaf_loc_NOSG.asm"           ; 0x3a51
 
-%include "ega/asm_only/graphics_loc_NVPK.asm"       ; 0x3a8b
+%include "ega/graphics_loc_NVPK.asm"       ; 0x3a8b
 
 %include "shared/leaf_loc_MTKK.asm"           ; 0x3bf2
 
@@ -600,7 +600,7 @@ cseg_3a35:
 
 %include "ega/loc_3e8a.asm"                ; 0x3e8a
 
-%include "ega/asm_only/loc_40cd.asm"                ; 0x40cd
+%include "ega/loc_40cd.asm"                ; 0x40cd
 
 %include "shared/dos_con_loc_KIIN.asm"        ; 0x40d4
 
@@ -610,9 +610,9 @@ cseg_40dd:
     db 'Error occurred writing to disk in CACHEAREA().', 0
     db 0x0a, 0x24
 
-%include "ega/asm_only/cache_area.asm"              ; 0x4111
+%include "ega/cache_area.asm"              ; 0x4111
 
-%include "ega/asm_only/dos_con_loc_GKKQ.asm"        ; 0x4370
+%include "ega/dos_con_loc_GKKQ.asm"        ; 0x4370
 
 cseg_4379:
 
@@ -622,9 +622,9 @@ cseg_4379:
 
 %include "ega/loc_4398.asm"                ; 0x4398
 
-%include "ega/asm_only/loc_43a0.asm"                ; 0x43a0
+%include "ega/loc_43a0.asm"                ; 0x43a0
 
-%include "ega/asm_only/dos_con_loc_NQOR.asm"        ; 0x43a7
+%include "ega/dos_con_loc_NQOR.asm"        ; 0x43a7
 
 cseg_43b0:
 
@@ -632,9 +632,9 @@ cseg_43b0:
     db 'CACHEAREA out of EMS slots.', 0
     db 0x0a, 0x24
 
-%include "ega/asm_only/loc_43d1.asm"                ; 0x43d1
+%include "ega/loc_43d1.asm"                ; 0x43d1
 
-%include "ega/asm_only/dos_con_loc_THNU.asm"        ; 0x43d8
+%include "ega/dos_con_loc_THNU.asm"        ; 0x43d8
 
 cseg_43e1:
 
@@ -642,17 +642,17 @@ cseg_43e1:
     db 'CACHEAREA out of MAZE/PIC memory.', 0
     db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0x8a
 
-%include "ega/asm_only/loc_440e.asm"                ; 0x440e
+%include "ega/loc_440e.asm"                ; 0x440e
 
 cseg_4440:
     db 0x00, 0x00
 %include "shared/leaf_loc_HLGJ.asm"           ; 0x4442
 
-%include "ega/asm_only/restore_screen.asm"          ; 0x4457
+%include "ega/restore_screen.asm"          ; 0x4457
 
-%include "ega/asm_only/dos_file_loc_RQKL.asm"       ; 0x45bd
+%include "ega/dos_file_loc_RQKL.asm"       ; 0x45bd
 
-%include "ega/asm_only/dos_con_loc_OHJU.asm"        ; 0x45f2
+%include "ega/dos_con_loc_OHJU.asm"        ; 0x45f2
 
 cseg_45fb:
 
@@ -662,9 +662,9 @@ cseg_45fb:
 
 %include "ega/loc_461f.asm"                ; 0x461f
 
-%include "ega/asm_only/cache_maze.asm"              ; 0x4624
+%include "ega/cache_maze.asm"              ; 0x4624
 
-%include "ega/asm_only/dos_con_loc_HJHM.asm"        ; 0x47af
+%include "ega/dos_con_loc_HJHM.asm"        ; 0x47af
 
 cseg_47b8:
 
@@ -672,7 +672,7 @@ cseg_47b8:
     db 'CACHEMAZE().  Requested slot already in use.', 0
     db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xb0
 
-%include "ega/asm_only/loc_47f0.asm"                ; 0x47f0
+%include "ega/loc_47f0.asm"                ; 0x47f0
 
 %include "shared/dos_con_loc_URMP.asm"        ; 0x47f7
 
@@ -682,9 +682,9 @@ cseg_4800:
     db 'CACHEMAZE().  Insufficient EMS.', 0
     db 0x0a, 0x24
 
-%include "ega/asm_only/dos_file_loc_GRNS.asm"       ; 0x4825
+%include "ega/dos_file_loc_GRNS.asm"       ; 0x4825
 
-%include "ega/asm_only/dos_con_loc_PMRV.asm"        ; 0x493a
+%include "ega/dos_con_loc_PMRV.asm"        ; 0x493a
 
 cseg_4943:
 
@@ -692,7 +692,7 @@ cseg_4943:
     db 'CACHESCREEN().  Requested slot already in use.', 0
     db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xae
 
-%include "ega/asm_only/loc_497d.asm"                ; 0x497d
+%include "ega/loc_497d.asm"                ; 0x497d
 
 %include "shared/dos_con_loc_MQTN.asm"        ; 0x4984
 
@@ -706,9 +706,9 @@ cseg_49b4:
 
     times 84 db 0
 
-%include "ega/asm_only/load_sound.asm"              ; 0x4a08
+%include "ega/load_sound.asm"              ; 0x4a08
 
-%include "ega/asm_only/dos_con_loc_MSRN.asm"        ; 0x4ae1
+%include "ega/dos_con_loc_MSRN.asm"        ; 0x4ae1
 
 cseg_4aea:
 
@@ -716,7 +716,7 @@ cseg_4aea:
     db 'In LOAD_SOUND() ... slot already used.', 0
     db 0x0a, 0x24
 
-%include "ega/asm_only/loc_4b16.asm"                ; 0x4b16
+%include "ega/loc_4b16.asm"                ; 0x4b16
 
 %include "shared/dos_con_loc_KPVH.asm"        ; 0x4b1d
 
@@ -726,14 +726,14 @@ cseg_4b26:
     db 'In LOAD_SOUND() ... not enough memory.', 0
     db 0x0a, 0x24
 
-%include "ega/asm_only/loc_4b52.asm"                ; 0x4b52
+%include "ega/loc_4b52.asm"                ; 0x4b52
 
 string_loc_RQON.dos_file_loc1 equ dos_file_loc_ISRM
 %include "shared/string_loc_RQON.asm"         ; 0x4bb2
 
-%include "ega/asm_only/dos_file_loc_ISRM.asm"       ; 0x4bcb
+%include "ega/dos_file_loc_ISRM.asm"       ; 0x4bcb
 
-%include "ega/asm_only/loc_ULSL.asm"                ; 0x4c4c
+%include "ega/loc_ULSL.asm"                ; 0x4c4c
 
 %include "ega/leaf_loc_OSUJ.asm"           ; 0x4ca9
 
@@ -745,11 +745,11 @@ string_loc_RQON.dos_file_loc1 equ dos_file_loc_ISRM
 
 %include "ega/leaf_loc_JRKU.asm"           ; 0x4cfd
 
-%include "ega/asm_only/dos_con_loc_GJMS.asm"        ; 0x4d13
+%include "ega/dos_con_loc_GJMS.asm"        ; 0x4d13
 
-%include "ega/asm_only/leaf_loc_JLIP.asm"           ; 0x4d55
+%include "ega/leaf_loc_JLIP.asm"           ; 0x4d55
 
-%include "ega/asm_only/loc_VVPL.asm"                ; 0x4dd9
+%include "ega/loc_VVPL.asm"                ; 0x4dd9
 
 %include "shared/loc_LSLP.asm"                ; 0x4e48
 
@@ -761,15 +761,15 @@ cseg_4e8b:
 
 cseg_4ea3:
     times 10 db 0
-%include "ega/asm_only/load_score.asm"              ; 0x4ead
+%include "ega/load_score.asm"              ; 0x4ead
 
-%include "ega/asm_only/loc_SLKJ.asm"                ; 0x503c
+%include "ega/loc_SLKJ.asm"                ; 0x503c
 
-%include "ega/asm_only/loc_ILNU.asm"                ; 0x50d1
+%include "ega/loc_ILNU.asm"                ; 0x50d1
 
-%include "ega/asm_only/loc_PORS_5118.asm"           ; 0x5118
+%include "ega/loc_PORS_5118.asm"           ; 0x5118
 
-%include "ega/asm_only/loc_PORS_5130.asm"           ; 0x5130
+%include "ega/loc_PORS_5130.asm"           ; 0x5130
 
 %include "shared/loc_MMLT.asm"                ; 0x5148
 

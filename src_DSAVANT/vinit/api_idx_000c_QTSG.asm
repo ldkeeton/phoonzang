@@ -6,7 +6,7 @@ api_idx_000c_QTSG:
     push ax                          ; 0x014f
     push ax                          ; 0x0150
     push word [bp + 0x4]             ; 0x0151
-    call ds_app_UUHT                 ; 0x0154
+    call ds_app_string_UUHT          ; 0x0154
     add sp, byte 4                   ; 0x0157
     push ax                          ; 0x015a
     call aztec_open                  ; 0x015b

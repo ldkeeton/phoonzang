@@ -61,7 +61,12 @@ _TREE = _ASM_DIR.parent / 'src_DSAVANT'
 #: callee is proven a pointer (``segdataflow``), so the strings embedded in
 #: the drivers' and ds's routines are labelled ``cseg_`` and used from inside
 #: their own fragment: 202/137/4 -> **209/82/2**.
-COTENANCY_BASELINE = {'glued_files': 209, 'code_outside': 82, 'data_outside': 2}
+#: Aztec runtime from the v4.2b library the game links (was v5.2a): its
+#: signatures drop v5.2a false positives in vinstall's own code (``gmtime``
+#: and ``utime`` where v4.2b's ``fopen``/``freopen`` match, a ``raise`` that
+#: is not), so its ``main`` area splits differently.  The same scan of the
+#: previous tree reads 217 glued; this one 209/82/2 -> **212/85/2**.
+COTENANCY_BASELINE = {'glued_files': 212, 'code_outside': 85, 'data_outside': 2}
 
 
 def _write(path, text):

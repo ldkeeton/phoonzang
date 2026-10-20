@@ -14,3 +14,9 @@ char *str, *fmt; unsigned args;
 	return i;
 }
 
+static
+aztec_spsub(c)
+{
+	return (*buff++ = c)&0xff;
+}
+

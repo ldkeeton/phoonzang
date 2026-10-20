@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 bios_mouse_loc_JLUV:
     push bp
     mov bp, sp

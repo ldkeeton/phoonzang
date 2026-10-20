@@ -204,6 +204,27 @@ class LinkTest(unittest.TestCase):
         with self.assertRaisesRegex(relink.RelinkError, "calls DS:0x0cfa 'dseg_0cfa'"):
             self.link(self._unnamed_index('dseg_0cfa'))
 
+    def test_a_place_symbol_takes_the_build_name_at_its_address(self):
+        """``_Uorg`` (BSS start) is named after the object that starts there."""
+        func = Func('_f', 'f', 0, b'\xbf\x00\x00',
+                    [Fixup(1, 'WABS', 'GBLSYM', 0, '_Uorg_')])
+        image = bytearray(self.START + 3)
+        image[self.START + 1:self.START + 3] = (0x2534).to_bytes(2, 'little')
+        index = relink.SymbolIndex({}, None, None, {'keep': 0x2534})
+        out = relink.link('aztec_f', self.START, func, index, bytes(image), ())
+        self.assertEqual(out.refs[1].text, 'keep')
+        self.assertEqual(int.from_bytes(out.code[1:3], 'little'), 0x2534)
+
+    def test_the_data_segment_paragraph_keeps_the_original_word(self):
+        """``mov bp,dataseg``: the exe's relocation table fixes it at load."""
+        func = Func('_f', 'f', 0, b'\xbd\x00\x00',
+                    [Fixup(1, 'WABS', 'DATASEG', 0, None)])
+        image = bytearray(self.START + 3)
+        image[self.START + 1:self.START + 3] = (0x38e).to_bytes(2, 'little')
+        out = relink.link('aztec_f', self.START, func, _index(), bytes(image), ())
+        self.assertEqual(int.from_bytes(out.code[1:3], 'little'), 0x38e)
+        self.assertNotIn(1, out.refs)
+
     def test_short_branch_out_of_range_is_an_error(self):
         func = _foo()
         func.locals['.0'] = 0x300

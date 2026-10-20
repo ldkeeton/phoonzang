@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 loc_KLNH:
     dec ax
     mov cl, 2

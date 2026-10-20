@@ -79,7 +79,16 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         more = True
     if AZTEC_PREBUILD_ONLY:
         return {}, entries, {}
+    # Each vendor module the image holds byte-exact is one fragment with one
+    # .c, both named after the vendor file (croot.c -> aztec_croot.c and
+    # aztec_croot.asm): the whole module.  Its routines are labels inside
+    # that fragment and have no C of their own.
+    from lib.aztec.modules import module_spans
+    spans, misses = module_spans(project, name, data, label_map, entries)
+    for filename, why in sorted(misses.items()):
+        print(f'  aztec module {filename}: stays assembly ({why})')
     known = {nm for nm in label_map.values() if isinstance(nm, str)}
+    known |= set(spans)
     shared_c = sorted(f[:-2] for f in (os.listdir(shared_dir)
                                        if os.path.isdir(shared_dir) else ())
                       if f.endswith('.c') and f[:-2] in known)
@@ -88,59 +97,54 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     if orphans:
         raise SystemExit(f'error: C file(s) in {dest} with no matching asm '
                          f'routine: {", ".join(orphans)}')
-    # A routine ends at the next fragment root.  The object's public extent can
-    # run past it into a trailing ``static`` neighbour (``putc`` compiles
-    # ``closall`` inside its extent; the splitter gives each its own fragment),
-    # so the C override must own only its own fragment -- never the
-    # neighbour's bytes or its ``.N`` labels.
-    roots = sorted(function_roots or ())
-    starts = {nm: addr for addr, nm in label_map.items()
-              if isinstance(nm, str)}
-
-    def owned_length(label, entry, func):
-        length = entry.get('original_length') or len(func.code)
-        start = starts.get(label)
-        following = [r for r in roots if start is not None and r > start]
-        if following:
-            length = min(length, following[0] - start)
-        return length
+    module_of = {member: span for span in spans.values()
+                 for member in span.members}
+    for label in sorted(set(hand_c) | set(shared_c)):
+        span = module_of.get(label)
+        if span is not None and label not in spans:
+            raise SystemExit(
+                f'error: {c_path(dest, label)}: {label} is part of module '
+                f'{span.file}, whose C is {span.name}.c; merge it there')
 
     overrides = {}
-    for label, entry in entries.items():
-        if cache.is_asm_entry(entry):
-            continue  # hand-written: annotated, never recompiled (see below)
-        text, generated = _seed_aztec_c(cache, project, name, label, entry,
+    for module, span in sorted(spans.items()):
+        entry = span.entry
+        text, generated = _seed_aztec_c(cache, project, name, module, entry,
                                         dest)
         try:
-            func = cache.compile_source(project, label, entry, text)
+            func = cache.compile_source(project, module, entry, text)
         except Exception as exc:
-            raise SystemExit(f'error: {label}.c: compile failed ({exc})') from exc
-        length = owned_length(label, entry, func)
-        func = func.truncate(length)
-        path = c_path(dest, label)
-        overrides[label] = {
-            # The linker resolves the routine's relocations against the build's
+            raise SystemExit(
+                f'error: {module}.c: compile failed ({exc})') from exc
+        overrides[module] = {
+            # The linker resolves the module's relocations against the build's
             # label maps once those exist (lib.compare.coverrides).
-            'func': func, 'text': text, 'path': path, 'generated': generated,
-            'own_key': cache.own_key(label, entry),
+            'func': func, 'text': text, 'path': c_path(dest, module),
+            'generated': generated,
+            'own_keys': dict(span.keys),
             'pristine': text == cache.seed_source_text(
-                project, name, label, entry),
-            'compile': (lambda t, _l=label, _e=entry:
+                project, name, module, entry),
+            'compile': (lambda t, _l=module, _e=entry:
                         cache.compile_source(project, _l, _e, t)),
             'code': func.code,
             'fixups': [(fx.offset, fixup_width(fx.kind))
                        for fx in func.fixups],
-            'length': length,
+            # The module's first byte, and where its first routine starts.
+            'start': span.start, 'lead': span.lead,
+            'length': span.length,
             'source_version': entry['source_version'],
             'file': entry['file'], 'compiler': entry['compiler'],
             'includes': entry['includes'],
+            'asm_stub': bool(entry.get('asm_stub')),
         }
-    # A hand-written <label>.c with no compiled manifest entry (an application
-    # routine, a miss, or a vendor-asm routine) replaces that routine too.  Its
-    # original length runs to the next fragment root.
+    # A hand-written <label>.c outside every placed module (an application
+    # routine, or a vendor routine whose module stays assembly) replaces that
+    # routine too.  It owns its fragment: up to the next fragment root.
+    roots = sorted(function_roots or ())
+    starts = {nm: addr for addr, nm in label_map.items()
+              if isinstance(nm, str)}
     for label in sorted(set(hand_c) | set(shared_c)):
-        entry = entries.get(label)
-        if entry is not None and not cache.is_asm_entry(entry):
+        if label in spans or label in module_of:
             continue
         path = c_path(dest, label)
         with open(path) as f:
@@ -154,7 +158,8 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         following = [r for r in roots if start is not None and r > start]
         overrides[label] = {
             'func': func, 'text': text, 'path': path,
-            'own_key': cache.own_key(label, entry), 'pristine': False,
+            'own_keys': {cache.own_key(label, entry): label},
+            'pristine': False,
             'compile': (lambda t, _l=label, _e=entry:
                         cache.compile_source(project, _l, _e, t)),
             'code': func.code,
@@ -239,8 +244,8 @@ def _name_c_callees(project, binary, data, entries, label_map,
     vendor routine (``aztec_sprintf``), so the C keeps the vendor's call; a
     routine the program defines (``main``, called by ``Croot``) takes the C
     name as it is.  So does an Aztec signature's name its own source did not
-    match: a byte window can fire inside another routine (v5.2a ``fputs``'s
-    lands in ``aputc``), and the call is proof.  A proven name, or the
+    match: a byte window can fire inside another routine (a ``fputs``
+    window landed in ``aputc``), and the call is proof.  A proven name, or the
     sidecar's, stays; the link then reports the disagreement.  A vendor routine whose address the C
     takes (``printf`` passes ``putchar``) is named the same way: its value is
     a CS offset, so the label sits at the value plus *start_offset*.
@@ -258,9 +263,13 @@ def _name_c_callees(project, binary, data, entries, label_map,
             or sources.asm_definition_files(version, key)
             for version in sources.VERSIONS)
 
+    from lib.aztec.modules import module_key
+    from lib.aztec.mux import compare as mux_compare
+    done = set()
     for label, entry in entries.items():
         start = starts.get(label)
-        if start is None or cache.is_asm_entry(entry):
+        if (start is None or cache.is_asm_entry(entry)
+                or module_key(entry) in done):
             continue
         try:
             func = cache.compile_source(
@@ -268,11 +277,24 @@ def _name_c_callees(project, binary, data, entries, label_map,
                 cache.seed_source_text(project, binary, label, entry))
         except Exception:
             continue    # the override's own compile reports it
+        offset = func.members.get(cache.own_key(label, entry))
+        if offset is None:
+            continue
+        base = start - offset
+        # A module the image holds whole is read whole, once; otherwise only
+        # this routine's own bytes are known to be where the C puts them.
+        if not mux_compare(func, data, base)[0]:
+            done.add(module_key(entry))
+            lo, hi = 0, len(func.code)
+        else:
+            lo = offset
+            hi = min([o for o in func.members.values() if o > offset]
+                     + [len(func.code)])
         for fx in func.fixups:
             if fx.symbol_kind != 'GBLSYM' or fx.kind not in ('WREL', 'WABS') \
-                    or fx.offset + 2 > len(func.code):
+                    or not lo <= fx.offset <= hi - 2:
                 continue
-            site = start + fx.offset
+            site = base + fx.offset
             word = int.from_bytes(data[site:site + 2], 'little')
             if fx.kind == 'WREL':
                 target = (site + 2 + word) & 0xFFFF
@@ -351,13 +373,16 @@ def _seed_aztec_c(cache, project, binary, label, entry, dest):
     return cache.seed_source_text(project, binary, label, entry), True
 
 
-def _aztec_asm_annotations(entries, label_map):
+def _aztec_asm_annotations(entries, label_map, c_overrides=None):
     """Vendor label names/comments for hand-written (``.asm``) routines.
 
     Returns ``{label: {'start', 'end', 'labels': {addr: name},
     'comments': {addr: text}}}`` with absolute addresses.  The disassembly's
     bytes already equal the vendor routine's; this only carries what the
-    vendor source adds (the author's local label names and comments).
+    vendor source adds (the author's local label names and comments).  A
+    vendor module built from one ``.c`` (*c_overrides* with a ``start``) gets
+    one note, under its name, for all its routines: its branch targets are
+    numbered under the module (``@..aztec_csav.l2`` is ``stackfault``).
     """
     from lib.aztec import cache
     by_name = {}
@@ -377,5 +402,21 @@ def _aztec_asm_annotations(entries, label_map):
             'comments': {start + off: text
                          for off, text in entry.get('comments', ())},
         }
+    for module, override in (c_overrides or {}).items():
+        if 'start' not in override:
+            continue
+        start = override['start']
+        end = start + override['length']
+        inside = [label for label, note in out.items()
+                  if start <= note['start'] < end]
+        if not inside:
+            continue
+        merged = {'start': start, 'end': end, 'labels': {}, 'comments': {},
+                  'owners': {module, *inside}}
+        for label in inside:
+            note = out.pop(label)
+            merged['labels'].update(note['labels'])
+            merged['comments'].update(note['comments'])
+        out[module] = merged
     return out
 

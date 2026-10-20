@@ -57,18 +57,20 @@ def _numeric_form(text, refs):
 def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
                         immediate_labels, exact_bytes=False, data_labels=None,
                         mem_symbols=None, mem_equ=None, image_base=None,
-                        linked=None):
+                        linked=None, skip=0):
     """Disassemble compiler-produced code into emission records.
 
     *linked* (a :class:`lib.aztec.relink.Linked`) names the operands the C
     relocations patch; those render as their symbol (``call aztec_open``)
-    instead of being inferred from the relocated bytes.
+    instead of being inferred from the relocated bytes.  The first *skip*
+    bytes are not code (a module's data before its first routine) and are
+    left to the caller.
     """
     from lib.format import format_instruction
     md = Cs(CS_ARCH_X86, CS_MODE_16)
     md.detail = True
     records = []
-    consumed = 0
+    consumed = skip
 
     def emit_db(start, end):
         for k in range(start, end):
@@ -77,7 +79,7 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
                 'offset': base + k, 'size': 1,
             })
 
-    for insn in md.disasm(data, base):
+    for insn in md.disasm(data[skip:], base + skip):
         off = insn.address - base
         if off > consumed:
             emit_db(consumed, off)
@@ -134,7 +136,7 @@ def _merge_label_records(new_records, label_records):
     labels = sorted(label_records, key=lambda r: r['offset'])
     li = 0
     for rec in new_records:
-        off = rec.get('offset', 0)
+        off = _record_span(rec)[0]
         while li < len(labels) and labels[li]['offset'] <= off:
             out.append(labels[li])
             li += 1
@@ -189,36 +191,62 @@ def _override_local_labels(data, start, end, label_map, local_labels, linked,
 
 def _link_override(label, start, override, records, binary_data, index,
                    names_at, image_base=0):
-    """Link one routine's relocations, upgrading a pristine seed first.
+    """Link one ``.c``'s relocations, upgrading a pristine seed first.
 
     A seed recovered from the Manx sources names Manx identifiers (``open``);
     the linker needs asm labels.  A seed nobody has edited is rewritten once,
     using the original image to learn each name (:mod:`lib.aztec.relabel`);
-    anything else must already say what it means.
+    anything else must already say what it means.  The whole compile is
+    linked: what it does not fit is the gate's to report, never cut off.
     """
     func = override['func']
     length = override.get('length') or len(func.code)
     labels_in = [(r['offset'], r['name']) for r in records
                  if r['type'] == 'label' and start <= r['offset'] < start + length]
+    labels_at = {r['offset']: r['name'] for r in records if r['type'] == 'label'}
+    # A jump table is labelled by its own record (``format``'s
+    # ``conv_routines`` is ``jumptable_4822``).
+    for r in records:
+        if r['type'] == 'jump_table':
+            labels_at.setdefault(r['start'], r['label'])
     try:
-        return relink.link(label, start, func, index, binary_data, labels_in)
+        return relink.link(label, start, func, index, binary_data, labels_in,
+                           labels_at)
     except relink.RelinkError as exc:
         if not override.get('pristine'):
             raise ValueError(str(exc)) from exc
     text, func = relabel.upgrade(
-        label, override['own_key'], start, override['text'], binary_data,
+        label, override['own_keys'], start, override['text'], binary_data,
         index, names_at, override['compile'], image_base or 0)
-    # The relabelled compile has the same object extent as the original one,
-    # so cap it to this routine's fragment again: a trailing static neighbour
-    # (``putc``/``closall``) must stay in its own fragment.
-    func = func.truncate(length)
     if not override.get('generated'):
         # A seed kept on disk is rewritten; a new one is written once, at emit.
         with open(override['path'], 'w') as f:
             f.write(text)
     override.update(text=text, func=func, pristine=False)
     print(f'  aztec relabel: {label}.c now names asm labels')
-    return relink.link(label, start, func, index, binary_data, labels_in)
+    return relink.link(label, start, func, index, binary_data, labels_in,
+                           labels_at)
+
+
+def _split_data_block(records, at, binary_data):
+    """Split the aggregate data block that straddles *at*, in place.
+
+    Returns None, or the end of a record of another kind straddling *at*.
+    """
+    for index, rec in enumerate(records):
+        rec_start, rec_end = _record_span(rec)
+        if rec['type'] == 'label' or not rec_start < at < rec_end:
+            continue
+        if rec['type'] != 'data_block':
+            return rec_end
+        records[index:index + 1] = [
+            {**rec, 'end': at,
+             'bytes': [f'0x{b:02x}' for b in binary_data[rec_start:at]]},
+            {**rec, 'start': at,
+             'bytes': [f'0x{b:02x}' for b in binary_data[at:rec_end]]},
+        ]
+        return None
+    return None
 
 
 def _check_linked(label, linked):
@@ -293,10 +321,14 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
     sym_index = names_at = None
 
     replacements = []
-    for label, override in c_overrides.items():
-        start = name_to_addr.get(label)
+    unplaced = []
+    for label, override in list(c_overrides.items()):
+        # A vendor module starts at its own first byte, which may come before
+        # its first routine (``csav.asm``'s ``dw $begin``).
+        start = override.get('start', name_to_addr.get(label))
         if start is None:
             raise ValueError(f'C override: label {label!r} not found')
+        lead = override.get('lead', 0)
         linked = None
         if override.get('func') is not None:
             if sym_index is None:
@@ -310,9 +342,18 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                 names_at = relabel.data_names(
                     {**getattr(segments, 'data_names', {}),
                      **(data_labels or {})}, sym_equ)
-            linked = _link_override(label, start, override, records,
-                                    binary_data, sym_index, names_at,
-                                    image_base)
+            try:
+                linked = _link_override(label, start, override, records,
+                                        binary_data, sym_index, names_at,
+                                        image_base)
+            except (relink.RelinkError, ValueError) as exc:
+                # A new ``#asm`` seed the build cannot place (it names module
+                # data the splitter gave a neighbour).  Every one is listed
+                # before the build fails, so one run shows them all.
+                if not (override.get('asm_stub') and override.get('generated')):
+                    raise
+                unplaced.append(f'{label}: {exc}')
+                continue
             compiled = linked.code
             # A DS object the C names first is defined like any operand
             # symbol: in ``mem_equ``, so an overlay exports it to the host.
@@ -357,30 +398,14 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         # re-decoded it as garbage pseudo-instructions, misplacing any label
         # (e.g. a switch table) that lived past the true routine end.
         end = start + length
-        for index, rec in enumerate(records):
-            rec_start, rec_end = _record_span(rec)
-            if rec['type'] == 'label':
-                continue
-            if rec_start < end < rec_end:
-                if rec['type'] == 'data_block':
-                    # Split the aggregate data block at the routine boundary so
-                    # the replacement covers only the routine's own bytes.
-                    prefix = {
-                        **rec, 'end': end,
-                        'bytes': [f'0x{b:02x}'
-                                  for b in binary_data[rec_start:end]],
-                    }
-                    suffix = {
-                        **rec, 'start': end,
-                        'bytes': [f'0x{b:02x}'
-                                  for b in binary_data[end:rec_end]],
-                    }
-                    records[index:index + 1] = [prefix, suffix]
-                else:
-                    # A single instruction/record straddles the boundary; keep
-                    # the previous behaviour and absorb the whole record.
-                    end = rec_end
-                break
+        _split_data_block(records, start, binary_data)
+        if lead:
+            _split_data_block(records, start + lead, binary_data)
+        straddling = _split_data_block(records, end, binary_data)
+        if straddling is not None:
+            # A single instruction/record straddles the boundary; keep the
+            # previous behaviour and absorb the whole record.
+            end = straddling
         final = bytearray(binary_data[start:end])
         if len(final) < length:
             final.extend(b'\x90' * (length - len(final)))
@@ -389,7 +414,12 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             final[len(compiled):length] = b'\x90' * (length - len(compiled))
         labels_in = [r for r in records
                      if r['type'] == 'label' and start < r['offset'] < end]
+        # Bytes before the module's first routine are data the disassembly
+        # already renders (the gate has checked them): they stay as they are.
+        head = [r for r in records if r['type'] != 'label'
+                and start <= _record_span(r)[0] < start + lead]
         if linked is not None:
+            linked.consumed.update(site for site in linked.refs if site < lead)
             # Branch labels follow the code the compiler produced.
             labels_in = ([r for r in labels_in
                           if r['name'].kind is not Kind.LOCAL]
@@ -403,23 +433,26 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         # disassembly's name when it has one (so the file reads as before) and
         # gets a fresh ``@..<label>.lN`` otherwise.
         record_labels, derived = _override_local_labels(
-            bytes(final), start, end, label_map, local_labels, linked, label,
-            {r['offset'] for r in labels_in})
+            bytes(final[lead:]), start + lead, end, label_map, local_labels,
+            linked, label, {r['offset'] for r in labels_in})
         if linked is None:
             # No relinking: the bytes *are* the original routine's, so its own
             # local labels stay valid for every operand, not just branches.
             record_labels = {**(local_labels or {}), **record_labels}
         labels_in = labels_in + derived
-        new_records = _c_bytes_to_records(
+        new_records = head + _c_bytes_to_records(
             bytes(final), start, label_map, record_labels, foreign_label_map,
             immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
-            linked=linked)
+            linked=linked, skip=lead)
         if linked is not None:
             _check_linked(label, linked)
         replacements.append((start, end,
                              _merge_label_records(new_records, labels_in)))
 
+    if unplaced:
+        raise ValueError('#asm C the build cannot place:\n  '
+                         + '\n  '.join(unplaced))
     if not replacements:
         return records
 

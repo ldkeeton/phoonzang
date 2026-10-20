@@ -293,7 +293,7 @@ loc_MIPR:
     push ax                          ; 0x65ce
     mov ax, dseg_94f6                ; 0x65cf
     push ax                          ; 0x65d2
-    call ds_app_UUHT                 ; 0x65d3
+    call ds_app_string_UUHT          ; 0x65d3
     add sp, byte 4                   ; 0x65d6
     push ax                          ; 0x65d9
     call aztec_open                  ; 0x65da

@@ -1,22 +1,20 @@
-"""Persistent prebuild results for the mixed-version Aztec C mux.
+"""Persistent prebuild results for the Aztec C mux (:mod:`.mux`).
 
 Compiling through DOSBox is slow, so ``make prebuild <project>`` resolves every
 ``aztec_*`` routine once and stores the winners under
 ``.cache/<project>/prebuild/``:
 
 ``<binary>_aztec_mux.json``
-    Winners with provenance (source version/file, compiler, includes, byte
-    length, and whether the routine's C was *extracted* from its module).
-``src/<binary>/<label>.c``
-    A self-contained seed per routine: the extracted function when that still
-    compiles byte-exact, otherwise the whole module.  ``make build`` copies
-    these into ``src_<project>/<binary>/`` only when a seed is absent, so a
-    no-clean debug rebuild keeps hand edits.
+    Winners with provenance (source file, compiler, includes, byte length).
 ``objs/<sha1>.json``
-    Baseline compiled modules keyed by content hash, so re-running prebuild (or
-    a later build) never repeats an unchanged compile.
+    Compiled modules keyed by content hash -- every module's pristine seed
+    (:func:`seed_source_text`) among them -- so re-running prebuild (or a
+    later build) never repeats an unchanged compile.
 
-``make build`` reads the manifest (creating nothing) and compiles each seed.
+``make build`` reads the manifest (creating nothing), places each module
+(:mod:`.modules`) and compiles its seed: one ``.c`` per module, written to
+``src_<project>/<binary>/`` only when absent, so a no-clean debug rebuild keeps
+hand edits.
 A build that finds ``aztec_*`` labels but no prebuild data fails loudly with
 :class:`PrebuildMissing` rather than silently repeating the expensive search.
 """
@@ -30,8 +28,8 @@ from lib.cachedirs import prebuild_dir
 
 from . import listing, objcache, sources
 from .compile import CompiledModule
-from .mux import (COMPILER_VERSIONS, SOURCE_VERSIONS, MuxEngine, is_asm,
-                  tool_flags)
+from .compile import VERSION
+from .mux import C_FLAGS, MuxEngine, is_asm, tool_flags
 from .objread import fixup_width
 
 _ASM_DIR = os.path.dirname(os.path.dirname(os.path.dirname(
@@ -52,11 +50,6 @@ def cache_path(project, binary):
     return manifest_path(project, binary)
 
 
-def src_dir(project, binary):
-    """Per-routine extracted C seeds inside the prebuild tree."""
-    return os.path.join(prebuild_dir(project), 'src', binary)
-
-
 def objs_dir(project):
     """Baseline compiled objects inside the prebuild tree."""
     return os.path.join(prebuild_dir(project), 'objs')
@@ -65,6 +58,16 @@ def objs_dir(project):
 def is_asm_entry(entry):
     """True when the routine was recovered from a hand-written ``.asm``."""
     return is_asm(entry['file'])
+
+
+def asm_stub(module_text):
+    """C for a vendor assembly module: the whole module in one ``#asm`` block.
+
+    ``cc`` hands the block to the same ``as`` the library makefiles use, so
+    the module's equates, macros (``lmacros.h``) and neighbours come along,
+    and the whole module compiles to its fragment like any C module.
+    """
+    return '#asm\n' + module_text.rstrip('\n') + '\n#endasm\n'
 
 
 def source_header(label, entry):
@@ -86,7 +89,6 @@ def _entry_from_match(match):
         # routine end and the next emitted record (local tails, padding) are
         # preserved from the original image, not overwritten.
         'original_length': len(func.code),
-        'extracted': False,
     }
 
 
@@ -166,7 +168,7 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose,
     for index, (key, (version, filename, source, compiler)) in enumerate(
             requests.items()):
         if objcache.load(objcache_dir, key) is None:
-            flags = tool_flags(filename, compiler, engine.flags)
+            flags = tool_flags(filename)
             missing.append((key, f'T{index:04d}', source, compiler, version,
                             flags, 'asm' if is_asm(filename) else 'c'))
     if missing:
@@ -190,33 +192,26 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose,
             found.append((addr, label, good[0]))
         else:
             misses[label] = _miss_status(matches)
-    # The matching source names the routine; the signature took the library's
-    # spelling (``_open`` for v3.40a ``open``).  A name two routines would
-    # take stays the signature's.
+    # The matching source names the routine; the signature took the library
+    # public's spelling.  A name two routines would take stays the signature's.
     wanted = {str(label): azc.routine_label(m.func.cname)
               for _, label, m in found}
     finals = collections.Counter(wanted.get(str(label), str(label))
                                  for _, label in aztec_labels)
-    addr_by_label = {}
-    for addr, label in aztec_labels:
-        addr_by_label.setdefault(str(label), addr)
     for addr, label, m in found:
         entry = _entry_from_match(m)
         entry['cname'] = m.func.cname
         name = wanted[str(label)]
         if name != label and finals[name] == 1:
             entry['signature'] = str(label)
-            addr_by_label[name] = addr
             label = name
         functions[label] = entry
         if is_asm(m.filename):
             _annotate_entry(engine, m, functions[label])
         if verbose:
             kind = 'ASM' if is_asm(m.filename) else 'C  '
-            print(f'    {kind} {label:20} <- {m.version}/{m.filename} '
-                  f'via {m.compiler}')
-    _seed_sources(project, binary, functions, data, addr_by_label,
-                  objcache_dir, verbose)
+            print(f'    {kind} {label:20} <- {m.filename}')
+    _compile_seeds(engine, project, binary, functions, objcache_dir, verbose)
     if more:
         with open(path) as f:
             before = json.load(f)
@@ -228,10 +223,10 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose,
                       if label in present}
     _save(path, binary, functions, misses)
     if verbose:
-        extracted = sum(1 for e in functions.values() if e.get('extracted'))
+        stubs = sum(1 for e in functions.values() if e.get('asm_stub'))
         if functions:
             summary = (f'{len(functions)} routines recovered '
-                       f'({extracted} extracted)')
+                       f'({stubs} assembly as #asm C)')
             if engine.compile_count:
                 summary += f', {engine.compile_count} extra compiles'
             print(f'  aztec mux: {summary}')
@@ -264,21 +259,19 @@ def _miss_status(matches):
     best = matches[0]
     if best.error:
         return f'{best.filename}: {best.error.splitlines()[0][:80]}'
-    return (f'closest {best.version}/{best.filename}: '
+    return (f'closest {best.filename}: '
             f'{len(best.diffs)} of {best.length} bytes differ')
 
 
 def default_entry(label, project):
     """Provenance for a hand-written ``<label>.c`` with no manifest entry.
 
-    The same compiler/source pairing every recovered C routine uses
-    (:mod:`.mux`); the flags come from the sidecar's ``compiler_flags``,
-    chosen by the routine's name.
+    The release every recovered routine uses (:mod:`.mux`); the flags come
+    from the sidecar's ``compiler_flags``, chosen by the routine's name.
     """
     from lib.sidecar.compiler import compiler_flags
-    compiler, sources_version = COMPILER_VERSIONS[0], SOURCE_VERSIONS[0]
-    entry = {'compiler': compiler, 'includes': sources_version,
-             'source_version': sources_version, 'file': f'{label}.c'}
+    entry = {'compiler': VERSION, 'includes': VERSION,
+             'source_version': VERSION, 'file': f'{label}.c'}
     flags = compiler_flags(project, label)
     if flags is not None:
         entry['flags'] = flags
@@ -288,7 +281,9 @@ def default_entry(label, project):
 def _flags_for(entry):
     if entry.get('flags') is not None:
         return tuple(entry['flags'])
-    return tool_flags(entry['file'], entry['compiler'])
+    if is_asm_entry(entry):
+        return C_FLAGS      # the seed is the module wrapped in ``#asm``
+    return tool_flags(entry['file'])
 
 
 def _cname(label, entry=None):
@@ -311,116 +306,82 @@ def _module_key(entry, source_text):
                                source_text)
 
 
-def _seed_sources(project, binary, functions, data, addr_by_label,
-                  objcache_dir, verbose):
-    """Write ``src/<binary>/<label>.c`` seeds and set ``entry['extracted']``.
+def _compile_seeds(engine, project, binary, functions, objcache_dir,
+                   verbose):
+    """Compile every recovered routine's module seed into the object cache.
 
-    An extracted routine is kept only when compiling the extracted text still
-    reproduces the original routine exactly (masked comparison); otherwise the
-    whole module is seeded, so ``extracted`` is a truthful provenance flag.
+    A module's seed is the whole vendor module (an assembly one wrapped in
+    ``#asm``, :func:`asm_stub`), so the build compiles each seed with no
+    DOSBox work; whether it reproduces its place is the build's check
+    (:mod:`lib.aztec.modules`).
     """
     from . import compile as azc
-    from . import extract
-    from .mux import compare as mux_compare, normalize
 
-    candidates = {}
     requests = {}
     for label, entry in functions.items():
-        if is_asm_entry(entry):
-            continue
-        module_text = sources.catalog(entry['source_version']).get(entry['file'])
-        if not module_text:
-            continue
-        text = extract.extract_routine(module_text, _cname(label, entry))
+        entry['asm_stub'] = is_asm_entry(entry)
+        text = seed_source_text(project, binary, label, entry, engine)
         if text is None:
             continue
-        candidates[label] = text
         key = _module_key(entry, text)
         requests.setdefault(
             key, (f'X{len(requests):04d}', text, entry['compiler'],
                   entry['includes'], _flags_for(entry)))
-
     missing = [(key, dos, text, compiler, includes, flags)
                for key, (dos, text, compiler, includes, flags)
                in requests.items()
-               if objcache.load(objcache_dir, key) is None]
+               if _stale(objcache.load(objcache_dir, key))]
     if missing:
         if verbose:
-            print(f'  aztec mux: verifying {len(missing)} extracted '
-                  f'routines ({binary})')
+            print(f'  aztec mux: compiling {len(missing)} module seeds '
+                  f'({binary})')
         for key, result in azc.compile_batch(missing, verbose=verbose).items():
             objcache.save(objcache_dir, key, result)
 
-    dest = src_dir(project, binary)
-    os.makedirs(dest, exist_ok=True)
-    for label, entry in functions.items():
-        if is_asm_entry(entry):
-            continue
-        text = None
-        extracted = False
-        if label in candidates:
-            module = objcache.load(objcache_dir, _module_key(entry,
-                                                             candidates[label]))
-            func = (None if module is None or isinstance(module, Exception)
-                    else module.get(normalize(_cname(label, entry))))
-            addr = addr_by_label.get(label)
-            if func is not None and addr is not None:
-                diffs, _ = mux_compare(func, data, addr)
-                if (not diffs
-                        and len(func.code) == entry.get('original_length',
-                                                        len(func.code))):
-                    text = candidates[label]
-                    extracted = True
-        if text is None:
-            text = sources.catalog(entry['source_version']).get(
-                entry['file'], '')
-        entry['extracted'] = extracted
-        seed = source_header(label, entry) + text
-        with open(os.path.join(dest, f'{label}.c'), 'w') as f:
-            f.write(seed)
-        # The build compiles the exact seed text (banner included); mirror the
-        # already-cached compile under that key so an untouched build never
-        # needs DOSBox.
-        base_key = _module_key(entry, text)
-        seed_key = _module_key(entry, seed)
-        if seed_key != base_key:
-            cached = objcache.load(objcache_dir, base_key)
-            if cached is not None:
-                objcache.save(objcache_dir, seed_key, cached)
 
+def seed_source_text(project, binary, label, entry, engine=None):
+    """The pristine ``.c`` for *entry*'s module, or None without a source.
 
-def seed_source_text(project, binary, label, entry):
-    """Return the C seed for *label* (prebuild copy if present, else module)."""
-    path = os.path.join(src_dir(project, binary), f'{label}.c')
-    try:
-        with open(path) as f:
-            return f.read()
-    except OSError:
-        pass
-    text = sources.catalog(entry['source_version']).get(entry['file'], '')
+    The whole vendor module -- with any sidecar ``vendor_patches`` edit
+    applied, since the seed is the source of the game's bytes -- wrapped in
+    ``#asm`` when the vendor wrote it in assembly.
+    """
+    if engine is None:
+        from lib.sidecar.vendor import vendor_patches
+        engine = MuxEngine(patches=vendor_patches(project))
+    text = engine.source(entry['source_version'], entry['file'])
+    if not text:
+        return None
+    if is_asm_entry(entry):
+        text = asm_stub(text)
     return source_header(label, entry) + text
 
 
 def compile_source(project, label, entry, source_text):
-    """Compile a routine's C and return its :class:`Func`.
+    """Compile a ``.c`` and return its whole code as one :class:`Func`.
 
     The prebuild ``objs`` cache is consulted first (no DOSBox on a hit);
-    otherwise the routine is compiled in a fresh DOSBox session.
+    otherwise the source is compiled in a fresh DOSBox session.
     """
     return compile_source_module(project, label, entry, source_text)[1]
 
 
+def _stale(module):
+    """True for a cache miss, or a module cached before its segment and its
+    data were kept (the build needs both)."""
+    return module is None or (isinstance(module, CompiledModule) and (
+        module.segment is None
+        or any(f.data_locals is None for f in module.functions.values())))
+
+
 def compile_source_module(project, label, entry, source_text):
-    """``(module, func)``: the whole compiled module and the routine in it."""
+    """``(module, whole)``: the compiled module and its whole code segment
+    (:meth:`lib.aztec.compile.CompiledModule.whole`)."""
     from . import compile as azc
-    from .mux import normalize
 
     key = _module_key(entry, source_text)
     module = objcache.load(objs_dir(project), key)
-    if (isinstance(module, CompiledModule)
-            and any(f.data_locals is None for f in module.functions.values())):
-        module = None   # cached before module data was kept: the link needs it
-    if module is None:
+    if _stale(module):
         module = azc.compile_module(
             source_text, label, compiler=entry['compiler'],
             includes=entry['includes'], flags=_flags_for(entry))
@@ -428,11 +389,4 @@ def compile_source_module(project, label, entry, source_text):
         objcache.save(objs_dir(project), key, module)
     if isinstance(module, Exception):
         raise module
-    # A seed relabelled to asm names defines ``aztec_open``; a recovered Manx
-    # seed still defines ``open``.
-    func = module.get(normalize(label)) or module.get(normalize(_cname(label, entry)))
-    if func is None:
-        raise RuntimeError(
-            f'{label}: compiled {entry["file"]} defines no such function')
-    return module, func
-
+    return module, module.whole()

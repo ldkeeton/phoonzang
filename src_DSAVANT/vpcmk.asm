@@ -360,12 +360,9 @@ dseg_951e equ __zdseg_end + (__zdseg_951e - __zdata_start)
 dseg_9520 equ __zdseg_end + (__zdseg_9520 - __zdata_start)
 dseg_9522 equ __zdseg_end + (__zdseg_9522 - __zdata_start)
 ; bss_9524  equ __zdseg_end + (__zobss_9524 - __zdata_start)
-%include "vpcmk/asm_only/string_loc_SMLM.asm"       ; 0x6f8c
+%include "vpcmk/string_loc_SMLM.asm"       ; 0x6f8c
 
 %include "shared/aztec_strcmp.asm"          ; 0x6fca
-
-loc_OTSS equ aztec_strncmp.loc1
-%include "shared/aztec_strncmp.asm"         ; 0x6fe8
 
 __zdseg_9098:
 __zdata_start:

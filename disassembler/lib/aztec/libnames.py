@@ -17,11 +17,11 @@ import os
 
 from lib.cachedirs import aztec_lib_obj_dir
 
-from . import omflib
+from . import libobjs, omflib
 from .build_db import LIB_DIRS, normalize
 from .compile import aztec_name, routine_label
 from .objread import external_label, fixup_width
-from .relink import LINKER_SYMBOLS
+from .relink import LINKER_SYMBOLS, PLACE_SYMBOLS
 
 _DATA_LOCATIONS = (omflib.LOC_OFFSET, omflib.LOC_LOADER_OFFSET)
 
@@ -113,6 +113,11 @@ def _library(project):
             except (IndexError, ValueError):
                 continue
     for module in modules:
+        module.pubdefs = [(libobjs.aztec_spelling(name), seg, offset)
+                          for name, seg, offset in module.pubdefs]
+        module.extdefs = [libobjs.aztec_spelling(name)
+                          for name in module.extdefs]
+    for module in modules:
         code = module.code_segments()
         lib.data_publics.update(name for name, seg, _ in module.pubdefs
                                 if seg not in code)
@@ -174,9 +179,13 @@ def _compiled_routines(lib, project, binary, image, label_map, entries,
     and a routine starts there (*cs_origin* is the file offset of CS:0).
     """
     from . import cache
+    from .modules import module_key
+    from .mux import compare
     starts = {str(sym): start for start, sym in label_map.items()}
+    done = set()
     for label, entry in (entries or {}).items():
-        if cache.is_asm_entry(entry) or label not in starts:
+        if (cache.is_asm_entry(entry) or label not in starts
+                or module_key(entry) in done):
             continue
         try:
             module, func = cache.compile_source_module(
@@ -184,9 +193,21 @@ def _compiled_routines(lib, project, binary, image, label_map, entries,
                 cache.seed_source_text(project, binary, label, entry))
         except Exception:
             continue
+        offset = func.members.get(cache.own_key(label, entry))
+        if offset is None:
+            continue
         functions = {f.cname + '_' for f in module.functions.values()}
-        functions |= {name + '_' for name in LINKER_SYMBOLS}
-        start = starts[label]
+        functions |= {name + '_' for name in (*LINKER_SYMBOLS, *PLACE_SYMBOLS)}
+        start = starts[label] - offset
+        # The module where the image holds it whole, else the routine's own
+        # bytes: only those are known to sit where the C puts them.
+        if not compare(func, image, start)[0]:
+            done.add(module_key(entry))
+            lo, hi = 0, len(func.code)
+        else:
+            lo = offset
+            hi = min([o for o in func.members.values() if o > offset]
+                     + [len(func.code)])
 
         def code_address(fx):
             if cs_origin is None:
@@ -196,15 +217,16 @@ def _compiled_routines(lib, project, binary, image, label_map, entries,
             return label_map.get(((word - fx.addend) & 0xFFFF)
                                  + cs_origin) is not None
 
-        refs = [(fx.offset, fx.symbol, fx.addend) for fx in func.fixups
+        fixups = [fx.rebased(-lo) for fx in func.fixups
+                  if lo <= fx.offset < hi]
+        refs = [(fx.offset, fx.symbol, fx.addend) for fx in fixups
                 if fx.symbol_kind == 'GBLSYM' and fx.kind == 'WABS'
                 and fx.symbol not in functions
-                and (fx.symbol in lib.data_publics or not code_address(fx))]
-        length = entry.get('original_length') or len(func.code)
-        yield starts[label], _Code(
-            func.code[:length],
-            [(fx.offset, fixup_width(fx.kind)) for fx in func.fixups],
-            [ref for ref in refs if ref[0] < length])
+                and (fx.symbol in lib.data_publics
+                     or not code_address(fx.rebased(lo)))]
+        yield start + lo, _Code(
+            func.code[lo:hi],
+            [(fx.offset, fixup_width(fx.kind)) for fx in fixups], refs)
 
 
 def _static_routines(func, image, pos, start_offset, span, publics):

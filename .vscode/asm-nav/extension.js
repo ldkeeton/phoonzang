@@ -123,6 +123,28 @@ function manifestEntry(where) {
     return data && data.functions ? data.functions[where.label] : null;
 }
 
+// A vendor module's file is named after its source (lib/aztec/modules.py):
+// ``aztec_croot`` is croot.c.  Two vendor files of one stem take their vendor
+// directory too: ``aztec_misc_lmalloc`` (lmalloc.c), ``aztec_dos20_lmalloc``
+// (lmalloc.asm).
+function moduleEntry(where) {
+    const data = readJson(manifestPath(where.project, where.binary));
+    if (!data || !data.functions || !where.label.startsWith('aztec_')) return null;
+    const entries = Object.values(data.functions);
+    const clean = (s) => s.toLowerCase().replace(/[^a-z0-9_]+/g, '_');
+    const stemOf = (f) => clean(f.replace(/\.[^.]*$/, ''));
+    const want = where.label.slice('aztec_'.length);
+    const plain = entries.find((e) => stemOf(e.file) === want);
+    if (plain) return plain;
+    const srcRoot = path.join(root(), 'disassembler', 'dos_compilers', 'aztec_src');
+    return entries.find((e) => {
+        const stem = stemOf(e.file);
+        if (!want.endsWith('_' + stem)) return false;
+        const dir = want.slice(0, -stem.length - 1);
+        return fs.existsSync(path.join(srcRoot, e.source_version, dir, e.file));
+    }) || null;
+}
+
 // ---------------------------------------------------------------- hover
 
 function describe(name, doc) {
@@ -154,7 +176,7 @@ function describe(name, doc) {
         const m = where.label === name ? manifestEntry(where) : manifestEntry({ ...where, label: name });
         if (m) {
             md.appendMarkdown(`\n\nvendor \`${m.file}\` (${m.source_version}) · cc ${m.compiler} · ` +
-                `${m.extracted ? 'routine slice' : 'whole module'} · ${m.original_length} bytes`);
+                `routine ${m.original_length} bytes`);
         }
     }
     return md;
@@ -433,10 +455,10 @@ async function makeC(uri) {
 
 function provenance(doc) {
     const where = locate(doc.fileName);
-    const m = where && manifestEntry(where);
+    const m = where && moduleEntry(where);
     if (m) {
-        return `vendor-recovered from ${m.file} (${m.source_version}, cc ${m.compiler}) · ` +
-            `${m.extracted ? 'routine slice' : 'whole module'} · ${m.original_length} bytes`;
+        return `vendor module ${m.file} (${m.source_version}, cc ${m.compiler}), ` +
+            `compiled whole into this fragment`;
     }
     return /auto-generated/.test(doc.lineAt(0).text) ? 'generated (decompiled)' : 'hand-written C';
 }
