@@ -7,7 +7,7 @@ api_idx_0002_IRNO:
     mov ax, 1                        ; 0x6763
     push ax                          ; 0x6766
     push word [bss_9068]             ; 0x6767
-    call draw_restore_saved_screen   ; 0x676b
+    call restore_saved_screen        ; 0x676b
     add sp, byte 4                   ; 0x676e
     mov word [bss_906a], 0           ; 0x6771
 @..api_idx_0002_IRNO.l1:

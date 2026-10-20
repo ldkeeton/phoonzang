@@ -1322,7 +1322,7 @@ jumptable_8492:
     mov ax, 1                        ; 0x84b5
     push ax                          ; 0x84b8
     push word [bp - 0x003a]          ; 0x84b9
-    call draw_restore_saved_screen   ; 0x84bc
+    call restore_saved_screen        ; 0x84bc
     add sp, byte 4                   ; 0x84bf
     mov ax, word [bp - 0x000a]       ; 0x84c2
     inc ax                           ; 0x84c5

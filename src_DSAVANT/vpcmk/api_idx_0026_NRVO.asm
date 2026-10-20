@@ -548,7 +548,7 @@ api_idx_0026_NRVO:
     mov ax, 1                        ; 0x16d3
     push ax                          ; 0x16d6
     push word [bp - 0x0026]          ; 0x16d7
-    call draw_restore_saved_screen   ; 0x16da
+    call restore_saved_screen        ; 0x16da
     add sp, byte 4                   ; 0x16dd
     mov word [bss_904e], 0xffff      ; 0x16e0
     mov ax, word [bss_9050]          ; 0x16e6

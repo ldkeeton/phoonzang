@@ -363,8 +363,12 @@ def resplice_c(app, binary, check_only=False):
         module = entry_for(app, label, entries)
         entry = module or cache.default_entry(label, app)
         apath = where(label, '.asm')
+        # The tool and flags too: the entry carries none, they come from the
+        # sidecar's ``compiler_flags`` by name.
+        tool = cache._tool(app, label, text)
         in_stamp = hashlib.sha1(
-            (env.hexdigest() + json.dumps(entry, sort_keys=True) + text)
+            (env.hexdigest() + json.dumps(entry, sort_keys=True)
+             + repr(tool) + text)
             .encode('utf-8', 'replace')).hexdigest()
         prev = stamps.get(label)
         if prev and prev['in'] == in_stamp and os.path.isfile(apath):

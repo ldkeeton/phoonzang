@@ -39,7 +39,7 @@ _TREE = shift_oracle.TREE
 # driver finding left is ega's EMS page size ``0x4000`` / count ``0x3a00``.
 # A rise from new visibility is re-measured and explained here, not hidden.
 # Data 356 -> 358: hand-written C now names its DS objects by their canonical
-# symbols (``bss_8482``, not a bare ``0x8482``), so draw_fill_action_slot_table's
+# symbols (``bss_8482``, not a bare ``0x8482``), so fill_action_slot_table's
 # 4 literals went; the host now declares 0x01a4/0x01d4/0x6a1a, which exposes 6
 # numbers equal to them by chance: the 420-byte record size passed to
 # ``malloc``/``setmem`` (0x1a4) and message number 0x1d4.
@@ -73,20 +73,20 @@ class ShiftOracleSanityTests(unittest.TestCase):
     def test_a_known_frozen_ds_address_is_reported(self):
         # ``mov si, 0x110`` names ``dseg_0110`` (ds.asm) as a number.
         r = shift_oracle.run('ds', 'data')
-        self.assertIn(('ds/dos_alloc_mem.asm', 87), _sites(r))
+        self.assertIn(('ds/load_font_file.asm', 87), _sites(r))
 
     def test_binding_the_address_clears_the_report(self):
         with tempfile.TemporaryDirectory() as d:
             tree = Path(d) / 'src_DSAVANT'
             shutil.copytree(_TREE, tree, ignore=shutil.ignore_patterns(
                 'build_out', '*.c', '*.o', '*.bin'))
-            frag = tree / 'ds/dos_alloc_mem.asm'
+            frag = tree / 'ds/load_font_file.asm'
             text = frag.read_text()
             self.assertIn('mov si, 0x110 ', text)
             frag.write_text(text.replace('mov si, 0x110 ',
-                                         'mov si, dseg_0110 ', 1))
+                                         'mov si, file_param_word ', 1))
             r = shift_oracle.run('ds', 'data', tree=tree)
-        self.assertNotIn(('ds/dos_alloc_mem.asm', 87), _sites(r))
+        self.assertNotIn(('ds/load_font_file.asm', 87), _sites(r))
 
     def test_a_displacement_counts_only_in_its_segment(self):
         # ``lea cx, [bp - 0x156]`` is a frame slot that equals a code label.

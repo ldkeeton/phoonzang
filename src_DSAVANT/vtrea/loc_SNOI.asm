@@ -8,7 +8,7 @@ loc_SNOI:
     mov ax, 5                        ; 0x7da6
     push ax                          ; 0x7da9
     push ax                          ; 0x7daa
-    call draw_load_sound_file        ; 0x7dab
+    call load_sound_file             ; 0x7dab
     add sp, byte 6                   ; 0x7dae
     mov ax, 7                        ; 0x7db1
     push ax                          ; 0x7db4
@@ -43,7 +43,7 @@ loc_SNOI:
     mov ax, 1                        ; 0x7df9
     push ax                          ; 0x7dfc
     push word [bss_9068]             ; 0x7dfd
-    call draw_restore_saved_screen   ; 0x7e01
+    call restore_saved_screen        ; 0x7e01
     add sp, byte 4                   ; 0x7e04
     mov word [bss_906a], 0           ; 0x7e07
 @..loc_SNOI.l1:

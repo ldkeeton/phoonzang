@@ -37,9 +37,9 @@ bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 
 %include "vmexe/api_idx_0004_MLLS.asm"     ; 0x030b
 
-%include "shared/draw_fill_action_slot_table.asm" ; 0x0456
+%include "shared/fill_action_slot_table.asm" ; 0x0456
 
-api_idx_000e_VRIR.api_idx1 equ draw_fill_action_slot_table
+api_idx_000e_VRIR.api_idx1 equ fill_action_slot_table
 %include "shared/api_idx_000e_VRIR.asm"     ; 0x0656
 
 %include "shared/api_idx_0004_ONRQ.asm"     ; 0x0979

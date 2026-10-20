@@ -871,7 +871,7 @@ jumptable_4fa9:
     mov ax, 1                        ; 0x4fcd
     push ax                          ; 0x4fd0
     push word [bp - 0x0038]          ; 0x4fd1
-    call draw_restore_saved_screen   ; 0x4fd4
+    call restore_saved_screen        ; 0x4fd4
     add sp, byte 4                   ; 0x4fd7
     mov word [bss_93d8], 0x8f        ; 0x4fda
     mov ax, word [bp - 0x0020]       ; 0x4fe0

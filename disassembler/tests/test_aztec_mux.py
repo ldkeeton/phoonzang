@@ -18,6 +18,8 @@ from lib.aztec import sources  # noqa: E402
 from lib.aztec.mux import MuxEngine, normalize, compare  # noqa: E402
 from lib.aztec.cache import cache_path, to_override  # noqa: E402
 from lib.cross_ref import read_label_json  # noqa: E402
+from lib.aztec.compile import LIBRARY_PREFIX  # noqa: E402
+from lib.sidecar.compiler import compiler_flags  # noqa: E402
 
 
 def _have_toolchain():
@@ -91,7 +93,7 @@ class MuxCompileTest(unittest.TestCase):
         if not os.path.exists(labels_path):
             self.skipTest('no generated label map; run "make build DSAVANT"')
         labels = {v: k for k, v in read_label_json(labels_path).items()}
-        engine = MuxEngine()
+        engine = MuxEngine(c_flags=compiler_flags('DSAVANT', LIBRARY_PREFIX))
         matches = engine.resolve('open', data, labels['aztec_open'])
         self.assertTrue(any(m.exact for m in matches))
         best = matches[0]

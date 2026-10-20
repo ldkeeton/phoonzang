@@ -7,7 +7,7 @@ api_idx_0002_SKSN:
     mov ax, 1                        ; 0x134a
     push ax                          ; 0x134d
     push word [bss_9068]             ; 0x134e
-    call draw_restore_saved_screen   ; 0x1352
+    call restore_saved_screen        ; 0x1352
     add sp, byte 4                   ; 0x1355
     mov word [bss_906a], 0           ; 0x1358
 @..api_idx_0002_SKSN.l1:

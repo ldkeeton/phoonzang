@@ -463,7 +463,7 @@ loc_MOVJ:
     mov ax, 1                        ; 0x2155
     push ax                          ; 0x2158
     push word [bp - 0x0158]          ; 0x2159
-    call draw_restore_saved_screen   ; 0x215d
+    call restore_saved_screen        ; 0x215d
     add sp, byte 4                   ; 0x2160
     cmp word [bp + 0x1c], byte 0     ; 0x2163
     je short @..loc_MOVJ.l22         ; 0x2167

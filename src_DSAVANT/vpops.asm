@@ -45,9 +45,9 @@ dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 
 %include "vpops/api_idx_0054_NQHV.asm"     ; 0x035f
 
-%include "shared/draw_fill_action_slot_table.asm" ; 0x0504
+%include "shared/fill_action_slot_table.asm" ; 0x0504
 
-api_idx_000e_VRIR.api_idx1 equ draw_fill_action_slot_table
+api_idx_000e_VRIR.api_idx1 equ fill_action_slot_table
 %include "shared/api_idx_000e_VRIR.asm"     ; 0x0704
 
 %include "shared/api_idx_0004_ONRQ.asm"     ; 0x0a27

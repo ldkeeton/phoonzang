@@ -405,7 +405,7 @@ saved_screen_ref  equ __zbss_5be0 - __zdseg_start
 ; saved_screen_kind equ __zbss_5b72 - __zdseg_start
 ; saved_screen_file equ __zbss_5b7c - __zdseg_start
 ; saved_screen_ref  equ __zbss_5be0 - __zdseg_start
-%include "ds/draw_restore_saved_screen.asm" ; 0x16a0
+%include "ds/restore_saved_screen.asm"     ; 0x16a0
 
 %include "ds/ds_app_VOML.asm"              ; 0x1741
 
@@ -481,7 +481,7 @@ slot_rec_first equ __zbss_6a1a - __zdseg_start
 
 dseg_0bd7       equ __zdseg_0bd7 - __zdseg_start
 ; sound_slot_info equ __zbss_5576 - __zdseg_start
-%include "ds/draw_load_sound_file.asm"     ; 0x2923
+%include "ds/load_sound_file.asm"          ; 0x2923
 
 ; bss_598e equ __zbss_598e - __zdseg_start
 %include "ds/ds_app_QTIV.asm"              ; 0x29f1

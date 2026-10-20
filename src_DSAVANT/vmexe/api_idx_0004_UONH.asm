@@ -49,7 +49,7 @@ api_idx_0004_UONH:
     mov ax, 1                        ; 0x1bb5
     push ax                          ; 0x1bb8
     push word [bp - 0x0004]          ; 0x1bb9
-    call draw_restore_saved_screen   ; 0x1bbc
+    call restore_saved_screen        ; 0x1bbc
     add sp, byte 4                   ; 0x1bbf
 @..api_idx_0004_UONH.l3:
     cmp word [bp - 0x0002], byte 0   ; 0x1bc2
@@ -57,7 +57,7 @@ api_idx_0004_UONH:
     mov ax, 1                        ; 0x1bc8
     push ax                          ; 0x1bcb
     push word [bp - 0x0002]          ; 0x1bcc
-    call draw_restore_saved_screen   ; 0x1bcf
+    call restore_saved_screen        ; 0x1bcf
     add sp, byte 4                   ; 0x1bd2
 @..api_idx_0004_UONH.l4:
     mov ax, 0xc2                     ; 0x1bd5

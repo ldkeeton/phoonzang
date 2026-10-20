@@ -815,7 +815,7 @@ api_idx_0074_MHUG:
     mov ax, 1                        ; 0x6e3e
     push ax                          ; 0x6e41
     push word [bp - 0x0024]          ; 0x6e42
-    call draw_restore_saved_screen   ; 0x6e45
+    call restore_saved_screen        ; 0x6e45
     add sp, byte 4                   ; 0x6e48
     mov ax, word [bp - 0x000c]       ; 0x6e4b
     inc ax                           ; 0x6e4e

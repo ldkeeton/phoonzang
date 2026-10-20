@@ -599,7 +599,7 @@ jumptable_7e61_case_0:
     push dx                          ; 0x7f71
     push word [bp - 0x0078]          ; 0x7f72
     push word [bss_8464]             ; 0x7f75
-    call draw_fill_action_slot_table ; 0x7f79
+    call fill_action_slot_table      ; 0x7f79
     add sp, byte 8                   ; 0x7f7c
     mov ax, 5                        ; 0x7f7f
     push ax                          ; 0x7f82

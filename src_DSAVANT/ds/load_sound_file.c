@@ -1,6 +1,6 @@
 extern struct { int num; int pad; long size; int pad2[2]; } sound_slot_info[];
 
-draw_load_sound_file(num, n, flag)
+load_sound_file(num, n, flag)
 {
 	int load;
 	int fd;

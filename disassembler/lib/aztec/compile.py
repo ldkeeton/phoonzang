@@ -40,6 +40,10 @@ _DOSCOMP = os.path.join(
 #: The one Aztec release the game was built with.
 VERSION = 'v42b'
 
+#: How the sidecar spells a runtime-library routine (``aztec_open``); its
+#: ``compiler_flags`` entry for this prefix is how Manx built the library.
+LIBRARY_PREFIX = 'aztec_'
+
 _COMPILER_DIRS = {
     VERSION: os.path.join(_DOSCOMP, 'Manx Aztec C86 v42b'),
 }
@@ -135,8 +139,8 @@ def routine_label(cname):
     """
     cname = cname.lstrip('$')
     if cname.startswith('_'):
-        return 'aztec_impl_' + cname.lstrip('_')
-    return 'aztec_' + cname
+        return LIBRARY_PREFIX + 'impl_' + cname.lstrip('_')
+    return LIBRARY_PREFIX + cname
 
 
 #: OMF converters that prefix ``_`` to every public (``_putc``, ``___read``
@@ -330,7 +334,7 @@ def _tool_line(kind, flags, module, log):
 
 
 def compile_module(source_text, name, *, compiler=VERSION, includes=None,
-                   flags=('-n',), keep=False, kind='c'):
+                   flags, keep=False, kind='c'):
     """Compile *source_text* and return a :class:`CompiledModule`.
 
     ``kind='asm'`` assembles a hand-written Manx ``.ASM`` module with ``as``

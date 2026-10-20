@@ -21,13 +21,6 @@ from . import sources
 from .compile import VERSION
 from .objread import fixup_width
 
-#: The library makefiles' recipe (small model): ``cc +$(MODEL) -n`` for C and
-#: ``as -dMODEL=$(AMODEL)`` for assembly (the sidecar's ``compiler_flags.asm``),
-#: ``MODEL=``/``AMODEL=0``.  Their final ``sqz`` only packs the object, never
-#: changing a code byte.
-C_FLAGS = ('-n',)
-
-
 def is_asm(filename):
     return filename.lower().endswith('.asm')
 
@@ -83,10 +76,16 @@ class Match:
 
 
 class MuxEngine:
-    def __init__(self, objcache_dir=None, patches=None, asm_flags=None):
+    def __init__(self, objcache_dir=None, patches=None, asm_flags=None,
+                 c_flags=None):
         self.objcache_dir = objcache_dir
-        # Sidecar ``compiler_flags.asm``: how ``as`` builds a vendor ``.asm``.
+        # The library makefiles' recipe (small model): ``cc +$(MODEL) -n`` for
+        # C and ``as -dMODEL=$(AMODEL)`` for assembly, ``MODEL=``/``AMODEL=0``
+        # -- the flags the sidecar's ``compiler_flags`` gives a library name
+        # (``LIBRARY_PREFIX``) and its ``.asm``.  Their final ``sqz`` only
+        # packs the object, never changing a code byte.
         self.asm_flags = asm_flags
+        self.c_flags = c_flags
         # Sidecar ``vendor_patches``: how the game's copy of a library asm
         # routine differs from the vendor source, keyed by (version, file).
         self._patches = {(p.get('version', VERSION), p['file'].lower()): p
@@ -158,7 +157,9 @@ class MuxEngine:
     def tool_flags(self, filename):
         """Switches for the tool (``cc`` or ``as``) that builds *filename*."""
         if not is_asm(filename):
-            return C_FLAGS
+            if self.c_flags is None:
+                raise ValueError(f'no "cc" flags to compile {filename}')
+            return tuple(self.c_flags)
         if self.asm_flags is None:
             raise ValueError(f'no "as" flags to assemble {filename}')
         return tuple(self.asm_flags)

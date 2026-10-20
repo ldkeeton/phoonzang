@@ -780,7 +780,7 @@ jumptable_11b9:
     mov ax, 1                        ; 0x11dd
     push ax                          ; 0x11e0
     push word [bp - 0x0038]          ; 0x11e1
-    call draw_restore_saved_screen   ; 0x11e4
+    call restore_saved_screen        ; 0x11e4
     add sp, byte 4                   ; 0x11e7
     mov ax, word [bp - 0x0020]       ; 0x11ea
     mov word [bss_904e], ax          ; 0x11ed

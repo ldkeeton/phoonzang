@@ -4,12 +4,9 @@
   "version": 1,
   "dos_compilers": ["Manx Aztec C86 v42b"],
   "compiler_flags": {
-    "default": ["-n", "+b"],
+    "default": ["-n", "+b", "+m"],
     "asm": ["-dMODEL=0", "-l"],
-    "prefixes": { 
-      "aztec_": ["-n"],
-      "draw_" : ["-n", "+b", "+m"]
-    }
+    "prefixes": {"aztec_": ["-n"]}
   },
   "vendor_patches": {
     "aztec_fexec": {
@@ -70,7 +67,7 @@
       "note": "vinstall: INT 21h AH=7, returns the key"
     },
     "api_idx_000a_IQHO": {
-      "name": "draw_fill_action_slot_table"
+      "name": "fill_action_slot_table"
     },
     "api_idx_000c_LGVL": {
       "name": "draw_party_slot_letters",
@@ -129,7 +126,7 @@
         },
         "03b8": {
           "name": "fatal_error",
-          "note": "calls ds_app_file_RKTP(code), then aztec_exit(code); draw_load_sound_file and draw_restore_saved_screen call it on open/load failures"
+          "note": "calls ds_app_file_RKTP(code), then aztec_exit(code); load_sound_file and restore_saved_screen call it on open/load failures"
         },
         "0883": {
           "name": "data_record_io",
@@ -143,14 +140,14 @@
           "name": "clamp_between"
         },
         "16a0": {
-          "name": "draw_restore_saved_screen"
+          "name": "restore_saved_screen"
         },
         "23a8": {
           "name": "data_file_path",
           "note": "(name, alt): copies one of two 20-byte path prefixes at DS 0x5912 (the second only when alt == 1 and DS 0x5987 == 5) into DS 0x69ca via ds_app_HVHT, appends name and returns 0x69ca"
         },
         "2923": {
-          "name": "draw_load_sound_file"
+          "name": "load_sound_file"
         },
         "2b62": {
           "name": "animate_sprite_up"
@@ -246,7 +243,7 @@
       "ghidra_base_offset": -512,
       "data_names": {
         "8482": {"name": "party_char", "note": "char *[] per party member; [0x19f] is the member's record slot in slot_rec_*, -1 when none"},
-        "8490": {"name": "party_char_ext", "note": "char *[] per party member, a second record; draw_fill_action_slot_table tests [0xd7] == 0x47"},
+        "8490": {"name": "party_char_ext", "note": "char *[] per party member, a second record; fill_action_slot_table tests [0xd7] == 0x47"},
         "6a1a": {"name": "slot_rec_first", "note": "unsigned char [][350]: per-slot 350-byte records read from file 8 (ds_app_file_TSNH, 0x288e); +0x00 first entry per mode"},
         "6a1e": {"name": "slot_rec_count", "note": "+0x04 of the slot record: entry count per mode"},
         "6a22": {"name": "slot_rec_action", "note": "+0x08 of the slot record: base action per entry"},

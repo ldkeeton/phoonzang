@@ -408,9 +408,7 @@ async function makeC(uri) {
             `It must compile to byte-exact matching asm; never hand-edit the asm.`,
         `Build commands: \`make rebuild\` (repo root) is the sole pass/fail gate; the only other is ` +
             `\`${build}\`, for renaming. Do not look for, read, or run any other build commands, Makefiles, or scripts.`,
-        `Compiler flags come from the routine name's longest matching prefix: ${flagList}. ` +
-            `If a mismatch is flag-shaped (e.g. an \`imul\` encoding, which needs \`+m\`), the routine probably ` +
-            `needs a \`draw_\` name: rename it as below and rebuild.`,
+        `Compiler flags come from the routine name's longest matching prefix: ${flagList}.`,
         `To rename to NAME: (1) in ${rel(sidecarPath(where.project))}, set \`"${key}": {"name": "NAME"}\` under ` +
             `${table} (keep any "note", keep keys sorted); (2) run \`${build}\`, which regenerates the asm as ` +
             `NAME.asm; (3) rename the C file to NAME.c and the function in it (and any C callers) to NAME; ` +

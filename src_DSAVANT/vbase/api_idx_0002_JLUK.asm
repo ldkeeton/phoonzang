@@ -7,7 +7,7 @@ api_idx_0002_JLUK:
     mov ax, 1                        ; 0x680d
     push ax                          ; 0x6810
     push word [bss_9068]             ; 0x6811
-    call draw_restore_saved_screen   ; 0x6815
+    call restore_saved_screen        ; 0x6815
     add sp, byte 4                   ; 0x6818
     mov word [bss_906a], 0           ; 0x681b
 @..api_idx_0002_JLUK.l1:

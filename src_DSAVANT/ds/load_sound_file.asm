@@ -1,5 +1,5 @@
 ; auto-generated
-draw_load_sound_file: ; Aztec csav frame=0x0018
+load_sound_file: ; Aztec csav frame=0x0018
     mov ax, 0xffe8                   ; 0x2923
     call aztec_csav                  ; 0x2926
     mov ax, 0                        ; 0x2929
@@ -22,21 +22,21 @@ draw_load_sound_file: ; Aztec csav frame=0x0018
     imul word [bp + 0x6]             ; 0x2954
     mov bx, ax                       ; 0x2957
     cmp word [bx + sound_slot_info + 0x6], byte 0 ; 0x2959
-    jne short @..draw_load_sound_file.l1 ; 0x295e
+    jne short @..load_sound_file.l1  ; 0x295e
     cmp word [bx + sound_slot_info + 0x4], byte 0 ; 0x2960
-@..draw_load_sound_file.l1:
-    jne short @..draw_load_sound_file.l3 ; 0x2965
+@..load_sound_file.l1:
+    jne short @..load_sound_file.l3  ; 0x2965
     mov ax, word [bx + sound_slot_info] ; 0x2967
     mov word [bp + 0x4], ax          ; 0x296b
     mov ax, 1                        ; 0x296e
     cmp word [bp + 0x8], byte 0      ; 0x2971
-    je short @..draw_load_sound_file.l2 ; 0x2975
+    je short @..load_sound_file.l2   ; 0x2975
     mov ax, 0                        ; 0x2977
-@..draw_load_sound_file.l2:
+@..load_sound_file.l2:
     mov word [bp - 0x0002], ax       ; 0x297a
-@..draw_load_sound_file.l3:
+@..load_sound_file.l3:
     cmp word [bp - 0x0002], byte 0   ; 0x297d
-    je short @..draw_load_sound_file.l6 ; 0x2981
+    je short @..load_sound_file.l6   ; 0x2981
     mov ax, dseg_0bd7                ; 0x2983
     push ax                          ; 0x2986
     lea ax, word [bp - 0x0018]       ; 0x2987
@@ -65,25 +65,25 @@ draw_load_sound_file: ; Aztec csav frame=0x0018
     add sp, byte 4                   ; 0x29be
     mov word [bp - 0x0004], ax       ; 0x29c1
     cmp ax, strict word 0xffff       ; 0x29c4
-    jne short @..draw_load_sound_file.l4 ; 0x29c7
+    jne short @..load_sound_file.l4  ; 0x29c7
     mov ax, 0xb                      ; 0x29c9
     push ax                          ; 0x29cc
     call fatal_error                 ; 0x29cd
     pop cx                           ; 0x29d0
-@..draw_load_sound_file.l4:
+@..load_sound_file.l4:
     push word [bp + 0x6]             ; 0x29d1
     push word [bp - 0x0004]          ; 0x29d4
     call gfx_load_sound              ; 0x29d7
     add sp, byte 4                   ; 0x29da
     test ax, ax                      ; 0x29dd
-    je short @..draw_load_sound_file.l5 ; 0x29df
+    je short @..load_sound_file.l5   ; 0x29df
     mov ax, 0xc                      ; 0x29e1
     push ax                          ; 0x29e4
     call fatal_error                 ; 0x29e5
     pop cx                           ; 0x29e8
-@..draw_load_sound_file.l5:
+@..load_sound_file.l5:
     push word [bp - 0x0004]          ; 0x29e9
     call aztec_close                 ; 0x29ec
     pop cx                           ; 0x29ef
-@..draw_load_sound_file.l6:
+@..load_sound_file.l6:
     ret                              ; 0x29f0

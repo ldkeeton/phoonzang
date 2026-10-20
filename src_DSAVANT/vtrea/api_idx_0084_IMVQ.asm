@@ -1667,7 +1667,7 @@ jumptable_34f1:
     mov ax, 1                        ; 0x3521
     push ax                          ; 0x3524
     push word [bp - 0x0076]          ; 0x3525
-    call draw_restore_saved_screen   ; 0x3528
+    call restore_saved_screen        ; 0x3528
     add sp, byte 4                   ; 0x352b
     mov word [bss_911c], 0x8f        ; 0x352e
     mov ax, word [bp - 0x000c]       ; 0x3534

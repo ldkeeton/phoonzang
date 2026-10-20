@@ -2,7 +2,7 @@ extern int saved_screen_kind[];
 extern struct { char name[20]; } saved_screen_file[];
 extern long saved_screen_ref[];
 
-draw_restore_saved_screen(n, flag)
+restore_saved_screen(n, flag)
 {
 	int fd;
 

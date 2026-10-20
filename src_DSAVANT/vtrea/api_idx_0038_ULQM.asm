@@ -868,7 +868,7 @@ jumptable_4213:
     mov ax, 1                        ; 0x4237
     push ax                          ; 0x423a
     push word [bp - 0x0038]          ; 0x423b
-    call draw_restore_saved_screen   ; 0x423e
+    call restore_saved_screen        ; 0x423e
     add sp, byte 4                   ; 0x4241
     mov word [bss_911c], 0x8f        ; 0x4244
     mov ax, word [bp - 0x0020]       ; 0x424a

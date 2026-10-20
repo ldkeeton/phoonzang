@@ -516,7 +516,7 @@ loc_TRPK:
     mov ax, 1                        ; 0x08cd
     push ax                          ; 0x08d0
     push word [bp - 0x01a8]          ; 0x08d1
-    call draw_restore_saved_screen   ; 0x08d5
+    call restore_saved_screen        ; 0x08d5
     add sp, byte 4                   ; 0x08d8
     cmp word [bp + 0x1a], byte 0     ; 0x08db
     je short @..loc_TRPK.l27         ; 0x08df

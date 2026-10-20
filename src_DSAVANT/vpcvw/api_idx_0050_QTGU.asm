@@ -1347,7 +1347,7 @@ jumptable_38dd:
     mov ax, 1                        ; 0x3900
     push ax                          ; 0x3903
     push word [bp - 0x003a]          ; 0x3904
-    call draw_restore_saved_screen   ; 0x3907
+    call restore_saved_screen        ; 0x3907
     add sp, byte 4                   ; 0x390a
     mov ax, word [bp - 0x000a]       ; 0x390d
     inc ax                           ; 0x3910

@@ -7,7 +7,7 @@ loc_QIIH:
     mov ax, 1                        ; 0x001b
     push ax                          ; 0x001e
     push word [bss_9068]             ; 0x001f
-    call draw_restore_saved_screen   ; 0x0023
+    call restore_saved_screen        ; 0x0023
     add sp, byte 4                   ; 0x0026
     mov word [bss_906a], 0           ; 0x0029
 @..loc_QIIH.l1:

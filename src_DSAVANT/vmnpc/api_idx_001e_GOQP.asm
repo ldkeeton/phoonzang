@@ -38,7 +38,7 @@ api_idx_001e_GOQP:
     mov ax, 1                        ; 0x710a
     push ax                          ; 0x710d
     push word [bss_9068]             ; 0x710e
-    call draw_restore_saved_screen   ; 0x7112
+    call restore_saved_screen        ; 0x7112
     add sp, byte 4                   ; 0x7115
     mov word [bss_906a], 0           ; 0x7118
 @..api_idx_001e_GOQP.l4:

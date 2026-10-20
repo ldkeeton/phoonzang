@@ -337,7 +337,7 @@ loc_LSRQ:
     mov ax, 1                        ; 0x053b
     push ax                          ; 0x053e
     push word [bp - 0x0154]          ; 0x053f
-    call draw_restore_saved_screen   ; 0x0543
+    call restore_saved_screen        ; 0x0543
     add sp, byte 4                   ; 0x0546
     mov ax, word [bp - 0x0004]       ; 0x0549
     mov word [bss_9052], ax          ; 0x054c

@@ -737,7 +737,7 @@ api_idx_006a_NKMN:
     mov ax, 1                        ; 0x66c0
     push ax                          ; 0x66c3
     push word [bp - 0x0018]          ; 0x66c4
-    call draw_restore_saved_screen   ; 0x66c7
+    call restore_saved_screen        ; 0x66c7
     add sp, byte 4                   ; 0x66ca
     mov ax, word [bp - 0x000c]       ; 0x66cd
     inc ax                           ; 0x66d0

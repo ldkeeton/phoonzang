@@ -11,7 +11,7 @@ extern unsigned char slot_rec_ranges[][350];
 extern unsigned char action_slot_mode[];
 extern unsigned char action_slot_table[];
 
-draw_fill_action_slot_table(a, b, c, d)
+fill_action_slot_table(a, b, c, d)
 int a, b, c, d;
 {
 	int v1, i, j, k, flag;

@@ -1347,7 +1347,7 @@ jumptable_1d9a:
     mov ax, 1                        ; 0x1dbd
     push ax                          ; 0x1dc0
     push word [bp - 0x003a]          ; 0x1dc1
-    call draw_restore_saved_screen   ; 0x1dc4
+    call restore_saved_screen        ; 0x1dc4
     add sp, byte 4                   ; 0x1dc7
     mov ax, word [bp - 0x000a]       ; 0x1dca
     inc ax                           ; 0x1dcd
