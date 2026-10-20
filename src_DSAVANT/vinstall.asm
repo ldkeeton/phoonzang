@@ -440,7 +440,7 @@ _STKSIZ           equ __z_STKSIZ - __zdseg_start
 _STKRED           equ __z_STKRED - __zdseg_start
 _HEAPSIZ          equ __z_HEAPSIZ - __zdseg_start
 _STKLOW           equ __z_STKLOW - __zdseg_start
-; keep              equ __zbss_2534 - __zdseg_start
+_Uorg             equ __zbss_2534 - __zdseg_start
 __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "vinstall/aztec_sbegin.asm"       ; 0x35ce
 
@@ -3237,6 +3237,7 @@ __zdseg_2533:
 
 __zimage_end:
 absolute __zimage_end
+__zbss_2534:
 __zbss_2534:
     resb 0x0002
 __zbss_2536:

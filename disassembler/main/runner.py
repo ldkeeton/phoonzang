@@ -661,23 +661,25 @@ def _sidecar_routine(name, offset):
 
 
 def _data_names(project, name, data, label_map, segments, host, entries):
-    """Known names for data-segment offsets: the library's, or the host's.
+    """Known names for data-segment offsets: the library's, and the host's.
 
-    An overlay runs in its host's data segment, so it takes the names the host
-    exported (:func:`_export_labels`) rather than reading its own.
+    The library code in the binary names the data it uses.  An overlay runs in
+    its host's data segment, so it also takes the names the host exported
+    (:func:`_export_labels`); those win where both name an offset.  Its own
+    library code still names the data the overlay brought along (``$ovbgn``'s
+    ``save_ret``), which the host never sees.
     """
     if not project:
         return {}
-    if segments.kind == 'overlay':
-        if not host:
-            return {}
+    from lib.aztec import libnames
+    names = libnames.data_symbols(project, name, data, label_map, segments,
+                                  entries)
+    if segments.kind == 'overlay' and host:
         from lib.cachedirs import labels_dir
         from lib.cross_ref import read_label_json
-        return read_label_json(os.path.join(labels_dir(project),
-                                            f'{host}_datanames.json'))
-    from lib.aztec import libnames
-    return libnames.data_symbols(project, name, data, label_map, segments,
-                                 entries)
+        names.update(read_label_json(os.path.join(labels_dir(project),
+                                                  f'{host}_datanames.json')))
+    return names
 
 
 def _apply_sidecar_data_names(segments, sidecar_entry):

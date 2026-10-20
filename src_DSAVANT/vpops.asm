@@ -2,7 +2,7 @@
 %include "inc/structs/structs.inc"
 %include "inc/structs/vpops.inc"
 bits 16
-%include "inc/host_symbols.inc"
+%include "include/host_symbols.inc"
 %ifndef VBASE
 %ifdef ELF_BUILD
 VBASE equ 0
@@ -16,17 +16,17 @@ IMAGE_BASE equ 0x000e + VBASE
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2                             ; o_magic: overlay signature (0x00f2)
-    dw __zres_end                         ; 0x5055 ; o_corg: code load origin (memory offset)
-    dw (__zdata_start - __zcode_start)    ; 0x4ecd ; o_csize: code size in bytes
-    dw __zdseg_end                        ; 0x9098 ; o_dorg: data load origin (memory offset)
-    dw (__zimage_end - __zdata_start)     ; 0x003e ; o_dsize: initialized data size
-    dw __zobss_end - __zimage_end         ; 0x02b8 ; o_bss: uninitialized data size
-    dw loc_JHJT - IMAGE_BASE + __zres_end ; 0x9ee4 ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                                ; o_magic: overlay signature (0x00f2)
+    dw __zres_end                            ; 0x5055 ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start)       ; 0x4ecd ; o_csize: code size in bytes
+    dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)        ; 0x003e ; o_dsize: initialized data size
+    dw __zobss_end - __zimage_end            ; 0x02b8 ; o_bss: uninitialized data size
+    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0x9ee4 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 
-%include "vpops/loc_PTRJ.asm"              ; 0x000e
+%include "vpops/ovmain.asm"                ; 0x000e
 
 %include "shared/api_idx_002a_STSK.asm"     ; 0x0022
 
@@ -133,44 +133,55 @@ bss_9388 equ __zdseg_end + (__zobss_9388 - __zdata_start)
 ; bss_9388 equ __zdseg_end + (__zobss_9388 - __zdata_start)
 bss_938a equ __zdseg_end + (__zobss_938a - __zdata_start)
 bss_938c equ __zdseg_end + (__zobss_938c - __zdata_start)
-%include "vpops/api_idx_0004_PPTR.asm"     ; 0x4e3b
+%include "vpops/api_idx_0004_NRTK.asm"     ; 0x4e3b
 
-dseg_90cc equ __zdseg_end + (__zdseg_90cc - __zdata_start)
-dseg_90ce equ __zdseg_end + (__zdseg_90ce - __zdata_start)
-dseg_90d0 equ __zdseg_end + (__zdseg_90d0 - __zdata_start)
-dseg_90d2 equ __zdseg_end + (__zdseg_90d2 - __zdata_start)
-dseg_90d4 equ __zdseg_end + (__zdseg_90d4 - __zdata_start)
-; bss_90d6  equ __zdseg_end + (__zobss_90d6 - __zdata_start)
-%include "vpops/loc_JHJT.asm"              ; 0x4e9d
+save_si  equ __zdseg_end + 0x0034
+save_di  equ __zdseg_end + 0x0036
+save_sp  equ __zdseg_end + 0x0038
+save_bp  equ __zdseg_end + 0x003a
+save_ret equ __zdseg_end + 0x003c
+_Uorg    equ __zdseg_end + (__zobss_90d6 - __zdata_start)
+_Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
+%include "shared/aztec_ovbgn.asm"           ; 0x4e9d
 
 __zdseg_9098:
 __zdata_start:
-    db 'V1.$$$', 0
+    push si                          ; 0x4edb
+    xor word [bss_2424], bp          ; 0x4edc
+    and al, 0                        ; 0x4ee0
 __zdseg_909f:
-    db 'V1.$$$', 0
+    push si                          ; 0x4ee2
+    xor word [bss_2424], bp          ; 0x4ee3
+    and al, 0                        ; 0x4ee7
 __zdseg_90a6:
-    db 'V2.$$$', 0
+    push si                          ; 0x4ee9
+    xor ch, byte [bss_2424]          ; 0x4eea
+    and al, 0                        ; 0x4eee
 __zdseg_90ad:
-    db 'V3.$$$', 0
+    push si                          ; 0x4ef0
+    xor bp, word [bss_2424]          ; 0x4ef1
+    and al, 0                        ; 0x4ef5
 __zdseg_90b4:
-    db 'V1.$$$', 0
+    push si                          ; 0x4ef7
+    xor word [bss_2424], bp          ; 0x4ef8
+    and al, 0                        ; 0x4efc
 __zdseg_90bb:
-    db 0x2a, 0x2a, 0x2a, 0x00
+    sub ch, byte [bp + si]           ; 0x4efe
+    sub al, byte [bx + si]           ; 0x4f00
 __zdseg_90bf:
-    db 'V.$$$', 0
+    push si                          ; 0x4f02
+    cs and al, 0x24                  ; 0x4f03
+    and al, 0                        ; 0x4f06
 __zdseg_90c5:
-    db 'V.$$$', 0
+    push si                          ; 0x4f08
+    cs and al, 0x24                  ; 0x4f09
+    and al, 0                        ; 0x4f0c
+    add byte [bx + si], al           ; 0x4f0e
+    add byte [bx + si], al           ; 0x4f10
+    add byte [bx + si], al           ; 0x4f12
+    add byte [bx + si], al           ; 0x4f14
+    add byte [bx + si], al           ; 0x4f16
     db 0x00
-__zdseg_90cc:
-    db 0x00, 0x00
-__zdseg_90ce:
-    db 0x00, 0x00
-__zdseg_90d0:
-    db 0x00, 0x00
-__zdseg_90d2:
-    db 0x00, 0x00
-__zdseg_90d4:
-    db 0x00, 0x00
 
 __zimage_end:
 absolute __zimage_end

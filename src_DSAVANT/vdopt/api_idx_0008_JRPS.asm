@@ -672,7 +672,7 @@ jumptable_2326_case_41:
     jmp short @..api_idx_0008_JRPS.l37 ; 0x231e
 @..api_idx_0008_JRPS.l36:
     mov cx, 0x1a                     ; 0x2320
-    call leaf_loc_MKTK               ; 0x2323
+    call aztec_cswt                  ; 0x2323
 jumptable_2326:
     dw 0x000c                                  ; 0x2326 ; literal
     dw 0x0011                                  ; 0x2328 ; literal

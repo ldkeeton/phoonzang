@@ -2,7 +2,7 @@
 %include "inc/structs/structs.inc"
 %include "inc/structs/vdopt.inc"
 bits 16
-%include "inc/host_symbols.inc"
+%include "include/host_symbols.inc"
 %ifndef VBASE
 %ifdef ELF_BUILD
 VBASE equ 0
@@ -16,19 +16,19 @@ IMAGE_BASE equ 0x000e + VBASE
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2                             ; o_magic: overlay signature (0x00f2)
-    dw __zres_end                         ; 0x5055 ; o_corg: code load origin (memory offset)
-    dw (__zdata_start - __zcode_start)    ; 0x4721 ; o_csize: code size in bytes
-    dw __zdseg_end                        ; 0x9098 ; o_dorg: data load origin (memory offset)
-    dw (__zimage_end - __zdata_start)     ; 0x001e ; o_dsize: initialized data size
-    dw __zobss_end - __zimage_end         ; 0x0cde ; o_bss: uninitialized data size
-    dw loc_QVSH - IMAGE_BASE + __zres_end ; 0x9720 ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                                ; o_magic: overlay signature (0x00f2)
+    dw __zres_end                            ; 0x5055 ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start)       ; 0x4721 ; o_csize: code size in bytes
+    dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)        ; 0x001e ; o_dsize: initialized data size
+    dw __zobss_end - __zimage_end            ; 0x0cde ; o_bss: uninitialized data size
+    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0x9720 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 
 bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 bss_90b8 equ __zdseg_end + (__zobss_90b8 - __zdata_start)
-%include "vdopt/loc_QIIH.asm"              ; 0x000e
+%include "vdopt/ovmain.asm"                ; 0x000e
 
 %include "shared/loc_MPHO.asm"              ; 0x00a5
 
@@ -139,7 +139,7 @@ bss_9b0c equ __zdseg_end + (__zobss_9b0c - __zdata_start)
 %include "vdopt/api_idx_0002_OHVL.asm"     ; 0x195b
 
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-dseg_9099 equ __zdseg_end + (__zdseg_9099 - __zdata_start)
+dseg_9099 equ __zdseg_end + 0x0001
 %include "vdopt/api_idx_00fa_RIMJ.asm"     ; 0x1a5d
 
 %include "shared/loc_QQUT.asm"              ; 0x1c7f
@@ -199,18 +199,45 @@ bss_9d90  equ __zdseg_end + (__zobss_9d90 - __zdata_start)
 ; bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 ; bss_9b5e equ __zdseg_end + (__zobss_9b5e - __zdata_start)
 ; bss_9d90 equ __zdseg_end + (__zobss_9d90 - __zdata_start)
-%include "vdopt/api_idx_0004_PMJJ.asm"     ; 0x45dd
+%include "vdopt/api_idx_0004_NQNQ.asm"     ; 0x45dd
 
-dseg_90ac equ __zdseg_end + (__zdseg_90ac - __zdata_start)
-dseg_90ae equ __zdseg_end + (__zdseg_90ae - __zdata_start)
-dseg_90b0 equ __zdseg_end + (__zdseg_90b0 - __zdata_start)
-dseg_90b2 equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
-dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
-; bss_90b6  equ __zdseg_end + (__zobss_90b6 - __zdata_start)
-%include "vdopt/loc_QVSH.asm"              ; 0x46d9
+save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
+save_di  equ __zdseg_end + (__zsave_di - __zdata_start)
+save_sp  equ __zdseg_end + (__zsave_sp - __zdata_start)
+save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
+save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
+_Uorg    equ __zdseg_end + (__zobss_90b6 - __zdata_start)
+_Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
+%include "shared/aztec_ovbgn.asm"           ; 0x46d9
 
-%include "vdopt/leaf_loc_MKTK.asm"         ; 0x4717
+%include "shared/aztec_cswit.asm"           ; 0x4717
 
+__zdseg_9098:
+__zdata_start:
+    add byte [bx + si], al           ; 0x472f
+__zdseg_909a:
+    sub ch, byte [bp + si]           ; 0x4731
+    sub al, byte [bx + si]           ; 0x4733
+__zdseg_909e:
+    push si                          ; 0x4735
+    cs and al, 0x24                  ; 0x4736
+    and al, 0                        ; 0x4739
+__zdseg_90a4:
+    push si                          ; 0x473b
+    cs and al, 0x24                  ; 0x473c
+    and al, 0                        ; 0x473f
+__zdseg_90aa:
+    add byte [bx + si], al           ; 0x4741
+__zsave_si:
+    add byte [bx + si], al           ; 0x4743
+__zsave_di:
+    add byte [bx + si], al           ; 0x4745
+__zsave_sp:
+    add byte [bx + si], al           ; 0x4747
+__zsave_bp:
+    add byte [bx + si], al           ; 0x4749
+__zsave_ret:
+    add byte [bx + si], al           ; 0x474b
 
 __zimage_end:
 absolute __zimage_end

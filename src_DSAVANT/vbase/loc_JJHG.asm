@@ -9,7 +9,7 @@ jumptable_1698_case_37:
     ret                              ; 0x1691
 @..loc_JJHG.l1:
     mov cx, 0x26                     ; 0x1692
-    call leaf_loc_RJLR               ; 0x1695
+    call aztec_cswt                  ; 0x1695
 jumptable_1698:
     dw 0x001c                                  ; 0x1698 ; literal
     dw 0x0026                                  ; 0x169a ; literal
@@ -155,7 +155,7 @@ jumptable_17ce_case_19:
     ret                              ; 0x17c7
 @..loc_JJHG.l12:
     mov cx, 0x14                     ; 0x17c8
-    call leaf_loc_RJLR               ; 0x17cb
+    call aztec_cswt                  ; 0x17cb
 jumptable_17ce:
     dw 0x00ea                                  ; 0x17ce ; literal
     dw 0x00ec                                  ; 0x17d0 ; literal

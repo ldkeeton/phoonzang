@@ -99,7 +99,7 @@ class Item:
 def _parse_listing(text, master):
     """Instruction and ``dw`` lines of the image, in order.
 
-    Lines inside ``inc/host_symbols.inc`` assemble into a nobits section (the
+    Lines inside ``include/host_symbols.inc`` assemble into a nobits section (the
     host's frame) and are skipped.  The include stack recovers each line's file.
     """
     items = []
@@ -123,7 +123,7 @@ def _parse_listing(text, master):
             host_depth = None
         inc = _INCLUDE_RE.match(src)
         pending = inc.group(1) if inc else None
-        if inc and inc.group(1) == 'inc/host_symbols.inc':
+        if inc and inc.group(1) == 'include/host_symbols.inc':
             host_depth = d
         if off is None or not hexb or host_depth is not None:
             continue
@@ -208,7 +208,7 @@ def _strings(ds):
 
 
 def _kind(src):
-    if 'inc/host_symbols.inc' in src:
+    if 'include/host_symbols.inc' in src:
         return 'overlay'
     if '__zdseg_start:' in src:
         return 'mz'

@@ -274,7 +274,7 @@ api_idx_0018_USPR:
     mov ax, dx                       ; 0x1f3d
     test ax, ax                      ; 0x1f3f
     jne short @..api_idx_0018_USPR.l31 ; 0x1f41
-    call api_idx_0032_RMHI           ; 0x1f43
+    call api_idx_0032_TNQM           ; 0x1f43
     dec word [bp - 0x000e]           ; 0x1f46
     mov ax, 0x3cf                    ; 0x1f49
     cmp byte [bss_5988], 1           ; 0x1f4c

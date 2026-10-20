@@ -42,11 +42,22 @@ LINKER_SYMBOLS = {'_Cend': '__zres_end', '_Uend': '__zdseg_end'}
 #: Linker symbols that mark a place rather than name an object: ``_Uorg`` is
 #: where uninitialized data starts, so the build names it after the object
 #: that starts there (``keep`` in vinstall, ``bss_0cf6`` in ds).
-PLACE_SYMBOLS = {'_Uorg'}
+PLACE_SYMBOLS = frozenset({'_Uorg'})
+
+#: An overlay is linked on its own, so its ``_Uend`` is the end of its own
+#: uninitialized data (``o_dorg + o_dsize + o_bss``: ``$ovbgn`` clears up to
+#: it), not the host's data-segment end: a place, like ``_Uorg``.
+OVERLAY_PLACE_SYMBOLS = PLACE_SYMBOLS | {'_Uend'}
 
 
-def linked_name(c_name):
-    """The asm name of C external *c_name*: itself, or the linker symbol's."""
+def linked_name(c_name, places=PLACE_SYMBOLS):
+    """The asm name of C external *c_name*: itself, or the linker symbol's.
+
+    A place symbol of the image (*places*) keeps its C name: the build names
+    the object at that place instead.
+    """
+    if c_name in places:
+        return c_name
     return LINKER_SYMBOLS.get(c_name, c_name)
 
 
@@ -66,13 +77,18 @@ class SymbolIndex:
     *image_base* is where CS offset 0 sits in the file, which a code label's
     address as a value (``cls_ = closall``) needs; None where code addresses
     do not follow that convention.  *data_names* are the image's known DS
-    names (``{offset: Symbol}``, ``SegmentModel.data_names``).
+    names (``{offset: Symbol}``, ``SegmentModel.data_names``).  *places* are
+    the linker symbols that mark a place in this image.
     """
 
     def __init__(self, label_map=None, foreign_label_map=None,
                  data_labels=None, mem_equ=None, data_symbol=None,
-                 data_bytes=None, image_base=None, data_names=None):
+                 data_bytes=None, image_base=None, data_names=None,
+                 places=PLACE_SYMBOLS):
         self.data_symbol = data_symbol
+        # The linker symbols that mark a place in this image (PLACE_SYMBOLS,
+        # or OVERLAY_PLACE_SYMBOLS for an overlay).
+        self.places = places
         # The image's known DS names (the vendor C's, the library's) by name,
         # whether or not an asm operand uses them yet.
         self.named_data = {str(sym): sym for sym in (data_names or {}).values()}
@@ -309,16 +325,16 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None):
             _put(code, site, 2, target - (start + site + 2))
             out.refs[site] = Ref(site, 2, name, True, {name: target})
         elif fx.symbol_kind == 'GBLSYM' and fx.kind == 'WABS':
-            name = linked_name(external_label(fx.symbol))
-            if name in PLACE_SYMBOLS:
+            name = linked_name(external_label(fx.symbol), index.places)
+            if name in index.places:
                 word = int.from_bytes(original[start + site:start + site + 2],
                                       'little')
                 value = (word - fx.addend) & 0xffff
-                there = sorted(n for n, v in index.data.items() if v == value)
-                sym = there[0] if there else canonical_data(fx, value)
+                sym = Symbol(name, kind=Kind.DATA, source=Source.LIBRARY,
+                             offset=value,
+                             space=canonical_data(fx, value).space)
                 put_data(fx, sym, value)
-                if not there:
-                    out.minted[sym] = value
+                out.minted[sym] = value
             elif name in index.data:
                 put_data(fx, name, index.data[name])
             elif name in index.code:

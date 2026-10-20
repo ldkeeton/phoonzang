@@ -202,12 +202,42 @@ def _plausible_start(data, entry, known_targets):
     return data[entry:entry + 3] == _PUSH_BP_MOV_BP_SP
 
 
+def _holds_body(data, entry, sig):
+    """True when *data* holds one of *sig*'s ``bodies`` at *entry*: every byte
+    equal outside the body's relocation sites.  A signature without bodies
+    (not built from library objects) is not checked."""
+    bodies = sig.get('bodies')
+    if not bodies:
+        return True
+    for body in bodies:
+        ref = bytes.fromhex(body['bytes'].replace(' ', ''))
+        if entry < 0 or entry + len(ref) > len(data):
+            continue
+        got = bytearray(data[entry:entry + len(ref)])
+        ref = bytearray(ref)
+        for off, width in body['relocs']:
+            got[off:off + width] = ref[off:off + width]
+        if got == ref:
+            return True
+    return False
+
+
 def anchor_signature(data, idx, sig, known_targets, md, max_func_size=256,
                      window_len=0):
     """Resolve a signature match at *idx* to ``(func_start, func_end)``.
 
-    Returns ``None`` when no plausible function entry can be established.
+    Returns ``None`` when no plausible function entry can be established, or
+    when the routine at that entry is not the signature's library routine
+    (:func:`_holds_body`).
     """
+    anchored = _anchor(data, idx, sig, known_targets, md, max_func_size,
+                       window_len)
+    if anchored is not None and not _holds_body(data, anchored[0], sig):
+        return None
+    return anchored
+
+
+def _anchor(data, idx, sig, known_targets, md, max_func_size, window_len):
     known = set(known_targets or ())
     n = len(data)
     entry_offset = sig.get('entry_offset')

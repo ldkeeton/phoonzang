@@ -341,19 +341,22 @@ def symbol_index(label_map, foreign_label_map, data_labels, sym_equ,
     """The :class:`lib.aztec.relink.SymbolIndex` a C routine links against.
 
     *segments* gives the data segment its canonical names and bytes; an
-    overlay's code addresses do not follow the image-base convention.
+    overlay's code addresses do not follow the image-base convention, and its
+    ``_Uend`` marks a place (:data:`lib.aztec.relink.OVERLAY_PLACE_SYMBOLS`).
     """
     canonical = None
     if segments is not None and segments.data_space(0) is not None:
         def canonical(offset):
             return data_symbol(segments, offset)
+    overlay = getattr(segments, 'kind', None) == 'overlay'
     return relink.SymbolIndex(
         label_map, foreign_label_map, data_labels, sym_equ,
         data_symbol=canonical,
         data_bytes=lambda off, n: _data_bytes(segments, binary_data, off, n),
-        image_base=(None if getattr(segments, 'kind', None) == 'overlay'
-                    else image_base),
-        data_names=getattr(segments, 'data_names', None))
+        image_base=None if overlay else image_base,
+        data_names=getattr(segments, 'data_names', None),
+        places=(relink.OVERLAY_PLACE_SYMBOLS if overlay
+                else relink.PLACE_SYMBOLS))
 
 
 def _apply_c_overrides(records, c_overrides, binary_data, label_map,

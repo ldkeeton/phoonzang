@@ -170,11 +170,12 @@ def _library_routines(lib, image, label_map):
 
 def _compiled_routines(lib, project, binary, image, label_map, entries,
                        cs_origin=None):
-    """``(start, _Code)`` for each mux-recovered C routine's pristine seed.
+    """``(start, _Code)`` for each mux-recovered routine's pristine seed.
 
-    Every data object the vendor C names is read, not only the library's
-    publics: a ``static`` (``Argv`` in ``croot.c``) or a name only a header
-    spells (``ctp_`` in ``isdigit``) is that object's name too.  An address
+    Every data object the vendor source names is read, not only the library's
+    publics: a ``static`` (``Argv`` in ``croot.c``), a name only a header
+    spells (``ctp_`` in ``isdigit``), or an assembly module's own data
+    (``save_ret`` in ``ovbgn.asm``) is that object's name too.  An address
     taken of code (``cls_ = closall``) is not data: its word is a CS offset,
     and a routine starts there (*cs_origin* is the file offset of CS:0).
     """
@@ -184,8 +185,7 @@ def _compiled_routines(lib, project, binary, image, label_map, entries,
     starts = {str(sym): start for start, sym in label_map.items()}
     done = set()
     for label, entry in (entries or {}).items():
-        if (cache.is_asm_entry(entry) or label not in starts
-                or module_key(entry) in done):
+        if label not in starts or module_key(entry) in done:
             continue
         try:
             module, func = cache.compile_source_module(

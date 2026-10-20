@@ -64,8 +64,10 @@ dseg_0cdd equ __zdseg_0cdd - __zdseg_start
 dseg_0cde equ __zdseg_0cde - __zdseg_start
 bss_0e36 equ __zbss_0e36 - __zdseg_start
 bss_0e4c equ __zbss_0e4c - __zdseg_start
+bss_2424 equ __zbss_2424 - __zdseg_start
 bss_2d40 equ __zbss_2d40 - __zdseg_start
 bss_2d58 equ __zbss_2d58 - __zdseg_start
+bss_4756 equ __zbss_4756 - __zdseg_start
 bss_5528 equ __zbss_5528 - __zdseg_start
 bss_552a equ __zbss_552a - __zdseg_start
 bss_5642 equ __zbss_5642 - __zdseg_start
@@ -1002,7 +1004,7 @@ _STKSIZ           equ __z_STKSIZ - __zdseg_start
 _STKRED           equ __z_STKRED - __zdseg_start
 _HEAPSIZ          equ __z_HEAPSIZ - __zdseg_start
 _STKLOW           equ __z_STKLOW - __zdseg_start
-; bss_0cf6          equ __zbss_0cf6 - __zdseg_start
+_Uorg             equ __zbss_0cf6 - __zdseg_start
 ; __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "ds/aztec_sbegin.asm"             ; 0x4d36
 
@@ -1444,6 +1446,7 @@ __zdseg_0cf5:
 __zimage_end:
 absolute __zimage_end
 __zbss_0cf6:
+__zbss_0cf6:
     resb 0x0002
 __zbss_0cf8:
     resb 0x0002
@@ -1520,13 +1523,17 @@ __zbss_1008:
 __zbss_100a:
     resb 0x0002
 __zbss_100c:
-    resb 0x1d34
+    resb 0x1418
+__zbss_2424:
+    resb 0x091c
 __zbss_2d40:
     resb 0x0018
 __zbss_2d58:
     resb 0x10ba
 __zbss_3e12:
-    resb 0x1400
+    resb 0x0944
+__zbss_4756:
+    resb 0x0abc
 __zbss_5212:
     resb 0x0002
 __zbss_5214:

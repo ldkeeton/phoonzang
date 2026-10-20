@@ -601,7 +601,7 @@ jumptable_76e2_case_86:
     jmp near @..loc_IUTP.l28         ; 0x76d9
 @..loc_IUTP.l27:
     mov cx, 0x2c                     ; 0x76dc
-    call leaf_loc_PVVV               ; 0x76df
+    call aztec_cswt                  ; 0x76df
 jumptable_76e2:
     dw 0                                       ; 0x76e2
     dw 0x0001                                  ; 0x76e4 ; literal

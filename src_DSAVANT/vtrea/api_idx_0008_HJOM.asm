@@ -748,7 +748,7 @@ jumptable_4a7d_case_43:
     jmp short @..api_idx_0008_HJOM.l45 ; 0x4a75
 @..api_idx_0008_HJOM.l44:
     mov cx, 0x17                     ; 0x4a77
-    call leaf_loc_GTUT               ; 0x4a7a
+    call aztec_cswt                  ; 0x4a7a
 jumptable_4a7d:
     dw 0x000c                                  ; 0x4a7d ; literal
     dw 0x0011                                  ; 0x4a7f ; literal

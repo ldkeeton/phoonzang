@@ -691,7 +691,7 @@ def image_geometry(records, binary_data, start_offset, ds_size):
 #: The include an overlay pulls the host's labels in through.  The block is the
 #: *host's* frame -- the same for every overlay of it -- so it is emitted once
 #: per tree, as a ``split_sources`` entry, not once per master (plan.md E2).
-HOST_SYMBOLS_INC = 'inc/host_symbols.inc'
+HOST_SYMBOLS_INC = 'include/host_symbols.inc'
 
 
 def host_symbols_inc_lines(master, host_vbase):
@@ -711,7 +711,12 @@ def host_symbols_inc_lines(master, host_vbase):
     ``%include "{master}"`` resolves through the ``-I`` of the generated tree
     (``lib.link.include_args``), so this file may sit at any depth.
     """
+    from lib.aztec.relink import OVERLAY_PLACE_SYMBOLS
     host_stem = master.rsplit('.', 1)[0]
+    # The host's own image symbols, which each overlay defines for itself
+    # (``__zimage_end``, the linker's ``_Uorg``/``_Uend``), are spelled with
+    # the host's prefix while its source is read.
+    shadowed = ['__zimage_end', *sorted(OVERLAY_PLACE_SYMBOLS)]
     return [
         '; Host symbols for every overlay of this tree (plan.md E2).',
         ';',
@@ -724,10 +729,10 @@ def host_symbols_inc_lines(master, host_vbase):
         '%define HOST_SYMS_ONLY',
         f'%define VBASE ({_signed_hex(host_vbase)})',
         '%define IMAGE_BASE 0',
-        f'%define __zimage_end {host_stem}___zimage_end',
+        *(f'%define {sym} {host_stem}_{sym}' for sym in shadowed),
         f'section .host nobits vstart={_signed_hex(host_vbase)}',
         f'%include "{master}"',
-        '%undef __zimage_end',
+        *(f'%undef {sym}' for sym in shadowed),
         '%undef IMAGE_BASE',
         '%undef HOST_SYMS_ONLY',
         '%undef VBASE',
@@ -1157,7 +1162,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     }
     if host_symbols:
         # E2: the host-frame block belongs to the *host*, so it is written to the
-        # tree once; every overlay master carries ``%include "inc/host_symbols.inc"``
+        # tree once; every overlay master carries ``%include "include/host_symbols.inc"``
         # instead of its own copy.  It is a pure function of the host, so the
         # overlays' (identical) writes agree.
         split_sources[HOST_SYMBOLS_INC] = (

@@ -2,7 +2,7 @@
 %include "inc/structs/structs.inc"
 %include "inc/structs/vpcvw.inc"
 bits 16
-%include "inc/host_symbols.inc"
+%include "include/host_symbols.inc"
 %ifndef VBASE
 %ifdef ELF_BUILD
 VBASE equ 0
@@ -16,17 +16,17 @@ IMAGE_BASE equ 0x000e + VBASE
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2                             ; o_magic: overlay signature (0x00f2)
-    dw __zres_end                         ; 0x5055 ; o_corg: code load origin (memory offset)
-    dw (__zdata_start - __zcode_start)    ; 0x9836 ; o_csize: code size in bytes
-    dw __zdseg_end                        ; 0x9098 ; o_dorg: data load origin (memory offset)
-    dw (__zimage_end - __zdata_start)     ; 0x0348 ; o_dsize: initialized data size
-    dw __zobss_end - __zimage_end         ; 0x0310 ; o_bss: uninitialized data size
-    dw loc_ILSJ - IMAGE_BASE + __zres_end ; 0xe835 ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                                ; o_magic: overlay signature (0x00f2)
+    dw __zres_end                            ; 0x5055 ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start)       ; 0x9836 ; o_csize: code size in bytes
+    dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)        ; 0x0348 ; o_dsize: initialized data size
+    dw __zobss_end - __zimage_end            ; 0x0310 ; o_bss: uninitialized data size
+    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xe835 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 
-%include "vpcvw/loc_HLJG.asm"              ; 0x000e
+%include "vpcvw/ovmain.asm"                ; 0x000e
 
 %include "shared/api_idx_0002_OOKN.asm"     ; 0x0027
 
@@ -262,64 +262,64 @@ api_idx_0080_MHMQ.api_idx1 equ api_idx_0012_PJTU
 
 %include "vpcvw/api_idx_001a_HRLU.asm"     ; 0x706c
 
-dseg_90c0 equ __zdseg_end + (__zdseg_90c0 - __zdata_start)
-dseg_90c2 equ __zdseg_end + (__zdseg_90c2 - __zdata_start)
-dseg_90c4 equ __zdseg_end + (__zdseg_90c4 - __zdata_start)
-dseg_90c6 equ __zdseg_end + (__zdseg_90c6 - __zdata_start)
-dseg_90c8 equ __zdseg_end + (__zdseg_90c8 - __zdata_start)
-dseg_90ca equ __zdseg_end + (__zdseg_90ca - __zdata_start)
-dseg_90cc equ __zdseg_end + (__zdseg_90cc - __zdata_start)
+dseg_90c0 equ __zdseg_end + 0x0028
+dseg_90c2 equ __zdseg_end + 0x002a
+dseg_90c4 equ __zdseg_end + 0x002c
+dseg_90c6 equ __zdseg_end + 0x002e
+dseg_90c8 equ __zdseg_end + 0x0030
+dseg_90ca equ __zdseg_end + 0x0032
+dseg_90cc equ __zdseg_end + 0x0034
 ; bss_93f6  equ __zdseg_end + (__zobss_93f6 - __zdata_start)
 ; bss_93f8  equ __zdseg_end + (__zobss_93f8 - __zdata_start)
 %include "vpcvw/loc_IUTP.asm"              ; 0x70ca
 
 %include "vpcvw/api_idx_0004_IKOQ.asm"     ; 0x82da
 
-dseg_90ce equ __zdseg_end + (__zdseg_90ce - __zdata_start)
+dseg_90ce equ __zdseg_end + 0x0036
 dseg_90d9 equ __zdseg_end + (__zdseg_90d9 - __zdata_start)
-dseg_90e2 equ __zdseg_end + (__zdseg_90e2 - __zdata_start)
+dseg_90e2 equ __zdseg_end + 0x004a
 dseg_90e9 equ __zdseg_end + (__zdseg_90e9 - __zdata_start)
-dseg_90f4 equ __zdseg_end + (__zdseg_90f4 - __zdata_start)
+dseg_90f4 equ __zdseg_end + 0x005c
 dseg_90ff equ __zdseg_end + (__zdseg_90ff - __zdata_start)
-dseg_9108 equ __zdseg_end + (__zdseg_9108 - __zdata_start)
+dseg_9108 equ __zdseg_end + 0x0070
 dseg_910f equ __zdseg_end + (__zdseg_910f - __zdata_start)
-dseg_911a equ __zdseg_end + (__zdseg_911a - __zdata_start)
+dseg_911a equ __zdseg_end + 0x0082
 dseg_9125 equ __zdseg_end + (__zdseg_9125 - __zdata_start)
-dseg_912e equ __zdseg_end + (__zdseg_912e - __zdata_start)
+dseg_912e equ __zdseg_end + 0x0096
 dseg_9135 equ __zdseg_end + (__zdseg_9135 - __zdata_start)
-dseg_9140 equ __zdseg_end + (__zdseg_9140 - __zdata_start)
+dseg_9140 equ __zdseg_end + 0x00a8
 dseg_914b equ __zdseg_end + (__zdseg_914b - __zdata_start)
-dseg_9154 equ __zdseg_end + (__zdseg_9154 - __zdata_start)
+dseg_9154 equ __zdseg_end + 0x00bc
 dseg_915b equ __zdseg_end + (__zdseg_915b - __zdata_start)
-dseg_9166 equ __zdseg_end + (__zdseg_9166 - __zdata_start)
+dseg_9166 equ __zdseg_end + 0x00ce
 dseg_9171 equ __zdseg_end + (__zdseg_9171 - __zdata_start)
-dseg_917a equ __zdseg_end + (__zdseg_917a - __zdata_start)
+dseg_917a equ __zdseg_end + 0x00e2
 dseg_9181 equ __zdseg_end + (__zdseg_9181 - __zdata_start)
-dseg_918c equ __zdseg_end + (__zdseg_918c - __zdata_start)
+dseg_918c equ __zdseg_end + 0x00f4
 dseg_9197 equ __zdseg_end + (__zdseg_9197 - __zdata_start)
-dseg_91a0 equ __zdseg_end + (__zdseg_91a0 - __zdata_start)
+dseg_91a0 equ __zdseg_end + 0x0108
 dseg_91a7 equ __zdseg_end + (__zdseg_91a7 - __zdata_start)
-dseg_91b2 equ __zdseg_end + (__zdseg_91b2 - __zdata_start)
+dseg_91b2 equ __zdseg_end + 0x011a
 dseg_91bd equ __zdseg_end + (__zdseg_91bd - __zdata_start)
-dseg_91c6 equ __zdseg_end + (__zdseg_91c6 - __zdata_start)
+dseg_91c6 equ __zdseg_end + 0x012e
 dseg_91cd equ __zdseg_end + (__zdseg_91cd - __zdata_start)
-dseg_91d8 equ __zdseg_end + (__zdseg_91d8 - __zdata_start)
+dseg_91d8 equ __zdseg_end + 0x0140
 dseg_91e3 equ __zdseg_end + (__zdseg_91e3 - __zdata_start)
-dseg_91ec equ __zdseg_end + (__zdseg_91ec - __zdata_start)
+dseg_91ec equ __zdseg_end + 0x0154
 dseg_91f3 equ __zdseg_end + (__zdseg_91f3 - __zdata_start)
-dseg_91fe equ __zdseg_end + (__zdseg_91fe - __zdata_start)
+dseg_91fe equ __zdseg_end + 0x0166
 dseg_9209 equ __zdseg_end + (__zdseg_9209 - __zdata_start)
-dseg_9212 equ __zdseg_end + (__zdseg_9212 - __zdata_start)
+dseg_9212 equ __zdseg_end + 0x017a
 dseg_9219 equ __zdseg_end + (__zdseg_9219 - __zdata_start)
-dseg_9224 equ __zdseg_end + (__zdseg_9224 - __zdata_start)
+dseg_9224 equ __zdseg_end + 0x018c
 dseg_922f equ __zdseg_end + (__zdseg_922f - __zdata_start)
-dseg_9238 equ __zdseg_end + (__zdseg_9238 - __zdata_start)
+dseg_9238 equ __zdseg_end + 0x01a0
 dseg_923f equ __zdseg_end + (__zdseg_923f - __zdata_start)
-dseg_924a equ __zdseg_end + (__zdseg_924a - __zdata_start)
+dseg_924a equ __zdseg_end + 0x01b2
 dseg_9255 equ __zdseg_end + (__zdseg_9255 - __zdata_start)
-dseg_925e equ __zdseg_end + (__zdseg_925e - __zdata_start)
+dseg_925e equ __zdseg_end + 0x01c6
 dseg_9265 equ __zdseg_end + (__zdseg_9265 - __zdata_start)
-dseg_9270 equ __zdseg_end + (__zdseg_9270 - __zdata_start)
+dseg_9270 equ __zdseg_end + 0x01d8
 dseg_927b equ __zdseg_end + (__zdseg_927b - __zdata_start)
 dseg_9284 equ __zdseg_end + (__zdseg_9284 - __zdata_start)
 dseg_928b equ __zdseg_end + (__zdseg_928b - __zdata_start)
@@ -394,18 +394,298 @@ dseg_93c9 equ __zdseg_end + (__zdseg_93c9 - __zdata_start)
 
 %include "vpcvw/api_idx_000e_ORVT.asm"     ; 0x96d5
 
-%include "vpcvw/api_idx_0018_IGHI.asm"     ; 0x9740
+%include "vpcvw/api_idx_0018_VTUP.asm"     ; 0x9740
 
-dseg_93d6 equ __zdseg_end + (__zdseg_93d6 - __zdata_start)
-dseg_93d8 equ __zdseg_end + (__zdseg_93d8 - __zdata_start)
-dseg_93da equ __zdseg_end + (__zdseg_93da - __zdata_start)
-dseg_93dc equ __zdseg_end + (__zdseg_93dc - __zdata_start)
-dseg_93de equ __zdseg_end + (__zdseg_93de - __zdata_start)
-; bss_93e0  equ __zdseg_end + (__zobss_93e0 - __zdata_start)
-%include "vpcvw/loc_ILSJ.asm"              ; 0x97ee
+save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
+save_di  equ __zdseg_end + (__zsave_di - __zdata_start)
+save_sp  equ __zdseg_end + (__zsave_sp - __zdata_start)
+save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
+save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
+_Uorg    equ __zdseg_end + (__zobss_93e0 - __zdata_start)
+_Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
+%include "shared/aztec_ovbgn.asm"           ; 0x97ee
 
-%include "vpcvw/leaf_loc_PVVV.asm"         ; 0x982c
+%include "shared/aztec_cswit.asm"           ; 0x982c
 
+__zdseg_9098:
+__zdata_start:
+    and ax, strict word 0x20         ; 0x9844
+__zdseg_909b:
+    push si                          ; 0x9847
+    cs and al, 0x24                  ; 0x9848
+    and al, 0                        ; 0x984b
+__zdseg_90a1:
+    push si                          ; 0x984d
+    cs and al, 0x24                  ; 0x984e
+    and al, 0                        ; 0x9851
+__zdseg_90a7:
+    sub ch, byte [bp + si]           ; 0x9853
+    sub al, byte [bx + si]           ; 0x9855
+__zdseg_90ab:
+    push si                          ; 0x9857
+    cs and al, 0x24                  ; 0x9858
+    and al, 0                        ; 0x985b
+__zdseg_90b1:
+    and byte [bx + si], al           ; 0x985d
+__zdseg_90b3:
+    push ax                          ; 0x985f
+    inc bx                           ; 0x9860
+    push si                          ; 0x9861
+    push di                          ; 0x9862
+    push bx                          ; 0x9863
+    inc bx                           ; 0x9864
+    push dx                          ; 0x9865
+    dec si                           ; 0x9866
+    cs push si                       ; 0x9867
+    inc di                           ; 0x9869
+    inc cx                           ; 0x986a
+    add byte [bx + si], ch           ; 0x986b
+    add byte [bp + di], ch           ; 0x986d
+    add byte [bx + di], ch           ; 0x986f
+    add byte [bp + di], ch           ; 0x9871
+    add byte [bx], ch                ; 0x9873
+    add byte [bx + si], ah           ; 0x9875
+    add byte [di], ah                ; 0x9877
+    add byte [bx + di], dh           ; 0x9879
+    xor word [bx + di], si           ; 0x987b
+    xor word [bx + di], si           ; 0x987d
+    xor word [bx + di], si           ; 0x987f
+    xor word [bx + di], si           ; 0x9881
+    xor byte [bx + si], al           ; 0x9883
+__zdseg_90d9:
+    xor word [bx + di], si           ; 0x9885
+    xor word [bx + si], si           ; 0x9887
+    xor byte [bx + si], dh           ; 0x9889
+    xor byte [bx + si], dh           ; 0x988b
+    add byte [bx + si], dh           ; 0x988d
+    xor byte [bx + si], dh           ; 0x988f
+    xor byte [bx + si], dh           ; 0x9891
+    xor byte [bx + si], al           ; 0x9893
+__zdseg_90e9:
+    xor word [bx + di], si           ; 0x9895
+    xor word [bx + di], si           ; 0x9897
+    xor byte [bx + si], dh           ; 0x9899
+    xor byte [bx + si], dh           ; 0x989b
+    xor byte [bx + si], dh           ; 0x989d
+    add byte [bx + di], dh           ; 0x989f
+    xor byte [bx + si], dh           ; 0x98a1
+    xor byte [bx + di], dh           ; 0x98a3
+    xor word [bx + di], si           ; 0x98a5
+    xor word [bx + si], si           ; 0x98a7
+    xor byte [bx + si], al           ; 0x98a9
+__zdseg_90ff:
+    xor word [bx + di], si           ; 0x98ab
+    xor word [bx + si], si           ; 0x98ad
+    xor word [bx + si], si           ; 0x98af
+    xor byte [bx + si], dh           ; 0x98b1
+    add byte [bx + si], dh           ; 0x98b3
+    xor byte [bx + si], dh           ; 0x98b5
+    xor byte [bx + si], dh           ; 0x98b7
+    xor byte [bx + si], al           ; 0x98b9
+__zdseg_910f:
+    xor word [bx + di], si           ; 0x98bb
+    xor word [bx + di], si           ; 0x98bd
+    xor byte [bx + si], dh           ; 0x98bf
+    xor byte [bx + si], dh           ; 0x98c1
+    xor word [bx + si], si           ; 0x98c3
+    add byte [bx + si], dh           ; 0x98c5
+    xor byte [bx + si], dh           ; 0x98c7
+    xor word [bx + di], si           ; 0x98c9
+    xor byte [bx + di], dh           ; 0x98cb
+    xor byte [bx + di], dh           ; 0x98cd
+    xor byte [bx + si], al           ; 0x98cf
+__zdseg_9125:
+    xor word [bx + di], si           ; 0x98d1
+    xor word [bx + si], si           ; 0x98d3
+    xor word [bx + si], si           ; 0x98d5
+    xor byte [bx + si], dh           ; 0x98d7
+    add byte [bx + si], dh           ; 0x98d9
+    xor byte [bx + si], dh           ; 0x98db
+    xor byte [bx + si], dh           ; 0x98dd
+    xor byte [bx + si], al           ; 0x98df
+__zdseg_9135:
+    xor word [bx + di], si           ; 0x98e1
+    xor word [bx + di], si           ; 0x98e3
+    xor word [bx + si], si           ; 0x98e5
+    xor word [bx + si], si           ; 0x98e7
+    xor byte [bx + si], dh           ; 0x98e9
+    add byte [bx + di], dh           ; 0x98eb
+    xor word [bx + di], si           ; 0x98ed
+    xor word [bx + di], si           ; 0x98ef
+    xor word [bx + di], si           ; 0x98f1
+    xor word [bx + di], si           ; 0x98f3
+    xor byte [bx + si], al           ; 0x98f5
+__zdseg_914b:
+    xor word [bx + di], si           ; 0x98f7
+    xor word [bx + si], si           ; 0x98f9
+    xor word [bx + di], si           ; 0x98fb
+    xor word [bx + di], si           ; 0x98fd
+    add byte [bx + si], dh           ; 0x98ff
+    xor byte [bx + si], dh           ; 0x9901
+    xor byte [bx + si], dh           ; 0x9903
+    xor byte [bx + si], al           ; 0x9905
+__zdseg_915b:
+    xor word [bx + di], si           ; 0x9907
+    xor word [bx + di], si           ; 0x9909
+    xor byte [bx + si], dh           ; 0x990b
+    xor byte [bx + si], dh           ; 0x990d
+    xor byte [bx + si], dh           ; 0x990f
+    add byte [bx + di], dh           ; 0x9911
+    xor word [bx + di], si           ; 0x9913
+    xor word [bx + di], si           ; 0x9915
+    xor word [bx + di], si           ; 0x9917
+    xor word [bx + di], si           ; 0x9919
+    xor byte [bx + si], al           ; 0x991b
+__zdseg_9171:
+    xor word [bx + di], si           ; 0x991d
+    xor word [bx + si], si           ; 0x991f
+    xor byte [bx + di], dh           ; 0x9921
+    xor word [bx + di], si           ; 0x9923
+    add byte [bx + si], dh           ; 0x9925
+    xor byte [bx + si], dh           ; 0x9927
+    xor byte [bx + si], dh           ; 0x9929
+    xor byte [bx + si], al           ; 0x992b
+__zdseg_9181:
+    xor word [bx + di], si           ; 0x992d
+    xor word [bx + di], si           ; 0x992f
+    xor byte [bx + di], dh           ; 0x9931
+    xor byte [bx + si], dh           ; 0x9933
+    xor byte [bx + si], dh           ; 0x9935
+    add byte [bx + di], dh           ; 0x9937
+    xor byte [bx + si], dh           ; 0x9939
+    xor word [bx + di], si           ; 0x993b
+    xor word [bx + si], si           ; 0x993d
+    xor byte [bx + si], dh           ; 0x993f
+    xor byte [bx + si], al           ; 0x9941
+__zdseg_9197:
+    xor word [bx + di], si           ; 0x9943
+    xor word [bx + si], si           ; 0x9945
+    xor byte [bx + si], dh           ; 0x9947
+    xor byte [bx + si], dh           ; 0x9949
+    add byte [bx + si], dh           ; 0x994b
+    xor byte [bx + si], dh           ; 0x994d
+    xor byte [bx + si], dh           ; 0x994f
+    xor byte [bx + si], al           ; 0x9951
+__zdseg_91a7:
+    xor word [bx + di], si           ; 0x9953
+    xor word [bx + di], si           ; 0x9955
+    xor byte [bx + di], dh           ; 0x9957
+    xor byte [bx + si], dh           ; 0x9959
+    xor byte [bx + si], dh           ; 0x995b
+    add byte [bx + di], dh           ; 0x995d
+    xor word [bx + di], si           ; 0x995f
+    xor word [bx + di], si           ; 0x9961
+    xor word [bx + di], si           ; 0x9963
+    xor word [bx + di], si           ; 0x9965
+    xor byte [bx + si], al           ; 0x9967
+__zdseg_91bd:
+    xor word [bx + di], si           ; 0x9969
+    xor word [bx + di], si           ; 0x996b
+    xor word [bx + di], si           ; 0x996d
+    xor word [bx + di], si           ; 0x996f
+    add byte [bx + si], dh           ; 0x9971
+    xor byte [bx + si], dh           ; 0x9973
+    xor byte [bx + si], dh           ; 0x9975
+    xor byte [bx + si], al           ; 0x9977
+__zdseg_91cd:
+    xor word [bx + di], si           ; 0x9979
+    xor word [bx + di], si           ; 0x997b
+    xor byte [bx + si], dh           ; 0x997d
+    xor byte [bx + si], dh           ; 0x997f
+    xor word [bx + si], si           ; 0x9981
+    add byte [bx + di], dh           ; 0x9983
+    xor byte [bx + si], dh           ; 0x9985
+    xor word [bx + di], si           ; 0x9987
+    xor word [bx + di], si           ; 0x9989
+    xor byte [bx + si], dh           ; 0x998b
+    xor byte [bx + si], al           ; 0x998d
+__zdseg_91e3:
+    xor word [bx + di], si           ; 0x998f
+    xor word [bx + si], si           ; 0x9991
+    xor word [bx + si], si           ; 0x9993
+    xor byte [bx + si], dh           ; 0x9995
+    add byte [bx + si], dh           ; 0x9997
+    xor byte [bx + si], dh           ; 0x9999
+    xor byte [bx + si], dh           ; 0x999b
+    xor byte [bx + si], al           ; 0x999d
+__zdseg_91f3:
+    xor word [bx + di], si           ; 0x999f
+    xor word [bx + di], si           ; 0x99a1
+    xor byte [bx + si], dh           ; 0x99a3
+    xor byte [bx + di], dh           ; 0x99a5
+    xor byte [bx + si], dh           ; 0x99a7
+    add byte [bx + di], dh           ; 0x99a9
+    xor word [bx + di], si           ; 0x99ab
+    xor word [bx + di], si           ; 0x99ad
+    xor word [bx + di], si           ; 0x99af
+    xor word [bx + di], si           ; 0x99b1
+    xor byte [bx + si], al           ; 0x99b3
+__zdseg_9209:
+    xor word [bx + di], si           ; 0x99b5
+    xor word [bx + si], si           ; 0x99b7
+    xor word [bx + si], si           ; 0x99b9
+    xor byte [bx + si], dh           ; 0x99bb
+    add byte [bx + si], dh           ; 0x99bd
+    xor byte [bx + si], dh           ; 0x99bf
+    xor byte [bx + si], dh           ; 0x99c1
+    xor byte [bx + si], al           ; 0x99c3
+__zdseg_9219:
+    xor word [bx + di], si           ; 0x99c5
+    xor word [bx + di], si           ; 0x99c7
+    xor byte [bx + si], dh           ; 0x99c9
+    xor word [bx + si], si           ; 0x99cb
+    xor byte [bx + si], dh           ; 0x99cd
+    add byte [bx + si], dh           ; 0x99cf
+    xor byte [bx + si], dh           ; 0x99d1
+    xor word [bx + di], si           ; 0x99d3
+    xor byte [bx + di], dh           ; 0x99d5
+    xor byte [bx + di], dh           ; 0x99d7
+    xor byte [bx + si], al           ; 0x99d9
+__zdseg_922f:
+    xor word [bx + di], si           ; 0x99db
+    xor word [bx + si], si           ; 0x99dd
+    xor word [bx + si], si           ; 0x99df
+    xor byte [bx + si], dh           ; 0x99e1
+    add byte [bx + si], dh           ; 0x99e3
+    xor byte [bx + si], dh           ; 0x99e5
+    xor byte [bx + si], dh           ; 0x99e7
+    xor byte [bx + si], al           ; 0x99e9
+__zdseg_923f:
+    xor word [bx + di], si           ; 0x99eb
+    xor word [bx + di], si           ; 0x99ed
+    xor word [bx + si], si           ; 0x99ef
+    xor word [bx + si], si           ; 0x99f1
+    xor word [bx + si], si           ; 0x99f3
+    add byte [bx + di], dh           ; 0x99f5
+    xor word [bx + di], si           ; 0x99f7
+    xor word [bx + di], si           ; 0x99f9
+    xor word [bx + di], si           ; 0x99fb
+    xor word [bx + di], si           ; 0x99fd
+    xor byte [bx + si], al           ; 0x99ff
+__zdseg_9255:
+    xor word [bx + di], si           ; 0x9a01
+    xor word [bx + si], si           ; 0x9a03
+    xor word [bx + si], si           ; 0x9a05
+    xor byte [bx + si], dh           ; 0x9a07
+    add byte [bx + si], dh           ; 0x9a09
+    xor byte [bx + si], dh           ; 0x9a0b
+    xor byte [bx + si], dh           ; 0x9a0d
+    xor byte [bx + si], al           ; 0x9a0f
+__zdseg_9265:
+    xor word [bx + di], si           ; 0x9a11
+    xor word [bx + di], si           ; 0x9a13
+    xor word [bx + si], si           ; 0x9a15
+    xor word [bx + si], si           ; 0x9a17
+    xor byte [bx + si], dh           ; 0x9a19
+    add byte [bx + di], dh           ; 0x9a1b
+    xor word [bx + di], si           ; 0x9a1d
+    xor word [bx + di], si           ; 0x9a1f
+    xor word [bx + di], si           ; 0x9a21
+    xor word [bx + di], si           ; 0x9a23
+    xor byte [bx + si], al           ; 0x9a25
+__zdseg_927b:
+    xor word [bx + di], si           ; 0x9a27
+    xor word [bx + si], si           ; 0x9a29
     db 0x31, 0x30, 0x30, 0x30, 0x00
 __zdseg_9284:
     db '000000', 0
@@ -481,15 +761,15 @@ __zdseg_93c0:
     db 'KKGKHHJA', 0
 __zdseg_93c9:
     db 'PORTDATA.VGA', 0
-__zdseg_93d6:
+__zsave_si:
     db 0x00, 0x00
-__zdseg_93d8:
+__zsave_di:
     db 0x00, 0x00
-__zdseg_93da:
+__zsave_sp:
     db 0x00, 0x00
-__zdseg_93dc:
+__zsave_bp:
     db 0x00, 0x00
-__zdseg_93de:
+__zsave_ret:
     db 0x00, 0x00
 
 __zimage_end:

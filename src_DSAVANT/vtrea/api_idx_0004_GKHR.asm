@@ -8,7 +8,7 @@ api_idx_0004_GKHR:
     mov ax, 0x7ea                    ; 0x4ae3
     push ax                          ; 0x4ae6
     push word [bp + 0x4]             ; 0x4ae7
-    call api_idx_0044_NJQJ           ; 0x4aea
+    call api_idx_0044_URKM           ; 0x4aea
     add sp, byte 8                   ; 0x4aed
     test ax, ax                      ; 0x4af0
     je short @..api_idx_0004_GKHR.l1 ; 0x4af2

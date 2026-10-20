@@ -75,7 +75,7 @@ aztec_begin:
 @..aztec_sbegin.heapdone:
     mov es, bp                       ; 0x4ddd
     cld                              ; 0x4ddf
-    mov di, bss_0cf6                 ; 0x4de0
+    mov di, _Uorg                    ; 0x4de0
     mov cx, __zdseg_end              ; 0x4de3
     sub cx, di                       ; 0x4de6
     inc cx                           ; 0x4de8

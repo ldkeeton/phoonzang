@@ -761,7 +761,7 @@ jumptable_291f_case_42:
     jmp short @..api_idx_0008_NOPG.l43 ; 0x2917
 @..api_idx_0008_NOPG.l42:
     mov cx, 0x18                     ; 0x2919
-    call leaf_loc_PVVV               ; 0x291c
+    call aztec_cswt                  ; 0x291c
 jumptable_291f:
     dw 0x000c                                  ; 0x291f ; literal
     dw 0x0011                                  ; 0x2921 ; literal

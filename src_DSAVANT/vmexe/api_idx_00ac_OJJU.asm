@@ -255,7 +255,7 @@ jumptable_7c0e_case_31:
     jmp short @..api_idx_00ac_OJJU.l14 ; 0x7c06
 @..api_idx_00ac_OJJU.l13:
     mov cx, 0x11                     ; 0x7c08
-    call leaf_loc_RJLR               ; 0x7c0b
+    call aztec_cswt                  ; 0x7c0b
 jumptable_7c0e:
     dw 0                                       ; 0x7c0e
     dw 0x0012                                  ; 0x7c10 ; literal
@@ -784,7 +784,7 @@ jumptable_8145_case_82:
     jmp near @..api_idx_00ac_OJJU.l37 ; 0x813c
 @..api_idx_00ac_OJJU.l36:
     mov cx, 0x2a                     ; 0x813f
-    call leaf_loc_RJLR               ; 0x8142
+    call aztec_cswt                  ; 0x8142
 jumptable_8145:
     dw 0                                       ; 0x8145
     dw 0x0001                                  ; 0x8147 ; literal

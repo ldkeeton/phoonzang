@@ -159,7 +159,7 @@ api_idx_0022_RHMN:
     call aztec_lrm                   ; 0x23b1
     or dx, ax                        ; 0x23b4
     jne short @..api_idx_0022_RHMN.l14 ; 0x23b6
-    call api_idx_0032_RMHI           ; 0x23b8
+    call api_idx_0032_TNQM           ; 0x23b8
 @..api_idx_0022_RHMN.l14:
     mov ax, word [bss_8f1c]          ; 0x23bb
     mov dx, word [bss_8f1e]          ; 0x23be

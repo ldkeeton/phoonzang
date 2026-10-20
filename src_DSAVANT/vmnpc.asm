@@ -2,7 +2,7 @@
 %include "inc/structs/structs.inc"
 %include "inc/structs/vmnpc.inc"
 bits 16
-%include "inc/host_symbols.inc"
+%include "include/host_symbols.inc"
 %ifndef VBASE
 %ifdef ELF_BUILD
 VBASE equ 0
@@ -16,13 +16,13 @@ IMAGE_BASE equ 0x000e + VBASE
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2                                    ; o_magic: overlay signature (0x00f2)
-    dw __zres_end                                ; 0x5055 ; o_corg: code load origin (memory offset)
-    dw (__zdata_start - __zcode_start)           ; 0xaecf ; o_csize: code size in bytes
-    dw __zdseg_end                               ; 0x9098 ; o_dorg: data load origin (memory offset)
-    dw (__zimage_end - __zdata_start)            ; 0x009c ; o_dsize: initialized data size
-    dw __zobss_end - __zimage_end                ; 0x1f22 ; o_bss: uninitialized data size
-    dw string_loc_NVTI - IMAGE_BASE + __zres_end ; 0xfe57 ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                                ; o_magic: overlay signature (0x00f2)
+    dw __zres_end                            ; 0x5055 ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start)       ; 0xaecf ; o_csize: code size in bytes
+    dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)        ; 0x009c ; o_dsize: initialized data size
+    dw __zobss_end - __zimage_end            ; 0x1f22 ; o_bss: uninitialized data size
+    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xfe57 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 
@@ -113,7 +113,7 @@ dseg_90ca equ __zdseg_end + (__zdseg_90ca - __zdata_start)
 %include "vmnpc/loc_MOVJ.asm"              ; 0x1d39
 
 ; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
-%include "vmnpc/loc_HGOV.asm"              ; 0x21bf
+%include "vmnpc/ovmain.asm"                ; 0x21bf
 
 %include "shared/api_idx_004c_RQSO.asm"     ; 0x21d2
 
@@ -616,13 +616,14 @@ bss_9e72  equ __zdseg_end + (__zobss_9e72 - __zdata_start)
 ; bss_b04e  equ __zdseg_end + (__zobss_b04e - __zdata_start)
 %include "vmnpc/api_idx_006a_QKPT.asm"     ; 0xab8d
 
-dseg_912a equ __zdseg_end + (__zdseg_912a - __zdata_start)
-dseg_912c equ __zdseg_end + (__zdseg_912c - __zdata_start)
-dseg_912e equ __zdseg_end + (__zdseg_912e - __zdata_start)
-dseg_9130 equ __zdseg_end + (__zdseg_9130 - __zdata_start)
-dseg_9132 equ __zdseg_end + (__zdseg_9132 - __zdata_start)
-; bss_9134  equ __zdseg_end + (__zobss_9134 - __zdata_start)
-%include "vmnpc/string_loc_NVTI.asm"       ; 0xae10
+save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
+save_di  equ __zdseg_end + (__zsave_di - __zdata_start)
+save_sp  equ __zdseg_end + (__zsave_sp - __zdata_start)
+save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
+save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
+_Uorg    equ __zdseg_end + (__zobss_9134 - __zdata_start)
+_Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
+%include "shared/aztec_ovbgn.asm"           ; 0xae10
 
 %include "shared/aztec_strncpy.asm"         ; 0xae4e
 
@@ -670,15 +671,15 @@ __zdseg_90f2:
 
 __zdseg_9120:
     db 'PHOONZANG', 0
-__zdseg_912a:
+__zsave_si:
     db 0x00, 0x00
-__zdseg_912c:
+__zsave_di:
     db 0x00, 0x00
-__zdseg_912e:
+__zsave_sp:
     db 0x00, 0x00
-__zdseg_9130:
+__zsave_bp:
     db 0x00, 0x00
-__zdseg_9132:
+__zsave_ret:
     db 0x00, 0x00
 
 __zimage_end:

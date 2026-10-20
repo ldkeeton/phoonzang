@@ -92,7 +92,7 @@ loc_QLKH:
     imul word [bp - 0x0002]          ; 0x2011
     add ax, bss_5bf4                 ; 0x2014
     push ax                          ; 0x2017
-    call string_loc_SJPQ             ; 0x2018
+    call aztec_swapmem               ; 0x2018
     add sp, byte 6                   ; 0x201b
     mov ax, 0x2c                     ; 0x201e
     push ax                          ; 0x2021
@@ -108,7 +108,7 @@ loc_QLKH:
     mov ax, word [party_char]        ; 0x2038
     add ax, cx                       ; 0x203b
     push ax                          ; 0x203d
-    call string_loc_SJPQ             ; 0x203e
+    call aztec_swapmem               ; 0x203e
     add sp, byte 6                   ; 0x2041
     mov ax, word [bp - 0x0002]       ; 0x2044
     shl ax, 1                        ; 0x2047

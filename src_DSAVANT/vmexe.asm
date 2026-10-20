@@ -2,7 +2,7 @@
 %include "inc/structs/structs.inc"
 %include "inc/structs/vmexe.inc"
 bits 16
-%include "inc/host_symbols.inc"
+%include "include/host_symbols.inc"
 %ifndef VBASE
 %ifdef ELF_BUILD
 VBASE equ 0
@@ -16,13 +16,13 @@ IMAGE_BASE equ 0x000e + VBASE
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2                                    ; o_magic: overlay signature (0x00f2)
-    dw __zres_end                                ; 0x5055 ; o_corg: code load origin (memory offset)
-    dw (__zdata_start - __zcode_start)           ; 0xa537 ; o_csize: code size in bytes
-    dw __zdseg_end                               ; 0x9098 ; o_dorg: data load origin (memory offset)
-    dw (__zimage_end - __zdata_start)            ; 0x0024 ; o_dsize: initialized data size
-    dw __zobss_end - __zimage_end                ; 0x0120 ; o_bss: uninitialized data size
-    dw string_loc_KPHK - IMAGE_BASE + __zres_end ; 0xf511 ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                                ; o_magic: overlay signature (0x00f2)
+    dw __zres_end                            ; 0x5055 ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start)       ; 0xa537 ; o_csize: code size in bytes
+    dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)        ; 0x0024 ; o_dsize: initialized data size
+    dw __zobss_end - __zimage_end            ; 0x0120 ; o_bss: uninitialized data size
+    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xf511 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 
@@ -73,7 +73,7 @@ bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
 %include "vmexe/api_idx_000e_PTNT.asm"     ; 0x178e
 
 bss_90e0 equ __zdseg_end + (__zobss_90e0 - __zdata_start)
-%include "vmexe/loc_QRIN.asm"              ; 0x17d1
+%include "vmexe/ovmain.asm"                ; 0x17d1
 
 %include "vmexe/loc_TGJH.asm"              ; 0x182b
 
@@ -266,17 +266,18 @@ bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
 ; bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
 %include "vmexe/api_idx_005a_UJPS.asm"     ; 0x9f4f
 
-dseg_90b2 equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
-dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
-dseg_90b6 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
-dseg_90b8 equ __zdseg_end + (__zdseg_90b8 - __zdata_start)
-dseg_90ba equ __zdseg_end + (__zdseg_90ba - __zdata_start)
-; bss_90bc  equ __zdseg_end + (__zobss_90bc - __zdata_start)
-%include "vmexe/string_loc_KPHK.asm"       ; 0xa4ca
+save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
+save_di  equ __zdseg_end + (__zsave_di - __zdata_start)
+save_sp  equ __zdseg_end + (__zsave_sp - __zdata_start)
+save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
+save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
+_Uorg    equ __zdseg_end + (__zobss_90bc - __zdata_start)
+_Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
+%include "shared/aztec_ovbgn.asm"           ; 0xa4ca
 
-%include "shared/leaf_loc_RJLR.asm"         ; 0xa508
+%include "shared/aztec_cswit.asm"           ; 0xa508
 
-%include "vmexe/string_loc_QJPU.asm"       ; 0xa520
+%include "shared/aztec_swapmem.asm"         ; 0xa520
 
 __zdseg_9098:
 __zdata_start:
@@ -287,15 +288,15 @@ __zdseg_90a6:
     db 'MON00.PIC', 0
 __zdseg_90b0:
     db 0x00, 0x00
-__zdseg_90b2:
+__zsave_si:
     db 0x00, 0x00
-__zdseg_90b4:
+__zsave_di:
     db 0x00, 0x00
-__zdseg_90b6:
+__zsave_sp:
     db 0x00, 0x00
-__zdseg_90b8:
+__zsave_bp:
     db 0x00, 0x00
-__zdseg_90ba:
+__zsave_ret:
     db 0x00, 0x00
 
 __zimage_end:

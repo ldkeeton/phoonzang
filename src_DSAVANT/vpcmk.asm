@@ -2,7 +2,7 @@
 %include "inc/structs/structs.inc"
 %include "inc/structs/vpcmk.inc"
 bits 16
-%include "inc/host_symbols.inc"
+%include "include/host_symbols.inc"
 %ifndef VBASE
 %ifdef ELF_BUILD
 VBASE equ 0
@@ -16,17 +16,17 @@ IMAGE_BASE equ 0x000e + VBASE
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2                                    ; o_magic: overlay signature (0x00f2)
-    dw __zres_end                                ; 0x5055 ; o_corg: code load origin (memory offset)
-    dw (__zdata_start - __zcode_start)           ; 0x7023 ; o_csize: code size in bytes
-    dw __zdseg_end                               ; 0x9098 ; o_dorg: data load origin (memory offset)
-    dw (__zimage_end - __zdata_start)            ; 0x048c ; o_dsize: initialized data size
-    dw __zobss_end - __zimage_end                ; 0x0268 ; o_bss: uninitialized data size
-    dw string_loc_SMLM - IMAGE_BASE + __zres_end ; 0xbfd3 ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                                ; o_magic: overlay signature (0x00f2)
+    dw __zres_end                            ; 0x5055 ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start)       ; 0x7023 ; o_csize: code size in bytes
+    dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)        ; 0x048c ; o_dsize: initialized data size
+    dw __zobss_end - __zimage_end            ; 0x0268 ; o_bss: uninitialized data size
+    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xbfd3 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 
-%include "vpcmk/loc_QQGQ.asm"              ; 0x000e
+%include "vpcmk/ovmain.asm"                ; 0x000e
 
 %include "shared/api_idx_0002_OOKN.asm"     ; 0x0021
 
@@ -354,13 +354,14 @@ bss_9536  equ __zdseg_end + (__zobss_9536 - __zdata_start)
 ; bss_976c  equ __zdseg_end + (__zobss_976c - __zdata_start)
 %include "vpcmk/api_idx_002c_NHRR.asm"     ; 0x6a3f
 
-dseg_951a equ __zdseg_end + (__zdseg_951a - __zdata_start)
-dseg_951c equ __zdseg_end + (__zdseg_951c - __zdata_start)
-dseg_951e equ __zdseg_end + (__zdseg_951e - __zdata_start)
-dseg_9520 equ __zdseg_end + (__zdseg_9520 - __zdata_start)
-dseg_9522 equ __zdseg_end + (__zdseg_9522 - __zdata_start)
-; bss_9524  equ __zdseg_end + (__zobss_9524 - __zdata_start)
-%include "vpcmk/string_loc_SMLM.asm"       ; 0x6f8c
+save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
+save_di  equ __zdseg_end + (__zsave_di - __zdata_start)
+save_sp  equ __zdseg_end + (__zsave_sp - __zdata_start)
+save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
+save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
+_Uorg    equ __zdseg_end + (__zobss_9524 - __zdata_start)
+_Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
+%include "shared/aztec_ovbgn.asm"           ; 0x6f8c
 
 %include "shared/aztec_strcmp.asm"          ; 0x6fca
 
@@ -592,15 +593,15 @@ __zdseg_9501:
 __zdseg_950c:
     db 'PCVWSCRN.VGA', 0
     db 0x00
-__zdseg_951a:
+__zsave_si:
     db 0x00, 0x00
-__zdseg_951c:
+__zsave_di:
     db 0x00, 0x00
-__zdseg_951e:
+__zsave_sp:
     db 0x00, 0x00
-__zdseg_9520:
+__zsave_bp:
     db 0x00, 0x00
-__zdseg_9522:
+__zsave_ret:
     db 0x00, 0x00
 
 __zimage_end:

@@ -12,7 +12,7 @@ loc_IRGI:
     imul word [bp + 0x6]             ; 0x9da4
     add ax, bss_5bf4                 ; 0x9da7
     push ax                          ; 0x9daa
-    call string_loc_QJPU             ; 0x9dab
+    call aztec_swapmem               ; 0x9dab
     add sp, byte 6                   ; 0x9dae
     mov ax, 0x2c                     ; 0x9db1
     push ax                          ; 0x9db4
@@ -28,7 +28,7 @@ loc_IRGI:
     mov ax, word [party_char]        ; 0x9dcb
     add ax, cx                       ; 0x9dce
     push ax                          ; 0x9dd0
-    call string_loc_QJPU             ; 0x9dd1
+    call aztec_swapmem               ; 0x9dd1
     add sp, byte 6                   ; 0x9dd4
     mov ax, word [bp + 0x6]          ; 0x9dd7
     shl ax, 1                        ; 0x9dda

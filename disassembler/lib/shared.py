@@ -314,6 +314,12 @@ _EQU = re.compile(r'^([A-Za-z_][\w.]*)[ \t]+equ[ \t]+(.*?)[ \t]*$')
 _INCLUDE = re.compile(r'^[ \t]*%include\s+"([^"]+)"')
 
 
+def _is_header(path):
+    """An include that is part of the master's header, not a routine."""
+    from lib.compare.render import HOST_SYMBOLS_INC
+    return path.startswith('inc/') or path == HOST_SYMBOLS_INC
+
+
 def _place_equs(files, out_dir):
     """Move each master's header ``equ``s down to the includes that use them.
 
@@ -342,7 +348,7 @@ def _place_equs(files, out_dir):
         header, depth = {}, 0
         for i, line in enumerate(lines):
             include = _INCLUDE.match(line)
-            if include and not include.group(1).startswith('inc/'):
+            if include and not _is_header(include.group(1)):
                 break
             if line.startswith('%if'):
                 depth += 1
@@ -355,7 +361,7 @@ def _place_equs(files, out_dir):
         uses, seen = {}, set()
         for i, line in enumerate(lines):
             include = _INCLUDE.match(line)
-            if not include or include.group(1).startswith('inc/'):
+            if not include or _is_header(include.group(1)):
                 continue
             target = text_of(include.group(1))
             if target is None:

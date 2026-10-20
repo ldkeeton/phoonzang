@@ -2,7 +2,7 @@
 %include "inc/structs/structs.inc"
 %include "inc/structs/vbase.inc"
 bits 16
-%include "inc/host_symbols.inc"
+%include "include/host_symbols.inc"
 %ifndef VBASE
 %ifdef ELF_BUILD
 VBASE equ 0
@@ -16,17 +16,17 @@ IMAGE_BASE equ 0x000e + VBASE
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2                                    ; o_magic: overlay signature (0x00f2)
-    dw __zres_end                                ; 0x5055 ; o_corg: code load origin (memory offset)
-    dw (__zdata_start - __zcode_start)           ; 0x93df ; o_csize: code size in bytes
-    dw __zdseg_end                               ; 0x9098 ; o_dorg: data load origin (memory offset)
-    dw (__zimage_end - __zdata_start)            ; 0x012e ; o_dsize: initialized data size
-    dw __zobss_end - __zimage_end                ; 0x143c ; o_bss: uninitialized data size
-    dw string_loc_LOVO - IMAGE_BASE + __zres_end ; 0xe377 ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                                ; o_magic: overlay signature (0x00f2)
+    dw __zres_end                            ; 0x5055 ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start)       ; 0x93df ; o_csize: code size in bytes
+    dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)        ; 0x012e ; o_dsize: initialized data size
+    dw __zobss_end - __zimage_end            ; 0x143c ; o_bss: uninitialized data size
+    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xe377 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 
-%include "vbase/loc_RSMP.asm"              ; 0x000e
+%include "vbase/ovmain.asm"                ; 0x000e
 
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 %include "shared/api_idx_0002_SJMT.asm"     ; 0x0036
@@ -449,15 +449,16 @@ dseg_91a7 equ __zdseg_end + (__zdseg_91a7 - __zdata_start)
 dseg_91ae equ __zdseg_end + (__zdseg_91ae - __zdata_start)
 %include "vbase/api_idx_0002_HQSQ.asm"     ; 0x8f74
 
-dseg_91bc equ __zdseg_end + (__zdseg_91bc - __zdata_start)
-dseg_91be equ __zdseg_end + (__zdseg_91be - __zdata_start)
-dseg_91c0 equ __zdseg_end + (__zdseg_91c0 - __zdata_start)
-dseg_91c2 equ __zdseg_end + (__zdseg_91c2 - __zdata_start)
-dseg_91c4 equ __zdseg_end + (__zdseg_91c4 - __zdata_start)
-; bss_91c6  equ __zdseg_end + (__zobss_91c6 - __zdata_start)
-%include "vbase/string_loc_LOVO.asm"       ; 0x9330
+save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
+save_di  equ __zdseg_end + (__zsave_di - __zdata_start)
+save_sp  equ __zdseg_end + (__zsave_sp - __zdata_start)
+save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
+save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
+_Uorg    equ __zdseg_end + (__zobss_91c6 - __zdata_start)
+_Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
+%include "shared/aztec_ovbgn.asm"           ; 0x9330
 
-%include "shared/leaf_loc_RJLR.asm"         ; 0x936e
+%include "shared/aztec_cswit.asm"           ; 0x936e
 
 %include "shared/aztec_strcmp.asm"          ; 0x9386
 
@@ -522,15 +523,15 @@ __zdseg_91a7:
 __zdseg_91ae:
     db 'MAINSCRN.VGA', 0
     db 0x00
-__zdseg_91bc:
+__zsave_si:
     db 0x00, 0x00
-__zdseg_91be:
+__zsave_di:
     db 0x00, 0x00
-__zdseg_91c0:
+__zsave_sp:
     db 0x00, 0x00
-__zdseg_91c2:
+__zsave_bp:
     db 0x00, 0x00
-__zdseg_91c4:
+__zsave_ret:
     db 0x00, 0x00
 
 __zimage_end:

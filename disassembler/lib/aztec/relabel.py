@@ -69,7 +69,6 @@ def learn_names(label, start, func, original, index, names_at, image_base=0):
     at file offsets, so it is looked up at ``target + image_base``.
     """
     from .compile import aztec_name, routine_label
-    from .relink import PLACE_SYMBOLS
     code_at = {}
     for name, addr in index.code.items():
         code_at.setdefault(addr, []).append(name)
@@ -77,7 +76,7 @@ def learn_names(label, start, func, original, index, names_at, image_base=0):
     for fx in func.fixups:
         if fx.symbol_kind != 'GBLSYM':
             continue
-        c_name = linked_name(external_label(fx.symbol))
+        c_name = linked_name(external_label(fx.symbol), index.places)
         spelled = routine_label(aztec_name(fx.symbol))
         site = start + fx.offset
         raw = int.from_bytes(original[site:site + 2], 'little')
@@ -85,7 +84,7 @@ def learn_names(label, start, func, original, index, names_at, image_base=0):
             target = (site + 2 + raw) & 0xFFFF
             what = f'calls 0x{target:04x}'
         elif fx.kind == 'WABS':
-            if c_name in PLACE_SYMBOLS:
+            if c_name in index.places:
                 continue
             target = (raw - fx.addend) & 0xFFFF
             names = names_at.get(target, [])

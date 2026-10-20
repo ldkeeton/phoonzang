@@ -433,7 +433,7 @@ loc_QUVM:
     mov bx, ax                       ; 0x1e16
     push word [bx - 0x7b80]          ; 0x1e18
     push word [bx + party_char]      ; 0x1e1c
-    call string_loc_SJPQ             ; 0x1e20
+    call aztec_swapmem               ; 0x1e20
     add sp, byte 6                   ; 0x1e23
     mov ax, 0xe8                     ; 0x1e26
     push ax                          ; 0x1e29
@@ -442,7 +442,7 @@ loc_QUVM:
     mov bx, ax                       ; 0x1e2f
     push word [bx + bss_848e]        ; 0x1e31
     push word [bx + party_char_ext]  ; 0x1e35
-    call string_loc_SJPQ             ; 0x1e39
+    call aztec_swapmem               ; 0x1e39
     add sp, byte 6                   ; 0x1e3c
     mov word [bp - 0x000e], 0        ; 0x1e3f
     jmp short @..loc_QUVM.l31        ; 0x1e44

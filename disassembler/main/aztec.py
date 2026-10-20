@@ -229,13 +229,14 @@ def _apply_renames(entries, label_map, function_roots):
         label_map[addr] = sym
 
 
-#: Routines the runtime calls but the program defines.
-_PROGRAM_NAMES = {'main'}
+#: Routines the runtime calls but the program defines: ``main`` (``Croot``)
+#: and an overlay's ``ovmain`` (``$ovbgn``).
+_PROGRAM_NAMES = {'main', 'ovmain'}
 
 
 def _name_c_callees(project, binary, data, entries, label_map,
                     function_roots, start_offset=0):
-    """Name each routine a recovered C routine calls, as the vendor C does.
+    """Name each routine a recovered routine calls, as the vendor source does.
 
     A call in the original image lands where the vendor source's callee is
     (``sprintf`` from ``ovloader.c``).  A label there the pipeline only
@@ -267,8 +268,7 @@ def _name_c_callees(project, binary, data, entries, label_map,
     done = set()
     for label, entry in entries.items():
         start = starts.get(label)
-        if (start is None or cache.is_asm_entry(entry)
-                or module_key(entry) in done):
+        if start is None or module_key(entry) in done:
             continue
         try:
             func = cache.compile_source(

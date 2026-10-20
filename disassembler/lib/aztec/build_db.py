@@ -7,13 +7,20 @@ overlay support objects (OVLD/OVLDPATH/OVBGN).
 
 For every public code symbol we pick a byte window that
   * is unique across the whole library corpus (by symbol name),
-  * occurs exactly once in each game binary that contains it,
+  * occurs in at least one game binary that links the runtime (the MZ
+    executables and their Aztec overlays),
   * is as long as possible (longest window, then nearest the entry), so the
     disassembly pipeline can validate the anchored function entry.
 
 Each signature records ``entry_offset``, the distance from the function entry
 to the matched window.  The matcher computes ``entry = match - entry_offset``,
 which lets leaf routines without a ``push bp`` prologue anchor correctly.
+
+The window only finds candidates.  Each signature also carries ``bodies``:
+every library variant's whole routine with its relocation sites, and the
+matcher keeps a candidate only when the image holds one of them byte for byte
+outside those sites.  So a window may recur in a binary (``stkover``'s does,
+in VMEXE): the other occurrences are not the routine and fail that check.
 
 Output: .cache/<project>/aztec_funcs.json (signatures for ``lib.match.pattern``).
 
@@ -145,6 +152,18 @@ def _frame_only(window):
     return True
 
 
+def _bodies(variants):
+    """Each variant's whole routine: its bytes and the ``[offset, width]`` of
+    every relocation site, which the linked image fills in differently."""
+    out = []
+    for f in variants:
+        relocs = sorted({(fx.offset - f['offset'], fx.width)
+                         for fx in f['fixups']})
+        out.append({'bytes': f['bytes'].hex(' ').upper(),
+                    'relocs': [list(r) for r in relocs]})
+    return out
+
+
 def _select(by_name, names, binaries, win_names, allow_zeros):
     """Pick the best window for each name; returns {name: (off, L, w)}."""
     chosen = {}
@@ -170,9 +189,7 @@ def _select(by_name, names, binaries, win_names, allow_zeros):
                         continue
                     if _frame_only(w):
                         continue
-                    occurrences = [bd.count(w) for bd in binaries.values()
-                                   if w in bd]
-                    if not occurrences or any(c != 1 for c in occurrences):
+                    if not any(w in bd for bd in binaries.values()):
                         continue
                     # Prefer windows nearest the entry (most reliable anchor),
                     # then the longest such window.
@@ -224,6 +241,7 @@ def build(here, apps_dir, out_path, exes):
             'has_prologue': has_prologue,
             'entry_prefix': prefix.hex(' ').upper(),
             'patterns': [w.hex(' ').upper()],
+            'bodies': _bodies(by_name[name]),
         })
 
     payload = {
@@ -238,14 +256,21 @@ def build(here, apps_dir, out_path, exes):
     return len(by_name), len(signatures)
 
 
+#: Sidecar binary types that link the Aztec runtime: the executables and the
+#: overlays they load.  An overlay links its own copies of library routines
+#: (``$ovbgn``, ``$cswt``, ``swapmem``), some of them in no executable.
+RUNTIME_TYPES = ('mz', 'aztec_overlay')
+
+
 def project_binaries(project):
-    """MZ executables listed in the project's sidecar (the uniqueness-search
-    corpus).  Empty when there is no sidecar, i.e. no Aztec signature DB."""
+    """Binaries in the project's sidecar that link the Aztec runtime (the
+    window-search corpus).  Empty when there is no sidecar, i.e. no Aztec
+    signature DB."""
     data = load_sidecar(project)
     if not data:
         return []
     return [b['file'] for b in data['binaries'].values()
-            if b.get('type') == 'mz']
+            if b.get('type') in RUNTIME_TYPES]
 
 
 def build_for_project(project):

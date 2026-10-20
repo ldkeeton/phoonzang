@@ -650,7 +650,7 @@ api_idx_0014_VORK:
     jmp near @..api_idx_0014_VORK.l19 ; 0x672a
 jumptable_67c3_case_0:
     push word [bp + 0x4]             ; 0x672d
-    call api_idx_0018_IGHI           ; 0x6730
+    call api_idx_0018_VTUP           ; 0x6730
     pop cx                           ; 0x6733
     jmp near @..api_idx_0014_VORK.l20 ; 0x6734
 jumptable_67c3_case_1:
