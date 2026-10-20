@@ -37,7 +37,7 @@ api_idx_0004_RGUG:
     je short @..api_idx_0004_RGUG.l5 ; 0x014f
     mov ax, 1                        ; 0x0151
     push ax                          ; 0x0154
-    call dos_con_in_noecho_2         ; 0x0155
+    call get_filtered_key            ; 0x0155
     pop cx                           ; 0x0158
     cmp al, 0xd                      ; 0x0159
     jne short @..api_idx_0004_RGUG.l5 ; 0x015b

@@ -1173,7 +1173,7 @@ jumptable_34f1_case_3:
 @..api_idx_0084_IMVQ.l31:
     mov ax, 1                        ; 0x3088
     push ax                          ; 0x308b
-    call dos_con_in_noecho_2         ; 0x308c
+    call get_filtered_key            ; 0x308c
     pop cx                           ; 0x308f
 @..api_idx_0084_IMVQ.l32:
     mov ax, word [bp - 0x0008]       ; 0x3090

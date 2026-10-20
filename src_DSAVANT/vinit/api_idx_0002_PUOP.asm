@@ -15,7 +15,7 @@ api_idx_0002_PUOP:
     je short @..api_idx_0002_PUOP.l3 ; 0x0965
     mov ax, 1                        ; 0x0967
     push ax                          ; 0x096a
-    call dos_con_in_noecho_2         ; 0x096b
+    call get_filtered_key            ; 0x096b
     pop cx                           ; 0x096e
     sub ah, ah                       ; 0x096f
     mov word [bp - 0x0002], ax       ; 0x0971

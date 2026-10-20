@@ -865,7 +865,7 @@ jumptable_4058_case_4:
 @..api_idx_00d4_LUPQ.l61:
     jmp near @..api_idx_00d4_LUPQ.l67 ; 0x3f93
 jumptable_4058_case_7:
-    call ds_app_io_VGOM              ; 0x3f96
+    call ds_app_VGOM                 ; 0x3f96
     mov word [bp - 0x0098], ax       ; 0x3f99
     cmp ax, strict word 0xffff       ; 0x3f9d
     jne short @..api_idx_00d4_LUPQ.l62 ; 0x3fa0

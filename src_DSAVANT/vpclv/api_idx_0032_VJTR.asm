@@ -387,7 +387,7 @@ api_idx_0032_VJTR:
 @..api_idx_0032_VJTR.l22:
     mov ax, 1                        ; 0x3dfc
     push ax                          ; 0x3dff
-    call dos_con_in_noecho_2         ; 0x3e00
+    call get_filtered_key            ; 0x3e00
     pop cx                           ; 0x3e03
     sub ah, ah                       ; 0x3e04
     mov word [bp - 0x0030], ax       ; 0x3e06

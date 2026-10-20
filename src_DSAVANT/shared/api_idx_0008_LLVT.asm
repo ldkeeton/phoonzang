@@ -80,7 +80,7 @@ api_idx_0008_LLVT:
 @..api_idx_0008_LLVT.l7:
     mov ax, 1
     push ax
-    call dos_con_in_noecho_2
+    call get_filtered_key
     pop cx
     sub ah, ah
     mov word [bp - 0x0002], ax

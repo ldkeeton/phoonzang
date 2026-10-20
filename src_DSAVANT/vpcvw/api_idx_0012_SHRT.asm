@@ -70,7 +70,7 @@ api_idx_0012_SHRT:
     jne short @..api_idx_0012_SHRT.l5 ; 0x0820
     mov ax, 1                        ; 0x0822
     push ax                          ; 0x0825
-    call dos_con_in_noecho_2         ; 0x0826
+    call get_filtered_key            ; 0x0826
     pop cx                           ; 0x0829
     sub ah, ah                       ; 0x082a
     mov word [bp - 0x0002], ax       ; 0x082c

@@ -49,10 +49,6 @@
       "name": "dos_con_in_noecho",
       "note": "ds: keyboard input; reads keys with INT 21h AH=7"
     },
-    "dos_con_loc_NPLP": {
-      "name": "dos_con_in_noecho_2",
-      "note": "ds: keyboard input; reads keys with INT 21h AH=7"
-    },
     "dos_con_loc_RMQM": {
       "name": "dos_read_file_2",
       "note": "ds: reads 0x400 bytes into a fixed buffer (INT 21h AH=3Fh)"
@@ -165,6 +161,10 @@
         "395b": {
           "name": "font_memory_error",
           "note": "load_font_file's INT 21h AH=48h failure: prints 'Memory error loading font' and exits"
+        },
+        "3d79": {
+          "name": "get_filtered_key",
+          "note": "hand-written asm: pops the next key from the cs 0x3c7f queue (count word, then bytes), discarding keys not allowed by mode [bp+4] (0 any, 2 digits, else printable/control); empty queue reads INT 21h AH=07h, uppercasing letters and mapping arrow scan codes to 8-11"
         },
         "3e5e": {
           "name": "flush_keyboard",

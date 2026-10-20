@@ -30,7 +30,7 @@ api_idx_0004_GGOK:
     mov bx, ax                       ; 0x3ad4
     cmp byte [bx + 0x624], 1         ; 0x3ad6
     jne short @..api_idx_0004_GGOK.l2 ; 0x3adb
-    call ds_app_io_VGOM              ; 0x3add
+    call ds_app_VGOM                 ; 0x3add
     mov word [bss_9650], ax          ; 0x3ae0
     cmp ax, strict word 0xffff       ; 0x3ae3
     jne short @..api_idx_0004_GGOK.l2 ; 0x3ae6

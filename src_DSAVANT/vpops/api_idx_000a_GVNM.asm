@@ -30,7 +30,7 @@ api_idx_000a_GVNM:
     mov bx, ax                       ; 0x2989
     cmp byte [bx + 0x624], 1         ; 0x298b
     jne short @..api_idx_000a_GVNM.l3 ; 0x2990
-    call ds_app_io_VGOM              ; 0x2992
+    call ds_app_VGOM                 ; 0x2992
     mov word [bp - 0x000a], ax       ; 0x2995
     cmp ax, strict word 0xffff       ; 0x2998
     jne short @..api_idx_000a_GVNM.l2 ; 0x299b

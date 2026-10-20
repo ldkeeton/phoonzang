@@ -373,7 +373,7 @@ loc_MOVJ:
 @..loc_MOVJ.l14:
     mov ax, 1                        ; 0x2093
     push ax                          ; 0x2096
-    call dos_con_in_noecho_2         ; 0x2097
+    call get_filtered_key            ; 0x2097
     pop cx                           ; 0x209a
     sub ah, ah                       ; 0x209b
     mov word [bp - 0x015a], ax       ; 0x209d

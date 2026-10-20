@@ -258,7 +258,7 @@ loc_LSRQ:
 @..loc_LSRQ.l10:
     mov ax, 1                        ; 0x0493
     push ax                          ; 0x0496
-    call dos_con_in_noecho_2         ; 0x0497
+    call get_filtered_key            ; 0x0497
     pop cx                           ; 0x049a
     sub ah, ah                       ; 0x049b
     mov word [bp - 0x0156], ax       ; 0x049d

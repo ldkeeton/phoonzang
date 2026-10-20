@@ -25,7 +25,7 @@ api_idx_0004_GKHR:
     mov bx, ax                       ; 0x4b0b
     cmp byte [bx + 0x624], 1         ; 0x4b0d
     jne short @..api_idx_0004_GKHR.l2 ; 0x4b12
-    call ds_app_io_VGOM              ; 0x4b14
+    call ds_app_VGOM                 ; 0x4b14
     mov word [bss_95e2], ax          ; 0x4b17
     cmp ax, strict word 0xffff       ; 0x4b1a
     jne short @..api_idx_0004_GKHR.l2 ; 0x4b1d

@@ -1888,7 +1888,7 @@ jumptable_76e2:
 @..loc_IUTP.l85:
     mov ax, 1                        ; 0x82bd
     push ax                          ; 0x82c0
-    call dos_con_in_noecho_2         ; 0x82c1
+    call get_filtered_key            ; 0x82c1
     pop cx                           ; 0x82c4
     sub ah, ah                       ; 0x82c5
     mov word [bp - 0x0008], ax       ; 0x82c7

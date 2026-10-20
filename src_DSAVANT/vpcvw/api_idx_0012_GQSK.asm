@@ -146,7 +146,7 @@ api_idx_0012_GQSK:
     jne short @..api_idx_0012_GQSK.l7 ; 0x0673
     mov ax, 1                        ; 0x0675
     push ax                          ; 0x0678
-    call dos_con_in_noecho_2         ; 0x0679
+    call get_filtered_key            ; 0x0679
     pop cx                           ; 0x067c
     sub ah, ah                       ; 0x067d
     mov word [bp - 0x0002], ax       ; 0x067f

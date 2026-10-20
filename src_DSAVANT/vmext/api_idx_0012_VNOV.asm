@@ -18,7 +18,7 @@ api_idx_0012_VNOV:
     idiv cx                          ; 0x0f0a
     mov word [bp - 0x000c], dx       ; 0x0f0c
 @..api_idx_0012_VNOV.l1:
-    call ds_app_io_VGOM              ; 0x0f0f
+    call ds_app_VGOM                 ; 0x0f0f
     mov word [bp - 0x0006], ax       ; 0x0f12
     cmp ax, strict word 0xffff       ; 0x0f15
     jne short @..api_idx_0012_VNOV.l2 ; 0x0f18

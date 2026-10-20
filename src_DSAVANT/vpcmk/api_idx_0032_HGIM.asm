@@ -387,7 +387,7 @@ api_idx_0032_HGIM:
 @..api_idx_0032_HGIM.l22:
     mov ax, 1                        ; 0x2a73
     push ax                          ; 0x2a76
-    call dos_con_in_noecho_2         ; 0x2a77
+    call get_filtered_key            ; 0x2a77
     pop cx                           ; 0x2a7a
     sub ah, ah                       ; 0x2a7b
     mov word [bp - 0x0030], ax       ; 0x2a7d

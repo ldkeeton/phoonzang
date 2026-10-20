@@ -356,7 +356,7 @@ loc_TRPK:
 @..loc_TRPK.l14:
     mov ax, 1                        ; 0x0778
     push ax                          ; 0x077b
-    call dos_con_in_noecho_2         ; 0x077c
+    call get_filtered_key            ; 0x077c
     pop cx                           ; 0x077f
     sub ah, ah                       ; 0x0780
     mov word [bp - 0x01aa], ax       ; 0x0782

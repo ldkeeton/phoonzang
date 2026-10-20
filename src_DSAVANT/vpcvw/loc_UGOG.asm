@@ -356,7 +356,7 @@ loc_UGOG:
 @..loc_UGOG.l14:
     mov ax, 1                        ; 0x1fd3
     push ax                          ; 0x1fd6
-    call dos_con_in_noecho_2         ; 0x1fd7
+    call get_filtered_key            ; 0x1fd7
     pop cx                           ; 0x1fda
     sub ah, ah                       ; 0x1fdb
     mov word [bp - 0x01aa], ax       ; 0x1fdd

@@ -125,7 +125,7 @@ api_idx_000e_OOOK:
     je short @..api_idx_000e_OOOK.l10 ; 0x93ad
     mov ax, 1                        ; 0x93af
     push ax                          ; 0x93b2
-    call dos_con_in_noecho_2         ; 0x93b3
+    call get_filtered_key            ; 0x93b3
     pop cx                           ; 0x93b6
     sub ah, ah                       ; 0x93b7
     mov word [bp - 0x0008], ax       ; 0x93b9

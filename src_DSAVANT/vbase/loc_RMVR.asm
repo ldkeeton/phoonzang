@@ -1040,7 +1040,7 @@ loc_RMVR:
     add sp, byte 6                   ; 0x5662
     mov ax, 1                        ; 0x5665
     push ax                          ; 0x5668
-    call dos_con_in_noecho_2         ; 0x5669
+    call get_filtered_key            ; 0x5669
     pop cx                           ; 0x566c
     sub ah, ah                       ; 0x566d
     mov word [bp - 0x0004], ax       ; 0x566f

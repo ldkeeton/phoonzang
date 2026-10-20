@@ -137,7 +137,7 @@ api_idx_0016_TOUQ:
     add sp, byte 8                   ; 0xa69a
     mov ax, 1                        ; 0xa69d
     push ax                          ; 0xa6a0
-    call dos_con_in_noecho_2         ; 0xa6a1
+    call get_filtered_key            ; 0xa6a1
     pop cx                           ; 0xa6a4
     sub ah, ah                       ; 0xa6a5
     mov word [bp - 0x0002], ax       ; 0xa6a7

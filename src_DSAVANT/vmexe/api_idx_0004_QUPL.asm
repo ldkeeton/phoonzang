@@ -38,7 +38,7 @@ api_idx_0004_QUPL:
     je short @..api_idx_0004_QUPL.l5 ; 0x1ab2
     mov ax, 1                        ; 0x1ab4
     push ax                          ; 0x1ab7
-    call dos_con_in_noecho_2         ; 0x1ab8
+    call get_filtered_key            ; 0x1ab8
     pop cx                           ; 0x1abb
     cmp al, 0xd                      ; 0x1abc
     jne short @..api_idx_0004_QUPL.l5 ; 0x1abe

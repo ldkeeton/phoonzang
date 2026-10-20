@@ -276,7 +276,7 @@ loc_RSHV:
 @..loc_RSHV.l14:
     mov ax, 1                        ; 0x1ab0
     push ax                          ; 0x1ab3
-    call dos_con_in_noecho_2         ; 0x1ab4
+    call get_filtered_key            ; 0x1ab4
     pop cx                           ; 0x1ab7
     sub ah, ah                       ; 0x1ab8
     mov word [bp - 0x01ae], ax       ; 0x1aba

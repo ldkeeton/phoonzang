@@ -37,7 +37,7 @@ api_idx_0004_UQUT:
     je short @..api_idx_0004_UQUT.l5 ; 0x0938
     mov ax, 1                        ; 0x093a
     push ax                          ; 0x093d
-    call dos_con_in_noecho_2         ; 0x093e
+    call get_filtered_key            ; 0x093e
     pop cx                           ; 0x0941
     cmp al, 0xd                      ; 0x0942
     jne short @..api_idx_0004_UQUT.l5 ; 0x0944

@@ -323,7 +323,7 @@ loc_HTRU:
 @..loc_HTRU.l17:
     mov ax, 1                        ; 0x1412
     push ax                          ; 0x1415
-    call dos_con_in_noecho_2         ; 0x1416
+    call get_filtered_key            ; 0x1416
     pop cx                           ; 0x1419
     sub ah, ah                       ; 0x141a
     mov word [bp - 0x01ae], ax       ; 0x141c

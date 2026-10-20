@@ -12,7 +12,7 @@ ds_app_io_UHMG: ; Aztec csav frame=0x0004
     je short @..ds_app_io_UHMG.l6    ; 0x0b70
     mov ax, 1                        ; 0x0b72
     push ax                          ; 0x0b75
-    call dos_con_in_noecho_2         ; 0x0b76
+    call get_filtered_key            ; 0x0b76
     pop cx                           ; 0x0b79
     sub ah, ah                       ; 0x0b7a
     mov word [bp - 0x0004], ax       ; 0x0b7c

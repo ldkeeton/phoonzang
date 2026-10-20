@@ -361,7 +361,7 @@ loc_IOMS:
 @..loc_IOMS.l15:
     mov ax, 1                        ; 0x8781
     push ax                          ; 0x8784
-    call dos_con_in_noecho_2         ; 0x8785
+    call get_filtered_key            ; 0x8785
     pop cx                           ; 0x8788
     sub ah, ah                       ; 0x8789
     mov word [bp - 0x01aa], ax       ; 0x878b

@@ -438,7 +438,7 @@ bss_5e2a equ __zbss_5e2a - __zdseg_start
 ; bss_59fa equ __zbss_59fa - __zdseg_start
 ; bss_5b3e equ __zbss_5b3e - __zdseg_start
 bss_69c8 equ __zbss_69c8 - __zdseg_start
-%include "ds/ds_app_io_VGOM.asm"           ; 0x20f8
+%include "ds/ds_app_VGOM.asm"              ; 0x20f8
 
 %include "ds/ds_app_QSQR.asm"              ; 0x2305
 
@@ -826,7 +826,7 @@ cseg_3c7f:
 
 %include "ds/dos_con_in_noecho.asm"        ; 0x3c97
 
-%include "ds/dos_con_in_noecho_2.asm"      ; 0x3d79
+%include "ds/get_filtered_key.asm"         ; 0x3d79
 
 %include "ds/flush_keyboard.asm"           ; 0x3e5e
 

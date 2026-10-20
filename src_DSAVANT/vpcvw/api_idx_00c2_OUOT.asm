@@ -545,7 +545,7 @@ api_idx_00c2_OUOT:
 @..api_idx_00c2_OUOT.l21:
     mov ax, 1                        ; 0x5a03
     push ax                          ; 0x5a06
-    call dos_con_in_noecho_2         ; 0x5a07
+    call get_filtered_key            ; 0x5a07
     pop cx                           ; 0x5a0a
     sub ah, ah                       ; 0x5a0b
     mov word [bp - 0x009a], ax       ; 0x5a0d
@@ -645,7 +645,7 @@ api_idx_00c2_OUOT:
 @..api_idx_00c2_OUOT.l36:
     mov ax, 1                        ; 0x5ad9
     push ax                          ; 0x5adc
-    call dos_con_in_noecho_2         ; 0x5add
+    call get_filtered_key            ; 0x5add
     pop cx                           ; 0x5ae0
     sub ah, ah                       ; 0x5ae1
     mov word [bp - 0x009a], ax       ; 0x5ae3
