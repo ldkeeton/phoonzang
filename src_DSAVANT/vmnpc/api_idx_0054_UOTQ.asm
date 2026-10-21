@@ -102,7 +102,7 @@ jumptable_a27d_case_0:
     adc word [bss_91b8], byte 0      ; 0x9e25
     cmp word [bss_9d68], byte 0      ; 0x9e2a
     jne short @..api_idx_0054_UOTQ.l12 ; 0x9e2f
-    cmp word [bss_91a8], byte 0      ; 0x9e31
+    cmp word [location_changed], byte 0 ; 0x9e31
     jle short @..api_idx_0054_UOTQ.l12 ; 0x9e36
     mov ax, 0                        ; 0x9e38
     push ax                          ; 0x9e3b

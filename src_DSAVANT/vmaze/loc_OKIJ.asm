@@ -6,16 +6,16 @@ loc_OKIJ:
     push ax                          ; 0x86b2
     mov ax, 0                        ; 0x86b3
     push ax                          ; 0x86b6
-    mov ax, word [bss_8d12]          ; 0x86b7
+    mov ax, word [party_region]      ; 0x86b7
     shl ax, 1                        ; 0x86ba
     mov si, ax                       ; 0x86bc
-    mov bx, word [bss_0e12]          ; 0x86be
+    mov bx, word [maze_tables]       ; 0x86be
     push word [bx + si + 0x3c0]      ; 0x86c2
-    call ds_dos_con_loc_QJHU         ; 0x86c6
+    call get_bits                    ; 0x86c6
     add sp, byte 6                   ; 0x86c9
     push ax                          ; 0x86cc
-    mov si, word [bss_8d12]          ; 0x86cd
-    mov bx, word [bss_0e12]          ; 0x86d1
+    mov si, word [party_region]      ; 0x86cd
+    mov bx, word [maze_tables]       ; 0x86d1
     mov al, byte [bx + si + 0xa50]   ; 0x86d5
     sub ah, ah                       ; 0x86d9
     mov cx, 6                        ; 0x86db

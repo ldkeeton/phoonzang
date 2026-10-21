@@ -2,17 +2,17 @@
 api_idx_0004_IHHI:
     mov ax, 0xfffc                   ; 0x13f7
     call aztec_csav                  ; 0x13fa
-    cmp word [bss_919e], byte 0      ; 0x13fd
+    cmp word [save_location_flag], byte 0 ; 0x13fd
     je short @..api_idx_0004_IHHI.l1 ; 0x1402
-    mov ax, word [bss_8f3e]          ; 0x1404
-    mov word [bss_8f2a], ax          ; 0x1407
-    mov ax, word [bss_8f42]          ; 0x140a
-    mov word [bss_8f2e], ax          ; 0x140d
-    mov ax, word [bss_8f40]          ; 0x1410
-    mov word [bss_8f2c], ax          ; 0x1413
+    mov ax, word [party_map_piece]   ; 0x1404
+    mov word [saved_map_piece], ax   ; 0x1407
+    mov ax, word [party_cell_x]      ; 0x140a
+    mov word [saved_cell_x], ax      ; 0x140d
+    mov ax, word [party_cell_y]      ; 0x1410
+    mov word [saved_cell_y], ax      ; 0x1413
     ret                              ; 0x1416
 @..api_idx_0004_IHHI.l1:
-    call loc_IONR                    ; 0x1417
+    call redraw_maze_view            ; 0x1417
     mov word [bp - 0x0002], 0        ; 0x141a
     jmp near @..api_idx_0004_IHHI.l7 ; 0x141f
 @..api_idx_0004_IHHI.l2:

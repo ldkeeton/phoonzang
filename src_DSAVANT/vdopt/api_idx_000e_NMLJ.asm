@@ -12,7 +12,7 @@ api_idx_000e_NMLJ:
     mov ax, word [bp - 0x000e]       ; 0x06fd
     shl ax, 1                        ; 0x0700
     mov si, ax                       ; 0x0702
-    mov bx, word [bss_0e12]          ; 0x0704
+    mov bx, word [maze_tables]       ; 0x0704
     mov ax, word [bx + si + 0x1e0]   ; 0x0708
     mov word [bp - 0x0006], ax       ; 0x070c
     mov si, word [bp - 0x000e]       ; 0x070f
@@ -24,23 +24,23 @@ api_idx_000e_NMLJ:
     mov ax, 0                        ; 0x071f
     push ax                          ; 0x0722
     push word [bp - 0x0002]          ; 0x0723
-    call ds_dos_con_loc_QJHU         ; 0x0726
+    call get_bits                    ; 0x0726
     add sp, byte 6                   ; 0x0729
     mov word [bp - 0x0004], ax       ; 0x072c
     mov word [bp - 0x000a], 0        ; 0x072f
     mov ax, word [bp - 0x000e]       ; 0x0734
     shl ax, 1                        ; 0x0737
     mov si, ax                       ; 0x0739
-    mov bx, word [bss_0e12]          ; 0x073b
+    mov bx, word [maze_tables]       ; 0x073b
     mov ax, word [bx + si + 0x3c0]   ; 0x073f
     mov word [bp - 0x0002], ax       ; 0x0743
     mov ax, 2                        ; 0x0746
     push ax                          ; 0x0749
-    mov ax, word [bss_82ee]          ; 0x074a
+    mov ax, word [party_tag]         ; 0x074a
     shl ax, 1                        ; 0x074d
     push ax                          ; 0x074f
     push word [bp - 0x0002]          ; 0x0750
-    call ds_dos_con_loc_QJHU         ; 0x0753
+    call get_bits                    ; 0x0753
     add sp, byte 6                   ; 0x0756
     cmp ax, strict word 2            ; 0x0759
     jne short @..api_idx_000e_NMLJ.l2 ; 0x075c

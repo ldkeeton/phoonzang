@@ -30,7 +30,7 @@ api_idx_000c_VJPM:
     call ds_app_HKIJ                 ; 0x6f83
     pop cx                           ; 0x6f86
 @..api_idx_000c_VJPM.l3:
-    mov word [bss_8460], 0x64        ; 0x6f87
+    mov word [dest_alt_arg], 0x64    ; 0x6f87
 @..api_idx_000c_VJPM.l4:
     mov word [bss_8464], 0           ; 0x6f8d
 @..api_idx_000c_VJPM.l5:
@@ -57,7 +57,7 @@ api_idx_000c_VJPM:
 @..api_idx_000c_VJPM.l8:
     mov al, byte [bx + 0x25]         ; 0x6fc9
     sub ah, ah                       ; 0x6fcc
-    cmp ax, word [bss_8460]          ; 0x6fce
+    cmp ax, word [dest_alt_arg]      ; 0x6fce
     je short @..api_idx_000c_VJPM.l9 ; 0x6fd2
     jmp near @..api_idx_000c_VJPM.l16 ; 0x6fd4
 @..api_idx_000c_VJPM.l9:
@@ -70,7 +70,7 @@ api_idx_000c_VJPM:
     mov si, ax                       ; 0x6fe5
     mov al, byte [bx + si + 0x18]    ; 0x6fe7
     sub ah, ah                       ; 0x6fea
-    cmp ax, word [bss_8460]          ; 0x6fec
+    cmp ax, word [dest_alt_arg]      ; 0x6fec
     je short @..api_idx_000c_VJPM.l12 ; 0x6ff0
     mov byte [bx + 0x2b], 3          ; 0x6ff2
     mov ax, 1                        ; 0x6ff6
@@ -108,7 +108,7 @@ api_idx_000c_VJPM:
     call random_below                ; 0x703d
     pop cx                           ; 0x7040
     mov cx, ax                       ; 0x7041
-    mov ax, word [bss_8460]          ; 0x7043
+    mov ax, word [dest_alt_arg]      ; 0x7043
     sub ax, cx                       ; 0x7046
     add ax, strict word 0xfffb       ; 0x7048
     mov word [bp - 0x000a], ax       ; 0x704b
@@ -161,7 +161,7 @@ api_idx_000c_VJPM:
     mov si, ax                       ; 0x70be
     mov al, byte [bx + si + 0x18]    ; 0x70c0
     sub ah, ah                       ; 0x70c3
-    cmp ax, word [bss_8460]          ; 0x70c5
+    cmp ax, word [dest_alt_arg]      ; 0x70c5
     je short @..api_idx_000c_VJPM.l17 ; 0x70c9
     jmp near @..api_idx_000c_VJPM.l21 ; 0x70cb
 @..api_idx_000c_VJPM.l17:
@@ -256,7 +256,7 @@ api_idx_000c_VJPM:
     mov word [bp - 0x000a], ax       ; 0x71a9
     mov al, byte [bx + si + 0x198]   ; 0x71ac
     sub ah, ah                       ; 0x71b0
-    cmp ax, word [bss_8460]          ; 0x71b2
+    cmp ax, word [dest_alt_arg]      ; 0x71b2
     je short @..api_idx_000c_VJPM.l28 ; 0x71b6
     jmp near @..api_idx_000c_VJPM.l31 ; 0x71b8
 @..api_idx_000c_VJPM.l28:
@@ -469,7 +469,7 @@ jumptable_735e:
     jmp near @..api_idx_000c_VJPM.l5 ; 0x7391
 @..api_idx_000c_VJPM.l33:
     call api_idx_0006_TMLR           ; 0x7394
-    dec word [bss_8460]              ; 0x7397
+    dec word [dest_alt_arg]          ; 0x7397
     jle short @..api_idx_000c_VJPM.l34 ; 0x739b
     jmp near @..api_idx_000c_VJPM.l4 ; 0x739d
 @..api_idx_000c_VJPM.l34:

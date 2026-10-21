@@ -2,10 +2,10 @@
 api_idx_001e_QHIQ:
     mov ax, 0xffe2                   ; 0x7e46
     call aztec_csav                  ; 0x7e49
-    mov ax, word [bss_8d12]          ; 0x7e4c
+    mov ax, word [party_region]      ; 0x7e4c
     shl ax, 1                        ; 0x7e4f
     mov si, ax                       ; 0x7e51
-    mov bx, word [bss_0e12]          ; 0x7e53
+    mov bx, word [maze_tables]       ; 0x7e53
     mov ax, word [bx + si + 0x1e0]   ; 0x7e57
     mov cx, 0x100                    ; 0x7e5b
     cwd                              ; 0x7e5e
@@ -23,14 +23,14 @@ api_idx_001e_QHIQ:
     cwd                              ; 0x7e78
     idiv cx                          ; 0x7e79
     mov word [bp - 0x001c], dx       ; 0x7e7b
-    mov ax, word [bss_82ee]          ; 0x7e7e
+    mov ax, word [party_tag]         ; 0x7e7e
     sub ax, word [bp - 0x0016]       ; 0x7e81
     add ax, strict word 4            ; 0x7e84
     mov cx, 4                        ; 0x7e87
     cwd                              ; 0x7e8a
     idiv cx                          ; 0x7e8b
     mov word [bp - 0x001a], dx       ; 0x7e8d
-    mov si, word [bss_8d12]          ; 0x7e90
+    mov si, word [party_region]      ; 0x7e90
     mov al, byte [bx + si + 0xa50]   ; 0x7e94
     sub ah, ah                       ; 0x7e98
     mov word [bp - 0x0014], ax       ; 0x7e9a
@@ -45,10 +45,10 @@ api_idx_001e_QHIQ:
     call ds_app_QTIV                 ; 0x7eaf
     pop cx                           ; 0x7eb2
 @..api_idx_001e_QHIQ.l1:
-    mov ax, word [bss_8d12]          ; 0x7eb3
+    mov ax, word [party_region]      ; 0x7eb3
     shl ax, 1                        ; 0x7eb6
     mov si, ax                       ; 0x7eb8
-    mov bx, word [bss_0e12]          ; 0x7eba
+    mov bx, word [maze_tables]       ; 0x7eba
     mov ax, word [bx + si + 0x3c0]   ; 0x7ebe
     mov word [bp - 0x0004], ax       ; 0x7ec2
     mov ax, 3                        ; 0x7ec5
@@ -56,14 +56,14 @@ api_idx_001e_QHIQ:
     mov ax, 0                        ; 0x7ec9
     push ax                          ; 0x7ecc
     push word [bp - 0x0004]          ; 0x7ecd
-    call ds_dos_con_loc_QJHU         ; 0x7ed0
+    call get_bits                    ; 0x7ed0
     add sp, byte 6                   ; 0x7ed3
     mov word [bp - 0x0008], ax       ; 0x7ed6
     mov ax, 3                        ; 0x7ed9
     push ax                          ; 0x7edc
     push ax                          ; 0x7edd
     push word [bp - 0x0004]          ; 0x7ede
-    call ds_dos_con_loc_QJHU         ; 0x7ee1
+    call get_bits                    ; 0x7ee1
     add sp, byte 6                   ; 0x7ee4
     mov word [bp - 0x000a], ax       ; 0x7ee7
     mov ax, 4                        ; 0x7eea
@@ -71,7 +71,7 @@ api_idx_001e_QHIQ:
     mov ax, 6                        ; 0x7eee
     push ax                          ; 0x7ef1
     push word [bp - 0x0004]          ; 0x7ef2
-    call ds_dos_con_loc_QJHU         ; 0x7ef5
+    call get_bits                    ; 0x7ef5
     add sp, byte 6                   ; 0x7ef8
     mov word [bp - 0x0006], ax       ; 0x7efb
     mov ax, 1                        ; 0x7efe
@@ -79,7 +79,7 @@ api_idx_001e_QHIQ:
     mov ax, 0xa                      ; 0x7f02
     push ax                          ; 0x7f05
     push word [bp - 0x0004]          ; 0x7f06
-    call ds_dos_con_loc_QJHU         ; 0x7f09
+    call get_bits                    ; 0x7f09
     add sp, byte 6                   ; 0x7f0c
     mov word [bp - 0x0010], ax       ; 0x7f0f
     mov ax, 1                        ; 0x7f12
@@ -87,7 +87,7 @@ api_idx_001e_QHIQ:
     mov ax, 0xb                      ; 0x7f16
     push ax                          ; 0x7f19
     push word [bp - 0x0004]          ; 0x7f1a
-    call ds_dos_con_loc_QJHU         ; 0x7f1d
+    call get_bits                    ; 0x7f1d
     add sp, byte 6                   ; 0x7f20
     mov word [bp - 0x0012], ax       ; 0x7f23
     mov ax, 1                        ; 0x7f26
@@ -95,7 +95,7 @@ api_idx_001e_QHIQ:
     mov ax, 0xc                      ; 0x7f2a
     push ax                          ; 0x7f2d
     push word [bp - 0x0004]          ; 0x7f2e
-    call ds_dos_con_loc_QJHU         ; 0x7f31
+    call get_bits                    ; 0x7f31
     add sp, byte 6                   ; 0x7f34
     mov word [bp - 0x000e], ax       ; 0x7f37
     mov ax, 1                        ; 0x7f3a
@@ -112,7 +112,7 @@ api_idx_001e_QHIQ:
     je short @..api_idx_001e_QHIQ.l4 ; 0x7f59
     cmp word [bp - 0x001a], byte 0   ; 0x7f5b
     jne short @..api_idx_001e_QHIQ.l4 ; 0x7f5f
-    mov ax, word [bss_82ee]          ; 0x7f61
+    mov ax, word [party_tag]         ; 0x7f61
     cmp ax, word [bp - 0x0018]       ; 0x7f64
     jne short @..api_idx_001e_QHIQ.l3 ; 0x7f67
     push word [bp - 0x0014]          ; 0x7f69
@@ -145,7 +145,7 @@ api_idx_001e_QHIQ:
     jne short @..api_idx_001e_QHIQ.l7 ; 0x7fb0
     cmp word [bp - 0x001a], byte 0   ; 0x7fb2
     jne short @..api_idx_001e_QHIQ.l7 ; 0x7fb6
-    mov ax, word [bss_82ee]          ; 0x7fb8
+    mov ax, word [party_tag]         ; 0x7fb8
     cmp ax, word [bp - 0x0018]       ; 0x7fbb
     jne short @..api_idx_001e_QHIQ.l5 ; 0x7fbe
     push word [bp - 0x0014]          ; 0x7fc0
@@ -175,10 +175,10 @@ api_idx_001e_QHIQ:
     call loc_HMKT                    ; 0x7ff7
     add sp, byte 4                   ; 0x7ffa
 @..api_idx_001e_QHIQ.l8:
-    call loc_IONR                    ; 0x7ffd
+    call redraw_maze_view            ; 0x7ffd
     jmp short @..api_idx_001e_QHIQ.l10 ; 0x8000
 @..api_idx_001e_QHIQ.l9:
-    call loc_IONR                    ; 0x8002
+    call redraw_maze_view            ; 0x8002
 @..api_idx_001e_QHIQ.l10:
     jmp short @..api_idx_001e_QHIQ.l13 ; 0x8005
 @..api_idx_001e_QHIQ.l11:
@@ -192,7 +192,7 @@ api_idx_001e_QHIQ:
 @..api_idx_001e_QHIQ.l12:
     mov ax, 2                        ; 0x801a
     push ax                          ; 0x801d
-    call api_idx_0006_LIGG           ; 0x801e
+    call wait_ticks_or_key           ; 0x801e
     pop cx                           ; 0x8021
 @..api_idx_001e_QHIQ.l13:
     cmp word [bp - 0x0014], byte 0   ; 0x8022
@@ -203,13 +203,13 @@ api_idx_001e_QHIQ:
     pop cx                           ; 0x802f
     mov word [bss_598e], 0xffff      ; 0x8030
 @..api_idx_001e_QHIQ.l14:
-    mov si, word [bss_8d12]          ; 0x8036
-    mov bx, word [bss_0e12]          ; 0x803a
+    mov si, word [party_region]      ; 0x8036
+    mov bx, word [maze_tables]       ; 0x803a
     cmp byte [bx + si + 0x960], 0    ; 0x803e
     jbe short @..api_idx_001e_QHIQ.l15 ; 0x8043
     mov ax, 2                        ; 0x8045
     push ax                          ; 0x8048
-    call loc_OUOJ                    ; 0x8049
+    call mark_region_bits            ; 0x8049
     pop cx                           ; 0x804c
 @..api_idx_001e_QHIQ.l15:
     ret                              ; 0x804d

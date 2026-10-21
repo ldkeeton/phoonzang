@@ -2,10 +2,10 @@
 api_idx_0012_VNOV:
     mov ax, 0xffee                   ; 0x0ee0
     call aztec_csav                  ; 0x0ee3
-    mov ax, word [bss_8d12]          ; 0x0ee6
+    mov ax, word [party_region]      ; 0x0ee6
     shl ax, 1                        ; 0x0ee9
     mov si, ax                       ; 0x0eeb
-    mov bx, word [bss_0e12]          ; 0x0eed
+    mov bx, word [maze_tables]       ; 0x0eed
     mov ax, word [bx + si + 0x3c0]   ; 0x0ef1
     mov word [bp - 0x0008], ax       ; 0x0ef5
     mov ax, word [bx + si + 0x1e0]   ; 0x0ef8
@@ -36,7 +36,7 @@ api_idx_0012_VNOV:
     mov ax, 7                        ; 0x0f39
     push ax                          ; 0x0f3c
     push word [bp - 0x0008]          ; 0x0f3d
-    call ds_dos_con_loc_QJHU         ; 0x0f40
+    call get_bits                    ; 0x0f40
     add sp, byte 6                   ; 0x0f43
     test ax, ax                      ; 0x0f46
     jne short @..api_idx_0012_VNOV.l3 ; 0x0f48
@@ -65,7 +65,7 @@ api_idx_0012_VNOV:
     push ax                          ; 0x0f7e
     push word [bp - 0x0002]          ; 0x0f7f
     push word [bp - 0x0008]          ; 0x0f82
-    call ds_dos_con_loc_QJHU         ; 0x0f85
+    call get_bits                    ; 0x0f85
     add sp, byte 6                   ; 0x0f88
     cmp ax, strict word 1            ; 0x0f8b
     je short @..api_idx_0012_VNOV.l5 ; 0x0f8e
@@ -467,5 +467,5 @@ jumptable_12fa:
     pop cx                           ; 0x134d
     jmp near @..api_idx_0012_VNOV.l1 ; 0x134e
 @..api_idx_0012_VNOV.l26:
-    inc word [bss_8d12]              ; 0x1351
+    inc word [party_region]          ; 0x1351
     ret                              ; 0x1355

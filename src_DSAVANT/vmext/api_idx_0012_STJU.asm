@@ -122,7 +122,7 @@ api_idx_0012_STJU:
 @..api_idx_0012_STJU.l10:
     mov cx, word [bx + bss_9242]     ; 0x31fc
     dec cx                           ; 0x3200
-    mov ax, word [bss_82ee]          ; 0x3201
+    mov ax, word [party_tag]         ; 0x3201
     sub ax, cx                       ; 0x3204
     add ax, strict word 6            ; 0x3206
     mov cx, 4                        ; 0x3209
@@ -221,7 +221,7 @@ api_idx_0012_STJU:
     sub ah, ah                       ; 0x32da
     jmp near @..api_idx_0012_STJU.l36 ; 0x32dc
 @..api_idx_0012_STJU.l21:
-    cmp word [bss_91a8], byte 2      ; 0x32df
+    cmp word [location_changed], byte 2 ; 0x32df
     je short @..api_idx_0012_STJU.l22 ; 0x32e4
     jmp near @..api_idx_0012_STJU.l32 ; 0x32e6
 @..api_idx_0012_STJU.l22:
@@ -336,7 +336,7 @@ api_idx_0012_STJU:
     jne short @..api_idx_0012_STJU.l27 ; 0x33e4
     jmp near @..api_idx_0012_STJU.l31 ; 0x33e6
 @..api_idx_0012_STJU.l27:
-    cmp word [bss_91a8], byte 0      ; 0x33e9
+    cmp word [location_changed], byte 0 ; 0x33e9
     jne short @..api_idx_0012_STJU.l28 ; 0x33ee
     jmp near @..api_idx_0012_STJU.l31 ; 0x33f0
 @..api_idx_0012_STJU.l28:
@@ -418,7 +418,7 @@ api_idx_0012_STJU:
 @..api_idx_0012_STJU.l31:
     jmp near @..api_idx_0012_STJU.l35 ; 0x348c
 @..api_idx_0012_STJU.l32:
-    cmp word [bss_91a8], byte 4      ; 0x348f
+    cmp word [location_changed], byte 4 ; 0x348f
     je short @..api_idx_0012_STJU.l33 ; 0x3494
     jmp near @..api_idx_0012_STJU.l35 ; 0x3496
 @..api_idx_0012_STJU.l33:
@@ -680,7 +680,7 @@ jumptable_35fa:
 @..api_idx_0012_STJU.l54:
     mov cx, word [bx + bss_9210]     ; 0x36c3
     dec cx                           ; 0x36c7
-    mov ax, word [bss_82ee]          ; 0x36c8
+    mov ax, word [party_tag]         ; 0x36c8
     sub ax, cx                       ; 0x36cb
     add ax, strict word 6            ; 0x36cd
     mov cx, 4                        ; 0x36d0
@@ -919,7 +919,7 @@ jumptable_35fa:
     mov cx, ax                       ; 0x38fc
     dec ax                           ; 0x38fe
     mov cx, ax                       ; 0x38ff
-    mov ax, word [bss_82ee]          ; 0x3901
+    mov ax, word [party_tag]         ; 0x3901
     sub ax, cx                       ; 0x3904
     add ax, strict word 6            ; 0x3906
     mov cx, 4                        ; 0x3909

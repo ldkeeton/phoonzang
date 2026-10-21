@@ -1639,7 +1639,7 @@ jumptable_883a:
     mov bx, ax                       ; 0x8958
     mov bx, word [bx + party_char]   ; 0x895a
     mov byte [bx + si + 0x21], 0     ; 0x895e
-    mov ax, word [bss_8460]          ; 0x8962
+    mov ax, word [dest_alt_arg]      ; 0x8962
     dec ax                           ; 0x8965
     push ax                          ; 0x8966
     mov ax, 0x2c                     ; 0x8967

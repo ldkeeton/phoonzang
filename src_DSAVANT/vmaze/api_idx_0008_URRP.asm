@@ -3,8 +3,8 @@ api_idx_0008_URRP:
     mov ax, 0xfff8                   ; 0x01c9
     call aztec_csav                  ; 0x01cc
     mov word [bp - 0x0008], 0        ; 0x01cf
-    call loc_HILS                    ; 0x01d4
-    cmp word [bss_919e], byte 0      ; 0x01d7
+    call check_at_saved_location     ; 0x01d4
+    cmp word [save_location_flag], byte 0 ; 0x01d7
     je short @..api_idx_0008_URRP.l2 ; 0x01dc
     cmp word [bss_9194], byte 0x0d   ; 0x01de
     je short @..api_idx_0008_URRP.l1 ; 0x01e3
@@ -22,15 +22,15 @@ api_idx_0008_URRP:
     mov ax, word [bp + 0xe]          ; 0x01fa
     jmp near @..api_idx_0008_URRP.l10 ; 0x01fd
 @..api_idx_0008_URRP.l3:
-    mov ax, word [bss_8f3e]          ; 0x0200
+    mov ax, word [party_map_piece]   ; 0x0200
     mov cx, 6                        ; 0x0203
     shl ax, cl                       ; 0x0206
-    mov cx, word [bss_8f40]          ; 0x0208
+    mov cx, word [party_cell_y]      ; 0x0208
     shl cx, 1                        ; 0x020c
     shl cx, 1                        ; 0x020e
     shl cx, 1                        ; 0x0210
     add ax, cx                       ; 0x0212
-    add ax, word [bss_8f42]          ; 0x0214
+    add ax, word [party_cell_x]      ; 0x0214
     mov word [bp - 0x0002], ax       ; 0x0218
     push ax                          ; 0x021b
     mov ax, word [maze_data]         ; 0x021c

@@ -23,7 +23,7 @@ api_idx_0008_UNPO:
     add sp, byte 0x0e                ; 0x1a4a
     test ax, ax                      ; 0x1a4d
     je short @..api_idx_0008_UNPO.l4 ; 0x1a4f
-    mov ax, word [bss_91a8]          ; 0x1a51
+    mov ax, word [location_changed]  ; 0x1a51
     jmp short @..api_idx_0008_UNPO.l3 ; 0x1a54
 jumptable_1a8f_case_0:
     mov ax, 2                        ; 0x1a56
@@ -82,7 +82,7 @@ jumptable_1a8f:
     add sp, byte 4                   ; 0x1acc
     test ax, ax                      ; 0x1acf
     je short @..api_idx_0008_UNPO.l6 ; 0x1ad1
-    mov ax, word [bss_91a8]          ; 0x1ad3
+    mov ax, word [location_changed]  ; 0x1ad3
     jmp short @..api_idx_0008_UNPO.l5 ; 0x1ad6
 jumptable_1b11_case_0:
     mov ax, 5                        ; 0x1ad8
@@ -129,7 +129,7 @@ jumptable_1b11:
     jne short @..api_idx_0008_UNPO.l7 ; 0x1b3c
     jmp near @..api_idx_0008_UNPO.l10 ; 0x1b3e
 @..api_idx_0008_UNPO.l7:
-    mov ax, word [bss_91a8]          ; 0x1b41
+    mov ax, word [location_changed]  ; 0x1b41
     jmp short @..api_idx_0008_UNPO.l9 ; 0x1b44
 jumptable_1ba0_case_1:
     mov ax, 5                        ; 0x1b46
@@ -218,7 +218,7 @@ jumptable_1ba0:
     cmp ax, strict word 0x1f         ; 0x1c18
     je short @..api_idx_0008_UNPO.l11 ; 0x1c1b
 @..api_idx_0008_UNPO.l15:
-    mov ax, word [bss_82ee]          ; 0x1c1d
+    mov ax, word [party_tag]         ; 0x1c1d
     jmp short @..api_idx_0008_UNPO.l20 ; 0x1c20
 @..api_idx_0008_UNPO.l16:
     mov ax, 4                        ; 0x1c22
@@ -279,7 +279,7 @@ jumptable_1ba0:
     push word [bp - 0x0002]          ; 0x1ca4
     call loc_RRJG                    ; 0x1ca7
     add sp, byte 6                   ; 0x1caa
-    mov ax, word [bss_82ee]          ; 0x1cad
+    mov ax, word [party_tag]         ; 0x1cad
     cmp ax, word [bp - 0x0008]       ; 0x1cb0
     je short @..api_idx_0008_UNPO.l23 ; 0x1cb3
     mov ax, word [bp - 0x0006]       ; 0x1cb5
@@ -433,16 +433,16 @@ jumptable_1de5:
 jumptable_1de5_case_0:
 @..api_idx_0008_UNPO.l28:
     mov ax, word [game_state_arg]    ; 0x1e16
-    cmp ax, word [bss_8f28]          ; 0x1e19
+    cmp ax, word [saved_level]       ; 0x1e19
     jne short @..api_idx_0008_UNPO.l29 ; 0x1e1d
     mov ax, word [bp + 0xc]          ; 0x1e1f
-    cmp ax, word [bss_8f2a]          ; 0x1e22
+    cmp ax, word [saved_map_piece]   ; 0x1e22
     jne short @..api_idx_0008_UNPO.l29 ; 0x1e26
     mov ax, word [bp + 0x8]          ; 0x1e28
-    cmp ax, word [bss_8f2e]          ; 0x1e2b
+    cmp ax, word [saved_cell_x]      ; 0x1e2b
     jne short @..api_idx_0008_UNPO.l29 ; 0x1e2f
     mov ax, word [bp + 0xa]          ; 0x1e31
-    cmp ax, word [bss_8f2c]          ; 0x1e34
+    cmp ax, word [saved_cell_y]      ; 0x1e34
     jne short @..api_idx_0008_UNPO.l29 ; 0x1e38
     mov ax, 5                        ; 0x1e3a
     imul word [bss_91aa]             ; 0x1e3d

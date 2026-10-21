@@ -9,7 +9,7 @@ loc_TLQV:
     push ax                          ; 0x0ebc
     call ds_app_HKIJ                 ; 0x0ebd
     pop cx                           ; 0x0ec0
-    push word [bss_905a]             ; 0x0ec1
+    push word [message_delay]        ; 0x0ec1
     call api_idx_0004_KQNK           ; 0x0ec5
     pop cx                           ; 0x0ec8
     mov ax, 0x98                     ; 0x0ec9

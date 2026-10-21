@@ -8,15 +8,15 @@ api_idx_0030_JQMM:
     mov word [bp - 0x001e], 3        ; 0x5412
     mov word [bp - 0x001c], 2        ; 0x5417
     mov word [bss_8f20], 0           ; 0x541c
-    mov ax, word [bss_8f46]          ; 0x5422
+    mov ax, word [party_world_x]     ; 0x5422
     mov word [bp - 0x000a], ax       ; 0x5425
-    mov ax, word [bss_8f44]          ; 0x5428
+    mov ax, word [party_world_y]     ; 0x5428
     mov word [bp - 0x000c], ax       ; 0x542b
-    mov ax, word [bss_8f42]          ; 0x542e
+    mov ax, word [party_cell_x]      ; 0x542e
     mov word [bp - 0x000e], ax       ; 0x5431
-    mov ax, word [bss_8f40]          ; 0x5434
+    mov ax, word [party_cell_y]      ; 0x5434
     mov word [bp - 0x0010], ax       ; 0x5437
-    mov ax, word [bss_8f3e]          ; 0x543a
+    mov ax, word [party_map_piece]   ; 0x543a
     mov word [bp - 0x0012], ax       ; 0x543d
     mov word [bss_8f48], 0           ; 0x5440
     mov word [bss_8456], 0           ; 0x5446
@@ -71,16 +71,16 @@ api_idx_0030_JQMM:
     call gfx_fill_area               ; 0x54b9
     add sp, byte 0x0a                ; 0x54bc
     mov ax, word [game_state_arg]    ; 0x54bf
-    cmp ax, word [bss_8f28]          ; 0x54c2
+    cmp ax, word [saved_level]       ; 0x54c2
     jne short @..api_idx_0030_JQMM.l4 ; 0x54c6
     mov ax, word [bp - 0x0012]       ; 0x54c8
-    cmp ax, word [bss_8f2a]          ; 0x54cb
+    cmp ax, word [saved_map_piece]   ; 0x54cb
     jne short @..api_idx_0030_JQMM.l4 ; 0x54cf
     mov ax, word [bp - 0x000e]       ; 0x54d1
-    cmp ax, word [bss_8f2e]          ; 0x54d4
+    cmp ax, word [saved_cell_x]      ; 0x54d4
     jne short @..api_idx_0030_JQMM.l4 ; 0x54d8
     mov ax, word [bp - 0x0010]       ; 0x54da
-    cmp ax, word [bss_8f2c]          ; 0x54dd
+    cmp ax, word [saved_cell_y]      ; 0x54dd
     jne short @..api_idx_0030_JQMM.l4 ; 0x54e1
     cmp word [bss_8f22], byte 0      ; 0x54e3
     je short @..api_idx_0030_JQMM.l3 ; 0x54e8
@@ -260,9 +260,9 @@ api_idx_0030_JQMM:
     call loc_VOSO                    ; 0x566c
     add sp, byte 0x0e                ; 0x566f
     mov word [bss_9b34], 5           ; 0x5672
-    mov ax, word [bss_8f46]          ; 0x5678
-    add ax, word [bss_8f44]          ; 0x567b
-    add ax, word [bss_82ee]          ; 0x567f
+    mov ax, word [party_world_x]     ; 0x5678
+    add ax, word [party_world_y]     ; 0x567b
+    add ax, word [party_tag]         ; 0x567f
     mov cx, 2                        ; 0x5683
     cwd                              ; 0x5686
     idiv cx                          ; 0x5687
@@ -274,7 +274,7 @@ jumptable_59e2_case_1:
     mov word [bss_91d4], 0           ; 0x5699
     cmp word [game_state_arg], byte 0x1e ; 0x569f
     jne short @..api_idx_0030_JQMM.l9 ; 0x56a4
-    cmp word [bss_8f3e], byte 8      ; 0x56a6
+    cmp word [party_map_piece], byte 8 ; 0x56a6
     jne short @..api_idx_0030_JQMM.l9 ; 0x56ab
     jmp short @..api_idx_0030_JQMM.l10 ; 0x56ad
 @..api_idx_0030_JQMM.l9:
@@ -383,16 +383,16 @@ jumptable_59e2_case_3:
     call api_idx_0024_NUGL           ; 0x578a
     cmp word [game_state_arg], byte 0x0e ; 0x578d
     jne short @..api_idx_0030_JQMM.l12 ; 0x5792
-    cmp word [bss_8f3e], byte 9      ; 0x5794
+    cmp word [party_map_piece], byte 9 ; 0x5794
     jle short @..api_idx_0030_JQMM.l12 ; 0x5799
-    cmp word [bss_8f3e], byte 0x0a   ; 0x579b
+    cmp word [party_map_piece], byte 0x0a ; 0x579b
     jg short @..api_idx_0030_JQMM.l11 ; 0x57a0
-    mov ax, word [bss_82ee]          ; 0x57a2
+    mov ax, word [party_tag]         ; 0x57a2
     cmp ax, strict word 2            ; 0x57a5
     je short @..api_idx_0030_JQMM.l11 ; 0x57a8
-    cmp word [bss_82ee], byte 0      ; 0x57aa
+    cmp word [party_tag], byte 0     ; 0x57aa
     je short @..api_idx_0030_JQMM.l12 ; 0x57af
-    cmp word [bss_8f40], byte 5      ; 0x57b1
+    cmp word [party_cell_y], byte 5  ; 0x57b1
     jge short @..api_idx_0030_JQMM.l12 ; 0x57b6
 @..api_idx_0030_JQMM.l11:
     mov ax, 0                        ; 0x57b8
@@ -583,27 +583,27 @@ jumptable_59e2_case_6:
     add sp, byte 8                   ; 0x5946
     cmp word [game_state_arg], byte 8 ; 0x5949
     jne short @..api_idx_0030_JQMM.l20 ; 0x594e
-    cmp word [bss_8f3e], byte 6      ; 0x5950
+    cmp word [party_map_piece], byte 6 ; 0x5950
     jne short @..api_idx_0030_JQMM.l20 ; 0x5955
-    cmp word [bss_8f40], byte 4      ; 0x5957
+    cmp word [party_cell_y], byte 4  ; 0x5957
     jne short @..api_idx_0030_JQMM.l20 ; 0x595c
-    mov ax, word [bss_8f42]          ; 0x595e
+    mov ax, word [party_cell_x]      ; 0x595e
     cmp ax, strict word 2            ; 0x5961
     je short @..api_idx_0030_JQMM.l16 ; 0x5964
     cmp ax, strict word 1            ; 0x5966
     jne short @..api_idx_0030_JQMM.l17 ; 0x5969
 @..api_idx_0030_JQMM.l16:
-    mov ax, word [bss_82ee]          ; 0x596b
+    mov ax, word [party_tag]         ; 0x596b
     cmp ax, strict word 1            ; 0x596e
     je short @..api_idx_0030_JQMM.l19 ; 0x5971
 @..api_idx_0030_JQMM.l17:
-    mov ax, word [bss_8f42]          ; 0x5973
+    mov ax, word [party_cell_x]      ; 0x5973
     cmp ax, strict word 5            ; 0x5976
     je short @..api_idx_0030_JQMM.l18 ; 0x5979
     cmp ax, strict word 6            ; 0x597b
     jne short @..api_idx_0030_JQMM.l20 ; 0x597e
 @..api_idx_0030_JQMM.l18:
-    mov ax, word [bss_82ee]          ; 0x5980
+    mov ax, word [party_tag]         ; 0x5980
     cmp ax, strict word 3            ; 0x5983
     jne short @..api_idx_0030_JQMM.l20 ; 0x5986
 @..api_idx_0030_JQMM.l19:
@@ -625,9 +625,9 @@ jumptable_59e2_case_6:
     je short @..api_idx_0030_JQMM.l22 ; 0x59a6
     cmp word [game_state_arg], byte 0x0b ; 0x59a8
     jne short @..api_idx_0030_JQMM.l23 ; 0x59ad
-    cmp word [bss_8f3e], byte 6      ; 0x59af
+    cmp word [party_map_piece], byte 6 ; 0x59af
     jne short @..api_idx_0030_JQMM.l23 ; 0x59b4
-    cmp word [bss_8f40], byte 3      ; 0x59b6
+    cmp word [party_cell_y], byte 3  ; 0x59b6
     jle short @..api_idx_0030_JQMM.l23 ; 0x59bb
 @..api_idx_0030_JQMM.l22:
     mov ax, 4                        ; 0x59bd
@@ -672,9 +672,9 @@ jumptable_59e2_case_0:
     jl short @..api_idx_0030_JQMM.l27 ; 0x5a0a
     jmp near @..api_idx_0030_JQMM.l39 ; 0x5a0c
 @..api_idx_0030_JQMM.l27:
-    mov ax, word [bss_8f46]          ; 0x5a0f
-    add ax, word [bss_8f44]          ; 0x5a12
-    add ax, word [bss_82ee]          ; 0x5a16
+    mov ax, word [party_world_x]     ; 0x5a0f
+    add ax, word [party_world_y]     ; 0x5a12
+    add ax, word [party_tag]         ; 0x5a16
     mov cx, ax                       ; 0x5a1a
     mov ax, word [bss_91d6]          ; 0x5a1c
     add cx, ax                       ; 0x5a1f
@@ -2152,9 +2152,9 @@ jumptable_59e2_case_0:
     push ax                          ; 0x66ac
     call random_below                ; 0x66ad
     pop cx                           ; 0x66b0
-    add ax, word [bss_8f46]          ; 0x66b1
-    add ax, word [bss_8f44]          ; 0x66b5
-    add ax, word [bss_82ee]          ; 0x66b9
+    add ax, word [party_world_x]     ; 0x66b1
+    add ax, word [party_world_y]     ; 0x66b5
+    add ax, word [party_tag]         ; 0x66b9
     add ax, word [bss_91d6]          ; 0x66bd
     mov cx, 2                        ; 0x66c1
     cwd                              ; 0x66c4

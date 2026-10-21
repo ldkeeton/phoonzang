@@ -2,10 +2,10 @@
 api_idx_0002_NIPM:
     mov ax, 0xfffe                   ; 0x73b6
     call aztec_csav                  ; 0x73b9
-    mov ax, word [bss_8d12]          ; 0x73bc
+    mov ax, word [party_region]      ; 0x73bc
     shl ax, 1                        ; 0x73bf
     mov si, ax                       ; 0x73c1
-    mov bx, word [bss_0e12]          ; 0x73c3
+    mov bx, word [maze_tables]       ; 0x73c3
     mov ax, word [bx + si]           ; 0x73c7
     mov word [bp - 0x0002], ax       ; 0x73c9
     jmp short @..api_idx_0002_NIPM.l1 ; 0x73cc
@@ -15,14 +15,14 @@ jumptable_741a_case_1:
     call loc_GRON                    ; 0x73d2
     pop cx                           ; 0x73d5
 jumptable_741a_case_0:
-    push word [bss_8d12]             ; 0x73d6
-    call api_idx_0004_IPQQ           ; 0x73da
+    push word [party_region]         ; 0x73d6
+    call move_party_to_dest          ; 0x73da
     pop cx                           ; 0x73dd
     jmp short @..api_idx_0002_NIPM.l2 ; 0x73de
 jumptable_741a_case_2:
     mov ax, 0x804                    ; 0x73e0
     push ax                          ; 0x73e3
-    call api_idx_0050_JLOV           ; 0x73e4
+    call show_message                ; 0x73e4
     pop cx                           ; 0x73e7
     mov ax, 8                        ; 0x73e8
     push ax                          ; 0x73eb
@@ -30,11 +30,11 @@ jumptable_741a_case_2:
     pop cx                           ; 0x73ef
     mov ax, 8                        ; 0x73f0
     push ax                          ; 0x73f3
-    call api_idx_0006_LIGG           ; 0x73f4
+    call wait_ticks_or_key           ; 0x73f4
     pop cx                           ; 0x73f7
     mov word [bss_91b2], 1           ; 0x73f8
-    push word [bss_8d12]             ; 0x73fe
-    call api_idx_0004_IPQQ           ; 0x7402
+    push word [party_region]         ; 0x73fe
+    call move_party_to_dest          ; 0x7402
     pop cx                           ; 0x7405
     jmp short @..api_idx_0002_NIPM.l2 ; 0x7406
 jumptable_741a_case_4:
@@ -42,8 +42,8 @@ jumptable_741a_case_4:
     push ax                          ; 0x740b
     call ds_app_HKIJ                 ; 0x740c
     pop cx                           ; 0x740f
-    push word [bss_8d12]             ; 0x7410
-    call api_idx_0004_IPQQ           ; 0x7414
+    push word [party_region]         ; 0x7410
+    call move_party_to_dest          ; 0x7414
     pop cx                           ; 0x7417
     jmp short @..api_idx_0002_NIPM.l2 ; 0x7418
 jumptable_741a:

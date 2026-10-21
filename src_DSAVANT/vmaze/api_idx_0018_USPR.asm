@@ -25,7 +25,7 @@ api_idx_0018_USPR:
 @..api_idx_0018_USPR.l1:
     mov ax, 0x7f4                    ; 0x1ccd
     push ax                          ; 0x1cd0
-    call api_idx_0050_JLOV           ; 0x1cd1
+    call show_message                ; 0x1cd1
     pop cx                           ; 0x1cd4
     mov word [bss_91ae], 0           ; 0x1cd5
     mov ax, word [bss_8f1c]          ; 0x1cdb
@@ -67,15 +67,15 @@ api_idx_0018_USPR:
     mov word [bp - 0x0016], 0        ; 0x1d4e
     cmp word [game_state_arg], byte 0 ; 0x1d53
     jne short @..api_idx_0018_USPR.l6 ; 0x1d58
-    mov ax, word [bss_8f3e]          ; 0x1d5a
+    mov ax, word [party_map_piece]   ; 0x1d5a
     mov cx, 6                        ; 0x1d5d
     shl ax, cl                       ; 0x1d60
-    mov cx, word [bss_8f40]          ; 0x1d62
+    mov cx, word [party_cell_y]      ; 0x1d62
     shl cx, 1                        ; 0x1d66
     shl cx, 1                        ; 0x1d68
     shl cx, 1                        ; 0x1d6a
     add ax, cx                       ; 0x1d6c
-    add ax, word [bss_8f42]          ; 0x1d6e
+    add ax, word [party_cell_x]      ; 0x1d6e
     mov word [bp - 0x0018], ax       ; 0x1d72
     push ax                          ; 0x1d75
     mov ax, word [maze_data]         ; 0x1d76
@@ -131,11 +131,11 @@ api_idx_0018_USPR:
     call api_idx_0004_JLQH           ; 0x1df3
     test ax, ax                      ; 0x1df6
     je short @..api_idx_0018_USPR.l13 ; 0x1df8
-    mov bx, word [bss_0e12]          ; 0x1dfa
-    mov si, word [bss_8f3e]          ; 0x1dfe
+    mov bx, word [maze_tables]       ; 0x1dfa
+    mov si, word [party_map_piece]   ; 0x1dfe
     mov al, byte [bx + si + 0xb40]   ; 0x1e02
     sub ah, ah                       ; 0x1e06
-    mov word [bss_8d12], ax          ; 0x1e08
+    mov word [party_region], ax      ; 0x1e08
 @..api_idx_0018_USPR.l13:
     call ds_app_TMKJ                 ; 0x1e0b
     test ax, ax                      ; 0x1e0e

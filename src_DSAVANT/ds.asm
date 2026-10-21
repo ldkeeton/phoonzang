@@ -120,7 +120,7 @@ bss_8458 equ __zbss_8458 - __zdseg_start
 bss_845a equ __zbss_845a - __zdseg_start
 bss_845c equ __zbss_845c - __zdseg_start
 bss_845e equ __zbss_845e - __zdseg_start
-bss_8460 equ __zbss_8460 - __zdseg_start
+dest_alt_arg equ __zbss_8460 - __zdseg_start
 bss_8462 equ __zbss_8462 - __zdseg_start
 bss_8464 equ __zbss_8464 - __zdseg_start
 bss_8466 equ __zbss_8466 - __zdseg_start
@@ -178,7 +178,7 @@ bss_8d0a equ __zbss_8d0a - __zdseg_start
 bss_8d0c equ __zbss_8d0c - __zdseg_start
 bss_8d0e equ __zbss_8d0e - __zdseg_start
 bss_8d10 equ __zbss_8d10 - __zdseg_start
-bss_8d12 equ __zbss_8d12 - __zdseg_start
+party_region equ __zbss_8d12 - __zdseg_start
 bss_8e64 equ __zbss_8e64 - __zdseg_start
 bss_8f14 equ __zbss_8f14 - __zdseg_start
 bss_8f16 equ __zbss_8f16 - __zdseg_start
@@ -188,12 +188,12 @@ bss_8f1c equ __zbss_8f1c - __zdseg_start
 bss_8f1e equ __zbss_8f1e - __zdseg_start
 bss_8f20 equ __zbss_8f20 - __zdseg_start
 bss_8f22 equ __zbss_8f22 - __zdseg_start
-bss_8f24 equ __zbss_8f24 - __zdseg_start
+found_object_owner equ __zbss_8f24 - __zdseg_start
 bss_8f26 equ __zbss_8f26 - __zdseg_start
-bss_8f28 equ __zbss_8f28 - __zdseg_start
-bss_8f2a equ __zbss_8f2a - __zdseg_start
-bss_8f2c equ __zbss_8f2c - __zdseg_start
-bss_8f2e equ __zbss_8f2e - __zdseg_start
+saved_level equ __zbss_8f28 - __zdseg_start
+saved_map_piece equ __zbss_8f2a - __zdseg_start
+saved_cell_y equ __zbss_8f2c - __zdseg_start
+saved_cell_x equ __zbss_8f2e - __zdseg_start
 bss_8f30 equ __zbss_8f30 - __zdseg_start
 bss_8f32 equ __zbss_8f32 - __zdseg_start
 bss_8f34 equ __zbss_8f34 - __zdseg_start
@@ -201,11 +201,11 @@ bss_8f36 equ __zbss_8f36 - __zdseg_start
 bss_8f38 equ __zbss_8f38 - __zdseg_start
 bss_8f3a equ __zbss_8f3a - __zdseg_start
 bss_8f3c equ __zbss_8f3c - __zdseg_start
-bss_8f3e equ __zbss_8f3e - __zdseg_start
-bss_8f40 equ __zbss_8f40 - __zdseg_start
-bss_8f42 equ __zbss_8f42 - __zdseg_start
-bss_8f44 equ __zbss_8f44 - __zdseg_start
-bss_8f46 equ __zbss_8f46 - __zdseg_start
+party_map_piece equ __zbss_8f3e - __zdseg_start
+party_cell_y equ __zbss_8f40 - __zdseg_start
+party_cell_x equ __zbss_8f42 - __zdseg_start
+party_world_y equ __zbss_8f44 - __zdseg_start
+party_world_x equ __zbss_8f46 - __zdseg_start
 bss_8f48 equ __zbss_8f48 - __zdseg_start
 bss_904c equ __zbss_904c - __zdseg_start
 bss_904e equ __zbss_904e - __zdseg_start
@@ -213,7 +213,7 @@ bss_9050 equ __zbss_9050 - __zdseg_start
 bss_9052 equ __zbss_9052 - __zdseg_start
 bss_9056 equ __zbss_9056 - __zdseg_start
 bss_9058 equ __zbss_9058 - __zdseg_start
-bss_905a equ __zbss_905a - __zdseg_start
+message_delay equ __zbss_905a - __zdseg_start
 bss_905c equ __zbss_905c - __zdseg_start
 bss_905e equ __zbss_905e - __zdseg_start
 bss_9060 equ __zbss_9060 - __zdseg_start
@@ -244,7 +244,7 @@ __zbss_size equ __zbss_end - __zimage_end
 
 bss_0e0e     equ __zbss_0e0e - __zdseg_start
 bss_0e10     equ __zbss_0e10 - __zdseg_start
-bss_0e12     equ __zbss_0e12 - __zdseg_start
+maze_tables  equ __zbss_0e12 - __zdseg_start
 maze_data    equ __zbss_0e14 - __zdseg_start
 bss_0e16     equ __zbss_0e16 - __zdseg_start
 bss_0e18     equ __zbss_0e18 - __zdseg_start
@@ -505,12 +505,12 @@ bss_597f equ __zbss_597f - __zdseg_start
 bss_82b8 equ __zbss_82b8 - __zdseg_start
 %include "ds/game/ds_app_LPKV.asm"         ; 0x2c11
 
-bss_82e8 equ __zbss_82e8 - __zdseg_start
-bss_82ea equ __zbss_82ea - __zdseg_start
-bss_82ec equ __zbss_82ec - __zdseg_start
-bss_82ee equ __zbss_82ee - __zdseg_start
-bss_82f0 equ __zbss_82f0 - __zdseg_start
-bss_82f2 equ __zbss_82f2 - __zdseg_start
+bss_82e8  equ __zbss_82e8 - __zdseg_start
+bss_82ea  equ __zbss_82ea - __zdseg_start
+bss_82ec  equ __zbss_82ec - __zdseg_start
+party_tag equ __zbss_82ee - __zdseg_start
+bss_82f0  equ __zbss_82f0 - __zdseg_start
+bss_82f2  equ __zbss_82f2 - __zdseg_start
 %include "ds/game/ds_app_JKOJ.asm"         ; 0x2c69
 
 dseg_0bfa      equ __zdseg_0bfa - __zdseg_start
@@ -820,7 +820,7 @@ key_queue:
 
 %include "ds/library/ds_leaf_loc_NPSL.asm" ; 0x3f3d
 
-%include "ds/library/ds_dos_con_loc_QJHU.asm" ; 0x3f81
+%include "ds/library/get_bits.asm"         ; 0x3f81
 
 %include "ds/library/read_misc_table.asm"  ; 0x3fa9
 

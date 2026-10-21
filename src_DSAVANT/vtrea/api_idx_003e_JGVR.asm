@@ -111,7 +111,7 @@ api_idx_003e_JGVR:
     push ax                          ; 0x12bb
     call ds_app_HKIJ                 ; 0x12bc
     pop cx                           ; 0x12bf
-    push word [bss_905a]             ; 0x12c0
+    push word [message_delay]        ; 0x12c0
     call api_idx_0004_UQUT           ; 0x12c4
     pop cx                           ; 0x12c7
     mov ax, 1                        ; 0x12c8

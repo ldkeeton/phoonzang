@@ -46,9 +46,9 @@ api_idx_0002_IRNO:
     mov ax, word [bp - 0x0002]       ; 0x67c9
     cmp ax, strict word 6            ; 0x67cc
     jl short @..api_idx_0002_IRNO.l2 ; 0x67cf
-    cmp word [bss_8460], byte 0      ; 0x67d1
+    cmp word [dest_alt_arg], byte 0  ; 0x67d1
     jle short @..api_idx_0002_IRNO.l3 ; 0x67d6
-    push word [bss_8460]             ; 0x67d8
+    push word [dest_alt_arg]         ; 0x67d8
     call api_idx_0002_NVMN           ; 0x67dc
     pop cx                           ; 0x67df
 @..api_idx_0002_IRNO.l3:

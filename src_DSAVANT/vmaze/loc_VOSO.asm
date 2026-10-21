@@ -2,7 +2,7 @@
 loc_VOSO:
     mov ax, 0                        ; 0x2ed4
     call aztec_csav                  ; 0x2ed7
-    mov ax, word [bss_82ee]          ; 0x2eda
+    mov ax, word [party_tag]         ; 0x2eda
     jmp short @..loc_VOSO.l5         ; 0x2edd
 @..loc_VOSO.l1:
     mov ax, word [bp + 0xe]          ; 0x2edf

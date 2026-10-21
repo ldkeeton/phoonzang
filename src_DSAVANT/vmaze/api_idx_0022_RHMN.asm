@@ -2,23 +2,23 @@
 api_idx_0022_RHMN:
     mov ax, 0xffde                   ; 0x2215
     call aztec_csav                  ; 0x2218
-    cmp word [bss_8d12], byte 0      ; 0x221b
+    cmp word [party_region], byte 0  ; 0x221b
     jl short @..api_idx_0022_RHMN.l1 ; 0x2220
-    mov bx, word [bss_0e12]          ; 0x2222
-    mov si, word [bss_8f3e]          ; 0x2226
+    mov bx, word [maze_tables]       ; 0x2222
+    mov si, word [party_map_piece]   ; 0x2226
     mov al, byte [bx + si + 0xb40]   ; 0x222a
     sub ah, ah                       ; 0x222e
-    cmp ax, word [bss_8d12]          ; 0x2230
+    cmp ax, word [party_region]      ; 0x2230
     jle short @..api_idx_0022_RHMN.l1 ; 0x2234
-    mov word [bss_8d12], ax          ; 0x2236
+    mov word [party_region], ax      ; 0x2236
 @..api_idx_0022_RHMN.l1:
     cmp word [bss_905e], byte 0x17   ; 0x2239
     je short @..api_idx_0022_RHMN.l2 ; 0x223e
     mov ax, 0                        ; 0x2240
     push ax                          ; 0x2243
-    push word [bss_8f40]             ; 0x2244
-    push word [bss_8f42]             ; 0x2248
-    push word [bss_8f3e]             ; 0x224c
+    push word [party_cell_y]         ; 0x2244
+    push word [party_cell_x]         ; 0x2248
+    push word [party_map_piece]      ; 0x224c
     call api_idx_0002_SMVN           ; 0x2250
     add sp, byte 8                   ; 0x2253
 @..api_idx_0022_RHMN.l2:
@@ -36,7 +36,7 @@ api_idx_0022_RHMN:
     cmp ax, word [bss_69c8]          ; 0x2270
     jl short @..api_idx_0022_RHMN.l3 ; 0x2274
     mov word [bss_91aa], 1           ; 0x2276
-    mov word [bss_91a8], 1           ; 0x227c
+    mov word [location_changed], 1   ; 0x227c
     mov word [bss_82e8], 0           ; 0x2282
     mov word [bss_82ec], 0           ; 0x2288
     mov word [bss_831a], 0           ; 0x228e
@@ -49,17 +49,17 @@ api_idx_0022_RHMN:
 @..api_idx_0022_RHMN.l5:
     cmp word [bss_91aa], byte 1      ; 0x22b5
     jne short @..api_idx_0022_RHMN.l6 ; 0x22ba
-    call loc_IONR                    ; 0x22bc
+    call redraw_maze_view            ; 0x22bc
 @..api_idx_0022_RHMN.l6:
-    mov ax, word [bss_8f3e]          ; 0x22bf
+    mov ax, word [party_map_piece]   ; 0x22bf
     mov cx, 6                        ; 0x22c2
     shl ax, cl                       ; 0x22c5
-    mov cx, word [bss_8f40]          ; 0x22c7
+    mov cx, word [party_cell_y]      ; 0x22c7
     shl cx, 1                        ; 0x22cb
     shl cx, 1                        ; 0x22cd
     shl cx, 1                        ; 0x22cf
     add ax, cx                       ; 0x22d1
-    add ax, word [bss_8f42]          ; 0x22d3
+    add ax, word [party_cell_x]      ; 0x22d3
     mov word [bp - 0x000a], ax       ; 0x22d7
     push ax                          ; 0x22da
     mov ax, bss_8bfe                 ; 0x22db
@@ -293,7 +293,7 @@ api_idx_0022_RHMN:
     call api_idx_0018_USPR           ; 0x24f7
     cmp ax, strict word 1            ; 0x24fa
     jne short @..api_idx_0022_RHMN.l32 ; 0x24fd
-    push word [bss_8f3e]             ; 0x24ff
+    push word [party_map_piece]      ; 0x24ff
     call api_idx_0002_TOSS           ; 0x2503
     pop cx                           ; 0x2506
     push ax                          ; 0x2507
@@ -315,15 +315,15 @@ api_idx_0022_RHMN:
     jne short @..api_idx_0022_RHMN.l33 ; 0x2528
     jmp near @..api_idx_0022_RHMN.l26 ; 0x252a
 @..api_idx_0022_RHMN.l33:
-    mov ax, word [bss_8f3e]          ; 0x252d
+    mov ax, word [party_map_piece]   ; 0x252d
     mov cx, 6                        ; 0x2530
     shl ax, cl                       ; 0x2533
-    mov cx, word [bss_8f40]          ; 0x2535
+    mov cx, word [party_cell_y]      ; 0x2535
     shl cx, 1                        ; 0x2539
     shl cx, 1                        ; 0x253b
     shl cx, 1                        ; 0x253d
     add ax, cx                       ; 0x253f
-    add ax, word [bss_8f42]          ; 0x2541
+    add ax, word [party_cell_x]      ; 0x2541
     mov word [bp - 0x000a], ax       ; 0x2545
     push ax                          ; 0x2548
     mov ax, bss_8b7e                 ; 0x2549
@@ -332,7 +332,7 @@ api_idx_0022_RHMN:
     add sp, byte 4                   ; 0x2550
     test ax, ax                      ; 0x2553
     je short @..api_idx_0022_RHMN.l34 ; 0x2555
-    push word [bss_8f3e]             ; 0x2557
+    push word [party_map_piece]      ; 0x2557
     call api_idx_0002_TOSS           ; 0x255b
     pop cx                           ; 0x255e
     push ax                          ; 0x255f
@@ -357,7 +357,7 @@ api_idx_0022_RHMN:
     add sp, byte 4                   ; 0x2587
     test ax, ax                      ; 0x258a
     je short @..api_idx_0022_RHMN.l35 ; 0x258c
-    cmp word [bss_91a8], byte 1      ; 0x258e
+    cmp word [location_changed], byte 1 ; 0x258e
     jne short @..api_idx_0022_RHMN.l35 ; 0x2593
     call loc_IPSH                    ; 0x2595
     cmp word [game_state], byte 5    ; 0x2598
@@ -393,7 +393,7 @@ api_idx_0022_RHMN:
     mov bx, ax                       ; 0x25e9
     mov al, byte [bx - 0x7b13]       ; 0x25eb
     sub ah, ah                       ; 0x25ef
-    cmp ax, word [bss_8f3e]          ; 0x25f1
+    cmp ax, word [party_map_piece]   ; 0x25f1
     jne short @..api_idx_0022_RHMN.l37 ; 0x25f5
     mov ax, word [bp - 0x0008]       ; 0x25f7
     mov bx, word [bss_100a]          ; 0x25fa
@@ -419,7 +419,7 @@ api_idx_0022_RHMN:
     pop cx                           ; 0x2629
     cmp ax, 0x3e3                    ; 0x262a
     jl short @..api_idx_0022_RHMN.l38 ; 0x262d
-    push word [bss_8f3e]             ; 0x262f
+    push word [party_map_piece]      ; 0x262f
     call api_idx_0002_TOSS           ; 0x2633
     pop cx                           ; 0x2636
     push ax                          ; 0x2637
@@ -437,18 +437,18 @@ api_idx_0022_RHMN:
     ret                              ; 0x2651
 @..api_idx_0022_RHMN.l38:
     mov word [bss_91aa], 0           ; 0x2652
-    mov word [bss_91a8], 0           ; 0x2658
+    mov word [location_changed], 0   ; 0x2658
     mov word [bp - 0x0022], 0        ; 0x265e
-    call loc_HILS                    ; 0x2663
-    mov ax, word [bss_8f3e]          ; 0x2666
+    call check_at_saved_location     ; 0x2663
+    mov ax, word [party_map_piece]   ; 0x2666
     mov cx, 6                        ; 0x2669
     shl ax, cl                       ; 0x266c
-    mov cx, word [bss_8f40]          ; 0x266e
+    mov cx, word [party_cell_y]      ; 0x266e
     shl cx, 1                        ; 0x2672
     shl cx, 1                        ; 0x2674
     shl cx, 1                        ; 0x2676
     add ax, cx                       ; 0x2678
-    add ax, word [bss_8f42]          ; 0x267a
+    add ax, word [party_cell_x]      ; 0x267a
     mov word [bp - 0x000a], ax       ; 0x267e
     mov ax, 1                        ; 0x2681
     push ax                          ; 0x2684
@@ -461,7 +461,7 @@ api_idx_0022_RHMN:
     mov word [bp - 0x0010], ax       ; 0x2695
     cmp ax, strict word 1            ; 0x2698
     jne short @..api_idx_0022_RHMN.l41 ; 0x269b
-    cmp word [bss_919e], byte 0      ; 0x269d
+    cmp word [save_location_flag], byte 0 ; 0x269d
     je short @..api_idx_0022_RHMN.l39 ; 0x26a2
     mov ax, 0x80e                    ; 0x26a4
     push ax                          ; 0x26a7
@@ -750,7 +750,7 @@ api_idx_0022_RHMN:
     cmp word [bp - 0x001e], byte 9   ; 0x2924
     jne short @..api_idx_0022_RHMN.l52 ; 0x2928
 @..api_idx_0022_RHMN.l49:
-    mov ax, word [bss_82ee]          ; 0x292a
+    mov ax, word [party_tag]         ; 0x292a
     mov cx, 2                        ; 0x292d
     cwd                              ; 0x2930
     idiv cx                          ; 0x2931
@@ -804,7 +804,7 @@ api_idx_0022_RHMN:
 @..api_idx_0022_RHMN.l51:
     jmp near @..api_idx_0022_RHMN.l57 ; 0x2999
 @..api_idx_0022_RHMN.l52:
-    mov ax, word [bss_82ee]          ; 0x299c
+    mov ax, word [party_tag]         ; 0x299c
     cmp ax, word [bp - 0x0020]       ; 0x299f
     je short @..api_idx_0022_RHMN.l53 ; 0x29a2
     jmp near @..api_idx_0022_RHMN.l57 ; 0x29a4
@@ -944,7 +944,7 @@ jumptable_2a3c_case_3:
     mov word [bss_82e8], dx          ; 0x2ab7
     cmp word [hotspot_hit], byte 0   ; 0x2abb
     jne short @..api_idx_0022_RHMN.l60 ; 0x2ac0
-    call loc_IONR                    ; 0x2ac2
+    call redraw_maze_view            ; 0x2ac2
 @..api_idx_0022_RHMN.l60:
     cmp word [hotspot_hit], byte 0   ; 0x2ac5
     jne short @..api_idx_0022_RHMN.l63 ; 0x2aca
@@ -1029,20 +1029,20 @@ jumptable_2d1b_case_1:
     jne short @..api_idx_0022_RHMN.l69 ; 0x2b90
     mov ax, 3                        ; 0x2b92
 @..api_idx_0022_RHMN.l69:
-    add ax, word [bss_82ee]          ; 0x2b95
+    add ax, word [party_tag]         ; 0x2b95
     mov cx, 4                        ; 0x2b99
     cwd                              ; 0x2b9c
     idiv cx                          ; 0x2b9d
-    mov word [bss_82ee], dx          ; 0x2b9f
+    mov word [party_tag], dx         ; 0x2b9f
     mov word [bss_91aa], 1           ; 0x2ba3
-    cmp dx, word [bss_8f24]          ; 0x2ba9
+    cmp dx, word [found_object_owner] ; 0x2ba9
     jne short @..api_idx_0022_RHMN.l70 ; 0x2bad
-    mov word [bss_91a8], 1           ; 0x2baf
-    mov bx, word [bss_0e12]          ; 0x2bb5
-    mov si, word [bss_8f3e]          ; 0x2bb9
+    mov word [location_changed], 1   ; 0x2baf
+    mov bx, word [maze_tables]       ; 0x2bb5
+    mov si, word [party_map_piece]   ; 0x2bb9
     mov al, byte [bx + si + 0xb40]   ; 0x2bbd
     sub ah, ah                       ; 0x2bc1
-    mov word [bss_8d12], ax          ; 0x2bc3
+    mov word [party_region], ax      ; 0x2bc3
 @..api_idx_0022_RHMN.l70:
     mov ax, 1                        ; 0x2bc6
     push ax                          ; 0x2bc9
@@ -1090,14 +1090,14 @@ jumptable_2d1b_case_25:
 @..api_idx_0022_RHMN.l73:
     mov ax, 0                        ; 0x2c5d
     push ax                          ; 0x2c60
-    call api_idx_000a_JNPN           ; 0x2c61
+    call check_cell_objects          ; 0x2c61
     pop cx                           ; 0x2c64
 @..api_idx_0022_RHMN.l74:
     jmp near @..api_idx_0022_RHMN.l82 ; 0x2c65
 jumptable_2d1b_case_7:
     mov ax, 1                        ; 0x2c68
     push ax                          ; 0x2c6b
-    call api_idx_000a_JNPN           ; 0x2c6c
+    call check_cell_objects          ; 0x2c6c
     pop cx                           ; 0x2c6f
     mov ax, 1                        ; 0x2c70
     push ax                          ; 0x2c73
@@ -1136,7 +1136,7 @@ jumptable_2d1b_case_6:
     call api_idx_0018_USPR           ; 0x2cbb
     cmp ax, strict word 1            ; 0x2cbe
     jne short @..api_idx_0022_RHMN.l77 ; 0x2cc1
-    push word [bss_8f3e]             ; 0x2cc3
+    push word [party_map_piece]      ; 0x2cc3
     call api_idx_0002_TOSS           ; 0x2cc7
     pop cx                           ; 0x2cca
     push ax                          ; 0x2ccb

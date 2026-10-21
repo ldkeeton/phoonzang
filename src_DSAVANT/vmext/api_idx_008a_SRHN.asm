@@ -25,21 +25,21 @@ api_idx_008a_SRHN:
     mov word [bp - 0x0006], 0        ; 0x0c5a
     mov ax, 1                        ; 0x0c5f
     push ax                          ; 0x0c62
-    mov ax, word [bss_8f3e]          ; 0x0c63
+    mov ax, word [party_map_piece]   ; 0x0c63
     mov cx, 6                        ; 0x0c66
     shl ax, cl                       ; 0x0c69
-    mov cx, word [bss_8f40]          ; 0x0c6b
+    mov cx, word [party_cell_y]      ; 0x0c6b
     shl cx, 1                        ; 0x0c6f
     shl cx, 1                        ; 0x0c71
     shl cx, 1                        ; 0x0c73
     add ax, cx                       ; 0x0c75
-    add ax, word [bss_8f42]          ; 0x0c77
+    add ax, word [party_cell_x]      ; 0x0c77
     push ax                          ; 0x0c7b
     lea ax, word [bp - 0x008a]       ; 0x0c7c
     push ax                          ; 0x0c80
     call set_bitmap_bit              ; 0x0c81
     add sp, byte 6                   ; 0x0c84
-    mov ax, word [bss_82ee]          ; 0x0c87
+    mov ax, word [party_tag]         ; 0x0c87
     mov word [bp - 0x0002], ax       ; 0x0c8a
     mov ax, word [game_state_arg]    ; 0x0c8d
     cmp ax, word [bss_8f3c]          ; 0x0c90
@@ -52,7 +52,7 @@ api_idx_008a_SRHN:
     idiv cx                          ; 0x0c9f
     mov word [bp - 0x0002], dx       ; 0x0ca1
 @..api_idx_008a_SRHN.l1:
-    mov ax, word [bss_82ee]          ; 0x0ca4
+    mov ax, word [party_tag]         ; 0x0ca4
     inc ax                           ; 0x0ca7
     inc ax                           ; 0x0ca8
     inc ax                           ; 0x0ca9
@@ -69,14 +69,14 @@ api_idx_008a_SRHN:
 @..api_idx_008a_SRHN.l3:
     mov word [bp - 0x0004], ax       ; 0x0cbf
 @..api_idx_008a_SRHN.l4:
-    mov ax, word [bss_82ee]          ; 0x0cc2
+    mov ax, word [party_tag]         ; 0x0cc2
     cmp ax, word [bp - 0x0002]       ; 0x0cc5
     je short @..api_idx_008a_SRHN.l7 ; 0x0cc8
     add ax, word [bp - 0x0004]       ; 0x0cca
     mov cx, 4                        ; 0x0ccd
     cwd                              ; 0x0cd0
     idiv cx                          ; 0x0cd1
-    mov word [bss_82ee], dx          ; 0x0cd3
+    mov word [party_tag], dx         ; 0x0cd3
     call loc_HVLG                    ; 0x0cd7
     test ax, ax                      ; 0x0cda
     je short @..api_idx_008a_SRHN.l5 ; 0x0cdc
@@ -87,7 +87,7 @@ api_idx_008a_SRHN:
     idiv cx                          ; 0x0ce6
     mov word [bss_82e8], dx          ; 0x0ce8
 @..api_idx_008a_SRHN.l5:
-    call loc_IONR                    ; 0x0cec
+    call redraw_maze_view            ; 0x0cec
     cmp word [bp - 0x0006], byte 0   ; 0x0cef
     jne short @..api_idx_008a_SRHN.l6 ; 0x0cf3
     call loc_VUVO                    ; 0x0cf5
@@ -113,12 +113,12 @@ api_idx_008a_SRHN:
     pop cx                           ; 0x0d22
     test ax, ax                      ; 0x0d23
     jne short @..api_idx_008a_SRHN.l14 ; 0x0d25
-    mov ax, word [bss_82ee]          ; 0x0d27
+    mov ax, word [party_tag]         ; 0x0d27
     add ax, word [bp - 0x0008]       ; 0x0d2a
     mov cx, 4                        ; 0x0d2d
     cwd                              ; 0x0d30
     idiv cx                          ; 0x0d31
-    mov word [bss_82ee], dx          ; 0x0d33
+    mov word [party_tag], dx         ; 0x0d33
     lea ax, word [bp - 0x008a]       ; 0x0d37
     push ax                          ; 0x0d3b
     call api_idx_0002_JSVP           ; 0x0d3c
@@ -134,13 +134,13 @@ api_idx_008a_SRHN:
     mov word [bp - 0x000a], 1        ; 0x0d53
     jmp short @..api_idx_008a_SRHN.l14 ; 0x0d58
 @..api_idx_008a_SRHN.l11:
-    mov ax, word [bss_82ee]          ; 0x0d5a
+    mov ax, word [party_tag]         ; 0x0d5a
     inc ax                           ; 0x0d5d
     inc ax                           ; 0x0d5e
     mov cx, 4                        ; 0x0d5f
     cwd                              ; 0x0d62
     idiv cx                          ; 0x0d63
-    mov word [bss_82ee], dx          ; 0x0d65
+    mov word [party_tag], dx         ; 0x0d65
     lea ax, word [bp - 0x008a]       ; 0x0d69
     push ax                          ; 0x0d6d
     call api_idx_0002_JSVP           ; 0x0d6e
@@ -157,7 +157,7 @@ api_idx_008a_SRHN:
     jmp short @..api_idx_008a_SRHN.l14 ; 0x0d8a
 @..api_idx_008a_SRHN.l13:
     mov ax, word [bss_8f30]          ; 0x0d8c
-    mov word [bss_82ee], ax          ; 0x0d8f
+    mov word [party_tag], ax         ; 0x0d8f
 @..api_idx_008a_SRHN.l14:
     cmp word [bp - 0x000a], byte 0   ; 0x0d92
     je short @..api_idx_008a_SRHN.l15 ; 0x0d96
@@ -182,11 +182,11 @@ api_idx_008a_SRHN:
 @..api_idx_008a_SRHN.l17:
     mov ax, 3                        ; 0x0dbd
 @..api_idx_008a_SRHN.l18:
-    add ax, word [bss_82ee]          ; 0x0dc0
+    add ax, word [party_tag]         ; 0x0dc0
     mov cx, 4                        ; 0x0dc4
     cwd                              ; 0x0dc7
     idiv cx                          ; 0x0dc8
-    mov word [bss_82ee], dx          ; 0x0dca
+    mov word [party_tag], dx         ; 0x0dca
     lea ax, word [bp - 0x008a]       ; 0x0dce
     push ax                          ; 0x0dd2
     call api_idx_0002_JSVP           ; 0x0dd3
@@ -196,13 +196,13 @@ api_idx_008a_SRHN:
     call api_idx_000a_NPNK           ; 0x0ddb
     jmp short @..api_idx_008a_SRHN.l21 ; 0x0dde
 @..api_idx_008a_SRHN.l19:
-    mov ax, word [bss_82ee]          ; 0x0de0
+    mov ax, word [party_tag]         ; 0x0de0
     inc ax                           ; 0x0de3
     inc ax                           ; 0x0de4
     mov cx, 4                        ; 0x0de5
     cwd                              ; 0x0de8
     idiv cx                          ; 0x0de9
-    mov word [bss_82ee], dx          ; 0x0deb
+    mov word [party_tag], dx         ; 0x0deb
     lea ax, word [bp - 0x008a]       ; 0x0def
     push ax                          ; 0x0df3
     call api_idx_0002_JSVP           ; 0x0df4
@@ -213,7 +213,7 @@ api_idx_008a_SRHN:
     jmp short @..api_idx_008a_SRHN.l21 ; 0x0dff
 @..api_idx_008a_SRHN.l20:
     mov ax, word [bss_8f30]          ; 0x0e01
-    mov word [bss_82ee], ax          ; 0x0e04
+    mov word [party_tag], ax         ; 0x0e04
     mov ax, 0x98                     ; 0x0e07
     push ax                          ; 0x0e0a
     mov ax, 0x13f                    ; 0x0e0b
@@ -228,15 +228,15 @@ api_idx_008a_SRHN:
 @..api_idx_008a_SRHN.l21:
     mov ax, 1                        ; 0x0e1e
     push ax                          ; 0x0e21
-    mov ax, word [bss_8f3e]          ; 0x0e22
+    mov ax, word [party_map_piece]   ; 0x0e22
     mov cx, 6                        ; 0x0e25
     shl ax, cl                       ; 0x0e28
-    mov cx, word [bss_8f40]          ; 0x0e2a
+    mov cx, word [party_cell_y]      ; 0x0e2a
     shl cx, 1                        ; 0x0e2e
     shl cx, 1                        ; 0x0e30
     shl cx, 1                        ; 0x0e32
     add ax, cx                       ; 0x0e34
-    add ax, word [bss_8f42]          ; 0x0e36
+    add ax, word [party_cell_x]      ; 0x0e36
     push ax                          ; 0x0e3a
     lea ax, word [bp - 0x008a]       ; 0x0e3b
     push ax                          ; 0x0e3f
@@ -252,7 +252,7 @@ api_idx_008a_SRHN:
     idiv cx                          ; 0x0e55
     mov word [bss_82e8], dx          ; 0x0e57
 @..api_idx_008a_SRHN.l22:
-    call loc_IONR                    ; 0x0e5b
+    call redraw_maze_view            ; 0x0e5b
     cmp word [bp - 0x0006], byte 0   ; 0x0e5e
     jne short @..api_idx_008a_SRHN.l23 ; 0x0e62
     call loc_VUVO                    ; 0x0e64

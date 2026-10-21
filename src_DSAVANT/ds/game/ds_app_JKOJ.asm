@@ -64,7 +64,7 @@ jumptable_2d50_case_4:
     cmp ax, word [bss_82ec]          ; 0x2cfb
     je short @..ds_app_JKOJ.l4       ; 0x2cff
     mov word [bss_82ec], ax          ; 0x2d01
-    mov ax, word [bss_82ee]          ; 0x2d04
+    mov ax, word [party_tag]         ; 0x2d04
     shl ax, 1                        ; 0x2d07
     sub ax, word [bss_82f0]          ; 0x2d09
     mov word [bp - 0x0006], ax       ; 0x2d0d

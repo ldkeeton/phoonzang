@@ -106,7 +106,7 @@ jumptable_1aa5_case_0:
     mov bx, ax                       ; 0x1b53
     mov al, byte [bx - 0x7b13]       ; 0x1b55
     sub ah, ah                       ; 0x1b59
-    cmp ax, word [bss_8f3e]          ; 0x1b5b
+    cmp ax, word [party_map_piece]   ; 0x1b5b
     je short @..api_idx_00fa_RIMJ.l6 ; 0x1b5f
     jmp near @..api_idx_00fa_RIMJ.l11 ; 0x1b61
 @..api_idx_00fa_RIMJ.l6:

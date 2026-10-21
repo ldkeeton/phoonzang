@@ -31,7 +31,7 @@ bss_9180 equ __zdseg_end + (__zobss_9180 - __zdata_start)
 
 %include "shared/find_map_piece.asm"        ; 0x00f0
 
-%include "shared/api_idx_0002_KQPU.asm"     ; 0x01ac
+%include "shared/find_object_at.asm"        ; 0x01ac
 
 %include "vmext/api_idx_0002_OTTG.asm"     ; 0x021c
 
@@ -77,8 +77,8 @@ loc_NJKS.loc2 equ loc_MMMO
 %include "vmext/loc_NHMQ.asm"              ; 0x0836
 
 bss_918a equ __zdseg_end + (__zobss_918a - __zdata_start)
-loc_HILS.bss1 equ bss_918a
-%include "shared/loc_HILS.asm"              ; 0x0860
+check_at_saved_location.save_location_flag1 equ bss_918a
+%include "shared/check_at_saved_location.asm" ; 0x0860
 
 %include "vmext/api_idx_0004_JIVL.asm"     ; 0x0897
 
@@ -131,39 +131,39 @@ bss_91a6 equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 
 %include "vmext/loc_RRJG.asm"              ; 0x19e4
 
-; bss_9188 equ __zdseg_end + (__zobss_9188 - __zdata_start)
-bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-bss_91aa equ __zdseg_end + (__zobss_91aa - __zdata_start)
+; bss_9188         equ __zdseg_end + (__zobss_9188 - __zdata_start)
+location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+bss_91aa         equ __zdseg_end + (__zobss_91aa - __zdata_start)
 %include "vmext/api_idx_0008_UNPO.asm"     ; 0x1a1d
 
-; bss_9188 equ __zdseg_end + (__zobss_9188 - __zdata_start)
-; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-; bss_91aa equ __zdseg_end + (__zobss_91aa - __zdata_start)
+; bss_9188         equ __zdseg_end + (__zobss_9188 - __zdata_start)
+; location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+; bss_91aa         equ __zdseg_end + (__zobss_91aa - __zdata_start)
 %include "vmext/api_idx_0008_LUNN.asm"     ; 0x1e4f
 
 bss_92f2 equ __zdseg_end + (__zobss_92f2 - __zdata_start)
 bss_92f4 equ __zdseg_end + (__zobss_92f4 - __zdata_start)
 %include "vmext/api_idx_0004_RTNM.asm"     ; 0x201b
 
-; bss_91a4 equ __zdseg_end + (__zobss_91a4 - __zdata_start)
-; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-bss_9aec equ __zdseg_end + (__zobss_9aec - __zdata_start)
+; bss_91a4         equ __zdseg_end + (__zobss_91a4 - __zdata_start)
+; location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+bss_9aec         equ __zdseg_end + (__zobss_9aec - __zdata_start)
 %include "vmext/api_idx_0010_NIMV.asm"     ; 0x2291
 
-; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+; location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
 %include "vmext/api_idx_0012_JLRR.asm"     ; 0x29e5
 
-; bss_91a4 equ __zdseg_end + (__zobss_91a4 - __zdata_start)
-; bss_91a6 equ __zdseg_end + (__zobss_91a6 - __zdata_start)
-; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-bss_91ac equ __zdseg_end + (__zobss_91ac - __zdata_start)
-bss_91c5 equ __zdseg_end + (__zobss_91c5 - __zdata_start)
-bss_91f7 equ __zdseg_end + (__zobss_91f7 - __zdata_start)
-bss_9210 equ __zdseg_end + (__zobss_9210 - __zdata_start)
-bss_9242 equ __zdseg_end + (__zobss_9242 - __zdata_start)
-bss_9274 equ __zdseg_end + (__zobss_9274 - __zdata_start)
-bss_928e equ __zdseg_end + (__zobss_928e - __zdata_start)
-bss_92c0 equ __zdseg_end + (__zobss_92c0 - __zdata_start)
+; bss_91a4         equ __zdseg_end + (__zobss_91a4 - __zdata_start)
+; bss_91a6         equ __zdseg_end + (__zobss_91a6 - __zdata_start)
+; location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+bss_91ac         equ __zdseg_end + (__zobss_91ac - __zdata_start)
+bss_91c5         equ __zdseg_end + (__zobss_91c5 - __zdata_start)
+bss_91f7         equ __zdseg_end + (__zobss_91f7 - __zdata_start)
+bss_9210         equ __zdseg_end + (__zobss_9210 - __zdata_start)
+bss_9242         equ __zdseg_end + (__zobss_9242 - __zdata_start)
+bss_9274         equ __zdseg_end + (__zobss_9274 - __zdata_start)
+bss_928e         equ __zdseg_end + (__zobss_928e - __zdata_start)
+bss_92c0         equ __zdseg_end + (__zobss_92c0 - __zdata_start)
 %include "vmext/api_idx_0012_STJU.asm"     ; 0x30f4
 
 %include "shared/api_idx_0016_LHKK.asm"     ; 0x39e2
@@ -172,39 +172,40 @@ bss_92c0 equ __zdseg_end + (__zobss_92c0 - __zdata_start)
 
 %include "shared/api_idx_001e_IGLM.asm"     ; 0x3d29
 
-; bss_9188 equ __zdseg_end + (__zobss_9188 - __zdata_start)
-; bss_91a4 equ __zdseg_end + (__zobss_91a4 - __zdata_start)
-; bss_91a6 equ __zdseg_end + (__zobss_91a6 - __zdata_start)
-; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-; bss_91aa equ __zdseg_end + (__zobss_91aa - __zdata_start)
-; bss_91ac equ __zdseg_end + (__zobss_91ac - __zdata_start)
-bss_91b8 equ __zdseg_end + (__zobss_91b8 - __zdata_start)
-; bss_91c5 equ __zdseg_end + (__zobss_91c5 - __zdata_start)
-bss_91de equ __zdseg_end + (__zobss_91de - __zdata_start)
-; bss_91f7 equ __zdseg_end + (__zobss_91f7 - __zdata_start)
-; bss_9210 equ __zdseg_end + (__zobss_9210 - __zdata_start)
-; bss_9242 equ __zdseg_end + (__zobss_9242 - __zdata_start)
-; bss_9274 equ __zdseg_end + (__zobss_9274 - __zdata_start)
-; bss_928e equ __zdseg_end + (__zobss_928e - __zdata_start)
-; bss_92c0 equ __zdseg_end + (__zobss_92c0 - __zdata_start)
-; bss_92f2 equ __zdseg_end + (__zobss_92f2 - __zdata_start)
-; bss_92f4 equ __zdseg_end + (__zobss_92f4 - __zdata_start)
-; bss_9aec equ __zdseg_end + (__zobss_9aec - __zdata_start)
-bss_9aee equ __zdseg_end + (__zobss_9aee - __zdata_start)
-bss_9b08 equ __zdseg_end + (__zobss_9b08 - __zdata_start)
-bss_9b0a equ __zdseg_end + (__zobss_9b0a - __zdata_start)
-bss_9b0c equ __zdseg_end + (__zobss_9b0c - __zdata_start)
-bss_9b0e equ __zdseg_end + (__zobss_9b0e - __zdata_start)
-bss_9b10 equ __zdseg_end + (__zobss_9b10 - __zdata_start)
-bss_9b12 equ __zdseg_end + (__zobss_9b12 - __zdata_start)
-bss_9b14 equ __zdseg_end + (__zobss_9b14 - __zdata_start)
-bss_9b16 equ __zdseg_end + (__zobss_9b16 - __zdata_start)
-bss_9b18 equ __zdseg_end + (__zobss_9b18 - __zdata_start)
-bss_9b1a equ __zdseg_end + (__zobss_9b1a - __zdata_start)
+; bss_9188           equ __zdseg_end + (__zobss_9188 - __zdata_start)
+save_location_flag equ __zdseg_end + (__zobss_919e - __zdata_start)
+; bss_91a4           equ __zdseg_end + (__zobss_91a4 - __zdata_start)
+; bss_91a6           equ __zdseg_end + (__zobss_91a6 - __zdata_start)
+; location_changed   equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+; bss_91aa           equ __zdseg_end + (__zobss_91aa - __zdata_start)
+; bss_91ac           equ __zdseg_end + (__zobss_91ac - __zdata_start)
+bss_91b8           equ __zdseg_end + (__zobss_91b8 - __zdata_start)
+; bss_91c5           equ __zdseg_end + (__zobss_91c5 - __zdata_start)
+bss_91de           equ __zdseg_end + (__zobss_91de - __zdata_start)
+; bss_91f7           equ __zdseg_end + (__zobss_91f7 - __zdata_start)
+; bss_9210           equ __zdseg_end + (__zobss_9210 - __zdata_start)
+; bss_9242           equ __zdseg_end + (__zobss_9242 - __zdata_start)
+; bss_9274           equ __zdseg_end + (__zobss_9274 - __zdata_start)
+; bss_928e           equ __zdseg_end + (__zobss_928e - __zdata_start)
+; bss_92c0           equ __zdseg_end + (__zobss_92c0 - __zdata_start)
+; bss_92f2           equ __zdseg_end + (__zobss_92f2 - __zdata_start)
+; bss_92f4           equ __zdseg_end + (__zobss_92f4 - __zdata_start)
+; bss_9aec           equ __zdseg_end + (__zobss_9aec - __zdata_start)
+bss_9aee           equ __zdseg_end + (__zobss_9aee - __zdata_start)
+bss_9b08           equ __zdseg_end + (__zobss_9b08 - __zdata_start)
+bss_9b0a           equ __zdseg_end + (__zobss_9b0a - __zdata_start)
+bss_9b0c           equ __zdseg_end + (__zobss_9b0c - __zdata_start)
+bss_9b0e           equ __zdseg_end + (__zobss_9b0e - __zdata_start)
+bss_9b10           equ __zdseg_end + (__zobss_9b10 - __zdata_start)
+bss_9b12           equ __zdseg_end + (__zobss_9b12 - __zdata_start)
+bss_9b14           equ __zdseg_end + (__zobss_9b14 - __zdata_start)
+bss_9b16           equ __zdseg_end + (__zobss_9b16 - __zdata_start)
+bss_9b18           equ __zdseg_end + (__zobss_9b18 - __zdata_start)
+bss_9b1a           equ __zdseg_end + (__zobss_9b1a - __zdata_start)
 %include "vmext/api_idx_0030_MLHO.asm"     ; 0x3e8c
 
-loc_IONR.api_idx1 equ api_idx_0030_MLHO
-%include "shared/loc_IONR.asm"              ; 0x51fb
+redraw_maze_view.api_idx1 equ api_idx_0030_MLHO
+%include "shared/redraw_maze_view.asm"      ; 0x51fb
 
 save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di  equ __zdseg_end + (__zsave_di - __zdata_start)
@@ -269,7 +270,9 @@ __zobss_9180:
 __zobss_9188:
     resb 0x0002
 __zobss_918a:
-    resb 0x001a
+    resb 0x0014
+__zobss_919e:
+    resb 0x0006
 __zobss_91a4:
     resb 0x0002
 __zobss_91a6:

@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0050_JLOV:
+show_message:
     mov ax, 0xffb0                   ; 0x1094
     call aztec_csav                  ; 0x1097
     lea ax, word [bp - 0x0050]       ; 0x109a

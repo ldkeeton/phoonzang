@@ -730,7 +730,7 @@ api_idx_006a_NKMN:
     je short @..api_idx_006a_NKMN.l36 ; 0x66ad
     jmp near @..api_idx_006a_NKMN.l8 ; 0x66af
 @..api_idx_006a_NKMN.l36:
-    push word [bss_905a]             ; 0x66b2
+    push word [message_delay]        ; 0x66b2
     call api_idx_0004_UQUT           ; 0x66b6
     pop cx                           ; 0x66b9
     mov word [bss_911c], 0x8f        ; 0x66ba

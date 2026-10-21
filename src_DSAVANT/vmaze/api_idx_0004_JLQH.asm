@@ -30,37 +30,37 @@ api_idx_0004_JLQH:
     add sp, byte 4                   ; 0x134c
     test ax, ax                      ; 0x134f
     jne short @..api_idx_0004_JLQH.l4 ; 0x1351
-    mov word [bss_8f3e], 0xa         ; 0x1353
-    mov word [bss_8f42], 7           ; 0x1359
-    mov word [bss_8f40], 2           ; 0x135f
+    mov word [party_map_piece], 0xa  ; 0x1353
+    mov word [party_cell_x], 7       ; 0x1359
+    mov word [party_cell_y], 2       ; 0x135f
 @..api_idx_0004_JLQH.l4:
     mov ax, 4                        ; 0x1365
     push ax                          ; 0x1368
     call random_below                ; 0x1369
     pop cx                           ; 0x136c
-    mov word [bss_82ee], ax          ; 0x136d
+    mov word [party_tag], ax         ; 0x136d
     mov bx, word [maze_data]         ; 0x1370
-    mov si, word [bss_8f3e]          ; 0x1374
+    mov si, word [party_map_piece]   ; 0x1374
     mov al, byte [bx + si + 0x490]   ; 0x1378
     sub ah, ah                       ; 0x137c
-    add ax, word [bss_8f42]          ; 0x137e
-    mov word [bss_8f46], ax          ; 0x1382
+    add ax, word [party_cell_x]      ; 0x137e
+    mov word [party_world_x], ax     ; 0x1382
     mov al, byte [bx + si + 0x4a0]   ; 0x1385
     sub ah, ah                       ; 0x1389
-    add ax, word [bss_8f40]          ; 0x138b
-    mov word [bss_8f44], ax          ; 0x138f
+    add ax, word [party_cell_y]      ; 0x138b
+    mov word [party_world_y], ax     ; 0x138f
     push ax                          ; 0x1392
-    push word [bss_8f46]             ; 0x1393
-    mov ax, bss_8f3e                 ; 0x1397
+    push word [party_world_x]        ; 0x1393
+    mov ax, party_map_piece          ; 0x1397
     push ax                          ; 0x139a
-    mov ax, bss_8f40                 ; 0x139b
+    mov ax, party_cell_y             ; 0x139b
     push ax                          ; 0x139e
-    mov ax, bss_8f42                 ; 0x139f
+    mov ax, party_cell_x             ; 0x139f
     push ax                          ; 0x13a2
     call find_map_piece              ; 0x13a3
     add sp, byte 0x0a                ; 0x13a6
     mov word [bss_91aa], 1           ; 0x13a9
-    mov word [bss_91a8], 1           ; 0x13af
+    mov word [location_changed], 1   ; 0x13af
     call loc_IVLM                    ; 0x13b5
     mov ax, 1                        ; 0x13b8
     ret                              ; 0x13bb

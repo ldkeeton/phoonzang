@@ -31,7 +31,7 @@ ovmain:
     cmp word [game_state], byte 6    ; 0x0076
     jne short @..ovmain.l2           ; 0x007b
     push word [game_state_arg]       ; 0x007d
-    call api_idx_000c_RNQS           ; 0x0081
+    call enter_level                 ; 0x0081
     pop cx                           ; 0x0084
 @..ovmain.l2:
     cmp word [game_state], byte 5    ; 0x0085

@@ -564,13 +564,13 @@ jumptable_147e_case_0:
     push ax                          ; 0x15bc
     push word [bp - 0x0004]          ; 0x15bd
     push word [bp - 0x0002]          ; 0x15c0
-    mov ax, word [bss_8f44]          ; 0x15c3
+    mov ax, word [party_world_y]     ; 0x15c3
     mov cx, word [bp - 0x0004]       ; 0x15c6
     dec cx                           ; 0x15c9
     sub ax, cx                       ; 0x15ca
     add ax, word [bp - 0x000c]       ; 0x15cc
     push ax                          ; 0x15cf
-    mov ax, word [bss_8f46]          ; 0x15d0
+    mov ax, word [party_world_x]     ; 0x15d0
     add ax, word [bp - 0x0002]       ; 0x15d3
     dec ax                           ; 0x15d6
     sub ax, word [bp - 0x000a]       ; 0x15d7
@@ -815,7 +815,7 @@ jumptable_147e_case_0:
     mov ax, 0                        ; 0x17fc
     push ax                          ; 0x17ff
     push ax                          ; 0x1800
-    mov ax, word [bss_82ee]          ; 0x1801
+    mov ax, word [party_tag]         ; 0x1801
     add ax, strict word 0x20         ; 0x1804
     push ax                          ; 0x1807
     mov ax, word [bp - 0x0008]       ; 0x1808

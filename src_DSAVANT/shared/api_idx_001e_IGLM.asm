@@ -67,7 +67,7 @@ api_idx_001e_IGLM:
     sub ax, cx
     mov word [bp - 0x000e], ax
 @..api_idx_001e_IGLM.l6:
-    mov ax, word [bss_82ee]
+    mov ax, word [party_tag]
     shl ax, 1
     mov bx, ax
     add bx, bp

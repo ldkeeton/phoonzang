@@ -12,15 +12,15 @@ api_idx_0006_TMNI:
     sub ah, ah
     cmp ax, word [game_state_arg]
     jne short @..api_idx_0006_TMNI.l2
-    mov ax, word [bss_8f3e]
+    mov ax, word [party_map_piece]
     xchg al, ah
     sub al, al
-    mov dx, word [bss_8f42]
+    mov dx, word [party_cell_x]
     mov cx, 4
     shl dx, cl
     mov cx, dx
     add ax, cx
-    add ax, word [bss_8f40]
+    add ax, word [party_cell_y]
     mov word [bp - 0x0004], ax
     cmp ax, word [bx + 0x2]
     jne short @..api_idx_0006_TMNI.l2

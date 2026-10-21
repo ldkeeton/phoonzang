@@ -8,15 +8,15 @@ api_idx_0030_MLHO:
     mov word [bp - 0x001e], 3        ; 0x3ea1
     mov word [bp - 0x001c], 2        ; 0x3ea6
     mov word [bss_8f20], 0           ; 0x3eab
-    mov ax, word [bss_8f46]          ; 0x3eb1
+    mov ax, word [party_world_x]     ; 0x3eb1
     mov word [bp - 0x000a], ax       ; 0x3eb4
-    mov ax, word [bss_8f44]          ; 0x3eb7
+    mov ax, word [party_world_y]     ; 0x3eb7
     mov word [bp - 0x000c], ax       ; 0x3eba
-    mov ax, word [bss_8f42]          ; 0x3ebd
+    mov ax, word [party_cell_x]      ; 0x3ebd
     mov word [bp - 0x000e], ax       ; 0x3ec0
-    mov ax, word [bss_8f40]          ; 0x3ec3
+    mov ax, word [party_cell_y]      ; 0x3ec3
     mov word [bp - 0x0010], ax       ; 0x3ec6
-    mov ax, word [bss_8f3e]          ; 0x3ec9
+    mov ax, word [party_map_piece]   ; 0x3ec9
     mov word [bp - 0x0012], ax       ; 0x3ecc
     mov word [bss_8f48], 0           ; 0x3ecf
     mov word [bss_8456], 0           ; 0x3ed5
@@ -71,16 +71,16 @@ api_idx_0030_MLHO:
     call gfx_fill_area               ; 0x3f48
     add sp, byte 0x0a                ; 0x3f4b
     mov ax, word [game_state_arg]    ; 0x3f4e
-    cmp ax, word [bss_8f28]          ; 0x3f51
+    cmp ax, word [saved_level]       ; 0x3f51
     jne short @..api_idx_0030_MLHO.l4 ; 0x3f55
     mov ax, word [bp - 0x0012]       ; 0x3f57
-    cmp ax, word [bss_8f2a]          ; 0x3f5a
+    cmp ax, word [saved_map_piece]   ; 0x3f5a
     jne short @..api_idx_0030_MLHO.l4 ; 0x3f5e
     mov ax, word [bp - 0x000e]       ; 0x3f60
-    cmp ax, word [bss_8f2e]          ; 0x3f63
+    cmp ax, word [saved_cell_x]      ; 0x3f63
     jne short @..api_idx_0030_MLHO.l4 ; 0x3f67
     mov ax, word [bp - 0x0010]       ; 0x3f69
-    cmp ax, word [bss_8f2c]          ; 0x3f6c
+    cmp ax, word [saved_cell_y]      ; 0x3f6c
     jne short @..api_idx_0030_MLHO.l4 ; 0x3f70
     cmp word [bss_8f22], byte 0      ; 0x3f72
     je short @..api_idx_0030_MLHO.l3 ; 0x3f77
@@ -260,21 +260,21 @@ api_idx_0030_MLHO:
     call loc_VOSO                    ; 0x40fb
     add sp, byte 0x0e                ; 0x40fe
     mov word [bss_9b08], 5           ; 0x4101
-    mov ax, word [bss_8f46]          ; 0x4107
-    add ax, word [bss_8f44]          ; 0x410a
-    add ax, word [bss_82ee]          ; 0x410e
+    mov ax, word [party_world_x]     ; 0x4107
+    add ax, word [party_world_y]     ; 0x410a
+    add ax, word [party_tag]         ; 0x410e
     mov cx, 2                        ; 0x4112
     cwd                              ; 0x4115
     idiv cx                          ; 0x4116
     mov word [bss_91a6], dx          ; 0x4118
-    mov word [bss_91a8], 0           ; 0x411c
+    mov word [location_changed], 0   ; 0x411c
     mov ax, word [maze_variant]      ; 0x4122
     jmp near @..api_idx_0030_MLHO.l24 ; 0x4125
 jumptable_4471_case_1:
-    mov word [bss_91a8], 0           ; 0x4128
+    mov word [location_changed], 0   ; 0x4128
     cmp word [game_state_arg], byte 0x1e ; 0x412e
     jne short @..api_idx_0030_MLHO.l9 ; 0x4133
-    cmp word [bss_8f3e], byte 8      ; 0x4135
+    cmp word [party_map_piece], byte 8 ; 0x4135
     jne short @..api_idx_0030_MLHO.l9 ; 0x413a
     jmp short @..api_idx_0030_MLHO.l10 ; 0x413c
 @..api_idx_0030_MLHO.l9:
@@ -315,7 +315,7 @@ jumptable_4471_case_1:
     add sp, byte 8                   ; 0x4181
     jmp near @..api_idx_0030_MLHO.l25 ; 0x4184
 jumptable_4471_case_2:
-    mov word [bss_91a8], 1           ; 0x4187
+    mov word [location_changed], 1   ; 0x4187
     mov ax, 0xff                     ; 0x418d
     push ax                          ; 0x4190
     mov ax, 0x48                     ; 0x4191
@@ -366,7 +366,7 @@ jumptable_4471_case_2:
     add sp, byte 8                   ; 0x41f0
     jmp near @..api_idx_0030_MLHO.l25 ; 0x41f3
 jumptable_4471_case_3:
-    mov word [bss_91a8], 2           ; 0x41f6
+    mov word [location_changed], 2   ; 0x41f6
     mov ax, 0xff                     ; 0x41fc
     push ax                          ; 0x41ff
     mov ax, 0x48                     ; 0x4200
@@ -383,16 +383,16 @@ jumptable_4471_case_3:
     call api_idx_0024_NUGL           ; 0x4219
     cmp word [game_state_arg], byte 0x0e ; 0x421c
     jne short @..api_idx_0030_MLHO.l12 ; 0x4221
-    cmp word [bss_8f3e], byte 9      ; 0x4223
+    cmp word [party_map_piece], byte 9 ; 0x4223
     jle short @..api_idx_0030_MLHO.l12 ; 0x4228
-    cmp word [bss_8f3e], byte 0x0a   ; 0x422a
+    cmp word [party_map_piece], byte 0x0a ; 0x422a
     jg short @..api_idx_0030_MLHO.l11 ; 0x422f
-    mov ax, word [bss_82ee]          ; 0x4231
+    mov ax, word [party_tag]         ; 0x4231
     cmp ax, strict word 2            ; 0x4234
     je short @..api_idx_0030_MLHO.l11 ; 0x4237
-    cmp word [bss_82ee], byte 0      ; 0x4239
+    cmp word [party_tag], byte 0     ; 0x4239
     je short @..api_idx_0030_MLHO.l12 ; 0x423e
-    cmp word [bss_8f40], byte 5      ; 0x4240
+    cmp word [party_cell_y], byte 5  ; 0x4240
     jge short @..api_idx_0030_MLHO.l12 ; 0x4245
 @..api_idx_0030_MLHO.l11:
     mov ax, 0                        ; 0x4247
@@ -445,7 +445,7 @@ jumptable_4471_case_3:
 @..api_idx_0030_MLHO.l13:
     jmp near @..api_idx_0030_MLHO.l25 ; 0x42a6
 jumptable_4471_case_4:
-    mov word [bss_91a8], 3           ; 0x42a9
+    mov word [location_changed], 3   ; 0x42a9
     mov ax, 0xff                     ; 0x42af
     push ax                          ; 0x42b2
     mov ax, 0x48                     ; 0x42b3
@@ -503,7 +503,7 @@ jumptable_4471_case_4:
 @..api_idx_0030_MLHO.l15:
     jmp near @..api_idx_0030_MLHO.l25 ; 0x4326
 jumptable_4471_case_5:
-    mov word [bss_91a8], 4           ; 0x4329
+    mov word [location_changed], 4   ; 0x4329
     mov ax, 0xff                     ; 0x432f
     push ax                          ; 0x4332
     mov ax, 0x38                     ; 0x4333
@@ -549,7 +549,7 @@ jumptable_4471_case_5:
     add sp, byte 8                   ; 0x4389
     jmp near @..api_idx_0030_MLHO.l25 ; 0x438c
 jumptable_4471_case_6:
-    mov word [bss_91a8], 5           ; 0x438f
+    mov word [location_changed], 5   ; 0x438f
     mov ax, 0xff                     ; 0x4395
     push ax                          ; 0x4398
     mov ax, 0x48                     ; 0x4399
@@ -583,27 +583,27 @@ jumptable_4471_case_6:
     add sp, byte 8                   ; 0x43d5
     cmp word [game_state_arg], byte 8 ; 0x43d8
     jne short @..api_idx_0030_MLHO.l20 ; 0x43dd
-    cmp word [bss_8f3e], byte 6      ; 0x43df
+    cmp word [party_map_piece], byte 6 ; 0x43df
     jne short @..api_idx_0030_MLHO.l20 ; 0x43e4
-    cmp word [bss_8f40], byte 4      ; 0x43e6
+    cmp word [party_cell_y], byte 4  ; 0x43e6
     jne short @..api_idx_0030_MLHO.l20 ; 0x43eb
-    mov ax, word [bss_8f42]          ; 0x43ed
+    mov ax, word [party_cell_x]      ; 0x43ed
     cmp ax, strict word 2            ; 0x43f0
     je short @..api_idx_0030_MLHO.l16 ; 0x43f3
     cmp ax, strict word 1            ; 0x43f5
     jne short @..api_idx_0030_MLHO.l17 ; 0x43f8
 @..api_idx_0030_MLHO.l16:
-    mov ax, word [bss_82ee]          ; 0x43fa
+    mov ax, word [party_tag]         ; 0x43fa
     cmp ax, strict word 1            ; 0x43fd
     je short @..api_idx_0030_MLHO.l19 ; 0x4400
 @..api_idx_0030_MLHO.l17:
-    mov ax, word [bss_8f42]          ; 0x4402
+    mov ax, word [party_cell_x]      ; 0x4402
     cmp ax, strict word 5            ; 0x4405
     je short @..api_idx_0030_MLHO.l18 ; 0x4408
     cmp ax, strict word 6            ; 0x440a
     jne short @..api_idx_0030_MLHO.l20 ; 0x440d
 @..api_idx_0030_MLHO.l18:
-    mov ax, word [bss_82ee]          ; 0x440f
+    mov ax, word [party_tag]         ; 0x440f
     cmp ax, strict word 3            ; 0x4412
     jne short @..api_idx_0030_MLHO.l20 ; 0x4415
 @..api_idx_0030_MLHO.l19:
@@ -625,9 +625,9 @@ jumptable_4471_case_6:
     je short @..api_idx_0030_MLHO.l22 ; 0x4435
     cmp word [game_state_arg], byte 0x0b ; 0x4437
     jne short @..api_idx_0030_MLHO.l23 ; 0x443c
-    cmp word [bss_8f3e], byte 6      ; 0x443e
+    cmp word [party_map_piece], byte 6 ; 0x443e
     jne short @..api_idx_0030_MLHO.l23 ; 0x4443
-    cmp word [bss_8f40], byte 3      ; 0x4445
+    cmp word [party_cell_y], byte 3  ; 0x4445
     jle short @..api_idx_0030_MLHO.l23 ; 0x444a
 @..api_idx_0030_MLHO.l22:
     mov ax, 4                        ; 0x444c
@@ -672,9 +672,9 @@ jumptable_4471_case_0:
     jl short @..api_idx_0030_MLHO.l27 ; 0x4499
     jmp near @..api_idx_0030_MLHO.l39 ; 0x449b
 @..api_idx_0030_MLHO.l27:
-    mov ax, word [bss_8f46]          ; 0x449e
-    add ax, word [bss_8f44]          ; 0x44a1
-    add ax, word [bss_82ee]          ; 0x44a5
+    mov ax, word [party_world_x]     ; 0x449e
+    add ax, word [party_world_y]     ; 0x44a1
+    add ax, word [party_tag]         ; 0x44a5
     mov cx, ax                       ; 0x44a9
     mov ax, word [bss_91aa]          ; 0x44ab
     add cx, ax                       ; 0x44ae
@@ -701,14 +701,14 @@ jumptable_4471_case_0:
     add sp, byte 0x0e                ; 0x44db
     test ax, ax                      ; 0x44de
     je short @..api_idx_0030_MLHO.l34 ; 0x44e0
-    mov ax, word [bss_91a8]          ; 0x44e2
+    mov ax, word [location_changed]  ; 0x44e2
     mov cx, 2                        ; 0x44e5
     cwd                              ; 0x44e8
     idiv cx                          ; 0x44e9
     mov ax, dx                       ; 0x44eb
     cmp ax, strict word 1            ; 0x44ed
     jne short @..api_idx_0030_MLHO.l32 ; 0x44f0
-    mov ax, word [bss_91a8]          ; 0x44f2
+    mov ax, word [location_changed]  ; 0x44f2
     cmp ax, strict word 5            ; 0x44f5
     je short @..api_idx_0030_MLHO.l30 ; 0x44f8
     cmp word [bss_9188], byte 0      ; 0x44fa
@@ -1902,13 +1902,13 @@ jumptable_4471_case_0:
     je short @..api_idx_0030_MLHO.l58 ; 0x4ee5
     jmp near @..api_idx_0030_MLHO.l77 ; 0x4ee7
 @..api_idx_0030_MLHO.l58:
-    cmp word [bss_91a8], byte 0      ; 0x4eea
+    cmp word [location_changed], byte 0 ; 0x4eea
     jne short @..api_idx_0030_MLHO.l59 ; 0x4eef
     cmp byte [bss_91b8], 3           ; 0x4ef1
     jne short @..api_idx_0030_MLHO.l59 ; 0x4ef6
     jmp near @..api_idx_0030_MLHO.l77 ; 0x4ef8
 @..api_idx_0030_MLHO.l59:
-    mov ax, word [bss_91a8]          ; 0x4efb
+    mov ax, word [location_changed]  ; 0x4efb
     mov cx, 2                        ; 0x4efe
     cwd                              ; 0x4f01
     idiv cx                          ; 0x4f02
@@ -1936,7 +1936,7 @@ jumptable_4471_case_0:
     push ax                          ; 0x4f39
     lea ax, word [bp - 0x0030]       ; 0x4f3a
     push ax                          ; 0x4f3d
-    push word [bx - 0x6e62]          ; 0x4f3e
+    push word [bx + save_location_flag] ; 0x4f3e
     mov ax, 0x90                     ; 0x4f42
     push ax                          ; 0x4f45
     mov ax, 0x20                     ; 0x4f46
@@ -1955,7 +1955,7 @@ jumptable_4471_case_0:
     push ax                          ; 0x4f67
     mov ax, word [bx - 0x6e7e]       ; 0x4f68
     shl ax, 1                        ; 0x4f6c
-    add ax, word [bx - 0x6e62]       ; 0x4f6e
+    add ax, word [bx + save_location_flag] ; 0x4f6e
     mov bx, ax                       ; 0x4f72
     mov al, byte [bx + 0x7c18]       ; 0x4f74
     sub ah, ah                       ; 0x4f78
@@ -2003,8 +2003,8 @@ jumptable_4471_case_0:
     mov cx, word [bp - 0x0006]       ; 0x4fd9
     shl cx, 1                        ; 0x4fdc
     mov bx, cx                       ; 0x4fde
-    mov word [bx - 0x6e62], ax       ; 0x4fe0
-    mov ax, word [bss_91a8]          ; 0x4fe4
+    mov word [bx + save_location_flag], ax ; 0x4fe0
+    mov ax, word [location_changed]  ; 0x4fe4
     mov cx, 2                        ; 0x4fe7
     cwd                              ; 0x4fea
     idiv cx                          ; 0x4feb
@@ -2029,7 +2029,7 @@ jumptable_4471_case_0:
     sub ah, ah                       ; 0x5015
 @..api_idx_0030_MLHO.l71:
     mov word [bx - 0x6e7e], ax       ; 0x5017
-    mov ax, word [bss_91a8]          ; 0x501b
+    mov ax, word [location_changed]  ; 0x501b
     mov cx, 1                        ; 0x501e
     cwd                              ; 0x5021
     idiv cx                          ; 0x5022
@@ -2042,7 +2042,7 @@ jumptable_4471_case_0:
     mov ax, 0xa                      ; 0x502f
 @..api_idx_0030_MLHO.l73:
     mov word [bp - 0x0002], ax       ; 0x5032
-    cmp word [bx - 0x6e62], byte 0   ; 0x5035
+    cmp word [bx + save_location_flag], byte 0 ; 0x5035
     je short @..api_idx_0030_MLHO.l74 ; 0x503a
     push ax                          ; 0x503c
     call random_below                ; 0x503d
@@ -2075,9 +2075,9 @@ jumptable_4471_case_0:
     jge short @..api_idx_0030_MLHO.l77 ; 0x5078
     jmp near @..api_idx_0030_MLHO.l61 ; 0x507a
 @..api_idx_0030_MLHO.l77:
-    cmp word [bss_91a8], byte 0      ; 0x507d
+    cmp word [location_changed], byte 0 ; 0x507d
     je short @..api_idx_0030_MLHO.l78 ; 0x5082
-    mov ax, word [bss_91a8]          ; 0x5084
+    mov ax, word [location_changed]  ; 0x5084
     cmp ax, strict word 2            ; 0x5087
     jg short @..api_idx_0030_MLHO.l78 ; 0x508a
     jmp near @..api_idx_0030_MLHO.l91 ; 0x508c
@@ -2152,9 +2152,9 @@ jumptable_4471_case_0:
     push ax                          ; 0x513b
     call random_below                ; 0x513c
     pop cx                           ; 0x513f
-    add ax, word [bss_8f46]          ; 0x5140
-    add ax, word [bss_8f44]          ; 0x5144
-    add ax, word [bss_82ee]          ; 0x5148
+    add ax, word [party_world_x]     ; 0x5140
+    add ax, word [party_world_y]     ; 0x5144
+    add ax, word [party_tag]         ; 0x5148
     add ax, word [bss_91aa]          ; 0x514c
     mov cx, 2                        ; 0x5150
     cwd                              ; 0x5153

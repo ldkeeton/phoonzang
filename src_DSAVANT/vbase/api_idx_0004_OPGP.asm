@@ -58,7 +58,7 @@ api_idx_0004_OPGP:
     call aztec_setmem                ; 0x66e7
     add sp, byte 6                   ; 0x66ea
     mov word [bss_82ea], 0           ; 0x66ed
-    mov ax, word [bss_82ee]          ; 0x66f3
+    mov ax, word [party_tag]         ; 0x66f3
     shl ax, 1                        ; 0x66f6
     mov word [bss_82f0], ax          ; 0x66f8
     mov word [bss_82ec], 0           ; 0x66fb

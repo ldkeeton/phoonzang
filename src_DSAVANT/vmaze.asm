@@ -43,9 +43,9 @@ bss_919c  equ __zdseg_end + (__zobss_919c - __zdata_start)
 ; bss_9198 equ __zdseg_end + (__zobss_9198 - __zdata_start)
 %include "vmaze/loc_RRRG.asm"              ; 0x017f
 
-; bss_9194 equ __zdseg_end + (__zobss_9194 - __zdata_start)
-; bss_9198 equ __zdseg_end + (__zobss_9198 - __zdata_start)
-bss_919e equ __zdseg_end + (__zobss_919e - __zdata_start)
+; bss_9194           equ __zdseg_end + (__zobss_9194 - __zdata_start)
+; bss_9198           equ __zdseg_end + (__zobss_9198 - __zdata_start)
+save_location_flag equ __zdseg_end + (__zobss_919e - __zdata_start)
 %include "vmaze/api_idx_0008_URRP.asm"     ; 0x01c9
 
 %include "vmaze/api_idx_0002_LMTG.asm"     ; 0x02da
@@ -88,7 +88,7 @@ bss_91a6  equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 
 ; bss_919a equ __zdseg_end + (__zobss_919a - __zdata_start)
 ; bss_919c equ __zdseg_end + (__zobss_919c - __zdata_start)
-%include "vmaze/api_idx_000c_RNQS.asm"     ; 0x0cb5
+%include "vmaze/enter_level.asm"           ; 0x0cb5
 
 %include "vmaze/api_idx_0002_ITLQ.asm"     ; 0x0e5d
 
@@ -99,11 +99,11 @@ bss_91a6  equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 
 %include "shared/loc_QQOI.asm"              ; 0x0f68
 
-%include "vmaze/api_idx_0006_LIGG.asm"     ; 0x0f8e
+%include "vmaze/wait_ticks_or_key.asm"     ; 0x0f8e
 
 %include "shared/api_idx_0008_OMTP.asm"     ; 0x0fde
 
-%include "vmaze/api_idx_0050_JLOV.asm"     ; 0x1094
+%include "vmaze/show_message.asm"          ; 0x1094
 
 %include "shared/loc_QTKU.asm"              ; 0x10b0
 
@@ -115,32 +115,32 @@ loc_NJKS.loc2 equ loc_MMMO
 
 %include "vmaze/api_idx_0002_IPQN.asm"     ; 0x1206
 
-bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
 %include "vmaze/loc_KOGT.asm"              ; 0x1240
 
 %include "shared/loc_IVLM.asm"              ; 0x12a2
 
 %include "vmaze/loc_LPNP.asm"              ; 0x12d3
 
-; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-bss_91aa equ __zdseg_end + (__zobss_91aa - __zdata_start)
+; location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+bss_91aa         equ __zdseg_end + (__zobss_91aa - __zdata_start)
 %include "vmaze/api_idx_0004_JLQH.asm"     ; 0x1308
 
-; bss_919e equ __zdseg_end + (__zobss_919e - __zdata_start)
-loc_HILS.bss1 equ bss_919e
-%include "shared/loc_HILS.asm"              ; 0x13c0
+; save_location_flag equ __zdseg_end + (__zobss_919e - __zdata_start)
+check_at_saved_location.save_location_flag1 equ save_location_flag
+%include "shared/check_at_saved_location.asm" ; 0x13c0
 
-; bss_919e equ __zdseg_end + (__zobss_919e - __zdata_start)
+; save_location_flag equ __zdseg_end + (__zobss_919e - __zdata_start)
 %include "vmaze/api_idx_0004_IHHI.asm"     ; 0x13f7
 
 %include "vmaze/api_idx_0004_HRPS.asm"     ; 0x1504
 
-; bss_919e equ __zdseg_end + (__zobss_919e - __zdata_start)
-; bss_91aa equ __zdseg_end + (__zobss_91aa - __zdata_start)
+; save_location_flag equ __zdseg_end + (__zobss_919e - __zdata_start)
+; bss_91aa           equ __zdseg_end + (__zobss_91aa - __zdata_start)
 %include "vmaze/api_idx_000e_NSGM.asm"     ; 0x162b
 
-; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-bss_91ac equ __zdseg_end + (__zobss_91ac - __zdata_start)
+; location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+bss_91ac         equ __zdseg_end + (__zobss_91ac - __zdata_start)
 %include "vmaze/api_idx_0004_USIK.asm"     ; 0x17ee
 
 %include "vmaze/api_idx_000a_TQHL.asm"     ; 0x195c
@@ -158,15 +158,15 @@ bss_91b0 equ __zdseg_end + (__zobss_91b0 - __zdata_start)
 bss_91b2 equ __zdseg_end + (__zobss_91b2 - __zdata_start)
 %include "vmaze/loc_MMGL.asm"              ; 0x21e3
 
-; bss_9198 equ __zdseg_end + (__zobss_9198 - __zdata_start)
-; bss_919a equ __zdseg_end + (__zobss_919a - __zdata_start)
-; bss_919c equ __zdseg_end + (__zobss_919c - __zdata_start)
-; bss_919e equ __zdseg_end + (__zobss_919e - __zdata_start)
-; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-; bss_91aa equ __zdseg_end + (__zobss_91aa - __zdata_start)
-; bss_91b0 equ __zdseg_end + (__zobss_91b0 - __zdata_start)
-; bss_91b2 equ __zdseg_end + (__zobss_91b2 - __zdata_start)
-bss_91b4 equ __zdseg_end + (__zobss_91b4 - __zdata_start)
+; bss_9198           equ __zdseg_end + (__zobss_9198 - __zdata_start)
+; bss_919a           equ __zdseg_end + (__zobss_919a - __zdata_start)
+; bss_919c           equ __zdseg_end + (__zobss_919c - __zdata_start)
+; save_location_flag equ __zdseg_end + (__zobss_919e - __zdata_start)
+; location_changed   equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+; bss_91aa           equ __zdseg_end + (__zobss_91aa - __zdata_start)
+; bss_91b0           equ __zdseg_end + (__zobss_91b0 - __zdata_start)
+; bss_91b2           equ __zdseg_end + (__zobss_91b2 - __zdata_start)
+bss_91b4           equ __zdseg_end + (__zobss_91b4 - __zdata_start)
 %include "vmaze/api_idx_0022_RHMN.asm"     ; 0x2215
 
 ; bss_91a6 equ __zdseg_end + (__zobss_91a6 - __zdata_start)
@@ -263,16 +263,16 @@ bss_9b44 equ __zdseg_end + (__zobss_9b44 - __zdata_start)
 bss_9b46 equ __zdseg_end + (__zobss_9b46 - __zdata_start)
 %include "vmaze/api_idx_0030_JQMM.asm"     ; 0x53fd
 
-loc_IONR.api_idx1 equ api_idx_0030_JQMM
-%include "shared/loc_IONR.asm"              ; 0x676c
+redraw_maze_view.api_idx1 equ api_idx_0030_JQMM
+%include "shared/redraw_maze_view.asm"      ; 0x676c
 
 %include "shared/loc_MPHO.asm"              ; 0x678c
 
 %include "shared/find_map_piece.asm"        ; 0x67c6
 
-%include "vmaze/api_idx_0002_GSOS.asm"     ; 0x6882
+%include "shared/find_object_at.asm"        ; 0x6882
 
-%include "vmaze/loc_VNRM.asm"              ; 0x68f2
+%include "vmaze/save_level_state.asm"      ; 0x68f2
 
 %include "shared/api_idx_0006_POPS.asm"     ; 0x6960
 
@@ -316,15 +316,15 @@ bss_9b50  equ __zdseg_end + (__zobss_9b50 - __zdata_start)
 
 %include "vmaze/api_idx_0002_KUOJ.asm"     ; 0x7001
 
-bss_9bd0 equ __zdseg_end + (__zobss_9bd0 - __zdata_start)
+region_step_flag equ __zdseg_end + (__zobss_9bd0 - __zdata_start)
 %include "vmaze/api_idx_001e_KGSI.asm"     ; 0x7034
 
-%include "shared/loc_OUOJ.asm"              ; 0x7242
+%include "shared/mark_region_bits.asm"      ; 0x7242
 
-; bss_919e equ __zdseg_end + (__zobss_919e - __zdata_start)
-; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-; bss_9bd0 equ __zdseg_end + (__zobss_9bd0 - __zdata_start)
-%include "vmaze/api_idx_0004_IPQQ.asm"     ; 0x72a6
+; save_location_flag equ __zdseg_end + (__zobss_919e - __zdata_start)
+; location_changed   equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+; region_step_flag   equ __zdseg_end + (__zobss_9bd0 - __zdata_start)
+%include "vmaze/move_party_to_dest.asm"    ; 0x72a6
 
 ; bss_91b2 equ __zdseg_end + (__zobss_91b2 - __zdata_start)
 %include "vmaze/api_idx_0002_NIPM.asm"     ; 0x73b6
@@ -377,19 +377,19 @@ bss_9bd0 equ __zdseg_end + (__zobss_9bd0 - __zdata_start)
 
 %include "vmaze/api_idx_000c_QGMU.asm"     ; 0x8794
 
-; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-; bss_9b4a equ __zdseg_end + (__zobss_9b4a - __zdata_start)
-; bss_9bd0 equ __zdseg_end + (__zobss_9bd0 - __zdata_start)
+; location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+; bss_9b4a         equ __zdseg_end + (__zobss_9b4a - __zdata_start)
+; region_step_flag equ __zdseg_end + (__zobss_9bd0 - __zdata_start)
 %include "vmaze/loc_IPSH.asm"              ; 0x8867
 
 %include "shared/api_idx_0002_OVRM.asm"     ; 0x89d0
 
-%include "vmaze/api_idx_0002_MSOL.asm"     ; 0x8a14
+%include "vmaze/claim_cell.asm"            ; 0x8a14
 
-; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-%include "vmaze/api_idx_0006_MPQT.asm"     ; 0x8b52
+; location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+%include "vmaze/check_type8_object.asm"    ; 0x8b52
 
-%include "vmaze/api_idx_000a_JNPN.asm"     ; 0x8c47
+%include "vmaze/check_cell_objects.asm"    ; 0x8c47
 
 %include "vmaze/api_idx_0002_NGNS.asm"     ; 0x8de9
 

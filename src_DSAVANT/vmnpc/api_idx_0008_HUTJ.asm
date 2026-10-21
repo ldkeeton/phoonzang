@@ -89,7 +89,7 @@ api_idx_0008_HUTJ:
     sub ah, ah                       ; 0x39b9
     test ax, 8                       ; 0x39bb
     jne short @..api_idx_0008_HUTJ.l6 ; 0x39be
-    cmp word [bss_91a8], byte 0      ; 0x39c0
+    cmp word [location_changed], byte 0 ; 0x39c0
     je short @..api_idx_0008_HUTJ.l6 ; 0x39c5
     mov ax, 0x248                    ; 0x39c7
     imul word [bp + 0x4]             ; 0x39ca

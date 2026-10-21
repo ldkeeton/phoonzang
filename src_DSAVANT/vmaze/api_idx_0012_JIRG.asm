@@ -2,10 +2,10 @@
 api_idx_0012_JIRG:
     mov ax, 0xffee                   ; 0x8568
     call aztec_csav                  ; 0x856b
-    mov ax, word [bss_8d12]          ; 0x856e
+    mov ax, word [party_region]      ; 0x856e
     shl ax, 1                        ; 0x8571
     mov si, ax                       ; 0x8573
-    mov bx, word [bss_0e12]          ; 0x8575
+    mov bx, word [maze_tables]       ; 0x8575
     mov ax, word [bx + si + 0x3c0]   ; 0x8579
     mov word [bp - 0x0002], ax       ; 0x857d
     mov ax, 5                        ; 0x8580
@@ -13,14 +13,14 @@ api_idx_0012_JIRG:
     mov ax, 0                        ; 0x8584
     push ax                          ; 0x8587
     push word [bp - 0x0002]          ; 0x8588
-    call ds_dos_con_loc_QJHU         ; 0x858b
+    call get_bits                    ; 0x858b
     add sp, byte 6                   ; 0x858e
     mov word [bp - 0x0004], ax       ; 0x8591
     mov ax, 5                        ; 0x8594
     push ax                          ; 0x8597
     push ax                          ; 0x8598
     push word [bp - 0x0002]          ; 0x8599
-    call ds_dos_con_loc_QJHU         ; 0x859c
+    call get_bits                    ; 0x859c
     add sp, byte 6                   ; 0x859f
     mov word [bp - 0x0006], ax       ; 0x85a2
     mov ax, 2                        ; 0x85a5
@@ -28,7 +28,7 @@ api_idx_0012_JIRG:
     mov ax, 0xa                      ; 0x85a9
     push ax                          ; 0x85ac
     push word [bp - 0x0002]          ; 0x85ad
-    call ds_dos_con_loc_QJHU         ; 0x85b0
+    call get_bits                    ; 0x85b0
     add sp, byte 6                   ; 0x85b3
     mov word [bp - 0x0010], ax       ; 0x85b6
     mov ax, 1                        ; 0x85b9
@@ -36,7 +36,7 @@ api_idx_0012_JIRG:
     mov ax, 0xc                      ; 0x85bd
     push ax                          ; 0x85c0
     push word [bp - 0x0002]          ; 0x85c1
-    call ds_dos_con_loc_QJHU         ; 0x85c4
+    call get_bits                    ; 0x85c4
     add sp, byte 6                   ; 0x85c7
     mov word [bp - 0x0012], ax       ; 0x85ca
     mov ax, word [bss_8f1c]          ; 0x85cd
@@ -91,17 +91,17 @@ api_idx_0012_JIRG:
 @..api_idx_0012_JIRG.l7:
     cmp word [bp - 0x000e], byte 0   ; 0x8643
     jne short @..api_idx_0012_JIRG.l8 ; 0x8647
-    mov ax, word [bss_8d12]          ; 0x8649
+    mov ax, word [party_region]      ; 0x8649
     shl ax, 1                        ; 0x864c
     mov si, ax                       ; 0x864e
-    mov bx, word [bss_0e12]          ; 0x8650
+    mov bx, word [maze_tables]       ; 0x8650
     mov ax, word [bx + si]           ; 0x8654
     jmp short @..api_idx_0012_JIRG.l9 ; 0x8656
 @..api_idx_0012_JIRG.l8:
-    mov ax, word [bss_8d12]          ; 0x8658
+    mov ax, word [party_region]      ; 0x8658
     shl ax, 1                        ; 0x865b
     mov si, ax                       ; 0x865d
-    mov bx, word [bss_0e12]          ; 0x865f
+    mov bx, word [maze_tables]       ; 0x865f
     mov ax, word [bx + si + 0x1e0]   ; 0x8663
 @..api_idx_0012_JIRG.l9:
     mov word [bp - 0x000c], ax       ; 0x8667
@@ -129,7 +129,7 @@ api_idx_0012_JIRG:
     add sp, byte 6                   ; 0x869e
 @..api_idx_0012_JIRG.l10:
     push word [bp - 0x0010]          ; 0x86a1
-    call loc_OUOJ                    ; 0x86a4
+    call mark_region_bits            ; 0x86a4
     pop cx                           ; 0x86a7
 @..api_idx_0012_JIRG.l11:
     ret                              ; 0x86a8

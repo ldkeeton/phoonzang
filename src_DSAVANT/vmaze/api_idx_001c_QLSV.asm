@@ -2,10 +2,10 @@
 api_idx_001c_QLSV:
     mov ax, 0xffe4                   ; 0x764d
     call aztec_csav                  ; 0x7650
-    mov ax, word [bss_8d12]          ; 0x7653
+    mov ax, word [party_region]      ; 0x7653
     shl ax, 1                        ; 0x7656
     mov si, ax                       ; 0x7658
-    mov bx, word [bss_0e12]          ; 0x765a
+    mov bx, word [maze_tables]       ; 0x765a
     mov ax, word [bx + si + 0x3c0]   ; 0x765e
     mov word [bp - 0x0006], ax       ; 0x7662
     mov ax, 3                        ; 0x7665
@@ -13,14 +13,14 @@ api_idx_001c_QLSV:
     mov ax, 0                        ; 0x7669
     push ax                          ; 0x766c
     push word [bp - 0x0006]          ; 0x766d
-    call ds_dos_con_loc_QJHU         ; 0x7670
+    call get_bits                    ; 0x7670
     add sp, byte 6                   ; 0x7673
     mov word [bp - 0x000e], ax       ; 0x7676
     mov ax, 3                        ; 0x7679
     push ax                          ; 0x767c
     push ax                          ; 0x767d
     push word [bp - 0x0006]          ; 0x767e
-    call ds_dos_con_loc_QJHU         ; 0x7681
+    call get_bits                    ; 0x7681
     add sp, byte 6                   ; 0x7684
     mov word [bp - 0x0010], ax       ; 0x7687
     mov ax, 4                        ; 0x768a
@@ -28,7 +28,7 @@ api_idx_001c_QLSV:
     mov ax, 6                        ; 0x768e
     push ax                          ; 0x7691
     push word [bp - 0x0006]          ; 0x7692
-    call ds_dos_con_loc_QJHU         ; 0x7695
+    call get_bits                    ; 0x7695
     add sp, byte 6                   ; 0x7698
     mov word [bp - 0x000c], ax       ; 0x769b
     mov ax, 1                        ; 0x769e
@@ -36,7 +36,7 @@ api_idx_001c_QLSV:
     mov ax, 0xa                      ; 0x76a2
     push ax                          ; 0x76a5
     push word [bp - 0x0006]          ; 0x76a6
-    call ds_dos_con_loc_QJHU         ; 0x76a9
+    call get_bits                    ; 0x76a9
     add sp, byte 6                   ; 0x76ac
     mov word [bp - 0x0012], ax       ; 0x76af
     mov ax, 2                        ; 0x76b2
@@ -44,7 +44,7 @@ api_idx_001c_QLSV:
     mov ax, 0xb                      ; 0x76b6
     push ax                          ; 0x76b9
     push word [bp - 0x0006]          ; 0x76ba
-    call ds_dos_con_loc_QJHU         ; 0x76bd
+    call get_bits                    ; 0x76bd
     add sp, byte 6                   ; 0x76c0
     mov word [bp - 0x0014], ax       ; 0x76c3
     mov bx, word [maze_data]         ; 0x76c6
@@ -67,10 +67,10 @@ api_idx_001c_QLSV:
     add ax, cx                       ; 0x76f5
     add ax, word [bp - 0x000e]       ; 0x76f7
     mov word [bp - 0x0004], ax       ; 0x76fa
-    mov ax, word [bss_8d12]          ; 0x76fd
+    mov ax, word [party_region]      ; 0x76fd
     shl ax, 1                        ; 0x7700
     mov si, ax                       ; 0x7702
-    mov bx, word [bss_0e12]          ; 0x7704
+    mov bx, word [maze_tables]       ; 0x7704
     mov ax, word [bx + si + 0x1e0]   ; 0x7708
     mov word [bp - 0x0006], ax       ; 0x770c
     mov word [bp - 0x0002], 0        ; 0x770f
@@ -82,7 +82,7 @@ api_idx_001c_QLSV:
     shl ax, 1                        ; 0x771d
     push ax                          ; 0x771f
     push word [bp - 0x0006]          ; 0x7720
-    call ds_dos_con_loc_QJHU         ; 0x7723
+    call get_bits                    ; 0x7723
     add sp, byte 6                   ; 0x7726
     mov cx, word [bp - 0x0002]       ; 0x7729
     shl cx, 1                        ; 0x772c
@@ -191,18 +191,18 @@ api_idx_001c_QLSV:
     call set_bitfield                ; 0x7827
     add sp, byte 8                   ; 0x782a
 @..api_idx_001c_QLSV.l3:
-    mov ax, word [bss_8d12]          ; 0x782d
+    mov ax, word [party_region]      ; 0x782d
     shl ax, 1                        ; 0x7830
     mov si, ax                       ; 0x7832
-    mov bx, word [bss_0e12]          ; 0x7834
+    mov bx, word [maze_tables]       ; 0x7834
     push word [bx + si]              ; 0x7838
     call loc_GRON                    ; 0x783a
     pop cx                           ; 0x783d
     cmp word [bp - 0x0012], byte 1   ; 0x783e
     jne short @..api_idx_001c_QLSV.l4 ; 0x7842
-    call loc_IONR                    ; 0x7844
+    call redraw_maze_view            ; 0x7844
 @..api_idx_001c_QLSV.l4:
     push word [bp - 0x0014]          ; 0x7847
-    call loc_OUOJ                    ; 0x784a
+    call mark_region_bits            ; 0x784a
     pop cx                           ; 0x784d
     ret                              ; 0x784e

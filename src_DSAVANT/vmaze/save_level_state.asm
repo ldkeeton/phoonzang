@@ -1,5 +1,5 @@
 ; auto-generated
-loc_VNRM:
+save_level_state:
     mov ax, 0                        ; 0x68f2
     call aztec_csav                  ; 0x68f5
     mov ax, 0x10                     ; 0x68f8

@@ -1,16 +1,16 @@
 ; auto-generated
-api_idx_0002_MSOL:
+claim_cell:
     mov ax, 0xfffe                   ; 0x8a14
     call aztec_csav                  ; 0x8a17
-    mov ax, word [bss_8f3e]          ; 0x8a1a
+    mov ax, word [party_map_piece]   ; 0x8a1a
     mov cx, 6                        ; 0x8a1d
     shl ax, cl                       ; 0x8a20
-    mov cx, word [bss_8f40]          ; 0x8a22
+    mov cx, word [party_cell_y]      ; 0x8a22
     shl cx, 1                        ; 0x8a26
     shl cx, 1                        ; 0x8a28
     shl cx, 1                        ; 0x8a2a
     add ax, cx                       ; 0x8a2c
-    add ax, word [bss_8f42]          ; 0x8a2e
+    add ax, word [party_cell_x]      ; 0x8a2e
     mov word [bp - 0x0002], ax       ; 0x8a32
     mov ax, 6                        ; 0x8a35
     push ax                          ; 0x8a38
@@ -21,7 +21,7 @@ api_idx_0002_MSOL:
     push ax                          ; 0x8a43
     call set_bitfield                ; 0x8a44
     add sp, byte 8                   ; 0x8a47
-    push word [bss_82ee]             ; 0x8a4a
+    push word [party_tag]            ; 0x8a4a
     mov ax, 2                        ; 0x8a4e
     push ax                          ; 0x8a51
     push word [bp - 0x0002]          ; 0x8a52
@@ -30,10 +30,10 @@ api_idx_0002_MSOL:
     push ax                          ; 0x8a5b
     call set_bitfield                ; 0x8a5c
     add sp, byte 8                   ; 0x8a5f
-    call loc_IONR                    ; 0x8a62
+    call redraw_maze_view            ; 0x8a62
     mov ax, 0x7fc                    ; 0x8a65
     push ax                          ; 0x8a68
-    call api_idx_0050_JLOV           ; 0x8a69
+    call show_message                ; 0x8a69
     pop cx                           ; 0x8a6c
     mov ax, 4                        ; 0x8a6d
     push ax                          ; 0x8a70
@@ -41,7 +41,7 @@ api_idx_0002_MSOL:
     pop cx                           ; 0x8a74
     mov ax, 2                        ; 0x8a75
     push ax                          ; 0x8a78
-    call api_idx_0006_LIGG           ; 0x8a79
+    call wait_ticks_or_key           ; 0x8a79
     pop cx                           ; 0x8a7c
     mov ax, 0x98                     ; 0x8a7d
     push ax                          ; 0x8a80
@@ -53,12 +53,12 @@ api_idx_0002_MSOL:
     push ax                          ; 0x8a8c
     call gfx_show_area               ; 0x8a8d
     add sp, byte 8                   ; 0x8a90
-    push word [bss_8f40]             ; 0x8a93
-    push word [bss_8f42]             ; 0x8a97
-    push word [bss_8f3e]             ; 0x8a9b
+    push word [party_cell_y]         ; 0x8a93
+    push word [party_cell_x]         ; 0x8a97
+    push word [party_map_piece]      ; 0x8a9b
     mov ax, 1                        ; 0x8a9f
     push ax                          ; 0x8aa2
-    push word [bss_82ee]             ; 0x8aa3
+    push word [party_tag]            ; 0x8aa3
     call set_cell_wall               ; 0x8aa7
     add sp, byte 0x0a                ; 0x8aaa
     mov ax, 0                        ; 0x8aad
@@ -66,9 +66,9 @@ api_idx_0002_MSOL:
     push ax                          ; 0x8ab1
     push ax                          ; 0x8ab2
     push ax                          ; 0x8ab3
-    push word [bss_8f40]             ; 0x8ab4
-    push word [bss_8f42]             ; 0x8ab8
-    push word [bss_8f3e]             ; 0x8abc
+    push word [party_cell_y]         ; 0x8ab4
+    push word [party_cell_x]         ; 0x8ab8
+    push word [party_map_piece]      ; 0x8abc
     mov ax, 5                        ; 0x8ac0
     push ax                          ; 0x8ac3
     push word [game_state_arg]       ; 0x8ac4
@@ -98,14 +98,14 @@ api_idx_0002_MSOL:
     push ax                          ; 0x8b01
     call loc_GRON                    ; 0x8b02
     pop cx                           ; 0x8b05
-    call loc_IONR                    ; 0x8b06
-    mov ax, word [bss_82ee]          ; 0x8b09
+    call redraw_maze_view            ; 0x8b06
+    mov ax, word [party_tag]         ; 0x8b09
     shl ax, 1                        ; 0x8b0c
     add ax, strict word 8            ; 0x8b0e
     push ax                          ; 0x8b11
     mov cx, word [bp + 0x4]          ; 0x8b12
     shl cx, 1                        ; 0x8b15
-    mov ax, word [bss_0e12]          ; 0x8b17
+    mov ax, word [maze_tables]       ; 0x8b17
     add ax, cx                       ; 0x8b1a
     add ax, 0x3c0                    ; 0x8b1c
     push ax                          ; 0x8b1f
@@ -118,7 +118,7 @@ api_idx_0002_MSOL:
     mov ax, word [bp + 0x4]          ; 0x8b2c
     shl ax, 1                        ; 0x8b2f
     mov si, ax                       ; 0x8b31
-    mov bx, word [bss_0e12]          ; 0x8b33
+    mov bx, word [maze_tables]       ; 0x8b33
     push word [bx + si + 0x3c0]      ; 0x8b37
     mov ax, 0                        ; 0x8b3b
     push ax                          ; 0x8b3e

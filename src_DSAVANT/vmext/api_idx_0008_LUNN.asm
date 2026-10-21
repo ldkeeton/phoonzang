@@ -21,7 +21,7 @@ api_idx_0008_LUNN:
     add sp, byte 0x0e                ; 0x1e79
     test ax, ax                      ; 0x1e7c
     je short @..api_idx_0008_LUNN.l2 ; 0x1e7e
-    mov ax, word [bss_91a8]          ; 0x1e80
+    mov ax, word [location_changed]  ; 0x1e80
     jmp short @..api_idx_0008_LUNN.l1 ; 0x1e83
 jumptable_1e9c_case_0:
     mov ax, 2                        ; 0x1e85
@@ -69,7 +69,7 @@ jumptable_1e9c:
     add sp, byte 4                   ; 0x1ed9
     test ax, ax                      ; 0x1edc
     je short @..api_idx_0008_LUNN.l5 ; 0x1ede
-    mov ax, word [bss_91a8]          ; 0x1ee0
+    mov ax, word [location_changed]  ; 0x1ee0
     jmp short @..api_idx_0008_LUNN.l4 ; 0x1ee3
 @..api_idx_0008_LUNN.l3:
     mov ax, 0                        ; 0x1ee5
@@ -80,7 +80,7 @@ jumptable_1e9c:
     cmp ax, strict word 3            ; 0x1eee
     je short @..api_idx_0008_LUNN.l3 ; 0x1ef1
 @..api_idx_0008_LUNN.l5:
-    mov ax, word [bss_82ee]          ; 0x1ef3
+    mov ax, word [party_tag]         ; 0x1ef3
     add ax, word [bp + 0x4]          ; 0x1ef6
     mov cx, 4                        ; 0x1ef9
     cwd                              ; 0x1efc
@@ -153,7 +153,7 @@ jumptable_1e9c:
     cwd                              ; 0x1f98
     idiv cx                          ; 0x1f99
     mov word [bp - 0x0008], dx       ; 0x1f9b
-    cmp dx, word [bss_82ee]          ; 0x1f9e
+    cmp dx, word [party_tag]         ; 0x1f9e
     je short @..api_idx_0008_LUNN.l12 ; 0x1fa2
     jmp near @..api_idx_0008_LUNN.l16 ; 0x1fa4
 @..api_idx_0008_LUNN.l12:

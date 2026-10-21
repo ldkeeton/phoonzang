@@ -2,15 +2,15 @@
 api_idx_0004_HRPS:
     mov ax, 0xfffc                   ; 0x1504
     call aztec_csav                  ; 0x1507
-    mov ax, word [bss_8f3e]          ; 0x150a
+    mov ax, word [party_map_piece]   ; 0x150a
     mov cx, 6                        ; 0x150d
     shl ax, cl                       ; 0x1510
-    mov cx, word [bss_8f40]          ; 0x1512
+    mov cx, word [party_cell_y]      ; 0x1512
     shl cx, 1                        ; 0x1516
     shl cx, 1                        ; 0x1518
     shl cx, 1                        ; 0x151a
     add ax, cx                       ; 0x151c
-    add ax, word [bss_8f42]          ; 0x151e
+    add ax, word [party_cell_x]      ; 0x151e
     mov word [bp - 0x0002], ax       ; 0x1522
     mov word [bp - 0x0004], 0        ; 0x1525
     push ax                          ; 0x152a
@@ -24,7 +24,7 @@ api_idx_0004_HRPS:
     mov ax, word [game_state_arg]    ; 0x153c
     jmp short @..api_idx_0004_HRPS.l2 ; 0x153f
 jumptable_1556_case_14:
-    cmp word [bss_8f3e], byte 0x0c   ; 0x1541
+    cmp word [party_map_piece], byte 0x0c ; 0x1541
     jle short @..api_idx_0004_HRPS.l1 ; 0x1546
     mov word [bp - 0x0004], 1        ; 0x1548
 @..api_idx_0004_HRPS.l1:

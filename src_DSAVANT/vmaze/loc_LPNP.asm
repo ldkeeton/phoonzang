@@ -3,14 +3,14 @@ loc_LPNP:
     mov ax, 0                        ; 0x12d3
     call aztec_csav                  ; 0x12d6
     push word [bp + 0x4]             ; 0x12d9
-    call api_idx_0050_JLOV           ; 0x12dc
+    call show_message                ; 0x12dc
     pop cx                           ; 0x12df
     call flush_keyboard              ; 0x12e0
     push word [bp + 0x6]             ; 0x12e3
     call ds_app_HKIJ                 ; 0x12e6
     pop cx                           ; 0x12e9
     push word [bp + 0x8]             ; 0x12ea
-    call api_idx_0006_LIGG           ; 0x12ed
+    call wait_ticks_or_key           ; 0x12ed
     pop cx                           ; 0x12f0
     mov ax, 0x98                     ; 0x12f1
     push ax                          ; 0x12f4

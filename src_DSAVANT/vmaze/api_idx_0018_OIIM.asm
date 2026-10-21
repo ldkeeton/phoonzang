@@ -33,9 +33,9 @@ api_idx_0018_OIIM:
     sub ax, word [bx + 0x256]        ; 0x7ba0
     mov word [bp - 0x0006], ax       ; 0x7ba4
 @..api_idx_0018_OIIM.l2:
-    mov ax, word [bss_8f46]          ; 0x7ba7
-    add ax, word [bss_8f44]          ; 0x7baa
-    add ax, word [bss_82ee]          ; 0x7bae
+    mov ax, word [party_world_x]     ; 0x7ba7
+    add ax, word [party_world_y]     ; 0x7baa
+    add ax, word [party_tag]         ; 0x7bae
     add ax, word [bp + 0x6]          ; 0x7bb2
     mov cx, 2                        ; 0x7bb5
     cwd                              ; 0x7bb8

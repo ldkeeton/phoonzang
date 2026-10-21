@@ -70,7 +70,7 @@ api_idx_000a_PKVL:
     jne short @..api_idx_000a_PKVL.l7 ; 0x104f
     cmp word [bss_90ba], byte 1      ; 0x1051
     jne short @..api_idx_000a_PKVL.l6 ; 0x1056
-    mov ax, word [bss_8460]          ; 0x1058
+    mov ax, word [dest_alt_arg]      ; 0x1058
     mov cx, 0x100                    ; 0x105b
     cwd                              ; 0x105e
     idiv cx                          ; 0x105f

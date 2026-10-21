@@ -32,13 +32,13 @@ loc_MVHP:
     mov word [bss_919a], ax          ; 0x6ba0
     cmp word [bp + 0x4], byte 0      ; 0x6ba3
     je short @..loc_MVHP.l3          ; 0x6ba7
-    mov ax, word [bss_905a]          ; 0x6ba9
+    mov ax, word [message_delay]     ; 0x6ba9
     cmp byte [bss_598c], 0           ; 0x6bac
     je short @..loc_MVHP.l2          ; 0x6bb1
     shl ax, 1                        ; 0x6bb3
 @..loc_MVHP.l2:
     push ax                          ; 0x6bb5
-    call api_idx_0006_LIGG           ; 0x6bb6
+    call wait_ticks_or_key           ; 0x6bb6
     pop cx                           ; 0x6bb9
     jmp short @..loc_MVHP.l5         ; 0x6bba
 @..loc_MVHP.l3:
@@ -56,7 +56,7 @@ loc_MVHP:
     mov word [bss_82e8], dx          ; 0x6bd4
     cmp word [hotspot_hit], byte 0   ; 0x6bd8
     jne short @..loc_MVHP.l4         ; 0x6bdd
-    call loc_IONR                    ; 0x6bdf
+    call redraw_maze_view            ; 0x6bdf
 @..loc_MVHP.l4:
     mov ax, 0                        ; 0x6be2
     push ax                          ; 0x6be5

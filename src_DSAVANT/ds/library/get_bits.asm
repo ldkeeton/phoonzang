@@ -1,5 +1,5 @@
 ; auto-generated
-ds_dos_con_loc_QJHU:
+get_bits:
     push bp                          ; 0x3f81
     mov bp, sp                       ; 0x3f82
     cld                              ; 0x3f84

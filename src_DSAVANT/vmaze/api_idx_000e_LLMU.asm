@@ -3,10 +3,10 @@ api_idx_000e_LLMU:
     mov ax, 0xfff2                   ; 0x8448
     call aztec_csav                  ; 0x844b
     mov word [bp - 0x000e], 1        ; 0x844e
-    mov ax, word [bss_8d12]          ; 0x8453
+    mov ax, word [party_region]      ; 0x8453
     shl ax, 1                        ; 0x8456
     mov si, ax                       ; 0x8458
-    mov bx, word [bss_0e12]          ; 0x845a
+    mov bx, word [maze_tables]       ; 0x845a
     mov ax, word [bx + si]           ; 0x845e
     mov word [bp - 0x000a], ax       ; 0x8460
     mov ax, word [bx + si + 0x3c0]   ; 0x8463
@@ -16,7 +16,7 @@ api_idx_000e_LLMU:
     mov ax, 2                        ; 0x846e
     push ax                          ; 0x8471
     push word [bp - 0x0008]          ; 0x8472
-    call ds_dos_con_loc_QJHU         ; 0x8475
+    call get_bits                    ; 0x8475
     add sp, byte 6                   ; 0x8478
     mov word [bp - 0x000c], ax       ; 0x847b
     mov word [bp - 0x0002], 0        ; 0x847e
@@ -67,8 +67,8 @@ api_idx_000e_LLMU:
     cmp ax, word [bss_69c8]          ; 0x84ea
     jl short @..api_idx_000e_LLMU.l1 ; 0x84ee
     push word [bp - 0x000e]          ; 0x84f0
-    mov si, word [bss_8d12]          ; 0x84f3
-    mov bx, word [bss_0e12]          ; 0x84f7
+    mov si, word [party_region]      ; 0x84f3
+    mov bx, word [maze_tables]       ; 0x84f7
     mov al, byte [bx + si + 0xa50]   ; 0x84fb
     sub ah, ah                       ; 0x84ff
     push ax                          ; 0x8501
@@ -83,7 +83,7 @@ api_idx_000e_LLMU:
     mov ax, 3                        ; 0x8518
     push ax                          ; 0x851b
     push word [bp - 0x0008]          ; 0x851c
-    call ds_dos_con_loc_QJHU         ; 0x851f
+    call get_bits                    ; 0x851f
     add sp, byte 6                   ; 0x8522
     test ax, ax                      ; 0x8525
     je short @..api_idx_000e_LLMU.l8 ; 0x8527
@@ -93,10 +93,10 @@ api_idx_000e_LLMU:
     mov ax, 0                        ; 0x852d
     push ax                          ; 0x8530
     push word [bp - 0x0008]          ; 0x8531
-    call ds_dos_con_loc_QJHU         ; 0x8534
+    call get_bits                    ; 0x8534
     add sp, byte 6                   ; 0x8537
     push ax                          ; 0x853a
-    call loc_OUOJ                    ; 0x853b
+    call mark_region_bits            ; 0x853b
     pop cx                           ; 0x853e
 @..api_idx_000e_LLMU.l8:
     ret                              ; 0x853f

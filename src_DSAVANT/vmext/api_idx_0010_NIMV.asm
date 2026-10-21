@@ -3,14 +3,14 @@ api_idx_0010_NIMV:
     mov ax, 0xfff0                   ; 0x2291
     call aztec_csav                  ; 0x2294
     mov ax, 4                        ; 0x2297
-    cmp word [bss_91a8], byte 0      ; 0x229a
+    cmp word [location_changed], byte 0 ; 0x229a
     jne short @..api_idx_0010_NIMV.l1 ; 0x229f
     mov ax, 3                        ; 0x22a1
 @..api_idx_0010_NIMV.l1:
     mov word [bp - 0x000a], ax       ; 0x22a4
     mov word [bp - 0x0002], 0xffff   ; 0x22a7
     mov word [bp - 0x0004], 0xffff   ; 0x22ac
-    cmp word [bss_91a8], byte 0      ; 0x22b1
+    cmp word [location_changed], byte 0 ; 0x22b1
     jg short @..api_idx_0010_NIMV.l2 ; 0x22b6
     jmp near @..api_idx_0010_NIMV.l11 ; 0x22b8
 @..api_idx_0010_NIMV.l2:
@@ -18,7 +18,7 @@ api_idx_0010_NIMV:
     je short @..api_idx_0010_NIMV.l3 ; 0x22bf
     jmp near @..api_idx_0010_NIMV.l11 ; 0x22c1
 @..api_idx_0010_NIMV.l3:
-    mov ax, word [bss_91a8]          ; 0x22c4
+    mov ax, word [location_changed]  ; 0x22c4
     cmp ax, strict word 3            ; 0x22c7
     jl short @..api_idx_0010_NIMV.l4 ; 0x22ca
     cmp ax, strict word 5            ; 0x22cc
@@ -30,9 +30,9 @@ api_idx_0010_NIMV:
     mov ax, 0x14                     ; 0x22d6
 @..api_idx_0010_NIMV.l6:
     mov word [bp - 0x000c], ax       ; 0x22d9
-    cmp word [bss_91a8], byte 3      ; 0x22dc
+    cmp word [location_changed], byte 3 ; 0x22dc
     jl short @..api_idx_0010_NIMV.l7 ; 0x22e1
-    cmp word [bss_91a8], byte 5      ; 0x22e3
+    cmp word [location_changed], byte 5 ; 0x22e3
     jne short @..api_idx_0010_NIMV.l8 ; 0x22e8
 @..api_idx_0010_NIMV.l7:
     mov ax, 0x16                     ; 0x22ea
@@ -126,7 +126,7 @@ jumptable_2515_case_5:
 @..api_idx_0010_NIMV.l14:
     jmp near @..api_idx_0010_NIMV.l26 ; 0x23aa
 jumptable_2515_case_2:
-    cmp word [bss_91a8], byte 0      ; 0x23ad
+    cmp word [location_changed], byte 0 ; 0x23ad
     jne short @..api_idx_0010_NIMV.l17 ; 0x23b2
     cmp word [bp + 0x4], byte 3      ; 0x23b4
     jge short @..api_idx_0010_NIMV.l16 ; 0x23b8
@@ -172,9 +172,9 @@ jumptable_2515_case_2:
 @..api_idx_0010_NIMV.l16:
     jmp near @..api_idx_0010_NIMV.l21 ; 0x240a
 @..api_idx_0010_NIMV.l17:
-    cmp word [bss_91a8], byte 3      ; 0x240d
+    cmp word [location_changed], byte 3 ; 0x240d
     jl short @..api_idx_0010_NIMV.l18 ; 0x2412
-    cmp word [bss_91a8], byte 5      ; 0x2414
+    cmp word [location_changed], byte 5 ; 0x2414
     jne short @..api_idx_0010_NIMV.l20 ; 0x2419
 @..api_idx_0010_NIMV.l18:
     cmp word [bp + 0x4], byte 4      ; 0x241b
@@ -215,7 +215,7 @@ jumptable_2515_case_2:
 @..api_idx_0010_NIMV.l19:
     jmp short @..api_idx_0010_NIMV.l21 ; 0x2468
 @..api_idx_0010_NIMV.l20:
-    cmp word [bss_91a8], byte 5      ; 0x246a
+    cmp word [location_changed], byte 5 ; 0x246a
     jge short @..api_idx_0010_NIMV.l21 ; 0x246f
     cmp word [bp + 0x4], byte 4      ; 0x2471
     jge short @..api_idx_0010_NIMV.l21 ; 0x2475
@@ -255,7 +255,7 @@ jumptable_2515_case_2:
 @..api_idx_0010_NIMV.l21:
     jmp near @..api_idx_0010_NIMV.l26 ; 0x24be
 jumptable_2515_case_4:
-    mov ax, word [bss_91a8]          ; 0x24c1
+    mov ax, word [location_changed]  ; 0x24c1
     mov cx, 2                        ; 0x24c4
     cwd                              ; 0x24c7
     idiv cx                          ; 0x24c8
@@ -371,7 +371,7 @@ jumptable_2967_case_7:
     mov word [bp - 0x0004], ax       ; 0x25b9
 jumptable_2967_case_1:
 @..api_idx_0010_NIMV.l30:
-    cmp word [bss_91a8], byte 0      ; 0x25bc
+    cmp word [location_changed], byte 0 ; 0x25bc
     jne short @..api_idx_0010_NIMV.l31 ; 0x25c1
     mov ax, 0                        ; 0x25c3
     push ax                          ; 0x25c6
@@ -408,7 +408,7 @@ jumptable_2967_case_1:
     add sp, byte 0x1c                ; 0x2607
     jmp short @..api_idx_0010_NIMV.l32 ; 0x260a
 @..api_idx_0010_NIMV.l31:
-    cmp word [bss_91a8], byte 2      ; 0x260c
+    cmp word [location_changed], byte 2 ; 0x260c
     jne short @..api_idx_0010_NIMV.l32 ; 0x2611
     mov ax, 0                        ; 0x2613
     push ax                          ; 0x2616
@@ -584,7 +584,7 @@ jumptable_2967_case_1:
     call api_idx_0004_RTNM           ; 0x2786
     add sp, byte 0x1c                ; 0x2789
 @..api_idx_0010_NIMV.l37:
-    cmp word [bss_91a8], byte 0      ; 0x278c
+    cmp word [location_changed], byte 0 ; 0x278c
     jne short @..api_idx_0010_NIMV.l38 ; 0x2791
     mov ax, 0                        ; 0x2793
     push ax                          ; 0x2796
@@ -634,7 +634,7 @@ jumptable_2967_case_1:
     add sp, byte 0x1c                ; 0x27f2
     jmp short @..api_idx_0010_NIMV.l39 ; 0x27f5
 @..api_idx_0010_NIMV.l38:
-    cmp word [bss_91a8], byte 2      ; 0x27f7
+    cmp word [location_changed], byte 2 ; 0x27f7
     jne short @..api_idx_0010_NIMV.l39 ; 0x27fc
     mov ax, 0                        ; 0x27fe
     push ax                          ; 0x2801
@@ -775,7 +775,7 @@ jumptable_2967_case_11:
 jumptable_2967_case_12:
     mov word [bp - 0x0010], 0xa      ; 0x2922
     mov ax, 5                        ; 0x2927
-    cmp word [bss_91a8], byte 0      ; 0x292a
+    cmp word [location_changed], byte 0 ; 0x292a
     jne short @..api_idx_0010_NIMV.l44 ; 0x292f
     mov ax, 1                        ; 0x2931
 @..api_idx_0010_NIMV.l44:

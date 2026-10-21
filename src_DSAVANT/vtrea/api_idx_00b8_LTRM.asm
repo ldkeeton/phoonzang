@@ -261,7 +261,7 @@ jumptable_1fa3_case_4:
     push word [bp - 0x0002]          ; 0x1720
     call api_idx_0002_RJQH           ; 0x1723
     add sp, byte 0x10                ; 0x1726
-    push word [bss_905a]             ; 0x1729
+    push word [message_delay]        ; 0x1729
     call api_idx_0004_UQUT           ; 0x172d
     pop cx                           ; 0x1730
     mov ax, 8                        ; 0x1731
@@ -314,7 +314,7 @@ jumptable_1fa3_case_4:
     push word [bp - 0x0002]          ; 0x1792
     call api_idx_0002_RJQH           ; 0x1795
     add sp, byte 0x10                ; 0x1798
-    push word [bss_905a]             ; 0x179b
+    push word [message_delay]        ; 0x179b
     call api_idx_0004_UQUT           ; 0x179f
     pop cx                           ; 0x17a2
     mov ax, 8                        ; 0x17a3
@@ -1046,7 +1046,7 @@ jumptable_1fa3_case_12:
     push word [bp - 0x0002]          ; 0x1dbe
     call ds_app_string_LUOV          ; 0x1dc1
     add sp, byte 4                   ; 0x1dc4
-    push word [bss_905a]             ; 0x1dc7
+    push word [message_delay]        ; 0x1dc7
     call api_idx_0004_UQUT           ; 0x1dcb
     pop cx                           ; 0x1dce
 @..api_idx_00b8_LTRM.l51:
@@ -1148,7 +1148,7 @@ jumptable_1fa3_case_15:
     push word [bp - 0x0002]          ; 0x1ea4
     call api_idx_0002_RJQH           ; 0x1ea7
     add sp, byte 0x10                ; 0x1eaa
-    push word [bss_905a]             ; 0x1ead
+    push word [message_delay]        ; 0x1ead
     call api_idx_0004_UQUT           ; 0x1eb1
     pop cx                           ; 0x1eb4
     mov ax, 0x64                     ; 0x1eb5
@@ -1198,7 +1198,7 @@ jumptable_1fa3_case_15:
     push word [bp - 0x0002]          ; 0x1f1a
     call api_idx_0002_RJQH           ; 0x1f1d
     add sp, byte 0x10                ; 0x1f20
-    push word [bss_905a]             ; 0x1f23
+    push word [message_delay]        ; 0x1f23
     call api_idx_0004_UQUT           ; 0x1f27
     pop cx                           ; 0x1f2a
 @..api_idx_00b8_LTRM.l56:

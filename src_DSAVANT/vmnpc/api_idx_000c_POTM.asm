@@ -270,7 +270,7 @@ api_idx_000c_POTM:
     mov cx, ax                       ; 0x045d
     pop ax                           ; 0x045f
     add ax, cx                       ; 0x0460
-    mov word [bss_8460], ax          ; 0x0462
+    mov word [dest_alt_arg], ax      ; 0x0462
 @..api_idx_000c_POTM.l9:
     cmp word [bss_9136], byte 0x23   ; 0x0465
     je short @..api_idx_000c_POTM.l10 ; 0x046a

@@ -13,7 +13,7 @@ loc_HMKT:
     cwd                              ; 0x7ccd
     idiv cx                          ; 0x7cce
     mov word [bss_82e8], dx          ; 0x7cd0
-    call loc_IONR                    ; 0x7cd4
+    call redraw_maze_view            ; 0x7cd4
     mov ax, 0x10                     ; 0x7cd7
     push ax                          ; 0x7cda
     call ds_app_HKIJ                 ; 0x7cdb

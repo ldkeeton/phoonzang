@@ -11,7 +11,7 @@ loc_QQOI:
     cwd
     idiv cx
     mov word [bss_82e8], dx
-    call loc_IONR
+    call redraw_maze_view
     mov ax, 1
     ret
 @..loc_QQOI.l1:

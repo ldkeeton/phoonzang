@@ -4,11 +4,11 @@ api_idx_0004_IHLT:
     call aztec_csav                  ; 0x6eb0
     mov cx, word [bp + 0x4]          ; 0x6eb3
     shl cx, 1                        ; 0x6eb6
-    mov ax, word [bss_0e12]          ; 0x6eb8
+    mov ax, word [maze_tables]       ; 0x6eb8
     add ax, cx                       ; 0x6ebb
     add ax, 0x3c0                    ; 0x6ebd
     mov word [bp - 0x0004], ax       ; 0x6ec0
-    mov ax, word [bss_82ee]          ; 0x6ec3
+    mov ax, word [party_tag]         ; 0x6ec3
     shl ax, 1                        ; 0x6ec6
     mov word [bp - 0x0002], ax       ; 0x6ec8
     mov cx, 8                        ; 0x6ecb
@@ -57,7 +57,7 @@ api_idx_0004_IHLT:
     mov ax, word [bp + 0x4]          ; 0x6f1b
     shl ax, 1                        ; 0x6f1e
     mov si, ax                       ; 0x6f20
-    mov bx, word [bss_0e12]          ; 0x6f22
+    mov bx, word [maze_tables]       ; 0x6f22
     push word [bx + si + 0x3c0]      ; 0x6f26
     mov ax, 0                        ; 0x6f2a
     push ax                          ; 0x6f2d

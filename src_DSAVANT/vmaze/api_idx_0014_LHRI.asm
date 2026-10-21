@@ -20,7 +20,7 @@ api_idx_0014_LHRI:
     mov cx, word [bx + 0x2]          ; 0x0707
     shl cx, 1                        ; 0x070a
     mov si, cx                       ; 0x070c
-    mov bx, word [bss_0e12]          ; 0x070e
+    mov bx, word [maze_tables]       ; 0x070e
     mov word [bx + si + 0x3c0], ax   ; 0x0712
     jmp near @..api_idx_0014_LHRI.l9 ; 0x0716
 @..api_idx_0014_LHRI.l3:

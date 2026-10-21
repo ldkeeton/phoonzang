@@ -98,7 +98,7 @@ api_idx_0024_NUGL:
     add ax, 0xff4e
     mov word [bp - 0x0010], ax
 @..api_idx_0024_NUGL.l9:
-    mov ax, word [bss_82ee]
+    mov ax, word [party_tag]
     shl ax, 1
     mov bx, ax
     add bx, bp

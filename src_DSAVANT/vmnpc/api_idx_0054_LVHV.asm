@@ -51,7 +51,7 @@ api_idx_0054_LVHV:
     push ax                          ; 0x12fd
     call ds_app_HKIJ                 ; 0x12fe
     pop cx                           ; 0x1301
-    push word [bss_905a]             ; 0x1302
+    push word [message_delay]        ; 0x1302
     call ds_app_OIGN                 ; 0x1306
     pop cx                           ; 0x1309
     ret                              ; 0x130a

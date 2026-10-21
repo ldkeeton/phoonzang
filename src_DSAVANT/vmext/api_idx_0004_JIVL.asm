@@ -2,15 +2,15 @@
 api_idx_0004_JIVL:
     mov ax, 0xfffc                   ; 0x0897
     call aztec_csav                  ; 0x089a
-    mov ax, word [bss_8f3e]          ; 0x089d
+    mov ax, word [party_map_piece]   ; 0x089d
     mov cx, 6                        ; 0x08a0
     shl ax, cl                       ; 0x08a3
-    mov cx, word [bss_8f40]          ; 0x08a5
+    mov cx, word [party_cell_y]      ; 0x08a5
     shl cx, 1                        ; 0x08a9
     shl cx, 1                        ; 0x08ab
     shl cx, 1                        ; 0x08ad
     add ax, cx                       ; 0x08af
-    add ax, word [bss_8f42]          ; 0x08b1
+    add ax, word [party_cell_x]      ; 0x08b1
     mov word [bp - 0x0002], ax       ; 0x08b5
     mov word [bp - 0x0004], 0        ; 0x08b8
     push ax                          ; 0x08bd
@@ -24,7 +24,7 @@ api_idx_0004_JIVL:
     mov ax, word [game_state_arg]    ; 0x08cf
     jmp short @..api_idx_0004_JIVL.l2 ; 0x08d2
 jumptable_08e9_case_14:
-    cmp word [bss_8f3e], byte 0x0c   ; 0x08d4
+    cmp word [party_map_piece], byte 0x0c ; 0x08d4
     jle short @..api_idx_0004_JIVL.l1 ; 0x08d9
     mov word [bp - 0x0004], 1        ; 0x08db
 @..api_idx_0004_JIVL.l1:

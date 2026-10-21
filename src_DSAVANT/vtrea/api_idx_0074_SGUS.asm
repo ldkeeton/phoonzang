@@ -2,10 +2,10 @@
 api_idx_0074_SGUS:
     mov ax, 0xff8c                   ; 0x78ed
     call aztec_csav                  ; 0x78f0
-    mov ax, word [bss_8d12]          ; 0x78f3
+    mov ax, word [party_region]      ; 0x78f3
     shl ax, 1                        ; 0x78f6
     mov si, ax                       ; 0x78f8
-    mov bx, word [bss_0e12]          ; 0x78fa
+    mov bx, word [maze_tables]       ; 0x78fa
     mov ax, word [bx + si + 0x3c0]   ; 0x78fe
     mov word [bp - 0x0006], ax       ; 0x7902
     mov ax, 4                        ; 0x7905
@@ -13,7 +13,7 @@ api_idx_0074_SGUS:
     mov ax, 8                        ; 0x7909
     push ax                          ; 0x790c
     push word [bp - 0x0006]          ; 0x790d
-    call ds_dos_con_loc_QJHU         ; 0x7910
+    call get_bits                    ; 0x7910
     add sp, byte 6                   ; 0x7913
     mov word [bp - 0x0004], ax       ; 0x7916
     mov ax, 4                        ; 0x7919
@@ -21,14 +21,14 @@ api_idx_0074_SGUS:
     mov ax, 0                        ; 0x791d
     push ax                          ; 0x7920
     push word [bp - 0x0006]          ; 0x7921
-    call ds_dos_con_loc_QJHU         ; 0x7924
+    call get_bits                    ; 0x7924
     add sp, byte 6                   ; 0x7927
     mov word [bp - 0x000a], ax       ; 0x792a
     mov ax, 4                        ; 0x792d
     push ax                          ; 0x7930
     push ax                          ; 0x7931
     push word [bp - 0x0006]          ; 0x7932
-    call ds_dos_con_loc_QJHU         ; 0x7935
+    call get_bits                    ; 0x7935
     add sp, byte 6                   ; 0x7938
     mov word [bp - 0x0008], ax       ; 0x793b
     mov ax, 1                        ; 0x793e
@@ -36,7 +36,7 @@ api_idx_0074_SGUS:
     mov ax, 0xc                      ; 0x7942
     push ax                          ; 0x7945
     push word [bp - 0x0006]          ; 0x7946
-    call ds_dos_con_loc_QJHU         ; 0x7949
+    call get_bits                    ; 0x7949
     add sp, byte 6                   ; 0x794c
     mov word [bp - 0x0018], ax       ; 0x794f
     mov word [bp - 0x0024], 0        ; 0x7952
@@ -45,13 +45,13 @@ api_idx_0074_SGUS:
     mov ax, 0xf                      ; 0x795b
     push ax                          ; 0x795e
     push word [bp - 0x0006]          ; 0x795f
-    call ds_dos_con_loc_QJHU         ; 0x7962
+    call get_bits                    ; 0x7962
     add sp, byte 6                   ; 0x7965
     mov word [bp - 0x0010], ax       ; 0x7968
-    mov ax, word [bss_8d12]          ; 0x796b
+    mov ax, word [party_region]      ; 0x796b
     shl ax, 1                        ; 0x796e
     mov si, ax                       ; 0x7970
-    mov bx, word [bss_0e12]          ; 0x7972
+    mov bx, word [maze_tables]       ; 0x7972
     cmp word [bx + si], byte 0       ; 0x7976
     jle short @..api_idx_0074_SGUS.l1 ; 0x7979
     mov ax, 0                        ; 0x797b
@@ -79,7 +79,7 @@ api_idx_0074_SGUS:
     mov ax, word [bp - 0x0002]       ; 0x79ac
     cmp ax, word [bss_69c8]          ; 0x79af
     jl short @..api_idx_0074_SGUS.l2 ; 0x79b3
-    mov ax, word [bss_905a]          ; 0x79b5
+    mov ax, word [message_delay]     ; 0x79b5
     shl ax, 1                        ; 0x79b8
     push ax                          ; 0x79ba
     call api_idx_0004_UQUT           ; 0x79bb
@@ -160,12 +160,12 @@ api_idx_0074_SGUS:
     call wait_and_free_sound         ; 0x7a68
     pop cx                           ; 0x7a6b
     mov word [bss_598e], 0xffff      ; 0x7a6c
-    push word [bss_905a]             ; 0x7a72
+    push word [message_delay]        ; 0x7a72
     call api_idx_0004_UQUT           ; 0x7a76
     pop cx                           ; 0x7a79
 @..api_idx_0074_SGUS.l7:
-    mov bx, word [bss_0e12]          ; 0x7a7a
-    mov si, word [bss_8d12]          ; 0x7a7e
+    mov bx, word [maze_tables]       ; 0x7a7a
+    mov si, word [party_region]      ; 0x7a7e
     mov al, byte [bx + si + 0xa50]   ; 0x7a82
     sub ah, ah                       ; 0x7a86
     mov word [bp - 0x0022], ax       ; 0x7a88
@@ -196,10 +196,10 @@ api_idx_0074_SGUS:
     pop cx                           ; 0x7abc
     mov word [bss_598e], 0xffff      ; 0x7abd
 @..api_idx_0074_SGUS.l10:
-    mov ax, word [bss_8d12]          ; 0x7ac3
+    mov ax, word [party_region]      ; 0x7ac3
     shl ax, 1                        ; 0x7ac6
     mov si, ax                       ; 0x7ac8
-    mov bx, word [bss_0e12]          ; 0x7aca
+    mov bx, word [maze_tables]       ; 0x7aca
     mov ax, word [bx + si + 0x1e0]   ; 0x7ace
     mov word [bp - 0x000c], ax       ; 0x7ad2
     cmp ax, strict word 0xe          ; 0x7ad5
@@ -491,15 +491,15 @@ api_idx_0074_SGUS:
     push ax                          ; 0x7d75
     mov ax, 0xd                      ; 0x7d76
     push ax                          ; 0x7d79
-    mov ax, word [bss_8d12]          ; 0x7d7a
+    mov ax, word [party_region]      ; 0x7d7a
     shl ax, 1                        ; 0x7d7d
     mov si, ax                       ; 0x7d7f
-    mov bx, word [bss_0e12]          ; 0x7d81
+    mov bx, word [maze_tables]       ; 0x7d81
     push word [bx + si + 0x3c0]      ; 0x7d85
-    call ds_dos_con_loc_QJHU         ; 0x7d89
+    call get_bits                    ; 0x7d89
     add sp, byte 6                   ; 0x7d8c
     push ax                          ; 0x7d8f
-    call loc_OUOJ                    ; 0x7d90
+    call mark_region_bits            ; 0x7d90
     pop cx                           ; 0x7d93
-    inc word [bss_8d12]              ; 0x7d94
+    inc word [party_region]          ; 0x7d94
     ret                              ; 0x7d98

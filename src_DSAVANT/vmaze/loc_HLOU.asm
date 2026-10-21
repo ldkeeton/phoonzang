@@ -6,17 +6,17 @@ loc_HLOU:
     push ax                          ; 0x7a3d
     mov ax, 0                        ; 0x7a3e
     push ax                          ; 0x7a41
-    mov ax, word [bss_8d12]          ; 0x7a42
+    mov ax, word [party_region]      ; 0x7a42
     shl ax, 1                        ; 0x7a45
     mov si, ax                       ; 0x7a47
-    mov bx, word [bss_0e12]          ; 0x7a49
+    mov bx, word [maze_tables]       ; 0x7a49
     push word [bx + si + 0x3c0]      ; 0x7a4d
-    call ds_dos_con_loc_QJHU         ; 0x7a51
+    call get_bits                    ; 0x7a51
     add sp, byte 6                   ; 0x7a54
     cmp ax, strict word 1            ; 0x7a57
     jne short @..loc_HLOU.l1         ; 0x7a5a
-    mov si, word [bss_8d12]          ; 0x7a5c
-    mov bx, word [bss_0e12]          ; 0x7a60
+    mov si, word [party_region]      ; 0x7a5c
+    mov bx, word [maze_tables]       ; 0x7a60
     mov al, byte [bx + si + 0xa50]   ; 0x7a64
     sub ah, ah                       ; 0x7a68
     push ax                          ; 0x7a6a
@@ -26,8 +26,8 @@ loc_HLOU:
     mov word [bx], ax                ; 0x7a73
     jmp short @..loc_HLOU.l2         ; 0x7a75
 @..loc_HLOU.l1:
-    mov bx, word [bss_0e12]          ; 0x7a77
-    mov si, word [bss_8d12]          ; 0x7a7b
+    mov bx, word [maze_tables]       ; 0x7a77
+    mov si, word [party_region]      ; 0x7a7b
     mov al, byte [bx + si + 0xa50]   ; 0x7a7f
     sub ah, ah                       ; 0x7a83
     mov bx, word [bss_100a]          ; 0x7a85
@@ -43,15 +43,15 @@ loc_HLOU:
     push ax                          ; 0x7a9a
     mov ax, 1                        ; 0x7a9b
     push ax                          ; 0x7a9e
-    mov ax, word [bss_8d12]          ; 0x7a9f
+    mov ax, word [party_region]      ; 0x7a9f
     shl ax, 1                        ; 0x7aa2
     mov si, ax                       ; 0x7aa4
-    mov bx, word [bss_0e12]          ; 0x7aa6
+    mov bx, word [maze_tables]       ; 0x7aa6
     push word [bx + si + 0x3c0]      ; 0x7aaa
-    call ds_dos_con_loc_QJHU         ; 0x7aae
+    call get_bits                    ; 0x7aae
     add sp, byte 6                   ; 0x7ab1
     push ax                          ; 0x7ab4
-    call loc_OUOJ                    ; 0x7ab5
+    call mark_region_bits            ; 0x7ab5
     pop cx                           ; 0x7ab8
-    inc word [bss_8d12]              ; 0x7ab9
+    inc word [party_region]          ; 0x7ab9
     ret                              ; 0x7abd

@@ -6,7 +6,7 @@ api_idx_000e_LVUJ:
     jg short @..api_idx_000e_LVUJ.l1 ; 0x0d82
     jmp near @..api_idx_000e_LVUJ.l8 ; 0x0d84
 @..api_idx_000e_LVUJ.l1:
-    mov ax, word [bss_82ee]          ; 0x0d87
+    mov ax, word [party_tag]         ; 0x0d87
     mov cx, word [bss_8f20]          ; 0x0d8a
     dec cx                           ; 0x0d8e
     sub ax, cx                       ; 0x0d8f

@@ -2,8 +2,8 @@
 api_idx_00e6_QNPR:
     mov ax, 0xff1a                   ; 0x73ae
     call aztec_csav                  ; 0x73b1
-    mov bx, word [bss_0e12]          ; 0x73b4
-    mov si, word [bss_8d12]          ; 0x73b8
+    mov bx, word [maze_tables]       ; 0x73b4
+    mov si, word [party_region]      ; 0x73b8
     cmp byte [bx + si + 0xa50], 0    ; 0x73bc
     jbe short @..api_idx_00e6_QNPR.l1 ; 0x73c1
     mov ax, 0                        ; 0x73c3
@@ -11,7 +11,7 @@ api_idx_00e6_QNPR:
     shl si, 1                        ; 0x73c7
     mov ax, word [bx + si]           ; 0x73c9
     push ax                          ; 0x73cb
-    mov si, word [bss_8d12]          ; 0x73cc
+    mov si, word [party_region]      ; 0x73cc
     mov al, byte [bx + si + 0xa50]   ; 0x73d0
     sub ah, ah                       ; 0x73d4
     mov cx, ax                       ; 0x73d6
@@ -21,10 +21,10 @@ api_idx_00e6_QNPR:
     call loc_KIOQ                    ; 0x73dc
     add sp, byte 4                   ; 0x73df
 @..api_idx_00e6_QNPR.l1:
-    mov ax, word [bss_8d12]          ; 0x73e2
+    mov ax, word [party_region]      ; 0x73e2
     shl ax, 1                        ; 0x73e5
     mov si, ax                       ; 0x73e7
-    mov bx, word [bss_0e12]          ; 0x73e9
+    mov bx, word [maze_tables]       ; 0x73e9
     mov ax, word [bx + si + 0x3c0]   ; 0x73ed
     mov word [bp - 0x0008], ax       ; 0x73f1
     mov ax, 4                        ; 0x73f4
@@ -32,14 +32,14 @@ api_idx_00e6_QNPR:
     mov ax, 0                        ; 0x73f8
     push ax                          ; 0x73fb
     push word [bp - 0x0008]          ; 0x73fc
-    call ds_dos_con_loc_QJHU         ; 0x73ff
+    call get_bits                    ; 0x73ff
     add sp, byte 6                   ; 0x7402
     mov word [bp - 0x000e], ax       ; 0x7405
     mov ax, 4                        ; 0x7408
     push ax                          ; 0x740b
     push ax                          ; 0x740c
     push word [bp - 0x0008]          ; 0x740d
-    call ds_dos_con_loc_QJHU         ; 0x7410
+    call get_bits                    ; 0x7410
     add sp, byte 6                   ; 0x7413
     mov word [bp - 0x0010], ax       ; 0x7416
     mov ax, 1                        ; 0x7419
@@ -47,7 +47,7 @@ api_idx_00e6_QNPR:
     mov ax, 8                        ; 0x741d
     push ax                          ; 0x7420
     push word [bp - 0x0008]          ; 0x7421
-    call ds_dos_con_loc_QJHU         ; 0x7424
+    call get_bits                    ; 0x7424
     add sp, byte 6                   ; 0x7427
     mov word [bp - 0x0014], ax       ; 0x742a
     mov ax, 1                        ; 0x742d
@@ -55,7 +55,7 @@ api_idx_00e6_QNPR:
     mov ax, 9                        ; 0x7431
     push ax                          ; 0x7434
     push word [bp - 0x0008]          ; 0x7435
-    call ds_dos_con_loc_QJHU         ; 0x7438
+    call get_bits                    ; 0x7438
     add sp, byte 6                   ; 0x743b
     mov word [bp - 0x0016], ax       ; 0x743e
     mov ax, 1                        ; 0x7441
@@ -63,7 +63,7 @@ api_idx_00e6_QNPR:
     mov ax, 0xc                      ; 0x7445
     push ax                          ; 0x7448
     push word [bp - 0x0008]          ; 0x7449
-    call ds_dos_con_loc_QJHU         ; 0x744c
+    call get_bits                    ; 0x744c
     add sp, byte 6                   ; 0x744f
     mov word [bp - 0x0018], ax       ; 0x7452
     mov ax, 1                        ; 0x7455
@@ -71,7 +71,7 @@ api_idx_00e6_QNPR:
     mov ax, 0xd                      ; 0x7459
     push ax                          ; 0x745c
     push word [bp - 0x0008]          ; 0x745d
-    call ds_dos_con_loc_QJHU         ; 0x7460
+    call get_bits                    ; 0x7460
     add sp, byte 6                   ; 0x7463
     mov word [bp - 0x001a], ax       ; 0x7466
     mov ax, 1                        ; 0x7469
@@ -79,7 +79,7 @@ api_idx_00e6_QNPR:
     mov ax, 0xe                      ; 0x746d
     push ax                          ; 0x7470
     push word [bp - 0x0008]          ; 0x7471
-    call ds_dos_con_loc_QJHU         ; 0x7474
+    call get_bits                    ; 0x7474
     add sp, byte 6                   ; 0x7477
     mov word [bp - 0x001c], ax       ; 0x747a
     mov ax, 1                        ; 0x747d
@@ -87,13 +87,13 @@ api_idx_00e6_QNPR:
     mov ax, 0xf                      ; 0x7481
     push ax                          ; 0x7484
     push word [bp - 0x0008]          ; 0x7485
-    call ds_dos_con_loc_QJHU         ; 0x7488
+    call get_bits                    ; 0x7488
     add sp, byte 6                   ; 0x748b
     mov word [bp - 0x0022], ax       ; 0x748e
-    mov ax, word [bss_8d12]          ; 0x7491
+    mov ax, word [party_region]      ; 0x7491
     shl ax, 1                        ; 0x7494
     mov si, ax                       ; 0x7496
-    mov bx, word [bss_0e12]          ; 0x7498
+    mov bx, word [maze_tables]       ; 0x7498
     mov ax, word [bx + si]           ; 0x749c
     mov word [bp - 0x000a], ax       ; 0x749e
     cmp word [bp - 0x001a], byte 0   ; 0x74a1
@@ -217,7 +217,7 @@ api_idx_00e6_QNPR:
     push ax                          ; 0x75c1
     call api_idx_0008_JJHR           ; 0x75c2
     add sp, byte 0x12                ; 0x75c5
-    mov ax, word [bss_905a]          ; 0x75c8
+    mov ax, word [message_delay]     ; 0x75c8
     mov cx, 2                        ; 0x75cb
     cwd                              ; 0x75ce
     idiv cx                          ; 0x75cf
@@ -446,10 +446,10 @@ api_idx_00e6_QNPR:
 @..api_idx_00e6_QNPR.l18:
     cmp word [bp - 0x0020], byte 0   ; 0x77de
     jne short @..api_idx_00e6_QNPR.l19 ; 0x77e2
-    mov ax, word [bss_8d12]          ; 0x77e4
+    mov ax, word [party_region]      ; 0x77e4
     shl ax, 1                        ; 0x77e7
     mov si, ax                       ; 0x77e9
-    mov bx, word [bss_0e12]          ; 0x77eb
+    mov bx, word [maze_tables]       ; 0x77eb
     mov ax, word [bx + si + 0x1e0]   ; 0x77ef
     mov word [bp - 0x0008], ax       ; 0x77f3
     push word [bp - 0x001e]          ; 0x77f6
@@ -457,7 +457,7 @@ api_idx_00e6_QNPR:
     push ax                          ; 0x77fc
     push ax                          ; 0x77fd
     push word [bp - 0x0008]          ; 0x77fe
-    call ds_dos_con_loc_QJHU         ; 0x7801
+    call get_bits                    ; 0x7801
     add sp, byte 6                   ; 0x7804
     push ax                          ; 0x7807
     mov ax, 8                        ; 0x7808
@@ -465,12 +465,12 @@ api_idx_00e6_QNPR:
     mov ax, 0                        ; 0x780c
     push ax                          ; 0x780f
     push word [bp - 0x0008]          ; 0x7810
-    call ds_dos_con_loc_QJHU         ; 0x7813
+    call get_bits                    ; 0x7813
     add sp, byte 6                   ; 0x7816
     push ax                          ; 0x7819
     call api_idx_0004_KGNP           ; 0x781a
     add sp, byte 6                   ; 0x781d
 @..api_idx_00e6_QNPR.l19:
     mov word [bss_9126], 0           ; 0x7820
-    inc word [bss_8d12]              ; 0x7826
+    inc word [party_region]          ; 0x7826
     ret                              ; 0x782a

@@ -4,7 +4,7 @@ api_idx_0002_VUIJ:
     call aztec_csav                  ; 0x0109
     cmp word [game_state_arg], byte 0x17 ; 0x010c
     jne short @..api_idx_0002_VUIJ.l1 ; 0x0111
-    cmp word [bss_8f3e], byte 0x0f   ; 0x0113
+    cmp word [party_map_piece], byte 0x0f ; 0x0113
     jne short @..api_idx_0002_VUIJ.l1 ; 0x0118
     ret                              ; 0x011a
 @..api_idx_0002_VUIJ.l1:

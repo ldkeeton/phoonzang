@@ -42,8 +42,8 @@ jumptable_6e12_case_1:
     push ax                          ; 0x6d1e
     call ds_app_VRKV                 ; 0x6d1f
     add sp, byte 8                   ; 0x6d22
-    push word [bss_905a]             ; 0x6d25
-    call api_idx_0006_LIGG           ; 0x6d29
+    push word [message_delay]        ; 0x6d25
+    call wait_ticks_or_key           ; 0x6d29
     pop cx                           ; 0x6d2c
     cmp word [bss_59fa], byte 0      ; 0x6d2d
     je short @..api_idx_0090_PNOU.l3 ; 0x6d32

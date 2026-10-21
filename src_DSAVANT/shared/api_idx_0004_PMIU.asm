@@ -58,7 +58,7 @@ api_idx_0004_PMIU:
     call ds_app_HKIJ
     pop cx
 @..api_idx_0004_PMIU.l1:
-    push word [bss_905a]
+    push word [message_delay]
     call ds_app_OIGN
     pop cx
     mov ax, 1

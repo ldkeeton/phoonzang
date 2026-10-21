@@ -150,7 +150,7 @@ api_idx_0062_SRKH:
     push ax                          ; 0x4cef
     call gfx_show_area               ; 0x4cf0
     add sp, byte 8                   ; 0x4cf3
-    mov ax, word [bss_905a]          ; 0x4cf6
+    mov ax, word [message_delay]     ; 0x4cf6
     shl ax, 1                        ; 0x4cf9
     push ax                          ; 0x4cfb
     call ds_app_OIGN                 ; 0x4cfc

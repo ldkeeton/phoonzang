@@ -253,22 +253,22 @@ jumptable_36f8_case_8:
     cmp ax, word [bss_8f3c]          ; 0x2de1
     jne short @..api_idx_0040_LSRO.l20 ; 0x2de5
     mov ax, word [bss_8f36]          ; 0x2de7
-    mov word [bss_8f42], ax          ; 0x2dea
+    mov word [party_cell_x], ax      ; 0x2dea
     mov ax, word [bss_8f34]          ; 0x2ded
-    mov word [bss_8f40], ax          ; 0x2df0
+    mov word [party_cell_y], ax      ; 0x2df0
     mov ax, word [bss_8f32]          ; 0x2df3
-    mov word [bss_8f3e], ax          ; 0x2df6
+    mov word [party_map_piece], ax   ; 0x2df6
     mov ax, word [bss_8f3a]          ; 0x2df9
-    mov word [bss_8f46], ax          ; 0x2dfc
+    mov word [party_world_x], ax     ; 0x2dfc
     mov ax, word [bss_8f38]          ; 0x2dff
-    mov word [bss_8f44], ax          ; 0x2e02
+    mov word [party_world_y], ax     ; 0x2e02
     mov ax, word [bss_8f30]          ; 0x2e05
-    mov word [bss_82ee], ax          ; 0x2e08
-    mov bx, word [bss_0e12]          ; 0x2e0b
-    mov si, word [bss_8f3e]          ; 0x2e0f
+    mov word [party_tag], ax         ; 0x2e08
+    mov bx, word [maze_tables]       ; 0x2e0b
+    mov si, word [party_map_piece]   ; 0x2e0f
     mov al, byte [bx + si + 0xb40]   ; 0x2e13
     sub ah, ah                       ; 0x2e17
-    mov word [bss_8d12], ax          ; 0x2e19
+    mov word [party_region], ax      ; 0x2e19
     mov word [game_state], 5         ; 0x2e1c
     mov word [bss_905e], 0x12        ; 0x2e22
     mov ax, 1                        ; 0x2e28
@@ -1051,12 +1051,12 @@ jumptable_36f8_case_39:
     mov ax, 1                        ; 0x353e
     ret                              ; 0x3541
 jumptable_36f8_case_40:
-    mov word [bss_8f46], 0x7b        ; 0x3542
-    mov word [bss_8f44], 0x80        ; 0x3548
-    mov word [bss_8f42], 3           ; 0x354e
-    mov word [bss_8f40], 0           ; 0x3554
-    mov word [bss_8f3e], 2           ; 0x355a
-    mov word [bss_82ee], 0           ; 0x3560
+    mov word [party_world_x], 0x7b   ; 0x3542
+    mov word [party_world_y], 0x80   ; 0x3548
+    mov word [party_cell_x], 3       ; 0x354e
+    mov word [party_cell_y], 0       ; 0x3554
+    mov word [party_map_piece], 2    ; 0x355a
+    mov word [party_tag], 0          ; 0x3560
     mov word [game_state_arg], 0x13  ; 0x3566
     mov word [game_state], 6         ; 0x356c
     mov word [bss_905e], 0x12        ; 0x3572

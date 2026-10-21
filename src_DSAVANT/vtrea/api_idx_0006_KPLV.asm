@@ -41,15 +41,15 @@ api_idx_0006_KPLV:
 @..api_idx_0006_KPLV.l1:
     mov ax, 0                        ; 0x3763
     push ax                          ; 0x3766
-    mov ax, word [bss_8f3e]          ; 0x3767
+    mov ax, word [party_map_piece]   ; 0x3767
     mov cx, 6                        ; 0x376a
     shl ax, cl                       ; 0x376d
-    mov cx, word [bss_8f40]          ; 0x376f
+    mov cx, word [party_cell_y]      ; 0x376f
     shl cx, 1                        ; 0x3773
     shl cx, 1                        ; 0x3775
     shl cx, 1                        ; 0x3777
     add ax, cx                       ; 0x3779
-    add ax, word [bss_8f42]          ; 0x377b
+    add ax, word [party_cell_x]      ; 0x377b
     push ax                          ; 0x377f
     mov ax, bss_8bfe                 ; 0x3780
     push ax                          ; 0x3783

@@ -2,17 +2,17 @@
 api_idx_000e_NSGM:
     mov ax, 0xfff2                   ; 0x162b
     call aztec_csav                  ; 0x162e
-    call loc_HILS                    ; 0x1631
+    call check_at_saved_location     ; 0x1631
     call loc_IVLM                    ; 0x1634
-    mov ax, word [bss_8f3e]          ; 0x1637
+    mov ax, word [party_map_piece]   ; 0x1637
     mov cx, 6                        ; 0x163a
     shl ax, cl                       ; 0x163d
-    mov cx, word [bss_8f40]          ; 0x163f
+    mov cx, word [party_cell_y]      ; 0x163f
     shl cx, 1                        ; 0x1643
     shl cx, 1                        ; 0x1645
     shl cx, 1                        ; 0x1647
     add ax, cx                       ; 0x1649
-    add ax, word [bss_8f42]          ; 0x164b
+    add ax, word [party_cell_x]      ; 0x164b
     mov word [bp - 0x0002], ax       ; 0x164f
     mov word [bss_91aa], 1           ; 0x1652
     lea ax, word [bp - 0x000c]       ; 0x1658
@@ -37,13 +37,13 @@ api_idx_000e_NSGM:
     push word [bp + 0x4]             ; 0x1687
     call loc_KOGT                    ; 0x168a
     add sp, byte 4                   ; 0x168d
-    push word [bss_8f44]             ; 0x1690
-    push word [bss_8f46]             ; 0x1694
-    mov ax, bss_8f3e                 ; 0x1698
+    push word [party_world_y]        ; 0x1690
+    push word [party_world_x]        ; 0x1694
+    mov ax, party_map_piece          ; 0x1698
     push ax                          ; 0x169b
-    mov ax, bss_8f40                 ; 0x169c
+    mov ax, party_cell_y             ; 0x169c
     push ax                          ; 0x169f
-    mov ax, bss_8f42                 ; 0x16a0
+    mov ax, party_cell_x             ; 0x16a0
     push ax                          ; 0x16a3
     call find_map_piece              ; 0x16a4
     add sp, byte 0x0a                ; 0x16a7
@@ -58,9 +58,9 @@ api_idx_000e_NSGM:
     mov ax, 1                        ; 0x16bc
     ret                              ; 0x16bf
 @..api_idx_000e_NSGM.l3:
-    cmp word [bss_919e], byte 0      ; 0x16c0
+    cmp word [save_location_flag], byte 0 ; 0x16c0
     jne short @..api_idx_000e_NSGM.l4 ; 0x16c5
-    call loc_HILS                    ; 0x16c7
+    call check_at_saved_location     ; 0x16c7
 @..api_idx_000e_NSGM.l4:
     call api_idx_0004_HRPS           ; 0x16ca
     jmp near @..api_idx_000e_NSGM.l13 ; 0x16cd
@@ -167,15 +167,15 @@ api_idx_000e_NSGM:
     cmp ax, strict word 4            ; 0x17a8
     je short @..api_idx_000e_NSGM.l12 ; 0x17ab
 @..api_idx_000e_NSGM.l17:
-    mov ax, word [bss_8f3e]          ; 0x17ad
+    mov ax, word [party_map_piece]   ; 0x17ad
     mov cx, 6                        ; 0x17b0
     shl ax, cl                       ; 0x17b3
-    mov cx, word [bss_8f40]          ; 0x17b5
+    mov cx, word [party_cell_y]      ; 0x17b5
     shl cx, 1                        ; 0x17b9
     shl cx, 1                        ; 0x17bb
     shl cx, 1                        ; 0x17bd
     add ax, cx                       ; 0x17bf
-    add ax, word [bss_8f42]          ; 0x17c1
+    add ax, word [party_cell_x]      ; 0x17c1
     mov word [bp - 0x0002], ax       ; 0x17c5
     mov ax, 1                        ; 0x17c8
     push ax                          ; 0x17cb
@@ -184,10 +184,10 @@ api_idx_000e_NSGM:
     push ax                          ; 0x17d2
     call set_bitmap_bit              ; 0x17d3
     add sp, byte 6                   ; 0x17d6
-    mov bx, word [bss_0e12]          ; 0x17d9
-    mov si, word [bss_8f3e]          ; 0x17dd
+    mov bx, word [maze_tables]       ; 0x17d9
+    mov si, word [party_map_piece]   ; 0x17dd
     mov al, byte [bx + si + 0xb40]   ; 0x17e1
     sub ah, ah                       ; 0x17e5
-    mov word [bss_8d12], ax          ; 0x17e7
+    mov word [party_region], ax      ; 0x17e7
     mov ax, 0                        ; 0x17ea
     ret                              ; 0x17ed

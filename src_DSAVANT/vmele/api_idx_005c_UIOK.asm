@@ -192,7 +192,7 @@ api_idx_005c_UIOK:
     push ax                          ; 0x16af
     call api_idx_000c_LVHV           ; 0x16b0
     add sp, byte 4                   ; 0x16b3
-    push word [bss_905a]             ; 0x16b6
+    push word [message_delay]        ; 0x16b6
     call api_idx_0004_RGUG           ; 0x16ba
     pop cx                           ; 0x16bd
 @..api_idx_005c_UIOK.l11:

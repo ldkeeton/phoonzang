@@ -3,18 +3,18 @@ api_idx_0004_USIK:
     mov ax, 0xfffc                   ; 0x17ee
     call aztec_csav                  ; 0x17f1
     mov word [bss_91ac], 0x7e4       ; 0x17f4
-    mov ax, word [bss_82ee]          ; 0x17fa
+    mov ax, word [party_tag]         ; 0x17fa
     add ax, word [bp + 0x4]          ; 0x17fd
     add ax, strict word 4            ; 0x1800
     mov cx, 4                        ; 0x1803
     cwd                              ; 0x1806
     idiv cx                          ; 0x1807
     mov word [bp - 0x0004], dx       ; 0x1809
-    push word [bss_8f44]             ; 0x180c
-    push word [bss_8f46]             ; 0x1810
-    push word [bss_8f40]             ; 0x1814
-    push word [bss_8f42]             ; 0x1818
-    push word [bss_8f3e]             ; 0x181c
+    push word [party_world_y]        ; 0x180c
+    push word [party_world_x]        ; 0x1810
+    push word [party_cell_y]         ; 0x1814
+    push word [party_cell_x]         ; 0x1818
+    push word [party_map_piece]      ; 0x181c
     push dx                          ; 0x1820
     call loc_NJKS                    ; 0x1821
     add sp, byte 0x0c                ; 0x1824
@@ -42,7 +42,7 @@ api_idx_0004_USIK:
     cmp word [bp - 0x0002], byte 3   ; 0x1852
     jne short @..api_idx_0004_USIK.l5 ; 0x1856
     mov ax, word [bp - 0x0004]       ; 0x1858
-    cmp ax, word [bss_82ee]          ; 0x185b
+    cmp ax, word [party_tag]         ; 0x185b
     jne short @..api_idx_0004_USIK.l5 ; 0x185f
     mov ax, 0xf                      ; 0x1861
     push ax                          ; 0x1864
@@ -53,7 +53,7 @@ api_idx_0004_USIK:
     call ds_app_HKIJ                 ; 0x186d
     pop cx                           ; 0x1870
     mov word [bss_831a], 1           ; 0x1871
-    call loc_IONR                    ; 0x1877
+    call redraw_maze_view            ; 0x1877
     mov ax, 0x10                     ; 0x187a
     push ax                          ; 0x187d
     call ds_app_HKIJ                 ; 0x187e
@@ -68,7 +68,7 @@ api_idx_0004_USIK:
     call ds_app_OIGN                 ; 0x1894
     pop cx                           ; 0x1897
     mov word [bss_831a], 2           ; 0x1898
-    call loc_IONR                    ; 0x189e
+    call redraw_maze_view            ; 0x189e
     mov ax, 2                        ; 0x18a1
     push ax                          ; 0x18a4
     call ds_app_OIGN                 ; 0x18a5
@@ -81,7 +81,7 @@ api_idx_0004_USIK:
     je short @..api_idx_0004_USIK.l5 ; 0x18b8
     ret                              ; 0x18ba
 @..api_idx_0004_USIK.l5:
-    cmp word [bss_91a8], byte 0      ; 0x18bb
+    cmp word [location_changed], byte 0 ; 0x18bb
     jne short @..api_idx_0004_USIK.l7 ; 0x18c0
     mov ax, 2                        ; 0x18c2
     push ax                          ; 0x18c5
@@ -103,9 +103,9 @@ api_idx_0004_USIK:
     jne short @..api_idx_0004_USIK.l10 ; 0x18ec
 @..api_idx_0004_USIK.l9:
     mov ax, word [bp - 0x0004]       ; 0x18ee
-    cmp ax, word [bss_82ee]          ; 0x18f1
+    cmp ax, word [party_tag]         ; 0x18f1
     jne short @..api_idx_0004_USIK.l10 ; 0x18f5
-    mov ax, word [bss_905a]          ; 0x18f7
+    mov ax, word [message_delay]     ; 0x18f7
     mov cx, 2                        ; 0x18fa
     cwd                              ; 0x18fd
     idiv cx                          ; 0x18fe

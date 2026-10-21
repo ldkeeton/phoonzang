@@ -2,10 +2,10 @@
 api_idx_0010_TVMI:
     mov ax, 0xfff0                   ; 0x820b
     call aztec_csav                  ; 0x820e
-    mov ax, word [bss_8d12]          ; 0x8211
+    mov ax, word [party_region]      ; 0x8211
     shl ax, 1                        ; 0x8214
     mov si, ax                       ; 0x8216
-    mov bx, word [bss_0e12]          ; 0x8218
+    mov bx, word [maze_tables]       ; 0x8218
     mov ax, word [bx + si + 0x3c0]   ; 0x821c
     mov word [bp - 0x0004], ax       ; 0x8220
     mov ax, 3                        ; 0x8223
@@ -13,14 +13,14 @@ api_idx_0010_TVMI:
     mov ax, 0                        ; 0x8227
     push ax                          ; 0x822a
     push word [bp - 0x0004]          ; 0x822b
-    call ds_dos_con_loc_QJHU         ; 0x822e
+    call get_bits                    ; 0x822e
     add sp, byte 6                   ; 0x8231
     mov word [bp - 0x0006], ax       ; 0x8234
     mov ax, 3                        ; 0x8237
     push ax                          ; 0x823a
     push ax                          ; 0x823b
     push word [bp - 0x0004]          ; 0x823c
-    call ds_dos_con_loc_QJHU         ; 0x823f
+    call get_bits                    ; 0x823f
     add sp, byte 6                   ; 0x8242
     mov word [bp - 0x0008], ax       ; 0x8245
     mov ax, 4                        ; 0x8248
@@ -28,13 +28,13 @@ api_idx_0010_TVMI:
     mov ax, 6                        ; 0x824c
     push ax                          ; 0x824f
     push word [bp - 0x0004]          ; 0x8250
-    call ds_dos_con_loc_QJHU         ; 0x8253
+    call get_bits                    ; 0x8253
     add sp, byte 6                   ; 0x8256
     mov word [bp - 0x000a], ax       ; 0x8259
-    mov ax, word [bss_8d12]          ; 0x825c
+    mov ax, word [party_region]      ; 0x825c
     shl ax, 1                        ; 0x825f
     mov si, ax                       ; 0x8261
-    mov bx, word [bss_0e12]          ; 0x8263
+    mov bx, word [maze_tables]       ; 0x8263
     mov ax, word [bx + si + 0x1e0]   ; 0x8267
     mov word [bp - 0x0010], ax       ; 0x826b
     mov ax, word [bp - 0x000a]       ; 0x826e
@@ -49,7 +49,7 @@ api_idx_0010_TVMI:
     mov word [bp - 0x0002], ax       ; 0x8284
     mov ax, word [bx + si]           ; 0x8287
     mov word [bp - 0x000c], ax       ; 0x8289
-    mov si, word [bss_8d12]          ; 0x828c
+    mov si, word [party_region]      ; 0x828c
     mov al, byte [bx + si + 0xa50]   ; 0x8290
     sub ah, ah                       ; 0x8294
     mov word [bp - 0x000e], ax       ; 0x8296
@@ -95,13 +95,13 @@ api_idx_0010_TVMI:
     mov ax, 0xa                      ; 0x82fa
     push ax                          ; 0x82fd
     push word [bp - 0x0004]          ; 0x82fe
-    call ds_dos_con_loc_QJHU         ; 0x8301
+    call get_bits                    ; 0x8301
     add sp, byte 6                   ; 0x8304
     cmp ax, strict word 1            ; 0x8307
     je short @..api_idx_0010_TVMI.l2 ; 0x830a
     jmp near @..api_idx_0010_TVMI.l10 ; 0x830c
 @..api_idx_0010_TVMI.l2:
-    call loc_IONR                    ; 0x830f
+    call redraw_maze_view            ; 0x830f
     mov ax, word [bp - 0x000c]       ; 0x8312
     cmp ax, strict word 5            ; 0x8315
     je short @..api_idx_0010_TVMI.l3 ; 0x8318
@@ -125,7 +125,7 @@ api_idx_0010_TVMI:
     mov ax, 0x7fc                    ; 0x8341
 @..api_idx_0010_TVMI.l5:
     push ax                          ; 0x8344
-    call api_idx_0050_JLOV           ; 0x8345
+    call show_message                ; 0x8345
     pop cx                           ; 0x8348
 @..api_idx_0010_TVMI.l6:
     cmp word [bp - 0x000c], byte 5   ; 0x8349
@@ -143,7 +143,7 @@ api_idx_0010_TVMI:
     pop cx                           ; 0x8361
     mov ax, 2                        ; 0x8362
     push ax                          ; 0x8365
-    call api_idx_0006_LIGG           ; 0x8366
+    call wait_ticks_or_key           ; 0x8366
     pop cx                           ; 0x8369
     mov ax, 0x98                     ; 0x836a
     push ax                          ; 0x836d
@@ -173,9 +173,9 @@ api_idx_0010_TVMI:
     mov ax, 0xb                      ; 0x83a0
     push ax                          ; 0x83a3
     push word [bp - 0x0004]          ; 0x83a4
-    call ds_dos_con_loc_QJHU         ; 0x83a7
+    call get_bits                    ; 0x83a7
     add sp, byte 6                   ; 0x83aa
     push ax                          ; 0x83ad
-    call loc_OUOJ                    ; 0x83ae
+    call mark_region_bits            ; 0x83ae
     pop cx                           ; 0x83b1
     ret                              ; 0x83b2

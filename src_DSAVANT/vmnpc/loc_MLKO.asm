@@ -61,7 +61,7 @@ loc_MLKO:
 @..loc_MLKO.l1:
     mov ax, 0                        ; 0x1395
     push ax                          ; 0x1398
-    push word [bss_905a]             ; 0x1399
+    push word [message_delay]        ; 0x1399
     call api_idx_0004_GRRG           ; 0x139d
     add sp, byte 4                   ; 0x13a0
     mov ax, 3                        ; 0x13a3

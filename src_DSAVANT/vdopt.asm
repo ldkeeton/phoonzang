@@ -32,7 +32,7 @@ bss_90b8 equ __zdseg_end + (__zobss_90b8 - __zdata_start)
 
 %include "shared/find_map_piece.asm"        ; 0x00df
 
-%include "shared/api_idx_0002_KQPU.asm"     ; 0x019b
+%include "shared/find_object_at.asm"        ; 0x019b
 
 %include "shared/api_idx_002a_SRJL.asm"     ; 0x020b
 

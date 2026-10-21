@@ -18,9 +18,9 @@ jumptable_0363_case_0:
     call aztec_free                  ; 0x026d
     pop cx                           ; 0x0270
 @..release_resources.l2:
-    cmp word [bss_0e12], byte 0      ; 0x0271
+    cmp word [maze_tables], byte 0   ; 0x0271
     je short @..release_resources.l3 ; 0x0276
-    push word [bss_0e12]             ; 0x0278
+    push word [maze_tables]          ; 0x0278
     call aztec_free                  ; 0x027c
     pop cx                           ; 0x027f
 @..release_resources.l3:

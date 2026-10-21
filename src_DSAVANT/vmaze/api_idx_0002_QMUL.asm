@@ -6,30 +6,30 @@ api_idx_0002_QMUL:
     push ax                          ; 0x8702
     mov ax, 0                        ; 0x8703
     push ax                          ; 0x8706
-    mov ax, word [bss_8d12]          ; 0x8707
+    mov ax, word [party_region]      ; 0x8707
     shl ax, 1                        ; 0x870a
     mov si, ax                       ; 0x870c
-    mov bx, word [bss_0e12]          ; 0x870e
+    mov bx, word [maze_tables]       ; 0x870e
     push word [bx + si + 0x3c0]      ; 0x8712
-    call ds_dos_con_loc_QJHU         ; 0x8716
+    call get_bits                    ; 0x8716
     add sp, byte 6                   ; 0x8719
     mov word [bp - 0x0002], ax       ; 0x871c
     mov ax, 1                        ; 0x871f
     push ax                          ; 0x8722
     mov ax, 2                        ; 0x8723
     push ax                          ; 0x8726
-    mov ax, word [bss_8d12]          ; 0x8727
+    mov ax, word [party_region]      ; 0x8727
     shl ax, 1                        ; 0x872a
     mov si, ax                       ; 0x872c
-    mov bx, word [bss_0e12]          ; 0x872e
+    mov bx, word [maze_tables]       ; 0x872e
     push word [bx + si + 0x3c0]      ; 0x8732
-    call ds_dos_con_loc_QJHU         ; 0x8736
+    call get_bits                    ; 0x8736
     add sp, byte 6                   ; 0x8739
     test ax, ax                      ; 0x873c
     jne short @..api_idx_0002_QMUL.l1 ; 0x873e
     push word [bp - 0x0002]          ; 0x8740
-    mov si, word [bss_8d12]          ; 0x8743
-    mov bx, word [bss_0e12]          ; 0x8747
+    mov si, word [party_region]      ; 0x8743
+    mov bx, word [maze_tables]       ; 0x8747
     mov al, byte [bx + si + 0xa50]   ; 0x874b
     sub ah, ah                       ; 0x874f
     push ax                          ; 0x8751
@@ -43,8 +43,8 @@ api_idx_0002_QMUL:
     jmp short @..api_idx_0002_QMUL.l4 ; 0x8763
 @..api_idx_0002_QMUL.l1:
     push word [bp - 0x0002]          ; 0x8765
-    mov bx, word [bss_0e12]          ; 0x8768
-    mov si, word [bss_8d12]          ; 0x876c
+    mov bx, word [maze_tables]       ; 0x8768
+    mov si, word [party_region]      ; 0x876c
     mov al, byte [bx + si + 0xa50]   ; 0x8770
     sub ah, ah                       ; 0x8774
     mov cx, 0x26                     ; 0x8776

@@ -1492,12 +1492,12 @@ jumptable_2af5:
     mov ax, word [bp - 0x001a]       ; 0x2e0d
     jmp near @..api_idx_0072_OUII.l101 ; 0x2e10
 @..api_idx_0072_OUII.l97:
-    mov word [bss_8f46], 0x5c        ; 0x2e13
-    mov word [bss_8f44], 0x4f        ; 0x2e19
-    mov word [bss_8f42], 4           ; 0x2e1f
-    mov word [bss_8f40], 7           ; 0x2e25
-    mov word [bss_8f3e], 3           ; 0x2e2b
-    mov word [bss_82ee], 2           ; 0x2e31
+    mov word [party_world_x], 0x5c   ; 0x2e13
+    mov word [party_world_y], 0x4f   ; 0x2e19
+    mov word [party_cell_x], 4       ; 0x2e1f
+    mov word [party_cell_y], 7       ; 0x2e25
+    mov word [party_map_piece], 3    ; 0x2e2b
+    mov word [party_tag], 2          ; 0x2e31
     mov word [game_state_arg], 0     ; 0x2e37
     mov word [bss_5c0a], 0           ; 0x2e3d
     mov word [bss_5c08], 0x1388      ; 0x2e43
@@ -1524,12 +1524,12 @@ jumptable_2af5:
     mov word [bss_95b2], 1           ; 0x2e71
     jmp near @..api_idx_0072_OUII.l104 ; 0x2e77
 @..api_idx_0072_OUII.l98:
-    mov word [bss_8f46], 0x8c        ; 0x2e7a
-    mov word [bss_8f44], 0x7d        ; 0x2e80
-    mov word [bss_8f42], 4           ; 0x2e86
-    mov word [bss_8f40], 5           ; 0x2e8c
-    mov word [bss_8f3e], 0xb         ; 0x2e92
-    mov word [bss_82ee], 3           ; 0x2e98
+    mov word [party_world_x], 0x8c   ; 0x2e7a
+    mov word [party_world_y], 0x7d   ; 0x2e80
+    mov word [party_cell_x], 4       ; 0x2e86
+    mov word [party_cell_y], 5       ; 0x2e8c
+    mov word [party_map_piece], 0xb  ; 0x2e92
+    mov word [party_tag], 3          ; 0x2e98
     mov word [game_state_arg], 6     ; 0x2e9e
     mov word [bss_5c0a], 0           ; 0x2ea4
     mov word [bss_5c08], 0x2710      ; 0x2eaa
@@ -1557,12 +1557,12 @@ jumptable_2af5:
     mov word [bss_95b2], 2           ; 0x2edb
     jmp near @..api_idx_0072_OUII.l104 ; 0x2ee1
 @..api_idx_0072_OUII.l99:
-    mov word [bss_8f46], 0x6e        ; 0x2ee4
-    mov word [bss_8f44], 0x8e        ; 0x2eea
-    mov word [bss_8f42], 6           ; 0x2ef0
-    mov word [bss_8f40], 6           ; 0x2ef6
-    mov word [bss_8f3e], 1           ; 0x2efc
-    mov word [bss_82ee], 2           ; 0x2f02
+    mov word [party_world_x], 0x6e   ; 0x2ee4
+    mov word [party_world_y], 0x8e   ; 0x2eea
+    mov word [party_cell_x], 6       ; 0x2ef0
+    mov word [party_cell_y], 6       ; 0x2ef6
+    mov word [party_map_piece], 1    ; 0x2efc
+    mov word [party_tag], 2          ; 0x2f02
     mov word [game_state_arg], 2     ; 0x2f08
     mov ax, 0xffa6                   ; 0x2f0e
     push ax                          ; 0x2f11
@@ -1645,17 +1645,17 @@ jumptable_2af5:
     push ax                          ; 0x2fba
     call set_bitmap_bit              ; 0x2fbb
     add sp, byte 6                   ; 0x2fbe
-    mov ax, word [bss_8f46]          ; 0x2fc1
+    mov ax, word [party_world_x]     ; 0x2fc1
     mov word [bss_8f3a], ax          ; 0x2fc4
-    mov ax, word [bss_8f44]          ; 0x2fc7
+    mov ax, word [party_world_y]     ; 0x2fc7
     mov word [bss_8f38], ax          ; 0x2fca
-    mov ax, word [bss_8f42]          ; 0x2fcd
+    mov ax, word [party_cell_x]      ; 0x2fcd
     mov word [bss_8f36], ax          ; 0x2fd0
-    mov ax, word [bss_8f40]          ; 0x2fd3
+    mov ax, word [party_cell_y]      ; 0x2fd3
     mov word [bss_8f34], ax          ; 0x2fd6
-    mov ax, word [bss_8f3e]          ; 0x2fd9
+    mov ax, word [party_map_piece]   ; 0x2fd9
     mov word [bss_8f32], ax          ; 0x2fdc
-    mov ax, word [bss_82ee]          ; 0x2fdf
+    mov ax, word [party_tag]         ; 0x2fdf
     mov word [bss_8f30], ax          ; 0x2fe2
     mov ax, word [game_state_arg]    ; 0x2fe5
     mov word [bss_8f3c], ax          ; 0x2fe8

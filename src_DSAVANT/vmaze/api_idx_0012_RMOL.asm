@@ -122,7 +122,7 @@ api_idx_0012_RMOL:
 @..api_idx_0012_RMOL.l10:
     mov cx, word [bx + bss_926e]     ; 0x476d
     dec cx                           ; 0x4771
-    mov ax, word [bss_82ee]          ; 0x4772
+    mov ax, word [party_tag]         ; 0x4772
     sub ax, cx                       ; 0x4775
     add ax, strict word 6            ; 0x4777
     mov cx, 4                        ; 0x477a
@@ -680,7 +680,7 @@ jumptable_4b6b:
 @..api_idx_0012_RMOL.l54:
     mov cx, word [bx + bss_923c]     ; 0x4c34
     dec cx                           ; 0x4c38
-    mov ax, word [bss_82ee]          ; 0x4c39
+    mov ax, word [party_tag]         ; 0x4c39
     sub ax, cx                       ; 0x4c3c
     add ax, strict word 6            ; 0x4c3e
     mov cx, 4                        ; 0x4c41
@@ -919,7 +919,7 @@ jumptable_4b6b:
     mov cx, ax                       ; 0x4e6d
     dec ax                           ; 0x4e6f
     mov cx, ax                       ; 0x4e70
-    mov ax, word [bss_82ee]          ; 0x4e72
+    mov ax, word [party_tag]         ; 0x4e72
     sub ax, cx                       ; 0x4e75
     add ax, strict word 6            ; 0x4e77
     mov cx, 4                        ; 0x4e7a

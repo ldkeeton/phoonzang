@@ -40,7 +40,7 @@ jumptable_0c85_case_1:
     push ax                          ; 0x0b77
     call ds_app_VRKV                 ; 0x0b78
     add sp, byte 8                   ; 0x0b7b
-    push word [bss_905a]             ; 0x0b7e
+    push word [message_delay]        ; 0x0b7e
     call api_idx_0004_UQUT           ; 0x0b82
     pop cx                           ; 0x0b85
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0b86

@@ -81,7 +81,7 @@ jumptable_340d:
     cmp ax, strict word 3            ; 0x345f
     je short @..api_idx_0008_QJHI.l4 ; 0x3462
 @..api_idx_0008_QJHI.l6:
-    mov ax, word [bss_82ee]          ; 0x3464
+    mov ax, word [party_tag]         ; 0x3464
     add ax, word [bp + 0x4]          ; 0x3467
     mov cx, 4                        ; 0x346a
     cwd                              ; 0x346d
@@ -154,7 +154,7 @@ jumptable_340d:
     cwd                              ; 0x3509
     idiv cx                          ; 0x350a
     mov word [bp - 0x0008], dx       ; 0x350c
-    cmp dx, word [bss_82ee]          ; 0x350f
+    cmp dx, word [party_tag]         ; 0x350f
     je short @..api_idx_0008_QJHI.l13 ; 0x3513
     jmp near @..api_idx_0008_QJHI.l17 ; 0x3515
 @..api_idx_0008_QJHI.l13:

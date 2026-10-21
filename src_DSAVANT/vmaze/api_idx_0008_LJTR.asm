@@ -218,7 +218,7 @@ jumptable_3111:
     cmp ax, strict word 0x1f         ; 0x3189
     je short @..api_idx_0008_LJTR.l11 ; 0x318c
 @..api_idx_0008_LJTR.l15:
-    mov ax, word [bss_82ee]          ; 0x318e
+    mov ax, word [party_tag]         ; 0x318e
     jmp short @..api_idx_0008_LJTR.l20 ; 0x3191
 @..api_idx_0008_LJTR.l16:
     mov ax, 4                        ; 0x3193
@@ -279,7 +279,7 @@ jumptable_3111:
     push word [bp - 0x0002]          ; 0x3215
     call loc_RRJG                    ; 0x3218
     add sp, byte 6                   ; 0x321b
-    mov ax, word [bss_82ee]          ; 0x321e
+    mov ax, word [party_tag]         ; 0x321e
     cmp ax, word [bp - 0x0008]       ; 0x3221
     je short @..api_idx_0008_LJTR.l23 ; 0x3224
     mov ax, word [bp - 0x0006]       ; 0x3226
@@ -433,16 +433,16 @@ jumptable_3356:
 jumptable_3356_case_0:
 @..api_idx_0008_LJTR.l28:
     mov ax, word [game_state_arg]    ; 0x3387
-    cmp ax, word [bss_8f28]          ; 0x338a
+    cmp ax, word [saved_level]       ; 0x338a
     jne short @..api_idx_0008_LJTR.l29 ; 0x338e
     mov ax, word [bp + 0xc]          ; 0x3390
-    cmp ax, word [bss_8f2a]          ; 0x3393
+    cmp ax, word [saved_map_piece]   ; 0x3393
     jne short @..api_idx_0008_LJTR.l29 ; 0x3397
     mov ax, word [bp + 0x8]          ; 0x3399
-    cmp ax, word [bss_8f2e]          ; 0x339c
+    cmp ax, word [saved_cell_x]      ; 0x339c
     jne short @..api_idx_0008_LJTR.l29 ; 0x33a0
     mov ax, word [bp + 0xa]          ; 0x33a2
-    cmp ax, word [bss_8f2c]          ; 0x33a5
+    cmp ax, word [saved_cell_y]      ; 0x33a5
     jne short @..api_idx_0008_LJTR.l29 ; 0x33a9
     mov ax, 5                        ; 0x33ab
     imul word [bss_91d6]             ; 0x33ae

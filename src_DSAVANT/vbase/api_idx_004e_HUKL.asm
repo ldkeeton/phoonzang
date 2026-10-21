@@ -505,17 +505,17 @@ api_idx_004e_HUKL:
     jge short @..api_idx_004e_HUKL.l30 ; 0x3d0f
     jmp near @..api_idx_004e_HUKL.l25 ; 0x3d11
 @..api_idx_004e_HUKL.l30:
-    mov ax, word [bss_8f46]          ; 0x3d14
+    mov ax, word [party_world_x]     ; 0x3d14
     mov word [bss_9a02], ax          ; 0x3d17
-    mov ax, word [bss_8f44]          ; 0x3d1a
+    mov ax, word [party_world_y]     ; 0x3d1a
     mov word [bss_9a04], ax          ; 0x3d1d
-    mov ax, word [bss_8f42]          ; 0x3d20
+    mov ax, word [party_cell_x]      ; 0x3d20
     mov word [bss_9a06], ax          ; 0x3d23
-    mov ax, word [bss_8f40]          ; 0x3d26
+    mov ax, word [party_cell_y]      ; 0x3d26
     mov word [bss_9a08], ax          ; 0x3d29
-    mov ax, word [bss_8f3e]          ; 0x3d2c
+    mov ax, word [party_map_piece]   ; 0x3d2c
     mov word [bss_9a0a], ax          ; 0x3d2f
-    mov ax, word [bss_82ee]          ; 0x3d32
+    mov ax, word [party_tag]         ; 0x3d32
     mov word [bss_9a0c], ax          ; 0x3d35
     mov ax, word [game_state_arg]    ; 0x3d38
     mov word [bss_9a00], ax          ; 0x3d3b
@@ -533,13 +533,13 @@ api_idx_004e_HUKL:
     mov word [bss_9a1a], ax          ; 0x3d5f
     mov ax, word [bss_8f3c]          ; 0x3d62
     mov word [bss_9a0e], ax          ; 0x3d65
-    mov ax, word [bss_8f2e]          ; 0x3d68
+    mov ax, word [saved_cell_x]      ; 0x3d68
     mov word [bss_9a1c], ax          ; 0x3d6b
-    mov ax, word [bss_8f2c]          ; 0x3d6e
+    mov ax, word [saved_cell_y]      ; 0x3d6e
     mov word [bss_9a1e], ax          ; 0x3d71
-    mov ax, word [bss_8f2a]          ; 0x3d74
+    mov ax, word [saved_map_piece]   ; 0x3d74
     mov word [bss_9a20], ax          ; 0x3d77
-    mov ax, word [bss_8f28]          ; 0x3d7a
+    mov ax, word [saved_level]       ; 0x3d7a
     mov word [bss_9a22], ax          ; 0x3d7d
     mov ax, word [bss_8f26]          ; 0x3d80
     mov word [bss_9a24], ax          ; 0x3d83

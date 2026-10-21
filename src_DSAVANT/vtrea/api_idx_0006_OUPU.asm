@@ -2,10 +2,10 @@
 api_idx_0006_OUPU:
     mov ax, 0xfffa                   ; 0x550e
     call aztec_csav                  ; 0x5511
-    mov ax, word [bss_8d12]          ; 0x5514
+    mov ax, word [party_region]      ; 0x5514
     shl ax, 1                        ; 0x5517
     mov si, ax                       ; 0x5519
-    mov bx, word [bss_0e12]          ; 0x551b
+    mov bx, word [maze_tables]       ; 0x551b
     mov ax, word [bx + si + 0x3c0]   ; 0x551f
     mov word [bp - 0x0004], ax       ; 0x5523
     cmp word [bx + si + 0x1e0], byte 0 ; 0x5526
@@ -20,13 +20,13 @@ api_idx_0006_OUPU:
     je short @..api_idx_0006_OUPU.l2 ; 0x5540
     jmp near @..api_idx_0006_OUPU.l7 ; 0x5542
 @..api_idx_0006_OUPU.l2:
-    cmp word [bss_8f3e], byte 8      ; 0x5545
+    cmp word [party_map_piece], byte 8 ; 0x5545
     je short @..api_idx_0006_OUPU.l3 ; 0x554a
     jmp near @..api_idx_0006_OUPU.l7 ; 0x554c
 @..api_idx_0006_OUPU.l3:
-    cmp word [bss_8f42], byte 7      ; 0x554f
+    cmp word [party_cell_x], byte 7  ; 0x554f
     jne short @..api_idx_0006_OUPU.l7 ; 0x5554
-    cmp word [bss_8f40], byte 2      ; 0x5556
+    cmp word [party_cell_y], byte 2  ; 0x5556
     jne short @..api_idx_0006_OUPU.l7 ; 0x555b
     mov ax, 1                        ; 0x555d
     push ax                          ; 0x5560
@@ -80,7 +80,7 @@ api_idx_0006_OUPU:
     mov ax, 0                        ; 0x55c7
     push ax                          ; 0x55ca
     push word [bp - 0x0004]          ; 0x55cb
-    call ds_dos_con_loc_QJHU         ; 0x55ce
+    call get_bits                    ; 0x55ce
     add sp, byte 6                   ; 0x55d1
     mov word [bp - 0x0006], ax       ; 0x55d4
     mov ax, 0                        ; 0x55d7
@@ -98,7 +98,7 @@ api_idx_0006_OUPU:
     mov ax, 0xb                      ; 0x55f4
     push ax                          ; 0x55f7
     push word [bp - 0x0004]          ; 0x55f8
-    call ds_dos_con_loc_QJHU         ; 0x55fb
+    call get_bits                    ; 0x55fb
     add sp, byte 6                   ; 0x55fe
     cmp ax, strict word 1            ; 0x5601
     jne short @..api_idx_0006_OUPU.l8 ; 0x5604
@@ -118,15 +118,15 @@ api_idx_0006_OUPU:
     mov ax, 9                        ; 0x5623
     push ax                          ; 0x5626
     push word [bp - 0x0004]          ; 0x5627
-    call ds_dos_con_loc_QJHU         ; 0x562a
+    call get_bits                    ; 0x562a
     add sp, byte 6                   ; 0x562d
     mov word [bp - 0x0006], ax       ; 0x5630
     cmp ax, strict word 0            ; 0x5633
     jle short @..api_idx_0006_OUPU.l9 ; 0x5636
     mov ax, 1                        ; 0x5638
     push ax                          ; 0x563b
-    mov bx, word [bss_0e12]          ; 0x563c
-    mov si, word [bss_8d12]          ; 0x5640
+    mov bx, word [maze_tables]       ; 0x563c
+    mov si, word [party_region]      ; 0x5640
     mov al, byte [bx + si + 0x960]   ; 0x5644
     sub ah, ah                       ; 0x5648
     push ax                          ; 0x564a
@@ -141,8 +141,8 @@ api_idx_0006_OUPU:
     jle short @..api_idx_0006_OUPU.l9 ; 0x5661
     mov ax, 1                        ; 0x5663
     push ax                          ; 0x5666
-    mov bx, word [bss_0e12]          ; 0x5667
-    mov si, word [bss_8d12]          ; 0x566b
+    mov bx, word [maze_tables]       ; 0x5667
+    mov si, word [party_region]      ; 0x566b
     mov al, byte [bx + si + 0x960]   ; 0x566f
     sub ah, ah                       ; 0x5673
     push ax                          ; 0x5675

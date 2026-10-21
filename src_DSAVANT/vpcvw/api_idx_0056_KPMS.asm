@@ -62,7 +62,7 @@ api_idx_0056_KPMS:
     push ax                          ; 0x4718
     call ds_app_HKIJ                 ; 0x4719
     pop cx                           ; 0x471c
-    push word [bss_905a]             ; 0x471d
+    push word [message_delay]        ; 0x471d
     call ds_app_OIGN                 ; 0x4721
     pop cx                           ; 0x4724
     mov ax, 1                        ; 0x4725

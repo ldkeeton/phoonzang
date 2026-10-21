@@ -163,7 +163,7 @@ jumptable_2e93_case_3:
     mov word [bp - 0x0006], ax       ; 0x2b42
 jumptable_2e93_case_1:
 @..api_idx_0012_JLRR.l16:
-    cmp word [bss_91a8], byte 0      ; 0x2b45
+    cmp word [location_changed], byte 0 ; 0x2b45
     jne short @..api_idx_0012_JLRR.l18 ; 0x2b4a
     cmp word [bp + 0x4], byte 4      ; 0x2b4c
     jge short @..api_idx_0012_JLRR.l17 ; 0x2b50
@@ -205,7 +205,7 @@ jumptable_2e93_case_1:
 @..api_idx_0012_JLRR.l17:
     jmp short @..api_idx_0012_JLRR.l19 ; 0x2b9f
 @..api_idx_0012_JLRR.l18:
-    cmp word [bss_91a8], byte 2      ; 0x2ba1
+    cmp word [location_changed], byte 2 ; 0x2ba1
     jne short @..api_idx_0012_JLRR.l19 ; 0x2ba6
     cmp word [bp + 0x4], byte 5      ; 0x2ba8
     jge short @..api_idx_0012_JLRR.l19 ; 0x2bac
@@ -304,7 +304,7 @@ jumptable_2e93_case_7:
     mov word [bp - 0x0006], ax       ; 0x2c79
 jumptable_2e93_case_2:
 @..api_idx_0012_JLRR.l23:
-    cmp word [bss_91a8], byte 0      ; 0x2c7c
+    cmp word [location_changed], byte 0 ; 0x2c7c
     jne short @..api_idx_0012_JLRR.l25 ; 0x2c81
     cmp word [bp + 0x4], byte 4      ; 0x2c83
     jge short @..api_idx_0012_JLRR.l24 ; 0x2c87
@@ -346,9 +346,9 @@ jumptable_2e93_case_2:
 @..api_idx_0012_JLRR.l24:
     jmp near @..api_idx_0012_JLRR.l31 ; 0x2cd6
 @..api_idx_0012_JLRR.l25:
-    cmp word [bss_91a8], byte 3      ; 0x2cd9
+    cmp word [location_changed], byte 3 ; 0x2cd9
     jl short @..api_idx_0012_JLRR.l26 ; 0x2cde
-    cmp word [bss_91a8], byte 5      ; 0x2ce0
+    cmp word [location_changed], byte 5 ; 0x2ce0
     je short @..api_idx_0012_JLRR.l26 ; 0x2ce5
     jmp near @..api_idx_0012_JLRR.l30 ; 0x2ce7
 @..api_idx_0012_JLRR.l26:
@@ -356,7 +356,7 @@ jumptable_2e93_case_2:
     jl short @..api_idx_0012_JLRR.l27 ; 0x2cee
     jmp near @..api_idx_0012_JLRR.l29 ; 0x2cf0
 @..api_idx_0012_JLRR.l27:
-    cmp word [bss_91a8], byte 2      ; 0x2cf3
+    cmp word [location_changed], byte 2 ; 0x2cf3
     jne short @..api_idx_0012_JLRR.l28 ; 0x2cf8
     cmp word [bp - 0x0004], byte 0xff ; 0x2cfa
     je short @..api_idx_0012_JLRR.l28 ; 0x2cfe
@@ -425,7 +425,7 @@ jumptable_2e93_case_2:
 @..api_idx_0012_JLRR.l29:
     jmp short @..api_idx_0012_JLRR.l31 ; 0x2d83
 @..api_idx_0012_JLRR.l30:
-    cmp word [bss_91a8], byte 5      ; 0x2d85
+    cmp word [location_changed], byte 5 ; 0x2d85
     jge short @..api_idx_0012_JLRR.l31 ; 0x2d8a
     cmp word [bp + 0x4], byte 4      ; 0x2d8c
     jge short @..api_idx_0012_JLRR.l31 ; 0x2d90
@@ -653,7 +653,7 @@ jumptable_3096_case_1:
     jmp near @..api_idx_0012_JLRR.l49 ; 0x2f82
 jumptable_3096_case_2:
     mov word [bp - 0x000c], 0xa      ; 0x2f85
-    cmp word [bss_91a8], byte 0      ; 0x2f8a
+    cmp word [location_changed], byte 0 ; 0x2f8a
     jne short @..api_idx_0012_JLRR.l41 ; 0x2f8f
     mov ax, word [bp + 0x4]          ; 0x2f91
     mov cx, 4                        ; 0x2f94
@@ -687,7 +687,7 @@ jumptable_3096_case_2:
     mov ax, word [bx + 0x4d6]        ; 0x2fd3
 @..api_idx_0012_JLRR.l42:
     mov word [bp - 0x000e], ax       ; 0x2fd7
-    cmp word [bss_91a8], byte 0      ; 0x2fda
+    cmp word [location_changed], byte 0 ; 0x2fda
     jne short @..api_idx_0012_JLRR.l43 ; 0x2fdf
     mov ax, word [bp + 0x4]          ; 0x2fe1
     mov cx, 4                        ; 0x2fe4
@@ -722,7 +722,7 @@ jumptable_3096_case_2:
 @..api_idx_0012_JLRR.l44:
     mov word [bp - 0x0010], ax       ; 0x3027
     mov ax, 7                        ; 0x302a
-    cmp word [bss_91a8], byte 0      ; 0x302d
+    cmp word [location_changed], byte 0 ; 0x302d
     jne short @..api_idx_0012_JLRR.l45 ; 0x3032
     mov ax, 3                        ; 0x3034
 @..api_idx_0012_JLRR.l45:

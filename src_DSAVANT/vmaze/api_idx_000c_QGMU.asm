@@ -2,10 +2,10 @@
 api_idx_000c_QGMU:
     mov ax, 0xfff4                   ; 0x8794
     call aztec_csav                  ; 0x8797
-    mov ax, word [bss_8d12]          ; 0x879a
+    mov ax, word [party_region]      ; 0x879a
     shl ax, 1                        ; 0x879d
     mov si, ax                       ; 0x879f
-    mov bx, word [bss_0e12]          ; 0x87a1
+    mov bx, word [maze_tables]       ; 0x87a1
     mov ax, word [bx + si + 0x3c0]   ; 0x87a5
     mov word [bp - 0x0002], ax       ; 0x87a9
     mov ax, 8                        ; 0x87ac
@@ -13,7 +13,7 @@ api_idx_000c_QGMU:
     mov ax, 0                        ; 0x87b0
     push ax                          ; 0x87b3
     push word [bp - 0x0002]          ; 0x87b4
-    call ds_dos_con_loc_QJHU         ; 0x87b7
+    call get_bits                    ; 0x87b7
     add sp, byte 6                   ; 0x87ba
     mov word [bp - 0x0008], ax       ; 0x87bd
     mov ax, 4                        ; 0x87c0
@@ -21,7 +21,7 @@ api_idx_000c_QGMU:
     mov ax, 8                        ; 0x87c4
     push ax                          ; 0x87c7
     push word [bp - 0x0002]          ; 0x87c8
-    call ds_dos_con_loc_QJHU         ; 0x87cb
+    call get_bits                    ; 0x87cb
     add sp, byte 6                   ; 0x87ce
     mov word [bp - 0x000a], ax       ; 0x87d1
     mov ax, 1                        ; 0x87d4
@@ -29,7 +29,7 @@ api_idx_000c_QGMU:
     mov ax, 0xf                      ; 0x87d8
     push ax                          ; 0x87db
     push word [bp - 0x0002]          ; 0x87dc
-    call ds_dos_con_loc_QJHU         ; 0x87df
+    call get_bits                    ; 0x87df
     add sp, byte 6                   ; 0x87e2
     mov word [bp - 0x000c], ax       ; 0x87e5
     mov word [bp - 0x0006], 0        ; 0x87e8
@@ -60,11 +60,11 @@ api_idx_000c_QGMU:
     mov ax, 0xe                      ; 0x8824
     push ax                          ; 0x8827
     push word [bp - 0x0002]          ; 0x8828
-    call ds_dos_con_loc_QJHU         ; 0x882b
+    call get_bits                    ; 0x882b
     add sp, byte 6                   ; 0x882e
     push ax                          ; 0x8831
-    mov bx, word [bss_0e12]          ; 0x8832
-    mov si, word [bss_8d12]          ; 0x8836
+    mov bx, word [maze_tables]       ; 0x8832
+    mov si, word [party_region]      ; 0x8836
     mov al, byte [bx + si + 0xa50]   ; 0x883a
     sub ah, ah                       ; 0x883e
     imul word [bp - 0x0006]          ; 0x8840
@@ -79,9 +79,9 @@ api_idx_000c_QGMU:
     mov ax, 0xc                      ; 0x8854
     push ax                          ; 0x8857
     push word [bp - 0x0002]          ; 0x8858
-    call ds_dos_con_loc_QJHU         ; 0x885b
+    call get_bits                    ; 0x885b
     add sp, byte 6                   ; 0x885e
     push ax                          ; 0x8861
-    call loc_OUOJ                    ; 0x8862
+    call mark_region_bits            ; 0x8862
     pop cx                           ; 0x8865
     ret                              ; 0x8866

@@ -808,7 +808,7 @@ api_idx_0074_MHUG:
     je short @..api_idx_0074_MHUG.l34 ; 0x6e2b
     jmp near @..api_idx_0074_MHUG.l6 ; 0x6e2d
 @..api_idx_0074_MHUG.l34:
-    push word [bss_905a]             ; 0x6e30
+    push word [message_delay]        ; 0x6e30
     call api_idx_0004_UQUT           ; 0x6e34
     pop cx                           ; 0x6e37
     mov word [bss_911c], 0x8f        ; 0x6e38

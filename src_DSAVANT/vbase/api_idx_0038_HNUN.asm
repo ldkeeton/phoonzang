@@ -595,17 +595,17 @@ api_idx_0038_HNUN:
     ret                              ; 0x3561
 @..api_idx_0038_HNUN.l37:
     mov ax, word [bss_9a02]          ; 0x3562
-    mov word [bss_8f46], ax          ; 0x3565
+    mov word [party_world_x], ax     ; 0x3565
     mov ax, word [bss_9a04]          ; 0x3568
-    mov word [bss_8f44], ax          ; 0x356b
+    mov word [party_world_y], ax     ; 0x356b
     mov ax, word [bss_9a06]          ; 0x356e
-    mov word [bss_8f42], ax          ; 0x3571
+    mov word [party_cell_x], ax      ; 0x3571
     mov ax, word [bss_9a08]          ; 0x3574
-    mov word [bss_8f40], ax          ; 0x3577
+    mov word [party_cell_y], ax      ; 0x3577
     mov ax, word [bss_9a0a]          ; 0x357a
-    mov word [bss_8f3e], ax          ; 0x357d
+    mov word [party_map_piece], ax   ; 0x357d
     mov ax, word [bss_9a0c]          ; 0x3580
-    mov word [bss_82ee], ax          ; 0x3583
+    mov word [party_tag], ax         ; 0x3583
     mov ax, word [bss_9a00]          ; 0x3586
     mov word [game_state_arg], ax    ; 0x3589
     mov ax, word [bss_9a10]          ; 0x358c
@@ -623,13 +623,13 @@ api_idx_0038_HNUN:
     mov ax, word [bss_9a0e]          ; 0x35b0
     mov word [bss_8f3c], ax          ; 0x35b3
     mov ax, word [bss_9a1c]          ; 0x35b6
-    mov word [bss_8f2e], ax          ; 0x35b9
+    mov word [saved_cell_x], ax      ; 0x35b9
     mov ax, word [bss_9a1e]          ; 0x35bc
-    mov word [bss_8f2c], ax          ; 0x35bf
+    mov word [saved_cell_y], ax      ; 0x35bf
     mov ax, word [bss_9a20]          ; 0x35c2
-    mov word [bss_8f2a], ax          ; 0x35c5
+    mov word [saved_map_piece], ax   ; 0x35c5
     mov ax, word [bss_9a22]          ; 0x35c8
-    mov word [bss_8f28], ax          ; 0x35cb
+    mov word [saved_level], ax       ; 0x35cb
     mov ax, word [bss_9a24]          ; 0x35ce
     mov word [bss_8f26], ax          ; 0x35d1
     mov word [bp - 0x0002], 0        ; 0x35d4

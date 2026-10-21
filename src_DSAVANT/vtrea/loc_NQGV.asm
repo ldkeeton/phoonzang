@@ -14,7 +14,7 @@ loc_NQGV:
     add sp, byte 8                   ; 0x0a33
     cmp word [bp + 0x4], byte 0      ; 0x0a36
     je short @..loc_NQGV.l2          ; 0x0a3a
-    mov ax, word [bss_905a]          ; 0x0a3c
+    mov ax, word [message_delay]     ; 0x0a3c
     cmp byte [bss_598c], 0           ; 0x0a3f
     je short @..loc_NQGV.l1          ; 0x0a44
     shl ax, 1                        ; 0x0a46

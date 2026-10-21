@@ -63,7 +63,6 @@ cseg_0b10 equ __zinsn_0b0f + 0x1
 cseg_0b12 equ __zinsn_0b0f + 0x3
 %include "play/io_loc_PISO.asm"            ; 0x02ba
 
-data_89a3 equ 0x89a3
 %include "play/play_set_device.asm"        ; 0x0322
 
 cseg_0848 equ __zinsn_0846 + 0x2

@@ -13,7 +13,7 @@ loc_LPSI:
     mov ax, 0                        ; 0x09e7
     push ax                          ; 0x09ea
     push word [game_state_arg]       ; 0x09eb
-    push word [bss_0e12]             ; 0x09ef
+    push word [maze_tables]          ; 0x09ef
     mov ax, 3                        ; 0x09f3
     push ax                          ; 0x09f6
     call data_record_io              ; 0x09f7
@@ -52,14 +52,14 @@ loc_LPSI:
     add sp, byte 0x0a                ; 0x0a42
     call api_idx_0014_LHRI           ; 0x0a45
     mov bx, word [maze_data]         ; 0x0a48
-    mov si, word [bss_8f3e]          ; 0x0a4c
+    mov si, word [party_map_piece]   ; 0x0a4c
     mov al, byte [bx + si + 0x490]   ; 0x0a50
     sub ah, ah                       ; 0x0a54
-    add ax, word [bss_8f42]          ; 0x0a56
-    mov word [bss_8f46], ax          ; 0x0a5a
+    add ax, word [party_cell_x]      ; 0x0a56
+    mov word [party_world_x], ax     ; 0x0a5a
     mov al, byte [bx + si + 0x4a0]   ; 0x0a5d
     sub ah, ah                       ; 0x0a61
-    add ax, word [bss_8f40]          ; 0x0a63
-    mov word [bss_8f44], ax          ; 0x0a67
+    add ax, word [party_cell_y]      ; 0x0a63
+    mov word [party_world_y], ax     ; 0x0a67
     call api_idx_0002_TOSL           ; 0x0a6a
     ret                              ; 0x0a6d

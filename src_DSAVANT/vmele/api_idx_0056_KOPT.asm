@@ -123,7 +123,7 @@ api_idx_0056_KOPT:
     push ax                          ; 0x32d6
     call api_idx_000c_LVHV           ; 0x32d7
     add sp, byte 4                   ; 0x32da
-    push word [bss_905a]             ; 0x32dd
+    push word [message_delay]        ; 0x32dd
     call api_idx_0004_RGUG           ; 0x32e1
     pop cx                           ; 0x32e4
     jmp short @..api_idx_0056_KOPT.l12 ; 0x32e5

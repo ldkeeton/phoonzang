@@ -5,7 +5,7 @@ api_idx_0072_LQIT:
     mov ax, word [bp + 0x4]          ; 0x7157
     shl ax, 1                        ; 0x715a
     mov si, ax                       ; 0x715c
-    mov bx, word [bss_0e12]          ; 0x715e
+    mov bx, word [maze_tables]       ; 0x715e
     mov ax, word [bx + si + 0x1e0]   ; 0x7162
     mov word [bp - 0x0022], ax       ; 0x7166
     mov si, word [bp + 0x4]          ; 0x7169
@@ -17,7 +17,7 @@ api_idx_0072_LQIT:
     mov ax, 0                        ; 0x7179
     push ax                          ; 0x717c
     push word [bp - 0x001e]          ; 0x717d
-    call ds_dos_con_loc_QJHU         ; 0x7180
+    call get_bits                    ; 0x7180
     add sp, byte 6                   ; 0x7183
     mov word [bp - 0x0020], ax       ; 0x7186
     mov word [bp - 0x0002], 0        ; 0x7189

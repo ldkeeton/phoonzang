@@ -252,7 +252,7 @@ dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 ; bss_9128 equ __zdseg_end + (__zobss_9128 - __zdata_start)
 %include "vtrea/api_idx_00e6_QNPR.asm"     ; 0x73ae
 
-%include "shared/loc_OUOJ.asm"              ; 0x782b
+%include "shared/mark_region_bits.asm"      ; 0x782b
 
 %include "shared/loc_QTKU.asm"              ; 0x788f
 

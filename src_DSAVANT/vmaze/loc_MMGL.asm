@@ -17,7 +17,7 @@ loc_MMGL:
     call delay_ms                    ; 0x2203
     pop cx                           ; 0x2206
     push word [bp + 0x4]             ; 0x2207
-    call api_idx_0050_JLOV           ; 0x220a
+    call show_message                ; 0x220a
     pop cx                           ; 0x220d
     mov word [bss_91b2], 1           ; 0x220e
     ret                              ; 0x2214

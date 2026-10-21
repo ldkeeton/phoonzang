@@ -2,10 +2,10 @@
 api_idx_0004_TLVR:
     mov ax, 0xfffc                   ; 0x744e
     call aztec_csav                  ; 0x7451
-    mov ax, word [bss_8d12]          ; 0x7454
+    mov ax, word [party_region]      ; 0x7454
     shl ax, 1                        ; 0x7457
     mov si, ax                       ; 0x7459
-    mov bx, word [bss_0e12]          ; 0x745b
+    mov bx, word [maze_tables]       ; 0x745b
     mov ax, word [bx + si + 0x3c0]   ; 0x745f
     mov word [bp - 0x0002], ax       ; 0x7463
     mov ax, 1                        ; 0x7466
@@ -13,7 +13,7 @@ api_idx_0004_TLVR:
     mov ax, 0xe                      ; 0x746a
     push ax                          ; 0x746d
     push word [bp - 0x0002]          ; 0x746e
-    call ds_dos_con_loc_QJHU         ; 0x7471
+    call get_bits                    ; 0x7471
     add sp, byte 6                   ; 0x7474
     cmp ax, strict word 1            ; 0x7477
     jne short @..api_idx_0004_TLVR.l1 ; 0x747a
@@ -22,17 +22,17 @@ api_idx_0004_TLVR:
     mov ax, 0xc                      ; 0x7480
     push ax                          ; 0x7483
     push word [bp - 0x0002]          ; 0x7484
-    call ds_dos_con_loc_QJHU         ; 0x7487
+    call get_bits                    ; 0x7487
     add sp, byte 6                   ; 0x748a
-    mov word [bss_8f24], ax          ; 0x748d
-    cmp ax, word [bss_82ee]          ; 0x7490
+    mov word [found_object_owner], ax ; 0x748d
+    cmp ax, word [party_tag]         ; 0x7490
     je short @..api_idx_0004_TLVR.l1 ; 0x7494
     ret                              ; 0x7496
 @..api_idx_0004_TLVR.l1:
-    mov ax, word [bss_8d12]          ; 0x7497
+    mov ax, word [party_region]      ; 0x7497
     shl ax, 1                        ; 0x749a
     mov si, ax                       ; 0x749c
-    mov bx, word [bss_0e12]          ; 0x749e
+    mov bx, word [maze_tables]       ; 0x749e
     cmp word [bx + si], byte 0       ; 0x74a2
     jle short @..api_idx_0004_TLVR.l2 ; 0x74a5
     mov ax, 0                        ; 0x74a7
@@ -46,14 +46,14 @@ api_idx_0004_TLVR:
     mov ax, 8                        ; 0x74b7
     push ax                          ; 0x74ba
     push word [bp - 0x0002]          ; 0x74bb
-    call ds_dos_con_loc_QJHU         ; 0x74be
+    call get_bits                    ; 0x74be
     add sp, byte 6                   ; 0x74c1
     cmp ax, strict word 1            ; 0x74c4
     jne short @..api_idx_0004_TLVR.l3 ; 0x74c7
     ret                              ; 0x74c9
 @..api_idx_0004_TLVR.l3:
-    mov bx, word [bss_0e12]          ; 0x74ca
-    mov si, word [bss_8d12]          ; 0x74ce
+    mov bx, word [maze_tables]       ; 0x74ca
+    mov si, word [party_region]      ; 0x74ce
     mov al, byte [bx + si + 0xa50]   ; 0x74d2
     sub ah, ah                       ; 0x74d6
     mov word [bss_84a0], ax          ; 0x74d8

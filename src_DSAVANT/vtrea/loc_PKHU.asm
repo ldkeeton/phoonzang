@@ -46,6 +46,6 @@ loc_PKHU:
     call ds_app_gfx_free_score_VGJR  ; 0x8113
     pop cx                           ; 0x8116
 @..loc_PKHU.l2:
-    inc word [bss_8d12]              ; 0x8117
+    inc word [party_region]          ; 0x8117
     call loc_VSIT                    ; 0x811b
     ret                              ; 0x811e

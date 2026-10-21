@@ -3,11 +3,11 @@ api_idx_0014_HTUV:
     mov ax, 0xffec                   ; 0x09c0
     call aztec_csav                  ; 0x09c3
     mov word [bp - 0x000e], 0xffff   ; 0x09c6
-    mov ax, word [bss_8f42]          ; 0x09cb
+    mov ax, word [party_cell_x]      ; 0x09cb
     mov word [bp - 0x0008], ax       ; 0x09ce
-    mov ax, word [bss_8f40]          ; 0x09d1
+    mov ax, word [party_cell_y]      ; 0x09d1
     mov word [bp - 0x000a], ax       ; 0x09d4
-    mov ax, word [bss_8f3e]          ; 0x09d7
+    mov ax, word [party_map_piece]   ; 0x09d7
     mov word [bp - 0x000c], ax       ; 0x09da
     push word [bp + 0x6]             ; 0x09dd
     push word [bp + 0x4]             ; 0x09e0
@@ -52,7 +52,7 @@ api_idx_0014_HTUV:
 @..api_idx_0014_HTUV.l3:
     cmp word [bss_9858], byte 0      ; 0x0a3f
     je short @..api_idx_0014_HTUV.l8 ; 0x0a44
-    mov bx, word [bss_0e12]          ; 0x0a46
+    mov bx, word [maze_tables]       ; 0x0a46
     mov si, word [bp - 0x000c]       ; 0x0a4a
     mov al, byte [bx + si + 0xb40]   ; 0x0a4d
     sub ah, ah                       ; 0x0a51
@@ -62,12 +62,12 @@ api_idx_0014_HTUV:
     push word [bp - 0x000c]          ; 0x0a59
     push word [bp - 0x000a]          ; 0x0a5c
     push word [bp - 0x0008]          ; 0x0a5f
-    call api_idx_0002_KQPU           ; 0x0a62
+    call find_object_at              ; 0x0a62
     add sp, byte 8                   ; 0x0a65
     mov word [bp - 0x0014], ax       ; 0x0a68
     cmp ax, strict word 0xffff       ; 0x0a6b
     je short @..api_idx_0014_HTUV.l7 ; 0x0a6e
-    mov bx, word [bss_0e12]          ; 0x0a70
+    mov bx, word [maze_tables]       ; 0x0a70
     mov si, ax                       ; 0x0a74
     cmp byte [bx + si + 0x5a0], 3    ; 0x0a76
     je short @..api_idx_0014_HTUV.l5 ; 0x0a7b

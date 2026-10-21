@@ -4,12 +4,12 @@ api_idx_000e_RTSO:
     call aztec_csav                  ; 0x8051
     mov ax, 5                        ; 0x8054
     push ax                          ; 0x8057
-    call api_idx_0006_LIGG           ; 0x8058
+    call wait_ticks_or_key           ; 0x8058
     pop cx                           ; 0x805b
-    mov ax, word [bss_8d12]          ; 0x805c
+    mov ax, word [party_region]      ; 0x805c
     shl ax, 1                        ; 0x805f
     mov si, ax                       ; 0x8061
-    mov bx, word [bss_0e12]          ; 0x8063
+    mov bx, word [maze_tables]       ; 0x8063
     mov ax, word [bx + si + 0x3c0]   ; 0x8067
     mov word [bp - 0x0002], ax       ; 0x806b
     mov ax, 8                        ; 0x806e
@@ -17,11 +17,11 @@ api_idx_000e_RTSO:
     mov ax, 0                        ; 0x8072
     push ax                          ; 0x8075
     push word [bp - 0x0002]          ; 0x8076
-    call ds_dos_con_loc_QJHU         ; 0x8079
+    call get_bits                    ; 0x8079
     add sp, byte 6                   ; 0x807c
     mov word [bp - 0x0006], ax       ; 0x807f
-    mov bx, word [bss_0e12]          ; 0x8082
-    mov si, word [bss_8d12]          ; 0x8086
+    mov bx, word [maze_tables]       ; 0x8082
+    mov si, word [party_region]      ; 0x8086
     mov al, byte [bx + si + 0xa50]   ; 0x808a
     sub ah, ah                       ; 0x808e
     mov word [bp - 0x000a], ax       ; 0x8090
@@ -45,7 +45,7 @@ api_idx_000e_RTSO:
     mov ax, 0xb                      ; 0x80b3
     push ax                          ; 0x80b6
     push word [bp - 0x0002]          ; 0x80b7
-    call ds_dos_con_loc_QJHU         ; 0x80ba
+    call get_bits                    ; 0x80ba
     add sp, byte 6                   ; 0x80bd
     push ax                          ; 0x80c0
     mov ax, 0x248                    ; 0x80c1
@@ -132,17 +132,17 @@ api_idx_000e_RTSO:
     mov word [bp - 0x000c], ax       ; 0x8183
     cmp ax, word [bp - 0x000a]       ; 0x8186
     jge short @..api_idx_000e_RTSO.l11 ; 0x8189
-    mov ax, word [bss_8d12]          ; 0x818b
+    mov ax, word [party_region]      ; 0x818b
     shl ax, 1                        ; 0x818e
     mov si, ax                       ; 0x8190
-    mov bx, word [bss_0e12]          ; 0x8192
+    mov bx, word [maze_tables]       ; 0x8192
     mov ax, word [bx + si]           ; 0x8196
     jmp short @..api_idx_000e_RTSO.l12 ; 0x8198
 @..api_idx_000e_RTSO.l11:
-    mov ax, word [bss_8d12]          ; 0x819a
+    mov ax, word [party_region]      ; 0x819a
     shl ax, 1                        ; 0x819d
     mov si, ax                       ; 0x819f
-    mov bx, word [bss_0e12]          ; 0x81a1
+    mov bx, word [maze_tables]       ; 0x81a1
     mov ax, word [bx + si + 0x1e0]   ; 0x81a5
 @..api_idx_000e_RTSO.l12:
     mov word [bp - 0x000e], ax       ; 0x81a9
@@ -161,7 +161,7 @@ api_idx_000e_RTSO:
     mov ax, 8                        ; 0x81c9
     push ax                          ; 0x81cc
     push word [bp - 0x0002]          ; 0x81cd
-    call ds_dos_con_loc_QJHU         ; 0x81d0
+    call get_bits                    ; 0x81d0
     add sp, byte 6                   ; 0x81d3
     cmp ax, strict word 1            ; 0x81d6
     jne short @..api_idx_000e_RTSO.l13 ; 0x81d9
@@ -181,9 +181,9 @@ api_idx_000e_RTSO:
     mov ax, 9                        ; 0x81f8
     push ax                          ; 0x81fb
     push word [bp - 0x0002]          ; 0x81fc
-    call ds_dos_con_loc_QJHU         ; 0x81ff
+    call get_bits                    ; 0x81ff
     add sp, byte 6                   ; 0x8202
     push ax                          ; 0x8205
-    call loc_OUOJ                    ; 0x8206
+    call mark_region_bits            ; 0x8206
     pop cx                           ; 0x8209
     ret                              ; 0x820a

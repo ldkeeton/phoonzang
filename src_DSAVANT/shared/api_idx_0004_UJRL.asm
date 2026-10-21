@@ -45,15 +45,15 @@ api_idx_0004_UJRL:
     mov al, byte [bx + 0x7]
     mov bx, word [bp - 0x0004]
     mov byte [bx + 0x1], al
-    mov ax, word [bss_8f3e]
+    mov ax, word [party_map_piece]
     xchg al, ah
     sub al, al
-    mov dx, word [bss_8f42]
+    mov dx, word [party_cell_x]
     mov cx, 4
     shl dx, cl
     mov cx, dx
     add ax, cx
-    add ax, word [bss_8f40]
+    add ax, word [party_cell_y]
     mov bx, word [bp - 0x0004]
     mov word [bx + 0x2], ax
     mov bx, word [bp + 0x4]
@@ -70,15 +70,15 @@ api_idx_0004_UJRL:
     mov byte [bx + 0x6], al
     mov ax, 1
     push ax
-    mov ax, word [bss_8f3e]
+    mov ax, word [party_map_piece]
     mov cx, 6
     shl ax, cl
-    mov cx, word [bss_8f40]
+    mov cx, word [party_cell_y]
     shl cx, 1
     shl cx, 1
     shl cx, 1
     add ax, cx
-    add ax, word [bss_8f42]
+    add ax, word [party_cell_x]
     push ax
     mov ax, bss_8bfe
     push ax

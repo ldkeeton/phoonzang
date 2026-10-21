@@ -2,14 +2,14 @@
 loc_HHMH:
     mov ax, 0                        ; 0x04b7
     call aztec_csav                  ; 0x04ba
-    mov ax, word [bss_82ee]          ; 0x04bd
+    mov ax, word [party_tag]         ; 0x04bd
     shl ax, 1                        ; 0x04c0
     mov bx, ax                       ; 0x04c2
     mov word [bx + bss_8cfe], 0      ; 0x04c4
     push ax                          ; 0x04ca
     mov cx, word [bp + 0x4]          ; 0x04cb
     shl cx, 1                        ; 0x04ce
-    mov ax, word [bss_0e12]          ; 0x04d0
+    mov ax, word [maze_tables]       ; 0x04d0
     add ax, cx                       ; 0x04d3
     add ax, 0x3c0                    ; 0x04d5
     push ax                          ; 0x04d8
@@ -22,7 +22,7 @@ loc_HHMH:
     mov ax, word [bp + 0x4]          ; 0x04e5
     shl ax, 1                        ; 0x04e8
     mov si, ax                       ; 0x04ea
-    mov bx, word [bss_0e12]          ; 0x04ec
+    mov bx, word [maze_tables]       ; 0x04ec
     push word [bx + si + 0x3c0]      ; 0x04f0
     mov ax, 0                        ; 0x04f4
     push ax                          ; 0x04f7
@@ -36,7 +36,7 @@ loc_HHMH:
     mov ax, word [bp + 0x4]          ; 0x050a
     shl ax, 1                        ; 0x050d
     mov si, ax                       ; 0x050f
-    mov bx, word [bss_0e12]          ; 0x0511
+    mov bx, word [maze_tables]       ; 0x0511
     cmp word [bx + si], byte 0       ; 0x0515
     jle short @..loc_HHMH.l1         ; 0x0518
     mov ax, 0                        ; 0x051a
@@ -54,7 +54,7 @@ loc_HHMH:
     mov ax, word [bp + 0x4]          ; 0x0536
     shl ax, 1                        ; 0x0539
     mov si, ax                       ; 0x053b
-    mov bx, word [bss_0e12]          ; 0x053d
+    mov bx, word [maze_tables]       ; 0x053d
     push word [bx + si]              ; 0x0541
     mov ax, word [game_state_arg]    ; 0x0543
     mov cx, 4                        ; 0x0546
@@ -65,7 +65,7 @@ loc_HHMH:
     add sp, byte 6                   ; 0x0552
     mov ax, word [bp + 0x4]          ; 0x0555
     inc ax                           ; 0x0558
-    mov word [bss_8d12], ax          ; 0x0559
+    mov word [party_region], ax      ; 0x0559
 @..loc_HHMH.l1:
     mov ax, 1                        ; 0x055c
     push ax                          ; 0x055f

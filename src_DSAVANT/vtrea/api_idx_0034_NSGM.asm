@@ -6,7 +6,7 @@ api_idx_0034_NSGM:
     mov ax, word [bp + 0x6]          ; 0x6ffe
     shl ax, 1                        ; 0x7001
     mov si, ax                       ; 0x7003
-    mov bx, word [bss_0e12]          ; 0x7005
+    mov bx, word [maze_tables]       ; 0x7005
     mov ax, word [bx + si + 0x1e0]   ; 0x7009
     mov word [bp - 0x0006], ax       ; 0x700d
     mov si, word [bp + 0x6]          ; 0x7010
@@ -18,7 +18,7 @@ api_idx_0034_NSGM:
     mov ax, 0                        ; 0x7020
     push ax                          ; 0x7023
     push word [bp - 0x0002]          ; 0x7024
-    call ds_dos_con_loc_QJHU         ; 0x7027
+    call get_bits                    ; 0x7027
     add sp, byte 6                   ; 0x702a
     mov word [bp - 0x0004], ax       ; 0x702d
     mov cx, 3                        ; 0x7030
@@ -34,21 +34,21 @@ api_idx_0034_NSGM:
     mov ax, word [bp + 0x6]          ; 0x7049
     shl ax, 1                        ; 0x704c
     mov si, ax                       ; 0x704e
-    mov bx, word [bss_0e12]          ; 0x7050
+    mov bx, word [maze_tables]       ; 0x7050
     mov ax, word [bx + si + 0x3c0]   ; 0x7054
     mov word [bp - 0x0002], ax       ; 0x7058
     mov ax, 2                        ; 0x705b
     push ax                          ; 0x705e
-    mov ax, word [bss_82ee]          ; 0x705f
+    mov ax, word [party_tag]         ; 0x705f
     shl ax, 1                        ; 0x7062
     push ax                          ; 0x7064
     push word [bp - 0x0002]          ; 0x7065
-    call ds_dos_con_loc_QJHU         ; 0x7068
+    call get_bits                    ; 0x7068
     add sp, byte 6                   ; 0x706b
     cmp ax, strict word 2            ; 0x706e
     jne short @..api_idx_0034_NSGM.l2 ; 0x7071
-    mov ax, word [bss_8f46]          ; 0x7073
-    add ax, word [bss_8f44]          ; 0x7076
+    mov ax, word [party_world_x]     ; 0x7073
+    add ax, word [party_world_y]     ; 0x7076
     cwd                              ; 0x707a
     idiv word [bp - 0x000a]          ; 0x707b
     mov ax, dx                       ; 0x707e

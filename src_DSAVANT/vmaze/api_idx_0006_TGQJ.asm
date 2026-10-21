@@ -41,15 +41,15 @@ api_idx_0006_TGQJ:
 @..api_idx_0006_TGQJ.l1:
     mov ax, 0                        ; 0x2190
     push ax                          ; 0x2193
-    mov ax, word [bss_8f3e]          ; 0x2194
+    mov ax, word [party_map_piece]   ; 0x2194
     mov cx, 6                        ; 0x2197
     shl ax, cl                       ; 0x219a
-    mov cx, word [bss_8f40]          ; 0x219c
+    mov cx, word [party_cell_y]      ; 0x219c
     shl cx, 1                        ; 0x21a0
     shl cx, 1                        ; 0x21a2
     shl cx, 1                        ; 0x21a4
     add ax, cx                       ; 0x21a6
-    add ax, word [bss_8f42]          ; 0x21a8
+    add ax, word [party_cell_x]      ; 0x21a8
     push ax                          ; 0x21ac
     mov ax, bss_8bfe                 ; 0x21ad
     push ax                          ; 0x21b0

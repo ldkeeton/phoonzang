@@ -10,12 +10,12 @@ api_idx_0006_NNSP:
     mov ax, word [bp - 0x0002]       ; 0x75c2
     shl ax, 1                        ; 0x75c5
     push ax                          ; 0x75c7
-    mov ax, word [bss_8d12]          ; 0x75c8
+    mov ax, word [party_region]      ; 0x75c8
     shl ax, 1                        ; 0x75cb
     mov si, ax                       ; 0x75cd
-    mov bx, word [bss_0e12]          ; 0x75cf
+    mov bx, word [maze_tables]       ; 0x75cf
     push word [bx + si + 0x3c0]      ; 0x75d3
-    call ds_dos_con_loc_QJHU         ; 0x75d7
+    call get_bits                    ; 0x75d7
     add sp, byte 6                   ; 0x75da
     mov cx, word [bp - 0x0002]       ; 0x75dd
     shl cx, 1                        ; 0x75e0
@@ -26,12 +26,12 @@ api_idx_0006_NNSP:
     add cx, byte 8                   ; 0x75ec
     mov ax, cx                       ; 0x75ef
     push ax                          ; 0x75f1
-    mov ax, word [bss_8d12]          ; 0x75f2
+    mov ax, word [party_region]      ; 0x75f2
     shl ax, 1                        ; 0x75f5
     mov si, ax                       ; 0x75f7
-    mov bx, word [bss_0e12]          ; 0x75f9
+    mov bx, word [maze_tables]       ; 0x75f9
     push word [bx + si + 0x3c0]      ; 0x75fd
-    call ds_dos_con_loc_QJHU         ; 0x7601
+    call get_bits                    ; 0x7601
     add sp, byte 6                   ; 0x7604
     cmp ax, strict word 2            ; 0x7607
     jne short @..api_idx_0006_NNSP.l2 ; 0x760a
@@ -45,8 +45,8 @@ api_idx_0006_NNSP:
     je short @..api_idx_0006_NNSP.l3 ; 0x7620
     call api_idx_0004_THPM           ; 0x7622
 @..api_idx_0006_NNSP.l3:
-    mov bx, word [bss_0e12]          ; 0x7625
-    mov si, word [bss_8d12]          ; 0x7629
+    mov bx, word [maze_tables]       ; 0x7625
+    mov si, word [party_region]      ; 0x7629
     mov al, byte [bx + si + 0xa50]   ; 0x762d
     sub ah, ah                       ; 0x7631
     mov word [bp - 0x0006], ax       ; 0x7633
@@ -55,9 +55,9 @@ api_idx_0006_NNSP:
     mov ax, 5                        ; 0x763a
     push ax                          ; 0x763d
     push word [bp - 0x0006]          ; 0x763e
-    call ds_dos_con_loc_QJHU         ; 0x7641
+    call get_bits                    ; 0x7641
     add sp, byte 6                   ; 0x7644
     push ax                          ; 0x7647
-    call loc_OUOJ                    ; 0x7648
+    call mark_region_bits            ; 0x7648
     pop cx                           ; 0x764b
     ret                              ; 0x764c

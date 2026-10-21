@@ -82,7 +82,7 @@ api_idx_0058_TVSV:
     call ds_app_HKIJ                 ; 0x0622
     pop cx                           ; 0x0625
 @..api_idx_0058_TVSV.l1:
-    mov ax, word [bss_905a]          ; 0x0626
+    mov ax, word [message_delay]     ; 0x0626
     mov cx, 2                        ; 0x0629
     cwd                              ; 0x062c
     idiv cx                          ; 0x062d

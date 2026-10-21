@@ -6,7 +6,7 @@ api_idx_000e_NKQN:
     jg short @..api_idx_000e_NKQN.l1
     jmp near @..api_idx_000e_NKQN.l8
 @..api_idx_000e_NKQN.l1:
-    mov ax, word [bss_82ee]
+    mov ax, word [party_tag]
     mov cx, word [bss_8f20]
     dec cx
     sub ax, cx

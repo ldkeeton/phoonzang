@@ -2,7 +2,7 @@
 loc_KOGT:
     mov ax, 0                        ; 0x1240
     call aztec_csav                  ; 0x1243
-    mov word [bss_91a8], 1           ; 0x1246
+    mov word [location_changed], 1   ; 0x1246
     mov ax, 0                        ; 0x124c
     push ax                          ; 0x124f
     mov ax, 8                        ; 0x1250
@@ -16,19 +16,19 @@ loc_KOGT:
     jmp short @..loc_KOGT.l5         ; 0x1267
 @..loc_KOGT.l1:
     mov ax, word [bp + 0x6]          ; 0x1269
-    add word [bss_8f44], ax          ; 0x126c
+    add word [party_world_y], ax     ; 0x126c
     jmp short @..loc_KOGT.l6         ; 0x1270
 @..loc_KOGT.l2:
     mov ax, word [bp + 0x6]          ; 0x1272
-    add word [bss_8f46], ax          ; 0x1275
+    add word [party_world_x], ax     ; 0x1275
     jmp short @..loc_KOGT.l6         ; 0x1279
 @..loc_KOGT.l3:
     mov ax, word [bp + 0x6]          ; 0x127b
-    sub word [bss_8f44], ax          ; 0x127e
+    sub word [party_world_y], ax     ; 0x127e
     jmp short @..loc_KOGT.l6         ; 0x1282
 @..loc_KOGT.l4:
     mov ax, word [bp + 0x6]          ; 0x1284
-    sub word [bss_8f46], ax          ; 0x1287
+    sub word [party_world_x], ax     ; 0x1287
     jmp short @..loc_KOGT.l6         ; 0x128b
 @..loc_KOGT.l5:
     cmp ax, strict word 0            ; 0x128d

@@ -1,8 +1,8 @@
 ; auto-generated
-loc_IONR:
+redraw_maze_view:
     mov ax, 0
     call aztec_csav
-    call loc_IONR.api_idx1
+    call redraw_maze_view.api_idx1
     mov ax, 0x8f
     push ax
     mov ax, 0xf7

@@ -289,7 +289,7 @@ jumptable_6c16_case_0:
     add sp, byte 4                   ; 0x6a52
     mov ax, 0                        ; 0x6a55
     push ax                          ; 0x6a58
-    push word [bss_905a]             ; 0x6a59
+    push word [message_delay]        ; 0x6a59
     call api_idx_0004_GRRG           ; 0x6a5d
     add sp, byte 4                   ; 0x6a60
 @..api_idx_009c_MRKK.l22:

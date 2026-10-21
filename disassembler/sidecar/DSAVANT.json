@@ -30,6 +30,7 @@
     }
   },
   "routines": {
+    "api_idx_0002_KQPU": {"name": "find_object_at", "note": "returns next object index from start whose x, y, map piece match and type is nonzero (subject to a state bit), else -1"},
     "api_idx_0004_QVPP": {"name": "find_map_piece", "note": "maps world (x, y) to piece index and local x/y; 0 if found"},
     "api_idx_000a_IQHO": {
       "name": "fill_action_slot_table"
@@ -66,6 +67,8 @@
       "name": "strpos",
       "note": "ds: index of a char in a string, 0xFFFF if absent (repne scasb)"
     },
+    "loc_HILS": {"name": "check_at_saved_location", "note": "flags whether current level/piece/cell equals the saved location"},
+    "loc_IONR": {"name": "redraw_maze_view", "note": "redraws the maze view and shows its screen area"},
     "loc_KSUH": {
       "name": "aztec_printf",
       "role": "aztec",
@@ -75,7 +78,8 @@
     "loc_LIPQ": {
       "name": "strstr",
       "note": "ds: offset of a substring, 0xFFFF if absent"
-    }
+    },
+    "loc_OUOJ": {"name": "mark_region_bits", "note": "sets the current region bit in per-level bitmaps when arg > 0 (both when > 1)"}
   },
   "binaries": {
     "ds": {
@@ -232,6 +236,7 @@
           "note": "hand-written asm: set or clear bit [bp+6] of the bitmap at [bp+4] per [bp+8]"
         },
         "3eeb": {"name": "set_bitfield", "note": "stores value into the width-bit field at index of a packed bit array"},
+        "3f81": {"name": "get_bits", "note": "returns (value >> shift) masked to width bits"},
         "3fa9": {"name": "read_misc_table", "note": "hand-written asm: reads 0x400 bytes from handle [bp+4] to misc_table_seg:0; a read error prints misc_table_io_error_msg and falls into the DOS print/exit code"},
         "4002": {
           "name": "unpack_record",
@@ -307,6 +312,7 @@
         "0c82": {"name": "bad8087", "note": "sbegin.asm's `bad8087` message ('8087/80287 is required!'); the vendor's name so the #asm aztec_begin links against it"},
         "0cf0": {"name": "_ttrd", "note": "Aztec console read vector (io.asm's `_ttrd`, dos20/write.asm's read arm); the vendor's name so the #asm aztec_write links against it"},
         "0cf2": {"name": "_ttwr", "note": "Aztec console write vector (io.asm's `_ttwr`, dos20/write.asm `jmp [_ttwr]`); the vendor's name so the #asm aztec_write links against it"},
+        "0e12": {"name": "maze_tables", "note": "pointer to loaded maze tables (destinations, per-piece data)"},
         "0e14": {"name": "maze_data", "note": "pointer to loaded maze data: wall planes at +0x90/+0x290, piece origins at +0x490/+0x4a0"},
         "0e22": {"name": "data_file_fd", "note": "int: handle of the open game data file that data_record_io seeks, reads and writes"},
         "0e24": {"name": "msg_dbs_fd", "note": "file handle of MSG.DBS"},
@@ -344,13 +350,30 @@
         "6ac1": {"name": "slot_rec_ranges", "note": "+0xa7 of the slot record: 4-byte entries per target, [0] base and [1] random range"},
         "6b75": {"name": "slot_rec_forced", "note": "+0x15b of the slot record: forced target; 0xfd/0xfe special, 0 none"},
         "82b6": {"name": "loaded_score_num", "note": "int: score number last loaded by load_score_files; ds_app_gfx_free_score_VGJR resets it to -1"},
+        "82ee": {"name": "party_tag", "note": "int: id compared with cell 2-bit tags and object owner bytes; written into cells by claim_cell"},
         "830a": {"name": "game_state", "note": "int: main's switch selector; each value picks the overlay (VINIT, VBASE, VMAZE, ...) main loads next, 3 quits"},
         "830c": {"name": "game_state_arg", "note": "int: main passes it as ensure_game_disk's second argument (which that routine does not read) for game_state 25"},
         "830e": {"name": "party_slot_frame", "note": "int [6]: current frame in party_slot_glyphs for each slot; api_idx_0002_TIUI advances it, wrapping at 0xffff"},
         "8322": {"name": "action_slot_table", "note": "unsigned char [6][3][10][3]: {action, target, range} per member, mode and entry"},
         "8430": {"name": "action_slot_mode", "note": "unsigned char [6][3]: the mode each member's slot was filled for"},
+        "8460": {"name": "dest_alt_arg", "note": "alt_arg of a level-99 destination, else 0"},
         "8482": {"name": "party_char", "note": "char *[] per party member; [0x19f] is the member's record slot in slot_rec_*, -1 when none"},
-        "8490": {"name": "party_char_ext", "note": "char *[] per party member, a second record; fill_action_slot_table tests [0xd7] == 0x47"}
+        "8490": {"name": "party_char_ext", "note": "char *[] per party member, a second record; fill_action_slot_table tests [0xd7] == 0x47"},
+        "8d12": {"name": "party_region", "note": "region index of the current map piece"},
+        "8f24": {"name": "found_object_owner", "note": "int: owner byte of the last type-0x19 object checked by check_cell_objects"},
+        "8f28": {"name": "saved_level", "note": "saved location level"},
+        "8f2a": {"name": "saved_map_piece", "note": "saved location map piece"},
+        "8f2c": {"name": "saved_cell_y", "note": "saved location cell y"},
+        "8f2e": {"name": "saved_cell_x", "note": "saved location cell x"},
+        "8f3e": {"name": "party_map_piece", "note": "current map piece index"},
+        "8f40": {"name": "party_cell_y", "note": "party y within current map piece (0-7)"},
+        "8f42": {"name": "party_cell_x", "note": "party x within current map piece (0-7)"},
+        "8f44": {"name": "party_world_y", "note": "party y in level coordinates"},
+        "8f46": {"name": "party_world_x", "note": "party x in level coordinates"},
+        "905a": {"name": "message_delay", "note": "int: tick count passed to wait_ticks_or_key after a message"},
+        "919e": {"name": "save_location_flag", "note": "nonzero: record the destination as the saved location"},
+        "91a8": {"name": "location_changed", "note": "set when the party is placed at a new location"},
+        "9bd0": {"name": "region_step_flag", "note": "cleared on move; when 1 loc_IPSH advances party_region"}
       },
       "code_data_names": {
         "2f36": {"name": "saved_video_mode", "note": "the video mode at startup (INT 10h AH=0Fh, bios_get_video_mode); ds_bios_video_loc_PHVR sets it back"},
@@ -567,8 +590,16 @@
     },
     "vmaze": {
       "function_names": {
+        "0ca7": {"name": "enter_level", "note": "sets game_state_arg to the level and loads it"},
+        "0f80": {"name": "wait_ticks_or_key", "note": "flushes keys, then waits the given tick count or until input"},
+        "1086": {"name": "show_message", "note": "loads message string by number and prints it"},
+        "68e4": {"name": "save_level_state", "note": "copies the current level per-level state to its stores"},
         "69c8": {"name": "log_maze_change", "note": "appends a 6-byte maze change record to the change log"},
-        "7cd7": {"name": "set_cell_wall", "note": "sets a 4-bit wall field on one edge of a maze cell and logs the change"}
+        "7298": {"name": "move_party_to_dest", "note": "moves the party to a destination table entry, loading its level if different"},
+        "7cd7": {"name": "set_cell_wall", "note": "sets a 4-bit wall field on one edge of a maze cell and logs the change"},
+        "8a06": {"name": "claim_cell", "note": "sets party cell kind 6 and tag party_tag, plays message 0x7fc and sound 4"},
+        "8b44": {"name": "check_type8_object", "note": "checks a type-8 object flags against party_tag; check_cell_objects stops when it returns 1"},
+        "8c39": {"name": "check_cell_objects", "note": "on entering a cell, optionally shows message 0x7fb and acts on the first object of type 7, 8 or 0x19 there"}
       },
       "file": "VMAZE.OVR",
       "type": "aztec_overlay",
@@ -778,10 +809,14 @@
         "count": 8,
         "format": "e8_rel16_cb"
       },
+      "force_data": [
+        {"start": "03cd", "end": "03db", "note": "Fifteen zero bytes between the device switch's last arm (jmp at 0x03ca) and the case-1 arm at 0x03dc; decoding them linearly straddles 0x03dc and hides the table target"}
+      ],
       "force_code": [
         {"start": "0e51", "end": "0f27", "note": "Unreachable code after `jmp near loc_LPMH` at 0x0e4e: a switch on cs:[0x0e46] (6-10) that sets OPL rhythm bits through register 0xBD, plus its helper at 0x0f12 (`cs xlatb` through 0x1529) ending in the ret at 0x0f27."}
       ],
       "code_tables": [
+        {"table": "035e", "jmp": "0359", "entry_size": 2, "count": 5, "note": "Device dispatch read by `jmp [cs:bx+0x45e]` (0x0359). Declared here so the decoder roots its five arms before the table's bytes are decoded as code: target 0x368 is mid-instruction in that decode, which stops the auto-scan before it can prove three targets"},
         {"table": "0495", "entry_size": 2, "count": 16, "note": "INT 08h handler dispatch table: loc_03e2 loads `mov dx, word [cs:bx+0x595]` (four overlapping 4-entry sub-tables at file 0495/049d/04a5/04ad, indexed by cseg_0a7d) and the installer at 04b5 stores DX into 0000:0020. Values are runtime CS offsets (file + 0x100): the targets are the handler entries 0841, 08af, 0975, 099f, 0a41 and 18e4"},
         {"table": "115b", "entry_size": 2, "count": 6, "note": "Mode dispatch table read by `call [cs:bx+0x125b]` (0x1154); see jump_tables. Declared here too so the decoder roots its targets (0x1302 is code, not a db blob) and carves the words as data"},
         {"table": "1178", "entry_size": 2, "count": 6, "note": "Mode dispatch table read by `call [cs:bx+0x1278]` (0x1171); as 115b. Without it the words decode as `test`/`jp`"},
@@ -789,6 +824,7 @@
         {"table": "11b3", "entry_size": 2, "count": 6, "note": "Mode dispatch table read by `call [cs:bx+0x12b3]` (0x11ac); as 115b. Six entries: the bytes after it are a byte table"}
       ],
       "jump_tables": [
+        {"table": "035e", "jmp": "0359", "entry_size": 2, "count": 5, "note": "Device dispatch: `mov bl, cs:[play_device]; shl bl, 1; xor bh, bh; jmp [cs:bx+0x45e]`. Five entries; two duplicate case 2 (0x368). The table's own bytes alias the first instructions of the arms (`0x368` is mid-instruction when the table is decoded as code), so the auto-scan cannot prove it without the declaration"},
         {"table": "115b", "jmp": "1154", "entry_size": 2, "count": 6, "note": "Mode dispatch: `mov bl, cs:[cseg_0a7c]; shl bx, 1; call [cs:bx+0x125b]`. The mode is 0-5 (`cmp byte cs:[cseg_0a7c], 5` at 0x0b53), so six code pointers"},
         {"table": "1178", "jmp": "1171", "entry_size": 2, "count": 6, "note": "Mode dispatch through `call [cs:bx+0x1278]`; six entries, as 115b"},
         {"table": "1196", "jmp": "118f", "entry_size": 2, "count": 6, "note": "Mode dispatch through `call [cs:bx+0x1296]`; six entries, as 115b"},

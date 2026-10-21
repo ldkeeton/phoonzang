@@ -56,7 +56,7 @@ loc_OOHI:
     call ds_app_HKIJ                 ; 0x0f35
     pop cx                           ; 0x0f38
 @..loc_OOHI.l1:
-    push word [bss_905a]             ; 0x0f39
+    push word [message_delay]        ; 0x0f39
     call api_idx_0004_UQUT           ; 0x0f3d
     pop cx                           ; 0x0f40
     cmp word [bp + 0x8], byte 0xff   ; 0x0f41

@@ -115,14 +115,14 @@ jumptable_69ec_case_3:
 @..api_idx_004a_UIIS.l3:
     cmp word [bp - 0x0002], byte 4   ; 0x69c0
     jne short @..api_idx_004a_UIIS.l4 ; 0x69c4
-    mov word [bss_8460], 0           ; 0x69c6
+    mov word [dest_alt_arg], 0       ; 0x69c6
     mov word [game_state], 7         ; 0x69cc
 @..api_idx_004a_UIIS.l4:
     mov word [bp - 0x0004], 0        ; 0x69d2
 @..api_idx_004a_UIIS.l5:
     jmp short @..api_idx_004a_UIIS.l7 ; 0x69d7
 jumptable_69ec_case_5:
-    mov word [bss_8460], 0           ; 0x69d9
+    mov word [dest_alt_arg], 0       ; 0x69d9
     mov word [game_state], 7         ; 0x69df
     mov word [bp - 0x0004], 0        ; 0x69e5
     jmp short @..api_idx_004a_UIIS.l7 ; 0x69ea
