@@ -92,7 +92,7 @@ api_idx_0058_GKGM:
     push ax
     push word [bp + 0x8]
     push word [bp + 0x6]
-    call ds_app_PQGJ
+    call draw_bevel_frame
     add sp, byte 0x0a
     mov ax, 0xc0
     push ax

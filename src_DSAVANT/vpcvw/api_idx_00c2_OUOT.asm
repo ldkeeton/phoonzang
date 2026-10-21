@@ -340,7 +340,7 @@ api_idx_00c2_OUOT:
     imul word [bp - 0x0070]          ; 0x5835
     add ax, word [bp - 0x000a]       ; 0x5838
     push ax                          ; 0x583b
-    call ds_app_PQGJ                 ; 0x583c
+    call draw_bevel_frame            ; 0x583c
     add sp, byte 0x0a                ; 0x583f
     mov ax, 0xc0                     ; 0x5842
     push ax                          ; 0x5845

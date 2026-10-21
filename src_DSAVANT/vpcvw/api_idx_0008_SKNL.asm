@@ -52,7 +52,7 @@ api_idx_0008_SKNL:
     mov ax, word [bp + 0x8]          ; 0x1b8f
     add ax, word [bp - 0x0002]       ; 0x1b92
     push ax                          ; 0x1b95
-    call ds_app_PQGJ                 ; 0x1b96
+    call draw_bevel_frame            ; 0x1b96
     add sp, byte 0x0a                ; 0x1b99
     mov ax, 0xc0                     ; 0x1b9c
     push ax                          ; 0x1b9f

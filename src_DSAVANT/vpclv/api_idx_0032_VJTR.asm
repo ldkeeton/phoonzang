@@ -205,7 +205,7 @@ api_idx_0032_VJTR:
     mov ax, 0xbc                     ; 0x3c60
     push ax                          ; 0x3c63
     push word [bp - 0x0006]          ; 0x3c64
-    call ds_app_PQGJ                 ; 0x3c67
+    call draw_bevel_frame            ; 0x3c67
     add sp, byte 0x0a                ; 0x3c6a
     mov ax, 0xc0                     ; 0x3c6d
     push ax                          ; 0x3c70

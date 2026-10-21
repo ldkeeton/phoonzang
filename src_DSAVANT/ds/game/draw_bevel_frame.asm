@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_PQGJ: ; Aztec csav frame=0x0000
+draw_bevel_frame: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x0f2a
     call aztec_csav                  ; 0x0f2d
     mov ax, 0xc0                     ; 0x0f30
@@ -27,7 +27,7 @@ ds_app_PQGJ: ; Aztec csav frame=0x0000
     call draw_rect_bevel             ; 0x0f6c
     add sp, byte 0x0c                ; 0x0f6f
     cmp word [bp + 0xc], byte 0      ; 0x0f72
-    je short @..ds_app_PQGJ.l1       ; 0x0f76
+    je short @..draw_bevel_frame.l1  ; 0x0f76
     mov ax, 0xb4                     ; 0x0f78
     push ax                          ; 0x0f7b
     mov ax, 0xc5                     ; 0x0f7c
@@ -50,7 +50,7 @@ ds_app_PQGJ: ; Aztec csav frame=0x0000
     push ax                          ; 0x0f97
     call draw_rect_bevel             ; 0x0f98
     add sp, byte 0x0c                ; 0x0f9b
-@..ds_app_PQGJ.l1:
+@..draw_bevel_frame.l1:
     mov ax, 0x51                     ; 0x0f9e
     push ax                          ; 0x0fa1
     push word [bp + 0x6]             ; 0x0fa2

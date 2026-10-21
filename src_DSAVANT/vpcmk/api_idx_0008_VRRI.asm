@@ -52,7 +52,7 @@ api_idx_0008_VRRI:
     mov ax, word [bp + 0x8]          ; 0x0334
     add ax, word [bp - 0x0002]       ; 0x0337
     push ax                          ; 0x033a
-    call ds_app_PQGJ                 ; 0x033b
+    call draw_bevel_frame            ; 0x033b
     add sp, byte 0x0a                ; 0x033e
     mov ax, 0xc0                     ; 0x0341
     push ax                          ; 0x0344

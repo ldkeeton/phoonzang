@@ -23,7 +23,7 @@ ds_app_JKST: ; Aztec csav frame=0x0000
     push ax                          ; 0x1253
     push word [bp + 0x6]             ; 0x1254
     push word [bp + 0x4]             ; 0x1257
-    call ds_app_PQGJ                 ; 0x125a
+    call draw_bevel_frame            ; 0x125a
     add sp, byte 0x0a                ; 0x125d
     mov ax, 0                        ; 0x1260
     push ax                          ; 0x1263
@@ -40,7 +40,7 @@ ds_app_JKST: ; Aztec csav frame=0x0000
     add ax, strict word 0xfffa       ; 0x127e
     push ax                          ; 0x1281
     push word [bp + 0x4]             ; 0x1282
-    call ds_app_PQGJ                 ; 0x1285
+    call draw_bevel_frame            ; 0x1285
     add sp, byte 0x0a                ; 0x1288
     mov ax, 0xc0                     ; 0x128b
     push ax                          ; 0x128e
@@ -94,6 +94,6 @@ ds_app_JKST: ; Aztec csav frame=0x0000
     add ax, strict word 8            ; 0x12fa
     push ax                          ; 0x12fd
     push word [bp + 0x4]             ; 0x12fe
-    call ds_app_PQGJ                 ; 0x1301
+    call draw_bevel_frame            ; 0x1301
     add sp, byte 0x0a                ; 0x1304
     ret                              ; 0x1307

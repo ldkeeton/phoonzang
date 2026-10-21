@@ -78,7 +78,7 @@ loc_HTRU:
     mov ax, word [bp - 0x0006]       ; 0x11d7
     add ax, word [bp - 0x000a]       ; 0x11da
     push ax                          ; 0x11dd
-    call ds_app_PQGJ                 ; 0x11de
+    call draw_bevel_frame            ; 0x11de
     add sp, byte 0x0a                ; 0x11e1
     mov ax, 0                        ; 0x11e4
     push ax                          ; 0x11e7

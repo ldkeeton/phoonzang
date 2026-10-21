@@ -367,7 +367,7 @@ bss_598c equ __zbss_598c - __zdseg_start
 
 %include "ds/game/draw_dialog_box.asm"     ; 0x0ee1
 
-%include "ds/game/ds_app_PQGJ.asm"         ; 0x0f2a
+%include "ds/game/draw_bevel_frame.asm"    ; 0x0f2a
 
 %include "ds/game/ds_app_OPOL.asm"         ; 0x0fdf
 

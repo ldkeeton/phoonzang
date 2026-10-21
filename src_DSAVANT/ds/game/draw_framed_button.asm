@@ -16,7 +16,7 @@ draw_framed_button: ; Aztec csav frame=0x0000
     push ax                          ; 0x1053
     push word [bp + 0x6]             ; 0x1054
     push word [bp + 0x4]             ; 0x1057
-    call ds_app_PQGJ                 ; 0x105a
+    call draw_bevel_frame            ; 0x105a
     add sp, byte 0x0a                ; 0x105d
     mov ax, 0xc0                     ; 0x1060
     push ax                          ; 0x1063

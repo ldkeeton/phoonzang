@@ -168,7 +168,7 @@ loc_TRPK:
     mov ax, word [bp + 0x8]          ; 0x05cb
     add ax, word [bp - 0x000a]       ; 0x05ce
     push ax                          ; 0x05d1
-    call ds_app_PQGJ                 ; 0x05d2
+    call draw_bevel_frame            ; 0x05d2
     add sp, byte 0x0a                ; 0x05d5
     mov ax, 0xc0                     ; 0x05d8
     push ax                          ; 0x05db

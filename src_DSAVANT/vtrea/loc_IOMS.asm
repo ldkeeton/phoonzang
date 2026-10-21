@@ -168,7 +168,7 @@ loc_IOMS:
     mov ax, word [bp + 0x8]          ; 0x85c7
     add ax, word [bp - 0x000a]       ; 0x85ca
     push ax                          ; 0x85cd
-    call ds_app_PQGJ                 ; 0x85ce
+    call draw_bevel_frame            ; 0x85ce
     add sp, byte 0x0a                ; 0x85d1
     mov ax, 0xc0                     ; 0x85d4
     push ax                          ; 0x85d7

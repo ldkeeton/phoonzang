@@ -168,7 +168,7 @@ loc_UGOG:
     mov ax, word [bp + 0x8]          ; 0x1e26
     add ax, word [bp - 0x000a]       ; 0x1e29
     push ax                          ; 0x1e2c
-    call ds_app_PQGJ                 ; 0x1e2d
+    call draw_bevel_frame            ; 0x1e2d
     add sp, byte 0x0a                ; 0x1e30
     mov ax, 0xc0                     ; 0x1e33
     push ax                          ; 0x1e36

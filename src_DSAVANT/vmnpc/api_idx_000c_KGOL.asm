@@ -68,7 +68,7 @@ api_idx_000c_KGOL:
     mov ax, word [bp - 0x0006]       ; 0x1711
     add ax, word [bp - 0x0002]       ; 0x1714
     push ax                          ; 0x1717
-    call ds_app_PQGJ                 ; 0x1718
+    call draw_bevel_frame            ; 0x1718
     add sp, byte 0x0a                ; 0x171b
     mov ax, 0xc0                     ; 0x171e
     push ax                          ; 0x1721

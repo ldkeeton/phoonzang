@@ -74,7 +74,7 @@ loc_LSRQ:
     mov ax, word [bp + 0x6]          ; 0x02e9
     add ax, strict word 8            ; 0x02ec
     push ax                          ; 0x02ef
-    call ds_app_PQGJ                 ; 0x02f0
+    call draw_bevel_frame            ; 0x02f0
     add sp, byte 0x0a                ; 0x02f3
     mov ax, 0xc0                     ; 0x02f6
     push ax                          ; 0x02f9

@@ -52,7 +52,7 @@ api_idx_0008_JJHR:
     mov ax, word [bp + 0x8]          ; 0x8330
     add ax, word [bp - 0x0002]       ; 0x8333
     push ax                          ; 0x8336
-    call ds_app_PQGJ                 ; 0x8337
+    call draw_bevel_frame            ; 0x8337
     add sp, byte 0x0a                ; 0x833a
     mov ax, 0xc0                     ; 0x833d
     push ax                          ; 0x8340

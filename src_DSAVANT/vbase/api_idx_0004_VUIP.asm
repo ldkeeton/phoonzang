@@ -44,7 +44,7 @@ api_idx_0004_VUIP:
     mov ax, word [bp + 0x8]          ; 0x0120
     add ax, strict word 8            ; 0x0123
     push ax                          ; 0x0126
-    call ds_app_PQGJ                 ; 0x0127
+    call draw_bevel_frame            ; 0x0127
     add sp, byte 0x0a                ; 0x012a
     mov ax, 0xc0                     ; 0x012d
     push ax                          ; 0x0130

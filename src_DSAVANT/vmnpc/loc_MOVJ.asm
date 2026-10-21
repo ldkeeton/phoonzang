@@ -184,7 +184,7 @@ loc_MOVJ:
     mov ax, word [bp + 0xa]          ; 0x1ee3
     add ax, word [bp - 0x000a]       ; 0x1ee6
     push ax                          ; 0x1ee9
-    call ds_app_PQGJ                 ; 0x1eea
+    call draw_bevel_frame            ; 0x1eea
     add sp, byte 0x0a                ; 0x1eed
     mov ax, 0xc0                     ; 0x1ef0
     push ax                          ; 0x1ef3

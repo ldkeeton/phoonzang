@@ -45,7 +45,7 @@ api_idx_0018_RGOS:
     add ax, word [bp + 0xa]
     push ax
     push word [bp + 0x8]
-    call ds_app_PQGJ
+    call draw_bevel_frame
     add sp, byte 0x0a
     mov ax, word [bp + 0x6]
     imul word [bp + 0xe]

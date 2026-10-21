@@ -78,7 +78,7 @@ loc_RSHV:
     mov ax, word [bp - 0x0006]       ; 0x18dd
     add ax, word [bp - 0x000a]       ; 0x18e0
     push ax                          ; 0x18e3
-    call ds_app_PQGJ                 ; 0x18e4
+    call draw_bevel_frame            ; 0x18e4
     add sp, byte 0x0a                ; 0x18e7
     mov ax, 0                        ; 0x18ea
     push ax                          ; 0x18ed

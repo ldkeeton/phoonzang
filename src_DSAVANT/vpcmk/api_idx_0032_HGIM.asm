@@ -205,7 +205,7 @@ api_idx_0032_HGIM:
     mov ax, 0xbc                     ; 0x28d7
     push ax                          ; 0x28da
     push word [bp - 0x0006]          ; 0x28db
-    call ds_app_PQGJ                 ; 0x28de
+    call draw_bevel_frame            ; 0x28de
     add sp, byte 0x0a                ; 0x28e1
     mov ax, 0xc0                     ; 0x28e4
     push ax                          ; 0x28e7
