@@ -49,15 +49,15 @@ api_idx_0014_VORK:
     pop cx                           ; 0x61e9
     mov ax, 0xa                      ; 0x61ea
     push ax                          ; 0x61ed
-    call ds_app_alloc_SOQK           ; 0x61ee
+    call wait_and_free_sound         ; 0x61ee
     pop cx                           ; 0x61f1
     mov ax, 0xb                      ; 0x61f2
     push ax                          ; 0x61f5
-    call ds_app_alloc_SOQK           ; 0x61f6
+    call wait_and_free_sound         ; 0x61f6
     pop cx                           ; 0x61f9
     mov ax, 0xc                      ; 0x61fa
     push ax                          ; 0x61fd
-    call ds_app_alloc_SOQK           ; 0x61fe
+    call wait_and_free_sound         ; 0x61fe
     pop cx                           ; 0x6201
 @..api_idx_0014_VORK.l4:
     mov ax, 0                        ; 0x6202

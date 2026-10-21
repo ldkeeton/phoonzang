@@ -164,7 +164,7 @@ api_idx_0010_TVMI:
     pop cx                           ; 0x838d
     mov ax, 0x10                     ; 0x838e
     push ax                          ; 0x8391
-    call ds_app_alloc_SOQK           ; 0x8392
+    call wait_and_free_sound         ; 0x8392
     pop cx                           ; 0x8395
     mov word [bss_598e], 0xffff      ; 0x8396
 @..api_idx_0010_TVMI.l11:

@@ -199,7 +199,7 @@ api_idx_001e_QHIQ:
     je short @..api_idx_001e_QHIQ.l14 ; 0x8026
     mov ax, 0x10                     ; 0x8028
     push ax                          ; 0x802b
-    call ds_app_alloc_SOQK           ; 0x802c
+    call wait_and_free_sound         ; 0x802c
     pop cx                           ; 0x802f
     mov word [bss_598e], 0xffff      ; 0x8030
 @..api_idx_001e_QHIQ.l14:

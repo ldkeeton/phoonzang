@@ -139,7 +139,7 @@ api_idx_000c_RLKV:
     pop cx                           ; 0x24e0
     mov ax, 0x10                     ; 0x24e1
     push ax                          ; 0x24e4
-    call ds_app_alloc_SOQK           ; 0x24e5
+    call wait_and_free_sound         ; 0x24e5
     pop cx                           ; 0x24e8
     mov word [bss_598e], 0xffff      ; 0x24e9
 @..api_idx_000c_RLKV.l9:

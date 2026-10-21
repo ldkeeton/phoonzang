@@ -97,7 +97,7 @@ api_idx_0006_MITV:
     je short @..api_idx_0006_MITV.l6 ; 0x73a0
     mov ax, 0x10                     ; 0x73a2
     push ax                          ; 0x73a5
-    call ds_app_alloc_SOQK           ; 0x73a6
+    call wait_and_free_sound         ; 0x73a6
     pop cx                           ; 0x73a9
     mov word [bss_598e], 0xffff      ; 0x73aa
 @..api_idx_0006_MITV.l6:

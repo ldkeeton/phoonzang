@@ -46,33 +46,33 @@ api_idx_0004_NIHO:
     pop cx                           ; 0x2f30
     mov ax, 5                        ; 0x2f31
     push ax                          ; 0x2f34
-    call ds_app_alloc_SOQK           ; 0x2f35
+    call wait_and_free_sound         ; 0x2f35
     pop cx                           ; 0x2f38
     mov ax, 6                        ; 0x2f39
     push ax                          ; 0x2f3c
-    call ds_app_alloc_SOQK           ; 0x2f3d
+    call wait_and_free_sound         ; 0x2f3d
     pop cx                           ; 0x2f40
     mov ax, 7                        ; 0x2f41
     push ax                          ; 0x2f44
-    call ds_app_alloc_SOQK           ; 0x2f45
+    call wait_and_free_sound         ; 0x2f45
     pop cx                           ; 0x2f48
     mov ax, 0xa                      ; 0x2f49
     push ax                          ; 0x2f4c
-    call ds_app_alloc_SOQK           ; 0x2f4d
+    call wait_and_free_sound         ; 0x2f4d
     pop cx                           ; 0x2f50
     mov ax, 0xb                      ; 0x2f51
     push ax                          ; 0x2f54
-    call ds_app_alloc_SOQK           ; 0x2f55
+    call wait_and_free_sound         ; 0x2f55
     pop cx                           ; 0x2f58
     mov ax, 0xc                      ; 0x2f59
     push ax                          ; 0x2f5c
-    call ds_app_alloc_SOQK           ; 0x2f5d
+    call wait_and_free_sound         ; 0x2f5d
     pop cx                           ; 0x2f60
     cmp word [bss_598e], byte 0xff   ; 0x2f61
     je short @..api_idx_0004_NIHO.l1 ; 0x2f66
     mov ax, 0x10                     ; 0x2f68
     push ax                          ; 0x2f6b
-    call ds_app_alloc_SOQK           ; 0x2f6c
+    call wait_and_free_sound         ; 0x2f6c
     pop cx                           ; 0x2f6f
     mov word [bss_598e], 0xffff      ; 0x2f70
 @..api_idx_0004_NIHO.l1:

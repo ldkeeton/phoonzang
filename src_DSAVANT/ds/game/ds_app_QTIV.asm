@@ -13,7 +13,7 @@ ds_app_QTIV: ; Aztec csav frame=0x0000
     je short @..ds_app_QTIV.l1       ; 0x2a0c
     mov ax, 0x10                     ; 0x2a0e
     push ax                          ; 0x2a11
-    call ds_app_alloc_SOQK           ; 0x2a12
+    call wait_and_free_sound         ; 0x2a12
     pop cx                           ; 0x2a15
 @..ds_app_QTIV.l1:
     mov ax, word [bp + 0x4]          ; 0x2a16

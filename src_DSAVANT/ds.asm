@@ -476,7 +476,7 @@ dseg_0bcd      equ __zdseg_0bcd - __zdseg_start
 slot_rec_first equ __zbss_6a1a - __zdseg_start
 %include "ds/game/ds_app_file_TSNH.asm"    ; 0x2863
 
-%include "ds/game/ds_app_alloc_SOQK.asm"   ; 0x290d
+%include "ds/game/wait_and_free_sound.asm" ; 0x290d
 
 dseg_0bd7       equ __zdseg_0bd7 - __zdseg_start
 ; sound_slot_info equ __zbss_5576 - __zdseg_start

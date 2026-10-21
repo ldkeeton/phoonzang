@@ -157,7 +157,7 @@ api_idx_0074_SGUS:
     pop cx                           ; 0x7a63
     mov ax, 0x10                     ; 0x7a64
     push ax                          ; 0x7a67
-    call ds_app_alloc_SOQK           ; 0x7a68
+    call wait_and_free_sound         ; 0x7a68
     pop cx                           ; 0x7a6b
     mov word [bss_598e], 0xffff      ; 0x7a6c
     push word [bss_905a]             ; 0x7a72
@@ -192,7 +192,7 @@ api_idx_0074_SGUS:
     pop cx                           ; 0x7ab4
     mov ax, 0x10                     ; 0x7ab5
     push ax                          ; 0x7ab8
-    call ds_app_alloc_SOQK           ; 0x7ab9
+    call wait_and_free_sound         ; 0x7ab9
     pop cx                           ; 0x7abc
     mov word [bss_598e], 0xffff      ; 0x7abd
 @..api_idx_0074_SGUS.l10:

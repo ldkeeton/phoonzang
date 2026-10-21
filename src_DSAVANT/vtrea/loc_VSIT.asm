@@ -29,7 +29,7 @@ loc_VSIT:
     pop cx                           ; 0x7efe
     mov ax, 5                        ; 0x7eff
     push ax                          ; 0x7f02
-    call ds_app_alloc_SOQK           ; 0x7f03
+    call wait_and_free_sound         ; 0x7f03
     pop cx                           ; 0x7f06
     mov ax, 0                        ; 0x7f07
     push ax                          ; 0x7f0a

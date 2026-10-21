@@ -37,14 +37,14 @@ loc_OGHL:
     je short @..loc_OGHL.l1          ; 0x0153
     mov ax, 0xe                      ; 0x0155
     push ax                          ; 0x0158
-    call ds_app_alloc_SOQK           ; 0x0159
+    call wait_and_free_sound         ; 0x0159
     pop cx                           ; 0x015c
 @..loc_OGHL.l1:
     cmp word [bss_9196], byte 0      ; 0x015d
     je short @..loc_OGHL.l2          ; 0x0162
     mov ax, 0xf                      ; 0x0164
     push ax                          ; 0x0167
-    call ds_app_alloc_SOQK           ; 0x0168
+    call wait_and_free_sound         ; 0x0168
     pop cx                           ; 0x016b
 @..loc_OGHL.l2:
     mov word [bss_9194], 0           ; 0x016c

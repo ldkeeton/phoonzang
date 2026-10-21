@@ -64,7 +64,7 @@ api_idx_000c_LVHV:
 @..api_idx_000c_LVHV.l1:
     mov ax, 0x10                     ; 0x039f
     push ax                          ; 0x03a2
-    call ds_app_alloc_SOQK           ; 0x03a3
+    call wait_and_free_sound         ; 0x03a3
     pop cx                           ; 0x03a6
     mov word [bss_598e], 0xffff      ; 0x03a7
 @..api_idx_000c_LVHV.l2:

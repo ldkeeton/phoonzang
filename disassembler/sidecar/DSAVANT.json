@@ -166,6 +166,7 @@
           "name": "ensure_game_disk",
           "note": "picks a disk number from install_mode and, when it differs from DS 0x5218, prompts via ds_app_file_QQMM and redraws the full screen (gfx_show_area 0,0,319,199); main calls it before loading some overlays"
         },
+        "290d": {"name": "wait_and_free_sound"},
         "2923": {
           "name": "load_sound_file"
         },

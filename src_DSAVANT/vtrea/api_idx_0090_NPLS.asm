@@ -152,7 +152,7 @@ jumptable_0c85_case_6:
     pop cx                           ; 0x0c71
     mov ax, 0x10                     ; 0x0c72
     push ax                          ; 0x0c75
-    call ds_app_alloc_SOQK           ; 0x0c76
+    call wait_and_free_sound         ; 0x0c76
     pop cx                           ; 0x0c79
     mov word [bss_598e], 0xffff      ; 0x0c7a
 @..api_idx_0090_NPLS.l6:

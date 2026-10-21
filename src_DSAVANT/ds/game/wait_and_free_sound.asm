@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_alloc_SOQK: ; Aztec csav frame=0x0000
+wait_and_free_sound: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x290d
     call aztec_csav                  ; 0x2910
     mov ax, 1                        ; 0x2913
