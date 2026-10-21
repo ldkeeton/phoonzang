@@ -159,24 +159,26 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         self.assertEqual(len(generic), 1, generic)
         for function_name in ('main', generic[0]):
             with self.subTest(function=function_name):
-                self.assertTrue((output / 'ds' / f'{function_name}.asm').is_file(),
+                include = re.search(
+                    rf'%include "(ds/(?:\w+/)*{function_name}\.asm)"', master)
+                self.assertIsNotNone(include, function_name)
+                self.assertTrue((output / include.group(1)).is_file(),
                                 function_name)
-                self.assertIn(f'%include "ds/{function_name}.asm"', master)
 
-        self.assertFalse((output / 'ds' / 'ds_loc_23ef.asm').exists())
+        self.assertFalse(list(output.rglob('ds_loc_23ef.asm')))
 
     def test_stack_check_name_owns_its_call_target_prefix(self):
         output = pathlib.Path(self._output.name)
         master = (output / 'ds.asm').read_text()
         all_text = '\n'.join(
             path.read_text() for path in output.rglob('*.asm'))
-        stack_include = (output / 'ds' / 'aztec_csav.asm').read_text()
+        stack_include = (output / 'ds' / 'aztec' / 'aztec_csav.asm').read_text()
 
         self.assertEqual(self.label_map.get(0x4652), 'aztec_csav')
         self.assertNotIn(0x4653, self.label_map)
-        self.assertIn('%include "ds/aztec_csav.asm"', master)
+        self.assertIn('%include "ds/aztec/aztec_csav.asm"', master)
         self.assertNotIn('leaf_loc_4652', master)
-        self.assertFalse((output / 'ds' / 'leaf_loc_4652.asm').exists())
+        self.assertFalse(list(output.rglob('leaf_loc_4652.asm')))
         self.assertNotIn('loc_4653:', stack_include)
         self.assertIn('call aztec_csav', all_text)
         self.assertTrue(stack_include.split('\n', 1)[1].startswith('aztec_csav:'))
@@ -185,21 +187,21 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
     def test_stack_check_error_tail_is_a_global_fragment(self):
         output = pathlib.Path(self._output.name)
         master = (output / 'ds.asm').read_text()
-        cret_include = (output / 'ds' / 'aztec_cret.asm').read_text()
-        tail_include = (output / 'ds' / 'ds_loc_4676.asm').read_text()
+        cret_include = (output / 'ds' / 'aztec' / 'aztec_cret.asm').read_text()
+        tail_include = (output / 'ds' / 'aztec' / 'ds_loc_4676.asm').read_text()
 
         # ``0x4676`` is ``aztec_csav``'s shared stack-fault exit, but it is laid
         # out past ``aztec_cret``'s ``ret``, in another fragment.  A local label
         # there could not be addressed from the file that includes ``aztec_csav``,
         # so it is rooted as its own global fragment and reached by name.
-        self.assertIn('%include "ds/aztec_cret.asm"', master)
-        self.assertIn('%include "ds/ds_loc_4676.asm"', master)
+        self.assertIn('%include "ds/aztec/aztec_cret.asm"', master)
+        self.assertIn('%include "ds/aztec/ds_loc_4676.asm"', master)
         self.assertNotIn('0x4676', cret_include)
         self.assertNotIn('@..aztec_csav.l2', master)
         self.assertTrue(tail_include.split('\n', 1)[1].startswith('ds_loc_4676:'))
         self.assertIn('mov sp, bp                       ; 0x4676', tail_include)
         self.assertIn('jmp near aztec_impl_stkover      ; 0x4678', tail_include)
-        csav_include = (output / 'ds' / 'aztec_csav.asm').read_text()
+        csav_include = (output / 'ds' / 'aztec' / 'aztec_csav.asm').read_text()
         self.assertIn('ja short ds_loc_4676', csav_include)
         self.assertIn('jb short ds_loc_4676', csav_include)
 

@@ -18,6 +18,7 @@ offsets, so relocations can be attributed to each function.
 
 import contextlib
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -108,6 +109,23 @@ class ModuleShapeError(ValueError):
 class AztecCompileError(RuntimeError):
     #: The compiler's own output (``CC.LOG``), untruncated, when it ran.
     cc_log = ''
+
+
+# ``cc`` prints ``FILE.C:LINE: ERROR n: text``; ``as`` ``ERROR:FILE.ASM:LINE: text``.
+_ERROR_LINE = re.compile(r'^(?:\S+\.C:\d+: ERROR \d+:|ERROR:\S+\.ASM:\d+:)',
+                         re.I | re.M)
+
+
+def _check_log(module, cc_log):
+    """Raise :class:`AztecCompileError` when *cc_log* reports an error.
+
+    Both tools still write an object after most errors (``as`` makes an
+    undefined name an external), so the object alone says nothing.
+    """
+    if _ERROR_LINE.search(cc_log or ''):
+        err = AztecCompileError(f'{module} has compile errors:\n{cc_log[-2000:]}')
+        err.cc_log = cc_log
+        raise err
 
 
 def symbol_key(name):
@@ -362,6 +380,7 @@ def compile_module(source_text, name, *, compiler=VERSION, includes=None,
                 f'compiler produced no object for {module}:\n{cc_log[-2000:]}')
             err.cc_log = cc_log
             raise err
+        _check_log(module, cc_log)
 
         dump = attach_locals(parse_obd(_read(obd_path)), _read_bytes(obj_path))
         result = _build_module(module, omf_path, dump, compiler, kind)
@@ -498,7 +517,12 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
         for key, dos in names:
             obj_path = os.path.join(work, f'{dos}.O')
             cc_path = os.path.join(work, f'{dos}.CC')
-            if os.path.exists(obj_path):
+            cc_log = _read(cc_path)
+            if os.path.exists(obj_path) and _ERROR_LINE.search(cc_log):
+                results[key] = AztecCompileError(
+                    f'{dos} has compile errors:\n{cc_log[-2000:]}')
+                results[key].cc_log = cc_log
+            elif os.path.exists(obj_path):
                 omf_path = os.path.join(work, f'{dos}.OBJ')
                 obd_path = os.path.join(work, f'{dos}.OBD')
                 dump = attach_locals(parse_obd(_read(obd_path)),

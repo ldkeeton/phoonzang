@@ -44,6 +44,17 @@ class AsmBlockRenameTest(unittest.TestCase):
         self.assertIn('static char *bss_0cfa;', out)
         self.assertIn('bss_0cfa=0', out)
 
+    def test_procdef_name_follows_its_calls(self):
+        from lib.aztec import relabel
+        text = ('\tprocdef\tbrk,<<addr,word>>\n\tret\n\tpend\tbrk\n'
+                '\tprocdef\tsbrk\n\tcall\tbrk_\n\tpend\tsbrk\n')
+        out = relabel.rewrite_identifiers(
+            text, {'brk': 'aztec_brk', 'sbrk': 'aztec_sbrk'}, asm=True)
+        self.assertIn('procdef\taztec_brk,<<addr,word>>', out)
+        self.assertIn('pend\taztec_brk\n', out)
+        self.assertIn('procdef\taztec_sbrk\n', out)
+        self.assertIn('call\taztec_brk_', out)
+
 
 class FillerWindowTest(unittest.TestCase):
     def test_epilogue_is_filler(self):

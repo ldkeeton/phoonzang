@@ -24,8 +24,14 @@ import tempfile
 from .compile import CompiledModule
 
 
+# Bumped when what a cached entry means changes: 1 = a log reporting an error
+# is cached as the error, though the tool wrote an object.
+FORMAT = '1'
+
+
 def module_key(version, filename, compiler, flags, source_text):
     digest = hashlib.sha1()
+    digest.update(FORMAT.encode() + b'\x00')
     for part in (version, filename, compiler, '\x00'.join(flags)):
         digest.update(part.encode('utf-8', 'replace'))
         digest.update(b'\x00')

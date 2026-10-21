@@ -73,20 +73,20 @@ class ShiftOracleSanityTests(unittest.TestCase):
     def test_a_known_frozen_ds_address_is_reported(self):
         # ``mov si, 0x110`` names ``dseg_0110`` (ds.asm) as a number.
         r = shift_oracle.run('ds', 'data')
-        self.assertIn(('ds/load_font_file.asm', 87), _sites(r))
+        self.assertIn(('ds/library/load_font_file.asm', 87), _sites(r))
 
     def test_binding_the_address_clears_the_report(self):
         with tempfile.TemporaryDirectory() as d:
             tree = Path(d) / 'src_DSAVANT'
             shutil.copytree(_TREE, tree, ignore=shutil.ignore_patterns(
                 'build_out', '*.c', '*.o', '*.bin'))
-            frag = tree / 'ds/load_font_file.asm'
+            frag = tree / 'ds/library/load_font_file.asm'
             text = frag.read_text()
             self.assertIn('mov si, 0x110 ', text)
             frag.write_text(text.replace('mov si, 0x110 ',
                                          'mov si, file_param_word ', 1))
             r = shift_oracle.run('ds', 'data', tree=tree)
-        self.assertNotIn(('ds/load_font_file.asm', 87), _sites(r))
+        self.assertNotIn(('ds/library/load_font_file.asm', 87), _sites(r))
 
     def test_a_displacement_counts_only_in_its_segment(self):
         # ``lea cx, [bp - 0x156]`` is a frame slot that equals a code label.

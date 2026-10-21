@@ -15,7 +15,7 @@ dataseg	ends
 ;
 ; sbrk(size): return address of current top & bump by size bytes
 ;
-	procdef	sbrk,<<siz,word>>
+	procdef	aztec_sbrk,<<siz,word>>
 	push	di
 	mov	ax,siz
 	mov	di,$MEMRY
@@ -42,12 +42,12 @@ invalid:
 	mov	errno_,-8
 	mov	ax,-1
 	jmp	brk_error
-	pend	sbrk
+	pend	aztec_sbrk
 ;
 ; brk(addr):	set current top address to addr
 ;		returns 0 if ok, -1 if error
 ;
-	procdef brk,<<addr,word>>
+	procdef aztec_brk,<<addr,word>>
 	mov	ax,addr
 	inc	ax
 	and	al,-2
@@ -108,17 +108,17 @@ brk_ov:
 	mov	ax,-1
 	test	ax,ax
 	pret
-	pend	brk
+	pend	aztec_brk
 ;
 ; rsvstk(size):		set safety margin for stack
 ;			this will make sure that at least size
 ;			bytes of stack below the current level remain.
 ;
-	procdef	rsvstk,<<stksize,word>>
+	procdef	aztec_rsvstk,<<stksize,word>>
 	mov	ax,sp
 	sub	ax,stksize
 	mov	_STKRED_,ax
 	pret
-	pend	rsvstk
+	pend	aztec_rsvstk
 	finish
 	end

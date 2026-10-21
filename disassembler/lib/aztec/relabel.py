@@ -26,6 +26,9 @@ _TOKEN = re.compile(
 
 _ASM_BLOCK = re.compile(r'^[ \t]*#asm\b.*?^[ \t]*#endasm\b', re.S | re.M)
 _ASM_IDENT = re.compile(r'[A-Za-z_][A-Za-z0-9_]*')
+# ``procdef``/``pend`` take the bare C name; the macro adds the ``_``.
+_ASM_PROC = re.compile(r'^([ \t]*(?:procdef|pend)[ \t]+)([A-Za-z_][A-Za-z0-9_]*)',
+                       re.M | re.I)
 
 
 def rewrite_identifiers(text, mapping, asm=False):
@@ -34,7 +37,9 @@ def rewrite_identifiers(text, mapping, asm=False):
     Comments and literals are left alone; ``#include "x.h"`` is a literal.
     Inside ``#asm`` blocks -- and throughout assembly text (*asm*, a ``.s``)
     -- a C name appears with the compiler's trailing ``_`` (``ovname_``), so
-    that spelling is renamed to ``<new>_``.
+    that spelling is renamed to ``<new>_``; the bare name a ``procdef`` or
+    ``pend`` takes is renamed to ``<new>``, so the module defines the
+    ``<new>_`` its calls name.
     """
     def sub(match):
         token = match.group(0)
@@ -47,13 +52,18 @@ def rewrite_identifiers(text, mapping, asm=False):
             return mapping[token[:-1]] + '_'
         return token
 
+    def asm_text(block):
+        block = _ASM_PROC.sub(lambda m: m.group(1) + mapping.get(
+            m.group(2), m.group(2)), block)
+        return _ASM_IDENT.sub(asm_sub, block)
+
     if asm:
-        return _ASM_IDENT.sub(asm_sub, text)
+        return asm_text(text)
     out = []
     pos = 0
     for block in _ASM_BLOCK.finditer(text):
         out.append(_TOKEN.sub(sub, text[pos:block.start()]))
-        out.append(_ASM_IDENT.sub(asm_sub, block.group(0)))
+        out.append(asm_text(block.group(0)))
         pos = block.end()
     out.append(_TOKEN.sub(sub, text[pos:]))
     return ''.join(out)

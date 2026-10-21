@@ -1349,8 +1349,8 @@ class HostIncludeTests(unittest.TestCase):
             # CS offset, ``label - IMAGE_BASE + __zres_end``.
             case = struct.unpack_from('<H', original, 0x17f4)[0]
 
-            self._edit_host(d, '%include "ds/aztec_csav.asm"',
-                            '    db 0xee\n%include "ds/aztec_csav.asm"')
+            self._edit_host(d, '%include "ds/aztec/aztec_csav.asm"',
+                            '    db 0xee\n%include "ds/aztec/aztec_csav.asm"')
             grown = self._build_overlay(d)
             self.assertEqual(len(grown), len(original))
             self.assertEqual(grown[2:4], b'\x56\x50')               # o_corg 0x5056
@@ -1733,7 +1733,7 @@ class InsertBytePropertyTests(unittest.TestCase):
             original = _nasm_file(master, d)
             data_origin = 0x200 + struct.unpack_from('<H', original, 14)[0] * 16
 
-            frag = os.path.join(d, 'ds', 'app_malloc.asm')
+            frag = os.path.join(d, 'ds', 'game', 'app_malloc.asm')
             with open(frag) as f:
                 lines = f.read().splitlines(keepends=True)
 
