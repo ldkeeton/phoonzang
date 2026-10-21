@@ -798,7 +798,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                   immediate_labels=None, split_ranges=None,
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
                   label_defined=None, ds_size=None, host_symbols=None,
-                  host_data_offsets=None, load_offset=0, overlay_own=None):
+                  host_data_offsets=None, load_offset=0, overlay_own=None,
+                  bands=()):
     """Render the master NASM source and any generated includes.
 
     *host_symbols* is ``(master_file, host_vbase)`` for an overlay with a host:
@@ -1142,7 +1143,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out.append('')
 
     main_records, split_records = _partition_function_records(
-        records, split_ranges, split_dir,
+        records, split_ranges, split_dir, bands,
     )
     out.extend(_render_records(main_records, binary_data, show_offsets, gap=gap,
                                ds_size=ds_size, ds_end_symbol=ds_end_symbol,

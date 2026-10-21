@@ -312,11 +312,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            entry_symbol=None, data_pointers=(), not_pointers=(),
            immediate_pointers=(), host_data_offsets=None,
            ds_starts=frozenset(), foreign_pointer_params=None,
-           sidecar_use=None):
+           sidecar_use=None, bands=()):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     *sidecar_use* (a :class:`lib.sidecar.usage.SidecarUse`) learns which of
-    the sidecar entries handed in here were applied.
+    the sidecar entries handed in here were applied.  *bands* (the sidecar's,
+    :mod:`lib.sidecar.bands`) sorts the fragments into band folders.
 
     Parameters
     ----------
@@ -1272,7 +1273,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         host_symbols=host_symbols,
         host_data_offsets=host_data_offsets,
         load_offset=getattr(segments, 'load_offset', 0) or 0,
-        overlay_own=overlay_own,
+        overlay_own=overlay_own, bands=bands,
     )
     t6 = time.perf_counter()
     stagelog.step('verify.build_source', 2,

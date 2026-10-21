@@ -4,6 +4,7 @@ import re
 
 from lib.compare.records import _record_span
 from lib.names import is_address_label, is_data
+from lib.sidecar.bands import band_for
 from lib.symtab import Kind
 
 #: Tokens removed before looking for label references: quoted strings and the
@@ -317,8 +318,24 @@ def _split_off_foreign_objects(split_ranges, records, owners=None, fixed=()):
     return result
 
 
-def _partition_function_records(records, split_ranges, split_dir):
-    """Replace selected contiguous function spans with include records."""
+def _band_dir(split_dir, bands, start, name):
+    """The folder a fragment starting at *start* is emitted into: the binary's
+    own, or its band's beneath it when the sidecar declares ``bands``."""
+    if not bands:
+        return split_dir
+    band = band_for(bands, start)
+    if band is None:
+        raise ValueError(f'{name}: 0x{start:x} is in no sidecar band of '
+                         f'{split_dir}')
+    return f'{split_dir}/{band[2]}'
+
+
+def _partition_function_records(records, split_ranges, split_dir, bands=()):
+    """Replace selected contiguous function spans with include records.
+
+    *bands* (:mod:`lib.sidecar.bands`) puts each fragment in its band's
+    folder (``ds/game/x.asm``).
+    """
     if not split_ranges:
         return records, {}
 
@@ -411,7 +428,8 @@ def _partition_function_records(records, split_ranges, split_dir):
                 raise ValueError(f'cannot make include filename for function {name!r}')
             main_records.append({
                 'type': 'include',
-                'text': f'%include "{split_dir}/{filename}.asm"',
+                'text': f'%include "{_band_dir(split_dir, bands, start, name)}'
+                        f'/{filename}.asm"',
                 'offset': start,
             })
             include_inserted.add(name)
@@ -429,7 +447,8 @@ def _partition_function_records(records, split_ranges, split_dir):
             )
 
     split_sources = {}
-    for _, _, name in ranges:
+    for start, _, name in ranges:
         filename = _file_stem(name)
-        split_sources[f'{split_dir}/{filename}.asm'] = split_records[name]
+        folder = _band_dir(split_dir, bands, start, name)
+        split_sources[f'{folder}/{filename}.asm'] = split_records[name]
     return main_records, split_sources

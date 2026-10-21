@@ -86,6 +86,11 @@
       "type": "mz",
       "start_offset": 512,
       "entry_symbol": "aztec_begin",
+      "bands": [
+        {"name": "game", "start": "0200", "end": "2f35", "note": "cc-compiled game objects (all csav), ending with main and its pad byte"},
+        {"name": "library", "start": "2f36", "end": "4378", "asm_only": true, "note": "in-house assembly library: CS-resident data block (video flags, gfx driver slots) and frameless routines: video detect, driver load, gfx_entry thunks, keyboard, font"},
+        {"name": "aztec", "start": "4379", "end": "5254", "note": "Aztec C.LIB modules, linked last"}
+      ],
       "fingerprint-start": "9e68e13368a5e977af6f4921d01938b5d8932faa7c4a526c5a2dc1c7082dd9fa",
       "fingerprint-end": "b94811b8e00674347f4917bc5eda18025b74473bed7ed5aadc3638184285f0de",
       "immediate_pointers": [
@@ -193,7 +198,7 @@
         },
         "3e5e": {
           "name": "flush_keyboard",
-          "note": "drains the keyboard (INT 16h AH=1/AH=0), then a driver call"
+          "note": "hand-written asm: clears key_queue, drains the BIOS keyboard buffer (INT 16h AH=1/AH=0), then calls the graphics driver slot 10"
         },
         "3e88": {
           "name": "set_bitmap_bit",

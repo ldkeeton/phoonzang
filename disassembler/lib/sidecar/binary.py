@@ -1,5 +1,6 @@
 """Per-binary sidecar validation and lookup."""
 
+from .bands import _validate_bands, parse_bands
 from .compiler import _validate_compiler_flags
 from .constants import _BINARY_TYPES, _IDENTIFIER
 from .data_names import _data_names_map, _validate_data_names
@@ -34,6 +35,9 @@ def _validate_binary(name, info):
     for key in ('force_data', 'force_code'):
         if key in info:
             _validate_ranges(info[key], f'binaries.{name}.{key}')
+
+    if 'bands' in info:
+        _validate_bands(info['bands'], f'binaries.{name}.bands')
 
     if 'jump_tables' in info:
         _validate_jump_tables(info['jump_tables'], f'binaries.{name}.jump_tables')
@@ -116,6 +120,7 @@ def per_binary(sidecar, short_name):
 
     Returns a dict with keys:
         file, type, start_offset, entry_symbol, function_names, data_names,
+        bands (``[(start, end, name, asm_only)]``, :mod:`.bands`),
         force_data,
         force_code, external_data, data_pointers (with each
         ``pointer_arrays`` word expanded into it), not_pointers,
@@ -139,6 +144,7 @@ def per_binary(sidecar, short_name):
         'code_data_names': {},
         'jump_tables': [],
         'code_tables': [],
+        'bands': [],
         'data_pointers': _pointer_assertions(
             sidecar.get('data_pointers', []), 'data_pointers'),
         'not_pointers': _pointer_assertions(
@@ -171,6 +177,7 @@ def per_binary(sidecar, short_name):
                 b.get('code_data_names', {}))
             result['jump_tables'] = b.get('jump_tables', [])
             result['code_tables'] = b.get('code_tables', [])
+            result['bands'] = parse_bands(b.get('bands'))
             result['ghidra_base_offset'] = b.get('ghidra_base_offset', 0)
             result['fingerprint-start'] = b.get('fingerprint-start')
             result['fingerprint-end'] = b.get('fingerprint-end')

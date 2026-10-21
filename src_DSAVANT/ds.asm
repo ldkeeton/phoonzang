@@ -240,11 +240,11 @@ bss_9094 equ __zbss_9094 - __zdseg_start
 bss_b198 equ __zbss_b198 - __zdseg_start
 __zbss_size equ __zbss_end - __zimage_end
 
-%include "ds/app_malloc.asm"               ; 0x0200
+%include "ds/game/app_malloc.asm"          ; 0x0200
 
-%include "ds/app_memmove.asm"              ; 0x0213
+%include "ds/game/app_memmove.asm"         ; 0x0213
 
-%include "ds/app_free.asm"                 ; 0x022f
+%include "ds/game/app_free.asm"            ; 0x022f
 
 bss_0e0e equ __zbss_0e0e - __zdseg_start
 bss_0e10 equ __zbss_0e10 - __zdseg_start
@@ -265,78 +265,78 @@ bss_0e2c equ __zbss_0e2c - __zdseg_start
 bss_0e2e equ __zbss_0e2e - __zdseg_start
 bss_0e30 equ __zbss_0e30 - __zdseg_start
 bss_0e32 equ __zbss_0e32 - __zdseg_start
-%include "ds/ds_app_file_RKTP.asm"         ; 0x0242
+%include "ds/game/ds_app_file_RKTP.asm"    ; 0x0242
 
-%include "ds/fatal_error.asm"              ; 0x03b8
+%include "ds/game/fatal_error.asm"         ; 0x03b8
 
 bss_0e34 equ __zbss_0e34 - __zdseg_start
-%include "ds/ds_app_OGNR.asm"              ; 0x03cd
+%include "ds/game/ds_app_OGNR.asm"         ; 0x03cd
 
-%include "ds/ds_app_string_TVHI.asm"       ; 0x03da
+%include "ds/game/ds_app_string_TVHI.asm"  ; 0x03da
 
-%include "ds/ds_app_SVGG.asm"              ; 0x0422
+%include "ds/game/ds_app_SVGG.asm"         ; 0x0422
 
-%include "ds/ds_app_OLKR.asm"              ; 0x04c4
+%include "ds/game/ds_app_OLKR.asm"         ; 0x04c4
 
-%include "ds/ds_app_string_THKS.asm"       ; 0x04da
+%include "ds/game/ds_app_string_THKS.asm"  ; 0x04da
 
-%include "ds/ds_app_GUML.asm"              ; 0x052e
+%include "ds/game/ds_app_GUML.asm"         ; 0x052e
 
-%include "ds/ds_app_string_HHIL.asm"       ; 0x0547
+%include "ds/game/ds_app_string_HHIL.asm"  ; 0x0547
 
 bss_0fd5 equ __zbss_0fd5 - __zdseg_start
 bss_0fd6 equ __zbss_0fd6 - __zdseg_start
 bss_1008 equ __zbss_1008 - __zdseg_start
 bss_100a equ __zbss_100a - __zdseg_start
-%include "ds/ds_app_string_MPHP.asm"       ; 0x05d0
+%include "ds/game/ds_app_string_MPHP.asm"  ; 0x05d0
 
 bss_100c equ __zbss_100c - __zdseg_start
-%include "ds/ds_app_MRJK.asm"              ; 0x065d
+%include "ds/game/ds_app_MRJK.asm"         ; 0x065d
 
 ; bss_0e24 equ __zbss_0e24 - __zdseg_start
 bss_3e12 equ __zbss_3e12 - __zdseg_start
 bss_5212 equ __zbss_5212 - __zdseg_start
 bss_5214 equ __zbss_5214 - __zdseg_start
-%include "ds/ds_app_file_RPKG.asm"         ; 0x06c6
+%include "ds/game/ds_app_file_RPKG.asm"    ; 0x06c6
 
 ; bss_3e12 equ __zbss_3e12 - __zdseg_start
 ; bss_5212 equ __zbss_5212 - __zdseg_start
 bss_5216 equ __zbss_5216 - __zdseg_start
-%include "ds/ds_app_mem_TIMR.asm"          ; 0x0782
+%include "ds/game/ds_app_mem_TIMR.asm"     ; 0x0782
 
-%include "ds/ds_app_KQMO.asm"              ; 0x0860
+%include "ds/game/ds_app_KQMO.asm"         ; 0x0860
 
 ; bss_0e22 equ __zbss_0e22 - __zdseg_start
 bss_5524 equ __zbss_5524 - __zdseg_start
-%include "ds/data_record_io.asm"           ; 0x0883
+%include "ds/game/data_record_io.asm"      ; 0x0883
 
 dseg_0002 equ __zdseg_0002 - __zdseg_start
-%include "ds/ds_app_OIGN.asm"              ; 0x09a5
+%include "ds/game/ds_app_OIGN.asm"         ; 0x09a5
 
-%include "ds/random_below.asm"             ; 0x09f0
+%include "ds/game/random_below.asm"        ; 0x09f0
 
-%include "ds/clamp_between.asm"            ; 0x0a09
+%include "ds/game/clamp_between.asm"       ; 0x0a09
 
 sound_slot_info equ __zbss_5576 - __zdseg_start
 bss_597c        equ __zbss_597c - __zdseg_start
 bss_5984        equ __zbss_5984 - __zdseg_start
 bss_598e        equ __zbss_598e - __zdseg_start
-%include "ds/ds_app_HKIJ.asm"              ; 0x0a27
+%include "ds/game/ds_app_HKIJ.asm"         ; 0x0a27
 
 ; bss_0e34 equ __zbss_0e34 - __zdseg_start
 bss_5990 equ __zbss_5990 - __zdseg_start
 bss_59f4 equ __zbss_59f4 - __zdseg_start
 bss_59f6 equ __zbss_59f6 - __zdseg_start
 bss_59f8 equ __zbss_59f8 - __zdseg_start
-%include "ds/ds_app_RMGT.asm"              ; 0x0ad7
+%include "ds/game/ds_app_RMGT.asm"         ; 0x0ad7
 
-%include "ds/ds_app_TSGV.asm"              ; 0x0af6
+%include "ds/game/ds_app_TSGV.asm"         ; 0x0af6
 
 ; bss_0e32 equ __zbss_0e32 - __zdseg_start
 bss_59fa equ __zbss_59fa - __zdseg_start
 bss_59fc equ __zbss_59fc - __zdseg_start
 bss_5b3e equ __zbss_5b3e - __zdseg_start
-%include "ds/ds_app_UHMG.asm"              ; 0x0b54
+%include "ds/game/ds_app_UHMG.asm"         ; 0x0b54
 
 ; bss_0fd6 equ __zbss_0fd6 - __zdseg_start
 ; bss_5990 equ __zbss_5990 - __zdseg_start
@@ -345,50 +345,50 @@ bss_5b40 equ __zbss_5b40 - __zdseg_start
 bss_5b42 equ __zbss_5b42 - __zdseg_start
 bss_5b44 equ __zbss_5b44 - __zdseg_start
 bss_5b46 equ __zbss_5b46 - __zdseg_start
-%include "ds/ds_app_string_KVNI.asm"       ; 0x0c0b
+%include "ds/game/ds_app_string_KVNI.asm"  ; 0x0c0b
 
-%include "ds/ds_app_NGUR.asm"              ; 0x0ced
+%include "ds/game/ds_app_NGUR.asm"         ; 0x0ced
 
 ; bss_5b3e equ __zbss_5b3e - __zdseg_start
-%include "ds/ds_app_TMKJ.asm"              ; 0x0d36
+%include "ds/game/ds_app_TMKJ.asm"         ; 0x0d36
 
 ; bss_0e2a equ __zbss_0e2a - __zdseg_start
 ; bss_0e2c equ __zbss_0e2c - __zdseg_start
 ; bss_0e32 equ __zbss_0e32 - __zdseg_start
 bss_598c equ __zbss_598c - __zdseg_start
-%include "ds/ds_app_VRKV.asm"              ; 0x0d7a
+%include "ds/game/ds_app_VRKV.asm"         ; 0x0d7a
 
-%include "ds/ds_app_GIKM.asm"              ; 0x0e03
+%include "ds/game/ds_app_GIKM.asm"         ; 0x0e03
 
-%include "ds/ds_app_TTLJ.asm"              ; 0x0e82
+%include "ds/game/ds_app_TTLJ.asm"         ; 0x0e82
 
-%include "ds/ds_app_KNSQ.asm"              ; 0x0ee1
+%include "ds/game/ds_app_KNSQ.asm"         ; 0x0ee1
 
-%include "ds/ds_app_PQGJ.asm"              ; 0x0f2a
+%include "ds/game/ds_app_PQGJ.asm"         ; 0x0f2a
 
-%include "ds/ds_app_OPOL.asm"              ; 0x0fdf
+%include "ds/game/ds_app_OPOL.asm"         ; 0x0fdf
 
-%include "ds/ds_app_string_MJQI.asm"       ; 0x1034
+%include "ds/game/ds_app_string_MJQI.asm"  ; 0x1034
 
-%include "ds/ds_app_VIGG.asm"              ; 0x10a6
+%include "ds/game/ds_app_VIGG.asm"         ; 0x10a6
 
-%include "ds/ds_app_QOOL.asm"              ; 0x10ff
+%include "ds/game/ds_app_QOOL.asm"         ; 0x10ff
 
 bss_0e38 equ __zbss_0e38 - __zdseg_start
-%include "ds/ds_app_UNSL.asm"              ; 0x1138
+%include "ds/game/ds_app_UNSL.asm"         ; 0x1138
 
-%include "ds/ds_app_HTKI.asm"              ; 0x11de
+%include "ds/game/ds_app_HTKI.asm"         ; 0x11de
 
-%include "ds/ds_app_JKST.asm"              ; 0x121f
+%include "ds/game/ds_app_JKST.asm"         ; 0x121f
 
-%include "ds/ds_app_string_IIIR.asm"       ; 0x1308
+%include "ds/game/ds_app_string_IIIR.asm"  ; 0x1308
 
-%include "ds/ds_app_gfx_entry_22_VNHP.asm" ; 0x1371
+%include "ds/game/ds_app_gfx_entry_22_VNHP.asm" ; 0x1371
 
 bss_5b6c equ __zbss_5b6c - __zdseg_start
 bss_5b6e equ __zbss_5b6e - __zdseg_start
 bss_5b70 equ __zbss_5b70 - __zdseg_start
-%include "ds/ds_app_VKRR.asm"              ; 0x138c
+%include "ds/game/ds_app_VKRR.asm"         ; 0x138c
 
 bss_5962          equ __zbss_5962 - __zdseg_start
 bss_5963          equ __zbss_5963 - __zdseg_start
@@ -396,37 +396,37 @@ bss_5964          equ __zbss_5964 - __zdseg_start
 saved_screen_kind equ __zbss_5b72 - __zdseg_start
 saved_screen_file equ __zbss_5b7c - __zdseg_start
 saved_screen_ref  equ __zbss_5be0 - __zdseg_start
-%include "ds/ds_app_file_LMRK.asm"         ; 0x14ca
+%include "ds/game/ds_app_file_LMRK.asm"    ; 0x14ca
 
 ; saved_screen_kind equ __zbss_5b72 - __zdseg_start
 ; saved_screen_file equ __zbss_5b7c - __zdseg_start
 ; saved_screen_ref  equ __zbss_5be0 - __zdseg_start
-%include "ds/restore_saved_screen.asm"     ; 0x16a0
+%include "ds/game/restore_saved_screen.asm" ; 0x16a0
 
-%include "ds/ds_app_VOML.asm"              ; 0x1741
+%include "ds/game/ds_app_VOML.asm"         ; 0x1741
 
-%include "ds/ds_app_OOUT.asm"              ; 0x17d6
+%include "ds/game/ds_app_OOUT.asm"         ; 0x17d6
 
-%include "ds/ds_app_mem_TMKK.asm"          ; 0x184f
+%include "ds/game/ds_app_mem_TMKK.asm"     ; 0x184f
 
-%include "ds/ds_app_UPSN.asm"              ; 0x1a23
+%include "ds/game/ds_app_UPSN.asm"         ; 0x1a23
 
-%include "ds/ds_app_IPJO.asm"              ; 0x1c2f
+%include "ds/game/ds_app_IPJO.asm"         ; 0x1c2f
 
-%include "ds/ds_app_UTUH.asm"              ; 0x1c6e
+%include "ds/game/ds_app_UTUH.asm"         ; 0x1c6e
 
 ; bss_0fd5 equ __zbss_0fd5 - __zdseg_start
 ; bss_5990 equ __zbss_5990 - __zdseg_start
 ; bss_59f4 equ __zbss_59f4 - __zdseg_start
-%include "ds/ds_app_OOHU.asm"              ; 0x1cb1
+%include "ds/game/ds_app_OOHU.asm"         ; 0x1cb1
 
-%include "ds/ds_app_KTPM.asm"              ; 0x1ccc
+%include "ds/game/ds_app_KTPM.asm"         ; 0x1ccc
 
-%include "ds/ds_app_TRNH.asm"              ; 0x1cf8
+%include "ds/game/ds_app_TRNH.asm"         ; 0x1cf8
 
 bss_5bf4 equ __zbss_5bf4 - __zdseg_start
 bss_5e2a equ __zbss_5e2a - __zdseg_start
-%include "ds/ds_app_LUOV.asm"              ; 0x1d81
+%include "ds/game/ds_app_LUOV.asm"         ; 0x1d81
 
 ; bss_0e2e equ __zbss_0e2e - __zdseg_start
 ; bss_0e30 equ __zbss_0e30 - __zdseg_start
@@ -434,20 +434,20 @@ bss_5e2a equ __zbss_5e2a - __zdseg_start
 ; bss_59fa equ __zbss_59fa - __zdseg_start
 ; bss_5b3e equ __zbss_5b3e - __zdseg_start
 bss_69c8 equ __zbss_69c8 - __zdseg_start
-%include "ds/ds_app_VGOM.asm"              ; 0x20f8
+%include "ds/game/ds_app_VGOM.asm"         ; 0x20f8
 
-%include "ds/ds_app_QSQR.asm"              ; 0x2305
+%include "ds/game/ds_app_QSQR.asm"         ; 0x2305
 
 bss_0cf6 equ __zbss_0cf6 - __zdseg_start
 bss_0cf8 equ __zbss_0cf8 - __zdseg_start
-%include "ds/ds_app_HGSV.asm"              ; 0x2331
+%include "ds/game/ds_app_HGSV.asm"         ; 0x2331
 
-%include "ds/ds_app_HVHT.asm"              ; 0x2359
+%include "ds/game/ds_app_HVHT.asm"         ; 0x2359
 
 bss_5912 equ __zbss_5912 - __zdseg_start
 bss_5987 equ __zbss_5987 - __zdseg_start
 bss_69ca equ __zbss_69ca - __zdseg_start
-%include "ds/data_file_path.asm"           ; 0x23a8
+%include "ds/game/data_file_path.asm"      ; 0x23a8
 
 dseg_0b74 equ __zdseg_0b74 - __zdseg_start
 dseg_0b89 equ __zdseg_0b89 - __zdseg_start
@@ -462,25 +462,25 @@ bss_5218  equ __zbss_5218 - __zdseg_start
 bss_5926  equ __zbss_5926 - __zdseg_start
 ; bss_5987  equ __zbss_5987 - __zdseg_start
 ; bss_5b3e  equ __zbss_5b3e - __zdseg_start
-%include "ds/ds_app_file_QQMM.asm"         ; 0x23ef
+%include "ds/game/ds_app_file_QQMM.asm"    ; 0x23ef
 
 ; bss_5218 equ __zbss_5218 - __zdseg_start
 ; bss_5912 equ __zbss_5912 - __zdseg_start
 ; bss_5987 equ __zbss_5987 - __zdseg_start
-%include "ds/ds_app_IMTG.asm"              ; 0x27e9
+%include "ds/game/ds_app_IMTG.asm"         ; 0x27e9
 
 dseg_0bcd      equ __zdseg_0bcd - __zdseg_start
 slot_rec_first equ __zbss_6a1a - __zdseg_start
-%include "ds/ds_app_file_TSNH.asm"         ; 0x2863
+%include "ds/game/ds_app_file_TSNH.asm"    ; 0x2863
 
-%include "ds/ds_app_SOQK.asm"              ; 0x290d
+%include "ds/game/ds_app_SOQK.asm"         ; 0x290d
 
 dseg_0bd7       equ __zdseg_0bd7 - __zdseg_start
 ; sound_slot_info equ __zbss_5576 - __zdseg_start
-%include "ds/load_sound_file.asm"          ; 0x2923
+%include "ds/game/load_sound_file.asm"     ; 0x2923
 
 ; bss_598e equ __zbss_598e - __zdseg_start
-%include "ds/ds_app_QTIV.asm"              ; 0x29f1
+%include "ds/game/ds_app_QTIV.asm"         ; 0x29f1
 
 dseg_0be3 equ __zdseg_0be3 - __zdseg_start
 dseg_0beb equ __zdseg_0beb - __zdseg_start
@@ -488,25 +488,25 @@ dseg_0bf0 equ __zdseg_0bf0 - __zdseg_start
 dseg_0bf5 equ __zdseg_0bf5 - __zdseg_start
 bss_5985  equ __zbss_5985 - __zdseg_start
 bss_82b6  equ __zbss_82b6 - __zdseg_start
-%include "ds/ds_app_file_KRUQ.asm"         ; 0x2a2e
+%include "ds/game/ds_app_file_KRUQ.asm"    ; 0x2a2e
 
 ; bss_82b6 equ __zbss_82b6 - __zdseg_start
-%include "ds/ds_app_gfx_entry_51_VGJR.asm" ; 0x2b4e
+%include "ds/game/ds_app_gfx_entry_51_VGJR.asm" ; 0x2b4e
 
-%include "ds/animate_sprite_up.asm"        ; 0x2b62
+%include "ds/game/animate_sprite_up.asm"   ; 0x2b62
 
 bss_597f equ __zbss_597f - __zdseg_start
-%include "ds/ds_app_UKGP.asm"              ; 0x2bab
+%include "ds/game/ds_app_UKGP.asm"         ; 0x2bab
 
 ; bss_597f equ __zbss_597f - __zdseg_start
 ; bss_5985 equ __zbss_5985 - __zdseg_start
-%include "ds/ds_app_NNSU.asm"              ; 0x2bed
+%include "ds/game/ds_app_NNSU.asm"         ; 0x2bed
 
 ; bss_1008 equ __zbss_1008 - __zdseg_start
 ; bss_59f6 equ __zbss_59f6 - __zdseg_start
 ; bss_59f8 equ __zbss_59f8 - __zdseg_start
 bss_82b8 equ __zbss_82b8 - __zdseg_start
-%include "ds/ds_app_LPKV.asm"              ; 0x2c11
+%include "ds/game/ds_app_LPKV.asm"         ; 0x2c11
 
 bss_82e8 equ __zbss_82e8 - __zdseg_start
 bss_82ea equ __zbss_82ea - __zdseg_start
@@ -514,7 +514,7 @@ bss_82ec equ __zbss_82ec - __zdseg_start
 bss_82ee equ __zbss_82ee - __zdseg_start
 bss_82f0 equ __zbss_82f0 - __zdseg_start
 bss_82f2 equ __zbss_82f2 - __zdseg_start
-%include "ds/ds_app_JKOJ.asm"              ; 0x2c69
+%include "ds/game/ds_app_JKOJ.asm"         ; 0x2c69
 
 dseg_0bfa equ __zdseg_0bfa - __zdseg_start
 dseg_0c00 equ __zdseg_0c00 - __zdseg_start
@@ -531,7 +531,7 @@ dseg_0c3c equ __zdseg_0c3c - __zdseg_start
 dseg_0c42 equ __zdseg_0c42 - __zdseg_start
 bss_830a  equ __zbss_830a - __zdseg_start
 bss_830c  equ __zbss_830c - __zdseg_start
-%include "ds/main.asm"                     ; 0x2dd5
+%include "ds/game/main.asm"                ; 0x2dd5
 
 saved_video_mode:
     db 0x00
@@ -683,12 +683,12 @@ cseg_305f:
     db 0xdb, 0x01, 0x00, 0x00
 cseg_3063:
     db 0xdf, 0x01, 0x00, 0x00
-%include "ds/ds_bios_video_loc_LILQ.asm"   ; 0x3067
+%include "ds/library/ds_bios_video_loc_LILQ.asm" ; 0x3067
 
-%include "ds/ds_loc_IGLJ.asm"              ; 0x30a3
+%include "ds/library/ds_loc_IGLJ.asm"      ; 0x30a3
 
 bios_data_0410 equ 0x0410
-%include "ds/ds_bios_video_loc_PHVR.asm"   ; 0x30c3
+%include "ds/library/ds_bios_video_loc_PHVR.asm" ; 0x30c3
 
 random_seed_a:
     db 0xb8, 0x0b
@@ -696,57 +696,57 @@ random_seed_b:
     db 0x01, 0x00
 random_seed_c:
     db 0x2f, 0x75
-%include "ds/ds_leaf_loc_OIUO.asm"         ; 0x30e2
+%include "ds/library/ds_leaf_loc_OIUO.asm" ; 0x30e2
 
-%include "ds/detect_video_adapter.asm"     ; 0x30f7
-
-; bios_data_0410 equ 0x0410
-%include "ds/select_vga_driver.asm"        ; 0x343e
+%include "ds/library/detect_video_adapter.asm" ; 0x30f7
 
 ; bios_data_0410 equ 0x0410
-%include "ds/select_ega_driver.asm"        ; 0x3490
+%include "ds/library/select_vga_driver.asm" ; 0x343e
 
-%include "ds/ds_dos_file_loc_SJIH.asm"     ; 0x3534
+; bios_data_0410 equ 0x0410
+%include "ds/library/select_ega_driver.asm" ; 0x3490
 
-%include "ds/ds_dos_con_loc_OQQL.asm"      ; 0x35b8
+%include "ds/library/ds_dos_file_loc_SJIH.asm" ; 0x3534
+
+%include "ds/library/ds_dos_con_loc_OQQL.asm" ; 0x35b8
 
 cseg_35ec:
     db 'play.drv', 0
-%include "ds/ds_dos_file_loc_NKUS.asm"     ; 0x35f5
+%include "ds/library/ds_dos_file_loc_NKUS.asm" ; 0x35f5
 
-%include "ds/ds_dos_con_loc_GOVO.asm"      ; 0x3640
+%include "ds/library/ds_dos_con_loc_GOVO.asm" ; 0x3640
 
 cseg_3672:
     db 0x90, 0x01
-%include "ds/ds_leaf_loc_QNNO.asm"         ; 0x3674
+%include "ds/library/ds_leaf_loc_QNNO.asm" ; 0x3674
 
-%include "ds/ds_dos_mem_loc_OHLH.asm"      ; 0x36bc
+%include "ds/library/ds_dos_mem_loc_OHLH.asm" ; 0x36bc
 
-%include "ds/ds_dos_mem_loc_PLIR.asm"      ; 0x36cd
+%include "ds/library/ds_dos_mem_loc_PLIR.asm" ; 0x36cd
 
 cseg_36ce:
     db 0x00, 0x00
-%include "ds/delay_ticks.asm"              ; 0x36d0
+%include "ds/library/delay_ticks.asm"      ; 0x36d0
 
-%include "ds/ds_dos_mem_loc_TGHM.asm"      ; 0x36f5
+%include "ds/library/ds_dos_mem_loc_TGHM.asm" ; 0x36f5
 
-%include "ds/ds_dos_mem_loc_JMGG.asm"      ; 0x371d
+%include "ds/library/ds_dos_mem_loc_JMGG.asm" ; 0x371d
 
-%include "ds/ds_dos_mem_loc_GSMJ.asm"      ; 0x3760
+%include "ds/library/ds_dos_mem_loc_GSMJ.asm" ; 0x3760
 
-%include "ds/ds_dos_mem_loc_GMLT.asm"      ; 0x377b
+%include "ds/library/ds_dos_mem_loc_GMLT.asm" ; 0x377b
 
-%include "ds/ds_loc_RMTO.asm"              ; 0x3796
+%include "ds/library/ds_loc_RMTO.asm"      ; 0x3796
 
-%include "ds/ds_bios_mouse_loc_RUQG.asm"   ; 0x37a5
+%include "ds/library/ds_bios_mouse_loc_RUQG.asm" ; 0x37a5
 
 cseg_37d1:
     db 'EMMXXXX0'
-%include "ds/ds_dos_intvec_loc_OHRJ.asm"   ; 0x37d9
+%include "ds/library/ds_dos_intvec_loc_OHRJ.asm" ; 0x37d9
 
-%include "ds/ds_leaf_loc_KIKO.asm"         ; 0x382c
+%include "ds/library/ds_leaf_loc_KIKO.asm" ; 0x382c
 
-%include "ds/ds_leaf_loc_PUGK.asm"         ; 0x383e
+%include "ds/library/ds_leaf_loc_PUGK.asm" ; 0x383e
 
 font_seg_table:
 
@@ -754,9 +754,9 @@ font_seg_table:
     db 0xff, 0xff
 
 file_param_word equ __zfile_param_word - __zdseg_start
-%include "ds/load_font_file.asm"           ; 0x3860
+%include "ds/library/load_font_file.asm"   ; 0x3860
 
-%include "ds/ds_dos_con_loc_PGIN.asm"      ; 0x3936
+%include "ds/library/ds_dos_con_loc_PGIN.asm" ; 0x3936
 
 font_io_error_msg:
 
@@ -764,9 +764,9 @@ font_io_error_msg:
     db 'I/O error loading font'
     db 0x0d, 0x0a, 0x24
 
-%include "ds/font_memory_error.asm"        ; 0x395b
+%include "ds/library/font_memory_error.asm" ; 0x395b
 
-%include "ds/ds_dos_con_loc_RGGK.asm"      ; 0x3962
+%include "ds/library/ds_dos_con_loc_RGGK.asm" ; 0x3962
 
 cseg_396b:
 
@@ -775,70 +775,70 @@ cseg_396b:
     db 0x0d, 0x0a, 0x24
 
 ; file_param_word equ __zfile_param_word - __zdseg_start
-%include "ds/dos_read_file.asm"            ; 0x398a
+%include "ds/library/dos_read_file.asm"    ; 0x398a
 
 ; file_param_word equ __zfile_param_word - __zdseg_start
-%include "ds/ds_loc_UQOV.asm"              ; 0x39f6
+%include "ds/library/ds_loc_UQOV.asm"      ; 0x39f6
 
-%include "ds/gfx_entry_13.asm"             ; 0x3a50
+%include "ds/library/gfx_entry_13.asm"     ; 0x3a50
 
-%include "ds/gfx_entry_14.asm"             ; 0x3a5d
+%include "ds/library/gfx_entry_14.asm"     ; 0x3a5d
 
-%include "ds/gfx_entry_12.asm"             ; 0x3a6a
+%include "ds/library/gfx_entry_12.asm"     ; 0x3a6a
 
-%include "ds/ds_loc_TJTV.asm"              ; 0x3a77
+%include "ds/library/ds_loc_TJTV.asm"      ; 0x3a77
 
-%include "ds/ds_string_loc_QRJV.asm"       ; 0x3a95
+%include "ds/library/ds_string_loc_QRJV.asm" ; 0x3a95
 
-%include "ds/ds_loc_JJGM.asm"              ; 0x3aca
+%include "ds/library/ds_loc_JJGM.asm"      ; 0x3aca
 
-%include "ds/gfx_entry_16.asm"             ; 0x3b21
+%include "ds/library/gfx_entry_16.asm"     ; 0x3b21
 
-%include "ds/gfx_entry_15.asm"             ; 0x3b2e
+%include "ds/library/gfx_entry_15.asm"     ; 0x3b2e
 
-%include "ds/gfx_entry_17.asm"             ; 0x3b3b
+%include "ds/library/gfx_entry_17.asm"     ; 0x3b3b
 
-%include "ds/gfx_entry_18.asm"             ; 0x3b48
+%include "ds/library/gfx_entry_18.asm"     ; 0x3b48
 
-%include "ds/gfx_entry_19.asm"             ; 0x3b55
+%include "ds/library/gfx_entry_19.asm"     ; 0x3b55
 
-%include "ds/gfx_entry_40.asm"             ; 0x3b62
+%include "ds/library/gfx_entry_40.asm"     ; 0x3b62
 
-%include "ds/gfx_save_area.asm"            ; 0x3b6f
+%include "ds/library/gfx_save_area.asm"    ; 0x3b6f
 
-%include "ds/gfx_cache_area.asm"           ; 0x3b7c
+%include "ds/library/gfx_cache_area.asm"   ; 0x3b7c
 
-%include "ds/gfx_restore_screen.asm"       ; 0x3b89
+%include "ds/library/gfx_restore_screen.asm" ; 0x3b89
 
-%include "ds/gfx_restore_area.asm"         ; 0x3b96
+%include "ds/library/gfx_restore_area.asm" ; 0x3b96
 
-%include "ds/ds_loc_JRJK.asm"              ; 0x3ba3
+%include "ds/library/ds_loc_JRJK.asm"      ; 0x3ba3
 
-%include "ds/stir_random_seeds.asm"        ; 0x3c0d
+%include "ds/library/stir_random_seeds.asm" ; 0x3c0d
 
 key_queue:
 
     times 24 db 0
 
-%include "ds/poll_filtered_key.asm"        ; 0x3c97
+%include "ds/library/poll_filtered_key.asm" ; 0x3c97
 
-%include "ds/get_filtered_key.asm"         ; 0x3d79
+%include "ds/library/get_filtered_key.asm" ; 0x3d79
 
-%include "ds/flush_keyboard.asm"           ; 0x3e5e
+%include "ds/library/flush_keyboard.asm"   ; 0x3e5e
 
-%include "ds/set_bitmap_bit.asm"           ; 0x3e88
+%include "ds/library/set_bitmap_bit.asm"   ; 0x3e88
 
-%include "ds/ds_leaf_loc_PRVP.asm"         ; 0x3ebb
+%include "ds/library/ds_leaf_loc_PRVP.asm" ; 0x3ebb
 
-%include "ds/ds_leaf_loc_OOUU.asm"         ; 0x3eeb
+%include "ds/library/ds_leaf_loc_OOUU.asm" ; 0x3eeb
 
-%include "ds/ds_leaf_loc_NPSL.asm"         ; 0x3f3d
+%include "ds/library/ds_leaf_loc_NPSL.asm" ; 0x3f3d
 
-%include "ds/ds_dos_con_loc_QJHU.asm"      ; 0x3f81
+%include "ds/library/ds_dos_con_loc_QJHU.asm" ; 0x3f81
 
-%include "ds/dos_read_file_2.asm"          ; 0x3fa9
+%include "ds/library/dos_read_file_2.asm"  ; 0x3fa9
 
-%include "ds/ds_dos_con_loc_NHHR.asm"      ; 0x3fd5
+%include "ds/library/ds_dos_con_loc_NHHR.asm" ; 0x3fd5
 
 cseg_3fde:
 
@@ -846,142 +846,142 @@ cseg_3fde:
     db 'I/O error loading Misc. table.'
     db 0x0d, 0x0a, 0x24
 
-%include "ds/ds_string_loc_HTNS.asm"       ; 0x4002
+%include "ds/library/ds_string_loc_HTNS.asm" ; 0x4002
 
-%include "ds/ds_string_loc_SSGO.asm"       ; 0x4046
+%include "ds/library/ds_string_loc_SSGO.asm" ; 0x4046
 
-%include "ds/strpos.asm"                   ; 0x4091
+%include "ds/library/strpos.asm"           ; 0x4091
 
-%include "ds/strstr.asm"                   ; 0x40ca
+%include "ds/library/strstr.asm"           ; 0x40ca
 
-%include "ds/gfx_entry_45.asm"             ; 0x4134
+%include "ds/library/gfx_entry_45.asm"     ; 0x4134
 
-%include "ds/gfx_load_sound.asm"           ; 0x4141
+%include "ds/library/gfx_load_sound.asm"   ; 0x4141
 
-%include "ds/gfx_entry_46.asm"             ; 0x414e
+%include "ds/library/gfx_entry_46.asm"     ; 0x414e
 
-%include "ds/gfx_entry_47.asm"             ; 0x415b
+%include "ds/library/gfx_entry_47.asm"     ; 0x415b
 
-%include "ds/gfx_entry_48.asm"             ; 0x4168
+%include "ds/library/gfx_entry_48.asm"     ; 0x4168
 
-%include "ds/ds_loc_QURR.asm"              ; 0x4175
+%include "ds/library/ds_loc_QURR.asm"      ; 0x4175
 
-%include "ds/gfx_load_score.asm"           ; 0x41a3
+%include "ds/library/gfx_load_score.asm"   ; 0x41a3
 
-%include "ds/gfx_entry_50.asm"             ; 0x41b0
+%include "ds/library/gfx_entry_50.asm"     ; 0x41b0
 
-%include "ds/gfx_entry_51.asm"             ; 0x41bd
+%include "ds/library/gfx_entry_51.asm"     ; 0x41bd
 
-%include "ds/gfx_entry_52.asm"             ; 0x41ca
+%include "ds/library/gfx_entry_52.asm"     ; 0x41ca
 
-%include "ds/gfx_entry_53.asm"             ; 0x41d7
+%include "ds/library/gfx_entry_53.asm"     ; 0x41d7
 
-%include "ds/gfx_entry_54.asm"             ; 0x41e4
+%include "ds/library/gfx_entry_54.asm"     ; 0x41e4
 
-%include "ds/gfx_load_picture.asm"         ; 0x41f1
+%include "ds/library/gfx_load_picture.asm" ; 0x41f1
 
-%include "ds/gfx_entry_22.asm"             ; 0x41fe
+%include "ds/library/gfx_entry_22.asm"     ; 0x41fe
 
-%include "ds/gfx_entry_35.asm"             ; 0x420b
+%include "ds/library/gfx_entry_35.asm"     ; 0x420b
 
-%include "ds/gfx_draw_text.asm"            ; 0x4218
+%include "ds/library/gfx_draw_text.asm"    ; 0x4218
 
-%include "ds/gfx_load_screen.asm"          ; 0x4225
+%include "ds/library/gfx_load_screen.asm"  ; 0x4225
 
-%include "ds/gfx_entry_36.asm"             ; 0x4232
+%include "ds/library/gfx_entry_36.asm"     ; 0x4232
 
-%include "ds/gfx_save_screen.asm"          ; 0x423f
+%include "ds/library/gfx_save_screen.asm"  ; 0x423f
 
-%include "ds/gfx_entry_27.asm"             ; 0x424c
+%include "ds/library/gfx_entry_27.asm"     ; 0x424c
 
-%include "ds/gfx_load_maze.asm"            ; 0x4259
+%include "ds/library/gfx_load_maze.asm"    ; 0x4259
 
-%include "ds/gfx_draw_maze_piece.asm"      ; 0x4266
+%include "ds/library/gfx_draw_maze_piece.asm" ; 0x4266
 
-%include "ds/gfx_entry_00.asm"             ; 0x4273
+%include "ds/library/gfx_entry_00.asm"     ; 0x4273
 
-%include "ds/gfx_mouse_off.asm"            ; 0x4280
+%include "ds/library/gfx_mouse_off.asm"    ; 0x4280
 
-%include "ds/gfx_entry_02.asm"             ; 0x428d
+%include "ds/library/gfx_entry_02.asm"     ; 0x428d
 
-%include "ds/gfx_entry_23.asm"             ; 0x429a
+%include "ds/library/gfx_entry_23.asm"     ; 0x429a
 
-%include "ds/gfx_set_mouse_pointer.asm"    ; 0x42a7
+%include "ds/library/gfx_set_mouse_pointer.asm" ; 0x42a7
 
-%include "ds/mouse_set_pos.asm"            ; 0x42b4
+%include "ds/library/mouse_set_pos.asm"    ; 0x42b4
 
-%include "ds/gfx_entry_25.asm"             ; 0x42dd
+%include "ds/library/gfx_entry_25.asm"     ; 0x42dd
 
-%include "ds/gfx_entry_28.asm"             ; 0x42ea
+%include "ds/library/gfx_entry_28.asm"     ; 0x42ea
 
-%include "ds/gfx_entry_29.asm"             ; 0x42f7
+%include "ds/library/gfx_entry_29.asm"     ; 0x42f7
 
-%include "ds/gfx_fade_in.asm"              ; 0x4304
+%include "ds/library/gfx_fade_in.asm"      ; 0x4304
 
-%include "ds/gfx_fade_out.asm"             ; 0x4311
+%include "ds/library/gfx_fade_out.asm"     ; 0x4311
 
-%include "ds/gfx_reset_rgb.asm"            ; 0x431e
+%include "ds/library/gfx_reset_rgb.asm"    ; 0x431e
 
-%include "ds/gfx_entry_33.asm"             ; 0x432b
+%include "ds/library/gfx_entry_33.asm"     ; 0x432b
 
-%include "ds/gfx_entry_34.asm"             ; 0x4338
+%include "ds/library/gfx_entry_34.asm"     ; 0x4338
 
-%include "ds/gfx_entry_37.asm"             ; 0x4345
+%include "ds/library/gfx_entry_37.asm"     ; 0x4345
 
-%include "ds/gfx_entry_38.asm"             ; 0x4352
+%include "ds/library/gfx_entry_38.asm"     ; 0x4352
 
-%include "ds/gfx_cache_maze.asm"           ; 0x435f
+%include "ds/library/gfx_cache_maze.asm"   ; 0x435f
 
-%include "ds/gfx_entry_43.asm"             ; 0x436c
+%include "ds/library/gfx_entry_43.asm"     ; 0x436c
 
 dseg_0c48   equ __zdseg_0c48 - __zdseg_start
 dseg_0c4d   equ __zdseg_0c4d - __zdseg_start
 _mbot       equ __z_mbot - __zdseg_start
 ovname      equ __zbss_0cfa - __zdseg_start
 __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
-%include "ds/aztec_ovloader.asm"           ; 0x4379
+%include "ds/aztec/aztec_ovloader.asm"     ; 0x4379
 
-%include "ds/aztec_bdos.asm"               ; 0x4497
+%include "ds/aztec/aztec_bdos.asm"         ; 0x4497
 
 errno equ __zerrno - __zdseg_start
-%include "ds/aztec_csread.asm"             ; 0x44b4
+%include "ds/aztec/aztec_csread.asm"       ; 0x44b4
 
 buff equ __zbss_0cfc - __zdseg_start
-%include "ds/aztec_sprintf.asm"            ; 0x44d4
+%include "ds/aztec/aztec_sprintf.asm"      ; 0x44d4
 
-%include "ds/aztec_movblock.asm"           ; 0x4517
+%include "ds/aztec/aztec_movblock.asm"     ; 0x4517
 
-%include "ds/aztec_setmem.asm"             ; 0x454d
+%include "ds/aztec/aztec_setmem.asm"       ; 0x454d
 
-%include "shared/aztec_strcat.asm"             ; 0x4574
+%include "shared/aztec_strcat.asm"       ; 0x4574
 
-%include "shared/aztec_strcpy.asm"             ; 0x45ab
+%include "shared/aztec_strcpy.asm"       ; 0x45ab
 
-%include "ds/aztec_dos20_lmalloc.asm"      ; 0x45d7
+%include "ds/aztec/aztec_dos20_lmalloc.asm" ; 0x45d7
 
 _sbot     equ __z_sbot - __zdseg_start
 _lowwater equ __z_lowwater - __zdseg_start
-%include "ds/aztec_csav.asm"               ; 0x4650
+%include "ds/aztec/aztec_csav.asm"         ; 0x4650
 
 endmarker equ __zendmarker - __zdseg_start
 keep      equ __zbss_0cfe - __zdseg_start
 current   equ __zbss_0d00 - __zdseg_start
 first     equ __zbss_0d02 - __zdseg_start
-%include "ds/aztec_misc_lmalloc.asm"       ; 0x467b
+%include "ds/aztec/aztec_misc_lmalloc.asm" ; 0x467b
 
 ; first equ __zbss_0d02 - __zdseg_start
-%include "ds/aztec_format.asm"             ; 0x480d
+%include "ds/aztec/aztec_format.asm"       ; 0x480d
 
 ; errno  equ __zerrno - __zdseg_start
 _ioflg equ __z_ioflg - __zdseg_start
-%include "shared/aztec_open.asm"               ; 0x4b39
+%include "shared/aztec_open.asm"         ; 0x4b39
 
-%include "shared/aztec_lsubs.asm"              ; 0x4be6
+%include "shared/aztec_lsubs.asm"        ; 0x4be6
 
-%include "shared/aztec_strlen.asm"             ; 0x4cd7
+%include "shared/aztec_strlen.asm"       ; 0x4cd7
 
 ; errno equ __zerrno - __zdseg_start
-%include "shared/aztec_sys.asm"                ; 0x4cf4
+%include "shared/aztec_sys.asm"          ; 0x4cf4
 
 psp_top_of_memory equ 0x0002
 psp_env_segment   equ 0x002c
@@ -1000,36 +1000,36 @@ _HEAPSIZ          equ __z_HEAPSIZ - __zdseg_start
 _STKLOW           equ __z_STKLOW - __zdseg_start
 _Uorg             equ __zbss_0cf6 - __zdseg_start
 ; __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
-%include "ds/aztec_sbegin.asm"             ; 0x4d36
+%include "ds/aztec/aztec_sbegin.asm"       ; 0x4d36
 
 cls_      equ __zcls_ - __zdseg_start
 dseg_0c9e equ __zdseg_0c9e - __zdseg_start
 ; _ioflg    equ __z_ioflg - __zdseg_start
 Argc      equ __zbss_0d04 - __zdseg_start
 Argv      equ __zbss_0d06 - __zdseg_start
-%include "ds/aztec_croot.asm"              ; 0x4ea3
+%include "ds/aztec/aztec_croot.asm"        ; 0x4ea3
 
-%include "shared/aztec_fltstub.asm"            ; 0x4f85
+%include "shared/aztec_fltstub.asm"      ; 0x4f85
 
 dseg_0cae equ __zdseg_0cae - __zdseg_start
-%include "ds/aztec_stkover.asm"            ; 0x4f87
+%include "ds/aztec/aztec_stkover.asm"      ; 0x4f87
 
 ; errno  equ __zerrno - __zdseg_start
 ; _ioflg equ __z_ioflg - __zdseg_start
 _ttrd  equ __z_ttrd - __zdseg_start
 _ttwr  equ __z_ttwr - __zdseg_start
-%include "shared/aztec_io.asm"                 ; 0x4fa2
+%include "shared/aztec_io.asm"           ; 0x4fa2
 
 _Eol      equ __z_Eol - __zdseg_start
 dseg_0cf5 equ __zdseg_0cf5 - __zdseg_start
 bss_0d08  equ __zbss_0d08 - __zdseg_start
 bss_0e0c  equ __zbss_0e0c - __zdseg_start
 _TTrem    equ __zbss_9096 - __zdseg_start
-%include "ds/aztec_ttyio.asm"              ; 0x505c
+%include "ds/aztec/aztec_ttyio.asm"        ; 0x505c
 
-%include "shared/aztec_movmem.asm"             ; 0x5123
+%include "shared/aztec_movmem.asm"       ; 0x5123
 
-%include "shared/aztec_isatty.asm"             ; 0x5168
+%include "shared/aztec_isatty.asm"       ; 0x5168
 
 ; aztec_MEMRY equ __zaztec_MEMRY - __zdseg_start
 ; errno       equ __zerrno - __zdseg_start
@@ -1039,7 +1039,7 @@ _TTrem    equ __zbss_9096 - __zdseg_start
 ; _PSP        equ __z_PSP - __zdseg_start
 ; _STKRED     equ __z_STKRED - __zdseg_start
 ; _STKLOW     equ __z_STKLOW - __zdseg_start
-%include "shared/aztec_ssbrk.asm"              ; 0x5188
+%include "shared/aztec_ssbrk.asm"        ; 0x5188
 
 
 ; End of host resident code

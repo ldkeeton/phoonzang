@@ -3,7 +3,7 @@
 
 Usage::
 
-    python3 .vscode/cccheck.py src_DSAVANT/ds/aztec_ovloader.c
+    python3 .vscode/cccheck.py src_DSAVANT/ds/aztec/aztec_ovloader.c
 
 The compiler and header tree are those the build uses for that routine (from
 the prebuild mux manifest, else Aztec v4.2b); the switches are the sidecar's

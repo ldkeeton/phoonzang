@@ -9,6 +9,7 @@ import subprocess
 import sys
 import tempfile
 
+from lib import asm_only
 from lib.autogen import marker_for, stamp, write_text
 from lib.compare.interrupts import _annotate_interrupts
 from lib.cachedirs import src_dir
@@ -304,13 +305,25 @@ def resplice_c(app, binary, check_only=False):
             {**context['mem_equ'], **context['geometry']}, data, segments,
             image_base)
 
-    c_labels = {name[:-2] for name in os.listdir(dest)
-                if name.endswith('.c')} if os.path.isdir(dest) else set()
+    # A binary's sources sit in its folder or, with sidecar ``bands``, in a
+    # band folder beneath it (``ds/game/x.asm``).
+    folders = [dest] + sorted(
+        os.path.join(dest, d) for d in (os.listdir(dest)
+                                        if os.path.isdir(dest) else ())
+        if os.path.isdir(os.path.join(dest, d)))
+    own_dir = {}
+    for folder in folders:
+        for name in os.listdir(folder):
+            if name.endswith(('.c', '.asm')):
+                own_dir.setdefault(name.rsplit('.', 1)[0], folder)
+    c_labels = {name[:-2] for folder in folders for name in os.listdir(folder)
+                if name.endswith('.c')}
     # C shared between binaries lives in shared/ beside its .asm (lib.shared).
     shared_dir = os.path.join(out_dir, FOLDER)
     def has_own_asm(label):
         # a same-named routine owned by this binary is not the shared one
-        return os.path.exists(os.path.join(dest, label + '.asm'))
+        return os.path.exists(os.path.join(own_dir.get(label, dest),
+                                           label + '.asm'))
 
     c_labels |= {name[:-2] for name in (os.listdir(shared_dir)
                                         if os.path.isdir(shared_dir) else ())
@@ -320,7 +333,7 @@ def resplice_c(app, binary, check_only=False):
 
     def where(label, suffix):
         shared = os.path.join(shared_dir, label + suffix)
-        own = os.path.join(dest, label + suffix)
+        own = os.path.join(own_dir.get(label, dest), label + suffix)
         if has_own_asm(label):
             return own
         return shared if os.path.exists(shared) else own
@@ -496,6 +509,9 @@ def resplice_c(app, binary, check_only=False):
             # Shared by several binaries: no one binary's addresses.
             from lib.shared import neutral
             fragment = neutral(fragment)
+        if asm_only.is_marked(apath):
+            # The band's asm-only marker is the build's, not the C's.
+            fragment = asm_only.stamp(stamp(fragment, apath))
         if check_only:
             # The fragment on disk is the source of truth: it must already be
             # exactly what the C regenerates, never rewritten to match.

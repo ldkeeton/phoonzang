@@ -25,7 +25,8 @@ Wizardry VII seems to have been originally compiled with Manx Aztec v4.2b
 - This allows individual ASM files to be rewritten as C over time.
 - The root asm files are layout with no code them, so original exe is still built. 
 - When enough code is C, then end goal is to change over to full C compilation.
-- Low-level routines don't have a C equivalent, but we create C #asm wrappers anyway.
+- A binary's sidecar `bands` (game, library, aztec) sort its files into band folders (`ds/game/`, ...).
+- Routines in an `asm_only` band are stamped `; asm only`: they have no C equivalent and are never counted as C.
 - C files -> compiled in dosbox by Manx Aztec -> Checked against ASM files
 - ASM files -> compiled on host machine by NASM -> Checked against original EXE
 ```
@@ -56,7 +57,7 @@ Wizardry VII seems to have been originally compiled with Manx Aztec v4.2b
 
 ## Wizardry VII coverage
 
-Progress: **59 / 1359** (4.3%).
+Progress: **62 / 1247** (5.0%). 102 asm-only routines (sidecar `bands` with `asm_only`) have no C equivalent and are not counted.
 
 ![C coverage heatmap](readme/heatmap.svg)
  
@@ -68,9 +69,9 @@ Run from the repo root.
 |---|---|
 | `make init` | sparse-clone only the dos_compilers folders listed in sidecars, |
 | `make libcheck` | rebuild Aztec v4.2b C.LIB from dos_compilers/aztec_src/ and compare to the shipped one |
-| `make all` | prebuild (clean + Aztec mux), build, verify all, elf-rebuild, make test, make test slow |
+| `make all` | prebuild (clean .cache + Aztec mux), build, verify all, elf-rebuild, make test, make test slow |
 | `make build PROJECT [BIN]` | asm + nasm + assets (seeds .c; runs prebuild first if missing) |
-| `make prebuild [PROJECT...]` | clean, rebuild aztec libs + signature DB, run the Aztec C mux |
+| `make prebuild [PROJECT...]` | clean .cache, rebuild aztec libs + signature DB, run the Aztec C mux |
 | `make run PROJECT` | run game in dosbox-x |
 | `make verify [PROJECT...]` | verify one or all projects |
 | `make clean [PROJECT...]` | clean one or all projects (no args: delete .cache, |
