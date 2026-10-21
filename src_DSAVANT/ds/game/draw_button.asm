@@ -9,7 +9,7 @@ draw_button: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x131a
     push word [bp + 0x6]             ; 0x131d
     push word [bp + 0x4]             ; 0x1320
-    call ds_app_string_MJQI          ; 0x1323
+    call draw_framed_button          ; 0x1323
     add sp, byte 0x0a                ; 0x1326
     jmp short @..draw_button.l2      ; 0x1329
 @..draw_button.l1:

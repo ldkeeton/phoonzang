@@ -141,8 +141,9 @@
         "0b54": {"name": "poll_hotspots", "note": "polls keyboard/mouse against the hotspot table, setting hotspot_hit"},
         "0ced": {"name": "set_hotspot", "note": "stores a clickable hotspot rectangle and key in the hotspot table"},
         "0ee1": {"name": "draw_dialog_box", "note": "fills and frames a dialog box rectangle"},
+        "1034": {"name": "draw_framed_button", "note": "draws a frame w*6 by h*6+2 pixels at x,y with the label centred inside"},
         "10a6": {"name": "flash_button", "note": "inverts a button area to show it pressed"},
-        "1308": {"name": "draw_button", "note": "draws a labelled button at a text cell"},
+        "1308": {"name": "draw_button", "note": "draws a button label, framed or as plain centred text"},
         "1371": {
           "name": "free_picture_slot",
           "note": "(slot): gfx_free_picture(slot), then sets byte DS 0x5b48[slot] to 0xff and DS 0x5b5a[slot] to 0"

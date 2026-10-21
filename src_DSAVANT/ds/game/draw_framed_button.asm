@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_string_MJQI: ; Aztec csav frame=0x0000
+draw_framed_button: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x1034
     call aztec_csav                  ; 0x1037
     mov ax, 1                        ; 0x103a

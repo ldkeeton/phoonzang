@@ -371,7 +371,7 @@ bss_598c equ __zbss_598c - __zdseg_start
 
 %include "ds/game/ds_app_OPOL.asm"         ; 0x0fdf
 
-%include "ds/game/ds_app_string_MJQI.asm"  ; 0x1034
+%include "ds/game/draw_framed_button.asm"  ; 0x1034
 
 %include "ds/game/flash_button.asm"        ; 0x10a6
 
