@@ -51,7 +51,7 @@ api_idx_002a_NJKV:
     push ax                          ; 0x85ca
     lea ax, word [bp - 0x002a]       ; 0x85cb
     push ax                          ; 0x85ce
-    call ds_string_loc_QRJV          ; 0x85cf
+    call draw_string                 ; 0x85cf
     add sp, byte 4                   ; 0x85d2
     mov ax, word [bp + 0x8]          ; 0x85d5
     add ax, strict word 6            ; 0x85d8
@@ -65,6 +65,6 @@ api_idx_002a_NJKV:
     lea cx, word [bp - 0x0029]       ; 0x85ec
     add ax, cx                       ; 0x85ef
     push ax                          ; 0x85f1
-    call ds_string_loc_QRJV          ; 0x85f2
+    call draw_string                 ; 0x85f2
     add sp, byte 4                   ; 0x85f5
     ret                              ; 0x85f8

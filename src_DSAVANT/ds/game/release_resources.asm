@@ -65,7 +65,7 @@ jumptable_0363_case_11:
     call aztec_close                 ; 0x02e7
     pop cx                           ; 0x02ea
 jumptable_0363_case_10:
-    push word [bss_0e24]             ; 0x02eb
+    push word [msg_dbs_fd]           ; 0x02eb
     call aztec_close                 ; 0x02ef
     pop cx                           ; 0x02f2
 jumptable_0363_case_7:

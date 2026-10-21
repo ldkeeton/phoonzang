@@ -16,7 +16,7 @@ api_idx_0006_HMNQ:
     push ax                          ; 0x60fd
     mov ax, 0                        ; 0x60fe
     push ax                          ; 0x6101
-    call ds_app_NGUR                 ; 0x6102
+    call set_hotspot                 ; 0x6102
     add sp, byte 0x0e                ; 0x6105
     mov ax, 0xa                      ; 0x6108
     push ax                          ; 0x610b
@@ -32,7 +32,7 @@ api_idx_0006_HMNQ:
     push ax                          ; 0x611f
     mov ax, 1                        ; 0x6120
     push ax                          ; 0x6123
-    call ds_app_NGUR                 ; 0x6124
+    call set_hotspot                 ; 0x6124
     add sp, byte 0x0e                ; 0x6127
     mov ax, 2                        ; 0x612a
     push ax                          ; 0x612d
@@ -88,11 +88,11 @@ api_idx_0006_HMNQ:
 @..api_idx_0006_HMNQ.l2:
     mov ax, 0x59fe                   ; 0x61a1
     push ax                          ; 0x61a4
-    call ds_app_UHMG                 ; 0x61a5
+    call poll_hotspots               ; 0x61a5
     pop cx                           ; 0x61a8
     dec ax                           ; 0x61a9
     mov word [bp - 0x0002], ax       ; 0x61aa
-    cmp word [bss_5b3e], byte 0      ; 0x61ad
+    cmp word [hotspot_hit], byte 0   ; 0x61ad
     je short @..api_idx_0006_HMNQ.l2 ; 0x61b2
     mov ax, word [bp - 0x0002]       ; 0x61b4
     jmp short @..api_idx_0006_HMNQ.l5 ; 0x61b7
@@ -141,7 +141,7 @@ api_idx_0006_HMNQ:
     push ax                          ; 0x6214
     mov ax, 0x58                     ; 0x6215
     push ax                          ; 0x6218
-    call ds_app_VIGG                 ; 0x6219
+    call flash_button                ; 0x6219
     add sp, byte 0x0a                ; 0x621c
     mov ax, 0                        ; 0x621f
     push ax                          ; 0x6222
@@ -153,7 +153,7 @@ api_idx_0006_HMNQ:
     push ax                          ; 0x622e
     mov ax, 0x58                     ; 0x622f
     push ax                          ; 0x6232
-    call ds_app_VIGG                 ; 0x6233
+    call flash_button                ; 0x6233
     add sp, byte 0x0a                ; 0x6236
     mov ax, 1                        ; 0x6239
     push ax                          ; 0x623c

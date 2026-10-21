@@ -27,7 +27,7 @@ api_idx_00aa_SLMI:
     push word [bp - 0x0006]          ; 0x6324
     push word [bp - 0x0004]          ; 0x6327
     push word [bp - 0x0002]          ; 0x632a
-    call ds_app_KNSQ                 ; 0x632d
+    call draw_dialog_box             ; 0x632d
     add sp, byte 8                   ; 0x6330
     mov ax, 0                        ; 0x6333
     push ax                          ; 0x6336
@@ -67,7 +67,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x6382
     lea ax, word [bp - 0x0058]       ; 0x6383
     push ax                          ; 0x6386
-    call ds_string_loc_QRJV          ; 0x6387
+    call draw_string                 ; 0x6387
     add sp, byte 4                   ; 0x638a
     mov ax, 0xc2                     ; 0x638d
     push ax                          ; 0x6390
@@ -95,7 +95,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x63c7
     lea ax, word [bp - 0x0058]       ; 0x63c8
     push ax                          ; 0x63cb
-    call ds_app_string_HHIL          ; 0x63cc
+    call str_subst_char              ; 0x63cc
     add sp, byte 6                   ; 0x63cf
     mov ax, word [bp - 0x0004]       ; 0x63d2
     add ax, strict word 0xf          ; 0x63d5
@@ -123,7 +123,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x6405
     lea ax, word [bp - 0x0058]       ; 0x6406
     push ax                          ; 0x6409
-    call ds_string_loc_QRJV          ; 0x640a
+    call draw_string                 ; 0x640a
     add sp, byte 4                   ; 0x640d
     lea ax, word [bp - 0x0058]       ; 0x6410
     push ax                          ; 0x6413
@@ -146,7 +146,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x643f
     lea ax, word [bp - 0x0058]       ; 0x6440
     push ax                          ; 0x6443
-    call ds_app_string_HHIL          ; 0x6444
+    call str_subst_char              ; 0x6444
     add sp, byte 6                   ; 0x6447
     mov ax, word [bp - 0x0004]       ; 0x644a
     add ax, strict word 0x15         ; 0x644d
@@ -174,7 +174,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x647d
     lea ax, word [bp - 0x0058]       ; 0x647e
     push ax                          ; 0x6481
-    call ds_string_loc_QRJV          ; 0x6482
+    call draw_string                 ; 0x6482
     add sp, byte 4                   ; 0x6485
     lea ax, word [bp - 0x0058]       ; 0x6488
     push ax                          ; 0x648b
@@ -196,7 +196,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x64b4
     lea ax, word [bp - 0x0058]       ; 0x64b5
     push ax                          ; 0x64b8
-    call ds_app_string_HHIL          ; 0x64b9
+    call str_subst_char              ; 0x64b9
     add sp, byte 6                   ; 0x64bc
     lea ax, word [bp - 0x00a8]       ; 0x64bf
     push ax                          ; 0x64c3
@@ -212,7 +212,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x64dd
     lea ax, word [bp - 0x0058]       ; 0x64de
     push ax                          ; 0x64e1
-    call ds_app_string_HHIL          ; 0x64e2
+    call str_subst_char              ; 0x64e2
     add sp, byte 6                   ; 0x64e5
     mov ax, word [bp - 0x0004]       ; 0x64e8
     add ax, strict word 0x1b         ; 0x64eb
@@ -240,7 +240,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x651b
     lea ax, word [bp - 0x0058]       ; 0x651c
     push ax                          ; 0x651f
-    call ds_string_loc_QRJV          ; 0x6520
+    call draw_string                 ; 0x6520
     add sp, byte 4                   ; 0x6523
     mov byte [bss_0e38], 0           ; 0x6526
     mov ax, 1                        ; 0x652b

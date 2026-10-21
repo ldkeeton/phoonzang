@@ -113,7 +113,7 @@ loc_LSRQ:
     lea cx, word [bp - 0x0152]       ; 0x034a
     add ax, cx                       ; 0x034e
     push ax                          ; 0x0350
-    call ds_string_loc_QRJV          ; 0x0351
+    call draw_string                 ; 0x0351
     add sp, byte 4                   ; 0x0354
     mov ax, 0                        ; 0x0357
     push ax                          ; 0x035a
@@ -137,7 +137,7 @@ loc_LSRQ:
     add ax, strict word 8            ; 0x0386
     push ax                          ; 0x0389
     push word [bp - 0x0002]          ; 0x038a
-    call ds_app_NGUR                 ; 0x038d
+    call set_hotspot                 ; 0x038d
     add sp, byte 0x0e                ; 0x0390
     mov ax, word [bp - 0x0004]       ; 0x0393
     mov cx, word [bp - 0x0002]       ; 0x0396
@@ -159,7 +159,7 @@ loc_LSRQ:
     mov ax, 0xffff                   ; 0x03b3
     push ax                          ; 0x03b6
     push word [bp - 0x0002]          ; 0x03b7
-    call ds_app_NGUR                 ; 0x03ba
+    call set_hotspot                 ; 0x03ba
     add sp, byte 0x0e                ; 0x03bd
     mov ax, word [bp - 0x0008]       ; 0x03c0
     inc ax                           ; 0x03c3
@@ -180,10 +180,10 @@ loc_LSRQ:
 @..loc_LSRQ.l6:
     mov ax, 0x59fe                   ; 0x03e1
     push ax                          ; 0x03e4
-    call ds_app_UHMG                 ; 0x03e5
+    call poll_hotspots               ; 0x03e5
     pop cx                           ; 0x03e8
     mov word [bp - 0x0004], ax       ; 0x03e9
-    cmp word [bss_5b3e], byte 0      ; 0x03ec
+    cmp word [hotspot_hit], byte 0   ; 0x03ec
     je short @..loc_LSRQ.l6          ; 0x03f1
     jmp near @..loc_LSRQ.l16         ; 0x03f3
 @..loc_LSRQ.l7:
@@ -317,7 +317,7 @@ loc_LSRQ:
     mov ax, word [bp + 0x6]          ; 0x0509
     add ax, strict word 8            ; 0x050c
     push ax                          ; 0x050f
-    call ds_app_VIGG                 ; 0x0510
+    call flash_button                ; 0x0510
     add sp, byte 0x0a                ; 0x0513
     mov ax, 0                        ; 0x0516
     push ax                          ; 0x0519
@@ -332,7 +332,7 @@ loc_LSRQ:
     mov ax, word [bp + 0x6]          ; 0x052e
     add ax, strict word 8            ; 0x0531
     push ax                          ; 0x0534
-    call ds_app_VIGG                 ; 0x0535
+    call flash_button                ; 0x0535
     add sp, byte 0x0a                ; 0x0538
     mov ax, 1                        ; 0x053b
     push ax                          ; 0x053e

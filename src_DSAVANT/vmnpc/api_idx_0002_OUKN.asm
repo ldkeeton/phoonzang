@@ -120,7 +120,7 @@ api_idx_0002_OUKN:
     push ax                          ; 0x2875
     mov ax, bss_93f0                 ; 0x2876
     push ax                          ; 0x2879
-    call ds_app_string_HHIL          ; 0x287a
+    call str_subst_char              ; 0x287a
     add sp, byte 6                   ; 0x287d
     mov ax, 0x24                     ; 0x2880
     push ax                          ; 0x2883
@@ -128,7 +128,7 @@ api_idx_0002_OUKN:
     push ax                          ; 0x2887
     mov ax, bss_93f0                 ; 0x2888
     push ax                          ; 0x288b
-    call ds_app_string_HHIL          ; 0x288c
+    call str_subst_char              ; 0x288c
     add sp, byte 6                   ; 0x288f
     mov ax, 1                        ; 0x2892
     push ax                          ; 0x2895

@@ -47,7 +47,7 @@ api_idx_0056_KPMS:
     push ax                          ; 0x46f5
     lea ax, word [bp - 0x0056]       ; 0x46f6
     push ax                          ; 0x46f9
-    call ds_string_loc_QRJV          ; 0x46fa
+    call draw_string                 ; 0x46fa
     add sp, byte 4                   ; 0x46fd
     mov ax, 0x3e                     ; 0x4700
     push ax                          ; 0x4703

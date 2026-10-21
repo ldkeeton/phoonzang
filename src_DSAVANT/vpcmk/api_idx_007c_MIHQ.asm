@@ -100,7 +100,7 @@ api_idx_007c_MIHQ:
     push ax                          ; 0x4662
     lea ax, word [bp - 0x0054]       ; 0x4663
     push ax                          ; 0x4666
-    call ds_string_loc_QRJV          ; 0x4667
+    call draw_string                 ; 0x4667
     add sp, byte 4                   ; 0x466a
     mov ax, 1                        ; 0x466d
     push ax                          ; 0x4670

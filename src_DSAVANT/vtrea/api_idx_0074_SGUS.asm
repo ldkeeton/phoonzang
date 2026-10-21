@@ -130,7 +130,7 @@ api_idx_0074_SGUS:
     push ax                          ; 0x7a27
     lea ax, word [bp - 0x0074]       ; 0x7a28
     push ax                          ; 0x7a2b
-    call ds_string_loc_QRJV          ; 0x7a2c
+    call draw_string                 ; 0x7a2c
     add sp, byte 4                   ; 0x7a2f
     mov ax, 0xa9                     ; 0x7a32
     push ax                          ; 0x7a35

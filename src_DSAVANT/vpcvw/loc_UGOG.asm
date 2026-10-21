@@ -58,7 +58,7 @@ loc_UGOG:
     mov ax, word [bp + 0x8]          ; 0x1d25
     add ax, strict word 0xfffb       ; 0x1d28
     push ax                          ; 0x1d2b
-    call ds_app_KNSQ                 ; 0x1d2c
+    call draw_dialog_box             ; 0x1d2c
     add sp, byte 8                   ; 0x1d2f
     lea ax, word [bp - 0x01a6]       ; 0x1d32
     push ax                          ; 0x1d36
@@ -93,7 +93,7 @@ loc_UGOG:
     push ax                          ; 0x1d7a
     lea ax, word [bp - 0x01a6]       ; 0x1d7b
     push ax                          ; 0x1d7f
-    call ds_string_loc_QRJV          ; 0x1d80
+    call draw_string                 ; 0x1d80
     add sp, byte 4                   ; 0x1d83
     jmp short @..loc_UGOG.l3         ; 0x1d86
 @..loc_UGOG.l2:
@@ -214,7 +214,7 @@ loc_UGOG:
     lea cx, word [bp - 0x0156]       ; 0x1e90
     add ax, cx                       ; 0x1e94
     push ax                          ; 0x1e96
-    call ds_string_loc_QRJV          ; 0x1e97
+    call draw_string                 ; 0x1e97
     add sp, byte 4                   ; 0x1e9a
     mov ax, 0                        ; 0x1e9d
     push ax                          ; 0x1ea0
@@ -235,7 +235,7 @@ loc_UGOG:
     add ax, word [bp - 0x000a]       ; 0x1ec3
     push ax                          ; 0x1ec6
     push word [bp - 0x0002]          ; 0x1ec7
-    call ds_app_NGUR                 ; 0x1eca
+    call set_hotspot                 ; 0x1eca
     add sp, byte 0x0e                ; 0x1ecd
     mov ax, word [bp - 0x0004]       ; 0x1ed0
     mov cx, word [bp - 0x0002]       ; 0x1ed3
@@ -257,7 +257,7 @@ loc_UGOG:
     mov ax, 0xffff                   ; 0x1ef0
     push ax                          ; 0x1ef3
     push word [bp - 0x0002]          ; 0x1ef4
-    call ds_app_NGUR                 ; 0x1ef7
+    call set_hotspot                 ; 0x1ef7
     add sp, byte 0x0e                ; 0x1efa
     mov ax, 0xc7                     ; 0x1efd
     push ax                          ; 0x1f00
@@ -273,10 +273,10 @@ loc_UGOG:
 @..loc_UGOG.l10:
     mov ax, 0x59fe                   ; 0x1f17
     push ax                          ; 0x1f1a
-    call ds_app_UHMG                 ; 0x1f1b
+    call poll_hotspots               ; 0x1f1b
     pop cx                           ; 0x1f1e
     mov word [bp - 0x0004], ax       ; 0x1f1f
-    cmp word [bss_5b3e], byte 0      ; 0x1f22
+    cmp word [hotspot_hit], byte 0   ; 0x1f22
     je short @..loc_UGOG.l10         ; 0x1f27
     jmp near @..loc_UGOG.l25         ; 0x1f29
 @..loc_UGOG.l11:
@@ -498,7 +498,7 @@ loc_UGOG:
     mov ax, word [bp + 0x8]          ; 0x20fc
     add ax, word [bp - 0x000a]       ; 0x20ff
     push ax                          ; 0x2102
-    call ds_app_VIGG                 ; 0x2103
+    call flash_button                ; 0x2103
     add sp, byte 0x0a                ; 0x2106
     mov ax, 0                        ; 0x2109
     push ax                          ; 0x210c
@@ -511,7 +511,7 @@ loc_UGOG:
     mov ax, word [bp + 0x8]          ; 0x211b
     add ax, word [bp - 0x000a]       ; 0x211e
     push ax                          ; 0x2121
-    call ds_app_VIGG                 ; 0x2122
+    call flash_button                ; 0x2122
     add sp, byte 0x0a                ; 0x2125
     mov ax, 1                        ; 0x2128
     push ax                          ; 0x212b

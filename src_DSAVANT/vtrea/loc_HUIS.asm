@@ -421,7 +421,7 @@ loc_HUIS:
     push ax                          ; 0x5b84
     lea ax, word [bp - 0x0104]       ; 0x5b85
     push ax                          ; 0x5b89
-    call ds_app_string_HHIL          ; 0x5b8a
+    call str_subst_char              ; 0x5b8a
     add sp, byte 6                   ; 0x5b8d
     mov ax, 0x24                     ; 0x5b90
     push ax                          ; 0x5b93
@@ -435,7 +435,7 @@ loc_HUIS:
     push ax                          ; 0x5ba7
     lea ax, word [bp - 0x0104]       ; 0x5ba8
     push ax                          ; 0x5bac
-    call ds_app_string_HHIL          ; 0x5bad
+    call str_subst_char              ; 0x5bad
     add sp, byte 6                   ; 0x5bb0
     mov al, byte [bp - 0x004b]       ; 0x5bb3
     sub ah, ah                       ; 0x5bb6
@@ -529,7 +529,7 @@ loc_HUIS:
     push ax                          ; 0x5c80
     lea ax, word [bp - 0x0104]       ; 0x5c81
     push ax                          ; 0x5c85
-    call ds_app_string_HHIL          ; 0x5c86
+    call str_subst_char              ; 0x5c86
     add sp, byte 6                   ; 0x5c89
     mov ax, 0x55                     ; 0x5c8c
     push ax                          ; 0x5c8f
@@ -567,7 +567,7 @@ loc_HUIS:
     push ax                          ; 0x5cdf
     lea ax, word [bp - 0x0104]       ; 0x5ce0
     push ax                          ; 0x5ce4
-    call ds_app_string_HHIL          ; 0x5ce5
+    call str_subst_char              ; 0x5ce5
     add sp, byte 6                   ; 0x5ce8
     mov ax, 0x41                     ; 0x5ceb
     push ax                          ; 0x5cee

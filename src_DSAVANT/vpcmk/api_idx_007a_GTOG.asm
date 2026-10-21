@@ -75,7 +75,7 @@ api_idx_007a_GTOG:
     push ax                          ; 0x4467
     lea ax, word [bp - 0x0052]       ; 0x4468
     push ax                          ; 0x446b
-    call ds_string_loc_QRJV          ; 0x446c
+    call draw_string                 ; 0x446c
     add sp, byte 4                   ; 0x446f
     mov ax, 0x248                    ; 0x4472
     imul word [bp + 0x4]             ; 0x4475

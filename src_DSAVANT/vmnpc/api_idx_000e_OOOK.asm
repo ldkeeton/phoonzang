@@ -90,7 +90,7 @@ api_idx_000e_OOOK:
     shl ax, cl                       ; 0x9356
     add ax, 0x91cc                   ; 0x9358
     push ax                          ; 0x935b
-    call ds_string_loc_QRJV          ; 0x935c
+    call draw_string                 ; 0x935c
     add sp, byte 4                   ; 0x935f
     mov ax, 0                        ; 0x9362
     cmp byte [bss_598a], 2           ; 0x9365

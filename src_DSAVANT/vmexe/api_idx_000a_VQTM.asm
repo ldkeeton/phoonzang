@@ -360,7 +360,7 @@ jumptable_78e5_case_5:
     push ax                          ; 0x7772
     mov ax, bss_9186                 ; 0x7773
     push ax                          ; 0x7776
-    call ds_app_string_HHIL          ; 0x7777
+    call str_subst_char              ; 0x7777
     add sp, byte 6                   ; 0x777a
 @..api_idx_000a_VQTM.l15:
     mov ax, bss_9136                 ; 0x777d

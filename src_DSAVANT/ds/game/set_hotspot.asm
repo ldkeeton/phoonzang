@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_NGUR: ; Aztec csav frame=0x0000
+set_hotspot: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x0ced
     call aztec_csav                  ; 0x0cf0
     mov al, byte [bp + 0xe]          ; 0x0cf3

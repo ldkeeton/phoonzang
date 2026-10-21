@@ -58,7 +58,7 @@ loc_IOMS:
     mov ax, word [bp + 0x8]          ; 0x84c6
     add ax, strict word 0xfffb       ; 0x84c9
     push ax                          ; 0x84cc
-    call ds_app_KNSQ                 ; 0x84cd
+    call draw_dialog_box             ; 0x84cd
     add sp, byte 8                   ; 0x84d0
     lea ax, word [bp - 0x01a6]       ; 0x84d3
     push ax                          ; 0x84d7
@@ -93,7 +93,7 @@ loc_IOMS:
     push ax                          ; 0x851b
     lea ax, word [bp - 0x01a6]       ; 0x851c
     push ax                          ; 0x8520
-    call ds_string_loc_QRJV          ; 0x8521
+    call draw_string                 ; 0x8521
     add sp, byte 4                   ; 0x8524
     jmp short @..loc_IOMS.l3         ; 0x8527
 @..loc_IOMS.l2:
@@ -214,7 +214,7 @@ loc_IOMS:
     lea cx, word [bp - 0x0156]       ; 0x8631
     add ax, cx                       ; 0x8635
     push ax                          ; 0x8637
-    call ds_string_loc_QRJV          ; 0x8638
+    call draw_string                 ; 0x8638
     add sp, byte 4                   ; 0x863b
     mov ax, 0                        ; 0x863e
     push ax                          ; 0x8641
@@ -235,7 +235,7 @@ loc_IOMS:
     add ax, word [bp - 0x000a]       ; 0x8664
     push ax                          ; 0x8667
     push word [bp - 0x0002]          ; 0x8668
-    call ds_app_NGUR                 ; 0x866b
+    call set_hotspot                 ; 0x866b
     add sp, byte 0x0e                ; 0x866e
     mov ax, word [bp - 0x0004]       ; 0x8671
     mov cx, word [bp - 0x0002]       ; 0x8674
@@ -257,7 +257,7 @@ loc_IOMS:
     mov ax, 0xffff                   ; 0x8691
     push ax                          ; 0x8694
     push word [bp - 0x0002]          ; 0x8695
-    call ds_app_NGUR                 ; 0x8698
+    call set_hotspot                 ; 0x8698
     add sp, byte 0x0e                ; 0x869b
     mov ax, 0xc7                     ; 0x869e
     push ax                          ; 0x86a1
@@ -273,14 +273,14 @@ loc_IOMS:
 @..loc_IOMS.l10:
     mov ax, 0x59fe                   ; 0x86b8
     push ax                          ; 0x86bb
-    call ds_app_UHMG                 ; 0x86bc
+    call poll_hotspots               ; 0x86bc
     pop cx                           ; 0x86bf
     mov word [bp - 0x0004], ax       ; 0x86c0
-    cmp word [bss_5b3e], byte 0      ; 0x86c3
+    cmp word [hotspot_hit], byte 0   ; 0x86c3
     jne short @..loc_IOMS.l11        ; 0x86c8
     call loc_IKLI                    ; 0x86ca
 @..loc_IOMS.l11:
-    cmp word [bss_5b3e], byte 0      ; 0x86cd
+    cmp word [hotspot_hit], byte 0   ; 0x86cd
     je short @..loc_IOMS.l10         ; 0x86d2
     jmp near @..loc_IOMS.l26         ; 0x86d4
 @..loc_IOMS.l12:
@@ -503,7 +503,7 @@ loc_IOMS:
     mov ax, word [bp + 0x8]          ; 0x88aa
     add ax, word [bp - 0x000a]       ; 0x88ad
     push ax                          ; 0x88b0
-    call ds_app_VIGG                 ; 0x88b1
+    call flash_button                ; 0x88b1
     add sp, byte 0x0a                ; 0x88b4
     mov ax, 0                        ; 0x88b7
     push ax                          ; 0x88ba
@@ -516,7 +516,7 @@ loc_IOMS:
     mov ax, word [bp + 0x8]          ; 0x88c9
     add ax, word [bp - 0x000a]       ; 0x88cc
     push ax                          ; 0x88cf
-    call ds_app_VIGG                 ; 0x88d0
+    call flash_button                ; 0x88d0
     add sp, byte 0x0a                ; 0x88d3
     mov ax, 1                        ; 0x88d6
     push ax                          ; 0x88d9

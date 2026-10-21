@@ -48,7 +48,7 @@ loc_IIHU:
     mov ax, 0                        ; 0x478e
     push ax                          ; 0x4791
     push word [bp + 0x4]             ; 0x4792
-    call ds_string_loc_QRJV          ; 0x4795
+    call draw_string                 ; 0x4795
     add sp, byte 4                   ; 0x4798
     mov ax, word [bp + 0x8]          ; 0x479b
     add ax, strict word 6            ; 0x479e

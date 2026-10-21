@@ -147,7 +147,7 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     push word [bp - 0x000c]          ; 0x224b
     push word [bp - 0x000a]          ; 0x224e
     push word [bp - 0x0002]          ; 0x2251
-    call ds_app_NGUR                 ; 0x2254
+    call set_hotspot                 ; 0x2254
     add sp, byte 0x0e                ; 0x2257
     inc word [bp - 0x0002]           ; 0x225a
 @..ds_app_VGOM.l8:
@@ -163,7 +163,7 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     mov ax, 0xffff                   ; 0x226e
     push ax                          ; 0x2271
     push word [bss_69c8]             ; 0x2272
-    call ds_app_NGUR                 ; 0x2276
+    call set_hotspot                 ; 0x2276
     add sp, byte 0x0e                ; 0x2279
     mov word [bp - 0x0008], 0        ; 0x227c
 @..ds_app_VGOM.l9:
@@ -186,7 +186,7 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     pop cx                           ; 0x22a8
     mov ax, 0x59fe                   ; 0x22a9
     push ax                          ; 0x22ac
-    call ds_app_UHMG                 ; 0x22ad
+    call poll_hotspots               ; 0x22ad
     pop cx                           ; 0x22b0
     dec ax                           ; 0x22b1
     mov word [bp - 0x0004], ax       ; 0x22b2
@@ -201,7 +201,7 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     mov ax, 0xffff                   ; 0x22ca
     ret                              ; 0x22cd
 @..ds_app_VGOM.l11:
-    cmp word [bss_5b3e], byte 1      ; 0x22ce
+    cmp word [hotspot_hit], byte 1   ; 0x22ce
     jne short @..ds_app_VGOM.l12     ; 0x22d3
     mov ax, 0                        ; 0x22d5
     mov dx, 0                        ; 0x22d8

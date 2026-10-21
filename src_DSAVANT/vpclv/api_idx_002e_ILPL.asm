@@ -18,7 +18,7 @@ api_idx_002e_ILPL:
     push ax                          ; 0x3930
     mov ax, bss_95dc                 ; 0x3931
     push ax                          ; 0x3934
-    call ds_string_loc_QRJV          ; 0x3935
+    call draw_string                 ; 0x3935
     add sp, byte 4                   ; 0x3938
     mov word [bp - 0x0004], 0        ; 0x393b
     mov word [bp - 0x0006], 0        ; 0x3940
@@ -138,7 +138,7 @@ api_idx_002e_ILPL:
     lea cx, word [bp - 0x002e]       ; 0x3a5d
     add ax, cx                       ; 0x3a60
     push ax                          ; 0x3a62
-    call ds_string_loc_QRJV          ; 0x3a63
+    call draw_string                 ; 0x3a63
     add sp, byte 4                   ; 0x3a66
     mov word [bp - 0x0006], 1        ; 0x3a69
 @..api_idx_002e_ILPL.l10:

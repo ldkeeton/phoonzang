@@ -89,7 +89,7 @@ api_idx_0032_HGIM:
     mov ax, 0x7f                     ; 0x27cb
     push ax                          ; 0x27ce
     push word [bp - 0x0002]          ; 0x27cf
-    call ds_app_NGUR                 ; 0x27d2
+    call set_hotspot                 ; 0x27d2
     add sp, byte 0x0e                ; 0x27d5
     mov ax, 0x3d                     ; 0x27d8
     push ax                          ; 0x27db
@@ -108,7 +108,7 @@ api_idx_0032_HGIM:
     mov ax, 0x97                     ; 0x27f8
     push ax                          ; 0x27fb
     push word [bp + 0x8]             ; 0x27fc
-    call ds_app_NGUR                 ; 0x27ff
+    call set_hotspot                 ; 0x27ff
     add sp, byte 0x0e                ; 0x2802
     jmp short @..api_idx_0032_HGIM.l6 ; 0x2805
 @..api_idx_0032_HGIM.l3:
@@ -141,7 +141,7 @@ api_idx_0032_HGIM:
     mov ax, 6                        ; 0x283a
     push ax                          ; 0x283d
     push word [bp - 0x0002]          ; 0x283e
-    call ds_app_NGUR                 ; 0x2841
+    call set_hotspot                 ; 0x2841
     add sp, byte 0x0e                ; 0x2844
 @..api_idx_0032_HGIM.l6:
     inc word [bp - 0x0002]           ; 0x2847
@@ -245,7 +245,7 @@ api_idx_0032_HGIM:
     imul word [bp - 0x0002]          ; 0x2933
     add ax, 0x9610                   ; 0x2936
     push ax                          ; 0x2939
-    call ds_string_loc_QRJV          ; 0x293a
+    call draw_string                 ; 0x293a
     add sp, byte 4                   ; 0x293d
     mov ax, 0                        ; 0x2940
     push ax                          ; 0x2943
@@ -262,7 +262,7 @@ api_idx_0032_HGIM:
     add ax, word [bp - 0x000e]       ; 0x295a
     inc ax                           ; 0x295d
     push ax                          ; 0x295e
-    call ds_app_NGUR                 ; 0x295f
+    call set_hotspot                 ; 0x295f
     add sp, byte 0x0e                ; 0x2962
     mov ax, word [bp - 0x0002]       ; 0x2965
     mov cx, word [bp - 0x000e]       ; 0x2968
@@ -309,7 +309,7 @@ api_idx_0032_HGIM:
     add ax, word [bp - 0x000e]       ; 0x29c2
     inc ax                           ; 0x29c5
     push ax                          ; 0x29c6
-    call ds_app_NGUR                 ; 0x29c7
+    call set_hotspot                 ; 0x29c7
     add sp, byte 0x0e                ; 0x29ca
     mov ax, 0xc6                     ; 0x29cd
     push ax                          ; 0x29d0
@@ -326,11 +326,11 @@ api_idx_0032_HGIM:
 @..api_idx_0032_HGIM.l18:
     mov ax, 0x59fe                   ; 0x29ea
     push ax                          ; 0x29ed
-    call ds_app_UHMG                 ; 0x29ee
+    call poll_hotspots               ; 0x29ee
     pop cx                           ; 0x29f1
     dec ax                           ; 0x29f2
     mov word [bp - 0x0008], ax       ; 0x29f3
-    cmp word [bss_5b3e], byte 0      ; 0x29f6
+    cmp word [hotspot_hit], byte 0   ; 0x29f6
     je short @..api_idx_0032_HGIM.l18 ; 0x29fb
     jmp near @..api_idx_0032_HGIM.l31 ; 0x29fd
 @..api_idx_0032_HGIM.l19:
@@ -549,7 +549,7 @@ api_idx_0032_HGIM:
     imul word [bp - 0x0028]          ; 0x2bd4
     add ax, strict word 4            ; 0x2bd7
     push ax                          ; 0x2bda
-    call ds_app_VIGG                 ; 0x2bdb
+    call flash_button                ; 0x2bdb
     add sp, byte 0x0a                ; 0x2bde
     mov ax, 0                        ; 0x2be1
     push ax                          ; 0x2be4
@@ -563,7 +563,7 @@ api_idx_0032_HGIM:
     imul word [bp - 0x0028]          ; 0x2bf4
     add ax, strict word 4            ; 0x2bf7
     push ax                          ; 0x2bfa
-    call ds_app_VIGG                 ; 0x2bfb
+    call flash_button                ; 0x2bfb
     add sp, byte 0x0a                ; 0x2bfe
     mov ax, 1                        ; 0x2c01
     push ax                          ; 0x2c04

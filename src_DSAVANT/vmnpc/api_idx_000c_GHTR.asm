@@ -54,7 +54,7 @@ api_idx_000c_GHTR:
     push ax                          ; 0x7787
     lea ax, word [bp - 0x000c]       ; 0x7788
     push ax                          ; 0x778b
-    call ds_string_loc_QRJV          ; 0x778c
+    call draw_string                 ; 0x778c
     add sp, byte 4                   ; 0x778f
     inc word [bp - 0x0002]           ; 0x7792
     mov ax, word [bp - 0x0002]       ; 0x7795

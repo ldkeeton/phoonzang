@@ -132,7 +132,7 @@ api_idx_0054_NQHV:
     mov ax, word [bx + party_char_ext] ; 0x0497
     add ax, cx                       ; 0x049b
     push ax                          ; 0x049d
-    call ds_string_loc_QRJV          ; 0x049e
+    call draw_string                 ; 0x049e
     add sp, byte 4                   ; 0x04a1
     mov ax, 6                        ; 0x04a4
     imul word [bp - 0x0002]          ; 0x04a7

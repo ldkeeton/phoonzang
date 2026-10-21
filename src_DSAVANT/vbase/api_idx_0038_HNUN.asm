@@ -3,7 +3,7 @@ api_idx_0038_HNUN:
     mov ax, 0xffc8                   ; 0x2fef
     call aztec_csav                  ; 0x2ff2
     mov word [bp - 0x000c], 0        ; 0x2ff5
-    mov ax, word [bss_5218]          ; 0x2ffa
+    mov ax, word [disk_header]       ; 0x2ffa
     mov word [bp - 0x000e], ax       ; 0x2ffd
     cmp byte [install_mode], 5       ; 0x3000
     jne short @..api_idx_0038_HNUN.l1 ; 0x3005
@@ -156,7 +156,7 @@ api_idx_0038_HNUN:
     push ax                          ; 0x3156
     mov ax, bss_91da                 ; 0x3157
     push ax                          ; 0x315a
-    call ds_app_file_QQMM            ; 0x315b
+    call prompt_disk_swap            ; 0x315b
     add sp, byte 8                   ; 0x315e
     mov ax, 1                        ; 0x3161
     cmp word [bp - 0x000c], byte 0   ; 0x3164
@@ -176,7 +176,7 @@ api_idx_0038_HNUN:
     push ax                          ; 0x3188
     mov ax, bss_91c6                 ; 0x3189
     push ax                          ; 0x318c
-    call ds_app_file_QQMM            ; 0x318d
+    call prompt_disk_swap            ; 0x318d
     add sp, byte 8                   ; 0x3190
     mov ax, 1                        ; 0x3193
     cmp word [bp - 0x000c], byte 0   ; 0x3196
@@ -218,7 +218,7 @@ api_idx_0038_HNUN:
     push word [bp - 0x000e]          ; 0x31e6
     mov ax, bss_91c6                 ; 0x31e9
     push ax                          ; 0x31ec
-    call ds_app_file_QQMM            ; 0x31ed
+    call prompt_disk_swap            ; 0x31ed
     add sp, byte 8                   ; 0x31f0
 @..api_idx_0038_HNUN.l15:
     mov ax, 0xffff                   ; 0x31f3
@@ -298,7 +298,7 @@ api_idx_0038_HNUN:
     push word [bp - 0x000e]          ; 0x3295
     mov ax, bss_91c6                 ; 0x3298
     push ax                          ; 0x329b
-    call ds_app_file_QQMM            ; 0x329c
+    call prompt_disk_swap            ; 0x329c
     add sp, byte 8                   ; 0x329f
 @..api_idx_0038_HNUN.l20:
     mov ax, 0xffff                   ; 0x32a2
@@ -396,7 +396,7 @@ api_idx_0038_HNUN:
     push word [bp - 0x000e]          ; 0x339c
     mov ax, bss_91c6                 ; 0x339f
     push ax                          ; 0x33a2
-    call ds_app_file_QQMM            ; 0x33a3
+    call prompt_disk_swap            ; 0x33a3
     add sp, byte 8                   ; 0x33a6
 @..api_idx_0038_HNUN.l24:
     mov ax, 0xffff                   ; 0x33a9
@@ -432,7 +432,7 @@ api_idx_0038_HNUN:
     push word [bp - 0x000e]          ; 0x33f0
     mov ax, bss_91c6                 ; 0x33f3
     push ax                          ; 0x33f6
-    call ds_app_file_QQMM            ; 0x33f7
+    call prompt_disk_swap            ; 0x33f7
     add sp, byte 8                   ; 0x33fa
 @..api_idx_0038_HNUN.l26:
     mov ax, 0xffff                   ; 0x33fd
@@ -465,7 +465,7 @@ api_idx_0038_HNUN:
     push word [bp - 0x000e]          ; 0x343b
     mov ax, bss_91c6                 ; 0x343e
     push ax                          ; 0x3441
-    call ds_app_file_QQMM            ; 0x3442
+    call prompt_disk_swap            ; 0x3442
     add sp, byte 8                   ; 0x3445
 @..api_idx_0038_HNUN.l29:
     mov ax, 0xffff                   ; 0x3448
@@ -496,7 +496,7 @@ api_idx_0038_HNUN:
     push word [bp - 0x000e]          ; 0x3481
     mov ax, bss_91c6                 ; 0x3484
     push ax                          ; 0x3487
-    call ds_app_file_QQMM            ; 0x3488
+    call prompt_disk_swap            ; 0x3488
     add sp, byte 8                   ; 0x348b
 @..api_idx_0038_HNUN.l31:
     mov ax, 0xffff                   ; 0x348e
@@ -565,7 +565,7 @@ api_idx_0038_HNUN:
     push word [bp - 0x000e]          ; 0x351d
     mov ax, bss_91c6                 ; 0x3520
     push ax                          ; 0x3523
-    call ds_app_file_QQMM            ; 0x3524
+    call prompt_disk_swap            ; 0x3524
     add sp, byte 8                   ; 0x3527
 @..api_idx_0038_HNUN.l34:
     mov ax, 0xffff                   ; 0x352a
@@ -588,7 +588,7 @@ api_idx_0038_HNUN:
     push word [bp - 0x000e]          ; 0x3551
     mov ax, bss_91c6                 ; 0x3554
     push ax                          ; 0x3557
-    call ds_app_file_QQMM            ; 0x3558
+    call prompt_disk_swap            ; 0x3558
     add sp, byte 8                   ; 0x355b
 @..api_idx_0038_HNUN.l36:
     mov ax, 0xffff                   ; 0x355e
@@ -723,7 +723,7 @@ api_idx_0038_HNUN:
     push word [bp - 0x000e]          ; 0x36c0
     mov ax, bss_91c6                 ; 0x36c3
     push ax                          ; 0x36c6
-    call ds_app_file_QQMM            ; 0x36c7
+    call prompt_disk_swap            ; 0x36c7
     add sp, byte 8                   ; 0x36ca
 @..api_idx_0038_HNUN.l39:
     mov ax, 0xffff                   ; 0x36cd
@@ -770,7 +770,7 @@ api_idx_0038_HNUN:
     push word [bp - 0x000e]          ; 0x372e
     mov ax, bss_91c6                 ; 0x3731
     push ax                          ; 0x3734
-    call ds_app_file_QQMM            ; 0x3735
+    call prompt_disk_swap            ; 0x3735
     add sp, byte 8                   ; 0x3738
 @..api_idx_0038_HNUN.l43:
     mov ax, 0xffff                   ; 0x373b
@@ -805,7 +805,7 @@ api_idx_0038_HNUN:
     push word [bp - 0x000e]          ; 0x3782
     mov ax, bss_91c6                 ; 0x3785
     push ax                          ; 0x3788
-    call ds_app_file_QQMM            ; 0x3789
+    call prompt_disk_swap            ; 0x3789
     add sp, byte 8                   ; 0x378c
 @..api_idx_0038_HNUN.l46:
     mov ax, 0xffff                   ; 0x378f
@@ -847,7 +847,7 @@ api_idx_0038_HNUN:
     push word [bp - 0x000e]          ; 0x37e8
     mov ax, bss_91c6                 ; 0x37eb
     push ax                          ; 0x37ee
-    call ds_app_file_QQMM            ; 0x37ef
+    call prompt_disk_swap            ; 0x37ef
     add sp, byte 8                   ; 0x37f2
 @..api_idx_0038_HNUN.l50:
     cmp word [bp + 0x4], byte 2      ; 0x37f5
@@ -894,7 +894,7 @@ api_idx_0038_HNUN:
     mov ax, 0                        ; 0x385c
     push ax                          ; 0x385f
     push word [bp - 0x0002]          ; 0x3860
-    call ds_app_LUOV                 ; 0x3863
+    call ds_app_string_LUOV          ; 0x3863
     add sp, byte 4                   ; 0x3866
 @..api_idx_0038_HNUN.l54:
     inc word [bp - 0x0002]           ; 0x3869

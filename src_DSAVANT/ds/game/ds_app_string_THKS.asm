@@ -32,6 +32,6 @@ ds_app_string_THKS: ; Aztec csav frame=0x0100
     lea cx, word [bp - 0x00ff]       ; 0x0520
     add ax, cx                       ; 0x0524
     push ax                          ; 0x0526
-    call ds_string_loc_QRJV          ; 0x0527
+    call draw_string                 ; 0x0527
     add sp, byte 4                   ; 0x052a
     ret                              ; 0x052d

@@ -90,7 +90,7 @@ api_idx_006c_JNMM:
     mov ax, 0x85                     ; 0x4767
     push ax                          ; 0x476a
     push word [bp - 0x0002]          ; 0x476b
-    call ds_app_NGUR                 ; 0x476e
+    call set_hotspot                 ; 0x476e
     add sp, byte 0x0e                ; 0x4771
     mov ax, 0x3d                     ; 0x4774
     push ax                          ; 0x4777
@@ -110,7 +110,7 @@ api_idx_006c_JNMM:
     push ax                          ; 0x4797
     mov ax, 7                        ; 0x4798
     push ax                          ; 0x479b
-    call ds_app_NGUR                 ; 0x479c
+    call set_hotspot                 ; 0x479c
     add sp, byte 0x0e                ; 0x479f
     jmp short @..api_idx_006c_JNMM.l6 ; 0x47a2
 @..api_idx_006c_JNMM.l3:
@@ -144,7 +144,7 @@ api_idx_006c_JNMM:
     mov ax, 0x73                     ; 0x47d9
     push ax                          ; 0x47dc
     push word [bp - 0x0002]          ; 0x47dd
-    call ds_app_NGUR                 ; 0x47e0
+    call set_hotspot                 ; 0x47e0
     add sp, byte 0x0e                ; 0x47e3
 @..api_idx_006c_JNMM.l6:
     inc word [bp - 0x0002]           ; 0x47e6
@@ -163,7 +163,7 @@ api_idx_006c_JNMM:
     push ax                          ; 0x47ff
     mov ax, 9                        ; 0x4800
     push ax                          ; 0x4803
-    call ds_app_NGUR                 ; 0x4804
+    call set_hotspot                 ; 0x4804
     add sp, byte 0x0e                ; 0x4807
     mov ax, 0x60                     ; 0x480a
     push ax                          ; 0x480d
@@ -178,11 +178,11 @@ api_idx_006c_JNMM:
 @..api_idx_006c_JNMM.l8:
     mov ax, 0x59fe                   ; 0x4820
     push ax                          ; 0x4823
-    call ds_app_UHMG                 ; 0x4824
+    call poll_hotspots               ; 0x4824
     pop cx                           ; 0x4827
     dec ax                           ; 0x4828
     mov word [bp - 0x0004], ax       ; 0x4829
-    cmp word [bss_5b3e], byte 0      ; 0x482c
+    cmp word [hotspot_hit], byte 0   ; 0x482c
     je short @..api_idx_006c_JNMM.l8 ; 0x4831
     cmp word [bp - 0x0004], byte 7   ; 0x4833
     jge short @..api_idx_006c_JNMM.l9 ; 0x4837
@@ -263,7 +263,7 @@ api_idx_006c_JNMM:
     push ax                          ; 0x48eb
     mov ax, 0x58                     ; 0x48ec
     push ax                          ; 0x48ef
-    call ds_app_VIGG                 ; 0x48f0
+    call flash_button                ; 0x48f0
     add sp, byte 0x0a                ; 0x48f3
     mov ax, 0                        ; 0x48f6
     push ax                          ; 0x48f9
@@ -275,7 +275,7 @@ api_idx_006c_JNMM:
     push ax                          ; 0x4905
     mov ax, 0x58                     ; 0x4906
     push ax                          ; 0x4909
-    call ds_app_VIGG                 ; 0x490a
+    call flash_button                ; 0x490a
     add sp, byte 0x0a                ; 0x490d
     mov ax, 1                        ; 0x4910
     push ax                          ; 0x4913

@@ -38,7 +38,7 @@ api_idx_00a2_IKRJ:
     push ax                          ; 0x98a0
     lea ax, word [bp - 0x00a2]       ; 0x98a1
     push ax                          ; 0x98a5
-    call ds_app_string_HHIL          ; 0x98a6
+    call str_subst_char              ; 0x98a6
     add sp, byte 6                   ; 0x98a9
     lea ax, word [bp - 0x00a2]       ; 0x98ac
     push ax                          ; 0x98b0

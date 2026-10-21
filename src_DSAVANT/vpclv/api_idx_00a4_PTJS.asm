@@ -34,7 +34,7 @@ api_idx_00a4_PTJS:
     push ax                          ; 0x4ef0
     lea ax, word [bp - 0x0054]       ; 0x4ef1
     push ax                          ; 0x4ef4
-    call ds_app_string_HHIL          ; 0x4ef5
+    call str_subst_char              ; 0x4ef5
     add sp, byte 6                   ; 0x4ef8
     lea ax, word [bp - 0x00a4]       ; 0x4efb
     push ax                          ; 0x4eff
@@ -53,7 +53,7 @@ api_idx_00a4_PTJS:
     push ax                          ; 0x4f20
     lea ax, word [bp - 0x0054]       ; 0x4f21
     push ax                          ; 0x4f24
-    call ds_app_string_HHIL          ; 0x4f25
+    call str_subst_char              ; 0x4f25
     add sp, byte 6                   ; 0x4f28
     mov ax, 1                        ; 0x4f2b
     push ax                          ; 0x4f2e

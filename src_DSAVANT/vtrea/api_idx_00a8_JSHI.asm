@@ -79,7 +79,7 @@ api_idx_00a8_JSHI:
     push ax                          ; 0x5e36
     lea ax, word [bp - 0x0058]       ; 0x5e37
     push ax                          ; 0x5e3a
-    call ds_app_string_HHIL          ; 0x5e3b
+    call str_subst_char              ; 0x5e3b
     add sp, byte 6                   ; 0x5e3e
     mov ax, 0x41                     ; 0x5e41
     push ax                          ; 0x5e44

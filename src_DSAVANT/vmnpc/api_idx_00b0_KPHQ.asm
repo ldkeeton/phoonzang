@@ -40,7 +40,7 @@ api_idx_00b0_KPHQ:
     mov ax, 0                        ; 0xa898
     push ax                          ; 0xa89b
     push word [bp + 0x6]             ; 0xa89c
-    call ds_string_loc_QRJV          ; 0xa89f
+    call draw_string                 ; 0xa89f
     add sp, byte 4                   ; 0xa8a2
     mov ax, 3                        ; 0xa8a5
     push ax                          ; 0xa8a8

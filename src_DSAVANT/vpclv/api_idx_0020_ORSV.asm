@@ -83,7 +83,7 @@ api_idx_0020_ORSV:
     push ax                          ; 0x33f1
     lea ax, word [bp - 0x000c]       ; 0x33f2
     push ax                          ; 0x33f5
-    call ds_string_loc_QRJV          ; 0x33f6
+    call draw_string                 ; 0x33f6
     add sp, byte 4                   ; 0x33f9
     mov ax, 0                        ; 0x33fc
     push ax                          ; 0x33ff
@@ -95,23 +95,23 @@ api_idx_0020_ORSV:
     push ax                          ; 0x340d
     lea ax, word [bp - 0x0016]       ; 0x340e
     push ax                          ; 0x3411
-    call ds_string_loc_QRJV          ; 0x3412
+    call draw_string                 ; 0x3412
     add sp, byte 4                   ; 0x3415
     mov ax, 0                        ; 0x3418
     push ax                          ; 0x341b
     push word [bp + 0x10]            ; 0x341c
-    call ds_string_loc_QRJV          ; 0x341f
+    call draw_string                 ; 0x341f
     add sp, byte 4                   ; 0x3422
     mov ax, 0                        ; 0x3425
     push ax                          ; 0x3428
     lea ax, word [bp - 0x0020]       ; 0x3429
     push ax                          ; 0x342c
-    call ds_string_loc_QRJV          ; 0x342d
+    call draw_string                 ; 0x342d
     add sp, byte 4                   ; 0x3430
     mov ax, 0                        ; 0x3433
     push ax                          ; 0x3436
     push word [bp + 0x12]            ; 0x3437
-    call ds_string_loc_QRJV          ; 0x343a
+    call draw_string                 ; 0x343a
     add sp, byte 4                   ; 0x343d
     jmp short @..api_idx_0020_ORSV.l3 ; 0x3440
 @..api_idx_0020_ORSV.l2:
@@ -147,7 +147,7 @@ api_idx_0020_ORSV:
     push ax                          ; 0x3491
     lea ax, word [bp - 0x000c]       ; 0x3492
     push ax                          ; 0x3495
-    call ds_string_loc_QRJV          ; 0x3496
+    call draw_string                 ; 0x3496
     add sp, byte 4                   ; 0x3499
     mov ax, 0                        ; 0x349c
     push ax                          ; 0x349f

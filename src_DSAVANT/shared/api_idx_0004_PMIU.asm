@@ -39,7 +39,7 @@ api_idx_0004_PMIU:
     mov ax, 0
     push ax
     push word [bp + 0x4]
-    call ds_string_loc_QRJV
+    call draw_string
     add sp, byte 4
     mov ax, 0xc2
     push ax

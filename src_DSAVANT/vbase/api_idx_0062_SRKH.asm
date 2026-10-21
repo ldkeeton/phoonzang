@@ -85,7 +85,7 @@ api_idx_0062_SRKH:
     push word [bp - 0x000c]          ; 0x4c57
     push word [bp - 0x000a]          ; 0x4c5a
     push word [bp - 0x0008]          ; 0x4c5d
-    call ds_app_KNSQ                 ; 0x4c60
+    call draw_dialog_box             ; 0x4c60
     add sp, byte 8                   ; 0x4c63
     mov word [bp - 0x0002], 0        ; 0x4c66
 @..api_idx_0062_SRKH.l4:
@@ -130,7 +130,7 @@ api_idx_0062_SRKH:
     push ax                          ; 0x4cc7
     lea ax, word [bp - 0x005d]       ; 0x4cc8
     push ax                          ; 0x4ccb
-    call ds_string_loc_QRJV          ; 0x4ccc
+    call draw_string                 ; 0x4ccc
     add sp, byte 4                   ; 0x4ccf
     inc word [bp - 0x0002]           ; 0x4cd2
 @..api_idx_0062_SRKH.l5:

@@ -27,7 +27,7 @@ ensure_game_disk: ; Aztec csav frame=0x0018
     mov ax, word [bp - 0x0016]       ; 0x281f
 @..ensure_game_disk.l5:
     mov word [bp - 0x0018], ax       ; 0x2822
-    cmp ax, word [bss_5218]          ; 0x2825
+    cmp ax, word [disk_header]       ; 0x2825
     je short @..ensure_game_disk.l6  ; 0x2829
     mov ax, 0x3a                     ; 0x282b
     push ax                          ; 0x282e
@@ -43,7 +43,7 @@ ensure_game_disk: ; Aztec csav frame=0x0018
     push word [bp - 0x0016]          ; 0x2842
     lea ax, word [bp - 0x0014]       ; 0x2845
     push ax                          ; 0x2848
-    call ds_app_file_QQMM            ; 0x2849
+    call prompt_disk_swap            ; 0x2849
     add sp, byte 8                   ; 0x284c
     mov ax, 0xc7                     ; 0x284f
     push ax                          ; 0x2852

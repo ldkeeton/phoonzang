@@ -66,7 +66,7 @@ loc_RMVR:
     push word [bp - 0x000c]          ; 0x4da8
     push word [bp - 0x000a]          ; 0x4dab
     push word [bp - 0x0008]          ; 0x4dae
-    call ds_app_KNSQ                 ; 0x4db1
+    call draw_dialog_box             ; 0x4db1
     add sp, byte 8                   ; 0x4db4
     mov ax, 0x1c                     ; 0x4db7
     push ax                          ; 0x4dba
@@ -226,7 +226,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x4f18
     add ax, strict word 8            ; 0x4f1b
     push ax                          ; 0x4f1e
-    call ds_app_string_IIIR          ; 0x4f1f
+    call draw_button                 ; 0x4f1f
     add sp, byte 0x0c                ; 0x4f22
     mov ax, 1                        ; 0x4f25
     push ax                          ; 0x4f28
@@ -313,7 +313,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x4fe3
     add ax, strict word 8            ; 0x4fe6
     push ax                          ; 0x4fe9
-    call ds_app_string_IIIR          ; 0x4fea
+    call draw_button                 ; 0x4fea
     add sp, byte 0x0c                ; 0x4fed
     mov ax, 1                        ; 0x4ff0
     push ax                          ; 0x4ff3
@@ -380,7 +380,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x507e
     add ax, 0xa1                     ; 0x5081
     push ax                          ; 0x5084
-    call ds_app_string_IIIR          ; 0x5085
+    call draw_button                 ; 0x5085
     add sp, byte 0x0c                ; 0x5088
     mov ax, 1                        ; 0x508b
     push ax                          ; 0x508e
@@ -483,7 +483,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x516f
     add ax, 0xb2                     ; 0x5172
     push ax                          ; 0x5175
-    call ds_app_string_IIIR          ; 0x5176
+    call draw_button                 ; 0x5176
     add sp, byte 0x0c                ; 0x5179
     lea ax, word [bp - 0x0068]       ; 0x517c
     push ax                          ; 0x517f
@@ -504,7 +504,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x519e
     add ax, 0xe6                     ; 0x51a1
     push ax                          ; 0x51a4
-    call ds_app_string_IIIR          ; 0x51a5
+    call draw_button                 ; 0x51a5
     add sp, byte 0x0c                ; 0x51a8
     mov word [bp - 0x0002], 0        ; 0x51ab
 @..loc_RMVR.l4:
@@ -534,7 +534,7 @@ loc_RMVR:
     push ax                          ; 0x51ea
     mov ax, 0                        ; 0x51eb
     push ax                          ; 0x51ee
-    call ds_app_NGUR                 ; 0x51ef
+    call set_hotspot                 ; 0x51ef
     add sp, byte 0x0e                ; 0x51f2
     mov ax, 0                        ; 0x51f5
     push ax                          ; 0x51f8
@@ -553,7 +553,7 @@ loc_RMVR:
     push ax                          ; 0x5215
     mov ax, 1                        ; 0x5216
     push ax                          ; 0x5219
-    call ds_app_NGUR                 ; 0x521a
+    call set_hotspot                 ; 0x521a
     add sp, byte 0x0e                ; 0x521d
     mov ax, 0                        ; 0x5220
     push ax                          ; 0x5223
@@ -572,7 +572,7 @@ loc_RMVR:
     push ax                          ; 0x5240
     mov ax, 2                        ; 0x5241
     push ax                          ; 0x5244
-    call ds_app_NGUR                 ; 0x5245
+    call set_hotspot                 ; 0x5245
     add sp, byte 0x0e                ; 0x5248
     mov ax, 0                        ; 0x524b
     push ax                          ; 0x524e
@@ -591,7 +591,7 @@ loc_RMVR:
     push ax                          ; 0x526b
     mov ax, 3                        ; 0x526c
     push ax                          ; 0x526f
-    call ds_app_NGUR                 ; 0x5270
+    call set_hotspot                 ; 0x5270
     add sp, byte 0x0e                ; 0x5273
     mov ax, 0                        ; 0x5276
     push ax                          ; 0x5279
@@ -610,7 +610,7 @@ loc_RMVR:
     push ax                          ; 0x5296
     mov ax, 4                        ; 0x5297
     push ax                          ; 0x529a
-    call ds_app_NGUR                 ; 0x529b
+    call set_hotspot                 ; 0x529b
     add sp, byte 0x0e                ; 0x529e
     mov ax, 0                        ; 0x52a1
     push ax                          ; 0x52a4
@@ -629,7 +629,7 @@ loc_RMVR:
     push ax                          ; 0x52c1
     mov ax, 5                        ; 0x52c2
     push ax                          ; 0x52c5
-    call ds_app_NGUR                 ; 0x52c6
+    call set_hotspot                 ; 0x52c6
     add sp, byte 0x0e                ; 0x52c9
     mov ax, 0                        ; 0x52cc
     push ax                          ; 0x52cf
@@ -648,7 +648,7 @@ loc_RMVR:
     push ax                          ; 0x52ec
     mov ax, 6                        ; 0x52ed
     push ax                          ; 0x52f0
-    call ds_app_NGUR                 ; 0x52f1
+    call set_hotspot                 ; 0x52f1
     add sp, byte 0x0e                ; 0x52f4
     mov ax, 0                        ; 0x52f7
     push ax                          ; 0x52fa
@@ -667,7 +667,7 @@ loc_RMVR:
     push ax                          ; 0x5317
     mov ax, 7                        ; 0x5318
     push ax                          ; 0x531b
-    call ds_app_NGUR                 ; 0x531c
+    call set_hotspot                 ; 0x531c
     add sp, byte 0x0e                ; 0x531f
     mov ax, 0                        ; 0x5322
     push ax                          ; 0x5325
@@ -686,7 +686,7 @@ loc_RMVR:
     push ax                          ; 0x5342
     mov ax, 8                        ; 0x5343
     push ax                          ; 0x5346
-    call ds_app_NGUR                 ; 0x5347
+    call set_hotspot                 ; 0x5347
     add sp, byte 0x0e                ; 0x534a
     mov ax, 0                        ; 0x534d
     push ax                          ; 0x5350
@@ -705,7 +705,7 @@ loc_RMVR:
     push ax                          ; 0x536d
     mov ax, 9                        ; 0x536e
     push ax                          ; 0x5371
-    call ds_app_NGUR                 ; 0x5372
+    call set_hotspot                 ; 0x5372
     add sp, byte 0x0e                ; 0x5375
     mov ax, 0                        ; 0x5378
     push ax                          ; 0x537b
@@ -724,7 +724,7 @@ loc_RMVR:
     push ax                          ; 0x5398
     mov ax, 0xa                      ; 0x5399
     push ax                          ; 0x539c
-    call ds_app_NGUR                 ; 0x539d
+    call set_hotspot                 ; 0x539d
     add sp, byte 0x0e                ; 0x53a0
     mov ax, 0                        ; 0x53a3
     push ax                          ; 0x53a6
@@ -743,7 +743,7 @@ loc_RMVR:
     push ax                          ; 0x53c3
     mov ax, 0xb                      ; 0x53c4
     push ax                          ; 0x53c7
-    call ds_app_NGUR                 ; 0x53c8
+    call set_hotspot                 ; 0x53c8
     add sp, byte 0x0e                ; 0x53cb
     mov ax, 0                        ; 0x53ce
     push ax                          ; 0x53d1
@@ -762,7 +762,7 @@ loc_RMVR:
     push ax                          ; 0x53ee
     mov ax, 0xc                      ; 0x53ef
     push ax                          ; 0x53f2
-    call ds_app_NGUR                 ; 0x53f3
+    call set_hotspot                 ; 0x53f3
     add sp, byte 0x0e                ; 0x53f6
     mov ax, 0                        ; 0x53f9
     push ax                          ; 0x53fc
@@ -781,7 +781,7 @@ loc_RMVR:
     push ax                          ; 0x5419
     mov ax, 0xd                      ; 0x541a
     push ax                          ; 0x541d
-    call ds_app_NGUR                 ; 0x541e
+    call set_hotspot                 ; 0x541e
     add sp, byte 0x0e                ; 0x5421
     mov ax, 0                        ; 0x5424
     push ax                          ; 0x5427
@@ -800,7 +800,7 @@ loc_RMVR:
     push ax                          ; 0x5444
     mov ax, 0xe                      ; 0x5445
     push ax                          ; 0x5448
-    call ds_app_NGUR                 ; 0x5449
+    call set_hotspot                 ; 0x5449
     add sp, byte 0x0e                ; 0x544c
     mov ax, 0                        ; 0x544f
     push ax                          ; 0x5452
@@ -819,7 +819,7 @@ loc_RMVR:
     push ax                          ; 0x546f
     mov ax, 0xf                      ; 0x5470
     push ax                          ; 0x5473
-    call ds_app_NGUR                 ; 0x5474
+    call set_hotspot                 ; 0x5474
     add sp, byte 0x0e                ; 0x5477
     mov ax, 0                        ; 0x547a
     push ax                          ; 0x547d
@@ -838,7 +838,7 @@ loc_RMVR:
     push ax                          ; 0x549a
     mov ax, 0x10                     ; 0x549b
     push ax                          ; 0x549e
-    call ds_app_NGUR                 ; 0x549f
+    call set_hotspot                 ; 0x549f
     add sp, byte 0x0e                ; 0x54a2
     mov ax, 0                        ; 0x54a5
     push ax                          ; 0x54a8
@@ -857,7 +857,7 @@ loc_RMVR:
     push ax                          ; 0x54c5
     mov ax, 0x11                     ; 0x54c6
     push ax                          ; 0x54c9
-    call ds_app_NGUR                 ; 0x54ca
+    call set_hotspot                 ; 0x54ca
     add sp, byte 0x0e                ; 0x54cd
     mov ax, 0                        ; 0x54d0
     push ax                          ; 0x54d3
@@ -876,7 +876,7 @@ loc_RMVR:
     push ax                          ; 0x54f0
     mov ax, 0x12                     ; 0x54f1
     push ax                          ; 0x54f4
-    call ds_app_NGUR                 ; 0x54f5
+    call set_hotspot                 ; 0x54f5
     add sp, byte 0x0e                ; 0x54f8
     mov ax, 0                        ; 0x54fb
     push ax                          ; 0x54fe
@@ -895,7 +895,7 @@ loc_RMVR:
     push ax                          ; 0x551b
     mov ax, 0x13                     ; 0x551c
     push ax                          ; 0x551f
-    call ds_app_NGUR                 ; 0x5520
+    call set_hotspot                 ; 0x5520
     add sp, byte 0x0e                ; 0x5523
     mov ax, 0                        ; 0x5526
     push ax                          ; 0x5529
@@ -914,7 +914,7 @@ loc_RMVR:
     push ax                          ; 0x5546
     mov ax, 0x14                     ; 0x5547
     push ax                          ; 0x554a
-    call ds_app_NGUR                 ; 0x554b
+    call set_hotspot                 ; 0x554b
     add sp, byte 0x0e                ; 0x554e
     mov ax, 0                        ; 0x5551
     push ax                          ; 0x5554
@@ -933,7 +933,7 @@ loc_RMVR:
     push ax                          ; 0x5571
     mov ax, 0x15                     ; 0x5572
     push ax                          ; 0x5575
-    call ds_app_NGUR                 ; 0x5576
+    call set_hotspot                 ; 0x5576
     add sp, byte 0x0e                ; 0x5579
     mov ax, 0                        ; 0x557c
     push ax                          ; 0x557f
@@ -952,7 +952,7 @@ loc_RMVR:
     push ax                          ; 0x559c
     mov ax, 0x16                     ; 0x559d
     push ax                          ; 0x55a0
-    call ds_app_NGUR                 ; 0x55a1
+    call set_hotspot                 ; 0x55a1
     add sp, byte 0x0e                ; 0x55a4
     mov ax, 0                        ; 0x55a7
     push ax                          ; 0x55aa
@@ -971,7 +971,7 @@ loc_RMVR:
     push ax                          ; 0x55c7
     mov ax, 0x17                     ; 0x55c8
     push ax                          ; 0x55cb
-    call ds_app_NGUR                 ; 0x55cc
+    call set_hotspot                 ; 0x55cc
     add sp, byte 0x0e                ; 0x55cf
     mov ax, 0                        ; 0x55d2
     push ax                          ; 0x55d5
@@ -991,7 +991,7 @@ loc_RMVR:
     push ax                          ; 0x55f5
     mov ax, 0x18                     ; 0x55f6
     push ax                          ; 0x55f9
-    call ds_app_NGUR                 ; 0x55fa
+    call set_hotspot                 ; 0x55fa
     add sp, byte 0x0e                ; 0x55fd
     mov ax, 0                        ; 0x5600
     push ax                          ; 0x5603
@@ -1003,7 +1003,7 @@ loc_RMVR:
     push ax                          ; 0x560b
     mov ax, 0x19                     ; 0x560c
     push ax                          ; 0x560f
-    call ds_app_NGUR                 ; 0x5610
+    call set_hotspot                 ; 0x5610
     add sp, byte 0x0e                ; 0x5613
     mov ax, word [bp - 0x000e]       ; 0x5616
     inc ax                           ; 0x5619
@@ -1026,13 +1026,13 @@ loc_RMVR:
     je short @..loc_RMVR.l6          ; 0x563f
     mov ax, 0x59fe                   ; 0x5641
     push ax                          ; 0x5644
-    call ds_app_UHMG                 ; 0x5645
+    call poll_hotspots               ; 0x5645
     pop cx                           ; 0x5648
     dec ax                           ; 0x5649
     mov word [bp - 0x0014], ax       ; 0x564a
     jmp near @..loc_RMVR.l29         ; 0x564d
 @..loc_RMVR.l6:
-    mov word [bss_5b3e], 0           ; 0x5650
+    mov word [hotspot_hit], 0        ; 0x5650
     push word [bp - 0x000a]          ; 0x5656
     push word [bp - 0x0008]          ; 0x5659
     push word [bp - 0x0016]          ; 0x565c
@@ -1173,7 +1173,7 @@ jumptable_5751:
 jumptable_5751_case_1:
     cmp word [bp - 0x0014], byte 0xff ; 0x5784
     je short @..loc_RMVR.l13         ; 0x5788
-    mov word [bss_5b3e], 1           ; 0x578a
+    mov word [hotspot_hit], 1        ; 0x578a
 @..loc_RMVR.l13:
     jmp near @..loc_RMVR.l29         ; 0x5790
 @..loc_RMVR.l14:
@@ -1228,7 +1228,7 @@ jumptable_57ce:
 jumptable_57ce_case_0:
     cmp word [bp - 0x0014], byte 0xff ; 0x57fd
     je short @..loc_RMVR.l16         ; 0x5801
-    mov word [bss_5b3e], 1           ; 0x5803
+    mov word [hotspot_hit], 1        ; 0x5803
 @..loc_RMVR.l16:
     jmp near @..loc_RMVR.l29         ; 0x5809
 @..loc_RMVR.l17:
@@ -1283,12 +1283,12 @@ jumptable_5847:
 jumptable_5847_case_0:
     cmp word [bp - 0x0014], byte 0xff ; 0x5876
     je short @..loc_RMVR.l19         ; 0x587a
-    mov word [bss_5b3e], 1           ; 0x587c
+    mov word [hotspot_hit], 1        ; 0x587c
 @..loc_RMVR.l19:
     jmp short @..loc_RMVR.l29        ; 0x5882
 @..loc_RMVR.l20:
     mov word [bp - 0x0014], 0x18     ; 0x5884
-    mov word [bss_5b3e], 1           ; 0x5889
+    mov word [hotspot_hit], 1        ; 0x5889
     jmp short @..loc_RMVR.l29        ; 0x588f
 @..loc_RMVR.l21:
     cmp ax, strict word 8            ; 0x5891
@@ -1325,7 +1325,7 @@ jumptable_5847_case_0:
     jne short @..loc_RMVR.l29        ; 0x58d1
     jmp near @..loc_RMVR.l14         ; 0x58d3
 @..loc_RMVR.l29:
-    cmp word [bss_5b3e], byte 1      ; 0x58d6
+    cmp word [hotspot_hit], byte 1   ; 0x58d6
     je short @..loc_RMVR.l30         ; 0x58db
     jmp near @..loc_RMVR.l54         ; 0x58dd
 @..loc_RMVR.l30:
@@ -1877,7 +1877,7 @@ jumptable_5e7f_case_23:
     mov ax, word [bp - 0x0008]       ; 0x5dc2
     add ax, 0xb2                     ; 0x5dc5
     push ax                          ; 0x5dc8
-    call ds_app_VIGG                 ; 0x5dc9
+    call flash_button                ; 0x5dc9
     add sp, byte 0x0a                ; 0x5dcc
     mov ax, 0                        ; 0x5dcf
     push ax                          ; 0x5dd2
@@ -1891,7 +1891,7 @@ jumptable_5e7f_case_23:
     mov ax, word [bp - 0x0008]       ; 0x5de2
     add ax, 0xb2                     ; 0x5de5
     push ax                          ; 0x5de8
-    call ds_app_VIGG                 ; 0x5de9
+    call flash_button                ; 0x5de9
     add sp, byte 0x0a                ; 0x5dec
     mov al, byte [bss_5984]          ; 0x5def
     cmp al, byte [bp - 0x0074]       ; 0x5df2
@@ -1921,7 +1921,7 @@ jumptable_5e7f_case_24:
     mov ax, word [bp - 0x0008]       ; 0x5e25
     add ax, 0xe6                     ; 0x5e28
     push ax                          ; 0x5e2b
-    call ds_app_VIGG                 ; 0x5e2c
+    call flash_button                ; 0x5e2c
     add sp, byte 0x0a                ; 0x5e2f
     mov ax, 0                        ; 0x5e32
     push ax                          ; 0x5e35
@@ -1935,7 +1935,7 @@ jumptable_5e7f_case_24:
     mov ax, word [bp - 0x0008]       ; 0x5e45
     add ax, 0xe6                     ; 0x5e48
     push ax                          ; 0x5e4b
-    call ds_app_VIGG                 ; 0x5e4c
+    call flash_button                ; 0x5e4c
     add sp, byte 0x0a                ; 0x5e4f
     mov word [bss_9050], 0           ; 0x5e52
     mov word [bp - 0x0018], 0        ; 0x5e58

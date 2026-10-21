@@ -53,7 +53,7 @@ api_idx_007c_MOJH:
     imul word [bp + 0x4]             ; 0x05ec
     add ax, bss_5bf4                 ; 0x05ef
     push ax                          ; 0x05f2
-    call ds_string_loc_QRJV          ; 0x05f3
+    call draw_string                 ; 0x05f3
     add sp, byte 4                   ; 0x05f6
     mov ax, 0                        ; 0x05f9
     push ax                          ; 0x05fc
@@ -106,7 +106,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x066e
     lea ax, word [bp - 0x0058]       ; 0x066f
     push ax                          ; 0x0672
-    call ds_string_loc_QRJV          ; 0x0673
+    call draw_string                 ; 0x0673
     add sp, byte 4                   ; 0x0676
     mov ax, 0                        ; 0x0679
     push ax                          ; 0x067c
@@ -135,7 +135,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x06b4
     lea ax, word [bp - 0x0058]       ; 0x06b5
     push ax                          ; 0x06b8
-    call ds_string_loc_QRJV          ; 0x06b9
+    call draw_string                 ; 0x06b9
     add sp, byte 4                   ; 0x06bc
     mov ax, 0x12                     ; 0x06bf
     push ax                          ; 0x06c2
@@ -153,7 +153,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x06de
     lea ax, word [bp - 0x0058]       ; 0x06df
     push ax                          ; 0x06e2
-    call ds_string_loc_QRJV          ; 0x06e3
+    call draw_string                 ; 0x06e3
     add sp, byte 4                   ; 0x06e6
     mov ax, 0                        ; 0x06e9
     push ax                          ; 0x06ec
@@ -277,7 +277,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0807
     lea ax, word [bp - 0x0058]       ; 0x0808
     push ax                          ; 0x080b
-    call ds_string_loc_QRJV          ; 0x080c
+    call draw_string                 ; 0x080c
     add sp, byte 4                   ; 0x080f
     mov ax, 0                        ; 0x0812
     push ax                          ; 0x0815
@@ -318,7 +318,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x086a
     lea ax, word [bp - 0x0058]       ; 0x086b
     push ax                          ; 0x086e
-    call ds_string_loc_QRJV          ; 0x086f
+    call draw_string                 ; 0x086f
     add sp, byte 4                   ; 0x0872
     lea ax, word [bp - 0x0058]       ; 0x0875
     push ax                          ; 0x0878
@@ -356,7 +356,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x08c2
     lea ax, word [bp - 0x0058]       ; 0x08c3
     push ax                          ; 0x08c6
-    call ds_string_loc_QRJV          ; 0x08c7
+    call draw_string                 ; 0x08c7
     add sp, byte 4                   ; 0x08ca
     mov ax, 0                        ; 0x08cd
     push ax                          ; 0x08d0
@@ -380,7 +380,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x08fa
     lea ax, word [bp - 0x0058]       ; 0x08fb
     push ax                          ; 0x08fe
-    call ds_string_loc_QRJV          ; 0x08ff
+    call draw_string                 ; 0x08ff
     add sp, byte 4                   ; 0x0902
     mov ax, 0                        ; 0x0905
     push ax                          ; 0x0908
@@ -415,7 +415,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0950
     lea ax, word [bp - 0x0058]       ; 0x0951
     push ax                          ; 0x0954
-    call ds_string_loc_QRJV          ; 0x0955
+    call draw_string                 ; 0x0955
     add sp, byte 4                   ; 0x0958
     mov ax, 0                        ; 0x095b
     push ax                          ; 0x095e
@@ -456,7 +456,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x09b4
     lea ax, word [bp - 0x0058]       ; 0x09b5
     push ax                          ; 0x09b8
-    call ds_string_loc_QRJV          ; 0x09b9
+    call draw_string                 ; 0x09b9
     add sp, byte 4                   ; 0x09bc
     mov ax, 0                        ; 0x09bf
     push ax                          ; 0x09c2
@@ -482,7 +482,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x09f4
     lea ax, word [bp - 0x0058]       ; 0x09f5
     push ax                          ; 0x09f8
-    call ds_string_loc_QRJV          ; 0x09f9
+    call draw_string                 ; 0x09f9
     add sp, byte 4                   ; 0x09fc
     mov ax, 0                        ; 0x09ff
     push ax                          ; 0x0a02
@@ -502,7 +502,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0a26
     lea ax, word [bp - 0x0058]       ; 0x0a27
     push ax                          ; 0x0a2a
-    call ds_string_loc_QRJV          ; 0x0a2b
+    call draw_string                 ; 0x0a2b
     add sp, byte 4                   ; 0x0a2e
     mov ax, 0                        ; 0x0a31
     push ax                          ; 0x0a34
@@ -526,7 +526,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0a5e
     lea ax, word [bp - 0x0058]       ; 0x0a5f
     push ax                          ; 0x0a62
-    call ds_string_loc_QRJV          ; 0x0a63
+    call draw_string                 ; 0x0a63
     add sp, byte 4                   ; 0x0a66
     mov ax, 0                        ; 0x0a69
     push ax                          ; 0x0a6c
@@ -569,13 +569,13 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0ac7
     lea ax, word [bp - 0x0058]       ; 0x0ac8
     push ax                          ; 0x0acb
-    call ds_string_loc_QRJV          ; 0x0acc
+    call draw_string                 ; 0x0acc
     add sp, byte 4                   ; 0x0acf
     mov ax, 0                        ; 0x0ad2
     push ax                          ; 0x0ad5
     mov ax, dseg_9098                ; 0x0ad6
     push ax                          ; 0x0ad9
-    call ds_string_loc_QRJV          ; 0x0ada
+    call draw_string                 ; 0x0ada
     add sp, byte 4                   ; 0x0add
     mov ax, 0                        ; 0x0ae0
     push ax                          ; 0x0ae3
@@ -601,7 +601,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0b15
     lea ax, word [bp - 0x0058]       ; 0x0b16
     push ax                          ; 0x0b19
-    call ds_string_loc_QRJV          ; 0x0b1a
+    call draw_string                 ; 0x0b1a
     add sp, byte 4                   ; 0x0b1d
     mov ax, 0                        ; 0x0b20
     push ax                          ; 0x0b23
@@ -631,7 +631,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0b5b
     lea ax, word [bp - 0x0058]       ; 0x0b5c
     push ax                          ; 0x0b5f
-    call ds_string_loc_QRJV          ; 0x0b60
+    call draw_string                 ; 0x0b60
     add sp, byte 4                   ; 0x0b63
     mov ax, 0                        ; 0x0b66
     push ax                          ; 0x0b69
@@ -652,7 +652,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0b91
     lea ax, word [bp - 0x0058]       ; 0x0b92
     push ax                          ; 0x0b95
-    call ds_string_loc_QRJV          ; 0x0b96
+    call draw_string                 ; 0x0b96
     add sp, byte 4                   ; 0x0b99
     push word [bp + 0x4]             ; 0x0b9c
     call ds_app_OOUT                 ; 0x0b9f
@@ -694,7 +694,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0bf5
     lea ax, word [bp - 0x0058]       ; 0x0bf6
     push ax                          ; 0x0bf9
-    call ds_string_loc_QRJV          ; 0x0bfa
+    call draw_string                 ; 0x0bfa
     add sp, byte 4                   ; 0x0bfd
     mov ax, 0                        ; 0x0c00
     push ax                          ; 0x0c03
@@ -718,7 +718,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0c2e
     lea ax, word [bp - 0x0058]       ; 0x0c2f
     push ax                          ; 0x0c32
-    call ds_string_loc_QRJV          ; 0x0c33
+    call draw_string                 ; 0x0c33
     add sp, byte 4                   ; 0x0c36
     mov ax, 0                        ; 0x0c39
     push ax                          ; 0x0c3c
@@ -742,7 +742,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0c67
     lea ax, word [bp - 0x0058]       ; 0x0c68
     push ax                          ; 0x0c6b
-    call ds_string_loc_QRJV          ; 0x0c6c
+    call draw_string                 ; 0x0c6c
     add sp, byte 4                   ; 0x0c6f
     push word [bp + 0x4]             ; 0x0c72
     call api_idx_0004_RMVO           ; 0x0c75

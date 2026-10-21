@@ -73,7 +73,7 @@ api_idx_0004_JGSH:
     mov ax, 2
     push ax
     push word [bp + 0x4]
-    call ds_string_loc_QRJV
+    call draw_string
     add sp, byte 4
     mov bx, word [bp + 0x4]
     mov byte [bx], 0

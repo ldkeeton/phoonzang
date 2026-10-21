@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_KNSQ: ; Aztec csav frame=0x0000
+draw_dialog_box: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x0ee1
     call aztec_csav                  ; 0x0ee4
     mov ax, 0xc2                     ; 0x0ee7

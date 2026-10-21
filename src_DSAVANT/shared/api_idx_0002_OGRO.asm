@@ -34,7 +34,7 @@ api_idx_0002_OGRO:
     imul word [bp - 0x0002]
     add ax, bss_0e38
     push ax
-    call ds_string_loc_QRJV
+    call draw_string
     add sp, byte 4
     mov ax, 6
     imul word [bp - 0x0002]

@@ -253,7 +253,7 @@ bss_0e1c     equ __zbss_0e1c - __zdseg_start
 bss_0e1e     equ __zbss_0e1e - __zdseg_start
 bss_0e20     equ __zbss_0e20 - __zdseg_start
 data_file_fd equ __zbss_0e22 - __zdseg_start
-bss_0e24     equ __zbss_0e24 - __zdseg_start
+msg_dbs_fd   equ __zbss_0e24 - __zdseg_start
 bss_0e26     equ __zbss_0e26 - __zdseg_start
 bss_0e28     equ __zbss_0e28 - __zdseg_start
 bss_0e2a     equ __zbss_0e2a - __zdseg_start
@@ -278,7 +278,7 @@ bss_0e34 equ __zbss_0e34 - __zdseg_start
 
 %include "ds/game/ds_app_GUML.asm"         ; 0x052e
 
-%include "ds/game/ds_app_string_HHIL.asm"  ; 0x0547
+%include "ds/game/str_subst_char.asm"      ; 0x0547
 
 bss_0fd5 equ __zbss_0fd5 - __zdseg_start
 bss_0fd6 equ __zbss_0fd6 - __zdseg_start
@@ -289,10 +289,10 @@ bss_100a equ __zbss_100a - __zdseg_start
 bss_100c equ __zbss_100c - __zdseg_start
 %include "ds/game/ds_app_MRJK.asm"         ; 0x065d
 
-; bss_0e24 equ __zbss_0e24 - __zdseg_start
-bss_3e12 equ __zbss_3e12 - __zdseg_start
-bss_5212 equ __zbss_5212 - __zdseg_start
-bss_5214 equ __zbss_5214 - __zdseg_start
+; msg_dbs_fd equ __zbss_0e24 - __zdseg_start
+bss_3e12   equ __zbss_3e12 - __zdseg_start
+bss_5212   equ __zbss_5212 - __zdseg_start
+bss_5214   equ __zbss_5214 - __zdseg_start
 %include "ds/game/ds_app_file_RPKG.asm"    ; 0x06c6
 
 ; bss_3e12 equ __zbss_3e12 - __zdseg_start
@@ -300,7 +300,7 @@ bss_5214 equ __zbss_5214 - __zdseg_start
 bss_5216 equ __zbss_5216 - __zdseg_start
 %include "ds/game/ds_app_mem_TIMR.asm"     ; 0x0782
 
-%include "ds/game/ds_app_KQMO.asm"         ; 0x0860
+%include "ds/game/ds_app_string_KQMO.asm"  ; 0x0860
 
 ; data_file_fd  equ __zbss_0e22 - __zdseg_start
 record_base   equ __zbss_521c - __zdseg_start
@@ -335,11 +335,11 @@ bss_59f8 equ __zbss_59f8 - __zdseg_start
 
 %include "ds/game/ds_app_TSGV.asm"         ; 0x0af6
 
-; bss_0e32 equ __zbss_0e32 - __zdseg_start
-bss_59fa equ __zbss_59fa - __zdseg_start
-bss_59fc equ __zbss_59fc - __zdseg_start
-bss_5b3e equ __zbss_5b3e - __zdseg_start
-%include "ds/game/ds_app_UHMG.asm"         ; 0x0b54
+; bss_0e32    equ __zbss_0e32 - __zdseg_start
+bss_59fa    equ __zbss_59fa - __zdseg_start
+bss_59fc    equ __zbss_59fc - __zdseg_start
+hotspot_hit equ __zbss_5b3e - __zdseg_start
+%include "ds/game/poll_hotspots.asm"       ; 0x0b54
 
 ; bss_0fd6 equ __zbss_0fd6 - __zdseg_start
 ; bss_5990 equ __zbss_5990 - __zdseg_start
@@ -350,9 +350,9 @@ bss_5b44 equ __zbss_5b44 - __zdseg_start
 bss_5b46 equ __zbss_5b46 - __zdseg_start
 %include "ds/game/ds_app_string_KVNI.asm"  ; 0x0c0b
 
-%include "ds/game/ds_app_NGUR.asm"         ; 0x0ced
+%include "ds/game/set_hotspot.asm"         ; 0x0ced
 
-; bss_5b3e equ __zbss_5b3e - __zdseg_start
+; hotspot_hit equ __zbss_5b3e - __zdseg_start
 %include "ds/game/ds_app_TMKJ.asm"         ; 0x0d36
 
 ; bss_0e2a equ __zbss_0e2a - __zdseg_start
@@ -365,7 +365,7 @@ bss_598c equ __zbss_598c - __zdseg_start
 
 %include "ds/game/ds_app_TTLJ.asm"         ; 0x0e82
 
-%include "ds/game/ds_app_KNSQ.asm"         ; 0x0ee1
+%include "ds/game/draw_dialog_box.asm"     ; 0x0ee1
 
 %include "ds/game/ds_app_PQGJ.asm"         ; 0x0f2a
 
@@ -373,18 +373,18 @@ bss_598c equ __zbss_598c - __zdseg_start
 
 %include "ds/game/ds_app_string_MJQI.asm"  ; 0x1034
 
-%include "ds/game/ds_app_VIGG.asm"         ; 0x10a6
+%include "ds/game/flash_button.asm"        ; 0x10a6
 
 %include "ds/game/ds_app_QOOL.asm"         ; 0x10ff
 
 bss_0e38 equ __zbss_0e38 - __zdseg_start
-%include "ds/game/ds_app_UNSL.asm"         ; 0x1138
+%include "ds/game/ds_app_string_UNSL.asm"  ; 0x1138
 
 %include "ds/game/ds_app_HTKI.asm"         ; 0x11de
 
 %include "ds/game/ds_app_JKST.asm"         ; 0x121f
 
-%include "ds/game/ds_app_string_IIIR.asm"  ; 0x1308
+%include "ds/game/draw_button.asm"         ; 0x1308
 
 %include "ds/game/free_picture_slot.asm"   ; 0x1371
 
@@ -429,14 +429,14 @@ saved_screen_ref          equ __zbss_5be0 - __zdseg_start
 
 bss_5bf4 equ __zbss_5bf4 - __zdseg_start
 bss_5e2a equ __zbss_5e2a - __zdseg_start
-%include "ds/game/ds_app_LUOV.asm"         ; 0x1d81
+%include "ds/game/ds_app_string_LUOV.asm"  ; 0x1d81
 
-; bss_0e2e equ __zbss_0e2e - __zdseg_start
-; bss_0e30 equ __zbss_0e30 - __zdseg_start
-; bss_0e32 equ __zbss_0e32 - __zdseg_start
-; bss_59fa equ __zbss_59fa - __zdseg_start
-; bss_5b3e equ __zbss_5b3e - __zdseg_start
-bss_69c8 equ __zbss_69c8 - __zdseg_start
+; bss_0e2e    equ __zbss_0e2e - __zdseg_start
+; bss_0e30    equ __zbss_0e30 - __zdseg_start
+; bss_0e32    equ __zbss_0e32 - __zdseg_start
+; bss_59fa    equ __zbss_59fa - __zdseg_start
+; hotspot_hit equ __zbss_5b3e - __zdseg_start
+bss_69c8    equ __zbss_69c8 - __zdseg_start
 %include "ds/game/ds_app_VGOM.asm"         ; 0x20f8
 
 %include "ds/game/ds_app_QSQR.asm"         ; 0x2305
@@ -452,22 +452,16 @@ install_mode       equ __zbss_5987 - __zdseg_start
 data_path_buf      equ __zbss_69ca - __zdseg_start
 %include "ds/game/data_file_path.asm"      ; 0x23a8
 
-dseg_0b74    equ __zdseg_0b74 - __zdseg_start
-dseg_0b89    equ __zdseg_0b89 - __zdseg_start
-dseg_0b99    equ __zdseg_0b99 - __zdseg_start
-dseg_0ba6    equ __zdseg_0ba6 - __zdseg_start
-dseg_0baf    equ __zdseg_0baf - __zdseg_start
-dseg_0bb8    equ __zdseg_0bb8 - __zdseg_start
-dseg_0bc0    equ __zdseg_0bc0 - __zdseg_start
-; data_file_fd equ __zbss_0e22 - __zdseg_start
-; bss_0e24     equ __zbss_0e24 - __zdseg_start
-bss_5218     equ __zbss_5218 - __zdseg_start
-bss_5926     equ __zbss_5926 - __zdseg_start
-; install_mode equ __zbss_5987 - __zdseg_start
-; bss_5b3e     equ __zbss_5b3e - __zdseg_start
-%include "ds/game/ds_app_file_QQMM.asm"    ; 0x23ef
+str_insert_savegame_disk equ __zstr_insert_savegame_disk - __zdseg_start
+; data_file_fd             equ __zbss_0e22 - __zdseg_start
+; msg_dbs_fd               equ __zbss_0e24 - __zdseg_start
+disk_header              equ __zbss_5218 - __zdseg_start
+disk_drive_name          equ __zbss_5926 - __zdseg_start
+; install_mode             equ __zbss_5987 - __zdseg_start
+; hotspot_hit              equ __zbss_5b3e - __zdseg_start
+%include "ds/game/prompt_disk_swap.asm"    ; 0x23ef
 
-; bss_5218           equ __zbss_5218 - __zdseg_start
+; disk_header        equ __zbss_5218 - __zdseg_start
 ; data_path_prefixes equ __zbss_5912 - __zdseg_start
 ; install_mode       equ __zbss_5987 - __zdseg_start
 %include "ds/game/ensure_game_disk.asm"    ; 0x27e9
@@ -780,7 +774,7 @@ cseg_396b:
 
 %include "ds/library/ds_loc_TJTV.asm"      ; 0x3a77
 
-%include "ds/library/ds_string_loc_QRJV.asm" ; 0x3a95
+%include "ds/library/draw_string.asm"      ; 0x3a95
 
 %include "ds/library/ds_loc_JJGM.asm"      ; 0x3aca
 
@@ -1263,24 +1257,8 @@ __zdseg_03dc:
     db 0x2f, 0x02, 0x30, 0x02
     times 6 db 0
 
-__zdseg_0b74:
+%include "ds/data/str_insert_savegame_disk.asm" ; 0x10cd4
 
-    db 'INSERT SAVEGAME DISK', 0
-
-__zdseg_0b89:
-
-    db 'INSERT DISK (^)', 0
-
-__zdseg_0b99:
-    db 'INTO DRIVE ^', 0
-__zdseg_0ba6:
-    db 'CONTINUE', 0
-__zdseg_0baf:
-    db 'DISK.HDR', 0
-__zdseg_0bb8:
-    db 'MSG.DBS', 0
-__zdseg_0bc0:
-    db 'SCENARIO.DBS', 0
 __zdseg_0bcd:
     db 'MON00.PIC', 0
 __zdseg_0bd7:

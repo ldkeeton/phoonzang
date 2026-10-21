@@ -29,7 +29,7 @@ api_idx_006a_NKMN:
     push word [bp - 0x000a]          ; 0x6039
     push word [bp - 0x0008]          ; 0x603c
     push word [bp - 0x0006]          ; 0x603f
-    call ds_app_KNSQ                 ; 0x6042
+    call draw_dialog_box             ; 0x6042
     add sp, byte 8                   ; 0x6045
     lea ax, word [bp - 0x006a]       ; 0x6048
     push ax                          ; 0x604b
@@ -66,7 +66,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x6094
     lea ax, word [bp - 0x006a]       ; 0x6095
     push ax                          ; 0x6098
-    call ds_string_loc_QRJV          ; 0x6099
+    call draw_string                 ; 0x6099
     add sp, byte 4                   ; 0x609c
     mov ax, 0xc2                     ; 0x609f
     push ax                          ; 0x60a2
@@ -101,7 +101,7 @@ api_idx_006a_NKMN:
     imul word [bp + 0x4]             ; 0x60e5
     add ax, bss_5bf4                 ; 0x60e8
     push ax                          ; 0x60eb
-    call ds_string_loc_QRJV          ; 0x60ec
+    call draw_string                 ; 0x60ec
     add sp, byte 4                   ; 0x60ef
     mov ax, dseg_90e9                ; 0x60f2
     push ax                          ; 0x60f5
@@ -148,7 +148,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x6155
     lea ax, word [bp - 0x006a]       ; 0x6156
     push ax                          ; 0x6159
-    call ds_string_loc_QRJV          ; 0x615a
+    call draw_string                 ; 0x615a
     add sp, byte 4                   ; 0x615d
     lea ax, word [bp - 0x006a]       ; 0x6160
     push ax                          ; 0x6163
@@ -170,7 +170,7 @@ api_idx_006a_NKMN:
     mov ax, word [bp - 0x0006]       ; 0x6185
     add ax, strict word 8            ; 0x6188
     push ax                          ; 0x618b
-    call ds_app_string_IIIR          ; 0x618c
+    call draw_button                 ; 0x618c
     add sp, byte 0x0c                ; 0x618f
     mov word [bp - 0x0002], 0        ; 0x6192
 @..api_idx_006a_NKMN.l1:
@@ -254,7 +254,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x6256
     mov ax, 0                        ; 0x6257
     push ax                          ; 0x625a
-    call ds_app_NGUR                 ; 0x625b
+    call set_hotspot                 ; 0x625b
     add sp, byte 0x0e                ; 0x625e
     mov word [bp - 0x0002], 0        ; 0x6261
     jmp short @..api_idx_006a_NKMN.l4 ; 0x6266
@@ -284,7 +284,7 @@ api_idx_006a_NKMN:
     mov ax, word [bp - 0x0002]       ; 0x629c
     inc ax                           ; 0x629f
     push ax                          ; 0x62a0
-    call ds_app_NGUR                 ; 0x62a1
+    call set_hotspot                 ; 0x62a1
     add sp, byte 0x0e                ; 0x62a4
     inc word [bp - 0x0002]           ; 0x62a7
 @..api_idx_006a_NKMN.l4:
@@ -302,7 +302,7 @@ api_idx_006a_NKMN:
     mov ax, word [bp + 0xa]          ; 0x62be
     inc ax                           ; 0x62c1
     push ax                          ; 0x62c2
-    call ds_app_NGUR                 ; 0x62c3
+    call set_hotspot                 ; 0x62c3
     add sp, byte 0x0e                ; 0x62c6
     mov ax, word [bp - 0x000c]       ; 0x62c9
     inc ax                           ; 0x62cc
@@ -528,11 +528,11 @@ api_idx_006a_NKMN:
 @..api_idx_006a_NKMN.l21:
     mov ax, 0x59fe                   ; 0x64ca
     push ax                          ; 0x64cd
-    call ds_app_UHMG                 ; 0x64ce
+    call poll_hotspots               ; 0x64ce
     pop cx                           ; 0x64d1
     dec ax                           ; 0x64d2
     mov word [bp - 0x0012], ax       ; 0x64d3
-    cmp word [bss_5b3e], byte 1      ; 0x64d6
+    cmp word [hotspot_hit], byte 1   ; 0x64d6
     je short @..api_idx_006a_NKMN.l22 ; 0x64db
     jmp near @..api_idx_006a_NKMN.l35 ; 0x64dd
 @..api_idx_006a_NKMN.l22:
@@ -551,7 +551,7 @@ api_idx_006a_NKMN:
     mov ax, word [bp - 0x0006]       ; 0x64f9
     add ax, strict word 8            ; 0x64fc
     push ax                          ; 0x64ff
-    call ds_app_VIGG                 ; 0x6500
+    call flash_button                ; 0x6500
     add sp, byte 0x0a                ; 0x6503
     mov ax, 0                        ; 0x6506
     push ax                          ; 0x6509
@@ -565,7 +565,7 @@ api_idx_006a_NKMN:
     mov ax, word [bp - 0x0006]       ; 0x6519
     add ax, strict word 8            ; 0x651c
     push ax                          ; 0x651f
-    call ds_app_VIGG                 ; 0x6520
+    call flash_button                ; 0x6520
     add sp, byte 0x0a                ; 0x6523
     mov word [bss_9050], 0xffff      ; 0x6526
     mov word [bp - 0x0016], 0        ; 0x652c

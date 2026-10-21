@@ -33,6 +33,6 @@ loc_RSMG:
     mov ax, 0                        ; 0x4327
     push ax                          ; 0x432a
     push word [bp + 0x4]             ; 0x432b
-    call ds_string_loc_QRJV          ; 0x432e
+    call draw_string                 ; 0x432e
     add sp, byte 4                   ; 0x4331
     ret                              ; 0x4334

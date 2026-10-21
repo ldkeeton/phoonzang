@@ -162,7 +162,7 @@ api_idx_0012_SHRT:
     inc ax                           ; 0x08ec
     push ax                          ; 0x08ed
     push word [bp - 0x0002]          ; 0x08ee
-    call ds_app_NGUR                 ; 0x08f1
+    call set_hotspot                 ; 0x08f1
     add sp, byte 0x0e                ; 0x08f4
     inc word [bp - 0x0002]           ; 0x08f7
     mov ax, word [bp - 0x0002]       ; 0x08fa
@@ -178,7 +178,7 @@ api_idx_0012_SHRT:
     push ax                          ; 0x090d
     mov ax, 0xa                      ; 0x090e
     push ax                          ; 0x0911
-    call ds_app_NGUR                 ; 0x0912
+    call set_hotspot                 ; 0x0912
     add sp, byte 0x0e                ; 0x0915
     mov word [bp - 0x0008], 0        ; 0x0918
 @..api_idx_0012_SHRT.l8:
@@ -201,7 +201,7 @@ api_idx_0012_SHRT:
     pop cx                           ; 0x0944
     mov ax, 0x59fe                   ; 0x0945
     push ax                          ; 0x0948
-    call ds_app_UHMG                 ; 0x0949
+    call poll_hotspots               ; 0x0949
     pop cx                           ; 0x094c
     dec ax                           ; 0x094d
     mov word [bp - 0x0004], ax       ; 0x094e
@@ -216,7 +216,7 @@ api_idx_0012_SHRT:
     mov ax, 0xffff                   ; 0x0966
     ret                              ; 0x0969
 @..api_idx_0012_SHRT.l10:
-    cmp word [bss_5b3e], byte 1      ; 0x096a
+    cmp word [hotspot_hit], byte 1   ; 0x096a
     jne short @..api_idx_0012_SHRT.l11 ; 0x096f
     mov ax, 0                        ; 0x0971
     mov dx, 0                        ; 0x0974

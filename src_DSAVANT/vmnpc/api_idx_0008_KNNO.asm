@@ -139,7 +139,7 @@ api_idx_0008_KNNO:
     push ax                          ; 0x2afc
     mov ax, bss_95a8                 ; 0x2afd
     push ax                          ; 0x2b00
-    call ds_app_string_HHIL          ; 0x2b01
+    call str_subst_char              ; 0x2b01
     add sp, byte 6                   ; 0x2b04
     cmp word [bp + 0x8], byte 1      ; 0x2b07
     jne short @..api_idx_0008_KNNO.l11 ; 0x2b0b

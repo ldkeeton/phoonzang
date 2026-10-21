@@ -21,7 +21,7 @@ api_idx_00ba_TUGQ:
     push ax                          ; 0xaac2
     lea ax, word [bp - 0x0066]       ; 0xaac3
     push ax                          ; 0xaac6
-    call ds_app_string_HHIL          ; 0xaac7
+    call str_subst_char              ; 0xaac7
     add sp, byte 6                   ; 0xaaca
 @..api_idx_00ba_TUGQ.l1:
     mov ax, 0                        ; 0xaacd

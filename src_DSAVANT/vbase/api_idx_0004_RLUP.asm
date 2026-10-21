@@ -70,7 +70,7 @@ api_idx_0004_RLUP:
     mov ax, 2                        ; 0x6dbb
     push ax                          ; 0x6dbe
     push word [bp + 0x4]             ; 0x6dbf
-    call ds_string_loc_QRJV          ; 0x6dc2
+    call draw_string                 ; 0x6dc2
     add sp, byte 4                   ; 0x6dc5
     mov bx, word [bp + 0x4]          ; 0x6dc8
     mov byte [bx], 0                 ; 0x6dcb

@@ -75,7 +75,7 @@ api_idx_0004_VUIP:
     mov ax, 0                        ; 0x016d
     push ax                          ; 0x0170
     push word [bp + 0x4]             ; 0x0171
-    call ds_string_loc_QRJV          ; 0x0174
+    call draw_string                 ; 0x0174
     add sp, byte 4                   ; 0x0177
     mov ax, word [bp + 0x6]          ; 0x017a
     imul word [bp + 0xe]             ; 0x017d

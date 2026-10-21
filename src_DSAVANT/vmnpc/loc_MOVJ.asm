@@ -59,7 +59,7 @@ loc_MOVJ:
     mov ax, word [bp + 0xa]          ; 0x1dc0
     add ax, strict word 0xfffb       ; 0x1dc3
     push ax                          ; 0x1dc6
-    call ds_app_KNSQ                 ; 0x1dc7
+    call draw_dialog_box             ; 0x1dc7
     add sp, byte 8                   ; 0x1dca
     mov ax, 0xc2                     ; 0x1dcd
     push ax                          ; 0x1dd0
@@ -87,7 +87,7 @@ loc_MOVJ:
     mov ax, 0                        ; 0x1e02
     push ax                          ; 0x1e05
     push word [bp + 0x4]             ; 0x1e06
-    call ds_string_loc_QRJV          ; 0x1e09
+    call draw_string                 ; 0x1e09
     add sp, byte 4                   ; 0x1e0c
     mov ax, word [bp + 0xc]          ; 0x1e0f
     add ax, strict word 0xfff6       ; 0x1e12
@@ -109,7 +109,7 @@ loc_MOVJ:
     mov ax, 0                        ; 0x1e36
     push ax                          ; 0x1e39
     push word [bp + 0x6]             ; 0x1e3a
-    call ds_string_loc_QRJV          ; 0x1e3d
+    call draw_string                 ; 0x1e3d
     add sp, byte 4                   ; 0x1e40
     jmp short @..loc_MOVJ.l3         ; 0x1e43
 @..loc_MOVJ.l2:
@@ -230,7 +230,7 @@ loc_MOVJ:
     lea cx, word [bp - 0x0156]       ; 0x1f4d
     add ax, cx                       ; 0x1f51
     push ax                          ; 0x1f53
-    call ds_string_loc_QRJV          ; 0x1f54
+    call draw_string                 ; 0x1f54
     add sp, byte 4                   ; 0x1f57
     mov ax, 0                        ; 0x1f5a
     push ax                          ; 0x1f5d
@@ -251,7 +251,7 @@ loc_MOVJ:
     add ax, word [bp - 0x000a]       ; 0x1f80
     push ax                          ; 0x1f83
     push word [bp - 0x0002]          ; 0x1f84
-    call ds_app_NGUR                 ; 0x1f87
+    call set_hotspot                 ; 0x1f87
     add sp, byte 0x0e                ; 0x1f8a
     mov ax, word [bp - 0x0004]       ; 0x1f8d
     mov cx, word [bp - 0x0002]       ; 0x1f90
@@ -273,7 +273,7 @@ loc_MOVJ:
     mov ax, 0xffff                   ; 0x1fad
     push ax                          ; 0x1fb0
     push word [bp - 0x0002]          ; 0x1fb1
-    call ds_app_NGUR                 ; 0x1fb4
+    call set_hotspot                 ; 0x1fb4
     add sp, byte 0x0e                ; 0x1fb7
     mov ax, 0xc6                     ; 0x1fba
     push ax                          ; 0x1fbd
@@ -290,10 +290,10 @@ loc_MOVJ:
 @..loc_MOVJ.l10:
     mov ax, 0x59fe                   ; 0x1fd7
     push ax                          ; 0x1fda
-    call ds_app_UHMG                 ; 0x1fdb
+    call poll_hotspots               ; 0x1fdb
     pop cx                           ; 0x1fde
     mov word [bp - 0x0004], ax       ; 0x1fdf
-    cmp word [bss_5b3e], byte 0      ; 0x1fe2
+    cmp word [hotspot_hit], byte 0   ; 0x1fe2
     je short @..loc_MOVJ.l10         ; 0x1fe7
     jmp near @..loc_MOVJ.l20         ; 0x1fe9
 @..loc_MOVJ.l11:
@@ -445,7 +445,7 @@ loc_MOVJ:
     mov ax, word [bp + 0xa]          ; 0x2129
     add ax, word [bp - 0x000a]       ; 0x212c
     push ax                          ; 0x212f
-    call ds_app_VIGG                 ; 0x2130
+    call flash_button                ; 0x2130
     add sp, byte 0x0a                ; 0x2133
     mov ax, 0                        ; 0x2136
     push ax                          ; 0x2139
@@ -458,7 +458,7 @@ loc_MOVJ:
     mov ax, word [bp + 0xa]          ; 0x2148
     add ax, word [bp - 0x000a]       ; 0x214b
     push ax                          ; 0x214e
-    call ds_app_VIGG                 ; 0x214f
+    call flash_button                ; 0x214f
     add sp, byte 0x0a                ; 0x2152
     mov ax, 1                        ; 0x2155
     push ax                          ; 0x2158

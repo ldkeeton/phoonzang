@@ -117,7 +117,7 @@ loc_RSHV:
     lea cx, word [bp - 0x015a]       ; 0x193a
     add ax, cx                       ; 0x193e
     push ax                          ; 0x1940
-    call ds_string_loc_QRJV          ; 0x1941
+    call draw_string                 ; 0x1941
     add sp, byte 4                   ; 0x1944
     mov ax, 0                        ; 0x1947
     push ax                          ; 0x194a
@@ -138,7 +138,7 @@ loc_RSHV:
     add ax, word [bp - 0x000a]       ; 0x196d
     push ax                          ; 0x1970
     push word [bp - 0x0002]          ; 0x1971
-    call ds_app_NGUR                 ; 0x1974
+    call set_hotspot                 ; 0x1974
     add sp, byte 0x0e                ; 0x1977
     mov ax, word [bp - 0x0004]       ; 0x197a
     mov cx, word [bp - 0x0002]       ; 0x197d
@@ -168,7 +168,7 @@ loc_RSHV:
     mov ax, 0xffff                   ; 0x19b1
     push ax                          ; 0x19b4
     push word [bp - 0x0002]          ; 0x19b5
-    call ds_app_NGUR                 ; 0x19b8
+    call set_hotspot                 ; 0x19b8
     add sp, byte 0x0e                ; 0x19bb
     push word [bp + 0x6]             ; 0x19be
     call loc_HTQP                    ; 0x19c1
@@ -178,11 +178,11 @@ loc_RSHV:
 @..loc_RSHV.l8:
     mov ax, 0x59fe                   ; 0x19cc
     push ax                          ; 0x19cf
-    call ds_app_UHMG                 ; 0x19d0
+    call poll_hotspots               ; 0x19d0
     pop cx                           ; 0x19d3
     mov word [bp - 0x0004], ax       ; 0x19d4
     call api_idx_0006_SQTK           ; 0x19d7
-    cmp word [bss_5b3e], byte 0      ; 0x19da
+    cmp word [hotspot_hit], byte 0   ; 0x19da
     je short @..loc_RSHV.l8          ; 0x19df
     jmp near @..loc_RSHV.l35         ; 0x19e1
 @..loc_RSHV.l9:

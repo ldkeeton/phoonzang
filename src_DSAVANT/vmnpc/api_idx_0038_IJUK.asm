@@ -35,7 +35,7 @@ api_idx_0038_IJUK:
     push word [bp - 0x0008]          ; 0x3e92
     push word [bp - 0x0006]          ; 0x3e95
     push word [bp - 0x0004]          ; 0x3e98
-    call ds_app_KNSQ                 ; 0x3e9b
+    call draw_dialog_box             ; 0x3e9b
     add sp, byte 8                   ; 0x3e9e
     cmp word [bp + 0x6], byte 0      ; 0x3ea1
     je short @..api_idx_0038_IJUK.l2 ; 0x3ea5
@@ -65,7 +65,7 @@ api_idx_0038_IJUK:
     mov ax, word [bp - 0x0004]       ; 0x3ed9
     add ax, strict word 8            ; 0x3edc
     push ax                          ; 0x3edf
-    call ds_app_string_IIIR          ; 0x3ee0
+    call draw_button                 ; 0x3ee0
     add sp, byte 0x0c                ; 0x3ee3
     lea ax, word [bp - 0x0036]       ; 0x3ee6
     push ax                          ; 0x3ee9
@@ -87,7 +87,7 @@ api_idx_0038_IJUK:
     mov ax, word [bp - 0x0004]       ; 0x3f0b
     add ax, strict word 8            ; 0x3f0e
     push ax                          ; 0x3f11
-    call ds_app_string_IIIR          ; 0x3f12
+    call draw_button                 ; 0x3f12
     add sp, byte 0x0c                ; 0x3f15
     lea ax, word [bp - 0x0036]       ; 0x3f18
     push ax                          ; 0x3f1b
@@ -110,7 +110,7 @@ api_idx_0038_IJUK:
     mov ax, word [bp - 0x0004]       ; 0x3f3e
     add ax, strict word 8            ; 0x3f41
     push ax                          ; 0x3f44
-    call ds_app_string_IIIR          ; 0x3f45
+    call draw_button                 ; 0x3f45
     add sp, byte 0x0c                ; 0x3f48
     mov word [bp - 0x0016], 0        ; 0x3f4b
     mov word [bp - 0x0020], 0xffff   ; 0x3f50
@@ -162,7 +162,7 @@ api_idx_0038_IJUK:
     push ax                          ; 0x3fc4
     mov ax, 0                        ; 0x3fc5
     push ax                          ; 0x3fc8
-    call ds_app_NGUR                 ; 0x3fc9
+    call set_hotspot                 ; 0x3fc9
     add sp, byte 0x0e                ; 0x3fcc
     mov ax, 0                        ; 0x3fcf
     push ax                          ; 0x3fd2
@@ -182,7 +182,7 @@ api_idx_0038_IJUK:
     push ax                          ; 0x3ff2
     mov ax, 1                        ; 0x3ff3
     push ax                          ; 0x3ff6
-    call ds_app_NGUR                 ; 0x3ff7
+    call set_hotspot                 ; 0x3ff7
     add sp, byte 0x0e                ; 0x3ffa
     mov ax, 0                        ; 0x3ffd
     push ax                          ; 0x4000
@@ -202,7 +202,7 @@ api_idx_0038_IJUK:
     push ax                          ; 0x4020
     mov ax, 2                        ; 0x4021
     push ax                          ; 0x4024
-    call ds_app_NGUR                 ; 0x4025
+    call set_hotspot                 ; 0x4025
     add sp, byte 0x0e                ; 0x4028
     mov ax, 0                        ; 0x402b
     push ax                          ; 0x402e
@@ -221,7 +221,7 @@ api_idx_0038_IJUK:
     push ax                          ; 0x404b
     mov ax, 3                        ; 0x404c
     push ax                          ; 0x404f
-    call ds_app_NGUR                 ; 0x4050
+    call set_hotspot                 ; 0x4050
     add sp, byte 0x0e                ; 0x4053
     mov ax, 0                        ; 0x4056
     push ax                          ; 0x4059
@@ -241,7 +241,7 @@ api_idx_0038_IJUK:
     push ax                          ; 0x4079
     mov ax, 4                        ; 0x407a
     push ax                          ; 0x407d
-    call ds_app_NGUR                 ; 0x407e
+    call set_hotspot                 ; 0x407e
     add sp, byte 0x0e                ; 0x4081
     mov ax, 0                        ; 0x4084
     push ax                          ; 0x4087
@@ -261,7 +261,7 @@ api_idx_0038_IJUK:
     push ax                          ; 0x40a7
     mov ax, 5                        ; 0x40a8
     push ax                          ; 0x40ab
-    call ds_app_NGUR                 ; 0x40ac
+    call set_hotspot                 ; 0x40ac
     add sp, byte 0x0e                ; 0x40af
     mov ax, 3                        ; 0x40b2
     cmp word [bp + 0xc], byte 3      ; 0x40b5
@@ -294,7 +294,7 @@ api_idx_0038_IJUK:
     mov ax, word [bp - 0x0002]       ; 0x40f5
     add ax, strict word 6            ; 0x40f8
     push ax                          ; 0x40fb
-    call ds_app_NGUR                 ; 0x40fc
+    call set_hotspot                 ; 0x40fc
     add sp, byte 0x0e                ; 0x40ff
     inc word [bp - 0x0002]           ; 0x4102
 @..api_idx_0038_IJUK.l6:
@@ -312,7 +312,7 @@ api_idx_0038_IJUK:
     mov ax, word [bp - 0x001e]       ; 0x4119
     add ax, strict word 6            ; 0x411c
     push ax                          ; 0x411f
-    call ds_app_NGUR                 ; 0x4120
+    call set_hotspot                 ; 0x4120
     add sp, byte 0x0e                ; 0x4123
     mov ax, 0xc6                     ; 0x4126
     push ax                          ; 0x4129
@@ -328,7 +328,7 @@ api_idx_0038_IJUK:
 @..api_idx_0038_IJUK.l7:
     mov ax, 0x59fe                   ; 0x4141
     push ax                          ; 0x4144
-    call ds_app_UHMG                 ; 0x4145
+    call poll_hotspots               ; 0x4145
     pop cx                           ; 0x4148
     dec ax                           ; 0x4149
     mov word [bp - 0x0018], ax       ; 0x414a
@@ -340,12 +340,12 @@ api_idx_0038_IJUK:
     call loc_UVUO                    ; 0x415d
     add sp, byte 6                   ; 0x4160
     mov word [bp - 0x0020], ax       ; 0x4163
-    mov word [bss_5b3e], 1           ; 0x4166
+    mov word [hotspot_hit], 1        ; 0x4166
     sub ax, word [bp - 0x0016]       ; 0x416c
     add ax, strict word 6            ; 0x416f
     mov word [bp - 0x0018], ax       ; 0x4172
 @..api_idx_0038_IJUK.l8:
-    cmp word [bss_5b3e], byte 1      ; 0x4175
+    cmp word [hotspot_hit], byte 1   ; 0x4175
     je short @..api_idx_0038_IJUK.l9 ; 0x417a
     jmp near @..api_idx_0038_IJUK.l22 ; 0x417c
 @..api_idx_0038_IJUK.l9:
@@ -457,7 +457,7 @@ jumptable_44d9_case_0:
     push ax                          ; 0x4272
     mov ax, 0                        ; 0x4273
     push ax                          ; 0x4276
-    call ds_app_NGUR                 ; 0x4277
+    call set_hotspot                 ; 0x4277
     add sp, byte 0x0e                ; 0x427a
     mov ax, word [bp - 0x0006]       ; 0x427d
     add ax, strict word 0x30         ; 0x4280
@@ -597,7 +597,7 @@ jumptable_44d9_case_1:
     push ax                          ; 0x43b2
     mov ax, 0                        ; 0x43b3
     push ax                          ; 0x43b6
-    call ds_app_NGUR                 ; 0x43b7
+    call set_hotspot                 ; 0x43b7
     add sp, byte 0x0e                ; 0x43ba
     mov ax, word [bp - 0x0006]       ; 0x43bd
     add ax, strict word 0x30         ; 0x43c0
@@ -630,7 +630,7 @@ jumptable_44d9_case_4:
     mov ax, word [bp - 0x0004]       ; 0x43fb
     add ax, strict word 8            ; 0x43fe
     push ax                          ; 0x4401
-    call ds_app_VIGG                 ; 0x4402
+    call flash_button                ; 0x4402
     add sp, byte 0x0a                ; 0x4405
     mov ax, 0                        ; 0x4408
     push ax                          ; 0x440b
@@ -644,7 +644,7 @@ jumptable_44d9_case_4:
     mov ax, word [bp - 0x0004]       ; 0x441b
     add ax, strict word 8            ; 0x441e
     push ax                          ; 0x4421
-    call ds_app_VIGG                 ; 0x4422
+    call flash_button                ; 0x4422
     add sp, byte 0x0a                ; 0x4425
     mov word [bss_9050], 1           ; 0x4428
     mov word [bp - 0x001a], 0        ; 0x442e
@@ -664,7 +664,7 @@ jumptable_44d9_case_5:
     mov ax, word [bp - 0x0004]       ; 0x444c
     add ax, strict word 8            ; 0x444f
     push ax                          ; 0x4452
-    call ds_app_VIGG                 ; 0x4453
+    call flash_button                ; 0x4453
     add sp, byte 0x0a                ; 0x4456
     mov ax, 0                        ; 0x4459
     push ax                          ; 0x445c
@@ -678,7 +678,7 @@ jumptable_44d9_case_5:
     mov ax, word [bp - 0x0004]       ; 0x446c
     add ax, strict word 8            ; 0x446f
     push ax                          ; 0x4472
-    call ds_app_VIGG                 ; 0x4473
+    call flash_button                ; 0x4473
     add sp, byte 0x0a                ; 0x4476
     mov word [bss_9050], 2           ; 0x4479
     mov word [bp - 0x001a], 0        ; 0x447f

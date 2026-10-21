@@ -65,7 +65,7 @@ loc_TJJR:
     push ax                          ; 0x2852
     mov ax, dseg_909a                ; 0x2853
     push ax                          ; 0x2856
-    call ds_string_loc_QRJV          ; 0x2857
+    call draw_string                 ; 0x2857
     add sp, byte 4                   ; 0x285a
 @..loc_TJJR.l2:
     ret                              ; 0x285d

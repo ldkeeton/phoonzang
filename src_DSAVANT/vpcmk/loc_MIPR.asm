@@ -50,7 +50,7 @@ loc_MIPR:
     imul word [bp - 0x0006]          ; 0x636e
     add ax, bss_5bf4                 ; 0x6371
     push ax                          ; 0x6374
-    call ds_string_loc_QRJV          ; 0x6375
+    call draw_string                 ; 0x6375
     add sp, byte 4                   ; 0x6378
     mov word [bss_9594], 0xffff      ; 0x637b
     push word [bp - 0x0006]          ; 0x6381

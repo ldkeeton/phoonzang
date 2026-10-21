@@ -103,7 +103,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x60c2
     lea ax, word [bp - 0x005e]       ; 0x60c3
     push ax                          ; 0x60c6
-    call ds_app_string_HHIL          ; 0x60c7
+    call str_subst_char              ; 0x60c7
     add sp, byte 6                   ; 0x60ca
     mov ax, 0x55                     ; 0x60cd
     push ax                          ; 0x60d0
@@ -293,7 +293,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x6272
     lea ax, word [bp - 0x005e]       ; 0x6273
     push ax                          ; 0x6276
-    call ds_app_string_HHIL          ; 0x6277
+    call str_subst_char              ; 0x6277
     add sp, byte 6                   ; 0x627a
     mov ax, 0x16                     ; 0x627d
     push ax                          ; 0x6280
@@ -357,7 +357,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x62fc
     lea ax, word [bp - 0x005e]       ; 0x62fd
     push ax                          ; 0x6300
-    call ds_app_string_HHIL          ; 0x6301
+    call str_subst_char              ; 0x6301
     add sp, byte 6                   ; 0x6304
     mov ax, 0x55                     ; 0x6307
     push ax                          ; 0x630a

@@ -913,7 +913,7 @@ jumptable_36f8_case_32:
     push ax                          ; 0x33ff
     mov ax, bss_95a8                 ; 0x3400
     push ax                          ; 0x3403
-    call ds_app_string_HHIL          ; 0x3404
+    call str_subst_char              ; 0x3404
     add sp, byte 6                   ; 0x3407
     mov ax, 0x24                     ; 0x340a
     push ax                          ; 0x340d
@@ -921,7 +921,7 @@ jumptable_36f8_case_32:
     push ax                          ; 0x3411
     mov ax, bss_95a8                 ; 0x3412
     push ax                          ; 0x3415
-    call ds_app_string_HHIL          ; 0x3416
+    call str_subst_char              ; 0x3416
     add sp, byte 6                   ; 0x3419
     mov ax, 0x55                     ; 0x341c
     push ax                          ; 0x341f

@@ -582,7 +582,7 @@ api_idx_0068_OUHP:
     mov ax, 2                        ; 0x0fb5
     push ax                          ; 0x0fb8
     push word [bp - 0x005e]          ; 0x0fb9
-    call ds_string_loc_QRJV          ; 0x0fbc
+    call draw_string                 ; 0x0fbc
     add sp, byte 4                   ; 0x0fbf
     mov ax, 0xc                      ; 0x0fc2
     imul word [bp - 0x0004]          ; 0x0fc5
@@ -602,7 +602,7 @@ api_idx_0068_OUHP:
     mov ax, 2                        ; 0x0fe5
     push ax                          ; 0x0fe8
     push word [bp - 0x005e]          ; 0x0fe9
-    call ds_string_loc_QRJV          ; 0x0fec
+    call draw_string                 ; 0x0fec
     add sp, byte 4                   ; 0x0fef
     mov ax, 0xc                      ; 0x0ff2
     imul word [bp - 0x0004]          ; 0x0ff5
@@ -620,7 +620,7 @@ api_idx_0068_OUHP:
     mov ax, 2                        ; 0x1013
     push ax                          ; 0x1016
     push word [bp - 0x005e]          ; 0x1017
-    call ds_string_loc_QRJV          ; 0x101a
+    call draw_string                 ; 0x101a
     add sp, byte 4                   ; 0x101d
     mov ax, 0xc                      ; 0x1020
     imul word [bp - 0x0004]          ; 0x1023
@@ -638,7 +638,7 @@ api_idx_0068_OUHP:
     mov ax, 2                        ; 0x1041
     push ax                          ; 0x1044
     push word [bp - 0x005e]          ; 0x1045
-    call ds_string_loc_QRJV          ; 0x1048
+    call draw_string                 ; 0x1048
     add sp, byte 4                   ; 0x104b
     mov ax, 0xc                      ; 0x104e
     imul word [bp - 0x0004]          ; 0x1051
@@ -656,7 +656,7 @@ api_idx_0068_OUHP:
     mov ax, 2                        ; 0x106f
     push ax                          ; 0x1072
     push word [bp - 0x005e]          ; 0x1073
-    call ds_string_loc_QRJV          ; 0x1076
+    call draw_string                 ; 0x1076
     add sp, byte 4                   ; 0x1079
     jmp near @..api_idx_0068_OUHP.l45 ; 0x107c
 @..api_idx_0068_OUHP.l37:
@@ -712,7 +712,7 @@ api_idx_0068_OUHP:
     add sp, byte 4                   ; 0x10f1
     push word [bp - 0x0068]          ; 0x10f4
     push word [bp - 0x005e]          ; 0x10f7
-    call ds_string_loc_QRJV          ; 0x10fa
+    call draw_string                 ; 0x10fa
     add sp, byte 4                   ; 0x10fd
     mov ax, 0xc                      ; 0x1100
     imul word [bp - 0x0004]          ; 0x1103
@@ -734,7 +734,7 @@ api_idx_0068_OUHP:
     add sp, byte 4                   ; 0x1126
     push word [bp - 0x0068]          ; 0x1129
     push word [bp - 0x005e]          ; 0x112c
-    call ds_string_loc_QRJV          ; 0x112f
+    call draw_string                 ; 0x112f
     add sp, byte 4                   ; 0x1132
     mov ax, 0xc                      ; 0x1135
     imul word [bp - 0x0004]          ; 0x1138
@@ -754,7 +754,7 @@ api_idx_0068_OUHP:
     add sp, byte 4                   ; 0x1159
     push word [bp - 0x0068]          ; 0x115c
     push word [bp - 0x005e]          ; 0x115f
-    call ds_string_loc_QRJV          ; 0x1162
+    call draw_string                 ; 0x1162
     add sp, byte 4                   ; 0x1165
     mov ax, 0xc                      ; 0x1168
     imul word [bp - 0x0004]          ; 0x116b
@@ -774,7 +774,7 @@ api_idx_0068_OUHP:
     add sp, byte 4                   ; 0x118c
     push word [bp - 0x0068]          ; 0x118f
     push word [bp - 0x005e]          ; 0x1192
-    call ds_string_loc_QRJV          ; 0x1195
+    call draw_string                 ; 0x1195
     add sp, byte 4                   ; 0x1198
     mov ax, 0xc                      ; 0x119b
     imul word [bp - 0x0004]          ; 0x119e
@@ -795,7 +795,7 @@ api_idx_0068_OUHP:
     add sp, byte 4                   ; 0x11c2
     push word [bp - 0x0068]          ; 0x11c5
     push word [bp - 0x005e]          ; 0x11c8
-    call ds_string_loc_QRJV          ; 0x11cb
+    call draw_string                 ; 0x11cb
     add sp, byte 4                   ; 0x11ce
 @..api_idx_0068_OUHP.l45:
     inc word [bp - 0x0060]           ; 0x11d1
@@ -948,6 +948,6 @@ api_idx_0068_OUHP:
 @..api_idx_0068_OUHP.l57:
     mov word [bss_0e32], 0           ; 0x132a
 @..api_idx_0068_OUHP.l58:
-    mov word [bss_5b3e], 0           ; 0x1330
+    mov word [hotspot_hit], 0        ; 0x1330
     mov word [game_state], 2         ; 0x1336
     ret                              ; 0x133c

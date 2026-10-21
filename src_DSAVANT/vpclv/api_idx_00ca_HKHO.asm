@@ -143,7 +143,7 @@ api_idx_00ca_HKHO:
     push ax                          ; 0x1f97
     lea ax, word [bp - 0x007a]       ; 0x1f98
     push ax                          ; 0x1f9b
-    call ds_app_string_HHIL          ; 0x1f9c
+    call str_subst_char              ; 0x1f9c
     add sp, byte 6                   ; 0x1f9f
     mov ax, 1                        ; 0x1fa2
     push ax                          ; 0x1fa5

@@ -58,7 +58,7 @@ loc_TRPK:
     mov ax, word [bp + 0x8]          ; 0x04ca
     add ax, strict word 0xfffb       ; 0x04cd
     push ax                          ; 0x04d0
-    call ds_app_KNSQ                 ; 0x04d1
+    call draw_dialog_box             ; 0x04d1
     add sp, byte 8                   ; 0x04d4
     lea ax, word [bp - 0x01a6]       ; 0x04d7
     push ax                          ; 0x04db
@@ -93,7 +93,7 @@ loc_TRPK:
     push ax                          ; 0x051f
     lea ax, word [bp - 0x01a6]       ; 0x0520
     push ax                          ; 0x0524
-    call ds_string_loc_QRJV          ; 0x0525
+    call draw_string                 ; 0x0525
     add sp, byte 4                   ; 0x0528
     jmp short @..loc_TRPK.l3         ; 0x052b
 @..loc_TRPK.l2:
@@ -214,7 +214,7 @@ loc_TRPK:
     lea cx, word [bp - 0x0156]       ; 0x0635
     add ax, cx                       ; 0x0639
     push ax                          ; 0x063b
-    call ds_string_loc_QRJV          ; 0x063c
+    call draw_string                 ; 0x063c
     add sp, byte 4                   ; 0x063f
     mov ax, 0                        ; 0x0642
     push ax                          ; 0x0645
@@ -235,7 +235,7 @@ loc_TRPK:
     add ax, word [bp - 0x000a]       ; 0x0668
     push ax                          ; 0x066b
     push word [bp - 0x0002]          ; 0x066c
-    call ds_app_NGUR                 ; 0x066f
+    call set_hotspot                 ; 0x066f
     add sp, byte 0x0e                ; 0x0672
     mov ax, word [bp - 0x0004]       ; 0x0675
     mov cx, word [bp - 0x0002]       ; 0x0678
@@ -257,7 +257,7 @@ loc_TRPK:
     mov ax, 0xffff                   ; 0x0695
     push ax                          ; 0x0698
     push word [bp - 0x0002]          ; 0x0699
-    call ds_app_NGUR                 ; 0x069c
+    call set_hotspot                 ; 0x069c
     add sp, byte 0x0e                ; 0x069f
     mov ax, 0xc7                     ; 0x06a2
     push ax                          ; 0x06a5
@@ -273,10 +273,10 @@ loc_TRPK:
 @..loc_TRPK.l10:
     mov ax, 0x59fe                   ; 0x06bc
     push ax                          ; 0x06bf
-    call ds_app_UHMG                 ; 0x06c0
+    call poll_hotspots               ; 0x06c0
     pop cx                           ; 0x06c3
     mov word [bp - 0x0004], ax       ; 0x06c4
-    cmp word [bss_5b3e], byte 0      ; 0x06c7
+    cmp word [hotspot_hit], byte 0   ; 0x06c7
     je short @..loc_TRPK.l10         ; 0x06cc
     jmp near @..loc_TRPK.l25         ; 0x06ce
 @..loc_TRPK.l11:
@@ -498,7 +498,7 @@ loc_TRPK:
     mov ax, word [bp + 0x8]          ; 0x08a1
     add ax, word [bp - 0x000a]       ; 0x08a4
     push ax                          ; 0x08a7
-    call ds_app_VIGG                 ; 0x08a8
+    call flash_button                ; 0x08a8
     add sp, byte 0x0a                ; 0x08ab
     mov ax, 0                        ; 0x08ae
     push ax                          ; 0x08b1
@@ -511,7 +511,7 @@ loc_TRPK:
     mov ax, word [bp + 0x8]          ; 0x08c0
     add ax, word [bp - 0x000a]       ; 0x08c3
     push ax                          ; 0x08c6
-    call ds_app_VIGG                 ; 0x08c7
+    call flash_button                ; 0x08c7
     add sp, byte 0x0a                ; 0x08ca
     mov ax, 1                        ; 0x08cd
     push ax                          ; 0x08d0

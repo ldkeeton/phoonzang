@@ -25,6 +25,6 @@ loc_VNIO:
     mov ax, 0
     push ax
     push word [bp + 0x4]
-    call ds_string_loc_QRJV
+    call draw_string
     add sp, byte 4
     ret

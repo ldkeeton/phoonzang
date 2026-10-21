@@ -70,7 +70,7 @@ api_idx_0004_UQRV:
     mov ax, 2                        ; 0x3b48
     push ax                          ; 0x3b4b
     push word [bp + 0x4]             ; 0x3b4c
-    call ds_string_loc_QRJV          ; 0x3b4f
+    call draw_string                 ; 0x3b4f
     add sp, byte 4                   ; 0x3b52
     mov bx, word [bp + 0x4]          ; 0x3b55
     mov byte [bx], 0                 ; 0x3b58

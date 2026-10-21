@@ -172,7 +172,7 @@ api_idx_0008_HUTJ:
     push ax                          ; 0x3a6a
     mov ax, bss_95fa                 ; 0x3a6b
     push ax                          ; 0x3a6e
-    call ds_app_string_HHIL          ; 0x3a6f
+    call str_subst_char              ; 0x3a6f
     add sp, byte 6                   ; 0x3a72
     mov ax, 1                        ; 0x3a75
     push ax                          ; 0x3a78

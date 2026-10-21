@@ -195,7 +195,7 @@ api_idx_0010_LPLH:
     push ax                          ; 0x2826
     mov ax, bss_90e6                 ; 0x2827
     push ax                          ; 0x282a
-    call ds_app_string_HHIL          ; 0x282b
+    call str_subst_char              ; 0x282b
     add sp, byte 6                   ; 0x282e
     mov byte [bss_9136], 0           ; 0x2831
     mov byte [bss_9186], 0           ; 0x2836

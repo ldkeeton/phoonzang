@@ -47,6 +47,6 @@ ds_app_string_MJQI: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x1098
     push ax                          ; 0x109b
     push word [bp + 0xc]             ; 0x109c
-    call ds_string_loc_QRJV          ; 0x109f
+    call draw_string                 ; 0x109f
     add sp, byte 4                   ; 0x10a2
     ret                              ; 0x10a5

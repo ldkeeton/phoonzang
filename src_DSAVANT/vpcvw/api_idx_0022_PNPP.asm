@@ -3,7 +3,7 @@ api_idx_0022_PNPP:
     mov ax, 0xffde                   ; 0x9491
     call aztec_csav                  ; 0x9494
     mov word [bp - 0x000c], 0        ; 0x9497
-    mov ax, word [bss_5218]          ; 0x949c
+    mov ax, word [disk_header]       ; 0x949c
     mov word [bp - 0x000e], ax       ; 0x949f
     cmp byte [install_mode], 5       ; 0x94a2
     jne short @..api_idx_0022_PNPP.l1 ; 0x94a7
@@ -34,7 +34,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x94dd
     lea ax, word [bp - 0x0022]       ; 0x94de
     push ax                          ; 0x94e1
-    call ds_app_file_QQMM            ; 0x94e2
+    call prompt_disk_swap            ; 0x94e2
     add sp, byte 8                   ; 0x94e5
 @..api_idx_0022_PNPP.l3:
     mov ax, 0                        ; 0x94e8
@@ -73,7 +73,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x9535
     mov ax, 0                        ; 0x9536
     push ax                          ; 0x9539
-    call ds_app_NGUR                 ; 0x953a
+    call set_hotspot                 ; 0x953a
     add sp, byte 0x0e                ; 0x953d
     mov ax, 0xa                      ; 0x9540
     push ax                          ; 0x9543
@@ -89,7 +89,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x9557
     mov ax, 1                        ; 0x9558
     push ax                          ; 0x955b
-    call ds_app_NGUR                 ; 0x955c
+    call set_hotspot                 ; 0x955c
     add sp, byte 0x0e                ; 0x955f
     mov ax, 2                        ; 0x9562
     push ax                          ; 0x9565
@@ -147,11 +147,11 @@ api_idx_0022_PNPP:
 @..api_idx_0022_PNPP.l5:
     mov ax, 0x59fe                   ; 0x95e0
     push ax                          ; 0x95e3
-    call ds_app_UHMG                 ; 0x95e4
+    call poll_hotspots               ; 0x95e4
     pop cx                           ; 0x95e7
     dec ax                           ; 0x95e8
     mov word [bp - 0x0002], ax       ; 0x95e9
-    cmp word [bss_5b3e], byte 0      ; 0x95ec
+    cmp word [hotspot_hit], byte 0   ; 0x95ec
     je short @..api_idx_0022_PNPP.l5 ; 0x95f1
     mov ax, word [bp - 0x0002]       ; 0x95f3
     jmp short @..api_idx_0022_PNPP.l8 ; 0x95f6
@@ -200,7 +200,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x9653
     mov ax, 0x58                     ; 0x9654
     push ax                          ; 0x9657
-    call ds_app_VIGG                 ; 0x9658
+    call flash_button                ; 0x9658
     add sp, byte 0x0a                ; 0x965b
     mov ax, 0                        ; 0x965e
     push ax                          ; 0x9661
@@ -212,7 +212,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x966d
     mov ax, 0x58                     ; 0x966e
     push ax                          ; 0x9671
-    call ds_app_VIGG                 ; 0x9672
+    call flash_button                ; 0x9672
     add sp, byte 0x0a                ; 0x9675
     mov ax, 1                        ; 0x9678
     push ax                          ; 0x967b
@@ -250,7 +250,7 @@ api_idx_0022_PNPP:
     push word [bp - 0x000e]          ; 0x96c7
     lea ax, word [bp - 0x0022]       ; 0x96ca
     push ax                          ; 0x96cd
-    call ds_app_file_QQMM            ; 0x96ce
+    call prompt_disk_swap            ; 0x96ce
     add sp, byte 8                   ; 0x96d1
 @..api_idx_0022_PNPP.l11:
     ret                              ; 0x96d4

@@ -65,7 +65,7 @@ loc_IMPO:
     push ax                          ; 0x76fc
     mov ax, dseg_90e4                ; 0x76fd
     push ax                          ; 0x7700
-    call ds_string_loc_QRJV          ; 0x7701
+    call draw_string                 ; 0x7701
     add sp, byte 4                   ; 0x7704
 @..loc_IMPO.l2:
     ret                              ; 0x7707

@@ -31,7 +31,7 @@ api_idx_0002_SSJN:
     imul word [bp - 0x0002]          ; 0x19f2
     add ax, 0x9544                   ; 0x19f5
     push ax                          ; 0x19f8
-    call ds_string_loc_QRJV          ; 0x19f9
+    call draw_string                 ; 0x19f9
     add sp, byte 4                   ; 0x19fc
     mov ax, 0                        ; 0x19ff
     push ax                          ; 0x1a02
@@ -68,7 +68,7 @@ api_idx_0002_SSJN:
     push ax                          ; 0x1a50
     mov ax, bss_9596                 ; 0x1a51
     push ax                          ; 0x1a54
-    call ds_string_loc_QRJV          ; 0x1a55
+    call draw_string                 ; 0x1a55
     add sp, byte 4                   ; 0x1a58
     mov ax, 0                        ; 0x1a5b
     push ax                          ; 0x1a5e

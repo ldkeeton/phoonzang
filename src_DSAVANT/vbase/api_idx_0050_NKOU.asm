@@ -36,6 +36,6 @@ api_idx_0050_NKOU:
     push ax                          ; 0x4239
     lea ax, word [bp - 0x0050]       ; 0x423a
     push ax                          ; 0x423d
-    call ds_string_loc_QRJV          ; 0x423e
+    call draw_string                 ; 0x423e
     add sp, byte 4                   ; 0x4241
     ret                              ; 0x4244

@@ -193,7 +193,7 @@ api_idx_00c2_OUOT:
     inc ax                           ; 0x56ce
     push ax                          ; 0x56cf
     push word [bp - 0x0002]          ; 0x56d0
-    call ds_app_NGUR                 ; 0x56d3
+    call set_hotspot                 ; 0x56d3
     add sp, byte 0x0e                ; 0x56d6
     inc word [bp - 0x0002]           ; 0x56d9
     mov ax, word [bp - 0x0002]       ; 0x56dc
@@ -213,7 +213,7 @@ api_idx_00c2_OUOT:
     push ax                          ; 0x56fb
     mov ax, 0xa                      ; 0x56fc
     push ax                          ; 0x56ff
-    call ds_app_NGUR                 ; 0x5700
+    call set_hotspot                 ; 0x5700
     add sp, byte 0x0e                ; 0x5703
     mov ax, 0                        ; 0x5706
     push ax                          ; 0x5709
@@ -229,7 +229,7 @@ api_idx_00c2_OUOT:
     push ax                          ; 0x571d
     mov ax, 0xb                      ; 0x571e
     push ax                          ; 0x5721
-    call ds_app_NGUR                 ; 0x5722
+    call set_hotspot                 ; 0x5722
     add sp, byte 0x0e                ; 0x5725
     mov ax, 0                        ; 0x5728
     push ax                          ; 0x572b
@@ -245,7 +245,7 @@ api_idx_00c2_OUOT:
     push ax                          ; 0x573f
     mov ax, 0xc                      ; 0x5740
     push ax                          ; 0x5743
-    call ds_app_NGUR                 ; 0x5744
+    call set_hotspot                 ; 0x5744
     add sp, byte 0x0e                ; 0x5747
     mov ax, 0                        ; 0x574a
     push ax                          ; 0x574d
@@ -261,7 +261,7 @@ api_idx_00c2_OUOT:
     push ax                          ; 0x5761
     mov ax, 0xd                      ; 0x5762
     push ax                          ; 0x5765
-    call ds_app_NGUR                 ; 0x5766
+    call set_hotspot                 ; 0x5766
     add sp, byte 0x0e                ; 0x5769
     mov ax, word [bp - 0x006a]       ; 0x576c
     mov word [bp - 0x0016], ax       ; 0x576f
@@ -383,7 +383,7 @@ api_idx_00c2_OUOT:
     imul word [bp - 0x0018]          ; 0x5894
     add ax, 0x9616                   ; 0x5897
     push ax                          ; 0x589a
-    call ds_string_loc_QRJV          ; 0x589b
+    call draw_string                 ; 0x589b
     add sp, byte 4                   ; 0x589e
     mov ax, 0                        ; 0x58a1
     push ax                          ; 0x58a4
@@ -409,7 +409,7 @@ api_idx_00c2_OUOT:
     mov ax, word [bp - 0x0070]       ; 0x58d0
     add ax, strict word 0xe          ; 0x58d3
     push ax                          ; 0x58d6
-    call ds_app_NGUR                 ; 0x58d7
+    call set_hotspot                 ; 0x58d7
     add sp, byte 0x0e                ; 0x58da
     mov ax, word [bp - 0x0002]       ; 0x58dd
     mov cx, word [bp - 0x0070]       ; 0x58e0
@@ -433,7 +433,7 @@ api_idx_00c2_OUOT:
     mov ax, word [bp - 0x0070]       ; 0x5902
     add ax, strict word 0xe          ; 0x5905
     push ax                          ; 0x5908
-    call ds_app_NGUR                 ; 0x5909
+    call set_hotspot                 ; 0x5909
     add sp, byte 0x0e                ; 0x590c
     mov ax, word [bp - 0x000c]       ; 0x590f
     add ax, strict word 0xa          ; 0x5912
@@ -459,11 +459,11 @@ api_idx_00c2_OUOT:
 @..api_idx_00c2_OUOT.l16:
     mov ax, 0x59fe                   ; 0x5942
     push ax                          ; 0x5945
-    call ds_app_UHMG                 ; 0x5946
+    call poll_hotspots               ; 0x5946
     pop cx                           ; 0x5949
     dec ax                           ; 0x594a
     mov word [bp - 0x0004], ax       ; 0x594b
-    cmp word [bss_5b3e], byte 0      ; 0x594e
+    cmp word [hotspot_hit], byte 0   ; 0x594e
     je short @..api_idx_00c2_OUOT.l16 ; 0x5953
     jmp near @..api_idx_00c2_OUOT.l40 ; 0x5955
 @..api_idx_00c2_OUOT.l17:
@@ -907,7 +907,7 @@ api_idx_00c2_OUOT:
     imul word [bp - 0x0010]          ; 0x5d63
     add ax, word [bp - 0x000a]       ; 0x5d66
     push ax                          ; 0x5d69
-    call ds_app_VIGG                 ; 0x5d6a
+    call flash_button                ; 0x5d6a
     add sp, byte 0x0a                ; 0x5d6d
     mov ax, 0                        ; 0x5d70
     push ax                          ; 0x5d73
@@ -919,7 +919,7 @@ api_idx_00c2_OUOT:
     imul word [bp - 0x0010]          ; 0x5d81
     add ax, word [bp - 0x000a]       ; 0x5d84
     push ax                          ; 0x5d87
-    call ds_app_VIGG                 ; 0x5d88
+    call flash_button                ; 0x5d88
     add sp, byte 0x0a                ; 0x5d8b
     mov ax, word [bp - 0x0004]       ; 0x5d8e
     shl ax, 1                        ; 0x5d91

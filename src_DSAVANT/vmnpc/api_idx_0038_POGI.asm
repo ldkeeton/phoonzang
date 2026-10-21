@@ -251,7 +251,7 @@ jumptable_268c:
     push ax                          ; 0x2706
     mov ax, bss_93f0                 ; 0x2707
     push ax                          ; 0x270a
-    call ds_app_string_HHIL          ; 0x270b
+    call str_subst_char              ; 0x270b
     add sp, byte 6                   ; 0x270e
     mov ax, 0x23                     ; 0x2711
     push ax                          ; 0x2714
@@ -259,7 +259,7 @@ jumptable_268c:
     push ax                          ; 0x2718
     mov ax, bss_93f0                 ; 0x2719
     push ax                          ; 0x271c
-    call ds_app_string_HHIL          ; 0x271d
+    call str_subst_char              ; 0x271d
     add sp, byte 6                   ; 0x2720
     mov ax, 0x24                     ; 0x2723
     push ax                          ; 0x2726
@@ -267,7 +267,7 @@ jumptable_268c:
     push ax                          ; 0x272a
     mov ax, bss_93f0                 ; 0x272b
     push ax                          ; 0x272e
-    call ds_app_string_HHIL          ; 0x272f
+    call str_subst_char              ; 0x272f
     add sp, byte 6                   ; 0x2732
 @..api_idx_0038_POGI.l16:
     jmp near @..api_idx_0038_POGI.l4 ; 0x2735

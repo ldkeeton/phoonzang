@@ -15,7 +15,7 @@ api_idx_0050_QVOG:
     push ax                          ; 0x7502
     lea ax, word [bp - 0x0050]       ; 0x7503
     push ax                          ; 0x7506
-    call ds_app_string_HHIL          ; 0x7507
+    call str_subst_char              ; 0x7507
     add sp, byte 6                   ; 0x750a
     lea ax, word [bp - 0x0050]       ; 0x750d
     push ax                          ; 0x7510

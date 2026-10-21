@@ -100,9 +100,9 @@ api_idx_0008_VHMQ:
     add sp, byte 8                   ; 0x4a1a
     mov ax, 0x59fe                   ; 0x4a1d
     push ax                          ; 0x4a20
-    call ds_app_UHMG                 ; 0x4a21
+    call poll_hotspots               ; 0x4a21
     pop cx                           ; 0x4a24
-    cmp word [bss_5b3e], byte 0      ; 0x4a25
+    cmp word [hotspot_hit], byte 0   ; 0x4a25
     jne short @..api_idx_0008_VHMQ.l3 ; 0x4a2a
     jmp near @..api_idx_0008_VHMQ.l1 ; 0x4a2c
 @..api_idx_0008_VHMQ.l3:
@@ -115,7 +115,7 @@ api_idx_0008_VHMQ:
     push ax                          ; 0x4a3b
     mov ax, 0x70                     ; 0x4a3c
     push ax                          ; 0x4a3f
-    call ds_app_VIGG                 ; 0x4a40
+    call flash_button                ; 0x4a40
     add sp, byte 0x0a                ; 0x4a43
     mov ax, 0                        ; 0x4a46
     push ax                          ; 0x4a49
@@ -127,7 +127,7 @@ api_idx_0008_VHMQ:
     push ax                          ; 0x4a55
     mov ax, 0x70                     ; 0x4a56
     push ax                          ; 0x4a59
-    call ds_app_VIGG                 ; 0x4a5a
+    call flash_button                ; 0x4a5a
     add sp, byte 0x0a                ; 0x4a5d
     mov ax, 1                        ; 0x4a60
     push ax                          ; 0x4a63

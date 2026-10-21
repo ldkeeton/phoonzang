@@ -54,7 +54,7 @@ api_idx_000c_JQMN:
     push ax
     lea ax, word [bp - 0x000c]
     push ax
-    call ds_string_loc_QRJV
+    call draw_string
     add sp, byte 4
     inc word [bp - 0x0002]
     mov ax, word [bp - 0x0002]

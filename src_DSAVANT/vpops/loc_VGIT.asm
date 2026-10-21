@@ -65,7 +65,7 @@ loc_VGIT:
     push ax                          ; 0x1b6c
     mov ax, dseg_90bb                ; 0x1b6d
     push ax                          ; 0x1b70
-    call ds_string_loc_QRJV          ; 0x1b71
+    call draw_string                 ; 0x1b71
     add sp, byte 4                   ; 0x1b74
 @..loc_VGIT.l2:
     ret                              ; 0x1b77

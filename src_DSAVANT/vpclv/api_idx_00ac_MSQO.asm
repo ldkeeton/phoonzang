@@ -278,7 +278,7 @@ jumptable_4679:
     push ax                          ; 0x4850
     lea ax, word [bp - 0x005c]       ; 0x4851
     push ax                          ; 0x4854
-    call ds_app_string_HHIL          ; 0x4855
+    call str_subst_char              ; 0x4855
     add sp, byte 6                   ; 0x4858
     mov ax, 1                        ; 0x485b
     push ax                          ; 0x485e

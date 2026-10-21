@@ -37,7 +37,7 @@ api_idx_0058_GKGM:
     mov ax, word [bp + 0x6]
     add ax, strict word 0xffe8
     push ax
-    call ds_app_KNSQ
+    call draw_dialog_box
     add sp, byte 8
     lea ax, word [bp - 0x0054]
     push ax
@@ -72,7 +72,7 @@ api_idx_0058_GKGM:
     push ax
     lea ax, word [bp - 0x0054]
     push ax
-    call ds_string_loc_QRJV
+    call draw_string
     add sp, byte 4
     lea ax, word [bp - 0x0054]
     push ax
@@ -125,7 +125,7 @@ api_idx_0058_GKGM:
     push ax
     lea ax, word [bp - 0x0054]
     push ax
-    call ds_string_loc_QRJV
+    call draw_string
     add sp, byte 4
     mov ax, 0
     push ax
@@ -141,7 +141,7 @@ api_idx_0058_GKGM:
     push word [bp + 0x8]
     push word [bp + 0x6]
     push word [bp + 0xe]
-    call ds_app_NGUR
+    call set_hotspot
     add sp, byte 0x0e
     mov ax, 0
     push ax
@@ -154,7 +154,7 @@ api_idx_0058_GKGM:
     mov ax, word [bp + 0xe]
     inc ax
     push ax
-    call ds_app_NGUR
+    call set_hotspot
     add sp, byte 0x0e
     mov ax, 0xc7
     push ax

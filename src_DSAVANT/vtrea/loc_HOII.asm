@@ -65,7 +65,7 @@ loc_HOII:
     push ax                          ; 0x8be8
     mov ax, dseg_9100                ; 0x8be9
     push ax                          ; 0x8bec
-    call ds_string_loc_QRJV          ; 0x8bed
+    call draw_string                 ; 0x8bed
     add sp, byte 4                   ; 0x8bf0
 @..loc_HOII.l2:
     ret                              ; 0x8bf3

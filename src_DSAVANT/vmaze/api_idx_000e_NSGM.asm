@@ -131,7 +131,7 @@ api_idx_000e_NSGM:
     mov ax, 1                        ; 0x1760
     push ax                          ; 0x1763
     push word [bp - 0x000e]          ; 0x1764
-    call ds_app_LUOV                 ; 0x1767
+    call ds_app_string_LUOV          ; 0x1767
     add sp, byte 4                   ; 0x176a
 @..api_idx_000e_NSGM.l9:
     inc word [bp - 0x000e]           ; 0x176d

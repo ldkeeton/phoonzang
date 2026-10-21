@@ -84,7 +84,7 @@ api_idx_0008_JJHR:
     mov ax, 0                        ; 0x837a
     push ax                          ; 0x837d
     push word [bp + 0x4]             ; 0x837e
-    call ds_string_loc_QRJV          ; 0x8381
+    call draw_string                 ; 0x8381
     add sp, byte 4                   ; 0x8384
     mov ax, word [bp + 0xa]          ; 0x8387
     add ax, word [bp - 0x0004]       ; 0x838a

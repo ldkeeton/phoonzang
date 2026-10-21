@@ -64,7 +64,7 @@ api_idx_0002_NUKT:
     push ax                          ; 0x9c60
     mov ax, bss_95a8                 ; 0x9c61
     push ax                          ; 0x9c64
-    call ds_app_string_HHIL          ; 0x9c65
+    call str_subst_char              ; 0x9c65
     add sp, byte 6                   ; 0x9c68
 @..api_idx_0002_NUKT.l4:
     mov ax, bss_95a8                 ; 0x9c6b

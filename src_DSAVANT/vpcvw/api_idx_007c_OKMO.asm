@@ -53,7 +53,7 @@ api_idx_007c_OKMO:
     imul word [bp + 0x4]             ; 0x10c0
     add ax, bss_5bf4                 ; 0x10c3
     push ax                          ; 0x10c6
-    call ds_string_loc_QRJV          ; 0x10c7
+    call draw_string                 ; 0x10c7
     add sp, byte 4                   ; 0x10ca
     mov ax, 0                        ; 0x10cd
     push ax                          ; 0x10d0
@@ -106,7 +106,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1142
     lea ax, word [bp - 0x0058]       ; 0x1143
     push ax                          ; 0x1146
-    call ds_string_loc_QRJV          ; 0x1147
+    call draw_string                 ; 0x1147
     add sp, byte 4                   ; 0x114a
     mov ax, 0                        ; 0x114d
     push ax                          ; 0x1150
@@ -135,7 +135,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1188
     lea ax, word [bp - 0x0058]       ; 0x1189
     push ax                          ; 0x118c
-    call ds_string_loc_QRJV          ; 0x118d
+    call draw_string                 ; 0x118d
     add sp, byte 4                   ; 0x1190
     mov ax, 0x12                     ; 0x1193
     push ax                          ; 0x1196
@@ -153,7 +153,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x11b2
     lea ax, word [bp - 0x0058]       ; 0x11b3
     push ax                          ; 0x11b6
-    call ds_string_loc_QRJV          ; 0x11b7
+    call draw_string                 ; 0x11b7
     add sp, byte 4                   ; 0x11ba
     mov ax, 0                        ; 0x11bd
     push ax                          ; 0x11c0
@@ -277,7 +277,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x12db
     lea ax, word [bp - 0x0058]       ; 0x12dc
     push ax                          ; 0x12df
-    call ds_string_loc_QRJV          ; 0x12e0
+    call draw_string                 ; 0x12e0
     add sp, byte 4                   ; 0x12e3
     mov ax, 0                        ; 0x12e6
     push ax                          ; 0x12e9
@@ -318,7 +318,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x133e
     lea ax, word [bp - 0x0058]       ; 0x133f
     push ax                          ; 0x1342
-    call ds_string_loc_QRJV          ; 0x1343
+    call draw_string                 ; 0x1343
     add sp, byte 4                   ; 0x1346
     lea ax, word [bp - 0x0058]       ; 0x1349
     push ax                          ; 0x134c
@@ -356,7 +356,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1396
     lea ax, word [bp - 0x0058]       ; 0x1397
     push ax                          ; 0x139a
-    call ds_string_loc_QRJV          ; 0x139b
+    call draw_string                 ; 0x139b
     add sp, byte 4                   ; 0x139e
     mov ax, 0                        ; 0x13a1
     push ax                          ; 0x13a4
@@ -380,7 +380,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x13ce
     lea ax, word [bp - 0x0058]       ; 0x13cf
     push ax                          ; 0x13d2
-    call ds_string_loc_QRJV          ; 0x13d3
+    call draw_string                 ; 0x13d3
     add sp, byte 4                   ; 0x13d6
     mov ax, 0                        ; 0x13d9
     push ax                          ; 0x13dc
@@ -415,7 +415,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1424
     lea ax, word [bp - 0x0058]       ; 0x1425
     push ax                          ; 0x1428
-    call ds_string_loc_QRJV          ; 0x1429
+    call draw_string                 ; 0x1429
     add sp, byte 4                   ; 0x142c
     mov ax, 0                        ; 0x142f
     push ax                          ; 0x1432
@@ -456,7 +456,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1488
     lea ax, word [bp - 0x0058]       ; 0x1489
     push ax                          ; 0x148c
-    call ds_string_loc_QRJV          ; 0x148d
+    call draw_string                 ; 0x148d
     add sp, byte 4                   ; 0x1490
     mov ax, 0                        ; 0x1493
     push ax                          ; 0x1496
@@ -482,7 +482,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x14c8
     lea ax, word [bp - 0x0058]       ; 0x14c9
     push ax                          ; 0x14cc
-    call ds_string_loc_QRJV          ; 0x14cd
+    call draw_string                 ; 0x14cd
     add sp, byte 4                   ; 0x14d0
     mov ax, 0                        ; 0x14d3
     push ax                          ; 0x14d6
@@ -502,7 +502,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x14fa
     lea ax, word [bp - 0x0058]       ; 0x14fb
     push ax                          ; 0x14fe
-    call ds_string_loc_QRJV          ; 0x14ff
+    call draw_string                 ; 0x14ff
     add sp, byte 4                   ; 0x1502
     mov ax, 0                        ; 0x1505
     push ax                          ; 0x1508
@@ -526,7 +526,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1532
     lea ax, word [bp - 0x0058]       ; 0x1533
     push ax                          ; 0x1536
-    call ds_string_loc_QRJV          ; 0x1537
+    call draw_string                 ; 0x1537
     add sp, byte 4                   ; 0x153a
     mov ax, 0                        ; 0x153d
     push ax                          ; 0x1540
@@ -569,13 +569,13 @@ api_idx_007c_OKMO:
     push ax                          ; 0x159b
     lea ax, word [bp - 0x0058]       ; 0x159c
     push ax                          ; 0x159f
-    call ds_string_loc_QRJV          ; 0x15a0
+    call draw_string                 ; 0x15a0
     add sp, byte 4                   ; 0x15a3
     mov ax, 0                        ; 0x15a6
     push ax                          ; 0x15a9
     mov ax, dseg_9098                ; 0x15aa
     push ax                          ; 0x15ad
-    call ds_string_loc_QRJV          ; 0x15ae
+    call draw_string                 ; 0x15ae
     add sp, byte 4                   ; 0x15b1
     mov ax, 0                        ; 0x15b4
     push ax                          ; 0x15b7
@@ -601,7 +601,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x15e9
     lea ax, word [bp - 0x0058]       ; 0x15ea
     push ax                          ; 0x15ed
-    call ds_string_loc_QRJV          ; 0x15ee
+    call draw_string                 ; 0x15ee
     add sp, byte 4                   ; 0x15f1
     mov ax, 0                        ; 0x15f4
     push ax                          ; 0x15f7
@@ -631,7 +631,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x162f
     lea ax, word [bp - 0x0058]       ; 0x1630
     push ax                          ; 0x1633
-    call ds_string_loc_QRJV          ; 0x1634
+    call draw_string                 ; 0x1634
     add sp, byte 4                   ; 0x1637
     mov ax, 0                        ; 0x163a
     push ax                          ; 0x163d
@@ -652,7 +652,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1665
     lea ax, word [bp - 0x0058]       ; 0x1666
     push ax                          ; 0x1669
-    call ds_string_loc_QRJV          ; 0x166a
+    call draw_string                 ; 0x166a
     add sp, byte 4                   ; 0x166d
     push word [bp + 0x4]             ; 0x1670
     call ds_app_OOUT                 ; 0x1673
@@ -694,7 +694,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x16c9
     lea ax, word [bp - 0x0058]       ; 0x16ca
     push ax                          ; 0x16cd
-    call ds_string_loc_QRJV          ; 0x16ce
+    call draw_string                 ; 0x16ce
     add sp, byte 4                   ; 0x16d1
     mov ax, 0                        ; 0x16d4
     push ax                          ; 0x16d7
@@ -718,7 +718,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1702
     lea ax, word [bp - 0x0058]       ; 0x1703
     push ax                          ; 0x1706
-    call ds_string_loc_QRJV          ; 0x1707
+    call draw_string                 ; 0x1707
     add sp, byte 4                   ; 0x170a
     mov ax, 0                        ; 0x170d
     push ax                          ; 0x1710
@@ -742,7 +742,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x173b
     lea ax, word [bp - 0x0058]       ; 0x173c
     push ax                          ; 0x173f
-    call ds_string_loc_QRJV          ; 0x1740
+    call draw_string                 ; 0x1740
     add sp, byte 4                   ; 0x1743
     push word [bp + 0x4]             ; 0x1746
     call api_idx_0004_RMVO           ; 0x1749

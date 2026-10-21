@@ -54,7 +54,7 @@ loc_MVHP:
     cwd                              ; 0x6bd1
     idiv cx                          ; 0x6bd2
     mov word [bss_82e8], dx          ; 0x6bd4
-    cmp word [bss_5b3e], byte 0      ; 0x6bd8
+    cmp word [hotspot_hit], byte 0   ; 0x6bd8
     jne short @..loc_MVHP.l4         ; 0x6bdd
     call loc_IONR                    ; 0x6bdf
 @..loc_MVHP.l4:

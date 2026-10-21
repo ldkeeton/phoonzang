@@ -117,7 +117,7 @@ loc_HTRU:
     lea cx, word [bp - 0x015a]       ; 0x1234
     add ax, cx                       ; 0x1238
     push ax                          ; 0x123a
-    call ds_string_loc_QRJV          ; 0x123b
+    call draw_string                 ; 0x123b
     add sp, byte 4                   ; 0x123e
     mov ax, 0                        ; 0x1241
     push ax                          ; 0x1244
@@ -138,7 +138,7 @@ loc_HTRU:
     add ax, word [bp - 0x000a]       ; 0x1267
     push ax                          ; 0x126a
     push word [bp - 0x0002]          ; 0x126b
-    call ds_app_NGUR                 ; 0x126e
+    call set_hotspot                 ; 0x126e
     add sp, byte 0x0e                ; 0x1271
     mov ax, word [bp - 0x0004]       ; 0x1274
     mov cx, word [bp - 0x0002]       ; 0x1277
@@ -168,7 +168,7 @@ loc_HTRU:
     mov ax, 0xffff                   ; 0x12ab
     push ax                          ; 0x12ae
     push word [bp - 0x0002]          ; 0x12af
-    call ds_app_NGUR                 ; 0x12b2
+    call set_hotspot                 ; 0x12b2
     add sp, byte 0x0e                ; 0x12b5
     cmp word [bp + 0x16], byte 1     ; 0x12b8
     jne short @..loc_HTRU.l10        ; 0x12bc
@@ -196,7 +196,7 @@ loc_HTRU:
     mov ax, word [bp - 0x0002]       ; 0x12ed
     add ax, word [bp - 0x000e]       ; 0x12f0
     push ax                          ; 0x12f3
-    call ds_app_NGUR                 ; 0x12f4
+    call set_hotspot                 ; 0x12f4
     add sp, byte 0x0e                ; 0x12f7
     inc word [bp - 0x000e]           ; 0x12fa
 @..loc_HTRU.l9:
@@ -214,7 +214,7 @@ loc_HTRU:
     mov ax, word [bp - 0x0002]       ; 0x1312
     add ax, word [bss_8466]          ; 0x1315
     push ax                          ; 0x1319
-    call ds_app_NGUR                 ; 0x131a
+    call set_hotspot                 ; 0x131a
     add sp, byte 0x0e                ; 0x131d
 @..loc_HTRU.l10:
     push word [bp + 0x6]             ; 0x1320
@@ -225,11 +225,11 @@ loc_HTRU:
 @..loc_HTRU.l11:
     mov ax, 0x59fe                   ; 0x132e
     push ax                          ; 0x1331
-    call ds_app_UHMG                 ; 0x1332
+    call poll_hotspots               ; 0x1332
     pop cx                           ; 0x1335
     mov word [bp - 0x0004], ax       ; 0x1336
     call api_idx_0006_HRUL           ; 0x1339
-    cmp word [bss_5b3e], byte 0      ; 0x133c
+    cmp word [hotspot_hit], byte 0   ; 0x133c
     je short @..loc_HTRU.l11         ; 0x1341
     jmp near @..loc_HTRU.l46         ; 0x1343
 @..loc_HTRU.l12:

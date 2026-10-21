@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_KQMO: ; Aztec csav frame=0x0100
+ds_app_string_KQMO: ; Aztec csav frame=0x0100
     mov ax, 0xff00                   ; 0x0860
     call aztec_csav                  ; 0x0863
     lea ax, word [bp - 0x00ff]       ; 0x0866
@@ -10,6 +10,6 @@ ds_app_KQMO: ; Aztec csav frame=0x0100
     push word [bp + 0x6]             ; 0x0874
     lea ax, word [bp - 0x00ff]       ; 0x0877
     push ax                          ; 0x087b
-    call ds_string_loc_QRJV          ; 0x087c
+    call draw_string                 ; 0x087c
     add sp, byte 4                   ; 0x087f
     ret                              ; 0x0882

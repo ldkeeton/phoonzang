@@ -65,7 +65,7 @@ loc_GPRG:
     push ax                          ; 0x100b
     mov ax, dseg_909b                ; 0x100c
     push ax                          ; 0x100f
-    call ds_string_loc_QRJV          ; 0x1010
+    call draw_string                 ; 0x1010
     add sp, byte 4                   ; 0x1013
 @..loc_GPRG.l2:
     ret                              ; 0x1016

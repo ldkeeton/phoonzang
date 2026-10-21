@@ -28,7 +28,7 @@ api_idx_0022_RHMN:
     mov ax, 1                        ; 0x225d
     push ax                          ; 0x2260
     push word [bp - 0x0004]          ; 0x2261
-    call ds_app_LUOV                 ; 0x2264
+    call ds_app_string_LUOV          ; 0x2264
     add sp, byte 4                   ; 0x2267
     inc word [bp - 0x0004]           ; 0x226a
 @..api_idx_0022_RHMN.l4:
@@ -515,7 +515,7 @@ api_idx_0022_RHMN:
     push word [bx + 0x122]           ; 0x2710
     push word [bx + 0x120]           ; 0x2714
     push word [bp - 0x0004]          ; 0x2718
-    call ds_app_NGUR                 ; 0x271b
+    call set_hotspot                 ; 0x271b
     add sp, byte 0x0e                ; 0x271e
     inc word [bp - 0x0004]           ; 0x2721
     mov ax, word [bp - 0x0004]       ; 0x2724
@@ -535,7 +535,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x2743
     mov ax, 6                        ; 0x2744
     push ax                          ; 0x2747
-    call ds_app_NGUR                 ; 0x2748
+    call set_hotspot                 ; 0x2748
     add sp, byte 0x0e                ; 0x274b
     mov ax, 0                        ; 0x274e
     push ax                          ; 0x2751
@@ -551,7 +551,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x2765
     mov ax, 7                        ; 0x2766
     push ax                          ; 0x2769
-    call ds_app_NGUR                 ; 0x276a
+    call set_hotspot                 ; 0x276a
     add sp, byte 0x0e                ; 0x276d
     mov ax, 0                        ; 0x2770
     push ax                          ; 0x2773
@@ -567,7 +567,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x2787
     mov ax, 8                        ; 0x2788
     push ax                          ; 0x278b
-    call ds_app_NGUR                 ; 0x278c
+    call set_hotspot                 ; 0x278c
     add sp, byte 0x0e                ; 0x278f
     mov ax, 0                        ; 0x2792
     push ax                          ; 0x2795
@@ -583,7 +583,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x27a9
     mov ax, 9                        ; 0x27aa
     push ax                          ; 0x27ad
-    call ds_app_NGUR                 ; 0x27ae
+    call set_hotspot                 ; 0x27ae
     add sp, byte 0x0e                ; 0x27b1
     mov ax, 0                        ; 0x27b4
     push ax                          ; 0x27b7
@@ -599,7 +599,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x27cb
     mov ax, 0xa                      ; 0x27cc
     push ax                          ; 0x27cf
-    call ds_app_NGUR                 ; 0x27d0
+    call set_hotspot                 ; 0x27d0
     add sp, byte 0x0e                ; 0x27d3
     mov ax, 0                        ; 0x27d6
     push ax                          ; 0x27d9
@@ -615,7 +615,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x27ed
     mov ax, 0xb                      ; 0x27ee
     push ax                          ; 0x27f1
-    call ds_app_NGUR                 ; 0x27f2
+    call set_hotspot                 ; 0x27f2
     add sp, byte 0x0e                ; 0x27f5
     mov word [bp - 0x0004], 0        ; 0x27f8
 @..api_idx_0022_RHMN.l45:
@@ -657,7 +657,7 @@ api_idx_0022_RHMN:
     add bx, byte 0x0c                ; 0x2850
     mov ax, bx                       ; 0x2853
     push ax                          ; 0x2855
-    call ds_app_NGUR                 ; 0x2856
+    call set_hotspot                 ; 0x2856
     add sp, byte 0x0e                ; 0x2859
     mov ax, 0                        ; 0x285c
     push ax                          ; 0x285f
@@ -676,7 +676,7 @@ api_idx_0022_RHMN:
     mov ax, word [bp - 0x0004]       ; 0x287c
     add ax, strict word 0x12         ; 0x287f
     push ax                          ; 0x2882
-    call ds_app_NGUR                 ; 0x2883
+    call set_hotspot                 ; 0x2883
     add sp, byte 0x0e                ; 0x2886
     inc word [bp - 0x0004]           ; 0x2889
     mov ax, word [bp - 0x0004]       ; 0x288c
@@ -698,7 +698,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x28ae
     mov ax, 0x18                     ; 0x28af
     push ax                          ; 0x28b2
-    call ds_app_NGUR                 ; 0x28b3
+    call set_hotspot                 ; 0x28b3
     add sp, byte 0x0e                ; 0x28b6
     mov ax, 0                        ; 0x28b9
     push ax                          ; 0x28bc
@@ -710,7 +710,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x28c4
     mov ax, 0x19                     ; 0x28c5
     push ax                          ; 0x28c8
-    call ds_app_NGUR                 ; 0x28c9
+    call set_hotspot                 ; 0x28c9
     add sp, byte 0x0e                ; 0x28cc
     mov word [bp - 0x001c], 0        ; 0x28cf
     lea ax, word [bp - 0x0020]       ; 0x28d4
@@ -740,7 +740,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x290b
     mov ax, 0x19                     ; 0x290c
     push ax                          ; 0x290f
-    call ds_app_NGUR                 ; 0x2910
+    call set_hotspot                 ; 0x2910
     add sp, byte 0x0e                ; 0x2913
     mov word [bp - 0x001c], 3        ; 0x2916
     jmp near @..api_idx_0022_RHMN.l57 ; 0x291b
@@ -779,7 +779,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x2960
     mov ax, 0x19                     ; 0x2961
     push ax                          ; 0x2964
-    call ds_app_NGUR                 ; 0x2965
+    call set_hotspot                 ; 0x2965
     add sp, byte 0x0e                ; 0x2968
     mov word [bp - 0x001c], 1        ; 0x296b
     jmp short @..api_idx_0022_RHMN.l51 ; 0x2970
@@ -798,7 +798,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x2989
     mov ax, 0x19                     ; 0x298a
     push ax                          ; 0x298d
-    call ds_app_NGUR                 ; 0x298e
+    call set_hotspot                 ; 0x298e
     add sp, byte 0x0e                ; 0x2991
     mov word [bp - 0x001c], 2        ; 0x2994
 @..api_idx_0022_RHMN.l51:
@@ -826,7 +826,7 @@ jumptable_2a3c_case_0:
     push ax                          ; 0x29c4
     mov ax, 0x19                     ; 0x29c5
     push ax                          ; 0x29c8
-    call ds_app_NGUR                 ; 0x29c9
+    call set_hotspot                 ; 0x29c9
     add sp, byte 0x0e                ; 0x29cc
     jmp near @..api_idx_0022_RHMN.l57 ; 0x29cf
 jumptable_2a3c_case_1:
@@ -845,7 +845,7 @@ jumptable_2a3c_case_1:
     push ax                          ; 0x29ed
     mov ax, 0x19                     ; 0x29ee
     push ax                          ; 0x29f1
-    call ds_app_NGUR                 ; 0x29f2
+    call set_hotspot                 ; 0x29f2
     add sp, byte 0x0e                ; 0x29f5
     jmp short @..api_idx_0022_RHMN.l55 ; 0x29f8
 @..api_idx_0022_RHMN.l54:
@@ -862,7 +862,7 @@ jumptable_2a3c_case_1:
     push ax                          ; 0x2a0e
     mov ax, 0x19                     ; 0x2a0f
     push ax                          ; 0x2a12
-    call ds_app_NGUR                 ; 0x2a13
+    call set_hotspot                 ; 0x2a13
     add sp, byte 0x0e                ; 0x2a16
 @..api_idx_0022_RHMN.l55:
     jmp short @..api_idx_0022_RHMN.l57 ; 0x2a19
@@ -880,7 +880,7 @@ jumptable_2a3c_case_6:
     push ax                          ; 0x2a2f
     mov ax, 0x19                     ; 0x2a30
     push ax                          ; 0x2a33
-    call ds_app_NGUR                 ; 0x2a34
+    call set_hotspot                 ; 0x2a34
     add sp, byte 0x0e                ; 0x2a37
     jmp short @..api_idx_0022_RHMN.l57 ; 0x2a3a
 jumptable_2a3c:
@@ -911,7 +911,7 @@ jumptable_2a3c_case_3:
     push ax                          ; 0x2a67
     mov ax, 0x1a                     ; 0x2a68
     push ax                          ; 0x2a6b
-    call ds_app_NGUR                 ; 0x2a6c
+    call set_hotspot                 ; 0x2a6c
     add sp, byte 0x0e                ; 0x2a6f
     mov ax, 0                        ; 0x2a72
     cmp word [bss_91b4], byte 0      ; 0x2a75
@@ -929,7 +929,7 @@ jumptable_2a3c_case_3:
 @..api_idx_0022_RHMN.l59:
     mov ax, 0x59fe                   ; 0x2a9a
     push ax                          ; 0x2a9d
-    call ds_app_UHMG                 ; 0x2a9e
+    call poll_hotspots               ; 0x2a9e
     pop cx                           ; 0x2aa1
     dec ax                           ; 0x2aa2
     mov word [bp - 0x0002], ax       ; 0x2aa3
@@ -942,11 +942,11 @@ jumptable_2a3c_case_3:
     cwd                              ; 0x2ab4
     idiv cx                          ; 0x2ab5
     mov word [bss_82e8], dx          ; 0x2ab7
-    cmp word [bss_5b3e], byte 0      ; 0x2abb
+    cmp word [hotspot_hit], byte 0   ; 0x2abb
     jne short @..api_idx_0022_RHMN.l60 ; 0x2ac0
     call loc_IONR                    ; 0x2ac2
 @..api_idx_0022_RHMN.l60:
-    cmp word [bss_5b3e], byte 0      ; 0x2ac5
+    cmp word [hotspot_hit], byte 0   ; 0x2ac5
     jne short @..api_idx_0022_RHMN.l63 ; 0x2aca
     les bx, word [dseg_0002]         ; 0x2acc
     mov ax, word [es:bx]             ; 0x2ad0
@@ -964,7 +964,7 @@ jumptable_2a3c_case_3:
     call loc_LMUG                    ; 0x2aeb
     pop cx                           ; 0x2aee
 @..api_idx_0022_RHMN.l63:
-    cmp word [bss_5b3e], byte 0      ; 0x2aef
+    cmp word [hotspot_hit], byte 0   ; 0x2aef
     je short @..api_idx_0022_RHMN.l59 ; 0x2af4
     cmp word [bp - 0x0002], byte 0x0c ; 0x2af6
     jl short @..api_idx_0022_RHMN.l65 ; 0x2afa

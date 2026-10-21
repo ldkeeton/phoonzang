@@ -105,7 +105,7 @@ api_idx_00b4_QLQS:
     push ax                          ; 0x4dc0
     lea ax, word [bp - 0x0064]       ; 0x4dc1
     push ax                          ; 0x4dc4
-    call ds_app_string_HHIL          ; 0x4dc5
+    call str_subst_char              ; 0x4dc5
     add sp, byte 6                   ; 0x4dc8
     mov ax, 1                        ; 0x4dcb
     push ax                          ; 0x4dce

@@ -50,7 +50,7 @@ api_idx_0012_GQSK:
     push word [bp - 0x000c]          ; 0x0593
     push word [bp - 0x000a]          ; 0x0596
     push word [bp - 0x0002]          ; 0x0599
-    call ds_app_NGUR                 ; 0x059c
+    call set_hotspot                 ; 0x059c
     add sp, byte 0x0e                ; 0x059f
     inc word [bp - 0x0002]           ; 0x05a2
 @..api_idx_0012_GQSK.l2:
@@ -66,7 +66,7 @@ api_idx_0012_GQSK:
     mov ax, 0xffff                   ; 0x05b6
     push ax                          ; 0x05b9
     push word [bss_69c8]             ; 0x05ba
-    call ds_app_NGUR                 ; 0x05be
+    call set_hotspot                 ; 0x05be
     add sp, byte 0x0e                ; 0x05c1
     mov ax, 0xbb                     ; 0x05c4
     push ax                          ; 0x05c7
@@ -215,7 +215,7 @@ api_idx_0012_GQSK:
     pop cx                           ; 0x0716
     mov ax, 0x59fe                   ; 0x0717
     push ax                          ; 0x071a
-    call ds_app_UHMG                 ; 0x071b
+    call poll_hotspots               ; 0x071b
     pop cx                           ; 0x071e
     dec ax                           ; 0x071f
     mov word [bp - 0x0004], ax       ; 0x0720
@@ -230,7 +230,7 @@ api_idx_0012_GQSK:
     mov ax, 0xffff                   ; 0x0738
     ret                              ; 0x073b
 @..api_idx_0012_GQSK.l11:
-    cmp word [bss_5b3e], byte 1      ; 0x073c
+    cmp word [hotspot_hit], byte 1   ; 0x073c
     jne short @..api_idx_0012_GQSK.l12 ; 0x0741
     mov ax, 1                        ; 0x0743
     push ax                          ; 0x0746

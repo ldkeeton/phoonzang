@@ -84,7 +84,7 @@ api_idx_0008_SKNL:
     mov ax, 0                        ; 0x1bd9
     push ax                          ; 0x1bdc
     push word [bp + 0x4]             ; 0x1bdd
-    call ds_string_loc_QRJV          ; 0x1be0
+    call draw_string                 ; 0x1be0
     add sp, byte 4                   ; 0x1be3
     mov ax, word [bp + 0xa]          ; 0x1be6
     add ax, word [bp - 0x0004]       ; 0x1be9

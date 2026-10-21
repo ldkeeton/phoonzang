@@ -78,7 +78,7 @@ api_idx_003e_JGVR:
     mov ax, 1                        ; 0x126e
     push ax                          ; 0x1271
     push word [bp + 0x4]             ; 0x1272
-    call ds_app_LUOV                 ; 0x1275
+    call ds_app_string_LUOV          ; 0x1275
     add sp, byte 4                   ; 0x1278
     mov ax, 0x248                    ; 0x127b
     imul word [bp + 0x4]             ; 0x127e

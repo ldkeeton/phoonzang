@@ -84,7 +84,7 @@ api_idx_0008_VRRI:
     mov ax, 0                        ; 0x037e
     push ax                          ; 0x0381
     push word [bp + 0x4]             ; 0x0382
-    call ds_string_loc_QRJV          ; 0x0385
+    call draw_string                 ; 0x0385
     add sp, byte 4                   ; 0x0388
     mov ax, word [bp + 0xa]          ; 0x038b
     add ax, word [bp - 0x0004]       ; 0x038e

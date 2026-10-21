@@ -51,7 +51,7 @@ api_idx_002a_SRJL:
     push ax
     lea ax, word [bp - 0x002a]
     push ax
-    call ds_string_loc_QRJV
+    call draw_string
     add sp, byte 4
     mov ax, word [bp + 0x8]
     add ax, strict word 6
@@ -65,6 +65,6 @@ api_idx_002a_SRJL:
     lea cx, word [bp - 0x0029]
     add ax, cx
     push ax
-    call ds_string_loc_QRJV
+    call draw_string
     add sp, byte 4
     ret

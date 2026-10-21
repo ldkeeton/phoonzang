@@ -156,7 +156,7 @@ api_idx_0068_OUGS:
     mov ax, 1                        ; 0x5327
     push ax                          ; 0x532a
     push word [bp + 0x4]             ; 0x532b
-    call ds_app_LUOV                 ; 0x532e
+    call ds_app_string_LUOV          ; 0x532e
     add sp, byte 4                   ; 0x5331
     cmp word [bp - 0x004c], byte 1   ; 0x5334
     jne short @..api_idx_0068_OUGS.l7 ; 0x5338

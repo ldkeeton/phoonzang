@@ -97,7 +97,7 @@ api_idx_0004_GKHR:
     mov ax, 1                        ; 0x4bbe
     push ax                          ; 0x4bc1
     push word [bp + 0x4]             ; 0x4bc2
-    call ds_app_LUOV                 ; 0x4bc5
+    call ds_app_string_LUOV          ; 0x4bc5
     add sp, byte 4                   ; 0x4bc8
 @..api_idx_0004_GKHR.l5:
     ret                              ; 0x4bcb

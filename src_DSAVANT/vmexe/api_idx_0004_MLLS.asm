@@ -123,7 +123,7 @@ api_idx_0004_MLLS:
     imul word [bp + 0x4]             ; 0x042e
     add ax, bss_5bf4                 ; 0x0431
     push ax                          ; 0x0434
-    call ds_string_loc_QRJV          ; 0x0435
+    call draw_string                 ; 0x0435
     add sp, byte 4                   ; 0x0438
 @..api_idx_0004_MLLS.l1:
     mov ax, word [bp - 0x0004]       ; 0x043b

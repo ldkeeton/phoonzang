@@ -426,22 +426,25 @@ async function makeC(uri) {
             `and labels in \`#asm\` become linker symbols. \`#asm\` is only for a few instructions ` +
             `inside real C.` +
             (handWritten ? ` The sidecar note marks this routine hand-written asm: write ${rel(sFile)}.` : ''),
-        `Commands (repo root): \`make rebuild\` is the sole pass/fail gate. ` +
+        `Commands (repo root): \`make rebuild\` is the pass/fail gate: it recompiles every .c/.s, ` +
+            `checks it against the original bytes, and assembles. ` +
             `\`make refs ${where.project} ${where.binary} ROUTINE\` lists the address-named and ` +
             `content-tagged symbols a routine references. \`make name ${where.project} ${where.binary} ` +
             `SYMBOL=NAME[:NOTE] ...\` writes the sidecar, renames the hand-written sources and every ` +
             `reference in them (file, routine, \`NAME_\` in .s, \`extern\`/\`extrn\`, C callers), then ` +
             `builds and rebuilds; give SYMBOL as the build spells it (\`cseg_0d3a\`, \`bss_1234\`, ` +
             `\`io_loc_KRUO\`, \`${where.label}\`) or by its current name, and single-quote any spec whose ` +
-            `note has spaces. Never edit the sidecar by hand or run \`make build\`, and do not look for, ` +
-            `read, or run any other build commands, Makefiles, or scripts.`,
+            `note has spaces. \`make build ${where.project}\` regenerates the asm from the disassembly ` +
+            `and sources. The sidecar (${rel(sidecarPath(where.project))}) and the tooling under ` +
+            `disassembler/ are there to read when you need them.`,
         `Compiler flags come from the routine name's longest matching prefix: ${flagList} ` +
             `(a .s uses \`compiler_flags.asm\`).`,
         `Steps:\n` +
             `1. Write the source with the routine still named \`${where.label}\` and run \`make rebuild\` ` +
-            `until it passes. If the only differences left are label names on the same instructions and ` +
-            `offsets, or it says to run \`make build\`, the bytes match: go on to step 3, whose ` +
-            `\`make name\` regenerates the asm.\n` +
+            `until it passes. If the only differences left are symbol or label names on the same ` +
+            `instructions and offsets, the bytes match: go on to step 2 (step 3's \`make name\` ` +
+            `regenerates the asm). A report that the source compiles to a different size than its ` +
+            `fragment means the bytes do not match yet.\n` +
             `2. Give parameters and locals descriptive names in the source itself (C names; \`equ\` names ` +
             `for .s and #asm stack arguments and locals). Add terse comments that say why, not what: a ` +
             `one-line header above the routine (a \`;\` line in a .s, \`/* */\` in C, never \`//\`), and ` +
@@ -455,7 +458,8 @@ async function makeC(uri) {
             `each with a note saying what it holds or does.\n` +
             `4. If \`make name\` reports a rebuild failure, fix the source and run \`make rebuild\` until it ` +
             `passes. No address-named or content-tagged symbol may remain in the source.\n\n` +
-            `Your final message: only the routine's new name.`,
+            `Your final message: only the routine's new name, or, if you could not finish, what is ` +
+            `left and why.`,
     ].join('\n\n');
     // --allowedTools is variadic: a trailing prompt would be swallowed as another tool name
     // (the session then starts empty), so the prompt goes first and the value is attached.

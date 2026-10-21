@@ -26,7 +26,7 @@ jumptable_4688_case_0:
     mov ax, word [bp + 0x6]          ; 0x4368
     add ax, strict word 0x5c         ; 0x436b
     push ax                          ; 0x436e
-    call ds_app_string_IIIR          ; 0x436f
+    call draw_button                 ; 0x436f
     add sp, byte 0x0c                ; 0x4372
     jmp near @..api_idx_0052_LJTK.l3 ; 0x4375
 jumptable_4688_case_1:
@@ -222,7 +222,7 @@ jumptable_4688_case_10:
     mov ax, word [bp + 0x6]          ; 0x4526
     add ax, 0xe6                     ; 0x4529
     push ax                          ; 0x452c
-    call ds_app_string_IIIR          ; 0x452d
+    call draw_button                 ; 0x452d
     add sp, byte 0x0c                ; 0x4530
     jmp near @..api_idx_0052_LJTK.l3 ; 0x4533
 jumptable_4688_case_11:
@@ -247,7 +247,7 @@ jumptable_4688_case_11:
     mov ax, word [bp + 0x6]          ; 0x455d
     add ax, 0xc2                     ; 0x4560
     push ax                          ; 0x4563
-    call ds_app_string_IIIR          ; 0x4564
+    call draw_button                 ; 0x4564
     add sp, byte 0x0c                ; 0x4567
     jmp near @..api_idx_0052_LJTK.l3 ; 0x456a
 jumptable_4688_case_12:

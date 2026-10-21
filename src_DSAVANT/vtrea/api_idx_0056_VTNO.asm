@@ -109,7 +109,7 @@ api_idx_0056_VTNO:
     mov ax, 1                        ; 0x13ca
     push ax                          ; 0x13cd
     push word [bp + 0x4]             ; 0x13ce
-    call ds_app_LUOV                 ; 0x13d1
+    call ds_app_string_LUOV          ; 0x13d1
     add sp, byte 4                   ; 0x13d4
     push word [bss_905a]             ; 0x13d7
     call api_idx_0004_UQUT           ; 0x13db

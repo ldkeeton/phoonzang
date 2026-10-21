@@ -103,7 +103,7 @@ loc_RVQR:
     add sp, byte 4                   ; 0x04a4
     mov word [bss_59f8], 0x905c      ; 0x04a7
     mov word [bss_0e32], 0           ; 0x04ad
-    mov word [bss_5b3e], 0           ; 0x04b3
+    mov word [hotspot_hit], 0        ; 0x04b3
     mov word [bp - 0x0006], 0        ; 0x04b9
 @..loc_RVQR.l13:
     mov ax, 0x64                     ; 0x04be
@@ -219,7 +219,7 @@ loc_RVQR:
     add sp, byte 6                   ; 0x05bf
     mov ax, 0x30c                    ; 0x05c2
     push ax                          ; 0x05c5
-    mov ax, bss_5218                 ; 0x05c6
+    mov ax, disk_header              ; 0x05c6
     push ax                          ; 0x05c9
     mov ax, dseg_9141                ; 0x05ca
     push ax                          ; 0x05cd
@@ -255,7 +255,7 @@ loc_RVQR:
     push ax                          ; 0x060f
     call aztec_open                  ; 0x0610
     add sp, byte 4                   ; 0x0613
-    mov word [bss_0e24], ax          ; 0x0616
+    mov word [msg_dbs_fd], ax        ; 0x0616
     cmp ax, strict word 0xffff       ; 0x0619
     jne short @..loc_RVQR.l17        ; 0x061c
     mov ax, 9                        ; 0x061e

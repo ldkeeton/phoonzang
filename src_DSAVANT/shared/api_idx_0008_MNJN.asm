@@ -22,7 +22,7 @@ api_idx_0008_MNJN:
     mov ax, 0
     push ax
     push word [bp + 0x4]
-    call ds_app_LUOV
+    call ds_app_string_LUOV
     add sp, byte 4
     mov ax, word [bp + 0x4]
     mov cx, 2
@@ -71,7 +71,7 @@ api_idx_0008_MNJN:
 @..api_idx_0008_MNJN.l4:
     push word [bp + 0x6]
     push word [bp + 0x4]
-    call ds_app_LUOV
+    call ds_app_string_LUOV
     add sp, byte 4
 @..api_idx_0008_MNJN.l5:
     ret

@@ -284,7 +284,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x641d
     mov ax, 0                        ; 0x641e
     push ax                          ; 0x6421
-    call ds_app_NGUR                 ; 0x6422
+    call set_hotspot                 ; 0x6422
     add sp, byte 0x0e                ; 0x6425
     mov ax, 0                        ; 0x6428
     push ax                          ; 0x642b
@@ -300,7 +300,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x643f
     mov ax, 1                        ; 0x6440
     push ax                          ; 0x6443
-    call ds_app_NGUR                 ; 0x6444
+    call set_hotspot                 ; 0x6444
     add sp, byte 0x0e                ; 0x6447
     mov ax, 0                        ; 0x644a
     push ax                          ; 0x644d
@@ -316,7 +316,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x6461
     mov ax, 2                        ; 0x6462
     push ax                          ; 0x6465
-    call ds_app_NGUR                 ; 0x6466
+    call set_hotspot                 ; 0x6466
     add sp, byte 0x0e                ; 0x6469
     mov ax, 0                        ; 0x646c
     push ax                          ; 0x646f
@@ -332,7 +332,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x6483
     mov ax, 3                        ; 0x6484
     push ax                          ; 0x6487
-    call ds_app_NGUR                 ; 0x6488
+    call set_hotspot                 ; 0x6488
     add sp, byte 0x0e                ; 0x648b
     mov ax, 0                        ; 0x648e
     push ax                          ; 0x6491
@@ -347,7 +347,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x64a2
     mov ax, 4                        ; 0x64a3
     push ax                          ; 0x64a6
-    call ds_app_NGUR                 ; 0x64a7
+    call set_hotspot                 ; 0x64a7
     add sp, byte 0x0e                ; 0x64aa
     mov ax, 0                        ; 0x64ad
     push ax                          ; 0x64b0
@@ -362,7 +362,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x64c1
     mov ax, 5                        ; 0x64c2
     push ax                          ; 0x64c5
-    call ds_app_NGUR                 ; 0x64c6
+    call set_hotspot                 ; 0x64c6
     add sp, byte 0x0e                ; 0x64c9
     mov ax, 0                        ; 0x64cc
     push ax                          ; 0x64cf
@@ -378,7 +378,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x64e3
     mov ax, 6                        ; 0x64e4
     push ax                          ; 0x64e7
-    call ds_app_NGUR                 ; 0x64e8
+    call set_hotspot                 ; 0x64e8
     add sp, byte 0x0e                ; 0x64eb
     mov ax, 0                        ; 0x64ee
     push ax                          ; 0x64f1
@@ -394,7 +394,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x6505
     mov ax, 7                        ; 0x6506
     push ax                          ; 0x6509
-    call ds_app_NGUR                 ; 0x650a
+    call set_hotspot                 ; 0x650a
     add sp, byte 0x0e                ; 0x650d
     mov ax, 0                        ; 0x6510
     push ax                          ; 0x6513
@@ -409,7 +409,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x6524
     mov ax, 8                        ; 0x6525
     push ax                          ; 0x6528
-    call ds_app_NGUR                 ; 0x6529
+    call set_hotspot                 ; 0x6529
     add sp, byte 0x0e                ; 0x652c
     mov ax, 0                        ; 0x652f
     push ax                          ; 0x6532
@@ -424,7 +424,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x6543
     mov ax, 9                        ; 0x6544
     push ax                          ; 0x6547
-    call ds_app_NGUR                 ; 0x6548
+    call set_hotspot                 ; 0x6548
     add sp, byte 0x0e                ; 0x654b
     mov ax, 0                        ; 0x654e
     push ax                          ; 0x6551
@@ -439,7 +439,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x6562
     mov ax, 0xa                      ; 0x6563
     push ax                          ; 0x6566
-    call ds_app_NGUR                 ; 0x6567
+    call set_hotspot                 ; 0x6567
     add sp, byte 0x0e                ; 0x656a
     mov ax, 0                        ; 0x656d
     push ax                          ; 0x6570
@@ -454,7 +454,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x6581
     mov ax, 0xb                      ; 0x6582
     push ax                          ; 0x6585
-    call ds_app_NGUR                 ; 0x6586
+    call set_hotspot                 ; 0x6586
     add sp, byte 0x0e                ; 0x6589
     mov ax, 0                        ; 0x658c
     push ax                          ; 0x658f
@@ -469,7 +469,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x65a0
     mov ax, 0xc                      ; 0x65a1
     push ax                          ; 0x65a4
-    call ds_app_NGUR                 ; 0x65a5
+    call set_hotspot                 ; 0x65a5
     add sp, byte 0x0e                ; 0x65a8
     mov ax, 0                        ; 0x65ab
     push ax                          ; 0x65ae
@@ -484,7 +484,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x65bf
     mov ax, 0xd                      ; 0x65c0
     push ax                          ; 0x65c3
-    call ds_app_NGUR                 ; 0x65c4
+    call set_hotspot                 ; 0x65c4
     add sp, byte 0x0e                ; 0x65c7
     mov ax, 0                        ; 0x65ca
     push ax                          ; 0x65cd
@@ -499,7 +499,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x65de
     mov ax, 0xe                      ; 0x65df
     push ax                          ; 0x65e2
-    call ds_app_NGUR                 ; 0x65e3
+    call set_hotspot                 ; 0x65e3
     add sp, byte 0x0e                ; 0x65e6
     mov word [bp - 0x0002], 0        ; 0x65e9
 @..api_idx_0014_VORK.l12:
@@ -552,7 +552,7 @@ api_idx_0014_VORK:
     mov ax, word [bp - 0x0002]       ; 0x664e
     add ax, strict word 0xf          ; 0x6651
     push ax                          ; 0x6654
-    call ds_app_NGUR                 ; 0x6655
+    call set_hotspot                 ; 0x6655
     add sp, byte 0x0e                ; 0x6658
     inc word [bp - 0x0002]           ; 0x665b
     mov ax, word [bp - 0x0002]       ; 0x665e
@@ -572,7 +572,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x667d
     mov ax, 0x19                     ; 0x667e
     push ax                          ; 0x6681
-    call ds_app_NGUR                 ; 0x6682
+    call set_hotspot                 ; 0x6682
     add sp, byte 0x0e                ; 0x6685
     mov ax, 0x1b                     ; 0x6688
     push ax                          ; 0x668b
@@ -588,7 +588,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x669f
     mov ax, 0x1a                     ; 0x66a0
     push ax                          ; 0x66a3
-    call ds_app_NGUR                 ; 0x66a4
+    call set_hotspot                 ; 0x66a4
     add sp, byte 0x0e                ; 0x66a7
     mov ax, 0                        ; 0x66aa
     push ax                          ; 0x66ad
@@ -600,7 +600,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x66b5
     mov ax, 0x1b                     ; 0x66b6
     push ax                          ; 0x66b9
-    call ds_app_NGUR                 ; 0x66ba
+    call set_hotspot                 ; 0x66ba
     add sp, byte 0x0e                ; 0x66bd
 @..api_idx_0014_VORK.l13:
     push word [bp + 0x4]             ; 0x66c0
@@ -608,11 +608,11 @@ api_idx_0014_VORK:
     pop cx                           ; 0x66c6
     mov ax, 0x59fe                   ; 0x66c7
     push ax                          ; 0x66ca
-    call ds_app_UHMG                 ; 0x66cb
+    call poll_hotspots               ; 0x66cb
     pop cx                           ; 0x66ce
     dec ax                           ; 0x66cf
     mov word [bp - 0x0004], ax       ; 0x66d0
-    cmp word [bss_5b3e], byte 0      ; 0x66d3
+    cmp word [hotspot_hit], byte 0   ; 0x66d3
     je short @..api_idx_0014_VORK.l13 ; 0x66d8
     cmp word [bp - 0x0004], byte 0x0f ; 0x66da
     jl short @..api_idx_0014_VORK.l15 ; 0x66de

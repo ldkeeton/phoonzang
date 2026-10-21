@@ -29,7 +29,7 @@ api_idx_0074_MHUG:
     push word [bp - 0x000a]          ; 0x6735
     push word [bp - 0x0008]          ; 0x6738
     push word [bp - 0x0006]          ; 0x673b
-    call ds_app_KNSQ                 ; 0x673e
+    call draw_dialog_box             ; 0x673e
     add sp, byte 8                   ; 0x6741
     lea ax, word [bp - 0x004c]       ; 0x6744
     push ax                          ; 0x6747
@@ -66,7 +66,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6790
     lea ax, word [bp - 0x004c]       ; 0x6791
     push ax                          ; 0x6794
-    call ds_string_loc_QRJV          ; 0x6795
+    call draw_string                 ; 0x6795
     add sp, byte 4                   ; 0x6798
     lea ax, word [bp - 0x0074]       ; 0x679b
     push ax                          ; 0x679e
@@ -88,7 +88,7 @@ api_idx_0074_MHUG:
     mov ax, word [bp - 0x0006]       ; 0x67c0
     add ax, strict word 8            ; 0x67c3
     push ax                          ; 0x67c6
-    call ds_app_string_IIIR          ; 0x67c7
+    call draw_button                 ; 0x67c7
     add sp, byte 0x0c                ; 0x67ca
     lea ax, word [bp - 0x004c]       ; 0x67cd
     push ax                          ; 0x67d0
@@ -111,7 +111,7 @@ api_idx_0074_MHUG:
     mov ax, word [bp - 0x0006]       ; 0x67f3
     add ax, strict word 8            ; 0x67f6
     push ax                          ; 0x67f9
-    call ds_app_string_IIIR          ; 0x67fa
+    call draw_button                 ; 0x67fa
     add sp, byte 0x0c                ; 0x67fd
     lea ax, word [bp - 0x004c]       ; 0x6800
     push ax                          ; 0x6803
@@ -151,7 +151,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x684d
     lea ax, word [bp - 0x004c]       ; 0x684e
     push ax                          ; 0x6851
-    call ds_string_loc_QRJV          ; 0x6852
+    call draw_string                 ; 0x6852
     add sp, byte 4                   ; 0x6855
     lea ax, word [bp - 0x004c]       ; 0x6858
     push ax                          ; 0x685b
@@ -189,7 +189,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x68a5
     lea ax, word [bp - 0x004c]       ; 0x68a6
     push ax                          ; 0x68a9
-    call ds_string_loc_QRJV          ; 0x68aa
+    call draw_string                 ; 0x68aa
     add sp, byte 4                   ; 0x68ad
     mov word [bp - 0x0002], 0        ; 0x68b0
 @..api_idx_0074_MHUG.l1:
@@ -320,7 +320,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x69d4
     mov ax, 0                        ; 0x69d5
     push ax                          ; 0x69d8
-    call ds_app_NGUR                 ; 0x69d9
+    call set_hotspot                 ; 0x69d9
     add sp, byte 0x0e                ; 0x69dc
     mov ax, 0                        ; 0x69df
     push ax                          ; 0x69e2
@@ -340,7 +340,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6a02
     mov ax, 1                        ; 0x6a03
     push ax                          ; 0x6a06
-    call ds_app_NGUR                 ; 0x6a07
+    call set_hotspot                 ; 0x6a07
     add sp, byte 0x0e                ; 0x6a0a
     mov ax, 0                        ; 0x6a0d
     push ax                          ; 0x6a10
@@ -352,7 +352,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6a18
     mov ax, 2                        ; 0x6a19
     push ax                          ; 0x6a1c
-    call ds_app_NGUR                 ; 0x6a1d
+    call set_hotspot                 ; 0x6a1d
     add sp, byte 0x0e                ; 0x6a20
     mov ax, word [bp - 0x000c]       ; 0x6a23
     inc ax                           ; 0x6a26
@@ -487,7 +487,7 @@ api_idx_0074_MHUG:
     mov ax, 0                        ; 0x6b49
     push ax                          ; 0x6b4c
     push word [bp - 0x0002]          ; 0x6b4d
-    call ds_app_LUOV                 ; 0x6b50
+    call ds_app_string_LUOV          ; 0x6b50
     add sp, byte 4                   ; 0x6b53
     mov ax, word [bp - 0x0002]       ; 0x6b56
     mov cx, 2                        ; 0x6b59
@@ -657,11 +657,11 @@ api_idx_0074_MHUG:
 @..api_idx_0074_MHUG.l23:
     mov ax, 0x59fe                   ; 0x6cd3
     push ax                          ; 0x6cd6
-    call ds_app_UHMG                 ; 0x6cd7
+    call poll_hotspots               ; 0x6cd7
     pop cx                           ; 0x6cda
     dec ax                           ; 0x6cdb
     mov word [bp - 0x0016], ax       ; 0x6cdc
-    cmp word [bss_5b3e], byte 1      ; 0x6cdf
+    cmp word [hotspot_hit], byte 1   ; 0x6cdf
     je short @..api_idx_0074_MHUG.l24 ; 0x6ce4
     jmp near @..api_idx_0074_MHUG.l33 ; 0x6ce6
 @..api_idx_0074_MHUG.l24:
@@ -717,7 +717,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6d5a
     lea ax, word [bp - 0x0074]       ; 0x6d5b
     push ax                          ; 0x6d5e
-    call ds_string_loc_QRJV          ; 0x6d5f
+    call draw_string                 ; 0x6d5f
     add sp, byte 4                   ; 0x6d62
     mov ax, word [bp - 0x0008]       ; 0x6d65
     add ax, strict word 0x1e         ; 0x6d68
@@ -776,7 +776,7 @@ api_idx_0074_MHUG:
     mov ax, word [bp - 0x0006]       ; 0x6de0
     add ax, strict word 8            ; 0x6de3
     push ax                          ; 0x6de6
-    call ds_app_VIGG                 ; 0x6de7
+    call flash_button                ; 0x6de7
     add sp, byte 0x0a                ; 0x6dea
     mov ax, 0                        ; 0x6ded
     push ax                          ; 0x6df0
@@ -790,7 +790,7 @@ api_idx_0074_MHUG:
     mov ax, word [bp - 0x0006]       ; 0x6e00
     add ax, strict word 8            ; 0x6e03
     push ax                          ; 0x6e06
-    call ds_app_VIGG                 ; 0x6e07
+    call flash_button                ; 0x6e07
     add sp, byte 0x0a                ; 0x6e0a
     mov word [bss_9050], 0xffff      ; 0x6e0d
     mov word [bp - 0x0018], 0        ; 0x6e13

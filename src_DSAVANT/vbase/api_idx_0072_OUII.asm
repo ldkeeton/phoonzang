@@ -3,7 +3,7 @@ api_idx_0072_OUII:
     mov ax, 0xff8e                   ; 0x1faf
     call aztec_csav                  ; 0x1fb2
     mov word [bp - 0x000e], 0        ; 0x1fb5
-    mov ax, word [bss_5218]          ; 0x1fba
+    mov ax, word [disk_header]       ; 0x1fba
     mov word [bp - 0x0010], ax       ; 0x1fbd
     cmp byte [install_mode], 5       ; 0x1fc0
     jne short @..api_idx_0072_OUII.l1 ; 0x1fc5
@@ -147,7 +147,7 @@ api_idx_0072_OUII:
     push ax                          ; 0x20fc
     mov ax, bss_91da                 ; 0x20fd
     push ax                          ; 0x2100
-    call ds_app_file_QQMM            ; 0x2101
+    call prompt_disk_swap            ; 0x2101
     add sp, byte 8                   ; 0x2104
     mov ax, 1                        ; 0x2107
     cmp word [bp - 0x000e], byte 0   ; 0x210a
@@ -167,7 +167,7 @@ api_idx_0072_OUII:
     push ax                          ; 0x212e
     mov ax, bss_91c6                 ; 0x212f
     push ax                          ; 0x2132
-    call ds_app_file_QQMM            ; 0x2133
+    call prompt_disk_swap            ; 0x2133
     add sp, byte 8                   ; 0x2136
     mov ax, 1                        ; 0x2139
     cmp word [bp - 0x000e], byte 0   ; 0x213c
@@ -222,7 +222,7 @@ api_idx_0072_OUII:
     push word [bp - 0x0010]          ; 0x21a8
     mov ax, bss_91c6                 ; 0x21ab
     push ax                          ; 0x21ae
-    call ds_app_file_QQMM            ; 0x21af
+    call prompt_disk_swap            ; 0x21af
     add sp, byte 8                   ; 0x21b2
 @..api_idx_0072_OUII.l12:
     mov ax, 0xffff                   ; 0x21b5
@@ -262,7 +262,7 @@ api_idx_0072_OUII:
     push word [bp - 0x0010]          ; 0x2203
     mov ax, bss_91c6                 ; 0x2206
     push ax                          ; 0x2209
-    call ds_app_file_QQMM            ; 0x220a
+    call prompt_disk_swap            ; 0x220a
     add sp, byte 8                   ; 0x220d
 @..api_idx_0072_OUII.l14:
     mov ax, 0xffff                   ; 0x2210
@@ -309,7 +309,7 @@ api_idx_0072_OUII:
     push word [bp - 0x0010]          ; 0x2270
     mov ax, bss_91c6                 ; 0x2273
     push ax                          ; 0x2276
-    call ds_app_file_QQMM            ; 0x2277
+    call prompt_disk_swap            ; 0x2277
     add sp, byte 8                   ; 0x227a
 @..api_idx_0072_OUII.l18:
     mov ax, 0xffff                   ; 0x227d
@@ -342,7 +342,7 @@ api_idx_0072_OUII:
     push word [bp - 0x0010]          ; 0x22be
     mov ax, bss_91c6                 ; 0x22c1
     push ax                          ; 0x22c4
-    call ds_app_file_QQMM            ; 0x22c5
+    call prompt_disk_swap            ; 0x22c5
     add sp, byte 8                   ; 0x22c8
 @..api_idx_0072_OUII.l20:
     mov ax, 0xffff                   ; 0x22cb
@@ -382,7 +382,7 @@ api_idx_0072_OUII:
     push word [bp - 0x0010]          ; 0x231a
     mov ax, bss_91c6                 ; 0x231d
     push ax                          ; 0x2320
-    call ds_app_file_QQMM            ; 0x2321
+    call prompt_disk_swap            ; 0x2321
     add sp, byte 8                   ; 0x2324
 @..api_idx_0072_OUII.l23:
     mov ax, 0xffff                   ; 0x2327
@@ -417,7 +417,7 @@ api_idx_0072_OUII:
     push word [bp - 0x0010]          ; 0x236e
     mov ax, bss_91c6                 ; 0x2371
     push ax                          ; 0x2374
-    call ds_app_file_QQMM            ; 0x2375
+    call prompt_disk_swap            ; 0x2375
     add sp, byte 8                   ; 0x2378
 @..api_idx_0072_OUII.l26:
     mov ax, 0xffff                   ; 0x237b

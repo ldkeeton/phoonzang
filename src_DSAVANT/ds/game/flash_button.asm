@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_VIGG: ; Aztec csav frame=0x0000
+flash_button: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x10a6
     call aztec_csav                  ; 0x10a9
     mov ax, 6                        ; 0x10ac
@@ -31,10 +31,10 @@ ds_app_VIGG: ; Aztec csav frame=0x0000
     call gfx_show_area               ; 0x10ea
     add sp, byte 8                   ; 0x10ed
     cmp word [bp + 0xc], byte 0      ; 0x10f0
-    je short @..ds_app_VIGG.l1       ; 0x10f4
+    je short @..flash_button.l1      ; 0x10f4
     mov ax, 0x23                     ; 0x10f6
     push ax                          ; 0x10f9
     call delay_ms                    ; 0x10fa
     pop cx                           ; 0x10fd
-@..ds_app_VIGG.l1:
+@..flash_button.l1:
     ret                              ; 0x10fe

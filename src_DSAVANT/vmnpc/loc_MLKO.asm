@@ -36,7 +36,7 @@ loc_MLKO:
     mov ax, 0                        ; 0x1358
     push ax                          ; 0x135b
     push word [bp + 0x4]             ; 0x135c
-    call ds_string_loc_QRJV          ; 0x135f
+    call draw_string                 ; 0x135f
     add sp, byte 4                   ; 0x1362
     mov ax, 7                        ; 0x1365
     imul word [bp + 0x6]             ; 0x1368

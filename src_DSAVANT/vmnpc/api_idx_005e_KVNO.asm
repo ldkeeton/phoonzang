@@ -270,7 +270,7 @@ api_idx_005e_KVNO:
     push ax                          ; 0x5a23
     mov ax, bss_95a8                 ; 0x5a24
     push ax                          ; 0x5a27
-    call ds_app_string_HHIL          ; 0x5a28
+    call str_subst_char              ; 0x5a28
     add sp, byte 6                   ; 0x5a2b
     mov ax, bss_95fa                 ; 0x5a2e
     push ax                          ; 0x5a31
@@ -296,7 +296,7 @@ api_idx_005e_KVNO:
     push ax                          ; 0x5a5f
     mov ax, bss_95fa                 ; 0x5a60
     push ax                          ; 0x5a63
-    call ds_app_string_HHIL          ; 0x5a64
+    call str_subst_char              ; 0x5a64
     add sp, byte 6                   ; 0x5a67
     mov word [bp - 0x0002], 0        ; 0x5a6a
 @..api_idx_005e_KVNO.l16:
@@ -400,7 +400,7 @@ api_idx_005e_KVNO:
     mov ax, 1                        ; 0x5b4d
     push ax                          ; 0x5b50
     push word [bp + 0x4]             ; 0x5b51
-    call ds_app_LUOV                 ; 0x5b54
+    call ds_app_string_LUOV          ; 0x5b54
     add sp, byte 4                   ; 0x5b57
     mov ax, 0                        ; 0x5b5a
     push ax                          ; 0x5b5d

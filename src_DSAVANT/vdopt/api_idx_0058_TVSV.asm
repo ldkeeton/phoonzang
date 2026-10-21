@@ -65,7 +65,7 @@ api_idx_0058_TVSV:
     push ax                          ; 0x05f8
     lea ax, word [bp - 0x0058]       ; 0x05f9
     push ax                          ; 0x05fc
-    call ds_string_loc_QRJV          ; 0x05fd
+    call draw_string                 ; 0x05fd
     add sp, byte 4                   ; 0x0600
     mov ax, 0x98                     ; 0x0603
     push ax                          ; 0x0606

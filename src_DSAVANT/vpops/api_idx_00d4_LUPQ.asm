@@ -1291,7 +1291,7 @@ jumptable_4058:
     mov ax, 1                        ; 0x43be
     push ax                          ; 0x43c1
     push word [bp - 0x0006]          ; 0x43c2
-    call ds_app_LUOV                 ; 0x43c5
+    call ds_app_string_LUOV          ; 0x43c5
     add sp, byte 4                   ; 0x43c8
     mov ax, 8                        ; 0x43cb
     push ax                          ; 0x43ce

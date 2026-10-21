@@ -203,7 +203,7 @@ loc_IUTP:
     push ax                          ; 0x72b5
     lea ax, word [bp - 0x00a2]       ; 0x72b6
     push ax                          ; 0x72ba
-    call ds_string_loc_QRJV          ; 0x72bb
+    call draw_string                 ; 0x72bb
     add sp, byte 4                   ; 0x72be
     mov ax, word [bp - 0x000c]       ; 0x72c1
     add ax, strict word 6            ; 0x72c4
@@ -225,7 +225,7 @@ loc_IUTP:
     lea cx, word [bp - 0x00a1]       ; 0x72e9
     add ax, cx                       ; 0x72ed
     push ax                          ; 0x72ef
-    call ds_string_loc_QRJV          ; 0x72f0
+    call draw_string                 ; 0x72f0
     add sp, byte 4                   ; 0x72f3
     add word [bp - 0x000c], byte 0x12 ; 0x72f6
     mov word [bp - 0x0010], 0        ; 0x72fa
@@ -372,7 +372,7 @@ jumptable_742b:
     push ax                          ; 0x74ac
     lea ax, word [bp - 0x00f2]       ; 0x74ad
     push ax                          ; 0x74b1
-    call ds_string_loc_QRJV          ; 0x74b2
+    call draw_string                 ; 0x74b2
     add sp, byte 4                   ; 0x74b5
     add word [bp - 0x000c], byte 6   ; 0x74b8
     cmp word [bp - 0x0022], byte 0   ; 0x74bc
@@ -555,7 +555,7 @@ jumptable_742b:
     push ax                          ; 0x7664
     lea ax, word [bp - 0x00f2]       ; 0x7665
     push ax                          ; 0x7669
-    call ds_string_loc_QRJV          ; 0x766a
+    call draw_string                 ; 0x766a
     add sp, byte 4                   ; 0x766d
     add word [bp - 0x000c], byte 6   ; 0x7670
 @..loc_IUTP.l25:
@@ -787,7 +787,7 @@ jumptable_76e2:
     push ax                          ; 0x7870
     lea ax, word [bp - 0x00f2]       ; 0x7871
     push ax                          ; 0x7875
-    call ds_string_loc_QRJV          ; 0x7876
+    call draw_string                 ; 0x7876
     add sp, byte 4                   ; 0x7879
     add word [bp - 0x000c], byte 6   ; 0x787c
 @..loc_IUTP.l32:
@@ -819,7 +819,7 @@ jumptable_76e2:
     push ax                          ; 0x78c1
     lea ax, word [bp - 0x00f2]       ; 0x78c2
     push ax                          ; 0x78c6
-    call ds_string_loc_QRJV          ; 0x78c7
+    call draw_string                 ; 0x78c7
     add sp, byte 4                   ; 0x78ca
     jmp short @..loc_IUTP.l37        ; 0x78cd
 @..loc_IUTP.l34:
@@ -863,7 +863,7 @@ jumptable_76e2:
     push ax                          ; 0x792c
     lea ax, word [bp - 0x00f2]       ; 0x792d
     push ax                          ; 0x7931
-    call ds_string_loc_QRJV          ; 0x7932
+    call draw_string                 ; 0x7932
     add sp, byte 4                   ; 0x7935
     inc word [bp - 0x0008]           ; 0x7938
 @..loc_IUTP.l36:
@@ -959,7 +959,7 @@ jumptable_76e2:
     push ax                          ; 0x7a0f
     lea ax, word [bp - 0x00f2]       ; 0x7a10
     push ax                          ; 0x7a14
-    call ds_string_loc_QRJV          ; 0x7a15
+    call draw_string                 ; 0x7a15
     add sp, byte 4                   ; 0x7a18
     mov ax, 0                        ; 0x7a1b
     push ax                          ; 0x7a1e
@@ -983,7 +983,7 @@ jumptable_76e2:
     push ax                          ; 0x7a45
     lea ax, word [bp - 0x00f2]       ; 0x7a46
     push ax                          ; 0x7a4a
-    call ds_string_loc_QRJV          ; 0x7a4b
+    call draw_string                 ; 0x7a4b
     add sp, byte 4                   ; 0x7a4e
 @..loc_IUTP.l43:
     cmp word [bp - 0x0016], byte 0   ; 0x7a51
@@ -1028,7 +1028,7 @@ jumptable_76e2:
     push ax                          ; 0x7aab
     lea ax, word [bp - 0x00f2]       ; 0x7aac
     push ax                          ; 0x7ab0
-    call ds_string_loc_QRJV          ; 0x7ab1
+    call draw_string                 ; 0x7ab1
     add sp, byte 4                   ; 0x7ab4
     jmp short @..loc_IUTP.l47        ; 0x7ab7
 @..loc_IUTP.l46:
@@ -1068,7 +1068,7 @@ jumptable_76e2:
     push ax                          ; 0x7b09
     lea ax, word [bp - 0x00f2]       ; 0x7b0a
     push ax                          ; 0x7b0e
-    call ds_string_loc_QRJV          ; 0x7b0f
+    call draw_string                 ; 0x7b0f
     add sp, byte 4                   ; 0x7b12
 @..loc_IUTP.l47:
     push word [bp - 0x000c]          ; 0x7b15
@@ -1121,7 +1121,7 @@ jumptable_76e2:
     push ax                          ; 0x7b82
     lea ax, word [bp - 0x00f2]       ; 0x7b83
     push ax                          ; 0x7b87
-    call ds_string_loc_QRJV          ; 0x7b88
+    call draw_string                 ; 0x7b88
     add sp, byte 4                   ; 0x7b8b
     jmp near @..loc_IUTP.l79         ; 0x7b8e
 @..loc_IUTP.l48:
@@ -1196,7 +1196,7 @@ jumptable_76e2:
     push ax                          ; 0x7c39
     lea ax, word [bp - 0x00f2]       ; 0x7c3a
     push ax                          ; 0x7c3e
-    call ds_string_loc_QRJV          ; 0x7c3f
+    call draw_string                 ; 0x7c3f
     add sp, byte 4                   ; 0x7c42
     cmp byte [bp - 0x0039], 0        ; 0x7c45
     jne short @..loc_IUTP.l50        ; 0x7c49
@@ -1254,7 +1254,7 @@ jumptable_76e2:
     push ax                          ; 0x7cc6
     lea ax, word [bp - 0x00f2]       ; 0x7cc7
     push ax                          ; 0x7ccb
-    call ds_string_loc_QRJV          ; 0x7ccc
+    call draw_string                 ; 0x7ccc
     add sp, byte 4                   ; 0x7ccf
 @..loc_IUTP.l52:
     add word [bp - 0x000c], byte 6   ; 0x7cd2
@@ -1317,7 +1317,7 @@ jumptable_76e2:
     push ax                          ; 0x7d5c
     lea ax, word [bp - 0x00f2]       ; 0x7d5d
     push ax                          ; 0x7d61
-    call ds_string_loc_QRJV          ; 0x7d62
+    call draw_string                 ; 0x7d62
     add sp, byte 4                   ; 0x7d65
 @..loc_IUTP.l56:
     cmp byte [bp - 0x003d], 0        ; 0x7d68
@@ -1343,7 +1343,7 @@ jumptable_76e2:
     push ax                          ; 0x7d9b
     lea ax, word [bp - 0x00f2]       ; 0x7d9c
     push ax                          ; 0x7da0
-    call ds_string_loc_QRJV          ; 0x7da1
+    call draw_string                 ; 0x7da1
     add sp, byte 4                   ; 0x7da4
 @..loc_IUTP.l57:
     add word [bp - 0x000c], byte 6   ; 0x7da7
@@ -1383,7 +1383,7 @@ jumptable_76e2:
     push ax                          ; 0x7dff
     lea ax, word [bp - 0x00f2]       ; 0x7e00
     push ax                          ; 0x7e04
-    call ds_string_loc_QRJV          ; 0x7e05
+    call draw_string                 ; 0x7e05
     add sp, byte 4                   ; 0x7e08
     add word [bp - 0x000c], byte 6   ; 0x7e0b
 @..loc_IUTP.l58:
@@ -1419,7 +1419,7 @@ jumptable_76e2:
     push ax                          ; 0x7e57
     lea ax, word [bp - 0x00f2]       ; 0x7e58
     push ax                          ; 0x7e5c
-    call ds_string_loc_QRJV          ; 0x7e5d
+    call draw_string                 ; 0x7e5d
     add sp, byte 4                   ; 0x7e60
     mov ax, 0                        ; 0x7e63
     push ax                          ; 0x7e66
@@ -1482,7 +1482,7 @@ jumptable_76e2:
     push ax                          ; 0x7ef1
     lea ax, word [bp - 0x00f2]       ; 0x7ef2
     push ax                          ; 0x7ef6
-    call ds_string_loc_QRJV          ; 0x7ef7
+    call draw_string                 ; 0x7ef7
     add sp, byte 4                   ; 0x7efa
     add word [bp - 0x000c], byte 6   ; 0x7efd
 @..loc_IUTP.l62:
@@ -1523,7 +1523,7 @@ jumptable_76e2:
     push ax                          ; 0x7f53
     lea ax, word [bp - 0x00f2]       ; 0x7f54
     push ax                          ; 0x7f58
-    call ds_string_loc_QRJV          ; 0x7f59
+    call draw_string                 ; 0x7f59
     add sp, byte 4                   ; 0x7f5c
     add word [bp - 0x000c], byte 6   ; 0x7f5f
     mov ax, 0                        ; 0x7f63
@@ -1596,7 +1596,7 @@ jumptable_76e2:
     push ax                          ; 0x8009
     lea ax, word [bp - 0x00f2]       ; 0x800a
     push ax                          ; 0x800e
-    call ds_string_loc_QRJV          ; 0x800f
+    call draw_string                 ; 0x800f
     add sp, byte 4                   ; 0x8012
     mov byte [bp - 0x00f2], 0        ; 0x8015
     add word [bp - 0x000c], byte 6   ; 0x801a
@@ -1653,7 +1653,7 @@ jumptable_76e2:
     push ax                          ; 0x8093
     lea ax, word [bp - 0x00f2]       ; 0x8094
     push ax                          ; 0x8098
-    call ds_string_loc_QRJV          ; 0x8099
+    call draw_string                 ; 0x8099
     add sp, byte 4                   ; 0x809c
 @..loc_IUTP.l69:
     cmp word [bp - 0x0006], byte 0   ; 0x809f
@@ -1691,7 +1691,7 @@ jumptable_76e2:
     push ax                          ; 0x80ea
     lea ax, word [bp - 0x00f2]       ; 0x80eb
     push ax                          ; 0x80ef
-    call ds_string_loc_QRJV          ; 0x80f0
+    call draw_string                 ; 0x80f0
     add sp, byte 4                   ; 0x80f3
 @..loc_IUTP.l72:
     jmp near @..loc_IUTP.l79         ; 0x80f6
@@ -1732,7 +1732,7 @@ jumptable_76e2:
     push ax                          ; 0x8147
     lea ax, word [bp - 0x00f2]       ; 0x8148
     push ax                          ; 0x814c
-    call ds_string_loc_QRJV          ; 0x814d
+    call draw_string                 ; 0x814d
     add sp, byte 4                   ; 0x8150
     add word [bp - 0x000c], byte 6   ; 0x8153
     mov ax, 0                        ; 0x8157
@@ -1776,7 +1776,7 @@ jumptable_76e2:
     push ax                          ; 0x81ba
     lea ax, word [bp - 0x00f2]       ; 0x81bb
     push ax                          ; 0x81bf
-    call ds_string_loc_QRJV          ; 0x81c0
+    call draw_string                 ; 0x81c0
     add sp, byte 4                   ; 0x81c3
     lea ax, word [bp - 0x00f2]       ; 0x81c6
     push ax                          ; 0x81ca
@@ -1807,7 +1807,7 @@ jumptable_76e2:
     push ax                          ; 0x8208
     lea ax, word [bp - 0x00f2]       ; 0x8209
     push ax                          ; 0x820d
-    call ds_string_loc_QRJV          ; 0x820e
+    call draw_string                 ; 0x820e
     add sp, byte 4                   ; 0x8211
     add word [bp - 0x000c], byte 6   ; 0x8214
 @..loc_IUTP.l77:
@@ -1845,7 +1845,7 @@ jumptable_76e2:
     push ax                          ; 0x8263
     lea ax, word [bp - 0x00f2]       ; 0x8264
     push ax                          ; 0x8268
-    call ds_string_loc_QRJV          ; 0x8269
+    call draw_string                 ; 0x8269
     add sp, byte 4                   ; 0x826c
 @..loc_IUTP.l79:
     mov ax, 0xb6                     ; 0x826f

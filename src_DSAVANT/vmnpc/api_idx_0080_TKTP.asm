@@ -12,7 +12,7 @@ api_idx_0080_TKTP:
     push word [bp + 0x6]             ; 0x96de
     lea ax, word [bp - 0x0080]       ; 0x96e1
     push ax                          ; 0x96e4
-    call ds_app_string_HHIL          ; 0x96e5
+    call str_subst_char              ; 0x96e5
     add sp, byte 6                   ; 0x96e8
     mov ax, word [bss_93d4]          ; 0x96eb
     mov cx, 7                        ; 0x96ee

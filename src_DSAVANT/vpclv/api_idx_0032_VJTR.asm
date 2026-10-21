@@ -89,7 +89,7 @@ api_idx_0032_VJTR:
     mov ax, 0x7f                     ; 0x3b54
     push ax                          ; 0x3b57
     push word [bp - 0x0002]          ; 0x3b58
-    call ds_app_NGUR                 ; 0x3b5b
+    call set_hotspot                 ; 0x3b5b
     add sp, byte 0x0e                ; 0x3b5e
     mov ax, 0x3d                     ; 0x3b61
     push ax                          ; 0x3b64
@@ -108,7 +108,7 @@ api_idx_0032_VJTR:
     mov ax, 0x97                     ; 0x3b81
     push ax                          ; 0x3b84
     push word [bp + 0x8]             ; 0x3b85
-    call ds_app_NGUR                 ; 0x3b88
+    call set_hotspot                 ; 0x3b88
     add sp, byte 0x0e                ; 0x3b8b
     jmp short @..api_idx_0032_VJTR.l6 ; 0x3b8e
 @..api_idx_0032_VJTR.l3:
@@ -141,7 +141,7 @@ api_idx_0032_VJTR:
     mov ax, 6                        ; 0x3bc3
     push ax                          ; 0x3bc6
     push word [bp - 0x0002]          ; 0x3bc7
-    call ds_app_NGUR                 ; 0x3bca
+    call set_hotspot                 ; 0x3bca
     add sp, byte 0x0e                ; 0x3bcd
 @..api_idx_0032_VJTR.l6:
     inc word [bp - 0x0002]           ; 0x3bd0
@@ -245,7 +245,7 @@ api_idx_0032_VJTR:
     imul word [bp - 0x0002]          ; 0x3cbc
     add ax, 0x95f8                   ; 0x3cbf
     push ax                          ; 0x3cc2
-    call ds_string_loc_QRJV          ; 0x3cc3
+    call draw_string                 ; 0x3cc3
     add sp, byte 4                   ; 0x3cc6
     mov ax, 0                        ; 0x3cc9
     push ax                          ; 0x3ccc
@@ -262,7 +262,7 @@ api_idx_0032_VJTR:
     add ax, word [bp - 0x000e]       ; 0x3ce3
     inc ax                           ; 0x3ce6
     push ax                          ; 0x3ce7
-    call ds_app_NGUR                 ; 0x3ce8
+    call set_hotspot                 ; 0x3ce8
     add sp, byte 0x0e                ; 0x3ceb
     mov ax, word [bp - 0x0002]       ; 0x3cee
     mov cx, word [bp - 0x000e]       ; 0x3cf1
@@ -309,7 +309,7 @@ api_idx_0032_VJTR:
     add ax, word [bp - 0x000e]       ; 0x3d4b
     inc ax                           ; 0x3d4e
     push ax                          ; 0x3d4f
-    call ds_app_NGUR                 ; 0x3d50
+    call set_hotspot                 ; 0x3d50
     add sp, byte 0x0e                ; 0x3d53
     mov ax, 0xc6                     ; 0x3d56
     push ax                          ; 0x3d59
@@ -326,11 +326,11 @@ api_idx_0032_VJTR:
 @..api_idx_0032_VJTR.l18:
     mov ax, 0x59fe                   ; 0x3d73
     push ax                          ; 0x3d76
-    call ds_app_UHMG                 ; 0x3d77
+    call poll_hotspots               ; 0x3d77
     pop cx                           ; 0x3d7a
     dec ax                           ; 0x3d7b
     mov word [bp - 0x0008], ax       ; 0x3d7c
-    cmp word [bss_5b3e], byte 0      ; 0x3d7f
+    cmp word [hotspot_hit], byte 0   ; 0x3d7f
     je short @..api_idx_0032_VJTR.l18 ; 0x3d84
     jmp near @..api_idx_0032_VJTR.l31 ; 0x3d86
 @..api_idx_0032_VJTR.l19:
@@ -549,7 +549,7 @@ api_idx_0032_VJTR:
     imul word [bp - 0x0028]          ; 0x3f5d
     add ax, strict word 4            ; 0x3f60
     push ax                          ; 0x3f63
-    call ds_app_VIGG                 ; 0x3f64
+    call flash_button                ; 0x3f64
     add sp, byte 0x0a                ; 0x3f67
     mov ax, 0                        ; 0x3f6a
     push ax                          ; 0x3f6d
@@ -563,7 +563,7 @@ api_idx_0032_VJTR:
     imul word [bp - 0x0028]          ; 0x3f7d
     add ax, strict word 4            ; 0x3f80
     push ax                          ; 0x3f83
-    call ds_app_VIGG                 ; 0x3f84
+    call flash_button                ; 0x3f84
     add sp, byte 0x0a                ; 0x3f87
     mov ax, 1                        ; 0x3f8a
     push ax                          ; 0x3f8d

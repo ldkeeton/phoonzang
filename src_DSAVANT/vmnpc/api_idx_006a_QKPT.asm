@@ -47,7 +47,7 @@ api_idx_006a_QKPT:
     push ax                          ; 0xac18
     lea ax, word [bp - 0x006a]       ; 0xac19
     push ax                          ; 0xac1c
-    call ds_app_string_HHIL          ; 0xac1d
+    call str_subst_char              ; 0xac1d
     add sp, byte 6                   ; 0xac20
     push word [bss_0e2c]             ; 0xac23
     push word [bss_0e2a]             ; 0xac27

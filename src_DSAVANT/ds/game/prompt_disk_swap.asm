@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_file_QQMM: ; Aztec csav frame=0x00ba
+prompt_disk_swap: ; Aztec csav frame=0x00ba
     mov ax, 0xff46                   ; 0x23ef
     call aztec_csav                  ; 0x23f2
     mov word [bp - 0x00b0], 0x37     ; 0x23f5
@@ -34,33 +34,33 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     call aztec_strcpy                ; 0x2449
     add sp, byte 4                   ; 0x244c
     cmp word [bp + 0x8], byte 0      ; 0x244f
-    je short @..ds_app_file_QQMM.l1  ; 0x2453
-    push word [bss_0e24]             ; 0x2455
+    je short @..prompt_disk_swap.l1  ; 0x2453
+    push word [msg_dbs_fd]           ; 0x2455
     call aztec_close                 ; 0x2459
     pop cx                           ; 0x245c
     push word [data_file_fd]         ; 0x245d
     call aztec_close                 ; 0x2461
     pop cx                           ; 0x2464
-@..ds_app_file_QQMM.l1:
+@..prompt_disk_swap.l1:
     mov word [bp - 0x00aa], 0xfffe   ; 0x2465
-@..ds_app_file_QQMM.l2:
+@..prompt_disk_swap.l2:
     mov word [bp - 0x00a8], 0        ; 0x246b
-@..ds_app_file_QQMM.l3:
+@..prompt_disk_swap.l3:
     cmp word [bp + 0x6], byte 0      ; 0x2471
-    jge short @..ds_app_file_QQMM.l4 ; 0x2475
-    mov ax, dseg_0b74                ; 0x2477
+    jge short @..prompt_disk_swap.l4 ; 0x2475
+    mov ax, str_insert_savegame_disk ; 0x2477
     push ax                          ; 0x247a
     lea ax, word [bp - 0x0050]       ; 0x247b
     push ax                          ; 0x247e
     call aztec_strcpy                ; 0x247f
     add sp, byte 4                   ; 0x2482
-    jmp short @..ds_app_file_QQMM.l5 ; 0x2485
-@..ds_app_file_QQMM.l4:
+    jmp short @..prompt_disk_swap.l5 ; 0x2485
+@..prompt_disk_swap.l4:
     mov ax, word [bp + 0x6]          ; 0x2487
     add ax, strict word 0x41         ; 0x248a
     mov byte [bp - 0x00a0], al       ; 0x248d
     mov byte [bp - 0x009f], 0        ; 0x2491
-    mov ax, dseg_0b89                ; 0x2496
+    mov ax, str_insert_savegame_disk + 0x15 ; 0x2496
     push ax                          ; 0x2499
     lea ax, word [bp - 0x0050]       ; 0x249a
     push ax                          ; 0x249d
@@ -72,14 +72,14 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x24ac
     lea ax, word [bp - 0x0050]       ; 0x24ad
     push ax                          ; 0x24b0
-    call ds_app_string_HHIL          ; 0x24b1
+    call str_subst_char              ; 0x24b1
     add sp, byte 6                   ; 0x24b4
-@..ds_app_file_QQMM.l5:
+@..prompt_disk_swap.l5:
     push word [bp - 0x00b6]          ; 0x24b7
     push word [bp - 0x00b4]          ; 0x24bb
     push word [bp - 0x00b2]          ; 0x24bf
     push word [bp - 0x00b0]          ; 0x24c3
-    call ds_app_KNSQ                 ; 0x24c7
+    call draw_dialog_box             ; 0x24c7
     add sp, byte 8                   ; 0x24ca
     mov ax, 0xc2                     ; 0x24cd
     push ax                          ; 0x24d0
@@ -112,9 +112,9 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x2511
     lea ax, word [bp - 0x0050]       ; 0x2512
     push ax                          ; 0x2515
-    call ds_string_loc_QRJV          ; 0x2516
+    call draw_string                 ; 0x2516
     add sp, byte 4                   ; 0x2519
-    mov ax, dseg_0b99                ; 0x251c
+    mov ax, str_insert_savegame_disk + 0x25 ; 0x251c
     push ax                          ; 0x251f
     lea ax, word [bp - 0x0050]       ; 0x2520
     push ax                          ; 0x2523
@@ -126,7 +126,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x2531
     lea ax, word [bp - 0x0050]       ; 0x2532
     push ax                          ; 0x2535
-    call ds_app_string_HHIL          ; 0x2536
+    call str_subst_char              ; 0x2536
     add sp, byte 6                   ; 0x2539
     mov ax, word [bp - 0x00b2]       ; 0x253c
     add ax, strict word 0x12         ; 0x2540
@@ -153,9 +153,9 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x2572
     lea ax, word [bp - 0x0050]       ; 0x2573
     push ax                          ; 0x2576
-    call ds_string_loc_QRJV          ; 0x2577
+    call draw_string                 ; 0x2577
     add sp, byte 4                   ; 0x257a
-    mov ax, dseg_0ba6                ; 0x257d
+    mov ax, str_insert_savegame_disk + 0x32 ; 0x257d
     push ax                          ; 0x2580
     mov ax, 1                        ; 0x2581
     push ax                          ; 0x2584
@@ -168,7 +168,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     mov ax, word [bp - 0x00b0]       ; 0x2592
     add ax, strict word 0x44         ; 0x2596
     push ax                          ; 0x2599
-    call ds_app_string_IIIR          ; 0x259a
+    call draw_button                 ; 0x259a
     add sp, byte 0x0c                ; 0x259d
     mov ax, 0                        ; 0x25a0
     push ax                          ; 0x25a3
@@ -188,7 +188,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x25c7
     mov ax, 0                        ; 0x25c8
     push ax                          ; 0x25cb
-    call ds_app_NGUR                 ; 0x25cc
+    call set_hotspot                 ; 0x25cc
     add sp, byte 0x0e                ; 0x25cf
     mov ax, 0                        ; 0x25d2
     push ax                          ; 0x25d5
@@ -200,7 +200,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x25dd
     mov ax, 1                        ; 0x25de
     push ax                          ; 0x25e1
-    call ds_app_NGUR                 ; 0x25e2
+    call set_hotspot                 ; 0x25e2
     add sp, byte 0x0e                ; 0x25e5
     mov ax, word [bp - 0x00b6]       ; 0x25e8
     inc ax                           ; 0x25ec
@@ -217,13 +217,13 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     call gfx_show_area               ; 0x2600
     add sp, byte 8                   ; 0x2603
     mov word [bp - 0x00a4], 1        ; 0x2606
-@..ds_app_file_QQMM.l6:
+@..prompt_disk_swap.l6:
     mov ax, 0x59fe                   ; 0x260c
     push ax                          ; 0x260f
-    call ds_app_UHMG                 ; 0x2610
+    call poll_hotspots               ; 0x2610
     pop cx                           ; 0x2613
-    cmp word [bss_5b3e], byte 1      ; 0x2614
-    jne short @..ds_app_file_QQMM.l7 ; 0x2619
+    cmp word [hotspot_hit], byte 1   ; 0x2614
+    jne short @..prompt_disk_swap.l7 ; 0x2619
     mov ax, 1                        ; 0x261b
     push ax                          ; 0x261e
     push ax                          ; 0x261f
@@ -235,7 +235,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     mov ax, word [bp - 0x00b0]       ; 0x262c
     add ax, strict word 0x44         ; 0x2630
     push ax                          ; 0x2633
-    call ds_app_VIGG                 ; 0x2634
+    call flash_button                ; 0x2634
     add sp, byte 0x0a                ; 0x2637
     mov ax, 0                        ; 0x263a
     push ax                          ; 0x263d
@@ -249,12 +249,12 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     mov ax, word [bp - 0x00b0]       ; 0x264e
     add ax, strict word 0x44         ; 0x2652
     push ax                          ; 0x2655
-    call ds_app_VIGG                 ; 0x2656
+    call flash_button                ; 0x2656
     add sp, byte 0x0a                ; 0x2659
     mov word [bp - 0x00a4], 0        ; 0x265c
-@..ds_app_file_QQMM.l7:
+@..prompt_disk_swap.l7:
     cmp word [bp - 0x00a4], byte 0   ; 0x2662
-    jne short @..ds_app_file_QQMM.l6 ; 0x2667
+    jne short @..prompt_disk_swap.l6 ; 0x2667
     call flush_keyboard              ; 0x2669
     mov ax, 0                        ; 0x266c
     push ax                          ; 0x266f
@@ -282,7 +282,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x26a4
     call aztec_strcpy                ; 0x26a5
     add sp, byte 4                   ; 0x26a8
-    mov ax, dseg_0baf                ; 0x26ab
+    mov ax, str_insert_savegame_disk + 0x3b ; 0x26ab
     push ax                          ; 0x26ae
     lea ax, word [bp - 0x00a0]       ; 0x26af
     push ax                          ; 0x26b3
@@ -296,70 +296,70 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     add sp, byte 4                   ; 0x26c6
     mov word [bp - 0x00a2], ax       ; 0x26c9
     cmp word [bp + 0x6], byte 0      ; 0x26cd
-    jge short @..ds_app_file_QQMM.l10 ; 0x26d1
+    jge short @..prompt_disk_swap.l10 ; 0x26d1
     cmp ax, strict word 0xffff       ; 0x26d3
-    jne short @..ds_app_file_QQMM.l8 ; 0x26d6
+    jne short @..prompt_disk_swap.l8 ; 0x26d6
     mov word [bp - 0x00a8], 1        ; 0x26d8
-    jmp short @..ds_app_file_QQMM.l9 ; 0x26de
-@..ds_app_file_QQMM.l8:
+    jmp short @..prompt_disk_swap.l9 ; 0x26de
+@..prompt_disk_swap.l8:
     push ax                          ; 0x26e0
     call aztec_close                 ; 0x26e1
     pop cx                           ; 0x26e4
     cmp byte [install_mode], 1       ; 0x26e5
-    jne short @..ds_app_file_QQMM.l9 ; 0x26ea
+    jne short @..prompt_disk_swap.l9 ; 0x26ea
     mov word [bp - 0x00a8], 1        ; 0x26ec
-@..ds_app_file_QQMM.l9:
-    jmp short @..ds_app_file_QQMM.l14 ; 0x26f2
-@..ds_app_file_QQMM.l10:
+@..prompt_disk_swap.l9:
+    jmp short @..prompt_disk_swap.l14 ; 0x26f2
+@..prompt_disk_swap.l10:
     cmp word [bp - 0x00a2], byte 0xff ; 0x26f4
-    je short @..ds_app_file_QQMM.l14 ; 0x26f9
+    je short @..prompt_disk_swap.l14 ; 0x26f9
     mov ax, 0x30c                    ; 0x26fb
     push ax                          ; 0x26fe
-    mov ax, bss_5218                 ; 0x26ff
+    mov ax, disk_header              ; 0x26ff
     push ax                          ; 0x2702
     push word [bp - 0x00a2]          ; 0x2703
     call aztec_read                  ; 0x2707
     add sp, byte 6                   ; 0x270a
     mov word [bp - 0x00a6], ax       ; 0x270d
     cmp byte [install_mode], 5       ; 0x2711
-    jne short @..ds_app_file_QQMM.l11 ; 0x2716
+    jne short @..prompt_disk_swap.l11 ; 0x2716
     mov ax, word [bp + 0x6]          ; 0x2718
     cmp ax, strict word 0            ; 0x271b
-    jle short @..ds_app_file_QQMM.l11 ; 0x271e
+    jle short @..prompt_disk_swap.l11 ; 0x271e
     dec ax                           ; 0x2720
     dec ax                           ; 0x2721
-    jmp short @..ds_app_file_QQMM.l12 ; 0x2722
-@..ds_app_file_QQMM.l11:
+    jmp short @..prompt_disk_swap.l12 ; 0x2722
+@..prompt_disk_swap.l11:
     mov ax, word [bp + 0x6]          ; 0x2724
-@..ds_app_file_QQMM.l12:
+@..prompt_disk_swap.l12:
     mov word [bp - 0x00ac], ax       ; 0x2727
     cmp word [bp - 0x00a6], byte 0   ; 0x272b
-    jle short @..ds_app_file_QQMM.l13 ; 0x2730
-    cmp ax, word [bss_5218]          ; 0x2732
-    jne short @..ds_app_file_QQMM.l13 ; 0x2736
+    jle short @..prompt_disk_swap.l13 ; 0x2730
+    cmp ax, word [disk_header]       ; 0x2732
+    jne short @..prompt_disk_swap.l13 ; 0x2736
     mov word [bp - 0x00a8], 1        ; 0x2738
-@..ds_app_file_QQMM.l13:
+@..prompt_disk_swap.l13:
     push word [bp - 0x00a2]          ; 0x273e
     call aztec_close                 ; 0x2742
     pop cx                           ; 0x2745
-@..ds_app_file_QQMM.l14:
+@..prompt_disk_swap.l14:
     cmp word [bp - 0x00a8], byte 0   ; 0x2746
-    jne short @..ds_app_file_QQMM.l15 ; 0x274b
-    jmp near @..ds_app_file_QQMM.l3  ; 0x274d
-@..ds_app_file_QQMM.l15:
+    jne short @..prompt_disk_swap.l15 ; 0x274b
+    jmp near @..prompt_disk_swap.l3  ; 0x274d
+@..prompt_disk_swap.l15:
     mov ax, word [bp - 0x00aa]       ; 0x2750
     mov word [bp + 0x6], ax          ; 0x2754
     mov word [bp - 0x00aa], 0xfffe   ; 0x2757
-    mov ax, bss_5926                 ; 0x275d
+    mov ax, disk_drive_name          ; 0x275d
     push ax                          ; 0x2760
     lea ax, word [bp - 0x0078]       ; 0x2761
     push ax                          ; 0x2764
     call aztec_strcpy                ; 0x2765
     add sp, byte 4                   ; 0x2768
     cmp word [bp + 0x6], byte 0xfe   ; 0x276b
-    je short @..ds_app_file_QQMM.l16 ; 0x276f
-    jmp near @..ds_app_file_QQMM.l2  ; 0x2771
-@..ds_app_file_QQMM.l16:
+    je short @..prompt_disk_swap.l16 ; 0x276f
+    jmp near @..prompt_disk_swap.l2  ; 0x2771
+@..prompt_disk_swap.l16:
     mov ax, 1                        ; 0x2774
     push ax                          ; 0x2777
     push word [bp - 0x00b8]          ; 0x2778
@@ -368,34 +368,34 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     add sp, byte 6                   ; 0x2783
     call flush_keyboard              ; 0x2786
     cmp word [bp + 0xa], byte 0      ; 0x2789
-    je short @..ds_app_file_QQMM.l19 ; 0x278d
+    je short @..prompt_disk_swap.l19 ; 0x278d
     mov ax, 0                        ; 0x278f
     push ax                          ; 0x2792
     push ax                          ; 0x2793
-    mov ax, dseg_0bb8                ; 0x2794
+    mov ax, str_insert_savegame_disk + 0x44 ; 0x2794
     push ax                          ; 0x2797
     call data_file_path              ; 0x2798
     add sp, byte 4                   ; 0x279b
     push ax                          ; 0x279e
     call aztec_open                  ; 0x279f
     add sp, byte 4                   ; 0x27a2
-    mov word [bss_0e24], ax          ; 0x27a5
+    mov word [msg_dbs_fd], ax        ; 0x27a5
     cmp ax, strict word 0xffff       ; 0x27a8
-    jne short @..ds_app_file_QQMM.l17 ; 0x27ab
+    jne short @..prompt_disk_swap.l17 ; 0x27ab
     mov ax, 0x19                     ; 0x27ad
     push ax                          ; 0x27b0
     call release_and_exit            ; 0x27b1
     pop cx                           ; 0x27b4
-@..ds_app_file_QQMM.l17:
+@..prompt_disk_swap.l17:
     mov ax, 0                        ; 0x27b5
     push ax                          ; 0x27b8
     mov ax, 1                        ; 0x27b9
     cmp word [bp - 0x00ae], byte 0   ; 0x27bc
-    jne short @..ds_app_file_QQMM.l18 ; 0x27c1
+    jne short @..prompt_disk_swap.l18 ; 0x27c1
     mov ax, 0                        ; 0x27c3
-@..ds_app_file_QQMM.l18:
+@..prompt_disk_swap.l18:
     push ax                          ; 0x27c6
-    mov ax, dseg_0bc0                ; 0x27c7
+    mov ax, str_insert_savegame_disk + 0x4c ; 0x27c7
     push ax                          ; 0x27ca
     call data_file_path              ; 0x27cb
     add sp, byte 4                   ; 0x27ce
@@ -404,10 +404,10 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     add sp, byte 4                   ; 0x27d5
     mov word [data_file_fd], ax      ; 0x27d8
     cmp ax, strict word 0xffff       ; 0x27db
-    jne short @..ds_app_file_QQMM.l19 ; 0x27de
+    jne short @..prompt_disk_swap.l19 ; 0x27de
     mov ax, 0x1a                     ; 0x27e0
     push ax                          ; 0x27e3
     call release_and_exit            ; 0x27e4
     pop cx                           ; 0x27e7
-@..ds_app_file_QQMM.l19:
+@..prompt_disk_swap.l19:
     ret                              ; 0x27e8

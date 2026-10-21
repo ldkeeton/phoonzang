@@ -3,7 +3,7 @@ api_idx_004e_HUKL:
     mov ax, 0xffb2                   ; 0x388c
     call aztec_csav                  ; 0x388f
     mov word [bp - 0x000e], 0        ; 0x3892
-    mov ax, word [bss_5218]          ; 0x3897
+    mov ax, word [disk_header]       ; 0x3897
     mov word [bp - 0x0010], ax       ; 0x389a
     cmp byte [install_mode], 5       ; 0x389d
     jne short @..api_idx_004e_HUKL.l1 ; 0x38a2
@@ -162,7 +162,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x39fe
     mov ax, bss_91da                 ; 0x39ff
     push ax                          ; 0x3a02
-    call ds_app_file_QQMM            ; 0x3a03
+    call prompt_disk_swap            ; 0x3a03
     add sp, byte 8                   ; 0x3a06
     mov ax, 1                        ; 0x3a09
     cmp word [bp - 0x000e], byte 0   ; 0x3a0c
@@ -182,7 +182,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3a30
     mov ax, bss_91c6                 ; 0x3a31
     push ax                          ; 0x3a34
-    call ds_app_file_QQMM            ; 0x3a35
+    call prompt_disk_swap            ; 0x3a35
     add sp, byte 8                   ; 0x3a38
     mov ax, 1                        ; 0x3a3b
     cmp word [bp - 0x000e], byte 0   ; 0x3a3e
@@ -221,7 +221,7 @@ api_idx_004e_HUKL:
     push word [bp - 0x0010]          ; 0x3a88
     mov ax, bss_91c6                 ; 0x3a8b
     push ax                          ; 0x3a8e
-    call ds_app_file_QQMM            ; 0x3a8f
+    call prompt_disk_swap            ; 0x3a8f
     add sp, byte 8                   ; 0x3a92
 @..api_idx_004e_HUKL.l15:
     mov ax, 0xffff                   ; 0x3a95
@@ -327,7 +327,7 @@ api_idx_004e_HUKL:
     push word [bp - 0x0010]          ; 0x3b76
     mov ax, bss_91c6                 ; 0x3b79
     push ax                          ; 0x3b7c
-    call ds_app_file_QQMM            ; 0x3b7d
+    call prompt_disk_swap            ; 0x3b7d
     add sp, byte 8                   ; 0x3b80
 @..api_idx_004e_HUKL.l19:
     mov ax, 0xffff                   ; 0x3b83
@@ -361,7 +361,7 @@ api_idx_004e_HUKL:
     push word [bp - 0x0010]          ; 0x3bc8
     mov ax, bss_91c6                 ; 0x3bcb
     push ax                          ; 0x3bce
-    call ds_app_file_QQMM            ; 0x3bcf
+    call prompt_disk_swap            ; 0x3bcf
     add sp, byte 8                   ; 0x3bd2
 @..api_idx_004e_HUKL.l21:
     mov ax, 0xffff                   ; 0x3bd5
@@ -397,7 +397,7 @@ api_idx_004e_HUKL:
     push word [bp - 0x0010]          ; 0x3c1c
     mov ax, bss_91c6                 ; 0x3c1f
     push ax                          ; 0x3c22
-    call ds_app_file_QQMM            ; 0x3c23
+    call prompt_disk_swap            ; 0x3c23
     add sp, byte 8                   ; 0x3c26
 @..api_idx_004e_HUKL.l23:
     mov ax, 0xffff                   ; 0x3c29
@@ -462,7 +462,7 @@ api_idx_004e_HUKL:
     push word [bp - 0x0010]          ; 0x3caf
     mov ax, bss_91c6                 ; 0x3cb2
     push ax                          ; 0x3cb5
-    call ds_app_file_QQMM            ; 0x3cb6
+    call prompt_disk_swap            ; 0x3cb6
     add sp, byte 8                   ; 0x3cb9
 @..api_idx_004e_HUKL.l26:
     mov ax, 0xffff                   ; 0x3cbc
@@ -493,7 +493,7 @@ api_idx_004e_HUKL:
     push word [bp - 0x0010]          ; 0x3cf5
     mov ax, bss_91c6                 ; 0x3cf8
     push ax                          ; 0x3cfb
-    call ds_app_file_QQMM            ; 0x3cfc
+    call prompt_disk_swap            ; 0x3cfc
     add sp, byte 8                   ; 0x3cff
 @..api_idx_004e_HUKL.l28:
     mov ax, 0xffff                   ; 0x3d02
@@ -596,7 +596,7 @@ api_idx_004e_HUKL:
     push word [bp - 0x0010]          ; 0x3e14
     mov ax, bss_91c6                 ; 0x3e17
     push ax                          ; 0x3e1a
-    call ds_app_file_QQMM            ; 0x3e1b
+    call prompt_disk_swap            ; 0x3e1b
     add sp, byte 8                   ; 0x3e1e
 @..api_idx_004e_HUKL.l32:
     mov ax, 0xffff                   ; 0x3e21
@@ -667,7 +667,7 @@ api_idx_004e_HUKL:
     push word [bp - 0x0010]          ; 0x3ebe
     mov ax, bss_91c6                 ; 0x3ec1
     push ax                          ; 0x3ec4
-    call ds_app_file_QQMM            ; 0x3ec5
+    call prompt_disk_swap            ; 0x3ec5
     add sp, byte 8                   ; 0x3ec8
 @..api_idx_004e_HUKL.l34:
     mov ax, 0xffff                   ; 0x3ecb
@@ -698,7 +698,7 @@ api_idx_004e_HUKL:
     push word [bp - 0x0010]          ; 0x3f04
     mov ax, bss_91c6                 ; 0x3f07
     push ax                          ; 0x3f0a
-    call ds_app_file_QQMM            ; 0x3f0b
+    call prompt_disk_swap            ; 0x3f0b
     add sp, byte 8                   ; 0x3f0e
 @..api_idx_004e_HUKL.l36:
     mov ax, 0xffff                   ; 0x3f11
@@ -742,7 +742,7 @@ api_idx_004e_HUKL:
     push word [bp - 0x0010]          ; 0x3f6a
     mov ax, bss_91c6                 ; 0x3f6d
     push ax                          ; 0x3f70
-    call ds_app_file_QQMM            ; 0x3f71
+    call prompt_disk_swap            ; 0x3f71
     add sp, byte 8                   ; 0x3f74
 @..api_idx_004e_HUKL.l39:
     mov ax, 0xffff                   ; 0x3f77
@@ -764,7 +764,7 @@ api_idx_004e_HUKL:
     push word [bp - 0x0010]          ; 0x3f9b
     mov ax, bss_91c6                 ; 0x3f9e
     push ax                          ; 0x3fa1
-    call ds_app_file_QQMM            ; 0x3fa2
+    call prompt_disk_swap            ; 0x3fa2
     add sp, byte 8                   ; 0x3fa5
 @..api_idx_004e_HUKL.l42:
     mov ax, 0                        ; 0x3fa8

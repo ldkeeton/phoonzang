@@ -44,14 +44,14 @@ ds_app_file_RPKG: ; Aztec csav frame=0x0002
     loop @..ds_app_file_RPKG.l3      ; 0x0724
     push dx                          ; 0x0726
     push ax                          ; 0x0727
-    push word [bss_0e24]             ; 0x0728
+    push word [msg_dbs_fd]           ; 0x0728
     call aztec_lseek                 ; 0x072c
     add sp, byte 8                   ; 0x072f
     mov ax, 0x400                    ; 0x0732
     push ax                          ; 0x0735
     mov ax, bss_3e12                 ; 0x0736
     push ax                          ; 0x0739
-    push word [bss_0e24]             ; 0x073a
+    push word [msg_dbs_fd]           ; 0x073a
     call aztec_read                  ; 0x073e
     add sp, byte 6                   ; 0x0741
     mov ax, word [bp + 0x4]          ; 0x0744

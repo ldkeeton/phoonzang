@@ -40,14 +40,14 @@ api_idx_0044_URKM:
     push word [bp - 0x0008]          ; 0x8d89
     push word [bp - 0x0006]          ; 0x8d8c
     push word [bp - 0x0004]          ; 0x8d8f
-    call ds_app_KNSQ                 ; 0x8d92
+    call draw_dialog_box             ; 0x8d92
     add sp, byte 8                   ; 0x8d95
     push word [bp - 0x000a]          ; 0x8d98
     push word [bp - 0x0008]          ; 0x8d9b
     push word [bp - 0x0006]          ; 0x8d9e
     mov ax, 0x95                     ; 0x8da1
     push ax                          ; 0x8da4
-    call ds_app_KNSQ                 ; 0x8da5
+    call draw_dialog_box             ; 0x8da5
     add sp, byte 8                   ; 0x8da8
     call api_idx_000a_IIIU           ; 0x8dab
     push word [bp + 0x4]             ; 0x8dae
@@ -79,7 +79,7 @@ api_idx_0044_URKM:
     mov ax, word [bp - 0x000c]       ; 0x8dea
     add ax, strict word 6            ; 0x8ded
     push ax                          ; 0x8df0
-    call ds_app_string_IIIR          ; 0x8df1
+    call draw_button                 ; 0x8df1
     add sp, byte 0x0c                ; 0x8df4
     lea ax, word [bp - 0x0038]       ; 0x8df7
     push ax                          ; 0x8dfa
@@ -101,7 +101,7 @@ api_idx_0044_URKM:
     mov ax, word [bp - 0x000c]       ; 0x8e1a
     add ax, strict word 0x42         ; 0x8e1d
     push ax                          ; 0x8e20
-    call ds_app_string_IIIR          ; 0x8e21
+    call draw_button                 ; 0x8e21
     add sp, byte 0x0c                ; 0x8e24
     mov ax, word [bp - 0x0006]       ; 0x8e27
     add ax, strict word 0x14         ; 0x8e2a
@@ -222,7 +222,7 @@ api_idx_0044_URKM:
     push ax                          ; 0x8f50
     mov ax, 0                        ; 0x8f51
     push ax                          ; 0x8f54
-    call ds_app_NGUR                 ; 0x8f55
+    call set_hotspot                 ; 0x8f55
     add sp, byte 0x0e                ; 0x8f58
     mov ax, 0                        ; 0x8f5b
     push ax                          ; 0x8f5e
@@ -242,7 +242,7 @@ api_idx_0044_URKM:
     push ax                          ; 0x8f7e
     mov ax, 1                        ; 0x8f7f
     push ax                          ; 0x8f82
-    call ds_app_NGUR                 ; 0x8f83
+    call set_hotspot                 ; 0x8f83
     add sp, byte 0x0e                ; 0x8f86
     mov ax, 0                        ; 0x8f89
     push ax                          ; 0x8f8c
@@ -262,7 +262,7 @@ api_idx_0044_URKM:
     push ax                          ; 0x8fac
     mov ax, 2                        ; 0x8fad
     push ax                          ; 0x8fb0
-    call ds_app_NGUR                 ; 0x8fb1
+    call set_hotspot                 ; 0x8fb1
     add sp, byte 0x0e                ; 0x8fb4
     mov ax, 0                        ; 0x8fb7
     push ax                          ; 0x8fba
@@ -282,7 +282,7 @@ api_idx_0044_URKM:
     push ax                          ; 0x8fda
     mov ax, 3                        ; 0x8fdb
     push ax                          ; 0x8fde
-    call ds_app_NGUR                 ; 0x8fdf
+    call set_hotspot                 ; 0x8fdf
     add sp, byte 0x0e                ; 0x8fe2
     mov ax, 0                        ; 0x8fe5
     push ax                          ; 0x8fe8
@@ -302,7 +302,7 @@ api_idx_0044_URKM:
     push ax                          ; 0x9008
     mov ax, 4                        ; 0x9009
     push ax                          ; 0x900c
-    call ds_app_NGUR                 ; 0x900d
+    call set_hotspot                 ; 0x900d
     add sp, byte 0x0e                ; 0x9010
     mov word [bp - 0x0002], 0        ; 0x9013
 @..api_idx_0044_URKM.l5:
@@ -331,7 +331,7 @@ api_idx_0044_URKM:
     mov ax, word [bp - 0x0002]       ; 0x904c
     add ax, strict word 5            ; 0x904f
     push ax                          ; 0x9052
-    call ds_app_NGUR                 ; 0x9053
+    call set_hotspot                 ; 0x9053
     add sp, byte 0x0e                ; 0x9056
     inc word [bp - 0x0002]           ; 0x9059
     mov ax, word [bp - 0x0002]       ; 0x905c
@@ -351,7 +351,7 @@ api_idx_0044_URKM:
     push ax                          ; 0x907b
     mov ax, 0xc                      ; 0x907c
     push ax                          ; 0x907f
-    call ds_app_NGUR                 ; 0x9080
+    call set_hotspot                 ; 0x9080
     add sp, byte 0x0e                ; 0x9083
     mov ax, 0                        ; 0x9086
     push ax                          ; 0x9089
@@ -367,7 +367,7 @@ api_idx_0044_URKM:
     push ax                          ; 0x909d
     mov ax, 0xd                      ; 0x909e
     push ax                          ; 0x90a1
-    call ds_app_NGUR                 ; 0x90a2
+    call set_hotspot                 ; 0x90a2
     add sp, byte 0x0e                ; 0x90a5
     mov ax, 0                        ; 0x90a8
     push ax                          ; 0x90ab
@@ -383,7 +383,7 @@ api_idx_0044_URKM:
     push ax                          ; 0x90bf
     mov ax, 0xe                      ; 0x90c0
     push ax                          ; 0x90c3
-    call ds_app_NGUR                 ; 0x90c4
+    call set_hotspot                 ; 0x90c4
     add sp, byte 0x0e                ; 0x90c7
     mov ax, 0                        ; 0x90ca
     push ax                          ; 0x90cd
@@ -399,7 +399,7 @@ api_idx_0044_URKM:
     push ax                          ; 0x90e1
     mov ax, 0xf                      ; 0x90e2
     push ax                          ; 0x90e5
-    call ds_app_NGUR                 ; 0x90e6
+    call set_hotspot                 ; 0x90e6
     add sp, byte 0x0e                ; 0x90e9
     mov ax, 0                        ; 0x90ec
     push ax                          ; 0x90ef
@@ -415,7 +415,7 @@ api_idx_0044_URKM:
     push ax                          ; 0x9103
     mov ax, 0x10                     ; 0x9104
     push ax                          ; 0x9107
-    call ds_app_NGUR                 ; 0x9108
+    call set_hotspot                 ; 0x9108
     add sp, byte 0x0e                ; 0x910b
     mov ax, 0                        ; 0x910e
     push ax                          ; 0x9111
@@ -431,7 +431,7 @@ api_idx_0044_URKM:
     push ax                          ; 0x9125
     mov ax, 0x11                     ; 0x9126
     push ax                          ; 0x9129
-    call ds_app_NGUR                 ; 0x912a
+    call set_hotspot                 ; 0x912a
     add sp, byte 0x0e                ; 0x912d
     mov ax, 7                        ; 0x9130
     cmp word [bp - 0x0044], byte 7   ; 0x9133
@@ -463,7 +463,7 @@ api_idx_0044_URKM:
     mov ax, word [bp - 0x0002]       ; 0x9171
     add ax, strict word 0x12         ; 0x9174
     push ax                          ; 0x9177
-    call ds_app_NGUR                 ; 0x9178
+    call set_hotspot                 ; 0x9178
     add sp, byte 0x0e                ; 0x917b
     inc word [bp - 0x0002]           ; 0x917e
     mov ax, word [bp - 0x0002]       ; 0x9181
@@ -479,7 +479,7 @@ api_idx_0044_URKM:
     push ax                          ; 0x9194
     mov ax, 0x19                     ; 0x9195
     push ax                          ; 0x9198
-    call ds_app_NGUR                 ; 0x9199
+    call set_hotspot                 ; 0x9199
     add sp, byte 0x0e                ; 0x919c
     mov ax, word [bp - 0x000a]       ; 0x919f
     inc ax                           ; 0x91a2
@@ -509,7 +509,7 @@ api_idx_0044_URKM:
     add sp, byte 4                   ; 0x91df
     mov ax, 0x59fe                   ; 0x91e2
     push ax                          ; 0x91e5
-    call ds_app_UHMG                 ; 0x91e6
+    call poll_hotspots               ; 0x91e6
     pop cx                           ; 0x91e9
     dec ax                           ; 0x91ea
     mov word [bp - 0x001a], ax       ; 0x91eb
@@ -537,13 +537,13 @@ api_idx_0044_URKM:
     mov ax, word [bp - 0x0018]       ; 0x921f
     mov word [bp - 0x0022], ax       ; 0x9222
 @..api_idx_0044_URKM.l11:
-    mov word [bss_5b3e], 1           ; 0x9225
+    mov word [hotspot_hit], 1        ; 0x9225
     mov ax, word [bp - 0x0022]       ; 0x922b
     sub ax, word [bp - 0x0018]       ; 0x922e
     add ax, strict word 0x12         ; 0x9231
     mov word [bp - 0x001a], ax       ; 0x9234
 @..api_idx_0044_URKM.l12:
-    cmp word [bss_5b3e], byte 1      ; 0x9237
+    cmp word [hotspot_hit], byte 1   ; 0x9237
     je short @..api_idx_0044_URKM.l13 ; 0x923c
     jmp near @..api_idx_0044_URKM.l50 ; 0x923e
 @..api_idx_0044_URKM.l13:
@@ -654,7 +654,7 @@ jumptable_9967_case_0:
     push ax                          ; 0x9335
     mov ax, 0                        ; 0x9336
     push ax                          ; 0x9339
-    call ds_app_NGUR                 ; 0x933a
+    call set_hotspot                 ; 0x933a
     add sp, byte 0x0e                ; 0x933d
     mov ax, word [bp - 0x0006]       ; 0x9340
     add ax, strict word 0x4c         ; 0x9343
@@ -790,7 +790,7 @@ jumptable_9967_case_1:
     push ax                          ; 0x9475
     mov ax, 0                        ; 0x9476
     push ax                          ; 0x9479
-    call ds_app_NGUR                 ; 0x947a
+    call set_hotspot                 ; 0x947a
     add sp, byte 0x0e                ; 0x947d
     mov ax, word [bp - 0x0006]       ; 0x9480
     add ax, strict word 0x4c         ; 0x9483
@@ -856,7 +856,7 @@ jumptable_9967_case_3:
     mov ax, word [bp - 0x000c]       ; 0x9509
     add ax, strict word 6            ; 0x950c
     push ax                          ; 0x950f
-    call ds_app_VIGG                 ; 0x9510
+    call flash_button                ; 0x9510
     add sp, byte 0x0a                ; 0x9513
     mov ax, 0                        ; 0x9516
     push ax                          ; 0x9519
@@ -870,7 +870,7 @@ jumptable_9967_case_3:
     mov ax, word [bp - 0x000c]       ; 0x9529
     add ax, strict word 6            ; 0x952c
     push ax                          ; 0x952f
-    call ds_app_VIGG                 ; 0x9530
+    call flash_button                ; 0x9530
     add sp, byte 0x0a                ; 0x9533
     mov word [bss_9050], 0           ; 0x9536
     mov word [bp - 0x001c], 0        ; 0x953c
@@ -895,7 +895,7 @@ jumptable_9967_case_4:
     mov ax, word [bp - 0x000c]       ; 0x9562
     add ax, strict word 0x42         ; 0x9565
     push ax                          ; 0x9568
-    call ds_app_VIGG                 ; 0x9569
+    call flash_button                ; 0x9569
     add sp, byte 0x0a                ; 0x956c
     mov ax, 0                        ; 0x956f
     push ax                          ; 0x9572
@@ -909,7 +909,7 @@ jumptable_9967_case_4:
     mov ax, word [bp - 0x000c]       ; 0x9582
     add ax, strict word 0x42         ; 0x9585
     push ax                          ; 0x9588
-    call ds_app_VIGG                 ; 0x9589
+    call flash_button                ; 0x9589
     add sp, byte 0x0a                ; 0x958c
     mov word [bss_9050], 1           ; 0x958f
     mov word [bp - 0x001c], 0        ; 0x9595
@@ -1144,7 +1144,7 @@ jumptable_9967_case_4:
     push ax                          ; 0x97c0
     mov ax, 0                        ; 0x97c1
     push ax                          ; 0x97c4
-    call ds_app_NGUR                 ; 0x97c5
+    call set_hotspot                 ; 0x97c5
     add sp, byte 0x0e                ; 0x97c8
     mov ax, 0                        ; 0x97cb
     push ax                          ; 0x97ce

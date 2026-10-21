@@ -68,7 +68,7 @@ api_idx_000a_TIPG:
     push ax                          ; 0x09f2
     mov ax, bss_9128                 ; 0x09f3
     push ax                          ; 0x09f6
-    call ds_string_loc_QRJV          ; 0x09f7
+    call draw_string                 ; 0x09f7
     add sp, byte 4                   ; 0x09fa
 @..api_idx_000a_TIPG.l1:
     cmp word [bp + 0x4], byte 0      ; 0x09fd
