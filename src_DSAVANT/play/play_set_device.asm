@@ -1,43 +1,42 @@
 ; auto-generated
-loc_0322:
+play_set_device:
     mov ah, 0                        ; 0x0322
     int 0x13 ; BIOS disk: reset disk system
     cmp byte [bp + 0x15], 4          ; 0x0326
-    jne short loc_0330               ; 0x032a
+    jne short @..play_set_device.l1  ; 0x032a
     mov byte [bp + 0x15], 1          ; 0x032c
-loc_0330:
+@..play_set_device.l1:
     mov ax, 0x64                     ; 0x0330
     mov word [cs:cseg_0a81 - IMAGE_BASE], ax ; 0x0333
     mov al, byte [bp + 0x15]         ; 0x0337
-    mov byte [cs:cseg_0a7d - IMAGE_BASE], al ; 0x033a
+    mov byte [cs:play_device - IMAGE_BASE], al ; 0x033a
     mov byte [cs:cseg_0a90 - IMAGE_BASE], 0 ; 0x033e
     pushf                            ; 0x0344
     pop ax                           ; 0x0345
     test ah, 0x80                    ; 0x0346
-    je short loc_0350                ; 0x0349
+    je short @..play_set_device.l2   ; 0x0349
     inc byte [cs:cseg_0a90 - IMAGE_BASE] ; 0x034b
-loc_0350:
-    mov bl, byte [cs:cseg_0a7d - IMAGE_BASE] ; 0x0350
+@..play_set_device.l2:
+    mov bl, byte [cs:play_device - IMAGE_BASE] ; 0x0350
     shl bl, 1                        ; 0x0355
     xor bh, bh                       ; 0x0357
-    jmp [cs:bx + jumptable_035e - IMAGE_BASE] ; 0x0359
-jumptable_035e:
-    dw jumptable_035e_case_0 - IMAGE_BASE      ; 0x035e
-    dw jumptable_035e_case_1 - IMAGE_BASE      ; 0x0360
-    dw jumptable_035e_case_2 - IMAGE_BASE      ; 0x0362
-    dw jumptable_035e_case_2 - IMAGE_BASE      ; 0x0364
-    dw jumptable_035e_case_4 - IMAGE_BASE      ; 0x0366
-jumptable_035e_case_2:
-    mov ax, word [bp + 0x10]         ; 0x0368
-    mov word [cs:cseg_0a89 - IMAGE_BASE], ax ; 0x036b
-    inc ax                           ; 0x036f
-    mov word [cs:cseg_0a8b - IMAGE_BASE], ax ; 0x0370
+    jmp [cs:bx + 0x45e]              ; 0x0359
+    xchg dx, ax                      ; 0x035e
+    push es                          ; 0x035f
+    fadd qword [si]                  ; 0x0360
+    push 0x6804                      ; 0x0362
+    add al, 0xca                     ; 0x0365
+    add al, 0x8b                     ; 0x0367
+    inc si                           ; 0x0369
+    adc byte [data_89a3], ch         ; 0x036a
+    or ax, word [bx + si + 0x2e]     ; 0x036e
+    mov word [data_0b8b], ax         ; 0x0371
     inc ax                           ; 0x0374
     cmp byte [bp + 0x15], 2          ; 0x0375
-    je short loc_0381                ; 0x0379
+    je short @..loc_035e.l1          ; 0x0379
     add ax, strict word 0xd          ; 0x037b
     dec byte [bp + 0x15]             ; 0x037e
-loc_0381:
+@..loc_035e.l1:
     mov word [cs:cseg_0a8d - IMAGE_BASE], ax ; 0x0381
     mov dx, word [cs:cseg_0a89 - IMAGE_BASE] ; 0x0385
     mov al, 7                        ; 0x038a
@@ -68,7 +67,13 @@ loc_0381:
     jmp near jumptable_035e_case_0   ; 0x03c7
 jumptable_035e_case_4:
     jmp near jumptable_035e_case_0   ; 0x03ca
-    times 15 db 0
-jumptable_035e_case_1:
-    call io_loc_LPTR                 ; 0x03dc
-    jmp near jumptable_035e_case_0   ; 0x03df
+    add byte [bx + si], al           ; 0x03cd
+    add byte [bx + si], al           ; 0x03cf
+    add byte [bx + si], al           ; 0x03d1
+    add byte [bx + si], al           ; 0x03d3
+    add byte [bx + si], al           ; 0x03d5
+    add byte [bx + si], al           ; 0x03d7
+    add byte [bx + si], al           ; 0x03d9
+    add al, ch                       ; 0x03db
+    or ax, 0xe903                    ; 0x03dd
+    mov al, 1                        ; 0x03e0

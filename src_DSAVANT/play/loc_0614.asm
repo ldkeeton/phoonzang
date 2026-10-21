@@ -61,7 +61,7 @@ jumptable_0789_case_1:
     neg ax                           ; 0x0696
     add ax, word [cs:cseg_0658 - IMAGE_BASE] ; 0x0698
     dec ax                           ; 0x069d
-    cmp byte [cs:cseg_0a7d - IMAGE_BASE], 4 ; 0x069e
+    cmp byte [cs:play_device - IMAGE_BASE], 4 ; 0x069e
     mov si, ax                       ; 0x06a4
     mov al, byte [cs:si + cseg_1a3a - IMAGE_BASE] ; 0x06a6
     mov byte [cs:bx + cseg_193a - IMAGE_BASE], al ; 0x06ab
@@ -79,7 +79,7 @@ jumptable_0789_case_1:
     mov ax, 0x7f                     ; 0x06c7
 @..loc_065a.l5:
     add ax, word [cs:cseg_0658 - IMAGE_BASE] ; 0x06ca
-    cmp byte [cs:cseg_0a7d - IMAGE_BASE], 4 ; 0x06cf
+    cmp byte [cs:play_device - IMAGE_BASE], 4 ; 0x06cf
     mov si, ax                       ; 0x06d5
     mov al, byte [cs:si + cseg_1a3a - IMAGE_BASE] ; 0x06d7
     mov byte [cs:bx + cseg_19ba - IMAGE_BASE], al ; 0x06dc

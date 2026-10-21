@@ -763,7 +763,16 @@
         {"offset": "0f34", "space": "cs", "note": "as 0072 (loop from 0x0f2a)"},
         {"offset": "0f6a", "space": "cs", "note": "as 0072"},
         {"offset": "0e57", "space": "cs", "note": "`mov bx, 0x1b3a` in the force_code routine at 0x0e51: the volume-curve table the sibling at 0x130d loads for `cs xlatb` after the same `cs:[0x0e3f] * cs:[0x0ba8]` product. Here the xlat was replaced by `mov cl, 0x3f; sub cl, al` and bx is overwritten (helper at 0x0f12) before any read"}
-      ]
+      ],
+      "function_names": {
+        "0294": {"name": "play_select_device"},
+        "02b3": {"name": "clamp_device", "note": "al >= 6 becomes 0; called on play_device before play_install_handler"},
+        "0322": {"name": "play_set_device", "note": "entered by jmp in the caller's frame: INT 13h reset, then stores the device byte [bp+15h] (4 becomes 1) in play_device"},
+        "03e2": {"name": "play_install_handler", "note": "entered by jmp in the caller's frame: installs the INT 08h handler picked by play_device through the table at 0495"}
+      },
+      "code_data_names": {
+        "0a7d": {"name": "play_device", "note": "byte: output device 0-5; indexes the INT 08h handler sub-tables at 0495, set by play_set_device"}
+      }
     }
   },
   "force_data": [],

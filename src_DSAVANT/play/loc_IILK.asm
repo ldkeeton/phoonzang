@@ -1,7 +1,7 @@
 ; auto-generated
 loc_IILK:
     mov byte [cs:cseg_0a7e - IMAGE_BASE], 0 ; 0x0ad9
-    cmp byte [cs:cseg_0a7d - IMAGE_BASE], 1 ; 0x0adf
+    cmp byte [cs:play_device - IMAGE_BASE], 1 ; 0x0adf
     jne short loc_RTLK               ; 0x0ae5
     mov dx, 0x388                    ; 0x0ae7
     mov al, 0x40                     ; 0x0aea

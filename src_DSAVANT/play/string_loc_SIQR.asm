@@ -11,7 +11,7 @@ string_loc_SIQR:
     repne scasb                      ; 0x0111
     mov word [es:di - 0x0001], 0x2e  ; 0x0113
     mov al, byte [bp + 0xc]          ; 0x0119
-    call leaf_loc_NLLU               ; 0x011c
+    call clamp_device                ; 0x011c
     mov bl, al                       ; 0x011f
     mov byte [cs:cseg_0a7c - IMAGE_BASE], al ; 0x0121
     mov bh, bl                       ; 0x0125

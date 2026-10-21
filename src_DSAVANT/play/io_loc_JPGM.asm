@@ -59,6 +59,7 @@ loc_NSTK:
     mov bl, al                       ; 0x0b85
     shr bl, 1                        ; 0x0b87
     shr bl, 1                        ; 0x0b89
+data_0b8b:
     shr bl, 1                        ; 0x0b8b
     shr bl, 1                        ; 0x0b8d
     mov byte [cs:cseg_11d9 - IMAGE_BASE], bl ; 0x0b8f

@@ -1,9 +1,9 @@
 ; auto-generated
 io_loc_GHPS:
     mov al, 8                        ; 0x00c4
-    cmp byte [cs:cseg_0a7d - IMAGE_BASE], 1 ; 0x00c6
+    cmp byte [cs:play_device - IMAGE_BASE], 1 ; 0x00c6
     je short @..io_loc_GHPS.l1       ; 0x00cc
-    cmp byte [cs:cseg_0a7d - IMAGE_BASE], 4 ; 0x00ce
+    cmp byte [cs:play_device - IMAGE_BASE], 4 ; 0x00ce
     je short @..io_loc_GHPS.l1       ; 0x00d4
 @..io_loc_GHPS.l1:
     mov byte [cs:cseg_0d3a - IMAGE_BASE], al ; 0x00d6

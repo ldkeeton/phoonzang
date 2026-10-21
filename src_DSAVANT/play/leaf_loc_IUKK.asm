@@ -13,7 +13,7 @@ leaf_loc_IUKK:
     pop bp                           ; 0x019c
     ret                              ; 0x019d
 @..leaf_loc_IUKK.l3:
-    cmp byte [cs:cseg_0a7d - IMAGE_BASE], 0 ; 0x019e
+    cmp byte [cs:play_device - IMAGE_BASE], 0 ; 0x019e
     jne short @..leaf_loc_IUKK.l5    ; 0x01a4
 @..leaf_loc_IUKK.l4:
     cmp byte [cs:cseg_0a94 - IMAGE_BASE], 0 ; 0x01a6

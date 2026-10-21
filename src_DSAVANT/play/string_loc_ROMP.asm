@@ -34,13 +34,13 @@ string_loc_ROMP:
     inc al                           ; 0x0da4
     pop si                           ; 0x0da6
     lodsw                            ; 0x0da7
-    cmp byte [cs:cseg_0a7d - IMAGE_BASE], 5 ; 0x0da8
+    cmp byte [cs:play_device - IMAGE_BASE], 5 ; 0x0da8
     je short @..string_loc_ROMP.l3   ; 0x0dae
     sub al, 0xc                      ; 0x0db0
 @..string_loc_ROMP.l3:
     mov byte [cs:cseg_0d3c - IMAGE_BASE], al ; 0x0db2
     mov al, ah                       ; 0x0db6
-    cmp byte [cs:cseg_0a7d - IMAGE_BASE], 5 ; 0x0db8
+    cmp byte [cs:play_device - IMAGE_BASE], 5 ; 0x0db8
     je short @..string_loc_ROMP.l4   ; 0x0dbe
     shr al, 1                        ; 0x0dc0
     shr al, 1                        ; 0x0dc2

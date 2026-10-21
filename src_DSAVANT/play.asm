@@ -20,7 +20,7 @@ loc_JTQK_000f.leaf_loc1 equ loc_TJIS
 loc_JTQK_0013.bios_mouse_loc1 equ io_loc_QVTL
 %include "shared/loc_JTQK_0013.asm"          ; 0x0013
 
-loc_JTQK_0017.load_picture1 equ bios_disk_loc_VOLH
+loc_JTQK_0017.load_picture1 equ play_select_device
 %include "shared/loc_JTQK_0017.asm"          ; 0x0017
 
 loc_JTQK_001b.draw_text1 equ leaf_loc_IQNG
@@ -55,15 +55,16 @@ loc_JTQK_001f.load_screen1 equ leaf_loc_IUKK
 
 %include "play/io_loc_QVTL.asm"            ; 0x023f
 
-%include "play/bios_disk_loc_VOLH.asm"     ; 0x0294
+%include "play/play_select_device.asm"     ; 0x0294
 
-%include "play/leaf_loc_NLLU.asm"          ; 0x02b3
+%include "play/clamp_device.asm"           ; 0x02b3
 
 cseg_0b10 equ __zinsn_0b0f + 0x1
 cseg_0b12 equ __zinsn_0b0f + 0x3
-%include "play/io_loc_RQKH.asm"            ; 0x02ba
+%include "play/io_loc_PISO.asm"            ; 0x02ba
 
-%include "play/loc_0322.asm"               ; 0x0322
+data_89a3 equ 0x89a3
+%include "play/play_set_device.asm"        ; 0x0322
 
 cseg_0848 equ __zinsn_0846 + 0x2
 cseg_08bf equ __zinsn_08be + 0x1
@@ -79,7 +80,7 @@ cseg_0a54 equ __zinsn_0a52 + 0x2
 cseg_18e8 equ __zinsn_18e7 + 0x1
 cseg_18f2 equ __zinsn_18f1 + 0x1
 cseg_1904 equ __zinsn_18ff + 0x5
-%include "play/loc_03e2.asm"               ; 0x03e2
+%include "play/play_install_handler.asm"   ; 0x03e2
 
 %include "play/leaf_loc_STGJ.asm"          ; 0x0610
 
@@ -132,7 +133,7 @@ cseg_086f:
 
 cseg_0a7c:
     db 0x01
-cseg_0a7d:
+play_device:
     db 0x00
 cseg_0a7e:
     db 0x00

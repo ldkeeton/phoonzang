@@ -1,10 +1,10 @@
 ; auto-generated
-io_loc_RQKH:
+io_loc_PISO:
     push di                          ; 0x02ba
     push es                          ; 0x02bb
     cld                              ; 0x02bc
     cmp byte [cs:cseg_0321 - IMAGE_BASE], 0 ; 0x02bd
-    jne short @..io_loc_RQKH.l1      ; 0x02c3
+    jne short @..io_loc_PISO.l1      ; 0x02c3
     in al, 0x21                      ; 0x02c5
     mov byte [cs:cseg_0a8f - IMAGE_BASE], al ; 0x02c7
     cli                              ; 0x02cb
@@ -39,7 +39,7 @@ io_loc_RQKH:
     call leaf_loc_STGJ               ; 0x0311
     mov al, ah                       ; 0x0314
     out 0x40, al                     ; 0x0316
-@..io_loc_RQKH.l1:
+@..io_loc_PISO.l1:
     mov byte [cs:cseg_0321 - IMAGE_BASE], 0xff ; 0x0318
     pop es                           ; 0x031e
     pop di                           ; 0x031f

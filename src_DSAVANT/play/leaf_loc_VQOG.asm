@@ -6,9 +6,9 @@ leaf_loc_VQOG:
     mov cl, 0                        ; 0x01e9
 loc_JNQH:
     mov ah, 0xb1                     ; 0x01eb
-    cmp byte [cs:cseg_0a7d - IMAGE_BASE], 1 ; 0x01ed
+    cmp byte [cs:play_device - IMAGE_BASE], 1 ; 0x01ed
     je short loc_GLGJ                ; 0x01f3
-    cmp byte [cs:cseg_0a7d - IMAGE_BASE], 4 ; 0x01f5
+    cmp byte [cs:play_device - IMAGE_BASE], 4 ; 0x01f5
     je short loc_GLGJ                ; 0x01fb
     dec ah                           ; 0x01fd
 loc_GLGJ:

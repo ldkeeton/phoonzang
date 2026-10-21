@@ -1,6 +1,6 @@
 ; auto-generated
 leaf_loc_JKKL:
-    mov bl, byte [cs:cseg_0a7d - IMAGE_BASE] ; 0x077b
+    mov bl, byte [cs:play_device - IMAGE_BASE] ; 0x077b
     shl bl, 1                        ; 0x0780
     xor bh, bh                       ; 0x0782
     jmp [cs:bx + jumptable_0789 - IMAGE_BASE] ; 0x0784
