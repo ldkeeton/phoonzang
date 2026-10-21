@@ -141,7 +141,7 @@
         "0b54": {"name": "poll_hotspots", "note": "polls keyboard/mouse against the hotspot table, setting hotspot_hit"},
         "0ced": {"name": "set_hotspot", "note": "stores a clickable hotspot rectangle and key in the hotspot table"},
         "0e03": {"name": "draw_rect_outline", "note": "draws a colour-0 one-pixel outline just outside the corners left,top..right,bottom"},
-        "0e82": {"name": "draw_rect_bevel", "note": "draws the top/left edges of a rectangle in one colour and the bottom/right edges in another"},
+        "0e82": {"name": "draw_rect_bevel", "note": "draws a one-pixel bevel: top/left edges in one colour, right/bottom in another"},
         "0ee1": {"name": "draw_dialog_box", "note": "fills a panel in colour 0xc2, outlines it and bevels its edges"},
         "1034": {"name": "draw_framed_button", "note": "draws a frame w*6 by h*6+2 pixels at x,y with the label centred inside"},
         "10a6": {"name": "flash_button", "note": "inverts a button area to show it pressed"},
