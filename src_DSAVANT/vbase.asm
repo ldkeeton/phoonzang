@@ -521,16 +521,16 @@ __zdseg_91a7:
 __zdseg_91ae:
     db 'MAINSCRN.VGA', 0
     db 0x00
-__zsave_si:
-    db 0x00, 0x00
-__zsave_di:
-    db 0x00, 0x00
-__zsave_sp:
-    db 0x00, 0x00
-__zsave_bp:
-    db 0x00, 0x00
-__zsave_ret:
-    db 0x00, 0x00
+%include "shared/data/save_si.asm"          ; 0x9511
+
+%include "shared/data/save_di.asm"          ; 0x9513
+
+%include "shared/data/save_sp.asm"          ; 0x9515
+
+%include "shared/data/save_bp.asm"          ; 0x9517
+
+%include "shared/data/save_ret.asm"         ; 0x9519
+
 
 __zimage_end:
 absolute __zimage_end

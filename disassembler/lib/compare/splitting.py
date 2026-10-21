@@ -318,6 +318,79 @@ def _split_off_foreign_objects(split_ranges, records, owners=None, fixed=()):
     return result
 
 
+def _select_data_ranges(records, roots, binary_data=None, modules=()):
+    """``[(start, end, name)]``: a file for each named data object.
+
+    *roots* is ``{file offset: name}``, the data names bound to the exact byte
+    they name.  An object runs from its root to the next label -- any label,
+    an address-named one too, is another object -- or to the last byte of the
+    data records that follow it without a gap or an instruction.  Like a bare
+    ``loc_`` in code, an address-named object has no root and stays in the
+    master file.
+
+    *modules* are the library's data-only modules
+    (:func:`lib.aztec.datamodules.data_modules`).  Where *binary_data* holds
+    one exactly, under its own names, its objects are one file named for the
+    module (:func:`lib.aztec.datamodules.stem`) and it ends where the module
+    does: the vendor source is that file's C.
+    """
+    if not roots:
+        return []
+    from lib.compare.render import _DATA_RECORD_TYPES
+    labels = sorted({rec['offset'] for rec in records if rec['type'] == 'label'
+                     and rec['name'].kind is not Kind.LOCAL})
+    spans = sorted(_record_span(rec) + (rec['type'],) for rec in records
+                   if rec['type'] != 'label')
+    ranges = []
+    for start, name in sorted(roots.items()):
+        stop = next((offset for offset in labels if offset > start), None)
+        end = start
+        for span_start, span_end, kind in spans:
+            if span_end <= end:
+                continue
+            if (span_start > end or (stop is not None and span_start >= stop)
+                    or kind not in _DATA_RECORD_TYPES + ('data_ptr',)
+                    or kind == 'jump_table'):
+                break
+            end = span_end if stop is None else min(span_end, stop)
+        if end > start:
+            ranges.append((start, end, name))
+    ends = {span_end for _, span_end, _ in spans}
+    for module in modules or ():
+        ranges = _group_module(ranges, roots, binary_data, module, ends)
+    return ranges
+
+
+def _group_module(ranges, roots, binary_data, module, ends):
+    """*ranges* with *module*'s objects made one, when the image holds it.
+
+    Its first object's root places it; every public must be a root at its
+    own offset, the bytes must be the module's, and the module's end must be
+    a record boundary.  Otherwise *ranges* is returned as it is.
+    """
+    from lib.aztec.datamodules import stem
+    first = module.publics[0][0]
+    base = next((at for at, name in roots.items() if str(name) == first),
+                None)
+    if base is None or binary_data is None:
+        return ranges
+    end = base + len(module.data)
+    if (bytes(binary_data[base:end]) != module.data or end not in ends
+            or any(str(roots.get(base + offset)) != label
+                   for label, offset in module.publics)):
+        return ranges
+    inside = sorted(r for r in ranges if base <= r[0] < end)
+    at = base
+    for start, stop, _ in inside:
+        if start != at:
+            return ranges
+        at = stop
+    if at < end:
+        return ranges
+    return sorted([r for r in ranges if r not in inside]
+                  + [(base, end, stem(module))])
+
+
 def _band_dir(split_dir, bands, start, name):
     """The folder a fragment starting at *start* is emitted into: the binary's
     own, or its band's beneath it when the sidecar declares ``bands``."""
@@ -330,12 +403,20 @@ def _band_dir(split_dir, bands, start, name):
     return f'{split_dir}/{band[2]}'
 
 
-def _partition_function_records(records, split_ranges, split_dir, bands=()):
+def _partition_function_records(records, split_ranges, split_dir, bands=(),
+                                data_starts=()):
     """Replace selected contiguous function spans with include records.
 
     *bands* (:mod:`lib.sidecar.bands`) puts each fragment in its band's
-    folder (``ds/game/x.asm``).
+    folder (``ds/game/x.asm``).  A range starting in *data_starts* is a data
+    object (:func:`_select_data_ranges`): its file goes in the binary's
+    ``data`` folder (``vinstall/data/ctp_.asm``), banded or not.
     """
+    def folder(start, name):
+        if start in data_starts:
+            return f'{split_dir}/data'
+        return _band_dir(split_dir, bands, start, name)
+
     if not split_ranges:
         return records, {}
 
@@ -428,7 +509,7 @@ def _partition_function_records(records, split_ranges, split_dir, bands=()):
                 raise ValueError(f'cannot make include filename for function {name!r}')
             main_records.append({
                 'type': 'include',
-                'text': f'%include "{_band_dir(split_dir, bands, start, name)}'
+                'text': f'%include "{folder(start, name)}'
                         f'/{filename}.asm"',
                 'offset': start,
             })
@@ -449,6 +530,6 @@ def _partition_function_records(records, split_ranges, split_dir, bands=()):
     split_sources = {}
     for start, _, name in ranges:
         filename = _file_stem(name)
-        folder = _band_dir(split_dir, bands, start, name)
-        split_sources[f'{folder}/{filename}.asm'] = split_records[name]
+        split_sources[f'{folder(start, name)}/{filename}.asm'] = \
+            split_records[name]
     return main_records, split_sources

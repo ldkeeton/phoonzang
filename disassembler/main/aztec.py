@@ -135,7 +135,8 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         text, generated = _seed_aztec_c(cache, project, name, module, entry,
                                         dest, home(module))
         try:
-            func = cache.compile_source(project, name, module, entry, text)
+            compiled, func = cache.compile_source_module(
+                project, name, module, entry, text)
         except Exception as exc:
             raise SystemExit(
                 f'error: {os.path.basename(path)}: compile failed '
@@ -156,6 +157,10 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
                        for fx in func.fixups],
             'data_spans': cache.data_spans(project, name, module, entry,
                                            text),
+            # The C/asm module's own data, for the ownership gate.
+            'module_data': compiled.data,
+            'module_data_relocations': compiled.data_relocations,
+            'module_externals': compiled.externals,
             # The module's first byte, and where its first routine starts.
             'start': span.start, 'lead': span.lead,
             'length': span.length,
@@ -178,7 +183,8 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         entry = cache.default_entry(label, project,
                                     os.path.splitext(path)[1])
         try:
-            func = cache.compile_source(project, name, label, entry, text)
+            compiled, func = cache.compile_source_module(
+                project, name, label, entry, text)
         except Exception as exc:
             raise SystemExit(f'error: {os.path.basename(path)}: compile '
                              f'failed ({exc})')
@@ -194,6 +200,9 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
                        for fx in func.fixups],
             'data_spans': cache.data_spans(project, name, label, entry,
                                            text),
+            'module_data': compiled.data,
+            'module_data_relocations': compiled.data_relocations,
+            'module_externals': compiled.externals,
             'length': _hand_length(start, roots, bands, len(func.code)),
             'source_version': entry['source_version'],
             'file': entry['file'], 'compiler': entry['compiler'],
@@ -509,3 +518,81 @@ def _aztec_asm_annotations(entries, label_map, c_overrides=None):
         out[module] = merged
     return out
 
+
+
+def _data_sources(project, binary, out_dir, split_sources, segments=None,
+                  data=None, overrides=()):
+    """``{relative path: text}``: the C source beside each generated data file.
+
+    A library module that is only data (:mod:`lib.aztec.datamodules`) is one
+    file in the binary's ``data`` folder (``vinstall/data/ctp_.asm``), and its
+    vendor source is that file's C (``ctp_.c`` is ``ctype.c``).  A hand-owned
+    copy, there or in ``shared/data/``, is read; otherwise the seed is
+    returned for the build to write.
+
+    Every compiled C/assembly module is also checked against the named data
+    objects in the image (:mod:`lib.aztec.dataowners`).  A mixed module's
+    existing source is the owner; no second ``data/<name>.c`` is created for
+    data that C already defines.
+    """
+    if not project or AZTEC_MUX_DISABLED:
+        return {}
+    from lib.aztec import cache
+    from lib.aztec.compile import LIBRARY_PREFIX
+    from lib.aztec.dataowners import DataOwnerError, validate
+    from lib.aztec.datamodules import data_modules, stem
+    sources = []
+    seeds = {}
+    for module in data_modules(project):
+        name = stem(module)
+        rel = f'{binary}/data/{name}.asm'
+        text = split_sources.get(rel)
+        if text is None or any(f'__z{label}:' not in text
+                               for label, _ in module.publics):
+            continue
+        entry = cache.data_entry(module.file)
+        label = LIBRARY_PREFIX + name
+        c_rel = shown = rel[:-4] + '.c'
+        source = None
+        for path in (os.path.join(out_dir, c_rel),
+                     os.path.join(out_dir, FOLDER, 'data', f'{name}.c')):
+            if hand_owned(path):
+                with open(path) as f:
+                    source = f.read()
+                shown = os.path.relpath(path, out_dir)
+                break
+        if source is None:
+            source = cache.seed_source_text(project, binary, label, entry)
+            seeds[c_rel] = source
+        try:
+            got = cache.compile_data(project, binary, label, entry, source)
+        except Exception as exc:
+            raise SystemExit(f'error: {shown}: {exc}') from exc
+        if got != module.data:
+            raise SystemExit(
+                f'error: {shown}: compiles to {got.hex() or "no data"}, '
+                f'but {rel} holds {module.data.hex()}')
+        sources.append({
+            'path': shown, 'data': got, 'relocations': (),
+            'symbols': {label for label, _ in module.publics},
+            'externals': (),
+        })
+
+    for override in overrides:
+        module_data = override.get('module_data') or b''
+        if not module_data:
+            continue
+        sources.append({
+            'path': os.path.relpath(override['path'], out_dir),
+            'data': module_data,
+            'relocations': override.get('module_data_relocations') or (),
+            'symbols': {fx.symbol for fx in override['func'].fixups
+                        if fx.symbol},
+            'externals': override.get('module_externals') or (),
+        })
+
+    try:
+        validate(segments, data, sources)
+    except DataOwnerError as exc:
+        raise SystemExit(f'error: {exc}') from exc
+    return seeds

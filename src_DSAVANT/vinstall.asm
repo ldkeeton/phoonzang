@@ -42,14 +42,6 @@ dseg_006a equ __zdseg_006a - __zdseg_start
 dseg_0081 equ __zdseg_0081 - __zdseg_start
 dseg_009c equ __zdseg_009c - __zdseg_start
 dseg_00a0 equ __zdseg_00a0 - __zdseg_start
-dseg_00b4 equ __zdseg_00b4 - __zdseg_start
-dseg_00c8 equ __zdseg_00c8 - __zdseg_start
-dseg_00dc equ __zdseg_00dc - __zdseg_start
-dseg_00f0 equ __zdseg_00f0 - __zdseg_start
-dseg_0104 equ __zdseg_0104 - __zdseg_start
-dseg_0118 equ __zdseg_0118 - __zdseg_start
-dseg_012c equ __zdseg_012c - __zdseg_start
-dseg_0140 equ __zdseg_0140 - __zdseg_start
 dseg_0158 equ __zdseg_0158 - __zdseg_start
 dseg_015c equ __zdseg_015c - __zdseg_start
 dseg_016a equ __zdseg_016a - __zdseg_start
@@ -57,7 +49,6 @@ dseg_0181 equ __zdseg_0181 - __zdseg_start
 dseg_0198 equ __zdseg_0198 - __zdseg_start
 dseg_01af equ __zdseg_01af - __zdseg_start
 dseg_01c6 equ __zdseg_01c6 - __zdseg_start
-bss_2afe equ __zbss_2afe - __zdseg_start
 __zbss_size equ __zbss_end - __zimage_end
 
 %include "vinstall/loc_ILSL.asm"           ; 0x0200
@@ -538,15 +529,16 @@ __zdseg_009c:
     db 0x4f, 0x4e, 0x20, 0x00
 __zdseg_00a0:
     db 0x4f, 0x46, 0x46, 0x00
-__zsound_device_names:
-    dw dseg_00b4                               ; 0x3b84
-    dw dseg_00c8                               ; 0x3b86
-    dw dseg_00dc                               ; 0x3b88
-    dw dseg_00f0                               ; 0x3b8a
-    dw dseg_0104                               ; 0x3b8c
-    dw dseg_0118                               ; 0x3b8e
-    dw dseg_012c                               ; 0x3b90
-    dw dseg_0140                               ; 0x3b92
+dseg_00b4 equ __zdseg_00b4 - __zdseg_start
+dseg_00c8 equ __zdseg_00c8 - __zdseg_start
+dseg_00dc equ __zdseg_00dc - __zdseg_start
+dseg_00f0 equ __zdseg_00f0 - __zdseg_start
+dseg_0104 equ __zdseg_0104 - __zdseg_start
+dseg_0118 equ __zdseg_0118 - __zdseg_start
+dseg_012c equ __zdseg_012c - __zdseg_start
+dseg_0140 equ __zdseg_0140 - __zdseg_start
+%include "vinstall/data/sound_device_names.asm" ; 0x3b84
+
 __zdseg_00b4:
 
     db 'PC INTERNAL SPEAKER', 0
@@ -3134,26 +3126,18 @@ __zdseg_22e3:
 
 __zdseg_230a:
     db 0x2e, 0x00, 0x2e, 0x00
-__zenv:
-    db 0x00, 0x00
-__zcline:
-    times 4 db 0
-__zfcb1:
-    times 4 db 0
-__zfcb2:
-    times 4 db 0
-__zmodes:
+%include "vinstall/data/env.asm"           ; 0x5dee
 
-    db 0x72
-    times 4 db 0
-    db 0x72, 0x2b, 0x00, 0x02, 0x00, 0x77, 0x00, 0x00, 0x01, 0x03, 0x77, 0x2b, 0x00, 0x02, 0x03, 0x61
-    db 0x00, 0x00, 0x01, 0x09, 0x61, 0x2b, 0x00, 0x02, 0x09, 0x78, 0x00, 0x00, 0x01, 0x05, 0x78, 0x2b
-    db 0x00, 0x02, 0x05
-    times 6 db 0
+%include "vinstall/data/cline.asm"         ; 0x5df0
 
-__zCbuffs:
-    times 6 db 0
-    db 0x01, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00
+%include "vinstall/data/fcb1.asm"          ; 0x5df4
+
+%include "vinstall/data/fcb2.asm"          ; 0x5df8
+
+%include "vinstall/data/modes.asm"         ; 0x5dfc
+
+%include "vinstall/data/Cbuffs.asm"        ; 0x5e2a
+
 __zdseg_2357:
 
     times 6 db 0
@@ -3166,75 +3150,48 @@ __zdseg_2357:
     db 0x01, 0x04, 0x00, 0x01
     times 198 db 0
 
-__zendmarker:
-    db 0x38, 0x25, 0x38, 0x25
-__zctp_:
+%include "vinstall/data/endmarker.asm"     ; 0x5f2e
 
-    db 0x00                                           ; EOF
-    db 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 ; nul soh stx etx eot enq ack bel
-    db 0x20, 0x30, 0x30, 0x30, 0x30, 0x30, 0x20, 0x20 ; bs ht nl vt ff cr so si
-    db 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 ; dle dc1 dc2 dc3 dc4 nak syn etb
-    db 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 ; can em sub esc fs gs rs us
-    db 0x90, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40 ; sp ! " # $ % & '
-    db 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40 ; ( ) * + , - . /
-    db 0x0c, 0x0c, 0x0c, 0x0c, 0x0c, 0x0c, 0x0c, 0x0c ; 0 1 2 3 4 5 6 7
-    db 0x0c, 0x0c, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40 ; 8 9 : ; < = > ?
-    db 0x40, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x01 ; @ A B C D E F G
-    db 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01 ; H I J K L M N O
-    db 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01 ; P Q R S T U V W
-    db 0x01, 0x01, 0x01, 0x40, 0x40, 0x40, 0x40, 0x40 ; X Y Z [ backslash ] ^ _
-    db 0x40, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x02 ; ` a b c d e f g
-    db 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02 ; h i j k l m n o
-    db 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02 ; p q r s t u v w
-    db 0x02, 0x02, 0x02, 0x40, 0x40, 0x40, 0x40, 0x20 ; x y z { | } ~ del
+%include "vinstall/data/ctp_.asm"          ; 0x5f32
 
     db 0x00
-__zaztec_MEMRY:
-    dw bss_2afe                                ; 0x5fb4
-__zerrno:
-    db 0x00, 0x00
-__z_dsval:
-    db 0x00, 0x00
-__z_csval:
-    db 0x00, 0x00
-__z_mbot:
-    db 0x00, 0x00
-__z_sbot:
-    db 0x00, 0x00
-__z_mtop:
-    db 0x00, 0x00, 0xff, 0xff
-__z_PSP:
-    db 0x00, 0x00
-__zbad8087:
+bss_2afe equ __zbss_2afe - __zdseg_start
+aztec_MEMRY.bss1 equ bss_2afe
+%include "shared/data/aztec_MEMRY.asm"   ; 0x5fb4
 
-    db '8087/80287 is required!'
-    db 0x0d, 0x0a, 0x24
+%include "shared/data/errno.asm"         ; 0x5fb6
 
-__zcls_:
-    dw aztec_noper - IMAGE_BASE                ; 0x5fe0
+%include "shared/data/dsval.asm"         ; 0x5fb8
+
+%include "shared/data/csval.asm"         ; 0x5fba
+
+%include "shared/data/mbot.asm"          ; 0x5fbc
+
+%include "shared/data/sbot.asm"          ; 0x5fbe
+
+%include "vinstall/data/mtop.asm"          ; 0x5fc0
+
+%include "shared/data/PSP.asm"           ; 0x5fc4
+
+%include "shared/data/bad8087.asm"       ; 0x5fc6
+
+%include "shared/data/cls_.asm"          ; 0x5fe0
+
 __zdseg_2502:
 
     db 0x00
     db 'Too many args.', 0
 
-__z_STKSIZ:
-    db 0x00, 0x01
-__z_STKRED:
-    db 0x00, 0x08
-__z_HEAPSIZ:
-    db 0x00, 0x01
-__z_STKLOW:
-    db 0x00, 0x00
-__z_ioflg:
+%include "shared/data/stksiz.asm"        ; 0x5ff2
 
-    times 20 db 0
+%include "shared/data/ioflg.asm"         ; 0x5ffa
 
-__z_ttrd:
-    dw aztec_impl_tty_rd - IMAGE_BASE          ; 0x600e
-__z_ttwr:
-    dw aztec_impl_tty_wr - IMAGE_BASE          ; 0x6010
-__z_Eol:
-    db 0x0a
+%include "shared/data/ttrd.asm"          ; 0x600e
+
+%include "shared/data/ttwr.asm"          ; 0x6010
+
+%include "shared/data/Eol.asm"           ; 0x6012
+
 __zdseg_2533:
     db 0x0d
 

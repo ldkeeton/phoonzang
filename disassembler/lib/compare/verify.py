@@ -312,12 +312,14 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            entry_symbol=None, data_pointers=(), not_pointers=(),
            char_tables=(), immediate_pointers=(), host_data_offsets=None,
            ds_starts=frozenset(), foreign_pointer_params=None,
-           sidecar_use=None, bands=()):
+           sidecar_use=None, bands=(), data_modules=()):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     *sidecar_use* (a :class:`lib.sidecar.usage.SidecarUse`) learns which of
     the sidecar entries handed in here were applied.  *bands* (the sidecar's,
     :mod:`lib.sidecar.bands`) sorts the fragments into band folders.
+    *data_modules* (:func:`lib.aztec.datamodules.data_modules`) make a
+    vendor data module the image holds one data file.
 
     Parameters
     ----------
@@ -1275,7 +1277,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         host_symbols=host_symbols,
         host_data_offsets=host_data_offsets,
         load_offset=getattr(segments, 'load_offset', 0) or 0,
-        overlay_own=overlay_own, bands=bands,
+        overlay_own=overlay_own, bands=bands, data_modules=data_modules,
     )
     t6 = time.perf_counter()
     stagelog.step('verify.build_source', 2,

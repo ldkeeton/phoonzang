@@ -297,6 +297,7 @@ def resplice_c(app, binary, check_only=False):
     with open(os.path.join(APPS, app, bins[binary][0]), 'rb') as f:
         data = f.read()
     index = image_base = None
+    segments = None
     if context is not None:
         segments = _segment_model(app, bins, binary, data,
                                   context['data_names'])
@@ -308,11 +309,12 @@ def resplice_c(app, binary, check_only=False):
             image_base)
 
     # A binary's sources sit in its folder or, with sidecar ``bands``, in a
-    # band folder beneath it (``ds/game/x.asm``).
+    # band folder beneath it (``ds/game/x.asm``).  ``data/`` holds data
+    # objects, whose vendor .c the build checks (main.aztec._data_sources).
     folders = [dest] + sorted(
         os.path.join(dest, d) for d in (os.listdir(dest)
                                         if os.path.isdir(dest) else ())
-        if os.path.isdir(os.path.join(dest, d)))
+        if d != 'data' and os.path.isdir(os.path.join(dest, d)))
     own_dir = {}
     own_src = {}
     for folder in folders:
@@ -357,6 +359,7 @@ def resplice_c(app, binary, check_only=False):
     lenient = '--allow-diff' in _extra_flags()
     failures = []
     mismatches = []
+    sources = []
     count = 0
     picked = []
     # A routine whose inputs and output fragment are unchanged since its last
@@ -367,7 +370,9 @@ def resplice_c(app, binary, check_only=False):
             stamps = json.load(f)
     except (OSError, ValueError):
         stamps = {}
-    env = hashlib.sha1(repr((exact_here, lenient)).encode())
+    # The data-owner gate is part of the resplice result; an old stamp written
+    # before it existed must not skip the source that gate needs to check.
+    env = hashlib.sha1(repr((exact_here, lenient, 'data-owner-v1')).encode())
     for path in (labels_path, spans_path, manifest, context_path(app, binary)):
         if os.path.isfile(path):
             with open(path, 'rb') as f:
@@ -396,7 +401,19 @@ def resplice_c(app, binary, check_only=False):
             with open(apath, 'rb') as f:
                 if hashlib.sha1(f.read()).hexdigest() == prev['out']:
                     continue
-        func = cache.compile_source(app, binary, label, entry, text)
+        compiled_module, func = cache.compile_source_module(
+            app, binary, label, entry, text)
+        if compiled_module.data:
+            # The data gate below owns named objects by address; a routine's
+            # module data is still the same source even when someone edits a
+            # table in the middle of it (``modes``/``Cbuffs``).
+            sources.append({
+                'path': os.path.relpath(cpath, out_dir),
+                'data': compiled_module.data,
+                'relocations': compiled_module.data_relocations,
+                'symbols': {fx.symbol for fx in func.fixups if fx.symbol},
+                'externals': compiled_module.externals,
+            })
         spans_here = cache.data_spans(app, binary, label, entry, text)
         # The .c compiles to exactly its fragment.  One that no longer does is
         # a real edit that moves code, which only a full build can relayout.
@@ -556,6 +573,12 @@ def resplice_c(app, binary, check_only=False):
                              'out': hashlib.sha1(f.read()).hexdigest()}
         count += 1
         picked.append(os.path.relpath(cpath, out_dir))
+    if sources:
+        from lib.aztec.dataowners import DataOwnerError, validate as validate_data
+        try:
+            validate_data(segments, data, sources)
+        except DataOwnerError as exc:
+            raise SystemExit(f'error: {exc}') from exc
     os.makedirs(os.path.dirname(stamps_path), exist_ok=True)
     with open(stamps_path, 'w') as f:
         json.dump(stamps, f)

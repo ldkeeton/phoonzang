@@ -28,7 +28,7 @@ from lib.autogen import MARKER_ASM, MARKER_C
 from lib.cachedirs import prebuild_dir
 
 from . import listing, objcache, sources
-from .compile import CompiledModule
+from .compile import CompiledModule, DATA_VERSION
 from .compile import VERSION
 from .mux import MuxEngine, is_asm
 from .objread import fixup_width
@@ -383,10 +383,37 @@ def data_spans(project, binary, label, entry, source_text):
 
 def _stale(module):
     """True for a cache miss, or a module cached before its segment and its
-    data were kept (the build needs both)."""
+    data were kept (the build needs both).  A module that is only data
+    (``stksiz.c``) has no segment, only its data."""
     return module is None or (isinstance(module, CompiledModule) and (
-        module.segment is None
+        module.data_version < DATA_VERSION
+        or (module.segment is None and not module.data)
         or any(f.data_locals is None for f in module.functions.values())))
+
+
+def data_entry(filename):
+    """The provenance of a vendor data module's source (``stksiz.c``): the one
+    release, built as the library is."""
+    return {'source_version': VERSION, 'file': filename, 'compiler': VERSION,
+            'includes': VERSION}
+
+
+def compile_data(project, binary, label, entry, source_text):
+    """The initialized data *source_text* compiles to (``b''`` for none),
+    through the ``objs`` cache like :func:`compile_source_module`."""
+    from . import compile as azc
+
+    key = _module_key(project, binary, label, entry, source_text)
+    module = objcache.load(objs_dir(project), key)
+    if _stale(module):
+        kind, flags = _tool(project, binary, label, entry)
+        module = azc.compile_module(
+            source_text, label, compiler=entry['compiler'],
+            includes=entry['includes'], flags=flags, kind=kind)
+        objcache.save(objs_dir(project), key, module)
+    if isinstance(module, Exception):
+        raise module
+    return module.data or b''
 
 
 def compile_source_module(project, binary, label, entry, source_text):

@@ -23,7 +23,8 @@ def _scan(src):
     """Return {binary: [(asm_stem, state)]} for a generated src_<PROJECT> tree.
 
     ``state`` is ``'c'`` (has a .c), ``'s'`` (has a Manx assembly .s) or
-    ``'todo'``.  A binary's band folders (``ds/game/``) count as the binary.
+    ``'todo'``.  A binary's band folders (``ds/game/``) count as the binary;
+    its ``data`` folder holds data objects, not routines, and is not counted.
     """
     groups = {}
     for name in sorted(os.listdir(src)):
@@ -33,7 +34,7 @@ def _scan(src):
         groups.setdefault(name, [])
         for path in [top] + sorted(
                 os.path.join(top, d) for d in os.listdir(top)
-                if os.path.isdir(os.path.join(top, d))):
+                if d != 'data' and os.path.isdir(os.path.join(top, d))):
             sources = sources_in(path)
             groups[name] += [
                 (f[:-4], os.path.splitext(sources[f[:-4]])[1][1:]

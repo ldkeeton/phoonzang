@@ -208,5 +208,20 @@ class ModuleWholeTest(unittest.TestCase):
         self.assertEqual(len(module.whole().code), 0x40)
 
 
+class DataSegmentTest(unittest.TestCase):
+    def test_the_whole_data_segment_survives_the_cache(self):
+        from lib.aztec.compile import CompiledModule, DATA_VERSION
+        module = CompiledModule()
+        module.data = b'\x72\x00\x00\x00'
+        module.data_relocations = ((0, 2),)
+        module.externals = frozenset({'modes_'})
+        module.data_version = DATA_VERSION
+        got = CompiledModule.from_dict(module.to_dict())
+        self.assertEqual(got.data, module.data)
+        self.assertEqual(got.data_relocations, module.data_relocations)
+        self.assertEqual(got.externals, module.externals)
+        self.assertEqual(got.data_version, DATA_VERSION)
+
+
 if __name__ == '__main__':
     unittest.main()

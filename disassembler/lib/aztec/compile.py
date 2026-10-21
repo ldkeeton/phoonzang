@@ -30,6 +30,7 @@ except ImportError:  # pragma: no cover - non-POSIX
 
 from ..dosbox import DOSBOX
 from .objread import attach_locals, fixup_width, parse_obd
+from . import omflib
 from .omflib import public_functions
 from . import sources
 
@@ -240,6 +241,10 @@ class Func:
                 f'len={len(self.code)}, fixups={len(self.fixups)})')
 
 
+#: Bump when the cached data segment representation changes.
+DATA_VERSION = 1
+
+
 class CompiledModule:
     def __init__(self):
         self.functions = {}
@@ -250,6 +255,19 @@ class CompiledModule:
         self.cc_log = ''
         # Assembler listing (``as -l``) of a hand-written module, else ''.
         self.listing = ''
+        # The module's initialized data segment, zero-filled to its declared
+        # length.  This is the whole ``_DATA``/``CONST`` contribution, not
+        # just the first gap-free run: a struct with a zero byte in it
+        # (``modes``) is still one object.
+        self.data = b''
+        # ``(offset, width)`` of data bytes the linker patches.  They cannot
+        # be compared with the C's placeholders.
+        self.data_relocations = ()
+        # Names the module imports.  A data name here is not a definition;
+        # it must not make this module the owner of the object.
+        self.externals = frozenset()
+        # Caches written before the full data segment was kept have 0.
+        self.data_version = 0
 
     def get(self, name):
         return self.functions.get(symbol_key(name))
@@ -279,7 +297,12 @@ class CompiledModule:
                               for name, func in self.functions.items()},
                 'segment': (None if self.segment is None
                             else self.segment.to_dict()),
-                'listing': self.listing}
+                'listing': self.listing,
+                'data': self.data.hex(),
+                'data_relocations': [list(row)
+                                     for row in self.data_relocations],
+                'externals': sorted(self.externals),
+                'data_version': self.data_version}
 
     @classmethod
     def from_dict(cls, blob):
@@ -290,6 +313,12 @@ class CompiledModule:
         if blob.get('segment'):
             result.segment = Func.from_dict(blob['segment'])
         result.listing = blob.get('listing', '')
+        if blob.get('data') is not None:
+            result.data = bytes.fromhex(blob['data'])
+        result.data_relocations = tuple(
+            tuple(row) for row in blob.get('data_relocations', ()))
+        result.externals = frozenset(blob.get('externals', ()))
+        result.data_version = blob.get('data_version', 0)
         return result
 
 
@@ -564,6 +593,49 @@ def _local_data(dump, name):
     return bytes(out)
 
 
+def _initialized(dump):
+    """The module's initialized data bytes, from offset 0 to the first
+    byte it does not initialize."""
+    out = bytearray()
+    while len(out) in dump.data:
+        out.append(dump.data[len(out)])
+    return bytes(out)
+
+
+def _omf_data(blob):
+    """``(data, relocations, externals)`` for a converted object.
+
+    Every initialized non-code segment (``_DATA`` and any non-empty
+    ``CONST``) is kept in segment-definition order, zero-filled to its
+    declared length.  OMF's ``SEGDEF`` length is the object's true size;
+    ``segbytes`` may stop early when the tail is zero (``Cbuffs``).
+    """
+    data = bytearray()
+    relocations = []
+    externals = set()
+    try:
+        modules = [omflib.Module(blob, start, end)
+                   for start, _, end in omflib.find_modules(blob)]
+    except (IndexError, ValueError):
+        return bytes(data), tuple(relocations), frozenset()
+    for found in modules:
+        code = found.code_segments()
+        for seg in found.segdefs:
+            if (seg['id'] in code or not seg['length']
+                    or seg['class'].upper() in ('BSS', 'STACK')):
+                continue
+            chunk = bytearray(seg['length'])
+            raw = found.segbytes.get(seg['id'], b'')
+            chunk[:len(raw)] = raw[:len(chunk)]
+            base = len(data)
+            data += chunk
+            relocations.extend((base + fx.offset, fx.width)
+                               for fx in found.fixups
+                               if fx.seg == seg['id'])
+        externals.update(found.extdefs)
+    return bytes(data), tuple(relocations), frozenset(externals)
+
+
 def _build_module(module, omf_path, dump, compiler, kind='c'):
     result = CompiledModule()
     if kind != 'c':
@@ -574,10 +646,13 @@ def _build_module(module, omf_path, dump, compiler, kind='c'):
             if fx.symbol_kind == 'GBLSYM' and fx.symbol in dump.code_labels:
                 fx.symbol_kind = 'LCLSYM'
                 dump.locals[fx.symbol] = dump.code_labels[fx.symbol]
+    result.data = _initialized(dump)
+    result.data_version = DATA_VERSION
     if not os.path.exists(omf_path):
         return result
     with open(omf_path, 'rb') as f:
         data = f.read()
+    result.data, result.data_relocations, result.externals = _omf_data(data)
 
     code_len = len(dump.code)
     # PUBDEF has no ``static`` routine, so a public's extent runs on over the

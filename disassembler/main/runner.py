@@ -14,6 +14,7 @@ from lib.diagnostics import phase as diag_phase, emit as diag_emit, enabled as d
 
 from lib.decode import disassemble
 from lib.compare.verify import verify
+from lib.aztec.datamodules import data_modules as vendor_data_modules
 from lib.verify.assemble import clear_assemble_cache
 from lib.compare.records import (
     find_db_with_comment_lines,
@@ -62,7 +63,7 @@ from lib.sidecar.usage import SidecarUse
 from lib import stagelog
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
-from .aztec import _aztec_asm_annotations, _aztec_c_overrides
+from .aztec import _aztec_asm_annotations, _aztec_c_overrides, _data_sources
 from lib.autogen import is_generated, stamp, write_text
 from .emit import _write_address_inventory, _write_render_context
 from .options import (
@@ -786,6 +787,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         foreign_pointer_params=_foreign_pointer_params(project, a.foreign_prefix),
         sidecar_use=(ctx.sidecar_entry or {}).get('use'),
         bands=(ctx.sidecar_entry or {}).get('bands') or (),
+        data_modules=vendor_data_modules(project) if project else (),
     )
     stagelog.step('verify', 1, metrics={'lines': asm_text.count('\\n')})
     # D7.1: export the host-owned DS names this overlay references so the make
@@ -866,6 +868,11 @@ def _emit(a, r, exact_bytes):
     # the render left them (a pristine seed is relabelled there).
     seeds = {os.path.relpath(ov['path'], out_dir): ov['text']
              for ov in (a.c_overrides or {}).values() if ov.get('generated')}
+    # A vendor data module's file has its vendor .c beside it; every compiled
+    # source's data is checked against the named objects in the image.
+    seeds.update(_data_sources(project, name, out_dir, split_sources,
+                               segments=ctx.segments, data=a.data,
+                               overrides=(a.c_overrides or {}).values()))
     for include_path in list(split_sources):
         if include_path.endswith('.asm'):
             split_sources[include_path] = stamp(split_sources[include_path],

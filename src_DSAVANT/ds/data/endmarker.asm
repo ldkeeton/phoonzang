@@ -1,0 +1,3 @@
+; auto-generated
+__zendmarker:
+    db 0x02, 0x0d, 0x02, 0x0d

@@ -10,6 +10,8 @@
     "explorer.fileNesting.patterns": {
         "*.c": "$(capture).asm",
         "*.s": "$(capture).asm"
-    }
+    },
+    "workbench.iconTheme": "material-icon-theme",
+    "material-icon-theme.files.associations": { "*.s": "c" }
     //"search.useIgnoreFiles": false
 }

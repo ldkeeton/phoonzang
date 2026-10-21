@@ -286,16 +286,16 @@ __zdseg_90a6:
     db 'MON00.PIC', 0
 __zdseg_90b0:
     db 0x00, 0x00
-__zsave_si:
-    db 0x00, 0x00
-__zsave_di:
-    db 0x00, 0x00
-__zsave_sp:
-    db 0x00, 0x00
-__zsave_bp:
-    db 0x00, 0x00
-__zsave_ret:
-    db 0x00, 0x00
+%include "shared/data/save_si.asm"          ; 0xa55f
+
+%include "shared/data/save_di.asm"          ; 0xa561
+
+%include "shared/data/save_sp.asm"          ; 0xa563
+
+%include "shared/data/save_bp.asm"          ; 0xa565
+
+%include "shared/data/save_ret.asm"         ; 0xa567
+
 
 __zimage_end:
 absolute __zimage_end

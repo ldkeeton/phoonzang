@@ -170,6 +170,15 @@ def _on_disk(out_dir, rel):
     return hand_owned(os.path.join(out_dir, rel))
 
 
+def _shared_base(rel):
+    """``shared/<stem>``, or ``shared/data/<stem>`` for a data object's file
+    (``vinstall/data/ctp_.asm``): data shares only with data."""
+    stem = os.path.basename(rel)[:-4]
+    if os.path.basename(os.path.dirname(rel)) == 'data':
+        return f'{FOLDER}/data/{stem}'
+    return f'{FOLDER}/{stem}'
+
+
 def _fragments(files, out_dir):
     """``{relative path: (asm text, source or None)}`` of generated fragments.
 
@@ -189,7 +198,7 @@ def _fragments(files, out_dir):
         if not sep or top in _SKIP_DIRS or not rel.endswith('.asm'):
             continue
         own, own_suffix = source(rel[:-4], files.__contains__)
-        shared_base = f'{FOLDER}/{os.path.basename(rel)[:-4]}'
+        shared_base = _shared_base(rel)
         shared, shared_suffix = source(shared_base, files.__contains__)
         if own:
             ctext = (own_suffix, files[own])
@@ -220,8 +229,7 @@ def share_files(files, out_dir, tables):
     fragments = _fragments(files, out_dir)
     groups = defaultdict(list)
     for rel, (text, ctext) in fragments.items():
-        stem = os.path.basename(rel)[:-4]
-        groups[(stem, ctext)].append(rel)
+        groups[(_shared_base(rel), ctext)].append(rel)
 
     # Names carry a content tag (lib.names), so one stem is one body.  Where a
     # stem still has several (a label that differs only in which generic
@@ -232,14 +240,14 @@ def share_files(files, out_dir, tables):
                                         tables):
             if len({p.split('/')[0] for p in members}) < 2:
                 continue
-            stem = key[0]
+            stem = key[0]           # the shared base: one per object
             if stem not in best or len(members) > len(best[stem][0]):
                 best[stem] = (members, binds, key[1])
 
     shared, bindings = {}, {}
     for stem, (members, binds, ctext) in best.items():
         members = sorted(members)
-        shared_rel = f'{FOLDER}/{stem}.asm'
+        shared_rel = f'{stem}.asm'
         text = _text_for(fragments, members)
         if binds:
             text = _common_names(neutral(fragments[members[0]][0]),

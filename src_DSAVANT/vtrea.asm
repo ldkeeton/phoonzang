@@ -389,16 +389,16 @@ __zdseg_9100:
     db 0x2a, 0x2a, 0x2a, 0x00
 __zdseg_9104:
     db 'V.$$$', 0
-__zsave_si:
-    db 0x00, 0x00
-__zsave_di:
-    db 0x00, 0x00
-__zsave_sp:
-    db 0x00, 0x00
-__zsave_bp:
-    db 0x00, 0x00
-__zsave_ret:
-    db 0x00, 0x00
+%include "shared/data/save_si.asm"          ; 0x9a8d
+
+%include "shared/data/save_di.asm"          ; 0x9a8f
+
+%include "shared/data/save_sp.asm"          ; 0x9a91
+
+%include "shared/data/save_bp.asm"          ; 0x9a93
+
+%include "shared/data/save_ret.asm"         ; 0x9a95
+
 
 __zimage_end:
 absolute __zimage_end

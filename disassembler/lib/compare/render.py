@@ -3,9 +3,10 @@
 import re
 import struct
 
-from lib.compare.splitting import _partition_function_records
+from lib.compare.splitting import (_partition_function_records,
+                                   _select_data_ranges)
 from lib.names import data_space, generic_prefix
-from lib.symtab import Space, Symbol
+from lib.symtab import GENERIC, Space, Symbol
 
 
 # Minimum printable-run length for the D1 string anchor.  Shorter runs are
@@ -817,6 +818,16 @@ def _anchor_data_byte(records, binary_data, file_off, origin, value, name,
     return None
 
 
+def _note_data_root(roots, anchor, delta, name):
+    """Record *name*'s byte in *roots* when it is a named object's first.
+
+    A generic name (``dseg_1444``) is not an object of its own yet, and a
+    name inside a string (``delta``) is the string's, not a new object.
+    """
+    if not delta and getattr(name, 'source', None) not in GENERIC:
+        roots.setdefault(anchor.offset, name)
+
+
 def _bss_block_lines(labels):
     """The BSS block after ``__zimage_end``: ``{distance: [label, ...]}``.
 
@@ -842,7 +853,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
                   label_defined=None, ds_size=None, host_symbols=None,
                   host_data_offsets=None, load_offset=0, overlay_own=None,
-                  bands=()):
+                  bands=(), data_modules=()):
     """Render the master NASM source and any generated includes.
 
     *host_symbols* is ``(master_file, host_vbase)`` for an overlay with a host:
@@ -1063,6 +1074,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
             else:
                 out.append(f'{name} equ 0x{addr:04x}')
     data_anchored = is_mz and gap is not None
+    # Named data objects bound to their own byte: each becomes a file.
+    data_roots = {}
     # The BSS blocks after ``__zimage_end``: ``{offset past the image: label}``.
     mz_bss = {}
     ovr_bss_labels = {}
@@ -1114,6 +1127,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                         name, placed_anchors)
                     if anchored is not None:
                         anchor, delta = anchored
+                        _note_data_root(data_roots, anchor, delta, name)
                         expr = f'{anchor} - __zdseg_start'
                         if delta:
                             expr += f' + 0x{delta:04x}'
@@ -1173,6 +1187,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                     overlay_own[name], name, placed)
                 if anchored is not None:
                     anchor, off = anchored
+                    _note_data_root(data_roots, anchor, off, name)
                     expr = f'{_DSSIZE_SYMBOL} + ({anchor} - __zdata_start)'
                     if off:
                         expr += f' + 0x{off:04x}'
@@ -1185,8 +1200,11 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     if label_map or immediate_labels or mem_equ or ds_end_symbol is not None:
         out.append('')
 
+    data_ranges = _select_data_ranges(records, data_roots, binary_data,
+                                      data_modules)
     main_records, split_records = _partition_function_records(
-        records, split_ranges, split_dir, bands,
+        records, [*(split_ranges or ()), *data_ranges], split_dir, bands,
+        data_starts={start for start, _, _ in data_ranges},
     )
     out.extend(_render_records(main_records, binary_data, show_offsets, gap=gap,
                                ds_size=ds_size, ds_end_symbol=ds_end_symbol,

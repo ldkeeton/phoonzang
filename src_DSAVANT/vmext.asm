@@ -251,16 +251,16 @@ __zdseg_915b:
 __zdseg_9168:
     db 'WATRDATA.VGA', 0
     db 0x00
-__zsave_si:
-    db 0x00, 0x00
-__zsave_di:
-    db 0x00, 0x00
-__zsave_sp:
-    db 0x00, 0x00
-__zsave_bp:
-    db 0x00, 0x00
-__zsave_ret:
-    db 0x00, 0x00
+%include "shared/data/save_si.asm"          ; 0x5337
+
+%include "shared/data/save_di.asm"          ; 0x5339
+
+%include "shared/data/save_sp.asm"          ; 0x533b
+
+%include "shared/data/save_bp.asm"          ; 0x533d
+
+%include "shared/data/save_ret.asm"         ; 0x533f
+
 
 __zimage_end:
 absolute __zimage_end

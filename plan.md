@@ -259,10 +259,18 @@ and supply the "inside a string" refusal.
    mapping and a per-type load base (`EXE → 0`, `OVR → o_corg`, `DRV → 0x100`).
 7. **Final gate:** a shuffle build (reorder fragments, rebuild) and a DOSBox-X
    boot of the result.
-8. **Vendor data as C.** The library's data is still `db` blocks: `ctp_` (Manx
-   `ctype.c` in `SRC/MISC.ARC`, `char ctp_[129] = {...}`), `Cbuffs` and the
-   like. It needs a data-recovery path: compile the vendor definition and accept
-   it only where its bytes equal the exe's at the name's address. The remaining
+8. **Vendor data as C.** A library module that is only data
+   (`lib/aztec/datamodules.py`) is done: where the image holds its bytes under
+   its names, it is one `data/` file whose `.c` is the vendor source, compiled
+   and checked by the build (`main.aztec._data_sources`): `ctp_.asm`/`ctp_.c`
+   (`ctype.c`), `shared/data/stksiz.asm`/`stksiz.c` (four ints). The same gate
+   now covers data in modules that also hold code: every compiled C/assembly
+   module's full data segment is matched at the named DS objects
+   (`lib/aztec/dataowners.py`). `modes` is owned by `aztec_fopen.c`, `Cbuffs`
+   by `aztec_getbuff.c`, `_Eol` by `aztec_ttyio.c`, and `score_ext_*` by
+   `load_score_files.c`; a mismatch, an unowned source datum, or two source
+   definitions fails the build. The generated `data/*.asm` is the image side
+   and may carry the same label; it is not a second source. The remaining
    code misses (`format`, `calloc`, `fputs`, `gmtime`, `utime`, `raise`,
    `vfprintf`, `_scan`, `strcmp`/`strncmp`) match neither v3.40a nor v5.2a
    sources, so they likely come from a library release we do not have.
@@ -288,6 +296,14 @@ and supply the "inside a string" refusal.
   cuts at named routines and declared dispatch roots, never at a bare internal
   `loc_`. `_split_off_foreign_objects` trims what follows a routine's own code: a
   code neighbour becomes its own file, a data neighbour goes to the master.
+- **One file per named data object.** A data name bound to its own byte (not a
+  generic `dseg_`/`__zstr_` name, not a byte inside a string) roots a file in
+  the binary's `data/` folder (`vinstall/data/ctp_.asm`); it runs to the next
+  label or the end of the data (`_select_data_ranges`). Generic objects, the
+  code→data gap and BSS stay in the master. Identical copies share into
+  `shared/data/`; the README progress count leaves `data/` out. A vendor
+  data-only module is one file named for its object (`ctp_`) or, with several,
+  its source (`stksiz`), so its `.c` pairs 1:1 (item 8).
 - **A switch is one file.** An arm of a validated table that is not pinned (call
   target, declared handler, seed) has `role == 'case'` and is named
   `jumptable_<table>_case_<n>`; it never starts a range, is not content-tagged

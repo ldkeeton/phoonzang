@@ -591,16 +591,16 @@ __zdseg_9501:
 __zdseg_950c:
     db 'PCVWSCRN.VGA', 0
     db 0x00
-__zsave_si:
-    db 0x00, 0x00
-__zsave_di:
-    db 0x00, 0x00
-__zsave_sp:
-    db 0x00, 0x00
-__zsave_bp:
-    db 0x00, 0x00
-__zsave_ret:
-    db 0x00, 0x00
+%include "shared/data/save_si.asm"          ; 0x74b3
+
+%include "shared/data/save_di.asm"          ; 0x74b5
+
+%include "shared/data/save_sp.asm"          ; 0x74b7
+
+%include "shared/data/save_bp.asm"          ; 0x74b9
+
+%include "shared/data/save_ret.asm"         ; 0x74bb
+
 
 __zimage_end:
 absolute __zimage_end
