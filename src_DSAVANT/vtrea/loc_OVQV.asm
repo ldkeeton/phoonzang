@@ -18,7 +18,7 @@ loc_OVQV:
     push word [bp + 0x8]             ; 0x2454
     push word [bp + 0x6]             ; 0x2457
     push word [bp + 0x4]             ; 0x245a
-    call ds_app_GIKM                 ; 0x245d
+    call draw_rect_outline           ; 0x245d
     add sp, byte 8                   ; 0x2460
     mov ax, 0xc5                     ; 0x2463
     cmp word [bp + 0xc], byte 0      ; 0x2466
@@ -36,7 +36,7 @@ loc_OVQV:
     push word [bp + 0x8]             ; 0x2480
     push word [bp + 0x6]             ; 0x2483
     push word [bp + 0x4]             ; 0x2486
-    call ds_app_TTLJ                 ; 0x2489
+    call draw_rect_bevel             ; 0x2489
     add sp, byte 0x0c                ; 0x248c
     mov ax, 0xb4                     ; 0x248f
     push ax                          ; 0x2492
@@ -58,7 +58,7 @@ loc_OVQV:
     dec ax                           ; 0x24ac
     dec ax                           ; 0x24ad
     push ax                          ; 0x24ae
-    call ds_app_TTLJ                 ; 0x24af
+    call draw_rect_bevel             ; 0x24af
     add sp, byte 0x0c                ; 0x24b2
     mov ax, 0x51                     ; 0x24b5
     cmp word [bp + 0xc], byte 0      ; 0x24b8

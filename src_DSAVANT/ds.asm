@@ -361,9 +361,9 @@ bss_5b46 equ __zbss_5b46 - __zdseg_start
 bss_598c equ __zbss_598c - __zdseg_start
 %include "ds/game/ds_app_VRKV.asm"         ; 0x0d7a
 
-%include "ds/game/ds_app_GIKM.asm"         ; 0x0e03
+%include "ds/game/draw_rect_outline.asm"   ; 0x0e03
 
-%include "ds/game/ds_app_TTLJ.asm"         ; 0x0e82
+%include "ds/game/draw_rect_bevel.asm"     ; 0x0e82
 
 %include "ds/game/draw_dialog_box.asm"     ; 0x0ee1
 

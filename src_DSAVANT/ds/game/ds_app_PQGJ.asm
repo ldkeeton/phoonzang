@@ -14,7 +14,7 @@ ds_app_PQGJ: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x0f49
     push word [bp + 0x6]             ; 0x0f4c
     push word [bp + 0x4]             ; 0x0f4f
-    call ds_app_GIKM                 ; 0x0f52
+    call draw_rect_outline           ; 0x0f52
     add sp, byte 8                   ; 0x0f55
     mov ax, 0xc5                     ; 0x0f58
     push ax                          ; 0x0f5b
@@ -24,7 +24,7 @@ ds_app_PQGJ: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x0f63
     push word [bp + 0x6]             ; 0x0f66
     push word [bp + 0x4]             ; 0x0f69
-    call ds_app_TTLJ                 ; 0x0f6c
+    call draw_rect_bevel             ; 0x0f6c
     add sp, byte 0x0c                ; 0x0f6f
     cmp word [bp + 0xc], byte 0      ; 0x0f72
     je short @..ds_app_PQGJ.l1       ; 0x0f76
@@ -48,7 +48,7 @@ ds_app_PQGJ: ; Aztec csav frame=0x0000
     dec ax                           ; 0x0f95
     dec ax                           ; 0x0f96
     push ax                          ; 0x0f97
-    call ds_app_TTLJ                 ; 0x0f98
+    call draw_rect_bevel             ; 0x0f98
     add sp, byte 0x0c                ; 0x0f9b
 @..ds_app_PQGJ.l1:
     mov ax, 0x51                     ; 0x0f9e

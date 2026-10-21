@@ -14,7 +14,7 @@ ds_app_OPOL: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x0ffe
     push word [bp + 0x6]             ; 0x1001
     push word [bp + 0x4]             ; 0x1004
-    call ds_app_GIKM                 ; 0x1007
+    call draw_rect_outline           ; 0x1007
     add sp, byte 8                   ; 0x100a
     mov ax, 0xb4                     ; 0x100d
     push ax                          ; 0x1010
@@ -36,6 +36,6 @@ ds_app_OPOL: ; Aztec csav frame=0x0000
     dec ax                           ; 0x102a
     dec ax                           ; 0x102b
     push ax                          ; 0x102c
-    call ds_app_TTLJ                 ; 0x102d
+    call draw_rect_bevel             ; 0x102d
     add sp, byte 0x0c                ; 0x1030
     ret                              ; 0x1033

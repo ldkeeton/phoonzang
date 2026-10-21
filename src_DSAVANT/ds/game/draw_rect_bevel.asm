@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_TTLJ: ; Aztec csav frame=0x0000
+draw_rect_bevel: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x0e82
     call aztec_csav                  ; 0x0e85
     push word [bp + 0xc]             ; 0x0e88

@@ -14,7 +14,7 @@ draw_dialog_box: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x0f00
     push word [bp + 0x6]             ; 0x0f03
     push word [bp + 0x4]             ; 0x0f06
-    call ds_app_GIKM                 ; 0x0f09
+    call draw_rect_outline           ; 0x0f09
     add sp, byte 8                   ; 0x0f0c
     mov ax, 0xc5                     ; 0x0f0f
     push ax                          ; 0x0f12
@@ -24,6 +24,6 @@ draw_dialog_box: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x0f1a
     push word [bp + 0x6]             ; 0x0f1d
     push word [bp + 0x4]             ; 0x0f20
-    call ds_app_TTLJ                 ; 0x0f23
+    call draw_rect_bevel             ; 0x0f23
     add sp, byte 0x0c                ; 0x0f26
     ret                              ; 0x0f29

@@ -755,7 +755,7 @@ jumptable_147e_case_0:
     push ax                          ; 0x176c
     push word [bss_9b0a]             ; 0x176d
     push word [bss_9b0c]             ; 0x1771
-    call ds_app_GIKM                 ; 0x1775
+    call draw_rect_outline           ; 0x1775
     add sp, byte 8                   ; 0x1778
     mov ax, 0x8d                     ; 0x177b
     push ax                          ; 0x177e
