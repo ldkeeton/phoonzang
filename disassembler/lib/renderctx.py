@@ -64,6 +64,9 @@ def encode(context):
                           in context.get('label_records', ())],
         'data_names': _encode_addr_map(context.get('data_names')),
         'table_labels': _encode_addr_map(context.get('table_labels')),
+        'jump_tables': [{**rec, 'label': to_record(rec['label']),
+                         'entries': [to_record(e) for e in rec['entries']]}
+                        for rec in context.get('jump_tables', ())],
     }
 
 
@@ -87,4 +90,7 @@ def decode(raw):
                           in raw.get('label_records', ())],
         'data_names': _decode_addr_map(raw.get('data_names', {})),
         'table_labels': _decode_addr_map(raw.get('table_labels', {})),
+        'jump_tables': [{**rec, 'label': from_record(rec['label']),
+                         'entries': [from_record(e) for e in rec['entries']]}
+                        for rec in raw.get('jump_tables', ())],
     }

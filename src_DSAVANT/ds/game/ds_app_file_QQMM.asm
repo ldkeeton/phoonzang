@@ -38,7 +38,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push word [bss_0e24]             ; 0x2455
     call aztec_close                 ; 0x2459
     pop cx                           ; 0x245c
-    push word [bss_0e22]             ; 0x245d
+    push word [data_file_fd]         ; 0x245d
     call aztec_close                 ; 0x2461
     pop cx                           ; 0x2464
 @..ds_app_file_QQMM.l1:
@@ -402,7 +402,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x27d1
     call aztec_open                  ; 0x27d2
     add sp, byte 4                   ; 0x27d5
-    mov word [bss_0e22], ax          ; 0x27d8
+    mov word [data_file_fd], ax      ; 0x27d8
     cmp ax, strict word 0xffff       ; 0x27db
     jne short @..ds_app_file_QQMM.l19 ; 0x27de
     mov ax, 0x1a                     ; 0x27e0

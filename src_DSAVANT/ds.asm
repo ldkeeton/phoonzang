@@ -246,25 +246,25 @@ __zbss_size equ __zbss_end - __zimage_end
 
 %include "ds/game/app_free.asm"            ; 0x022f
 
-bss_0e0e equ __zbss_0e0e - __zdseg_start
-bss_0e10 equ __zbss_0e10 - __zdseg_start
-bss_0e12 equ __zbss_0e12 - __zdseg_start
-bss_0e14 equ __zbss_0e14 - __zdseg_start
-bss_0e16 equ __zbss_0e16 - __zdseg_start
-bss_0e18 equ __zbss_0e18 - __zdseg_start
-bss_0e1a equ __zbss_0e1a - __zdseg_start
-bss_0e1c equ __zbss_0e1c - __zdseg_start
-bss_0e1e equ __zbss_0e1e - __zdseg_start
-bss_0e20 equ __zbss_0e20 - __zdseg_start
-bss_0e22 equ __zbss_0e22 - __zdseg_start
-bss_0e24 equ __zbss_0e24 - __zdseg_start
-bss_0e26 equ __zbss_0e26 - __zdseg_start
-bss_0e28 equ __zbss_0e28 - __zdseg_start
-bss_0e2a equ __zbss_0e2a - __zdseg_start
-bss_0e2c equ __zbss_0e2c - __zdseg_start
-bss_0e2e equ __zbss_0e2e - __zdseg_start
-bss_0e30 equ __zbss_0e30 - __zdseg_start
-bss_0e32 equ __zbss_0e32 - __zdseg_start
+bss_0e0e     equ __zbss_0e0e - __zdseg_start
+bss_0e10     equ __zbss_0e10 - __zdseg_start
+bss_0e12     equ __zbss_0e12 - __zdseg_start
+bss_0e14     equ __zbss_0e14 - __zdseg_start
+bss_0e16     equ __zbss_0e16 - __zdseg_start
+bss_0e18     equ __zbss_0e18 - __zdseg_start
+bss_0e1a     equ __zbss_0e1a - __zdseg_start
+bss_0e1c     equ __zbss_0e1c - __zdseg_start
+bss_0e1e     equ __zbss_0e1e - __zdseg_start
+bss_0e20     equ __zbss_0e20 - __zdseg_start
+data_file_fd equ __zbss_0e22 - __zdseg_start
+bss_0e24     equ __zbss_0e24 - __zdseg_start
+bss_0e26     equ __zbss_0e26 - __zdseg_start
+bss_0e28     equ __zbss_0e28 - __zdseg_start
+bss_0e2a     equ __zbss_0e2a - __zdseg_start
+bss_0e2c     equ __zbss_0e2c - __zdseg_start
+bss_0e2e     equ __zbss_0e2e - __zdseg_start
+bss_0e30     equ __zbss_0e30 - __zdseg_start
+bss_0e32     equ __zbss_0e32 - __zdseg_start
 %include "ds/game/ds_app_file_RKTP.asm"    ; 0x0242
 
 %include "ds/game/fatal_error.asm"         ; 0x03b8
@@ -306,8 +306,15 @@ bss_5216 equ __zbss_5216 - __zdseg_start
 
 %include "ds/game/ds_app_KQMO.asm"         ; 0x0860
 
-; bss_0e22 equ __zbss_0e22 - __zdseg_start
-bss_5524 equ __zbss_5524 - __zdseg_start
+; data_file_fd  equ __zbss_0e22 - __zdseg_start
+record_base   equ __zbss_521c - __zdseg_start
+record_map_2  equ __zbss_5244 - __zdseg_start
+record_map_5  equ __zbss_5264 - __zdseg_start
+record_map_7  equ __zbss_52c4 - __zdseg_start
+record_map_4  equ __zbss_53c4 - __zdseg_start
+record_map_8  equ __zbss_54c4 - __zdseg_start
+record_size   equ __zbss_5524 - __zdseg_start
+record_packed equ __zbss_556c - __zdseg_start
 %include "ds/game/data_record_io.asm"      ; 0x0883
 
 dseg_0002 equ __zdseg_0002 - __zdseg_start
@@ -456,7 +463,7 @@ dseg_0ba6    equ __zdseg_0ba6 - __zdseg_start
 dseg_0baf    equ __zdseg_0baf - __zdseg_start
 dseg_0bb8    equ __zdseg_0bb8 - __zdseg_start
 dseg_0bc0    equ __zdseg_0bc0 - __zdseg_start
-; bss_0e22     equ __zbss_0e22 - __zdseg_start
+; data_file_fd equ __zbss_0e22 - __zdseg_start
 ; bss_0e24     equ __zbss_0e24 - __zdseg_start
 bss_5218     equ __zbss_5218 - __zdseg_start
 bss_5926     equ __zbss_5926 - __zdseg_start
@@ -846,7 +853,7 @@ cseg_3fde:
     db 'I/O error loading Misc. table.'
     db 0x0d, 0x0a, 0x24
 
-%include "ds/library/ds_string_loc_HTNS.asm" ; 0x4002
+%include "ds/library/unpack_record.asm"    ; 0x4002
 
 %include "ds/library/ds_string_loc_SSGO.asm" ; 0x4046
 
@@ -1531,13 +1538,27 @@ __zbss_5214:
 __zbss_5216:
     resb 0x0002
 __zbss_5218:
-    resb 0x030c
+    resb 0x0004
+__zbss_521c:
+    resb 0x0028
+__zbss_5244:
+    resb 0x0020
+__zbss_5264:
+    resb 0x0060
+__zbss_52c4:
+    resb 0x0100
+__zbss_53c4:
+    resb 0x0100
+__zbss_54c4:
+    resb 0x0060
 __zbss_5524:
     resb 0x0004
 __zbss_5528:
     resb 0x0002
 __zbss_552a:
-    resb 0x004c
+    resb 0x0042
+__zbss_556c:
+    resb 0x000a
 __zbss_5576:
     resb 0x00cc
 __zbss_5642:

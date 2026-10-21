@@ -476,6 +476,11 @@ def resplice_c(app, binary, check_only=False):
             foreign_label_map = context['foreign_label_map']
             immediate_labels = context['immediate_labels']
             exact_bytes = context['exact_bytes']
+            # A C ``switch`` table renders as the build's own record.
+            tables = [r for r in context.get('jump_tables', ())
+                      if start + lead <= r['start'] and r['end'] <= end]
+            label_addrs = {name: offset for offset, name, _
+                           in context['label_records']}
         else:
             # No persisted context (e.g. an older build tree): fall back to the
             # per-fragment synthesis this hot loop used before the maps existed.
@@ -492,12 +497,19 @@ def resplice_c(app, binary, check_only=False):
             data_labels = mem_symbols = mem_equ = None
             foreign_label_map = immediate_labels = None
             exact_bytes = False
+            tables, label_addrs = [], None
+        table_starts = {(r['start'], r['label']) for r in tables}
+        label_records = [r for r in label_records
+                         if (r['offset'], r['name']) not in table_starts]
         records = _c_bytes_to_records(
             bytes(final), start, label_map, local_labels, foreign_label_map,
             immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
-            linked=linked, skip=lead, data_spans=spans_here,
-            label_offsets=[r['offset'] for r in label_records])
+            linked=linked, skip=lead,
+            data_spans=[*spans_here, *((r['start'] - start, r['end'] - start)
+                                       for r in tables)],
+            label_offsets=[r['offset'] for r in label_records],
+            jump_tables=tables, label_addrs=label_addrs)
         head = _leading_lines(apath, str(label_map.get(first, label)), lead)
         if lead:
             # The leading lines already carry the labels up to the root.

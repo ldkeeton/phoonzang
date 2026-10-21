@@ -208,6 +208,10 @@
           "name": "set_bitmap_bit",
           "note": "hand-written asm: set or clear bit [bp+6] of the bitmap at [bp+4] per [bp+8]"
         },
+        "4002": {
+          "name": "unpack_record",
+          "note": "hand-written asm (src, dst): first byte of src is the output length; decodes that many bytes into dst via ds_string_loc_SSGO's bit reader, then stores a zero word; data_record_io uses it for packed record types"
+        },
         "4462": {
           "name": "aztec_loadabort",
           "note": "Manx OVLOADER.C loadabort(code): prints 'Error %d loading overlay: %s$' and exits 100"
@@ -272,6 +276,15 @@
         "01a4": {"name": "party_slot_x", "note": "int [2][6]: x of each party slot's letter for row 0/1; draw_party_slot_letters adds its x"},
         "01bc": {"name": "party_slot_y", "note": "int [2][6]: y of each party slot's letter for row 0/1; draw_party_slot_letters adds its y"},
         "01d4": {"name": "party_slot_glyphs", "note": "int [6][10]: per party slot, the glyph codes of its letter animation, 0xffff ends; draw_party_slot_letters reads the low byte of [slot][party_slot_frame[slot]]"},
+        "0e22": {"name": "data_file_fd", "note": "int: handle of the open game data file that data_record_io seeks, reads and writes"},
+        "521c": {"name": "record_base", "note": "long [] per record type: file offset of the type's first record in the data file"},
+        "5244": {"name": "record_map_2", "note": "unsigned char []: index -> record number for data_record_io types 2 and 3"},
+        "5264": {"name": "record_map_5", "note": "unsigned char []: index -> record number for data_record_io type 5"},
+        "52c4": {"name": "record_map_7", "note": "unsigned char []: index -> record number for data_record_io type 7"},
+        "53c4": {"name": "record_map_4", "note": "unsigned char []: index -> record number for data_record_io type 4"},
+        "54c4": {"name": "record_map_8", "note": "unsigned char []: index -> record number for data_record_io type 8"},
+        "5524": {"name": "record_size", "note": "int [] per record type: byte size of one record (also the read size of a packed record)"},
+        "556c": {"name": "record_packed", "note": "char [] per record type: nonzero when records are stored packed; data_record_io reads them into a buffer and unpack_record expands them"},
         "5576": {"name": "sound_slot_info", "note": "12-byte records per sound slot, read by data_record_io type 9: +0 alias sound number, +4 long size (0 means use the alias)"},
         "5912": {"name": "data_path_prefixes", "note": "char [][20]: drive/directory prefixes for data files; data_file_path copies one through its ':' (index 1 only when install_mode == 5)"},
         "5987": {"name": "install_mode", "note": "byte: install/disk configuration; 5 selects the alternate data path prefix in data_file_path and shifts indices in ds_app_IMTG/ds_app_file_QQMM"},

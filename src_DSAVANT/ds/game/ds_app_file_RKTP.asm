@@ -61,7 +61,7 @@ jumptable_0363_case_0:
     add sp, byte 4                   ; 0x02e0
 jumptable_0363_case_11:
 @..ds_app_file_RKTP.l10:
-    push word [bss_0e22]             ; 0x02e3
+    push word [data_file_fd]         ; 0x02e3
     call aztec_close                 ; 0x02e7
     pop cx                           ; 0x02ea
 jumptable_0363_case_10:

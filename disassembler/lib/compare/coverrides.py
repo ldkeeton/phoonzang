@@ -56,6 +56,36 @@ def _numeric_form(text, refs):
     return text
 
 
+def _claim_table(table, base, linked, name_to_addr):
+    """Match a jump table's relocations to its entries; False: not plain.
+
+    ``cc``'s dense ``switch`` puts its ``dw`` table in the code, each word a
+    relocation to a case label.  A word is claimed when its relocation lands
+    where the entry's label does; any other is a failure to report.
+    """
+    if (table.get('entry_size', 2) != 2 or table.get('adjust', 0)
+            or table.get('keys', 0)
+            or not all(isinstance(e, str) for e in table['entries'])):
+        return False
+    if linked is None:
+        return True
+    for i, entry in enumerate(table['entries']):
+        site = table['start'] - base + 2 * i
+        ref = linked.refs.get(site)
+        if ref is None:
+            continue
+        target = next(iter(ref.equ.values()), None)
+        want = name_to_addr.get(entry)
+        if target is not None and target == want:
+            linked.consumed.add(site)
+        else:
+            linked.failed.append((
+                base + site, f'dw {entry} - IMAGE_BASE',
+                f'0x{target:x}' if target is not None else None,
+                f'0x{want:x}' if want is not None else None))
+    return True
+
+
 #: Mnemonics after which execution never reaches the next byte.
 _NO_FALLTHROUGH = frozenset(('ret', 'retf', 'iret', 'jmp', 'ljmp'))
 
@@ -63,7 +93,8 @@ _NO_FALLTHROUGH = frozenset(('ret', 'retf', 'iret', 'jmp', 'ljmp'))
 def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
                         immediate_labels, exact_bytes=False, data_labels=None,
                         mem_symbols=None, mem_equ=None, image_base=None,
-                        linked=None, skip=0, data_spans=(), label_offsets=()):
+                        linked=None, skip=0, data_spans=(), label_offsets=(),
+                        jump_tables=(), label_addrs=None):
     """Disassemble compiler-produced code into emission records.
 
     *linked* (a :class:`lib.aztec.relink.Linked`) names the operands the C
@@ -74,12 +105,20 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
     *data*, :func:`lib.aztec.listing.data_spans`) are the source's own data
     directives, emitted as ``db`` rather than decoded; each is split at the
     *label_offsets* (absolute) inside it, so a label lands on its byte.
+    A span that is one of the disassembly's *jump_tables* records is emitted
+    as that record, its relocations claimed by :func:`_claim_table`; an
+    entry's label is found in *label_map* or *label_addrs* (``{name: addr}``).
     """
     from lib.format import format_instruction
     md = Cs(CS_ARCH_X86, CS_MODE_16)
     md.detail = True
     records = []
     consumed = skip
+    tables = {(t['start'], t['end']): t for t in jump_tables}
+    name_to_addr = dict(label_addrs or {})
+    for addr, nm in (label_map or {}).items():
+        if isinstance(nm, str):
+            name_to_addr.setdefault(nm, addr)
 
     def emit_db(start, end):
         for k in range(start, end):
@@ -130,6 +169,12 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
             lo, hi = insn
             if lo > consumed:
                 emit_db(consumed, lo)
+            table = tables.get((base + lo, base + hi))
+            if table is not None and _claim_table(table, base, linked,
+                                                  name_to_addr):
+                records.append(dict(table))
+                consumed = hi
+                continue
             records.append({
                 'type': 'data_block', 'start': base + lo, 'end': base + hi,
                 'bytes': [f'0x{b:02x}' for b in data[lo:hi]],
@@ -501,12 +546,24 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             # local labels stay valid for every operand, not just branches.
             record_labels = {**(local_labels or {}), **record_labels}
         labels_in = labels_in + derived
+        # A ``switch`` table in the code: the disassembly's record says where
+        # it is, and the record prints its own label.
+        tables = [r for r in records if r['type'] == 'jump_table'
+                  and start + lead <= r['start'] and r['end'] <= end]
+        table_starts = {r['start'] for r in tables}
+        labels_in = [r for r in labels_in if not (
+            r['offset'] in table_starts
+            and any(r['name'] == t['label'] for t in tables))]
+        spans = [*override.get('data_spans', ()),
+                 *((r['start'] - start, r['end'] - start) for r in tables)]
         new_records = head + _c_bytes_to_records(
             bytes(final), start, label_map, record_labels, foreign_label_map,
             immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
-            linked=linked, skip=lead, data_spans=override.get('data_spans', ()),
-            label_offsets=[r['offset'] for r in labels_in])
+            linked=linked, skip=lead, data_spans=spans,
+            label_offsets=[r['offset'] for r in labels_in], jump_tables=tables,
+            label_addrs={r['name']: r['offset'] for r in records
+                         if r['type'] == 'label'})
         if linked is not None:
             _check_linked(label, linked)
         replacements.append((start, end,

@@ -324,6 +324,54 @@ class RenderTest(unittest.TestCase):
         self.assertEqual(linked.local_records[0]['offset'], 0x4404)
 
 
+class SwitchTableTest(unittest.TestCase):
+    """A ``cc`` switch table in the code renders as the build's record."""
+
+    START = 0x4400
+    BASE = 0x200
+
+    def render(self, entries, label_addrs=None):
+        # jmp short .0 ; .1: nop ; ret ; dw .1 ; dw .1 ; .0: ret
+        code = b'\xeb\x00\x90\xc3\x00\x00\x00\x00\xc3'
+        fixups = [Fixup(1, 'BREL', 'LCLSYM', None, '.0'),
+                  Fixup(4, 'WABS', 'LCLSYM', None, '.1'),
+                  Fixup(6, 'WABS', 'LCLSYM', None, '.1')]
+        func = Func('_f', 'f', 0, code, fixups, {'.0': 8, '.1': 2})
+        case = self.START + 2
+        original = bytearray(self.START + len(code))
+        for site in (4, 6):
+            original[self.START + site:self.START + site + 2] = (
+                (case - self.BASE).to_bytes(2, 'little'))
+        label_map = {self.START: 'aztec_f', case: 'jt_case_0'}
+        index = relink.SymbolIndex(label_map, None, None, {},
+                                   image_base=self.BASE)
+        linked = relink.link('aztec_f', self.START, func, index,
+                             bytes(original))
+        table = {'type': 'jump_table', 'start': self.START + 4,
+                 'end': self.START + 8, 'label': 'jt', 'jmp_addr': -1,
+                 'entry_size': 2, 'entries': entries, 'adjust': 0,
+                 'literal': False, 'keys': 0, 'note': ''}
+        records = _c_bytes_to_records(
+            bytes(linked.code), self.START, label_map, {}, None, None,
+            linked=linked, image_base=self.BASE, data_spans=[(4, 8)],
+            jump_tables=[table], label_addrs=label_addrs)
+        return linked, records
+
+    def test_table_relocations_are_claimed(self):
+        linked, records = self.render(['jt_case_0', 'jt_case_0'])
+        tables = [r for r in records if r['type'] == 'jump_table']
+        self.assertEqual(len(tables), 1)
+        self.assertEqual(tables[0]['entries'], ['jt_case_0', 'jt_case_0'])
+        self.assertFalse(linked.failed)
+        self.assertFalse(linked.unmatched)
+
+    def test_entry_naming_another_label_fails(self):
+        linked, _records = self.render(['jt_case_0', 'jt_other'],
+                                       {'jt_other': self.START + 3})
+        self.assertEqual(len(linked.failed), 1)
+        self.assertEqual(linked.failed[0][0], self.START + 6)
+
+
 class RelabelTest(unittest.TestCase):
     def test_rewrite_skips_comments_and_literals(self):
         text = ('/* open is documented */\n'

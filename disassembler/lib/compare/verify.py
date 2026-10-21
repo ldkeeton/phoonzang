@@ -1387,6 +1387,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                               for rec in records if rec['type'] == 'label'],
             'table_labels': {rec['start']: rec['label'] for rec in records
                              if rec['type'] == 'jump_table'},
+            # The tables themselves, so a C ``switch`` re-renders its own.
+            'jump_tables': [rec for rec in records
+                            if rec['type'] == 'jump_table'],
             # The DS names the pipeline learned, which resplice's rebuilt
             # segment model cannot.
             'data_names': dict(getattr(segments, 'data_names', None) or {}),

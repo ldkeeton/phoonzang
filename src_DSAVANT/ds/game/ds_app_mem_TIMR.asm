@@ -83,7 +83,7 @@ ds_app_mem_TIMR: ; Aztec csav frame=0x010a
     push word [bp + 0x6]             ; 0x084b
     lea ax, word [bp - 0x0109]       ; 0x084e
     push ax                          ; 0x0852
-    call ds_string_loc_HTNS          ; 0x0853
+    call unpack_record               ; 0x0853
     add sp, byte 4                   ; 0x0856
     mov word [bss_5216], 0           ; 0x0859
     ret                              ; 0x085f
