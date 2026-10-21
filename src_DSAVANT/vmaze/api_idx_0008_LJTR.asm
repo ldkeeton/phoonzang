@@ -75,7 +75,7 @@ jumptable_3000:
     add ax, word [bp + 0x8]          ; 0x302c
     mov word [bp - 0x0002], ax       ; 0x302f
     push ax                          ; 0x3032
-    mov ax, word [bss_0e14]          ; 0x3033
+    mov ax, word [maze_data]         ; 0x3033
     add ax, 0x9b0                    ; 0x3036
     push ax                          ; 0x3039
     call ds_leaf_loc_PRVP            ; 0x303a
@@ -120,7 +120,7 @@ jumptable_3082:
     jmp [cs:bx + jumptable_3082 - IMAGE_BASE + __zres_end] ; 0x3096
 @..api_idx_0008_LJTR.l6:
     push word [bp - 0x0002]          ; 0x309b
-    mov ax, word [bss_0e14]          ; 0x309e
+    mov ax, word [maze_data]         ; 0x309e
     add ax, 0x8b0                    ; 0x30a1
     push ax                          ; 0x30a4
     call ds_leaf_loc_PRVP            ; 0x30a5
@@ -179,7 +179,7 @@ jumptable_3111:
     jmp [cs:bx + jumptable_3111 - IMAGE_BASE + __zres_end] ; 0x3125
 @..api_idx_0008_LJTR.l10:
     push word [bp - 0x0002]          ; 0x312a
-    mov ax, word [bss_0e14]          ; 0x312d
+    mov ax, word [maze_data]         ; 0x312d
     add ax, 0x930                    ; 0x3130
     push ax                          ; 0x3133
     call ds_leaf_loc_PRVP            ; 0x3134
@@ -224,7 +224,7 @@ jumptable_3111:
     mov ax, 4                        ; 0x3193
     push ax                          ; 0x3196
     push word [bp - 0x0002]          ; 0x3197
-    mov ax, word [bss_0e14]          ; 0x319a
+    mov ax, word [maze_data]         ; 0x319a
     add ax, 0x90                     ; 0x319d
     push ax                          ; 0x31a0
     call ds_leaf_loc_NPSL            ; 0x31a1
@@ -235,7 +235,7 @@ jumptable_3111:
     mov ax, 4                        ; 0x31ac
     push ax                          ; 0x31af
     push word [bp - 0x0002]          ; 0x31b0
-    mov ax, word [bss_0e14]          ; 0x31b3
+    mov ax, word [maze_data]         ; 0x31b3
     add ax, 0x290                    ; 0x31b6
     push ax                          ; 0x31b9
     call ds_leaf_loc_NPSL            ; 0x31ba

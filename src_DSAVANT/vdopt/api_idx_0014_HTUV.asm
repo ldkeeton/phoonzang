@@ -17,7 +17,7 @@ api_idx_0014_HTUV:
     push ax                          ; 0x09ea
     lea ax, word [bp - 0x0008]       ; 0x09eb
     push ax                          ; 0x09ee
-    call api_idx_0004_QVPP           ; 0x09ef
+    call find_map_piece              ; 0x09ef
     add sp, byte 0x0a                ; 0x09f2
     test ax, ax                      ; 0x09f5
     je short @..api_idx_0014_HTUV.l3 ; 0x09f7
@@ -126,7 +126,7 @@ api_idx_0014_HTUV:
     mov ax, 6                        ; 0x0af9
     push ax                          ; 0x0afc
     push word [bp - 0x0002]          ; 0x0afd
-    mov ax, word [bss_0e14]          ; 0x0b00
+    mov ax, word [maze_data]         ; 0x0b00
     add ax, 0x4b0                    ; 0x0b03
     push ax                          ; 0x0b06
     call ds_leaf_loc_NPSL            ; 0x0b07
@@ -135,7 +135,7 @@ api_idx_0014_HTUV:
     mov ax, 2                        ; 0x0b10
     push ax                          ; 0x0b13
     push word [bp - 0x0002]          ; 0x0b14
-    mov ax, word [bss_0e14]          ; 0x0b17
+    mov ax, word [maze_data]         ; 0x0b17
     add ax, 0x7b0                    ; 0x0b1a
     push ax                          ; 0x0b1d
     call ds_leaf_loc_NPSL            ; 0x0b1e
@@ -191,7 +191,7 @@ api_idx_0014_HTUV:
     jne short @..api_idx_0014_HTUV.l19 ; 0x0ba0
 @..api_idx_0014_HTUV.l18:
     push word [bp - 0x0002]          ; 0x0ba2
-    mov ax, word [bss_0e14]          ; 0x0ba5
+    mov ax, word [maze_data]         ; 0x0ba5
     add ax, 0x8b0                    ; 0x0ba8
     push ax                          ; 0x0bab
     call ds_leaf_loc_PRVP            ; 0x0bac
@@ -210,7 +210,7 @@ api_idx_0014_HTUV:
     jne short @..api_idx_0014_HTUV.l21 ; 0x0bce
 @..api_idx_0014_HTUV.l20:
     push word [bp - 0x0002]          ; 0x0bd0
-    mov ax, word [bss_0e14]          ; 0x0bd3
+    mov ax, word [maze_data]         ; 0x0bd3
     add ax, 0x9b0                    ; 0x0bd6
     push ax                          ; 0x0bd9
     call ds_leaf_loc_PRVP            ; 0x0bda
@@ -221,7 +221,7 @@ api_idx_0014_HTUV:
     mov word [bp - 0x000e], ax       ; 0x0be7
 @..api_idx_0014_HTUV.l21:
     push word [bp - 0x0002]          ; 0x0bea
-    mov ax, word [bss_0e14]          ; 0x0bed
+    mov ax, word [maze_data]         ; 0x0bed
     add ax, 0x9b0                    ; 0x0bf0
     push ax                          ; 0x0bf3
     call ds_leaf_loc_PRVP            ; 0x0bf4
@@ -259,7 +259,7 @@ jumptable_0c0b:
 jumptable_0c0b_case_1:
 @..api_idx_0014_HTUV.l23:
     push word [bp - 0x0002]          ; 0x0c3b
-    mov ax, word [bss_0e14]          ; 0x0c3e
+    mov ax, word [maze_data]         ; 0x0c3e
     add ax, 0x930                    ; 0x0c41
     push ax                          ; 0x0c44
     call ds_leaf_loc_PRVP            ; 0x0c45
@@ -313,7 +313,7 @@ jumptable_0c0b_case_1:
     cmp word [maze_variant], byte 1  ; 0x0cad
     jne short @..api_idx_0014_HTUV.l31 ; 0x0cb2
     push word [bp - 0x0002]          ; 0x0cb4
-    mov ax, word [bss_0e14]          ; 0x0cb7
+    mov ax, word [maze_data]         ; 0x0cb7
     add ax, 0x8b0                    ; 0x0cba
     push ax                          ; 0x0cbd
     call ds_leaf_loc_PRVP            ; 0x0cbe

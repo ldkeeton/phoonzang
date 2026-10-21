@@ -268,7 +268,7 @@ loc_IONR.api_idx1 equ api_idx_0030_JQMM
 
 %include "shared/loc_MPHO.asm"              ; 0x678c
 
-%include "shared/api_idx_0004_QVPP.asm"     ; 0x67c6
+%include "shared/find_map_piece.asm"        ; 0x67c6
 
 %include "vmaze/api_idx_0002_GSOS.asm"     ; 0x6882
 
@@ -276,7 +276,7 @@ loc_IONR.api_idx1 equ api_idx_0030_JQMM
 
 %include "shared/api_idx_0006_POPS.asm"     ; 0x6960
 
-%include "vmaze/api_idx_0004_KMPG.asm"     ; 0x69d6
+%include "vmaze/log_maze_change.asm"       ; 0x69d6
 
 %include "vmaze/loc_GRON.asm"              ; 0x6ac7
 
@@ -355,7 +355,7 @@ bss_9bd0 equ __zdseg_end + (__zobss_9bd0 - __zdata_start)
 
 %include "vmaze/loc_HMKT.asm"              ; 0x7cb4
 
-%include "vmaze/api_idx_000a_JJNS.asm"     ; 0x7ce5
+%include "vmaze/set_cell_wall.asm"         ; 0x7ce5
 
 %include "vmaze/api_idx_001e_QHIQ.asm"     ; 0x7e46
 

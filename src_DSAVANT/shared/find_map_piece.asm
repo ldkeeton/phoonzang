@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0004_QVPP:
+find_map_piece:
     mov ax, 0xfffc
     call aztec_csav
     push word [bp + 0xc]
@@ -10,7 +10,7 @@ api_idx_0004_QVPP:
     add sp, byte 6
     mov word [bp - 0x0004], ax
     cmp ax, strict word 0xffff
-    jne short @..api_idx_0004_QVPP.l3
+    jne short @..find_map_piece.l3
     push word [bp + 0xc]
     push word [bp + 0xa]
     push word [bss_8f48]
@@ -18,7 +18,7 @@ api_idx_0004_QVPP:
     add sp, byte 6
     mov word [bp - 0x0004], ax
     cmp ax, strict word 0xffff
-    jne short @..api_idx_0004_QVPP.l3
+    jne short @..find_map_piece.l3
     mov bx, word [bp + 0x8]
     mov ax, word [bx]
     inc ax
@@ -26,7 +26,7 @@ api_idx_0004_QVPP:
     cwd
     idiv cx
     mov word [bp - 0x0002], dx
-@..api_idx_0004_QVPP.l1:
+@..find_map_piece.l1:
     push word [bp + 0xc]
     push word [bp + 0xa]
     push word [bp - 0x0002]
@@ -34,7 +34,7 @@ api_idx_0004_QVPP:
     add sp, byte 6
     mov word [bp - 0x0004], ax
     cmp ax, strict word 0xffff
-    jne short @..api_idx_0004_QVPP.l3
+    jne short @..find_map_piece.l3
     mov ax, word [bp - 0x0002]
     inc ax
     mov cx, 0x10
@@ -43,15 +43,15 @@ api_idx_0004_QVPP:
     mov word [bp - 0x0002], dx
     mov bx, word [bp + 0x8]
     cmp dx, word [bx]
-    jne short @..api_idx_0004_QVPP.l2
+    jne short @..find_map_piece.l2
     mov ax, 1
     ret
-@..api_idx_0004_QVPP.l2:
-    jmp short @..api_idx_0004_QVPP.l1
-@..api_idx_0004_QVPP.l3:
+@..find_map_piece.l2:
+    jmp short @..find_map_piece.l1
+@..find_map_piece.l3:
     mov ax, word [bp + 0xa]
     push ax
-    mov bx, word [bss_0e14]
+    mov bx, word [maze_data]
     mov si, word [bp - 0x0004]
     mov al, byte [bx + si + 0x490]
     sub ah, ah
@@ -62,7 +62,7 @@ api_idx_0004_QVPP:
     mov word [bx], ax
     mov ax, word [bp + 0xc]
     push ax
-    mov bx, word [bss_0e14]
+    mov bx, word [maze_data]
     mov si, word [bp - 0x0004]
     mov al, byte [bx + si + 0x4a0]
     sub ah, ah

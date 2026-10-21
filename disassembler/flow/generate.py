@@ -35,6 +35,7 @@ if _ASM_DIR not in sys.path:
 
 import flow.base as base
 from flow.base import BUILD_OUT
+from lib import buildlock
 
 
 def process_arch(project=None):
@@ -132,6 +133,8 @@ def process_trace(project, binary_name):
 
 
 def main():
+    # Share the build lock with `make`: flow reads the ledgers a build writes.
+    buildlock.acquire()
     base.build_output_dirs()
 
     args = [a for a in sys.argv[1:] if not a.startswith('--')]

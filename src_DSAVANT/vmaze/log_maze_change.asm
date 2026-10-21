@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0004_KMPG:
+log_maze_change:
     mov ax, 0xfffc                   ; 0x69d6
     call aztec_csav                  ; 0x69d9
     push word [bp + 0xc]             ; 0x69dc
@@ -11,20 +11,20 @@ api_idx_0004_KMPG:
     add sp, byte 0x0a                ; 0x69ee
     mov word [bp - 0x0002], ax       ; 0x69f1
     cmp ax, strict word 0xffff       ; 0x69f4
-    jne short @..api_idx_0004_KMPG.l2 ; 0x69f7
+    jne short @..log_maze_change.l2  ; 0x69f7
     mov ax, word [bss_590e]          ; 0x69f9
     mov word [bp - 0x0002], ax       ; 0x69fc
     inc word [bss_590e]              ; 0x69ff
     mov ax, word [bss_590e]          ; 0x6a03
     cmp ax, 0x200                    ; 0x6a06
-    jl short @..api_idx_0004_KMPG.l2 ; 0x6a09
-@..api_idx_0004_KMPG.l1:
+    jl short @..log_maze_change.l2   ; 0x6a09
+@..log_maze_change.l1:
     mov ax, 0                        ; 0x6a0b
     push ax                          ; 0x6a0e
     call ds_app_HKIJ                 ; 0x6a0f
     pop cx                           ; 0x6a12
-    jmp short @..api_idx_0004_KMPG.l1 ; 0x6a13
-@..api_idx_0004_KMPG.l2:
+    jmp short @..log_maze_change.l1  ; 0x6a13
+@..log_maze_change.l2:
     mov ax, 6                        ; 0x6a15
     imul word [bp - 0x0002]          ; 0x6a18
     mov cx, ax                       ; 0x6a1b
@@ -49,7 +49,7 @@ api_idx_0004_KMPG:
     mov bx, word [bp - 0x0004]       ; 0x6a4c
     mov word [bx + 0x2], ax          ; 0x6a4f
     mov ax, word [bp + 0x6]          ; 0x6a52
-    jmp short @..api_idx_0004_KMPG.l3 ; 0x6a55
+    jmp short @..log_maze_change.l3  ; 0x6a55
 jumptable_6aab_case_0:
     mov ax, word [bp + 0xe]          ; 0x6a57
     mov cx, 4                        ; 0x6a5a
@@ -64,12 +64,12 @@ jumptable_6aab_case_0:
     add ax, word [bp + 0x14]         ; 0x6a6f
     mov bx, word [bp - 0x0004]       ; 0x6a72
     mov word [bx + 0x4], ax          ; 0x6a75
-    jmp short @..api_idx_0004_KMPG.l4 ; 0x6a78
+    jmp short @..log_maze_change.l4  ; 0x6a78
 jumptable_6aab_case_1:
     mov ax, word [bp + 0xe]          ; 0x6a7a
     mov bx, word [bp - 0x0004]       ; 0x6a7d
     mov word [bx + 0x4], ax          ; 0x6a80
-    jmp short @..api_idx_0004_KMPG.l4 ; 0x6a83
+    jmp short @..log_maze_change.l4  ; 0x6a83
 jumptable_6aab_case_5:
     mov ax, word [bp + 0xe]          ; 0x6a85
     xchg al, ah                      ; 0x6a88
@@ -77,7 +77,7 @@ jumptable_6aab_case_5:
     add ax, word [bp + 0x10]         ; 0x6a8c
     mov bx, word [bp - 0x0004]       ; 0x6a8f
     mov word [bx + 0x4], ax          ; 0x6a92
-    jmp short @..api_idx_0004_KMPG.l4 ; 0x6a95
+    jmp short @..log_maze_change.l4  ; 0x6a95
 jumptable_6aab_case_6:
     mov ax, word [bp + 0x8]          ; 0x6a97
     mov bx, word [bp - 0x0004]       ; 0x6a9a
@@ -85,7 +85,7 @@ jumptable_6aab_case_6:
     mov ax, word [bp + 0xe]          ; 0x6aa0
     mov bx, word [bp - 0x0004]       ; 0x6aa3
     mov word [bx + 0x4], ax          ; 0x6aa6
-    jmp short @..api_idx_0004_KMPG.l4 ; 0x6aa9
+    jmp short @..log_maze_change.l4  ; 0x6aa9
 jumptable_6aab:
     dw jumptable_6aab_case_0 - IMAGE_BASE + __zres_end ; 0x6aab
     dw jumptable_6aab_case_1 - IMAGE_BASE + __zres_end ; 0x6aad
@@ -94,11 +94,11 @@ jumptable_6aab:
     dw jumptable_6aab_case_1 - IMAGE_BASE + __zres_end ; 0x6ab3
     dw jumptable_6aab_case_5 - IMAGE_BASE + __zres_end ; 0x6ab5
     dw jumptable_6aab_case_6 - IMAGE_BASE + __zres_end ; 0x6ab7
-@..api_idx_0004_KMPG.l3:
+@..log_maze_change.l3:
     cmp ax, strict word 7            ; 0x6ab9
-    jae short @..api_idx_0004_KMPG.l4 ; 0x6abc
+    jae short @..log_maze_change.l4  ; 0x6abc
     xchg bx, ax                      ; 0x6abe
     shl bx, 1                        ; 0x6abf
     jmp [cs:bx + jumptable_6aab - IMAGE_BASE + __zres_end] ; 0x6ac1
-@..api_idx_0004_KMPG.l4:
+@..log_maze_change.l4:
     ret                              ; 0x6ac6

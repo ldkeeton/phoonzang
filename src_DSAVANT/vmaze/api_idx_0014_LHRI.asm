@@ -63,7 +63,7 @@ api_idx_0014_LHRI:
     cwd                              ; 0x0770
     idiv cx                          ; 0x0771
     mov word [bp - 0x0012], dx       ; 0x0773
-    mov bx, word [bss_0e14]          ; 0x0776
+    mov bx, word [maze_data]         ; 0x0776
     mov si, word [bp - 0x0006]       ; 0x077a
     mov al, byte [bx + si + 0x490]   ; 0x077d
     sub ah, ah                       ; 0x0781
@@ -86,10 +86,10 @@ jumptable_099e_case_0:
     mov ax, 4                        ; 0x07aa
     push ax                          ; 0x07ad
     push word [bp - 0x0014]          ; 0x07ae
-    mov ax, word [bss_0e14]          ; 0x07b1
+    mov ax, word [maze_data]         ; 0x07b1
     add ax, 0x90                     ; 0x07b4
     push ax                          ; 0x07b7
-    call ds_leaf_loc_OOUU            ; 0x07b8
+    call set_bitfield                ; 0x07b8
     add sp, byte 8                   ; 0x07bb
     mov ax, word [bp - 0x0010]       ; 0x07be
     mov cx, 0x10                     ; 0x07c1
@@ -100,10 +100,10 @@ jumptable_099e_case_0:
     mov ax, 4                        ; 0x07ca
     push ax                          ; 0x07cd
     push word [bp - 0x0014]          ; 0x07ce
-    mov ax, word [bss_0e14]          ; 0x07d1
+    mov ax, word [maze_data]         ; 0x07d1
     add ax, 0x290                    ; 0x07d4
     push ax                          ; 0x07d7
-    call ds_leaf_loc_OOUU            ; 0x07d8
+    call set_bitfield                ; 0x07d8
     add sp, byte 8                   ; 0x07db
     mov ax, word [bp - 0x000e]       ; 0x07de
     dec ax                           ; 0x07e1
@@ -115,7 +115,7 @@ jumptable_099e_case_0:
     push ax                          ; 0x07ed
     lea ax, word [bp - 0x0008]       ; 0x07ee
     push ax                          ; 0x07f1
-    call api_idx_0004_QVPP           ; 0x07f2
+    call find_map_piece              ; 0x07f2
     add sp, byte 0x0a                ; 0x07f5
     test ax, ax                      ; 0x07f8
     jne short @..api_idx_0014_LHRI.l4 ; 0x07fa
@@ -137,10 +137,10 @@ jumptable_099e_case_0:
     mov ax, 4                        ; 0x081f
     push ax                          ; 0x0822
     push word [bp - 0x0014]          ; 0x0823
-    mov ax, word [bss_0e14]          ; 0x0826
+    mov ax, word [maze_data]         ; 0x0826
     add ax, 0x90                     ; 0x0829
     push ax                          ; 0x082c
-    call ds_leaf_loc_OOUU            ; 0x082d
+    call set_bitfield                ; 0x082d
     add sp, byte 8                   ; 0x0830
 @..api_idx_0014_LHRI.l4:
     push word [bp - 0x000e]          ; 0x0833
@@ -153,7 +153,7 @@ jumptable_099e_case_0:
     push ax                          ; 0x0842
     lea ax, word [bp - 0x0008]       ; 0x0843
     push ax                          ; 0x0846
-    call api_idx_0004_QVPP           ; 0x0847
+    call find_map_piece              ; 0x0847
     add sp, byte 0x0a                ; 0x084a
     test ax, ax                      ; 0x084d
     jne short @..api_idx_0014_LHRI.l5 ; 0x084f
@@ -176,10 +176,10 @@ jumptable_099e_case_0:
     mov ax, 4                        ; 0x0876
     push ax                          ; 0x0879
     push word [bp - 0x0014]          ; 0x087a
-    mov ax, word [bss_0e14]          ; 0x087d
+    mov ax, word [maze_data]         ; 0x087d
     add ax, 0x290                    ; 0x0880
     push ax                          ; 0x0883
-    call ds_leaf_loc_OOUU            ; 0x0884
+    call set_bitfield                ; 0x0884
     add sp, byte 8                   ; 0x0887
 @..api_idx_0014_LHRI.l5:
     jmp near @..api_idx_0014_LHRI.l9 ; 0x088a
@@ -189,10 +189,10 @@ jumptable_099e_case_1:
     mov ax, 4                        ; 0x0893
     push ax                          ; 0x0896
     push word [bp - 0x0014]          ; 0x0897
-    mov ax, word [bss_0e14]          ; 0x089a
+    mov ax, word [maze_data]         ; 0x089a
     add ax, 0x90                     ; 0x089d
     push ax                          ; 0x08a0
-    call ds_leaf_loc_OOUU            ; 0x08a1
+    call set_bitfield                ; 0x08a1
     add sp, byte 8                   ; 0x08a4
     jmp near @..api_idx_0014_LHRI.l9 ; 0x08a7
 jumptable_099e_case_2:
@@ -201,10 +201,10 @@ jumptable_099e_case_2:
     mov ax, 4                        ; 0x08b0
     push ax                          ; 0x08b3
     push word [bp - 0x0014]          ; 0x08b4
-    mov ax, word [bss_0e14]          ; 0x08b7
+    mov ax, word [maze_data]         ; 0x08b7
     add ax, 0x290                    ; 0x08ba
     push ax                          ; 0x08bd
-    call ds_leaf_loc_OOUU            ; 0x08be
+    call set_bitfield                ; 0x08be
     add sp, byte 8                   ; 0x08c1
     jmp near @..api_idx_0014_LHRI.l9 ; 0x08c4
 jumptable_099e_case_3:
@@ -218,7 +218,7 @@ jumptable_099e_case_3:
     push ax                          ; 0x08d6
     lea ax, word [bp - 0x0008]       ; 0x08d7
     push ax                          ; 0x08da
-    call api_idx_0004_QVPP           ; 0x08db
+    call find_map_piece              ; 0x08db
     add sp, byte 0x0a                ; 0x08de
     test ax, ax                      ; 0x08e1
     jne short @..api_idx_0014_LHRI.l6 ; 0x08e3
@@ -237,10 +237,10 @@ jumptable_099e_case_3:
     mov ax, 4                        ; 0x0904
     push ax                          ; 0x0907
     push word [bp - 0x0014]          ; 0x0908
-    mov ax, word [bss_0e14]          ; 0x090b
+    mov ax, word [maze_data]         ; 0x090b
     add ax, 0x90                     ; 0x090e
     push ax                          ; 0x0911
-    call ds_leaf_loc_OOUU            ; 0x0912
+    call set_bitfield                ; 0x0912
     add sp, byte 8                   ; 0x0915
 @..api_idx_0014_LHRI.l6:
     jmp near @..api_idx_0014_LHRI.l9 ; 0x0918
@@ -255,7 +255,7 @@ jumptable_099e_case_4:
     push ax                          ; 0x092a
     lea ax, word [bp - 0x0008]       ; 0x092b
     push ax                          ; 0x092e
-    call api_idx_0004_QVPP           ; 0x092f
+    call find_map_piece              ; 0x092f
     add sp, byte 0x0a                ; 0x0932
     test ax, ax                      ; 0x0935
     jne short @..api_idx_0014_LHRI.l7 ; 0x0937
@@ -274,10 +274,10 @@ jumptable_099e_case_4:
     mov ax, 4                        ; 0x0958
     push ax                          ; 0x095b
     push word [bp - 0x0014]          ; 0x095c
-    mov ax, word [bss_0e14]          ; 0x095f
+    mov ax, word [maze_data]         ; 0x095f
     add ax, 0x290                    ; 0x0962
     push ax                          ; 0x0965
-    call ds_leaf_loc_OOUU            ; 0x0966
+    call set_bitfield                ; 0x0966
     add sp, byte 8                   ; 0x0969
 @..api_idx_0014_LHRI.l7:
     jmp short @..api_idx_0014_LHRI.l9 ; 0x096c
@@ -286,19 +286,19 @@ jumptable_099e_case_5:
     mov ax, 6                        ; 0x0971
     push ax                          ; 0x0974
     push word [bp - 0x0014]          ; 0x0975
-    mov ax, word [bss_0e14]          ; 0x0978
+    mov ax, word [maze_data]         ; 0x0978
     add ax, 0x4b0                    ; 0x097b
     push ax                          ; 0x097e
-    call ds_leaf_loc_OOUU            ; 0x097f
+    call set_bitfield                ; 0x097f
     add sp, byte 8                   ; 0x0982
     push word [bp - 0x0012]          ; 0x0985
     mov ax, 2                        ; 0x0988
     push ax                          ; 0x098b
     push word [bp - 0x0014]          ; 0x098c
-    mov ax, word [bss_0e14]          ; 0x098f
+    mov ax, word [maze_data]         ; 0x098f
     add ax, 0x7b0                    ; 0x0992
     push ax                          ; 0x0995
-    call ds_leaf_loc_OOUU            ; 0x0996
+    call set_bitfield                ; 0x0996
     add sp, byte 8                   ; 0x0999
     jmp short @..api_idx_0014_LHRI.l9 ; 0x099c
 jumptable_099e:

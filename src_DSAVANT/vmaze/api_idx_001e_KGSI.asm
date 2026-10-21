@@ -183,7 +183,7 @@ api_idx_001e_KGSI:
     push ax                          ; 0x71f3
     mov ax, bss_8f42                 ; 0x71f4
     push ax                          ; 0x71f7
-    call api_idx_0004_QVPP           ; 0x71f8
+    call find_map_piece              ; 0x71f8
     add sp, byte 0x0a                ; 0x71fb
     cmp ax, strict word 1            ; 0x71fe
     jne short @..api_idx_001e_KGSI.l14 ; 0x7201

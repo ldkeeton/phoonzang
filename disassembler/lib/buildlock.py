@@ -1,4 +1,7 @@
-"""One build at a time: an OS advisory lock on ``.cache/build.lock``.
+"""One make command at a time: an OS advisory lock on ``.cache/build.lock``.
+
+Every ``make`` command takes this lock (``make.cli`` and ``flow.generate``), so
+two invocations queue instead of rewriting the same ``.cache`` tree at once.
 
 The kernel drops the lock when the process ends (exit, crash, ``kill -9``), so
 nothing can be left stuck and no expiry or heartbeat is needed.  The file is
@@ -19,7 +22,7 @@ _held = None
 
 
 def acquire():
-    """Take the build lock for this process, silently waiting while another build has it."""
+    """Take the lock for this process, silently waiting while another command has it."""
     global _held
     if _held is not None:
         return

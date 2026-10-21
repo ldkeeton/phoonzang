@@ -371,7 +371,7 @@ loc_RVQR:
     mov word [bss_0e1a], 0           ; 0x0743
     mov word [bss_0e18], 0           ; 0x0749
     mov word [bss_0e16], 0           ; 0x074f
-    mov word [bss_0e14], 0           ; 0x0755
+    mov word [maze_data], 0          ; 0x0755
     mov word [bss_0e12], 0           ; 0x075b
     mov word [bss_0e10], 0           ; 0x0761
     mov word [bss_0e0e], 0           ; 0x0767
@@ -432,8 +432,8 @@ loc_RVQR:
     push word [bss_5528]             ; 0x07ee
     call aztec_malloc                ; 0x07f2
     pop cx                           ; 0x07f5
-    mov word [bss_0e14], ax          ; 0x07f6
-    cmp word [bss_0e14], byte 0      ; 0x07f9
+    mov word [maze_data], ax         ; 0x07f6
+    cmp word [maze_data], byte 0     ; 0x07f9
     jne short @..loc_RVQR.l27        ; 0x07fe
     mov ax, 0xd                      ; 0x0800
     push ax                          ; 0x0803

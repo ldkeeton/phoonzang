@@ -39,7 +39,7 @@ api_idx_0004_JLQH:
     call random_below                ; 0x1369
     pop cx                           ; 0x136c
     mov word [bss_82ee], ax          ; 0x136d
-    mov bx, word [bss_0e14]          ; 0x1370
+    mov bx, word [maze_data]         ; 0x1370
     mov si, word [bss_8f3e]          ; 0x1374
     mov al, byte [bx + si + 0x490]   ; 0x1378
     sub ah, ah                       ; 0x137c
@@ -57,7 +57,7 @@ api_idx_0004_JLQH:
     push ax                          ; 0x139e
     mov ax, bss_8f42                 ; 0x139f
     push ax                          ; 0x13a2
-    call api_idx_0004_QVPP           ; 0x13a3
+    call find_map_piece              ; 0x13a3
     add sp, byte 0x0a                ; 0x13a6
     mov word [bss_91aa], 1           ; 0x13a9
     mov word [bss_91a8], 1           ; 0x13af

@@ -16,7 +16,7 @@ api_idx_000c_RMGQ:
     mov ax, 6                        ; 0x09e2
     push ax                          ; 0x09e5
     push word [bp - 0x0002]          ; 0x09e6
-    mov ax, word [bss_0e14]          ; 0x09e9
+    mov ax, word [maze_data]         ; 0x09e9
     add ax, 0x4b0                    ; 0x09ec
     push ax                          ; 0x09ef
     call ds_leaf_loc_NPSL            ; 0x09f0
@@ -30,7 +30,7 @@ api_idx_000c_RMGQ:
     mov ax, 2                        ; 0x0a03
     push ax                          ; 0x0a06
     push word [bp - 0x0002]          ; 0x0a07
-    mov ax, word [bss_0e14]          ; 0x0a0a
+    mov ax, word [maze_data]         ; 0x0a0a
     add ax, 0x7b0                    ; 0x0a0d
     push ax                          ; 0x0a10
     call ds_leaf_loc_NPSL            ; 0x0a11
@@ -57,7 +57,7 @@ api_idx_000c_RMGQ:
     push ax                          ; 0x0a48
     mov ax, bss_8f42                 ; 0x0a49
     push ax                          ; 0x0a4c
-    call api_idx_0004_QVPP           ; 0x0a4d
+    call find_map_piece              ; 0x0a4d
     add sp, byte 0x0a                ; 0x0a50
     test ax, ax                      ; 0x0a53
     je short @..api_idx_000c_RMGQ.l3 ; 0x0a55
@@ -100,14 +100,14 @@ api_idx_000c_RMGQ:
     ret                              ; 0x0ab2
 @..api_idx_000c_RMGQ.l5:
     push word [bp - 0x0002]          ; 0x0ab3
-    mov ax, word [bss_0e14]          ; 0x0ab6
+    mov ax, word [maze_data]         ; 0x0ab6
     add ax, 0x8b0                    ; 0x0ab9
     push ax                          ; 0x0abc
     call ds_leaf_loc_PRVP            ; 0x0abd
     add sp, byte 4                   ; 0x0ac0
     mov word [bp - 0x0004], ax       ; 0x0ac3
     push word [bp - 0x0002]          ; 0x0ac6
-    mov ax, word [bss_0e14]          ; 0x0ac9
+    mov ax, word [maze_data]         ; 0x0ac9
     add ax, 0x930                    ; 0x0acc
     push ax                          ; 0x0acf
     call ds_leaf_loc_PRVP            ; 0x0ad0

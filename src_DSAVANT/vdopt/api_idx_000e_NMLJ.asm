@@ -113,7 +113,7 @@ loc_UOPP:
     push ax                          ; 0x07ee
     lea ax, word [bp + 0x8]          ; 0x07ef
     push ax                          ; 0x07f2
-    call api_idx_0004_QVPP           ; 0x07f3
+    call find_map_piece              ; 0x07f3
     add sp, byte 0x0a                ; 0x07f6
     test ax, ax                      ; 0x07f9
     je short @..loc_UOPP.l3          ; 0x07fb
@@ -147,7 +147,7 @@ loc_UOPP:
     add ax, cx                       ; 0x0835
     add ax, word [bp + 0x8]          ; 0x0837
     push ax                          ; 0x083a
-    mov ax, word [bss_0e14]          ; 0x083b
+    mov ax, word [maze_data]         ; 0x083b
     add ax, 0x90                     ; 0x083e
     push ax                          ; 0x0841
     call ds_leaf_loc_NPSL            ; 0x0842
@@ -166,7 +166,7 @@ loc_KHGO:
     push ax                          ; 0x085e
     lea ax, word [bp + 0x8]          ; 0x085f
     push ax                          ; 0x0862
-    call api_idx_0004_QVPP           ; 0x0863
+    call find_map_piece              ; 0x0863
     add sp, byte 0x0a                ; 0x0866
     test ax, ax                      ; 0x0869
     je short @..loc_KHGO.l3          ; 0x086b
@@ -200,7 +200,7 @@ loc_KHGO:
     add ax, cx                       ; 0x08a5
     add ax, word [bp + 0x8]          ; 0x08a7
     push ax                          ; 0x08aa
-    mov ax, word [bss_0e14]          ; 0x08ab
+    mov ax, word [maze_data]         ; 0x08ab
     add ax, 0x290                    ; 0x08ae
     push ax                          ; 0x08b1
     call ds_leaf_loc_NPSL            ; 0x08b2

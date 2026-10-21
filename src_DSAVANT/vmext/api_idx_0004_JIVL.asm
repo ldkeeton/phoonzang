@@ -14,7 +14,7 @@ api_idx_0004_JIVL:
     mov word [bp - 0x0002], ax       ; 0x08b5
     mov word [bp - 0x0004], 0        ; 0x08b8
     push ax                          ; 0x08bd
-    mov ax, word [bss_0e14]          ; 0x08be
+    mov ax, word [maze_data]         ; 0x08be
     add ax, 0x9b0                    ; 0x08c1
     push ax                          ; 0x08c4
     call ds_leaf_loc_PRVP            ; 0x08c5
@@ -59,7 +59,7 @@ jumptable_08e9:
 jumptable_08e9_case_1:
 @..api_idx_0004_JIVL.l3:
     push word [bp - 0x0002]          ; 0x0919
-    mov ax, word [bss_0e14]          ; 0x091c
+    mov ax, word [maze_data]         ; 0x091c
     add ax, 0x8b0                    ; 0x091f
     push ax                          ; 0x0922
     call ds_leaf_loc_PRVP            ; 0x0923
@@ -89,7 +89,7 @@ jumptable_08e9_case_1:
     je short @..api_idx_0004_JIVL.l5 ; 0x095c
 @..api_idx_0004_JIVL.l7:
     push word [bp - 0x0002]          ; 0x095e
-    mov ax, word [bss_0e14]          ; 0x0961
+    mov ax, word [maze_data]         ; 0x0961
     add ax, 0x930                    ; 0x0964
     push ax                          ; 0x0967
     call ds_leaf_loc_PRVP            ; 0x0968

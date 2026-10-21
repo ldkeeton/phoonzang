@@ -14,6 +14,6 @@ loc_NHMQ:
     push ax                          ; 0x0854
     mov ax, bss_8f42                 ; 0x0855
     push ax                          ; 0x0858
-    call api_idx_0004_QVPP           ; 0x0859
+    call find_map_piece              ; 0x0859
     add sp, byte 0x0a                ; 0x085c
     ret                              ; 0x085f

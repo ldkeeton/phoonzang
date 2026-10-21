@@ -36,7 +36,7 @@ api_idx_0006_KUNS:
     mov ax, word [bp - 0x0006]       ; 0x0abc
     add cx, ax                       ; 0x0abf
     mov si, cx                       ; 0x0ac1
-    mov bx, word [bss_0e14]          ; 0x0ac3
+    mov bx, word [maze_data]         ; 0x0ac3
     mov al, byte [bx + si]           ; 0x0ac7
     sub ah, ah                       ; 0x0ac9
     ret                              ; 0x0acb

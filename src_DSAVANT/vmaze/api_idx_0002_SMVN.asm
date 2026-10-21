@@ -41,7 +41,7 @@ api_idx_0002_SMVN:
     mov ax, 4                        ; 0x0bc0
     push ax                          ; 0x0bc3
     push word [bp - 0x0002]          ; 0x0bc4
-    mov ax, word [bss_0e14]          ; 0x0bc7
+    mov ax, word [maze_data]         ; 0x0bc7
     add ax, 0x90                     ; 0x0bca
     push ax                          ; 0x0bcd
     call ds_leaf_loc_NPSL            ; 0x0bce
@@ -62,7 +62,7 @@ api_idx_0002_SMVN:
     mov ax, 4                        ; 0x0bf2
     push ax                          ; 0x0bf5
     push word [bp - 0x0002]          ; 0x0bf6
-    mov ax, word [bss_0e14]          ; 0x0bf9
+    mov ax, word [maze_data]         ; 0x0bf9
     add ax, 0x290                    ; 0x0bfc
     push ax                          ; 0x0bff
     call ds_leaf_loc_NPSL            ; 0x0c00
@@ -95,7 +95,7 @@ api_idx_0002_SMVN:
     add ax, word [bp + 0x6]          ; 0x0c41
     add ax, strict word 0xfff8       ; 0x0c44
     push ax                          ; 0x0c47
-    mov ax, word [bss_0e14]          ; 0x0c48
+    mov ax, word [maze_data]         ; 0x0c48
     add ax, 0x90                     ; 0x0c4b
     push ax                          ; 0x0c4e
     call ds_leaf_loc_NPSL            ; 0x0c4f
@@ -126,7 +126,7 @@ api_idx_0002_SMVN:
     add ax, word [bp + 0x6]          ; 0x0c8a
     dec ax                           ; 0x0c8d
     push ax                          ; 0x0c8e
-    mov ax, word [bss_0e14]          ; 0x0c8f
+    mov ax, word [maze_data]         ; 0x0c8f
     add ax, 0x290                    ; 0x0c92
     push ax                          ; 0x0c95
     call ds_leaf_loc_NPSL            ; 0x0c96

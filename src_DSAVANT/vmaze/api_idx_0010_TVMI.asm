@@ -64,25 +64,25 @@ api_idx_0010_TVMI:
     mov ax, 5                        ; 0x82ad
     push ax                          ; 0x82b0
     push word [game_state_arg]       ; 0x82b1
-    call api_idx_0004_KMPG           ; 0x82b5
+    call log_maze_change             ; 0x82b5
     add sp, byte 0x12                ; 0x82b8
     push word [bp - 0x000c]          ; 0x82bb
     mov ax, 6                        ; 0x82be
     push ax                          ; 0x82c1
     push word [bp - 0x0002]          ; 0x82c2
-    mov ax, word [bss_0e14]          ; 0x82c5
+    mov ax, word [maze_data]         ; 0x82c5
     add ax, 0x4b0                    ; 0x82c8
     push ax                          ; 0x82cb
-    call ds_leaf_loc_OOUU            ; 0x82cc
+    call set_bitfield                ; 0x82cc
     add sp, byte 8                   ; 0x82cf
     push word [bp - 0x000e]          ; 0x82d2
     mov ax, 2                        ; 0x82d5
     push ax                          ; 0x82d8
     push word [bp - 0x0002]          ; 0x82d9
-    mov ax, word [bss_0e14]          ; 0x82dc
+    mov ax, word [maze_data]         ; 0x82dc
     add ax, 0x7b0                    ; 0x82df
     push ax                          ; 0x82e2
-    call ds_leaf_loc_OOUU            ; 0x82e3
+    call set_bitfield                ; 0x82e3
     add sp, byte 8                   ; 0x82e6
     cmp word [bp - 0x0010], byte 0   ; 0x82e9
     jle short @..api_idx_0010_TVMI.l1 ; 0x82ed

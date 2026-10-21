@@ -49,7 +49,7 @@ api_idx_0030_JQMM:
     jmp near @..api_idx_0030_JQMM.l5 ; 0x548d
 @..api_idx_0030_JQMM.l1:
     push ax                          ; 0x5490
-    mov ax, word [bss_0e14]          ; 0x5491
+    mov ax, word [maze_data]         ; 0x5491
     add ax, 0x930                    ; 0x5494
     push ax                          ; 0x5497
     call ds_leaf_loc_PRVP            ; 0x5498
@@ -125,7 +125,7 @@ api_idx_0030_JQMM:
     je short @..api_idx_0030_JQMM.l8 ; 0x553d
 @..api_idx_0030_JQMM.l6:
     push word [bp - 0x0008]          ; 0x553f
-    mov ax, word [bss_0e14]          ; 0x5542
+    mov ax, word [maze_data]         ; 0x5542
     add ax, 0x8b0                    ; 0x5545
     push ax                          ; 0x5548
     call ds_leaf_loc_PRVP            ; 0x5549

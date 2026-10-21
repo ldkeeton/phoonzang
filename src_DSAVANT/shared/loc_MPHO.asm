@@ -2,7 +2,7 @@
 loc_MPHO:
     mov ax, 0
     call aztec_csav
-    mov bx, word [bss_0e14]
+    mov bx, word [maze_data]
     mov si, word [bp + 0x4]
     mov al, byte [bx + si + 0x490]
     sub ah, ah

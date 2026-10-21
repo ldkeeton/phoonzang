@@ -5,7 +5,7 @@ loc_RRJG:
     mov ax, 6                        ; 0x19ea
     push ax                          ; 0x19ed
     push word [bp + 0x4]             ; 0x19ee
-    mov ax, word [bss_0e14]          ; 0x19f1
+    mov ax, word [maze_data]         ; 0x19f1
     add ax, 0x4b0                    ; 0x19f4
     push ax                          ; 0x19f7
     call ds_leaf_loc_NPSL            ; 0x19f8
@@ -15,7 +15,7 @@ loc_RRJG:
     mov ax, 2                        ; 0x1a03
     push ax                          ; 0x1a06
     push word [bp + 0x4]             ; 0x1a07
-    mov ax, word [bss_0e14]          ; 0x1a0a
+    mov ax, word [maze_data]         ; 0x1a0a
     add ax, 0x7b0                    ; 0x1a0d
     push ax                          ; 0x1a10
     call ds_leaf_loc_NPSL            ; 0x1a11

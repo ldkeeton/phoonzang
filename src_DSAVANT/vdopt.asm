@@ -30,7 +30,7 @@ bss_90b8 equ __zdseg_end + (__zobss_90b8 - __zdata_start)
 
 %include "shared/loc_MPHO.asm"              ; 0x00a5
 
-%include "shared/api_idx_0004_QVPP.asm"     ; 0x00df
+%include "shared/find_map_piece.asm"        ; 0x00df
 
 %include "shared/api_idx_0002_KQPU.asm"     ; 0x019b
 

@@ -30,6 +30,18 @@
     }
   },
   "routines": {
+    "api_idx_0004_QVPP": {"name": "find_map_piece", "note": "maps world (x, y) to piece index and local x/y; 0 if found"},
+    "api_idx_000a_IQHO": {
+      "name": "fill_action_slot_table"
+    },
+    "api_idx_000c_LGVL": {
+      "name": "draw_party_slot_letters",
+      "note": "overlay stub 0x0c: draws one letter per party slot (six of them) via thunk_28, from the host's tables at ds:01d4/01a4/01bc/830e"
+    },
+    "bios_kbd_loc_UHUN": {
+      "name": "dos_con_in_noecho",
+      "note": "ds: keyboard input; reads keys with INT 21h AH=7"
+    },
     "bios_mouse_loc_JUMM": {
       "name": "mouse_init",
       "note": "ega: resets the mouse (INT 33h AX=0) and sets its range and pointer"
@@ -37,22 +49,6 @@
     "bios_mouse_loc_KLNH": {
       "name": "mouse_init",
       "note": "vga: resets the mouse (INT 33h AX=0) and sets its range and pointer"
-    },
-    "dos_file_loc_IRLV": {
-      "name": "dos_read_file",
-      "note": "ds: seeks to index x record size, then reads one record (INT 21h AH=3Fh)"
-    },
-    "bios_kbd_loc_UHUN": {
-      "name": "dos_con_in_noecho",
-      "note": "ds: keyboard input; reads keys with INT 21h AH=7"
-    },
-    "leaf_loc_MIUQ": {
-      "name": "strpos",
-      "note": "ds: index of a char in a string, 0xFFFF if absent (repne scasb)"
-    },
-    "loc_LIPQ": {
-      "name": "strstr",
-      "note": "ds: offset of a substring, 0xFFFF if absent"
     },
     "bios_mouse_loc_OJJH": {
       "name": "mouse_set_pos",
@@ -62,18 +58,23 @@
       "name": "dos_con_in_noecho",
       "note": "vinstall: INT 21h AH=7, returns the key"
     },
-    "api_idx_000a_IQHO": {
-      "name": "fill_action_slot_table"
+    "dos_file_loc_IRLV": {
+      "name": "dos_read_file",
+      "note": "ds: seeks to index x record size, then reads one record (INT 21h AH=3Fh)"
     },
-    "api_idx_000c_LGVL": {
-      "name": "draw_party_slot_letters",
-      "note": "overlay stub 0x0c: draws one letter per party slot (six of them) via thunk_28, from the host's tables at ds:01d4/01a4/01bc/830e"
+    "leaf_loc_MIUQ": {
+      "name": "strpos",
+      "note": "ds: index of a char in a string, 0xFFFF if absent (repne scasb)"
     },
     "loc_KSUH": {
       "name": "aztec_printf",
       "role": "aztec",
       "library": "printf",
       "note": "vinstall: Manx printf.c, format(putchar, fmt, &args); the compile proves it and names format and putchar"
+    },
+    "loc_LIPQ": {
+      "name": "strstr",
+      "note": "ds: offset of a substring, 0xFFFF if absent"
     }
   },
   "binaries": {
@@ -230,6 +231,7 @@
           "name": "set_bitmap_bit",
           "note": "hand-written asm: set or clear bit [bp+6] of the bitmap at [bp+4] per [bp+8]"
         },
+        "3eeb": {"name": "set_bitfield", "note": "stores value into the width-bit field at index of a packed bit array"},
         "3fa9": {"name": "read_misc_table", "note": "hand-written asm: reads 0x400 bytes from handle [bp+4] to misc_table_seg:0; a read error prints misc_table_io_error_msg and falls into the DOS print/exit code"},
         "4002": {
           "name": "unpack_record",
@@ -305,6 +307,7 @@
         "0c82": {"name": "bad8087", "note": "sbegin.asm's `bad8087` message ('8087/80287 is required!'); the vendor's name so the #asm aztec_begin links against it"},
         "0cf0": {"name": "_ttrd", "note": "Aztec console read vector (io.asm's `_ttrd`, dos20/write.asm's read arm); the vendor's name so the #asm aztec_write links against it"},
         "0cf2": {"name": "_ttwr", "note": "Aztec console write vector (io.asm's `_ttwr`, dos20/write.asm `jmp [_ttwr]`); the vendor's name so the #asm aztec_write links against it"},
+        "0e14": {"name": "maze_data", "note": "pointer to loaded maze data: wall planes at +0x90/+0x290, piece origins at +0x490/+0x4a0"},
         "0e22": {"name": "data_file_fd", "note": "int: handle of the open game data file that data_record_io seeks, reads and writes"},
         "0e24": {"name": "msg_dbs_fd", "note": "file handle of MSG.DBS"},
         "5218": {"name": "disk_header", "note": "buffer DISK.HDR is read into; first word is the disk number"},
@@ -563,6 +566,10 @@
       "fingerprint-end": "cf3c207601279bfa68168f45b79aa45735dc9eff5a68d2e974ab3260440c4fd3"
     },
     "vmaze": {
+      "function_names": {
+        "69c8": {"name": "log_maze_change", "note": "appends a 6-byte maze change record to the change log"},
+        "7cd7": {"name": "set_cell_wall", "note": "sets a 4-bit wall field on one edge of a maze cell and logs the change"}
+      },
       "file": "VMAZE.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,

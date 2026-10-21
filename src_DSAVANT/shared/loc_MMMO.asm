@@ -12,7 +12,7 @@ loc_MMMO:
     push ax
     lea ax, word [bp + 0x8]
     push ax
-    call api_idx_0004_QVPP
+    call find_map_piece
     add sp, byte 0x0a
     test ax, ax
     je short @..loc_MMMO.l5
@@ -51,7 +51,7 @@ loc_MMMO:
     add ax, cx
     add ax, word [bp + 0x8]
     push ax
-    mov ax, word [bss_0e14]
+    mov ax, word [maze_data]
     add ax, 0x290
     push ax
     call ds_leaf_loc_NPSL

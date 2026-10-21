@@ -135,7 +135,7 @@ api_idx_001e_QHIQ:
     push word [bp - 0x0006]          ; 0x7f91
     push word [bp - 0x000c]          ; 0x7f94
     push word [bp - 0x0016]          ; 0x7f97
-    call api_idx_000a_JJNS           ; 0x7f9a
+    call set_cell_wall               ; 0x7f9a
     add sp, byte 0x0a                ; 0x7f9d
     cmp word [bp - 0x000e], byte 0   ; 0x7fa0
     je short @..api_idx_001e_QHIQ.l11 ; 0x7fa4

@@ -78,7 +78,7 @@ api_idx_0018_USPR:
     add ax, word [bss_8f42]          ; 0x1d6e
     mov word [bp - 0x0018], ax       ; 0x1d72
     push ax                          ; 0x1d75
-    mov ax, word [bss_0e14]          ; 0x1d76
+    mov ax, word [maze_data]         ; 0x1d76
     add ax, 0x930                    ; 0x1d79
     push ax                          ; 0x1d7c
     call ds_leaf_loc_PRVP            ; 0x1d7d

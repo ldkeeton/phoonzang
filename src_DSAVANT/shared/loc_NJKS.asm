@@ -17,7 +17,7 @@ loc_NJKS:
     add ax, cx
     add ax, word [bp + 0x8]
     push ax
-    mov ax, word [bss_0e14]
+    mov ax, word [maze_data]
     add ax, 0x90
     push ax
     call ds_leaf_loc_NPSL
@@ -36,7 +36,7 @@ loc_NJKS:
     add ax, cx
     add ax, word [bp + 0x8]
     push ax
-    mov ax, word [bss_0e14]
+    mov ax, word [maze_data]
     add ax, 0x290
     push ax
     call ds_leaf_loc_NPSL

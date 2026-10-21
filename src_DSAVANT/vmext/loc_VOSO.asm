@@ -53,6 +53,6 @@ loc_VOSO:
     push word [bp + 0xc]             ; 0x19d4
     push word [bp + 0xa]             ; 0x19d7
     push word [bp + 0x8]             ; 0x19da
-    call api_idx_0004_QVPP           ; 0x19dd
+    call find_map_piece              ; 0x19dd
     add sp, byte 0x0a                ; 0x19e0
     ret                              ; 0x19e3

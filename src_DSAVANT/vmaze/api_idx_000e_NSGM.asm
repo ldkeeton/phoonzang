@@ -45,7 +45,7 @@ api_idx_000e_NSGM:
     push ax                          ; 0x169f
     mov ax, bss_8f42                 ; 0x16a0
     push ax                          ; 0x16a3
-    call api_idx_0004_QVPP           ; 0x16a4
+    call find_map_piece              ; 0x16a4
     add sp, byte 0x0a                ; 0x16a7
     test ax, ax                      ; 0x16aa
     je short @..api_idx_000e_NSGM.l3 ; 0x16ac

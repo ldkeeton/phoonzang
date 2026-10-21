@@ -1,8 +1,8 @@
 ; auto-generated
-api_idx_000a_JJNS:
+set_cell_wall:
     mov ax, 0xfff6                   ; 0x7ce5
     call aztec_csav                  ; 0x7ce8
-    mov bx, word [bss_0e14]          ; 0x7ceb
+    mov bx, word [maze_data]         ; 0x7ceb
     mov si, word [bp + 0x8]          ; 0x7cef
     mov al, byte [bx + si + 0x490]   ; 0x7cf2
     sub ah, ah                       ; 0x7cf6
@@ -24,16 +24,16 @@ api_idx_000a_JJNS:
     mov word [bp - 0x000a], ax       ; 0x7d1f
     mov word [bp - 0x0002], 0xffff   ; 0x7d22
     mov ax, word [bp + 0x4]          ; 0x7d27
-    jmp near @..api_idx_000a_JJNS.l7 ; 0x7d2a
-@..api_idx_000a_JJNS.l1:
+    jmp near @..set_cell_wall.l7     ; 0x7d2a
+@..set_cell_wall.l1:
     mov word [bp - 0x0002], 0        ; 0x7d2d
     mov word [bp - 0x0004], 1        ; 0x7d32
-    jmp near @..api_idx_000a_JJNS.l11 ; 0x7d37
-@..api_idx_000a_JJNS.l2:
+    jmp near @..set_cell_wall.l11    ; 0x7d37
+@..set_cell_wall.l2:
     mov word [bp - 0x0002], 1        ; 0x7d3a
     mov word [bp - 0x0004], 2        ; 0x7d3f
-    jmp near @..api_idx_000a_JJNS.l11 ; 0x7d44
-@..api_idx_000a_JJNS.l3:
+    jmp near @..set_cell_wall.l11    ; 0x7d44
+@..set_cell_wall.l3:
     mov ax, word [bp - 0x0008]       ; 0x7d47
     dec ax                           ; 0x7d4a
     push ax                          ; 0x7d4b
@@ -44,10 +44,10 @@ api_idx_000a_JJNS:
     push ax                          ; 0x7d56
     lea ax, word [bp + 0xa]          ; 0x7d57
     push ax                          ; 0x7d5a
-    call api_idx_0004_QVPP           ; 0x7d5b
+    call find_map_piece              ; 0x7d5b
     add sp, byte 0x0a                ; 0x7d5e
     test ax, ax                      ; 0x7d61
-    jne short @..api_idx_000a_JJNS.l4 ; 0x7d63
+    jne short @..set_cell_wall.l4    ; 0x7d63
     mov ax, word [bp + 0x8]          ; 0x7d65
     mov cx, 6                        ; 0x7d68
     shl ax, cl                       ; 0x7d6b
@@ -60,9 +60,9 @@ api_idx_000a_JJNS:
     mov word [bp - 0x000a], ax       ; 0x7d7b
     mov word [bp - 0x0002], 0        ; 0x7d7e
     mov word [bp - 0x0004], 1        ; 0x7d83
-@..api_idx_000a_JJNS.l4:
-    jmp short @..api_idx_000a_JJNS.l11 ; 0x7d88
-@..api_idx_000a_JJNS.l5:
+@..set_cell_wall.l4:
+    jmp short @..set_cell_wall.l11   ; 0x7d88
+@..set_cell_wall.l5:
     push word [bp - 0x0008]          ; 0x7d8a
     mov ax, word [bp - 0x0006]       ; 0x7d8d
     dec ax                           ; 0x7d90
@@ -73,10 +73,10 @@ api_idx_000a_JJNS:
     push ax                          ; 0x7d99
     lea ax, word [bp + 0xa]          ; 0x7d9a
     push ax                          ; 0x7d9d
-    call api_idx_0004_QVPP           ; 0x7d9e
+    call find_map_piece              ; 0x7d9e
     add sp, byte 0x0a                ; 0x7da1
     test ax, ax                      ; 0x7da4
-    jne short @..api_idx_000a_JJNS.l6 ; 0x7da6
+    jne short @..set_cell_wall.l6    ; 0x7da6
     mov ax, word [bp + 0x8]          ; 0x7da8
     mov cx, 6                        ; 0x7dab
     shl ax, cl                       ; 0x7dae
@@ -89,26 +89,26 @@ api_idx_000a_JJNS:
     mov word [bp - 0x000a], ax       ; 0x7dbe
     mov word [bp - 0x0002], 1        ; 0x7dc1
     mov word [bp - 0x0004], 2        ; 0x7dc6
-@..api_idx_000a_JJNS.l6:
-    jmp short @..api_idx_000a_JJNS.l11 ; 0x7dcb
-@..api_idx_000a_JJNS.l7:
+@..set_cell_wall.l6:
+    jmp short @..set_cell_wall.l11   ; 0x7dcb
+@..set_cell_wall.l7:
     cmp ax, strict word 0            ; 0x7dcd
-    jne short @..api_idx_000a_JJNS.l8 ; 0x7dd0
-    jmp near @..api_idx_000a_JJNS.l1 ; 0x7dd2
-@..api_idx_000a_JJNS.l8:
+    jne short @..set_cell_wall.l8    ; 0x7dd0
+    jmp near @..set_cell_wall.l1     ; 0x7dd2
+@..set_cell_wall.l8:
     cmp ax, strict word 1            ; 0x7dd5
-    jne short @..api_idx_000a_JJNS.l9 ; 0x7dd8
-    jmp near @..api_idx_000a_JJNS.l2 ; 0x7dda
-@..api_idx_000a_JJNS.l9:
+    jne short @..set_cell_wall.l9    ; 0x7dd8
+    jmp near @..set_cell_wall.l2     ; 0x7dda
+@..set_cell_wall.l9:
     cmp ax, strict word 2            ; 0x7ddd
-    jne short @..api_idx_000a_JJNS.l10 ; 0x7de0
-    jmp near @..api_idx_000a_JJNS.l3 ; 0x7de2
-@..api_idx_000a_JJNS.l10:
+    jne short @..set_cell_wall.l10   ; 0x7de0
+    jmp near @..set_cell_wall.l3     ; 0x7de2
+@..set_cell_wall.l10:
     cmp ax, strict word 3            ; 0x7de5
-    je short @..api_idx_000a_JJNS.l5 ; 0x7de8
-@..api_idx_000a_JJNS.l11:
+    je short @..set_cell_wall.l5     ; 0x7de8
+@..set_cell_wall.l11:
     cmp word [bp - 0x0002], byte 0xff ; 0x7dea
-    je short @..api_idx_000a_JJNS.l13 ; 0x7dee
+    je short @..set_cell_wall.l13    ; 0x7dee
     mov ax, 0                        ; 0x7df0
     push ax                          ; 0x7df3
     push ax                          ; 0x7df4
@@ -119,29 +119,29 @@ api_idx_000a_JJNS:
     push word [bp + 0x8]             ; 0x7dff
     push word [bp - 0x0004]          ; 0x7e02
     push word [game_state_arg]       ; 0x7e05
-    call api_idx_0004_KMPG           ; 0x7e09
+    call log_maze_change             ; 0x7e09
     add sp, byte 0x12                ; 0x7e0c
     cmp word [bp - 0x0002], byte 0   ; 0x7e0f
-    jne short @..api_idx_000a_JJNS.l12 ; 0x7e13
+    jne short @..set_cell_wall.l12   ; 0x7e13
     push word [bp + 0x6]             ; 0x7e15
     mov ax, 4                        ; 0x7e18
     push ax                          ; 0x7e1b
     push word [bp - 0x000a]          ; 0x7e1c
-    mov ax, word [bss_0e14]          ; 0x7e1f
+    mov ax, word [maze_data]         ; 0x7e1f
     add ax, 0x90                     ; 0x7e22
     push ax                          ; 0x7e25
-    call ds_leaf_loc_OOUU            ; 0x7e26
+    call set_bitfield                ; 0x7e26
     add sp, byte 8                   ; 0x7e29
-    jmp short @..api_idx_000a_JJNS.l13 ; 0x7e2c
-@..api_idx_000a_JJNS.l12:
+    jmp short @..set_cell_wall.l13   ; 0x7e2c
+@..set_cell_wall.l12:
     push word [bp + 0x6]             ; 0x7e2e
     mov ax, 4                        ; 0x7e31
     push ax                          ; 0x7e34
     push word [bp - 0x000a]          ; 0x7e35
-    mov ax, word [bss_0e14]          ; 0x7e38
+    mov ax, word [maze_data]         ; 0x7e38
     add ax, 0x290                    ; 0x7e3b
     push ax                          ; 0x7e3e
-    call ds_leaf_loc_OOUU            ; 0x7e3f
+    call set_bitfield                ; 0x7e3f
     add sp, byte 8                   ; 0x7e42
-@..api_idx_000a_JJNS.l13:
+@..set_cell_wall.l13:
     ret                              ; 0x7e45

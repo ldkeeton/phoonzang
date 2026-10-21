@@ -63,7 +63,7 @@ jumptable_340d:
     add ax, word [bp + 0xa]          ; 0x3439
     mov word [bp - 0x0002], ax       ; 0x343c
     push ax                          ; 0x343f
-    mov ax, word [bss_0e14]          ; 0x3440
+    mov ax, word [maze_data]         ; 0x3440
     add ax, 0x8b0                    ; 0x3443
     push ax                          ; 0x3446
     call ds_leaf_loc_PRVP            ; 0x3447
@@ -102,7 +102,7 @@ jumptable_340d:
     mov ax, 4                        ; 0x348e
     push ax                          ; 0x3491
     push word [bp - 0x0002]          ; 0x3492
-    mov ax, word [bss_0e14]          ; 0x3495
+    mov ax, word [maze_data]         ; 0x3495
     add ax, 0x90                     ; 0x3498
     push ax                          ; 0x349b
     call ds_leaf_loc_NPSL            ; 0x349c
@@ -113,7 +113,7 @@ jumptable_340d:
     mov ax, 4                        ; 0x34a7
     push ax                          ; 0x34aa
     push word [bp - 0x0002]          ; 0x34ab
-    mov ax, word [bss_0e14]          ; 0x34ae
+    mov ax, word [maze_data]         ; 0x34ae
     add ax, 0x290                    ; 0x34b1
     push ax                          ; 0x34b4
     call ds_leaf_loc_NPSL            ; 0x34b5

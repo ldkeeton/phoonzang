@@ -66,7 +66,7 @@ api_idx_0004_IPQQ:
     mov ax, word [bss_8f40]          ; 0x7352
     mov word [bss_8f2c], ax          ; 0x7355
 @..api_idx_0004_IPQQ.l2:
-    mov bx, word [bss_0e14]          ; 0x7358
+    mov bx, word [maze_data]         ; 0x7358
     mov si, word [bss_8f3e]          ; 0x735c
     mov al, byte [bx + si + 0x490]   ; 0x7360
     sub ah, ah                       ; 0x7364

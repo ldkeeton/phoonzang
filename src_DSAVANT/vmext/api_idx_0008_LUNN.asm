@@ -62,7 +62,7 @@ jumptable_1e9c:
     add ax, word [bp + 0xa]          ; 0x1ec8
     mov word [bp - 0x0002], ax       ; 0x1ecb
     push ax                          ; 0x1ece
-    mov ax, word [bss_0e14]          ; 0x1ecf
+    mov ax, word [maze_data]         ; 0x1ecf
     add ax, 0x8b0                    ; 0x1ed2
     push ax                          ; 0x1ed5
     call ds_leaf_loc_PRVP            ; 0x1ed6
@@ -101,7 +101,7 @@ jumptable_1e9c:
     mov ax, 4                        ; 0x1f1d
     push ax                          ; 0x1f20
     push word [bp - 0x0002]          ; 0x1f21
-    mov ax, word [bss_0e14]          ; 0x1f24
+    mov ax, word [maze_data]         ; 0x1f24
     add ax, 0x90                     ; 0x1f27
     push ax                          ; 0x1f2a
     call ds_leaf_loc_NPSL            ; 0x1f2b
@@ -112,7 +112,7 @@ jumptable_1e9c:
     mov ax, 4                        ; 0x1f36
     push ax                          ; 0x1f39
     push word [bp - 0x0002]          ; 0x1f3a
-    mov ax, word [bss_0e14]          ; 0x1f3d
+    mov ax, word [maze_data]         ; 0x1f3d
     add ax, 0x290                    ; 0x1f40
     push ax                          ; 0x1f43
     call ds_leaf_loc_NPSL            ; 0x1f44

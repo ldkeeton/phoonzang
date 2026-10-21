@@ -49,7 +49,7 @@ api_idx_0030_MLHO:
     jmp near @..api_idx_0030_MLHO.l5 ; 0x3f1c
 @..api_idx_0030_MLHO.l1:
     push ax                          ; 0x3f1f
-    mov ax, word [bss_0e14]          ; 0x3f20
+    mov ax, word [maze_data]         ; 0x3f20
     add ax, 0x930                    ; 0x3f23
     push ax                          ; 0x3f26
     call ds_leaf_loc_PRVP            ; 0x3f27
@@ -125,7 +125,7 @@ api_idx_0030_MLHO:
     je short @..api_idx_0030_MLHO.l8 ; 0x3fcc
 @..api_idx_0030_MLHO.l6:
     push word [bp - 0x0008]          ; 0x3fce
-    mov ax, word [bss_0e14]          ; 0x3fd1
+    mov ax, word [maze_data]         ; 0x3fd1
     add ax, 0x8b0                    ; 0x3fd4
     push ax                          ; 0x3fd7
     call ds_leaf_loc_PRVP            ; 0x3fd8

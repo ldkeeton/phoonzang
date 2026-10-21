@@ -245,7 +245,7 @@ __zbss_size equ __zbss_end - __zimage_end
 bss_0e0e     equ __zbss_0e0e - __zdseg_start
 bss_0e10     equ __zbss_0e10 - __zdseg_start
 bss_0e12     equ __zbss_0e12 - __zdseg_start
-bss_0e14     equ __zbss_0e14 - __zdseg_start
+maze_data    equ __zbss_0e14 - __zdseg_start
 bss_0e16     equ __zbss_0e16 - __zdseg_start
 bss_0e18     equ __zbss_0e18 - __zdseg_start
 bss_0e1a     equ __zbss_0e1a - __zdseg_start
@@ -816,7 +816,7 @@ key_queue:
 
 %include "ds/library/ds_leaf_loc_PRVP.asm" ; 0x3ebb
 
-%include "ds/library/ds_leaf_loc_OOUU.asm" ; 0x3eeb
+%include "ds/library/set_bitfield.asm"     ; 0x3eeb
 
 %include "ds/library/ds_leaf_loc_NPSL.asm" ; 0x3f3d
 

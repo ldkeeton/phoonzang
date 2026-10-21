@@ -7,7 +7,7 @@ api_idx_0002_TOSS:
     call random_below                ; 0x0ad6
     pop cx                           ; 0x0ad9
     push ax                          ; 0x0ada
-    mov bx, word [bss_0e14]          ; 0x0adb
+    mov bx, word [maze_data]         ; 0x0adb
     mov si, word [bp + 0x4]          ; 0x0adf
     mov al, byte [bx + si + 0xac0]   ; 0x0ae2
     sub ah, ah                       ; 0x0ae6

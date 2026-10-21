@@ -69,12 +69,11 @@ Stats workflow (LLM/human regression loop):
 '''
 
 
-# Commands that rewrite generated output; one at a time (lib.buildlock).
-_MUTATING = {'--all', '--build', '--name', '--prebuild', '--rebuild', '--elf-rebuild',
-             '--clean', '--decompile'}
-
-
 def main():
+    # Every make command holds the build lock: concurrent runs queue here,
+    # whichever command they are for (lib.buildlock).
+    buildlock.acquire()
+
     flags = [a for a in sys.argv[1:] if a.startswith('--')]
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     all_projects = list(_apps())
@@ -82,9 +81,6 @@ def main():
     if '--help' in flags:
         print(HELP)
         return
-
-    if _MUTATING & set(flags):
-        buildlock.acquire()
 
     if '--all' in flags:
         for project in all_projects:

@@ -47,7 +47,7 @@ api_idx_001c_QLSV:
     call ds_dos_con_loc_QJHU         ; 0x76bd
     add sp, byte 6                   ; 0x76c0
     mov word [bp - 0x0014], ax       ; 0x76c3
-    mov bx, word [bss_0e14]          ; 0x76c6
+    mov bx, word [maze_data]         ; 0x76c6
     mov si, word [bp - 0x000c]       ; 0x76ca
     mov al, byte [bx + si + 0x490]   ; 0x76cd
     sub ah, ah                       ; 0x76d1
@@ -103,25 +103,25 @@ api_idx_001c_QLSV:
     mov ax, 0                        ; 0x7755
     push ax                          ; 0x7758
     push word [game_state_arg]       ; 0x7759
-    call api_idx_0004_KMPG           ; 0x775d
+    call log_maze_change             ; 0x775d
     add sp, byte 0x12                ; 0x7760
     push word [bp - 0x001c]          ; 0x7763
     mov ax, 4                        ; 0x7766
     push ax                          ; 0x7769
     push word [bp - 0x0004]          ; 0x776a
-    mov ax, word [bss_0e14]          ; 0x776d
+    mov ax, word [maze_data]         ; 0x776d
     add ax, 0x90                     ; 0x7770
     push ax                          ; 0x7773
-    call ds_leaf_loc_OOUU            ; 0x7774
+    call set_bitfield                ; 0x7774
     add sp, byte 8                   ; 0x7777
     push word [bp - 0x001a]          ; 0x777a
     mov ax, 4                        ; 0x777d
     push ax                          ; 0x7780
     push word [bp - 0x0004]          ; 0x7781
-    mov ax, word [bss_0e14]          ; 0x7784
+    mov ax, word [maze_data]         ; 0x7784
     add ax, 0x290                    ; 0x7787
     push ax                          ; 0x778a
-    call ds_leaf_loc_OOUU            ; 0x778b
+    call set_bitfield                ; 0x778b
     add sp, byte 8                   ; 0x778e
     mov ax, word [bp - 0x000a]       ; 0x7791
     dec ax                           ; 0x7794
@@ -133,7 +133,7 @@ api_idx_001c_QLSV:
     push ax                          ; 0x77a0
     lea ax, word [bp - 0x000e]       ; 0x77a1
     push ax                          ; 0x77a4
-    call api_idx_0004_QVPP           ; 0x77a5
+    call find_map_piece              ; 0x77a5
     add sp, byte 0x0a                ; 0x77a8
     test ax, ax                      ; 0x77ab
     jne short @..api_idx_001c_QLSV.l2 ; 0x77ad
@@ -151,10 +151,10 @@ api_idx_001c_QLSV:
     mov ax, 4                        ; 0x77cb
     push ax                          ; 0x77ce
     push word [bp - 0x0004]          ; 0x77cf
-    mov ax, word [bss_0e14]          ; 0x77d2
+    mov ax, word [maze_data]         ; 0x77d2
     add ax, 0x90                     ; 0x77d5
     push ax                          ; 0x77d8
-    call ds_leaf_loc_OOUU            ; 0x77d9
+    call set_bitfield                ; 0x77d9
     add sp, byte 8                   ; 0x77dc
 @..api_idx_001c_QLSV.l2:
     push word [bp - 0x000a]          ; 0x77df
@@ -167,7 +167,7 @@ api_idx_001c_QLSV:
     push ax                          ; 0x77ee
     lea ax, word [bp - 0x000e]       ; 0x77ef
     push ax                          ; 0x77f2
-    call api_idx_0004_QVPP           ; 0x77f3
+    call find_map_piece              ; 0x77f3
     add sp, byte 0x0a                ; 0x77f6
     test ax, ax                      ; 0x77f9
     jne short @..api_idx_001c_QLSV.l3 ; 0x77fb
@@ -185,10 +185,10 @@ api_idx_001c_QLSV:
     mov ax, 4                        ; 0x7819
     push ax                          ; 0x781c
     push word [bp - 0x0004]          ; 0x781d
-    mov ax, word [bss_0e14]          ; 0x7820
+    mov ax, word [maze_data]         ; 0x7820
     add ax, 0x290                    ; 0x7823
     push ax                          ; 0x7826
-    call ds_leaf_loc_OOUU            ; 0x7827
+    call set_bitfield                ; 0x7827
     add sp, byte 8                   ; 0x782a
 @..api_idx_001c_QLSV.l3:
     mov ax, word [bss_8d12]          ; 0x782d

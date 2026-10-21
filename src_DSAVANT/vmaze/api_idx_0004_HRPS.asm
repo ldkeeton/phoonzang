@@ -14,7 +14,7 @@ api_idx_0004_HRPS:
     mov word [bp - 0x0002], ax       ; 0x1522
     mov word [bp - 0x0004], 0        ; 0x1525
     push ax                          ; 0x152a
-    mov ax, word [bss_0e14]          ; 0x152b
+    mov ax, word [maze_data]         ; 0x152b
     add ax, 0x9b0                    ; 0x152e
     push ax                          ; 0x1531
     call ds_leaf_loc_PRVP            ; 0x1532
@@ -59,7 +59,7 @@ jumptable_1556:
 jumptable_1556_case_1:
 @..api_idx_0004_HRPS.l3:
     push word [bp - 0x0002]          ; 0x1586
-    mov ax, word [bss_0e14]          ; 0x1589
+    mov ax, word [maze_data]         ; 0x1589
     add ax, 0x8b0                    ; 0x158c
     push ax                          ; 0x158f
     call ds_leaf_loc_PRVP            ; 0x1590
@@ -89,7 +89,7 @@ jumptable_1556_case_1:
     je short @..api_idx_0004_HRPS.l5 ; 0x15c9
 @..api_idx_0004_HRPS.l7:
     push word [bp - 0x0002]          ; 0x15cb
-    mov ax, word [bss_0e14]          ; 0x15ce
+    mov ax, word [maze_data]         ; 0x15ce
     add ax, 0x930                    ; 0x15d1
     push ax                          ; 0x15d4
     call ds_leaf_loc_PRVP            ; 0x15d5

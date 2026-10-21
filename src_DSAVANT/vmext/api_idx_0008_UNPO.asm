@@ -75,7 +75,7 @@ jumptable_1a8f:
     add ax, word [bp + 0x8]          ; 0x1abb
     mov word [bp - 0x0002], ax       ; 0x1abe
     push ax                          ; 0x1ac1
-    mov ax, word [bss_0e14]          ; 0x1ac2
+    mov ax, word [maze_data]         ; 0x1ac2
     add ax, 0x9b0                    ; 0x1ac5
     push ax                          ; 0x1ac8
     call ds_leaf_loc_PRVP            ; 0x1ac9
@@ -120,7 +120,7 @@ jumptable_1b11:
     jmp [cs:bx + jumptable_1b11 - IMAGE_BASE + __zres_end] ; 0x1b25
 @..api_idx_0008_UNPO.l6:
     push word [bp - 0x0002]          ; 0x1b2a
-    mov ax, word [bss_0e14]          ; 0x1b2d
+    mov ax, word [maze_data]         ; 0x1b2d
     add ax, 0x8b0                    ; 0x1b30
     push ax                          ; 0x1b33
     call ds_leaf_loc_PRVP            ; 0x1b34
@@ -179,7 +179,7 @@ jumptable_1ba0:
     jmp [cs:bx + jumptable_1ba0 - IMAGE_BASE + __zres_end] ; 0x1bb4
 @..api_idx_0008_UNPO.l10:
     push word [bp - 0x0002]          ; 0x1bb9
-    mov ax, word [bss_0e14]          ; 0x1bbc
+    mov ax, word [maze_data]         ; 0x1bbc
     add ax, 0x930                    ; 0x1bbf
     push ax                          ; 0x1bc2
     call ds_leaf_loc_PRVP            ; 0x1bc3
@@ -224,7 +224,7 @@ jumptable_1ba0:
     mov ax, 4                        ; 0x1c22
     push ax                          ; 0x1c25
     push word [bp - 0x0002]          ; 0x1c26
-    mov ax, word [bss_0e14]          ; 0x1c29
+    mov ax, word [maze_data]         ; 0x1c29
     add ax, 0x90                     ; 0x1c2c
     push ax                          ; 0x1c2f
     call ds_leaf_loc_NPSL            ; 0x1c30
@@ -235,7 +235,7 @@ jumptable_1ba0:
     mov ax, 4                        ; 0x1c3b
     push ax                          ; 0x1c3e
     push word [bp - 0x0002]          ; 0x1c3f
-    mov ax, word [bss_0e14]          ; 0x1c42
+    mov ax, word [maze_data]         ; 0x1c42
     add ax, 0x290                    ; 0x1c45
     push ax                          ; 0x1c48
     call ds_leaf_loc_NPSL            ; 0x1c49

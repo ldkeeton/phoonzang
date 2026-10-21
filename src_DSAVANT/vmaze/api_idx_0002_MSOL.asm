@@ -16,19 +16,19 @@ api_idx_0002_MSOL:
     push ax                          ; 0x8a38
     push ax                          ; 0x8a39
     push word [bp - 0x0002]          ; 0x8a3a
-    mov ax, word [bss_0e14]          ; 0x8a3d
+    mov ax, word [maze_data]         ; 0x8a3d
     add ax, 0x4b0                    ; 0x8a40
     push ax                          ; 0x8a43
-    call ds_leaf_loc_OOUU            ; 0x8a44
+    call set_bitfield                ; 0x8a44
     add sp, byte 8                   ; 0x8a47
     push word [bss_82ee]             ; 0x8a4a
     mov ax, 2                        ; 0x8a4e
     push ax                          ; 0x8a51
     push word [bp - 0x0002]          ; 0x8a52
-    mov ax, word [bss_0e14]          ; 0x8a55
+    mov ax, word [maze_data]         ; 0x8a55
     add ax, 0x7b0                    ; 0x8a58
     push ax                          ; 0x8a5b
-    call ds_leaf_loc_OOUU            ; 0x8a5c
+    call set_bitfield                ; 0x8a5c
     add sp, byte 8                   ; 0x8a5f
     call loc_IONR                    ; 0x8a62
     mov ax, 0x7fc                    ; 0x8a65
@@ -59,7 +59,7 @@ api_idx_0002_MSOL:
     mov ax, 1                        ; 0x8a9f
     push ax                          ; 0x8aa2
     push word [bss_82ee]             ; 0x8aa3
-    call api_idx_000a_JJNS           ; 0x8aa7
+    call set_cell_wall               ; 0x8aa7
     add sp, byte 0x0a                ; 0x8aaa
     mov ax, 0                        ; 0x8aad
     push ax                          ; 0x8ab0
@@ -72,27 +72,27 @@ api_idx_0002_MSOL:
     mov ax, 5                        ; 0x8ac0
     push ax                          ; 0x8ac3
     push word [game_state_arg]       ; 0x8ac4
-    call api_idx_0004_KMPG           ; 0x8ac8
+    call log_maze_change             ; 0x8ac8
     add sp, byte 0x12                ; 0x8acb
     mov ax, 0                        ; 0x8ace
     push ax                          ; 0x8ad1
     mov ax, 6                        ; 0x8ad2
     push ax                          ; 0x8ad5
     push word [bp - 0x0002]          ; 0x8ad6
-    mov ax, word [bss_0e14]          ; 0x8ad9
+    mov ax, word [maze_data]         ; 0x8ad9
     add ax, 0x4b0                    ; 0x8adc
     push ax                          ; 0x8adf
-    call ds_leaf_loc_OOUU            ; 0x8ae0
+    call set_bitfield                ; 0x8ae0
     add sp, byte 8                   ; 0x8ae3
     mov ax, 0                        ; 0x8ae6
     push ax                          ; 0x8ae9
     mov ax, 2                        ; 0x8aea
     push ax                          ; 0x8aed
     push word [bp - 0x0002]          ; 0x8aee
-    mov ax, word [bss_0e14]          ; 0x8af1
+    mov ax, word [maze_data]         ; 0x8af1
     add ax, 0x7b0                    ; 0x8af4
     push ax                          ; 0x8af7
-    call ds_leaf_loc_OOUU            ; 0x8af8
+    call set_bitfield                ; 0x8af8
     add sp, byte 8                   ; 0x8afb
     mov ax, 0x12                     ; 0x8afe
     push ax                          ; 0x8b01
@@ -127,6 +127,6 @@ api_idx_0002_MSOL:
     mov ax, 6                        ; 0x8b43
     push ax                          ; 0x8b46
     push word [game_state_arg]       ; 0x8b47
-    call api_idx_0004_KMPG           ; 0x8b4b
+    call log_maze_change             ; 0x8b4b
     add sp, byte 0x12                ; 0x8b4e
     ret                              ; 0x8b51

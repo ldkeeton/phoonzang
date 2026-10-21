@@ -53,7 +53,7 @@ loc_VOSO:
     push word [bp + 0xc]             ; 0x2f45
     push word [bp + 0xa]             ; 0x2f48
     push word [bp + 0x8]             ; 0x2f4b
-    call api_idx_0004_QVPP           ; 0x2f4e
+    call find_map_piece              ; 0x2f4e
     add sp, byte 0x0a                ; 0x2f51
     ret                              ; 0x2f54
 loc_RRJG:
@@ -62,7 +62,7 @@ loc_RRJG:
     mov ax, 6                        ; 0x2f5b
     push ax                          ; 0x2f5e
     push word [bp + 0x4]             ; 0x2f5f
-    mov ax, word [bss_0e14]          ; 0x2f62
+    mov ax, word [maze_data]         ; 0x2f62
     add ax, 0x4b0                    ; 0x2f65
     push ax                          ; 0x2f68
     call ds_leaf_loc_NPSL            ; 0x2f69
@@ -72,7 +72,7 @@ loc_RRJG:
     mov ax, 2                        ; 0x2f74
     push ax                          ; 0x2f77
     push word [bp + 0x4]             ; 0x2f78
-    mov ax, word [bss_0e14]          ; 0x2f7b
+    mov ax, word [maze_data]         ; 0x2f7b
     add ax, 0x7b0                    ; 0x2f7e
     push ax                          ; 0x2f81
     call ds_leaf_loc_NPSL            ; 0x2f82

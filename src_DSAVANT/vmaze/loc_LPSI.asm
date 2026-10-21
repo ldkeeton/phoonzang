@@ -5,7 +5,7 @@ loc_LPSI:
     mov ax, 0                        ; 0x09d1
     push ax                          ; 0x09d4
     push word [game_state_arg]       ; 0x09d5
-    push word [bss_0e14]             ; 0x09d9
+    push word [maze_data]            ; 0x09d9
     mov ax, 2                        ; 0x09dd
     push ax                          ; 0x09e0
     call data_record_io              ; 0x09e1
@@ -51,7 +51,7 @@ loc_LPSI:
     call app_memmove                 ; 0x0a3f
     add sp, byte 0x0a                ; 0x0a42
     call api_idx_0014_LHRI           ; 0x0a45
-    mov bx, word [bss_0e14]          ; 0x0a48
+    mov bx, word [maze_data]         ; 0x0a48
     mov si, word [bss_8f3e]          ; 0x0a4c
     mov al, byte [bx + si + 0x490]   ; 0x0a50
     sub ah, ah                       ; 0x0a54
