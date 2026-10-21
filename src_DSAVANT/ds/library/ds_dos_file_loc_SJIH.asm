@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_dos_file_loc_SJIH:
     push ds                          ; 0x3534
     push es                          ; 0x3535

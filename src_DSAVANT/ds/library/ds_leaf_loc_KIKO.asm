@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_leaf_loc_KIKO:
     push ds                          ; 0x382c
     push es                          ; 0x382d

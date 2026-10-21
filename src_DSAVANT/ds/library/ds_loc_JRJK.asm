@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_loc_JRJK:
     push bp                          ; 0x3ba3
     mov bp, sp                       ; 0x3ba4

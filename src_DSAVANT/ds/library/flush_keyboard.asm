@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 flush_keyboard:
     push bp                          ; 0x3e5e
     mov bp, sp                       ; 0x3e5f

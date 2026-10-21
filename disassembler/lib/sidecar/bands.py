@@ -3,8 +3,7 @@
 The linker places its inputs in order, so a binary's code falls into bands:
 the game's own compiled objects, an in-house assembly library, the C library.
 Each band names the folder its fragments are emitted into
-(``ds/game/x.asm``); an ``asm_only`` band's routines have no C equivalent and
-are stamped as such (:mod:`lib.asm_only`).
+(``ds/game/x.asm``).
 """
 
 from .errors import SidecarError
@@ -23,8 +22,6 @@ def _validate_bands(bands, where):
             raise SidecarError(f'{at} must be an object with "start" and "end"')
         if band.get('name') not in BAND_NAMES:
             raise SidecarError(f'{at}.name must be one of {", ".join(BAND_NAMES)}')
-        if not isinstance(band.get('asm_only', False), bool):
-            raise SidecarError(f'{at}.asm_only must be true or false')
         if 'note' in band and not isinstance(band['note'], str):
             raise SidecarError(f'{at}.note must be a string')
         start = _parse_offset(band['start'], f'{at}.start')
@@ -37,16 +34,16 @@ def _validate_bands(bands, where):
 
 
 def parse_bands(raw):
-    """``[(start, end, name, asm_only)]`` from a validated ``bands`` list
+    """``[(start, end, name)]`` from a validated ``bands`` list
     (*end* inclusive, as in ``force_data``)."""
     return [(_parse_offset(b['start'], 'bands.start'),
              _parse_offset(b['end'], 'bands.end'),
-             b['name'], bool(b.get('asm_only', False)))
+             b['name'])
             for b in raw or ()]
 
 
 def band_for(bands, offset):
-    """The ``(start, end, name, asm_only)`` band holding *offset*, or None."""
+    """The ``(start, end, name)`` band holding *offset*, or None."""
     for band in bands:
         if band[0] <= offset <= band[1]:
             return band

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_dos_con_loc_NHHR:
     mov ah, 9                        ; 0x3fd5
     int 0x21 ; DOS string output

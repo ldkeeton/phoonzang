@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_loc_QURR:
     push bp                          ; 0x4175
     mov bp, sp                       ; 0x4176

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_entry_53:
     push bp                          ; 0x41d7
     mov bp, sp                       ; 0x41d8

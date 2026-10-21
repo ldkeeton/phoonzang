@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 poll_filtered_key:
     push bp                          ; 0x3c97
     mov bp, sp                       ; 0x3c98

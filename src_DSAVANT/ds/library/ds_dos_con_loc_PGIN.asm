@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_dos_con_loc_PGIN:
     mov ah, 9                        ; 0x3936
     int 0x21 ; DOS string output

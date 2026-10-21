@@ -28,12 +28,13 @@ _ASM_BLOCK = re.compile(r'^[ \t]*#asm\b.*?^[ \t]*#endasm\b', re.S | re.M)
 _ASM_IDENT = re.compile(r'[A-Za-z_][A-Za-z0-9_]*')
 
 
-def rewrite_identifiers(text, mapping):
+def rewrite_identifiers(text, mapping, asm=False):
     """Return *text* with every identifier in *mapping* renamed.
 
     Comments and literals are left alone; ``#include "x.h"`` is a literal.
-    Inside ``#asm`` blocks a C name appears with the compiler's trailing ``_``
-    (``ovname_``), so that spelling is renamed to ``<new>_``.
+    Inside ``#asm`` blocks -- and throughout assembly text (*asm*, a ``.s``)
+    -- a C name appears with the compiler's trailing ``_`` (``ovname_``), so
+    that spelling is renamed to ``<new>_``.
     """
     def sub(match):
         token = match.group(0)
@@ -46,6 +47,8 @@ def rewrite_identifiers(text, mapping):
             return mapping[token[:-1]] + '_'
         return token
 
+    if asm:
+        return _ASM_IDENT.sub(asm_sub, text)
     out = []
     pos = 0
     for block in _ASM_BLOCK.finditer(text):
@@ -144,19 +147,19 @@ def _own_names(text, own_keys):
 
 
 def upgrade(label, own_keys, start, text, original, index, names_at, compile_,
-            image_base=0):
+            image_base=0, asm=False):
     """Return ``(new_text, new_func)`` with asm names in place of Manx ones.
 
     *own_keys* maps each normalized name the module defines (``creat``) to its
-    label; every spelling of it becomes that label.  *compile_* compiles C text to a
-    :class:`lib.aztec.compile.Func`.  The renamed seed must compile to the
+    label; every spelling of it becomes that label.  *compile_* compiles C text
+    (or, with *asm*, assembly) to a :class:`lib.aztec.compile.Func`.  The renamed seed must compile to the
     identical code and relocations.
     """
     func = compile_(text)
     mapping = learn_names(label, start, func, original, index, names_at,
                           image_base)
     mapping.update(_own_names(text, own_keys))
-    new_text = rewrite_identifiers(text, mapping)
+    new_text = rewrite_identifiers(text, mapping, asm)
     new_func = compile_(new_text)
     if new_func.code != func.code or len(new_func.fixups) != len(func.fixups):
         raise RelinkError(

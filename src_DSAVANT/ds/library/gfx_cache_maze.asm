@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_cache_maze:
     push bp                          ; 0x435f
     mov bp, sp                       ; 0x4360

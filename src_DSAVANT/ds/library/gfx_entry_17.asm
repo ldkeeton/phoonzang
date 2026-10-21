@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_entry_17:
     push bp                          ; 0x3b3b
     mov bp, sp                       ; 0x3b3c

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_loc_RMTO:
     push es                          ; 0x3796
     push si                          ; 0x3797

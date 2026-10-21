@@ -1,9 +1,10 @@
 'use strict';
 // Navigation and tooling for the generated C / NASM trees (``src_<PROJECT>/``):
-//   * Go to Definition / Find References from C into the NASM listings
+//   * Go to Definition / Find References from C (and Manx assembly, ``.s``) into
+//     the NASM listings (``.asm``)
 //   * hover: address, sidecar name/note, vendor provenance
 //   * Go to address, Name this routine (writes the sidecar), vendor diff
-//   * Manx ``cc`` diagnostics on save, and a provenance CodeLens
+//   * Manx ``cc``/``as`` diagnostics on save, and a provenance CodeLens
 const fs = require('fs');
 const path = require('path');
 const { execFile } = require('child_process');
@@ -11,13 +12,15 @@ const vscode = require('vscode');
 const { labels, occurrences, addresses, routineStart, locate } = require('./scan');
 const sidecar = require('./sidecar');
 
-const SRC = 'src_*/**/*.{asm,c}';
+const SRC = 'src_*/**/*.{asm,c,s}';
 const SHARED_DIR = 'shared';   // src_<PROJECT>/shared/ holds routines shared between binaries
 const WORD = /[A-Za-z_$?][\w$?]*/;
-const C_SELECTOR = [{ language: 'c' }, { language: 'cpp' }];
-const ANY_SELECTOR = [{ pattern: '**/src_*/**/*.{c,asm}' }, ...C_SELECTOR];
+// A routine's source: C, or Manx assembly (``.s``, built by ``as``).
+const S_PATTERN = '**/src_*/**/*.s';
+const C_SELECTOR = [{ language: 'c' }, { language: 'cpp' }, { pattern: S_PATTERN }];
+const ANY_SELECTOR = [{ pattern: '**/src_*/**/*.{c,s,asm}' }, ...C_SELECTOR];
 
-let texts = new Map();   // uri string -> text (asm and c under src_*)
+let texts = new Map();   // uri string -> text (asm, c and s under src_*)
 let defs = new Map();    // label -> [{uri, row}]
 let addrs = new Map();   // binary -> sorted [{addr, uri, row}]
 
@@ -65,7 +68,7 @@ function nameAt(doc, pos) {
     return range ? doc.getText(range) : null;
 }
 
-// Aztec spells C ``name`` as ``name_`` inside ``#asm`` blocks.
+// Aztec spells C ``name`` as ``name_`` in assembly (``#asm`` blocks, ``.s``).
 function resolve(name) {
     if (!name) return null;
     if (defs.has(name)) return name;
@@ -109,7 +112,7 @@ const sidecarPath = (project) => path.join(root(), 'disassembler', 'sidecar', `$
 const manifestPath = (project, binary) =>
     path.join(root(), '.cache', project, 'prebuild', `${binary}_aztec_mux.json`);
 const seedPath = (where) =>
-    path.join(root(), '.cache', where.project, 'prebuild', 'src', where.binary, `${where.label}.c`);
+    path.join(root(), '.cache', where.project, 'prebuild', 'src', where.binary, `${where.label}.${where.ext}`);
 
 function sidecarName(where, addr) {
     const data = readJson(sidecarPath(where.project));
@@ -288,16 +291,16 @@ async function nameRoutine(uri, suggestion) {
 async function diffVendor(uri) {
     uri = uri || (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri);
     const where = uri && locate(uri.fsPath);
-    if (!where || where.ext !== 'c') return vscode.window.showErrorMessage('open a generated .c file');
+    if (!where || !SOURCE_EXT.has(where.ext)) return vscode.window.showErrorMessage('open a generated .c or .s file');
     const seed = seedPath(where);
     if (!fs.existsSync(seed)) {
         return vscode.window.showErrorMessage(`no vendor seed at ${seed} — run make prebuild ${where.project}`);
     }
     await vscode.commands.executeCommand('vscode.diff', vscode.Uri.file(seed), uri,
-        `vendor seed ↔ ${where.label}.c`);
+        `vendor seed ↔ ${where.label}.${where.ext}`);
 }
 
-// ------------------------------------------------------------ Manx cc
+// ------------------------------------------------------------ Manx cc / as
 
 let diagnostics;
 const running = new Map();   // fsPath -> rerun requested?
@@ -316,7 +319,7 @@ function toDiagnostics(doc, stdout) {
         const range = new vscode.Range(row, col, row, col + (word ? word[0].length : 1));
         const d = new vscode.Diagnostic(range, m[5],
             m[4] === 'error' ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning);
-        d.source = 'Manx cc';
+        d.source = /\.s$/.test(doc.fileName) ? 'Manx as' : 'Manx cc';
         out.push(d);
     }
     return out;
@@ -349,10 +352,13 @@ function checkFile(doc, force) {
                 if (again) checkFile(doc, true);
             });
     });
-    vscode.window.setStatusBarMessage('$(sync~spin) Manx cc…', done);
+    vscode.window.setStatusBarMessage(`$(sync~spin) Manx ${/\.s$/.test(file) ? 'as' : 'cc'}…`, done);
 }
 
-const isGeneratedC = (doc) => doc.uri.scheme === 'file' && /src_[^/\\]+[/\\][^/\\]+[/\\][^/\\]+\.c$/.test(doc.fileName);
+const SOURCE_EXT = new Set(['c', 's']);
+// A routine's .c or .s under src_<PROJECT>/<binary>/ (or a band folder beneath it).
+const isGeneratedC = (doc) => doc.uri.scheme === 'file' &&
+    /src_[^/\\]+[/\\][^/\\]+[/\\](?:[^/\\]+[/\\])?[^/\\]+\.[cs]$/.test(doc.fileName);
 
 // ------------------------------------------------------- make C (Claude)
 
@@ -367,6 +373,7 @@ async function makeC(uri) {
     const dir = path.dirname(uri.fsPath);
     const asmFile = path.join(dir, `${where.label}.asm`);
     const cFile = path.join(dir, `${where.label}.c`);
+    const sFile = path.join(dir, `${where.label}.s`);
     if (!fs.existsSync(asmFile)) return vscode.window.showErrorMessage(`no ${asmFile}`);
     if (converting.has(asmFile)) { converting.get(asmFile).show(); return; }
     if (fs.existsSync(cFile)) {
@@ -410,27 +417,33 @@ async function makeC(uri) {
         Object.entries(flags.prefixes || {}).map(([p, f]) => `\`${p}\` → \`${f.join(' ')}\``)).join('; ');
 
     const prompt = [
-        `Convert ${rel(asmFile)} to K&R syntax C, writing ${rel(cFile)}. ` +
-            `It must compile to byte-exact matching asm; never hand-edit the asm.`,
+        `Convert ${rel(asmFile)} to C, writing ${rel(cFile)}: K&R syntax for the Manx Aztec compiler, ` +
+            `compiling to byte-exact matching asm; never hand-edit the asm. If C cannot reproduce it ` +
+            `(no csav frame or running in its caller's frame, code-segment data, jumps cc would shorten, ` +
+            `falling through into the next routine), write ${rel(sFile)} instead: Manx \`as\` assembly, ` +
+            `which must also build to byte-exact matching asm.`,
         `Build commands: \`make rebuild\` (repo root) is the sole pass/fail gate; the only other is ` +
             `\`${build}\`, for renaming. Do not look for, read, or run any other build commands, Makefiles, or scripts.`,
-        `Compiler flags come from the routine name's longest matching prefix: ${flagList}.`,
+        `Compiler flags come from the routine name's longest matching prefix: ${flagList} ` +
+            `(a .s uses \`compiler_flags.asm\`).`,
         `To rename to NAME: (1) in ${rel(sidecarPath(where.project))}, set \`"${key}": {"name": "NAME"}\` under ` +
             `${table} (keep any "note", keep keys sorted); (2) run \`${build}\`, which regenerates the asm as ` +
-            `NAME.asm; (3) rename the C file to NAME.c and the function in it (and any C callers) to NAME; ` +
+            `NAME.asm; (3) rename the source to NAME.c or NAME.s and the routine in it (\`NAME\` in C, ` +
+            `\`NAME_\` in .s), and any C callers, to NAME; ` +
             `(4) run \`make rebuild\`.`,
         `Name the data too. Give parameters and locals descriptive names in the C itself. For each ` +
             `address-named global (\`bss_XXXX\`/\`dseg_XXXX\`) the routine uses, set ` +
             `\`"XXXX": {"name": "NAME", "note": "..."}\` under \`binaries.${dataOwner}.data_names\` (keyed by DS ` +
-            `offset, keep keys sorted; skip any already named there), run \`${build}\`, change the C's \`extern\` ` +
-            `and uses to NAME, and run \`make rebuild\`. A C still spelling a named global by address fails ` +
+            `offset, keep keys sorted; skip any already named there), run \`${build}\`, change the source's ` +
+            `\`extern\`/\`extrn\` and uses to NAME, and run \`make rebuild\`. A C still spelling a named global by address fails ` +
             `the link and gives the build's name for it.`,
         `Name every other address-named symbol it references the same way, including those only in ` +
             `\`extrn\` lines of #asm: each code-segment global (\`cseg_XXXX\`) under ` +
             `\`binaries.${where.binary}.code_data_names\` (keyed by CS offset, same form and rules), and each ` +
             `auto-named routine it calls (e.g. \`*_loc_XXXX\`) under ${table} as in renaming (keyed like the ` +
             `routine's own entry, with a "note"). Give #asm stack arguments and locals \`equ\` names. Then run ` +
-            `\`${build}\`, update the C, and run \`make rebuild\`. No address-named symbol may remain in the C.`,
+            `\`${build}\`, update the source, and run \`make rebuild\`. No address-named symbol may remain in ` +
+            `the source.`,
         `Once it matches, give the routine a descriptive lowercase_underscore name this way, keeping any prefix ` +
             `its flags need. Your final message: only the name.`,
     ].join('\n\n');
@@ -454,8 +467,9 @@ async function makeC(uri) {
         if (t !== term) return;
         sub.dispose();
         converting.delete(asmFile);
-        if (!fs.existsSync(cFile)) return;
-        const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(cFile));
+        const made = [cFile, sFile].find((f) => fs.existsSync(f));
+        if (!made) return;
+        const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(made));
         await vscode.window.showTextDocument(doc, { preview: false });
         if (isGeneratedC(doc)) checkFile(doc, true);
     });
@@ -470,7 +484,8 @@ function provenance(doc) {
         return `vendor module ${m.file} (${m.source_version}, cc ${m.compiler}), ` +
             `compiled whole into this fragment`;
     }
-    return /auto-generated/.test(doc.lineAt(0).text) ? 'generated (decompiled)' : 'hand-written C';
+    if (/auto-generated/.test(doc.lineAt(0).text)) return 'generated (decompiled)';
+    return /\.s$/.test(doc.fileName) ? 'hand-written Manx assembly' : 'hand-written C';
 }
 
 // ------------------------------------------------------------- activate
@@ -508,8 +523,8 @@ function activate(context) {
                 const out = [];
                 for (const [key, text] of texts) {
                     if (!sameBinary(key, doc)) continue;
-                    // ``name_`` is the same symbol inside a C file's ``#asm`` block.
-                    const spellings = key.endsWith('.c') ? [name, name + '_'] : [name];
+                    // ``name_`` is the same symbol in assembly: a C file's ``#asm`` block, a ``.s``.
+                    const spellings = /\.[cs]$/.test(key) ? [name, name + '_'] : [name];
                     for (const spelling of spellings) {
                         for (const o of occurrences(text, spelling)) {
                             if (o.def && !ctx.includeDeclaration) continue;
@@ -529,13 +544,13 @@ function activate(context) {
             },
         }),
         vscode.languages.registerCodeLensProvider(
-            [{ pattern: '**/src_*/*/*.c' }, { pattern: '**/src_*/*/*/*.c' }], {
+            [{ pattern: '**/src_*/*/*.{c,s}' }, { pattern: '**/src_*/*/*/*.{c,s}' }], {
                 provideCodeLenses(doc) {
                     const top = new vscode.Range(0, 0, 0, 0);
                     return [
                         new vscode.CodeLens(top, { title: provenance(doc),
                             command: 'PHOONZANGAsmNav.diffVendor', arguments: [doc.uri] }),
-                        new vscode.CodeLens(top, { title: '$(check) Manx cc',
+                        new vscode.CodeLens(top, { title: `$(check) Manx ${/\.s$/.test(doc.fileName) ? 'as' : 'cc'}`,
                             command: 'PHOONZANGAsmNav.check', arguments: [doc.uri] }),
                     ];
                 },
@@ -559,7 +574,7 @@ function activate(context) {
                 ? await vscode.workspace.openTextDocument(uri)
                 : vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
             if (doc && isGeneratedC(doc)) checkFile(doc, true);
-            else vscode.window.showErrorMessage('open a generated .c file');
+            else vscode.window.showErrorMessage('open a generated .c or .s file');
         }),
     );
 }

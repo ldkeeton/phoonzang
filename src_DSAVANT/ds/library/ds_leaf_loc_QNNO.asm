@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_leaf_loc_QNNO:
     push ds                          ; 0x3674
     push si                          ; 0x3675

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_set_mouse_pointer:
     push bp                          ; 0x42a7
     mov bp, sp                       ; 0x42a8

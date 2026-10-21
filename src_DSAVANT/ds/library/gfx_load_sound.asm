@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_load_sound:
     push bp                          ; 0x4141
     mov bp, sp                       ; 0x4142

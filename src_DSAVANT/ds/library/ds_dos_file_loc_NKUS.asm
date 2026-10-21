@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_dos_file_loc_NKUS:
     push ds                          ; 0x35f5
     push es                          ; 0x35f6

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_mouse_off:
     push bp                          ; 0x4280
     mov bp, sp                       ; 0x4281

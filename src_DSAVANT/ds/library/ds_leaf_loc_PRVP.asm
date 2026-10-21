@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_leaf_loc_PRVP:
     push bp                          ; 0x3ebb
     mov bp, sp                       ; 0x3ebc

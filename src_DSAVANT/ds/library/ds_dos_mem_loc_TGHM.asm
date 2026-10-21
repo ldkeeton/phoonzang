@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_dos_mem_loc_TGHM:
     cmp word [bp - 0x0002], byte 0   ; 0x36f5
     jne short @..ds_dos_mem_loc_TGHM.l1 ; 0x36f9

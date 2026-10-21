@@ -17,9 +17,10 @@ BLOCK = {'compiler_flags': {
                                                 'app_': ['-n', '+c']}}}}}
 
 
-def _tool(label, data=BLOCK, text='int f() { return 0; }\n', binary='bin'):
+def _tool(label, data=BLOCK, suffix='.c', binary='bin'):
     with mock.patch('lib.sidecar.loader.load', return_value=data):
-        return cache._tool('P', binary, label, text)
+        return cache._tool('P', binary, label,
+                           cache.default_entry(label, 'P', suffix))
 
 
 def _flags(label, data=BLOCK, binary='bin'):
@@ -41,10 +42,16 @@ class FlagsByNameTests(unittest.TestCase):
         # routine it never saw (aztec_foo) compile alike: by name only.
         self.assertEqual(_flags('aztec_croot'), _flags('aztec_foo'))
 
-    def test_asm_module_uses_asm_flags(self):
-        text = '#asm\n\tret\n#endasm\n'
-        self.assertEqual(_tool('aztec_csav', text=text),
+    def test_s_source_uses_asm_flags(self):
+        self.assertEqual(_tool('aztec_csav', suffix='.s'),
                          ('asm', ('-dMODEL=0',)))
+
+    def test_vendor_asm_module_uses_asm_flags(self):
+        entry = dict(cache.default_entry('aztec_csav', 'P'), file='csav.asm')
+        with mock.patch('lib.sidecar.loader.load', return_value=BLOCK):
+            self.assertEqual(cache._tool('P', 'bin', 'aztec_csav', entry),
+                             ('asm', ('-dMODEL=0',)))
+        self.assertEqual(cache.seed_suffix(entry), '.s')
 
     def test_no_flags_for_name_is_an_error(self):
         with self.assertRaises(SidecarError):

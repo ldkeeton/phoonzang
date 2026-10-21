@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_entry_47:
     push bp                          ; 0x415b
     mov bp, sp                       ; 0x415c

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_reset_rgb:
     push bp                          ; 0x431e
     mov bp, sp                       ; 0x431f

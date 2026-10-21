@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 stir_random_seeds:
     push ax                          ; 0x3c0d
     push bx                          ; 0x3c0e

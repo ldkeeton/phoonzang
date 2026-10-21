@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_string_loc_QRJV:
     push bp                          ; 0x3a95
     mov bp, sp                       ; 0x3a96

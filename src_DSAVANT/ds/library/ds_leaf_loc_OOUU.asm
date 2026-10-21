@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_leaf_loc_OOUU:
     push bp                          ; 0x3eeb
     mov bp, sp                       ; 0x3eec

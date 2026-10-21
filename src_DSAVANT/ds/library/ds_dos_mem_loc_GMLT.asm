@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_dos_mem_loc_GMLT:
     push es                          ; 0x377b
     mov si, font_seg_table - IMAGE_BASE ; 0x377c

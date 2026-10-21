@@ -30,6 +30,7 @@ from collections import defaultdict
 
 from lib.autogen import is_generated
 from lib.cachedirs import project_of_src_dir
+from lib.routine_source import beside
 from lib.shared import FOLDER
 from lib.symtab import Kind, project_tables
 
@@ -193,10 +194,11 @@ def scan(out_dir, symbols=None, files=None):
     entries = []
     for rel, text in sorted(frags.items()):
         root = os.path.basename(rel)[:-4]
-        # A fragment with a .c is one compiled object (a vendor module's
-        # entry points, ``mkdir``/``rmdir``/``chdir``): every label is its own.
-        c_rel = rel[:-4] + '.c'
-        if c_rel in files or os.path.isfile(os.path.join(out_dir, c_rel)):
+        # A fragment with a .c or .s is one compiled object (a vendor
+        # module's entry points, ``mkdir``/``rmdir``/``chdir``): every label
+        # is its own.
+        if beside(rel[:-4], lambda p: p in files or os.path.isfile(
+                os.path.join(out_dir, p))):
             continue
         extras = [n for n in _defined_labels(text, symbols) if n != root]
         if not extras:

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_leaf_loc_NPSL:
     push bp                          ; 0x3f3d
     mov bp, sp                       ; 0x3f3e

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_leaf_loc_OIUO:
     push es                          ; 0x30e2
     mov ax, 0                        ; 0x30e3

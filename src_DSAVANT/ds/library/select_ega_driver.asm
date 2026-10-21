@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 select_ega_driver:
     mov ax, 0                        ; 0x3490
     push ds                          ; 0x3493

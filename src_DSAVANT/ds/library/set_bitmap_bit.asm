@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 set_bitmap_bit:
     push bp                          ; 0x3e88
     mov bp, sp                       ; 0x3e89

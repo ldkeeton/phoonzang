@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 dos_read_file:
     push bp                          ; 0x398a
     mov bp, sp                       ; 0x398b

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_dos_intvec_loc_OHRJ:
     push ds                          ; 0x37d9
     push es                          ; 0x37da

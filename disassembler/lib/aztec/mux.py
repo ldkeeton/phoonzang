@@ -22,7 +22,9 @@ from .compile import VERSION
 from .objread import fixup_width
 
 def is_asm(filename):
-    return filename.lower().endswith('.asm')
+    """True for Manx assembly, which ``as`` builds: a vendor ``.asm`` or a
+    routine's ``.s`` (:mod:`lib.routine_source`)."""
+    return filename.lower().endswith(('.asm', '.s'))
 
 
 def normalize(name):

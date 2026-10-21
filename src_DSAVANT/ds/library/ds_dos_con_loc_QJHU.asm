@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_dos_con_loc_QJHU:
     push bp                          ; 0x3f81
     mov bp, sp                       ; 0x3f82

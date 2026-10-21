@@ -70,13 +70,13 @@ def compiler_flags(project, label, binary=None):
 def asm_flags(project):
     """The ``as`` flags from the sidecar's ``compiler_flags.asm``.
 
-    They build every assembly module: a vendor ``.asm`` and a C file made of
-    one ``#asm`` block alike (:func:`lib.aztec.compile.asm_source`).
+    They build every assembly module: a vendor ``.asm`` and a routine's ``.s``
+    (:mod:`lib.routine_source`) alike.
     """
     from .loader import load
 
     block = (load(project) or {}).get('compiler_flags') or {}
     if block.get('asm') is None:
         raise SidecarError(f'{project}: "compiler_flags" has no "asm" list '
-                           'for assembling #asm modules')
+                           'for assembling .s and vendor .asm modules')
     return tuple(block['asm'])

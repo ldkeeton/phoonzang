@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 load_font_file:
     push bp                          ; 0x3860
     mov bp, sp                       ; 0x3861

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_save_screen:
     push bp                          ; 0x423f
     mov bp, sp                       ; 0x4240

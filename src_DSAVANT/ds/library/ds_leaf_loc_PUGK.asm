@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_leaf_loc_PUGK:
     push bp                          ; 0x383e
     mov bp, sp                       ; 0x383f

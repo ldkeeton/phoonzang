@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_save_area:
     push bp                          ; 0x3b6f
     mov bp, sp                       ; 0x3b70

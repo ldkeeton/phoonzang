@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_entry_48:
     push bp                          ; 0x4168
     mov bp, sp                       ; 0x4169

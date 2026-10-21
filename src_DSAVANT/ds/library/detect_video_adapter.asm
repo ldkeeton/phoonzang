@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 detect_video_adapter:
     mov ah, 0xf                      ; 0x30f7
     int 0x10 ; BIOS video: get video mode

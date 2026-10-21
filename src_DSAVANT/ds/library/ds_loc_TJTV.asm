@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_loc_TJTV:
     push bp                          ; 0x3a77
     mov bp, sp                       ; 0x3a78

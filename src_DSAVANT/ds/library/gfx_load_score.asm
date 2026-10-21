@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_load_score:
     push bp                          ; 0x41a3
     mov bp, sp                       ; 0x41a4

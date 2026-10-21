@@ -18,7 +18,6 @@ offsets, so relocations can be attributed to each function.
 
 import contextlib
 import os
-import re
 import shutil
 import subprocess
 import tempfile
@@ -288,37 +287,6 @@ def available(version=VERSION):
             and shutil.which(DOSBOX) is not None)
 
 
-# A C file whose only code is one ``#asm`` block: an assembly module wrapped
-# in C (lib.aztec.cache.asm_stub, or a hand-written routine).
-_ASM_MODULE = re.compile(
-    r'\A(?:\s|/\*.*?\*/)*^[ \t]*#asm\b.*?^[ \t]*#endasm\b(?:\s|/\*.*?\*/)*\Z',
-    re.S | re.M)
-_ASM_BODY = re.compile(r'^[ \t]*#asm\b[^\n]*\n(.*?)^[ \t]*#endasm\b', re.S | re.M)
-
-
-def is_asm_module(source_text):
-    """True when *source_text* is C made of a single ``#asm`` block.
-
-    Its labels (``cpyloop``) are the assembler's, not C ``static`` routines,
-    so the module is read as an assembled one.
-    """
-    return bool(_ASM_MODULE.match(source_text))
-
-
-def asm_source(source_text):
-    """The assembly ``as`` builds from *source_text*.
-
-    A C file made of one ``#asm`` block goes to ``as`` itself, not ``cc``:
-    ``cc``'s ``#asm`` pass squeezes every forward ``jmp`` to short (``near
-    ptr`` included), while ``as`` makes its two passes without squeezing, as
-    the library makefiles and the game's own assembly were built.  Any other
-    text is already assembly.
-    """
-    if is_asm_module(source_text):
-        return _ASM_BODY.search(source_text).group(1)
-    return source_text
-
-
 def _dos_name(name):
     stem = name.upper()
     for ch in ' /\\:;*?"<>|':
@@ -337,15 +305,12 @@ def compile_module(source_text, name, *, compiler=VERSION, includes=None,
                    flags, keep=False, kind='c'):
     """Compile *source_text* and return a :class:`CompiledModule`.
 
-    ``kind='asm'`` assembles a hand-written Manx ``.ASM`` module with ``as``
-    instead of compiling C with ``cc``; the module may be C made of one
-    ``#asm`` block (:func:`asm_source`).
+    ``kind='asm'`` assembles a Manx assembly module (a vendor ``.asm``, or a
+    routine's ``.s``) with ``as`` instead of compiling C with ``cc``.
 
     ``compiler`` selects the code generator; ``includes`` selects the header
     tree (defaults to the same version as the compiler).
     """
-    if kind == 'asm':
-        source_text = asm_source(source_text)
     inc_version = includes or compiler
     cbin = _compiler_dir(compiler)
     incdir = sources.include_dir(inc_version)
@@ -458,8 +423,6 @@ def compile_batch(requests, *, verbose=False):
     groups = {}
     for key, dos_name, source_text, compiler, includes, flags, *rest in requests:
         kind = rest[0] if rest else 'c'
-        if kind == 'asm':
-            source_text = asm_source(source_text)
         groups.setdefault((compiler, includes, tuple(flags), kind), []).append(
             (key, dos_name, source_text))
     results = {}

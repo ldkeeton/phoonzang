@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_loc_UQOV:
     push bp                          ; 0x39f6
     mov bp, sp                       ; 0x39f7

@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_dos_con_loc_GOVO:
     mov ax, cs                       ; 0x3640
     mov ds, ax                       ; 0x3642

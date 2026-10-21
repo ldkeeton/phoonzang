@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_loc_IGLJ:
     push bp                          ; 0x30a3
     mov bp, sp                       ; 0x30a4

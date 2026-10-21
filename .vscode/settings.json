@@ -1,13 +1,15 @@
 {   "C_Cpp.default.cStandard": "c89",
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "*.asm": "asm-intel-x86-generic"
+        "*.asm": "asm-intel-x86-generic",
+        "*.s": "asm-intel-x86-generic"
     },
     "debug.allowBreakpointsEverywhere": true,
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.expand": false,
     "explorer.fileNesting.patterns": {
-        "*.c": "$(capture).asm"
+        "*.c": "$(capture).asm",
+        "*.s": "$(capture).asm"
     }
     //"search.useIgnoreFiles": false
 }

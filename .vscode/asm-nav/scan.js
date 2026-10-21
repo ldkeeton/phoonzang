@@ -52,10 +52,11 @@ function routineStart(text, row) {
     return null;
 }
 
-// ``.../src_DSAVANT/ds/x.asm`` (or a band folder, ``ds/game/x.asm``) -> {project:'DSAVANT', binary:'ds', label:'x'}.
+// ``.../src_DSAVANT/ds/x.asm`` (or ``x.c``/``x.s``, or in a band folder, ``ds/game/x.asm``)
+// -> {project:'DSAVANT', binary:'ds', label:'x', ext:'asm'}.
 // Top-level files such as ``src_DSAVANT/ds.asm`` have no binary directory.
 function locate(fsPath) {
-    const m = /src_([^/\\]+)[/\\]([^/\\]+)[/\\](?:.*[/\\])?([^/\\]+?)\.(c|asm)$/.exec(fsPath);
+    const m = /src_([^/\\]+)[/\\]([^/\\]+)[/\\](?:.*[/\\])?([^/\\]+?)\.(c|s|asm)$/.exec(fsPath);
     return m ? { project: m[1], binary: m[2], label: m[3], ext: m[4] } : null;
 }
 

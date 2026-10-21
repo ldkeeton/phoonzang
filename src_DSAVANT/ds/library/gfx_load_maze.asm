@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_load_maze:
     push bp                          ; 0x4259
     mov bp, sp                       ; 0x425a

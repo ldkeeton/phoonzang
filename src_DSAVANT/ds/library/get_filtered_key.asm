@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 get_filtered_key:
     push bp                          ; 0x3d79
     mov bp, sp                       ; 0x3d7a

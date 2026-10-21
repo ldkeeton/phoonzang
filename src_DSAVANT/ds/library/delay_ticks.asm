@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 delay_ticks:
     push bp                          ; 0x36d0
     mov bp, sp                       ; 0x36d1

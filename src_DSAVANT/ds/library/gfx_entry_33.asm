@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_entry_33:
     push bp                          ; 0x432b
     mov bp, sp                       ; 0x432c

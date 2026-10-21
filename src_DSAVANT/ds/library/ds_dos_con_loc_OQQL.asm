@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_dos_con_loc_OQQL:
     mov ax, cs                       ; 0x35b8
     mov ds, ax                       ; 0x35ba

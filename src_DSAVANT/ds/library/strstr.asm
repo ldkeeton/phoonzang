@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 strstr:
     push bp                          ; 0x40ca
     mov bp, sp                       ; 0x40cb

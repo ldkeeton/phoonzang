@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 font_memory_error:
     mov ax, cs                       ; 0x395b
     mov ds, ax                       ; 0x395d

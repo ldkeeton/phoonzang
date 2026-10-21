@@ -12,7 +12,8 @@ Compiling through DOSBox is slow, so ``make prebuild <project>`` resolves every
     later build) never repeats an unchanged compile.
 
 ``make build`` reads the manifest (creating nothing), places each module
-(:mod:`.modules`) and compiles its seed: one ``.c`` per module, written to
+(:mod:`.modules`) and compiles its seed: one ``.c`` (or, for a vendor assembly
+module, ``.s``) per module, written to
 ``src_<project>/<binary>/`` only when absent, so a no-clean debug rebuild keeps
 hand edits.
 A build that finds ``aztec_*`` labels but no prebuild data fails loudly with
@@ -23,11 +24,11 @@ import collections
 import json
 import os
 
-from lib.autogen import MARKER_C
+from lib.autogen import MARKER_ASM, MARKER_C
 from lib.cachedirs import prebuild_dir
 
 from . import listing, objcache, sources
-from .compile import CompiledModule, is_asm_module
+from .compile import CompiledModule
 from .compile import VERSION
 from .mux import MuxEngine, is_asm
 from .objread import fixup_width
@@ -60,20 +61,15 @@ def is_asm_entry(entry):
     return is_asm(entry['file'])
 
 
-def asm_stub(module_text):
-    """C for a vendor assembly module: the whole module in one ``#asm`` block.
-
-    The build assembles the block with ``as``, as the library makefiles do
-    (:func:`lib.aztec.compile.asm_source`), so the module's equates, macros
-    (``lmacros.h``) and neighbours come along, and the whole module compiles
-    to its fragment like any C module.
-    """
-    return '#asm\n' + module_text.rstrip('\n') + '\n#endasm\n'
+def seed_suffix(entry):
+    """The seed's extension: ``.s`` for a vendor assembly module, which ``as``
+    builds as the library makefiles do, else ``.c``."""
+    return '.s' if is_asm_entry(entry) else '.c'
 
 
 def source_header(label, entry):
     """Header of a build-time seed: just the auto-generated marker."""
-    return MARKER_C + '\n'
+    return (MARKER_ASM if is_asm_entry(entry) else MARKER_C) + '\n'
 
 
 def _entry_from_match(match):
@@ -229,10 +225,10 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose,
                       if label in present}
     _save(path, binary, functions, misses)
     if verbose:
-        stubs = sum(1 for e in functions.values() if e.get('asm_stub'))
+        stubs = sum(1 for e in functions.values() if is_asm_entry(e))
         if functions:
             summary = (f'{len(functions)} routines recovered '
-                       f'({stubs} assembly as #asm C)')
+                       f'({stubs} assembly, seeded as .s)')
             if engine.compile_count:
                 summary += f', {engine.compile_count} extra compiles'
             print(f'  aztec mux: {summary}')
@@ -269,21 +265,22 @@ def _miss_status(matches):
             f'{len(best.diffs)} of {best.length} bytes differ')
 
 
-def default_entry(label, project):
-    """Provenance for a hand-written ``<label>.c`` with no manifest entry:
-    the release every recovered routine uses (:mod:`.mux`).  Flags are never
-    part of an entry; :func:`_tool` picks them by name."""
+def default_entry(label, project, suffix='.c'):
+    """Provenance for a hand-written ``<label>.c`` (or ``.s``, *suffix*) with
+    no manifest entry: the release every recovered routine uses
+    (:mod:`.mux`).  Flags are never part of an entry; :func:`_tool` picks them
+    by name."""
     return {'compiler': VERSION, 'includes': VERSION,
-            'source_version': VERSION, 'file': f'{label}.c'}
+            'source_version': VERSION, 'file': f'{label}{suffix}'}
 
 
-def _tool(project, binary, label, source_text):
-    """``(kind, flags)`` that build *source_text*: ``as`` with the sidecar's
-    ``compiler_flags.asm`` for C made of one ``#asm`` block (a wrapped vendor
-    module or a hand-written one), else ``cc`` with the flags *label*'s name
-    picks from ``compiler_flags`` (*binary*'s own over the project's) -- the
-    same rule whether or not the prebuild matched it to a vendor source."""
-    if is_asm_module(source_text):
+def _tool(project, binary, label, entry):
+    """``(kind, flags)`` that build *entry*'s source: ``as`` with the
+    sidecar's ``compiler_flags.asm`` for assembly (a vendor ``.asm`` module or
+    a routine's ``.s``), else ``cc`` with the flags *label*'s name picks from
+    ``compiler_flags`` (*binary*'s own over the project's) -- the same rule
+    whether or not the prebuild matched it to a vendor source."""
+    if is_asm_entry(entry):
         from lib.sidecar.compiler import asm_flags
         return 'asm', asm_flags(project)
     from lib.sidecar.compiler import compiler_flags
@@ -313,7 +310,7 @@ def own_key(label, entry=None):
 def _module_key(project, binary, label, entry, source_text):
     return objcache.module_key(entry['includes'], entry['file'],
                                entry['compiler'],
-                               _tool(project, binary, label, source_text)[1],
+                               _tool(project, binary, label, entry)[1],
                                source_text)
 
 
@@ -321,8 +318,8 @@ def _compile_seeds(engine, project, binary, functions, objcache_dir,
                    verbose):
     """Compile every recovered routine's module seed into the object cache.
 
-    A module's seed is the whole vendor module (an assembly one wrapped in
-    ``#asm``, :func:`asm_stub`), so the build compiles each seed with no
+    A module's seed is the whole vendor module (an assembly one as it is, for
+    ``as``), so the build compiles each seed with no
     DOSBox work; whether it reproduces its place is the build's check
     (:mod:`lib.aztec.modules`).
     """
@@ -330,12 +327,11 @@ def _compile_seeds(engine, project, binary, functions, objcache_dir,
 
     requests = {}
     for label, entry in functions.items():
-        entry['asm_stub'] = is_asm_entry(entry)
         text = seed_source_text(project, binary, label, entry, engine)
         if text is None:
             continue
         key = _module_key(project, binary, label, entry, text)
-        kind, flags = _tool(project, binary, label, text)
+        kind, flags = _tool(project, binary, label, entry)
         requests.setdefault(
             key, (f'X{len(requests):04d}', text, entry['compiler'],
                   entry['includes'], flags, kind))
@@ -355,8 +351,8 @@ def seed_source_text(project, binary, label, entry, engine=None):
     """The pristine ``.c`` for *entry*'s module, or None without a source.
 
     The whole vendor module -- with any sidecar ``vendor_patches`` edit
-    applied, since the seed is the source of the game's bytes -- wrapped in
-    ``#asm`` when the vendor wrote it in assembly.
+    applied, since the seed is the source of the game's bytes -- as C or,
+    when the vendor wrote it in assembly, as assembly (:func:`seed_suffix`).
     """
     if engine is None:
         from lib.sidecar.vendor import vendor_patches
@@ -364,8 +360,6 @@ def seed_source_text(project, binary, label, entry, engine=None):
     text = engine.source(entry['source_version'], entry['file'])
     if not text:
         return None
-    if is_asm_entry(entry):
-        text = asm_stub(text)
     return source_header(label, entry) + text
 
 
@@ -403,7 +397,7 @@ def compile_source_module(project, binary, label, entry, source_text):
     key = _module_key(project, binary, label, entry, source_text)
     module = objcache.load(objs_dir(project), key)
     if _stale(module):
-        kind, flags = _tool(project, binary, label, source_text)
+        kind, flags = _tool(project, binary, label, entry)
         module = azc.compile_module(
             source_text, label, compiler=entry['compiler'],
             includes=entry['includes'], flags=flags, kind=kind)

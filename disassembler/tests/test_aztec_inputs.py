@@ -51,6 +51,10 @@ class HandOwnedCTest(unittest.TestCase):
             @staticmethod
             def seed_source_text(project, binary, label, entry):
                 return 'seed'
+
+            @staticmethod
+            def seed_suffix(entry):
+                return '.c'
         self.assertEqual(
             aztec._seed_aztec_c(Cache, 'P', 'vinstall', 'aztec_mkdir', {},
                                 self.dest), ('seed', True))

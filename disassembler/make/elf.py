@@ -9,7 +9,7 @@ import subprocess
 import sys
 import tempfile
 
-from lib import asm_only
+from lib import routine_source
 from lib.autogen import marker_for, stamp, write_text
 from lib.compare.interrupts import _annotate_interrupts
 from lib.cachedirs import src_dir
@@ -231,11 +231,12 @@ def _report_linked(app, binary, label, linked):
 
 
 def resplice_c(app, binary, check_only=False):
-    """Recompile the C routine fragments of an already-built binary.
+    """Recompile the C (and Manx assembly) routine fragments of a built binary.
 
-    Every ``<binary>/<label>.c`` is recompiled (with its recorded Aztec
-    provenance, or the binary's default for a routine with none) and its
-    ``<binary>/<label>.asm`` fragment is rewritten to match.  The rewrite
+    Every ``<binary>/<label>.c`` or ``.s`` (:mod:`lib.routine_source`) is
+    rebuilt (with its recorded Aztec provenance, or the binary's default for a
+    routine with none) and its ``<binary>/<label>.asm`` fragment is rewritten
+    to match.  The rewrite
     reuses the build's persisted render context (``.cache/render``, see
     :mod:`lib.renderctx`) so an unedited routine comes back byte-for-byte
     identical.
@@ -244,7 +245,8 @@ def resplice_c(app, binary, check_only=False):
     routine's bytes -- same length, every instruction identical or, unless
     ``--exact-bytes``, semantically equivalent.  A mismatch prints a per-byte
     report, leaves that fragment as it was and exits 1; ``--allow-diff``
-    restores the old lenient splice.  A ``.c`` with no matching asm is an error.
+    restores the old lenient splice.  A source with no matching asm is an
+    error.
     With *check_only* nothing is written: a fragment on disk that differs from
     the regenerated one prints a diff and exits 1.
 
@@ -312,23 +314,24 @@ def resplice_c(app, binary, check_only=False):
                                         if os.path.isdir(dest) else ())
         if os.path.isdir(os.path.join(dest, d)))
     own_dir = {}
+    own_src = {}
     for folder in folders:
         for name in os.listdir(folder):
-            if name.endswith(('.c', '.asm')):
-                own_dir.setdefault(name.rsplit('.', 1)[0], folder)
-    c_labels = {name[:-2] for folder in folders for name in os.listdir(folder)
-                if name.endswith('.c')}
-    # C shared between binaries lives in shared/ beside its .asm (lib.shared).
+            if name.endswith(('.asm',) + routine_source.SUFFIXES):
+                own_dir.setdefault(routine_source.stem(name), folder)
+        for label, name in routine_source.sources_in(folder).items():
+            own_src.setdefault(label, name)
+    # Sources shared between binaries live in shared/ beside their .asm
+    # (lib.shared).
     shared_dir = os.path.join(out_dir, FOLDER)
+    shared_src = routine_source.sources_in(shared_dir)
     def has_own_asm(label):
         # a same-named routine owned by this binary is not the shared one
         return os.path.exists(os.path.join(own_dir.get(label, dest),
                                            label + '.asm'))
 
-    c_labels |= {name[:-2] for name in (os.listdir(shared_dir)
-                                        if os.path.isdir(shared_dir) else ())
-                 if name.endswith('.c') and name[:-2] in spans
-                 and not has_own_asm(name[:-2])}
+    c_labels = set(own_src) | {label for label in shared_src
+                               if label in spans and not has_own_asm(label)}
     c_labels = sorted(c_labels)
 
     def where(label, suffix):
@@ -338,12 +341,16 @@ def resplice_c(app, binary, check_only=False):
             return own
         return shared if os.path.exists(shared) else own
 
-    orphans = [where(label, '.c') for label in c_labels
+    def source_of(label):
+        name = own_src.get(label) or shared_src[label]
+        return where(label, os.path.splitext(name)[1])
+
+    orphans = [source_of(label) for label in c_labels
                if label not in spans
                or not os.path.isfile(where(label, '.asm'))]
     if orphans:
-        raise SystemExit('error: C file(s) with no matching asm routine: '
-                         + ', '.join(orphans))
+        raise SystemExit('error: source file(s) with no matching asm '
+                         'routine: ' + ', '.join(orphans))
 
     exact_here = ('--exact-bytes' in _extra_flags()
                   or bool(context and context['exact_bytes']))
@@ -366,7 +373,7 @@ def resplice_c(app, binary, check_only=False):
             with open(path, 'rb') as f:
                 env.update(f.read())
     for label in c_labels:
-        cpath = where(label, '.c')
+        cpath = source_of(label)
         start, end = spans[label]
         span_len = end - start
         with open(cpath) as f:
@@ -374,11 +381,12 @@ def resplice_c(app, binary, check_only=False):
         # A vendor module's fragment is named after its source file
         # (aztec_croot); anything else is a hand-written routine's.
         module = entry_for(app, label, entries)
-        entry = module or cache.default_entry(label, app)
+        entry = module or cache.default_entry(label, app,
+                                              os.path.splitext(cpath)[1])
         apath = where(label, '.asm')
         # The tool and flags too: the entry carries none, they come from the
         # sidecar's ``compiler_flags`` by name.
-        tool = cache._tool(app, binary, label, text)
+        tool = cache._tool(app, binary, label, entry)
         in_stamp = hashlib.sha1(
             (env.hexdigest() + json.dumps(entry, sort_keys=True)
              + repr(tool) + text)
@@ -509,9 +517,6 @@ def resplice_c(app, binary, check_only=False):
             # Shared by several binaries: no one binary's addresses.
             from lib.shared import neutral
             fragment = neutral(fragment)
-        if asm_only.is_marked(apath):
-            # The band's asm-only marker is the build's, not the C's.
-            fragment = asm_only.stamp(stamp(fragment, apath))
         if check_only:
             # The fragment on disk is the source of truth: it must already be
             # exactly what the C regenerates, never rewritten to match.
@@ -522,7 +527,8 @@ def resplice_c(app, binary, check_only=False):
                 rel = os.path.relpath(apath, out_dir)
                 diff = list(difflib.unified_diff(
                     on_disk.splitlines(), expected.splitlines(),
-                    f'{rel} (on disk)', f'{rel} (from {label}.c)',
+                    f'{rel} (on disk)',
+                    f'{rel} (from {os.path.basename(cpath)})',
                     lineterm=''))
                 if len(diff) > 40:
                     diff = diff[:40] + [f'... ({len(diff) - 40} more lines)']
@@ -548,13 +554,14 @@ def resplice_c(app, binary, check_only=False):
         raise SystemExit(1)
     if mismatches:
         print(f'resplice {app}/{binary}: asm on disk differs from what its C '
-              f'regenerates (not written; fix the .asm or the .c, or run '
+              f'regenerates (not written; fix the .asm or its .c/.s, or run '
               f'"make build {app}"):', file=sys.stderr)
         print('\n'.join(mismatches), file=sys.stderr)
         raise SystemExit(1)
     if count:
         verb = 'verified against' if check_only else 'from'
-        print(f'  resplice {app}/{binary}: {count} C routine(s) {verb} .c')
+        print(f'  resplice {app}/{binary}: {count} routine(s) {verb} '
+              '.c/.s')
         for name in picked:
             print(f'    {name}')
 

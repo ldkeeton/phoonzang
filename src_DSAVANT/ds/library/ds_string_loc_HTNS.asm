@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_string_loc_HTNS:
     push bp                          ; 0x4002
     mov bp, sp                       ; 0x4003

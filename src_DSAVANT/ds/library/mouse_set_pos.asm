@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 mouse_set_pos:
     push bp                          ; 0x42b4
     mov bp, sp                       ; 0x42b5

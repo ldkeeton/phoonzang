@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_entry_25:
     push bp                          ; 0x42dd
     mov bp, sp                       ; 0x42de

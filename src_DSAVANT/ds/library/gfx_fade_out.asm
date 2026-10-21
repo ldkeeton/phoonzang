@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_fade_out:
     push bp                          ; 0x4311
     mov bp, sp                       ; 0x4312

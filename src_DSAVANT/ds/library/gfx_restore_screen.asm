@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_restore_screen:
     push bp                          ; 0x3b89
     mov bp, sp                       ; 0x3b8a

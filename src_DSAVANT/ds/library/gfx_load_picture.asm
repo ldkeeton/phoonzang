@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_load_picture:
     push bp                          ; 0x41f1
     mov bp, sp                       ; 0x41f2

@@ -120,7 +120,7 @@ def per_binary(sidecar, short_name):
 
     Returns a dict with keys:
         file, type, start_offset, entry_symbol, function_names, data_names,
-        bands (``[(start, end, name, asm_only)]``, :mod:`.bands`),
+        bands (``[(start, end, name)]``, :mod:`.bands`),
         force_data,
         force_code, external_data, data_pointers (with each
         ``pointer_arrays`` word expanded into it), not_pointers,

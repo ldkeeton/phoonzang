@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_dos_mem_loc_GSMJ:
     push es                          ; 0x3760
 @..ds_dos_mem_loc_GSMJ.l1:

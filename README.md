@@ -25,8 +25,7 @@ Wizardry VII seems to have been originally compiled with Manx Aztec v4.2b
 - This allows individual ASM files to be rewritten as C over time.
 - The root asm files are layout with no code them, so original exe is still built. 
 - When enough code is C, then end goal is to change over to full C compilation.
-- A binary's sidecar `bands` (game, library, aztec) sort its files into band folders (`ds/game/`, ...).
-- Routines in an `asm_only` band are stamped `; asm only`: they have no C equivalent and are never counted as C.
+- Low-level routines don't have a C equivalent, so we create .s dos assembly.
 - C files -> compiled in dosbox by Manx Aztec -> Checked against ASM files
 - ASM files -> compiled on host machine by NASM -> Checked against original EXE
 ```
@@ -57,7 +56,7 @@ Wizardry VII seems to have been originally compiled with Manx Aztec v4.2b
 
 ## Wizardry VII coverage
 
-Progress: **62 / 1247** (5.0%). 102 asm-only routines (sidecar `bands` with `asm_only`) have no C equivalent and are not counted.
+Progress: **69 / 1349** (5.1%).
 
 ![C coverage heatmap](readme/heatmap.svg)
  

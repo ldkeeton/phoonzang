@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_draw_maze_piece:
     push bp                          ; 0x4266
     mov bp, sp                       ; 0x4267

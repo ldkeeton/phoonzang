@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_dos_mem_loc_JMGG:
     mov ax, cs                       ; 0x371d
     mov ds, ax                       ; 0x371f

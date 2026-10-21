@@ -252,7 +252,7 @@ def run(binary, variant, n=16, floor=0x100, tree=TREE):
     with tempfile.TemporaryDirectory() as d:
         root = os.path.join(d, 'src')
         shutil.copytree(tree, root, ignore=shutil.ignore_patterns(
-            'build_out', '*.c', '*.o', '*.bin'))
+            'build_out', '*.c', '*.s', '*.o', '*.bin'))
         master = os.path.join(root, master_name)
         bin0, lst0, map0 = _nasm(master, root, d, 'orig')
 

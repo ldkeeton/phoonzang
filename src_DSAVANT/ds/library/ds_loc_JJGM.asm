@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_loc_JJGM:
     push bp                          ; 0x3aca
     mov bp, sp                       ; 0x3acb

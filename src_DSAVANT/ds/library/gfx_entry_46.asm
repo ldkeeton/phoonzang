@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_entry_46:
     push bp                          ; 0x414e
     mov bp, sp                       ; 0x414f

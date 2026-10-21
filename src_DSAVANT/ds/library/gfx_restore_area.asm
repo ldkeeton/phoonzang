@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_restore_area:
     push bp                          ; 0x3b96
     mov bp, sp                       ; 0x3b97

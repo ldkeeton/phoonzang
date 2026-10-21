@@ -3,8 +3,8 @@
 import os
 import re
 
-from lib.asm_only import is_marked
 from lib.cachedirs import src_dir
+from lib.routine_source import sources_in
 
 from .common import PROJECT
 
@@ -19,17 +19,10 @@ STYLE = (
 )
 
 
-def _state(path, filename, stems):
-    # An asm-only routine is never C, even with a leftover #asm .c.
-    if is_marked(os.path.join(path, filename)):
-        return 'asm'
-    return 'c' if filename[:-4] in stems else 'todo'
-
-
 def _scan(src):
     """Return {binary: [(asm_stem, state)]} for a generated src_<PROJECT> tree.
 
-    ``state`` is ``'c'`` (has a .c), ``'asm'`` (marked asm only: never C) or
+    ``state`` is ``'c'`` (has a .c), ``'s'`` (has a Manx assembly .s) or
     ``'todo'``.  A binary's band folders (``ds/game/``) count as the binary.
     """
     groups = {}
@@ -41,10 +34,11 @@ def _scan(src):
         for path in [top] + sorted(
                 os.path.join(top, d) for d in os.listdir(top)
                 if os.path.isdir(os.path.join(top, d))):
-            files = os.listdir(path)
-            stems = {f[:-2] for f in files if f.endswith('.c')}
-            groups[name] += [(f[:-4], _state(path, f, stems))
-                             for f in sorted(files) if f.endswith('.asm')]
+            sources = sources_in(path)
+            groups[name] += [
+                (f[:-4], os.path.splitext(sources[f[:-4]])[1][1:]
+                 if f[:-4] in sources else 'todo')
+                for f in sorted(os.listdir(path)) if f.endswith('.asm')]
     for name in sorted(os.listdir(src)):
         if name.endswith('.asm') and name[:-4] in groups:
             groups[name[:-4]].append((name[:-4], 'todo'))
@@ -59,10 +53,10 @@ def _svg(groups):
         for i, (stem, state) in enumerate(cells):
             x = LABEL_W + (i % COLS) * step
             cy = y + (i // COLS) * step
-            cls = {'c': 'c', 'asm': 'a'}.get(state, 'n')
+            cls = {'c': 'c', 's': 'a'}.get(state, 'n')
             out.append(f'<rect class="{cls}" x="{x}" y="{cy}" '
                        f'width="{CELL}" height="{CELL}"><title>{stem}'
-                       f'{" (asm only)" if state == "asm" else ""}</title></rect>')
+                       f'{" (.s)" if state == "s" else ""}</title></rect>')
         y += ((len(cells) - 1) // COLS + 1) * step + ROW_H - step
     w = LABEL_W + COLS * step
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{y}" '
@@ -80,19 +74,22 @@ def _make_table():
 
 def cmd_readme():
     groups = _scan(src_dir('DSAVANT', PROJECT))
-    # Asm-only routines can never be C, so they are not counted at all.
-    counted = {k: [c for c in v if c[1] != 'asm'] for k, v in groups.items()}
-    asm_total = sum(len(v) for v in counted.values())
-    c_total = sum(s == 'c' for v in counted.values() for _, s in v)
-    asm_only = sum(len(v) - len(counted[k]) for k, v in groups.items())
-    table = ['| binary | ASM | C | asm only |', '|---|--:|--:|--:|']
-    table += [f'| {k} | {len(counted[k])} | {sum(s == "c" for _, s in counted[k])}'
-              f' | {len(v) - len(counted[k])} |' for k, v in groups.items()]
+    asm_total = sum(len(v) for v in groups.values())
+
+    def count(state, cells=None):
+        return sum(s == state for v in ([cells] if cells is not None
+                                        else groups.values()) for _, s in v)
+
+    c_total, s_total = count('c'), count('s')
+    # Progress counts every .asm with a source, C or Manx assembly.
+    src_total = c_total + s_total
+    table = ['| binary | ASM | C | S |', '|---|--:|--:|--:|']
+    table += [f'| {k} | {len(v)} | {count("c", v)} | {count("s", v)} |'
+              for k, v in groups.items()]
     subs = {
         'asm_total': asm_total,
-        'c_total': c_total,
-        'asm_only': asm_only,
-        'c_pct': f'{100 * c_total / asm_total:.1f}' if asm_total else '0',
+        'c_total': src_total,
+        'c_pct': f'{100 * src_total / asm_total:.1f}' if asm_total else '0',
         'coverage_table': '\n'.join(table),
         'make_table': _make_table(),
     }
@@ -103,5 +100,5 @@ def cmd_readme():
     text = re.sub(r'\{\{(\w+)\}\}', lambda m: str(subs[m.group(1)]), text)
     with open(os.path.join(PROJECT, 'README.md'), 'w') as f:
         f.write(text)
-    print(f'README.md: {c_total}/{asm_total} asm files have C '
-          f'({asm_only} asm only, not counted)')
+    print(f'README.md: {src_total}/{asm_total} asm files have a source '
+          f'({c_total} .c, {s_total} .s)')

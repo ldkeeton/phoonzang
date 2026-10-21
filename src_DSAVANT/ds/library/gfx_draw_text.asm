@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_draw_text:
     push bp                          ; 0x4218
     mov bp, sp                       ; 0x4219

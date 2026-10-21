@@ -1,11 +1,13 @@
 """Replacement of disassembled records with code compiled from C."""
 
+import os
 import re
 from collections import ChainMap
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16, CS_OP_IMM, CS_OP_MEM
 
 from lib.aztec import relabel, relink
+from lib.routine_source import is_asm_source
 from lib.format import LinkedSymbol
 from lib.verify.assemble import micro_assemble, is_semantically_equivalent
 from lib.compare.interrupts import _set_insn_fields
@@ -271,13 +273,15 @@ def _link_override(label, start, override, records, binary_data, index,
             raise ValueError(str(exc)) from exc
     text, func = relabel.upgrade(
         label, override['own_keys'], start, override['text'], binary_data,
-        index, names_at, override['compile'], image_base or 0)
+        index, names_at, override['compile'], image_base or 0,
+        asm=is_asm_source(override['path']))
     if not override.get('generated'):
         # A seed kept on disk is rewritten; a new one is written once, at emit.
         with open(override['path'], 'w') as f:
             f.write(text)
     override.update(text=text, func=func, pristine=False)
-    print(f'  aztec relabel: {label}.c now names asm labels')
+    print(f'  aztec relabel: {os.path.basename(override["path"])} now names '
+          'asm labels')
     return relink.link(label, start, func, index, binary_data, labels_in,
                            labels_at)
 
@@ -404,7 +408,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                                         binary_data, sym_index, names_at,
                                         image_base)
             except (relink.RelinkError, ValueError) as exc:
-                # A new ``#asm`` seed the build cannot place (it names module
+                # A new ``.s`` seed the build cannot place (it names module
                 # data the splitter gave a neighbour).  Every one is listed
                 # before the build fails, so one run shows them all.
                 if not (override.get('asm_stub') and override.get('generated')):
@@ -509,7 +513,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                              _merge_label_records(new_records, labels_in)))
 
     if unplaced:
-        raise ValueError('#asm C the build cannot place:\n  '
+        raise ValueError('.s seed(s) the build cannot place:\n  '
                          + '\n  '.join(unplaced))
     if not replacements:
         return records

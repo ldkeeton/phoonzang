@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 ds_bios_video_loc_LILQ:
     push bp                          ; 0x3067
     mov bp, sp                       ; 0x3068

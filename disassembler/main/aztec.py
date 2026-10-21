@@ -2,6 +2,7 @@
 
 import os
 
+from lib import routine_source
 from lib.autogen import hand_owned
 from lib.shared import FOLDER
 from lib.sidecar.bands import band_for
@@ -28,10 +29,11 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
 
     ``ASM_AZTEC_PREBUILD=1`` runs the DOSBox search and writes
     ``.cache/<project>/prebuild/``; otherwise the prebuilt manifest is read and a
-    missing prebuild is a hard error.  The seed ``.c`` files live in
+    missing prebuild is a hard error.  The seed sources -- ``.c``, or ``.s``
+    for assembly (:mod:`lib.routine_source`) -- live in
     ``<out_dir>/<binary>/``.  Only a hand-owned one (its marker line removed)
     is read; any other module gets its seed (``generated``, written with the
-    binary's sources), so a ``.c`` an earlier build wrote is never mistaken
+    binary's sources), so a seed an earlier build wrote is never mistaken
     for a human's.
     """
     if not project or AZTEC_MUX_DISABLED:
@@ -40,8 +42,8 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
               if getattr(nm, 'role', None) == 'aztec']
     dest = os.path.join(out_dir, name)
     known = {nm for nm in label_map.values() if isinstance(nm, str)}
-    # A binary with sidecar ``bands`` keeps each routine's .c beside its .asm,
-    # in the band's folder (``ds/game/x.c``).
+    # A binary with sidecar ``bands`` keeps each routine's source beside its
+    # .asm, in the band's folder (``ds/game/x.c``).
     bands = _sidecar_bands(project, name)
     found_c = _hand_c_tree(dest, bands)
     hand_c = sorted(found_c)
@@ -95,10 +97,11 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     known |= set(spans)
     shared_c = [label for label in _hand_c(shared_dir) if label in known]
 
-    orphans = sorted(f'{label}.c' for label in hand_c if label not in known)
+    orphans = sorted(os.path.basename(found_c[label]) for label in hand_c
+                     if label not in known)
     if orphans:
-        raise SystemExit(f'error: C file(s) in {dest} with no matching asm '
-                         f'routine: {", ".join(orphans)}')
+        raise SystemExit(f'error: source file(s) in {dest} with no matching '
+                         f'asm routine: {", ".join(orphans)}')
     starts = {nm: addr for addr, nm in label_map.items()
               if isinstance(nm, str)}
     starts.update((module, span.start) for module, span in spans.items())
@@ -106,43 +109,42 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     def home(label):
         return _band_home(dest, bands, starts.get(label))
 
-    for label, folder in sorted(found_c.items()):
-        band = band_for(bands, starts[label]) if bands else None
-        if band is not None and band[3]:
-            # Still built as before; it gives nothing over the .asm.
-            print(f'  {os.path.join(folder, label)}.c: {label} is asm only '
-                  f'(band {band[2]}); its .c can go')
-        if folder != home(label):
+    for label, path in sorted(found_c.items()):
+        if os.path.dirname(path) != home(label):
             raise SystemExit(
-                f'error: {os.path.join(folder, label)}.c: move it to '
-                f'{home(label)}/, beside its .asm')
+                f'error: {path}: move it to {home(label)}/, beside its .asm')
     module_of = {member: span for span in spans.values()
                  for member in span.members}
     for label in sorted(set(hand_c) | set(shared_c)):
         span = module_of.get(label)
         if span is not None and label not in spans:
             raise SystemExit(
-                f'error: {c_path(dest, label, home(label))}: {label} is part of module '
-                f'{span.file}, whose C is {span.name}.c; merge it there')
+                f'error: {c_path(dest, label, home(label))}: {label} is part '
+                f'of module {span.file}, whose source is '
+                f'{span.name}{cache.seed_suffix(span.entry)}; merge it there')
 
     overrides = {}
     for module, span in sorted(spans.items()):
-        band = band_for(bands, span.start) if bands else None
-        if band is not None and band[3]:
-            continue   # an asm-only band's module gets no C (lib.asm_only)
         entry = span.entry
+        path = c_path(dest, module, home(module), cache.seed_suffix(entry))
+        if not path.endswith(cache.seed_suffix(entry)):
+            # The tool follows the vendor's: as for its .asm, cc for its .c.
+            raise SystemExit(
+                f'error: {path}: {module} is the vendor\'s {entry["file"]}; '
+                f'its source is {module}{cache.seed_suffix(entry)}')
         text, generated = _seed_aztec_c(cache, project, name, module, entry,
                                         dest, home(module))
         try:
             func = cache.compile_source(project, name, module, entry, text)
         except Exception as exc:
             raise SystemExit(
-                f'error: {module}.c: compile failed ({exc})') from exc
+                f'error: {os.path.basename(path)}: compile failed '
+                f'({exc})') from exc
         overrides[module] = {
             # The linker resolves the module's relocations against the build's
             # label maps once those exist (lib.compare.coverrides).
             'func': func, 'text': text,
-            'path': c_path(dest, module, home(module)),
+            'path': path,
             'generated': generated,
             'own_keys': dict(span.keys),
             'pristine': text == cache.seed_source_text(
@@ -160,11 +162,12 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'source_version': entry['source_version'],
             'file': entry['file'], 'compiler': entry['compiler'],
             'includes': entry['includes'],
-            'asm_stub': bool(entry.get('asm_stub')),
+            'asm_stub': cache.is_asm_entry(entry),
         }
-    # A hand-written <label>.c outside every placed module (an application
-    # routine, or a vendor routine whose module stays assembly) replaces that
-    # routine too.  It owns its fragment: up to the next fragment root.
+    # A hand-written <label>.c or .s outside every placed module (an
+    # application routine, or a vendor routine whose module stays assembly)
+    # replaces that routine too.  It owns its fragment: up to the next
+    # fragment root.
     roots = sorted(function_roots or ())
     for label in sorted(set(hand_c) | set(shared_c)):
         if label in spans or label in module_of:
@@ -172,11 +175,13 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         path = c_path(dest, label, home(label))
         with open(path) as f:
             text = f.read()
-        entry = cache.default_entry(label, project)
+        entry = cache.default_entry(label, project,
+                                    os.path.splitext(path)[1])
         try:
             func = cache.compile_source(project, name, label, entry, text)
         except Exception as exc:
-            raise SystemExit(f'error: {label}.c: compile failed ({exc})')
+            raise SystemExit(f'error: {os.path.basename(path)}: compile '
+                             f'failed ({exc})')
         start = starts.get(label)
         following = [r for r in roots if start is not None and r > start]
         overrides[label] = {
@@ -381,11 +386,9 @@ def _headers(out_dir, sources_in):
 
 
 def _hand_c(folder):
-    """The labels of the hand-owned ``.c`` files in *folder*, sorted."""
-    if not os.path.isdir(folder):
-        return []
-    return sorted(f[:-2] for f in os.listdir(folder)
-                  if f.endswith('.c') and hand_owned(os.path.join(folder, f)))
+    """The labels of the hand-owned sources (``.c``, ``.s``) in *folder*,
+    sorted."""
+    return sorted(routine_source.sources_in(folder, hand_owned))
 
 
 def _sidecar_bands(project, binary):
@@ -404,24 +407,30 @@ def _band_home(dest, bands, start):
 
 
 def _hand_c_tree(dest, bands):
-    """``{label: folder}`` for the hand-owned ``.c`` files in *dest* and in
-    its band folders."""
+    """``{label: path}`` for the hand-owned sources (``.c``, ``.s``) in *dest*
+    and in its band folders."""
     found = {}
     for folder in [dest] + [os.path.join(dest, b[2]) for b in bands]:
-        for label in _hand_c(folder):
+        for label, filename in routine_source.sources_in(
+                folder, hand_owned).items():
             if label in found:
-                raise SystemExit(f'error: {label}.c is in both {found[label]} '
-                                 f'and {folder}')
-            found[label] = folder
+                raise SystemExit(f'error: {label} has a source in both '
+                                 f'{os.path.dirname(found[label])} and '
+                                 f'{folder}')
+            found[label] = os.path.join(folder, filename)
     return found
 
 
-def c_path(dest, label, folder=None):
-    """The routine's ``.c``: the hand-owned ``shared/`` copy when there is one,
-    else in *folder* (its band's, :func:`_band_home`) or *dest*."""
-    shared = os.path.join(os.path.dirname(dest), FOLDER, f'{label}.c')
-    return shared if hand_owned(shared) else os.path.join(folder or dest,
-                                                          f'{label}.c')
+def c_path(dest, label, folder=None, suffix='.c'):
+    """The routine's source: the hand-owned ``shared/`` copy when there is
+    one, else the hand-owned one in *folder* (its band's, :func:`_band_home`)
+    or *dest*, else where a new one goes, with *suffix* (``.c``, ``.s``)."""
+    shared = routine_source.beside(
+        os.path.join(os.path.dirname(dest), FOLDER, label), hand_owned)
+    if shared:
+        return shared
+    base = os.path.join(folder or dest, label)
+    return routine_source.beside(base, hand_owned) or base + suffix
 
 
 def _seed_aztec_c(cache, project, binary, label, entry, dest, folder=None):
@@ -430,7 +439,7 @@ def _seed_aztec_c(cache, project, binary, label, entry, dest, folder=None):
     A hand-owned file already there is read; otherwise the seed is returned
     for the build to write.
     """
-    path = c_path(dest, label, folder)
+    path = c_path(dest, label, folder, cache.seed_suffix(entry))
     if hand_owned(path):
         with open(path) as f:
             return f.read(), False

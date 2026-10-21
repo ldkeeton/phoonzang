@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 select_vga_driver:
     mov byte [cs:video_is_cga - IMAGE_BASE], 0 ; 0x343e
     mov byte [cs:video_is_herc - IMAGE_BASE], 0 ; 0x3444

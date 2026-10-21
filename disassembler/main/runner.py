@@ -63,7 +63,6 @@ from lib import stagelog
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
 from .aztec import _aztec_asm_annotations, _aztec_c_overrides
-from lib import asm_only
 from lib.autogen import is_generated, stamp, write_text
 from .emit import _write_address_inventory, _write_render_context
 from .options import (
@@ -866,16 +865,10 @@ def _emit(a, r, exact_bytes):
     # the render left them (a pristine seed is relabelled there).
     seeds = {os.path.relpath(ov['path'], out_dir): ov['text']
              for ov in (a.c_overrides or {}).values() if ov.get('generated')}
-    # A fragment in an ``asm_only`` band (``ds/library/x.asm``) is stamped so:
-    # it never becomes C (lib.asm_only).
-    asm_only_dirs = {f'{name}/{band}' for _, _, band, only in
-                     (ctx.sidecar_entry or {}).get('bands') or () if only}
     for include_path in list(split_sources):
         if include_path.endswith('.asm'):
-            text = stamp(split_sources[include_path], include_path)
-            if os.path.dirname(include_path) in asm_only_dirs:
-                text = asm_only.stamp(text)
-            split_sources[include_path] = text
+            split_sources[include_path] = stamp(split_sources[include_path],
+                                                include_path)
     files = {**a.header_files, **seeds,
              **split_sources}
     asm_path = os.path.join(out_dir, f'{name}.asm')

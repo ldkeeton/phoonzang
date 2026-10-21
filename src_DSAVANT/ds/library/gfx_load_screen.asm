@@ -1,5 +1,4 @@
 ; auto-generated
-; asm only
 gfx_load_screen:
     push bp                          ; 0x4225
     mov bp, sp                       ; 0x4226

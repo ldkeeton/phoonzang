@@ -8,9 +8,10 @@ into one file in ``shared/`` that every binary's master ``%include``s.
 Only generated files are touched (see :mod:`lib.autogen`).  The placement is
 decided on the build's files as data (:func:`share_files`), before any is
 written, so a routine shared is written once, to ``shared/``, and its masters
-already include it there.  A routine with C shares its ``.c`` too, when every copy is generated and identical:
-``shared/<label>.c`` is then the one source the C gate checks against each
-binary's bytes (``main.aztec`` and ``make.elf`` look there).
+already include it there.  A routine with a source shares its ``.c`` (or
+``.s``, :mod:`lib.routine_source`) too, when every copy is generated and
+identical: ``shared/<label>.c`` is then the one source the C gate checks
+against each binary's bytes (``main.aztec`` and ``make.elf`` look there).
 
 Copies without C that differ only in the label names they use (each binary's
 own ``bss_0d00``, ``loc_HOIR``: names its symbol table, ``.cache/<project>/
@@ -26,6 +27,7 @@ from collections import defaultdict
 
 from .autogen import hand_owned, is_generated
 from .cachedirs import project_of_src_dir
+from .routine_source import SUFFIXES, beside
 from .symtab import project_tables
 
 FOLDER = 'shared'
@@ -169,31 +171,36 @@ def _on_disk(out_dir, rel):
 
 
 def _fragments(files, out_dir):
-    """``{relative path: (asm text, C text or None)}`` of generated fragments.
+    """``{relative path: (asm text, source or None)}`` of generated fragments.
 
     *files* are the generated files (``{relative path: text}``); anything else
-    under *out_dir* is a human's.  The C text is the ``.c`` beside the
-    fragment, else ``shared/<label>.c`` (a shared or hand-owned copy).  A
-    fragment whose own ``.c`` was taken over by hand is left out: it is not
-    ours to move.
+    under *out_dir* is a human's.  The source, ``(suffix, text)``, is the
+    ``.c`` or ``.s`` beside the fragment, else ``shared/<label>.c`` or ``.s``
+    (a shared or hand-owned copy).  A fragment whose own source was taken over
+    by hand is left out: it is not ours to move.
     """
+    def source(base, where):
+        path = beside(base, where)
+        return (path, path[len(base):]) if path else (None, None)
+
     found = {}
     for rel in sorted(files):
         top, sep, _ = rel.partition('/')
         if not sep or top in _SKIP_DIRS or not rel.endswith('.asm'):
             continue
-        own_c = rel[:-4] + '.c'
-        shared_c = f'{FOLDER}/{os.path.basename(rel)[:-4]}.c'
-        if own_c in files:
-            ctext = files[own_c]
-        elif _on_disk(out_dir, own_c):
+        own, own_suffix = source(rel[:-4], files.__contains__)
+        shared_base = f'{FOLDER}/{os.path.basename(rel)[:-4]}'
+        shared, shared_suffix = source(shared_base, files.__contains__)
+        if own:
+            ctext = (own_suffix, files[own])
+        elif source(rel[:-4], lambda p: _on_disk(out_dir, p))[0]:
             continue
-        elif shared_c in files:
-            ctext = files[shared_c]
-        elif _on_disk(out_dir, shared_c):
-            ctext = _read(os.path.join(out_dir, shared_c))
+        elif shared:
+            ctext = (shared_suffix, files[shared])
         else:
-            ctext = None
+            path, suffix = source(shared_base, lambda p: _on_disk(out_dir, p))
+            ctext = (suffix, _read(os.path.join(out_dir, path))) if path \
+                else None
         found[rel] = (files[rel], ctext)
     return found
 
@@ -204,7 +211,8 @@ def share_files(files, out_dir, tables):
     *files* is ``{relative path: text}``, every generated file of the tree at
     *out_dir* (which holds only the hand-owned ones); *tables* is the binaries'
     symbol tables (:func:`lib.symtab.project_tables`).  A routine with
-    generated C moves its ``.c`` along (``shared/<label>.c``).  Returns
+    generated source moves its ``.c`` or ``.s`` along (``shared/<label>.c``).
+    Returns
     ``(files, shared)``: the tree's files after sharing, and ``{shared relative
     path: [replaced relative paths]}``.
     """
@@ -240,10 +248,10 @@ def share_files(files, out_dir, tables):
             for rel, pairs in binds.items():
                 bindings[rel] = [(p, n, p in defined) for p, n in pairs]
         files[shared_rel] = text
-        c_rel = shared_rel[:-4] + '.c'
-        if ctext is not None and c_rel not in files \
-                and not _on_disk(out_dir, c_rel):
-            files[c_rel] = ctext
+        if ctext is not None:
+            c_rel = shared_rel[:-4] + ctext[0]
+            if c_rel not in files and not _on_disk(out_dir, c_rel):
+                files[c_rel] = ctext[1]
         shared[shared_rel] = members
 
     _place_equs(files, out_dir)
@@ -251,7 +259,8 @@ def share_files(files, out_dir, tables):
     for members in shared.values():
         for rel in members:
             files.pop(rel, None)
-            files.pop(rel[:-4] + '.c', None)
+            for suffix in SUFFIXES:
+                files.pop(rel[:-4] + suffix, None)
     return files, shared
 
 
@@ -265,7 +274,8 @@ def share_identical(out_dir):
         dirs[:] = [d for d in dirs if d != 'build_out']
         for filename in names:
             path = os.path.join(folder, filename)
-            if filename.endswith(('.asm', '.c')) and is_generated(path):
+            if filename.endswith(('.asm',) + SUFFIXES) \
+                    and is_generated(path):
                 before[os.path.relpath(path, out_dir)] = _read(path)
     project = project_of_src_dir(out_dir)
     tables = project_tables(project) if project else {}
