@@ -346,7 +346,7 @@ api_idx_0038_HNUN:
     mov al, byte [bss_98f6]          ; 0x3311
     mov byte [bss_5984], al          ; 0x3314
     mov al, byte [bss_98f7]          ; 0x3317
-    mov byte [bss_5985], al          ; 0x331a
+    mov byte [video_mode], al        ; 0x331a
     mov ax, word [bss_98f2]          ; 0x331d
     mov word [bss_5980], ax          ; 0x3320
     mov ax, word [bss_98f4]          ; 0x3323

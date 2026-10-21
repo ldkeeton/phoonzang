@@ -1577,17 +1577,17 @@ jumptable_5e7f_case_12:
     cmp word [bp + 0x4], byte 0      ; 0x5b1b
     jne short @..loc_RMVR.l38        ; 0x5b1f
 @..loc_RMVR.l37:
-    mov al, byte [bss_5985]          ; 0x5b21
+    mov al, byte [video_mode]        ; 0x5b21
     sub ah, ah                       ; 0x5b24
     inc ax                           ; 0x5b26
     mov cx, 7                        ; 0x5b27
     cwd                              ; 0x5b2a
     idiv cx                          ; 0x5b2b
     mov ax, dx                       ; 0x5b2d
-    mov byte [bss_5985], al          ; 0x5b2f
-    cmp byte [bss_5985], 2           ; 0x5b32
+    mov byte [video_mode], al        ; 0x5b2f
+    cmp byte [video_mode], 2         ; 0x5b32
     je short @..loc_RMVR.l37         ; 0x5b37
-    cmp byte [bss_5985], 3           ; 0x5b39
+    cmp byte [video_mode], 3         ; 0x5b39
     je short @..loc_RMVR.l37         ; 0x5b3e
     push word [bp - 0x000a]          ; 0x5b40
     push word [bp - 0x0008]          ; 0x5b43
@@ -1596,7 +1596,7 @@ jumptable_5e7f_case_12:
     call api_idx_0052_LJTK           ; 0x5b4a
     add sp, byte 6                   ; 0x5b4d
 @..loc_RMVR.l38:
-    cmp byte [bss_5985], 0           ; 0x5b50
+    cmp byte [video_mode], 0         ; 0x5b50
     jbe short @..loc_RMVR.l39        ; 0x5b55
     mov word [bss_5982], 0x220       ; 0x5b57
     jmp short @..loc_RMVR.l40        ; 0x5b5d
@@ -1896,7 +1896,7 @@ jumptable_5e7f_case_23:
     mov al, byte [bss_5984]          ; 0x5def
     cmp al, byte [bp - 0x0074]       ; 0x5df2
     jne short @..loc_RMVR.l48        ; 0x5df5
-    mov al, byte [bss_5985]          ; 0x5df7
+    mov al, byte [video_mode]        ; 0x5df7
     cmp al, byte [bp - 0x0073]       ; 0x5dfa
     je short @..loc_RMVR.l49         ; 0x5dfd
 @..loc_RMVR.l48:

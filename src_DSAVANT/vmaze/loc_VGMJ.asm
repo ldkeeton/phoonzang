@@ -13,7 +13,7 @@ loc_VGMJ:
     push ax                          ; 0x0b30
     mov ax, 3                        ; 0x0b31
     push ax                          ; 0x0b34
-    call ds_app_file_KRUQ            ; 0x0b35
+    call load_score_files            ; 0x0b35
     add sp, byte 4                   ; 0x0b38
     mov ax, word [dseg_0112]         ; 0x0b3b
     mov word [bss_844e], ax          ; 0x0b3e

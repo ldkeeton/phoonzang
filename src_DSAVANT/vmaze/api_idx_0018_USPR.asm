@@ -11,7 +11,7 @@ api_idx_0018_USPR:
     push ax                          ; 0x1caa
     mov ax, 1                        ; 0x1cab
     push ax                          ; 0x1cae
-    call ds_app_file_KRUQ            ; 0x1caf
+    call load_score_files            ; 0x1caf
     add sp, byte 4                   ; 0x1cb2
     mov ax, word [dseg_010e]         ; 0x1cb5
     mov word [bss_844e], ax          ; 0x1cb8

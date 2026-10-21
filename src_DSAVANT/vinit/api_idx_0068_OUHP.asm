@@ -9,7 +9,7 @@ api_idx_0068_OUHP:
     mov ax, 0                        ; 0x0ad7
     push ax                          ; 0x0ada
     push ax                          ; 0x0adb
-    call ds_app_file_KRUQ            ; 0x0adc
+    call load_score_files            ; 0x0adc
     add sp, byte 4                   ; 0x0adf
     mov ax, word [dseg_010c]         ; 0x0ae2
     mov word [bss_844e], ax          ; 0x0ae5

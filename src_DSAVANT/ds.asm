@@ -489,15 +489,15 @@ dseg_0bd7       equ __zdseg_0bd7 - __zdseg_start
 ; bss_598e equ __zbss_598e - __zdseg_start
 %include "ds/game/ds_app_QTIV.asm"         ; 0x29f1
 
-dseg_0be3 equ __zdseg_0be3 - __zdseg_start
-dseg_0beb equ __zdseg_0beb - __zdseg_start
-dseg_0bf0 equ __zdseg_0bf0 - __zdseg_start
-dseg_0bf5 equ __zdseg_0bf5 - __zdseg_start
-bss_5985  equ __zbss_5985 - __zdseg_start
-bss_82b6  equ __zbss_82b6 - __zdseg_start
-%include "ds/game/ds_app_file_KRUQ.asm"    ; 0x2a2e
+dseg_0be3        equ __zdseg_0be3 - __zdseg_start
+score_ext_csf    equ __zscore_ext_csf - __zdseg_start
+score_ext_pbl    equ __zscore_ext_pbl - __zdseg_start
+score_ext_pba    equ __zscore_ext_pba - __zdseg_start
+video_mode       equ __zbss_5985 - __zdseg_start
+loaded_score_num equ __zbss_82b6 - __zdseg_start
+%include "ds/game/load_score_files.asm"    ; 0x2a2e
 
-; bss_82b6 equ __zbss_82b6 - __zdseg_start
+; loaded_score_num equ __zbss_82b6 - __zdseg_start
 %include "ds/game/ds_app_gfx_entry_51_VGJR.asm" ; 0x2b4e
 
 %include "ds/game/animate_sprite_up.asm"   ; 0x2b62
@@ -505,8 +505,8 @@ bss_82b6  equ __zbss_82b6 - __zdseg_start
 bss_597f equ __zbss_597f - __zdseg_start
 %include "ds/game/ds_app_UKGP.asm"         ; 0x2bab
 
-; bss_597f equ __zbss_597f - __zdseg_start
-; bss_5985 equ __zbss_5985 - __zdseg_start
+; bss_597f   equ __zbss_597f - __zdseg_start
+; video_mode equ __zbss_5985 - __zdseg_start
 %include "ds/game/ds_app_NNSU.asm"         ; 0x2bed
 
 ; bss_1008 equ __zbss_1008 - __zdseg_start
@@ -1344,11 +1344,11 @@ __zdseg_0bd7:
     db 'SOUND00.SND', 0
 __zdseg_0be3:
     db 'SCORE00', 0
-__zdseg_0beb:
+__zscore_ext_csf:
     db 0x2e, 0x43, 0x53, 0x46, 0x00
-__zdseg_0bf0:
+__zscore_ext_pbl:
     db 0x2e, 0x50, 0x42, 0x4c, 0x00
-__zdseg_0bf5:
+__zscore_ext_pba:
     db 0x2e, 0x50, 0x42, 0x41, 0x00
 __zdseg_0bfa:
     db 'VINIT', 0

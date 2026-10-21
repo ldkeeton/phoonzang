@@ -16,7 +16,7 @@ api_idx_0002_HQSQ:
     push ax                          ; 0x8f9a
     mov ax, 5                        ; 0x8f9b
     push ax                          ; 0x8f9e
-    call ds_app_file_KRUQ            ; 0x8f9f
+    call load_score_files            ; 0x8f9f
     add sp, byte 4                   ; 0x8fa2
     mov ax, word [dseg_0116]         ; 0x8fa5
     mov word [bss_844e], ax          ; 0x8fa8

@@ -168,7 +168,7 @@ jumptable_4688_case_5:
 jumptable_4688_case_8:
     lea ax, word [bp - 0x0052]       ; 0x44b0
     push ax                          ; 0x44b3
-    mov al, byte [bss_5985]          ; 0x44b4
+    mov al, byte [video_mode]        ; 0x44b4
     sub ah, ah                       ; 0x44b7
     add ax, 0x946                    ; 0x44b9
     push ax                          ; 0x44bc

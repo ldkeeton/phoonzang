@@ -1,14 +1,14 @@
 ; auto-generated
-ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
+load_score_files: ; Aztec csav frame=0x00a8
     mov ax, 0xff58                   ; 0x2a2e
     call aztec_csav                  ; 0x2a31
-    mov al, byte [bss_5985]          ; 0x2a34
+    mov al, byte [video_mode]        ; 0x2a34
     sub ah, ah                       ; 0x2a37
     mov word [bp - 0x00a8], ax       ; 0x2a39
     cmp ax, strict word 6            ; 0x2a3d
-    jne short @..ds_app_file_KRUQ.l1 ; 0x2a40
+    jne short @..load_score_files.l1 ; 0x2a40
     mov word [bp - 0x00a8], 4        ; 0x2a42
-@..ds_app_file_KRUQ.l1:
+@..load_score_files.l1:
     mov ax, dseg_0be3                ; 0x2a48
     push ax                          ; 0x2a4b
     lea ax, word [bp - 0x00a4]       ; 0x2a4c
@@ -30,7 +30,7 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     push ax                          ; 0x2a78
     call aztec_strcpy                ; 0x2a79
     add sp, byte 4                   ; 0x2a7c
-    mov ax, dseg_0beb                ; 0x2a7f
+    mov ax, score_ext_csf            ; 0x2a7f
     push ax                          ; 0x2a82
     lea ax, word [bp - 0x0054]       ; 0x2a83
     push ax                          ; 0x2a86
@@ -49,12 +49,12 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     add sp, byte 4                   ; 0x2aa3
     mov word [bp - 0x0002], ax       ; 0x2aa6
     cmp ax, strict word 0xffff       ; 0x2aa9
-    jne short @..ds_app_file_KRUQ.l2 ; 0x2aac
+    jne short @..load_score_files.l2 ; 0x2aac
     mov ax, 0xf                      ; 0x2aae
     push ax                          ; 0x2ab1
     call fatal_error                 ; 0x2ab2
     pop cx                           ; 0x2ab5
-@..ds_app_file_KRUQ.l2:
+@..load_score_files.l2:
     lea ax, word [bp - 0x00a4]       ; 0x2ab6
     push ax                          ; 0x2aba
     lea ax, word [bp - 0x0054]       ; 0x2abb
@@ -62,22 +62,22 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     call aztec_strcpy                ; 0x2abf
     add sp, byte 4                   ; 0x2ac2
     cmp word [bp - 0x00a8], byte 5   ; 0x2ac5
-    jne short @..ds_app_file_KRUQ.l3 ; 0x2aca
-    mov ax, dseg_0bf0                ; 0x2acc
+    jne short @..load_score_files.l3 ; 0x2aca
+    mov ax, score_ext_pbl            ; 0x2acc
     push ax                          ; 0x2acf
     lea ax, word [bp - 0x0054]       ; 0x2ad0
     push ax                          ; 0x2ad3
     call aztec_strcat                ; 0x2ad4
     add sp, byte 4                   ; 0x2ad7
-    jmp short @..ds_app_file_KRUQ.l4 ; 0x2ada
-@..ds_app_file_KRUQ.l3:
-    mov ax, dseg_0bf5                ; 0x2adc
+    jmp short @..load_score_files.l4 ; 0x2ada
+@..load_score_files.l3:
+    mov ax, score_ext_pba            ; 0x2adc
     push ax                          ; 0x2adf
     lea ax, word [bp - 0x0054]       ; 0x2ae0
     push ax                          ; 0x2ae3
     call aztec_strcat                ; 0x2ae4
     add sp, byte 4                   ; 0x2ae7
-@..ds_app_file_KRUQ.l4:
+@..load_score_files.l4:
     mov ax, 0                        ; 0x2aea
     push ax                          ; 0x2aed
     mov ax, 1                        ; 0x2aee
@@ -91,12 +91,12 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     add sp, byte 4                   ; 0x2b00
     mov word [bp - 0x0004], ax       ; 0x2b03
     cmp ax, strict word 0xffff       ; 0x2b06
-    jne short @..ds_app_file_KRUQ.l5 ; 0x2b09
+    jne short @..load_score_files.l5 ; 0x2b09
     mov ax, 0x10                     ; 0x2b0b
     push ax                          ; 0x2b0e
     call fatal_error                 ; 0x2b0f
     pop cx                           ; 0x2b12
-@..ds_app_file_KRUQ.l5:
+@..load_score_files.l5:
     push word [bp + 0x6]             ; 0x2b13
     push word [bp - 0x00a8]          ; 0x2b16
     push word [bp - 0x0004]          ; 0x2b1a
@@ -105,12 +105,12 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     add sp, byte 8                   ; 0x2b23
     mov word [bp - 0x00a6], ax       ; 0x2b26
     cmp word [bp - 0x00a6], byte 0   ; 0x2b2a
-    je short @..ds_app_file_KRUQ.l6  ; 0x2b2f
+    je short @..load_score_files.l6  ; 0x2b2f
     mov ax, 0x11                     ; 0x2b31
     push ax                          ; 0x2b34
     call fatal_error                 ; 0x2b35
     pop cx                           ; 0x2b38
-@..ds_app_file_KRUQ.l6:
+@..load_score_files.l6:
     push word [bp - 0x0002]          ; 0x2b39
     call aztec_close                 ; 0x2b3c
     pop cx                           ; 0x2b3f
@@ -118,5 +118,5 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     call aztec_close                 ; 0x2b43
     pop cx                           ; 0x2b46
     mov ax, word [bp + 0x4]          ; 0x2b47
-    mov word [bss_82b6], ax          ; 0x2b4a
+    mov word [loaded_score_num], ax  ; 0x2b4a
     ret                              ; 0x2b4d

@@ -158,6 +158,10 @@
         "2923": {
           "name": "load_sound_file"
         },
+        "2a2e": {
+          "name": "load_score_files",
+          "note": "(num, arg): opens SCOREnn.CSF and SCOREnn.PBL (video_mode 5) or .PBA, passes both fds with the video mode (6 treated as 4) and arg to gfx_load_score, closes them and records num in loaded_score_num; fatal errors 15/16/17"
+        },
         "2b62": {
           "name": "animate_sprite_up"
         },
@@ -277,6 +281,9 @@
         "01bc": {"name": "party_slot_y", "note": "int [2][6]: y of each party slot's letter for row 0/1; draw_party_slot_letters adds its y"},
         "01d4": {"name": "party_slot_glyphs", "note": "int [6][10]: per party slot, the glyph codes of its letter animation, 0xffff ends; draw_party_slot_letters reads the low byte of [slot][party_slot_frame[slot]]"},
         "0e22": {"name": "data_file_fd", "note": "int: handle of the open game data file that data_record_io seeks, reads and writes"},
+        "0beb": {"name": "score_ext_csf", "note": "char []: \".CSF\" extension appended by load_score_files"},
+        "0bf0": {"name": "score_ext_pbl", "note": "char []: \".PBL\" extension load_score_files uses when video_mode == 5"},
+        "0bf5": {"name": "score_ext_pba", "note": "char []: \".PBA\" extension load_score_files uses for other video modes"},
         "521c": {"name": "record_base", "note": "long [] per record type: file offset of the type's first record in the data file"},
         "5244": {"name": "record_map_2", "note": "unsigned char []: index -> record number for data_record_io types 2 and 3"},
         "5264": {"name": "record_map_5", "note": "unsigned char []: index -> record number for data_record_io type 5"},
@@ -287,11 +294,13 @@
         "556c": {"name": "record_packed", "note": "char [] per record type: nonzero when records are stored packed; data_record_io reads them into a buffer and unpack_record expands them"},
         "5576": {"name": "sound_slot_info", "note": "12-byte records per sound slot, read by data_record_io type 9: +0 alias sound number, +4 long size (0 means use the alias)"},
         "5912": {"name": "data_path_prefixes", "note": "char [][20]: drive/directory prefixes for data files; data_file_path copies one through its ':' (index 1 only when install_mode == 5)"},
+        "5985": {"name": "video_mode", "note": "byte: graphics adapter/mode selector; load_score_files picks .PBL for 5, .PBA otherwise (6 treated as 4)"},
         "5987": {"name": "install_mode", "note": "byte: install/disk configuration; 5 selects the alternate data path prefix in data_file_path and shifts indices in ds_app_IMTG/ds_app_file_QQMM"},
         "5b72": {"name": "saved_screen_kind", "note": "int [] per saved-screen slot: 3 when the screen was saved to the file saved_screen_file[n], -1 once freed"},
         "5b7c": {"name": "saved_screen_file", "note": "char [][20] per saved-screen slot: file name of a screen saved to disk"},
         "5be0": {"name": "saved_screen_ref", "note": "long [] per saved-screen slot: the driver's reference passed to gfx_restore_screen"},
         "69ca": {"name": "data_path_buf", "note": "char []: static buffer in which data_file_path builds and returns prefix + file name"},
+        "82b6": {"name": "loaded_score_num", "note": "int: score number last loaded by load_score_files; ds_app_gfx_entry_51_VGJR resets it to -1"},
         "830e": {"name": "party_slot_frame", "note": "int [6]: current frame in party_slot_glyphs for each slot; api_idx_0002_TIUI advances it, wrapping at 0xffff"}      },
       "code_data_names": {
         "2f36": {"name": "saved_video_mode", "note": "the video mode at startup (INT 10h AH=0Fh, bios_get_video_mode); ds_bios_video_loc_PHVR sets it back"},

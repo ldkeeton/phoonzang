@@ -32,7 +32,7 @@ loc_UIQM:
     push ax                          ; 0x8162
     mov ax, 2                        ; 0x8163
     push ax                          ; 0x8166
-    call ds_app_file_KRUQ            ; 0x8167
+    call load_score_files            ; 0x8167
     add sp, byte 4                   ; 0x816a
     mov ax, word [file_param_word]   ; 0x816d
     mov word [bss_844e], ax          ; 0x8170

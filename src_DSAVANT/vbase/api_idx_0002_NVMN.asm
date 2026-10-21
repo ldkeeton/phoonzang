@@ -42,7 +42,7 @@ api_idx_0002_NVMN:
     push ax                          ; 0x70c7
     mov ax, 4                        ; 0x70c8
     push ax                          ; 0x70cb
-    call ds_app_file_KRUQ            ; 0x70cc
+    call load_score_files            ; 0x70cc
     add sp, byte 4                   ; 0x70cf
     mov ax, word [dseg_0114]         ; 0x70d2
     mov word [bss_844e], ax          ; 0x70d5

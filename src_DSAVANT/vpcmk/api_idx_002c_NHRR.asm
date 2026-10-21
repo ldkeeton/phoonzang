@@ -179,7 +179,7 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6be2
     mov ax, 1                        ; 0x6be3
     push ax                          ; 0x6be6
-    call ds_app_file_KRUQ            ; 0x6be7
+    call load_score_files            ; 0x6be7
     add sp, byte 4                   ; 0x6bea
     mov ax, word [dseg_010e]         ; 0x6bed
     mov word [bss_844e], ax          ; 0x6bf0

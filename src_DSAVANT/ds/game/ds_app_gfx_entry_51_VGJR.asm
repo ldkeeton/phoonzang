@@ -5,5 +5,5 @@ ds_app_gfx_entry_51_VGJR: ; Aztec csav frame=0x0000
     push word [bp + 0x4]             ; 0x2b54
     call gfx_entry_51                ; 0x2b57
     pop cx                           ; 0x2b5a
-    mov word [bss_82b6], 0xffff      ; 0x2b5b
+    mov word [loaded_score_num], 0xffff ; 0x2b5b
     ret                              ; 0x2b61

@@ -21,7 +21,7 @@ loc_PKHU:
     push ax                          ; 0x80ce
     mov ax, 2                        ; 0x80cf
     push ax                          ; 0x80d2
-    call ds_app_file_KRUQ            ; 0x80d3
+    call load_score_files            ; 0x80d3
     add sp, byte 4                   ; 0x80d6
     mov ax, word [file_param_word]   ; 0x80d9
     mov word [bss_844e], ax          ; 0x80dc

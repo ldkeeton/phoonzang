@@ -12,7 +12,7 @@ loc_RLUJ:
     add sp, byte 6                   ; 0x33fa
     mov word [bss_8454], ax          ; 0x33fd
     mov word [bss_8458], 0           ; 0x3400
-    cmp word [bss_82b6], byte 0xff   ; 0x3406
+    cmp word [loaded_score_num], byte 0xff ; 0x3406
     je short @..loc_RLUJ.l3          ; 0x340b
 @..loc_RLUJ.l1:
     call gfx_entry_52                ; 0x340d

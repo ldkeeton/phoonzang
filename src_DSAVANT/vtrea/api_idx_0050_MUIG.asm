@@ -30,13 +30,13 @@ api_idx_0050_MUIG:
     push ax                          ; 0x7f9d
     mov ax, 3                        ; 0x7f9e
     push ax                          ; 0x7fa1
-    call ds_app_file_KRUQ            ; 0x7fa2
+    call load_score_files            ; 0x7fa2
     add sp, byte 4                   ; 0x7fa5
     mov ax, 1                        ; 0x7fa8
     push ax                          ; 0x7fab
     mov ax, 2                        ; 0x7fac
     push ax                          ; 0x7faf
-    call ds_app_file_KRUQ            ; 0x7fb0
+    call load_score_files            ; 0x7fb0
     add sp, byte 4                   ; 0x7fb3
     mov ax, word [dseg_0112]         ; 0x7fb6
     mov word [bss_844e], ax          ; 0x7fb9

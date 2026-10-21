@@ -185,7 +185,7 @@ api_idx_000c_RLGP:
     mov ax, 0                        ; 0x5320
     push ax                          ; 0x5323
     push ax                          ; 0x5324
-    call ds_app_file_KRUQ            ; 0x5325
+    call load_score_files            ; 0x5325
     add sp, byte 4                   ; 0x5328
     mov ax, word [dseg_010c]         ; 0x532b
     mov word [bss_844e], ax          ; 0x532e

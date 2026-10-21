@@ -363,7 +363,7 @@ loc_RVQR:
     call load_sound_file             ; 0x0719
     add sp, byte 6                   ; 0x071c
     mov word [bss_598e], 0xffff      ; 0x071f
-    mov word [bss_82b6], 0xffff      ; 0x0725
+    mov word [loaded_score_num], 0xffff ; 0x0725
     mov word [bss_100a], 0x905c      ; 0x072b
     mov word [bss_0e20], 0           ; 0x0731
     mov word [bss_0e1e], 0           ; 0x0737
