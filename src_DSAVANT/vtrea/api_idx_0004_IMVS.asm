@@ -18,7 +18,7 @@ api_idx_0004_IMVS:
     push ax                          ; 0x0e2e
     mov ax, 0x19                     ; 0x0e2f
     push ax                          ; 0x0e32
-    call ds_app_file_LMRK            ; 0x0e33
+    call save_screen_area            ; 0x0e33
     add sp, byte 0x0a                ; 0x0e36
     mov word [bp - 0x0002], ax       ; 0x0e39
 @..api_idx_0004_IMVS.l1:
@@ -36,7 +36,7 @@ api_idx_0004_IMVS:
     push ax                          ; 0x0e57
     mov ax, 0x19                     ; 0x0e58
     push ax                          ; 0x0e5b
-    call ds_app_file_LMRK            ; 0x0e5c
+    call save_screen_area            ; 0x0e5c
     add sp, byte 0x0a                ; 0x0e5f
     mov word [bp - 0x0004], ax       ; 0x0e62
 @..api_idx_0004_IMVS.l2:

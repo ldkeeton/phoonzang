@@ -28,7 +28,7 @@ api_idx_0038_IJUK:
     mov ax, word [bp - 0x0004]       ; 0x3e81
     dec ax                           ; 0x3e84
     push ax                          ; 0x3e85
-    call ds_app_file_LMRK            ; 0x3e86
+    call save_screen_area            ; 0x3e86
     add sp, byte 0x0a                ; 0x3e89
     mov word [bp - 0x0038], ax       ; 0x3e8c
     push word [bp - 0x000a]          ; 0x3e8f

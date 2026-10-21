@@ -62,7 +62,7 @@ api_idx_0084_IMVQ:
     mov ax, word [bp - 0x0006]       ; 0x2651
     dec ax                           ; 0x2654
     push ax                          ; 0x2655
-    call ds_app_file_LMRK            ; 0x2656
+    call save_screen_area            ; 0x2656
     add sp, byte 0x0a                ; 0x2659
     mov word [bp - 0x0076], ax       ; 0x265c
     push word [bp - 0x000c]          ; 0x265f

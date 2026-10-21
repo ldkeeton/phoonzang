@@ -66,7 +66,7 @@ ovmain:
     push ax                          ; 0x00d1
     mov ax, 0x48                     ; 0x00d2
     push ax                          ; 0x00d5
-    call ds_app_file_LMRK            ; 0x00d6
+    call save_screen_area            ; 0x00d6
     add sp, byte 0x0a                ; 0x00d9
     mov word [bss_9068], ax          ; 0x00dc
     mov word [bss_906a], 1           ; 0x00df

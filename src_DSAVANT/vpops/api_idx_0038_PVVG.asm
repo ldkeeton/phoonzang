@@ -28,7 +28,7 @@ api_idx_0038_PVVG:
     mov ax, word [bp - 0x0004]       ; 0x2cd9
     dec ax                           ; 0x2cdc
     push ax                          ; 0x2cdd
-    call ds_app_file_LMRK            ; 0x2cde
+    call save_screen_area            ; 0x2cde
     add sp, byte 0x0a                ; 0x2ce1
     mov word [bp - 0x0038], ax       ; 0x2ce4
     push word [bp - 0x000a]          ; 0x2ce7

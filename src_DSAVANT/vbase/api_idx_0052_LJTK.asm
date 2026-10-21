@@ -252,10 +252,10 @@ jumptable_4688_case_11:
     jmp near @..api_idx_0052_LJTK.l3 ; 0x456a
 jumptable_4688_case_12:
     mov ax, 1                        ; 0x456d
-    cmp byte [bss_5962], 1           ; 0x4570
+    cmp byte [screen_store_1_enabled], 1 ; 0x4570
     je short @..api_idx_0052_LJTK.l1 ; 0x4575
     mov ax, 0                        ; 0x4577
-    cmp byte [bss_5963], 1           ; 0x457a
+    cmp byte [screen_store_disk_enabled], 1 ; 0x457a
     jne short @..api_idx_0052_LJTK.l1 ; 0x457f
     mov ax, 2                        ; 0x4581
 @..api_idx_0052_LJTK.l1:
@@ -289,7 +289,7 @@ jumptable_4688_case_13:
     mov ax, word [bp + 0x6]          ; 0x45c2
     add ax, 0xd5                     ; 0x45c5
     push ax                          ; 0x45c8
-    mov ax, bss_5964                 ; 0x45c9
+    mov ax, screen_store_drive       ; 0x45c9
     push ax                          ; 0x45cc
     call loc_RSMG                    ; 0x45cd
     add sp, byte 8                   ; 0x45d0

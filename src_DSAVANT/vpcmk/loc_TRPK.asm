@@ -43,7 +43,7 @@ loc_TRPK:
     mov ax, word [bp + 0x8]          ; 0x04a4
     add ax, strict word 0xfffa       ; 0x04a7
     push ax                          ; 0x04aa
-    call ds_app_file_LMRK            ; 0x04ab
+    call save_screen_area            ; 0x04ab
     add sp, byte 0x0a                ; 0x04ae
     mov word [bp - 0x01a8], ax       ; 0x04b1
     mov ax, word [bp - 0x0008]       ; 0x04b5
@@ -111,7 +111,7 @@ loc_TRPK:
     mov ax, word [bp + 0x8]          ; 0x0540
     dec ax                           ; 0x0543
     push ax                          ; 0x0544
-    call ds_app_file_LMRK            ; 0x0545
+    call save_screen_area            ; 0x0545
     add sp, byte 0x0a                ; 0x0548
     mov word [bp - 0x01a8], ax       ; 0x054b
 @..loc_TRPK.l3:

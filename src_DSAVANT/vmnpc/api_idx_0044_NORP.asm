@@ -33,7 +33,7 @@ api_idx_0044_NORP:
     mov ax, word [bp - 0x0004]       ; 0x78c6
     dec ax                           ; 0x78c9
     push ax                          ; 0x78ca
-    call ds_app_file_LMRK            ; 0x78cb
+    call save_screen_area            ; 0x78cb
     add sp, byte 0x0a                ; 0x78ce
     mov word [bp - 0x003a], ax       ; 0x78d1
     push word [bp - 0x000a]          ; 0x78d4

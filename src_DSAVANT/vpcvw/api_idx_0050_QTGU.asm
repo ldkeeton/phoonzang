@@ -39,7 +39,7 @@ api_idx_0050_QTGU:
     mov ax, word [bp - 0x0004]       ; 0x2cee
     dec ax                           ; 0x2cf1
     push ax                          ; 0x2cf2
-    call ds_app_file_LMRK            ; 0x2cf3
+    call save_screen_area            ; 0x2cf3
     add sp, byte 0x0a                ; 0x2cf6
     mov word [bp - 0x003a], ax       ; 0x2cf9
     push word [bp - 0x000a]          ; 0x2cfc

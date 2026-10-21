@@ -39,7 +39,7 @@ api_idx_0050_MINM:
     mov ax, word [bp - 0x0004]       ; 0x11ab
     dec ax                           ; 0x11ae
     push ax                          ; 0x11af
-    call ds_app_file_LMRK            ; 0x11b0
+    call save_screen_area            ; 0x11b0
     add sp, byte 0x0a                ; 0x11b3
     mov word [bp - 0x003a], ax       ; 0x11b6
     push word [bp - 0x000a]          ; 0x11b9

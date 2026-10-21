@@ -43,7 +43,7 @@ loc_IOMS:
     mov ax, word [bp + 0x8]          ; 0x84a0
     add ax, strict word 0xfffa       ; 0x84a3
     push ax                          ; 0x84a6
-    call ds_app_file_LMRK            ; 0x84a7
+    call save_screen_area            ; 0x84a7
     add sp, byte 0x0a                ; 0x84aa
     mov word [bp - 0x01a8], ax       ; 0x84ad
     mov ax, word [bp - 0x0008]       ; 0x84b1
@@ -111,7 +111,7 @@ loc_IOMS:
     mov ax, word [bp + 0x8]          ; 0x853c
     dec ax                           ; 0x853f
     push ax                          ; 0x8540
-    call ds_app_file_LMRK            ; 0x8541
+    call save_screen_area            ; 0x8541
     add sp, byte 0x0a                ; 0x8544
     mov word [bp - 0x01a8], ax       ; 0x8547
 @..loc_IOMS.l3:

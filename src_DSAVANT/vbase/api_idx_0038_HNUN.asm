@@ -321,12 +321,12 @@ api_idx_0038_HNUN:
     cmp ax, strict word 4            ; 0x32cb
     jl short @..api_idx_0038_HNUN.l22 ; 0x32ce
     mov al, byte [bss_98d4]          ; 0x32d0
-    mov byte [bss_5962], al          ; 0x32d3
+    mov byte [screen_store_1_enabled], al ; 0x32d3
     mov al, byte [bss_98d5]          ; 0x32d6
-    mov byte [bss_5963], al          ; 0x32d9
+    mov byte [screen_store_disk_enabled], al ; 0x32d9
     mov ax, bss_98d6                 ; 0x32dc
     push ax                          ; 0x32df
-    mov ax, bss_5964                 ; 0x32e0
+    mov ax, screen_store_drive       ; 0x32e0
     push ax                          ; 0x32e3
     call aztec_strcpy                ; 0x32e4
     add sp, byte 4                   ; 0x32e7

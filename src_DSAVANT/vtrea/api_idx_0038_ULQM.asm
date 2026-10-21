@@ -29,7 +29,7 @@ api_idx_0038_ULQM:
     mov ax, word [bp - 0x0004]       ; 0x3aa3
     dec ax                           ; 0x3aa6
     push ax                          ; 0x3aa7
-    call ds_app_file_LMRK            ; 0x3aa8
+    call save_screen_area            ; 0x3aa8
     add sp, byte 0x0a                ; 0x3aab
     mov word [bp - 0x0038], ax       ; 0x3aae
     push word [bp - 0x000a]          ; 0x3ab1

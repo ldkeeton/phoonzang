@@ -28,7 +28,7 @@ api_idx_0038_LTUV:
     mov ax, word [bp - 0x0004]       ; 0x0b02
     dec ax                           ; 0x0b05
     push ax                          ; 0x0b06
-    call ds_app_file_LMRK            ; 0x0b07
+    call save_screen_area            ; 0x0b07
     add sp, byte 0x0a                ; 0x0b0a
     mov word [bp - 0x0038], ax       ; 0x0b0d
     push word [bp - 0x000a]          ; 0x0b10

@@ -78,7 +78,7 @@ api_idx_0062_SRKH:
     mov ax, word [bp - 0x0008]       ; 0x4c46
     dec ax                           ; 0x4c49
     push ax                          ; 0x4c4a
-    call ds_app_file_LMRK            ; 0x4c4b
+    call save_screen_area            ; 0x4c4b
     add sp, byte 0x0a                ; 0x4c4e
     mov word [bp - 0x0060], ax       ; 0x4c51
     push word [bp - 0x000e]          ; 0x4c54

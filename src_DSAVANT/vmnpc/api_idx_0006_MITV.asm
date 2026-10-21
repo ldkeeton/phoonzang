@@ -119,7 +119,7 @@ api_idx_0006_MITV:
     push ax                          ; 0x73d5
     mov ax, 0x48                     ; 0x73d6
     push ax                          ; 0x73d9
-    call ds_app_file_LMRK            ; 0x73da
+    call save_screen_area            ; 0x73da
     add sp, byte 0x0a                ; 0x73dd
     mov word [bss_9068], ax          ; 0x73e0
     mov word [bss_906a], 1           ; 0x73e3

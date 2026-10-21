@@ -59,7 +59,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x4d97
     dec ax                           ; 0x4d9a
     push ax                          ; 0x4d9b
-    call ds_app_file_LMRK            ; 0x4d9c
+    call save_screen_area            ; 0x4d9c
     add sp, byte 0x0a                ; 0x4d9f
     mov word [bp - 0x006a], ax       ; 0x4da2
     push word [bp - 0x000e]          ; 0x4da5
@@ -1670,10 +1670,10 @@ jumptable_5e7f_case_16:
     jmp near @..loc_RMVR.l52         ; 0x5bf7
 jumptable_5e7f_case_17:
     mov ax, 1                        ; 0x5bfa
-    cmp byte [bss_5962], 1           ; 0x5bfd
+    cmp byte [screen_store_1_enabled], 1 ; 0x5bfd
     je short @..loc_RMVR.l41         ; 0x5c02
     mov ax, 0                        ; 0x5c04
-    cmp byte [bss_5963], 1           ; 0x5c07
+    cmp byte [screen_store_disk_enabled], 1 ; 0x5c07
     jne short @..loc_RMVR.l41        ; 0x5c0c
     mov ax, 2                        ; 0x5c0e
 @..loc_RMVR.l41:
@@ -1683,15 +1683,15 @@ jumptable_5e7f_case_17:
     cwd                              ; 0x5c18
     idiv cx                          ; 0x5c19
     mov word [bp - 0x0004], dx       ; 0x5c1b
-    mov byte [bss_5962], 0           ; 0x5c1e
-    mov byte [bss_5963], 0           ; 0x5c23
+    mov byte [screen_store_1_enabled], 0 ; 0x5c1e
+    mov byte [screen_store_disk_enabled], 0 ; 0x5c23
     mov ax, dx                       ; 0x5c28
     jmp short @..loc_RMVR.l44        ; 0x5c2a
 @..loc_RMVR.l42:
-    mov byte [bss_5962], 1           ; 0x5c2c
+    mov byte [screen_store_1_enabled], 1 ; 0x5c2c
     jmp short @..loc_RMVR.l45        ; 0x5c31
 @..loc_RMVR.l43:
-    mov byte [bss_5963], 1           ; 0x5c33
+    mov byte [screen_store_disk_enabled], 1 ; 0x5c33
     jmp short @..loc_RMVR.l45        ; 0x5c38
 @..loc_RMVR.l44:
     cmp ax, strict word 1            ; 0x5c3a
@@ -1722,9 +1722,9 @@ jumptable_5e7f_case_17:
 jumptable_5e7f_case_18:
     cmp word [bp - 0x0014], byte 0x12 ; 0x5c6e
     je short @..loc_RMVR.l46         ; 0x5c72
-    cmp byte [bss_5963], 1           ; 0x5c74
+    cmp byte [screen_store_disk_enabled], 1 ; 0x5c74
     jne short @..loc_RMVR.l47        ; 0x5c79
-    mov ax, bss_5964                 ; 0x5c7b
+    mov ax, screen_store_drive       ; 0x5c7b
     push ax                          ; 0x5c7e
     call aztec_strlen                ; 0x5c7f
     pop cx                           ; 0x5c82
@@ -1740,7 +1740,7 @@ jumptable_5e7f_case_18:
     mov ax, word [bp - 0x0008]       ; 0x5c95
     add ax, 0xd5                     ; 0x5c98
     push ax                          ; 0x5c9b
-    mov ax, bss_5964                 ; 0x5c9c
+    mov ax, screen_store_drive       ; 0x5c9c
     push ax                          ; 0x5c9f
     call loc_IIHU                    ; 0x5ca0
     add sp, byte 8                   ; 0x5ca3
@@ -1758,7 +1758,7 @@ jumptable_5e7f_case_18:
     mov ax, word [bp - 0x0008]       ; 0x5cbd
     add ax, 0xd7                     ; 0x5cc0
     push ax                          ; 0x5cc3
-    mov ax, bss_5964                 ; 0x5cc4
+    mov ax, screen_store_drive       ; 0x5cc4
     push ax                          ; 0x5cc7
     call api_idx_0008_LLVT           ; 0x5cc8
     add sp, byte 0x0e                ; 0x5ccb

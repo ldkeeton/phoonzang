@@ -44,7 +44,7 @@ loc_MOVJ:
     mov ax, word [bp + 0xa]          ; 0x1d9a
     add ax, strict word 0xfffa       ; 0x1d9d
     push ax                          ; 0x1da0
-    call ds_app_file_LMRK            ; 0x1da1
+    call save_screen_area            ; 0x1da1
     add sp, byte 0x0a                ; 0x1da4
     mov word [bp - 0x0158], ax       ; 0x1da7
     mov ax, word [bp - 0x0008]       ; 0x1dab
@@ -127,7 +127,7 @@ loc_MOVJ:
     mov ax, word [bp + 0xa]          ; 0x1e58
     dec ax                           ; 0x1e5b
     push ax                          ; 0x1e5c
-    call ds_app_file_LMRK            ; 0x1e5d
+    call save_screen_area            ; 0x1e5d
     add sp, byte 0x0a                ; 0x1e60
     mov word [bp - 0x0158], ax       ; 0x1e63
 @..loc_MOVJ.l3:

@@ -28,7 +28,7 @@ api_idx_0038_QQIU:
     mov ax, word [bp - 0x0004]       ; 0x3a73
     dec ax                           ; 0x3a76
     push ax                          ; 0x3a77
-    call ds_app_file_LMRK            ; 0x3a78
+    call save_screen_area            ; 0x3a78
     add sp, byte 0x0a                ; 0x3a7b
     mov word [bp - 0x0038], ax       ; 0x3a7e
     push word [bp - 0x000a]          ; 0x3a81

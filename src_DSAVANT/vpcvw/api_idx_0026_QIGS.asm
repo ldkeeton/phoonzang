@@ -21,7 +21,7 @@ api_idx_0026_QIGS:
     mov ax, word [bp - 0x0002]       ; 0x8aa1
     dec ax                           ; 0x8aa4
     push ax                          ; 0x8aa5
-    call ds_app_file_LMRK            ; 0x8aa6
+    call save_screen_area            ; 0x8aa6
     add sp, byte 0x0a                ; 0x8aa9
     mov word [bp - 0x0026], ax       ; 0x8aac
     push word [bp - 0x0008]          ; 0x8aaf

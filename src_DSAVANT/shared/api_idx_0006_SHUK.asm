@@ -15,7 +15,7 @@ api_idx_0006_SHUK:
     push ax
     mov ax, 0x62
     push ax
-    call ds_app_file_LMRK
+    call save_screen_area
     add sp, byte 0x0a
     mov word [bp - 0x0002], ax
     mov ax, 0
@@ -39,7 +39,7 @@ api_idx_0006_SHUK:
     push ax
     mov ax, 8
     push ax
-    call ds_app_file_LMRK
+    call save_screen_area
     add sp, byte 0x0a
     mov word [bp - 0x0002], ax
     mov ax, dseg_90a6
@@ -52,7 +52,7 @@ api_idx_0006_SHUK:
     push ax
     mov ax, 0xe7
     push ax
-    call ds_app_file_LMRK
+    call save_screen_area
     add sp, byte 0x0a
     mov word [bp - 0x0004], ax
     mov ax, dseg_90ad
@@ -65,7 +65,7 @@ api_idx_0006_SHUK:
     push ax
     mov ax, 0x73
     push ax
-    call ds_app_file_LMRK
+    call save_screen_area
     add sp, byte 0x0a
     mov word [bp - 0x0006], ax
     mov ax, 0
@@ -99,7 +99,7 @@ api_idx_0006_SHUK:
     push ax
     mov ax, 8
     push ax
-    call ds_app_file_LMRK
+    call save_screen_area
     add sp, byte 0x0a
     mov word [bp - 0x0002], ax
     mov ax, 0

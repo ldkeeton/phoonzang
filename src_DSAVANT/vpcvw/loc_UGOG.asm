@@ -43,7 +43,7 @@ loc_UGOG:
     mov ax, word [bp + 0x8]          ; 0x1cff
     add ax, strict word 0xfffa       ; 0x1d02
     push ax                          ; 0x1d05
-    call ds_app_file_LMRK            ; 0x1d06
+    call save_screen_area            ; 0x1d06
     add sp, byte 0x0a                ; 0x1d09
     mov word [bp - 0x01a8], ax       ; 0x1d0c
     mov ax, word [bp - 0x0008]       ; 0x1d10
@@ -111,7 +111,7 @@ loc_UGOG:
     mov ax, word [bp + 0x8]          ; 0x1d9b
     dec ax                           ; 0x1d9e
     push ax                          ; 0x1d9f
-    call ds_app_file_LMRK            ; 0x1da0
+    call save_screen_area            ; 0x1da0
     add sp, byte 0x0a                ; 0x1da3
     mov word [bp - 0x01a8], ax       ; 0x1da6
 @..loc_UGOG.l3:

@@ -21,7 +21,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 0x0002]       ; 0x1227
     dec ax                           ; 0x122a
     push ax                          ; 0x122b
-    call ds_app_file_LMRK            ; 0x122c
+    call save_screen_area            ; 0x122c
     add sp, byte 0x0a                ; 0x122f
     mov word [bp - 0x0026], ax       ; 0x1232
     push word [bp - 0x0008]          ; 0x1235

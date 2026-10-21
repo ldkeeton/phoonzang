@@ -35,7 +35,7 @@ api_idx_0038_LJOP:
     mov ax, word [bp - 0x0004]       ; 0x4834
     dec ax                           ; 0x4837
     push ax                          ; 0x4838
-    call ds_app_file_LMRK            ; 0x4839
+    call save_screen_area            ; 0x4839
     add sp, byte 0x0a                ; 0x483c
     mov word [bp - 0x0038], ax       ; 0x483f
     push word [bp - 0x000a]          ; 0x4842

@@ -39,7 +39,7 @@ api_idx_0050_NHHL:
     mov ax, word [bp - 0x0004]       ; 0x30d3
     dec ax                           ; 0x30d6
     push ax                          ; 0x30d7
-    call ds_app_file_LMRK            ; 0x30d8
+    call save_screen_area            ; 0x30d8
     add sp, byte 0x0a                ; 0x30db
     mov word [bp - 0x003a], ax       ; 0x30de
     push word [bp - 0x000a]          ; 0x30e1

@@ -33,7 +33,7 @@ api_idx_0044_NJNI:
     mov ax, word [bp - 0x0004]       ; 0x1cfc
     dec ax                           ; 0x1cff
     push ax                          ; 0x1d00
-    call ds_app_file_LMRK            ; 0x1d01
+    call save_screen_area            ; 0x1d01
     add sp, byte 0x0a                ; 0x1d04
     mov word [bp - 0x003a], ax       ; 0x1d07
     push word [bp - 0x000a]          ; 0x1d0a

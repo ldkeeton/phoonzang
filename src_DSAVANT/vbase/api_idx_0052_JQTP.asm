@@ -178,7 +178,7 @@ jumptable_4af5_case_13:
     mov ax, word [bp + 0x6]          ; 0x49ae
     add ax, 0xd5                     ; 0x49b1
     push ax                          ; 0x49b4
-    mov ax, bss_5964                 ; 0x49b5
+    mov ax, screen_store_drive       ; 0x49b5
     push ax                          ; 0x49b8
     call loc_IIHU                    ; 0x49b9
     add sp, byte 8                   ; 0x49bc

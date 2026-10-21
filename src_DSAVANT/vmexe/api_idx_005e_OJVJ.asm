@@ -85,7 +85,7 @@ api_idx_005e_OJVJ:
     mov ax, 0                        ; 0x3580
     ret                              ; 0x3583
 @..api_idx_005e_OJVJ.l6:
-    cmp byte [bss_5962], 1           ; 0x3584
+    cmp byte [screen_store_1_enabled], 1 ; 0x3584
     jne short @..api_idx_005e_OJVJ.l9 ; 0x3589
     mov ax, 0                        ; 0x358b
     push ax                          ; 0x358e
@@ -105,9 +105,9 @@ api_idx_005e_OJVJ:
     mov word [bp - 0x000c], 0        ; 0x35ac
     jmp short @..api_idx_005e_OJVJ.l12 ; 0x35b1
 @..api_idx_005e_OJVJ.l9:
-    cmp byte [bss_5963], 1           ; 0x35b3
+    cmp byte [screen_store_disk_enabled], 1 ; 0x35b3
     jne short @..api_idx_005e_OJVJ.l12 ; 0x35b8
-    mov al, byte [bss_5964]          ; 0x35ba
+    mov al, byte [screen_store_drive] ; 0x35ba
     sub ah, ah                       ; 0x35bd
     add ax, strict word 0xffc0       ; 0x35bf
     mov word [bp - 0x000e], ax       ; 0x35c2

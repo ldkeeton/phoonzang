@@ -24,7 +24,7 @@ api_idx_0004_NIHO:
     push ax                          ; 0x2ef7
     mov ax, 0x48                     ; 0x2ef8
     push ax                          ; 0x2efb
-    call ds_app_file_LMRK            ; 0x2efc
+    call save_screen_area            ; 0x2efc
     add sp, byte 0x0a                ; 0x2eff
     mov word [bss_9068], ax          ; 0x2f02
     mov word [bss_906a], 1           ; 0x2f05

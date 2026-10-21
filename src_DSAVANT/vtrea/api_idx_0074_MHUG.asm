@@ -22,7 +22,7 @@ api_idx_0074_MHUG:
     mov ax, word [bp - 0x0006]       ; 0x6724
     dec ax                           ; 0x6727
     push ax                          ; 0x6728
-    call ds_app_file_LMRK            ; 0x6729
+    call save_screen_area            ; 0x6729
     add sp, byte 0x0a                ; 0x672c
     mov word [bp - 0x0024], ax       ; 0x672f
     push word [bp - 0x000c]          ; 0x6732

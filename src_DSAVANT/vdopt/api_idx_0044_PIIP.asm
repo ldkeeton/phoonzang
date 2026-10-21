@@ -33,7 +33,7 @@ api_idx_0044_PIIP:
     mov ax, word [bp - 0x0004]       ; 0x29e2
     dec ax                           ; 0x29e5
     push ax                          ; 0x29e6
-    call ds_app_file_LMRK            ; 0x29e7
+    call save_screen_area            ; 0x29e7
     add sp, byte 0x0a                ; 0x29ea
     mov word [bp - 0x003a], ax       ; 0x29ed
     push word [bp - 0x000a]          ; 0x29f0

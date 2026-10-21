@@ -20,7 +20,7 @@ api_idx_00aa_SLMI:
     mov ax, word [bp - 0x0002]       ; 0x6312
     dec ax                           ; 0x6315
     push ax                          ; 0x6316
-    call ds_app_file_LMRK            ; 0x6317
+    call save_screen_area            ; 0x6317
     add sp, byte 0x0a                ; 0x631a
     mov word [bp - 0x00aa], ax       ; 0x631d
     push word [bp - 0x0008]          ; 0x6321

@@ -26,7 +26,7 @@ loc_LSRQ:
     mov ax, word [bp + 0x6]          ; 0x0271
     dec ax                           ; 0x0274
     push ax                          ; 0x0275
-    call ds_app_file_LMRK            ; 0x0276
+    call save_screen_area            ; 0x0276
     add sp, byte 0x0a                ; 0x0279
     mov word [bp - 0x0154], ax       ; 0x027c
     mov word [bp - 0x0002], 0        ; 0x0280

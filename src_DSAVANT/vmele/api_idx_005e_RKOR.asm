@@ -85,7 +85,7 @@ api_idx_005e_RKOR:
     mov ax, 0                        ; 0x070d
     ret                              ; 0x0710
 @..api_idx_005e_RKOR.l6:
-    cmp byte [bss_5962], 1           ; 0x0711
+    cmp byte [screen_store_1_enabled], 1 ; 0x0711
     jne short @..api_idx_005e_RKOR.l9 ; 0x0716
     mov ax, 0                        ; 0x0718
     push ax                          ; 0x071b
@@ -105,9 +105,9 @@ api_idx_005e_RKOR:
     mov word [bp - 0x000c], 0        ; 0x0739
     jmp short @..api_idx_005e_RKOR.l12 ; 0x073e
 @..api_idx_005e_RKOR.l9:
-    cmp byte [bss_5963], 1           ; 0x0740
+    cmp byte [screen_store_disk_enabled], 1 ; 0x0740
     jne short @..api_idx_005e_RKOR.l12 ; 0x0745
-    mov al, byte [bss_5964]          ; 0x0747
+    mov al, byte [screen_store_drive] ; 0x0747
     sub ah, ah                       ; 0x074a
     add ax, strict word 0xffc0       ; 0x074c
     mov word [bp - 0x000e], ax       ; 0x074f

@@ -28,7 +28,7 @@ api_idx_0038_MNUL:
     mov ax, word [bp - 0x0004]       ; 0x064d
     dec ax                           ; 0x0650
     push ax                          ; 0x0651
-    call ds_app_file_LMRK            ; 0x0652
+    call save_screen_area            ; 0x0652
     add sp, byte 0x0a                ; 0x0655
     mov word [bp - 0x0038], ax       ; 0x0658
     push word [bp - 0x000a]          ; 0x065b

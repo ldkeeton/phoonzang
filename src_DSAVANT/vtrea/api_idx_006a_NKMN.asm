@@ -22,7 +22,7 @@ api_idx_006a_NKMN:
     mov ax, word [bp - 0x0006]       ; 0x6028
     dec ax                           ; 0x602b
     push ax                          ; 0x602c
-    call ds_app_file_LMRK            ; 0x602d
+    call save_screen_area            ; 0x602d
     add sp, byte 0x0a                ; 0x6030
     mov word [bp - 0x0018], ax       ; 0x6033
     push word [bp - 0x000c]          ; 0x6036

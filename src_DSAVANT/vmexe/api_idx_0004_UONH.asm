@@ -18,7 +18,7 @@ api_idx_0004_UONH:
     push ax                          ; 0x1b70
     mov ax, 8                        ; 0x1b71
     push ax                          ; 0x1b74
-    call ds_app_file_LMRK            ; 0x1b75
+    call save_screen_area            ; 0x1b75
     add sp, byte 0x0a                ; 0x1b78
     mov word [bp - 0x0002], ax       ; 0x1b7b
 @..api_idx_0004_UONH.l1:
@@ -36,7 +36,7 @@ api_idx_0004_UONH:
     push ax                          ; 0x1b99
     mov ax, 8                        ; 0x1b9a
     push ax                          ; 0x1b9d
-    call ds_app_file_LMRK            ; 0x1b9e
+    call save_screen_area            ; 0x1b9e
     add sp, byte 0x0a                ; 0x1ba1
     mov word [bp - 0x0004], ax       ; 0x1ba4
 @..api_idx_0004_UONH.l2:

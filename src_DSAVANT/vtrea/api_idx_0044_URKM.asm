@@ -33,7 +33,7 @@ api_idx_0044_URKM:
     mov ax, word [bp - 0x0004]       ; 0x8d78
     dec ax                           ; 0x8d7b
     push ax                          ; 0x8d7c
-    call ds_app_file_LMRK            ; 0x8d7d
+    call save_screen_area            ; 0x8d7d
     add sp, byte 0x0a                ; 0x8d80
     mov word [bp - 0x003a], ax       ; 0x8d83
     push word [bp - 0x000a]          ; 0x8d86

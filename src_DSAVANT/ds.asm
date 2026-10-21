@@ -397,13 +397,13 @@ bss_5b6e equ __zbss_5b6e - __zdseg_start
 bss_5b70 equ __zbss_5b70 - __zdseg_start
 %include "ds/game/ds_app_VKRR.asm"         ; 0x138c
 
-bss_5962          equ __zbss_5962 - __zdseg_start
-bss_5963          equ __zbss_5963 - __zdseg_start
-bss_5964          equ __zbss_5964 - __zdseg_start
-saved_screen_kind equ __zbss_5b72 - __zdseg_start
-saved_screen_file equ __zbss_5b7c - __zdseg_start
-saved_screen_ref  equ __zbss_5be0 - __zdseg_start
-%include "ds/game/ds_app_file_LMRK.asm"    ; 0x14ca
+screen_store_1_enabled    equ __zbss_5962 - __zdseg_start
+screen_store_disk_enabled equ __zbss_5963 - __zdseg_start
+screen_store_drive        equ __zbss_5964 - __zdseg_start
+saved_screen_kind         equ __zbss_5b72 - __zdseg_start
+saved_screen_file         equ __zbss_5b7c - __zdseg_start
+saved_screen_ref          equ __zbss_5be0 - __zdseg_start
+%include "ds/game/save_screen_area.asm"    ; 0x14ca
 
 ; saved_screen_kind equ __zbss_5b72 - __zdseg_start
 ; saved_screen_file equ __zbss_5b7c - __zdseg_start
