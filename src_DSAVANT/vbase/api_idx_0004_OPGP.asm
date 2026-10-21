@@ -44,10 +44,10 @@ api_idx_0004_OPGP:
     add sp, byte 8                   ; 0x66c9
     ret                              ; 0x66cc
 @..api_idx_0004_OPGP.l5:
-    push word [bss_830c]             ; 0x66cd
+    push word [game_state_arg]       ; 0x66cd
     mov ax, 0                        ; 0x66d1
     push ax                          ; 0x66d4
-    call ds_app_IMTG                 ; 0x66d5
+    call ensure_game_disk            ; 0x66d5
     add sp, byte 4                   ; 0x66d8
     mov ax, 0                        ; 0x66db
     push ax                          ; 0x66de
@@ -85,5 +85,5 @@ api_idx_0004_OPGP:
     call api_idx_0002_HQSQ           ; 0x674b
     pop cx                           ; 0x674e
 @..api_idx_0004_OPGP.l8:
-    mov word [bss_830a], 6           ; 0x674f
+    mov word [game_state], 6         ; 0x674f
     ret                              ; 0x6755

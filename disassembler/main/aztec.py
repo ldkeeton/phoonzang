@@ -167,7 +167,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     # A hand-written <label>.c or .s outside every placed module (an
     # application routine, or a vendor routine whose module stays assembly)
     # replaces that routine too.  It owns its fragment: up to the next
-    # fragment root.
+    # fragment root, or its band's end (:func:`_hand_length`).
     roots = sorted(function_roots or ())
     for label in sorted(set(hand_c) | set(shared_c)):
         if label in spans or label in module_of:
@@ -183,7 +183,6 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             raise SystemExit(f'error: {os.path.basename(path)}: compile '
                              f'failed ({exc})')
         start = starts.get(label)
-        following = [r for r in roots if start is not None and r > start]
         overrides[label] = {
             'func': func, 'text': text, 'path': path,
             'own_keys': {cache.own_key(label, entry): label},
@@ -195,7 +194,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
                        for fx in func.fixups],
             'data_spans': cache.data_spans(project, name, label, entry,
                                            text),
-            'length': (following[0] - start) if following else len(func.code),
+            'length': _hand_length(start, roots, bands, len(func.code)),
             'source_version': entry['source_version'],
             'file': entry['file'], 'compiler': entry['compiler'],
             'includes': entry['includes'],
@@ -389,6 +388,23 @@ def _hand_c(folder):
     """The labels of the hand-owned sources (``.c``, ``.s``) in *folder*,
     sorted."""
     return sorted(routine_source.sources_in(folder, hand_owned))
+
+
+def _hand_length(start, roots, bands, code_len):
+    """The bytes a hand-written routine at *start* owns.
+
+    Up to the next fragment root, but never past the end of its sidecar band:
+    a band's last object ends where the band does, and what follows (the next
+    object's data, a linker alignment pad outside every band) is not its code.
+    With neither, the compiled *code_len*.
+    """
+    if start is None:
+        return code_len
+    end = next((r for r in sorted(roots) if r > start), None)
+    band = band_for(bands, start) if bands else None
+    if band is not None and (end is None or end > band[1] + 1):
+        end = band[1] + 1
+    return (end - start) if end is not None else code_len
 
 
 def _sidecar_bands(project, binary):

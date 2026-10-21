@@ -55,6 +55,18 @@ party_slot_y equ __zparty_slot_y - __zdseg_start
 party_slot_glyphs equ __zparty_slot_glyphs - __zdseg_start
 dseg_03ae equ __zdseg_03ae - __zdseg_start
 dseg_03dc equ __zdseg_03dc - __zdseg_start
+dseg_0c00 equ __zdseg_0c00 - __zdseg_start
+dseg_0c06 equ __zdseg_0c06 - __zdseg_start
+dseg_0c0c equ __zdseg_0c0c - __zdseg_start
+dseg_0c12 equ __zdseg_0c12 - __zdseg_start
+dseg_0c18 equ __zdseg_0c18 - __zdseg_start
+dseg_0c1e equ __zdseg_0c1e - __zdseg_start
+dseg_0c24 equ __zdseg_0c24 - __zdseg_start
+dseg_0c2a equ __zdseg_0c2a - __zdseg_start
+dseg_0c30 equ __zdseg_0c30 - __zdseg_start
+dseg_0c36 equ __zdseg_0c36 - __zdseg_start
+dseg_0c3c equ __zdseg_0c3c - __zdseg_start
+dseg_0c42 equ __zdseg_0c42 - __zdseg_start
 dseg_0c9f equ __zdseg_0c9f - __zdseg_start
 dseg_0cdd equ __zdseg_0cdd - __zdseg_start
 dseg_0cde equ __zdseg_0cde - __zdseg_start
@@ -265,7 +277,7 @@ bss_0e2c     equ __zbss_0e2c - __zdseg_start
 bss_0e2e     equ __zbss_0e2e - __zdseg_start
 bss_0e30     equ __zbss_0e30 - __zdseg_start
 bss_0e32     equ __zbss_0e32 - __zdseg_start
-%include "ds/game/ds_app_file_RKTP.asm"    ; 0x0242
+%include "ds/game/release_resources.asm"   ; 0x0242
 
 %include "ds/game/fatal_error.asm"         ; 0x03b8
 
@@ -474,7 +486,7 @@ bss_5926     equ __zbss_5926 - __zdseg_start
 ; bss_5218           equ __zbss_5218 - __zdseg_start
 ; data_path_prefixes equ __zbss_5912 - __zdseg_start
 ; install_mode       equ __zbss_5987 - __zdseg_start
-%include "ds/game/ds_app_IMTG.asm"         ; 0x27e9
+%include "ds/game/ensure_game_disk.asm"    ; 0x27e9
 
 dseg_0bcd      equ __zdseg_0bcd - __zdseg_start
 slot_rec_first equ __zbss_6a1a - __zdseg_start
@@ -523,23 +535,12 @@ bss_82f0 equ __zbss_82f0 - __zdseg_start
 bss_82f2 equ __zbss_82f2 - __zdseg_start
 %include "ds/game/ds_app_JKOJ.asm"         ; 0x2c69
 
-dseg_0bfa equ __zdseg_0bfa - __zdseg_start
-dseg_0c00 equ __zdseg_0c00 - __zdseg_start
-dseg_0c06 equ __zdseg_0c06 - __zdseg_start
-dseg_0c0c equ __zdseg_0c0c - __zdseg_start
-dseg_0c12 equ __zdseg_0c12 - __zdseg_start
-dseg_0c18 equ __zdseg_0c18 - __zdseg_start
-dseg_0c1e equ __zdseg_0c1e - __zdseg_start
-dseg_0c24 equ __zdseg_0c24 - __zdseg_start
-dseg_0c2a equ __zdseg_0c2a - __zdseg_start
-dseg_0c30 equ __zdseg_0c30 - __zdseg_start
-dseg_0c36 equ __zdseg_0c36 - __zdseg_start
-dseg_0c3c equ __zdseg_0c3c - __zdseg_start
-dseg_0c42 equ __zdseg_0c42 - __zdseg_start
-bss_830a  equ __zbss_830a - __zdseg_start
-bss_830c  equ __zbss_830c - __zdseg_start
+dseg_0bfa      equ __zdseg_0bfa - __zdseg_start
+game_state     equ __zbss_830a - __zdseg_start
+game_state_arg equ __zbss_830c - __zdseg_start
 %include "ds/game/main.asm"                ; 0x2dd5
 
+    db 0x00
 saved_video_mode:
     db 0x00
 saved_equip_byte:

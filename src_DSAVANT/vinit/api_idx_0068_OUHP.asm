@@ -949,5 +949,5 @@ api_idx_0068_OUHP:
     mov word [bss_0e32], 0           ; 0x132a
 @..api_idx_0068_OUHP.l58:
     mov word [bss_5b3e], 0           ; 0x1330
-    mov word [bss_830a], 2           ; 0x1336
+    mov word [game_state], 2         ; 0x1336
     ret                              ; 0x133c

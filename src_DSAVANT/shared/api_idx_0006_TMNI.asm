@@ -10,7 +10,7 @@ api_idx_0006_TMNI:
     mov bx, word [bp - 0x0006]
     mov al, byte [bx]
     sub ah, ah
-    cmp ax, word [bss_830c]
+    cmp ax, word [game_state_arg]
     jne short @..api_idx_0006_TMNI.l2
     mov ax, word [bss_8f3e]
     xchg al, ah

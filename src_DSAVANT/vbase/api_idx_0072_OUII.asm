@@ -1498,7 +1498,7 @@ jumptable_2af5:
     mov word [bss_8f40], 7           ; 0x2e25
     mov word [bss_8f3e], 3           ; 0x2e2b
     mov word [bss_82ee], 2           ; 0x2e31
-    mov word [bss_830c], 0           ; 0x2e37
+    mov word [game_state_arg], 0     ; 0x2e37
     mov word [bss_5c0a], 0           ; 0x2e3d
     mov word [bss_5c08], 0x1388      ; 0x2e43
     mov ax, 0                        ; 0x2e49
@@ -1530,7 +1530,7 @@ jumptable_2af5:
     mov word [bss_8f40], 5           ; 0x2e8c
     mov word [bss_8f3e], 0xb         ; 0x2e92
     mov word [bss_82ee], 3           ; 0x2e98
-    mov word [bss_830c], 6           ; 0x2e9e
+    mov word [game_state_arg], 6     ; 0x2e9e
     mov word [bss_5c0a], 0           ; 0x2ea4
     mov word [bss_5c08], 0x2710      ; 0x2eaa
     mov ax, 0x5a                     ; 0x2eb0
@@ -1563,7 +1563,7 @@ jumptable_2af5:
     mov word [bss_8f40], 6           ; 0x2ef6
     mov word [bss_8f3e], 1           ; 0x2efc
     mov word [bss_82ee], 2           ; 0x2f02
-    mov word [bss_830c], 2           ; 0x2f08
+    mov word [game_state_arg], 2     ; 0x2f08
     mov ax, 0xffa6                   ; 0x2f0e
     push ax                          ; 0x2f11
     push ax                          ; 0x2f12
@@ -1627,7 +1627,7 @@ jumptable_2af5:
     push ax                          ; 0x2f90
     mov ax, 0x14                     ; 0x2f91
     push ax                          ; 0x2f94
-    mov ax, word [bss_830c]          ; 0x2f95
+    mov ax, word [game_state_arg]    ; 0x2f95
     mov cx, 4                        ; 0x2f98
     shl ax, cl                       ; 0x2f9b
     add ax, bss_5642                 ; 0x2f9d
@@ -1638,7 +1638,7 @@ jumptable_2af5:
     push ax                          ; 0x2faa
     mov ax, 0x15                     ; 0x2fab
     push ax                          ; 0x2fae
-    mov ax, word [bss_830c]          ; 0x2faf
+    mov ax, word [game_state_arg]    ; 0x2faf
     mov cx, 4                        ; 0x2fb2
     shl ax, cl                       ; 0x2fb5
     add ax, bss_5642                 ; 0x2fb7
@@ -1657,7 +1657,7 @@ jumptable_2af5:
     mov word [bss_8f32], ax          ; 0x2fdc
     mov ax, word [bss_82ee]          ; 0x2fdf
     mov word [bss_8f30], ax          ; 0x2fe2
-    mov ax, word [bss_830c]          ; 0x2fe5
+    mov ax, word [game_state_arg]    ; 0x2fe5
     mov word [bss_8f3c], ax          ; 0x2fe8
 @..api_idx_0072_OUII.l106:
     mov ax, 0                        ; 0x2feb

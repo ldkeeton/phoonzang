@@ -251,7 +251,7 @@ api_idx_00e6_QNPR:
     mov ax, 0                        ; 0x760e
     push ax                          ; 0x7611
     push word [bp - 0x0012]          ; 0x7612
-    mov ax, word [bss_830c]          ; 0x7615
+    mov ax, word [game_state_arg]    ; 0x7615
     mov cx, 4                        ; 0x7618
     shl ax, cl                       ; 0x761b
     add ax, 0x8d14                   ; 0x761d

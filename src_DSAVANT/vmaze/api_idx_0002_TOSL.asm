@@ -3,7 +3,7 @@ api_idx_0002_TOSL:
     mov ax, 0xfffe                   ; 0x03ea
     call aztec_csav                  ; 0x03ed
     mov word [bss_91a6], 0           ; 0x03f0
-    mov ax, word [bss_830c]          ; 0x03f6
+    mov ax, word [game_state_arg]    ; 0x03f6
     jmp short @..api_idx_0002_TOSL.l1 ; 0x03f9
 jumptable_042b_case_15:
     mov word [bp - 0x0002], 1        ; 0x03fb

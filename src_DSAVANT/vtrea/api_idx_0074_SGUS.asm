@@ -84,7 +84,7 @@ api_idx_0074_SGUS:
     push ax                          ; 0x79ba
     call api_idx_0004_UQUT           ; 0x79bb
     pop cx                           ; 0x79be
-    mov word [bss_830a], 8           ; 0x79bf
+    mov word [game_state], 8         ; 0x79bf
     ret                              ; 0x79c5
 @..api_idx_0074_SGUS.l4:
     cmp word [bp - 0x0018], byte 0   ; 0x79c6

@@ -3,7 +3,7 @@ ovmain:
     mov ax, 0                        ; 0x17d1
     call aztec_csav                  ; 0x17d4
     mov word [bss_90e0], 0           ; 0x17d7
-    cmp word [bss_830a], byte 0x0d   ; 0x17dd
+    cmp word [game_state], byte 0x0d ; 0x17dd
     jne short @..ovmain.l1           ; 0x17e2
     push word [bss_0e2c]             ; 0x17e4
     push word [bss_0e2a]             ; 0x17e8

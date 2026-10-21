@@ -26,7 +26,7 @@ api_idx_0032_TNQM:
     mov bx, ax                       ; 0xabd1
     mov al, byte [bx - 0x7687]       ; 0xabd3
     cbw                              ; 0xabd7
-    cmp ax, word [bss_830c]          ; 0xabd8
+    cmp ax, word [game_state_arg]    ; 0xabd8
     jne short @..api_idx_0032_TNQM.l2 ; 0xabdc
     mov al, byte [bp - 0x0004]       ; 0xabde
     mov byte [bss_8809], al          ; 0xabe1

@@ -42,9 +42,9 @@ api_idx_0030_MLHO:
     add ax, cx                       ; 0x3f06
     add ax, word [bp - 0x000e]       ; 0x3f08
     mov word [bp - 0x0008], ax       ; 0x3f0b
-    cmp word [bss_830c], byte 0x0a   ; 0x3f0e
+    cmp word [game_state_arg], byte 0x0a ; 0x3f0e
     je short @..api_idx_0030_MLHO.l1 ; 0x3f13
-    cmp word [bss_830c], byte 0x19   ; 0x3f15
+    cmp word [game_state_arg], byte 0x19 ; 0x3f15
     je short @..api_idx_0030_MLHO.l1 ; 0x3f1a
     jmp near @..api_idx_0030_MLHO.l5 ; 0x3f1c
 @..api_idx_0030_MLHO.l1:
@@ -70,7 +70,7 @@ api_idx_0030_MLHO:
     push ax                          ; 0x3f47
     call gfx_fill_area               ; 0x3f48
     add sp, byte 0x0a                ; 0x3f4b
-    mov ax, word [bss_830c]          ; 0x3f4e
+    mov ax, word [game_state_arg]    ; 0x3f4e
     cmp ax, word [bss_8f28]          ; 0x3f51
     jne short @..api_idx_0030_MLHO.l4 ; 0x3f55
     mov ax, word [bp - 0x0012]       ; 0x3f57
@@ -272,7 +272,7 @@ api_idx_0030_MLHO:
     jmp near @..api_idx_0030_MLHO.l24 ; 0x4125
 jumptable_4471_case_1:
     mov word [bss_91a8], 0           ; 0x4128
-    cmp word [bss_830c], byte 0x1e   ; 0x412e
+    cmp word [game_state_arg], byte 0x1e ; 0x412e
     jne short @..api_idx_0030_MLHO.l9 ; 0x4133
     cmp word [bss_8f3e], byte 8      ; 0x4135
     jne short @..api_idx_0030_MLHO.l9 ; 0x413a
@@ -381,7 +381,7 @@ jumptable_4471_case_3:
     add sp, byte 0x0a                ; 0x4213
     call api_idx_001e_IGLM           ; 0x4216
     call api_idx_0024_NUGL           ; 0x4219
-    cmp word [bss_830c], byte 0x0e   ; 0x421c
+    cmp word [game_state_arg], byte 0x0e ; 0x421c
     jne short @..api_idx_0030_MLHO.l12 ; 0x4221
     cmp word [bss_8f3e], byte 9      ; 0x4223
     jle short @..api_idx_0030_MLHO.l12 ; 0x4228
@@ -581,7 +581,7 @@ jumptable_4471_case_6:
     push ax                          ; 0x43d1
     call gfx_draw_maze_piece         ; 0x43d2
     add sp, byte 8                   ; 0x43d5
-    cmp word [bss_830c], byte 8      ; 0x43d8
+    cmp word [game_state_arg], byte 8 ; 0x43d8
     jne short @..api_idx_0030_MLHO.l20 ; 0x43dd
     cmp word [bss_8f3e], byte 6      ; 0x43df
     jne short @..api_idx_0030_MLHO.l20 ; 0x43e4
@@ -621,9 +621,9 @@ jumptable_4471_case_6:
     call gfx_fill_area               ; 0x442a
     add sp, byte 0x0a                ; 0x442d
 @..api_idx_0030_MLHO.l21:
-    cmp word [bss_830c], byte 8      ; 0x4430
+    cmp word [game_state_arg], byte 8 ; 0x4430
     je short @..api_idx_0030_MLHO.l22 ; 0x4435
-    cmp word [bss_830c], byte 0x0b   ; 0x4437
+    cmp word [game_state_arg], byte 0x0b ; 0x4437
     jne short @..api_idx_0030_MLHO.l23 ; 0x443c
     cmp word [bss_8f3e], byte 6      ; 0x443e
     jne short @..api_idx_0030_MLHO.l23 ; 0x4443

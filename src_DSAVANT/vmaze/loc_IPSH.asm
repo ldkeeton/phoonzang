@@ -77,7 +77,7 @@ jumptable_8978_case_8:
 @..loc_IPSH.l5:
     jmp near @..loc_IPSH.l7          ; 0x8922
 jumptable_8978_case_9:
-    mov word [bss_830a], 0x1d        ; 0x8925
+    mov word [game_state], 0x1d      ; 0x8925
     jmp near @..loc_IPSH.l7          ; 0x892b
 jumptable_8978_case_10:
     call api_idx_001c_QLSV           ; 0x892e
@@ -86,7 +86,7 @@ jumptable_8978_case_11:
     call api_idx_000a_SRNS           ; 0x8934
     jmp near @..loc_IPSH.l7          ; 0x8937
 jumptable_8978_case_12:
-    mov word [bss_830a], 0x1c        ; 0x893a
+    mov word [game_state], 0x1c      ; 0x893a
     jmp near @..loc_IPSH.l7          ; 0x8940
 jumptable_8978_case_13:
     call api_idx_0012_JIRG           ; 0x8943
@@ -158,7 +158,7 @@ jumptable_8978:
     jmp [cs:bx + jumptable_8978 - IMAGE_BASE + __zres_end] ; 0x89b4
 jumptable_8978_case_0:
 @..loc_IPSH.l7:
-    cmp word [bss_830a], byte 5      ; 0x89b9
+    cmp word [game_state], byte 5    ; 0x89b9
     je short @..loc_IPSH.l8          ; 0x89be
     ret                              ; 0x89c0
 @..loc_IPSH.l8:

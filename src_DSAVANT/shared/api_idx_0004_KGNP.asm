@@ -19,7 +19,7 @@ api_idx_0004_KGNP:
     mov ax, 0
     push ax
     push word [bp - 0x0002]
-    mov ax, word [bss_830c]
+    mov ax, word [game_state_arg]
     mov cx, 4
     shl ax, cl
     add ax, 0x8d14
@@ -29,7 +29,7 @@ api_idx_0004_KGNP:
     mov ax, 0
     push ax
     push word [bp - 0x0002]
-    mov ax, word [bss_830c]
+    mov ax, word [game_state_arg]
     mov cx, 4
     shl ax, cl
     add ax, bss_5642
@@ -42,7 +42,7 @@ api_idx_0004_KGNP:
     mov ax, 1
     push ax
     push word [bp - 0x0004]
-    mov ax, word [bss_830c]
+    mov ax, word [game_state_arg]
     mov cx, 4
     shl ax, cl
     add ax, 0x8d14
@@ -52,7 +52,7 @@ api_idx_0004_KGNP:
     mov ax, 1
     push ax
     push word [bp - 0x0004]
-    mov ax, word [bss_830c]
+    mov ax, word [game_state_arg]
     mov cx, 4
     shl ax, cl
     add ax, bss_5642

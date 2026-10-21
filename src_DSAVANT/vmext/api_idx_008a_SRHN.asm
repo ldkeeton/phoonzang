@@ -11,7 +11,7 @@ api_idx_008a_SRHN:
     call aztec_setmem                ; 0x0c32
     add sp, byte 6                   ; 0x0c35
     mov word [bss_905e], 0x17        ; 0x0c38
-    mov word [bss_830a], 5           ; 0x0c3e
+    mov word [game_state], 5         ; 0x0c3e
     mov ax, 0x98                     ; 0x0c44
     push ax                          ; 0x0c47
     mov ax, 0x13f                    ; 0x0c48
@@ -41,7 +41,7 @@ api_idx_008a_SRHN:
     add sp, byte 6                   ; 0x0c84
     mov ax, word [bss_82ee]          ; 0x0c87
     mov word [bp - 0x0002], ax       ; 0x0c8a
-    mov ax, word [bss_830c]          ; 0x0c8d
+    mov ax, word [game_state_arg]    ; 0x0c8d
     cmp ax, word [bss_8f3c]          ; 0x0c90
     jne short @..api_idx_008a_SRHN.l1 ; 0x0c94
     mov ax, word [bss_8f30]          ; 0x0c96

@@ -31,7 +31,7 @@ api_idx_0038_POGI:
     mov bx, ax                       ; 0x24fa
     mov al, byte [bx - 0x7687]       ; 0x24fc
     cbw                              ; 0x2500
-    cmp ax, word [bss_830c]          ; 0x2501
+    cmp ax, word [game_state_arg]    ; 0x2501
     je short @..api_idx_0038_POGI.l2 ; 0x2505
     mov ax, 0x26                     ; 0x2507
     imul word [bp - 0x0002]          ; 0x250a

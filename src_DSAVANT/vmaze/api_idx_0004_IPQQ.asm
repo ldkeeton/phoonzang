@@ -82,7 +82,7 @@ api_idx_0004_IPQQ:
     mov word [bss_8d12], ax          ; 0x7384
     mov word [bss_9bd0], 0           ; 0x7387
     mov ax, word [bp - 0x0004]       ; 0x738d
-    cmp ax, word [bss_830c]          ; 0x7390
+    cmp ax, word [game_state_arg]    ; 0x7390
     jne short @..api_idx_0004_IPQQ.l3 ; 0x7394
     call loc_IONR                    ; 0x7396
     jmp short @..api_idx_0004_IPQQ.l4 ; 0x7399
@@ -91,7 +91,7 @@ api_idx_0004_IPQQ:
     push word [bp - 0x0004]          ; 0x739e
     call api_idx_000c_RNQS           ; 0x73a1
     pop cx                           ; 0x73a4
-    cmp word [bss_830c], byte 0      ; 0x73a5
+    cmp word [game_state_arg], byte 0 ; 0x73a5
     jl short @..api_idx_0004_IPQQ.l4 ; 0x73aa
     call loc_IONR                    ; 0x73ac
 @..api_idx_0004_IPQQ.l4:

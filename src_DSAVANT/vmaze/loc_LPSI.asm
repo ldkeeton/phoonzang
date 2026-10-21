@@ -4,7 +4,7 @@ loc_LPSI:
     call aztec_csav                  ; 0x09ce
     mov ax, 0                        ; 0x09d1
     push ax                          ; 0x09d4
-    push word [bss_830c]             ; 0x09d5
+    push word [game_state_arg]       ; 0x09d5
     push word [bss_0e14]             ; 0x09d9
     mov ax, 2                        ; 0x09dd
     push ax                          ; 0x09e0
@@ -12,7 +12,7 @@ loc_LPSI:
     add sp, byte 8                   ; 0x09e4
     mov ax, 0                        ; 0x09e7
     push ax                          ; 0x09ea
-    push word [bss_830c]             ; 0x09eb
+    push word [game_state_arg]       ; 0x09eb
     push word [bss_0e12]             ; 0x09ef
     mov ax, 3                        ; 0x09f3
     push ax                          ; 0x09f6
@@ -23,7 +23,7 @@ loc_LPSI:
     push ds                          ; 0x0a01
     mov ax, 0x8b7e                   ; 0x0a02
     push ax                          ; 0x0a05
-    mov ax, word [bss_830c]          ; 0x0a06
+    mov ax, word [game_state_arg]    ; 0x0a06
     mov cx, 7                        ; 0x0a09
     shl ax, cl                       ; 0x0a0c
     mov cx, ax                       ; 0x0a0e
@@ -39,7 +39,7 @@ loc_LPSI:
     push ds                          ; 0x0a25
     mov ax, 0x8afe                   ; 0x0a26
     push ax                          ; 0x0a29
-    mov ax, word [bss_830c]          ; 0x0a2a
+    mov ax, word [game_state_arg]    ; 0x0a2a
     mov cx, 7                        ; 0x0a2d
     shl ax, cl                       ; 0x0a30
     mov cx, ax                       ; 0x0a32

@@ -13,7 +13,7 @@ loc_OUOJ:
     mov al, byte [bx + si + 0x960]
     sub ah, ah
     push ax
-    mov ax, word [bss_830c]
+    mov ax, word [game_state_arg]
     mov cx, 4
     shl ax, cl
     add ax, 0x8d14
@@ -29,7 +29,7 @@ loc_OUOJ:
     mov al, byte [bx + si + 0x960]
     sub ah, ah
     push ax
-    mov ax, word [bss_830c]
+    mov ax, word [game_state_arg]
     mov cx, 4
     shl ax, cl
     add ax, bss_5642

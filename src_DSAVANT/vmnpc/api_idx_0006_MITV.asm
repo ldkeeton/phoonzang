@@ -6,7 +6,7 @@ api_idx_0006_MITV:
     push ax                          ; 0x72c8
     call api_idx_0006_SHUK           ; 0x72c9
     pop cx                           ; 0x72cc
-    cmp word [bss_830a], byte 0x0a   ; 0x72cd
+    cmp word [game_state], byte 0x0a ; 0x72cd
     je short @..api_idx_0006_MITV.l1 ; 0x72d2
     mov ax, 3                        ; 0x72d4
     push ax                          ; 0x72d7
@@ -37,7 +37,7 @@ api_idx_0006_MITV:
     push word [bss_8d0e]             ; 0x730e
     call gfx_restore_area            ; 0x7312
     add sp, byte 6                   ; 0x7315
-    cmp word [bss_830a], byte 0x0a   ; 0x7318
+    cmp word [game_state], byte 0x0a ; 0x7318
     je short @..api_idx_0006_MITV.l2 ; 0x731d
     mov ax, 0xc6                     ; 0x731f
     push ax                          ; 0x7322

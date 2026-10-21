@@ -149,7 +149,7 @@ api_idx_000e_RTSO:
     mov ax, 0                        ; 0x81ac
     push ax                          ; 0x81af
     push word [bp - 0x000e]          ; 0x81b0
-    mov ax, word [bss_830c]          ; 0x81b3
+    mov ax, word [game_state_arg]    ; 0x81b3
     mov cx, 4                        ; 0x81b6
     shl ax, cl                       ; 0x81b9
     add ax, 0x8d14                   ; 0x81bb
@@ -168,7 +168,7 @@ api_idx_000e_RTSO:
     mov ax, 0                        ; 0x81db
     push ax                          ; 0x81de
     push word [bp - 0x000e]          ; 0x81df
-    mov ax, word [bss_830c]          ; 0x81e2
+    mov ax, word [game_state_arg]    ; 0x81e2
     mov cx, 4                        ; 0x81e5
     shl ax, cl                       ; 0x81e8
     add ax, bss_5642                 ; 0x81ea

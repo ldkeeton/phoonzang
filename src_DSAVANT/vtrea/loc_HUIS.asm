@@ -256,7 +256,7 @@ loc_HUIS:
     jl short @..loc_HUIS.l21         ; 0x59ea
     cmp word [bp - 0x0084], byte 0   ; 0x59ec
     jne short @..loc_HUIS.l24        ; 0x59f1
-    mov word [bss_830a], 8           ; 0x59f3
+    mov word [game_state], 8         ; 0x59f3
     ret                              ; 0x59f9
 @..loc_HUIS.l24:
     mov ax, word [bp - 0x0088]       ; 0x59fa

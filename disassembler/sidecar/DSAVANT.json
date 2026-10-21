@@ -87,7 +87,7 @@
       "start_offset": 512,
       "entry_symbol": "aztec_begin",
       "bands": [
-        {"name": "game", "start": "0200", "end": "2f35", "note": "cc-compiled game objects (all csav), ending with main and its pad byte"},
+        {"name": "game", "start": "0200", "end": "2f34", "note": "cc-compiled game objects (all csav), ending with main; 0x2f35 is the linker's word-alignment pad (0x00) before the library object, outside every band"},
         {"name": "library", "start": "2f36", "end": "4378", "note": "in-house assembly library: CS-resident data block (video flags, gfx driver slots) and frameless routines: video detect, driver load, gfx_entry thunks, keyboard, font"},
         {"name": "aztec", "start": "4379", "end": "5254", "note": "Aztec C.LIB modules, linked last"}
       ],
@@ -129,9 +129,13 @@
           "name": "aztec_noper",
           "note": "croot.c's noper(), `return 0;`: the default `cls_` exit hook (dseg_0c9c, file 0x4ea3) until putc.c installs closall"
         },
+        "0242": {
+          "name": "release_resources",
+          "note": "(stage): switch on stage frees the allocated buffers and closes the data files from that point down, then stops sound and the mouse and calls ds_loc_IGLJ; main calls it with 0 before exiting"
+        },
         "03b8": {
           "name": "fatal_error",
-          "note": "calls ds_app_file_RKTP(code), then aztec_exit(code); load_sound_file and restore_saved_screen call it on open/load failures"
+          "note": "calls release_resources(code), then aztec_exit(code); load_sound_file and restore_saved_screen call it on open/load failures"
         },
         "0883": {
           "name": "data_record_io",
@@ -157,6 +161,10 @@
         "23a8": {
           "name": "data_file_path",
           "note": "(name, alt): copies one of two 20-byte path prefixes at DS 0x5912 (the second only when alt == 1 and DS 0x5987 == 5) into DS 0x69ca via ds_app_HVHT, appends name and returns 0x69ca"
+        },
+        "27e9": {
+          "name": "ensure_game_disk",
+          "note": "picks a disk number from install_mode and, when it differs from DS 0x5218, prompts via ds_app_file_QQMM and redraws the full screen (gfx_show_area 0,0,319,199); main calls it before loading some overlays"
         },
         "2923": {
           "name": "load_sound_file"
@@ -302,12 +310,14 @@
         "5963": {"name": "screen_store_disk_enabled", "note": "byte: 1 lets save_screen_area spool a screen to a file on drive screen_store_drive"},
         "5964": {"name": "screen_store_drive", "note": "byte: drive letter ('A'..'Z') save_screen_area spools screens to as \"X:\\name\""},
         "5985": {"name": "video_mode", "note": "byte: graphics adapter/mode selector; load_score_files picks .PBL for 5, .PBA otherwise (6 treated as 4)"},
-        "5987": {"name": "install_mode", "note": "byte: install/disk configuration; 5 selects the alternate data path prefix in data_file_path and shifts indices in ds_app_IMTG/ds_app_file_QQMM"},
+        "5987": {"name": "install_mode", "note": "byte: install/disk configuration; 5 selects the alternate data path prefix in data_file_path and shifts indices in ensure_game_disk/ds_app_file_QQMM"},
         "5b72": {"name": "saved_screen_kind", "note": "int [] per saved-screen slot: 3 when the screen was saved to the file saved_screen_file[n], -1 once freed"},
         "5b7c": {"name": "saved_screen_file", "note": "char [][20] per saved-screen slot: file name of a screen saved to disk"},
         "5be0": {"name": "saved_screen_ref", "note": "long [] per saved-screen slot: the driver's reference passed to gfx_restore_screen"},
         "69ca": {"name": "data_path_buf", "note": "char []: static buffer in which data_file_path builds and returns prefix + file name"},
         "82b6": {"name": "loaded_score_num", "note": "int: score number last loaded by load_score_files; ds_app_gfx_free_score_VGJR resets it to -1"},
+        "830a": {"name": "game_state", "note": "int: main's switch selector; each value picks the overlay (VINIT, VBASE, VMAZE, ...) main loads next, 3 quits"},
+        "830c": {"name": "game_state_arg", "note": "int: main passes it as ensure_game_disk's second argument (which that routine does not read) for game_state 25"},
         "830e": {"name": "party_slot_frame", "note": "int [6]: current frame in party_slot_glyphs for each slot; api_idx_0002_TIUI advances it, wrapping at 0xffff"}      },
       "code_data_names": {
         "2f36": {"name": "saved_video_mode", "note": "the video mode at startup (INT 10h AH=0Fh, bios_get_video_mode); ds_bios_video_loc_PHVR sets it back"},

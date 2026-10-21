@@ -62,5 +62,5 @@ api_idx_0002_IRNO:
     call gfx_show_area               ; 0x67ed
     add sp, byte 8                   ; 0x67f0
     mov word [bss_69c8], 0           ; 0x67f3
-    mov word [bss_830a], 4           ; 0x67f9
+    mov word [game_state], 4         ; 0x67f9
     ret                              ; 0x67ff

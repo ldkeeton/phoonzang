@@ -118,7 +118,7 @@ api_idx_000a_JJNS:
     push word [bp + 0xa]             ; 0x7dfc
     push word [bp + 0x8]             ; 0x7dff
     push word [bp - 0x0004]          ; 0x7e02
-    push word [bss_830c]             ; 0x7e05
+    push word [game_state_arg]       ; 0x7e05
     call api_idx_0004_KMPG           ; 0x7e09
     add sp, byte 0x12                ; 0x7e0c
     cmp word [bp - 0x0002], byte 0   ; 0x7e0f

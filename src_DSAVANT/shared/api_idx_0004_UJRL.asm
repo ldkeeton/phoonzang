@@ -38,7 +38,7 @@ api_idx_0004_UJRL:
     mov ax, word [bss_0e0e]
     add ax, cx
     mov word [bp - 0x0004], ax
-    mov al, byte [bss_830c]
+    mov al, byte [game_state_arg]
     mov bx, word [bp - 0x0004]
     mov byte [bx], al
     mov bx, word [bp + 0x4]

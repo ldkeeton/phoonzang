@@ -141,7 +141,7 @@ jumptable_3f96_case_3:
 @..api_idx_009e_ITUJ.l7:
     jmp near @..api_idx_009e_ITUJ.l13 ; 0x3e3f
 jumptable_3f96_case_4:
-    mov ax, word [bss_830c]          ; 0x3e42
+    mov ax, word [game_state_arg]    ; 0x3e42
     cmp ax, word [bp - 0x002c]       ; 0x3e45
     jne short @..api_idx_009e_ITUJ.l8 ; 0x3e48
     mov ax, 0                        ; 0x3e4a

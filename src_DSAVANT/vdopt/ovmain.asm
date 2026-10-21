@@ -13,7 +13,7 @@ ovmain:
 @..ovmain.l1:
     mov word [bss_90b6], 0           ; 0x002f
     mov word [bss_90b8], 0           ; 0x0035
-    cmp word [bss_830a], byte 0x13   ; 0x003b
+    cmp word [game_state], byte 0x13 ; 0x003b
     jne short @..ovmain.l2           ; 0x0040
     mov ax, 0xe                      ; 0x0042
     push ax                          ; 0x0045
@@ -49,12 +49,12 @@ ovmain:
     call ds_app_file_TSNH            ; 0x0086
     add sp, byte 4                   ; 0x0089
 @..ovmain.l2:
-    cmp word [bss_830a], byte 0x14   ; 0x008c
+    cmp word [game_state], byte 0x14 ; 0x008c
     jne short @..ovmain.l3           ; 0x0091
     push word [bss_8af0]             ; 0x0093
     call api_idx_0094_LUVH           ; 0x0097
     pop cx                           ; 0x009a
 @..ovmain.l3:
-    mov word [bss_830a], 5           ; 0x009b
+    mov word [game_state], 5         ; 0x009b
     mov ax, 0                        ; 0x00a1
     ret                              ; 0x00a4

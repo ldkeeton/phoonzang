@@ -28,7 +28,7 @@ api_idx_0002_GSOS:
     mov al, byte [bx + si + 0x960]   ; 0x68c3
     sub ah, ah                       ; 0x68c7
     push ax                          ; 0x68c9
-    mov ax, word [bss_830c]          ; 0x68ca
+    mov ax, word [game_state_arg]    ; 0x68ca
     mov cx, 4                        ; 0x68cd
     shl ax, cl                       ; 0x68d0
     add ax, 0x8d14                   ; 0x68d2

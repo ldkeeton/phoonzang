@@ -4,12 +4,12 @@ loc_VNRM:
     call aztec_csav                  ; 0x68f5
     mov ax, 0x10                     ; 0x68f8
     push ax                          ; 0x68fb
-    mov ax, word [bss_830c]          ; 0x68fc
+    mov ax, word [game_state_arg]    ; 0x68fc
     mov cx, 4                        ; 0x68ff
     shl ax, cl                       ; 0x6902
     add ax, bss_5642                 ; 0x6904
     push ax                          ; 0x6907
-    mov ax, word [bss_830c]          ; 0x6908
+    mov ax, word [game_state_arg]    ; 0x6908
     shl ax, cl                       ; 0x690b
     add ax, 0x8d14                   ; 0x690d
     push ax                          ; 0x6910
@@ -17,7 +17,7 @@ loc_VNRM:
     add sp, byte 6                   ; 0x6914
     mov ax, 0x80                     ; 0x6917
     push ax                          ; 0x691a
-    mov ax, word [bss_830c]          ; 0x691b
+    mov ax, word [game_state_arg]    ; 0x691b
     mov cx, 7                        ; 0x691e
     shl ax, cl                       ; 0x6921
     mov cx, ax                       ; 0x6923
@@ -33,7 +33,7 @@ loc_VNRM:
     add sp, byte 0x0a                ; 0x6938
     mov ax, 0x80                     ; 0x693b
     push ax                          ; 0x693e
-    mov ax, word [bss_830c]          ; 0x693f
+    mov ax, word [game_state_arg]    ; 0x693f
     mov cx, 7                        ; 0x6942
     shl ax, cl                       ; 0x6945
     mov cx, ax                       ; 0x6947

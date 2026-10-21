@@ -30,7 +30,7 @@ loc_RVKS:
     push word [bp + 0x4]             ; 0x6f83
     mov ax, 6                        ; 0x6f86
     push ax                          ; 0x6f89
-    push word [bss_830c]             ; 0x6f8a
+    push word [game_state_arg]       ; 0x6f8a
     call api_idx_0004_JVLM           ; 0x6f8e
     add sp, byte 0x12                ; 0x6f91
     mov ax, word [bp + 0x4]          ; 0x6f94
@@ -42,7 +42,7 @@ loc_RVKS:
     mov ax, 0                        ; 0x6fa4
     push ax                          ; 0x6fa7
     push word [bx + si]              ; 0x6fa8
-    mov ax, word [bss_830c]          ; 0x6faa
+    mov ax, word [game_state_arg]    ; 0x6faa
     mov cx, 4                        ; 0x6fad
     shl ax, cl                       ; 0x6fb0
     add ax, 0x8d14                   ; 0x6fb2
@@ -56,7 +56,7 @@ loc_RVKS:
     mov si, ax                       ; 0x6fc5
     mov bx, word [bss_0e12]          ; 0x6fc7
     push word [bx + si]              ; 0x6fcb
-    mov ax, word [bss_830c]          ; 0x6fcd
+    mov ax, word [game_state_arg]    ; 0x6fcd
     mov cx, 4                        ; 0x6fd0
     shl ax, cl                       ; 0x6fd3
     add ax, bss_5642                 ; 0x6fd5

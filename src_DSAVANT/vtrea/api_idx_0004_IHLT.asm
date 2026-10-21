@@ -65,7 +65,7 @@ api_idx_0004_IHLT:
     push word [bp + 0x4]             ; 0x6f2f
     mov ax, 6                        ; 0x6f32
     push ax                          ; 0x6f35
-    push word [bss_830c]             ; 0x6f36
+    push word [game_state_arg]       ; 0x6f36
     call api_idx_0004_JVLM           ; 0x6f3a
     add sp, byte 0x12                ; 0x6f3d
     ret                              ; 0x6f40

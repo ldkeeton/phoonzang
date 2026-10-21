@@ -607,7 +607,7 @@ api_idx_0038_HNUN:
     mov ax, word [bss_9a0c]          ; 0x3580
     mov word [bss_82ee], ax          ; 0x3583
     mov ax, word [bss_9a00]          ; 0x3586
-    mov word [bss_830c], ax          ; 0x3589
+    mov word [game_state_arg], ax    ; 0x3589
     mov ax, word [bss_9a10]          ; 0x358c
     mov word [bss_8f3a], ax          ; 0x358f
     mov ax, word [bss_9a12]          ; 0x3592

@@ -21,7 +21,7 @@ api_idx_0004_HRPS:
     add sp, byte 4                   ; 0x1535
     test ax, ax                      ; 0x1538
     je short @..api_idx_0004_HRPS.l3 ; 0x153a
-    mov ax, word [bss_830c]          ; 0x153c
+    mov ax, word [game_state_arg]    ; 0x153c
     jmp short @..api_idx_0004_HRPS.l2 ; 0x153f
 jumptable_1556_case_14:
     cmp word [bss_8f3e], byte 0x0c   ; 0x1541
@@ -66,7 +66,7 @@ jumptable_1556_case_1:
     add sp, byte 4                   ; 0x1593
     test ax, ax                      ; 0x1596
     je short @..api_idx_0004_HRPS.l7 ; 0x1598
-    mov ax, word [bss_830c]          ; 0x159a
+    mov ax, word [game_state_arg]    ; 0x159a
     jmp short @..api_idx_0004_HRPS.l6 ; 0x159d
 @..api_idx_0004_HRPS.l4:
     mov word [bp - 0x0004], 1        ; 0x159f
@@ -96,7 +96,7 @@ jumptable_1556_case_1:
     add sp, byte 4                   ; 0x15d8
     test ax, ax                      ; 0x15db
     je short @..api_idx_0004_HRPS.l14 ; 0x15dd
-    mov ax, word [bss_830c]          ; 0x15df
+    mov ax, word [game_state_arg]    ; 0x15df
     jmp short @..api_idx_0004_HRPS.l13 ; 0x15e2
 @..api_idx_0004_HRPS.l8:
     mov word [bp - 0x0004], 3        ; 0x15e4

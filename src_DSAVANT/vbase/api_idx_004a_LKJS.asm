@@ -17,9 +17,9 @@ api_idx_004a_LKJS:
     cmp ax, word [bss_69c8]          ; 0x6a38
     jl short @..api_idx_004a_LKJS.l1 ; 0x6a3c
     mov word [bss_a494], 0xffff      ; 0x6a3e
-    mov word [bss_830a], 0xffff      ; 0x6a44
+    mov word [game_state], 0xffff    ; 0x6a44
 @..api_idx_004a_LKJS.l3:
-    cmp word [bss_830a], byte 0      ; 0x6a4a
+    cmp word [game_state], byte 0    ; 0x6a4a
     jl short @..api_idx_004a_LKJS.l4 ; 0x6a4f
     jmp near @..api_idx_004a_LKJS.l20 ; 0x6a51
 @..api_idx_004a_LKJS.l4:
@@ -122,7 +122,7 @@ jumptable_6bfb_case_2:
     mov word [bss_8af0], ax          ; 0x6b4b
     cmp ax, strict word 0xffff       ; 0x6b4e
     je short @..api_idx_004a_LKJS.l13 ; 0x6b51
-    mov word [bss_830a], 0x11        ; 0x6b53
+    mov word [game_state], 0x11      ; 0x6b53
     mov word [bss_905e], 4           ; 0x6b59
 @..api_idx_004a_LKJS.l13:
     jmp near @..api_idx_004a_LKJS.l19 ; 0x6b5f
@@ -140,7 +140,7 @@ jumptable_6bfb_case_3:
     jmp near @..api_idx_004a_LKJS.l19 ; 0x6b7b
 jumptable_6bfb_case_0:
     call loc_ROTV                    ; 0x6b7e
-    mov word [bss_830a], 0x10        ; 0x6b81
+    mov word [game_state], 0x10      ; 0x6b81
     jmp near @..api_idx_004a_LKJS.l19 ; 0x6b87
 jumptable_6bfb_case_4:
     mov word [bp - 0x0002], 0        ; 0x6b8a
@@ -180,7 +180,7 @@ jumptable_6bfb_case_6:
     pop cx                           ; 0x6bd4
     call loc_ROTV                    ; 0x6bd5
     call api_idx_0002_JLUK           ; 0x6bd8
-    mov word [bss_830a], 3           ; 0x6bdb
+    mov word [game_state], 3         ; 0x6bdb
 @..api_idx_004a_LKJS.l17:
     jmp short @..api_idx_004a_LKJS.l19 ; 0x6be1
 jumptable_6bfb_case_7:
@@ -192,7 +192,7 @@ jumptable_6bfb_case_7:
 jumptable_6bfb_case_8:
     call loc_ROTV                    ; 0x6bed
     call api_idx_0002_JLUK           ; 0x6bf0
-    mov word [bss_830a], 3           ; 0x6bf3
+    mov word [game_state], 3         ; 0x6bf3
     jmp short @..api_idx_004a_LKJS.l19 ; 0x6bf9
 jumptable_6bfb:
     dw jumptable_6bfb_case_0 - IMAGE_BASE + __zres_end ; 0x6bfb

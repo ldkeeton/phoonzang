@@ -228,7 +228,7 @@ api_idx_0014_HTUV:
     add sp, byte 4                   ; 0x0bf7
     test ax, ax                      ; 0x0bfa
     je short @..api_idx_0014_HTUV.l23 ; 0x0bfc
-    mov ax, word [bss_830c]          ; 0x0bfe
+    mov ax, word [game_state_arg]    ; 0x0bfe
     jmp short @..api_idx_0014_HTUV.l22 ; 0x0c01
 jumptable_0c0b_case_0:
     db 0xa1, 0xea, 0x9a, 0x89, 0x46, 0xf2, 0xeb, 0x30
@@ -266,7 +266,7 @@ jumptable_0c0b_case_1:
     add sp, byte 4                   ; 0x0c48
     test ax, ax                      ; 0x0c4b
     je short @..api_idx_0014_HTUV.l29 ; 0x0c4d
-    mov ax, word [bss_830c]          ; 0x0c4f
+    mov ax, word [game_state_arg]    ; 0x0c4f
     jmp short @..api_idx_0014_HTUV.l28 ; 0x0c52
 @..api_idx_0014_HTUV.l24:
     jmp short @..api_idx_0014_HTUV.l29 ; 0x0c54

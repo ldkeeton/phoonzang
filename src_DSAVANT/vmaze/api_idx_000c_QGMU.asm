@@ -39,7 +39,7 @@ api_idx_000c_QGMU:
     mov ax, word [bp - 0x0008]       ; 0x87f4
     add ax, word [bp - 0x0004]       ; 0x87f7
     push ax                          ; 0x87fa
-    mov ax, word [bss_830c]          ; 0x87fb
+    mov ax, word [game_state_arg]    ; 0x87fb
     mov cx, 4                        ; 0x87fe
     shl ax, cl                       ; 0x8801
     add ax, 0x8d14                   ; 0x8803

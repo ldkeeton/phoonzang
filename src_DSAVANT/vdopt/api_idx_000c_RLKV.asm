@@ -68,7 +68,7 @@ api_idx_000c_RLKV:
     mov ax, 0                        ; 0x2435
     push ax                          ; 0x2438
     push word [bp - 0x000a]          ; 0x2439
-    mov ax, word [bss_830c]          ; 0x243c
+    mov ax, word [game_state_arg]    ; 0x243c
     mov cx, 4                        ; 0x243f
     shl ax, cl                       ; 0x2442
     add ax, 0x8d14                   ; 0x2444
@@ -91,7 +91,7 @@ api_idx_000c_RLKV:
     mov ax, 1                        ; 0x246f
     push ax                          ; 0x2472
     push word [bp - 0x000a]          ; 0x2473
-    mov ax, word [bss_830c]          ; 0x2476
+    mov ax, word [game_state_arg]    ; 0x2476
     mov cx, 4                        ; 0x2479
     shl ax, cl                       ; 0x247c
     add ax, 0x8d14                   ; 0x247e

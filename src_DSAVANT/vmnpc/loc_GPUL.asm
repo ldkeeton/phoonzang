@@ -24,6 +24,6 @@ loc_GPUL:
     mov word [bss_8452], 1           ; 0x2992
     mov word [bss_845a], 0           ; 0x2998
     mov word [bss_95a6], 0           ; 0x299e
-    mov word [bss_830a], 0xa         ; 0x29a4
+    mov word [game_state], 0xa       ; 0x29a4
     mov word [bss_905e], 0x12        ; 0x29aa
     ret                              ; 0x29b0

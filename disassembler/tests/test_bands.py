@@ -88,5 +88,24 @@ class BandHomeTest(unittest.TestCase):
                               'bar': os.path.join(dest, 'library', 'bar.s')})
 
 
+
+class HandLengthTest(unittest.TestCase):
+    def test_runs_to_next_root_inside_band(self):
+        bands = parse_bands(BANDS)
+        self.assertEqual(aztec._hand_length(0x200, [0x208, 0x230], bands, 3), 8)
+
+    def test_stops_at_band_end(self):
+        bands = parse_bands(BANDS)
+        # the next root is past the band's data: the band's end wins
+        self.assertEqual(aztec._hand_length(0x208, [0x228], bands, 3), 8)
+        # and with no root after it at all
+        self.assertEqual(aztec._hand_length(0x208, [], bands, 3), 8)
+
+    def test_no_bands_or_roots(self):
+        self.assertEqual(aztec._hand_length(0x208, [0x228], [], 3), 0x20)
+        self.assertEqual(aztec._hand_length(0x208, [], [], 3), 3)
+        self.assertEqual(aztec._hand_length(None, [0x228], [], 3), 3)
+
+
 if __name__ == '__main__':
     unittest.main()

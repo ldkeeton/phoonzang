@@ -299,5 +299,5 @@ loc_RLUJ:
     mov dx, word [es:bx + 0x2]       ; 0x36a6
     mov word [bss_908c], dx          ; 0x36aa
     mov word [bss_908a], ax          ; 0x36ae
-    mov word [bss_830a], 0xb         ; 0x36b1
+    mov word [game_state], 0xb       ; 0x36b1
     ret                              ; 0x36b7

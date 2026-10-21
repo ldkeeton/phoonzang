@@ -65,7 +65,7 @@ api_idx_0018_USPR:
     mov word [bp - 0x0008], 0        ; 0x1d44
     mov word [bp - 0x0014], 0        ; 0x1d49
     mov word [bp - 0x0016], 0        ; 0x1d4e
-    cmp word [bss_830c], byte 0      ; 0x1d53
+    cmp word [game_state_arg], byte 0 ; 0x1d53
     jne short @..api_idx_0018_USPR.l6 ; 0x1d58
     mov ax, word [bss_8f3e]          ; 0x1d5a
     mov cx, 6                        ; 0x1d5d
@@ -97,7 +97,7 @@ api_idx_0018_USPR:
     je short @..api_idx_0018_USPR.l8 ; 0x1d9d
     jmp near @..api_idx_0018_USPR.l32 ; 0x1d9f
 @..api_idx_0018_USPR.l8:
-    cmp word [bss_830a], byte 5      ; 0x1da2
+    cmp word [game_state], byte 5    ; 0x1da2
     je short @..api_idx_0018_USPR.l9 ; 0x1da7
     jmp near @..api_idx_0018_USPR.l32 ; 0x1da9
 @..api_idx_0018_USPR.l9:

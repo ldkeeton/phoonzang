@@ -116,7 +116,7 @@ api_idx_000a_JNPN:
     mov word [bss_8f24], ax          ; 0x8d68
     cmp ax, word [bss_82ee]          ; 0x8d6b
     jne short @..api_idx_000a_JNPN.l9 ; 0x8d6f
-    mov word [bss_830a], 0x1b        ; 0x8d71
+    mov word [game_state], 0x1b      ; 0x8d71
     mov word [bss_8d12], si          ; 0x8d77
     ret                              ; 0x8d7b
 @..api_idx_000a_JNPN.l9:

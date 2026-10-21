@@ -33,7 +33,7 @@ api_idx_0008_RQRL:
     mov bx, word [bp - 0x0004]
     mov al, byte [bx]
     sub ah, ah
-    cmp ax, word [bss_830c]
+    cmp ax, word [game_state_arg]
     jne short @..api_idx_0008_RQRL.l4
     mov ax, word [bp - 0x0002]
     mov word [bp - 0x0008], ax

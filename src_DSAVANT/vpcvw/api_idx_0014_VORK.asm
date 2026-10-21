@@ -3,7 +3,7 @@ api_idx_0014_VORK:
     mov ax, 0xffec                   ; 0x616c
     call aztec_csav                  ; 0x616f
     mov ax, word [bss_905e]          ; 0x6172
-    mov word [bss_830a], ax          ; 0x6175
+    mov word [game_state], ax        ; 0x6175
     mov word [bss_942e], 0x14        ; 0x6178
     mov word [bss_9430], 0           ; 0x617e
     mov word [bss_9432], 0           ; 0x6184

@@ -28,7 +28,7 @@ ovmain:
     add sp, byte 4                   ; 0x0061
     mov word [bss_906a], 0           ; 0x0064
 @..ovmain.l2:
-    cmp word [bss_830a], byte 0x17   ; 0x006a
+    cmp word [game_state], byte 0x17 ; 0x006a
     jne short @..ovmain.l3           ; 0x006f
     call api_idx_0002_VNLG           ; 0x0071
     mov ax, 0xa                      ; 0x0074
@@ -40,22 +40,22 @@ ovmain:
     call api_idx_008a_SRHN           ; 0x0080
     pop cx                           ; 0x0083
 @..ovmain.l3:
-    cmp word [bss_830a], byte 0x1b   ; 0x0084
+    cmp word [game_state], byte 0x1b ; 0x0084
     jne short @..ovmain.l4           ; 0x0089
     call api_idx_0012_VNOV           ; 0x008b
 @..ovmain.l4:
-    cmp word [bss_830a], byte 0x1e   ; 0x008e
+    cmp word [game_state], byte 0x1e ; 0x008e
     jne short @..ovmain.l5           ; 0x0093
     push word [bss_8af0]             ; 0x0095
     call api_idx_0008_OTKN           ; 0x0099
     pop cx                           ; 0x009c
 @..ovmain.l5:
-    cmp word [bss_830a], byte 0x1f   ; 0x009d
+    cmp word [game_state], byte 0x1f ; 0x009d
     jne short @..ovmain.l6           ; 0x00a2
     push word [bss_8af0]             ; 0x00a4
     call loc_HTTH                    ; 0x00a8
     pop cx                           ; 0x00ab
 @..ovmain.l6:
-    mov word [bss_830a], 5           ; 0x00ac
+    mov word [game_state], 5         ; 0x00ac
     mov ax, 0                        ; 0x00b2
     ret                              ; 0x00b5

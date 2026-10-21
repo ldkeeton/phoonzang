@@ -57,5 +57,5 @@ api_idx_0004_TLVR:
     mov al, byte [bx + si + 0xa50]   ; 0x74d2
     sub ah, ah                       ; 0x74d6
     mov word [bss_84a0], ax          ; 0x74d8
-    mov word [bss_830a], 0x15        ; 0x74db
+    mov word [game_state], 0x15      ; 0x74db
     ret                              ; 0x74e1

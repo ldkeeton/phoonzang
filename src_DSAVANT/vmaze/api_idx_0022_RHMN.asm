@@ -42,7 +42,7 @@ api_idx_0022_RHMN:
     mov word [bss_831a], 0           ; 0x228e
     call api_idx_0002_ITLQ           ; 0x2294
     mov word [bss_905e], 5           ; 0x2297
-    mov word [bss_830a], 5           ; 0x229d
+    mov word [game_state], 5         ; 0x229d
     mov word [bss_91b2], 1           ; 0x22a3
     mov word [bss_91b4], 1           ; 0x22a9
     mov word [bss_91b0], 0           ; 0x22af
@@ -284,7 +284,7 @@ api_idx_0022_RHMN:
     jl short @..api_idx_0022_RHMN.l27 ; 0x24e0
     cmp word [bp - 0x0016], byte 0   ; 0x24e2
     jne short @..api_idx_0022_RHMN.l31 ; 0x24e6
-    mov word [bss_830a], 8           ; 0x24e8
+    mov word [game_state], 8         ; 0x24e8
     ret                              ; 0x24ee
 @..api_idx_0022_RHMN.l31:
     mov ax, word [bp - 0x0018]       ; 0x24ef
@@ -360,7 +360,7 @@ api_idx_0022_RHMN:
     cmp word [bss_91a8], byte 1      ; 0x258e
     jne short @..api_idx_0022_RHMN.l35 ; 0x2593
     call loc_IPSH                    ; 0x2595
-    cmp word [bss_830a], byte 5      ; 0x2598
+    cmp word [game_state], byte 5    ; 0x2598
     je short @..api_idx_0022_RHMN.l35 ; 0x259d
     ret                              ; 0x259f
 @..api_idx_0022_RHMN.l35:
@@ -386,7 +386,7 @@ api_idx_0022_RHMN:
     mov bx, ax                       ; 0x25d7
     mov al, byte [bx - 0x7687]       ; 0x25d9
     cbw                              ; 0x25dd
-    cmp ax, word [bss_830c]          ; 0x25de
+    cmp ax, word [game_state_arg]    ; 0x25de
     jne short @..api_idx_0022_RHMN.l37 ; 0x25e2
     mov ax, word [bp - 0x0008]       ; 0x25e4
     imul cx                          ; 0x25e7
@@ -410,7 +410,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x2614
     call loc_VGMJ                    ; 0x2615
     add sp, byte 6                   ; 0x2618
-    mov word [bss_830a], 0x12        ; 0x261b
+    mov word [game_state], 0x12      ; 0x261b
     ret                              ; 0x2621
 @..api_idx_0022_RHMN.l37:
     mov ax, 0x3e8                    ; 0x2622
@@ -975,7 +975,7 @@ jumptable_2a3c_case_3:
     mov word [bss_8af0], ax          ; 0x2b08
     cmp ax, word [bss_69c8]          ; 0x2b0b
     jge short @..api_idx_0022_RHMN.l64 ; 0x2b0f
-    mov word [bss_830a], 0x1f        ; 0x2b11
+    mov word [game_state], 0x1f      ; 0x2b11
 @..api_idx_0022_RHMN.l64:
     jmp near @..api_idx_0022_RHMN.l83 ; 0x2b17
 @..api_idx_0022_RHMN.l65:
@@ -992,7 +992,7 @@ jumptable_2a3c_case_3:
     push ax                          ; 0x2b38
     call api_idx_0002_IPQN           ; 0x2b39
     pop cx                           ; 0x2b3c
-    mov word [bss_830a], 0x11        ; 0x2b3d
+    mov word [game_state], 0x11      ; 0x2b3d
     mov word [bss_905e], 5           ; 0x2b43
 @..api_idx_0022_RHMN.l66:
     jmp near @..api_idx_0022_RHMN.l83 ; 0x2b49
@@ -1082,7 +1082,7 @@ jumptable_2d1b_case_25:
     push ax                          ; 0x2c4e
     call api_idx_0002_SKMG           ; 0x2c4f
     pop cx                           ; 0x2c52
-    cmp word [bss_830a], byte 5      ; 0x2c53
+    cmp word [game_state], byte 5    ; 0x2c53
     je short @..api_idx_0022_RHMN.l72 ; 0x2c58
     ret                              ; 0x2c5a
 @..api_idx_0022_RHMN.l72:
@@ -1123,7 +1123,7 @@ jumptable_2d1b_case_8:
     jne short @..api_idx_0022_RHMN.l75 ; 0x2c9e
     mov ax, 0x13                     ; 0x2ca0
 @..api_idx_0022_RHMN.l75:
-    mov word [bss_830a], ax          ; 0x2ca3
+    mov word [game_state], ax        ; 0x2ca3
     mov word [bss_905e], 5           ; 0x2ca6
 @..api_idx_0022_RHMN.l76:
     jmp near @..api_idx_0022_RHMN.l82 ; 0x2cac
@@ -1161,7 +1161,7 @@ jumptable_2d1b_case_6:
 @..api_idx_0022_RHMN.l79:
     jmp short @..api_idx_0022_RHMN.l82 ; 0x2cef
 jumptable_2d1b_case_9:
-    mov word [bss_830a], 0x18        ; 0x2cf1
+    mov word [game_state], 0x18      ; 0x2cf1
     jmp short @..api_idx_0022_RHMN.l82 ; 0x2cf7
 jumptable_2d1b_case_24:
     cmp word [bp - 0x001a], byte 0   ; 0x2cf9
@@ -1175,7 +1175,7 @@ jumptable_2d1b_case_24:
     pop cx                           ; 0x2d0e
     test ax, ax                      ; 0x2d0f
     je short @..api_idx_0022_RHMN.l80 ; 0x2d11
-    mov word [bss_830a], 0x1e        ; 0x2d13
+    mov word [game_state], 0x1e      ; 0x2d13
 @..api_idx_0022_RHMN.l80:
     jmp short @..api_idx_0022_RHMN.l82 ; 0x2d19
 jumptable_2d1b:
@@ -1229,7 +1229,7 @@ jumptable_2d1b_case_12:
     call gfx_show_area               ; 0x2d83
     add sp, byte 8                   ; 0x2d86
 @..api_idx_0022_RHMN.l83:
-    cmp word [bss_830a], byte 5      ; 0x2d89
+    cmp word [game_state], byte 5    ; 0x2d89
     jne short @..api_idx_0022_RHMN.l84 ; 0x2d8e
     jmp near @..api_idx_0022_RHMN.l5 ; 0x2d90
 @..api_idx_0022_RHMN.l84:

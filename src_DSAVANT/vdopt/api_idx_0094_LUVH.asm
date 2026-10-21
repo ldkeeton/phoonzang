@@ -307,7 +307,7 @@ api_idx_0094_LUVH:
     je short @..api_idx_0094_LUVH.l21 ; 0x4455
     jmp near @..api_idx_0094_LUVH.l23 ; 0x4457
 @..api_idx_0094_LUVH.l21:
-    mov ax, word [bss_830c]          ; 0x445a
+    mov ax, word [game_state_arg]    ; 0x445a
     cmp ax, word [bp - 0x002e]       ; 0x445d
     je short @..api_idx_0094_LUVH.l22 ; 0x4460
     jmp near @..api_idx_0094_LUVH.l23 ; 0x4462
@@ -369,7 +369,7 @@ api_idx_0094_LUVH:
 @..api_idx_0094_LUVH.l23:
     cmp byte [bp - 0x000d], 5        ; 0x44e6
     jne short @..api_idx_0094_LUVH.l26 ; 0x44ea
-    cmp word [bss_830c], byte 8      ; 0x44ec
+    cmp word [game_state_arg], byte 8 ; 0x44ec
     jne short @..api_idx_0094_LUVH.l24 ; 0x44f1
     mov word [bss_8304], 1           ; 0x44f3
     jmp short @..api_idx_0094_LUVH.l25 ; 0x44f9

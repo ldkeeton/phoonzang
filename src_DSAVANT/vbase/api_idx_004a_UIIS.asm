@@ -2,7 +2,7 @@
 api_idx_004a_UIIS:
     mov ax, 0xffb6                   ; 0x68bd
     call aztec_csav                  ; 0x68c0
-    mov word [bss_830a], 0x19        ; 0x68c3
+    mov word [game_state], 0x19      ; 0x68c3
     mov ax, 0                        ; 0x68c9
     push ax                          ; 0x68cc
     mov ax, 0x8f                     ; 0x68cd
@@ -116,14 +116,14 @@ jumptable_69ec_case_3:
     cmp word [bp - 0x0002], byte 4   ; 0x69c0
     jne short @..api_idx_004a_UIIS.l4 ; 0x69c4
     mov word [bss_8460], 0           ; 0x69c6
-    mov word [bss_830a], 7           ; 0x69cc
+    mov word [game_state], 7         ; 0x69cc
 @..api_idx_004a_UIIS.l4:
     mov word [bp - 0x0004], 0        ; 0x69d2
 @..api_idx_004a_UIIS.l5:
     jmp short @..api_idx_004a_UIIS.l7 ; 0x69d7
 jumptable_69ec_case_5:
     mov word [bss_8460], 0           ; 0x69d9
-    mov word [bss_830a], 7           ; 0x69df
+    mov word [game_state], 7         ; 0x69df
     mov word [bp - 0x0004], 0        ; 0x69e5
     jmp short @..api_idx_004a_UIIS.l7 ; 0x69ea
 jumptable_69ec:

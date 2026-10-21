@@ -21,7 +21,7 @@ api_idx_0004_JIVL:
     add sp, byte 4                   ; 0x08c8
     test ax, ax                      ; 0x08cb
     je short @..api_idx_0004_JIVL.l3 ; 0x08cd
-    mov ax, word [bss_830c]          ; 0x08cf
+    mov ax, word [game_state_arg]    ; 0x08cf
     jmp short @..api_idx_0004_JIVL.l2 ; 0x08d2
 jumptable_08e9_case_14:
     cmp word [bss_8f3e], byte 0x0c   ; 0x08d4
@@ -66,7 +66,7 @@ jumptable_08e9_case_1:
     add sp, byte 4                   ; 0x0926
     test ax, ax                      ; 0x0929
     je short @..api_idx_0004_JIVL.l7 ; 0x092b
-    mov ax, word [bss_830c]          ; 0x092d
+    mov ax, word [game_state_arg]    ; 0x092d
     jmp short @..api_idx_0004_JIVL.l6 ; 0x0930
 @..api_idx_0004_JIVL.l4:
     mov word [bp - 0x0004], 1        ; 0x0932
@@ -96,7 +96,7 @@ jumptable_08e9_case_1:
     add sp, byte 4                   ; 0x096b
     test ax, ax                      ; 0x096e
     je short @..api_idx_0004_JIVL.l14 ; 0x0970
-    mov ax, word [bss_830c]          ; 0x0972
+    mov ax, word [game_state_arg]    ; 0x0972
     jmp short @..api_idx_0004_JIVL.l13 ; 0x0975
 @..api_idx_0004_JIVL.l8:
     mov word [bp - 0x0004], 3        ; 0x0977

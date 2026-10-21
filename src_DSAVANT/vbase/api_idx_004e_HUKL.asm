@@ -227,7 +227,7 @@ api_idx_004e_HUKL:
     mov ax, 0xffff                   ; 0x3a95
     ret                              ; 0x3a98
 @..api_idx_004e_HUKL.l16:
-    cmp word [bss_830c], byte 0      ; 0x3a99
+    cmp word [game_state_arg], byte 0 ; 0x3a99
     jge short @..api_idx_004e_HUKL.l17 ; 0x3a9e
     jmp near @..api_idx_004e_HUKL.l18 ; 0x3aa0
 @..api_idx_004e_HUKL.l17:
@@ -249,7 +249,7 @@ api_idx_004e_HUKL:
     add sp, byte 0x0e                ; 0x3ac2
     mov ax, 0x80                     ; 0x3ac5
     push ax                          ; 0x3ac8
-    mov ax, word [bss_830c]          ; 0x3ac9
+    mov ax, word [game_state_arg]    ; 0x3ac9
     mov cx, 7                        ; 0x3acc
     shl ax, cl                       ; 0x3acf
     mov cx, ax                       ; 0x3ad1
@@ -265,7 +265,7 @@ api_idx_004e_HUKL:
     add sp, byte 0x0a                ; 0x3ae6
     mov ax, 0x80                     ; 0x3ae9
     push ax                          ; 0x3aec
-    mov ax, word [bss_830c]          ; 0x3aed
+    mov ax, word [game_state_arg]    ; 0x3aed
     mov cx, 7                        ; 0x3af0
     shl ax, cl                       ; 0x3af3
     mov cx, ax                       ; 0x3af5
@@ -281,12 +281,12 @@ api_idx_004e_HUKL:
     add sp, byte 0x0a                ; 0x3b0a
     mov ax, 0x10                     ; 0x3b0d
     push ax                          ; 0x3b10
-    mov ax, word [bss_830c]          ; 0x3b11
+    mov ax, word [game_state_arg]    ; 0x3b11
     mov cx, 4                        ; 0x3b14
     shl ax, cl                       ; 0x3b17
     add ax, bss_5642                 ; 0x3b19
     push ax                          ; 0x3b1c
-    mov ax, word [bss_830c]          ; 0x3b1d
+    mov ax, word [game_state_arg]    ; 0x3b1d
     shl ax, cl                       ; 0x3b20
     add ax, 0x8d14                   ; 0x3b22
     push ax                          ; 0x3b25
@@ -517,7 +517,7 @@ api_idx_004e_HUKL:
     mov word [bss_9a0a], ax          ; 0x3d2f
     mov ax, word [bss_82ee]          ; 0x3d32
     mov word [bss_9a0c], ax          ; 0x3d35
-    mov ax, word [bss_830c]          ; 0x3d38
+    mov ax, word [game_state_arg]    ; 0x3d38
     mov word [bss_9a00], ax          ; 0x3d3b
     mov ax, word [bss_8f3a]          ; 0x3d3e
     mov word [bss_9a10], ax          ; 0x3d41

@@ -186,7 +186,7 @@ jumptable_1ba0:
     add sp, byte 4                   ; 0x1bc6
     test ax, ax                      ; 0x1bc9
     je short @..api_idx_0008_UNPO.l15 ; 0x1bcb
-    mov ax, word [bss_830c]          ; 0x1bcd
+    mov ax, word [game_state_arg]    ; 0x1bcd
     jmp short @..api_idx_0008_UNPO.l14 ; 0x1bd0
 @..api_idx_0008_UNPO.l11:
     mov ax, 5                        ; 0x1bd2
@@ -432,7 +432,7 @@ jumptable_1de5:
     jmp [cs:bx + jumptable_1de5 - IMAGE_BASE + __zres_end] ; 0x1e11
 jumptable_1de5_case_0:
 @..api_idx_0008_UNPO.l28:
-    mov ax, word [bss_830c]          ; 0x1e16
+    mov ax, word [game_state_arg]    ; 0x1e16
     cmp ax, word [bss_8f28]          ; 0x1e19
     jne short @..api_idx_0008_UNPO.l29 ; 0x1e1d
     mov ax, word [bp + 0xc]          ; 0x1e1f

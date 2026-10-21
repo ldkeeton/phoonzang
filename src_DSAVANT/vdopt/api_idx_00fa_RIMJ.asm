@@ -92,7 +92,7 @@ jumptable_1aa5_case_0:
     mov bx, ax                       ; 0x1b33
     mov al, byte [bx - 0x7687]       ; 0x1b35
     cbw                              ; 0x1b39
-    cmp ax, word [bss_830c]          ; 0x1b3a
+    cmp ax, word [game_state_arg]    ; 0x1b3a
     jne short @..api_idx_00fa_RIMJ.l5 ; 0x1b3e
     mov ax, 0x64                     ; 0x1b40
     push ax                          ; 0x1b43

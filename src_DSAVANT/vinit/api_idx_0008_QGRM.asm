@@ -171,5 +171,5 @@ api_idx_0008_QGRM:
     mov word [bss_8d08], dx          ; 0x15c5
     mov word [bss_8d06], ax          ; 0x15c9
     mov word [bss_0e36], 0           ; 0x15cc
-    mov word [bss_830a], 4           ; 0x15d2
+    mov word [game_state], 4         ; 0x15d2
     ret                              ; 0x15d8

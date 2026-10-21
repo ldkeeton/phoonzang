@@ -12,7 +12,7 @@ loc_IVLM:
     mov word [bss_8f34], ax
     mov ax, word [bss_8f3e]
     mov word [bss_8f32], ax
-    mov ax, word [bss_830c]
+    mov ax, word [game_state_arg]
     mov word [bss_8f3c], ax
     mov ax, word [bss_82ee]
     mov word [bss_8f30], ax

@@ -3,7 +3,7 @@ loc_HILS:
     mov ax, 0
     call aztec_csav
     mov word [loc_HILS.bss1], 0
-    mov ax, word [bss_830c]
+    mov ax, word [game_state_arg]
     cmp ax, word [bss_8f28]
     jne short @..loc_HILS.l1
     mov ax, word [bss_8f3e]

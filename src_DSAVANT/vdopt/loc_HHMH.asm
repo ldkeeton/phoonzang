@@ -30,7 +30,7 @@ loc_HHMH:
     push word [bp + 0x4]             ; 0x04f9
     mov ax, 6                        ; 0x04fc
     push ax                          ; 0x04ff
-    push word [bss_830c]             ; 0x0500
+    push word [game_state_arg]       ; 0x0500
     call api_idx_0004_PSJH           ; 0x0504
     add sp, byte 0x12                ; 0x0507
     mov ax, word [bp + 0x4]          ; 0x050a
@@ -42,7 +42,7 @@ loc_HHMH:
     mov ax, 0                        ; 0x051a
     push ax                          ; 0x051d
     push word [bx + si]              ; 0x051e
-    mov ax, word [bss_830c]          ; 0x0520
+    mov ax, word [game_state_arg]    ; 0x0520
     mov cx, 4                        ; 0x0523
     shl ax, cl                       ; 0x0526
     add ax, 0x8d14                   ; 0x0528
@@ -56,7 +56,7 @@ loc_HHMH:
     mov si, ax                       ; 0x053b
     mov bx, word [bss_0e12]          ; 0x053d
     push word [bx + si]              ; 0x0541
-    mov ax, word [bss_830c]          ; 0x0543
+    mov ax, word [game_state_arg]    ; 0x0543
     mov cx, 4                        ; 0x0546
     shl ax, cl                       ; 0x0549
     add ax, bss_5642                 ; 0x054b

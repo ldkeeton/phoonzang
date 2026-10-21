@@ -26,7 +26,7 @@ api_idx_0006_RJKJ:
     sub ah, ah                       ; 0x1751
     push ax                          ; 0x1753
     mov ax, 3                        ; 0x1754
-    imul word [bss_830c]             ; 0x1757
+    imul word [game_state_arg]       ; 0x1757
     mov cx, ax                       ; 0x175b
     pop ax                           ; 0x175d
     sub ax, cx                       ; 0x175e

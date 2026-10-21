@@ -28,7 +28,7 @@ api_idx_000a_SRNS:
     mov si, ax                       ; 0x7893
     mov bx, word [bss_0e12]          ; 0x7895
     push word [bx + si]              ; 0x7899
-    mov ax, word [bss_830c]          ; 0x789b
+    mov ax, word [game_state_arg]    ; 0x789b
     mov cx, 4                        ; 0x789e
     shl ax, cl                       ; 0x78a1
     add ax, 0x8d14                   ; 0x78a3
@@ -44,7 +44,7 @@ api_idx_000a_SRNS:
     mov si, ax                       ; 0x78bb
     mov bx, word [bss_0e12]          ; 0x78bd
     push word [bx + si + 0x1e0]      ; 0x78c1
-    mov ax, word [bss_830c]          ; 0x78c5
+    mov ax, word [game_state_arg]    ; 0x78c5
     mov cx, 4                        ; 0x78c8
     shl ax, cl                       ; 0x78cb
     add ax, 0x8d14                   ; 0x78cd

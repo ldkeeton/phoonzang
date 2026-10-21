@@ -929,7 +929,7 @@ jumptable_6ea7_case_8:
     push ax                          ; 0x6df1
     call api_idx_000a_UUIH           ; 0x6df2
     pop cx                           ; 0x6df5
-    mov word [bss_830a], 0x11        ; 0x6df6
+    mov word [game_state], 0x11      ; 0x6df6
     mov word [bss_905e], 0xd         ; 0x6dfc
     mov ax, word [bss_8462]          ; 0x6e02
     mov word [bss_8af0], ax          ; 0x6e05

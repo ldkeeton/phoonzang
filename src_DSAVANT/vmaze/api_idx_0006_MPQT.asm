@@ -54,7 +54,7 @@ api_idx_0006_MPQT:
     mov word [bp - 0x0006], ax       ; 0x8bd2
     push ax                          ; 0x8bd5
     push word [bp - 0x0004]          ; 0x8bd6
-    mov ax, word [bss_830c]          ; 0x8bd9
+    mov ax, word [game_state_arg]    ; 0x8bd9
     mov cx, 4                        ; 0x8bdc
     shl ax, cl                       ; 0x8bdf
     add ax, 0x8d14                   ; 0x8be1
@@ -70,7 +70,7 @@ api_idx_0006_MPQT:
     mov ax, 0                        ; 0x8bfd
     push ax                          ; 0x8c00
     push word [bx + si + 0x1e0]      ; 0x8c01
-    mov ax, word [bss_830c]          ; 0x8c05
+    mov ax, word [game_state_arg]    ; 0x8c05
     mov cx, 4                        ; 0x8c08
     shl ax, cl                       ; 0x8c0b
     add ax, 0x8d14                   ; 0x8c0d

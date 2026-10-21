@@ -2,7 +2,7 @@
 ovmain:
     mov ax, 0                        ; 0x000e
     call aztec_csav                  ; 0x0011
-    mov ax, word [bss_830a]          ; 0x0014
+    mov ax, word [game_state]        ; 0x0014
     jmp short @..ovmain.l5           ; 0x0017
 @..ovmain.l1:
     call loc_RVQR                    ; 0x0019

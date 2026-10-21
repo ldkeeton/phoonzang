@@ -186,7 +186,7 @@ jumptable_3111:
     add sp, byte 4                   ; 0x3137
     test ax, ax                      ; 0x313a
     je short @..api_idx_0008_LJTR.l15 ; 0x313c
-    mov ax, word [bss_830c]          ; 0x313e
+    mov ax, word [game_state_arg]    ; 0x313e
     jmp short @..api_idx_0008_LJTR.l14 ; 0x3141
 @..api_idx_0008_LJTR.l11:
     mov ax, 5                        ; 0x3143
@@ -432,7 +432,7 @@ jumptable_3356:
     jmp [cs:bx + jumptable_3356 - IMAGE_BASE + __zres_end] ; 0x3382
 jumptable_3356_case_0:
 @..api_idx_0008_LJTR.l28:
-    mov ax, word [bss_830c]          ; 0x3387
+    mov ax, word [game_state_arg]    ; 0x3387
     cmp ax, word [bss_8f28]          ; 0x338a
     jne short @..api_idx_0008_LJTR.l29 ; 0x338e
     mov ax, word [bp + 0xc]          ; 0x3390

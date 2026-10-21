@@ -102,7 +102,7 @@ api_idx_001c_QLSV:
     push word [bp - 0x000c]          ; 0x7752
     mov ax, 0                        ; 0x7755
     push ax                          ; 0x7758
-    push word [bss_830c]             ; 0x7759
+    push word [game_state_arg]       ; 0x7759
     call api_idx_0004_KMPG           ; 0x775d
     add sp, byte 0x12                ; 0x7760
     push word [bp - 0x001c]          ; 0x7763

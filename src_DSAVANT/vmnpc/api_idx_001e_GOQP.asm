@@ -2,7 +2,7 @@
 api_idx_001e_GOQP:
     mov ax, 0xffe2                   ; 0x70b7
     call aztec_csav                  ; 0x70ba
-    mov word [bss_830a], 5           ; 0x70bd
+    mov word [game_state], 5         ; 0x70bd
     cmp word [loaded_score_num], byte 0xff ; 0x70c3
     je short @..api_idx_001e_GOQP.l3 ; 0x70c8
 @..api_idx_001e_GOQP.l1:

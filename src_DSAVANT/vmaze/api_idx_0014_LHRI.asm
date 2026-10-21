@@ -10,7 +10,7 @@ api_idx_0014_LHRI:
     mov bx, word [bp - 0x0004]       ; 0x06ee
     mov al, byte [bx]                ; 0x06f1
     sub ah, ah                       ; 0x06f3
-    cmp ax, word [bss_830c]          ; 0x06f5
+    cmp ax, word [game_state_arg]    ; 0x06f5
     je short @..api_idx_0014_LHRI.l2 ; 0x06f9
     jmp near @..api_idx_0014_LHRI.l9 ; 0x06fb
 @..api_idx_0014_LHRI.l2:

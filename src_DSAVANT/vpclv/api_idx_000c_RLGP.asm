@@ -3,7 +3,7 @@ api_idx_000c_RLGP:
     mov ax, 0xfff4                   ; 0x5161
     call aztec_csav                  ; 0x5164
     mov word [bss_905e], 5           ; 0x5167
-    mov word [bss_830a], 5           ; 0x516d
+    mov word [game_state], 5         ; 0x516d
     mov word [bss_9436], 0x14        ; 0x5173
     mov word [bss_9438], 0           ; 0x5179
     mov word [bss_943a], 0           ; 0x517f

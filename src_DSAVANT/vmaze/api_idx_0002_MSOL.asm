@@ -71,7 +71,7 @@ api_idx_0002_MSOL:
     push word [bss_8f3e]             ; 0x8abc
     mov ax, 5                        ; 0x8ac0
     push ax                          ; 0x8ac3
-    push word [bss_830c]             ; 0x8ac4
+    push word [game_state_arg]       ; 0x8ac4
     call api_idx_0004_KMPG           ; 0x8ac8
     add sp, byte 0x12                ; 0x8acb
     mov ax, 0                        ; 0x8ace
@@ -126,7 +126,7 @@ api_idx_0002_MSOL:
     push word [bp + 0x4]             ; 0x8b40
     mov ax, 6                        ; 0x8b43
     push ax                          ; 0x8b46
-    push word [bss_830c]             ; 0x8b47
+    push word [game_state_arg]       ; 0x8b47
     call api_idx_0004_KMPG           ; 0x8b4b
     add sp, byte 0x12                ; 0x8b4e
     ret                              ; 0x8b51

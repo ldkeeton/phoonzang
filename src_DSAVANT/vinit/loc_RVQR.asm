@@ -514,5 +514,5 @@ loc_RVQR:
     push ax                          ; 0x08a9
     call loc_PNTM                    ; 0x08aa
     add sp, byte 6                   ; 0x08ad
-    mov word [bss_830a], 1           ; 0x08b0
+    mov word [game_state], 1         ; 0x08b0
     ret                              ; 0x08b6

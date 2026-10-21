@@ -477,7 +477,7 @@ jumptable_6c16_case_8:
     jmp short @..api_idx_009c_MRKK.l43 ; 0x6c06
 jumptable_6c16_case_9:
     mov word [bss_95a6], 0           ; 0x6c08
-    mov word [bss_830a], 0x17        ; 0x6c0e
+    mov word [game_state], 0x17      ; 0x6c0e
     jmp short @..api_idx_009c_MRKK.l43 ; 0x6c14
 jumptable_6c16:
     dw jumptable_6c16_case_0 - IMAGE_BASE + __zres_end ; 0x6c16
@@ -539,7 +539,7 @@ jumptable_6c16:
     cbw                              ; 0x6c94
     add ax, word [bss_964e]          ; 0x6c95
     mov word [bp - 0x0002], ax       ; 0x6c99
-    cmp word [bss_830a], byte 0x0a   ; 0x6c9c
+    cmp word [game_state], byte 0x0a ; 0x6c9c
     je short @..api_idx_009c_MRKK.l49 ; 0x6ca1
     cmp ax, strict word 0xfff6       ; 0x6ca3
     jl short @..api_idx_009c_MRKK.l46 ; 0x6ca6
@@ -570,7 +570,7 @@ jumptable_6c16:
     mov word [bp - 0x0006], 8        ; 0x6cdb
     jmp short @..api_idx_009c_MRKK.l49 ; 0x6ce0
 @..api_idx_009c_MRKK.l48:
-    cmp word [bss_830a], byte 0x17   ; 0x6ce2
+    cmp word [game_state], byte 0x17 ; 0x6ce2
     je short @..api_idx_009c_MRKK.l49 ; 0x6ce7
     mov ax, 0x55                     ; 0x6ce9
     push ax                          ; 0x6cec
@@ -609,7 +609,7 @@ jumptable_6c16:
     call loc_HOSN                    ; 0x6d3a
     add sp, byte 6                   ; 0x6d3d
 @..api_idx_009c_MRKK.l51:
-    cmp word [bss_830a], byte 0x0a   ; 0x6d40
+    cmp word [game_state], byte 0x0a ; 0x6d40
     jne short @..api_idx_009c_MRKK.l52 ; 0x6d45
     mov ax, 0                        ; 0x6d47
     push ax                          ; 0x6d4a
@@ -623,7 +623,7 @@ jumptable_6c16:
     add sp, byte 0x0a                ; 0x6d58
     jmp short @..api_idx_009c_MRKK.l53 ; 0x6d5b
 @..api_idx_009c_MRKK.l52:
-    cmp word [bss_830a], byte 0x17   ; 0x6d5d
+    cmp word [game_state], byte 0x17 ; 0x6d5d
     je short @..api_idx_009c_MRKK.l53 ; 0x6d62
     mov ax, 0                        ; 0x6d64
     push ax                          ; 0x6d67

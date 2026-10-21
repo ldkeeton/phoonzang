@@ -80,7 +80,7 @@ jumptable_36f8_case_3:
     add sp, byte 8                   ; 0x2c43
 @..api_idx_0040_LSRO.l6:
     mov word [bss_95a6], 1           ; 0x2c46
-    mov word [bss_830a], 5           ; 0x2c4c
+    mov word [game_state], 5         ; 0x2c4c
     mov word [bss_905e], 0x12        ; 0x2c52
     mov ax, 1                        ; 0x2c58
     ret                              ; 0x2c5b
@@ -249,7 +249,7 @@ jumptable_36f8_case_7:
 @..api_idx_0040_LSRO.l19:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x2ddb
 jumptable_36f8_case_8:
-    mov ax, word [bss_830c]          ; 0x2dde
+    mov ax, word [game_state_arg]    ; 0x2dde
     cmp ax, word [bss_8f3c]          ; 0x2de1
     jne short @..api_idx_0040_LSRO.l20 ; 0x2de5
     mov ax, word [bss_8f36]          ; 0x2de7
@@ -269,7 +269,7 @@ jumptable_36f8_case_8:
     mov al, byte [bx + si + 0xb40]   ; 0x2e13
     sub ah, ah                       ; 0x2e17
     mov word [bss_8d12], ax          ; 0x2e19
-    mov word [bss_830a], 5           ; 0x2e1c
+    mov word [game_state], 5         ; 0x2e1c
     mov word [bss_905e], 0x12        ; 0x2e22
     mov ax, 1                        ; 0x2e28
     ret                              ; 0x2e2b
@@ -535,7 +535,7 @@ jumptable_36f8_case_14:
     jge short @..api_idx_0040_LSRO.l43 ; 0x309d
     push word [bp - 0x0028]          ; 0x309f
     push ax                          ; 0x30a2
-    mov ax, word [bss_830c]          ; 0x30a3
+    mov ax, word [game_state_arg]    ; 0x30a3
     mov cx, 4                        ; 0x30a6
     shl ax, cl                       ; 0x30a9
     add ax, 0x8d14                   ; 0x30ab
@@ -552,7 +552,7 @@ jumptable_36f8_case_15:
     jge short @..api_idx_0040_LSRO.l44 ; 0x30c3
     push word [bp - 0x0028]          ; 0x30c5
     push ax                          ; 0x30c8
-    mov ax, word [bss_830c]          ; 0x30c9
+    mov ax, word [game_state_arg]    ; 0x30c9
     mov cx, 4                        ; 0x30cc
     shl ax, cl                       ; 0x30cf
     add ax, 0x8d14                   ; 0x30d1
@@ -561,7 +561,7 @@ jumptable_36f8_case_15:
     add sp, byte 6                   ; 0x30d8
     push word [bp - 0x0028]          ; 0x30db
     push word [bp - 0x0026]          ; 0x30de
-    mov ax, word [bss_830c]          ; 0x30e1
+    mov ax, word [game_state_arg]    ; 0x30e1
     mov cx, 4                        ; 0x30e4
     shl ax, cl                       ; 0x30e7
     add ax, bss_5642                 ; 0x30e9
@@ -608,7 +608,7 @@ jumptable_36f8_case_17:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x3144
 jumptable_36f8_case_18:
     push word [bp - 0x0026]          ; 0x3147
-    mov ax, word [bss_830c]          ; 0x314a
+    mov ax, word [game_state_arg]    ; 0x314a
     mov cx, 4                        ; 0x314d
     shl ax, cl                       ; 0x3150
     add ax, 0x8d14                   ; 0x3152
@@ -623,7 +623,7 @@ jumptable_36f8_case_18:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x3165
 jumptable_36f8_case_19:
     push word [bp - 0x0026]          ; 0x3168
-    mov ax, word [bss_830c]          ; 0x316b
+    mov ax, word [game_state_arg]    ; 0x316b
     mov cx, 4                        ; 0x316e
     shl ax, cl                       ; 0x3171
     add ax, 0x8d14                   ; 0x3173
@@ -719,7 +719,7 @@ jumptable_36f8_case_24:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x3238
 jumptable_36f8_case_25:
     push word [bp - 0x0026]          ; 0x323b
-    mov ax, word [bss_830c]          ; 0x323e
+    mov ax, word [game_state_arg]    ; 0x323e
     mov cx, 4                        ; 0x3241
     shl ax, cl                       ; 0x3244
     add ax, 0x8d14                   ; 0x3246
@@ -740,7 +740,7 @@ jumptable_36f8_case_25:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x3269
 jumptable_36f8_case_26:
     push word [bp - 0x0026]          ; 0x326c
-    mov ax, word [bss_830c]          ; 0x326f
+    mov ax, word [game_state_arg]    ; 0x326f
     mov cx, 4                        ; 0x3272
     shl ax, cl                       ; 0x3275
     add ax, 0x8d14                   ; 0x3277
@@ -1057,8 +1057,8 @@ jumptable_36f8_case_40:
     mov word [bss_8f40], 0           ; 0x3554
     mov word [bss_8f3e], 2           ; 0x355a
     mov word [bss_82ee], 0           ; 0x3560
-    mov word [bss_830c], 0x13        ; 0x3566
-    mov word [bss_830a], 6           ; 0x356c
+    mov word [game_state_arg], 0x13  ; 0x3566
+    mov word [game_state], 6         ; 0x356c
     mov word [bss_905e], 0x12        ; 0x3572
     mov ax, 1                        ; 0x3578
     ret                              ; 0x357b

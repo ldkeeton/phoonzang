@@ -12,26 +12,26 @@ api_idx_000c_RNQS:
     mov word [bss_919a], ax          ; 0x0cd3
     call api_idx_0002_LMTG           ; 0x0cd6
     mov ax, word [bp + 0x4]          ; 0x0cd9
-    mov word [bss_830c], ax          ; 0x0cdc
+    mov word [game_state_arg], ax    ; 0x0cdc
     push ax                          ; 0x0cdf
     mov ax, 2                        ; 0x0ce0
     push ax                          ; 0x0ce3
-    call ds_app_IMTG                 ; 0x0ce4
+    call ensure_game_disk            ; 0x0ce4
     add sp, byte 4                   ; 0x0ce7
-    cmp word [bss_830c], byte 0      ; 0x0cea
+    cmp word [game_state_arg], byte 0 ; 0x0cea
     jge short @..api_idx_000c_RNQS.l1 ; 0x0cef
-    mov word [bss_830a], 7           ; 0x0cf1
+    mov word [game_state], 7         ; 0x0cf1
     ret                              ; 0x0cf7
 @..api_idx_000c_RNQS.l1:
     call loc_LPSI                    ; 0x0cf8
     mov ax, 0x10                     ; 0x0cfb
     push ax                          ; 0x0cfe
-    mov ax, word [bss_830c]          ; 0x0cff
+    mov ax, word [game_state_arg]    ; 0x0cff
     mov cx, 4                        ; 0x0d02
     shl ax, cl                       ; 0x0d05
     add ax, 0x8d14                   ; 0x0d07
     push ax                          ; 0x0d0a
-    mov ax, word [bss_830c]          ; 0x0d0b
+    mov ax, word [game_state_arg]    ; 0x0d0b
     shl ax, cl                       ; 0x0d0e
     add ax, bss_5642                 ; 0x0d10
     push ax                          ; 0x0d13
@@ -120,7 +120,7 @@ api_idx_000c_RNQS:
     mov bx, word [bp - 0x000c]       ; 0x0de4
     mov al, byte [bx]                ; 0x0de7
     sub ah, ah                       ; 0x0de9
-    cmp ax, word [bss_830c]          ; 0x0deb
+    cmp ax, word [game_state_arg]    ; 0x0deb
     jne short @..api_idx_000c_RNQS.l7 ; 0x0def
     mov ax, word [bx + 0x2]          ; 0x0df1
     mov cx, 0x100                    ; 0x0df4
@@ -167,5 +167,5 @@ api_idx_000c_RNQS:
     mov ax, word [bp - 0x0002]       ; 0x0e4d
     cmp ax, word [bss_5910]          ; 0x0e50
     jl short @..api_idx_000c_RNQS.l6 ; 0x0e54
-    mov word [bss_830a], 5           ; 0x0e56
+    mov word [game_state], 5         ; 0x0e56
     ret                              ; 0x0e5c

@@ -30,5 +30,5 @@ api_idx_0002_PSIJ:
     call loc_QUVM                    ; 0x3700
 @..api_idx_0002_PSIJ.l3:
     mov word [bss_90bc], 0           ; 0x3703
-    mov word [bss_830a], 0xc         ; 0x3709
+    mov word [game_state], 0xc       ; 0x3709
     ret                              ; 0x370f

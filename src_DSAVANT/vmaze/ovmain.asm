@@ -28,20 +28,20 @@ ovmain:
     add sp, byte 4                   ; 0x006d
     mov word [bss_906a], 0           ; 0x0070
 @..ovmain.l1:
-    cmp word [bss_830a], byte 6      ; 0x0076
+    cmp word [game_state], byte 6    ; 0x0076
     jne short @..ovmain.l2           ; 0x007b
-    push word [bss_830c]             ; 0x007d
+    push word [game_state_arg]       ; 0x007d
     call api_idx_000c_RNQS           ; 0x0081
     pop cx                           ; 0x0084
 @..ovmain.l2:
-    cmp word [bss_830a], byte 5      ; 0x0085
+    cmp word [game_state], byte 5    ; 0x0085
     jne short @..ovmain.l3           ; 0x008a
     call api_idx_0002_TOSL           ; 0x008c
     call api_idx_0022_RHMN           ; 0x008f
 @..ovmain.l3:
     call loc_OGHL                    ; 0x0092
     call api_idx_0002_LMTG           ; 0x0095
-    mov ax, word [bss_830a]          ; 0x0098
+    mov ax, word [game_state]        ; 0x0098
     cmp ax, strict word 0x1e         ; 0x009b
     je short @..ovmain.l4            ; 0x009e
     cmp ax, strict word 0x1b         ; 0x00a0

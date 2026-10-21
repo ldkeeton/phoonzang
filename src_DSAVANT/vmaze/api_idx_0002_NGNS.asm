@@ -48,6 +48,6 @@ api_idx_0002_NGNS:
     mov al, byte [bx + si + 0xa50]   ; 0x8e57
     sub ah, ah                       ; 0x8e5b
     mov word [bss_84a0], ax          ; 0x8e5d
-    mov word [bss_830a], 0x15        ; 0x8e60
+    mov word [game_state], 0x15      ; 0x8e60
     mov ax, 1                        ; 0x8e66
     ret                              ; 0x8e69

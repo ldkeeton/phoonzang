@@ -75,6 +75,6 @@ api_idx_0002_SKSN:
     push ax                          ; 0x13fa
     call ds_app_gfx_free_picture_VNHP ; 0x13fb
     pop cx                           ; 0x13fe
-    mov word [bss_830a], 2           ; 0x13ff
+    mov word [game_state], 2         ; 0x13ff
     call flush_keyboard              ; 0x1405
     ret                              ; 0x1408

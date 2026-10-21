@@ -146,9 +146,9 @@ api_idx_0056_KOPT:
 @..api_idx_0056_KOPT.l14:
     call api_idx_0004_NIHO           ; 0x330a
     mov ax, word [bss_905e]          ; 0x330d
-    mov word [bss_830a], ax          ; 0x3310
+    mov word [game_state], ax        ; 0x3310
     jmp short @..api_idx_0056_KOPT.l16 ; 0x3313
 @..api_idx_0056_KOPT.l15:
-    mov word [bss_830a], 0xb         ; 0x3315
+    mov word [game_state], 0xb       ; 0x3315
 @..api_idx_0056_KOPT.l16:
     ret                              ; 0x331b

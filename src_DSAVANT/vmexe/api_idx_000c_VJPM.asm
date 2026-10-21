@@ -205,7 +205,7 @@ api_idx_000c_VJPM:
     call api_idx_0014_OSKJ           ; 0x712a
     mov bx, word [bp - 0x0006]       ; 0x712d
     inc byte [bx + 0x21]             ; 0x7130
-    cmp word [bss_830a], byte 0x0d   ; 0x7133
+    cmp word [game_state], byte 0x0d ; 0x7133
     je short @..api_idx_000c_VJPM.l20 ; 0x7138
     ret                              ; 0x713a
 @..api_idx_000c_VJPM.l20:
@@ -503,5 +503,5 @@ jumptable_735e:
     call loc_RPUI                    ; 0x73e6
     cmp word [bp - 0x000c], byte 0   ; 0x73e9
     jne short @..api_idx_000c_VJPM.l34 ; 0x73ed
-    mov word [bss_830a], 0xe         ; 0x73ef
+    mov word [game_state], 0xe       ; 0x73ef
     ret                              ; 0x73f5

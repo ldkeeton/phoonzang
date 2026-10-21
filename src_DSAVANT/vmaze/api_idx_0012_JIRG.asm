@@ -110,7 +110,7 @@ api_idx_0012_JIRG:
     mov ax, 0                        ; 0x866f
     push ax                          ; 0x8672
     push word [bp - 0x000c]          ; 0x8673
-    mov ax, word [bss_830c]          ; 0x8676
+    mov ax, word [game_state_arg]    ; 0x8676
     mov cx, 4                        ; 0x8679
     shl ax, cl                       ; 0x867c
     add ax, 0x8d14                   ; 0x867e
@@ -120,7 +120,7 @@ api_idx_0012_JIRG:
     mov ax, 0                        ; 0x8688
     push ax                          ; 0x868b
     push word [bp - 0x000c]          ; 0x868c
-    mov ax, word [bss_830c]          ; 0x868f
+    mov ax, word [game_state_arg]    ; 0x868f
     mov cx, 4                        ; 0x8692
     shl ax, cl                       ; 0x8695
     add ax, bss_5642                 ; 0x8697

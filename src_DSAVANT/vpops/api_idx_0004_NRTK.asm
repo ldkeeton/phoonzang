@@ -27,10 +27,10 @@ api_idx_0004_NRTK:
     pop cx                           ; 0x4e84
     cmp word [bp - 0x0004], byte 0   ; 0x4e85
     je short @..api_idx_0004_NRTK.l1 ; 0x4e89
-    mov word [bss_830a], 0xe         ; 0x4e8b
+    mov word [game_state], 0xe       ; 0x4e8b
     jmp short @..api_idx_0004_NRTK.l2 ; 0x4e91
 @..api_idx_0004_NRTK.l1:
     call api_idx_0002_GMMK           ; 0x4e93
-    mov word [bss_830a], 0xd         ; 0x4e96
+    mov word [game_state], 0xd       ; 0x4e96
 @..api_idx_0004_NRTK.l2:
     ret                              ; 0x4e9c

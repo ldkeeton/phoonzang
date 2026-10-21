@@ -42,9 +42,9 @@ api_idx_0030_JQMM:
     add ax, cx                       ; 0x5477
     add ax, word [bp - 0x000e]       ; 0x5479
     mov word [bp - 0x0008], ax       ; 0x547c
-    cmp word [bss_830c], byte 0x0a   ; 0x547f
+    cmp word [game_state_arg], byte 0x0a ; 0x547f
     je short @..api_idx_0030_JQMM.l1 ; 0x5484
-    cmp word [bss_830c], byte 0x19   ; 0x5486
+    cmp word [game_state_arg], byte 0x19 ; 0x5486
     je short @..api_idx_0030_JQMM.l1 ; 0x548b
     jmp near @..api_idx_0030_JQMM.l5 ; 0x548d
 @..api_idx_0030_JQMM.l1:
@@ -70,7 +70,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x54b8
     call gfx_fill_area               ; 0x54b9
     add sp, byte 0x0a                ; 0x54bc
-    mov ax, word [bss_830c]          ; 0x54bf
+    mov ax, word [game_state_arg]    ; 0x54bf
     cmp ax, word [bss_8f28]          ; 0x54c2
     jne short @..api_idx_0030_JQMM.l4 ; 0x54c6
     mov ax, word [bp - 0x0012]       ; 0x54c8
@@ -272,7 +272,7 @@ api_idx_0030_JQMM:
     jmp near @..api_idx_0030_JQMM.l24 ; 0x5696
 jumptable_59e2_case_1:
     mov word [bss_91d4], 0           ; 0x5699
-    cmp word [bss_830c], byte 0x1e   ; 0x569f
+    cmp word [game_state_arg], byte 0x1e ; 0x569f
     jne short @..api_idx_0030_JQMM.l9 ; 0x56a4
     cmp word [bss_8f3e], byte 8      ; 0x56a6
     jne short @..api_idx_0030_JQMM.l9 ; 0x56ab
@@ -381,7 +381,7 @@ jumptable_59e2_case_3:
     add sp, byte 0x0a                ; 0x5784
     call api_idx_001e_IGLM           ; 0x5787
     call api_idx_0024_NUGL           ; 0x578a
-    cmp word [bss_830c], byte 0x0e   ; 0x578d
+    cmp word [game_state_arg], byte 0x0e ; 0x578d
     jne short @..api_idx_0030_JQMM.l12 ; 0x5792
     cmp word [bss_8f3e], byte 9      ; 0x5794
     jle short @..api_idx_0030_JQMM.l12 ; 0x5799
@@ -581,7 +581,7 @@ jumptable_59e2_case_6:
     push ax                          ; 0x5942
     call gfx_draw_maze_piece         ; 0x5943
     add sp, byte 8                   ; 0x5946
-    cmp word [bss_830c], byte 8      ; 0x5949
+    cmp word [game_state_arg], byte 8 ; 0x5949
     jne short @..api_idx_0030_JQMM.l20 ; 0x594e
     cmp word [bss_8f3e], byte 6      ; 0x5950
     jne short @..api_idx_0030_JQMM.l20 ; 0x5955
@@ -621,9 +621,9 @@ jumptable_59e2_case_6:
     call gfx_fill_area               ; 0x599b
     add sp, byte 0x0a                ; 0x599e
 @..api_idx_0030_JQMM.l21:
-    cmp word [bss_830c], byte 8      ; 0x59a1
+    cmp word [game_state_arg], byte 8 ; 0x59a1
     je short @..api_idx_0030_JQMM.l22 ; 0x59a6
-    cmp word [bss_830c], byte 0x0b   ; 0x59a8
+    cmp word [game_state_arg], byte 0x0b ; 0x59a8
     jne short @..api_idx_0030_JQMM.l23 ; 0x59ad
     cmp word [bss_8f3e], byte 6      ; 0x59af
     jne short @..api_idx_0030_JQMM.l23 ; 0x59b4

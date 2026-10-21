@@ -2,7 +2,7 @@
 api_idx_0002_VUIJ:
     mov ax, 0xfffe                   ; 0x0106
     call aztec_csav                  ; 0x0109
-    cmp word [bss_830c], byte 0x17   ; 0x010c
+    cmp word [game_state_arg], byte 0x17 ; 0x010c
     jne short @..api_idx_0002_VUIJ.l1 ; 0x0111
     cmp word [bss_8f3e], byte 0x0f   ; 0x0113
     jne short @..api_idx_0002_VUIJ.l1 ; 0x0118
