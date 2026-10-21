@@ -397,8 +397,6 @@ async function makeC(uri) {
         key = addr === null ? null : sidecarName(where, addr).key;
     }
     if (!key) return vscode.window.showErrorMessage(`no sidecar key for ${where.label}`);
-    const build = shared ? `make build ${where.project}` : `make build`;
-    const table = shared ? 'the top-level `routines` object' : `\`binaries.${where.binary}.function_names\``;
 
     const sidecar = readJson(sidecarPath(where.project)) || {};
     // A binary's own ``compiler_flags`` (``default``/``prefixes``) override the project's.
@@ -408,12 +406,7 @@ async function makeC(uri) {
         default: ownFlags.default || projectFlags.default,
         prefixes: { ...(projectFlags.prefixes || {}), ...(ownFlags.prefixes || {}) },
     };
-    // An overlay or shared routine runs in the host's data segment, so its data names are
-    // the host's; the host is `ds` when present, else the first MZ (lib/link.py host_name).
-    const bins = sidecar.binaries || {};
-    const own = bins[where.binary];
-    const dataOwner = own && own.type === 'mz' ? where.binary
-        : ('ds' in bins ? 'ds' : Object.keys(bins).sort().find((b) => bins[b].type === 'mz'));
+    const own = (sidecar.binaries || {})[where.binary];
     // A sidecar note saying "hand-written" settles the form; a sibling .s shows the style.
     const fnEntry = (shared ? sidecar.routines : (own || {}).function_names) || {};
     const handWritten = /^hand-written/.test((fnEntry[key] || {}).note || '');
@@ -433,39 +426,34 @@ async function makeC(uri) {
             `and labels in \`#asm\` become linker symbols. \`#asm\` is only for a few instructions ` +
             `inside real C.` +
             (handWritten ? ` The sidecar note marks this routine hand-written asm: write ${rel(sFile)}.` : ''),
-        `Build commands: \`make rebuild\` (repo root) is the sole pass/fail gate; the only other is ` +
-            `\`${build}\`, for renaming. Do not look for, read, or run any other build commands, Makefiles, or scripts.`,
+        `Build commands: \`make rebuild\` (repo root) is the sole pass/fail gate. Name things with ` +
+            `\`make name ${where.project} ${where.binary} SYMBOL=NAME[:NOTE] ...\`, which writes the sidecar ` +
+            `(sorted, keeping any note), renames the hand-written sources and every reference in them (file, ` +
+            `routine, \`NAME_\` in .s, \`extern\`/\`extrn\`, C callers), then builds and rebuilds; give ` +
+            `SYMBOL as the build spells it (\`cseg_0d3a\`, \`bss_1234\`, \`io_loc_KRUO\`) or by its current ` +
+            `name, and single-quote any spec whose note has spaces. \`make refs ${where.project} ${where.binary} ` +
+            `ROUTINE\` lists the address-named symbols a routine references. Do not edit the sidecar by hand, ` +
+            `and do not look for, read, or run any other build commands, Makefiles, or scripts.`,
         `Compiler flags come from the routine name's longest matching prefix: ${flagList} ` +
             `(a .s uses \`compiler_flags.asm\`).`,
-        `To rename to NAME: (1) in ${rel(sidecarPath(where.project))}, set \`"${key}": {"name": "NAME"}\` under ` +
-            `${table} (keep any "note", keep keys sorted); (2) run \`${build}\`, which regenerates the asm as ` +
-            `NAME.asm; (3) rename the source to NAME.c or NAME.s and the routine in it (\`NAME\` in C, ` +
-            `\`NAME_\` in .s), and any C callers, to NAME; ` +
-            `(4) run \`make rebuild\`.`,
-        `Name the data too. Give parameters and locals descriptive names in the source itself (C names, or \`equ\` names in a .s or #asm). For each ` +
-            `address-named global (\`bss_XXXX\`/\`dseg_XXXX\`) the routine uses, set ` +
-            `\`"XXXX": {"name": "NAME", "note": "..."}\` under \`binaries.${dataOwner}.data_names\` (keyed by DS ` +
-            `offset, keep keys sorted; skip any already named there), run \`${build}\`, change the source's ` +
-            `\`extern\`/\`extrn\` and uses to NAME, and run \`make rebuild\`. A C still spelling a named global by address fails ` +
-            `the link and gives the build's name for it.`,
-        `Name every other address-named symbol it references the same way, including those only in ` +
-            `\`extrn\` lines of a .s or #asm: each code-segment global (\`cseg_XXXX\`) under ` +
-            `\`binaries.${where.binary}.code_data_names\` (keyed by CS offset, same form and rules), and each ` +
-            `auto-named routine it calls (e.g. \`*_loc_XXXX\`) under ${table} as in renaming (keyed like the ` +
-            `routine's own entry, with a "note"). Give .s and #asm stack arguments and locals \`equ\` names. Then run ` +
-            `\`${build}\`, update the source, and run \`make rebuild\`. No address-named symbol may remain in ` +
-            `the source.`,
+        `Name the data too. Give parameters and locals descriptive names in the source itself (C names, or ` +
+            `\`equ\` names in a .s or #asm; .s and #asm stack arguments and locals get \`equ\` names). Then run ` +
+            `\`make refs\` on the routine and name every address-named global and auto-named routine it ` +
+            `references, including those only in \`extrn\` lines, in one \`make name\` call, each with a ` +
+            `\`:NOTE\` saying what it holds or does (skip a "label inside" one: it is not a routine entry). ` +
+            `No address-named symbol may remain in the source.`,
         `Add terse comments that say why, not what: a one-line header above the routine (a \`;\` ` +
             `line in a .s, \`/* */\` in C, never \`//\`), and short trailing comments on loops, branches ` +
             `and magic numbers (BIOS/DOS function numbers, key codes, header offsets, strides, flag bits). ` +
             `Describe only what the code shows; don't guess intent.`,
-        `Once it matches, give the routine a descriptive lowercase_underscore name this way, keeping any prefix ` +
-            `its flags need. Your final message: only the name.`,
+        `Once it matches, give the routine a descriptive lowercase_underscore name, keeping any prefix ` +
+            `its flags need: \`make name ${where.project} ${where.binary} ${where.label}=NAME\` (it can share ` +
+            `the call that names the data). Your final message: only the name.`,
     ].join('\n\n');
     // --allowedTools is variadic: a trailing prompt would be swallowed as another tool name
     // (the session then starts empty), so the prompt goes first and the value is attached.
     const args = [prompt, '--permission-mode', 'auto',
-        `--allowedTools=Read,Write,Edit,Bash(make rebuild),Bash(${build})`];
+        `--allowedTools=Read,Write,Edit,Bash(make rebuild),Bash(make name:*),Bash(make refs:*)`];
     const model = cfg().get('claudeModel');
     if (model) args.push('--model', model);
 

@@ -21,7 +21,7 @@ from main.projects import discover_binaries
 
 from main.build import nasm_binary
 
-from .common import APPS, PROJECT, _extra_flags, _main_exe
+from .common import APPS, PROJECT, _extra_flags, _main_exe, _verbose
 
 
 def _elf_globals(asm_path):
@@ -593,7 +593,8 @@ def resplice_c(app, binary, check_only=False):
               f'"make build {app}"):', file=sys.stderr)
         print('\n'.join(mismatches), file=sys.stderr)
         raise SystemExit(1)
-    if count:
+    # A check that passed is summed up by the caller; list it only on request.
+    if count and (not check_only or _verbose()):
         verb = 'verified against' if check_only else 'from'
         print(f'  resplice {app}/{binary}: {count} routine(s) {verb} '
               '.c/.s')

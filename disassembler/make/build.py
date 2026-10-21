@@ -19,7 +19,7 @@ from lib.report import clear_project_stats
 from lib.sidecar.errors import SidecarError
 
 from main.clean import clear_build_out
-from .common import APPS, JOBS, PROJECT, Workers, _extra_flags
+from .common import APPS, JOBS, PROJECT, Workers, _extra_flags, _verbose
 from .prebuild import _ensure_prebuild
 
 
@@ -120,13 +120,16 @@ def _rebuild_project(app, binary=None):
         print(f'Unknown binary "{binary}" in {app}')
         print(f'Known: {", ".join(sorted(bins))}')
         sys.exit(1)
-    for name in sorted(bins):
-        resplice_c(app, name, check_only=True)
     targets = [binary] if binary else sorted(bins)
     for name in targets:
+        resplice_c(app, name, check_only=True)
+    for name in targets:
         if nasm_binary(out_dir, name, bins[name][0]) != 0:
+            print(f'rebuild {app}/{name} -> {bins[name][0]}  [FAILED]')
             sys.exit(1)
-        print(f'rebuild {app}/{name} -> {bins[name][0]}  [OK]')
+        if _verbose():
+            print(f'rebuild {app}/{name} -> {bins[name][0]}  [OK]')
+    print(f'rebuild {app}: {len(targets)} binar{"y" if len(targets) == 1 else "ies"} OK')
 
 
 def cmd_rebuild(app=None, binary=None, all_projects=()):

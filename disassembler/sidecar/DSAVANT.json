@@ -767,10 +767,10 @@
       ],
       "function_names": {
         "00c4": {"name": "opl_init"},
+        "01e6": {"name": "opl_keys_off", "note": "clears the key-on bit (0x20) of OPL registers B0h+n for n = 0..opl_voice_count from the shadow at 1429; B1h base on devices 1 and 4; falls through into 0203"},
         "0294": {"name": "play_select_device"},
         "02b3": {"name": "clamp_device", "note": "al >= 6 becomes 0; called on play_device before play_install_handler"},
         "0322": {"name": "play_set_device", "note": "entered by jmp in the caller's frame: INT 13h reset, then stores the device byte [bp+15h] (4 becomes 1) in play_device"},
-        "01e6": {"name": "opl_keys_off", "note": "clears the key-on bit (0x20) of OPL registers B0h+n for n = 0..opl_voice_count from the shadow at 1429; B1h base on devices 1 and 4; falls through into 0203"},
         "03e2": {"name": "play_install_handler", "note": "entered by jmp in the caller's frame: installs the INT 08h handler picked by play_device through the table at 0495"},
         "07f6": {"name": "opl_write", "note": "writes al to OPL register ah at port 388h, recording it in the register shadow at 1429"}
       },

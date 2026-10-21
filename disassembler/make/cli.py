@@ -10,6 +10,7 @@ from .clean import cmd_clean
 from .common import _apps, _asm_one
 from .elf import cmd_elf_rebuild
 from .init import cmd_init
+from .naming import cmd_name, cmd_refs, specs_from_makeflags
 from .prebuild import cmd_prebuild
 from .readme import cmd_readme
 from .run import _parse_check_args, cmd_check, cmd_run
@@ -31,6 +32,12 @@ Commands (space-separated):
   make verify [PROJECT...]  verify one or all projects
   make clean [PROJECT...]   clean one or all projects (no args: delete .cache,
                             except the build lock and pinned baselines)
+  make name PROJECT BIN SYMBOL=NAME[:NOTE] ...
+                            name routines/globals as the build spells them (cseg_0d3a,
+                            bss_1234, io_loc_KRUO, or a current name): writes the sidecar,
+                            renames hand sources and their references, then build + rebuild
+  make refs PROJECT BIN ROUTINE  list the address-named symbols ROUTINE references
+                            and the sidecar entry each resolves to
   make rebuild [PROJECT [BIN]]  recompile .c (must match the original bytes;
                             --allow-diff to relax) + nasm; default: everything
   make elf-rebuild [PROJECT [BIN]]  full rebuild from current sources (C resplice +
@@ -50,6 +57,7 @@ Env:
                               --allow-diff        rebuild: don't require .c to match the original
                               --detailed-timings  full-precision phase timings
                               --no-show-offsets   suppress instruction offsets
+                              --verbose           every worker line; rebuild: one line per binary
   EXACT_FLAG (deprecated)   same as EXTRA_FLAGS=--exact-bytes
 
 Stats workflow (LLM/human regression loop):
@@ -62,7 +70,7 @@ Stats workflow (LLM/human regression loop):
 
 
 # Commands that rewrite generated output; one at a time (lib.buildlock).
-_MUTATING = {'--all', '--build', '--prebuild', '--rebuild', '--elf-rebuild',
+_MUTATING = {'--all', '--build', '--name', '--prebuild', '--rebuild', '--elf-rebuild',
              '--clean', '--decompile'}
 
 
@@ -163,6 +171,27 @@ def main():
 
     if '--set-baseline' in flags:
         cmd_set_baseline()
+        return
+
+    if '--name' in flags:
+        # From make, SYMBOL=NAME arguments are variable overrides: they reach
+        # us through MAKEFLAGS, not argv.
+        specs = [a for a in args if '=' in a] + specs_from_makeflags()
+        pos = [a for a in args if '=' not in a]
+        if len(pos) != 2 or not specs:
+            print('Usage: make name PROJECT BIN SYMBOL=NAME[:NOTE] ...')
+            sys.exit(1)
+        if pos[0] not in all_projects:
+            print(f'Unknown project: {pos[0]}')
+            sys.exit(1)
+        cmd_name(pos[0], pos[1], specs, all_projects)
+        return
+
+    if '--refs' in flags:
+        if len(args) != 3 or args[0] not in all_projects:
+            print('Usage: make refs PROJECT BIN ROUTINE')
+            sys.exit(1)
+        cmd_refs(*args)
         return
 
     if '--rebuild' in flags:
