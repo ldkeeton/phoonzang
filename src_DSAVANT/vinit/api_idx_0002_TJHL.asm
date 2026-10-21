@@ -20,7 +20,7 @@ api_idx_0002_TJHL:
     pop cx                           ; 0x0136
 @..api_idx_0002_TJHL.l1:
     push word [bp - 0x0002]          ; 0x0137
-    call dos_read_file_2             ; 0x013a
+    call read_misc_table             ; 0x013a
     pop cx                           ; 0x013d
     push word [bp - 0x0002]          ; 0x013e
     call aztec_close                 ; 0x0141

@@ -535,7 +535,7 @@ cseg_2f40:
     db 0x80, 0x41, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x40, 0x01
 font_header_seg:
     db 0x00, 0x00, 0x40, 0x00
-cseg_2f4e:
+misc_table_seg:
     db 0x00, 0x00, 0x30, 0x05
 cseg_2f52:
     db 0x00, 0x00, 0xd0, 0x01
@@ -822,11 +822,11 @@ key_queue:
 
 %include "ds/library/ds_dos_con_loc_QJHU.asm" ; 0x3f81
 
-%include "ds/library/dos_read_file_2.asm"  ; 0x3fa9
+%include "ds/library/read_misc_table.asm"  ; 0x3fa9
 
 %include "ds/library/ds_dos_con_loc_NHHR.asm" ; 0x3fd5
 
-cseg_3fde:
+misc_table_io_error_msg:
 
     db 0x07, 0x0d, 0x0a
     db 'I/O error loading Misc. table.'
