@@ -136,7 +136,7 @@ api_idx_000e_OOOK:
     cmp word [bp - 0x000e], byte 0   ; 0x93c4
     jle short @..api_idx_000e_OOOK.l11 ; 0x93c8
     push word [bp - 0x000e]          ; 0x93ca
-    call delay_ticks                 ; 0x93cd
+    call delay_ms                    ; 0x93cd
     pop cx                           ; 0x93d0
 @..api_idx_000e_OOOK.l11:
     mov ax, word [bp - 0x0006]       ; 0x93d1

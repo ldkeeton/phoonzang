@@ -376,9 +376,10 @@ async function makeC(uri) {
     const sFile = path.join(dir, `${where.label}.s`);
     if (!fs.existsSync(asmFile)) return vscode.window.showErrorMessage(`no ${asmFile}`);
     if (converting.has(asmFile)) { converting.get(asmFile).show(); return; }
-    if (fs.existsSync(cFile)) {
+    const existing = [cFile, sFile].find((f) => fs.existsSync(f));
+    if (existing) {
         const pick = await vscode.window.showWarningMessage(
-            `${path.basename(cFile)} exists. Have Claude redo it?`, { modal: true }, 'Redo');
+            `${path.basename(existing)} exists. Have Claude redo it?`, { modal: true }, 'Redo');
         if (pick !== 'Redo') return;
     }
     const rel = (f) => path.relative(root(), f);
@@ -413,15 +414,25 @@ async function makeC(uri) {
     const own = bins[where.binary];
     const dataOwner = own && own.type === 'mz' ? where.binary
         : ('ds' in bins ? 'ds' : Object.keys(bins).sort().find((b) => bins[b].type === 'mz'));
+    // A sidecar note saying "hand-written" settles the form; a sibling .s shows the style.
+    const fnEntry = (shared ? sidecar.routines : (own || {}).function_names) || {};
+    const handWritten = /^hand-written/.test((fnEntry[key] || {}).note || '');
+    const exampleS = fs.readdirSync(dir).filter((f) => f.endsWith('.s')).sort()[0];
     const flagList = [`default \`${(flags.default || []).join(' ')}\``].concat(
         Object.entries(flags.prefixes || {}).map(([p, f]) => `\`${p}\` → \`${f.join(' ')}\``)).join('; ');
 
     const prompt = [
-        `Convert ${rel(asmFile)} to C, writing ${rel(cFile)}: K&R syntax for the Manx Aztec compiler, ` +
-            `compiling to byte-exact matching asm; never hand-edit the asm. If C cannot reproduce it ` +
-            `(no csav frame or running in its caller's frame, code-segment data, jumps cc would shorten, ` +
-            `falling through into the next routine), write ${rel(sFile)} instead: Manx \`as\` assembly, ` +
-            `which must also build to byte-exact matching asm.`,
+        `Reproduce ${rel(asmFile)} as source that builds to byte-exact matching asm; never hand-edit ` +
+            `the asm. First decide the form. Write ${rel(cFile)} (K&R C for the Manx Aztec \`cc\`) only ` +
+            `if \`cc\` could have generated this code; otherwise write ${rel(sFile)} (Manx \`as\` assembly` +
+            (exampleS ? `, in the style of ${rel(path.join(dir, exampleS))}` : '') + `). Signs it is ` +
+            `hand-written: no csav or \`push bp; mov bp,sp\` frame, or running in its caller's frame; ` +
+            `segment-register juggling (\`push cs; pop ds\`); \`cld\` and string ops; code-segment data; ` +
+            `padding \`nop\`s or jumps \`cc\` would shorten; falling through into the next routine. ` +
+            `Never put a whole routine body in \`#asm\` inside a C function: that is what a .s is for, ` +
+            `and labels in \`#asm\` become linker symbols. \`#asm\` is only for a few instructions ` +
+            `inside real C.` +
+            (handWritten ? ` The sidecar note marks this routine hand-written asm: write ${rel(sFile)}.` : ''),
         `Build commands: \`make rebuild\` (repo root) is the sole pass/fail gate; the only other is ` +
             `\`${build}\`, for renaming. Do not look for, read, or run any other build commands, Makefiles, or scripts.`,
         `Compiler flags come from the routine name's longest matching prefix: ${flagList} ` +
@@ -431,17 +442,17 @@ async function makeC(uri) {
             `NAME.asm; (3) rename the source to NAME.c or NAME.s and the routine in it (\`NAME\` in C, ` +
             `\`NAME_\` in .s), and any C callers, to NAME; ` +
             `(4) run \`make rebuild\`.`,
-        `Name the data too. Give parameters and locals descriptive names in the C itself. For each ` +
+        `Name the data too. Give parameters and locals descriptive names in the source itself (C names, or \`equ\` names in a .s or #asm). For each ` +
             `address-named global (\`bss_XXXX\`/\`dseg_XXXX\`) the routine uses, set ` +
             `\`"XXXX": {"name": "NAME", "note": "..."}\` under \`binaries.${dataOwner}.data_names\` (keyed by DS ` +
             `offset, keep keys sorted; skip any already named there), run \`${build}\`, change the source's ` +
             `\`extern\`/\`extrn\` and uses to NAME, and run \`make rebuild\`. A C still spelling a named global by address fails ` +
             `the link and gives the build's name for it.`,
         `Name every other address-named symbol it references the same way, including those only in ` +
-            `\`extrn\` lines of #asm: each code-segment global (\`cseg_XXXX\`) under ` +
+            `\`extrn\` lines of a .s or #asm: each code-segment global (\`cseg_XXXX\`) under ` +
             `\`binaries.${where.binary}.code_data_names\` (keyed by CS offset, same form and rules), and each ` +
             `auto-named routine it calls (e.g. \`*_loc_XXXX\`) under ${table} as in renaming (keyed like the ` +
-            `routine's own entry, with a "note"). Give #asm stack arguments and locals \`equ\` names. Then run ` +
+            `routine's own entry, with a "note"). Give .s and #asm stack arguments and locals \`equ\` names. Then run ` +
             `\`${build}\`, update the source, and run \`make rebuild\`. No address-named symbol may remain in ` +
             `the source.`,
         `Once it matches, give the routine a descriptive lowercase_underscore name this way, keeping any prefix ` +

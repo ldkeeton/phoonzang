@@ -26,7 +26,7 @@ animate_sprite_up: ; Aztec csav frame=0x0000
     add sp, byte 4                   ; 0x2b9a
     mov ax, 0x19                     ; 0x2b9d
     push ax                          ; 0x2ba0
-    call delay_ticks                 ; 0x2ba1
+    call delay_ms                    ; 0x2ba1
     pop cx                           ; 0x2ba4
     jmp short @..animate_sprite_up.l1 ; 0x2ba5
 @..animate_sprite_up.l2:

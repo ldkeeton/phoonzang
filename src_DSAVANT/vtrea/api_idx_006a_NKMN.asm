@@ -523,7 +523,7 @@ api_idx_006a_NKMN:
     jne short @..api_idx_006a_NKMN.l21 ; 0x64c0
     mov ax, 0x19                     ; 0x64c2
     push ax                          ; 0x64c5
-    call delay_ticks                 ; 0x64c6
+    call delay_ms                    ; 0x64c6
     pop cx                           ; 0x64c9
 @..api_idx_006a_NKMN.l21:
     mov ax, 0x59fe                   ; 0x64ca
@@ -654,7 +654,7 @@ api_idx_006a_NKMN:
 @..api_idx_006a_NKMN.l29:
     mov ax, 0xc8                     ; 0x65f7
     push ax                          ; 0x65fa
-    call delay_ticks                 ; 0x65fb
+    call delay_ms                    ; 0x65fb
     pop cx                           ; 0x65fe
     mov ax, word [bp - 0x0002]       ; 0x65ff
     shl ax, 1                        ; 0x6602

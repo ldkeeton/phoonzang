@@ -4,6 +4,6 @@ loc_RULJ:
     call aztec_csav
     mov ax, 0xa
     push ax
-    call delay_ticks
+    call delay_ms
     pop cx
     ret

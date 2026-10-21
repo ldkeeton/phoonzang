@@ -14,7 +14,7 @@ loc_MMGL:
     add sp, byte 8                   ; 0x21fc
     mov ax, 0x64                     ; 0x21ff
     push ax                          ; 0x2202
-    call delay_ticks                 ; 0x2203
+    call delay_ms                    ; 0x2203
     pop cx                           ; 0x2206
     push word [bp + 0x4]             ; 0x2207
     call api_idx_0050_JLOV           ; 0x220a

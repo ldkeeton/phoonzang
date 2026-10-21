@@ -30,7 +30,7 @@ ds_app_OIGN: ; Aztec csav frame=0x0004
 @..ds_app_OIGN.l4:
     mov ax, 0xa                      ; 0x09e5
     push ax                          ; 0x09e8
-    call delay_ticks                 ; 0x09e9
+    call delay_ms                    ; 0x09e9
     pop cx                           ; 0x09ec
     jmp short @..ds_app_OIGN.l1      ; 0x09ed
 @..ds_app_OIGN.l5:

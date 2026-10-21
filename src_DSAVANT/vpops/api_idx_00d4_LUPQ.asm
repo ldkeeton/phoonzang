@@ -983,7 +983,7 @@ jumptable_4058:
     pop cx                           ; 0x40ab
     mov ax, 0x32                     ; 0x40ac
     push ax                          ; 0x40af
-    call delay_ticks                 ; 0x40b0
+    call delay_ms                    ; 0x40b0
     pop cx                           ; 0x40b3
     cmp word [bp - 0x00a0], byte 0   ; 0x40b4
     je short @..api_idx_00d4_LUPQ.l69 ; 0x40b9

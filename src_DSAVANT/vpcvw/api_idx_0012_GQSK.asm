@@ -211,7 +211,7 @@ api_idx_0012_GQSK:
     or word [bp - 0x0008], ax        ; 0x070c
     mov ax, 0x14                     ; 0x070f
     push ax                          ; 0x0712
-    call delay_ticks                 ; 0x0713
+    call delay_ms                    ; 0x0713
     pop cx                           ; 0x0716
     mov ax, 0x59fe                   ; 0x0717
     push ax                          ; 0x071a

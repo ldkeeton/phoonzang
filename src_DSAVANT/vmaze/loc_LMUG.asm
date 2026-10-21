@@ -51,7 +51,7 @@ loc_LMUG:
     je short @..loc_LMUG.l7          ; 0x0f12
     mov ax, 0xa                      ; 0x0f14
     push ax                          ; 0x0f17
-    call delay_ticks                 ; 0x0f18
+    call delay_ms                    ; 0x0f18
     pop cx                           ; 0x0f1b
 @..loc_LMUG.l7:
     ret                              ; 0x0f1c

@@ -173,8 +173,8 @@
           "note": "hand-written asm, shares its caller's frame: no EGA (0040:0087 zero) gives [bp-2] = 0; else mode 0eh, the 16-colour palette at cs 0x32f6, [bp-2] = 2, [bp-4] = 'ega.drv'"
         },
         "36d0": {
-          "name": "delay_ticks",
-          "note": "hand-written asm: n times, spins until the cs tick word at 0x36ce matches a countdown of the calibrated loop count at cs 0x3672"
+          "name": "delay_ms",
+          "note": "hand-written asm: [bp+4] times, counts loops_per_ms (calibrated to one millisecond) down to delay_loop_target (always 0)"
         },
         "3860": {
           "name": "load_font_file",
@@ -291,6 +291,8 @@
         "3507": {"name": "vga_drv_name", "note": "'vga.drv': select_vga_driver leaves it at [bp-4]"},
         "350f": {"name": "ega_drv_name", "note": "'ega.drv': select_ega_driver leaves it at [bp-4]; 'cga.drv', 'herc.drv', 'tandy.drv' follow"},
         "3532": {"name": "drv_file_handle", "note": "DOS handle of the driver file while ds_dos_file_loc_SJIH/NKUS read it"},
+        "3672": {"name": "loops_per_ms", "note": "busy-loop iterations per millisecond: ds_leaf_loc_QNNO counts loops over one BIOS tick, divides by 55 and scales by 15/16; delay_ms spins this many per ms"},
+        "36ce": {"name": "delay_loop_target", "note": "constant 0 word: delay_ms compares its countdown against it"},
         "384a": {"name": "font_seg_table", "note": "word [10] + 0xffff end: DOS segment of each loaded font, set by load_font_file"},
         "393f": {"name": "font_io_error_msg", "note": "'I/O error loading font' ($-terminated), printed on a load_font_file read error"},
         "3c7f": {"name": "key_queue", "note": "word count, then up to 22 queued key bytes: filled and drained by poll_filtered_key/get_filtered_key, cleared by flush_keyboard"}

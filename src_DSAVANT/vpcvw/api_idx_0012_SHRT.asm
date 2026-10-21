@@ -197,7 +197,7 @@ api_idx_0012_SHRT:
     or word [bp - 0x0008], ax        ; 0x093a
     mov ax, 0x14                     ; 0x093d
     push ax                          ; 0x0940
-    call delay_ticks                 ; 0x0941
+    call delay_ms                    ; 0x0941
     pop cx                           ; 0x0944
     mov ax, 0x59fe                   ; 0x0945
     push ax                          ; 0x0948

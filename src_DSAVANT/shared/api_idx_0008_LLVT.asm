@@ -72,7 +72,7 @@ api_idx_0008_LLVT:
 @..api_idx_0008_LLVT.l5:
     mov ax, 0xa
     push ax
-    call delay_ticks
+    call delay_ms
     pop cx
     dec word [bp - 0x0008]
 @..api_idx_0008_LLVT.l6:

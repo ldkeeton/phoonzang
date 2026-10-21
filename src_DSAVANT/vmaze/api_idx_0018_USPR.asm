@@ -147,7 +147,7 @@ api_idx_0018_USPR:
     jne short @..api_idx_0018_USPR.l15 ; 0x1e1d
     mov ax, 0xa                      ; 0x1e1f
     push ax                          ; 0x1e22
-    call delay_ticks                 ; 0x1e23
+    call delay_ms                    ; 0x1e23
     pop cx                           ; 0x1e26
 @..api_idx_0018_USPR.l15:
     cmp word [bp - 0x0014], byte 0   ; 0x1e27

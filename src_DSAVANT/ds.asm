@@ -716,7 +716,7 @@ cseg_35ec:
 
 %include "ds/library/ds_dos_con_loc_GOVO.asm" ; 0x3640
 
-cseg_3672:
+loops_per_ms:
     db 0x90, 0x01
 %include "ds/library/ds_leaf_loc_QNNO.asm" ; 0x3674
 
@@ -724,9 +724,9 @@ cseg_3672:
 
 %include "ds/library/ds_dos_mem_loc_PLIR.asm" ; 0x36cd
 
-cseg_36ce:
+delay_loop_target:
     db 0x00, 0x00
-%include "ds/library/delay_ticks.asm"      ; 0x36d0
+%include "ds/library/delay_ms.asm"         ; 0x36d0
 
 %include "ds/library/ds_dos_mem_loc_TGHM.asm" ; 0x36f5
 

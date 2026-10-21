@@ -504,7 +504,7 @@ loc_RSHV:
     add sp, byte 8                   ; 0x1cc8
     mov ax, 0x19                     ; 0x1ccb
     push ax                          ; 0x1cce
-    call delay_ticks                 ; 0x1ccf
+    call delay_ms                    ; 0x1ccf
     pop cx                           ; 0x1cd2
     mov ax, word [bp + 0xc]          ; 0x1cd3
     add ax, word [bp - 0x000c]       ; 0x1cd6

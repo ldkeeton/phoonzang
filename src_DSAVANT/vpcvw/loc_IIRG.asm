@@ -10,6 +10,6 @@ loc_IIRG:
     add sp, byte 6                   ; 0x21a1
     mov ax, 0x3e8                    ; 0x21a4
     push ax                          ; 0x21a7
-    call delay_ticks                 ; 0x21a8
+    call delay_ms                    ; 0x21a8
     pop cx                           ; 0x21ab
     ret                              ; 0x21ac

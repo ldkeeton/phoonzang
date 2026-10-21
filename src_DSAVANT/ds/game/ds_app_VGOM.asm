@@ -182,7 +182,7 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     or word [bp - 0x0008], ax        ; 0x229e
     mov ax, 0x14                     ; 0x22a1
     push ax                          ; 0x22a4
-    call delay_ticks                 ; 0x22a5
+    call delay_ms                    ; 0x22a5
     pop cx                           ; 0x22a8
     mov ax, 0x59fe                   ; 0x22a9
     push ax                          ; 0x22ac

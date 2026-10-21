@@ -1006,7 +1006,7 @@ jumptable_2a3c_case_3:
     pop cx                           ; 0x2b5e
     mov ax, 0x32                     ; 0x2b5f
     push ax                          ; 0x2b62
-    call delay_ticks                 ; 0x2b63
+    call delay_ms                    ; 0x2b63
     pop cx                           ; 0x2b66
 @..api_idx_0022_RHMN.l68:
     mov ax, word [bp - 0x0002]       ; 0x2b67

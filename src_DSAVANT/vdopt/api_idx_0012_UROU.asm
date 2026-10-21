@@ -867,7 +867,7 @@ jumptable_147e_case_0:
     add sp, byte 8                   ; 0x1874
     mov ax, 0x12c                    ; 0x1877
     push ax                          ; 0x187a
-    call delay_ticks                 ; 0x187b
+    call delay_ms                    ; 0x187b
     pop cx                           ; 0x187e
     mov ax, 0                        ; 0x187f
     push ax                          ; 0x1882
@@ -913,7 +913,7 @@ jumptable_147e_case_0:
     add sp, byte 8                   ; 0x18e4
     mov ax, 0x12c                    ; 0x18e7
     push ax                          ; 0x18ea
-    call delay_ticks                 ; 0x18eb
+    call delay_ms                    ; 0x18eb
     pop cx                           ; 0x18ee
     jmp near @..api_idx_0012_UROU.l93 ; 0x18ef
 @..api_idx_0012_UROU.l95:

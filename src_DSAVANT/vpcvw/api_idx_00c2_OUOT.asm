@@ -959,7 +959,7 @@ api_idx_00c2_OUOT:
 @..api_idx_00c2_OUOT.l54:
     mov ax, 0x12c                    ; 0x5de5
     push ax                          ; 0x5de8
-    call delay_ticks                 ; 0x5de9
+    call delay_ms                    ; 0x5de9
     pop cx                           ; 0x5dec
     mov ax, 0                        ; 0x5ded
     push ax                          ; 0x5df0
@@ -1053,7 +1053,7 @@ api_idx_00c2_OUOT:
     jne short @..api_idx_00c2_OUOT.l58 ; 0x5ebd
     mov ax, 0x12c                    ; 0x5ebf
     push ax                          ; 0x5ec2
-    call delay_ticks                 ; 0x5ec3
+    call delay_ms                    ; 0x5ec3
     pop cx                           ; 0x5ec6
     mov ax, 0                        ; 0x5ec7
     push ax                          ; 0x5eca

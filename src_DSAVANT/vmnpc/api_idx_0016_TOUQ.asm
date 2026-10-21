@@ -113,7 +113,7 @@ api_idx_0016_TOUQ:
 @..api_idx_0016_TOUQ.l4:
     mov ax, 0xa                      ; 0xa666
     push ax                          ; 0xa669
-    call delay_ticks                 ; 0xa66a
+    call delay_ms                    ; 0xa66a
     pop cx                           ; 0xa66d
     dec word [bp - 0x000a]           ; 0xa66e
 @..api_idx_0016_TOUQ.l5:

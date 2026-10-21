@@ -656,7 +656,7 @@ loc_HTRU:
     add sp, byte 8                   ; 0x1719
     mov ax, 0x19                     ; 0x171c
     push ax                          ; 0x171f
-    call delay_ticks                 ; 0x1720
+    call delay_ms                    ; 0x1720
     pop cx                           ; 0x1723
     mov ax, word [bp + 0xc]          ; 0x1724
     add ax, word [bp - 0x000c]       ; 0x1727

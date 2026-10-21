@@ -673,7 +673,7 @@ api_idx_0084_IMVQ:
     jne short @..api_idx_0084_IMVQ.l18 ; 0x2bf3
     mov ax, 0x19                     ; 0x2bf5
     push ax                          ; 0x2bf8
-    call delay_ticks                 ; 0x2bf9
+    call delay_ms                    ; 0x2bf9
     pop cx                           ; 0x2bfc
 @..api_idx_0084_IMVQ.l18:
     mov ax, 0x59fe                   ; 0x2bfd
@@ -1492,7 +1492,7 @@ jumptable_34f1_case_5:
 @..api_idx_0084_IMVQ.l41:
     mov ax, 0xc8                     ; 0x338e
     push ax                          ; 0x3391
-    call delay_ticks                 ; 0x3392
+    call delay_ms                    ; 0x3392
     pop cx                           ; 0x3395
     mov ax, word [bp - 0x0002]       ; 0x3396
     shl ax, 1                        ; 0x3399

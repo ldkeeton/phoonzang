@@ -652,7 +652,7 @@ api_idx_0074_MHUG:
     jne short @..api_idx_0074_MHUG.l23 ; 0x6cc9
     mov ax, 0x19                     ; 0x6ccb
     push ax                          ; 0x6cce
-    call delay_ticks                 ; 0x6ccf
+    call delay_ms                    ; 0x6ccf
     pop cx                           ; 0x6cd2
 @..api_idx_0074_MHUG.l23:
     mov ax, 0x59fe                   ; 0x6cd3
