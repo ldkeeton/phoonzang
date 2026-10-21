@@ -369,6 +369,9 @@
       "pointer_arrays": [
         {"table": "3d89", "stride": 10, "count": 156, "fields": [2, 4, 6, 8], "space": "ds", "note": "install file list at DS 0x02a9: {disk number, file name, disk letter for each of three floppy formats}; 155 files ('PLAYBANE.BAT' ... 'MON58.PIC') and a 0xffff record of four empty strings"}
       ],
+      "char_tables": [
+        {"table": "5f32", "count": 129, "first": -1, "note": "ctp_ (DS 0x2452), Manx ctype.c's character-class table: isdigit(c) and the other ctype.h macros read ctp_[c+1] & flag (0x01 upper, 0x02 lower, 0x04 digit, 0x08 hex digit, 0x10 space, 0x20 control, 0x40 punctuation, 0x80 blank); byte 0 is EOF. atoi/atol use it for isdigit"}
+      ],
       "type": "mz",
       "start_offset": 512,
       "entry_symbol": "aztec_begin",

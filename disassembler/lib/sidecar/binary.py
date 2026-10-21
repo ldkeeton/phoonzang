@@ -1,6 +1,7 @@
 """Per-binary sidecar validation and lookup."""
 
 from .bands import _validate_bands, parse_bands
+from .char_tables import _char_tables, _validate_char_tables
 from .compiler import _validate_compiler_flags
 from .constants import _BINARY_TYPES, _IDENTIFIER
 from .data_names import _data_names_map, _validate_data_names
@@ -44,6 +45,9 @@ def _validate_binary(name, info):
 
     if 'code_tables' in info:
         _validate_code_tables(info['code_tables'], f'binaries.{name}.code_tables')
+
+    if 'char_tables' in info:
+        _validate_char_tables(info['char_tables'], f'binaries.{name}.char_tables')
 
     if 'driver_slots' in info:
         _validate_driver_slots(info['driver_slots'], f'binaries.{name}.driver_slots')
@@ -122,7 +126,7 @@ def per_binary(sidecar, short_name):
         file, type, start_offset, entry_symbol, function_names, data_names,
         bands (``[(start, end, name)]``, :mod:`.bands`),
         force_data,
-        force_code, external_data, data_pointers (with each
+        force_code, external_data, char_tables, data_pointers (with each
         ``pointer_arrays`` word expanded into it), not_pointers,
         immediate_pointers,
         fingerprint-start, fingerprint-end
@@ -144,6 +148,7 @@ def per_binary(sidecar, short_name):
         'code_data_names': {},
         'jump_tables': [],
         'code_tables': [],
+        'char_tables': [],
         'bands': [],
         'data_pointers': _pointer_assertions(
             sidecar.get('data_pointers', []), 'data_pointers'),
@@ -177,6 +182,8 @@ def per_binary(sidecar, short_name):
                 b.get('code_data_names', {}))
             result['jump_tables'] = b.get('jump_tables', [])
             result['code_tables'] = b.get('code_tables', [])
+            result['char_tables'] = _char_tables(
+                b.get('char_tables'), f'binaries.{short_name}.char_tables')
             result['bands'] = parse_bands(b.get('bands'))
             result['ghidra_base_offset'] = b.get('ghidra_base_offset', 0)
             result['fingerprint-start'] = b.get('fingerprint-start')
@@ -216,6 +223,8 @@ def _expected_use(result, short_name):
             use.expect('dispatch_table.names', n)
     for slots in result['driver_slots']:
         use.expect('driver_slots', slots['offset'])
+    for t in result['char_tables']:
+        use.expect('char_tables', f'{t["table"]:04x}')
     for hex_off in result['function_names']:
         use.expect('function_names', hex_off)
     if result['entry_symbol']:

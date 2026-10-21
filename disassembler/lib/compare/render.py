@@ -38,6 +38,44 @@ def _group_db_lines(hex_bytes):
     return lines
 
 
+# The names a character table's row comments use for codes below '!' and DEL.
+_CHAR_NAMES = ('nul soh stx etx eot enq ack bel bs ht nl vt ff cr so si '
+               'dle dc1 dc2 dc3 dc4 nak syn etb can em sub esc fs gs rs us '
+               'sp').split()
+
+
+def _char_name(code):
+    """How a character-table comment names character *code* (-1 is EOF)."""
+    if code < 0:
+        return 'EOF'
+    if code < len(_CHAR_NAMES):
+        return _CHAR_NAMES[code]
+    if code == 0x5c:
+        return 'backslash'          # a trailing ``\`` continues a NASM line
+    if code < 0x7f:
+        return chr(code)
+    return 'del' if code == 0x7f else f'0x{code:02x}'
+
+
+def _render_char_table(raw, first):
+    """A sidecar ``char_tables`` span: one row per eight character codes.
+
+    *first* is the code of ``raw[0]``.  Rows break at codes that are a
+    multiple of eight, so a leading EOF slot sits on a row of its own, and
+    each row's comment names the characters its bytes stand for.
+    """
+    rows = []
+    for i, b in enumerate(raw):
+        code = first + i
+        if not rows or code % 8 == 0:
+            rows.append([])
+        rows[-1].append((code, b))
+    width = len('db ' + ', '.join(['0x00'] * 8))
+    return [f'    {"db " + ", ".join(f"0x{b:02x}" for _, b in row):<{width}s}'
+            f' ; {" ".join(_char_name(code) for code, _ in row)}'
+            for row in rows]
+
+
 def _render_data_block(raw):
     """Render raw bytes as mixed string literals, zero-run repeats,
     and grouped hex db lines."""
@@ -177,7 +215,12 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
                 out.append(f'; {"=" * 42}')
                 out.append(f'; {fmt} (offsets 0x{rec["start"]:04x} - 0x{rec["end"] - 1:04x})')
                 out.append(f'; {"=" * 42}')
-            out.extend(_render_data_block(binary_data[rec['start']:rec['end']]))
+            raw = binary_data[rec['start']:rec['end']]
+            if rec.get('char_table'):
+                table, first = rec['char_table']
+                out.extend(_render_char_table(raw, first + rec['start'] - table))
+            else:
+                out.extend(_render_data_block(raw))
             if not is_tiny:
                 out.append('')
 

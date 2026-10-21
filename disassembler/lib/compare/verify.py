@@ -310,7 +310,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            jump_tables=None, jump_table_overrides=None,
            segment_flow=None, segments=None, external_data=None,
            entry_symbol=None, data_pointers=(), not_pointers=(),
-           immediate_pointers=(), host_data_offsets=None,
+           char_tables=(), immediate_pointers=(), host_data_offsets=None,
            ds_starts=frozenset(), foreign_pointer_params=None,
            sidecar_use=None, bands=()):
     """Produce NASM source text from *binary_data* and *instructions*.
@@ -1198,6 +1198,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     stagelog.step('verify.pointer_promotion', 2, track={'labels': _label_records(records)},
                   metrics={'records': len(records)})
+    from lib.compare.chartables import mark_char_tables
+    records = mark_char_tables(records, char_tables, sidecar_use)
     bare_mem, bare_call, bare_dbc = _count_bare_addrs(records)
 
     # A C fragment is exactly what its .c compiles to: no pass moves it.

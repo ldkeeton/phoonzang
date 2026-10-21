@@ -778,6 +778,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         entry_symbol=entry_symbol,
         data_pointers=(ctx.sidecar_entry or {}).get('data_pointers', []),
         not_pointers=(ctx.sidecar_entry or {}).get('not_pointers', []),
+        char_tables=(ctx.sidecar_entry or {}).get('char_tables', []),
         immediate_pointers=(ctx.sidecar_entry or {}).get(
             'immediate_pointers', []),
         host_data_offsets=host_data_offsets,
