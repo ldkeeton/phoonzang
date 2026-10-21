@@ -57,12 +57,6 @@ dseg_0181 equ __zdseg_0181 - __zdseg_start
 dseg_0198 equ __zdseg_0198 - __zdseg_start
 dseg_01af equ __zdseg_01af - __zdseg_start
 dseg_01c6 equ __zdseg_01c6 - __zdseg_start
-dseg_2312 equ __zdseg_2312 - __zdseg_start
-dseg_2316 equ __zdseg_2316 - __zdseg_start
-dseg_231a equ __zdseg_231a - __zdseg_start
-dseg_2503 equ __zdseg_2503 - __zdseg_start
-dseg_251b equ __zdseg_251b - __zdseg_start
-dseg_251c equ __zdseg_251c - __zdseg_start
 bss_2afe equ __zbss_2afe - __zdseg_start
 __zbss_size equ __zbss_end - __zimage_end
 
@@ -3143,17 +3137,11 @@ __zdseg_230a:
 __zenv:
     db 0x00, 0x00
 __zcline:
-    db 0x00, 0x00
-__zdseg_2312:
-    db 0x00, 0x00
+    times 4 db 0
 __zfcb1:
-    db 0x00, 0x00
-__zdseg_2316:
-    db 0x00, 0x00
+    times 4 db 0
 __zfcb2:
-    db 0x00, 0x00
-__zdseg_231a:
-    db 0x00, 0x00
+    times 4 db 0
 __zmodes:
 
     db 0x72
@@ -3219,9 +3207,10 @@ __zbad8087:
 __zcls_:
     dw aztec_noper - IMAGE_BASE                ; 0x5fe0
 __zdseg_2502:
+
     db 0x00
-__zdseg_2503:
     db 'Too many args.', 0
+
 __z_STKSIZ:
     db 0x00, 0x01
 __z_STKRED:
@@ -3231,12 +3220,8 @@ __z_HEAPSIZ:
 __z_STKLOW:
     db 0x00, 0x00
 __z_ioflg:
-    db 0x00
-__zdseg_251b:
-    db 0x00
-__zdseg_251c:
 
-    times 18 db 0
+    times 20 db 0
 
 __z_ttrd:
     dw aztec_impl_tty_rd - IMAGE_BASE          ; 0x600e

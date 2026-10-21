@@ -14,6 +14,7 @@ from lib.compare.interrupts import _set_insn_fields
 from lib.compare.cgate import CGateError, check_against_original
 from lib.compare.records import _label_record, _record_span
 from lib.compare.symbols import data_symbol
+from lib.names import data_space
 from lib.symtab import Kind, Space, Symbol
 
 
@@ -408,6 +409,36 @@ def symbol_index(label_map, foreign_label_map, data_labels, sym_equ,
                 else relink.PLACE_SYMBOLS))
 
 
+_NAME = re.compile(r'[A-Za-z_.@$][\w.@$]*')
+
+
+def _drop_replaced_names(mem_equ, mem_symbols, spans, kept):
+    """Forget the DS/BSS names only the replaced code printed.
+
+    *mem_symbols* (``{(address, operand): text}``) is the disassembly's
+    operands; those inside *spans* are gone, replaced by the C's records,
+    which print the names in *kept*.  A name with no operand left loses its ``equ`` and its
+    ``__z`` label (``main``'s strings: ``dseg_0c00`` became
+    ``dseg_0bfa + 0x6``).  A name no operand printed came from elsewhere and
+    stays.
+    """
+    if not spans:
+        return
+    inside, outside = set(), set()
+    for (addr, _op), text in (mem_symbols or {}).items():
+        name = str(text).split()[0]
+        if any(lo <= addr < hi for lo, hi in spans):
+            inside.add(name)
+        else:
+            outside.add(name)
+    for name in list(mem_equ):
+        key = str(name)
+        if (key in inside and key not in outside and key not in kept
+                and isinstance(name, Symbol)
+                and data_space(name) in (Space.DS, Space.BSS)):
+            del mem_equ[name]
+
+
 def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                        local_labels, foreign_label_map, immediate_labels,
                        exact_bytes=False, data_labels=None,
@@ -428,6 +459,9 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
 
     replacements = []
     unplaced = []
+    # What the linked C replaced, and the names it prints in their place.
+    linked_spans = []
+    linked_names = set()
     for label, override in list(c_overrides.items()):
         # A vendor module starts at its own first byte, which may come before
         # its first routine (``csav.asm``'s ``dw $begin``).
@@ -566,12 +600,21 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                          if r['type'] == 'label'})
         if linked is not None:
             _check_linked(label, linked)
+            linked_spans.append((start + lead, end))
+            # Every name the new records print: the C's relocations, and an
+            # operand without one that still falls back to the disassembly's
+            # name (``fexec``'s ``push word [dseg_0030]``).
+            linked_names.update(str(n) for n in linked.minted)
+            linked_names.update(_NAME.findall(' '.join(
+                r.get('text', '') for r in new_records)))
         replacements.append((start, end,
                              _merge_label_records(new_records, labels_in)))
 
     if unplaced:
         raise ValueError('.s seed(s) the build cannot place:\n  '
                          + '\n  '.join(unplaced))
+    if mem_equ is not None:
+        _drop_replaced_names(mem_equ, mem_symbols, linked_spans, linked_names)
     if not replacements:
         return records
 

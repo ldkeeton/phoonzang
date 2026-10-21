@@ -55,21 +55,6 @@ party_slot_y equ __zparty_slot_y - __zdseg_start
 party_slot_glyphs equ __zparty_slot_glyphs - __zdseg_start
 dseg_03ae equ __zdseg_03ae - __zdseg_start
 dseg_03dc equ __zdseg_03dc - __zdseg_start
-dseg_0c00 equ __zdseg_0c00 - __zdseg_start
-dseg_0c06 equ __zdseg_0c06 - __zdseg_start
-dseg_0c0c equ __zdseg_0c0c - __zdseg_start
-dseg_0c12 equ __zdseg_0c12 - __zdseg_start
-dseg_0c18 equ __zdseg_0c18 - __zdseg_start
-dseg_0c1e equ __zdseg_0c1e - __zdseg_start
-dseg_0c24 equ __zdseg_0c24 - __zdseg_start
-dseg_0c2a equ __zdseg_0c2a - __zdseg_start
-dseg_0c30 equ __zdseg_0c30 - __zdseg_start
-dseg_0c36 equ __zdseg_0c36 - __zdseg_start
-dseg_0c3c equ __zdseg_0c3c - __zdseg_start
-dseg_0c42 equ __zdseg_0c42 - __zdseg_start
-dseg_0c9f equ __zdseg_0c9f - __zdseg_start
-dseg_0cdd equ __zdseg_0cdd - __zdseg_start
-dseg_0cde equ __zdseg_0cde - __zdseg_start
 bss_0e36 equ __zbss_0e36 - __zdseg_start
 bss_0e4c equ __zbss_0e4c - __zdseg_start
 bss_2d40 equ __zbss_2d40 - __zdseg_start
@@ -1352,31 +1337,21 @@ __zscore_ext_pbl:
 __zscore_ext_pba:
     db 0x2e, 0x50, 0x42, 0x41, 0x00
 __zdseg_0bfa:
+
     db 'VINIT', 0
-__zdseg_0c00:
     db 'VBASE', 0
-__zdseg_0c06:
     db 'VPCVW', 0
-__zdseg_0c0c:
     db 'VPCLV', 0
-__zdseg_0c12:
     db 'VPCMK', 0
-__zdseg_0c18:
     db 'VMAZE', 0
-__zdseg_0c1e:
     db 'VMEXT', 0
-__zdseg_0c24:
     db 'VMELE', 0
-__zdseg_0c2a:
     db 'VPOPS', 0
-__zdseg_0c30:
     db 'VMEXE', 0
-__zdseg_0c36:
     db 'VDOPT', 0
-__zdseg_0c3c:
     db 'VTREA', 0
-__zdseg_0c42:
     db 'VMNPC', 0
+
 __zdseg_0c48:
     db 0x2e, 0x6f, 0x76, 0x72, 0x00
 __zdseg_0c4d:
@@ -1412,9 +1387,10 @@ __zbad8087:
 __zcls_:
     dw aztec_noper - IMAGE_BASE                ; 0x10dfc
 __zdseg_0c9e:
+
     db 0x00
-__zdseg_0c9f:
     db 'Too many args.', 0
+
 __zdseg_0cae:
 
     db 'STACK OVERFLOW, INCREASE STACK SIZE'
@@ -1429,12 +1405,8 @@ __z_HEAPSIZ:
 __z_STKLOW:
     db 0x00, 0x00
 __z_ioflg:
-    db 0x00
-__zdseg_0cdd:
-    db 0x00
-__zdseg_0cde:
 
-    times 18 db 0
+    times 20 db 0
 
 __z_ttrd:
     dw aztec_impl_tty_rd - IMAGE_BASE          ; 0x10e50
