@@ -11,7 +11,7 @@ api_idx_0002_IRNO:
     add sp, byte 4                   ; 0x676e
     mov word [bss_906a], 0           ; 0x6771
 @..api_idx_0002_IRNO.l1:
-    call ds_app_VKRR                 ; 0x6777
+    call ds_app_alloc_VKRR           ; 0x6777
     mov ax, 0                        ; 0x677a
     push ax                          ; 0x677d
     mov ax, 0x8f                     ; 0x677e
@@ -22,7 +22,7 @@ api_idx_0002_IRNO:
     push ax                          ; 0x6789
     mov ax, 0x48                     ; 0x678a
     push ax                          ; 0x678d
-    call gfx_entry_18                ; 0x678e
+    call gfx_fill_area               ; 0x678e
     add sp, byte 0x0a                ; 0x6791
     mov ax, 0                        ; 0x6794
     push ax                          ; 0x6797
@@ -59,7 +59,7 @@ api_idx_0002_IRNO:
     mov ax, 0                        ; 0x67e8
     push ax                          ; 0x67eb
     push ax                          ; 0x67ec
-    call gfx_entry_16                ; 0x67ed
+    call gfx_show_area               ; 0x67ed
     add sp, byte 8                   ; 0x67f0
     mov word [bss_69c8], 0           ; 0x67f3
     mov word [bss_830a], 4           ; 0x67f9

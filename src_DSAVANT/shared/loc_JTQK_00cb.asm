@@ -1,4 +1,4 @@
 ; auto-generated
 loc_JTQK_00cb:
-    call loc_JTQK_00cb.loc1
-    retf
+    call play_score                  ; 0x00cb
+    retf                             ; 0x00ce

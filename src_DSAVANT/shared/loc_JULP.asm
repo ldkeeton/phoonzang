@@ -1,5 +1,5 @@
 ; auto-generated
 loc_JULP:
-    call loc_MMLT                    ; 0x00db
+    call set_music_tempo_volume      ; 0x00db
     retf                             ; 0x00de
     db 0x80, 0x41

@@ -52,13 +52,13 @@ api_idx_007a_GTOG:
     push ax                          ; 0x442f
     mov ax, 1                        ; 0x4430
     push ax                          ; 0x4433
-    call gfx_entry_12                ; 0x4434
+    call gfx_set_text_color          ; 0x4434
     add sp, byte 4                   ; 0x4437
     mov ax, 6                        ; 0x443a
     push ax                          ; 0x443d
     mov ax, 0x66                     ; 0x443e
     push ax                          ; 0x4441
-    call gfx_entry_13                ; 0x4442
+    call gfx_set_text_pos            ; 0x4442
     add sp, byte 4                   ; 0x4445
     lea ax, word [bp - 0x0052]       ; 0x4448
     push ax                          ; 0x444b

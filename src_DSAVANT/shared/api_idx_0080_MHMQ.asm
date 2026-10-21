@@ -114,7 +114,7 @@ api_idx_0080_MHMQ:
     push ax
     mov ax, 0xeb
     push ax
-    call gfx_entry_12
+    call gfx_set_text_color
     add sp, byte 4
     mov ax, 0x1e
     push ax
@@ -131,7 +131,7 @@ api_idx_0080_MHMQ:
     mov ax, 0x10e
     sub ax, cx
     push ax
-    call gfx_entry_13
+    call gfx_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -159,7 +159,7 @@ api_idx_0080_MHMQ:
     mov bx, ax
     add bx, bp
     push word [bx - 0x0074]
-    call gfx_entry_13
+    call gfx_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -177,7 +177,7 @@ api_idx_0080_MHMQ:
     mov ax, 0xeb
 @..api_idx_0080_MHMQ.l5:
     push ax
-    call gfx_entry_12
+    call gfx_set_text_color
     add sp, byte 4
     mov ax, 0x248
     imul word [bp + 0x4]

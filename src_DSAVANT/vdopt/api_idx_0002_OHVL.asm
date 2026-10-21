@@ -6,7 +6,7 @@ api_idx_0002_OHVL:
     push ax                          ; 0x1964
     mov ax, 0x55                     ; 0x1965
     push ax                          ; 0x1968
-    call gfx_entry_12                ; 0x1969
+    call gfx_set_text_color          ; 0x1969
     add sp, byte 4                   ; 0x196c
     mov ax, 2                        ; 0x196f
     push ax                          ; 0x1972
@@ -24,7 +24,7 @@ api_idx_0002_OHVL:
     mov ax, 0x9e                     ; 0x198d
     push ax                          ; 0x1990
     push word [bp - 0x0002]          ; 0x1991
-    call gfx_entry_13                ; 0x1994
+    call gfx_set_text_pos            ; 0x1994
     add sp, byte 4                   ; 0x1997
     mov ax, 2                        ; 0x199a
     push ax                          ; 0x199d
@@ -54,7 +54,7 @@ api_idx_0002_OHVL:
     mov ax, 0xaa                     ; 0x19d4
     push ax                          ; 0x19d7
     push word [bp - 0x0002]          ; 0x19d8
-    call gfx_entry_13                ; 0x19db
+    call gfx_set_text_pos            ; 0x19db
     add sp, byte 4                   ; 0x19de
     mov ax, 2                        ; 0x19e1
     push ax                          ; 0x19e4
@@ -82,7 +82,7 @@ api_idx_0002_OHVL:
     mov ax, 0xb6                     ; 0x1a18
     push ax                          ; 0x1a1b
     push word [bp - 0x0002]          ; 0x1a1c
-    call gfx_entry_13                ; 0x1a1f
+    call gfx_set_text_pos            ; 0x1a1f
     add sp, byte 4                   ; 0x1a22
     mov ax, 2                        ; 0x1a25
     push ax                          ; 0x1a28

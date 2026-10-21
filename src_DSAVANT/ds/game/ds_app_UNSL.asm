@@ -27,13 +27,13 @@ ds_app_UNSL: ; Aztec csav frame=0x0002
     add ax, word [bp + 0x6]          ; 0x1174
     push ax                          ; 0x1177
     push word [bp + 0x4]             ; 0x1178
-    call gfx_entry_18                ; 0x117b
+    call gfx_fill_area               ; 0x117b
     add sp, byte 0x0a                ; 0x117e
     mov ax, 1                        ; 0x1181
     push ax                          ; 0x1184
     mov ax, 0                        ; 0x1185
     push ax                          ; 0x1188
-    call gfx_entry_12                ; 0x1189
+    call gfx_set_text_color          ; 0x1189
     add sp, byte 4                   ; 0x118c
     jmp short @..ds_app_UNSL.l3      ; 0x118f
 @..ds_app_UNSL.l2:
@@ -41,7 +41,7 @@ ds_app_UNSL: ; Aztec csav frame=0x0002
     push ax                          ; 0x1194
     mov ax, 0xb4                     ; 0x1195
     push ax                          ; 0x1198
-    call gfx_entry_12                ; 0x1199
+    call gfx_set_text_color          ; 0x1199
     add sp, byte 4                   ; 0x119c
 @..ds_app_UNSL.l3:
     mov ax, 6                        ; 0x119f
@@ -53,7 +53,7 @@ ds_app_UNSL: ; Aztec csav frame=0x0002
     inc ax                           ; 0x11ad
     inc ax                           ; 0x11ae
     push ax                          ; 0x11af
-    call gfx_entry_13                ; 0x11b0
+    call gfx_set_text_pos            ; 0x11b0
     add sp, byte 4                   ; 0x11b3
     mov ax, 0                        ; 0x11b6
     push ax                          ; 0x11b9

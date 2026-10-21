@@ -60,7 +60,7 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0b10
     lea ax, word [bp - 0x0004]       ; 0x0b11
     push ax                          ; 0x0b14
-    call gfx_entry_23                ; 0x0b15
+    call gfx_get_mouse               ; 0x0b15
     add sp, byte 4                   ; 0x0b18
     mov ax, word [bp - 0x0006]       ; 0x0b1b
     add ax, word [bp + 0x10]         ; 0x0b1e
@@ -102,7 +102,7 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0b73
     push word [bp - 0x000a]          ; 0x0b74
     push word [bp - 0x0008]          ; 0x0b77
-    call gfx_entry_18                ; 0x0b7a
+    call gfx_fill_area               ; 0x0b7a
     add sp, byte 0x0a                ; 0x0b7d
     push word [bp + 0xc]             ; 0x0b80
     push word [bp + 0xa]             ; 0x0b83
@@ -115,11 +115,11 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0b98
     mov ax, 0x15                     ; 0x0b99
     push ax                          ; 0x0b9c
-    call gfx_entry_12                ; 0x0b9d
+    call gfx_set_text_color          ; 0x0b9d
     add sp, byte 4                   ; 0x0ba0
     push word [bp - 0x000a]          ; 0x0ba3
     push word [bp - 0x0008]          ; 0x0ba6
-    call gfx_entry_13                ; 0x0ba9
+    call gfx_set_text_pos            ; 0x0ba9
     add sp, byte 4                   ; 0x0bac
     mov ax, 0                        ; 0x0baf
     push ax                          ; 0x0bb2
@@ -165,7 +165,7 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0c1a
     lea ax, word [bp - 0x0004]       ; 0x0c1b
     push ax                          ; 0x0c1e
-    call gfx_entry_23                ; 0x0c1f
+    call gfx_get_mouse               ; 0x0c1f
     add sp, byte 4                   ; 0x0c22
     mov ax, 0x13f                    ; 0x0c25
     push ax                          ; 0x0c28
@@ -236,6 +236,6 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0cca
     mov ax, 1                        ; 0x0ccb
     push ax                          ; 0x0cce
-    call gfx_entry_16                ; 0x0ccf
+    call gfx_show_area               ; 0x0ccf
     add sp, byte 8                   ; 0x0cd2
     ret                              ; 0x0cd5

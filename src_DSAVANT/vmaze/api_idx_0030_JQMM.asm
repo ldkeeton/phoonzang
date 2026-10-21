@@ -30,7 +30,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x545b
     mov ax, 0x48                     ; 0x545c
     push ax                          ; 0x545f
-    call gfx_entry_18                ; 0x5460
+    call gfx_fill_area               ; 0x5460
     add sp, byte 0x0a                ; 0x5463
     mov ax, word [bp - 0x0012]       ; 0x5466
     mov cx, 6                        ; 0x5469
@@ -68,7 +68,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x54b4
     mov ax, 0x48                     ; 0x54b5
     push ax                          ; 0x54b8
-    call gfx_entry_18                ; 0x54b9
+    call gfx_fill_area               ; 0x54b9
     add sp, byte 0x0a                ; 0x54bc
     mov ax, word [bss_830c]          ; 0x54bf
     cmp ax, word [bss_8f28]          ; 0x54c2
@@ -144,7 +144,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x5569
     mov ax, 0x48                     ; 0x556a
     push ax                          ; 0x556d
-    call gfx_entry_18                ; 0x556e
+    call gfx_fill_area               ; 0x556e
     add sp, byte 0x0a                ; 0x5571
     call api_idx_001e_IGLM           ; 0x5574
     call api_idx_0024_NUGL           ; 0x5577
@@ -326,7 +326,7 @@ jumptable_59e2_case_2:
     push ax                          ; 0x570d
     mov ax, 0x48                     ; 0x570e
     push ax                          ; 0x5711
-    call gfx_entry_18                ; 0x5712
+    call gfx_fill_area               ; 0x5712
     add sp, byte 0x0a                ; 0x5715
     call api_idx_001e_IGLM           ; 0x5718
     call api_idx_0024_NUGL           ; 0x571b
@@ -377,7 +377,7 @@ jumptable_59e2_case_3:
     push ax                          ; 0x577c
     mov ax, 0x48                     ; 0x577d
     push ax                          ; 0x5780
-    call gfx_entry_18                ; 0x5781
+    call gfx_fill_area               ; 0x5781
     add sp, byte 0x0a                ; 0x5784
     call api_idx_001e_IGLM           ; 0x5787
     call api_idx_0024_NUGL           ; 0x578a
@@ -404,7 +404,7 @@ jumptable_59e2_case_3:
     mov ax, 0x48                     ; 0x57c4
     push ax                          ; 0x57c7
     push ax                          ; 0x57c8
-    call gfx_entry_18                ; 0x57c9
+    call gfx_fill_area               ; 0x57c9
     add sp, byte 0x0a                ; 0x57cc
     jmp short @..api_idx_0030_JQMM.l13 ; 0x57cf
 @..api_idx_0030_JQMM.l12:
@@ -460,7 +460,7 @@ jumptable_59e2_case_4:
     push ax                          ; 0x5839
     mov ax, 0x48                     ; 0x583a
     push ax                          ; 0x583d
-    call gfx_entry_18                ; 0x583e
+    call gfx_fill_area               ; 0x583e
     add sp, byte 0x0a                ; 0x5841
     call api_idx_001e_IGLM           ; 0x5844
     call api_idx_0024_NUGL           ; 0x5847
@@ -514,7 +514,7 @@ jumptable_59e2_case_5:
     push ax                          ; 0x58af
     mov ax, 0x48                     ; 0x58b0
     push ax                          ; 0x58b3
-    call gfx_entry_18                ; 0x58b4
+    call gfx_fill_area               ; 0x58b4
     add sp, byte 0x0a                ; 0x58b7
     call api_idx_001e_IGLM           ; 0x58ba
     call api_idx_0024_NUGL           ; 0x58bd
@@ -528,7 +528,7 @@ jumptable_59e2_case_5:
     push ax                          ; 0x58cf
     mov ax, 0x48                     ; 0x58d0
     push ax                          ; 0x58d3
-    call gfx_entry_18                ; 0x58d4
+    call gfx_fill_area               ; 0x58d4
     add sp, byte 0x0a                ; 0x58d7
     mov ax, 0x2a                     ; 0x58da
     push ax                          ; 0x58dd
@@ -560,7 +560,7 @@ jumptable_59e2_case_6:
     push ax                          ; 0x5915
     mov ax, 0x48                     ; 0x5916
     push ax                          ; 0x5919
-    call gfx_entry_18                ; 0x591a
+    call gfx_fill_area               ; 0x591a
     add sp, byte 0x0a                ; 0x591d
     call api_idx_001e_IGLM           ; 0x5920
     call api_idx_0024_NUGL           ; 0x5923
@@ -618,7 +618,7 @@ jumptable_59e2_case_6:
     mov ax, 0x48                     ; 0x5996
     push ax                          ; 0x5999
     push ax                          ; 0x599a
-    call gfx_entry_18                ; 0x599b
+    call gfx_fill_area               ; 0x599b
     add sp, byte 0x0a                ; 0x599e
 @..api_idx_0030_JQMM.l21:
     cmp word [bss_830c], byte 8      ; 0x59a1
@@ -2130,7 +2130,7 @@ jumptable_59e2_case_0:
     push word [bx + 0x2aa]           ; 0x6671
     push word [bx + 0x2a8]           ; 0x6675
     push word [bx + 0x2a6]           ; 0x6679
-    call gfx_entry_18                ; 0x667d
+    call gfx_fill_area               ; 0x667d
     add sp, byte 0x0a                ; 0x6680
     jmp near @..api_idx_0030_JQMM.l89 ; 0x6683
 @..api_idx_0030_JQMM.l84:

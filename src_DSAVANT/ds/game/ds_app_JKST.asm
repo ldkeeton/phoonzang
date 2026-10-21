@@ -46,7 +46,7 @@ ds_app_JKST: ; Aztec csav frame=0x0000
     push ax                          ; 0x128e
     mov ax, 0                        ; 0x128f
     push ax                          ; 0x1292
-    call gfx_entry_12                ; 0x1293
+    call gfx_set_text_color          ; 0x1293
     add sp, byte 4                   ; 0x1296
     mov ax, word [bp + 0x6]          ; 0x1299
     inc ax                           ; 0x129c
@@ -55,7 +55,7 @@ ds_app_JKST: ; Aztec csav frame=0x0000
     inc ax                           ; 0x12a1
     inc ax                           ; 0x12a2
     push ax                          ; 0x12a3
-    call gfx_entry_13                ; 0x12a4
+    call gfx_set_text_pos            ; 0x12a4
     add sp, byte 4                   ; 0x12a7
     mov ax, 0                        ; 0x12aa
     push ax                          ; 0x12ad
@@ -72,7 +72,7 @@ ds_app_JKST: ; Aztec csav frame=0x0000
     inc ax                           ; 0x12c8
     inc ax                           ; 0x12c9
     push ax                          ; 0x12ca
-    call gfx_entry_13                ; 0x12cb
+    call gfx_set_text_pos            ; 0x12cb
     add sp, byte 4                   ; 0x12ce
     mov ax, 0                        ; 0x12d1
     push ax                          ; 0x12d4

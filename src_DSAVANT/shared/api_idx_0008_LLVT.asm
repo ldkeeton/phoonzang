@@ -4,7 +4,7 @@ api_idx_0008_LLVT:
     call aztec_csav
     push word [bp + 0xe]
     push word [bp + 0xc]
-    call gfx_entry_12
+    call gfx_set_text_color
     add sp, byte 4
     push word [bp + 0x4]
     call aztec_strlen
@@ -36,13 +36,13 @@ api_idx_0008_LLVT:
     push ax
     push word [bp + 0x8]
     push word [bp + 0x6]
-    call gfx_entry_18
+    call gfx_fill_area
     add sp, byte 0x0a
     cmp word [bp - 0x0006], byte 0
     je short @..api_idx_0008_LLVT.l4
     push word [bp + 0x8]
     push word [bp + 0x6]
-    call gfx_entry_13
+    call gfx_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -59,7 +59,7 @@ api_idx_0008_LLVT:
     push ax
     push word [bp + 0x8]
     push word [bp + 0x6]
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     mov ax, word [bp - 0x0006]
     inc ax
@@ -93,7 +93,7 @@ api_idx_0008_LLVT:
     push ax
     push word [bp + 0x8]
     push word [bp + 0x6]
-    call gfx_entry_18
+    call gfx_fill_area
     add sp, byte 0x0a
     mov ax, word [bp + 0x8]
     add ax, strict word 5
@@ -103,7 +103,7 @@ api_idx_0008_LLVT:
     push ax
     push word [bp + 0x8]
     push word [bp + 0x6]
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     cmp word [bp - 0x0002], byte 0x0d
     jne short @..api_idx_0008_LLVT.l8
@@ -160,7 +160,7 @@ api_idx_0008_LLVT:
     inc word [bp - 0x0004]
     push word [bp + 0x8]
     push word [bp + 0x6]
-    call gfx_entry_13
+    call gfx_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -177,7 +177,7 @@ api_idx_0008_LLVT:
     push ax
     push word [bp + 0x8]
     push word [bp + 0x6]
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     add word [bp + 0x6], byte 6
 @..api_idx_0008_LLVT.l15:

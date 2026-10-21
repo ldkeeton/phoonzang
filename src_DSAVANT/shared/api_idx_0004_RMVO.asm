@@ -23,7 +23,7 @@ api_idx_0004_RMVO:
     add ax, cx
     mov bx, ax
     push word [word bx + 0x6]
-    call gfx_entry_12
+    call gfx_set_text_color
     add sp, byte 4
     mov ax, word [bp - 0x0002]
     shl ax, 1
@@ -36,7 +36,7 @@ api_idx_0004_RMVO:
     mov bx, ax
     push word [bx + 0x15e]
     push word [bx + 0x15c]
-    call gfx_entry_13
+    call gfx_set_text_pos
     add sp, byte 4
     mov ax, 3
     push ax

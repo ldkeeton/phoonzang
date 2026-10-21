@@ -11,7 +11,7 @@ IMAGE_BASE equ -0x0100
 loc_JTQK_0007.mouse_off1 equ leaf_loc_UMNS
 %include "shared/loc_JTQK_0007.asm"          ; 0x0007
 
-loc_JTQK_000b.bios_mouse_loc1 equ leaf_loc_GJRP
+loc_JTQK_000b.mouse_hit_test1 equ leaf_loc_GJRP
 %include "shared/loc_JTQK_000b.asm"          ; 0x000b
 
 loc_JTQK_000f.leaf_loc1 equ loc_TJIS

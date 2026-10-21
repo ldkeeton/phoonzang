@@ -68,13 +68,13 @@ api_idx_0008_VHMQ:
     push ax                          ; 0x49d1
     mov ax, 0x8b                     ; 0x49d2
     push ax                          ; 0x49d5
-    call gfx_entry_13                ; 0x49d6
+    call gfx_set_text_pos            ; 0x49d6
     add sp, byte 4                   ; 0x49d9
     mov ax, 0                        ; 0x49dc
     push ax                          ; 0x49df
     mov ax, 1                        ; 0x49e0
     push ax                          ; 0x49e3
-    call gfx_entry_12                ; 0x49e4
+    call gfx_set_text_color          ; 0x49e4
     add sp, byte 4                   ; 0x49e7
     mov ax, 0                        ; 0x49ea
     push ax                          ; 0x49ed
@@ -96,7 +96,7 @@ api_idx_0008_VHMQ:
     push ax                          ; 0x4a12
     mov ax, 0x8b                     ; 0x4a13
     push ax                          ; 0x4a16
-    call gfx_entry_16                ; 0x4a17
+    call gfx_show_area               ; 0x4a17
     add sp, byte 8                   ; 0x4a1a
     mov ax, 0x59fe                   ; 0x4a1d
     push ax                          ; 0x4a20
@@ -153,6 +153,6 @@ api_idx_0008_VHMQ:
     mov ax, 0                        ; 0x4a95
     push ax                          ; 0x4a98
     push ax                          ; 0x4a99
-    call gfx_entry_16                ; 0x4a9a
+    call gfx_show_area               ; 0x4a9a
     add sp, byte 8                   ; 0x4a9d
     ret                              ; 0x4aa0

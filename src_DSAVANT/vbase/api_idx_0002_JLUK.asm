@@ -49,29 +49,29 @@ api_idx_0002_JLUK:
     mov ax, word [bp - 0x0002]       ; 0x6881
     cmp ax, strict word 6            ; 0x6884
     jl short @..api_idx_0002_JLUK.l3 ; 0x6887
-    call ds_app_VKRR                 ; 0x6889
+    call ds_app_alloc_VKRR           ; 0x6889
     mov ax, 0                        ; 0x688c
     push ax                          ; 0x688f
-    call ds_app_gfx_entry_22_VNHP    ; 0x6890
+    call ds_app_gfx_free_picture_VNHP ; 0x6890
     pop cx                           ; 0x6893
     mov ax, 3                        ; 0x6894
     push ax                          ; 0x6897
-    call ds_app_gfx_entry_22_VNHP    ; 0x6898
+    call ds_app_gfx_free_picture_VNHP ; 0x6898
     pop cx                           ; 0x689b
     mov ax, 4                        ; 0x689c
     push ax                          ; 0x689f
-    call ds_app_gfx_entry_22_VNHP    ; 0x68a0
+    call ds_app_gfx_free_picture_VNHP ; 0x68a0
     pop cx                           ; 0x68a3
     mov ax, 6                        ; 0x68a4
     push ax                          ; 0x68a7
-    call ds_app_gfx_entry_22_VNHP    ; 0x68a8
+    call ds_app_gfx_free_picture_VNHP ; 0x68a8
     pop cx                           ; 0x68ab
     mov ax, 8                        ; 0x68ac
     push ax                          ; 0x68af
-    call ds_app_gfx_entry_22_VNHP    ; 0x68b0
+    call ds_app_gfx_free_picture_VNHP ; 0x68b0
     pop cx                           ; 0x68b3
     mov ax, 0xe                      ; 0x68b4
     push ax                          ; 0x68b7
-    call ds_app_gfx_entry_22_VNHP    ; 0x68b8
+    call ds_app_gfx_free_picture_VNHP ; 0x68b8
     pop cx                           ; 0x68bb
     ret                              ; 0x68bc

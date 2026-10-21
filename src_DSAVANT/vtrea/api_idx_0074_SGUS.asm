@@ -118,13 +118,13 @@ api_idx_0074_SGUS:
     mov ax, 0xa3                     ; 0x7a09
     push ax                          ; 0x7a0c
     push word [bp - 0x0020]          ; 0x7a0d
-    call gfx_entry_13                ; 0x7a10
+    call gfx_set_text_pos            ; 0x7a10
     add sp, byte 4                   ; 0x7a13
     mov ax, 0                        ; 0x7a16
     push ax                          ; 0x7a19
     mov ax, 0xb8                     ; 0x7a1a
     push ax                          ; 0x7a1d
-    call gfx_entry_12                ; 0x7a1e
+    call gfx_set_text_color          ; 0x7a1e
     add sp, byte 4                   ; 0x7a21
     mov ax, 0                        ; 0x7a24
     push ax                          ; 0x7a27
@@ -145,7 +145,7 @@ api_idx_0074_SGUS:
     mov ax, 0xa3                     ; 0x7a47
     push ax                          ; 0x7a4a
     push word [bp - 0x0020]          ; 0x7a4b
-    call gfx_entry_16                ; 0x7a4e
+    call gfx_show_area               ; 0x7a4e
     add sp, byte 8                   ; 0x7a51
     mov ax, 0x11                     ; 0x7a54
     push ax                          ; 0x7a57
@@ -157,7 +157,7 @@ api_idx_0074_SGUS:
     pop cx                           ; 0x7a63
     mov ax, 0x10                     ; 0x7a64
     push ax                          ; 0x7a67
-    call ds_app_SOQK                 ; 0x7a68
+    call ds_app_alloc_SOQK           ; 0x7a68
     pop cx                           ; 0x7a6b
     mov word [bss_598e], 0xffff      ; 0x7a6c
     push word [bss_905a]             ; 0x7a72
@@ -192,7 +192,7 @@ api_idx_0074_SGUS:
     pop cx                           ; 0x7ab4
     mov ax, 0x10                     ; 0x7ab5
     push ax                          ; 0x7ab8
-    call ds_app_SOQK                 ; 0x7ab9
+    call ds_app_alloc_SOQK           ; 0x7ab9
     pop cx                           ; 0x7abc
     mov word [bss_598e], 0xffff      ; 0x7abd
 @..api_idx_0074_SGUS.l10:

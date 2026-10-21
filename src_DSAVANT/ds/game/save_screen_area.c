@@ -4,7 +4,7 @@ extern long saved_screen_ref[];
 extern char screen_store_1_enabled;
 extern char screen_store_disk_enabled;
 extern unsigned char screen_store_drive;
-long gfx_entry_40();
+long gfx_get_free_space();
 long gfx_cache_area();
 
 /* saves the screen rectangle into the last free slot, picking store 1, 2 or a
@@ -25,13 +25,13 @@ char *name;
 	saved_screen_kind[slot] = 3;	/* default: file in the current dir */
 	saved_screen_file[slot].name[0] = 0;
 	need = (x2 - x1 + 1) * (long)(y2 - y1 + 1) + 128;	/* pixels + 128 */
-	if (screen_store_1_enabled == 1 && need < gfx_entry_40(1, 0))
+	if (screen_store_1_enabled == 1 && need < gfx_get_free_space(1, 0))
 		saved_screen_kind[slot] = 1;
-	else if (gfx_entry_40(2, 0) > need)
+	else if (gfx_get_free_space(2, 0) > need)
 		saved_screen_kind[slot] = 2;
 	else if (screen_store_disk_enabled == 1) {
 		drive = screen_store_drive - 0x40;	/* 'A' -> 1 */
-		if (drive >= 1 && drive <= 26 && gfx_entry_40(3, drive) > need) {
+		if (drive >= 1 && drive <= 26 && gfx_get_free_space(3, drive) > need) {
 			saved_screen_kind[slot] = 3;
 			saved_screen_file[slot].name[0] = drive + 0x40;
 			saved_screen_file[slot].name[1] = ':';

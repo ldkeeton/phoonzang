@@ -39,11 +39,11 @@ loc_PKHU:
     je short @..loc_PKHU.l2          ; 0x80ff
     push word [bss_844c]             ; 0x8101
     push word [bss_844e]             ; 0x8105
-    call animate_sprite_up           ; 0x8109
+    call fade_out_music              ; 0x8109
     add sp, byte 4                   ; 0x810c
     mov ax, 1                        ; 0x810f
     push ax                          ; 0x8112
-    call ds_app_gfx_entry_51_VGJR    ; 0x8113
+    call ds_app_gfx_free_score_VGJR  ; 0x8113
     pop cx                           ; 0x8116
 @..loc_PKHU.l2:
     inc word [bss_8d12]              ; 0x8117

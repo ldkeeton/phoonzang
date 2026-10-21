@@ -1,4 +1,4 @@
 ; auto-generated
 loc_JTQK_0037:
-    call loc_JTQK_0037.leaf_loc1
-    retf
+    call set_text_pos                ; 0x0037
+    retf                             ; 0x003a

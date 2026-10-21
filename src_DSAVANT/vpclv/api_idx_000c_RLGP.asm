@@ -27,7 +27,7 @@ api_idx_000c_RLGP:
     jne short @..api_idx_000c_RLGP.l3 ; 0x51b7
     ret                              ; 0x51b9
 @..api_idx_000c_RLGP.l3:
-    call ds_app_VKRR                 ; 0x51ba
+    call ds_app_alloc_VKRR           ; 0x51ba
     mov ax, 1                        ; 0x51bd
     push ax                          ; 0x51c0
     mov ax, 2                        ; 0x51c1
@@ -218,16 +218,16 @@ api_idx_000c_RLGP:
     je short @..api_idx_000c_RLGP.l7 ; 0x537d
     push word [bss_844c]             ; 0x537f
     push word [bss_844e]             ; 0x5383
-    call animate_sprite_up           ; 0x5387
+    call fade_out_music              ; 0x5387
     add sp, byte 4                   ; 0x538a
     mov ax, 0                        ; 0x538d
     push ax                          ; 0x5390
-    call ds_app_gfx_entry_51_VGJR    ; 0x5391
+    call ds_app_gfx_free_score_VGJR  ; 0x5391
     pop cx                           ; 0x5394
 @..api_idx_000c_RLGP.l7:
     mov ax, 0xf                      ; 0x5395
     push ax                          ; 0x5398
-    call ds_app_gfx_entry_22_VNHP    ; 0x5399
+    call ds_app_gfx_free_picture_VNHP ; 0x5399
     pop cx                           ; 0x539c
     mov ax, 0                        ; 0x539d
     push ax                          ; 0x53a0
@@ -295,11 +295,11 @@ api_idx_000c_RLGP:
     add sp, byte 8                   ; 0x5448
     mov ax, 1                        ; 0x544b
     push ax                          ; 0x544e
-    call ds_app_gfx_entry_22_VNHP    ; 0x544f
+    call ds_app_gfx_free_picture_VNHP ; 0x544f
     pop cx                           ; 0x5452
     mov ax, 2                        ; 0x5453
     push ax                          ; 0x5456
-    call ds_app_gfx_entry_22_VNHP    ; 0x5457
+    call ds_app_gfx_free_picture_VNHP ; 0x5457
     pop cx                           ; 0x545a
     call api_idx_000e_TIOP           ; 0x545b
     mov ax, 0xc7                     ; 0x545e
@@ -309,6 +309,6 @@ api_idx_000c_RLGP:
     mov ax, 0                        ; 0x5466
     push ax                          ; 0x5469
     push ax                          ; 0x546a
-    call gfx_entry_16                ; 0x546b
+    call gfx_show_area               ; 0x546b
     add sp, byte 8                   ; 0x546e
     ret                              ; 0x5471

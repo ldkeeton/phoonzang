@@ -83,7 +83,7 @@ api_idx_0006_HMNQ:
     push ax                          ; 0x6196
     mov ax, 0xe                      ; 0x6197
     push ax                          ; 0x619a
-    call gfx_entry_16                ; 0x619b
+    call gfx_show_area               ; 0x619b
     add sp, byte 8                   ; 0x619e
 @..api_idx_0006_HMNQ.l2:
     mov ax, 0x59fe                   ; 0x61a1
@@ -175,6 +175,6 @@ api_idx_0006_HMNQ:
     mov ax, 0                        ; 0x6262
     push ax                          ; 0x6265
     push ax                          ; 0x6266
-    call gfx_entry_16                ; 0x6267
+    call gfx_show_area               ; 0x6267
     add sp, byte 8                   ; 0x626a
     ret                              ; 0x626d

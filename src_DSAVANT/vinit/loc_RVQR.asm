@@ -120,7 +120,7 @@ loc_RVQR:
     mov ax, 0                        ; 0x04db
     push ax                          ; 0x04de
     push ax                          ; 0x04df
-    call gfx_entry_40                ; 0x04e0
+    call gfx_get_free_space          ; 0x04e0
     add sp, byte 4                   ; 0x04e3
     cmp dx, byte 1                   ; 0x04e6
     jg short @..loc_RVQR.l14         ; 0x04e9

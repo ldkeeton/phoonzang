@@ -22,7 +22,7 @@ loc_UIQM:
     push ax                          ; 0x814a
     mov ax, 0x37                     ; 0x814b
     push ax                          ; 0x814e
-    call gfx_entry_16                ; 0x814f
+    call gfx_show_area               ; 0x814f
     add sp, byte 8                   ; 0x8152
     call ds_app_NNSU                 ; 0x8155
     mov word [bss_8450], ax          ; 0x8158
@@ -55,11 +55,11 @@ loc_UIQM:
     je short @..loc_UIQM.l3          ; 0x819a
     push word [bss_844c]             ; 0x819c
     push word [bss_844e]             ; 0x81a0
-    call animate_sprite_up           ; 0x81a4
+    call fade_out_music              ; 0x81a4
     add sp, byte 4                   ; 0x81a7
     mov ax, 1                        ; 0x81aa
     push ax                          ; 0x81ad
-    call ds_app_gfx_entry_51_VGJR    ; 0x81ae
+    call ds_app_gfx_free_score_VGJR  ; 0x81ae
     pop cx                           ; 0x81b1
 @..loc_UIQM.l3:
     call loc_VSIT                    ; 0x81b2

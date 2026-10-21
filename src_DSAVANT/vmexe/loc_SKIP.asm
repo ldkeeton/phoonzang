@@ -7,6 +7,6 @@ loc_SKIP:
     add ax, 0x9c                     ; 0x1605
     push ax                          ; 0x1608
     push word [bp + 0x4]             ; 0x1609
-    call gfx_entry_13                ; 0x160c
+    call gfx_set_text_pos            ; 0x160c
     add sp, byte 4                   ; 0x160f
     ret                              ; 0x1612

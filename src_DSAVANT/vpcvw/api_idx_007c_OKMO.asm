@@ -26,7 +26,7 @@ api_idx_007c_OKMO:
     mov ax, 0                        ; 0x1083
     push ax                          ; 0x1086
     push ax                          ; 0x1087
-    call gfx_entry_12                ; 0x1088
+    call gfx_set_text_color          ; 0x1088
     add sp, byte 4                   ; 0x108b
     mov ax, 0x4c                     ; 0x108e
     push ax                          ; 0x1091
@@ -45,7 +45,7 @@ api_idx_007c_OKMO:
     mov ax, 0x28                     ; 0x10ad
     sub ax, cx                       ; 0x10b0
     push ax                          ; 0x10b2
-    call gfx_entry_13                ; 0x10b3
+    call gfx_set_text_pos            ; 0x10b3
     add sp, byte 4                   ; 0x10b6
     mov ax, 0                        ; 0x10b9
     push ax                          ; 0x10bc
@@ -59,13 +59,13 @@ api_idx_007c_OKMO:
     push ax                          ; 0x10d0
     mov ax, 1                        ; 0x10d1
     push ax                          ; 0x10d4
-    call gfx_entry_12                ; 0x10d5
+    call gfx_set_text_color          ; 0x10d5
     add sp, byte 4                   ; 0x10d8
     mov ax, 6                        ; 0x10db
     push ax                          ; 0x10de
     mov ax, 0x5a                     ; 0x10df
     push ax                          ; 0x10e2
-    call gfx_entry_13                ; 0x10e3
+    call gfx_set_text_pos            ; 0x10e3
     add sp, byte 4                   ; 0x10e6
     lea ax, word [bp - 0x0058]       ; 0x10e9
     push ax                          ; 0x10ec
@@ -112,13 +112,13 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1150
     mov ax, 0x84                     ; 0x1151
     push ax                          ; 0x1154
-    call gfx_entry_12                ; 0x1155
+    call gfx_set_text_color          ; 0x1155
     add sp, byte 4                   ; 0x1158
     mov ax, 0xc                      ; 0x115b
     push ax                          ; 0x115e
     mov ax, 0x5a                     ; 0x115f
     push ax                          ; 0x1162
-    call gfx_entry_13                ; 0x1163
+    call gfx_set_text_pos            ; 0x1163
     add sp, byte 4                   ; 0x1166
     lea ax, word [bp - 0x0058]       ; 0x1169
     push ax                          ; 0x116c
@@ -141,7 +141,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1196
     mov ax, 0x5a                     ; 0x1197
     push ax                          ; 0x119a
-    call gfx_entry_13                ; 0x119b
+    call gfx_set_text_pos            ; 0x119b
     add sp, byte 4                   ; 0x119e
     lea ax, word [bp - 0x0058]       ; 0x11a1
     push ax                          ; 0x11a4
@@ -254,7 +254,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x12a3
     mov ax, 0x55                     ; 0x12a4
     push ax                          ; 0x12a7
-    call gfx_entry_12                ; 0x12a8
+    call gfx_set_text_color          ; 0x12a8
     add sp, byte 4                   ; 0x12ab
     mov word [bp - 0x0002], 0        ; 0x12ae
 @..api_idx_007c_OKMO.l3:
@@ -264,7 +264,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x12bc
     mov ax, 0x73                     ; 0x12bd
     push ax                          ; 0x12c0
-    call gfx_entry_13                ; 0x12c1
+    call gfx_set_text_pos            ; 0x12c1
     add sp, byte 4                   ; 0x12c4
     lea ax, word [bp - 0x0058]       ; 0x12c7
     push ax                          ; 0x12ca
@@ -300,7 +300,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1314
     mov ax, 0xfd                     ; 0x1315
     push ax                          ; 0x1318
-    call gfx_entry_12                ; 0x1319
+    call gfx_set_text_color          ; 0x1319
     add sp, byte 4                   ; 0x131c
     lea ax, word [bp - 0x0058]       ; 0x131f
     push ax                          ; 0x1322
@@ -312,7 +312,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1330
     mov ax, 0xe4                     ; 0x1331
     push ax                          ; 0x1334
-    call gfx_entry_13                ; 0x1335
+    call gfx_set_text_pos            ; 0x1335
     add sp, byte 4                   ; 0x1338
     mov ax, 0                        ; 0x133b
     push ax                          ; 0x133e
@@ -350,7 +350,7 @@ api_idx_007c_OKMO:
     mov ax, 6                        ; 0x1387
     imul cx                          ; 0x138a
     push ax                          ; 0x138c
-    call gfx_entry_13                ; 0x138d
+    call gfx_set_text_pos            ; 0x138d
     add sp, byte 4                   ; 0x1390
     mov ax, 0                        ; 0x1393
     push ax                          ; 0x1396
@@ -362,7 +362,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x13a4
     mov ax, 0x47                     ; 0x13a5
     push ax                          ; 0x13a8
-    call gfx_entry_12                ; 0x13a9
+    call gfx_set_text_color          ; 0x13a9
     add sp, byte 4                   ; 0x13ac
     lea ax, word [bp - 0x0058]       ; 0x13af
     push ax                          ; 0x13b2
@@ -374,7 +374,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x13c0
     mov ax, 0xe4                     ; 0x13c1
     push ax                          ; 0x13c4
-    call gfx_entry_13                ; 0x13c5
+    call gfx_set_text_pos            ; 0x13c5
     add sp, byte 4                   ; 0x13c8
     mov ax, 0                        ; 0x13cb
     push ax                          ; 0x13ce
@@ -409,7 +409,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1416
     mov ax, 0xe4                     ; 0x1417
     push ax                          ; 0x141a
-    call gfx_entry_13                ; 0x141b
+    call gfx_set_text_pos            ; 0x141b
     add sp, byte 4                   ; 0x141e
     mov ax, 0                        ; 0x1421
     push ax                          ; 0x1424
@@ -438,7 +438,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x145e
     mov ax, 0x1d                     ; 0x145f
     push ax                          ; 0x1462
-    call gfx_entry_12                ; 0x1463
+    call gfx_set_text_color          ; 0x1463
     add sp, byte 4                   ; 0x1466
     lea ax, word [bp - 0x0058]       ; 0x1469
     push ax                          ; 0x146c
@@ -450,7 +450,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x147a
     mov ax, 6                        ; 0x147b
     push ax                          ; 0x147e
-    call gfx_entry_13                ; 0x147f
+    call gfx_set_text_pos            ; 0x147f
     add sp, byte 4                   ; 0x1482
     mov ax, 0                        ; 0x1485
     push ax                          ; 0x1488
@@ -468,7 +468,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x14a4
     mov ax, 0x1b                     ; 0x14a5
     push ax                          ; 0x14a8
-    call gfx_entry_12                ; 0x14a9
+    call gfx_set_text_color          ; 0x14a9
     add sp, byte 4                   ; 0x14ac
     lea ax, word [bp - 0x0058]       ; 0x14af
     push ax                          ; 0x14b2
@@ -508,7 +508,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1508
     mov ax, 0x1d                     ; 0x1509
     push ax                          ; 0x150c
-    call gfx_entry_12                ; 0x150d
+    call gfx_set_text_color          ; 0x150d
     add sp, byte 4                   ; 0x1510
     lea ax, word [bp - 0x0058]       ; 0x1513
     push ax                          ; 0x1516
@@ -520,7 +520,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1524
     mov ax, 6                        ; 0x1525
     push ax                          ; 0x1528
-    call gfx_entry_13                ; 0x1529
+    call gfx_set_text_pos            ; 0x1529
     add sp, byte 4                   ; 0x152c
     mov ax, 0                        ; 0x152f
     push ax                          ; 0x1532
@@ -538,7 +538,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x154e
     mov ax, 0x1b                     ; 0x154f
     push ax                          ; 0x1552
-    call gfx_entry_12                ; 0x1553
+    call gfx_set_text_color          ; 0x1553
     add sp, byte 4                   ; 0x1556
     mov ax, 0x248                    ; 0x1559
     imul word [bp + 0x4]             ; 0x155c
@@ -581,7 +581,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x15b7
     mov ax, 0x1d                     ; 0x15b8
     push ax                          ; 0x15bb
-    call gfx_entry_12                ; 0x15bc
+    call gfx_set_text_color          ; 0x15bc
     add sp, byte 4                   ; 0x15bf
     mov ax, 0                        ; 0x15c2
     push ax                          ; 0x15c5
@@ -613,7 +613,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1605
     mov ax, 0xc4                     ; 0x1606
     push ax                          ; 0x1609
-    call gfx_entry_12                ; 0x160a
+    call gfx_set_text_color          ; 0x160a
     add sp, byte 4                   ; 0x160d
     lea ax, word [bp - 0x0058]       ; 0x1610
     push ax                          ; 0x1613
@@ -625,7 +625,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1621
     mov ax, 0x5b                     ; 0x1622
     push ax                          ; 0x1625
-    call gfx_entry_13                ; 0x1626
+    call gfx_set_text_pos            ; 0x1626
     add sp, byte 4                   ; 0x1629
     mov ax, 0                        ; 0x162c
     push ax                          ; 0x162f
@@ -676,7 +676,7 @@ api_idx_007c_OKMO:
     mov ax, 0                        ; 0x169d
     push ax                          ; 0x16a0
     push word [bp - 0x0070]          ; 0x16a1
-    call gfx_entry_12                ; 0x16a4
+    call gfx_set_text_color          ; 0x16a4
     add sp, byte 4                   ; 0x16a7
     lea ax, word [bp - 0x0058]       ; 0x16aa
     push ax                          ; 0x16ad
@@ -688,7 +688,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x16bb
     mov ax, 0x5b                     ; 0x16bc
     push ax                          ; 0x16bf
-    call gfx_entry_13                ; 0x16c0
+    call gfx_set_text_pos            ; 0x16c0
     add sp, byte 4                   ; 0x16c3
     mov ax, 0                        ; 0x16c6
     push ax                          ; 0x16c9
@@ -789,7 +789,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x17b1
     mov ax, 0x51                     ; 0x17b2
     push ax                          ; 0x17b5
-    call gfx_entry_13                ; 0x17b6
+    call gfx_set_text_pos            ; 0x17b6
     add sp, byte 4                   ; 0x17b9
     mov ax, 6                        ; 0x17bc
     push ax                          ; 0x17bf
@@ -846,7 +846,7 @@ api_idx_007c_OKMO:
     imul cx                          ; 0x1850
     add ax, strict word 0x51         ; 0x1852
     push ax                          ; 0x1855
-    call gfx_entry_13                ; 0x1856
+    call gfx_set_text_pos            ; 0x1856
     add sp, byte 4                   ; 0x1859
     mov ax, 6                        ; 0x185c
     push ax                          ; 0x185f

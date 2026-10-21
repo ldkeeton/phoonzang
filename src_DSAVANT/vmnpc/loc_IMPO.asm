@@ -25,7 +25,7 @@ loc_IMPO:
     push ax                          ; 0x76a1
     push word [bp + 0x6]             ; 0x76a2
     push word [bp + 0x4]             ; 0x76a5
-    call gfx_entry_18                ; 0x76a8
+    call gfx_fill_area               ; 0x76a8
     add sp, byte 0x0a                ; 0x76ab
     mov ax, word [bp + 0x6]          ; 0x76ae
     inc ax                           ; 0x76b1
@@ -34,7 +34,7 @@ loc_IMPO:
     inc ax                           ; 0x76b6
     inc ax                           ; 0x76b7
     push ax                          ; 0x76b8
-    call gfx_entry_13                ; 0x76b9
+    call gfx_set_text_pos            ; 0x76b9
     add sp, byte 4                   ; 0x76bc
     cmp word [bp + 0xa], byte 0      ; 0x76bf
     jle short @..loc_IMPO.l1         ; 0x76c3
@@ -45,7 +45,7 @@ loc_IMPO:
     push ax                          ; 0x76d0
     mov ax, 1                        ; 0x76d1
     push ax                          ; 0x76d4
-    call gfx_entry_12                ; 0x76d5
+    call gfx_set_text_color          ; 0x76d5
     add sp, byte 4                   ; 0x76d8
     mov ax, 0                        ; 0x76db
     push ax                          ; 0x76de
@@ -59,7 +59,7 @@ loc_IMPO:
     mov ax, 0                        ; 0x76ee
     push ax                          ; 0x76f1
     push ax                          ; 0x76f2
-    call gfx_entry_12                ; 0x76f3
+    call gfx_set_text_color          ; 0x76f3
     add sp, byte 4                   ; 0x76f6
     mov ax, 0                        ; 0x76f9
     push ax                          ; 0x76fc

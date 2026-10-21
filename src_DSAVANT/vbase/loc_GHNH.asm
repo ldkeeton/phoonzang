@@ -12,7 +12,7 @@ loc_GHNH:
     push ax                          ; 0x46cf
     push word [bp + 0x8]             ; 0x46d0
     push word [bp + 0x6]             ; 0x46d3
-    call gfx_entry_18                ; 0x46d6
+    call gfx_fill_area               ; 0x46d6
     add sp, byte 0x0a                ; 0x46d9
     mov ax, word [bp + 0x8]          ; 0x46dc
     inc ax                           ; 0x46df
@@ -21,13 +21,13 @@ loc_GHNH:
     inc ax                           ; 0x46e4
     inc ax                           ; 0x46e5
     push ax                          ; 0x46e6
-    call gfx_entry_13                ; 0x46e7
+    call gfx_set_text_pos            ; 0x46e7
     add sp, byte 4                   ; 0x46ea
     mov ax, 1                        ; 0x46ed
     push ax                          ; 0x46f0
     mov ax, 0                        ; 0x46f1
     push ax                          ; 0x46f4
-    call gfx_entry_12                ; 0x46f5
+    call gfx_set_text_color          ; 0x46f5
     add sp, byte 4                   ; 0x46f8
     mov ax, 0                        ; 0x46fb
     push ax                          ; 0x46fe
@@ -44,6 +44,6 @@ loc_GHNH:
     push ax                          ; 0x4719
     push word [bp + 0x8]             ; 0x471a
     push word [bp + 0x6]             ; 0x471d
-    call gfx_entry_16                ; 0x4720
+    call gfx_show_area               ; 0x4720
     add sp, byte 8                   ; 0x4723
     ret                              ; 0x4726

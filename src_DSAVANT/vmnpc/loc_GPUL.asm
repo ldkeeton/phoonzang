@@ -4,7 +4,7 @@ loc_GPUL:
     call aztec_csav                  ; 0x2966
     mov ax, 1                        ; 0x2969
     push ax                          ; 0x296c
-    call gfx_entry_47                ; 0x296d
+    call gfx_wait_sound              ; 0x296d
     pop cx                           ; 0x2970
     cmp word [bp + 0x4], byte 0      ; 0x2971
     je short @..loc_GPUL.l1          ; 0x2975

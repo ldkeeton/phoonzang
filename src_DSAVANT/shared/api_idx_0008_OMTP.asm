@@ -10,7 +10,7 @@ api_idx_0008_OMTP:
     push ax
     mov ax, 0
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     push word [bp + 0x4]
     call aztec_strlen
@@ -47,12 +47,12 @@ api_idx_0008_OMTP:
     push ax
     mov ax, 0x16
     push ax
-    call gfx_entry_12
+    call gfx_set_text_color
     add sp, byte 4
     mov ax, 0x92
     push ax
     push word [bp - 0x0002]
-    call gfx_entry_13
+    call gfx_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -65,7 +65,7 @@ api_idx_0008_OMTP:
     mov ax, 0x92
     push ax
     push word [bp - 0x0002]
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     mov ax, 1
     push ax

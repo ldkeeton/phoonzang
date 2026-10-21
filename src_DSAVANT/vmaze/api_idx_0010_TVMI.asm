@@ -153,7 +153,7 @@ api_idx_0010_TVMI:
     push ax                          ; 0x8375
     mov ax, 0                        ; 0x8376
     push ax                          ; 0x8379
-    call gfx_entry_16                ; 0x837a
+    call gfx_show_area               ; 0x837a
     add sp, byte 8                   ; 0x837d
 @..api_idx_0010_TVMI.l10:
     cmp word [bp - 0x0010], byte 0   ; 0x8380
@@ -164,7 +164,7 @@ api_idx_0010_TVMI:
     pop cx                           ; 0x838d
     mov ax, 0x10                     ; 0x838e
     push ax                          ; 0x8391
-    call ds_app_SOQK                 ; 0x8392
+    call ds_app_alloc_SOQK           ; 0x8392
     pop cx                           ; 0x8395
     mov word [bss_598e], 0xffff      ; 0x8396
 @..api_idx_0010_TVMI.l11:

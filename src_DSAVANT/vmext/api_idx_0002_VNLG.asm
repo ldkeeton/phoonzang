@@ -72,7 +72,7 @@ jumptable_02a3:
     jne short @..api_idx_0002_VNLG.l3 ; 0x02fe
     jmp near @..api_idx_0002_VNLG.l5 ; 0x0300
 @..api_idx_0002_VNLG.l3:
-    call ds_app_VKRR                 ; 0x0303
+    call ds_app_alloc_VKRR           ; 0x0303
     mov ax, word [bp - 0x0002]       ; 0x0306
     mov word [bss_5b6e], ax          ; 0x0309
     jmp near @..api_idx_0002_VNLG.l4 ; 0x030c

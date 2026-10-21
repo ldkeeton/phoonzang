@@ -29,13 +29,13 @@ api_idx_00b0_KPHQ:
     push ax                          ; 0xa87f
     mov ax, 0x44                     ; 0xa880
     push ax                          ; 0xa883
-    call gfx_entry_13                ; 0xa884
+    call gfx_set_text_pos            ; 0xa884
     add sp, byte 4                   ; 0xa887
     mov ax, 0                        ; 0xa88a
     push ax                          ; 0xa88d
     mov ax, 1                        ; 0xa88e
     push ax                          ; 0xa891
-    call gfx_entry_12                ; 0xa892
+    call gfx_set_text_color          ; 0xa892
     add sp, byte 4                   ; 0xa895
     mov ax, 0                        ; 0xa898
     push ax                          ; 0xa89b

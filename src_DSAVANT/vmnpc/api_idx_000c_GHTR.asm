@@ -23,7 +23,7 @@ api_idx_000c_GHTR:
     shl ax, 1                        ; 0x773b
     mov bx, ax                       ; 0x773d
     push word [word bx + 0x6]        ; 0x773f
-    call gfx_entry_12                ; 0x7743
+    call gfx_set_text_color          ; 0x7743
     add sp, byte 4                   ; 0x7746
     mov ax, word [bp - 0x0002]       ; 0x7749
     shl ax, 1                        ; 0x774c
@@ -48,7 +48,7 @@ api_idx_000c_GHTR:
     add ax, strict word 9            ; 0x7778
     sub ax, cx                       ; 0x777b
     push ax                          ; 0x777d
-    call gfx_entry_13                ; 0x777e
+    call gfx_set_text_pos            ; 0x777e
     add sp, byte 4                   ; 0x7781
     mov ax, 0                        ; 0x7784
     push ax                          ; 0x7787

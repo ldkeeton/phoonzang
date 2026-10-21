@@ -5,7 +5,7 @@ string_loc_RQON:
 @..string_loc_RQON.l1:
     cmp word [bp - 0x0004], byte 0
     je short @..string_loc_RQON.l2
-    call string_loc_RQON.dos_file_loc1
+    call dos_file_loc_VPIN
     mov byte [es:di], bl
     inc di
     dec word [bp - 0x0004]

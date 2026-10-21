@@ -41,11 +41,11 @@ api_idx_002a_NJKV:
     mov ax, 0                        ; 0x85ae
     push ax                          ; 0x85b1
     push word [bp + 0xa]             ; 0x85b2
-    call gfx_entry_12                ; 0x85b5
+    call gfx_set_text_color          ; 0x85b5
     add sp, byte 4                   ; 0x85b8
     push word [bp + 0x8]             ; 0x85bb
     push word [bp + 0x6]             ; 0x85be
-    call gfx_entry_13                ; 0x85c1
+    call gfx_set_text_pos            ; 0x85c1
     add sp, byte 4                   ; 0x85c4
     mov ax, 0                        ; 0x85c7
     push ax                          ; 0x85ca
@@ -57,7 +57,7 @@ api_idx_002a_NJKV:
     add ax, strict word 6            ; 0x85d8
     push ax                          ; 0x85db
     push word [bp + 0x6]             ; 0x85dc
-    call gfx_entry_13                ; 0x85df
+    call gfx_set_text_pos            ; 0x85df
     add sp, byte 4                   ; 0x85e2
     mov ax, 0                        ; 0x85e5
     push ax                          ; 0x85e8

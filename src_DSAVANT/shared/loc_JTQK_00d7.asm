@@ -1,4 +1,4 @@
 ; auto-generated
 loc_JTQK_00d7:
-    call loc_JTQK_00d7.loc1
-    retf
+    call stop_music                  ; 0x00d7
+    retf                             ; 0x00da

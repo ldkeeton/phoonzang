@@ -63,7 +63,7 @@ loc_JTTS:
     mov ax, 0                        ; 0x8b1f
     push ax                          ; 0x8b22
     push ax                          ; 0x8b23
-    call gfx_entry_16                ; 0x8b24
+    call gfx_show_area               ; 0x8b24
     add sp, byte 8                   ; 0x8b27
     mov ax, 0                        ; 0x8b2a
     push ax                          ; 0x8b2d

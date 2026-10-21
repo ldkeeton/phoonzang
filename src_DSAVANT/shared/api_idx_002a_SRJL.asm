@@ -41,11 +41,11 @@ api_idx_002a_SRJL:
     mov ax, 0
     push ax
     push word [bp + 0xa]
-    call gfx_entry_12
+    call gfx_set_text_color
     add sp, byte 4
     push word [bp + 0x8]
     push word [bp + 0x6]
-    call gfx_entry_13
+    call gfx_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -57,7 +57,7 @@ api_idx_002a_SRJL:
     add ax, strict word 6
     push ax
     push word [bp + 0x6]
-    call gfx_entry_13
+    call gfx_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax

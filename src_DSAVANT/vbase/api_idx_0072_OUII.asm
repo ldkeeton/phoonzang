@@ -18,7 +18,7 @@ api_idx_0072_OUII:
     mov word [bp - 0x0010], ax       ; 0x1fd3
     mov ax, 0                        ; 0x1fd6
     push ax                          ; 0x1fd9
-    call gfx_entry_47                ; 0x1fda
+    call gfx_wait_sound              ; 0x1fda
     pop cx                           ; 0x1fdd
     lea ax, word [bp - 0x005e]       ; 0x1fde
     push ax                          ; 0x1fe1
@@ -183,7 +183,7 @@ api_idx_0072_OUII:
     mov ax, 0                        ; 0x2150
     push ax                          ; 0x2153
     push ax                          ; 0x2154
-    call gfx_entry_16                ; 0x2155
+    call gfx_show_area               ; 0x2155
     add sp, byte 8                   ; 0x2158
     mov ax, 1                        ; 0x215b
     push ax                          ; 0x215e

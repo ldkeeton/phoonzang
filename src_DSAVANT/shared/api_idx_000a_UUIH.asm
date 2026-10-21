@@ -49,7 +49,7 @@ api_idx_000a_UUIH:
     push ax
     mov ax, 8
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
 @..api_idx_000a_UUIH.l1:
     ret

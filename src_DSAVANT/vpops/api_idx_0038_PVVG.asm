@@ -322,7 +322,7 @@ api_idx_0038_PVVG:
     push ax                          ; 0x2f89
     mov ax, 9                        ; 0x2f8a
     push ax                          ; 0x2f8d
-    call gfx_entry_16                ; 0x2f8e
+    call gfx_show_area               ; 0x2f8e
     add sp, byte 8                   ; 0x2f91
     mov word [bp - 0x001a], 1        ; 0x2f94
 @..api_idx_0038_PVVG.l7:
@@ -373,7 +373,7 @@ jumptable_33a0_case_0:
     push ax                          ; 0x3001
     lea ax, word [bp - 0x000c]       ; 0x3002
     push ax                          ; 0x3005
-    call gfx_entry_23                ; 0x3006
+    call gfx_get_mouse               ; 0x3006
     add sp, byte 4                   ; 0x3009
     mov ax, 4                        ; 0x300c
     push ax                          ; 0x300f
@@ -393,7 +393,7 @@ jumptable_33a0_case_0:
     push ax                          ; 0x302f
     lea ax, word [bp - 0x000c]       ; 0x3030
     push ax                          ; 0x3033
-    call gfx_entry_23                ; 0x3034
+    call gfx_get_mouse               ; 0x3034
     add sp, byte 4                   ; 0x3037
     mov word [bp - 0x001c], ax       ; 0x303a
     push word [bp - 0x0012]          ; 0x303d
@@ -488,7 +488,7 @@ jumptable_33a0_case_0:
     mov ax, word [bp - 0x0004]       ; 0x310b
     add ax, strict word 0x5d         ; 0x310e
     push ax                          ; 0x3111
-    call gfx_entry_16                ; 0x3112
+    call gfx_show_area               ; 0x3112
     add sp, byte 8                   ; 0x3115
     cmp word [bp - 0x001c], byte 0   ; 0x3118
     je short @..api_idx_0038_PVVG.l15 ; 0x311c
@@ -628,7 +628,7 @@ jumptable_33a0_case_1:
     mov ax, word [bp - 0x0004]       ; 0x324b
     add ax, strict word 0x5d         ; 0x324e
     push ax                          ; 0x3251
-    call gfx_entry_16                ; 0x3252
+    call gfx_show_area               ; 0x3252
     add sp, byte 8                   ; 0x3255
     jmp near @..api_idx_0038_PVVG.l26 ; 0x3258
 jumptable_33a0_case_3:
@@ -765,7 +765,7 @@ jumptable_33a0_case_5:
     mov ax, word [bp - 0x0004]       ; 0x3391
     add ax, strict word 0x5d         ; 0x3394
     push ax                          ; 0x3397
-    call gfx_entry_16                ; 0x3398
+    call gfx_show_area               ; 0x3398
     add sp, byte 8                   ; 0x339b
     jmp short @..api_idx_0038_PVVG.l26 ; 0x339e
 jumptable_33a0:

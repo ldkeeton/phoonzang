@@ -115,7 +115,7 @@ jumptable_0c85_case_5:
     add sp, byte 0x16                ; 0x0c1f
     mov ax, 0x10                     ; 0x0c22
     push ax                          ; 0x0c25
-    call ds_app_gfx_entry_22_VNHP    ; 0x0c26
+    call ds_app_gfx_free_picture_VNHP ; 0x0c26
     pop cx                           ; 0x0c29
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0c2a
 jumptable_0c85_case_6:
@@ -152,7 +152,7 @@ jumptable_0c85_case_6:
     pop cx                           ; 0x0c71
     mov ax, 0x10                     ; 0x0c72
     push ax                          ; 0x0c75
-    call ds_app_SOQK                 ; 0x0c76
+    call ds_app_alloc_SOQK           ; 0x0c76
     pop cx                           ; 0x0c79
     mov word [bss_598e], 0xffff      ; 0x0c7a
 @..api_idx_0090_NPLS.l6:

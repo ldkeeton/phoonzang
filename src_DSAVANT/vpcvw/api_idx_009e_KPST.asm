@@ -9,7 +9,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x18a9
     lea ax, word [bp - 0x0006]       ; 0x18aa
     push ax                          ; 0x18ad
-    call gfx_entry_23                ; 0x18ae
+    call gfx_get_mouse               ; 0x18ae
     add sp, byte 4                   ; 0x18b1
     mov word [bp - 0x0004], ax       ; 0x18b4
 @..api_idx_009e_KPST.l1:
@@ -44,13 +44,13 @@ api_idx_009e_KPST:
     push ax                          ; 0x18fd
     mov ax, 6                        ; 0x18fe
     push ax                          ; 0x1901
-    call gfx_entry_13                ; 0x1902
+    call gfx_set_text_pos            ; 0x1902
     add sp, byte 4                   ; 0x1905
     mov ax, 0                        ; 0x1908
     push ax                          ; 0x190b
     mov ax, 0x36                     ; 0x190c
     push ax                          ; 0x190f
-    call gfx_entry_12                ; 0x1910
+    call gfx_set_text_color          ; 0x1910
     add sp, byte 4                   ; 0x1913
     mov ax, 0                        ; 0x1916
     push ax                          ; 0x1919
@@ -62,7 +62,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x1928
     mov ax, 0x34                     ; 0x1929
     push ax                          ; 0x192c
-    call gfx_entry_12                ; 0x192d
+    call gfx_set_text_color          ; 0x192d
     add sp, byte 4                   ; 0x1930
     lea ax, word [bp - 0x009e]       ; 0x1933
     push ax                          ; 0x1937
@@ -93,13 +93,13 @@ api_idx_009e_KPST:
     push ax                          ; 0x1979
     mov ax, 6                        ; 0x197a
     push ax                          ; 0x197d
-    call gfx_entry_13                ; 0x197e
+    call gfx_set_text_pos            ; 0x197e
     add sp, byte 4                   ; 0x1981
     mov ax, 0                        ; 0x1984
     push ax                          ; 0x1987
     mov ax, 0x58                     ; 0x1988
     push ax                          ; 0x198b
-    call gfx_entry_12                ; 0x198c
+    call gfx_set_text_color          ; 0x198c
     add sp, byte 4                   ; 0x198f
     mov ax, 0                        ; 0x1992
     push ax                          ; 0x1995
@@ -111,7 +111,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x19a4
     mov ax, 0x55                     ; 0x19a5
     push ax                          ; 0x19a8
-    call gfx_entry_12                ; 0x19a9
+    call gfx_set_text_color          ; 0x19a9
     add sp, byte 4                   ; 0x19ac
     lea ax, word [bp - 0x009e]       ; 0x19af
     push ax                          ; 0x19b3
@@ -186,13 +186,13 @@ api_idx_009e_KPST:
     push ax                          ; 0x1a56
     mov ax, 0x5b                     ; 0x1a57
     push ax                          ; 0x1a5a
-    call gfx_entry_13                ; 0x1a5b
+    call gfx_set_text_pos            ; 0x1a5b
     add sp, byte 4                   ; 0x1a5e
     mov ax, 0                        ; 0x1a61
     push ax                          ; 0x1a64
     mov ax, 0x87                     ; 0x1a65
     push ax                          ; 0x1a68
-    call gfx_entry_12                ; 0x1a69
+    call gfx_set_text_color          ; 0x1a69
     add sp, byte 4                   ; 0x1a6c
     mov ax, 0                        ; 0x1a6f
     push ax                          ; 0x1a72
@@ -204,13 +204,13 @@ api_idx_009e_KPST:
     push ax                          ; 0x1a81
     mov ax, 0x5b                     ; 0x1a82
     push ax                          ; 0x1a85
-    call gfx_entry_13                ; 0x1a86
+    call gfx_set_text_pos            ; 0x1a86
     add sp, byte 4                   ; 0x1a89
     mov ax, 0                        ; 0x1a8c
     push ax                          ; 0x1a8f
     mov ax, 0x85                     ; 0x1a90
     push ax                          ; 0x1a93
-    call gfx_entry_12                ; 0x1a94
+    call gfx_set_text_color          ; 0x1a94
     add sp, byte 4                   ; 0x1a97
     mov ax, 0                        ; 0x1a9a
     push ax                          ; 0x1a9d
@@ -237,7 +237,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x1acf
     mov ax, 6                        ; 0x1ad0
     push ax                          ; 0x1ad3
-    call gfx_entry_16                ; 0x1ad4
+    call gfx_show_area               ; 0x1ad4
     add sp, byte 8                   ; 0x1ad7
     cmp word [bss_0e32], byte 0      ; 0x1ada
     je short @..api_idx_009e_KPST.l6 ; 0x1adf
@@ -248,7 +248,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x1aea
     lea ax, word [bp - 0x0006]       ; 0x1aeb
     push ax                          ; 0x1aee
-    call gfx_entry_23                ; 0x1aef
+    call gfx_get_mouse               ; 0x1aef
     add sp, byte 4                   ; 0x1af2
     test ax, ax                      ; 0x1af5
     je short @..api_idx_009e_KPST.l5 ; 0x1af7

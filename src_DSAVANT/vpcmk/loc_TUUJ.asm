@@ -44,6 +44,6 @@ loc_TUUJ:
     mov ax, 0                        ; 0x672c
     push ax                          ; 0x672f
     push ax                          ; 0x6730
-    call gfx_entry_16                ; 0x6731
+    call gfx_show_area               ; 0x6731
     add sp, byte 8                   ; 0x6734
     ret                              ; 0x6737

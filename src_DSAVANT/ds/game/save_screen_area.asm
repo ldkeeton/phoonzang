@@ -50,7 +50,7 @@ save_screen_area: ; Aztec csav frame=0x000c
     push ax                          ; 0x1549
     mov ax, 1                        ; 0x154a
     push ax                          ; 0x154d
-    call gfx_entry_40                ; 0x154e
+    call gfx_get_free_space          ; 0x154e
     add sp, byte 4                   ; 0x1551
     mov cx, ax                       ; 0x1554
     mov bx, dx                       ; 0x1556
@@ -74,7 +74,7 @@ save_screen_area: ; Aztec csav frame=0x000c
     push ax                          ; 0x157d
     mov ax, 2                        ; 0x157e
     push ax                          ; 0x1581
-    call gfx_entry_40                ; 0x1582
+    call gfx_get_free_space          ; 0x1582
     add sp, byte 4                   ; 0x1585
     cmp dx, word [bp - 0x0008]       ; 0x1588
     jl short @..save_screen_area.l7  ; 0x158b
@@ -103,7 +103,7 @@ save_screen_area: ; Aztec csav frame=0x000c
     push ax                          ; 0x15c1
     mov ax, 3                        ; 0x15c2
     push ax                          ; 0x15c5
-    call gfx_entry_40                ; 0x15c6
+    call gfx_get_free_space          ; 0x15c6
     add sp, byte 4                   ; 0x15c9
     cmp dx, word [bp - 0x0008]       ; 0x15cc
     jl short @..save_screen_area.l10 ; 0x15cf

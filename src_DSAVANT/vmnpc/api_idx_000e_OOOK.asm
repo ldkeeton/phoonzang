@@ -64,7 +64,7 @@ api_idx_000e_OOOK:
     add ax, cx                       ; 0x9318
     push ax                          ; 0x931a
     push word [bp - 0x0002]          ; 0x931b
-    call gfx_entry_13                ; 0x931e
+    call gfx_set_text_pos            ; 0x931e
     add sp, byte 4                   ; 0x9321
     mov ax, 0                        ; 0x9324
     push ax                          ; 0x9327
@@ -79,7 +79,7 @@ api_idx_000e_OOOK:
     mov ax, 1                        ; 0x933b
 @..api_idx_000e_OOOK.l7:
     push ax                          ; 0x933e
-    call gfx_entry_12                ; 0x933f
+    call gfx_set_text_color          ; 0x933f
     add sp, byte 4                   ; 0x9342
     mov ax, word [bss_93d4]          ; 0x9345
     shl ax, 1                        ; 0x9348
@@ -114,7 +114,7 @@ api_idx_000e_OOOK:
     add ax, 0x92                     ; 0x9393
     push ax                          ; 0x9396
     push word [bp - 0x0006]          ; 0x9397
-    call gfx_entry_16                ; 0x939a
+    call gfx_show_area               ; 0x939a
     add sp, byte 8                   ; 0x939d
     call api_idx_0006_SQTK           ; 0x93a0
     mov ax, 1                        ; 0x93a3

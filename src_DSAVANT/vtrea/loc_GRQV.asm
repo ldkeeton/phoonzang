@@ -241,7 +241,7 @@ loc_GRQV:
     push ax                          ; 0x04be
     mov ax, 0x48                     ; 0x04bf
     push ax                          ; 0x04c2
-    call gfx_entry_16                ; 0x04c3
+    call gfx_show_area               ; 0x04c3
     add sp, byte 8                   ; 0x04c6
     mov ax, 5                        ; 0x04c9
     push ax                          ; 0x04cc
@@ -365,7 +365,7 @@ loc_GRQV:
     push ax                          ; 0x0606
     mov ax, 0x48                     ; 0x0607
     push ax                          ; 0x060a
-    call gfx_entry_16                ; 0x060b
+    call gfx_show_area               ; 0x060b
     add sp, byte 8                   ; 0x060e
     mov ax, word [bp - 0x000a]       ; 0x0611
     add word [bp - 0x0100], ax       ; 0x0614

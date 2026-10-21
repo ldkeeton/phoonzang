@@ -42,7 +42,7 @@ api_idx_0004_TTLU:
     cmp byte [bx + 0x5b5a], 0        ; 0x1816
     jne short @..api_idx_0004_TTLU.l5 ; 0x181b
     push bx                          ; 0x181d
-    call ds_app_gfx_entry_22_VNHP    ; 0x181e
+    call ds_app_gfx_free_picture_VNHP ; 0x181e
     pop cx                           ; 0x1821
 @..api_idx_0004_TTLU.l5:
     inc word [bp - 0x0004]           ; 0x1822

@@ -156,7 +156,7 @@ api_idx_0002_UUUJ:
     mov ax, 0                        ; 0x8a22
     push ax                          ; 0x8a25
     push ax                          ; 0x8a26
-    call gfx_entry_16                ; 0x8a27
+    call gfx_show_area               ; 0x8a27
     add sp, byte 8                   ; 0x8a2a
     mov ax, 0                        ; 0x8a2d
     push ax                          ; 0x8a30

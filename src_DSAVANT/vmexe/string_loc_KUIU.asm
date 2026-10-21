@@ -462,7 +462,7 @@ jumptable_372d:
 @..string_loc_KUIU.l24:
     mov ax, 0x10                     ; 0x3a94
     push ax                          ; 0x3a97
-    call ds_app_SOQK                 ; 0x3a98
+    call ds_app_alloc_SOQK           ; 0x3a98
     pop cx                           ; 0x3a9b
     mov word [bss_598e], 0xffff      ; 0x3a9c
 @..string_loc_KUIU.l25:

@@ -85,7 +85,7 @@ api_idx_0002_GORG:
     mov ax, 0                        ; 0x8c59
     push ax                          ; 0x8c5c
     push ax                          ; 0x8c5d
-    call gfx_entry_16                ; 0x8c5e
+    call gfx_show_area               ; 0x8c5e
     add sp, byte 8                   ; 0x8c61
     mov ax, 0                        ; 0x8c64
     push ax                          ; 0x8c67

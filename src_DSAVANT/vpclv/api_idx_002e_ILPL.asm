@@ -6,13 +6,13 @@ api_idx_002e_ILPL:
     push ax                          ; 0x3914
     mov ax, 0x16                     ; 0x3915
     push ax                          ; 0x3918
-    call gfx_entry_12                ; 0x3919
+    call gfx_set_text_color          ; 0x3919
     add sp, byte 4                   ; 0x391c
     mov ax, 0xae                     ; 0x391f
     push ax                          ; 0x3922
     mov ax, 6                        ; 0x3923
     push ax                          ; 0x3926
-    call gfx_entry_13                ; 0x3927
+    call gfx_set_text_pos            ; 0x3927
     add sp, byte 4                   ; 0x392a
     mov ax, 0                        ; 0x392d
     push ax                          ; 0x3930
@@ -94,7 +94,7 @@ api_idx_002e_ILPL:
     imul cx                          ; 0x39f1
     add ax, strict word 0xfffb       ; 0x39f3
     push ax                          ; 0x39f6
-    call gfx_entry_13                ; 0x39f7
+    call gfx_set_text_pos            ; 0x39f7
     add sp, byte 4                   ; 0x39fa
     mov word [bp - 0x0006], 0        ; 0x39fd
     mov word [bp - 0x0002], 0        ; 0x3a02
@@ -114,7 +114,7 @@ api_idx_002e_ILPL:
     push ax                          ; 0x3a25
     mov ax, 1                        ; 0x3a26
     push ax                          ; 0x3a29
-    call gfx_entry_12                ; 0x3a2a
+    call gfx_set_text_color          ; 0x3a2a
     add sp, byte 4                   ; 0x3a2d
     mov ax, 0                        ; 0x3a30
     push ax                          ; 0x3a33
@@ -129,7 +129,7 @@ api_idx_002e_ILPL:
     shl ax, 1                        ; 0x3a45
     mov bx, ax                       ; 0x3a47
     push word [word bx + 0x30]       ; 0x3a49
-    call gfx_entry_12                ; 0x3a4d
+    call gfx_set_text_color          ; 0x3a4d
     add sp, byte 4                   ; 0x3a50
     mov ax, 0                        ; 0x3a53
     push ax                          ; 0x3a56

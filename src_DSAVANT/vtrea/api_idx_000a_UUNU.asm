@@ -118,7 +118,7 @@ loc_SPML:
     push ax                          ; 0x084a
     mov ax, 0x48                     ; 0x084b
     push ax                          ; 0x084e
-    call gfx_entry_16                ; 0x084f
+    call gfx_show_area               ; 0x084f
     add sp, byte 8                   ; 0x0852
     cmp word [bss_9118], byte 0      ; 0x0855
     je short @..loc_SPML.l5          ; 0x085a

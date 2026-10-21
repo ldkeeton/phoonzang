@@ -390,12 +390,12 @@ bss_0e38 equ __zbss_0e38 - __zdseg_start
 
 %include "ds/game/ds_app_string_IIIR.asm"  ; 0x1308
 
-%include "ds/game/ds_app_gfx_entry_22_VNHP.asm" ; 0x1371
+%include "ds/game/ds_app_gfx_free_picture_VNHP.asm" ; 0x1371
 
 bss_5b6c equ __zbss_5b6c - __zdseg_start
 bss_5b6e equ __zbss_5b6e - __zdseg_start
 bss_5b70 equ __zbss_5b70 - __zdseg_start
-%include "ds/game/ds_app_VKRR.asm"         ; 0x138c
+%include "ds/game/ds_app_alloc_VKRR.asm"   ; 0x138c
 
 screen_store_1_enabled    equ __zbss_5962 - __zdseg_start
 screen_store_disk_enabled equ __zbss_5963 - __zdseg_start
@@ -480,7 +480,7 @@ dseg_0bcd      equ __zdseg_0bcd - __zdseg_start
 slot_rec_first equ __zbss_6a1a - __zdseg_start
 %include "ds/game/ds_app_file_TSNH.asm"    ; 0x2863
 
-%include "ds/game/ds_app_SOQK.asm"         ; 0x290d
+%include "ds/game/ds_app_alloc_SOQK.asm"   ; 0x290d
 
 dseg_0bd7       equ __zdseg_0bd7 - __zdseg_start
 ; sound_slot_info equ __zbss_5576 - __zdseg_start
@@ -498,9 +498,9 @@ loaded_score_num equ __zbss_82b6 - __zdseg_start
 %include "ds/game/load_score_files.asm"    ; 0x2a2e
 
 ; loaded_score_num equ __zbss_82b6 - __zdseg_start
-%include "ds/game/ds_app_gfx_entry_51_VGJR.asm" ; 0x2b4e
+%include "ds/game/ds_app_gfx_free_score_VGJR.asm" ; 0x2b4e
 
-%include "ds/game/animate_sprite_up.asm"   ; 0x2b62
+%include "ds/game/fade_out_music.asm"      ; 0x2b62
 
 bss_597f equ __zbss_597f - __zdseg_start
 %include "ds/game/ds_app_UKGP.asm"         ; 0x2bab
@@ -787,11 +787,11 @@ cseg_396b:
 ; file_param_word equ __zfile_param_word - __zdseg_start
 %include "ds/library/ds_loc_UQOV.asm"      ; 0x39f6
 
-%include "ds/library/gfx_entry_13.asm"     ; 0x3a50
+%include "ds/library/gfx_set_text_pos.asm" ; 0x3a50
 
-%include "ds/library/gfx_entry_14.asm"     ; 0x3a5d
+%include "ds/library/gfx_get_text_pos.asm" ; 0x3a5d
 
-%include "ds/library/gfx_entry_12.asm"     ; 0x3a6a
+%include "ds/library/gfx_set_text_color.asm" ; 0x3a6a
 
 %include "ds/library/ds_loc_TJTV.asm"      ; 0x3a77
 
@@ -799,17 +799,17 @@ cseg_396b:
 
 %include "ds/library/ds_loc_JJGM.asm"      ; 0x3aca
 
-%include "ds/library/gfx_entry_16.asm"     ; 0x3b21
+%include "ds/library/gfx_show_area.asm"    ; 0x3b21
 
-%include "ds/library/gfx_entry_15.asm"     ; 0x3b2e
+%include "ds/library/gfx_clear_buffer.asm" ; 0x3b2e
 
-%include "ds/library/gfx_entry_17.asm"     ; 0x3b3b
+%include "ds/library/gfx_put_pixel.asm"    ; 0x3b3b
 
-%include "ds/library/gfx_entry_18.asm"     ; 0x3b48
+%include "ds/library/gfx_fill_area.asm"    ; 0x3b48
 
-%include "ds/library/gfx_entry_19.asm"     ; 0x3b55
+%include "ds/library/gfx_invert_area.asm"  ; 0x3b55
 
-%include "ds/library/gfx_entry_40.asm"     ; 0x3b62
+%include "ds/library/gfx_get_free_space.asm" ; 0x3b62
 
 %include "ds/library/gfx_save_area.asm"    ; 0x3b6f
 
@@ -861,67 +861,67 @@ cseg_3fde:
 
 %include "ds/library/strstr.asm"           ; 0x40ca
 
-%include "ds/library/gfx_entry_45.asm"     ; 0x4134
+%include "ds/library/gfx_free_sound.asm"   ; 0x4134
 
 %include "ds/library/gfx_load_sound.asm"   ; 0x4141
 
-%include "ds/library/gfx_entry_46.asm"     ; 0x414e
+%include "ds/library/gfx_play_sound.asm"   ; 0x414e
 
-%include "ds/library/gfx_entry_47.asm"     ; 0x415b
+%include "ds/library/gfx_wait_sound.asm"   ; 0x415b
 
-%include "ds/library/gfx_entry_48.asm"     ; 0x4168
+%include "ds/library/gfx_stop_sound.asm"   ; 0x4168
 
 %include "ds/library/ds_loc_QURR.asm"      ; 0x4175
 
 %include "ds/library/gfx_load_score.asm"   ; 0x41a3
 
-%include "ds/library/gfx_entry_50.asm"     ; 0x41b0
+%include "ds/library/gfx_play_score.asm"   ; 0x41b0
 
-%include "ds/library/gfx_entry_51.asm"     ; 0x41bd
+%include "ds/library/gfx_free_score.asm"   ; 0x41bd
 
-%include "ds/library/gfx_entry_52.asm"     ; 0x41ca
+%include "ds/library/gfx_is_music_playing.asm" ; 0x41ca
 
-%include "ds/library/gfx_entry_53.asm"     ; 0x41d7
+%include "ds/library/gfx_stop_music.asm"   ; 0x41d7
 
-%include "ds/library/gfx_entry_54.asm"     ; 0x41e4
+%include "ds/library/gfx_set_music_tempo_volume.asm" ; 0x41e4
 
 %include "ds/library/gfx_load_picture.asm" ; 0x41f1
 
-%include "ds/library/gfx_entry_22.asm"     ; 0x41fe
+%include "ds/library/gfx_free_picture.asm" ; 0x41fe
 
-%include "ds/library/gfx_entry_35.asm"     ; 0x420b
+%include "ds/library/gfx_free_maze.asm"    ; 0x420b
 
 %include "ds/library/gfx_draw_text.asm"    ; 0x4218
 
 %include "ds/library/gfx_load_screen.asm"  ; 0x4225
 
-%include "ds/library/gfx_entry_36.asm"     ; 0x4232
+%include "ds/library/gfx_free_screen.asm"  ; 0x4232
 
 %include "ds/library/gfx_save_screen.asm"  ; 0x423f
 
-%include "ds/library/gfx_entry_27.asm"     ; 0x424c
+%include "ds/library/gfx_dissolve_area.asm" ; 0x424c
 
 %include "ds/library/gfx_load_maze.asm"    ; 0x4259
 
 %include "ds/library/gfx_draw_maze_piece.asm" ; 0x4266
 
-%include "ds/library/gfx_entry_00.asm"     ; 0x4273
+%include "ds/library/gfx_mouse_init.asm"   ; 0x4273
 
 %include "ds/library/gfx_mouse_off.asm"    ; 0x4280
 
-%include "ds/library/gfx_entry_02.asm"     ; 0x428d
+%include "ds/library/gfx_mouse_hit_test.asm" ; 0x428d
 
-%include "ds/library/gfx_entry_23.asm"     ; 0x429a
+%include "ds/library/gfx_get_mouse.asm"    ; 0x429a
 
 %include "ds/library/gfx_set_mouse_pointer.asm" ; 0x42a7
 
 %include "ds/library/mouse_set_pos.asm"    ; 0x42b4
 
-%include "ds/library/gfx_entry_25.asm"     ; 0x42dd
+%include "ds/library/gfx_set_text_opaque.asm" ; 0x42dd
 
-%include "ds/library/gfx_entry_28.asm"     ; 0x42ea
+%include "ds/library/gfx_set_rgb.asm"      ; 0x42ea
 
-%include "ds/library/gfx_entry_29.asm"     ; 0x42f7
+%include "ds/library/gfx_get_rgb.asm"      ; 0x42f7
 
 %include "ds/library/gfx_fade_in.asm"      ; 0x4304
 
@@ -929,17 +929,17 @@ cseg_3fde:
 
 %include "ds/library/gfx_reset_rgb.asm"    ; 0x431e
 
-%include "ds/library/gfx_entry_33.asm"     ; 0x432b
+%include "ds/library/gfx_mouse_glide_to.asm" ; 0x432b
 
-%include "ds/library/gfx_entry_34.asm"     ; 0x4338
+%include "ds/library/gfx_mouse_glide_back.asm" ; 0x4338
 
-%include "ds/library/gfx_entry_37.asm"     ; 0x4345
+%include "ds/library/gfx_get_palette.asm"  ; 0x4345
 
-%include "ds/library/gfx_entry_38.asm"     ; 0x4352
+%include "ds/library/gfx_set_palette.asm"  ; 0x4352
 
 %include "ds/library/gfx_cache_maze.asm"   ; 0x435f
 
-%include "ds/library/gfx_entry_43.asm"     ; 0x436c
+%include "ds/library/gfx_cache_screen.asm" ; 0x436c
 
 dseg_0c48   equ __zdseg_0c48 - __zdseg_start
 dseg_0c4d   equ __zdseg_0c4d - __zdseg_start

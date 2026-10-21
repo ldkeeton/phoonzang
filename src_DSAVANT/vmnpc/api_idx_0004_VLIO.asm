@@ -69,7 +69,7 @@ loc_USTG:
     push ax                          ; 0x241f
     mov ax, 0x12e                    ; 0x2420
     push ax                          ; 0x2423
-    call gfx_entry_33                ; 0x2424
+    call gfx_mouse_glide_to          ; 0x2424
     add sp, byte 6                   ; 0x2427
     mov ax, 3                        ; 0x242a
     push ax                          ; 0x242d
@@ -97,7 +97,7 @@ loc_SOOS:
     push ax                          ; 0x2458
     mov ax, 0x12e                    ; 0x2459
     push ax                          ; 0x245c
-    call gfx_entry_34                ; 0x245d
+    call gfx_mouse_glide_back        ; 0x245d
     add sp, byte 6                   ; 0x2460
     mov ax, 0                        ; 0x2463
     mov dx, 0                        ; 0x2466

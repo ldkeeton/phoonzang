@@ -1,4 +1,4 @@
 ; auto-generated
 loc_JTQK_0043:
-    call loc_JTQK_0043.loc1
-    retf
+    call show_area                   ; 0x0043
+    retf                             ; 0x0046

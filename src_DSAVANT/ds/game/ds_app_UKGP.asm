@@ -24,7 +24,7 @@ ds_app_UKGP: ; Aztec csav frame=0x0004
     push ax                          ; 0x2bdc
     push word [bp + 0x6]             ; 0x2bdd
     push word [bp + 0x4]             ; 0x2be0
-    call gfx_entry_50                ; 0x2be3
+    call gfx_play_score              ; 0x2be3
     add sp, byte 8                   ; 0x2be6
     mov ax, word [bp - 0x0004]       ; 0x2be9
     ret                              ; 0x2bec

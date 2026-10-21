@@ -25,7 +25,7 @@ loc_VGIT:
     push ax                          ; 0x1b11
     push word [bp + 0x6]             ; 0x1b12
     push word [bp + 0x4]             ; 0x1b15
-    call gfx_entry_18                ; 0x1b18
+    call gfx_fill_area               ; 0x1b18
     add sp, byte 0x0a                ; 0x1b1b
     mov ax, word [bp + 0x6]          ; 0x1b1e
     inc ax                           ; 0x1b21
@@ -34,7 +34,7 @@ loc_VGIT:
     inc ax                           ; 0x1b26
     inc ax                           ; 0x1b27
     push ax                          ; 0x1b28
-    call gfx_entry_13                ; 0x1b29
+    call gfx_set_text_pos            ; 0x1b29
     add sp, byte 4                   ; 0x1b2c
     cmp word [bp + 0xa], byte 0      ; 0x1b2f
     jle short @..loc_VGIT.l1         ; 0x1b33
@@ -45,7 +45,7 @@ loc_VGIT:
     push ax                          ; 0x1b40
     mov ax, 1                        ; 0x1b41
     push ax                          ; 0x1b44
-    call gfx_entry_12                ; 0x1b45
+    call gfx_set_text_color          ; 0x1b45
     add sp, byte 4                   ; 0x1b48
     mov ax, 0                        ; 0x1b4b
     push ax                          ; 0x1b4e
@@ -59,7 +59,7 @@ loc_VGIT:
     mov ax, 0                        ; 0x1b5e
     push ax                          ; 0x1b61
     push ax                          ; 0x1b62
-    call gfx_entry_12                ; 0x1b63
+    call gfx_set_text_color          ; 0x1b63
     add sp, byte 4                   ; 0x1b66
     mov ax, 0                        ; 0x1b69
     push ax                          ; 0x1b6c

@@ -18,7 +18,7 @@ api_idx_0038_HNUN:
     mov word [bp - 0x000e], ax       ; 0x3013
     mov ax, 0                        ; 0x3016
     push ax                          ; 0x3019
-    call gfx_entry_47                ; 0x301a
+    call gfx_wait_sound              ; 0x301a
     pop cx                           ; 0x301d
     lea ax, word [bp - 0x0024]       ; 0x301e
     push ax                          ; 0x3021
@@ -194,7 +194,7 @@ api_idx_0038_HNUN:
     mov ax, 0                        ; 0x31b0
     push ax                          ; 0x31b3
     push ax                          ; 0x31b4
-    call gfx_entry_16                ; 0x31b5
+    call gfx_show_area               ; 0x31b5
     add sp, byte 8                   ; 0x31b8
 @..api_idx_0038_HNUN.l14:
     mov ax, 0                        ; 0x31bb
@@ -239,7 +239,7 @@ api_idx_0038_HNUN:
     mov ax, 0                        ; 0x320f
     push ax                          ; 0x3212
     push ax                          ; 0x3213
-    call gfx_entry_16                ; 0x3214
+    call gfx_show_area               ; 0x3214
     add sp, byte 8                   ; 0x3217
     mov ax, 1                        ; 0x321a
     push ax                          ; 0x321d
@@ -909,7 +909,7 @@ api_idx_0038_HNUN:
     mov ax, 0                        ; 0x387d
     push ax                          ; 0x3880
     push ax                          ; 0x3881
-    call gfx_entry_16                ; 0x3882
+    call gfx_show_area               ; 0x3882
     add sp, byte 8                   ; 0x3885
     mov ax, 0                        ; 0x3888
     ret                              ; 0x388b

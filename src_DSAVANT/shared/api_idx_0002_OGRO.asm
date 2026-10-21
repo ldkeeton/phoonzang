@@ -18,7 +18,7 @@ api_idx_0002_OGRO:
     shl ax, 1
     mov bx, ax
     push word [word bx + 0x30]
-    call gfx_entry_12
+    call gfx_set_text_color
     add sp, byte 4
     mov ax, 6
     imul word [bp - 0x0002]
@@ -26,7 +26,7 @@ api_idx_0002_OGRO:
     push ax
     mov ax, 6
     push ax
-    call gfx_entry_13
+    call gfx_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -42,13 +42,13 @@ api_idx_0002_OGRO:
     push ax
     mov ax, 0x85
     push ax
-    call gfx_entry_13
+    call gfx_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 1
     push ax
-    call gfx_entry_12
+    call gfx_set_text_color
     add sp, byte 4
     mov ax, 0
     push ax

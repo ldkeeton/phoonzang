@@ -347,7 +347,7 @@ jumptable_6e5f_case_0:
     mov ax, 0                        ; 0x6da1
     push ax                          ; 0x6da4
     push ax                          ; 0x6da5
-    call gfx_entry_16                ; 0x6da6
+    call gfx_show_area               ; 0x6da6
     add sp, byte 8                   ; 0x6da9
     push word [bp - 0x000a]          ; 0x6dac
     call api_idx_0014_LVIL           ; 0x6daf
@@ -361,7 +361,7 @@ jumptable_6e5f_case_2:
     mov ax, 0                        ; 0x6dbe
     push ax                          ; 0x6dc1
     push ax                          ; 0x6dc2
-    call gfx_entry_16                ; 0x6dc3
+    call gfx_show_area               ; 0x6dc3
     add sp, byte 8                   ; 0x6dc6
     mov ax, 0x482                    ; 0x6dc9
     push ax                          ; 0x6dcc
@@ -383,7 +383,7 @@ jumptable_6e5f_case_1:
     mov ax, 0                        ; 0x6de9
     push ax                          ; 0x6dec
     push ax                          ; 0x6ded
-    call gfx_entry_16                ; 0x6dee
+    call gfx_show_area               ; 0x6dee
     add sp, byte 8                   ; 0x6df1
     mov ax, 0x485                    ; 0x6df4
     push ax                          ; 0x6df7
@@ -405,7 +405,7 @@ jumptable_6e5f_case_3:
     mov ax, 0                        ; 0x6e13
     push ax                          ; 0x6e16
     push ax                          ; 0x6e17
-    call gfx_entry_16                ; 0x6e18
+    call gfx_show_area               ; 0x6e18
     add sp, byte 8                   ; 0x6e1b
     mov ax, 0x488                    ; 0x6e1e
     push ax                          ; 0x6e21
@@ -427,7 +427,7 @@ jumptable_6e5f_case_4:
     mov ax, 0                        ; 0x6e3d
     push ax                          ; 0x6e40
     push ax                          ; 0x6e41
-    call gfx_entry_16                ; 0x6e42
+    call gfx_show_area               ; 0x6e42
     add sp, byte 8                   ; 0x6e45
     mov ax, 0x48b                    ; 0x6e48
     push ax                          ; 0x6e4b
@@ -462,16 +462,16 @@ jumptable_6e5f:
     je short @..api_idx_002c_NHRR.l17 ; 0x6e84
     push word [bss_844c]             ; 0x6e86
     push word [bss_844e]             ; 0x6e8a
-    call animate_sprite_up           ; 0x6e8e
+    call fade_out_music              ; 0x6e8e
     add sp, byte 4                   ; 0x6e91
     mov ax, 0                        ; 0x6e94
     push ax                          ; 0x6e97
-    call ds_app_gfx_entry_51_VGJR    ; 0x6e98
+    call ds_app_gfx_free_score_VGJR  ; 0x6e98
     pop cx                           ; 0x6e9b
 @..api_idx_002c_NHRR.l17:
     mov ax, 0xf                      ; 0x6e9c
     push ax                          ; 0x6e9f
-    call ds_app_gfx_entry_22_VNHP    ; 0x6ea0
+    call ds_app_gfx_free_picture_VNHP ; 0x6ea0
     pop cx                           ; 0x6ea3
     mov ax, 0                        ; 0x6ea4
     push ax                          ; 0x6ea7
@@ -547,11 +547,11 @@ jumptable_6e5f:
     add sp, byte 8                   ; 0x6f65
     mov ax, 1                        ; 0x6f68
     push ax                          ; 0x6f6b
-    call ds_app_gfx_entry_22_VNHP    ; 0x6f6c
+    call ds_app_gfx_free_picture_VNHP ; 0x6f6c
     pop cx                           ; 0x6f6f
     mov ax, 2                        ; 0x6f70
     push ax                          ; 0x6f73
-    call ds_app_gfx_entry_22_VNHP    ; 0x6f74
+    call ds_app_gfx_free_picture_VNHP ; 0x6f74
     pop cx                           ; 0x6f77
     mov ax, 0xc7                     ; 0x6f78
     push ax                          ; 0x6f7b
@@ -560,6 +560,6 @@ jumptable_6e5f:
     mov ax, 0                        ; 0x6f80
     push ax                          ; 0x6f83
     push ax                          ; 0x6f84
-    call gfx_entry_16                ; 0x6f85
+    call gfx_show_area               ; 0x6f85
     add sp, byte 8                   ; 0x6f88
     ret                              ; 0x6f8b

@@ -38,7 +38,7 @@ api_idx_006c_JNMM:
     push ax                          ; 0x46eb
     mov ax, 1                        ; 0x46ec
     push ax                          ; 0x46ef
-    call gfx_entry_12                ; 0x46f0
+    call gfx_set_text_color          ; 0x46f0
     add sp, byte 4                   ; 0x46f3
     mov ax, 6                        ; 0x46f6
     imul word [bp - 0x0006]          ; 0x46f9
@@ -46,7 +46,7 @@ api_idx_006c_JNMM:
     push ax                          ; 0x46ff
     mov ax, 0x85                     ; 0x4700
     push ax                          ; 0x4703
-    call gfx_entry_13                ; 0x4704
+    call gfx_set_text_pos            ; 0x4704
     add sp, byte 4                   ; 0x4707
     mov ax, 0                        ; 0x470a
     push ax                          ; 0x470d
@@ -60,7 +60,7 @@ api_idx_006c_JNMM:
     push ax                          ; 0x4721
     mov ax, 0x97                     ; 0x4722
     push ax                          ; 0x4725
-    call gfx_entry_13                ; 0x4726
+    call gfx_set_text_pos            ; 0x4726
     add sp, byte 4                   ; 0x4729
     mov ax, 0                        ; 0x472c
     push ax                          ; 0x472f
@@ -173,7 +173,7 @@ api_idx_006c_JNMM:
     push ax                          ; 0x4815
     mov ax, 0x66                     ; 0x4816
     push ax                          ; 0x4819
-    call gfx_entry_16                ; 0x481a
+    call gfx_show_area               ; 0x481a
     add sp, byte 8                   ; 0x481d
 @..api_idx_006c_JNMM.l8:
     mov ax, 0x59fe                   ; 0x4820
@@ -290,6 +290,6 @@ api_idx_006c_JNMM:
     mov ax, 0                        ; 0x4928
     push ax                          ; 0x492b
     push ax                          ; 0x492c
-    call gfx_entry_16                ; 0x492d
+    call gfx_show_area               ; 0x492d
     add sp, byte 8                   ; 0x4930
     ret                              ; 0x4933

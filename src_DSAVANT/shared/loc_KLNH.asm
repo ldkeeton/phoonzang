@@ -37,7 +37,7 @@ loc_KLNH:
     and di, strict word 0x3ff
     mov cl, 4
     shl di, cl
-    call loc_KLNH.leaf_loc1
+    call leaf_loc_TPOL
     pop cx
 @..loc_KLNH.l3:
     push cx
@@ -59,7 +59,7 @@ loc_KLNH:
 @..loc_KLNH.l6:
     or dx, dx
     je short @..loc_KLNH.l7
-    call loc_KLNH.leaf_loc1
+    call leaf_loc_TPOL
 @..loc_KLNH.l7:
     pop cx
     loop @..loc_KLNH.l3

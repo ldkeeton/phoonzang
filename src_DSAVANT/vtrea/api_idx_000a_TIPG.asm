@@ -56,13 +56,13 @@ api_idx_000a_TIPG:
     mov ax, 0xa1                     ; 0x09d5
     sub ax, cx                       ; 0x09d8
     push ax                          ; 0x09da
-    call gfx_entry_13                ; 0x09db
+    call gfx_set_text_pos            ; 0x09db
     add sp, byte 4                   ; 0x09de
     mov ax, 0                        ; 0x09e1
     push ax                          ; 0x09e4
     mov ax, 0x17                     ; 0x09e5
     push ax                          ; 0x09e8
-    call gfx_entry_12                ; 0x09e9
+    call gfx_set_text_color          ; 0x09e9
     add sp, byte 4                   ; 0x09ec
     mov ax, 0                        ; 0x09ef
     push ax                          ; 0x09f2
@@ -81,7 +81,7 @@ api_idx_000a_TIPG:
     push ax                          ; 0x0a0e
     mov ax, 0x19                     ; 0x0a0f
     push ax                          ; 0x0a12
-    call gfx_entry_16                ; 0x0a13
+    call gfx_show_area               ; 0x0a13
     add sp, byte 8                   ; 0x0a16
 @..api_idx_000a_TIPG.l2:
     ret                              ; 0x0a19

@@ -8,6 +8,11 @@ from lib.x86util import is_dos_terminator
 
 
 _TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
+# A routine whose first instruction is an unconditional jmp is a tail-jump
+# stub (EGA's `dissolve_area: jmp show_area`); what follows it is not its body
+# and is often data, so the sweep stops there.  A later jmp does not stop it:
+# Aztec leaves a dead `ret` after a function's closing `jmp` (main's loop).
+_JUMPS = {'jmp', 'ljmp'}
 _CONF_FORCE_CODE = 0.8
 
 
@@ -89,7 +94,10 @@ class ForceCodePhase(Phase):
                 for insn in md.disasm(data[func_start:end], func_start):
                     # A DOS exit (int 0x20 / int 0x21 with AH=0/4C/31) never
                     # returns, so bytes after it are inline data, not code.
-                    if insn.mnemonic in _TERMINATORS or is_dos_terminator(data, insn):
+                    if (insn.mnemonic in _TERMINATORS
+                            or is_dos_terminator(data, insn)
+                            or (insn.mnemonic in _JUMPS
+                                and insn.address == func_start)):
                         end = insn.address + insn.size
                         break
                     end = insn.address + insn.size

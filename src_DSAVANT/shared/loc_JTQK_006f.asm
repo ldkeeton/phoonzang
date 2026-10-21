@@ -1,4 +1,4 @@
 ; auto-generated
 loc_JTQK_006f:
-    call loc_JTQK_006f.graphics_loc1
-    retf
+    call dissolve_area               ; 0x006f
+    retf                             ; 0x0072

@@ -35,13 +35,13 @@ api_idx_0056_KPMS:
     mov ax, 0x39                     ; 0x46d7
     push ax                          ; 0x46da
     push word [bp - 0x0002]          ; 0x46db
-    call gfx_entry_13                ; 0x46de
+    call gfx_set_text_pos            ; 0x46de
     add sp, byte 4                   ; 0x46e1
     mov ax, 0                        ; 0x46e4
     push ax                          ; 0x46e7
     mov ax, 0x55                     ; 0x46e8
     push ax                          ; 0x46eb
-    call gfx_entry_12                ; 0x46ec
+    call gfx_set_text_color          ; 0x46ec
     add sp, byte 4                   ; 0x46ef
     mov ax, 0                        ; 0x46f2
     push ax                          ; 0x46f5
@@ -56,7 +56,7 @@ api_idx_0056_KPMS:
     mov ax, 0x39                     ; 0x4708
     push ax                          ; 0x470b
     push word [bp - 0x0002]          ; 0x470c
-    call gfx_entry_16                ; 0x470f
+    call gfx_show_area               ; 0x470f
     add sp, byte 8                   ; 0x4712
     mov ax, 0                        ; 0x4715
     push ax                          ; 0x4718
@@ -78,6 +78,6 @@ api_idx_0056_KPMS:
     mov ax, 0x39                     ; 0x473d
     push ax                          ; 0x4740
     push word [bp - 0x0002]          ; 0x4741
-    call gfx_entry_16                ; 0x4744
+    call gfx_show_area               ; 0x4744
     add sp, byte 8                   ; 0x4747
     ret                              ; 0x474a

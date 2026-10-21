@@ -14,13 +14,13 @@ api_idx_0054_OPGG:
     inc ax                           ; 0x4530
     inc ax                           ; 0x4531
     push ax                          ; 0x4532
-    call gfx_entry_13                ; 0x4533
+    call gfx_set_text_pos            ; 0x4533
     add sp, byte 4                   ; 0x4536
     mov ax, 0xc3                     ; 0x4539
     push ax                          ; 0x453c
     mov ax, 0x9b                     ; 0x453d
     push ax                          ; 0x4540
-    call gfx_entry_12                ; 0x4541
+    call gfx_set_text_color          ; 0x4541
     add sp, byte 4                   ; 0x4544
     mov ax, 0x248                    ; 0x4547
     imul word [bp + 0x4]             ; 0x454a
@@ -102,13 +102,13 @@ api_idx_0054_OPGG:
     inc ax                           ; 0x45fe
     inc ax                           ; 0x45ff
     push ax                          ; 0x4600
-    call gfx_entry_13                ; 0x4601
+    call gfx_set_text_pos            ; 0x4601
     add sp, byte 4                   ; 0x4604
     mov ax, 0xc3                     ; 0x4607
     push ax                          ; 0x460a
     mov ax, 1                        ; 0x460b
     push ax                          ; 0x460e
-    call gfx_entry_12                ; 0x460f
+    call gfx_set_text_color          ; 0x460f
     add sp, byte 4                   ; 0x4612
     mov ax, 0                        ; 0x4615
     push ax                          ; 0x4618
@@ -127,7 +127,7 @@ api_idx_0054_OPGG:
     push ax                          ; 0x463a
     mov ax, 0x1b                     ; 0x463b
     push ax                          ; 0x463e
-    call gfx_entry_12                ; 0x463f
+    call gfx_set_text_color          ; 0x463f
     add sp, byte 4                   ; 0x4642
     mov ax, 0                        ; 0x4645
     push ax                          ; 0x4648
@@ -160,7 +160,7 @@ api_idx_0054_OPGG:
     mov ax, word [bp + 0x6]          ; 0x4686
     add ax, strict word 0x53         ; 0x4689
     push ax                          ; 0x468c
-    call gfx_entry_18                ; 0x468d
+    call gfx_fill_area               ; 0x468d
     add sp, byte 0x0a                ; 0x4690
     mov word [bp - 0x0004], 0        ; 0x4693
     jmp short @..api_idx_0054_OPGG.l6 ; 0x4698
@@ -175,7 +175,7 @@ api_idx_0054_OPGG:
     mov ax, word [bp + 0x6]          ; 0x46aa
     add ax, strict word 0x46         ; 0x46ad
     push ax                          ; 0x46b0
-    call gfx_entry_13                ; 0x46b1
+    call gfx_set_text_pos            ; 0x46b1
     add sp, byte 4                   ; 0x46b4
     mov ax, 4                        ; 0x46b7
     push ax                          ; 0x46ba
@@ -221,7 +221,7 @@ api_idx_0054_OPGG:
     mov ax, word [bp + 0x6]          ; 0x471f
     add ax, strict word 0x7e         ; 0x4722
     push ax                          ; 0x4725
-    call gfx_entry_13                ; 0x4726
+    call gfx_set_text_pos            ; 0x4726
     add sp, byte 4                   ; 0x4729
     mov ax, 0                        ; 0x472c
     push ax                          ; 0x472f
@@ -235,7 +235,7 @@ api_idx_0054_OPGG:
     mov ax, 2                        ; 0x4740
 @..api_idx_0054_OPGG.l8:
     push ax                          ; 0x4743
-    call gfx_entry_12                ; 0x4744
+    call gfx_set_text_color          ; 0x4744
     add sp, byte 4                   ; 0x4747
     mov ax, 0                        ; 0x474a
     push ax                          ; 0x474d

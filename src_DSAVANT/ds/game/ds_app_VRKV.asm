@@ -16,7 +16,7 @@ ds_app_VRKV: ; Aztec csav frame=0x0000
     push ax                          ; 0x0da3
     mov ax, 0x12e                    ; 0x0da4
     push ax                          ; 0x0da7
-    call gfx_entry_33                ; 0x0da8
+    call gfx_mouse_glide_to          ; 0x0da8
     add sp, byte 6                   ; 0x0dab
 @..ds_app_VRKV.l1:
     mov ax, 0                        ; 0x0dae
@@ -25,7 +25,7 @@ ds_app_VRKV: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x0db5
     push word [bp + 0x6]             ; 0x0db8
     push word [bp + 0x4]             ; 0x0dbb
-    call gfx_entry_27                ; 0x0dbe
+    call gfx_dissolve_area           ; 0x0dbe
     add sp, byte 0x0a                ; 0x0dc1
     cmp word [bss_0e32], byte 0      ; 0x0dc4
     je short @..ds_app_VRKV.l2       ; 0x0dc9
@@ -35,7 +35,7 @@ ds_app_VRKV: ; Aztec csav frame=0x0000
     push ax                          ; 0x0dd2
     mov ax, 0x12e                    ; 0x0dd3
     push ax                          ; 0x0dd6
-    call gfx_entry_34                ; 0x0dd7
+    call gfx_mouse_glide_back        ; 0x0dd7
     add sp, byte 6                   ; 0x0dda
     mov ax, 0                        ; 0x0ddd
     mov dx, 0                        ; 0x0de0
@@ -50,7 +50,7 @@ ds_app_VRKV: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x0df0
     push word [bp + 0x6]             ; 0x0df3
     push word [bp + 0x4]             ; 0x0df6
-    call gfx_entry_16                ; 0x0df9
+    call gfx_show_area               ; 0x0df9
     add sp, byte 8                   ; 0x0dfc
 @..ds_app_VRKV.l4:
     call flush_keyboard              ; 0x0dff

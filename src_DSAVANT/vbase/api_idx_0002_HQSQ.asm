@@ -374,11 +374,11 @@ api_idx_0002_HQSQ:
     je short @..api_idx_0002_HQSQ.l14 ; 0x92a3
     push word [bss_844c]             ; 0x92a5
     push word [bss_844e]             ; 0x92a9
-    call animate_sprite_up           ; 0x92ad
+    call fade_out_music              ; 0x92ad
     add sp, byte 4                   ; 0x92b0
     mov ax, 0                        ; 0x92b3
     push ax                          ; 0x92b6
-    call ds_app_gfx_entry_51_VGJR    ; 0x92b7
+    call ds_app_gfx_free_score_VGJR  ; 0x92b7
     pop cx                           ; 0x92ba
 @..api_idx_0002_HQSQ.l14:
     test word [bss_9056], 0x1000     ; 0x92bb
@@ -387,7 +387,7 @@ api_idx_0002_HQSQ:
     jne short @..api_idx_0002_HQSQ.l16 ; 0x92c8
     cmp word [bss_0e32], byte 0      ; 0x92ca
     jne short @..api_idx_0002_HQSQ.l15 ; 0x92cf
-    call gfx_entry_00                ; 0x92d1
+    call gfx_mouse_init              ; 0x92d1
 @..api_idx_0002_HQSQ.l15:
     mov word [bss_0e32], 1           ; 0x92d4
 @..api_idx_0002_HQSQ.l16:
@@ -423,7 +423,7 @@ api_idx_0002_HQSQ:
     mov ax, 0                        ; 0x931c
     push ax                          ; 0x931f
     push ax                          ; 0x9320
-    call gfx_entry_16                ; 0x9321
+    call gfx_show_area               ; 0x9321
     add sp, byte 8                   ; 0x9324
     mov ax, 0                        ; 0x9327
     push ax                          ; 0x932a

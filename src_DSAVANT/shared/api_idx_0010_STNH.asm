@@ -47,7 +47,7 @@ api_idx_0010_STNH:
     shl ax, 1
     add ax, word [bp + 0x6]
     push ax
-    call gfx_entry_17
+    call gfx_put_pixel
     add sp, byte 6
     push word [bp - 0x0010]
     mov ax, word [bp - 0x0004]
@@ -59,7 +59,7 @@ api_idx_0010_STNH:
     add ax, word [bp + 0x6]
     inc ax
     push ax
-    call gfx_entry_17
+    call gfx_put_pixel
     add sp, byte 6
     push word [bp - 0x0010]
     mov ax, word [bp - 0x0004]
@@ -71,7 +71,7 @@ api_idx_0010_STNH:
     shl ax, 1
     add ax, word [bp + 0x6]
     push ax
-    call gfx_entry_17
+    call gfx_put_pixel
     add sp, byte 6
     mov ax, 1
     push ax
@@ -89,7 +89,7 @@ api_idx_0010_STNH:
     add ax, word [bp + 0x6]
     inc ax
     push ax
-    call gfx_entry_17
+    call gfx_put_pixel
     add sp, byte 6
 @..api_idx_0010_STNH.l4:
     inc word [bp - 0x000e]

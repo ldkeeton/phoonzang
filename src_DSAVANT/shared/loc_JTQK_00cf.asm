@@ -1,4 +1,4 @@
 ; auto-generated
 loc_JTQK_00cf:
-    call loc_JTQK_00cf.loc1
-    retf
+    call free_score                  ; 0x00cf
+    retf                             ; 0x00d2

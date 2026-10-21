@@ -90,6 +90,6 @@ api_idx_0004_QSNR:
     push ax                          ; 0x1782
     mov ax, 8                        ; 0x1783
     push ax                          ; 0x1786
-    call gfx_entry_16                ; 0x1787
+    call gfx_show_area               ; 0x1787
     add sp, byte 8                   ; 0x178a
     ret                              ; 0x178d

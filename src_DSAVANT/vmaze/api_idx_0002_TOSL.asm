@@ -72,7 +72,7 @@ jumptable_042b:
     jne short @..api_idx_0002_TOSL.l3 ; 0x0486
     jmp near @..api_idx_0002_TOSL.l5 ; 0x0488
 @..api_idx_0002_TOSL.l3:
-    call ds_app_VKRR                 ; 0x048b
+    call ds_app_alloc_VKRR           ; 0x048b
     mov ax, word [bp - 0x0002]       ; 0x048e
     mov word [bss_5b6e], ax          ; 0x0491
     jmp near @..api_idx_0002_TOSL.l4 ; 0x0494

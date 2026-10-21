@@ -87,7 +87,7 @@ api_idx_0006_MROT:
     push ax                          ; 0x62b8
     push word [bp - 0x0006]          ; 0x62b9
     push word [bp - 0x0004]          ; 0x62bc
-    call gfx_entry_16                ; 0x62bf
+    call gfx_show_area               ; 0x62bf
     add sp, byte 8                   ; 0x62c2
 @..api_idx_0006_MROT.l5:
     ret                              ; 0x62c5

@@ -89,7 +89,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x231b
     mov ax, 0x131                    ; 0x231c
     push ax                          ; 0x231f
-    call gfx_entry_16                ; 0x2320
+    call gfx_show_area               ; 0x2320
     add sp, byte 8                   ; 0x2323
 @..api_idx_0022_RHMN.l8:
     add word [bss_8f1c], byte 1      ; 0x2326
@@ -495,7 +495,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x26df
     mov ax, 0                        ; 0x26e0
     push ax                          ; 0x26e3
-    call gfx_entry_16                ; 0x26e4
+    call gfx_show_area               ; 0x26e4
     add sp, byte 8                   ; 0x26e7
     mov word [bss_91b2], 0           ; 0x26ea
 @..api_idx_0022_RHMN.l43:
@@ -1226,7 +1226,7 @@ jumptable_2d1b_case_12:
     push word [bx + 0x124]           ; 0x2d77
     push word [bx + 0x122]           ; 0x2d7b
     push word [bx + 0x120]           ; 0x2d7f
-    call gfx_entry_16                ; 0x2d83
+    call gfx_show_area               ; 0x2d83
     add sp, byte 8                   ; 0x2d86
 @..api_idx_0022_RHMN.l83:
     cmp word [bss_830a], byte 5      ; 0x2d89

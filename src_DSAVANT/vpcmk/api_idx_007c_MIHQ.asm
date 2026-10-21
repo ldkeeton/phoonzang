@@ -77,13 +77,13 @@ api_idx_007c_MIHQ:
     push ax                          ; 0x462a
     mov ax, 0x84                     ; 0x462b
     push ax                          ; 0x462e
-    call gfx_entry_12                ; 0x462f
+    call gfx_set_text_color          ; 0x462f
     add sp, byte 4                   ; 0x4632
     mov ax, 0xc                      ; 0x4635
     push ax                          ; 0x4638
     mov ax, 0x5a                     ; 0x4639
     push ax                          ; 0x463c
-    call gfx_entry_13                ; 0x463d
+    call gfx_set_text_pos            ; 0x463d
     add sp, byte 4                   ; 0x4640
     lea ax, word [bp - 0x0054]       ; 0x4643
     push ax                          ; 0x4646

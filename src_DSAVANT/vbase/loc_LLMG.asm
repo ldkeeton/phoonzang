@@ -29,7 +29,7 @@ loc_LLMG:
     mov ax, word [bp + 0x4]          ; 0x47f9
     dec ax                           ; 0x47fc
     push ax                          ; 0x47fd
-    call gfx_entry_16                ; 0x47fe
+    call gfx_show_area               ; 0x47fe
     add sp, byte 8                   ; 0x4801
     mov ax, 0                        ; 0x4804
     push ax                          ; 0x4807

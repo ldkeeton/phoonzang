@@ -1,4 +1,4 @@
 ; auto-generated
 loc_JTQK_003f:
-    call loc_JTQK_003f.leaf_loc1
-    retf
+    call clear_buffer                ; 0x003f
+    retf                             ; 0x0042

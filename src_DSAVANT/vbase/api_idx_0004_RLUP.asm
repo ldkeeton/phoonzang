@@ -59,13 +59,13 @@ api_idx_0004_RLUP:
     add ax, 0x92                     ; 0x6da0
     push ax                          ; 0x6da3
     push word [bp - 0x0002]          ; 0x6da4
-    call gfx_entry_13                ; 0x6da7
+    call gfx_set_text_pos            ; 0x6da7
     add sp, byte 4                   ; 0x6daa
     mov ax, 0                        ; 0x6dad
     push ax                          ; 0x6db0
     mov ax, 0x55                     ; 0x6db1
     push ax                          ; 0x6db4
-    call gfx_entry_12                ; 0x6db5
+    call gfx_set_text_color          ; 0x6db5
     add sp, byte 4                   ; 0x6db8
     mov ax, 2                        ; 0x6dbb
     push ax                          ; 0x6dbe

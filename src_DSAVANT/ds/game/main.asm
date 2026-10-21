@@ -171,7 +171,7 @@ jumptable_2edc_case_9:
 @..main.l3:
     mov ax, 0                        ; 0x2f29
     push ax                          ; 0x2f2c
-    call gfx_entry_47                ; 0x2f2d
+    call gfx_wait_sound              ; 0x2f2d
     pop cx                           ; 0x2f30
     jmp near @..main.l1              ; 0x2f31
     ret                              ; 0x2f34

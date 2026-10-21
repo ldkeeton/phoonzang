@@ -346,7 +346,7 @@ api_idx_00c2_OUOT:
     push ax                          ; 0x5845
     mov ax, 1                        ; 0x5846
     push ax                          ; 0x5849
-    call gfx_entry_12                ; 0x584a
+    call gfx_set_text_color          ; 0x584a
     add sp, byte 4                   ; 0x584d
     mov ax, word [bp - 0x000c]       ; 0x5850
     inc ax                           ; 0x5853
@@ -375,7 +375,7 @@ api_idx_00c2_OUOT:
     add ax, word [bp - 0x000a]       ; 0x5882
     inc ax                           ; 0x5885
     push ax                          ; 0x5886
-    call gfx_entry_13                ; 0x5887
+    call gfx_set_text_pos            ; 0x5887
     add sp, byte 4                   ; 0x588a
     mov ax, 0                        ; 0x588d
     push ax                          ; 0x5890
@@ -449,7 +449,7 @@ api_idx_00c2_OUOT:
     mov ax, word [bp - 0x000a]       ; 0x5926
     dec ax                           ; 0x5929
     push ax                          ; 0x592a
-    call gfx_entry_16                ; 0x592b
+    call gfx_show_area               ; 0x592b
     add sp, byte 8                   ; 0x592e
     mov word [bp - 0x001a], 1        ; 0x5931
     mov word [bp - 0x001c], 0        ; 0x5936
@@ -510,7 +510,7 @@ api_idx_00c2_OUOT:
     mov ax, word [bp - 0x000a]       ; 0x59b6
     dec ax                           ; 0x59b9
     push ax                          ; 0x59ba
-    call gfx_entry_16                ; 0x59bb
+    call gfx_show_area               ; 0x59bb
     add sp, byte 8                   ; 0x59be
     mov ax, 0                        ; 0x59c1
     push ax                          ; 0x59c4
@@ -629,7 +629,7 @@ api_idx_00c2_OUOT:
     mov ax, word [bp - 0x000a]       ; 0x5ab9
     dec ax                           ; 0x5abc
     push ax                          ; 0x5abd
-    call gfx_entry_16                ; 0x5abe
+    call gfx_show_area               ; 0x5abe
     add sp, byte 8                   ; 0x5ac1
     jmp short @..api_idx_00c2_OUOT.l40 ; 0x5ac4
 @..api_idx_00c2_OUOT.l34:
@@ -981,7 +981,7 @@ api_idx_00c2_OUOT:
     mov ax, word [bp - 0x000a]       ; 0x5e14
     dec ax                           ; 0x5e17
     push ax                          ; 0x5e18
-    call gfx_entry_16                ; 0x5e19
+    call gfx_show_area               ; 0x5e19
     add sp, byte 8                   ; 0x5e1c
     lea ax, word [bp - 0x002c]       ; 0x5e1f
     push ax                          ; 0x5e22
@@ -1036,7 +1036,7 @@ api_idx_00c2_OUOT:
     push ax                          ; 0x5e97
     mov ax, 1                        ; 0x5e98
     push ax                          ; 0x5e9b
-    call gfx_entry_16                ; 0x5e9c
+    call gfx_show_area               ; 0x5e9c
     add sp, byte 8                   ; 0x5e9f
     jmp near @..api_idx_00c2_OUOT.l66 ; 0x5ea2
 @..api_idx_00c2_OUOT.l57:
@@ -1075,7 +1075,7 @@ api_idx_00c2_OUOT:
     mov ax, word [bp - 0x000a]       ; 0x5eee
     dec ax                           ; 0x5ef1
     push ax                          ; 0x5ef2
-    call gfx_entry_16                ; 0x5ef3
+    call gfx_show_area               ; 0x5ef3
     add sp, byte 8                   ; 0x5ef6
     lea ax, word [bp - 0x00c2]       ; 0x5ef9
     push ax                          ; 0x5efd
@@ -1224,7 +1224,7 @@ api_idx_00c2_OUOT:
     push ax                          ; 0x6056
     mov ax, 1                        ; 0x6057
     push ax                          ; 0x605a
-    call gfx_entry_16                ; 0x605b
+    call gfx_show_area               ; 0x605b
     add sp, byte 8                   ; 0x605e
     jmp near @..api_idx_00c2_OUOT.l81 ; 0x6061
 @..api_idx_00c2_OUOT.l73:
@@ -1258,7 +1258,7 @@ api_idx_00c2_OUOT:
     mov ax, 0                        ; 0x60b1
     push ax                          ; 0x60b4
     push ax                          ; 0x60b5
-    call gfx_entry_16                ; 0x60b6
+    call gfx_show_area               ; 0x60b6
     add sp, byte 8                   ; 0x60b9
     mov ax, 6                        ; 0x60bc
     push ax                          ; 0x60bf
@@ -1337,6 +1337,6 @@ api_idx_00c2_OUOT:
     mov ax, word [bp - 0x000a]       ; 0x6160
     dec ax                           ; 0x6163
     push ax                          ; 0x6164
-    call gfx_entry_16                ; 0x6165
+    call gfx_show_area               ; 0x6165
     add sp, byte 8                   ; 0x6168
     ret                              ; 0x616b

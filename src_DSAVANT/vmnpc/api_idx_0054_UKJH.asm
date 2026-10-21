@@ -16,19 +16,19 @@ api_idx_0054_UKJH:
     push ax                          ; 0x0d63
     mov ax, 0x62                     ; 0x0d64
     push ax                          ; 0x0d67
-    call gfx_entry_18                ; 0x0d68
+    call gfx_fill_area               ; 0x0d68
     add sp, byte 0x0a                ; 0x0d6b
     mov ax, 0x5f                     ; 0x0d6e
     push ax                          ; 0x0d71
     mov ax, 1                        ; 0x0d72
     push ax                          ; 0x0d75
-    call gfx_entry_12                ; 0x0d76
+    call gfx_set_text_color          ; 0x0d76
     add sp, byte 4                   ; 0x0d79
     mov ax, 0xa4                     ; 0x0d7c
     push ax                          ; 0x0d7f
     mov ax, 0x63                     ; 0x0d80
     push ax                          ; 0x0d83
-    call gfx_entry_13                ; 0x0d84
+    call gfx_set_text_pos            ; 0x0d84
     add sp, byte 4                   ; 0x0d87
     mov ax, 0                        ; 0x0d8a
     push ax                          ; 0x0d8d
@@ -46,7 +46,7 @@ api_idx_0054_UKJH:
     push ax                          ; 0x0da9
     mov ax, 0xce                     ; 0x0daa
     push ax                          ; 0x0dad
-    call gfx_entry_13                ; 0x0dae
+    call gfx_set_text_pos            ; 0x0dae
     add sp, byte 4                   ; 0x0db1
     mov ax, 0                        ; 0x0db4
     push ax                          ; 0x0db7

@@ -71,7 +71,7 @@ api_idx_0002_QRJS:
     mov ax, 0                        ; 0x8f2a
     push ax                          ; 0x8f2d
     push ax                          ; 0x8f2e
-    call gfx_entry_16                ; 0x8f2f
+    call gfx_show_area               ; 0x8f2f
     add sp, byte 8                   ; 0x8f32
     mov ax, 0                        ; 0x8f35
     push ax                          ; 0x8f38

@@ -111,7 +111,7 @@ api_idx_000c_RLKV:
     push ax                          ; 0x24a1
     mov ax, 0x36                     ; 0x24a2
     push ax                          ; 0x24a5
-    call gfx_entry_16                ; 0x24a6
+    call gfx_show_area               ; 0x24a6
     add sp, byte 8                   ; 0x24a9
     mov bx, word [bss_0e12]          ; 0x24ac
     mov si, word [bp - 0x0008]       ; 0x24b0
@@ -139,7 +139,7 @@ api_idx_000c_RLKV:
     pop cx                           ; 0x24e0
     mov ax, 0x10                     ; 0x24e1
     push ax                          ; 0x24e4
-    call ds_app_SOQK                 ; 0x24e5
+    call ds_app_alloc_SOQK           ; 0x24e5
     pop cx                           ; 0x24e8
     mov word [bss_598e], 0xffff      ; 0x24e9
 @..api_idx_000c_RLKV.l9:

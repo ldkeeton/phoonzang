@@ -10,7 +10,7 @@ api_idx_0014_VORK:
     mov word [bss_940e], 0xffff      ; 0x618a
     cmp ax, strict word 0xd          ; 0x6190
     je short @..api_idx_0014_VORK.l1 ; 0x6193
-    call ds_app_VKRR                 ; 0x6195
+    call ds_app_alloc_VKRR           ; 0x6195
     mov ax, 1                        ; 0x6198
     push ax                          ; 0x619b
     mov ax, 2                        ; 0x619c
@@ -36,7 +36,7 @@ api_idx_0014_VORK:
     cmp ax, 0xff                     ; 0x61cb
     je short @..api_idx_0014_VORK.l3 ; 0x61ce
     push word [bp - 0x0002]          ; 0x61d0
-    call ds_app_gfx_entry_22_VNHP    ; 0x61d3
+    call ds_app_gfx_free_picture_VNHP ; 0x61d3
     pop cx                           ; 0x61d6
 @..api_idx_0014_VORK.l3:
     inc word [bp - 0x0002]           ; 0x61d7
@@ -45,19 +45,19 @@ api_idx_0014_VORK:
     jl short @..api_idx_0014_VORK.l2 ; 0x61e0
     mov ax, 7                        ; 0x61e2
     push ax                          ; 0x61e5
-    call ds_app_gfx_entry_22_VNHP    ; 0x61e6
+    call ds_app_gfx_free_picture_VNHP ; 0x61e6
     pop cx                           ; 0x61e9
     mov ax, 0xa                      ; 0x61ea
     push ax                          ; 0x61ed
-    call ds_app_SOQK                 ; 0x61ee
+    call ds_app_alloc_SOQK           ; 0x61ee
     pop cx                           ; 0x61f1
     mov ax, 0xb                      ; 0x61f2
     push ax                          ; 0x61f5
-    call ds_app_SOQK                 ; 0x61f6
+    call ds_app_alloc_SOQK           ; 0x61f6
     pop cx                           ; 0x61f9
     mov ax, 0xc                      ; 0x61fa
     push ax                          ; 0x61fd
-    call ds_app_SOQK                 ; 0x61fe
+    call ds_app_alloc_SOQK           ; 0x61fe
     pop cx                           ; 0x6201
 @..api_idx_0014_VORK.l4:
     mov ax, 0                        ; 0x6202
@@ -758,16 +758,16 @@ jumptable_67c3_case_15:
     je short @..api_idx_0014_VORK.l22 ; 0x6812
     push word [bss_844c]             ; 0x6814
     push word [bss_844e]             ; 0x6818
-    call animate_sprite_up           ; 0x681c
+    call fade_out_music              ; 0x681c
     add sp, byte 4                   ; 0x681f
     mov ax, 0                        ; 0x6822
     push ax                          ; 0x6825
-    call ds_app_gfx_entry_51_VGJR    ; 0x6826
+    call ds_app_gfx_free_score_VGJR  ; 0x6826
     pop cx                           ; 0x6829
 @..api_idx_0014_VORK.l22:
     mov ax, 0xf                      ; 0x682a
     push ax                          ; 0x682d
-    call ds_app_gfx_entry_22_VNHP    ; 0x682e
+    call ds_app_gfx_free_picture_VNHP ; 0x682e
     pop cx                           ; 0x6831
     mov ax, 0                        ; 0x6832
     push ax                          ; 0x6835
@@ -884,11 +884,11 @@ jumptable_67c3_case_15:
 @..api_idx_0014_VORK.l25:
     mov ax, 1                        ; 0x6953
     push ax                          ; 0x6956
-    call ds_app_gfx_entry_22_VNHP    ; 0x6957
+    call ds_app_gfx_free_picture_VNHP ; 0x6957
     pop cx                           ; 0x695a
     mov ax, 2                        ; 0x695b
     push ax                          ; 0x695e
-    call ds_app_gfx_entry_22_VNHP    ; 0x695f
+    call ds_app_gfx_free_picture_VNHP ; 0x695f
     pop cx                           ; 0x6962
 @..api_idx_0014_VORK.l26:
     mov ax, 0xc7                     ; 0x6963
@@ -898,6 +898,6 @@ jumptable_67c3_case_15:
     mov ax, 0                        ; 0x696b
     push ax                          ; 0x696e
     push ax                          ; 0x696f
-    call gfx_entry_16                ; 0x6970
+    call gfx_show_area               ; 0x6970
     add sp, byte 8                   ; 0x6973
     ret                              ; 0x6976

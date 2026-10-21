@@ -65,7 +65,7 @@ loc_MOVJ:
     push ax                          ; 0x1dd0
     mov ax, 1                        ; 0x1dd1
     push ax                          ; 0x1dd4
-    call gfx_entry_12                ; 0x1dd5
+    call gfx_set_text_color          ; 0x1dd5
     add sp, byte 4                   ; 0x1dd8
     mov ax, word [bp + 0xc]          ; 0x1ddb
     add ax, strict word 0xfff0       ; 0x1dde
@@ -82,7 +82,7 @@ loc_MOVJ:
     mov ax, 0xa0                     ; 0x1df6
     sub ax, cx                       ; 0x1df9
     push ax                          ; 0x1dfb
-    call gfx_entry_13                ; 0x1dfc
+    call gfx_set_text_pos            ; 0x1dfc
     add sp, byte 4                   ; 0x1dff
     mov ax, 0                        ; 0x1e02
     push ax                          ; 0x1e05
@@ -104,7 +104,7 @@ loc_MOVJ:
     mov ax, 0xa0                     ; 0x1e2a
     sub ax, cx                       ; 0x1e2d
     push ax                          ; 0x1e2f
-    call gfx_entry_13                ; 0x1e30
+    call gfx_set_text_pos            ; 0x1e30
     add sp, byte 4                   ; 0x1e33
     mov ax, 0                        ; 0x1e36
     push ax                          ; 0x1e39
@@ -195,7 +195,7 @@ loc_MOVJ:
     mov ax, 0x1a                     ; 0x1eff
 @..loc_MOVJ.l7:
     push ax                          ; 0x1f02
-    call gfx_entry_12                ; 0x1f03
+    call gfx_set_text_color          ; 0x1f03
     add sp, byte 4                   ; 0x1f06
     mov ax, word [bp + 0xc]          ; 0x1f09
     add ax, word [bp - 0x000c]       ; 0x1f0c
@@ -221,7 +221,7 @@ loc_MOVJ:
     add ax, word [bp - 0x000a]       ; 0x1f38
     inc ax                           ; 0x1f3b
     push ax                          ; 0x1f3c
-    call gfx_entry_13                ; 0x1f3d
+    call gfx_set_text_pos            ; 0x1f3d
     add sp, byte 4                   ; 0x1f40
     mov ax, 0                        ; 0x1f43
     push ax                          ; 0x1f46
@@ -283,7 +283,7 @@ loc_MOVJ:
     push ax                          ; 0x1fc5
     mov ax, 0x36                     ; 0x1fc6
     push ax                          ; 0x1fc9
-    call gfx_entry_16                ; 0x1fca
+    call gfx_show_area               ; 0x1fca
     add sp, byte 8                   ; 0x1fcd
     cmp word [bss_0e32], byte 0      ; 0x1fd0
     je short @..loc_MOVJ.l11         ; 0x1fd5
@@ -341,7 +341,7 @@ loc_MOVJ:
     mov ax, word [bp + 0xa]          ; 0x204b
     dec ax                           ; 0x204e
     push ax                          ; 0x204f
-    call gfx_entry_16                ; 0x2050
+    call gfx_show_area               ; 0x2050
     add sp, byte 8                   ; 0x2053
     mov ax, 0                        ; 0x2056
     push ax                          ; 0x2059
@@ -420,7 +420,7 @@ loc_MOVJ:
     mov ax, word [bp + 0xa]          ; 0x20f0
     dec ax                           ; 0x20f3
     push ax                          ; 0x20f4
-    call gfx_entry_16                ; 0x20f5
+    call gfx_show_area               ; 0x20f5
     add sp, byte 8                   ; 0x20f8
 @..loc_MOVJ.l20:
     dec word [bp - 0x0004]           ; 0x20fb
@@ -482,7 +482,7 @@ loc_MOVJ:
     mov ax, word [bp + 0xa]          ; 0x2186
     add ax, strict word 0xfffa       ; 0x2189
     push ax                          ; 0x218c
-    call gfx_entry_16                ; 0x218d
+    call gfx_show_area               ; 0x218d
     add sp, byte 8                   ; 0x2190
     jmp short @..loc_MOVJ.l22        ; 0x2193
 @..loc_MOVJ.l21:
@@ -498,7 +498,7 @@ loc_MOVJ:
     mov ax, word [bp + 0xa]          ; 0x21a4
     dec ax                           ; 0x21a7
     push ax                          ; 0x21a8
-    call gfx_entry_16                ; 0x21a9
+    call gfx_show_area               ; 0x21a9
     add sp, byte 8                   ; 0x21ac
 @..loc_MOVJ.l22:
     mov ax, word [bp - 0x0004]       ; 0x21af

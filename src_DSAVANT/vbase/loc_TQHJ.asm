@@ -83,7 +83,7 @@ loc_TQHJ:
     mov ax, 0                        ; 0x8704
     push ax                          ; 0x8707
     push ax                          ; 0x8708
-    call gfx_entry_16                ; 0x8709
+    call gfx_show_area               ; 0x8709
     add sp, byte 8                   ; 0x870c
     mov ax, 0                        ; 0x870f
     push ax                          ; 0x8712

@@ -30,7 +30,7 @@ api_idx_0004_RPUQ:
     cmp ax, 0xff                     ; 0x0403
     je short @..api_idx_0004_RPUQ.l4 ; 0x0406
     push bx                          ; 0x0408
-    call ds_app_gfx_entry_22_VNHP    ; 0x0409
+    call ds_app_gfx_free_picture_VNHP ; 0x0409
     pop cx                           ; 0x040c
 @..api_idx_0004_RPUQ.l4:
     push word [bp - 0x0004]          ; 0x040d

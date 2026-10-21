@@ -30,7 +30,7 @@ api_idx_0004_SLIS:
     mov ax, word [bp + 0x4]          ; 0x38f4
     add ax, strict word 0x1c         ; 0x38f7
     push ax                          ; 0x38fa
-    call gfx_entry_18                ; 0x38fb
+    call gfx_fill_area               ; 0x38fb
     add sp, byte 0x0a                ; 0x38fe
     mov word [bp - 0x0004], 0        ; 0x3901
     jmp short @..api_idx_0004_SLIS.l3 ; 0x3906
@@ -46,7 +46,7 @@ api_idx_0004_SLIS:
     inc ax                           ; 0x391b
     inc ax                           ; 0x391c
     push ax                          ; 0x391d
-    call gfx_entry_13                ; 0x391e
+    call gfx_set_text_pos            ; 0x391e
     add sp, byte 4                   ; 0x3921
     mov ax, word [bp + 0xc]          ; 0x3924
     add ax, word [bp - 0x0002]       ; 0x3927
@@ -69,7 +69,7 @@ api_idx_0004_SLIS:
     mov ax, word [bp + 0x4]          ; 0x394e
     add ax, strict word 0xf          ; 0x3951
     push ax                          ; 0x3954
-    call gfx_entry_13                ; 0x3955
+    call gfx_set_text_pos            ; 0x3955
     add sp, byte 4                   ; 0x3958
     mov ax, 4                        ; 0x395b
     push ax                          ; 0x395e
@@ -114,7 +114,7 @@ api_idx_0004_SLIS:
     mov ax, word [bp + 0x4]          ; 0x39bf
     add ax, strict word 0x47         ; 0x39c2
     push ax                          ; 0x39c5
-    call gfx_entry_13                ; 0x39c6
+    call gfx_set_text_pos            ; 0x39c6
     add sp, byte 4                   ; 0x39c9
     mov ax, 0                        ; 0x39cc
     push ax                          ; 0x39cf
@@ -128,7 +128,7 @@ api_idx_0004_SLIS:
     mov ax, 2                        ; 0x39e0
 @..api_idx_0004_SLIS.l6:
     push ax                          ; 0x39e3
-    call gfx_entry_12                ; 0x39e4
+    call gfx_set_text_color          ; 0x39e4
     add sp, byte 4                   ; 0x39e7
     mov ax, 0                        ; 0x39ea
     push ax                          ; 0x39ed

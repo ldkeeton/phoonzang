@@ -4,7 +4,7 @@ api_idx_0002_LVPS:
     call aztec_csav
     mov ax, 0
     push ax
-    call gfx_entry_47
+    call gfx_wait_sound
     pop cx
     mov ax, 0
     push ax
@@ -41,7 +41,7 @@ api_idx_0002_LVPS:
     mov ax, 0
     push ax
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     jmp short @..api_idx_0002_LVPS.l3
 @..api_idx_0002_LVPS.l2:
@@ -60,7 +60,7 @@ api_idx_0002_LVPS:
     mov ax, 0
     push ax
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     mov ax, 0
     push ax

@@ -9,7 +9,7 @@ api_idx_000e_ORVT:
     mov ax, 0                        ; 0x96e3
     push ax                          ; 0x96e6
     push ax                          ; 0x96e7
-    call gfx_entry_16                ; 0x96e8
+    call gfx_show_area               ; 0x96e8
     add sp, byte 8                   ; 0x96eb
     mov ax, 0x248                    ; 0x96ee
     imul word [bp + 0x4]             ; 0x96f1

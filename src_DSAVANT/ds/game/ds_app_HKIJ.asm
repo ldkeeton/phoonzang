@@ -62,7 +62,7 @@ ds_app_HKIJ: ; Aztec csav frame=0x0006
     push word [bp - 0x0004]          ; 0x0ac6
     push word [bx + 0x557e]          ; 0x0ac9
     push word [bp - 0x0002]          ; 0x0acd
-    call gfx_entry_46                ; 0x0ad0
+    call gfx_play_sound              ; 0x0ad0
     add sp, byte 8                   ; 0x0ad3
 @..ds_app_HKIJ.l7:
     ret                              ; 0x0ad6

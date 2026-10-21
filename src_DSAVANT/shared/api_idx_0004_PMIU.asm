@@ -28,13 +28,13 @@ api_idx_0004_PMIU:
     mov ax, 0xa0
     sub ax, cx
     push ax
-    call gfx_entry_13
+    call gfx_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 0x55
     push ax
-    call gfx_entry_12
+    call gfx_set_text_color
     add sp, byte 4
     mov ax, 0
     push ax
@@ -49,7 +49,7 @@ api_idx_0004_PMIU:
     push ax
     mov ax, 0
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     cmp word [bp + 0x6], byte 0
     jle short @..api_idx_0004_PMIU.l1
@@ -75,6 +75,6 @@ api_idx_0004_PMIU:
     push ax
     mov ax, 0
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     ret

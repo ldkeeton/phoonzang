@@ -16,7 +16,7 @@ api_idx_0006_TGQJ:
     push ax                          ; 0x2158
     mov ax, 0x131                    ; 0x2159
     push ax                          ; 0x215c
-    call gfx_entry_13                ; 0x215d
+    call gfx_set_text_pos            ; 0x215d
     add sp, byte 4                   ; 0x2160
     mov ax, 4                        ; 0x2163
     push ax                          ; 0x2166
@@ -34,7 +34,7 @@ api_idx_0006_TGQJ:
     push ax                          ; 0x2181
     mov ax, 0x131                    ; 0x2182
     push ax                          ; 0x2185
-    call gfx_entry_16                ; 0x2186
+    call gfx_show_area               ; 0x2186
     add sp, byte 8                   ; 0x2189
     mov ax, 1                        ; 0x218c
     ret                              ; 0x218f
@@ -69,7 +69,7 @@ api_idx_0006_TGQJ:
     push ax                          ; 0x21d4
     mov ax, 0x131                    ; 0x21d5
     push ax                          ; 0x21d8
-    call gfx_entry_16                ; 0x21d9
+    call gfx_show_area               ; 0x21d9
     add sp, byte 8                   ; 0x21dc
     mov ax, 0                        ; 0x21df
     ret                              ; 0x21e2

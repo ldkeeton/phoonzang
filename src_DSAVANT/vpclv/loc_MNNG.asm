@@ -15,7 +15,7 @@ loc_MNNG:
     mov ax, word [bp + 0x4]          ; 0x0dd8
     dec ax                           ; 0x0ddb
     push ax                          ; 0x0ddc
-    call gfx_entry_18                ; 0x0ddd
+    call gfx_fill_area               ; 0x0ddd
     add sp, byte 0x0a                ; 0x0de0
     push word [bp + 0xc]             ; 0x0de3
     mov ax, word [bp + 0xa]          ; 0x0de6
@@ -30,7 +30,7 @@ loc_MNNG:
     mov ax, word [bp + 0x8]          ; 0x0df5
     inc ax                           ; 0x0df8
     push ax                          ; 0x0df9
-    call gfx_entry_18                ; 0x0dfa
+    call gfx_fill_area               ; 0x0dfa
     add sp, byte 0x0a                ; 0x0dfd
     push word [bp + 0xc]             ; 0x0e00
     mov ax, word [bp + 0xa]          ; 0x0e03
@@ -45,7 +45,7 @@ loc_MNNG:
     mov ax, word [bp + 0x4]          ; 0x0e12
     dec ax                           ; 0x0e15
     push ax                          ; 0x0e16
-    call gfx_entry_18                ; 0x0e17
+    call gfx_fill_area               ; 0x0e17
     add sp, byte 0x0a                ; 0x0e1a
     push word [bp + 0xc]             ; 0x0e1d
     mov ax, word [bp + 0xa]          ; 0x0e20
@@ -60,6 +60,6 @@ loc_MNNG:
     mov ax, word [bp + 0x4]          ; 0x0e2f
     dec ax                           ; 0x0e32
     push ax                          ; 0x0e33
-    call gfx_entry_18                ; 0x0e34
+    call gfx_fill_area               ; 0x0e34
     add sp, byte 0x0a                ; 0x0e37
     ret                              ; 0x0e3a

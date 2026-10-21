@@ -11,6 +11,6 @@ loc_GOMR:
     push ax                          ; 0x47cd
     mov ax, 0x22                     ; 0x47ce
     push ax                          ; 0x47d1
-    call gfx_entry_16                ; 0x47d2
+    call gfx_show_area               ; 0x47d2
     add sp, byte 8                   ; 0x47d5
     ret                              ; 0x47d8

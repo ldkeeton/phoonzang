@@ -15,7 +15,7 @@ api_idx_004c_LTUL:
     push ax                          ; 0x6d36
     mov ax, 0xa0                     ; 0x6d37
     push ax                          ; 0x6d3a
-    call gfx_entry_13                ; 0x6d3b
+    call gfx_set_text_pos            ; 0x6d3b
     add sp, byte 4                   ; 0x6d3e
     mov ax, 4                        ; 0x6d41
     push ax                          ; 0x6d44
@@ -45,7 +45,7 @@ api_idx_004c_LTUL:
     push ax                          ; 0x6d7d
     mov ax, 1                        ; 0x6d7e
     push ax                          ; 0x6d81
-    call gfx_entry_18                ; 0x6d82
+    call gfx_fill_area               ; 0x6d82
     add sp, byte 0x0a                ; 0x6d85
     inc word [bp - 0x0002]           ; 0x6d88
     mov ax, word [bp - 0x0002]       ; 0x6d8b
@@ -67,7 +67,7 @@ api_idx_004c_LTUL:
     imul word [bp - 0x0002]          ; 0x6daf
     inc ax                           ; 0x6db2
     push ax                          ; 0x6db3
-    call gfx_entry_18                ; 0x6db4
+    call gfx_fill_area               ; 0x6db4
     add sp, byte 0x0a                ; 0x6db7
     inc word [bp - 0x0002]           ; 0x6dba
     mov ax, word [bp - 0x0002]       ; 0x6dbd

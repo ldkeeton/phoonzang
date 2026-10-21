@@ -21,15 +21,15 @@ loc_VSIT:
     call api_idx_000e_TIOP           ; 0x7eec
     mov ax, 0xf                      ; 0x7eef
     push ax                          ; 0x7ef2
-    call ds_app_gfx_entry_22_VNHP    ; 0x7ef3
+    call ds_app_gfx_free_picture_VNHP ; 0x7ef3
     pop cx                           ; 0x7ef6
     mov ax, 7                        ; 0x7ef7
     push ax                          ; 0x7efa
-    call ds_app_gfx_entry_22_VNHP    ; 0x7efb
+    call ds_app_gfx_free_picture_VNHP ; 0x7efb
     pop cx                           ; 0x7efe
     mov ax, 5                        ; 0x7eff
     push ax                          ; 0x7f02
-    call ds_app_SOQK                 ; 0x7f03
+    call ds_app_alloc_SOQK           ; 0x7f03
     pop cx                           ; 0x7f06
     mov ax, 0                        ; 0x7f07
     push ax                          ; 0x7f0a
@@ -37,11 +37,11 @@ loc_VSIT:
     pop cx                           ; 0x7f0e
     mov ax, 1                        ; 0x7f0f
     push ax                          ; 0x7f12
-    call ds_app_gfx_entry_22_VNHP    ; 0x7f13
+    call ds_app_gfx_free_picture_VNHP ; 0x7f13
     pop cx                           ; 0x7f16
     mov ax, 2                        ; 0x7f17
     push ax                          ; 0x7f1a
-    call ds_app_gfx_entry_22_VNHP    ; 0x7f1b
+    call ds_app_gfx_free_picture_VNHP ; 0x7f1b
     pop cx                           ; 0x7f1e
     mov ax, 1                        ; 0x7f1f
     push ax                          ; 0x7f22

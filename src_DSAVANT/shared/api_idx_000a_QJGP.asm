@@ -49,7 +49,7 @@ api_idx_000a_QJGP:
     push ax
     mov ax, 8
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
 @..api_idx_000a_QJGP.l1:
     ret

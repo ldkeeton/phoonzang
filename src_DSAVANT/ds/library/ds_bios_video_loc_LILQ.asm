@@ -20,7 +20,7 @@ ds_bios_video_loc_LILQ:
     call ds_dos_file_loc_SJIH        ; 0x308b
     mov ax, 0                        ; 0x308e
     push ax                          ; 0x3091
-    call gfx_entry_15                ; 0x3092
+    call gfx_clear_buffer            ; 0x3092
     add sp, byte 2                   ; 0x3095
     mov ax, word [bp - 0x0002]       ; 0x3098
     pop di                           ; 0x309b

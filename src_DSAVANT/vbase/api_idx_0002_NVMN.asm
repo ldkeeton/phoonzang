@@ -18,7 +18,7 @@ api_idx_0002_NVMN:
     mov ax, 0                        ; 0x708c
     push ax                          ; 0x708f
     push ax                          ; 0x7090
-    call gfx_entry_18                ; 0x7091
+    call gfx_fill_area               ; 0x7091
     add sp, byte 0x0a                ; 0x7094
     mov ax, 0xc7                     ; 0x7097
     push ax                          ; 0x709a
@@ -27,7 +27,7 @@ api_idx_0002_NVMN:
     mov ax, 0                        ; 0x709f
     push ax                          ; 0x70a2
     push ax                          ; 0x70a3
-    call gfx_entry_16                ; 0x70a4
+    call gfx_show_area               ; 0x70a4
     add sp, byte 8                   ; 0x70a7
     cmp word [bss_0e32], byte 1      ; 0x70aa
     jne short @..api_idx_0002_NVMN.l1 ; 0x70af
@@ -78,7 +78,7 @@ api_idx_0002_NVMN:
     mov ax, 0                        ; 0x7117
     push ax                          ; 0x711a
     push ax                          ; 0x711b
-    call gfx_entry_16                ; 0x711c
+    call gfx_show_area               ; 0x711c
     add sp, byte 8                   ; 0x711f
     mov ax, 0                        ; 0x7122
     push ax                          ; 0x7125
@@ -159,7 +159,7 @@ jumptable_7185_case_0:
     mov ax, 0                        ; 0x71b7
     push ax                          ; 0x71ba
     push ax                          ; 0x71bb
-    call gfx_entry_18                ; 0x71bc
+    call gfx_fill_area               ; 0x71bc
     add sp, byte 0x0a                ; 0x71bf
     mov ax, 0xc7                     ; 0x71c2
     push ax                          ; 0x71c5
@@ -168,17 +168,17 @@ jumptable_7185_case_0:
     mov ax, 0                        ; 0x71ca
     push ax                          ; 0x71cd
     push ax                          ; 0x71ce
-    call gfx_entry_16                ; 0x71cf
+    call gfx_show_area               ; 0x71cf
     add sp, byte 8                   ; 0x71d2
     cmp word [bss_8450], byte 0      ; 0x71d5
     je short @..api_idx_0002_NVMN.l7 ; 0x71da
     push word [bss_844c]             ; 0x71dc
     push word [bss_844e]             ; 0x71e0
-    call animate_sprite_up           ; 0x71e4
+    call fade_out_music              ; 0x71e4
     add sp, byte 4                   ; 0x71e7
     mov ax, 0                        ; 0x71ea
     push ax                          ; 0x71ed
-    call ds_app_gfx_entry_51_VGJR    ; 0x71ee
+    call ds_app_gfx_free_score_VGJR  ; 0x71ee
     pop cx                           ; 0x71f1
 @..api_idx_0002_NVMN.l7:
     test word [bss_9056], 0x1000     ; 0x71f2
@@ -187,7 +187,7 @@ jumptable_7185_case_0:
     jne short @..api_idx_0002_NVMN.l9 ; 0x71ff
     cmp word [bss_0e32], byte 0      ; 0x7201
     jne short @..api_idx_0002_NVMN.l8 ; 0x7206
-    call gfx_entry_00                ; 0x7208
+    call gfx_mouse_init              ; 0x7208
 @..api_idx_0002_NVMN.l8:
     mov word [bss_0e32], 1           ; 0x720b
 @..api_idx_0002_NVMN.l9:
@@ -204,7 +204,7 @@ jumptable_7185_case_0:
     mov ax, 0                        ; 0x7225
     push ax                          ; 0x7228
     push ax                          ; 0x7229
-    call gfx_entry_16                ; 0x722a
+    call gfx_show_area               ; 0x722a
     add sp, byte 8                   ; 0x722d
     mov ax, 0                        ; 0x7230
     push ax                          ; 0x7233
@@ -245,7 +245,7 @@ jumptable_7185_case_0:
     push ax                          ; 0x727e
     mov ax, 0x36                     ; 0x727f
     push ax                          ; 0x7282
-    call gfx_entry_16                ; 0x7283
+    call gfx_show_area               ; 0x7283
     add sp, byte 8                   ; 0x7286
 @..api_idx_0002_NVMN.l12:
     mov ax, 0                        ; 0x7289
@@ -257,7 +257,7 @@ jumptable_7185_case_0:
     mov ax, 0                        ; 0x7295
     push ax                          ; 0x7298
     push ax                          ; 0x7299
-    call gfx_entry_18                ; 0x729a
+    call gfx_fill_area               ; 0x729a
     add sp, byte 0x0a                ; 0x729d
     mov ax, 0xc7                     ; 0x72a0
     push ax                          ; 0x72a3
@@ -266,7 +266,7 @@ jumptable_7185_case_0:
     mov ax, 0                        ; 0x72a8
     push ax                          ; 0x72ab
     push ax                          ; 0x72ac
-    call gfx_entry_16                ; 0x72ad
+    call gfx_show_area               ; 0x72ad
     add sp, byte 8                   ; 0x72b0
     mov ax, 2                        ; 0x72b3
     push ax                          ; 0x72b6

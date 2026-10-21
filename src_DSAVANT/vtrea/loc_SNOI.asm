@@ -2,7 +2,7 @@
 loc_SNOI:
     mov ax, 0                        ; 0x7d99
     call aztec_csav                  ; 0x7d9c
-    call ds_app_VKRR                 ; 0x7d9f
+    call ds_app_alloc_VKRR           ; 0x7d9f
     mov ax, 1                        ; 0x7da2
     push ax                          ; 0x7da5
     mov ax, 5                        ; 0x7da6

@@ -10,7 +10,7 @@ loc_NRTK:
     push ax                          ; 0x3a7b
     mov ax, 1                        ; 0x3a7c
     push ax                          ; 0x3a7f
-    call gfx_entry_16                ; 0x3a80
+    call gfx_show_area               ; 0x3a80
     add sp, byte 8                   ; 0x3a83
     call flush_keyboard              ; 0x3a86
 @..loc_NRTK.l1:

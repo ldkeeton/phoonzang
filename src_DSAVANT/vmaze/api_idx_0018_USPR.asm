@@ -88,7 +88,7 @@ api_idx_0018_USPR:
     mov ax, word [bp - 0x0008]       ; 0x1d86
     cmp ax, word [bp - 0x0012]       ; 0x1d89
     jl short @..api_idx_0018_USPR.l7 ; 0x1d8c
-    call gfx_entry_52                ; 0x1d8e
+    call gfx_is_music_playing        ; 0x1d8e
     test ax, ax                      ; 0x1d91
     jne short @..api_idx_0018_USPR.l7 ; 0x1d93
     jmp near @..api_idx_0018_USPR.l32 ; 0x1d95
@@ -296,10 +296,10 @@ api_idx_0018_USPR:
     jl short @..api_idx_0018_USPR.l31 ; 0x1f75
     cmp word [bss_8450], byte 0      ; 0x1f77
     je short @..api_idx_0018_USPR.l30 ; 0x1f7c
-    call gfx_entry_53                ; 0x1f7e
+    call gfx_stop_music              ; 0x1f7e
     mov ax, 0                        ; 0x1f81
     push ax                          ; 0x1f84
-    call ds_app_gfx_entry_51_VGJR    ; 0x1f85
+    call ds_app_gfx_free_score_VGJR  ; 0x1f85
     pop cx                           ; 0x1f88
 @..api_idx_0018_USPR.l30:
     mov ax, 1                        ; 0x1f89
@@ -315,7 +315,7 @@ api_idx_0018_USPR:
     push ax                          ; 0x1f9b
     mov ax, 0                        ; 0x1f9c
     push ax                          ; 0x1f9f
-    call gfx_entry_16                ; 0x1fa0
+    call gfx_show_area               ; 0x1fa0
     add sp, byte 8                   ; 0x1fa3
     mov ax, 2                        ; 0x1fa6
     push ax                          ; 0x1fa9
@@ -363,11 +363,11 @@ api_idx_0018_USPR:
     je short @..api_idx_0018_USPR.l37 ; 0x2014
     push word [bss_844c]             ; 0x2016
     push word [bss_844e]             ; 0x201a
-    call animate_sprite_up           ; 0x201e
+    call fade_out_music              ; 0x201e
     add sp, byte 4                   ; 0x2021
     mov ax, 0                        ; 0x2024
     push ax                          ; 0x2027
-    call ds_app_gfx_entry_51_VGJR    ; 0x2028
+    call ds_app_gfx_free_score_VGJR  ; 0x2028
     pop cx                           ; 0x202b
 @..api_idx_0018_USPR.l37:
     call loc_VRKM                    ; 0x202c

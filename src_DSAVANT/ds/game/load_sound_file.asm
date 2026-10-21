@@ -4,7 +4,7 @@ load_sound_file: ; Aztec csav frame=0x0018
     call aztec_csav                  ; 0x2926
     mov ax, 0                        ; 0x2929
     push ax                          ; 0x292c
-    call gfx_entry_47                ; 0x292d
+    call gfx_wait_sound              ; 0x292d
     pop cx                           ; 0x2930
     mov ax, 0                        ; 0x2931
     push ax                          ; 0x2934

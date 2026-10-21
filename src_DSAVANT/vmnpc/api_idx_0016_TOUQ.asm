@@ -19,11 +19,11 @@ api_idx_0016_TOUQ:
     mov word [bp - 0x0012], ax       ; 0xa572
     push word [bp + 0xe]             ; 0xa575
     push word [bp + 0xc]             ; 0xa578
-    call gfx_entry_12                ; 0xa57b
+    call gfx_set_text_color          ; 0xa57b
     add sp, byte 4                   ; 0xa57e
     push word [bp + 0x8]             ; 0xa581
     push word [bp + 0x6]             ; 0xa584
-    call gfx_entry_13                ; 0xa587
+    call gfx_set_text_pos            ; 0xa587
     add sp, byte 4                   ; 0xa58a
     mov ax, 0                        ; 0xa58d
     push ax                          ; 0xa590
@@ -39,7 +39,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa5aa
     push word [bp + 0x8]             ; 0xa5ab
     push word [bp + 0x6]             ; 0xa5ae
-    call gfx_entry_16                ; 0xa5b1
+    call gfx_show_area               ; 0xa5b1
     add sp, byte 8                   ; 0xa5b4
     push word [bp + 0x4]             ; 0xa5b7
     call aztec_strlen                ; 0xa5ba
@@ -83,7 +83,7 @@ api_idx_0016_TOUQ:
     je short @..api_idx_0016_TOUQ.l3 ; 0xa61c
     push word [bp + 0x8]             ; 0xa61e
     push word [bp + 0x6]             ; 0xa621
-    call gfx_entry_13                ; 0xa624
+    call gfx_set_text_pos            ; 0xa624
     add sp, byte 4                   ; 0xa627
     mov ax, 0                        ; 0xa62a
     push ax                          ; 0xa62d
@@ -100,7 +100,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa645
     push word [bp + 0x8]             ; 0xa646
     push word [bp + 0x6]             ; 0xa649
-    call gfx_entry_16                ; 0xa64c
+    call gfx_show_area               ; 0xa64c
     add sp, byte 8                   ; 0xa64f
     mov ax, word [bp - 0x0008]       ; 0xa652
     inc ax                           ; 0xa655
@@ -133,7 +133,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa690
     push word [bp + 0x8]             ; 0xa691
     push word [bp + 0x6]             ; 0xa694
-    call gfx_entry_16                ; 0xa697
+    call gfx_show_area               ; 0xa697
     add sp, byte 8                   ; 0xa69a
     mov ax, 1                        ; 0xa69d
     push ax                          ; 0xa6a0
@@ -172,7 +172,7 @@ api_idx_0016_TOUQ:
     add sp, byte 6                   ; 0xa6f2
     push word [bp + 0x8]             ; 0xa6f5
     push word [bp - 0x0004]          ; 0xa6f8
-    call gfx_entry_13                ; 0xa6fb
+    call gfx_set_text_pos            ; 0xa6fb
     add sp, byte 4                   ; 0xa6fe
     mov bx, word [bp + 0x4]          ; 0xa701
     mov si, word [bp - 0x0006]       ; 0xa704
@@ -191,7 +191,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa727
     push word [bp + 0x8]             ; 0xa728
     push word [bp - 0x0004]          ; 0xa72b
-    call gfx_entry_16                ; 0xa72e
+    call gfx_show_area               ; 0xa72e
     add sp, byte 8                   ; 0xa731
     jmp short @..api_idx_0016_TOUQ.l11 ; 0xa734
 @..api_idx_0016_TOUQ.l9:
@@ -281,7 +281,7 @@ api_idx_0016_TOUQ:
     inc word [bp - 0x0006]           ; 0xa7f6
     push word [bp + 0x8]             ; 0xa7f9
     push word [bp + 0x6]             ; 0xa7fc
-    call gfx_entry_13                ; 0xa7ff
+    call gfx_set_text_pos            ; 0xa7ff
     add sp, byte 4                   ; 0xa802
     mov ax, 0                        ; 0xa805
     push ax                          ; 0xa808
@@ -298,7 +298,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa822
     push word [bp + 0x8]             ; 0xa823
     push word [bp + 0x6]             ; 0xa826
-    call gfx_entry_16                ; 0xa829
+    call gfx_show_area               ; 0xa829
     add sp, byte 8                   ; 0xa82c
     add word [bp + 0x6], byte 6      ; 0xa82f
 @..api_idx_0016_TOUQ.l20:

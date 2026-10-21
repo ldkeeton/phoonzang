@@ -1,4 +1,4 @@
 ; auto-generated
 loc_JTQK_00af:
-    call loc_JTQK_00af.dos_file_loc1
-    retf
+    call cache_screen                ; 0x00af
+    retf                             ; 0x00b2

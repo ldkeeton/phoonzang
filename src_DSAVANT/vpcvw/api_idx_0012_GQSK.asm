@@ -76,7 +76,7 @@ api_idx_0012_GQSK:
     push ax                          ; 0x05cf
     mov ax, 1                        ; 0x05d0
     push ax                          ; 0x05d3
-    call gfx_entry_16                ; 0x05d4
+    call gfx_show_area               ; 0x05d4
     add sp, byte 8                   ; 0x05d7
     cmp word [bss_0e32], byte 0      ; 0x05da
     je short @..api_idx_0012_GQSK.l3 ; 0x05df
@@ -98,7 +98,7 @@ api_idx_0012_GQSK:
     push ax                          ; 0x0603
     mov ax, 0x9a                     ; 0x0604
     push ax                          ; 0x0607
-    call gfx_entry_13                ; 0x0608
+    call gfx_set_text_pos            ; 0x0608
     add sp, byte 4                   ; 0x060b
     mov ax, 7                        ; 0x060e
     push ax                          ; 0x0611
@@ -110,7 +110,7 @@ api_idx_0012_GQSK:
     push ax                          ; 0x061f
     mov ax, 0x9a                     ; 0x0620
     push ax                          ; 0x0623
-    call gfx_entry_13                ; 0x0624
+    call gfx_set_text_pos            ; 0x0624
     add sp, byte 4                   ; 0x0627
     mov ax, 7                        ; 0x062a
     push ax                          ; 0x062d
@@ -122,7 +122,7 @@ api_idx_0012_GQSK:
     push ax                          ; 0x063b
     mov ax, 0xa6                     ; 0x063c
     push ax                          ; 0x063f
-    call gfx_entry_13                ; 0x0640
+    call gfx_set_text_pos            ; 0x0640
     add sp, byte 4                   ; 0x0643
     mov ax, 7                        ; 0x0646
     push ax                          ; 0x0649
@@ -138,7 +138,7 @@ api_idx_0012_GQSK:
     push ax                          ; 0x065f
     mov ax, 0x9a                     ; 0x0660
     push ax                          ; 0x0663
-    call gfx_entry_16                ; 0x0664
+    call gfx_show_area               ; 0x0664
     add sp, byte 8                   ; 0x0667
     mov word [bp - 0x0004], 0xfffe   ; 0x066a
 @..api_idx_0012_GQSK.l4:
@@ -185,7 +185,7 @@ api_idx_0012_GQSK:
     push ax                          ; 0x06cd
     mov ax, 0x9a                     ; 0x06ce
     push ax                          ; 0x06d1
-    call gfx_entry_16                ; 0x06d2
+    call gfx_show_area               ; 0x06d2
     add sp, byte 8                   ; 0x06d5
     mov ax, word [bp - 0x0004]       ; 0x06d8
     ret                              ; 0x06db
@@ -200,7 +200,7 @@ api_idx_0012_GQSK:
     push ax                          ; 0x06f2
     lea ax, word [bp - 0x000a]       ; 0x06f3
     push ax                          ; 0x06f6
-    call gfx_entry_23                ; 0x06f7
+    call gfx_get_mouse               ; 0x06f7
     add sp, byte 4                   ; 0x06fa
     mov word [bp - 0x0006], ax       ; 0x06fd
     mov ax, 0                        ; 0x0700

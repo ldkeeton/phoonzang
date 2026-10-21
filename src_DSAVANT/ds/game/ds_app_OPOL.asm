@@ -8,7 +8,7 @@ ds_app_OPOL: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x0fec
     push word [bp + 0x6]             ; 0x0fef
     push word [bp + 0x4]             ; 0x0ff2
-    call gfx_entry_18                ; 0x0ff5
+    call gfx_fill_area               ; 0x0ff5
     add sp, byte 0x0a                ; 0x0ff8
     push word [bp + 0xa]             ; 0x0ffb
     push word [bp + 0x8]             ; 0x0ffe

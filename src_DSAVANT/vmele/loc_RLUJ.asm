@@ -15,28 +15,28 @@ loc_RLUJ:
     cmp word [loaded_score_num], byte 0xff ; 0x3406
     je short @..loc_RLUJ.l3          ; 0x340b
 @..loc_RLUJ.l1:
-    call gfx_entry_52                ; 0x340d
+    call gfx_is_music_playing        ; 0x340d
     test ax, ax                      ; 0x3410
     je short @..loc_RLUJ.l2          ; 0x3412
     jmp short @..loc_RLUJ.l1         ; 0x3414
 @..loc_RLUJ.l2:
     mov ax, 0                        ; 0x3416
     push ax                          ; 0x3419
-    call ds_app_gfx_entry_51_VGJR    ; 0x341a
+    call ds_app_gfx_free_score_VGJR  ; 0x341a
     pop cx                           ; 0x341d
 @..loc_RLUJ.l3:
-    call ds_app_VKRR                 ; 0x341e
+    call ds_app_alloc_VKRR           ; 0x341e
     mov ax, 0                        ; 0x3421
     push ax                          ; 0x3424
-    call ds_app_gfx_entry_22_VNHP    ; 0x3425
+    call ds_app_gfx_free_picture_VNHP ; 0x3425
     pop cx                           ; 0x3428
     mov ax, 4                        ; 0x3429
     push ax                          ; 0x342c
-    call ds_app_gfx_entry_22_VNHP    ; 0x342d
+    call ds_app_gfx_free_picture_VNHP ; 0x342d
     pop cx                           ; 0x3430
     mov ax, 6                        ; 0x3431
     push ax                          ; 0x3434
-    call ds_app_gfx_entry_22_VNHP    ; 0x3435
+    call ds_app_gfx_free_picture_VNHP ; 0x3435
     pop cx                           ; 0x3438
     mov ax, 1                        ; 0x3439
     push ax                          ; 0x343c

@@ -108,7 +108,7 @@ api_idx_0026_NRVO:
     push ax                          ; 0x12f0
     mov ax, 0x9b                     ; 0x12f1
     push ax                          ; 0x12f4
-    call gfx_entry_12                ; 0x12f5
+    call gfx_set_text_color          ; 0x12f5
     add sp, byte 4                   ; 0x12f8
     mov ax, word [bp - 0x0004]       ; 0x12fb
     add ax, strict word 0x16         ; 0x12fe
@@ -130,7 +130,7 @@ api_idx_0026_NRVO:
     add ax, word [bp - 0x0002]       ; 0x131e
     add ax, strict word 0x5d         ; 0x1321
     push ax                          ; 0x1324
-    call gfx_entry_13                ; 0x1325
+    call gfx_set_text_pos            ; 0x1325
     add sp, byte 4                   ; 0x1328
     mov ax, 0                        ; 0x132b
     push ax                          ; 0x132e
@@ -263,7 +263,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 0x0002]       ; 0x1445
     dec ax                           ; 0x1448
     push ax                          ; 0x1449
-    call gfx_entry_16                ; 0x144a
+    call gfx_show_area               ; 0x144a
     add sp, byte 8                   ; 0x144d
     call flush_keyboard              ; 0x1450
     mov ax, 0                        ; 0x1453
@@ -319,7 +319,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 0x0002]       ; 0x14c5
     add ax, strict word 0x5d         ; 0x14c8
     push ax                          ; 0x14cb
-    call gfx_entry_16                ; 0x14cc
+    call gfx_show_area               ; 0x14cc
     add sp, byte 8                   ; 0x14cf
     mov word [bp - 0x0010], 1        ; 0x14d2
 @..api_idx_0026_NRVO.l1:
@@ -365,7 +365,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 0x0002]       ; 0x152d
     add ax, strict word 0x5d         ; 0x1530
     push ax                          ; 0x1533
-    call gfx_entry_16                ; 0x1534
+    call gfx_show_area               ; 0x1534
     add sp, byte 8                   ; 0x1537
     mov ax, 0                        ; 0x153a
     push ax                          ; 0x153d
@@ -420,7 +420,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 0x0002]       ; 0x15ac
     add ax, strict word 0x5d         ; 0x15af
     push ax                          ; 0x15b2
-    call gfx_entry_16                ; 0x15b3
+    call gfx_show_area               ; 0x15b3
     add sp, byte 8                   ; 0x15b6
     jmp near @..api_idx_0026_NRVO.l14 ; 0x15b9
 @..api_idx_0026_NRVO.l4:

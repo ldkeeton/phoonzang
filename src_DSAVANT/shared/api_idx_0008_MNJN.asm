@@ -46,7 +46,7 @@ api_idx_0008_MNJN:
     mov ax, word [bp - 0x0006]
     add ax, strict word 0x1c
     push ax
-    call gfx_entry_13
+    call gfx_set_text_pos
     add sp, byte 4
     mov ax, 6
     push ax
@@ -64,7 +64,7 @@ api_idx_0008_MNJN:
     push ax
     push word [bp - 0x0008]
     push word [bp - 0x0006]
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
 @..api_idx_0008_MNJN.l3:
     jmp short @..api_idx_0008_MNJN.l5

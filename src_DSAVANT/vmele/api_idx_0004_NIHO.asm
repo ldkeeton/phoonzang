@@ -4,7 +4,7 @@ api_idx_0004_NIHO:
     call aztec_csav                  ; 0x2ec7
     mov ax, 1                        ; 0x2eca
     push ax                          ; 0x2ecd
-    call gfx_entry_47                ; 0x2ece
+    call gfx_wait_sound              ; 0x2ece
     pop cx                           ; 0x2ed1
     mov ax, 0                        ; 0x2ed2
     push ax                          ; 0x2ed5
@@ -38,41 +38,41 @@ api_idx_0004_NIHO:
     add sp, byte 8                   ; 0x2f1e
     mov ax, 0xc                      ; 0x2f21
     push ax                          ; 0x2f24
-    call ds_app_gfx_entry_22_VNHP    ; 0x2f25
+    call ds_app_gfx_free_picture_VNHP ; 0x2f25
     pop cx                           ; 0x2f28
     mov ax, 7                        ; 0x2f29
     push ax                          ; 0x2f2c
-    call ds_app_gfx_entry_22_VNHP    ; 0x2f2d
+    call ds_app_gfx_free_picture_VNHP ; 0x2f2d
     pop cx                           ; 0x2f30
     mov ax, 5                        ; 0x2f31
     push ax                          ; 0x2f34
-    call ds_app_SOQK                 ; 0x2f35
+    call ds_app_alloc_SOQK           ; 0x2f35
     pop cx                           ; 0x2f38
     mov ax, 6                        ; 0x2f39
     push ax                          ; 0x2f3c
-    call ds_app_SOQK                 ; 0x2f3d
+    call ds_app_alloc_SOQK           ; 0x2f3d
     pop cx                           ; 0x2f40
     mov ax, 7                        ; 0x2f41
     push ax                          ; 0x2f44
-    call ds_app_SOQK                 ; 0x2f45
+    call ds_app_alloc_SOQK           ; 0x2f45
     pop cx                           ; 0x2f48
     mov ax, 0xa                      ; 0x2f49
     push ax                          ; 0x2f4c
-    call ds_app_SOQK                 ; 0x2f4d
+    call ds_app_alloc_SOQK           ; 0x2f4d
     pop cx                           ; 0x2f50
     mov ax, 0xb                      ; 0x2f51
     push ax                          ; 0x2f54
-    call ds_app_SOQK                 ; 0x2f55
+    call ds_app_alloc_SOQK           ; 0x2f55
     pop cx                           ; 0x2f58
     mov ax, 0xc                      ; 0x2f59
     push ax                          ; 0x2f5c
-    call ds_app_SOQK                 ; 0x2f5d
+    call ds_app_alloc_SOQK           ; 0x2f5d
     pop cx                           ; 0x2f60
     cmp word [bss_598e], byte 0xff   ; 0x2f61
     je short @..api_idx_0004_NIHO.l1 ; 0x2f66
     mov ax, 0x10                     ; 0x2f68
     push ax                          ; 0x2f6b
-    call ds_app_SOQK                 ; 0x2f6c
+    call ds_app_alloc_SOQK           ; 0x2f6c
     pop cx                           ; 0x2f6f
     mov word [bss_598e], 0xffff      ; 0x2f70
 @..api_idx_0004_NIHO.l1:
@@ -82,11 +82,11 @@ api_idx_0004_NIHO:
     pop cx                           ; 0x2f7d
     mov ax, 1                        ; 0x2f7e
     push ax                          ; 0x2f81
-    call ds_app_gfx_entry_22_VNHP    ; 0x2f82
+    call ds_app_gfx_free_picture_VNHP ; 0x2f82
     pop cx                           ; 0x2f85
     mov ax, 2                        ; 0x2f86
     push ax                          ; 0x2f89
-    call ds_app_gfx_entry_22_VNHP    ; 0x2f8a
+    call ds_app_gfx_free_picture_VNHP ; 0x2f8a
     pop cx                           ; 0x2f8d
     mov ax, 1                        ; 0x2f8e
     push ax                          ; 0x2f91
@@ -151,7 +151,7 @@ api_idx_0004_NIHO:
     cmp ax, 0xff                     ; 0x302a
     je short @..api_idx_0004_NIHO.l6 ; 0x302d
     push bx                          ; 0x302f
-    call ds_app_gfx_entry_22_VNHP    ; 0x3030
+    call ds_app_gfx_free_picture_VNHP ; 0x3030
     pop cx                           ; 0x3033
 @..api_idx_0004_NIHO.l6:
     inc word [bp - 0x0004]           ; 0x3034

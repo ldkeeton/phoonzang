@@ -132,7 +132,7 @@ api_idx_0018_OIIM:
     push ax                          ; 0x7c8c
     mov ax, 0x48                     ; 0x7c8d
     push ax                          ; 0x7c90
-    call gfx_entry_16                ; 0x7c91
+    call gfx_show_area               ; 0x7c91
     add sp, byte 8                   ; 0x7c94
     cmp word [bp + 0xa], byte 0      ; 0x7c97
     je short @..api_idx_0018_OIIM.l5 ; 0x7c9b

@@ -4,7 +4,7 @@ api_idx_0016_LTLN:
     call aztec_csav                  ; 0x72d3
     mov ax, 0                        ; 0x72d6
     push ax                          ; 0x72d9
-    call gfx_entry_47                ; 0x72da
+    call gfx_wait_sound              ; 0x72da
     pop cx                           ; 0x72dd
     mov ax, dseg_9138                ; 0x72de
     push ax                          ; 0x72e1

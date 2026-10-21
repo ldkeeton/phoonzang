@@ -69,15 +69,15 @@ api_idx_0020_ORSV:
     push ax                          ; 0x33c9
     push word [bp + 0x8]             ; 0x33ca
     push word [bp + 0x6]             ; 0x33cd
-    call gfx_entry_18                ; 0x33d0
+    call gfx_fill_area               ; 0x33d0
     add sp, byte 0x0a                ; 0x33d3
     push word [bp + 0x8]             ; 0x33d6
     push word [bp + 0x6]             ; 0x33d9
-    call gfx_entry_13                ; 0x33dc
+    call gfx_set_text_pos            ; 0x33dc
     add sp, byte 4                   ; 0x33df
     push word [bp + 0x14]            ; 0x33e2
     push word [bp + 0x16]            ; 0x33e5
-    call gfx_entry_12                ; 0x33e8
+    call gfx_set_text_color          ; 0x33e8
     add sp, byte 4                   ; 0x33eb
     mov ax, 0                        ; 0x33ee
     push ax                          ; 0x33f1
@@ -133,15 +133,15 @@ api_idx_0020_ORSV:
     push ax                          ; 0x3469
     push word [bp + 0x8]             ; 0x346a
     push word [bp + 0x6]             ; 0x346d
-    call gfx_entry_18                ; 0x3470
+    call gfx_fill_area               ; 0x3470
     add sp, byte 0x0a                ; 0x3473
     push word [bp + 0x8]             ; 0x3476
     push word [bp + 0x6]             ; 0x3479
-    call gfx_entry_13                ; 0x347c
+    call gfx_set_text_pos            ; 0x347c
     add sp, byte 4                   ; 0x347f
     push word [bp + 0x14]            ; 0x3482
     push word [bp + 0x16]            ; 0x3485
-    call gfx_entry_12                ; 0x3488
+    call gfx_set_text_color          ; 0x3488
     add sp, byte 4                   ; 0x348b
     mov ax, 0                        ; 0x348e
     push ax                          ; 0x3491
@@ -168,6 +168,6 @@ api_idx_0020_ORSV:
     push ax                          ; 0x34bf
     push word [bp + 0x8]             ; 0x34c0
     push word [bp + 0x6]             ; 0x34c3
-    call gfx_entry_16                ; 0x34c6
+    call gfx_show_area               ; 0x34c6
     add sp, byte 8                   ; 0x34c9
     ret                              ; 0x34cc

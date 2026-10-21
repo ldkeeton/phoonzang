@@ -13,7 +13,7 @@ api_idx_0006_TMLR:
     push ax                          ; 0x18bf
     mov ax, 0x48                     ; 0x18c0
     push ax                          ; 0x18c3
-    call gfx_entry_16                ; 0x18c4
+    call gfx_show_area               ; 0x18c4
     add sp, byte 8                   ; 0x18c7
     cmp word [bss_90dc], byte 0      ; 0x18ca
     je short @..api_idx_0006_TMLR.l2 ; 0x18cf
@@ -25,7 +25,7 @@ api_idx_0006_TMLR:
     jne short @..api_idx_0006_TMLR.l2 ; 0x18de
     mov ax, 1                        ; 0x18e0
     push ax                          ; 0x18e3
-    call gfx_entry_47                ; 0x18e4
+    call gfx_wait_sound              ; 0x18e4
     pop cx                           ; 0x18e7
 @..api_idx_0006_TMLR.l2:
     mov word [bss_90dc], 0           ; 0x18e8

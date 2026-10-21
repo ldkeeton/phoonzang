@@ -22,7 +22,7 @@ ds_app_string_MJQI: ; Aztec csav frame=0x0000
     push ax                          ; 0x1063
     mov ax, 0x55                     ; 0x1064
     push ax                          ; 0x1067
-    call gfx_entry_12                ; 0x1068
+    call gfx_set_text_color          ; 0x1068
     add sp, byte 4                   ; 0x106b
     mov ax, word [bp + 0x6]          ; 0x106e
     inc ax                           ; 0x1071
@@ -42,7 +42,7 @@ ds_app_string_MJQI: ; Aztec csav frame=0x0000
     add ax, word [bp + 0x4]          ; 0x108d
     inc ax                           ; 0x1090
     push ax                          ; 0x1091
-    call gfx_entry_13                ; 0x1092
+    call gfx_set_text_pos            ; 0x1092
     add sp, byte 4                   ; 0x1095
     mov ax, 0                        ; 0x1098
     push ax                          ; 0x109b

@@ -37,7 +37,7 @@ api_idx_005e_SHOL:
     push ax                          ; 0x144a
     mov ax, 0x37                     ; 0x144b
     push ax                          ; 0x144e
-    call gfx_entry_16                ; 0x144f
+    call gfx_show_area               ; 0x144f
     add sp, byte 8                   ; 0x1452
 @..api_idx_005e_SHOL.l4:
     call loc_RPUI                    ; 0x1455
@@ -258,7 +258,7 @@ api_idx_005e_SHOL:
     push ax                          ; 0x166a
     mov ax, 0x37                     ; 0x166b
     push ax                          ; 0x166e
-    call gfx_entry_16                ; 0x166f
+    call gfx_show_area               ; 0x166f
     add sp, byte 8                   ; 0x1672
 @..api_idx_005e_SHOL.l27:
     ret                              ; 0x1675

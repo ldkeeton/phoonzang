@@ -69,7 +69,7 @@ loc_UGOG:
     push ax                          ; 0x1d43
     mov ax, 1                        ; 0x1d44
     push ax                          ; 0x1d47
-    call gfx_entry_12                ; 0x1d48
+    call gfx_set_text_color          ; 0x1d48
     add sp, byte 4                   ; 0x1d4b
     mov ax, word [bp + 0xa]          ; 0x1d4e
     add ax, strict word 0xfff3       ; 0x1d51
@@ -87,7 +87,7 @@ loc_UGOG:
     mov ax, 0xa0                     ; 0x1d6b
     sub ax, cx                       ; 0x1d6e
     push ax                          ; 0x1d70
-    call gfx_entry_13                ; 0x1d71
+    call gfx_set_text_pos            ; 0x1d71
     add sp, byte 4                   ; 0x1d74
     mov ax, 0                        ; 0x1d77
     push ax                          ; 0x1d7a
@@ -179,7 +179,7 @@ loc_UGOG:
     mov ax, 0x1a                     ; 0x1e42
 @..loc_UGOG.l7:
     push ax                          ; 0x1e45
-    call gfx_entry_12                ; 0x1e46
+    call gfx_set_text_color          ; 0x1e46
     add sp, byte 4                   ; 0x1e49
     mov ax, word [bp + 0xa]          ; 0x1e4c
     add ax, word [bp - 0x000c]       ; 0x1e4f
@@ -205,7 +205,7 @@ loc_UGOG:
     add ax, word [bp - 0x000a]       ; 0x1e7b
     inc ax                           ; 0x1e7e
     push ax                          ; 0x1e7f
-    call gfx_entry_13                ; 0x1e80
+    call gfx_set_text_pos            ; 0x1e80
     add sp, byte 4                   ; 0x1e83
     mov ax, 0                        ; 0x1e86
     push ax                          ; 0x1e89
@@ -266,7 +266,7 @@ loc_UGOG:
     mov ax, 0                        ; 0x1f05
     push ax                          ; 0x1f08
     push ax                          ; 0x1f09
-    call gfx_entry_16                ; 0x1f0a
+    call gfx_show_area               ; 0x1f0a
     add sp, byte 8                   ; 0x1f0d
     cmp word [bss_0e32], byte 0      ; 0x1f10
     je short @..loc_UGOG.l11         ; 0x1f15
@@ -324,7 +324,7 @@ loc_UGOG:
     mov ax, word [bp + 0x8]          ; 0x1f8b
     dec ax                           ; 0x1f8e
     push ax                          ; 0x1f8f
-    call gfx_entry_16                ; 0x1f90
+    call gfx_show_area               ; 0x1f90
     add sp, byte 8                   ; 0x1f93
     mov ax, 0                        ; 0x1f96
     push ax                          ; 0x1f99
@@ -473,7 +473,7 @@ loc_UGOG:
     mov ax, word [bp + 0x8]          ; 0x20c3
     dec ax                           ; 0x20c6
     push ax                          ; 0x20c7
-    call gfx_entry_16                ; 0x20c8
+    call gfx_show_area               ; 0x20c8
     add sp, byte 8                   ; 0x20cb
 @..loc_UGOG.l25:
     dec word [bp - 0x0004]           ; 0x20ce
@@ -534,7 +534,7 @@ loc_UGOG:
     mov ax, word [bp + 0x8]          ; 0x2157
     add ax, strict word 0xfffa       ; 0x215a
     push ax                          ; 0x215d
-    call gfx_entry_16                ; 0x215e
+    call gfx_show_area               ; 0x215e
     add sp, byte 8                   ; 0x2161
     jmp short @..loc_UGOG.l27        ; 0x2164
 @..loc_UGOG.l26:
@@ -550,7 +550,7 @@ loc_UGOG:
     mov ax, word [bp + 0x8]          ; 0x2175
     dec ax                           ; 0x2178
     push ax                          ; 0x2179
-    call gfx_entry_16                ; 0x217a
+    call gfx_show_area               ; 0x217a
     add sp, byte 8                   ; 0x217d
 @..loc_UGOG.l27:
     mov ax, word [bp - 0x0004]       ; 0x2180

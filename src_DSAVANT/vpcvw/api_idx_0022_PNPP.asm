@@ -142,7 +142,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x95d5
     mov ax, 0xe                      ; 0x95d6
     push ax                          ; 0x95d9
-    call gfx_entry_16                ; 0x95da
+    call gfx_show_area               ; 0x95da
     add sp, byte 8                   ; 0x95dd
 @..api_idx_0022_PNPP.l5:
     mov ax, 0x59fe                   ; 0x95e0
@@ -240,7 +240,7 @@ api_idx_0022_PNPP:
     mov ax, 0                        ; 0x96b1
     push ax                          ; 0x96b4
     push ax                          ; 0x96b5
-    call gfx_entry_16                ; 0x96b6
+    call gfx_show_area               ; 0x96b6
     add sp, byte 8                   ; 0x96b9
     cmp word [bp - 0x000c], byte 1   ; 0x96bc
     jne short @..api_idx_0022_PNPP.l11 ; 0x96c0

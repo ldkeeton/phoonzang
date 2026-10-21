@@ -15,7 +15,7 @@ ovmain:
     push ax                          ; 0x17f9
     mov ax, 0x12e                    ; 0x17fa
     push ax                          ; 0x17fd
-    call gfx_entry_33                ; 0x17fe
+    call gfx_mouse_glide_to          ; 0x17fe
     add sp, byte 6                   ; 0x1801
     call api_idx_000c_VJPM           ; 0x1804
     mov ax, 0                        ; 0x1807
@@ -24,7 +24,7 @@ ovmain:
     push ax                          ; 0x180e
     mov ax, 0x12e                    ; 0x180f
     push ax                          ; 0x1812
-    call gfx_entry_34                ; 0x1813
+    call gfx_mouse_glide_back        ; 0x1813
     add sp, byte 6                   ; 0x1816
     mov ax, 0                        ; 0x1819
     mov dx, 0                        ; 0x181c

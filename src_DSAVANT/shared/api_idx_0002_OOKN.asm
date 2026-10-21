@@ -4,7 +4,7 @@ api_idx_0002_OOKN:
     call aztec_csav
     mov ax, 0
     push ax
-    call gfx_entry_47
+    call gfx_wait_sound
     pop cx
     mov ax, 0
     push ax
@@ -41,7 +41,7 @@ api_idx_0002_OOKN:
     mov ax, 0
     push ax
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
 @..api_idx_0002_OOKN.l2:
     ret

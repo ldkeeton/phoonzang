@@ -25,6 +25,6 @@ api_idx_0002_ITLQ:
     push ax                          ; 0x0e9a
     mov ax, 0xff                     ; 0x0e9b
     push ax                          ; 0x0e9e
-    call gfx_entry_28                ; 0x0e9f
+    call gfx_set_rgb                 ; 0x0e9f
     add sp, byte 8                   ; 0x0ea2
     ret                              ; 0x0ea5

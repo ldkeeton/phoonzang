@@ -11,6 +11,6 @@ loc_IONR:
     push ax
     mov ax, 0x48
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     ret

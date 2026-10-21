@@ -9,7 +9,7 @@ load_sound_file(num, n, flag)
 	int fd;
 	char name[20];
 
-	gfx_entry_47(0);
+	gfx_wait_sound(0);
 	data_record_io(9, &sound_slot_info[n], num, 0);
 	load = 1;
 	if (sound_slot_info[n].size == 0) {

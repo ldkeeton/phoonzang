@@ -16,7 +16,7 @@ api_idx_0006_KPLV:
     push ax                          ; 0x372b
     mov ax, 0x131                    ; 0x372c
     push ax                          ; 0x372f
-    call gfx_entry_13                ; 0x3730
+    call gfx_set_text_pos            ; 0x3730
     add sp, byte 4                   ; 0x3733
     mov ax, 4                        ; 0x3736
     push ax                          ; 0x3739
@@ -34,7 +34,7 @@ api_idx_0006_KPLV:
     push ax                          ; 0x3754
     mov ax, 0x131                    ; 0x3755
     push ax                          ; 0x3758
-    call gfx_entry_16                ; 0x3759
+    call gfx_show_area               ; 0x3759
     add sp, byte 8                   ; 0x375c
     mov ax, 1                        ; 0x375f
     ret                              ; 0x3762
@@ -69,7 +69,7 @@ api_idx_0006_KPLV:
     push ax                          ; 0x37a7
     mov ax, 0x131                    ; 0x37a8
     push ax                          ; 0x37ab
-    call gfx_entry_16                ; 0x37ac
+    call gfx_show_area               ; 0x37ac
     add sp, byte 8                   ; 0x37af
     mov ax, 0                        ; 0x37b2
     ret                              ; 0x37b5

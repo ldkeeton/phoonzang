@@ -4,18 +4,18 @@ api_idx_0008_QGRM:
     call aztec_csav                  ; 0x140c
     mov ax, 0                        ; 0x140f
     push ax                          ; 0x1412
-    call gfx_entry_25                ; 0x1413
+    call gfx_set_text_opaque         ; 0x1413
     pop cx                           ; 0x1416
     mov ax, 0                        ; 0x1417
     push ax                          ; 0x141a
     mov ax, 1                        ; 0x141b
     push ax                          ; 0x141e
-    call gfx_entry_12                ; 0x141f
+    call gfx_set_text_color          ; 0x141f
     add sp, byte 4                   ; 0x1422
     mov ax, 0                        ; 0x1425
     push ax                          ; 0x1428
     push ax                          ; 0x1429
-    call gfx_entry_13                ; 0x142a
+    call gfx_set_text_pos            ; 0x142a
     add sp, byte 4                   ; 0x142d
     mov word [bp - 0x0004], 0        ; 0x1430
 @..api_idx_0008_QGRM.l1:

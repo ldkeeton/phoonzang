@@ -25,7 +25,7 @@ loc_GPRG:
     push ax                          ; 0x0fb0
     push word [bp + 0x6]             ; 0x0fb1
     push word [bp + 0x4]             ; 0x0fb4
-    call gfx_entry_18                ; 0x0fb7
+    call gfx_fill_area               ; 0x0fb7
     add sp, byte 0x0a                ; 0x0fba
     mov ax, word [bp + 0x6]          ; 0x0fbd
     inc ax                           ; 0x0fc0
@@ -34,7 +34,7 @@ loc_GPRG:
     inc ax                           ; 0x0fc5
     inc ax                           ; 0x0fc6
     push ax                          ; 0x0fc7
-    call gfx_entry_13                ; 0x0fc8
+    call gfx_set_text_pos            ; 0x0fc8
     add sp, byte 4                   ; 0x0fcb
     cmp word [bp + 0xa], byte 0      ; 0x0fce
     jle short @..loc_GPRG.l1         ; 0x0fd2
@@ -45,7 +45,7 @@ loc_GPRG:
     push ax                          ; 0x0fdf
     mov ax, 1                        ; 0x0fe0
     push ax                          ; 0x0fe3
-    call gfx_entry_12                ; 0x0fe4
+    call gfx_set_text_color          ; 0x0fe4
     add sp, byte 4                   ; 0x0fe7
     mov ax, 0                        ; 0x0fea
     push ax                          ; 0x0fed
@@ -59,7 +59,7 @@ loc_GPRG:
     mov ax, 0                        ; 0x0ffd
     push ax                          ; 0x1000
     push ax                          ; 0x1001
-    call gfx_entry_12                ; 0x1002
+    call gfx_set_text_color          ; 0x1002
     add sp, byte 4                   ; 0x1005
     mov ax, 0                        ; 0x1008
     push ax                          ; 0x100b

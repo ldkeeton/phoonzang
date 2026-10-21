@@ -45,7 +45,7 @@ jumptable_1aa5_case_0:
 @..api_idx_00fa_RIMJ.l2:
     mov ax, 2                        ; 0x1ac2
     push ax                          ; 0x1ac5
-    call ds_app_gfx_entry_22_VNHP    ; 0x1ac6
+    call ds_app_gfx_free_picture_VNHP ; 0x1ac6
     pop cx                           ; 0x1ac9
     mov ax, 0xe                      ; 0x1aca
     push ax                          ; 0x1acd
@@ -220,7 +220,7 @@ jumptable_1aa5_case_0:
     add sp, byte 8                   ; 0x1c65
     mov ax, 0xe                      ; 0x1c68
     push ax                          ; 0x1c6b
-    call ds_app_gfx_entry_22_VNHP    ; 0x1c6c
+    call ds_app_gfx_free_picture_VNHP ; 0x1c6c
     pop cx                           ; 0x1c6f
     mov ax, 2                        ; 0x1c70
     push ax                          ; 0x1c73

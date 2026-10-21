@@ -26,12 +26,12 @@ api_idx_000c_LVHV:
     push ax                          ; 0x0342
     mov ax, 0x55                     ; 0x0343
     push ax                          ; 0x0346
-    call gfx_entry_12                ; 0x0347
+    call gfx_set_text_color          ; 0x0347
     add sp, byte 4                   ; 0x034a
     mov ax, 0xa4                     ; 0x034d
     push ax                          ; 0x0350
     push word [bp - 0x0002]          ; 0x0351
-    call gfx_entry_13                ; 0x0354
+    call gfx_set_text_pos            ; 0x0354
     add sp, byte 4                   ; 0x0357
     mov ax, 2                        ; 0x035a
     push ax                          ; 0x035d
@@ -49,7 +49,7 @@ api_idx_000c_LVHV:
     mov ax, 0xa4                     ; 0x037b
     push ax                          ; 0x037e
     push word [bp - 0x0002]          ; 0x037f
-    call gfx_entry_16                ; 0x0382
+    call gfx_show_area               ; 0x0382
     add sp, byte 8                   ; 0x0385
     mov ax, 0x10                     ; 0x0388
     push ax                          ; 0x038b
@@ -64,7 +64,7 @@ api_idx_000c_LVHV:
 @..api_idx_000c_LVHV.l1:
     mov ax, 0x10                     ; 0x039f
     push ax                          ; 0x03a2
-    call ds_app_SOQK                 ; 0x03a3
+    call ds_app_alloc_SOQK           ; 0x03a3
     pop cx                           ; 0x03a6
     mov word [bss_598e], 0xffff      ; 0x03a7
 @..api_idx_000c_LVHV.l2:

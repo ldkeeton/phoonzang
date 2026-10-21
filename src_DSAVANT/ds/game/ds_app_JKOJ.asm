@@ -155,6 +155,6 @@ jumptable_2d50:
     push ax                          ; 0x2dc9
     mov ax, 0x44                     ; 0x2dca
     push ax                          ; 0x2dcd
-    call gfx_entry_16                ; 0x2dce
+    call gfx_show_area               ; 0x2dce
     add sp, byte 8                   ; 0x2dd1
     ret                              ; 0x2dd4

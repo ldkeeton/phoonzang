@@ -25,7 +25,7 @@ loc_TJJR:
     push ax                          ; 0x27f7
     push word [bp + 0x6]             ; 0x27f8
     push word [bp + 0x4]             ; 0x27fb
-    call gfx_entry_18                ; 0x27fe
+    call gfx_fill_area               ; 0x27fe
     add sp, byte 0x0a                ; 0x2801
     mov ax, word [bp + 0x6]          ; 0x2804
     inc ax                           ; 0x2807
@@ -34,7 +34,7 @@ loc_TJJR:
     inc ax                           ; 0x280c
     inc ax                           ; 0x280d
     push ax                          ; 0x280e
-    call gfx_entry_13                ; 0x280f
+    call gfx_set_text_pos            ; 0x280f
     add sp, byte 4                   ; 0x2812
     cmp word [bp + 0xa], byte 0      ; 0x2815
     jle short @..loc_TJJR.l1         ; 0x2819
@@ -45,7 +45,7 @@ loc_TJJR:
     push ax                          ; 0x2826
     mov ax, 1                        ; 0x2827
     push ax                          ; 0x282a
-    call gfx_entry_12                ; 0x282b
+    call gfx_set_text_color          ; 0x282b
     add sp, byte 4                   ; 0x282e
     mov ax, 0                        ; 0x2831
     push ax                          ; 0x2834
@@ -59,7 +59,7 @@ loc_TJJR:
     mov ax, 0                        ; 0x2844
     push ax                          ; 0x2847
     push ax                          ; 0x2848
-    call gfx_entry_12                ; 0x2849
+    call gfx_set_text_color          ; 0x2849
     add sp, byte 4                   ; 0x284c
     mov ax, 0                        ; 0x284f
     push ax                          ; 0x2852

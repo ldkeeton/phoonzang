@@ -5,7 +5,7 @@ loc_VNIO:
     mov ax, 0
     push ax
     push word [bp + 0xa]
-    call gfx_entry_12
+    call gfx_set_text_color
     add sp, byte 4
     push word [bp + 0x8]
     push word [bp + 0x4]
@@ -20,7 +20,7 @@ loc_VNIO:
     mov ax, word [bp + 0x6]
     sub ax, cx
     push ax
-    call gfx_entry_13
+    call gfx_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax

@@ -1973,7 +1973,7 @@ loc_QSVI:
     mov ax, 0                        ; 0x8615
     push ax                          ; 0x8618
     push ax                          ; 0x8619
-    call gfx_entry_18                ; 0x861a
+    call gfx_fill_area               ; 0x861a
     add sp, byte 0x0a                ; 0x861d
     mov ax, 0xc7                     ; 0x8620
     push ax                          ; 0x8623
@@ -1982,6 +1982,6 @@ loc_QSVI:
     mov ax, 0                        ; 0x8628
     push ax                          ; 0x862b
     push ax                          ; 0x862c
-    call gfx_entry_16                ; 0x862d
+    call gfx_show_area               ; 0x862d
     add sp, byte 8                   ; 0x8630
     ret                              ; 0x8633

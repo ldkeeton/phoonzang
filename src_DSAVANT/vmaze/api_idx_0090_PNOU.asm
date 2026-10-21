@@ -124,7 +124,7 @@ jumptable_6e12_case_5:
     add sp, byte 0x16                ; 0x6ddf
     mov ax, 0x10                     ; 0x6de2
     push ax                          ; 0x6de5
-    call ds_app_gfx_entry_22_VNHP    ; 0x6de6
+    call ds_app_gfx_free_picture_VNHP ; 0x6de6
     pop cx                           ; 0x6de9
     call loc_VRKM                    ; 0x6dea
     jmp short @..api_idx_0090_PNOU.l7 ; 0x6ded

@@ -22,7 +22,7 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     push ax                          ; 0x2127
     mov ax, 0x9a                     ; 0x2128
     push ax                          ; 0x212b
-    call gfx_entry_13                ; 0x212c
+    call gfx_set_text_pos            ; 0x212c
     add sp, byte 4                   ; 0x212f
     mov ax, 7                        ; 0x2132
     push ax                          ; 0x2135
@@ -34,7 +34,7 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     push ax                          ; 0x2143
     mov ax, 0x9a                     ; 0x2144
     push ax                          ; 0x2147
-    call gfx_entry_13                ; 0x2148
+    call gfx_set_text_pos            ; 0x2148
     add sp, byte 4                   ; 0x214b
     mov ax, 7                        ; 0x214e
     push ax                          ; 0x2151
@@ -46,7 +46,7 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     push ax                          ; 0x215f
     mov ax, 0xa6                     ; 0x2160
     push ax                          ; 0x2163
-    call gfx_entry_13                ; 0x2164
+    call gfx_set_text_pos            ; 0x2164
     add sp, byte 4                   ; 0x2167
     mov ax, 7                        ; 0x216a
     push ax                          ; 0x216d
@@ -62,7 +62,7 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     push ax                          ; 0x2183
     mov ax, 0x9a                     ; 0x2184
     push ax                          ; 0x2187
-    call gfx_entry_16                ; 0x2188
+    call gfx_show_area               ; 0x2188
     add sp, byte 8                   ; 0x218b
     mov word [bp - 0x0004], 0xfffe   ; 0x218e
 @..ds_app_VGOM.l2:
@@ -103,7 +103,7 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     push ax                          ; 0x21e3
     mov ax, 0x9a                     ; 0x21e4
     push ax                          ; 0x21e7
-    call gfx_entry_16                ; 0x21e8
+    call gfx_show_area               ; 0x21e8
     add sp, byte 8                   ; 0x21eb
     mov ax, word [bp - 0x0004]       ; 0x21ee
     ret                              ; 0x21f1
@@ -171,7 +171,7 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     push ax                          ; 0x2284
     lea ax, word [bp - 0x000a]       ; 0x2285
     push ax                          ; 0x2288
-    call gfx_entry_23                ; 0x2289
+    call gfx_get_mouse               ; 0x2289
     add sp, byte 4                   ; 0x228c
     mov word [bp - 0x0006], ax       ; 0x228f
     mov ax, 0                        ; 0x2292

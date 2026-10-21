@@ -84,7 +84,7 @@ api_idx_0002_GLIS:
     mov ax, 0                        ; 0x8845
     push ax                          ; 0x8848
     push ax                          ; 0x8849
-    call gfx_entry_16                ; 0x884a
+    call gfx_show_area               ; 0x884a
     add sp, byte 8                   ; 0x884d
     mov ax, 0                        ; 0x8850
     push ax                          ; 0x8853

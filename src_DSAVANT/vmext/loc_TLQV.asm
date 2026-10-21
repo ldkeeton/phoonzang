@@ -20,6 +20,6 @@ loc_TLQV:
     push ax                          ; 0x0ed4
     mov ax, 0                        ; 0x0ed5
     push ax                          ; 0x0ed8
-    call gfx_entry_16                ; 0x0ed9
+    call gfx_show_area               ; 0x0ed9
     add sp, byte 8                   ; 0x0edc
     ret                              ; 0x0edf

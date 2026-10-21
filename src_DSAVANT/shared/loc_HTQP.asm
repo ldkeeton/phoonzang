@@ -13,7 +13,7 @@ loc_HTQP:
     push ax
     mov ax, 0x73
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     mov ax, 0xc2
     push ax
@@ -23,7 +23,7 @@ loc_HTQP:
     push ax
     mov ax, 8
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     mov ax, 0xc2
     push ax
@@ -33,7 +33,7 @@ loc_HTQP:
     push ax
     mov ax, 0xe7
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     jmp short @..loc_HTQP.l7
 @..loc_HTQP.l2:
@@ -45,7 +45,7 @@ loc_HTQP:
     push ax
     mov ax, 0x62
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     jmp short @..loc_HTQP.l7
 @..loc_HTQP.l3:
@@ -57,7 +57,7 @@ loc_HTQP:
     push ax
     mov ax, 0x73
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     jmp short @..loc_HTQP.l7
 @..loc_HTQP.l4:
@@ -69,7 +69,7 @@ loc_HTQP:
     push ax
     mov ax, 8
     push ax
-    call gfx_entry_16
+    call gfx_show_area
     add sp, byte 8
     jmp short @..loc_HTQP.l7
 @..loc_HTQP.l5:

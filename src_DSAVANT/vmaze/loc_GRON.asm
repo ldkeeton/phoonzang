@@ -26,7 +26,7 @@ loc_GRON:
     pop cx                           ; 0x6afa
     mov ax, 0x10                     ; 0x6afb
     push ax                          ; 0x6afe
-    call ds_app_SOQK                 ; 0x6aff
+    call ds_app_alloc_SOQK           ; 0x6aff
     pop cx                           ; 0x6b02
     mov word [bss_598e], 0xffff      ; 0x6b03
 @..loc_GRON.l3:

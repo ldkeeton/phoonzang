@@ -13,7 +13,7 @@ api_idx_0006_HRUL:
     push ax                          ; 0x0f3e
     mov ax, 0x48                     ; 0x0f3f
     push ax                          ; 0x0f42
-    call gfx_entry_16                ; 0x0f43
+    call gfx_show_area               ; 0x0f43
     add sp, byte 8                   ; 0x0f46
     jmp near @..api_idx_0006_HRUL.l16 ; 0x0f49
 @..api_idx_0006_HRUL.l2:

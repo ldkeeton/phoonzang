@@ -1,4 +1,4 @@
 ; auto-generated
 loc_JTQK_00b7:
-    call loc_JTQK_00b7.loc1
-    retf
+    call free_sound                  ; 0x00b7
+    retf                             ; 0x00ba

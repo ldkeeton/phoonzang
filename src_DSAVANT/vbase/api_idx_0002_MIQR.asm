@@ -61,7 +61,7 @@ api_idx_0002_MIQR:
     mov ax, 0                        ; 0x8e29
     push ax                          ; 0x8e2c
     push ax                          ; 0x8e2d
-    call gfx_entry_16                ; 0x8e2e
+    call gfx_show_area               ; 0x8e2e
     add sp, byte 8                   ; 0x8e31
     mov ax, 0                        ; 0x8e34
     push ax                          ; 0x8e37

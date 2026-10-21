@@ -16,7 +16,7 @@ ds_app_GIKM: ; Aztec csav frame=0x0000
     mov ax, word [bp + 0x4]          ; 0x0e1c
     dec ax                           ; 0x0e1f
     push ax                          ; 0x0e20
-    call gfx_entry_18                ; 0x0e21
+    call gfx_fill_area               ; 0x0e21
     add sp, byte 0x0a                ; 0x0e24
     mov ax, 0                        ; 0x0e27
     push ax                          ; 0x0e2a
@@ -32,7 +32,7 @@ ds_app_GIKM: ; Aztec csav frame=0x0000
     mov ax, word [bp + 0x8]          ; 0x0e3a
     inc ax                           ; 0x0e3d
     push ax                          ; 0x0e3e
-    call gfx_entry_18                ; 0x0e3f
+    call gfx_fill_area               ; 0x0e3f
     add sp, byte 0x0a                ; 0x0e42
     mov ax, 0                        ; 0x0e45
     push ax                          ; 0x0e48
@@ -48,7 +48,7 @@ ds_app_GIKM: ; Aztec csav frame=0x0000
     mov ax, word [bp + 0x4]          ; 0x0e58
     dec ax                           ; 0x0e5b
     push ax                          ; 0x0e5c
-    call gfx_entry_18                ; 0x0e5d
+    call gfx_fill_area               ; 0x0e5d
     add sp, byte 0x0a                ; 0x0e60
     mov ax, 0                        ; 0x0e63
     push ax                          ; 0x0e66
@@ -64,6 +64,6 @@ ds_app_GIKM: ; Aztec csav frame=0x0000
     mov ax, word [bp + 0x4]          ; 0x0e76
     dec ax                           ; 0x0e79
     push ax                          ; 0x0e7a
-    call gfx_entry_18                ; 0x0e7b
+    call gfx_fill_area               ; 0x0e7b
     add sp, byte 0x0a                ; 0x0e7e
     ret                              ; 0x0e81

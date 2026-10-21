@@ -79,7 +79,7 @@ loc_LSRQ:
     mov ax, 0xc0                     ; 0x02f6
     push ax                          ; 0x02f9
     push word [bp + 0x10]            ; 0x02fa
-    call gfx_entry_12                ; 0x02fd
+    call gfx_set_text_color          ; 0x02fd
     add sp, byte 4                   ; 0x0300
     mov ax, word [bp - 0x0002]       ; 0x0303
     imul word [bp + 0xc]             ; 0x0306
@@ -104,7 +104,7 @@ loc_LSRQ:
     add ax, word [bp + 0x6]          ; 0x0333
     add ax, strict word 9            ; 0x0336
     push ax                          ; 0x0339
-    call gfx_entry_13                ; 0x033a
+    call gfx_set_text_pos            ; 0x033a
     add sp, byte 4                   ; 0x033d
     mov ax, 0                        ; 0x0340
     push ax                          ; 0x0343
@@ -173,7 +173,7 @@ loc_LSRQ:
     mov ax, word [bp + 0x6]          ; 0x03cf
     dec ax                           ; 0x03d2
     push ax                          ; 0x03d3
-    call gfx_entry_16                ; 0x03d4
+    call gfx_show_area               ; 0x03d4
     add sp, byte 8                   ; 0x03d7
     cmp word [bss_0e32], byte 0      ; 0x03da
     je short @..loc_LSRQ.l7          ; 0x03df
@@ -223,7 +223,7 @@ loc_LSRQ:
     mov ax, word [bp + 0x6]          ; 0x0442
     dec ax                           ; 0x0445
     push ax                          ; 0x0446
-    call gfx_entry_16                ; 0x0447
+    call gfx_show_area               ; 0x0447
     add sp, byte 8                   ; 0x044a
     mov ax, 0                        ; 0x044d
     push ax                          ; 0x0450
@@ -301,7 +301,7 @@ loc_LSRQ:
     mov ax, word [bp + 0x6]          ; 0x04e6
     dec ax                           ; 0x04e9
     push ax                          ; 0x04ea
-    call gfx_entry_16                ; 0x04eb
+    call gfx_show_area               ; 0x04eb
     add sp, byte 8                   ; 0x04ee
 @..loc_LSRQ.l16:
     dec word [bp - 0x0004]           ; 0x04f1

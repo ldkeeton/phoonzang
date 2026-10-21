@@ -75,7 +75,7 @@ api_idx_0084_IMVQ:
     push ax                          ; 0x2674
     mov ax, 1                        ; 0x2675
     push ax                          ; 0x2678
-    call gfx_entry_12                ; 0x2679
+    call gfx_set_text_color          ; 0x2679
     add sp, byte 4                   ; 0x267c
     mov ax, word [bp - 0x0008]       ; 0x267f
     add ax, strict word 6            ; 0x2682
@@ -96,7 +96,7 @@ api_idx_0084_IMVQ:
     add ax, strict word 0x1b         ; 0x26a4
     sub ax, cx                       ; 0x26a7
     push ax                          ; 0x26a9
-    call gfx_entry_13                ; 0x26aa
+    call gfx_set_text_pos            ; 0x26aa
     add sp, byte 4                   ; 0x26ad
     mov ax, 0                        ; 0x26b0
     push ax                          ; 0x26b3
@@ -145,7 +145,7 @@ api_idx_0084_IMVQ:
     add ax, strict word 0x1b         ; 0x2718
     sub ax, cx                       ; 0x271b
     push ax                          ; 0x271d
-    call gfx_entry_13                ; 0x271e
+    call gfx_set_text_pos            ; 0x271e
     add sp, byte 4                   ; 0x2721
     mov ax, 0                        ; 0x2724
     push ax                          ; 0x2727
@@ -225,7 +225,7 @@ api_idx_0084_IMVQ:
     push ax                          ; 0x27d5
     mov ax, 0                        ; 0x27d6
     push ax                          ; 0x27d9
-    call gfx_entry_12                ; 0x27da
+    call gfx_set_text_color          ; 0x27da
     add sp, byte 4                   ; 0x27dd
     mov word [bp - 0x0002], 0        ; 0x27e0
 @..api_idx_0084_IMVQ.l6:
@@ -292,7 +292,7 @@ api_idx_0084_IMVQ:
     add ax, word [bp - 0x0006]       ; 0x2873
     add ax, strict word 0x5f         ; 0x2876
     push ax                          ; 0x2879
-    call gfx_entry_13                ; 0x287a
+    call gfx_set_text_pos            ; 0x287a
     add sp, byte 4                   ; 0x287d
     mov ax, 1                        ; 0x2880
     push ax                          ; 0x2883
@@ -535,7 +535,7 @@ api_idx_0084_IMVQ:
     mov ax, word [bp - 0x0006]       ; 0x2aaa
     dec ax                           ; 0x2aad
     push ax                          ; 0x2aae
-    call gfx_entry_16                ; 0x2aaf
+    call gfx_show_area               ; 0x2aaf
     add sp, byte 8                   ; 0x2ab2
     mov word [bp - 0x001c], 1        ; 0x2ab5
     mov ax, 0x248                    ; 0x2aba
@@ -652,7 +652,7 @@ api_idx_0084_IMVQ:
     mov ax, word [bp - 0x0006]       ; 0x2bbf
     add ax, strict word 0x5d         ; 0x2bc2
     push ax                          ; 0x2bc5
-    call gfx_entry_18                ; 0x2bc6
+    call gfx_fill_area               ; 0x2bc6
     add sp, byte 0x0a                ; 0x2bc9
     mov ax, word [bp - 0x0008]       ; 0x2bcc
     add ax, strict word 0x1e         ; 0x2bcf
@@ -666,7 +666,7 @@ api_idx_0084_IMVQ:
     mov ax, word [bp - 0x0006]       ; 0x2be1
     add ax, strict word 0x5d         ; 0x2be4
     push ax                          ; 0x2be7
-    call gfx_entry_16                ; 0x2be8
+    call gfx_show_area               ; 0x2be8
     add sp, byte 8                   ; 0x2beb
     call loc_IKLI                    ; 0x2bee
     test ax, ax                      ; 0x2bf1
@@ -692,7 +692,7 @@ jumptable_34f1_case_0:
     push ax                          ; 0x2c19
     lea ax, word [bp - 0x000e]       ; 0x2c1a
     push ax                          ; 0x2c1d
-    call gfx_entry_23                ; 0x2c1e
+    call gfx_get_mouse               ; 0x2c1e
     add sp, byte 4                   ; 0x2c21
     mov ax, 4                        ; 0x2c24
     push ax                          ; 0x2c27
@@ -712,7 +712,7 @@ jumptable_34f1_case_0:
     push ax                          ; 0x2c47
     lea ax, word [bp - 0x000e]       ; 0x2c48
     push ax                          ; 0x2c4b
-    call gfx_entry_23                ; 0x2c4c
+    call gfx_get_mouse               ; 0x2c4c
     add sp, byte 4                   ; 0x2c4f
     mov word [bp - 0x001e], ax       ; 0x2c52
     push word [bp - 0x0014]          ; 0x2c55
@@ -829,7 +829,7 @@ jumptable_34f1_case_0:
     mov ax, word [bp - 0x0006]       ; 0x2d5c
     add ax, strict word 0x5d         ; 0x2d5f
     push ax                          ; 0x2d62
-    call gfx_entry_16                ; 0x2d63
+    call gfx_show_area               ; 0x2d63
     add sp, byte 8                   ; 0x2d66
     mov ax, word [bp - 0x0008]       ; 0x2d69
     add ax, strict word 0x12         ; 0x2d6c
@@ -843,7 +843,7 @@ jumptable_34f1_case_0:
     mov ax, word [bp - 0x0006]       ; 0x2d7e
     add ax, strict word 0x36         ; 0x2d81
     push ax                          ; 0x2d84
-    call gfx_entry_16                ; 0x2d85
+    call gfx_show_area               ; 0x2d85
     add sp, byte 8                   ; 0x2d88
     cmp word [bp - 0x001e], byte 0   ; 0x2d8b
     je short @..api_idx_0084_IMVQ.l22 ; 0x2d8f
@@ -1005,7 +1005,7 @@ jumptable_34f1_case_1:
     mov ax, word [bp - 0x0006]       ; 0x2ef9
     add ax, strict word 0x5d         ; 0x2efc
     push ax                          ; 0x2eff
-    call gfx_entry_16                ; 0x2f00
+    call gfx_show_area               ; 0x2f00
     add sp, byte 8                   ; 0x2f03
     mov ax, word [bp - 0x0008]       ; 0x2f06
     add ax, strict word 0x12         ; 0x2f09
@@ -1019,7 +1019,7 @@ jumptable_34f1_case_1:
     mov ax, word [bp - 0x0006]       ; 0x2f1b
     add ax, strict word 0x36         ; 0x2f1e
     push ax                          ; 0x2f21
-    call gfx_entry_16                ; 0x2f22
+    call gfx_show_area               ; 0x2f22
     add sp, byte 8                   ; 0x2f25
     jmp near @..api_idx_0084_IMVQ.l46 ; 0x2f28
 jumptable_34f1_case_3:
@@ -1057,7 +1057,7 @@ jumptable_34f1_case_3:
     push ax                          ; 0x2f79
     mov ax, 0x1a                     ; 0x2f7a
     push ax                          ; 0x2f7d
-    call gfx_entry_12                ; 0x2f7e
+    call gfx_set_text_color          ; 0x2f7e
     add sp, byte 4                   ; 0x2f81
     mov ax, dseg_90d8                ; 0x2f84
     push ax                          ; 0x2f87
@@ -1095,7 +1095,7 @@ jumptable_34f1_case_3:
     add ax, word [bp - 0x0006]       ; 0x2fcf
     add ax, strict word 9            ; 0x2fd2
     push ax                          ; 0x2fd5
-    call gfx_entry_13                ; 0x2fd6
+    call gfx_set_text_pos            ; 0x2fd6
     add sp, byte 4                   ; 0x2fd9
     mov ax, 0                        ; 0x2fdc
     push ax                          ; 0x2fdf
@@ -1115,7 +1115,7 @@ jumptable_34f1_case_3:
     mov ax, word [bp - 0x0006]       ; 0x2fff
     add ax, strict word 8            ; 0x3002
     push ax                          ; 0x3005
-    call gfx_entry_16                ; 0x3006
+    call gfx_show_area               ; 0x3006
     add sp, byte 8                   ; 0x3009
     mov ax, word [bp - 0x0008]       ; 0x300c
     add ax, strict word 0x11         ; 0x300f
@@ -1154,7 +1154,7 @@ jumptable_34f1_case_3:
     mov ax, word [bp - 0x0006]       ; 0x305e
     add ax, strict word 0x36         ; 0x3061
     push ax                          ; 0x3064
-    call gfx_entry_16                ; 0x3065
+    call gfx_show_area               ; 0x3065
     add sp, byte 8                   ; 0x3068
     cmp word [bss_0e32], byte 0      ; 0x306b
     je short @..api_idx_0084_IMVQ.l31 ; 0x3070
@@ -1163,7 +1163,7 @@ jumptable_34f1_case_3:
     push ax                          ; 0x3075
     lea ax, word [bp - 0x000e]       ; 0x3076
     push ax                          ; 0x3079
-    call gfx_entry_23                ; 0x307a
+    call gfx_get_mouse               ; 0x307a
     add sp, byte 4                   ; 0x307d
     test ax, ax                      ; 0x3080
     je short @..api_idx_0084_IMVQ.l30 ; 0x3082
@@ -1213,7 +1213,7 @@ jumptable_34f1_case_3:
     mov ax, word [bp - 0x0006]       ; 0x30e2
     add ax, strict word 0x36         ; 0x30e5
     push ax                          ; 0x30e8
-    call gfx_entry_16                ; 0x30e9
+    call gfx_show_area               ; 0x30e9
     add sp, byte 8                   ; 0x30ec
     mov ax, 0                        ; 0x30ef
     push ax                          ; 0x30f2
@@ -1235,7 +1235,7 @@ jumptable_34f1_case_3:
     push ax                          ; 0x3118
     mov ax, 0x55                     ; 0x3119
     push ax                          ; 0x311c
-    call gfx_entry_12                ; 0x311d
+    call gfx_set_text_color          ; 0x311d
     add sp, byte 4                   ; 0x3120
     mov ax, word [bp - 0x0008]       ; 0x3123
     add ax, strict word 0x1a         ; 0x3126
@@ -1255,7 +1255,7 @@ jumptable_34f1_case_3:
     add ax, word [bp - 0x0006]       ; 0x3144
     add ax, strict word 9            ; 0x3147
     push ax                          ; 0x314a
-    call gfx_entry_13                ; 0x314b
+    call gfx_set_text_pos            ; 0x314b
     add sp, byte 4                   ; 0x314e
     mov ax, 0                        ; 0x3151
     push ax                          ; 0x3154
@@ -1275,7 +1275,7 @@ jumptable_34f1_case_3:
     mov ax, word [bp - 0x0006]       ; 0x3174
     add ax, strict word 8            ; 0x3177
     push ax                          ; 0x317a
-    call gfx_entry_16                ; 0x317b
+    call gfx_show_area               ; 0x317b
     add sp, byte 8                   ; 0x317e
 @..api_idx_0084_IMVQ.l33:
     jmp near @..api_idx_0084_IMVQ.l46 ; 0x3181
@@ -1386,7 +1386,7 @@ jumptable_34f1_case_5:
     push ax                          ; 0x3284
     mov ax, 1                        ; 0x3285
     push ax                          ; 0x3288
-    call gfx_entry_12                ; 0x3289
+    call gfx_set_text_color          ; 0x3289
     add sp, byte 4                   ; 0x328c
     mov ax, word [bp - 0x0002]       ; 0x328f
     mov cx, 4                        ; 0x3292
@@ -1407,7 +1407,7 @@ jumptable_34f1_case_5:
     add ax, word [bp - 0x0006]       ; 0x32b4
     add ax, strict word 0x5f         ; 0x32b7
     push ax                          ; 0x32ba
-    call gfx_entry_13                ; 0x32bb
+    call gfx_set_text_pos            ; 0x32bb
     add sp, byte 4                   ; 0x32be
     mov ax, 1                        ; 0x32c1
     push ax                          ; 0x32c4
@@ -1457,7 +1457,7 @@ jumptable_34f1_case_5:
     add ax, word [bp - 0x0006]       ; 0x332a
     add ax, strict word 0x5d         ; 0x332d
     push ax                          ; 0x3330
-    call gfx_entry_16                ; 0x3331
+    call gfx_show_area               ; 0x3331
     add sp, byte 8                   ; 0x3334
     mov ax, 4                        ; 0x3337
     push ax                          ; 0x333a
@@ -1543,7 +1543,7 @@ jumptable_34f1_case_5:
     push ax                          ; 0x3408
     mov ax, 0x1a                     ; 0x3409
     push ax                          ; 0x340c
-    call gfx_entry_12                ; 0x340d
+    call gfx_set_text_color          ; 0x340d
     add sp, byte 4                   ; 0x3410
     mov ax, word [bp - 0x0002]       ; 0x3413
     mov cx, 4                        ; 0x3416
@@ -1564,7 +1564,7 @@ jumptable_34f1_case_5:
     add ax, word [bp - 0x0006]       ; 0x3438
     add ax, strict word 0x5f         ; 0x343b
     push ax                          ; 0x343e
-    call gfx_entry_13                ; 0x343f
+    call gfx_set_text_pos            ; 0x343f
     add sp, byte 4                   ; 0x3442
     mov ax, 1                        ; 0x3445
     push ax                          ; 0x3448
@@ -1614,7 +1614,7 @@ jumptable_34f1_case_5:
     add ax, word [bp - 0x0006]       ; 0x34ae
     add ax, strict word 0x5d         ; 0x34b1
     push ax                          ; 0x34b4
-    call gfx_entry_16                ; 0x34b5
+    call gfx_show_area               ; 0x34b5
     add sp, byte 8                   ; 0x34b8
     mov ax, 4                        ; 0x34bb
     push ax                          ; 0x34be
@@ -1682,7 +1682,7 @@ jumptable_34f1:
     mov ax, word [bp - 0x0006]       ; 0x3543
     dec ax                           ; 0x3546
     push ax                          ; 0x3547
-    call gfx_entry_16                ; 0x3548
+    call gfx_show_area               ; 0x3548
     add sp, byte 8                   ; 0x354b
     mov ax, word [bss_9050]          ; 0x354e
     ret                              ; 0x3551

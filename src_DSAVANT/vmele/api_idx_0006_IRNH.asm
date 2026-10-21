@@ -13,7 +13,7 @@ api_idx_0006_IRNH:
     push ax                          ; 0x2b8f
     mov ax, 0x48                     ; 0x2b90
     push ax                          ; 0x2b93
-    call gfx_entry_16                ; 0x2b94
+    call gfx_show_area               ; 0x2b94
     add sp, byte 8                   ; 0x2b97
     jmp near @..api_idx_0006_IRNH.l16 ; 0x2b9a
 @..api_idx_0006_IRNH.l2:

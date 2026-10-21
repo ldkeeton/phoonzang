@@ -6,17 +6,17 @@ api_idx_001e_GOQP:
     cmp word [loaded_score_num], byte 0xff ; 0x70c3
     je short @..api_idx_001e_GOQP.l3 ; 0x70c8
 @..api_idx_001e_GOQP.l1:
-    call gfx_entry_52                ; 0x70ca
+    call gfx_is_music_playing        ; 0x70ca
     test ax, ax                      ; 0x70cd
     je short @..api_idx_001e_GOQP.l2 ; 0x70cf
     jmp short @..api_idx_001e_GOQP.l1 ; 0x70d1
 @..api_idx_001e_GOQP.l2:
     mov ax, 0                        ; 0x70d3
     push ax                          ; 0x70d6
-    call ds_app_gfx_entry_51_VGJR    ; 0x70d7
+    call ds_app_gfx_free_score_VGJR  ; 0x70d7
     pop cx                           ; 0x70da
 @..api_idx_001e_GOQP.l3:
-    call ds_app_VKRR                 ; 0x70db
+    call ds_app_alloc_VKRR           ; 0x70db
     mov ax, 0                        ; 0x70de
     push ax                          ; 0x70e1
     mov ax, 2                        ; 0x70e2

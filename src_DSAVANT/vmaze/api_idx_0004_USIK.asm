@@ -60,7 +60,7 @@ api_idx_0004_USIK:
     pop cx                           ; 0x1881
     mov ax, 0x10                     ; 0x1882
     push ax                          ; 0x1885
-    call ds_app_SOQK                 ; 0x1886
+    call ds_app_alloc_SOQK           ; 0x1886
     pop cx                           ; 0x1889
     mov word [bss_598e], 0xffff      ; 0x188a
     mov ax, 2                        ; 0x1890

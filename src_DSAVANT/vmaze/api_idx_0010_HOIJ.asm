@@ -54,7 +54,7 @@ api_idx_0010_HOIJ:
     push word [bx + 0x124]           ; 0x20b9
     push word [bx + 0x122]           ; 0x20bd
     push word [bx + 0x120]           ; 0x20c1
-    call gfx_entry_16                ; 0x20c5
+    call gfx_show_area               ; 0x20c5
     add sp, byte 8                   ; 0x20c8
     mov ax, 1                        ; 0x20cb
     push ax                          ; 0x20ce

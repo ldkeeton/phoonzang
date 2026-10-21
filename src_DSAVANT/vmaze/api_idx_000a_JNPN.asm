@@ -56,7 +56,7 @@ api_idx_000a_JNPN:
     push ax                          ; 0x8ccc
     mov ax, 0                        ; 0x8ccd
     push ax                          ; 0x8cd0
-    call gfx_entry_16                ; 0x8cd1
+    call gfx_show_area               ; 0x8cd1
     add sp, byte 8                   ; 0x8cd4
     mov bx, word [bss_0e12]          ; 0x8cd7
     mov si, word [bss_8f3e]          ; 0x8cdb
@@ -140,7 +140,7 @@ api_idx_000a_JNPN:
     push ax                          ; 0x8da3
     mov ax, 0                        ; 0x8da4
     push ax                          ; 0x8da7
-    call gfx_entry_16                ; 0x8da8
+    call gfx_show_area               ; 0x8da8
     add sp, byte 8                   ; 0x8dab
 @..api_idx_000a_JNPN.l11:
     cmp word [bp - 0x000a], byte 0   ; 0x8dae
@@ -169,6 +169,6 @@ api_idx_000a_JNPN:
     push ax                          ; 0x8ddd
     mov ax, 0                        ; 0x8dde
     push ax                          ; 0x8de1
-    call gfx_entry_16                ; 0x8de2
+    call gfx_show_area               ; 0x8de2
     add sp, byte 8                   ; 0x8de5
     ret                              ; 0x8de8

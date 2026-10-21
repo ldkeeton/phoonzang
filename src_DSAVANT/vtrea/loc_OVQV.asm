@@ -12,7 +12,7 @@ loc_OVQV:
     push word [bp + 0x8]             ; 0x2442
     push word [bp + 0x6]             ; 0x2445
     push word [bp + 0x4]             ; 0x2448
-    call gfx_entry_18                ; 0x244b
+    call gfx_fill_area               ; 0x244b
     add sp, byte 0x0a                ; 0x244e
     push word [bp + 0xa]             ; 0x2451
     push word [bp + 0x8]             ; 0x2454
@@ -68,7 +68,7 @@ loc_OVQV:
     push ax                          ; 0x24c1
     push word [bp + 0x6]             ; 0x24c2
     push word [bp + 0x4]             ; 0x24c5
-    call gfx_entry_17                ; 0x24c8
+    call gfx_put_pixel               ; 0x24c8
     add sp, byte 6                   ; 0x24cb
     mov ax, 0xb6                     ; 0x24ce
     cmp word [bp + 0xc], byte 0      ; 0x24d1
@@ -78,7 +78,7 @@ loc_OVQV:
     push ax                          ; 0x24da
     push word [bp + 0x6]             ; 0x24db
     push word [bp + 0x8]             ; 0x24de
-    call gfx_entry_17                ; 0x24e1
+    call gfx_put_pixel               ; 0x24e1
     add sp, byte 6                   ; 0x24e4
     mov ax, 0xb6                     ; 0x24e7
     cmp word [bp + 0xc], byte 0      ; 0x24ea
@@ -88,7 +88,7 @@ loc_OVQV:
     push ax                          ; 0x24f3
     push word [bp + 0xa]             ; 0x24f4
     push word [bp + 0x4]             ; 0x24f7
-    call gfx_entry_17                ; 0x24fa
+    call gfx_put_pixel               ; 0x24fa
     add sp, byte 6                   ; 0x24fd
     mov ax, 0xc6                     ; 0x2500
     cmp word [bp + 0xc], byte 0      ; 0x2503
@@ -98,6 +98,6 @@ loc_OVQV:
     push ax                          ; 0x250c
     push word [bp + 0xa]             ; 0x250d
     push word [bp + 0x8]             ; 0x2510
-    call gfx_entry_17                ; 0x2513
+    call gfx_put_pixel               ; 0x2513
     add sp, byte 6                   ; 0x2516
     ret                              ; 0x2519

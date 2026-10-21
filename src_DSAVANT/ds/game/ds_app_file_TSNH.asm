@@ -4,7 +4,7 @@ ds_app_file_TSNH: ; Aztec csav frame=0x0018
     call aztec_csav                  ; 0x2866
     mov ax, 0                        ; 0x2869
     push ax                          ; 0x286c
-    call gfx_entry_47                ; 0x286d
+    call gfx_wait_sound              ; 0x286d
     pop cx                           ; 0x2870
     mov bx, word [bp + 0x6]          ; 0x2871
     mov al, byte [bx + 0x5b48]       ; 0x2874

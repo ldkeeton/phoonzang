@@ -61,7 +61,7 @@ api_idx_0002_JHTS:
     mov ax, 0                        ; 0x8d42
     push ax                          ; 0x8d45
     push ax                          ; 0x8d46
-    call gfx_entry_16                ; 0x8d47
+    call gfx_show_area               ; 0x8d47
     add sp, byte 8                   ; 0x8d4a
     mov ax, 0                        ; 0x8d4d
     push ax                          ; 0x8d50

@@ -1,4 +1,4 @@
 ; auto-generated
 loc_JTQK_009b:
-    call loc_JTQK_009b.leaf_loc1
-    retf
+    call set_palette                 ; 0x009b
+    retf                             ; 0x009e

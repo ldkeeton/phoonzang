@@ -30,7 +30,7 @@ api_idx_0004_KHSO:
     mov ax, word [bp + 0x4]          ; 0x3cd8
     add ax, strict word 0x1c         ; 0x3cdb
     push ax                          ; 0x3cde
-    call gfx_entry_18                ; 0x3cdf
+    call gfx_fill_area               ; 0x3cdf
     add sp, byte 0x0a                ; 0x3ce2
     mov word [bp - 0x0004], 0        ; 0x3ce5
     jmp short @..api_idx_0004_KHSO.l3 ; 0x3cea
@@ -46,7 +46,7 @@ api_idx_0004_KHSO:
     inc ax                           ; 0x3cff
     inc ax                           ; 0x3d00
     push ax                          ; 0x3d01
-    call gfx_entry_13                ; 0x3d02
+    call gfx_set_text_pos            ; 0x3d02
     add sp, byte 4                   ; 0x3d05
     mov ax, word [bp + 0xc]          ; 0x3d08
     add ax, word [bp - 0x0002]       ; 0x3d0b
@@ -69,7 +69,7 @@ api_idx_0004_KHSO:
     mov ax, word [bp + 0x4]          ; 0x3d32
     add ax, strict word 0xf          ; 0x3d35
     push ax                          ; 0x3d38
-    call gfx_entry_13                ; 0x3d39
+    call gfx_set_text_pos            ; 0x3d39
     add sp, byte 4                   ; 0x3d3c
     mov ax, 4                        ; 0x3d3f
     push ax                          ; 0x3d42
@@ -114,7 +114,7 @@ api_idx_0004_KHSO:
     mov ax, word [bp + 0x4]          ; 0x3da3
     add ax, strict word 0x47         ; 0x3da6
     push ax                          ; 0x3da9
-    call gfx_entry_13                ; 0x3daa
+    call gfx_set_text_pos            ; 0x3daa
     add sp, byte 4                   ; 0x3dad
     mov ax, 0                        ; 0x3db0
     push ax                          ; 0x3db3
@@ -128,7 +128,7 @@ api_idx_0004_KHSO:
     mov ax, 2                        ; 0x3dc4
 @..api_idx_0004_KHSO.l6:
     push ax                          ; 0x3dc7
-    call gfx_entry_12                ; 0x3dc8
+    call gfx_set_text_color          ; 0x3dc8
     add sp, byte 4                   ; 0x3dcb
     mov ax, 0                        ; 0x3dce
     push ax                          ; 0x3dd1

@@ -51,7 +51,7 @@ api_idx_0002_MSOL:
     push ax                          ; 0x8a88
     mov ax, 0                        ; 0x8a89
     push ax                          ; 0x8a8c
-    call gfx_entry_16                ; 0x8a8d
+    call gfx_show_area               ; 0x8a8d
     add sp, byte 8                   ; 0x8a90
     push word [bss_8f40]             ; 0x8a93
     push word [bss_8f42]             ; 0x8a97

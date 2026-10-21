@@ -1,4 +1,4 @@
 ; auto-generated
 loc_JTQK_004f:
-    call loc_JTQK_004f.string_loc1
-    retf
+    call invert_area                 ; 0x004f
+    retf                             ; 0x0052

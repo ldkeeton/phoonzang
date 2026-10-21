@@ -115,13 +115,13 @@ api_idx_0050_QTGU:
     mov ax, word [bp - 0x000c]       ; 0x2da4
     add ax, strict word 0x48         ; 0x2da7
     push ax                          ; 0x2daa
-    call gfx_entry_13                ; 0x2dab
+    call gfx_set_text_pos            ; 0x2dab
     add sp, byte 4                   ; 0x2dae
     mov ax, 0                        ; 0x2db1
     push ax                          ; 0x2db4
     mov ax, 0xcd                     ; 0x2db5
     push ax                          ; 0x2db8
-    call gfx_entry_12                ; 0x2db9
+    call gfx_set_text_color          ; 0x2db9
     add sp, byte 4                   ; 0x2dbc
     mov ax, 2                        ; 0x2dbf
     push ax                          ; 0x2dc2
@@ -499,7 +499,7 @@ api_idx_0050_QTGU:
     mov ax, word [bp - 0x0004]       ; 0x3124
     dec ax                           ; 0x3127
     push ax                          ; 0x3128
-    call gfx_entry_16                ; 0x3129
+    call gfx_show_area               ; 0x3129
     add sp, byte 8                   ; 0x312c
     mov word [bss_9562], 7           ; 0x312f
     les bx, word [dseg_0002]         ; 0x3135
@@ -560,7 +560,7 @@ jumptable_38dd_case_0:
     push ax                          ; 0x31c0
     lea ax, word [bp - 0x000e]       ; 0x31c1
     push ax                          ; 0x31c4
-    call gfx_entry_23                ; 0x31c5
+    call gfx_get_mouse               ; 0x31c5
     add sp, byte 4                   ; 0x31c8
     mov ax, 4                        ; 0x31cb
     push ax                          ; 0x31ce
@@ -580,7 +580,7 @@ jumptable_38dd_case_0:
     push ax                          ; 0x31ee
     lea ax, word [bp - 0x000e]       ; 0x31ef
     push ax                          ; 0x31f2
-    call gfx_entry_23                ; 0x31f3
+    call gfx_get_mouse               ; 0x31f3
     add sp, byte 4                   ; 0x31f6
     mov word [bp - 0x001e], ax       ; 0x31f9
     push word [bp - 0x0014]          ; 0x31fc
@@ -674,7 +674,7 @@ jumptable_38dd_case_0:
     mov ax, word [bp - 0x000c]       ; 0x32cb
     add ax, strict word 6            ; 0x32ce
     push ax                          ; 0x32d1
-    call gfx_entry_16                ; 0x32d2
+    call gfx_show_area               ; 0x32d2
     add sp, byte 8                   ; 0x32d5
     cmp word [bp - 0x001e], byte 0   ; 0x32d8
     je short @..api_idx_0050_QTGU.l16 ; 0x32dc
@@ -810,7 +810,7 @@ jumptable_38dd_case_1:
     mov ax, word [bp - 0x000c]       ; 0x340b
     add ax, strict word 6            ; 0x340e
     push ax                          ; 0x3411
-    call gfx_entry_16                ; 0x3412
+    call gfx_show_area               ; 0x3412
     add sp, byte 8                   ; 0x3415
     jmp near @..api_idx_0050_QTGU.l50 ; 0x3418
 jumptable_38dd_case_3:
@@ -1053,7 +1053,7 @@ jumptable_38dd_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3640
     add ax, strict word 0xb          ; 0x3643
     push ax                          ; 0x3646
-    call gfx_entry_16                ; 0x3647
+    call gfx_show_area               ; 0x3647
     add sp, byte 8                   ; 0x364a
     mov ax, word [bp - 0x0006]       ; 0x364d
     add ax, strict word 0x1b         ; 0x3650
@@ -1067,7 +1067,7 @@ jumptable_38dd_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3662
     add ax, strict word 0x5e         ; 0x3665
     push ax                          ; 0x3668
-    call gfx_entry_16                ; 0x3669
+    call gfx_show_area               ; 0x3669
     add sp, byte 8                   ; 0x366c
     jmp near @..api_idx_0050_QTGU.l47 ; 0x366f
 @..api_idx_0050_QTGU.l36:
@@ -1176,7 +1176,7 @@ jumptable_38dd_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3772
     add ax, strict word 6            ; 0x3775
     push ax                          ; 0x3778
-    call gfx_entry_16                ; 0x3779
+    call gfx_show_area               ; 0x3779
     add sp, byte 8                   ; 0x377c
     mov ax, word [bp - 0x0006]       ; 0x377f
     add ax, strict word 0x1b         ; 0x3782
@@ -1190,7 +1190,7 @@ jumptable_38dd_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3794
     add ax, strict word 0x5e         ; 0x3797
     push ax                          ; 0x379a
-    call gfx_entry_16                ; 0x379b
+    call gfx_show_area               ; 0x379b
     add sp, byte 8                   ; 0x379e
     jmp near @..api_idx_0050_QTGU.l47 ; 0x37a1
 @..api_idx_0050_QTGU.l41:
@@ -1307,7 +1307,7 @@ jumptable_38dd_case_4:
     mov ax, word [bp - 0x000c]       ; 0x38ac
     add ax, strict word 6            ; 0x38af
     push ax                          ; 0x38b2
-    call gfx_entry_16                ; 0x38b3
+    call gfx_show_area               ; 0x38b3
     add sp, byte 8                   ; 0x38b6
     mov ax, word [bp - 0x0006]       ; 0x38b9
     add ax, strict word 0x1b         ; 0x38bc
@@ -1321,7 +1321,7 @@ jumptable_38dd_case_4:
     mov ax, word [bp - 0x000c]       ; 0x38ce
     add ax, strict word 0x5e         ; 0x38d1
     push ax                          ; 0x38d4
-    call gfx_entry_16                ; 0x38d5
+    call gfx_show_area               ; 0x38d5
     add sp, byte 8                   ; 0x38d8
 @..api_idx_0050_QTGU.l47:
     jmp short @..api_idx_0050_QTGU.l50 ; 0x38db
@@ -1361,7 +1361,7 @@ jumptable_38dd:
     mov ax, word [bp - 0x0004]       ; 0x391c
     dec ax                           ; 0x391f
     push ax                          ; 0x3920
-    call gfx_entry_16                ; 0x3921
+    call gfx_show_area               ; 0x3921
     add sp, byte 8                   ; 0x3924
     mov word [bp - 0x0002], 0        ; 0x3927
 @..api_idx_0050_QTGU.l52:

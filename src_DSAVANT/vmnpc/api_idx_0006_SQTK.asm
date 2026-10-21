@@ -12,7 +12,7 @@ api_idx_0006_SQTK:
     push ax                          ; 0x0f67
     mov ax, 0x48                     ; 0x0f68
     push ax                          ; 0x0f6b
-    call gfx_entry_16                ; 0x0f6c
+    call gfx_show_area               ; 0x0f6c
     add sp, byte 8                   ; 0x0f6f
     jmp near @..api_idx_0006_SQTK.l16 ; 0x0f72
 @..api_idx_0006_SQTK.l2:
