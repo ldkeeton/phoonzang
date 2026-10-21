@@ -12,19 +12,19 @@ delay_ms_ proc near
 	cld
 	push	ds
 	push	si
-	push	cs
+	push	cs	;ds = cs so [bx] reaches delay_loop_target
 	pop	ds
 	mov	bx,offset delay_loop_target_
-next_ms:
+next_ms:	;start one millisecond
 	mov	cx,word ptr cs:loops_per_ms_
 spin:
-	sub	cx,1
+	sub	cx,1	;spin loops_per_ms times
 	jne	no_pad
-	nop
+	nop	;timing pad on the wrap pass, part of the calibration
 no_pad:
-	cmp	cx,word ptr [bx]
+	cmp	cx,word ptr [bx]	;memory compare (not jz) keeps the calibrated loop cost
 	jne	spin
-	dec	word ptr ms[bp]
+	dec	word ptr ms[bp]	;ms done; repeat until the count hits 0
 	jne	next_ms
 	pop	si
 	pop	ds

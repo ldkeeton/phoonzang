@@ -6,15 +6,15 @@
 	extrn	saved_video_mode_:byte
 	public	detect_video_adapter_, vga_palette_
 detect_video_adapter_ proc near
-	mov	ah,0fh
+	mov	ah,0fh	;int 10h/0Fh: get current video mode
 	int	10h
-	mov	byte ptr cs:saved_video_mode_,al
-	mov	ax,word ptr 4[bp]
+	mov	byte ptr cs:saved_video_mode_,al	;remember the mode in effect at startup
+	mov	ax,word ptr 4[bp]	;caller arg bit 0 set: VGA may be used
 	and	ax,1
 	jnz	try_vga
 	jmp	select_ega_driver_
 try_vga:
-	mov	ax,0
+	mov	ax,0	;0040:0087 EGA info byte; 0 = no EGA/VGA BIOS
 	push	ds
 	mov	ds,ax
 	mov	bx,487h
@@ -23,9 +23,9 @@ try_vga:
 	or	al,al
 	jz	no_vga
 	xor	bx,bx
-	mov	ax,1a00h
+	mov	ax,1a00h	;int 10h/1A00h: read display combination code
 	int	10h
-	cmp	bl,7
+	cmp	bl,7	;7 = VGA mono, 8 = VGA colour, active (bl) or alternate (bh)
 	je	is_vga
 	cmp	bh,7
 	je	is_vga
@@ -36,11 +36,11 @@ try_vga:
 is_vga:
 	jmp	select_vga_driver_
 no_vga:
-	mov	word ptr -2[bp],0
+	mov	word ptr -2[bp],0	;[bp-2] = 0: no supported adapter
 	ret
 detect_video_adapter_ endp
 
-vga_palette_:
+vga_palette_:	;256 RGB triples, 6-bit DAC values
 	db	000h,000h,000h,03fh,03fh,03fh,038h,038h,038h,033h,033h,033h,02eh,02eh,02eh,029h
 	db	029h,029h,024h,024h,024h,020h,020h,020h,01ch,01ch,01ch,018h,018h,018h,014h,014h
 	db	014h,010h,010h,010h,00dh,00dh,00dh,00ah,00ah,00ah,007h,007h,007h,004h,004h,004h

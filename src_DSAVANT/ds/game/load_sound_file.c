@@ -1,5 +1,8 @@
 extern struct { int num; int pad; long size; int pad2[2]; } sound_slot_info[];
 
+/* fetches sound record num into slot n, then loads SOUNDnn.SND into the
+   driver; a zero-size record redirects to another sound number, and flag
+   skips the load in that case */
 load_sound_file(num, n, flag)
 {
 	int load;
@@ -15,6 +18,7 @@ load_sound_file(num, n, flag)
 	}
 	if (load) {
 		aztec_strcpy(name, "SOUND00.SND");
+		/* patch the two "00" digits with num */
 		name[5] = num / 10 + '0';
 		name[6] = num % 10 + '0';
 		if ((fd = aztec_open(data_file_path(name, 1), 0)) == -1)

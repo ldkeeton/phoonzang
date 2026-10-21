@@ -455,6 +455,10 @@ async function makeC(uri) {
             `routine's own entry, with a "note"). Give .s and #asm stack arguments and locals \`equ\` names. Then run ` +
             `\`${build}\`, update the source, and run \`make rebuild\`. No address-named symbol may remain in ` +
             `the source.`,
+        `Add terse comments that say why, not what: a one-line header above the routine (a \`;\` ` +
+            `line in a .s, \`/* */\` in C, never \`//\`), and short trailing comments on loops, branches ` +
+            `and magic numbers (BIOS/DOS function numbers, key codes, header offsets, strides, flag bits). ` +
+            `Describe only what the code shows; don't guess intent.`,
         `Once it matches, give the routine a descriptive lowercase_underscore name this way, keeping any prefix ` +
             `its flags need. Your final message: only the name.`,
     ].join('\n\n');

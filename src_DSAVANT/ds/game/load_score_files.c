@@ -2,6 +2,8 @@ extern unsigned char video_mode;
 extern int loaded_score_num;
 extern char score_ext_csf[], score_ext_pbl[], score_ext_pba[];
 
+/* opens SCOREnn.CSF and its picture file for the current video mode, hands
+   both to the driver, and remembers num as the loaded score */
 load_score_files(num, arg)
 {
 	int fd_csf;
@@ -12,9 +14,10 @@ load_score_files(num, arg)
 	int mode;
 
 	mode = video_mode;
-	if (mode == 6)
+	if (mode == 6)	/* mode 6 shares mode 4's score data */
 		mode = 4;
 	aztec_strcpy(base, "SCORE00");
+	/* patch the two "00" digits with num */
 	base[5] = num / 10 + '0';
 	base[6] = num % 10 + '0';
 	aztec_strcpy(path, base);

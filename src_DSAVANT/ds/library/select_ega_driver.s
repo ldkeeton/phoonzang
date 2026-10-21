@@ -9,7 +9,7 @@ bios_data_0410	equ	410h	;0040:0010 equipment byte, read with es = 0
 	public	select_ega_driver_, ega_palette_
 	public	vga_drv_name_, ega_drv_name_, drv_file_handle_
 select_ega_driver_ proc near
-	mov	ax,0
+	mov	ax,0	;0040:0087 EGA info byte; 0 = no EGA
 	push	ds
 	mov	ds,ax
 	mov	bx,487h
@@ -19,38 +19,38 @@ select_ega_driver_ proc near
 	jz	no_ega
 	jmp	set_ega
 no_ega:
-	mov	word ptr -2[bp],0
+	mov	word ptr -2[bp],0	;[bp-2] = 0: no EGA
 	ret
 set_ega:
-	mov	byte ptr cs:video_is_cga_,0
+	mov	byte ptr cs:video_is_cga_,0	;record the adapter type
 	mov	byte ptr cs:video_is_herc_,0
 	mov	byte ptr cs:video_is_ega_,1
 	mov	byte ptr cs:video_is_vga_,0
 	push	es
 	sub	ax,ax
 	mov	es,ax
-	mov	dl,byte ptr es:[bios_data_0410]
+	mov	dl,byte ptr es:[bios_data_0410]	;save the equipment byte, then clear bits 4-5
 	mov	byte ptr cs:saved_equip_byte_,dl
-	and	dl,0cfh
+	and	dl,0cfh	;bits 4-5 = 00: EGA/VGA in the equipment list
 	mov	byte ptr es:[bios_data_0410],dl
 	pop	es
-	mov	ax,0eh
+	mov	ax,0eh	;mode 0Eh: 640x200, 16 colours
 	int	10h
 	mov	ax,cs
 	mov	es,ax
-	mov	dx,offset ega_palette_
+	mov	dx,offset ega_palette_	;int 10h/1002h: set 16 palette regs + overscan from es:dx
 	mov	ax,1002h
 	int	10h
-	mov	word ptr -2[bp],2
-	mov	bx,offset ega_drv_name_
+	mov	word ptr -2[bp],2	;[bp-2] = 2: EGA
+	mov	bx,offset ega_drv_name_	;[bp-4] = driver file name
 	mov	word ptr -4[bp],bx
 	ret
 select_ega_driver_ endp
 
-ega_palette_	db	000h,017h,011h,015h,014h,016h,012h,013h,010h,007h,001h,005h,004h,006h,002h,003h
+ega_palette_	db	000h,017h,011h,015h,014h,016h,012h,013h,010h,007h,001h,005h,004h,006h,002h,003h	;16 palette registers, then overscan
 	db	000h
 
-vga_drv_name_	db	'vga.drv',0
+vga_drv_name_	db	'vga.drv',0	;driver file names
 ega_drv_name_	db	'ega.drv',0
 	db	'cga.drv',0
 	db	'herc.drv',0

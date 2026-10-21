@@ -9,29 +9,29 @@
 bios_data_0410	equ	410h	;0040:0010 equipment byte, read with es = 0
 	public	select_vga_driver_
 select_vga_driver_ proc near
-	mov	byte ptr cs:video_is_cga_,0
+	mov	byte ptr cs:video_is_cga_,0	;record the adapter type
 	mov	byte ptr cs:video_is_herc_,0
 	mov	byte ptr cs:video_is_ega_,0
 	mov	byte ptr cs:video_is_vga_,1
 	push	es
 	sub	ax,ax
 	mov	es,ax
-	mov	dl,byte ptr es:[bios_data_0410]
+	mov	dl,byte ptr es:[bios_data_0410]	;save the equipment byte, then clear bits 4-5
 	mov	byte ptr cs:saved_equip_byte_,dl
-	and	dl,0cfh
+	and	dl,0cfh	;bits 4-5 = 00: EGA/VGA in the equipment list
 	mov	byte ptr es:[bios_data_0410],dl
 	pop	es
-	mov	ax,13h
+	mov	ax,13h	;mode 13h: 320x200, 256 colours
 	int	10h
 	mov	ax,cs
 	mov	es,ax
-	mov	dx,offset vga_palette_
+	mov	dx,offset vga_palette_	;int 10h/1012h: set DAC regs 0..255 from es:dx
 	xor	bx,bx
 	mov	cx,100h
 	mov	ax,1012h
 	int	10h
-	mov	word ptr -2[bp],1
-	mov	bx,offset vga_drv_name_
+	mov	word ptr -2[bp],1	;[bp-2] = 1: VGA
+	mov	bx,offset vga_drv_name_	;[bp-4] = driver file name
 	mov	word ptr -4[bp],bx
 	ret
 select_vga_driver_ endp

@@ -14,13 +14,13 @@ flush_keyboard_ proc near
 	push	es
 	mov	ax,ds
 	mov	es,ax
-	mov	ax,0
+	mov	ax,0	;empty key_queue (count = 0)
 	mov	word ptr cs:key_queue_,ax
 drain:
-	mov	ah,1
+	mov	ah,1	;int 16h/1: is a key waiting?
 	int	16h
-	jz	drained
-	mov	ah,0
+	jz	drained	;ZF set: BIOS buffer empty
+	mov	ah,0	;int 16h/0: read and discard it
 	int	16h
 	jmp	drain
 drained:

@@ -1,3 +1,4 @@
+/* prints n in decimal at row, col via the BIOS */
 put_int_at(row, col, n)
 {
 	char text[255];
