@@ -32,7 +32,7 @@ string_loc_NOSM:
     mov al, byte [cs:bx + cseg_14da - IMAGE_BASE] ; 0x13bf
     add ah, 0xb1                     ; 0x13c4
     and al, 0xdf                     ; 0x13c7
-    call io_loc_KRUO                 ; 0x13c9
+    call opl_write                   ; 0x13c9
     mov bl, byte [cs:cseg_0d40 - IMAGE_BASE] ; 0x13cc
     inc bl                           ; 0x13d1
     shl bl, 1                        ; 0x13d3
@@ -47,7 +47,7 @@ string_loc_NOSM:
     lodsb                            ; 0x13e8
     mov ah, byte [cs:bx + 0x1]       ; 0x13e9
     add ah, ch                       ; 0x13ed
-    call io_loc_KRUO                 ; 0x13ef
+    call opl_write                   ; 0x13ef
     add bx, byte 2                   ; 0x13f2
     cmp word [cs:bx], strict word 0xff ; 0x13f5
     jne short @..string_loc_NOSM.l1  ; 0x13fa
@@ -57,7 +57,7 @@ string_loc_NOSM:
     lodsb                            ; 0x1403
     mov ah, 0xc1                     ; 0x1404
     add ah, byte [cs:cseg_0d40 - IMAGE_BASE] ; 0x1406
-    call io_loc_KRUO                 ; 0x140b
+    call opl_write                   ; 0x140b
     pop ds                           ; 0x140e
     pop si                           ; 0x140f
     pop dx                           ; 0x1410

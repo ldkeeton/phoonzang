@@ -17,8 +17,8 @@ loc_TJIS:
     ret                              ; 0x01d9
 jumptable_01da:
     dw loc_PLIR - IMAGE_BASE                   ; 0x01da
-    dw leaf_loc_VQOG - IMAGE_BASE              ; 0x01dc
+    dw opl_keys_off - IMAGE_BASE               ; 0x01dc
     dw loc_PLIR - IMAGE_BASE                   ; 0x01de
     dw loc_PLIR - IMAGE_BASE                   ; 0x01e0
-    dw leaf_loc_VQOG - IMAGE_BASE              ; 0x01e2
+    dw opl_keys_off - IMAGE_BASE               ; 0x01e2
     dw io_loc_LPON - IMAGE_BASE                ; 0x01e4

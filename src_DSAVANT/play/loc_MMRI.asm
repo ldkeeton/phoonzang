@@ -21,7 +21,7 @@ loc_MMRI:
     mov byte [cs:bx + 0x2], 0xff     ; 0x0064
     mov word [cs:bx + 0x3], 0        ; 0x0069
     add bx, byte 5                   ; 0x006f
-    cmp bx, cseg_0d3a - IMAGE_BASE   ; 0x0072
+    cmp bx, opl_voice_count - IMAGE_BASE ; 0x0072
     jb short @..loc_MMRI.l1          ; 0x0076
     mov al, byte [cs:cseg_0a7c - IMAGE_BASE] ; 0x0078
     mov ax, word [cs:cseg_0a83 - IMAGE_BASE] ; 0x007c
@@ -44,8 +44,8 @@ loc_VVTT:
     ret                              ; 0x00a9
 jumptable_00aa:
     dw loc_PLIR - IMAGE_BASE                   ; 0x00aa
-    dw io_loc_GHPS - IMAGE_BASE                ; 0x00ac
+    dw opl_init - IMAGE_BASE                   ; 0x00ac
     dw loc_PLIR - IMAGE_BASE                   ; 0x00ae
     dw loc_PLIR - IMAGE_BASE                   ; 0x00b0
-    dw io_loc_GHPS - IMAGE_BASE                ; 0x00b2
+    dw opl_init - IMAGE_BASE                   ; 0x00b2
     dw io_loc_HLUI - IMAGE_BASE                ; 0x00b4

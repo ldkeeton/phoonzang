@@ -1,5 +1,5 @@
 ; auto-generated
-leaf_loc_VQOG:
+opl_keys_off:
     push bx                          ; 0x01e6
     push cx                          ; 0x01e7
     push dx                          ; 0x01e8

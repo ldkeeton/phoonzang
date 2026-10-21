@@ -51,6 +51,6 @@ loc_QVOP:
     mov ah, 0x40                     ; 0x136f
     add ah, dl                       ; 0x1371
     or al, bl                        ; 0x1373
-    call io_loc_KRUO                 ; 0x1375
+    call opl_write                   ; 0x1375
     pop dx                           ; 0x1378
     ret                              ; 0x1379

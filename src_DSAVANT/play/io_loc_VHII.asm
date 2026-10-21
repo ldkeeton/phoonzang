@@ -8,7 +8,7 @@ io_loc_VHII:
     mov bx, cseg_1429 - IMAGE_BASE   ; 0x18d5
     cs xlatb                         ; 0x18d8
     and al, 0xdf                     ; 0x18da
-    call io_loc_KRUO                 ; 0x18dc
+    call opl_write                   ; 0x18dc
     pop bx                           ; 0x18df
     pop ax                           ; 0x18e0
     ret                              ; 0x18e1

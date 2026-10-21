@@ -48,5 +48,5 @@ loc_NVPH:
     mov al, byte [si + 0x1]          ; 0x17e3
     mov ah, 0x40                     ; 0x17e6
     add ah, ch                       ; 0x17e8
-    call io_loc_KRUO                 ; 0x17ea
+    call opl_write                   ; 0x17ea
     jmp near @..loc_GOTP_17f0.l2     ; 0x17ed

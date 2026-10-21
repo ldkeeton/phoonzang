@@ -33,7 +33,7 @@ loc_JTQK_001f.load_screen1 equ leaf_loc_IUKK
 
 %include "play/io_loc_HLUI.asm"            ; 0x00b6
 
-%include "play/io_loc_GHPS.asm"            ; 0x00c4
+%include "play/opl_init.asm"               ; 0x00c4
 
 %include "play/leaf_loc_UMNS.asm"          ; 0x00fe
 
@@ -47,7 +47,7 @@ loc_JTQK_001f.load_screen1 equ leaf_loc_IUKK
 
 %include "play/loc_TJIS.asm"               ; 0x01b0
 
-%include "play/leaf_loc_VQOG.asm"          ; 0x01e6
+%include "play/opl_keys_off.asm"           ; 0x01e6
 
 %include "play/io_loc_MNPU.asm"            ; 0x0203
 
@@ -92,7 +92,7 @@ cseg_1904 equ __zinsn_18ff + 0x5
 
 %include "play/leaf_loc_JKKL.asm"          ; 0x077b
 
-%include "play/io_loc_KRUO.asm"            ; 0x07f6
+%include "play/opl_write.asm"              ; 0x07f6
 
 %include "play/io_loc_TOKT.asm"            ; 0x0821
 
@@ -220,7 +220,7 @@ cseg_0d03:
 
     times 55 db 0
 
-cseg_0d3a:
+opl_voice_count:
     db 0x08
 cseg_0d3b:
     db 0x00

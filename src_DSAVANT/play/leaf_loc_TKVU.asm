@@ -9,7 +9,7 @@ leaf_loc_TKVU:
 @..leaf_loc_TKVU.l2:
     inc al                           ; 0x0f65
     add bx, byte 5                   ; 0x0f67
-    cmp bx, cseg_0d3a - IMAGE_BASE   ; 0x0f6a
+    cmp bx, opl_voice_count - IMAGE_BASE ; 0x0f6a
     jb short @..leaf_loc_TKVU.l1     ; 0x0f6e
     jmp near loc_NGKV                ; 0x0f70
 loc_GLKJ:
@@ -28,7 +28,7 @@ loc_OIUN:
 loc_KRQV:
     add bx, byte 5                   ; 0x0f9a
     inc al                           ; 0x0f9d
-    cmp al, byte [cs:cseg_0d3a - IMAGE_BASE] ; 0x0f9f
+    cmp al, byte [cs:opl_voice_count - IMAGE_BASE] ; 0x0f9f
     jb short loc_OIUN                ; 0x0fa4
     mov al, byte [cs:cseg_0d4d - IMAGE_BASE] ; 0x0fa6
     cmp al, 0xff                     ; 0x0faa
@@ -53,7 +53,7 @@ loc_KQGN:
 loc_LGMV:
     add bx, byte 5                   ; 0x0fe7
     inc al                           ; 0x0fea
-    cmp al, byte [cs:cseg_0d3a - IMAGE_BASE] ; 0x0fec
+    cmp al, byte [cs:opl_voice_count - IMAGE_BASE] ; 0x0fec
     jb short loc_KQGN                ; 0x0ff1
     mov bx, word [cs:cseg_0d4e - IMAGE_BASE] ; 0x0ff3
     mov al, byte [cs:cseg_0d4d - IMAGE_BASE] ; 0x0ff8
@@ -75,7 +75,7 @@ loc_ILTG:
 loc_JHLQ:
     add bx, byte 5                   ; 0x1029
     inc al                           ; 0x102c
-    cmp al, byte [cs:cseg_0d3a - IMAGE_BASE] ; 0x102e
+    cmp al, byte [cs:opl_voice_count - IMAGE_BASE] ; 0x102e
     jb short loc_ILTG                ; 0x1033
     mov bx, word [cs:cseg_0d4e - IMAGE_BASE] ; 0x1035
     mov al, byte [cs:cseg_0d4d - IMAGE_BASE] ; 0x103a
@@ -149,7 +149,7 @@ loc_RPSI:
 loc_PIOG:
     inc al                           ; 0x1137
     add bx, byte 5                   ; 0x1139
-    cmp al, byte [cs:cseg_0d3a - IMAGE_BASE] ; 0x113c
+    cmp al, byte [cs:opl_voice_count - IMAGE_BASE] ; 0x113c
     jb short loc_RPSI                ; 0x1141
     inc si                           ; 0x1143
     loop loc_GJLP                    ; 0x1144

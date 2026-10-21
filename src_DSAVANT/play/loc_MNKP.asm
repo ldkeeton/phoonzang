@@ -30,7 +30,7 @@ loc_MNKP:
     call loc_MVUI                    ; 0x0e94
     or al, 1                         ; 0x0e97
     mov ah, 0xbd                     ; 0x0e99
-    call io_loc_KRUO                 ; 0x0e9b
+    call opl_write                   ; 0x0e9b
     jmp near loc_MRJU                ; 0x0e9e
 @..loc_MNKP.l4:
     mov byte [cs:cseg_1774 - IMAGE_BASE], 0 ; 0x0ea1
@@ -44,14 +44,14 @@ loc_MNKP:
     call loc_MVUI                    ; 0x0ec3
     or al, 0x10                      ; 0x0ec6
     mov ah, 0xbd                     ; 0x0ec8
-    call io_loc_KRUO                 ; 0x0eca
+    call opl_write                   ; 0x0eca
     jmp near loc_MRJU                ; 0x0ecd
 @..loc_MNKP.l5:
     mov ah, 0x14                     ; 0x0ed0
     call loc_MVUI                    ; 0x0ed2
     or al, 8                         ; 0x0ed5
     mov ah, 0xbd                     ; 0x0ed7
-    call io_loc_KRUO                 ; 0x0ed9
+    call opl_write                   ; 0x0ed9
     jmp near loc_MRJU                ; 0x0edc
 @..loc_MNKP.l6:
     mov ah, 0x12                     ; 0x0edf
@@ -62,14 +62,14 @@ loc_MNKP:
     call loc_MVUI                    ; 0x0ef6
     or al, 4                         ; 0x0ef9
     mov ah, 0xbd                     ; 0x0efb
-    call io_loc_KRUO                 ; 0x0efd
+    call opl_write                   ; 0x0efd
     jmp near loc_MRJU                ; 0x0f00
 @..loc_MNKP.l7:
     mov ah, 0x15                     ; 0x0f03
     call loc_MVUI                    ; 0x0f05
     or al, 2                         ; 0x0f08
     mov ah, 0xbd                     ; 0x0f0a
-    call io_loc_KRUO                 ; 0x0f0c
+    call opl_write                   ; 0x0f0c
     jmp near loc_MRJU                ; 0x0f0f
 loc_MVUI:
     push ax                          ; 0x0f12
@@ -80,7 +80,7 @@ loc_MVUI:
     cs xlatb                         ; 0x0f1c
     and al, 0xc0                     ; 0x0f1e
     or al, cl                        ; 0x0f20
-    call io_loc_KRUO                 ; 0x0f22
+    call opl_write                   ; 0x0f22
     pop bx                           ; 0x0f25
     pop ax                           ; 0x0f26
     ret                              ; 0x0f27
@@ -91,7 +91,7 @@ loc_LPMH:
 loc_MGMT:
     inc word [cs:bx + 0x3]           ; 0x0f2d
     add bx, byte 5                   ; 0x0f31
-    cmp bx, cseg_0d3a - IMAGE_BASE   ; 0x0f34
+    cmp bx, opl_voice_count - IMAGE_BASE ; 0x0f34
     jb short loc_MGMT                ; 0x0f38
     mov cl, byte [cs:cseg_0d48 - IMAGE_BASE] ; 0x0f3a
     xor ch, ch                       ; 0x0f3f

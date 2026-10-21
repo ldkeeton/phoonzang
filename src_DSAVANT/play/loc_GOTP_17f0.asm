@@ -79,7 +79,7 @@ loc_GOTP_17f0:
     mov ah, 0xa0                     ; 0x189b
     add ah, byte [cs:cseg_0d40 - IMAGE_BASE] ; 0x189d
     inc ah                           ; 0x18a2
-    call io_loc_KRUO                 ; 0x18a4
+    call opl_write                   ; 0x18a4
     pop ax                           ; 0x18a7
     mov al, ah                       ; 0x18a8
     and al, 3                        ; 0x18aa
@@ -90,7 +90,7 @@ loc_GOTP_17f0:
     mov ah, 0xb0                     ; 0x18b7
     add ah, byte [cs:cseg_0d40 - IMAGE_BASE] ; 0x18b9
     inc ah                           ; 0x18be
-    call io_loc_KRUO                 ; 0x18c0
+    call opl_write                   ; 0x18c0
     pop si                           ; 0x18c3
     pop ds                           ; 0x18c4
     pop dx                           ; 0x18c5

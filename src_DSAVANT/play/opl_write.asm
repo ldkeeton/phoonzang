@@ -1,5 +1,5 @@
 ; auto-generated
-io_loc_KRUO:
+opl_write:
     push bx                          ; 0x07f6
     push dx                          ; 0x07f7
     xor bh, bh                       ; 0x07f8
