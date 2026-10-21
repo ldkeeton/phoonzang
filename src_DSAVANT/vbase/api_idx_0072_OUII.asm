@@ -5,7 +5,7 @@ api_idx_0072_OUII:
     mov word [bp - 0x000e], 0        ; 0x1fb5
     mov ax, word [bss_5218]          ; 0x1fba
     mov word [bp - 0x0010], ax       ; 0x1fbd
-    cmp byte [bss_5987], 5           ; 0x1fc0
+    cmp byte [install_mode], 5       ; 0x1fc0
     jne short @..api_idx_0072_OUII.l1 ; 0x1fc5
     cmp ax, strict word 0            ; 0x1fc7
     jle short @..api_idx_0072_OUII.l1 ; 0x1fca
@@ -65,11 +65,11 @@ api_idx_0072_OUII:
 @..api_idx_0072_OUII.l3:
     mov ax, 0x3a                     ; 0x203f
     push ax                          ; 0x2042
-    mov ax, bss_5912                 ; 0x2043
+    mov ax, data_path_prefixes       ; 0x2043
     push ax                          ; 0x2046
     mov ax, bss_91c6                 ; 0x2047
     push ax                          ; 0x204a
-    call ds_app_HVHT                 ; 0x204b
+    call copy_through_char           ; 0x204b
     add sp, byte 6                   ; 0x204e
     mov ax, 0x3a                     ; 0x2051
     push ax                          ; 0x2054
@@ -77,7 +77,7 @@ api_idx_0072_OUII:
     push ax                          ; 0x2058
     mov ax, bss_91da                 ; 0x2059
     push ax                          ; 0x205c
-    call ds_app_HVHT                 ; 0x205d
+    call copy_through_char           ; 0x205d
     add sp, byte 6                   ; 0x2060
     lea ax, word [bp - 0x004a]       ; 0x2063
     push ax                          ; 0x2066
@@ -109,7 +109,7 @@ api_idx_0072_OUII:
     push ax                          ; 0x20a4
     call aztec_strcat                ; 0x20a5
     add sp, byte 4                   ; 0x20a8
-    cmp byte [bss_5987], 1           ; 0x20ab
+    cmp byte [install_mode], 1       ; 0x20ab
     jne short @..api_idx_0072_OUII.l5 ; 0x20b0
     mov ax, bss_91da                 ; 0x20b2
     push ax                          ; 0x20b5
@@ -135,7 +135,7 @@ api_idx_0072_OUII:
     add sp, byte 4                   ; 0x20df
     test ax, ax                      ; 0x20e2
     je short @..api_idx_0072_OUII.l6 ; 0x20e4
-    cmp byte [bss_5987], 5           ; 0x20e6
+    cmp byte [install_mode], 5       ; 0x20e6
     jne short @..api_idx_0072_OUII.l7 ; 0x20eb
 @..api_idx_0072_OUII.l6:
     mov word [bp - 0x000e], 1        ; 0x20ed
@@ -157,7 +157,7 @@ api_idx_0072_OUII:
     mov word [bp - 0x0012], ax       ; 0x2113
     jmp short @..api_idx_0072_OUII.l11 ; 0x2116
 @..api_idx_0072_OUII.l9:
-    cmp byte [bss_5987], 1           ; 0x2118
+    cmp byte [install_mode], 1       ; 0x2118
     jbe short @..api_idx_0072_OUII.l11 ; 0x211d
     mov word [bp - 0x000e], 1        ; 0x211f
     mov ax, 0                        ; 0x2124

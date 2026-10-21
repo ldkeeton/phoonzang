@@ -5,7 +5,7 @@ api_idx_004e_HUKL:
     mov word [bp - 0x000e], 0        ; 0x3892
     mov ax, word [bss_5218]          ; 0x3897
     mov word [bp - 0x0010], ax       ; 0x389a
-    cmp byte [bss_5987], 5           ; 0x389d
+    cmp byte [install_mode], 5       ; 0x389d
     jne short @..api_idx_004e_HUKL.l1 ; 0x38a2
     cmp ax, strict word 0            ; 0x38a4
     jle short @..api_idx_004e_HUKL.l1 ; 0x38a7
@@ -80,11 +80,11 @@ api_idx_004e_HUKL:
 @..api_idx_004e_HUKL.l6:
     mov ax, 0x3a                     ; 0x3941
     push ax                          ; 0x3944
-    mov ax, bss_5912                 ; 0x3945
+    mov ax, data_path_prefixes       ; 0x3945
     push ax                          ; 0x3948
     mov ax, bss_91c6                 ; 0x3949
     push ax                          ; 0x394c
-    call ds_app_HVHT                 ; 0x394d
+    call copy_through_char           ; 0x394d
     add sp, byte 6                   ; 0x3950
     mov ax, 0x3a                     ; 0x3953
     push ax                          ; 0x3956
@@ -92,7 +92,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x395a
     mov ax, bss_91da                 ; 0x395b
     push ax                          ; 0x395e
-    call ds_app_HVHT                 ; 0x395f
+    call copy_through_char           ; 0x395f
     add sp, byte 6                   ; 0x3962
     mov ax, bss_593a                 ; 0x3965
     push ax                          ; 0x3968
@@ -124,7 +124,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x39a6
     call aztec_strcat                ; 0x39a7
     add sp, byte 4                   ; 0x39aa
-    cmp byte [bss_5987], 1           ; 0x39ad
+    cmp byte [install_mode], 1       ; 0x39ad
     jne short @..api_idx_004e_HUKL.l8 ; 0x39b2
     mov ax, bss_91da                 ; 0x39b4
     push ax                          ; 0x39b7
@@ -150,7 +150,7 @@ api_idx_004e_HUKL:
     add sp, byte 4                   ; 0x39e1
     test ax, ax                      ; 0x39e4
     je short @..api_idx_004e_HUKL.l9 ; 0x39e6
-    cmp byte [bss_5987], 5           ; 0x39e8
+    cmp byte [install_mode], 5       ; 0x39e8
     jne short @..api_idx_004e_HUKL.l10 ; 0x39ed
 @..api_idx_004e_HUKL.l9:
     mov word [bp - 0x000e], 1        ; 0x39ef
@@ -172,7 +172,7 @@ api_idx_004e_HUKL:
     mov word [bp - 0x0012], ax       ; 0x3a15
     jmp short @..api_idx_004e_HUKL.l14 ; 0x3a18
 @..api_idx_004e_HUKL.l12:
-    cmp byte [bss_5987], 1           ; 0x3a1a
+    cmp byte [install_mode], 1       ; 0x3a1a
     jbe short @..api_idx_004e_HUKL.l14 ; 0x3a1f
     mov word [bp - 0x000e], 1        ; 0x3a21
     mov ax, 0                        ; 0x3a26

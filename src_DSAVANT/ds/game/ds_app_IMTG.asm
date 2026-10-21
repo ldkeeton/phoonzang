@@ -3,7 +3,7 @@ ds_app_IMTG: ; Aztec csav frame=0x0018
     mov ax, 0xffe8                   ; 0x27e9
     call aztec_csav                  ; 0x27ec
     mov word [bp - 0x0016], 0        ; 0x27ef
-    mov al, byte [bss_5987]          ; 0x27f4
+    mov al, byte [install_mode]      ; 0x27f4
     sub ah, ah                       ; 0x27f7
     jmp short @..ds_app_IMTG.l2      ; 0x27f9
 @..ds_app_IMTG.l1:
@@ -15,7 +15,7 @@ ds_app_IMTG: ; Aztec csav frame=0x0018
     cmp ax, strict word 1            ; 0x2807
     je short @..ds_app_IMTG.l1       ; 0x280a
 @..ds_app_IMTG.l3:
-    cmp byte [bss_5987], 5           ; 0x280c
+    cmp byte [install_mode], 5       ; 0x280c
     jne short @..ds_app_IMTG.l4      ; 0x2811
     mov ax, word [bp - 0x0016]       ; 0x2813
     cmp ax, strict word 0            ; 0x2816
@@ -31,11 +31,11 @@ ds_app_IMTG: ; Aztec csav frame=0x0018
     je short @..ds_app_IMTG.l6       ; 0x2829
     mov ax, 0x3a                     ; 0x282b
     push ax                          ; 0x282e
-    mov ax, bss_5912                 ; 0x282f
+    mov ax, data_path_prefixes       ; 0x282f
     push ax                          ; 0x2832
     lea ax, word [bp - 0x0014]       ; 0x2833
     push ax                          ; 0x2836
-    call ds_app_HVHT                 ; 0x2837
+    call copy_through_char           ; 0x2837
     add sp, byte 6                   ; 0x283a
     mov ax, 1                        ; 0x283d
     push ax                          ; 0x2840

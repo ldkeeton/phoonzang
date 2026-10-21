@@ -442,31 +442,31 @@ bss_0cf6 equ __zbss_0cf6 - __zdseg_start
 bss_0cf8 equ __zbss_0cf8 - __zdseg_start
 %include "ds/game/ds_app_HGSV.asm"         ; 0x2331
 
-%include "ds/game/ds_app_HVHT.asm"         ; 0x2359
+%include "ds/game/copy_through_char.asm"   ; 0x2359
 
-bss_5912 equ __zbss_5912 - __zdseg_start
-bss_5987 equ __zbss_5987 - __zdseg_start
-bss_69ca equ __zbss_69ca - __zdseg_start
+data_path_prefixes equ __zbss_5912 - __zdseg_start
+install_mode       equ __zbss_5987 - __zdseg_start
+data_path_buf      equ __zbss_69ca - __zdseg_start
 %include "ds/game/data_file_path.asm"      ; 0x23a8
 
-dseg_0b74 equ __zdseg_0b74 - __zdseg_start
-dseg_0b89 equ __zdseg_0b89 - __zdseg_start
-dseg_0b99 equ __zdseg_0b99 - __zdseg_start
-dseg_0ba6 equ __zdseg_0ba6 - __zdseg_start
-dseg_0baf equ __zdseg_0baf - __zdseg_start
-dseg_0bb8 equ __zdseg_0bb8 - __zdseg_start
-dseg_0bc0 equ __zdseg_0bc0 - __zdseg_start
-; bss_0e22  equ __zbss_0e22 - __zdseg_start
-; bss_0e24  equ __zbss_0e24 - __zdseg_start
-bss_5218  equ __zbss_5218 - __zdseg_start
-bss_5926  equ __zbss_5926 - __zdseg_start
-; bss_5987  equ __zbss_5987 - __zdseg_start
-; bss_5b3e  equ __zbss_5b3e - __zdseg_start
+dseg_0b74    equ __zdseg_0b74 - __zdseg_start
+dseg_0b89    equ __zdseg_0b89 - __zdseg_start
+dseg_0b99    equ __zdseg_0b99 - __zdseg_start
+dseg_0ba6    equ __zdseg_0ba6 - __zdseg_start
+dseg_0baf    equ __zdseg_0baf - __zdseg_start
+dseg_0bb8    equ __zdseg_0bb8 - __zdseg_start
+dseg_0bc0    equ __zdseg_0bc0 - __zdseg_start
+; bss_0e22     equ __zbss_0e22 - __zdseg_start
+; bss_0e24     equ __zbss_0e24 - __zdseg_start
+bss_5218     equ __zbss_5218 - __zdseg_start
+bss_5926     equ __zbss_5926 - __zdseg_start
+; install_mode equ __zbss_5987 - __zdseg_start
+; bss_5b3e     equ __zbss_5b3e - __zdseg_start
 %include "ds/game/ds_app_file_QQMM.asm"    ; 0x23ef
 
-; bss_5218 equ __zbss_5218 - __zdseg_start
-; bss_5912 equ __zbss_5912 - __zdseg_start
-; bss_5987 equ __zbss_5987 - __zdseg_start
+; bss_5218           equ __zbss_5218 - __zdseg_start
+; data_path_prefixes equ __zbss_5912 - __zdseg_start
+; install_mode       equ __zbss_5987 - __zdseg_start
 %include "ds/game/ds_app_IMTG.asm"         ; 0x27e9
 
 dseg_0bcd      equ __zdseg_0bcd - __zdseg_start

@@ -5,7 +5,7 @@ api_idx_0038_HNUN:
     mov word [bp - 0x000c], 0        ; 0x2ff5
     mov ax, word [bss_5218]          ; 0x2ffa
     mov word [bp - 0x000e], ax       ; 0x2ffd
-    cmp byte [bss_5987], 5           ; 0x3000
+    cmp byte [install_mode], 5       ; 0x3000
     jne short @..api_idx_0038_HNUN.l1 ; 0x3005
     cmp ax, strict word 0            ; 0x3007
     jle short @..api_idx_0038_HNUN.l1 ; 0x300a
@@ -74,11 +74,11 @@ api_idx_0038_HNUN:
 @..api_idx_0038_HNUN.l5:
     mov ax, 0x3a                     ; 0x3099
     push ax                          ; 0x309c
-    mov ax, bss_5912                 ; 0x309d
+    mov ax, data_path_prefixes       ; 0x309d
     push ax                          ; 0x30a0
     mov ax, bss_91c6                 ; 0x30a1
     push ax                          ; 0x30a4
-    call ds_app_HVHT                 ; 0x30a5
+    call copy_through_char           ; 0x30a5
     add sp, byte 6                   ; 0x30a8
     mov ax, 0x3a                     ; 0x30ab
     push ax                          ; 0x30ae
@@ -86,7 +86,7 @@ api_idx_0038_HNUN:
     push ax                          ; 0x30b2
     mov ax, bss_91da                 ; 0x30b3
     push ax                          ; 0x30b6
-    call ds_app_HVHT                 ; 0x30b7
+    call copy_through_char           ; 0x30b7
     add sp, byte 6                   ; 0x30ba
     mov ax, bss_593a                 ; 0x30bd
     push ax                          ; 0x30c0
@@ -118,7 +118,7 @@ api_idx_0038_HNUN:
     push ax                          ; 0x30fe
     call aztec_strcat                ; 0x30ff
     add sp, byte 4                   ; 0x3102
-    cmp byte [bss_5987], 1           ; 0x3105
+    cmp byte [install_mode], 1       ; 0x3105
     jne short @..api_idx_0038_HNUN.l7 ; 0x310a
     mov ax, bss_91da                 ; 0x310c
     push ax                          ; 0x310f
@@ -144,7 +144,7 @@ api_idx_0038_HNUN:
     add sp, byte 4                   ; 0x3139
     test ax, ax                      ; 0x313c
     je short @..api_idx_0038_HNUN.l8 ; 0x313e
-    cmp byte [bss_5987], 5           ; 0x3140
+    cmp byte [install_mode], 5       ; 0x3140
     jne short @..api_idx_0038_HNUN.l9 ; 0x3145
 @..api_idx_0038_HNUN.l8:
     mov word [bp - 0x000c], 1        ; 0x3147
@@ -166,7 +166,7 @@ api_idx_0038_HNUN:
     mov word [bp - 0x0010], ax       ; 0x316d
     jmp short @..api_idx_0038_HNUN.l13 ; 0x3170
 @..api_idx_0038_HNUN.l11:
-    cmp byte [bss_5987], 1           ; 0x3172
+    cmp byte [install_mode], 1       ; 0x3172
     jbe short @..api_idx_0038_HNUN.l13 ; 0x3177
     mov word [bp - 0x000c], 1        ; 0x3179
     mov ax, 0                        ; 0x317e
@@ -312,7 +312,7 @@ api_idx_0038_HNUN:
     push ax                          ; 0x32b4
     mov ax, 0x14                     ; 0x32b5
     imul word [bp - 0x0002]          ; 0x32b8
-    add ax, bss_5912                 ; 0x32bb
+    add ax, data_path_prefixes       ; 0x32bb
     push ax                          ; 0x32be
     call aztec_strcpy                ; 0x32bf
     add sp, byte 4                   ; 0x32c2
@@ -354,7 +354,7 @@ api_idx_0038_HNUN:
     mov al, byte [bss_98f8]          ; 0x3329
     mov byte [bss_5986], al          ; 0x332c
     mov al, byte [bss_98f9]          ; 0x332f
-    mov byte [bss_5987], al          ; 0x3332
+    mov byte [install_mode], al      ; 0x3332
     mov al, byte [bss_98fa]          ; 0x3335
     mov byte [bss_5988], al          ; 0x3338
     mov al, byte [bss_98fb]          ; 0x333b

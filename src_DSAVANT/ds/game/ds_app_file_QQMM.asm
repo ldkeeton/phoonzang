@@ -305,7 +305,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x26e0
     call aztec_close                 ; 0x26e1
     pop cx                           ; 0x26e4
-    cmp byte [bss_5987], 1           ; 0x26e5
+    cmp byte [install_mode], 1       ; 0x26e5
     jne short @..ds_app_file_QQMM.l9 ; 0x26ea
     mov word [bp - 0x00a8], 1        ; 0x26ec
 @..ds_app_file_QQMM.l9:
@@ -321,7 +321,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     call aztec_read                  ; 0x2707
     add sp, byte 6                   ; 0x270a
     mov word [bp - 0x00a6], ax       ; 0x270d
-    cmp byte [bss_5987], 5           ; 0x2711
+    cmp byte [install_mode], 5       ; 0x2711
     jne short @..ds_app_file_QQMM.l11 ; 0x2716
     mov ax, word [bp + 0x6]          ; 0x2718
     cmp ax, strict word 0            ; 0x271b

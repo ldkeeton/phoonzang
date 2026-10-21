@@ -1,16 +1,16 @@
 ; auto-generated
-ds_app_HVHT: ; Aztec csav frame=0x0004
+copy_through_char: ; Aztec csav frame=0x0004
     mov ax, 0xfffc                   ; 0x2359
     call aztec_csav                  ; 0x235c
     mov word [bp - 0x0002], 0        ; 0x235f
     mov word [bp - 0x0004], 0        ; 0x2364
-@..ds_app_HVHT.l1:
+@..copy_through_char.l1:
     mov bx, word [bp + 0x6]          ; 0x2369
     mov si, word [bp - 0x0002]       ; 0x236c
     cmp byte [bx + si], 0            ; 0x236f
-    je short @..ds_app_HVHT.l4       ; 0x2372
+    je short @..copy_through_char.l4 ; 0x2372
     cmp word [bp - 0x0004], byte 0   ; 0x2374
-    jne short @..ds_app_HVHT.l4      ; 0x2378
+    jne short @..copy_through_char.l4 ; 0x2378
     mov al, byte [bx + si]           ; 0x237a
     mov bx, word [bp + 0x4]          ; 0x237c
     mov byte [bx + si], al           ; 0x237f
@@ -18,16 +18,16 @@ ds_app_HVHT: ; Aztec csav frame=0x0004
     mov si, word [bp - 0x0002]       ; 0x2384
     mov al, byte [bx + si]           ; 0x2387
     cmp al, byte [bp + 0x8]          ; 0x2389
-    jne short @..ds_app_HVHT.l2      ; 0x238c
+    jne short @..copy_through_char.l2 ; 0x238c
     mov ax, 1                        ; 0x238e
-    jmp short @..ds_app_HVHT.l3      ; 0x2391
-@..ds_app_HVHT.l2:
+    jmp short @..copy_through_char.l3 ; 0x2391
+@..copy_through_char.l2:
     mov ax, 0                        ; 0x2393
-@..ds_app_HVHT.l3:
+@..copy_through_char.l3:
     mov word [bp - 0x0004], ax       ; 0x2396
     inc word [bp - 0x0002]           ; 0x2399
-    jmp short @..ds_app_HVHT.l1      ; 0x239c
-@..ds_app_HVHT.l4:
+    jmp short @..copy_through_char.l1 ; 0x239c
+@..copy_through_char.l4:
     mov bx, word [bp + 0x4]          ; 0x239e
     mov si, word [bp - 0x0002]       ; 0x23a1
     mov byte [bx + si], 0            ; 0x23a4

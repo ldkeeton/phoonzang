@@ -147,6 +147,10 @@
         "16a0": {
           "name": "restore_saved_screen"
         },
+        "2359": {
+          "name": "copy_through_char",
+          "note": "(dst, src, stop): copies src into dst up to and including the first stop char (or to the end of src), then NUL-terminates"
+        },
         "23a8": {
           "name": "data_file_path",
           "note": "(name, alt): copies one of two 20-byte path prefixes at DS 0x5912 (the second only when alt == 1 and DS 0x5987 == 5) into DS 0x69ca via ds_app_HVHT, appends name and returns 0x69ca"
@@ -269,9 +273,12 @@
         "01bc": {"name": "party_slot_y", "note": "int [2][6]: y of each party slot's letter for row 0/1; draw_party_slot_letters adds its y"},
         "01d4": {"name": "party_slot_glyphs", "note": "int [6][10]: per party slot, the glyph codes of its letter animation, 0xffff ends; draw_party_slot_letters reads the low byte of [slot][party_slot_frame[slot]]"},
         "5576": {"name": "sound_slot_info", "note": "12-byte records per sound slot, read by data_record_io type 9: +0 alias sound number, +4 long size (0 means use the alias)"},
+        "5912": {"name": "data_path_prefixes", "note": "char [][20]: drive/directory prefixes for data files; data_file_path copies one through its ':' (index 1 only when install_mode == 5)"},
+        "5987": {"name": "install_mode", "note": "byte: install/disk configuration; 5 selects the alternate data path prefix in data_file_path and shifts indices in ds_app_IMTG/ds_app_file_QQMM"},
         "5b72": {"name": "saved_screen_kind", "note": "int [] per saved-screen slot: 3 when the screen was saved to the file saved_screen_file[n], -1 once freed"},
         "5b7c": {"name": "saved_screen_file", "note": "char [][20] per saved-screen slot: file name of a screen saved to disk"},
         "5be0": {"name": "saved_screen_ref", "note": "long [] per saved-screen slot: the driver's reference passed to gfx_restore_screen"},
+        "69ca": {"name": "data_path_buf", "note": "char []: static buffer in which data_file_path builds and returns prefix + file name"},
         "830e": {"name": "party_slot_frame", "note": "int [6]: current frame in party_slot_glyphs for each slot; api_idx_0002_TIUI advances it, wrapping at 0xffff"}      },
       "code_data_names": {
         "2f36": {"name": "saved_video_mode", "note": "the video mode at startup (INT 10h AH=0Fh, bios_get_video_mode); ds_bios_video_loc_PHVR sets it back"},

@@ -5,7 +5,7 @@ api_idx_0022_PNPP:
     mov word [bp - 0x000c], 0        ; 0x9497
     mov ax, word [bss_5218]          ; 0x949c
     mov word [bp - 0x000e], ax       ; 0x949f
-    cmp byte [bss_5987], 5           ; 0x94a2
+    cmp byte [install_mode], 5       ; 0x94a2
     jne short @..api_idx_0022_PNPP.l1 ; 0x94a7
     cmp ax, strict word 0            ; 0x94a9
     jle short @..api_idx_0022_PNPP.l1 ; 0x94ac
@@ -18,11 +18,11 @@ api_idx_0022_PNPP:
     mov word [bp - 0x000e], ax       ; 0x94b5
     mov ax, 0x3a                     ; 0x94b8
     push ax                          ; 0x94bb
-    mov ax, bss_5912                 ; 0x94bc
+    mov ax, data_path_prefixes       ; 0x94bc
     push ax                          ; 0x94bf
     lea ax, word [bp - 0x0022]       ; 0x94c0
     push ax                          ; 0x94c3
-    call ds_app_HVHT                 ; 0x94c4
+    call copy_through_char           ; 0x94c4
     add sp, byte 6                   ; 0x94c7
     cmp word [bp - 0x000e], byte 0   ; 0x94ca
     je short @..api_idx_0022_PNPP.l3 ; 0x94ce
