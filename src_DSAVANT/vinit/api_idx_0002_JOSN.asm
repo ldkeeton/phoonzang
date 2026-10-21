@@ -16,7 +16,7 @@ api_idx_0002_JOSN:
     jne short @..api_idx_0002_JOSN.l1 ; 0x0066
     mov ax, 5                        ; 0x0068
     push ax                          ; 0x006b
-    call fatal_error                 ; 0x006c
+    call release_and_exit            ; 0x006c
     pop cx                           ; 0x006f
 @..api_idx_0002_JOSN.l1:
     push word [bp + 0x6]             ; 0x0070

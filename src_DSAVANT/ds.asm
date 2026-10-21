@@ -263,7 +263,7 @@ bss_0e30     equ __zbss_0e30 - __zdseg_start
 bss_0e32     equ __zbss_0e32 - __zdseg_start
 %include "ds/game/release_resources.asm"   ; 0x0242
 
-%include "ds/game/fatal_error.asm"         ; 0x03b8
+%include "ds/game/release_and_exit.asm"    ; 0x03b8
 
 bss_0e34 equ __zbss_0e34 - __zdseg_start
 %include "ds/game/ds_app_OGNR.asm"         ; 0x03cd

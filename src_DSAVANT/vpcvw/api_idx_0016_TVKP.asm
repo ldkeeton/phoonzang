@@ -27,7 +27,7 @@ api_idx_0016_TVKP:
     jne short @..api_idx_0016_TVKP.l1 ; 0x946c
     mov ax, 0x13                     ; 0x946e
     push ax                          ; 0x9471
-    call fatal_error                 ; 0x9472
+    call release_and_exit            ; 0x9472
     pop cx                           ; 0x9475
 @..api_idx_0016_TVKP.l1:
     push word [bp + 0x6]             ; 0x9476

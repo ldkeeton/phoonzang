@@ -68,7 +68,7 @@ load_sound_file: ; Aztec csav frame=0x0018
     jne short @..load_sound_file.l4  ; 0x29c7
     mov ax, 0xb                      ; 0x29c9
     push ax                          ; 0x29cc
-    call fatal_error                 ; 0x29cd
+    call release_and_exit            ; 0x29cd
     pop cx                           ; 0x29d0
 @..load_sound_file.l4:
     push word [bp + 0x6]             ; 0x29d1
@@ -79,7 +79,7 @@ load_sound_file: ; Aztec csav frame=0x0018
     je short @..load_sound_file.l5   ; 0x29df
     mov ax, 0xc                      ; 0x29e1
     push ax                          ; 0x29e4
-    call fatal_error                 ; 0x29e5
+    call release_and_exit            ; 0x29e5
     pop cx                           ; 0x29e8
 @..load_sound_file.l5:
     push word [bp - 0x0004]          ; 0x29e9

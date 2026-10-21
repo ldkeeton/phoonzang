@@ -277,7 +277,7 @@ api_idx_0072_OUII:
     jne short @..api_idx_0072_OUII.l16 ; 0x2224
     mov ax, 0x1d                     ; 0x2226
     push ax                          ; 0x2229
-    call fatal_error                 ; 0x222a
+    call release_and_exit            ; 0x222a
     pop cx                           ; 0x222d
 @..api_idx_0072_OUII.l16:
     mov word [bp - 0x0008], 0        ; 0x222e

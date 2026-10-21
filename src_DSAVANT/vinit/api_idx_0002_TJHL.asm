@@ -16,7 +16,7 @@ api_idx_0002_TJHL:
     jne short @..api_idx_0002_TJHL.l1 ; 0x012d
     mov ax, 8                        ; 0x012f
     push ax                          ; 0x0132
-    call fatal_error                 ; 0x0133
+    call release_and_exit            ; 0x0133
     pop cx                           ; 0x0136
 @..api_idx_0002_TJHL.l1:
     push word [bp - 0x0002]          ; 0x0137

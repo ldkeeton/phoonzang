@@ -384,7 +384,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     jne short @..ds_app_file_QQMM.l17 ; 0x27ab
     mov ax, 0x19                     ; 0x27ad
     push ax                          ; 0x27b0
-    call fatal_error                 ; 0x27b1
+    call release_and_exit            ; 0x27b1
     pop cx                           ; 0x27b4
 @..ds_app_file_QQMM.l17:
     mov ax, 0                        ; 0x27b5
@@ -407,7 +407,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     jne short @..ds_app_file_QQMM.l19 ; 0x27de
     mov ax, 0x1a                     ; 0x27e0
     push ax                          ; 0x27e3
-    call fatal_error                 ; 0x27e4
+    call release_and_exit            ; 0x27e4
     pop cx                           ; 0x27e7
 @..ds_app_file_QQMM.l19:
     ret                              ; 0x27e8

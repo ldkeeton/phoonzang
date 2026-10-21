@@ -37,7 +37,7 @@ api_idx_0016_LTLN:
     jne short @..api_idx_0016_LTLN.l1 ; 0x7322
     mov ax, 0x12                     ; 0x7324
     push ax                          ; 0x7327
-    call fatal_error                 ; 0x7328
+    call release_and_exit            ; 0x7328
     pop cx                           ; 0x732b
 @..api_idx_0016_LTLN.l1:
     push word [bp + 0x6]             ; 0x732c

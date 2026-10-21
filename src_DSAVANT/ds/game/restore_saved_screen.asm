@@ -20,7 +20,7 @@ restore_saved_screen: ; Aztec csav frame=0x0002
     jne short @..restore_saved_screen.l1 ; 0x16ce
     mov ax, 0x18                     ; 0x16d0
     push ax                          ; 0x16d3
-    call fatal_error                 ; 0x16d4
+    call release_and_exit            ; 0x16d4
     pop cx                           ; 0x16d7
 @..restore_saved_screen.l1:
     jmp short @..restore_saved_screen.l3 ; 0x16d8

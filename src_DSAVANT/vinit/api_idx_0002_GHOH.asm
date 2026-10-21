@@ -16,7 +16,7 @@ api_idx_0002_GHOH:
     jne short @..api_idx_0002_GHOH.l1 ; 0x00eb
     mov ax, 8                        ; 0x00ed
     push ax                          ; 0x00f0
-    call fatal_error                 ; 0x00f1
+    call release_and_exit            ; 0x00f1
     pop cx                           ; 0x00f4
 @..api_idx_0002_GHOH.l1:
     push word [bp + 0x8]             ; 0x00f5

@@ -22,9 +22,9 @@ load_sound_file(num, n, flag)
 		name[5] = num / 10 + '0';
 		name[6] = num % 10 + '0';
 		if ((fd = aztec_open(data_file_path(name, 1), 0)) == -1)
-			fatal_error(11);
+			release_and_exit(11);
 		if (gfx_load_sound(fd, n))
-			fatal_error(12);
+			release_and_exit(12);
 		aztec_close(fd);
 	}
 }

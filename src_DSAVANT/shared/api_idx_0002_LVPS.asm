@@ -21,7 +21,7 @@ api_idx_0002_LVPS:
     jne short @..api_idx_0002_LVPS.l1
     mov ax, 0xe
     push ax
-    call fatal_error
+    call release_and_exit
     pop cx
 @..api_idx_0002_LVPS.l1:
     mov ax, 0

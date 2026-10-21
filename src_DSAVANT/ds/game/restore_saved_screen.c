@@ -10,7 +10,7 @@ restore_saved_screen(n, flag)
 
 	if (saved_screen_kind[n] == 3) {
 		if ((fd = aztec_open(saved_screen_file[n].name, 0)) == -1)
-			fatal_error(24);
+			release_and_exit(24);
 	} else
 		fd = 0;	/* in-memory save: driver ignores fd */
 	gfx_restore_screen(saved_screen_ref[n], flag, fd);

@@ -72,7 +72,7 @@ api_idx_001e_GOQP:
     jne short @..api_idx_001e_GOQP.l6 ; 0x7160
     mov ax, 0x1d                     ; 0x7162
     push ax                          ; 0x7165
-    call fatal_error                 ; 0x7166
+    call release_and_exit            ; 0x7166
     pop cx                           ; 0x7169
 @..api_idx_001e_GOQP.l6:
     mov ax, word [bp - 0x0002]       ; 0x716a

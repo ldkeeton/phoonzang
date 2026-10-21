@@ -21,7 +21,7 @@ save_screen_area: ; Aztec csav frame=0x000c
     jne short @..save_screen_area.l3 ; 0x14fd
     mov ax, 0x16                     ; 0x14ff
     push ax                          ; 0x1502
-    call fatal_error                 ; 0x1503
+    call release_and_exit            ; 0x1503
     pop cx                           ; 0x1506
 @..save_screen_area.l3:
     mov ax, word [bp - 0x0004]       ; 0x1507
@@ -154,7 +154,7 @@ save_screen_area: ; Aztec csav frame=0x000c
     jne short @..save_screen_area.l13 ; 0x1645
     mov ax, 0x17                     ; 0x1647
     push ax                          ; 0x164a
-    call fatal_error                 ; 0x164b
+    call release_and_exit            ; 0x164b
     pop cx                           ; 0x164e
 @..save_screen_area.l13:
     jmp short @..save_screen_area.l15 ; 0x164f

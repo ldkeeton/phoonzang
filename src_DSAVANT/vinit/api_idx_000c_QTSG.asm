@@ -16,7 +16,7 @@ api_idx_000c_QTSG:
     jne short @..api_idx_000c_QTSG.l1 ; 0x0167
     mov ax, 6                        ; 0x0169
     push ax                          ; 0x016c
-    call fatal_error                 ; 0x016d
+    call release_and_exit            ; 0x016d
     pop cx                           ; 0x0170
 @..api_idx_000c_QTSG.l1:
     mov ax, 2                        ; 0x0171
@@ -50,7 +50,7 @@ api_idx_000c_QTSG:
 @..api_idx_000c_QTSG.l3:
     mov ax, 6                        ; 0x01ba
     push ax                          ; 0x01bd
-    call fatal_error                 ; 0x01be
+    call release_and_exit            ; 0x01be
     pop cx                           ; 0x01c1
 @..api_idx_000c_QTSG.l4:
     mov ax, 0                        ; 0x01c2

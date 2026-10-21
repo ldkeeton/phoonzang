@@ -158,7 +158,7 @@ loc_RLUJ:
 @..loc_RLUJ.l6:
     mov ax, 0x1d                     ; 0x354d
     push ax                          ; 0x3550
-    call fatal_error                 ; 0x3551
+    call release_and_exit            ; 0x3551
     pop cx                           ; 0x3554
 @..loc_RLUJ.l7:
     inc word [bp - 0x0002]           ; 0x3555
@@ -179,7 +179,7 @@ loc_RLUJ:
     jne short @..loc_RLUJ.l9         ; 0x357d
     mov ax, 0x1d                     ; 0x357f
     push ax                          ; 0x3582
-    call fatal_error                 ; 0x3583
+    call release_and_exit            ; 0x3583
     pop cx                           ; 0x3586
 @..loc_RLUJ.l9:
     mov ax, word [bp - 0x0002]       ; 0x3587

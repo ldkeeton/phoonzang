@@ -55,7 +55,7 @@ ds_app_file_TSNH: ; Aztec csav frame=0x0018
     jne short @..ds_app_file_TSNH.l2 ; 0x28e0
     mov ax, 0x12                     ; 0x28e2
     push ax                          ; 0x28e5
-    call fatal_error                 ; 0x28e6
+    call release_and_exit            ; 0x28e6
     pop cx                           ; 0x28e9
 @..ds_app_file_TSNH.l2:
     push word [bp + 0x6]             ; 0x28ea

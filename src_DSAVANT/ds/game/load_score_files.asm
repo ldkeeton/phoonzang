@@ -52,7 +52,7 @@ load_score_files: ; Aztec csav frame=0x00a8
     jne short @..load_score_files.l2 ; 0x2aac
     mov ax, 0xf                      ; 0x2aae
     push ax                          ; 0x2ab1
-    call fatal_error                 ; 0x2ab2
+    call release_and_exit            ; 0x2ab2
     pop cx                           ; 0x2ab5
 @..load_score_files.l2:
     lea ax, word [bp - 0x00a4]       ; 0x2ab6
@@ -94,7 +94,7 @@ load_score_files: ; Aztec csav frame=0x00a8
     jne short @..load_score_files.l5 ; 0x2b09
     mov ax, 0x10                     ; 0x2b0b
     push ax                          ; 0x2b0e
-    call fatal_error                 ; 0x2b0f
+    call release_and_exit            ; 0x2b0f
     pop cx                           ; 0x2b12
 @..load_score_files.l5:
     push word [bp + 0x6]             ; 0x2b13
@@ -108,7 +108,7 @@ load_score_files: ; Aztec csav frame=0x00a8
     je short @..load_score_files.l6  ; 0x2b2f
     mov ax, 0x11                     ; 0x2b31
     push ax                          ; 0x2b34
-    call fatal_error                 ; 0x2b35
+    call release_and_exit            ; 0x2b35
     pop cx                           ; 0x2b38
 @..load_score_files.l6:
     push word [bp - 0x0002]          ; 0x2b39

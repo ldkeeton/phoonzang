@@ -20,7 +20,7 @@ loc_RVQR:
     jne short @..loc_RVQR.l1         ; 0x03ec
     mov ax, 1                        ; 0x03ee
     push ax                          ; 0x03f1
-    call fatal_error                 ; 0x03f2
+    call release_and_exit            ; 0x03f2
     pop cx                           ; 0x03f5
 @..loc_RVQR.l1:
     mov ax, 0x34c                    ; 0x03f6
@@ -43,7 +43,7 @@ loc_RVQR:
 @..loc_RVQR.l2:
     mov ax, 2                        ; 0x0425
     push ax                          ; 0x0428
-    call fatal_error                 ; 0x0429
+    call release_and_exit            ; 0x0429
     pop cx                           ; 0x042c
     jmp short @..loc_RVQR.l7         ; 0x042d
 @..loc_RVQR.l3:
@@ -55,7 +55,7 @@ loc_RVQR:
 @..loc_RVQR.l5:
     mov ax, 2                        ; 0x043d
     push ax                          ; 0x0440
-    call fatal_error                 ; 0x0441
+    call release_and_exit            ; 0x0441
     pop cx                           ; 0x0444
     jmp short @..loc_RVQR.l7         ; 0x0445
 @..loc_RVQR.l6:
@@ -80,7 +80,7 @@ loc_RVQR:
 @..loc_RVQR.l9:
     mov ax, 3                        ; 0x046e
     push ax                          ; 0x0471
-    call fatal_error                 ; 0x0472
+    call release_and_exit            ; 0x0472
     pop cx                           ; 0x0475
 @..loc_RVQR.l10:
     mov word [bss_0e34], 0x905c      ; 0x0476
@@ -132,7 +132,7 @@ loc_RVQR:
 @..loc_RVQR.l15:
     mov ax, 4                        ; 0x04f4
     push ax                          ; 0x04f7
-    call fatal_error                 ; 0x04f8
+    call release_and_exit            ; 0x04f8
     pop cx                           ; 0x04fb
 @..loc_RVQR.l16:
     mov ax, 0                        ; 0x04fc
@@ -260,7 +260,7 @@ loc_RVQR:
     jne short @..loc_RVQR.l17        ; 0x061c
     mov ax, 9                        ; 0x061e
     push ax                          ; 0x0621
-    call fatal_error                 ; 0x0622
+    call release_and_exit            ; 0x0622
     pop cx                           ; 0x0625
 @..loc_RVQR.l17:
     mov word [bss_5212], 0xffff      ; 0x0626
@@ -310,7 +310,7 @@ loc_RVQR:
     jne short @..loc_RVQR.l20        ; 0x06ac
     mov ax, 0xa                      ; 0x06ae
     push ax                          ; 0x06b1
-    call fatal_error                 ; 0x06b2
+    call release_and_exit            ; 0x06b2
     pop cx                           ; 0x06b5
 @..loc_RVQR.l20:
     call ds_app_string_KVNI          ; 0x06b6
@@ -390,7 +390,7 @@ loc_RVQR:
     jne short @..loc_RVQR.l22        ; 0x078e
     mov ax, 0xd                      ; 0x0790
     push ax                          ; 0x0793
-    call fatal_error                 ; 0x0794
+    call release_and_exit            ; 0x0794
     pop cx                           ; 0x0797
 @..loc_RVQR.l22:
     mov ax, 0x1000                   ; 0x0798
@@ -408,7 +408,7 @@ loc_RVQR:
     jne short @..loc_RVQR.l24        ; 0x07b9
     mov ax, 0xd                      ; 0x07bb
     push ax                          ; 0x07be
-    call fatal_error                 ; 0x07bf
+    call release_and_exit            ; 0x07bf
     pop cx                           ; 0x07c2
 @..loc_RVQR.l24:
     mov ax, 0x1000                   ; 0x07c3
@@ -426,7 +426,7 @@ loc_RVQR:
     jne short @..loc_RVQR.l26        ; 0x07e4
     mov ax, 0xd                      ; 0x07e6
     push ax                          ; 0x07e9
-    call fatal_error                 ; 0x07ea
+    call release_and_exit            ; 0x07ea
     pop cx                           ; 0x07ed
 @..loc_RVQR.l26:
     push word [bss_5528]             ; 0x07ee
@@ -437,7 +437,7 @@ loc_RVQR:
     jne short @..loc_RVQR.l27        ; 0x07fe
     mov ax, 0xd                      ; 0x0800
     push ax                          ; 0x0803
-    call fatal_error                 ; 0x0804
+    call release_and_exit            ; 0x0804
     pop cx                           ; 0x0807
 @..loc_RVQR.l27:
     push word [bss_552a]             ; 0x0808
@@ -448,7 +448,7 @@ loc_RVQR:
     jne short @..loc_RVQR.l28        ; 0x0818
     mov ax, 0xd                      ; 0x081a
     push ax                          ; 0x081d
-    call fatal_error                 ; 0x081e
+    call release_and_exit            ; 0x081e
     pop cx                           ; 0x0821
 @..loc_RVQR.l28:
     mov ax, 0xc00                    ; 0x0822
@@ -460,7 +460,7 @@ loc_RVQR:
     jne short @..loc_RVQR.l29        ; 0x0832
     mov ax, 0xd                      ; 0x0834
     push ax                          ; 0x0837
-    call fatal_error                 ; 0x0838
+    call release_and_exit            ; 0x0838
     pop cx                           ; 0x083b
 @..loc_RVQR.l29:
     mov ax, 0x400                    ; 0x083c
@@ -472,7 +472,7 @@ loc_RVQR:
     jne short @..loc_RVQR.l30        ; 0x084c
     mov ax, 0xd                      ; 0x084e
     push ax                          ; 0x0851
-    call fatal_error                 ; 0x0852
+    call release_and_exit            ; 0x0852
     pop cx                           ; 0x0855
 @..loc_RVQR.l30:
     mov word [bss_904c], 0           ; 0x0856
@@ -491,7 +491,7 @@ loc_RVQR:
     jne short @..loc_RVQR.l31        ; 0x0878
     mov ax, 0xe                      ; 0x087a
     push ax                          ; 0x087d
-    call fatal_error                 ; 0x087e
+    call release_and_exit            ; 0x087e
     pop cx                           ; 0x0881
 @..loc_RVQR.l31:
     mov ax, 0x300                    ; 0x0882

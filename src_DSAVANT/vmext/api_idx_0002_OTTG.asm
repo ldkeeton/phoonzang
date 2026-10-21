@@ -17,7 +17,7 @@ api_idx_0002_OTTG:
     jne short @..api_idx_0002_OTTG.l1 ; 0x0240
     mov ax, 0x1b                     ; 0x0242
     push ax                          ; 0x0245
-    call fatal_error                 ; 0x0246
+    call release_and_exit            ; 0x0246
     pop cx                           ; 0x0249
 @..api_idx_0002_OTTG.l1:
     mov ax, 0                        ; 0x024a

@@ -21,7 +21,7 @@ char *name;
 		if (saved_screen_kind[i] == -1)
 			slot = i;
 	if (slot == -1)
-		fatal_error(22);
+		release_and_exit(22);
 	saved_screen_kind[slot] = 3;	/* default: file in the current dir */
 	saved_screen_file[slot].name[0] = 0;
 	need = (x2 - x1 + 1) * (long)(y2 - y1 + 1) + 128;	/* pixels + 128 */
@@ -43,7 +43,7 @@ char *name;
 	if (saved_screen_kind[slot] == 3) {
 		/* 0x301: O_WRONLY|O_CREAT|O_TRUNC */
 		if ((fd = aztec_open(saved_screen_file[slot].name, 0x301)) == -1)
-			fatal_error(23);
+			release_and_exit(23);
 	} else
 		fd = 0;	/* in-memory save: driver ignores fd */
 	saved_screen_ref[slot] = gfx_cache_area(x1, y1, x2, y2,

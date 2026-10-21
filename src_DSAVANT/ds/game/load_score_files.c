@@ -23,17 +23,17 @@ load_score_files(num, arg)
 	aztec_strcpy(path, base);
 	aztec_strcat(path, score_ext_csf);
 	if ((fd_csf = aztec_open(data_file_path(path, 1), 0)) == -1)
-		fatal_error(15);
+		release_and_exit(15);
 	aztec_strcpy(path, base);
 	if (mode == 5)
 		aztec_strcat(path, score_ext_pbl);
 	else
 		aztec_strcat(path, score_ext_pba);
 	if ((fd_pic = aztec_open(data_file_path(path, 1), 0)) == -1)
-		fatal_error(16);
+		release_and_exit(16);
 	err = gfx_load_score(fd_csf, fd_pic, mode, arg);
 	if (err)
-		fatal_error(17);
+		release_and_exit(17);
 	aztec_close(fd_csf);
 	aztec_close(fd_pic);
 	loaded_score_num = num;

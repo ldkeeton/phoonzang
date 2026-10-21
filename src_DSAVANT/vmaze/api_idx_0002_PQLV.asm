@@ -17,7 +17,7 @@ api_idx_0002_PQLV:
     jne short @..api_idx_0002_PQLV.l1 ; 0x0322
     mov ax, 0x1b                     ; 0x0324
     push ax                          ; 0x0327
-    call fatal_error                 ; 0x0328
+    call release_and_exit            ; 0x0328
     pop cx                           ; 0x032b
 @..api_idx_0002_PQLV.l1:
     mov ax, 0                        ; 0x032c

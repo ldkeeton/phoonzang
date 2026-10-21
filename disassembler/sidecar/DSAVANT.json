@@ -121,22 +121,11 @@
         {"offset": "10e38", "note": "stack/heap size constant 0x0100; read as `mov si, word es:[dseg_0cd8]; shl si, cl` (0x4da7) - a number"}
       ],
       "function_names": {
-        "4f85": {
-          "name": "aztec_fltinit",
-          "note": "c.lib's non-float $fltinit (`clc; ret`, too short for a signature), called by $begin; named so the #asm aztec_begin links against it"
-        },
-        "4ea3": {
-          "name": "aztec_noper",
-          "note": "croot.c's noper(), `return 0;`: the default `cls_` exit hook (dseg_0c9c, file 0x4ea3) until putc.c installs closall"
-        },
         "0242": {
           "name": "release_resources",
           "note": "(stage): switch on stage frees the allocated buffers and closes the data files from that point down, then stops sound and the mouse and calls ds_loc_IGLJ; main calls it with 0 before exiting"
         },
-        "03b8": {
-          "name": "fatal_error",
-          "note": "calls release_resources(code), then aztec_exit(code); load_sound_file and restore_saved_screen call it on open/load failures"
-        },
+        "03b8": {"name": "release_and_exit", "note": "releases resources then exits with status"},
         "0883": {
           "name": "data_record_io",
           "note": "(type, buf, index, dir): seeks the data file (handle at DS 0x0e22) to the type's base (DS 0x521c) + index * the type's record size (bss_5524), then reads (dir 0) or writes (dir 1) one record; types 2-8 first map index through a per-type byte table, and a nonzero DS 0x556c[type] reads and unpacks it via ds_string_loc_HTNS"
@@ -240,6 +229,14 @@
         "4462": {
           "name": "aztec_loadabort",
           "note": "Manx OVLOADER.C loadabort(code): prints 'Error %d loading overlay: %s$' and exits 100"
+        },
+        "4ea3": {
+          "name": "aztec_noper",
+          "note": "croot.c's noper(), `return 0;`: the default `cls_` exit hook (dseg_0c9c, file 0x4ea3) until putc.c installs closall"
+        },
+        "4f85": {
+          "name": "aztec_fltinit",
+          "note": "c.lib's non-float $fltinit (`clc; ret`, too short for a signature), called by $begin; named so the #asm aztec_begin links against it"
         }
       },
       "force_data": [

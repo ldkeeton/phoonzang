@@ -23,7 +23,7 @@ loc_RMVR:
     jne short @..loc_RMVR.l1         ; 0x4d40
     mov ax, 0x1a                     ; 0x4d42
     push ax                          ; 0x4d45
-    call fatal_error                 ; 0x4d46
+    call release_and_exit            ; 0x4d46
     pop cx                           ; 0x4d49
 @..loc_RMVR.l1:
     mov ax, 0x300                    ; 0x4d4a

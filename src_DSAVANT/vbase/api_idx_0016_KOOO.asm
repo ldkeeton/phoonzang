@@ -27,7 +27,7 @@ api_idx_0016_KOOO:
     jne short @..api_idx_0016_KOOO.l1 ; 0x0591
     mov ax, 0x13                     ; 0x0593
     push ax                          ; 0x0596
-    call fatal_error                 ; 0x0597
+    call release_and_exit            ; 0x0597
     pop cx                           ; 0x059a
 @..api_idx_0016_KOOO.l1:
     push word [bp + 0x6]             ; 0x059b

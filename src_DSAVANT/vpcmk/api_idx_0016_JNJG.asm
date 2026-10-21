@@ -27,7 +27,7 @@ api_idx_0016_JNJG:
     jne short @..api_idx_0016_JNJG.l1 ; 0x60bb
     mov ax, 0x13                     ; 0x60bd
     push ax                          ; 0x60c0
-    call fatal_error                 ; 0x60c1
+    call release_and_exit            ; 0x60c1
     pop cx                           ; 0x60c4
 @..api_idx_0016_JNJG.l1:
     push word [bp + 0x6]             ; 0x60c5
