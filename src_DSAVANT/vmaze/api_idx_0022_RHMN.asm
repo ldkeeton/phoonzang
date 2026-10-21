@@ -830,7 +830,7 @@ jumptable_2a3c_case_0:
     add sp, byte 0x0e                ; 0x29cc
     jmp near @..api_idx_0022_RHMN.l57 ; 0x29cf
 jumptable_2a3c_case_1:
-    cmp word [bss_5b6e], byte 1      ; 0x29d2
+    cmp word [maze_variant], byte 1  ; 0x29d2
     jne short @..api_idx_0022_RHMN.l54 ; 0x29d7
     mov ax, 0                        ; 0x29d9
     push ax                          ; 0x29dc

@@ -3,7 +3,7 @@ loc_UIQM:
     mov ax, 0                        ; 0x811f
     call aztec_csav                  ; 0x8122
     mov ax, 0x138e                   ; 0x8125
-    cmp word [bss_5b6e], byte 1      ; 0x8128
+    cmp word [maze_variant], byte 1  ; 0x8128
     jne short @..loc_UIQM.l1         ; 0x812d
     mov ax, 0x138f                   ; 0x812f
 @..loc_UIQM.l1:

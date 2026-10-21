@@ -117,7 +117,7 @@ loc_UOPP:
     add sp, byte 0x0a                ; 0x07f6
     test ax, ax                      ; 0x07f9
     je short @..loc_UOPP.l3          ; 0x07fb
-    mov ax, word [bss_5b6e]          ; 0x07fd
+    mov ax, word [maze_variant]      ; 0x07fd
     mov cx, 2                        ; 0x0800
     cwd                              ; 0x0803
     idiv cx                          ; 0x0804
@@ -128,7 +128,7 @@ loc_UOPP:
     jmp short @..loc_UOPP.l2         ; 0x080e
 @..loc_UOPP.l1:
     mov ax, 4                        ; 0x0810
-    mov cx, word [bss_5b6e]          ; 0x0813
+    mov cx, word [maze_variant]      ; 0x0813
     cmp cx, byte 6                   ; 0x0817
     jne short @..loc_UOPP.l2         ; 0x081a
     mov ax, 0                        ; 0x081c
@@ -170,7 +170,7 @@ loc_KHGO:
     add sp, byte 0x0a                ; 0x0866
     test ax, ax                      ; 0x0869
     je short @..loc_KHGO.l3          ; 0x086b
-    mov ax, word [bss_5b6e]          ; 0x086d
+    mov ax, word [maze_variant]      ; 0x086d
     mov cx, 2                        ; 0x0870
     cwd                              ; 0x0873
     idiv cx                          ; 0x0874
@@ -181,7 +181,7 @@ loc_KHGO:
     jmp short @..loc_KHGO.l2         ; 0x087e
 @..loc_KHGO.l1:
     mov ax, 4                        ; 0x0880
-    mov cx, word [bss_5b6e]          ; 0x0883
+    mov cx, word [maze_variant]      ; 0x0883
     cmp cx, byte 6                   ; 0x0887
     jne short @..loc_KHGO.l2         ; 0x088a
     mov ax, 0                        ; 0x088c

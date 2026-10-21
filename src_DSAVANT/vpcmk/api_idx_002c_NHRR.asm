@@ -471,7 +471,7 @@ jumptable_6e5f:
 @..api_idx_002c_NHRR.l17:
     mov ax, 0xf                      ; 0x6e9c
     push ax                          ; 0x6e9f
-    call ds_app_gfx_free_picture_VNHP ; 0x6ea0
+    call free_picture_slot           ; 0x6ea0
     pop cx                           ; 0x6ea3
     mov ax, 0                        ; 0x6ea4
     push ax                          ; 0x6ea7
@@ -547,11 +547,11 @@ jumptable_6e5f:
     add sp, byte 8                   ; 0x6f65
     mov ax, 1                        ; 0x6f68
     push ax                          ; 0x6f6b
-    call ds_app_gfx_free_picture_VNHP ; 0x6f6c
+    call free_picture_slot           ; 0x6f6c
     pop cx                           ; 0x6f6f
     mov ax, 2                        ; 0x6f70
     push ax                          ; 0x6f73
-    call ds_app_gfx_free_picture_VNHP ; 0x6f74
+    call free_picture_slot           ; 0x6f74
     pop cx                           ; 0x6f77
     mov ax, 0xc7                     ; 0x6f78
     push ax                          ; 0x6f7b

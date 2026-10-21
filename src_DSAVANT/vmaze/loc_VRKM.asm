@@ -2,7 +2,7 @@
 loc_VRKM:
     mov ax, 0                        ; 0x0344
     call aztec_csav                  ; 0x0347
-    mov ax, word [bss_5b6e]          ; 0x034a
+    mov ax, word [maze_variant]      ; 0x034a
     jmp near @..loc_VRKM.l1          ; 0x034d
 jumptable_03ce_case_1:
     mov ax, 0x1a                     ; 0x0350

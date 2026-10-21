@@ -93,5 +93,28 @@ class SpecsTest(unittest.TestCase):
                              ['c=d', "a_b=foo:bar baz it's $x \\y"])
 
 
+class ReferencedTest(unittest.TestCase):
+    TEXT = (
+        'me_JKLM:\n'
+        '    call ds_app_free_VNHP ; 0x10\n'
+        '    call io_loc_KRUO\n'
+        '    mov ax, word [bss_5b6c]\n'
+        '    extrn ds_app_lib_GHIJ_\n'
+        '    call me_JKLM\n'
+        '#define MOUSE_INIT 3\n'
+        '@..me_JKLM.l1:\n'
+    )
+
+    def test_tagged_callees_when_an_asm_defines_them(self):
+        found = naming.referenced(self.TEXT, 'me_JKLM',
+                                  lambda sym: sym != 'MOUSE_INIT')
+        self.assertEqual(found, ['ds_app_free_VNHP', 'io_loc_KRUO', 'bss_5b6c',
+                                 'ds_app_lib_GHIJ'])
+
+    def test_tagged_lookalike_without_asm_is_skipped(self):
+        found = naming.referenced(self.TEXT, 'me_JKLM', lambda sym: False)
+        self.assertEqual(found, ['io_loc_KRUO', 'bss_5b6c'])
+
+
 if __name__ == '__main__':
     unittest.main()

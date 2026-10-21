@@ -16,7 +16,7 @@ api_idx_001e_GOQP:
     call ds_app_gfx_free_score_VGJR  ; 0x70d7
     pop cx                           ; 0x70da
 @..api_idx_001e_GOQP.l3:
-    call ds_app_alloc_VKRR           ; 0x70db
+    call free_current_maze           ; 0x70db
     mov ax, 0                        ; 0x70de
     push ax                          ; 0x70e1
     mov ax, 2                        ; 0x70e2

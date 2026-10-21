@@ -61,7 +61,7 @@ api_idx_0012_UROU:
     je short @..api_idx_0012_UROU.l4 ; 0x105e
     mov word [bp + 0x4], 1           ; 0x1060
 @..api_idx_0012_UROU.l4:
-    mov ax, word [bss_5b6e]          ; 0x1065
+    mov ax, word [maze_variant]      ; 0x1065
     jmp near @..api_idx_0012_UROU.l51 ; 0x1068
 jumptable_147e_case_1:
     mov ax, 0xffff                   ; 0x106b
@@ -925,6 +925,6 @@ jumptable_147e_case_0:
     add sp, byte 6                   ; 0x18ff
     mov ax, 0xf                      ; 0x1902
     push ax                          ; 0x1905
-    call ds_app_gfx_free_picture_VNHP ; 0x1906
+    call free_picture_slot           ; 0x1906
     pop cx                           ; 0x1909
     ret                              ; 0x190a

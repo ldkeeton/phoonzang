@@ -426,29 +426,36 @@ async function makeC(uri) {
             `and labels in \`#asm\` become linker symbols. \`#asm\` is only for a few instructions ` +
             `inside real C.` +
             (handWritten ? ` The sidecar note marks this routine hand-written asm: write ${rel(sFile)}.` : ''),
-        `Build commands: \`make rebuild\` (repo root) is the sole pass/fail gate. Name things with ` +
-            `\`make name ${where.project} ${where.binary} SYMBOL=NAME[:NOTE] ...\`, which writes the sidecar ` +
-            `(sorted, keeping any note), renames the hand-written sources and every reference in them (file, ` +
-            `routine, \`NAME_\` in .s, \`extern\`/\`extrn\`, C callers), then builds and rebuilds; give ` +
-            `SYMBOL as the build spells it (\`cseg_0d3a\`, \`bss_1234\`, \`io_loc_KRUO\`) or by its current ` +
-            `name, and single-quote any spec whose note has spaces. \`make refs ${where.project} ${where.binary} ` +
-            `ROUTINE\` lists the address-named symbols a routine references. Do not edit the sidecar by hand, ` +
-            `and do not look for, read, or run any other build commands, Makefiles, or scripts.`,
+        `Commands (repo root): \`make rebuild\` is the sole pass/fail gate. ` +
+            `\`make refs ${where.project} ${where.binary} ROUTINE\` lists the address-named and ` +
+            `content-tagged symbols a routine references. \`make name ${where.project} ${where.binary} ` +
+            `SYMBOL=NAME[:NOTE] ...\` writes the sidecar, renames the hand-written sources and every ` +
+            `reference in them (file, routine, \`NAME_\` in .s, \`extern\`/\`extrn\`, C callers), then ` +
+            `builds and rebuilds; give SYMBOL as the build spells it (\`cseg_0d3a\`, \`bss_1234\`, ` +
+            `\`io_loc_KRUO\`, \`${where.label}\`) or by its current name, and single-quote any spec whose ` +
+            `note has spaces. Never edit the sidecar by hand or run \`make build\`, and do not look for, ` +
+            `read, or run any other build commands, Makefiles, or scripts.`,
         `Compiler flags come from the routine name's longest matching prefix: ${flagList} ` +
             `(a .s uses \`compiler_flags.asm\`).`,
-        `Name the data too. Give parameters and locals descriptive names in the source itself (C names, or ` +
-            `\`equ\` names in a .s or #asm; .s and #asm stack arguments and locals get \`equ\` names). Then run ` +
-            `\`make refs\` on the routine and name every address-named global and auto-named routine it ` +
-            `references, including those only in \`extrn\` lines, in one \`make name\` call, each with a ` +
-            `\`:NOTE\` saying what it holds or does (skip a "label inside" one: it is not a routine entry). ` +
-            `No address-named symbol may remain in the source.`,
-        `Add terse comments that say why, not what: a one-line header above the routine (a \`;\` ` +
-            `line in a .s, \`/* */\` in C, never \`//\`), and short trailing comments on loops, branches ` +
-            `and magic numbers (BIOS/DOS function numbers, key codes, header offsets, strides, flag bits). ` +
-            `Describe only what the code shows; don't guess intent.`,
-        `Once it matches, give the routine a descriptive lowercase_underscore name, keeping any prefix ` +
-            `its flags need: \`make name ${where.project} ${where.binary} ${where.label}=NAME\` (it can share ` +
-            `the call that names the data). Your final message: only the name.`,
+        `Steps:\n` +
+            `1. Write the source with the routine still named \`${where.label}\` and run \`make rebuild\` ` +
+            `until it passes. If the only differences left are label names on the same instructions and ` +
+            `offsets, or it says to run \`make build\`, the bytes match: go on to step 3, whose ` +
+            `\`make name\` regenerates the asm.\n` +
+            `2. Give parameters and locals descriptive names in the source itself (C names; \`equ\` names ` +
+            `for .s and #asm stack arguments and locals). Add terse comments that say why, not what: a ` +
+            `one-line header above the routine (a \`;\` line in a .s, \`/* */\` in C, never \`//\`), and ` +
+            `short trailing comments on loops, branches and magic numbers (BIOS/DOS function numbers, key ` +
+            `codes, header offsets, strides, flag bits). Describe only what the code shows; don't guess intent.\n` +
+            `3. Run \`make refs ${where.project} ${where.binary} ${where.label}\`, then name everything in ` +
+            `one call: \`make name ${where.project} ${where.binary} ${where.label}=NAME:'note' ` +
+            `SYMBOL=NAME:'note' ...\`. NAME for the routine is a descriptive lowercase_underscore name ` +
+            `keeping any prefix its flags need; add every symbol \`make refs\` listed (globals, code-segment ` +
+            `data, called routines, including those only in \`extrn\` lines) except "label inside" rows, ` +
+            `each with a note saying what it holds or does.\n` +
+            `4. If \`make name\` reports a rebuild failure, fix the source and run \`make rebuild\` until it ` +
+            `passes. No address-named or content-tagged symbol may remain in the source.\n\n` +
+            `Your final message: only the routine's new name.`,
     ].join('\n\n');
     // --allowedTools is variadic: a trailing prompt would be swallowed as another tool name
     // (the session then starts empty), so the prompt goes first and the value is attached.

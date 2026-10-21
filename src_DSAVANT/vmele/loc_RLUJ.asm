@@ -25,18 +25,18 @@ loc_RLUJ:
     call ds_app_gfx_free_score_VGJR  ; 0x341a
     pop cx                           ; 0x341d
 @..loc_RLUJ.l3:
-    call ds_app_alloc_VKRR           ; 0x341e
+    call free_current_maze           ; 0x341e
     mov ax, 0                        ; 0x3421
     push ax                          ; 0x3424
-    call ds_app_gfx_free_picture_VNHP ; 0x3425
+    call free_picture_slot           ; 0x3425
     pop cx                           ; 0x3428
     mov ax, 4                        ; 0x3429
     push ax                          ; 0x342c
-    call ds_app_gfx_free_picture_VNHP ; 0x342d
+    call free_picture_slot           ; 0x342d
     pop cx                           ; 0x3430
     mov ax, 6                        ; 0x3431
     push ax                          ; 0x3434
-    call ds_app_gfx_free_picture_VNHP ; 0x3435
+    call free_picture_slot           ; 0x3435
     pop cx                           ; 0x3438
     mov ax, 1                        ; 0x3439
     push ax                          ; 0x343c

@@ -76,7 +76,7 @@ api_idx_00a8_KNHJ:
     mov word [bp - 0x0042], 0x5b     ; 0x0543
     mov word [bp - 0x0040], 0x5c     ; 0x0548
     mov word [bp - 0x003e], 0x69     ; 0x054d
-    mov ax, word [bss_5b6e]          ; 0x0552
+    mov ax, word [maze_variant]      ; 0x0552
     mov cx, 2                        ; 0x0555
     cwd                              ; 0x0558
     idiv cx                          ; 0x0559

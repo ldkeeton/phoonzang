@@ -65,16 +65,16 @@ jumptable_042b:
     shl bx, 1                        ; 0x0471
     jmp [cs:bx + jumptable_042b - IMAGE_BASE + __zres_end] ; 0x0473
 @..api_idx_0002_TOSL.l2:
-    cmp word [bss_5b70], byte 0      ; 0x0478
+    cmp word [maze_state], byte 0    ; 0x0478
     je short @..api_idx_0002_TOSL.l3 ; 0x047d
     mov ax, word [bp - 0x0002]       ; 0x047f
-    cmp ax, word [bss_5b6e]          ; 0x0482
+    cmp ax, word [maze_variant]      ; 0x0482
     jne short @..api_idx_0002_TOSL.l3 ; 0x0486
     jmp near @..api_idx_0002_TOSL.l5 ; 0x0488
 @..api_idx_0002_TOSL.l3:
-    call ds_app_alloc_VKRR           ; 0x048b
+    call free_current_maze           ; 0x048b
     mov ax, word [bp - 0x0002]       ; 0x048e
-    mov word [bss_5b6e], ax          ; 0x0491
+    mov word [maze_variant], ax      ; 0x0491
     jmp near @..api_idx_0002_TOSL.l4 ; 0x0494
 jumptable_06b5_case_1:
     mov ax, 0                        ; 0x0497
@@ -113,7 +113,7 @@ jumptable_06b5_case_1:
     push ax                          ; 0x04e4
     call ds_app_file_TSNH            ; 0x04e5
     add sp, byte 4                   ; 0x04e8
-    mov word [bss_5b6c], 0           ; 0x04eb
+    mov word [current_maze], 0       ; 0x04eb
     jmp near @..api_idx_0002_TOSL.l5 ; 0x04f1
 jumptable_06b5_case_2:
     mov ax, 1                        ; 0x04f4
@@ -140,7 +140,7 @@ jumptable_06b5_case_2:
     push ax                          ; 0x0525
     call ds_app_file_TSNH            ; 0x0526
     add sp, byte 4                   ; 0x0529
-    mov word [bss_5b6c], 1           ; 0x052c
+    mov word [current_maze], 1       ; 0x052c
     jmp near @..api_idx_0002_TOSL.l5 ; 0x0532
 jumptable_06b5_case_3:
     mov ax, 2                        ; 0x0535
@@ -191,7 +191,7 @@ jumptable_06b5_case_3:
     push ax                          ; 0x059e
     call ds_app_file_TSNH            ; 0x059f
     add sp, byte 4                   ; 0x05a2
-    mov word [bss_5b6c], 2           ; 0x05a5
+    mov word [current_maze], 2       ; 0x05a5
     jmp near @..api_idx_0002_TOSL.l5 ; 0x05ab
 jumptable_06b5_case_4:
     mov ax, 1                        ; 0x05ae
@@ -212,7 +212,7 @@ jumptable_06b5_case_4:
     push ax                          ; 0x05d1
     call ds_app_file_TSNH            ; 0x05d2
     add sp, byte 4                   ; 0x05d5
-    mov word [bss_5b6c], 1           ; 0x05d8
+    mov word [current_maze], 1       ; 0x05d8
     jmp near @..api_idx_0002_TOSL.l5 ; 0x05de
 jumptable_06b5_case_5:
     mov ax, 2                        ; 0x05e1
@@ -263,7 +263,7 @@ jumptable_06b5_case_5:
     push ax                          ; 0x064a
     call ds_app_file_TSNH            ; 0x064b
     add sp, byte 4                   ; 0x064e
-    mov word [bss_5b6c], 2           ; 0x0651
+    mov word [current_maze], 2       ; 0x0651
     jmp short @..api_idx_0002_TOSL.l5 ; 0x0657
 jumptable_06b5_case_6:
     mov ax, 1                        ; 0x0659
@@ -302,7 +302,7 @@ jumptable_06b5_case_6:
     push ax                          ; 0x06a6
     call ds_app_file_TSNH            ; 0x06a7
     add sp, byte 4                   ; 0x06aa
-    mov word [bss_5b6c], 1           ; 0x06ad
+    mov word [current_maze], 1       ; 0x06ad
     jmp short @..api_idx_0002_TOSL.l5 ; 0x06b3
 jumptable_06b5:
     dw jumptable_06b5_case_0 - IMAGE_BASE + __zres_end ; 0x06b5
@@ -321,5 +321,5 @@ jumptable_06b5:
 jumptable_06b5_case_0:
 @..api_idx_0002_TOSL.l5:
     call loc_VRKM                    ; 0x06d0
-    mov word [bss_5b70], 1           ; 0x06d3
+    mov word [maze_state], 1         ; 0x06d3
     ret                              ; 0x06d9

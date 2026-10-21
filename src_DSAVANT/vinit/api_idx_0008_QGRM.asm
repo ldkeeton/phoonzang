@@ -27,9 +27,9 @@ api_idx_0008_QGRM:
     cmp ax, strict word 0x12         ; 0x1448
     jl short @..api_idx_0008_QGRM.l1 ; 0x144b
     mov word [bss_906a], 0           ; 0x144d
-    mov word [bss_5b70], 0           ; 0x1453
-    mov word [bss_5b6e], 0           ; 0x1459
-    mov word [bss_5b6c], 0xffff      ; 0x145f
+    mov word [maze_state], 0         ; 0x1453
+    mov word [maze_variant], 0       ; 0x1459
+    mov word [current_maze], 0xffff  ; 0x145f
     mov ax, 0                        ; 0x1465
     push ax                          ; 0x1468
     mov ax, 1                        ; 0x1469

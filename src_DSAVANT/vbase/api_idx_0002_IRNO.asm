@@ -11,7 +11,7 @@ api_idx_0002_IRNO:
     add sp, byte 4                   ; 0x676e
     mov word [bss_906a], 0           ; 0x6771
 @..api_idx_0002_IRNO.l1:
-    call ds_app_alloc_VKRR           ; 0x6777
+    call free_current_maze           ; 0x6777
     mov ax, 0                        ; 0x677a
     push ax                          ; 0x677d
     mov ax, 0x8f                     ; 0x677e

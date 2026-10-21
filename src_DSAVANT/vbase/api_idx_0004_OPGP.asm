@@ -71,9 +71,9 @@ api_idx_0004_OPGP:
     mov ax, word [bp - 0x0004]       ; 0x6716
     cmp ax, strict word 0x12         ; 0x6719
     jl short @..api_idx_0004_OPGP.l6 ; 0x671c
-    mov word [bss_5b70], 0           ; 0x671e
-    mov word [bss_5b6e], 0           ; 0x6724
-    mov word [bss_5b6c], 0xffff      ; 0x672a
+    mov word [maze_state], 0         ; 0x671e
+    mov word [maze_variant], 0       ; 0x6724
+    mov word [current_maze], 0xffff  ; 0x672a
     cmp word [bss_904c], byte 2      ; 0x6730
     je short @..api_idx_0004_OPGP.l7 ; 0x6735
     call ds_app_string_MPHP          ; 0x6737

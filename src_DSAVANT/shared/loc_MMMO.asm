@@ -16,7 +16,7 @@ loc_MMMO:
     add sp, byte 0x0a
     test ax, ax
     je short @..loc_MMMO.l5
-    mov ax, word [bss_5b6e]
+    mov ax, word [maze_variant]
     mov cx, 2
     cwd
     idiv cx
@@ -26,7 +26,7 @@ loc_MMMO:
     mov ax, cx
     jmp short @..loc_MMMO.l4
 @..loc_MMMO.l1:
-    mov ax, word [bss_5b6e]
+    mov ax, word [maze_variant]
     cmp ax, strict word 6
     je short @..loc_MMMO.l2
     cmp word [loc_MMMO.bss1], byte 0

@@ -348,28 +348,42 @@ def cmd_name(project, binary, args, all_projects):
 
 
 _REF = re.compile(r'\b(?:cseg|bss|dseg)_[0-9a-f]{4,5}\b|\b(?:\w+_)?loc_[0-9A-Za-z_]+\b')
+#: A content-tagged routine name (``ds_app_alloc_VKRR``), with the ``_`` a .s
+#: appends; only counted when an asm file defines it, as C macros can look alike.
+_TAGGED_REF = re.compile(r'\b\w+_[G-V]{4}(?:_[0-9a-f]{4,5})?_?\b')
+_ANY_REF = re.compile(f'{_REF.pattern}|{_TAGGED_REF.pattern}')
+
+
+def referenced(text, routine, is_routine):
+    """The address-named and content-tagged symbols *text* references, in
+    order, leaving out *routine* and labels *text* defines; a tagged name
+    counts only when *is_routine* (sym) says an asm file defines it."""
+    defined = set(re.findall(r'^(\w+):', text, re.M))
+    seen = []
+    for sym in _ANY_REF.findall(text):
+        sym = sym[:-1] if sym.endswith('_') and not _AUTO_ROUTINE.match(sym) else sym
+        if sym in defined or sym in seen or sym == routine:
+            continue
+        if not (_CSEG.match(sym) or _DSEG.match(sym) or _AUTO_ROUTINE.match(sym)
+                or (_TAGGED.search(sym) and is_routine(sym))):
+            continue
+        seen.append(sym)
+    return seen
 
 
 def cmd_refs(project, binary, routine):
-    """Print the address-named symbols *routine* references (asm and source),
-    each with the sidecar entry it resolves to."""
+    """Print the address-named and content-tagged symbols *routine*
+    references (asm and source), each with the sidecar entry it resolves to."""
     path = _asm_file(project, binary, routine) or _asm_file(project, SHARED_DIR, routine)
     if path is None:
         raise SystemExit(f'error: no {routine}.asm in {binary}/ or {SHARED_DIR}/')
     files = [path] + [os.path.splitext(path)[0] + s for s in ('.c', '.s')
                       if os.path.isfile(os.path.splitext(path)[0] + s)]
     text = ''.join(open(p).read() for p in files)
-    defined = set(re.findall(r'^(\w+):', text, re.M))
     with open(sidecar_path(project)) as f:
         sidecar = json.load(f)
-    seen = []
-    for sym in _REF.findall(text):
-        sym = sym[:-1] if sym.endswith('_') and not _AUTO_ROUTINE.match(sym) else sym
-        if sym in defined or sym in seen or sym == routine:
-            continue
-        if not (_CSEG.match(sym) or _DSEG.match(sym) or _AUTO_ROUTINE.match(sym)):
-            continue
-        seen.append(sym)
+    seen = referenced(text, routine, lambda sym: bool(
+        _asm_file(project, binary, sym) or _asm_file(project, SHARED_DIR, sym)))
     if not seen:
         print(f'{routine}: no address-named symbols')
         return

@@ -119,7 +119,7 @@ api_idx_0030_MLHO:
     call ds_app_JKOJ                 ; 0x3fbc
     ret                              ; 0x3fbf
 @..api_idx_0030_MLHO.l5:
-    cmp word [bss_5b6e], byte 1      ; 0x3fc0
+    cmp word [maze_variant], byte 1  ; 0x3fc0
     je short @..api_idx_0030_MLHO.l6 ; 0x3fc5
     cmp word [bss_9188], byte 0      ; 0x3fc7
     je short @..api_idx_0030_MLHO.l8 ; 0x3fcc
@@ -268,7 +268,7 @@ api_idx_0030_MLHO:
     idiv cx                          ; 0x4116
     mov word [bss_91a6], dx          ; 0x4118
     mov word [bss_91a8], 0           ; 0x411c
-    mov ax, word [bss_5b6e]          ; 0x4122
+    mov ax, word [maze_variant]      ; 0x4122
     jmp near @..api_idx_0030_MLHO.l24 ; 0x4125
 jumptable_4471_case_1:
     mov word [bss_91a8], 0           ; 0x4128

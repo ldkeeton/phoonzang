@@ -114,7 +114,7 @@ jumptable_36f8_case_4:
     call gfx_wait_sound              ; 0x2c9c
     pop cx                           ; 0x2c9f
     push word [bp - 0x002c]          ; 0x2ca0
-    call ds_app_gfx_free_picture_VNHP ; 0x2ca3
+    call free_picture_slot           ; 0x2ca3
     pop cx                           ; 0x2ca6
 @..api_idx_0040_LSRO.l8:
     push word [bp - 0x002c]          ; 0x2ca7

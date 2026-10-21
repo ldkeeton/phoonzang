@@ -386,12 +386,12 @@ bss_0e38 equ __zbss_0e38 - __zdseg_start
 
 %include "ds/game/ds_app_string_IIIR.asm"  ; 0x1308
 
-%include "ds/game/ds_app_gfx_free_picture_VNHP.asm" ; 0x1371
+%include "ds/game/free_picture_slot.asm"   ; 0x1371
 
-bss_5b6c equ __zbss_5b6c - __zdseg_start
-bss_5b6e equ __zbss_5b6e - __zdseg_start
-bss_5b70 equ __zbss_5b70 - __zdseg_start
-%include "ds/game/ds_app_alloc_VKRR.asm"   ; 0x138c
+current_maze equ __zbss_5b6c - __zdseg_start
+maze_variant equ __zbss_5b6e - __zdseg_start
+maze_state   equ __zbss_5b70 - __zdseg_start
+%include "ds/game/free_current_maze.asm"   ; 0x138c
 
 screen_store_1_enabled    equ __zbss_5962 - __zdseg_start
 screen_store_disk_enabled equ __zbss_5963 - __zdseg_start

@@ -115,7 +115,7 @@ jumptable_0c85_case_5:
     add sp, byte 0x16                ; 0x0c1f
     mov ax, 0x10                     ; 0x0c22
     push ax                          ; 0x0c25
-    call ds_app_gfx_free_picture_VNHP ; 0x0c26
+    call free_picture_slot           ; 0x0c26
     pop cx                           ; 0x0c29
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0c2a
 jumptable_0c85_case_6:

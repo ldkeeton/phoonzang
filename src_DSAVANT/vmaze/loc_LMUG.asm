@@ -21,9 +21,9 @@ loc_LMUG:
     cwd                              ; 0x0ed2
     push ax                          ; 0x0ed3
     push dx                          ; 0x0ed4
-    cmp word [bss_5b6e], byte 3      ; 0x0ed5
+    cmp word [maze_variant], byte 3  ; 0x0ed5
     je short @..loc_LMUG.l3          ; 0x0eda
-    cmp word [bss_5b6e], byte 5      ; 0x0edc
+    cmp word [maze_variant], byte 5  ; 0x0edc
     jne short @..loc_LMUG.l4         ; 0x0ee1
 @..loc_LMUG.l3:
     mov ax, 0x3c                     ; 0x0ee3

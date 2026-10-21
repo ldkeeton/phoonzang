@@ -38,11 +38,11 @@ api_idx_0004_NIHO:
     add sp, byte 8                   ; 0x2f1e
     mov ax, 0xc                      ; 0x2f21
     push ax                          ; 0x2f24
-    call ds_app_gfx_free_picture_VNHP ; 0x2f25
+    call free_picture_slot           ; 0x2f25
     pop cx                           ; 0x2f28
     mov ax, 7                        ; 0x2f29
     push ax                          ; 0x2f2c
-    call ds_app_gfx_free_picture_VNHP ; 0x2f2d
+    call free_picture_slot           ; 0x2f2d
     pop cx                           ; 0x2f30
     mov ax, 5                        ; 0x2f31
     push ax                          ; 0x2f34
@@ -82,11 +82,11 @@ api_idx_0004_NIHO:
     pop cx                           ; 0x2f7d
     mov ax, 1                        ; 0x2f7e
     push ax                          ; 0x2f81
-    call ds_app_gfx_free_picture_VNHP ; 0x2f82
+    call free_picture_slot           ; 0x2f82
     pop cx                           ; 0x2f85
     mov ax, 2                        ; 0x2f86
     push ax                          ; 0x2f89
-    call ds_app_gfx_free_picture_VNHP ; 0x2f8a
+    call free_picture_slot           ; 0x2f8a
     pop cx                           ; 0x2f8d
     mov ax, 1                        ; 0x2f8e
     push ax                          ; 0x2f91
@@ -151,7 +151,7 @@ api_idx_0004_NIHO:
     cmp ax, 0xff                     ; 0x302a
     je short @..api_idx_0004_NIHO.l6 ; 0x302d
     push bx                          ; 0x302f
-    call ds_app_gfx_free_picture_VNHP ; 0x3030
+    call free_picture_slot           ; 0x3030
     pop cx                           ; 0x3033
 @..api_idx_0004_NIHO.l6:
     inc word [bp - 0x0004]           ; 0x3034

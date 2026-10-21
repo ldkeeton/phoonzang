@@ -15,15 +15,15 @@ api_idx_0006_MITV:
 @..api_idx_0006_MITV.l1:
     mov ax, 1                        ; 0x72dc
     push ax                          ; 0x72df
-    call ds_app_gfx_free_picture_VNHP ; 0x72e0
+    call free_picture_slot           ; 0x72e0
     pop cx                           ; 0x72e3
     mov ax, 2                        ; 0x72e4
     push ax                          ; 0x72e7
-    call ds_app_gfx_free_picture_VNHP ; 0x72e8
+    call free_picture_slot           ; 0x72e8
     pop cx                           ; 0x72eb
     mov ax, 0xc                      ; 0x72ec
     push ax                          ; 0x72ef
-    call ds_app_gfx_free_picture_VNHP ; 0x72f0
+    call free_picture_slot           ; 0x72f0
     pop cx                           ; 0x72f3
     mov ax, 1                        ; 0x72f4
     push ax                          ; 0x72f7
@@ -70,7 +70,7 @@ api_idx_0006_MITV:
     cmp ax, 0xff                     ; 0x7362
     je short @..api_idx_0006_MITV.l5 ; 0x7365
     push bx                          ; 0x7367
-    call ds_app_gfx_free_picture_VNHP ; 0x7368
+    call free_picture_slot           ; 0x7368
     pop cx                           ; 0x736b
 @..api_idx_0006_MITV.l5:
     inc word [bp - 0x0002]           ; 0x736c

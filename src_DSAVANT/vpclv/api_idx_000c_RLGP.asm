@@ -27,7 +27,7 @@ api_idx_000c_RLGP:
     jne short @..api_idx_000c_RLGP.l3 ; 0x51b7
     ret                              ; 0x51b9
 @..api_idx_000c_RLGP.l3:
-    call ds_app_alloc_VKRR           ; 0x51ba
+    call free_current_maze           ; 0x51ba
     mov ax, 1                        ; 0x51bd
     push ax                          ; 0x51c0
     mov ax, 2                        ; 0x51c1
@@ -227,7 +227,7 @@ api_idx_000c_RLGP:
 @..api_idx_000c_RLGP.l7:
     mov ax, 0xf                      ; 0x5395
     push ax                          ; 0x5398
-    call ds_app_gfx_free_picture_VNHP ; 0x5399
+    call free_picture_slot           ; 0x5399
     pop cx                           ; 0x539c
     mov ax, 0                        ; 0x539d
     push ax                          ; 0x53a0
@@ -295,11 +295,11 @@ api_idx_000c_RLGP:
     add sp, byte 8                   ; 0x5448
     mov ax, 1                        ; 0x544b
     push ax                          ; 0x544e
-    call ds_app_gfx_free_picture_VNHP ; 0x544f
+    call free_picture_slot           ; 0x544f
     pop cx                           ; 0x5452
     mov ax, 2                        ; 0x5453
     push ax                          ; 0x5456
-    call ds_app_gfx_free_picture_VNHP ; 0x5457
+    call free_picture_slot           ; 0x5457
     pop cx                           ; 0x545a
     call api_idx_000e_TIOP           ; 0x545b
     mov ax, 0xc7                     ; 0x545e

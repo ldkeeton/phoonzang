@@ -83,7 +83,7 @@ api_idx_0034_NSGM:
     push ax                          ; 0x70c7
     push ax                          ; 0x70c8
     mov ax, 0x837                    ; 0x70c9
-    cmp word [bss_5b6e], byte 1      ; 0x70cc
+    cmp word [maze_variant], byte 1  ; 0x70cc
     jne short @..api_idx_0034_NSGM.l5 ; 0x70d1
     mov ax, 0x844                    ; 0x70d3
 @..api_idx_0034_NSGM.l5:

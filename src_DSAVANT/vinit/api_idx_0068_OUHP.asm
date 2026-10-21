@@ -182,7 +182,7 @@ api_idx_0068_OUHP:
 @..api_idx_0068_OUHP.l11:
     mov ax, 0xf                      ; 0x0c52
     push ax                          ; 0x0c55
-    call ds_app_gfx_free_picture_VNHP ; 0x0c56
+    call free_picture_slot           ; 0x0c56
     pop cx                           ; 0x0c59
     call api_idx_0002_PUOP           ; 0x0c5a
     test ax, ax                      ; 0x0c5d
@@ -292,7 +292,7 @@ api_idx_0068_OUHP:
     pop cx                           ; 0x0d34
     mov ax, 0xf                      ; 0x0d35
     push ax                          ; 0x0d38
-    call ds_app_gfx_free_picture_VNHP ; 0x0d39
+    call free_picture_slot           ; 0x0d39
     pop cx                           ; 0x0d3c
 @..api_idx_0068_OUHP.l19:
     call api_idx_0002_PUOP           ; 0x0d3d
@@ -380,7 +380,7 @@ api_idx_0068_OUHP:
     pop cx                           ; 0x0de8
     mov ax, 0xf                      ; 0x0de9
     push ax                          ; 0x0dec
-    call ds_app_gfx_free_picture_VNHP ; 0x0ded
+    call free_picture_slot           ; 0x0ded
     pop cx                           ; 0x0df0
 @..api_idx_0068_OUHP.l27:
     call api_idx_0002_PUOP           ; 0x0df1
@@ -498,7 +498,7 @@ api_idx_0068_OUHP:
 @..api_idx_0068_OUHP.l32:
     mov ax, 0xf                      ; 0x0eed
     push ax                          ; 0x0ef0
-    call ds_app_gfx_free_picture_VNHP ; 0x0ef1
+    call free_picture_slot           ; 0x0ef1
     pop cx                           ; 0x0ef4
     mov ax, 0                        ; 0x0ef5
     push ax                          ; 0x0ef8

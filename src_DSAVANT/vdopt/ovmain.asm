@@ -17,7 +17,7 @@ ovmain:
     jne short @..ovmain.l2           ; 0x0040
     mov ax, 0xe                      ; 0x0042
     push ax                          ; 0x0045
-    call ds_app_gfx_free_picture_VNHP ; 0x0046
+    call free_picture_slot           ; 0x0046
     pop cx                           ; 0x0049
     mov ax, 1                        ; 0x004a
     push ax                          ; 0x004d
@@ -36,11 +36,11 @@ ovmain:
     pop cx                           ; 0x006d
     mov ax, 1                        ; 0x006e
     push ax                          ; 0x0071
-    call ds_app_gfx_free_picture_VNHP ; 0x0072
+    call free_picture_slot           ; 0x0072
     pop cx                           ; 0x0075
     mov ax, 2                        ; 0x0076
     push ax                          ; 0x0079
-    call ds_app_gfx_free_picture_VNHP ; 0x007a
+    call free_picture_slot           ; 0x007a
     pop cx                           ; 0x007d
     mov ax, 0xe                      ; 0x007e
     push ax                          ; 0x0081

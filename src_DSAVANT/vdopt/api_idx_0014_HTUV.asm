@@ -310,7 +310,7 @@ jumptable_0c0b_case_1:
     pop ax                           ; 0x0ca8
     mov word [bx - 0x6f46], ax       ; 0x0ca9
 @..api_idx_0014_HTUV.l30:
-    cmp word [bss_5b6e], byte 1      ; 0x0cad
+    cmp word [maze_variant], byte 1  ; 0x0cad
     jne short @..api_idx_0014_HTUV.l31 ; 0x0cb2
     push word [bp - 0x0002]          ; 0x0cb4
     mov ax, word [bss_0e14]          ; 0x0cb7
