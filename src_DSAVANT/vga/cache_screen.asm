@@ -67,7 +67,7 @@ cache_screen:
     mov cl, 0xa                      ; 0x401a
     shr ax, cl                       ; 0x401c
     mov word [cs:cseg_3b8e - IMAGE_BASE], ax ; 0x401e
-    call leaf_loc_HLGJ               ; 0x4022
+    call ems_map_pages               ; 0x4022
     and di, strict word 0x3ff        ; 0x4025
     mov cl, 4                        ; 0x4029
     shl di, cl                       ; 0x402b
@@ -78,7 +78,7 @@ cache_screen:
     sub di, strict word 0x4000       ; 0x4035
     inc word [cs:cseg_3b8e - IMAGE_BASE] ; 0x4039
     mov ax, word [cs:cseg_3b8e - IMAGE_BASE] ; 0x403e
-    call leaf_loc_HLGJ               ; 0x4042
+    call ems_map_pages               ; 0x4042
 @..cache_screen.l6:
     mov ax, word [bp - 0x0006]       ; 0x4045
     or ax, ax                        ; 0x4048

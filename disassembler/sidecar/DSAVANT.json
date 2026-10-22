@@ -64,6 +64,7 @@
       "name": "dos_read_file",
       "note": "ds: seeks to index x record size, then reads one record (INT 21h AH=3Fh)"
     },
+    "leaf_loc_HLGJ": {"name": "ems_map_pages", "note": "maps EMS logical pages ax and ax+1 into frame pages 0 and 1"},
     "leaf_loc_MIUQ": {
       "name": "strpos",
       "note": "ds: index of a char in a string, 0xFFFF if absent (repne scasb)"
@@ -735,6 +736,30 @@
       }
     },
     "ega": {
+      "code_data_names": {
+        "00e1": {"name": "maze_mem_seg", "note": "segment base of MAZE memory, added to a block paragraph"},
+        "00e5": {"name": "screen_buf_seg", "note": "segment of the 320-byte-stride screen buffer"},
+        "00ff": {"name": "ems_para_limit", "note": "EMS paragraphs available"},
+        "0103": {"name": "ems_frame_seg", "note": "EMS page frame segment"},
+        "015b": {"name": "maze_slots", "note": "16 MAZE slot words, each a block id or 0 when free"},
+        "019b": {"name": "ems_slots", "note": "20 EMS slot words, each a block id or 0 when free"},
+        "01eb": {"name": "ems_blocks", "note": "EMS block table, 4 bytes per id: start paragraph, paragraph count"},
+        "028f": {"name": "ems_block_count", "note": "last EMS block id handed out"},
+        "0291": {"name": "ems_paras_used", "note": "EMS paragraphs allocated so far"},
+        "0ffb": {"name": "maze_blocks", "note": "MAZE block table, 4 bytes per id: start paragraph, paragraph count"},
+        "10cb": {"name": "maze_block_count", "note": "last MAZE block id handed out"},
+        "10cd": {"name": "maze_paras_used", "note": "MAZE memory paragraphs allocated so far"},
+        "4379": {"name": "msg_out_of_ems", "note": "CACHEAREA out of EMS message"},
+        "4440": {"name": "ems_cur_page", "note": "EMS logical page mapped at frame page 0"}
+      },
+      "function_names": {
+        "40cd": {"name": "cache_area_disk_error", "note": "prints the CACHEAREA disk write error and exits"},
+        "4111": {"name": "cache_area", "note": "copies a screen rectangle to a file, MAZE memory or EMS and returns its slot index"},
+        "4398": {"name": "cache_area_return", "note": "restores registers and frame, returns from cache_area"},
+        "43a0": {"name": "cache_area_ems_slots_full", "note": "prints CACHEAREA out of EMS slots and exits"},
+        "43d1": {"name": "cache_area_maze_mem_full", "note": "prints CACHEAREA out of MAZE/PIC memory and exits"},
+        "440e": {"name": "cache_area_maze_slots_full", "note": "prints CACHEAREA out of MAZE slots and exits"}
+      },
       "file": "EGA.DRV",
       "type": "raw_drv",
       "start_offset": 0,

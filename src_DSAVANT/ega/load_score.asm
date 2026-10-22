@@ -24,18 +24,18 @@ load_score:
     add bx, cseg_4ea3 - IMAGE_BASE   ; 0x4ed8
     mov ax, word [bp + 0x10]         ; 0x4edc
     mov word [cs:bx], ax             ; 0x4edf
-    mov ax, word [cs:cseg_10cb - IMAGE_BASE] ; 0x4ee2
+    mov ax, word [cs:maze_block_count - IMAGE_BASE] ; 0x4ee2
     inc ax                           ; 0x4ee6
-    mov word [cs:cseg_10cb - IMAGE_BASE], ax ; 0x4ee7
+    mov word [cs:maze_block_count - IMAGE_BASE], ax ; 0x4ee7
     mov bx, word [bp - 0x0002]       ; 0x4eeb
     mov word [cs:bx], ax             ; 0x4eee
     dec ax                           ; 0x4ef1
     mov cl, 2                        ; 0x4ef2
     shl ax, cl                       ; 0x4ef4
-    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x4ef6
+    mov bx, maze_blocks - IMAGE_BASE ; 0x4ef6
     add bx, ax                       ; 0x4ef9
     mov word [bp - 0x000a], bx       ; 0x4efb
-    mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x4efe
+    mov ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x4efe
     mov word [cs:bx], ax             ; 0x4f02
     xor ax, ax                       ; 0x4f05
     mov word [bp - 0x000c], ax       ; 0x4f07
@@ -85,14 +85,14 @@ load_score:
     mov bx, word [bp - 0x000a]       ; 0x4f71
     add ax, word [bp - 0x000e]       ; 0x4f74
     mov word [cs:bx + 0x2], ax       ; 0x4f77
-    add ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x4f7b
+    add ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x4f7b
     cmp ax, 0x4180                   ; 0x4f80
     jb short @..load_score.l3        ; 0x4f83
     jmp near @..load_score.l6        ; 0x4f85
 @..load_score.l3:
-    mov word [cs:cseg_10cd - IMAGE_BASE], ax ; 0x4f88
+    mov word [cs:maze_paras_used - IMAGE_BASE], ax ; 0x4f88
     mov ax, word [cs:bx]             ; 0x4f8c
-    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x4f8f
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x4f8f
     mov ds, ax                       ; 0x4f94
     mov bx, word [bp + 0xe]          ; 0x4f96
     cmp bx, byte 0xff                ; 0x4f99

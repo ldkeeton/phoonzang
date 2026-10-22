@@ -211,6 +211,7 @@ cseg_028f:
     db 0x00, 0x00
 cseg_0291:
     db 0x00, 0x00
+graphics_loc_VNKS.screen_buf_seg1 equ cseg_00e5
 %include "shared/graphics_loc_VNKS.asm"       ; 0x0293
 
 %include "shared/set_text_opaque.asm"         ; 0x0439
@@ -231,8 +232,10 @@ cseg_0515:
 
 %include "vga/leaf_loc_PRNU.asm"           ; 0x067f
 
+put_pixel.screen_buf_seg1 equ cseg_00e5
 %include "shared/put_pixel.asm"               ; 0x06b2
 
+fill_area.screen_buf_seg1 equ cseg_00e5
 %include "shared/fill_area.asm"               ; 0x06d9
 
 %include "vga/invert_area.asm"             ; 0x0728
@@ -288,8 +291,12 @@ cseg_0e6d:
     db 0x00, 0x00
 cseg_0e6f:
     db 0x00, 0x00
-loc_KLNH.cseg1 equ cseg_0e6d
-loc_KLNH.cseg2 equ cseg_0e6f
+loc_KLNH.ems_blocks1     equ cseg_01eb
+loc_KLNH.ems_paras_used1 equ cseg_0291
+loc_KLNH.ems_frame_seg1  equ cseg_0103
+loc_KLNH.maze_mem_seg1   equ cseg_00e1
+loc_KLNH.cseg1           equ cseg_0e6d
+loc_KLNH.cseg2           equ cseg_0e6f
 %include "shared/loc_KLNH.asm"                ; 0x0e71
 
 leaf_loc_TPOL.cseg1 equ cseg_0e6f
@@ -493,7 +500,9 @@ cseg_2327:
 
 %include "vga/set_palette.asm"             ; 0x2acf
 
-get_free_space.cseg1 equ cseg_0bac
+get_free_space.maze_paras_used1 equ cseg_0bac
+get_free_space.ems_para_limit1  equ cseg_00ff
+get_free_space.ems_paras_used1  equ cseg_0291
 %include "shared/get_free_space.asm"          ; 0x2b01
 
 %include "shared/mouse_glide_to.asm"          ; 0x2b6c
@@ -575,7 +584,7 @@ data_025b equ __zdata_025b - IMAGE_BASE
 
 cseg_3b8e:
     db 0x00, 0x00
-%include "shared/leaf_loc_HLGJ.asm"           ; 0x3b90
+%include "shared/ems_map_pages.asm"           ; 0x3b90
 
 ; data_025b equ __zdata_025b - IMAGE_BASE
 ; data_029b equ __zdata_029b - IMAGE_BASE

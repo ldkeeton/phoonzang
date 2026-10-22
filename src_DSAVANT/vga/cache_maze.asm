@@ -99,7 +99,7 @@ cache_maze:
     mov cl, 0xa                      ; 0x3e66
     shr ax, cl                       ; 0x3e68
     mov word [cs:cseg_3b8e - IMAGE_BASE], ax ; 0x3e6a
-    call leaf_loc_HLGJ               ; 0x3e6e
+    call ems_map_pages               ; 0x3e6e
     and di, strict word 0x3ff        ; 0x3e71
     mov cl, 4                        ; 0x3e75
     shl di, cl                       ; 0x3e77
@@ -123,7 +123,7 @@ cache_maze:
     sub di, strict word 0x4000       ; 0x3ea6
     inc word [cs:cseg_3b8e - IMAGE_BASE] ; 0x3eaa
     mov ax, word [cs:cseg_3b8e - IMAGE_BASE] ; 0x3eaf
-    call leaf_loc_HLGJ               ; 0x3eb3
+    call ems_map_pages               ; 0x3eb3
 @..cache_maze.l6:
     mov ax, word [bp - 0x0006]       ; 0x3eb6
     mov dx, word [bp - 0x0008]       ; 0x3eb9

@@ -123,9 +123,9 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "shared/loc_JULP.asm"                ; 0x00db
 
-cseg_00e1:
+maze_mem_seg:
     db 0x00, 0x00, 0x00, 0x10
-cseg_00e5:
+screen_buf_seg:
     db 0x00, 0x00, 0x40, 0x01
 cseg_00e9:
     db 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x30, 0x05, 0x00, 0x00, 0xd0, 0x01, 0x00, 0x00
@@ -133,11 +133,11 @@ cseg_00f7:
     times 4 db 0
 cseg_00fb:
     times 4 db 0
-cseg_00ff:
+ems_para_limit:
     db 0x00, 0x00
 cseg_0101:
     db 0x00, 0x00
-cseg_0103:
+ems_frame_seg:
     db 0x00, 0x00
 cseg_0105:
     db 0x00
@@ -167,7 +167,7 @@ cseg_0129:
 
 cseg_0151:
     times 10 db 0
-cseg_015b:
+maze_slots:
 
     times 32 db 0
 
@@ -186,7 +186,7 @@ cseg_0197:
     db 0x00, 0x00
 cseg_0199:
     db 0x00, 0x00
-cseg_019b:
+ems_slots:
 
     times 40 db 0
 
@@ -198,14 +198,15 @@ cseg_01d7:
 
     times 20 db 0
 
-cseg_01eb:
+ems_blocks:
 
     times 164 db 0
 
-cseg_028f:
+ems_block_count:
     db 0x00, 0x00
-cseg_0291:
+ems_paras_used:
     db 0x00, 0x00
+graphics_loc_VNKS.screen_buf_seg1 equ screen_buf_seg
 %include "shared/graphics_loc_VNKS.asm"       ; 0x0293
 
 %include "shared/set_text_opaque.asm"         ; 0x0439
@@ -226,8 +227,10 @@ cseg_0948:
 
 %include "ega/leaf_loc_KNIM.asm"           ; 0x0b91
 
+put_pixel.screen_buf_seg1 equ screen_buf_seg
 %include "shared/put_pixel.asm"               ; 0x0bcf
 
+fill_area.screen_buf_seg1 equ screen_buf_seg
 %include "shared/fill_area.asm"               ; 0x0bf6
 
 %include "ega/invert_area.asm"             ; 0x0c45
@@ -248,13 +251,13 @@ cseg_0fe7:
 
     times 20 db 0
 
-cseg_0ffb:
+maze_blocks:
 
     times 208 db 0
 
-cseg_10cb:
+maze_block_count:
     db 0x00, 0x00
-cseg_10cd:
+maze_paras_used:
     db 0x00, 0x00
 %include "ega/load_maze.asm"               ; 0x10cf
 
@@ -290,8 +293,12 @@ cseg_138e:
     db 0x00, 0x00
 cseg_1390:
     db 0x00, 0x00
-loc_KLNH.cseg1 equ cseg_138e
-loc_KLNH.cseg2 equ cseg_1390
+loc_KLNH.ems_blocks1     equ ems_blocks
+loc_KLNH.ems_paras_used1 equ ems_paras_used
+loc_KLNH.ems_frame_seg1  equ ems_frame_seg
+loc_KLNH.maze_mem_seg1   equ maze_mem_seg
+loc_KLNH.cseg1           equ cseg_138e
+loc_KLNH.cseg2           equ cseg_1390
 %include "shared/loc_KLNH.asm"                ; 0x1392
 
 leaf_loc_TPOL.cseg1 equ cseg_1390
@@ -525,7 +532,9 @@ cseg_32b3:
     db 0x48, 0x8d, 0x8d, 0x8d, 0x0d, 0x0d, 0x08, 0x00, 0x1c, 0x48, 0x48, 0x04, 0x04, 0x0c, 0x12, 0x23
     db 0x23, 0x2b, 0xab, 0xab, 0x02, 0x0b, 0x08, 0x2d
 
-get_free_space.cseg1 equ cseg_10cd
+get_free_space.maze_paras_used1 equ maze_paras_used
+get_free_space.ems_para_limit1  equ ems_para_limit
+get_free_space.ems_paras_used1  equ ems_paras_used
 %include "shared/get_free_space.asm"          ; 0x33b3
 
 %include "shared/mouse_glide_to.asm"          ; 0x341e
@@ -573,7 +582,7 @@ cseg_3a35:
 
 %include "shared/leaf_loc_MTKK.asm"           ; 0x3bf2
 
-%include "ega/leaf_loc_VGLT.asm"           ; 0x3c12
+%include "ega/leaf_loc_KSJN.asm"           ; 0x3c12
 
 %include "ega/loc_3c2e.asm"                ; 0x3c2e
 
@@ -581,7 +590,7 @@ cseg_3a35:
 
 %include "ega/loc_3e8a.asm"                ; 0x3e8a
 
-%include "ega/loc_40cd.asm"                ; 0x40cd
+%include "ega/cache_area_disk_error.asm"   ; 0x40cd
 
 %include "shared/dos_con_loc_KIIN.asm"        ; 0x40d4
 
@@ -593,19 +602,19 @@ cseg_40dd:
 
 %include "ega/cache_area.asm"              ; 0x4111
 
-%include "ega/dos_con_loc_GKKQ.asm"        ; 0x4370
+%include "ega/dos_con_loc_PHHV.asm"        ; 0x4370
 
-cseg_4379:
+msg_out_of_ems:
 
     db 0x0d, 0x0a, 0x07
     db 'CACHEAREA out of EMS.', 0
     db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2
 
-%include "ega/loc_4398.asm"                ; 0x4398
+%include "ega/cache_area_return.asm"       ; 0x4398
 
-%include "ega/loc_43a0.asm"                ; 0x43a0
+%include "ega/cache_area_ems_slots_full.asm" ; 0x43a0
 
-%include "ega/dos_con_loc_NQOR.asm"        ; 0x43a7
+%include "ega/dos_con_loc_GUHJ.asm"        ; 0x43a7
 
 cseg_43b0:
 
@@ -613,9 +622,9 @@ cseg_43b0:
     db 'CACHEAREA out of EMS slots.', 0
     db 0x0a, 0x24
 
-%include "ega/loc_43d1.asm"                ; 0x43d1
+%include "ega/cache_area_maze_mem_full.asm" ; 0x43d1
 
-%include "ega/dos_con_loc_THNU.asm"        ; 0x43d8
+%include "ega/dos_con_loc_KGMT.asm"        ; 0x43d8
 
 cseg_43e1:
 
@@ -623,11 +632,11 @@ cseg_43e1:
     db 'CACHEAREA out of MAZE/PIC memory.', 0
     db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0x8a
 
-%include "ega/loc_440e.asm"                ; 0x440e
+%include "ega/cache_area_maze_slots_full.asm" ; 0x440e
 
-cseg_4440:
+ems_cur_page:
     db 0x00, 0x00
-%include "shared/leaf_loc_HLGJ.asm"           ; 0x4442
+%include "shared/ems_map_pages.asm"           ; 0x4442
 
 %include "ega/restore_screen.asm"          ; 0x4457
 

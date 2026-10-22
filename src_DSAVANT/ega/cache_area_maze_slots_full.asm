@@ -1,5 +1,5 @@
 ; auto-generated
-loc_440e:
+cache_area_maze_slots_full:
     mov ax, cs                       ; 0x440e
     mov ds, ax                       ; 0x4410
     mov dx, cseg_441e - IMAGE_BASE   ; 0x4412

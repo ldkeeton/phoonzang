@@ -36,9 +36,9 @@ cache_area:
     mov ah, 0x40                     ; 0x415e
     int 0x21 ; DOS write file (handle)
     jae short @..cache_area.l1       ; 0x4162
-    jmp near loc_40cd                ; 0x4164
+    jmp near cache_area_disk_error   ; 0x4164
 @..cache_area.l1:
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x4167
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x4167
     mov ds, ax                       ; 0x416b
     mov cx, word [bp - 0x0004]       ; 0x416d
 @..cache_area.l2:
@@ -50,17 +50,17 @@ cache_area:
     mov ah, 0x40                     ; 0x417f
     int 0x21 ; DOS write file (handle)
     jae short @..cache_area.l3       ; 0x4183
-    jmp near loc_40cd                ; 0x4185
+    jmp near cache_area_disk_error   ; 0x4185
 @..cache_area.l3:
     cmp ax, word [bp - 0x0006]       ; 0x4188
     je short @..cache_area.l4        ; 0x418b
-    jmp near loc_40cd                ; 0x418d
+    jmp near cache_area_disk_error   ; 0x418d
 @..cache_area.l4:
     pop cx                           ; 0x4190
     loop @..cache_area.l2            ; 0x4191
     xor ax, ax                       ; 0x4193
     mov dx, word [bp + 0x14]         ; 0x4195
-    jmp near loc_4398                ; 0x4198
+    jmp near cache_area_return       ; 0x4198
 @..cache_area.l5:
     cmp word [bp + 0x14], byte 2     ; 0x419b
     je short @..cache_area.l6        ; 0x419f
@@ -82,15 +82,15 @@ cache_area:
     mov cl, 4                        ; 0x41c6
     shr ax, cl                       ; 0x41c8
     mov word [bp - 0x0002], ax       ; 0x41ca
-    add ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x41cd
+    add ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x41cd
     cmp ax, 0x4180                   ; 0x41d2
     jbe short @..cache_area.l7       ; 0x41d5
-    jmp near loc_43d1                ; 0x41d7
+    jmp near cache_area_maze_mem_full ; 0x41d7
 @..cache_area.l7:
-    mov bx, word [cs:cseg_10cd - IMAGE_BASE] ; 0x41da
+    mov bx, word [cs:maze_paras_used - IMAGE_BASE] ; 0x41da
     mov word [bp - 0x000e], bx       ; 0x41df
-    mov word [cs:cseg_10cd - IMAGE_BASE], ax ; 0x41e2
-    mov bx, cseg_015b - IMAGE_BASE   ; 0x41e6
+    mov word [cs:maze_paras_used - IMAGE_BASE], ax ; 0x41e2
+    mov bx, maze_slots - IMAGE_BASE  ; 0x41e6
     mov cx, 0x10                     ; 0x41e9
     xor dx, dx                       ; 0x41ec
 @..cache_area.l8:
@@ -100,25 +100,25 @@ cache_area:
     inc dx                           ; 0x41f5
     add bx, byte 2                   ; 0x41f6
     loop @..cache_area.l8            ; 0x41f9
-    jmp near loc_440e                ; 0x41fb
+    jmp near cache_area_maze_slots_full ; 0x41fb
 @..cache_area.l9:
     mov word [bp - 0x000c], dx       ; 0x41fe
-    mov ax, word [cs:cseg_10cb - IMAGE_BASE] ; 0x4201
+    mov ax, word [cs:maze_block_count - IMAGE_BASE] ; 0x4201
     inc ax                           ; 0x4205
-    mov word [cs:cseg_10cb - IMAGE_BASE], ax ; 0x4206
+    mov word [cs:maze_block_count - IMAGE_BASE], ax ; 0x4206
     mov word [cs:bx], ax             ; 0x420a
     dec ax                           ; 0x420d
     mov cl, 2                        ; 0x420e
     shl ax, cl                       ; 0x4210
-    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x4212
+    mov bx, maze_blocks - IMAGE_BASE ; 0x4212
     add bx, ax                       ; 0x4215
     mov ax, word [bp - 0x000e]       ; 0x4217
     mov word [cs:bx], ax             ; 0x421a
-    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x421d
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x421d
     mov es, ax                       ; 0x4222
     mov ax, word [bp - 0x0002]       ; 0x4224
     mov word [cs:bx + 0x2], ax       ; 0x4227
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x422b
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x422b
     mov ds, ax                       ; 0x422f
     mov ax, word [bp + 0xe]          ; 0x4231
     mov bx, 0x140                    ; 0x4234
@@ -146,7 +146,7 @@ cache_area:
     jne short @..cache_area.l10      ; 0x4265
     mov ax, word [bp - 0x000c]       ; 0x4267
     mov dx, word [bp + 0x14]         ; 0x426a
-    jmp near loc_4398                ; 0x426d
+    jmp near cache_area_return       ; 0x426d
 @..cache_area.l11:
     mov ax, word [bp + 0x10]         ; 0x4270
     sub ax, word [bp + 0xc]          ; 0x4273
@@ -164,15 +164,15 @@ cache_area:
     mov cl, 4                        ; 0x4292
     shr ax, cl                       ; 0x4294
     mov word [bp - 0x0002], ax       ; 0x4296
-    add ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x4299
-    cmp ax, word [cs:cseg_00ff - IMAGE_BASE] ; 0x429e
+    add ax, word [cs:ems_paras_used - IMAGE_BASE] ; 0x4299
+    cmp ax, word [cs:ems_para_limit - IMAGE_BASE] ; 0x429e
     jbe short @..cache_area.l12      ; 0x42a3
     jmp near @..cache_area.l17       ; 0x42a5
 @..cache_area.l12:
-    mov bx, word [cs:cseg_0291 - IMAGE_BASE] ; 0x42a8
+    mov bx, word [cs:ems_paras_used - IMAGE_BASE] ; 0x42a8
     mov word [bp - 0x000e], bx       ; 0x42ad
-    mov word [cs:cseg_0291 - IMAGE_BASE], ax ; 0x42b0
-    mov bx, cseg_019b - IMAGE_BASE   ; 0x42b4
+    mov word [cs:ems_paras_used - IMAGE_BASE], ax ; 0x42b0
+    mov bx, ems_slots - IMAGE_BASE   ; 0x42b4
     mov cx, 0x14                     ; 0x42b7
     xor dx, dx                       ; 0x42ba
 @..cache_area.l13:
@@ -182,23 +182,23 @@ cache_area:
     inc dx                           ; 0x42c3
     add bx, byte 2                   ; 0x42c4
     loop @..cache_area.l13           ; 0x42c7
-    jmp near loc_43a0                ; 0x42c9
+    jmp near cache_area_ems_slots_full ; 0x42c9
 @..cache_area.l14:
     mov word [bp - 0x000c], dx       ; 0x42cc
-    mov ax, word [cs:cseg_028f - IMAGE_BASE] ; 0x42cf
+    mov ax, word [cs:ems_block_count - IMAGE_BASE] ; 0x42cf
     inc ax                           ; 0x42d3
-    mov word [cs:cseg_028f - IMAGE_BASE], ax ; 0x42d4
+    mov word [cs:ems_block_count - IMAGE_BASE], ax ; 0x42d4
     mov word [cs:bx], ax             ; 0x42d8
     dec ax                           ; 0x42db
     mov cl, 2                        ; 0x42dc
     shl ax, cl                       ; 0x42de
-    mov bx, cseg_01eb - IMAGE_BASE   ; 0x42e0
+    mov bx, ems_blocks - IMAGE_BASE  ; 0x42e0
     add bx, ax                       ; 0x42e3
     mov ax, word [bp - 0x000e]       ; 0x42e5
     mov word [cs:bx], ax             ; 0x42e8
     mov ax, word [bp - 0x0002]       ; 0x42eb
     mov word [cs:bx + 0x2], ax       ; 0x42ee
-    mov ax, word [cs:cseg_0103 - IMAGE_BASE] ; 0x42f2
+    mov ax, word [cs:ems_frame_seg - IMAGE_BASE] ; 0x42f2
     mov es, ax                       ; 0x42f6
     mov ax, word [bp - 0x000e]       ; 0x42f8
     mov di, ax                       ; 0x42fb
@@ -207,9 +207,9 @@ cache_area:
     shl di, cl                       ; 0x4303
     mov cl, 0xa                      ; 0x4305
     shr ax, cl                       ; 0x4307
-    mov word [cs:cseg_4440 - IMAGE_BASE], ax ; 0x4309
-    call leaf_loc_HLGJ               ; 0x430d
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x4310
+    mov word [cs:ems_cur_page - IMAGE_BASE], ax ; 0x4309
+    call ems_map_pages               ; 0x430d
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x4310
     mov ds, ax                       ; 0x4314
     mov ax, word [bp + 0xe]          ; 0x4316
     mov bx, 0x140                    ; 0x4319
@@ -234,17 +234,17 @@ cache_area:
     rep movsb                        ; 0x4343
     test di, 0xc000                  ; 0x4345
     je short @..cache_area.l16       ; 0x4349
-    inc word [cs:cseg_4440 - IMAGE_BASE] ; 0x434b
-    mov ax, word [cs:cseg_4440 - IMAGE_BASE] ; 0x4350
-    call leaf_loc_HLGJ               ; 0x4354
+    inc word [cs:ems_cur_page - IMAGE_BASE] ; 0x434b
+    mov ax, word [cs:ems_cur_page - IMAGE_BASE] ; 0x4350
+    call ems_map_pages               ; 0x4354
     and di, strict word 0x3fff       ; 0x4357
 @..cache_area.l16:
     dec word [bp - 0x0004]           ; 0x435b
     jne short @..cache_area.l15      ; 0x435e
     mov ax, word [bp - 0x000c]       ; 0x4360
     mov dx, word [bp + 0x14]         ; 0x4363
-    jmp near loc_4398                ; 0x4366
+    jmp near cache_area_return       ; 0x4366
 @..cache_area.l17:
     mov ax, cs                       ; 0x4369
     mov ds, ax                       ; 0x436b
-    mov dx, cseg_4379 - IMAGE_BASE   ; 0x436d
+    mov dx, msg_out_of_ems - IMAGE_BASE ; 0x436d

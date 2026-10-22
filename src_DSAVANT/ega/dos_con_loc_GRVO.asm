@@ -8,18 +8,18 @@ dos_con_loc_GRVO:
     mov ax, 0x4c01                   ; 0x110a
     int 0x21 ; DOS function dispatcher
 loc_SMNJ:
-    mov ax, word [cs:cseg_10cb - IMAGE_BASE] ; 0x110f
+    mov ax, word [cs:maze_block_count - IMAGE_BASE] ; 0x110f
     inc ax                           ; 0x1113
-    mov word [cs:cseg_10cb - IMAGE_BASE], ax ; 0x1114
+    mov word [cs:maze_block_count - IMAGE_BASE], ax ; 0x1114
     mov bx, word [bp - 0x0002]       ; 0x1118
     mov word [cs:bx], ax             ; 0x111b
     dec ax                           ; 0x111e
     mov cl, 2                        ; 0x111f
     shl ax, cl                       ; 0x1121
-    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x1123
+    mov bx, maze_blocks - IMAGE_BASE ; 0x1123
     add bx, ax                       ; 0x1126
     mov word [bp - 0x0002], bx       ; 0x1128
-    mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x112b
+    mov ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x112b
     mov word [cs:bx], ax             ; 0x112f
     mov ax, word [bp + 0x10]         ; 0x1132
     or ax, ax                        ; 0x1135
@@ -28,8 +28,8 @@ loc_SMNJ:
 loc_NTVL:
     cld                              ; 0x113c
     mov cx, 0x1000                   ; 0x113d
-    mov bx, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x1140
-    add bx, word [cs:cseg_10cd - IMAGE_BASE] ; 0x1145
+    mov bx, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x1140
+    add bx, word [cs:maze_paras_used - IMAGE_BASE] ; 0x1145
     mov ds, bx                       ; 0x114a
     xor dx, dx                       ; 0x114c
     mov bx, word [bp + 0xc]          ; 0x114e
@@ -74,8 +74,8 @@ loc_NTVL:
     div bx                           ; 0x11ab
     mov bx, word [bp - 0x0002]       ; 0x11ad
     mov word [cs:bx + 0x2], ax       ; 0x11b0
-    add word [cs:cseg_10cd - IMAGE_BASE], ax ; 0x11b4
-    mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x11b9
+    add word [cs:maze_paras_used - IMAGE_BASE], ax ; 0x11b4
+    mov ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x11b9
     cmp ax, 0x4180                   ; 0x11bd
     jae short loc_VNMM               ; 0x11c0
     mov ax, ds                       ; 0x11c2

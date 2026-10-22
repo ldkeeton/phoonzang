@@ -19,7 +19,7 @@ restore_screen:
     mov bx, word [bp + 0x12]         ; 0x4477
     mov ah, 0x3f                     ; 0x447a
     int 0x21 ; DOS read file (handle)
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x447e
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x447e
     mov ds, ax                       ; 0x4482
     mov cx, word [bp - 0x0004]       ; 0x4484
 @..restore_screen.l1:
@@ -40,18 +40,18 @@ restore_screen:
 @..restore_screen.l3:
     mov ax, word [bp + 0xc]          ; 0x44a9
     shl ax, 1                        ; 0x44ac
-    mov bx, cseg_015b - IMAGE_BASE   ; 0x44ae
+    mov bx, maze_slots - IMAGE_BASE  ; 0x44ae
     add bx, ax                       ; 0x44b1
     mov ax, word [cs:bx]             ; 0x44b3
     dec ax                           ; 0x44b6
     mov cl, 2                        ; 0x44b7
     shl ax, cl                       ; 0x44b9
-    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x44bb
+    mov bx, maze_blocks - IMAGE_BASE ; 0x44bb
     add bx, ax                       ; 0x44be
     mov ax, word [cs:bx]             ; 0x44c0
-    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x44c3
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x44c3
     mov ds, ax                       ; 0x44c8
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x44ca
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x44ca
     mov es, ax                       ; 0x44ce
     xor si, si                       ; 0x44d0
     lodsw                            ; 0x44d2
@@ -74,38 +74,38 @@ restore_screen:
     je short @..restore_screen.l5    ; 0x44f7
     mov ax, word [bp + 0xc]          ; 0x44f9
     shl ax, 1                        ; 0x44fc
-    mov bx, cseg_015b - IMAGE_BASE   ; 0x44fe
+    mov bx, maze_slots - IMAGE_BASE  ; 0x44fe
     add bx, ax                       ; 0x4501
     mov ax, word [cs:bx]             ; 0x4503
     mov word [cs:bx], 0              ; 0x4506
-    dec word [cs:cseg_10cb - IMAGE_BASE] ; 0x450b
+    dec word [cs:maze_block_count - IMAGE_BASE] ; 0x450b
     call loc_PPJL                    ; 0x4510
 @..restore_screen.l5:
     jmp near @..restore_screen.l9    ; 0x4513
 @..restore_screen.l6:
     mov ax, word [bp + 0xc]          ; 0x4516
     shl ax, 1                        ; 0x4519
-    mov bx, cseg_019b - IMAGE_BASE   ; 0x451b
+    mov bx, ems_slots - IMAGE_BASE   ; 0x451b
     add bx, ax                       ; 0x451e
     mov ax, word [cs:bx]             ; 0x4520
     dec ax                           ; 0x4523
     mov cl, 2                        ; 0x4524
     shl ax, cl                       ; 0x4526
-    mov bx, cseg_01eb - IMAGE_BASE   ; 0x4528
+    mov bx, ems_blocks - IMAGE_BASE  ; 0x4528
     add bx, ax                       ; 0x452b
     mov ax, word [cs:bx]             ; 0x452d
     mov word [bp - 0x0002], ax       ; 0x4530
     mov cl, 0xa                      ; 0x4533
     shr ax, cl                       ; 0x4535
-    mov word [cs:cseg_4440 - IMAGE_BASE], ax ; 0x4537
-    call leaf_loc_HLGJ               ; 0x453b
+    mov word [cs:ems_cur_page - IMAGE_BASE], ax ; 0x4537
+    call ems_map_pages               ; 0x453b
     mov si, word [bp - 0x0002]       ; 0x453e
     and si, strict word 0x3ff        ; 0x4541
     mov cl, 4                        ; 0x4545
     shl si, cl                       ; 0x4547
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x4549
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x4549
     mov es, ax                       ; 0x454d
-    mov ax, word [cs:cseg_0103 - IMAGE_BASE] ; 0x454f
+    mov ax, word [cs:ems_frame_seg - IMAGE_BASE] ; 0x454f
     mov ds, ax                       ; 0x4553
     lodsw                            ; 0x4555
     mov word [bp - 0x0002], ax       ; 0x4556
@@ -123,21 +123,21 @@ restore_screen:
     rep movsb                        ; 0x456f
     test si, 0xc000                  ; 0x4571
     je short @..restore_screen.l8    ; 0x4575
-    inc word [cs:cseg_4440 - IMAGE_BASE] ; 0x4577
-    mov ax, word [cs:cseg_4440 - IMAGE_BASE] ; 0x457c
-    call leaf_loc_HLGJ               ; 0x4580
+    inc word [cs:ems_cur_page - IMAGE_BASE] ; 0x4577
+    mov ax, word [cs:ems_cur_page - IMAGE_BASE] ; 0x457c
+    call ems_map_pages               ; 0x4580
     and si, strict word 0x3fff       ; 0x4583
 @..restore_screen.l8:
     dec word [bp - 0x0004]           ; 0x4587
     jne short @..restore_screen.l7   ; 0x458a
     cmp word [bp + 0x10], byte 0     ; 0x458c
     je short @..restore_screen.l9    ; 0x4590
-    mov cx, word [cs:cseg_028f - IMAGE_BASE] ; 0x4592
+    mov cx, word [cs:ems_block_count - IMAGE_BASE] ; 0x4592
     dec cx                           ; 0x4597
-    mov word [cs:cseg_028f - IMAGE_BASE], cx ; 0x4598
+    mov word [cs:ems_block_count - IMAGE_BASE], cx ; 0x4598
     mov ax, word [bp + 0xc]          ; 0x459d
     shl ax, 1                        ; 0x45a0
-    mov bx, cseg_019b - IMAGE_BASE   ; 0x45a2
+    mov bx, ems_slots - IMAGE_BASE   ; 0x45a2
     add bx, ax                       ; 0x45a5
     mov ax, word [cs:bx]             ; 0x45a7
     mov word [cs:bx], 0              ; 0x45aa

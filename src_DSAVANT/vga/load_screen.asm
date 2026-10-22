@@ -52,7 +52,7 @@ load_screen:
     mov cl, 0xa                      ; 0x093d
     shr ax, cl                       ; 0x093f
     mov word [cs:cseg_3b8e - IMAGE_BASE], ax ; 0x0941
-    call leaf_loc_HLGJ               ; 0x0945
+    call ems_map_pages               ; 0x0945
     and si, strict word 0x3ff        ; 0x0948
     mov cl, 4                        ; 0x094c
     shl si, cl                       ; 0x094e
@@ -69,7 +69,7 @@ load_screen:
     and si, strict word 0x3fff       ; 0x0968
     inc word [cs:cseg_3b8e - IMAGE_BASE] ; 0x096c
     mov ax, word [cs:cseg_3b8e - IMAGE_BASE] ; 0x0971
-    call leaf_loc_HLGJ               ; 0x0975
+    call ems_map_pages               ; 0x0975
     pop cx                           ; 0x0978
     loop @..load_screen.l3           ; 0x0979
     mov cx, 0x3a00                   ; 0x097b

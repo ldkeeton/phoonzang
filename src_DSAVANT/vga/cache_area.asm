@@ -208,7 +208,7 @@ cache_area:
     mov cl, 0xa                      ; 0x3a53
     shr ax, cl                       ; 0x3a55
     mov word [cs:cseg_3b8e - IMAGE_BASE], ax ; 0x3a57
-    call leaf_loc_HLGJ               ; 0x3a5b
+    call ems_map_pages               ; 0x3a5b
     mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x3a5e
     mov ds, ax                       ; 0x3a62
     mov ax, word [bp + 0xe]          ; 0x3a64
@@ -236,7 +236,7 @@ cache_area:
     je short @..cache_area.l16       ; 0x3a97
     inc word [cs:cseg_3b8e - IMAGE_BASE] ; 0x3a99
     mov ax, word [cs:cseg_3b8e - IMAGE_BASE] ; 0x3a9e
-    call leaf_loc_HLGJ               ; 0x3aa2
+    call ems_map_pages               ; 0x3aa2
     and di, strict word 0x3fff       ; 0x3aa5
 @..cache_area.l16:
     dec word [bp - 0x0004]           ; 0x3aa9

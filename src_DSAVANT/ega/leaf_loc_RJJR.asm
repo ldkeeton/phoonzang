@@ -3,19 +3,19 @@ leaf_loc_RJJR:
     dec ax                           ; 0x4d55
     mov cl, 2                        ; 0x4d56
     shl ax, cl                       ; 0x4d58
-    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x4d5a
+    mov bx, maze_blocks - IMAGE_BASE ; 0x4d5a
     add bx, ax                       ; 0x4d5d
     mov word [bp - 0x0004], bx       ; 0x4d5f
     mov ax, word [cs:bx + 0x2]       ; 0x4d62
-    sub word [cs:cseg_10cd - IMAGE_BASE], ax ; 0x4d66
+    sub word [cs:maze_paras_used - IMAGE_BASE], ax ; 0x4d66
     mov word [bp - 0x0006], ax       ; 0x4d6b
 @..leaf_loc_RJJR.l1:
     mov bx, word [bp - 0x0004]       ; 0x4d6e
     mov dx, word [cs:bx]             ; 0x4d71
-    add dx, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x4d74
+    add dx, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x4d74
     mov es, dx                       ; 0x4d79
     mov dx, word [cs:bx + 0x4]       ; 0x4d7b
-    add dx, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x4d7f
+    add dx, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x4d7f
     mov ds, dx                       ; 0x4d84
     mov cx, word [cs:bx + 0x6]       ; 0x4d86
     or cx, cx                        ; 0x4d8a

@@ -8,7 +8,7 @@ invert_area:
     push di                          ; 0x0c4d
     mov ax, ds                       ; 0x0c4e
     mov es, ax                       ; 0x0c50
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0c52
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0c52
     mov es, ax                       ; 0x0c56
     mov ds, ax                       ; 0x0c58
     mov ax, word [bp + 0xe]          ; 0x0c5a

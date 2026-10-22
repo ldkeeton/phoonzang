@@ -15,7 +15,7 @@ show_area:
     mov es, ax                       ; 0x04c8
     call leaf_loc_LMQV               ; 0x04ca
     call graphics_loc_IMOU           ; 0x04cd
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x04d0
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x04d0
     mov ds, ax                       ; 0x04d4
     mov ax, 0xa000                   ; 0x04d6
     mov es, ax                       ; 0x04d9
@@ -93,7 +93,7 @@ show_area:
     add ax, strict word 0xf          ; 0x0589
     mov cl, 4                        ; 0x058c
     shr ax, cl                       ; 0x058e
-    add ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x0590
+    add ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x0590
     cmp ax, 0x4180                   ; 0x0595
     jae short @..show_area.l5        ; 0x0598
     cmp byte [bp - 0x0036], 0        ; 0x059a
@@ -163,8 +163,8 @@ show_area:
     pop bp                           ; 0x061c
     ret                              ; 0x061d
 @..show_area.l11:
-    mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x061e
-    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x0622
+    mov ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x061e
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x0622
     mov es, ax                       ; 0x0627
     mov ax, 0xa000                   ; 0x0629
     mov ds, ax                       ; 0x062c
@@ -340,7 +340,7 @@ show_area:
     dec bx                           ; 0x0779
     jne short @..show_area.l22       ; 0x077a
 @..show_area.l23:
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x077c
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x077c
     mov ds, ax                       ; 0x0780
     xor di, di                       ; 0x0782
     mov cx, word [bp - 0x0016]       ; 0x0784
@@ -485,8 +485,8 @@ show_area:
 @..show_area.l32:
     mov ax, 0xa000                   ; 0x08b9
     mov es, ax                       ; 0x08bc
-    mov ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x08be
-    add ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x08c2
+    mov ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x08be
+    add ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x08c2
     mov ds, ax                       ; 0x08c7
     xor si, si                       ; 0x08c9
     mov di, word [bp - 0x0002]       ; 0x08cb

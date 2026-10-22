@@ -8,33 +8,33 @@ loc_LQTO:
     dec ax                           ; 0x12c8
     mov cl, 2                        ; 0x12c9
     shl ax, cl                       ; 0x12cb
-    mov di, cseg_01eb - IMAGE_BASE   ; 0x12cd
+    mov di, ems_blocks - IMAGE_BASE  ; 0x12cd
     add di, ax                       ; 0x12d0
     mov si, word [cs:di]             ; 0x12d2
     mov ax, word [cs:di + 0x2]       ; 0x12d5
     mov word [cs:bx + 0x2], ax       ; 0x12d9
     mov word [bp - 0x0004], ax       ; 0x12dd
-    mov dx, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x12e0
-    add dx, word [cs:cseg_10cd - IMAGE_BASE] ; 0x12e5
+    mov dx, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x12e0
+    add dx, word [cs:maze_paras_used - IMAGE_BASE] ; 0x12e5
     mov word [bp - 0x000a], dx       ; 0x12ea
     mov es, dx                       ; 0x12ed
-    add word [cs:cseg_10cd - IMAGE_BASE], ax ; 0x12ef
-    mov ax, word [cs:cseg_0103 - IMAGE_BASE] ; 0x12f4
+    add word [cs:maze_paras_used - IMAGE_BASE], ax ; 0x12ef
+    mov ax, word [cs:ems_frame_seg - IMAGE_BASE] ; 0x12f4
     mov ds, ax                       ; 0x12f8
     mov ax, si                       ; 0x12fa
     mov cl, 0xa                      ; 0x12fc
     shr ax, cl                       ; 0x12fe
-    mov word [cs:cseg_4440 - IMAGE_BASE], ax ; 0x1300
-    call leaf_loc_HLGJ               ; 0x1304
+    mov word [cs:ems_cur_page - IMAGE_BASE], ax ; 0x1300
+    call ems_map_pages               ; 0x1304
     and si, strict word 0x3ff        ; 0x1307
     mov cl, 4                        ; 0x130b
     shl si, cl                       ; 0x130d
 loc_SMRK:
     test si, 0xc000                  ; 0x130f
     je short loc_IGPS                ; 0x1313
-    inc word [cs:cseg_4440 - IMAGE_BASE] ; 0x1315
-    mov ax, word [cs:cseg_4440 - IMAGE_BASE] ; 0x131a
-    call leaf_loc_HLGJ               ; 0x131e
+    inc word [cs:ems_cur_page - IMAGE_BASE] ; 0x1315
+    mov ax, word [cs:ems_cur_page - IMAGE_BASE] ; 0x131a
+    call ems_map_pages               ; 0x131e
     sub si, strict word 0x4000       ; 0x1321
 loc_IGPS:
     xor di, di                       ; 0x1325

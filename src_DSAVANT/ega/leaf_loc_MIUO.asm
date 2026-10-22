@@ -1,7 +1,7 @@
 ; auto-generated
 leaf_loc_MIUO:
     push ax                          ; 0x1355
-    mov bx, cseg_019b - IMAGE_BASE   ; 0x1356
+    mov bx, ems_slots - IMAGE_BASE   ; 0x1356
     mov cx, 0x14                     ; 0x1359
 @..leaf_loc_MIUO.l1:
     cmp ax, word [cs:bx]             ; 0x135c

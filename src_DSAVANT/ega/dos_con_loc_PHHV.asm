@@ -1,5 +1,5 @@
 ; auto-generated
-dos_con_loc_GKKQ:
+dos_con_loc_PHHV:
     mov ah, 9                        ; 0x4370
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x4374

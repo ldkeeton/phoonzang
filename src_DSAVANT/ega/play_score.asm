@@ -27,7 +27,7 @@ play_score:
     dec ax                           ; 0x5075
     shl ax, 1                        ; 0x5076
     shl ax, 1                        ; 0x5078
-    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x507a
+    mov bx, maze_blocks - IMAGE_BASE ; 0x507a
     add bx, ax                       ; 0x507d
     mov word [bp - 0x0004], bx       ; 0x507f
     push word [bp - 0x0008]          ; 0x5082
@@ -35,7 +35,7 @@ play_score:
     cmp word [bp - 0x0006], byte 0   ; 0x5087
     je short @..play_score.l1        ; 0x508b
     mov ax, word [cs:bx]             ; 0x508d
-    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x5090
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x5090
 @..play_score.l1:
     push ax                          ; 0x5095
     xor ax, ax                       ; 0x5096
@@ -49,7 +49,7 @@ play_score:
     push word [bp + 0x12]            ; 0x50af
     mov bx, word [bp - 0x0004]       ; 0x50b2
     mov ax, word [cs:bx]             ; 0x50b5
-    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x50b8
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x50b8
     push ax                          ; 0x50bd
     push word [bp - 0x0006]          ; 0x50be
     call far [cs:cseg_0106 - IMAGE_BASE] ; 0x50c1

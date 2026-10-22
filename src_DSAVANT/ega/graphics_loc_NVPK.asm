@@ -1,7 +1,7 @@
 ; auto-generated
 graphics_loc_NVPK:
     push es                          ; 0x3a8b
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x3a8c
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x3a8c
     mov es, ax                       ; 0x3a90
     mov ax, cseg_3605 - IMAGE_BASE   ; 0x3a92
     mov word [bp - 0x0036], ax       ; 0x3a95
@@ -51,7 +51,7 @@ graphics_loc_NVPK:
     mov cx, word [bp - 0x0002]       ; 0x3aff
 @..graphics_loc_NVPK.l6:
     push cx                          ; 0x3b02
-    call leaf_loc_VGLT               ; 0x3b03
+    call leaf_loc_KSJN               ; 0x3b03
     mov bx, word [bp - 0x000c]       ; 0x3b06
     mov al, byte [bx]                ; 0x3b09
     and al, byte [bp - 0x000a]       ; 0x3b0b

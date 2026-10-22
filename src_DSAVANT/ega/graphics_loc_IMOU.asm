@@ -96,7 +96,7 @@ graphics_loc_IMOU:
     shl dx, cl                       ; 0x0a4e
     not dl                           ; 0x0a50
     mov byte [bp - 0x0022], dl       ; 0x0a52
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0a55
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0a55
     mov ds, ax                       ; 0x0a59
     mov ax, cs                       ; 0x0a5b
     mov es, ax                       ; 0x0a5d
@@ -165,7 +165,7 @@ graphics_loc_IMOU:
 @..graphics_loc_IMOU.l11:
     mov ax, cs                       ; 0x0b05
     mov es, ax                       ; 0x0b07
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0b09
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0b09
     mov ds, ax                       ; 0x0b0d
     mov ax, word [cs:cseg_1adb - IMAGE_BASE] ; 0x0b0f
     mov bx, 0x140                    ; 0x0b13
@@ -183,7 +183,7 @@ graphics_loc_IMOU:
     add si, strict word 0x140        ; 0x0b33
     pop cx                           ; 0x0b37
     loop @..graphics_loc_IMOU.l12    ; 0x0b38
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0b3a
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0b3a
     mov es, ax                       ; 0x0b3e
     mov ax, word [cs:cseg_1adb - IMAGE_BASE] ; 0x0b40
     mov bx, 0x140                    ; 0x0b44

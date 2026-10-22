@@ -19,18 +19,18 @@ load_sound:
     je short @..load_sound.l1        ; 0x4a29
     jmp near @..load_sound.l4        ; 0x4a2b
 @..load_sound.l1:
-    mov ax, word [cs:cseg_10cb - IMAGE_BASE] ; 0x4a2e
+    mov ax, word [cs:maze_block_count - IMAGE_BASE] ; 0x4a2e
     inc ax                           ; 0x4a32
-    mov word [cs:cseg_10cb - IMAGE_BASE], ax ; 0x4a33
+    mov word [cs:maze_block_count - IMAGE_BASE], ax ; 0x4a33
     mov bx, word [bp - 0x0002]       ; 0x4a37
     mov word [cs:bx], ax             ; 0x4a3a
     dec ax                           ; 0x4a3d
     mov cl, 2                        ; 0x4a3e
     shl ax, cl                       ; 0x4a40
-    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x4a42
+    mov bx, maze_blocks - IMAGE_BASE ; 0x4a42
     add bx, ax                       ; 0x4a45
     mov word [bp - 0x000a], bx       ; 0x4a47
-    mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x4a4a
+    mov ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x4a4a
     mov word [cs:bx], ax             ; 0x4a4e
     mov ah, 0x42                     ; 0x4a51
     mov al, 2                        ; 0x4a53
@@ -68,12 +68,12 @@ load_sound:
     shr ax, cl                       ; 0x4aa0
     mov bx, word [bp - 0x000a]       ; 0x4aa2
     mov word [cs:bx + 0x2], ax       ; 0x4aa5
-    add ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x4aa9
+    add ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x4aa9
     cmp ax, 0x4180                   ; 0x4aae
     jae short loc_4b16               ; 0x4ab1
-    mov word [cs:cseg_10cd - IMAGE_BASE], ax ; 0x4ab3
+    mov word [cs:maze_paras_used - IMAGE_BASE], ax ; 0x4ab3
     mov ax, word [cs:bx]             ; 0x4ab7
-    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x4aba
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x4aba
     mov ds, ax                       ; 0x4abf
     xor dx, dx                       ; 0x4ac1
     mov bx, word [bp + 0xc]          ; 0x4ac3

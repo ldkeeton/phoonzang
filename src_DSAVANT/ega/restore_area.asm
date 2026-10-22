@@ -14,7 +14,7 @@ restore_area:
     mov si, word [bp + 0xc]          ; 0x0d6a
     or ax, si                        ; 0x0d6d
     je short @..restore_area.l2      ; 0x0d6f
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0d71
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0d71
     mov es, ax                       ; 0x0d75
     lodsw                            ; 0x0d77
     mov word [bp - 0x0002], ax       ; 0x0d78

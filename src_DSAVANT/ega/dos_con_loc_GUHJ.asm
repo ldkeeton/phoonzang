@@ -1,5 +1,5 @@
 ; auto-generated
-dos_con_loc_NQOR:
+dos_con_loc_GUHJ:
     mov ah, 9                        ; 0x43a7
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x43ab

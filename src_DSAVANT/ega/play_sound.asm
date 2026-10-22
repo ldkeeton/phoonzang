@@ -34,13 +34,13 @@ play_sound:
     push ax                          ; 0x4e1c
     xor ax, ax                       ; 0x4e1d
     push ax                          ; 0x4e1f
-    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x4e20
+    mov bx, maze_blocks - IMAGE_BASE ; 0x4e20
     mov ax, word [bp - 0x0004]       ; 0x4e23
     shl ax, 1                        ; 0x4e26
     shl ax, 1                        ; 0x4e28
     add bx, ax                       ; 0x4e2a
     mov ax, word [cs:bx]             ; 0x4e2c
-    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x4e2f
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x4e2f
     push ax                          ; 0x4e34
     xor ax, ax                       ; 0x4e35
     push ax                          ; 0x4e37

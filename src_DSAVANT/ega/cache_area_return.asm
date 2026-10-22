@@ -1,5 +1,5 @@
 ; auto-generated
-loc_4398:
+cache_area_return:
     pop si                           ; 0x4398
     pop di                           ; 0x4399
     pop ds                           ; 0x439a

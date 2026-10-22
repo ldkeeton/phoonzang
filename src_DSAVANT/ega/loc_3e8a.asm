@@ -34,7 +34,7 @@ loc_3ed2:
     mov cx, word [bp - 0x0002]       ; 0x3edc
 loc_3edf:
     push cx                          ; 0x3edf
-    call leaf_loc_VGLT               ; 0x3ee0
+    call leaf_loc_KSJN               ; 0x3ee0
     mov bx, word [bp - 0x000c]       ; 0x3ee3
     mov al, byte [bx]                ; 0x3ee6
     and al, byte [bp - 0x000a]       ; 0x3ee8

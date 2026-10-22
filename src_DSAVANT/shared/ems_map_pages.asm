@@ -1,5 +1,5 @@
 ; auto-generated
-leaf_loc_HLGJ:
+ems_map_pages:
     push ax
     mov ah, 0x44
     mov al, 0

@@ -19,18 +19,18 @@ load_picture:
     je short @..load_picture.l1      ; 0x30a5
     jmp near @..load_picture.l7      ; 0x30a7
 @..load_picture.l1:
-    mov ax, word [cs:cseg_10cb - IMAGE_BASE] ; 0x30aa
+    mov ax, word [cs:maze_block_count - IMAGE_BASE] ; 0x30aa
     inc ax                           ; 0x30ae
-    mov word [cs:cseg_10cb - IMAGE_BASE], ax ; 0x30af
+    mov word [cs:maze_block_count - IMAGE_BASE], ax ; 0x30af
     mov bx, word [bp - 0x0002]       ; 0x30b3
     mov word [cs:bx], ax             ; 0x30b6
     dec ax                           ; 0x30b9
     mov cl, 2                        ; 0x30ba
     shl ax, cl                       ; 0x30bc
-    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x30be
+    mov bx, maze_blocks - IMAGE_BASE ; 0x30be
     add bx, ax                       ; 0x30c1
     mov word [bp - 0x0002], bx       ; 0x30c3
-    mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x30c6
+    mov ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x30c6
     mov word [cs:bx], ax             ; 0x30ca
     mov ax, word [cs:cseg_00e9 - IMAGE_BASE] ; 0x30cd
     mov ds, ax                       ; 0x30d1
@@ -50,17 +50,17 @@ load_picture:
     shr ax, cl                       ; 0x30f4
     shl dl, cl                       ; 0x30f6
     or ah, dl                        ; 0x30f8
-    add word [cs:cseg_10cd - IMAGE_BASE], ax ; 0x30fa
+    add word [cs:maze_paras_used - IMAGE_BASE], ax ; 0x30fa
     mov bx, word [bp - 0x0002]       ; 0x30ff
     mov word [cs:bx + 0x2], ax       ; 0x3102
-    mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x3106
+    mov ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x3106
     cmp ax, 0x4180                   ; 0x310a
     jb short @..load_picture.l2      ; 0x310d
     jmp near loc_31a6                ; 0x310f
 @..load_picture.l2:
     mov bx, word [bp - 0x0002]       ; 0x3112
     mov ax, word [cs:bx]             ; 0x3115
-    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x3118
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x3118
     mov ds, ax                       ; 0x311d
 @..load_picture.l3:
     mov cx, word [bp - 0x0004]       ; 0x311f

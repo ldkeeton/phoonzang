@@ -23,22 +23,22 @@ save_screen:
     je short @..save_screen.l2       ; 0x0ee4
     jmp near dos_con_loc_KOIJ        ; 0x0ee6
 @..save_screen.l2:
-    mov ax, word [cs:cseg_10cb - IMAGE_BASE] ; 0x0ee9
+    mov ax, word [cs:maze_block_count - IMAGE_BASE] ; 0x0ee9
     inc ax                           ; 0x0eed
-    mov word [cs:cseg_10cb - IMAGE_BASE], ax ; 0x0eee
+    mov word [cs:maze_block_count - IMAGE_BASE], ax ; 0x0eee
     mov word [cs:bx], ax             ; 0x0ef2
     mov cl, 2                        ; 0x0ef5
     dec ax                           ; 0x0ef7
     shl ax, cl                       ; 0x0ef8
-    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x0efa
+    mov bx, maze_blocks - IMAGE_BASE ; 0x0efa
     add bx, ax                       ; 0x0efd
-    mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x0eff
+    mov ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x0eff
     mov word [cs:bx], ax             ; 0x0f03
     mov cx, 0xfa0                    ; 0x0f06
     mov word [cs:bx + 0x2], cx       ; 0x0f09
-    mov dx, word [cs:cseg_10cd - IMAGE_BASE] ; 0x0f0d
+    mov dx, word [cs:maze_paras_used - IMAGE_BASE] ; 0x0f0d
     add dx, cx                       ; 0x0f12
-    mov word [cs:cseg_10cd - IMAGE_BASE], dx ; 0x0f14
+    mov word [cs:maze_paras_used - IMAGE_BASE], dx ; 0x0f14
     cmp dx, strict word 0x4180       ; 0x0f19
     jb short @..save_screen.l3       ; 0x0f1d
     jmp near dos_con_loc_UNVT        ; 0x0f1f
@@ -52,12 +52,12 @@ save_screen:
     dec ax                           ; 0x0f31
     mov cl, 2                        ; 0x0f32
     shl ax, cl                       ; 0x0f34
-    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x0f36
+    mov bx, maze_blocks - IMAGE_BASE ; 0x0f36
     add bx, ax                       ; 0x0f39
     mov ax, word [cs:bx]             ; 0x0f3b
-    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x0f3e
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x0f3e
     mov es, ax                       ; 0x0f43
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0f45
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0f45
     mov ds, ax                       ; 0x0f49
     xor di, di                       ; 0x0f4b
     xor si, si                       ; 0x0f4d
@@ -65,7 +65,7 @@ save_screen:
     rep movsb                        ; 0x0f52
     jmp short @..save_screen.l5      ; 0x0f54
 @..save_screen.l4:
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0f56
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0f56
     mov ds, ax                       ; 0x0f5a
     xor dx, dx                       ; 0x0f5c
     mov bx, word [bp + 0xc]          ; 0x0f5e

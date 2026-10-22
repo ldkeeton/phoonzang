@@ -12,7 +12,7 @@ cache_screen:
     mov ax, word [bp + 0xc]          ; 0x4833
     test ah, 0x80                    ; 0x4836
     je short @..cache_screen.l1      ; 0x4839
-    dec word [cs:cseg_028f - IMAGE_BASE] ; 0x483b
+    dec word [cs:ems_block_count - IMAGE_BASE] ; 0x483b
     mov ax, word [bp + 0xe]          ; 0x4840
     shl ax, 1                        ; 0x4843
     mov bx, cseg_01d7 - IMAGE_BASE   ; 0x4845
@@ -41,23 +41,23 @@ cache_screen:
     je short @..cache_screen.l3      ; 0x4880
     jmp near @..cache_screen.l9      ; 0x4882
 @..cache_screen.l3:
-    inc word [cs:cseg_028f - IMAGE_BASE] ; 0x4885
-    mov ax, word [cs:cseg_028f - IMAGE_BASE] ; 0x488a
+    inc word [cs:ems_block_count - IMAGE_BASE] ; 0x4885
+    mov ax, word [cs:ems_block_count - IMAGE_BASE] ; 0x488a
     mov word [cs:bx], ax             ; 0x488e
     dec ax                           ; 0x4891
     mov cl, 2                        ; 0x4892
     shl ax, cl                       ; 0x4894
-    mov bx, cseg_01eb - IMAGE_BASE   ; 0x4896
+    mov bx, ems_blocks - IMAGE_BASE  ; 0x4896
     add bx, ax                       ; 0x4899
     mov word [bp - 0x0002], bx       ; 0x489b
-    mov ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x489e
+    mov ax, word [cs:ems_paras_used - IMAGE_BASE] ; 0x489e
     mov word [cs:bx], ax             ; 0x48a2
     mov ax, 0xfa0                    ; 0x48a5
     mov word [cs:bx + 0x2], ax       ; 0x48a8
-    mov di, word [cs:cseg_0291 - IMAGE_BASE] ; 0x48ac
-    add word [cs:cseg_0291 - IMAGE_BASE], ax ; 0x48b1
-    mov ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x48b6
-    cmp ax, word [cs:cseg_00ff - IMAGE_BASE] ; 0x48ba
+    mov di, word [cs:ems_paras_used - IMAGE_BASE] ; 0x48ac
+    add word [cs:ems_paras_used - IMAGE_BASE], ax ; 0x48b1
+    mov ax, word [cs:ems_paras_used - IMAGE_BASE] ; 0x48b6
+    cmp ax, word [cs:ems_para_limit - IMAGE_BASE] ; 0x48ba
     jbe short @..cache_screen.l4     ; 0x48bf
     jmp near loc_497d                ; 0x48c1
 @..cache_screen.l4:
@@ -66,8 +66,8 @@ cache_screen:
     mov ax, di                       ; 0x48ca
     mov cl, 0xa                      ; 0x48cc
     shr ax, cl                       ; 0x48ce
-    mov word [cs:cseg_4440 - IMAGE_BASE], ax ; 0x48d0
-    call leaf_loc_HLGJ               ; 0x48d4
+    mov word [cs:ems_cur_page - IMAGE_BASE], ax ; 0x48d0
+    call ems_map_pages               ; 0x48d4
     and di, strict word 0x3ff        ; 0x48d7
     mov cl, 4                        ; 0x48db
     shl di, cl                       ; 0x48dd
@@ -76,9 +76,9 @@ cache_screen:
     test dx, 0xc000                  ; 0x48e1
     je short @..cache_screen.l6      ; 0x48e5
     sub di, strict word 0x4000       ; 0x48e7
-    inc word [cs:cseg_4440 - IMAGE_BASE] ; 0x48eb
-    mov ax, word [cs:cseg_4440 - IMAGE_BASE] ; 0x48f0
-    call leaf_loc_HLGJ               ; 0x48f4
+    inc word [cs:ems_cur_page - IMAGE_BASE] ; 0x48eb
+    mov ax, word [cs:ems_cur_page - IMAGE_BASE] ; 0x48f0
+    call ems_map_pages               ; 0x48f4
 @..cache_screen.l6:
     mov ax, word [bp - 0x0006]       ; 0x48f7
     or ax, ax                        ; 0x48fa
@@ -90,7 +90,7 @@ cache_screen:
 @..cache_screen.l7:
     sub ax, cx                       ; 0x4907
     mov word [bp - 0x0006], ax       ; 0x4909
-    mov ax, word [cs:cseg_0103 - IMAGE_BASE] ; 0x490c
+    mov ax, word [cs:ems_frame_seg - IMAGE_BASE] ; 0x490c
     mov es, ax                       ; 0x4910
     mov ax, word [cs:cseg_00e9 - IMAGE_BASE] ; 0x4912
     mov ds, ax                       ; 0x4916

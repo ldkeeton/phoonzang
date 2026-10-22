@@ -2,7 +2,7 @@
 leaf_loc_KNIM:
     cmp byte [cs:cseg_0948 - IMAGE_BASE], 0 ; 0x0b91
     je short @..leaf_loc_KNIM.l2     ; 0x0b97
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0b99
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0b99
     mov es, ax                       ; 0x0b9d
     mov ax, cs                       ; 0x0b9f
     mov ds, ax                       ; 0x0ba1

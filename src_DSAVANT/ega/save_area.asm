@@ -32,7 +32,7 @@ save_area:
 @..save_area.l1:
     mov es, ax                       ; 0x0cda
     xor di, di                       ; 0x0cdc
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0cde
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0cde
     mov ds, ax                       ; 0x0ce2
     mov ax, word [bp + 0xe]          ; 0x0ce4
     mov bx, 0x140                    ; 0x0ce7
