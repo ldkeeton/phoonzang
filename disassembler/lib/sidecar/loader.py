@@ -12,6 +12,10 @@ from .ranges import _reject_range_conflicts, _validate_ranges
 from .routines import _validate_routines
 from .vendor import _validate_vendor_patches
 
+#: The text of each sidecar already validated, by path: a build loads the same
+#: file hundreds of times, and only changed text needs checking again.
+_validated = {}
+
 
 def load(project):
     """Load the sidecar for *project* (e.g. ``DSAVANT``).
@@ -25,12 +29,15 @@ def load(project):
         return None
 
     with open(path) as f:
-        try:
-            data = json.load(f)
-        except json.JSONDecodeError as e:
-            raise SidecarError(f'{path}: {e}') from e
+        text = f.read()
+    try:
+        data = json.loads(text)
+    except json.JSONDecodeError as e:
+        raise SidecarError(f'{path}: {e}') from e
 
-    _validate(data)
+    if _validated.get(path) != text:
+        _validate(data)
+        _validated[path] = text
     return data
 
 

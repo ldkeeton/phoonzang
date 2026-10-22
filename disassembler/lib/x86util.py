@@ -70,11 +70,29 @@ def is_indirect(insn):
 _MAX_INSN = 15
 
 
+#: The last ``bytes`` decoded and its instructions (or None) by offset: each
+#: classify iteration, and the prune after it, walks much of the same code.
+_decoded = (None, {})
+
+
+def _decode_at(md, data, off):
+    """The instruction at *off*, decoded once per offset of immutable *data*."""
+    global _decoded
+    if _decoded[0] is not data:
+        if not isinstance(data, bytes):
+            return next(md.disasm(data[off:off + _MAX_INSN], off, 1), None)
+        _decoded = (data, {})
+    cache = _decoded[1]
+    if off not in cache:
+        cache[off] = next(md.disasm(data[off:off + _MAX_INSN], off, 1), None)
+    return cache[off]
+
+
 def disasm_one(data, off, md=None):
     if md is None:
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
-    return next(md.disasm(data[off:off + _MAX_INSN], off, 1), None)
+    return _decode_at(md, data, off)
 
 
 def decode_from(md, data, off):
@@ -85,7 +103,7 @@ def decode_from(md, data, off):
     tail; this decodes one instruction at a time.
     """
     while off < len(data):
-        insn = next(md.disasm(data[off:off + _MAX_INSN], off, 1), None)
+        insn = _decode_at(md, data, off)
         if insn is None:
             return
         yield insn

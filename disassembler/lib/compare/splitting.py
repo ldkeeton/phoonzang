@@ -1,6 +1,8 @@
 """Function split-range selection and record partitioning."""
 
 import re
+from bisect import bisect_left, bisect_right
+from itertools import accumulate
 
 from lib.compare.records import _record_span
 from lib.names import is_address_label, is_data
@@ -155,6 +157,12 @@ def _extend_split_ranges_with_local_tails(split_ranges, records, fixed=()):
 
     labels_at = {}
     records_at = {}
+    # (offset, text) of each instruction, in offset order, for the
+    # "is a local label referenced inside the range" test below.
+    insns = sorted((rec.get('offset', -1), rec.get('text', ''))
+                   for rec in records
+                   if rec.get('type') in ('mnem', 'db_with_comment'))
+    insn_offsets = [off for off, _ in insns]
     for rec in records:
         if rec['type'] == 'label':
             labels_at.setdefault(rec['offset'], []).append(rec['name'])
@@ -173,10 +181,9 @@ def _extend_split_ranges_with_local_tails(split_ranges, records, fixed=()):
                 label for label in labels_at.get(end, ()) if scoped(label, name)
             ]
             referenced = any(
-                rec.get('type') in ('mnem', 'db_with_comment')
-                and start <= rec.get('offset', -1) < end
-                and any(label in rec.get('text', '') for label in local_labels)
-                for rec in records
+                any(label in text for label in local_labels)
+                for _, text in insns[bisect_left(insn_offsets, start):
+                                     bisect_left(insn_offsets, end)]
             )
             if not local_labels or not referenced:
                 break
@@ -426,19 +433,24 @@ def _partition_function_records(records, split_ranges, split_dir, bands=(),
     # in the master file instead of failing the entire project build.
     ranges = []
     candidates = sorted(split_ranges, key=lambda item: item[0])
+    # The non-label records' spans by start, and the furthest end reached by
+    # any of them up to each one, so a range's records are found by bisection.
+    extents = sorted((*_record_span(rec), rec['type'] == 'data_block')
+                     for rec in records if rec['type'] != 'label')
+    extent_starts = [rec_start for rec_start, _, _ in extents]
+    reach = list(accumulate((rec_end for _, rec_end, _ in extents), max))
     for start, end, name in candidates:
         if start >= end:
             continue
         spans = []
         safe = True
-        for rec in records:
-            if rec['type'] == 'label':
+        i = bisect_left(extent_starts, end) - 1
+        while i >= 0 and reach[i] > start:
+            rec_start, rec_end, is_block = extents[i]
+            i -= 1
+            if rec_end <= start:
                 continue
-            rec_start, rec_end = _record_span(rec)
-            if rec_start >= end or rec_end <= start:
-                continue
-            if rec['type'] != 'data_block' and (
-                    rec_start < start or rec_end > end):
+            if not is_block and (rec_start < start or rec_end > end):
                 safe = False
                 break
             spans.append((max(start, rec_start), min(end, rec_end)))
@@ -480,23 +492,26 @@ def _partition_function_records(records, split_ranges, split_dir, bands=(),
     split_records = {name: [] for _, _, name in ranges}
     split_bytes = {name: 0 for _, _, name in ranges}
     include_inserted = set()
+    # The ranges are sorted and disjoint, so their starts and ends both are.
+    range_starts = [start for start, _, _ in ranges]
+    range_ends = [end for _, end, _ in ranges]
 
     for rec in records:
         rec_start, rec_end = _record_span(rec)
         owner = None
-        for start, end, name in ranges:
-            if rec['type'] == 'label':
-                if start <= rec_start < end:
-                    owner = (start, end, name)
-                    break
-            elif rec_start < end and rec_end > start:
+        if rec['type'] == 'label':
+            i = bisect_right(range_starts, rec_start) - 1
+            if i >= 0 and rec_start < range_ends[i]:
+                owner = ranges[i]
+        else:
+            i = bisect_right(range_ends, rec_start)
+            if i < len(ranges) and range_starts[i] < rec_end:
+                start, end, name = owner = ranges[i]
                 if rec_start < start or rec_end > end:
                     raise ValueError(
                         f'{name}: function boundary 0x{start:x}-0x{end:x} '
                         f'splits emitted record at 0x{rec_start:x}-0x{rec_end:x}'
                     )
-                owner = (start, end, name)
-                break
 
         if owner is None:
             main_records.append(rec)

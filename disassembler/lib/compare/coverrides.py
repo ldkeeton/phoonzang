@@ -426,8 +426,10 @@ def _split_data_block(records, at, binary_data):
     Returns None, or the end of a record of another kind straddling *at*.
     """
     for index, rec in enumerate(records):
+        if rec['type'] == 'label':
+            continue
         rec_start, rec_end = _record_span(rec)
-        if rec['type'] == 'label' or not rec_start < at < rec_end:
+        if not rec_start < at < rec_end:
             continue
         if rec['type'] != 'data_block':
             return rec_end
@@ -572,6 +574,11 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
     # What the linked C replaced, and the names it prints in their place.
     linked_spans = []
     linked_names = set()
+    # The loop below only splits data blocks, so the labels and the jump
+    # tables it looks up stay as they are here.
+    label_records = [r for r in records if r['type'] == 'label']
+    label_addrs = {r['name']: r['offset'] for r in label_records}
+    table_records = [r for r in records if r['type'] == 'jump_table']
     for label, override in list(c_overrides.items()):
         # A vendor module starts at its own first byte, which may come before
         # its first routine (``csav.asm``'s ``dw $begin``).
@@ -652,12 +659,11 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         final[:len(compiled)] = compiled
         if len(compiled) < length:
             final[len(compiled):length] = b'\x90' * (length - len(compiled))
-        labels_in = [r for r in records
-                     if r['type'] == 'label' and start < r['offset'] < end]
+        labels_in = [r for r in label_records if start < r['offset'] < end]
         # Bytes before the module's first routine are data the disassembly
         # already renders (the gate has checked them): they stay as they are.
         head = [r for r in records if r['type'] != 'label'
-                and start <= _record_span(r)[0] < start + lead]
+                and start <= _record_span(r)[0] < start + lead] if lead else []
         if linked is not None:
             linked.consumed.update(site for site in linked.refs if site < lead)
             # Branch labels follow the code the compiler produced.
@@ -682,8 +688,8 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         labels_in = labels_in + derived
         # A ``switch`` table in the code: the disassembly's record says where
         # it is, and the record prints its own label.
-        tables = [r for r in records if r['type'] == 'jump_table'
-                  and start + lead <= r['start'] and r['end'] <= end]
+        tables = [r for r in table_records
+                  if start + lead <= r['start'] and r['end'] <= end]
         table_starts = {r['start'] for r in tables}
         labels_in = [r for r in labels_in if not (
             r['offset'] in table_starts
@@ -696,8 +702,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
             linked=linked, skip=lead, data_spans=spans,
             label_offsets=[r['offset'] for r in labels_in], jump_tables=tables,
-            label_addrs={r['name']: r['offset'] for r in records
-                         if r['type'] == 'label'})
+            label_addrs=label_addrs)
         if linked is not None:
             _check_linked(label, linked)
             linked_spans.append((start + lead, end))
