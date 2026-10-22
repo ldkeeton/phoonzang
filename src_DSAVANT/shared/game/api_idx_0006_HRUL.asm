@@ -38,22 +38,22 @@ api_idx_0006_HRUL:
 @..api_idx_0006_HRUL.l3:
     jmp short @..api_idx_0006_HRUL.l5
 @..api_idx_0006_HRUL.l4:
-    mov ax, word [bss_906c]
+    mov ax, word [screen_cache_index]
     inc ax
     mov cx, 2
     cwd
     idiv cx
-    mov word [bss_906c], dx
+    mov word [screen_cache_index], dx
 @..api_idx_0006_HRUL.l5:
     mov ax, 0
     push ax
     push ax
-    mov ax, word [bss_906c]
+    mov ax, word [screen_cache_index]
     shl ax, 1
     shl ax, 1
     mov bx, ax
     push word [bx + bss_9062]
-    push word [bx + bss_9060]
+    push word [bx + screen_cache]
     call gfx_restore_screen
     add sp, byte 8
     mov word [bp - 0x0002], 0

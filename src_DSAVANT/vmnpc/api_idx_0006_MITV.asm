@@ -128,7 +128,7 @@ api_idx_0006_MITV:
     mov ax, 1                        ; 0x73ed
     push ax                          ; 0x73f0
     push word [bss_9062]             ; 0x73f1
-    push word [bss_9060]             ; 0x73f5
+    push word [screen_cache]         ; 0x73f5
     call gfx_restore_screen          ; 0x73f9
     add sp, byte 8                   ; 0x73fc
     ret                              ; 0x73ff

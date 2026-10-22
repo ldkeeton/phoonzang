@@ -35,25 +35,25 @@ bss_9180 equ __zdseg_end + (__zobss_9180 - __zdata_start)
 
 %include "shared/game/api_idx_0002_OTTG.asm"     ; 0x021c
 
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-dseg_90a5 equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
-dseg_90b2 equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
-dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)
-dseg_90cc equ __zdseg_end + (__zdseg_90cc - __zdata_start)
-dseg_90d9 equ __zdseg_end + (__zdseg_90d9 - __zdata_start)
-dseg_90e6 equ __zdseg_end + (__zdseg_90e6 - __zdata_start)
-dseg_90f3 equ __zdseg_end + (__zdseg_90f3 - __zdata_start)
-dseg_9100 equ __zdseg_end + (__zdseg_9100 - __zdata_start)
-dseg_910d equ __zdseg_end + (__zdseg_910d - __zdata_start)
-dseg_911a equ __zdseg_end + (__zdseg_911a - __zdata_start)
-dseg_9127 equ __zdseg_end + (__zdseg_9127 - __zdata_start)
-dseg_9134 equ __zdseg_end + (__zdseg_9134 - __zdata_start)
-dseg_9141 equ __zdseg_end + (__zdseg_9141 - __zdata_start)
-dseg_914e equ __zdseg_end + (__zdseg_914e - __zdata_start)
-dseg_915b equ __zdseg_end + (__zdseg_915b - __zdata_start)
-dseg_9168 equ __zdseg_end + (__zdseg_9168 - __zdata_start)
-; bss_9180  equ __zdseg_end + (__zobss_9180 - __zdata_start)
-bss_9188  equ __zdseg_end + (__zobss_9188 - __zdata_start)
+dseg_9098          equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+dseg_90a5          equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
+dseg_90b2          equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
+dseg_90bf          equ __zdseg_end + (__zdseg_90bf - __zdata_start)
+dseg_90cc          equ __zdseg_end + (__zdseg_90cc - __zdata_start)
+dseg_90d9          equ __zdseg_end + (__zdseg_90d9 - __zdata_start)
+dseg_90e6          equ __zdseg_end + (__zdseg_90e6 - __zdata_start)
+dseg_90f3          equ __zdseg_end + (__zdseg_90f3 - __zdata_start)
+dseg_9100          equ __zdseg_end + (__zdseg_9100 - __zdata_start)
+dseg_910d          equ __zdseg_end + (__zdseg_910d - __zdata_start)
+pending_panel_call equ __zdseg_end + (__zpending_panel_call - __zdata_start)
+dseg_9127          equ __zdseg_end + (__zdseg_9127 - __zdata_start)
+dseg_9134          equ __zdseg_end + (__zdseg_9134 - __zdata_start)
+dseg_9141          equ __zdseg_end + (__zdseg_9141 - __zdata_start)
+dseg_914e          equ __zdseg_end + (__zdseg_914e - __zdata_start)
+dseg_915b          equ __zdseg_end + (__zdseg_915b - __zdata_start)
+dseg_9168          equ __zdseg_end + (__zdseg_9168 - __zdata_start)
+; bss_9180           equ __zdseg_end + (__zobss_9180 - __zdata_start)
+bss_9188           equ __zdseg_end + (__zobss_9188 - __zdata_start)
 %include "vmext/api_idx_0002_VNLG.asm"     ; 0x0262
 
 %include "shared/game/loc_QQOI.asm"              ; 0x059a
@@ -312,8 +312,8 @@ __zdseg_9100:
     db 'TILEDATA.VGA', 0
 __zdseg_910d:
     db 'TREEDATA.VGA', 0
-__zdseg_911a:
-    db 'OCAVDATA.VGA', 0
+%include "vmext/data/pending_panel_call.asm" ; 0x52db
+
 __zdseg_9127:
     db 'CAVEDATA.VGA', 0
 __zdseg_9134:

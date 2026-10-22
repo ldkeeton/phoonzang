@@ -11,6 +11,7 @@ whose routine the sidecar renamed is an orphan the build refuses.
 asm and source reference, with the sidecar entry each one resolves to.
 """
 
+import functools
 import json
 import os
 import re
@@ -389,9 +390,148 @@ def referenced(text, routine, is_routine):
     return seen
 
 
-def cmd_refs(project, binary, routine):
-    """Print the address-named and content-tagged symbols *routine*
-    references (asm and source), each with the sidecar entry it resolves to."""
+#: A raw absolute memory displacement in the asm (``[bx + 0x6eb5]``).
+_RAW_MEM = re.compile(r'\[\s*([^\]]*?)\b0x([0-9a-fA-F]{4,5})\s*\]')
+_WORD_USE = re.compile(r'\b(byte|word|dword)\s*\[')
+
+
+def _model_for(project, binary):
+    from .inspect import binary_bytes, load_context, segment_model
+    data, _ = binary_bytes(project, binary)
+    if data is None:
+        return None
+    return segment_model(project, binary, data, load_context(project, binary))
+
+
+_DEF_LINE = re.compile(r'^[ \t]*([A-Za-z_]\w*)[ \t]*(?::|[ \t]+equ\b)')
+
+
+@functools.lru_cache(maxsize=None)
+def _definition_index(project):
+    """``{symbol: relative asm path}`` for every label/equ the tree spells."""
+    top = src_dir(project, PROJECT)
+    out = {}
+    for dirpath, dirs, files in os.walk(top):
+        dirs[:] = [d for d in dirs if d not in ('build_out', 'inc')]
+        for filename in sorted(files):
+            if not filename.endswith('.asm'):
+                continue
+            path = os.path.join(dirpath, filename)
+            rel = os.path.relpath(path, PROJECT)
+            with open(path) as f:
+                for line in f:
+                    hit = _DEF_LINE.match(line)
+                    if hit:
+                        out.setdefault(hit.group(1), rel)
+    return out
+
+
+def _data_defined_in(project, sym):
+    """The asm file that spells *sym*, or None when nothing defines it yet."""
+    return _definition_index(project).get(sym)
+
+
+def _use_line(text, sym):
+    pattern = re.compile(rf'\b{re.escape(sym)}_?\b')
+    for line in text.split('\n'):
+        if pattern.search(line) and not re.match(rf'\s*{re.escape(sym)}:', line):
+            return line.strip()
+    return None
+
+
+def _fact(project, binary, sym, sidecar, text, own):
+    """What the build knows about one referenced symbol."""
+    fact = {'symbol': sym, 'kind': None, 'value': None, 'space': None,
+            'canonical': sym, 'defined_in': None, 'use': _use_line(text, sym),
+            'width': None}
+    use = fact['use'] or ''
+    hit = _WORD_USE.search(use)
+    if hit:
+        fact['width'] = hit.group(1)
+    try:
+        path, key, entry = resolve(sidecar, project, binary, sym)
+        fact['sidecar'] = f'{".".join(path)}["{key}"]'
+    except SidecarError:
+        fact['sidecar'] = None
+    if _DSEG.match(sym) or _CSEG.match(sym):
+        fact['kind'] = 'data'
+        fact['value'] = int(re.search(r'([0-9a-f]{4,5})$', sym).group(1), 16)
+        if _DSEG.match(sym):
+            model = _model_for(project, binary)
+            if model is not None:
+                from .inspect import canonical_data
+                canonical, symobj = canonical_data(model, fact['value'])
+                fact['canonical'] = canonical
+                fact['space'] = symobj.space.value if symobj is not None else None
+            else:
+                fact['canonical'] = sym
+        else:
+            fact['space'] = 'cseg'
+        fact['defined_in'] = _data_defined_in(project, sym)
+        return fact
+    home = _asm_file(project, binary, sym) or _asm_file(project, SHARED_DIR, sym)
+    if home:
+        fact['kind'] = 'public' if sym in own else 'routine'
+        fact['value'] = _routine_addr(home, sym)
+        fact['defined_in'] = os.path.relpath(home, PROJECT)
+        return fact
+    inner = _label_file(project, binary, sym) or _label_file(
+        project, SHARED_DIR, sym)
+    if inner:
+        fact['kind'] = 'label inside'
+        fact['value'] = _routine_addr(inner, sym)
+        fact['defined_in'] = os.path.relpath(inner, PROJECT)
+        return fact
+    fact['kind'] = 'unresolved'
+    return fact
+
+
+def _raw_data_refs(project, text, model, known, skip):
+    """Raw ``[bx + 0xNNNN]`` operands that no symbol names.
+
+    A displacement under 0x100 is a struct field, and a ``bp``/``sp`` base is
+    a frame slot, so only unbased/DS-indexed absolute offsets are candidates.
+    """
+    out = []
+    seen = set(skip)
+    for line in text.split('\n'):
+        for match in _RAW_MEM.finditer(line):
+            expr = match.group(1)
+            value = int(match.group(2), 16)
+            if value < 0x100:
+                continue
+            if re.search(r'\b(?:bp|sp|ss)\b', expr):
+                continue
+            if re.search(r'\bcs\s*:', expr):
+                continue
+            if value in seen:
+                continue
+            if model is not None:
+                where = model.resolve('DS', value)
+                if where[0] == 'unknown':
+                    continue
+            from .inspect import canonical_data
+            canonical, sym = canonical_data(model, value)
+            if value in known:
+                canonical = str(known[value])
+            seen.add(value)
+            out.append({'symbol': None, 'kind': 'data', 'value': value,
+                        'space': (sym.space.value if sym is not None else None),
+                        'canonical': canonical,
+                        'defined_in': _data_defined_in(project, canonical),
+                        'use': line.strip(), 'width': None,
+                        'sidecar': None})
+    return out
+
+
+def cmd_refs(project, binary, routine, json_out=False):
+    """Print every symbol *routine* references, with what the build calls it.
+
+    Besides the address-named and content-tagged names of the asm and source,
+    this reports raw absolute data operands (``[bx + 0x6eb5]``) that have no
+    label yet -- the C still has to spell them ``bss_6eb5``/``dseg_...`` --
+    and the width each symbol is used at.
+    """
     path = _asm_file(project, binary, routine) or _asm_file(project, SHARED_DIR, routine)
     if path is None:
         raise SystemExit(f'error: no {routine}.asm in {binary}/ or {SHARED_DIR}/')
@@ -407,19 +547,54 @@ def cmd_refs(project, binary, routine):
     s_path = os.path.splitext(path)[0] + '.s'
     own = asm_publics(open(s_path).read()) if os.path.isfile(s_path) else []
     seen = [sym for sym in own if sym not in seen] + seen
-    if not seen:
+    facts = [_fact(project, binary, sym, sidecar, text, own) for sym in seen]
+    # Data names already present in the namespace, so a raw operand can use
+    # the build's own spelling instead of a generated one.
+    context = {}
+    known = {}
+    try:
+        from .inspect import load_context
+        context = load_context(project, binary) or {}
+    except Exception:
+        context = {}
+    for off, sym in (context.get('data_names') or {}).items():
+        known.setdefault(off, str(sym))
+    for sym, value in (context.get('mem_equ') or {}).items():
+        known.setdefault(value, str(sym))
+    model = _model_for(project, binary)
+    raws = _raw_data_refs(project, text, model, known,
+                          {fact['value'] for fact in facts
+                           if fact['value'] is not None})
+    if json_out:
+        print(json.dumps({'routine': routine, 'binary': binary,
+                          'symbols': facts, 'unlabeled': raws}, indent=1))
+        return facts, raws
+    if not facts and not raws:
         print(f'{routine}: no address-named symbols')
-        return
-    for sym in seen:
-        try:
-            p, key, _ = resolve(sidecar, project, binary, sym)
-            if sym not in own and _label_file(project, binary, sym):
-                raise SidecarError(sym)
-            print(f'  {sym:24} {".".join(p)}["{key}"]')
-        except SidecarError as exc:
-            home = _label_home(project, binary, sym)
-            print(f'  {sym:24} ' + (f'label inside {home} (not a routine entry)'
-                                    if home else f'unresolved: {exc}'))
+        return facts, raws
+    for fact in facts:
+        value = ('0x%04x' % fact['value']) if fact['value'] is not None else '?'
+        where = fact['space'] or ''
+        width = fact['width'] or ''
+        detail = fact['sidecar'] or ''
+        if fact['kind'] == 'label inside':
+            detail = f'label inside {os.path.basename(fact["defined_in"] or "")} (not a routine entry)'
+        elif fact['kind'] == 'unresolved':
+            detail = 'unresolved (not a routine, global, or data name)'
+        elif fact['defined_in']:
+            detail = (detail + '  ' if detail else '') + fact['defined_in']
+        print(f'  {fact["symbol"]:24} {value:8} {where:5} {fact["kind"]:12} '
+              f'{fact["canonical"]:20} {width:5} {detail}')
+        if fact['use']:
+            print(f'  {"":24} use: {fact["use"]}')
+    for fact in raws:
+        value = '0x%04x' % fact['value']
+        print(f'  {"(unlabeled)":24} {value:8} {fact["space"] or "":5} '
+              f'{"data":12} {fact["canonical"]:20} {"":5} '
+              f'{fact["defined_in"] or ""}')
+        if fact['use']:
+            print(f'  {"":24} use: {fact["use"]}')
+    return facts, raws
 
 
 def asm_publics(text):

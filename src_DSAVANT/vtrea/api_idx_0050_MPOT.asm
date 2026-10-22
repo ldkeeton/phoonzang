@@ -4,15 +4,15 @@ api_idx_0050_MPOT:
     call aztec_csav                  ; 0x13e3
     cmp word [bp + 0x6], byte 0      ; 0x13e6
     jl short @..api_idx_0050_MPOT.l1 ; 0x13ea
-    mov word [bss_911a], 1           ; 0x13ec
+    mov word [pending_panel_call], 1 ; 0x13ec
     mov ax, word [bp + 0x4]          ; 0x13f2
-    mov word [bss_9122], ax          ; 0x13f5
+    mov word [pending_panel_arg0], ax ; 0x13f5
     mov ax, word [bp + 0x6]          ; 0x13f8
-    mov word [bss_9120], ax          ; 0x13fb
+    mov word [pending_panel_arg1], ax ; 0x13fb
     jmp short @..api_idx_0050_MPOT.l2 ; 0x13fe
 @..api_idx_0050_MPOT.l1:
-    mov word [bss_9116], 0           ; 0x1400
-    mov word [bss_9118], 1           ; 0x1406
+    mov word [animation_index], 0    ; 0x1400
+    mov word [sound_request], 1      ; 0x1406
 @..api_idx_0050_MPOT.l2:
     lea ax, word [bp - 0x0050]       ; 0x140c
     push ax                          ; 0x140f

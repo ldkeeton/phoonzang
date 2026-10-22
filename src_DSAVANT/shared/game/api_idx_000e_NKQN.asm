@@ -61,7 +61,7 @@ api_idx_000e_NKQN:
     mov al, byte [bp - 0x000e]
     sub ah, ah
     mov bx, ax
-    mov al, byte [bx + 0x6eb5]
+    mov al, byte [bx + glyph_y_table]
     sub ah, ah
     inc ax
     push ax
@@ -69,7 +69,7 @@ api_idx_000e_NKQN:
     mov ax, bx
     add ax, word [bp - 0x0004]
     mov bx, ax
-    mov al, byte [bx + 0x6e6c]
+    mov al, byte [bx + glyph_x_table]
     sub ah, ah
     inc ax
     push ax

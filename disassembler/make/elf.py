@@ -230,7 +230,7 @@ def _report_linked(app, binary, label, linked):
         print(f'  {where}: relocation at +0x{site:x} matched no operand')
 
 
-def resplice_c(app, binary, check_only=False):
+def resplice_c(app, binary, check_only=False, only=None):
     """Recompile the C (and Manx assembly) routine fragments of a built binary.
 
     Every ``<binary>/<label>.c`` or ``.s`` (:mod:`lib.routine_source`) is
@@ -340,6 +340,11 @@ def resplice_c(app, binary, check_only=False):
     c_labels = set(own_src) | {label for label in shared_src
                                if label in spans and not has_own_asm(label)}
     c_labels = sorted(c_labels)
+    if only is not None:
+        if only not in c_labels:
+            raise SystemExit(
+                f'error: {only}: no .c/.s source for it in {app}/{binary}')
+        c_labels = [only]
 
     def where(label, suffix):
         shared = os.path.join(shared_home.get(label, shared_dir),

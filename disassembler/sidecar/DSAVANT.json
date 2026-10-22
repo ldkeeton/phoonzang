@@ -47,6 +47,7 @@
       "name": "draw_party_slot_letters",
       "note": "overlay stub 0x0c: draws one letter per party slot (six of them) via thunk_28, from the host's tables at ds:01d4/01a4/01bc/830e"
     },
+    "api_idx_000e_TIOP": {"name": "draw_party_glyph_row", "note": "draws one row of party glyphs from the party tag and count"},
     "bios_kbd_loc_UHUN": {
       "name": "dos_con_in_noecho",
       "note": "ds: keyboard input; reads keys with INT 21h AH=7"
@@ -370,6 +371,10 @@
         "6a4a": {"name": "slot_rec_target_rand", "note": "+0x30 of the slot record: random range added to the target"},
         "6ac1": {"name": "slot_rec_ranges", "note": "+0xa7 of the slot record: 4-byte entries per target, [0] base and [1] random range"},
         "6b75": {"name": "slot_rec_forced", "note": "+0x15b of the slot record: forced target; 0xfd/0xfe special, 0 none"},
+        "6e6c": {"name": "glyph_x_table", "note": "one byte per glyph at twice the glyph code; second gfx_draw_text argument plus one"},
+        "6eb5": {"name": "glyph_y_table", "note": "one byte per glyph; third gfx_draw_text argument plus one"},
+        "7ed4": {"name": "glyph_x_table_b", "note": "second set; one byte per glyph at twice the glyph code"},
+        "7f1d": {"name": "glyph_y_table_b", "note": "second set; one byte per glyph"},
         "82b6": {"name": "loaded_score_num", "note": "int: score number last loaded by load_score_files; ds_app_gfx_free_score_VGJR resets it to -1"},
         "82ee": {"name": "party_tag", "note": "int: id compared with cell 2-bit tags and object owner bytes; written into cells by claim_cell"},
         "830a": {"name": "game_state", "note": "int: main's switch selector; each value picks the overlay (VINIT, VBASE, VMAZE, ...) main loads next, 3 quits"},
@@ -398,8 +403,18 @@
         "904e": {"name": "spell_dialog_result", "note": "spell_select_dialog result: (power << 8) + spell + 0x100, -1 while open"},
         "9050": {"name": "spell_dialog_button", "note": "which spell_select_dialog button closed it: 0 first, 1 second"},
         "905a": {"name": "message_delay", "note": "int: tick count passed to wait_ticks_or_key after a message"},
+        "9060": {"name": "screen_cache", "note": "array of far pointers to the cached screens"},
+        "906c": {"name": "screen_cache_index", "note": "selects one of the cached screens in screen_cache"},
         "908a": {"name": "party_redraw_last_tick", "note": "long: tick count at the last periodic_party_redraw refresh"},
         "9104": {"name": "str_swap_file_v", "note": "\"V.$$$\" swap file name spell_select_dialog passes to save_screen_area"},
+        "9114": {"name": "glyph_painter", "note": "1 selects draw_animated_glyph_pair, else draw_party_glyph_row"},
+        "9116": {"name": "animation_index", "note": "0..6 animation index; -1 disables the frame update"},
+        "9118": {"name": "sound_request", "note": "nonzero plays sound effect 5 and clears it"},
+        "911a": {"name": "pending_panel_call", "note": ">=0 calls draw_treasure_panel with the pending arguments, then becomes -1"},
+        "911c": {"name": "show_area_bottom", "note": "bottom coordinate for gfx_show_area; 0x8d or 0x8f"},
+        "911e": {"name": "animation_frame", "note": "cycles 0..2; selects the second glyph as frame+2"},
+        "9120": {"name": "pending_panel_arg1", "note": "second argument for the pending panel call"},
+        "9122": {"name": "pending_panel_arg0", "note": "first argument for the pending panel call"},
         "9124": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes"},
         "9126": {"name": "treasure_caption_on", "note": "nonzero when treasure_caption should be drawn"},
         "9128": {"name": "treasure_caption", "note": "caption text drawn centred at y=0x92 in the treasure screen"},
@@ -729,6 +744,10 @@
     },
     "vtrea": {
       "function_names": {
+        "0082": {"name": "draw_animation_frame", "note": "draws animation frame 0..6; returns the index, -1 if out of range"},
+        "0103": {"name": "draw_treasure_panel", "note": "draws the treasure panel grid for the pending action"},
+        "072d": {"name": "draw_animated_glyph_pair", "note": "draws two animated two-glyph strings from the position tables"},
+        "07d0": {"name": "update_treasure_frame", "note": "per-frame update: restore the cached screen, choose the glyph painter, run the pending panel and animation, refresh the strip, play a sound request"},
         "0946": {"name": "redraw_treasure_caption", "note": "restores saved areas, redraws glyph 1 and the optional centred caption"},
         "8a0a": {"name": "collect_known_spells", "note": "fills known_spell_list with the realm's spells the character knows (and their names); returns the count"},
         "8a7b": {"name": "draw_glyph_1_at_50_115", "note": "Draws the one-character string \"\\x01\" via gfx_draw_text at (50,115) with mode argument 1, clipped to the 320x200 screen"},

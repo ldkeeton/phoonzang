@@ -1,7 +1,7 @@
 import unittest
 
 from lib.compare.splitting import _select_split_ranges
-from tests.syms import routine
+from tests.syms import loc, routine
 
 
 class COverrideExtentTests(unittest.TestCase):
@@ -44,6 +44,18 @@ class COverrideExtentTests(unittest.TestCase):
         ranges = _select_split_ranges(
             labels, set(labels.values()), binary_size=2000)
         self.assertEqual(ranges, [(1000, 1251, 'a'), (1251, 2000, 'b')])
+
+    def test_short_c_override_carves_the_tail_into_its_own_range(self):
+        """A C routine owns only its compiled bytes; the glued ``loc_`` after
+        it becomes a fragment of its own instead of being swallowed."""
+        labels = {1000: routine('first', 1000), 1100: loc(1100),
+                  1200: routine('next', 1200)}
+        ranges = _select_split_ranges(
+            labels, {labels[1000], labels[1200]}, binary_size=2000,
+            c_override_lengths={1000: 100})
+        self.assertEqual(ranges, [(1000, 1100, 'first'),
+                                  (1100, 1200, 'loc_044c'),
+                                  (1200, 2000, 'next')])
 
 
 if __name__ == '__main__':

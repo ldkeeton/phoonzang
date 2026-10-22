@@ -397,10 +397,12 @@ const isGeneratedC = (doc) => doc.uri.scheme === 'file' &&
 // visible.  The agent ends with a suggested routine name; naming stays manual.
 // Each invocation gets its own tab, so Claude and OpenCode can work side by side.
 
-// Only the CLI invocation differs between agents; prepareMakeC does the rest.
+// The CLI invocation and the prompt differ: each agent gets a prompt shaped for
+// how it works.  prepareMakeC resolves the routine and supplies both.
 const AGENTS = {
     claude: {
         label: 'Claude',
+        prompt: claudePrompt,
         cli: () => cfg().get('claude'),
         model: () => cfg().get('claudeModel'),
         // --allowedTools is variadic: a trailing prompt would be swallowed as another
@@ -417,6 +419,7 @@ const AGENTS = {
     },
     opencode: {
         label: 'OpenCode',
+        prompt: opencodePrompt,
         cli: () => cfg().get('opencode'),
         model: () => cfg().get('opencodeModel'),
         // Interactive TUI, with the prompt as its first message.
@@ -479,7 +482,16 @@ async function prepareMakeC(uri, label) {
     const flagList = [`default \`${(flags.default || []).join(' ')}\``].concat(
         Object.entries(flags.prefixes || {}).map(([p, f]) => `\`${p}\` → \`${f.join(' ')}\``)).join('; ');
 
-    const prompt = [
+    return { where, asmFile, cFile, sFile, dir, rel, exampleS, handWritten,
+        flagList };
+}
+
+// Claude Code's prompt: unchanged from the long-form workflow that has been in
+// use.  OpenCode gets a separate, more directive prompt below.
+function claudePrompt(job) {
+    const { where, asmFile, cFile, sFile, dir, rel, exampleS, handWritten,
+        flagList } = job;
+    return [
         `Reproduce ${rel(asmFile)} as source that builds to byte-exact matching asm; never hand-edit ` +
             `the asm. First decide the form. Write ${rel(cFile)} (K&R C for the Manx Aztec \`cc\`) only ` +
             `if \`cc\` could have generated this code; otherwise write ${rel(sFile)} (Manx \`as\` assembly` +
@@ -526,7 +538,65 @@ async function prepareMakeC(uri, label) {
             `Your final message: only the routine's new name, or, if you could not finish, what is ` +
             `left and why.`,
     ].join('\n\n');
-    return { where, cFile, sFile, prompt };
+}
+
+// OpenCode's prompt: routine-scoped and explicit about the expected fragment
+// split, so it does not try to fill the original (possibly glued) span.
+function opencodePrompt(job) {
+    const { where, asmFile, cFile, sFile, dir, rel, exampleS, handWritten,
+        flagList } = job;
+    return [
+        `Reproduce ${rel(asmFile)} as source that builds to byte-exact matching asm. ` +
+            `Never hand-edit the asm. Read \`readme/authoring-c-fragments.md\` first; it defines ` +
+            `the split rule this fragment may need.`,
+        `Choose the form before writing. Write ${rel(cFile)} (K&R C for the Manx Aztec \`cc\`) only ` +
+            `if \`cc\` could have generated this code; otherwise write ${rel(sFile)} (Manx \`as\` assembly` +
+            (exampleS ? `, in the style of ${rel(path.join(dir, exampleS))}` : '') + `). ` +
+            `Signs it is hand-written: no csav or \`push bp; mov bp,sp\` frame, or running in its ` +
+            `caller's frame; segment-register juggling (\`push cs; pop ds\`); \`cld\` and string ops; ` +
+            `code-segment data; padding \`nop\`s or jumps \`cc\` would shorten; falling through into the ` +
+            `next routine. Never put a whole routine body in \`#asm\` inside a C function: that is what ` +
+            `a .s is for, and labels in \`#asm\` become linker symbols. \`#asm\` is only for a few ` +
+            `instructions inside real C.` +
+            (handWritten ? ` The sidecar note marks this routine hand-written asm: write ${rel(sFile)}.` : ''),
+        `Work routine-scoped; keep the loop cheap:\n` +
+            `- \`make info ${where.project} ${where.binary} ${where.label}\` shows the span, glued ` +
+            `co-tenants, callers and compiler flags.\n` +
+            `- \`make refs ${where.project} ${where.binary} ROUTINE\` lists symbols with values, spaces, ` +
+            `widths and canonical names.\n` +
+            `- \`make data ${where.project} DS OFFSET\` dumps a DS/BSS object when a raw operand is unclear.\n` +
+            `- \`make probe ${where.project} ${where.binary} ROUTINE\` compiles one source without the gate.\n` +
+            `- \`make rebuild ${where.project} ${where.binary} ROUTINE\` gates one source and assembles.\n` +
+            `- \`make build ${where.project}\` regenerates the asm tree and cuts a co-tenant into its ` +
+            `own file.`,
+        `Splitting is expected. A fragment can hold a bare \`loc_\` callee after the routine you are ` +
+            `writing. Put only that first routine in ${rel(cFile)} (or ${rel(sFile)}) and do not pad it ` +
+            `to the old fragment length. When it compiles to its own shorter length, the next ` +
+            `\`make build\` gives the tail its own \`<tail>.asm\`; then write and name that second ` +
+            `source too. Before the split, \`make probe\` may report \`[DIFF]\` against the whole span; ` +
+            `compare its length to the root size from \`make info\`, not the old fragment size.`,
+        `Compiler flags come from the routine name's longest matching prefix: ${flagList} ` +
+            `(a .s uses \`compiler_flags.asm\`).`,
+        `Steps:\n` +
+            `1. Write the source with the routine still named \`${where.label}\`. Run ` +
+            `\`make rebuild ${where.project} ${where.binary} ${where.label}\` until it passes. If a ` +
+            `co-tenant follows and the build reports a length mismatch, run \`make build ` +
+            `${where.project}\` to cut it into its own fragment, then gate both routines. Name-only ` +
+            `differences on the same instructions and offsets are a byte match; a size difference is not.\n` +
+            `2. Give parameters and locals descriptive names in the source itself (C names; \`equ\` names ` +
+            `for .s and #asm stack arguments and locals). Add a one-line header and terse trailing ` +
+            `comments for loops, branches and magic numbers (BIOS/DOS function numbers, key codes, ` +
+            `header offsets, strides, flag bits). Describe what the code shows; do not guess intent.\n` +
+            `3. Run \`make refs\`, then name everything in one call: ` +
+            `\`make name ${where.project} ${where.binary} ${where.label}=NAME:'note' ` +
+            `SYMBOL=NAME:'note' ...\`. Name the routine and every listed symbol except "label inside" ` +
+            `rows, each with a note saying what it holds or does. Use descriptive ` +
+            `lowercase_underscore names and keep any prefix its flags need.\n` +
+            `4. Fix any rebuild failure until \`make rebuild\` passes. No address-named or content-tagged ` +
+            `symbol may remain in the source.`,
+        `Your final message: only the routine's new name, or, if you could not finish, what is left ` +
+            `and why.`,
+    ].join('\n\n');
 }
 
 // One agent session per invocation, so Claude and OpenCode can each have a tab (and
@@ -535,7 +605,8 @@ async function makeC(kind, uri) {
     const agent = AGENTS[kind];
     const job = await prepareMakeC(uri, agent.label);
     if (!job) return;
-    const { where, cFile, sFile, prompt } = job;
+    const { where, cFile, sFile } = job;
+    const prompt = agent.prompt(job);
     const term = vscode.window.createTerminal({
         name: `${agent.label}: ${where.label}`, cwd: root(),
         shellPath: agent.cli(), shellArgs: agent.args(prompt, agent.model()),

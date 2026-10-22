@@ -2,10 +2,10 @@
 ovmain:
     mov ax, 0                        ; 0x000e
     call aztec_csav                  ; 0x0011
-    mov word [bss_9114], 0           ; 0x0014
-    mov word [bss_9116], 0xffff      ; 0x001a
-    mov word [bss_9118], 0           ; 0x0020
-    mov word [bss_911a], 0xffff      ; 0x0026
+    mov word [glyph_painter], 0      ; 0x0014
+    mov word [animation_index], 0xffff ; 0x001a
+    mov word [sound_request], 0      ; 0x0020
+    mov word [pending_panel_call], 0xffff ; 0x0026
     cmp word [game_state], byte 0x0f ; 0x002c
     jne short @..ovmain.l1           ; 0x0031
     mov word [game_state], 0x16      ; 0x0033

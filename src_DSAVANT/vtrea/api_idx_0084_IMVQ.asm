@@ -22,7 +22,7 @@ api_idx_0084_IMVQ:
     mov ax, word [bp - 0x0002]       ; 0x25da
     cmp ax, word [bp + 0xc]          ; 0x25dd
     jl short @..api_idx_0084_IMVQ.l1 ; 0x25e0
-    mov word [bss_911c], 0x8d        ; 0x25e2
+    mov word [show_area_bottom], 0x8d ; 0x25e2
     mov word [bp - 0x0078], 0        ; 0x25e8
     cmp word [bss_9250], byte 0xff   ; 0x25ed
     je short @..api_idx_0084_IMVQ.l5 ; 0x25f2
@@ -1669,7 +1669,7 @@ jumptable_34f1:
     push word [bp - 0x0076]          ; 0x3525
     call restore_saved_screen        ; 0x3528
     add sp, byte 4                   ; 0x352b
-    mov word [bss_911c], 0x8f        ; 0x352e
+    mov word [show_area_bottom], 0x8f ; 0x352e
     mov ax, word [bp - 0x000c]       ; 0x3534
     inc ax                           ; 0x3537
     push ax                          ; 0x3538

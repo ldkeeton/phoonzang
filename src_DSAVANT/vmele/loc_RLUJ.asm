@@ -107,7 +107,7 @@ loc_RLUJ:
     call gfx_cache_area              ; 0x34c7
     add sp, byte 0x0c                ; 0x34ca
     mov word [bss_9062], dx          ; 0x34cd
-    mov word [bss_9060], ax          ; 0x34d1
+    mov word [screen_cache], ax      ; 0x34d1
     cmp word [bss_906a], byte 0      ; 0x34d4
     je short @..loc_RLUJ.l4          ; 0x34d9
     mov ax, 1                        ; 0x34db

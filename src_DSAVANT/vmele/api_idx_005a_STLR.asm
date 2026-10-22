@@ -133,12 +133,12 @@ api_idx_005a_STLR:
     mov word [bp - 0x000a], ax       ; 0x2e2c
     cmp word [bp - 0x000a], byte 0   ; 0x2e2f
     je short @..api_idx_005a_STLR.l14 ; 0x2e33
-    mov ax, word [bss_906c]          ; 0x2e35
+    mov ax, word [screen_cache_index] ; 0x2e35
     inc ax                           ; 0x2e38
     mov cx, 2                        ; 0x2e39
     cwd                              ; 0x2e3c
     idiv cx                          ; 0x2e3d
-    mov word [bss_906c], dx          ; 0x2e3f
+    mov word [screen_cache_index], dx ; 0x2e3f
     mov ax, word [bss_82e8]          ; 0x2e43
     inc ax                           ; 0x2e46
     cwd                              ; 0x2e47

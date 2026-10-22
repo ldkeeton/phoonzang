@@ -287,12 +287,12 @@ api_idx_0010_UUTT:
     mov word [bp - 0x0010], ax       ; 0x9ce8
     cmp word [bp - 0x0010], byte 0   ; 0x9ceb
     je short @..api_idx_0010_UUTT.l21 ; 0x9cef
-    mov ax, word [bss_906c]          ; 0x9cf1
+    mov ax, word [screen_cache_index] ; 0x9cf1
     inc ax                           ; 0x9cf4
     mov cx, 2                        ; 0x9cf5
     cwd                              ; 0x9cf8
     idiv cx                          ; 0x9cf9
-    mov word [bss_906c], dx          ; 0x9cfb
+    mov word [screen_cache_index], dx ; 0x9cfb
     mov ax, word [bss_82e8]          ; 0x9cff
     inc ax                           ; 0x9d02
     cwd                              ; 0x9d03

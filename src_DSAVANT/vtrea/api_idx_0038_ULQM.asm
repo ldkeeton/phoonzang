@@ -7,7 +7,7 @@ api_idx_0038_ULQM:
     mov word [bp - 0x0006], 0x8f     ; 0x3a67
     mov word [bp - 0x0008], 0x108    ; 0x3a6c
     mov word [bp - 0x000a], 0xc5     ; 0x3a71
-    mov word [bss_911c], 0x8d        ; 0x3a76
+    mov word [show_area_bottom], 0x8d ; 0x3a76
     mov word [bp - 0x0012], 0x16     ; 0x3a7c
     mov ax, 3                        ; 0x3a81
     cmp word [bp + 0xc], byte 3      ; 0x3a84
@@ -870,7 +870,7 @@ jumptable_4213:
     push word [bp - 0x0038]          ; 0x423b
     call restore_saved_screen        ; 0x423e
     add sp, byte 4                   ; 0x4241
-    mov word [bss_911c], 0x8f        ; 0x4244
+    mov word [show_area_bottom], 0x8f ; 0x4244
     mov ax, word [bp - 0x0020]       ; 0x424a
     mov word [spell_dialog_result], ax ; 0x424d
     mov ax, word [spell_dialog_button] ; 0x4250

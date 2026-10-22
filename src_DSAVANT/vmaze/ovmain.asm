@@ -77,7 +77,7 @@ ovmain:
     idiv cx                          ; 0x00ed
     mov word [bss_82e8], dx          ; 0x00ef
     call api_idx_0030_JQMM           ; 0x00f3
-    mov word [bss_906c], 1           ; 0x00f6
+    mov word [screen_cache_index], 1 ; 0x00f6
     mov word [bss_8f22], 0           ; 0x00fc
 @..ovmain.l4:
     mov ax, 0                        ; 0x0102

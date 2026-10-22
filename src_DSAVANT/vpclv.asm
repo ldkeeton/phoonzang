@@ -267,7 +267,7 @@ dseg_93ef equ __zdseg_end + (__zdseg_93ef - __zdata_start)
 ; bss_9492 equ __zdseg_end + (__zobss_9492 - __zdata_start)
 %include "vpclv/api_idx_0046_NOMK.asm"     ; 0x4fca
 
-%include "shared/game/api_idx_000e_TIOP.asm"     ; 0x50a1
+%include "shared/game/draw_party_glyph_row.asm"  ; 0x50a1
 
 dseg_93f0 equ __zdseg_end + (__zdseg_93f0 - __zdata_start)
 ; bss_9416  equ __zdseg_end + (__zobss_9416 - __zdata_start)

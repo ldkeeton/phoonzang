@@ -279,12 +279,12 @@ bss_a4a6 equ __zdseg_end + (__zobss_a4a6 - __zdata_start)
 bss_a4a8 equ __zdseg_end + (__zobss_a4a8 - __zdata_start)
 %include "vbase/api_idx_0004_RLUP.asm"     ; 0x6d1f
 
-dseg_9114     equ __zdseg_end + (__zdseg_9114 - __zdata_start)
-dseg_911c     equ __zdseg_end + (__zdseg_911c - __zdata_start)
-; bss_a4a6      equ __zdseg_end + (__zobss_a4a6 - __zdata_start)
-bss_a4aa      equ __zdseg_end + (__zobss_a4aa - __zdata_start)
-scene_tick    equ __zdseg_end + (__zobss_a5aa - __zdata_start)
-scene_running equ __zdseg_end + (__zobss_a5ac - __zdata_start)
+glyph_painter    equ __zdseg_end + (__zglyph_painter - __zdata_start)
+show_area_bottom equ __zdseg_end + (__zshow_area_bottom - __zdata_start)
+; bss_a4a6         equ __zdseg_end + (__zobss_a4a6 - __zdata_start)
+bss_a4aa         equ __zdseg_end + (__zobss_a4aa - __zdata_start)
+scene_tick       equ __zdseg_end + (__zobss_a5aa - __zdata_start)
+scene_running    equ __zdseg_end + (__zobss_a5ac - __zdata_start)
 %include "vbase/loc_VMSS.asm"              ; 0x6dd9
 
 api_idx_0004_OTSN          equ api_idx_0004_JQTM
@@ -299,9 +299,9 @@ api_idx_0004_JQTM.api_idx1 equ loc_VMSS
 
 %include "shared/game/api_idx_0002_LVPS.asm"     ; 0x6fda
 
-dseg_911e   equ __zdseg_end + (__zdseg_911e - __zdata_start)
-dseg_912b   equ __zdseg_end + (__zdseg_912b - __zdata_start)
-; scene_index equ __zdseg_end + (__zobss_a4a4 - __zdata_start)
+animation_frame equ __zdseg_end + (__zanimation_frame - __zdata_start)
+dseg_912b       equ __zdseg_end + (__zdseg_912b - __zdata_start)
+; scene_index     equ __zdseg_end + (__zobss_a4a4 - __zdata_start)
 %include "vbase/api_idx_0002_NVMN.asm"     ; 0x706d
 
 %include "vbase/loc_GUNQ.asm"              ; 0x72c2
@@ -513,12 +513,12 @@ __zdseg_9107:
 __zdseg_910d:
     db 'V.$$$', 0
     db 0x00
-__zdseg_9114:
-    db '!%&]@#|', 0
-__zdseg_911c:
-    db 0x20, 0x00
-__zdseg_911e:
-    db 'STARSCRN.VGA', 0
+%include "vbase/data/glyph_painter.asm"    ; 0x9469
+
+%include "vbase/data/show_area_bottom.asm" ; 0x9471
+
+%include "vbase/data/animation_frame.asm"  ; 0x9473
+
 __zdseg_912b:
     db 'MAINSCRN.VGA', 0
 __zdseg_9138:

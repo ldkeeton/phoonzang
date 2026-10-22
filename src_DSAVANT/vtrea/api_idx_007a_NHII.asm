@@ -2,7 +2,7 @@
 api_idx_007a_NHII:
     mov ax, 0xff86                   ; 0x4f0c
     call aztec_csav                  ; 0x4f0f
-    mov word [bss_911e], 0           ; 0x4f12
+    mov word [animation_frame], 0    ; 0x4f12
     push word [bp + 0x4]             ; 0x4f18
     call api_idx_0060_VPPJ           ; 0x4f1b
     pop cx                           ; 0x4f1e
@@ -20,7 +20,7 @@ api_idx_007a_NHII:
     pop cx                           ; 0x4f3c
     test ax, ax                      ; 0x4f3d
     je short @..api_idx_007a_NHII.l1 ; 0x4f3f
-    mov word [bss_9114], 1           ; 0x4f41
+    mov word [glyph_painter], 1      ; 0x4f41
     mov ax, 1                        ; 0x4f47
     push ax                          ; 0x4f4a
     call play_sound_effect           ; 0x4f4b
@@ -129,7 +129,7 @@ jumptable_51bc_case_1:
     pop cx                           ; 0x503c
     test ax, ax                      ; 0x503d
     je short @..api_idx_007a_NHII.l6 ; 0x503f
-    mov word [bss_9114], 1           ; 0x5041
+    mov word [glyph_painter], 1      ; 0x5041
     mov ax, 1                        ; 0x5047
     push ax                          ; 0x504a
     call play_sound_effect           ; 0x504b
@@ -187,7 +187,7 @@ jumptable_51bc_case_0:
     mov word [bp - 0x0002], ax       ; 0x50bb
     cmp word [bp - 0x0002], byte 0   ; 0x50be
     jne short @..api_idx_007a_NHII.l10 ; 0x50c2
-    mov word [bss_9114], 1           ; 0x50c4
+    mov word [glyph_painter], 1      ; 0x50c4
     lea ax, word [bp - 0x0078]       ; 0x50ca
     push ax                          ; 0x50cd
     mov ax, 0x146d                   ; 0x50ce
@@ -208,7 +208,7 @@ jumptable_51bc_case_0:
 @..api_idx_007a_NHII.l10:
     cmp word [bp - 0x0002], byte 1   ; 0x50f2
     jne short @..api_idx_007a_NHII.l11 ; 0x50f6
-    mov word [bss_9114], 1           ; 0x50f8
+    mov word [glyph_painter], 1      ; 0x50f8
     mov ax, 1                        ; 0x50fe
     push ax                          ; 0x5101
     call play_sound_effect           ; 0x5102
@@ -264,13 +264,13 @@ jumptable_51bc_case_2:
 @..api_idx_007a_NHII.l15:
     cmp word [bss_95e0], byte 1      ; 0x5176
     jne short @..api_idx_007a_NHII.l16 ; 0x517b
-    mov word [bss_9114], 1           ; 0x517d
+    mov word [glyph_painter], 1      ; 0x517d
     mov ax, 0                        ; 0x5183
     ret                              ; 0x5186
 @..api_idx_007a_NHII.l16:
     cmp word [bss_95e0], byte 0xff   ; 0x5187
     jne short @..api_idx_007a_NHII.l17 ; 0x518c
-    mov word [bss_9114], 1           ; 0x518e
+    mov word [glyph_painter], 1      ; 0x518e
     mov ax, 1                        ; 0x5194
     push ax                          ; 0x5197
     call play_sound_effect           ; 0x5198

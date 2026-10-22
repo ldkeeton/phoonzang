@@ -207,12 +207,12 @@ api_idx_005e_SHOL:
     mov word [bp - 0x000c], ax       ; 0x15eb
     cmp word [bp - 0x000c], byte 0   ; 0x15ee
     je short @..api_idx_005e_SHOL.l22 ; 0x15f2
-    mov ax, word [bss_906c]          ; 0x15f4
+    mov ax, word [screen_cache_index] ; 0x15f4
     inc ax                           ; 0x15f7
     mov cx, 2                        ; 0x15f8
     cwd                              ; 0x15fb
     idiv cx                          ; 0x15fc
-    mov word [bss_906c], dx          ; 0x15fe
+    mov word [screen_cache_index], dx ; 0x15fe
     mov ax, word [bss_82e8]          ; 0x1602
     inc ax                           ; 0x1605
     cwd                              ; 0x1606

@@ -1,11 +1,11 @@
 ; auto-generated
-api_idx_000e_TIOP:
+draw_party_glyph_row:
     mov ax, 0xfff2
     call aztec_csav
     cmp word [bss_8f20], byte 0
-    jg short @..api_idx_000e_TIOP.l1
-    jmp near @..api_idx_000e_TIOP.l8
-@..api_idx_000e_TIOP.l1:
+    jg short @..draw_party_glyph_row.l1
+    jmp near @..draw_party_glyph_row.l8
+@..draw_party_glyph_row.l1:
     mov ax, word [party_tag]
     mov cx, word [bss_8f20]
     dec cx
@@ -16,39 +16,39 @@ api_idx_000e_TIOP:
     idiv cx
     mov word [bp - 0x0002], dx
     mov ax, dx
-    jmp short @..api_idx_000e_TIOP.l6
-@..api_idx_000e_TIOP.l2:
+    jmp short @..draw_party_glyph_row.l6
+@..draw_party_glyph_row.l2:
     mov byte [bp - 0x000e], 1
     mov byte [bp - 0x000d], 2
     mov ax, 5
     cmp word [bp - 0x0002], byte 0
-    jne short @..api_idx_000e_TIOP.l3
+    jne short @..draw_party_glyph_row.l3
     mov ax, 4
-@..api_idx_000e_TIOP.l3:
+@..draw_party_glyph_row.l3:
     mov byte [bp - 0x000c], al
     mov byte [bp - 0x000b], 0
     mov word [bp - 0x0004], 0
-    jmp short @..api_idx_000e_TIOP.l7
-@..api_idx_000e_TIOP.l4:
+    jmp short @..draw_party_glyph_row.l7
+@..draw_party_glyph_row.l4:
     mov byte [bp - 0x000e], 3
     mov byte [bp - 0x000d], 0
     mov ax, 0
     cmp word [bp - 0x0002], byte 3
-    jne short @..api_idx_000e_TIOP.l5
+    jne short @..draw_party_glyph_row.l5
     mov ax, 1
-@..api_idx_000e_TIOP.l5:
+@..draw_party_glyph_row.l5:
     mov word [bp - 0x0004], ax
-    jmp short @..api_idx_000e_TIOP.l7
-@..api_idx_000e_TIOP.l6:
+    jmp short @..draw_party_glyph_row.l7
+@..draw_party_glyph_row.l6:
     cmp ax, strict word 0
-    je short @..api_idx_000e_TIOP.l2
+    je short @..draw_party_glyph_row.l2
     cmp ax, strict word 1
-    je short @..api_idx_000e_TIOP.l4
+    je short @..draw_party_glyph_row.l4
     cmp ax, strict word 2
-    je short @..api_idx_000e_TIOP.l2
+    je short @..draw_party_glyph_row.l2
     cmp ax, strict word 3
-    je short @..api_idx_000e_TIOP.l4
-@..api_idx_000e_TIOP.l7:
+    je short @..draw_party_glyph_row.l4
+@..draw_party_glyph_row.l7:
     mov ax, 0
     push ax
     push ax
@@ -66,7 +66,7 @@ api_idx_000e_TIOP:
     mov al, byte [bp - 0x000e]
     sub ah, ah
     mov bx, ax
-    mov al, byte [bx + 0x6eb5]
+    mov al, byte [bx + glyph_y_table]
     sub ah, ah
     inc ax
     push ax
@@ -74,7 +74,7 @@ api_idx_000e_TIOP:
     mov ax, bx
     add ax, word [bp - 0x0004]
     mov bx, ax
-    mov al, byte [bx + 0x6e6c]
+    mov al, byte [bx + glyph_x_table]
     sub ah, ah
     inc ax
     push ax
@@ -82,5 +82,5 @@ api_idx_000e_TIOP:
     push ax
     call gfx_draw_text
     add sp, byte 0x16
-@..api_idx_000e_TIOP.l8:
+@..draw_party_glyph_row.l8:
     ret

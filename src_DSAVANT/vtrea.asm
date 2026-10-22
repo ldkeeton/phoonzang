@@ -24,32 +24,34 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 
-bss_9114 equ __zdseg_end + (__zobss_9114 - __zdata_start)
-bss_9116 equ __zdseg_end + (__zobss_9116 - __zdata_start)
-bss_9118 equ __zdseg_end + (__zobss_9118 - __zdata_start)
-bss_911a equ __zdseg_end + (__zobss_911a - __zdata_start)
+glyph_painter      equ __zdseg_end + (__zobss_9114 - __zdata_start)
+animation_index    equ __zdseg_end + (__zobss_9116 - __zdata_start)
+sound_request      equ __zdseg_end + (__zobss_9118 - __zdata_start)
+pending_panel_call equ __zdseg_end + (__zobss_911a - __zdata_start)
 %include "vtrea/ovmain.asm"                ; 0x000e
 
-%include "vtrea/api_idx_0010_PVHV.asm"     ; 0x0090
+%include "vtrea/draw_animation_frame.asm"  ; 0x0090
 
-; bss_9116 equ __zdseg_end + (__zobss_9116 - __zdata_start)
-bss_911c equ __zdseg_end + (__zobss_911c - __zdata_start)
-%include "vtrea/loc_GRQV.asm"              ; 0x0111
+; animation_index  equ __zdseg_end + (__zobss_9116 - __zdata_start)
+show_area_bottom equ __zdseg_end + (__zobss_911c - __zdata_start)
+%include "vtrea/draw_treasure_panel.asm"   ; 0x0111
 
-%include "shared/game/api_idx_000e_TIOP.asm"     ; 0x067b
+%include "shared/game/draw_party_glyph_row.asm"  ; 0x067b
 
-; bss_9114 equ __zdseg_end + (__zobss_9114 - __zdata_start)
-; bss_9116 equ __zdseg_end + (__zobss_9116 - __zdata_start)
-; bss_9118 equ __zdseg_end + (__zobss_9118 - __zdata_start)
-; bss_911a equ __zdseg_end + (__zobss_911a - __zdata_start)
-; bss_911c equ __zdseg_end + (__zobss_911c - __zdata_start)
-bss_911e equ __zdseg_end + (__zobss_911e - __zdata_start)
-bss_9120 equ __zdseg_end + (__zobss_9120 - __zdata_start)
-bss_9122 equ __zdseg_end + (__zobss_9122 - __zdata_start)
-%include "vtrea/api_idx_000a_UUNU.asm"     ; 0x073b
+animation_frame equ __zdseg_end + (__zobss_911e - __zdata_start)
+%include "vtrea/draw_animated_glyph_pair.asm" ; 0x073b
 
-; bss_9116              equ __zdseg_end + (__zobss_9116 - __zdata_start)
-; bss_911e              equ __zdseg_end + (__zobss_911e - __zdata_start)
+; glyph_painter      equ __zdseg_end + (__zobss_9114 - __zdata_start)
+; animation_index    equ __zdseg_end + (__zobss_9116 - __zdata_start)
+; sound_request      equ __zdseg_end + (__zobss_9118 - __zdata_start)
+; pending_panel_call equ __zdseg_end + (__zobss_911a - __zdata_start)
+; show_area_bottom   equ __zdseg_end + (__zobss_911c - __zdata_start)
+pending_panel_arg1 equ __zdseg_end + (__zobss_9120 - __zdata_start)
+pending_panel_arg0 equ __zdseg_end + (__zobss_9122 - __zdata_start)
+%include "vtrea/update_treasure_frame.asm" ; 0x07de
+
+; animation_index       equ __zdseg_end + (__zobss_9116 - __zdata_start)
+; animation_frame       equ __zdseg_end + (__zobss_911e - __zdata_start)
 party_redraw_interval equ __zdseg_end + (__zobss_9124 - __zdata_start)
 %include "vtrea/loc_IKLI.asm"              ; 0x086b
 
@@ -104,13 +106,13 @@ dseg_90b2 equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
 dseg_90b3 equ __zdseg_end + (__zdseg_90b3 - __zdata_start)
 %include "vtrea/api_idx_0056_VTNO.asm"     ; 0x12cc
 
-; bss_9116 equ __zdseg_end + (__zobss_9116 - __zdata_start)
-; bss_9118 equ __zdseg_end + (__zobss_9118 - __zdata_start)
-; bss_911a equ __zdseg_end + (__zobss_911a - __zdata_start)
-; bss_9120 equ __zdseg_end + (__zobss_9120 - __zdata_start)
-; bss_9122 equ __zdseg_end + (__zobss_9122 - __zdata_start)
-bss_91d4 equ __zdseg_end + (__zobss_91d4 - __zdata_start)
-bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
+; animation_index    equ __zdseg_end + (__zobss_9116 - __zdata_start)
+; sound_request      equ __zdseg_end + (__zobss_9118 - __zdata_start)
+; pending_panel_call equ __zdseg_end + (__zobss_911a - __zdata_start)
+; pending_panel_arg1 equ __zdseg_end + (__zobss_9120 - __zdata_start)
+; pending_panel_arg0 equ __zdseg_end + (__zobss_9122 - __zdata_start)
+bss_91d4           equ __zdseg_end + (__zobss_91d4 - __zdata_start)
+bss_91d6           equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 %include "vtrea/api_idx_0050_MPOT.asm"     ; 0x13e0
 
 %include "vtrea/api_idx_0004_VSSI.asm"     ; 0x1447
@@ -140,14 +142,14 @@ bss_9250  equ __zdseg_end + (__zobss_9250 - __zdata_start)
 
 %include "vtrea/api_idx_0002_PMUV.asm"     ; 0x251a
 
-dseg_90cd equ __zdseg_end + (__zdseg_90cd - __zdata_start)
-dseg_90d3 equ __zdseg_end + (__zdseg_90d3 - __zdata_start)
-dseg_90d5 equ __zdseg_end + (__zdseg_90d5 - __zdata_start)
-dseg_90d8 equ __zdseg_end + (__zdseg_90d8 - __zdata_start)
-dseg_90da equ __zdseg_end + (__zdseg_90da - __zdata_start)
-; bss_911c  equ __zdseg_end + (__zobss_911c - __zdata_start)
-; bss_9230  equ __zdseg_end + (__zobss_9230 - __zdata_start)
-; bss_9250  equ __zdseg_end + (__zobss_9250 - __zdata_start)
+dseg_90cd        equ __zdseg_end + (__zdseg_90cd - __zdata_start)
+dseg_90d3        equ __zdseg_end + (__zdseg_90d3 - __zdata_start)
+dseg_90d5        equ __zdseg_end + (__zdseg_90d5 - __zdata_start)
+dseg_90d8        equ __zdseg_end + (__zdseg_90d8 - __zdata_start)
+dseg_90da        equ __zdseg_end + (__zdseg_90da - __zdata_start)
+; show_area_bottom equ __zdseg_end + (__zobss_911c - __zdata_start)
+; bss_9230         equ __zdseg_end + (__zobss_9230 - __zdata_start)
+; bss_9250         equ __zdseg_end + (__zobss_9250 - __zdata_start)
 %include "vtrea/api_idx_0084_IMVQ.asm"     ; 0x25ab
 
 %include "shared/game/api_idx_0008_RQRL.asm"     ; 0x3552
@@ -166,15 +168,15 @@ loc_HTKI.api_idx1 equ api_idx_0004_SLIS
 %include "shared/game/loc_HTKI.asm"              ; 0x3a15
 
 dseg_90dc             equ __zdseg_end + (__zdseg_90dc - __zdata_start)
-; bss_911c              equ __zdseg_end + (__zobss_911c - __zdata_start)
+; show_area_bottom      equ __zdseg_end + (__zobss_911c - __zdata_start)
 ; party_redraw_interval equ __zdseg_end + (__zobss_9124 - __zdata_start)
 %include "vtrea/api_idx_0038_ULQM.asm"     ; 0x3a56
 
-; bss_9114 equ __zdseg_end + (__zobss_9114 - __zdata_start)
-; bss_91d4 equ __zdseg_end + (__zobss_91d4 - __zdata_start)
-; bss_91fe equ __zdseg_end + (__zobss_91fe - __zdata_start)
-bss_95de equ __zdseg_end + (__zobss_95de - __zdata_start)
-bss_95e0 equ __zdseg_end + (__zobss_95e0 - __zdata_start)
+; glyph_painter equ __zdseg_end + (__zobss_9114 - __zdata_start)
+; bss_91d4      equ __zdseg_end + (__zobss_91d4 - __zdata_start)
+; bss_91fe      equ __zdseg_end + (__zobss_91fe - __zdata_start)
+bss_95de      equ __zdseg_end + (__zobss_95de - __zdata_start)
+bss_95e0      equ __zdseg_end + (__zobss_95e0 - __zdata_start)
 %include "vtrea/api_idx_0054_TIQK.asm"     ; 0x4254
 
 %include "shared/game/loc_QQUT.asm"              ; 0x4318
@@ -191,8 +193,8 @@ dseg_90e2 equ __zdseg_end + (__zdseg_90e2 - __zdata_start)
 ; bss_95e2  equ __zdseg_end + (__zobss_95e2 - __zdata_start)
 %include "vtrea/api_idx_0092_GSQH.asm"     ; 0x4bcc
 
-; bss_9114            equ __zdseg_end + (__zobss_9114 - __zdata_start)
-; bss_911e            equ __zdseg_end + (__zobss_911e - __zdata_start)
+; glyph_painter       equ __zdseg_end + (__zobss_9114 - __zdata_start)
+; animation_frame     equ __zdseg_end + (__zobss_911e - __zdata_start)
 ; treasure_caption_on equ __zdseg_end + (__zobss_9126 - __zdata_start)
 ; bss_91d4            equ __zdseg_end + (__zobss_91d4 - __zdata_start)
 ; bss_91fe            equ __zdseg_end + (__zobss_91fe - __zdata_start)
@@ -217,9 +219,9 @@ api_idx_0002_HHSQ equ api_idx_0002_GKQL
 api_idx_0002_MLKN equ api_idx_0002_QVIM
 %include "shared/game/api_idx_0002_QVIM.asm"     ; 0x56cc
 
-; bss_9114 equ __zdseg_end + (__zobss_9114 - __zdata_start)
-; bss_91d4 equ __zdseg_end + (__zobss_91d4 - __zdata_start)
-; bss_95e4 equ __zdseg_end + (__zobss_95e4 - __zdata_start)
+; glyph_painter equ __zdseg_end + (__zobss_9114 - __zdata_start)
+; bss_91d4      equ __zdseg_end + (__zobss_91d4 - __zdata_start)
+; bss_95e4      equ __zdseg_end + (__zobss_95e4 - __zdata_start)
 %include "vtrea/loc_HUIS.asm"              ; 0x5789
 
 ; bss_91d4 equ __zdseg_end + (__zobss_91d4 - __zdata_start)
@@ -235,14 +237,14 @@ jumptable_5fd3_case_6 equ log_maze_change.jumptable_case4
 jumptable_5fd3        equ log_maze_change.jumptable1
 %include "shared/game/log_maze_change.asm"     ; 0x5efe
 
-dseg_90e3 equ __zdseg_end + (__zdseg_90e3 - __zdata_start)
-dseg_90e9 equ __zdseg_end + (__zdseg_90e9 - __zdata_start)
-dseg_90eb equ __zdseg_end + (__zdseg_90eb - __zdata_start)
-; bss_911c  equ __zdseg_end + (__zobss_911c - __zdata_start)
+dseg_90e3        equ __zdseg_end + (__zdseg_90e3 - __zdata_start)
+dseg_90e9        equ __zdseg_end + (__zdseg_90e9 - __zdata_start)
+dseg_90eb        equ __zdseg_end + (__zdseg_90eb - __zdata_start)
+; show_area_bottom equ __zdseg_end + (__zobss_911c - __zdata_start)
 %include "vtrea/api_idx_006a_NKMN.asm"     ; 0x5fef
 
-dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
-; bss_911c  equ __zdseg_end + (__zobss_911c - __zdata_start)
+dseg_90ee        equ __zdseg_end + (__zdseg_90ee - __zdata_start)
+; show_area_bottom equ __zdseg_end + (__zobss_911c - __zdata_start)
 %include "vtrea/api_idx_0074_MHUG.asm"     ; 0x66eb
 
 %include "shared/game/api_idx_0002_OVRM.asm"     ; 0x6e69
@@ -268,7 +270,7 @@ dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 
 %include "vtrea/api_idx_0074_SGUS.asm"     ; 0x78ed
 
-; bss_911c              equ __zdseg_end + (__zobss_911c - __zdata_start)
+; show_area_bottom      equ __zdseg_end + (__zobss_911c - __zdata_start)
 ; party_redraw_interval equ __zdseg_end + (__zobss_9124 - __zdata_start)
 ; treasure_caption_on   equ __zdseg_end + (__zobss_9126 - __zdata_start)
 ; treasure_caption      equ __zdseg_end + (__zobss_9128 - __zdata_start)

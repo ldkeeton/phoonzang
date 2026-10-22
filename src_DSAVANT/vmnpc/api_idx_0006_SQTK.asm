@@ -37,22 +37,22 @@ api_idx_0006_SQTK:
 @..api_idx_0006_SQTK.l3:
     jmp short @..api_idx_0006_SQTK.l5 ; 0x0f9e
 @..api_idx_0006_SQTK.l4:
-    mov ax, word [bss_906c]          ; 0x0fa0
+    mov ax, word [screen_cache_index] ; 0x0fa0
     inc ax                           ; 0x0fa3
     mov cx, 2                        ; 0x0fa4
     cwd                              ; 0x0fa7
     idiv cx                          ; 0x0fa8
-    mov word [bss_906c], dx          ; 0x0faa
+    mov word [screen_cache_index], dx ; 0x0faa
 @..api_idx_0006_SQTK.l5:
     mov ax, 0                        ; 0x0fae
     push ax                          ; 0x0fb1
     push ax                          ; 0x0fb2
-    mov ax, word [bss_906c]          ; 0x0fb3
+    mov ax, word [screen_cache_index] ; 0x0fb3
     shl ax, 1                        ; 0x0fb6
     shl ax, 1                        ; 0x0fb8
     mov bx, ax                       ; 0x0fba
     push word [bx + bss_9062]        ; 0x0fbc
-    push word [bx + bss_9060]        ; 0x0fc0
+    push word [bx + screen_cache]    ; 0x0fc0
     call gfx_restore_screen          ; 0x0fc4
     add sp, byte 8                   ; 0x0fc7
     mov word [bp - 0x0002], 0        ; 0x0fca

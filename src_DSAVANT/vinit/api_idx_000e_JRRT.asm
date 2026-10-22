@@ -8,11 +8,11 @@ api_idx_000e_JRRT:
     mov ax, word [bp + 0x4]          ; 0x09e3
     shl ax, 1                        ; 0x09e6
     mov bx, ax                       ; 0x09e8
-    mov al, byte [bx + 0x7ed4]       ; 0x09ea
+    mov al, byte [bx + glyph_x_table_b] ; 0x09ea
     sub ah, ah                       ; 0x09ee
     mov word [bp - 0x0002], ax       ; 0x09f0
     mov bx, word [bp + 0x4]          ; 0x09f3
-    mov al, byte [bx + 0x7f1d]       ; 0x09f6
+    mov al, byte [bx + glyph_y_table_b] ; 0x09f6
     sub ah, ah                       ; 0x09fa
     mov word [bp - 0x0004], ax       ; 0x09fc
     cmp word [bp + 0x6], byte 0      ; 0x09ff

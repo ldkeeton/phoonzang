@@ -128,8 +128,13 @@ def cmd_build_binary(app, binary):
     print(f'build {app}/{binary} -> {bins[binary][0]}  [OK]')
 
 
-def _rebuild_project(app, binary=None):
-    """Recompile every ``.c`` (gated against the original) then NASM-assemble."""
+def _rebuild_project(app, binary=None, only=None):
+    """Recompile every ``.c`` (gated against the original) then NASM-assemble.
+
+    *only* limits the C gate to one routine's source; the binary still
+    assembles, so the check covers both "the C reproduces its bytes" and
+    "the fragment assembles in place".
+    """
     from .elf import resplice_c
     app_dir = os.path.join(APPS, app)
     out_dir = src_dir(app, PROJECT)
@@ -138,11 +143,14 @@ def _rebuild_project(app, binary=None):
         print(f'Unknown binary "{binary}" in {app}')
         print(f'Known: {", ".join(sorted(bins))}')
         sys.exit(1)
+    if only is not None and binary is None:
+        print('a routine needs its binary: make rebuild PROJECT BIN ROUTINE')
+        sys.exit(1)
     targets = [binary] if binary else sorted(bins)
     for name in targets:
         if _verbose():
             progress.log(f'{app}/{name} | resplicing C routines')
-        resplice_c(app, name, check_only=True)
+        resplice_c(app, name, check_only=True, only=only)
     for name in targets:
         if _verbose():
             progress.log(f'{app}/{name} | nasm')
@@ -154,10 +162,10 @@ def _rebuild_project(app, binary=None):
     print(f'rebuild {app}: {len(targets)} binar{"y" if len(targets) == 1 else "ies"} OK')
 
 
-def cmd_rebuild(app=None, binary=None, all_projects=()):
-    """``make rebuild [PROJECT [BIN]]``: all projects, one, or one binary."""
+def cmd_rebuild(app=None, binary=None, all_projects=(), only=None):
+    """``make rebuild [PROJECT [BIN [ROUTINE]]]``."""
     for project in ([app] if app else all_projects):
-        _rebuild_project(project, binary)
+        _rebuild_project(project, binary, only)
 
 
 def _build_projects(targets, all_projects, *, prebuild=True):

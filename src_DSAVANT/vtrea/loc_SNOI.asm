@@ -37,7 +37,7 @@ loc_SNOI:
     call gfx_cache_area              ; 0x7de5
     add sp, byte 0x0c                ; 0x7de8
     mov word [bss_9062], dx          ; 0x7deb
-    mov word [bss_9060], ax          ; 0x7def
+    mov word [screen_cache], ax      ; 0x7def
     cmp word [bss_906a], byte 0      ; 0x7df2
     je short @..loc_SNOI.l1          ; 0x7df7
     mov ax, 1                        ; 0x7df9
@@ -63,7 +63,7 @@ loc_SNOI:
     add sp, byte 0x0c                ; 0x7e28
     mov word [bss_9066], dx          ; 0x7e2b
     mov word [bss_9064], ax          ; 0x7e2f
-    call api_idx_000e_TIOP           ; 0x7e32
+    call draw_party_glyph_row        ; 0x7e32
     mov ax, 0xc6                     ; 0x7e35
     push ax                          ; 0x7e38
     mov ax, 0x127                    ; 0x7e39
@@ -102,7 +102,7 @@ loc_SNOI:
     add sp, byte 4                   ; 0x7e88
     mov word [bss_91d4], 1           ; 0x7e8b
     mov word [party_redraw_interval], 5 ; 0x7e91
-    mov word [bss_911c], 0x8f        ; 0x7e97
+    mov word [show_area_bottom], 0x8f ; 0x7e97
     call flush_keyboard              ; 0x7e9d
     mov word [treasure_caption_on], 0 ; 0x7ea0
     cmp word [bp + 0x4], byte 0      ; 0x7ea6

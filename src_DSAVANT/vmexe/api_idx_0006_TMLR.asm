@@ -58,22 +58,22 @@ api_idx_0006_TMLR:
 @..api_idx_0006_TMLR.l4:
     jmp short @..api_idx_0006_TMLR.l6 ; 0x1928
 @..api_idx_0006_TMLR.l5:
-    mov ax, word [bss_906c]          ; 0x192a
+    mov ax, word [screen_cache_index] ; 0x192a
     inc ax                           ; 0x192d
     mov cx, 2                        ; 0x192e
     cwd                              ; 0x1931
     idiv cx                          ; 0x1932
-    mov word [bss_906c], dx          ; 0x1934
+    mov word [screen_cache_index], dx ; 0x1934
 @..api_idx_0006_TMLR.l6:
     mov ax, 0                        ; 0x1938
     push ax                          ; 0x193b
     push ax                          ; 0x193c
-    mov ax, word [bss_906c]          ; 0x193d
+    mov ax, word [screen_cache_index] ; 0x193d
     shl ax, 1                        ; 0x1940
     shl ax, 1                        ; 0x1942
     mov bx, ax                       ; 0x1944
     push word [bx + bss_9062]        ; 0x1946
-    push word [bx + bss_9060]        ; 0x194a
+    push word [bx + screen_cache]    ; 0x194a
     call gfx_restore_screen          ; 0x194e
     add sp, byte 8                   ; 0x1951
     mov word [bp - 0x0002], 0        ; 0x1954

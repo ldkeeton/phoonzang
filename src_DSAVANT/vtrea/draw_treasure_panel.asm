@@ -1,5 +1,5 @@
 ; auto-generated
-loc_GRQV:
+draw_treasure_panel:
     mov ax, 0xfee8                   ; 0x0111
     call aztec_csav                  ; 0x0114
     mov word [bp - 0x00f6], 7        ; 0x0117
@@ -8,27 +8,27 @@ loc_GRQV:
     mov bx, ax                       ; 0x0123
     mov al, byte [bx + 0x889]        ; 0x0125
     sub ah, ah                       ; 0x0129
-    jmp short @..loc_GRQV.l4         ; 0x012b
-@..loc_GRQV.l1:
+    jmp short @..draw_treasure_panel.l4 ; 0x012b
+@..draw_treasure_panel.l1:
     mov word [bp - 0x0010], 1        ; 0x012d
     mov word [bp - 0x00fa], 1        ; 0x0132
-    jmp short @..loc_GRQV.l5         ; 0x0138
-@..loc_GRQV.l2:
+    jmp short @..draw_treasure_panel.l5 ; 0x0138
+@..draw_treasure_panel.l2:
     mov word [bp - 0x0010], 1        ; 0x013a
     mov word [bp - 0x00fa], 1        ; 0x013f
-    jmp short @..loc_GRQV.l5         ; 0x0145
-@..loc_GRQV.l3:
+    jmp short @..draw_treasure_panel.l5 ; 0x0145
+@..draw_treasure_panel.l3:
     mov word [bp - 0x0010], 0        ; 0x0147
     mov word [bp - 0x00fa], 4        ; 0x014c
-    jmp short @..loc_GRQV.l5         ; 0x0152
-@..loc_GRQV.l4:
+    jmp short @..draw_treasure_panel.l5 ; 0x0152
+@..draw_treasure_panel.l4:
     cmp ax, strict word 0            ; 0x0154
-    je short @..loc_GRQV.l1          ; 0x0157
+    je short @..draw_treasure_panel.l1 ; 0x0157
     cmp ax, strict word 1            ; 0x0159
-    je short @..loc_GRQV.l2          ; 0x015c
+    je short @..draw_treasure_panel.l2 ; 0x015c
     cmp ax, strict word 2            ; 0x015e
-    je short @..loc_GRQV.l3          ; 0x0161
-@..loc_GRQV.l5:
+    je short @..draw_treasure_panel.l3 ; 0x0161
+@..draw_treasure_panel.l5:
     mov word [bp - 0x00fc], 6        ; 0x0163
     mov ax, 0xc                      ; 0x0169
     cwd                              ; 0x016c
@@ -48,47 +48,47 @@ loc_GRQV:
     mov word [bp - 0x000a], 0xffff   ; 0x0199
     mov al, byte [bx + 0x889]        ; 0x019e
     sub ah, ah                       ; 0x01a2
-    jmp short @..loc_GRQV.l8         ; 0x01a4
-@..loc_GRQV.l6:
+    jmp short @..draw_treasure_panel.l8 ; 0x01a4
+@..draw_treasure_panel.l6:
     inc word [bp + 0x6]              ; 0x01a6
     inc word [bp - 0x00f8]           ; 0x01a9
-    jmp short @..loc_GRQV.l9         ; 0x01ad
-@..loc_GRQV.l7:
+    jmp short @..draw_treasure_panel.l9 ; 0x01ad
+@..draw_treasure_panel.l7:
     add word [bp - 0x00f8], byte 3   ; 0x01af
-    jmp short @..loc_GRQV.l9         ; 0x01b4
-@..loc_GRQV.l8:
+    jmp short @..draw_treasure_panel.l9 ; 0x01b4
+@..draw_treasure_panel.l8:
     cmp ax, strict word 1            ; 0x01b6
-    je short @..loc_GRQV.l6          ; 0x01b9
+    je short @..draw_treasure_panel.l6 ; 0x01b9
     cmp ax, strict word 2            ; 0x01bb
-    je short @..loc_GRQV.l7          ; 0x01be
-@..loc_GRQV.l9:
+    je short @..draw_treasure_panel.l7 ; 0x01be
+@..draw_treasure_panel.l9:
     cmp word [bp + 0x4], byte 0xff   ; 0x01c0
-    je short @..loc_GRQV.l10         ; 0x01c4
+    je short @..draw_treasure_panel.l10 ; 0x01c4
     mov ax, word [bp + 0x4]          ; 0x01c6
     mov cx, 2                        ; 0x01c9
     cwd                              ; 0x01cc
     idiv cx                          ; 0x01cd
     mov ax, dx                       ; 0x01cf
     test ax, ax                      ; 0x01d1
-    jne short @..loc_GRQV.l12        ; 0x01d3
-@..loc_GRQV.l10:
+    jne short @..draw_treasure_panel.l12 ; 0x01d3
+@..draw_treasure_panel.l10:
     mov word [bp - 0x000e], 0        ; 0x01d5
     mov ax, 0                        ; 0x01da
     cmp word [bp - 0x0010], byte 0   ; 0x01dd
-    je short @..loc_GRQV.l11         ; 0x01e1
+    je short @..draw_treasure_panel.l11 ; 0x01e1
     mov ax, 1                        ; 0x01e3
-@..loc_GRQV.l11:
+@..draw_treasure_panel.l11:
     mov word [bp - 0x0104], ax       ; 0x01e6
-    jmp short @..loc_GRQV.l14        ; 0x01ea
-@..loc_GRQV.l12:
+    jmp short @..draw_treasure_panel.l14 ; 0x01ea
+@..draw_treasure_panel.l12:
     mov word [bp - 0x000e], 1        ; 0x01ec
     mov ax, 1                        ; 0x01f1
     cmp word [bp - 0x0010], byte 0   ; 0x01f4
-    je short @..loc_GRQV.l13         ; 0x01f8
+    je short @..draw_treasure_panel.l13 ; 0x01f8
     mov ax, 0                        ; 0x01fa
-@..loc_GRQV.l13:
+@..draw_treasure_panel.l13:
     mov word [bp - 0x0104], ax       ; 0x01fd
-@..loc_GRQV.l14:
+@..draw_treasure_panel.l14:
     mov ax, 6                        ; 0x0201
     imul word [bp + 0x6]             ; 0x0204
     mov bx, ax                       ; 0x0207
@@ -205,12 +205,12 @@ loc_GRQV:
     mov word [bp - 0x005a], 0x22     ; 0x045f
     mov ax, 0                        ; 0x0464
     cmp word [bp - 0x000c], byte 0   ; 0x0467
-    je short @..loc_GRQV.l15         ; 0x046b
+    je short @..draw_treasure_panel.l15 ; 0x046b
     mov ax, 5                        ; 0x046d
     cmp byte [bx + 0x889], 2         ; 0x0470
-    jne short @..loc_GRQV.l15        ; 0x0475
+    jne short @..draw_treasure_panel.l15 ; 0x0475
     mov ax, 3                        ; 0x0477
-@..loc_GRQV.l15:
+@..draw_treasure_panel.l15:
     mov word [bp - 0x0102], ax       ; 0x047a
     mov word [bp - 0x0100], ax       ; 0x047e
     mov ax, 0                        ; 0x0482
@@ -231,10 +231,10 @@ loc_GRQV:
     mov word [bp - 0x0118], ax       ; 0x04a4
     mov ax, 0                        ; 0x04a8
     push ax                          ; 0x04ab
-    call api_idx_0010_PVHV           ; 0x04ac
+    call draw_animation_frame        ; 0x04ac
     pop cx                           ; 0x04af
-    mov word [bss_9116], ax          ; 0x04b0
-    push word [bss_911c]             ; 0x04b3
+    mov word [animation_index], ax   ; 0x04b0
+    push word [show_area_bottom]     ; 0x04b3
     mov ax, 0xf8                     ; 0x04b7
     push ax                          ; 0x04ba
     mov ax, 0x21                     ; 0x04bb
@@ -250,8 +250,8 @@ loc_GRQV:
     mov word [bp - 0x0004], 0        ; 0x04d1
     mov ax, word [bp - 0x0006]       ; 0x04d6
     mov word [bp - 0x0002], ax       ; 0x04d9
-    jmp near @..loc_GRQV.l23         ; 0x04dc
-@..loc_GRQV.l16:
+    jmp near @..draw_treasure_panel.l23 ; 0x04dc
+@..draw_treasure_panel.l16:
     les bx, word [tick_counter_ptr]  ; 0x04df
     mov ax, word [es:bx]             ; 0x04e3
     mov dx, word [es:bx + 0x2]       ; 0x04e6
@@ -268,7 +268,7 @@ loc_GRQV:
     idiv cx                          ; 0x0506
     mov word [bp - 0x00ee], ax       ; 0x0508
     cmp word [bp - 0x0104], byte 0   ; 0x050c
-    je short @..loc_GRQV.l17         ; 0x0511
+    je short @..draw_treasure_panel.l17 ; 0x0511
     mov cx, 0                        ; 0x0513
     sub cx, ax                       ; 0x0516
     mov ax, cx                       ; 0x0518
@@ -282,7 +282,7 @@ loc_GRQV:
     shl cx, 1                        ; 0x052c
     sub ax, cx                       ; 0x052e
     mov word [bp - 0x00ee], ax       ; 0x0530
-@..loc_GRQV.l17:
+@..draw_treasure_panel.l17:
     mov ax, word [bp - 0x00ec]       ; 0x0534
     imul word [bp - 0x0064]          ; 0x0538
     mov cx, 0x64                     ; 0x053b
@@ -299,22 +299,22 @@ loc_GRQV:
     push word [bp - 0x0118]          ; 0x055b
     call gfx_restore_screen          ; 0x055f
     add sp, byte 8                   ; 0x0562
-    cmp word [bss_9116], byte 0      ; 0x0565
-    jl short @..loc_GRQV.l19         ; 0x056a
+    cmp word [animation_index], byte 0 ; 0x0565
+    jl short @..draw_treasure_panel.l19 ; 0x056a
     mov ax, word [bp - 0x0004]       ; 0x056c
     mov cx, 3                        ; 0x056f
     cwd                              ; 0x0572
     idiv cx                          ; 0x0573
     mov ax, dx                       ; 0x0575
     test ax, ax                      ; 0x0577
-    jne short @..loc_GRQV.l18        ; 0x0579
-    inc word [bss_9116]              ; 0x057b
-@..loc_GRQV.l18:
-    push word [bss_9116]             ; 0x057f
-    call api_idx_0010_PVHV           ; 0x0583
+    jne short @..draw_treasure_panel.l18 ; 0x0579
+    inc word [animation_index]       ; 0x057b
+@..draw_treasure_panel.l18:
+    push word [animation_index]      ; 0x057f
+    call draw_animation_frame        ; 0x0583
     pop cx                           ; 0x0586
-    mov word [bss_9116], ax          ; 0x0587
-@..loc_GRQV.l19:
+    mov word [animation_index], ax   ; 0x0587
+@..draw_treasure_panel.l19:
     mov ax, 0x18                     ; 0x058a
     imul word [bp - 0x000e]          ; 0x058d
     mov cx, word [bp - 0x0002]       ; 0x0590
@@ -358,7 +358,7 @@ loc_GRQV:
     push word [bp - 0x00f6]          ; 0x05f1
     call gfx_draw_text               ; 0x05f5
     add sp, byte 0x16                ; 0x05f8
-    push word [bss_911c]             ; 0x05fb
+    push word [show_area_bottom]     ; 0x05fb
     mov ax, 0xf8                     ; 0x05ff
     push ax                          ; 0x0602
     mov ax, 0x21                     ; 0x0603
@@ -375,31 +375,31 @@ loc_GRQV:
     idiv word [bp - 0x00fe]          ; 0x061d
     mov ax, dx                       ; 0x0621
     test ax, ax                      ; 0x0623
-    jne short @..loc_GRQV.l20        ; 0x0625
+    jne short @..draw_treasure_panel.l20 ; 0x0625
     mov ax, word [bp - 0x000a]       ; 0x0627
     add word [bp - 0x00f8], ax       ; 0x062a
     mov ax, word [bp - 0x0102]       ; 0x062e
     mov word [bp - 0x0100], ax       ; 0x0632
-@..loc_GRQV.l20:
+@..draw_treasure_panel.l20:
     les bx, word [tick_counter_ptr]  ; 0x0636
     mov ax, word [es:bx]             ; 0x063a
     mov dx, word [es:bx + 0x2]       ; 0x063d
     cmp dx, word [bp - 0x0112]       ; 0x0641
-    jne short @..loc_GRQV.l21        ; 0x0645
+    jne short @..draw_treasure_panel.l21 ; 0x0645
     cmp ax, word [bp - 0x0114]       ; 0x0647
-@..loc_GRQV.l21:
-    jne short @..loc_GRQV.l22        ; 0x064b
-    jmp short @..loc_GRQV.l20        ; 0x064d
-@..loc_GRQV.l22:
+@..draw_treasure_panel.l21:
+    jne short @..draw_treasure_panel.l22 ; 0x064b
+    jmp short @..draw_treasure_panel.l20 ; 0x064d
+@..draw_treasure_panel.l22:
     mov ax, word [bp - 0x000a]       ; 0x064f
     add word [bp - 0x0002], ax       ; 0x0652
     inc word [bp - 0x0004]           ; 0x0655
-@..loc_GRQV.l23:
+@..draw_treasure_panel.l23:
     mov ax, word [bp - 0x0004]       ; 0x0658
     cmp ax, word [bp - 0x00fc]       ; 0x065b
-    jge short @..loc_GRQV.l24        ; 0x065f
-    jmp near @..loc_GRQV.l16         ; 0x0661
-@..loc_GRQV.l24:
+    jge short @..draw_treasure_panel.l24 ; 0x065f
+    jmp near @..draw_treasure_panel.l16 ; 0x0661
+@..draw_treasure_panel.l24:
     mov ax, 0                        ; 0x0664
     push ax                          ; 0x0667
     mov ax, 1                        ; 0x0668

@@ -1,5 +1,6 @@
 """Command-line dispatch for the ``make`` companion tool."""
 
+import os
 import sys
 
 from lib import buildlock, childproc
@@ -10,6 +11,7 @@ from .clean import cmd_clean
 from .common import _apps, _asm_one
 from .elf import cmd_elf_rebuild
 from .init import cmd_init
+from .inspect import cmd_data, cmd_info, cmd_probe
 from .naming import cmd_name, cmd_refs, specs_from_makeflags
 from .prebuild import cmd_prebuild
 from .readme import cmd_readme
@@ -37,9 +39,15 @@ Commands (space-separated):
                             name routines/globals as the build spells them (cseg_0d3a,
                             bss_1234, io_loc_KRUO, or a current name): writes the sidecar,
                             renames hand sources and their references, then build + rebuild
-  make refs PROJECT BIN ROUTINE  list the address-named symbols ROUTINE references
-                            and the sidecar entry each resolves to
-  make rebuild [PROJECT [BIN]]  recompile .c (must match the original bytes;
+  make info PROJECT BIN ROUTINE  fragment span, co-tenant routines, callers, source
+                            and the tool/flags the build uses
+  make refs PROJECT BIN ROUTINE  list the symbols ROUTINE references: value, space,
+                            width, canonical name, definition, and raw data operands
+  make data PROJECT SEG OFFSET [BIN]  bytes at DS/SS/ES/CS:OFFSET, its canonical name
+                            and whether the image file backs it
+  make probe PROJECT BIN ROUTINE [FILE=path]  compile one candidate source with the
+                            routine's exact tool/flags; print code, fixups and length
+  make rebuild [PROJECT [BIN [ROUTINE]]]  recompile .c (must match the original bytes;
                             --allow-diff to relax) + nasm; default: everything
   make elf-rebuild [PROJECT [BIN]]  full rebuild from current sources (C resplice +
                             link + all binaries); ELF/DWARF for BIN (default host)
@@ -58,6 +66,8 @@ Env:
   ASM_DOSBOX_SHOW=1         show the DOSBox window while compiling (headless otherwise)
   ASM_DOSBOX_TIMEOUT=SECS   bound one DOSBox session (default 300; 0 disables)
   ASM_PROFILE=DIR           write each build worker's cProfile to DIR/<binary>.prof
+  JSON=1                    machine-readable output from ``info``/``refs``/``data``/``probe``
+  LEN=N                     bytes ``make data`` prints (default 16)
   EXTRA_FLAGS               space-separated flags forwarded to python -m main:
                               --stats             write stats (.cache/stats)
                               --exact-bytes       strict byte-accurate mode
@@ -199,20 +209,69 @@ def main():
         cmd_name(pos[0], pos[1], specs, all_projects)
         return
 
+    # ``FOO=bar make ...`` reaches us through MAKEFLAGS, not argv.
+    make_vars = dict(spec.partition('=')[::2] for spec in specs_from_makeflags())
+    json_out = ('--json' in flags
+                or os.environ.get('JSON', '').lower() in ('1', 'true', 'yes')
+                or make_vars.get('JSON', '').lower() in ('1', 'true', 'yes'))
+
+    if '--info' in flags:
+        if len(args) != 3 or args[0] not in all_projects:
+            print('Usage: make info PROJECT BIN ROUTINE')
+            sys.exit(1)
+        cmd_info(*args, json_out=json_out)
+        return
+
     if '--refs' in flags:
         if len(args) != 3 or args[0] not in all_projects:
-            print('Usage: make refs PROJECT BIN ROUTINE')
+            print('Usage: make refs PROJECT BIN ROUTINE [--json]')
             sys.exit(1)
-        cmd_refs(*args)
+        cmd_refs(*args, json_out=json_out)
+        return
+
+    if '--data' in flags:
+        if len(args) not in (3, 4) or args[0] not in all_projects:
+            print('Usage: make data PROJECT SEG OFFSET [BIN] [LEN=n]')
+            sys.exit(1)
+        try:
+            length = int(os.environ.get('LEN', make_vars.get('LEN', '16')), 0)
+        except ValueError:
+            length = 16
+        positional = []
+        for arg in args:
+            if arg.startswith('LEN='):
+                length = int(arg[4:], 0)
+            else:
+                positional.append(arg)
+        if len(positional) not in (3, 4):
+            print('Usage: make data PROJECT SEG OFFSET [BIN] [LEN=n]')
+            sys.exit(1)
+        cmd_data(*positional, length=length, json_out=json_out)
+        return
+
+    if '--probe' in flags:
+        positional = [a for a in args if not a.startswith('FILE=')]
+        sources = [a[5:] for a in args if a.startswith('FILE=')]
+        if not sources and make_vars.get('FILE'):
+            sources = [make_vars['FILE']]
+        if len(positional) != 3 or positional[0] not in all_projects:
+            print('Usage: make probe PROJECT BIN ROUTINE [FILE=path] [--json]')
+            sys.exit(1)
+        cmd_probe(*positional, source=sources[0] if sources else None,
+                  json_out=json_out)
         return
 
     if '--rebuild' in flags:
         project = args[0] if args else None
         binary = args[1] if len(args) > 1 else None
+        routine = args[2] if len(args) > 2 else None
         if project is not None and project not in all_projects:
             print(f'Unknown project: {project}')
             sys.exit(1)
-        cmd_rebuild(project, binary, all_projects)
+        if routine and not binary:
+            print('Usage: make rebuild [PROJECT [BIN [ROUTINE]]]')
+            sys.exit(1)
+        cmd_rebuild(project, binary, all_projects, only=routine)
         return
 
     if '--elf-rebuild' in flags:

@@ -37,7 +37,7 @@ jumptable_240e_case_1:
 jumptable_240e_case_2:
     mov ax, dseg_9125                ; 0x22c2
     push ax                          ; 0x22c5
-    mov ax, dseg_911e                ; 0x22c6
+    mov ax, animation_frame          ; 0x22c6
     push ax                          ; 0x22c9
     mov ax, dseg_9115                ; 0x22ca
     push ax                          ; 0x22cd

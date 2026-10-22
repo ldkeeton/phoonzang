@@ -15,10 +15,10 @@ loc_VSIT:
     mov ax, 1                        ; 0x7eda
     push ax                          ; 0x7edd
     push word [bss_9062]             ; 0x7ede
-    push word [bss_9060]             ; 0x7ee2
+    push word [screen_cache]         ; 0x7ee2
     call gfx_restore_screen          ; 0x7ee6
     add sp, byte 8                   ; 0x7ee9
-    call api_idx_000e_TIOP           ; 0x7eec
+    call draw_party_glyph_row        ; 0x7eec
     mov ax, 0xf                      ; 0x7eef
     push ax                          ; 0x7ef2
     call free_picture_slot           ; 0x7ef3

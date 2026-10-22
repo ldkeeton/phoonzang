@@ -2,7 +2,7 @@
 api_idx_006a_NKMN:
     mov ax, 0xff96                   ; 0x5fef
     call aztec_csav                  ; 0x5ff2
-    mov word [bss_911c], 0x8d        ; 0x5ff5
+    mov word [show_area_bottom], 0x8d ; 0x5ff5
     mov word [spell_dialog_result], 0xffff ; 0x5ffb
     mov word [bp - 0x0006], 0x37     ; 0x6001
     mov word [bp - 0x0008], 0x8f     ; 0x6006
@@ -733,7 +733,7 @@ api_idx_006a_NKMN:
     push word [message_delay]        ; 0x66b2
     call api_idx_0004_UQUT           ; 0x66b6
     pop cx                           ; 0x66b9
-    mov word [bss_911c], 0x8f        ; 0x66ba
+    mov word [show_area_bottom], 0x8f ; 0x66ba
     mov ax, 1                        ; 0x66c0
     push ax                          ; 0x66c3
     push word [bp - 0x0018]          ; 0x66c4

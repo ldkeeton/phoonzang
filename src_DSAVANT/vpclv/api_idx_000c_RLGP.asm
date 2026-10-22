@@ -301,7 +301,7 @@ api_idx_000c_RLGP:
     push ax                          ; 0x5456
     call free_picture_slot           ; 0x5457
     pop cx                           ; 0x545a
-    call api_idx_000e_TIOP           ; 0x545b
+    call draw_party_glyph_row        ; 0x545b
     mov ax, 0xc7                     ; 0x545e
     push ax                          ; 0x5461
     mov ax, 0x13f                    ; 0x5462

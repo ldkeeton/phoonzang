@@ -833,7 +833,7 @@ jumptable_67c3_case_15:
     push word [bp - 0x0014]          ; 0x68d7
     call gfx_restore_screen          ; 0x68da
     add sp, byte 8                   ; 0x68dd
-    call api_idx_000e_TIOP           ; 0x68e0
+    call draw_party_glyph_row        ; 0x68e0
     cmp word [bss_905e], byte 0x0d   ; 0x68e3
     jne short @..api_idx_0014_VORK.l25 ; 0x68e8
     mov ax, 1                        ; 0x68ea

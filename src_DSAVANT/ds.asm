@@ -91,11 +91,15 @@ slot_rec_target equ __zbss_6a40 - __zdseg_start
 slot_rec_target_rand equ __zbss_6a4a - __zdseg_start
 slot_rec_ranges equ __zbss_6ac1 - __zdseg_start
 slot_rec_forced equ __zbss_6b75 - __zdseg_start
+glyph_x_table equ __zbss_6e6c - __zdseg_start
+glyph_y_table equ __zbss_6eb5 - __zdseg_start
 bss_7abc equ __zbss_7abc - __zdseg_start
 bss_7abe equ __zbss_7abe - __zdseg_start
 bss_7b04 equ __zbss_7b04 - __zdseg_start
 bss_7b05 equ __zbss_7b05 - __zdseg_start
 bss_7d3c equ __zbss_7d3c - __zdseg_start
+glyph_x_table_b equ __zbss_7ed4 - __zdseg_start
+glyph_y_table_b equ __zbss_7f1d - __zdseg_start
 bss_82f4 equ __zbss_82f4 - __zdseg_start
 bss_82f6 equ __zbss_82f6 - __zdseg_start
 bss_82f8 equ __zbss_82f8 - __zdseg_start
@@ -218,13 +222,13 @@ bss_9058 equ __zbss_9058 - __zdseg_start
 message_delay equ __zbss_905a - __zdseg_start
 bss_905c equ __zbss_905c - __zdseg_start
 bss_905e equ __zbss_905e - __zdseg_start
-bss_9060 equ __zbss_9060 - __zdseg_start
+screen_cache equ __zbss_9060 - __zdseg_start
 bss_9062 equ __zbss_9062 - __zdseg_start
 bss_9064 equ __zbss_9064 - __zdseg_start
 bss_9066 equ __zbss_9066 - __zdseg_start
 bss_9068 equ __zbss_9068 - __zdseg_start
 bss_906a equ __zbss_906a - __zdseg_start
-bss_906c equ __zbss_906c - __zdseg_start
+screen_cache_index equ __zbss_906c - __zdseg_start
 bss_906e equ __zbss_906e - __zdseg_start
 bss_9070 equ __zbss_9070 - __zdseg_start
 bss_9072 equ __zbss_9072 - __zdseg_start
@@ -1490,7 +1494,11 @@ __zbss_6a4a:
 __zbss_6ac1:
     resb 0x00b4
 __zbss_6b75:
-    resb 0x0f47
+    resb 0x02f7
+__zbss_6e6c:
+    resb 0x0049
+__zbss_6eb5:
+    resb 0x0c07
 __zbss_7abc:
     resb 0x0002
 __zbss_7abe:
@@ -1500,7 +1508,11 @@ __zbss_7b04:
 __zbss_7b05:
     resb 0x0237
 __zbss_7d3c:
-    resb 0x057a
+    resb 0x0198
+__zbss_7ed4:
+    resb 0x0049
+__zbss_7f1d:
+    resb 0x0399
 __zbss_82b6:
     resb 0x0002
 __zbss_82b8:

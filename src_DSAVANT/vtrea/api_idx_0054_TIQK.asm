@@ -29,7 +29,7 @@ api_idx_0054_TIQK:
     jge short @..api_idx_0054_TIQK.l3 ; 0x4296
     mov word [bss_91fe], 0           ; 0x4298
     mov word [bss_95e0], 1           ; 0x429e
-    mov word [bss_9114], 1           ; 0x42a4
+    mov word [glyph_painter], 1      ; 0x42a4
     lea ax, word [bp - 0x0054]       ; 0x42aa
     push ax                          ; 0x42ad
     mov ax, 0x1472                   ; 0x42ae

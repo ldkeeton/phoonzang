@@ -2,7 +2,7 @@
 api_idx_0074_MHUG:
     mov ax, 0xff8c                   ; 0x66eb
     call aztec_csav                  ; 0x66ee
-    mov word [bss_911c], 0x8d        ; 0x66f1
+    mov word [show_area_bottom], 0x8d ; 0x66f1
     mov word [spell_dialog_result], 0xffff ; 0x66f7
     mov word [bp - 0x0006], 0x37     ; 0x66fd
     mov word [bp - 0x0008], 0x8f     ; 0x6702
@@ -811,7 +811,7 @@ api_idx_0074_MHUG:
     push word [message_delay]        ; 0x6e30
     call api_idx_0004_UQUT           ; 0x6e34
     pop cx                           ; 0x6e37
-    mov word [bss_911c], 0x8f        ; 0x6e38
+    mov word [show_area_bottom], 0x8f ; 0x6e38
     mov ax, 1                        ; 0x6e3e
     push ax                          ; 0x6e41
     push word [bp - 0x0024]          ; 0x6e42

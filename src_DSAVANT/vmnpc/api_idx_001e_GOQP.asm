@@ -32,7 +32,7 @@ api_idx_001e_GOQP:
     call gfx_cache_area              ; 0x70f6
     add sp, byte 0x0c                ; 0x70f9
     mov word [bss_9062], dx          ; 0x70fc
-    mov word [bss_9060], ax          ; 0x7100
+    mov word [screen_cache], ax      ; 0x7100
     cmp word [bss_906a], byte 0      ; 0x7103
     je short @..api_idx_001e_GOQP.l4 ; 0x7108
     mov ax, 1                        ; 0x710a

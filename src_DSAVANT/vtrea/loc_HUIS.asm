@@ -619,8 +619,8 @@ loc_HUIS:
     jle short @..loc_HUIS.l55        ; 0x5d69
     call api_idx_0040_LIPH           ; 0x5d6b
 @..loc_HUIS.l55:
-    mov word [bss_9114], 0           ; 0x5d6e
-    call loc_SPML                    ; 0x5d74
+    mov word [glyph_painter], 0      ; 0x5d6e
+    call update_treasure_frame       ; 0x5d74
     mov ax, 2                        ; 0x5d77
     push ax                          ; 0x5d7a
     call api_idx_0004_UQUT           ; 0x5d7b
