@@ -303,9 +303,23 @@ async function diffVendor(uri) {
 // ------------------------------------------------------------ Manx cc / as
 
 let diagnostics;
-const running = new Map();   // fsPath -> rerun requested?
+const running = new Map();   // fsPath -> state of the check in flight
 const checked = new Map();   // fsPath -> document version last checked
 const shown = new Map();     // uri string -> signature of diagnostics last published
+
+const mtimeOf = (file) => {
+    try { return fs.statSync(file).mtimeMs; } catch (e) { return null; }
+};
+
+// Drop everything remembered about ``uri``: its problems, and the version it was
+// last checked at.  Called when the file is renamed or deleted, so its warnings
+// (and a recreated file's old signature) do not outlive it.
+function forget(uri) {
+    diagnostics.delete(uri);
+    shown.delete(uri.toString());
+    checked.delete(uri.fsPath);
+    texts.delete(uri.toString());
+}
 
 function toDiagnostics(doc, stdout) {
     const out = [];
@@ -329,27 +343,44 @@ function checkFile(doc, force) {
     const file = doc.fileName;
     if (!force && checked.get(file) === doc.version) return;
     checked.set(file, doc.version);
-    if (running.has(file)) { running.set(file, true); return; }
-    running.set(file, false);
+    if (running.has(file)) {
+        const state = running.get(file);
+        state.again = true;
+        state.doc = doc;
+        return;
+    }
+    const started = mtimeOf(file);
+    const state = { again: false, doc };
+    running.set(file, state);
     const done = new Promise((resolveRun) => {
         execFile(cfg().get('python'), [path.join(root(), '.vscode', 'cccheck.py'), file],
             { cwd: root(), timeout: 180000, maxBuffer: 1 << 24 }, (err, stdout, stderr) => {
-                const parsed = toDiagnostics(doc, stdout || '');
-                // Republishing identical diagnostics still fires onDidChangeDiagnostics, which
-                // repaints open views (the References panel) and dismisses their context menus.
-                const sig = JSON.stringify(parsed.map((d) =>
-                    [d.range.start.line, d.range.start.character, d.severity, d.message]));
-                if (shown.get(doc.uri.toString()) !== sig) {
-                    shown.set(doc.uri.toString(), sig);
-                    diagnostics.set(doc.uri, parsed);
+                const key = doc.uri.toString();
+                if (fs.existsSync(file)) {
+                    const parsed = toDiagnostics(doc, stdout || '');
+                    // Republishing identical diagnostics still fires onDidChangeDiagnostics, which
+                    // repaints open views (the References panel) and dismisses their context menus.
+                    const sig = JSON.stringify(parsed.map((d) =>
+                        [d.range.start.line, d.range.start.character, d.severity, d.message]));
+                    if (shown.get(key) !== sig) {
+                        shown.set(key, sig);
+                        diagnostics.set(doc.uri, parsed);
+                    }
+                    if (err && !parsed.length) {
+                        vscode.window.showErrorMessage(`Manx cc check failed: ${(stderr || err.message).slice(-300)}`);
+                    }
+                } else {
+                    // Renamed or deleted while the compiler ran: don't publish for a
+                    // file that is gone (a rename may already be at its new path).
+                    forget(doc.uri);
                 }
-                if (err && !parsed.length) {
-                    vscode.window.showErrorMessage(`Manx cc check failed: ${(stderr || err.message).slice(-300)}`);
-                }
-                const again = running.get(file);
-                running.delete(file);
+                if (running.get(file) === state) running.delete(file);
                 resolveRun();
-                if (again) checkFile(doc, true);
+                // A save and its file-watcher event arrive as two requests, but the
+                // file is the same in both; only rerun when it really changed.
+                if (state.again && fs.existsSync(file) && mtimeOf(file) !== started) {
+                    checkFile(state.doc, true);
+                }
             });
     });
     vscode.window.setStatusBarMessage(`$(sync~spin) Manx ${/\.s$/.test(file) ? 'as' : 'cc'}…`, done);
@@ -541,10 +572,21 @@ function activate(context) {
     diagnostics = vscode.languages.createDiagnosticCollection('manx-cc');
     const ready = rebuild();
     const watcher = vscode.workspace.createFileSystemWatcher(SRC);
-    const touch = async (uri) => { await load(uri); reindex(); };
+    // Files can change on disk without a save in this editor: `make rebuild`,
+    // `make name` (which also renames them), or another editor.  Refresh an open
+    // document's diagnostics when its file changes, not just on save.
+    const touch = async (uri) => {
+        await load(uri);
+        reindex();
+        const doc = vscode.workspace.textDocuments.find((d) => d.uri.toString() === uri.toString());
+        if (doc && isGeneratedC(doc) &&
+                (cfg().get('checkOnSave') || shown.has(uri.toString()))) {
+            checkFile(doc, true);
+        }
+    };
     watcher.onDidChange(touch);
     watcher.onDidCreate(touch);
-    watcher.onDidDelete((uri) => { texts.delete(uri.toString()); reindex(); });
+    watcher.onDidDelete((uri) => { forget(uri); reindex(); });
 
     // Documents already open when the window loads never fire onDidOpen.
     if (cfg().get('checkOnOpen')) {
@@ -604,6 +646,16 @@ function activate(context) {
             }),
         vscode.workspace.onDidSaveTextDocument((doc) => {
             if (cfg().get('checkOnSave') && isGeneratedC(doc)) checkFile(doc, true);
+        }),
+        // A rename inside VS Code need not surface as a watcher delete for the old
+        // path, so clear the old file's problems explicitly and index the new one.
+        vscode.workspace.onDidRenameFiles(async (e) => {
+            for (const f of e.files) forget(f.oldUri);
+            for (const f of e.files) await touch(f.newUri);
+        }),
+        vscode.workspace.onDidDeleteFiles((e) => {
+            for (const uri of e.files) forget(uri);
+            reindex();
         }),
         vscode.workspace.onDidOpenTextDocument((doc) => {
             if (cfg().get('checkOnOpen') && isGeneratedC(doc)) checkFile(doc);
