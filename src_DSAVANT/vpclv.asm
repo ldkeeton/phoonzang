@@ -26,24 +26,24 @@ __zcode_start:
 
 %include "vpclv/ovmain.asm"                ; 0x000e
 
-%include "shared/api_idx_0002_OOKN.asm"     ; 0x0022
+%include "shared/game/api_idx_0002_OOKN.asm"     ; 0x0022
 
 bss_9408 equ __zdseg_end + (__zobss_9408 - __zdata_start)
 %include "vpclv/api_idx_0012_RLJJ.asm"     ; 0x0086
 
-%include "shared/draw_party_slot_letters.asm" ; 0x0202
+%include "shared/game/draw_party_slot_letters.asm" ; 0x0202
 
 bss_942a equ __zdseg_end + (__zobss_942a - __zdata_start)
 bss_942c equ __zdseg_end + (__zobss_942c - __zdata_start)
 api_idx_0004_RMVO.bss1 equ bss_942c
 api_idx_0004_RMVO.bss2 equ bss_942a
-%include "shared/api_idx_0004_RMVO.asm"     ; 0x0281
+%include "shared/game/api_idx_0004_RMVO.asm"     ; 0x0281
 
-%include "shared/api_idx_0002_TIUI.asm"     ; 0x0331
+%include "shared/game/api_idx_0002_TIUI.asm"     ; 0x0331
 
-%include "shared/api_idx_0002_UIHS.asm"     ; 0x038c
+%include "shared/game/api_idx_0002_UIHS.asm"     ; 0x038c
 
-%include "shared/api_idx_0010_STNH.asm"     ; 0x03cd
+%include "shared/game/api_idx_0010_STNH.asm"     ; 0x03cd
 
 bss_9432 equ __zdseg_end + (__zobss_9432 - __zdata_start)
 bss_9434 equ __zdseg_end + (__zobss_9434 - __zdata_start)
@@ -53,7 +53,7 @@ api_idx_000a_TITQ.bss1 equ bss_9434
 api_idx_000a_TITQ.bss2 equ bss_9432
 api_idx_000a_TITQ.bss3 equ bss_9436
 api_idx_000a_TITQ.bss4 equ bss_9438
-%include "shared/api_idx_000a_TITQ.asm"     ; 0x04ca
+%include "shared/game/api_idx_000a_TITQ.asm"     ; 0x04ca
 
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 bss_9416  equ __zdseg_end + (__zobss_9416 - __zdata_start)
@@ -63,26 +63,37 @@ bss_941c  equ __zdseg_end + (__zobss_941c - __zdata_start)
 ; bss_9436  equ __zdseg_end + (__zobss_9436 - __zdata_start)
 ; bss_9438  equ __zdseg_end + (__zobss_9438 - __zdata_start)
 bss_943a  equ __zdseg_end + (__zobss_943a - __zdata_start)
-%include "vpclv/api_idx_007c_MOJH.asm"     ; 0x0572
+api_idx_007c_MOJH.bss1     equ bss_9418
+api_idx_007c_MOJH.bss2     equ bss_9416
+api_idx_007c_MOJH.bss3     equ bss_941c
+api_idx_007c_MOJH.bss4     equ bss_941a
+api_idx_007c_MOJH.bss5     equ bss_9436
+api_idx_007c_MOJH.bss6     equ bss_9438
+api_idx_007c_MOJH.bss7     equ bss_943a
+api_idx_007c_MOJH.api_idx1 equ api_idx_0012_RLJJ
+%include "shared/game/api_idx_007c_MOJH.asm"     ; 0x0572
 
 %include "vpclv/loc_MNNG.asm"              ; 0x0dc0
 
 %include "vpclv/api_idx_0004_TLJT.asm"     ; 0x0e3b
 
-%include "vpclv/api_idx_000a_MHQT.asm"     ; 0x0eac
+api_idx_000a_MHQT equ api_idx_000a_GGLT
+%include "shared/game/api_idx_000a_GGLT.asm"     ; 0x0eac
 
-%include "shared/draw_power_digit.asm"      ; 0x0eea
+%include "shared/game/draw_power_digit.asm"      ; 0x0eea
 
 dseg_909b equ __zdseg_end + (__zdseg_909b - __zdata_start)
-%include "vpclv/loc_GPRG.asm"              ; 0x0f76
+loc_GPRG              equ draw_spell_cost
+draw_spell_cost.dseg1 equ dseg_909b
+%include "shared/game/draw_spell_cost.asm"              ; 0x0f76
 
-%include "shared/draw_realm_spell_points.asm" ; 0x1017
+%include "shared/game/draw_realm_spell_points.asm" ; 0x1017
 
 bss_948c equ __zdseg_end + (__zobss_948c - __zdata_start)
 periodic_party_redraw.bss1     equ bss_948c
 periodic_party_redraw.api_idx1 equ api_idx_000a_MHQT
 periodic_party_redraw.api_idx2 equ draw_realm_spell_points
-%include "shared/periodic_party_redraw.asm" ; 0x10b0
+%include "shared/game/periodic_party_redraw.asm" ; 0x10b0
 
 dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
 ; bss_948c  equ __zdseg_end + (__zobss_948c - __zdata_start)
@@ -94,13 +105,13 @@ dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
 ; bss_948c equ __zdseg_end + (__zobss_948c - __zdata_start)
 loc_TTSP.bss1 equ bss_948c
 loc_TTSP.bss2 equ bss_943a
-%include "shared/loc_TTSP.asm"              ; 0x20e3
+%include "shared/game/loc_TTSP.asm"              ; 0x20e3
 
 %include "vpclv/loc_HJRN.asm"              ; 0x2189
 
-%include "shared/api_idx_0004_GUSS.asm"     ; 0x21be
+%include "shared/game/api_idx_0004_GUSS.asm"     ; 0x21be
 
-%include "shared/api_idx_002a_STSK.asm"     ; 0x2447
+%include "shared/game/api_idx_002a_STSK.asm"     ; 0x2447
 
 bss_9422 equ __zdseg_end + (__zobss_9422 - __zdata_start)
 bss_9424 equ __zdseg_end + (__zobss_9424 - __zdata_start)
@@ -111,9 +122,9 @@ api_idx_0080_MHMQ.bss2     equ bss_9422
 api_idx_0080_MHMQ.bss3     equ bss_9428
 api_idx_0080_MHMQ.bss4     equ bss_9426
 api_idx_0080_MHMQ.api_idx1 equ api_idx_0012_RLJJ
-%include "shared/api_idx_0080_MHMQ.asm"     ; 0x24f0
+%include "shared/game/api_idx_0080_MHMQ.asm"     ; 0x24f0
 
-%include "shared/api_idx_0004_MKGU.asm"     ; 0x2717
+%include "shared/game/api_idx_0004_MKGU.asm"     ; 0x2717
 
 bss_941e equ __zdseg_end + (__zobss_941e - __zdata_start)
 bss_9420 equ __zdseg_end + (__zobss_9420 - __zdata_start)
@@ -122,11 +133,11 @@ bss_9490 equ __zdseg_end + (__zobss_9490 - __zdata_start)
 bss_9492 equ __zdseg_end + (__zobss_9492 - __zdata_start)
 %include "vpclv/api_idx_004c_UMGL.asm"     ; 0x27e3
 
-%include "shared/loc_NJOH.asm"              ; 0x2a32
+%include "shared/game/loc_NJOH.asm"              ; 0x2a32
 
-%include "shared/api_idx_0006_VJKJ.asm"     ; 0x2a85
+%include "shared/game/api_idx_0006_VJKJ.asm"     ; 0x2a85
 
-%include "shared/api_idx_0002_KQIK.asm"     ; 0x2b1a
+%include "shared/game/api_idx_0002_KQIK.asm"     ; 0x2b1a
 
 dseg_90a5 equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
 dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
@@ -150,7 +161,7 @@ dseg_91b3 equ __zdseg_end + (__zdseg_91b3 - __zdata_start)
 dseg_91c2 equ __zdseg_end + (__zdseg_91c2 - __zdata_start)
 %include "vpclv/api_idx_0052_LHVG.asm"     ; 0x2c0c
 
-%include "shared/api_idx_0004_PMIU.asm"     ; 0x3288
+%include "shared/game/api_idx_0004_PMIU.asm"     ; 0x3288
 
 %include "vpclv/api_idx_0020_ORSV.asm"     ; 0x333c
 
@@ -220,7 +231,7 @@ bss_95dc  equ __zdseg_end + (__zobss_95dc - __zdata_start)
 ; bss_9420 equ __zdseg_end + (__zobss_9420 - __zdata_start)
 api_idx_0002_OGRO.bss1 equ bss_9420
 api_idx_0002_OGRO.bss2 equ bss_941e
-%include "shared/api_idx_0002_OGRO.asm"     ; 0x3851
+%include "shared/game/api_idx_0002_OGRO.asm"     ; 0x3851
 
 ; bss_95dc equ __zdseg_end + (__zobss_95dc - __zdata_start)
 %include "vpclv/api_idx_002e_ILPL.asm"     ; 0x390b
@@ -257,7 +268,7 @@ dseg_93ef equ __zdseg_end + (__zdseg_93ef - __zdata_start)
 ; bss_9492 equ __zdseg_end + (__zobss_9492 - __zdata_start)
 %include "vpclv/api_idx_0046_NOMK.asm"     ; 0x4fca
 
-%include "shared/api_idx_000e_TIOP.asm"     ; 0x50a1
+%include "shared/game/api_idx_000e_TIOP.asm"     ; 0x50a1
 
 dseg_93f0 equ __zdseg_end + (__zdseg_93f0 - __zdata_start)
 ; bss_9416  equ __zdseg_end + (__zobss_9416 - __zdata_start)
@@ -290,7 +301,7 @@ save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg    equ __zdseg_end + (__zobss_9408 - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
-%include "shared/aztec_ovbgn.asm"           ; 0x5472
+%include "shared/aztec/aztec_ovbgn.asm"           ; 0x5472
 
 __zdseg_9098:
 __zdata_start:

@@ -30,15 +30,15 @@ bss_90ba equ __zdseg_end + (__zobss_90ba - __zdata_start)
 bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 %include "vmele/ovmain.asm"                ; 0x000e
 
-%include "shared/api_idx_0008_MNJN.asm"     ; 0x004e
+%include "shared/game/api_idx_0008_MNJN.asm"     ; 0x004e
 
 %include "vmele/api_idx_0004_RGUG.asm"     ; 0x0102
 
 %include "vmele/api_idx_0008_QLVR.asm"     ; 0x0164
 
-%include "shared/api_idx_000a_UUIH.asm"     ; 0x0244
+%include "shared/game/api_idx_000a_UUIH.asm"     ; 0x0244
 
-%include "shared/api_idx_0004_ULSR.asm"     ; 0x02c2
+%include "shared/game/api_idx_0004_ULSR.asm"     ; 0x02c2
 
 %include "vmele/api_idx_000c_LVHV.asm"     ; 0x030a
 
@@ -47,7 +47,9 @@ bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 %include "vmele/api_idx_00a8_KNHJ.asm"     ; 0x041d
 
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-%include "vmele/api_idx_005e_RKOR.asm"     ; 0x0649
+api_idx_005e_RKOR       equ api_idx_005e_OJVJ
+api_idx_005e_OJVJ.dseg1 equ dseg_9098
+%include "shared/game/api_idx_005e_OJVJ.asm"     ; 0x0649
 
 %include "vmele/api_idx_0008_SJOG.asm"     ; 0x07ad
 
@@ -63,7 +65,7 @@ dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 dseg_90a2 equ __zdseg_end + (__zdseg_90a2 - __zdata_start)
 %include "vmele/api_idx_005c_UIOK.asm"     ; 0x14e6
 
-%include "shared/loc_SIKN.asm"              ; 0x16d1
+%include "shared/game/loc_SIKN.asm"              ; 0x16d1
 
 %include "vmele/api_idx_0006_RJKJ.asm"     ; 0x1713
 
@@ -76,16 +78,16 @@ dseg_90a2 equ __zdseg_end + (__zdseg_90a2 - __zdata_start)
 %include "vmele/loc_QLKH.asm"              ; 0x1f39
 
 api_idx_000e_VRIR.api_idx1 equ api_idx_000a_PKVL
-%include "shared/api_idx_000e_VRIR.asm"     ; 0x2138
+%include "shared/game/api_idx_000e_VRIR.asm"     ; 0x2138
 
-%include "shared/api_idx_0004_ONRQ.asm"     ; 0x245b
+%include "shared/game/api_idx_0004_ONRQ.asm"     ; 0x245b
 
-%include "shared/api_idx_001c_VLRT.asm"     ; 0x2565
+%include "shared/game/api_idx_001c_VLRT.asm"     ; 0x2565
 
 api_idx_000e_NKQN.api_idx1 equ api_idx_0004_ONRQ
-%include "shared/api_idx_000e_NKQN.asm"     ; 0x27ab
+%include "shared/game/api_idx_000e_NKQN.asm"     ; 0x27ab
 
-%include "shared/loc_SSIO.asm"              ; 0x28a0
+%include "shared/game/loc_SSIO.asm"              ; 0x28a0
 
 %include "vmele/api_idx_0002_HMSQ.asm"     ; 0x28fc
 
@@ -96,13 +98,16 @@ api_idx_000e_NKQN.api_idx1 equ api_idx_0004_ONRQ
 
 ; bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 loc_KRMP.bss1 equ bss_90b6
-%include "shared/loc_KRMP.asm"              ; 0x2b19
+%include "shared/game/loc_KRMP.asm"              ; 0x2b19
 
 ; bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)
-%include "vmele/api_idx_0006_IRNH.asm"     ; 0x2b78
+api_idx_0006_IRNH          equ api_idx_0006_HRUL
+api_idx_0006_HRUL.bss1     equ bss_90b6
+api_idx_0006_HRUL.api_idx1 equ api_idx_000e_NKQN
+%include "shared/game/api_idx_0006_HRUL.asm"     ; 0x2b78
 
 loc_RPUI.api_idx1 equ api_idx_0006_IRNH
-%include "shared/loc_RPUI.asm"              ; 0x2cc7
+%include "shared/game/loc_RPUI.asm"              ; 0x2cc7
 
 ; bss_90b8 equ __zdseg_end + (__zobss_90b8 - __zdata_start)
 ; bss_90ba equ __zdseg_end + (__zobss_90ba - __zdata_start)
@@ -135,9 +140,9 @@ save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg    equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
-%include "shared/aztec_ovbgn.asm"           ; 0x3710
+%include "shared/aztec/aztec_ovbgn.asm"           ; 0x3710
 
-%include "shared/aztec_swapmem.asm"         ; 0x374e
+%include "shared/aztec/aztec_swapmem.asm"         ; 0x374e
 
 __zdseg_9098:
 __zdata_start:

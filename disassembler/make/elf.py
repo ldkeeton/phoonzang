@@ -15,7 +15,7 @@ from lib.compare.interrupts import _annotate_interrupts
 from lib.cachedirs import src_dir
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
 from lib.link import include_args
-from lib.shared import FOLDER
+from lib.shared import FOLDER, shared_dirs
 from lib.symtab import Symbol
 from main.projects import discover_binaries
 
@@ -324,10 +324,14 @@ def resplice_c(app, binary, check_only=False):
                 own_dir.setdefault(routine_source.stem(name), folder)
         for label, name in routine_source.sources_in(folder).items():
             own_src.setdefault(label, name)
-    # Sources shared between binaries live in shared/ beside their .asm
-    # (lib.shared).
+    # Sources shared between binaries live in shared/ or its band folders
+    # beside their .asm (lib.shared).
     shared_dir = os.path.join(out_dir, FOLDER)
-    shared_src = routine_source.sources_in(shared_dir)
+    shared_home, shared_src = {}, {}
+    for folder in shared_dirs(out_dir):
+        for label, name in routine_source.sources_in(folder).items():
+            shared_home.setdefault(label, folder)
+            shared_src.setdefault(label, name)
     def has_own_asm(label):
         # a same-named routine owned by this binary is not the shared one
         return os.path.exists(os.path.join(own_dir.get(label, dest),
@@ -338,7 +342,8 @@ def resplice_c(app, binary, check_only=False):
     c_labels = sorted(c_labels)
 
     def where(label, suffix):
-        shared = os.path.join(shared_dir, label + suffix)
+        shared = os.path.join(shared_home.get(label, shared_dir),
+                              label + suffix)
         own = os.path.join(own_dir.get(label, dest), label + suffix)
         if has_own_asm(label):
             return own
@@ -568,7 +573,7 @@ def resplice_c(app, binary, check_only=False):
                 else None)
         fragment = (head + '\n'.join(_render_records(
             records, data, True, corg_symbol=corg)) + '\n')
-        if os.path.dirname(apath) == shared_dir:
+        if os.path.dirname(apath) in shared_dirs(out_dir):
             # Shared by several binaries: no one binary's addresses.
             from lib.shared import neutral
             fragment = neutral(fragment)

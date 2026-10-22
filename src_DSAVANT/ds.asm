@@ -941,9 +941,9 @@ buff equ __zbss_0cfc - __zdseg_start
 
 %include "ds/aztec/aztec_setmem.asm"       ; 0x454d
 
-%include "shared/aztec_strcat.asm"       ; 0x4574
+%include "shared/aztec/aztec_strcat.asm"       ; 0x4574
 
-%include "shared/aztec_strcpy.asm"       ; 0x45ab
+%include "shared/aztec/aztec_strcpy.asm"       ; 0x45ab
 
 %include "ds/aztec/aztec_dos20_lmalloc.asm" ; 0x45d7
 
@@ -962,14 +962,14 @@ first     equ __zbss_0d02 - __zdseg_start
 
 ; errno  equ __zerrno - __zdseg_start
 _ioflg equ __z_ioflg - __zdseg_start
-%include "shared/aztec_open.asm"         ; 0x4b39
+%include "shared/aztec/aztec_open.asm"         ; 0x4b39
 
-%include "shared/aztec_lsubs.asm"        ; 0x4be6
+%include "shared/aztec/aztec_lsubs.asm"        ; 0x4be6
 
-%include "shared/aztec_strlen.asm"       ; 0x4cd7
+%include "shared/aztec/aztec_strlen.asm"       ; 0x4cd7
 
 ; errno equ __zerrno - __zdseg_start
-%include "shared/aztec_sys.asm"          ; 0x4cf4
+%include "shared/aztec/aztec_sys.asm"          ; 0x4cf4
 
 psp_top_of_memory equ 0x0002
 psp_env_segment   equ 0x002c
@@ -997,7 +997,7 @@ Argc      equ __zbss_0d04 - __zdseg_start
 Argv      equ __zbss_0d06 - __zdseg_start
 %include "ds/aztec/aztec_croot.asm"        ; 0x4ea3
 
-%include "shared/aztec_fltstub.asm"      ; 0x4f85
+%include "shared/aztec/aztec_fltstub.asm"      ; 0x4f85
 
 dseg_0cae equ __zdseg_0cae - __zdseg_start
 %include "ds/aztec/aztec_stkover.asm"      ; 0x4f87
@@ -1006,7 +1006,7 @@ dseg_0cae equ __zdseg_0cae - __zdseg_start
 ; _ioflg equ __z_ioflg - __zdseg_start
 _ttrd  equ __z_ttrd - __zdseg_start
 _ttwr  equ __z_ttwr - __zdseg_start
-%include "shared/aztec_io.asm"           ; 0x4fa2
+%include "shared/aztec/aztec_io.asm"           ; 0x4fa2
 
 _Eol      equ __z_Eol - __zdseg_start
 dseg_0cf5 equ __zdseg_0cf5 - __zdseg_start
@@ -1015,9 +1015,9 @@ bss_0e0c  equ __zbss_0e0c - __zdseg_start
 _TTrem    equ __zbss_9096 - __zdseg_start
 %include "ds/aztec/aztec_ttyio.asm"        ; 0x505c
 
-%include "shared/aztec_movmem.asm"       ; 0x5123
+%include "shared/aztec/aztec_movmem.asm"       ; 0x5123
 
-%include "shared/aztec_isatty.asm"       ; 0x5168
+%include "shared/aztec/aztec_isatty.asm"       ; 0x5168
 
 ; aztec_MEMRY equ __zaztec_MEMRY - __zdseg_start
 ; errno       equ __zerrno - __zdseg_start
@@ -1027,7 +1027,7 @@ _TTrem    equ __zbss_9096 - __zdseg_start
 ; _PSP        equ __z_PSP - __zdseg_start
 ; _STKRED     equ __z_STKRED - __zdseg_start
 ; _STKLOW     equ __z_STKLOW - __zdseg_start
-%include "shared/aztec_ssbrk.asm"        ; 0x5188
+%include "shared/aztec/aztec_ssbrk.asm"        ; 0x5188
 
 
 ; End of host resident code

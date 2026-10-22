@@ -348,7 +348,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
         stagelog.step('project.sidecar_use', 0, 'measure',
             why='a build-wide sidecar entry is applied by some binary or is stale')
 
-        # 5. one copy of every byte-identical routine, in shared/
+        # 5. one copy of every routine binaries share (names aside), in shared/
         progress.log(f'{project} | sharing identical routines')
         files, shared = share_files(merge_files(emitted), out_dir,
                                     project_tables(project))
@@ -356,7 +356,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
             report(f'  Shared: {sum(len(v) for v in shared.values())} '
                    f'fragments -> {len(shared)} files in shared/')
         stagelog.step('project.share_identical', 0, 'repair', repairs='project.consumers',
-            why='byte-identical fragments of different binaries collapse into shared/',
+            why='fragments of different binaries alike but for names collapse into shared/',
             metrics={'shared_files': len(shared or {}),
                      'fragments': sum(len(v) for v in (shared or {}).values())})
 

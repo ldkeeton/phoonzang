@@ -19,6 +19,17 @@ symbols/``, holds) share too: the shared file spells each by a
 common name (``aztec_free.bss1``), and ``equ`` lines just above each binary's
 ``%include`` give its own name that common one.  Naming the targets the same in every
 binary (a sidecar name) makes the copies identical, and the aliases go.
+
+The routine's own label is one of those names: copies whose content tags differ
+(``api_idx_0012_RMOL`` here, ``api_idx_0012_STJU`` there) still share when
+their code agrees.  The shared file takes the name most copies carry, and each
+other copy's label is an ``equ`` of it.  Data shares only under one name.
+
+The files sit in band folders, as a banded binary's do (``ds/game/``,
+:mod:`lib.sidecar.bands`), though by what the code is rather than where it
+was linked: ``shared/aztec/`` the C library, ``shared/game/`` compiled C,
+``shared/library/`` assembly, ``shared/data/`` data.  A hand-owned source is
+found in ``shared/`` or any of them.
 """
 
 import os
@@ -28,6 +39,7 @@ from collections import defaultdict
 from .autogen import hand_owned, is_generated
 from .cachedirs import project_of_src_dir
 from .routine_source import SUFFIXES, beside
+from .sidecar.bands import BAND_NAMES
 from .symtab import project_tables
 
 FOLDER = 'shared'
@@ -54,6 +66,70 @@ def _binary(rel):
     return rel.split(os.sep, 1)[0]
 
 
+def _stem(rel):
+    return os.path.basename(rel)[:-4]
+
+
+def _generic(sym):
+    """True for a content-tagged name (or one the table lacks)."""
+    return sym is None or sym.generic
+
+
+def _hosts(tables):
+    """The binaries whose symbols every overlay sees: their generic names
+    carry a prefix (``ds_loc_08f2``, :func:`lib.names.rename_generics`)."""
+    return {b for b, table in tables.items()
+            if any(getattr(sym, 'prefix', '') == f'{b}_'
+                   for sym in table.values())}
+
+
+def _shape(rel, text, tables):
+    """The code with every name its binary has a symbol for numbered in order
+    of use, and its own label as one: copies :func:`_bind` may fold agree."""
+    names = tables.get(_binary(rel), {})
+    own, seen, out = _stem(rel), {}, []
+    for token in _TOKEN.findall(_code_key(text)):
+        if token == own:
+            token = '\0self'
+        elif token in names:
+            token = seen.setdefault(token, f'\0{len(seen)}')
+        out.append(token)
+    return ' '.join(out)
+
+
+def _buckets(fragments, tables):
+    """``[(source, rels)]``: the copies that may share a file.
+
+    A copy is a candidate with every copy of its name (:func:`_shared_base`)
+    and, when it is code without a source, with every such copy of the same
+    :func:`_shape` whatever its name, unless it is the host's.
+    """
+    keys, hosts = {}, _hosts(tables)
+    for rel, (text, ctext) in fragments.items():
+        base = _shared_base(rel)
+        keys[rel] = [(base, ctext)]
+        # A host's copy under an overlay's name would define it twice in
+        # that overlay, which sees the host's symbols.
+        if (ctext is None and not base.startswith(f'{FOLDER}/data/')
+                and _binary(rel) not in hosts):
+            keys[rel].append(('shape', _shape(rel, text, tables)))
+    parent = {}
+
+    def find(x):
+        while parent.setdefault(x, x) != x:
+            parent[x] = x = parent[parent[x]]
+        return x
+
+    for rel, ks in keys.items():
+        for key in ks:
+            parent[find(key)] = find(('rel', rel))
+    out = defaultdict(list)
+    for rel in sorted(fragments):
+        out[find(('rel', rel))].append(rel)
+    return sorted(((fragments[rels[0]][1], rels) for rels in out.values()),
+                  key=repr)
+
+
 def _family(sym):
     """The family a common name is counted in: ``bss``, ``loc``, ``api_idx``.
 
@@ -76,6 +152,15 @@ def _bind(fragments, rels, stem, tables):
     binary has a symbol for (*tables*: ``{binary: {text: Symbol}}``).
     """
     names = [tables.get(_binary(rel), {}) for rel in rels]
+    owns = [_stem(rel) for rel in rels]
+    hosts = [tables[b] for b in _hosts(tables)]
+    for own, table in zip(owns, names):
+        if own != stem and (any(stem in t for t in [table] + hosts)
+                            or not _generic(table.get(own))):
+            # The shared name is another symbol of that binary (or of the
+            # host every overlay sees), or this copy's own name is a
+            # person's, not to be made an alias.
+            return None
     streams = [_TOKEN.findall(_code_key(fragments[rel][0])) for rel in rels]
     if len({len(s) for s in streams}) != 1:
         return None
@@ -90,7 +175,9 @@ def _bind(fragments, rels, stem, tables):
     first, counts, param_at = {}, defaultdict(int), {}
     for i in diff:
         token = streams[0][i]
-        if token not in first:
+        if token == owns[0]:
+            first[token] = stem
+        elif token not in first:
             kind = _family(names[0][token])
             counts[kind] += 1
             first[token] = f'{stem}.{kind}{counts[kind]}'
@@ -106,22 +193,37 @@ def _bind(fragments, rels, stem, tables):
         subs.append([params.get(t, t) for t in s])
     if any(sub != subs[0] for sub in subs[1:]):
         return None
-    return {rel: [(p, name) for name, p in params.items()]
+    return {rel: [(p, name) for name, p in params.items() if p != name]
             for rel, params in zip(rels, maps)}
 
 
 def _clusters(fragments, rels, ctext, tables):
-    """Groups of *rels* that can share one file, each with its bindings.
+    """``(shared base, group, bindings)`` for each group of *rels* that can
+    share one file.
 
     Copies with C must be identical: each binary's resplice rewrites the shared
     asm from that C.  Without C, copies that differ only in the names they use
     share one file that spells those names by common ones (:func:`_bind`).
+    A group is named after a person's name if a copy has one, else the name
+    most copies carry (the first, on a tie), and takes those copies first.  A
+    binary includes one copy: two would define the label twice.
     """
-    stem = os.path.basename(rels[0])[:-4]
     left = sorted(rels)
     while left:
-        group, binds = [left[0]], {}
-        for rel in left[1:]:
+        count = defaultdict(int)
+        for rel in left:
+            count[_stem(rel)] += 1
+
+        def rank(rel):
+            sym = tables.get(_binary(rel), {}).get(_stem(rel))
+            return (_generic(sym), -count[_stem(rel)], _stem(rel), rel)
+
+        order = sorted(left, key=rank)
+        stem = _stem(order[0])
+        group, binds = [order[0]], {}
+        for rel in order[1:]:
+            if _binary(rel) in {_binary(g) for g in group}:
+                continue
             if ctext is not None:
                 ok = _code_key(fragments[rel][0]) == _code_key(
                     fragments[group[0]][0])
@@ -132,7 +234,7 @@ def _clusters(fragments, rels, ctext, tables):
                 group.append(rel)
                 binds = trial
         left = [rel for rel in left if rel not in group]
-        yield group, binds
+        yield _shared_base(order[0]), group, binds
 
 
 def _common_names(text, binds):
@@ -170,6 +272,34 @@ def _on_disk(out_dir, rel):
     return hand_owned(os.path.join(out_dir, rel))
 
 
+def shared_dirs(out_dir):
+    """``shared/`` and its band folders: where a shared routine's files are."""
+    root = os.path.join(out_dir, FOLDER)
+    return [root] + [os.path.join(root, band) for band in BAND_NAMES]
+
+
+def _homes(base):
+    """The paths (no suffix) a shared source of *base* may have."""
+    stem = os.path.basename(base)
+    if base.startswith(f'{FOLDER}/data/'):
+        return [base]
+    return [f'{FOLDER}/{band}/{stem}' for band in BAND_NAMES] + [base]
+
+
+def _band(rel, text, ctext, tables):
+    """The band folder of *rel*'s shared file: ``aztec`` for the C library
+    (a vendor match), ``game`` for compiled C (a ``csav`` frame, a ``.c``),
+    ``library`` for the rest, hand assembly."""
+    stem = _stem(rel)
+    sym = tables.get(_binary(rel), {}).get(stem)
+    if getattr(sym, 'role', None) == 'aztec' or stem.startswith('aztec_'):
+        return 'aztec'
+    if (ctext is not None and ctext[0] == '.c') or re.search(
+            r'^\s*call\s+(?:near\s+)?aztec_csav\b', text, re.M):
+        return 'game'
+    return 'library'
+
+
 def _shared_base(rel):
     """``shared/<stem>``, or ``shared/data/<stem>`` for a data object's file
     (``vinstall/data/ctp_.asm``): data shares only with data."""
@@ -192,6 +322,13 @@ def _fragments(files, out_dir):
         path = beside(base, where)
         return (path, path[len(base):]) if path else (None, None)
 
+    def shared_source(base, where):
+        for home in _homes(base):
+            path, suffix = source(home, where)
+            if path:
+                return path, suffix
+        return None, None
+
     found = {}
     for rel in sorted(files):
         top, sep, _ = rel.partition('/')
@@ -199,7 +336,8 @@ def _fragments(files, out_dir):
             continue
         own, own_suffix = source(rel[:-4], files.__contains__)
         shared_base = _shared_base(rel)
-        shared, shared_suffix = source(shared_base, files.__contains__)
+        shared, shared_suffix = shared_source(shared_base,
+                                              files.__contains__)
         if own:
             ctext = (own_suffix, files[own])
         elif source(rel[:-4], lambda p: _on_disk(out_dir, p))[0]:
@@ -207,7 +345,8 @@ def _fragments(files, out_dir):
         elif shared:
             ctext = (shared_suffix, files[shared])
         else:
-            path, suffix = source(shared_base, lambda p: _on_disk(out_dir, p))
+            path, suffix = shared_source(shared_base,
+                                         lambda p: _on_disk(out_dir, p))
             ctext = (suffix, _read(os.path.join(out_dir, path))) if path \
                 else None
         found[rel] = (files[rel], ctext)
@@ -220,46 +359,53 @@ def share_files(files, out_dir, tables):
     *files* is ``{relative path: text}``, every generated file of the tree at
     *out_dir* (which holds only the hand-owned ones); *tables* is the binaries'
     symbol tables (:func:`lib.symtab.project_tables`).  A routine with
-    generated source moves its ``.c`` or ``.s`` along (``shared/<label>.c``).
+    generated source moves its ``.c`` or ``.s`` along
+    (``shared/game/<label>.c``).
     Returns
     ``(files, shared)``: the tree's files after sharing, and ``{shared relative
     path: [replaced relative paths]}``.
     """
     files = dict(files)
     fragments = _fragments(files, out_dir)
-    groups = defaultdict(list)
-    for rel, (text, ctext) in fragments.items():
-        groups[(_shared_base(rel), ctext)].append(rel)
 
-    # Names carry a content tag (lib.names), so one stem is one body.  Where a
-    # stem still has several (a label that differs only in which generic
-    # routine it calls), the largest group is shared and the rest stay.
+    # Names carry a content tag (lib.names), so one stem is mostly one body.
+    # Where a stem still has several (a label that differs only in which
+    # generic routine it calls), the largest group is shared and the rest stay.
     best = {}
-    for key in sorted(groups, key=repr):
-        for members, binds in _clusters(fragments, groups[key], key[1],
-                                        tables):
+    for ctext, rels in _buckets(fragments, tables):
+        for base, members, binds in _clusters(fragments, rels, ctext, tables):
             if len({p.split('/')[0] for p in members}) < 2:
                 continue
-            stem = key[0]           # the shared base: one per object
-            if stem not in best or len(members) > len(best[stem][0]):
-                best[stem] = (members, binds, key[1])
+            if base not in best or len(members) > len(best[base][0]):
+                best[base] = (members, binds, ctext)
 
     shared, bindings = {}, {}
-    for stem, (members, binds, ctext) in best.items():
+    for base, (members, binds, ctext) in best.items():
         members = sorted(members)
-        shared_rel = f'{stem}.asm'
+        # The copy that carries the shared name: the text is spelled after it,
+        # so its local labels (``@..<stem>.l1``) read as the file's own.
+        source = next((rel for rel in members
+                       if _stem(rel) == os.path.basename(base)), members[0])
+        home = base if base.startswith(f'{FOLDER}/data/') else (
+            f'{FOLDER}/{_band(source, fragments[source][0], ctext, tables)}/'
+            f'{os.path.basename(base)}')
+        shared_rel = f'{home}.asm'
         text = _text_for(fragments, members)
         if binds:
-            text = _common_names(neutral(fragments[members[0]][0]),
-                                 binds[members[0]])
+            text = _common_names(neutral(fragments[source][0]),
+                                 binds[source])
             defined = set(re.findall(r'^([\w.]+):', text, re.M))
             for rel, pairs in binds.items():
                 bindings[rel] = [(p, n, p in defined) for p, n in pairs]
         files[shared_rel] = text
         if ctext is not None:
-            c_rel = shared_rel[:-4] + ctext[0]
-            if c_rel not in files and not _on_disk(out_dir, c_rel):
-                files[c_rel] = ctext[1]
+            # One source: a hand-owned one wherever it is, else ours in the
+            # band folder (an earlier build's elsewhere goes).
+            homes = [h + suffix for h in _homes(base) for suffix in SUFFIXES]
+            if not any(_on_disk(out_dir, path) for path in homes):
+                for path in homes:
+                    files.pop(path, None)
+                files[shared_rel[:-4] + ctext[0]] = ctext[1]
         shared[shared_rel] = members
 
     _place_equs(files, out_dir)

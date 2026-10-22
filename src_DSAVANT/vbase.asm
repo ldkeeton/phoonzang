@@ -27,7 +27,7 @@ __zcode_start:
 %include "vbase/ovmain.asm"                ; 0x000e
 
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-%include "shared/api_idx_0002_SJMT.asm"     ; 0x0036
+%include "shared/game/api_idx_0002_SJMT.asm"     ; 0x0036
 
 %include "vbase/api_idx_0004_VUIP.asm"     ; 0x00b5
 
@@ -35,21 +35,32 @@ dseg_90a3 equ __zdseg_end + (__zdseg_90a3 - __zdata_start)
 %include "vbase/loc_LSRQ.asm"              ; 0x023a
 
 dseg_90a9 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
-%include "vbase/api_idx_0016_KOOO.asm"     ; 0x0559
+api_idx_0016_KOOO       equ api_idx_0016_JNJG
+api_idx_0016_JNJG.dseg1 equ dseg_90a9
+%include "shared/game/api_idx_0016_JNJG.asm"     ; 0x0559
 
 %include "vbase/api_idx_0006_MHOR.asm"     ; 0x05b6
 
 dseg_90b6 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
-%include "vbase/api_idx_0038_MNUL.asm"     ; 0x0606
+api_idx_0038_MNUL       equ api_idx_0038_LTUV
+api_idx_0038_LTUV.dseg1 equ dseg_90b6
+jumptable_0d04_case_0   equ api_idx_0038_LTUV.jumptable_case1
+jumptable_0d04_case_1   equ api_idx_0038_LTUV.jumptable_case2
+jumptable_0d04_case_3   equ api_idx_0038_LTUV.jumptable_case3
+jumptable_0d04_case_4   equ api_idx_0038_LTUV.jumptable_case4
+jumptable_0d04_case_5   equ api_idx_0038_LTUV.jumptable_case5
+jumptable_0d04          equ api_idx_0038_LTUV.jumptable1
+%include "shared/game/api_idx_0038_LTUV.asm"     ; 0x0606
 
-%include "shared/api_idx_0008_LLVT.asm"     ; 0x0d3f
+%include "shared/game/api_idx_0008_LLVT.asm"     ; 0x0d3f
 
 dseg_90bc equ __zdseg_end + (__zdseg_90bc - __zdata_start)
 %include "vbase/api_idx_0028_NRJN.asm"     ; 0x0ef7
 
 %include "vbase/loc_KPLK.asm"              ; 0x150d
 
-%include "vbase/api_idx_004c_MUGV.asm"     ; 0x156e
+api_idx_004c_MUGV equ api_idx_004c_RQSO
+%include "shared/game/api_idx_004c_RQSO.asm"     ; 0x156e
 
 %include "vbase/loc_JJHG.asm"              ; 0x1683
 
@@ -57,9 +68,23 @@ dseg_90bc equ __zdseg_end + (__zdseg_90bc - __zdata_start)
 
 %include "vbase/loc_GLHQ.asm"              ; 0x1a12
 
-%include "shared/loc_OIOJ.asm"              ; 0x1c09
+%include "shared/game/loc_OIOJ.asm"              ; 0x1c09
 
-%include "vbase/api_idx_0004_MMTP.asm"     ; 0x1c80
+jumptable_1ee4_case_0  equ api_idx_0004_MMTP.jumptable_case1
+jumptable_1ee4_case_1  equ api_idx_0004_MMTP.jumptable_case2
+jumptable_1ee4_case_2  equ api_idx_0004_MMTP.jumptable_case3
+jumptable_1ee4_case_4  equ api_idx_0004_MMTP.jumptable_case4
+jumptable_1ee4_case_5  equ api_idx_0004_MMTP.jumptable_case5
+jumptable_1ee4_case_6  equ api_idx_0004_MMTP.jumptable_case6
+jumptable_1ee4_case_7  equ api_idx_0004_MMTP.jumptable_case7
+jumptable_1ee4_case_8  equ api_idx_0004_MMTP.jumptable_case8
+jumptable_1ee4_case_9  equ api_idx_0004_MMTP.jumptable_case9
+jumptable_1ee4_case_10 equ api_idx_0004_MMTP.jumptable_case10
+jumptable_1ee4_case_11 equ api_idx_0004_MMTP.jumptable_case11
+jumptable_1ee4_case_12 equ api_idx_0004_MMTP.jumptable_case12
+jumptable_1ee4_case_13 equ api_idx_0004_MMTP.jumptable_case13
+jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
+%include "shared/game/api_idx_0004_MMTP.asm"     ; 0x1c80
 
 %include "vbase/loc_MJMJ.asm"              ; 0x1f0e
 
@@ -245,7 +270,7 @@ bss_a4a4 equ __zdseg_end + (__zobss_a4a4 - __zdata_start)
 %include "vbase/loc_TJHG.asm"              ; 0x6c5c
 
 api_idx_0004_TTGQ.loc1 equ loc_TJHG
-%include "shared/api_idx_0004_TTGQ.asm"     ; 0x6c87
+%include "shared/game/api_idx_0004_TTGQ.asm"     ; 0x6c87
 
 bss_a4a6 equ __zdseg_end + (__zobss_a4a6 - __zdata_start)
 %include "vbase/api_idx_0004_MIQG.asm"     ; 0x6cd0
@@ -262,7 +287,9 @@ bss_a5aa  equ __zdseg_end + (__zobss_a5aa - __zdata_start)
 bss_a5ac  equ __zdseg_end + (__zobss_a5ac - __zdata_start)
 %include "vbase/loc_VMSS.asm"              ; 0x6dd9
 
-%include "vbase/api_idx_0004_OTSN.asm"     ; 0x6f16
+api_idx_0004_OTSN          equ api_idx_0004_JQTM
+api_idx_0004_JQTM.api_idx1 equ loc_VMSS
+%include "shared/game/api_idx_0004_JQTM.asm"     ; 0x6f16
 
 ; bss_a4a6 equ __zdseg_end + (__zobss_a4a6 - __zdata_start)
 ; bss_a4a8 equ __zdseg_end + (__zobss_a4a8 - __zdata_start)
@@ -270,7 +297,7 @@ bss_a5ac  equ __zdseg_end + (__zobss_a5ac - __zdata_start)
 ; bss_a5ac equ __zdseg_end + (__zobss_a5ac - __zdata_start)
 %include "vbase/loc_LIQV.asm"              ; 0x6f79
 
-%include "shared/api_idx_0002_LVPS.asm"     ; 0x6fda
+%include "shared/game/api_idx_0002_LVPS.asm"     ; 0x6fda
 
 dseg_911e equ __zdseg_end + (__zdseg_911e - __zdata_start)
 dseg_912b equ __zdseg_end + (__zdseg_912b - __zdata_start)
@@ -454,11 +481,11 @@ save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg    equ __zdseg_end + (__zobss_91c6 - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
-%include "shared/aztec_ovbgn.asm"           ; 0x9330
+%include "shared/aztec/aztec_ovbgn.asm"           ; 0x9330
 
-%include "shared/aztec_cswit.asm"           ; 0x936e
+%include "shared/aztec/aztec_cswit.asm"           ; 0x936e
 
-%include "shared/aztec_strcmp.asm"          ; 0x9386
+%include "shared/aztec/aztec_strcmp.asm"          ; 0x9386
 
 __zdseg_9098:
 __zdata_start:

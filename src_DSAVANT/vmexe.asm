@@ -24,30 +24,30 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 
-%include "shared/api_idx_0002_GKQL.asm"     ; 0x000e
+%include "shared/game/api_idx_0002_GKQL.asm"     ; 0x000e
 
 %include "vmexe/api_idx_0004_QUVO.asm"     ; 0x0034
 
 bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 %include "vmexe/api_idx_0012_PGSL.asm"     ; 0x00db
 
-%include "shared/api_idx_0008_MNJN.asm"     ; 0x0257
+%include "shared/game/api_idx_0008_MNJN.asm"     ; 0x0257
 
 %include "vmexe/api_idx_0004_MLLS.asm"     ; 0x030b
 
-%include "shared/fill_action_slot_table.asm" ; 0x0456
+%include "shared/game/fill_action_slot_table.asm" ; 0x0456
 
 api_idx_000e_VRIR.api_idx1 equ fill_action_slot_table
-%include "shared/api_idx_000e_VRIR.asm"     ; 0x0656
+%include "shared/game/api_idx_000e_VRIR.asm"     ; 0x0656
 
-%include "shared/api_idx_0004_ONRQ.asm"     ; 0x0979
+%include "shared/game/api_idx_0004_ONRQ.asm"     ; 0x0979
 
-%include "shared/api_idx_001c_VLRT.asm"     ; 0x0a83
+%include "shared/game/api_idx_001c_VLRT.asm"     ; 0x0a83
 
 api_idx_000e_NKQN.api_idx1 equ api_idx_0004_ONRQ
-%include "shared/api_idx_000e_NKQN.asm"     ; 0x0cc9
+%include "shared/game/api_idx_000e_NKQN.asm"     ; 0x0cc9
 
-%include "shared/loc_SSIO.asm"              ; 0x0dbe
+%include "shared/game/loc_SSIO.asm"              ; 0x0dbe
 
 bss_90dc equ __zdseg_end + (__zobss_90dc - __zdata_start)
 %include "vmexe/api_idx_0016_MUKH.asm"     ; 0x0e1a
@@ -77,28 +77,28 @@ bss_90e0 equ __zdseg_end + (__zobss_90e0 - __zdata_start)
 
 bss_90e2 equ __zdseg_end + (__zobss_90e2 - __zdata_start)
 loc_KRMP.bss1 equ bss_90e2
-%include "shared/loc_KRMP.asm"              ; 0x1849
+%include "shared/game/loc_KRMP.asm"              ; 0x1849
 
 ; bss_90dc equ __zdseg_end + (__zobss_90dc - __zdata_start)
 ; bss_90e2 equ __zdseg_end + (__zobss_90e2 - __zdata_start)
 %include "vmexe/api_idx_0006_TMLR.asm"     ; 0x18a8
 
 loc_RPUI.api_idx1 equ api_idx_0006_TMLR
-%include "shared/loc_RPUI.asm"              ; 0x1a35
+%include "shared/game/loc_RPUI.asm"              ; 0x1a35
 
 loc_UTQS.api_idx1 equ api_idx_0006_TMLR
-%include "shared/loc_UTQS.asm"              ; 0x1a4c
+%include "shared/game/loc_UTQS.asm"              ; 0x1a4c
 
 bss_90e4 equ __zdseg_end + (__zobss_90e4 - __zdata_start)
 %include "vmexe/api_idx_0004_QUPL.asm"     ; 0x1a5f
 
-%include "shared/api_idx_000a_UUIH.asm"     ; 0x1ac7
+%include "shared/game/api_idx_000a_UUIH.asm"     ; 0x1ac7
 
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
 %include "vmexe/api_idx_0004_UONH.asm"     ; 0x1b45
 
-%include "shared/loc_SIKN.asm"              ; 0x1bf4
+%include "shared/game/loc_SIKN.asm"              ; 0x1bf4
 
 %include "vmexe/loc_MUTI.asm"              ; 0x1c36
 
@@ -154,7 +154,7 @@ bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 ; bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 %include "vmexe/api_idx_0002_NGRN.asm"     ; 0x2d6b
 
-%include "shared/loc_QQUT.asm"              ; 0x2e09
+%include "shared/game/loc_QQUT.asm"              ; 0x2e09
 
 ; bss_90e6 equ __zdseg_end + (__zobss_90e6 - __zdata_start)
 %include "vmexe/api_idx_0010_RUQS.asm"     ; 0x2e59
@@ -167,7 +167,8 @@ bss_91d8 equ __zdseg_end + (__zobss_91d8 - __zdata_start)
 %include "vmexe/api_idx_0004_PMSR.asm"     ; 0x33e2
 
 dseg_90a6 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
-%include "vmexe/api_idx_005e_OJVJ.asm"     ; 0x34bc
+api_idx_005e_OJVJ.dseg1 equ dseg_90a6
+%include "shared/game/api_idx_005e_OJVJ.asm"     ; 0x34bc
 
 ; bss_90e4 equ __zdseg_end + (__zobss_90e4 - __zdata_start)
 ; bss_90e6 equ __zdseg_end + (__zobss_90e6 - __zdata_start)
@@ -271,11 +272,11 @@ save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg    equ __zdseg_end + (__zobss_90bc - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
-%include "shared/aztec_ovbgn.asm"           ; 0xa4ca
+%include "shared/aztec/aztec_ovbgn.asm"           ; 0xa4ca
 
-%include "shared/aztec_cswit.asm"           ; 0xa508
+%include "shared/aztec/aztec_cswit.asm"           ; 0xa508
 
-%include "shared/aztec_swapmem.asm"         ; 0xa520
+%include "shared/aztec/aztec_swapmem.asm"         ; 0xa520
 
 __zdseg_9098:
 __zdata_start:

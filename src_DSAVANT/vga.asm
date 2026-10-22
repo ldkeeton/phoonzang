@@ -6,122 +6,123 @@ IMAGE_BASE equ -0x0100
 %endif
 
 
-%include "shared/loc_LPSH.asm"                ; 0x0000
+loc_LPSH.mouse_init1 equ mouse_init
+%include "shared/library/loc_LPSH.asm"                ; 0x0000
 
 loc_JTQK_0007.mouse_off1 equ mouse_off
-%include "shared/loc_JTQK_0007.asm"           ; 0x0007
+%include "shared/library/loc_JTQK_0007.asm"           ; 0x0007
 
 loc_JTQK_000b.mouse_hit_test1 equ mouse_hit_test
-%include "shared/loc_JTQK_000b.asm"           ; 0x000b
+%include "shared/library/loc_JTQK_000b.asm"           ; 0x000b
 
 loc_JTQK_000f.leaf_loc1 equ leaf_loc_LMQV
-%include "shared/loc_JTQK_000f.asm"           ; 0x000f
+%include "shared/library/loc_JTQK_000f.asm"           ; 0x000f
 
 loc_JTQK_0013.bios_mouse_loc1 equ bios_mouse_loc_PTIM
-%include "shared/loc_JTQK_0013.asm"           ; 0x0013
+%include "shared/library/loc_JTQK_0013.asm"           ; 0x0013
 
 loc_JTQK_0017.load_picture1 equ load_picture
-%include "shared/loc_JTQK_0017.asm"           ; 0x0017
+%include "shared/library/loc_JTQK_0017.asm"           ; 0x0017
 
 loc_JTQK_001b.draw_text1 equ draw_text
-%include "shared/loc_JTQK_001b.asm"           ; 0x001b
+%include "shared/library/loc_JTQK_001b.asm"           ; 0x001b
 
 loc_JTQK_001f.load_screen1 equ load_screen
-%include "shared/loc_JTQK_001f.asm"           ; 0x001f
+%include "shared/library/loc_JTQK_001f.asm"           ; 0x001f
 
-%include "shared/loc_JTQK_0023.asm"           ; 0x0023
+%include "shared/library/loc_JTQK_0023.asm"           ; 0x0023
 
-%include "shared/loc_JTQK_0027.asm"           ; 0x0027
+%include "shared/library/loc_JTQK_0027.asm"           ; 0x0027
 
-%include "shared/loc_JTQK_002b.asm"           ; 0x002b
+%include "shared/library/loc_JTQK_002b.asm"           ; 0x002b
 
-%include "shared/loc_JTQK_002f.asm"           ; 0x002f
+%include "shared/library/loc_JTQK_002f.asm"           ; 0x002f
 
-%include "shared/loc_JTQK_0033.asm"           ; 0x0033
+%include "shared/library/loc_JTQK_0033.asm"           ; 0x0033
 
-%include "shared/loc_JTQK_0037.asm"           ; 0x0037
+%include "shared/library/loc_JTQK_0037.asm"           ; 0x0037
 
-%include "shared/loc_JTQK_003b.asm"           ; 0x003b
+%include "shared/library/loc_JTQK_003b.asm"           ; 0x003b
 
-%include "shared/loc_JTQK_003f.asm"           ; 0x003f
+%include "shared/library/loc_JTQK_003f.asm"           ; 0x003f
 
-%include "shared/loc_JTQK_0043.asm"           ; 0x0043
+%include "shared/library/loc_JTQK_0043.asm"           ; 0x0043
 
-%include "shared/loc_JTQK_0047.asm"           ; 0x0047
+%include "shared/library/loc_JTQK_0047.asm"           ; 0x0047
 
-%include "shared/loc_JTQK_004b.asm"           ; 0x004b
+%include "shared/library/loc_JTQK_004b.asm"           ; 0x004b
 
-%include "shared/loc_JTQK_004f.asm"           ; 0x004f
+%include "shared/library/loc_JTQK_004f.asm"           ; 0x004f
 
-%include "shared/loc_JTQK_0053.asm"           ; 0x0053
+%include "shared/library/loc_JTQK_0053.asm"           ; 0x0053
 
-%include "shared/loc_JTQK_0057.asm"           ; 0x0057
+%include "shared/library/loc_JTQK_0057.asm"           ; 0x0057
 
-%include "shared/loc_JTQK_005b.asm"           ; 0x005b
+%include "shared/library/loc_JTQK_005b.asm"           ; 0x005b
 
-%include "shared/loc_JTQK_005f.asm"           ; 0x005f
+%include "shared/library/loc_JTQK_005f.asm"           ; 0x005f
 
-%include "shared/loc_JTQK_0063.asm"           ; 0x0063
+%include "shared/library/loc_JTQK_0063.asm"           ; 0x0063
 
-%include "shared/loc_JTQK_0067.asm"           ; 0x0067
+%include "shared/library/loc_JTQK_0067.asm"           ; 0x0067
 
-%include "shared/loc_JTQK_006b.asm"           ; 0x006b
+%include "shared/library/loc_JTQK_006b.asm"           ; 0x006b
 
-%include "shared/loc_JTQK_006f.asm"           ; 0x006f
+%include "shared/library/loc_JTQK_006f.asm"           ; 0x006f
 
-%include "shared/loc_JTQK_0073.asm"           ; 0x0073
+%include "shared/library/loc_JTQK_0073.asm"           ; 0x0073
 
-%include "shared/loc_JTQK_0077.asm"           ; 0x0077
+%include "shared/library/loc_JTQK_0077.asm"           ; 0x0077
 
-%include "shared/loc_JTQK_007b.asm"           ; 0x007b
+%include "shared/library/loc_JTQK_007b.asm"           ; 0x007b
 
-%include "shared/loc_JTQK_007f.asm"           ; 0x007f
+%include "shared/library/loc_JTQK_007f.asm"           ; 0x007f
 
-%include "shared/loc_JTQK_0083.asm"           ; 0x0083
+%include "shared/library/loc_JTQK_0083.asm"           ; 0x0083
 
-%include "shared/loc_JTQK_0087.asm"           ; 0x0087
+%include "shared/library/loc_JTQK_0087.asm"           ; 0x0087
 
-%include "shared/loc_JTQK_008b.asm"           ; 0x008b
+%include "shared/library/loc_JTQK_008b.asm"           ; 0x008b
 
-%include "shared/loc_JTQK_008f.asm"           ; 0x008f
+%include "shared/library/loc_JTQK_008f.asm"           ; 0x008f
 
-%include "shared/loc_JTQK_0093.asm"           ; 0x0093
+%include "shared/library/loc_JTQK_0093.asm"           ; 0x0093
 
-%include "shared/loc_JTQK_0097.asm"           ; 0x0097
+%include "shared/library/loc_JTQK_0097.asm"           ; 0x0097
 
-%include "shared/loc_JTQK_009b.asm"           ; 0x009b
+%include "shared/library/loc_JTQK_009b.asm"           ; 0x009b
 
-%include "shared/loc_JTQK_009f.asm"           ; 0x009f
+%include "shared/library/loc_JTQK_009f.asm"           ; 0x009f
 
-%include "shared/loc_JTQK_00a3.asm"           ; 0x00a3
+%include "shared/library/loc_JTQK_00a3.asm"           ; 0x00a3
 
-%include "shared/loc_JTQK_00a7.asm"           ; 0x00a7
+%include "shared/library/loc_JTQK_00a7.asm"           ; 0x00a7
 
-%include "shared/loc_JTQK_00ab.asm"           ; 0x00ab
+%include "shared/library/loc_JTQK_00ab.asm"           ; 0x00ab
 
-%include "shared/loc_JTQK_00af.asm"           ; 0x00af
+%include "shared/library/loc_JTQK_00af.asm"           ; 0x00af
 
-%include "shared/loc_JTQK_00b3.asm"           ; 0x00b3
+%include "shared/library/loc_JTQK_00b3.asm"           ; 0x00b3
 
-%include "shared/loc_JTQK_00b7.asm"           ; 0x00b7
+%include "shared/library/loc_JTQK_00b7.asm"           ; 0x00b7
 
-%include "shared/loc_JTQK_00bb.asm"           ; 0x00bb
+%include "shared/library/loc_JTQK_00bb.asm"           ; 0x00bb
 
-%include "shared/loc_JTQK_00bf.asm"           ; 0x00bf
+%include "shared/library/loc_JTQK_00bf.asm"           ; 0x00bf
 
-%include "shared/loc_JTQK_00c3.asm"           ; 0x00c3
+%include "shared/library/loc_JTQK_00c3.asm"           ; 0x00c3
 
-%include "shared/loc_JTQK_00c7.asm"           ; 0x00c7
+%include "shared/library/loc_JTQK_00c7.asm"           ; 0x00c7
 
-%include "shared/loc_JTQK_00cb.asm"           ; 0x00cb
+%include "shared/library/loc_JTQK_00cb.asm"           ; 0x00cb
 
-%include "shared/loc_JTQK_00cf.asm"           ; 0x00cf
+%include "shared/library/loc_JTQK_00cf.asm"           ; 0x00cf
 
-%include "shared/loc_JTQK_00d3.asm"           ; 0x00d3
+%include "shared/library/loc_JTQK_00d3.asm"           ; 0x00d3
 
-%include "shared/loc_JTQK_00d7.asm"           ; 0x00d7
+%include "shared/library/loc_JTQK_00d7.asm"           ; 0x00d7
 
-%include "shared/loc_JULP.asm"                ; 0x00db
+%include "shared/library/loc_JULP.asm"                ; 0x00db
 
 cseg_00e1:
     db 0x00, 0x00, 0x00, 0x10
@@ -212,13 +213,13 @@ cseg_028f:
 cseg_0291:
     db 0x00, 0x00
 graphics_loc_VNKS.screen_buf_seg1 equ cseg_00e5
-%include "shared/graphics_loc_VNKS.asm"       ; 0x0293
+%include "shared/library/graphics_loc_VNKS.asm"       ; 0x0293
 
-%include "shared/set_text_opaque.asm"         ; 0x0439
+%include "shared/library/set_text_opaque.asm"         ; 0x0439
 
 %include "vga/set_text_color.asm"          ; 0x0447
 
-%include "shared/set_text_pos.asm"            ; 0x045c
+%include "shared/library/set_text_pos.asm"            ; 0x045c
 
 %include "vga/get_text_pos.asm"            ; 0x0477
 
@@ -233,10 +234,10 @@ cseg_0515:
 %include "vga/leaf_loc_PRNU.asm"           ; 0x067f
 
 put_pixel.screen_buf_seg1 equ cseg_00e5
-%include "shared/put_pixel.asm"               ; 0x06b2
+%include "shared/library/put_pixel.asm"               ; 0x06b2
 
 fill_area.screen_buf_seg1 equ cseg_00e5
-%include "shared/fill_area.asm"               ; 0x06d9
+%include "shared/library/fill_area.asm"               ; 0x06d9
 
 %include "vga/invert_area.asm"             ; 0x0728
 
@@ -244,7 +245,8 @@ fill_area.screen_buf_seg1 equ cseg_00e5
 
 %include "vga/dos_con_loc_PJHN.asm"        ; 0x07fd
 
-%include "vga/loc_082e.asm"                ; 0x082e
+loc_082e equ cache_area_return
+%include "shared/library/cache_area_return.asm"                ; 0x082e
 
 %include "vga/restore_area.asm"            ; 0x0836
 
@@ -261,9 +263,12 @@ data_0bda equ __zdata_0bda - IMAGE_BASE
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
 %include "vga/save_screen.asm"             ; 0x099c
 
-%include "vga/dos_con_loc_VOMM.asm"        ; 0x0a4f
+dos_con_loc_VOMM equ dos_con_loc_KOIJ
+cseg_0a5f        equ dos_con_loc_KOIJ.cseg1
+%include "shared/library/dos_con_loc_KOIJ.asm"        ; 0x0a4f
 
-%include "vga/dos_con_loc_HUUH.asm"        ; 0x0a8d
+cseg_0a9d equ dos_con_loc_HUUH.cseg1
+%include "shared/library/dos_con_loc_HUUH.asm"        ; 0x0a8d
 
 __zdata_0bc6:
 cseg_0ac6:
@@ -297,11 +302,11 @@ loc_KLNH.ems_frame_seg1  equ cseg_0103
 loc_KLNH.maze_mem_seg1   equ cseg_00e1
 loc_KLNH.cseg1           equ cseg_0e6d
 loc_KLNH.cseg2           equ cseg_0e6f
-%include "shared/loc_KLNH.asm"                ; 0x0e71
+%include "shared/library/loc_KLNH.asm"                ; 0x0e71
 
 leaf_loc_TPOL.cseg1 equ cseg_0e6f
 leaf_loc_TPOL.cseg2 equ cseg_0e6d
-%include "shared/leaf_loc_TPOL.asm"           ; 0x0f3b
+%include "shared/library/leaf_loc_TPOL.asm"           ; 0x0f3b
 
 ; data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
 %include "vga/free_maze.asm"               ; 0x0f6f
@@ -316,21 +321,22 @@ leaf_loc_TPOL.cseg2 equ cseg_0e6d
 
 bios_mouse_loc_PTIM.cseg1 equ cseg_14ac
 bios_mouse_loc_PTIM.cseg2 equ cseg_14ae
-%include "shared/bios_mouse_loc_PTIM.asm"     ; 0x12c9
+%include "shared/library/bios_mouse_loc_PTIM.asm"     ; 0x12c9
 
-%include "shared/leaf_loc_LMQV.asm"           ; 0x1308
+%include "shared/library/leaf_loc_LMQV.asm"           ; 0x1308
 
 mouse_hit_test.cseg1 equ cseg_1dcd
 mouse_hit_test.cseg2 equ cseg_1dcf
 mouse_hit_test.cseg3 equ cseg_1dd1
-%include "shared/mouse_hit_test.asm"          ; 0x1317
+%include "shared/library/mouse_hit_test.asm"          ; 0x1317
 
-%include "shared/get_mouse.asm"               ; 0x139a
+%include "shared/library/get_mouse.asm"               ; 0x139a
 
 data_1e5c equ __zdata_1e5c - IMAGE_BASE
 %include "vga/set_mouse_pointer.asm"       ; 0x13c9
 
-%include "vga/dos_con_loc_TUKI.asm"        ; 0x147d
+dos_con_loc_TUKI equ dos_con_loc_HJHM
+%include "shared/library/dos_con_loc_HJHM.asm"        ; 0x147d
 
 cseg_1486:
 
@@ -418,14 +424,14 @@ cseg_1dd3:
 leaf_loc_JHTT.cseg1 equ cseg_1dd3
 leaf_loc_JHTT.cseg2 equ cseg_14b0
 leaf_loc_JHTT.cseg3 equ cseg_14b2
-%include "shared/leaf_loc_JHTT.asm"           ; 0x1e1a
+%include "shared/library/leaf_loc_JHTT.asm"           ; 0x1e1a
 
 data_1dc4 equ __zdata_1dc4 - IMAGE_BASE
 data_1e4c equ __zdata_1e4c - IMAGE_BASE
 %include "vga/graphics_loc_OSKV.asm"       ; 0x1e35
 
 leaf_loc_OLKS.cseg1 equ cseg_1dcd
-%include "shared/leaf_loc_OLKS.asm"           ; 0x217d
+%include "shared/library/leaf_loc_OLKS.asm"           ; 0x217d
 
 data_0229 equ __zdata_0229 - IMAGE_BASE
 %include "vga/free_picture.asm"            ; 0x2185
@@ -503,18 +509,18 @@ cseg_2327:
 get_free_space.maze_paras_used1 equ cseg_0bac
 get_free_space.ems_para_limit1  equ cseg_00ff
 get_free_space.ems_paras_used1  equ cseg_0291
-%include "shared/get_free_space.asm"          ; 0x2b01
+%include "shared/library/get_free_space.asm"          ; 0x2b01
 
-%include "shared/mouse_glide_to.asm"          ; 0x2b6c
+%include "shared/library/mouse_glide_to.asm"          ; 0x2b6c
 
 mouse_glide_back.cseg1 equ cseg_14ac
 mouse_glide_back.cseg2 equ cseg_14ae
-%include "shared/mouse_glide_back.asm"        ; 0x2c0e
+%include "shared/library/mouse_glide_back.asm"        ; 0x2c0e
 
 ; data_0251 equ __zdata_0251 - IMAGE_BASE
 %include "vga/free_screen.asm"             ; 0x2cbe
 
-%include "shared/get_palette.asm"             ; 0x2d08
+%include "shared/library/get_palette.asm"             ; 0x2d08
 
 __zdata_2e2b:
 cseg_2d2b:
@@ -534,16 +540,16 @@ data_2e53 equ __zdata_2e53 - IMAGE_BASE
 
 %include "vga/dos_con_loc_PILL.asm"        ; 0x3131
 
-%include "shared/leaf_loc_NOSG.asm"           ; 0x319f
+%include "shared/library/leaf_loc_NOSG.asm"           ; 0x319f
 
 ; data_2e2b equ __zdata_2e2b - IMAGE_BASE
 ; data_2e53 equ __zdata_2e53 - IMAGE_BASE
 data_381b equ __zdata_381b - IMAGE_BASE
 %include "vga/graphics_loc_PVIU.asm"       ; 0x31d9
 
-%include "shared/leaf_loc_MTKK.asm"           ; 0x3340
+%include "shared/library/leaf_loc_MTKK.asm"           ; 0x3340
 
-%include "vga/leaf_loc_GLTQ.asm"           ; 0x3360
+%include "shared/library/leaf_loc_GLTQ.asm"           ; 0x3360
 
 ; data_2e2b equ __zdata_2e2b - IMAGE_BASE
 ; data_381b equ __zdata_381b - IMAGE_BASE
@@ -557,9 +563,11 @@ data_381b equ __zdata_381b - IMAGE_BASE
 ; data_381b equ __zdata_381b - IMAGE_BASE
 %include "vga/loc_35d8.asm"                ; 0x35d8
 
-%include "vga/loc_381b.asm"                ; 0x381b
+loc_381b                    equ cache_area_disk_error
+cache_area_disk_error.cseg1 equ cseg_382b
+%include "shared/library/cache_area_disk_error.asm"                ; 0x381b
 
-%include "shared/dos_con_loc_KIIN.asm"        ; 0x3822
+%include "shared/library/dos_con_loc_KIIN.asm"        ; 0x3822
 
 cseg_382b:
 
@@ -580,11 +588,13 @@ data_025b equ __zdata_025b - IMAGE_BASE
 
 %include "vga/dos_con_loc_RSSU.asm"        ; 0x3b1f
 
-%include "vga/dos_con_loc_UHSU.asm"        ; 0x3b5c
+dos_con_loc_UHSU equ cache_area_maze_slots_full
+cseg_3b6c        equ cache_area_maze_slots_full.cseg1
+%include "shared/library/cache_area_maze_slots_full.asm"        ; 0x3b5c
 
 cseg_3b8e:
     db 0x00, 0x00
-%include "shared/ems_map_pages.asm"           ; 0x3b90
+%include "shared/library/ems_map_pages.asm"           ; 0x3b90
 
 ; data_025b equ __zdata_025b - IMAGE_BASE
 ; data_029b equ __zdata_029b - IMAGE_BASE
@@ -595,11 +605,11 @@ cseg_3b8e:
 
 %include "vga/dos_con_loc_KVVK.asm"        ; 0x3d39
 
-%include "vga/loc_3d6d.asm"                ; 0x3d6d
+%include "shared/library/loc_3d6d.asm"                ; 0x3d6d
 
 %include "vga/cache_maze.asm"              ; 0x3d72
 
-%include "shared/dos_con_loc_URMP.asm"        ; 0x3f45
+%include "shared/library/dos_con_loc_URMP.asm"        ; 0x3f45
 
 cseg_3f4e:
 
@@ -610,7 +620,8 @@ cseg_3f4e:
 ; data_02d7 equ __zdata_02d7 - IMAGE_BASE
 %include "vga/cache_screen.asm"            ; 0x3f73
 
-%include "vga/dos_con_loc_GQSQ.asm"        ; 0x4088
+dos_con_loc_GQSQ equ dos_con_loc_GQSN
+%include "shared/library/dos_con_loc_GQSN.asm"        ; 0x4088
 
 cseg_4091:
 
@@ -618,9 +629,11 @@ cseg_4091:
     db 'CACHESCREEN().  Requested slot already in use.', 0
     db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xae
 
-%include "vga/loc_40cb.asm"                ; 0x40cb
+loc_40cb                        equ cache_area_ems_slots_full
+cache_area_ems_slots_full.cseg1 equ cseg_40db
+%include "shared/library/cache_area_ems_slots_full.asm"                ; 0x40cb
 
-%include "shared/dos_con_loc_MQTN.asm"        ; 0x40d2
+%include "shared/library/dos_con_loc_MQTN.asm"        ; 0x40d2
 
 cseg_40db:
 
@@ -637,7 +650,8 @@ cseg_4102:
 data_4202 equ __zdata_4202 - IMAGE_BASE
 %include "vga/load_sound.asm"              ; 0x4156
 
-%include "vga/dos_con_loc_VTSU.asm"        ; 0x422f
+dos_con_loc_VTSU equ dos_con_loc_KGMT
+%include "shared/library/dos_con_loc_KGMT.asm"        ; 0x422f
 
 cseg_4238:
 
@@ -645,9 +659,11 @@ cseg_4238:
     db 'In LOAD_SOUND() ... slot already used.', 0
     db 0x0a, 0x24
 
-%include "vga/loc_4264.asm"                ; 0x4264
+loc_4264                       equ cache_area_maze_mem_full
+cache_area_maze_mem_full.cseg1 equ cseg_4274
+%include "shared/library/cache_area_maze_mem_full.asm"                ; 0x4264
 
-%include "shared/dos_con_loc_KPVH.asm"        ; 0x426b
+%include "shared/library/dos_con_loc_KPVH.asm"        ; 0x426b
 
 cseg_4274:
 
@@ -655,11 +671,15 @@ cseg_4274:
     db 'In LOAD_SOUND() ... not enough memory.', 0
     db 0x0a, 0x24
 
-%include "vga/loc_42a0.asm"                ; 0x42a0
+loc_42a0.cseg1 equ cseg_0bac
+loc_42ea       equ loc_42a0.loc1
+loc_42a0.loc2  equ loc_4264
+loc_42a0.cseg2 equ cseg_00e1
+%include "shared/library/loc_42a0.asm"                ; 0x42a0
 
-%include "shared/string_loc_RQON.asm"         ; 0x4300
+%include "shared/library/string_loc_RQON.asm"         ; 0x4300
 
-%include "shared/dos_file_loc_VPIN.asm"       ; 0x4319
+%include "shared/library/dos_file_loc_VPIN.asm"       ; 0x4319
 
 ; data_4202 equ __zdata_4202 - IMAGE_BASE
 %include "vga/free_sound.asm"              ; 0x439a
@@ -689,9 +709,9 @@ data_46d9 equ __zdata_46d9 - IMAGE_BASE
 ; data_4202 equ __zdata_4202 - IMAGE_BASE
 %include "vga/play_sound.asm"              ; 0x4527
 
-%include "shared/wait_sound.asm"              ; 0x4596
+%include "shared/library/wait_sound.asm"              ; 0x4596
 
-%include "shared/stop_sound.asm"              ; 0x45b2
+%include "shared/library/stop_sound.asm"              ; 0x45b2
 
 __zdata_46d9:
 cseg_45d9:
@@ -706,7 +726,8 @@ cseg_45f1:
 data_46f1 equ __zdata_46f1 - IMAGE_BASE
 %include "vga/load_score.asm"              ; 0x45fb
 
-%include "vga/dos_con_loc_HNTO.asm"        ; 0x4719
+dos_con_loc_HNTO equ dos_con_loc_GUHJ
+%include "shared/library/dos_con_loc_GUHJ.asm"        ; 0x4719
 
 cseg_4722:
 
@@ -714,9 +735,12 @@ cseg_4722:
     db 'In LOAD_SCORE() ... slot already used.', 0
     db 0x0a, 0x24
 
-%include "vga/loc_474e.asm"                ; 0x474e
+loc_474e       equ loc_1211
+loc_1211.cseg1 equ cseg_475e
+%include "shared/library/loc_1211.asm"                ; 0x474e
 
-%include "vga/dos_con_loc_UIHJ.asm"        ; 0x4755
+dos_con_loc_UIHJ equ dos_con_loc_HPRK
+%include "shared/library/dos_con_loc_HPRK.asm"        ; 0x4755
 
 cseg_475e:
 
@@ -732,10 +756,10 @@ cseg_475e:
 ; data_46d9 equ __zdata_46d9 - IMAGE_BASE
 %include "vga/free_score.asm"              ; 0x481f
 
-%include "shared/is_music_playing.asm"        ; 0x4866
+%include "shared/library/is_music_playing.asm"        ; 0x4866
 
-%include "shared/stop_music.asm"              ; 0x487e
+%include "shared/library/stop_music.asm"              ; 0x487e
 
-%include "shared/set_music_tempo_volume.asm"  ; 0x4896
+%include "shared/library/set_music_tempo_volume.asm"  ; 0x4896
 
     db 0x00

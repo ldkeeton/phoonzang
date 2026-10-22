@@ -4,7 +4,7 @@ import os
 
 from lib import routine_source
 from lib.autogen import hand_owned
-from lib.shared import FOLDER
+from lib.shared import FOLDER, shared_dirs
 from lib.sidecar.bands import band_for
 
 #: Where the vendor headers the C includes are copied (``src_<project>/include``).
@@ -47,10 +47,9 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     bands = _sidecar_bands(project, name)
     found_c = _hand_c_tree(dest, bands)
     hand_c = sorted(found_c)
-    shared_dir = os.path.join(out_dir, FOLDER)
-    # C shared between binaries (lib.shared) lives in shared/; only the labels
-    # this binary has are its own.
-    shared_c = [label for label in _hand_c(shared_dir) if label in known]
+    # C shared between binaries (lib.shared) lives in shared/ or its band
+    # folders; only the labels this binary has are its own.
+    shared_c = [label for label in _hand_shared_c(out_dir) if label in known]
     if not labels and not hand_c and not shared_c:
         return {}, {}, {}
     from lib.aztec import cache
@@ -95,7 +94,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         print(f'  aztec module {filename}: stays assembly ({why})')
     known = {nm for nm in label_map.values() if isinstance(nm, str)}
     known |= set(spans)
-    shared_c = [label for label in _hand_c(shared_dir) if label in known]
+    shared_c = [label for label in _hand_shared_c(out_dir) if label in known]
 
     orphans = sorted(os.path.basename(found_c[label]) for label in hand_c
                      if label not in known)
@@ -430,6 +429,13 @@ def _hand_c(folder):
     return sorted(routine_source.sources_in(folder, hand_owned))
 
 
+def _hand_shared_c(out_dir):
+    """The labels of the hand-owned sources in ``shared/`` and its band
+    folders (:func:`lib.shared.shared_dirs`), sorted."""
+    return sorted({label for folder in shared_dirs(out_dir)
+                   for label in _hand_c(folder)})
+
+
 def _hand_length(start, roots, bands, code_len):
     """The bytes a hand-written routine at *start* owns.
 
@@ -481,10 +487,11 @@ def c_path(dest, label, folder=None, suffix='.c'):
     """The routine's source: the hand-owned ``shared/`` copy when there is
     one, else the hand-owned one in *folder* (its band's, :func:`_band_home`)
     or *dest*, else where a new one goes, with *suffix* (``.c``, ``.s``)."""
-    shared = routine_source.beside(
-        os.path.join(os.path.dirname(dest), FOLDER, label), hand_owned)
-    if shared:
-        return shared
+    for home in shared_dirs(os.path.dirname(dest)):
+        shared = routine_source.beside(os.path.join(home, label),
+                                       hand_owned)
+        if shared:
+            return shared
     base = os.path.join(folder or dest, label)
     return routine_source.beside(base, hand_owned) or base + suffix
 
