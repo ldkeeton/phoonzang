@@ -1,16 +1,19 @@
 """``make name`` / ``make refs`` — name a routine's symbols in one step.
 
 ``make name PROJECT BIN SYMBOL=NAME[:NOTE] ...`` resolves each symbol as the
-build spells it (``cseg_0d3a``, ``bss_1234``, ``io_loc_KRUO``, or a name
-already given) to its sidecar entry, writes every naming surface the routine
-has (``function_names`` and its ``dispatch_table`` slot), renames the
-hand-owned sources and every reference in them, then builds and rebuilds the
-project.  The sources are renamed before the build because a hand source
-whose routine the sidecar renamed is an orphan the build refuses.  A failed
-build rolls the sidecar and sources back.
+build spells it (``cseg_0d3a``, ``bss_1234``, ``io_loc_KRUO``, a content-tag
+``routines`` key, or a name already given) to its sidecar entry, writes every
+naming surface the routine has (``function_names``, the project-wide
+``routines`` entry keyed by content tag, and the ``dispatch_table`` slot),
+renames the hand-owned sources and every reference in them, then builds and
+rebuilds the project.  The sources are renamed before the build because a hand
+source whose routine the sidecar renamed is an orphan the build refuses.  A
+failed build rolls the sidecar and sources back and drops label exports the
+failed build wrote.
 
-``DRY_RUN=1 make name ...`` prints the same plan without writing; ``make info``
-and ``make refs`` show each naming surface and which one wins.
+``DRY_RUN=1 make name ...`` (or ``--dry-run``) prints the same plan without
+writing; ``make info`` and ``make refs`` show each naming surface and which one
+wins.
 
 ``make refs PROJECT BIN ROUTINE`` lists the address-named symbols a routine's
 asm and source reference, with the sidecar entry each one resolves to.
@@ -23,7 +26,7 @@ import re
 import sys
 
 from lib.autogen import hand_owned
-from lib.cachedirs import src_dir
+from lib.cachedirs import labels_dir, src_dir
 from lib.sidecar.constants import SIDECAR_DIR
 from lib.sidecar.errors import SidecarError
 
@@ -198,6 +201,75 @@ def _named(block, name):
     return next((k for k, v in (block or {}).items() if v.get('name') == name), None)
 
 
+def _entry(sidecar, path, key):
+    """The sidecar entry at *path*/*key*, or ``{}`` when it is absent."""
+    block = sidecar
+    for part in path:
+        block = block.get(part, {})
+    return dict(block.get(key, {}))
+
+
+def _label_tag_key(project, binary, addr):
+    """The content-tag key of this binary's routine at *addr*, or None.
+
+    The build exports each label's ``base``/``tag``; the global ``routines``
+    block is keyed by the tagged spelling (``dos_file_loc_IRLV``).
+    """
+    if project is None or addr is None:
+        return None
+    from lib.cross_ref import read_label_json
+    from lib.link import LinkError
+    path = os.path.join(labels_dir(project), f'{binary}_labels.json')
+    try:
+        labels = read_label_json(path)
+    except (OSError, ValueError, KeyError, LinkError):
+        return None
+    symbol = labels.get(addr)
+    if symbol is None:
+        return None
+    base = getattr(symbol, 'base', None)
+    tag = getattr(symbol, 'tag', None)
+    if not base or not tag:
+        return None
+    return f'{getattr(symbol, "prefix", "") or ""}{base}_{tag}'
+
+
+def _routine_routines_key(sidecar, project, binary, addr, name):
+    """The global ``routines`` key naming the routine at *addr*, or None.
+
+    Prefer the exported content tag so one entry cannot be confused with a
+    same-named routine in another binary.  Without a label export, a unique
+    name match is safe; several matches need the tag spelling instead.
+    """
+    routines = sidecar.get('routines') or {}
+    tag_key = _label_tag_key(project, binary, addr)
+    if tag_key is not None:
+        return tag_key if tag_key in routines else None
+    matches = [key for key, entry in routines.items()
+               if entry.get('name') == name]
+    if len(matches) == 1:
+        return matches[0]
+    if len(matches) > 1:
+        raise SidecarError(
+            f'{name}: named by several routines entries '
+            f'({", ".join(sorted(matches))}); name the tag itself')
+    return None
+
+
+def _routine_address(project, binary, *names):
+    """The listing address of the first *name* found in this binary's asm."""
+    for name in names:
+        if not name:
+            continue
+        path = _asm_file(project, binary, name) or _label_file(
+            project, binary, name)
+        if path:
+            addr = _routine_addr(path, name)
+            if addr is not None:
+                return addr
+    return None
+
+
 def resolve(sidecar, project, binary, symbol):
     """``(path, key, entry)`` for *symbol*: the JSON path of its sidecar block,
     its key there, and the entry it has now (``{}`` if none)."""
@@ -221,17 +293,31 @@ def resolve(sidecar, project, binary, symbol):
         path, key = ['binaries', binary, 'code_data_names'], _named(own['code_data_names'], symbol)
     elif _named(bins[owner].get('data_names'), symbol):
         path, key = ['binaries', owner, 'data_names'], _named(bins[owner]['data_names'], symbol)
+    elif symbol in (sidecar.get('routines') or {}):
+        path, key = ['routines'], symbol
     elif binary != SHARED_DIR and (_asm_file(project, binary, symbol)
                                    or _label_file(project, binary, symbol)):
         # A branch target inside a routine (``loc_3a3a``) becomes a routine.
-        addr = _routine_addr(_asm_file(project, binary, symbol)
-                             or _label_file(project, binary, symbol), symbol)
+        asm_path = (_asm_file(project, binary, symbol)
+                    or _label_file(project, binary, symbol))
+        addr = _routine_addr(asm_path, symbol)
         if addr is None:
             raise SidecarError(f'{symbol}: no listing address in its asm')
         # ``ds`` keys are the listing address (its Ghidra base offset cancels
         # the header); the others are the address minus ``start_offset``.
         offset = 0 if own.get('ghidra_base_offset') is not None else own.get('start_offset', 0)
-        path, key = ['binaries', binary, 'function_names'], f'{addr - offset:04x}'
+        fn_key = f'{addr - offset:04x}'
+        # A routine with no function_names entry may be named only by the
+        # global routines block (keyed by content tag); rename that surface
+        # rather than adding an untagged function_names entry that would
+        # erase the tag the routines entry matches on.
+        rkey = (None if fn_key in (own.get('function_names') or {})
+                else _routine_routines_key(
+                    sidecar, project, binary, addr, symbol))
+        if rkey is not None:
+            path, key = ['routines'], rkey
+        else:
+            path, key = ['binaries', binary, 'function_names'], fn_key
     elif _asm_file(project, SHARED_DIR, symbol):
         key = symbol if _TAGGED.search(symbol) else _named(sidecar.get('routines'), symbol)
         if key is None:
@@ -240,10 +326,7 @@ def resolve(sidecar, project, binary, symbol):
     else:
         raise SidecarError(f'{symbol}: not a cseg_/bss_/dseg_ address, a named global, '
                            f'or a routine in {binary}/ or {SHARED_DIR}/')
-    block = sidecar
-    for p in path:
-        block = block.get(p, {})
-    return path, key, dict(block.get(key, {}))
+    return path, key, _entry(sidecar, path, key)
 
 
 # ── every place a routine is named ───────────────────────────────────────────
@@ -315,9 +398,10 @@ def provenance_rows(sidecar, project, binary, routine, addr=None):
     """Every sidecar surface that names *routine* or its address.
 
     Each row is ``{surface, key, name, note, effective}``.  ``effective`` marks
-    the name the build applies last: the dispatch table overrides
-    ``function_names`` (the runner applies it later), and a ``routines`` entry
-    keyed by content tag can override both.
+    the name the build applies last.  ``function_names`` runs first, then the
+    dispatch/driver names, then a ``routines`` entry keyed by the content tag;
+    an untagged ``function_names`` rename replaces the tag, so that routines
+    entry no longer matches and the later ``function_names`` name wins.
     """
     rows = []
     own = _binaries(sidecar).get(binary) or {}
@@ -328,11 +412,22 @@ def provenance_rows(sidecar, project, binary, routine, addr=None):
             rows.append({'surface': 'function_names', 'key': slot,
                          'name': name, 'note': entry.get('note'),
                          'effective': False})
-    for tag, entry in sorted((sidecar.get('routines') or {}).items()):
-        if entry.get('name') == routine:
-            rows.append({'surface': 'routines', 'key': tag,
+    routines = sidecar.get('routines') or {}
+    tag_key = _label_tag_key(project, binary, addr)
+    if tag_key is not None:
+        # Only the entry keyed by this routine's content tag names it; a
+        # same-named entry for another binary does not.
+        entry = routines.get(tag_key)
+        if entry is not None:
+            rows.append({'surface': 'routines', 'key': tag_key,
                          'name': entry.get('name'), 'note': entry.get('note'),
                          'effective': False})
+    else:
+        for tag, entry in sorted(routines.items()):
+            if entry.get('name') == routine:
+                rows.append({'surface': 'routines', 'key': tag,
+                             'name': entry.get('name'),
+                             'note': entry.get('note'), 'effective': False})
     drivers = []
     owner = dispatch_owner(sidecar, binary)
     if owner:
@@ -396,8 +491,11 @@ def print_provenance(rows, shared=(), indent='  '):
     for line in shared:
         print(f'{indent}        shared  {line}')
     if len({row['name'] for row in rows}) > 1:
-        print(f'{indent}note   naming surfaces disagree; the dispatch table '
-              f'wins over function_names')
+        winners = [row for row in rows if row.get('effective')]
+        if winners:
+            winner = winners[-1]
+            print(f'{indent}note   naming surfaces disagree; '
+                  f'{winner["surface"]}[{winner["key"]}] wins')
 
 
 # ── renaming the hand-owned sources ──────────────────────────────────────────
@@ -475,6 +573,28 @@ def rename_sources(project, renames, journal=None, dry_run=False):
     return changed
 
 
+def _routine_companions(sidecar, project, binary, old, addr, primary):
+    """Surfaces naming the same routine through another block.
+
+    A routine can have both a ``function_names`` entry and a global
+    ``routines`` entry keyed by its content tag.  Renaming only one leaves the
+    other applying the old name (or strips the tag the routines entry needs),
+    so the plan updates every one it can identify.
+    """
+    found = []
+    own = _binaries(sidecar).get(binary) or {}
+    fn_key = _sidecar_key(sidecar, binary, addr)
+    functions = own.get('function_names') or {}
+    if fn_key in functions and (
+            (('binaries', binary, 'function_names'), fn_key) != primary):
+        found.append((['binaries', binary, 'function_names'], fn_key,
+                      functions[fn_key]))
+    rkey = _routine_routines_key(sidecar, project, binary, addr, old)
+    if rkey is not None and (('routines',), rkey) != primary:
+        found.append((['routines'], rkey, (sidecar.get('routines') or {})[rkey]))
+    return found
+
+
 def plan_names(project, binary, specs):
     """Resolve *specs* and every naming surface they must update.
 
@@ -504,6 +624,17 @@ def plan_names(project, binary, specs):
         is_routine = (path == ['routines']
                       or path == ['binaries', binary, 'function_names'])
         if is_routine and old != name:
+            addr = _routine_address(project, binary, old, sym)
+            for cpath, ckey, centry in _routine_companions(
+                    sidecar, project, binary, old, addr,
+                    (tuple(path), key)):
+                centry = dict(centry)
+                centry['name'] = name
+                text = set_entry(text, cpath, ckey, centry)
+                sidecar = json.loads(text)
+                changes.append({
+                    'symbol': sym, 'old': old, 'name': name,
+                    'surface': f'{".".join(cpath)}["{ckey}"]'})
             owner = dispatch_owner(sidecar, binary)
             slots = [slot for slot, value in
                      _dispatch_names(sidecar, owner).items() if value == old]
@@ -619,6 +750,46 @@ def apply_names(project, binary, specs, journal=None):
     return renames
 
 
+def _label_snapshot(project):
+    """``{path: mtime_ns}`` of the project's exported labels before a build."""
+    root = labels_dir(project)
+    out = {}
+    try:
+        names = os.listdir(root)
+    except OSError:
+        return out
+    for name in names:
+        path = os.path.join(root, name)
+        try:
+            out[path] = os.stat(path).st_mtime_ns
+        except OSError:
+            pass
+    return out
+
+
+def _invalidate_changed_labels(project, snapshot):
+    """Drop label exports a failed build rewrote, so info/refs cannot read
+    names from a sidecar state that was rolled back."""
+    root = labels_dir(project)
+    try:
+        names = os.listdir(root)
+    except OSError:
+        return
+    for name in names:
+        path = os.path.join(root, name)
+        if not os.path.isfile(path):
+            continue
+        try:
+            mtime = os.stat(path).st_mtime_ns
+        except OSError:
+            continue
+        if snapshot.get(path) != mtime:
+            try:
+                os.unlink(path)
+            except OSError:
+                pass
+
+
 def cmd_name(project, binary, args, all_projects, dry_run=False):
     specs = parse_specs(args)
     if not specs:
@@ -650,16 +821,22 @@ def cmd_name(project, binary, args, all_projects, dry_run=False):
         return
     from .build import _build_projects, _rebuild_project
     journal = _Journal()
+    snapshot = None
     try:
         apply_names(project, binary, specs, journal=journal)
+        snapshot = _label_snapshot(project)
         _build_projects([project], all_projects)
         _rebuild_project(project)
     except SidecarError as exc:
         journal.rollback()
+        if snapshot is not None:
+            _invalidate_changed_labels(project, snapshot)
         print('name changes rolled back')
         raise SystemExit(f'error: {exc}')
     except BaseException:
         journal.rollback()
+        if snapshot is not None:
+            _invalidate_changed_labels(project, snapshot)
         print('name changes rolled back')
         raise
 

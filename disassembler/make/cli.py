@@ -37,10 +37,11 @@ Commands (space-separated):
                             except the build lock and pinned baselines)
   make name PROJECT BIN SYMBOL=NAME[:NOTE] ...
                             name routines/globals as the build spells them (cseg_0d3a,
-                            bss_1234, io_loc_KRUO, or a current name): writes every
-                            naming surface (function_names, dispatch_table slots),
-                            renames hand sources and their references, then build +
-                            rebuild; DRY_RUN=1 lists the changes without writing
+                            bss_1234, io_loc_KRUO, a routines tag, or a current name):
+                            writes every naming surface (function_names, routines,
+                            dispatch_table slots), renames hand sources and their
+                            references, then build + rebuild; DRY_RUN=1 / --dry-run
+                            lists the changes without writing
   make info PROJECT BIN ROUTINE  fragment span, co-tenant routines, callers, source
                             and the tool/flags the build uses
   make refs PROJECT BIN ROUTINE  list the symbols ROUTINE references: value, space,

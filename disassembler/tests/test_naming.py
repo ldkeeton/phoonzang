@@ -81,17 +81,20 @@ class SetValueTest(unittest.TestCase):
 
 
 class PlanNamesTest(unittest.TestCase):
-    def _plan(self, specs):
+    def _plan(self, specs, sidecar_text=SIDECAR, binary='play', tag=None,
+              addr=0x294):
         with tempfile.TemporaryDirectory() as tmp:
             path = os.path.join(tmp, 'P.json')
             with open(path, 'w') as f:
-                f.write(SIDECAR)
+                f.write(sidecar_text)
             with mock.patch.object(naming, 'sidecar_path', return_value=path), \
                     mock.patch.object(naming, '_asm_file',
                                       return_value='x.asm'), \
                     mock.patch.object(naming, '_routine_addr',
-                                      return_value=0x294):
-                return naming.plan_names('P', 'play', specs)
+                                      return_value=addr), \
+                    mock.patch.object(naming, '_label_tag_key',
+                                      return_value=tag):
+                return naming.plan_names('P', binary, specs)
 
     def test_updates_every_surface_in_one_plan(self):
         _text, sidecar, renames, changes = self._plan(
@@ -106,6 +109,59 @@ class PlanNamesTest(unittest.TestCase):
         self.assertEqual([row['surface'] for row in changes],
                          ['binaries.play.function_names["0294"]',
                           'binaries.play.dispatch_table.names["0"]'])
+
+    def test_renames_routines_entry_when_only_tag_names_it(self):
+        text, sidecar, renames, changes = self._plan(
+            [('shared_x', 'locate_x', 'finds x')], binary='ds',
+            tag='x_loc_JKLM', addr=0x10)
+        entry = sidecar['routines']['x_loc_JKLM']
+        self.assertEqual(entry['name'], 'locate_x')
+        self.assertEqual(entry['note'], 'finds x')
+        self.assertNotIn('function_names', sidecar['binaries']['ds'])
+        self.assertEqual([row['surface'] for row in changes],
+                         ['routines["x_loc_JKLM"]'])
+        self.assertEqual(renames, {'shared_x': 'locate_x'})
+        self.assertEqual(json.loads(text)['routines']['x_loc_JKLM']['name'],
+                         'locate_x')
+
+    def test_names_a_routines_tag_directly(self):
+        _text, sidecar, renames, changes = self._plan(
+            [('x_loc_JKLM', 'locate_x', None)], binary='ds',
+            tag='x_loc_JKLM', addr=0x10)
+        self.assertEqual(sidecar['routines']['x_loc_JKLM']['name'],
+                         'locate_x')
+        self.assertEqual([row['surface'] for row in changes],
+                         ['routines["x_loc_JKLM"]'])
+        self.assertEqual(renames, {'shared_x': 'locate_x'})
+
+    def test_ambiguous_routines_name_needs_the_tag(self):
+        sidecar = json.loads(SIDECAR)
+        sidecar['routines']['y_loc_JKLM'] = {'name': 'shared_x'}
+        with self.assertRaisesRegex(SidecarError, 'name the tag'):
+            self._plan([('shared_x', 'locate_x', None)],
+                       sidecar_text=json.dumps(sidecar), binary='ds',
+                       tag=None, addr=0x10)
+
+    def test_updates_function_names_and_routines_together(self):
+        sidecar = json.loads(SIDECAR)
+        sidecar['routines']['x_loc_JKLM']['note'] = 'shared note'
+        sidecar['binaries']['ds']['function_names'] = {
+            '0010': {'name': 'shared_x', 'note': 'function note'}}
+        _text, sidecar, renames, changes = self._plan(
+            [('shared_x', 'locate_x', None)],
+            sidecar_text=json.dumps(sidecar), binary='ds',
+            tag='x_loc_JKLM', addr=0x10)
+        self.assertEqual(
+            sidecar['binaries']['ds']['function_names']['0010']['name'],
+            'locate_x')
+        self.assertEqual(sidecar['routines']['x_loc_JKLM']['name'],
+                         'locate_x')
+        self.assertEqual(sidecar['routines']['x_loc_JKLM']['note'],
+                         'shared note')
+        self.assertEqual([row['surface'] for row in changes],
+                         ['binaries.ds.function_names["0010"]',
+                          'routines["x_loc_JKLM"]'])
+        self.assertEqual(renames, {'shared_x': 'locate_x'})
 
     def test_names_the_dispatch_owner_instead(self):
         sidecar = json.loads(SIDECAR)
@@ -154,6 +210,18 @@ class ProvenanceTest(unittest.TestCase):
             'vga reuses the play dispatch table',
         ])
 
+    def test_routines_entry_must_match_the_content_tag(self):
+        sidecar = json.loads(SIDECAR)
+        with mock.patch.object(naming, '_label_tag_key',
+                               return_value='other_loc_ZZZZ'):
+            rows = naming.provenance_rows(sidecar, 'P', 'ds', 'shared_x', 0x10)
+        self.assertNotIn('routines', [row['surface'] for row in rows])
+        with mock.patch.object(naming, '_label_tag_key',
+                               return_value='x_loc_JKLM'):
+            rows = naming.provenance_rows(sidecar, 'P', 'ds', 'shared_x', 0x10)
+        self.assertEqual([(row['surface'], row['key']) for row in rows],
+                         [('routines', 'x_loc_JKLM')])
+
 
 class JournalTest(unittest.TestCase):
     def test_rolls_back_an_edit_and_a_rename(self):
@@ -170,6 +238,23 @@ class JournalTest(unittest.TestCase):
             self.assertFalse(os.path.exists(dest))
             with open(path) as f:
                 self.assertEqual(f.read(), 'old\n')
+
+
+class LabelCacheTest(unittest.TestCase):
+    def test_invalidates_only_exports_a_failed_build_changed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            kept = os.path.join(tmp, 'kept_labels.json')
+            stale = os.path.join(tmp, 'stale_labels.json')
+            for path in (kept, stale):
+                with open(path, 'w') as f:
+                    f.write('{}')
+            with mock.patch.object(naming, 'labels_dir', return_value=tmp):
+                snapshot = naming._label_snapshot('P')
+                mtime = os.stat(stale).st_mtime_ns
+                os.utime(stale, ns=(mtime + 1_000_000, mtime + 1_000_000))
+                naming._invalidate_changed_labels('P', snapshot)
+            self.assertTrue(os.path.exists(kept))
+            self.assertFalse(os.path.exists(stale))
 
 
 class ResolveTest(unittest.TestCase):
