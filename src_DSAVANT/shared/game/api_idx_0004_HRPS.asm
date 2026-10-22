@@ -17,7 +17,7 @@ api_idx_0004_HRPS:
     mov ax, word [maze_data]
     add ax, 0x9b0
     push ax
-    call ds_leaf_loc_PRVP
+    call test_bit
     add sp, byte 4
     test ax, ax
     je short @..api_idx_0004_HRPS.l3
@@ -62,7 +62,7 @@ api_idx_0004_HRPS.jumptable_case3:
     mov ax, word [maze_data]
     add ax, 0x8b0
     push ax
-    call ds_leaf_loc_PRVP
+    call test_bit
     add sp, byte 4
     test ax, ax
     je short @..api_idx_0004_HRPS.l7
@@ -92,7 +92,7 @@ api_idx_0004_HRPS.jumptable_case3:
     mov ax, word [maze_data]
     add ax, 0x930
     push ax
-    call ds_leaf_loc_PRVP
+    call test_bit
     add sp, byte 4
     test ax, ax
     je short @..api_idx_0004_HRPS.l14

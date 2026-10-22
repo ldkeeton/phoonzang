@@ -78,7 +78,7 @@ jumptable_3000:
     mov ax, word [maze_data]         ; 0x3033
     add ax, 0x9b0                    ; 0x3036
     push ax                          ; 0x3039
-    call ds_leaf_loc_PRVP            ; 0x303a
+    call test_bit                    ; 0x303a
     add sp, byte 4                   ; 0x303d
     test ax, ax                      ; 0x3040
     je short @..api_idx_0008_LJTR.l6 ; 0x3042
@@ -123,7 +123,7 @@ jumptable_3082:
     mov ax, word [maze_data]         ; 0x309e
     add ax, 0x8b0                    ; 0x30a1
     push ax                          ; 0x30a4
-    call ds_leaf_loc_PRVP            ; 0x30a5
+    call test_bit                    ; 0x30a5
     add sp, byte 4                   ; 0x30a8
     test ax, ax                      ; 0x30ab
     jne short @..api_idx_0008_LJTR.l7 ; 0x30ad
@@ -182,7 +182,7 @@ jumptable_3111:
     mov ax, word [maze_data]         ; 0x312d
     add ax, 0x930                    ; 0x3130
     push ax                          ; 0x3133
-    call ds_leaf_loc_PRVP            ; 0x3134
+    call test_bit                    ; 0x3134
     add sp, byte 4                   ; 0x3137
     test ax, ax                      ; 0x313a
     je short @..api_idx_0008_LJTR.l15 ; 0x313c

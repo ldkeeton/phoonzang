@@ -232,7 +232,7 @@ jumptable_4b3c:
     imul word [bp + 0x4]             ; 0x4bc9
     add ax, 0x5e12                   ; 0x4bcc
     push ax                          ; 0x4bcf
-    call ds_leaf_loc_PRVP            ; 0x4bd0
+    call test_bit                    ; 0x4bd0
     add sp, byte 4                   ; 0x4bd3
     cmp ax, strict word 1            ; 0x4bd6
     jne short @..api_idx_0018_IKVK.l10 ; 0x4bd9

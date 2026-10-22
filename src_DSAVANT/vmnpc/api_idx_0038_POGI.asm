@@ -24,12 +24,12 @@ api_idx_0038_POGI:
     je short @..api_idx_0038_POGI.l2 ; 0x24e8
     cmp word [bp + 0x4], byte 0xff   ; 0x24ea
     jne short @..api_idx_0038_POGI.l3 ; 0x24ee
-    mov al, byte [bx - 0x7b14]       ; 0x24f0
+    mov al, byte [bx + slot_records] ; 0x24f0
     sub ah, ah                       ; 0x24f4
     shl ax, 1                        ; 0x24f6
     shl ax, 1                        ; 0x24f8
     mov bx, ax                       ; 0x24fa
-    mov al, byte [bx - 0x7687]       ; 0x24fc
+    mov al, byte [bx + kind_state_table] ; 0x24fc
     cbw                              ; 0x2500
     cmp ax, word [game_state_arg]    ; 0x2501
     je short @..api_idx_0038_POGI.l2 ; 0x2505

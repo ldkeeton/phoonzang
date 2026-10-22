@@ -36,7 +36,7 @@ api_idx_0008_URRP:
     mov ax, word [maze_data]         ; 0x021c
     add ax, 0x8b0                    ; 0x021f
     push ax                          ; 0x0222
-    call ds_leaf_loc_PRVP            ; 0x0223
+    call test_bit                    ; 0x0223
     add sp, byte 4                   ; 0x0226
     test ax, ax                      ; 0x0229
     je short @..api_idx_0008_URRP.l4 ; 0x022b
@@ -44,7 +44,7 @@ api_idx_0008_URRP:
     mov ax, word [maze_data]         ; 0x0230
     add ax, 0x9b0                    ; 0x0233
     push ax                          ; 0x0236
-    call ds_leaf_loc_PRVP            ; 0x0237
+    call test_bit                    ; 0x0237
     add sp, byte 4                   ; 0x023a
     test ax, ax                      ; 0x023d
     je short @..api_idx_0008_URRP.l4 ; 0x023f

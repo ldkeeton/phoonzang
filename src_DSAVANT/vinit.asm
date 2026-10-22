@@ -38,27 +38,27 @@ __zcode_start:
 
 %include "vinit/build_palette_map.asm"     ; 0x0211
 
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-dseg_90a5 equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
-dseg_90b1 equ __zdseg_end + (__zdseg_90b1 - __zdata_start)
-dseg_90bd equ __zdseg_end + (__zdseg_90bd - __zdata_start)
-dseg_90c9 equ __zdseg_end + (__zdseg_90c9 - __zdata_start)
-dseg_90d5 equ __zdseg_end + (__zdseg_90d5 - __zdata_start)
-dseg_90e1 equ __zdseg_end + (__zdseg_90e1 - __zdata_start)
-dseg_90ed equ __zdseg_end + (__zdseg_90ed - __zdata_start)
-dseg_90f9 equ __zdseg_end + (__zdseg_90f9 - __zdata_start)
-dseg_9105 equ __zdseg_end + (__zdseg_9105 - __zdata_start)
-dseg_9111 equ __zdseg_end + (__zdseg_9111 - __zdata_start)
-dseg_911d equ __zdseg_end + (__zdseg_911d - __zdata_start)
-dseg_9129 equ __zdseg_end + (__zdseg_9129 - __zdata_start)
-dseg_9136 equ __zdseg_end + (__zdseg_9136 - __zdata_start)
-dseg_9141 equ __zdseg_end + (__zdseg_9141 - __zdata_start)
-dseg_914a equ __zdseg_end + (__zdseg_914a - __zdata_start)
-dseg_9152 equ __zdseg_end + (__zdseg_9152 - __zdata_start)
-dseg_915d equ __zdseg_end + (__zdseg_915d - __zdata_start)
-dseg_9166 equ __zdseg_end + (__zdseg_9166 - __zdata_start)
-dseg_916e equ __zdseg_end + (__zdseg_916e - __zdata_start)
-dseg_917b equ __zdseg_end + (__zdseg_917b - __zdata_start)
+report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
+dseg_90a5         equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
+dseg_90b1         equ __zdseg_end + (__zdseg_90b1 - __zdata_start)
+dseg_90bd         equ __zdseg_end + (__zdseg_90bd - __zdata_start)
+dseg_90c9         equ __zdseg_end + (__zdseg_90c9 - __zdata_start)
+dseg_90d5         equ __zdseg_end + (__zdseg_90d5 - __zdata_start)
+dseg_90e1         equ __zdseg_end + (__zdseg_90e1 - __zdata_start)
+dseg_90ed         equ __zdseg_end + (__zdseg_90ed - __zdata_start)
+dseg_90f9         equ __zdseg_end + (__zdseg_90f9 - __zdata_start)
+dseg_9105         equ __zdseg_end + (__zdseg_9105 - __zdata_start)
+dseg_9111         equ __zdseg_end + (__zdseg_9111 - __zdata_start)
+dseg_911d         equ __zdseg_end + (__zdseg_911d - __zdata_start)
+dseg_9129         equ __zdseg_end + (__zdseg_9129 - __zdata_start)
+dseg_9136         equ __zdseg_end + (__zdseg_9136 - __zdata_start)
+dseg_9141         equ __zdseg_end + (__zdseg_9141 - __zdata_start)
+dseg_914a         equ __zdseg_end + (__zdseg_914a - __zdata_start)
+dseg_9152         equ __zdseg_end + (__zdseg_9152 - __zdata_start)
+dseg_915d         equ __zdseg_end + (__zdseg_915d - __zdata_start)
+dseg_9166         equ __zdseg_end + (__zdseg_9166 - __zdata_start)
+dseg_916e         equ __zdseg_end + (__zdseg_916e - __zdata_start)
+dseg_917b         equ __zdseg_end + (__zdseg_917b - __zdata_start)
 %include "vinit/loc_RVQR.asm"              ; 0x03a8
 
 %include "shared/game/api_idx_0002_LVPS.asm"     ; 0x08b7
@@ -91,9 +91,8 @@ _Uorg    equ __zdseg_end + (__zobss_91b8 - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/aztec/aztec_ovbgn.asm"           ; 0x15d9
 
-__zdseg_9098:
-__zdata_start:
-    db 'SCENARIO.HDR', 0
+%include "vinit/data/report_line1_none.asm" ; 0x1617
+
 __zdseg_90a5:
     db 'VBFONT0.VGA', 0
 __zdseg_90b1:

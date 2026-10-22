@@ -71,10 +71,10 @@ api_idx_0004_JGSH.loc1 equ loc_NQGV
 api_idx_0004_JGSH.bss2 equ bss_9152
 %include "shared/game/api_idx_0004_JGSH.asm"     ; 0x0a6a
 
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-dseg_90a0 equ __zdseg_end + (__zdseg_90a0 - __zdata_start)
-; bss_9150  equ __zdseg_end + (__zobss_9150 - __zdata_start)
-bss_9154  equ __zdseg_end + (__zobss_9154 - __zdata_start)
+report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
+dseg_90a0         equ __zdseg_end + (__zdseg_90a0 - __zdata_start)
+; bss_9150          equ __zdseg_end + (__zobss_9150 - __zdata_start)
+bss_9154          equ __zdseg_end + (__zobss_9154 - __zdata_start)
 %include "vtrea/api_idx_0090_NPLS.asm"     ; 0x0b29
 
 api_idx_0004_QHUH          equ api_idx_0004_JQTM
@@ -340,9 +340,8 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/aztec/aztec_cswit.asm"           ; 0x9a03
 
-__zdseg_9098:
-__zdata_start:
-    db '!%&]@#~', 0
+%include "vtrea/data/report_line1_none.asm" ; 0x9a1b
+
 __zdseg_90a0:
     db 0x20, 0x00
 __zdseg_90a2:

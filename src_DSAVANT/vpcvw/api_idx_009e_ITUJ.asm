@@ -61,7 +61,7 @@ jumptable_3f96_case_3:
     push ax                          ; 0x3d84
     lea ax, word [bp - 0x0018]       ; 0x3d85
     push ax                          ; 0x3d88
-    call ds_leaf_loc_PRVP            ; 0x3d89
+    call test_bit                    ; 0x3d89
     add sp, byte 4                   ; 0x3d8c
     test ax, ax                      ; 0x3d8f
     jne short @..api_idx_009e_ITUJ.l3 ; 0x3d91

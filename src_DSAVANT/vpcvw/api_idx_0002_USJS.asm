@@ -84,7 +84,7 @@ jumptable_45f0:
     mov ax, word [bp + 0x6]          ; 0x462e
     add ax, strict word 0x32         ; 0x4631
     push ax                          ; 0x4634
-    call ds_leaf_loc_PRVP            ; 0x4635
+    call test_bit                    ; 0x4635
     add sp, byte 4                   ; 0x4638
     cmp ax, strict word 1            ; 0x463b
     jne short @..api_idx_0002_USJS.l5 ; 0x463e
@@ -97,7 +97,7 @@ jumptable_45f0:
     mov ax, word [bp + 0x6]          ; 0x464f
     add ax, strict word 0x34         ; 0x4652
     push ax                          ; 0x4655
-    call ds_leaf_loc_PRVP            ; 0x4656
+    call test_bit                    ; 0x4656
     add sp, byte 4                   ; 0x4659
     cmp ax, strict word 1            ; 0x465c
     jne short @..api_idx_0002_USJS.l5 ; 0x465f
@@ -110,7 +110,7 @@ jumptable_45f0:
     mov ax, word [bp + 0x6]          ; 0x4670
     add ax, strict word 0x36         ; 0x4673
     push ax                          ; 0x4676
-    call ds_leaf_loc_PRVP            ; 0x4677
+    call test_bit                    ; 0x4677
     add sp, byte 4                   ; 0x467a
     cmp ax, strict word 1            ; 0x467d
     je short @..api_idx_0002_USJS.l6 ; 0x4680

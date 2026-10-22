@@ -30,7 +30,7 @@ api_idx_003a_HOUV:
     imul word [bp + 0x4]             ; 0x9540
     add ax, 0x8506                   ; 0x9543
     push ax                          ; 0x9546
-    call ds_leaf_loc_PRVP            ; 0x9547
+    call test_bit                    ; 0x9547
     add sp, byte 4                   ; 0x954a
     test ax, ax                      ; 0x954d
     je short @..api_idx_003a_HOUV.l3 ; 0x954f
@@ -56,7 +56,7 @@ api_idx_003a_HOUV:
     imul word [bp + 0x4]             ; 0x9581
     add ax, 0x8506                   ; 0x9584
     push ax                          ; 0x9587
-    call ds_leaf_loc_PRVP            ; 0x9588
+    call test_bit                    ; 0x9588
     add sp, byte 4                   ; 0x958b
     test ax, ax                      ; 0x958e
     je short @..api_idx_003a_HOUV.l5 ; 0x9590
@@ -128,7 +128,7 @@ api_idx_003a_HOUV:
     imul word [bp + 0x4]             ; 0x962b
     add ax, 0x8506                   ; 0x962e
     push ax                          ; 0x9631
-    call ds_leaf_loc_PRVP            ; 0x9632
+    call test_bit                    ; 0x9632
     add sp, byte 4                   ; 0x9635
     test ax, ax                      ; 0x9638
     je short @..api_idx_003a_HOUV.l8 ; 0x963a

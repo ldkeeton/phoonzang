@@ -80,14 +80,14 @@ api_idx_000c_RMGQ:
     mov word [bp - 0x0002], ax       ; 0x0a7f
     push ax                          ; 0x0a82
     push word [bp + 0x6]             ; 0x0a83
-    call ds_leaf_loc_PRVP            ; 0x0a86
+    call test_bit                    ; 0x0a86
     add sp, byte 4                   ; 0x0a89
     cmp ax, strict word 1            ; 0x0a8c
     je short @..api_idx_000c_RMGQ.l4 ; 0x0a8f
     push word [bp - 0x0002]          ; 0x0a91
     mov ax, bss_8b7e                 ; 0x0a94
     push ax                          ; 0x0a97
-    call ds_leaf_loc_PRVP            ; 0x0a98
+    call test_bit                    ; 0x0a98
     add sp, byte 4                   ; 0x0a9b
     cmp ax, strict word 1            ; 0x0a9e
     jne short @..api_idx_000c_RMGQ.l5 ; 0x0aa1
@@ -103,14 +103,14 @@ api_idx_000c_RMGQ:
     mov ax, word [maze_data]         ; 0x0ab6
     add ax, 0x8b0                    ; 0x0ab9
     push ax                          ; 0x0abc
-    call ds_leaf_loc_PRVP            ; 0x0abd
+    call test_bit                    ; 0x0abd
     add sp, byte 4                   ; 0x0ac0
     mov word [bp - 0x0004], ax       ; 0x0ac3
     push word [bp - 0x0002]          ; 0x0ac6
     mov ax, word [maze_data]         ; 0x0ac9
     add ax, 0x930                    ; 0x0acc
     push ax                          ; 0x0acf
-    call ds_leaf_loc_PRVP            ; 0x0ad0
+    call test_bit                    ; 0x0ad0
     add sp, byte 4                   ; 0x0ad3
     mov word [bp - 0x0006], ax       ; 0x0ad6
     cmp word [bss_918a], byte 0      ; 0x0ad9

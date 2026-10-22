@@ -26,7 +26,7 @@ api_idx_0002_SMVN:
     push ax                          ; 0x0b9f
     mov ax, bss_8b7e                 ; 0x0ba0
     push ax                          ; 0x0ba3
-    call ds_leaf_loc_PRVP            ; 0x0ba4
+    call test_bit                    ; 0x0ba4
     add sp, byte 4                   ; 0x0ba7
     cmp ax, word [bp + 0xa]          ; 0x0baa
     jne short @..api_idx_0002_SMVN.l1 ; 0x0bad

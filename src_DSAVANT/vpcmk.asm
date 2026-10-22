@@ -28,7 +28,7 @@ __zcode_start:
 
 %include "shared/game/api_idx_0002_OOKN.asm"     ; 0x0021
 
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
 %include "shared/game/api_idx_0002_SJMT.asm"     ; 0x0085
 
 %include "shared/game/api_idx_0008_LLVT.asm"     ; 0x0104
@@ -418,9 +418,8 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/aztec/aztec_strcmp.asm"          ; 0x6fca
 
-__zdseg_9098:
-__zdata_start:
-    db 'PCFILE.DBS', 0
+%include "vpcmk/data/report_line1_none.asm" ; 0x7031
+
 __zdseg_90a3:
     db 'V.$$$', 0
 __zdseg_90a9:

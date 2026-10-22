@@ -5,7 +5,7 @@ api_idx_0006_SHUK:
     mov ax, word [bp + 0x4]
     jmp near @..api_idx_0006_SHUK.l5
 @..api_idx_0006_SHUK.l1:
-    mov ax, dseg_9098
+    mov ax, report_line1_none
     push ax
     mov ax, 0xc2
     push ax

@@ -24,7 +24,7 @@ api_idx_0006_NNTR:
     imul word [bp + 0x4]             ; 0x9a19
     add ax, 0x8504                   ; 0x9a1c
     push ax                          ; 0x9a1f
-    call ds_leaf_loc_PRVP            ; 0x9a20
+    call test_bit                    ; 0x9a20
     add sp, byte 4                   ; 0x9a23
     test ax, ax                      ; 0x9a26
     je short @..api_idx_0006_NNTR.l2 ; 0x9a28
@@ -33,7 +33,7 @@ api_idx_0006_NNTR:
     imul word [bp + 0x4]             ; 0x9a30
     add ax, 0x850a                   ; 0x9a33
     push ax                          ; 0x9a36
-    call ds_leaf_loc_PRVP            ; 0x9a37
+    call test_bit                    ; 0x9a37
     add sp, byte 4                   ; 0x9a3a
     test ax, ax                      ; 0x9a3d
     jne short @..api_idx_0006_NNTR.l2 ; 0x9a3f

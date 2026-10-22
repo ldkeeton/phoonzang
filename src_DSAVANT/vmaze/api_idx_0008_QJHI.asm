@@ -66,7 +66,7 @@ jumptable_340d:
     mov ax, word [maze_data]         ; 0x3440
     add ax, 0x8b0                    ; 0x3443
     push ax                          ; 0x3446
-    call ds_leaf_loc_PRVP            ; 0x3447
+    call test_bit                    ; 0x3447
     add sp, byte 4                   ; 0x344a
     test ax, ax                      ; 0x344d
     je short @..api_idx_0008_QJHI.l6 ; 0x344f

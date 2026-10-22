@@ -22,7 +22,7 @@ api_idx_0004_VRTU:
     add bx, strict word 0x8506       ; 0x96ff
     mov ax, bx                       ; 0x9703
     push ax                          ; 0x9705
-    call ds_leaf_loc_PRVP            ; 0x9706
+    call test_bit                    ; 0x9706
     add sp, byte 4                   ; 0x9709
     test ax, ax                      ; 0x970c
     jne short @..api_idx_0004_VRTU.l1 ; 0x970e
@@ -61,7 +61,7 @@ api_idx_0004_VRTU:
     imul word [bp + 0x4]             ; 0x975d
     add ax, 0x850a                   ; 0x9760
     push ax                          ; 0x9763
-    call ds_leaf_loc_PRVP            ; 0x9764
+    call test_bit                    ; 0x9764
     add sp, byte 4                   ; 0x9767
     test ax, ax                      ; 0x976a
     je short @..api_idx_0004_VRTU.l6 ; 0x976c
@@ -72,7 +72,7 @@ api_idx_0004_VRTU:
     imul word [bp + 0x4]             ; 0x9778
     add ax, 0x850a                   ; 0x977b
     push ax                          ; 0x977e
-    call ds_leaf_loc_PRVP            ; 0x977f
+    call test_bit                    ; 0x977f
     add sp, byte 4                   ; 0x9782
     test ax, ax                      ; 0x9785
     jne short @..api_idx_0004_VRTU.l5 ; 0x9787
@@ -118,7 +118,7 @@ api_idx_0004_VRTU:
     imul word [bp + 0x4]             ; 0x97e6
     add ax, 0x8504                   ; 0x97e9
     push ax                          ; 0x97ec
-    call ds_leaf_loc_PRVP            ; 0x97ed
+    call test_bit                    ; 0x97ed
     add sp, byte 4                   ; 0x97f0
     test ax, ax                      ; 0x97f3
     jne short @..api_idx_0004_VRTU.l7 ; 0x97f5

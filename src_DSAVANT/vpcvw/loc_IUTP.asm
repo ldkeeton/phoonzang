@@ -397,7 +397,7 @@ jumptable_742b:
     push word [bp - 0x0002]          ; 0x74ea
     lea ax, word [bp - 0x0046]       ; 0x74ed
     push ax                          ; 0x74f0
-    call ds_leaf_loc_PRVP            ; 0x74f1
+    call test_bit                    ; 0x74f1
     add sp, byte 4                   ; 0x74f4
     cmp ax, strict word 1            ; 0x74f7
     jne short @..loc_IUTP.l16        ; 0x74fa
@@ -440,7 +440,7 @@ jumptable_742b:
     push word [bp - 0x0002]          ; 0x7551
     lea ax, word [bp - 0x0044]       ; 0x7554
     push ax                          ; 0x7557
-    call ds_leaf_loc_PRVP            ; 0x7558
+    call test_bit                    ; 0x7558
     add sp, byte 4                   ; 0x755b
     cmp ax, strict word 1            ; 0x755e
     jne short @..loc_IUTP.l19        ; 0x7561
@@ -485,7 +485,7 @@ jumptable_742b:
     push word [bp - 0x0002]          ; 0x75bc
     lea ax, word [bp - 0x0048]       ; 0x75bf
     push ax                          ; 0x75c2
-    call ds_leaf_loc_PRVP            ; 0x75c3
+    call test_bit                    ; 0x75c3
     add sp, byte 4                   ; 0x75c6
     cmp ax, strict word 1            ; 0x75c9
     jne short @..loc_IUTP.l22        ; 0x75cc
@@ -699,7 +699,7 @@ jumptable_76e2:
     push ax                          ; 0x779e
     lea ax, word [bp - 0x0046]       ; 0x779f
     push ax                          ; 0x77a2
-    call ds_leaf_loc_PRVP            ; 0x77a3
+    call test_bit                    ; 0x77a3
     add sp, byte 4                   ; 0x77a6
     cmp ax, strict word 1            ; 0x77a9
     jne short @..loc_IUTP.l29        ; 0x77ac
@@ -711,7 +711,7 @@ jumptable_76e2:
     push ax                          ; 0x77bc
     lea ax, word [bp - 0x0048]       ; 0x77bd
     push ax                          ; 0x77c0
-    call ds_leaf_loc_PRVP            ; 0x77c1
+    call test_bit                    ; 0x77c1
     add sp, byte 4                   ; 0x77c4
     cmp ax, strict word 1            ; 0x77c7
     jne short @..loc_IUTP.l29        ; 0x77ca
@@ -723,7 +723,7 @@ jumptable_76e2:
     push ax                          ; 0x77da
     lea ax, word [bp - 0x0044]       ; 0x77db
     push ax                          ; 0x77de
-    call ds_leaf_loc_PRVP            ; 0x77df
+    call test_bit                    ; 0x77df
     add sp, byte 4                   ; 0x77e2
     cmp ax, strict word 1            ; 0x77e5
     je short @..loc_IUTP.l30         ; 0x77e8
@@ -829,7 +829,7 @@ jumptable_76e2:
     push word [bp - 0x0002]          ; 0x78d9
     lea ax, word [bp - 0x0034]       ; 0x78dc
     push ax                          ; 0x78df
-    call ds_leaf_loc_PRVP            ; 0x78e0
+    call test_bit                    ; 0x78e0
     add sp, byte 4                   ; 0x78e3
     cmp ax, strict word 1            ; 0x78e6
     jne short @..loc_IUTP.l36        ; 0x78e9

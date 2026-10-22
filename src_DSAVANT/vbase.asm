@@ -26,7 +26,7 @@ __zcode_start:
 
 %include "vbase/ovmain.asm"                ; 0x000e
 
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
 %include "shared/game/api_idx_0002_SJMT.asm"     ; 0x0036
 
 %include "vbase/api_idx_0004_VUIP.asm"     ; 0x00b5
@@ -485,9 +485,8 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/aztec/aztec_strcmp.asm"          ; 0x9386
 
-__zdseg_9098:
-__zdata_start:
-    db 'PCFILE.DBS', 0
+%include "vbase/data/report_line1_none.asm" ; 0x93ed
+
 __zdseg_90a3:
     db 'V.$$$', 0
 __zdseg_90a9:

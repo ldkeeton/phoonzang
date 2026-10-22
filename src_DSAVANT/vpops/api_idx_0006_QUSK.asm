@@ -19,7 +19,7 @@ api_idx_0006_QUSK:
     mov word [bp - 0x0002], dx       ; 0x36e6
     push dx                          ; 0x36e9
     push word [bp + 0x4]             ; 0x36ea
-    call ds_leaf_loc_PRVP            ; 0x36ed
+    call test_bit                    ; 0x36ed
     add sp, byte 4                   ; 0x36f0
     cmp ax, strict word 1            ; 0x36f3
     jne short @..api_idx_0006_QUSK.l2 ; 0x36f6

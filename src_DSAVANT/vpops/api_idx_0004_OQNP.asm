@@ -17,7 +17,7 @@ api_idx_0004_OQNP:
     imul word [bp + 0x4]             ; 0x19c5
     add ax, 0x5e12                   ; 0x19c8
     push ax                          ; 0x19cb
-    call ds_leaf_loc_PRVP            ; 0x19cc
+    call test_bit                    ; 0x19cc
     add sp, byte 4                   ; 0x19cf
     test ax, ax                      ; 0x19d2
     je short @..api_idx_0004_OQNP.l2 ; 0x19d4

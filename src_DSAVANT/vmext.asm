@@ -35,7 +35,7 @@ bss_9180 equ __zdseg_end + (__zobss_9180 - __zdata_start)
 
 %include "shared/game/api_idx_0002_OTTG.asm"     ; 0x021c
 
-dseg_9098          equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+report_line1_none  equ __zdseg_end + (__zreport_line1_none - __zdata_start)
 dseg_90a5          equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
 dseg_90b2          equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
 dseg_90bf          equ __zdseg_end + (__zdseg_90bf - __zdata_start)
@@ -291,9 +291,8 @@ _Uorg    equ __zdseg_end + (__zobss_9180 - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/aztec/aztec_ovbgn.asm"           ; 0x521b
 
-__zdseg_9098:
-__zdata_start:
-    db 'MAZEDATA.VGA', 0
+%include "vmext/data/report_line1_none.asm" ; 0x5259
+
 __zdseg_90a5:
     db 'WATRDATA.VGA', 0
 __zdseg_90b2:

@@ -24,7 +24,7 @@ api_idx_0006_UMQS:
     imul word [bp + 0x4]             ; 0x9245
     add ax, 0x850a                   ; 0x9248
     push ax                          ; 0x924b
-    call ds_leaf_loc_PRVP            ; 0x924c
+    call test_bit                    ; 0x924c
     add sp, byte 4                   ; 0x924f
     test ax, ax                      ; 0x9252
     je short @..api_idx_0006_UMQS.l2 ; 0x9254
@@ -47,7 +47,7 @@ api_idx_0006_UMQS:
     imul word [bp + 0x4]             ; 0x927f
     add ax, 0x8506                   ; 0x9282
     push ax                          ; 0x9285
-    call ds_leaf_loc_PRVP            ; 0x9286
+    call test_bit                    ; 0x9286
     add sp, byte 4                   ; 0x9289
     test ax, ax                      ; 0x928c
     je short @..api_idx_0006_UMQS.l3 ; 0x928e
@@ -60,7 +60,7 @@ api_idx_0006_UMQS:
     imul word [bp + 0x4]             ; 0x92a2
     add ax, 0x8506                   ; 0x92a5
     push ax                          ; 0x92a8
-    call ds_leaf_loc_PRVP            ; 0x92a9
+    call test_bit                    ; 0x92a9
     add sp, byte 4                   ; 0x92ac
     test ax, ax                      ; 0x92af
     je short @..api_idx_0006_UMQS.l4 ; 0x92b1

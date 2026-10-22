@@ -22,7 +22,7 @@ api_idx_0086_JRHU:
     imul cx                          ; 0x6e43
     add ax, 0x8502                   ; 0x6e45
     push ax                          ; 0x6e48
-    call ds_leaf_loc_PRVP            ; 0x6e49
+    call test_bit                    ; 0x6e49
     add sp, byte 4                   ; 0x6e4c
     test ax, ax                      ; 0x6e4f
     je short @..api_idx_0086_JRHU.l2 ; 0x6e51

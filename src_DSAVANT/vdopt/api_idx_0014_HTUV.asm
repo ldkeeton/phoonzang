@@ -110,7 +110,7 @@ api_idx_0014_HTUV:
     push ax                          ; 0x0ad4
     mov ax, bss_8afe                 ; 0x0ad5
     push ax                          ; 0x0ad8
-    call ds_leaf_loc_PRVP            ; 0x0ad9
+    call test_bit                    ; 0x0ad9
     add sp, byte 4                   ; 0x0adc
     test ax, ax                      ; 0x0adf
     jne short @..api_idx_0014_HTUV.l10 ; 0x0ae1
@@ -194,7 +194,7 @@ api_idx_0014_HTUV:
     mov ax, word [maze_data]         ; 0x0ba5
     add ax, 0x8b0                    ; 0x0ba8
     push ax                          ; 0x0bab
-    call ds_leaf_loc_PRVP            ; 0x0bac
+    call test_bit                    ; 0x0bac
     add sp, byte 4                   ; 0x0baf
     test ax, ax                      ; 0x0bb2
     je short @..api_idx_0014_HTUV.l19 ; 0x0bb4
@@ -213,7 +213,7 @@ api_idx_0014_HTUV:
     mov ax, word [maze_data]         ; 0x0bd3
     add ax, 0x9b0                    ; 0x0bd6
     push ax                          ; 0x0bd9
-    call ds_leaf_loc_PRVP            ; 0x0bda
+    call test_bit                    ; 0x0bda
     add sp, byte 4                   ; 0x0bdd
     test ax, ax                      ; 0x0be0
     je short @..api_idx_0014_HTUV.l21 ; 0x0be2
@@ -224,7 +224,7 @@ api_idx_0014_HTUV:
     mov ax, word [maze_data]         ; 0x0bed
     add ax, 0x9b0                    ; 0x0bf0
     push ax                          ; 0x0bf3
-    call ds_leaf_loc_PRVP            ; 0x0bf4
+    call test_bit                    ; 0x0bf4
     add sp, byte 4                   ; 0x0bf7
     test ax, ax                      ; 0x0bfa
     je short @..api_idx_0014_HTUV.l23 ; 0x0bfc
@@ -262,7 +262,7 @@ jumptable_0c0b_case_1:
     mov ax, word [maze_data]         ; 0x0c3e
     add ax, 0x930                    ; 0x0c41
     push ax                          ; 0x0c44
-    call ds_leaf_loc_PRVP            ; 0x0c45
+    call test_bit                    ; 0x0c45
     add sp, byte 4                   ; 0x0c48
     test ax, ax                      ; 0x0c4b
     je short @..api_idx_0014_HTUV.l29 ; 0x0c4d
@@ -316,7 +316,7 @@ jumptable_0c0b_case_1:
     mov ax, word [maze_data]         ; 0x0cb7
     add ax, 0x8b0                    ; 0x0cba
     push ax                          ; 0x0cbd
-    call ds_leaf_loc_PRVP            ; 0x0cbe
+    call test_bit                    ; 0x0cbe
     add sp, byte 4                   ; 0x0cc1
     test ax, ax                      ; 0x0cc4
     je short @..api_idx_0014_HTUV.l31 ; 0x0cc6

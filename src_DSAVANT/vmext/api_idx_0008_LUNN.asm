@@ -65,7 +65,7 @@ jumptable_1e9c:
     mov ax, word [maze_data]         ; 0x1ecf
     add ax, 0x8b0                    ; 0x1ed2
     push ax                          ; 0x1ed5
-    call ds_leaf_loc_PRVP            ; 0x1ed6
+    call test_bit                    ; 0x1ed6
     add sp, byte 4                   ; 0x1ed9
     test ax, ax                      ; 0x1edc
     je short @..api_idx_0008_LUNN.l5 ; 0x1ede

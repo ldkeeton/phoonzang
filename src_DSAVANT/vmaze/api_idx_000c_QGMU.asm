@@ -44,7 +44,7 @@ api_idx_000c_QGMU:
     shl ax, cl                       ; 0x8801
     add ax, 0x8d14                   ; 0x8803
     push ax                          ; 0x8806
-    call ds_leaf_loc_PRVP            ; 0x8807
+    call test_bit                    ; 0x8807
     add sp, byte 4                   ; 0x880a
     cmp ax, word [bp - 0x000c]       ; 0x880d
     je short @..api_idx_000c_QGMU.l2 ; 0x8810

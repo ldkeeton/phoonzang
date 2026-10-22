@@ -33,7 +33,7 @@ api_idx_000a_SRNS:
     shl ax, cl                       ; 0x78a1
     add ax, 0x8d14                   ; 0x78a3
     push ax                          ; 0x78a6
-    call ds_leaf_loc_PRVP            ; 0x78a7
+    call test_bit                    ; 0x78a7
     add sp, byte 4                   ; 0x78aa
     mov cx, ax                       ; 0x78ad
     mov ax, word [bp - 0x0006]       ; 0x78af
@@ -49,7 +49,7 @@ api_idx_000a_SRNS:
     shl ax, cl                       ; 0x78cb
     add ax, 0x8d14                   ; 0x78cd
     push ax                          ; 0x78d0
-    call ds_leaf_loc_PRVP            ; 0x78d1
+    call test_bit                    ; 0x78d1
     add sp, byte 4                   ; 0x78d4
     mov cx, ax                       ; 0x78d7
     mov ax, word [bp - 0x0006]       ; 0x78d9
@@ -127,7 +127,7 @@ api_idx_000a_SRNS:
     shl ax, cl                       ; 0x797b
     add ax, 0x8d14                   ; 0x797d
     push ax                          ; 0x7980
-    call ds_leaf_loc_PRVP            ; 0x7981
+    call test_bit                    ; 0x7981
     add sp, byte 4                   ; 0x7984
     push ax                          ; 0x7987
     push word [bp - 0x0004]          ; 0x7988

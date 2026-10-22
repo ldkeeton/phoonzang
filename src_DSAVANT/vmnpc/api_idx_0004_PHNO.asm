@@ -8,7 +8,7 @@ api_idx_0004_PHNO:
     push word [bp - 0x0002]          ; 0x28b1
     mov ax, bss_8822                 ; 0x28b4
     push ax                          ; 0x28b7
-    call ds_leaf_loc_PRVP            ; 0x28b8
+    call test_bit                    ; 0x28b8
     add sp, byte 4                   ; 0x28bb
     test ax, ax                      ; 0x28be
     je short @..api_idx_0004_PHNO.l2 ; 0x28c0
@@ -31,7 +31,7 @@ api_idx_0004_PHNO:
     imul cx                          ; 0x28e6
     add ax, 0x8504                   ; 0x28e8
     push ax                          ; 0x28eb
-    call ds_leaf_loc_PRVP            ; 0x28ec
+    call test_bit                    ; 0x28ec
     add sp, byte 4                   ; 0x28ef
     test ax, ax                      ; 0x28f2
     je short @..api_idx_0004_PHNO.l3 ; 0x28f4
@@ -50,7 +50,7 @@ api_idx_0004_PHNO:
     imul cx                          ; 0x2911
     add ax, 0x8504                   ; 0x2913
     push ax                          ; 0x2916
-    call ds_leaf_loc_PRVP            ; 0x2917
+    call test_bit                    ; 0x2917
     add sp, byte 4                   ; 0x291a
     test ax, ax                      ; 0x291d
     je short @..api_idx_0004_PHNO.l4 ; 0x291f

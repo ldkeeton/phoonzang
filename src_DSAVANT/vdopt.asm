@@ -143,11 +143,11 @@ grid_origin_x equ __zdseg_end + (__zobss_9b0c - __zdata_start)
 
 %include "shared/game/restore_area_a_draw_glyph.asm" ; 0x190b
 
-%include "vdopt/api_idx_0002_OHVL.asm"     ; 0x195b
+%include "vdopt/draw_centered_lines.asm"   ; 0x195b
 
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-dseg_9099 equ __zdseg_end + (__zdseg_9099 - __zdata_start)
-%include "vdopt/api_idx_00fa_RIMJ.asm"     ; 0x1a5d
+report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
+report_line2_none equ __zdseg_end + (__zreport_line2_none - __zdata_start)
+%include "vdopt/roll_slot_detection_report.asm" ; 0x1a5d
 
 %include "shared/game/loc_QQUT.asm"              ; 0x1c7f
 
@@ -221,11 +221,10 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/aztec/aztec_cswit.asm"           ; 0x4717
 
-__zdseg_9098:
-__zdata_start:
-    db 0x00
-__zdseg_9099:
-    db 0x00
+%include "vdopt/data/report_line1_none.asm" ; 0x472f
+
+%include "vdopt/data/report_line2_none.asm" ; 0x4730
+
 __zdseg_909a:
     db 0x2a, 0x2a, 0x2a, 0x00
 __zdseg_909e:

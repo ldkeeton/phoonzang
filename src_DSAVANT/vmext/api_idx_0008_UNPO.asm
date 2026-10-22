@@ -78,7 +78,7 @@ jumptable_1a8f:
     mov ax, word [maze_data]         ; 0x1ac2
     add ax, 0x9b0                    ; 0x1ac5
     push ax                          ; 0x1ac8
-    call ds_leaf_loc_PRVP            ; 0x1ac9
+    call test_bit                    ; 0x1ac9
     add sp, byte 4                   ; 0x1acc
     test ax, ax                      ; 0x1acf
     je short @..api_idx_0008_UNPO.l6 ; 0x1ad1
@@ -123,7 +123,7 @@ jumptable_1b11:
     mov ax, word [maze_data]         ; 0x1b2d
     add ax, 0x8b0                    ; 0x1b30
     push ax                          ; 0x1b33
-    call ds_leaf_loc_PRVP            ; 0x1b34
+    call test_bit                    ; 0x1b34
     add sp, byte 4                   ; 0x1b37
     test ax, ax                      ; 0x1b3a
     jne short @..api_idx_0008_UNPO.l7 ; 0x1b3c
@@ -182,7 +182,7 @@ jumptable_1ba0:
     mov ax, word [maze_data]         ; 0x1bbc
     add ax, 0x930                    ; 0x1bbf
     push ax                          ; 0x1bc2
-    call ds_leaf_loc_PRVP            ; 0x1bc3
+    call test_bit                    ; 0x1bc3
     add sp, byte 4                   ; 0x1bc6
     test ax, ax                      ; 0x1bc9
     je short @..api_idx_0008_UNPO.l15 ; 0x1bcb

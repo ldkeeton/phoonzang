@@ -292,7 +292,7 @@ api_idx_0014_OSKJ:
     imul word [bss_8462]             ; 0x678c
     add ax, 0x5d33                   ; 0x6790
     push ax                          ; 0x6793
-    call ds_leaf_loc_PRVP            ; 0x6794
+    call test_bit                    ; 0x6794
     add sp, byte 4                   ; 0x6797
     cmp ax, strict word 1            ; 0x679a
     jne short @..api_idx_0014_OSKJ.l17 ; 0x679d
@@ -329,7 +329,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bx + party_char_ext] ; 0x67eb
     add ax, strict word 0x53         ; 0x67ef
     push ax                          ; 0x67f2
-    call ds_leaf_loc_PRVP            ; 0x67f3
+    call test_bit                    ; 0x67f3
     add sp, byte 4                   ; 0x67f6
     cmp ax, strict word 1            ; 0x67f9
     jne short @..api_idx_0014_OSKJ.l21 ; 0x67fc

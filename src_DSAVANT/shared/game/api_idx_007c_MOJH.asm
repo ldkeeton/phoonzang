@@ -573,7 +573,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    mov ax, dseg_9098
+    mov ax, report_line1_none
     push ax
     call draw_string
     add sp, byte 4

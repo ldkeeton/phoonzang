@@ -82,7 +82,7 @@ api_idx_00ca_HKHO:
     push word [bp - 0x0002]          ; 0x1eff
     lea ax, word [bp - 0x001e]       ; 0x1f02
     push ax                          ; 0x1f05
-    call ds_leaf_loc_PRVP            ; 0x1f06
+    call test_bit                    ; 0x1f06
     add sp, byte 4                   ; 0x1f09
     test ax, ax                      ; 0x1f0c
     jne short @..api_idx_00ca_HKHO.l9 ; 0x1f0e

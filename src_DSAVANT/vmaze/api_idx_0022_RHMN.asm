@@ -64,7 +64,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x22da
     mov ax, bss_8bfe                 ; 0x22db
     push ax                          ; 0x22de
-    call ds_leaf_loc_PRVP            ; 0x22df
+    call test_bit                    ; 0x22df
     add sp, byte 4                   ; 0x22e2
     test ax, ax                      ; 0x22e5
     je short @..api_idx_0022_RHMN.l7 ; 0x22e7
@@ -328,7 +328,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x2548
     mov ax, bss_8b7e                 ; 0x2549
     push ax                          ; 0x254c
-    call ds_leaf_loc_PRVP            ; 0x254d
+    call test_bit                    ; 0x254d
     add sp, byte 4                   ; 0x2550
     test ax, ax                      ; 0x2553
     je short @..api_idx_0022_RHMN.l34 ; 0x2555
@@ -353,7 +353,7 @@ api_idx_0022_RHMN:
     push word [bp - 0x000a]          ; 0x257d
     mov ax, bss_8c7e                 ; 0x2580
     push ax                          ; 0x2583
-    call ds_leaf_loc_PRVP            ; 0x2584
+    call test_bit                    ; 0x2584
     add sp, byte 4                   ; 0x2587
     test ax, ax                      ; 0x258a
     je short @..api_idx_0022_RHMN.l35 ; 0x258c
@@ -379,12 +379,12 @@ api_idx_0022_RHMN:
     jle short @..api_idx_0022_RHMN.l37 ; 0x25c4
     cmp byte [bx - 0x7b16], 1        ; 0x25c6
     je short @..api_idx_0022_RHMN.l37 ; 0x25cb
-    mov al, byte [bx - 0x7b14]       ; 0x25cd
+    mov al, byte [bx + slot_records] ; 0x25cd
     sub ah, ah                       ; 0x25d1
     shl ax, 1                        ; 0x25d3
     shl ax, 1                        ; 0x25d5
     mov bx, ax                       ; 0x25d7
-    mov al, byte [bx - 0x7687]       ; 0x25d9
+    mov al, byte [bx + kind_state_table] ; 0x25d9
     cbw                              ; 0x25dd
     cmp ax, word [game_state_arg]    ; 0x25de
     jne short @..api_idx_0022_RHMN.l37 ; 0x25e2

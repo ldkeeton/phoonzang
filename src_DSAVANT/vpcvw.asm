@@ -83,14 +83,14 @@ api_idx_000a_TITQ.bss3 equ bss_942e
 api_idx_000a_TITQ.bss4 equ bss_9430
 %include "shared/game/api_idx_000a_TITQ.asm"     ; 0x0f9e
 
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-bss_93ee  equ __zdseg_end + (__zobss_93ee - __zdata_start)
-bss_93f0  equ __zdseg_end + (__zobss_93f0 - __zdata_start)
-bss_93f2  equ __zdseg_end + (__zobss_93f2 - __zdata_start)
-bss_93f4  equ __zdseg_end + (__zobss_93f4 - __zdata_start)
-; bss_942e  equ __zdseg_end + (__zobss_942e - __zdata_start)
-; bss_9430  equ __zdseg_end + (__zobss_9430 - __zdata_start)
-bss_9432  equ __zdseg_end + (__zobss_9432 - __zdata_start)
+report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
+bss_93ee          equ __zdseg_end + (__zobss_93ee - __zdata_start)
+bss_93f0          equ __zdseg_end + (__zobss_93f0 - __zdata_start)
+bss_93f2          equ __zdseg_end + (__zobss_93f2 - __zdata_start)
+bss_93f4          equ __zdseg_end + (__zobss_93f4 - __zdata_start)
+; bss_942e          equ __zdseg_end + (__zobss_942e - __zdata_start)
+; bss_9430          equ __zdseg_end + (__zobss_9430 - __zdata_start)
+bss_9432          equ __zdseg_end + (__zobss_9432 - __zdata_start)
 api_idx_007c_OKMO          equ api_idx_007c_MOJH
 api_idx_007c_MOJH.bss1     equ bss_93f0
 api_idx_007c_MOJH.bss2     equ bss_93ee
@@ -452,9 +452,8 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/aztec/aztec_cswit.asm"           ; 0x982c
 
-__zdseg_9098:
-__zdata_start:
-    db 0x25, 0x20, 0x00
+%include "vpcvw/data/report_line1_none.asm" ; 0x9844
+
 __zdseg_909b:
     db 'V.$$$', 0
 __zdseg_90a1:

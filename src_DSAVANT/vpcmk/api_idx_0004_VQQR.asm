@@ -17,7 +17,7 @@ api_idx_0004_VQQR:
     imul word [bp + 0x4]             ; 0x2d8c
     add ax, 0x5e12                   ; 0x2d8f
     push ax                          ; 0x2d92
-    call ds_leaf_loc_PRVP            ; 0x2d93
+    call test_bit                    ; 0x2d93
     add sp, byte 4                   ; 0x2d96
     test ax, ax                      ; 0x2d99
     je short @..api_idx_0004_VQQR.l2 ; 0x2d9b

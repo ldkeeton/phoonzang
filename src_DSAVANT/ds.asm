@@ -142,12 +142,14 @@ bss_84a2 equ __zbss_84a2 - __zdseg_start
 bss_84a4 equ __zbss_84a4 - __zdseg_start
 bss_84a6 equ __zbss_84a6 - __zdseg_start
 bss_84e8 equ __zbss_84e8 - __zdseg_start
+slot_records equ __zbss_84ec - __zdseg_start
 bss_86c8 equ __zbss_86c8 - __zdseg_start
 bss_8809 equ __zbss_8809 - __zdseg_start
 bss_880a equ __zbss_880a - __zdseg_start
 bss_8822 equ __zbss_8822 - __zdseg_start
 bss_882c equ __zbss_882c - __zdseg_start
 bss_8976 equ __zbss_8976 - __zdseg_start
+kind_state_table equ __zbss_8979 - __zdseg_start
 bss_89de equ __zbss_89de - __zdseg_start
 bss_89df equ __zbss_89df - __zdseg_start
 bss_89e0 equ __zbss_89e0 - __zdseg_start
@@ -185,7 +187,7 @@ saved_area_b_hi equ __zbss_8d0c - __zdseg_start
 saved_area_a equ __zbss_8d0e - __zdseg_start
 saved_area_a_hi equ __zbss_8d10 - __zdseg_start
 party_region equ __zbss_8d12 - __zdseg_start
-bss_8e64 equ __zbss_8e64 - __zdseg_start
+flag_bitset equ __zbss_8e64 - __zdseg_start
 bss_8f14 equ __zbss_8f14 - __zdseg_start
 bss_8f16 equ __zbss_8f16 - __zdseg_start
 bss_8f18 equ __zbss_8f18 - __zdseg_start
@@ -823,7 +825,7 @@ key_queue:
 
 %include "ds/library/set_bitmap_bit.asm"   ; 0x3e88
 
-%include "ds/library/ds_leaf_loc_PRVP.asm" ; 0x3ebb
+%include "ds/library/test_bit.asm"         ; 0x3ebb
 
 %include "ds/library/set_bitfield.asm"     ; 0x3eeb
 
@@ -1621,7 +1623,9 @@ __zbss_84a4:
 __zbss_84a6:
     resb 0x0042
 __zbss_84e8:
-    resb 0x01e0
+    resb 0x0004
+__zbss_84ec:
+    resb 0x01dc
 __zbss_86c8:
     resb 0x0141
 __zbss_8809:
@@ -1633,7 +1637,9 @@ __zbss_8822:
 __zbss_882c:
     resb 0x014a
 __zbss_8976:
-    resb 0x0068
+    resb 0x0003
+__zbss_8979:
+    resb 0x0065
 __zbss_89de:
     resb 0x0001
 __zbss_89df:

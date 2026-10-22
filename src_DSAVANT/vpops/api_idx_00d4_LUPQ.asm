@@ -593,7 +593,7 @@ jumptable_4058_case_0:
     imul word [bp - 0x0006]          ; 0x3cf2
     add ax, 0x5d33                   ; 0x3cf5
     push ax                          ; 0x3cf8
-    call ds_leaf_loc_PRVP            ; 0x3cf9
+    call test_bit                    ; 0x3cf9
     add sp, byte 4                   ; 0x3cfc
     mov cx, word [bp - 0x0002]       ; 0x3cff
     shl cx, 1                        ; 0x3d02

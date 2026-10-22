@@ -52,7 +52,7 @@ api_idx_0030_JQMM:
     mov ax, word [maze_data]         ; 0x5491
     add ax, 0x930                    ; 0x5494
     push ax                          ; 0x5497
-    call ds_leaf_loc_PRVP            ; 0x5498
+    call test_bit                    ; 0x5498
     add sp, byte 4                   ; 0x549b
     test ax, ax                      ; 0x549e
     jne short @..api_idx_0030_JQMM.l2 ; 0x54a0
@@ -128,7 +128,7 @@ api_idx_0030_JQMM:
     mov ax, word [maze_data]         ; 0x5542
     add ax, 0x8b0                    ; 0x5545
     push ax                          ; 0x5548
-    call ds_leaf_loc_PRVP            ; 0x5549
+    call test_bit                    ; 0x5549
     add sp, byte 4                   ; 0x554c
     test ax, ax                      ; 0x554f
     je short @..api_idx_0030_JQMM.l8 ; 0x5551

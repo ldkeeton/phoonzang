@@ -5,7 +5,7 @@ loc_PQKO:
     mov ax, 0x26                     ; 0x944e
     imul word [bp + 0x4]             ; 0x9451
     mov bx, ax                       ; 0x9454
-    mov al, byte [bx - 0x7b14]       ; 0x9456
+    mov al, byte [bx + slot_records] ; 0x9456
     sub ah, ah                       ; 0x945a
     cmp ax, word [bp + 0x6]          ; 0x945c
     jne short @..loc_PQKO.l1         ; 0x945f
@@ -25,7 +25,7 @@ loc_QJRN:
     mov al, byte [bx - 0x7b15]       ; 0x947d
     sub ah, ah                       ; 0x9481
     push ax                          ; 0x9483
-    mov al, byte [bx - 0x7b14]       ; 0x9484
+    mov al, byte [bx + slot_records] ; 0x9484
     sub ah, ah                       ; 0x9488
     push ax                          ; 0x948a
     push word [bp + 0x4]             ; 0x948b

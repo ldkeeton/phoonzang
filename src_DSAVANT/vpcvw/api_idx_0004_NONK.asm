@@ -17,7 +17,7 @@ api_idx_0004_NONK:
     imul word [bp + 0x4]             ; 0x29a7
     add ax, 0x5e12                   ; 0x29aa
     push ax                          ; 0x29ad
-    call ds_leaf_loc_PRVP            ; 0x29ae
+    call test_bit                    ; 0x29ae
     add sp, byte 4                   ; 0x29b1
     test ax, ax                      ; 0x29b4
     je short @..api_idx_0004_NONK.l2 ; 0x29b6

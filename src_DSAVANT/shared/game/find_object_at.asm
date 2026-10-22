@@ -33,7 +33,7 @@ find_object_at:
     shl ax, cl
     add ax, 0x8d14
     push ax
-    call ds_leaf_loc_PRVP
+    call test_bit
     add sp, byte 4
     test ax, ax
     jne short @..find_object_at.l3

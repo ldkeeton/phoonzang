@@ -81,7 +81,7 @@ api_idx_0018_USPR:
     mov ax, word [maze_data]         ; 0x1d76
     add ax, 0x930                    ; 0x1d79
     push ax                          ; 0x1d7c
-    call ds_leaf_loc_PRVP            ; 0x1d7d
+    call test_bit                    ; 0x1d7d
     add sp, byte 4                   ; 0x1d80
     mov word [bp - 0x0014], ax       ; 0x1d83
 @..api_idx_0018_USPR.l6:

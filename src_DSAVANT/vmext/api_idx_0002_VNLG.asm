@@ -79,7 +79,7 @@ jumptable_02a3:
 jumptable_052d_case_1:
     mov ax, 0                        ; 0x030f
     push ax                          ; 0x0312
-    mov ax, dseg_9098                ; 0x0313
+    mov ax, report_line1_none        ; 0x0313
     push ax                          ; 0x0316
     call api_idx_0002_OTTG           ; 0x0317
     add sp, byte 4                   ; 0x031a

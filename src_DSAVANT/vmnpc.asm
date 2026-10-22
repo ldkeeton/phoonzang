@@ -45,11 +45,11 @@ api_idx_000e_NKQN.api_idx1 equ api_idx_0004_SMTU
 
 %include "shared/game/loc_VNIO.asm"              ; 0x0b30
 
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
-dseg_90a6 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
-dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
-dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
+report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
+dseg_909f         equ __zdseg_end + (__zdseg_909f - __zdata_start)
+dseg_90a6         equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
+dseg_90ad         equ __zdseg_end + (__zdseg_90ad - __zdata_start)
+dseg_90b4         equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 %include "shared/game/api_idx_0006_SHUK.asm"     ; 0x0b74
 
 %include "shared/game/loc_HTQP.asm"              ; 0x0c96
@@ -631,9 +631,8 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/aztec/aztec_strcmp.asm"          ; 0xae76
 
-__zdseg_9098:
-__zdata_start:
-    db 'V1.$$$', 0
+%include "shared/data/report_line1_none.asm" ; 0xaedd
+
 __zdseg_909f:
     db 'V1.$$$', 0
 __zdseg_90a6:

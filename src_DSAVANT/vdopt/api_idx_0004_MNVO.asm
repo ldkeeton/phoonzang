@@ -17,7 +17,7 @@ api_idx_0004_MNVO:
     imul word [bp + 0x4]             ; 0x26ab
     add ax, 0x5e12                   ; 0x26ae
     push ax                          ; 0x26b1
-    call ds_leaf_loc_PRVP            ; 0x26b2
+    call test_bit                    ; 0x26b2
     add sp, byte 4                   ; 0x26b5
     test ax, ax                      ; 0x26b8
     je short @..api_idx_0004_MNVO.l2 ; 0x26ba

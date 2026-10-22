@@ -11,7 +11,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x4]             ; 0x9a9b
     add ax, 0x8502                   ; 0x9a9e
     push ax                          ; 0x9aa1
-    call ds_leaf_loc_PRVP            ; 0x9aa2
+    call test_bit                    ; 0x9aa2
     add sp, byte 4                   ; 0x9aa5
     test ax, ax                      ; 0x9aa8
     je short @..api_idx_0010_IOJT.l2 ; 0x9aaa
@@ -20,7 +20,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x6]             ; 0x9ab2
     add ax, 0x850a                   ; 0x9ab5
     push ax                          ; 0x9ab8
-    call ds_leaf_loc_PRVP            ; 0x9ab9
+    call test_bit                    ; 0x9ab9
     add sp, byte 4                   ; 0x9abc
     test ax, ax                      ; 0x9abf
     jne short @..api_idx_0010_IOJT.l2 ; 0x9ac1
@@ -44,7 +44,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x6]             ; 0x9aee
     add ax, 0x8502                   ; 0x9af1
     push ax                          ; 0x9af4
-    call ds_leaf_loc_PRVP            ; 0x9af5
+    call test_bit                    ; 0x9af5
     add sp, byte 4                   ; 0x9af8
     test ax, ax                      ; 0x9afb
     je short @..api_idx_0010_IOJT.l3 ; 0x9afd
@@ -53,7 +53,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x4]             ; 0x9b05
     add ax, 0x850a                   ; 0x9b08
     push ax                          ; 0x9b0b
-    call ds_leaf_loc_PRVP            ; 0x9b0c
+    call test_bit                    ; 0x9b0c
     add sp, byte 4                   ; 0x9b0f
     test ax, ax                      ; 0x9b12
     jne short @..api_idx_0010_IOJT.l3 ; 0x9b14
@@ -65,7 +65,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x4]             ; 0x9b22
     add ax, 0x8504                   ; 0x9b25
     push ax                          ; 0x9b28
-    call ds_leaf_loc_PRVP            ; 0x9b29
+    call test_bit                    ; 0x9b29
     add sp, byte 4                   ; 0x9b2c
     test ax, ax                      ; 0x9b2f
     je short @..api_idx_0010_IOJT.l4 ; 0x9b31
@@ -84,7 +84,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x6]             ; 0x9b50
     add ax, 0x8504                   ; 0x9b53
     push ax                          ; 0x9b56
-    call ds_leaf_loc_PRVP            ; 0x9b57
+    call test_bit                    ; 0x9b57
     add sp, byte 4                   ; 0x9b5a
     test ax, ax                      ; 0x9b5d
     je short @..api_idx_0010_IOJT.l5 ; 0x9b5f
@@ -117,7 +117,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x4]             ; 0x9b9f
     add ax, 0x850a                   ; 0x9ba2
     push ax                          ; 0x9ba5
-    call ds_leaf_loc_PRVP            ; 0x9ba6
+    call test_bit                    ; 0x9ba6
     add sp, byte 4                   ; 0x9ba9
     test ax, ax                      ; 0x9bac
     je short @..api_idx_0010_IOJT.l7 ; 0x9bae
@@ -136,7 +136,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x6]             ; 0x9bcd
     add ax, 0x850a                   ; 0x9bd0
     push ax                          ; 0x9bd3
-    call ds_leaf_loc_PRVP            ; 0x9bd4
+    call test_bit                    ; 0x9bd4
     add sp, byte 4                   ; 0x9bd7
     test ax, ax                      ; 0x9bda
     je short @..api_idx_0010_IOJT.l8 ; 0x9bdc
@@ -157,7 +157,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x4]             ; 0x9bff
     add ax, 0x850a                   ; 0x9c02
     push ax                          ; 0x9c05
-    call ds_leaf_loc_PRVP            ; 0x9c06
+    call test_bit                    ; 0x9c06
     add sp, byte 4                   ; 0x9c09
     test ax, ax                      ; 0x9c0c
     je short @..api_idx_0010_IOJT.l9 ; 0x9c0e
@@ -180,7 +180,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x6]             ; 0x9c35
     add ax, 0x850a                   ; 0x9c38
     push ax                          ; 0x9c3b
-    call ds_leaf_loc_PRVP            ; 0x9c3c
+    call test_bit                    ; 0x9c3c
     add sp, byte 4                   ; 0x9c3f
     test ax, ax                      ; 0x9c42
     je short @..api_idx_0010_IOJT.l10 ; 0x9c44

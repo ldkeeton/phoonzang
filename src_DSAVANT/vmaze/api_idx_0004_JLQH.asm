@@ -26,7 +26,7 @@ api_idx_0004_JLQH:
     shl ax, cl                       ; 0x1343
     add ax, 0x8d14                   ; 0x1345
     push ax                          ; 0x1348
-    call ds_leaf_loc_PRVP            ; 0x1349
+    call test_bit                    ; 0x1349
     add sp, byte 4                   ; 0x134c
     test ax, ax                      ; 0x134f
     jne short @..api_idx_0004_JLQH.l4 ; 0x1351

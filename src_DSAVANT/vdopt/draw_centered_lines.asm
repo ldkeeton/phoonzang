@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_OHVL:
+draw_centered_lines:
     mov ax, 0xfffe                   ; 0x195b
     call aztec_csav                  ; 0x195e
     mov ax, 0                        ; 0x1961
@@ -35,9 +35,9 @@ api_idx_0002_OHVL:
     call aztec_strlen                ; 0x19aa
     pop cx                           ; 0x19ad
     cmp ax, strict word 0            ; 0x19ae
-    jg short @..api_idx_0002_OHVL.l1 ; 0x19b1
-    jmp near @..api_idx_0002_OHVL.l2 ; 0x19b3
-@..api_idx_0002_OHVL.l1:
+    jg short @..draw_centered_lines.l1 ; 0x19b1
+    jmp near @..draw_centered_lines.l2 ; 0x19b3
+@..draw_centered_lines.l1:
     mov ax, 2                        ; 0x19b6
     push ax                          ; 0x19b9
     push word [bp + 0x6]             ; 0x19ba
@@ -65,7 +65,7 @@ api_idx_0002_OHVL:
     call aztec_strlen                ; 0x19f1
     pop cx                           ; 0x19f4
     cmp ax, strict word 0            ; 0x19f5
-    jle short @..api_idx_0002_OHVL.l2 ; 0x19f8
+    jle short @..draw_centered_lines.l2 ; 0x19f8
     mov ax, 2                        ; 0x19fa
     push ax                          ; 0x19fd
     push word [bp + 0x8]             ; 0x19fe
@@ -89,7 +89,7 @@ api_idx_0002_OHVL:
     push word [bp + 0x8]             ; 0x1a29
     call draw_string                 ; 0x1a2c
     add sp, byte 4                   ; 0x1a2f
-@..api_idx_0002_OHVL.l2:
+@..draw_centered_lines.l2:
     mov ax, 0xc6                     ; 0x1a32
     push ax                          ; 0x1a35
     mov ax, 0x109                    ; 0x1a36
@@ -102,9 +102,9 @@ api_idx_0002_OHVL:
     add sp, byte 8                   ; 0x1a45
     mov ax, word [message_delay]     ; 0x1a48
     cmp byte [bss_598c], 0           ; 0x1a4b
-    je short @..api_idx_0002_OHVL.l3 ; 0x1a50
+    je short @..draw_centered_lines.l3 ; 0x1a50
     shl ax, 1                        ; 0x1a52
-@..api_idx_0002_OHVL.l3:
+@..draw_centered_lines.l3:
     push ax                          ; 0x1a54
     call api_idx_0004_TTGQ           ; 0x1a55
     pop cx                           ; 0x1a58

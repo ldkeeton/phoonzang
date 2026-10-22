@@ -17,7 +17,7 @@ api_idx_0004_NIJP:
     imul word [bp + 0x4]             ; 0x7555
     add ax, 0x5e12                   ; 0x7558
     push ax                          ; 0x755b
-    call ds_leaf_loc_PRVP            ; 0x755c
+    call test_bit                    ; 0x755c
     add sp, byte 4                   ; 0x755f
     test ax, ax                      ; 0x7562
     je short @..api_idx_0004_NIJP.l2 ; 0x7564

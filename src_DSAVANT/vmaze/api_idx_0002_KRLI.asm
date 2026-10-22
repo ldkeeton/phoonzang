@@ -73,7 +73,7 @@ loc_OGGM:
     mov bx, ax                       ; 0xaa54
     pop ax                           ; 0xaa56
     mov byte [bx - 0x7b13], al       ; 0xaa57
-    mov al, byte [bx - 0x7b14]       ; 0xaa5b
+    mov al, byte [bx + slot_records] ; 0xaa5b
     cmp al, byte [bx - 0x7b17]       ; 0xaa5f
     jne short @..loc_OGGM.l2         ; 0xaa63
     mov ax, 0xa                      ; 0xaa65

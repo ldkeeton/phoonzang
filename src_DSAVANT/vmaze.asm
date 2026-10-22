@@ -24,13 +24,13 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-bss_9192  equ __zdseg_end + (__zobss_9192 - __zdata_start)
-bss_9194  equ __zdseg_end + (__zobss_9194 - __zdata_start)
-bss_9196  equ __zdseg_end + (__zobss_9196 - __zdata_start)
-bss_9198  equ __zdseg_end + (__zobss_9198 - __zdata_start)
-bss_919a  equ __zdseg_end + (__zobss_919a - __zdata_start)
-bss_919c  equ __zdseg_end + (__zobss_919c - __zdata_start)
+report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
+bss_9192          equ __zdseg_end + (__zobss_9192 - __zdata_start)
+bss_9194          equ __zdseg_end + (__zobss_9194 - __zdata_start)
+bss_9196          equ __zdseg_end + (__zobss_9196 - __zdata_start)
+bss_9198          equ __zdseg_end + (__zobss_9198 - __zdata_start)
+bss_919a          equ __zdseg_end + (__zobss_919a - __zdata_start)
+bss_919c          equ __zdseg_end + (__zobss_919c - __zdata_start)
 %include "vmaze/ovmain.asm"                ; 0x000e
 
 ; bss_9194 equ __zdseg_end + (__zobss_9194 - __zdata_start)
@@ -555,9 +555,8 @@ _Uorg    equ __zdseg_end + (__zobss_9192 - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/aztec/aztec_ovbgn.asm"           ; 0xac30
 
-__zdseg_9098:
-__zdata_start:
-    db 'VM1.$$$', 0
+%include "vmaze/data/report_line1_none.asm" ; 0xac6e
+
 __zdseg_90a0:
     db 'MAZEDATA.VGA', 0
 __zdseg_90ad:

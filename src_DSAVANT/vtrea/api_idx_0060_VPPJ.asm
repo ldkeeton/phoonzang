@@ -26,7 +26,7 @@ api_idx_0060_VPPJ:
     mov ax, word [bp + 0x4]          ; 0x2017
     add ax, strict word 0x30         ; 0x201a
     push ax                          ; 0x201d
-    call ds_leaf_loc_PRVP            ; 0x201e
+    call test_bit                    ; 0x201e
     add sp, byte 4                   ; 0x2021
     test ax, ax                      ; 0x2024
     je short @..api_idx_0060_VPPJ.l3 ; 0x2026
@@ -119,7 +119,7 @@ api_idx_0060_VPPJ:
     mov ax, word [bp + 0x4]          ; 0x20fd
     add ax, strict word 0x30         ; 0x2100
     push ax                          ; 0x2103
-    call ds_leaf_loc_PRVP            ; 0x2104
+    call test_bit                    ; 0x2104
     add sp, byte 4                   ; 0x2107
     test ax, ax                      ; 0x210a
     jne short @..api_idx_0060_VPPJ.l11 ; 0x210c

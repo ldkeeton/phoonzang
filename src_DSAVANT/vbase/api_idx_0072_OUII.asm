@@ -813,7 +813,7 @@ jumptable_2668:
     push word [bp - 0x0004]          ; 0x275a
     mov ax, bss_958a                 ; 0x275d
     push ax                          ; 0x2760
-    call ds_leaf_loc_PRVP            ; 0x2761
+    call test_bit                    ; 0x2761
     add sp, byte 4                   ; 0x2764
     test ax, ax                      ; 0x2767
     je short @..api_idx_0072_OUII.l50 ; 0x2769
@@ -1473,7 +1473,7 @@ jumptable_2af5:
     imul word [bp - 0x0004]          ; 0x2ddf
     add ax, 0x5e26                   ; 0x2de2
     push ax                          ; 0x2de5
-    call ds_leaf_loc_PRVP            ; 0x2de6
+    call test_bit                    ; 0x2de6
     add sp, byte 4                   ; 0x2de9
     test ax, ax                      ; 0x2dec
     je short @..api_idx_0072_OUII.l95 ; 0x2dee

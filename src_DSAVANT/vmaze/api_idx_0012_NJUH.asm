@@ -310,7 +310,7 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0xa1f3
     imul word [bp + 0x4]             ; 0xa1f6
     mov bx, ax                       ; 0xa1f9
-    mov al, byte [bx - 0x7b14]       ; 0xa1fb
+    mov al, byte [bx + slot_records] ; 0xa1fb
     sub ah, ah                       ; 0xa1ff
     push ax                          ; 0xa201
     push word [bp - 0x0012]          ; 0xa202

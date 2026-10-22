@@ -17,7 +17,7 @@ api_idx_0008_GUJV:
     shl ax, 1                        ; 0x5597
     add ax, 0x9882                   ; 0x5599
     push ax                          ; 0x559c
-    call ds_leaf_loc_PRVP            ; 0x559d
+    call test_bit                    ; 0x559d
     add sp, byte 4                   ; 0x55a0
     test ax, ax                      ; 0x55a3
     je short @..api_idx_0008_GUJV.l1 ; 0x55a5
@@ -31,7 +31,7 @@ api_idx_0008_GUJV:
     shl ax, 1                        ; 0x55b9
     add ax, 0x98be                   ; 0x55bb
     push ax                          ; 0x55be
-    call ds_leaf_loc_PRVP            ; 0x55bf
+    call test_bit                    ; 0x55bf
     add sp, byte 4                   ; 0x55c2
     test ax, ax                      ; 0x55c5
     je short @..api_idx_0008_GUJV.l1 ; 0x55c7
@@ -44,7 +44,7 @@ api_idx_0008_GUJV:
     mov ax, word [bp + 0x6]          ; 0x55d8
     add ax, 0x98fa                   ; 0x55db
     push ax                          ; 0x55de
-    call ds_leaf_loc_PRVP            ; 0x55df
+    call test_bit                    ; 0x55df
     add sp, byte 4                   ; 0x55e2
     test ax, ax                      ; 0x55e5
     jne short @..api_idx_0008_GUJV.l2 ; 0x55e7

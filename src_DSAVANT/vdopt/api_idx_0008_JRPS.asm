@@ -667,7 +667,7 @@ jumptable_2326_case_49:
     jmp short @..api_idx_0008_JRPS.l37 ; 0x2315
 jumptable_2326_case_41:
     push word [bp + 0x8]             ; 0x2317
-    call api_idx_00fa_RIMJ           ; 0x231a
+    call roll_slot_detection_report  ; 0x231a
     pop cx                           ; 0x231d
     jmp short @..api_idx_0008_JRPS.l37 ; 0x231e
 @..api_idx_0008_JRPS.l36:

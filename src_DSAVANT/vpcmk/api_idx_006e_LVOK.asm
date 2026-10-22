@@ -68,7 +68,7 @@ api_idx_006e_LVOK:
     push word [bp - 0x0002]          ; 0x3e05
     lea ax, word [bp - 0x001e]       ; 0x3e08
     push ax                          ; 0x3e0b
-    call ds_leaf_loc_PRVP            ; 0x3e0c
+    call test_bit                    ; 0x3e0c
     add sp, byte 4                   ; 0x3e0f
     test ax, ax                      ; 0x3e12
     jne short @..api_idx_006e_LVOK.l8 ; 0x3e14

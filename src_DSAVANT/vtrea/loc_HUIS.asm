@@ -72,7 +72,7 @@ loc_HUIS:
     imul word [bss_849e]             ; 0x583d
     add ax, 0x8502                   ; 0x5841
     push ax                          ; 0x5844
-    call ds_leaf_loc_PRVP            ; 0x5845
+    call test_bit                    ; 0x5845
     add sp, byte 4                   ; 0x5848
     test ax, ax                      ; 0x584b
     je short @..loc_HUIS.l7          ; 0x584d
@@ -95,7 +95,7 @@ loc_HUIS:
     imul word [bss_849e]             ; 0x587c
     add ax, 0x8504                   ; 0x5880
     push ax                          ; 0x5883
-    call ds_leaf_loc_PRVP            ; 0x5884
+    call test_bit                    ; 0x5884
     add sp, byte 4                   ; 0x5887
     test ax, ax                      ; 0x588a
     je short @..loc_HUIS.l8          ; 0x588c

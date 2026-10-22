@@ -9,7 +9,7 @@ api_idx_0004_SRMT:
     imul word [bp + 0x6]             ; 0x9e8a
     add ax, 0x8504                   ; 0x9e8d
     push ax                          ; 0x9e90
-    call ds_leaf_loc_PRVP            ; 0x9e91
+    call test_bit                    ; 0x9e91
     add sp, byte 4                   ; 0x9e94
     test ax, ax                      ; 0x9e97
     je short @..api_idx_0004_SRMT.l2 ; 0x9e99
@@ -28,7 +28,7 @@ api_idx_0004_SRMT:
     imul word [bp + 0x6]             ; 0x9eb8
     add ax, 0x8502                   ; 0x9ebb
     push ax                          ; 0x9ebe
-    call ds_leaf_loc_PRVP            ; 0x9ebf
+    call test_bit                    ; 0x9ebf
     add sp, byte 4                   ; 0x9ec2
     test ax, ax                      ; 0x9ec5
     je short @..api_idx_0004_SRMT.l3 ; 0x9ec7

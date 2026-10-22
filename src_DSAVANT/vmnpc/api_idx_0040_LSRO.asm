@@ -613,7 +613,7 @@ jumptable_36f8_case_18:
     shl ax, cl                       ; 0x3150
     add ax, 0x8d14                   ; 0x3152
     push ax                          ; 0x3155
-    call ds_leaf_loc_PRVP            ; 0x3156
+    call test_bit                    ; 0x3156
     add sp, byte 4                   ; 0x3159
     cmp ax, strict word 1            ; 0x315c
     jne short @..api_idx_0040_LSRO.l47 ; 0x315f
@@ -628,7 +628,7 @@ jumptable_36f8_case_19:
     shl ax, cl                       ; 0x3171
     add ax, 0x8d14                   ; 0x3173
     push ax                          ; 0x3176
-    call ds_leaf_loc_PRVP            ; 0x3177
+    call test_bit                    ; 0x3177
     add sp, byte 4                   ; 0x317a
     test ax, ax                      ; 0x317d
     jne short @..api_idx_0040_LSRO.l48 ; 0x317f
@@ -640,7 +640,7 @@ jumptable_36f8_case_20:
     push word [bp - 0x0026]          ; 0x3188
     mov ax, bss_95f8                 ; 0x318b
     push ax                          ; 0x318e
-    call ds_leaf_loc_PRVP            ; 0x318f
+    call test_bit                    ; 0x318f
     add sp, byte 4                   ; 0x3192
     cmp ax, strict word 1            ; 0x3195
     jne short @..api_idx_0040_LSRO.l49 ; 0x3198
@@ -652,7 +652,7 @@ jumptable_36f8_case_21:
     push word [bp - 0x0026]          ; 0x31a1
     mov ax, bss_95f8                 ; 0x31a4
     push ax                          ; 0x31a7
-    call ds_leaf_loc_PRVP            ; 0x31a8
+    call test_bit                    ; 0x31a8
     add sp, byte 4                   ; 0x31ab
     test ax, ax                      ; 0x31ae
     jne short @..api_idx_0040_LSRO.l50 ; 0x31b0
@@ -724,7 +724,7 @@ jumptable_36f8_case_25:
     shl ax, cl                       ; 0x3244
     add ax, 0x8d14                   ; 0x3246
     push ax                          ; 0x3249
-    call ds_leaf_loc_PRVP            ; 0x324a
+    call test_bit                    ; 0x324a
     add sp, byte 4                   ; 0x324d
     test ax, ax                      ; 0x3250
     jne short @..api_idx_0040_LSRO.l59 ; 0x3252
@@ -745,7 +745,7 @@ jumptable_36f8_case_26:
     shl ax, cl                       ; 0x3275
     add ax, 0x8d14                   ; 0x3277
     push ax                          ; 0x327a
-    call ds_leaf_loc_PRVP            ; 0x327b
+    call test_bit                    ; 0x327b
     add sp, byte 4                   ; 0x327e
     cmp ax, strict word 1            ; 0x3281
     jne short @..api_idx_0040_LSRO.l60 ; 0x3284
@@ -763,7 +763,7 @@ jumptable_36f8_case_27:
     push word [bp - 0x0026]          ; 0x329e
     mov ax, bss_95f8                 ; 0x32a1
     push ax                          ; 0x32a4
-    call ds_leaf_loc_PRVP            ; 0x32a5
+    call test_bit                    ; 0x32a5
     add sp, byte 4                   ; 0x32a8
     test ax, ax                      ; 0x32ab
     jne short @..api_idx_0040_LSRO.l61 ; 0x32ad
@@ -781,7 +781,7 @@ jumptable_36f8_case_28:
     push word [bp - 0x0026]          ; 0x32c7
     mov ax, bss_95f8                 ; 0x32ca
     push ax                          ; 0x32cd
-    call ds_leaf_loc_PRVP            ; 0x32ce
+    call test_bit                    ; 0x32ce
     add sp, byte 4                   ; 0x32d1
     cmp ax, strict word 1            ; 0x32d4
     jne short @..api_idx_0040_LSRO.l62 ; 0x32d7
@@ -820,7 +820,7 @@ jumptable_36f8_case_30:
     mov byte [bx - 0x7b00], al       ; 0x3322
     mov byte [bx - 0x7b16], 0        ; 0x3326
     mov al, byte [bp - 0x0028]       ; 0x332b
-    mov byte [bx - 0x7b14], al       ; 0x332e
+    mov byte [bx + slot_records], al ; 0x332e
     mov byte [bx - 0x7b15], al       ; 0x3332
     jmp near @..api_idx_0040_LSRO.l85 ; 0x3336
 jumptable_36f8_case_31:
@@ -1013,7 +1013,7 @@ jumptable_36f8_case_37:
     imul cx                          ; 0x34ea
     add ax, 0x8502                   ; 0x34ec
     push ax                          ; 0x34ef
-    call ds_leaf_loc_PRVP            ; 0x34f0
+    call test_bit                    ; 0x34f0
     add sp, byte 4                   ; 0x34f3
     test ax, ax                      ; 0x34f6
     je short @..api_idx_0040_LSRO.l74 ; 0x34f8
@@ -1212,7 +1212,7 @@ jumptable_36f8_case_49:
     push word [bp - 0x0026]          ; 0x36cd
     mov ax, bss_5842                 ; 0x36d0
     push ax                          ; 0x36d3
-    call ds_leaf_loc_PRVP            ; 0x36d4
+    call test_bit                    ; 0x36d4
     add sp, byte 4                   ; 0x36d7
     cmp ax, word [bp - 0x0028]       ; 0x36da
     jne short @..api_idx_0040_LSRO.l82 ; 0x36dd

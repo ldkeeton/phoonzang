@@ -52,7 +52,7 @@ api_idx_0030_MLHO:
     mov ax, word [maze_data]         ; 0x3f20
     add ax, 0x930                    ; 0x3f23
     push ax                          ; 0x3f26
-    call ds_leaf_loc_PRVP            ; 0x3f27
+    call test_bit                    ; 0x3f27
     add sp, byte 4                   ; 0x3f2a
     test ax, ax                      ; 0x3f2d
     jne short @..api_idx_0030_MLHO.l2 ; 0x3f2f
@@ -128,7 +128,7 @@ api_idx_0030_MLHO:
     mov ax, word [maze_data]         ; 0x3fd1
     add ax, 0x8b0                    ; 0x3fd4
     push ax                          ; 0x3fd7
-    call ds_leaf_loc_PRVP            ; 0x3fd8
+    call test_bit                    ; 0x3fd8
     add sp, byte 4                   ; 0x3fdb
     test ax, ax                      ; 0x3fde
     je short @..api_idx_0030_MLHO.l8 ; 0x3fe0

@@ -17,7 +17,7 @@ collect_known_spells:
     imul word [bp + 0x4]             ; 0x8a41
     add ax, 0x5e12                   ; 0x8a44
     push ax                          ; 0x8a47
-    call ds_leaf_loc_PRVP            ; 0x8a48
+    call test_bit                    ; 0x8a48
     add sp, byte 4                   ; 0x8a4b
     test ax, ax                      ; 0x8a4e
     je short @..collect_known_spells.l2 ; 0x8a50

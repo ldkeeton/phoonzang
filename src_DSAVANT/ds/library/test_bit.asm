@@ -1,5 +1,5 @@
 ; auto-generated
-ds_leaf_loc_PRVP:
+test_bit:
     push bp                          ; 0x3ebb
     mov bp, sp                       ; 0x3ebc
     cld                              ; 0x3ebe
@@ -17,12 +17,12 @@ ds_leaf_loc_PRVP:
     mov al, 1                        ; 0x3ed6
     shl al, cl                       ; 0x3ed8
     test byte [bx + si], al          ; 0x3eda
-    je short @..ds_leaf_loc_PRVP.l1  ; 0x3edc
+    je short @..test_bit.l1          ; 0x3edc
     mov ax, 1                        ; 0x3ede
-    jmp short @..ds_leaf_loc_PRVP.l2 ; 0x3ee1
-@..ds_leaf_loc_PRVP.l1:
+    jmp short @..test_bit.l2         ; 0x3ee1
+@..test_bit.l1:
     xor ax, ax                       ; 0x3ee3
-@..ds_leaf_loc_PRVP.l2:
+@..test_bit.l2:
     pop si                           ; 0x3ee5
     pop es                           ; 0x3ee6
     mov sp, bp                       ; 0x3ee7

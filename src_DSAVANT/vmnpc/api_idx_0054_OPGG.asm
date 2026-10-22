@@ -33,7 +33,7 @@ api_idx_0054_OPGG:
     shl ax, 1                        ; 0x455c
     add ax, 0x9882                   ; 0x455e
     push ax                          ; 0x4561
-    call ds_leaf_loc_PRVP            ; 0x4562
+    call test_bit                    ; 0x4562
     add sp, byte 4                   ; 0x4565
     test ax, ax                      ; 0x4568
     je short @..api_idx_0054_OPGG.l2 ; 0x456a
@@ -48,7 +48,7 @@ api_idx_0054_OPGG:
     shl ax, 1                        ; 0x4581
     add ax, 0x98be                   ; 0x4583
     push ax                          ; 0x4586
-    call ds_leaf_loc_PRVP            ; 0x4587
+    call test_bit                    ; 0x4587
     add sp, byte 4                   ; 0x458a
     test ax, ax                      ; 0x458d
     je short @..api_idx_0054_OPGG.l2 ; 0x458f
@@ -62,7 +62,7 @@ api_idx_0054_OPGG:
     add ax, word [bp - 0x0002]       ; 0x45a3
     add ax, 0x98fa                   ; 0x45a6
     push ax                          ; 0x45a9
-    call ds_leaf_loc_PRVP            ; 0x45aa
+    call test_bit                    ; 0x45aa
     add sp, byte 4                   ; 0x45ad
     test ax, ax                      ; 0x45b0
     jne short @..api_idx_0054_OPGG.l3 ; 0x45b2

@@ -27,12 +27,12 @@ api_idx_0008_OMPR:
     mov ax, word [bp + 0x4]          ; 0xa5f6
     imul cx                          ; 0xa5f9
     mov bx, ax                       ; 0xa5fb
-    mov al, byte [bx - 0x7b14]       ; 0xa5fd
+    mov al, byte [bx + slot_records] ; 0xa5fd
     push ax                          ; 0xa601
     mov ax, word [bp - 0x0006]       ; 0xa602
     imul cx                          ; 0xa605
     mov bx, ax                       ; 0xa607
-    mov cl, byte [bx - 0x7b14]       ; 0xa609
+    mov cl, byte [bx + slot_records] ; 0xa609
     pop ax                           ; 0xa60d
     cmp al, cl                       ; 0xa60e
     je short @..api_idx_0008_OMPR.l5 ; 0xa610

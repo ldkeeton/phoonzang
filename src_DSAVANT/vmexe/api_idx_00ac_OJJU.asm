@@ -1698,7 +1698,7 @@ jumptable_883a:
     imul word [bp - 0x0050]          ; 0x89f5
     add ax, 0x5d33                   ; 0x89f8
     push ax                          ; 0x89fb
-    call ds_leaf_loc_PRVP            ; 0x89fc
+    call test_bit                    ; 0x89fc
     add sp, byte 4                   ; 0x89ff
     cmp ax, strict word 1            ; 0x8a02
     jne short @..api_idx_00ac_OJJU.l96 ; 0x8a05
@@ -1727,7 +1727,7 @@ jumptable_883a:
     mov ax, word [bx + party_char_ext] ; 0x8a38
     add ax, strict word 0x53         ; 0x8a3c
     push ax                          ; 0x8a3f
-    call ds_leaf_loc_PRVP            ; 0x8a40
+    call test_bit                    ; 0x8a40
     add sp, byte 4                   ; 0x8a43
     cmp ax, strict word 1            ; 0x8a46
     jne short @..api_idx_00ac_OJJU.l99 ; 0x8a49
