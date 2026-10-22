@@ -162,7 +162,7 @@ jumptable_4679:
     add word [bx + 0x5c0c], ax       ; 0x4734
     add word [bx + 0x5c0e], ax       ; 0x4738
     mov ax, word [bp - 0x0004]       ; 0x473c
-    add word [bx + 0x5c10], ax       ; 0x473f
+    add word [bx + pc_records], ax   ; 0x473f
     add word [bx + 0x5c12], ax       ; 0x4743
     mov ax, 0xf                      ; 0x4747
     imul word [bp - 0x000c]          ; 0x474a
@@ -176,13 +176,13 @@ jumptable_4679:
     mov word [bx + 0x5c16], ax       ; 0x4760
 @..api_idx_00ac_MSQO.l10:
     mov ax, 0x64                     ; 0x4764
-    imul word [bx + 0x5c10]          ; 0x4767
+    imul word [bx + pc_records]      ; 0x4767
     cwd                              ; 0x476b
     idiv word [bx + 0x5c12]          ; 0x476c
     mov word [bp - 0x000a], ax       ; 0x4770
     cmp ax, strict word 1            ; 0x4773
     jge short @..api_idx_00ac_MSQO.l11 ; 0x4776
-    cmp word [bx + 0x5c10], byte 0   ; 0x4778
+    cmp word [bx + pc_records], byte 0 ; 0x4778
     jle short @..api_idx_00ac_MSQO.l11 ; 0x477d
     mov ax, 1                        ; 0x477f
     jmp short @..api_idx_00ac_MSQO.l12 ; 0x4782

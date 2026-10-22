@@ -2,7 +2,7 @@
 api_idx_0094_LUVH:
     mov ax, 0xff6c                   ; 0x417c
     call aztec_csav                  ; 0x417f
-    mov word [bss_9b5e], 5           ; 0x4182
+    mov word [party_redraw_mode], 5  ; 0x4182
     mov word [bp - 0x0094], 0        ; 0x4188
     mov word [bp - 0x0050], 0        ; 0x418e
 @..api_idx_0094_LUVH.l1:
@@ -268,8 +268,8 @@ api_idx_0094_LUVH:
     mov bx, ax                       ; 0x43f1
     cmp byte [bx + 0x624], 1         ; 0x43f3
     jne short @..api_idx_0094_LUVH.l17 ; 0x43f8
-    call ds_app_VGOM                 ; 0x43fa
-    mov word [bss_9d90], ax          ; 0x43fd
+    call pick_party_member           ; 0x43fa
+    mov word [spell_target], ax      ; 0x43fd
     cmp ax, strict word 0xffff       ; 0x4400
     jne short @..api_idx_0094_LUVH.l17 ; 0x4403
     mov word [bp - 0x0054], 0xffff   ; 0x4405
@@ -294,11 +294,11 @@ api_idx_0094_LUVH:
     call gfx_show_area               ; 0x4435
     add sp, byte 8                   ; 0x4438
 @..api_idx_0094_LUVH.l18:
-    push word [bss_9d90]             ; 0x443b
+    push word [spell_target]         ; 0x443b
     push word [bp - 0x0056]          ; 0x443f
     push word [bp - 0x0054]          ; 0x4442
     push word [bp + 0x4]             ; 0x4445
-    call api_idx_0008_JRPS           ; 0x4448
+    call apply_spell_effect          ; 0x4448
     add sp, byte 8                   ; 0x444b
 @..api_idx_0094_LUVH.l19:
     jmp near @..api_idx_0094_LUVH.l27 ; 0x444e
@@ -468,7 +468,7 @@ api_idx_0094_LUVH:
     cmp word [pending_event], byte 0 ; 0x45cd
     jle short @..api_idx_0094_LUVH.l34 ; 0x45d2
     push word [pending_event]        ; 0x45d4
-    call api_idx_0058_TVSV           ; 0x45d8
+    call show_event_message          ; 0x45d8
     pop cx                           ; 0x45db
 @..api_idx_0094_LUVH.l34:
     ret                              ; 0x45dc

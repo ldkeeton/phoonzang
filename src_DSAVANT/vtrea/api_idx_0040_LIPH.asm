@@ -58,7 +58,7 @@ api_idx_0040_LIPH:
     call gfx_show_area               ; 0x53c9
     add sp, byte 8                   ; 0x53cc
 @..api_idx_0040_LIPH.l3:
-    call ds_app_VGOM                 ; 0x53cf
+    call pick_party_member           ; 0x53cf
     mov word [bp - 0x0008], ax       ; 0x53d2
     cmp ax, strict word 0xffff       ; 0x53d5
     je short @..api_idx_0040_LIPH.l6 ; 0x53d8

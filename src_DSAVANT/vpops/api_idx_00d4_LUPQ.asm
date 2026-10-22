@@ -865,7 +865,7 @@ jumptable_4058_case_4:
 @..api_idx_00d4_LUPQ.l61:
     jmp near @..api_idx_00d4_LUPQ.l67 ; 0x3f93
 jumptable_4058_case_7:
-    call ds_app_VGOM                 ; 0x3f96
+    call pick_party_member           ; 0x3f96
     mov word [bp - 0x0098], ax       ; 0x3f99
     cmp ax, strict word 0xffff       ; 0x3f9d
     jne short @..api_idx_00d4_LUPQ.l62 ; 0x3fa0
@@ -1265,7 +1265,7 @@ jumptable_4058:
     imul word [bp - 0x0006]          ; 0x4368
     mov bx, ax                       ; 0x436b
     mov word [bx + 0x5c0c], 0        ; 0x436d
-    mov word [bx + 0x5c10], 0        ; 0x4373
+    mov word [bx + pc_records], 0    ; 0x4373
     mov byte [bx + 0x5e2f], 3        ; 0x4379
     mov bx, word [party_char]        ; 0x437e
     mov word [bx + si + 0x2], 0      ; 0x4382

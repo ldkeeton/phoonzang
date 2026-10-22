@@ -25,7 +25,7 @@ api_idx_0004_GKHR:
     mov bx, ax                       ; 0x4b0b
     cmp byte [bx + 0x624], 1         ; 0x4b0d
     jne short @..api_idx_0004_GKHR.l2 ; 0x4b12
-    call ds_app_VGOM                 ; 0x4b14
+    call pick_party_member           ; 0x4b14
     mov word [bss_95e2], ax          ; 0x4b17
     cmp ax, strict word 0xffff       ; 0x4b1a
     jne short @..api_idx_0004_GKHR.l2 ; 0x4b1d
@@ -78,10 +78,10 @@ api_idx_0004_GKHR:
     imul word [bp + 0x4]             ; 0x4b8e
     mov bx, ax                       ; 0x4b91
     pop ax                           ; 0x4b93
-    sub word [bx + 0x5c10], ax       ; 0x4b94
-    cmp word [bx + 0x5c10], byte 0   ; 0x4b98
+    sub word [bx + pc_records], ax   ; 0x4b94
+    cmp word [bx + pc_records], byte 0 ; 0x4b98
     jge short @..api_idx_0004_GKHR.l4 ; 0x4b9d
-    mov word [bx + 0x5c10], 0        ; 0x4b9f
+    mov word [bx + pc_records], 0    ; 0x4b9f
     mov ax, 6                        ; 0x4ba5
     push ax                          ; 0x4ba8
     call random_below                ; 0x4ba9

@@ -19,7 +19,7 @@ loc_QTKU:
     mov bx, ax
     mov byte [bx + 0x5e2f], 3
     mov word [bx + 0x5c0c], 0
-    mov word [bx + 0x5c10], 0
+    mov word [bx + pc_records], 0
     cmp word [bp + 0x6], byte 0
     jle short @..loc_QTKU.l2
     mov ax, 1

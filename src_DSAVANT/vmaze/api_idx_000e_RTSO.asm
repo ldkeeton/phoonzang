@@ -28,7 +28,7 @@ api_idx_000e_RTSO:
     cmp word [bp - 0x000a], byte 0   ; 0x8093
     jne short @..api_idx_000e_RTSO.l4 ; 0x8097
 @..api_idx_000e_RTSO.l1:
-    call ds_app_VGOM                 ; 0x8099
+    call pick_party_member           ; 0x8099
     mov word [bp - 0x0004], ax       ; 0x809c
     cmp ax, strict word 0xffff       ; 0x809f
     je short @..api_idx_000e_RTSO.l2 ; 0x80a2

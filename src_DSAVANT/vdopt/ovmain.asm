@@ -32,7 +32,7 @@ ovmain:
     call ds_app_file_TSNH            ; 0x0060
     add sp, byte 4                   ; 0x0063
     push word [bss_8af0]             ; 0x0066
-    call api_idx_0004_NQNQ           ; 0x006a
+    call cast_spell_from_menu        ; 0x006a
     pop cx                           ; 0x006d
     mov ax, 1                        ; 0x006e
     push ax                          ; 0x0071

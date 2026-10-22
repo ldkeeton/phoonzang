@@ -120,7 +120,7 @@ jumptable_51bc_case_1:
     call redraw_treasure_caption     ; 0x5029
     pop cx                           ; 0x502c
 @..api_idx_007a_NHII.l5:
-    call ds_app_VGOM                 ; 0x502d
+    call pick_party_member           ; 0x502d
     mov word [bp - 0x0006], ax       ; 0x5030
     cmp ax, strict word 0xffff       ; 0x5033
     je short @..api_idx_007a_NHII.l6 ; 0x5036
@@ -154,7 +154,7 @@ jumptable_51bc_case_0:
     call redraw_treasure_caption     ; 0x5077
     pop cx                           ; 0x507a
 @..api_idx_007a_NHII.l7:
-    call ds_app_VGOM                 ; 0x507b
+    call pick_party_member           ; 0x507b
     mov word [bp - 0x0006], ax       ; 0x507e
     cmp ax, strict word 0xffff       ; 0x5081
     jne short @..api_idx_007a_NHII.l8 ; 0x5084
@@ -233,7 +233,7 @@ jumptable_51bc_case_2:
     call redraw_treasure_caption     ; 0x512e
     pop cx                           ; 0x5131
 @..api_idx_007a_NHII.l12:
-    call ds_app_VGOM                 ; 0x5132
+    call pick_party_member           ; 0x5132
     mov word [bp - 0x0006], ax       ; 0x5135
     cmp ax, strict word 0xffff       ; 0x5138
     jne short @..api_idx_007a_NHII.l13 ; 0x513b

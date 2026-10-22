@@ -226,7 +226,7 @@ api_idx_009c_MRKK:
     mov ax, word [bp - 0x0006]       ; 0x69c6
     jmp near @..api_idx_009c_MRKK.l42 ; 0x69c9
 jumptable_6c16_case_0:
-    call ds_app_VGOM                 ; 0x69cc
+    call pick_party_member           ; 0x69cc
     mov word [bp - 0x000c], ax       ; 0x69cf
     cmp ax, strict word 0            ; 0x69d2
     jge short @..api_idx_009c_MRKK.l17 ; 0x69d5
@@ -295,7 +295,7 @@ jumptable_6c16_case_0:
 @..api_idx_009c_MRKK.l22:
     jmp near @..api_idx_009c_MRKK.l43 ; 0x6a63
 jumptable_6c16_case_3:
-    call ds_app_VGOM                 ; 0x6a66
+    call pick_party_member           ; 0x6a66
     mov word [bp - 0x000c], ax       ; 0x6a69
     cmp ax, strict word 0            ; 0x6a6c
     jl short @..api_idx_009c_MRKK.l29 ; 0x6a6f

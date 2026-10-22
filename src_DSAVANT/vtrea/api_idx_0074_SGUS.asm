@@ -368,9 +368,9 @@ api_idx_0074_SGUS:
     mov ax, 0x248                    ; 0x7c4c
     imul word [bp - 0x0002]          ; 0x7c4f
     mov bx, ax                       ; 0x7c52
-    cmp word [bx + 0x5c10], byte 0   ; 0x7c54
+    cmp word [bx + pc_records], byte 0 ; 0x7c54
     jle short @..api_idx_0074_SGUS.l33 ; 0x7c59
-    push word [bx + 0x5c10]          ; 0x7c5b
+    push word [bx + pc_records]      ; 0x7c5b
     mov ax, 1                        ; 0x7c5f
     push ax                          ; 0x7c62
     push word [bp - 0x001a]          ; 0x7c63
@@ -393,7 +393,7 @@ api_idx_0074_SGUS:
     mov ax, 0x248                    ; 0x7c8b
     imul word [bp - 0x0002]          ; 0x7c8e
     mov bx, ax                       ; 0x7c91
-    mov ax, word [bx + 0x5c10]       ; 0x7c93
+    mov ax, word [bx + pc_records]   ; 0x7c93
     sub ax, cx                       ; 0x7c97
     push ax                          ; 0x7c99
     call clamp_between               ; 0x7c9a
@@ -403,7 +403,7 @@ api_idx_0074_SGUS:
     imul word [bp - 0x0002]          ; 0x7ca4
     mov bx, ax                       ; 0x7ca7
     pop ax                           ; 0x7ca9
-    mov word [bx + 0x5c10], ax       ; 0x7caa
+    mov word [bx + pc_records], ax   ; 0x7caa
 @..api_idx_0074_SGUS.l33:
     push word [bp - 0x001c]          ; 0x7cae
     push word [bp - 0x001a]          ; 0x7cb1

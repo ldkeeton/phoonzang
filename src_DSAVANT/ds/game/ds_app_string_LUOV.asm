@@ -290,7 +290,7 @@ ds_app_string_LUOV: ; Aztec csav frame=0x003a
     imul word [bp + 0x4]             ; 0x204f
     mov bx, ax                       ; 0x2052
     push word [bx + 0x5c12]          ; 0x2054
-    push word [bx + 0x5c10]          ; 0x2058
+    push word [bx + pc_records]      ; 0x2058
     mov ax, 0x16                     ; 0x205c
     push ax                          ; 0x205f
     mov ax, 3                        ; 0x2060

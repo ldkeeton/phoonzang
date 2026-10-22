@@ -13,7 +13,7 @@ periodic_party_redraw:
     sbb dx, word [bss_908c]
     mov word [bss_9094], dx
     mov word [bss_9092], ax
-    mov ax, word [periodic_party_redraw.bss1]
+    mov ax, word [periodic_party_redraw.party_redraw_mode1]
     cwd
     mov cx, ax
     mov bx, dx

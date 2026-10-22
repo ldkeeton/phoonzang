@@ -18,7 +18,7 @@ api_idx_0012_VNOV:
     idiv cx                          ; 0x0f0a
     mov word [bp - 0x000c], dx       ; 0x0f0c
 @..api_idx_0012_VNOV.l1:
-    call ds_app_VGOM                 ; 0x0f0f
+    call pick_party_member           ; 0x0f0f
     mov word [bp - 0x0006], ax       ; 0x0f12
     cmp ax, strict word 0xffff       ; 0x0f15
     jne short @..api_idx_0012_VNOV.l2 ; 0x0f18
@@ -90,7 +90,7 @@ jumptable_12fa_case_0:
     push word [bx + 0x5c12]          ; 0x0fbb
     mov ax, 0                        ; 0x0fbf
     push ax                          ; 0x0fc2
-    mov ax, word [bx + 0x5c10]       ; 0x0fc3
+    mov ax, word [bx + pc_records]   ; 0x0fc3
     add ax, word [bp - 0x000e]       ; 0x0fc7
     push ax                          ; 0x0fca
     call clamp_between               ; 0x0fcb
@@ -100,7 +100,7 @@ jumptable_12fa_case_0:
     imul word [bp - 0x0006]          ; 0x0fd5
     mov bx, ax                       ; 0x0fd8
     pop ax                           ; 0x0fda
-    mov word [bx + 0x5c10], ax       ; 0x0fdb
+    mov word [bx + pc_records], ax   ; 0x0fdb
     jmp near @..api_idx_0012_VNOV.l24 ; 0x0fdf
 jumptable_12fa_case_1:
     mov word [bp - 0x0004], 0        ; 0x0fe2
@@ -241,7 +241,7 @@ jumptable_12fa_case_7:
     mov ax, word [bx + 0x5c0e]       ; 0x1130
     mov word [bx + 0x5c0c], ax       ; 0x1134
     mov ax, word [bx + 0x5c12]       ; 0x1138
-    mov word [bx + 0x5c10], ax       ; 0x113c
+    mov word [bx + pc_records], ax   ; 0x113c
     jmp near @..api_idx_0012_VNOV.l24 ; 0x1140
 jumptable_12fa_case_8:
     mov ax, 0x248                    ; 0x1143
@@ -250,7 +250,7 @@ jumptable_12fa_case_8:
     push word [bx + 0x5c12]          ; 0x114b
     mov ax, 0                        ; 0x114f
     push ax                          ; 0x1152
-    mov ax, word [bx + 0x5c10]       ; 0x1153
+    mov ax, word [bx + pc_records]   ; 0x1153
     sub ax, word [bp - 0x000e]       ; 0x1157
     push ax                          ; 0x115a
     call clamp_between               ; 0x115b
@@ -260,7 +260,7 @@ jumptable_12fa_case_8:
     imul word [bp - 0x0006]          ; 0x1165
     mov bx, ax                       ; 0x1168
     pop ax                           ; 0x116a
-    mov word [bx + 0x5c10], ax       ; 0x116b
+    mov word [bx + pc_records], ax   ; 0x116b
     cmp ax, strict word 0            ; 0x116f
     jg short @..api_idx_0012_VNOV.l14 ; 0x1172
     mov al, byte [bx + 0x5d5c]       ; 0x1174
@@ -364,7 +364,7 @@ jumptable_12fa_case_10:
     jg short @..api_idx_0012_VNOV.l17 ; 0x1259
     mov byte [bx + 0x5e2f], 3        ; 0x125b
     mov word [bx + 0x5c0c], 0        ; 0x1260
-    mov word [bx + 0x5c10], 0        ; 0x1266
+    mov word [bx + pc_records], 0    ; 0x1266
     mov al, byte [bx + 0x5e2c]       ; 0x126c
     sub ah, ah                       ; 0x1270
     add ax, strict word 8            ; 0x1272

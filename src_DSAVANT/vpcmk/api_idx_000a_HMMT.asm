@@ -315,7 +315,7 @@ jumptable_5cb4:
     mov word [bx + 0x5c0c], ax       ; 0x5d4a
     mov word [bx + 0x5c0e], ax       ; 0x5d4e
     mov ax, word [bp - 0x0004]       ; 0x5d52
-    mov word [bx + 0x5c10], ax       ; 0x5d55
+    mov word [bx + pc_records], ax   ; 0x5d55
     mov word [bx + 0x5c12], ax       ; 0x5d59
     mov word [bx + 0x5c14], 0        ; 0x5d5d
     mov ax, 0xf                      ; 0x5d63

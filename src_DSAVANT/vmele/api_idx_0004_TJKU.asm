@@ -104,7 +104,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0d7a
     imul word [bp - 0x0002]          ; 0x0d7d
     mov bx, ax                       ; 0x0d80
-    mov ax, word [bx + 0x5c10]       ; 0x0d82
+    mov ax, word [bx + pc_records]   ; 0x0d82
     push ax                          ; 0x0d86
     mov ax, 0x2c                     ; 0x0d87
     imul word [bp - 0x0002]          ; 0x0d8a

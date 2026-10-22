@@ -336,7 +336,7 @@ api_idx_0018_USPR:
     mov ax, 0x248                    ; 0x1fd0
     imul word [bp - 0x0002]          ; 0x1fd3
     mov bx, ax                       ; 0x1fd6
-    mov ax, word [bx + 0x5c10]       ; 0x1fd8
+    mov ax, word [bx + pc_records]   ; 0x1fd8
     push ax                          ; 0x1fdc
     mov ax, word [bx + 0x5c12]       ; 0x1fdd
     mov cx, 2                        ; 0x1fe1

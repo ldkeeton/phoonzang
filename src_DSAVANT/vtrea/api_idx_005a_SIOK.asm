@@ -35,7 +35,7 @@ api_idx_005a_SIOK:
     cmp word [bp + 0xa], byte 3      ; 0x1148
     jl short @..api_idx_005a_SIOK.l3 ; 0x114c
     mov word [bx + 0x5c0c], 0        ; 0x114e
-    mov word [bx + 0x5c10], 0        ; 0x1154
+    mov word [bx + pc_records], 0    ; 0x1154
 @..api_idx_005a_SIOK.l3:
     lea ax, word [bp - 0x0050]       ; 0x115a
     push ax                          ; 0x115d

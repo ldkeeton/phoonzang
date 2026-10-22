@@ -108,7 +108,7 @@ api_idx_000c_JRTV:
     imul word [bp + 0x4]             ; 0x0478
     mov bx, ax                       ; 0x047b
     push word [bx + 0x5c12]          ; 0x047d
-    push word [bx + 0x5c10]          ; 0x0481
+    push word [bx + pc_records]      ; 0x0481
     mov ax, 0x16                     ; 0x0485
     push ax                          ; 0x0488
     mov ax, 3                        ; 0x0489

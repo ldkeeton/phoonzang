@@ -2121,11 +2121,14 @@ class InsertBytePropertyTests(unittest.TestCase):
             self.assertEqual(original[0x5483:0x5487], b'\x89\x3e\x00\x94')
             self.assertEqual(original[0x5488:0x548b], b'\xbf\x08\x94')
             self.assertEqual(original[0x5185:0x5189], b'\xc7\x06\x04\x97')
-            with open(master) as f:
-                text = f.read()
-            with open(master, 'w') as f:
-                f.write(text.replace('__zdata_start:\n',
-                                     '__zdata_start:\n    db 0xee\n', 1))
+            # The label may sit in the master or in a named data fragment.
+            label = '__zdata_start:\n'
+            root = pathlib.Path(d)
+            src = next(p for p in [root / 'vpclv.asm',
+                                   *sorted((root / 'vpclv').rglob('*.asm'))]
+                       if label in p.read_text(errors='ignore'))
+            text = src.read_text()
+            src.write_text(text.replace(label, f'{label}    db 0xee\n', 1))
             grown = _nasm_file(master, d)
 
         self.assertEqual(len(grown), len(original) + 1)

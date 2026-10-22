@@ -57,7 +57,7 @@ jumptable_0457        equ log_maze_change.jumptable1
 %include "vdopt/claim_type7_object.asm"    ; 0x04b7
 
 ; pending_event_hi equ __zdseg_end + (__zobss_90b8 - __zdata_start)
-%include "vdopt/api_idx_0058_TVSV.asm"     ; 0x0565
+%include "vdopt/show_event_message.asm"    ; 0x0565
 
 %include "vdopt/find_party_type7_object.asm" ; 0x065b
 
@@ -151,7 +151,7 @@ report_line2_none equ __zdseg_end + (__zreport_line2_none - __zdata_start)
 
 %include "shared/game/loc_QQUT.asm"              ; 0x1c7f
 
-%include "vdopt/api_idx_0008_JRPS.asm"     ; 0x1ccf
+%include "vdopt/apply_spell_effect.asm"    ; 0x1ccf
 
 ; pending_event    equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 ; pending_event_hi equ __zdseg_end + (__zobss_90b8 - __zdata_start)
@@ -175,16 +175,16 @@ draw_spell_cost.dseg1 equ dseg_909a
 
 %include "shared/game/draw_realm_spell_points.asm" ; 0x285e
 
-bss_9b5e equ __zdseg_end + (__zobss_9b5e - __zdata_start)
-periodic_party_redraw.bss1     equ bss_9b5e
-periodic_party_redraw.api_idx1 equ draw_marker_glyph
-periodic_party_redraw.api_idx2 equ draw_realm_spell_points
+party_redraw_mode equ __zdseg_end + (__zobss_9b5e - __zdata_start)
+periodic_party_redraw.party_redraw_mode1 equ party_redraw_mode
+periodic_party_redraw.api_idx1           equ draw_marker_glyph
+periodic_party_redraw.api_idx2           equ draw_realm_spell_points
 %include "shared/game/periodic_party_redraw.asm" ; 0x28f7
 
-dseg_909e       equ __zdseg_end + (__zdseg_909e - __zdata_start)
-; known_spell_ids equ __zdseg_end + (__zobss_9b0e - __zdata_start)
-; bss_9b5e        equ __zdseg_end + (__zobss_9b5e - __zdata_start)
-%include "vdopt/api_idx_0044_PIIP.asm"     ; 0x2988
+dseg_909e         equ __zdseg_end + (__zdseg_909e - __zdata_start)
+; known_spell_ids   equ __zdseg_end + (__zobss_9b0e - __zdata_start)
+; party_redraw_mode equ __zdseg_end + (__zobss_9b5e - __zdata_start)
+%include "vdopt/pick_spell_dialog.asm"     ; 0x2988
 
 %include "shared/game/api_idx_0008_RQRL.asm"     ; 0x362f
 
@@ -200,17 +200,17 @@ loc_HTKI.api_idx1 equ api_idx_0004_PNVH
 dseg_90a4 equ __zdseg_end + (__zdseg_90a4 - __zdata_start)
 %include "vdopt/api_idx_0038_QQIU.asm"     ; 0x3a2c
 
-dseg_90aa        equ __zdseg_end + (__zdseg_90aa - __zdata_start)
-; pending_event    equ __zdseg_end + (__zobss_90b6 - __zdata_start)
-; pending_event_hi equ __zdseg_end + (__zobss_90b8 - __zdata_start)
-; bss_9b5e         equ __zdseg_end + (__zobss_9b5e - __zdata_start)
-bss_9d90         equ __zdseg_end + (__zobss_9d90 - __zdata_start)
+dseg_90aa         equ __zdseg_end + (__zdseg_90aa - __zdata_start)
+; pending_event     equ __zdseg_end + (__zobss_90b6 - __zdata_start)
+; pending_event_hi  equ __zdseg_end + (__zobss_90b8 - __zdata_start)
+; party_redraw_mode equ __zdseg_end + (__zobss_9b5e - __zdata_start)
+spell_target      equ __zdseg_end + (__zobss_9d90 - __zdata_start)
 %include "vdopt/api_idx_0094_LUVH.asm"     ; 0x417c
 
-; pending_event equ __zdseg_end + (__zobss_90b6 - __zdata_start)
-; bss_9b5e      equ __zdseg_end + (__zobss_9b5e - __zdata_start)
-; bss_9d90      equ __zdseg_end + (__zobss_9d90 - __zdata_start)
-%include "vdopt/api_idx_0004_NQNQ.asm"     ; 0x45dd
+; pending_event     equ __zdseg_end + (__zobss_90b6 - __zdata_start)
+; party_redraw_mode equ __zdseg_end + (__zobss_9b5e - __zdata_start)
+; spell_target      equ __zdseg_end + (__zobss_9d90 - __zdata_start)
+%include "vdopt/cast_spell_from_menu.asm"  ; 0x45dd
 
 save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di  equ __zdseg_end + (__zsave_di - __zdata_start)

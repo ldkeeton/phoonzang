@@ -30,7 +30,7 @@ api_idx_0004_GGOK:
     mov bx, ax                       ; 0x3ad4
     cmp byte [bx + 0x624], 1         ; 0x3ad6
     jne short @..api_idx_0004_GGOK.l2 ; 0x3adb
-    call ds_app_VGOM                 ; 0x3add
+    call pick_party_member           ; 0x3add
     mov word [bss_9650], ax          ; 0x3ae0
     cmp ax, strict word 0xffff       ; 0x3ae3
     jne short @..api_idx_0004_GGOK.l2 ; 0x3ae6
@@ -84,10 +84,10 @@ api_idx_0004_GGOK:
     imul word [bp + 0x4]             ; 0x3b5c
     mov bx, ax                       ; 0x3b5f
     pop ax                           ; 0x3b61
-    sub word [bx + 0x5c10], ax       ; 0x3b62
-    cmp word [bx + 0x5c10], byte 0   ; 0x3b66
+    sub word [bx + pc_records], ax   ; 0x3b62
+    cmp word [bx + pc_records], byte 0 ; 0x3b66
     jge short @..api_idx_0004_GGOK.l4 ; 0x3b6b
-    mov word [bx + 0x5c10], 0        ; 0x3b6d
+    mov word [bx + pc_records], 0    ; 0x3b6d
     mov ax, 6                        ; 0x3b73
     push ax                          ; 0x3b76
     call random_below                ; 0x3b77

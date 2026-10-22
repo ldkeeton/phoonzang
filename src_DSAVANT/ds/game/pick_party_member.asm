@@ -1,11 +1,11 @@
 ; auto-generated
-ds_app_VGOM: ; Aztec csav frame=0x0012
+pick_party_member: ; Aztec csav frame=0x0012
     mov ax, 0xffee                   ; 0x20f8
     call aztec_csav                  ; 0x20fb
     cmp word [bss_0e32], byte 0      ; 0x20fe
-    je short @..ds_app_VGOM.l1       ; 0x2103
-    jmp near @..ds_app_VGOM.l6       ; 0x2105
-@..ds_app_VGOM.l1:
+    je short @..pick_party_member.l1 ; 0x2103
+    jmp near @..pick_party_member.l6 ; 0x2105
+@..pick_party_member.l1:
     mov ax, 0xa3                     ; 0x2108
     push ax                          ; 0x210b
     mov ax, 0xb1                     ; 0x210c
@@ -65,9 +65,9 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     call gfx_show_area               ; 0x2188
     add sp, byte 8                   ; 0x218b
     mov word [bp - 0x0004], 0xfffe   ; 0x218e
-@..ds_app_VGOM.l2:
+@..pick_party_member.l2:
     cmp word [bp - 0x0004], byte 0xfe ; 0x2193
-    jne short @..ds_app_VGOM.l5      ; 0x2197
+    jne short @..pick_party_member.l5 ; 0x2197
     mov ax, 1                        ; 0x2199
     push ax                          ; 0x219c
     call get_filtered_key            ; 0x219d
@@ -75,20 +75,20 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     sub ah, ah                       ; 0x21a1
     mov word [bp - 0x0002], ax       ; 0x21a3
     cmp ax, strict word 0x1b         ; 0x21a6
-    jne short @..ds_app_VGOM.l3      ; 0x21a9
+    jne short @..pick_party_member.l3 ; 0x21a9
     mov word [bp - 0x0004], 0xffff   ; 0x21ab
-@..ds_app_VGOM.l3:
+@..pick_party_member.l3:
     cmp ax, strict word 0x31         ; 0x21b0
-    jl short @..ds_app_VGOM.l4       ; 0x21b3
+    jl short @..pick_party_member.l4 ; 0x21b3
     mov cx, word [bss_69c8]          ; 0x21b5
     add cx, byte 0x31                ; 0x21b9
     cmp cx, ax                       ; 0x21bc
-    jle short @..ds_app_VGOM.l4      ; 0x21be
+    jle short @..pick_party_member.l4 ; 0x21be
     add ax, strict word 0xffcf       ; 0x21c0
     mov word [bp - 0x0004], ax       ; 0x21c3
-@..ds_app_VGOM.l4:
-    jmp short @..ds_app_VGOM.l2      ; 0x21c6
-@..ds_app_VGOM.l5:
+@..pick_party_member.l4:
+    jmp short @..pick_party_member.l2 ; 0x21c6
+@..pick_party_member.l5:
     mov ax, 1                        ; 0x21c8
     push ax                          ; 0x21cb
     push word [bp - 0x0010]          ; 0x21cc
@@ -107,14 +107,14 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     add sp, byte 8                   ; 0x21eb
     mov ax, word [bp - 0x0004]       ; 0x21ee
     ret                              ; 0x21f1
-@..ds_app_VGOM.l6:
+@..pick_party_member.l6:
     push word [bss_0e30]             ; 0x21f2
     push word [bss_0e2e]             ; 0x21f6
     call ds_app_TSGV                 ; 0x21fa
     add sp, byte 4                   ; 0x21fd
     mov word [bp - 0x0002], 0        ; 0x2200
-    jmp short @..ds_app_VGOM.l8      ; 0x2205
-@..ds_app_VGOM.l7:
+    jmp short @..pick_party_member.l8 ; 0x2205
+@..pick_party_member.l7:
     mov ax, word [bp - 0x0002]       ; 0x2207
     mov cx, 2                        ; 0x220a
     cwd                              ; 0x220d
@@ -150,10 +150,10 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     call set_hotspot                 ; 0x2254
     add sp, byte 0x0e                ; 0x2257
     inc word [bp - 0x0002]           ; 0x225a
-@..ds_app_VGOM.l8:
+@..pick_party_member.l8:
     mov ax, word [bp - 0x0002]       ; 0x225d
     cmp ax, word [bss_69c8]          ; 0x2260
-    jl short @..ds_app_VGOM.l7       ; 0x2264
+    jl short @..pick_party_member.l7 ; 0x2264
     mov ax, 0                        ; 0x2266
     push ax                          ; 0x2269
     push ax                          ; 0x226a
@@ -166,7 +166,7 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     call set_hotspot                 ; 0x2276
     add sp, byte 0x0e                ; 0x2279
     mov word [bp - 0x0008], 0        ; 0x227c
-@..ds_app_VGOM.l9:
+@..pick_party_member.l9:
     lea ax, word [bp - 0x000c]       ; 0x2281
     push ax                          ; 0x2284
     lea ax, word [bp - 0x000a]       ; 0x2285
@@ -176,9 +176,9 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     mov word [bp - 0x0006], ax       ; 0x228f
     mov ax, 0                        ; 0x2292
     cmp word [bp - 0x0006], byte 0   ; 0x2295
-    jne short @..ds_app_VGOM.l10     ; 0x2299
+    jne short @..pick_party_member.l10 ; 0x2299
     mov ax, 1                        ; 0x229b
-@..ds_app_VGOM.l10:
+@..pick_party_member.l10:
     or word [bp - 0x0008], ax        ; 0x229e
     mov ax, 0x14                     ; 0x22a1
     push ax                          ; 0x22a4
@@ -191,7 +191,7 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     dec ax                           ; 0x22b1
     mov word [bp - 0x0004], ax       ; 0x22b2
     cmp word [bss_59fa], byte 0      ; 0x22b5
-    je short @..ds_app_VGOM.l11      ; 0x22ba
+    je short @..pick_party_member.l11 ; 0x22ba
     mov ax, 0                        ; 0x22bc
     mov dx, 0                        ; 0x22bf
     push dx                          ; 0x22c2
@@ -200,9 +200,9 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     add sp, byte 4                   ; 0x22c7
     mov ax, 0xffff                   ; 0x22ca
     ret                              ; 0x22cd
-@..ds_app_VGOM.l11:
+@..pick_party_member.l11:
     cmp word [hotspot_hit], byte 1   ; 0x22ce
-    jne short @..ds_app_VGOM.l12     ; 0x22d3
+    jne short @..pick_party_member.l12 ; 0x22d3
     mov ax, 0                        ; 0x22d5
     mov dx, 0                        ; 0x22d8
     push dx                          ; 0x22db
@@ -211,11 +211,11 @@ ds_app_VGOM: ; Aztec csav frame=0x0012
     add sp, byte 4                   ; 0x22e0
     mov ax, word [bp - 0x0004]       ; 0x22e3
     ret                              ; 0x22e6
-@..ds_app_VGOM.l12:
+@..pick_party_member.l12:
     cmp word [bp - 0x0006], byte 0   ; 0x22e7
-    je short @..ds_app_VGOM.l9       ; 0x22eb
+    je short @..pick_party_member.l9 ; 0x22eb
     cmp word [bp - 0x0008], byte 0   ; 0x22ed
-    je short @..ds_app_VGOM.l9       ; 0x22f1
+    je short @..pick_party_member.l9 ; 0x22f1
     mov ax, 0                        ; 0x22f3
     mov dx, 0                        ; 0x22f6
     push dx                          ; 0x22f9

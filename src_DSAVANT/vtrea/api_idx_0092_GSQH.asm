@@ -254,7 +254,7 @@ api_idx_0092_GSQH:
     mov bx, ax                       ; 0x4e1c
     cmp byte [bx + 0x624], 1         ; 0x4e1e
     jne short @..api_idx_0092_GSQH.l15 ; 0x4e23
-    call ds_app_VGOM                 ; 0x4e25
+    call pick_party_member           ; 0x4e25
     mov word [bss_95e2], ax          ; 0x4e28
     cmp ax, strict word 0xffff       ; 0x4e2b
     jne short @..api_idx_0092_GSQH.l15 ; 0x4e2e

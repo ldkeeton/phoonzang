@@ -543,7 +543,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + 0x5c10]
+    mov ax, word [bx + pc_records]
     mov cx, 0x64
     imul cx
     mov cx, word [bx + 0x5c12]
@@ -552,7 +552,7 @@ api_idx_007c_MOJH:
     mov word [bp - 0x0008], ax
     cmp ax, strict word 1
     jge short @..api_idx_007c_MOJH.l4
-    cmp word [bx + 0x5c10], byte 0
+    cmp word [bx + pc_records], byte 0
     jle short @..api_idx_007c_MOJH.l4
     mov ax, 1
     jmp short @..api_idx_007c_MOJH.l5

@@ -135,7 +135,7 @@ jumptable_291f_case_23:
     imul word [bp - 0x0002]          ; 0x233d
     mov bx, ax                       ; 0x2340
     pop ax                           ; 0x2342
-    add ax, word [bx + 0x5c10]       ; 0x2343
+    add ax, word [bx + pc_records]   ; 0x2343
     push ax                          ; 0x2347
     call clamp_between               ; 0x2348
     add sp, byte 6                   ; 0x234b
@@ -144,7 +144,7 @@ jumptable_291f_case_23:
     imul word [bp - 0x0002]          ; 0x2352
     mov bx, ax                       ; 0x2355
     pop ax                           ; 0x2357
-    mov word [bx + 0x5c10], ax       ; 0x2358
+    mov word [bx + pc_records], ax   ; 0x2358
     cmp word [bp + 0x6], byte 0x13   ; 0x235c
     je short @..api_idx_0008_NOPG.l6 ; 0x2360
     push word [bp - 0x0002]          ; 0x2362
@@ -266,7 +266,7 @@ jumptable_291f_case_31:
     jle short @..api_idx_0008_NOPG.l12 ; 0x2479
     mov byte [bx + 0x5e2f], 3        ; 0x247b
     mov word [bx + 0x5c0c], 0        ; 0x2480
-    mov word [bx + 0x5c10], 0        ; 0x2486
+    mov word [bx + pc_records], 0    ; 0x2486
     jmp short @..api_idx_0008_NOPG.l13 ; 0x248c
 @..api_idx_0008_NOPG.l12:
     mov byte [bx + 0x5e2f], 0        ; 0x248e
@@ -520,7 +520,7 @@ jumptable_291f_case_43:
     mov cx, 0xa                      ; 0x26df
     cwd                              ; 0x26e2
     idiv cx                          ; 0x26e3
-    mov word [bx + 0x5c10], ax       ; 0x26e5
+    mov word [bx + pc_records], ax   ; 0x26e5
     inc word [bx + 0x5c1a]           ; 0x26e9
     mov ax, 0xb7                     ; 0x26ed
     push ax                          ; 0x26f0
@@ -566,12 +566,12 @@ jumptable_291f_case_44:
     imul word [bp + 0x4]             ; 0x2745
     mov bx, ax                       ; 0x2748
     pop ax                           ; 0x274a
-    add word [bx + 0x5c10], ax       ; 0x274b
-    mov ax, word [bx + 0x5c10]       ; 0x274f
+    add word [bx + pc_records], ax   ; 0x274b
+    mov ax, word [bx + pc_records]   ; 0x274f
     cmp ax, word [bx + 0x5c12]       ; 0x2753
     jle short @..api_idx_0008_NOPG.l33 ; 0x2757
     mov ax, word [bx + 0x5c12]       ; 0x2759
-    mov word [bx + 0x5c10], ax       ; 0x275d
+    mov word [bx + pc_records], ax   ; 0x275d
 @..api_idx_0008_NOPG.l33:
     mov ax, 0                        ; 0x2761
     push ax                          ; 0x2764

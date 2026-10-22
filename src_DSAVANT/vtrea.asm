@@ -319,9 +319,9 @@ draw_spell_cost.dseg1 equ dseg_9100
 %include "shared/game/draw_realm_spell_points.asm" ; 0x8bf4
 
 ; party_redraw_interval equ __zdseg_end + (__zobss_9124 - __zdata_start)
-periodic_party_redraw.bss1     equ party_redraw_interval
-periodic_party_redraw.api_idx1 equ draw_glyph_1_at_50_115
-periodic_party_redraw.api_idx2 equ draw_realm_spell_points
+periodic_party_redraw.party_redraw_mode1 equ party_redraw_interval
+periodic_party_redraw.api_idx1           equ draw_glyph_1_at_50_115
+periodic_party_redraw.api_idx2           equ draw_realm_spell_points
 %include "shared/game/periodic_party_redraw.asm" ; 0x8c8d
 
 str_swap_file_v       equ __zdseg_end + (__zstr_swap_file_v - __zdata_start)

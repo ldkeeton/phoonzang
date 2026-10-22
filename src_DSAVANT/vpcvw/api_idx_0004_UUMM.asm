@@ -76,10 +76,10 @@ api_idx_0004_UUMM:
     imul word [bp + 0x4]             ; 0x3a26
     mov bx, ax                       ; 0x3a29
     pop ax                           ; 0x3a2b
-    sub word [bx + 0x5c10], ax       ; 0x3a2c
-    cmp word [bx + 0x5c10], byte 0   ; 0x3a30
+    sub word [bx + pc_records], ax   ; 0x3a2c
+    cmp word [bx + pc_records], byte 0 ; 0x3a30
     jge short @..api_idx_0004_UUMM.l5 ; 0x3a35
-    mov word [bx + 0x5c10], 0        ; 0x3a37
+    mov word [bx + pc_records], 0    ; 0x3a37
     mov ax, 6                        ; 0x3a3d
     push ax                          ; 0x3a40
     call random_below                ; 0x3a41

@@ -85,7 +85,7 @@ loc_HTTH:
     push ax                          ; 0x1675
     call gfx_show_area               ; 0x1676
     add sp, byte 8                   ; 0x1679
-    call ds_app_VGOM                 ; 0x167c
+    call pick_party_member           ; 0x167c
     mov word [bp - 0x0002], ax       ; 0x167f
     cmp ax, strict word 0xffff       ; 0x1682
     je short @..loc_HTTH.l1          ; 0x1685

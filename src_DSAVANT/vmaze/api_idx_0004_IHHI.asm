@@ -78,8 +78,8 @@ api_idx_0004_IHHI:
     imul word [bp - 0x0002]          ; 0x14a5
     mov bx, ax                       ; 0x14a8
     pop ax                           ; 0x14aa
-    sub word [bx + 0x5c10], ax       ; 0x14ab
-    cmp word [bx + 0x5c10], byte 0   ; 0x14af
+    sub word [bx + pc_records], ax   ; 0x14ab
+    cmp word [bx + pc_records], byte 0 ; 0x14af
     jg short @..api_idx_0004_IHHI.l5 ; 0x14b4
     mov ax, 1                        ; 0x14b6
     push ax                          ; 0x14b9

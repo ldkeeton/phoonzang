@@ -148,7 +148,7 @@ api_idx_0072_LQIT:
     call redraw_treasure_caption     ; 0x72b6
     pop cx                           ; 0x72b9
 @..api_idx_0072_LQIT.l7:
-    call ds_app_VGOM                 ; 0x72ba
+    call pick_party_member           ; 0x72ba
     mov word [bp - 0x0006], ax       ; 0x72bd
     cmp ax, strict word 0xffff       ; 0x72c0
     je short @..api_idx_0072_LQIT.l8 ; 0x72c3

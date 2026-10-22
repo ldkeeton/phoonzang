@@ -438,6 +438,7 @@ cell_key_grid equ __zbss_5c34 - __zdseg_start
 %include "ds/game/ds_app_TRNH.asm"         ; 0x1cf8
 
 bss_5bf4      equ __zbss_5bf4 - __zdseg_start
+pc_records    equ __zbss_5c10 - __zdseg_start
 ; cell_key_grid equ __zbss_5c34 - __zdseg_start
 bss_5e2a      equ __zbss_5e2a - __zdseg_start
 %include "ds/game/ds_app_string_LUOV.asm"  ; 0x1d81
@@ -448,7 +449,7 @@ bss_5e2a      equ __zbss_5e2a - __zdseg_start
 ; bss_59fa    equ __zbss_59fa - __zdseg_start
 ; hotspot_hit equ __zbss_5b3e - __zdseg_start
 bss_69c8    equ __zbss_69c8 - __zdseg_start
-%include "ds/game/ds_app_VGOM.asm"         ; 0x20f8
+%include "ds/game/pick_party_member.asm"   ; 0x20f8
 
 %include "ds/game/ds_app_QSQR.asm"         ; 0x2305
 
@@ -1475,7 +1476,9 @@ __zbss_5bf4:
 __zbss_5c08:
     resb 0x0002
 __zbss_5c0a:
-    resb 0x000e
+    resb 0x0006
+__zbss_5c10:
+    resb 0x0008
 __zbss_5c18:
     resb 0x001c
 __zbss_5c34:

@@ -496,7 +496,7 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1fdf
     imul word [bp + 0x4]             ; 0x1fe2
     mov bx, ax                       ; 0x1fe5
-    mov ax, word [bx + 0x5c10]       ; 0x1fe7
+    mov ax, word [bx + pc_records]   ; 0x1fe7
     mov cx, 0x64                     ; 0x1feb
     imul cx                          ; 0x1fee
     mov cx, word [bx + 0x5c12]       ; 0x1ff0
@@ -505,7 +505,7 @@ api_idx_0054_RLST:
     mov word [bp - 0x0004], ax       ; 0x1ff7
     cmp ax, strict word 1            ; 0x1ffa
     jge short @..api_idx_0054_RLST.l3 ; 0x1ffd
-    cmp word [bx + 0x5c10], byte 0   ; 0x1fff
+    cmp word [bx + pc_records], byte 0 ; 0x1fff
     jle short @..api_idx_0054_RLST.l3 ; 0x2004
     mov ax, 1                        ; 0x2006
     jmp short @..api_idx_0054_RLST.l4 ; 0x2009

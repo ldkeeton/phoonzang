@@ -518,7 +518,7 @@ loc_JQLR:
     imul word [bp + 0x4]             ; 0x1ee2
     mov bx, ax                       ; 0x1ee5
     pop ax                           ; 0x1ee7
-    mov word [bx + 0x5c10], ax       ; 0x1ee8
+    mov word [bx + pc_records], ax   ; 0x1ee8
     mov bx, word [party_char]        ; 0x1eec
     mov al, byte [bx + si + 0x22]    ; 0x1ef0
     push ax                          ; 0x1ef3

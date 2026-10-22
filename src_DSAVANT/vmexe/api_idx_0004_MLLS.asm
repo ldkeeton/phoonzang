@@ -20,7 +20,7 @@ api_idx_0004_MLLS:
     imul word [bp + 0x4]             ; 0x0339
     mov bx, ax                       ; 0x033c
     pop ax                           ; 0x033e
-    mov word [bx + 0x5c10], ax       ; 0x033f
+    mov word [bx + pc_records], ax   ; 0x033f
     mov bx, word [party_char]        ; 0x0343
     mov al, byte [bx + si + 0x22]    ; 0x0347
     push ax                          ; 0x034a

@@ -97,7 +97,7 @@ jumptable_532e_case_2:
     mov ax, word [bx + 0x5c0e]       ; 0x513e
     mov word [bx + 0x5c0c], ax       ; 0x5142
     mov ax, word [bx + 0x5c12]       ; 0x5146
-    mov word [bx + 0x5c10], ax       ; 0x514a
+    mov word [bx + pc_records], ax   ; 0x514a
 jumptable_532e_case_3:
     cmp word [bp + 0xa], byte 0x0b   ; 0x514e
     je short @..api_idx_0010_GVMH.l10 ; 0x5152

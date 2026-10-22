@@ -208,7 +208,7 @@ jumptable_4a7d_case_22:
     imul word [bp - 0x0002]          ; 0x4553
     mov bx, ax                       ; 0x4556
     pop ax                           ; 0x4558
-    add ax, word [bx + 0x5c10]       ; 0x4559
+    add ax, word [bx + pc_records]   ; 0x4559
     push ax                          ; 0x455d
     call clamp_between               ; 0x455e
     add sp, byte 6                   ; 0x4561
@@ -217,7 +217,7 @@ jumptable_4a7d_case_22:
     imul word [bp - 0x0002]          ; 0x4568
     mov bx, ax                       ; 0x456b
     pop ax                           ; 0x456d
-    mov word [bx + 0x5c10], ax       ; 0x456e
+    mov word [bx + pc_records], ax   ; 0x456e
     mov ax, 1                        ; 0x4572
     push ax                          ; 0x4575
     push word [bp - 0x0002]          ; 0x4576
@@ -342,7 +342,7 @@ jumptable_4a7d_case_31:
     jle short @..api_idx_0008_HJOM.l20 ; 0x469b
     mov byte [bx + 0x5e2f], 3        ; 0x469d
     mov word [bx + 0x5c0c], 0        ; 0x46a2
-    mov word [bx + 0x5c10], 0        ; 0x46a8
+    mov word [bx + pc_records], 0    ; 0x46a8
     jmp short @..api_idx_0008_HJOM.l21 ; 0x46ae
 @..api_idx_0008_HJOM.l20:
     mov byte [bx + 0x5e2f], 0        ; 0x46b0
@@ -605,7 +605,7 @@ jumptable_4a7d_case_41:
     mov cx, 0xa                      ; 0x491f
     cwd                              ; 0x4922
     idiv cx                          ; 0x4923
-    mov word [bx + 0x5c10], ax       ; 0x4925
+    mov word [bx + pc_records], ax   ; 0x4925
     inc word [bx + 0x5c1a]           ; 0x4929
     mov ax, 0xb7                     ; 0x492d
     push ax                          ; 0x4930
@@ -653,12 +653,12 @@ jumptable_4a7d_case_42:
     imul word [bp + 0x4]             ; 0x498b
     mov bx, ax                       ; 0x498e
     pop ax                           ; 0x4990
-    add word [bx + 0x5c10], ax       ; 0x4991
-    mov ax, word [bx + 0x5c10]       ; 0x4995
+    add word [bx + pc_records], ax   ; 0x4991
+    mov ax, word [bx + pc_records]   ; 0x4995
     cmp ax, word [bx + 0x5c12]       ; 0x4999
     jle short @..api_idx_0008_HJOM.l40 ; 0x499d
     mov ax, word [bx + 0x5c12]       ; 0x499f
-    mov word [bx + 0x5c10], ax       ; 0x49a3
+    mov word [bx + pc_records], ax   ; 0x49a3
 @..api_idx_0008_HJOM.l40:
     mov ax, 0                        ; 0x49a7
     push ax                          ; 0x49aa

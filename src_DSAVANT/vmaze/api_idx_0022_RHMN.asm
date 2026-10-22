@@ -237,10 +237,10 @@ api_idx_0022_RHMN:
     mov al, byte [bx + 0x5e33]       ; 0x2466
     sub ah, ah                       ; 0x246a
     inc ax                           ; 0x246c
-    sub word [bx + 0x5c10], ax       ; 0x246d
-    cmp word [bx + 0x5c10], byte 0   ; 0x2471
+    sub word [bx + pc_records], ax   ; 0x246d
+    cmp word [bx + pc_records], byte 0 ; 0x2471
     jge short @..api_idx_0022_RHMN.l23 ; 0x2476
-    mov word [bx + 0x5c10], 0        ; 0x2478
+    mov word [bx + pc_records], 0    ; 0x2478
 @..api_idx_0022_RHMN.l23:
     push word [bp - 0x0012]          ; 0x247e
     mov ax, 1                        ; 0x2481
@@ -1105,7 +1105,7 @@ jumptable_2d1b_case_7:
     pop cx                           ; 0x2c77
     jmp near @..api_idx_0022_RHMN.l82 ; 0x2c78
 jumptable_2d1b_case_8:
-    call ds_app_VGOM                 ; 0x2c7b
+    call pick_party_member           ; 0x2c7b
     mov word [bss_8af0], ax          ; 0x2c7e
     cmp ax, strict word 0xffff       ; 0x2c81
     je short @..api_idx_0022_RHMN.l76 ; 0x2c84
@@ -1166,7 +1166,7 @@ jumptable_2d1b_case_9:
 jumptable_2d1b_case_24:
     cmp word [bp - 0x001a], byte 0   ; 0x2cf9
     je short @..api_idx_0022_RHMN.l80 ; 0x2cfd
-    call ds_app_VGOM                 ; 0x2cff
+    call pick_party_member           ; 0x2cff
     mov word [bss_8af0], ax          ; 0x2d02
     cmp ax, strict word 0xffff       ; 0x2d05
     je short @..api_idx_0022_RHMN.l80 ; 0x2d08
