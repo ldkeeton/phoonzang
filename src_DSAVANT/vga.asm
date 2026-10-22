@@ -217,7 +217,7 @@ ems_paras_used:
 
 %include "vga/get_text_pos.asm"            ; 0x0477
 
-%include "vga/clear_buffer.asm"            ; 0x0496
+%include "vga/fill_screen_buffer.asm"      ; 0x0496
 
 %include "vga/show_area.asm"               ; 0x04b5
 

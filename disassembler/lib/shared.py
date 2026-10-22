@@ -35,6 +35,7 @@ found in ``shared/`` or any of them.
 import os
 import re
 from collections import defaultdict
+from dataclasses import dataclass
 
 from .autogen import MARKER_ASM, MARKER_C, hand_owned, is_generated
 from .cachedirs import project_of_src_dir
@@ -591,3 +592,408 @@ def _aliases(pairs, indent=''):
         return ''
     width = max(len(a) for a, _ in rows)
     return ''.join(f'{indent}{a:<{width}} equ {b}\n' for a, b in rows)
+
+
+# ---------------------------------------------------------------------------
+# Unmerged-fragment audit
+#
+# The merger above only collapses copies it can spell identically (or alias by
+# a name both symbol tables know).  This audit is deliberately more aggressive:
+# it masks every label and every address-like memory displacement, so it names
+# the copies that *could* share once their labels are made to agree.  It is a
+# test-only check (``tests/test_unmerged.py``); the build is untouched.
+# ---------------------------------------------------------------------------
+
+#: A quoted string, a local label, an identifier, a number, or punctuation.
+_MASK_TOKEN = re.compile(
+    r"'(?:[^'\\]|\\.)*'"
+    r'|"(?:[^"\\]|\\.)*"'
+    r'|@[A-Za-z0-9_.@]*'
+    r'|[A-Za-z_][\w.]*'
+    r'|0[xX][0-9a-fA-F]+'
+    r'|\d+'
+    r'|\S')
+
+_LABEL_DEF = re.compile(r'^([@A-Za-z_][\w.@]*):\s*(.*)$')
+
+#: Registers never become symbols; memory addresses are only masked when the
+#: bracketed operand is not stack-relative.
+_REGISTERS = frozenset({
+    'al', 'ah', 'ax', 'bl', 'bh', 'bx', 'cl', 'ch', 'cx', 'dl', 'dh', 'dx',
+    'sil', 'spl', 'bpl', 'dil', 'si', 'di', 'sp', 'bp', 'esi', 'edi', 'esp',
+    'ebp', 'eax', 'ebx', 'ecx', 'edx', 'cs', 'ds', 'es', 'ss', 'fs', 'gs',
+})
+_ADDRESS_REGS = frozenset({
+    'ax', 'bx', 'cx', 'dx', 'si', 'di', 'bp', 'sp',
+    'eax', 'ebx', 'ecx', 'edx', 'esi', 'edi', 'ebp', 'esp',
+})
+_STACK_REGS = frozenset({'bp', 'sp', 'ebp', 'esp'})
+
+_KEYWORDS = frozenset({
+    'byte', 'word', 'dword', 'qword', 'short', 'near', 'far', 'ptr',
+    'offset', 'strict', 'rel', 'abs', 'equ', 'db', 'dw', 'dd', 'resb',
+    'resw', 'times', 'org', 'section', 'segment', 'ends', 'bits',
+})
+_PREFIXES = frozenset({'rep', 'repe', 'repne', 'repz', 'repnz', 'lock'})
+
+#: How many unique differences are shown per finding.
+_MAX_DIFFS = 16
+
+#: A bare immediate at or above this value is treated as an address by the
+#: separate immediate pass.  Code/data offsets in this project are above 0x100;
+#: smaller values are ordinary constants (``cmp ..., 0x16``).
+_ADDRESS_IMMEDIATE_MIN = 0x100
+
+_DIFF_NAMES = {'label': 'label', 'sym': 'symbol', 'addr': 'address',
+               'immediate': 'immediate'}
+
+
+def _strip_comment(line):
+    """*line* without its ``;`` comment, respecting quoted strings."""
+    quote = ''
+    for i, ch in enumerate(line):
+        if quote:
+            if ch == quote:
+                quote = ''
+        elif ch in "'\"":
+            quote = ch
+        elif ch == ';':
+            return line[:i]
+    return line
+
+
+def _mask_stream(text, *, data, mask_immediates=False):
+    """``(stream, key, lines)`` for one fragment.
+
+    *stream* is ``[(kind, key_value, raw, lineno)]``; *key* drops the raw
+    spellings.  A label is a named definition, ``local`` a ``@..x.lN``, ``sym``
+    an operand name, ``addr`` a non-stack memory displacement, ``immediate`` a
+    bare value the separate address-immediate pass may name, and ``lit``
+    everything that must match exactly (mnemonic, register, keyword, number,
+    string).
+    """
+    stream = []
+    maps = {'label': {}, 'local': {}, 'sym': {}, 'addr': {}}
+    lines = 0
+
+    def put(kind, raw, lineno):
+        if kind == 'immediate':
+            # One placeholder: adding a maskable immediate may merge groups,
+            # never split one that the name/memory pass already matched.
+            stream.append((kind, None, raw, lineno))
+        elif kind in maps:
+            index = maps[kind].setdefault(raw, len(maps[kind]))
+            stream.append((kind, index, raw, lineno))
+        else:
+            stream.append((kind, raw, raw, lineno))
+
+    for lineno, line in enumerate(text.split('\n'), 1):
+        code = _strip_comment(line).strip()
+        if not code or code.startswith('%'):
+            continue
+        label = _LABEL_DEF.match(code)
+        if label:
+            name, rest = label.groups()
+            put('local' if name.startswith('@') else 'label', name, lineno)
+            code = rest.strip()
+            if not code:
+                continue
+        lines += 1
+        tokens = _MASK_TOKEN.findall(code)
+        first, prefix = True, False
+        depth = 0
+        bases = []
+        for token in tokens:
+            low = token.lower()
+            if token == '[':
+                depth += 1
+                bases.append(set())
+            elif token == ']':
+                if depth:
+                    depth -= 1
+                    bases.pop()
+            elif token[0] in "'\"":
+                put('lit', token, lineno)
+            elif token.startswith('@'):
+                put('local', token, lineno)
+            elif re.match(r'[A-Za-z_]', token):
+                if low in _REGISTERS:
+                    put('lit', token, lineno)
+                    if depth and low in _ADDRESS_REGS:
+                        bases[-1].add(low)
+                elif low in _KEYWORDS:
+                    put('lit', token, lineno)
+                elif first or prefix:
+                    put('lit', token, lineno)
+                    prefix = low in _PREFIXES
+                else:
+                    put('sym', token, lineno)
+            elif re.match(r'0[xX]', token) or token.isdigit():
+                value = int(token, 16) if token.lower().startswith('0x') \
+                    else int(token)
+                if depth and not data and not (_STACK_REGS & bases[-1]):
+                    put('addr', token, lineno)
+                elif (mask_immediates and not data
+                      and value >= _ADDRESS_IMMEDIATE_MIN):
+                    put('immediate', token, lineno)
+                else:
+                    put('lit', token, lineno)
+            else:
+                put('lit', token, lineno)
+            first = False
+    key = tuple((kind, value) for kind, value, _raw, _line in stream)
+    return stream, key, lines
+
+
+@dataclass(frozen=True)
+class _Fragment:
+    rel: str
+    binary: str
+    stem: str
+    data: bool
+    text: str
+    stream: tuple
+    key: tuple
+    size: int
+
+
+@dataclass(frozen=True)
+class _Diff:
+    kind: str
+    line: int
+    spellings: tuple
+
+
+@dataclass(frozen=True)
+class _Finding:
+    kind: str                     # code | data | collision
+    stem: str
+    members: tuple = ()
+    target: str = ''
+    diffs: tuple = ()
+    more: int = 0
+    bodies: tuple = ()
+
+
+def _audit_files(out_dir):
+    """``[(relative path, text)]`` of every fragment the audit compares.
+
+    Generated binary fragments and every ``shared/`` file are included.  A
+    hand-written source is irrelevant here: generated asm it owns is still
+    compared (``ega/table_entry_ptr.asm`` is the current example).
+    """
+    for root, dirs, names in os.walk(out_dir):
+        dirs[:] = [d for d in dirs
+                   if d not in ('build_out', 'inc', 'include', '.git')]
+        for name in sorted(names):
+            if not name.endswith('.asm'):
+                continue
+            path = os.path.join(root, name)
+            rel = os.path.relpath(path, out_dir)
+            if rel.count(os.sep) < 1:
+                continue
+            top = rel.split(os.sep, 1)[0]
+            if top != FOLDER and not is_generated(path):
+                continue
+            yield rel.replace(os.sep, '/'), _read(path)
+
+
+def _audit_fragments(out_dir):
+    for rel, text in _audit_files(out_dir):
+        data = '/data/' in rel
+        stream, key, lines = _mask_stream(text, data=data)
+        if not stream:
+            continue
+        yield _Fragment(
+            rel=rel,
+            binary=rel.split('/', 1)[0],
+            stem=_stem(rel),
+            data=data,
+            text=text,
+            stream=tuple(stream),
+            key=key,
+            size=lines,
+        )
+
+
+def _spans_binaries(members):
+    """True when *members* still have two places a shared file could serve."""
+    binaries = {m.binary for m in members if m.binary != FOLDER}
+    has_shared = any(m.binary == FOLDER for m in members)
+    return len(binaries) >= 2 or bool(binaries and has_shared)
+
+
+def _target(members, data):
+    shared = next((m for m in members if m.binary == FOLDER), None)
+    if shared:
+        return shared.rel
+    first = members[0]
+    if data:
+        return f'{FOLDER}/data/{first.stem}.asm'
+    if first.stem.startswith('aztec_'):
+        band = 'aztec'
+    elif re.search(r'^\s*call\s+(?:near\s+)?aztec_csav\b', first.text, re.M):
+        band = 'game'
+    else:
+        band = 'library'
+    return f'{FOLDER}/{band}/{first.stem}.asm'
+
+
+def _diffs(members):
+    """``(diffs, hidden count)``: the actionable name/address differences."""
+    base = members[0]
+    seen, out = set(), []
+    for frag in members[1:]:
+        for i, (a, b) in enumerate(zip(base.stream, frag.stream)):
+            if a[0] != b[0] or a[2] == b[2] or a[0] not in _DIFF_NAMES:
+                continue
+            spellings = tuple((m.rel, m.stream[i][2]) for m in members)
+            key = (a[0], spellings)
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(_Diff(_DIFF_NAMES[a[0]], a[3], spellings))
+    out.sort(key=lambda d: (d.line, d.kind, d.spellings))
+    return tuple(out[:_MAX_DIFFS]), max(0, len(out) - _MAX_DIFFS)
+
+
+def _findings(frags):
+    code, data = defaultdict(list), defaultdict(lambda: defaultdict(list))
+    for frag in frags:
+        if frag.data:
+            data[frag.stem][frag.key].append(frag)
+        else:
+            code[frag.key].append(frag)
+    findings = []
+    for group in code.values():
+        if len(group) < 2 or not _spans_binaries(group):
+            continue
+        group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
+        diffs, more = _diffs(group)
+        findings.append(_Finding('code', group[0].stem, group,
+                                 _target(group, data=False), diffs, more))
+    for stem, bodies in data.items():
+        involved = {f.binary for body in bodies.values() for f in body}
+        binaries = involved - {FOLDER}
+        if len(bodies) > 1:
+            if len(binaries) >= 2 or (binaries and FOLDER in involved):
+                ordered = tuple(tuple(sorted(body, key=lambda f: f.rel))
+                                for body in sorted(bodies.values(),
+                                                   key=lambda body: min(
+                                                       f.rel for f in body)))
+                members = tuple(f for body in ordered for f in body)
+                findings.append(_Finding('collision', stem, members,
+                                         bodies=ordered))
+            continue
+        group = next(iter(bodies.values()))
+        if not _spans_binaries(group):
+            continue
+        group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
+        diffs, more = _diffs(group)
+        findings.append(_Finding('data', stem, group,
+                                 _target(group, data=True), diffs, more))
+    return _sort_findings(findings)
+
+
+def _immediate_findings(frags):
+    """Address-immediate groups: the same code with a bare address named."""
+    groups = defaultdict(list)
+    for frag in frags:
+        groups[frag.key].append(frag)
+    findings = []
+    for group in groups.values():
+        if len(group) < 2 or not _spans_binaries(group):
+            continue
+        group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
+        diffs, more = _diffs(group)
+        findings.append(_Finding('immediate', group[0].stem, group,
+                                 _target(group, data=False), diffs, more))
+    return findings
+
+
+def _sort_findings(findings):
+    findings.sort(key=lambda f: (
+        {'code': 0, 'immediate': 1, 'data': 2, 'collision': 3}[f.kind],
+        -len(f.members), f.stem))
+    return findings
+
+
+def scan(out_dir):
+    """Every unmerged code/data group and data-name collision under *out_dir*.
+
+    Address-like immediates are a second pass so they cannot split a group the
+    name/memory pass already matched: a group reported as ``code`` is excluded,
+    and every remaining code fragment is regrouped with immediates at or above
+    :data:`_ADDRESS_IMMEDIATE_MIN` masked.
+    """
+    frags = list(_audit_fragments(out_dir))
+    findings = _findings(frags)
+    covered = {m.rel for f in findings if f.kind == 'code' for m in f.members}
+    immediate = []
+    for frag in frags:
+        if frag.data or frag.binary == FOLDER or frag.rel in covered:
+            continue
+        stream, key, lines = _mask_stream(frag.text, data=False,
+                                          mask_immediates=True)
+        immediate.append(_Fragment(frag.rel, frag.binary, frag.stem, False,
+                                   frag.text, tuple(stream), key, lines))
+    findings.extend(_immediate_findings(immediate))
+    return _sort_findings(findings)
+
+
+def _sample_line(frag):
+    """The first non-label line of a data body, for a collision report."""
+    for line in frag.text.split('\n'):
+        code = _strip_comment(line).strip()
+        if code and not _LABEL_DEF.match(code):
+            return code[:100]
+    return ''
+
+
+def report(findings):
+    """The human-readable failure text for :func:`scan`."""
+    if not findings:
+        return ''
+    counts = defaultdict(int)
+    for finding in findings:
+        counts[finding.kind] += 1
+    lines = [f'{len(findings)} unmerged finding(s): '
+             f'{counts["code"]} code group(s), '
+             f'{counts["immediate"]} address-immediate group(s), '
+             f'{counts["data"]} data group(s), '
+             f'{counts["collision"]} data name collision(s)']
+    for finding in findings:
+        lines.append('')
+        if finding.kind == 'collision':
+            lines.append(f'data name collision: {finding.stem} '
+                         f'({len(finding.bodies)} bodies)')
+            for number, body in enumerate(finding.bodies, 1):
+                lines.append(f'  body {number}: '
+                             + ', '.join(m.rel for m in body))
+                sample = _sample_line(body[0])
+                if sample:
+                    lines.append(f'      {sample}')
+            continue
+        if finding.kind == 'immediate':
+            noun, unit = 'address-immediate', 'instructions'
+        elif finding.kind == 'code':
+            noun, unit = 'code', 'instructions'
+        else:
+            noun, unit = 'data', 'lines'
+        lines.append(f'unmerged {noun}: {len(finding.members)} copies, '
+                     f'{finding.members[0].size} {unit} -> {finding.target}')
+        for member in sorted(finding.members,
+                             key=lambda m: (m.binary != FOLDER, m.rel)):
+            tag = ' [shared]' if member.binary == FOLDER else ''
+            lines.append(f'  {member.rel}{tag}')
+        for diff in finding.diffs:
+            spellings = ' | '.join(raw for _rel, raw in diff.spellings)
+            lines.append(f'  {diff.kind:<7} {spellings}')
+        if finding.more:
+            lines.append(f'  ... {finding.more} more difference(s)')
+    return '\n'.join(lines)
+
+
+def unmerged_report(out_dir):
+    """``report(scan(out_dir))``: the audit's failure text, or ``''``."""
+    return report(scan(out_dir))

@@ -784,7 +784,7 @@ font_io_error_msg:
 
 %include "ds/library/gfx_show_area.asm"    ; 0x3b21
 
-%include "ds/library/gfx_clear_buffer.asm" ; 0x3b2e
+%include "ds/library/gfx_fill_screen_buffer.asm" ; 0x3b2e
 
 %include "ds/library/gfx_put_pixel.asm"    ; 0x3b3b
 

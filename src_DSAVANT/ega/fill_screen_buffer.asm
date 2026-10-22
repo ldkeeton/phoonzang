@@ -1,5 +1,5 @@
 ; auto-generated
-clear_buffer:
+fill_screen_buffer:
     push bp                          ; 0x0496
     mov bp, sp                       ; 0x0497
     push es                          ; 0x0499

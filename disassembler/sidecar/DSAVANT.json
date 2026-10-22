@@ -971,6 +971,7 @@
         "4ea3": {"name": "score_info", "note": "one word per score, stored by load_score"}
       },
       "function_names": {
+        "0496": {"name": "fill_screen_buffer", "note": "fills the 64000-byte screen buffer at screen_buf_seg with one byte"},
         "3a0f": {"name": "print_msg_and_exit", "note": "prints the $-terminated string at ds:dx, then exits to DOS with errorlevel 1"},
         "3a3a": {"name": "table_entry_ptr", "note": "points ds:bx at entry al of the 4-byte offset/paragraph table at ds:2"},
         "40cd": {"name": "cache_area_disk_error", "note": "prints the CACHEAREA disk write error and exits"},
@@ -1022,7 +1023,7 @@
           "12": "set_text_color",
           "13": "set_text_pos",
           "14": "get_text_pos",
-          "15": "clear_buffer",
+          "15": "fill_screen_buffer",
           "16": "show_area",
           "17": "put_pixel",
           "18": "fill_area",

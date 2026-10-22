@@ -1,5 +1,5 @@
 ; auto-generated
-gfx_clear_buffer:
+gfx_fill_screen_buffer:
     push bp                          ; 0x3b2e
     mov bp, sp                       ; 0x3b2f
     cld                              ; 0x3b31

@@ -217,7 +217,7 @@ ems_paras_used:
 
 %include "ega/get_text_pos.asm"            ; 0x047d
 
-%include "ega/clear_buffer.asm"            ; 0x0496
+%include "ega/fill_screen_buffer.asm"      ; 0x0496
 
 %include "ega/show_area.asm"               ; 0x04b1
 
