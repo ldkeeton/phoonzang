@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_000a_IGIN:
+draw_char_clipped_top:
     mov ax, 0xfff6                   ; 0x737d
     call aztec_csav                  ; 0x7380
     mov al, byte [bp + 0x6]          ; 0x7383

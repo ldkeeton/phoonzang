@@ -594,6 +594,9 @@
       "fingerprint-end": "19413ae6ba3589e0f4a879c23822ba988cf4dfdb22725e7a88a067ef49ae2fed"
     },
     "vbase": {
+      "function_names": {
+        "736f": {"name": "draw_char_clipped_top", "note": "Draws one character via gfx_draw_text at (x,y), clipped to x 0..320, y 0..145"}
+      },
       "file": "VBASE.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,

@@ -948,7 +948,7 @@ jumptable_85d0_case_4:
     push ax                          ; 0x7cd5
     mov ax, 0x11                     ; 0x7cd6
     push ax                          ; 0x7cd9
-    call api_idx_000a_IGIN           ; 0x7cda
+    call draw_char_clipped_top       ; 0x7cda
     add sp, byte 0x0a                ; 0x7cdd
     push word [bss_a600]             ; 0x7ce0
     push word [bss_a5f2]             ; 0x7ce4
@@ -961,7 +961,7 @@ jumptable_85d0_case_4:
     push ax                          ; 0x7cf7
     mov ax, 0x11                     ; 0x7cf8
     push ax                          ; 0x7cfb
-    call api_idx_000a_IGIN           ; 0x7cfc
+    call draw_char_clipped_top       ; 0x7cfc
     add sp, byte 0x0a                ; 0x7cff
     cmp word [bss_a5e2], byte 0x14   ; 0x7d02
     jle short @..api_idx_000a_THHN.l48 ; 0x7d07
@@ -1150,7 +1150,7 @@ jumptable_85d0_case_5:
     push ax                          ; 0x7edc
     mov ax, 0x11                     ; 0x7edd
     push ax                          ; 0x7ee0
-    call api_idx_000a_IGIN           ; 0x7ee1
+    call draw_char_clipped_top       ; 0x7ee1
     add sp, byte 0x0a                ; 0x7ee4
     push word [bss_a600]             ; 0x7ee7
     push word [bss_a5f2]             ; 0x7eeb
@@ -1163,7 +1163,7 @@ jumptable_85d0_case_5:
     push ax                          ; 0x7efe
     mov ax, 0x11                     ; 0x7eff
     push ax                          ; 0x7f02
-    call api_idx_000a_IGIN           ; 0x7f03
+    call draw_char_clipped_top       ; 0x7f03
     add sp, byte 0x0a                ; 0x7f06
     cmp word [bss_a5e2], byte 0x0a   ; 0x7f09
     jle short @..api_idx_000a_THHN.l61 ; 0x7f0e

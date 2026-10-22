@@ -311,7 +311,7 @@ dseg_9138 equ __zdseg_end + (__zdseg_9138 - __zdata_start)
 
 %include "vbase/api_idx_000a_JPLR.asm"     ; 0x7340
 
-%include "vbase/api_idx_000a_IGIN.asm"     ; 0x737d
+%include "vbase/draw_char_clipped_top.asm" ; 0x737d
 
 bss_a5ae equ __zdseg_end + (__zobss_a5ae - __zdata_start)
 bss_a5b0 equ __zdseg_end + (__zobss_a5b0 - __zdata_start)
