@@ -20,17 +20,9 @@ class ValidateBandsTest(unittest.TestCase):
         _validate_bands(BANDS, 'bands')
         _validate_bands([], 'bands')
 
-    def test_a_name_is_a_folder_path(self):
-        _validate_bands([{'name': 'game/party', 'start': '0', 'end': '1'},
-                         {'name': 'game', 'start': '2', 'end': '3'},
-                         {'name': 'game/party', 'start': '4', 'end': '5'}],
-                        'b')
-
-    def test_rejects_a_bad_name(self):
-        for name in ('Misc', 'data', 'data/x', 'game/', '/game', 'a b'):
-            with self.subTest(name=name), self.assertRaises(SidecarError):
-                _validate_bands([{'name': name, 'start': '0', 'end': '1'}],
-                                'b')
+    def test_rejects_unknown_name(self):
+        with self.assertRaises(SidecarError):
+            _validate_bands([{'name': 'misc', 'start': '0', 'end': '1'}], 'b')
 
     def test_rejects_overlap_and_disorder(self):
         with self.assertRaises(SidecarError):

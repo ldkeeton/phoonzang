@@ -28,11 +28,8 @@ other copy's label is an ``equ`` of it.  Data shares only under one name.
 The files sit in band folders, as a banded binary's do (``ds/game/``,
 :mod:`lib.sidecar.bands`), though by what the code is rather than where it
 was linked: ``shared/aztec/`` the C library, ``shared/game/`` compiled C,
-``shared/library/`` assembly, ``shared/data/`` data.  Where the binaries
-holding a routine's copies have sidecar bands and put every copy in the same
-one, the file goes in that band's folder instead: beneath its kind's when
-the band is no kind (an overlay's ``party`` band: ``shared/game/party/``).  A hand-owned
-source is found in ``shared/`` or any folder beneath it.
+``shared/library/`` assembly, ``shared/data/`` data.  A hand-owned source is
+found in ``shared/`` or any of them.
 """
 
 import os
@@ -42,9 +39,7 @@ from collections import defaultdict
 from .autogen import hand_owned, is_generated
 from .cachedirs import project_of_src_dir
 from .routine_source import SUFFIXES, beside
-from .sidecar.bands import BAND_NAMES, band_for, parse_bands
-from .sidecar.errors import SidecarError
-from .sidecar.loader import load as load_sidecar
+from .sidecar.bands import BAND_NAMES
 from .symtab import project_tables
 
 FOLDER = 'shared'
@@ -278,33 +273,17 @@ def _on_disk(out_dir, rel):
 
 
 def shared_dirs(out_dir):
-    """``shared/`` and every band folder beneath it (``data/`` aside): where
-    a shared routine's files are."""
+    """``shared/`` and its band folders: where a shared routine's files are."""
     root = os.path.join(out_dir, FOLDER)
-    dirs = [root] + [os.path.join(root, band) for band in BAND_NAMES]
-    for folder, subdirs, _ in os.walk(root):
-        if folder == root:
-            subdirs[:] = [d for d in subdirs if d != 'data']
-        dirs += sorted(os.path.join(folder, d) for d in subdirs)
-    return list(dict.fromkeys(dirs))
+    return [root] + [os.path.join(root, band) for band in BAND_NAMES]
 
 
-def _homes(base, bands=()):
-    """The paths (no suffix) a shared source of *base* may have: in a kind's
-    band folder or one of the *bands* (names) the sidecar declares."""
+def _homes(base):
+    """The paths (no suffix) a shared source of *base* may have."""
     stem = os.path.basename(base)
     if base.startswith(f'{FOLDER}/data/'):
         return [base]
-    names = dict.fromkeys([*BAND_NAMES, *sorted(bands)] + [
-        f'{kind}/{band}' for band in sorted(bands) for kind in BAND_NAMES])
-    return [f'{FOLDER}/{band}/{stem}' for band in names] + [base]
-
-
-def project_bands(sidecar):
-    """``{binary: [(start, end, name)]}``: each binary's sidecar ``bands``."""
-    return {binary: parse_bands(info['bands'])
-            for binary, info in ((sidecar or {}).get('binaries') or {}).items()
-            if info.get('bands')}
+    return [f'{FOLDER}/{band}/{stem}' for band in BAND_NAMES] + [base]
 
 
 def _band(rel, text, ctext, tables):
@@ -330,7 +309,7 @@ def _shared_base(rel):
     return f'{FOLDER}/{stem}'
 
 
-def _fragments(files, out_dir, bands=()):
+def _fragments(files, out_dir):
     """``{relative path: (asm text, source or None)}`` of generated fragments.
 
     *files* are the generated files (``{relative path: text}``); anything else
@@ -344,7 +323,7 @@ def _fragments(files, out_dir, bands=()):
         return (path, path[len(base):]) if path else (None, None)
 
     def shared_source(base, where):
-        for home in _homes(base, bands):
+        for home in _homes(base):
             path, suffix = source(home, where)
             if path:
                 return path, suffix
@@ -374,16 +353,12 @@ def _fragments(files, out_dir, bands=()):
     return found
 
 
-def share_files(files, out_dir, tables, bands=None):
+def share_files(files, out_dir, tables):
     """Collapse identical fragments of different binaries into ``shared/``.
 
     *files* is ``{relative path: text}``, every generated file of the tree at
     *out_dir* (which holds only the hand-owned ones); *tables* is the binaries'
-    symbol tables (:func:`lib.symtab.project_tables`); *bands* is the
-    binaries' sidecar bands (:func:`project_bands`): a routine whose copies
-    all put in one band goes in its folder, beneath the kind's folder when
-    the band names no kind (``party``: ``shared/game/party/``), else in the
-    folder of the kind of code it is (:func:`_band`).  A routine with
+    symbol tables (:func:`lib.symtab.project_tables`).  A routine with
     generated source moves its ``.c`` or ``.s`` along
     (``shared/game/<label>.c``).
     Returns
@@ -391,10 +366,7 @@ def share_files(files, out_dir, tables, bands=None):
     path: [replaced relative paths]}``.
     """
     files = dict(files)
-    bands = bands or {}
-    names = {band[2] for ranges in bands.values() for band in ranges}
-    offsets = _include_offsets(files)
-    fragments = _fragments(files, out_dir, names)
+    fragments = _fragments(files, out_dir)
 
     # Names carry a content tag (lib.names), so one stem is mostly one body.
     # Where a stem still has several (a label that differs only in which
@@ -414,15 +386,9 @@ def share_files(files, out_dir, tables, bands=None):
         # so its local labels (``@..<stem>.l1``) read as the file's own.
         source = next((rel for rel in members
                        if _stem(rel) == os.path.basename(base)), members[0])
-        stem = os.path.basename(base)
-        if base.startswith(f'{FOLDER}/data/'):
-            home = base
-        else:
-            kind = _band(source, fragments[source][0], ctext, tables)
-            band = _host_band(stem, members, offsets, bands)
-            if band and band.split('/')[0] not in BAND_NAMES:
-                band = f'{kind}/{band}'     # a module beneath its kind
-            home = f'{FOLDER}/{band or kind}/{stem}'
+        home = base if base.startswith(f'{FOLDER}/data/') else (
+            f'{FOLDER}/{_band(source, fragments[source][0], ctext, tables)}/'
+            f'{os.path.basename(base)}')
         shared_rel = f'{home}.asm'
         text = _text_for(fragments, members)
         if binds:
@@ -435,8 +401,7 @@ def share_files(files, out_dir, tables, bands=None):
         if ctext is not None:
             # One source: a hand-owned one wherever it is, else ours in the
             # band folder (an earlier build's elsewhere goes).
-            homes = [h + suffix for h in _homes(base, names)
-                     for suffix in SUFFIXES]
+            homes = [h + suffix for h in _homes(base) for suffix in SUFFIXES]
             if not any(_on_disk(out_dir, path) for path in homes):
                 for path in homes:
                     files.pop(path, None)
@@ -451,36 +416,6 @@ def share_files(files, out_dir, tables, bands=None):
             for suffix in SUFFIXES:
                 files.pop(rel[:-4] + suffix, None)
     return files, shared
-
-
-_PLACED = re.compile(r'^%include "([^"]+)"\s*;\s*0x([0-9a-fA-F]+)', re.M)
-
-
-def _include_offsets(files):
-    """``{relative path: offset}``: where each master (``vpops.asm``) puts
-    the fragments it includes."""
-    offsets = {}
-    for rel, text in files.items():
-        if '/' not in rel and rel.endswith('.asm'):
-            for path, offset in _PLACED.findall(text):
-                offsets.setdefault(path, int(offset, 16))
-    return offsets
-
-
-def _host_band(stem, members, offsets, bands):
-    """The band the banded binaries put *members*' copies in, or None when
-    none of them has bands or they put the copies in different bands (a
-    routine the link order does not tie to one module)."""
-    found = set()
-    for rel in members:
-        ranges = bands.get(_binary(rel))
-        if ranges:
-            band = band_for(ranges, offsets.get(rel, -1))
-            if band is None:
-                raise SidecarError(f'{rel}: 0x{offsets.get(rel, -1):x} is in '
-                                   f'no sidecar band of {_binary(rel)}')
-            found.add(band[2])
-    return found.pop() if len(found) == 1 else None
 
 
 def share_identical(out_dir):
@@ -498,8 +433,7 @@ def share_identical(out_dir):
                 before[os.path.relpath(path, out_dir)] = _read(path)
     project = project_of_src_dir(out_dir)
     tables = project_tables(project) if project else {}
-    bands = project_bands(load_sidecar(project)) if project else {}
-    after, shared = share_files(before, out_dir, tables, bands)
+    after, shared = share_files(before, out_dir, tables)
     for rel, text in after.items():
         if before.get(rel) != text:
             path = os.path.join(out_dir, rel)

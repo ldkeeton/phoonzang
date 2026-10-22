@@ -633,10 +633,6 @@
       "file": "VBASE.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
-      "bands": [
-        {"name": "main", "start": "000e", "end": "932f", "note": "the overlay's own objects from ovmain on, up to its first shared module"},
-        {"name": "aztec", "start": "9330", "end": "93ec", "note": "Aztec C.LIB modules, linked last"}
-      ],
       "fingerprint-start": "218b560702235a79832b753b32bb54d07498cf6d1948ab9e54b72739a963854a",
       "fingerprint-end": "139233ffa401a5bb3c3287111ccd0e0ba55235342014fc450dd3e69f6a996639"
     },
@@ -644,13 +640,6 @@
       "file": "VDOPT.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
-      "bands": [
-        {"name": "main", "start": "000e", "end": "00a4", "note": "the overlay's own objects from ovmain on, up to its first shared module"},
-        {"name": "map", "start": "00a5", "end": "25a7", "note": "MPHO, find_map_piece, find_object_at: the same run in vdopt, vmaze and vmext"},
-        {"name": "party", "start": "25a8", "end": "378b", "note": "draw_party_slot_letters .. periodic_party_redraw: the same run in vdopt, vmnpc, vpclv, vpcmk, vpcvw, vpops and vtrea, one object; each overlay has its own routine in the slot after TIUI, and the pc overlays add RMVO, UIHS, STNH, TITQ, MOJH (STNH calls UIHS)"},
-        {"name": "popup", "start": "378c", "end": "46d8", "note": "RGOS, an api_idx_0004 of its own, HTKI, an api_idx_0038 of its own: the same pattern in vdopt, vmnpc, vpops and vtrea; RGOS saves an area, shows a message, restores it"},
-        {"name": "aztec", "start": "46d9", "end": "472e", "note": "Aztec C.LIB modules, linked last"}
-      ],
       "fingerprint-start": "c8c4c23e3ad867c36b8080699225c729746fdffbc6b8722bab2d7c77ee68258a",
       "fingerprint-end": "fc8a5d7527045414e8771ddf3d475a04522f6a27059089e70e25885476ccd204"
     },
@@ -658,11 +647,6 @@
       "file": "VMELE.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
-      "bands": [
-        {"name": "main", "start": "000e", "end": "2137", "note": "the overlay's own objects from ovmain on, up to its first shared module"},
-        {"name": "combat", "start": "2138", "end": "370f", "note": "fill_action_slot_table .. SSIO and KRMP .. UTQS: the same runs in vmele, vmexe, vmnpc and vpops (two objects: other code sits between them in vmele, vmexe and vmnpc)"},
-        {"name": "aztec", "start": "3710", "end": "3772", "note": "Aztec C.LIB modules, linked last"}
-      ],
       "fingerprint-start": "7c68ef4f19c68660460f175896f3e6154117e8f20ae856242aacd9396d16f430",
       "fingerprint-end": "5f236ebf8108dddf3960a4857c7c89fb31686a72420cd060a30b9d8264dee6f6"
     },
@@ -670,11 +654,6 @@
       "file": "VMEXE.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
-      "bands": [
-        {"name": "main", "start": "000e", "end": "0455", "note": "the overlay's own objects from ovmain on, up to its first shared module"},
-        {"name": "combat", "start": "0456", "end": "a4c9", "note": "fill_action_slot_table .. SSIO and KRMP .. UTQS: the same runs in vmele, vmexe, vmnpc and vpops (two objects: other code sits between them in vmele, vmexe and vmnpc)"},
-        {"name": "aztec", "start": "a4ca", "end": "a544", "note": "Aztec C.LIB modules, linked last"}
-      ],
       "fingerprint-start": "4d8f72c62c974d97d1c3a549d02539af95d9c729d7db48ee8b34725b7c91b906",
       "fingerprint-end": "cf3c207601279bfa68168f45b79aa45735dc9eff5a68d2e974ab3260440c4fd3"
     },
@@ -695,12 +674,6 @@
       "file": "VMAZE.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
-      "bands": [
-        {"name": "main", "start": "000e", "end": "2d93", "note": "the overlay's own objects from ovmain on, up to its first shared module"},
-        {"name": "maze", "start": "2d94", "end": "678b", "note": "GPIH .. LPLI_194f and NIMV .. redraw_maze_view: the same runs in vmaze and vmext (two objects; each overlay has its own api_idx_0030 before redraw_maze_view)"},
-        {"name": "map", "start": "678c", "end": "ac2f", "note": "MPHO, find_map_piece, find_object_at: the same run in vdopt, vmaze and vmext"},
-        {"name": "aztec", "start": "ac30", "end": "ac6d", "note": "Aztec C.LIB modules, linked last"}
-      ],
       "fingerprint-start": "7036496b95041e558f2300d8edfb7bafbf28bf3b49287b08c83be6777ade2076",
       "fingerprint-end": "9a549cc9b826f26418d2a2526edb43513f6ad2bd5c199b45e0474c601469b619",
       "code_tables": [
@@ -714,14 +687,6 @@
       "file": "VMNPC.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
-      "bands": [
-        {"name": "main", "start": "000e", "end": "0960", "note": "the overlay's own objects from ovmain on, up to its first shared module"},
-        {"name": "combat", "start": "0961", "end": "0ab1", "note": "fill_action_slot_table .. SSIO and KRMP .. UTQS: the same runs in vmele, vmexe, vmnpc and vpops (two objects: other code sits between them in vmele, vmexe and vmnpc)"},
-        {"name": "glyph", "start": "0ab2", "end": "3b99", "note": "redraw_glyph_strip .. HTQP: the same run in vmnpc and vpops"},
-        {"name": "popup", "start": "3b9a", "end": "7451", "note": "RGOS, an api_idx_0004 of its own, HTKI, an api_idx_0038 of its own: the same pattern in vdopt, vmnpc, vpops and vtrea; RGOS saves an area, shows a message, restores it"},
-        {"name": "party", "start": "7452", "end": "ae0f", "note": "draw_party_slot_letters .. periodic_party_redraw: the same run in vdopt, vmnpc, vpclv, vpcmk, vpcvw, vpops and vtrea, one object; each overlay has its own routine in the slot after TIUI, and the pc overlays add RMVO, UIHS, STNH, TITQ, MOJH (STNH calls UIHS)"},
-        {"name": "aztec", "start": "ae10", "end": "aedc", "note": "Aztec C.LIB modules, linked last"}
-      ],
       "fingerprint-start": "7a44e4294fecaf7a6beecdfb6be6e38decb565ec60ff42bd8e7cd529c85110af",
       "fingerprint-end": "e0216eba09aade5df0f1a2ba3de10736eb3757014b86fde7bb218c287d1d8941"
     },
@@ -729,11 +694,6 @@
       "file": "VPCVW.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
-      "bands": [
-        {"name": "main", "start": "000e", "end": "0cd5", "note": "the overlay's own objects from ovmain on, up to its first shared module"},
-        {"name": "party", "start": "0cd6", "end": "97ed", "note": "draw_party_slot_letters .. periodic_party_redraw: the same run in vdopt, vmnpc, vpclv, vpcmk, vpcvw, vpops and vtrea, one object; each overlay has its own routine in the slot after TIUI, and the pc overlays add RMVO, UIHS, STNH, TITQ, MOJH (STNH calls UIHS)"},
-        {"name": "aztec", "start": "97ee", "end": "9843", "note": "Aztec C.LIB modules, linked last"}
-      ],
       "fingerprint-start": "9fb646e733642383e8c32ea00fc61b95d8de9559348ceb0d6505372774fb4ebb",
       "fingerprint-end": "6a64e76475eabcf56db577a52b85d64311bb4437bf6c9d2c5f19b8043207148c"
     },
@@ -741,11 +701,6 @@
       "file": "VPCLV.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
-      "bands": [
-        {"name": "main", "start": "000e", "end": "0201", "note": "the overlay's own objects from ovmain on, up to its first shared module"},
-        {"name": "party", "start": "0202", "end": "5471", "note": "draw_party_slot_letters .. periodic_party_redraw: the same run in vdopt, vmnpc, vpclv, vpcmk, vpcvw, vpops and vtrea, one object; each overlay has its own routine in the slot after TIUI, and the pc overlays add RMVO, UIHS, STNH, TITQ, MOJH (STNH calls UIHS)"},
-        {"name": "aztec", "start": "5472", "end": "54af", "note": "Aztec C.LIB modules, linked last"}
-      ],
       "fingerprint-start": "a1b4edc3972d7eaf1885ec5cdb4d86ef190f50ef7ccfc62d69b8d207e549ebaa",
       "fingerprint-end": "a8abc7a622f186ea7f236ac8f4a12ca8c73cac886ee9350419e8b09cd3a7be2c",
       "code_tables": [
@@ -759,11 +714,6 @@
       "file": "VPCMK.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
-      "bands": [
-        {"name": "main", "start": "000e", "end": "16e9", "note": "the overlay's own objects from ovmain on, up to its first shared module"},
-        {"name": "party", "start": "16ea", "end": "6f8b", "note": "draw_party_slot_letters .. periodic_party_redraw: the same run in vdopt, vmnpc, vpclv, vpcmk, vpcvw, vpops and vtrea, one object; each overlay has its own routine in the slot after TIUI, and the pc overlays add RMVO, UIHS, STNH, TITQ, MOJH (STNH calls UIHS)"},
-        {"name": "aztec", "start": "6f8c", "end": "7030", "note": "Aztec C.LIB modules, linked last"}
-      ],
       "fingerprint-start": "9913c930bd2325cb85aa1fdeee01dcd8643f723ad91419d17c97eb80c2cbe2f1",
       "fingerprint-end": "78d26a13eb62891e3c8cd98d8f74cd9f4f05b028031d0c418b0b663516a33f76"
     },
@@ -774,14 +724,6 @@
       "file": "VPOPS.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
-      "bands": [
-        {"name": "main", "start": "000e", "end": "00ca", "note": "the overlay's own objects from ovmain on, up to its first shared module"},
-        {"name": "glyph", "start": "00cb", "end": "0503", "note": "redraw_glyph_strip .. HTQP: the same run in vmnpc and vpops"},
-        {"name": "combat", "start": "0504", "end": "18c1", "note": "fill_action_slot_table .. SSIO and KRMP .. UTQS: the same runs in vmele, vmexe, vmnpc and vpops (two objects: other code sits between them in vmele, vmexe and vmnpc)"},
-        {"name": "party", "start": "18c2", "end": "29f1", "note": "draw_party_slot_letters .. periodic_party_redraw: the same run in vdopt, vmnpc, vpclv, vpcmk, vpcvw, vpops and vtrea, one object; each overlay has its own routine in the slot after TIUI, and the pc overlays add RMVO, UIHS, STNH, TITQ, MOJH (STNH calls UIHS)"},
-        {"name": "popup", "start": "29f2", "end": "4e9c", "note": "RGOS, an api_idx_0004 of its own, HTKI, an api_idx_0038 of its own: the same pattern in vdopt, vmnpc, vpops and vtrea; RGOS saves an area, shows a message, restores it"},
-        {"name": "aztec", "start": "4e9d", "end": "4eda", "note": "Aztec C.LIB modules, linked last"}
-      ],
       "fingerprint-start": "a81c6b7a75e996d2f0feb4ca7c68aa5a14424e51d578dd8d107296d1550d6e09",
       "fingerprint-end": "28a41ce973d74b574c1e907936aacc224f5595a92d4a6305e748497902ec108f"
     },
@@ -796,12 +738,6 @@
       "file": "VTREA.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
-      "bands": [
-        {"name": "main", "start": "000e", "end": "37b5", "note": "the overlay's own objects from ovmain on, up to its first shared module"},
-        {"name": "popup", "start": "37b6", "end": "893d", "note": "RGOS, an api_idx_0004 of its own, HTKI, an api_idx_0038 of its own: the same pattern in vdopt, vmnpc, vpops and vtrea; RGOS saves an area, shows a message, restores it"},
-        {"name": "party", "start": "893e", "end": "99c4", "note": "draw_party_slot_letters .. periodic_party_redraw: the same run in vdopt, vmnpc, vpclv, vpcmk, vpcvw, vpops and vtrea, one object; each overlay has its own routine in the slot after TIUI, and the pc overlays add RMVO, UIHS, STNH, TITQ, MOJH (STNH calls UIHS)"},
-        {"name": "aztec", "start": "99c5", "end": "9a1a", "note": "Aztec C.LIB modules, linked last"}
-      ],
       "fingerprint-start": "c6c44873a8e2c2fefadfc69be5426dff544f1674e6a87ded0d95c74b8843f007",
       "fingerprint-end": "891661dde33bd5a33bc26b02c23f61f633e2d37eb80b5b6a41851f6e63aa9aea",
       "code_tables": [
@@ -815,12 +751,6 @@
       "file": "VMEXT.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
-      "bands": [
-        {"name": "main", "start": "000e", "end": "00b5", "note": "the overlay's own objects from ovmain on, up to its first shared module"},
-        {"name": "map", "start": "00b6", "end": "1822", "note": "MPHO, find_map_piece, find_object_at: the same run in vdopt, vmaze and vmext"},
-        {"name": "maze", "start": "1823", "end": "521a", "note": "GPIH .. LPLI_194f and NIMV .. redraw_maze_view: the same runs in vmaze and vmext (two objects; each overlay has its own api_idx_0030 before redraw_maze_view)"},
-        {"name": "aztec", "start": "521b", "end": "5258", "note": "Aztec C.LIB modules, linked last"}
-      ],
       "fingerprint-start": "fbf6829bb248e42709a2a1cbb19e67bab5dc8b55e262e4b1d1e6d58e07496317",
       "fingerprint-end": "7f2b38f34f19a1344d7654e39b636dc35eca7916d4861533a83a4d3ba105e524"
     },

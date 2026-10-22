@@ -312,11 +312,10 @@ def resplice_c(app, binary, check_only=False):
     # A binary's sources sit in its folder or, with sidecar ``bands``, in a
     # band folder beneath it (``ds/game/x.asm``).  ``data/`` holds data
     # objects, whose vendor .c the build checks (main.aztec._data_sources).
-    folders = [dest]
-    for folder, subdirs, _ in os.walk(dest):
-        if folder == dest:
-            subdirs[:] = [d for d in subdirs if d != 'data']
-        folders += sorted(os.path.join(folder, d) for d in subdirs)
+    folders = [dest] + sorted(
+        os.path.join(dest, d) for d in (os.listdir(dest)
+                                        if os.path.isdir(dest) else ())
+        if d != 'data' and os.path.isdir(os.path.join(dest, d)))
     own_dir = {}
     own_src = {}
     for folder in folders:

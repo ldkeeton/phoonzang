@@ -61,7 +61,7 @@ dseg_916e equ __zdseg_end + (__zdseg_916e - __zdata_start)
 dseg_917b equ __zdseg_end + (__zdseg_917b - __zdata_start)
 %include "vinit/loc_RVQR.asm"              ; 0x03a8
 
-%include "shared/game/main/api_idx_0002_LVPS.asm"     ; 0x08b7
+%include "shared/game/api_idx_0002_LVPS.asm"     ; 0x08b7
 
 bss_91b8 equ __zdseg_end + (__zobss_91b8 - __zdata_start)
 %include "vinit/api_idx_0002_PUOP.asm"     ; 0x094a
