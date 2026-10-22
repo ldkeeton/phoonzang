@@ -1,7 +1,9 @@
 import os
 import tempfile
 import unittest
+from unittest import mock
 
+from lib.symtab import Kind, Source, Space, Symbol
 from make import inspect, naming
 
 
@@ -76,6 +78,94 @@ class RawDataRefsTest(unittest.TestCase):
         text = '    mov al, byte [bx + 0x6eb5]\n'
         rows = naming._raw_data_refs('P', text, _Model(), {}, {0x6eb5})
         self.assertEqual(rows, [])
+
+
+def _routine(name, offset):
+    return Symbol(name, kind=Kind.ROUTINE, source=Source.SIDECAR,
+                  offset=offset)
+
+
+def _flag(name, offset):
+    return Symbol.data(Space.CSEG, offset, name)
+
+
+class SplitTopLabelsTest(unittest.TestCase):
+    def test_symbol_offsets_win_over_borrowed_addresses(self):
+        # A ``db`` line carries no ``; 0x...`` comment, so top_labels gives
+        # both flag labels the next instruction's address.  The symbol
+        # sidecar knows the real bytes.
+        tops = [('root', 0x100, 0),
+                ('flag_a', 0x103, 1), ('flag_b', 0x103, 2),
+                ('next', 0x110, 3)]
+        symbols = {'root': _routine('root', 0x100),
+                   'flag_a': _flag('flag_a', 0x103),
+                   'flag_b': _flag('flag_b', 0x104),
+                   'next': _routine('next', 0x110)}
+        code, embedded = inspect._split_top_labels(
+            tops, symbols, 0x100, 0x120)
+        self.assertEqual([row[1] for row in code], ['root', 'next'])
+        self.assertEqual(embedded, [{'start': 0x103, 'end': 0x105,
+                                     'names': ['flag_a', 'flag_b']}])
+
+    def test_data_prefixed_names_are_data_without_a_symbol(self):
+        tops = [('root', 0x100, 0), ('cseg_0103', 0x103, 1),
+                ('next', 0x110, 2)]
+        symbols = {'root': _routine('root', 0x100),
+                   'next': _routine('next', 0x110)}
+        code, embedded = inspect._split_top_labels(
+            tops, symbols, 0x100, 0x120)
+        self.assertEqual([row[1] for row in code], ['root', 'next'])
+        self.assertEqual(embedded, [{'start': 0x103, 'end': 0x104,
+                                     'names': ['cseg_0103']}])
+
+
+class FragmentRootTest(unittest.TestCase):
+    def _fragment(self, tops, symbols, start=0x100, end=0x120):
+        labels = {start: _routine('root', start)}
+        labels.update({addr: sym for name, addr, _ in tops
+                       for sym in [symbols.get(name)]
+                       if sym is not None})
+        with mock.patch.object(inspect, 'asm_file', return_value=__file__), \
+             mock.patch.object(inspect, 'load_spans',
+                               return_value={'root': (start, end)}), \
+             mock.patch.object(inspect, 'load_labels',
+                               return_value=labels), \
+             mock.patch.object(inspect, 'load_symbols',
+                               return_value=symbols), \
+             mock.patch.object(inspect, 'top_labels',
+                               return_value=tops), \
+             mock.patch.object(inspect, '_call_sites', return_value={}):
+            return inspect._fragment('P', 'b', 'root')
+
+    def test_embedded_data_does_not_end_the_root(self):
+        tops = [('root', 0x100, 0),
+                ('flag_a', 0x103, 1), ('flag_b', 0x103, 2),
+                ('next', 0x110, 3)]
+        symbols = {'root': _routine('root', 0x100),
+                   'flag_a': _flag('flag_a', 0x103),
+                   'flag_b': _flag('flag_b', 0x104),
+                   'next': _routine('next', 0x110)}
+        frag = self._fragment(tops, symbols)
+        self.assertEqual(frag['size'], 0x20)
+        self.assertEqual([(m['name'], m['start'], m['end'])
+                          for m in frag['members']],
+                         [('root', 0x100, 0x110), ('next', 0x110, 0x120)])
+        self.assertEqual(frag['embedded_data'],
+                         [{'start': 0x103, 'end': 0x105,
+                           'names': ['flag_a', 'flag_b']}])
+
+    def test_one_routine_with_embedded_data_is_the_whole_span(self):
+        tops = [('root', 0x100, 0), ('flag_a', 0x103, 1)]
+        symbols = {'root': _routine('root', 0x100),
+                   'flag_a': _flag('flag_a', 0x103)}
+        frag = self._fragment(tops, symbols)
+        self.assertEqual(len(frag['members']), 1)
+        self.assertEqual((frag['members'][0]['start'],
+                          frag['members'][0]['end']),
+                         (0x100, 0x120))
+        self.assertEqual(frag['embedded_data'],
+                         [{'start': 0x103, 'end': 0x104,
+                           'names': ['flag_a']}])
 
 
 if __name__ == '__main__':

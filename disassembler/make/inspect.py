@@ -7,7 +7,9 @@ without running the whole gate.
 
 ``make info PROJECT BIN ROUTINE``
     The fragment's span, every top-level routine in it, each one's callers,
-    the source beside it, and the tool/flags the build would use.
+    the source beside it, and the tool/flags the build would use.  Embedded
+    data bytes inside the root are reported separately, so they never make
+    the root look shorter than the routine the author must write.
 
 ``make data PROJECT SEG OFFSET [BIN]``
     The bytes at a data-segment offset, its canonical build name
@@ -16,7 +18,8 @@ without running the whole gate.
 ``make probe PROJECT BIN ROUTINE [FILE=path]``
     Compile one candidate source with the routine's exact tool and flags, and
     print the resulting code with fixups and branch targets.  No gate, no
-    whole-project rebuild.
+    whole-project rebuild.  ``LINKED=1`` also resolves relocations and reports
+    the linked bytes against the original fragment.
 """
 
 import functools
@@ -205,6 +208,60 @@ def _call_sites(project):
     return {name: rows for name, rows in sites.items()}
 
 
+def _is_data_top(name, symbols):
+    """True when a top label is data, not a routine/code root.
+
+    A ``cseg_``/``dseg_`` name is data even without a symbol record, and the
+    symbol sidecar can also mark a sidecar-named byte (``mpu401_...``) data.
+    """
+    sym = symbols.get(name)
+    if sym is not None and sym.kind in (Kind.DATA, Kind.ANCHOR,
+                                        Kind.LOCAL, Kind.TABLE):
+        return True
+    return bool(_DATA_LABEL.match(name))
+
+
+def _top_addr(name, addr, symbols):
+    """The byte a top label marks, preferring the symbol sidecar's offset.
+
+    A data label often has no ``; 0x...`` comment (``label:`` followed by
+    ``db``); ``top_labels`` then borrows the next instruction's address.  The
+    sidecar knows the byte the name actually marks.
+    """
+    sym = symbols.get(name)
+    exact = getattr(sym, 'offset', None) if sym is not None else None
+    return exact if exact is not None else addr
+
+
+def _split_top_labels(tops, symbols, start, end):
+    """``(code_rows, embedded_data)`` for a fragment's top labels.
+
+    A data label inside a routine does not end the routine: ``following``
+    once used every top label, so the first flag byte after a prologue made
+    the root look three bytes long.  Code members are cut by the next *code*
+    label only; data labels are reported separately, as the bytes embedded in
+    the root.
+    """
+    rows = [(_top_addr(name, addr, symbols), name, line)
+            for name, addr, line in tops]
+    rows = [(addr, name, line) for addr, name, line in rows
+            if addr is not None and start <= addr < end]
+    code = sorted((row for row in rows
+                   if not _is_data_top(row[1], symbols)),
+                  key=lambda row: row[0])
+    data = sorted((row for row in rows if _is_data_top(row[1], symbols)),
+                  key=lambda row: row[0])
+    embedded = []
+    for addr, name, _line in data:
+        if embedded and embedded[-1]['end'] == addr:
+            embedded[-1]['end'] = addr + 1
+            embedded[-1]['names'].append(name)
+        else:
+            embedded.append({'start': addr, 'end': addr + 1,
+                             'names': [name]})
+    return code, embedded
+
+
 def _fragment(project, binary, routine):
     """The fragment's span and its top-level members."""
     path = asm_file(project, binary, routine)
@@ -215,34 +272,30 @@ def _fragment(project, binary, routine):
     symbols = load_symbols(project, binary)
     tops = top_labels(path)
     own_stem = os.path.splitext(os.path.basename(path))[0]
-    line_members = [(name, line) for name, _addr, line in tops]
     # labels is keyed by offset; the name lives on the Symbol's str value.
     start = next((offset for offset, sym in labels.items()
                   if str(sym) == routine), None)
     if start is None:
-        start = next((addr for name, addr, _ in tops if name == routine), None)
+        start = next((_top_addr(name, addr, symbols)
+                      for name, addr, _ in tops if name == routine), None)
     if start is None:
         raise SystemExit(f'error: {path}: no address for {routine}')
     if routine in spans:
         end = spans[routine][1]
     else:
-        later = sorted(addr for _, addr, _ in tops
-                       if addr is not None and addr > start)
+        later = sorted(a for a in
+                       (_top_addr(name, addr, symbols)
+                        for name, addr, _ in tops)
+                       if a is not None and a > start)
         end = later[0] if later else start
 
+    code_rows, embedded = _split_top_labels(tops, symbols, start, end)
+    line_members = [(name, line) for _addr, name, line in code_rows]
+
     members = []
-    for index, (name, addr, _) in enumerate(tops):
-        if addr is None or not (start <= addr < end):
-            continue
+    for index, (addr, name, _) in enumerate(code_rows):
         sym = symbols.get(name)
-        if sym is not None and sym.kind in (Kind.DATA, Kind.ANCHOR,
-                                            Kind.LOCAL, Kind.TABLE):
-            continue
-        if _DATA_LABEL.match(name):
-            continue
-        following = [a for _, a, _ in tops if a is not None and a > addr]
-        stop = min(following) if following else end
-        stop = min(stop, end)
+        stop = code_rows[index + 1][0] if index + 1 < len(code_rows) else end
         callers = set()
         for stem, lineno, _line in _call_sites(project).get(name, []):
             if stem == own_stem:
@@ -269,6 +322,7 @@ def _fragment(project, binary, routine):
         'end': end,
         'size': end - start,
         'members': members,
+        'embedded_data': embedded,
         'next': (str(labels[nxt[0]]), nxt[0]) if nxt else None,
     }
 
@@ -327,6 +381,7 @@ def cmd_info(project, binary, routine, json_out=False):
         'span': [frag['start'], frag['end']],
         'size': frag['size'],
         'members': [dict(member) for member in frag['members']],
+        'embedded_data': frag['embedded_data'],
         'next': frag['next'][0] if frag['next'] else None,
         'source': (os.path.relpath(src['path'], PROJECT) if src else None),
         'hand': bool(src and src['hand']),
@@ -362,6 +417,13 @@ def cmd_info(project, binary, routine, json_out=False):
               f'({member["size"]} bytes){extra}')
     if len(frag['members']) > 1:
         print('  note   the C defines every member above, in address order')
+    for block in frag['embedded_data']:
+        names = ', '.join(block['names'])
+        print(f'  note   embedded data 0x{block["start"]:04x}..'
+              f'0x{block["end"]:04x} ({names})')
+    if frag['embedded_data'] and len(frag['members']) == 1:
+        print(f'  note   the root spans the whole {frag["size"]}-byte fragment; '
+              f'write one source for it')
     if frag['next']:
         print(f'  next   {frag["next"][0]} 0x{frag["next"][1]:04x}')
     return info
@@ -480,7 +542,60 @@ def _disasm(code, base=0):
     return list(Cs(CS_ARCH_X86, CS_MODE_16).disasm(code, base))
 
 
-def cmd_probe(project, binary, routine, source=None, json_out=False):
+def _display_path(path):
+    """A path relative to the project, or the given path when outside it."""
+    rel = os.path.relpath(path, PROJECT)
+    return path if rel.startswith('..') else rel
+
+
+def _link_probe(project, binary, routine, entry, whole, text):
+    """Relocate a compiled probe and return ``(code, original, notes)``.
+
+    The build's own render context and symbol index resolve every relocation
+    the way :func:`make.elf.resplice_c` does, so the returned bytes are what
+    the routine would be after placement, not the object's placeholder zeros.
+    ``notes`` explains why linking was not possible (no span/context yet), and
+    is a byte diff when the linked code is not exact.
+    """
+    from lib.aztec import cache, relink
+    from lib.compare.coverrides import symbol_index
+
+    spans = load_spans(project, binary)
+    span = spans.get(routine)
+    if span is None:
+        return None, None, ['no fragment span; run "make build" first']
+    data, image_start = binary_bytes(project, binary)
+    if data is None:
+        return None, None, [f'unknown binary {binary!r}']
+    context = load_context(project, binary)
+    if context is None:
+        return None, None, ['no render context; run "make build" first']
+    start, end = span
+    segments = segment_model(project, binary, data, context)
+    image_base = image_start - (getattr(segments, 'load_offset', 0) or 0)
+    index = symbol_index(
+        load_labels(project, binary), context['foreign_label_map'],
+        context['data_labels'],
+        {**context['mem_equ'], **context['geometry']},
+        data, segments, image_base)
+    labels_in = [(offset, name) for offset, name, _
+                 in context['label_records'] if start <= offset < end]
+    labels_at = {offset: name for offset, name, _
+                 in context['label_records']}
+    for offset, name in context.get('table_labels', {}).items():
+        labels_at.setdefault(offset, name)
+    try:
+        linked = relink.link(routine, start, whole, index, data,
+                             labels_in, labels_at,
+                             cache.data_spans(project, binary, routine,
+                                              entry, text))
+    except relink.RelinkError as exc:
+        return None, None, [str(exc)]
+    return bytes(linked.code), data[start:end], []
+
+
+def cmd_probe(project, binary, routine, source=None, json_out=False,
+              linked=False):
     """Compile one candidate source with the routine's tool/flags and show it."""
     from lib.aztec import cache
 
@@ -500,13 +615,26 @@ def cmd_probe(project, binary, routine, source=None, json_out=False):
         entry = cache.default_entry(routine, project, suffix)
     module, whole = cache.compile_source_module(project, binary, routine,
                                                 entry, text)
-    code = whole.code
+    raw_code = whole.code
+    code = raw_code
     spans = load_spans(project, binary)
     span = spans.get(routine)
+    link_notes = []
+    bytes_ok = None
+    if linked:
+        linked_code, original, link_notes = _link_probe(
+            project, binary, routine, entry, whole, text)
+        if linked_code is not None:
+            code = linked_code
+            bytes_ok = len(code) == len(original) and code == original
+            if not bytes_ok:
+                from lib.compare.cgate import check_against_original
+                link_notes = check_against_original(
+                    f'{routine} (linked)', span[0], original, code, exact=True)
     info = {
         'routine': routine,
-        'source': os.path.relpath(path, PROJECT),
-        'length': len(code),
+        'source': (_display_path(path)),
+        'length': len(raw_code),
         'fragment': span[1] - span[0] if span else None,
         'members': [{'name': name, 'offset': off}
                     for name, off in sorted(whole.members.items(),
@@ -514,18 +642,31 @@ def cmd_probe(project, binary, routine, source=None, json_out=False):
         'fixups': [{'offset': fx.offset, 'kind': fx.kind,
                     'symbol': fx.symbol}
                    for fx in whole.fixups],
+        'linked': bool(linked and bytes_ok is not None),
+        'bytes_ok': bytes_ok,
     }
     if json_out:
+        if link_notes:
+            info['link_notes'] = link_notes
         print(json.dumps(info, indent=1))
         return info
 
     print(f'probe    {routine}  ({binary})  <- {info["source"]}')
     if span:
-        mark = 'OK' if len(code) == span[1] - span[0] else 'DIFF'
-        print(f'  length {len(code)} bytes; fragment {span[1] - span[0]} '
+        mark = 'OK' if len(raw_code) == span[1] - span[0] else 'DIFF'
+        print(f'  length {len(raw_code)} bytes; fragment {span[1] - span[0]} '
               f'bytes  [{mark}]')
     else:
-        print(f'  length {len(code)} bytes')
+        print(f'  length {len(raw_code)} bytes')
+    if linked:
+        if bytes_ok is None:
+            print(f'  link     unavailable: {link_notes[0]}')
+        else:
+            frag_len = span[1] - span[0] if span else len(code)
+            print(f'  link     {len(code)} bytes; fragment {frag_len} '
+                  f'bytes  [{"OK" if bytes_ok else "DIFF"}]')
+            for line in link_notes:
+                print(f'  {line}')
     if len(whole.members) > 1:
         print('  members ' + ', '.join(
             f'{name}@0x{off:x}' for name, off in

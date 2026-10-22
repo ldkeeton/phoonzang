@@ -1147,11 +1147,14 @@
         "02b3": {"name": "clamp_device", "note": "al >= 6 becomes 0; called on play_device before play_install_handler"},
         "0322": {"name": "play_set_device", "note": "entered by jmp in the caller's frame: INT 13h reset, then stores the device byte [bp+15h] (4 becomes 1) in play_device"},
         "03e2": {"name": "play_install_handler", "note": "entered by jmp in the caller's frame: installs the INT 08h handler picked by play_device through the table at 0495"},
-        "07f6": {"name": "opl_write", "note": "writes al to OPL register ah at port 388h, recording it in the register shadow at 1429"}
+        "07f6": {"name": "opl_write", "note": "writes al to OPL register ah at port 388h, recording it in the register shadow at 1429"},
+        "1217": {"name": "mpu401_reset_and_sync", "note": "reset the MPU-401 at ports 330h/331h and wait for MIDI active sensing; returns 0 on success, 0fffh after retries time out"}
       },
       "code_data_names": {
         "0a7d": {"name": "play_device", "note": "byte: output device 0-5; indexes the INT 08h handler sub-tables at 0495, set by play_set_device"},
-        "0d3a": {"name": "opl_voice_count", "note": "byte: highest OPL channel opl_keys_off clears and bound of the loops over the 5-byte records at 0d03; set to 8 by opl_init"}
+        "0d3a": {"name": "opl_voice_count", "note": "byte: highest OPL channel opl_keys_off clears and bound of the loops over the 5-byte records at 0d03; set to 8 by opl_init"},
+        "121a": {"name": "mpu401_write_ready_flag", "note": "set when MPU-401 status bit 6 clears within the timeout"},
+        "121b": {"name": "mpu401_read_ready_flag", "note": "set when MPU-401 status bit 7 clears within the timeout"}
       }
     }
   },

@@ -50,8 +50,11 @@ Commands (space-separated):
                             callees are omitted)
   make data PROJECT SEG OFFSET [BIN]  bytes at DS/SS/ES/CS:OFFSET, its canonical name
                             and whether the image file backs it
-  make probe PROJECT BIN ROUTINE [FILE=path]  compile one candidate source with the
-                            routine's exact tool/flags; print code, fixups and length
+  make probe PROJECT BIN ROUTINE [FILE=path] [LINKED=1]
+                            compile one candidate source with the routine's exact
+                            tool/flags; print code, fixups and length.  LINKED=1
+                            resolves relocations and gates the linked bytes against
+                            the original fragment
   make rebuild [PROJECT [BIN [ROUTINE]]]  recompile .c (must match the original bytes;
                             --allow-diff to relax) + nasm; default: everything
   make elf-rebuild [PROJECT [BIN]]  full rebuild from current sources (C resplice +
@@ -73,6 +76,8 @@ Env:
   ASM_PROFILE=DIR           write each build worker's cProfile to DIR/<binary>.prof
   JSON=1                    machine-readable output from ``info``/``refs``/``data``/``probe``
   LEN=N                     bytes ``make data`` prints (default 16)
+  LINKED=1                  ``make probe``: resolve relocations and compare the
+                            linked bytes with the original fragment
   EXTRA_FLAGS               space-separated flags forwarded to python -m main:
                               --stats             write stats (.cache/stats)
                               --exact-bytes       strict byte-accurate mode
@@ -263,10 +268,16 @@ def main():
         if not sources and make_vars.get('FILE'):
             sources = [make_vars['FILE']]
         if len(positional) != 3 or positional[0] not in all_projects:
-            print('Usage: make probe PROJECT BIN ROUTINE [FILE=path] [--json]')
+            print('Usage: make probe PROJECT BIN ROUTINE [FILE=path] '
+                  '[LINKED=1] [--json]')
             sys.exit(1)
+        linked = ('--linked' in flags
+                  or os.environ.get('LINKED', '').lower()
+                  in ('1', 'true', 'yes')
+                  or make_vars.get('LINKED', '').lower()
+                  in ('1', 'true', 'yes'))
         cmd_probe(*positional, source=sources[0] if sources else None,
-                  json_out=json_out)
+                  json_out=json_out, linked=linked)
         return
 
     if '--rebuild' in flags:

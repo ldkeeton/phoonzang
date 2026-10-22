@@ -101,7 +101,7 @@ cseg_1904 equ __zinsn_18ff + 0x5
 
 %include "play/io_loc_UVLK_0841.asm"       ; 0x0841
 
-loc_121d equ __zinsn_121c + 0x1
+loc_121d equ __zinsn_121b + 0x2
 io_loc_VOJO              equ dissolve_area
 dissolve_area.show_area1 equ loc_121d
 %include "shared/library/dissolve_area.asm"            ; 0x086b
@@ -299,8 +299,7 @@ cseg_11d9:
 
 %include "play/io_loc_QUNR.asm"            ; 0x11fb
 
-cseg_121b equ __zinsn_121a + 0x1
-%include "play/io_loc_GMNM.asm"            ; 0x1217
+%include "play/mpu401_reset_and_sync.asm"  ; 0x1217
 
 %include "play/string_loc_OSJN.asm"        ; 0x12af
 
