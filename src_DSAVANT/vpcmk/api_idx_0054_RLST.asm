@@ -46,7 +46,7 @@ api_idx_0054_RLST:
     imul word [bp + 0x4]             ; 0x1ba9
     add ax, bss_5bf4                 ; 0x1bac
     push ax                          ; 0x1baf
-    call draw_string                 ; 0x1bb0
+    call draw_text_glyphs            ; 0x1bb0
     add sp, byte 4                   ; 0x1bb3
     mov ax, 0                        ; 0x1bb6
     push ax                          ; 0x1bb9
@@ -99,7 +99,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1c2b
     lea ax, word [bp - 0x0054]       ; 0x1c2c
     push ax                          ; 0x1c2f
-    call draw_string                 ; 0x1c30
+    call draw_text_glyphs            ; 0x1c30
     add sp, byte 4                   ; 0x1c33
     mov ax, 0                        ; 0x1c36
     push ax                          ; 0x1c39
@@ -128,7 +128,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1c71
     lea ax, word [bp - 0x0054]       ; 0x1c72
     push ax                          ; 0x1c75
-    call draw_string                 ; 0x1c76
+    call draw_text_glyphs            ; 0x1c76
     add sp, byte 4                   ; 0x1c79
     mov ax, 0                        ; 0x1c7c
     push ax                          ; 0x1c7f
@@ -152,7 +152,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1ca9
     lea ax, word [bp - 0x0054]       ; 0x1caa
     push ax                          ; 0x1cad
-    call draw_string                 ; 0x1cae
+    call draw_text_glyphs            ; 0x1cae
     add sp, byte 4                   ; 0x1cb1
     mov ax, 0                        ; 0x1cb4
     push ax                          ; 0x1cb7
@@ -271,7 +271,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1dc4
     lea ax, word [bp - 0x0054]       ; 0x1dc5
     push ax                          ; 0x1dc8
-    call draw_string                 ; 0x1dc9
+    call draw_text_glyphs            ; 0x1dc9
     add sp, byte 4                   ; 0x1dcc
     lea ax, word [bp - 0x0054]       ; 0x1dcf
     push ax                          ; 0x1dd2
@@ -309,7 +309,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1e1c
     lea ax, word [bp - 0x0054]       ; 0x1e1d
     push ax                          ; 0x1e20
-    call draw_string                 ; 0x1e21
+    call draw_text_glyphs            ; 0x1e21
     add sp, byte 4                   ; 0x1e24
     mov ax, 0                        ; 0x1e27
     push ax                          ; 0x1e2a
@@ -333,7 +333,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1e54
     lea ax, word [bp - 0x0054]       ; 0x1e55
     push ax                          ; 0x1e58
-    call draw_string                 ; 0x1e59
+    call draw_text_glyphs            ; 0x1e59
     add sp, byte 4                   ; 0x1e5c
     mov ax, 0                        ; 0x1e5f
     push ax                          ; 0x1e62
@@ -368,7 +368,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1eaa
     lea ax, word [bp - 0x0054]       ; 0x1eab
     push ax                          ; 0x1eae
-    call draw_string                 ; 0x1eaf
+    call draw_text_glyphs            ; 0x1eaf
     add sp, byte 4                   ; 0x1eb2
     mov ax, 0                        ; 0x1eb5
     push ax                          ; 0x1eb8
@@ -409,7 +409,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1f0e
     lea ax, word [bp - 0x0054]       ; 0x1f0f
     push ax                          ; 0x1f12
-    call draw_string                 ; 0x1f13
+    call draw_text_glyphs            ; 0x1f13
     add sp, byte 4                   ; 0x1f16
     mov ax, 0                        ; 0x1f19
     push ax                          ; 0x1f1c
@@ -435,7 +435,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1f4e
     lea ax, word [bp - 0x0054]       ; 0x1f4f
     push ax                          ; 0x1f52
-    call draw_string                 ; 0x1f53
+    call draw_text_glyphs            ; 0x1f53
     add sp, byte 4                   ; 0x1f56
     mov ax, 0                        ; 0x1f59
     push ax                          ; 0x1f5c
@@ -455,7 +455,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1f80
     lea ax, word [bp - 0x0054]       ; 0x1f81
     push ax                          ; 0x1f84
-    call draw_string                 ; 0x1f85
+    call draw_text_glyphs            ; 0x1f85
     add sp, byte 4                   ; 0x1f88
     mov ax, 0                        ; 0x1f8b
     push ax                          ; 0x1f8e
@@ -479,7 +479,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1fb8
     lea ax, word [bp - 0x0054]       ; 0x1fb9
     push ax                          ; 0x1fbc
-    call draw_string                 ; 0x1fbd
+    call draw_text_glyphs            ; 0x1fbd
     add sp, byte 4                   ; 0x1fc0
     mov ax, 0                        ; 0x1fc3
     push ax                          ; 0x1fc6
@@ -522,13 +522,13 @@ api_idx_0054_RLST:
     push ax                          ; 0x2021
     lea ax, word [bp - 0x0054]       ; 0x2022
     push ax                          ; 0x2025
-    call draw_string                 ; 0x2026
+    call draw_text_glyphs            ; 0x2026
     add sp, byte 4                   ; 0x2029
     mov ax, 0                        ; 0x202c
     push ax                          ; 0x202f
     mov ax, dseg_90bb                ; 0x2030
     push ax                          ; 0x2033
-    call draw_string                 ; 0x2034
+    call draw_text_glyphs            ; 0x2034
     add sp, byte 4                   ; 0x2037
     mov ax, 0                        ; 0x203a
     push ax                          ; 0x203d
@@ -554,7 +554,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x206f
     lea ax, word [bp - 0x0054]       ; 0x2070
     push ax                          ; 0x2073
-    call draw_string                 ; 0x2074
+    call draw_text_glyphs            ; 0x2074
     add sp, byte 4                   ; 0x2077
     mov ax, 0                        ; 0x207a
     push ax                          ; 0x207d

@@ -308,7 +308,7 @@ bss_5214   equ __zbss_5214 - __zdseg_start
 bss_5216 equ __zbss_5216 - __zdseg_start
 %include "ds/game/load_message_string.asm" ; 0x0782
 
-%include "ds/game/ds_app_string_KQMO.asm"  ; 0x0860
+%include "ds/game/ds_app_KQMO.asm"         ; 0x0860
 
 ; data_file_fd  equ __zbss_0e22 - __zdseg_start
 record_base   equ __zbss_521c - __zdseg_start
@@ -386,7 +386,7 @@ bss_598c equ __zbss_598c - __zdseg_start
 %include "ds/game/flash_area.asm"          ; 0x10ff
 
 known_spell_names equ __zbss_0e38 - __zdseg_start
-%include "ds/game/ds_app_string_UNSL.asm"  ; 0x1138
+%include "ds/game/ds_app_UNSL.asm"         ; 0x1138
 
 %include "ds/game/draw_text_list.asm"      ; 0x11de
 
@@ -441,7 +441,7 @@ bss_5bf4      equ __zbss_5bf4 - __zdseg_start
 pc_records    equ __zbss_5c10 - __zdseg_start
 ; cell_key_grid equ __zbss_5c34 - __zdseg_start
 bss_5e2a      equ __zbss_5e2a - __zdseg_start
-%include "ds/game/ds_app_string_LUOV.asm"  ; 0x1d81
+%include "ds/game/ds_app_LUOV.asm"         ; 0x1d81
 
 ; bss_0e2e    equ __zbss_0e2e - __zdseg_start
 ; bss_0e30    equ __zbss_0e30 - __zdseg_start
@@ -778,7 +778,7 @@ font_io_error_msg:
 
 %include "ds/library/draw_font_glyph.asm"  ; 0x3a77
 
-%include "ds/library/draw_string.asm"      ; 0x3a95
+%include "ds/library/draw_text_glyphs.asm" ; 0x3a95
 
 %include "ds/library/ds_loc_JJGM.asm"      ; 0x3aca
 

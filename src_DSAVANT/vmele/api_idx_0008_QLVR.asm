@@ -67,7 +67,7 @@ api_idx_0008_QLVR:
     mov ax, 0                        ; 0x0203
     push ax                          ; 0x0206
     push word [bp + 0x4]             ; 0x0207
-    call draw_string                 ; 0x020a
+    call draw_text_glyphs            ; 0x020a
     add sp, byte 4                   ; 0x020d
     mov ax, 6                        ; 0x0210
     imul word [bp + 0x6]             ; 0x0213

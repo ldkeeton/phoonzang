@@ -66,7 +66,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x6094
     lea ax, word [bp - 0x006a]       ; 0x6095
     push ax                          ; 0x6098
-    call draw_string                 ; 0x6099
+    call draw_text_glyphs            ; 0x6099
     add sp, byte 4                   ; 0x609c
     mov ax, 0xc2                     ; 0x609f
     push ax                          ; 0x60a2
@@ -101,7 +101,7 @@ api_idx_006a_NKMN:
     imul word [bp + 0x4]             ; 0x60e5
     add ax, bss_5bf4                 ; 0x60e8
     push ax                          ; 0x60eb
-    call draw_string                 ; 0x60ec
+    call draw_text_glyphs            ; 0x60ec
     add sp, byte 4                   ; 0x60ef
     mov ax, dseg_90e9                ; 0x60f2
     push ax                          ; 0x60f5
@@ -148,7 +148,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x6155
     lea ax, word [bp - 0x006a]       ; 0x6156
     push ax                          ; 0x6159
-    call draw_string                 ; 0x615a
+    call draw_text_glyphs            ; 0x615a
     add sp, byte 4                   ; 0x615d
     lea ax, word [bp - 0x006a]       ; 0x6160
     push ax                          ; 0x6163

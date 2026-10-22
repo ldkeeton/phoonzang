@@ -136,7 +136,7 @@ api_idx_0026_NRVO:
     push ax
     lea ax, word [bp - 0x0024]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     push word [bp + 0xc]
     mov ax, known_spell_names

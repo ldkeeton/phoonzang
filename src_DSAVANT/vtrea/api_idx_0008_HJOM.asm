@@ -221,7 +221,7 @@ jumptable_4a7d_case_22:
     mov ax, 1                        ; 0x4572
     push ax                          ; 0x4575
     push word [bp - 0x0002]          ; 0x4576
-    call ds_app_string_LUOV          ; 0x4579
+    call ds_app_LUOV                 ; 0x4579
     add sp, byte 4                   ; 0x457c
     inc word [bp - 0x0002]           ; 0x457f
 @..api_idx_0008_HJOM.l15:
@@ -251,7 +251,7 @@ jumptable_4a7d_case_23:
     mov ax, 1                        ; 0x45bb
     push ax                          ; 0x45be
     push word [bp + 0xa]             ; 0x45bf
-    call ds_app_string_LUOV          ; 0x45c2
+    call ds_app_LUOV                 ; 0x45c2
     add sp, byte 4                   ; 0x45c5
     jmp near @..api_idx_0008_HJOM.l45 ; 0x45c8
 jumptable_4a7d_case_26:
@@ -288,7 +288,7 @@ jumptable_4a7d_case_26:
     mov ax, 1                        ; 0x4620
     push ax                          ; 0x4623
     push word [bp + 0xa]             ; 0x4624
-    call ds_app_string_LUOV          ; 0x4627
+    call ds_app_LUOV                 ; 0x4627
     add sp, byte 4                   ; 0x462a
     jmp near @..api_idx_0008_HJOM.l45 ; 0x462d
 jumptable_4a7d_case_31:
@@ -350,7 +350,7 @@ jumptable_4a7d_case_31:
     mov ax, 1                        ; 0x46b5
     push ax                          ; 0x46b8
     push word [bp + 0xa]             ; 0x46b9
-    call ds_app_string_LUOV          ; 0x46bc
+    call ds_app_LUOV                 ; 0x46bc
     add sp, byte 4                   ; 0x46bf
 @..api_idx_0008_HJOM.l22:
     jmp near @..api_idx_0008_HJOM.l45 ; 0x46c2
@@ -376,7 +376,7 @@ jumptable_4a7d_case_36:
     mov ax, 1                        ; 0x46f3
     push ax                          ; 0x46f6
     push word [bp + 0xa]             ; 0x46f7
-    call ds_app_string_LUOV          ; 0x46fa
+    call ds_app_LUOV                 ; 0x46fa
     add sp, byte 4                   ; 0x46fd
     jmp near @..api_idx_0008_HJOM.l45 ; 0x4700
 jumptable_4a7d_case_25:
@@ -399,7 +399,7 @@ jumptable_4a7d_case_25:
     mov ax, 1                        ; 0x4729
     push ax                          ; 0x472c
     push word [bp + 0xa]             ; 0x472d
-    call ds_app_string_LUOV          ; 0x4730
+    call ds_app_LUOV                 ; 0x4730
     add sp, byte 4                   ; 0x4733
     jmp near @..api_idx_0008_HJOM.l45 ; 0x4736
 jumptable_4a7d_case_35:
@@ -429,7 +429,7 @@ jumptable_4a7d_case_35:
     mov ax, 1                        ; 0x4772
     push ax                          ; 0x4775
     push word [bp - 0x0002]          ; 0x4776
-    call ds_app_string_LUOV          ; 0x4779
+    call ds_app_LUOV                 ; 0x4779
     add sp, byte 4                   ; 0x477c
     inc word [bp - 0x0002]           ; 0x477f
 @..api_idx_0008_HJOM.l27:
@@ -483,7 +483,7 @@ jumptable_4a7d_case_32:
     mov ax, 1                        ; 0x47f3
     push ax                          ; 0x47f6
     push word [bp + 0xa]             ; 0x47f7
-    call ds_app_string_LUOV          ; 0x47fa
+    call ds_app_LUOV                 ; 0x47fa
     add sp, byte 4                   ; 0x47fd
     jmp near @..api_idx_0008_HJOM.l45 ; 0x4800
 jumptable_4a7d_case_37:
@@ -556,7 +556,7 @@ jumptable_4a7d_case_37:
     mov ax, 1                        ; 0x48a5
     push ax                          ; 0x48a8
     push word [bp - 0x0002]          ; 0x48a9
-    call ds_app_string_LUOV          ; 0x48ac
+    call ds_app_LUOV                 ; 0x48ac
     add sp, byte 4                   ; 0x48af
     inc word [bp - 0x0002]           ; 0x48b2
 @..api_idx_0008_HJOM.l37:
@@ -625,7 +625,7 @@ jumptable_4a7d_case_41:
     mov ax, 1                        ; 0x494d
     push ax                          ; 0x4950
     push word [bp + 0xa]             ; 0x4951
-    call ds_app_string_LUOV          ; 0x4954
+    call ds_app_LUOV                 ; 0x4954
     add sp, byte 4                   ; 0x4957
 @..api_idx_0008_HJOM.l39:
     jmp near @..api_idx_0008_HJOM.l45 ; 0x495a
@@ -694,7 +694,7 @@ jumptable_4a7d_case_42:
     mov ax, 1                        ; 0x49f2
     push ax                          ; 0x49f5
     push word [bp + 0x4]             ; 0x49f6
-    call ds_app_string_LUOV          ; 0x49f9
+    call ds_app_LUOV                 ; 0x49f9
     add sp, byte 4                   ; 0x49fc
     jmp near @..api_idx_0008_HJOM.l45 ; 0x49ff
 jumptable_4a7d_case_43:
@@ -743,7 +743,7 @@ jumptable_4a7d_case_43:
     mov ax, 1                        ; 0x4a68
     push ax                          ; 0x4a6b
     push word [bp + 0x4]             ; 0x4a6c
-    call ds_app_string_LUOV          ; 0x4a6f
+    call ds_app_LUOV                 ; 0x4a6f
     add sp, byte 4                   ; 0x4a72
     jmp short @..api_idx_0008_HJOM.l45 ; 0x4a75
 @..api_idx_0008_HJOM.l44:

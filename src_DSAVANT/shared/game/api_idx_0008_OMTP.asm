@@ -57,7 +57,7 @@ api_idx_0008_OMTP:
     mov ax, 0
     push ax
     push word [bp + 0x4]
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0x98
     push ax

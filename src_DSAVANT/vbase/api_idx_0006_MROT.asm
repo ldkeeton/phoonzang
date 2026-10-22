@@ -44,7 +44,7 @@ api_idx_0006_MROT:
     mov ax, 1                        ; 0x624a
     push ax                          ; 0x624d
     push word [bp - 0x0002]          ; 0x624e
-    call ds_app_string_LUOV          ; 0x6251
+    call ds_app_LUOV                 ; 0x6251
     add sp, byte 4                   ; 0x6254
     inc word [bp - 0x0002]           ; 0x6257
 @..api_idx_0006_MROT.l4:

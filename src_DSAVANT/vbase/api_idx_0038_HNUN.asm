@@ -894,7 +894,7 @@ api_idx_0038_HNUN:
     mov ax, 0                        ; 0x385c
     push ax                          ; 0x385f
     push word [bp - 0x0002]          ; 0x3860
-    call ds_app_string_LUOV          ; 0x3863
+    call ds_app_LUOV                 ; 0x3863
     add sp, byte 4                   ; 0x3866
 @..api_idx_0038_HNUN.l54:
     inc word [bp - 0x0002]           ; 0x3869

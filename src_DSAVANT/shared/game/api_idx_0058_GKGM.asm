@@ -72,7 +72,7 @@ api_idx_0058_GKGM:
     push ax
     lea ax, word [bp - 0x0054]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     lea ax, word [bp - 0x0054]
     push ax
@@ -125,7 +125,7 @@ api_idx_0058_GKGM:
     push ax
     lea ax, word [bp - 0x0054]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax

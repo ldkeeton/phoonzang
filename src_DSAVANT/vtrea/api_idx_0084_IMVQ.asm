@@ -104,7 +104,7 @@ api_idx_0084_IMVQ:
     imul word [bp + 0x4]             ; 0x26b7
     add ax, bss_5bf4                 ; 0x26ba
     push ax                          ; 0x26bd
-    call draw_string                 ; 0x26be
+    call draw_text_glyphs            ; 0x26be
     add sp, byte 4                   ; 0x26c1
     mov ax, dseg_90d3                ; 0x26c4
     push ax                          ; 0x26c7
@@ -151,7 +151,7 @@ api_idx_0084_IMVQ:
     push ax                          ; 0x2727
     lea ax, word [bp - 0x0074]       ; 0x2728
     push ax                          ; 0x272b
-    call draw_string                 ; 0x272c
+    call draw_text_glyphs            ; 0x272c
     add sp, byte 4                   ; 0x272f
     mov ax, word [bp - 0x0008]       ; 0x2732
     add ax, strict word 0x11         ; 0x2735
@@ -1101,7 +1101,7 @@ jumptable_34f1_case_3:
     push ax                          ; 0x2fdf
     lea ax, word [bp - 0x0074]       ; 0x2fe0
     push ax                          ; 0x2fe3
-    call draw_string                 ; 0x2fe4
+    call draw_text_glyphs            ; 0x2fe4
     add sp, byte 4                   ; 0x2fe7
     mov ax, word [bp - 0x0008]       ; 0x2fea
     add ax, strict word 0x20         ; 0x2fed
@@ -1261,7 +1261,7 @@ jumptable_34f1_case_3:
     push ax                          ; 0x3154
     lea ax, word [bp - 0x004c]       ; 0x3155
     push ax                          ; 0x3158
-    call draw_string                 ; 0x3159
+    call draw_text_glyphs            ; 0x3159
     add sp, byte 4                   ; 0x315c
     mov ax, word [bp - 0x0008]       ; 0x315f
     add ax, strict word 0x20         ; 0x3162

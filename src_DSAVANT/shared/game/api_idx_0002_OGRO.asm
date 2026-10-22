@@ -34,7 +34,7 @@ api_idx_0002_OGRO:
     imul word [bp - 0x0002]
     add ax, known_spell_names
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 6
     imul word [bp - 0x0002]

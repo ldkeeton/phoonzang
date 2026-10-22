@@ -91,7 +91,7 @@ api_idx_0054_OPGG:
     push ax                          ; 0x45e3
     lea ax, word [bp - 0x0054]       ; 0x45e4
     push ax                          ; 0x45e7
-    call draw_string                 ; 0x45e8
+    call draw_text_glyphs            ; 0x45e8
     add sp, byte 4                   ; 0x45eb
     mov ax, 0xe                      ; 0x45ee
     imul word [bp - 0x0002]          ; 0x45f1
@@ -133,7 +133,7 @@ api_idx_0054_OPGG:
     push ax                          ; 0x4648
     mov ax, bss_99ae                 ; 0x4649
     push ax                          ; 0x464c
-    call draw_string                 ; 0x464d
+    call draw_text_glyphs            ; 0x464d
     add sp, byte 4                   ; 0x4650
     mov ax, word [bp + 0xe]          ; 0x4653
     add ax, word [bp - 0x0002]       ; 0x4656

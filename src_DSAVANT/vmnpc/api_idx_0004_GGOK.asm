@@ -103,7 +103,7 @@ api_idx_0004_GGOK:
     mov ax, 1                        ; 0x3b8c
     push ax                          ; 0x3b8f
     push word [bp + 0x4]             ; 0x3b90
-    call ds_app_string_LUOV          ; 0x3b93
+    call ds_app_LUOV                 ; 0x3b93
     add sp, byte 4                   ; 0x3b96
 @..api_idx_0004_GGOK.l5:
     ret                              ; 0x3b99

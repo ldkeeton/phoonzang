@@ -36,7 +36,7 @@ api_idx_000c_LVHV:
     mov ax, 2                        ; 0x035a
     push ax                          ; 0x035d
     push word [bp + 0x4]             ; 0x035e
-    call draw_string                 ; 0x0361
+    call draw_text_glyphs            ; 0x0361
     add sp, byte 4                   ; 0x0364
     mov ax, word [loaded_sound_id]   ; 0x0367
     mov word [bp - 0x000c], ax       ; 0x036a

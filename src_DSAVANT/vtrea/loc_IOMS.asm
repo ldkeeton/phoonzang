@@ -93,7 +93,7 @@ loc_IOMS:
     push ax                          ; 0x851b
     lea ax, word [bp - 0x01a6]       ; 0x851c
     push ax                          ; 0x8520
-    call draw_string                 ; 0x8521
+    call draw_text_glyphs            ; 0x8521
     add sp, byte 4                   ; 0x8524
     jmp short @..loc_IOMS.l3         ; 0x8527
 @..loc_IOMS.l2:
@@ -214,7 +214,7 @@ loc_IOMS:
     lea cx, word [bp - 0x0156]       ; 0x8631
     add ax, cx                       ; 0x8635
     push ax                          ; 0x8637
-    call draw_string                 ; 0x8638
+    call draw_text_glyphs            ; 0x8638
     add sp, byte 4                   ; 0x863b
     mov ax, 0                        ; 0x863e
     push ax                          ; 0x8641

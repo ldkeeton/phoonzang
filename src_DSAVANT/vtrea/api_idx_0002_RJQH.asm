@@ -86,7 +86,7 @@ api_idx_0002_RJQH:
     imul word [bp + 0x4]             ; 0x1047
     add ax, bss_5bf4                 ; 0x104a
     push ax                          ; 0x104d
-    call draw_string                 ; 0x104e
+    call draw_text_glyphs            ; 0x104e
     add sp, byte 4                   ; 0x1051
     mov ax, 0                        ; 0x1054
     push ax                          ; 0x1057
@@ -105,7 +105,7 @@ api_idx_0002_RJQH:
     mov ax, 0                        ; 0x1077
     push ax                          ; 0x107a
     push word [bp + 0x6]             ; 0x107b
-    call draw_string                 ; 0x107e
+    call draw_text_glyphs            ; 0x107e
     add sp, byte 4                   ; 0x1081
     mov ax, 0                        ; 0x1084
     push ax                          ; 0x1087
@@ -125,7 +125,7 @@ api_idx_0002_RJQH:
     mov ax, 0                        ; 0x10a7
     push ax                          ; 0x10aa
     push word [bp + 0x8]             ; 0x10ab
-    call draw_string                 ; 0x10ae
+    call draw_text_glyphs            ; 0x10ae
     add sp, byte 4                   ; 0x10b1
     mov ax, 0                        ; 0x10b4
     push ax                          ; 0x10b7
@@ -145,7 +145,7 @@ api_idx_0002_RJQH:
     mov ax, 0                        ; 0x10d7
     push ax                          ; 0x10da
     push word [bp + 0xa]             ; 0x10db
-    call draw_string                 ; 0x10de
+    call draw_text_glyphs            ; 0x10de
     add sp, byte 4                   ; 0x10e1
 @..api_idx_0002_RJQH.l9:
     mov ax, 0xa9                     ; 0x10e4

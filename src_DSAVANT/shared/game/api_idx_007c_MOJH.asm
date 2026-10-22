@@ -53,7 +53,7 @@ api_idx_007c_MOJH:
     imul word [bp + 0x4]
     add ax, bss_5bf4
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -106,7 +106,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -135,7 +135,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0x12
     push ax
@@ -153,7 +153,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -277,7 +277,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -318,7 +318,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     lea ax, word [bp - 0x0058]
     push ax
@@ -356,7 +356,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -380,7 +380,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -415,7 +415,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -456,7 +456,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -482,7 +482,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -502,7 +502,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -526,7 +526,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -569,13 +569,13 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, report_line1_none
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -601,7 +601,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -631,7 +631,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -652,7 +652,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     push word [bp + 0x4]
     call ds_app_OOUT
@@ -694,7 +694,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -718,7 +718,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax
@@ -742,7 +742,7 @@ api_idx_007c_MOJH:
     push ax
     lea ax, word [bp - 0x0058]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     push word [bp + 0x4]
     call api_idx_0004_RMVO

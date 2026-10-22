@@ -403,7 +403,7 @@ api_idx_0002_HQSQ:
     mov ax, 0                        ; 0x92ef
     push ax                          ; 0x92f2
     push word [bp - 0x0002]          ; 0x92f3
-    call ds_app_string_LUOV          ; 0x92f6
+    call ds_app_LUOV                 ; 0x92f6
     add sp, byte 4                   ; 0x92f9
     inc word [bp - 0x0002]           ; 0x92fc
 @..api_idx_0002_HQSQ.l18:

@@ -82,7 +82,7 @@ api_idx_0004_KNGG:
     shl ax, cl                       ; 0x0ece
     add ax, 0x91cc                   ; 0x0ed0
     push ax                          ; 0x0ed3
-    call draw_string                 ; 0x0ed4
+    call draw_text_glyphs            ; 0x0ed4
     add sp, byte 4                   ; 0x0ed7
     inc word [bp - 0x0004]           ; 0x0eda
     mov ax, word [bp - 0x0004]       ; 0x0edd

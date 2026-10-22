@@ -18,7 +18,7 @@ redraw_treasure_caption(show)
 		/* centre on x=161; glyphs are 6 pixels wide */
 		gfx_set_text_pos(0xa1 - aztec_strlen(treasure_caption) * 6 / 2, 0x92);
 		gfx_set_text_color(0x17, 0);
-		draw_string(treasure_caption, 0);
+		draw_text_glyphs(treasure_caption, 0);
 	}
 	if (show)
 		gfx_show_area(0x19, 0x92, 0x127, 0xc6);

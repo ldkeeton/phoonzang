@@ -400,7 +400,7 @@ api_idx_005e_KVNO:
     mov ax, 1                        ; 0x5b4d
     push ax                          ; 0x5b50
     push word [bp + 0x4]             ; 0x5b51
-    call ds_app_string_LUOV          ; 0x5b54
+    call ds_app_LUOV                 ; 0x5b54
     add sp, byte 4                   ; 0x5b57
     mov ax, 0                        ; 0x5b5a
     push ax                          ; 0x5b5d

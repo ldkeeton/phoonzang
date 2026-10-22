@@ -105,7 +105,7 @@ api_idx_0004_IHHI:
     mov ax, 1                        ; 0x14e7
     push ax                          ; 0x14ea
     push word [bp - 0x0002]          ; 0x14eb
-    call ds_app_string_LUOV          ; 0x14ee
+    call ds_app_LUOV                 ; 0x14ee
     add sp, byte 4                   ; 0x14f1
 @..api_idx_0004_IHHI.l6:
     inc word [bp - 0x0002]           ; 0x14f4

@@ -54,7 +54,7 @@ loc_LQIO:
     mov ax, 0                        ; 0x60f0
     push ax                          ; 0x60f3
     push word [bss_69c8]             ; 0x60f4
-    call ds_app_string_LUOV          ; 0x60f8
+    call ds_app_LUOV                 ; 0x60f8
     add sp, byte 4                   ; 0x60fb
     mov ax, word [bss_69c8]          ; 0x60fe
     mov cx, 2                        ; 0x6101

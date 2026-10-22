@@ -25,7 +25,7 @@ loc_QTKU:
     mov ax, 1
     push ax
     push word [bp + 0x4]
-    call ds_app_string_LUOV
+    call ds_app_LUOV
     add sp, byte 4
     cmp word [bp + 0x6], byte 1
     jle short @..loc_QTKU.l2

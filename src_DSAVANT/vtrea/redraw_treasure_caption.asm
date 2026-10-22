@@ -68,7 +68,7 @@ redraw_treasure_caption:
     push ax                          ; 0x09f2
     mov ax, treasure_caption         ; 0x09f3
     push ax                          ; 0x09f6
-    call draw_string                 ; 0x09f7
+    call draw_text_glyphs            ; 0x09f7
     add sp, byte 4                   ; 0x09fa
 @..redraw_treasure_caption.l1:
     cmp word [bp + 0x4], byte 0      ; 0x09fd

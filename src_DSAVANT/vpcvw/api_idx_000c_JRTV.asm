@@ -81,7 +81,7 @@ api_idx_000c_JRTV:
     imul word [bp + 0x4]             ; 0x0434
     add ax, bss_5bf4                 ; 0x0437
     push ax                          ; 0x043a
-    call draw_string                 ; 0x043b
+    call draw_text_glyphs            ; 0x043b
     add sp, byte 4                   ; 0x043e
     mov ax, 0x1b                     ; 0x0441
     push ax                          ; 0x0444

@@ -28,7 +28,7 @@ api_idx_0022_RHMN:
     mov ax, 1                        ; 0x225d
     push ax                          ; 0x2260
     push word [bp - 0x0004]          ; 0x2261
-    call ds_app_string_LUOV          ; 0x2264
+    call ds_app_LUOV                 ; 0x2264
     add sp, byte 4                   ; 0x2267
     inc word [bp - 0x0004]           ; 0x226a
 @..api_idx_0022_RHMN.l4:

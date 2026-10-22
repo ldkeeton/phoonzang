@@ -56,7 +56,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x1919
     lea ax, word [bp - 0x009e]       ; 0x191a
     push ax                          ; 0x191e
-    call draw_string                 ; 0x191f
+    call draw_text_glyphs            ; 0x191f
     add sp, byte 4                   ; 0x1922
     mov ax, 0                        ; 0x1925
     push ax                          ; 0x1928
@@ -81,7 +81,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x195b
     lea ax, word [bp - 0x009e]       ; 0x195c
     push ax                          ; 0x1960
-    call draw_string                 ; 0x1961
+    call draw_text_glyphs            ; 0x1961
     add sp, byte 4                   ; 0x1964
     lea ax, word [bp - 0x009e]       ; 0x1967
     push ax                          ; 0x196b
@@ -105,7 +105,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x1995
     lea ax, word [bp - 0x009e]       ; 0x1996
     push ax                          ; 0x199a
-    call draw_string                 ; 0x199b
+    call draw_text_glyphs            ; 0x199b
     add sp, byte 4                   ; 0x199e
     mov ax, 0                        ; 0x19a1
     push ax                          ; 0x19a4
@@ -125,7 +125,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x19c9
     lea ax, word [bp - 0x009e]       ; 0x19ca
     push ax                          ; 0x19ce
-    call draw_string                 ; 0x19cf
+    call draw_text_glyphs            ; 0x19cf
     add sp, byte 4                   ; 0x19d2
     mov ax, 0x248                    ; 0x19d5
     imul word [bp + 0x4]             ; 0x19d8
@@ -198,7 +198,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x1a72
     lea ax, word [bp - 0x009e]       ; 0x1a73
     push ax                          ; 0x1a77
-    call draw_string                 ; 0x1a78
+    call draw_text_glyphs            ; 0x1a78
     add sp, byte 4                   ; 0x1a7b
     mov ax, 0x63                     ; 0x1a7e
     push ax                          ; 0x1a81

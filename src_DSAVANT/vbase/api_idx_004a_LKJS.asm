@@ -9,7 +9,7 @@ api_idx_004a_LKJS:
     mov ax, 1                        ; 0x6a23
     push ax                          ; 0x6a26
     push word [bss_8af0]             ; 0x6a27
-    call ds_app_string_LUOV          ; 0x6a2b
+    call ds_app_LUOV                 ; 0x6a2b
     add sp, byte 4                   ; 0x6a2e
     inc word [bss_8af0]              ; 0x6a31
 @..api_idx_004a_LKJS.l2:

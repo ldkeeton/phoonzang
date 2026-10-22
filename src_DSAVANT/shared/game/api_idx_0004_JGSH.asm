@@ -73,7 +73,7 @@ api_idx_0004_JGSH:
     mov ax, 2
     push ax
     push word [bp + 0x4]
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov bx, word [bp + 0x4]
     mov byte [bx], 0

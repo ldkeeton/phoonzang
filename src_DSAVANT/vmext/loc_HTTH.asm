@@ -67,7 +67,7 @@ loc_HTTH:
     imul word [bp + 0x4]             ; 0x1649
     add ax, bss_5bf4                 ; 0x164c
     push ax                          ; 0x164f
-    call draw_string                 ; 0x1650
+    call draw_text_glyphs            ; 0x1650
     add sp, byte 4                   ; 0x1653
     mov ax, word [bp - 0x0252]       ; 0x1656
     add ax, strict word 0x24         ; 0x165a
@@ -95,7 +95,7 @@ loc_HTTH:
     mov ax, 1                        ; 0x168c
     push ax                          ; 0x168f
     push word [bp + 0x4]             ; 0x1690
-    call ds_app_string_LUOV          ; 0x1693
+    call ds_app_LUOV                 ; 0x1693
     add sp, byte 4                   ; 0x1696
     ret                              ; 0x1699
 @..loc_HTTH.l2:
@@ -236,11 +236,11 @@ loc_HTTH:
     mov ax, 1                        ; 0x1808
     push ax                          ; 0x180b
     push word [bp + 0x4]             ; 0x180c
-    call ds_app_string_LUOV          ; 0x180f
+    call ds_app_LUOV                 ; 0x180f
     add sp, byte 4                   ; 0x1812
     mov ax, 1                        ; 0x1815
     push ax                          ; 0x1818
     push word [bp - 0x0002]          ; 0x1819
-    call ds_app_string_LUOV          ; 0x181c
+    call ds_app_LUOV                 ; 0x181c
     add sp, byte 4                   ; 0x181f
     ret                              ; 0x1822

@@ -234,7 +234,7 @@
           "note": "load_font_file's INT 21h AH=48h failure: prints 'Memory error loading font' and exits"
         },
         "3a77": {"name": "draw_font_glyph", "note": "draws a glyph through the loaded font driver"},
-        "3a95": {"name": "draw_string", "note": "draws a NUL-terminated string at the text position"},
+        "3a95": {"name": "draw_text_glyphs", "note": "draws each character of a NUL-terminated string as a glyph in the given font"},
         "3c0d": {
           "name": "stir_random_seeds",
           "note": "hand-written asm leaf: steps the three cs Wichmann-Hill seeds (random_seed_a/b/c: 171 mod 30269, 172 mod 30307, 170 mod 30323, Schrage's method); preserves ax-dx"

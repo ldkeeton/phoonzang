@@ -87,7 +87,7 @@ loc_MOVJ:
     mov ax, 0                        ; 0x1e02
     push ax                          ; 0x1e05
     push word [bp + 0x4]             ; 0x1e06
-    call draw_string                 ; 0x1e09
+    call draw_text_glyphs            ; 0x1e09
     add sp, byte 4                   ; 0x1e0c
     mov ax, word [bp + 0xc]          ; 0x1e0f
     add ax, strict word 0xfff6       ; 0x1e12
@@ -109,7 +109,7 @@ loc_MOVJ:
     mov ax, 0                        ; 0x1e36
     push ax                          ; 0x1e39
     push word [bp + 0x6]             ; 0x1e3a
-    call draw_string                 ; 0x1e3d
+    call draw_text_glyphs            ; 0x1e3d
     add sp, byte 4                   ; 0x1e40
     jmp short @..loc_MOVJ.l3         ; 0x1e43
 @..loc_MOVJ.l2:
@@ -230,7 +230,7 @@ loc_MOVJ:
     lea cx, word [bp - 0x0156]       ; 0x1f4d
     add ax, cx                       ; 0x1f51
     push ax                          ; 0x1f53
-    call draw_string                 ; 0x1f54
+    call draw_text_glyphs            ; 0x1f54
     add sp, byte 4                   ; 0x1f57
     mov ax, 0                        ; 0x1f5a
     push ax                          ; 0x1f5d

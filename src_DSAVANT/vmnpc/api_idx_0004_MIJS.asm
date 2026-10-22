@@ -31,7 +31,7 @@ api_idx_0004_MIJS:
     mov ax, 0                        ; 0x111a
     push ax                          ; 0x111d
     push word [bp + 0x16]            ; 0x111e
-    call draw_string                 ; 0x1121
+    call draw_text_glyphs            ; 0x1121
     add sp, byte 4                   ; 0x1124
     push word [bp + 0xa]             ; 0x1127
     push word [bp + 0x8]             ; 0x112a

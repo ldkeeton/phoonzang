@@ -10,7 +10,7 @@ loc_PHIP:
     mov ax, 0                        ; 0x1626
     push ax                          ; 0x1629
     push word [bp + 0x4]             ; 0x162a
-    call draw_string                 ; 0x162d
+    call draw_text_glyphs            ; 0x162d
     add sp, byte 4                   ; 0x1630
     mov ax, 0                        ; 0x1633
     push ax                          ; 0x1636

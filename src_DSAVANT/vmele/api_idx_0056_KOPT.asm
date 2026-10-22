@@ -115,7 +115,7 @@ api_idx_0056_KOPT:
     mov ax, 1                        ; 0x32c2
     push ax                          ; 0x32c5
     push word [bp - 0x0002]          ; 0x32c6
-    call ds_app_string_LUOV          ; 0x32c9
+    call ds_app_LUOV                 ; 0x32c9
     add sp, byte 4                   ; 0x32cc
     mov ax, 0xa                      ; 0x32cf
     push ax                          ; 0x32d2
@@ -134,7 +134,7 @@ api_idx_0056_KOPT:
     mov ax, 1                        ; 0x32ee
     push ax                          ; 0x32f1
     push word [bp - 0x0002]          ; 0x32f2
-    call ds_app_string_LUOV          ; 0x32f5
+    call ds_app_LUOV                 ; 0x32f5
     add sp, byte 4                   ; 0x32f8
 @..api_idx_0056_KOPT.l12:
     inc word [bp - 0x0002]           ; 0x32fb

@@ -1044,7 +1044,7 @@ jumptable_1fa3_case_12:
     mov ax, 1                        ; 0x1dba
     push ax                          ; 0x1dbd
     push word [bp - 0x0002]          ; 0x1dbe
-    call ds_app_string_LUOV          ; 0x1dc1
+    call ds_app_LUOV                 ; 0x1dc1
     add sp, byte 4                   ; 0x1dc4
     push word [message_delay]        ; 0x1dc7
     call api_idx_0004_UQUT           ; 0x1dcb

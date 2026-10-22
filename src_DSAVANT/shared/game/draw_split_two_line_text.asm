@@ -51,7 +51,7 @@ draw_split_two_line_text:
     push ax
     lea ax, word [bp - 0x002a]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, word [bp + 0x8]
     add ax, strict word 6
@@ -65,6 +65,6 @@ draw_split_two_line_text:
     lea cx, word [bp - 0x0029]
     add ax, cx
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     ret

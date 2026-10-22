@@ -84,7 +84,7 @@ api_idx_0008_JJHR:
     mov ax, 0
     push ax
     push word [bp + 0x4]
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, word [bp + 0xa]
     add ax, word [bp - 0x0004]

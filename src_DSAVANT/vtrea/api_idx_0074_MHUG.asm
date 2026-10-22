@@ -66,7 +66,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6790
     lea ax, word [bp - 0x004c]       ; 0x6791
     push ax                          ; 0x6794
-    call draw_string                 ; 0x6795
+    call draw_text_glyphs            ; 0x6795
     add sp, byte 4                   ; 0x6798
     lea ax, word [bp - 0x0074]       ; 0x679b
     push ax                          ; 0x679e
@@ -151,7 +151,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x684d
     lea ax, word [bp - 0x004c]       ; 0x684e
     push ax                          ; 0x6851
-    call draw_string                 ; 0x6852
+    call draw_text_glyphs            ; 0x6852
     add sp, byte 4                   ; 0x6855
     lea ax, word [bp - 0x004c]       ; 0x6858
     push ax                          ; 0x685b
@@ -189,7 +189,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x68a5
     lea ax, word [bp - 0x004c]       ; 0x68a6
     push ax                          ; 0x68a9
-    call draw_string                 ; 0x68aa
+    call draw_text_glyphs            ; 0x68aa
     add sp, byte 4                   ; 0x68ad
     mov word [bp - 0x0002], 0        ; 0x68b0
 @..api_idx_0074_MHUG.l1:
@@ -487,7 +487,7 @@ api_idx_0074_MHUG:
     mov ax, 0                        ; 0x6b49
     push ax                          ; 0x6b4c
     push word [bp - 0x0002]          ; 0x6b4d
-    call ds_app_string_LUOV          ; 0x6b50
+    call ds_app_LUOV                 ; 0x6b50
     add sp, byte 4                   ; 0x6b53
     mov ax, word [bp - 0x0002]       ; 0x6b56
     mov cx, 2                        ; 0x6b59
@@ -717,7 +717,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6d5a
     lea ax, word [bp - 0x0074]       ; 0x6d5b
     push ax                          ; 0x6d5e
-    call draw_string                 ; 0x6d5f
+    call draw_text_glyphs            ; 0x6d5f
     add sp, byte 4                   ; 0x6d62
     mov ax, word [bp - 0x0008]       ; 0x6d65
     add ax, strict word 0x1e         ; 0x6d68

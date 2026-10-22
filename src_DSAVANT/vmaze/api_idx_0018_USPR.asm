@@ -116,7 +116,7 @@ api_idx_0018_USPR:
     mov ax, 1                        ; 0x1dc9
     push ax                          ; 0x1dcc
     push word [bp - 0x0002]          ; 0x1dcd
-    call ds_app_string_LUOV          ; 0x1dd0
+    call ds_app_LUOV                 ; 0x1dd0
     add sp, byte 4                   ; 0x1dd3
     inc word [bp - 0x0002]           ; 0x1dd6
 @..api_idx_0018_USPR.l12:
@@ -351,7 +351,7 @@ api_idx_0018_USPR:
     mov ax, 1                        ; 0x1ff3
     push ax                          ; 0x1ff6
     push word [bp - 0x0002]          ; 0x1ff7
-    call ds_app_string_LUOV          ; 0x1ffa
+    call ds_app_LUOV                 ; 0x1ffa
     add sp, byte 4                   ; 0x1ffd
     inc word [bp - 0x0002]           ; 0x2000
 @..api_idx_0018_USPR.l36:

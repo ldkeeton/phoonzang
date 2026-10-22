@@ -28,7 +28,7 @@ api_idx_0016_TOUQ:
     mov ax, 0                        ; 0xa58d
     push ax                          ; 0xa590
     push word [bp + 0x4]             ; 0xa591
-    call draw_string                 ; 0xa594
+    call draw_text_glyphs            ; 0xa594
     add sp, byte 4                   ; 0xa597
     mov ax, word [bp + 0x8]          ; 0xa59a
     add ax, strict word 5            ; 0xa59d
@@ -180,7 +180,7 @@ api_idx_0016_TOUQ:
     mov ax, 0                        ; 0xa70a
     push ax                          ; 0xa70d
     push word [bp + 0x4]             ; 0xa70e
-    call draw_string                 ; 0xa711
+    call draw_text_glyphs            ; 0xa711
     add sp, byte 4                   ; 0xa714
     mov ax, word [bp + 0x8]          ; 0xa717
     add ax, strict word 5            ; 0xa71a

@@ -245,7 +245,7 @@ api_idx_0032_HGIM:
     imul word [bp - 0x0002]          ; 0x2933
     add ax, 0x9610                   ; 0x2936
     push ax                          ; 0x2939
-    call draw_string                 ; 0x293a
+    call draw_text_glyphs            ; 0x293a
     add sp, byte 4                   ; 0x293d
     mov ax, 0                        ; 0x2940
     push ax                          ; 0x2943

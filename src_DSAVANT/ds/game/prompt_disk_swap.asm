@@ -112,7 +112,7 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     push ax                          ; 0x2511
     lea ax, word [bp - 0x0050]       ; 0x2512
     push ax                          ; 0x2515
-    call draw_string                 ; 0x2516
+    call draw_text_glyphs            ; 0x2516
     add sp, byte 4                   ; 0x2519
     mov ax, str_insert_savegame_disk + 0x25 ; 0x251c
     push ax                          ; 0x251f
@@ -153,7 +153,7 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     push ax                          ; 0x2572
     lea ax, word [bp - 0x0050]       ; 0x2573
     push ax                          ; 0x2576
-    call draw_string                 ; 0x2577
+    call draw_text_glyphs            ; 0x2577
     add sp, byte 4                   ; 0x257a
     mov ax, str_insert_savegame_disk + 0x32 ; 0x257d
     push ax                          ; 0x2580

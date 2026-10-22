@@ -9,6 +9,6 @@ char *label;
 		gfx_set_text_color(1, 0xc2);
 		/* centre in w cells; glyphs are 6 pixels wide */
 		gfx_set_text_pos((w - aztec_strlen(label)) * 6 / 2 + x + 1, y + 2);
-		draw_string(label, 0);
+		draw_text_glyphs(label, 0);
 	}
 }

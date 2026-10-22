@@ -65,7 +65,7 @@ draw_spell_cost:
     push ax
     mov ax, draw_spell_cost.dseg1
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
 @..draw_spell_cost.l2:
     ret

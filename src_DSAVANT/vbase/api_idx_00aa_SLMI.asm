@@ -67,7 +67,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x6382
     lea ax, word [bp - 0x0058]       ; 0x6383
     push ax                          ; 0x6386
-    call draw_string                 ; 0x6387
+    call draw_text_glyphs            ; 0x6387
     add sp, byte 4                   ; 0x638a
     mov ax, 0xc2                     ; 0x638d
     push ax                          ; 0x6390
@@ -123,7 +123,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x6405
     lea ax, word [bp - 0x0058]       ; 0x6406
     push ax                          ; 0x6409
-    call draw_string                 ; 0x640a
+    call draw_text_glyphs            ; 0x640a
     add sp, byte 4                   ; 0x640d
     lea ax, word [bp - 0x0058]       ; 0x6410
     push ax                          ; 0x6413
@@ -174,7 +174,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x647d
     lea ax, word [bp - 0x0058]       ; 0x647e
     push ax                          ; 0x6481
-    call draw_string                 ; 0x6482
+    call draw_text_glyphs            ; 0x6482
     add sp, byte 4                   ; 0x6485
     lea ax, word [bp - 0x0058]       ; 0x6488
     push ax                          ; 0x648b
@@ -240,7 +240,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x651b
     lea ax, word [bp - 0x0058]       ; 0x651c
     push ax                          ; 0x651f
-    call draw_string                 ; 0x6520
+    call draw_text_glyphs            ; 0x6520
     add sp, byte 4                   ; 0x6523
     mov byte [known_spell_names], 0  ; 0x6526
     mov ax, 1                        ; 0x652b

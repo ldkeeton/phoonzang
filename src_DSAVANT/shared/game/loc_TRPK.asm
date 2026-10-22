@@ -93,7 +93,7 @@ loc_TRPK:
     push ax
     lea ax, word [bp - 0x01a6]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     jmp short @..loc_TRPK.l3
 @..loc_TRPK.l2:
@@ -214,7 +214,7 @@ loc_TRPK:
     lea cx, word [bp - 0x0156]
     add ax, cx
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0
     push ax

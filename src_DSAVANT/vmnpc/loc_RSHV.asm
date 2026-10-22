@@ -117,7 +117,7 @@ loc_RSHV:
     lea cx, word [bp - 0x015a]       ; 0x193a
     add ax, cx                       ; 0x193e
     push ax                          ; 0x1940
-    call draw_string                 ; 0x1941
+    call draw_text_glyphs            ; 0x1941
     add sp, byte 4                   ; 0x1944
     mov ax, 0                        ; 0x1947
     push ax                          ; 0x194a

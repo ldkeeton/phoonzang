@@ -77,7 +77,7 @@ api_idx_0038_LJOP:
     imul word [bp + 0x4]             ; 0x489a
     add ax, bss_5bf4                 ; 0x489d
     push ax                          ; 0x48a0
-    call draw_string                 ; 0x48a1
+    call draw_text_glyphs            ; 0x48a1
     add sp, byte 4                   ; 0x48a4
     mov ax, 0xc2                     ; 0x48a7
     push ax                          ; 0x48aa
@@ -118,7 +118,7 @@ api_idx_0038_LJOP:
     push ax                          ; 0x4900
     lea ax, word [bp - 0x0036]       ; 0x4901
     push ax                          ; 0x4904
-    call draw_string                 ; 0x4905
+    call draw_text_glyphs            ; 0x4905
     add sp, byte 4                   ; 0x4908
     lea ax, word [bp - 0x0036]       ; 0x490b
     push ax                          ; 0x490e
@@ -135,7 +135,7 @@ api_idx_0038_LJOP:
     push ax                          ; 0x4929
     lea ax, word [bp - 0x0036]       ; 0x492a
     push ax                          ; 0x492d
-    call draw_string                 ; 0x492e
+    call draw_text_glyphs            ; 0x492e
     add sp, byte 4                   ; 0x4931
     lea ax, word [bp - 0x0036]       ; 0x4934
     push ax                          ; 0x4937

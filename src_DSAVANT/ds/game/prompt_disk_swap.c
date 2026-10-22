@@ -52,11 +52,11 @@ char *fname;
 			gfx_set_text_color(1, 0xc2);
 			/* centre the line; glyphs are 6 pixels wide */
 			gfx_set_text_pos((x1 - x0 + 1 - aztec_strlen(msg) * 6) / 2 + x0, y0 + 12);
-			draw_string(msg, 0);
+			draw_text_glyphs(msg, 0);
 			aztec_strcpy(msg, "INTO DRIVE ^");
 			str_subst_char(msg, name, '^');
 			gfx_set_text_pos((x1 - x0 + 1 - aztec_strlen(msg) * 6) / 2 + x0, y0 + 0x12);
-			draw_string(msg, 0);
+			draw_text_glyphs(msg, 0);
 			draw_button(x0 + 0x44, y0 + 0x27, 12, 1, 1, "CONTINUE");
 			set_hotspot(0, x0 + 0x44, y0 + 0x27, x0 + 0x8c, y0 + 0x2f, 13, 0);
 			set_hotspot(1, -1, 0, 0, 0, 0, 0);

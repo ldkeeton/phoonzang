@@ -42,7 +42,7 @@ draw_button: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x1363
     push ax                          ; 0x1366
     push word [bp + 0xe]             ; 0x1367
-    call draw_string                 ; 0x136a
+    call draw_text_glyphs            ; 0x136a
     add sp, byte 4                   ; 0x136d
 @..draw_button.l2:
     ret                              ; 0x1370

@@ -134,7 +134,7 @@ api_idx_0028_NRJN:
     push ax                          ; 0x1033
     lea ax, word [bp - 0x0024]       ; 0x1034
     push ax                          ; 0x1037
-    call draw_string                 ; 0x1038
+    call draw_text_glyphs            ; 0x1038
     add sp, byte 4                   ; 0x103b
     push word [bp + 0xc]             ; 0x103e
     mov ax, known_spell_names        ; 0x1041
@@ -217,7 +217,7 @@ api_idx_0028_NRJN:
     push ax                          ; 0x10f0
     lea ax, word [bp - 0x0024]       ; 0x10f1
     push ax                          ; 0x10f4
-    call draw_string                 ; 0x10f5
+    call draw_text_glyphs            ; 0x10f5
     add sp, byte 4                   ; 0x10f8
     push word [bp + 0xe]             ; 0x10fb
     mov ax, bss_0e4c                 ; 0x10fe

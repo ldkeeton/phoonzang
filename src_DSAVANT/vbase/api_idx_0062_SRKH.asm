@@ -130,7 +130,7 @@ api_idx_0062_SRKH:
     push ax                          ; 0x4cc7
     lea ax, word [bp - 0x005d]       ; 0x4cc8
     push ax                          ; 0x4ccb
-    call draw_string                 ; 0x4ccc
+    call draw_text_glyphs            ; 0x4ccc
     add sp, byte 4                   ; 0x4ccf
     inc word [bp - 0x0002]           ; 0x4cd2
 @..api_idx_0062_SRKH.l5:

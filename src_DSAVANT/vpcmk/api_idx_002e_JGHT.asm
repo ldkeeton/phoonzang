@@ -18,7 +18,7 @@ api_idx_002e_JGHT:
     push ax                          ; 0x25a7
     mov ax, bss_95f4                 ; 0x25a8
     push ax                          ; 0x25ab
-    call draw_string                 ; 0x25ac
+    call draw_text_glyphs            ; 0x25ac
     add sp, byte 4                   ; 0x25af
     mov word [bp - 0x0004], 0        ; 0x25b2
     mov word [bp - 0x0006], 0        ; 0x25b7
@@ -138,7 +138,7 @@ api_idx_002e_JGHT:
     lea cx, word [bp - 0x002e]       ; 0x26d4
     add ax, cx                       ; 0x26d7
     push ax                          ; 0x26d9
-    call draw_string                 ; 0x26da
+    call draw_text_glyphs            ; 0x26da
     add sp, byte 4                   ; 0x26dd
     mov word [bp - 0x0006], 1        ; 0x26e0
 @..api_idx_002e_JGHT.l10:

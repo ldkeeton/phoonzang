@@ -338,7 +338,7 @@ jumptable_19c1:
     mov ax, 1                        ; 0x1c86
     push ax                          ; 0x1c89
     push word [bp + 0x4]             ; 0x1c8a
-    call ds_app_string_LUOV          ; 0x1c8d
+    call ds_app_LUOV                 ; 0x1c8d
     add sp, byte 4                   ; 0x1c90
 @..api_idx_000a_TQHL.l24:
     ret                              ; 0x1c93

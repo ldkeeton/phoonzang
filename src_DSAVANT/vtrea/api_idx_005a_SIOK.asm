@@ -73,7 +73,7 @@ api_idx_005a_SIOK:
     mov ax, 1                        ; 0x11a6
     push ax                          ; 0x11a9
     push word [bp + 0x4]             ; 0x11aa
-    call ds_app_string_LUOV          ; 0x11ad
+    call ds_app_LUOV                 ; 0x11ad
     add sp, byte 4                   ; 0x11b0
     push word [message_delay]        ; 0x11b3
     call api_idx_0004_UQUT           ; 0x11b7

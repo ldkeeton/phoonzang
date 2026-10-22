@@ -99,7 +99,7 @@ api_idx_000c_KGOL:
     mov ax, 0                        ; 0x175a
     push ax                          ; 0x175d
     push word [bp + 0x4]             ; 0x175e
-    call draw_string                 ; 0x1761
+    call draw_text_glyphs            ; 0x1761
     add sp, byte 4                   ; 0x1764
     mov ax, word [bp + 0xc]          ; 0x1767
     add ax, word [bp - 0x0004]       ; 0x176a

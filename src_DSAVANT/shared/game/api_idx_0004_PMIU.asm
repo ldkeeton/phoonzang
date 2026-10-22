@@ -39,7 +39,7 @@ api_idx_0004_PMIU:
     mov ax, 0
     push ax
     push word [bp + 0x4]
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, 0xc2
     push ax

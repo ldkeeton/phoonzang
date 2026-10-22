@@ -33,7 +33,7 @@ loc_QLKH:
     mov ax, 1                        ; 0x1f87
     push ax                          ; 0x1f8a
     push word [bp - 0x0002]          ; 0x1f8b
-    call ds_app_string_LUOV          ; 0x1f8e
+    call ds_app_LUOV                 ; 0x1f8e
     add sp, byte 4                   ; 0x1f91
     mov ax, 0x248                    ; 0x1f94
     imul word [bp - 0x0002]          ; 0x1f97

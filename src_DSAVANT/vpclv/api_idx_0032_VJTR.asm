@@ -245,7 +245,7 @@ api_idx_0032_VJTR:
     imul word [bp - 0x0002]          ; 0x3cbc
     add ax, 0x95f8                   ; 0x3cbf
     push ax                          ; 0x3cc2
-    call draw_string                 ; 0x3cc3
+    call draw_text_glyphs            ; 0x3cc3
     add sp, byte 4                   ; 0x3cc6
     mov ax, 0                        ; 0x3cc9
     push ax                          ; 0x3ccc

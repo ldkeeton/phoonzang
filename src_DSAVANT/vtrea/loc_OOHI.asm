@@ -32,7 +32,7 @@ loc_OOHI:
     mov ax, 0                        ; 0x0efb
     push ax                          ; 0x0efe
     push word [bp + 0x4]             ; 0x0eff
-    call draw_string                 ; 0x0f02
+    call draw_text_glyphs            ; 0x0f02
     add sp, byte 4                   ; 0x0f05
     mov ax, 7                        ; 0x0f08
     imul word [bp + 0x6]             ; 0x0f0b

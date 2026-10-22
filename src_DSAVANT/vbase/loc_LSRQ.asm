@@ -113,7 +113,7 @@ loc_LSRQ:
     lea cx, word [bp - 0x0152]       ; 0x034a
     add ax, cx                       ; 0x034e
     push ax                          ; 0x0350
-    call draw_string                 ; 0x0351
+    call draw_text_glyphs            ; 0x0351
     add sp, byte 4                   ; 0x0354
     mov ax, 0                        ; 0x0357
     push ax                          ; 0x035a

@@ -80,7 +80,7 @@ api_idx_0018_RGOS:
     push ax
     lea ax, word [bp - 0x0014]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov ax, word [bp + 0x6]
     imul word [bp + 0xe]

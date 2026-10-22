@@ -25,6 +25,6 @@ loc_VNIO:
     mov ax, 0
     push ax
     push word [bp + 0x4]
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     ret

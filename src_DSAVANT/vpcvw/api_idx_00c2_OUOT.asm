@@ -383,7 +383,7 @@ api_idx_00c2_OUOT:
     imul word [bp - 0x0018]          ; 0x5894
     add ax, 0x9616                   ; 0x5897
     push ax                          ; 0x589a
-    call draw_string                 ; 0x589b
+    call draw_text_glyphs            ; 0x589b
     add sp, byte 4                   ; 0x589e
     mov ax, 0                        ; 0x58a1
     push ax                          ; 0x58a4

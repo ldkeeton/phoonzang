@@ -54,7 +54,7 @@ draw_realm_spell_points:
     push ax
     lea ax, word [bp - 0x000c]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     inc word [bp - 0x0002]
     mov ax, word [bp - 0x0002]

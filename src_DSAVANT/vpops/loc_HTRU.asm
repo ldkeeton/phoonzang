@@ -117,7 +117,7 @@ loc_HTRU:
     lea cx, word [bp - 0x015a]       ; 0x1234
     add ax, cx                       ; 0x1238
     push ax                          ; 0x123a
-    call draw_string                 ; 0x123b
+    call draw_text_glyphs            ; 0x123b
     add sp, byte 4                   ; 0x123e
     mov ax, 0                        ; 0x1241
     push ax                          ; 0x1244

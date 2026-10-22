@@ -137,7 +137,7 @@ api_idx_0080_MHMQ:
     push ax
     lea ax, word [bp - 0x0068]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     mov word [bp - 0x0074], 0x114
     mov word [bp - 0x0080], 0x2e
@@ -205,7 +205,7 @@ api_idx_0080_MHMQ:
     push ax
     lea ax, word [bp - 0x0068]
     push ax
-    call draw_string
+    call draw_text_glyphs
     add sp, byte 4
     inc word [bp - 0x0002]
     mov ax, word [bp - 0x0002]

@@ -29,7 +29,7 @@ draw_centered_lines:
     mov ax, 2                        ; 0x199a
     push ax                          ; 0x199d
     push word [bp + 0x4]             ; 0x199e
-    call draw_string                 ; 0x19a1
+    call draw_text_glyphs            ; 0x19a1
     add sp, byte 4                   ; 0x19a4
     push word [bp + 0x6]             ; 0x19a7
     call aztec_strlen                ; 0x19aa
@@ -59,7 +59,7 @@ draw_centered_lines:
     mov ax, 2                        ; 0x19e1
     push ax                          ; 0x19e4
     push word [bp + 0x6]             ; 0x19e5
-    call draw_string                 ; 0x19e8
+    call draw_text_glyphs            ; 0x19e8
     add sp, byte 4                   ; 0x19eb
     push word [bp + 0x8]             ; 0x19ee
     call aztec_strlen                ; 0x19f1
@@ -87,7 +87,7 @@ draw_centered_lines:
     mov ax, 2                        ; 0x1a25
     push ax                          ; 0x1a28
     push word [bp + 0x8]             ; 0x1a29
-    call draw_string                 ; 0x1a2c
+    call draw_text_glyphs            ; 0x1a2c
     add sp, byte 4                   ; 0x1a2f
 @..draw_centered_lines.l2:
     mov ax, 0xc6                     ; 0x1a32
