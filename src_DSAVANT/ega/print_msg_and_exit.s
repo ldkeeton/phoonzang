@@ -15,19 +15,5 @@ frame_digit_hi	db	'0'		;digit ORed in by the caller
 frame_digit_lo	db	'0 too big in slot '
 slot_digit_hi	db	'0'		;digit ORed in by the caller
 slot_digit_lo	db	'0.',0,0ah,'$'	;'$' ends the DOS string
-	public	table_entry_ptr
-; point ds:bx at entry al of the 4-byte offset/paragraph table at ds:2
-table_entry_ptr:
-	mov	cl,2
-	shl	al,cl		;4-byte entries
-	mov	bx,2		;table starts at ds:2
-	add	bx,ax
-	mov	ax,[bx]
-	mov	dx,2[bx]	;paragraphs past ds
-	mov	bx,ds
-	add	bx,dx
-	mov	ds,bx
-	mov	bx,ax
-	ret
 codeseg	ends
 	end

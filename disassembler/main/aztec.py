@@ -54,7 +54,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     if not labels and not hand_c and not shared_c:
         return {}, {}, {}
     from lib.aztec import cache
-    from lib.aztec.objread import fixup_width
+    from lib.aztec.objread import external_label, fixup_width
     entries = {}
     mode = 'prebuild' if (AZTEC_PREBUILD or AZTEC_MUX_REFRESH) else 'build'
     tried = {str(nm) for _, nm in labels}
@@ -230,6 +230,11 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'module_data_relocations': compiled.data_relocations,
             'module_externals': compiled.externals,
             'length': _hand_length(start, roots, bands, len(func.code)),
+            # A .s module's publics, each an asm label the build must give
+            # the same name (lib.compare.coverrides._check_publics).
+            'publics': ({external_label(f.cname): f.offset
+                         for f in compiled.functions.values()}
+                        if routine_source.is_asm_source(path) else None),
             'source_version': entry['source_version'],
             'file': entry['file'], 'compiler': entry['compiler'],
             'includes': entry['includes'],

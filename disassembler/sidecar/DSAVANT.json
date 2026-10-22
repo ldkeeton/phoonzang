@@ -759,6 +759,7 @@
       },
       "function_names": {
         "3a0f": {"name": "print_msg_and_exit", "note": "prints the $-terminated string at ds:dx, then exits to DOS with errorlevel 1"},
+        "3a3a": {"name": "table_entry_ptr", "note": "points ds:bx at entry al of the 4-byte offset/paragraph table at ds:2"},
         "40cd": {"name": "cache_area_disk_error", "note": "prints the CACHEAREA disk write error and exits"},
         "4111": {"name": "cache_area", "note": "copies a screen rectangle to a file, MAZE memory or EMS and returns its slot index"},
         "4398": {"name": "cache_area_return", "note": "restores registers and frame, returns from cache_area"},

@@ -33,6 +33,7 @@ class DataSourcesTest(unittest.TestCase):
                            return_value=(STKSIZ,)), \
                 mock.patch('lib.aztec.cache.seed_source_text',
                            return_value='/* auto-generated */\nint x;\n'), \
+                mock.patch('lib.aztec.cache.precompile', return_value={}), \
                 mock.patch('lib.aztec.cache.compile_data',
                            return_value=compiled):
             return aztec._data_sources('P', 'vinstall', out,

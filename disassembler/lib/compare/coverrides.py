@@ -17,6 +17,7 @@ from lib.compare.records import _label_record, _record_span
 from lib.compare.symbols import data_symbol
 from lib.names import data_space
 from lib.symtab import Kind, Space, Symbol
+from lib.x86util import is_dos_terminator
 
 
 def _ref_operands(insn, off, refs):
@@ -152,7 +153,9 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
             if hi <= lo:
                 continue
             for insn in md.disasm(data[pos:lo], base + pos):
-                last = insn.mnemonic
+                # A DOS exit (``mov ax,4c01h; int 21h``) ends the code too.
+                last = ('ret' if is_dos_terminator(data, insn, base)
+                        else insn.mnemonic)
                 yield insn
             if last is not None and last not in _NO_FALLTHROUGH:
                 pos = lo
@@ -338,6 +341,30 @@ def _link_override(label, start, override, records, binary_data, index,
     return _link(label, start, override, records, binary_data, index)
 
 
+def _check_publics(label, start, override, labels_at):
+    """Every public a hand-written ``.s`` defines besides *label* must be the
+    name the build gives its address: a public the sidecar does not name
+    (``table_entry_ptr`` where the build says ``loc_3a3a``) is an error."""
+    publics = override.get('publics') or {}
+    base = start - publics.get(label, 0)
+    wrong = []
+    for name, off in sorted(publics.items(), key=lambda kv: kv[1]):
+        if name == label:
+            continue
+        addr = base + off
+        have = labels_at.get(addr)
+        if have is None:
+            wrong.append(f'public {name} at 0x{addr:04x}: the build has no '
+                         f'label there')
+        elif str(have) != name:
+            wrong.append(f'public {name} at 0x{addr:04x} is {have} in the '
+                         f'build; name it in the sidecar (make name ... '
+                         f'{have}={name}:\'note\')')
+    if wrong:
+        raise CGateError('\n'.join(
+            f'{os.path.basename(override["path"])}: {w}' for w in wrong))
+
+
 def _link(label, start, override, records, binary_data, index):
     """:func:`lib.aztec.relink.link` of *override*'s compiled code at *start*."""
     func = override['func']
@@ -345,6 +372,7 @@ def _link(label, start, override, records, binary_data, index):
     labels_in = [(r['offset'], r['name']) for r in records
                  if r['type'] == 'label' and start <= r['offset'] < start + length]
     labels_at = {r['offset']: r['name'] for r in records if r['type'] == 'label'}
+    _check_publics(label, start, override, labels_at)
     # A jump table is labelled by its own record (``format``'s
     # ``conv_routines`` is ``jumptable_4822``).
     for r in records:

@@ -561,6 +561,8 @@ cseg_3605:
 
 %include "ega/print_msg_and_exit.asm"      ; 0x3a0f
 
+%include "ega/table_entry_ptr.asm"         ; 0x3a3a
+
 %include "shared/leaf_loc_NOSG.asm"           ; 0x3a51
 
 %include "ega/graphics_loc_NVPK.asm"       ; 0x3a8b

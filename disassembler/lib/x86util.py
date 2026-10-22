@@ -22,20 +22,23 @@ _DOS_EXIT_PREFIXES = frozenset({
 })
 
 
-def is_dos_terminator(data, insn):
+def is_dos_terminator(data, insn, base=0):
+    """True for a DOS exit: ``int 20h``, or ``int 21h`` after an exit ``ah``.
+    *data* starts at address *base*."""
     if insn.mnemonic != 'int':
         return False
+    at = insn.address - base
     for op in insn.operands:
         if op.type == CS_OP_IMM:
             vec = op.imm & 0xFF
             if vec in _DOS_TERMINATOR_VECTORS:
                 return True
-            if vec == 0x21 and insn.address >= 2:
-                prefix = bytes(data[insn.address - 2:insn.address])
+            if vec == 0x21 and at >= 2:
+                prefix = bytes(data[at - 2:at])
                 if prefix in _DOS_EXIT_PREFIXES:
                     return True
-                if insn.address >= 3:
-                    prefix3 = bytes(data[insn.address - 3:insn.address])
+                if at >= 3:
+                    prefix3 = bytes(data[at - 3:at])
                     if prefix3 in _DOS_EXIT_PREFIXES:
                         return True
     return False

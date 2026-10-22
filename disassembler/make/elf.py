@@ -260,10 +260,11 @@ def resplice_c(app, binary, check_only=False):
     """
     from lib.aztec import cache, relink
     from lib.aztec.modules import entry_for
-    from lib.aztec.objread import fixup_width
-    from lib.compare.cgate import check_against_original
+    from lib.aztec.objread import external_label, fixup_width
+    from lib.compare.cgate import CGateError, check_against_original
     from lib.compare.coverrides import (
         _c_bytes_to_records,
+        _check_publics,
         _merge_label_records,
         symbol_index,
     )
@@ -372,7 +373,8 @@ def resplice_c(app, binary, check_only=False):
         stamps = {}
     # The data-owner gate is part of the resplice result; an old stamp written
     # before it existed must not skip the source that gate needs to check.
-    env = hashlib.sha1(repr((exact_here, lenient, 'data-owner-v1')).encode())
+    env = hashlib.sha1(repr((exact_here, lenient, 'data-owner-v1',
+                             'publics-v1')).encode())
     for path in (labels_path, spans_path, manifest, context_path(app, binary)):
         if os.path.isfile(path):
             with open(path, 'rb') as f:
@@ -453,6 +455,15 @@ def resplice_c(app, binary, check_only=False):
                          for offset, name, _ in context['label_records']}
             for offset, name in context.get('table_labels', {}).items():
                 labels_at.setdefault(offset, name)
+            if module is None and routine_source.is_asm_source(cpath):
+                try:
+                    _check_publics(label, start, {
+                        'path': cpath,
+                        'publics': {external_label(f.cname): f.offset
+                                    for f in compiled_module.functions.values()},
+                    }, labels_at)
+                except CGateError as exc:
+                    raise SystemExit(f'error: {exc}')
             try:
                 linked = relink.link(label, start, func, index, data,
                                      labels_in, labels_at)

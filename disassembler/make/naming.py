@@ -162,6 +162,20 @@ def _routine_addr(asm_path, label):
     return None
 
 
+def _label_file(project, folder, label):
+    """The asm file under *folder* that defines *label* inside another
+    routine, or None."""
+    top = os.path.join(src_dir(project, PROJECT), folder)
+    for dirpath, _, files in os.walk(top):
+        for f in sorted(files):
+            if f.endswith('.asm') and f != f'{label}.asm':
+                path = os.path.join(dirpath, f)
+                with open(path) as fh:
+                    if re.search(rf'^{re.escape(label)}:', fh.read(), re.M):
+                        return path
+    return None
+
+
 def _named(block, name):
     return next((k for k, v in (block or {}).items() if v.get('name') == name), None)
 
@@ -189,8 +203,11 @@ def resolve(sidecar, project, binary, symbol):
         path, key = ['binaries', binary, 'code_data_names'], _named(own['code_data_names'], symbol)
     elif _named(bins[owner].get('data_names'), symbol):
         path, key = ['binaries', owner, 'data_names'], _named(bins[owner]['data_names'], symbol)
-    elif binary != SHARED_DIR and _asm_file(project, binary, symbol):
-        addr = _routine_addr(_asm_file(project, binary, symbol), symbol)
+    elif binary != SHARED_DIR and (_asm_file(project, binary, symbol)
+                                   or _label_file(project, binary, symbol)):
+        # A branch target inside a routine (``loc_3a3a``) becomes a routine.
+        addr = _routine_addr(_asm_file(project, binary, symbol)
+                             or _label_file(project, binary, symbol), symbol)
         if addr is None:
             raise SidecarError(f'{symbol}: no listing address in its asm')
         # ``ds`` keys are the listing address (its Ghidra base offset cancels
@@ -385,12 +402,19 @@ def cmd_refs(project, binary, routine):
         sidecar = json.load(f)
     seen = referenced(text, routine, lambda sym: bool(
         _asm_file(project, binary, sym) or _asm_file(project, SHARED_DIR, sym)))
+    # A .s's own publics are defined, not referenced, yet the build checks
+    # each one against the name the sidecar gives its address.
+    s_path = os.path.splitext(path)[0] + '.s'
+    own = asm_publics(open(s_path).read()) if os.path.isfile(s_path) else []
+    seen = [sym for sym in own if sym not in seen] + seen
     if not seen:
         print(f'{routine}: no address-named symbols')
         return
     for sym in seen:
         try:
             p, key, _ = resolve(sidecar, project, binary, sym)
+            if sym not in own and _label_file(project, binary, sym):
+                raise SidecarError(sym)
             print(f'  {sym:24} {".".join(p)}["{key}"]')
         except SidecarError as exc:
             home = _label_home(project, binary, sym)
@@ -398,15 +422,21 @@ def cmd_refs(project, binary, routine):
                                     if home else f'unresolved: {exc}'))
 
 
+def asm_publics(text):
+    """The address-named labels a ``.s`` declares ``public``, in order."""
+    out = []
+    for m in re.finditer(r'^[ \t]*public[ \t]+([^;\n]+)', text, re.M | re.I):
+        for sym in (x.strip() for x in m.group(1).split(',')):
+            if (_CSEG.match(sym) or _AUTO_ROUTINE.match(sym)) and sym not in out:
+                out.append(sym)
+    return out
+
+
 def _label_home(project, binary, label):
     """The asm file (``x.asm``) in *binary*/ or shared/ that defines *label*
     inside another routine, or None."""
     for folder in (binary, SHARED_DIR):
-        top = os.path.join(src_dir(project, PROJECT), folder)
-        for dirpath, _, files in os.walk(top):
-            for f in sorted(files):
-                if f.endswith('.asm'):
-                    with open(os.path.join(dirpath, f)) as fh:
-                        if re.search(rf'^{re.escape(label)}:', fh.read(), re.M):
-                            return f
+        path = _label_file(project, folder, label)
+        if path:
+            return os.path.basename(path)
     return None
