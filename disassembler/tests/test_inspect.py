@@ -33,6 +33,23 @@ class TopLabelsTest(unittest.TestCase):
         finally:
             os.unlink(path)
 
+    def test_reads_a_label_with_a_generated_comment(self):
+        text = (
+            '; auto-generated\n'
+            'root: ; Aztec csav frame=0x0000\n'
+            '    mov ax, 0      ; 0x0e03\n'
+            'loc_tail: ; frame=0x0002\n'
+            '    ret            ; 0x0e81\n'
+        )
+        with tempfile.NamedTemporaryFile('w', suffix='.asm', delete=False) as f:
+            f.write(text)
+            path = f.name
+        try:
+            self.assertEqual(inspect.top_labels(path),
+                             [('root', 0x0e03, 1), ('loc_tail', 0x0e81, 3)])
+        finally:
+            os.unlink(path)
+
 
 class _Model:
     """Just enough SegmentModel for a DS operand."""

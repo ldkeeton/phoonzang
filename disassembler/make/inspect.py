@@ -38,7 +38,7 @@ from .common import APPS, PROJECT
 SHARED_DIR = 'shared'
 
 _ADDR_COMMENT = re.compile(r';\s*0x([0-9a-fA-F]+)\s*$')
-_TOP_LABEL = re.compile(r'^([A-Za-z_]\w*):\s*$')
+_TOP_LABEL = re.compile(r'^([A-Za-z_]\w*):(?:\s*;.*)?$')
 _CALL = re.compile(r'\b(?:call|jmp)\s+(?:short\s+|near\s+)?([A-Za-z_]\w*)\b')
 _MEM_ABS = re.compile(r'\[\s*([^\]]*?)\b0x([0-9a-fA-F]{4,5})\s*\]')
 _SKIP_LABEL = re.compile(r'^(?:@|jumptable_|__)')
@@ -216,7 +216,9 @@ def _fragment(project, binary, routine):
     tops = top_labels(path)
     own_stem = os.path.splitext(os.path.basename(path))[0]
     line_members = [(name, line) for name, _addr, line in tops]
-    start = labels.get(routine).offset if routine in labels else None
+    # labels is keyed by offset; the name lives on the Symbol's str value.
+    start = next((offset for offset, sym in labels.items()
+                  if str(sym) == routine), None)
     if start is None:
         start = next((addr for name, addr, _ in tops if name == routine), None)
     if start is None:
