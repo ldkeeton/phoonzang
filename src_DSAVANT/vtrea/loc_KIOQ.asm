@@ -4,7 +4,7 @@ loc_KIOQ:
     call aztec_csav                  ; 0x0d8a
     mov ax, 0                        ; 0x0d8d
     push ax                          ; 0x0d90
-    call api_idx_000a_TIPG           ; 0x0d91
+    call redraw_treasure_caption     ; 0x0d91
     pop cx                           ; 0x0d94
     mov word [bss_9152], 0x44        ; 0x0d95
     mov word [bss_9150], 0           ; 0x0d9b
@@ -37,7 +37,7 @@ loc_KIOQ:
     pop cx                           ; 0x0de3
     mov ax, 0                        ; 0x0de4
     push ax                          ; 0x0de7
-    call api_idx_000a_TIPG           ; 0x0de8
+    call redraw_treasure_caption     ; 0x0de8
     pop cx                           ; 0x0deb
     mov ax, 0xc6                     ; 0x0dec
     push ax                          ; 0x0def

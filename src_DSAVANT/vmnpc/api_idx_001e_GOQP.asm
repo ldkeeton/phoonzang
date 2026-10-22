@@ -127,8 +127,8 @@ api_idx_001e_GOQP:
     push ax                          ; 0x71f8
     call gfx_save_area               ; 0x71f9
     add sp, byte 8                   ; 0x71fc
-    mov word [bss_8d10], dx          ; 0x71ff
-    mov word [bss_8d0e], ax          ; 0x7203
+    mov word [saved_area_a_hi], dx   ; 0x71ff
+    mov word [saved_area_a], ax      ; 0x7203
     mov ax, 0xa4                     ; 0x7206
     push ax                          ; 0x7209
     mov ax, 0xff                     ; 0x720a
@@ -139,8 +139,8 @@ api_idx_001e_GOQP:
     push ax                          ; 0x7215
     call gfx_save_area               ; 0x7216
     add sp, byte 8                   ; 0x7219
-    mov word [bss_8d0c], dx          ; 0x721c
-    mov word [bss_8d0a], ax          ; 0x7220
+    mov word [saved_area_b_hi], dx   ; 0x721c
+    mov word [saved_area_b], ax      ; 0x7220
     mov ax, 1                        ; 0x7223
     push ax                          ; 0x7226
     mov ax, 2                        ; 0x7227

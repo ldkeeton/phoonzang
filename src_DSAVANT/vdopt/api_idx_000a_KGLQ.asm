@@ -4,8 +4,8 @@ api_idx_000a_KGLQ:
     call aztec_csav                  ; 0x190e
     mov ax, 0                        ; 0x1911
     push ax                          ; 0x1914
-    push word [bss_8d10]             ; 0x1915
-    push word [bss_8d0e]             ; 0x1919
+    push word [saved_area_a_hi]      ; 0x1915
+    push word [saved_area_a]         ; 0x1919
     call gfx_restore_area            ; 0x191d
     add sp, byte 6                   ; 0x1920
     mov byte [bp - 0x000a], 1        ; 0x1923

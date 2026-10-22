@@ -42,7 +42,7 @@ api_idx_0004_IMVS:
 @..api_idx_0004_IMVS.l2:
     mov ax, 0                        ; 0x0e65
     push ax                          ; 0x0e68
-    call api_idx_000a_TIPG           ; 0x0e69
+    call redraw_treasure_caption     ; 0x0e69
     pop cx                           ; 0x0e6c
     cmp word [bp - 0x0004], byte 0   ; 0x0e6d
     je short @..api_idx_0004_IMVS.l3 ; 0x0e71

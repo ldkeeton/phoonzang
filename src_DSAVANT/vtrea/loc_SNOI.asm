@@ -74,8 +74,8 @@ loc_SNOI:
     push ax                          ; 0x7e44
     call gfx_save_area               ; 0x7e45
     add sp, byte 8                   ; 0x7e48
-    mov word [bss_8d10], dx          ; 0x7e4b
-    mov word [bss_8d0e], ax          ; 0x7e4f
+    mov word [saved_area_a_hi], dx   ; 0x7e4b
+    mov word [saved_area_a], ax      ; 0x7e4f
     mov ax, 0xa4                     ; 0x7e52
     push ax                          ; 0x7e55
     mov ax, 0xff                     ; 0x7e56
@@ -86,8 +86,8 @@ loc_SNOI:
     push ax                          ; 0x7e61
     call gfx_save_area               ; 0x7e62
     add sp, byte 8                   ; 0x7e65
-    mov word [bss_8d0c], dx          ; 0x7e68
-    mov word [bss_8d0a], ax          ; 0x7e6c
+    mov word [saved_area_b_hi], dx   ; 0x7e68
+    mov word [saved_area_b], ax      ; 0x7e6c
     mov ax, 1                        ; 0x7e6f
     push ax                          ; 0x7e72
     mov ax, 2                        ; 0x7e73
@@ -104,10 +104,10 @@ loc_SNOI:
     mov word [party_redraw_interval], 5 ; 0x7e91
     mov word [bss_911c], 0x8f        ; 0x7e97
     call flush_keyboard              ; 0x7e9d
-    mov word [bss_9126], 0           ; 0x7ea0
+    mov word [treasure_caption_on], 0 ; 0x7ea0
     cmp word [bp + 0x4], byte 0      ; 0x7ea6
     jle short @..loc_SNOI.l2         ; 0x7eaa
-    mov ax, bss_9128                 ; 0x7eac
+    mov ax, treasure_caption         ; 0x7eac
     push ax                          ; 0x7eaf
     push word [bp + 0x4]             ; 0x7eb0
     call load_message_string         ; 0x7eb3

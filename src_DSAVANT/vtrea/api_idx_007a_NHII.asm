@@ -49,12 +49,12 @@ api_idx_007a_NHII:
     jle short @..api_idx_007a_NHII.l3 ; 0x4f85
     mov word [bp - 0x0012], 0xffff   ; 0x4f87
 @..api_idx_007a_NHII.l4:
-    mov word [bss_9126], 1           ; 0x4f8c
+    mov word [treasure_caption_on], 1 ; 0x4f8c
     mov ax, 0                        ; 0x4f92
     push ax                          ; 0x4f95
-    call api_idx_000a_TIPG           ; 0x4f96
+    call redraw_treasure_caption     ; 0x4f96
     pop cx                           ; 0x4f99
-    mov word [bss_9126], 0           ; 0x4f9a
+    mov word [treasure_caption_on], 0 ; 0x4f9a
     lea ax, word [bp - 0x001c]       ; 0x4fa0
     push ax                          ; 0x4fa3
     mov ax, 0                        ; 0x4fa4
@@ -117,7 +117,7 @@ jumptable_51bc_case_1:
     jne short @..api_idx_007a_NHII.l5 ; 0x5023
     mov ax, 1                        ; 0x5025
     push ax                          ; 0x5028
-    call api_idx_000a_TIPG           ; 0x5029
+    call redraw_treasure_caption     ; 0x5029
     pop cx                           ; 0x502c
 @..api_idx_007a_NHII.l5:
     call ds_app_VGOM                 ; 0x502d
@@ -151,7 +151,7 @@ jumptable_51bc_case_0:
     jne short @..api_idx_007a_NHII.l7 ; 0x5071
     mov ax, 1                        ; 0x5073
     push ax                          ; 0x5076
-    call api_idx_000a_TIPG           ; 0x5077
+    call redraw_treasure_caption     ; 0x5077
     pop cx                           ; 0x507a
 @..api_idx_007a_NHII.l7:
     call ds_app_VGOM                 ; 0x507b
@@ -169,7 +169,7 @@ jumptable_51bc_case_0:
 @..api_idx_007a_NHII.l9:
     mov ax, 0                        ; 0x5095
     push ax                          ; 0x5098
-    call api_idx_000a_TIPG           ; 0x5099
+    call redraw_treasure_caption     ; 0x5099
     pop cx                           ; 0x509c
     mov bx, word [bp + 0x4]          ; 0x509d
     mov al, byte [bx + 0x34]         ; 0x50a0
@@ -230,7 +230,7 @@ jumptable_51bc_case_2:
     jne short @..api_idx_007a_NHII.l12 ; 0x5128
     mov ax, 1                        ; 0x512a
     push ax                          ; 0x512d
-    call api_idx_000a_TIPG           ; 0x512e
+    call redraw_treasure_caption     ; 0x512e
     pop cx                           ; 0x5131
 @..api_idx_007a_NHII.l12:
     call ds_app_VGOM                 ; 0x5132

@@ -32,13 +32,13 @@ loc_HUIS:
     jne short @..loc_HUIS.l1         ; 0x57d2
     mov ax, 1                        ; 0x57d4
     push ax                          ; 0x57d7
-    call api_idx_000a_TIPG           ; 0x57d8
+    call redraw_treasure_caption     ; 0x57d8
     pop cx                           ; 0x57db
     ret                              ; 0x57dc
 @..loc_HUIS.l1:
     mov ax, 1                        ; 0x57dd
     push ax                          ; 0x57e0
-    call api_idx_000a_TIPG           ; 0x57e1
+    call redraw_treasure_caption     ; 0x57e1
     pop cx                           ; 0x57e4
 @..loc_HUIS.l2:
     cmp word [bss_905e], byte 0x15   ; 0x57e5
@@ -47,7 +47,7 @@ loc_HUIS:
 @..loc_HUIS.l3:
     mov ax, 1                        ; 0x57ef
     push ax                          ; 0x57f2
-    call api_idx_000a_TIPG           ; 0x57f3
+    call redraw_treasure_caption     ; 0x57f3
     pop cx                           ; 0x57f6
     mov word [bp - 0x0086], 0        ; 0x57f7
     mov word [bp - 0x0088], 0        ; 0x57fd

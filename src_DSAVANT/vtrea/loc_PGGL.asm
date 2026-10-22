@@ -8,12 +8,12 @@ loc_PGGL:
     pop cx                           ; 0x81c3
     mov ax, 0                        ; 0x81c4
     push ax                          ; 0x81c7
-    call api_idx_000a_TIPG           ; 0x81c8
+    call redraw_treasure_caption     ; 0x81c8
     pop cx                           ; 0x81cb
     call api_idx_00e6_QNPR           ; 0x81cc
     mov ax, 1                        ; 0x81cf
     push ax                          ; 0x81d2
-    call api_idx_000a_TIPG           ; 0x81d3
+    call redraw_treasure_caption     ; 0x81d3
     pop cx                           ; 0x81d6
     call loc_VSIT                    ; 0x81d7
     ret                              ; 0x81da

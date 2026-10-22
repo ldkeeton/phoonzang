@@ -373,6 +373,10 @@
         "8460": {"name": "dest_alt_arg", "note": "alt_arg of a level-99 destination, else 0"},
         "8482": {"name": "party_char", "note": "char *[] per party member; [0x19f] is the member's record slot in slot_rec_*, -1 when none"},
         "8490": {"name": "party_char_ext", "note": "char *[] per party member, a second record; fill_action_slot_table tests [0xd7] == 0x47"},
+        "8d0a": {"name": "saved_area_b", "note": "second gfx_save_area handle (long) restored with saved_area_a"},
+        "8d0c": {"name": "saved_area_b_hi", "note": "high word of saved_area_b"},
+        "8d0e": {"name": "saved_area_a", "note": "gfx_save_area handle (long) restored before redrawing the message strip"},
+        "8d10": {"name": "saved_area_a_hi", "note": "high word of saved_area_a"},
         "8d12": {"name": "party_region", "note": "region index of the current map piece"},
         "8f24": {"name": "found_object_owner", "note": "int: owner byte of the last type-0x19 object checked by check_cell_objects"},
         "8f28": {"name": "saved_level", "note": "saved location level"},
@@ -390,6 +394,8 @@
         "908a": {"name": "party_redraw_last_tick", "note": "long: tick count at the last periodic_party_redraw refresh"},
         "9104": {"name": "str_swap_file_v", "note": "\"V.$$$\" swap file name spell_select_dialog passes to save_screen_area"},
         "9124": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes"},
+        "9126": {"name": "treasure_caption_on", "note": "nonzero when treasure_caption should be drawn"},
+        "9128": {"name": "treasure_caption", "note": "caption text drawn centred at y=0x92 in the treasure screen"},
         "919e": {"name": "save_location_flag", "note": "nonzero: record the destination as the saved location"},
         "91a8": {"name": "location_changed", "note": "set when the party is placed at a new location"},
         "966a": {"name": "known_spell_list", "note": "int[]: spell ids collect_known_spells found, in list order"},
@@ -676,6 +682,7 @@
     },
     "vtrea": {
       "function_names": {
+        "0946": {"name": "redraw_treasure_caption", "note": "restores saved areas, redraws glyph 1 and the optional centred caption"},
         "8a0a": {"name": "collect_known_spells", "note": "fills known_spell_list with the realm's spells the character knows (and their names); returns the count"},
         "8a7b": {"name": "draw_glyph_1_at_50_115", "note": "Draws the one-character string \"\\x01\" via gfx_draw_text at (50,115) with mode argument 1, clipped to the 320x200 screen"},
         "8b45": {"name": "draw_spell_cost", "note": "clears the cost box and prints cost in 3 digits when 0 < cost <= available, else ***"},

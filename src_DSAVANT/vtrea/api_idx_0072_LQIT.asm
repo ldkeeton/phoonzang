@@ -73,12 +73,12 @@ api_idx_0072_LQIT:
     jle short @..api_idx_0072_LQIT.l4 ; 0x720b
     mov word [bp - 0x0014], 0xffff   ; 0x720d
 @..api_idx_0072_LQIT.l5:
-    mov word [bss_9126], 1           ; 0x7212
+    mov word [treasure_caption_on], 1 ; 0x7212
     mov ax, 0                        ; 0x7218
     push ax                          ; 0x721b
-    call api_idx_000a_TIPG           ; 0x721c
+    call redraw_treasure_caption     ; 0x721c
     pop cx                           ; 0x721f
-    mov word [bss_9126], 0           ; 0x7220
+    mov word [treasure_caption_on], 0 ; 0x7220
     lea ax, word [bp - 0x001a]       ; 0x7226
     push ax                          ; 0x7229
     mov ax, 0                        ; 0x722a
@@ -136,7 +136,7 @@ api_idx_0072_LQIT:
     add sp, byte 0x12                ; 0x729b
     mov ax, 0                        ; 0x729e
     push ax                          ; 0x72a1
-    call api_idx_000a_TIPG           ; 0x72a2
+    call redraw_treasure_caption     ; 0x72a2
     pop cx                           ; 0x72a5
     mov ax, word [bp - 0x001c]       ; 0x72a6
     jmp short @..api_idx_0072_LQIT.l11 ; 0x72a9
@@ -145,7 +145,7 @@ api_idx_0072_LQIT:
     jne short @..api_idx_0072_LQIT.l7 ; 0x72b0
     mov ax, 1                        ; 0x72b2
     push ax                          ; 0x72b5
-    call api_idx_000a_TIPG           ; 0x72b6
+    call redraw_treasure_caption     ; 0x72b6
     pop cx                           ; 0x72b9
 @..api_idx_0072_LQIT.l7:
     call ds_app_VGOM                 ; 0x72ba

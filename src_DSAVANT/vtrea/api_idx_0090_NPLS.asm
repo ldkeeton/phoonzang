@@ -65,7 +65,7 @@ jumptable_0c85_case_3:
     inc word [bp + 0x4]              ; 0x0bad
     mov ax, 0                        ; 0x0bb0
     push ax                          ; 0x0bb3
-    call api_idx_000a_TIPG           ; 0x0bb4
+    call redraw_treasure_caption     ; 0x0bb4
     pop cx                           ; 0x0bb7
     mov word [bss_9150], 0           ; 0x0bb8
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0bbe

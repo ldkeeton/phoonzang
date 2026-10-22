@@ -32,7 +32,7 @@ loc_NQGV:
 @..loc_NQGV.l3:
     mov ax, 0                        ; 0x0a5b
     push ax                          ; 0x0a5e
-    call api_idx_000a_TIPG           ; 0x0a5f
+    call redraw_treasure_caption     ; 0x0a5f
     pop cx                           ; 0x0a62
     mov word [bss_9150], 0           ; 0x0a63
     ret                              ; 0x0a69

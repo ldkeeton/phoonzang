@@ -62,7 +62,7 @@ api_idx_0074_SGUS:
 @..api_idx_0074_SGUS.l1:
     mov ax, 1                        ; 0x7987
     push ax                          ; 0x798a
-    call api_idx_000a_TIPG           ; 0x798b
+    call redraw_treasure_caption     ; 0x798b
     pop cx                           ; 0x798e
     cmp word [bp - 0x0004], byte 4   ; 0x798f
     jne short @..api_idx_0074_SGUS.l4 ; 0x7993

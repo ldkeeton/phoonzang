@@ -176,10 +176,10 @@ bss_8c7e equ __zbss_8c7e - __zdseg_start
 bss_8cfe equ __zbss_8cfe - __zdseg_start
 bss_8d06 equ __zbss_8d06 - __zdseg_start
 bss_8d08 equ __zbss_8d08 - __zdseg_start
-bss_8d0a equ __zbss_8d0a - __zdseg_start
-bss_8d0c equ __zbss_8d0c - __zdseg_start
-bss_8d0e equ __zbss_8d0e - __zdseg_start
-bss_8d10 equ __zbss_8d10 - __zdseg_start
+saved_area_b equ __zbss_8d0a - __zdseg_start
+saved_area_b_hi equ __zbss_8d0c - __zdseg_start
+saved_area_a equ __zbss_8d0e - __zdseg_start
+saved_area_a_hi equ __zbss_8d10 - __zdseg_start
 party_region equ __zbss_8d12 - __zdseg_start
 bss_8e64 equ __zbss_8e64 - __zdseg_start
 bss_8f14 equ __zbss_8f14 - __zdseg_start

@@ -13,8 +13,8 @@ loc_MLLK:
     push ax                          ; 0x6f2f
     call gfx_save_area               ; 0x6f30
     add sp, byte 8                   ; 0x6f33
-    mov word [bss_8d10], dx          ; 0x6f36
-    mov word [bss_8d0e], ax          ; 0x6f3a
+    mov word [saved_area_a_hi], dx   ; 0x6f36
+    mov word [saved_area_a], ax      ; 0x6f3a
     call api_idx_000a_RIKJ           ; 0x6f3d
     mov word [bss_9b4e], 0x44        ; 0x6f40
     mov word [bss_9b4c], 0           ; 0x6f46
@@ -50,8 +50,8 @@ loc_MLLK:
     pop cx                           ; 0x6f95
     mov ax, 1                        ; 0x6f96
     push ax                          ; 0x6f99
-    push word [bss_8d10]             ; 0x6f9a
-    push word [bss_8d0e]             ; 0x6f9e
+    push word [saved_area_a_hi]      ; 0x6f9a
+    push word [saved_area_a]         ; 0x6f9e
     call gfx_restore_area            ; 0x6fa2
     add sp, byte 6                   ; 0x6fa5
     mov ax, 0xc6                     ; 0x6fa8

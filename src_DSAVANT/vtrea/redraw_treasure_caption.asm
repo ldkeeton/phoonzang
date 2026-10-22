@@ -1,17 +1,17 @@
 ; auto-generated
-api_idx_000a_TIPG:
+redraw_treasure_caption:
     mov ax, 0xfff6                   ; 0x0954
     call aztec_csav                  ; 0x0957
     mov ax, 0                        ; 0x095a
     push ax                          ; 0x095d
-    push word [bss_8d10]             ; 0x095e
-    push word [bss_8d0e]             ; 0x0962
+    push word [saved_area_a + 0x2]   ; 0x095e
+    push word [saved_area_a]         ; 0x0962
     call gfx_restore_area            ; 0x0966
     add sp, byte 6                   ; 0x0969
     mov ax, 0                        ; 0x096c
     push ax                          ; 0x096f
-    push word [bss_8d0c]             ; 0x0970
-    push word [bss_8d0a]             ; 0x0974
+    push word [saved_area_b + 0x2]   ; 0x0970
+    push word [saved_area_b]         ; 0x0974
     call gfx_restore_area            ; 0x0978
     add sp, byte 6                   ; 0x097b
     mov byte [bp - 0x000a], 1        ; 0x097e
@@ -39,11 +39,11 @@ api_idx_000a_TIPG:
     push ax                          ; 0x09ae
     call gfx_draw_text               ; 0x09af
     add sp, byte 0x16                ; 0x09b2
-    cmp word [bss_9126], byte 0      ; 0x09b5
-    je short @..api_idx_000a_TIPG.l1 ; 0x09ba
+    cmp word [treasure_caption_on], byte 0 ; 0x09b5
+    je short @..redraw_treasure_caption.l1 ; 0x09ba
     mov ax, 0x92                     ; 0x09bc
     push ax                          ; 0x09bf
-    mov ax, bss_9128                 ; 0x09c0
+    mov ax, treasure_caption         ; 0x09c0
     push ax                          ; 0x09c3
     call aztec_strlen                ; 0x09c4
     pop cx                           ; 0x09c7
@@ -66,13 +66,13 @@ api_idx_000a_TIPG:
     add sp, byte 4                   ; 0x09ec
     mov ax, 0                        ; 0x09ef
     push ax                          ; 0x09f2
-    mov ax, bss_9128                 ; 0x09f3
+    mov ax, treasure_caption         ; 0x09f3
     push ax                          ; 0x09f6
     call draw_string                 ; 0x09f7
     add sp, byte 4                   ; 0x09fa
-@..api_idx_000a_TIPG.l1:
+@..redraw_treasure_caption.l1:
     cmp word [bp + 0x4], byte 0      ; 0x09fd
-    je short @..api_idx_000a_TIPG.l2 ; 0x0a01
+    je short @..redraw_treasure_caption.l2 ; 0x0a01
     mov ax, 0xc6                     ; 0x0a03
     push ax                          ; 0x0a06
     mov ax, 0x127                    ; 0x0a07
@@ -83,5 +83,5 @@ api_idx_000a_TIPG:
     push ax                          ; 0x0a12
     call gfx_show_area               ; 0x0a13
     add sp, byte 8                   ; 0x0a16
-@..api_idx_000a_TIPG.l2:
+@..redraw_treasure_caption.l2:
     ret                              ; 0x0a19

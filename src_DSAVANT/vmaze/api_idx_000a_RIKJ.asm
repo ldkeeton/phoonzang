@@ -4,8 +4,8 @@ api_idx_000a_RIKJ:
     call aztec_csav                  ; 0x6b0d
     mov ax, 0                        ; 0x6b10
     push ax                          ; 0x6b13
-    push word [bss_8d10]             ; 0x6b14
-    push word [bss_8d0e]             ; 0x6b18
+    push word [saved_area_a_hi]      ; 0x6b14
+    push word [saved_area_a]         ; 0x6b18
     call gfx_restore_area            ; 0x6b1c
     add sp, byte 6                   ; 0x6b1f
     mov byte [bp - 0x000a], 1        ; 0x6b22

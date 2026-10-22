@@ -9,7 +9,7 @@ loc_PKHU:
     pop cx                           ; 0x80b1
     mov ax, 0                        ; 0x80b2
     push ax                          ; 0x80b5
-    call api_idx_000a_TIPG           ; 0x80b6
+    call redraw_treasure_caption     ; 0x80b6
     pop cx                           ; 0x80b9
     cmp word [bss_84a0], byte 0xff   ; 0x80ba
     je short @..loc_PKHU.l2          ; 0x80bf

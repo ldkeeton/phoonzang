@@ -30,7 +30,7 @@ api_idx_0006_OUPU:
     jne short @..api_idx_0006_OUPU.l7 ; 0x555b
     mov ax, 1                        ; 0x555d
     push ax                          ; 0x5560
-    call api_idx_000a_TIPG           ; 0x5561
+    call redraw_treasure_caption     ; 0x5561
     pop cx                           ; 0x5564
     mov word [bp - 0x0002], 0        ; 0x5565
     jmp short @..api_idx_0006_OUPU.l6 ; 0x556a

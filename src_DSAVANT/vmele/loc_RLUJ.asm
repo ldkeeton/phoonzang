@@ -210,8 +210,8 @@ loc_RLUJ:
     push ax                          ; 0x35cd
     call gfx_save_area               ; 0x35ce
     add sp, byte 8                   ; 0x35d1
-    mov word [bss_8d10], dx          ; 0x35d4
-    mov word [bss_8d0e], ax          ; 0x35d8
+    mov word [saved_area_a_hi], dx   ; 0x35d4
+    mov word [saved_area_a], ax      ; 0x35d8
     mov ax, 0xa4                     ; 0x35db
     push ax                          ; 0x35de
     mov ax, 0xff                     ; 0x35df
@@ -222,8 +222,8 @@ loc_RLUJ:
     push ax                          ; 0x35ea
     call gfx_save_area               ; 0x35eb
     add sp, byte 8                   ; 0x35ee
-    mov word [bss_8d0c], dx          ; 0x35f1
-    mov word [bss_8d0a], ax          ; 0x35f5
+    mov word [saved_area_b_hi], dx   ; 0x35f1
+    mov word [saved_area_b], ax      ; 0x35f5
     mov ax, 1                        ; 0x35f8
     push ax                          ; 0x35fb
     mov ax, 2                        ; 0x35fc

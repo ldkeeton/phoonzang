@@ -27,14 +27,14 @@ api_idx_0006_MITV:
     pop cx                           ; 0x72f3
     mov ax, 1                        ; 0x72f4
     push ax                          ; 0x72f7
-    push word [bss_8d0c]             ; 0x72f8
-    push word [bss_8d0a]             ; 0x72fc
+    push word [saved_area_b_hi]      ; 0x72f8
+    push word [saved_area_b]         ; 0x72fc
     call gfx_restore_area            ; 0x7300
     add sp, byte 6                   ; 0x7303
     mov ax, 1                        ; 0x7306
     push ax                          ; 0x7309
-    push word [bss_8d10]             ; 0x730a
-    push word [bss_8d0e]             ; 0x730e
+    push word [saved_area_a_hi]      ; 0x730a
+    push word [saved_area_a]         ; 0x730e
     call gfx_restore_area            ; 0x7312
     add sp, byte 6                   ; 0x7315
     cmp word [game_state], byte 0x0a ; 0x7318

@@ -98,7 +98,7 @@ api_idx_00e6_QNPR:
     mov word [bp - 0x000a], ax       ; 0x749e
     cmp word [bp - 0x001a], byte 0   ; 0x74a1
     jne short @..api_idx_00e6_QNPR.l2 ; 0x74a5
-    mov ax, bss_9128                 ; 0x74a7
+    mov ax, treasure_caption         ; 0x74a7
     push ax                          ; 0x74aa
     push word [bp - 0x000a]          ; 0x74ab
     call load_message_string         ; 0x74ae
@@ -129,10 +129,10 @@ api_idx_00e6_QNPR:
     mov bx, ax                       ; 0x74ee
     add bx, bp                       ; 0x74f0
     mov word [bx - 0x00e2], 0xffff   ; 0x74f2
-    mov word [bss_9126], 1           ; 0x74f8
+    mov word [treasure_caption_on], 1 ; 0x74f8
     mov ax, 0                        ; 0x74fe
     push ax                          ; 0x7501
-    call api_idx_000a_TIPG           ; 0x7502
+    call redraw_treasure_caption     ; 0x7502
     pop cx                           ; 0x7505
     cmp word [bp - 0x001a], byte 1   ; 0x7506
     je short @..api_idx_00e6_QNPR.l5 ; 0x750a
@@ -226,7 +226,7 @@ api_idx_00e6_QNPR:
     pop cx                           ; 0x75d5
     mov ax, 0                        ; 0x75d6
     push ax                          ; 0x75d9
-    call api_idx_000a_TIPG           ; 0x75da
+    call redraw_treasure_caption     ; 0x75da
     pop cx                           ; 0x75dd
     mov ax, word [bp - 0x0006]       ; 0x75de
     shl ax, 1                        ; 0x75e1
@@ -379,7 +379,7 @@ api_idx_00e6_QNPR:
     add sp, byte 0x12                ; 0x773a
     mov ax, 0                        ; 0x773d
     push ax                          ; 0x7740
-    call api_idx_000a_TIPG           ; 0x7741
+    call redraw_treasure_caption     ; 0x7741
     pop cx                           ; 0x7744
     cmp word [bp - 0x001c], byte 1   ; 0x7745
     jne short @..api_idx_00e6_QNPR.l11 ; 0x7749
@@ -471,6 +471,6 @@ api_idx_00e6_QNPR:
     call api_idx_0004_KGNP           ; 0x781a
     add sp, byte 6                   ; 0x781d
 @..api_idx_00e6_QNPR.l19:
-    mov word [bss_9126], 0           ; 0x7820
+    mov word [treasure_caption_on], 0 ; 0x7820
     inc word [party_region]          ; 0x7826
     ret                              ; 0x782a

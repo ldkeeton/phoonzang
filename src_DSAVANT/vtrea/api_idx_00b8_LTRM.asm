@@ -4,7 +4,7 @@ api_idx_00b8_LTRM:
     call aztec_csav                  ; 0x14ea
     mov ax, 1                        ; 0x14ed
     push ax                          ; 0x14f0
-    call api_idx_000a_TIPG           ; 0x14f1
+    call redraw_treasure_caption     ; 0x14f1
     pop cx                           ; 0x14f4
     cmp word [bp + 0x4], byte 0      ; 0x14f5
     jne short @..api_idx_00b8_LTRM.l1 ; 0x14f9

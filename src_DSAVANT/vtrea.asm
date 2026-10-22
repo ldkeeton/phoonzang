@@ -55,9 +55,9 @@ party_redraw_interval equ __zdseg_end + (__zobss_9124 - __zdata_start)
 
 %include "vtrea/api_idx_0004_UQUT.asm"     ; 0x08eb
 
-bss_9126 equ __zdseg_end + (__zobss_9126 - __zdata_start)
-bss_9128 equ __zdseg_end + (__zobss_9128 - __zdata_start)
-%include "vtrea/api_idx_000a_TIPG.asm"     ; 0x0954
+treasure_caption_on equ __zdseg_end + (__zobss_9126 - __zdata_start)
+treasure_caption    equ __zdseg_end + (__zobss_9128 - __zdata_start)
+%include "vtrea/redraw_treasure_caption.asm" ; 0x0954
 
 bss_9150 equ __zdseg_end + (__zobss_9150 - __zdata_start)
 %include "vtrea/loc_NQGV.asm"              ; 0x0a1a
@@ -189,13 +189,13 @@ dseg_90e2 equ __zdseg_end + (__zdseg_90e2 - __zdata_start)
 ; bss_95e2  equ __zdseg_end + (__zobss_95e2 - __zdata_start)
 %include "vtrea/api_idx_0092_GSQH.asm"     ; 0x4bcc
 
-; bss_9114 equ __zdseg_end + (__zobss_9114 - __zdata_start)
-; bss_911e equ __zdseg_end + (__zobss_911e - __zdata_start)
-; bss_9126 equ __zdseg_end + (__zobss_9126 - __zdata_start)
-; bss_91d4 equ __zdseg_end + (__zobss_91d4 - __zdata_start)
-; bss_91fe equ __zdseg_end + (__zobss_91fe - __zdata_start)
-; bss_95de equ __zdseg_end + (__zobss_95de - __zdata_start)
-; bss_95e0 equ __zdseg_end + (__zobss_95e0 - __zdata_start)
+; bss_9114            equ __zdseg_end + (__zobss_9114 - __zdata_start)
+; bss_911e            equ __zdseg_end + (__zobss_911e - __zdata_start)
+; treasure_caption_on equ __zdseg_end + (__zobss_9126 - __zdata_start)
+; bss_91d4            equ __zdseg_end + (__zobss_91d4 - __zdata_start)
+; bss_91fe            equ __zdseg_end + (__zobss_91fe - __zdata_start)
+; bss_95de            equ __zdseg_end + (__zobss_95de - __zdata_start)
+; bss_95e0            equ __zdseg_end + (__zobss_95e0 - __zdata_start)
 %include "vtrea/api_idx_007a_NHII.asm"     ; 0x4f0c
 
 %include "shared/api_idx_004c_RQSO.asm"     ; 0x51d7
@@ -243,13 +243,13 @@ dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 
 %include "vtrea/api_idx_0034_NSGM.asm"     ; 0x6ff5
 
-; bss_9126 equ __zdseg_end + (__zobss_9126 - __zdata_start)
+; treasure_caption_on equ __zdseg_end + (__zobss_9126 - __zdata_start)
 %include "vtrea/api_idx_0072_LQIT.asm"     ; 0x7151
 
 %include "shared/api_idx_0004_KGNP.asm"     ; 0x7319
 
-; bss_9126 equ __zdseg_end + (__zobss_9126 - __zdata_start)
-; bss_9128 equ __zdseg_end + (__zobss_9128 - __zdata_start)
+; treasure_caption_on equ __zdseg_end + (__zobss_9126 - __zdata_start)
+; treasure_caption    equ __zdseg_end + (__zobss_9128 - __zdata_start)
 %include "vtrea/api_idx_00e6_QNPR.asm"     ; 0x73ae
 
 %include "shared/mark_region_bits.asm"      ; 0x782b
@@ -260,8 +260,8 @@ dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 
 ; bss_911c              equ __zdseg_end + (__zobss_911c - __zdata_start)
 ; party_redraw_interval equ __zdseg_end + (__zobss_9124 - __zdata_start)
-; bss_9126              equ __zdseg_end + (__zobss_9126 - __zdata_start)
-; bss_9128              equ __zdseg_end + (__zobss_9128 - __zdata_start)
+; treasure_caption_on   equ __zdseg_end + (__zobss_9126 - __zdata_start)
+; treasure_caption      equ __zdseg_end + (__zobss_9128 - __zdata_start)
 ; bss_91d4              equ __zdseg_end + (__zobss_91d4 - __zdata_start)
 %include "vtrea/loc_SNOI.asm"              ; 0x7d99
 

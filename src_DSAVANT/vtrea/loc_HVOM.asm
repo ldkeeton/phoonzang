@@ -8,12 +8,12 @@ loc_HVOM:
     pop cx                           ; 0x81e8
     mov ax, 0                        ; 0x81e9
     push ax                          ; 0x81ec
-    call api_idx_000a_TIPG           ; 0x81ed
+    call redraw_treasure_caption     ; 0x81ed
     pop cx                           ; 0x81f0
     call api_idx_0074_SGUS           ; 0x81f1
     mov ax, 1                        ; 0x81f4
     push ax                          ; 0x81f7
-    call api_idx_000a_TIPG           ; 0x81f8
+    call redraw_treasure_caption     ; 0x81f8
     pop cx                           ; 0x81fb
     call loc_VSIT                    ; 0x81fc
     ret                              ; 0x81ff

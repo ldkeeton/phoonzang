@@ -8,7 +8,7 @@ api_idx_0050_MUIG:
     pop cx                           ; 0x7f67
     mov ax, 1                        ; 0x7f68
     push ax                          ; 0x7f6b
-    call api_idx_000a_TIPG           ; 0x7f6c
+    call redraw_treasure_caption     ; 0x7f6c
     pop cx                           ; 0x7f6f
     push word [bss_0e2c]             ; 0x7f70
     push word [bss_0e2a]             ; 0x7f74

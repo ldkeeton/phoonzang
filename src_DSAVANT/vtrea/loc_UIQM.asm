@@ -12,7 +12,7 @@ loc_UIQM:
     pop cx                           ; 0x8136
     mov ax, 0                        ; 0x8137
     push ax                          ; 0x813a
-    call api_idx_000a_TIPG           ; 0x813b
+    call redraw_treasure_caption     ; 0x813b
     pop cx                           ; 0x813e
     mov ax, 0xc6                     ; 0x813f
     push ax                          ; 0x8142
@@ -49,7 +49,7 @@ loc_UIQM:
     pop cx                           ; 0x818c
     mov ax, 1                        ; 0x818d
     push ax                          ; 0x8190
-    call api_idx_000a_TIPG           ; 0x8191
+    call redraw_treasure_caption     ; 0x8191
     pop cx                           ; 0x8194
     cmp word [bss_8450], byte 0      ; 0x8195
     je short @..loc_UIQM.l3          ; 0x819a

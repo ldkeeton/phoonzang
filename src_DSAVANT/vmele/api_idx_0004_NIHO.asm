@@ -90,14 +90,14 @@ api_idx_0004_NIHO:
     pop cx                           ; 0x2f8d
     mov ax, 1                        ; 0x2f8e
     push ax                          ; 0x2f91
-    push word [bss_8d0c]             ; 0x2f92
-    push word [bss_8d0a]             ; 0x2f96
+    push word [saved_area_b_hi]      ; 0x2f92
+    push word [saved_area_b]         ; 0x2f96
     call gfx_restore_area            ; 0x2f9a
     add sp, byte 6                   ; 0x2f9d
     mov ax, 1                        ; 0x2fa0
     push ax                          ; 0x2fa3
-    push word [bss_8d10]             ; 0x2fa4
-    push word [bss_8d0e]             ; 0x2fa8
+    push word [saved_area_a_hi]      ; 0x2fa4
+    push word [saved_area_a]         ; 0x2fa8
     call gfx_restore_area            ; 0x2fac
     add sp, byte 6                   ; 0x2faf
     cmp word [bss_905e], byte 0x17   ; 0x2fb2

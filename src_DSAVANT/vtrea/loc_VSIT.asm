@@ -33,7 +33,7 @@ loc_VSIT:
     pop cx                           ; 0x7f06
     mov ax, 0                        ; 0x7f07
     push ax                          ; 0x7f0a
-    call api_idx_000a_TIPG           ; 0x7f0b
+    call redraw_treasure_caption     ; 0x7f0b
     pop cx                           ; 0x7f0e
     mov ax, 1                        ; 0x7f0f
     push ax                          ; 0x7f12
@@ -45,14 +45,14 @@ loc_VSIT:
     pop cx                           ; 0x7f1e
     mov ax, 1                        ; 0x7f1f
     push ax                          ; 0x7f22
-    push word [bss_8d0c]             ; 0x7f23
-    push word [bss_8d0a]             ; 0x7f27
+    push word [saved_area_b_hi]      ; 0x7f23
+    push word [saved_area_b]         ; 0x7f27
     call gfx_restore_area            ; 0x7f2b
     add sp, byte 6                   ; 0x7f2e
     mov ax, 1                        ; 0x7f31
     push ax                          ; 0x7f34
-    push word [bss_8d10]             ; 0x7f35
-    push word [bss_8d0e]             ; 0x7f39
+    push word [saved_area_a_hi]      ; 0x7f35
+    push word [saved_area_a]         ; 0x7f39
     call gfx_restore_area            ; 0x7f3d
     add sp, byte 6                   ; 0x7f40
     mov ax, 0xc6                     ; 0x7f43
