@@ -97,7 +97,7 @@ restore_screen:
     mov word [bp - 0x0002], ax       ; 0x3c7e
     mov cl, 0xa                      ; 0x3c81
     shr ax, cl                       ; 0x3c83
-    mov word [cs:cseg_3b8e - IMAGE_BASE], ax ; 0x3c85
+    mov word [cs:ems_cur_page - IMAGE_BASE], ax ; 0x3c85
     call ems_map_pages               ; 0x3c89
     mov si, word [bp - 0x0002]       ; 0x3c8c
     and si, strict word 0x3ff        ; 0x3c8f
@@ -123,8 +123,8 @@ restore_screen:
     rep movsb                        ; 0x3cbd
     test si, 0xc000                  ; 0x3cbf
     je short @..restore_screen.l8    ; 0x3cc3
-    inc word [cs:cseg_3b8e - IMAGE_BASE] ; 0x3cc5
-    mov ax, word [cs:cseg_3b8e - IMAGE_BASE] ; 0x3cca
+    inc word [cs:ems_cur_page - IMAGE_BASE] ; 0x3cc5
+    mov ax, word [cs:ems_cur_page - IMAGE_BASE] ; 0x3cca
     call ems_map_pages               ; 0x3cce
     and si, strict word 0x3fff       ; 0x3cd1
 @..restore_screen.l8:

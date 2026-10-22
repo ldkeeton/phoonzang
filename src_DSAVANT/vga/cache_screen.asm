@@ -66,7 +66,7 @@ cache_screen:
     mov ax, di                       ; 0x4018
     mov cl, 0xa                      ; 0x401a
     shr ax, cl                       ; 0x401c
-    mov word [cs:cseg_3b8e - IMAGE_BASE], ax ; 0x401e
+    mov word [cs:ems_cur_page - IMAGE_BASE], ax ; 0x401e
     call ems_map_pages               ; 0x4022
     and di, strict word 0x3ff        ; 0x4025
     mov cl, 4                        ; 0x4029
@@ -76,8 +76,8 @@ cache_screen:
     test dx, 0xc000                  ; 0x402f
     je short @..cache_screen.l6      ; 0x4033
     sub di, strict word 0x4000       ; 0x4035
-    inc word [cs:cseg_3b8e - IMAGE_BASE] ; 0x4039
-    mov ax, word [cs:cseg_3b8e - IMAGE_BASE] ; 0x403e
+    inc word [cs:ems_cur_page - IMAGE_BASE] ; 0x4039
+    mov ax, word [cs:ems_cur_page - IMAGE_BASE] ; 0x403e
     call ems_map_pages               ; 0x4042
 @..cache_screen.l6:
     mov ax, word [bp - 0x0006]       ; 0x4045

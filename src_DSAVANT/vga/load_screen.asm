@@ -51,7 +51,7 @@ load_screen:
     mov ax, si                       ; 0x093b
     mov cl, 0xa                      ; 0x093d
     shr ax, cl                       ; 0x093f
-    mov word [cs:cseg_3b8e - IMAGE_BASE], ax ; 0x0941
+    mov word [cs:ems_cur_page - IMAGE_BASE], ax ; 0x0941
     call ems_map_pages               ; 0x0945
     and si, strict word 0x3ff        ; 0x0948
     mov cl, 4                        ; 0x094c
@@ -67,8 +67,8 @@ load_screen:
     mov cx, 0x4000                   ; 0x0963
     rep movsb                        ; 0x0966
     and si, strict word 0x3fff       ; 0x0968
-    inc word [cs:cseg_3b8e - IMAGE_BASE] ; 0x096c
-    mov ax, word [cs:cseg_3b8e - IMAGE_BASE] ; 0x0971
+    inc word [cs:ems_cur_page - IMAGE_BASE] ; 0x096c
+    mov ax, word [cs:ems_cur_page - IMAGE_BASE] ; 0x0971
     call ems_map_pages               ; 0x0975
     pop cx                           ; 0x0978
     loop @..load_screen.l3           ; 0x0979

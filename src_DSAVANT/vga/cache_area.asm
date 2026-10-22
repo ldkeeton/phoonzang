@@ -100,7 +100,7 @@ cache_area:
     inc dx                           ; 0x3943
     add bx, byte 2                   ; 0x3944
     loop @..cache_area.l8            ; 0x3947
-    jmp near dos_con_loc_UHSU        ; 0x3949
+    jmp near cache_area_maze_slots_full ; 0x3949
 @..cache_area.l9:
     mov word [bp - 0x000c], dx       ; 0x394c
     mov ax, word [cs:cseg_0baa - IMAGE_BASE] ; 0x394f
@@ -207,7 +207,7 @@ cache_area:
     shl di, cl                       ; 0x3a51
     mov cl, 0xa                      ; 0x3a53
     shr ax, cl                       ; 0x3a55
-    mov word [cs:cseg_3b8e - IMAGE_BASE], ax ; 0x3a57
+    mov word [cs:ems_cur_page - IMAGE_BASE], ax ; 0x3a57
     call ems_map_pages               ; 0x3a5b
     mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x3a5e
     mov ds, ax                       ; 0x3a62
@@ -234,8 +234,8 @@ cache_area:
     rep movsb                        ; 0x3a91
     test di, 0xc000                  ; 0x3a93
     je short @..cache_area.l16       ; 0x3a97
-    inc word [cs:cseg_3b8e - IMAGE_BASE] ; 0x3a99
-    mov ax, word [cs:cseg_3b8e - IMAGE_BASE] ; 0x3a9e
+    inc word [cs:ems_cur_page - IMAGE_BASE] ; 0x3a99
+    mov ax, word [cs:ems_cur_page - IMAGE_BASE] ; 0x3a9e
     call ems_map_pages               ; 0x3aa2
     and di, strict word 0x3fff       ; 0x3aa5
 @..cache_area.l16:

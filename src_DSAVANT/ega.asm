@@ -316,7 +316,6 @@ loc_LQTO.ems_blocks1      equ ems_blocks
 loc_LQTO.maze_mem_seg1    equ maze_mem_seg
 loc_LQTO.maze_paras_used1 equ maze_paras_used
 loc_LQTO.ems_frame_seg1   equ ems_frame_seg
-loc_LQTO.ems_cur_page1    equ ems_cur_page
 %include "shared/library/loc_LQTO.asm"                ; 0x12bb
 
 %include "ega/leaf_loc_MIUO.asm"           ; 0x1355
@@ -644,7 +643,6 @@ cache_maze.ems_blocks1      equ ems_blocks
 cache_maze.ems_paras_used1  equ ems_paras_used
 cache_maze.ems_para_limit1  equ ems_para_limit
 cache_maze.dos_con_loc2     equ dos_con_loc_TUHU
-cache_maze.ems_cur_page1    equ ems_cur_page
 cache_maze.ems_frame_seg1   equ ems_frame_seg
 %include "shared/library/cache_maze.asm"              ; 0x4624
 

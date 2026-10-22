@@ -326,7 +326,6 @@ loc_LQTO.ems_blocks1      equ cseg_01eb
 loc_LQTO.maze_mem_seg1    equ cseg_00e1
 loc_LQTO.maze_paras_used1 equ cseg_0bac
 loc_LQTO.ems_frame_seg1   equ cseg_0103
-loc_LQTO.ems_cur_page1    equ cseg_3b8e
 %include "shared/library/loc_LQTO.asm"                ; 0x0d9a
 
 data_029b equ __zdata_029b - IMAGE_BASE
@@ -632,11 +631,10 @@ cseg_3afe equ cache_area_ems_slots_full.cseg1
 cseg_3b2f equ cache_area_maze_mem_full.cseg1
 %include "shared/library/cache_area_maze_mem_full.asm" ; 0x3b1f
 
-dos_con_loc_UHSU equ cache_area_maze_slots_full
-cseg_3b6c        equ cache_area_maze_slots_full.cseg1
-%include "shared/library/cache_area_maze_slots_full.asm"        ; 0x3b5c
+cseg_3b6c equ cache_area_maze_slots_full.cseg1
+%include "shared/library/cache_area_maze_slots_full.asm" ; 0x3b5c
 
-cseg_3b8e:
+ems_cur_page:
     db 0x00, 0x00
 %include "shared/library/ems_map_pages.asm"           ; 0x3b90
 
@@ -660,7 +658,6 @@ cache_maze.ems_blocks1      equ cseg_01eb
 cache_maze.ems_paras_used1  equ cseg_0291
 cache_maze.ems_para_limit1  equ cseg_00ff
 cache_maze.dos_con_loc2     equ dos_con_loc_JUQV
-cache_maze.ems_cur_page1    equ cseg_3b8e
 cache_maze.ems_frame_seg1   equ cseg_0103
 %include "shared/library/cache_maze.asm"              ; 0x3d72
 

@@ -98,7 +98,7 @@ cache_maze:
     mov ax, di
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:cache_maze.ems_cur_page1 - IMAGE_BASE], ax
+    mov word [cs:ems_cur_page - IMAGE_BASE], ax
     call ems_map_pages
     and di, strict word 0x3ff
     mov cl, 4
@@ -121,8 +121,8 @@ cache_maze:
     test dx, 0xc000
     je short @..cache_maze.l6
     sub di, strict word 0x4000
-    inc word [cs:cache_maze.ems_cur_page1 - IMAGE_BASE]
-    mov ax, word [cs:cache_maze.ems_cur_page1 - IMAGE_BASE]
+    inc word [cs:ems_cur_page - IMAGE_BASE]
+    mov ax, word [cs:ems_cur_page - IMAGE_BASE]
     call ems_map_pages
 @..cache_maze.l6:
     mov ax, word [bp - 0x0006]

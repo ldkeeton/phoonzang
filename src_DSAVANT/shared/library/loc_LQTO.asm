@@ -24,7 +24,7 @@ loc_LQTO:
     mov ax, si
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:loc_LQTO.ems_cur_page1 - IMAGE_BASE], ax
+    mov word [cs:ems_cur_page - IMAGE_BASE], ax
     call ems_map_pages
     and si, strict word 0x3ff
     mov cl, 4
@@ -32,8 +32,8 @@ loc_LQTO:
 loc_SMRK:
     test si, 0xc000
     je short loc_IGPS
-    inc word [cs:loc_LQTO.ems_cur_page1 - IMAGE_BASE]
-    mov ax, word [cs:loc_LQTO.ems_cur_page1 - IMAGE_BASE]
+    inc word [cs:ems_cur_page - IMAGE_BASE]
+    mov ax, word [cs:ems_cur_page - IMAGE_BASE]
     call ems_map_pages
     sub si, strict word 0x4000
 loc_IGPS:

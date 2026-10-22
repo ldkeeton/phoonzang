@@ -572,9 +572,13 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     out_dir = output_dir or ASM_DIR
     progress.log(f'{name} | resolving Aztec C routines')
     t_aztec = time.perf_counter()
+    # Where the sidecar names data in the code segment: it ends a hand-written
+    # routine's fragment, which only named routines would otherwise do.
+    code_data_starts = sorted(
+        (ctx.sidecar_entry or {}).get('code_data_names') or ())
     c_overrides, _entries, header_files = _aztec_c_overrides(
         project, name, data, ctx.label_map, out_dir, function_roots,
-        start_offset)
+        start_offset, code_data_starts)
     asm_annotations = _aztec_asm_annotations(_entries, ctx.label_map,
                                              c_overrides)
     stagelog.step('aztec.overrides', 1, metrics={'c': len(c_overrides),

@@ -826,14 +826,16 @@
       "function_names": {
         "381b": {"name": "cache_area_disk_error", "note": "prints the CACHEAREA() disk-write error from a code-segment string via int 21h/9 and exits to DOS with code 1"},
         "3aee": {"name": "cache_area_ems_slots_full", "note": "prints CACHEAREA out of EMS slots and exits"},
-        "3b1f": {"name": "cache_area_maze_mem_full", "note": "prints CACHEAREA out of MAZE/PIC memory and exits"}
+        "3b1f": {"name": "cache_area_maze_mem_full", "note": "prints CACHEAREA out of MAZE/PIC memory and exits"},
+        "3b5c": {"name": "cache_area_maze_slots_full", "note": "prints CACHEAREA out of MAZE slots and exits"}
       },
       "code_data_names": {
         "0126": {"name": "mouse_glide_active", "note": "1 while mouse_glide_to moves the pointer; cleared by mouse_glide_back"},
         "0127": {"name": "mouse_redraw_pending", "note": "set to 1 by leaf_loc_LMQV when a mouse is present; cleared after the pointer is redrawn"},
         "0128": {"name": "mouse_present", "note": "1 once mouse_init has reset the INT 33h driver"},
         "14ac": {"name": "mouse_drawn_x", "note": "pointer X (INT 33h column / 2) last drawn; compared to skip redundant redraws"},
-        "14ae": {"name": "mouse_drawn_y", "note": "pointer Y last drawn; mouse_init sets 0xffff to force a redraw"}
+        "14ae": {"name": "mouse_drawn_y", "note": "pointer Y last drawn; mouse_init sets 0xffff to force a redraw"},
+        "3b8e": {"name": "ems_cur_page", "note": "EMS logical page mapped at frame page 0"}
       },
       "file": "VGA.DRV",
       "type": "raw_drv",

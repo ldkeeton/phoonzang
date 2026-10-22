@@ -19,7 +19,7 @@ from .options import (
 
 
 def _aztec_c_overrides(project, name, data, label_map, out_dir,
-                       function_roots=None, start_offset=0):
+                       function_roots=None, start_offset=0, code_data_starts=()):
     """Resolve Aztec runtime routines to C and compile the current seeds.
 
     Returns ``(overrides, entries, files)`` where *overrides* feeds the
@@ -228,7 +228,8 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'module_data': compiled.data,
             'module_data_relocations': compiled.data_relocations,
             'module_externals': compiled.externals,
-            'length': _hand_length(start, roots, bands, len(func.code)),
+            'length': _hand_length(start, roots, bands, len(func.code),
+                                    code_data_starts),
             # A .s module's publics, each an asm label the build must give
             # the same name (lib.compare.coverrides._check_publics).
             'publics': ({external_label(f.cname): f.offset
@@ -436,10 +437,12 @@ def _hand_shared_c(out_dir):
                    for label in _hand_c(folder)})
 
 
-def _hand_length(start, roots, bands, code_len):
+def _hand_length(start, roots, bands, code_len, data_starts=()):
     """The bytes a hand-written routine at *start* owns.
 
-    Up to the next fragment root, but never past the end of its sidecar band:
+    Up to the next fragment root, but never past the first named data object
+    at or after the end of its *code_len* compiled bytes, nor past the end of
+    its sidecar band:
     a band's last object ends where the band does, and what follows (the next
     object's data, a linker alignment pad outside every band) is not its code.
     With neither, the compiled *code_len*.
@@ -447,6 +450,9 @@ def _hand_length(start, roots, bands, code_len):
     if start is None:
         return code_len
     end = next((r for r in sorted(roots) if r > start), None)
+    stop = next((d for d in data_starts if d >= start + code_len), None)
+    if stop is not None and (end is None or stop < end):
+        end = stop
     band = band_for(bands, start) if bands else None
     if band is not None and (end is None or end > band[1] + 1):
         end = band[1] + 1
