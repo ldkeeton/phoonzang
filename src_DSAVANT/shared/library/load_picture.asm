@@ -1,0 +1,105 @@
+; auto-generated
+load_picture:
+    push bp
+    mov bp, sp
+    sub sp, byte 8
+    push ds
+    push es
+    push si
+    push di
+    mov ax, ds
+    mov es, ax
+    mov ax, word [bp + 0xe]
+    shl ax, 1
+    mov bx, picture_slots - IMAGE_BASE
+    add bx, ax
+    mov word [bp - 0x0002], bx
+    mov ax, word [cs:bx]
+    or ax, ax
+    je short @..load_picture.l1
+    jmp near @..load_picture.l7
+@..load_picture.l1:
+    mov ax, word [cs:maze_block_count - IMAGE_BASE]
+    inc ax
+    mov word [cs:maze_block_count - IMAGE_BASE], ax
+    mov bx, word [bp - 0x0002]
+    mov word [cs:bx], ax
+    dec ax
+    mov cl, 2
+    shl ax, cl
+    mov bx, maze_blocks - IMAGE_BASE
+    add bx, ax
+    mov word [bp - 0x0002], bx
+    mov ax, word [cs:maze_paras_used - IMAGE_BASE]
+    mov word [cs:bx], ax
+    mov ax, word [cs:scratch_buf_seg - IMAGE_BASE]
+    mov ds, ax
+    xor dx, dx
+    mov cx, 4
+    mov bx, word [bp + 0xc]
+    mov ah, 0x3f
+    int 0x21 ; DOS read file (handle)
+    xor bx, bx
+    mov ax, word [bx]
+    mov dx, word [bx + 0x2]
+    mov word [bp - 0x0004], ax
+    mov word [bp - 0x0006], dx
+    mov cl, 4
+    add ax, strict word 0xf
+    adc dx, byte 0
+    shr ax, cl
+    shl dl, cl
+    or ah, dl
+    add word [cs:maze_paras_used - IMAGE_BASE], ax
+    mov bx, word [bp - 0x0002]
+    mov word [cs:bx + 0x2], ax
+    mov ax, word [cs:maze_paras_used - IMAGE_BASE]
+    cmp ax, 0x4180
+    jb short @..load_picture.l2
+    jmp near load_picture.dos_con_loc1
+@..load_picture.l2:
+    mov bx, word [bp - 0x0002]
+    mov ax, word [cs:bx]
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE]
+    mov ds, ax
+@..load_picture.l3:
+    mov cx, word [bp - 0x0004]
+    mov dx, word [bp - 0x0006]
+    mov bx, cx
+    or bx, dx
+    je short @..load_picture.l6
+    or dx, dx
+    jne short @..load_picture.l4
+    cmp cx, strict word 0x1000
+    jae short @..load_picture.l4
+    sub word [bp - 0x0004], cx
+    jmp short @..load_picture.l5
+@..load_picture.l4:
+    sub cx, strict word 0x1000
+    sbb dx, byte 0
+    mov word [bp - 0x0004], cx
+    mov word [bp - 0x0006], dx
+    mov cx, 0x1000
+@..load_picture.l5:
+    xor dx, dx
+    mov bx, word [bp + 0xc]
+    mov ah, 0x3f
+    int 0x21 ; DOS read file (handle)
+    mov ax, ds
+    add ax, 0x100
+    mov ds, ax
+    jmp short @..load_picture.l3
+@..load_picture.l6:
+    pop di
+    pop si
+    pop es
+    pop ds
+    mov sp, bp
+    pop bp
+    ret
+@..load_picture.l7:
+    mov ax, word [bp + 0xe]
+    mov bx, 0xa
+    div bx
+    or byte [cs:picture_error_tens - IMAGE_BASE], al
+    or byte [cs:picture_error_ones - IMAGE_BASE], dl

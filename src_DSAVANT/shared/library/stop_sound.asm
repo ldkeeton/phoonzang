@@ -17,7 +17,7 @@ stop_sound:
     push ax
     push ax
     push ax
-    call far [cs:cseg_011a - IMAGE_BASE]
+    call far [cs:sound_play_far - IMAGE_BASE]
     add sp, byte 0x0e
     pop di
     pop si

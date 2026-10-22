@@ -21,7 +21,7 @@ leaf_loc_MIUO:
     inc bx
     inc bx
     loop @..leaf_loc_MIUO.l3
-    mov bx, leaf_loc_MIUO.screen_slots1 - IMAGE_BASE
+    mov bx, screen_ems_slots - IMAGE_BASE
     mov cx, 0xa
 @..leaf_loc_MIUO.l5:
     cmp ax, word [cs:bx]

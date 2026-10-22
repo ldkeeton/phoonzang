@@ -142,19 +142,19 @@ ems_frame_seg:
     db 0x00, 0x00
 cseg_0105:
     db 0x00
-cseg_0106:
+music_start_far:
     db 0x03, 0x01, 0x00, 0x00, 0x07, 0x01, 0x00, 0x00
-cseg_010e:
+music_load_far:
     db 0x0b, 0x01, 0x00, 0x00
-cseg_0112:
+music_stop_far:
     db 0x0f, 0x01, 0x00, 0x00
-cseg_0116:
+music_config_far:
     db 0x13, 0x01, 0x00, 0x00
-cseg_011a:
+sound_play_far:
     db 0x17, 0x01, 0x00, 0x00
-cseg_011e:
+music_playing_far:
     db 0x1b, 0x01, 0x00, 0x00
-cseg_0122:
+sound_wait_far:
     db 0x1f, 0x01, 0x00, 0x00
 mouse_glide_active:
     db 0x00
@@ -162,19 +162,17 @@ mouse_redraw_pending:
     db 0x00
 mouse_present:
     db 0x00
-__zdata_0229:
-cseg_0129:
+picture_slots:
 
     times 40 db 0
 
-__zdata_0251:
-cseg_0151:
+screen_maze_slots:
     times 10 db 0
 maze_slots:
 
     times 32 db 0
 
-cseg_017b:
+maze_piece_table:
 
     db 0x04
     times 21 db 0
@@ -197,7 +195,7 @@ cseg_01c3:
 
     times 20 db 0
 
-cseg_01d7:
+screen_ems_slots:
 
     times 20 db 0
 
@@ -235,14 +233,14 @@ cseg_0515:
 
 %include "vga/invert_area.asm"             ; 0x0728
 
-save_area.dos_con_loc1 equ dos_con_loc_PJHN
-save_area.loc1         equ loc_082e
 %include "shared/library/save_area.asm"               ; 0x077a
 
-cseg_080d equ dos_con_loc_PJHN.cseg1
-%include "shared/library/dos_con_loc_PJHN.asm"        ; 0x07fd
+cseg_080d equ save_area_out_of_memory.cseg1
+%include "shared/library/save_area_out_of_memory.asm" ; 0x07fd
 
-%include "shared/library/loc_082e.asm"                ; 0x082e
+%include "shared/library/save_area_clear_result.asm"  ; 0x082a
+
+%include "shared/library/area_restore_and_return.asm" ; 0x082e
 
 restore_area.dos_con_loc1 equ dos_con_loc_SUSK
 restore_area.loc1         equ loc_08ca
@@ -253,11 +251,11 @@ cseg_089f equ dos_con_loc_SUSK.cseg1
 
 %include "shared/library/loc_08ca.asm"                ; 0x08ca
 
-data_0251 equ __zdata_0251 - IMAGE_BASE
-%include "vga/load_screen.asm"             ; 0x08d2
+%include "shared/library/load_screen.asm"             ; 0x08d2
 
-; data_0251 equ __zdata_0251 - IMAGE_BASE
-%include "vga/save_screen.asm"             ; 0x099c
+save_screen.dos_con_loc1 equ dos_con_loc_VOMM
+save_screen.dos_con_loc2 equ dos_con_loc_HUUH
+%include "shared/library/save_screen.asm"             ; 0x099c
 
 dos_con_loc_VOMM equ dos_con_loc_KOIJ
 cseg_0a5f        equ dos_con_loc_KOIJ.cseg1
@@ -266,8 +264,7 @@ cseg_0a5f        equ dos_con_loc_KOIJ.cseg1
 cseg_0a9d equ dos_con_loc_HUUH.cseg1
 %include "shared/library/dos_con_loc_HUUH.asm"        ; 0x0a8d
 
-__zdata_0bc6:
-cseg_0ac6:
+maze_map_slots:
 
     times 20 db 0
 
@@ -279,8 +276,10 @@ maze_block_count:
     db 0x00, 0x00
 maze_paras_used:
     db 0x00, 0x00
-data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
-%include "vga/load_maze.asm"               ; 0x0bae
+load_maze.dos_con_loc1 equ dos_con_loc_GKGP
+load_maze.dos_con_loc2 equ dos_con_loc_PHON
+load_maze.loc1         equ loc_TKLO
+%include "shared/library/load_maze.asm"               ; 0x0bae
 
 dos_con_loc_PHON              equ dos_con_loc_GNNJ
 dos_con_loc_GNNJ.cseg1        equ cseg_0d3c
@@ -314,7 +313,6 @@ cseg_0d6b:
 
 %include "shared/library/loc_LQTO.asm"                ; 0x0d9a
 
-leaf_loc_MIUO.screen_slots1 equ cseg_01d7
 %include "shared/library/leaf_loc_MIUO.asm"           ; 0x0e34
 
 cseg_0e6d:
@@ -329,11 +327,11 @@ leaf_loc_TPOL.cseg1 equ cseg_0e6f
 leaf_loc_TPOL.cseg2 equ cseg_0e6d
 %include "shared/library/leaf_loc_TPOL.asm"           ; 0x0f3b
 
-; data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
-%include "vga/free_maze.asm"               ; 0x0f6f
+%include "shared/library/free_maze.asm"               ; 0x0f6f
 
-; data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
-%include "vga/draw_maze_piece.asm"         ; 0x0fb7
+dos_con_loc_0fda equ draw_maze_piece.dos_con_loc1
+cseg_0fea        equ draw_maze_piece.cseg1
+%include "shared/library/draw_maze_piece.asm"         ; 0x0fb7
 
 %include "vga/mouse_init.asm"              ; 0x11f8
 
@@ -445,19 +443,18 @@ data_1e4c equ __zdata_1e4c - IMAGE_BASE
 leaf_loc_OLKS.cseg1 equ cseg_1dcd
 %include "shared/library/leaf_loc_OLKS.asm"           ; 0x217d
 
-data_0229 equ __zdata_0229 - IMAGE_BASE
-%include "vga/free_picture.asm"            ; 0x2185
+%include "shared/library/free_picture.asm"            ; 0x2185
 
-; data_0229 equ __zdata_0229 - IMAGE_BASE
-%include "vga/load_picture.asm"            ; 0x21cd
+load_picture.dos_con_loc1 equ dos_con_loc_TTIT
+%include "shared/library/load_picture.asm"            ; 0x21cd
 
 dos_con_loc_QRKT equ dos_con_loc_KGLK
 cseg_22ce        equ dos_con_loc_KGLK.cseg1
 %include "shared/library/dos_con_loc_KGLK.asm"        ; 0x22be
 
-cseg_22de:
+picture_error_tens:
     db 0x30
-cseg_22df:
+picture_error_ones:
     db '0 not freed.', 0
     db 0x0a, 0x24
 dos_con_loc_TTIT equ dos_con_loc_QMKK
@@ -527,25 +524,21 @@ cseg_2327:
 
 %include "shared/library/mouse_glide_back.asm"        ; 0x2c0e
 
-; data_0251 equ __zdata_0251 - IMAGE_BASE
-%include "vga/free_screen.asm"             ; 0x2cbe
+%include "shared/library/free_screen.asm"             ; 0x2cbe
 
 %include "shared/library/get_palette.asm"             ; 0x2d08
 
-__zdata_2e2b:
-cseg_2d2b:
+text_state_words:
 
     times 40 db 0
 
-__zdata_2e53:
-cseg_2d53:
+text_state_bytes:
 
     times 25 db 0
 
-; data_0229 equ __zdata_0229 - IMAGE_BASE
-data_2e2b equ __zdata_2e2b - IMAGE_BASE
-data_2e53 equ __zdata_2e53 - IMAGE_BASE
-%include "vga/draw_text.asm"               ; 0x2d6c
+draw_text.leaf_loc1     equ leaf_loc_NIGK
+draw_text.graphics_loc1 equ graphics_loc_PVIU
+%include "shared/library/draw_text.asm"               ; 0x2d6c
 
 %include "vga/leaf_loc_NIGK.asm"           ; 0x3131
 
@@ -565,27 +558,38 @@ cseg_3183:
 
 %include "shared/library/leaf_loc_NOSG.asm"           ; 0x319f
 
-; data_2e2b equ __zdata_2e2b - IMAGE_BASE
-; data_2e53 equ __zdata_2e53 - IMAGE_BASE
-data_381b equ __zdata_381b - IMAGE_BASE
-%include "vga/graphics_loc_PVIU.asm"       ; 0x31d9
+graphics_loc_PVIU           equ graphics_loc_NVPK
+graphics_loc_NVPK.loc1      equ loc_3498
+graphics_loc_NVPK.loc2      equ loc_35d8
+graphics_loc_NVPK.loc3      equ loc_337c
+graphics_loc_NVPK.leaf_loc1 equ leaf_loc_QLNN
+%include "shared/library/graphics_loc_NVPK.asm"       ; 0x31d9
 
 %include "shared/library/leaf_loc_MTKK.asm"           ; 0x3340
 
 leaf_loc_QLNN equ leaf_loc_KSJN
 %include "shared/library/leaf_loc_KSJN.asm"           ; 0x3360
 
-; data_2e2b equ __zdata_2e2b - IMAGE_BASE
-; data_381b equ __zdata_381b - IMAGE_BASE
 %include "vga/loc_337c.asm"                ; 0x337c
 
-; data_2e2b equ __zdata_2e2b - IMAGE_BASE
-; data_381b equ __zdata_381b - IMAGE_BASE
 %include "vga/loc_3498.asm"                ; 0x3498
 
-; data_2e2b equ __zdata_2e2b - IMAGE_BASE
-; data_381b equ __zdata_381b - IMAGE_BASE
 %include "vga/loc_35d8.asm"                ; 0x35d8
+
+intensity_limits:
+
+    db 0x00, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f
+    db 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f
+    db '####++++++++////:::::::::::?????JJJJJJJJJJJOOOOO]]]]]]]]]]]]]]__oooooooooooooooowwwwwwww'
+    db 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f
+    db 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x93, 0x93, 0x93, 0x93, 0x96, 0x96, 0x96, 0x9f
+    db 0x9f, 0x9f, 0x9f, 0x9f, 0x9f, 0x9f, 0x9f, 0x9f, 0xa3, 0xa3, 0xa3, 0xa3, 0xa6, 0xa6, 0xa6, 0xaf
+    db 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xb7, 0xb7, 0xb7, 0xb7, 0xb7, 0xb7, 0xb7, 0xb7
+    db 0xbf, 0xbf, 0xbf, 0xbf, 0xbf, 0xbf, 0xbf, 0xbf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf
+    db 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xd6, 0xd6, 0xd6, 0xd6, 0xd6, 0xd6, 0xd6, 0xdf
+    db 0xdf, 0xdf, 0xdf, 0xdf, 0xdf, 0xdf, 0xdf, 0xdf, 0xe2, 0xe2, 0xe2, 0xe6, 0xe6, 0xe6, 0xe6, 0xef
+    db 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xf5, 0xf5, 0xf5, 0xf5, 0xf5, 0xf5, 0xfe, 0xfe
+    db 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xff
 
 cseg_382b equ cache_area_disk_error.cseg1
 %include "shared/library/cache_area_disk_error.asm"   ; 0x381b
@@ -625,18 +629,19 @@ cseg_3d49 equ dos_con_loc_KVVK.cseg1
 
 %include "shared/library/loc_3d6d.asm"                ; 0x3d6d
 
-cache_maze.dos_con_loc1 equ dos_con_loc_KRKO
-cache_maze.dos_con_loc2 equ dos_con_loc_JUQV
+cache_maze.dos_con_loc1 equ dos_con_loc_JUQV
 %include "shared/library/cache_maze.asm"              ; 0x3d72
 
-dos_con_loc_KRKO equ dos_con_loc_GKTV
-cseg_3f06        equ dos_con_loc_GKTV.cseg1
-%include "shared/library/dos_con_loc_GKTV.asm"        ; 0x3ef6
+%include "shared/library/cache_maze_restore_and_return.asm" ; 0x3eee
+
+cseg_3f06 equ cache_maze_slot_in_use.cseg1
+%include "shared/library/cache_maze_slot_in_use.asm"  ; 0x3ef6
+
+%include "shared/library/cache_maze_return_zero.asm"  ; 0x3f38
 
 cseg_3f4e equ dos_con_loc_JUQV.cseg1
 %include "shared/library/dos_con_loc_JUQV.asm"        ; 0x3f3e
 
-cache_screen.screen_slots1 equ cseg_01d7
 %include "shared/library/cache_screen.asm"            ; 0x3f73
 
 %include "shared/library/cache_screen_restore_and_return.asm" ; 0x4079
@@ -649,13 +654,14 @@ cseg_4091 equ cache_screen_slot_in_use.cseg1
 cseg_40db equ cache_screen_out_of_ems.cseg1
 %include "shared/library/cache_screen_out_of_ems.asm" ; 0x40cb
 
-__zdata_4202:
-cseg_4102:
+sound_slots:
 
     times 84 db 0
 
-data_4202 equ __zdata_4202 - IMAGE_BASE
-%include "vga/load_sound.asm"              ; 0x4156
+load_sound.dos_con_loc1 equ dos_con_loc_KPVS
+load_sound.loc1         equ loc_42a0
+load_sound.dos_con_loc2 equ dos_con_loc_KOGR
+%include "shared/library/load_sound.asm"              ; 0x4156
 
 cseg_4238 equ dos_con_loc_KPVS.cseg1
 %include "shared/library/dos_con_loc_KPVS.asm"        ; 0x4228
@@ -671,46 +677,45 @@ loc_42a0.dos_con_loc1 equ dos_con_loc_KOGR
 
 %include "shared/library/dos_file_loc_VPIN.asm"       ; 0x4319
 
-; data_4202 equ __zdata_4202 - IMAGE_BASE
-%include "vga/free_sound.asm"              ; 0x439a
+free_sound.leaf_loc1    equ leaf_loc_PTSI
+free_sound.leaf_loc2    equ leaf_loc_VRNL
+free_sound.dos_con_loc1 equ dos_con_loc_GOSI
+free_sound.leaf_loc3    equ leaf_loc_IQGS
+%include "shared/library/free_sound.asm"              ; 0x439a
 
-; data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
-%include "vga/leaf_loc_PTSI.asm"           ; 0x43f7
+leaf_loc_PTSI equ leaf_loc_OSUJ
+%include "shared/library/leaf_loc_OSUJ.asm"           ; 0x43f7
 
-; data_0229 equ __zdata_0229 - IMAGE_BASE
-%include "vga/leaf_loc_IHJG.asm"           ; 0x440c
+%include "shared/library/leaf_loc_IHJG.asm"           ; 0x440c
 
 %include "shared/library/leaf_loc_MGRH.asm"           ; 0x4421
 
-; data_0251 equ __zdata_0251 - IMAGE_BASE
-%include "vga/leaf_loc_USQQ.asm"           ; 0x4436
+%include "shared/library/leaf_loc_USQQ.asm"           ; 0x4436
 
-; data_4202 equ __zdata_4202 - IMAGE_BASE
-%include "vga/leaf_loc_VRNL.asm"           ; 0x444b
+leaf_loc_VRNL equ leaf_loc_JRKU
+%include "shared/library/leaf_loc_JRKU.asm"           ; 0x444b
 
-data_46d9 equ __zdata_46d9 - IMAGE_BASE
-%include "vga/dos_con_loc_GOSI.asm"        ; 0x4461
+dos_con_loc_GOSI equ dos_con_loc_GJMS
+cseg_448c        equ dos_con_loc_GJMS.cseg1
+%include "shared/library/dos_con_loc_GJMS.asm"        ; 0x4461
 
 %include "shared/library/leaf_loc_IQGS.asm"           ; 0x44a3
 
-; data_4202 equ __zdata_4202 - IMAGE_BASE
-%include "vga/play_sound.asm"              ; 0x4527
+%include "shared/library/play_sound.asm"              ; 0x4527
 
 %include "shared/library/wait_sound.asm"              ; 0x4596
 
 %include "shared/library/stop_sound.asm"              ; 0x45b2
 
-__zdata_46d9:
-cseg_45d9:
+score_slots:
 
     times 24 db 0
 
-__zdata_46f1:
-cseg_45f1:
+score_info:
     times 10 db 0
-; data_46d9 equ __zdata_46d9 - IMAGE_BASE
-data_46f1 equ __zdata_46f1 - IMAGE_BASE
-%include "vga/load_score.asm"              ; 0x45fb
+load_score.dos_con_loc1 equ dos_con_loc_SGUQ
+load_score.dos_con_loc2 equ dos_con_loc_HPIH
+%include "shared/library/load_score.asm"              ; 0x45fb
 
 dos_con_loc_SGUQ equ dos_con_loc_OOVK
 cseg_4722        equ dos_con_loc_OOVK.cseg1
@@ -719,12 +724,9 @@ cseg_4722        equ dos_con_loc_OOVK.cseg1
 cseg_475e equ dos_con_loc_HPIH.cseg1
 %include "shared/library/dos_con_loc_HPIH.asm"        ; 0x474e
 
-; data_46d9 equ __zdata_46d9 - IMAGE_BASE
-; data_46f1 equ __zdata_46f1 - IMAGE_BASE
-%include "vga/play_score.asm"              ; 0x478a
+%include "shared/library/play_score.asm"              ; 0x478a
 
-; data_46d9 equ __zdata_46d9 - IMAGE_BASE
-%include "vga/free_score.asm"              ; 0x481f
+%include "shared/library/free_score.asm"              ; 0x481f
 
 %include "shared/library/is_music_playing.asm"        ; 0x4866
 

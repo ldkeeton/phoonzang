@@ -9,7 +9,7 @@ wait_sound:
     mov ax, ds
     mov es, ax
     push word [bp + 0xc]
-    call far [cs:cseg_0122 - IMAGE_BASE]
+    call far [cs:sound_wait_far - IMAGE_BASE]
     pop cx
     pop di
     pop si

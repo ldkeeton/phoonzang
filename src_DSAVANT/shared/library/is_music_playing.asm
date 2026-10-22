@@ -8,7 +8,7 @@ is_music_playing:
     push di
     mov ax, ds
     mov es, ax
-    call far [cs:cseg_011e - IMAGE_BASE]
+    call far [cs:music_playing_far - IMAGE_BASE]
     pop di
     pop si
     pop es

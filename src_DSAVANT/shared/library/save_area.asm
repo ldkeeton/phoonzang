@@ -28,7 +28,7 @@ save_area:
     mov ah, 0x48
     int 0x21 ; DOS allocate memory
     jae short @..save_area.l1
-    jmp near save_area.dos_con_loc1
+    jmp near save_area_out_of_memory
 @..save_area.l1:
     mov es, ax
     xor di, di
@@ -59,4 +59,4 @@ save_area:
     jne short @..save_area.l2
     mov dx, es
     xor ax, ax
-    jmp short save_area.loc1
+    jmp short area_restore_and_return

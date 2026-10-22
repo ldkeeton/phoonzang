@@ -16,7 +16,7 @@ loc_338d:
 loc_339d:
     push cx                          ; 0x339d
     call leaf_loc_MTKK               ; 0x339e
-    mov ax, data_2e2b                ; 0x33a1
+    mov ax, 0x2e2b                   ; 0x33a1
     mov word [bp - 0x0034], ax       ; 0x33a4
     mov cx, word [bp - 0x0002]       ; 0x33a7
 loc_33aa:
@@ -67,7 +67,7 @@ loc_33f5:
     cmp byte [bp + 0x1e], 2          ; 0x3406
     jne short loc_3422               ; 0x340a
     mov al, byte [es:di]             ; 0x340c
-    mov bx, data_381b                ; 0x340f
+    mov bx, 0x381b                   ; 0x340f
     add bx, ax                       ; 0x3412
     add al, byte [si]                ; 0x3414
     jb short loc_341d                ; 0x3416
@@ -79,7 +79,7 @@ loc_341d:
 loc_3422:
     cmp byte [bp - 0x0030], 0        ; 0x3422
     je short loc_343a                ; 0x3426
-    mov bx, data_381b                ; 0x3428
+    mov bx, 0x381b                   ; 0x3428
     add bx, ax                       ; 0x342b
     add al, byte [bp - 0x0030]       ; 0x342d
     jb short loc_3437                ; 0x3430

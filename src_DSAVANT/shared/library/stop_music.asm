@@ -8,7 +8,7 @@ stop_music:
     push di
     mov ax, ds
     mov es, ax
-    call far [cs:cseg_0112 - IMAGE_BASE]
+    call far [cs:music_stop_far - IMAGE_BASE]
     pop di
     pop si
     pop es

@@ -21,7 +21,7 @@ cache_maze:
     mov word [cs:bx], 0
     call leaf_loc_MIUO
     call loc_KLNH
-    jmp near @..cache_maze.l8
+    jmp near cache_maze_restore_and_return
 @..cache_maze.l1:
     mov word [bp - 0x0002], ax
     mov ax, word [bp + 0x10]
@@ -30,7 +30,7 @@ cache_maze:
     mov ax, word [bp + 0xe]
     mov word [bp - 0x0004], ax
     call dos_file_loc_MUHV
-    jmp near @..cache_maze.l8
+    jmp near cache_maze_restore_and_return
 @..cache_maze.l2:
     mov ax, word [bp + 0xe]
     shl ax, 1
@@ -39,7 +39,7 @@ cache_maze:
     mov ax, word [cs:bx]
     or ax, ax
     je short @..cache_maze.l3
-    jmp near cache_maze.dos_con_loc1
+    jmp near cache_maze_slot_in_use
 @..cache_maze.l3:
     inc word [cs:ems_block_count - IMAGE_BASE]
     mov ax, word [cs:ems_block_count - IMAGE_BASE]
@@ -93,7 +93,7 @@ cache_maze:
     mov ax, word [cs:ems_paras_used - IMAGE_BASE]
     cmp ax, word [cs:ems_para_limit - IMAGE_BASE]
     jbe short @..cache_maze.l4
-    jmp near cache_maze.dos_con_loc2
+    jmp near cache_maze.dos_con_loc1
 @..cache_maze.l4:
     mov ax, di
     mov cl, 0xa
@@ -128,7 +128,7 @@ cache_maze:
     mov ax, word [bp - 0x0006]
     mov dx, word [bp - 0x0008]
     or ax, dx
-    je short @..cache_maze.l8
+    je short cache_maze_restore_and_return
     mov cx, 0x1000
     mov ax, word [bp - 0x0006]
     or dx, dx
@@ -150,11 +150,3 @@ cache_maze:
     mov si, 0
     rep movsb
     jmp short @..cache_maze.l5
-@..cache_maze.l8:
-    pop si
-    pop di
-    pop ds
-    pop es
-    mov sp, bp
-    pop bp
-    ret

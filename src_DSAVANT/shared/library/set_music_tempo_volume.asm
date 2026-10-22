@@ -10,7 +10,7 @@ set_music_tempo_volume:
     mov es, ax
     push word [bp + 0xe]
     push word [bp + 0xc]
-    call far [cs:cseg_0116 - IMAGE_BASE]
+    call far [cs:music_config_far - IMAGE_BASE]
     add sp, byte 4
     pop di
     pop si

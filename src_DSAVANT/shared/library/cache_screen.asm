@@ -15,7 +15,7 @@ cache_screen:
     dec word [cs:ems_block_count - IMAGE_BASE]
     mov ax, word [bp + 0xe]
     shl ax, 1
-    mov bx, cache_screen.screen_slots1 - IMAGE_BASE
+    mov bx, screen_ems_slots - IMAGE_BASE
     add bx, ax
     mov ax, word [cs:bx]
     mov word [cs:bx], 0
@@ -34,7 +34,7 @@ cache_screen:
 @..cache_screen.l2:
     mov ax, word [bp + 0xe]
     shl ax, 1
-    mov bx, cache_screen.screen_slots1 - IMAGE_BASE
+    mov bx, screen_ems_slots - IMAGE_BASE
     add bx, ax
     mov ax, word [cs:bx]
     or ax, ax
