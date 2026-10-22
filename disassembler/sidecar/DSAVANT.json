@@ -749,10 +749,16 @@
         "0ffb": {"name": "maze_blocks", "note": "MAZE block table, 4 bytes per id: start paragraph, paragraph count"},
         "10cb": {"name": "maze_block_count", "note": "last MAZE block id handed out"},
         "10cd": {"name": "maze_paras_used", "note": "MAZE memory paragraphs allocated so far"},
+        "3a18": {"name": "msg_frame_too_big", "note": "CR LF BEL \"Frame NN too big in slot NN.\" $-terminated error message"},
+        "3a21": {"name": "frame_digit_hi", "note": "first frame digit of msg_frame_too_big, ORed into an ASCII 0"},
+        "3a22": {"name": "frame_digit_lo", "note": "second frame digit of msg_frame_too_big, ORed into an ASCII 0"},
+        "3a34": {"name": "slot_digit_hi", "note": "first slot digit of msg_frame_too_big, ORed into an ASCII 0"},
+        "3a35": {"name": "slot_digit_lo", "note": "second slot digit of msg_frame_too_big, ORed into an ASCII 0"},
         "4379": {"name": "msg_out_of_ems", "note": "CACHEAREA out of EMS message"},
         "4440": {"name": "ems_cur_page", "note": "EMS logical page mapped at frame page 0"}
       },
       "function_names": {
+        "3a0f": {"name": "print_msg_and_exit", "note": "prints the $-terminated string at ds:dx, then exits to DOS with errorlevel 1"},
         "40cd": {"name": "cache_area_disk_error", "note": "prints the CACHEAREA disk write error and exits"},
         "4111": {"name": "cache_area", "note": "copies a screen rectangle to a file, MAZE memory or EMS and returns its slot index"},
         "4398": {"name": "cache_area_return", "note": "restores registers and frame, returns from cache_area"},

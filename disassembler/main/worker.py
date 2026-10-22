@@ -135,8 +135,19 @@ def serve(project, name):
                      daemon=True).start()
     progress.log(f'{name} | worker ready ({project})')
     run = BinaryRun(Project(project), name)
+    # ``ASM_PROFILE=<dir>``: write this worker's cProfile to <dir>/<name>.prof.
+    profile_dir = os.environ.get('ASM_PROFILE')
+    profiler = None
+    if profile_dir:
+        import cProfile
+        profiler = cProfile.Profile()
+        profiler.enable()
     with write_once():
         _answer(run, reply)
+    if profiler is not None:
+        profiler.disable()
+        os.makedirs(profile_dir, exist_ok=True)
+        profiler.dump_stats(os.path.join(profile_dir, f'{name}.prof'))
     run.close()
 
 

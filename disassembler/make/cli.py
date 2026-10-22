@@ -57,6 +57,7 @@ Env:
                             it is written
   ASM_DOSBOX_SHOW=1         show the DOSBox window while compiling (headless otherwise)
   ASM_DOSBOX_TIMEOUT=SECS   bound one DOSBox session (default 300; 0 disables)
+  ASM_PROFILE=DIR           write each build worker's cProfile to DIR/<binary>.prof
   EXTRA_FLAGS               space-separated flags forwarded to python -m main:
                               --stats             write stats (.cache/stats)
                               --exact-bytes       strict byte-accurate mode

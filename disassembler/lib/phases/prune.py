@@ -4,7 +4,8 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib.model import PhaseContext, CONF_CODE, CONF_DATA
 from lib.pipeline.phase import Phase, PhaseContract
-from lib.x86util import _TERMINATORS, _UNCOND_JUMPS, is_indirect, is_dos_terminator
+from lib.x86util import (
+    _TERMINATORS, _UNCOND_JUMPS, decode_from, is_indirect, is_dos_terminator)
 
 
 _CONF_DEAD_DATA = -1.0
@@ -32,14 +33,14 @@ class PruneDeadPhase(Phase):
         def _find_last_insn(code_start, code_end_excl):
             off = code_start
             last = None
-            gen = md.disasm(data[off:], off)
+            gen = decode_from(md, data, off)
             while off < code_end_excl:
                 try:
                     insn = next(gen)
                 except StopIteration:
                     off += 1
                     if off < code_end_excl:
-                        gen = md.disasm(data[off:], off)
+                        gen = decode_from(md, data, off)
                     continue
                 end = insn.address + insn.size
                 if end > code_end_excl:

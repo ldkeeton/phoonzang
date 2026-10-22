@@ -559,22 +559,7 @@ cseg_3605:
 
 %include "ega/leaf_loc_TVGR.asm"           ; 0x39e3
 
-%include "ega/dos_con_loc_NRSG.asm"        ; 0x3a0f
-
-cseg_3a18:
-    db 0x0d, 0x0a, 0x07
-    db 'Frame '
-cseg_3a21:
-    db 0x30
-cseg_3a22:
-
-    db '0 too big in slot '
-
-cseg_3a34:
-    db 0x30
-cseg_3a35:
-    db 0x30, 0x2e, 0x00, 0x0a, 0x24
-%include "ega/loc_3a3a.asm"                ; 0x3a3a
+%include "ega/print_msg_and_exit.asm"      ; 0x3a0f
 
 %include "shared/leaf_loc_NOSG.asm"           ; 0x3a51
 

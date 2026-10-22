@@ -9,7 +9,8 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_16, CS_OP_IMM, CS_OP_MEM
 from lib.aztec import relabel, relink
 from lib.routine_source import is_asm_source
 from lib.format import LinkedSymbol
-from lib.verify.assemble import micro_assemble, is_semantically_equivalent
+from lib.verify.assemble import (
+    assemble_batch, micro_assemble, is_semantically_equivalent)
 from lib.compare.interrupts import _set_insn_fields
 from lib.compare.cgate import CGateError, check_against_original
 from lib.compare.records import _label_record, _record_span
@@ -168,6 +169,9 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
             pos, last = hi, None
         yield from md.disasm(data[pos:], base + pos)
 
+    #: ``(record, text to assemble, original bytes, has linked operands)``
+    #: of each instruction, checked against NASM after the walk.
+    pending = []
     for insn in decode():
         if isinstance(insn, tuple):
             lo, hi = insn
@@ -206,32 +210,43 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
         if nasm_text:
             assemble_text = (_numeric_form(nasm_text, sym_ops.values())
                              if sym_ops else nasm_text)
-            built = micro_assemble(
-                assemble_text, insn.address, label_map, local_labels,
-                foreign_label_map=foreign_label_map,
-                immediate_labels=immediate_labels, mem_equ=mem_equ,
-                image_base=image_base)
-            ok = built is not None and built[:len(bts)] == bts
-            if sym_ops and not ok:
-                linked.failed.append((insn.address, nasm_text,
-                                      built.hex() if built else None,
-                                      bts.hex()))
-            elif not ok and not exact_bytes and built:
-                ok = is_semantically_equivalent(bts, built[:len(bts)],
-                                                insn.address)
-            rec = {
-                'type': 'mnem' if ok else 'db_with_comment',
-                'text': nasm_text, 'offset': insn.address, 'size': insn.size,
-            }
-            if not ok:
-                rec['db_hex'] = ', '.join(f'0x{b:02x}' for b in bts)
+            rec = {'type': None, 'text': nasm_text,
+                   'offset': insn.address, 'size': insn.size}
             _set_insn_fields(rec, insn)
             records.append(rec)
+            pending.append((rec, assemble_text, bts, bool(sym_ops)))
         else:
             emit_db(off, off + insn.size)
         consumed = off + insn.size
     if consumed < len(data):
         emit_db(consumed, len(data))
+
+    # One NASM run checks every instruction of the routine.
+    requests = [(text, rec['offset']) for rec, text, _, _ in pending]
+    built_all = assemble_batch(
+        requests, label_map, local_labels, foreign_label_map,
+        immediate_labels=immediate_labels, image_base=image_base,
+        mem_equ=mem_equ) if requests else []
+    if built_all is None:
+        built_all = [
+            micro_assemble(
+                text, addr, label_map, local_labels,
+                foreign_label_map=foreign_label_map,
+                immediate_labels=immediate_labels, mem_equ=mem_equ,
+                image_base=image_base)
+            for text, addr in requests]
+    for (rec, _, bts, linked_ops), built in zip(pending, built_all):
+        ok = built is not None and built[:len(bts)] == bts
+        if linked_ops and not ok:
+            linked.failed.append((rec['offset'], rec['text'],
+                                  built.hex() if built else None,
+                                  bts.hex()))
+        elif not ok and not exact_bytes and built:
+            ok = is_semantically_equivalent(bts, built[:len(bts)],
+                                            rec['offset'])
+        rec['type'] = 'mnem' if ok else 'db_with_comment'
+        if not ok:
+            rec['db_hex'] = ', '.join(f'0x{b:02x}' for b in bts)
     return records
 
 

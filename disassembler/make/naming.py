@@ -252,7 +252,7 @@ def rename_sources(project, renames):
 
 #: Command-line variables ``make`` itself takes; never naming specs.
 _MAKE_VARS = {'ARGS', 'EXTRA_FLAGS', 'EXACT_FLAG', 'VERBOSE', 'ASM_STAGELOG',
-              'ASM_DOSBOX_SHOW', 'ASM_DOSBOX_TIMEOUT'}
+              'ASM_DOSBOX_SHOW', 'ASM_DOSBOX_TIMEOUT', 'ASM_PROFILE'}
 
 
 def specs_from_makeflags():

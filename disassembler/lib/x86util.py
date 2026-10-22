@@ -63,12 +63,27 @@ def is_indirect(insn):
     return False
 
 
+#: The longest x86 instruction, in bytes.
+_MAX_INSN = 15
+
+
 def disasm_one(data, off, md=None):
     if md is None:
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
-    gen = md.disasm(data[off:], off)
-    try:
-        return next(gen)
-    except StopIteration:
-        return None
+    return next(md.disasm(data[off:off + _MAX_INSN], off, 1), None)
+
+
+def decode_from(md, data, off):
+    """Instructions from *off* on, like ``md.disasm(data[off:], off)``.
+
+    Capstone's ``disasm`` decodes all it is given before yielding the first
+    instruction, so a walk that stops after a few would pay for the whole
+    tail; this decodes one instruction at a time.
+    """
+    while off < len(data):
+        insn = next(md.disasm(data[off:off + _MAX_INSN], off, 1), None)
+        if insn is None:
+            return
+        yield insn
+        off += insn.size

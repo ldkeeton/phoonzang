@@ -11,7 +11,7 @@ from lib.model import (
 from lib.pipeline.phase import Phase, PhaseContract
 from lib.x86util import (
     is_cond_jump, get_imm_target, is_indirect,
-    disasm_one, _TERMINATORS, _UNCOND_JUMPS, _CALLS,
+    decode_from, disasm_one, _TERMINATORS, _UNCOND_JUMPS, _CALLS,
     is_dos_terminator,
 )
 from capstone import CS_OP_MEM
@@ -80,7 +80,7 @@ def _find_jump_table_bounds(data, jmp_addr, md, jt_addr=None):
     search_start = max(0, jmp_addr - 30)
     insns = []
     md.skipdata = True
-    for insn in md.disasm(data[search_start:], search_start):
+    for insn in md.disasm(data[search_start:jmp_addr + 15], search_start):
         if insn.address >= jmp_addr:
             break
         if insn.id != 0:
@@ -649,7 +649,7 @@ class RecursiveDescentPhase(Phase):
             fork_ranges = []
             fork_exits = []
             spec_start = off
-            gen = md.disasm(data[off:], off)
+            gen = decode_from(md, data, off)
             last_insn = None
 
             while off < n:
