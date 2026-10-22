@@ -377,10 +377,9 @@ def resplice_c(app, binary, check_only=False):
         if os.path.isfile(path):
             with open(path, 'rb') as f:
                 env.update(f.read())
+    todo = []
     for label in c_labels:
         cpath = source_of(label)
-        start, end = spans[label]
-        span_len = end - start
         with open(cpath) as f:
             text = f.read()
         # A vendor module's fragment is named after its source file
@@ -401,6 +400,17 @@ def resplice_c(app, binary, check_only=False):
             with open(apath, 'rb') as f:
                 if hashlib.sha1(f.read()).hexdigest() == prev['out']:
                     continue
+        todo.append((label, cpath, text, module, entry, apath, in_stamp))
+    # One DOSBox session per tool and flags compiles every changed source;
+    # the loop below then hits the object cache.
+    failed = cache.precompile(app, binary,
+                              [(label, entry, text)
+                               for label, _, text, _, entry, _, _ in todo])
+    for label, cpath, text, module, entry, apath, in_stamp in todo:
+        start, end = spans[label]
+        span_len = end - start
+        if label in failed:
+            raise failed[label]
         compiled_module, func = cache.compile_source_module(
             app, binary, label, entry, text)
         if compiled_module.data:

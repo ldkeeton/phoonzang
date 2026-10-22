@@ -61,6 +61,7 @@ from lib import symtab
 from lib.symtab import GENERIC, Kind, Source, Space, Symbol
 from lib.sidecar.usage import SidecarUse
 from lib import stagelog
+from lib import progress
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
 from .aztec import _aztec_asm_annotations, _aztec_c_overrides, _data_sources
@@ -113,6 +114,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         print(f'{name}: SKIP (file not found at {path})')
         return None
 
+    progress.log(f'{name} | loading {rel_path}')
     with open(path, 'rb') as f:
         data = f.read()
 
@@ -137,6 +139,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     binary_type = (sidecar_entry or {}).get('type')
     host = host_model if binary_type == 'aztec_overlay' else None
     try:
+        progress.log(f'{name} | segment model')
         ctx.segments = build_segment_model(data, binary_type, start_offset, host=host)
         crt_bss_range = check_bss_boundary(ctx.segments, data)
     except SegmentError as error:
@@ -160,6 +163,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
 
     # orig_dir is apps/<project>, so the signature DB resolves even when the
     # caller did not name the project.
+    progress.log(f'{name} | loading Aztec signatures')
     known_db = _load_aztec_signatures(project or os.path.basename(os.path.normpath(orig_dir)))
     if sidecar_entry and sidecar_entry.get('api_dispatch'):
         known_db = dict(known_db)
@@ -170,6 +174,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     # the runtime's indirectly-reached OS/interrupt veneer stubs.
     _seed_csav_functions(ctx)
     _seed_aztec_stubs(ctx)
+    progress.log(f'{name} | seeding: {len(ctx.seeds)} seeds')
 
     classify_phases = _build_classify_phases(known_db)
     last_classify_slot = classify_phases[-1].output_slot
@@ -183,11 +188,15 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         print(pipeline.print_report())
 
     if _ITERATIVE:
+        progress.log(f'{name} | classify (iterative)')
         all_iter_phases = classify_phases + [SettlePhase(input_slot=last_classify_slot, output_slot='settled')]
         run_iterative(ctx, all_iter_phases, arbiter_phase=ArbiterPhase(), max_iter=3)
     else:
+        progress.log(f'{name} | classify (functional)')
         run_functional(ctx, classify_phases)
+        progress.log(f'{name} | refine')
         run_functional(ctx, refine_phases)
+    progress.log(f'{name} | classify done: {len(ctx.code_targets)} code targets')
 
     if diag_enabled():
         squashed_arr = ctx.layers['squashed'].to_numpy()
@@ -198,11 +207,14 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
 
     # Decode the classified code once before label selection. The CFG is used
     # to distinguish internal branches from function-entry transfers.
+    progress.log(f'{name} | disassembling')
     t_flow_disasm_start = time.perf_counter()
     instructions = list(disassemble(data, start_offset, bitmap=ctx.bitmap))
     stagelog.step('flow.disassemble', 1, metrics={'insns': len(instructions)})
+    progress.log(f'{name} | disassembled {len(instructions)} instructions')
 
     # ── Build label map ──
+    progress.log(f'{name} | matching labels')
     label_targets = ctx.label_target_set
     # Let the MZ entry participate in matching so a runtime signature (e.g.
     # Aztec's ``$begin`` startup) can name it instead of the generic label.
@@ -558,6 +570,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     # Resolve Aztec routines before the verify/emit window so the (potentially
     # slow) DOSBox work is reported separately instead of inflating it.
     out_dir = output_dir or ASM_DIR
+    progress.log(f'{name} | resolving Aztec C routines')
     t_aztec = time.perf_counter()
     c_overrides, _entries, header_files = _aztec_c_overrides(
         project, name, data, ctx.label_map, out_dir, function_roots,
@@ -580,6 +593,8 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         _apply_sidecar_data_names(ctx.segments, ctx.sidecar_entry)
         _apply_sidecar_code_data_names(ctx.segments, ctx.sidecar_entry)
     t_aztec_end = time.perf_counter()
+    progress.log(f'{name} | analysis done '
+                 f'({t_aztec_end - t_total:.1f}s)')
 
     if AZTEC_PREBUILD_ONLY:
         # `make prebuild`: the mux manifest is written; nothing downstream of
@@ -752,6 +767,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         a.foreign_label_map, a.entry_symbol, a.carve_1,
         a.immediate_labels, a.label_comments, a.split_functions, a.out_dir,
         a.c_overrides, a.asm_annotations)
+    progress.log(f'{a.name} | verify+format')
     asm_text, stats, emit_bytes, label_positions, split_sources = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
@@ -790,6 +806,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         data_modules=vendor_data_modules(project) if project else (),
     )
     stagelog.step('verify', 1, metrics={'lines': asm_text.count('\\n')})
+    progress.log(f'{name} | verify done')
     # D7.1: export the host-owned DS names this overlay references so the make
     # layer can hand the union to the host (which declares one recipe per
     # offset).  This is the data analogue of ``--export-labels``.
@@ -964,6 +981,7 @@ def _emit(a, r, exact_bytes):
         'promotion_skipped': stats.get('promotion_skipped', []),
     }
     ctx.report['addresses'] = stats.get('address_records', [])
+    progress.log(f'{name} | writing reports')
     _write_address_inventory(project, name, label_map, ctx.report['addresses'])
     render_context = stats.pop('render_context', None)
     if project and render_context:
@@ -974,6 +992,7 @@ def _emit(a, r, exact_bytes):
         from lib.symtab import write_table
         write_table(os.path.join(symbols_dir(project), f'{name}.json'),
                     symbols)
+    progress.log(f'{name} | reports written')
     if STATS:
         write_report(ctx, asm_text)
         write_layers(ctx)
@@ -1072,13 +1091,19 @@ def step(a, exact_bytes, show_offsets, host_data_offsets, ds_starts, emit):
     step.
     """
     set_generic_prefix(a.generic_prefix)
+    progress.log(f'{a.name} | render')
     r = _render(a, exact_bytes, show_offsets, host_data_offsets, ds_starts,
                 final=emit)
+    progress.log(f'{a.name} | render done')
     _export_labels(a)
     if not emit:
+        progress.log(f'{a.name} | labels-only done')
         return None
     _check_sidecar_use(a, a.project, a.name)
-    return _emit(a, r, exact_bytes)
+    progress.log(f'{a.name} | emitting sources')
+    files = _emit(a, r, exact_bytes)
+    progress.log(f'{a.name} | emit done ({len(files)} file(s))')
+    return files
 
 
 def finish(a):

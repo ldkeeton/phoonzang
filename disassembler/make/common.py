@@ -5,8 +5,8 @@ import os
 import re
 import subprocess
 import sys
-import tempfile
 import threading
+import time
 
 PROJECT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ASM = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -16,6 +16,8 @@ JOBS = os.cpu_count() or 4
 if ASM not in sys.path:
     sys.path.insert(0, ASM)
 from main.projects import load_whitelist
+
+from lib import progress, childproc
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -68,11 +70,13 @@ def _main_cmd(app, binary, *flags):
     return cmd
 
 
-def _report(binary, returncode, stdout, stderr, sink=None, errors=None):
+def _report(binary, returncode, stdout, stderr, sink=None, errors=None,
+            streamed=False):
     """Print (or append to *sink*) what is kept of one worker run's output.
 
     A failed run's stderr is appended to *errors*, when given, for the caller
-    to print last; otherwise it is printed now.
+    to print last; otherwise it is printed now.  *streamed* means the caller
+    already echoed stderr live (``VERBOSE``), so it is not repeated here.
     """
     lines = [line for line in stdout.splitlines() if line.strip()]
     if returncode == 0 and not _verbose():
@@ -87,6 +91,8 @@ def _report(binary, returncode, stdout, stderr, sink=None, errors=None):
     if returncode != 0 and stderr.strip():
         if errors is not None:
             errors.append((binary, stderr.strip()))
+            return
+        if streamed:
             return
         for line in stderr.strip().split('\n'):
             print(f'  {line}', file=sys.stderr)
@@ -106,9 +112,31 @@ def _asm_one(app, binary, extra_args=None, sink=None):
     cmd = _main_cmd(app, binary)
     if extra_args:
         cmd.extend(extra_args)
-    r = subprocess.run(cmd, capture_output=True, text=True, cwd=ASM)
-    _report(binary, r.returncode, r.stdout, r.stderr, sink)
+    # With VERBOSE the worker's stderr (its progress lines) goes straight to
+    # ours as it is written, as a build worker's is echoed.
+    live = _verbose()
+    r = childproc.run(cmd, stdout=subprocess.PIPE,
+                      stderr=None if live else subprocess.PIPE, text=True,
+                      cwd=ASM)
+    _report(binary, r.returncode, r.stdout, r.stderr or '', sink,
+            streamed=live)
     return r.returncode
+
+
+_echo_lock = threading.Lock()
+
+
+def _echo(binary, line):
+    """Echo one worker line, tagged with its binary, as it arrives."""
+    text = line.rstrip('\n')
+    if not text:
+        return
+    if ' | ' not in text:
+        # The worker's own progress lines are already tagged; a traceback or
+        # an uncaught C-level message is not.
+        text = f'{binary} | {text}'
+    with _echo_lock:
+        print(text, file=sys.stderr, flush=True)
 
 
 class _Worker:
@@ -116,15 +144,40 @@ class _Worker:
 
     def __init__(self, app, binary):
         self.binary = binary
-        # A file, not a pipe: nothing has to drain it while a step runs.
-        self.stderr = tempfile.TemporaryFile(mode='w+')
+        self._err = []
+        self._err_lock = threading.Lock()
         self.proc = subprocess.Popen(
             _main_cmd(app, binary, '--worker'), cwd=ASM, text=True,
             encoding='utf-8', errors='surrogateescape',
-            stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=self.stderr)
+            stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, start_new_session=True)
+        childproc.register(self.proc)
+        # A pipe, not a file: the driver can echo a line the moment the worker
+        # prints it.  It must be drained, or a chatty worker blocks on a full
+        # pipe, so the reader runs for the whole process lifetime.
+        self._reader = threading.Thread(
+            target=self._drain, name=f'{binary}-stderr', daemon=True)
+        self._reader.start()
+        if _verbose():
+            progress.log(f'{binary} | worker started (pid {self.proc.pid})')
+
+    def _drain(self):
+        for line in self.proc.stderr:
+            with self._err_lock:
+                self._err.append(line)
+            if _verbose():
+                _echo(self.binary, line)
+
+    def _stderr_text(self):
+        with self._err_lock:
+            return ''.join(self._err)
 
     def step(self, flags):
         """``(status, out, err, files)`` of one build step."""
+        if _verbose():
+            progress.log(f'{self.binary} | step start: '
+                         f'{" ".join(flags or ()) or "(default)"}')
+        began = time.monotonic()
         try:
             self.proc.stdin.write(json.dumps({'flags': flags or []}) + '\n')
             self.proc.stdin.flush()
@@ -133,9 +186,13 @@ class _Worker:
             line = ''
         if not line:
             self.proc.wait()
-            self.stderr.seek(0)
-            return self.proc.returncode or 1, '', self.stderr.read(), None
+            self._reader.join(timeout=2)
+            return self.proc.returncode or 1, '', self._stderr_text(), None
         answer = json.loads(line)
+        if _verbose():
+            progress.log(f'{self.binary} | step done in '
+                         f'{time.monotonic() - began:.1f}s '
+                         f'(status {answer["status"]})')
         return (answer['status'], answer['out'], answer['err'],
                 answer.get('files'))
 
@@ -146,7 +203,22 @@ class _Worker:
         except (BrokenPipeError, ValueError):
             pass
         self.proc.wait()
-        self.stderr.close()
+        childproc.unregister(self.proc)
+        self._reader.join(timeout=2)
+        try:
+            self.proc.stderr.close()
+        except OSError:
+            pass
+
+    def terminate(self):
+        """Stop the worker and every DOSBox in its process group."""
+        childproc.terminate(self.proc, grace=1.0)
+        childproc.unregister(self.proc)
+        self._reader.join(timeout=1)
+        try:
+            self.proc.stderr.close()
+        except OSError:
+            pass
 
 
 class Workers:
@@ -173,9 +245,15 @@ class Workers:
         with self._lock:
             worker = self._live.get(binary)
             if worker is None:
+                if _verbose():
+                    progress.log(f'{binary} | spawning worker')
                 worker = self._live[binary] = _Worker(self.app, binary)
         status, out, err, files = worker.step(flags)
-        _report(binary, status, out, err, sink, self.errors)
+        # With VERBOSE the worker's stderr was echoed live, so do not repeat it
+        # at the end; without it, keep it for print_errors.
+        live = _verbose()
+        _report(binary, status, out, err, sink,
+                None if live else self.errors, streamed=live)
         return status, files
 
     def print_errors(self):
@@ -192,13 +270,22 @@ class Workers:
             worker.close()
         self._live.clear()
 
+    def terminate(self):
+        """Stop every live worker (and its DOSBox children) immediately."""
+        for worker in self._live.values():
+            worker.terminate()
+        self._live.clear()
+
     def __enter__(self):
         return self
 
     def __exit__(self, *exc):
-        self.close()
         if exc[0] is not None:
+            # A KeyboardInterrupt or an error: do not wait for a stuck worker.
+            self.terminate()
             self.print_errors()   # the caller never reaches its own summary
+        else:
+            self.close()
 
 
 def _main_exe(out_dir, bins):

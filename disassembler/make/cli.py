@@ -2,7 +2,7 @@
 
 import sys
 
-from lib import buildlock
+from lib import buildlock, childproc
 
 from .build import _build_projects, cmd_build_binary, cmd_rebuild
 from .charts import cmd_charts, cmd_set_baseline
@@ -25,6 +25,7 @@ Commands (space-separated):
                             then unpack the Aztec runtime sources into dos_compilers/aztec_src/
   make libcheck             rebuild Aztec v4.2b C.LIB from dos_compilers/aztec_src/ and compare to the shipped one
   make all                  prebuild (clean .cache + Aztec mux), build, verify all, elf-rebuild, make test, make test slow
+  make all notest           the same, without the tests at the end
   make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if missing)
   make prebuild [PROJECT...]  clean .cache, rebuild aztec libs + signature DB, run the Aztec C mux
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
@@ -51,13 +52,18 @@ Commands (space-separated):
   make test slow            run only the @slow tests (>= 100 ms)
 
 Env:
+  VERBOSE=1                 live progress from the build driver and every worker, tagged
+                            with the binary and a timestamp; worker stderr is echoed as
+                            it is written
+  ASM_DOSBOX_SHOW=1         show the DOSBox window while compiling (headless otherwise)
+  ASM_DOSBOX_TIMEOUT=SECS   bound one DOSBox session (default 300; 0 disables)
   EXTRA_FLAGS               space-separated flags forwarded to python -m main:
                               --stats             write stats (.cache/stats)
                               --exact-bytes       strict byte-accurate mode
                               --allow-diff        rebuild: don't require .c to match the original
                               --detailed-timings  full-precision phase timings
                               --no-show-offsets   suppress instruction offsets
-                              --verbose           every worker line; rebuild: one line per binary
+                              --verbose           live progress (as VERBOSE=1 above)
   EXACT_FLAG (deprecated)   same as EXTRA_FLAGS=--exact-bytes
 
 Stats workflow (LLM/human regression loop):
@@ -72,7 +78,14 @@ Stats workflow (LLM/human regression loop):
 def main():
     # Every make command holds the build lock: concurrent runs queue here,
     # whichever command they are for (lib.buildlock).
+    childproc.install()
     buildlock.acquire()
+    # With the lock held no other build can own a DOSBox, so anything left in
+    # one of our temp work dirs is from an interrupted run.
+    killed, removed = childproc.reap_stale()
+    if killed or removed:
+        print(f'cleaned up {killed} stale DOSBox process(es), '
+              f'{removed} work dir(s)', file=sys.stderr)
 
     flags = [a for a in sys.argv[1:] if a.startswith('--')]
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
@@ -88,6 +101,8 @@ def main():
         _build_projects(all_projects, all_projects, prebuild=False)
         cmd_verify([])
         cmd_elf_rebuild(None, None, all_projects)
+        if 'notest' in args:
+            return
         fast_ok = run_tests([])
         slow_ok = run_tests(['slow'])
         sys.exit(0 if fast_ok and slow_ok else 1)

@@ -13,4 +13,10 @@ if _ASM not in sys.path:
 from .cli import main  # noqa: E402
 
 if __name__ == '__main__':
-    main()
+    from lib import childproc
+    childproc.install()
+    try:
+        main()
+    except KeyboardInterrupt:
+        childproc.terminate_all()
+        sys.exit(130)

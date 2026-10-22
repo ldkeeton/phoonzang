@@ -5,6 +5,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from lib.aztec import build_db
+from lib import progress
 from lib.cachedirs import aztec_funcs_path, prebuild_dir
 from main.projects import discover_binaries
 
@@ -44,6 +45,7 @@ def _run_prebuild(app):
     # The signature DB feeds the disassembly (main/seeding.py), so it must
     # exist before any binary is processed.  Both steps are no-ops once built.
     if not os.path.exists(aztec_funcs_path(app)):
+        progress.log(f'prebuild {app} | building signature database')
         build_db.build_for_project(app)
     os.environ['ASM_AZTEC_PREBUILD'] = '1'
     os.environ['ASM_AZTEC_PREBUILD_ONLY'] = '1'
@@ -51,6 +53,7 @@ def _run_prebuild(app):
     # behind one inter-process lock (see lib/aztec/compile._dosbox_lock).
     os.environ['ASM_DOSBOX_LOCK'] = os.path.join(out_dir, '.dosbox.lock')
     targets = sorted(bins)
+    progress.log(f'prebuild {app} | resolving {len(targets)} binaries')
     outputs = {name: [] for name in targets}
     failures = []
     try:
@@ -59,6 +62,8 @@ def _run_prebuild(app):
                        for name in targets}
             for future in as_completed(futures):
                 rc = future.result()
+                progress.log(f'prebuild {app} | {futures[future]} done '
+                             f'(status {rc})')
                 if rc != 0:
                     failures.append(futures[future])
     finally:

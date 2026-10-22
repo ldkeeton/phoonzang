@@ -28,7 +28,9 @@ try:
 except ImportError:  # pragma: no cover - non-POSIX
     fcntl = None
 
-from ..dosbox import DOSBOX
+from ..dosbox import DOSBOX, environment as dosbox_env, show_gui
+from ..dosbox import run as run_dosbox
+from ..dosbox import timeout as dosbox_timeout
 from .objread import attach_locals, fixup_width, parse_obd
 from . import omflib
 from .omflib import public_functions
@@ -64,7 +66,8 @@ def _obj_converter(compiler):
 _CONF = """\
 [dosbox]
 machine=svga_s3
-memsize=16
+memsize=128
+quit warning=false
 
 [cpu]
 cycles=max
@@ -334,11 +337,32 @@ def available(version=VERSION):
             and shutil.which(DOSBOX) is not None)
 
 
-def _dos_name(name):
-    stem = name.upper()
-    for ch in ' /\\:;*?"<>|':
-        stem = stem.replace(ch, '_')
-    return stem[:8]
+#: DOS device names: a file stem spelled like one opens the device instead.
+_DOS_DEVICES = frozenset(
+    {'CON', 'PRN', 'AUX', 'NUL', 'CLOCK$', 'BUILD'}
+    | {f'{dev}{n}' for dev in ('COM', 'LPT') for n in range(1, 10)})
+
+
+def dos_names(names):
+    """A distinct DOS 8.3 stem for each of *names*, in order.
+
+    The stem is the name upper-cased, cut to eight characters, anything but
+    ``A-Z0-9_`` made ``_``.  A stem already taken (``draw_button`` and
+    ``draw_bevel_frame`` both cut to ``DRAW_B..``) or naming a DOS device
+    ends in a number instead (``DRAW_BU1``).  ``BUILD`` is the batch file's.
+    """
+    used = set()
+    out = []
+    for name in names:
+        stem = re.sub(r'[^A-Z0-9_]', '_', str(name).upper())[:8] or 'MODULE'
+        cand = stem
+        n = 0
+        while cand in used or cand in _DOS_DEVICES:
+            n += 1
+            cand = stem[:8 - len(str(n))] + str(n)
+        used.add(cand)
+        out.append(cand)
+    return out
 
 
 def _tool_line(kind, flags, module, log):
@@ -373,7 +397,7 @@ def compile_module(source_text, name, *, compiler=VERSION, includes=None,
         os.symlink(incdir, os.path.join(work, 'azinc'))
         with open(os.path.join(work, 'dosbox.conf'), 'w') as f:
             f.write(_CONF)
-        module = _dos_name(name)
+        module = dos_names([name])[0]
         ext = 'ASM' if kind == 'asm' else 'C'
         with open(os.path.join(work, f'{module}.{ext}'), 'w') as f:
             f.write(source_text)
@@ -391,14 +415,21 @@ def compile_module(source_text, name, *, compiler=VERSION, includes=None,
             'exit',
         ]
         argv = _dosbox_argv(exe, work, cmds)
-        env = dict(os.environ)
-        env['HOME'] = work
-        env['SDL_VIDEODRIVER'] = 'dummy'
-        env['SDL_AUDIODRIVER'] = 'dummy'
+        env = dosbox_env(work)
+        limit = dosbox_timeout()
         with _dosbox_lock():
-            proc = subprocess.run(argv, capture_output=True, text=True,
-                                  env=env)
-        log = proc.stdout + proc.stderr
+            try:
+                proc = run_dosbox(
+                    argv, env=env, timeout=limit,
+                    what=f'{name} | DOSBox compile {module} '
+                         f'({compiler} {kind})')
+            except subprocess.TimeoutExpired as exc:
+                raise AztecCompileError(
+                    f'DOSBox compile of {module} timed out'
+                    f'{f" after {limit:g}s" if limit else ""}'
+                    '\n  (set ASM_DOSBOX_TIMEOUT=0 to disable, or '
+                    'ASM_DOSBOX_TIMEOUT=<seconds> to change it)') from exc
+        log = (proc.stdout or '') + (proc.stderr or '')
 
         obj_path = os.path.join(work, f'{module}.O')
         omf_path = os.path.join(work, f'{module}.OBJ')
@@ -449,8 +480,9 @@ def _dosbox_argv(exe, work, cmds):
     """
     argv = [exe, '-conf', os.path.join(work, 'dosbox.conf'),
             '-nopromptfolder', '-defaultdir', work, '-fastlaunch', '-exit']
-    
-    argv.append('-nogui')
+
+    if not show_gui():
+        argv.append('-nogui')
     for cmd in cmds:
         argv += ['-c', cmd]
     return argv
@@ -466,7 +498,8 @@ def compile_batch(requests, *, verbose=False):
     compilers in a single session wedges the DOS ``cc`` driver, and repeatedly
     opening/closing DOSBox is both slow and unreliable.
 
-    Returns ``{key: CompiledModule | Exception}``.
+    Returns ``{key: CompiledModule | Exception}``.  A session that times out
+    raises :class:`AztecCompileError` naming the module it stopped in.
     """
     groups = {}
     for key, dos_name, source_text, compiler, includes, flags, *rest in requests:
@@ -531,46 +564,71 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
             'exit',
         ]
         argv = _dosbox_argv(exe, work, cmds)
-        env = dict(os.environ)
-        env['HOME'] = work
-        env['SDL_VIDEODRIVER'] = 'dummy'
-        env['SDL_AUDIODRIVER'] = 'dummy'
-        print(f'  aztec batch: {len(names)} modules via {compiler} '
-              f'({inc_version} includes)', flush=True)
+        env = dosbox_env(work)
         if verbose:
+            print(f'  aztec batch: {len(names)} modules via {compiler} '
+                  f'({inc_version} includes)', flush=True)
             print(f'    {" ".join(argv)}', flush=True)
+        limit = dosbox_timeout()
+        if limit is not None:
+            # A batch legitimately takes longer than one module.
+            limit *= max(1, len(names) // 10)
+        timed_out = None
         with _dosbox_lock():
-            subprocess.run(argv, env=env)
-
-        results = {}
-        for key, dos in names:
-            obj_path = os.path.join(work, f'{dos}.O')
-            cc_path = os.path.join(work, f'{dos}.CC')
-            cc_log = _read(cc_path)
-            if os.path.exists(obj_path) and _ERROR_LINE.search(cc_log):
-                results[key] = AztecCompileError(
-                    f'{dos} has compile errors:\n{cc_log[-2000:]}')
-                results[key].cc_log = cc_log
-            elif os.path.exists(obj_path):
-                omf_path = os.path.join(work, f'{dos}.OBJ')
-                obd_path = os.path.join(work, f'{dos}.OBD')
-                dump = attach_locals(parse_obd(_read(obd_path)),
-                                     _read_bytes(obj_path))
-                results[key] = _build_module(
-                    dos, omf_path, dump, compiler, kind)
-                results[key].listing = _read(os.path.join(work, f'{dos}.LST'))
-            elif os.path.exists(cc_path) and os.path.getsize(cc_path) > 0:
-                results[key] = AztecCompileError(
-                    f'compiler produced no object for {dos}')
-            else:
-                results[key] = AztecCompileError(
-                    f'compiler never reached {dos}')
-        return results
+            try:
+                run_dosbox(argv, env=env, timeout=limit,
+                           what=f'aztec batch | DOSBox compiling '
+                                f'{len(names)} modules ({compiler} {kind})')
+            except subprocess.TimeoutExpired as exc:
+                timed_out = exc
+        if timed_out is not None:
+            # The module it stopped in is the last one ``cc`` began (its log
+            # redirect exists).
+            began = [dos for _, dos in names
+                     if os.path.exists(os.path.join(work, f'{dos}.CC'))]
+            raise AztecCompileError(
+                f'DOSBox batch of {len(names)} modules timed out'
+                f'{f" after {limit:g}s" if limit else ""}'
+                f'{f" compiling {began[-1]}" if began else ""}'
+                '\n  (set ASM_DOSBOX_TIMEOUT=0 to disable, or '
+                'ASM_DOSBOX_TIMEOUT=<seconds> to change it)') from timed_out
+        return _group_results(work, names, compiler, kind)
     finally:
         if os.environ.get('ASM_KEEP_BATCH'):
             print(f'  aztec batch: kept work dir {work}', flush=True)
         else:
             shutil.rmtree(work, ignore_errors=True)
+
+
+def _group_results(work, names, compiler, kind):
+    """``{key: CompiledModule | AztecCompileError}`` for the ``(key, dos)``
+    *names* a batch session in *work* compiled."""
+    results = {}
+    for key, dos in names:
+        obj_path = os.path.join(work, f'{dos}.O')
+        cc_path = os.path.join(work, f'{dos}.CC')
+        cc_log = _read(cc_path)
+        if os.path.exists(obj_path) and _ERROR_LINE.search(cc_log):
+            results[key] = AztecCompileError(
+                f'{dos} has compile errors:\n{cc_log[-2000:]}')
+            results[key].cc_log = cc_log
+        elif os.path.exists(obj_path):
+            omf_path = os.path.join(work, f'{dos}.OBJ')
+            obd_path = os.path.join(work, f'{dos}.OBD')
+            dump = attach_locals(parse_obd(_read(obd_path)),
+                                 _read_bytes(obj_path))
+            results[key] = _build_module(
+                dos, omf_path, dump, compiler, kind)
+            results[key].listing = _read(os.path.join(work, f'{dos}.LST'))
+        elif os.path.exists(cc_path) and os.path.getsize(cc_path) > 0:
+            results[key] = AztecCompileError(
+                f'compiler produced no object for {dos}:\n'
+                f'{cc_log[-2000:]}')
+            results[key].cc_log = cc_log
+        else:
+            results[key] = AztecCompileError(
+                f'compiler never reached {dos}')
+    return results
 
 
 def _local_data(dump, name):

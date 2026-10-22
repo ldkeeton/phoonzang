@@ -28,6 +28,16 @@ int pc, label_id, ok_enabled, limit_by_points;
 	int i, box_x0, box_y0, box_x1, box_y1, panel_x, mouse_x, mouse_y, thumb_y, thumb_travel, grab_dy, list_top, hit;
 	int running, mouse_btn, rows_shown, sel_row, rows_drawn;
 	char label[20];
+	int saved_area, spell, power, max_power, realm, spell_count;
+	for (i = 0; i < 6; i++)
+		party_slot_frame[i] = 0;
+	spell_dialog_result = -1;
+	box_x0 = 0x32;
+	box_y0 = 0x73;
+	box_x1 = 0x10d;
+	box_y1 = 0xc5;
+	panel_x = 0x95;
+	thumb_travel = 0x16;
 	saved_area = save_screen_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1, str_swap_file_v);
 	draw_dialog_box(box_x0, box_y0, box_x1, box_y1);
 	draw_dialog_box(0x95, box_y0, box_x1, box_y1);
@@ -124,7 +134,8 @@ int pc, label_id, ok_enabled, limit_by_points;
 				break;
 			case 3:	/* first button: needs a spell and, when limiting, enough points */
 				if (ok_enabled) {
-					if (spell >= 0 && (!limit_by_points || power <= max_power && spell_table[spell].cost * (power + 1) <= pc_spell_power_cap[pc].points[realm][0])) {
+					if (spell >= 0 && (!limit_by_points || power <= max_power
+					    && spell_table[spell].cost * (power + 1) <= pc_spell_power_cap[pc].points[realm][0])) {
 						flash_button(panel_x + 6, box_y0 + 6, 8, 1, 1);
 						flash_button(panel_x + 6, box_y0 + 6, 8, 1, 0);
 						spell_dialog_button = 0;

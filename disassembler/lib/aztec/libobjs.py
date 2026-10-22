@@ -23,7 +23,8 @@ import shutil
 import subprocess
 import tempfile
 
-from ..dosbox import DOSBOX
+from ..dosbox import DOSBOX, environment as dosbox_env, timeout as dosbox_timeout
+from ..dosbox import run as run_dosbox
 from . import compile as _compile
 from .compile import VERSION
 from lib.cachedirs import aztec_lib_obj_dir
@@ -94,14 +95,21 @@ def build(project, *, force=False, verbose=False):
             'exit',
         ]
         argv = _compile._dosbox_argv(DOSBOX, work, cmds)
-        env = dict(os.environ, HOME=work, SDL_VIDEODRIVER='dummy',
-                   SDL_AUDIODRIVER='dummy')
+        env = dosbox_env(work)
         print('  aztec libs: extracting + converting C/M/S libs and overlay '
               f'objects via {VERSION}', flush=True)
         if verbose:
             print(f'    {" ".join(argv)}', flush=True)
+        limit = dosbox_timeout()
         with _compile._dosbox_lock():
-            subprocess.run(argv, env=env, capture_output=True, text=True)
+            try:
+                run_dosbox(argv, env=env, timeout=limit,
+                           what=f'aztec libs | DOSBox converting {VERSION} '
+                                'libraries')
+            except subprocess.TimeoutExpired as exc:
+                raise RuntimeError(
+                    f'aztec library DOSBox session timed out'
+                    f'{f" after {limit:g}s" if limit else ""}') from exc
 
         staged = os.path.join(work, 'out')
         counts = {}

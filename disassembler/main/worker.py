@@ -18,10 +18,14 @@ import io
 import json
 import os
 import sys
+import threading
+import time
 import traceback
 from contextlib import redirect_stderr, redirect_stdout
 
+from lib import childproc
 from lib import stagelog
+from lib import progress
 from lib.autogen import write_once
 from lib.cachedirs import src_dir
 from lib.compare.cgate import CGateError
@@ -111,11 +115,25 @@ class BinaryRun:
         self.analysis = self.key = self.ledger = None
 
 
+def _watch_parent(interval=2.0):
+    """Exit (and stop our DOSBox) if the driver process disappears."""
+    parent = os.getppid()
+    while True:
+        time.sleep(interval)
+        if os.getppid() != parent:
+            childproc.terminate_all(grace=0.5)
+            os._exit(1)
+
+
 def serve(project, name):
     """Answer one binary's build steps over stdin/stdout until told to exit."""
+    childproc.install()
     reply = os.fdopen(os.dup(1), 'w', buffering=1)
     # Anything written straight to fd 1 lands on stderr, not in the answers.
     os.dup2(2, 1)
+    threading.Thread(target=_watch_parent, name='parent-watch',
+                     daemon=True).start()
+    progress.log(f'{name} | worker ready ({project})')
     run = BinaryRun(Project(project), name)
     with write_once():
         _answer(run, reply)
@@ -128,6 +146,9 @@ def _answer(run, reply):
         command = json.loads(line)
         if command.get('exit'):
             break
+        flags = command['flags'] or []
+        progress.log(f'{run.name} | step received: '
+                     f'{" ".join(flags) or "(default)"}')
         out, err = io.StringIO(), io.StringIO()
         status, files = 0, None
         with redirect_stdout(out), redirect_stderr(err):

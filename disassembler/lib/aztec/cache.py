@@ -433,3 +433,38 @@ def compile_source_module(project, binary, label, entry, source_text):
     if isinstance(module, Exception):
         raise module
     return module, module.whole()
+
+
+def precompile(project, binary, items):
+    """Compile every ``(label, entry, source_text)`` of *items* the ``objs``
+    cache lacks, in one DOSBox session per tool and flags, so the
+    :func:`compile_source_module` calls after it are cache hits.
+
+    Returns ``{label: exception}`` for the modules that failed to compile;
+    they are not cached, so the caller reports them.  A timed-out session
+    raises :class:`lib.aztec.compile.AztecCompileError`.
+    """
+    from . import compile as azc
+
+    pending = {}
+    for label, entry, text in items:
+        key = _module_key(project, binary, label, entry, text)
+        if key in pending or not _stale(objcache.load(objs_dir(project), key)):
+            continue
+        pending[key] = (label, entry, text)
+    if not pending:
+        return {}
+    requests = []
+    for (key, (label, entry, text)), dos in zip(
+            pending.items(), azc.dos_names(label for label, _, _
+                                           in pending.values())):
+        kind, flags = _tool(project, binary, label, entry)
+        requests.append((key, dos, text, entry['compiler'], entry['includes'],
+                         flags, kind))
+    failed = {}
+    for key, result in azc.compile_batch(requests).items():
+        if isinstance(result, Exception):
+            failed[pending[key][0]] = result
+        else:
+            objcache.save(objs_dir(project), key, result)
+    return failed

@@ -37,9 +37,10 @@ family's labels-only pass: its ``ds_starts`` union is this build's too.
 """
 
 import os
-import subprocess
 
 from lib import stagelog
+from lib import progress
+from lib import childproc
 from lib.autogen import sync, write_once
 from lib.cachedirs import labels_dir, src_dir
 from lib.cross_ref import detect as detect_cross_refs, read_label_json
@@ -119,7 +120,7 @@ def nasm_binary(out_dir, name, rel_path):
     asm_path = os.path.join(out_dir, f'{name}.asm')
     bin_path = os.path.join(out_dir, 'build_out', rel_path)
     os.makedirs(os.path.dirname(bin_path), exist_ok=True)
-    r = subprocess.run(
+    r = childproc.run(
         ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', '-w-other',
          *include_args(out_dir), '-o', bin_path, asm_path],
         capture_output=True, text=True,
@@ -211,7 +212,9 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     report(f'\n=== {project} ({len(bins)} binaries) ===')
 
     emitted = {}    # {binary: its files}, written once the layout is final
+    progress.log(f'{project} | detecting cross-references')
     cross_refs = detect_cross_refs(app_dir, bins)
+    progress.log(f'{project} | cross-references: {len(cross_refs)} consumer(s)')
     stagelog.step('project.cross_refs', 0, metrics={'consumers': len(cross_refs)})
     source_names = {src for refs in cross_refs.values() for _, src in refs}
 
@@ -230,6 +233,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     items = [(name, ['--export-labels']
               + (['--labels-only'] if name == host and only is None else []))
              for name in sorted(source_names & set(bins) & needed)]
+    progress.log(f'{project} | export sources: {len(items)} binary(ies)')
     failed = _generate(run_batch, items, emitted)
     stagelog.step('project.export_sources', 0, metrics={'sources': len(items)})
     if failed:
@@ -249,6 +253,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
         #     indexed operand to an object another binary names.  The union
         #     needs the whole family, even for one binary's partial build.
         first = [n for n in consumers if n in family]
+        progress.log(f'{project} | ds_starts pass: {len(first)} family binary(ies)')
         failed = _generate(run_batch, [
             (n, (foreign_args(project, n, cross_refs) or []) + ['--labels-only'])
             for n in first], emitted)
@@ -258,6 +263,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
             return failed
         starts = write_ds_starts(project, collect_ds_starts(
             labels_dir(project), family))
+        progress.log(f'{project} | ds_starts: {len(read_ds_starts(starts))} start(s)')
         stagelog.step('project.ds_starts', 0, metrics={'starts': len(
             read_ds_starts(starts))},
             why='an indexed operand binds only to an object some binary of the '
@@ -269,6 +275,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
             flags = (flags or []) + [f'--ds-starts={starts}']
         return flags
 
+    progress.log(f'{project} | generating consumers: {len(targets)}')
     failed = _generate(run_batch, [(n, consumer_flags(n)) for n in targets],
                        emitted)
     if failed:
@@ -281,15 +288,20 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     if only is not None:
         # A partial build makes no whole-project decision, and assembling it
         # alone must not leave the others' stale artifacts in build_out.
+        progress.log(f'{project} | syncing partial build: {only}')
         _sync(out_dir, merge_files(emitted), report,
               scopes=[f'{only}.asm', only])
+        progress.log(f'{project} | copying assets for {only}')
         copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
                     {bins[only][0]})
+        progress.log(f'{project} | assembling {only}')
         return _batch(nasm_batch, [(only, bins[only][0])])
 
     # 4. the host declares the union of the DS offsets its consumers reference
+    progress.log(f'{project} | aggregating host data from {len(targets)} consumer(s)')
     offsets = aggregate_host_data(project, targets)
     if host in source_names:
+        progress.log(f'{project} | host emit: {host}')
         flags = ['--export-labels']
         if offsets:
             flags.append(f'--host-data-offsets={offsets}')
@@ -307,6 +319,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
         why='a build-wide sidecar entry is applied by some binary or is stale')
 
     # 5. one copy of every byte-identical routine, in shared/
+    progress.log(f'{project} | sharing identical routines')
     files, shared = share_files(merge_files(emitted), out_dir,
                                 project_tables(project))
     if shared:
@@ -319,17 +332,21 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
 
     # 5b. structure report: objects glued onto a routine's file (plan.md §7)
     from lib.compare.cotenancy import scan as scan_cotenancy, summarize
+    progress.log(f'{project} | scanning cotenancy')
     cotenancy = scan_cotenancy(out_dir, files=files)
     #report('  ' + summarize(cotenancy))
     stagelog.step('project.cotenancy', 0, 'measure',
         metrics={k: cotenancy[k] for k in ('files', 'glued_files', 'co_tenants',
                                             'code', 'data')})
 
+    progress.log(f'{project} | syncing {len(files)} generated file(s)')
     _sync(out_dir, files, report)
+    progress.log(f'{project} | copying assets')
     copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
                 {rel for rel, _s in bins.values()})
 
     # 6. assemble
+    progress.log(f'{project} | assembling {len(bins)} binary(ies)')
     stagelog.step('project.assemble', 0)
     return _batch(nasm_batch, [(name, rel) for name, (rel, _s)
                                in sorted(bins.items())])

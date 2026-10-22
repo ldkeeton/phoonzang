@@ -123,6 +123,25 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
                 f'of module {span.file}, whose source is '
                 f'{span.name}{cache.seed_suffix(span.entry)}; merge it there')
 
+    # Everything the loops below compile goes through DOSBox up front, one
+    # session per tool and flags instead of one per routine; the loops then
+    # hit the object cache.
+    hand = [label for label in sorted(set(hand_c) | set(shared_c))
+            if label not in spans and label not in module_of]
+    batch = [(module, span.entry,
+              _seed_aztec_c(cache, project, name, module, span.entry, dest,
+                            home(module))[0])
+             for module, span in sorted(spans.items())]
+    for label in hand:
+        path = c_path(dest, label, home(label))
+        with open(path) as f:
+            batch.append((label, cache.default_entry(
+                label, project, os.path.splitext(path)[1]), f.read()))
+    try:
+        failed = cache.precompile(project, name, batch)
+    except Exception as exc:
+        raise SystemExit(f'error: {exc}') from exc
+
     overrides = {}
     for module, span in sorted(spans.items()):
         entry = span.entry
@@ -135,6 +154,8 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         text, generated = _seed_aztec_c(cache, project, name, module, entry,
                                         dest, home(module))
         try:
+            if module in failed:
+                raise failed[module]
             compiled, func = cache.compile_source_module(
                 project, name, module, entry, text)
         except Exception as exc:
@@ -152,6 +173,11 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
                 project, name, module, entry),
             'compile': (lambda t, _l=module, _e=entry:
                         cache.compile_source(project, name, _l, _e, t)),
+            # A pristine seed's renamed text, for one batch of them all
+            # (lib.compare.coverrides._batch_relabels).
+            'entry': entry,
+            'precompile': (lambda items:
+                           cache.precompile(project, name, items)),
             'code': func.code,
             'fixups': [(fx.offset, fixup_width(fx.kind))
                        for fx in func.fixups],
@@ -174,15 +200,15 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     # replaces that routine too.  It owns its fragment: up to the next
     # fragment root, or its band's end (:func:`_hand_length`).
     roots = sorted(function_roots or ())
-    for label in sorted(set(hand_c) | set(shared_c)):
-        if label in spans or label in module_of:
-            continue
+    for label in hand:
         path = c_path(dest, label, home(label))
         with open(path) as f:
             text = f.read()
         entry = cache.default_entry(label, project,
                                     os.path.splitext(path)[1])
         try:
+            if label in failed:
+                raise failed[label]
             compiled, func = cache.compile_source_module(
                 project, name, label, entry, text)
         except Exception as exc:
@@ -543,6 +569,7 @@ def _data_sources(project, binary, out_dir, split_sources, segments=None,
     from lib.aztec.datamodules import data_modules, stem
     sources = []
     seeds = {}
+    todo = []
     for module in data_modules(project):
         name = stem(module)
         rel = f'{binary}/data/{name}.asm'
@@ -564,7 +591,18 @@ def _data_sources(project, binary, out_dir, split_sources, segments=None,
         if source is None:
             source = cache.seed_source_text(project, binary, label, entry)
             seeds[c_rel] = source
+        todo.append((module, rel, label, entry, shown, source))
+    # One DOSBox batch compiles them all; compile_data then hits the cache.
+    try:
+        failed = cache.precompile(project, binary,
+                                  [(label, entry, source) for _, _, label,
+                                   entry, _, source in todo])
+    except Exception as exc:
+        raise SystemExit(f'error: {exc}') from exc
+    for module, rel, label, entry, shown, source in todo:
         try:
+            if label in failed:
+                raise failed[label]
             got = cache.compile_data(project, binary, label, entry, source)
         except Exception as exc:
             raise SystemExit(f'error: {shown}: {exc}') from exc

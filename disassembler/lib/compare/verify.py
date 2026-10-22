@@ -42,6 +42,7 @@ from capstone import (
 )
 
 from lib.model import IS_CODE, IS_DATA
+from lib import progress
 from lib.mz import parse_relocs as _parse_mz_relocs
 from lib.verify.assemble import (
     micro_assemble,
@@ -457,6 +458,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     t0 = time.perf_counter()
 
     # Discover hidden address references from MZ relocation table
+    progress.log(f'{name} | verify: function boundaries')
     reloc_targets = _parse_mz_relocs(binary_data, start_offset)
     reloc_targets = {
         off for off in reloc_targets
@@ -467,6 +469,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     func_boundaries = _compute_func_boundaries(label_map, binary_data)
     t1 = time.perf_counter()
+    progress.log(f'{name} | verify: branch ownership + local labels')
     roots = function_roots or _function_roots(
         label_map, insns, binary_size=total, start_offset=start_offset,
     )
@@ -521,6 +524,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         if not (0 <= off < total and hard_data[off])
     }
     t2 = time.perf_counter()
+    progress.log(f'{name} | verify: main loop')
 
     if label_map:
         insn_start_list = sorted(insn_by_addr)
@@ -735,6 +739,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     # Assemble every candidate instruction in a single NASM round-trip rather
     # than spawning a subprocess per instruction.  Falls back to per-instruction
     # assembly when the batch cannot be processed structurally.
+    progress.log(f'{name} | verify: formatting instructions')
     t_pre0 = time.perf_counter()
     text_by_addr = {}
     batch_reqs = []
@@ -754,6 +759,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             mem_equ=mem_equ,
         )
         if built_batch is None:
+            progress.log(f'{name} | verify: batch failed, assembling '
+                         f'{len(batch_reqs)} instructions one by one')
             built_batch = [
                 micro_assemble(
                     text, addr, label_map, local_labels,
@@ -769,6 +776,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         addr: built for (_, addr), built in zip(batch_reqs, built_batch)
     }
     timing_format = time.perf_counter() - t_pre0
+    progress.log(f'{name} | verify: format done')
 
     records = []
     pending_data = []
@@ -885,6 +893,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         })
 
     t3 = time.perf_counter()
+    progress.log(f'{name} | verify: postprocessing data blocks')
     records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes, bitmap, carve_1, trace, local_labels,
                                        foreign_label_map=foreign_label_map,
                                        immediate_labels=immediate_labels,
@@ -1138,6 +1147,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                   track={'labels': _label_records(records)},
                   metrics={'records': len(records)})
     t4 = time.perf_counter()
+    progress.log(f'{name} | verify: emit classification')
 
     emit_class = bytearray(total)
     label_positions = bytearray(total)
@@ -1161,6 +1171,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                     emit_class[i] = IS_DATA
 
     t5 = time.perf_counter()
+    progress.log(f'{name} | verify: building source text')
 
     # Resource/region carving pre-pass (plan.md D2): classify the image's byte
     # ranges so the data-pointer scorer (D4) can attach its "inside a
@@ -1280,6 +1291,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         overlay_own=overlay_own, bands=bands, data_modules=data_modules,
     )
     t6 = time.perf_counter()
+    progress.log(f'{name} | verify: source built')
     stagelog.step('verify.build_source', 2,
                   track={'label_map': label_map or {}},
                   metrics={'lines': len(src_lines), 'files': len(split_sources)})

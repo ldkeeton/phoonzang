@@ -156,6 +156,17 @@ def _own_names(text, own_keys):
     return found
 
 
+def renamed(label, own_keys, start, text, original, index, names_at, func,
+            image_base=0, asm=False):
+    """``(new_text, mapping)``: *text* with asm names in place of Manx ones,
+    learned from *func* (*text* compiled) against the original image; see
+    :func:`upgrade`."""
+    mapping = learn_names(label, start, func, original, index, names_at,
+                          image_base)
+    mapping.update(_own_names(text, own_keys))
+    return rewrite_identifiers(text, mapping, asm), mapping
+
+
 def upgrade(label, own_keys, start, text, original, index, names_at, compile_,
             image_base=0, asm=False):
     """Return ``(new_text, new_func)`` with asm names in place of Manx ones.
@@ -166,10 +177,8 @@ def upgrade(label, own_keys, start, text, original, index, names_at, compile_,
     identical code and relocations.
     """
     func = compile_(text)
-    mapping = learn_names(label, start, func, original, index, names_at,
-                          image_base)
-    mapping.update(_own_names(text, own_keys))
-    new_text = rewrite_identifiers(text, mapping, asm)
+    new_text, mapping = renamed(label, own_keys, start, text, original,
+                                index, names_at, func, image_base, asm)
     new_func = compile_(new_text)
     if new_func.code != func.code or len(new_func.fixups) != len(func.fixups):
         raise RelinkError(

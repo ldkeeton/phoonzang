@@ -25,7 +25,8 @@ import shutil
 import subprocess
 import tempfile
 
-from ..dosbox import DOSBOX
+from ..dosbox import DOSBOX, environment as dosbox_env, timeout as dosbox_timeout
+from ..dosbox import run as run_dosbox
 from . import compile as _compile
 from . import sources
 
@@ -93,14 +94,23 @@ def check(verbose=False):
         cmds = [f'mount c {os.path.join(work, "azbin")}', f'mount d {work}',
                 f'mount e {os.path.join(work, "azinc")}', 'set PATH=C:\\BIN',
                 'set INCLUDE=E:\\', 'd:', 'CHECK.BAT', 'exit']
-        env = dict(os.environ, HOME=work, SDL_VIDEODRIVER='dummy',
-                   SDL_AUDIODRIVER='dummy')
+        env = dosbox_env(work)
         if verbose:
             print(f'  libcheck: {len(jobs)} builds for {len(members)} members',
                   flush=True)
+        limit = dosbox_timeout()
+        if limit is not None:
+            limit *= 4
         with _compile._dosbox_lock():
-            subprocess.run(_compile._dosbox_argv(DOSBOX, work, cmds), env=env,
-                           capture_output=True, text=True)
+            try:
+                run_dosbox(_compile._dosbox_argv(DOSBOX, work, cmds),
+                           env=env, timeout=limit,
+                           what=f'libcheck | DOSBox rebuilding {len(jobs)} '
+                                'objects')
+            except subprocess.TimeoutExpired as exc:
+                raise RuntimeError(
+                    f'libcheck DOSBox session timed out'
+                    f'{f" after {limit:g}s" if limit else ""}') from exc
 
         results = []
         for member in members:

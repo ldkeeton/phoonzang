@@ -304,19 +304,8 @@ def _link_override(label, start, override, records, binary_data, index,
     anything else must already say what it means.  The whole compile is
     linked: what it does not fit is the gate's to report, never cut off.
     """
-    func = override['func']
-    length = override.get('length') or len(func.code)
-    labels_in = [(r['offset'], r['name']) for r in records
-                 if r['type'] == 'label' and start <= r['offset'] < start + length]
-    labels_at = {r['offset']: r['name'] for r in records if r['type'] == 'label'}
-    # A jump table is labelled by its own record (``format``'s
-    # ``conv_routines`` is ``jumptable_4822``).
-    for r in records:
-        if r['type'] == 'jump_table':
-            labels_at.setdefault(r['start'], r['label'])
     try:
-        return relink.link(label, start, func, index, binary_data, labels_in,
-                           labels_at)
+        return _link(label, start, override, records, binary_data, index)
     except relink.RelinkError as exc:
         if not override.get('pristine'):
             raise ValueError(str(exc)) from exc
@@ -331,8 +320,61 @@ def _link_override(label, start, override, records, binary_data, index,
     override.update(text=text, func=func, pristine=False)
     print(f'  aztec relabel: {os.path.basename(override["path"])} now names '
           'asm labels')
+    return _link(label, start, override, records, binary_data, index)
+
+
+def _link(label, start, override, records, binary_data, index):
+    """:func:`lib.aztec.relink.link` of *override*'s compiled code at *start*."""
+    func = override['func']
+    length = override.get('length') or len(func.code)
+    labels_in = [(r['offset'], r['name']) for r in records
+                 if r['type'] == 'label' and start <= r['offset'] < start + length]
+    labels_at = {r['offset']: r['name'] for r in records if r['type'] == 'label'}
+    # A jump table is labelled by its own record (``format``'s
+    # ``conv_routines`` is ``jumptable_4822``).
+    for r in records:
+        if r['type'] == 'jump_table':
+            labels_at.setdefault(r['start'], r['label'])
     return relink.link(label, start, func, index, binary_data, labels_in,
-                           labels_at)
+                       labels_at)
+
+
+def _batch_relabels(c_overrides, records, binary_data, starts, index_names,
+                    image_base):
+    """Compile, as one DOSBox batch, the renamed text of every pristine seed
+    that does not link as it is, so :func:`relabel.upgrade` in
+    :func:`_link_override` finds each compile cached.
+
+    *starts* gives each label's address; *index_names* returns the symbol
+    index and data names.  A seed whose renaming fails is left for
+    :func:`_link_override` to report.
+    """
+    items = []
+    precompile = None
+    for label, override in c_overrides.items():
+        start = override.get('start', starts.get(label))
+        if (override.get('func') is None or not override.get('pristine')
+                or 'precompile' not in override or start is None):
+            continue
+        index, names_at = index_names()
+        try:
+            _link(label, start, override, records, binary_data, index)
+            continue
+        except relink.RelinkError:
+            pass
+        try:
+            text, _ = relabel.renamed(
+                label, override['own_keys'], start, override['text'],
+                binary_data, index, names_at, override['func'],
+                image_base or 0, asm=is_asm_source(override['path']))
+        except relink.RelinkError:
+            continue
+        items.append((label, override['entry'], text))
+        precompile = override['precompile']
+    if items:
+        for label, exc in precompile(items).items():
+            raise ValueError(f'{label}: the renamed seed does not compile: '
+                             f'{exc}')
 
 
 def _split_data_block(records, at, binary_data):
@@ -464,6 +506,24 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             name_to_addr.setdefault(nm, addr)
     sym_index = names_at = None
 
+    def index_names():
+        nonlocal sym_index, names_at
+        if sym_index is None:
+            # ``geometry`` (``__zres_end``, ``__zdseg_end``) are the
+            # image-size symbols the renderer defines; a C external such
+            # as ``_Cend``/``_Uend`` names them.
+            sym_equ = {**(mem_equ or {}), **(geometry or {})}
+            sym_index = symbol_index(
+                label_map, foreign_label_map, data_labels, sym_equ,
+                binary_data, segments, image_base)
+            names_at = relabel.data_names(
+                {**getattr(segments, 'data_names', {}),
+                 **(data_labels or {})}, sym_equ)
+        return sym_index, names_at
+
+    _batch_relabels(c_overrides, records, binary_data, name_to_addr,
+                    index_names, image_base)
+
     replacements = []
     unplaced = []
     # What the linked C replaced, and the names it prints in their place.
@@ -478,17 +538,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         lead = override.get('lead', 0)
         linked = None
         if override.get('func') is not None:
-            if sym_index is None:
-                # ``geometry`` (``__zres_end``, ``__zdseg_end``) are the
-                # image-size symbols the renderer defines; a C external such
-                # as ``_Cend``/``_Uend`` names them.
-                sym_equ = {**(mem_equ or {}), **(geometry or {})}
-                sym_index = symbol_index(
-                    label_map, foreign_label_map, data_labels, sym_equ,
-                    binary_data, segments, image_base)
-                names_at = relabel.data_names(
-                    {**getattr(segments, 'data_names', {}),
-                     **(data_labels or {})}, sym_equ)
+            index_names()
             try:
                 linked = _link_override(label, start, override, records,
                                         binary_data, sym_index, names_at,

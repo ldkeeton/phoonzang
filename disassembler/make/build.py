@@ -13,12 +13,15 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from main.projects import discover_binaries
 from main.build import build_project, nasm_binary
+from lib import progress
 from lib.cachedirs import src_dir
 from lib.link import LinkError
 from lib.report import clear_project_stats
 from lib.sidecar.errors import SidecarError
 
 from main.clean import clear_build_out
+from lib import progress
+
 from .common import APPS, JOBS, PROJECT, Workers, _extra_flags, _verbose
 from .prebuild import _ensure_prebuild
 
@@ -31,6 +34,10 @@ def _generate(workers):
     """A ``run_batch``: each binary's step on its worker, on a thread pool."""
     def run(items):
         failed, emitted = [], {}
+        if _verbose():
+            progress.log(f'batch: {len(items)} binar'
+                         f'{"y" if len(items) == 1 else "ies"} -> '
+                         f'{", ".join(name for name, _ in items)}')
         with ThreadPoolExecutor(max_workers=JOBS) as ex:
             futures = {ex.submit(workers.run, name, flags): name
                        for name, flags in items}
@@ -52,6 +59,10 @@ def _assemble(out_dir):
     """A ``nasm_batch``: assemble the given binaries on a thread pool."""
     def run(items):
         failed = []
+        if _verbose():
+            progress.log(f'nasm batch: {len(items)} binar'
+                         f'{"y" if len(items) == 1 else "ies"} -> '
+                         f'{", ".join(name for name, _ in items)}')
         with ThreadPoolExecutor(max_workers=JOBS) as ex:
             futures = {ex.submit(nasm_binary, out_dir, name, rel): name
                        for name, rel in items}
@@ -84,11 +95,15 @@ def _prepare(app, *, prebuild=True):
     """What every build does first: drop the built binaries, make sure prebuild
     exists.  ``src_<app>/`` itself is left alone until the build has laid out
     every file (:func:`main.build._sync`)."""
+    if _verbose():
+        progress.log(f'{app} | prepare: clearing build_out')
     clear_build_out(app)
     if prebuild:
         _ensure_prebuild(app)
     if _stats_enabled():
         clear_project_stats(app)
+    if _verbose():
+        progress.log(f'{app} | prepare: done')
 
 
 def cmd_build_binary(app, binary):
@@ -101,6 +116,8 @@ def cmd_build_binary(app, binary):
         sys.exit(1)
 
     _prepare(app)
+    if _verbose():
+        progress.log(f'{app}/{binary} | build start')
     with Workers(app) as workers:
         failed = build_project(app, _generate(workers), _assemble(out_dir),
                                only=binary)
@@ -122,8 +139,12 @@ def _rebuild_project(app, binary=None):
         sys.exit(1)
     targets = [binary] if binary else sorted(bins)
     for name in targets:
+        if _verbose():
+            progress.log(f'{app}/{name} | resplicing C routines')
         resplice_c(app, name, check_only=True)
     for name in targets:
+        if _verbose():
+            progress.log(f'{app}/{name} | nasm')
         if nasm_binary(out_dir, name, bins[name][0]) != 0:
             print(f'rebuild {app}/{name} -> {bins[name][0]}  [FAILED]')
             sys.exit(1)

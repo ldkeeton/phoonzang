@@ -2,14 +2,19 @@
 
 import sys
 
+from lib import childproc
 from lib.sidecar.errors import SidecarError
 from lib.compare.records import UnencodedInstructionError
 
 from .cli import main
 
 if __name__ == '__main__':
+    childproc.install()
     try:
         main()
+    except KeyboardInterrupt:
+        childproc.terminate_all()
+        sys.exit(130)
     except UnencodedInstructionError as exc:
         print(f'ERROR: {exc}', file=sys.stderr)
         sys.exit(2)
