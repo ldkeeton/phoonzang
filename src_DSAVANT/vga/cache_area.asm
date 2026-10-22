@@ -85,7 +85,7 @@ cache_area:
     add ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x391b
     cmp ax, 0x4180                   ; 0x3920
     jbe short @..cache_area.l7       ; 0x3923
-    jmp near dos_con_loc_RSSU        ; 0x3925
+    jmp near cache_area_maze_mem_full ; 0x3925
 @..cache_area.l7:
     mov bx, word [cs:cseg_0bac - IMAGE_BASE] ; 0x3928
     mov word [bp - 0x000e], bx       ; 0x392d
@@ -182,7 +182,7 @@ cache_area:
     inc dx                           ; 0x3a11
     add bx, byte 2                   ; 0x3a12
     loop @..cache_area.l13           ; 0x3a15
-    jmp near dos_con_loc_QORG        ; 0x3a17
+    jmp near cache_area_ems_slots_full ; 0x3a17
 @..cache_area.l14:
     mov word [bp - 0x000c], dx       ; 0x3a1a
     mov ax, word [cs:cseg_028f - IMAGE_BASE] ; 0x3a1d

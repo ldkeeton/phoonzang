@@ -626,13 +626,11 @@ data_025b equ __zdata_025b - IMAGE_BASE
 loc_3ae6 equ loc_0deb
 %include "shared/library/loc_0deb.asm"                ; 0x3ae6
 
-dos_con_loc_QORG equ cache_area_ems_slots_full
-cseg_3afe        equ cache_area_ems_slots_full.cseg1
-%include "shared/library/cache_area_ems_slots_full.asm"        ; 0x3aee
+cseg_3afe equ cache_area_ems_slots_full.cseg1
+%include "shared/library/cache_area_ems_slots_full.asm" ; 0x3aee
 
-dos_con_loc_RSSU equ cache_area_maze_mem_full
-cseg_3b2f        equ cache_area_maze_mem_full.cseg1
-%include "shared/library/cache_area_maze_mem_full.asm"        ; 0x3b1f
+cseg_3b2f equ cache_area_maze_mem_full.cseg1
+%include "shared/library/cache_area_maze_mem_full.asm" ; 0x3b1f
 
 dos_con_loc_UHSU equ cache_area_maze_slots_full
 cseg_3b6c        equ cache_area_maze_slots_full.cseg1
