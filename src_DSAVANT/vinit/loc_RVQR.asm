@@ -68,7 +68,7 @@ loc_RVQR:
     jmp short @..loc_RVQR.l5         ; 0x0456
 @..loc_RVQR.l7:
     push word [bp - 0x0002]          ; 0x0458
-    call ds_bios_video_loc_LILQ      ; 0x045b
+    call init_system_hardware        ; 0x045b
     pop cx                           ; 0x045e
     mov word [bss_9056], ax          ; 0x045f
     test ax, 1                       ; 0x0462

@@ -16,7 +16,8 @@ writing; ``make info`` and ``make refs`` show each naming surface and which one
 wins.
 
 ``make refs PROJECT BIN ROUTINE`` lists the address-named symbols a routine's
-asm and source reference, with the sidecar entry each one resolves to.
+asm and source reference that still need names, with the sidecar entry each one
+resolves to.
 """
 
 import functools
@@ -538,8 +539,9 @@ class _Journal:
 
 def rename_sources(project, renames, journal=None, dry_run=False):
     """Rewrite ``old``/``old_`` to ``new``/``new_`` in every hand-owned source
-    and rename a source named after a renamed routine.  Returns a description
-    per change; with *dry_run* nothing is written."""
+    and rename a source named after a renamed routine.  Returns one record per
+    changed source -- ``path``, ``dest`` (or None) and the ``(old, new, count)``
+    references rewritten -- with *dry_run* nothing is written."""
     if not renames:
         return []
     pattern = re.compile(r'\b(' + '|'.join(map(re.escape, renames)) + r')(_?)\b')
@@ -547,6 +549,10 @@ def rename_sources(project, renames, journal=None, dry_run=False):
     for p in list(_hand_files(project)):
         with open(p) as f:
             text = f.read()
+        counts = {}
+        for match in pattern.finditer(text):
+            pair = (match.group(1), renames[match.group(1)])
+            counts[pair] = counts.get(pair, 0) + 1
         new = pattern.sub(lambda m: renames[m.group(1)] + m.group(2), text)
         stem, ext = os.path.splitext(os.path.basename(p))
         dest = None
@@ -556,7 +562,9 @@ def rename_sources(project, renames, journal=None, dry_run=False):
                 raise SystemExit(f'error: {dest} already exists')
         if new == text and dest is None:
             continue
-        changed.append(f'{p} -> {dest}' if dest else p)
+        changed.append({'path': p, 'dest': dest,
+                        'rewrites': [(old, new, count)
+                                     for (old, new), count in counts.items()]})
         if dry_run:
             continue
         if new != text:
@@ -571,6 +579,22 @@ def rename_sources(project, renames, journal=None, dry_run=False):
             else:
                 os.rename(p, dest)
     return changed
+
+
+def _source_change_lines(change):
+    """Human-readable lines for one :func:`rename_sources` record."""
+    rel = os.path.relpath(change['path'], PROJECT)
+    rewrites = change['rewrites']
+    if rewrites:
+        total = sum(count for _, _, count in rewrites)
+        noun = 'reference' if total == 1 else 'references'
+        pairs = ', '.join(
+            f'{old} -> {new}' + (f' x{count}' if count > 1 else '')
+            for old, new, count in rewrites)
+        yield f'  rewrote {rel} ({total} {noun}: {pairs})'
+    if change['dest'] is not None:
+        dest = os.path.relpath(change['dest'], PROJECT)
+        yield f'  renamed {rel} -> {dest}'
 
 
 def _routine_companions(sidecar, project, binary, old, addr, primary):
@@ -745,8 +769,9 @@ def apply_names(project, binary, specs, journal=None):
     for change in changes:
         print(f'  {change["old"]} -> {change["name"]}'
               f'  ({change["surface"]})')
-    for p in rename_sources(project, renames, journal=journal):
-        print(f'  rewrote {os.path.relpath(p, PROJECT) if " -> " not in p else p}')
+    for change in rename_sources(project, renames, journal=journal):
+        for line in _source_change_lines(change):
+            print(line)
     return renames
 
 
@@ -807,8 +832,9 @@ def cmd_name(project, binary, args, all_projects, dry_run=False):
         if renames:
             print('dry run: source changes')
             changed = rename_sources(project, renames, dry_run=True)
-            for p in changed:
-                print(f'  rewrote {os.path.relpath(p, PROJECT) if " -> " not in p else p}')
+            for change in changed:
+                for line in _source_change_lines(change):
+                    print(line)
             if not changed:
                 print('  (none)')
             shared = api_consumers(sidecar, binary)

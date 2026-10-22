@@ -1,5 +1,5 @@
 ; auto-generated
-ds_dos_intvec_loc_OHRJ:
+detect_expanded_memory:
     push ds                          ; 0x37d9
     push es                          ; 0x37da
     mov ah, 0x35                     ; 0x37db
@@ -12,18 +12,18 @@ ds_dos_intvec_loc_OHRJ:
     mov cx, 8                        ; 0x37eb
     repe cmpsb                       ; 0x37ee
     or cx, cx                        ; 0x37f0
-    jne short @..ds_dos_intvec_loc_OHRJ.l2 ; 0x37f2
+    jne short @..detect_expanded_memory.l2 ; 0x37f2
     mov ah, 0x42                     ; 0x37f4
     int 0x67 ; EMS (Expanded Memory)
     cmp bx, byte 0x18                ; 0x37f8
-    jb short @..ds_dos_intvec_loc_OHRJ.l1 ; 0x37fb
+    jb short @..detect_expanded_memory.l1 ; 0x37fb
     mov bx, 0x18                     ; 0x37fd
-@..ds_dos_intvec_loc_OHRJ.l1:
+@..detect_expanded_memory.l1:
     mov word [cs:cseg_2f60 - IMAGE_BASE], bx ; 0x3800
     mov ah, 0x43                     ; 0x3805
     int 0x67 ; EMS (Expanded Memory)
     or ah, ah                        ; 0x3809
-    jne short @..ds_dos_intvec_loc_OHRJ.l2 ; 0x380b
+    jne short @..detect_expanded_memory.l2 ; 0x380b
     mov word [cs:cseg_2f62 - IMAGE_BASE], dx ; 0x380d
     mov bx, word [cs:cseg_2f60 - IMAGE_BASE] ; 0x3812
     mov cl, 0xa                      ; 0x3817
@@ -32,7 +32,7 @@ ds_dos_intvec_loc_OHRJ:
     mov ah, 0x41                     ; 0x3820
     int 0x67 ; EMS (Expanded Memory)
     mov word [cs:cseg_2f64 - IMAGE_BASE], bx ; 0x3824
-@..ds_dos_intvec_loc_OHRJ.l2:
+@..detect_expanded_memory.l2:
     pop es                           ; 0x3829
     pop ds                           ; 0x382a
     ret                              ; 0x382b

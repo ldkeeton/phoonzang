@@ -681,7 +681,7 @@ cseg_305f:
     db 0xdb, 0x01, 0x00, 0x00
 cseg_3063:
     db 0xdf, 0x01, 0x00, 0x00
-%include "ds/library/ds_bios_video_loc_LILQ.asm" ; 0x3067
+%include "ds/library/init_system_hardware.asm" ; 0x3067
 
 %include "ds/library/ds_loc_IGLJ.asm"      ; 0x30a3
 
@@ -694,7 +694,7 @@ random_seed_b:
     db 0x01, 0x00
 random_seed_c:
     db 0x2f, 0x75
-%include "ds/library/ds_leaf_loc_OIUO.asm" ; 0x30e2
+%include "ds/library/seed_random_from_timer.asm" ; 0x30e2
 
 %include "ds/library/detect_video_adapter.asm" ; 0x30f7
 
@@ -704,19 +704,19 @@ random_seed_c:
 ; bios_data_0410 equ 0x0410
 %include "ds/library/select_ega_driver.asm" ; 0x3490
 
-%include "ds/library/ds_dos_file_loc_SJIH.asm" ; 0x3534
+%include "ds/library/load_video_driver.asm" ; 0x3534
 
 %include "ds/library/ds_dos_con_loc_OQQL.asm" ; 0x35b8
 
 cseg_35ec:
     db 'play.drv', 0
-%include "ds/library/ds_dos_file_loc_NKUS.asm" ; 0x35f5
+%include "ds/library/load_play_driver.asm" ; 0x35f5
 
 %include "ds/library/ds_dos_con_loc_GOVO.asm" ; 0x3640
 
 loops_per_ms:
     db 0x90, 0x01
-%include "ds/library/ds_leaf_loc_QNNO.asm" ; 0x3674
+%include "ds/library/calibrate_loops_per_ms.asm" ; 0x3674
 
 %include "ds/library/ds_dos_mem_loc_OHLH.asm" ; 0x36bc
 
@@ -726,7 +726,7 @@ delay_loop_target:
     db 0x00, 0x00
 %include "ds/library/delay_ms.asm"         ; 0x36d0
 
-%include "ds/library/ds_dos_mem_loc_TGHM.asm" ; 0x36f5
+%include "ds/library/allocate_driver_memory.asm" ; 0x36f5
 
 %include "ds/library/ds_dos_mem_loc_JMGG.asm" ; 0x371d
 
@@ -740,7 +740,7 @@ delay_loop_target:
 
 cseg_37d1:
     db 'EMMXXXX0'
-%include "ds/library/ds_dos_intvec_loc_OHRJ.asm" ; 0x37d9
+%include "ds/library/detect_expanded_memory.asm" ; 0x37d9
 
 %include "ds/library/ds_leaf_loc_KIKO.asm" ; 0x382c
 

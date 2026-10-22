@@ -18,7 +18,7 @@ the **root** size, not the old fragment size.
 
 ```sh
 make info  PROJECT BIN ROUTINE    # span, co-tenants, callers, source, tool/flags, names
-make refs  PROJECT BIN ROUTINE    # symbols: value, space, width, canonical name
+make refs  PROJECT BIN ROUTINE    # symbols still needing names: value, space, width
 make data  PROJECT DS OFFSET      # bytes/BSS state at a DS object
 # write src_PROJECT/BIN/ROUTINE.c (or .s), first routine only
 make probe PROJECT BIN ROUTINE    # compile one source, no gate
@@ -44,9 +44,10 @@ both sources and the sidecar, and drops label exports the failed build wrote.
 * `info` reports the fragment span, co-tenants, callers, source, and the
   `cc`/`as` flags. It also lists every naming surface for the routine and
   marks the one the build applies last.
-* `refs` lists referenced symbols with value, space, use width, canonical name,
-  and definition. Unlabelled absolute operands show the name the source must
-  use (`bss_6eb5`).
+* `refs` lists the referenced symbols that still need names, with value, space,
+  use width, canonical name, and definition. Already-named callees are omitted,
+  so an empty list means nothing is left to name. Unlabelled absolute operands
+  show the name the source must use (`bss_6eb5`).
 * `data` reports whether a DS offset is file-backed or BSS and dumps bytes when
   present. It accepts an offset or build name.
 * `probe` compiles one candidate with the routine's tool and flags and prints
@@ -57,7 +58,8 @@ both sources and the sidecar, and drops label exports the failed build wrote.
   `dispatch_table` slot, and hand-source files/references. Names owned by
   another binary's API are rejected with the owner named. A failed build rolls
   the rename back. `DRY_RUN=1 make name ...` (or `--dry-run`) prints the plan
-  without writing.
+  without writing, including the source references it would rewrite and any
+  source file it would rename.
 
 ## C rules that matter
 

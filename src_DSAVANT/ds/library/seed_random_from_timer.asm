@@ -1,5 +1,5 @@
 ; auto-generated
-ds_leaf_loc_OIUO:
+seed_random_from_timer:
     push es                          ; 0x30e2
     mov ax, 0                        ; 0x30e3
     mov es, ax                       ; 0x30e6

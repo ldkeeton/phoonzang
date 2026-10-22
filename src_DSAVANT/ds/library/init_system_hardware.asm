@@ -1,5 +1,5 @@
 ; auto-generated
-ds_bios_video_loc_LILQ:
+init_system_hardware:
     push bp                          ; 0x3067
     mov bp, sp                       ; 0x3068
     cld                              ; 0x306a
@@ -10,14 +10,14 @@ ds_bios_video_loc_LILQ:
     push di                          ; 0x3071
     mov ax, ds                       ; 0x3072
     mov es, ax                       ; 0x3074
-    call ds_leaf_loc_OIUO            ; 0x3076
-    call ds_leaf_loc_QNNO            ; 0x3079
+    call seed_random_from_timer      ; 0x3076
+    call calibrate_loops_per_ms      ; 0x3079
     call detect_video_adapter        ; 0x307c
-    call ds_dos_mem_loc_TGHM         ; 0x307f
+    call allocate_driver_memory      ; 0x307f
     call detect_mouse                ; 0x3082
-    call ds_dos_intvec_loc_OHRJ      ; 0x3085
-    call ds_dos_file_loc_NKUS        ; 0x3088
-    call ds_dos_file_loc_SJIH        ; 0x308b
+    call detect_expanded_memory      ; 0x3085
+    call load_play_driver            ; 0x3088
+    call load_video_driver           ; 0x308b
     mov ax, 0                        ; 0x308e
     push ax                          ; 0x3091
     call gfx_fill_screen_buffer      ; 0x3092

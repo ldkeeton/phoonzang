@@ -44,8 +44,10 @@ Commands (space-separated):
                             lists the changes without writing
   make info PROJECT BIN ROUTINE  fragment span, co-tenant routines, callers, source
                             and the tool/flags the build uses
-  make refs PROJECT BIN ROUTINE  list the symbols ROUTINE references: value, space,
-                            width, canonical name, definition, and raw data operands
+  make refs PROJECT BIN ROUTINE  list the symbols ROUTINE references that still
+                            need names: value, space, width, canonical name,
+                            definition, and raw data operands (already-named
+                            callees are omitted)
   make data PROJECT SEG OFFSET [BIN]  bytes at DS/SS/ES/CS:OFFSET, its canonical name
                             and whether the image file backs it
   make probe PROJECT BIN ROUTINE [FILE=path]  compile one candidate source with the

@@ -240,6 +240,58 @@ class JournalTest(unittest.TestCase):
                 self.assertEqual(f.read(), 'old\n')
 
 
+class RenameSourcesTest(unittest.TestCase):
+    TEXT = ('public old_name_\nold_name_ proc near\n'
+            '\tcall callee_\n\tret\nold_name_ endp\n')
+
+    def _file(self, tmp):
+        path = os.path.join(tmp, 'old_name.s')
+        with open(path, 'w') as f:
+            f.write(self.TEXT)
+        return path
+
+    def test_dry_run_records_references_and_the_rename(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._file(tmp)
+            dest = os.path.join(tmp, 'new_name.s')
+            with mock.patch.object(naming, '_hand_files',
+                                   return_value=[path]):
+                changed = naming.rename_sources(
+                    'P', {'old_name': 'new_name',
+                          'callee': 'new_callee'}, dry_run=True)
+            self.assertEqual(len(changed), 1)
+            record = changed[0]
+            self.assertEqual(record['path'], path)
+            self.assertEqual(record['dest'], dest)
+            self.assertEqual(dict((old, count) for old, _new, count
+                                  in record['rewrites']),
+                             {'old_name': 3, 'callee': 1})
+            with open(path) as f:
+                self.assertEqual(f.read(), self.TEXT)
+            self.assertFalse(os.path.exists(dest))
+            lines = list(naming._source_change_lines(record))
+            self.assertIn('4 references', lines[0])
+            self.assertIn('old_name -> new_name x3', lines[0])
+            self.assertIn('callee -> new_callee', lines[0])
+            self.assertTrue(lines[1].lstrip().startswith('renamed '))
+
+    def test_writes_the_references_then_renames_the_source(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._file(tmp)
+            dest = os.path.join(tmp, 'new_name.s')
+            with mock.patch.object(naming, '_hand_files',
+                                   return_value=[path]):
+                naming.rename_sources(
+                    'P', {'old_name': 'new_name',
+                          'callee': 'new_callee'})
+            self.assertFalse(os.path.exists(path))
+            with open(dest) as f:
+                text = f.read()
+            self.assertIn('public new_name_', text)
+            self.assertIn('call new_callee_', text)
+            self.assertNotIn('old_name_', text)
+
+
 class LabelCacheTest(unittest.TestCase):
     def test_invalidates_only_exports_a_failed_build_changed(self):
         with tempfile.TemporaryDirectory() as tmp:
