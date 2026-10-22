@@ -6,7 +6,7 @@ clear_buffer:
     push di                          ; 0x049a
     mov ax, ds                       ; 0x049b
     mov es, ax                       ; 0x049d
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x049f
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x049f
     mov es, ax                       ; 0x04a3
     xor di, di                       ; 0x04a5
     mov ax, word [bp + 0xc]          ; 0x04a7

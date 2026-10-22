@@ -4,7 +4,7 @@ dos_file_loc_MUHV:
     push es
     push si
     push di
-    mov dx, word [cs:cseg_00e9 - IMAGE_BASE]
+    mov dx, word [cs:scratch_buf_seg - IMAGE_BASE]
     mov ds, dx
 @..dos_file_loc_MUHV.l1:
     xor dx, dx

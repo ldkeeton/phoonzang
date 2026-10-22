@@ -25,9 +25,9 @@ free_screen:
     jmp near @..free_screen.l3       ; 0x2cea
 @..free_screen.l2:
     mov word [cs:bx], 0              ; 0x2ced
-    mov cx, word [cs:cseg_0baa - IMAGE_BASE] ; 0x2cf2
+    mov cx, word [cs:maze_block_count - IMAGE_BASE] ; 0x2cf2
     dec cx                           ; 0x2cf7
-    mov word [cs:cseg_0baa - IMAGE_BASE], cx ; 0x2cf8
+    mov word [cs:maze_block_count - IMAGE_BASE], cx ; 0x2cf8
     call loc_PPJL                    ; 0x2cfd
 @..free_screen.l3:
     pop si                           ; 0x2d00

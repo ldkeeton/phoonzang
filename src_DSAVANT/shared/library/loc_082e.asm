@@ -1,5 +1,5 @@
 ; auto-generated
-cache_area_return:
+loc_082e:
     pop si
     pop di
     pop ds

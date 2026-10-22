@@ -24,9 +24,9 @@ free_score:
     jmp near @..free_score.l3        ; 0x4848
 @..free_score.l2:
     mov word [cs:bx], 0              ; 0x484b
-    mov cx, word [cs:cseg_0baa - IMAGE_BASE] ; 0x4850
+    mov cx, word [cs:maze_block_count - IMAGE_BASE] ; 0x4850
     dec cx                           ; 0x4855
-    mov word [cs:cseg_0baa - IMAGE_BASE], cx ; 0x4856
+    mov word [cs:maze_block_count - IMAGE_BASE], cx ; 0x4856
     call loc_PPJL                    ; 0x485b
 @..free_score.l3:
     pop di                           ; 0x485e

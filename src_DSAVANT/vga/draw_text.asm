@@ -28,10 +28,10 @@ draw_text:
     dec ax                           ; 0x2da5
     mov cl, 2                        ; 0x2da6
     shl ax, cl                       ; 0x2da8
-    mov bx, data_0bda                ; 0x2daa
+    mov bx, maze_blocks - IMAGE_BASE ; 0x2daa
     add bx, ax                       ; 0x2dad
     mov ax, word [cs:bx]             ; 0x2daf
-    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x2db2
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x2db2
     mov word [bp - 0x0008], ax       ; 0x2db7
     mov ds, ax                       ; 0x2dba
     xor bx, bx                       ; 0x2dbc

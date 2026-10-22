@@ -128,7 +128,7 @@ maze_mem_seg:
     db 0x00, 0x00, 0x00, 0x10
 screen_buf_seg:
     db 0x00, 0x00, 0x40, 0x01
-cseg_00e9:
+scratch_buf_seg:
     db 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x30, 0x05, 0x00, 0x00, 0xd0, 0x01, 0x00, 0x00
 cseg_00f7:
     times 4 db 0
@@ -195,7 +195,7 @@ cseg_01c3:
 
     times 20 db 0
 
-cseg_01d7:
+screen_slots:
 
     times 20 db 0
 
@@ -207,7 +207,6 @@ ems_block_count:
     db 0x00, 0x00
 ems_paras_used:
     db 0x00, 0x00
-graphics_loc_VNKS.screen_buf_seg1 equ screen_buf_seg
 %include "shared/library/graphics_loc_VNKS.asm"       ; 0x0293
 
 %include "shared/library/set_text_opaque.asm"         ; 0x0439
@@ -228,36 +227,33 @@ cseg_0948:
 
 %include "ega/leaf_loc_KNIM.asm"           ; 0x0b91
 
-put_pixel.screen_buf_seg1 equ screen_buf_seg
 %include "shared/library/put_pixel.asm"               ; 0x0bcf
 
-fill_area.screen_buf_seg1 equ screen_buf_seg
 %include "shared/library/fill_area.asm"               ; 0x0bf6
 
 %include "ega/invert_area.asm"             ; 0x0c45
 
-save_area.dos_con_loc1    equ dos_con_loc_VOUI
-save_area.screen_buf_seg1 equ screen_buf_seg
-save_area.loc1            equ loc_0d4f
+save_area.dos_con_loc1 equ dos_con_loc_VOUI
+save_area.loc1         equ loc_0d4f
 %include "shared/library/save_area.asm"               ; 0x0c9b
 
 dos_con_loc_VOUI equ dos_con_loc_PJHN
 cseg_0d2e        equ dos_con_loc_PJHN.cseg1
 %include "shared/library/dos_con_loc_PJHN.asm"        ; 0x0d1e
 
-loc_0d4f equ loc_08ca
-%include "shared/library/loc_08ca.asm"                ; 0x0d4f
+loc_0d4f equ loc_082e
+%include "shared/library/loc_082e.asm"                ; 0x0d4f
 
-restore_area.dos_con_loc1    equ dos_con_loc_TMRV
-restore_area.screen_buf_seg1 equ screen_buf_seg
-restore_area.loc1            equ loc_0deb
+restore_area.dos_con_loc1 equ dos_con_loc_TMRV
+restore_area.loc1         equ loc_0deb
 %include "shared/library/restore_area.asm"            ; 0x0d57
 
 dos_con_loc_TMRV equ dos_con_loc_SUSK
 cseg_0dc0        equ dos_con_loc_SUSK.cseg1
 %include "shared/library/dos_con_loc_SUSK.asm"        ; 0x0db0
 
-%include "shared/library/loc_0deb.asm"                ; 0x0deb
+loc_0deb equ loc_08ca
+%include "shared/library/loc_08ca.asm"                ; 0x0deb
 
 %include "ega/load_screen.asm"             ; 0x0df3
 
@@ -284,7 +280,10 @@ maze_paras_used:
     db 0x00, 0x00
 %include "ega/load_maze.asm"               ; 0x10cf
 
-%include "ega/dos_con_loc_GNNJ.asm"        ; 0x10ff
+dos_con_loc_GNNJ.cseg1        equ cseg_125d
+loc_SMNJ                      equ dos_con_loc_GNNJ.loc1
+dos_con_loc_GNNJ.dos_con_loc1 equ dos_con_loc_MQHQ
+%include "shared/library/dos_con_loc_GNNJ.asm"        ; 0x10ff
 
 dos_con_loc_OIUO       equ dos_con_loc_NRMP
 dos_con_loc_NRMP.cseg1 equ cseg_1231
@@ -312,24 +311,17 @@ cseg_128c:
     db 'oops... LOAD_MAZE filled its memory area.', 0
     db 0x0a, 0x24
 
-loc_LQTO.ems_blocks1      equ ems_blocks
-loc_LQTO.maze_mem_seg1    equ maze_mem_seg
-loc_LQTO.maze_paras_used1 equ maze_paras_used
-loc_LQTO.ems_frame_seg1   equ ems_frame_seg
 %include "shared/library/loc_LQTO.asm"                ; 0x12bb
 
-%include "ega/leaf_loc_MIUO.asm"           ; 0x1355
+leaf_loc_MIUO.screen_slots1 equ screen_slots
+%include "shared/library/leaf_loc_MIUO.asm"           ; 0x1355
 
 cseg_138e:
     db 0x00, 0x00
 cseg_1390:
     db 0x00, 0x00
-loc_KLNH.ems_blocks1     equ ems_blocks
-loc_KLNH.ems_paras_used1 equ ems_paras_used
-loc_KLNH.ems_frame_seg1  equ ems_frame_seg
-loc_KLNH.maze_mem_seg1   equ maze_mem_seg
-loc_KLNH.cseg1           equ cseg_138e
-loc_KLNH.cseg2           equ cseg_1390
+loc_KLNH.cseg1 equ cseg_138e
+loc_KLNH.cseg2 equ cseg_1390
 %include "shared/library/loc_KLNH.asm"                ; 0x1392
 
 leaf_loc_TPOL.cseg1 equ cseg_1390
@@ -553,9 +545,6 @@ cseg_32b3:
     db 0x48, 0x8d, 0x8d, 0x8d, 0x0d, 0x0d, 0x08, 0x00, 0x1c, 0x48, 0x48, 0x04, 0x04, 0x0c, 0x12, 0x23
     db 0x23, 0x2b, 0xab, 0xab, 0x02, 0x0b, 0x08, 0x2d
 
-get_free_space.maze_paras_used1 equ maze_paras_used
-get_free_space.ems_para_limit1  equ ems_para_limit
-get_free_space.ems_paras_used1  equ ems_paras_used
 %include "shared/library/get_free_space.asm"          ; 0x33b3
 
 %include "shared/library/mouse_glide_to.asm"          ; 0x341e
@@ -599,23 +588,22 @@ cseg_3605:
 cseg_40dd equ cache_area_disk_error.cseg1
 %include "shared/library/cache_area_disk_error.asm"   ; 0x40cd
 
-%include "ega/cache_area.asm"              ; 0x4111
+%include "shared/library/cache_area.asm"              ; 0x4111
 
-%include "ega/cache_area_out_of_ems.asm"   ; 0x4370
+cseg_4379 equ cache_area_out_of_ems.cseg1
+%include "shared/library/cache_area_out_of_ems.asm"   ; 0x4369
 
-msg_out_of_ems:
+%include "shared/library/cache_area_clear_result.asm" ; 0x4394
 
-    db 0x0d, 0x0a, 0x07
-    db 'CACHEAREA out of EMS.', 0
-    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2
-
-%include "shared/library/cache_area_return.asm"       ; 0x4398
+%include "shared/library/cache_area_restore_and_return.asm" ; 0x4398
 
 cseg_43b0 equ cache_area_ems_slots_full.cseg1
 %include "shared/library/cache_area_ems_slots_full.asm" ; 0x43a0
 
 cseg_43e1 equ cache_area_maze_mem_full.cseg1
 %include "shared/library/cache_area_maze_mem_full.asm" ; 0x43d1
+
+%include "shared/library/cache_area_return_zero.asm"  ; 0x4408
 
 cseg_441e equ cache_area_maze_slots_full.cseg1
 %include "shared/library/cache_area_maze_slots_full.asm" ; 0x440e
@@ -624,7 +612,7 @@ ems_cur_page:
     db 0x00, 0x00
 %include "shared/library/ems_map_pages.asm"           ; 0x4442
 
-%include "ega/restore_screen.asm"          ; 0x4457
+%include "shared/library/restore_screen.asm"          ; 0x4457
 
 dos_file_loc_MUHV.loc1         equ loc_461f
 dos_file_loc_MUHV.dos_con_loc1 equ dos_con_loc_TORI
@@ -637,13 +625,8 @@ cseg_45fb        equ dos_con_loc_KVVK.cseg1
 loc_461f equ loc_3d6d
 %include "shared/library/loc_3d6d.asm"                ; 0x461f
 
-cache_maze.ems_block_count1 equ ems_block_count
-cache_maze.dos_con_loc1     equ dos_con_loc_GKTV
-cache_maze.ems_blocks1      equ ems_blocks
-cache_maze.ems_paras_used1  equ ems_paras_used
-cache_maze.ems_para_limit1  equ ems_para_limit
-cache_maze.dos_con_loc2     equ dos_con_loc_TUHU
-cache_maze.ems_frame_seg1   equ ems_frame_seg
+cache_maze.dos_con_loc1 equ dos_con_loc_GKTV
+cache_maze.dos_con_loc2 equ dos_con_loc_TUHU
 %include "shared/library/cache_maze.asm"              ; 0x4624
 
 cseg_47b8 equ dos_con_loc_GKTV.cseg1
@@ -653,15 +636,18 @@ dos_con_loc_TUHU equ dos_con_loc_JUQV
 cseg_4800        equ dos_con_loc_JUQV.cseg1
 %include "shared/library/dos_con_loc_JUQV.asm"        ; 0x47f0
 
-%include "ega/cache_screen.asm"            ; 0x4825
+cache_screen.screen_slots1 equ screen_slots
+%include "shared/library/cache_screen.asm"            ; 0x4825
 
-dos_con_loc_VTQM equ dos_con_loc_RMKS
-cseg_4943        equ dos_con_loc_RMKS.cseg1
-%include "shared/library/dos_con_loc_RMKS.asm"        ; 0x4933
+%include "shared/library/cache_screen_restore_and_return.asm" ; 0x492b
 
-dos_con_loc_QKHL equ dos_con_loc_IMIO
-cseg_498d        equ dos_con_loc_IMIO.cseg1
-%include "shared/library/dos_con_loc_IMIO.asm"        ; 0x497d
+cseg_4943 equ cache_screen_slot_in_use.cseg1
+%include "shared/library/cache_screen_slot_in_use.asm" ; 0x4933
+
+%include "shared/library/cache_screen_return_zero.asm" ; 0x4977
+
+cseg_498d equ cache_screen_out_of_ems.cseg1
+%include "shared/library/cache_screen_out_of_ems.asm" ; 0x497d
 
 cseg_49b4:
 
@@ -678,10 +664,8 @@ cseg_4b26        equ dos_con_loc_KOGR.cseg1
 %include "shared/library/dos_con_loc_KOGR.asm"        ; 0x4b16
 
 loc_4b52              equ loc_42a0
-loc_42a0.cseg1        equ maze_paras_used
 loc_4b9c              equ loc_42a0.loc1
 loc_42a0.dos_con_loc1 equ dos_con_loc_LGMH
-loc_42a0.cseg2        equ maze_mem_seg
 %include "shared/library/loc_42a0.asm"                ; 0x4b52
 
 %include "shared/library/string_loc_RQON.asm"         ; 0x4bb2
@@ -694,7 +678,7 @@ loc_42a0.cseg2        equ maze_mem_seg
 
 %include "ega/leaf_loc_IHJG.asm"           ; 0x4cbe
 
-%include "ega/leaf_loc_MGRH.asm"           ; 0x4cd3
+%include "shared/library/leaf_loc_MGRH.asm"           ; 0x4cd3
 
 %include "ega/leaf_loc_USQQ.asm"           ; 0x4ce8
 
@@ -702,7 +686,8 @@ loc_42a0.cseg2        equ maze_mem_seg
 
 %include "ega/dos_con_loc_GJMS.asm"        ; 0x4d13
 
-%include "ega/leaf_loc_RJJR.asm"           ; 0x4d55
+leaf_loc_RJJR equ leaf_loc_IQGS
+%include "shared/library/leaf_loc_IQGS.asm"           ; 0x4d55
 
 %include "ega/play_sound.asm"              ; 0x4dd9
 

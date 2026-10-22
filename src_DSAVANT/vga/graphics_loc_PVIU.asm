@@ -1,7 +1,7 @@
 ; auto-generated
 graphics_loc_PVIU:
     push es                          ; 0x31d9
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x31da
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x31da
     mov es, ax                       ; 0x31de
     mov ax, data_2e53                ; 0x31e0
     mov word [bp - 0x0036], ax       ; 0x31e3

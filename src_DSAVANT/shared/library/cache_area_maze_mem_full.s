@@ -15,6 +15,5 @@ cache_area_maze_mem_full_ endp
 message	db	0dh,0ah,07h	;CR LF BEL
 	db	'CACHEAREA out of MAZE/PIC memory.',0
 	db	0ah,'$'
-	db	33h,0d2h,8bh,0c2h,0ebh,8ah	;xor dx,dx / mov ax,dx / jmp short cache_area_return, no label of its own
 	finish
 	end

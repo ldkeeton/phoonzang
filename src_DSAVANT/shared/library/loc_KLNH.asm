@@ -3,20 +3,20 @@ loc_KLNH:
     dec ax
     mov cl, 2
     shl ax, cl
-    mov bx, loc_KLNH.ems_blocks1 - IMAGE_BASE
+    mov bx, ems_blocks - IMAGE_BASE
     add bx, ax
     mov word [bp - 0x0004], bx
     mov ax, word [cs:bx + 0x2]
-    sub word [cs:loc_KLNH.ems_paras_used1 - IMAGE_BASE], ax
+    sub word [cs:ems_paras_used - IMAGE_BASE], ax
     mov word [bp - 0x0006], ax
 @..loc_KLNH.l1:
     mov bx, word [bp - 0x0004]
     mov di, word [cs:bx]
-    mov dx, word [cs:loc_KLNH.ems_frame_seg1 - IMAGE_BASE]
+    mov dx, word [cs:ems_frame_seg - IMAGE_BASE]
     mov es, dx
     mov ds, dx
     mov si, word [cs:bx + 0x4]
-    add dx, word [cs:loc_KLNH.maze_mem_seg1 - IMAGE_BASE]
+    add dx, word [cs:maze_mem_seg - IMAGE_BASE]
     mov cx, word [cs:bx + 0x6]
     or cx, cx
     jne short @..loc_KLNH.l2

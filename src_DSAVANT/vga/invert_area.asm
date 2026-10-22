@@ -6,7 +6,7 @@ invert_area:
     push es                          ; 0x072e
     push ds                          ; 0x072f
     push di                          ; 0x0730
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0731
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0731
     mov es, ax                       ; 0x0735
     mov ds, ax                       ; 0x0737
     mov ax, word [bp + 0xe]          ; 0x0739

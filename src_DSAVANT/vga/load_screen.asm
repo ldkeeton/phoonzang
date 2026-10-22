@@ -23,13 +23,13 @@ load_screen:
     dec ax                           ; 0x08fa
     mov cl, 2                        ; 0x08fb
     shl ax, cl                       ; 0x08fd
-    mov bx, data_0bda                ; 0x08ff
+    mov bx, maze_blocks - IMAGE_BASE ; 0x08ff
     add bx, ax                       ; 0x0902
     mov ax, word [cs:bx]             ; 0x0904
-    mov bx, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x0907
+    mov bx, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x0907
     add bx, ax                       ; 0x090c
     mov ds, bx                       ; 0x090e
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0910
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0910
     mov es, ax                       ; 0x0914
     xor di, di                       ; 0x0916
     xor si, si                       ; 0x0918
@@ -39,13 +39,13 @@ load_screen:
 @..load_screen.l2:
     mov ax, word [bp + 0xc]          ; 0x0921
     shl ax, 1                        ; 0x0924
-    mov bx, data_02d7                ; 0x0926
+    mov bx, cseg_01d7 - IMAGE_BASE   ; 0x0926
     add bx, ax                       ; 0x0929
     mov ax, word [cs:bx]             ; 0x092b
     dec ax                           ; 0x092e
     mov cl, 2                        ; 0x092f
     shl ax, cl                       ; 0x0931
-    mov bx, cseg_01eb - IMAGE_BASE   ; 0x0933
+    mov bx, ems_blocks - IMAGE_BASE  ; 0x0933
     add bx, ax                       ; 0x0936
     mov si, word [cs:bx]             ; 0x0938
     mov ax, si                       ; 0x093b
@@ -56,9 +56,9 @@ load_screen:
     and si, strict word 0x3ff        ; 0x0948
     mov cl, 4                        ; 0x094c
     shl si, cl                       ; 0x094e
-    mov bx, word [cs:cseg_0103 - IMAGE_BASE] ; 0x0950
+    mov bx, word [cs:ems_frame_seg - IMAGE_BASE] ; 0x0950
     mov ds, bx                       ; 0x0955
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0957
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0957
     mov es, ax                       ; 0x095b
     xor di, di                       ; 0x095d
     mov cx, 3                        ; 0x095f
@@ -76,7 +76,7 @@ load_screen:
     rep movsb                        ; 0x097e
     jmp short @..load_screen.l5      ; 0x0980
 @..load_screen.l4:
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0982
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0982
     mov ds, ax                       ; 0x0986
     xor dx, dx                       ; 0x0988
     mov bx, word [bp + 0xc]          ; 0x098a

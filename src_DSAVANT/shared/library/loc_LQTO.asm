@@ -8,18 +8,18 @@ loc_LQTO:
     dec ax
     mov cl, 2
     shl ax, cl
-    mov di, loc_LQTO.ems_blocks1 - IMAGE_BASE
+    mov di, ems_blocks - IMAGE_BASE
     add di, ax
     mov si, word [cs:di]
     mov ax, word [cs:di + 0x2]
     mov word [cs:bx + 0x2], ax
     mov word [bp - 0x0004], ax
-    mov dx, word [cs:loc_LQTO.maze_mem_seg1 - IMAGE_BASE]
-    add dx, word [cs:loc_LQTO.maze_paras_used1 - IMAGE_BASE]
+    mov dx, word [cs:maze_mem_seg - IMAGE_BASE]
+    add dx, word [cs:maze_paras_used - IMAGE_BASE]
     mov word [bp - 0x000a], dx
     mov es, dx
-    add word [cs:loc_LQTO.maze_paras_used1 - IMAGE_BASE], ax
-    mov ax, word [cs:loc_LQTO.ems_frame_seg1 - IMAGE_BASE]
+    add word [cs:maze_paras_used - IMAGE_BASE], ax
+    mov ax, word [cs:ems_frame_seg - IMAGE_BASE]
     mov ds, ax
     mov ax, si
     mov cl, 0xa

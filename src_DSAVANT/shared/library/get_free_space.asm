@@ -16,7 +16,7 @@ get_free_space:
     cmp word [bp + 0xc], byte 3
     je short @..get_free_space.l1
     mov ax, 0x4180
-    sub ax, word [cs:get_free_space.maze_paras_used1 - IMAGE_BASE]
+    sub ax, word [cs:maze_paras_used - IMAGE_BASE]
     mov bx, 0x10
     mul bx
     jmp short @..get_free_space.l5
@@ -41,8 +41,8 @@ get_free_space:
     mul bx
     jmp short @..get_free_space.l5
 @..get_free_space.l4:
-    mov ax, word [cs:get_free_space.ems_para_limit1 - IMAGE_BASE]
-    sub ax, word [cs:get_free_space.ems_paras_used1 - IMAGE_BASE]
+    mov ax, word [cs:ems_para_limit - IMAGE_BASE]
+    sub ax, word [cs:ems_paras_used - IMAGE_BASE]
     mov bx, 0x10
     mul bx
 @..get_free_space.l5:

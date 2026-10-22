@@ -14,7 +14,7 @@ restore_area:
     mov si, word [bp + 0xc]
     or ax, si
     je short restore_area.dos_con_loc1
-    mov ax, word [cs:restore_area.screen_buf_seg1 - IMAGE_BASE]
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
     mov es, ax
     lodsw
     mov word [bp - 0x0002], ax

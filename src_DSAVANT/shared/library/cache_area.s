@@ -13,10 +13,10 @@ codeseg	segment	byte public 'code'
 	extrn	maze_blocks:word
 	extrn	maze_block_count:word
 	extrn	maze_paras_used:word
-	extrn	msg_out_of_ems:byte
 	extrn	ems_cur_page:word
 	extrn	cache_area_disk_error_:near
-	extrn	cache_area_return_:near
+	extrn	cache_area_out_of_ems_:near
+	extrn	cache_area_restore_and_return_:near
 	extrn	cache_area_ems_slots_full_:near
 	extrn	cache_area_maze_mem_full_:near
 	extrn	cache_area_maze_slots_full_:near
@@ -97,7 +97,7 @@ f4:
 	loop	f2
 	xor	ax,ax
 	mov	dx,mode[bp]
-	jmp	cache_area_return_
+	jmp	cache_area_restore_and_return_
 notfile:
 	cmp	word ptr mode[bp],2
 	je	m2		;MAZE memory
@@ -183,7 +183,7 @@ c4:				;copy one row per pass
 	jne	c4
 	mov	ax,slot[bp]
 	mov	dx,mode[bp]
-	jmp	cache_area_return_
+	jmp	cache_area_restore_and_return_
 m1:
 	mov	ax,x2[bp]
 	sub	ax,x1[bp]
@@ -204,7 +204,7 @@ m1:
 	add	ax,cs:ems_paras_used
 	cmp	ax,cs:ems_para_limit
 	jbe	e1
-	jmp	nomem
+	jmp	cache_area_out_of_ems_
 e1:
 	mov	bx,cs:ems_paras_used
 	mov	block[bp],bx
@@ -280,11 +280,7 @@ e5:
 	jne	e4
 	mov	ax,slot[bp]
 	mov	dx,mode[bp]
-	jmp	cache_area_return_
-nomem:				;falls into the out-of-EMS message exit
-	mov	ax,cs
-	mov	ds,ax
-	mov	dx,offset msg_out_of_ems
+	jmp	cache_area_restore_and_return_
 cache_area_ endp
 codeseg	ends
 	end

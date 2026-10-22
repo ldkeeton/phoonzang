@@ -39,7 +39,7 @@ load_screen:
 @..load_screen.l2:
     mov ax, word [bp + 0xc]          ; 0x0e42
     shl ax, 1                        ; 0x0e45
-    mov bx, cseg_01d7 - IMAGE_BASE   ; 0x0e47
+    mov bx, screen_slots - IMAGE_BASE ; 0x0e47
     add bx, ax                       ; 0x0e4a
     mov ax, word [cs:bx]             ; 0x0e4c
     dec ax                           ; 0x0e4f

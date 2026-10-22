@@ -12,7 +12,7 @@ cache_maze:
     mov ax, word [bp + 0xc]
     test ah, 0x80
     je short @..cache_maze.l1
-    dec word [cs:cache_maze.ems_block_count1 - IMAGE_BASE]
+    dec word [cs:ems_block_count - IMAGE_BASE]
     mov ax, word [bp + 0xe]
     shl ax, 1
     mov bx, cseg_01c3 - IMAGE_BASE
@@ -41,18 +41,18 @@ cache_maze:
     je short @..cache_maze.l3
     jmp near cache_maze.dos_con_loc1
 @..cache_maze.l3:
-    inc word [cs:cache_maze.ems_block_count1 - IMAGE_BASE]
-    mov ax, word [cs:cache_maze.ems_block_count1 - IMAGE_BASE]
+    inc word [cs:ems_block_count - IMAGE_BASE]
+    mov ax, word [cs:ems_block_count - IMAGE_BASE]
     mov word [cs:bx], ax
     dec ax
     mov cl, 2
     shl ax, cl
-    mov bx, cache_maze.ems_blocks1 - IMAGE_BASE
+    mov bx, ems_blocks - IMAGE_BASE
     add bx, ax
     mov word [bp - 0x0002], bx
-    mov ax, word [cs:cache_maze.ems_paras_used1 - IMAGE_BASE]
+    mov ax, word [cs:ems_paras_used - IMAGE_BASE]
     mov word [cs:bx], ax
-    mov ax, word [cs:cseg_00e9 - IMAGE_BASE]
+    mov ax, word [cs:scratch_buf_seg - IMAGE_BASE]
     mov ds, ax
     xor dx, dx
     mov cx, 0x1000
@@ -86,12 +86,12 @@ cache_maze:
     mov word [bp - 0x0008], dx
     mov cx, 0x10
     div cx
-    mov di, word [cs:cache_maze.ems_paras_used1 - IMAGE_BASE]
+    mov di, word [cs:ems_paras_used - IMAGE_BASE]
     mov bx, word [bp - 0x0002]
     mov word [cs:bx + 0x2], ax
-    add word [cs:cache_maze.ems_paras_used1 - IMAGE_BASE], ax
-    mov ax, word [cs:cache_maze.ems_paras_used1 - IMAGE_BASE]
-    cmp ax, word [cs:cache_maze.ems_para_limit1 - IMAGE_BASE]
+    add word [cs:ems_paras_used - IMAGE_BASE], ax
+    mov ax, word [cs:ems_paras_used - IMAGE_BASE]
+    cmp ax, word [cs:ems_para_limit - IMAGE_BASE]
     jbe short @..cache_maze.l4
     jmp near cache_maze.dos_con_loc2
 @..cache_maze.l4:
@@ -104,9 +104,9 @@ cache_maze:
     mov cl, 4
     shl di, cl
     xor si, si
-    mov ax, word [cs:cseg_00e9 - IMAGE_BASE]
+    mov ax, word [cs:scratch_buf_seg - IMAGE_BASE]
     mov ds, ax
-    mov ax, word [cs:cache_maze.ems_frame_seg1 - IMAGE_BASE]
+    mov ax, word [cs:ems_frame_seg - IMAGE_BASE]
     mov es, ax
     mov cx, 0x1000
     rep movsb

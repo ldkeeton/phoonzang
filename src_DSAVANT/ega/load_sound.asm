@@ -46,7 +46,7 @@ load_sound:
     xor cx, cx                       ; 0x4a6b
     mov dx, cx                       ; 0x4a6d
     int 0x21 ; DOS seek file (lseek)
-    mov ax, word [cs:cseg_00e9 - IMAGE_BASE] ; 0x4a71
+    mov ax, word [cs:scratch_buf_seg - IMAGE_BASE] ; 0x4a71
     mov ds, ax                       ; 0x4a75
     xor dx, dx                       ; 0x4a77
     mov bx, word [bp + 0xc]          ; 0x4a79

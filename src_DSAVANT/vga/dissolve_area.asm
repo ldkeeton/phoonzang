@@ -34,7 +34,7 @@ dissolve_area:
     push cx                          ; 0x2569
     les di, word [cs:cseg_00f7 - IMAGE_BASE] ; 0x256a
     mov cl, 3                        ; 0x256f
-    mov dx, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x2571
+    mov dx, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x2571
     mov ds, dx                       ; 0x2576
     xor ax, ax                       ; 0x2578
     mov al, byte [si]                ; 0x257a

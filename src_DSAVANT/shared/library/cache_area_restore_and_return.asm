@@ -1,5 +1,5 @@
 ; auto-generated
-loc_0deb:
+cache_area_restore_and_return:
     pop si
     pop di
     pop ds

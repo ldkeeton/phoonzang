@@ -7,7 +7,7 @@ fill_area:
     push di
     mov ax, ds
     mov es, ax
-    mov ax, word [cs:fill_area.screen_buf_seg1 - IMAGE_BASE]
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
     mov es, ax
     mov ax, word [bp + 0xe]
     mov bx, 0x140

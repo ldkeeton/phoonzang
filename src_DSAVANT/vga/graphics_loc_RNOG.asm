@@ -76,7 +76,7 @@ graphics_loc_RNOG:
     add ax, word [bp - 0x000a]       ; 0x05dc
     add ax, word [cs:cseg_14b4 - IMAGE_BASE] ; 0x05df
     mov di, ax                       ; 0x05e4
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x05e6
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x05e6
     mov ds, ax                       ; 0x05ea
     mov ax, cs                       ; 0x05ec
     mov es, ax                       ; 0x05ee
@@ -95,7 +95,7 @@ graphics_loc_RNOG:
     loop @..graphics_loc_RNOG.l7     ; 0x0607
     mov ax, cs                       ; 0x0609
     mov es, ax                       ; 0x060b
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x060d
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x060d
     mov ds, ax                       ; 0x0611
     mov si, word [cs:cseg_14bc - IMAGE_BASE] ; 0x0613
     mov di, word [cs:cseg_14b6 - IMAGE_BASE] ; 0x0618
@@ -109,7 +109,7 @@ graphics_loc_RNOG:
     add si, strict word 0x140        ; 0x062c
     pop cx                           ; 0x0630
     loop @..graphics_loc_RNOG.l8     ; 0x0631
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0633
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0633
     mov es, ax                       ; 0x0637
     mov di, word [cs:cseg_14bc - IMAGE_BASE] ; 0x0639
     mov ax, word [cs:cseg_1d66 - IMAGE_BASE] ; 0x063e

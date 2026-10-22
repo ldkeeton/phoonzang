@@ -36,7 +36,7 @@ cseg_0fea:
     dec bx                           ; 0x0fff
     mov cl, 2                        ; 0x1000
     shl bx, cl                       ; 0x1002
-    add bx, data_0bda                ; 0x1004
+    add bx, maze_blocks - IMAGE_BASE ; 0x1004
     mov ax, word [cs:bx]             ; 0x1008
     mov word [bp - 0x0002], ax       ; 0x100b
     mov ax, word [bp + 0x12]         ; 0x100e
@@ -51,9 +51,9 @@ cseg_0fea:
     add bx, strict word 0x27d        ; 0x1024
     add ax, word [cs:bx]             ; 0x1028
     mov si, ax                       ; 0x102b
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x102d
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x102d
     mov es, ax                       ; 0x1031
-    mov ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x1033
+    mov ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x1033
     add ax, word [bp - 0x0002]       ; 0x1037
     mov ds, ax                       ; 0x103a
     xor ah, ah                       ; 0x103c
@@ -157,9 +157,9 @@ cseg_0fea:
     add bx, strict word 0x27d        ; 0x10fc
     add ax, word [cs:bx]             ; 0x1100
     mov si, ax                       ; 0x1103
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x1105
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x1105
     mov es, ax                       ; 0x1109
-    mov ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x110b
+    mov ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x110b
     add ax, word [bp - 0x0002]       ; 0x110f
     mov ds, ax                       ; 0x1112
     mov al, byte [si]                ; 0x1114

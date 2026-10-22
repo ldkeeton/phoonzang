@@ -354,6 +354,21 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
             target = index.code[name]
             _put(code, site, 2, target - (start + site + 2))
             out.refs[site] = Ref(site, 2, name, True, {name: target})
+        elif fx.symbol_kind == 'GBLSYM' and fx.kind == 'BREL':
+            name = external_label(fx.symbol)
+            if name not in index.code:
+                raise RelinkError(
+                    f'{label}: branch to unknown symbol {name!r} '
+                    f'(from C identifier {fx.symbol!r}); the C must name an '
+                    f'asm label')
+            target = index.code[name]
+            disp = target - (start + site + 1)
+            if not -128 <= disp <= 127:
+                raise RelinkError(
+                    f'{label}: short branch at +0x{site:x} to {name!r} '
+                    f'is out of range ({disp})')
+            _put(code, site, 1, disp)
+            out.refs[site] = Ref(site, 1, name, True, {name: target})
         elif fx.symbol_kind == 'GBLSYM' and fx.kind == 'WABS':
             name = linked_name(external_label(fx.symbol), index.places)
             if name in index.places:

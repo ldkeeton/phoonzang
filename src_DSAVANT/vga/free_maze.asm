@@ -24,9 +24,9 @@ free_maze:
     jmp near @..free_maze.l3         ; 0x0f99
 @..free_maze.l2:
     mov word [cs:bx], 0              ; 0x0f9c
-    mov cx, word [cs:cseg_0baa - IMAGE_BASE] ; 0x0fa1
+    mov cx, word [cs:maze_block_count - IMAGE_BASE] ; 0x0fa1
     dec cx                           ; 0x0fa6
-    mov word [cs:cseg_0baa - IMAGE_BASE], cx ; 0x0fa7
+    mov word [cs:maze_block_count - IMAGE_BASE], cx ; 0x0fa7
     call loc_PPJL                    ; 0x0fac
 @..free_maze.l3:
     pop si                           ; 0x0faf

@@ -6,7 +6,7 @@ put_pixel:
     push es
     mov ax, ds
     mov es, ax
-    mov ax, word [cs:put_pixel.screen_buf_seg1 - IMAGE_BASE]
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
     mov ds, ax
     mov ax, word [bp + 0xe]
     mov bx, 0x140

@@ -2,7 +2,7 @@
 leaf_loc_PRNU:
     cmp byte [cs:cseg_0515 - IMAGE_BASE], 0 ; 0x067f
     je short @..leaf_loc_PRNU.l2     ; 0x0685
-    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0687
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0687
     mov es, ax                       ; 0x068b
     mov ax, cs                       ; 0x068d
     mov ds, ax                       ; 0x068f

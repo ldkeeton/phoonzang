@@ -24,9 +24,9 @@ free_sound:
     jmp near @..free_sound.l3        ; 0x43c3
 @..free_sound.l2:
     mov word [cs:bx], 0              ; 0x43c6
-    mov cx, word [cs:cseg_0baa - IMAGE_BASE] ; 0x43cb
+    mov cx, word [cs:maze_block_count - IMAGE_BASE] ; 0x43cb
     dec cx                           ; 0x43d0
-    mov word [cs:cseg_0baa - IMAGE_BASE], cx ; 0x43d1
+    mov word [cs:maze_block_count - IMAGE_BASE], cx ; 0x43d1
     call loc_PPJL                    ; 0x43d6
 @..free_sound.l3:
     pop di                           ; 0x43d9

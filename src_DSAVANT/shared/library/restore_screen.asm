@@ -1,0 +1,153 @@
+; auto-generated
+restore_screen:
+    push bp
+    mov bp, sp
+    sub sp, byte 0x0e
+    push es
+    push ds
+    push di
+    push si
+    mov ax, ds
+    mov es, ax
+    cmp word [bp + 0xe], byte 3
+    jne short @..restore_screen.l2
+    lea bx, word [bp - 0x000a]
+    mov dx, bx
+    mov ax, ss
+    mov ds, ax
+    mov cx, 0xa
+    mov bx, word [bp + 0x12]
+    mov ah, 0x3f
+    int 0x21 ; DOS read file (handle)
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
+    mov ds, ax
+    mov cx, word [bp - 0x0004]
+@..restore_screen.l1:
+    push cx
+    mov dx, word [bp - 0x0002]
+    add word [bp - 0x0002], strict word 0x140
+    mov cx, word [bp - 0x0006]
+    mov bx, word [bp + 0x12]
+    mov ah, 0x3f
+    int 0x21 ; DOS read file (handle)
+    pop cx
+    loop @..restore_screen.l1
+    jmp near @..restore_screen.l9
+@..restore_screen.l2:
+    cmp word [bp + 0xe], byte 2
+    je short @..restore_screen.l3
+    jmp near @..restore_screen.l6
+@..restore_screen.l3:
+    mov ax, word [bp + 0xc]
+    shl ax, 1
+    mov bx, maze_slots - IMAGE_BASE
+    add bx, ax
+    mov ax, word [cs:bx]
+    dec ax
+    mov cl, 2
+    shl ax, cl
+    mov bx, maze_blocks - IMAGE_BASE
+    add bx, ax
+    mov ax, word [cs:bx]
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE]
+    mov ds, ax
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
+    mov es, ax
+    xor si, si
+    lodsw
+    mov word [bp - 0x0002], ax
+    lodsw
+    lodsw
+    mov word [bp - 0x0004], ax
+    lodsw
+    mov word [bp - 0x0006], ax
+    lodsw
+    lodsw
+@..restore_screen.l4:
+    mov di, word [bp - 0x0002]
+    add word [bp - 0x0002], strict word 0x140
+    mov cx, word [bp - 0x0006]
+    rep movsb
+    dec word [bp - 0x0004]
+    jne short @..restore_screen.l4
+    cmp word [bp + 0x10], byte 0
+    je short @..restore_screen.l5
+    mov ax, word [bp + 0xc]
+    shl ax, 1
+    mov bx, maze_slots - IMAGE_BASE
+    add bx, ax
+    mov ax, word [cs:bx]
+    mov word [cs:bx], 0
+    dec word [cs:maze_block_count - IMAGE_BASE]
+    call loc_PPJL
+@..restore_screen.l5:
+    jmp near @..restore_screen.l9
+@..restore_screen.l6:
+    mov ax, word [bp + 0xc]
+    shl ax, 1
+    mov bx, ems_slots - IMAGE_BASE
+    add bx, ax
+    mov ax, word [cs:bx]
+    dec ax
+    mov cl, 2
+    shl ax, cl
+    mov bx, ems_blocks - IMAGE_BASE
+    add bx, ax
+    mov ax, word [cs:bx]
+    mov word [bp - 0x0002], ax
+    mov cl, 0xa
+    shr ax, cl
+    mov word [cs:ems_cur_page - IMAGE_BASE], ax
+    call ems_map_pages
+    mov si, word [bp - 0x0002]
+    and si, strict word 0x3ff
+    mov cl, 4
+    shl si, cl
+    mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
+    mov es, ax
+    mov ax, word [cs:ems_frame_seg - IMAGE_BASE]
+    mov ds, ax
+    lodsw
+    mov word [bp - 0x0002], ax
+    lodsw
+    lodsw
+    mov word [bp - 0x0004], ax
+    lodsw
+    mov word [bp - 0x0006], ax
+    lodsw
+    lodsw
+@..restore_screen.l7:
+    mov di, word [bp - 0x0002]
+    add word [bp - 0x0002], strict word 0x140
+    mov cx, word [bp - 0x0006]
+    rep movsb
+    test si, 0xc000
+    je short @..restore_screen.l8
+    inc word [cs:ems_cur_page - IMAGE_BASE]
+    mov ax, word [cs:ems_cur_page - IMAGE_BASE]
+    call ems_map_pages
+    and si, strict word 0x3fff
+@..restore_screen.l8:
+    dec word [bp - 0x0004]
+    jne short @..restore_screen.l7
+    cmp word [bp + 0x10], byte 0
+    je short @..restore_screen.l9
+    mov cx, word [cs:ems_block_count - IMAGE_BASE]
+    dec cx
+    mov word [cs:ems_block_count - IMAGE_BASE], cx
+    mov ax, word [bp + 0xc]
+    shl ax, 1
+    mov bx, ems_slots - IMAGE_BASE
+    add bx, ax
+    mov ax, word [cs:bx]
+    mov word [cs:bx], 0
+    call leaf_loc_MIUO
+    call loc_KLNH
+@..restore_screen.l9:
+    pop si
+    pop di
+    pop ds
+    pop es
+    mov sp, bp
+    pop bp
+    ret

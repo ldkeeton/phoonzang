@@ -32,7 +32,7 @@ load_picture:
     mov word [bp - 0x0002], bx       ; 0x30c3
     mov ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x30c6
     mov word [cs:bx], ax             ; 0x30ca
-    mov ax, word [cs:cseg_00e9 - IMAGE_BASE] ; 0x30cd
+    mov ax, word [cs:scratch_buf_seg - IMAGE_BASE] ; 0x30cd
     mov ds, ax                       ; 0x30d1
     xor dx, dx                       ; 0x30d3
     mov cx, 4                        ; 0x30d5

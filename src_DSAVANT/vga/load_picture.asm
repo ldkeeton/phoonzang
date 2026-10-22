@@ -19,20 +19,20 @@ load_picture:
     je short @..load_picture.l1      ; 0x21ed
     jmp near @..load_picture.l7      ; 0x21ef
 @..load_picture.l1:
-    mov ax, word [cs:cseg_0baa - IMAGE_BASE] ; 0x21f2
+    mov ax, word [cs:maze_block_count - IMAGE_BASE] ; 0x21f2
     inc ax                           ; 0x21f6
-    mov word [cs:cseg_0baa - IMAGE_BASE], ax ; 0x21f7
+    mov word [cs:maze_block_count - IMAGE_BASE], ax ; 0x21f7
     mov bx, word [bp - 0x0002]       ; 0x21fb
     mov word [cs:bx], ax             ; 0x21fe
     dec ax                           ; 0x2201
     mov cl, 2                        ; 0x2202
     shl ax, cl                       ; 0x2204
-    mov bx, data_0bda                ; 0x2206
+    mov bx, maze_blocks - IMAGE_BASE ; 0x2206
     add bx, ax                       ; 0x2209
     mov word [bp - 0x0002], bx       ; 0x220b
-    mov ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x220e
+    mov ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x220e
     mov word [cs:bx], ax             ; 0x2212
-    mov ax, word [cs:cseg_00e9 - IMAGE_BASE] ; 0x2215
+    mov ax, word [cs:scratch_buf_seg - IMAGE_BASE] ; 0x2215
     mov ds, ax                       ; 0x2219
     xor dx, dx                       ; 0x221b
     mov cx, 4                        ; 0x221d
@@ -50,17 +50,17 @@ load_picture:
     shr ax, cl                       ; 0x223c
     shl dl, cl                       ; 0x223e
     or ah, dl                        ; 0x2240
-    add word [cs:cseg_0bac - IMAGE_BASE], ax ; 0x2242
+    add word [cs:maze_paras_used - IMAGE_BASE], ax ; 0x2242
     mov bx, word [bp - 0x0002]       ; 0x2247
     mov word [cs:bx + 0x2], ax       ; 0x224a
-    mov ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x224e
+    mov ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x224e
     cmp ax, 0x4180                   ; 0x2252
     jb short @..load_picture.l2      ; 0x2255
     jmp near dos_con_loc_TTIT        ; 0x2257
 @..load_picture.l2:
     mov bx, word [bp - 0x0002]       ; 0x225a
     mov ax, word [cs:bx]             ; 0x225d
-    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x2260
+    add ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x2260
     mov ds, ax                       ; 0x2265
 @..load_picture.l3:
     mov cx, word [bp - 0x0004]       ; 0x2267
