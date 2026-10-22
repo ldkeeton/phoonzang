@@ -1,0 +1,69 @@
+; read_font_glyph(handle, font, source, glyph): seeks the font file to
+; source * bytes_per_glyph, then reads one glyph record into the font segment
+; at file_param_word + glyph_map[glyph] * bytes_per_glyph.
+	include	lmacros.h
+	assume	cs:codeseg
+	extrn	font_seg_table_:word
+handle		equ	4	;arg: DOS file handle
+font		equ	6	;arg: index into font_seg_table
+source		equ	8	;arg: record number in the font file
+glyph		equ	10	;arg: glyph slot selected through the map at 10h
+	public	read_font_glyph_
+read_font_glyph_ proc near
+	push	bp
+	mov	bp,sp
+	cld
+	sub	sp,8		;reserve 8 bytes of locals (not referenced here)
+	push	si
+	push	di
+	push	ds
+	push	es
+	mov	ax,ds
+	mov	es,ax
+	mov	ax,cs		;ds = cs to reach font_seg_table
+	mov	ds,ax
+	mov	ax,word ptr font[bp]
+	mov	bx,offset font_seg_table_
+	shl	ax,1
+	add	bx,ax
+	mov	ax,word ptr [bx]
+	mov	ds,ax		;ds = segment allocated for this font
+	xor	bx,bx
+	xor	ah,ah
+	mov	al,byte ptr source[bp]
+	mov	cx,word ptr 0ah[bx]	;bytes per glyph (header offset 0Ah)
+	mul	cx
+	mov	cx,dx		;cx:dx = 32-bit file offset
+	mov	dx,ax
+	mov	ah,42h		;DOS 42h: seek from start (AL = 0)
+	mov	al,0
+	mov	bx,word ptr handle[bp]
+	int	21h
+	xor	bx,bx
+	xor	ah,ah
+	mov	al,byte ptr glyph[bp]
+	shl	al,1		;glyph map entry is a word at header offset 10h
+	add	bx,10h
+	add	bx,ax
+	xor	ah,ah
+	mov	al,byte ptr [bx]	;glyph index -> record number
+	xor	bx,bx
+	mov	cx,word ptr 0ah[bx]
+	mul	cx
+	add	ax,110h		;16-byte header + 256-byte map (file_param_word)
+	mov	dx,ax		;ds:dx = glyph record in the font segment
+	mov	cx,word ptr 0ah[bx]
+	mov	bx,word ptr handle[bp]
+	mov	ah,3fh		;DOS 3Fh: read file
+	int	21h
+	xor	bx,bx
+	pop	es
+	pop	ds
+	pop	di
+	pop	si
+	mov	sp,bp
+	pop	bp
+	ret
+read_font_glyph_ endp
+	finish
+	end

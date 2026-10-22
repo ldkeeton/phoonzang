@@ -765,7 +765,7 @@ font_io_error_msg:
 %include "ds/library/font_memory_error.asm" ; 0x395b
 
 ; file_param_word equ __zfile_param_word - __zdseg_start
-%include "ds/library/dos_read_file.asm"    ; 0x398a
+%include "ds/library/read_font_glyph.asm"  ; 0x398a
 
 ; file_param_word equ __zfile_param_word - __zdseg_start
 %include "ds/library/ds_loc_UQOV.asm"      ; 0x39f6

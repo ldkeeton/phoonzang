@@ -1,5 +1,5 @@
 ; auto-generated
-dos_read_file:
+read_font_glyph:
     push bp                          ; 0x398a
     mov bp, sp                       ; 0x398b
     cld                              ; 0x398d

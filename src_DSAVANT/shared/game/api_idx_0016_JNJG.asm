@@ -35,7 +35,7 @@ api_idx_0016_JNJG:
     mov ax, 5
     push ax
     push word [bp - 0x0002]
-    call dos_read_file
+    call read_font_glyph
     add sp, byte 8
     push word [bp - 0x0002]
     call aztec_close
