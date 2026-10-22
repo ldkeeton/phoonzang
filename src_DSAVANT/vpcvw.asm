@@ -125,7 +125,7 @@ bss_9434 equ __zdseg_end + (__zobss_9434 - __zdata_start)
 
 %include "vpcvw/api_idx_0004_NONK.asm"     ; 0x297e
 
-%include "shared/game/api_idx_000a_GGLT.asm"     ; 0x29ef
+%include "shared/game/draw_marker_glyph.asm"     ; 0x29ef
 
 %include "shared/game/draw_power_digit.asm"      ; 0x2a2d
 
@@ -138,7 +138,7 @@ draw_spell_cost.dseg1 equ dseg_90a7
 
 bss_9562 equ __zdseg_end + (__zobss_9562 - __zdata_start)
 periodic_party_redraw.bss1     equ bss_9562
-periodic_party_redraw.api_idx1 equ api_idx_000a_GGLT
+periodic_party_redraw.api_idx1 equ draw_marker_glyph
 periodic_party_redraw.api_idx2 equ draw_realm_spell_points
 %include "shared/game/periodic_party_redraw.asm" ; 0x2bf3
 

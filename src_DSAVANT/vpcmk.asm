@@ -177,8 +177,7 @@ api_idx_0002_OGRO.bss2 equ bss_952c
 
 %include "vpcmk/api_idx_0004_VQQR.asm"     ; 0x2d63
 
-api_idx_000a_PQSU equ api_idx_000a_GGLT
-%include "shared/game/api_idx_000a_GGLT.asm"     ; 0x2dd4
+%include "shared/game/draw_marker_glyph.asm"     ; 0x2dd4
 
 %include "shared/game/draw_power_digit.asm"      ; 0x2e12
 
@@ -191,7 +190,7 @@ draw_spell_cost.dseg1 equ dseg_92d2
 
 bss_976c equ __zdseg_end + (__zobss_976c - __zdata_start)
 periodic_party_redraw.bss1     equ bss_976c
-periodic_party_redraw.api_idx1 equ api_idx_000a_PQSU
+periodic_party_redraw.api_idx1 equ draw_marker_glyph
 periodic_party_redraw.api_idx2 equ draw_realm_spell_points
 %include "shared/game/periodic_party_redraw.asm" ; 0x2fd8
 

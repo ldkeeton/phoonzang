@@ -55,7 +55,7 @@ api_idx_0050_QTGU:
     push ax                          ; 0x2d1a
     call draw_dialog_box             ; 0x2d1b
     add sp, byte 8                   ; 0x2d1e
-    call api_idx_000a_GGLT           ; 0x2d21
+    call draw_marker_glyph           ; 0x2d21
     push word [bp + 0x4]             ; 0x2d24
     call draw_realm_spell_points     ; 0x2d27
     pop cx                           ; 0x2d2a

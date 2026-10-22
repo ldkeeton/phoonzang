@@ -55,7 +55,7 @@ api_idx_0050_MINM:
     push ax                          ; 0x11d7
     call draw_dialog_box             ; 0x11d8
     add sp, byte 8                   ; 0x11db
-    call api_idx_000a_MHQT           ; 0x11de
+    call draw_marker_glyph           ; 0x11de
     push word [bp + 0x4]             ; 0x11e1
     call draw_realm_spell_points     ; 0x11e4
     pop cx                           ; 0x11e7

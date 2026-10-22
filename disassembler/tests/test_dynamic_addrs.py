@@ -891,6 +891,15 @@ class CensusMeaningCounterTests(unittest.TestCase):
         self.assertEqual(offsets, {0x10, 0x15})
         self.assertEqual(count_hidden_flow(bytes(data), offsets | {0x1a}), [])
 
+    def test_a_fragment_walk_steps_over_a_switch_table(self):
+        # An inline switch table's ``dw`` words are two bytes each, so the
+        # case arm after them is still shown code.
+        data = b'\x90' * 8
+        fragment = '\n'.join(['    nop', '    dw f.case1 - IMAGE_BASE, f.case2',
+                              'f.case1:', '    nop'])
+        self.assertEqual(fragment_instruction_offsets(fragment, data, 0),
+                         {0, 5})
+
     def test_a_fragment_walk_stops_at_a_line_it_cannot_size(self):
         data = b'\x90' * 8
         fragment = '\n'.join(['    nop', "    db 'ab', 0", '    nop'])

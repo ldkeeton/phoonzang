@@ -49,7 +49,7 @@ api_idx_0044_PIIP:
     push ax                          ; 0x2a0e
     call draw_dialog_box             ; 0x2a0f
     add sp, byte 8                   ; 0x2a12
-    call api_idx_000a_PJMQ           ; 0x2a15
+    call draw_marker_glyph           ; 0x2a15
     push word [bp + 0x4]             ; 0x2a18
     call draw_realm_spell_points     ; 0x2a1b
     pop cx                           ; 0x2a1e

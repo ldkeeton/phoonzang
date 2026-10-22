@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_000a_GGLT:
+draw_marker_glyph:
     mov ax, 0xfff6
     call aztec_csav
     mov byte [bp - 0x000a], 1

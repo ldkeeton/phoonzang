@@ -32,9 +32,14 @@
   "routines": {
     "api_idx_0002_KQPU": {"name": "find_object_at", "note": "returns next object index from start whose x, y, map piece match and type is nonzero (subject to a state bit), else -1"},
     "api_idx_0004_QVPP": {"name": "find_map_piece", "note": "maps world (x, y) to piece index and local x/y; 0 if found"},
+    "api_idx_000a_GGLT": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
     "api_idx_000a_IQHO": {
       "name": "fill_action_slot_table"
     },
+    "api_idx_000a_LSOP": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
+    "api_idx_000a_MHQT": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
+    "api_idx_000a_PJMQ": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
+    "api_idx_000a_PQSU": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
     "api_idx_000a_QJGP": {"name": "redraw_glyph_strip", "note": "restores both saved areas, draws glyph 1 at 55,154, optionally shows the strip"},
     "api_idx_000c_JQMN": {"name": "draw_realm_spell_points", "note": "prints a character's spell points for each of the six realms, centred in its own colour"},
     "api_idx_000c_LGVL": {
@@ -675,6 +680,9 @@
       "fingerprint-end": "78d26a13eb62891e3c8cd98d8f74cd9f4f05b028031d0c418b0b663516a33f76"
     },
     "vpops": {
+      "function_names": {
+        "19ff": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"}
+      },
       "file": "VPOPS.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,

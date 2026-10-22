@@ -49,7 +49,7 @@ api_idx_0044_NORP:
     push ax                          ; 0x78f2
     call draw_dialog_box             ; 0x78f3
     add sp, byte 8                   ; 0x78f6
-    call api_idx_000a_LSOP           ; 0x78f9
+    call draw_marker_glyph           ; 0x78f9
     push word [bp + 0x4]             ; 0x78fc
     call api_idx_000c_GHTR           ; 0x78ff
     pop cx                           ; 0x7902

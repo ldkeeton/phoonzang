@@ -336,8 +336,7 @@ bss_9d6c equ __zdseg_end + (__zobss_9d6c - __zdata_start)
 
 %include "vmnpc/api_idx_0004_NIJP.asm"     ; 0x752c
 
-api_idx_000a_LSOP equ api_idx_000a_GGLT
-%include "shared/game/api_idx_000a_GGLT.asm"     ; 0x759d
+%include "shared/game/draw_marker_glyph.asm"     ; 0x759d
 
 %include "shared/game/draw_power_digit.asm"      ; 0x75db
 
@@ -351,7 +350,7 @@ api_idx_000c_GHTR equ draw_realm_spell_points
 
 ; bss_93d6 equ __zdseg_end + (__zobss_93d6 - __zdata_start)
 periodic_party_redraw.bss1     equ bss_93d6
-periodic_party_redraw.api_idx1 equ api_idx_000a_LSOP
+periodic_party_redraw.api_idx1 equ draw_marker_glyph
 periodic_party_redraw.api_idx2 equ api_idx_000c_GHTR
 %include "shared/game/periodic_party_redraw.asm" ; 0x77a1
 

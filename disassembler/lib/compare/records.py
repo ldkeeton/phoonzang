@@ -185,6 +185,8 @@ _SHARED_INCLUDE_RE = re.compile(
 #: ``db`` of plain numbers, the only data a shared fragment holds.
 _DB_BYTES_RE = re.compile(
     r'^db\s+(0x[0-9a-f]+(?:\s*,\s*0x[0-9a-f]+)*)\s*(?:;.*)?$', re.I)
+#: ``dw``/``dd`` of expressions with no string: a switch table's case words.
+_DW_ITEMS_RE = re.compile(r'^d([wd])\s+([^;\'"`]+?)\s*(?:;.*)?$', re.I)
 
 
 def shared_includes(master_text):
@@ -202,8 +204,8 @@ def fragment_instruction_offsets(text, data, base, max_insn=16):
     differs between the binaries that include it; the include line gives
     where it starts.  Each line then follows the last: an instruction is as
     long as the image's instruction there (the build is byte-exact), a
-    ``db`` as its bytes.  A line the walk cannot size stops it, so the set is
-    a lower bound, like :func:`instruction_offsets`.
+    ``db``/``dw``/``dd`` as its items.  A line the walk cannot size stops it,
+    so the set is a lower bound, like :func:`instruction_offsets`.
     """
     from capstone import Cs, CS_ARCH_X86, CS_MODE_16
     md = Cs(CS_ARCH_X86, CS_MODE_16)
@@ -219,9 +221,11 @@ def fragment_instruction_offsets(text, data, base, max_insn=16):
             break
         if m.group(1).lower() in _DIRECTIVE_KEYWORDS:
             db = _DB_BYTES_RE.match(stripped)
-            if db is None:
+            dw = db or _DW_ITEMS_RE.match(stripped)
+            if dw is None:
                 break
-            pos += len(db.group(1).split(','))
+            width = 1 if db else 2 if dw.group(1).lower() == 'w' else 4
+            pos += width * len(dw.group(dw.lastindex).split(','))
             continue
         semi = line.find(';')
         anchor = _ANCHOR_RE.search(line, semi) if semi >= 0 else None

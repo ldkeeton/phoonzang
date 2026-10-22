@@ -49,7 +49,7 @@ api_idx_0044_NJNI:
     push ax                          ; 0x1d28
     call draw_dialog_box             ; 0x1d29
     add sp, byte 8                   ; 0x1d2c
-    call api_idx_000a_UMQI           ; 0x1d2f
+    call draw_marker_glyph           ; 0x1d2f
     push word [bp + 0x4]             ; 0x1d32
     call draw_realm_spell_points     ; 0x1d35
     pop cx                           ; 0x1d38

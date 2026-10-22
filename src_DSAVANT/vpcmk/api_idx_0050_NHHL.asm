@@ -55,7 +55,7 @@ api_idx_0050_NHHL:
     push ax                          ; 0x30ff
     call draw_dialog_box             ; 0x3100
     add sp, byte 8                   ; 0x3103
-    call api_idx_000a_PQSU           ; 0x3106
+    call draw_marker_glyph           ; 0x3106
     push word [bp + 0x4]             ; 0x3109
     call draw_realm_spell_points     ; 0x310c
     pop cx                           ; 0x310f
