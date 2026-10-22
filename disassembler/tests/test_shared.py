@@ -316,3 +316,17 @@ class MergeFilesTest(unittest.TestCase):
         from main.build import merge_files
         with self.assertRaises(LinkError):
             merge_files({'a': {'inc/s.inc': 'x'}, 'b': {'inc/s.inc': 'y'}})
+
+
+class IncludeAliasesTest(unittest.TestCase):
+    def test_aliases_above_the_include_name_the_common_names(self):
+        master = ('x equ y\n\n'
+                  'cseg_382b equ f.cseg1\n'
+                  'f.bss1 equ bss_0d00\n'
+                  '%include "shared/library/f.asm"   ; 0x381b\n')
+        self.assertEqual(
+            sorted(shared.include_aliases(master, 'shared/library/f.asm')),
+            [('f.bss1', 'bss_0d00'), ('f.cseg1', 'cseg_382b')])
+
+    def test_no_include_has_no_aliases(self):
+        self.assertEqual(shared.include_aliases('', 'shared/f.asm'), [])

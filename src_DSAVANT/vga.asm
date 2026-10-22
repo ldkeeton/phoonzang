@@ -613,9 +613,8 @@ leaf_loc_QLNN equ leaf_loc_KSJN
 ; data_381b equ __zdata_381b - IMAGE_BASE
 %include "vga/loc_35d8.asm"                ; 0x35d8
 
-dos_con_loc_JKSI equ cache_area_disk_error
-cseg_382b        equ cache_area_disk_error.cseg1
-%include "shared/library/cache_area_disk_error.asm"        ; 0x381b
+cseg_382b equ cache_area_disk_error.cseg1
+%include "shared/library/cache_area_disk_error.asm"   ; 0x381b
 
 data_025b equ __zdata_025b - IMAGE_BASE
 ; data_029b equ __zdata_029b - IMAGE_BASE

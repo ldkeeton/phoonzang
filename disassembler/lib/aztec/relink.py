@@ -169,9 +169,22 @@ def _code_value(name, addend, overlay=False):
     return f'{name}{_addend_text(addend)} - IMAGE_BASE{origin}'
 
 
-def _resolved_branches(code, fixups):
+def code_runs(length, data_spans=()):
+    """``[(start, end)]`` of *length* bytes left once *data_spans* are cut."""
+    runs, at = [], 0
+    for lo, hi in sorted(data_spans or ()):
+        if lo > at:
+            runs.append((at, min(lo, length)))
+        at = max(at, hi)
+    if at < length:
+        runs.append((at, length))
+    return [(lo, hi) for lo, hi in runs if lo < hi]
+
+
+def _resolved_branches(code, fixups, data_spans=()):
     """``{operand offset: (width, target offset)}`` of in-routine branches
     the assembler resolved itself, so the object has no fixup for them.
+    The source's own data (*data_spans*) is bytes, not instructions.
 
     Aztec's ``as`` turns an out-of-range conditional into a short ``jcc`` over
     a near ``jmp``; that short ``jcc`` jumps to the code right after the
@@ -182,7 +195,10 @@ def _resolved_branches(code, fixups):
     for fx in fixups:
         covered.update(range(fx.offset, fx.offset + fx.width))
     out = {}
-    for insn in Cs(CS_ARCH_X86, CS_MODE_16).disasm(bytes(code), 0):
+    md = Cs(CS_ARCH_X86, CS_MODE_16)
+    insns = [insn for lo, hi in code_runs(len(code), data_spans)
+             for insn in md.disasm(bytes(code[lo:hi]), lo)]
+    for insn in insns:
         op = insn.bytes[0]
         if 0x70 <= op <= 0x7f or 0xe0 <= op <= 0xe3 or op == 0xeb:
             width = 1
@@ -225,7 +241,8 @@ def _neighbour_target(label, start, fx, func, index, original, labels_at):
     return names[0], target
 
 
-def link(label, start, func, index, original, labels_in=(), labels_at=None):
+def link(label, start, func, index, original, labels_in=(), labels_at=None,
+         data_spans=()):
     """Resolve *func*'s relocations for placement at file offset *start*.
 
     *original* is the original image: its relocated words say where the
@@ -234,6 +251,7 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None):
     non-local ones keep their name when a derived branch target lands on them.
     *labels_at* (``{offset: name}``) is every label the build placed, for a
     branch that leaves the routine for a module label beside it.
+    *data_spans* (``[(start, end)]`` routine offsets) are the source's data.
     """
     code = bytearray(func.code)
     out = Linked(code)
@@ -280,7 +298,7 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None):
     targets = set()
     for fx in locals_:
         targets.add(start + func.locals[fx.symbol])
-    resolved = _resolved_branches(code, func.fixups)
+    resolved = _resolved_branches(code, func.fixups, data_spans)
     targets.update(start + target for _width, target in resolved.values())
     for t in targets & set(named):
         out.local_names[t] = named[t]

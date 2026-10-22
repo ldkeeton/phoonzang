@@ -476,7 +476,7 @@ def resplice_c(app, binary, check_only=False, only=None):
                     raise SystemExit(f'error: {exc}')
             try:
                 linked = relink.link(label, start, func, index, data,
-                                     labels_in, labels_at)
+                                     labels_in, labels_at, spans_here)
             except relink.RelinkError as exc:
                 raise SystemExit(f'error: {exc}')
             compiled = linked.code
@@ -579,9 +579,13 @@ def resplice_c(app, binary, check_only=False, only=None):
         fragment = (head + '\n'.join(_render_records(
             records, data, True, corg_symbol=corg)) + '\n')
         if os.path.dirname(apath) in shared_dirs(out_dir):
-            # Shared by several binaries: no one binary's addresses.
-            from lib.shared import neutral
-            fragment = neutral(fragment)
+            # Shared by several binaries: no one binary's addresses, and its
+            # own names spelled by the common ones its master aliases.
+            from lib.shared import _common_names, include_aliases, neutral
+            with open(os.path.join(out_dir, f'{binary}.asm')) as f:
+                aliases = include_aliases(
+                    f.read(), os.path.relpath(apath, out_dir))
+            fragment = neutral(_common_names(fragment, aliases))
         if check_only:
             # The fragment on disk is the source of truth: it must already be
             # exactly what the C regenerates, never rewritten to match.

@@ -37,7 +37,6 @@ aztec_format:
     push bp                          ; 0x4867
     mov bp, sp                       ; 0x4868
     sub sp, strict word 0x154        ; 0x486a
-@..aztec_format.l4:
     push di                          ; 0x486e
     push si                          ; 0x486f
     cld                              ; 0x4870
@@ -45,7 +44,6 @@ aztec_format:
     mov word [bp - 0x0002], 0        ; 0x4874
 @..aztec_format.main_loop:
     mov byte [bp - 0x000b], 0        ; 0x4879
-@..aztec_format.l5:
     lodsb                            ; 0x487d
     cmp al, 0x25                     ; 0x487e
     je short @..aztec_format.ispercent ; 0x4880
@@ -92,7 +90,6 @@ jumptable_4822_case_20:
 @..aztec_format.not_alter:
     cmp al, 0x30                     ; 0x48d4
     jne short @..aztec_format.not_zero ; 0x48d6
-@..aztec_format.l6:
     mov byte [bp - 0x000c], 0x30     ; 0x48d8
     lodsb                            ; 0x48dc
 @..aztec_format.not_zero:

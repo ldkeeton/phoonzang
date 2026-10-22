@@ -452,3 +452,18 @@ class RelabelTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class ResolvedBranchDataTest(unittest.TestCase):
+    # ``ret`` then data bytes that decode as ``jb`` to the next byte.
+    CODE = bytearray(b'\xc3\x72\x00\x24')
+
+    def test_data_bytes_are_not_branches(self):
+        self.assertTrue(relink._resolved_branches(self.CODE, ()))
+        self.assertEqual(
+            relink._resolved_branches(self.CODE, (), [(1, len(self.CODE))]),
+            {})
+
+    def test_code_runs_skip_the_data(self):
+        self.assertEqual(relink.code_runs(10, [(2, 4), (7, 12)]),
+                         [(0, 2), (4, 7)])

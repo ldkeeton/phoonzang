@@ -823,6 +823,9 @@
       "fingerprint-end": "7f2b38f34f19a1344d7654e39b636dc35eca7916d4861533a83a4d3ba105e524"
     },
     "vga": {
+      "function_names": {
+        "381b": {"name": "cache_area_disk_error", "note": "prints the CACHEAREA() disk-write error from a code-segment string via int 21h/9 and exits to DOS with code 1"}
+      },
       "code_data_names": {
         "0126": {"name": "mouse_glide_active", "note": "1 while mouse_glide_to moves the pointer; cleared by mouse_glide_back"},
         "0127": {"name": "mouse_redraw_pending", "note": "set to 1 by leaf_loc_LMQV when a mouse is present; cleared after the pointer is redrawn"},

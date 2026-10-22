@@ -36,7 +36,7 @@ import os
 import re
 from collections import defaultdict
 
-from .autogen import hand_owned, is_generated
+from .autogen import MARKER_ASM, MARKER_C, hand_owned, is_generated
 from .cachedirs import project_of_src_dir
 from .routine_source import SUFFIXES, beside
 from .sidecar.bands import BAND_NAMES
@@ -201,9 +201,12 @@ def _clusters(fragments, rels, ctext, tables):
     """``(shared base, group, bindings)`` for each group of *rels* that can
     share one file.
 
-    Copies with C must be identical: each binary's resplice rewrites the shared
-    asm from that C.  Without C, copies that differ only in the names they use
-    share one file that spells those names by common ones (:func:`_bind`).
+    Copies with generated C must be identical: each binary's resplice
+    rewrites the shared asm from that C.  Without C, copies that differ only
+    in the names they use share one file that spells those names by common
+    ones (:func:`_bind`).  So do copies of a hand-written source: its resplice
+    spells each binary's own names by the common ones
+    (:func:`include_aliases`).
     A group is named after a person's name if a copy has one, else the name
     most copies carry (the first, on a tie), and takes those copies first.  A
     binary includes one copy: two would define the label twice.
@@ -224,7 +227,7 @@ def _clusters(fragments, rels, ctext, tables):
         for rel in order[1:]:
             if _binary(rel) in {_binary(g) for g in group}:
                 continue
-            if ctext is not None:
+            if ctext is not None and _generated_source(ctext):
                 ok = _code_key(fragments[rel][0]) == _code_key(
                     fragments[group[0]][0])
                 trial = {} if ok else None
@@ -235,6 +238,36 @@ def _clusters(fragments, rels, ctext, tables):
                 binds = trial
         left = [rel for rel in left if rel not in group]
         yield _shared_base(order[0]), group, binds
+
+
+def _generated_source(ctext):
+    """True when the ``(suffix, text)`` source is a generated seed."""
+    first = ctext[1].split('\n', 1)[0].rstrip()
+    return first in (MARKER_ASM, MARKER_C)
+
+
+def include_aliases(master, rel):
+    """``[(common, own)]``: the ``equ`` aliases *master* gives the shared file
+    *rel* just above its ``%include`` (:func:`_rewrite_includes`)."""
+    stem = re.escape(os.path.basename(rel)[:-4])
+    common = re.compile(rf'{stem}(\.\w+)?$')
+    lines = master.split('\n')
+    for i, line in enumerate(lines):
+        include = _INCLUDE.match(line)
+        if not include or include.group(1) != rel:
+            continue
+        pairs = []
+        for above in reversed(lines[:i]):
+            m = _EQU.match(above)
+            if not m:
+                break
+            a, b = m.group(1), m.group(2)
+            if common.match(a):
+                pairs.append((a, b))
+            elif common.match(b):
+                pairs.append((b, a))
+        return pairs
+    return []
 
 
 def _common_names(text, binds):

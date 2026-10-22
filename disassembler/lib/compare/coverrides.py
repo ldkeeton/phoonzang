@@ -271,11 +271,12 @@ def _merge_label_records(new_records, label_records):
 
 
 def _override_local_labels(data, start, end, label_map, local_labels, linked,
-                           label, taken):
+                           label, taken, data_spans=()):
     """``(name_by_offset, label_records)`` for a C override's own branches.
 
     *data* is the routine's bytes, *start*/*end* its span, and *taken* the
-    offsets that already carry a label record.  Names come from the disassembly
+    offsets that already carry a label record; *data_spans* (offsets into
+    *data*) are the source's own data, not code.  Names come from the disassembly
     when it has the offset (so the file reads as it did before the override),
     from ``linked`` when relink derived one, and are numbered after them
     otherwise.  Only relative branches need a name: an absolute operand is a
@@ -293,7 +294,9 @@ def _override_local_labels(data, start, end, label_map, local_labels, linked,
     md = Cs(CS_ARCH_X86, CS_MODE_16)
     md.detail = True
     targets = set()
-    for insn in md.disasm(bytes(data), start):
+    insns = [insn for lo, hi in relink.code_runs(len(data), data_spans)
+             for insn in md.disasm(bytes(data[lo:hi]), start + lo)]
+    for insn in insns:
         if not insn.operands or insn.operands[0].type != CS_OP_IMM:
             continue
         if not (insn.mnemonic == 'call' or insn.mnemonic.startswith('j')
@@ -379,7 +382,7 @@ def _link(label, start, override, records, binary_data, index):
         if r['type'] == 'jump_table':
             labels_at.setdefault(r['start'], r['label'])
     return relink.link(label, start, func, index, binary_data, labels_in,
-                       labels_at)
+                       labels_at, override.get('data_spans', ()))
 
 
 def _batch_relabels(c_overrides, records, binary_data, starts, index_names,
@@ -680,7 +683,9 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         # gets a fresh ``@..<label>.lN`` otherwise.
         record_labels, derived = _override_local_labels(
             bytes(final[lead:]), start + lead, end, label_map, local_labels,
-            linked, label, {r['offset'] for r in labels_in})
+            linked, label, {r['offset'] for r in labels_in},
+            [(lo - lead, hi - lead)
+             for lo, hi in override.get('data_spans', ()) if hi > lead])
         if linked is None:
             # No relinking: the bytes *are* the original routine's, so its own
             # local labels stay valid for every operand, not just branches.
