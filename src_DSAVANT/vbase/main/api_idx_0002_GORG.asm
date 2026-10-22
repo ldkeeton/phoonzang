@@ -21,8 +21,8 @@ api_idx_0002_GORG:
     push ax                          ; 0x8b91
     call gfx_cache_area              ; 0x8b92
     add sp, byte 0x0c                ; 0x8b95
-    mov word [bss_a5b4], dx          ; 0x8b98
-    mov word [bss_a5b2], ax          ; 0x8b9c
+    mov word [scene_backdrop_ref_hi], dx ; 0x8b98
+    mov word [scene_backdrop_ref], ax ; 0x8b9c
     mov ax, 0xf                      ; 0x8b9f
     push ax                          ; 0x8ba2
     mov ax, 0xa                      ; 0x8ba3
@@ -36,19 +36,19 @@ api_idx_0002_GORG:
     call api_idx_0016_LTLN           ; 0x8bb5
     add sp, byte 4                   ; 0x8bb8
     mov ax, word [bp + 0x6]          ; 0x8bbb
-    mov word [bss_a5b8], ax          ; 0x8bbe
-    mov word [bss_a5b0], 0           ; 0x8bc1
-    mov word [bss_a4a4], 5           ; 0x8bc7
-    mov word [bss_a5d0], 0           ; 0x8bcd
-    mov word [bss_a5d2], 0xa0        ; 0x8bd3
-    mov word [bss_a5d4], 0x140       ; 0x8bd9
-    mov word [bss_a5d6], 0x1e0       ; 0x8bdf
+    mov word [scene_cue_b], ax       ; 0x8bbe
+    mov word [scene_frame], 0        ; 0x8bc1
+    mov word [scene_index], 5        ; 0x8bc7
+    mov word [scroll_x], 0           ; 0x8bcd
+    mov word [scroll_x_1], 0xa0      ; 0x8bd3
+    mov word [scroll_x_2], 0x140     ; 0x8bd9
+    mov word [scroll_x_3], 0x1e0     ; 0x8bdf
     mov word [bp - 0x0002], 0        ; 0x8be5
 @..api_idx_0002_GORG.l1:
     mov ax, word [bp - 0x0002]       ; 0x8bea
     shl ax, 1                        ; 0x8bed
     mov bx, ax                       ; 0x8bef
-    mov word [bx + bss_a5da], 0x140  ; 0x8bf1
+    mov word [bx + sprite_pos], 0x140 ; 0x8bf1
     mov ax, 0x10                     ; 0x8bf7
     push ax                          ; 0x8bfa
     call random_below                ; 0x8bfb
@@ -62,16 +62,16 @@ api_idx_0002_GORG:
     mov ax, word [bp - 0x0002]       ; 0x8c10
     cmp ax, strict word 8            ; 0x8c13
     jl short @..api_idx_0002_GORG.l1 ; 0x8c16
-    mov word [bss_a5e2], 0xff9c      ; 0x8c18
-    mov word [bss_a5f2], 0x6e        ; 0x8c1e
-    mov word [bss_a600], 0           ; 0x8c24
+    mov word [actor_x], 0xff9c       ; 0x8c18
+    mov word [actor_y], 0x6e         ; 0x8c1e
+    mov word [scene_clip_arg], 0     ; 0x8c24
     mov word [bss_a5ae], 5           ; 0x8c2a
     les bx, word [tick_counter_ptr]  ; 0x8c30
     mov ax, word [es:bx]             ; 0x8c34
     mov dx, word [es:bx + 0x2]       ; 0x8c37
     mov word [bss_908c], dx          ; 0x8c3b
     mov word [party_redraw_last_tick], ax ; 0x8c3f
-    call api_idx_000a_THHN           ; 0x8c42
+    call draw_scene_frame            ; 0x8c42
     mov ax, 0                        ; 0x8c45
     push ax                          ; 0x8c48
     push ax                          ; 0x8c49
@@ -108,9 +108,9 @@ api_idx_0002_GORG:
     push ax                          ; 0x8c8c
     mov ax, 1                        ; 0x8c8d
     push ax                          ; 0x8c90
-    push word [bss_a5b4]             ; 0x8c91
-    push word [bss_a5b2]             ; 0x8c95
+    push word [scene_backdrop_ref_hi] ; 0x8c91
+    push word [scene_backdrop_ref]   ; 0x8c95
     call gfx_restore_screen          ; 0x8c99
     add sp, byte 8                   ; 0x8c9c
-    call loc_QSVI                    ; 0x8c9f
+    call blank_scene_screen          ; 0x8c9f
     ret                              ; 0x8ca2

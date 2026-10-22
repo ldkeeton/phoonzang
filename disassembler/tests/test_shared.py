@@ -4,6 +4,7 @@ import unittest
 
 from lib import shared
 from lib.autogen import write_text
+from lib.sidecar.errors import SidecarError
 
 BODY = '{name}:\n    push bp ; 0x{a}\n    jmp short @..{name}.l1 ; 0x{b}\n@..{name}.l1:\n    ret ; 0x{c}\n'
 
@@ -301,6 +302,68 @@ class BandTest(unittest.TestCase):
             files, result = self._share('f', ['push bp'], root)
         self.assertEqual(list(result), ['shared/game/f.asm'])
         self.assertFalse([p for p in files if p.endswith('.c')])
+
+
+class HostBandTest(unittest.TestCase):
+    """A routine whose copies the binaries' sidecar bands put in one band
+    goes in that band's folder."""
+
+    def _files(self):
+        files = {}
+        for b, at in (('a', '0100'), ('b', '0900')):
+            files[f'{b}/f.asm'] = 'f:\n    call aztec_csav\n    ret\n'
+            files[f'{b}.asm'] = f'%include "{b}/f.asm"   ; 0x{at}\n'
+        return files
+
+    def _share(self, root, bands):
+        return shared.share_files(self._files(), root, {}, bands)
+
+    def test_a_copy_in_a_band_goes_in_its_folder(self):
+        bands = {'a': [(0x100, 0x1ff, 'party')]}
+        with tempfile.TemporaryDirectory() as root:
+            files, result = self._share(root, bands)
+        self.assertEqual(list(result), ['shared/game/party/f.asm'])
+        self.assertIn('%include "shared/game/party/f.asm"', files['a.asm'])
+
+    def test_a_band_under_a_kind_keeps_its_path(self):
+        with tempfile.TemporaryDirectory() as root:
+            _, result = self._share(root, {'a': [(0x100, 0x1ff, 'game/x')]})
+        self.assertEqual(list(result), ['shared/game/x/f.asm'])
+
+    def test_without_banded_hosts_the_kind_decides(self):
+        with tempfile.TemporaryDirectory() as root:
+            _, result = self._share(root, {})
+        self.assertEqual(list(result), ['shared/game/f.asm'])
+
+    def test_copies_in_two_bands_go_by_kind(self):
+        bands = {'a': [(0x100, 0x1ff, 'party')],
+                 'b': [(0x900, 0x9ff, 'combat')]}
+        with tempfile.TemporaryDirectory() as root:
+            _, result = self._share(root, bands)
+        self.assertEqual(list(result), ['shared/game/f.asm'])
+
+    def test_a_copy_outside_its_binary_s_bands_is_an_error(self):
+        with tempfile.TemporaryDirectory() as root:
+            with self.assertRaises(SidecarError):
+                self._share(root, {'a': [(0x200, 0x2ff, 'party')]})
+
+    def test_hand_c_in_a_nested_band_folder_is_found(self):
+        with tempfile.TemporaryDirectory() as root:
+            folder = os.path.join(root, 'shared', 'game', 'party')
+            os.makedirs(folder)
+            with open(os.path.join(folder, 'f.c'), 'w') as f:
+                f.write('int f;\n')
+            self.assertIn(folder, shared.shared_dirs(root))
+            files, result = self._share(
+                root, {'a': [(0x100, 0x1ff, 'party')]})
+        self.assertEqual(list(result), ['shared/game/party/f.asm'])
+        self.assertFalse([p for p in files if p.endswith('.c')])
+
+    def test_project_bands_reads_each_binary_s(self):
+        raw = [{'name': 'game/party', 'start': '0100', 'end': '01ff'}]
+        self.assertEqual(
+            shared.project_bands({'binaries': {'a': {'bands': raw}, 'b': {}}}),
+            {'a': [(0x100, 0x1ff, 'game/party')]})
 
 
 class MergeFilesTest(unittest.TestCase):

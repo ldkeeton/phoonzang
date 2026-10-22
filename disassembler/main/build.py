@@ -54,7 +54,7 @@ from lib.link import (
 )
 from lib.sidecar.loader import load as load_sidecar
 from lib.sidecar.errors import SidecarError
-from lib.shared import share_files
+from lib.shared import project_bands, share_files
 from lib.symtab import project_tables
 
 from .options import APPS_DIR, PROJECT_ROOT
@@ -351,7 +351,8 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
         # 5. one copy of every routine binaries share (names aside), in shared/
         progress.log(f'{project} | sharing identical routines')
         files, shared = share_files(merge_files(emitted), out_dir,
-                                    project_tables(project))
+                                    project_tables(project),
+                                    project_bands(load_sidecar(project)))
         if shared:
             report(f'  Shared: {sum(len(v) for v in shared.values())} '
                    f'fragments -> {len(shared)} files in shared/')

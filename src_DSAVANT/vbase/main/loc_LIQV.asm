@@ -3,7 +3,7 @@ loc_LIQV:
     mov ax, 0xfefa                   ; 0x6f79
     call aztec_csav                  ; 0x6f7c
     call loc_SVUQ                    ; 0x6f7f
-    mov word [bss_a5ac], 0           ; 0x6f82
+    mov word [scene_running], 0      ; 0x6f82
     mov word [bss_a4a8], 0xc         ; 0x6f88
     mov word [bss_a4a6], 0           ; 0x6f8e
     mov byte [bss_a4aa], 0           ; 0x6f94

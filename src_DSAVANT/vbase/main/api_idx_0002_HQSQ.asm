@@ -2,7 +2,7 @@
 api_idx_0002_HQSQ:
     mov ax, 0xfffe                   ; 0x8f74
     call aztec_csav                  ; 0x8f77
-    call loc_QSVI                    ; 0x8f7a
+    call blank_scene_screen          ; 0x8f7a
     cmp word [bss_0e32], byte 1      ; 0x8f7d
     jne short @..api_idx_0002_HQSQ.l1 ; 0x8f82
     call gfx_mouse_off               ; 0x8f84

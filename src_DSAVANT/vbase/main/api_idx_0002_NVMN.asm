@@ -85,7 +85,7 @@ api_idx_0002_NVMN:
     call gfx_fade_in                 ; 0x7126
     pop cx                           ; 0x7129
 @..api_idx_0002_NVMN.l4:
-    mov word [bss_a4a4], 0           ; 0x712a
+    mov word [scene_index], 0        ; 0x712a
     mov ax, word [bp + 0x4]          ; 0x7130
     jmp short @..api_idx_0002_NVMN.l5 ; 0x7133
 jumptable_7185_case_1:

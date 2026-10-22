@@ -23,12 +23,12 @@ loc_GSUP:
 @..loc_GSUP.l1:
     jmp short @..loc_GSUP.l3         ; 0x73eb
 @..loc_GSUP.l2:
-    mov ax, word [bss_a5b0]          ; 0x73ed
+    mov ax, word [scene_frame]       ; 0x73ed
     inc ax                           ; 0x73f0
     mov cx, 0xc                      ; 0x73f1
     cwd                              ; 0x73f4
     idiv cx                          ; 0x73f5
-    mov word [bss_a5b0], dx          ; 0x73f7
+    mov word [scene_frame], dx       ; 0x73f7
     les bx, word [tick_counter_ptr]  ; 0x73fb
     mov ax, word [es:bx]             ; 0x73ff
     mov dx, word [es:bx + 0x2]       ; 0x7402

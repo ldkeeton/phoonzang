@@ -60,13 +60,13 @@ jumptable_6e77_case_4:
     jmp short @..loc_VMSS.l6         ; 0x6e55
 jumptable_6e77_case_5:
     inc word [bp + 0x4]              ; 0x6e57
-    inc word [bss_a5aa]              ; 0x6e5a
+    inc word [scene_tick]            ; 0x6e5a
     jmp short @..loc_VMSS.l6         ; 0x6e5e
 jumptable_6e77_case_6:
     inc word [bp + 0x4]              ; 0x6e60
-    mov word [bss_a5ac], 1           ; 0x6e63
+    mov word [scene_running], 1      ; 0x6e63
 @..loc_VMSS.l3:
-    cmp word [bss_a5ac], byte 0      ; 0x6e69
+    cmp word [scene_running], byte 0 ; 0x6e69
     je short @..loc_VMSS.l4          ; 0x6e6e
     call loc_TJHG                    ; 0x6e70
     jmp short @..loc_VMSS.l3         ; 0x6e73

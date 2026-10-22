@@ -21,8 +21,8 @@ loc_JTTS:
     push ax                          ; 0x8a9c
     call gfx_cache_area              ; 0x8a9d
     add sp, byte 0x0c                ; 0x8aa0
-    mov word [bss_a5b4], dx          ; 0x8aa3
-    mov word [bss_a5b2], ax          ; 0x8aa7
+    mov word [scene_backdrop_ref_hi], dx ; 0x8aa3
+    mov word [scene_backdrop_ref], ax ; 0x8aa7
     mov ax, 0xf                      ; 0x8aaa
     push ax                          ; 0x8aad
     mov ax, 9                        ; 0x8aae
@@ -36,20 +36,20 @@ loc_JTTS:
     call api_idx_0016_LTLN           ; 0x8ac0
     add sp, byte 4                   ; 0x8ac3
     mov ax, word [bp + 0x6]          ; 0x8ac6
-    mov word [bss_a5b8], ax          ; 0x8ac9
-    mov word [bss_a5ce], 1           ; 0x8acc
-    mov word [bss_a5b0], 0           ; 0x8ad2
-    mov word [bss_a4a4], 4           ; 0x8ad8
-    mov word [bss_a5e2], 0xff9c      ; 0x8ade
-    mov word [bss_a5f2], 0x55        ; 0x8ae4
-    mov word [bss_a600], 0           ; 0x8aea
+    mov word [scene_cue_b], ax       ; 0x8ac9
+    mov word [scene_step_a], 1       ; 0x8acc
+    mov word [scene_frame], 0        ; 0x8ad2
+    mov word [scene_index], 4        ; 0x8ad8
+    mov word [actor_x], 0xff9c       ; 0x8ade
+    mov word [actor_y], 0x55         ; 0x8ae4
+    mov word [scene_clip_arg], 0     ; 0x8aea
     mov word [bss_a5ae], 5           ; 0x8af0
     les bx, word [tick_counter_ptr]  ; 0x8af6
     mov ax, word [es:bx]             ; 0x8afa
     mov dx, word [es:bx + 0x2]       ; 0x8afd
     mov word [bss_908c], dx          ; 0x8b01
     mov word [party_redraw_last_tick], ax ; 0x8b05
-    call api_idx_000a_THHN           ; 0x8b08
+    call draw_scene_frame            ; 0x8b08
     mov ax, 0                        ; 0x8b0b
     push ax                          ; 0x8b0e
     push ax                          ; 0x8b0f
@@ -86,9 +86,9 @@ loc_JTTS:
     push ax                          ; 0x8b52
     mov ax, 1                        ; 0x8b53
     push ax                          ; 0x8b56
-    push word [bss_a5b4]             ; 0x8b57
-    push word [bss_a5b2]             ; 0x8b5b
+    push word [scene_backdrop_ref_hi] ; 0x8b57
+    push word [scene_backdrop_ref]   ; 0x8b5b
     call gfx_restore_screen          ; 0x8b5f
     add sp, byte 8                   ; 0x8b62
-    call loc_QSVI                    ; 0x8b65
+    call blank_scene_screen          ; 0x8b65
     ret                              ; 0x8b68

@@ -472,7 +472,8 @@ def _hand_c_tree(dest, bands):
     """``{label: path}`` for the hand-owned sources (``.c``, ``.s``) in *dest*
     and in its band folders."""
     found = {}
-    for folder in [dest] + [os.path.join(dest, b[2]) for b in bands]:
+    for folder in dict.fromkeys([dest] + [os.path.join(dest, b[2])
+                                          for b in bands]):
         for label, filename in routine_source.sources_in(
                 folder, hand_owned).items():
             if label in found:

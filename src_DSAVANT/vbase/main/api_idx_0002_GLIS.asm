@@ -21,11 +21,11 @@ api_idx_0002_GLIS:
     call api_idx_0016_LTLN           ; 0x8780
     add sp, byte 4                   ; 0x8783
     mov ax, word [bp + 0x6]          ; 0x8786
-    mov word [bss_a5b6], ax          ; 0x8789
+    mov word [scene_cue_a], ax       ; 0x8789
     mov ax, word [bp + 0x8]          ; 0x878c
-    mov word [bss_a5b8], ax          ; 0x878f
+    mov word [scene_cue_b], ax       ; 0x878f
     mov ax, word [bp + 0xa]          ; 0x8792
-    mov word [bss_a5ba], ax          ; 0x8795
+    mov word [scene_cue_c], ax       ; 0x8795
     mov word [bp - 0x0002], 0        ; 0x8798
 @..api_idx_0002_GLIS.l1:
     mov ax, 0x50                     ; 0x879d
@@ -33,7 +33,7 @@ api_idx_0002_GLIS:
     mov cx, word [bp - 0x0002]       ; 0x87a3
     shl cx, 1                        ; 0x87a6
     mov bx, cx                       ; 0x87a8
-    mov word [bx + bss_a5d0], ax     ; 0x87aa
+    mov word [bx + scroll_x], ax     ; 0x87aa
     inc word [bp - 0x0002]           ; 0x87ae
     mov ax, word [bp - 0x0002]       ; 0x87b1
     cmp ax, strict word 5            ; 0x87b4
@@ -43,7 +43,7 @@ api_idx_0002_GLIS:
     mov ax, word [bp - 0x0002]       ; 0x87be
     shl ax, 1                        ; 0x87c1
     mov bx, ax                       ; 0x87c3
-    mov word [bx + bss_a5da], 0x140  ; 0x87c5
+    mov word [bx + sprite_pos], 0x140 ; 0x87c5
     mov ax, 0x3c                     ; 0x87cb
     push ax                          ; 0x87ce
     call random_below                ; 0x87cf
@@ -59,18 +59,18 @@ api_idx_0002_GLIS:
     jl short @..api_idx_0002_GLIS.l2 ; 0x87ea
     mov word [bss_a5e0], 0x13e       ; 0x87ec
     mov word [bss_a5f0], 0x2a        ; 0x87f2
-    mov word [bss_a5e2], 0xff50      ; 0x87f8
-    mov word [bss_a5f2], 0x3c        ; 0x87fe
-    mov word [bss_a5b0], 0           ; 0x8804
-    mov word [bss_a4a4], 2           ; 0x880a
-    mov word [bss_a5fa], 1           ; 0x8810
+    mov word [actor_x], 0xff50       ; 0x87f8
+    mov word [actor_y], 0x3c         ; 0x87fe
+    mov word [scene_frame], 0        ; 0x8804
+    mov word [scene_index], 2        ; 0x880a
+    mov word [scene_step_b], 1       ; 0x8810
     mov word [bss_a5ae], 3           ; 0x8816
     les bx, word [tick_counter_ptr]  ; 0x881c
     mov ax, word [es:bx]             ; 0x8820
     mov dx, word [es:bx + 0x2]       ; 0x8823
     mov word [bss_908c], dx          ; 0x8827
     mov word [party_redraw_last_tick], ax ; 0x882b
-    call api_idx_000a_THHN           ; 0x882e
+    call draw_scene_frame            ; 0x882e
     mov ax, 0                        ; 0x8831
     push ax                          ; 0x8834
     push ax                          ; 0x8835
@@ -107,5 +107,5 @@ api_idx_0002_GLIS:
     push ax                          ; 0x8878
     call loc_GUNQ                    ; 0x8879
     pop cx                           ; 0x887c
-    call loc_QSVI                    ; 0x887d
+    call blank_scene_screen          ; 0x887d
     ret                              ; 0x8880

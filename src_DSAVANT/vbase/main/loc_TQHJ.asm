@@ -21,8 +21,8 @@ loc_TQHJ:
     push ax                          ; 0x865c
     call gfx_cache_area              ; 0x865d
     add sp, byte 0x0c                ; 0x8660
-    mov word [bss_a5b4], dx          ; 0x8663
-    mov word [bss_a5b2], ax          ; 0x8667
+    mov word [scene_backdrop_ref_hi], dx ; 0x8663
+    mov word [scene_backdrop_ref], ax ; 0x8667
     mov ax, 0xf                      ; 0x866a
     push ax                          ; 0x866d
     mov ax, 1                        ; 0x866e
@@ -42,24 +42,24 @@ loc_TQHJ:
     call api_idx_0016_LTLN           ; 0x868e
     add sp, byte 4                   ; 0x8691
     mov ax, word [bp + 0x6]          ; 0x8694
-    mov word [bss_a5b6], ax          ; 0x8697
+    mov word [scene_cue_a], ax       ; 0x8697
     mov ax, word [bp + 0x8]          ; 0x869a
-    mov word [bss_a5b8], ax          ; 0x869d
+    mov word [scene_cue_b], ax       ; 0x869d
     mov ax, word [bp + 0xa]          ; 0x86a0
-    mov word [bss_a5ba], ax          ; 0x86a3
+    mov word [scene_cue_c], ax       ; 0x86a3
     mov ax, word [bp + 0xc]          ; 0x86a6
-    mov word [bss_a5bc], ax          ; 0x86a9
-    mov word [bss_a5b0], 0           ; 0x86ac
-    mov word [bss_a4a4], 1           ; 0x86b2
+    mov word [scene_cue_d], ax       ; 0x86a9
+    mov word [scene_frame], 0        ; 0x86ac
+    mov word [scene_index], 1        ; 0x86b2
     mov ax, 0                        ; 0x86b8
     cmp word [bp + 0x8], byte 0      ; 0x86bb
     jne short @..loc_TQHJ.l1         ; 0x86bf
     mov ax, 0x14                     ; 0x86c1
 @..loc_TQHJ.l1:
-    mov word [bss_a5ce], ax          ; 0x86c4
+    mov word [scene_step_a], ax      ; 0x86c4
     mov ax, dseg_9151                ; 0x86c7
     push ax                          ; 0x86ca
-    mov ax, bss_a5c6                 ; 0x86cb
+    mov ax, scene_digit_cycle        ; 0x86cb
     push ax                          ; 0x86ce
     call aztec_strcpy                ; 0x86cf
     add sp, byte 4                   ; 0x86d2
@@ -69,7 +69,7 @@ loc_TQHJ:
     mov dx, word [es:bx + 0x2]       ; 0x86e2
     mov word [bss_908c], dx          ; 0x86e6
     mov word [party_redraw_last_tick], ax ; 0x86ea
-    call api_idx_000a_THHN           ; 0x86ed
+    call draw_scene_frame            ; 0x86ed
     mov ax, 0                        ; 0x86f0
     push ax                          ; 0x86f3
     push ax                          ; 0x86f4
@@ -110,9 +110,9 @@ loc_TQHJ:
     push ax                          ; 0x873f
     mov ax, 1                        ; 0x8740
     push ax                          ; 0x8743
-    push word [bss_a5b4]             ; 0x8744
-    push word [bss_a5b2]             ; 0x8748
+    push word [scene_backdrop_ref_hi] ; 0x8744
+    push word [scene_backdrop_ref]   ; 0x8748
     call gfx_restore_screen          ; 0x874c
     add sp, byte 8                   ; 0x874f
-    call loc_QSVI                    ; 0x8752
+    call blank_scene_screen          ; 0x8752
     ret                              ; 0x8755

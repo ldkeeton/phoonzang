@@ -360,13 +360,48 @@ const SOURCE_EXT = new Set(['c', 's']);
 const isGeneratedC = (doc) => doc.uri.scheme === 'file' &&
     /src_[^/\\]+[/\\][^/\\]+[/\\](?:[^/\\]+[/\\])?[^/\\]+\.[cs]$/.test(doc.fileName);
 
-// ------------------------------------------------------- make C (Claude)
+// ------------------------------------------------------- make C
 
-// An interactive Claude session in its own terminal tab, so the conversation is
-// visible.  Claude ends with a suggested routine name; naming stays manual.
-const converting = new Map();   // asm path -> terminal
+// An interactive agent session in its own terminal tab, so the conversation is
+// visible.  The agent ends with a suggested routine name; naming stays manual.
+// Each invocation gets its own tab, so Claude and OpenCode can work side by side.
 
-async function makeC(uri) {
+// Only the CLI invocation differs between agents; prepareMakeC does the rest.
+const AGENTS = {
+    claude: {
+        label: 'Claude',
+        cli: () => cfg().get('claude'),
+        model: () => cfg().get('claudeModel'),
+        // --allowedTools is variadic: a trailing prompt would be swallowed as another
+        // tool name (the session then starts empty), so the prompt goes first.
+        args(prompt, model) {
+            const args = [prompt, '--permission-mode', 'auto',
+                '--allowedTools=Read,Write,Edit,Bash(make rebuild),Bash(make name:*),Bash(make refs:*)'];
+            if (model) args.push('--model', model);
+            return args;
+        },
+        // No IDE integration: don't auto-connect, and drop the port the Claude VS Code
+        // extension injects into integrated terminals.
+        env: { CLAUDE_CODE_AUTO_CONNECT_IDE: 'false', CLAUDE_CODE_SSE_PORT: null },
+    },
+    opencode: {
+        label: 'OpenCode',
+        cli: () => cfg().get('opencode'),
+        model: () => cfg().get('opencodeModel'),
+        // Interactive TUI, with the prompt as its first message.
+        args(prompt, model) {
+            const args = ['--prompt', prompt, '--auto'];
+            if (model) args.push('--model', model);
+            return args;
+        },
+        env: {},
+    },
+};
+
+// Everything both agents share: resolve the routine, confirm a redo, work out the
+// sidecar key and compiler flags, and build the prompt.  Null when there is
+// nothing to do (bad selection, or the user backed out).
+async function prepareMakeC(uri, label) {
     uri = uri || (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri);
     const where = uri && locate(uri.fsPath);
     if (!where) return vscode.window.showErrorMessage('open a routine .asm under src_<PROJECT>/<binary>/');
@@ -375,17 +410,16 @@ async function makeC(uri) {
     const cFile = path.join(dir, `${where.label}.c`);
     const sFile = path.join(dir, `${where.label}.s`);
     if (!fs.existsSync(asmFile)) return vscode.window.showErrorMessage(`no ${asmFile}`);
-    if (converting.has(asmFile)) { converting.get(asmFile).show(); return; }
     const existing = [cFile, sFile].find((f) => fs.existsSync(f));
     if (existing) {
         const pick = await vscode.window.showWarningMessage(
-            `${path.basename(existing)} exists. Have Claude redo it?`, { modal: true }, 'Redo');
+            `${path.basename(existing)} exists. Have ${label} redo it?`, { modal: true }, 'Redo');
         if (pick !== 'Redo') return;
     }
     const rel = (f) => path.relative(root(), f);
 
     // Renaming goes through the sidecar, as nameRoutine does; the key is resolved here
-    // so Claude never has to work it out.
+    // so the agent never has to work it out.
     const shared = where.binary === SHARED_DIR;
     let key;
     if (shared) {
@@ -461,26 +495,25 @@ async function makeC(uri) {
             `Your final message: only the routine's new name, or, if you could not finish, what is ` +
             `left and why.`,
     ].join('\n\n');
-    // --allowedTools is variadic: a trailing prompt would be swallowed as another tool name
-    // (the session then starts empty), so the prompt goes first and the value is attached.
-    const args = [prompt, '--permission-mode', 'auto',
-        `--allowedTools=Read,Write,Edit,Bash(make rebuild),Bash(make name:*),Bash(make refs:*)`];
-    const model = cfg().get('claudeModel');
-    if (model) args.push('--model', model);
+    return { where, cFile, sFile, prompt };
+}
 
-    // No IDE integration: don't auto-connect, and drop the port the Claude VS Code
-    // extension injects into integrated terminals.
+// One agent session per invocation, so Claude and OpenCode can each have a tab (and
+// both can run at once).
+async function makeC(kind, uri) {
+    const agent = AGENTS[kind];
+    const job = await prepareMakeC(uri, agent.label);
+    if (!job) return;
+    const { where, cFile, sFile, prompt } = job;
     const term = vscode.window.createTerminal({
-        name: `Claude: ${where.label}`, cwd: root(), shellPath: cfg().get('claude'), shellArgs: args,
-        env: { CLAUDE_CODE_AUTO_CONNECT_IDE: 'false', CLAUDE_CODE_SSE_PORT: null },
-        location: vscode.TerminalLocation.Editor,
+        name: `${agent.label}: ${where.label}`, cwd: root(),
+        shellPath: agent.cli(), shellArgs: agent.args(prompt, agent.model()),
+        env: agent.env, location: vscode.TerminalLocation.Editor,
     });
-    converting.set(asmFile, term);
     term.show();
     const sub = vscode.window.onDidCloseTerminal(async (t) => {
         if (t !== term) return;
         sub.dispose();
-        converting.delete(asmFile);
         const made = [cFile, sFile].find((f) => fs.existsSync(f));
         if (!made) return;
         const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(made));
@@ -582,7 +615,8 @@ function activate(context) {
         vscode.commands.registerCommand('PHOONZANGAsmNav.goToAddress', async () => { await ready; return goToAddress(); }),
         vscode.commands.registerCommand('PHOONZANGAsmNav.nameRoutine', async () => { await ready; return nameRoutine(); }),
         vscode.commands.registerCommand('PHOONZANGAsmNav.diffVendor', diffVendor),
-        vscode.commands.registerCommand('PHOONZANGAsmNav.makeC', makeC),
+        vscode.commands.registerCommand('PHOONZANGAsmNav.makeC', (uri) => makeC('claude', uri)),
+        vscode.commands.registerCommand('PHOONZANGAsmNav.makeCOpenCode', (uri) => makeC('opencode', uri)),
         vscode.commands.registerCommand('PHOONZANGAsmNav.check', async (uri) => {
             const doc = uri
                 ? await vscode.workspace.openTextDocument(uri)

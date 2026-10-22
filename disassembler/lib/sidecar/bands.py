@@ -3,13 +3,22 @@
 The linker places its inputs in order, so a binary's code falls into bands:
 the game's own compiled objects, an in-house assembly library, the C library.
 Each band names the folder its fragments are emitted into
-(``ds/game/x.asm``).
+(``ds/game/x.asm``).  A name is a folder path, so a band can sit beneath
+another (``game/party``: a source module the link order shows, a run of
+routines several overlays carry in the same order, one object linked into
+each).  A name may repeat, one range each.
 """
+
+import re
 
 from .errors import SidecarError
 from .offsets import _parse_offset
 
+#: The kinds of code (:func:`lib.shared._band` sorts shared routines by them).
 BAND_NAMES = ('game', 'library', 'aztec')
+
+_WORD = r'[a-z][a-z0-9_]*'
+_NAME = re.compile(rf'^{_WORD}(?:/{_WORD})*$')
 
 
 def _validate_bands(bands, where):
@@ -20,8 +29,11 @@ def _validate_bands(bands, where):
         at = f'{where}[{index}]'
         if not isinstance(band, dict) or 'start' not in band or 'end' not in band:
             raise SidecarError(f'{at} must be an object with "start" and "end"')
-        if band.get('name') not in BAND_NAMES:
-            raise SidecarError(f'{at}.name must be one of {", ".join(BAND_NAMES)}')
+        name = band.get('name')
+        if not isinstance(name, str) or not _NAME.match(name) \
+                or name.split('/')[0] == 'data':
+            raise SidecarError(f'{at}.name must be a folder path of '
+                               'lower_snake_case words, not under "data"')
         if 'note' in band and not isinstance(band['note'], str):
             raise SidecarError(f'{at}.note must be a string')
         start = _parse_offset(band['start'], f'{at}.start')
