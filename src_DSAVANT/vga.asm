@@ -15,7 +15,7 @@ loc_JTQK_0007.mouse_off1 equ mouse_off
 loc_JTQK_000b.mouse_hit_test1 equ mouse_hit_test
 %include "shared/library/loc_JTQK_000b.asm"           ; 0x000b
 
-loc_JTQK_000f.leaf_loc1 equ leaf_loc_LMQV
+loc_JTQK_000f.leaf_loc1 equ request_mouse_redraw
 %include "shared/library/loc_JTQK_000f.asm"           ; 0x000f
 
 loc_JTQK_0013.bios_mouse_loc1 equ update_mouse_pointer
@@ -130,9 +130,9 @@ screen_buf_seg:
     db 0x00, 0x00, 0x40, 0x01
 scratch_buf_seg:
     db 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x30, 0x05, 0x00, 0x00, 0xd0, 0x01, 0x00, 0x00
-cseg_00f7:
+palette_ptr:
     times 4 db 0
-cseg_00fb:
+delay_hook:
     times 4 db 0
 ems_para_limit:
     db 0x00, 0x00
@@ -223,9 +223,9 @@ ems_paras_used:
 
 cseg_0515:
     db 0x00
-%include "vga/graphics_loc_RNOG.asm"       ; 0x0516
+%include "vga/clip_mouse_pointer_to_area.asm" ; 0x0516
 
-%include "vga/leaf_loc_PRNU.asm"           ; 0x067f
+%include "vga/redraw_mouse_pointer.asm"    ; 0x067f
 
 %include "shared/library/put_pixel.asm"               ; 0x06b2
 
@@ -339,7 +339,7 @@ cseg_0fea        equ draw_maze_piece.cseg1
 
 %include "shared/library/update_mouse_pointer.asm"    ; 0x12c9
 
-%include "shared/library/leaf_loc_LMQV.asm"           ; 0x1308
+%include "shared/library/request_mouse_redraw.asm"    ; 0x1308
 
 mouse_hit_test.cseg1 equ cseg_1dcd
 mouse_hit_test.cseg2 equ cseg_1dcf
@@ -461,7 +461,7 @@ dos_con_loc_TTIT equ dos_con_loc_QMKK
 cseg_22fe        equ dos_con_loc_QMKK.cseg1
 %include "shared/library/dos_con_loc_QMKK.asm"        ; 0x22ee
 
-cseg_2327:
+rgb_to_palette:
 
     db 0xef, 0x9f, 0x9d, 0x9c, 0x9b, 0xff, 0x9a, 0x99, 0x48, 0x8e, 0x8d, 0x8c, 0xff, 0xff, 0xff, 0xff
     db 0x38, 0xff, 0x4f, 0xff, 0x8b, 0xff, 0xff, 0xff, 0x37, 0xff, 0xff, 0x4e, 0xff, 0x89, 0x88, 0xff
@@ -520,12 +520,15 @@ cseg_2327:
 
 %include "shared/library/get_free_space.asm"          ; 0x2b01
 
+mouse_glide_to.cseg1 equ delay_hook
 %include "shared/library/mouse_glide_to.asm"          ; 0x2b6c
 
+mouse_glide_back.cseg1 equ delay_hook
 %include "shared/library/mouse_glide_back.asm"        ; 0x2c0e
 
 %include "shared/library/free_screen.asm"             ; 0x2cbe
 
+get_palette.cseg1 equ palette_ptr
 %include "shared/library/get_palette.asm"             ; 0x2d08
 
 text_state_words:

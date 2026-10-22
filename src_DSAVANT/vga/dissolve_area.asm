@@ -9,8 +9,8 @@ dissolve_area:
     push di                          ; 0x2531
     mov ax, ds                       ; 0x2532
     mov es, ax                       ; 0x2534
-    call leaf_loc_LMQV               ; 0x2536
-    call graphics_loc_RNOG           ; 0x2539
+    call request_mouse_redraw        ; 0x2536
+    call clip_mouse_pointer_to_area  ; 0x2539
 @..dissolve_area.l1:
     xor ax, ax                       ; 0x253c
     mov word [bp - 0x0022], ax       ; 0x253e
@@ -32,7 +32,7 @@ dissolve_area:
     mov cx, word [bp - 0x0004]       ; 0x2566
 @..dissolve_area.l3:
     push cx                          ; 0x2569
-    les di, word [cs:cseg_00f7 - IMAGE_BASE] ; 0x256a
+    les di, word [cs:palette_ptr - IMAGE_BASE] ; 0x256a
     mov cl, 3                        ; 0x256f
     mov dx, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x2571
     mov ds, dx                       ; 0x2576
@@ -234,7 +234,7 @@ dissolve_area:
     shl ax, cl                       ; 0x2726
     add bx, ax                       ; 0x2728
     add bx, word [bp - 0x0012]       ; 0x272a
-    add bx, cseg_2327 - IMAGE_BASE   ; 0x272d
+    add bx, rgb_to_palette - IMAGE_BASE ; 0x272d
     mov al, byte [cs:bx]             ; 0x2731
     cmp al, 0xff                     ; 0x2734
     je short @..dissolve_area.l33    ; 0x2736
@@ -261,12 +261,12 @@ dissolve_area:
     or ax, ax                        ; 0x2761
     je short @..dissolve_area.l35    ; 0x2763
     push word [bp + 0x14]            ; 0x2765
-    call far [cs:cseg_00fb - IMAGE_BASE] ; 0x2768
+    call far [cs:delay_hook - IMAGE_BASE] ; 0x2768
     pop ax                           ; 0x276d
 @..dissolve_area.l35:
     jmp near @..dissolve_area.l1     ; 0x276e
 @..dissolve_area.l36:
-    call leaf_loc_PRNU               ; 0x2771
+    call redraw_mouse_pointer        ; 0x2771
     call update_mouse_pointer        ; 0x2774
     pop di                           ; 0x2777
     pop si                           ; 0x2778

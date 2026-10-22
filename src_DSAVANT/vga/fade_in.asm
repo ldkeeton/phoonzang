@@ -30,7 +30,7 @@ fade_in:
     mov ax, word [bp - 0x0002]       ; 0x283a
     mov ds, ax                       ; 0x283d
     xor si, si                       ; 0x283f
-    les di, word [cs:cseg_00f7 - IMAGE_BASE] ; 0x2841
+    les di, word [cs:palette_ptr - IMAGE_BASE] ; 0x2841
     mov cx, 0x100                    ; 0x2846
 @..fade_in.l3:
     push cx                          ; 0x2849
@@ -80,7 +80,7 @@ fade_in:
     or ax, ax                        ; 0x289c
     je short @..fade_in.l9           ; 0x289e
     push ax                          ; 0x28a0
-    call far [cs:cseg_00fb - IMAGE_BASE] ; 0x28a1
+    call far [cs:delay_hook - IMAGE_BASE] ; 0x28a1
     pop ax                           ; 0x28a6
 @..fade_in.l9:
     jmp short @..fade_in.l2          ; 0x28a7

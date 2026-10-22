@@ -12,7 +12,7 @@ reset_rgb:
     mov ax, word [bp + 0xc]          ; 0x2a04
     cmp ax, strict word 0xffff       ; 0x2a07
     jne short @..reset_rgb.l3        ; 0x2a0a
-    lds si, word [cs:cseg_00f7 - IMAGE_BASE] ; 0x2a0c
+    lds si, word [cs:palette_ptr - IMAGE_BASE] ; 0x2a0c
     mov cx, 0x300                    ; 0x2a11
     mov dx, 0x3c8                    ; 0x2a14
     mov al, 0                        ; 0x2a17

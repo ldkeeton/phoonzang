@@ -833,6 +833,9 @@
     },
     "vga": {
       "function_names": {
+        "0516": {"name": "clip_mouse_pointer_to_area", "note": "clips the saved mouse rectangle against the dissolve rectangle"},
+        "067f": {"name": "redraw_mouse_pointer", "note": "copies the saved mouse shape into the screen buffer"},
+        "1308": {"name": "request_mouse_redraw", "note": "sets mouse_redraw_pending when a mouse is present"},
         "381b": {"name": "cache_area_disk_error", "note": "prints the CACHEAREA() disk-write error from a code-segment string via int 21h/9 and exits to DOS with code 1"},
         "3aee": {"name": "cache_area_ems_slots_full", "note": "prints CACHEAREA out of EMS slots and exits"},
         "3b1f": {"name": "cache_area_maze_mem_full", "note": "prints CACHEAREA out of MAZE/PIC memory and exits"},
@@ -863,6 +866,8 @@
         "00e1": {"name": "maze_mem_seg", "note": "segment base of MAZE memory, added to a block paragraph"},
         "00e5": {"name": "screen_buf_seg", "note": "segment of the 320-byte-stride screen buffer"},
         "00e9": {"name": "scratch_buf_seg", "note": "segment of the scratch buffer that pictures, sounds and cached screens are staged through"},
+        "00f7": {"name": "palette_ptr", "note": "far pointer to the 256-entry 3-byte VGA palette"},
+        "00fb": {"name": "delay_hook", "note": "far pointer to the inter-pass delay hook"},
         "00ff": {"name": "ems_para_limit", "note": "EMS paragraphs available"},
         "0103": {"name": "ems_frame_seg", "note": "EMS page frame segment"},
         "0106": {"name": "music_start_far", "note": "far entry point (offset, segment) in the sound driver that starts the loaded score"},
@@ -892,6 +897,7 @@
         "14ae": {"name": "mouse_drawn_y", "note": "pointer Y last drawn; mouse_init sets 0xffff to force a redraw"},
         "22de": {"name": "picture_error_tens", "note": "tens digit patched into the picture not freed message"},
         "22df": {"name": "picture_error_ones", "note": "ones digit patched into the picture not freed message"},
+        "2327": {"name": "rgb_to_palette", "note": "512-byte RGB-to-palette index map, 0xff = no entry"},
         "2d2b": {"name": "text_state_words", "note": "20 words cleared by draw_text before each string"},
         "2d53": {"name": "text_state_bytes", "note": "25 bytes cleared by draw_text before each string"},
         "371b": {"name": "intensity_limits", "note": "ceiling table indexed by a source byte; graphics_loc clamps the sum to it"},

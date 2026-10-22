@@ -346,7 +346,8 @@ cseg_150b        equ draw_maze_piece.cseg1
 
 %include "shared/library/update_mouse_pointer.asm"    ; 0x18c1
 
-%include "shared/library/leaf_loc_LMQV.asm"           ; 0x1900
+leaf_loc_LMQV equ request_mouse_redraw
+%include "shared/library/request_mouse_redraw.asm"           ; 0x1900
 
 mouse_hit_test.cseg1 equ cseg_2a02
 mouse_hit_test.cseg2 equ cseg_2a04
@@ -552,12 +553,15 @@ cseg_32b3:
 
 %include "shared/library/get_free_space.asm"          ; 0x33b3
 
+mouse_glide_to.cseg1 equ cseg_00fb
 %include "shared/library/mouse_glide_to.asm"          ; 0x341e
 
+mouse_glide_back.cseg1 equ cseg_00fb
 %include "shared/library/mouse_glide_back.asm"        ; 0x34c0
 
 %include "shared/library/free_screen.asm"             ; 0x3570
 
+get_palette.cseg1 equ cseg_00f7
 %include "shared/library/get_palette.asm"             ; 0x35ba
 
 text_state_words:

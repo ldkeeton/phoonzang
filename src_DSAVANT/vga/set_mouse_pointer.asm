@@ -20,7 +20,7 @@ set_mouse_pointer:
     jne short @..set_mouse_pointer.l1 ; 0x13e6
     cmp ax, 0x401                    ; 0x13e8
     jae short @..set_mouse_pointer.l1 ; 0x13eb
-    call leaf_loc_LMQV               ; 0x13ed
+    call request_mouse_redraw        ; 0x13ed
     mov ax, word [bp + 0xc]          ; 0x13f0
     mov word [cs:cseg_1d64 - IMAGE_BASE], ax ; 0x13f3
     mov ax, word [bp + 0xe]          ; 0x13f7

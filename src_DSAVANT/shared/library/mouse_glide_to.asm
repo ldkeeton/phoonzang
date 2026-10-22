@@ -63,7 +63,7 @@ mouse_glide_to:
     or ax, ax
     je short @..mouse_glide_to.l2
     push ax
-    call far [cs:cseg_00fb - IMAGE_BASE]
+    call far [cs:mouse_glide_to.cseg1 - IMAGE_BASE]
     pop ax
     jmp short @..mouse_glide_to.l2
 @..mouse_glide_to.l8:

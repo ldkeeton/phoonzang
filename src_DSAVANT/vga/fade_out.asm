@@ -89,7 +89,7 @@ fade_out:
     or ax, ax                        ; 0x29a1
     je short @..fade_out.l2          ; 0x29a3
     push ax                          ; 0x29a5
-    call far [cs:cseg_00fb - IMAGE_BASE] ; 0x29a6
+    call far [cs:delay_hook - IMAGE_BASE] ; 0x29a6
     pop ax                           ; 0x29ab
     jmp short @..fade_out.l2         ; 0x29ac
 @..fade_out.l9:

@@ -9,8 +9,8 @@ show_area:
     push si                          ; 0x04be
     mov ax, ds                       ; 0x04bf
     mov es, ax                       ; 0x04c1
-    call leaf_loc_LMQV               ; 0x04c3
-    call graphics_loc_RNOG           ; 0x04c6
+    call request_mouse_redraw        ; 0x04c3
+    call clip_mouse_pointer_to_area  ; 0x04c6
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x04c9
     mov ds, ax                       ; 0x04cd
     mov ax, 0xa000                   ; 0x04cf
@@ -36,7 +36,7 @@ show_area:
     rep movsb                        ; 0x0502
     dec dx                           ; 0x0504
     jne short @..show_area.l1        ; 0x0505
-    call leaf_loc_PRNU               ; 0x0507
+    call redraw_mouse_pointer        ; 0x0507
     call update_mouse_pointer        ; 0x050a
     pop si                           ; 0x050d
     pop di                           ; 0x050e
