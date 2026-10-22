@@ -6,6 +6,7 @@ import tempfile
 import unittest
 
 from lib.compare.splitting import _partition_function_records
+from lib.routine_source import FragmentLengthError, owned_length
 from lib.sidecar.bands import _validate_bands, band_for, parse_bands
 from lib.sidecar.errors import SidecarError
 from main import aztec
@@ -89,22 +90,25 @@ class BandHomeTest(unittest.TestCase):
 
 
 
-class HandLengthTest(unittest.TestCase):
-    def test_runs_to_next_root_inside_band(self):
-        bands = parse_bands(BANDS)
-        self.assertEqual(aztec._hand_length(0x200, [0x208, 0x230], bands, 3), 8)
+class OwnedLengthTest(unittest.TestCase):
+    def test_owns_exactly_the_compiled_bytes(self):
+        # shorter than the recorded fragment: the tail is split off
+        self.assertEqual(owned_length(0x200, 3, recorded_end=0x208), 3)
+        # the same length: no split
+        self.assertEqual(owned_length(0x200, 8, recorded_end=0x208), 8)
 
-    def test_stops_at_band_end(self):
-        bands = parse_bands(BANDS)
-        # the next root is past the band's data: the band's end wins
-        self.assertEqual(aztec._hand_length(0x208, [0x228], bands, 3), 8)
-        # and with no root after it at all
-        self.assertEqual(aztec._hand_length(0x208, [], bands, 3), 8)
+    def test_may_not_grow_past_its_fragment(self):
+        with self.assertRaises(FragmentLengthError):
+            owned_length(0x200, 9, recorded_end=0x208)
 
-    def test_no_bands_or_roots(self):
-        self.assertEqual(aztec._hand_length(0x208, [0x228], [], 3), 0x20)
-        self.assertEqual(aztec._hand_length(0x208, [], [], 3), 3)
-        self.assertEqual(aztec._hand_length(None, [0x228], [], 3), 3)
+    def test_may_not_grow_past_next_root_or_band(self):
+        with self.assertRaises(FragmentLengthError):
+            owned_length(0x200, 9, next_root=0x208)
+        with self.assertRaises(FragmentLengthError):
+            owned_length(0x208, 9, band_end=0x210)
+
+    def test_unknown_start_owns_the_compile(self):
+        self.assertEqual(owned_length(None, 3, next_root=0x208), 3)
 
 
 if __name__ == '__main__':

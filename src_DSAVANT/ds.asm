@@ -562,7 +562,7 @@ cseg_2f62:
     db 0x00, 0x00
 cseg_2f64:
     db 0x00, 0x00
-cseg_2f66:
+mouse_button_count:
     db 0x00
 cseg_2f67:
 
@@ -736,7 +736,7 @@ delay_loop_target:
 
 %include "ds/library/ds_loc_RMTO.asm"      ; 0x3796
 
-%include "ds/library/ds_bios_mouse_loc_RUQG.asm" ; 0x37a5
+%include "ds/library/detect_mouse.asm"     ; 0x37a5
 
 cseg_37d1:
     db 'EMMXXXX0'

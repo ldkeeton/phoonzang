@@ -437,12 +437,19 @@ def resplice_c(app, binary, check_only=False, only=None):
                 'externals': compiled_module.externals,
             })
         spans_here = cache.data_spans(app, binary, label, entry, text)
-        # The .c compiles to exactly its fragment.  One that no longer does is
-        # a real edit that moves code, which only a full build can relayout.
-        if len(func.code) != span_len and not lenient:
+        # The same ownership rule as the full build: a hand source owns what
+        # it compiled to, and may not grow past its recorded fragment.  A
+        # shorter compile is a split only a full build can relayout.
+        try:
+            owned = routine_source.owned_length(start, len(func.code),
+                                                recorded_end=end)
+        except routine_source.FragmentLengthError as exc:
+            raise SystemExit(f'error: {label}: '
+                             f'{os.path.relpath(cpath, out_dir)}: {exc}')
+        if owned != span_len and not lenient:
             raise SystemExit(
                 f'error: {label}: {os.path.relpath(cpath, out_dir)} compiles '
-                f'to {len(func.code)} bytes, its fragment is {span_len}; run '
+                f'to {owned} bytes, its fragment is {span_len}; run '
                 f'"make build {app}"')
         # A vendor module's bytes before its first routine are data the build
         # rendered from the disassembly; they stay as the fragment has them.

@@ -1,5 +1,6 @@
 """Resolve Aztec runtime routines to C and compile the current seeds."""
 
+import json
 import os
 
 from lib import routine_source
@@ -19,7 +20,7 @@ from .options import (
 
 
 def _aztec_c_overrides(project, name, data, label_map, out_dir,
-                       function_roots=None, start_offset=0, code_data_starts=()):
+                       function_roots=None, start_offset=0):
     """Resolve Aztec runtime routines to C and compile the current seeds.
 
     Returns ``(overrides, entries, files)`` where *overrides* feeds the
@@ -96,8 +97,20 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     known |= set(spans)
     shared_c = [label for label in _hand_shared_c(out_dir) if label in known]
 
+    # The host's address-derived names carry a prefix (``ds_``) that the build
+    # adds after this pass.  A source written against the current asm label
+    # may already have it, so match through it to the unprefixed label the
+    # compiler and the recorded spans use.
+    def canonical(label):
+        if label in known:
+            return label
+        prefix = f'{name}_'
+        stripped = label[len(prefix):] if label.startswith(prefix) else None
+        return stripped if stripped in known else None
+
+    sources = sorted(set(hand_c) | set(shared_c))
     orphans = sorted(os.path.basename(found_c[label]) for label in hand_c
-                     if label not in known)
+                     if canonical(label) is None)
     if orphans:
         raise SystemExit(
             f'error: source file(s) in {dest} with no matching asm routine: '
@@ -109,7 +122,8 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     starts.update((module, span.start) for module, span in spans.items())
 
     def home(label):
-        return _band_home(dest, bands, starts.get(label))
+        return _band_home(dest, bands,
+                          starts.get(canonical(label) or label))
 
     for label, path in sorted(found_c.items()):
         if os.path.dirname(path) != home(label):
@@ -117,28 +131,31 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
                 f'error: {path}: move it to {home(label)}/, beside its .asm')
     module_of = {member: span for span in spans.values()
                  for member in span.members}
-    for label in sorted(set(hand_c) | set(shared_c)):
-        span = module_of.get(label)
-        if span is not None and label not in spans:
+    for label in sources:
+        routine = canonical(label) or label
+        span = module_of.get(routine)
+        if span is not None and routine not in spans:
             raise SystemExit(
-                f'error: {c_path(dest, label, home(label))}: {label} is part '
-                f'of module {span.file}, whose source is '
+                f'error: {c_path(dest, label, home(label))}: {routine} is '
+                f'part of module {span.file}, whose source is '
                 f'{span.name}{cache.seed_suffix(span.entry)}; merge it there')
 
     # Everything the loops below compile goes through DOSBox up front, one
     # session per tool and flags instead of one per routine; the loops then
     # hit the object cache.
-    hand = [label for label in sorted(set(hand_c) | set(shared_c))
-            if label not in spans and label not in module_of]
+    hand = [label for label in sources
+            if (canonical(label) or label) not in spans
+            and (canonical(label) or label) not in module_of]
     batch = [(module, span.entry,
               _seed_aztec_c(cache, project, name, module, span.entry, dest,
                             home(module))[0])
              for module, span in sorted(spans.items())]
     for label in hand:
+        routine = canonical(label) or label
         path = c_path(dest, label, home(label))
         with open(path) as f:
-            batch.append((label, cache.default_entry(
-                label, project, os.path.splitext(path)[1]), f.read()))
+            batch.append((routine, cache.default_entry(
+                routine, project, os.path.splitext(path)[1]), f.read()))
     try:
         failed = cache.precompile(project, name, batch)
     except Exception as exc:
@@ -199,40 +216,51 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         }
     # A hand-written <label>.c or .s outside every placed module (an
     # application routine, or a vendor routine whose module stays assembly)
-    # replaces that routine too.  It owns its fragment: up to the next
-    # fragment root, or its band's end (:func:`_hand_length`).
+    # replaces that routine too.  It owns exactly what it compiled to: the
+    # recorded span's tail, if any, becomes its own fragment on this build.
+    recorded = _recorded_spans(project, name)
     roots = sorted(function_roots or ())
     for label in hand:
+        routine = canonical(label) or label
         path = c_path(dest, label, home(label))
         with open(path) as f:
             text = f.read()
-        entry = cache.default_entry(label, project,
+        entry = cache.default_entry(routine, project,
                                     os.path.splitext(path)[1])
         try:
-            if label in failed:
-                raise failed[label]
+            if routine in failed:
+                raise failed[routine]
             compiled, func = cache.compile_source_module(
-                project, name, label, entry, text)
+                project, name, routine, entry, text)
         except Exception as exc:
             raise SystemExit(f'error: {os.path.basename(path)}: compile '
                              f'failed ({exc})')
-        start = starts.get(label)
+        start = starts.get(routine)
+        band = band_for(bands, start) if start is not None else None
+        try:
+            length = routine_source.owned_length(
+                start, len(func.code),
+                recorded_end=recorded.get(start),
+                next_root=(next((r for r in roots if r > start), None)
+                           if start is not None else None),
+                band_end=(band[1] + 1) if band is not None else None)
+        except routine_source.FragmentLengthError as exc:
+            raise SystemExit(f'error: {os.path.basename(path)}: {exc}')
         overrides[label] = {
             'func': func, 'text': text, 'path': path,
-            'own_keys': {cache.own_key(label, entry): label},
+            'own_keys': {cache.own_key(routine, entry): label},
             'pristine': False,
-            'compile': (lambda t, _l=label, _e=entry:
+            'compile': (lambda t, _l=routine, _e=entry:
                         cache.compile_source(project, name, _l, _e, t)),
             'code': func.code,
             'fixups': [(fx.offset, fixup_width(fx.kind))
                        for fx in func.fixups],
-            'data_spans': cache.data_spans(project, name, label, entry,
+            'data_spans': cache.data_spans(project, name, routine, entry,
                                            text),
             'module_data': compiled.data,
             'module_data_relocations': compiled.data_relocations,
             'module_externals': compiled.externals,
-            'length': _hand_length(start, roots, bands, len(func.code),
-                                    code_data_starts),
+            'length': length,
             # A .s module's publics, each an asm label the build must give
             # the same name (lib.compare.coverrides._check_publics).
             'publics': ({external_label(f.cname): f.offset
@@ -440,26 +468,24 @@ def _hand_shared_c(out_dir):
                    for label in _hand_c(folder)})
 
 
-def _hand_length(start, roots, bands, code_len, data_starts=()):
-    """The bytes a hand-written routine at *start* owns.
+def _recorded_spans(project, name):
+    """``{start: end}`` of the routine spans the last build emitted.
 
-    Up to the next fragment root, but never past the first named data object
-    at or after the end of its *code_len* compiled bytes, nor past the end of
-    its sidecar band:
-    a band's last object ends where the band does, and what follows (the next
-    object's data, a linker alignment pad outside every band) is not its code.
-    With neither, the compiled *code_len*.
+    The full build and ``make rebuild`` both read this one record: a hand
+    source owns exactly its compiled bytes, and the recorded end is the
+    boundary it must not grow past.
     """
-    if start is None:
-        return code_len
-    end = next((r for r in sorted(roots) if r > start), None)
-    stop = next((d for d in data_starts if d >= start + code_len), None)
-    if stop is not None and (end is None or stop < end):
-        end = stop
-    band = band_for(bands, start) if bands else None
-    if band is not None and (end is None or end > band[1] + 1):
-        end = band[1] + 1
-    return (end - start) if end is not None else code_len
+    from lib.cachedirs import spans_dir
+    path = os.path.join(spans_dir(project), f'{name}_aztec_spans.json')
+    try:
+        with open(path) as f:
+            spans = json.load(f)
+    except (OSError, ValueError):
+        return {}
+    out = {}
+    for start, end in spans.values():
+        out[int(start)] = int(end)
+    return out
 
 
 def _sidecar_bands(project, binary):

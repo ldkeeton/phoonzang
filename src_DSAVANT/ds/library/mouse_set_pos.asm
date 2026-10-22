@@ -9,7 +9,7 @@ mouse_set_pos:
     push di                          ; 0x42bb
     mov ax, ds                       ; 0x42bc
     mov es, ax                       ; 0x42be
-    cmp byte [cs:cseg_2f66 - IMAGE_BASE], 0 ; 0x42c0
+    cmp byte [cs:mouse_button_count - IMAGE_BASE], 0 ; 0x42c0
     je short @..mouse_set_pos.l1     ; 0x42c6
     mov cx, word [bp + 0x4]          ; 0x42c8
     shl cx, 1                        ; 0x42cb

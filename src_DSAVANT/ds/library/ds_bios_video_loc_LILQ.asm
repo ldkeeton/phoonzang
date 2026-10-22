@@ -14,7 +14,7 @@ ds_bios_video_loc_LILQ:
     call ds_leaf_loc_QNNO            ; 0x3079
     call detect_video_adapter        ; 0x307c
     call ds_dos_mem_loc_TGHM         ; 0x307f
-    call ds_bios_mouse_loc_RUQG      ; 0x3082
+    call detect_mouse                ; 0x3082
     call ds_dos_intvec_loc_OHRJ      ; 0x3085
     call ds_dos_file_loc_NKUS        ; 0x3088
     call ds_dos_file_loc_SJIH        ; 0x308b

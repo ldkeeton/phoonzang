@@ -617,6 +617,10 @@ function opencodePrompt(job) {
             `lowercase_underscore names and keep any prefix its flags need.\n` +
             `4. Fix any rebuild failure until \`make rebuild\` passes. No address-named or content-tagged ` +
             `symbol may remain in the source.`,
+        `The tooling is part of the job. If the workflow itself is wrong -- a byte-exact source is ` +
+            `rejected, a rename leaves a source orphaned, or build and rebuild disagree -- diagnose and ` +
+            `fix the disassembler/make CLI rather than forcing the routine through it. Say what you ` +
+            `changed.`,
         `Your final message: only the routine's new name, or, if you could not finish, what is left ` +
             `and why.`,
         authoringGuide(),

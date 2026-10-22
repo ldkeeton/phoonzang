@@ -53,3 +53,30 @@ def beside(path_no_ext, exists=os.path.isfile):
         if exists(path_no_ext + suffix):
             return path_no_ext + suffix
     return None
+
+
+class FragmentLengthError(ValueError):
+    """A hand-written source does not fit the fragment it may own."""
+
+
+def owned_length(start, compiled_len, recorded_end=None, next_root=None,
+                 band_end=None):
+    """The bytes a hand-written source owns: exactly what it compiled to.
+
+    A source may be shorter than the fragment it was split from -- the tail
+    becomes its own fragment on the next build.  It may not grow past the
+    fragment it replaces, the next routine, or its sidecar band: that would
+    shift or overlap later addresses.  *recorded_end*, *next_root* and
+    *band_end* are absolute image offsets, all exclusive.
+    """
+    if start is None:
+        return compiled_len
+    end = start + compiled_len
+    for what, limit in (('its fragment', recorded_end),
+                        ('the next routine', next_root),
+                        ('its band', band_end)):
+        if limit is not None and end > limit:
+            raise FragmentLengthError(
+                f'source at 0x{start:04x} compiles to {compiled_len} bytes '
+                f'(0x{end:04x}), past {what} at 0x{limit:04x}')
+    return compiled_len

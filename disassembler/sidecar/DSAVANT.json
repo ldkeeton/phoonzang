@@ -224,6 +224,7 @@
           "name": "delay_ms",
           "note": "hand-written asm: [bp+4] times, counts loops_per_ms (calibrated to one millisecond) down to delay_loop_target (always 0)"
         },
+        "37a5": {"name": "detect_mouse", "note": "checks the INT 33h vector and resets the mouse; sets bit 12 of the caller result"},
         "3860": {
           "name": "load_font_file",
           "note": "hand-written asm: reads the 16-byte font header from handle [bp+4] into the segment at cs 0x2f4a, allocates a DOS block for the font, records it in font_seg_table[[bp+6]] and reads the rest; I/O errors print font_io_error_msg and exit"
@@ -482,6 +483,7 @@
         "2f3b": {"name": "video_is_herc", "note": "only cleared here, never set in DS; by the driver order presumably Hercules: unconfirmed"},
         "2f4a": {"name": "font_header_seg", "note": "segment load_font_file reads the 16-byte font header into (0 until set at run time)"},
         "2f4e": {"name": "misc_table_seg", "note": "segment read_misc_table reads the 0x400-byte misc table into and unpack_record reads from (0 until set at run time)"},
+        "2f66": {"name": "mouse_button_count", "note": "INT 33h reset result: button count, 0 = no mouse driver"},
         "2f83": {"name": "play_drv_wait", "note": "far pointer to PLAY.DRV jump-table slot 7 (0x011f, leaf_loc_IUKK): with arg 0 busy-waits on the driver's flags; get_filtered_key calls it before reading a key"},
         "2faf": {"name": "gfx_drv_slot_10", "note": "far pointer to the graphics driver's jump-table slot 10 (0x012b, leaf_loc_UQHV: zeroes a driver word); flush_keyboard calls it"},
         "2fb3": {"name": "gfx_drv_draw_glyph", "note": "far entry of the graphics driver glyph renderer"},
