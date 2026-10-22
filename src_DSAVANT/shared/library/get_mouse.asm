@@ -6,7 +6,7 @@ get_mouse:
     push es
     mov ax, ds
     mov es, ax
-    cmp byte [cs:cseg_0128 - IMAGE_BASE], 0
+    cmp byte [cs:mouse_present - IMAGE_BASE], 0
     je short @..get_mouse.l1
     mov ax, 3
     int 0x33 ; BIOS mouse

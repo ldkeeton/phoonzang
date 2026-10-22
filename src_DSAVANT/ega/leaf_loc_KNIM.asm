@@ -6,10 +6,10 @@ leaf_loc_KNIM:
     mov es, ax                       ; 0x0b9d
     mov ax, cs                       ; 0x0b9f
     mov ds, ax                       ; 0x0ba1
-    mov ax, word [cs:cseg_1adb - IMAGE_BASE] ; 0x0ba3
+    mov ax, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x0ba3
     mov bx, 0x140                    ; 0x0ba7
     mul bx                           ; 0x0baa
-    add ax, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x0bac
+    add ax, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x0bac
     mov di, ax                       ; 0x0bb1
     mov si, word [cs:cseg_1ad7 - IMAGE_BASE] ; 0x0bb3
     mov cx, word [cs:cseg_1ae3 - IMAGE_BASE] ; 0x0bb8

@@ -65,6 +65,7 @@
       "name": "mouse_set_pos",
       "note": "ds: INT 33h AX=4 when a mouse is present"
     },
+    "bios_mouse_loc_PTIM": {"name": "update_mouse_pointer", "note": "polls INT 33h/3 and redraws the pointer if it moved since last drawn, unless mouse_glide_active or no mouse; clears mouse_redraw_pending"},
     "dos_con_loc_KQTJ": {
       "name": "dos_con_in_noecho",
       "note": "vinstall: INT 21h AH=7, returns the key"
@@ -74,6 +75,7 @@
       "note": "ds: seeks to index x record size, then reads one record (INT 21h AH=3Fh)"
     },
     "leaf_loc_HLGJ": {"name": "ems_map_pages", "note": "maps EMS logical pages ax and ax+1 into frame pages 0 and 1"},
+    "leaf_loc_JHTT": {"name": "draw_mouse_pointer_at", "note": "far-returning entry: unless already busy, sets its busy flag, stores the pointer position (cx/2, dx) and falls into the adapter pointer drawer"},
     "leaf_loc_MIUQ": {
       "name": "strpos",
       "note": "ds: index of a char in a string, 0xFFFF if absent (repne scasb)"
@@ -819,6 +821,13 @@
       "fingerprint-end": "7f2b38f34f19a1344d7654e39b636dc35eca7916d4861533a83a4d3ba105e524"
     },
     "vga": {
+      "code_data_names": {
+        "0126": {"name": "mouse_glide_active", "note": "1 while mouse_glide_to moves the pointer; cleared by mouse_glide_back"},
+        "0127": {"name": "mouse_redraw_pending", "note": "set to 1 by leaf_loc_LMQV when a mouse is present; cleared after the pointer is redrawn"},
+        "0128": {"name": "mouse_present", "note": "1 once mouse_init has reset the INT 33h driver"},
+        "14ac": {"name": "mouse_drawn_x", "note": "pointer X (INT 33h column / 2) last drawn; compared to skip redundant redraws"},
+        "14ae": {"name": "mouse_drawn_y", "note": "pointer Y last drawn; mouse_init sets 0xffff to force a redraw"}
+      },
       "file": "VGA.DRV",
       "type": "raw_drv",
       "start_offset": 0,
@@ -859,6 +868,9 @@
         "00e5": {"name": "screen_buf_seg", "note": "segment of the 320-byte-stride screen buffer"},
         "00ff": {"name": "ems_para_limit", "note": "EMS paragraphs available"},
         "0103": {"name": "ems_frame_seg", "note": "EMS page frame segment"},
+        "0126": {"name": "mouse_glide_active", "note": "1 while mouse_glide_to moves the pointer; cleared by mouse_glide_back"},
+        "0127": {"name": "mouse_redraw_pending", "note": "set to 1 by leaf_loc_LMQV when a mouse is present; cleared after the pointer is redrawn"},
+        "0128": {"name": "mouse_present", "note": "1 once mouse_init has reset the INT 33h driver"},
         "015b": {"name": "maze_slots", "note": "16 MAZE slot words, each a block id or 0 when free"},
         "019b": {"name": "ems_slots", "note": "20 EMS slot words, each a block id or 0 when free"},
         "01eb": {"name": "ems_blocks", "note": "EMS block table, 4 bytes per id: start paragraph, paragraph count"},
@@ -867,6 +879,8 @@
         "0ffb": {"name": "maze_blocks", "note": "MAZE block table, 4 bytes per id: start paragraph, paragraph count"},
         "10cb": {"name": "maze_block_count", "note": "last MAZE block id handed out"},
         "10cd": {"name": "maze_paras_used", "note": "MAZE memory paragraphs allocated so far"},
+        "1ad9": {"name": "mouse_drawn_x", "note": "pointer X (INT 33h column / 2) last drawn; compared to skip redundant redraws"},
+        "1adb": {"name": "mouse_drawn_y", "note": "pointer Y last drawn; mouse_init sets 0xffff to force a redraw"},
         "3a18": {"name": "msg_frame_too_big", "note": "CR LF BEL \"Frame NN too big in slot NN.\" $-terminated error message"},
         "3a21": {"name": "frame_digit_hi", "note": "first frame digit of msg_frame_too_big, ORed into an ASCII 0"},
         "3a22": {"name": "frame_digit_lo", "note": "second frame digit of msg_frame_too_big, ORed into an ASCII 0"},

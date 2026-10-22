@@ -267,7 +267,7 @@ dissolve_area:
     jmp near @..dissolve_area.l1     ; 0x276e
 @..dissolve_area.l36:
     call leaf_loc_PRNU               ; 0x2771
-    call bios_mouse_loc_PTIM         ; 0x2774
+    call update_mouse_pointer        ; 0x2774
     pop di                           ; 0x2777
     pop si                           ; 0x2778
     pop es                           ; 0x2779

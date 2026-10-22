@@ -33,13 +33,13 @@ mouse_init:
     mov ax, cs                       ; 0x123f
     push ax                          ; 0x1241
     mov ax, 0xffff                   ; 0x1242
-    mov word [cs:cseg_14ae - IMAGE_BASE], ax ; 0x1245
+    mov word [cs:mouse_drawn_y - IMAGE_BASE], ax ; 0x1245
     call graphics_loc_OSKV           ; 0x1249
     pop si                           ; 0x124c
     pop di                           ; 0x124d
     pop es                           ; 0x124e
     pop ds                           ; 0x124f
-    mov byte [cs:cseg_0128 - IMAGE_BASE], 1 ; 0x1250
+    mov byte [cs:mouse_present - IMAGE_BASE], 1 ; 0x1250
     push es                          ; 0x1256
     mov ax, 0x14                     ; 0x1257
     mov bx, cs                       ; 0x125a

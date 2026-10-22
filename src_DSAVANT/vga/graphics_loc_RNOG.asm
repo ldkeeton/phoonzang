@@ -1,9 +1,9 @@
 ; auto-generated
 graphics_loc_RNOG:
-    cmp byte [cs:cseg_0128 - IMAGE_BASE], 1 ; 0x0516
+    cmp byte [cs:mouse_present - IMAGE_BASE], 1 ; 0x0516
     jne short @..graphics_loc_RNOG.l1 ; 0x051c
-    mov cx, word [cs:cseg_14ac - IMAGE_BASE] ; 0x051e
-    mov dx, word [cs:cseg_14ae - IMAGE_BASE] ; 0x0523
+    mov cx, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x051e
+    mov dx, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x0523
     cmp word [bp + 0x10], cx         ; 0x0528
     jb short @..graphics_loc_RNOG.l1 ; 0x052b
     cmp word [bp + 0x12], dx         ; 0x052d
@@ -21,14 +21,14 @@ graphics_loc_RNOG:
     jmp near @..graphics_loc_RNOG.l12 ; 0x054e
 @..graphics_loc_RNOG.l2:
     mov byte [cs:cseg_0515 - IMAGE_BASE], 1 ; 0x0551
-    mov cx, word [cs:cseg_14ac - IMAGE_BASE] ; 0x0557
+    mov cx, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x0557
     mov ax, cx                       ; 0x055c
     cmp word [bp + 0xc], cx          ; 0x055e
     jb short @..graphics_loc_RNOG.l3 ; 0x0561
     mov ax, word [bp + 0xc]          ; 0x0563
 @..graphics_loc_RNOG.l3:
     mov word [bp - 0x0006], ax       ; 0x0566
-    mov dx, word [cs:cseg_14ae - IMAGE_BASE] ; 0x0569
+    mov dx, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x0569
     mov bx, dx                       ; 0x056e
     cmp word [bp + 0xe], dx          ; 0x0570
     jb short @..graphics_loc_RNOG.l4 ; 0x0573

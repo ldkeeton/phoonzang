@@ -10,7 +10,7 @@ mouse_hit_test:
     mov es, ax
     mov word [bp - 0x0004], 1
     xor ax, ax
-    cmp byte [cs:cseg_0128 - IMAGE_BASE], 0
+    cmp byte [cs:mouse_present - IMAGE_BASE], 0
     je short @..mouse_hit_test.l6
     mov bx, word [cs:mouse_hit_test.cseg1 - IMAGE_BASE]
     or bx, bx

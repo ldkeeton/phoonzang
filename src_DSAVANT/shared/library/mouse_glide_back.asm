@@ -9,7 +9,7 @@ mouse_glide_back:
     push di
     mov ax, ds
     mov es, ax
-    cmp byte [cs:cseg_0128 - IMAGE_BASE], 1
+    cmp byte [cs:mouse_present - IMAGE_BASE], 1
     je short @..mouse_glide_back.l1
     jmp near @..mouse_glide_back.l9
 @..mouse_glide_back.l1:
@@ -18,9 +18,9 @@ mouse_glide_back:
     mov word [bp - 0x0002], ax
     mov ax, word [bp + 0xe]
     mov word [bp - 0x0004], ax
-    mov cx, word [cs:mouse_glide_back.cseg1 - IMAGE_BASE]
+    mov cx, word [cs:mouse_drawn_x - IMAGE_BASE]
     shl cx, 1
-    mov dx, word [cs:mouse_glide_back.cseg2 - IMAGE_BASE]
+    mov dx, word [cs:mouse_drawn_y - IMAGE_BASE]
     mov word [bp - 0x0006], cx
     mov word [bp - 0x0008], dx
 @..mouse_glide_back.l2:
@@ -53,7 +53,7 @@ mouse_glide_back:
     mov ax, cs
     push ax
     mov ax, 0
-    call leaf_loc_JHTT
+    call draw_mouse_pointer_at
     mov cx, word [bp - 0x0006]
     mov dx, word [bp - 0x0008]
     mov ax, 4
@@ -70,7 +70,7 @@ mouse_glide_back:
     mov dx, word [bp - 0x0004]
     mov ax, 4
     int 0x33 ; BIOS mouse
-    mov byte [cs:cseg_0126 - IMAGE_BASE], 0
+    mov byte [cs:mouse_glide_active - IMAGE_BASE], 0
 @..mouse_glide_back.l9:
     pop di
     pop si

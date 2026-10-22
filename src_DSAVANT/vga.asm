@@ -18,7 +18,7 @@ loc_JTQK_000b.mouse_hit_test1 equ mouse_hit_test
 loc_JTQK_000f.leaf_loc1 equ leaf_loc_LMQV
 %include "shared/library/loc_JTQK_000f.asm"           ; 0x000f
 
-loc_JTQK_0013.bios_mouse_loc1 equ bios_mouse_loc_PTIM
+loc_JTQK_0013.bios_mouse_loc1 equ update_mouse_pointer
 %include "shared/library/loc_JTQK_0013.asm"           ; 0x0013
 
 loc_JTQK_0017.load_picture1 equ load_picture
@@ -156,11 +156,11 @@ cseg_011e:
     db 0x1b, 0x01, 0x00, 0x00
 cseg_0122:
     db 0x1f, 0x01, 0x00, 0x00
-cseg_0126:
+mouse_glide_active:
     db 0x00
-cseg_0127:
+mouse_redraw_pending:
     db 0x00
-cseg_0128:
+mouse_present:
     db 0x00
 __zdata_0229:
 cseg_0129:
@@ -319,9 +319,7 @@ leaf_loc_TPOL.cseg2 equ cseg_0e6d
 
 %include "vga/mouse_off.asm"               ; 0x126c
 
-bios_mouse_loc_PTIM.cseg1 equ cseg_14ac
-bios_mouse_loc_PTIM.cseg2 equ cseg_14ae
-%include "shared/library/bios_mouse_loc_PTIM.asm"     ; 0x12c9
+%include "shared/library/update_mouse_pointer.asm"    ; 0x12c9
 
 %include "shared/library/leaf_loc_LMQV.asm"           ; 0x1308
 
@@ -344,9 +342,9 @@ cseg_1486:
     db 'Mouse pointer size out of range.', 0
     db 0x0a, 0x24
 
-cseg_14ac:
+mouse_drawn_x:
     db 0x00, 0x00
-cseg_14ae:
+mouse_drawn_y:
     db 0x00, 0x00
 cseg_14b0:
     db 0x00, 0x00
@@ -421,10 +419,10 @@ cseg_1dd3:
     db 0x08, 0x2e, 0x3b, 0x16, 0xae, 0x15, 0x75, 0x01, 0xcb, 0xd1, 0xe1, 0x2e, 0xa0, 0x27, 0x02, 0x2e
     db 0x0a, 0x06, 0x26, 0x02, 0x74, 0x01, 0xcb
 
-leaf_loc_JHTT.cseg1 equ cseg_1dd3
-leaf_loc_JHTT.cseg2 equ cseg_14b0
-leaf_loc_JHTT.cseg3 equ cseg_14b2
-%include "shared/library/leaf_loc_JHTT.asm"           ; 0x1e1a
+draw_mouse_pointer_at.cseg1 equ cseg_1dd3
+draw_mouse_pointer_at.cseg2 equ cseg_14b0
+draw_mouse_pointer_at.cseg3 equ cseg_14b2
+%include "shared/library/draw_mouse_pointer_at.asm"   ; 0x1e1a
 
 data_1dc4 equ __zdata_1dc4 - IMAGE_BASE
 data_1e4c equ __zdata_1e4c - IMAGE_BASE
@@ -513,8 +511,6 @@ get_free_space.ems_paras_used1  equ cseg_0291
 
 %include "shared/library/mouse_glide_to.asm"          ; 0x2b6c
 
-mouse_glide_back.cseg1 equ cseg_14ac
-mouse_glide_back.cseg2 equ cseg_14ae
 %include "shared/library/mouse_glide_back.asm"        ; 0x2c0e
 
 ; data_0251 equ __zdata_0251 - IMAGE_BASE

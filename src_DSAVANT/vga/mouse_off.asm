@@ -5,9 +5,9 @@ mouse_off:
     push es                          ; 0x126f
     mov ax, ds                       ; 0x1270
     mov es, ax                       ; 0x1272
-    cmp byte [cs:cseg_0128 - IMAGE_BASE], 0 ; 0x1274
+    cmp byte [cs:mouse_present - IMAGE_BASE], 0 ; 0x1274
     je short @..mouse_off.l2         ; 0x127a
-    mov byte [cs:cseg_0128 - IMAGE_BASE], 0 ; 0x127c
+    mov byte [cs:mouse_present - IMAGE_BASE], 0 ; 0x127c
     mov ax, 0                        ; 0x1282
     int 0x33 ; BIOS mouse
     push ds                          ; 0x1287

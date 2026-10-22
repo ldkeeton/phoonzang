@@ -44,13 +44,13 @@ mouse_init:
     mov ax, cs                       ; 0x1774
     push ax                          ; 0x1776
     mov ax, 0xffff                   ; 0x1777
-    mov word [cs:cseg_1adb - IMAGE_BASE], ax ; 0x177a
+    mov word [cs:mouse_drawn_y - IMAGE_BASE], ax ; 0x177a
     call io_loc_UQHG                 ; 0x177e
     pop si                           ; 0x1781
     pop di                           ; 0x1782
     pop es                           ; 0x1783
     pop ds                           ; 0x1784
-    mov byte [cs:cseg_0128 - IMAGE_BASE], 1 ; 0x1785
+    mov byte [cs:mouse_present - IMAGE_BASE], 1 ; 0x1785
     push es                          ; 0x178b
     mov ax, 0x14                     ; 0x178c
     mov bx, cs                       ; 0x178f

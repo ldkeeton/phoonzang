@@ -154,7 +154,7 @@ show_area:
     mov al, 0                        ; 0x060d
     out dx, al                       ; 0x060f
     call leaf_loc_KNIM               ; 0x0610
-    call bios_mouse_loc_PTIM         ; 0x0613
+    call update_mouse_pointer        ; 0x0613
     pop si                           ; 0x0616
     pop di                           ; 0x0617
     pop es                           ; 0x0618
@@ -555,7 +555,7 @@ show_area:
     mov al, 0xf                      ; 0x0937
     out dx, al                       ; 0x0939
     call leaf_loc_KNIM               ; 0x093a
-    call bios_mouse_loc_PTIM         ; 0x093d
+    call update_mouse_pointer        ; 0x093d
     pop si                           ; 0x0940
     pop di                           ; 0x0941
     pop es                           ; 0x0942

@@ -1,10 +1,10 @@
 ; auto-generated
 graphics_loc_IMOU:
-    cmp byte [cs:cseg_0128 - IMAGE_BASE], 1 ; 0x0949
+    cmp byte [cs:mouse_present - IMAGE_BASE], 1 ; 0x0949
     jne short @..graphics_loc_IMOU.l1 ; 0x094f
-    mov cx, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x0951
+    mov cx, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x0951
     and cx, strict word 0xfffc       ; 0x0956
-    mov dx, word [cs:cseg_1adb - IMAGE_BASE] ; 0x095a
+    mov dx, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x095a
     cmp word [bp + 0x10], cx         ; 0x095f
     jb short @..graphics_loc_IMOU.l1 ; 0x0962
     cmp word [bp + 0x12], dx         ; 0x0964
@@ -25,7 +25,7 @@ graphics_loc_IMOU:
     jmp near @..graphics_loc_IMOU.l16 ; 0x0994
 @..graphics_loc_IMOU.l2:
     mov byte [cs:cseg_0948 - IMAGE_BASE], 1 ; 0x0997
-    mov cx, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x099d
+    mov cx, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x099d
     and cx, strict word 0xfffc       ; 0x09a2
     mov ax, cx                       ; 0x09a6
     cmp word [bp + 0xc], cx          ; 0x09a8
@@ -33,7 +33,7 @@ graphics_loc_IMOU:
     mov ax, word [bp + 0xc]          ; 0x09ad
 @..graphics_loc_IMOU.l3:
     mov word [bp - 0x0006], ax       ; 0x09b0
-    mov dx, word [cs:cseg_1adb - IMAGE_BASE] ; 0x09b3
+    mov dx, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x09b3
     mov bx, dx                       ; 0x09b8
     cmp word [bp + 0xe], dx          ; 0x09ba
     jb short @..graphics_loc_IMOU.l4 ; 0x09bd
@@ -142,7 +142,7 @@ graphics_loc_IMOU:
     add si, strict word 0x140        ; 0x0ac9
     pop cx                           ; 0x0acd
     loop @..graphics_loc_IMOU.l7     ; 0x0ace
-    mov cx, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x0ad0
+    mov cx, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x0ad0
     mov ax, cx                       ; 0x0ad5
     cmp word [bp + 0xc], cx          ; 0x0ad7
     jb short @..graphics_loc_IMOU.l10 ; 0x0ada
@@ -167,10 +167,10 @@ graphics_loc_IMOU:
     mov es, ax                       ; 0x0b07
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0b09
     mov ds, ax                       ; 0x0b0d
-    mov ax, word [cs:cseg_1adb - IMAGE_BASE] ; 0x0b0f
+    mov ax, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x0b0f
     mov bx, 0x140                    ; 0x0b13
     mul bx                           ; 0x0b16
-    add ax, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x0b18
+    add ax, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x0b18
     mov si, ax                       ; 0x0b1d
     mov di, word [cs:cseg_1ad7 - IMAGE_BASE] ; 0x0b1f
     mov cx, word [cs:cseg_1ae3 - IMAGE_BASE] ; 0x0b24
@@ -185,10 +185,10 @@ graphics_loc_IMOU:
     loop @..graphics_loc_IMOU.l12    ; 0x0b38
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0b3a
     mov es, ax                       ; 0x0b3e
-    mov ax, word [cs:cseg_1adb - IMAGE_BASE] ; 0x0b40
+    mov ax, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x0b40
     mov bx, 0x140                    ; 0x0b44
     mul bx                           ; 0x0b47
-    add ax, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x0b49
+    add ax, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x0b49
     mov di, ax                       ; 0x0b4e
     mov ax, word [cs:cseg_249b - IMAGE_BASE] ; 0x0b50
     mov ds, ax                       ; 0x0b54

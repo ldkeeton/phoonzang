@@ -18,7 +18,7 @@ loc_JTQK_000b.mouse_hit_test1 equ mouse_hit_test
 loc_JTQK_000f.leaf_loc1 equ leaf_loc_LMQV
 %include "shared/library/loc_JTQK_000f.asm"           ; 0x000f
 
-loc_JTQK_0013.bios_mouse_loc1 equ bios_mouse_loc_PTIM
+loc_JTQK_0013.bios_mouse_loc1 equ update_mouse_pointer
 %include "shared/library/loc_JTQK_0013.asm"           ; 0x0013
 
 loc_JTQK_0017.load_picture1 equ load_picture
@@ -156,11 +156,11 @@ cseg_011e:
     db 0x1b, 0x01, 0x00, 0x00
 cseg_0122:
     db 0x1f, 0x01, 0x00, 0x00
-cseg_0126:
+mouse_glide_active:
     db 0x00
-cseg_0127:
+mouse_redraw_pending:
     db 0x00
-cseg_0128:
+mouse_present:
     db 0x00
 cseg_0129:
 
@@ -322,9 +322,7 @@ leaf_loc_TPOL.cseg2 equ cseg_138e
 
 %include "ega/leaf_loc_PUST.asm"           ; 0x189f
 
-bios_mouse_loc_PTIM.cseg1 equ cseg_1ad9
-bios_mouse_loc_PTIM.cseg2 equ cseg_1adb
-%include "shared/library/bios_mouse_loc_PTIM.asm"     ; 0x18c1
+%include "shared/library/update_mouse_pointer.asm"    ; 0x18c1
 
 %include "shared/library/leaf_loc_LMQV.asm"           ; 0x1900
 
@@ -343,9 +341,9 @@ cseg_1ad5:
     dw __zcp_1afd - IMAGE_BASE                 ; 0x1ad5
 cseg_1ad7:
     dw __zcp_1f7d - IMAGE_BASE                 ; 0x1ad7
-cseg_1ad9:
+mouse_drawn_x:
     db 0x00, 0x00
-cseg_1adb:
+mouse_drawn_y:
     db 0x00, 0x00
 cseg_1add:
     times 4 db 0
@@ -445,10 +443,10 @@ cseg_2a08:
     db 0x08, 0x2e, 0x3b, 0x16, 0xdb, 0x1b, 0x75, 0x01, 0xcb, 0xd1, 0xe1, 0x2e, 0xa0, 0x27, 0x02, 0x2e
     db 0x0a, 0x06, 0x26, 0x02, 0x74, 0x01, 0xcb
 
-leaf_loc_JHTT.cseg1 equ cseg_2a08
-leaf_loc_JHTT.cseg2 equ cseg_1aeb
-leaf_loc_JHTT.cseg3 equ cseg_1aed
-%include "shared/library/leaf_loc_JHTT.asm"           ; 0x2a4f
+draw_mouse_pointer_at.cseg1 equ cseg_2a08
+draw_mouse_pointer_at.cseg2 equ cseg_1aeb
+draw_mouse_pointer_at.cseg3 equ cseg_1aed
+%include "shared/library/draw_mouse_pointer_at.asm"   ; 0x2a4f
 
 %include "ega/io_loc_UQHG.asm"             ; 0x2a6a
 
@@ -545,8 +543,6 @@ get_free_space.ems_paras_used1  equ ems_paras_used
 
 %include "shared/library/mouse_glide_to.asm"          ; 0x341e
 
-mouse_glide_back.cseg1 equ cseg_1ad9
-mouse_glide_back.cseg2 equ cseg_1adb
 %include "shared/library/mouse_glide_back.asm"        ; 0x34c0
 
 %include "ega/free_screen.asm"             ; 0x3570

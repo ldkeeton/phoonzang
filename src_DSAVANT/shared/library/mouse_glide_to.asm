@@ -9,11 +9,11 @@ mouse_glide_to:
     push di
     mov ax, ds
     mov es, ax
-    cmp byte [cs:cseg_0128 - IMAGE_BASE], 1
+    cmp byte [cs:mouse_present - IMAGE_BASE], 1
     je short @..mouse_glide_to.l1
     jmp near @..mouse_glide_to.l8
 @..mouse_glide_to.l1:
-    mov byte [cs:cseg_0126 - IMAGE_BASE], 1
+    mov byte [cs:mouse_glide_active - IMAGE_BASE], 1
     mov ax, word [bp + 0xc]
     shl ax, 1
     mov word [bp - 0x0002], ax
@@ -54,7 +54,7 @@ mouse_glide_to:
     mov ax, cs
     push ax
     mov ax, 0
-    call leaf_loc_JHTT
+    call draw_mouse_pointer_at
     mov cx, word [bp - 0x0006]
     mov dx, word [bp - 0x0008]
     mov ax, 4

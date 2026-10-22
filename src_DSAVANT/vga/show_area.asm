@@ -37,7 +37,7 @@ show_area:
     dec dx                           ; 0x0504
     jne short @..show_area.l1        ; 0x0505
     call leaf_loc_PRNU               ; 0x0507
-    call bios_mouse_loc_PTIM         ; 0x050a
+    call update_mouse_pointer        ; 0x050a
     pop si                           ; 0x050d
     pop di                           ; 0x050e
     pop es                           ; 0x050f

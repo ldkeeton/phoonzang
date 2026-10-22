@@ -40,7 +40,7 @@ set_mouse_pointer:
     mov cx, 4                        ; 0x1423
     rep movsb                        ; 0x1426
 @..set_mouse_pointer.l3:
-    cmp byte [cs:cseg_0128 - IMAGE_BASE], 0 ; 0x1428
+    cmp byte [cs:mouse_present - IMAGE_BASE], 0 ; 0x1428
     je short @..set_mouse_pointer.l7 ; 0x142e
     mov cx, word [bp + 0x14]         ; 0x1430
     cmp cx, byte 0xff                ; 0x1433
@@ -56,16 +56,16 @@ set_mouse_pointer:
     int 0x33 ; BIOS mouse
     jmp short @..set_mouse_pointer.l6 ; 0x144c
 @..set_mouse_pointer.l5:
-    cmp byte [cs:cseg_0126 - IMAGE_BASE], 0 ; 0x144e
+    cmp byte [cs:mouse_glide_active - IMAGE_BASE], 0 ; 0x144e
     je short @..set_mouse_pointer.l4 ; 0x1454
-    mov cx, word [cs:cseg_14ac - IMAGE_BASE] ; 0x1456
+    mov cx, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x1456
     shl cx, 1                        ; 0x145b
-    mov dx, word [cs:cseg_14ae - IMAGE_BASE] ; 0x145d
+    mov dx, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x145d
 @..set_mouse_pointer.l6:
     mov ax, cs                       ; 0x1462
     push ax                          ; 0x1464
-    call leaf_loc_JHTT               ; 0x1465
-    mov byte [cs:cseg_0127 - IMAGE_BASE], 0 ; 0x1468
+    call draw_mouse_pointer_at       ; 0x1465
+    mov byte [cs:mouse_redraw_pending - IMAGE_BASE], 0 ; 0x1468
 @..set_mouse_pointer.l7:
     pop di                           ; 0x146e
     pop si                           ; 0x146f
