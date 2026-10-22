@@ -56,7 +56,7 @@ load_picture:
     mov ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x3106
     cmp ax, 0x4180                   ; 0x310a
     jb short @..load_picture.l2      ; 0x310d
-    jmp near loc_31a6                ; 0x310f
+    jmp near dos_con_loc_QMKK        ; 0x310f
 @..load_picture.l2:
     mov bx, word [bp - 0x0002]       ; 0x3112
     mov ax, word [cs:bx]             ; 0x3115
@@ -103,6 +103,3 @@ load_picture:
     div bx                           ; 0x316a
     or byte [cs:cseg_3196 - IMAGE_BASE], al ; 0x316c
     or byte [cs:cseg_3197 - IMAGE_BASE], dl ; 0x3171
-    mov ax, cs                       ; 0x3176
-    mov ds, ax                       ; 0x3178
-    mov dx, cseg_3186 - IMAGE_BASE   ; 0x317a

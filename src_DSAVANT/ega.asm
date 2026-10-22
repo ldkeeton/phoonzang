@@ -236,9 +236,28 @@ fill_area.screen_buf_seg1 equ screen_buf_seg
 
 %include "ega/invert_area.asm"             ; 0x0c45
 
-%include "ega/save_area.asm"               ; 0x0c9b
+save_area.dos_con_loc1    equ dos_con_loc_VOUI
+save_area.screen_buf_seg1 equ screen_buf_seg
+save_area.loc1            equ loc_0d4f
+%include "shared/library/save_area.asm"               ; 0x0c9b
 
-%include "ega/restore_area.asm"            ; 0x0d57
+dos_con_loc_VOUI equ dos_con_loc_PJHN
+cseg_0d2e        equ dos_con_loc_PJHN.cseg1
+%include "shared/library/dos_con_loc_PJHN.asm"        ; 0x0d1e
+
+loc_0d4f equ loc_08ca
+%include "shared/library/loc_08ca.asm"                ; 0x0d4f
+
+restore_area.dos_con_loc1    equ dos_con_loc_TMRV
+restore_area.screen_buf_seg1 equ screen_buf_seg
+restore_area.loc1            equ loc_0deb
+%include "shared/library/restore_area.asm"            ; 0x0d57
+
+dos_con_loc_TMRV equ dos_con_loc_SUSK
+cseg_0dc0        equ dos_con_loc_SUSK.cseg1
+%include "shared/library/dos_con_loc_SUSK.asm"        ; 0x0db0
+
+%include "shared/library/loc_0deb.asm"                ; 0x0deb
 
 %include "ega/load_screen.asm"             ; 0x0df3
 
@@ -265,12 +284,15 @@ maze_paras_used:
     db 0x00, 0x00
 %include "ega/load_maze.asm"               ; 0x10cf
 
-%include "ega/dos_con_loc_GRVO.asm"        ; 0x10ff
+%include "ega/dos_con_loc_GNNJ.asm"        ; 0x10ff
 
-loc_1211.cseg1 equ cseg_1231
-%include "shared/library/loc_1211.asm"                ; 0x1211
+dos_con_loc_OIUO       equ dos_con_loc_NRMP
+dos_con_loc_NRMP.cseg1 equ cseg_1231
+%include "shared/library/dos_con_loc_NRMP.asm"        ; 0x1211
 
-%include "ega/dos_con_loc_QUMT.asm"        ; 0x1218
+dos_con_loc_MQHQ       equ dos_con_loc_GKGP
+dos_con_loc_GKGP.cseg1 equ cseg_128c
+%include "shared/library/dos_con_loc_GKGP.asm"        ; 0x1221
 
 cseg_1231:
 
@@ -290,7 +312,12 @@ cseg_128c:
     db 'oops... LOAD_MAZE filled its memory area.', 0
     db 0x0a, 0x24
 
-%include "ega/loc_LQTO.asm"                ; 0x12bb
+loc_LQTO.ems_blocks1      equ ems_blocks
+loc_LQTO.maze_mem_seg1    equ maze_mem_seg
+loc_LQTO.maze_paras_used1 equ maze_paras_used
+loc_LQTO.ems_frame_seg1   equ ems_frame_seg
+loc_LQTO.ems_cur_page1    equ ems_cur_page
+%include "shared/library/loc_LQTO.asm"                ; 0x12bb
 
 %include "ega/leaf_loc_MIUO.asm"           ; 0x1355
 
@@ -335,7 +362,9 @@ mouse_hit_test.cseg3 equ cseg_2a06
 
 %include "ega/set_mouse_pointer.asm"       ; 0x19c1
 
-%include "ega/dos_con_loc_NUII.asm"        ; 0x1a9f
+dos_con_loc_NUII equ dos_con_loc_JJUT
+cseg_1aaf        equ dos_con_loc_JJUT.cseg1
+%include "shared/library/dos_con_loc_JJUT.asm"        ; 0x1a9f
 
 cseg_1ad5:
     dw __zcp_1afd - IMAGE_BASE                 ; 0x1ad5
@@ -465,27 +494,16 @@ leaf_loc_OLKS.cseg1 equ cseg_2a02
 
 %include "ega/load_picture.asm"            ; 0x3085
 
-%include "shared/library/dos_con_loc_GQSN.asm"        ; 0x317d
-
-cseg_3186:
-
-    db 0x0d, 0x0a, 0x07
-    db 'Picture slot '
+cseg_3186 equ dos_con_loc_KGLK.cseg1
+%include "shared/library/dos_con_loc_KGLK.asm"        ; 0x3176
 
 cseg_3196:
     db 0x30
 cseg_3197:
     db '0 not freed.', 0
     db 0x0a, 0x24
-%include "ega/loc_31a6.asm"                ; 0x31a6
-
-%include "shared/library/dos_con_loc_HPRK.asm"        ; 0x31ad
-
-cseg_31b6:
-
-    db 0x0d, 0x0a, 0x07
-    db 'Memory unavailable loading picture.', 0
-    db 0x0a, 0x24
+cseg_31b6 equ dos_con_loc_QMKK.cseg1
+%include "shared/library/dos_con_loc_QMKK.asm"        ; 0x31a6
 
 dissolve_area.show_area1 equ show_area
 %include "shared/library/dissolve_area.asm"           ; 0x31df
@@ -571,8 +589,7 @@ cseg_3605:
 
 %include "shared/library/leaf_loc_MTKK.asm"           ; 0x3bf2
 
-leaf_loc_KSJN equ leaf_loc_GLTQ
-%include "shared/library/leaf_loc_GLTQ.asm"           ; 0x3c12
+%include "shared/library/leaf_loc_KSJN.asm"           ; 0x3c12
 
 %include "ega/loc_3c2e.asm"                ; 0x3c2e
 
@@ -580,20 +597,12 @@ leaf_loc_KSJN equ leaf_loc_GLTQ
 
 %include "ega/loc_3e8a.asm"                ; 0x3e8a
 
-cache_area_disk_error.cseg1 equ cseg_40dd
+cseg_40dd equ cache_area_disk_error.cseg1
 %include "shared/library/cache_area_disk_error.asm"   ; 0x40cd
-
-%include "shared/library/dos_con_loc_KIIN.asm"        ; 0x40d4
-
-cseg_40dd:
-
-    db 0x0d, 0x0a, 0x07
-    db 'Error occurred writing to disk in CACHEAREA().', 0
-    db 0x0a, 0x24
 
 %include "ega/cache_area.asm"              ; 0x4111
 
-%include "ega/dos_con_loc_PHHV.asm"        ; 0x4370
+%include "ega/cache_area_out_of_ems.asm"   ; 0x4370
 
 msg_out_of_ems:
 
@@ -603,27 +612,11 @@ msg_out_of_ems:
 
 %include "shared/library/cache_area_return.asm"       ; 0x4398
 
-cache_area_ems_slots_full.cseg1 equ cseg_43b0
+cseg_43b0 equ cache_area_ems_slots_full.cseg1
 %include "shared/library/cache_area_ems_slots_full.asm" ; 0x43a0
 
-%include "shared/library/dos_con_loc_GUHJ.asm"        ; 0x43a7
-
-cseg_43b0:
-
-    db 0x0d, 0x0a, 0x07
-    db 'CACHEAREA out of EMS slots.', 0
-    db 0x0a, 0x24
-
-cache_area_maze_mem_full.cseg1 equ cseg_43e1
+cseg_43e1 equ cache_area_maze_mem_full.cseg1
 %include "shared/library/cache_area_maze_mem_full.asm" ; 0x43d1
-
-%include "shared/library/dos_con_loc_KGMT.asm"        ; 0x43d8
-
-cseg_43e1:
-
-    db 0x0d, 0x0a, 0x07
-    db 'CACHEAREA out of MAZE/PIC memory.', 0
-    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0x8a
 
 cseg_441e equ cache_area_maze_slots_full.cseg1
 %include "shared/library/cache_area_maze_slots_full.asm" ; 0x440e
@@ -634,58 +627,43 @@ ems_cur_page:
 
 %include "ega/restore_screen.asm"          ; 0x4457
 
-%include "ega/dos_file_loc_RQKL.asm"       ; 0x45bd
+dos_file_loc_MUHV.loc1         equ loc_461f
+dos_file_loc_MUHV.dos_con_loc1 equ dos_con_loc_TORI
+%include "shared/library/dos_file_loc_MUHV.asm"       ; 0x45bd
 
-%include "ega/dos_con_loc_OHJU.asm"        ; 0x45f2
-
-cseg_45fb:
-
-    db 0x0d, 0x0a, 0x07
-    db 'Error occurred writing to disk', 0
-    db 0x0a, 0x24
+dos_con_loc_TORI equ dos_con_loc_KVVK
+cseg_45fb        equ dos_con_loc_KVVK.cseg1
+%include "shared/library/dos_con_loc_KVVK.asm"        ; 0x45eb
 
 loc_461f equ loc_3d6d
 %include "shared/library/loc_3d6d.asm"                ; 0x461f
 
-%include "ega/cache_maze.asm"              ; 0x4624
+cache_maze.ems_block_count1 equ ems_block_count
+cache_maze.dos_con_loc1     equ dos_con_loc_GKTV
+cache_maze.ems_blocks1      equ ems_blocks
+cache_maze.ems_paras_used1  equ ems_paras_used
+cache_maze.ems_para_limit1  equ ems_para_limit
+cache_maze.dos_con_loc2     equ dos_con_loc_TUHU
+cache_maze.ems_cur_page1    equ ems_cur_page
+cache_maze.ems_frame_seg1   equ ems_frame_seg
+%include "shared/library/cache_maze.asm"              ; 0x4624
 
-%include "shared/library/dos_con_loc_HJHM.asm"        ; 0x47af
+cseg_47b8 equ dos_con_loc_GKTV.cseg1
+%include "shared/library/dos_con_loc_GKTV.asm"        ; 0x47a8
 
-cseg_47b8:
-
-    db 0x0d, 0x0a, 0x07
-    db 'CACHEMAZE().  Requested slot already in use.', 0
-    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xb0
-
-%include "ega/loc_47f0.asm"                ; 0x47f0
-
-%include "shared/library/dos_con_loc_URMP.asm"        ; 0x47f7
-
-cseg_4800:
-
-    db 0x0d, 0x0a, 0x07
-    db 'CACHEMAZE().  Insufficient EMS.', 0
-    db 0x0a, 0x24
+dos_con_loc_TUHU equ dos_con_loc_JUQV
+cseg_4800        equ dos_con_loc_JUQV.cseg1
+%include "shared/library/dos_con_loc_JUQV.asm"        ; 0x47f0
 
 %include "ega/cache_screen.asm"            ; 0x4825
 
-%include "ega/dos_con_loc_PMRV.asm"        ; 0x493a
+dos_con_loc_VTQM equ dos_con_loc_RMKS
+cseg_4943        equ dos_con_loc_RMKS.cseg1
+%include "shared/library/dos_con_loc_RMKS.asm"        ; 0x4933
 
-cseg_4943:
-
-    db 0x0d, 0x0a, 0x07
-    db 'CACHESCREEN().  Requested slot already in use.', 0
-    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xae
-
-%include "ega/loc_497d.asm"                ; 0x497d
-
-%include "shared/library/dos_con_loc_MQTN.asm"        ; 0x4984
-
-cseg_498d:
-
-    db 0x0d, 0x0a, 0x07
-    db 'CACHESCREEN().  Insufficient EMS.', 0
-    db 0x0a, 0x24
+dos_con_loc_QKHL equ dos_con_loc_IMIO
+cseg_498d        equ dos_con_loc_IMIO.cseg1
+%include "shared/library/dos_con_loc_IMIO.asm"        ; 0x497d
 
 cseg_49b4:
 
@@ -693,29 +671,19 @@ cseg_49b4:
 
 %include "ega/load_sound.asm"              ; 0x4a08
 
-%include "ega/dos_con_loc_MSRN.asm"        ; 0x4ae1
+dos_con_loc_TVRM equ dos_con_loc_KPVS
+cseg_4aea        equ dos_con_loc_KPVS.cseg1
+%include "shared/library/dos_con_loc_KPVS.asm"        ; 0x4ada
 
-cseg_4aea:
+dos_con_loc_LGMH equ dos_con_loc_KOGR
+cseg_4b26        equ dos_con_loc_KOGR.cseg1
+%include "shared/library/dos_con_loc_KOGR.asm"        ; 0x4b16
 
-    db 0x0d, 0x0a, 0x07
-    db 'In LOAD_SOUND() ... slot already used.', 0
-    db 0x0a, 0x24
-
-%include "ega/loc_4b16.asm"                ; 0x4b16
-
-%include "shared/library/dos_con_loc_KPVH.asm"        ; 0x4b1d
-
-cseg_4b26:
-
-    db 0x0d, 0x0a, 0x07
-    db 'In LOAD_SOUND() ... not enough memory.', 0
-    db 0x0a, 0x24
-
-loc_4b52       equ loc_42a0
-loc_42a0.cseg1 equ maze_paras_used
-loc_4b9c       equ loc_42a0.loc1
-loc_42a0.loc2  equ loc_4b16
-loc_42a0.cseg2 equ maze_mem_seg
+loc_4b52              equ loc_42a0
+loc_42a0.cseg1        equ maze_paras_used
+loc_4b9c              equ loc_42a0.loc1
+loc_42a0.dos_con_loc1 equ dos_con_loc_LGMH
+loc_42a0.cseg2        equ maze_mem_seg
 %include "shared/library/loc_42a0.asm"                ; 0x4b52
 
 %include "shared/library/string_loc_RQON.asm"         ; 0x4bb2
@@ -751,6 +719,13 @@ cseg_4e8b:
 cseg_4ea3:
     times 10 db 0
 %include "ega/load_score.asm"              ; 0x4ead
+
+cseg_4fd4 equ dos_con_loc_OOVK.cseg1
+%include "shared/library/dos_con_loc_OOVK.asm"        ; 0x4fc4
+
+dos_con_loc_LIIS equ dos_con_loc_HPIH
+cseg_5010        equ dos_con_loc_HPIH.cseg1
+%include "shared/library/dos_con_loc_HPIH.asm"        ; 0x5000
 
 %include "ega/play_score.asm"              ; 0x503c
 

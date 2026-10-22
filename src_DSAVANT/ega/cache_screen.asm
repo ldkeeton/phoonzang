@@ -29,7 +29,7 @@ cache_screen:
     je short @..cache_screen.l2      ; 0x4863
     mov ax, word [bp + 0xe]          ; 0x4865
     mov word [bp - 0x0004], ax       ; 0x4868
-    call dos_file_loc_RQKL           ; 0x486b
+    call dos_file_loc_MUHV           ; 0x486b
     jmp near @..cache_screen.l8      ; 0x486e
 @..cache_screen.l2:
     mov ax, word [bp + 0xe]          ; 0x4871
@@ -39,7 +39,7 @@ cache_screen:
     mov ax, word [cs:bx]             ; 0x487b
     or ax, ax                        ; 0x487e
     je short @..cache_screen.l3      ; 0x4880
-    jmp near @..cache_screen.l9      ; 0x4882
+    jmp near dos_con_loc_VTQM        ; 0x4882
 @..cache_screen.l3:
     inc word [cs:ems_block_count - IMAGE_BASE] ; 0x4885
     mov ax, word [cs:ems_block_count - IMAGE_BASE] ; 0x488a
@@ -59,7 +59,7 @@ cache_screen:
     mov ax, word [cs:ems_paras_used - IMAGE_BASE] ; 0x48b6
     cmp ax, word [cs:ems_para_limit - IMAGE_BASE] ; 0x48ba
     jbe short @..cache_screen.l4     ; 0x48bf
-    jmp near loc_497d                ; 0x48c1
+    jmp near dos_con_loc_QKHL        ; 0x48c1
 @..cache_screen.l4:
     mov ax, 0xfa00                   ; 0x48c4
     mov word [bp - 0x0006], ax       ; 0x48c7
@@ -111,7 +111,3 @@ cache_screen:
     mov sp, bp                       ; 0x492f
     pop bp                           ; 0x4931
     ret                              ; 0x4932
-@..cache_screen.l9:
-    mov ax, cs                       ; 0x4933
-    mov ds, ax                       ; 0x4935
-    mov dx, cseg_4943 - IMAGE_BASE   ; 0x4937

@@ -17,7 +17,7 @@ load_score:
     mov ax, word [cs:bx]             ; 0x4617
     or ax, ax                        ; 0x461a
     je short @..load_score.l1        ; 0x461c
-    jmp near @..load_score.l5        ; 0x461e
+    jmp near dos_con_loc_SGUQ        ; 0x461e
 @..load_score.l1:
     mov bx, word [bp + 0x12]         ; 0x4621
     shl bx, 1                        ; 0x4624
@@ -88,7 +88,7 @@ load_score:
     add ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x46c9
     cmp ax, 0x4180                   ; 0x46ce
     jb short @..load_score.l3        ; 0x46d1
-    jmp near loc_474e                ; 0x46d3
+    jmp near dos_con_loc_HPIH        ; 0x46d3
 @..load_score.l3:
     mov word [cs:cseg_0bac - IMAGE_BASE], ax ; 0x46d6
     mov ax, word [cs:bx]             ; 0x46da
@@ -117,7 +117,3 @@ load_score:
     mov sp, bp                       ; 0x470e
     pop bp                           ; 0x4710
     ret                              ; 0x4711
-@..load_score.l5:
-    mov ax, cs                       ; 0x4712
-    mov ds, ax                       ; 0x4714
-    mov dx, cseg_4722 - IMAGE_BASE   ; 0x4716

@@ -21,7 +21,7 @@ loc_339d:
     mov cx, word [bp - 0x0002]       ; 0x33a7
 loc_33aa:
     push cx                          ; 0x33aa
-    call leaf_loc_GLTQ               ; 0x33ab
+    call leaf_loc_QLNN               ; 0x33ab
     mov bx, word [bp - 0x000c]       ; 0x33ae
     mov al, byte [bx]                ; 0x33b1
     and al, byte [bp - 0x000a]       ; 0x33b3

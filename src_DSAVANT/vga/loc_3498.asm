@@ -33,7 +33,7 @@ loc_34dd:
     mov cx, word [bp - 0x0002]       ; 0x34e7
 loc_34ea:
     push cx                          ; 0x34ea
-    call leaf_loc_GLTQ               ; 0x34eb
+    call leaf_loc_QLNN               ; 0x34eb
     mov bx, word [bp - 0x000c]       ; 0x34ee
     mov al, byte [bx]                ; 0x34f1
     and al, byte [bp - 0x000a]       ; 0x34f3

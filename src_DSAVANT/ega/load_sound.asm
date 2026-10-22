@@ -17,7 +17,7 @@ load_sound:
     mov ax, word [cs:bx]             ; 0x4a24
     or ax, ax                        ; 0x4a27
     je short @..load_sound.l1        ; 0x4a29
-    jmp near @..load_sound.l4        ; 0x4a2b
+    jmp near dos_con_loc_TVRM        ; 0x4a2b
 @..load_sound.l1:
     mov ax, word [cs:maze_block_count - IMAGE_BASE] ; 0x4a2e
     inc ax                           ; 0x4a32
@@ -70,7 +70,7 @@ load_sound:
     mov word [cs:bx + 0x2], ax       ; 0x4aa5
     add ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x4aa9
     cmp ax, 0x4180                   ; 0x4aae
-    jae short loc_4b16               ; 0x4ab1
+    jae short dos_con_loc_LGMH       ; 0x4ab1
     mov word [cs:maze_paras_used - IMAGE_BASE], ax ; 0x4ab3
     mov ax, word [cs:bx]             ; 0x4ab7
     add ax, word [cs:maze_mem_seg - IMAGE_BASE] ; 0x4aba
@@ -90,7 +90,3 @@ load_sound:
     mov sp, bp                       ; 0x4ad6
     pop bp                           ; 0x4ad8
     ret                              ; 0x4ad9
-@..load_sound.l4:
-    mov ax, cs                       ; 0x4ada
-    mov ds, ax                       ; 0x4adc
-    mov dx, cseg_4aea - IMAGE_BASE   ; 0x4ade

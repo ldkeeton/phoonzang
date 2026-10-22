@@ -18,6 +18,7 @@ draw_maze_piece:
     mov bx, word [cs:bx]             ; 0x14f4
     or bx, bx                        ; 0x14f7
     jne short @..draw_maze_piece.l1  ; 0x14f9
+dos_con_loc_14fb:
     mov ax, cs                       ; 0x14fb
     mov ds, ax                       ; 0x14fd
     mov dx, cseg_150b - IMAGE_BASE   ; 0x14ff

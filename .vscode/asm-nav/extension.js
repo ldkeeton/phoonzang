@@ -163,9 +163,7 @@ function describe(name, doc) {
         md.appendCodeblock(text.split('\n')[hit.row].trim(), 'asm');
     }
     if (where && where.binary === SHARED_DIR) {
-        const key = routineKey(where);
-        const data = readJson(sidecarPath(where.project));
-        const entry = key && data && data.routines && data.routines[key];
+        const { key, entry } = sharedEntry(where) || {};
         if (entry) {
             md.appendMarkdown(`\n\nsidecar routine \`${key}\`: **${entry.name}**`);
             if (entry.note) md.appendMarkdown(`\n\n_${entry.note}_`);
@@ -224,6 +222,21 @@ function routineKey(where) {
     const data = readJson(sidecarPath(where.project));
     const routines = (data && data.routines) || {};
     return Object.keys(routines).find((k) => routines[k].name === where.label) || null;
+}
+
+// A shared routine's sidecar ``{key, entry}``: its ``routines`` entry, else the
+// ``function_names`` entry of a binary whose name the shared file took.  Null
+// when neither names it.
+function sharedEntry(where) {
+    const data = readJson(sidecarPath(where.project)) || {};
+    const key = routineKey(where);
+    if (key) return { key, entry: (data.routines || {})[key] || null };
+    for (const b of Object.values(data.binaries || {})) {
+        const names = b.function_names || {};
+        const hit = Object.keys(names).find((k) => names[k].name === where.label);
+        if (hit) return { key: hit, entry: names[hit] };
+    }
+    return null;
 }
 
 async function nameSharedRoutine(where, suggestion) {
@@ -455,9 +468,10 @@ async function prepareMakeC(uri, label) {
     // Renaming goes through the sidecar, as nameRoutine does; the key is resolved here
     // so the agent never has to work it out.
     const shared = where.binary === SHARED_DIR;
-    let key;
+    let key, sharedHit;
     if (shared) {
-        key = routineKey(where);
+        sharedHit = sharedEntry(where);
+        key = sharedHit && sharedHit.key;
     } else {
         const asmText = fs.readFileSync(asmFile, 'utf8');
         const row = asmText.split('\n').findIndex((l) => l.startsWith(`${where.label}:`));
@@ -476,8 +490,8 @@ async function prepareMakeC(uri, label) {
     };
     const own = (sidecar.binaries || {})[where.binary];
     // A sidecar note saying "hand-written" settles the form; a sibling .s shows the style.
-    const fnEntry = (shared ? sidecar.routines : (own || {}).function_names) || {};
-    const handWritten = /^hand-written/.test((fnEntry[key] || {}).note || '');
+    const entry = shared ? sharedHit.entry : ((own || {}).function_names || {})[key];
+    const handWritten = /^hand-written/.test((entry || {}).note || '');
     const exampleS = fs.readdirSync(dir).filter((f) => f.endsWith('.s')).sort()[0];
     const flagList = [`default \`${(flags.default || []).join(' ')}\``].concat(
         Object.entries(flags.prefixes || {}).map(([p, f]) => `\`${p}\` → \`${f.join(' ')}\``)).join('; ');

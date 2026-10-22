@@ -39,7 +39,7 @@ cache_screen:
     mov ax, word [cs:bx]             ; 0x3fc9
     or ax, ax                        ; 0x3fcc
     je short @..cache_screen.l3      ; 0x3fce
-    jmp near @..cache_screen.l9      ; 0x3fd0
+    jmp near dos_con_loc_RMKS        ; 0x3fd0
 @..cache_screen.l3:
     inc word [cs:cseg_028f - IMAGE_BASE] ; 0x3fd3
     mov ax, word [cs:cseg_028f - IMAGE_BASE] ; 0x3fd8
@@ -59,7 +59,7 @@ cache_screen:
     mov ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x4004
     cmp ax, word [cs:cseg_00ff - IMAGE_BASE] ; 0x4008
     jbe short @..cache_screen.l4     ; 0x400d
-    jmp near loc_40cb                ; 0x400f
+    jmp near dos_con_loc_IMIO        ; 0x400f
 @..cache_screen.l4:
     mov ax, 0xfa00                   ; 0x4012
     mov word [bp - 0x0006], ax       ; 0x4015
@@ -111,7 +111,3 @@ cache_screen:
     mov sp, bp                       ; 0x407d
     pop bp                           ; 0x407f
     ret                              ; 0x4080
-@..cache_screen.l9:
-    mov ax, cs                       ; 0x4081
-    mov ds, ax                       ; 0x4083
-    mov dx, cseg_4091 - IMAGE_BASE   ; 0x4085

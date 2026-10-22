@@ -17,7 +17,7 @@ load_sound:
     mov ax, word [cs:bx]             ; 0x4172
     or ax, ax                        ; 0x4175
     je short @..load_sound.l1        ; 0x4177
-    jmp near @..load_sound.l4        ; 0x4179
+    jmp near dos_con_loc_KPVS        ; 0x4179
 @..load_sound.l1:
     mov ax, word [cs:cseg_0baa - IMAGE_BASE] ; 0x417c
     inc ax                           ; 0x4180
@@ -70,7 +70,7 @@ load_sound:
     mov word [cs:bx + 0x2], ax       ; 0x41f3
     add ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x41f7
     cmp ax, 0x4180                   ; 0x41fc
-    jae short loc_4264               ; 0x41ff
+    jae short dos_con_loc_KOGR       ; 0x41ff
     mov word [cs:cseg_0bac - IMAGE_BASE], ax ; 0x4201
     mov ax, word [cs:bx]             ; 0x4205
     add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x4208
@@ -90,7 +90,3 @@ load_sound:
     mov sp, bp                       ; 0x4224
     pop bp                           ; 0x4226
     ret                              ; 0x4227
-@..load_sound.l4:
-    mov ax, cs                       ; 0x4228
-    mov ds, ax                       ; 0x422a
-    mov dx, cseg_4238 - IMAGE_BASE   ; 0x422c

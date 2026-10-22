@@ -26,7 +26,7 @@ loc_42a0:
     add ax, word [cs:loc_42a0.cseg1 - IMAGE_BASE]
     cmp ax, 0x4180
     jb short loc_42a0.loc1
-    jmp near loc_42a0.loc2
+    jmp near loc_42a0.dos_con_loc1
 loc_42a0.loc1:
     mov word [cs:loc_42a0.cseg1 - IMAGE_BASE], ax
     mov ax, word [cs:bx]

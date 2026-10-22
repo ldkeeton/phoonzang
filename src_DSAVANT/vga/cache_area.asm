@@ -36,7 +36,7 @@ cache_area:
     mov ah, 0x40                     ; 0x38ac
     int 0x21 ; DOS write file (handle)
     jae short @..cache_area.l1       ; 0x38b0
-    jmp near loc_381b                ; 0x38b2
+    jmp near dos_con_loc_JKSI        ; 0x38b2
 @..cache_area.l1:
     mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x38b5
     mov ds, ax                       ; 0x38b9
@@ -50,11 +50,11 @@ cache_area:
     mov ah, 0x40                     ; 0x38cd
     int 0x21 ; DOS write file (handle)
     jae short @..cache_area.l3       ; 0x38d1
-    jmp near loc_381b                ; 0x38d3
+    jmp near dos_con_loc_JKSI        ; 0x38d3
 @..cache_area.l3:
     cmp ax, word [bp - 0x0006]       ; 0x38d6
     je short @..cache_area.l4        ; 0x38d9
-    jmp near loc_381b                ; 0x38db
+    jmp near dos_con_loc_JKSI        ; 0x38db
 @..cache_area.l4:
     pop cx                           ; 0x38de
     loop @..cache_area.l2            ; 0x38df

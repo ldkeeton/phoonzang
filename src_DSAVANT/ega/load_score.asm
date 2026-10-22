@@ -17,7 +17,7 @@ load_score:
     mov ax, word [cs:bx]             ; 0x4ec9
     or ax, ax                        ; 0x4ecc
     je short @..load_score.l1        ; 0x4ece
-    jmp near @..load_score.l5        ; 0x4ed0
+    jmp near dos_con_loc_OOVK        ; 0x4ed0
 @..load_score.l1:
     mov bx, word [bp + 0x12]         ; 0x4ed3
     shl bx, 1                        ; 0x4ed6
@@ -88,7 +88,7 @@ load_score:
     add ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x4f7b
     cmp ax, 0x4180                   ; 0x4f80
     jb short @..load_score.l3        ; 0x4f83
-    jmp near @..load_score.l6        ; 0x4f85
+    jmp near dos_con_loc_LIIS        ; 0x4f85
 @..load_score.l3:
     mov word [cs:maze_paras_used - IMAGE_BASE], ax ; 0x4f88
     mov ax, word [cs:bx]             ; 0x4f8c
@@ -117,31 +117,3 @@ load_score:
     mov sp, bp                       ; 0x4fc0
     pop bp                           ; 0x4fc2
     ret                              ; 0x4fc3
-@..load_score.l5:
-    mov ax, cs                       ; 0x4fc4
-    mov ds, ax                       ; 0x4fc6
-    mov dx, cseg_4fd4 - IMAGE_BASE   ; 0x4fc8
-    mov ah, 9                        ; 0x4fcb
-    int 0x21 ; DOS string output
-    mov ax, 0x4c01                   ; 0x4fcf
-    int 0x21 ; DOS function dispatcher
-cseg_4fd4:
-
-    db 0x0d, 0x0a, 0x07
-    db 'In LOAD_SCORE() ... slot already used.', 0
-    db 0x0a, 0x24
-
-@..load_score.l6:
-    mov ax, cs                       ; 0x5000
-    mov ds, ax                       ; 0x5002
-    mov dx, cseg_5010 - IMAGE_BASE   ; 0x5004
-    mov ah, 9                        ; 0x5007
-    int 0x21 ; DOS string output
-    mov ax, 0x4c01                   ; 0x500b
-    int 0x21 ; DOS function dispatcher
-cseg_5010:
-
-    db 0x0d, 0x0a, 0x07
-    db 'In LOAD_SCORE() ... not enough memory.', 0
-    db 0x0a, 0x24
-

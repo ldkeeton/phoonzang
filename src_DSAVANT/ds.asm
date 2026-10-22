@@ -754,7 +754,7 @@ font_seg_table:
 file_param_word equ __zfile_param_word - __zdseg_start
 %include "ds/library/load_font_file.asm"   ; 0x3860
 
-%include "ds/library/ds_dos_con_loc_PGIN.asm" ; 0x3936
+%include "ds/library/font_io_error_exit.asm" ; 0x3936
 
 font_io_error_msg:
 
@@ -763,14 +763,6 @@ font_io_error_msg:
     db 0x0d, 0x0a, 0x24
 
 %include "ds/library/font_memory_error.asm" ; 0x395b
-
-%include "ds/library/ds_dos_con_loc_RGGK.asm" ; 0x3962
-
-cseg_396b:
-
-    db 0x07, 0x0d, 0x0a
-    db 'Memory error loading font'
-    db 0x0d, 0x0a, 0x24
 
 ; file_param_word equ __zfile_param_word - __zdseg_start
 %include "ds/library/dos_read_file.asm"    ; 0x398a
@@ -836,7 +828,7 @@ key_queue:
 
 %include "ds/library/read_misc_table.asm"  ; 0x3fa9
 
-%include "ds/library/ds_dos_con_loc_NHHR.asm" ; 0x3fd5
+%include "ds/library/misc_table_io_error_exit.asm" ; 0x3fd5
 
 misc_table_io_error_msg:
 

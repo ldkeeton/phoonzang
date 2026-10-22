@@ -51,7 +51,7 @@ graphics_loc_PVIU:
     mov cx, word [bp - 0x0002]       ; 0x324d
 @..graphics_loc_PVIU.l6:
     push cx                          ; 0x3250
-    call leaf_loc_GLTQ               ; 0x3251
+    call leaf_loc_QLNN               ; 0x3251
     mov bx, word [bp - 0x000c]       ; 0x3254
     mov al, byte [bx]                ; 0x3257
     and al, byte [bp - 0x000a]       ; 0x3259

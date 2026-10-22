@@ -44,7 +44,7 @@ draw_text:
     mov al, byte [ss:si]             ; 0x2dcd
     or al, al                        ; 0x2dd0
     je short @..draw_text.l1         ; 0x2dd2
-    call dos_con_loc_PILL            ; 0x2dd4
+    call leaf_loc_NIGK               ; 0x2dd4
     xor ah, ah                       ; 0x2dd7
     mov al, byte [bx + 0x2]          ; 0x2dd9
     mov word [bp - 0x0002], ax       ; 0x2ddc
@@ -447,7 +447,7 @@ draw_text:
     mov al, byte [ss:si]             ; 0x3117
     or al, al                        ; 0x311a
     je short @..draw_text.l56        ; 0x311c
-    call dos_con_loc_PILL            ; 0x311e
+    call leaf_loc_NIGK               ; 0x311e
     call graphics_loc_PVIU           ; 0x3121
     inc word [bp + 0x1c]             ; 0x3124
     jmp short @..draw_text.l55       ; 0x3127

@@ -241,18 +241,26 @@ fill_area.screen_buf_seg1 equ cseg_00e5
 
 %include "vga/invert_area.asm"             ; 0x0728
 
-%include "vga/save_area.asm"               ; 0x077a
+save_area.dos_con_loc1    equ dos_con_loc_PJHN
+save_area.screen_buf_seg1 equ cseg_00e5
+save_area.loc1            equ loc_082e
+%include "shared/library/save_area.asm"               ; 0x077a
 
-%include "vga/dos_con_loc_PJHN.asm"        ; 0x07fd
+cseg_080d equ dos_con_loc_PJHN.cseg1
+%include "shared/library/dos_con_loc_PJHN.asm"        ; 0x07fd
 
 loc_082e equ cache_area_return
 %include "shared/library/cache_area_return.asm"                ; 0x082e
 
-%include "vga/restore_area.asm"            ; 0x0836
+restore_area.dos_con_loc1    equ dos_con_loc_SUSK
+restore_area.screen_buf_seg1 equ cseg_00e5
+restore_area.loc1            equ loc_08ca
+%include "shared/library/restore_area.asm"            ; 0x0836
 
-%include "vga/dos_con_loc_SUSK.asm"        ; 0x088f
+cseg_089f equ dos_con_loc_SUSK.cseg1
+%include "shared/library/dos_con_loc_SUSK.asm"        ; 0x088f
 
-%include "vga/loc_08ca.asm"                ; 0x08ca
+%include "shared/library/loc_08ca.asm"                ; 0x08ca
 
 data_0251 equ __zdata_0251 - IMAGE_BASE
 data_02d7 equ __zdata_02d7 - IMAGE_BASE
@@ -285,8 +293,41 @@ cseg_0baa:
 cseg_0bac:
     db 0x00, 0x00
 data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
-; data_0bda equ __zdata_0bda - IMAGE_BASE
 %include "vga/load_maze.asm"               ; 0x0bae
+
+; data_0bda equ __zdata_0bda - IMAGE_BASE
+%include "vga/dos_con_loc_PHON.asm"        ; 0x0bde
+
+dos_con_loc_GKGP.cseg1 equ cseg_0d10
+%include "shared/library/dos_con_loc_GKGP.asm"        ; 0x0cf0
+
+dos_con_loc_NRMP.cseg1 equ cseg_0d6b
+%include "shared/library/dos_con_loc_NRMP.asm"        ; 0x0d00
+
+cseg_0d10:
+
+    db 0x0d, 0x0a, 0x07
+    db 'LOAD_MAZE called with bad slot number.', 0
+    db 0x0a, 0x24
+
+cseg_0d3c:
+
+    db 0x0d, 0x0a, 0x07
+    db 'LOAD_MAZE called with filled slot number.', 0
+    db 0x0a, 0x24
+
+cseg_0d6b:
+
+    db 0x0d, 0x0a, 0x07
+    db 'oops... LOAD_MAZE filled its memory area.', 0
+    db 0x0a, 0x24
+
+loc_LQTO.ems_blocks1      equ cseg_01eb
+loc_LQTO.maze_mem_seg1    equ cseg_00e1
+loc_LQTO.maze_paras_used1 equ cseg_0bac
+loc_LQTO.ems_frame_seg1   equ cseg_0103
+loc_LQTO.ems_cur_page1    equ cseg_3b8e
+%include "shared/library/loc_LQTO.asm"                ; 0x0d9a
 
 data_029b equ __zdata_029b - IMAGE_BASE
 ; data_02d7 equ __zdata_02d7 - IMAGE_BASE
@@ -333,14 +374,8 @@ mouse_hit_test.cseg3 equ cseg_1dd1
 data_1e5c equ __zdata_1e5c - IMAGE_BASE
 %include "vga/set_mouse_pointer.asm"       ; 0x13c9
 
-dos_con_loc_TUKI equ dos_con_loc_HJHM
-%include "shared/library/dos_con_loc_HJHM.asm"        ; 0x147d
-
-cseg_1486:
-
-    db 0x0d, 0x0a, 0x07
-    db 'Mouse pointer size out of range.', 0
-    db 0x0a, 0x24
+cseg_1486 equ dos_con_loc_JJUT.cseg1
+%include "shared/library/dos_con_loc_JJUT.asm"        ; 0x1476
 
 mouse_drawn_x:
     db 0x00, 0x00
@@ -438,14 +473,18 @@ data_0229 equ __zdata_0229 - IMAGE_BASE
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
 %include "vga/load_picture.asm"            ; 0x21cd
 
-%include "vga/dos_con_loc_QRKT.asm"        ; 0x22be
+dos_con_loc_QRKT equ dos_con_loc_KGLK
+cseg_22ce        equ dos_con_loc_KGLK.cseg1
+%include "shared/library/dos_con_loc_KGLK.asm"        ; 0x22be
 
 cseg_22de:
     db 0x30
 cseg_22df:
     db '0 not freed.', 0
     db 0x0a, 0x24
-%include "vga/dos_con_loc_TTIT.asm"        ; 0x22ee
+dos_con_loc_TTIT equ dos_con_loc_QMKK
+cseg_22fe        equ dos_con_loc_QMKK.cseg1
+%include "shared/library/dos_con_loc_QMKK.asm"        ; 0x22ee
 
 cseg_2327:
 
@@ -534,7 +573,21 @@ data_2e2b equ __zdata_2e2b - IMAGE_BASE
 data_2e53 equ __zdata_2e53 - IMAGE_BASE
 %include "vga/draw_text.asm"               ; 0x2d6c
 
-%include "vga/dos_con_loc_PILL.asm"        ; 0x3131
+%include "vga/leaf_loc_NIGK.asm"           ; 0x3131
+
+%include "vga/dos_con_loc_HLGP.asm"        ; 0x3156
+
+cseg_316f:
+    db 0x30
+cseg_3170:
+
+    db '0 too big in slot '
+
+cseg_3182:
+    db 0x30
+cseg_3183:
+    db 0x30, 0x2e, 0x00, 0x0a, 0x24
+%include "vga/loc_3188.asm"                ; 0x3188
 
 %include "shared/library/leaf_loc_NOSG.asm"           ; 0x319f
 
@@ -545,7 +598,8 @@ data_381b equ __zdata_381b - IMAGE_BASE
 
 %include "shared/library/leaf_loc_MTKK.asm"           ; 0x3340
 
-%include "shared/library/leaf_loc_GLTQ.asm"           ; 0x3360
+leaf_loc_QLNN equ leaf_loc_KSJN
+%include "shared/library/leaf_loc_KSJN.asm"           ; 0x3360
 
 ; data_2e2b equ __zdata_2e2b - IMAGE_BASE
 ; data_381b equ __zdata_381b - IMAGE_BASE
@@ -559,17 +613,9 @@ data_381b equ __zdata_381b - IMAGE_BASE
 ; data_381b equ __zdata_381b - IMAGE_BASE
 %include "vga/loc_35d8.asm"                ; 0x35d8
 
-loc_381b                    equ cache_area_disk_error
-cache_area_disk_error.cseg1 equ cseg_382b
-%include "shared/library/cache_area_disk_error.asm"                ; 0x381b
-
-%include "shared/library/dos_con_loc_KIIN.asm"        ; 0x3822
-
-cseg_382b:
-
-    db 0x0d, 0x0a, 0x07
-    db 'Error occurred writing to disk in CACHEAREA().', 0
-    db 0x0a, 0x24
+dos_con_loc_JKSI equ cache_area_disk_error
+cseg_382b        equ cache_area_disk_error.cseg1
+%include "shared/library/cache_area_disk_error.asm"        ; 0x381b
 
 data_025b equ __zdata_025b - IMAGE_BASE
 ; data_029b equ __zdata_029b - IMAGE_BASE
@@ -578,11 +624,16 @@ data_025b equ __zdata_025b - IMAGE_BASE
 
 %include "vga/dos_con_loc_GKQH.asm"        ; 0x3ab7
 
-%include "vga/loc_3ae6.asm"                ; 0x3ae6
+loc_3ae6 equ loc_0deb
+%include "shared/library/loc_0deb.asm"                ; 0x3ae6
 
-%include "vga/dos_con_loc_QORG.asm"        ; 0x3aee
+dos_con_loc_QORG equ cache_area_ems_slots_full
+cseg_3afe        equ cache_area_ems_slots_full.cseg1
+%include "shared/library/cache_area_ems_slots_full.asm"        ; 0x3aee
 
-%include "vga/dos_con_loc_RSSU.asm"        ; 0x3b1f
+dos_con_loc_RSSU equ cache_area_maze_mem_full
+cseg_3b2f        equ cache_area_maze_mem_full.cseg1
+%include "shared/library/cache_area_maze_mem_full.asm"        ; 0x3b1f
 
 dos_con_loc_UHSU equ cache_area_maze_slots_full
 cseg_3b6c        equ cache_area_maze_slots_full.cseg1
@@ -597,45 +648,40 @@ cseg_3b8e:
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
 %include "vga/restore_screen.asm"          ; 0x3ba5
 
-%include "vga/dos_file_loc_MUHV.asm"       ; 0x3d0b
+dos_file_loc_MUHV.loc1         equ loc_3d6d
+dos_file_loc_MUHV.dos_con_loc1 equ dos_con_loc_KVVK
+%include "shared/library/dos_file_loc_MUHV.asm"       ; 0x3d0b
 
-%include "vga/dos_con_loc_KVVK.asm"        ; 0x3d39
+cseg_3d49 equ dos_con_loc_KVVK.cseg1
+%include "shared/library/dos_con_loc_KVVK.asm"        ; 0x3d39
 
 %include "shared/library/loc_3d6d.asm"                ; 0x3d6d
 
-%include "vga/cache_maze.asm"              ; 0x3d72
+cache_maze.ems_block_count1 equ cseg_028f
+cache_maze.dos_con_loc1     equ dos_con_loc_KRKO
+cache_maze.ems_blocks1      equ cseg_01eb
+cache_maze.ems_paras_used1  equ cseg_0291
+cache_maze.ems_para_limit1  equ cseg_00ff
+cache_maze.dos_con_loc2     equ dos_con_loc_JUQV
+cache_maze.ems_cur_page1    equ cseg_3b8e
+cache_maze.ems_frame_seg1   equ cseg_0103
+%include "shared/library/cache_maze.asm"              ; 0x3d72
 
-%include "shared/library/dos_con_loc_URMP.asm"        ; 0x3f45
+dos_con_loc_KRKO equ dos_con_loc_GKTV
+cseg_3f06        equ dos_con_loc_GKTV.cseg1
+%include "shared/library/dos_con_loc_GKTV.asm"        ; 0x3ef6
 
-cseg_3f4e:
-
-    db 0x0d, 0x0a, 0x07
-    db 'CACHEMAZE().  Insufficient EMS.', 0
-    db 0x0a, 0x24
+cseg_3f4e equ dos_con_loc_JUQV.cseg1
+%include "shared/library/dos_con_loc_JUQV.asm"        ; 0x3f3e
 
 ; data_02d7 equ __zdata_02d7 - IMAGE_BASE
 %include "vga/cache_screen.asm"            ; 0x3f73
 
-dos_con_loc_GQSQ equ dos_con_loc_GQSN
-%include "shared/library/dos_con_loc_GQSN.asm"        ; 0x4088
+cseg_4091 equ dos_con_loc_RMKS.cseg1
+%include "shared/library/dos_con_loc_RMKS.asm"        ; 0x4081
 
-cseg_4091:
-
-    db 0x0d, 0x0a, 0x07
-    db 'CACHESCREEN().  Requested slot already in use.', 0
-    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xae
-
-loc_40cb                        equ cache_area_ems_slots_full
-cache_area_ems_slots_full.cseg1 equ cseg_40db
-%include "shared/library/cache_area_ems_slots_full.asm"                ; 0x40cb
-
-%include "shared/library/dos_con_loc_MQTN.asm"        ; 0x40d2
-
-cseg_40db:
-
-    db 0x0d, 0x0a, 0x07
-    db 'CACHESCREEN().  Insufficient EMS.', 0
-    db 0x0a, 0x24
+cseg_40db equ dos_con_loc_IMIO.cseg1
+%include "shared/library/dos_con_loc_IMIO.asm"        ; 0x40cb
 
 __zdata_4202:
 cseg_4102:
@@ -646,31 +692,16 @@ cseg_4102:
 data_4202 equ __zdata_4202 - IMAGE_BASE
 %include "vga/load_sound.asm"              ; 0x4156
 
-dos_con_loc_VTSU equ dos_con_loc_KGMT
-%include "shared/library/dos_con_loc_KGMT.asm"        ; 0x422f
+cseg_4238 equ dos_con_loc_KPVS.cseg1
+%include "shared/library/dos_con_loc_KPVS.asm"        ; 0x4228
 
-cseg_4238:
+cseg_4274 equ dos_con_loc_KOGR.cseg1
+%include "shared/library/dos_con_loc_KOGR.asm"        ; 0x4264
 
-    db 0x0d, 0x0a, 0x07
-    db 'In LOAD_SOUND() ... slot already used.', 0
-    db 0x0a, 0x24
-
-loc_4264                       equ cache_area_maze_mem_full
-cache_area_maze_mem_full.cseg1 equ cseg_4274
-%include "shared/library/cache_area_maze_mem_full.asm"                ; 0x4264
-
-%include "shared/library/dos_con_loc_KPVH.asm"        ; 0x426b
-
-cseg_4274:
-
-    db 0x0d, 0x0a, 0x07
-    db 'In LOAD_SOUND() ... not enough memory.', 0
-    db 0x0a, 0x24
-
-loc_42a0.cseg1 equ cseg_0bac
-loc_42ea       equ loc_42a0.loc1
-loc_42a0.loc2  equ loc_4264
-loc_42a0.cseg2 equ cseg_00e1
+loc_42a0.cseg1        equ cseg_0bac
+loc_42ea              equ loc_42a0.loc1
+loc_42a0.dos_con_loc1 equ dos_con_loc_KOGR
+loc_42a0.cseg2        equ cseg_00e1
 %include "shared/library/loc_42a0.asm"                ; 0x42a0
 
 %include "shared/library/string_loc_RQON.asm"         ; 0x4300
@@ -722,27 +753,12 @@ cseg_45f1:
 data_46f1 equ __zdata_46f1 - IMAGE_BASE
 %include "vga/load_score.asm"              ; 0x45fb
 
-dos_con_loc_HNTO equ dos_con_loc_GUHJ
-%include "shared/library/dos_con_loc_GUHJ.asm"        ; 0x4719
+dos_con_loc_SGUQ equ dos_con_loc_OOVK
+cseg_4722        equ dos_con_loc_OOVK.cseg1
+%include "shared/library/dos_con_loc_OOVK.asm"        ; 0x4712
 
-cseg_4722:
-
-    db 0x0d, 0x0a, 0x07
-    db 'In LOAD_SCORE() ... slot already used.', 0
-    db 0x0a, 0x24
-
-loc_474e       equ loc_1211
-loc_1211.cseg1 equ cseg_475e
-%include "shared/library/loc_1211.asm"                ; 0x474e
-
-dos_con_loc_UIHJ equ dos_con_loc_HPRK
-%include "shared/library/dos_con_loc_HPRK.asm"        ; 0x4755
-
-cseg_475e:
-
-    db 0x0d, 0x0a, 0x07
-    db 'In LOAD_SCORE() ... not enough memory.', 0
-    db 0x0a, 0x24
+cseg_475e equ dos_con_loc_HPIH.cseg1
+%include "shared/library/dos_con_loc_HPIH.asm"        ; 0x474e
 
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
 ; data_46d9 equ __zdata_46d9 - IMAGE_BASE
