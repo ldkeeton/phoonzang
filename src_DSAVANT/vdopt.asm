@@ -59,11 +59,13 @@ jumptable_0457        equ log_maze_change.jumptable1
 ; pending_event_hi equ __zdseg_end + (__zobss_90b8 - __zdata_start)
 %include "vdopt/api_idx_0058_TVSV.asm"     ; 0x0565
 
-%include "vdopt/api_idx_0002_TPQM.asm"     ; 0x065b
+%include "vdopt/find_party_type7_object.asm" ; 0x065b
 
 ; pending_event    equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 ; pending_event_hi equ __zdseg_end + (__zobss_90b8 - __zdata_start)
-%include "vdopt/api_idx_000e_NMLJ.asm"     ; 0x06e8
+%include "vdopt/roll_claim_type7_object.asm" ; 0x06e8
+
+%include "vdopt/loc_UOPP.asm"              ; 0x07d9
 
 loc_NJKS.loc1 equ loc_UOPP
 loc_NJKS.loc2 equ loc_KHGO

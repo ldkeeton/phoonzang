@@ -505,7 +505,7 @@ jumptable_2326_case_46:
     jmp near @..api_idx_0008_JRPS.l37 ; 0x2191
 jumptable_2326_case_32:
     push word [bp + 0x8]             ; 0x2194
-    call api_idx_000e_NMLJ           ; 0x2197
+    call roll_claim_type7_object     ; 0x2197
     pop cx                           ; 0x219a
     cmp ax, strict word 0xffff       ; 0x219b
     jne short @..api_idx_0008_JRPS.l29 ; 0x219e

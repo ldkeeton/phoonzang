@@ -662,6 +662,8 @@
       },
       "function_names": {
         "04a9": {"name": "claim_type7_object", "note": "clears party bit, updates object flags and bitmaps, sets party_region, plays sound 1"},
+        "064d": {"name": "find_party_type7_object", "note": "returns the first type 7 object in the party cell whose 2-bit party_tag field is 1 or 2, else -1"},
+        "06da": {"name": "roll_claim_type7_object", "note": "rolls three dice of 0..2*skill-1 against the party type 7 object level; claims it on success, posts event 0x841+outcome, returns -1 if none"},
         "0f71": {"name": "draw_grid_cell_char", "note": "draws one character at a 7-pixel grid cell plus pixel offset, relative to the grid origin"},
         "237f": {"name": "trigger_keyed_cell_object", "note": "fires the type 0x13 or type 7 object in the party cell whose key matches a cell_key_grid entry"}
       },
