@@ -15,7 +15,7 @@ loc_MLLK:
     add sp, byte 8                   ; 0x6f33
     mov word [saved_area_a_hi], dx   ; 0x6f36
     mov word [saved_area_a], ax      ; 0x6f3a
-    call api_idx_000a_RIKJ           ; 0x6f3d
+    call restore_area_a_draw_glyph   ; 0x6f3d
     mov word [bss_9b4e], 0x44        ; 0x6f40
     mov word [bss_9b4c], 0           ; 0x6f46
     mov byte [bss_9b50], 0           ; 0x6f4c

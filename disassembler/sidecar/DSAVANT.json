@@ -36,6 +36,7 @@
     "api_idx_000a_IQHO": {
       "name": "fill_action_slot_table"
     },
+    "api_idx_000a_KGLQ": {"name": "restore_area_a_draw_glyph", "note": "restores saved screen area a and redraws glyph 1 in color 14 at (0x37,0x9a)"},
     "api_idx_000a_LSOP": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
     "api_idx_000a_MHQT": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
     "api_idx_000a_PJMQ": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
@@ -627,6 +628,7 @@
         "1086": {"name": "show_message", "note": "loads message string by number and prints it"},
         "68e4": {"name": "save_level_state", "note": "copies the current level per-level state to its stores"},
         "69c8": {"name": "log_maze_change", "note": "appends a 6-byte maze change record to the change log"},
+        "6afc": {"name": "restore_area_a_draw_glyph", "note": "restores saved screen area a and redraws glyph 1 in color 14 at (0x37,0x9a)"},
         "7298": {"name": "move_party_to_dest", "note": "moves the party to a destination table entry, loading its level if different"},
         "7cd7": {"name": "set_cell_wall", "note": "sets a 4-bit wall field on one edge of a maze cell and logs the change"},
         "8a06": {"name": "claim_cell", "note": "sets party cell kind 6 and tag party_tag, plays message 0x7fc and sound 4"},

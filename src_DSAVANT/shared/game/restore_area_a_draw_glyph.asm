@@ -1,10 +1,10 @@
 ; auto-generated
-api_idx_000a_KGLQ:
+restore_area_a_draw_glyph:
     mov ax, 0xfff6
     call aztec_csav
     mov ax, 0
     push ax
-    push word [saved_area_a_hi]
+    push word [saved_area_a + 0x2]
     push word [saved_area_a]
     call gfx_restore_area
     add sp, byte 6

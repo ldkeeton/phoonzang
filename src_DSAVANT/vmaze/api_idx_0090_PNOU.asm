@@ -74,7 +74,7 @@ jumptable_6e12_case_2:
     jmp near @..api_idx_0090_PNOU.l7 ; 0x6d6c
 jumptable_6e12_case_3:
     inc word [bp + 0x4]              ; 0x6d6f
-    call api_idx_000a_RIKJ           ; 0x6d72
+    call restore_area_a_draw_glyph   ; 0x6d72
     mov word [bss_9b4c], 0           ; 0x6d75
     jmp near @..api_idx_0090_PNOU.l7 ; 0x6d7b
 jumptable_6e12_case_4:

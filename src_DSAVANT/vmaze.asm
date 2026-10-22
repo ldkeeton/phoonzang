@@ -365,8 +365,7 @@ jumptable_6aab        equ log_maze_change.jumptable1
 
 %include "vmaze/loc_GRON.asm"              ; 0x6ac7
 
-api_idx_000a_RIKJ equ api_idx_000a_KGLQ
-%include "shared/game/api_idx_000a_KGLQ.asm"     ; 0x6b0a
+%include "shared/game/restore_area_a_draw_glyph.asm" ; 0x6b0a
 
 ; bss_919a equ __zdseg_end + (__zobss_919a - __zdata_start)
 ; bss_919c equ __zdseg_end + (__zobss_919c - __zdata_start)

@@ -70,6 +70,6 @@ loc_MVHP:
     jne short @..loc_MVHP.l6         ; 0x6bf8
     mov word [bss_9b48], 1           ; 0x6bfa
 @..loc_MVHP.l6:
-    call api_idx_000a_RIKJ           ; 0x6c00
+    call restore_area_a_draw_glyph   ; 0x6c00
     mov word [bss_9b4c], 0           ; 0x6c03
     ret                              ; 0x6c09

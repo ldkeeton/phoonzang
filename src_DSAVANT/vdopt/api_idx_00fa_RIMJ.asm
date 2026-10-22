@@ -65,7 +65,7 @@ jumptable_1aa5_case_0:
     add sp, byte 8                   ; 0x1aeb
     mov word [saved_area_a_hi], dx   ; 0x1aee
     mov word [saved_area_a], ax      ; 0x1af2
-    call api_idx_000a_KGLQ           ; 0x1af5
+    call restore_area_a_draw_glyph   ; 0x1af5
     mov word [bp - 0x000a], 0        ; 0x1af8
     mov word [bp - 0x0002], 0        ; 0x1afd
 @..api_idx_00fa_RIMJ.l3:

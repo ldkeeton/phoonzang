@@ -108,5 +108,5 @@ api_idx_0002_OHVL:
     push ax                          ; 0x1a54
     call api_idx_0004_TTGQ           ; 0x1a55
     pop cx                           ; 0x1a58
-    call api_idx_000a_KGLQ           ; 0x1a59
+    call restore_area_a_draw_glyph   ; 0x1a59
     ret                              ; 0x1a5c

@@ -140,7 +140,7 @@ bss_9b0c equ __zdseg_end + (__zobss_9b0c - __zdata_start)
 ; bss_9b0c equ __zdseg_end + (__zobss_9b0c - __zdata_start)
 %include "vdopt/api_idx_0012_UROU.asm"     ; 0x0fd3
 
-%include "shared/game/api_idx_000a_KGLQ.asm"     ; 0x190b
+%include "shared/game/restore_area_a_draw_glyph.asm" ; 0x190b
 
 %include "vdopt/api_idx_0002_OHVL.asm"     ; 0x195b
 
