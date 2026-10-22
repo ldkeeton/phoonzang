@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_002a_STSK:
+draw_split_two_line_text:
     mov ax, 0xffd6
     call aztec_csav
     mov ax, 0
@@ -23,17 +23,17 @@ api_idx_002a_STSK:
     add sp, byte 4
     mov word [bp - 0x0002], ax
     cmp ax, strict word 0xffff
-    jne short @..api_idx_002a_STSK.l1
+    jne short @..draw_split_two_line_text.l1
     lea ax, word [bp - 0x002a]
     push ax
     call aztec_strlen
     pop cx
     mov word [bp - 0x0002], ax
-@..api_idx_002a_STSK.l1:
+@..draw_split_two_line_text.l1:
     cmp word [bp - 0x0002], byte 0x0a
-    jle short @..api_idx_002a_STSK.l2
+    jle short @..draw_split_two_line_text.l2
     mov word [bp - 0x0002], 0xa
-@..api_idx_002a_STSK.l2:
+@..draw_split_two_line_text.l2:
     mov bx, word [bp - 0x0002]
     add bx, bp
     mov byte [bx - 0x002a], 0

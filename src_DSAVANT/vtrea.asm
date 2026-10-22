@@ -290,8 +290,7 @@ dseg_90ee        equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 
 %include "vtrea/run_state_1d_scene.asm"    ; 0x81db
 
-api_idx_002a_SRJL equ api_idx_002a_STSK
-%include "shared/game/api_idx_002a_STSK.asm"     ; 0x8200
+%include "shared/game/api_idx_002a_SRJL.asm"     ; 0x8200
 
 %include "shared/game/loc_RULJ.asm"              ; 0x82a9
 

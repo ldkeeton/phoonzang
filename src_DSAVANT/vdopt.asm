@@ -34,8 +34,7 @@ pending_event_hi equ __zdseg_end + (__zobss_90b8 - __zdata_start)
 
 %include "shared/game/find_object_at.asm"        ; 0x019b
 
-api_idx_002a_SRJL equ api_idx_002a_STSK
-%include "shared/game/api_idx_002a_STSK.asm"     ; 0x020b
+%include "shared/game/api_idx_002a_SRJL.asm"     ; 0x020b
 
 %include "shared/game/loc_RULJ.asm"              ; 0x02b4
 

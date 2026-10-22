@@ -110,7 +110,7 @@ loc_TTSP.bss2 equ bss_943a
 
 %include "shared/game/api_idx_0004_GUSS.asm"     ; 0x21be
 
-%include "shared/game/api_idx_002a_STSK.asm"     ; 0x2447
+%include "shared/game/draw_split_two_line_text.asm" ; 0x2447
 
 bss_9422 equ __zdseg_end + (__zobss_9422 - __zdata_start)
 bss_9424 equ __zdseg_end + (__zobss_9424 - __zdata_start)

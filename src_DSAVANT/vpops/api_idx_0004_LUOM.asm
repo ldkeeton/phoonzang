@@ -98,7 +98,7 @@ api_idx_0004_LUOM:
     imul cx                          ; 0x2bd1
     add ax, 0x91a6                   ; 0x2bd3
     push ax                          ; 0x2bd6
-    call api_idx_002a_STSK           ; 0x2bd7
+    call draw_split_two_line_text    ; 0x2bd7
     add sp, byte 8                   ; 0x2bda
     mov ax, word [bp + 0xc]          ; 0x2bdd
     add ax, word [bp - 0x0002]       ; 0x2be0

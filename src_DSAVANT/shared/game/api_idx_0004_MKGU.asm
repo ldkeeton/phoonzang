@@ -53,7 +53,7 @@ api_idx_0004_MKGU:
     add ax, strict word 0xe
     push ax
     push word [bp + 0xa]
-    call api_idx_002a_STSK
+    call draw_split_two_line_text
     add sp, byte 8
     mov bx, word [bp + 0x8]
     mov al, byte [bx + 0x4]

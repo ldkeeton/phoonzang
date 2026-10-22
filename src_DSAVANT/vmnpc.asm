@@ -362,8 +362,8 @@ dseg_90e8 equ __zdseg_end + (__zdseg_90e8 - __zdata_start)
 
 %include "vmnpc/api_idx_0006_TLLQ.asm"     ; 0x84f0
 
-api_idx_002a_NJKV equ api_idx_002a_STSK
-%include "shared/game/api_idx_002a_STSK.asm"     ; 0x8550
+api_idx_002a_NJKV equ api_idx_002a_SRJL
+%include "shared/game/api_idx_002a_SRJL.asm"     ; 0x8550
 
 ; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
 ; bss_91c7 equ __zdseg_end + (__zobss_91c7 - __zdata_start)

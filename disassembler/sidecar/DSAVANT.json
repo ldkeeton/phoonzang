@@ -48,6 +48,7 @@
       "note": "overlay stub 0x0c: draws one letter per party slot (six of them) via thunk_28, from the host's tables at ds:01d4/01a4/01bc/830e"
     },
     "api_idx_000e_TIOP": {"name": "draw_party_glyph_row", "note": "draws one row of party glyphs from the party tag and count"},
+    "api_idx_002a_STSK": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"},
     "bios_kbd_loc_UHUN": {
       "name": "dos_con_in_noecho",
       "note": "ds: keyboard input; reads keys with INT 21h AH=7"

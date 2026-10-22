@@ -57,7 +57,7 @@ api_idx_0004_KVIP:
     push ax                          ; 0x0a1e
     mov ax, bss_9414                 ; 0x0a1f
     push ax                          ; 0x0a22
-    call api_idx_002a_STSK           ; 0x0a23
+    call draw_split_two_line_text    ; 0x0a23
     add sp, byte 8                   ; 0x0a26
     mov bx, word [bss_942a]          ; 0x0a29
     cmp byte [bx + 0x60e], 1         ; 0x0a2d

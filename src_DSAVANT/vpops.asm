@@ -26,7 +26,7 @@ __zcode_start:
 
 %include "vpops/ovmain.asm"                ; 0x000e
 
-%include "shared/game/api_idx_002a_STSK.asm"     ; 0x0022
+%include "shared/game/draw_split_two_line_text.asm" ; 0x0022
 
 %include "shared/game/redraw_glyph_strip.asm"    ; 0x00cb
 

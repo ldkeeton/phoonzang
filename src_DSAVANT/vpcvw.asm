@@ -251,7 +251,7 @@ bss_9400  equ __zdseg_end + (__zobss_9400 - __zdata_start)
 ; bss_967a  equ __zdseg_end + (__zobss_967a - __zdata_start)
 %include "vpcvw/api_idx_0014_VORK.asm"     ; 0x616c
 
-%include "shared/game/api_idx_002a_STSK.asm"     ; 0x6977
+%include "shared/game/draw_split_two_line_text.asm" ; 0x6977
 
 ; bss_93fa equ __zdseg_end + (__zobss_93fa - __zdata_start)
 ; bss_93fc equ __zdseg_end + (__zobss_93fc - __zdata_start)
