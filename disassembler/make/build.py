@@ -77,7 +77,8 @@ def asm_app(app):
     out_dir = src_dir(app, PROJECT)
     try:
         with Workers(app) as workers:
-            failed = build_project(app, _generate(workers), _assemble(out_dir))
+            failed = build_project(app, _generate(workers), _assemble(out_dir),
+                                   overlap=True)
     except SidecarError as exc:
         print(f'{app}: sidecar configuration error: {exc}')
         sys.exit(1)

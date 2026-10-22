@@ -37,6 +37,7 @@ family's labels-only pass: its ``ds_starts`` union is this build's too.
 """
 
 import os
+from concurrent.futures import ThreadPoolExecutor
 
 from lib import stagelog
 from lib import progress
@@ -171,14 +172,21 @@ def _sync(out_dir, files, report, scopes=None):
            f'{unchanged} unchanged, {removed} removed')
 
 
-def build_project(project, run_batch, nasm_batch, *, only=None, report=print):
-    """Run the whole project build, recording its level-0 stage ledger."""
+def build_project(project, run_batch, nasm_batch, *, only=None, report=print,
+                  overlap=False):
+    """Run the whole project build, recording its level-0 stage ledger.
+
+    *overlap* says two *run_batch* calls may run at once (one worker process
+    per binary), so the consumers that need nothing from the others start
+    alongside the sources.
+    """
     ledger = stagelog.begin(f'{project}/<project>')
     previous_run = begin_run()
     try:
         with write_once():
             failed = _build_project(project, run_batch, nasm_batch,
-                                    only=only, report=report)
+                                    only=only, report=report,
+                                    overlap=overlap)
     finally:
         end_run(previous_run)
         from lib.cachedirs import stages_dir
@@ -188,7 +196,8 @@ def build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     return failed
 
 
-def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
+def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
+                   overlap=False):
     """Generate *project*; return the names that failed (empty on success).
 
     *run_batch(items)* takes ``(name, extra_args)`` pairs, generates each binary
@@ -224,132 +233,156 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     family = {host} | {n for n, refs in cross_refs.items()
                        if any(src == host for _, src in refs)}
 
-    # 1. the sources, so each consumer below can be handed their labels
-    needed = source_names
-    if only is not None:
-        needed = ({src for _, src in cross_refs.get(only, [])}
-                  | ({only} if only in source_names else set()))
-    # The host is emitted once, in step 4; a partial build never reaches it.
-    items = [(name, ['--export-labels']
-              + (['--labels-only'] if name == host and only is None else []))
-             for name in sorted(source_names & set(bins) & needed)]
-    progress.log(f'{project} | export sources: {len(items)} binary(ies)')
-    failed = _generate(run_batch, items, emitted)
-    stagelog.step('project.export_sources', 0, metrics={'sources': len(items)})
-    if failed:
-        report(f'{project}: source binary(ies) failed: '
-               f'{", ".join(sorted(set(failed)))}')
-        return failed
-
-    # 3. the consumers
-    consumers = [n for n in sorted(bins) if n not in source_names]
-    targets = consumers
-    if only is not None:
-        targets = [only] if only in targets else []
-    starts = None
-    if any(n in family for n in targets):
-        # 3a. a labels-only pass exports the DS starts each family binary
-        #     names absolutely; their union lets every one of them bind an
-        #     indexed operand to an object another binary names.  The union
-        #     needs the whole family, even for one binary's partial build.
-        first = [n for n in consumers if n in family]
-        progress.log(f'{project} | ds_starts pass: {len(first)} family binary(ies)')
-        failed = _generate(run_batch, [
-            (n, (foreign_args(project, n, cross_refs) or []) + ['--labels-only'])
-            for n in first], emitted)
+    # 0. a consumer outside the host family that takes no source labels
+    #    needs nothing from the passes below: it runs alongside them, and
+    #    only the host's DS union (step 4) waits for it.
+    early = []
+    if overlap and only is None:
+        early = [n for n in sorted(bins) if n not in source_names
+                 and n not in family and n not in cross_refs]
+    pool = early_run = None
+    early_emitted = {}
+    if early:
+        progress.log(f'{project} | independent consumers: {len(early)} '
+                     f'binary(ies), started now')
+        pool = ThreadPoolExecutor(max_workers=1)
+        early_run = pool.submit(_generate, run_batch,
+                                [(n, None) for n in early], early_emitted)
+    try:
+        # 1. the sources, so each consumer below can be handed their labels
+        needed = source_names
+        if only is not None:
+            needed = ({src for _, src in cross_refs.get(only, [])}
+                      | ({only} if only in source_names else set()))
+        # The host is emitted once, in step 4; a partial build never reaches it.
+        items = [(name, ['--export-labels']
+                  + (['--labels-only'] if name == host and only is None else []))
+                 for name in sorted(source_names & set(bins) & needed)]
+        progress.log(f'{project} | export sources: {len(items)} binary(ies)')
+        failed = _generate(run_batch, items, emitted)
+        stagelog.step('project.export_sources', 0, metrics={'sources': len(items)})
         if failed:
-            report(f'{project}: ds_starts pass failed: '
+            report(f'{project}: source binary(ies) failed: '
                    f'{", ".join(sorted(set(failed)))}')
             return failed
-        starts = write_ds_starts(project, collect_ds_starts(
-            labels_dir(project), family))
-        progress.log(f'{project} | ds_starts: {len(read_ds_starts(starts))} start(s)')
-        stagelog.step('project.ds_starts', 0, metrics={'starts': len(
-            read_ds_starts(starts))},
-            why='an indexed operand binds only to an object some binary of the '
-                'host family names; the union exists after every one has run')
 
-    def consumer_flags(n):
-        flags = foreign_args(project, n, cross_refs)
-        if n in family and starts:
-            flags = (flags or []) + [f'--ds-starts={starts}']
-        return flags
+        # 3. the consumers
+        consumers = [n for n in sorted(bins) if n not in source_names]
+        targets = consumers
+        if only is not None:
+            targets = [only] if only in targets else []
+        starts = None
+        if any(n in family for n in targets):
+            # 3a. a labels-only pass exports the DS starts each family binary
+            #     names absolutely; their union lets every one of them bind an
+            #     indexed operand to an object another binary names.  The union
+            #     needs the whole family, even for one binary's partial build.
+            first = [n for n in consumers if n in family]
+            progress.log(f'{project} | ds_starts pass: {len(first)} family binary(ies)')
+            failed = _generate(run_batch, [
+                (n, (foreign_args(project, n, cross_refs) or []) + ['--labels-only'])
+                for n in first], emitted)
+            if failed:
+                report(f'{project}: ds_starts pass failed: '
+                       f'{", ".join(sorted(set(failed)))}')
+                return failed
+            starts = write_ds_starts(project, collect_ds_starts(
+                labels_dir(project), family))
+            progress.log(f'{project} | ds_starts: {len(read_ds_starts(starts))} start(s)')
+            stagelog.step('project.ds_starts', 0, metrics={'starts': len(
+                read_ds_starts(starts))},
+                why='an indexed operand binds only to an object some binary of the '
+                    'host family names; the union exists after every one has run')
 
-    progress.log(f'{project} | generating consumers: {len(targets)}')
-    failed = _generate(run_batch, [(n, consumer_flags(n)) for n in targets],
-                       emitted)
-    if failed:
-        report(f'{project}: asm generation failed: '
-               f'{", ".join(sorted(set(failed)))}')
-        return failed
+        def consumer_flags(n):
+            flags = foreign_args(project, n, cross_refs)
+            if n in family and starts:
+                flags = (flags or []) + [f'--ds-starts={starts}']
+            return flags
 
-    stagelog.step('project.consumers', 0, metrics={'consumers': len(targets)})
-
-    if only is not None:
-        # A partial build makes no whole-project decision, and assembling it
-        # alone must not leave the others' stale artifacts in build_out.
-        progress.log(f'{project} | syncing partial build: {only}')
-        _sync(out_dir, merge_files(emitted), report,
-              scopes=[f'{only}.asm', only])
-        progress.log(f'{project} | copying assets for {only}')
-        copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
-                    {bins[only][0]})
-        progress.log(f'{project} | assembling {only}')
-        return _batch(nasm_batch, [(only, bins[only][0])])
-
-    # 4. the host declares the union of the DS offsets its consumers reference
-    progress.log(f'{project} | aggregating host data from {len(targets)} consumer(s)')
-    offsets = aggregate_host_data(project, targets)
-    if host in source_names:
-        progress.log(f'{project} | host emit: {host}')
-        flags = ['--export-labels']
-        if offsets:
-            flags.append(f'--host-data-offsets={offsets}')
-        if starts:
-            flags.append(f'--ds-starts={starts}')
-        failed = _generate(run_batch, [(host, flags)], emitted)
+        progress.log(f'{project} | generating consumers: {len(targets)}')
+        failed = _generate(run_batch, [(n, consumer_flags(n)) for n in targets
+                                       if n not in early], emitted)
+        if early_run is not None:
+            progress.log(f'{project} | waiting for {len(early)} independent '
+                         f'consumer(s)')
+            failed = sorted(set(failed) | set(early_run.result()))
+            emitted.update(early_emitted)
         if failed:
-            report(f'{project}: generating {host} with the DS union failed')
+            report(f'{project}: asm generation failed: '
+                   f'{", ".join(sorted(set(failed)))}')
             return failed
-        stagelog.step('project.host_emit', 0, 'recompute', repairs='project.export_sources',
-            why='the host\'s labels come first, its source waits for the overlay DS union')
 
-    check_build_sidecar_use(project, bins)
-    stagelog.step('project.sidecar_use', 0, 'measure',
-        why='a build-wide sidecar entry is applied by some binary or is stale')
+        stagelog.step('project.consumers', 0, metrics={'consumers': len(targets)})
 
-    # 5. one copy of every byte-identical routine, in shared/
-    progress.log(f'{project} | sharing identical routines')
-    files, shared = share_files(merge_files(emitted), out_dir,
-                                project_tables(project))
-    if shared:
-        report(f'  Shared: {sum(len(v) for v in shared.values())} '
-               f'fragments -> {len(shared)} files in shared/')
-    stagelog.step('project.share_identical', 0, 'repair', repairs='project.consumers',
-        why='byte-identical fragments of different binaries collapse into shared/',
-        metrics={'shared_files': len(shared or {}),
-                 'fragments': sum(len(v) for v in (shared or {}).values())})
+        if only is not None:
+            # A partial build makes no whole-project decision, and assembling it
+            # alone must not leave the others' stale artifacts in build_out.
+            progress.log(f'{project} | syncing partial build: {only}')
+            _sync(out_dir, merge_files(emitted), report,
+                  scopes=[f'{only}.asm', only])
+            progress.log(f'{project} | copying assets for {only}')
+            copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
+                        {bins[only][0]})
+            progress.log(f'{project} | assembling {only}')
+            return _batch(nasm_batch, [(only, bins[only][0])])
 
-    # 5b. structure report: objects glued onto a routine's file (plan.md §7)
-    from lib.compare.cotenancy import scan as scan_cotenancy, summarize
-    progress.log(f'{project} | scanning cotenancy')
-    cotenancy = scan_cotenancy(out_dir, files=files)
-    #report('  ' + summarize(cotenancy))
-    stagelog.step('project.cotenancy', 0, 'measure',
-        metrics={k: cotenancy[k] for k in ('files', 'glued_files', 'co_tenants',
-                                            'code', 'data')})
+        # 4. the host declares the union of the DS offsets its consumers reference
+        progress.log(f'{project} | aggregating host data from {len(targets)} consumer(s)')
+        offsets = aggregate_host_data(project, targets)
+        if host in source_names:
+            progress.log(f'{project} | host emit: {host}')
+            flags = ['--export-labels']
+            if offsets:
+                flags.append(f'--host-data-offsets={offsets}')
+            if starts:
+                flags.append(f'--ds-starts={starts}')
+            failed = _generate(run_batch, [(host, flags)], emitted)
+            if failed:
+                report(f'{project}: generating {host} with the DS union failed')
+                return failed
+            stagelog.step('project.host_emit', 0, 'recompute', repairs='project.export_sources',
+                why='the host\'s labels come first, its source waits for the overlay DS union')
 
-    progress.log(f'{project} | syncing {len(files)} generated file(s)')
-    _sync(out_dir, files, report)
-    progress.log(f'{project} | copying assets')
-    copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
-                {rel for rel, _s in bins.values()})
+        check_build_sidecar_use(project, bins)
+        stagelog.step('project.sidecar_use', 0, 'measure',
+            why='a build-wide sidecar entry is applied by some binary or is stale')
 
-    # 6. assemble
-    progress.log(f'{project} | assembling {len(bins)} binary(ies)')
-    stagelog.step('project.assemble', 0)
-    return _batch(nasm_batch, [(name, rel) for name, (rel, _s)
-                               in sorted(bins.items())])
+        # 5. one copy of every byte-identical routine, in shared/
+        progress.log(f'{project} | sharing identical routines')
+        files, shared = share_files(merge_files(emitted), out_dir,
+                                    project_tables(project))
+        if shared:
+            report(f'  Shared: {sum(len(v) for v in shared.values())} '
+                   f'fragments -> {len(shared)} files in shared/')
+        stagelog.step('project.share_identical', 0, 'repair', repairs='project.consumers',
+            why='byte-identical fragments of different binaries collapse into shared/',
+            metrics={'shared_files': len(shared or {}),
+                     'fragments': sum(len(v) for v in (shared or {}).values())})
+
+        # 5b. structure report: objects glued onto a routine's file (plan.md §7)
+        from lib.compare.cotenancy import scan as scan_cotenancy, summarize
+        progress.log(f'{project} | scanning cotenancy')
+        cotenancy = scan_cotenancy(out_dir, files=files)
+        #report('  ' + summarize(cotenancy))
+        stagelog.step('project.cotenancy', 0, 'measure',
+            metrics={k: cotenancy[k] for k in ('files', 'glued_files', 'co_tenants',
+                                                'code', 'data')})
+
+        progress.log(f'{project} | syncing {len(files)} generated file(s)')
+        _sync(out_dir, files, report)
+        progress.log(f'{project} | copying assets')
+        copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
+                    {rel for rel, _s in bins.values()})
+
+        # 6. assemble
+        progress.log(f'{project} | assembling {len(bins)} binary(ies)')
+        stagelog.step('project.assemble', 0)
+        return _batch(nasm_batch, [(name, rel) for name, (rel, _s)
+                                   in sorted(bins.items())])
+    finally:
+        if pool is not None:
+            pool.shutdown(wait=True)
 
 
 def _worker_kwargs(flags):
