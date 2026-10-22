@@ -93,13 +93,13 @@ api_idx_0006_MITV:
     push ax                          ; 0x7394
     call aztec_setmem                ; 0x7395
     add sp, byte 6                   ; 0x7398
-    cmp word [bss_598e], byte 0xff   ; 0x739b
+    cmp word [loaded_sound_id], byte 0xff ; 0x739b
     je short @..api_idx_0006_MITV.l6 ; 0x73a0
     mov ax, 0x10                     ; 0x73a2
     push ax                          ; 0x73a5
     call wait_and_free_sound         ; 0x73a6
     pop cx                           ; 0x73a9
-    mov word [bss_598e], 0xffff      ; 0x73aa
+    mov word [loaded_sound_id], 0xffff ; 0x73aa
 @..api_idx_0006_MITV.l6:
     mov ax, 0                        ; 0x73b0
     push ax                          ; 0x73b3

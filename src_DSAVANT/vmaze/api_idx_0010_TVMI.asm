@@ -166,7 +166,7 @@ api_idx_0010_TVMI:
     push ax                          ; 0x8391
     call wait_and_free_sound         ; 0x8392
     pop cx                           ; 0x8395
-    mov word [bss_598e], 0xffff      ; 0x8396
+    mov word [loaded_sound_id], 0xffff ; 0x8396
 @..api_idx_0010_TVMI.l11:
     mov ax, 2                        ; 0x839c
     push ax                          ; 0x839f

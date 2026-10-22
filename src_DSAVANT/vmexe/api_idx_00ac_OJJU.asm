@@ -101,7 +101,7 @@ api_idx_00ac_OJJU:
     pop ax                           ; 0x7a89
     add ax, cx                       ; 0x7a8a
     mov bx, ax                       ; 0x7a8c
-    push word [bx + 0x5c34]          ; 0x7a8e
+    push word [bx + cell_key_grid]   ; 0x7a8e
     lea ax, word [bp - 0x004a]       ; 0x7a92
     push ax                          ; 0x7a95
     mov ax, 1                        ; 0x7a96

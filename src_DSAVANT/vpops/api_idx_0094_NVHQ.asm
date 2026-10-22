@@ -22,13 +22,13 @@ api_idx_0094_NVHQ:
     pop ax                           ; 0x340b
     add ax, cx                       ; 0x340c
     mov bx, ax                       ; 0x340e
-    cmp word [bx + 0x5c34], byte 0   ; 0x3410
+    cmp word [bx + cell_key_grid], byte 0 ; 0x3410
     jg short @..api_idx_0094_NVHQ.l3 ; 0x3415
     jmp near @..api_idx_0094_NVHQ.l8 ; 0x3417
 @..api_idx_0094_NVHQ.l3:
     mov ax, 0                        ; 0x341a
     push ax                          ; 0x341d
-    push word [bx + 0x5c34]          ; 0x341e
+    push word [bx + cell_key_grid]   ; 0x341e
     lea ax, word [bp - 0x004a]       ; 0x3422
     push ax                          ; 0x3425
     mov ax, 1                        ; 0x3426
@@ -251,7 +251,7 @@ api_idx_0094_NVHQ:
     pop ax                           ; 0x361a
     add ax, cx                       ; 0x361b
     mov bx, ax                       ; 0x361d
-    push word [bx + 0x5c34]          ; 0x361f
+    push word [bx + cell_key_grid]   ; 0x361f
     lea ax, word [bp - 0x004a]       ; 0x3623
     push ax                          ; 0x3626
     mov ax, 1                        ; 0x3627

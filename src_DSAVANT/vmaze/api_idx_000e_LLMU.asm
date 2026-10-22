@@ -41,7 +41,7 @@ api_idx_000e_LLMU:
     pop ax                           ; 0x84aa
     add ax, cx                       ; 0x84ab
     mov bx, ax                       ; 0x84ad
-    mov ax, word [bx + 0x5c34]       ; 0x84af
+    mov ax, word [bx + cell_key_grid] ; 0x84af
     cmp ax, word [bp - 0x000a]       ; 0x84b3
     jne short @..api_idx_000e_LLMU.l5 ; 0x84b6
     mov al, byte [bx + 0x5c3b]       ; 0x84b8

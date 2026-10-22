@@ -49,7 +49,7 @@ api_idx_005a_UJPS:
     pop ax                           ; 0x9fcb
     add ax, cx                       ; 0x9fcc
     mov bx, ax                       ; 0x9fce
-    push word [bx + 0x5c34]          ; 0x9fd0
+    push word [bx + cell_key_grid]   ; 0x9fd0
     lea ax, word [bp - 0x005a]       ; 0x9fd4
     push ax                          ; 0x9fd7
     mov ax, 1                        ; 0x9fd8
@@ -248,7 +248,7 @@ api_idx_005a_UJPS:
     pop ax                           ; 0xa18c
     add ax, cx                       ; 0xa18d
     mov bx, ax                       ; 0xa18f
-    cmp word [bx + 0x5c34], strict word 0x1d4 ; 0xa191
+    cmp word [bx + cell_key_grid], strict word 0x1d4 ; 0xa191
     jne short @..api_idx_005a_UJPS.l18 ; 0xa197
     mov ax, bss_9136                 ; 0xa199
     push ax                          ; 0xa19c
@@ -359,7 +359,7 @@ api_idx_005a_UJPS:
     pop ax                           ; 0xa293
     add ax, cx                       ; 0xa294
     mov bx, ax                       ; 0xa296
-    cmp word [bx + 0x5c34], strict word 0x218 ; 0xa298
+    cmp word [bx + cell_key_grid], strict word 0x218 ; 0xa298
     jne short @..api_idx_005a_UJPS.l32 ; 0xa29e
     mov ax, word [bp - 0x000c]       ; 0xa2a0
     shl ax, 1                        ; 0xa2a3

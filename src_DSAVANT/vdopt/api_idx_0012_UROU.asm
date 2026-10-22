@@ -47,7 +47,7 @@ api_idx_0012_UROU:
     mov cx, ax                       ; 0x1039
     mov ax, 0xa0                     ; 0x103b
     sub ax, cx                       ; 0x103e
-    mov word [bss_9b0c], ax          ; 0x1040
+    mov word [grid_origin_x], ax     ; 0x1040
     mov ax, 7                        ; 0x1043
     imul word [bp - 0x0008]          ; 0x1046
     mov cx, 2                        ; 0x1049
@@ -56,7 +56,7 @@ api_idx_0012_UROU:
     mov cx, ax                       ; 0x104f
     mov ax, 0x56                     ; 0x1051
     sub ax, cx                       ; 0x1054
-    mov word [bss_9b0a], ax          ; 0x1056
+    mov word [grid_origin_y], ax     ; 0x1056
     cmp word [bss_9858], byte 0      ; 0x1059
     je short @..api_idx_0012_UROU.l4 ; 0x105e
     mov word [bp + 0x4], 1           ; 0x1060
@@ -531,16 +531,16 @@ jumptable_147e_case_0:
     push ax                          ; 0x156c
     mov ax, 7                        ; 0x156d
     imul word [bp - 0x0008]          ; 0x1570
-    add ax, word [bss_9b0a]          ; 0x1573
+    add ax, word [grid_origin_y]     ; 0x1573
     dec ax                           ; 0x1577
     push ax                          ; 0x1578
     mov ax, 7                        ; 0x1579
     imul word [bp - 0x0006]          ; 0x157c
-    add ax, word [bss_9b0c]          ; 0x157f
+    add ax, word [grid_origin_x]     ; 0x157f
     dec ax                           ; 0x1583
     push ax                          ; 0x1584
-    push word [bss_9b0a]             ; 0x1585
-    push word [bss_9b0c]             ; 0x1589
+    push word [grid_origin_y]        ; 0x1585
+    push word [grid_origin_x]        ; 0x1589
     call gfx_fill_area               ; 0x158d
     add sp, byte 0x0a                ; 0x1590
     mov word [bp - 0x0004], 1        ; 0x1593
@@ -634,7 +634,7 @@ jumptable_147e_case_0:
     mov ax, word [bp - 0x0002]       ; 0x165f
     dec ax                           ; 0x1662
     push ax                          ; 0x1663
-    call api_idx_000a_GMJG           ; 0x1664
+    call draw_grid_cell_char         ; 0x1664
     add sp, byte 0x0a                ; 0x1667
 @..api_idx_0012_UROU.l78:
     inc word [bp - 0x0002]           ; 0x166a
@@ -671,7 +671,7 @@ jumptable_147e_case_0:
     mov ax, word [bp - 0x0002]       ; 0x16b2
     dec ax                           ; 0x16b5
     push ax                          ; 0x16b6
-    call api_idx_000a_GMJG           ; 0x16b7
+    call draw_grid_cell_char         ; 0x16b7
     add sp, byte 0x0a                ; 0x16ba
 @..api_idx_0012_UROU.l83:
     mov ax, 0x24                     ; 0x16bd
@@ -692,7 +692,7 @@ jumptable_147e_case_0:
     mov ax, word [bp - 0x0002]       ; 0x16e1
     dec ax                           ; 0x16e4
     push ax                          ; 0x16e5
-    call api_idx_000a_GMJG           ; 0x16e6
+    call draw_grid_cell_char         ; 0x16e6
     add sp, byte 0x0a                ; 0x16e9
 @..api_idx_0012_UROU.l84:
     inc word [bp - 0x0002]           ; 0x16ec
@@ -745,16 +745,16 @@ jumptable_147e_case_0:
 @..api_idx_0012_UROU.l92:
     mov ax, 7                        ; 0x1755
     imul word [bp - 0x0008]          ; 0x1758
-    add ax, word [bss_9b0a]          ; 0x175b
+    add ax, word [grid_origin_y]     ; 0x175b
     dec ax                           ; 0x175f
     push ax                          ; 0x1760
     mov ax, 7                        ; 0x1761
     imul word [bp - 0x0006]          ; 0x1764
-    add ax, word [bss_9b0c]          ; 0x1767
+    add ax, word [grid_origin_x]     ; 0x1767
     dec ax                           ; 0x176b
     push ax                          ; 0x176c
-    push word [bss_9b0a]             ; 0x176d
-    push word [bss_9b0c]             ; 0x1771
+    push word [grid_origin_y]        ; 0x176d
+    push word [grid_origin_x]        ; 0x1771
     call draw_rect_outline           ; 0x1775
     add sp, byte 8                   ; 0x1778
     mov ax, 0x8d                     ; 0x177b
@@ -774,7 +774,7 @@ jumptable_147e_case_0:
     idiv cx                          ; 0x179b
     mov cx, 7                        ; 0x179d
     imul cx                          ; 0x17a0
-    add ax, word [bss_9b0a]          ; 0x17a2
+    add ax, word [grid_origin_y]     ; 0x17a2
     add ax, strict word 7            ; 0x17a6
     push ax                          ; 0x17a9
     mov ax, word [bp - 0x0006]       ; 0x17aa
@@ -783,7 +783,7 @@ jumptable_147e_case_0:
     idiv cx                          ; 0x17b1
     mov cx, 7                        ; 0x17b3
     imul cx                          ; 0x17b6
-    add ax, word [bss_9b0c]          ; 0x17b8
+    add ax, word [grid_origin_x]     ; 0x17b8
     add ax, strict word 7            ; 0x17bc
     push ax                          ; 0x17bf
     mov ax, word [bp - 0x0008]       ; 0x17c0
@@ -792,7 +792,7 @@ jumptable_147e_case_0:
     idiv cx                          ; 0x17c7
     mov cx, 7                        ; 0x17c9
     imul cx                          ; 0x17cc
-    add ax, word [bss_9b0a]          ; 0x17ce
+    add ax, word [grid_origin_y]     ; 0x17ce
     push ax                          ; 0x17d2
     mov ax, word [bp - 0x0006]       ; 0x17d3
     mov cx, 2                        ; 0x17d6
@@ -800,7 +800,7 @@ jumptable_147e_case_0:
     idiv cx                          ; 0x17da
     mov cx, 7                        ; 0x17dc
     imul cx                          ; 0x17df
-    add ax, word [bss_9b0c]          ; 0x17e1
+    add ax, word [grid_origin_x]     ; 0x17e1
     push ax                          ; 0x17e5
     call gfx_save_area               ; 0x17e6
     add sp, byte 8                   ; 0x17e9
@@ -827,7 +827,7 @@ jumptable_147e_case_0:
     cwd                              ; 0x1815
     idiv cx                          ; 0x1816
     push ax                          ; 0x1818
-    call api_idx_000a_GMJG           ; 0x1819
+    call draw_grid_cell_char         ; 0x1819
     add sp, byte 0x0a                ; 0x181c
     mov ax, word [bp - 0x0008]       ; 0x181f
     mov cx, 2                        ; 0x1822
@@ -835,7 +835,7 @@ jumptable_147e_case_0:
     idiv cx                          ; 0x1826
     mov cx, 7                        ; 0x1828
     imul cx                          ; 0x182b
-    add ax, word [bss_9b0a]          ; 0x182d
+    add ax, word [grid_origin_y]     ; 0x182d
     add ax, strict word 7            ; 0x1831
     push ax                          ; 0x1834
     mov ax, word [bp - 0x0006]       ; 0x1835
@@ -844,7 +844,7 @@ jumptable_147e_case_0:
     idiv cx                          ; 0x183c
     mov cx, 7                        ; 0x183e
     imul cx                          ; 0x1841
-    add ax, word [bss_9b0c]          ; 0x1843
+    add ax, word [grid_origin_x]     ; 0x1843
     add ax, strict word 7            ; 0x1847
     push ax                          ; 0x184a
     mov ax, word [bp - 0x0008]       ; 0x184b
@@ -853,7 +853,7 @@ jumptable_147e_case_0:
     idiv cx                          ; 0x1852
     mov cx, 7                        ; 0x1854
     imul cx                          ; 0x1857
-    add ax, word [bss_9b0a]          ; 0x1859
+    add ax, word [grid_origin_y]     ; 0x1859
     push ax                          ; 0x185d
     mov ax, word [bp - 0x0006]       ; 0x185e
     mov cx, 2                        ; 0x1861
@@ -861,7 +861,7 @@ jumptable_147e_case_0:
     idiv cx                          ; 0x1865
     mov cx, 7                        ; 0x1867
     imul cx                          ; 0x186a
-    add ax, word [bss_9b0c]          ; 0x186c
+    add ax, word [grid_origin_x]     ; 0x186c
     push ax                          ; 0x1870
     call gfx_show_area               ; 0x1871
     add sp, byte 8                   ; 0x1874
@@ -881,7 +881,7 @@ jumptable_147e_case_0:
     idiv cx                          ; 0x1896
     mov cx, 7                        ; 0x1898
     imul cx                          ; 0x189b
-    add ax, word [bss_9b0a]          ; 0x189d
+    add ax, word [grid_origin_y]     ; 0x189d
     add ax, strict word 7            ; 0x18a1
     push ax                          ; 0x18a4
     mov ax, word [bp - 0x0006]       ; 0x18a5
@@ -890,7 +890,7 @@ jumptable_147e_case_0:
     idiv cx                          ; 0x18ac
     mov cx, 7                        ; 0x18ae
     imul cx                          ; 0x18b1
-    add ax, word [bss_9b0c]          ; 0x18b3
+    add ax, word [grid_origin_x]     ; 0x18b3
     add ax, strict word 7            ; 0x18b7
     push ax                          ; 0x18ba
     mov ax, word [bp - 0x0008]       ; 0x18bb
@@ -899,7 +899,7 @@ jumptable_147e_case_0:
     idiv cx                          ; 0x18c2
     mov cx, 7                        ; 0x18c4
     imul cx                          ; 0x18c7
-    add ax, word [bss_9b0a]          ; 0x18c9
+    add ax, word [grid_origin_y]     ; 0x18c9
     push ax                          ; 0x18cd
     mov ax, word [bp - 0x0006]       ; 0x18ce
     mov cx, 2                        ; 0x18d1
@@ -907,7 +907,7 @@ jumptable_147e_case_0:
     idiv cx                          ; 0x18d5
     mov cx, 7                        ; 0x18d7
     imul cx                          ; 0x18da
-    add ax, word [bss_9b0c]          ; 0x18dc
+    add ax, word [grid_origin_x]     ; 0x18dc
     push ax                          ; 0x18e0
     call gfx_show_area               ; 0x18e1
     add sp, byte 8                   ; 0x18e4

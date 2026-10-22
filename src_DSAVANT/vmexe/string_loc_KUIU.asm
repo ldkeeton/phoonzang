@@ -377,7 +377,7 @@ jumptable_372d:
     jle short @..string_loc_KUIU.l19 ; 0x39ce
     jmp near @..string_loc_KUIU.l17  ; 0x39d0
 @..string_loc_KUIU.l19:
-    mov ax, word [bss_598e]          ; 0x39d3
+    mov ax, word [loaded_sound_id]   ; 0x39d3
     mov word [bp - 0x01ae], ax       ; 0x39d6
     mov ax, 0x11                     ; 0x39da
     push ax                          ; 0x39dd
@@ -464,6 +464,6 @@ jumptable_372d:
     push ax                          ; 0x3a97
     call wait_and_free_sound         ; 0x3a98
     pop cx                           ; 0x3a9b
-    mov word [bss_598e], 0xffff      ; 0x3a9c
+    mov word [loaded_sound_id], 0xffff ; 0x3a9c
 @..string_loc_KUIU.l25:
     ret                              ; 0x3aa2

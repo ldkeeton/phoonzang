@@ -273,7 +273,7 @@ api_idx_00d4_LUPQ:
     pop ax                           ; 0x39cd
     add ax, cx                       ; 0x39ce
     mov bx, ax                       ; 0x39d0
-    cmp word [bx + 0x5c34], byte 0   ; 0x39d2
+    cmp word [bx + cell_key_grid], byte 0 ; 0x39d2
     jle short @..api_idx_00d4_LUPQ.l25 ; 0x39d7
     mov word [bp - 0x0020], 1        ; 0x39d9
 @..api_idx_00d4_LUPQ.l25:

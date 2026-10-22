@@ -22,13 +22,13 @@ api_idx_0092_GSQH:
     pop ax                           ; 0x4bfd
     add ax, cx                       ; 0x4bfe
     mov bx, ax                       ; 0x4c00
-    cmp word [bx + 0x5c34], byte 0   ; 0x4c02
+    cmp word [bx + cell_key_grid], byte 0 ; 0x4c02
     jg short @..api_idx_0092_GSQH.l3 ; 0x4c07
     jmp near @..api_idx_0092_GSQH.l8 ; 0x4c09
 @..api_idx_0092_GSQH.l3:
     mov ax, 0                        ; 0x4c0c
     push ax                          ; 0x4c0f
-    push word [bx + 0x5c34]          ; 0x4c10
+    push word [bx + cell_key_grid]   ; 0x4c10
     lea ax, word [bp - 0x004a]       ; 0x4c14
     push ax                          ; 0x4c17
     mov ax, 1                        ; 0x4c18
@@ -234,7 +234,7 @@ api_idx_0092_GSQH:
     pop ax                           ; 0x4deb
     add ax, cx                       ; 0x4dec
     mov bx, ax                       ; 0x4dee
-    push word [bx + 0x5c34]          ; 0x4df0
+    push word [bx + cell_key_grid]   ; 0x4df0
     lea ax, word [bp - 0x004a]       ; 0x4df4
     push ax                          ; 0x4df7
     mov ax, 1                        ; 0x4df8

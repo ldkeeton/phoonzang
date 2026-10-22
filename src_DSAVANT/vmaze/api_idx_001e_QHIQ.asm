@@ -201,7 +201,7 @@ api_idx_001e_QHIQ:
     push ax                          ; 0x802b
     call wait_and_free_sound         ; 0x802c
     pop cx                           ; 0x802f
-    mov word [bss_598e], 0xffff      ; 0x8030
+    mov word [loaded_sound_id], 0xffff ; 0x8030
 @..api_idx_001e_QHIQ.l14:
     mov si, word [party_region]      ; 0x8036
     mov bx, word [maze_tables]       ; 0x803a

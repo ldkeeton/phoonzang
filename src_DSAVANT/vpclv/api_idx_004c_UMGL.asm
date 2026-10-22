@@ -91,7 +91,7 @@ api_idx_004c_UMGL:
     pop ax                           ; 0x28b6
     add ax, cx                       ; 0x28b7
     mov bx, ax                       ; 0x28b9
-    cmp word [bx + 0x5c34], byte 0   ; 0x28bb
+    cmp word [bx + cell_key_grid], byte 0 ; 0x28bb
     jg short @..api_idx_004c_UMGL.l7 ; 0x28c0
     jmp near @..api_idx_004c_UMGL.l16 ; 0x28c2
 @..api_idx_004c_UMGL.l7:
@@ -101,7 +101,7 @@ api_idx_004c_UMGL:
 @..api_idx_004c_UMGL.l8:
     mov ax, 0                        ; 0x28cf
     push ax                          ; 0x28d2
-    push word [bx + 0x5c34]          ; 0x28d3
+    push word [bx + cell_key_grid]   ; 0x28d3
     lea ax, word [bp - 0x004c]       ; 0x28d7
     push ax                          ; 0x28da
     mov ax, 1                        ; 0x28db

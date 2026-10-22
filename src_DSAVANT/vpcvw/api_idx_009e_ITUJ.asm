@@ -39,7 +39,7 @@ jumptable_3f96_case_1:
     pop ax                           ; 0x3d54
     add ax, cx                       ; 0x3d55
     mov bx, ax                       ; 0x3d57
-    cmp word [bx + 0x5c34], strict word 0x1d7 ; 0x3d59
+    cmp word [bx + cell_key_grid], strict word 0x1d7 ; 0x3d59
     jne short @..api_idx_009e_ITUJ.l2 ; 0x3d5f
     mov ax, 0x4c18                   ; 0x3d61
     push ax                          ; 0x3d64

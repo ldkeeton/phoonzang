@@ -21,7 +21,7 @@ api_idx_0004_PULL:
     pop ax                           ; 0x2312
     add ax, cx                       ; 0x2313
     mov bx, ax                       ; 0x2315
-    cmp word [bx + 0x5c34], byte 0   ; 0x2317
+    cmp word [bx + cell_key_grid], byte 0 ; 0x2317
     jne short @..api_idx_0004_PULL.l3 ; 0x231c
     mov ax, word [bp - 0x0002]       ; 0x231e
     xchg al, ah                      ; 0x2321
@@ -37,7 +37,7 @@ api_idx_0004_PULL:
     jne short @..api_idx_0004_PULL.l4 ; 0x2338
     test ax, 0x40                    ; 0x233a
     jne short @..api_idx_0004_PULL.l4 ; 0x233d
-    push word [bx + 0x5c34]          ; 0x233f
+    push word [bx + cell_key_grid]   ; 0x233f
     call loc_GMVH                    ; 0x2343
     pop cx                           ; 0x2346
     test ax, ax                      ; 0x2347

@@ -2,7 +2,7 @@
 loc_IVVH:
     mov ax, 0                        ; 0x742e
     call aztec_csav                  ; 0x7431
-    mov ax, word [bss_598e]          ; 0x7434
+    mov ax, word [loaded_sound_id]   ; 0x7434
     cmp ax, word [bp + 0x4]          ; 0x7437
     je short @..loc_IVVH.l1          ; 0x743a
     push word [bp + 0x4]             ; 0x743c

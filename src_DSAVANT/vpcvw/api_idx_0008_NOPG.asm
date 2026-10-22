@@ -669,7 +669,7 @@ jumptable_291f_case_34:
     pop ax                           ; 0x2840
     add ax, cx                       ; 0x2841
     mov bx, ax                       ; 0x2843
-    cmp word [bx + 0x5c34], byte 0   ; 0x2845
+    cmp word [bx + cell_key_grid], byte 0 ; 0x2845
     jle short @..api_idx_0008_NOPG.l37 ; 0x284a
     push word [bp + 0x8]             ; 0x284c
     mov ax, 0x16                     ; 0x284f
@@ -749,7 +749,7 @@ jumptable_291f_case_42:
     pop ax                           ; 0x28fb
     add ax, cx                       ; 0x28fc
     mov bx, ax                       ; 0x28fe
-    cmp word [bx + 0x5c34], byte 0   ; 0x2900
+    cmp word [bx + cell_key_grid], byte 0 ; 0x2900
     jle short @..api_idx_0008_NOPG.l41 ; 0x2905
     push word [bp + 0x8]             ; 0x2907
     add ax, 0x5c34                   ; 0x290a

@@ -11,8 +11,8 @@ ovmain:
     add sp, byte 4                   ; 0x0026
     mov word [bss_906a], 0           ; 0x0029
 @..ovmain.l1:
-    mov word [bss_90b6], 0           ; 0x002f
-    mov word [bss_90b8], 0           ; 0x0035
+    mov word [pending_event], 0      ; 0x002f
+    mov word [pending_event_hi], 0   ; 0x0035
     cmp word [game_state], byte 0x13 ; 0x003b
     jne short @..ovmain.l2           ; 0x0040
     mov ax, 0xe                      ; 0x0042

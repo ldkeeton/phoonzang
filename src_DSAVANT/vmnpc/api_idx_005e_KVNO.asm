@@ -26,7 +26,7 @@ api_idx_005e_KVNO:
     pop ax                           ; 0x5819
     add ax, cx                       ; 0x581a
     mov bx, ax                       ; 0x581c
-    mov ax, word [bx + 0x5c34]       ; 0x581e
+    mov ax, word [bx + cell_key_grid] ; 0x581e
     mov word [bp - 0x0008], ax       ; 0x5822
     mov ax, 0                        ; 0x5825
     push ax                          ; 0x5828
@@ -360,7 +360,7 @@ api_idx_005e_KVNO:
     pop ax                           ; 0x5af2
     add ax, cx                       ; 0x5af3
     mov bx, ax                       ; 0x5af5
-    mov ax, word [bx + 0x5c34]       ; 0x5af7
+    mov ax, word [bx + cell_key_grid] ; 0x5af7
     mov word [bp - 0x0008], ax       ; 0x5afb
     push ax                          ; 0x5afe
     call loc_GMVH                    ; 0x5aff

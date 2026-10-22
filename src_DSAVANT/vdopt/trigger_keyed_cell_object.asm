@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_000c_RLKV:
+trigger_keyed_cell_object:
     mov ax, 0xfff4                   ; 0x238d
     call aztec_csav                  ; 0x2390
     mov bx, word [maze_tables]       ; 0x2393
@@ -7,7 +7,7 @@ api_idx_000c_RLKV:
     mov al, byte [bx + si + 0xb40]   ; 0x239b
     sub ah, ah                       ; 0x239f
     mov word [bp - 0x0008], ax       ; 0x23a1
-@..api_idx_000c_RLKV.l1:
+@..trigger_keyed_cell_object.l1:
     push word [bp - 0x0008]          ; 0x23a4
     push word [party_map_piece]      ; 0x23a7
     push word [party_cell_y]         ; 0x23ab
@@ -16,15 +16,15 @@ api_idx_000c_RLKV:
     add sp, byte 8                   ; 0x23b6
     mov word [bp - 0x0008], ax       ; 0x23b9
     cmp ax, strict word 0xffff       ; 0x23bc
-    jne short @..api_idx_000c_RLKV.l2 ; 0x23bf
-    jmp near @..api_idx_000c_RLKV.l14 ; 0x23c1
-@..api_idx_000c_RLKV.l2:
+    jne short @..trigger_keyed_cell_object.l2 ; 0x23bf
+    jmp near @..trigger_keyed_cell_object.l14 ; 0x23c1
+@..trigger_keyed_cell_object.l2:
     mov bx, word [maze_tables]       ; 0x23c4
     mov si, ax                       ; 0x23c8
     cmp byte [bx + si + 0x5a0], 0x13 ; 0x23ca
-    je short @..api_idx_000c_RLKV.l3 ; 0x23cf
-    jmp near @..api_idx_000c_RLKV.l10 ; 0x23d1
-@..api_idx_000c_RLKV.l3:
+    je short @..trigger_keyed_cell_object.l3 ; 0x23cf
+    jmp near @..trigger_keyed_cell_object.l10 ; 0x23d1
+@..trigger_keyed_cell_object.l3:
     mov ax, 0x248                    ; 0x23d4
     imul word [bp + 0x4]             ; 0x23d7
     push ax                          ; 0x23da
@@ -40,23 +40,23 @@ api_idx_000c_RLKV:
     pop ax                           ; 0x23ef
     add ax, cx                       ; 0x23f0
     mov bx, ax                       ; 0x23f2
-    mov ax, word [bx + 0x5c34]       ; 0x23f4
+    mov ax, word [bx + cell_key_grid] ; 0x23f4
     shl si, 1                        ; 0x23f8
     mov bx, word [maze_tables]       ; 0x23fa
     mov cx, word [bx + si]           ; 0x23fe
     cmp ax, cx                       ; 0x2400
-    je short @..api_idx_000c_RLKV.l4 ; 0x2402
-    jmp near @..api_idx_000c_RLKV.l10 ; 0x2404
-@..api_idx_000c_RLKV.l4:
+    je short @..trigger_keyed_cell_object.l4 ; 0x2402
+    jmp near @..trigger_keyed_cell_object.l10 ; 0x2404
+@..trigger_keyed_cell_object.l4:
     cmp word [bx + si + 0x1e0], byte 0 ; 0x2407
-    je short @..api_idx_000c_RLKV.l5 ; 0x240c
+    je short @..trigger_keyed_cell_object.l5 ; 0x240c
     mov ax, 1                        ; 0x240e
     mov cx, word [party_tag]         ; 0x2411
     shl ax, cl                       ; 0x2415
     test word [bx + si + 0x1e0], ax  ; 0x2417
-    jne short @..api_idx_000c_RLKV.l5 ; 0x241b
-    jmp near @..api_idx_000c_RLKV.l10 ; 0x241d
-@..api_idx_000c_RLKV.l5:
+    jne short @..trigger_keyed_cell_object.l5 ; 0x241b
+    jmp near @..trigger_keyed_cell_object.l10 ; 0x241d
+@..trigger_keyed_cell_object.l5:
     mov ax, 8                        ; 0x2420
     push ax                          ; 0x2423
     mov ax, 0                        ; 0x2424
@@ -87,7 +87,7 @@ api_idx_000c_RLKV:
     add sp, byte 6                   ; 0x2465
     mov word [bp - 0x000a], ax       ; 0x2468
     test ax, ax                      ; 0x246b
-    je short @..api_idx_000c_RLKV.l6 ; 0x246d
+    je short @..trigger_keyed_cell_object.l6 ; 0x246d
     mov ax, 1                        ; 0x246f
     push ax                          ; 0x2472
     push word [bp - 0x000a]          ; 0x2473
@@ -98,11 +98,11 @@ api_idx_000c_RLKV:
     push ax                          ; 0x2481
     call set_bitmap_bit              ; 0x2482
     add sp, byte 6                   ; 0x2485
-@..api_idx_000c_RLKV.l6:
+@..trigger_keyed_cell_object.l6:
     mov bx, word [maze_tables]       ; 0x2488
     mov si, word [bp - 0x0008]       ; 0x248c
     cmp byte [bx + si + 0xa50], 0    ; 0x248f
-    jbe short @..api_idx_000c_RLKV.l9 ; 0x2494
+    jbe short @..trigger_keyed_cell_object.l9 ; 0x2494
     mov ax, 0xc6                     ; 0x2496
     push ax                          ; 0x2499
     mov ax, 0x109                    ; 0x249a
@@ -119,17 +119,17 @@ api_idx_000c_RLKV:
     sub ah, ah                       ; 0x24b7
     mov word [bp - 0x000c], ax       ; 0x24b9
     cmp ax, strict word 5            ; 0x24bc
-    jl short @..api_idx_000c_RLKV.l7 ; 0x24bf
+    jl short @..trigger_keyed_cell_object.l7 ; 0x24bf
     cmp ax, strict word 8            ; 0x24c1
-    je short @..api_idx_000c_RLKV.l7 ; 0x24c4
+    je short @..trigger_keyed_cell_object.l7 ; 0x24c4
     cmp ax, strict word 9            ; 0x24c6
-    jne short @..api_idx_000c_RLKV.l8 ; 0x24c9
-@..api_idx_000c_RLKV.l7:
+    jne short @..trigger_keyed_cell_object.l8 ; 0x24c9
+@..trigger_keyed_cell_object.l7:
     push ax                          ; 0x24cb
     call play_sound_effect           ; 0x24cc
     pop cx                           ; 0x24cf
-    jmp short @..api_idx_000c_RLKV.l9 ; 0x24d0
-@..api_idx_000c_RLKV.l8:
+    jmp short @..trigger_keyed_cell_object.l9 ; 0x24d0
+@..trigger_keyed_cell_object.l8:
     push word [bp - 0x000c]          ; 0x24d2
     call ds_app_QTIV                 ; 0x24d5
     pop cx                           ; 0x24d8
@@ -141,20 +141,20 @@ api_idx_000c_RLKV:
     push ax                          ; 0x24e4
     call wait_and_free_sound         ; 0x24e5
     pop cx                           ; 0x24e8
-    mov word [bss_598e], 0xffff      ; 0x24e9
-@..api_idx_000c_RLKV.l9:
+    mov word [loaded_sound_id], 0xffff ; 0x24e9
+@..trigger_keyed_cell_object.l9:
     mov ax, word [bp - 0x0008]       ; 0x24ef
     inc ax                           ; 0x24f2
     mov word [party_region], ax      ; 0x24f3
     mov ax, 1                        ; 0x24f6
     ret                              ; 0x24f9
-@..api_idx_000c_RLKV.l10:
+@..trigger_keyed_cell_object.l10:
     mov bx, word [maze_tables]       ; 0x24fa
     mov si, word [bp - 0x0008]       ; 0x24fe
     cmp byte [bx + si + 0x5a0], 7    ; 0x2501
-    je short @..api_idx_000c_RLKV.l11 ; 0x2506
-    jmp near @..api_idx_000c_RLKV.l13 ; 0x2508
-@..api_idx_000c_RLKV.l11:
+    je short @..trigger_keyed_cell_object.l11 ; 0x2506
+    jmp near @..trigger_keyed_cell_object.l13 ; 0x2508
+@..trigger_keyed_cell_object.l11:
     mov ax, 2                        ; 0x250b
     push ax                          ; 0x250e
     mov ax, word [party_tag]         ; 0x250f
@@ -165,7 +165,7 @@ api_idx_000c_RLKV:
     call get_bits                    ; 0x251b
     add sp, byte 6                   ; 0x251e
     cmp ax, strict word 1            ; 0x2521
-    je short @..api_idx_000c_RLKV.l12 ; 0x2524
+    je short @..trigger_keyed_cell_object.l12 ; 0x2524
     mov ax, 2                        ; 0x2526
     push ax                          ; 0x2529
     mov ax, word [party_tag]         ; 0x252a
@@ -179,8 +179,8 @@ api_idx_000c_RLKV:
     call get_bits                    ; 0x253f
     add sp, byte 6                   ; 0x2542
     cmp ax, strict word 2            ; 0x2545
-    jne short @..api_idx_000c_RLKV.l13 ; 0x2548
-@..api_idx_000c_RLKV.l12:
+    jne short @..trigger_keyed_cell_object.l13 ; 0x2548
+@..trigger_keyed_cell_object.l12:
     mov ax, word [bp - 0x0008]       ; 0x254a
     shl ax, 1                        ; 0x254d
     mov si, ax                       ; 0x254f
@@ -202,20 +202,20 @@ api_idx_000c_RLKV:
     pop ax                           ; 0x2577
     add ax, cx                       ; 0x2578
     mov bx, ax                       ; 0x257a
-    mov cx, word [bx + 0x5c34]       ; 0x257c
+    mov cx, word [bx + cell_key_grid] ; 0x257c
     mov ax, word [bp - 0x0006]       ; 0x2580
     cmp cx, ax                       ; 0x2583
-    jne short @..api_idx_000c_RLKV.l13 ; 0x2585
+    jne short @..trigger_keyed_cell_object.l13 ; 0x2585
     push word [bp - 0x0008]          ; 0x2587
-    call loc_HHMH                    ; 0x258a
+    call claim_type7_object          ; 0x258a
     pop cx                           ; 0x258d
-    mov word [bss_90b6], 0x841       ; 0x258e
-    mov word [bss_90b8], 0           ; 0x2594
+    mov word [pending_event], 0x841  ; 0x258e
+    mov word [pending_event_hi], 0   ; 0x2594
     mov ax, 1                        ; 0x259a
     ret                              ; 0x259d
-@..api_idx_000c_RLKV.l13:
+@..trigger_keyed_cell_object.l13:
     inc word [bp - 0x0008]           ; 0x259e
-    jmp near @..api_idx_000c_RLKV.l1 ; 0x25a1
-@..api_idx_000c_RLKV.l14:
+    jmp near @..trigger_keyed_cell_object.l1 ; 0x25a1
+@..trigger_keyed_cell_object.l14:
     mov ax, 0                        ; 0x25a4
     ret                              ; 0x25a7

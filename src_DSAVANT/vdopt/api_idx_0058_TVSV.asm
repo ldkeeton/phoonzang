@@ -75,7 +75,7 @@ api_idx_0058_TVSV:
     push word [bp - 0x0002]          ; 0x060e
     call gfx_show_area               ; 0x0611
     add sp, byte 8                   ; 0x0614
-    cmp word [bss_90b8], byte 0      ; 0x0617
+    cmp word [pending_event_hi], byte 0 ; 0x0617
     je short @..api_idx_0058_TVSV.l1 ; 0x061c
     mov ax, 0                        ; 0x061e
     push ax                          ; 0x0621

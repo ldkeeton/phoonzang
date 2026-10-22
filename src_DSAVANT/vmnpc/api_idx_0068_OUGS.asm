@@ -93,7 +93,7 @@ api_idx_0068_OUGS:
     pop ax                           ; 0x5289
     add ax, cx                       ; 0x528a
     mov bx, ax                       ; 0x528c
-    push word [bx + 0x5c34]          ; 0x528e
+    push word [bx + cell_key_grid]   ; 0x528e
     lea ax, word [bp - 0x004a]       ; 0x5292
     push ax                          ; 0x5295
     mov ax, 1                        ; 0x5296
@@ -178,7 +178,7 @@ api_idx_0068_OUGS:
     pop ax                           ; 0x535a
     add ax, cx                       ; 0x535b
     mov bx, ax                       ; 0x535d
-    push word [bx + 0x5c34]          ; 0x535f
+    push word [bx + cell_key_grid]   ; 0x535f
     mov ax, 9                        ; 0x5363
     push ax                          ; 0x5366
     push word [bp + 0x4]             ; 0x5367

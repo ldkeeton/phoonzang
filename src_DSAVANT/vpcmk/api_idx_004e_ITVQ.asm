@@ -22,7 +22,7 @@ api_idx_004e_ITVQ:
     pop ax                           ; 0x4b34
     add ax, cx                       ; 0x4b35
     mov bx, ax                       ; 0x4b37
-    cmp word [bx + 0x5c34], byte 0   ; 0x4b39
+    cmp word [bx + cell_key_grid], byte 0 ; 0x4b39
     jle short @..api_idx_004e_ITVQ.l2 ; 0x4b3e
     inc word [bp - 0x0002]           ; 0x4b40
     jmp short @..api_idx_004e_ITVQ.l1 ; 0x4b43

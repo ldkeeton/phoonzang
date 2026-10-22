@@ -608,7 +608,7 @@ jumptable_30fe:
     pop ax                           ; 0x3166
     add ax, cx                       ; 0x3167
     mov bx, ax                       ; 0x3169
-    push word [bx + 0x5c34]          ; 0x316b
+    push word [bx + cell_key_grid]   ; 0x316b
     lea ax, word [bp - 0x0052]       ; 0x316f
     push ax                          ; 0x3172
     mov ax, 1                        ; 0x3173

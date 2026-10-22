@@ -30,7 +30,7 @@ play_sound_effect: ; Aztec csav frame=0x0006
     mov word [bp - 0x0006], 0        ; 0x0a72
     cmp word [bp + 0x4], byte 0x10   ; 0x0a77
     jne short @..play_sound_effect.l4 ; 0x0a7b
-    cmp word [bss_598e], byte 0x1e   ; 0x0a7d
+    cmp word [loaded_sound_id], byte 0x1e ; 0x0a7d
     jl short @..play_sound_effect.l4 ; 0x0a82
     mov word [bp - 0x0006], 1        ; 0x0a84
     jmp short @..play_sound_effect.l6 ; 0x0a89

@@ -24,5 +24,5 @@ ds_app_IPJO: ; Aztec csav frame=0x0000
     pop ax                           ; 0x1c62
     add ax, cx                       ; 0x1c63
     mov bx, ax                       ; 0x1c65
-    mov word [bx + 0x5c34], 0        ; 0x1c67
+    mov word [bx + cell_key_grid], 0 ; 0x1c67
     ret                              ; 0x1c6d

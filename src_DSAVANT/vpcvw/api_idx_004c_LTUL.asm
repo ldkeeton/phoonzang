@@ -91,7 +91,7 @@ api_idx_004c_LTUL:
     pop ax                           ; 0x6de6
     add ax, cx                       ; 0x6de7
     mov bx, ax                       ; 0x6de9
-    cmp word [bx + 0x5c34], byte 0   ; 0x6deb
+    cmp word [bx + cell_key_grid], byte 0 ; 0x6deb
     jg short @..api_idx_004c_LTUL.l7 ; 0x6df0
     jmp near @..api_idx_004c_LTUL.l16 ; 0x6df2
 @..api_idx_004c_LTUL.l7:
@@ -101,7 +101,7 @@ api_idx_004c_LTUL:
 @..api_idx_004c_LTUL.l8:
     mov ax, 0                        ; 0x6dff
     push ax                          ; 0x6e02
-    push word [bx + 0x5c34]          ; 0x6e03
+    push word [bx + cell_key_grid]   ; 0x6e03
     lea ax, word [bp - 0x004c]       ; 0x6e07
     push ax                          ; 0x6e0a
     mov ax, 1                        ; 0x6e0b

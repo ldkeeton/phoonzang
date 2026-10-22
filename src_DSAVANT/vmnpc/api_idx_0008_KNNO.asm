@@ -65,7 +65,7 @@ api_idx_0008_KNNO:
     pop ax                           ; 0x2a55
     add ax, cx                       ; 0x2a56
     mov bx, ax                       ; 0x2a58
-    push word [bx + 0x5c34]          ; 0x2a5a
+    push word [bx + cell_key_grid]   ; 0x2a5a
     call loc_GMVH                    ; 0x2a5e
     pop cx                           ; 0x2a61
     test ax, ax                      ; 0x2a62

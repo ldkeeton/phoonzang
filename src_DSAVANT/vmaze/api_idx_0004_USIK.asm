@@ -62,7 +62,7 @@ api_idx_0004_USIK:
     push ax                          ; 0x1885
     call wait_and_free_sound         ; 0x1886
     pop cx                           ; 0x1889
-    mov word [bss_598e], 0xffff      ; 0x188a
+    mov word [loaded_sound_id], 0xffff ; 0x188a
     mov ax, 2                        ; 0x1890
     push ax                          ; 0x1893
     call ds_app_OIGN                 ; 0x1894

@@ -22,13 +22,13 @@ api_idx_004c_OGSK:
     pop ax                           ; 0x501b
     add ax, cx                       ; 0x501c
     mov bx, ax                       ; 0x501e
-    cmp word [bx + 0x5c34], byte 0   ; 0x5020
+    cmp word [bx + cell_key_grid], byte 0 ; 0x5020
     jg short @..api_idx_004c_OGSK.l3 ; 0x5025
     jmp near @..api_idx_004c_OGSK.l8 ; 0x5027
 @..api_idx_004c_OGSK.l3:
     mov ax, 0                        ; 0x502a
     push ax                          ; 0x502d
-    push word [bx + 0x5c34]          ; 0x502e
+    push word [bx + cell_key_grid]   ; 0x502e
     lea ax, word [bp - 0x004c]       ; 0x5032
     push ax                          ; 0x5035
     mov ax, 1                        ; 0x5036

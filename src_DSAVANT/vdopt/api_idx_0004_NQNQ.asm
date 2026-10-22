@@ -95,9 +95,9 @@ api_idx_0004_NQNQ:
     pop ax                           ; 0x46c4
     mov byte [bx + 0x5d5c], al       ; 0x46c5
 @..api_idx_0004_NQNQ.l4:
-    cmp word [bss_90b6], byte 0      ; 0x46c9
+    cmp word [pending_event], byte 0 ; 0x46c9
     jle short @..api_idx_0004_NQNQ.l5 ; 0x46ce
-    push word [bss_90b6]             ; 0x46d0
+    push word [pending_event]        ; 0x46d0
     call api_idx_0058_TVSV           ; 0x46d4
     pop cx                           ; 0x46d7
 @..api_idx_0004_NQNQ.l5:

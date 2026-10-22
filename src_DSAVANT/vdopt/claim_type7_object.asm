@@ -1,5 +1,5 @@
 ; auto-generated
-loc_HHMH:
+claim_type7_object:
     mov ax, 0                        ; 0x04b7
     call aztec_csav                  ; 0x04ba
     mov ax, word [party_tag]         ; 0x04bd
@@ -13,7 +13,7 @@ loc_HHMH:
     add ax, cx                       ; 0x04d3
     add ax, 0x3c0                    ; 0x04d5
     push ax                          ; 0x04d8
-    call api_idx_0002_NNOS           ; 0x04d9
+    call api_idx_0002_OVRM           ; 0x04d9
     add sp, byte 4                   ; 0x04dc
     mov ax, 0                        ; 0x04df
     push ax                          ; 0x04e2
@@ -38,7 +38,7 @@ loc_HHMH:
     mov si, ax                       ; 0x050f
     mov bx, word [maze_tables]       ; 0x0511
     cmp word [bx + si], byte 0       ; 0x0515
-    jle short @..loc_HHMH.l1         ; 0x0518
+    jle short @..claim_type7_object.l1 ; 0x0518
     mov ax, 0                        ; 0x051a
     push ax                          ; 0x051d
     push word [bx + si]              ; 0x051e
@@ -66,7 +66,7 @@ loc_HHMH:
     mov ax, word [bp + 0x4]          ; 0x0555
     inc ax                           ; 0x0558
     mov word [party_region], ax      ; 0x0559
-@..loc_HHMH.l1:
+@..claim_type7_object.l1:
     mov ax, 1                        ; 0x055c
     push ax                          ; 0x055f
     call play_sound_effect           ; 0x0560

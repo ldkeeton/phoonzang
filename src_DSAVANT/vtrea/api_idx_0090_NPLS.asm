@@ -154,7 +154,7 @@ jumptable_0c85_case_6:
     push ax                          ; 0x0c75
     call wait_and_free_sound         ; 0x0c76
     pop cx                           ; 0x0c79
-    mov word [bss_598e], 0xffff      ; 0x0c7a
+    mov word [loaded_sound_id], 0xffff ; 0x0c7a
 @..api_idx_0090_NPLS.l6:
     inc word [bp + 0x4]              ; 0x0c80
     jmp short @..api_idx_0090_NPLS.l8 ; 0x0c83

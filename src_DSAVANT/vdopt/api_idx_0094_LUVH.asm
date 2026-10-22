@@ -23,13 +23,13 @@ api_idx_0094_LUVH:
     pop ax                           ; 0x41b3
     add ax, cx                       ; 0x41b4
     mov bx, ax                       ; 0x41b6
-    cmp word [bx + 0x5c34], byte 0   ; 0x41b8
+    cmp word [bx + cell_key_grid], byte 0 ; 0x41b8
     jg short @..api_idx_0094_LUVH.l3 ; 0x41bd
     jmp near @..api_idx_0094_LUVH.l8 ; 0x41bf
 @..api_idx_0094_LUVH.l3:
     mov ax, 0                        ; 0x41c2
     push ax                          ; 0x41c5
-    push word [bx + 0x5c34]          ; 0x41c6
+    push word [bx + cell_key_grid]   ; 0x41c6
     lea ax, word [bp - 0x004c]       ; 0x41ca
     push ax                          ; 0x41cd
     mov ax, 1                        ; 0x41ce
@@ -229,7 +229,7 @@ api_idx_0094_LUVH:
     pop ax                           ; 0x4394
     add ax, cx                       ; 0x4395
     mov bx, ax                       ; 0x4397
-    mov ax, word [bx + 0x5c34]       ; 0x4399
+    mov ax, word [bx + cell_key_grid] ; 0x4399
     mov word [bp - 0x0004], ax       ; 0x439d
     cmp word [bp - 0x004e], byte 0   ; 0x43a0
     je short @..api_idx_0094_LUVH.l14 ; 0x43a4
@@ -238,7 +238,7 @@ api_idx_0094_LUVH:
     push word [bp - 0x0052]          ; 0x43a9
     push word [bp - 0x0050]          ; 0x43ac
     push word [bp + 0x4]             ; 0x43af
-    call api_idx_000c_RLKV           ; 0x43b2
+    call trigger_keyed_cell_object   ; 0x43b2
     add sp, byte 6                   ; 0x43b5
     test ax, ax                      ; 0x43b8
     je short @..api_idx_0094_LUVH.l15 ; 0x43ba
@@ -374,13 +374,13 @@ api_idx_0094_LUVH:
     mov word [bss_8304], 1           ; 0x44f3
     jmp short @..api_idx_0094_LUVH.l25 ; 0x44f9
 @..api_idx_0094_LUVH.l24:
-    mov word [bss_90b6], 0x807       ; 0x44fb
-    mov word [bss_90b8], 1           ; 0x4501
+    mov word [pending_event], 0x807  ; 0x44fb
+    mov word [pending_event_hi], 1   ; 0x4501
 @..api_idx_0094_LUVH.l25:
     jmp short @..api_idx_0094_LUVH.l27 ; 0x4507
 @..api_idx_0094_LUVH.l26:
-    mov word [bss_90b6], 0x7fe       ; 0x4509
-    mov word [bss_90b8], 1           ; 0x450f
+    mov word [pending_event], 0x7fe  ; 0x4509
+    mov word [pending_event_hi], 1   ; 0x450f
 @..api_idx_0094_LUVH.l27:
     jmp short @..api_idx_0094_LUVH.l29 ; 0x4515
 @..api_idx_0094_LUVH.l28:
@@ -465,9 +465,9 @@ api_idx_0094_LUVH:
     push ax                          ; 0x45c6
     call gfx_show_area               ; 0x45c7
     add sp, byte 8                   ; 0x45ca
-    cmp word [bss_90b6], byte 0      ; 0x45cd
+    cmp word [pending_event], byte 0 ; 0x45cd
     jle short @..api_idx_0094_LUVH.l34 ; 0x45d2
-    push word [bss_90b6]             ; 0x45d4
+    push word [pending_event]        ; 0x45d4
     call api_idx_0058_TVSV           ; 0x45d8
     pop cx                           ; 0x45db
 @..api_idx_0094_LUVH.l34:

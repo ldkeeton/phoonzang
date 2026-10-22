@@ -241,7 +241,7 @@ ds_app_string_LUOV: ; Aztec csav frame=0x003a
     pop ax                           ; 0x1fdb
     add ax, cx                       ; 0x1fdc
     mov bx, ax                       ; 0x1fde
-    cmp word [bx + 0x5c34], byte 0   ; 0x1fe0
+    cmp word [bx + cell_key_grid], byte 0 ; 0x1fe0
     jle short @..ds_app_string_LUOV.l13 ; 0x1fe5
     mov ax, 4                        ; 0x1fe7
     push ax                          ; 0x1fea

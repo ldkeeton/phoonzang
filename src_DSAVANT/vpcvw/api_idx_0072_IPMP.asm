@@ -23,7 +23,7 @@ api_idx_0072_IPMP:
     pop ax                           ; 0x4a76
     add ax, cx                       ; 0x4a77
     mov bx, ax                       ; 0x4a79
-    cmp word [bx + 0x5c34], byte 0   ; 0x4a7b
+    cmp word [bx + cell_key_grid], byte 0 ; 0x4a7b
     jle short @..api_idx_0072_IPMP.l3 ; 0x4a80
     inc word [bp - 0x000e]           ; 0x4a82
     mov ax, word [bp - 0x000e]       ; 0x4a85
@@ -391,7 +391,7 @@ api_idx_0072_IPMP:
     imul word [bp + 0x4]             ; 0x4de3
     add ax, cx                       ; 0x4de6
     mov di, ax                       ; 0x4de8
-    add ax, 0x5c34                   ; 0x4dea
+    add ax, cell_key_grid            ; 0x4dea
     mov di, ax                       ; 0x4ded
     mov cx, ds                       ; 0x4def
     mov es, cx                       ; 0x4df1

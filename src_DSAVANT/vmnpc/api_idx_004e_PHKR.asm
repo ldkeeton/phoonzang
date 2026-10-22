@@ -26,7 +26,7 @@ api_idx_004e_PHKR:
     pop ax                           ; 0x5bac
     add ax, cx                       ; 0x5bad
     mov bx, ax                       ; 0x5baf
-    mov ax, word [bx + 0x5c34]       ; 0x5bb1
+    mov ax, word [bx + cell_key_grid] ; 0x5bb1
     mov word [bp - 0x0002], ax       ; 0x5bb5
     mov ax, 0                        ; 0x5bb8
     push ax                          ; 0x5bbb

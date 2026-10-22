@@ -25,7 +25,7 @@ ds_app_OOUT: ; Aztec csav frame=0x0004
     pop ax                           ; 0x180f
     add ax, cx                       ; 0x1810
     mov bx, ax                       ; 0x1812
-    cmp word [bx + 0x5c34], byte 0   ; 0x1814
+    cmp word [bx + cell_key_grid], byte 0 ; 0x1814
     jle short @..ds_app_OOUT.l3      ; 0x1819
     push word [bp - 0x0002]          ; 0x181b
     push word [bp - 0x0004]          ; 0x181e

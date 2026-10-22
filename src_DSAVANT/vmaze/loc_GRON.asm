@@ -28,6 +28,6 @@ loc_GRON:
     push ax                          ; 0x6afe
     call wait_and_free_sound         ; 0x6aff
     pop cx                           ; 0x6b02
-    mov word [bss_598e], 0xffff      ; 0x6b03
+    mov word [loaded_sound_id], 0xffff ; 0x6b03
 @..loc_GRON.l3:
     ret                              ; 0x6b09

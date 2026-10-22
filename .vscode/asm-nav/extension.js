@@ -486,6 +486,15 @@ async function prepareMakeC(uri, label) {
         flagList };
 }
 
+// readme/authoring-c-fragments.md, inlined at the end of each prompt so the agent
+// has it up front instead of spending a turn reading it.
+function authoringGuide() {
+    const file = path.join(root(), 'readme', 'authoring-c-fragments.md');
+    const text = fs.existsSync(file) ? fs.readFileSync(file, 'utf8').trim() : '';
+    return text ? `Reference: readme/authoring-c-fragments.md (fragment splits and the ` +
+        `\`make info\`/\`probe\`/\`data\` loop), already included in full:\n\n${text}` : '';
+}
+
 // Claude Code's prompt: unchanged from the long-form workflow that has been in
 // use.  OpenCode gets a separate, more directive prompt below.
 function claudePrompt(job) {
@@ -537,6 +546,7 @@ function claudePrompt(job) {
             `passes. No address-named or content-tagged symbol may remain in the source.\n\n` +
             `Your final message: only the routine's new name, or, if you could not finish, what is ` +
             `left and why.`,
+        authoringGuide(),
     ].join('\n\n');
 }
 
@@ -547,8 +557,7 @@ function opencodePrompt(job) {
         flagList } = job;
     return [
         `Reproduce ${rel(asmFile)} as source that builds to byte-exact matching asm. ` +
-            `Never hand-edit the asm. Read \`readme/authoring-c-fragments.md\` first; it defines ` +
-            `the split rule this fragment may need.`,
+            `Never hand-edit the asm.`,
         `Choose the form before writing. Write ${rel(cFile)} (K&R C for the Manx Aztec \`cc\`) only ` +
             `if \`cc\` could have generated this code; otherwise write ${rel(sFile)} (Manx \`as\` assembly` +
             (exampleS ? `, in the style of ${rel(path.join(dir, exampleS))}` : '') + `). ` +
@@ -596,6 +605,7 @@ function opencodePrompt(job) {
             `symbol may remain in the source.`,
         `Your final message: only the routine's new name, or, if you could not finish, what is left ` +
             `and why.`,
+        authoringGuide(),
     ].join('\n\n');
 }
 

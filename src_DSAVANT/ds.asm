@@ -329,7 +329,7 @@ tick_counter_ptr equ __ztick_counter_ptr - __zdseg_start
 sound_slot_info equ __zbss_5576 - __zdseg_start
 bss_597c        equ __zbss_597c - __zdseg_start
 bss_5984        equ __zbss_5984 - __zdseg_start
-bss_598e        equ __zbss_598e - __zdseg_start
+loaded_sound_id equ __zbss_598e - __zdseg_start
 %include "ds/game/play_sound_effect.asm"   ; 0x0a27
 
 ; bss_0e34 equ __zbss_0e34 - __zdseg_start
@@ -414,12 +414,14 @@ saved_screen_ref          equ __zbss_5be0 - __zdseg_start
 
 %include "ds/game/ds_app_VOML.asm"         ; 0x1741
 
+cell_key_grid equ __zbss_5c34 - __zdseg_start
 %include "ds/game/ds_app_OOUT.asm"         ; 0x17d6
 
 %include "ds/game/ds_app_mem_TMKK.asm"     ; 0x184f
 
 %include "ds/game/ds_app_UPSN.asm"         ; 0x1a23
 
+; cell_key_grid equ __zbss_5c34 - __zdseg_start
 %include "ds/game/ds_app_IPJO.asm"         ; 0x1c2f
 
 %include "ds/game/ds_app_UTUH.asm"         ; 0x1c6e
@@ -433,8 +435,9 @@ saved_screen_ref          equ __zbss_5be0 - __zdseg_start
 
 %include "ds/game/ds_app_TRNH.asm"         ; 0x1cf8
 
-bss_5bf4 equ __zbss_5bf4 - __zdseg_start
-bss_5e2a equ __zbss_5e2a - __zdseg_start
+bss_5bf4      equ __zbss_5bf4 - __zdseg_start
+; cell_key_grid equ __zbss_5c34 - __zdseg_start
+bss_5e2a      equ __zbss_5e2a - __zdseg_start
 %include "ds/game/ds_app_string_LUOV.asm"  ; 0x1d81
 
 ; bss_0e2e    equ __zbss_0e2e - __zdseg_start
@@ -482,7 +485,7 @@ dseg_0bd7       equ __zdseg_0bd7 - __zdseg_start
 ; sound_slot_info equ __zbss_5576 - __zdseg_start
 %include "ds/game/load_sound_file.asm"     ; 0x2923
 
-; bss_598e equ __zbss_598e - __zdseg_start
+; loaded_sound_id equ __zbss_598e - __zdseg_start
 %include "ds/game/ds_app_QTIV.asm"         ; 0x29f1
 
 dseg_0be3        equ __zdseg_0be3 - __zdseg_start
@@ -1472,7 +1475,9 @@ __zbss_5c08:
 __zbss_5c0a:
     resb 0x000e
 __zbss_5c18:
-    resb 0x0212
+    resb 0x001c
+__zbss_5c34:
+    resb 0x01f6
 __zbss_5e2a:
     resb 0x0b9e
 __zbss_69c8:

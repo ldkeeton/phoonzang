@@ -159,7 +159,7 @@ api_idx_0074_SGUS:
     push ax                          ; 0x7a67
     call wait_and_free_sound         ; 0x7a68
     pop cx                           ; 0x7a6b
-    mov word [bss_598e], 0xffff      ; 0x7a6c
+    mov word [loaded_sound_id], 0xffff ; 0x7a6c
     push word [message_delay]        ; 0x7a72
     call api_idx_0004_UQUT           ; 0x7a76
     pop cx                           ; 0x7a79
@@ -194,7 +194,7 @@ api_idx_0074_SGUS:
     push ax                          ; 0x7ab8
     call wait_and_free_sound         ; 0x7ab9
     pop cx                           ; 0x7abc
-    mov word [bss_598e], 0xffff      ; 0x7abd
+    mov word [loaded_sound_id], 0xffff ; 0x7abd
 @..api_idx_0074_SGUS.l10:
     mov ax, word [party_region]      ; 0x7ac3
     shl ax, 1                        ; 0x7ac6

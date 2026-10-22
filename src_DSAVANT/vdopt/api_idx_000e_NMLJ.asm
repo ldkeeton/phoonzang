@@ -90,14 +90,14 @@ api_idx_000e_NMLJ:
     cmp word [bp - 0x000c], byte 0   ; 0x07b9
     jne short @..api_idx_000e_NMLJ.l5 ; 0x07bd
     push word [bp - 0x000e]          ; 0x07bf
-    call loc_HHMH                    ; 0x07c2
+    call claim_type7_object          ; 0x07c2
     pop cx                           ; 0x07c5
 @..api_idx_000e_NMLJ.l5:
     mov ax, word [bp - 0x000c]       ; 0x07c6
     add ax, 0x841                    ; 0x07c9
-    mov word [bss_90b6], ax          ; 0x07cc
+    mov word [pending_event], ax     ; 0x07cc
     mov ax, word [bp - 0x000c]       ; 0x07cf
-    mov word [bss_90b8], ax          ; 0x07d2
+    mov word [pending_event_hi], ax  ; 0x07d2
     mov ax, 0                        ; 0x07d5
     ret                              ; 0x07d8
 loc_UOPP:

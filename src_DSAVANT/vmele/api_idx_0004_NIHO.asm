@@ -68,13 +68,13 @@ api_idx_0004_NIHO:
     push ax                          ; 0x2f5c
     call wait_and_free_sound         ; 0x2f5d
     pop cx                           ; 0x2f60
-    cmp word [bss_598e], byte 0xff   ; 0x2f61
+    cmp word [loaded_sound_id], byte 0xff ; 0x2f61
     je short @..api_idx_0004_NIHO.l1 ; 0x2f66
     mov ax, 0x10                     ; 0x2f68
     push ax                          ; 0x2f6b
     call wait_and_free_sound         ; 0x2f6c
     pop cx                           ; 0x2f6f
-    mov word [bss_598e], 0xffff      ; 0x2f70
+    mov word [loaded_sound_id], 0xffff ; 0x2f70
 @..api_idx_0004_NIHO.l1:
     mov ax, 0                        ; 0x2f76
     push ax                          ; 0x2f79

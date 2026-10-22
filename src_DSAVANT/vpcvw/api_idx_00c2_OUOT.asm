@@ -696,7 +696,7 @@ api_idx_00c2_OUOT:
     pop ax                           ; 0x5b55
     add ax, cx                       ; 0x5b56
     mov bx, ax                       ; 0x5b58
-    cmp word [bx + 0x5c34], byte 0   ; 0x5b5a
+    cmp word [bx + cell_key_grid], byte 0 ; 0x5b5a
     jle short @..api_idx_00c2_OUOT.l43 ; 0x5b5f
     mov al, byte [bx + 0x5c3b]       ; 0x5b61
     sub ah, ah                       ; 0x5b65
