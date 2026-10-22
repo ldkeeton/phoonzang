@@ -300,11 +300,24 @@ def _tool_summary(project, binary, routine, suffix):
     return kind, list(flags), provenance
 
 
+def _name_surfaces(project, binary, routine, addr):
+    """``(rows, shared)`` naming surfaces for *routine*, or empty on error."""
+    from .naming import api_consumers, provenance_rows
+    try:
+        with open(sidecar_path(project)) as f:
+            sidecar = json.load(f)
+    except (OSError, ValueError):
+        return [], []
+    return (provenance_rows(sidecar, project, binary, routine, addr),
+            api_consumers(sidecar, binary))
+
+
 def cmd_info(project, binary, routine, json_out=False):
     frag = _fragment(project, binary, routine)
     src = _source_summary(project, binary, routine)
     suffix = src['suffix'] if src else '.c'
     tool, flags, provenance = _tool_summary(project, binary, routine, suffix)
+    names, shared = _name_surfaces(project, binary, routine, frag['start'])
     info = {
         'routine': routine,
         'binary': binary,
@@ -318,6 +331,8 @@ def cmd_info(project, binary, routine, json_out=False):
         'tool': tool,
         'flags': flags,
         'provenance': provenance,
+        'names': names,
+        'shared_names': shared,
     }
     if json_out:
         print(json.dumps(info, indent=1))
@@ -334,6 +349,8 @@ def cmd_info(project, binary, routine, json_out=False):
               f'  ({provenance})')
     else:
         print(f'  tool   unknown  ({provenance})')
+    from .naming import print_provenance
+    print_provenance(names, shared)
     for i, member in enumerate(frag['members']):
         role = 'root' if i == 0 else 'co-tenant'
         callers = member['callers']

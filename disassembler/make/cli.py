@@ -37,8 +37,10 @@ Commands (space-separated):
                             except the build lock and pinned baselines)
   make name PROJECT BIN SYMBOL=NAME[:NOTE] ...
                             name routines/globals as the build spells them (cseg_0d3a,
-                            bss_1234, io_loc_KRUO, or a current name): writes the sidecar,
-                            renames hand sources and their references, then build + rebuild
+                            bss_1234, io_loc_KRUO, or a current name): writes every
+                            naming surface (function_names, dispatch_table slots),
+                            renames hand sources and their references, then build +
+                            rebuild; DRY_RUN=1 lists the changes without writing
   make info PROJECT BIN ROUTINE  fragment span, co-tenant routines, callers, source
                             and the tool/flags the build uses
   make refs PROJECT BIN ROUTINE  list the symbols ROUTINE references: value, space,
@@ -206,7 +208,10 @@ def main():
         if pos[0] not in all_projects:
             print(f'Unknown project: {pos[0]}')
             sys.exit(1)
-        cmd_name(pos[0], pos[1], specs, all_projects)
+        dry_run = ('--dry-run' in flags
+                   or os.environ.get('DRY_RUN', '').lower()
+                   in ('1', 'true', 'yes'))
+        cmd_name(pos[0], pos[1], specs, all_projects, dry_run=dry_run)
         return
 
     # ``FOO=bar make ...`` reaches us through MAKEFLAGS, not argv.

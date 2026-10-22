@@ -2,10 +2,15 @@
 
 ``make name PROJECT BIN SYMBOL=NAME[:NOTE] ...`` resolves each symbol as the
 build spells it (``cseg_0d3a``, ``bss_1234``, ``io_loc_KRUO``, or a name
-already given) to its sidecar entry, writes the entries, renames the
+already given) to its sidecar entry, writes every naming surface the routine
+has (``function_names`` and its ``dispatch_table`` slot), renames the
 hand-owned sources and every reference in them, then builds and rebuilds the
 project.  The sources are renamed before the build because a hand source
-whose routine the sidecar renamed is an orphan the build refuses.
+whose routine the sidecar renamed is an orphan the build refuses.  A failed
+build rolls the sidecar and sources back.
+
+``DRY_RUN=1 make name ...`` prints the same plan without writing; ``make info``
+and ``make refs`` show each naming surface and which one wins.
 
 ``make refs PROJECT BIN ROUTINE`` lists the address-named symbols a routine's
 asm and source reference, with the sidecar entry each one resolves to.
@@ -114,17 +119,29 @@ def _object_at(text, path):
     return text, open_
 
 
-def set_entry(text, path, key, entry):
-    """*text* with ``path[...][key] = entry``: rows sorted by key, every other
-    row kept as written."""
+def set_value(text, path, key, value):
+    """*text* with ``path[...][key] = value``: the row changes, every other
+    row keeps its place and spelling (a hand-ordered block is not re-sorted)."""
     text, open_ = _object_at(text, path)
     close = _close_of(text, open_)
-    rows = {k: text[v:e] for k, _, v, e in _members(text, open_)}
-    rows[key] = json.dumps(entry, ensure_ascii=False)
+    members = _members(text, open_)
+    rows = {k: text[v:e] for k, _, v, e in members}
+    order = [k for k, _, _, _ in members]
+    if key not in rows:
+        # A new key goes before the first later one; existing rows stay put,
+        # even when the block is grouped rather than sorted.
+        at = next((i for i, k in enumerate(order) if k > key), len(order))
+        order.insert(at, key)
+    rows[key] = json.dumps(value, ensure_ascii=False)
     line_start = text.rfind('\n', 0, open_) + 1
     base = re.match(r'[ \t]*', text[line_start:]).group(0)
-    body = ',\n'.join(f'{base}  {json.dumps(k)}: {rows[k]}' for k in sorted(rows))
+    body = ',\n'.join(f'{base}  {json.dumps(k)}: {rows[k]}' for k in order)
     return text[:open_] + '{\n' + body + '\n' + base + '}' + text[close + 1:]
+
+
+def set_entry(text, path, key, entry):
+    """*text* with ``path[...][key] = entry``; see :func:`set_value`."""
+    return set_value(text, path, key, entry)
 
 
 # ── resolving a build spelling to its sidecar entry ──────────────────────────
@@ -229,6 +246,160 @@ def resolve(sidecar, project, binary, symbol):
     return path, key, dict(block.get(key, {}))
 
 
+# ── every place a routine is named ───────────────────────────────────────────
+
+def _binaries(sidecar):
+    return sidecar.get('binaries') or {}
+
+
+def _dispatch_names(sidecar, binary):
+    table = (_binaries(sidecar).get(binary) or {}).get('dispatch_table') or {}
+    return table.get('names') or {}
+
+
+def dispatch_owner(sidecar, binary):
+    """The binary whose ``dispatch_table.names`` name *binary*'s API slots.
+
+    A driver table may name its slots itself.  A second driver can declare
+    ``"api": "<driver>"`` and reuse that table, so the names live one or more
+    hops away.  Returns None when no table in the chain names anything.
+    """
+    seen = set()
+    owner = binary
+    while owner and owner not in seen:
+        seen.add(owner)
+        table = (_binaries(sidecar).get(owner) or {}).get('dispatch_table') or {}
+        if table.get('names'):
+            return owner
+        owner = table.get('api')
+    return None
+
+
+def _sidecar_key(sidecar, binary, addr):
+    """The ``function_names`` key for listing address *addr*, or None."""
+    if addr is None:
+        return None
+    own = _binaries(sidecar).get(binary) or {}
+    offset = 0 if own.get('ghidra_base_offset') is not None else own.get(
+        'start_offset', 0) or 0
+    return f'{addr - offset:04x}'
+
+
+def _dispatch_targets(project, sidecar, driver):
+    """``{slot: routine offset}`` for a driver's declared dispatch table.
+
+    The handlers are ``call target; retf`` entries; the target is the routine
+    the slot names.  Empty when the image or table is unavailable.
+    """
+    if project is None:
+        return {}
+    from lib.match.driver_slots import entry_handlers
+    from .inspect import binary_bytes
+    data, _ = binary_bytes(project, driver)
+    if data is None:
+        return {}
+    table = (_binaries(sidecar).get(driver) or {}).get('dispatch_table') or {}
+    if not table:
+        return {}
+    out = {}
+    for slot, handler in entry_handlers(data, table).items():
+        if (handler + 4 <= len(data) and data[handler] == 0xE8
+                and data[handler + 3] == 0xCB):
+            rel = int.from_bytes(data[handler + 1:handler + 3], 'little',
+                                 signed=True)
+            out[slot] = (handler + 3 + rel) & 0xFFFF
+    return out
+
+
+def provenance_rows(sidecar, project, binary, routine, addr=None):
+    """Every sidecar surface that names *routine* or its address.
+
+    Each row is ``{surface, key, name, note, effective}``.  ``effective`` marks
+    the name the build applies last: the dispatch table overrides
+    ``function_names`` (the runner applies it later), and a ``routines`` entry
+    keyed by content tag can override both.
+    """
+    rows = []
+    own = _binaries(sidecar).get(binary) or {}
+    key = _sidecar_key(sidecar, binary, addr)
+    for slot, entry in sorted((own.get('function_names') or {}).items()):
+        name = entry.get('name')
+        if (key is not None and slot == key) or name == routine:
+            rows.append({'surface': 'function_names', 'key': slot,
+                         'name': name, 'note': entry.get('note'),
+                         'effective': False})
+    for tag, entry in sorted((sidecar.get('routines') or {}).items()):
+        if entry.get('name') == routine:
+            rows.append({'surface': 'routines', 'key': tag,
+                         'name': entry.get('name'), 'note': entry.get('note'),
+                         'effective': False})
+    drivers = []
+    owner = dispatch_owner(sidecar, binary)
+    if owner:
+        drivers.append(owner)
+    if owner != binary and binary not in drivers:
+        drivers.append(binary)
+    for driver in drivers:
+        names = _dispatch_names(sidecar, driver)
+        targets = _dispatch_targets(project, sidecar, driver)
+        for slot, name in sorted(names.items(), key=lambda row: int(row[0])):
+            hit = targets.get(int(slot)) == addr
+            if hit or name == routine:
+                rows.append({'surface': f'{driver}.dispatch_table',
+                             'key': slot, 'name': name, 'note': None,
+                             'effective': False})
+    for slots in own.get('driver_slots') or []:
+        driver = slots.get('driver')
+        prefix = slots.get('prefix') or ''
+        names = _dispatch_names(sidecar, driver)
+        for slot, name in sorted(names.items(), key=lambda row: int(row[0])):
+            wrapped = f'{prefix}_{name}' if prefix else name
+            if wrapped == routine:
+                rows.append({'surface': f'driver_slots["{slots["offset"]}"]',
+                             'key': slot, 'name': wrapped, 'note': None,
+                             'effective': False})
+    dispatch = [row for row in rows if row['surface'].endswith('dispatch_table')]
+    plain = [row for row in rows if not row['surface'].endswith('dispatch_table')
+             and row['surface'] != 'routines']
+    tagged = [row for row in rows if row['surface'] == 'routines']
+    chosen = (dispatch or plain or tagged)
+    if chosen:
+        chosen[-1]['effective'] = True
+    return rows
+
+
+def api_consumers(sidecar, binary):
+    """One line per binary/wrapper that reuses *binary*'s API names."""
+    out = []
+    for name, info in sorted(_binaries(sidecar).items()):
+        table = info.get('dispatch_table') or {}
+        if table.get('api') == binary:
+            out.append(f'{name} reuses the {binary} dispatch table')
+        for slots in info.get('driver_slots') or []:
+            if slots.get('driver') == binary:
+                prefix = slots.get('prefix') or ''
+                wrapper = f'{prefix}_<slot name>' if prefix else '<slot name>'
+                out.append(f'{name}.driver_slots["{slots["offset"]}"] '
+                           f'wraps each slot as {wrapper}')
+    return out
+
+
+def print_provenance(rows, shared=(), indent='  '):
+    """Print the naming surfaces of one routine, effective name marked."""
+    if not rows and not shared:
+        return
+    print(f'{indent}names')
+    for row in rows:
+        mark = '  [effective]' if row.get('effective') else ''
+        print(f'{indent}        {row["surface"]}[{row["key"]}] = '
+              f'{row["name"]}{mark}')
+    for line in shared:
+        print(f'{indent}        shared  {line}')
+    if len({row['name'] for row in rows}) > 1:
+        print(f'{indent}note   naming surfaces disagree; the dispatch table '
+              f'wins over function_names')
+
+
 # ── renaming the hand-owned sources ──────────────────────────────────────────
 
 def _hand_files(project):
@@ -240,10 +411,37 @@ def _hand_files(project):
                 yield p
 
 
-def rename_sources(project, renames):
+class _Journal:
+    """Undo log for a naming transaction: sidecar and hand-source writes."""
+
+    def __init__(self):
+        self._edits = {}
+        self._renames = []
+
+    def edit(self, path, text):
+        if path not in self._edits:
+            with open(path) as f:
+                self._edits[path] = f.read()
+        with open(path, 'w') as f:
+            f.write(text)
+
+    def rename(self, old, new):
+        os.rename(old, new)
+        self._renames.append((old, new))
+
+    def rollback(self):
+        for old, new in reversed(self._renames):
+            if os.path.exists(new):
+                os.rename(new, old)
+        for path, text in self._edits.items():
+            with open(path, 'w') as f:
+                f.write(text)
+
+
+def rename_sources(project, renames, journal=None, dry_run=False):
     """Rewrite ``old``/``old_`` to ``new``/``new_`` in every hand-owned source
-    and rename a source named after a renamed routine.  Returns the changed
-    paths."""
+    and rename a source named after a renamed routine.  Returns a description
+    per change; with *dry_run* nothing is written."""
     if not renames:
         return []
     pattern = re.compile(r'\b(' + '|'.join(map(re.escape, renames)) + r')(_?)\b')
@@ -252,25 +450,100 @@ def rename_sources(project, renames):
         with open(p) as f:
             text = f.read()
         new = pattern.sub(lambda m: renames[m.group(1)] + m.group(2), text)
-        if new != text:
-            with open(p, 'w') as f:
-                f.write(new)
-            changed.append(p)
         stem, ext = os.path.splitext(os.path.basename(p))
+        dest = None
         if stem in renames and ext in ('.c', '.s'):
             dest = os.path.join(os.path.dirname(p), renames[stem] + ext)
-            if os.path.exists(dest):
+            if dest != p and os.path.exists(dest):
                 raise SystemExit(f'error: {dest} already exists')
-            os.rename(p, dest)
-            changed.append(f'{p} -> {dest}')
+        if new == text and dest is None:
+            continue
+        changed.append(f'{p} -> {dest}' if dest else p)
+        if dry_run:
+            continue
+        if new != text:
+            if journal is not None:
+                journal.edit(p, new)
+            else:
+                with open(p, 'w') as f:
+                    f.write(new)
+        if dest is not None:
+            if journal is not None:
+                journal.rename(p, dest)
+            else:
+                os.rename(p, dest)
     return changed
+
+
+def plan_names(project, binary, specs):
+    """Resolve *specs* and every naming surface they must update.
+
+    Returns ``(sidecar_text, sidecar, renames, changes)`` without writing
+    anything.  A dispatch-table slot names the same routine through a second
+    sidecar surface; leaving it behind makes the runner apply the old name
+    after the new one, so the plan updates it in the same transaction.
+    """
+    path_ = sidecar_path(project)
+    with open(path_) as f:
+        original = f.read()
+    sidecar = json.loads(original)
+    text = original
+    renames = {}
+    changes = []
+    for sym, name, note in specs:
+        path, key, entry = resolve(sidecar, project, binary, sym)
+        old = entry.get('name') or sym
+        entry = dict(entry)
+        entry['name'] = name
+        if note:
+            entry['note'] = note
+        text = set_entry(text, path, key, entry)
+        sidecar = json.loads(text)
+        changes.append({'symbol': sym, 'old': old, 'name': name,
+                        'surface': f'{".".join(path)}["{key}"]'})
+        is_routine = (path == ['routines']
+                      or path == ['binaries', binary, 'function_names'])
+        if is_routine and old != name:
+            owner = dispatch_owner(sidecar, binary)
+            slots = [slot for slot, value in
+                     _dispatch_names(sidecar, owner).items() if value == old]
+            if slots and owner != binary:
+                raise SidecarError(
+                    f'{sym}: {owner}.dispatch_table.names['
+                    f'{", ".join(sorted(slots))}] still says {old!r}; name '
+                    f'the slot from {owner} or it overrides this entry')
+            if slots:
+                for slot in sorted(slots):
+                    text = set_value(
+                        text, ['binaries', binary, 'dispatch_table', 'names'],
+                        slot, name)
+                    changes.append({
+                        'symbol': sym, 'old': old, 'name': name,
+                        'surface': f'binaries.{binary}.dispatch_table.names'
+                                   f'["{slot}"]'})
+                sidecar = json.loads(text)
+            own = _binaries(sidecar).get(binary) or {}
+            for driver_slots in own.get('driver_slots') or []:
+                driver = driver_slots.get('driver')
+                prefix = driver_slots.get('prefix') or ''
+                for slot, value in _dispatch_names(sidecar, driver).items():
+                    wrapped = f'{prefix}_{value}' if prefix else value
+                    if wrapped == old and driver != binary:
+                        raise SidecarError(
+                            f'{sym}: {binary}.driver_slots['
+                            f'"{driver_slots["offset"]}"] wraps '
+                            f'{driver}.dispatch_table.names["{slot}"] as '
+                            f'{wrapped!r}; name the slot from {driver}')
+        if old != name:
+            renames[old] = name
+    return text, sidecar, renames, changes
 
 
 # ── commands ─────────────────────────────────────────────────────────────────
 
 #: Command-line variables ``make`` itself takes; never naming specs.
 _MAKE_VARS = {'ARGS', 'EXTRA_FLAGS', 'EXACT_FLAG', 'VERBOSE', 'ASM_STAGELOG',
-              'ASM_DOSBOX_SHOW', 'ASM_DOSBOX_TIMEOUT', 'ASM_PROFILE'}
+              'ASM_DOSBOX_SHOW', 'ASM_DOSBOX_TIMEOUT', 'ASM_PROFILE', 'DRY_RUN'}
 
 
 def specs_from_makeflags():
@@ -319,51 +592,76 @@ def parse_specs(args):
     return specs
 
 
-def apply_names(project, binary, specs):
-    """Write *specs* to the sidecar and rename the sources; returns the
-    ``{old: new}`` renames.  Nothing is written if any symbol fails to
-    resolve or the result does not validate."""
+def apply_names(project, binary, specs, journal=None):
+    """Write *specs* and every naming surface they affect, then rename the
+    sources; returns the ``{old: new}`` renames."""
     from lib.sidecar.loader import load
     path_ = sidecar_path(project)
     with open(path_) as f:
         original = f.read()
-    sidecar = json.loads(original)
-    text = original
-    renames = {}
-    for sym, name, note in specs:
-        path, key, entry = resolve(sidecar, project, binary, sym)
-        entry['name'] = name
-        if note:
-            entry['note'] = note
-        text = set_entry(text, path, key, entry)
-        print(f'  {sym} -> {name}  ({".".join(path)}["{key}"])')
-        if sym != name:
-            renames[sym] = name
-    json.loads(text)
-    with open(path_, 'w') as f:
-        f.write(text)
+    text, sidecar, renames, changes = plan_names(project, binary, specs)
+    if journal is not None:
+        journal.edit(path_, text)
+    else:
+        with open(path_, 'w') as f:
+            f.write(text)
     try:
         load(project)
     except SidecarError as exc:
         with open(path_, 'w') as f:
             f.write(original)
-        raise SystemExit(f'error: sidecar rejected, left unchanged: {exc}')
-    for p in rename_sources(project, renames):
+        raise SidecarError(f'sidecar rejected, left unchanged: {exc}')
+    for change in changes:
+        print(f'  {change["old"]} -> {change["name"]}'
+              f'  ({change["surface"]})')
+    for p in rename_sources(project, renames, journal=journal):
         print(f'  rewrote {os.path.relpath(p, PROJECT) if " -> " not in p else p}')
     return renames
 
 
-def cmd_name(project, binary, args, all_projects):
-    from .build import _build_projects, _rebuild_project
+def cmd_name(project, binary, args, all_projects, dry_run=False):
     specs = parse_specs(args)
     if not specs:
         raise SystemExit('Usage: make name PROJECT BIN SYMBOL=NAME[:NOTE] ...')
+    if dry_run:
+        try:
+            _text, sidecar, renames, changes = plan_names(
+                project, binary, specs)
+        except SidecarError as exc:
+            raise SystemExit(f'error: {exc}')
+        print('dry run: sidecar changes')
+        for change in changes:
+            print(f'  {change["old"]} -> {change["name"]}'
+                  f'  ({change["surface"]})')
+        if renames:
+            print('dry run: source changes')
+            changed = rename_sources(project, renames, dry_run=True)
+            for p in changed:
+                print(f'  rewrote {os.path.relpath(p, PROJECT) if " -> " not in p else p}')
+            if not changed:
+                print('  (none)')
+            shared = api_consumers(sidecar, binary)
+            if shared:
+                print('dry run: shared API')
+                for line in shared:
+                    print(f'  {line}')
+        else:
+            print('dry run: no name change')
+        return
+    from .build import _build_projects, _rebuild_project
+    journal = _Journal()
     try:
-        apply_names(project, binary, specs)
+        apply_names(project, binary, specs, journal=journal)
+        _build_projects([project], all_projects)
+        _rebuild_project(project)
     except SidecarError as exc:
+        journal.rollback()
+        print('name changes rolled back')
         raise SystemExit(f'error: {exc}')
-    _build_projects([project], all_projects)
-    _rebuild_project(project)
+    except BaseException:
+        journal.rollback()
+        print('name changes rolled back')
+        raise
 
 
 _REF = re.compile(r'\b(?:cseg|bss|dseg)_[0-9a-f]{4,5}\b|\b(?:\w+_)?loc_[0-9A-Za-z_]+\b')
@@ -565,10 +863,15 @@ def cmd_refs(project, binary, routine, json_out=False):
     raws = _raw_data_refs(project, text, model, known,
                           {fact['value'] for fact in facts
                            if fact['value'] is not None})
+    addr = _routine_addr(path, routine)
+    names = provenance_rows(sidecar, project, binary, routine, addr)
+    shared = api_consumers(sidecar, binary)
     if json_out:
         print(json.dumps({'routine': routine, 'binary': binary,
+                          'names': names, 'shared_names': shared,
                           'symbols': facts, 'unlabeled': raws}, indent=1))
         return facts, raws
+    print_provenance(names, shared)
     if not facts and not raws:
         print(f'{routine}: no address-named symbols')
         return facts, raws

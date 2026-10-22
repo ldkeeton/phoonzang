@@ -99,8 +99,11 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     orphans = sorted(os.path.basename(found_c[label]) for label in hand_c
                      if label not in known)
     if orphans:
-        raise SystemExit(f'error: source file(s) in {dest} with no matching '
-                         f'asm routine: {", ".join(orphans)}')
+        raise SystemExit(
+            f'error: source file(s) in {dest} with no matching asm routine: '
+            f'{", ".join(orphans)} (check the sidecar names: function_names '
+            f'and dispatch_table.names must agree; `make info` / `make refs` '
+            f'show both)')
     starts = {nm: addr for addr, nm in label_map.items()
               if isinstance(nm, str)}
     starts.update((module, span.start) for module, span in spans.items())
