@@ -284,7 +284,7 @@ loc_RLUJ:
     push ax                          ; 0x3683
     mov ax, 0xdb8                    ; 0x3684
     push ax                          ; 0x3687
-    call ds_app_mem_TIMR             ; 0x3688
+    call load_message_string         ; 0x3688
     add sp, byte 4                   ; 0x368b
     mov ax, 0x11                     ; 0x368e
     push ax                          ; 0x3691
@@ -294,10 +294,10 @@ loc_RLUJ:
     add sp, byte 4                   ; 0x3699
 @..loc_RLUJ.l13:
     call loc_QLKH                    ; 0x369c
-    les bx, word [dseg_0002]         ; 0x369f
+    les bx, word [tick_counter_ptr]  ; 0x369f
     mov ax, word [es:bx]             ; 0x36a3
     mov dx, word [es:bx + 0x2]       ; 0x36a6
     mov word [bss_908c], dx          ; 0x36aa
-    mov word [bss_908a], ax          ; 0x36ae
+    mov word [party_redraw_last_tick], ax ; 0x36ae
     mov word [game_state], 0xb       ; 0x36b1
     ret                              ; 0x36b7

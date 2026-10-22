@@ -60,7 +60,7 @@ api_idx_0004_THQU:
     je short @..api_idx_0004_THQU.l1 ; 0x1281
     mov ax, 0                        ; 0x1283
     push ax                          ; 0x1286
-    call ds_app_HKIJ                 ; 0x1287
+    call play_sound_effect           ; 0x1287
     pop cx                           ; 0x128a
 @..api_idx_0004_THQU.l1:
     ret                              ; 0x128b

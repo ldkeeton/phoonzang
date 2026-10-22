@@ -2,7 +2,7 @@
 api_idx_0028_NRJN:
     mov ax, 0xffd8                   ; 0x0ef7
     call aztec_csav                  ; 0x0efa
-    mov word [bss_904e], 0xffff      ; 0x0efd
+    mov word [spell_dialog_result], 0xffff ; 0x0efd
     mov word [bp - 0x0028], 0xffff   ; 0x0f03
     mov word [bp - 0x0002], 0x37     ; 0x0f08
     mov word [bp - 0x0004], 0x8f     ; 0x0f0d
@@ -34,7 +34,7 @@ api_idx_0028_NRJN:
     lea ax, word [bp - 0x0024]       ; 0x0f4f
     push ax                          ; 0x0f52
     push word [bp + 0x4]             ; 0x0f53
-    call ds_app_mem_TIMR             ; 0x0f56
+    call load_message_string         ; 0x0f56
     add sp, byte 4                   ; 0x0f59
     lea ax, word [bp - 0x0024]       ; 0x0f5c
     push ax                          ; 0x0f5f
@@ -56,7 +56,7 @@ api_idx_0028_NRJN:
     mov ax, word [bp + 0x4]          ; 0x0f83
     inc ax                           ; 0x0f86
     push ax                          ; 0x0f87
-    call ds_app_mem_TIMR             ; 0x0f88
+    call load_message_string         ; 0x0f88
     add sp, byte 4                   ; 0x0f8b
     lea ax, word [bp - 0x0024]       ; 0x0f8e
     push ax                          ; 0x0f91
@@ -79,7 +79,7 @@ api_idx_0028_NRJN:
     inc ax                           ; 0x0fb8
     inc ax                           ; 0x0fb9
     push ax                          ; 0x0fba
-    call ds_app_mem_TIMR             ; 0x0fbb
+    call load_message_string         ; 0x0fbb
     add sp, byte 4                   ; 0x0fbe
     lea ax, word [bp - 0x0024]       ; 0x0fc1
     push ax                          ; 0x0fc4
@@ -100,7 +100,7 @@ api_idx_0028_NRJN:
     push ax                          ; 0x0fe7
     mov ax, 0x5aa                    ; 0x0fe8
     push ax                          ; 0x0feb
-    call ds_app_mem_TIMR             ; 0x0fec
+    call load_message_string         ; 0x0fec
     add sp, byte 4                   ; 0x0fef
     mov ax, 0xc2                     ; 0x0ff2
     push ax                          ; 0x0ff5
@@ -157,7 +157,7 @@ api_idx_0028_NRJN:
     mov ax, word [bp - 0x0002]       ; 0x1066
     add ax, strict word 0x5d         ; 0x1069
     push ax                          ; 0x106c
-    call ds_app_HTKI                 ; 0x106d
+    call draw_text_list              ; 0x106d
     add sp, byte 0x0e                ; 0x1070
     mov ax, 0                        ; 0x1073
     push ax                          ; 0x1076
@@ -183,7 +183,7 @@ api_idx_0028_NRJN:
     push ax                          ; 0x10a4
     mov ax, 0x5ab                    ; 0x10a5
     push ax                          ; 0x10a8
-    call ds_app_mem_TIMR             ; 0x10a9
+    call load_message_string         ; 0x10a9
     add sp, byte 4                   ; 0x10ac
     mov ax, 0xc2                     ; 0x10af
     push ax                          ; 0x10b2
@@ -239,7 +239,7 @@ api_idx_0028_NRJN:
     mov ax, word [bp - 0x0002]       ; 0x1120
     add ax, strict word 0x5d         ; 0x1123
     push ax                          ; 0x1126
-    call ds_app_HTKI                 ; 0x1127
+    call draw_text_list              ; 0x1127
     add sp, byte 0x0e                ; 0x112a
     mov ax, 0                        ; 0x112d
     push ax                          ; 0x1130
@@ -354,7 +354,7 @@ api_idx_0028_NRJN:
     pop cx                           ; 0x121e
     dec ax                           ; 0x121f
     mov word [bp - 0x000e], ax       ; 0x1220
-    cmp word [bss_59fc], byte 0      ; 0x1223
+    cmp word [space_key_hit], byte 0 ; 0x1223
     je short @..api_idx_0028_NRJN.l3 ; 0x1228
     inc word [bp - 0x0028]           ; 0x122a
     mov ax, word [bp - 0x0028]       ; 0x122d
@@ -389,7 +389,7 @@ jumptable_14d6_case_0:
     mov ax, word [bp - 0x0002]       ; 0x1271
     add ax, strict word 0x5d         ; 0x1274
     push ax                          ; 0x1277
-    call ds_app_HTKI                 ; 0x1278
+    call draw_text_list              ; 0x1278
     add sp, byte 0x0e                ; 0x127b
     mov ax, word [bp - 0x0004]       ; 0x127e
     add ax, strict word 0x16         ; 0x1281
@@ -444,7 +444,7 @@ jumptable_14d6_case_0:
     mov ax, word [bp - 0x0002]       ; 0x12f0
     add ax, strict word 0x5d         ; 0x12f3
     push ax                          ; 0x12f6
-    call ds_app_HTKI                 ; 0x12f7
+    call draw_text_list              ; 0x12f7
     add sp, byte 0x0e                ; 0x12fa
     mov ax, word [bp - 0x0004]       ; 0x12fd
     add ax, strict word 0x16         ; 0x1300
@@ -476,7 +476,7 @@ jumptable_14d6_case_1:
     mov ax, word [bp - 0x0002]       ; 0x1337
     add ax, strict word 0x5d         ; 0x133a
     push ax                          ; 0x133d
-    call ds_app_HTKI                 ; 0x133e
+    call draw_text_list              ; 0x133e
     add sp, byte 0x0e                ; 0x1341
     mov ax, word [bp - 0x0004]       ; 0x1344
     add ax, strict word 0x2e         ; 0x1347
@@ -530,7 +530,7 @@ jumptable_14d6_case_1:
     mov ax, word [bp - 0x0002]       ; 0x13b3
     add ax, strict word 0x5d         ; 0x13b6
     push ax                          ; 0x13b9
-    call ds_app_HTKI                 ; 0x13ba
+    call draw_text_list              ; 0x13ba
     add sp, byte 0x0e                ; 0x13bd
     mov ax, word [bp - 0x0004]       ; 0x13c0
     add ax, strict word 0x2e         ; 0x13c3
@@ -577,7 +577,7 @@ jumptable_14d6_case_2:
     push ax                          ; 0x1421
     call flash_button                ; 0x1422
     add sp, byte 0x0a                ; 0x1425
-    mov word [bss_9050], 0           ; 0x1428
+    mov word [spell_dialog_button], 0 ; 0x1428
     mov word [bp - 0x0010], 0        ; 0x142e
 @..api_idx_0028_NRJN.l5:
     jmp near @..api_idx_0028_NRJN.l9 ; 0x1433
@@ -611,7 +611,7 @@ jumptable_14d6_case_3:
     push ax                          ; 0x1472
     call flash_button                ; 0x1473
     add sp, byte 0x0a                ; 0x1476
-    mov word [bss_9050], 1           ; 0x1479
+    mov word [spell_dialog_button], 1 ; 0x1479
     mov word [bp - 0x0010], 0        ; 0x147f
 @..api_idx_0028_NRJN.l6:
     jmp short @..api_idx_0028_NRJN.l9 ; 0x1484
@@ -645,7 +645,7 @@ jumptable_14d6_case_4:
     push ax                          ; 0x14c2
     call flash_button                ; 0x14c3
     add sp, byte 0x0a                ; 0x14c6
-    mov word [bss_9050], 2           ; 0x14c9
+    mov word [spell_dialog_button], 2 ; 0x14c9
     mov word [bp - 0x0010], 0        ; 0x14cf
 @..api_idx_0028_NRJN.l7:
     jmp short @..api_idx_0028_NRJN.l9 ; 0x14d4
@@ -671,6 +671,6 @@ jumptable_14d6:
     push word [bp - 0x0026]          ; 0x14fa
     call restore_saved_screen        ; 0x14fd
     add sp, byte 4                   ; 0x1500
-    mov word [bss_904e], 0xffff      ; 0x1503
-    mov ax, word [bss_9050]          ; 0x1509
+    mov word [spell_dialog_result], 0xffff ; 0x1503
+    mov ax, word [spell_dialog_button] ; 0x1509
     ret                              ; 0x150c

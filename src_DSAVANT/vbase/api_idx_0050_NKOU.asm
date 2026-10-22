@@ -5,7 +5,7 @@ api_idx_0050_NKOU:
     lea ax, word [bp - 0x0050]       ; 0x41ed
     push ax                          ; 0x41f0
     push word [bp + 0x4]             ; 0x41f1
-    call ds_app_mem_TIMR             ; 0x41f4
+    call load_message_string         ; 0x41f4
     add sp, byte 4                   ; 0x41f7
     mov ax, 0xc2                     ; 0x41fa
     push ax                          ; 0x41fd

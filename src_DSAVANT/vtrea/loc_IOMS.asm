@@ -63,7 +63,7 @@ loc_IOMS:
     lea ax, word [bp - 0x01a6]       ; 0x84d3
     push ax                          ; 0x84d7
     push word [bp + 0x6]             ; 0x84d8
-    call ds_app_mem_TIMR             ; 0x84db
+    call load_message_string         ; 0x84db
     add sp, byte 4                   ; 0x84de
     mov ax, 0xc2                     ; 0x84e1
     push ax                          ; 0x84e4
@@ -138,7 +138,7 @@ loc_IOMS:
     mov ax, word [bp + 0x4]          ; 0x857c
     add ax, word [bp - 0x0004]       ; 0x857f
     push ax                          ; 0x8582
-    call ds_app_mem_TIMR             ; 0x8583
+    call load_message_string         ; 0x8583
     add sp, byte 4                   ; 0x8586
     mov ax, word [bp - 0x0002]       ; 0x8589
     cwd                              ; 0x858c

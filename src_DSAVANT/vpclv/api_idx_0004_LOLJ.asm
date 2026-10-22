@@ -242,7 +242,7 @@ jumptable_3797:
     mov ax, word [bp - 0x0002]       ; 0x380b
     add ax, 0x157c                   ; 0x380e
     push ax                          ; 0x3811
-    call ds_app_mem_TIMR             ; 0x3812
+    call load_message_string         ; 0x3812
     add sp, byte 4                   ; 0x3815
     mov ax, word [bp - 0x0002]       ; 0x3818
     mov cx, word [bp - 0x0004]       ; 0x381b
@@ -265,7 +265,7 @@ jumptable_3797:
     push ax                          ; 0x3842
     mov ax, 0x159e                   ; 0x3843
     push ax                          ; 0x3846
-    call ds_app_mem_TIMR             ; 0x3847
+    call load_message_string         ; 0x3847
     add sp, byte 4                   ; 0x384a
     mov ax, word [bp - 0x0004]       ; 0x384d
     ret                              ; 0x3850

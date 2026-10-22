@@ -113,7 +113,7 @@ api_idx_0072_LQIT:
     mov ax, word [bp - 0x001c]       ; 0x7267
     add ax, 0x834                    ; 0x726a
     push ax                          ; 0x726d
-    call ds_app_mem_TIMR             ; 0x726e
+    call load_message_string         ; 0x726e
     add sp, byte 4                   ; 0x7271
     mov ax, 0x1a                     ; 0x7274
     push ax                          ; 0x7277

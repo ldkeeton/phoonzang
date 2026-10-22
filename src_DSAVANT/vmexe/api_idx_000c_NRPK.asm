@@ -20,7 +20,7 @@ api_idx_000c_NRPK:
     pop ax                           ; 0x793c
     add word [bx + 0x557e], ax       ; 0x793d
     push word [bp + 0x4]             ; 0x7941
-    call ds_app_HKIJ                 ; 0x7944
+    call play_sound_effect           ; 0x7944
     pop cx                           ; 0x7947
     lea si, word [bp - 0x000c]       ; 0x7948
     mov ax, 0xc                      ; 0x794b

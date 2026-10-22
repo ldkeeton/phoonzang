@@ -40,13 +40,13 @@ api_idx_003e_JGVR:
     push ax                          ; 0x1215
     mov ax, 0x146f                   ; 0x1216
     push ax                          ; 0x1219
-    call ds_app_mem_TIMR             ; 0x121a
+    call load_message_string         ; 0x121a
     add sp, byte 4                   ; 0x121d
     lea ax, word [bp - 0x003e]       ; 0x1220
     push ax                          ; 0x1223
     mov ax, 0x1470                   ; 0x1224
     push ax                          ; 0x1227
-    call ds_app_mem_TIMR             ; 0x1228
+    call load_message_string         ; 0x1228
     add sp, byte 4                   ; 0x122b
     mov ax, 0x248                    ; 0x122e
     imul word [bp + 0x4]             ; 0x1231
@@ -109,7 +109,7 @@ api_idx_003e_JGVR:
     inc ax                           ; 0x12b9
     inc ax                           ; 0x12ba
     push ax                          ; 0x12bb
-    call ds_app_HKIJ                 ; 0x12bc
+    call play_sound_effect           ; 0x12bc
     pop cx                           ; 0x12bf
     push word [message_delay]        ; 0x12c0
     call api_idx_0004_UQUT           ; 0x12c4

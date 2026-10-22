@@ -5,7 +5,7 @@ api_idx_0054_LVHV:
     lea ax, word [bp - 0x0054]       ; 0x1292
     push ax                          ; 0x1295
     push word [bp + 0x4]             ; 0x1296
-    call ds_app_mem_TIMR             ; 0x1299
+    call load_message_string         ; 0x1299
     add sp, byte 4                   ; 0x129c
     lea ax, word [bp - 0x0054]       ; 0x129f
     push ax                          ; 0x12a2
@@ -49,7 +49,7 @@ api_idx_0054_LVHV:
     add sp, byte 0x14                ; 0x12f7
     mov ax, 0                        ; 0x12fa
     push ax                          ; 0x12fd
-    call ds_app_HKIJ                 ; 0x12fe
+    call play_sound_effect           ; 0x12fe
     pop cx                           ; 0x1301
     push word [message_delay]        ; 0x1302
     call ds_app_OIGN                 ; 0x1306

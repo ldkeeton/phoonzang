@@ -2,7 +2,7 @@
 api_idx_0038_QQIU:
     mov ax, 0xffc8                   ; 0x3a2c
     call aztec_csav                  ; 0x3a2f
-    mov word [bss_904e], 0xffff      ; 0x3a32
+    mov word [spell_dialog_result], 0xffff ; 0x3a32
     mov word [bp - 0x0004], 0x37     ; 0x3a38
     mov word [bp - 0x0006], 0x8f     ; 0x3a3d
     mov word [bp - 0x0008], 0x108    ; 0x3a42
@@ -42,7 +42,7 @@ api_idx_0038_QQIU:
     lea ax, word [bp - 0x0036]       ; 0x3a99
     push ax                          ; 0x3a9c
     push word [bp + 0x4]             ; 0x3a9d
-    call ds_app_mem_TIMR             ; 0x3aa0
+    call load_message_string         ; 0x3aa0
     add sp, byte 4                   ; 0x3aa3
     jmp short @..api_idx_0038_QQIU.l3 ; 0x3aa6
 @..api_idx_0038_QQIU.l2:
@@ -72,7 +72,7 @@ api_idx_0038_QQIU:
     mov ax, word [bp + 0x4]          ; 0x3adc
     inc ax                           ; 0x3adf
     push ax                          ; 0x3ae0
-    call ds_app_mem_TIMR             ; 0x3ae1
+    call load_message_string         ; 0x3ae1
     add sp, byte 4                   ; 0x3ae4
     lea ax, word [bp - 0x0036]       ; 0x3ae7
     push ax                          ; 0x3aea
@@ -95,7 +95,7 @@ api_idx_0038_QQIU:
     inc ax                           ; 0x3b11
     inc ax                           ; 0x3b12
     push ax                          ; 0x3b13
-    call ds_app_mem_TIMR             ; 0x3b14
+    call load_message_string         ; 0x3b14
     add sp, byte 4                   ; 0x3b17
     lea ax, word [bp - 0x0036]       ; 0x3b1a
     push ax                          ; 0x3b1d
@@ -141,7 +141,7 @@ api_idx_0038_QQIU:
     mov ax, word [bp - 0x0004]       ; 0x3b83
     add ax, 0xc1                     ; 0x3b86
     push ax                          ; 0x3b89
-    call ds_app_JKST                 ; 0x3b8a
+    call draw_scrollbar              ; 0x3b8a
     add sp, byte 0x0a                ; 0x3b8d
     mov ax, 0                        ; 0x3b90
     push ax                          ; 0x3b93
@@ -337,7 +337,7 @@ api_idx_0038_QQIU:
     pop cx                           ; 0x3d41
     dec ax                           ; 0x3d42
     mov word [bp - 0x0018], ax       ; 0x3d43
-    cmp word [bss_59fc], byte 0      ; 0x3d46
+    cmp word [space_key_hit], byte 0 ; 0x3d46
     je short @..api_idx_0038_QQIU.l11 ; 0x3d4b
     mov ax, word [bp - 0x0020]       ; 0x3d4d
     cmp ax, word [bp - 0x0016]       ; 0x3d50
@@ -458,7 +458,7 @@ jumptable_4141_case_0:
     mov ax, word [bp - 0x0004]       ; 0x3e59
     add ax, 0xc1                     ; 0x3e5c
     push ax                          ; 0x3e5f
-    call ds_app_JKST                 ; 0x3e60
+    call draw_scrollbar              ; 0x3e60
     add sp, byte 0x0a                ; 0x3e63
     mov ax, 0                        ; 0x3e66
     push ax                          ; 0x3e69
@@ -517,7 +517,7 @@ jumptable_4141_case_1:
     mov ax, word [bp - 0x0004]       ; 0x3ee4
     add ax, 0xc1                     ; 0x3ee7
     push ax                          ; 0x3eea
-    call ds_app_QOOL                 ; 0x3eeb
+    call flash_area                  ; 0x3eeb
     add sp, byte 0x0a                ; 0x3eee
     cmp word [bp - 0x0016], byte 0   ; 0x3ef1
     jle short @..api_idx_0038_QQIU.l16 ; 0x3ef5
@@ -539,7 +539,7 @@ jumptable_4141_case_1:
     mov ax, word [bp - 0x0004]       ; 0x3f15
     add ax, 0xc1                     ; 0x3f18
     push ax                          ; 0x3f1b
-    call ds_app_QOOL                 ; 0x3f1c
+    call flash_area                  ; 0x3f1c
     add sp, byte 0x0a                ; 0x3f1f
     mov ax, word [bp + 0xc]          ; 0x3f22
     dec ax                           ; 0x3f25
@@ -598,7 +598,7 @@ jumptable_4141_case_1:
     mov ax, word [bp - 0x0004]       ; 0x3f99
     add ax, 0xc1                     ; 0x3f9c
     push ax                          ; 0x3f9f
-    call ds_app_JKST                 ; 0x3fa0
+    call draw_scrollbar              ; 0x3fa0
     add sp, byte 0x0a                ; 0x3fa3
     mov ax, 0                        ; 0x3fa6
     push ax                          ; 0x3fa9
@@ -666,7 +666,7 @@ jumptable_4141_case_3:
     push ax                          ; 0x4038
     call flash_button                ; 0x4039
     add sp, byte 0x0a                ; 0x403c
-    mov word [bss_9050], 0           ; 0x403f
+    mov word [spell_dialog_button], 0 ; 0x403f
     mov word [bp - 0x001a], 0        ; 0x4045
 @..api_idx_0038_QQIU.l20:
     jmp near @..api_idx_0038_QQIU.l26 ; 0x404a
@@ -700,7 +700,7 @@ jumptable_4141_case_4:
     push ax                          ; 0x4089
     call flash_button                ; 0x408a
     add sp, byte 0x0a                ; 0x408d
-    mov word [bss_9050], 1           ; 0x4090
+    mov word [spell_dialog_button], 1 ; 0x4090
     mov word [bp - 0x001a], 0        ; 0x4096
 @..api_idx_0038_QQIU.l21:
     jmp near @..api_idx_0038_QQIU.l26 ; 0x409b
@@ -734,7 +734,7 @@ jumptable_4141_case_5:
     push ax                          ; 0x40da
     call flash_button                ; 0x40db
     add sp, byte 0x0a                ; 0x40de
-    mov word [bss_9050], 2           ; 0x40e1
+    mov word [spell_dialog_button], 2 ; 0x40e1
     mov word [bp - 0x001a], 0        ; 0x40e7
 @..api_idx_0038_QQIU.l22:
     jmp short @..api_idx_0038_QQIU.l26 ; 0x40ec
@@ -799,6 +799,6 @@ jumptable_4141:
     call restore_saved_screen        ; 0x416c
     add sp, byte 4                   ; 0x416f
     mov ax, word [bp - 0x0020]       ; 0x4172
-    mov word [bss_904e], ax          ; 0x4175
-    mov ax, word [bss_9050]          ; 0x4178
+    mov word [spell_dialog_result], ax ; 0x4175
+    mov ax, word [spell_dialog_button] ; 0x4178
     ret                              ; 0x417b

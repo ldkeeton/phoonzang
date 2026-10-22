@@ -40,7 +40,7 @@ api_idx_005a_SIOK:
     lea ax, word [bp - 0x0050]       ; 0x115a
     push ax                          ; 0x115d
     push word [bp + 0x6]             ; 0x115e
-    call ds_app_mem_TIMR             ; 0x1161
+    call load_message_string         ; 0x1161
     add sp, byte 4                   ; 0x1164
     mov ax, 0                        ; 0x1167
     push ax                          ; 0x116a
@@ -67,7 +67,7 @@ api_idx_005a_SIOK:
     sub ah, ah                       ; 0x119c
     add ax, strict word 8            ; 0x119e
     push ax                          ; 0x11a1
-    call ds_app_HKIJ                 ; 0x11a2
+    call play_sound_effect           ; 0x11a2
     pop cx                           ; 0x11a5
 @..api_idx_005a_SIOK.l4:
     mov ax, 1                        ; 0x11a6

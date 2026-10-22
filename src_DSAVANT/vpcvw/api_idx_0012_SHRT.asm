@@ -28,7 +28,7 @@ api_idx_0012_SHRT:
     push ax                          ; 0x07be
     mov ax, 0x12                     ; 0x07bf
     push ax                          ; 0x07c2
-    call ds_loc_TJTV                 ; 0x07c3
+    call draw_font_glyph             ; 0x07c3
     add sp, byte 4                   ; 0x07c6
     mov ax, 0x9c                     ; 0x07c9
     push ax                          ; 0x07cc
@@ -40,7 +40,7 @@ api_idx_0012_SHRT:
     push ax                          ; 0x07da
     mov ax, 0x15                     ; 0x07db
     push ax                          ; 0x07de
-    call ds_loc_TJTV                 ; 0x07df
+    call draw_font_glyph             ; 0x07df
     add sp, byte 4                   ; 0x07e2
     mov ax, 0x9c                     ; 0x07e5
     push ax                          ; 0x07e8
@@ -52,7 +52,7 @@ api_idx_0012_SHRT:
     push ax                          ; 0x07f6
     mov ax, 0x16                     ; 0x07f7
     push ax                          ; 0x07fa
-    call ds_loc_TJTV                 ; 0x07fb
+    call draw_font_glyph             ; 0x07fb
     add sp, byte 4                   ; 0x07fe
     mov ax, 0xa3                     ; 0x0801
     push ax                          ; 0x0804

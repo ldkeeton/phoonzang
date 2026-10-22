@@ -42,7 +42,7 @@ loc_QLKH:
     sub ah, ah                       ; 0x1fa0
     add ax, strict word 8            ; 0x1fa2
     push ax                          ; 0x1fa5
-    call ds_app_HKIJ                 ; 0x1fa6
+    call play_sound_effect           ; 0x1fa6
     pop cx                           ; 0x1fa9
 @..loc_QLKH.l2:
     inc word [bp - 0x0002]           ; 0x1faa

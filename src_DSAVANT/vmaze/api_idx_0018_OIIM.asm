@@ -138,7 +138,7 @@ api_idx_0018_OIIM:
     je short @..api_idx_0018_OIIM.l5 ; 0x7c9b
     mov ax, 0x10                     ; 0x7c9d
     push ax                          ; 0x7ca0
-    call ds_app_HKIJ                 ; 0x7ca1
+    call play_sound_effect           ; 0x7ca1
     pop cx                           ; 0x7ca4
 @..api_idx_0018_OIIM.l5:
     inc word [bp - 0x0002]           ; 0x7ca5

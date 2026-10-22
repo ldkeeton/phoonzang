@@ -2,7 +2,7 @@
 api_idx_0026_NRVO:
     mov ax, 0xffda                   ; 0x11f4
     call aztec_csav                  ; 0x11f7
-    mov word [bss_904e], 0xffff      ; 0x11fa
+    mov word [spell_dialog_result], 0xffff ; 0x11fa
     mov word [bp - 0x0002], 0x37     ; 0x1200
     mov word [bp - 0x0004], 0x8f     ; 0x1205
     mov word [bp - 0x0006], 0x108    ; 0x120a
@@ -33,7 +33,7 @@ api_idx_0026_NRVO:
     lea ax, word [bp - 0x0024]       ; 0x1247
     push ax                          ; 0x124a
     push word [bp + 0x4]             ; 0x124b
-    call ds_app_mem_TIMR             ; 0x124e
+    call load_message_string         ; 0x124e
     add sp, byte 4                   ; 0x1251
     lea ax, word [bp - 0x0024]       ; 0x1254
     push ax                          ; 0x1257
@@ -55,7 +55,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp + 0x4]          ; 0x127b
     inc ax                           ; 0x127e
     push ax                          ; 0x127f
-    call ds_app_mem_TIMR             ; 0x1280
+    call load_message_string         ; 0x1280
     add sp, byte 4                   ; 0x1283
     lea ax, word [bp - 0x0024]       ; 0x1286
     push ax                          ; 0x1289
@@ -78,7 +78,7 @@ api_idx_0026_NRVO:
     inc ax                           ; 0x12b0
     inc ax                           ; 0x12b1
     push ax                          ; 0x12b2
-    call ds_app_mem_TIMR             ; 0x12b3
+    call load_message_string         ; 0x12b3
     add sp, byte 4                   ; 0x12b6
     lea ax, word [bp - 0x0024]       ; 0x12b9
     push ax                          ; 0x12bc
@@ -102,7 +102,7 @@ api_idx_0026_NRVO:
     inc ax                           ; 0x12e4
     inc ax                           ; 0x12e5
     push ax                          ; 0x12e6
-    call ds_app_mem_TIMR             ; 0x12e7
+    call load_message_string         ; 0x12e7
     add sp, byte 4                   ; 0x12ea
     mov ax, 0xc2                     ; 0x12ed
     push ax                          ; 0x12f0
@@ -158,7 +158,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 0x0002]       ; 0x135e
     add ax, strict word 0x5d         ; 0x1361
     push ax                          ; 0x1364
-    call ds_app_HTKI                 ; 0x1365
+    call draw_text_list              ; 0x1365
     add sp, byte 0x0e                ; 0x1368
     mov ax, 0                        ; 0x136b
     push ax                          ; 0x136e
@@ -305,7 +305,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 0x0002]       ; 0x14a3
     add ax, strict word 0x5d         ; 0x14a6
     push ax                          ; 0x14a9
-    call ds_app_HTKI                 ; 0x14aa
+    call draw_text_list              ; 0x14aa
     add sp, byte 0x0e                ; 0x14ad
     mov ax, word [bp - 0x0004]       ; 0x14b0
     add ax, strict word 0x26         ; 0x14b3
@@ -351,7 +351,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 0x0002]       ; 0x150b
     add ax, strict word 0x5d         ; 0x150e
     push ax                          ; 0x1511
-    call ds_app_HTKI                 ; 0x1512
+    call draw_text_list              ; 0x1512
     add sp, byte 0x0e                ; 0x1515
     mov ax, word [bp - 0x0004]       ; 0x1518
     add ax, strict word 0x26         ; 0x151b
@@ -406,7 +406,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 0x0002]       ; 0x158a
     add ax, strict word 0x5d         ; 0x158d
     push ax                          ; 0x1590
-    call ds_app_HTKI                 ; 0x1591
+    call draw_text_list              ; 0x1591
     add sp, byte 0x0e                ; 0x1594
     mov ax, word [bp - 0x0004]       ; 0x1597
     add ax, strict word 0x26         ; 0x159a
@@ -453,7 +453,7 @@ api_idx_0026_NRVO:
     push ax                          ; 0x15f8
     call flash_button                ; 0x15f9
     add sp, byte 0x0a                ; 0x15fc
-    mov word [bss_9050], 0           ; 0x15ff
+    mov word [spell_dialog_button], 0 ; 0x15ff
     mov word [bp - 0x0010], 0        ; 0x1605
 @..api_idx_0026_NRVO.l5:
     jmp near @..api_idx_0026_NRVO.l14 ; 0x160a
@@ -487,7 +487,7 @@ api_idx_0026_NRVO:
     push ax                          ; 0x1649
     call flash_button                ; 0x164a
     add sp, byte 0x0a                ; 0x164d
-    mov word [bss_9050], 1           ; 0x1650
+    mov word [spell_dialog_button], 1 ; 0x1650
     mov word [bp - 0x0010], 0        ; 0x1656
 @..api_idx_0026_NRVO.l7:
     jmp short @..api_idx_0026_NRVO.l14 ; 0x165b
@@ -521,7 +521,7 @@ api_idx_0026_NRVO:
     push ax                          ; 0x1699
     call flash_button                ; 0x169a
     add sp, byte 0x0a                ; 0x169d
-    mov word [bss_9050], 2           ; 0x16a0
+    mov word [spell_dialog_button], 2 ; 0x16a0
     mov word [bp - 0x0010], 0        ; 0x16a6
 @..api_idx_0026_NRVO.l9:
     jmp short @..api_idx_0026_NRVO.l14 ; 0x16ab
@@ -550,6 +550,6 @@ api_idx_0026_NRVO:
     push word [bp - 0x0026]          ; 0x16d7
     call restore_saved_screen        ; 0x16da
     add sp, byte 4                   ; 0x16dd
-    mov word [bss_904e], 0xffff      ; 0x16e0
-    mov ax, word [bss_9050]          ; 0x16e6
+    mov word [spell_dialog_result], 0xffff ; 0x16e0
+    mov ax, word [spell_dialog_button] ; 0x16e6
     ret                              ; 0x16e9

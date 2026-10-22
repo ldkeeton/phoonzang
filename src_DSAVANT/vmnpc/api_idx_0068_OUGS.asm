@@ -29,7 +29,7 @@ api_idx_0068_OUGS:
     call api_idx_0038_IJUK           ; 0x51f6
     add sp, byte 0x0c                ; 0x51f9
     mov word [bp - 0x004c], ax       ; 0x51fc
-    mov ax, word [bss_904e]          ; 0x51ff
+    mov ax, word [spell_dialog_result] ; 0x51ff
     mov word [bp - 0x0002], ax       ; 0x5202
     cmp word [bp - 0x004c], byte 2   ; 0x5205
     je short @..api_idx_0068_OUGS.l2 ; 0x5209

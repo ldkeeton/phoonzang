@@ -13,7 +13,7 @@ loc_KIOQ:
     lea ax, word [bp - 0x0105]       ; 0x0da6
     push ax                          ; 0x0daa
     push word [bp + 0x4]             ; 0x0dab
-    call ds_app_mem_TIMR             ; 0x0dae
+    call load_message_string         ; 0x0dae
     add sp, byte 4                   ; 0x0db1
     cmp word [bss_5216], byte 0      ; 0x0db4
     jne short @..loc_KIOQ.l2         ; 0x0db9

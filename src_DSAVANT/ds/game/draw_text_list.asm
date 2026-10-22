@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_HTKI: ; Aztec csav frame=0x0000
+draw_text_list: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x11de
     call aztec_csav                  ; 0x11e1
     mov ax, 6                        ; 0x11e4

@@ -338,7 +338,7 @@ bss_9d6c equ __zdseg_end + (__zobss_9d6c - __zdata_start)
 
 %include "vmnpc/api_idx_000a_LSOP.asm"     ; 0x759d
 
-%include "shared/loc_PTRP.asm"              ; 0x75db
+%include "shared/draw_power_digit.asm"      ; 0x75db
 
 dseg_90e4 equ __zdseg_end + (__zdseg_90e4 - __zdata_start)
 %include "vmnpc/loc_IMPO.asm"              ; 0x7667
@@ -346,10 +346,10 @@ dseg_90e4 equ __zdseg_end + (__zdseg_90e4 - __zdata_start)
 %include "vmnpc/api_idx_000c_GHTR.asm"     ; 0x7708
 
 ; bss_93d6 equ __zdseg_end + (__zobss_93d6 - __zdata_start)
-loc_SRQQ.bss1     equ bss_93d6
-loc_SRQQ.api_idx1 equ api_idx_000a_LSOP
-loc_SRQQ.api_idx2 equ api_idx_000c_GHTR
-%include "shared/loc_SRQQ.asm"              ; 0x77a1
+periodic_party_redraw.bss1     equ bss_93d6
+periodic_party_redraw.api_idx1 equ api_idx_000a_LSOP
+periodic_party_redraw.api_idx2 equ api_idx_000c_GHTR
+%include "shared/periodic_party_redraw.asm" ; 0x77a1
 
 %include "vmnpc/loc_UVUO.asm"              ; 0x7832
 

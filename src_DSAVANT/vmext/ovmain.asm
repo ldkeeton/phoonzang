@@ -4,11 +4,11 @@ ovmain:
     call aztec_csav                  ; 0x0011
     mov word [bss_8f22], 0           ; 0x0014
     mov word [bss_9180], 5           ; 0x001a
-    les bx, word [dseg_0002]         ; 0x0020
+    les bx, word [tick_counter_ptr]  ; 0x0020
     mov ax, word [es:bx]             ; 0x0024
     mov dx, word [es:bx + 0x2]       ; 0x0027
     mov word [bss_908c], dx          ; 0x002b
-    mov word [bss_908a], ax          ; 0x002f
+    mov word [party_redraw_last_tick], ax ; 0x002f
     mov word [bp - 0x0002], 0        ; 0x0032
 @..ovmain.l1:
     mov ax, word [bp - 0x0002]       ; 0x0037

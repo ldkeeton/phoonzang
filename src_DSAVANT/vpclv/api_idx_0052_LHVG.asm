@@ -662,9 +662,9 @@ jumptable_30fe:
     jne short @..api_idx_0052_LHVG.l24 ; 0x31f5
 @..api_idx_0052_LHVG.l22:
     mov ax, 0xa                      ; 0x31f7
-    cmp word [bx + 0x5c18], byte 0x14 ; 0x31fa
+    cmp word [bx + pc_spell_power_cap], byte 0x14 ; 0x31fa
     jg short @..api_idx_0052_LHVG.l23 ; 0x31ff
-    mov ax, word [bx + 0x5c18]       ; 0x3201
+    mov ax, word [bx + pc_spell_power_cap] ; 0x3201
     mov cx, 2                        ; 0x3205
     cwd                              ; 0x3208
     idiv cx                          ; 0x3209

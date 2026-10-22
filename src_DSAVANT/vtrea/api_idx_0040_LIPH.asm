@@ -6,7 +6,7 @@ api_idx_0040_LIPH:
     push ax                          ; 0x5351
     mov ax, 0x13ec                   ; 0x5352
     push ax                          ; 0x5355
-    call ds_app_mem_TIMR             ; 0x5356
+    call load_message_string         ; 0x5356
     add sp, byte 4                   ; 0x5359
 @..api_idx_0040_LIPH.l1:
     lea ax, word [bp - 0x0034]       ; 0x535c
@@ -22,7 +22,7 @@ api_idx_0040_LIPH:
     call api_idx_0038_ULQM           ; 0x5371
     add sp, byte 0x0c                ; 0x5374
     mov word [bp - 0x0006], ax       ; 0x5377
-    mov ax, word [bss_904e]          ; 0x537a
+    mov ax, word [spell_dialog_result] ; 0x537a
     mov word [bp - 0x0002], ax       ; 0x537d
     cmp word [bp - 0x0002], byte 0xff ; 0x5380
     je short @..api_idx_0040_LIPH.l1 ; 0x5384
@@ -71,7 +71,7 @@ api_idx_0040_LIPH:
     mov word [bp - 0x0002], 0xffff   ; 0x53e7
     mov ax, 0                        ; 0x53ec
     push ax                          ; 0x53ef
-    call ds_app_HKIJ                 ; 0x53f0
+    call play_sound_effect           ; 0x53f0
     pop cx                           ; 0x53f3
     jmp short @..api_idx_0040_LIPH.l5 ; 0x53f4
 @..api_idx_0040_LIPH.l4:

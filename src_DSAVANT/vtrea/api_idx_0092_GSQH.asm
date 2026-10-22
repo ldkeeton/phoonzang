@@ -72,7 +72,7 @@ api_idx_0092_GSQH:
     sub ah, ah                       ; 0x4c72
     add ax, 0x1770                   ; 0x4c74
     push ax                          ; 0x4c77
-    call ds_app_mem_TIMR             ; 0x4c78
+    call load_message_string         ; 0x4c78
     add sp, byte 4                   ; 0x4c7b
 @..api_idx_0092_GSQH.l5:
     mov al, byte [bp - 0x0011]       ; 0x4c7e
@@ -170,7 +170,7 @@ api_idx_0092_GSQH:
     call api_idx_0038_ULQM           ; 0x4d59
     add sp, byte 0x0c                ; 0x4d5c
     mov word [bp - 0x004c], ax       ; 0x4d5f
-    mov ax, word [bss_904e]          ; 0x4d62
+    mov ax, word [spell_dialog_result] ; 0x4d62
     mov word [bp - 0x0002], ax       ; 0x4d65
     cmp word [bp - 0x004c], byte 2   ; 0x4d68
     je short @..api_idx_0092_GSQH.l12 ; 0x4d6c
@@ -309,7 +309,7 @@ api_idx_0092_GSQH:
     je short @..api_idx_0092_GSQH.l18 ; 0x4ea4
     mov ax, 0                        ; 0x4ea6
     push ax                          ; 0x4ea9
-    call ds_app_HKIJ                 ; 0x4eaa
+    call play_sound_effect           ; 0x4eaa
     pop cx                           ; 0x4ead
     jmp short @..api_idx_0092_GSQH.l19 ; 0x4eae
 @..api_idx_0092_GSQH.l18:

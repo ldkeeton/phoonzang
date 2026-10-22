@@ -8,7 +8,7 @@ ds_app_string_MPHP: ; Aztec csav frame=0x0054
     sub ah, ah                       ; 0x05dd
     add ax, 0x9c4                    ; 0x05df
     push ax                          ; 0x05e2
-    call ds_app_mem_TIMR             ; 0x05e3
+    call load_message_string         ; 0x05e3
     add sp, byte 4                   ; 0x05e6
     mov word [bp - 0x0002], 0        ; 0x05e9
     lea ax, word [bp - 0x0054]       ; 0x05ee

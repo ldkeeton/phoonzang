@@ -5,13 +5,13 @@ api_idx_00ba_TUGQ:
     lea ax, word [bp - 0x00b6]       ; 0xaa99
     push ax                          ; 0xaa9d
     push word [bp + 0x6]             ; 0xaa9e
-    call ds_app_mem_TIMR             ; 0xaaa1
+    call load_message_string         ; 0xaaa1
     add sp, byte 4                   ; 0xaaa4
     lea ax, word [bp - 0x0066]       ; 0xaaa7
     push ax                          ; 0xaaaa
     mov ax, 0x5e9                    ; 0xaaab
     push ax                          ; 0xaaae
-    call ds_app_mem_TIMR             ; 0xaaaf
+    call load_message_string         ; 0xaaaf
     add sp, byte 4                   ; 0xaab2
     mov ax, 0x5e                     ; 0xaab5
     push ax                          ; 0xaab8

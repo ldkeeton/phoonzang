@@ -44,7 +44,7 @@ loc_RMVR:
     mov ax, word [bp - 0x000a]       ; 0x4d75
     add ax, 0x93                     ; 0x4d78
     mov word [bp - 0x000e], ax       ; 0x4d7b
-    mov word [bss_9050], 0xffff      ; 0x4d7e
+    mov word [spell_dialog_button], 0xffff ; 0x4d7e
     mov ax, dseg_9107                ; 0x4d84
     push ax                          ; 0x4d87
     mov ax, word [bp - 0x000e]       ; 0x4d88
@@ -106,7 +106,7 @@ loc_RMVR:
     push ax                          ; 0x4e07
     mov ax, 0x2e                     ; 0x4e08
     push ax                          ; 0x4e0b
-    call ds_loc_TJTV                 ; 0x4e0c
+    call draw_font_glyph             ; 0x4e0c
     add sp, byte 4                   ; 0x4e0f
     mov ax, word [bss_597a]          ; 0x4e12
     mov cx, 0x64                     ; 0x4e15
@@ -119,7 +119,7 @@ loc_RMVR:
     push ax                          ; 0x4e26
     mov ax, 0x30                     ; 0x4e27
     push ax                          ; 0x4e2a
-    call ds_loc_TJTV                 ; 0x4e2b
+    call draw_font_glyph             ; 0x4e2b
     add sp, byte 4                   ; 0x4e2e
     mov ax, 0                        ; 0x4e31
     push ax                          ; 0x4e34
@@ -211,7 +211,7 @@ loc_RMVR:
     push ax                          ; 0x4ef9
     mov ax, 0x903                    ; 0x4efa
     push ax                          ; 0x4efd
-    call ds_app_mem_TIMR             ; 0x4efe
+    call load_message_string         ; 0x4efe
     add sp, byte 4                   ; 0x4f01
     lea ax, word [bp - 0x0068]       ; 0x4f04
     push ax                          ; 0x4f07
@@ -298,7 +298,7 @@ loc_RMVR:
     push ax                          ; 0x4fc4
     mov ax, 0x907                    ; 0x4fc5
     push ax                          ; 0x4fc8
-    call ds_app_mem_TIMR             ; 0x4fc9
+    call load_message_string         ; 0x4fc9
     add sp, byte 4                   ; 0x4fcc
     lea ax, word [bp - 0x0068]       ; 0x4fcf
     push ax                          ; 0x4fd2
@@ -365,7 +365,7 @@ loc_RMVR:
     push ax                          ; 0x505f
     mov ax, 0x90b                    ; 0x5060
     push ax                          ; 0x5063
-    call ds_app_mem_TIMR             ; 0x5064
+    call load_message_string         ; 0x5064
     add sp, byte 4                   ; 0x5067
     lea ax, word [bp - 0x0068]       ; 0x506a
     push ax                          ; 0x506d
@@ -468,7 +468,7 @@ loc_RMVR:
     push ax                          ; 0x5150
     mov ax, 0x910                    ; 0x5151
     push ax                          ; 0x5154
-    call ds_app_mem_TIMR             ; 0x5155
+    call load_message_string         ; 0x5155
     add sp, byte 4                   ; 0x5158
     lea ax, word [bp - 0x0068]       ; 0x515b
     push ax                          ; 0x515e
@@ -489,7 +489,7 @@ loc_RMVR:
     push ax                          ; 0x517f
     mov ax, 0x911                    ; 0x5180
     push ax                          ; 0x5183
-    call ds_app_mem_TIMR             ; 0x5184
+    call load_message_string         ; 0x5184
     add sp, byte 4                   ; 0x5187
     lea ax, word [bp - 0x0068]       ; 0x518a
     push ax                          ; 0x518d
@@ -1905,7 +1905,7 @@ jumptable_5e7f_case_23:
 @..loc_RMVR.l49:
     mov ax, 0                        ; 0x5e04
 @..loc_RMVR.l50:
-    mov word [bss_9050], ax          ; 0x5e07
+    mov word [spell_dialog_button], ax ; 0x5e07
     mov word [bp - 0x0018], 0        ; 0x5e0a
     call api_idx_0002_QRVU           ; 0x5e0f
     jmp near @..loc_RMVR.l52         ; 0x5e12
@@ -1937,7 +1937,7 @@ jumptable_5e7f_case_24:
     push ax                          ; 0x5e4b
     call flash_button                ; 0x5e4c
     add sp, byte 0x0a                ; 0x5e4f
-    mov word [bss_9050], 0           ; 0x5e52
+    mov word [spell_dialog_button], 0 ; 0x5e52
     mov word [bp - 0x0018], 0        ; 0x5e58
     lea si, word [bp - 0x03b6]       ; 0x5e5d
     mov di, bss_5642                 ; 0x5e61
@@ -2035,7 +2035,7 @@ jumptable_5e7f:
     push ax                          ; 0x5f1d
     call gfx_show_area               ; 0x5f1e
     add sp, byte 8                   ; 0x5f21
-    mov ax, word [bss_9050]          ; 0x5f24
+    mov ax, word [spell_dialog_button] ; 0x5f24
     ret                              ; 0x5f27
 loc_PVJJ:
     mov ax, 0xfd40                   ; 0x5f28
@@ -2088,7 +2088,7 @@ loc_PVJJ:
     sub ah, ah                       ; 0x5fa1
     add ax, 0x8c                     ; 0x5fa3
     push ax                          ; 0x5fa6
-    call ds_app_mem_TIMR             ; 0x5fa7
+    call load_message_string         ; 0x5fa7
     add sp, byte 4                   ; 0x5faa
     mov al, byte [bp - 0x02a0]       ; 0x5fad
     push ax                          ; 0x5fb1
@@ -2104,7 +2104,7 @@ loc_PVJJ:
     sub ah, ah                       ; 0x5fcc
     add ax, strict word 0x78         ; 0x5fce
     push ax                          ; 0x5fd1
-    call ds_app_mem_TIMR             ; 0x5fd2
+    call load_message_string         ; 0x5fd2
     add sp, byte 4                   ; 0x5fd5
     mov word [bp - 0x0004], 0        ; 0x5fd8
 @..loc_PVJJ.l5:
@@ -2155,7 +2155,7 @@ loc_PVJJ:
     add sp, byte 0x0a                ; 0x604b
     cmp ax, strict word 1            ; 0x604e
     jne short @..loc_PVJJ.l9         ; 0x6051
-    mov ax, word [bss_904e]          ; 0x6053
+    mov ax, word [spell_dialog_result] ; 0x6053
     mov word [bp - 0x0006], ax       ; 0x6056
     cmp ax, strict word 0xffff       ; 0x6059
     je short @..loc_PVJJ.l9          ; 0x605c

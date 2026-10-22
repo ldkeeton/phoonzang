@@ -73,7 +73,7 @@ api_idx_0094_LUVH:
     sub ah, ah                       ; 0x4228
     add ax, 0x1770                   ; 0x422a
     push ax                          ; 0x422d
-    call ds_app_mem_TIMR             ; 0x422e
+    call load_message_string         ; 0x422e
     add sp, byte 4                   ; 0x4231
 @..api_idx_0094_LUVH.l5:
     mov al, byte [bp - 0x0013]       ; 0x4234
@@ -171,7 +171,7 @@ api_idx_0094_LUVH:
     call api_idx_0038_QQIU           ; 0x430f
     add sp, byte 0x0c                ; 0x4312
     mov word [bp - 0x004e], ax       ; 0x4315
-    mov ax, word [bss_904e]          ; 0x4318
+    mov ax, word [spell_dialog_result] ; 0x4318
     mov word [bp - 0x0002], ax       ; 0x431b
     cmp word [bp - 0x004e], byte 2   ; 0x431e
     je short @..api_idx_0094_LUVH.l12 ; 0x4322
@@ -427,7 +427,7 @@ api_idx_0094_LUVH:
 @..api_idx_0094_LUVH.l31:
     mov ax, 0                        ; 0x4578
     push ax                          ; 0x457b
-    call ds_app_HKIJ                 ; 0x457c
+    call play_sound_effect           ; 0x457c
     pop cx                           ; 0x457f
     jmp short @..api_idx_0094_LUVH.l33 ; 0x4580
 @..api_idx_0094_LUVH.l32:

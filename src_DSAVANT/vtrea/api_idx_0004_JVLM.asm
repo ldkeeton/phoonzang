@@ -21,7 +21,7 @@ api_idx_0004_JVLM:
 @..api_idx_0004_JVLM.l1:
     mov ax, 0                        ; 0x5f33
     push ax                          ; 0x5f36
-    call ds_app_HKIJ                 ; 0x5f37
+    call play_sound_effect           ; 0x5f37
     pop cx                           ; 0x5f3a
     jmp short @..api_idx_0004_JVLM.l1 ; 0x5f3b
 @..api_idx_0004_JVLM.l2:

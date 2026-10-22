@@ -88,7 +88,7 @@ api_idx_0056_VTNO:
     lea ax, word [bp - 0x0056]       ; 0x139b
     push ax                          ; 0x139e
     push word [bp + 0x6]             ; 0x139f
-    call ds_app_mem_TIMR             ; 0x13a2
+    call load_message_string         ; 0x13a2
     add sp, byte 4                   ; 0x13a5
     mov ax, 0                        ; 0x13a8
     push ax                          ; 0x13ab

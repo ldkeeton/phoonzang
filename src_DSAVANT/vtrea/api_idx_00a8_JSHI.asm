@@ -65,7 +65,7 @@ api_idx_00a8_JSHI:
     push ax                          ; 0x5e12
     mov ax, 0x1389                   ; 0x5e13
     push ax                          ; 0x5e16
-    call ds_app_mem_TIMR             ; 0x5e17
+    call load_message_string         ; 0x5e17
     add sp, byte 4                   ; 0x5e1a
     lea ax, word [bp - 0x00a8]       ; 0x5e1d
     push ax                          ; 0x5e21

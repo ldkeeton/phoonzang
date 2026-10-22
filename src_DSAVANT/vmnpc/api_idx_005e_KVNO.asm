@@ -256,7 +256,7 @@ api_idx_005e_KVNO:
     push ax                          ; 0x5a01
     mov ax, 0x633                    ; 0x5a02
     push ax                          ; 0x5a05
-    call ds_app_mem_TIMR             ; 0x5a06
+    call load_message_string         ; 0x5a06
     add sp, byte 4                   ; 0x5a09
     mov ax, bss_95fa                 ; 0x5a0c
     push ax                          ; 0x5a0f
@@ -276,7 +276,7 @@ api_idx_005e_KVNO:
     push ax                          ; 0x5a31
     mov ax, 0x634                    ; 0x5a32
     push ax                          ; 0x5a35
-    call ds_app_mem_TIMR             ; 0x5a36
+    call load_message_string         ; 0x5a36
     add sp, byte 4                   ; 0x5a39
     mov ax, 0x16                     ; 0x5a3c
     imul word [bp + 0x6]             ; 0x5a3f

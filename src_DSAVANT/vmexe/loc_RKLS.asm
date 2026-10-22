@@ -18,7 +18,7 @@ loc_RKLS:
     mov ax, bss_9136                 ; 0x3ac7
     push ax                          ; 0x3aca
     push word [bp + 0x8]             ; 0x3acb
-    call ds_app_mem_TIMR             ; 0x3ace
+    call load_message_string         ; 0x3ace
     add sp, byte 4                   ; 0x3ad1
     mov ax, 0                        ; 0x3ad4
     push ax                          ; 0x3ad7

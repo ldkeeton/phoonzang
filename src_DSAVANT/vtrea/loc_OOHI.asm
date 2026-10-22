@@ -53,7 +53,7 @@ loc_OOHI:
     mov ax, word [bp + 0x8]          ; 0x0f30
     dec ax                           ; 0x0f33
     push ax                          ; 0x0f34
-    call ds_app_HKIJ                 ; 0x0f35
+    call play_sound_effect           ; 0x0f35
     pop cx                           ; 0x0f38
 @..loc_OOHI.l1:
     push word [message_delay]        ; 0x0f39

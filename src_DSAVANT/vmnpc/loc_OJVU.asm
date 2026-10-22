@@ -5,12 +5,12 @@ loc_OJVU:
     mov ax, bss_95fa                 ; 0x9c80
     push ax                          ; 0x9c83
     push word [bp + 0x4]             ; 0x9c84
-    call ds_app_mem_TIMR             ; 0x9c87
+    call load_message_string         ; 0x9c87
     add sp, byte 4                   ; 0x9c8a
     mov ax, bss_9d10                 ; 0x9c8d
     push ax                          ; 0x9c90
     push word [bp + 0x6]             ; 0x9c91
-    call ds_app_mem_TIMR             ; 0x9c94
+    call load_message_string         ; 0x9c94
     add sp, byte 4                   ; 0x9c97
     cmp byte [bss_95fa], 0           ; 0x9c9a
     jne short @..loc_OJVU.l1         ; 0x9c9f

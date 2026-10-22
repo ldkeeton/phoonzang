@@ -3,7 +3,7 @@ enter_level:
     mov ax, 0xfff4                   ; 0x0cb5
     call aztec_csav                  ; 0x0cb8
     call loc_OGHL                    ; 0x0cbb
-    les bx, word [dseg_0002]         ; 0x0cbe
+    les bx, word [tick_counter_ptr]  ; 0x0cbe
     mov ax, word [es:bx]             ; 0x0cc2
     mov dx, word [es:bx + 0x2]       ; 0x0cc5
     add ax, strict word 0x24         ; 0x0cc9

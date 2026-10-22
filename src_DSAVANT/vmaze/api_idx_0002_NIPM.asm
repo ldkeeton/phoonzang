@@ -26,7 +26,7 @@ jumptable_741a_case_2:
     pop cx                           ; 0x73e7
     mov ax, 8                        ; 0x73e8
     push ax                          ; 0x73eb
-    call ds_app_HKIJ                 ; 0x73ec
+    call play_sound_effect           ; 0x73ec
     pop cx                           ; 0x73ef
     mov ax, 8                        ; 0x73f0
     push ax                          ; 0x73f3
@@ -40,7 +40,7 @@ jumptable_741a_case_2:
 jumptable_741a_case_4:
     mov ax, 8                        ; 0x7408
     push ax                          ; 0x740b
-    call ds_app_HKIJ                 ; 0x740c
+    call play_sound_effect           ; 0x740c
     pop cx                           ; 0x740f
     push word [party_region]         ; 0x7410
     call move_party_to_dest          ; 0x7414

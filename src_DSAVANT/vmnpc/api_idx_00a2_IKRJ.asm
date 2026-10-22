@@ -30,7 +30,7 @@ api_idx_00a2_IKRJ:
     push ax                          ; 0x988e
     mov ax, 0x640                    ; 0x988f
     push ax                          ; 0x9892
-    call ds_app_mem_TIMR             ; 0x9893
+    call load_message_string         ; 0x9893
     add sp, byte 4                   ; 0x9896
     mov ax, 0x5e                     ; 0x9899
     push ax                          ; 0x989c

@@ -11,7 +11,7 @@ jumptable_4688_case_0:
     sub ah, ah                       ; 0x4348
     add ax, 0x92e                    ; 0x434a
     push ax                          ; 0x434d
-    call ds_app_mem_TIMR             ; 0x434e
+    call load_message_string         ; 0x434e
     add sp, byte 4                   ; 0x4351
     lea ax, word [bp - 0x0052]       ; 0x4354
     push ax                          ; 0x4357
@@ -77,7 +77,7 @@ jumptable_4688_case_4:
     sub ah, ah                       ; 0x43da
     add ax, 0x931                    ; 0x43dc
     push ax                          ; 0x43df
-    call ds_app_mem_TIMR             ; 0x43e0
+    call load_message_string         ; 0x43e0
     add sp, byte 4                   ; 0x43e3
     mov ax, 0xe                      ; 0x43e6
     push ax                          ; 0x43e9
@@ -172,7 +172,7 @@ jumptable_4688_case_8:
     sub ah, ah                       ; 0x44b7
     add ax, 0x946                    ; 0x44b9
     push ax                          ; 0x44bc
-    call ds_app_mem_TIMR             ; 0x44bd
+    call load_message_string         ; 0x44bd
     add sp, byte 4                   ; 0x44c0
     mov ax, 0xe                      ; 0x44c3
     push ax                          ; 0x44c6
@@ -207,7 +207,7 @@ jumptable_4688_case_10:
     sub ah, ah                       ; 0x4506
     add ax, 0x938                    ; 0x4508
     push ax                          ; 0x450b
-    call ds_app_mem_TIMR             ; 0x450c
+    call load_message_string         ; 0x450c
     add sp, byte 4                   ; 0x450f
     lea ax, word [bp - 0x0052]       ; 0x4512
     push ax                          ; 0x4515
@@ -232,7 +232,7 @@ jumptable_4688_case_11:
     sub ah, ah                       ; 0x453d
     add ax, 0x93b                    ; 0x453f
     push ax                          ; 0x4542
-    call ds_app_mem_TIMR             ; 0x4543
+    call load_message_string         ; 0x4543
     add sp, byte 4                   ; 0x4546
     lea ax, word [bp - 0x0052]       ; 0x4549
     push ax                          ; 0x454c
@@ -265,7 +265,7 @@ jumptable_4688_case_12:
     mov ax, word [bp - 0x0002]       ; 0x458b
     add ax, 0x93d                    ; 0x458e
     push ax                          ; 0x4591
-    call ds_app_mem_TIMR             ; 0x4592
+    call load_message_string         ; 0x4592
     add sp, byte 4                   ; 0x4595
     mov ax, 0xa                      ; 0x4598
     push ax                          ; 0x459b
@@ -301,7 +301,7 @@ jumptable_4688_case_14:
     sub ah, ah                       ; 0x45dd
     add ax, 0x93f                    ; 0x45df
     push ax                          ; 0x45e2
-    call ds_app_mem_TIMR             ; 0x45e3
+    call load_message_string         ; 0x45e3
     add sp, byte 4                   ; 0x45e6
     mov ax, 0xa                      ; 0x45e9
     push ax                          ; 0x45ec

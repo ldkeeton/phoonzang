@@ -65,11 +65,11 @@ api_idx_0002_GLIS:
     mov word [bss_a4a4], 2           ; 0x880a
     mov word [bss_a5fa], 1           ; 0x8810
     mov word [bss_a5ae], 3           ; 0x8816
-    les bx, word [dseg_0002]         ; 0x881c
+    les bx, word [tick_counter_ptr]  ; 0x881c
     mov ax, word [es:bx]             ; 0x8820
     mov dx, word [es:bx + 0x2]       ; 0x8823
     mov word [bss_908c], dx          ; 0x8827
-    mov word [bss_908a], ax          ; 0x882b
+    mov word [party_redraw_last_tick], ax ; 0x882b
     call api_idx_000a_THHN           ; 0x882e
     mov ax, 0                        ; 0x8831
     push ax                          ; 0x8834

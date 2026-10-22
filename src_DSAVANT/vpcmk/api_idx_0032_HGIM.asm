@@ -50,7 +50,7 @@ api_idx_0032_HGIM:
     push ax                          ; 0x276e
     mov ax, 5                        ; 0x276f
     push ax                          ; 0x2772
-    call ds_loc_TJTV                 ; 0x2773
+    call draw_font_glyph             ; 0x2773
     add sp, byte 4                   ; 0x2776
     mov ax, 6                        ; 0x2779
     imul word [bp - 0x000a]          ; 0x277c
@@ -64,7 +64,7 @@ api_idx_0032_HGIM:
     push ax                          ; 0x2790
     mov ax, 6                        ; 0x2791
     push ax                          ; 0x2794
-    call ds_loc_TJTV                 ; 0x2795
+    call draw_font_glyph             ; 0x2795
     add sp, byte 4                   ; 0x2798
     mov word [bp - 0x0002], 0        ; 0x279b
     jmp near @..api_idx_0032_HGIM.l7 ; 0x27a0
@@ -487,7 +487,7 @@ api_idx_0032_HGIM:
 @..api_idx_0032_HGIM.l33:
     mov ax, 0                        ; 0x2b4f
     push ax                          ; 0x2b52
-    call ds_app_HKIJ                 ; 0x2b53
+    call play_sound_effect           ; 0x2b53
     pop cx                           ; 0x2b56
 @..api_idx_0032_HGIM.l34:
     jmp short @..api_idx_0032_HGIM.l39 ; 0x2b57
@@ -514,7 +514,7 @@ api_idx_0032_HGIM:
 @..api_idx_0032_HGIM.l36:
     mov ax, 0                        ; 0x2b8d
     push ax                          ; 0x2b90
-    call ds_app_HKIJ                 ; 0x2b91
+    call play_sound_effect           ; 0x2b91
     pop cx                           ; 0x2b94
 @..api_idx_0032_HGIM.l37:
     jmp short @..api_idx_0032_HGIM.l39 ; 0x2b95

@@ -2,7 +2,7 @@
 api_idx_0026_QIGS:
     mov ax, 0xffda                   ; 0x8a6e
     call aztec_csav                  ; 0x8a71
-    mov word [bss_904e], 0xffff      ; 0x8a74
+    mov word [spell_dialog_result], 0xffff ; 0x8a74
     mov word [bp - 0x0002], 0x37     ; 0x8a7a
     mov word [bp - 0x0004], 0x8f     ; 0x8a7f
     mov word [bp - 0x0006], 0x108    ; 0x8a84
@@ -33,7 +33,7 @@ api_idx_0026_QIGS:
     lea ax, word [bp - 0x0024]       ; 0x8ac1
     push ax                          ; 0x8ac4
     push word [bp + 0x4]             ; 0x8ac5
-    call ds_app_mem_TIMR             ; 0x8ac8
+    call load_message_string         ; 0x8ac8
     add sp, byte 4                   ; 0x8acb
     lea ax, word [bp - 0x0024]       ; 0x8ace
     push ax                          ; 0x8ad1
@@ -55,7 +55,7 @@ api_idx_0026_QIGS:
     mov ax, word [bp + 0x4]          ; 0x8af5
     inc ax                           ; 0x8af8
     push ax                          ; 0x8af9
-    call ds_app_mem_TIMR             ; 0x8afa
+    call load_message_string         ; 0x8afa
     add sp, byte 4                   ; 0x8afd
     lea ax, word [bp - 0x0024]       ; 0x8b00
     push ax                          ; 0x8b03
@@ -78,7 +78,7 @@ api_idx_0026_QIGS:
     inc ax                           ; 0x8b2a
     inc ax                           ; 0x8b2b
     push ax                          ; 0x8b2c
-    call ds_app_mem_TIMR             ; 0x8b2d
+    call load_message_string         ; 0x8b2d
     add sp, byte 4                   ; 0x8b30
     lea ax, word [bp - 0x0024]       ; 0x8b33
     push ax                          ; 0x8b36
@@ -102,7 +102,7 @@ api_idx_0026_QIGS:
     inc ax                           ; 0x8b5e
     inc ax                           ; 0x8b5f
     push ax                          ; 0x8b60
-    call ds_app_mem_TIMR             ; 0x8b61
+    call load_message_string         ; 0x8b61
     add sp, byte 4                   ; 0x8b64
     mov ax, 0xc2                     ; 0x8b67
     push ax                          ; 0x8b6a
@@ -158,7 +158,7 @@ api_idx_0026_QIGS:
     mov ax, word [bp - 0x0002]       ; 0x8bd8
     add ax, strict word 0x5d         ; 0x8bdb
     push ax                          ; 0x8bde
-    call ds_app_HTKI                 ; 0x8bdf
+    call draw_text_list              ; 0x8bdf
     add sp, byte 0x0e                ; 0x8be2
     mov ax, 0                        ; 0x8be5
     push ax                          ; 0x8be8
@@ -305,7 +305,7 @@ api_idx_0026_QIGS:
     mov ax, word [bp - 0x0002]       ; 0x8d1d
     add ax, strict word 0x5d         ; 0x8d20
     push ax                          ; 0x8d23
-    call ds_app_HTKI                 ; 0x8d24
+    call draw_text_list              ; 0x8d24
     add sp, byte 0x0e                ; 0x8d27
     mov ax, word [bp - 0x0004]       ; 0x8d2a
     add ax, strict word 0x26         ; 0x8d2d
@@ -351,7 +351,7 @@ api_idx_0026_QIGS:
     mov ax, word [bp - 0x0002]       ; 0x8d85
     add ax, strict word 0x5d         ; 0x8d88
     push ax                          ; 0x8d8b
-    call ds_app_HTKI                 ; 0x8d8c
+    call draw_text_list              ; 0x8d8c
     add sp, byte 0x0e                ; 0x8d8f
     mov ax, word [bp - 0x0004]       ; 0x8d92
     add ax, strict word 0x26         ; 0x8d95
@@ -406,7 +406,7 @@ api_idx_0026_QIGS:
     mov ax, word [bp - 0x0002]       ; 0x8e04
     add ax, strict word 0x5d         ; 0x8e07
     push ax                          ; 0x8e0a
-    call ds_app_HTKI                 ; 0x8e0b
+    call draw_text_list              ; 0x8e0b
     add sp, byte 0x0e                ; 0x8e0e
     mov ax, word [bp - 0x0004]       ; 0x8e11
     add ax, strict word 0x26         ; 0x8e14
@@ -453,7 +453,7 @@ api_idx_0026_QIGS:
     push ax                          ; 0x8e72
     call flash_button                ; 0x8e73
     add sp, byte 0x0a                ; 0x8e76
-    mov word [bss_9050], 0           ; 0x8e79
+    mov word [spell_dialog_button], 0 ; 0x8e79
     mov word [bp - 0x0010], 0        ; 0x8e7f
 @..api_idx_0026_QIGS.l5:
     jmp near @..api_idx_0026_QIGS.l14 ; 0x8e84
@@ -487,7 +487,7 @@ api_idx_0026_QIGS:
     push ax                          ; 0x8ec3
     call flash_button                ; 0x8ec4
     add sp, byte 0x0a                ; 0x8ec7
-    mov word [bss_9050], 1           ; 0x8eca
+    mov word [spell_dialog_button], 1 ; 0x8eca
     mov word [bp - 0x0010], 0        ; 0x8ed0
 @..api_idx_0026_QIGS.l7:
     jmp short @..api_idx_0026_QIGS.l14 ; 0x8ed5
@@ -521,7 +521,7 @@ api_idx_0026_QIGS:
     push ax                          ; 0x8f13
     call flash_button                ; 0x8f14
     add sp, byte 0x0a                ; 0x8f17
-    mov word [bss_9050], 2           ; 0x8f1a
+    mov word [spell_dialog_button], 2 ; 0x8f1a
     mov word [bp - 0x0010], 0        ; 0x8f20
 @..api_idx_0026_QIGS.l9:
     jmp short @..api_idx_0026_QIGS.l14 ; 0x8f25
@@ -550,6 +550,6 @@ api_idx_0026_QIGS:
     push word [bp - 0x0026]          ; 0x8f51
     call restore_saved_screen        ; 0x8f54
     add sp, byte 4                   ; 0x8f57
-    mov word [bss_904e], 0xffff      ; 0x8f5a
-    mov ax, word [bss_9050]          ; 0x8f60
+    mov word [spell_dialog_result], 0xffff ; 0x8f5a
+    mov ax, word [spell_dialog_button] ; 0x8f60
     ret                              ; 0x8f63

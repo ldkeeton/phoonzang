@@ -111,11 +111,11 @@ api_idx_001e_GOQP:
     mov ax, word [bp - 0x0002]       ; 0x71c9
     cmp ax, strict word 0x12         ; 0x71cc
     jl short @..api_idx_001e_GOQP.l7 ; 0x71cf
-    les bx, word [dseg_0002]         ; 0x71d1
+    les bx, word [tick_counter_ptr]  ; 0x71d1
     mov ax, word [es:bx]             ; 0x71d5
     mov dx, word [es:bx + 0x2]       ; 0x71d8
     mov word [bss_908c], dx          ; 0x71dc
-    mov word [bss_908a], ax          ; 0x71e0
+    mov word [party_redraw_last_tick], ax ; 0x71e0
     mov word [bss_93d6], 5           ; 0x71e3
     mov ax, 0xc6                     ; 0x71e9
     push ax                          ; 0x71ec

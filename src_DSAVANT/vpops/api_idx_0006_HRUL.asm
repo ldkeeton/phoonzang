@@ -17,10 +17,10 @@ api_idx_0006_HRUL:
     add sp, byte 8                   ; 0x0f46
     jmp near @..api_idx_0006_HRUL.l16 ; 0x0f49
 @..api_idx_0006_HRUL.l2:
-    les bx, word [dseg_0002]         ; 0x0f4c
+    les bx, word [tick_counter_ptr]  ; 0x0f4c
     mov ax, word [es:bx]             ; 0x0f50
     mov dx, word [es:bx + 0x2]       ; 0x0f53
-    sub ax, word [bss_908a]          ; 0x0f57
+    sub ax, word [party_redraw_last_tick] ; 0x0f57
     sbb dx, word [bss_908c]          ; 0x0f5b
     push ax                          ; 0x0f5f
     push dx                          ; 0x0f60

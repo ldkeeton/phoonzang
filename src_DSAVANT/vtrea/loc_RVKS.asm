@@ -71,7 +71,7 @@ loc_RVKS:
     je short @..loc_RVKS.l2          ; 0x6fea
     mov ax, 1                        ; 0x6fec
     push ax                          ; 0x6fef
-    call ds_app_HKIJ                 ; 0x6ff0
+    call play_sound_effect           ; 0x6ff0
     pop cx                           ; 0x6ff3
 @..loc_RVKS.l2:
     ret                              ; 0x6ff4

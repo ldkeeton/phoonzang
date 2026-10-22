@@ -27,7 +27,7 @@ api_idx_0088_LVJM:
     mov ax, word [bp - 0x0002]       ; 0x3fdf
     add ax, 0x258                    ; 0x3fe2
     push ax                          ; 0x3fe5
-    call ds_app_mem_TIMR             ; 0x3fe6
+    call load_message_string         ; 0x3fe6
     add sp, byte 4                   ; 0x3fe9
     inc word [bp - 0x0002]           ; 0x3fec
     mov ax, word [bp - 0x0002]       ; 0x3fef
@@ -36,7 +36,7 @@ api_idx_0088_LVJM:
     lea ax, word [bp - 0x0088]       ; 0x3ff7
     push ax                          ; 0x3ffb
     push word [bp + 0x6]             ; 0x3ffc
-    call ds_app_mem_TIMR             ; 0x3fff
+    call load_message_string         ; 0x3fff
     add sp, byte 4                   ; 0x4002
     mov ax, 1                        ; 0x4005
     push ax                          ; 0x4008

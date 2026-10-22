@@ -919,7 +919,7 @@ jumptable_2a3c_case_3:
     mov ax, 1                        ; 0x2a7c
 @..api_idx_0022_RHMN.l58:
     mov word [bp - 0x001a], ax       ; 0x2a7f
-    les bx, word [dseg_0002]         ; 0x2a82
+    les bx, word [tick_counter_ptr]  ; 0x2a82
     mov ax, word [es:bx]             ; 0x2a86
     mov dx, word [es:bx + 0x2]       ; 0x2a89
     add ax, strict word 0x24         ; 0x2a8d
@@ -948,7 +948,7 @@ jumptable_2a3c_case_3:
 @..api_idx_0022_RHMN.l60:
     cmp word [hotspot_hit], byte 0   ; 0x2ac5
     jne short @..api_idx_0022_RHMN.l63 ; 0x2aca
-    les bx, word [dseg_0002]         ; 0x2acc
+    les bx, word [tick_counter_ptr]  ; 0x2acc
     mov ax, word [es:bx]             ; 0x2ad0
     mov dx, word [es:bx + 0x2]       ; 0x2ad3
     cmp dx, word [bss_919c]          ; 0x2ad7
@@ -1156,7 +1156,7 @@ jumptable_2d1b_case_6:
 @..api_idx_0022_RHMN.l78:
     mov ax, 0                        ; 0x2ce7
     push ax                          ; 0x2cea
-    call ds_app_HKIJ                 ; 0x2ceb
+    call play_sound_effect           ; 0x2ceb
     pop cx                           ; 0x2cee
 @..api_idx_0022_RHMN.l79:
     jmp short @..api_idx_0022_RHMN.l82 ; 0x2cef

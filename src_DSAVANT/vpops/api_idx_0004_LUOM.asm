@@ -58,7 +58,7 @@ api_idx_0004_LUOM:
     push ax                          ; 0x2b74
     mov ax, 0x63                     ; 0x2b75
     push ax                          ; 0x2b78
-    call ds_loc_TJTV                 ; 0x2b79
+    call draw_font_glyph             ; 0x2b79
     add sp, byte 4                   ; 0x2b7c
 @..api_idx_0004_LUOM.l4:
     mov ax, 0xe                      ; 0x2b7f
@@ -80,7 +80,7 @@ api_idx_0004_LUOM:
     mov al, byte [bx - 0x6e82]       ; 0x2ba5
     sub ah, ah                       ; 0x2ba9
     push ax                          ; 0x2bab
-    call ds_loc_TJTV                 ; 0x2bac
+    call draw_font_glyph             ; 0x2bac
     add sp, byte 4                   ; 0x2baf
     push word [bp - 0x0004]          ; 0x2bb2
     mov ax, 0xe                      ; 0x2bb5

@@ -16,7 +16,7 @@ loc_HMKT:
     call redraw_maze_view            ; 0x7cd4
     mov ax, 0x10                     ; 0x7cd7
     push ax                          ; 0x7cda
-    call ds_app_HKIJ                 ; 0x7cdb
+    call play_sound_effect           ; 0x7cdb
     pop cx                           ; 0x7cde
 @..loc_HMKT.l2:
     dec word [bp + 0x4]              ; 0x7cdf

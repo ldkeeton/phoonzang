@@ -11,7 +11,7 @@ loc_NJKR:
     mov ax, bss_9136                 ; 0x1e4b
     push ax                          ; 0x1e4e
     push word [bp + 0x8]             ; 0x1e4f
-    call ds_app_mem_TIMR             ; 0x1e52
+    call load_message_string         ; 0x1e52
     add sp, byte 4                   ; 0x1e55
     mov byte [bss_9186], 0           ; 0x1e58
     cmp word [bss_91d6], byte 2      ; 0x1e5d
@@ -75,7 +75,7 @@ loc_NJKR:
     cmp word [bp + 0xc], byte 0      ; 0x1edd
     jle short @..loc_NJKR.l5         ; 0x1ee1
     push word [bp + 0xc]             ; 0x1ee3
-    call ds_app_HKIJ                 ; 0x1ee6
+    call play_sound_effect           ; 0x1ee6
     pop cx                           ; 0x1ee9
 @..loc_NJKR.l5:
     mov ax, 1                        ; 0x1eea

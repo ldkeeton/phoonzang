@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_000a_IIIU:
+draw_glyph_1_at_50_115:
     mov ax, 0xfff6                   ; 0x8a89
     call aztec_csav                  ; 0x8a8c
     mov byte [bp - 0x000a], 1        ; 0x8a8f

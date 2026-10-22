@@ -29,7 +29,7 @@ loc_KPLK:
     call flush_keyboard              ; 0x1547
     mov ax, 0                        ; 0x154a
     push ax                          ; 0x154d
-    call ds_app_HKIJ                 ; 0x154e
+    call play_sound_effect           ; 0x154e
     pop cx                           ; 0x1551
     mov ax, 0x28                     ; 0x1552
     push ax                          ; 0x1555

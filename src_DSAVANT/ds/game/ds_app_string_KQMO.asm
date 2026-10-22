@@ -5,7 +5,7 @@ ds_app_string_KQMO: ; Aztec csav frame=0x0100
     lea ax, word [bp - 0x00ff]       ; 0x0866
     push ax                          ; 0x086a
     push word [bp + 0x4]             ; 0x086b
-    call ds_app_mem_TIMR             ; 0x086e
+    call load_message_string         ; 0x086e
     add sp, byte 4                   ; 0x0871
     push word [bp + 0x6]             ; 0x0874
     lea ax, word [bp - 0x00ff]       ; 0x0877

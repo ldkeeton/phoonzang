@@ -50,7 +50,7 @@ loc_PVJJ:
     sub ah, ah                       ; 0x6973
     add ax, 0x8c                     ; 0x6975
     push ax                          ; 0x6978
-    call ds_app_mem_TIMR             ; 0x6979
+    call load_message_string         ; 0x6979
     add sp, byte 4                   ; 0x697c
     mov al, byte [bp - 0x02a0]       ; 0x697f
     push ax                          ; 0x6983
@@ -66,7 +66,7 @@ loc_PVJJ:
     sub ah, ah                       ; 0x699e
     add ax, strict word 0x78         ; 0x69a0
     push ax                          ; 0x69a3
-    call ds_app_mem_TIMR             ; 0x69a4
+    call load_message_string         ; 0x69a4
     add sp, byte 4                   ; 0x69a7
     mov word [bp - 0x0004], 0        ; 0x69aa
 @..loc_PVJJ.l5:
@@ -117,7 +117,7 @@ loc_PVJJ:
     add sp, byte 0x0a                ; 0x6a1d
     cmp ax, strict word 1            ; 0x6a20
     jne short @..loc_PVJJ.l9         ; 0x6a23
-    mov ax, word [bss_904e]          ; 0x6a25
+    mov ax, word [spell_dialog_result] ; 0x6a25
     mov word [bp - 0x0006], ax       ; 0x6a28
     cmp ax, strict word 0xffff       ; 0x6a2b
     je short @..loc_PVJJ.l9          ; 0x6a2e

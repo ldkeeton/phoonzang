@@ -58,7 +58,7 @@ api_idx_0004_SLIS:
     push ax                          ; 0x3938
     mov ax, 0x63                     ; 0x3939
     push ax                          ; 0x393c
-    call ds_loc_TJTV                 ; 0x393d
+    call draw_font_glyph             ; 0x393d
     add sp, byte 4                   ; 0x3940
 @..api_idx_0004_SLIS.l4:
     mov ax, 0xe                      ; 0x3943
@@ -80,7 +80,7 @@ api_idx_0004_SLIS:
     mov al, byte [bx - 0x6c2a]       ; 0x3969
     sub ah, ah                       ; 0x396d
     push ax                          ; 0x396f
-    call ds_loc_TJTV                 ; 0x3970
+    call draw_font_glyph             ; 0x3970
     add sp, byte 4                   ; 0x3973
     push word [bp - 0x0004]          ; 0x3976
     mov ax, 0xe                      ; 0x3979

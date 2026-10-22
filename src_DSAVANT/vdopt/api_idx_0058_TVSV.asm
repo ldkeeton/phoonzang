@@ -5,7 +5,7 @@ api_idx_0058_TVSV:
     lea ax, word [bp - 0x0058]       ; 0x056b
     push ax                          ; 0x056e
     push word [bp + 0x4]             ; 0x056f
-    call ds_app_mem_TIMR             ; 0x0572
+    call load_message_string         ; 0x0572
     add sp, byte 4                   ; 0x0575
     mov ax, 0x98                     ; 0x0578
     push ax                          ; 0x057b
@@ -79,7 +79,7 @@ api_idx_0058_TVSV:
     je short @..api_idx_0058_TVSV.l1 ; 0x061c
     mov ax, 0                        ; 0x061e
     push ax                          ; 0x0621
-    call ds_app_HKIJ                 ; 0x0622
+    call play_sound_effect           ; 0x0622
     pop cx                           ; 0x0625
 @..api_idx_0058_TVSV.l1:
     mov ax, word [message_delay]     ; 0x0626

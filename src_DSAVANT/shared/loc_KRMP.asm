@@ -2,14 +2,14 @@
 loc_KRMP:
     mov ax, 0
     call aztec_csav
-    les bx, word [dseg_0002]
+    les bx, word [tick_counter_ptr]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     mov word [bss_9090], dx
     mov word [bss_908e], ax
     mov ax, word [bss_908e]
     mov dx, word [bss_9090]
-    sub ax, word [bss_908a]
+    sub ax, word [party_redraw_last_tick]
     sbb dx, word [bss_908c]
     mov word [bss_9094], dx
     mov word [bss_9092], ax
@@ -30,7 +30,7 @@ loc_KRMP:
     mov ax, word [bss_908e]
     mov dx, word [bss_9090]
     mov word [bss_908c], dx
-    mov word [bss_908a], ax
+    mov word [party_redraw_last_tick], ax
     mov ax, 1
     ret
 @..loc_KRMP.l3:

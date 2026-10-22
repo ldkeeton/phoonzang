@@ -5,7 +5,7 @@ api_idx_0084_VMPP:
     lea ax, word [bp - 0x0050]       ; 0x8c78
     push ax                          ; 0x8c7b
     push word [location_changed]     ; 0x8c7c
-    call ds_app_mem_TIMR             ; 0x8c80
+    call load_message_string         ; 0x8c80
     add sp, byte 4                   ; 0x8c83
     mov al, byte [bp - 0x0050]       ; 0x8c86
     sub ah, ah                       ; 0x8c89

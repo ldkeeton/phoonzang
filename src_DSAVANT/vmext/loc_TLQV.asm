@@ -7,7 +7,7 @@ loc_TLQV:
     pop cx                           ; 0x0eb8
     mov ax, 0                        ; 0x0eb9
     push ax                          ; 0x0ebc
-    call ds_app_HKIJ                 ; 0x0ebd
+    call play_sound_effect           ; 0x0ebd
     pop cx                           ; 0x0ec0
     push word [message_delay]        ; 0x0ec1
     call api_idx_0004_KQNK           ; 0x0ec5

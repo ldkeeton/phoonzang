@@ -41,7 +41,7 @@ ds_app_string_LUOV: ; Aztec csav frame=0x003a
     mov al, byte [bx + 0x69bc]       ; 0x1de1
     sub ah, ah                       ; 0x1de5
     push ax                          ; 0x1de7
-    call ds_loc_TJTV                 ; 0x1de8
+    call draw_font_glyph             ; 0x1de8
     add sp, byte 4                   ; 0x1deb
     mov ax, 0                        ; 0x1dee
     push ax                          ; 0x1df1
@@ -88,7 +88,7 @@ ds_app_string_LUOV: ; Aztec csav frame=0x003a
     sub ah, ah                       ; 0x1e56
     add ax, strict word 0x78         ; 0x1e58
     push ax                          ; 0x1e5b
-    call ds_app_mem_TIMR             ; 0x1e5c
+    call load_message_string         ; 0x1e5c
     add sp, byte 4                   ; 0x1e5f
     mov byte [bp - 0x0031], 0        ; 0x1e62
     mov ax, 0                        ; 0x1e66
@@ -147,7 +147,7 @@ ds_app_string_LUOV: ; Aztec csav frame=0x003a
     mov al, byte [bp - 0x0006]       ; 0x1ee8
     sub ah, ah                       ; 0x1eeb
     push ax                          ; 0x1eed
-    call ds_loc_TJTV                 ; 0x1eee
+    call draw_font_glyph             ; 0x1eee
     add sp, byte 4                   ; 0x1ef1
 @..ds_app_string_LUOV.l5:
     mov word [bp - 0x0006], 0xffff   ; 0x1ef4
@@ -190,7 +190,7 @@ ds_app_string_LUOV: ; Aztec csav frame=0x003a
     mov al, byte [bp - 0x0006]       ; 0x1f5c
     sub ah, ah                       ; 0x1f5f
     push ax                          ; 0x1f61
-    call ds_loc_TJTV                 ; 0x1f62
+    call draw_font_glyph             ; 0x1f62
     add sp, byte 4                   ; 0x1f65
 @..ds_app_string_LUOV.l8:
     mov ax, 0x248                    ; 0x1f68
@@ -248,7 +248,7 @@ ds_app_string_LUOV: ; Aztec csav frame=0x003a
     mov al, byte [bx + 0x5c39]       ; 0x1feb
     sub ah, ah                       ; 0x1fef
     push ax                          ; 0x1ff1
-    call ds_loc_TJTV                 ; 0x1ff2
+    call draw_font_glyph             ; 0x1ff2
     add sp, byte 4                   ; 0x1ff5
     jmp short @..ds_app_string_LUOV.l14 ; 0x1ff8
 @..ds_app_string_LUOV.l13:
@@ -258,7 +258,7 @@ ds_app_string_LUOV: ; Aztec csav frame=0x003a
     add ax, word [bp - 0x0002]       ; 0x2001
     sub ah, ah                       ; 0x2004
     push ax                          ; 0x2006
-    call ds_loc_TJTV                 ; 0x2007
+    call draw_font_glyph             ; 0x2007
     add sp, byte 4                   ; 0x200a
 @..ds_app_string_LUOV.l14:
     inc word [bp - 0x0002]           ; 0x200d

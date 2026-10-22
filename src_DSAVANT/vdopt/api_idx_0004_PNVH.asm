@@ -58,7 +58,7 @@ api_idx_0004_PNVH:
     push ax                          ; 0x390e
     mov ax, 0x63                     ; 0x390f
     push ax                          ; 0x3912
-    call ds_loc_TJTV                 ; 0x3913
+    call draw_font_glyph             ; 0x3913
     add sp, byte 4                   ; 0x3916
 @..api_idx_0004_PNVH.l4:
     mov ax, 0xe                      ; 0x3919
@@ -80,7 +80,7 @@ api_idx_0004_PNVH:
     mov al, byte [bx - 0x6478]       ; 0x393f
     sub ah, ah                       ; 0x3943
     push ax                          ; 0x3945
-    call ds_loc_TJTV                 ; 0x3946
+    call draw_font_glyph             ; 0x3946
     add sp, byte 4                   ; 0x3949
     push word [bp - 0x0004]          ; 0x394c
     mov ax, 0xe                      ; 0x394f

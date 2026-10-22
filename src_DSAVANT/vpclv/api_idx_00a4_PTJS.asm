@@ -5,10 +5,10 @@ api_idx_00a4_PTJS:
     mov ax, 0x248                    ; 0x4ea4
     imul word [bp + 0x4]             ; 0x4ea7
     mov bx, ax                       ; 0x4eaa
-    inc word [bx + 0x5c18]           ; 0x4eac
+    inc word [bx + pc_spell_power_cap] ; 0x4eac
     mov al, byte [bx + 0x5e3b]       ; 0x4eb0
     sub ah, ah                       ; 0x4eb4
-    cmp ax, word [bx + 0x5c18]       ; 0x4eb6
+    cmp ax, word [bx + pc_spell_power_cap] ; 0x4eb6
     jg short @..api_idx_00a4_PTJS.l1 ; 0x4eba
     mov byte [bx + 0x5e3b], 0        ; 0x4ebc
 @..api_idx_00a4_PTJS.l1:
@@ -24,7 +24,7 @@ api_idx_00a4_PTJS:
     push ax                          ; 0x4ed8
     mov ax, 0x1392                   ; 0x4ed9
     push ax                          ; 0x4edc
-    call ds_app_mem_TIMR             ; 0x4edd
+    call load_message_string         ; 0x4edd
     add sp, byte 4                   ; 0x4ee0
     mov ax, 0x5e                     ; 0x4ee3
     push ax                          ; 0x4ee6
@@ -45,7 +45,7 @@ api_idx_00a4_PTJS:
     sub ah, ah                       ; 0x4f0c
     add ax, strict word 0x78         ; 0x4f0e
     push ax                          ; 0x4f11
-    call ds_app_mem_TIMR             ; 0x4f12
+    call load_message_string         ; 0x4f12
     add sp, byte 4                   ; 0x4f15
     mov ax, 0x24                     ; 0x4f18
     push ax                          ; 0x4f1b

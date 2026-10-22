@@ -223,7 +223,7 @@ jumptable_36f8_case_6:
     mov ax, word [bp - 0x0026]       ; 0x2da6
     inc ax                           ; 0x2da9
     push ax                          ; 0x2daa
-    call ds_app_mem_TIMR             ; 0x2dab
+    call load_message_string         ; 0x2dab
     add sp, byte 4                   ; 0x2dae
     mov ax, bss_95a8                 ; 0x2db1
     push ax                          ; 0x2db4
@@ -896,14 +896,14 @@ jumptable_36f8_case_32:
     push ax                          ; 0x33d6
     mov ax, 0x1397                   ; 0x33d7
     push ax                          ; 0x33da
-    call ds_app_mem_TIMR             ; 0x33db
+    call load_message_string         ; 0x33db
     add sp, byte 4                   ; 0x33de
     mov ax, bss_95fa                 ; 0x33e1
     push ax                          ; 0x33e4
     mov ax, word [bp - 0x003a]       ; 0x33e5
     add ax, 0x13ba                   ; 0x33e8
     push ax                          ; 0x33eb
-    call ds_app_mem_TIMR             ; 0x33ec
+    call load_message_string         ; 0x33ec
     add sp, byte 4                   ; 0x33ef
     mov ax, 0x5e                     ; 0x33f2
     push ax                          ; 0x33f5

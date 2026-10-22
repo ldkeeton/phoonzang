@@ -137,7 +137,7 @@ api_idx_0022_ROKS:
     push ax                          ; 0x2380
     mov ax, 0xced                    ; 0x2381
     push ax                          ; 0x2384
-    call ds_app_mem_TIMR             ; 0x2385
+    call load_message_string         ; 0x2385
     add sp, byte 4                   ; 0x2388
     mov byte [bss_9186], 0           ; 0x238b
     mov ax, 0x41                     ; 0x2390
@@ -242,7 +242,7 @@ api_idx_0022_ROKS:
     inc ax                           ; 0x247a
     inc ax                           ; 0x247b
     push ax                          ; 0x247c
-    call ds_app_HKIJ                 ; 0x247d
+    call play_sound_effect           ; 0x247d
     pop cx                           ; 0x2480
     mov ax, 1                        ; 0x2481
     push ax                          ; 0x2484

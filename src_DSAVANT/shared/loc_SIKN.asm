@@ -17,7 +17,7 @@ loc_SIKN:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + 0x5c18]
+    mov ax, word [bx + pc_spell_power_cap]
     imul word [bp + 0x8]
     mov cx, ax
     pop ax

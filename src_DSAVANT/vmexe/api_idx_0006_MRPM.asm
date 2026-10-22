@@ -50,7 +50,7 @@ api_idx_0006_MRPM:
     mov ax, bss_9136                 ; 0x9105
     push ax                          ; 0x9108
     push word [bp + 0x4]             ; 0x9109
-    call ds_app_mem_TIMR             ; 0x910c
+    call load_message_string         ; 0x910c
     add sp, byte 4                   ; 0x910f
     mov byte [bss_9186], 0           ; 0x9112
     cmp word [bp + 0x6], byte 0      ; 0x9117
@@ -58,7 +58,7 @@ api_idx_0006_MRPM:
     mov ax, bss_9186                 ; 0x911d
     push ax                          ; 0x9120
     push word [bp + 0x6]             ; 0x9121
-    call ds_app_mem_TIMR             ; 0x9124
+    call load_message_string         ; 0x9124
     add sp, byte 4                   ; 0x9127
 @..api_idx_0006_MRPM.l2:
     push word [bp + 0x8]             ; 0x912a

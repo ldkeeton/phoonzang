@@ -63,7 +63,7 @@ loc_TRPK:
     lea ax, word [bp - 0x01a6]       ; 0x04d7
     push ax                          ; 0x04db
     push word [bp + 0x6]             ; 0x04dc
-    call ds_app_mem_TIMR             ; 0x04df
+    call load_message_string         ; 0x04df
     add sp, byte 4                   ; 0x04e2
     mov ax, 0xc2                     ; 0x04e5
     push ax                          ; 0x04e8
@@ -138,7 +138,7 @@ loc_TRPK:
     mov ax, word [bp + 0x4]          ; 0x0580
     add ax, word [bp - 0x0004]       ; 0x0583
     push ax                          ; 0x0586
-    call ds_app_mem_TIMR             ; 0x0587
+    call load_message_string         ; 0x0587
     add sp, byte 4                   ; 0x058a
     mov ax, word [bp - 0x0002]       ; 0x058d
     cwd                              ; 0x0590

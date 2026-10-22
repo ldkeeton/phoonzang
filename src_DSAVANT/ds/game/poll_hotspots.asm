@@ -3,7 +3,7 @@ poll_hotspots: ; Aztec csav frame=0x0004
     mov ax, 0xfffc                   ; 0x0b54
     call aztec_csav                  ; 0x0b57
     mov word [bss_59fa], 0           ; 0x0b5a
-    mov word [bss_59fc], 0           ; 0x0b60
+    mov word [space_key_hit], 0      ; 0x0b60
     mov ax, 1                        ; 0x0b66
     push ax                          ; 0x0b69
     call poll_filtered_key           ; 0x0b6a
@@ -22,7 +22,7 @@ poll_hotspots: ; Aztec csav frame=0x0004
 @..poll_hotspots.l1:
     cmp ax, strict word 0x20         ; 0x0b8a
     jne short @..poll_hotspots.l2    ; 0x0b8d
-    mov word [bss_59fc], 1           ; 0x0b8f
+    mov word [space_key_hit], 1      ; 0x0b8f
 @..poll_hotspots.l2:
     mov word [bp - 0x0002], 0        ; 0x0b95
 @..poll_hotspots.l3:

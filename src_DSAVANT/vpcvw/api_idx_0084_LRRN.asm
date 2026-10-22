@@ -85,7 +85,7 @@ api_idx_0084_LRRN:
     mov ax, word [bp - 0x0004]       ; 0x41c4
     add ax, 0x258                    ; 0x41c7
     push ax                          ; 0x41ca
-    call ds_app_mem_TIMR             ; 0x41cb
+    call load_message_string         ; 0x41cb
     add sp, byte 4                   ; 0x41ce
     mov ax, 0x1a                     ; 0x41d1
     push ax                          ; 0x41d4
@@ -114,7 +114,7 @@ api_idx_0084_LRRN:
     mov ax, word [bp - 0x000a]       ; 0x4209
     add ax, 0x258                    ; 0x420c
     push ax                          ; 0x420f
-    call ds_app_mem_TIMR             ; 0x4210
+    call load_message_string         ; 0x4210
     add sp, byte 4                   ; 0x4213
     mov ax, 1                        ; 0x4216
     push ax                          ; 0x4219

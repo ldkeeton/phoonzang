@@ -2,14 +2,14 @@
 loc_IKLI:
     mov ax, 0                        ; 0x086b
     call aztec_csav                  ; 0x086e
-    les bx, word [dseg_0002]         ; 0x0871
+    les bx, word [tick_counter_ptr]  ; 0x0871
     mov ax, word [es:bx]             ; 0x0875
     mov dx, word [es:bx + 0x2]       ; 0x0878
-    sub ax, word [bss_908a]          ; 0x087c
+    sub ax, word [party_redraw_last_tick] ; 0x087c
     sbb dx, word [bss_908c]          ; 0x0880
     push ax                          ; 0x0884
     push dx                          ; 0x0885
-    mov ax, word [bss_9124]          ; 0x0886
+    mov ax, word [party_redraw_interval] ; 0x0886
     cwd                              ; 0x0889
     mov cx, ax                       ; 0x088a
     mov bx, dx                       ; 0x088c
@@ -44,11 +44,11 @@ loc_IKLI:
     jl short @..loc_IKLI.l3          ; 0x08c8
     inc word [bss_9116]              ; 0x08ca
 @..loc_IKLI.l3:
-    les bx, word [dseg_0002]         ; 0x08ce
+    les bx, word [tick_counter_ptr]  ; 0x08ce
     mov ax, word [es:bx]             ; 0x08d2
     mov dx, word [es:bx + 0x2]       ; 0x08d5
     mov word [bss_908c], dx          ; 0x08d9
-    mov word [bss_908a], ax          ; 0x08dd
+    mov word [party_redraw_last_tick], ax ; 0x08dd
     call loc_SPML                    ; 0x08e0
     mov ax, 1                        ; 0x08e3
     ret                              ; 0x08e6

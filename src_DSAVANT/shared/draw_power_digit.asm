@@ -1,5 +1,5 @@
 ; auto-generated
-loc_PTRP:
+draw_power_digit:
     mov ax, 0
     call aztec_csav
     push word [bp + 0x6]
@@ -14,13 +14,13 @@ loc_PTRP:
     push ax
     mov ax, 0
     cmp word [bp + 0xa], byte 0
-    je short @..loc_PTRP.l1
+    je short @..draw_power_digit.l1
     mov ax, 1
-@..loc_PTRP.l1:
+@..draw_power_digit.l1:
     add ax, strict word 0x10
     sub ah, ah
     push ax
-    call ds_loc_TJTV
+    call draw_font_glyph
     add sp, byte 4
     push word [bp + 0x6]
     mov ax, 0xa
@@ -40,12 +40,12 @@ loc_PTRP:
     inc ax
     sub ah, ah
     push ax
-    call ds_loc_TJTV
+    call draw_font_glyph
     add sp, byte 4
     cmp word [bp + 0x8], byte 0
-    jne short @..loc_PTRP.l2
+    jne short @..draw_power_digit.l2
     cmp word [bp + 0xa], byte 0
-    jne short @..loc_PTRP.l2
+    jne short @..draw_power_digit.l2
     mov ax, 0xc2
     push ax
     mov ax, word [bp + 0x6]
@@ -58,5 +58,5 @@ loc_PTRP:
     push ax
     call gfx_fill_area
     add sp, byte 0x0a
-@..loc_PTRP.l2:
+@..draw_power_digit.l2:
     ret

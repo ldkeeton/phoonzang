@@ -2,7 +2,7 @@
 api_idx_0038_ULQM:
     mov ax, 0xffc8                   ; 0x3a56
     call aztec_csav                  ; 0x3a59
-    mov word [bss_904e], 0xffff      ; 0x3a5c
+    mov word [spell_dialog_result], 0xffff ; 0x3a5c
     mov word [bp - 0x0004], 0x37     ; 0x3a62
     mov word [bp - 0x0006], 0x8f     ; 0x3a67
     mov word [bp - 0x0008], 0x108    ; 0x3a6c
@@ -43,7 +43,7 @@ api_idx_0038_ULQM:
     lea ax, word [bp - 0x0036]       ; 0x3ac9
     push ax                          ; 0x3acc
     push word [bp + 0x4]             ; 0x3acd
-    call ds_app_mem_TIMR             ; 0x3ad0
+    call load_message_string         ; 0x3ad0
     add sp, byte 4                   ; 0x3ad3
     jmp short @..api_idx_0038_ULQM.l3 ; 0x3ad6
 @..api_idx_0038_ULQM.l2:
@@ -73,7 +73,7 @@ api_idx_0038_ULQM:
     mov ax, word [bp + 0x4]          ; 0x3b0c
     inc ax                           ; 0x3b0f
     push ax                          ; 0x3b10
-    call ds_app_mem_TIMR             ; 0x3b11
+    call load_message_string         ; 0x3b11
     add sp, byte 4                   ; 0x3b14
     lea ax, word [bp - 0x0036]       ; 0x3b17
     push ax                          ; 0x3b1a
@@ -96,7 +96,7 @@ api_idx_0038_ULQM:
     inc ax                           ; 0x3b41
     inc ax                           ; 0x3b42
     push ax                          ; 0x3b43
-    call ds_app_mem_TIMR             ; 0x3b44
+    call load_message_string         ; 0x3b44
     add sp, byte 4                   ; 0x3b47
     lea ax, word [bp - 0x0036]       ; 0x3b4a
     push ax                          ; 0x3b4d
@@ -142,7 +142,7 @@ api_idx_0038_ULQM:
     mov ax, word [bp - 0x0004]       ; 0x3bb3
     add ax, 0xc1                     ; 0x3bb6
     push ax                          ; 0x3bb9
-    call ds_app_JKST                 ; 0x3bba
+    call draw_scrollbar              ; 0x3bba
     add sp, byte 0x0a                ; 0x3bbd
     mov ax, 0                        ; 0x3bc0
     push ax                          ; 0x3bc3
@@ -397,7 +397,7 @@ api_idx_0038_ULQM:
     call gfx_show_area               ; 0x3df2
     add sp, byte 8                   ; 0x3df5
     mov word [bp - 0x001a], 1        ; 0x3df8
-    mov word [bss_9124], 5           ; 0x3dfd
+    mov word [party_redraw_interval], 5 ; 0x3dfd
 @..api_idx_0038_ULQM.l10:
     cmp word [bp + 0x6], byte 0      ; 0x3e03
     jne short @..api_idx_0038_ULQM.l11 ; 0x3e07
@@ -409,7 +409,7 @@ api_idx_0038_ULQM:
     pop cx                           ; 0x3e13
     dec ax                           ; 0x3e14
     mov word [bp - 0x0018], ax       ; 0x3e15
-    cmp word [bss_59fc], byte 0      ; 0x3e18
+    cmp word [space_key_hit], byte 0 ; 0x3e18
     je short @..api_idx_0038_ULQM.l15 ; 0x3e1d
     mov ax, word [bp - 0x0020]       ; 0x3e1f
     cmp ax, word [bp - 0x0016]       ; 0x3e22
@@ -530,7 +530,7 @@ jumptable_4213_case_0:
     mov ax, word [bp - 0x0004]       ; 0x3f2b
     add ax, 0xc1                     ; 0x3f2e
     push ax                          ; 0x3f31
-    call ds_app_JKST                 ; 0x3f32
+    call draw_scrollbar              ; 0x3f32
     add sp, byte 0x0a                ; 0x3f35
     mov ax, 0                        ; 0x3f38
     push ax                          ; 0x3f3b
@@ -589,7 +589,7 @@ jumptable_4213_case_1:
     mov ax, word [bp - 0x0004]       ; 0x3fb6
     add ax, 0xc1                     ; 0x3fb9
     push ax                          ; 0x3fbc
-    call ds_app_QOOL                 ; 0x3fbd
+    call flash_area                  ; 0x3fbd
     add sp, byte 0x0a                ; 0x3fc0
     cmp word [bp - 0x0016], byte 0   ; 0x3fc3
     jle short @..api_idx_0038_ULQM.l20 ; 0x3fc7
@@ -611,7 +611,7 @@ jumptable_4213_case_1:
     mov ax, word [bp - 0x0004]       ; 0x3fe7
     add ax, 0xc1                     ; 0x3fea
     push ax                          ; 0x3fed
-    call ds_app_QOOL                 ; 0x3fee
+    call flash_area                  ; 0x3fee
     add sp, byte 0x0a                ; 0x3ff1
     mov ax, word [bp + 0xc]          ; 0x3ff4
     dec ax                           ; 0x3ff7
@@ -670,7 +670,7 @@ jumptable_4213_case_1:
     mov ax, word [bp - 0x0004]       ; 0x406b
     add ax, 0xc1                     ; 0x406e
     push ax                          ; 0x4071
-    call ds_app_JKST                 ; 0x4072
+    call draw_scrollbar              ; 0x4072
     add sp, byte 0x0a                ; 0x4075
     mov ax, 0                        ; 0x4078
     push ax                          ; 0x407b
@@ -738,7 +738,7 @@ jumptable_4213_case_3:
     push ax                          ; 0x410a
     call flash_button                ; 0x410b
     add sp, byte 0x0a                ; 0x410e
-    mov word [bss_9050], 0           ; 0x4111
+    mov word [spell_dialog_button], 0 ; 0x4111
     mov word [bp - 0x001a], 0        ; 0x4117
 @..api_idx_0038_ULQM.l24:
     jmp near @..api_idx_0038_ULQM.l30 ; 0x411c
@@ -772,7 +772,7 @@ jumptable_4213_case_4:
     push ax                          ; 0x415b
     call flash_button                ; 0x415c
     add sp, byte 0x0a                ; 0x415f
-    mov word [bss_9050], 1           ; 0x4162
+    mov word [spell_dialog_button], 1 ; 0x4162
     mov word [bp - 0x001a], 0        ; 0x4168
 @..api_idx_0038_ULQM.l25:
     jmp near @..api_idx_0038_ULQM.l30 ; 0x416d
@@ -806,7 +806,7 @@ jumptable_4213_case_5:
     push ax                          ; 0x41ac
     call flash_button                ; 0x41ad
     add sp, byte 0x0a                ; 0x41b0
-    mov word [bss_9050], 2           ; 0x41b3
+    mov word [spell_dialog_button], 2 ; 0x41b3
     mov word [bp - 0x001a], 0        ; 0x41b9
 @..api_idx_0038_ULQM.l26:
     jmp short @..api_idx_0038_ULQM.l30 ; 0x41be
@@ -872,6 +872,6 @@ jumptable_4213:
     add sp, byte 4                   ; 0x4241
     mov word [bss_911c], 0x8f        ; 0x4244
     mov ax, word [bp - 0x0020]       ; 0x424a
-    mov word [bss_904e], ax          ; 0x424d
-    mov ax, word [bss_9050]          ; 0x4250
+    mov word [spell_dialog_result], ax ; 0x424d
+    mov ax, word [spell_dialog_button] ; 0x4250
     ret                              ; 0x4253

@@ -125,7 +125,7 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0bb2
     mov ax, 4                        ; 0x0bb3
     push ax                          ; 0x0bb6
-    call ds_loc_TJTV                 ; 0x0bb7
+    call draw_font_glyph             ; 0x0bb7
     add sp, byte 4                   ; 0x0bba
     mov ax, word [bp - 0x000a]       ; 0x0bbd
     add ax, strict word 0xc          ; 0x0bc0

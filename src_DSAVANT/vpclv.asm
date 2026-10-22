@@ -71,18 +71,18 @@ bss_943a  equ __zdseg_end + (__zobss_943a - __zdata_start)
 
 %include "vpclv/api_idx_000a_MHQT.asm"     ; 0x0eac
 
-%include "shared/loc_PTRP.asm"              ; 0x0eea
+%include "shared/draw_power_digit.asm"      ; 0x0eea
 
 dseg_909b equ __zdseg_end + (__zdseg_909b - __zdata_start)
 %include "vpclv/loc_GPRG.asm"              ; 0x0f76
 
-%include "shared/api_idx_000c_JQMN.asm"     ; 0x1017
+%include "shared/draw_realm_spell_points.asm" ; 0x1017
 
 bss_948c equ __zdseg_end + (__zobss_948c - __zdata_start)
-loc_SRQQ.bss1     equ bss_948c
-loc_SRQQ.api_idx1 equ api_idx_000a_MHQT
-loc_SRQQ.api_idx2 equ api_idx_000c_JQMN
-%include "shared/loc_SRQQ.asm"              ; 0x10b0
+periodic_party_redraw.bss1     equ bss_948c
+periodic_party_redraw.api_idx1 equ api_idx_000a_MHQT
+periodic_party_redraw.api_idx2 equ draw_realm_spell_points
+%include "shared/periodic_party_redraw.asm" ; 0x10b0
 
 dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
 ; bss_948c  equ __zdseg_end + (__zobss_948c - __zdata_start)

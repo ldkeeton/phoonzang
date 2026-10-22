@@ -12,7 +12,7 @@ api_idx_0010_UUTT:
     push ax                          ; 0x9a4a
     mov ax, 0xdbd                    ; 0x9a4b
     push ax                          ; 0x9a4e
-    call ds_app_mem_TIMR             ; 0x9a4f
+    call load_message_string         ; 0x9a4f
     add sp, byte 4                   ; 0x9a52
     mov byte [bss_9186], 0           ; 0x9a55
     mov bx, word [bp + 0x4]          ; 0x9a5a
@@ -114,7 +114,7 @@ api_idx_0010_UUTT:
     push ax                          ; 0x9b48
     mov ax, 0xdc5                    ; 0x9b49
     push ax                          ; 0x9b4c
-    call ds_app_mem_TIMR             ; 0x9b4d
+    call load_message_string         ; 0x9b4d
     add sp, byte 4                   ; 0x9b50
 @..api_idx_0010_UUTT.l4:
     cmp word [bss_845a], byte 1      ; 0x9b53

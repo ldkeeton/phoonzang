@@ -50,13 +50,13 @@ api_idx_0004_USIK:
     pop cx                           ; 0x1868
     mov ax, 1                        ; 0x1869
     push ax                          ; 0x186c
-    call ds_app_HKIJ                 ; 0x186d
+    call play_sound_effect           ; 0x186d
     pop cx                           ; 0x1870
     mov word [bss_831a], 1           ; 0x1871
     call redraw_maze_view            ; 0x1877
     mov ax, 0x10                     ; 0x187a
     push ax                          ; 0x187d
-    call ds_app_HKIJ                 ; 0x187e
+    call play_sound_effect           ; 0x187e
     pop cx                           ; 0x1881
     mov ax, 0x10                     ; 0x1882
     push ax                          ; 0x1885

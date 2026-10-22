@@ -52,7 +52,7 @@ api_idx_0008_MNJN:
     push ax
     mov ax, 0xb
     push ax
-    call ds_loc_TJTV
+    call draw_font_glyph
     add sp, byte 4
     cmp word [bp + 0x6], byte 0
     je short @..api_idx_0008_MNJN.l3

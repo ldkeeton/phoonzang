@@ -77,7 +77,7 @@ api_idx_0002_IUPU:
 @..api_idx_0002_IUPU.l6:
     mov ax, 0                        ; 0x44df
     push ax                          ; 0x44e2
-    call ds_app_HKIJ                 ; 0x44e3
+    call play_sound_effect           ; 0x44e3
     pop cx                           ; 0x44e6
     jmp short @..api_idx_0002_IUPU.l8 ; 0x44e7
 @..api_idx_0002_IUPU.l7:
@@ -90,7 +90,7 @@ api_idx_0002_IUPU:
     je short @..api_idx_0002_IUPU.l8 ; 0x44fa
     mov ax, 0                        ; 0x44fc
     push ax                          ; 0x44ff
-    call ds_app_HKIJ                 ; 0x4500
+    call play_sound_effect           ; 0x4500
     pop cx                           ; 0x4503
 @..api_idx_0002_IUPU.l8:
     ret                              ; 0x4504

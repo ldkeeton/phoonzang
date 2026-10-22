@@ -347,7 +347,7 @@ api_idx_0008_SJOG:
     mov ax, 0x248                    ; 0x0b23
     imul word [bp - 0x0002]          ; 0x0b26
     mov bx, ax                       ; 0x0b29
-    mov ax, word [bx + 0x5c18]       ; 0x0b2b
+    mov ax, word [bx + pc_spell_power_cap] ; 0x0b2b
     add word [bp - 0x0006], ax       ; 0x0b2f
     inc word [bp - 0x0002]           ; 0x0b32
 @..api_idx_0008_SJOG.l22:

@@ -21,7 +21,7 @@ api_idx_004c_LTUL:
     push ax                          ; 0x6d44
     mov ax, 0x63                     ; 0x6d45
     push ax                          ; 0x6d48
-    call ds_loc_TJTV                 ; 0x6d49
+    call draw_font_glyph             ; 0x6d49
     add sp, byte 4                   ; 0x6d4c
 @..api_idx_004c_LTUL.l1:
     cmp word [bss_9614], byte 0      ; 0x6d4f
@@ -145,7 +145,7 @@ api_idx_004c_LTUL:
     sub ah, ah                       ; 0x6e64
     add ax, 0x1770                   ; 0x6e66
     push ax                          ; 0x6e69
-    call ds_app_mem_TIMR             ; 0x6e6a
+    call load_message_string         ; 0x6e6a
     add sp, byte 4                   ; 0x6e6d
 @..api_idx_004c_LTUL.l10:
     mov al, byte [bp - 0x0012]       ; 0x6e70

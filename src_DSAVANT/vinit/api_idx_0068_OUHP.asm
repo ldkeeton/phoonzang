@@ -526,7 +526,7 @@ api_idx_0068_OUHP:
     lea ax, word [bp - 0x005c]       ; 0x0f2c
     push ax                          ; 0x0f2f
     push word [bp - 0x0060]          ; 0x0f30
-    call ds_app_mem_TIMR             ; 0x0f33
+    call load_message_string         ; 0x0f33
     add sp, byte 4                   ; 0x0f36
     lea ax, word [bp - 0x005c]       ; 0x0f39
     mov word [bp - 0x005e], ax       ; 0x0f3c
@@ -802,7 +802,7 @@ api_idx_0068_OUHP:
     lea ax, word [bp - 0x005c]       ; 0x11d4
     push ax                          ; 0x11d7
     push word [bp - 0x0060]          ; 0x11d8
-    call ds_app_mem_TIMR             ; 0x11db
+    call load_message_string         ; 0x11db
     add sp, byte 4                   ; 0x11de
     lea ax, word [bp - 0x005c]       ; 0x11e1
     mov word [bp - 0x005e], ax       ; 0x11e4
@@ -855,7 +855,7 @@ api_idx_0068_OUHP:
     lea ax, word [bp - 0x005c]       ; 0x1250
     push ax                          ; 0x1253
     push word [bp - 0x0060]          ; 0x1254
-    call ds_app_mem_TIMR             ; 0x1257
+    call load_message_string         ; 0x1257
     add sp, byte 4                   ; 0x125a
     lea ax, word [bp - 0x005c]       ; 0x125d
     mov word [bp - 0x005e], ax       ; 0x1260

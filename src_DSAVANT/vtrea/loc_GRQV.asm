@@ -245,14 +245,14 @@ loc_GRQV:
     add sp, byte 8                   ; 0x04c6
     mov ax, 5                        ; 0x04c9
     push ax                          ; 0x04cc
-    call ds_app_HKIJ                 ; 0x04cd
+    call play_sound_effect           ; 0x04cd
     pop cx                           ; 0x04d0
     mov word [bp - 0x0004], 0        ; 0x04d1
     mov ax, word [bp - 0x0006]       ; 0x04d6
     mov word [bp - 0x0002], ax       ; 0x04d9
     jmp near @..loc_GRQV.l23         ; 0x04dc
 @..loc_GRQV.l16:
-    les bx, word [dseg_0002]         ; 0x04df
+    les bx, word [tick_counter_ptr]  ; 0x04df
     mov ax, word [es:bx]             ; 0x04e3
     mov dx, word [es:bx + 0x2]       ; 0x04e6
     mov word [bp - 0x0112], dx       ; 0x04ea
@@ -381,7 +381,7 @@ loc_GRQV:
     mov ax, word [bp - 0x0102]       ; 0x062e
     mov word [bp - 0x0100], ax       ; 0x0632
 @..loc_GRQV.l20:
-    les bx, word [dseg_0002]         ; 0x0636
+    les bx, word [tick_counter_ptr]  ; 0x0636
     mov ax, word [es:bx]             ; 0x063a
     mov dx, word [es:bx + 0x2]       ; 0x063d
     cmp dx, word [bp - 0x0112]       ; 0x0641

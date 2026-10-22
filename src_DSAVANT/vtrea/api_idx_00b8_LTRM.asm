@@ -12,7 +12,7 @@ api_idx_00b8_LTRM:
     push ax                          ; 0x14fe
     mov ax, 0x146c                   ; 0x14ff
     push ax                          ; 0x1502
-    call ds_app_mem_TIMR             ; 0x1503
+    call load_message_string         ; 0x1503
     add sp, byte 4                   ; 0x1506
     mov ax, 1                        ; 0x1509
     push ax                          ; 0x150c
@@ -228,7 +228,7 @@ jumptable_1fa3_case_4:
     push ax                          ; 0x16d8
     mov ax, 0x1496                   ; 0x16d9
     push ax                          ; 0x16dc
-    call ds_app_mem_TIMR             ; 0x16dd
+    call load_message_string         ; 0x16dd
     add sp, byte 4                   ; 0x16e0
     mov ax, 0xb8                     ; 0x16e3
     push ax                          ; 0x16e6
@@ -243,7 +243,7 @@ jumptable_1fa3_case_4:
     push ax                          ; 0x16fc
     mov ax, 0x1497                   ; 0x16fd
     push ax                          ; 0x1700
-    call ds_app_mem_TIMR             ; 0x1701
+    call load_message_string         ; 0x1701
     add sp, byte 4                   ; 0x1704
     mov ax, 0                        ; 0x1707
     push ax                          ; 0x170a
@@ -296,7 +296,7 @@ jumptable_1fa3_case_4:
     push ax                          ; 0x176e
     mov ax, 0x1498                   ; 0x176f
     push ax                          ; 0x1772
-    call ds_app_mem_TIMR             ; 0x1773
+    call load_message_string         ; 0x1773
     add sp, byte 4                   ; 0x1776
     mov ax, 0                        ; 0x1779
     push ax                          ; 0x177c
@@ -357,7 +357,7 @@ jumptable_1fa3_case_4:
     push ax                          ; 0x17f2
     mov ax, 0x149a                   ; 0x17f3
     push ax                          ; 0x17f6
-    call ds_app_mem_TIMR             ; 0x17f7
+    call load_message_string         ; 0x17f7
     add sp, byte 4                   ; 0x17fa
     mov ax, 0xb8                     ; 0x17fd
     push ax                          ; 0x1800
@@ -1017,13 +1017,13 @@ jumptable_1fa3_case_12:
     push ax                          ; 0x1d7d
     mov ax, 0x1492                   ; 0x1d7e
     push ax                          ; 0x1d81
-    call ds_app_mem_TIMR             ; 0x1d82
+    call load_message_string         ; 0x1d82
     add sp, byte 4                   ; 0x1d85
     lea ax, word [bp - 0x00b8]       ; 0x1d88
     push ax                          ; 0x1d8c
     mov ax, 0x149c                   ; 0x1d8d
     push ax                          ; 0x1d90
-    call ds_app_mem_TIMR             ; 0x1d91
+    call load_message_string         ; 0x1d91
     add sp, byte 4                   ; 0x1d94
     mov ax, 0                        ; 0x1d97
     push ax                          ; 0x1d9a
@@ -1124,13 +1124,13 @@ jumptable_1fa3_case_15:
     push ax                          ; 0x1e70
     mov ax, 0x1492                   ; 0x1e71
     push ax                          ; 0x1e74
-    call ds_app_mem_TIMR             ; 0x1e75
+    call load_message_string         ; 0x1e75
     add sp, byte 4                   ; 0x1e78
     lea ax, word [bp - 0x00b8]       ; 0x1e7b
     push ax                          ; 0x1e7f
     mov ax, 0x1495                   ; 0x1e80
     push ax                          ; 0x1e83
-    call ds_app_mem_TIMR             ; 0x1e84
+    call load_message_string         ; 0x1e84
     add sp, byte 4                   ; 0x1e87
     mov ax, 0                        ; 0x1e8a
     push ax                          ; 0x1e8d
@@ -1174,13 +1174,13 @@ jumptable_1fa3_case_15:
     push ax                          ; 0x1ee6
     mov ax, 0x1492                   ; 0x1ee7
     push ax                          ; 0x1eea
-    call ds_app_mem_TIMR             ; 0x1eeb
+    call load_message_string         ; 0x1eeb
     add sp, byte 4                   ; 0x1eee
     lea ax, word [bp - 0x00b8]       ; 0x1ef1
     push ax                          ; 0x1ef5
     mov ax, 0x1494                   ; 0x1ef6
     push ax                          ; 0x1ef9
-    call ds_app_mem_TIMR             ; 0x1efa
+    call load_message_string         ; 0x1efa
     add sp, byte 4                   ; 0x1efd
     mov ax, 0                        ; 0x1f00
     push ax                          ; 0x1f03

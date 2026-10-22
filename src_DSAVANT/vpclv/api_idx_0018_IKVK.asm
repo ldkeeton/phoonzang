@@ -107,7 +107,7 @@ jumptable_4b3c_case_9:
     mov ax, 0x248                    ; 0x4a86
     imul word [bp + 0x4]             ; 0x4a89
     mov bx, ax                       ; 0x4a8c
-    mov ax, word [bx + 0x5c18]       ; 0x4a8e
+    mov ax, word [bx + pc_spell_power_cap] ; 0x4a8e
     cwd                              ; 0x4a92
     idiv cx                          ; 0x4a93
     mov word [bp - 0x0014], dx       ; 0x4a95
@@ -199,7 +199,7 @@ jumptable_4b3c:
     mov ax, 0x248                    ; 0x4b6e
     imul word [bp + 0x4]             ; 0x4b71
     mov bx, ax                       ; 0x4b74
-    mov ax, word [bx + 0x5c18]       ; 0x4b76
+    mov ax, word [bx + pc_spell_power_cap] ; 0x4b76
     cmp ax, word [bp - 0x0018]       ; 0x4b7a
     jge short @..api_idx_0018_IKVK.l7 ; 0x4b7d
     jmp near @..api_idx_0018_IKVK.l18 ; 0x4b7f
@@ -223,7 +223,7 @@ jumptable_4b3c:
     mov ax, 6                        ; 0x4bb0
     imul word [bp - 0x0004]          ; 0x4bb3
     mov bx, ax                       ; 0x4bb6
-    mov al, byte [bx + 0x620]        ; 0x4bb8
+    mov al, byte [bx + spell_table]  ; 0x4bb8
     sub ah, ah                       ; 0x4bbc
     cmp ax, word [bp - 0x0002]       ; 0x4bbe
     jne short @..api_idx_0018_IKVK.l10 ; 0x4bc1
@@ -259,7 +259,7 @@ jumptable_4b3c:
     mov ax, 0x248                    ; 0x4c09
     imul word [bp + 0x4]             ; 0x4c0c
     mov bx, ax                       ; 0x4c0f
-    mov ax, word [bx + 0x5c18]       ; 0x4c11
+    mov ax, word [bx + pc_spell_power_cap] ; 0x4c11
     push ax                          ; 0x4c15
     mov al, byte [bx + 0x5e3b]       ; 0x4c16
     sub ah, ah                       ; 0x4c1a

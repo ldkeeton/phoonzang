@@ -31,19 +31,19 @@ api_idx_000e_HLRI:
     push ax                          ; 0x5fef
     mov ax, 0xcec                    ; 0x5ff0
     push ax                          ; 0x5ff3
-    call ds_app_mem_TIMR             ; 0x5ff4
+    call load_message_string         ; 0x5ff4
     add sp, byte 4                   ; 0x5ff7
     mov ax, bss_9186                 ; 0x5ffa
     push ax                          ; 0x5ffd
     mov ax, word [bp - 0x0006]       ; 0x5ffe
     add ax, 0xfa0                    ; 0x6001
     push ax                          ; 0x6004
-    call ds_app_mem_TIMR             ; 0x6005
+    call load_message_string         ; 0x6005
     add sp, byte 4                   ; 0x6008
     mov ax, 6                        ; 0x600b
     imul word [bp - 0x0006]          ; 0x600e
     mov bx, ax                       ; 0x6011
-    mov al, byte [bx + 0x620]        ; 0x6013
+    mov al, byte [bx + spell_table]  ; 0x6013
     sub ah, ah                       ; 0x6017
     shl ax, 1                        ; 0x6019
     shl ax, 1                        ; 0x601b
@@ -370,7 +370,7 @@ api_idx_000e_HLRI:
     mov ax, 0x248                    ; 0x6335
     imul word [bss_8462]             ; 0x6338
     mov cx, ax                       ; 0x633c
-    mov al, byte [bx + 0x620]        ; 0x633e
+    mov al, byte [bx + spell_table]  ; 0x633e
     sub ah, ah                       ; 0x6342
     mov dx, ax                       ; 0x6344
     shl ax, 1                        ; 0x6346

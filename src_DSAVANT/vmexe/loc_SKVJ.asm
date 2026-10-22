@@ -12,7 +12,7 @@ loc_SKVJ:
     push ax                          ; 0x985d
     mov ax, 0xcef                    ; 0x985e
     push ax                          ; 0x9861
-    call ds_app_mem_TIMR             ; 0x9862
+    call load_message_string         ; 0x9862
     add sp, byte 4                   ; 0x9865
     mov byte [bss_9186], 0           ; 0x9868
     mov ax, 0x43                     ; 0x986d

@@ -27,7 +27,7 @@ api_idx_000c_VJPM:
     jbe short @..api_idx_000c_VJPM.l3 ; 0x6f7d
     mov ax, 0x10                     ; 0x6f7f
     push ax                          ; 0x6f82
-    call ds_app_HKIJ                 ; 0x6f83
+    call play_sound_effect           ; 0x6f83
     pop cx                           ; 0x6f86
 @..api_idx_000c_VJPM.l3:
     mov word [dest_alt_arg], 0x64    ; 0x6f87

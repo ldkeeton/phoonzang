@@ -139,7 +139,7 @@ jumptable_0c85_case_6:
     jne short @..api_idx_0090_NPLS.l5 ; 0x0c5a
 @..api_idx_0090_NPLS.l4:
     push ax                          ; 0x0c5c
-    call ds_app_HKIJ                 ; 0x0c5d
+    call play_sound_effect           ; 0x0c5d
     pop cx                           ; 0x0c60
     jmp short @..api_idx_0090_NPLS.l6 ; 0x0c61
 @..api_idx_0090_NPLS.l5:
@@ -148,7 +148,7 @@ jumptable_0c85_case_6:
     pop cx                           ; 0x0c69
     mov ax, 0x10                     ; 0x0c6a
     push ax                          ; 0x0c6d
-    call ds_app_HKIJ                 ; 0x0c6e
+    call play_sound_effect           ; 0x0c6e
     pop cx                           ; 0x0c71
     mov ax, 0x10                     ; 0x0c72
     push ax                          ; 0x0c75

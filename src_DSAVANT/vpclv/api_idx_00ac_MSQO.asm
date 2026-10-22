@@ -147,7 +147,7 @@ jumptable_4679:
     mov ax, 0x248                    ; 0x470d
     imul word [bp + 0x4]             ; 0x4710
     mov bx, ax                       ; 0x4713
-    mov ax, word [bx + 0x5c18]       ; 0x4715
+    mov ax, word [bx + pc_spell_power_cap] ; 0x4715
     push ax                          ; 0x4719
     mov al, byte [bx + 0x5e3b]       ; 0x471a
     sub ah, ah                       ; 0x471e
@@ -214,7 +214,7 @@ jumptable_4679:
     push ax                          ; 0x47ba
     mov ax, 0x1395                   ; 0x47bb
     push ax                          ; 0x47be
-    call ds_app_mem_TIMR             ; 0x47bf
+    call load_message_string         ; 0x47bf
     add sp, byte 4                   ; 0x47c2
     mov ax, 1                        ; 0x47c5
     push ax                          ; 0x47c8
@@ -265,7 +265,7 @@ jumptable_4679:
     mov ax, 0x1393                   ; 0x4830
 @..api_idx_00ac_MSQO.l13:
     push ax                          ; 0x4833
-    call ds_app_mem_TIMR             ; 0x4834
+    call load_message_string         ; 0x4834
     add sp, byte 4                   ; 0x4837
     lea ax, word [bp - 0x00ac]       ; 0x483a
     push ax                          ; 0x483e

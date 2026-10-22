@@ -33,7 +33,7 @@ api_idx_0072_KTMQ:
     push ax                          ; 0x5eea
     mov ax, 0x5e8                    ; 0x5eeb
     push ax                          ; 0x5eee
-    call ds_app_mem_TIMR             ; 0x5eef
+    call load_message_string         ; 0x5eef
     add sp, byte 4                   ; 0x5ef2
     push word [bp + 0x4]             ; 0x5ef5
     call api_idx_004c_OGSK           ; 0x5ef8

@@ -2,10 +2,10 @@
 loc_GSUP:
     mov ax, 0                        ; 0x73bc
     call aztec_csav                  ; 0x73bf
-    les bx, word [dseg_0002]         ; 0x73c2
+    les bx, word [tick_counter_ptr]  ; 0x73c2
     mov ax, word [es:bx]             ; 0x73c6
     mov dx, word [es:bx + 0x2]       ; 0x73c9
-    sub ax, word [bss_908a]          ; 0x73cd
+    sub ax, word [party_redraw_last_tick] ; 0x73cd
     sbb dx, word [bss_908c]          ; 0x73d1
     push ax                          ; 0x73d5
     push dx                          ; 0x73d6
@@ -29,11 +29,11 @@ loc_GSUP:
     cwd                              ; 0x73f4
     idiv cx                          ; 0x73f5
     mov word [bss_a5b0], dx          ; 0x73f7
-    les bx, word [dseg_0002]         ; 0x73fb
+    les bx, word [tick_counter_ptr]  ; 0x73fb
     mov ax, word [es:bx]             ; 0x73ff
     mov dx, word [es:bx + 0x2]       ; 0x7402
     mov word [bss_908c], dx          ; 0x7406
-    mov word [bss_908a], ax          ; 0x740a
+    mov word [party_redraw_last_tick], ax ; 0x740a
     mov ax, 1                        ; 0x740d
     ret                              ; 0x7410
 @..loc_GSUP.l3:

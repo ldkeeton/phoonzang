@@ -24,13 +24,13 @@ api_idx_0072_OUII:
     push ax                          ; 0x1fe1
     mov ax, 0x58c                    ; 0x1fe2
     push ax                          ; 0x1fe5
-    call ds_app_mem_TIMR             ; 0x1fe6
+    call load_message_string         ; 0x1fe6
     add sp, byte 4                   ; 0x1fe9
     lea ax, word [bp - 0x0072]       ; 0x1fec
     push ax                          ; 0x1fef
     mov ax, 0x58d                    ; 0x1ff0
     push ax                          ; 0x1ff3
-    call ds_app_mem_TIMR             ; 0x1ff4
+    call load_message_string         ; 0x1ff4
     add sp, byte 4                   ; 0x1ff7
     mov ax, dseg_90c2                ; 0x1ffa
     push ax                          ; 0x1ffd

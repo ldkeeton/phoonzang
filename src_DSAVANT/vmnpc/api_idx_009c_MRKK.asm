@@ -9,13 +9,13 @@ api_idx_009c_MRKK:
     push ax                          ; 0x6795
     mov ax, 0x5e6                    ; 0x6796
     push ax                          ; 0x6799
-    call ds_app_mem_TIMR             ; 0x679a
+    call load_message_string         ; 0x679a
     add sp, byte 4                   ; 0x679d
     lea ax, word [bp - 0x004c]       ; 0x67a0
     push ax                          ; 0x67a3
     mov ax, 0x5e7                    ; 0x67a4
     push ax                          ; 0x67a7
-    call ds_app_mem_TIMR             ; 0x67a8
+    call load_message_string         ; 0x67a8
     add sp, byte 4                   ; 0x67ab
     cmp word [bss_91a2], byte 0      ; 0x67ae
     jle short @..api_idx_009c_MRKK.l1 ; 0x67b3
@@ -40,7 +40,7 @@ api_idx_009c_MRKK:
     test ax, ax                      ; 0x67e4
     jne short @..api_idx_009c_MRKK.l3 ; 0x67e6
     push word [bss_93da]             ; 0x67e8
-    call ds_app_HKIJ                 ; 0x67ec
+    call play_sound_effect           ; 0x67ec
     pop cx                           ; 0x67ef
 @..api_idx_009c_MRKK.l3:
     mov word [bp - 0x0002], 0        ; 0x67f0
@@ -200,7 +200,7 @@ api_idx_009c_MRKK:
     mov ax, word [bp - 0x0006]       ; 0x698a
     add ax, 0x5fa                    ; 0x698d
     push ax                          ; 0x6990
-    call ds_app_mem_TIMR             ; 0x6991
+    call load_message_string         ; 0x6991
     add sp, byte 4                   ; 0x6994
     mov ax, 0x1a                     ; 0x6997
     push ax                          ; 0x699a
@@ -275,7 +275,7 @@ jumptable_6c16_case_0:
     push ax                          ; 0x6a33
     mov ax, 0x604                    ; 0x6a34
     push ax                          ; 0x6a37
-    call ds_app_mem_TIMR             ; 0x6a38
+    call load_message_string         ; 0x6a38
     add sp, byte 4                   ; 0x6a3b
     mov ax, 3                        ; 0x6a3e
     push ax                          ; 0x6a41
@@ -392,7 +392,7 @@ jumptable_6c16_case_1:
     mov ax, 0x669                    ; 0x6b42
 @..api_idx_009c_MRKK.l36:
     push ax                          ; 0x6b45
-    call ds_app_mem_TIMR             ; 0x6b46
+    call load_message_string         ; 0x6b46
     add sp, byte 4                   ; 0x6b49
     mov ax, 1                        ; 0x6b4c
     push ax                          ; 0x6b4f

@@ -69,6 +69,6 @@ loc_HHMH:
 @..loc_HHMH.l1:
     mov ax, 1                        ; 0x055c
     push ax                          ; 0x055f
-    call ds_app_HKIJ                 ; 0x0560
+    call play_sound_effect           ; 0x0560
     pop cx                           ; 0x0563
     ret                              ; 0x0564

@@ -2,7 +2,7 @@
 api_idx_0038_LTUV:
     mov ax, 0xffc8                   ; 0x0abb
     call aztec_csav                  ; 0x0abe
-    mov word [bss_904e], 0xffff      ; 0x0ac1
+    mov word [spell_dialog_result], 0xffff ; 0x0ac1
     mov word [bp - 0x0004], 0x37     ; 0x0ac7
     mov word [bp - 0x0006], 0x8f     ; 0x0acc
     mov word [bp - 0x0008], 0x108    ; 0x0ad1
@@ -40,7 +40,7 @@ api_idx_0038_LTUV:
     lea ax, word [bp - 0x0036]       ; 0x0b22
     push ax                          ; 0x0b25
     push word [bp + 0x4]             ; 0x0b26
-    call ds_app_mem_TIMR             ; 0x0b29
+    call load_message_string         ; 0x0b29
     add sp, byte 4                   ; 0x0b2c
     lea ax, word [bp - 0x0036]       ; 0x0b2f
     push ax                          ; 0x0b32
@@ -62,7 +62,7 @@ api_idx_0038_LTUV:
     mov ax, word [bp + 0x4]          ; 0x0b56
     inc ax                           ; 0x0b59
     push ax                          ; 0x0b5a
-    call ds_app_mem_TIMR             ; 0x0b5b
+    call load_message_string         ; 0x0b5b
     add sp, byte 4                   ; 0x0b5e
     lea ax, word [bp - 0x0036]       ; 0x0b61
     push ax                          ; 0x0b64
@@ -85,7 +85,7 @@ api_idx_0038_LTUV:
     inc ax                           ; 0x0b8b
     inc ax                           ; 0x0b8c
     push ax                          ; 0x0b8d
-    call ds_app_mem_TIMR             ; 0x0b8e
+    call load_message_string         ; 0x0b8e
     add sp, byte 4                   ; 0x0b91
     lea ax, word [bp - 0x0036]       ; 0x0b94
     push ax                          ; 0x0b97
@@ -117,7 +117,7 @@ api_idx_0038_LTUV:
     mov ax, word [bp - 0x0004]       ; 0x0bd9
     add ax, strict word 0x5d         ; 0x0bdc
     push ax                          ; 0x0bdf
-    call ds_app_HTKI                 ; 0x0be0
+    call draw_text_list              ; 0x0be0
     add sp, byte 0x0e                ; 0x0be3
     mov word [bp - 0x0010], 0        ; 0x0be6
     push word [bp - 0x0010]          ; 0x0beb
@@ -131,7 +131,7 @@ api_idx_0038_LTUV:
     mov ax, word [bp - 0x0004]       ; 0x0bfd
     add ax, 0xc1                     ; 0x0c00
     push ax                          ; 0x0c03
-    call ds_app_JKST                 ; 0x0c04
+    call draw_scrollbar              ; 0x0c04
     add sp, byte 0x0a                ; 0x0c07
     mov ax, 0                        ; 0x0c0a
     push ax                          ; 0x0c0d
@@ -326,7 +326,7 @@ api_idx_0038_LTUV:
     pop cx                           ; 0x0db8
     dec ax                           ; 0x0db9
     mov word [bp - 0x0018], ax       ; 0x0dba
-    cmp word [bss_59fc], byte 0      ; 0x0dbd
+    cmp word [space_key_hit], byte 0 ; 0x0dbd
     je short @..api_idx_0038_LTUV.l9 ; 0x0dc2
     mov ax, word [bp - 0x0020]       ; 0x0dc4
     cmp ax, word [bp - 0x0016]       ; 0x0dc7
@@ -433,7 +433,7 @@ jumptable_11b9_case_0:
     mov ax, word [bp - 0x0004]       ; 0x0eb2
     add ax, strict word 0x5d         ; 0x0eb5
     push ax                          ; 0x0eb8
-    call ds_app_HTKI                 ; 0x0eb9
+    call draw_text_list              ; 0x0eb9
     add sp, byte 0x0e                ; 0x0ebc
     push word [bp - 0x0010]          ; 0x0ebf
     mov ax, 7                        ; 0x0ec2
@@ -446,7 +446,7 @@ jumptable_11b9_case_0:
     mov ax, word [bp - 0x0004]       ; 0x0ed1
     add ax, 0xc1                     ; 0x0ed4
     push ax                          ; 0x0ed7
-    call ds_app_JKST                 ; 0x0ed8
+    call draw_scrollbar              ; 0x0ed8
     add sp, byte 0x0a                ; 0x0edb
     mov ax, 0                        ; 0x0ede
     push ax                          ; 0x0ee1
@@ -505,7 +505,7 @@ jumptable_11b9_case_1:
     mov ax, word [bp - 0x0004]       ; 0x0f5c
     add ax, 0xc1                     ; 0x0f5f
     push ax                          ; 0x0f62
-    call ds_app_QOOL                 ; 0x0f63
+    call flash_area                  ; 0x0f63
     add sp, byte 0x0a                ; 0x0f66
     cmp word [bp - 0x0016], byte 0   ; 0x0f69
     jle short @..api_idx_0038_LTUV.l14 ; 0x0f6d
@@ -527,7 +527,7 @@ jumptable_11b9_case_1:
     mov ax, word [bp - 0x0004]       ; 0x0f8d
     add ax, 0xc1                     ; 0x0f90
     push ax                          ; 0x0f93
-    call ds_app_QOOL                 ; 0x0f94
+    call flash_area                  ; 0x0f94
     add sp, byte 0x0a                ; 0x0f97
     mov ax, word [bp + 0xc]          ; 0x0f9a
     add ax, strict word 0xfff9       ; 0x0f9d
@@ -569,7 +569,7 @@ jumptable_11b9_case_1:
     mov ax, word [bp - 0x0004]       ; 0x0ff2
     add ax, strict word 0x5d         ; 0x0ff5
     push ax                          ; 0x0ff8
-    call ds_app_HTKI                 ; 0x0ff9
+    call draw_text_list              ; 0x0ff9
     add sp, byte 0x0e                ; 0x0ffc
     push word [bp - 0x0010]          ; 0x0fff
     mov ax, 7                        ; 0x1002
@@ -582,7 +582,7 @@ jumptable_11b9_case_1:
     mov ax, word [bp - 0x0004]       ; 0x1011
     add ax, 0xc1                     ; 0x1014
     push ax                          ; 0x1017
-    call ds_app_JKST                 ; 0x1018
+    call draw_scrollbar              ; 0x1018
     add sp, byte 0x0a                ; 0x101b
     mov ax, 0                        ; 0x101e
     push ax                          ; 0x1021
@@ -650,7 +650,7 @@ jumptable_11b9_case_3:
     push ax                          ; 0x10b0
     call flash_button                ; 0x10b1
     add sp, byte 0x0a                ; 0x10b4
-    mov word [bss_9050], 0           ; 0x10b7
+    mov word [spell_dialog_button], 0 ; 0x10b7
     mov word [bp - 0x001a], 0        ; 0x10bd
 @..api_idx_0038_LTUV.l18:
     jmp near @..api_idx_0038_LTUV.l24 ; 0x10c2
@@ -684,7 +684,7 @@ jumptable_11b9_case_4:
     push ax                          ; 0x1101
     call flash_button                ; 0x1102
     add sp, byte 0x0a                ; 0x1105
-    mov word [bss_9050], 1           ; 0x1108
+    mov word [spell_dialog_button], 1 ; 0x1108
     mov word [bp - 0x001a], 0        ; 0x110e
 @..api_idx_0038_LTUV.l19:
     jmp near @..api_idx_0038_LTUV.l24 ; 0x1113
@@ -718,7 +718,7 @@ jumptable_11b9_case_5:
     push ax                          ; 0x1152
     call flash_button                ; 0x1153
     add sp, byte 0x0a                ; 0x1156
-    mov word [bss_9050], 2           ; 0x1159
+    mov word [spell_dialog_button], 2 ; 0x1159
     mov word [bp - 0x001a], 0        ; 0x115f
 @..api_idx_0038_LTUV.l20:
     jmp short @..api_idx_0038_LTUV.l24 ; 0x1164
@@ -740,7 +740,7 @@ jumptable_11b9_case_5:
     mov ax, word [bp - 0x0004]       ; 0x1188
     add ax, strict word 0x5d         ; 0x118b
     push ax                          ; 0x118e
-    call ds_app_HTKI                 ; 0x118f
+    call draw_text_list              ; 0x118f
     add sp, byte 0x0e                ; 0x1192
     mov ax, word [bp - 0x0006]       ; 0x1195
     add ax, strict word 0x30         ; 0x1198
@@ -783,6 +783,6 @@ jumptable_11b9:
     call restore_saved_screen        ; 0x11e4
     add sp, byte 4                   ; 0x11e7
     mov ax, word [bp - 0x0020]       ; 0x11ea
-    mov word [bss_904e], ax          ; 0x11ed
-    mov ax, word [bss_9050]          ; 0x11f0
+    mov word [spell_dialog_result], ax ; 0x11ed
+    mov ax, word [spell_dialog_button] ; 0x11f0
     ret                              ; 0x11f3

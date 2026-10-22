@@ -325,10 +325,10 @@ jumptable_052d_case_0:
 loc_HVLG:
     mov ax, 0                        ; 0x054f
     call aztec_csav                  ; 0x0552
-    les bx, word [dseg_0002]         ; 0x0555
+    les bx, word [tick_counter_ptr]  ; 0x0555
     mov ax, word [es:bx]             ; 0x0559
     mov dx, word [es:bx + 0x2]       ; 0x055c
-    sub ax, word [bss_908a]          ; 0x0560
+    sub ax, word [party_redraw_last_tick] ; 0x0560
     sbb dx, word [bss_908c]          ; 0x0564
     push ax                          ; 0x0568
     push dx                          ; 0x0569
@@ -346,11 +346,11 @@ loc_HVLG:
 @..loc_HVLG.l1:
     jmp short @..loc_HVLG.l3         ; 0x057e
 @..loc_HVLG.l2:
-    les bx, word [dseg_0002]         ; 0x0580
+    les bx, word [tick_counter_ptr]  ; 0x0580
     mov ax, word [es:bx]             ; 0x0584
     mov dx, word [es:bx + 0x2]       ; 0x0587
     mov word [bss_908c], dx          ; 0x058b
-    mov word [bss_908a], ax          ; 0x058f
+    mov word [party_redraw_last_tick], ax ; 0x058f
     mov ax, 1                        ; 0x0592
     ret                              ; 0x0595
 @..loc_HVLG.l3:

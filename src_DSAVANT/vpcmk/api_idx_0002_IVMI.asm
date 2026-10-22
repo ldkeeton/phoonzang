@@ -19,7 +19,7 @@ api_idx_0002_IVMI:
     mov byte [bx + 0x5e31], 0        ; 0x629c
     mov byte [bx + 0x5e33], 0        ; 0x62a1
     mov byte [bx + 0x5e2e], 0        ; 0x62a6
-    mov word [bx + 0x5c18], 1        ; 0x62ab
+    mov word [bx + pc_spell_power_cap], 1 ; 0x62ab
     mov word [bx + 0x5c1a], 1        ; 0x62b1
     mov word [bp - 0x0002], 0        ; 0x62b7
 @..api_idx_0002_IVMI.l1:

@@ -101,7 +101,7 @@ loc_SNOI:
     call ds_app_file_TSNH            ; 0x7e85
     add sp, byte 4                   ; 0x7e88
     mov word [bss_91d4], 1           ; 0x7e8b
-    mov word [bss_9124], 5           ; 0x7e91
+    mov word [party_redraw_interval], 5 ; 0x7e91
     mov word [bss_911c], 0x8f        ; 0x7e97
     call flush_keyboard              ; 0x7e9d
     mov word [bss_9126], 0           ; 0x7ea0
@@ -110,7 +110,7 @@ loc_SNOI:
     mov ax, bss_9128                 ; 0x7eac
     push ax                          ; 0x7eaf
     push word [bp + 0x4]             ; 0x7eb0
-    call ds_app_mem_TIMR             ; 0x7eb3
+    call load_message_string         ; 0x7eb3
     add sp, byte 4                   ; 0x7eb6
 @..loc_SNOI.l2:
     ret                              ; 0x7eb9

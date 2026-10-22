@@ -17,10 +17,10 @@ api_idx_0006_IRNH:
     add sp, byte 8                   ; 0x2b97
     jmp near @..api_idx_0006_IRNH.l16 ; 0x2b9a
 @..api_idx_0006_IRNH.l2:
-    les bx, word [dseg_0002]         ; 0x2b9d
+    les bx, word [tick_counter_ptr]  ; 0x2b9d
     mov ax, word [es:bx]             ; 0x2ba1
     mov dx, word [es:bx + 0x2]       ; 0x2ba4
-    sub ax, word [bss_908a]          ; 0x2ba8
+    sub ax, word [party_redraw_last_tick] ; 0x2ba8
     sbb dx, word [bss_908c]          ; 0x2bac
     push ax                          ; 0x2bb0
     push dx                          ; 0x2bb1

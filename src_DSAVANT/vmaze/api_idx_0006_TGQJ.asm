@@ -24,7 +24,7 @@ api_idx_0006_TGQJ:
     mov al, byte [bx + 0x7]          ; 0x216a
     sub ah, ah                       ; 0x216d
     push ax                          ; 0x216f
-    call ds_loc_TJTV                 ; 0x2170
+    call draw_font_glyph             ; 0x2170
     add sp, byte 4                   ; 0x2173
     mov ax, 0xc4                     ; 0x2176
     push ax                          ; 0x2179

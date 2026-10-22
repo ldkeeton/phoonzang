@@ -15,7 +15,7 @@ api_idx_0004_NQNQ:
     je short @..api_idx_0004_NQNQ.l1 ; 0x45fd
     jmp near @..api_idx_0004_NQNQ.l4 ; 0x45ff
 @..api_idx_0004_NQNQ.l1:
-    mov ax, word [bss_904e]          ; 0x4602
+    mov ax, word [spell_dialog_result] ; 0x4602
     mov cx, 0x100                    ; 0x4605
     cwd                              ; 0x4608
     idiv cx                          ; 0x4609
@@ -45,7 +45,7 @@ api_idx_0004_NQNQ:
     mov ax, 0x248                    ; 0x4645
     imul word [bp + 0x4]             ; 0x4648
     mov cx, ax                       ; 0x464b
-    mov al, byte [bx + 0x620]        ; 0x464d
+    mov al, byte [bx + spell_table]  ; 0x464d
     sub ah, ah                       ; 0x4651
     mov dx, ax                       ; 0x4653
     shl ax, 1                        ; 0x4655

@@ -126,7 +126,7 @@ api_idx_000c_RLKV:
     jne short @..api_idx_000c_RLKV.l8 ; 0x24c9
 @..api_idx_000c_RLKV.l7:
     push ax                          ; 0x24cb
-    call ds_app_HKIJ                 ; 0x24cc
+    call play_sound_effect           ; 0x24cc
     pop cx                           ; 0x24cf
     jmp short @..api_idx_000c_RLKV.l9 ; 0x24d0
 @..api_idx_000c_RLKV.l8:
@@ -135,7 +135,7 @@ api_idx_000c_RLKV:
     pop cx                           ; 0x24d8
     mov ax, 0x10                     ; 0x24d9
     push ax                          ; 0x24dc
-    call ds_app_HKIJ                 ; 0x24dd
+    call play_sound_effect           ; 0x24dd
     pop cx                           ; 0x24e0
     mov ax, 0x10                     ; 0x24e1
     push ax                          ; 0x24e4

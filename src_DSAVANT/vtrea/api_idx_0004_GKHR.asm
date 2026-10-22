@@ -8,13 +8,13 @@ api_idx_0004_GKHR:
     mov ax, 0x7ea                    ; 0x4ae3
     push ax                          ; 0x4ae6
     push word [bp + 0x4]             ; 0x4ae7
-    call api_idx_0044_URKM           ; 0x4aea
+    call spell_select_dialog         ; 0x4aea
     add sp, byte 8                   ; 0x4aed
     test ax, ax                      ; 0x4af0
     je short @..api_idx_0004_GKHR.l1 ; 0x4af2
     jmp near @..api_idx_0004_GKHR.l5 ; 0x4af4
 @..api_idx_0004_GKHR.l1:
-    mov ax, word [bss_904e]          ; 0x4af7
+    mov ax, word [spell_dialog_result] ; 0x4af7
     mov cx, 0x100                    ; 0x4afa
     cwd                              ; 0x4afd
     idiv cx                          ; 0x4afe
@@ -44,7 +44,7 @@ api_idx_0004_GKHR:
     mov ax, 0x248                    ; 0x4b3a
     imul word [bp + 0x4]             ; 0x4b3d
     mov cx, ax                       ; 0x4b40
-    mov al, byte [bx + 0x620]        ; 0x4b42
+    mov al, byte [bx + spell_table]  ; 0x4b42
     sub ah, ah                       ; 0x4b46
     mov dx, ax                       ; 0x4b48
     shl ax, 1                        ; 0x4b4a

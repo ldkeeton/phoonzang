@@ -79,13 +79,15 @@ class SymbolIndex:
     address as a value (``cls_ = closall``) needs; None where code addresses
     do not follow that convention.  *data_names* are the image's known DS
     names (``{offset: Symbol}``, ``SegmentModel.data_names``).  *places* are
-    the linker symbols that mark a place in this image.
+    the linker symbols that mark a place in this image.  *code_origin* is an
+    overlay's ``o_corg``: its code runs at that CS offset, so its own label's
+    value is ``label - IMAGE_BASE + __zres_end``; None for any other image.
     """
 
     def __init__(self, label_map=None, foreign_label_map=None,
                  data_labels=None, mem_equ=None, data_symbol=None,
                  data_bytes=None, image_base=None, data_names=None,
-                 places=PLACE_SYMBOLS):
+                 places=PLACE_SYMBOLS, code_origin=None):
         self.data_symbol = data_symbol
         # The linker symbols that mark a place in this image (PLACE_SYMBOLS,
         # or OVERLAY_PLACE_SYMBOLS for an overlay).
@@ -95,6 +97,13 @@ class SymbolIndex:
         self.named_data = {str(sym): sym for sym in (data_names or {}).values()}
         self.data_bytes = data_bytes
         self.image_base = image_base
+        self.code_origin = code_origin
+        # What ``_code_value``'s overlay spelling needs defined.
+        self.origin_equ = ({'__zres_end': code_origin}
+                           if code_origin is not None else {})
+        # An overlay's own labels: only they run at ``code_origin``.
+        self.own_code = {name for name in (label_map or {}).values()
+                         if isinstance(name, str)}
         self.code = {}
         for maps in (label_map, foreign_label_map):
             for addr, name in (maps or {}).items():
@@ -153,9 +162,11 @@ def _addend_text(addend):
     return f' + 0x{addend:x}' if addend > 0 else f' - 0x{-addend:x}'
 
 
-def _code_value(name, addend):
-    """A code label's CS offset, the addend on the label (``conversions+1``)."""
-    return f'{name}{_addend_text(addend)} - IMAGE_BASE'
+def _code_value(name, addend, overlay=False):
+    """A code label's CS offset, the addend on the label (``conversions+1``);
+    an overlay's code runs at ``__zres_end`` (its ``o_corg``)."""
+    origin = ' + __zres_end' if overlay else ''
+    return f'{name}{_addend_text(addend)} - IMAGE_BASE{origin}'
 
 
 def _resolved_branches(code, fixups):
@@ -344,11 +355,16 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None):
                 if index.image_base is None:
                     unknown(fx, 'a code address as a value needs the image '
                                 'base, which this image does not have')
+                overlay = index.code_origin is not None
+                if overlay and name not in index.own_code:
+                    unknown(fx, 'an overlay can take the address only of '
+                                'its own code')
                 target = index.code[name]
-                _put(code, site, 2, target - index.image_base + fx.addend)
+                _put(code, site, 2, target - index.image_base
+                     + (index.code_origin or 0) + fx.addend)
                 out.refs[site] = Ref(
-                    site, 2, _code_value(name, fx.addend),
-                    False, {name: target})
+                    site, 2, _code_value(name, fx.addend, overlay),
+                    False, {name: target, **index.origin_equ})
             elif name in index.named_data:
                 # A known DS name (``ctp_``) no asm operand uses yet: the C
                 # is the first, so it defines it.
@@ -399,7 +415,8 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None):
                             'base, which this image does not have')
             word = int.from_bytes(original[start + site:start + site + 2],
                                   'little')
-            target = ((word - fx.addend) & 0xffff) + index.image_base
+            origin = index.code_origin or 0
+            target = ((word - fx.addend - origin) & 0xffff) + index.image_base
             names = sorted(n for n, addr in index.code.items() if addr == target)
             name = (names[0] if names else (labels_at or {}).get(target)
                     or out.local_names.get(target))
@@ -411,10 +428,11 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None):
                                           'name': name, 'offset': target})
             if name is None:
                 unknown(fx, f'the build has no label at 0x{target:x}')
-            _put(code, site, 2, target - index.image_base + fx.addend)
+            _put(code, site, 2, target - index.image_base + origin + fx.addend)
             out.refs[site] = Ref(
-                site, 2, _code_value(name, fx.addend),
-                False, {name: target})
+                site, 2, _code_value(name, fx.addend,
+                                     index.code_origin is not None),
+                False, {name: target, **index.origin_equ})
         elif fx.symbol_kind == 'DATASEG' and fx.kind == 'WABS':
             # The data segment's paragraph (``mov bp,dataseg``): DOS adds the
             # load segment through the exe's relocation table, so the word is

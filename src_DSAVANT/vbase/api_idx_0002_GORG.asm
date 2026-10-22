@@ -66,11 +66,11 @@ api_idx_0002_GORG:
     mov word [bss_a5f2], 0x6e        ; 0x8c1e
     mov word [bss_a600], 0           ; 0x8c24
     mov word [bss_a5ae], 5           ; 0x8c2a
-    les bx, word [dseg_0002]         ; 0x8c30
+    les bx, word [tick_counter_ptr]  ; 0x8c30
     mov ax, word [es:bx]             ; 0x8c34
     mov dx, word [es:bx + 0x2]       ; 0x8c37
     mov word [bss_908c], dx          ; 0x8c3b
-    mov word [bss_908a], ax          ; 0x8c3f
+    mov word [party_redraw_last_tick], ax ; 0x8c3f
     call api_idx_000a_THHN           ; 0x8c42
     mov ax, 0                        ; 0x8c45
     push ax                          ; 0x8c48

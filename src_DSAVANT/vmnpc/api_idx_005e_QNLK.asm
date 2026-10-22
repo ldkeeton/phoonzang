@@ -5,7 +5,7 @@ api_idx_005e_QNLK:
     mov ax, 0x248                    ; 0x5fd6
     imul word [bp + 0x4]             ; 0x5fd9
     mov bx, ax                       ; 0x5fdc
-    mov ax, word [bx + 0x5c18]       ; 0x5fde
+    mov ax, word [bx + pc_spell_power_cap] ; 0x5fde
     push ax                          ; 0x5fe2
     mov al, byte [bss_91c5]          ; 0x5fe3
     sub ah, ah                       ; 0x5fe6
@@ -93,7 +93,7 @@ api_idx_005e_QNLK:
     sub ah, ah                       ; 0x60a9
     add ax, 0x622                    ; 0x60ab
     push ax                          ; 0x60ae
-    call ds_app_mem_TIMR             ; 0x60af
+    call load_message_string         ; 0x60af
     add sp, byte 4                   ; 0x60b2
     mov ax, 0x5e                     ; 0x60b5
     push ax                          ; 0x60b8
@@ -197,7 +197,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x6195
     mov ax, 0x624                    ; 0x6196
     push ax                          ; 0x6199
-    call ds_app_mem_TIMR             ; 0x619a
+    call load_message_string         ; 0x619a
     add sp, byte 4                   ; 0x619d
     jmp short @..api_idx_005e_QNLK.l15 ; 0x61a0
 @..api_idx_005e_QNLK.l14:
@@ -220,7 +220,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x61c9
     mov ax, 0x626                    ; 0x61ca
     push ax                          ; 0x61cd
-    call ds_app_mem_TIMR             ; 0x61ce
+    call load_message_string         ; 0x61ce
     add sp, byte 4                   ; 0x61d1
 @..api_idx_005e_QNLK.l15:
     jmp short @..api_idx_005e_QNLK.l17 ; 0x61d4
@@ -261,7 +261,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x6226
     mov ax, 0x625                    ; 0x6227
     push ax                          ; 0x622a
-    call ds_app_mem_TIMR             ; 0x622b
+    call load_message_string         ; 0x622b
     add sp, byte 4                   ; 0x622e
     mov ax, word [bp - 0x000a]       ; 0x6231
     shl ax, 1                        ; 0x6234
@@ -283,7 +283,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x625a
     mov ax, 0x628                    ; 0x625b
     push ax                          ; 0x625e
-    call ds_app_mem_TIMR             ; 0x625f
+    call load_message_string         ; 0x625f
     add sp, byte 4                   ; 0x6262
     mov ax, 0x5e                     ; 0x6265
     push ax                          ; 0x6268
@@ -346,7 +346,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x62e4
     mov ax, 0x624                    ; 0x62e5
     push ax                          ; 0x62e8
-    call ds_app_mem_TIMR             ; 0x62e9
+    call load_message_string         ; 0x62e9
     add sp, byte 4                   ; 0x62ec
 @..api_idx_005e_QNLK.l22:
     mov ax, 0x5e                     ; 0x62ef

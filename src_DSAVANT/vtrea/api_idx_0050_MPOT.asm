@@ -18,7 +18,7 @@ api_idx_0050_MPOT:
     push ax                          ; 0x140f
     mov ax, 0x146b                   ; 0x1410
     push ax                          ; 0x1413
-    call ds_app_mem_TIMR             ; 0x1414
+    call load_message_string         ; 0x1414
     add sp, byte 4                   ; 0x1417
     mov ax, 1                        ; 0x141a
     push ax                          ; 0x141d

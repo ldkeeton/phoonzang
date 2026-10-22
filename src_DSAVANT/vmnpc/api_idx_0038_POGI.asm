@@ -146,7 +146,7 @@ api_idx_0038_POGI:
     cbw                              ; 0x2617
     add ax, 0x73a                    ; 0x2618
     push ax                          ; 0x261b
-    call ds_app_mem_TIMR             ; 0x261c
+    call load_message_string         ; 0x261c
     add sp, byte 4                   ; 0x261f
     mov ax, 0x955e                   ; 0x2622
     push ax                          ; 0x2625
@@ -161,7 +161,7 @@ api_idx_0038_POGI:
     add ax, 0x6a4                    ; 0x2637
 @..api_idx_0038_POGI.l13:
     push ax                          ; 0x263a
-    call ds_app_mem_TIMR             ; 0x263b
+    call load_message_string         ; 0x263b
     add sp, byte 4                   ; 0x263e
     mov ax, 0xf                      ; 0x2641
     imul word [bp - 0x0002]          ; 0x2644
@@ -226,7 +226,7 @@ jumptable_268c:
     cbw                              ; 0x26cd
     add ax, word [bp - 0x000a]       ; 0x26ce
     push ax                          ; 0x26d1
-    call ds_app_mem_TIMR             ; 0x26d2
+    call load_message_string         ; 0x26d2
     add sp, byte 4                   ; 0x26d5
     mov ax, 0x958e                   ; 0x26d8
     push ax                          ; 0x26db
@@ -243,7 +243,7 @@ jumptable_268c:
     cbw                              ; 0x26f4
     add ax, word [bp - 0x000c]       ; 0x26f5
     push ax                          ; 0x26f8
-    call ds_app_mem_TIMR             ; 0x26f9
+    call load_message_string         ; 0x26f9
     add sp, byte 4                   ; 0x26fc
     mov ax, 0x5e                     ; 0x26ff
     push ax                          ; 0x2702
@@ -283,7 +283,7 @@ jumptable_268c:
     push ax                          ; 0x274c
     mov ax, 0x669                    ; 0x274d
     push ax                          ; 0x2750
-    call ds_app_mem_TIMR             ; 0x2751
+    call load_message_string         ; 0x2751
     add sp, byte 4                   ; 0x2754
 @..api_idx_0038_POGI.l19:
     push word [bp + 0x6]             ; 0x2757

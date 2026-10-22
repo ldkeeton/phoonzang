@@ -38,7 +38,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x18ef
     mov ax, 0xd9                     ; 0x18f0
     push ax                          ; 0x18f3
-    call ds_app_mem_TIMR             ; 0x18f4
+    call load_message_string         ; 0x18f4
     add sp, byte 4                   ; 0x18f7
     mov ax, 0x5d                     ; 0x18fa
     push ax                          ; 0x18fd
@@ -87,7 +87,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x196b
     mov ax, 0xda                     ; 0x196c
     push ax                          ; 0x196f
-    call ds_app_mem_TIMR             ; 0x1970
+    call load_message_string         ; 0x1970
     add sp, byte 4                   ; 0x1973
     mov ax, 0x63                     ; 0x1976
     push ax                          ; 0x1979
@@ -130,9 +130,9 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x19d5
     imul word [bp + 0x4]             ; 0x19d8
     mov bx, ax                       ; 0x19db
-    cmp word [bx + 0x5c18], byte 0x10 ; 0x19dd
+    cmp word [bx + pc_spell_power_cap], byte 0x10 ; 0x19dd
     jge short @..api_idx_009e_KPST.l2 ; 0x19e2
-    mov ax, word [bx + 0x5c18]       ; 0x19e4
+    mov ax, word [bx + pc_spell_power_cap] ; 0x19e4
     shl ax, 1                        ; 0x19e8
     shl ax, 1                        ; 0x19ea
     mov bx, ax                       ; 0x19ec
@@ -146,7 +146,7 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x19fe
     imul word [bp + 0x4]             ; 0x1a01
     mov bx, ax                       ; 0x1a04
-    mov ax, word [bx + 0x5c18]       ; 0x1a06
+    mov ax, word [bx + pc_spell_power_cap] ; 0x1a06
     add ax, strict word 0xfff0       ; 0x1a0a
     mov word [bp - 0x004e], ax       ; 0x1a0d
     mov ax, word [bp - 0x0010]       ; 0x1a10
@@ -180,7 +180,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x1a48
     mov ax, 0xdb                     ; 0x1a49
     push ax                          ; 0x1a4c
-    call ds_app_mem_TIMR             ; 0x1a4d
+    call load_message_string         ; 0x1a4d
     add sp, byte 4                   ; 0x1a50
     mov ax, 0x5d                     ; 0x1a53
     push ax                          ; 0x1a56

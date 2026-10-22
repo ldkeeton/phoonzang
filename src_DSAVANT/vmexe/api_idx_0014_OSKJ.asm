@@ -148,7 +148,7 @@ api_idx_0014_OSKJ:
     mov ax, bss_9136                 ; 0x65fe
     push ax                          ; 0x6601
     push word [bp - 0x0004]          ; 0x6602
-    call ds_app_mem_TIMR             ; 0x6605
+    call load_message_string         ; 0x6605
     add sp, byte 4                   ; 0x6608
     mov byte [bss_9186], 0           ; 0x660b
     mov ax, 0                        ; 0x6610
@@ -414,7 +414,7 @@ api_idx_0014_OSKJ:
     push ax                          ; 0x68ce
     mov ax, 0xc8b                    ; 0x68cf
     push ax                          ; 0x68d2
-    call ds_app_mem_TIMR             ; 0x68d3
+    call load_message_string         ; 0x68d3
     add sp, byte 4                   ; 0x68d6
     mov byte [bss_9186], 0           ; 0x68d9
     mov ax, 0                        ; 0x68de
@@ -438,7 +438,7 @@ api_idx_0014_OSKJ:
     add sp, byte 0x0e                ; 0x6904
     mov ax, 0                        ; 0x6907
     push ax                          ; 0x690a
-    call ds_app_HKIJ                 ; 0x690b
+    call play_sound_effect           ; 0x690b
     pop cx                           ; 0x690e
     push word [bss_9058]             ; 0x690f
     call api_idx_0004_QUPL           ; 0x6913

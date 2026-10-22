@@ -19,7 +19,7 @@ api_idx_0006_TMLR:
     je short @..api_idx_0006_TMLR.l2 ; 0x18cf
     mov ax, 5                        ; 0x18d1
     push ax                          ; 0x18d4
-    call ds_app_HKIJ                 ; 0x18d5
+    call play_sound_effect           ; 0x18d5
     pop cx                           ; 0x18d8
     cmp word [bss_90dc], byte 2      ; 0x18d9
     jne short @..api_idx_0006_TMLR.l2 ; 0x18de
@@ -37,10 +37,10 @@ api_idx_0006_TMLR:
     mov word [bss_8320], dx          ; 0x18f8
     jmp near @..api_idx_0006_TMLR.l17 ; 0x18fc
 @..api_idx_0006_TMLR.l3:
-    les bx, word [dseg_0002]         ; 0x18ff
+    les bx, word [tick_counter_ptr]  ; 0x18ff
     mov ax, word [es:bx]             ; 0x1903
     mov dx, word [es:bx + 0x2]       ; 0x1906
-    sub ax, word [bss_908a]          ; 0x190a
+    sub ax, word [party_redraw_last_tick] ; 0x190a
     sbb dx, word [bss_908c]          ; 0x190e
     push ax                          ; 0x1912
     push dx                          ; 0x1913

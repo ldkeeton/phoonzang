@@ -115,7 +115,7 @@ api_idx_0034_NSGM:
     mov ax, word [bp - 0x0008]       ; 0x710f
     add ax, 0x841                    ; 0x7112
     push ax                          ; 0x7115
-    call ds_app_mem_TIMR             ; 0x7116
+    call load_message_string         ; 0x7116
     add sp, byte 4                   ; 0x7119
     cmp word [bp - 0x0008], byte 0   ; 0x711c
     jne short @..api_idx_0034_NSGM.l9 ; 0x7120

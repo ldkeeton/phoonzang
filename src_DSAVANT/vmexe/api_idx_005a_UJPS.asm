@@ -89,7 +89,7 @@ api_idx_005a_UJPS:
     sub ah, ah                       ; 0xa025
     add ax, 0x1770                   ; 0xa027
     push ax                          ; 0xa02a
-    call ds_app_mem_TIMR             ; 0xa02b
+    call load_message_string         ; 0xa02b
     add sp, byte 4                   ; 0xa02e
 @..api_idx_005a_UJPS.l3:
     mov ax, bss_9186                 ; 0xa031
@@ -114,7 +114,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa05c
     mov ax, 0xcf1                    ; 0xa05d
     push ax                          ; 0xa060
-    call ds_app_mem_TIMR             ; 0xa061
+    call load_message_string         ; 0xa061
     add sp, byte 4                   ; 0xa064
     jmp near @..api_idx_005a_UJPS.l24 ; 0xa067
 @..api_idx_005a_UJPS.l6:
@@ -122,7 +122,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa06d
     mov ax, 0xcf2                    ; 0xa06e
     push ax                          ; 0xa071
-    call ds_app_mem_TIMR             ; 0xa072
+    call load_message_string         ; 0xa072
     add sp, byte 4                   ; 0xa075
     mov word [bp - 0x0012], 0x1b     ; 0xa078
     jmp near @..api_idx_005a_UJPS.l24 ; 0xa07d
@@ -131,7 +131,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa083
     mov ax, 0xcf3                    ; 0xa084
     push ax                          ; 0xa087
-    call ds_app_mem_TIMR             ; 0xa088
+    call load_message_string         ; 0xa088
     add sp, byte 4                   ; 0xa08b
     jmp near @..api_idx_005a_UJPS.l24 ; 0xa08e
 @..api_idx_005a_UJPS.l8:
@@ -144,7 +144,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa0a0
     mov ax, 0xcf6                    ; 0xa0a1
     push ax                          ; 0xa0a4
-    call ds_app_mem_TIMR             ; 0xa0a5
+    call load_message_string         ; 0xa0a5
     add sp, byte 4                   ; 0xa0a8
     jmp near @..api_idx_005a_UJPS.l19 ; 0xa0ab
 @..api_idx_005a_UJPS.l10:
@@ -211,7 +211,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa13e
     mov ax, 0xce9                    ; 0xa13f
     push ax                          ; 0xa142
-    call ds_app_mem_TIMR             ; 0xa143
+    call load_message_string         ; 0xa143
     add sp, byte 4                   ; 0xa146
     jmp short @..api_idx_005a_UJPS.l16 ; 0xa149
 @..api_idx_005a_UJPS.l15:
@@ -219,7 +219,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa14e
     mov ax, 0xce8                    ; 0xa14f
     push ax                          ; 0xa152
-    call ds_app_mem_TIMR             ; 0xa153
+    call load_message_string         ; 0xa153
     add sp, byte 4                   ; 0xa156
     push word [bp - 0x0004]          ; 0xa159
     call random_below                ; 0xa15c
@@ -254,7 +254,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa19c
     mov ax, 0xcf3                    ; 0xa19d
     push ax                          ; 0xa1a0
-    call ds_app_mem_TIMR             ; 0xa1a1
+    call load_message_string         ; 0xa1a1
     add sp, byte 4                   ; 0xa1a4
     jmp short @..api_idx_005a_UJPS.l19 ; 0xa1a7
 @..api_idx_005a_UJPS.l18:
@@ -262,7 +262,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa1ac
     mov ax, 0xcf0                    ; 0xa1ad
     push ax                          ; 0xa1b0
-    call ds_app_mem_TIMR             ; 0xa1b1
+    call load_message_string         ; 0xa1b1
     add sp, byte 4                   ; 0xa1b4
     mov word [bp - 0x0012], 0x18     ; 0xa1b7
 @..api_idx_005a_UJPS.l19:
@@ -298,7 +298,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa1fa
     mov ax, 0xcf5                    ; 0xa1fb
     push ax                          ; 0xa1fe
-    call ds_app_mem_TIMR             ; 0xa1ff
+    call load_message_string         ; 0xa1ff
     add sp, byte 4                   ; 0xa202
     jmp short @..api_idx_005a_UJPS.l28 ; 0xa205
 @..api_idx_005a_UJPS.l27:
@@ -306,7 +306,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa20a
     mov ax, 0xcf4                    ; 0xa20b
     push ax                          ; 0xa20e
-    call ds_app_mem_TIMR             ; 0xa20f
+    call load_message_string         ; 0xa20f
     add sp, byte 4                   ; 0xa212
 @..api_idx_005a_UJPS.l28:
     cmp word [bss_0e36], strict word 0xe1 ; 0xa215
@@ -318,7 +318,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa22c
     mov ax, 0xcf0                    ; 0xa22d
     push ax                          ; 0xa230
-    call ds_app_mem_TIMR             ; 0xa231
+    call load_message_string         ; 0xa231
     add sp, byte 4                   ; 0xa234
     mov word [bp - 0x0006], 0x64     ; 0xa237
     mov word [bp - 0x0004], 6        ; 0xa23c
@@ -389,7 +389,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa2e6
     mov ax, 0xcf2                    ; 0xa2e7
     push ax                          ; 0xa2ea
-    call ds_app_mem_TIMR             ; 0xa2eb
+    call load_message_string         ; 0xa2eb
     add sp, byte 4                   ; 0xa2ee
 @..api_idx_005a_UJPS.l32:
     mov ax, 0x43                     ; 0xa2f1

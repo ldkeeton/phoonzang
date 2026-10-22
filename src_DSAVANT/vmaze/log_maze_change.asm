@@ -21,7 +21,7 @@ log_maze_change:
 @..log_maze_change.l1:
     mov ax, 0                        ; 0x6a0b
     push ax                          ; 0x6a0e
-    call ds_app_HKIJ                 ; 0x6a0f
+    call play_sound_effect           ; 0x6a0f
     pop cx                           ; 0x6a12
     jmp short @..log_maze_change.l1  ; 0x6a13
 @..log_maze_change.l2:

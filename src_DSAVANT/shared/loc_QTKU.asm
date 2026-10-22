@@ -11,7 +11,7 @@ loc_QTKU:
     sub ah, ah
     add ax, strict word 8
     push ax
-    call ds_app_HKIJ
+    call play_sound_effect
     pop cx
 @..loc_QTKU.l1:
     mov ax, 0x248

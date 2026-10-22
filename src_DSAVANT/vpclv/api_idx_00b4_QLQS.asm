@@ -90,14 +90,14 @@ api_idx_00b4_QLQS:
     push ax                          ; 0x4d9b
     mov ax, 0x1396                   ; 0x4d9c
     push ax                          ; 0x4d9f
-    call ds_app_mem_TIMR             ; 0x4da0
+    call load_message_string         ; 0x4da0
     add sp, byte 4                   ; 0x4da3
     lea ax, word [bp - 0x00b4]       ; 0x4da6
     push ax                          ; 0x4daa
     mov ax, word [bp - 0x0002]       ; 0x4dab
     add ax, 0x13ba                   ; 0x4dae
     push ax                          ; 0x4db1
-    call ds_app_mem_TIMR             ; 0x4db2
+    call load_message_string         ; 0x4db2
     add sp, byte 4                   ; 0x4db5
     mov ax, 0x24                     ; 0x4db8
     push ax                          ; 0x4dbb

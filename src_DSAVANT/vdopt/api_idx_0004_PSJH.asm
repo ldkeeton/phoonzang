@@ -21,7 +21,7 @@ api_idx_0004_PSJH:
 @..api_idx_0004_PSJH.l1:
     mov ax, 0                        ; 0x03b7
     push ax                          ; 0x03ba
-    call ds_app_HKIJ                 ; 0x03bb
+    call play_sound_effect           ; 0x03bb
     pop cx                           ; 0x03be
     jmp short @..api_idx_0004_PSJH.l1 ; 0x03bf
 @..api_idx_0004_PSJH.l2:

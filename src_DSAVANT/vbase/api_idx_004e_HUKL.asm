@@ -24,13 +24,13 @@ api_idx_004e_HUKL:
     push ax                          ; 0x38be
     mov ax, 0x58c                    ; 0x38bf
     push ax                          ; 0x38c2
-    call ds_app_mem_TIMR             ; 0x38c3
+    call load_message_string         ; 0x38c3
     add sp, byte 4                   ; 0x38c6
     lea ax, word [bp - 0x004e]       ; 0x38c9
     push ax                          ; 0x38cc
     mov ax, 0x58e                    ; 0x38cd
     push ax                          ; 0x38d0
-    call ds_app_mem_TIMR             ; 0x38d1
+    call load_message_string         ; 0x38d1
     add sp, byte 4                   ; 0x38d4
     mov word [bp - 0x0012], 1        ; 0x38d7
     cmp word [bp + 0x4], byte 1      ; 0x38dc

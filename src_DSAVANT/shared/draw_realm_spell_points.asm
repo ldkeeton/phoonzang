@@ -1,9 +1,9 @@
 ; auto-generated
-api_idx_000c_JQMN:
+draw_realm_spell_points:
     mov ax, 0xfff4
     call aztec_csav
     mov word [bp - 0x0002], 0
-@..api_idx_000c_JQMN.l1:
+@..draw_realm_spell_points.l1:
     lea ax, word [bp - 0x000c]
     push ax
     mov ax, 0x248
@@ -59,7 +59,7 @@ api_idx_000c_JQMN:
     inc word [bp - 0x0002]
     mov ax, word [bp - 0x0002]
     cmp ax, strict word 6
-    jge short @..api_idx_000c_JQMN.l2
-    jmp near @..api_idx_000c_JQMN.l1
-@..api_idx_000c_JQMN.l2:
+    jge short @..draw_realm_spell_points.l2
+    jmp near @..draw_realm_spell_points.l1
+@..draw_realm_spell_points.l2:
     ret

@@ -100,7 +100,7 @@ api_idx_0074_SGUS:
     push ax                          ; 0x79e1
     mov ax, 0x808                    ; 0x79e2
     push ax                          ; 0x79e5
-    call ds_app_mem_TIMR             ; 0x79e6
+    call load_message_string         ; 0x79e6
     add sp, byte 4                   ; 0x79e9
     lea ax, word [bp - 0x0074]       ; 0x79ec
     push ax                          ; 0x79ef
@@ -153,7 +153,7 @@ api_idx_0074_SGUS:
     pop cx                           ; 0x7a5b
     mov ax, 0x10                     ; 0x7a5c
     push ax                          ; 0x7a5f
-    call ds_app_HKIJ                 ; 0x7a60
+    call play_sound_effect           ; 0x7a60
     pop cx                           ; 0x7a63
     mov ax, 0x10                     ; 0x7a64
     push ax                          ; 0x7a67
@@ -179,7 +179,7 @@ api_idx_0074_SGUS:
     jne short @..api_idx_0074_SGUS.l9 ; 0x7a9d
 @..api_idx_0074_SGUS.l8:
     push ax                          ; 0x7a9f
-    call ds_app_HKIJ                 ; 0x7aa0
+    call play_sound_effect           ; 0x7aa0
     pop cx                           ; 0x7aa3
     jmp short @..api_idx_0074_SGUS.l10 ; 0x7aa4
 @..api_idx_0074_SGUS.l9:
@@ -188,7 +188,7 @@ api_idx_0074_SGUS:
     pop cx                           ; 0x7aac
     mov ax, 0x10                     ; 0x7aad
     push ax                          ; 0x7ab0
-    call ds_app_HKIJ                 ; 0x7ab1
+    call play_sound_effect           ; 0x7ab1
     pop cx                           ; 0x7ab4
     mov ax, 0x10                     ; 0x7ab5
     push ax                          ; 0x7ab8

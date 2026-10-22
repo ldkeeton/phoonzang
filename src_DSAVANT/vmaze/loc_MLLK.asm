@@ -23,7 +23,7 @@ loc_MLLK:
     lea ax, word [bp - 0x0105]       ; 0x6f51
     push ax                          ; 0x6f55
     push word [bp + 0x4]             ; 0x6f56
-    call ds_app_mem_TIMR             ; 0x6f59
+    call load_message_string         ; 0x6f59
     add sp, byte 4                   ; 0x6f5c
     cmp word [bss_5216], byte 0      ; 0x6f5f
     jne short @..loc_MLLK.l3         ; 0x6f64

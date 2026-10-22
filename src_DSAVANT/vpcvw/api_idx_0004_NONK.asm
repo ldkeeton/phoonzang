@@ -8,7 +8,7 @@ api_idx_0004_NONK:
     mov ax, 6                        ; 0x298e
     imul word [bp - 0x0002]          ; 0x2991
     mov bx, ax                       ; 0x2994
-    mov al, byte [bx + 0x620]        ; 0x2996
+    mov al, byte [bx + spell_table]  ; 0x2996
     sub ah, ah                       ; 0x299a
     cmp ax, word [bp + 0x6]          ; 0x299c
     jne short @..api_idx_0004_NONK.l2 ; 0x299f
@@ -28,7 +28,7 @@ api_idx_0004_NONK:
     mov ax, word [bp - 0x0002]       ; 0x29c2
     add ax, 0xfa0                    ; 0x29c5
     push ax                          ; 0x29c8
-    call ds_app_mem_TIMR             ; 0x29c9
+    call load_message_string         ; 0x29c9
     add sp, byte 4                   ; 0x29cc
     mov ax, word [bp - 0x0002]       ; 0x29cf
     mov cx, word [bp - 0x0004]       ; 0x29d2

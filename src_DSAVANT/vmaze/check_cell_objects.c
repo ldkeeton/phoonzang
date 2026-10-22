@@ -63,7 +63,7 @@ int announce;
 	}
 	if (shown) {
 		show_message(0x7fd);
-		ds_app_HKIJ(0);
+		play_sound_effect(0);
 		wait_ticks_or_key(message_delay / 2);	/* half the usual delay */
 	}
 	gfx_show_area(0, 0x92, 0x13f, 0x98);

@@ -76,20 +76,20 @@ api_idx_007c_MOJH:
     sub ah, ah                       ; 0x0625
     add ax, 0x8c                     ; 0x0627
     push ax                          ; 0x062a
-    call ds_app_mem_TIMR             ; 0x062b
+    call load_message_string         ; 0x062b
     add sp, byte 4                   ; 0x062e
     mov ax, 0                        ; 0x0631
     push ax                          ; 0x0634
     mov al, byte [bp - 0x0058]       ; 0x0635
     sub ah, ah                       ; 0x0638
     push ax                          ; 0x063a
-    call ds_loc_TJTV                 ; 0x063b
+    call draw_font_glyph             ; 0x063b
     add sp, byte 4                   ; 0x063e
     mov ax, 0                        ; 0x0641
     push ax                          ; 0x0644
     mov ax, 0x2d                     ; 0x0645
     push ax                          ; 0x0648
-    call ds_loc_TJTV                 ; 0x0649
+    call draw_font_glyph             ; 0x0649
     add sp, byte 4                   ; 0x064c
     lea ax, word [bp - 0x0058]       ; 0x064f
     push ax                          ; 0x0652
@@ -100,7 +100,7 @@ api_idx_007c_MOJH:
     sub ah, ah                       ; 0x065f
     add ax, strict word 0x64         ; 0x0661
     push ax                          ; 0x0664
-    call ds_app_mem_TIMR             ; 0x0665
+    call load_message_string         ; 0x0665
     add sp, byte 4                   ; 0x0668
     mov ax, 0                        ; 0x066b
     push ax                          ; 0x066e
@@ -129,7 +129,7 @@ api_idx_007c_MOJH:
     sub ah, ah                       ; 0x06a5
     add ax, strict word 0x78         ; 0x06a7
     push ax                          ; 0x06aa
-    call ds_app_mem_TIMR             ; 0x06ab
+    call load_message_string         ; 0x06ab
     add sp, byte 4                   ; 0x06ae
     mov ax, 0                        ; 0x06b1
     push ax                          ; 0x06b4
@@ -147,7 +147,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x06d0
     mov ax, 0xc8                     ; 0x06d1
     push ax                          ; 0x06d4
-    call ds_app_mem_TIMR             ; 0x06d5
+    call load_message_string         ; 0x06d5
     add sp, byte 4                   ; 0x06d8
     mov ax, 0                        ; 0x06db
     push ax                          ; 0x06de
@@ -162,7 +162,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248                    ; 0x06f1
     imul word [bp + 0x4]             ; 0x06f4
     mov bx, ax                       ; 0x06f7
-    push word [bx + 0x5c18]          ; 0x06f9
+    push word [bx + pc_spell_power_cap] ; 0x06f9
     call ds_app_GUML                 ; 0x06fd
     add sp, byte 6                   ; 0x0700
     mov ax, 0x248                    ; 0x0703
@@ -271,7 +271,7 @@ api_idx_007c_MOJH:
     mov ax, word [bp - 0x0002]       ; 0x07f7
     add ax, 0xcc                     ; 0x07fa
     push ax                          ; 0x07fd
-    call ds_app_mem_TIMR             ; 0x07fe
+    call load_message_string         ; 0x07fe
     add sp, byte 4                   ; 0x0801
     mov ax, 0                        ; 0x0804
     push ax                          ; 0x0807
@@ -306,7 +306,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x084e
     mov ax, 0xc9                     ; 0x084f
     push ax                          ; 0x0852
-    call ds_app_mem_TIMR             ; 0x0853
+    call load_message_string         ; 0x0853
     add sp, byte 4                   ; 0x0856
     mov ax, 6                        ; 0x0859
     push ax                          ; 0x085c
@@ -337,7 +337,7 @@ api_idx_007c_MOJH:
     add ax, cx                       ; 0x0896
     add ax, 0x320                    ; 0x0898
     push ax                          ; 0x089b
-    call ds_app_mem_TIMR             ; 0x089c
+    call load_message_string         ; 0x089c
     add sp, byte 4                   ; 0x089f
     mov ax, 6                        ; 0x08a2
     push ax                          ; 0x08a5
@@ -368,7 +368,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x08de
     mov ax, 0xca                     ; 0x08df
     push ax                          ; 0x08e2
-    call ds_app_mem_TIMR             ; 0x08e3
+    call load_message_string         ; 0x08e3
     add sp, byte 4                   ; 0x08e6
     mov ax, 0xc                      ; 0x08e9
     push ax                          ; 0x08ec
@@ -386,7 +386,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0908
     mov ax, 0x20                     ; 0x0909
     push ax                          ; 0x090c
-    call ds_loc_TJTV                 ; 0x090d
+    call draw_font_glyph             ; 0x090d
     add sp, byte 4                   ; 0x0910
     mov ax, 0                        ; 0x0913
     push ax                          ; 0x0916
@@ -403,7 +403,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0934
     mov ax, 0xcb                     ; 0x0935
     push ax                          ; 0x0938
-    call ds_app_mem_TIMR             ; 0x0939
+    call load_message_string         ; 0x0939
     add sp, byte 4                   ; 0x093c
     mov ax, 0x12                     ; 0x093f
     push ax                          ; 0x0942
@@ -421,7 +421,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x095e
     mov ax, 0x20                     ; 0x095f
     push ax                          ; 0x0962
-    call ds_loc_TJTV                 ; 0x0963
+    call draw_font_glyph             ; 0x0963
     add sp, byte 4                   ; 0x0966
     mov ax, 0                        ; 0x0969
     push ax                          ; 0x096c
@@ -444,7 +444,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0998
     mov ax, 0xd4                     ; 0x0999
     push ax                          ; 0x099c
-    call ds_app_mem_TIMR             ; 0x099d
+    call load_message_string         ; 0x099d
     add sp, byte 4                   ; 0x09a0
     mov ax, 0x5d                     ; 0x09a3
     push ax                          ; 0x09a6
@@ -462,7 +462,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x09c2
     mov ax, 0x20                     ; 0x09c3
     push ax                          ; 0x09c6
-    call ds_loc_TJTV                 ; 0x09c7
+    call draw_font_glyph             ; 0x09c7
     add sp, byte 4                   ; 0x09ca
     mov ax, 0                        ; 0x09cd
     push ax                          ; 0x09d0
@@ -488,7 +488,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0a02
     mov ax, 0x2f                     ; 0x0a03
     push ax                          ; 0x0a06
-    call ds_loc_TJTV                 ; 0x0a07
+    call draw_font_glyph             ; 0x0a07
     add sp, byte 4                   ; 0x0a0a
     lea ax, word [bp - 0x0058]       ; 0x0a0d
     push ax                          ; 0x0a10
@@ -514,7 +514,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0a42
     mov ax, 0xd5                     ; 0x0a43
     push ax                          ; 0x0a46
-    call ds_app_mem_TIMR             ; 0x0a47
+    call load_message_string         ; 0x0a47
     add sp, byte 4                   ; 0x0a4a
     mov ax, 0x63                     ; 0x0a4d
     push ax                          ; 0x0a50
@@ -532,7 +532,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0a6c
     mov ax, 0x20                     ; 0x0a6d
     push ax                          ; 0x0a70
-    call ds_loc_TJTV                 ; 0x0a71
+    call draw_font_glyph             ; 0x0a71
     add sp, byte 4                   ; 0x0a74
     mov ax, 0                        ; 0x0a77
     push ax                          ; 0x0a7a
@@ -587,7 +587,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0af1
     mov ax, 0x28                     ; 0x0af2
     push ax                          ; 0x0af5
-    call ds_loc_TJTV                 ; 0x0af6
+    call draw_font_glyph             ; 0x0af6
     add sp, byte 4                   ; 0x0af9
     lea ax, word [bp - 0x0058]       ; 0x0afc
     push ax                          ; 0x0aff
@@ -607,7 +607,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0b23
     mov ax, 0x29                     ; 0x0b24
     push ax                          ; 0x0b27
-    call ds_loc_TJTV                 ; 0x0b28
+    call draw_font_glyph             ; 0x0b28
     add sp, byte 4                   ; 0x0b2b
     mov ax, 0                        ; 0x0b2e
     push ax                          ; 0x0b31
@@ -619,7 +619,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0b3f
     mov ax, 0xd6                     ; 0x0b40
     push ax                          ; 0x0b43
-    call ds_app_mem_TIMR             ; 0x0b44
+    call load_message_string         ; 0x0b44
     add sp, byte 4                   ; 0x0b47
     mov ax, 0x5d                     ; 0x0b4a
     push ax                          ; 0x0b4d
@@ -637,7 +637,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0b69
     mov ax, 0x20                     ; 0x0b6a
     push ax                          ; 0x0b6d
-    call ds_loc_TJTV                 ; 0x0b6e
+    call draw_font_glyph             ; 0x0b6e
     add sp, byte 4                   ; 0x0b71
     lea ax, word [bp - 0x0058]       ; 0x0b74
     push ax                          ; 0x0b77
@@ -682,7 +682,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0bd9
     mov ax, 0xd7                     ; 0x0bda
     push ax                          ; 0x0bdd
-    call ds_app_mem_TIMR             ; 0x0bde
+    call load_message_string         ; 0x0bde
     add sp, byte 4                   ; 0x0be1
     mov ax, 0x63                     ; 0x0be4
     push ax                          ; 0x0be7
@@ -700,7 +700,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0c03
     mov ax, 0x20                     ; 0x0c04
     push ax                          ; 0x0c07
-    call ds_loc_TJTV                 ; 0x0c08
+    call draw_font_glyph             ; 0x0c08
     add sp, byte 4                   ; 0x0c0b
     lea ax, word [bp - 0x0058]       ; 0x0c0e
     push ax                          ; 0x0c11
@@ -724,7 +724,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x0c3c
     mov ax, 0x2f                     ; 0x0c3d
     push ax                          ; 0x0c40
-    call ds_loc_TJTV                 ; 0x0c41
+    call draw_font_glyph             ; 0x0c41
     add sp, byte 4                   ; 0x0c44
     lea ax, word [bp - 0x0058]       ; 0x0c47
     push ax                          ; 0x0c4a
@@ -796,7 +796,7 @@ api_idx_007c_MOJH:
     mov al, byte [bp - 0x0006]       ; 0x0cec
     sub ah, ah                       ; 0x0cef
     push ax                          ; 0x0cf1
-    call ds_loc_TJTV                 ; 0x0cf2
+    call draw_font_glyph             ; 0x0cf2
     add sp, byte 4                   ; 0x0cf5
     inc word [bp - 0x0004]           ; 0x0cf8
 @..api_idx_007c_MOJH.l10:
@@ -856,7 +856,7 @@ api_idx_007c_MOJH:
     mov al, byte [bx + 0x92c]        ; 0x0d93
     sub ah, ah                       ; 0x0d97
     push ax                          ; 0x0d99
-    call ds_loc_TJTV                 ; 0x0d9a
+    call draw_font_glyph             ; 0x0d9a
     add sp, byte 4                   ; 0x0d9d
     mov ax, word [bp - 0x0008]       ; 0x0da0
     shl ax, 1                        ; 0x0da3

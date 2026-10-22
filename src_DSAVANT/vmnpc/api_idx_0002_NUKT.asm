@@ -10,7 +10,7 @@ api_idx_0002_NUKT:
     push ax                          ; 0x9bdf
     mov ax, 0x790                    ; 0x9be0
     push ax                          ; 0x9be3
-    call ds_app_mem_TIMR             ; 0x9be4
+    call load_message_string         ; 0x9be4
     add sp, byte 4                   ; 0x9be7
     jmp near @..api_idx_0002_NUKT.l4 ; 0x9bea
 @..api_idx_0002_NUKT.l1:
@@ -49,14 +49,14 @@ api_idx_0002_NUKT:
     add ax, cx                       ; 0x9c3c
     add ax, 0x76c                    ; 0x9c3e
     push ax                          ; 0x9c41
-    call ds_app_mem_TIMR             ; 0x9c42
+    call load_message_string         ; 0x9c42
     add sp, byte 4                   ; 0x9c45
     mov ax, bss_9d10                 ; 0x9c48
     push ax                          ; 0x9c4b
     mov ax, word [bp + 0x4]          ; 0x9c4c
     add ax, 0x79e                    ; 0x9c4f
     push ax                          ; 0x9c52
-    call ds_app_mem_TIMR             ; 0x9c53
+    call load_message_string         ; 0x9c53
     add sp, byte 4                   ; 0x9c56
     mov ax, 0x24                     ; 0x9c59
     push ax                          ; 0x9c5c

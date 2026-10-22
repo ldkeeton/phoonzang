@@ -12,7 +12,7 @@ api_idx_000a_GVNM:
     call api_idx_0044_NJNI           ; 0x295c
     add sp, byte 8                   ; 0x295f
     mov word [bp - 0x0004], ax       ; 0x2962
-    mov ax, word [bss_904e]          ; 0x2965
+    mov ax, word [spell_dialog_result] ; 0x2965
     mov word [bp - 0x0002], ax       ; 0x2968
     cmp word [bp - 0x0004], byte 1   ; 0x296b
     jne short @..api_idx_000a_GVNM.l1 ; 0x296f

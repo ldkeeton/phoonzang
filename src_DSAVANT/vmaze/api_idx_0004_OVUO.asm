@@ -244,7 +244,7 @@ api_idx_0004_OVUO:
 @..api_idx_0004_OVUO.l15:
     mov ax, 0                        ; 0x37f7
     push ax                          ; 0x37fa
-    call ds_app_HKIJ                 ; 0x37fb
+    call play_sound_effect           ; 0x37fb
     pop cx                           ; 0x37fe
     jmp short @..api_idx_0004_OVUO.l15 ; 0x37ff
 @..api_idx_0004_OVUO.l16:

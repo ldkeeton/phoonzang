@@ -5,7 +5,7 @@ api_idx_0004_KQNK:
     call flush_keyboard              ; 0x05ec
     mov ax, word [bp + 0x4]          ; 0x05ef
     cwd                              ; 0x05f2
-    les bx, word [dseg_0002]         ; 0x05f3
+    les bx, word [tick_counter_ptr]  ; 0x05f3
     mov cx, word [es:bx]             ; 0x05f7
     mov bx, word [es:bx + 0x2]       ; 0x05fa
     add ax, cx                       ; 0x05fe
@@ -13,7 +13,7 @@ api_idx_0004_KQNK:
     mov word [bp - 0x0002], dx       ; 0x0602
     mov word [bp - 0x0004], ax       ; 0x0605
 @..api_idx_0004_KQNK.l1:
-    les bx, word [dseg_0002]         ; 0x0608
+    les bx, word [tick_counter_ptr]  ; 0x0608
     mov ax, word [es:bx]             ; 0x060c
     mov dx, word [es:bx + 0x2]       ; 0x060f
     cmp dx, word [bp - 0x0002]       ; 0x0613

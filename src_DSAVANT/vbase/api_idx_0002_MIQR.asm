@@ -42,11 +42,11 @@ api_idx_0002_MIQR:
     mov word [bss_a5b0], 0           ; 0x8dee
     mov word [bss_a4a4], 7           ; 0x8df4
     mov word [bss_a5ae], 5           ; 0x8dfa
-    les bx, word [dseg_0002]         ; 0x8e00
+    les bx, word [tick_counter_ptr]  ; 0x8e00
     mov ax, word [es:bx]             ; 0x8e04
     mov dx, word [es:bx + 0x2]       ; 0x8e07
     mov word [bss_908c], dx          ; 0x8e0b
-    mov word [bss_908a], ax          ; 0x8e0f
+    mov word [party_redraw_last_tick], ax ; 0x8e0f
     call api_idx_000a_THHN           ; 0x8e12
     mov ax, 0                        ; 0x8e15
     push ax                          ; 0x8e18

@@ -23,7 +23,7 @@ api_idx_007a_NHII:
     mov word [bss_9114], 1           ; 0x4f41
     mov ax, 1                        ; 0x4f47
     push ax                          ; 0x4f4a
-    call ds_app_HKIJ                 ; 0x4f4b
+    call play_sound_effect           ; 0x4f4b
     pop cx                           ; 0x4f4e
     mov bx, word [bp + 0x4]          ; 0x4f4f
     mov al, byte [bx + 0x34]         ; 0x4f52
@@ -89,7 +89,7 @@ api_idx_007a_NHII:
     mov ax, word [bp - 0x0008]       ; 0x4fe1
     add ax, 0x1450                   ; 0x4fe4
     push ax                          ; 0x4fe7
-    call ds_app_mem_TIMR             ; 0x4fe8
+    call load_message_string         ; 0x4fe8
     add sp, byte 4                   ; 0x4feb
     mov ax, 0x1a                     ; 0x4fee
     push ax                          ; 0x4ff1
@@ -132,7 +132,7 @@ jumptable_51bc_case_1:
     mov word [bss_9114], 1           ; 0x5041
     mov ax, 1                        ; 0x5047
     push ax                          ; 0x504a
-    call ds_app_HKIJ                 ; 0x504b
+    call play_sound_effect           ; 0x504b
     pop cx                           ; 0x504e
     mov bx, word [bp + 0x4]          ; 0x504f
     mov al, byte [bx + 0x34]         ; 0x5052
@@ -192,7 +192,7 @@ jumptable_51bc_case_0:
     push ax                          ; 0x50cd
     mov ax, 0x146d                   ; 0x50ce
     push ax                          ; 0x50d1
-    call ds_app_mem_TIMR             ; 0x50d2
+    call load_message_string         ; 0x50d2
     add sp, byte 4                   ; 0x50d5
     mov ax, 1                        ; 0x50d8
     push ax                          ; 0x50db
@@ -211,7 +211,7 @@ jumptable_51bc_case_0:
     mov word [bss_9114], 1           ; 0x50f8
     mov ax, 1                        ; 0x50fe
     push ax                          ; 0x5101
-    call ds_app_HKIJ                 ; 0x5102
+    call play_sound_effect           ; 0x5102
     pop cx                           ; 0x5105
     mov bx, word [bp + 0x4]          ; 0x5106
     mov al, byte [bx + 0x34]         ; 0x5109
@@ -273,7 +273,7 @@ jumptable_51bc_case_2:
     mov word [bss_9114], 1           ; 0x518e
     mov ax, 1                        ; 0x5194
     push ax                          ; 0x5197
-    call ds_app_HKIJ                 ; 0x5198
+    call play_sound_effect           ; 0x5198
     pop cx                           ; 0x519b
     mov bx, word [bp + 0x4]          ; 0x519c
     mov al, byte [bx + 0x34]         ; 0x519f

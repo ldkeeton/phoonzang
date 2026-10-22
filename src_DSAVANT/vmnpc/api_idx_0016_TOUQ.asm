@@ -89,7 +89,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa62d
     mov ax, 3                        ; 0xa62e
     push ax                          ; 0xa631
-    call ds_loc_TJTV                 ; 0xa632
+    call draw_font_glyph             ; 0xa632
     add sp, byte 4                   ; 0xa635
 @..api_idx_0016_TOUQ.l3:
     mov ax, word [bp + 0x8]          ; 0xa638
@@ -210,7 +210,7 @@ api_idx_0016_TOUQ:
 @..api_idx_0016_TOUQ.l10:
     mov ax, 0                        ; 0xa756
     push ax                          ; 0xa759
-    call ds_app_HKIJ                 ; 0xa75a
+    call play_sound_effect           ; 0xa75a
     pop cx                           ; 0xa75d
 @..api_idx_0016_TOUQ.l11:
     jmp near @..api_idx_0016_TOUQ.l20 ; 0xa75e
@@ -222,7 +222,7 @@ api_idx_0016_TOUQ:
     je short @..api_idx_0016_TOUQ.l13 ; 0xa76d
     mov ax, 0                        ; 0xa76f
     push ax                          ; 0xa772
-    call ds_app_HKIJ                 ; 0xa773
+    call play_sound_effect           ; 0xa773
     pop cx                           ; 0xa776
     jmp short @..api_idx_0016_TOUQ.l16 ; 0xa777
 @..api_idx_0016_TOUQ.l13:
@@ -288,7 +288,7 @@ api_idx_0016_TOUQ:
     mov al, byte [bp - 0x0002]       ; 0xa809
     sub ah, ah                       ; 0xa80c
     push ax                          ; 0xa80e
-    call ds_loc_TJTV                 ; 0xa80f
+    call draw_font_glyph             ; 0xa80f
     add sp, byte 4                   ; 0xa812
     mov ax, word [bp + 0x8]          ; 0xa815
     add ax, strict word 5            ; 0xa818

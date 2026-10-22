@@ -69,7 +69,7 @@ api_idx_007a_GTOG:
     sub ah, ah                       ; 0x4458
     add ax, strict word 0x64         ; 0x445a
     push ax                          ; 0x445d
-    call ds_app_mem_TIMR             ; 0x445e
+    call load_message_string         ; 0x445e
     add sp, byte 4                   ; 0x4461
     mov ax, 0                        ; 0x4464
     push ax                          ; 0x4467

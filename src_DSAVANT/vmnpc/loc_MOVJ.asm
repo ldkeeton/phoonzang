@@ -154,7 +154,7 @@ loc_MOVJ:
     mov ax, word [bp + 0x8]          ; 0x1e98
     add ax, word [bp - 0x0004]       ; 0x1e9b
     push ax                          ; 0x1e9e
-    call ds_app_mem_TIMR             ; 0x1e9f
+    call load_message_string         ; 0x1e9f
     add sp, byte 4                   ; 0x1ea2
     mov ax, word [bp - 0x0002]       ; 0x1ea5
     cwd                              ; 0x1ea8

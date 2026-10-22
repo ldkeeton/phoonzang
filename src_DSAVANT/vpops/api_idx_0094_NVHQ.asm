@@ -87,7 +87,7 @@ api_idx_0094_NVHQ:
     sub ah, ah                       ; 0x349f
     add ax, 0x1770                   ; 0x34a1
     push ax                          ; 0x34a4
-    call ds_app_mem_TIMR             ; 0x34a5
+    call load_message_string         ; 0x34a5
     add sp, byte 4                   ; 0x34a8
 @..api_idx_0094_NVHQ.l5:
     mov al, byte [bp - 0x0011]       ; 0x34ab
@@ -190,7 +190,7 @@ api_idx_0094_NVHQ:
     call api_idx_0038_PVVG           ; 0x358e
     add sp, byte 0x0c                ; 0x3591
     mov word [bp - 0x004c], ax       ; 0x3594
-    mov ax, word [bss_904e]          ; 0x3597
+    mov ax, word [spell_dialog_result] ; 0x3597
     mov word [bp - 0x0002], ax       ; 0x359a
     cmp word [bp - 0x004c], byte 1   ; 0x359d
     jne short @..api_idx_0094_NVHQ.l12 ; 0x35a1

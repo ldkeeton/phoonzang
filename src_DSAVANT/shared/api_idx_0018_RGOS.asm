@@ -27,7 +27,7 @@ api_idx_0018_RGOS:
     lea ax, word [bp - 0x0014]
     push ax
     push word [bp + 0x4]
-    call ds_app_mem_TIMR
+    call load_message_string
     add sp, byte 4
     mov ax, 0
     push ax

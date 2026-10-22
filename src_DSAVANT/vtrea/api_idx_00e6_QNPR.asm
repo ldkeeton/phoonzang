@@ -101,14 +101,14 @@ api_idx_00e6_QNPR:
     mov ax, bss_9128                 ; 0x74a7
     push ax                          ; 0x74aa
     push word [bp - 0x000a]          ; 0x74ab
-    call ds_app_mem_TIMR             ; 0x74ae
+    call load_message_string         ; 0x74ae
     add sp, byte 4                   ; 0x74b1
     inc word [bp - 0x000a]           ; 0x74b4
 @..api_idx_00e6_QNPR.l2:
     lea ax, word [bp - 0x00c2]       ; 0x74b7
     push ax                          ; 0x74bb
     push word [bp - 0x000a]          ; 0x74bc
-    call ds_app_mem_TIMR             ; 0x74bf
+    call load_message_string         ; 0x74bf
     add sp, byte 4                   ; 0x74c2
     inc word [bp - 0x000a]           ; 0x74c5
     mov word [bp - 0x0002], 0        ; 0x74c8
@@ -141,7 +141,7 @@ api_idx_00e6_QNPR:
     lea ax, word [bp - 0x0072]       ; 0x750f
     push ax                          ; 0x7512
     push word [bp - 0x000a]          ; 0x7513
-    call ds_app_mem_TIMR             ; 0x7516
+    call load_message_string         ; 0x7516
     add sp, byte 4                   ; 0x7519
     lea ax, word [bp - 0x0072]       ; 0x751c
     push ax                          ; 0x751f
@@ -188,7 +188,7 @@ api_idx_00e6_QNPR:
     mov ax, word [bp - 0x000a]       ; 0x757c
     add ax, word [bp - 0x0006]       ; 0x757f
     push ax                          ; 0x7582
-    call ds_app_mem_TIMR             ; 0x7583
+    call load_message_string         ; 0x7583
     add sp, byte 4                   ; 0x7586
     mov ax, 0x1a                     ; 0x7589
     push ax                          ; 0x758c
@@ -269,7 +269,7 @@ api_idx_00e6_QNPR:
     lea ax, word [bp - 0x0072]       ; 0x763c
     push ax                          ; 0x763f
     push word [bp - 0x000a]          ; 0x7640
-    call ds_app_mem_TIMR             ; 0x7643
+    call load_message_string         ; 0x7643
     add sp, byte 4                   ; 0x7646
     lea ax, word [bp - 0x0072]       ; 0x7649
     push ax                          ; 0x764c
@@ -353,7 +353,7 @@ api_idx_00e6_QNPR:
     mov ax, word [bp - 0x000a]       ; 0x76fd
     add ax, word [bp - 0x0006]       ; 0x7700
     push ax                          ; 0x7703
-    call ds_app_mem_TIMR             ; 0x7704
+    call load_message_string         ; 0x7704
     add sp, byte 4                   ; 0x7707
     mov ax, 0x1a                     ; 0x770a
     push ax                          ; 0x770d
@@ -407,7 +407,7 @@ api_idx_00e6_QNPR:
     je short @..api_idx_00e6_QNPR.l14 ; 0x7780
     mov ax, 4                        ; 0x7782
     push ax                          ; 0x7785
-    call ds_app_HKIJ                 ; 0x7786
+    call play_sound_effect           ; 0x7786
     pop cx                           ; 0x7789
 @..api_idx_00e6_QNPR.l14:
     mov ax, word [bp - 0x0006]       ; 0x778a

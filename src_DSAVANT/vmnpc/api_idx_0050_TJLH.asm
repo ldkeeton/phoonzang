@@ -5,7 +5,7 @@ api_idx_0050_TJLH:
     lea ax, word [bp - 0x0050]       ; 0x13ba
     push ax                          ; 0x13bd
     push word [bp + 0x4]             ; 0x13be
-    call ds_app_mem_TIMR             ; 0x13c1
+    call load_message_string         ; 0x13c1
     add sp, byte 4                   ; 0x13c4
     mov ax, 0x5e                     ; 0x13c7
     push ax                          ; 0x13ca

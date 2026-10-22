@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_JKST: ; Aztec csav frame=0x0000
+draw_scrollbar: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x121f
     call aztec_csav                  ; 0x1222
     mov ax, 6                        ; 0x1225
@@ -61,7 +61,7 @@ ds_app_JKST: ; Aztec csav frame=0x0000
     push ax                          ; 0x12ad
     mov ax, 1                        ; 0x12ae
     push ax                          ; 0x12b1
-    call ds_loc_TJTV                 ; 0x12b2
+    call draw_font_glyph             ; 0x12b2
     add sp, byte 4                   ; 0x12b5
     mov ax, 6                        ; 0x12b8
     imul word [bp + 0xa]             ; 0x12bb
@@ -78,7 +78,7 @@ ds_app_JKST: ; Aztec csav frame=0x0000
     push ax                          ; 0x12d4
     mov ax, 2                        ; 0x12d5
     push ax                          ; 0x12d8
-    call ds_loc_TJTV                 ; 0x12d9
+    call draw_font_glyph             ; 0x12d9
     add sp, byte 4                   ; 0x12dc
     mov ax, 0                        ; 0x12df
     push ax                          ; 0x12e2

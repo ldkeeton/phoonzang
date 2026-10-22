@@ -129,7 +129,7 @@ api_idx_0008_KNNO:
     push ax                          ; 0x2ae4
     mov ax, 0x60b                    ; 0x2ae5
     push ax                          ; 0x2ae8
-    call ds_app_mem_TIMR             ; 0x2ae9
+    call load_message_string         ; 0x2ae9
     add sp, byte 4                   ; 0x2aec
     mov ax, 0x5e                     ; 0x2aef
     push ax                          ; 0x2af2
@@ -162,7 +162,7 @@ api_idx_0008_KNNO:
     push ax                          ; 0x2b30
     mov ax, 0x5e5                    ; 0x2b31
     push ax                          ; 0x2b34
-    call ds_app_mem_TIMR             ; 0x2b35
+    call load_message_string         ; 0x2b35
     add sp, byte 4                   ; 0x2b38
     mov ax, bss_95a8                 ; 0x2b3b
     push ax                          ; 0x2b3e
@@ -195,7 +195,7 @@ api_idx_0008_KNNO:
     call api_idx_0004_KNGG           ; 0x2b82
     mov ax, 0                        ; 0x2b85
     push ax                          ; 0x2b88
-    call ds_app_HKIJ                 ; 0x2b89
+    call play_sound_effect           ; 0x2b89
     pop cx                           ; 0x2b8c
 @..api_idx_0008_KNNO.l12:
     ret                              ; 0x2b8d

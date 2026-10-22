@@ -80,18 +80,18 @@ loc_RPUI.api_idx1 equ api_idx_0006_HRUL
 
 %include "vpops/api_idx_000a_UMQI.asm"     ; 0x1a0d
 
-%include "shared/loc_PTRP.asm"              ; 0x1a4b
+%include "shared/draw_power_digit.asm"      ; 0x1a4b
 
 dseg_90bb equ __zdseg_end + (__zdseg_90bb - __zdata_start)
 %include "vpops/loc_VGIT.asm"              ; 0x1ad7
 
-%include "shared/api_idx_000c_JQMN.asm"     ; 0x1b78
+%include "shared/draw_realm_spell_points.asm" ; 0x1b78
 
 ; bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
-loc_SRQQ.bss1     equ bss_90d6
-loc_SRQQ.api_idx1 equ api_idx_000a_UMQI
-loc_SRQQ.api_idx2 equ api_idx_000c_JQMN
-%include "shared/loc_SRQQ.asm"              ; 0x1c11
+periodic_party_redraw.bss1     equ bss_90d6
+periodic_party_redraw.api_idx1 equ api_idx_000a_UMQI
+periodic_party_redraw.api_idx2 equ draw_realm_spell_points
+%include "shared/periodic_party_redraw.asm" ; 0x1c11
 
 dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)
 ; bss_90d6  equ __zdseg_end + (__zobss_90d6 - __zdata_start)

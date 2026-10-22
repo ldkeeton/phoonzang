@@ -16,7 +16,7 @@ loc_HIQU:
     push ax                          ; 0x4268
     mov ax, 5                        ; 0x4269
     push ax                          ; 0x426c
-    call ds_loc_TJTV                 ; 0x426d
+    call draw_font_glyph             ; 0x426d
     add sp, byte 4                   ; 0x4270
     push word [bp + 0x6]             ; 0x4273
     mov ax, word [bp + 0x4]          ; 0x4276
@@ -28,6 +28,6 @@ loc_HIQU:
     push ax                          ; 0x4286
     mov ax, 6                        ; 0x4287
     push ax                          ; 0x428a
-    call ds_loc_TJTV                 ; 0x428b
+    call draw_font_glyph             ; 0x428b
     add sp, byte 4                   ; 0x428e
     ret                              ; 0x4291

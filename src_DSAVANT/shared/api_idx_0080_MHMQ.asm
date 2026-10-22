@@ -46,7 +46,7 @@ api_idx_0080_MHMQ:
     push ax
     mov ax, 0xd8
     push ax
-    call ds_app_mem_TIMR
+    call load_message_string
     add sp, byte 4
     lea ax, word [bp - 0x0068]
     push ax
@@ -193,7 +193,7 @@ api_idx_0080_MHMQ:
     push ax
     mov ax, 0x2b
     push ax
-    call ds_loc_TJTV
+    call draw_font_glyph
     add sp, byte 4
 @..api_idx_0080_MHMQ.l6:
     lea ax, word [bp - 0x0068]

@@ -5,7 +5,7 @@ api_idx_0050_QVOG:
     lea ax, word [bp - 0x0050]       ; 0x74e8
     push ax                          ; 0x74eb
     push word [bp + 0x6]             ; 0x74ec
-    call ds_app_mem_TIMR             ; 0x74ef
+    call load_message_string         ; 0x74ef
     add sp, byte 4                   ; 0x74f2
     mov ax, 0x5e                     ; 0x74f5
     push ax                          ; 0x74f8
@@ -25,7 +25,7 @@ api_idx_0050_QVOG:
     je short @..api_idx_0050_QVOG.l1 ; 0x7519
     mov ax, 0                        ; 0x751b
     push ax                          ; 0x751e
-    call ds_app_HKIJ                 ; 0x751f
+    call play_sound_effect           ; 0x751f
     pop cx                           ; 0x7522
 @..api_idx_0050_QVOG.l1:
     push word [message_delay]        ; 0x7523

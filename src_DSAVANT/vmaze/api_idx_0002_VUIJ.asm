@@ -23,7 +23,7 @@ api_idx_0002_VUIJ:
 @..api_idx_0002_VUIJ.l3:
     mov word [bp - 0x0002], ax       ; 0x0137
     push ax                          ; 0x013a
-    call ds_app_HKIJ                 ; 0x013b
+    call play_sound_effect           ; 0x013b
     pop cx                           ; 0x013e
     ret                              ; 0x013f
 loc_OGHL:

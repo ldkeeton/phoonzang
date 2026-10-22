@@ -40,7 +40,7 @@ api_idx_0002_PMUV:
     mov al, byte [bx - 0x6c8e]       ; 0x2574
     sub ah, ah                       ; 0x2578
     push ax                          ; 0x257a
-    call ds_loc_TJTV                 ; 0x257b
+    call draw_font_glyph             ; 0x257b
     add sp, byte 4                   ; 0x257e
     jmp short @..api_idx_0002_PMUV.l3 ; 0x2581
 @..api_idx_0002_PMUV.l2:
@@ -53,7 +53,7 @@ api_idx_0002_PMUV:
     mov al, byte [bx - 0x6dae]       ; 0x2592
     sub ah, ah                       ; 0x2596
     push ax                          ; 0x2598
-    call ds_loc_TJTV                 ; 0x2599
+    call draw_font_glyph             ; 0x2599
     add sp, byte 4                   ; 0x259c
 @..api_idx_0002_PMUV.l3:
     inc word [bp - 0x0002]           ; 0x259f

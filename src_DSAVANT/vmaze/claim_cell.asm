@@ -37,7 +37,7 @@ claim_cell:
     pop cx                           ; 0x8a6c
     mov ax, 4                        ; 0x8a6d
     push ax                          ; 0x8a70
-    call ds_app_HKIJ                 ; 0x8a71
+    call play_sound_effect           ; 0x8a71
     pop cx                           ; 0x8a74
     mov ax, 2                        ; 0x8a75
     push ax                          ; 0x8a78

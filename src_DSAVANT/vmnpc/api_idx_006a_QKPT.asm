@@ -37,7 +37,7 @@ api_idx_006a_QKPT:
     push ax                          ; 0xac00
     mov ax, 0x5e9                    ; 0xac01
     push ax                          ; 0xac04
-    call ds_app_mem_TIMR             ; 0xac05
+    call load_message_string         ; 0xac05
     add sp, byte 4                   ; 0xac08
     mov ax, 0x5e                     ; 0xac0b
     push ax                          ; 0xac0e

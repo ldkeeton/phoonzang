@@ -12,7 +12,7 @@ api_idx_0044_NJNI:
     mov ax, word [bp - 0x0002]       ; 0x1cbd
     cmp ax, strict word 6            ; 0x1cc0
     jl short @..api_idx_0044_NJNI.l1 ; 0x1cc3
-    mov word [bss_904e], 0xffff      ; 0x1cc5
+    mov word [spell_dialog_result], 0xffff ; 0x1cc5
     mov word [bp - 0x0004], 0x32     ; 0x1ccb
     mov word [bp - 0x0006], 0x73     ; 0x1cd0
     mov word [bp - 0x0008], 0x10d    ; 0x1cd5
@@ -51,7 +51,7 @@ api_idx_0044_NJNI:
     add sp, byte 8                   ; 0x1d2c
     call api_idx_000a_UMQI           ; 0x1d2f
     push word [bp + 0x4]             ; 0x1d32
-    call api_idx_000c_JQMN           ; 0x1d35
+    call draw_realm_spell_points     ; 0x1d35
     pop cx                           ; 0x1d38
     mov ax, 1                        ; 0x1d39
     push ax                          ; 0x1d3c
@@ -64,7 +64,7 @@ api_idx_0044_NJNI:
     lea ax, word [bp - 0x0038]       ; 0x1d4b
     push ax                          ; 0x1d4e
     push word [bp + 0x6]             ; 0x1d4f
-    call ds_app_mem_TIMR             ; 0x1d52
+    call load_message_string         ; 0x1d52
     add sp, byte 4                   ; 0x1d55
     lea ax, word [bp - 0x0038]       ; 0x1d58
     push ax                          ; 0x1d5b
@@ -86,7 +86,7 @@ api_idx_0044_NJNI:
     mov ax, word [bp + 0x6]          ; 0x1d7f
     inc ax                           ; 0x1d82
     push ax                          ; 0x1d83
-    call ds_app_mem_TIMR             ; 0x1d84
+    call load_message_string         ; 0x1d84
     add sp, byte 4                   ; 0x1d87
     lea ax, word [bp - 0x0038]       ; 0x1d8a
     push ax                          ; 0x1d8d
@@ -121,7 +121,7 @@ api_idx_0044_NJNI:
     push ax                          ; 0x1dd0
     mov ax, 0xa                      ; 0x1dd1
     push ax                          ; 0x1dd4
-    call ds_loc_TJTV                 ; 0x1dd5
+    call draw_font_glyph             ; 0x1dd5
     add sp, byte 4                   ; 0x1dd8
     mov word [bp - 0x003c], 0xffff   ; 0x1ddb
     mov word [bp - 0x003e], 0        ; 0x1de0
@@ -142,7 +142,7 @@ api_idx_0044_NJNI:
     mov ax, word [bp - 0x000c]       ; 0x1e06
     add ax, strict word 0xc          ; 0x1e09
     push ax                          ; 0x1e0c
-    call loc_PTRP                    ; 0x1e0d
+    call draw_power_digit            ; 0x1e0d
     add sp, byte 8                   ; 0x1e10
     inc word [bp - 0x0002]           ; 0x1e13
     mov ax, word [bp - 0x0002]       ; 0x1e16
@@ -187,7 +187,7 @@ api_idx_0044_NJNI:
     mov ax, word [bp - 0x000c]       ; 0x1e7d
     add ax, strict word 6            ; 0x1e80
     push ax                          ; 0x1e83
-    call ds_app_HTKI                 ; 0x1e84
+    call draw_text_list              ; 0x1e84
     add sp, byte 0x0e                ; 0x1e87
     mov word [bp - 0x0012], 0        ; 0x1e8a
     push word [bp - 0x0012]          ; 0x1e8f
@@ -201,7 +201,7 @@ api_idx_0044_NJNI:
     mov ax, word [bp - 0x000c]       ; 0x1ea1
     add ax, strict word 0x6a         ; 0x1ea4
     push ax                          ; 0x1ea7
-    call ds_app_JKST                 ; 0x1ea8
+    call draw_scrollbar              ; 0x1ea8
     add sp, byte 0x0a                ; 0x1eab
     mov ax, 0                        ; 0x1eae
     push ax                          ; 0x1eb1
@@ -494,16 +494,16 @@ api_idx_0044_NJNI:
     call gfx_show_area               ; 0x2135
     add sp, byte 8                   ; 0x2138
     mov word [bss_90d6], 5           ; 0x213b
-    les bx, word [dseg_0002]         ; 0x2141
+    les bx, word [tick_counter_ptr]  ; 0x2141
     mov ax, word [es:bx]             ; 0x2145
     mov dx, word [es:bx + 0x2]       ; 0x2148
     mov word [bss_908c], dx          ; 0x214c
-    mov word [bss_908a], ax          ; 0x2150
+    mov word [party_redraw_last_tick], ax ; 0x2150
     mov word [bp - 0x001c], 1        ; 0x2153
 @..api_idx_0044_NJNI.l8:
     push word [bp - 0x0042]          ; 0x2158
     push word [bp + 0x4]             ; 0x215b
-    call loc_SRQQ                    ; 0x215e
+    call periodic_party_redraw       ; 0x215e
     add sp, byte 4                   ; 0x2161
     mov ax, 0x59fe                   ; 0x2164
     push ax                          ; 0x2167
@@ -511,7 +511,7 @@ api_idx_0044_NJNI:
     pop cx                           ; 0x216b
     dec ax                           ; 0x216c
     mov word [bp - 0x001a], ax       ; 0x216d
-    cmp word [bss_59fc], byte 0      ; 0x2170
+    cmp word [space_key_hit], byte 0 ; 0x2170
     je short @..api_idx_0044_NJNI.l12 ; 0x2175
     mov ax, word [bp - 0x0022]       ; 0x2177
     cmp ax, word [bp - 0x0018]       ; 0x217a
@@ -618,7 +618,7 @@ jumptable_28e9_case_0:
     mov ax, word [bp - 0x000c]       ; 0x2265
     add ax, strict word 6            ; 0x2268
     push ax                          ; 0x226b
-    call ds_app_HTKI                 ; 0x226c
+    call draw_text_list              ; 0x226c
     add sp, byte 0x0e                ; 0x226f
     push word [bp - 0x0012]          ; 0x2272
     mov ax, 7                        ; 0x2275
@@ -631,7 +631,7 @@ jumptable_28e9_case_0:
     mov ax, word [bp - 0x000c]       ; 0x2284
     add ax, strict word 0x6a         ; 0x2287
     push ax                          ; 0x228a
-    call ds_app_JKST                 ; 0x228b
+    call draw_scrollbar              ; 0x228b
     add sp, byte 0x0a                ; 0x228e
     mov ax, 0                        ; 0x2291
     push ax                          ; 0x2294
@@ -690,7 +690,7 @@ jumptable_28e9_case_1:
     mov ax, word [bp - 0x000c]       ; 0x230f
     add ax, strict word 0x6a         ; 0x2312
     push ax                          ; 0x2315
-    call ds_app_QOOL                 ; 0x2316
+    call flash_area                  ; 0x2316
     add sp, byte 0x0a                ; 0x2319
     cmp word [bp - 0x0018], byte 0   ; 0x231c
     jle short @..api_idx_0044_NJNI.l17 ; 0x2320
@@ -712,7 +712,7 @@ jumptable_28e9_case_1:
     mov ax, word [bp - 0x000c]       ; 0x2340
     add ax, strict word 0x6a         ; 0x2343
     push ax                          ; 0x2346
-    call ds_app_QOOL                 ; 0x2347
+    call flash_area                  ; 0x2347
     add sp, byte 0x0a                ; 0x234a
     mov ax, word [bp - 0x0044]       ; 0x234d
     add ax, strict word 0xfff9       ; 0x2350
@@ -754,7 +754,7 @@ jumptable_28e9_case_1:
     mov ax, word [bp - 0x000c]       ; 0x23a5
     add ax, strict word 6            ; 0x23a8
     push ax                          ; 0x23ab
-    call ds_app_HTKI                 ; 0x23ac
+    call draw_text_list              ; 0x23ac
     add sp, byte 0x0e                ; 0x23af
     push word [bp - 0x0012]          ; 0x23b2
     mov ax, 7                        ; 0x23b5
@@ -767,7 +767,7 @@ jumptable_28e9_case_1:
     mov ax, word [bp - 0x000c]       ; 0x23c4
     add ax, strict word 0x6a         ; 0x23c7
     push ax                          ; 0x23ca
-    call ds_app_JKST                 ; 0x23cb
+    call draw_scrollbar              ; 0x23cb
     add sp, byte 0x0a                ; 0x23ce
     mov ax, 0                        ; 0x23d1
     push ax                          ; 0x23d4
@@ -870,14 +870,14 @@ jumptable_28e9_case_3:
     push ax                          ; 0x24b1
     call flash_button                ; 0x24b2
     add sp, byte 0x0a                ; 0x24b5
-    mov word [bss_9050], 0           ; 0x24b8
+    mov word [spell_dialog_button], 0 ; 0x24b8
     mov word [bp - 0x001c], 0        ; 0x24be
 @..api_idx_0044_NJNI.l25:
     cmp word [bp - 0x001c], byte 0   ; 0x24c3
     je short @..api_idx_0044_NJNI.l26 ; 0x24c7
     mov ax, 0                        ; 0x24c9
     push ax                          ; 0x24cc
-    call ds_app_HKIJ                 ; 0x24cd
+    call play_sound_effect           ; 0x24cd
     pop cx                           ; 0x24d0
 @..api_idx_0044_NJNI.l26:
     jmp near @..api_idx_0044_NJNI.l50 ; 0x24d1
@@ -909,7 +909,7 @@ jumptable_28e9_case_4:
     push ax                          ; 0x250a
     call flash_button                ; 0x250b
     add sp, byte 0x0a                ; 0x250e
-    mov word [bss_9050], 1           ; 0x2511
+    mov word [spell_dialog_button], 1 ; 0x2511
     mov word [bp - 0x001c], 0        ; 0x2517
     jmp near @..api_idx_0044_NJNI.l50 ; 0x251c
 @..api_idx_0044_NJNI.l27:
@@ -930,7 +930,7 @@ jumptable_28e9_case_4:
     mov ax, word [bp - 0x000c]       ; 0x253f
     add ax, strict word 0xc          ; 0x2542
     push ax                          ; 0x2545
-    call loc_PTRP                    ; 0x2546
+    call draw_power_digit            ; 0x2546
     add sp, byte 8                   ; 0x2549
     mov ax, word [bp - 0x001a]       ; 0x254c
     add ax, strict word 0xfffb       ; 0x254f
@@ -944,7 +944,7 @@ jumptable_28e9_case_4:
     mov ax, word [bp - 0x000c]       ; 0x2563
     add ax, strict word 0xc          ; 0x2566
     push ax                          ; 0x2569
-    call loc_PTRP                    ; 0x256a
+    call draw_power_digit            ; 0x256a
     add sp, byte 8                   ; 0x256d
     cmp word [bp - 0x003c], byte 0   ; 0x2570
     jge short @..api_idx_0044_NJNI.l30 ; 0x2574
@@ -957,7 +957,7 @@ jumptable_28e9_case_4:
     mov ax, 0x248                    ; 0x2581
     imul word [bp + 0x4]             ; 0x2584
     mov bx, ax                       ; 0x2587
-    mov ax, word [bx + 0x5c18]       ; 0x2589
+    mov ax, word [bx + pc_spell_power_cap] ; 0x2589
     push ax                          ; 0x258d
     mov ax, 6                        ; 0x258e
     imul word [bp - 0x003c]          ; 0x2591
@@ -1107,7 +1107,7 @@ jumptable_28e9_case_4:
     mov ax, word [bp - 0x000c]       ; 0x26eb
     add ax, strict word 6            ; 0x26ee
     push ax                          ; 0x26f1
-    call ds_app_HTKI                 ; 0x26f2
+    call draw_text_list              ; 0x26f2
     add sp, byte 0x0e                ; 0x26f5
     mov word [bp - 0x0012], 0        ; 0x26f8
     push word [bp - 0x0012]          ; 0x26fd
@@ -1121,7 +1121,7 @@ jumptable_28e9_case_4:
     mov ax, word [bp - 0x000c]       ; 0x270f
     add ax, strict word 0x6a         ; 0x2712
     push ax                          ; 0x2715
-    call ds_app_JKST                 ; 0x2716
+    call draw_scrollbar              ; 0x2716
     add sp, byte 0x0a                ; 0x2719
     mov ax, 0                        ; 0x271c
     push ax                          ; 0x271f
@@ -1217,7 +1217,7 @@ jumptable_28e9_case_4:
     mov ax, word [bp - 0x000c]       ; 0x27f6
     add ax, strict word 6            ; 0x27f9
     push ax                          ; 0x27fc
-    call ds_app_HTKI                 ; 0x27fd
+    call draw_text_list              ; 0x27fd
     add sp, byte 0x0e                ; 0x2800
     mov ax, 6                        ; 0x2803
     push ax                          ; 0x2806
@@ -1226,7 +1226,7 @@ jumptable_28e9_case_4:
     mov ax, 0x248                    ; 0x280b
     imul word [bp + 0x4]             ; 0x280e
     mov bx, ax                       ; 0x2811
-    mov ax, word [bx + 0x5c18]       ; 0x2813
+    mov ax, word [bx + pc_spell_power_cap] ; 0x2813
     push ax                          ; 0x2817
     mov ax, 6                        ; 0x2818
     imul word [bp - 0x003c]          ; 0x281b
@@ -1360,6 +1360,6 @@ jumptable_28e9:
     sub al, al                       ; 0x2938
     add ax, word [bp - 0x003c]       ; 0x293a
     add ax, 0x100                    ; 0x293d
-    mov word [bss_904e], ax          ; 0x2940
-    mov ax, word [bss_9050]          ; 0x2943
+    mov word [spell_dialog_result], ax ; 0x2940
+    mov ax, word [spell_dialog_button] ; 0x2943
     ret                              ; 0x2946

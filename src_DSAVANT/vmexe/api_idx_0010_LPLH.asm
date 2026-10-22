@@ -187,7 +187,7 @@ api_idx_0010_LPLH:
     push ax                          ; 0x2814
     mov ax, 0xea7                    ; 0x2815
     push ax                          ; 0x2818
-    call ds_app_mem_TIMR             ; 0x2819
+    call load_message_string         ; 0x2819
     add sp, byte 4                   ; 0x281c
     mov ax, 0x24                     ; 0x281f
     push ax                          ; 0x2822
@@ -234,7 +234,7 @@ api_idx_0010_LPLH:
     sub ah, ah                       ; 0x2888
     add ax, strict word 8            ; 0x288a
     push ax                          ; 0x288d
-    call ds_app_HKIJ                 ; 0x288e
+    call play_sound_effect           ; 0x288e
     pop cx                           ; 0x2891
     mov ax, 1                        ; 0x2892
     push ax                          ; 0x2895

@@ -16,6 +16,6 @@ loc_PHIP:
     push ax                          ; 0x1636
     mov ax, 0x20                     ; 0x1637
     push ax                          ; 0x163a
-    call ds_loc_TJTV                 ; 0x163b
+    call draw_font_glyph             ; 0x163b
     add sp, byte 4                   ; 0x163e
     ret                              ; 0x1641

@@ -1,5 +1,5 @@
 ; auto-generated
-loc_HOII:
+draw_spell_cost:
     mov ax, 0                        ; 0x8b53
     call aztec_csav                  ; 0x8b56
     mov ax, word [bp + 0x6]          ; 0x8b59
@@ -37,10 +37,10 @@ loc_HOII:
     call gfx_set_text_pos            ; 0x8ba5
     add sp, byte 4                   ; 0x8ba8
     cmp word [bp + 0xa], byte 0      ; 0x8bab
-    jle short @..loc_HOII.l1         ; 0x8baf
+    jle short @..draw_spell_cost.l1  ; 0x8baf
     mov ax, word [bp + 0xa]          ; 0x8bb1
     cmp ax, word [bp + 0xc]          ; 0x8bb4
-    jg short @..loc_HOII.l1          ; 0x8bb7
+    jg short @..draw_spell_cost.l1   ; 0x8bb7
     mov ax, 0                        ; 0x8bb9
     push ax                          ; 0x8bbc
     mov ax, 1                        ; 0x8bbd
@@ -54,8 +54,8 @@ loc_HOII:
     push word [bp + 0xa]             ; 0x8bcf
     call ds_app_GUML                 ; 0x8bd2
     add sp, byte 6                   ; 0x8bd5
-    jmp short @..loc_HOII.l2         ; 0x8bd8
-@..loc_HOII.l1:
+    jmp short @..draw_spell_cost.l2  ; 0x8bd8
+@..draw_spell_cost.l1:
     mov ax, 0                        ; 0x8bda
     push ax                          ; 0x8bdd
     push ax                          ; 0x8bde
@@ -67,5 +67,5 @@ loc_HOII:
     push ax                          ; 0x8bec
     call draw_string                 ; 0x8bed
     add sp, byte 4                   ; 0x8bf0
-@..loc_HOII.l2:
+@..draw_spell_cost.l2:
     ret                              ; 0x8bf3

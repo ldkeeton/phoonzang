@@ -372,6 +372,52 @@ class SwitchTableTest(unittest.TestCase):
         self.assertEqual(linked.failed[0][0], self.START + 6)
 
 
+class OverlaySwitchTableTest(unittest.TestCase):
+    """An overlay's switch table words are CS offsets from its ``o_corg``."""
+
+    START = 0x4400
+    BASE = 14
+    CORG = 0x5055
+
+    def test_table_words_follow_the_load_origin(self):
+        code = b'\xeb\x00\x90\xc3\x00\x00\x00\x00\xc3'
+        fixups = [Fixup(1, 'BREL', 'LCLSYM', None, '.0'),
+                  Fixup(4, 'WABS', 'LCLSYM', None, '.1'),
+                  Fixup(6, 'WABS', 'LCLSYM', None, '.1')]
+        func = Func('_f', 'f', 0, code, fixups, {'.0': 8, '.1': 2})
+        case = self.START + 2
+        word = (case - self.BASE + self.CORG).to_bytes(2, 'little')
+        original = bytearray(self.START + len(code))
+        for site in (4, 6):
+            original[self.START + site:self.START + site + 2] = word
+        label_map = {self.START: 'aztec_f', case: 'jt_case_0'}
+        index = relink.SymbolIndex(label_map, None, None, {},
+                                   image_base=self.BASE,
+                                   code_origin=self.CORG)
+        linked = relink.link('aztec_f', self.START, func, index,
+                             bytes(original))
+        self.assertEqual(bytes(linked.code[4:8]), word * 2)
+        self.assertEqual(linked.refs[4].text,
+                         'jt_case_0 - IMAGE_BASE + __zres_end')
+        self.assertEqual(linked.refs[4].equ,
+                         {'jt_case_0': case, '__zres_end': self.CORG})
+        # A shifted table is claimed only when relocations vouch for it.
+        table = {'type': 'jump_table', 'start': self.START + 4,
+                 'end': self.START + 8, 'label': 'jt', 'jmp_addr': -1,
+                 'entry_size': 2, 'entries': ['jt_case_0', 'jt_case_0'],
+                 'adjust': self.CORG, 'literal': False, 'keys': 0,
+                 'note': ''}
+        records = _c_bytes_to_records(
+            bytes(linked.code), self.START, label_map, {}, None, None,
+            linked=linked, image_base=self.BASE, data_spans=[(4, 8)],
+            jump_tables=[table])
+        self.assertEqual(
+            [r['type'] for r in records if r['type'] == 'jump_table'],
+            ['jump_table'])
+        self.assertFalse(linked.failed)
+        self.assertFalse(linked.unmatched)
+
+
 class RelabelTest(unittest.TestCase):
     def test_rewrite_skips_comments_and_literals(self):
         text = ('/* open is documented */\n'

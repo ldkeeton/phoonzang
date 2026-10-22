@@ -5,7 +5,7 @@ api_idx_0004_TTGQ:
     call flush_keyboard
     mov ax, word [bp + 0x4]
     cwd
-    les bx, word [dseg_0002]
+    les bx, word [tick_counter_ptr]
     mov cx, word [es:bx]
     mov bx, word [es:bx + 0x2]
     add ax, cx
@@ -13,7 +13,7 @@ api_idx_0004_TTGQ:
     mov word [bp - 0x0002], dx
     mov word [bp - 0x0004], ax
 @..api_idx_0004_TTGQ.l1:
-    les bx, word [dseg_0002]
+    les bx, word [tick_counter_ptr]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     cmp dx, word [bp - 0x0002]

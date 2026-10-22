@@ -36,7 +36,7 @@ api_idx_0072_IPMP:
     jne short @..api_idx_0072_IPMP.l2 ; 0x4a9b
     mov ax, 0                        ; 0x4a9d
     push ax                          ; 0x4aa0
-    call ds_app_HKIJ                 ; 0x4aa1
+    call play_sound_effect           ; 0x4aa1
     pop cx                           ; 0x4aa4
     mov ax, 0xffff                   ; 0x4aa5
     ret                              ; 0x4aa8
@@ -63,7 +63,7 @@ api_idx_0072_IPMP:
     jne short @..api_idx_0072_IPMP.l4 ; 0x4ad5
     mov ax, 0                        ; 0x4ad7
     push ax                          ; 0x4ada
-    call ds_app_HKIJ                 ; 0x4adb
+    call play_sound_effect           ; 0x4adb
     pop cx                           ; 0x4ade
     mov ax, 0xffff                   ; 0x4adf
     ret                              ; 0x4ae2

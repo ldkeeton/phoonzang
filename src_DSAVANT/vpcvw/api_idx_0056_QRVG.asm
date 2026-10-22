@@ -16,7 +16,7 @@ api_idx_0056_QRVG:
     lea ax, word [bp - 0x0056]       ; 0x3ca5
     push ax                          ; 0x3ca8
     push word [bp + 0x4]             ; 0x3ca9
-    call ds_app_mem_TIMR             ; 0x3cac
+    call load_message_string         ; 0x3cac
     add sp, byte 4                   ; 0x3caf
     cmp word [bss_5216], byte 0      ; 0x3cb2
     jne short @..api_idx_0056_QRVG.l2 ; 0x3cb7

@@ -34,7 +34,7 @@ api_idx_0054_TIQK:
     push ax                          ; 0x42ad
     mov ax, 0x1472                   ; 0x42ae
     push ax                          ; 0x42b1
-    call ds_app_mem_TIMR             ; 0x42b2
+    call load_message_string         ; 0x42b2
     add sp, byte 4                   ; 0x42b5
     mov ax, 1                        ; 0x42b8
     push ax                          ; 0x42bb
@@ -65,7 +65,7 @@ api_idx_0054_TIQK:
     push ax                          ; 0x42f9
     mov ax, 0x1473                   ; 0x42fa
     push ax                          ; 0x42fd
-    call ds_app_mem_TIMR             ; 0x42fe
+    call load_message_string         ; 0x42fe
     add sp, byte 4                   ; 0x4301
     mov ax, 1                        ; 0x4304
     push ax                          ; 0x4307

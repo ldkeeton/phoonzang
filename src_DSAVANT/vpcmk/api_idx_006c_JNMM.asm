@@ -52,7 +52,7 @@ api_idx_006c_JNMM:
     push ax                          ; 0x470d
     mov ax, 5                        ; 0x470e
     push ax                          ; 0x4711
-    call ds_loc_TJTV                 ; 0x4712
+    call draw_font_glyph             ; 0x4712
     add sp, byte 4                   ; 0x4715
     mov ax, 6                        ; 0x4718
     imul word [bp - 0x0006]          ; 0x471b
@@ -66,7 +66,7 @@ api_idx_006c_JNMM:
     push ax                          ; 0x472f
     mov ax, 6                        ; 0x4730
     push ax                          ; 0x4733
-    call ds_loc_TJTV                 ; 0x4734
+    call draw_font_glyph             ; 0x4734
     add sp, byte 4                   ; 0x4737
     mov word [bp - 0x0002], 0        ; 0x473a
 @..api_idx_006c_JNMM.l2:
@@ -216,7 +216,7 @@ api_idx_006c_JNMM:
 @..api_idx_006c_JNMM.l10:
     mov ax, 0                        ; 0x487f
     push ax                          ; 0x4882
-    call ds_app_HKIJ                 ; 0x4883
+    call play_sound_effect           ; 0x4883
     pop cx                           ; 0x4886
 @..api_idx_006c_JNMM.l11:
     jmp short @..api_idx_006c_JNMM.l14 ; 0x4887
@@ -242,7 +242,7 @@ api_idx_006c_JNMM:
 @..api_idx_006c_JNMM.l13:
     mov ax, 0                        ; 0x48be
     push ax                          ; 0x48c1
-    call ds_app_HKIJ                 ; 0x48c2
+    call play_sound_effect           ; 0x48c2
     pop cx                           ; 0x48c5
 @..api_idx_006c_JNMM.l14:
     cmp word [bp - 0x0004], byte 8   ; 0x48c6

@@ -10,7 +10,7 @@ api_idx_0062_SRKH:
     mov ax, word [bp + 0x4]          ; 0x4ba9
     add ax, word [bp - 0x0002]       ; 0x4bac
     push ax                          ; 0x4baf
-    call ds_app_mem_TIMR             ; 0x4bb0
+    call load_message_string         ; 0x4bb0
     add sp, byte 4                   ; 0x4bb3
     cmp word [bss_5216], byte 0      ; 0x4bb6
     jne short @..api_idx_0062_SRKH.l3 ; 0x4bbb
@@ -94,7 +94,7 @@ api_idx_0062_SRKH:
     mov ax, word [bp + 0x4]          ; 0x4c6f
     add ax, word [bp - 0x0002]       ; 0x4c72
     push ax                          ; 0x4c75
-    call ds_app_mem_TIMR             ; 0x4c76
+    call load_message_string         ; 0x4c76
     add sp, byte 4                   ; 0x4c79
     cmp word [bss_5216], byte 0      ; 0x4c7c
     jne short @..api_idx_0062_SRKH.l5 ; 0x4c81

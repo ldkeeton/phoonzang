@@ -21,7 +21,7 @@ api_idx_0004_UJRL:
 @..api_idx_0004_UJRL.l1:
     mov ax, 0
     push ax
-    call ds_app_HKIJ
+    call play_sound_effect
     pop cx
     jmp short @..api_idx_0004_UJRL.l1
 @..api_idx_0004_UJRL.l2:

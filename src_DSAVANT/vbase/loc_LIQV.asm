@@ -11,7 +11,7 @@ loc_LIQV:
     lea ax, word [bp - 0x0105]       ; 0x6f99
     push ax                          ; 0x6f9d
     push word [bp + 0x4]             ; 0x6f9e
-    call ds_app_mem_TIMR             ; 0x6fa1
+    call load_message_string         ; 0x6fa1
     add sp, byte 4                   ; 0x6fa4
     cmp word [bss_5216], byte 0      ; 0x6fa7
     jne short @..loc_LIQV.l2         ; 0x6fac

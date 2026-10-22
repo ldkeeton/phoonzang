@@ -88,20 +88,20 @@ api_idx_0030_TGOH:
     mov bx, ax                       ; 0x9379
     pop ax                           ; 0x937b
     mov byte [bx + 0x5e2d], al       ; 0x937c
-    cmp word [bx + 0x5c18], strict word 0xfa ; 0x9380
+    cmp word [bx + pc_spell_power_cap], strict word 0xfa ; 0x9380
     jge short @..api_idx_0030_TGOH.l7 ; 0x9386
     mov al, byte [bx + 0x5e3b]       ; 0x9388
     sub ah, ah                       ; 0x938c
-    cmp ax, word [bx + 0x5c18]       ; 0x938e
+    cmp ax, word [bx + pc_spell_power_cap] ; 0x938e
     jge short @..api_idx_0030_TGOH.l6 ; 0x9392
-    mov al, byte [bx + 0x5c18]       ; 0x9394
+    mov al, byte [bx + pc_spell_power_cap] ; 0x9394
     mov byte [bx + 0x5e3b], al       ; 0x9398
 @..api_idx_0030_TGOH.l6:
     jmp short @..api_idx_0030_TGOH.l8 ; 0x939c
 @..api_idx_0030_TGOH.l7:
     mov byte [bx + 0x5e3b], 0        ; 0x939e
 @..api_idx_0030_TGOH.l8:
-    mov word [bx + 0x5c18], 1        ; 0x93a3
+    mov word [bx + pc_spell_power_cap], 1 ; 0x93a3
     mov byte [bx + 0x5e2e], 0        ; 0x93a9
     mov word [bx + 0x5c02], 0        ; 0x93ae
     mov word [bx + 0x5c00], 0        ; 0x93b4

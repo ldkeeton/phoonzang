@@ -369,7 +369,7 @@ jumptable_12fa_case_10:
     sub ah, ah                       ; 0x1270
     add ax, strict word 8            ; 0x1272
     push ax                          ; 0x1275
-    call ds_app_HKIJ                 ; 0x1276
+    call play_sound_effect           ; 0x1276
     pop cx                           ; 0x1279
 @..api_idx_0012_VNOV.l17:
     jmp near @..api_idx_0012_VNOV.l24 ; 0x127a

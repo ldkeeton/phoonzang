@@ -49,7 +49,7 @@ api_idx_009a_KOSH:
     push ax                          ; 0x6fd5
     mov ax, 0x1d1                    ; 0x6fd6
     push ax                          ; 0x6fd9
-    call ds_app_mem_TIMR             ; 0x6fda
+    call load_message_string         ; 0x6fda
     add sp, byte 4                   ; 0x6fdd
     mov ax, 1                        ; 0x6fe0
     push ax                          ; 0x6fe3
@@ -106,7 +106,7 @@ api_idx_009a_KOSH:
     push ax                          ; 0x7050
     mov ax, 0x1d1                    ; 0x7051
     push ax                          ; 0x7054
-    call ds_app_mem_TIMR             ; 0x7055
+    call load_message_string         ; 0x7055
     add sp, byte 4                   ; 0x7058
     mov ax, 1                        ; 0x705b
     push ax                          ; 0x705e

@@ -168,18 +168,18 @@ api_idx_0002_OGRO.bss2 equ bss_952c
 
 %include "vpcmk/api_idx_000a_PQSU.asm"     ; 0x2dd4
 
-%include "shared/loc_PTRP.asm"              ; 0x2e12
+%include "shared/draw_power_digit.asm"      ; 0x2e12
 
 dseg_92d2 equ __zdseg_end + (__zdseg_92d2 - __zdata_start)
 %include "vpcmk/loc_HRLN.asm"              ; 0x2e9e
 
-%include "shared/api_idx_000c_JQMN.asm"     ; 0x2f3f
+%include "shared/draw_realm_spell_points.asm" ; 0x2f3f
 
 bss_976c equ __zdseg_end + (__zobss_976c - __zdata_start)
-loc_SRQQ.bss1     equ bss_976c
-loc_SRQQ.api_idx1 equ api_idx_000a_PQSU
-loc_SRQQ.api_idx2 equ api_idx_000c_JQMN
-%include "shared/loc_SRQQ.asm"              ; 0x2fd8
+periodic_party_redraw.bss1     equ bss_976c
+periodic_party_redraw.api_idx1 equ api_idx_000a_PQSU
+periodic_party_redraw.api_idx2 equ draw_realm_spell_points
+%include "shared/periodic_party_redraw.asm" ; 0x2fd8
 
 dseg_92d6 equ __zdseg_end + (__zdseg_92d6 - __zdata_start)
 ; bss_976c  equ __zdseg_end + (__zobss_976c - __zdata_start)

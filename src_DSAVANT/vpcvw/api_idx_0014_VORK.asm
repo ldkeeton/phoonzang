@@ -231,7 +231,7 @@ api_idx_0014_VORK:
     mov ax, word [bp - 0x0002]       ; 0x6393
     add ax, 0x12c                    ; 0x6396
     push ax                          ; 0x6399
-    call ds_app_mem_TIMR             ; 0x639a
+    call load_message_string         ; 0x639a
     add sp, byte 4                   ; 0x639d
     inc word [bp - 0x0002]           ; 0x63a0
     mov ax, word [bp - 0x0002]       ; 0x63a3
@@ -248,11 +248,11 @@ api_idx_0014_VORK:
     cmp ax, strict word 6            ; 0x63c3
     jl short @..api_idx_0014_VORK.l7 ; 0x63c6
     mov word [bss_9562], 7           ; 0x63c8
-    les bx, word [dseg_0002]         ; 0x63ce
+    les bx, word [tick_counter_ptr]  ; 0x63ce
     mov ax, word [es:bx]             ; 0x63d2
     mov dx, word [es:bx + 0x2]       ; 0x63d5
     mov word [bss_908c], dx          ; 0x63d9
-    mov word [bss_908a], ax          ; 0x63dd
+    mov word [party_redraw_last_tick], ax ; 0x63dd
     cmp word [bss_905e], byte 4      ; 0x63e0
     je short @..api_idx_0014_VORK.l8 ; 0x63e5
     cmp word [bss_905e], byte 0x0d   ; 0x63e7

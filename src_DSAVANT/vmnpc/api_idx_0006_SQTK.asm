@@ -16,10 +16,10 @@ api_idx_0006_SQTK:
     add sp, byte 8                   ; 0x0f6f
     jmp near @..api_idx_0006_SQTK.l16 ; 0x0f72
 @..api_idx_0006_SQTK.l2:
-    les bx, word [dseg_0002]         ; 0x0f75
+    les bx, word [tick_counter_ptr]  ; 0x0f75
     mov ax, word [es:bx]             ; 0x0f79
     mov dx, word [es:bx + 0x2]       ; 0x0f7c
-    sub ax, word [bss_908a]          ; 0x0f80
+    sub ax, word [party_redraw_last_tick] ; 0x0f80
     sbb dx, word [bss_908c]          ; 0x0f84
     push ax                          ; 0x0f88
     push dx                          ; 0x0f89

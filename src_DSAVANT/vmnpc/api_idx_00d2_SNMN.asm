@@ -14,7 +14,7 @@ api_idx_00d2_SNMN:
     push ax                          ; 0x633d
     mov ax, 0x5e8                    ; 0x633e
     push ax                          ; 0x6341
-    call ds_app_mem_TIMR             ; 0x6342
+    call load_message_string         ; 0x6342
     add sp, byte 4                   ; 0x6345
     push word [bp + 0x4]             ; 0x6348
     call api_idx_004c_OGSK           ; 0x634b
@@ -79,7 +79,7 @@ jumptable_6599_case_0:
     pop ax                           ; 0x63e5
     add ax, cx                       ; 0x63e6
     push ax                          ; 0x63e8
-    mov ax, word [bx + 0x5c18]       ; 0x63e9
+    mov ax, word [bx + pc_spell_power_cap] ; 0x63e9
     mov cx, 2                        ; 0x63ed
     cwd                              ; 0x63f0
     idiv cx                          ; 0x63f1
@@ -111,7 +111,7 @@ jumptable_6599_case_2:
     mov ax, 0x248                    ; 0x6432
     imul word [bp - 0x005e]          ; 0x6435
     mov bx, ax                       ; 0x6438
-    mov ax, word [bx + 0x5c18]       ; 0x643a
+    mov ax, word [bx + pc_spell_power_cap] ; 0x643a
     add word [bp - 0x0002], ax       ; 0x643e
 @..api_idx_00d2_SNMN.l9:
     inc word [bp - 0x005e]           ; 0x6441
@@ -333,7 +333,7 @@ jumptable_6599:
     push ax                          ; 0x6644
     mov ax, 0x637                    ; 0x6645
     push ax                          ; 0x6648
-    call ds_app_mem_TIMR             ; 0x6649
+    call load_message_string         ; 0x6649
     add sp, byte 4                   ; 0x664c
     mov ax, 0x5e                     ; 0x664f
     push ax                          ; 0x6652

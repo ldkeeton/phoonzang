@@ -17,7 +17,7 @@ api_idx_0004_UUMM:
     je short @..api_idx_0004_UUMM.l2 ; 0x3998
     jmp near @..api_idx_0004_UUMM.l6 ; 0x399a
 @..api_idx_0004_UUMM.l2:
-    mov ax, word [bss_904e]          ; 0x399d
+    mov ax, word [spell_dialog_result] ; 0x399d
     mov cx, 0x100                    ; 0x39a0
     cwd                              ; 0x39a3
     idiv cx                          ; 0x39a4
@@ -48,7 +48,7 @@ api_idx_0004_UUMM:
     mov ax, 0x248                    ; 0x39e5
     imul word [bp + 0x4]             ; 0x39e8
     mov cx, ax                       ; 0x39eb
-    mov al, byte [bx + 0x620]        ; 0x39ed
+    mov al, byte [bx + spell_table]  ; 0x39ed
     sub ah, ah                       ; 0x39f1
     mov dx, ax                       ; 0x39f3
     shl ax, 1                        ; 0x39f5

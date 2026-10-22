@@ -522,9 +522,9 @@ jumptable_547c:
     jne short @..api_idx_0004_GHPT.l17 ; 0x551e
 @..api_idx_0004_GHPT.l15:
     mov ax, 0xa                      ; 0x5520
-    cmp word [bx + 0x5c18], byte 0x14 ; 0x5523
+    cmp word [bx + pc_spell_power_cap], byte 0x14 ; 0x5523
     jg short @..api_idx_0004_GHPT.l16 ; 0x5528
-    mov ax, word [bx + 0x5c18]       ; 0x552a
+    mov ax, word [bx + pc_spell_power_cap] ; 0x552a
     mov cx, 2                        ; 0x552e
     cwd                              ; 0x5531
     idiv cx                          ; 0x5532

@@ -55,7 +55,7 @@ api_idx_0004_PMIU:
     jle short @..api_idx_0004_PMIU.l1
     mov ax, 0
     push ax
-    call ds_app_HKIJ
+    call play_sound_effect
     pop cx
 @..api_idx_0004_PMIU.l1:
     push word [message_delay]

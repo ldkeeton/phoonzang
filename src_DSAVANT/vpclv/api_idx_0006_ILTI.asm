@@ -46,7 +46,7 @@ jumptable_4e49:
     mov ax, 0x248                    ; 0x4e64
     imul word [bp + 0x4]             ; 0x4e67
     mov bx, ax                       ; 0x4e6a
-    mov ax, word [bx + 0x5c18]       ; 0x4e6c
+    mov ax, word [bx + pc_spell_power_cap] ; 0x4e6c
     cmp ax, word [bp - 0x0006]       ; 0x4e70
     jl short @..api_idx_0006_ILTI.l4 ; 0x4e73
     inc word [bp - 0x0004]           ; 0x4e75

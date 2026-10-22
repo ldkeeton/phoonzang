@@ -13,7 +13,7 @@ api_idx_0002_UVON:
     shl ax, 1                        ; 0xa3ab
     add ax, word [bp + 0x4]          ; 0xa3ad
     push ax                          ; 0xa3b0
-    call ds_app_mem_TIMR             ; 0xa3b1
+    call load_message_string         ; 0xa3b1
     add sp, byte 4                   ; 0xa3b4
     mov ax, 0x14                     ; 0xa3b7
     imul word [bp - 0x0002]          ; 0xa3ba
@@ -24,7 +24,7 @@ api_idx_0002_UVON:
     add ax, word [bp + 0x4]          ; 0xa3c6
     inc ax                           ; 0xa3c9
     push ax                          ; 0xa3ca
-    call ds_app_mem_TIMR             ; 0xa3cb
+    call load_message_string         ; 0xa3cb
     add sp, byte 4                   ; 0xa3ce
     inc word [bp - 0x0002]           ; 0xa3d1
 @..api_idx_0002_UVON.l2:

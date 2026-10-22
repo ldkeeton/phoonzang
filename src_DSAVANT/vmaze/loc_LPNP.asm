@@ -7,7 +7,7 @@ loc_LPNP:
     pop cx                           ; 0x12df
     call flush_keyboard              ; 0x12e0
     push word [bp + 0x6]             ; 0x12e3
-    call ds_app_HKIJ                 ; 0x12e6
+    call play_sound_effect           ; 0x12e6
     pop cx                           ; 0x12e9
     push word [bp + 0x8]             ; 0x12ea
     call wait_ticks_or_key           ; 0x12ed

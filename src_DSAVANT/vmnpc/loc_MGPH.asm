@@ -49,13 +49,13 @@ loc_MGPH:
     push ax                          ; 0xa4c8
     mov ax, 0x1b80                   ; 0xa4c9
     push ax                          ; 0xa4cc
-    call ds_app_mem_TIMR             ; 0xa4cd
+    call load_message_string         ; 0xa4cd
     add sp, byte 4                   ; 0xa4d0
     mov ax, bss_b03c                 ; 0xa4d3
     push ax                          ; 0xa4d6
     mov ax, 0x1b81                   ; 0xa4d7
     push ax                          ; 0xa4da
-    call ds_app_mem_TIMR             ; 0xa4db
+    call load_message_string         ; 0xa4db
     add sp, byte 4                   ; 0xa4de
     mov ax, 0xa766                   ; 0xa4e1
     push ax                          ; 0xa4e4

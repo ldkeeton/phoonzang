@@ -6,7 +6,7 @@ api_idx_0100_KHVV:
     lea ax, word [bp - 0x00ff]       ; 0x974e
     push ax                          ; 0x9752
     push word [bp + 0x4]             ; 0x9753
-    call ds_app_mem_TIMR             ; 0x9756
+    call load_message_string         ; 0x9756
     add sp, byte 4                   ; 0x9759
     cmp word [bss_5216], byte 0      ; 0x975c
     jne short @..api_idx_0100_KHVV.l3 ; 0x9761

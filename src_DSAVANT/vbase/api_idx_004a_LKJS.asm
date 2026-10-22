@@ -95,7 +95,7 @@ api_idx_004a_LKJS:
     mov ax, word [bp - 0x0004]       ; 0x6b0d
     add ax, 0x3e8                    ; 0x6b10
     push ax                          ; 0x6b13
-    call ds_app_mem_TIMR             ; 0x6b14
+    call load_message_string         ; 0x6b14
     add sp, byte 4                   ; 0x6b17
     mov ax, 0x1a                     ; 0x6b1a
     push ax                          ; 0x6b1d

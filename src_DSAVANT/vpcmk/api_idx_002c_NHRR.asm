@@ -201,7 +201,7 @@ api_idx_002c_NHRR:
     mov ax, word [bp - 0x0002]       ; 0x6c17
     add ax, 0xcc                     ; 0x6c1a
     push ax                          ; 0x6c1d
-    call ds_app_mem_TIMR             ; 0x6c1e
+    call load_message_string         ; 0x6c1e
     add sp, byte 4                   ; 0x6c21
     inc word [bp - 0x0002]           ; 0x6c24
     mov ax, word [bp - 0x0002]       ; 0x6c27
@@ -211,7 +211,7 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6c32
     mov ax, 0x453                    ; 0x6c33
     push ax                          ; 0x6c36
-    call ds_app_mem_TIMR             ; 0x6c37
+    call load_message_string         ; 0x6c37
     add sp, byte 4                   ; 0x6c3a
     mov word [bp - 0x0002], 0        ; 0x6c3d
 @..api_idx_002c_NHRR.l3:
@@ -224,11 +224,11 @@ api_idx_002c_NHRR:
     cmp ax, strict word 6            ; 0x6c55
     jl short @..api_idx_002c_NHRR.l3 ; 0x6c58
     mov word [bss_976c], 7           ; 0x6c5a
-    les bx, word [dseg_0002]         ; 0x6c60
+    les bx, word [tick_counter_ptr]  ; 0x6c60
     mov ax, word [es:bx]             ; 0x6c64
     mov dx, word [es:bx + 0x2]       ; 0x6c67
     mov word [bss_908c], dx          ; 0x6c6b
-    mov word [bss_908a], ax          ; 0x6c6f
+    mov word [party_redraw_last_tick], ax ; 0x6c6f
 @..api_idx_002c_NHRR.l4:
     mov word [bss_95aa], 0x14        ; 0x6c72
     mov word [bss_95ac], 0           ; 0x6c78

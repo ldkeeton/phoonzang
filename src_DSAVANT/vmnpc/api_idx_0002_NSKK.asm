@@ -12,7 +12,7 @@ api_idx_0002_NSKK:
     mov ax, word [bp + 0x4]          ; 0xa428
     add ax, word [bp - 0x0002]       ; 0xa42b
     push ax                          ; 0xa42e
-    call ds_app_mem_TIMR             ; 0xa42f
+    call load_message_string         ; 0xa42f
     add sp, byte 4                   ; 0xa432
     inc word [bp - 0x0002]           ; 0xa435
 @..api_idx_0002_NSKK.l2:

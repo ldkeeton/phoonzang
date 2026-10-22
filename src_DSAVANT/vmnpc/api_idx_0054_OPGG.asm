@@ -71,7 +71,7 @@ api_idx_0054_OPGG:
     push ax                          ; 0x45b7
     mov ax, 0x61f                    ; 0x45b8
     push ax                          ; 0x45bb
-    call ds_app_mem_TIMR             ; 0x45bc
+    call load_message_string         ; 0x45bc
     add sp, byte 4                   ; 0x45bf
     jmp short @..api_idx_0054_OPGG.l4 ; 0x45c2
 @..api_idx_0054_OPGG.l3:
@@ -84,7 +84,7 @@ api_idx_0054_OPGG:
     sub ah, ah                       ; 0x45d4
     add ax, 0x60e                    ; 0x45d6
     push ax                          ; 0x45d9
-    call ds_app_mem_TIMR             ; 0x45da
+    call load_message_string         ; 0x45da
     add sp, byte 4                   ; 0x45dd
 @..api_idx_0054_OPGG.l4:
     mov ax, 0                        ; 0x45e0
@@ -185,7 +185,7 @@ api_idx_0054_OPGG:
     mov al, byte [bx - 0x6648]       ; 0x46c3
     sub ah, ah                       ; 0x46c7
     push ax                          ; 0x46c9
-    call ds_loc_TJTV                 ; 0x46ca
+    call draw_font_glyph             ; 0x46ca
     add sp, byte 4                   ; 0x46cd
     push word [bp - 0x0004]          ; 0x46d0
     mov ax, 0xe                      ; 0x46d3

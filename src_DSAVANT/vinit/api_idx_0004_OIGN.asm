@@ -4,7 +4,7 @@ api_idx_0004_OIGN:
     call aztec_csav                  ; 0x098b
     mov ax, word [bp + 0x4]          ; 0x098e
     cwd                              ; 0x0991
-    les bx, word [dseg_0002]         ; 0x0992
+    les bx, word [tick_counter_ptr]  ; 0x0992
     mov cx, word [es:bx]             ; 0x0996
     mov bx, word [es:bx + 0x2]       ; 0x0999
     add ax, cx                       ; 0x099d
@@ -12,7 +12,7 @@ api_idx_0004_OIGN:
     mov word [bp - 0x0002], dx       ; 0x09a1
     mov word [bp - 0x0004], ax       ; 0x09a4
 @..api_idx_0004_OIGN.l1:
-    les bx, word [dseg_0002]         ; 0x09a7
+    les bx, word [tick_counter_ptr]  ; 0x09a7
     mov ax, word [es:bx]             ; 0x09ab
     mov dx, word [es:bx + 0x2]       ; 0x09ae
     cmp dx, word [bp - 0x0002]       ; 0x09b2

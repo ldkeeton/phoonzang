@@ -50,7 +50,7 @@ api_idx_0032_VJTR:
     push ax                          ; 0x3af7
     mov ax, 5                        ; 0x3af8
     push ax                          ; 0x3afb
-    call ds_loc_TJTV                 ; 0x3afc
+    call draw_font_glyph             ; 0x3afc
     add sp, byte 4                   ; 0x3aff
     mov ax, 6                        ; 0x3b02
     imul word [bp - 0x000a]          ; 0x3b05
@@ -64,7 +64,7 @@ api_idx_0032_VJTR:
     push ax                          ; 0x3b19
     mov ax, 6                        ; 0x3b1a
     push ax                          ; 0x3b1d
-    call ds_loc_TJTV                 ; 0x3b1e
+    call draw_font_glyph             ; 0x3b1e
     add sp, byte 4                   ; 0x3b21
     mov word [bp - 0x0002], 0        ; 0x3b24
     jmp near @..api_idx_0032_VJTR.l7 ; 0x3b29
@@ -487,7 +487,7 @@ api_idx_0032_VJTR:
 @..api_idx_0032_VJTR.l33:
     mov ax, 0                        ; 0x3ed8
     push ax                          ; 0x3edb
-    call ds_app_HKIJ                 ; 0x3edc
+    call play_sound_effect           ; 0x3edc
     pop cx                           ; 0x3edf
 @..api_idx_0032_VJTR.l34:
     jmp short @..api_idx_0032_VJTR.l39 ; 0x3ee0
@@ -514,7 +514,7 @@ api_idx_0032_VJTR:
 @..api_idx_0032_VJTR.l36:
     mov ax, 0                        ; 0x3f16
     push ax                          ; 0x3f19
-    call ds_app_HKIJ                 ; 0x3f1a
+    call play_sound_effect           ; 0x3f1a
     pop cx                           ; 0x3f1d
 @..api_idx_0032_VJTR.l37:
     jmp short @..api_idx_0032_VJTR.l39 ; 0x3f1e

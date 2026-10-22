@@ -27,7 +27,7 @@ api_idx_0088_QLNT:
     mov ax, word [bp - 0x0002]       ; 0x2c56
     add ax, 0x258                    ; 0x2c59
     push ax                          ; 0x2c5c
-    call ds_app_mem_TIMR             ; 0x2c5d
+    call load_message_string         ; 0x2c5d
     add sp, byte 4                   ; 0x2c60
     inc word [bp - 0x0002]           ; 0x2c63
     mov ax, word [bp - 0x0002]       ; 0x2c66
@@ -36,7 +36,7 @@ api_idx_0088_QLNT:
     lea ax, word [bp - 0x0088]       ; 0x2c6e
     push ax                          ; 0x2c72
     push word [bp + 0x6]             ; 0x2c73
-    call ds_app_mem_TIMR             ; 0x2c76
+    call load_message_string         ; 0x2c76
     add sp, byte 4                   ; 0x2c79
     mov ax, 1                        ; 0x2c7c
     push ax                          ; 0x2c7f

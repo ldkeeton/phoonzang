@@ -1081,7 +1081,7 @@ api_idx_00c2_OUOT:
     push ax                          ; 0x5efd
     mov ax, 0x1d1                    ; 0x5efe
     push ax                          ; 0x5f01
-    call ds_app_mem_TIMR             ; 0x5f02
+    call load_message_string         ; 0x5f02
     add sp, byte 4                   ; 0x5f05
     mov ax, 1                        ; 0x5f08
     push ax                          ; 0x5f0b
@@ -1116,7 +1116,7 @@ api_idx_00c2_OUOT:
     jne short @..api_idx_00c2_OUOT.l61 ; 0x5f50
     mov ax, 0                        ; 0x5f52
     push ax                          ; 0x5f55
-    call ds_app_HKIJ                 ; 0x5f56
+    call play_sound_effect           ; 0x5f56
     pop cx                           ; 0x5f59
     jmp short @..api_idx_00c2_OUOT.l62 ; 0x5f5a
 @..api_idx_00c2_OUOT.l61:

@@ -244,7 +244,7 @@ api_idx_0004_RTNM:
 @..api_idx_0004_RTNM.l15:
     mov ax, 0                        ; 0x2286
     push ax                          ; 0x2289
-    call ds_app_HKIJ                 ; 0x228a
+    call play_sound_effect           ; 0x228a
     pop cx                           ; 0x228d
     jmp short @..api_idx_0004_RTNM.l15 ; 0x228e
 @..api_idx_0004_RTNM.l16:

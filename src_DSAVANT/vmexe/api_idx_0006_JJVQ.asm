@@ -42,7 +42,7 @@ api_idx_0006_JJVQ:
     push ax                          ; 0x9eb6
     mov ax, 0xdb9                    ; 0x9eb7
     push ax                          ; 0x9eba
-    call ds_app_mem_TIMR             ; 0x9ebb
+    call load_message_string         ; 0x9ebb
     add sp, byte 4                   ; 0x9ebe
     mov word [bp - 0x0002], 0xfffe   ; 0x9ec1
     jmp short @..api_idx_0006_JJVQ.l6 ; 0x9ec6
@@ -51,7 +51,7 @@ api_idx_0006_JJVQ:
     push ax                          ; 0x9ecb
     mov ax, 0xdba                    ; 0x9ecc
     push ax                          ; 0x9ecf
-    call ds_app_mem_TIMR             ; 0x9ed0
+    call load_message_string         ; 0x9ed0
     add sp, byte 4                   ; 0x9ed3
     mov word [bp - 0x0002], 2        ; 0x9ed6
 @..api_idx_0006_JJVQ.l6:

@@ -45,7 +45,7 @@ api_idx_0004_MKGU:
     mov al, byte [bx + 0x5]
     sub ah, ah
     push ax
-    call ds_loc_TJTV
+    call draw_font_glyph
     add sp, byte 4
     push word [bp + 0xc]
     push word [bp - 0x0004]

@@ -5,7 +5,7 @@ api_idx_0002_KQIK:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + 0x5c18]
+    mov ax, word [bx + pc_spell_power_cap]
     push ax
     mov al, byte [bx + 0x5e3b]
     sub ah, ah
@@ -16,7 +16,7 @@ api_idx_0002_KQIK:
     mov ax, cx
     jmp short @..api_idx_0002_KQIK.l2
 @..api_idx_0002_KQIK.l1:
-    mov ax, word [bx + 0x5c18]
+    mov ax, word [bx + pc_spell_power_cap]
 @..api_idx_0002_KQIK.l2:
     mov word [bp - 0x0002], ax
     push ax

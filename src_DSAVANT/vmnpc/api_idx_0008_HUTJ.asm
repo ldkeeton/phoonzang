@@ -11,7 +11,7 @@ api_idx_0008_HUTJ:
     mov ax, 0x248                    ; 0x3913
     imul word [bp + 0x4]             ; 0x3916
     mov bx, ax                       ; 0x3919
-    mov ax, word [bx + 0x5c18]       ; 0x391b
+    mov ax, word [bx + pc_spell_power_cap] ; 0x391b
     push ax                          ; 0x391f
     mov al, byte [bss_91c5]          ; 0x3920
     sub ah, ah                       ; 0x3923
@@ -94,7 +94,7 @@ api_idx_0008_HUTJ:
     mov ax, 0x248                    ; 0x39c7
     imul word [bp + 0x4]             ; 0x39ca
     mov bx, ax                       ; 0x39cd
-    mov ax, word [bx + 0x5c18]       ; 0x39cf
+    mov ax, word [bx + pc_spell_power_cap] ; 0x39cf
     push ax                          ; 0x39d3
     mov ax, 3                        ; 0x39d4
     imul word [bp + 0x8]             ; 0x39d7
@@ -117,7 +117,7 @@ api_idx_0008_HUTJ:
     push ax                          ; 0x39f7
     mov ax, 0x609                    ; 0x39f8
     push ax                          ; 0x39fb
-    call ds_app_mem_TIMR             ; 0x39fc
+    call load_message_string         ; 0x39fc
     add sp, byte 4                   ; 0x39ff
     mov ax, 0x41                     ; 0x3a02
     push ax                          ; 0x3a05
@@ -164,7 +164,7 @@ api_idx_0008_HUTJ:
     push ax                          ; 0x3a58
     mov ax, 0x60a                    ; 0x3a59
     push ax                          ; 0x3a5c
-    call ds_app_mem_TIMR             ; 0x3a5d
+    call load_message_string         ; 0x3a5d
     add sp, byte 4                   ; 0x3a60
     mov ax, 0x5e                     ; 0x3a63
     push ax                          ; 0x3a66

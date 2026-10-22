@@ -3,7 +3,7 @@ api_idx_0004_MIQG:
     mov ax, 0xfffc                   ; 0x6cd0
     call aztec_csav                  ; 0x6cd3
     call loc_QSOL                    ; 0x6cd6
-    les bx, word [dseg_0002]         ; 0x6cd9
+    les bx, word [tick_counter_ptr]  ; 0x6cd9
     mov ax, word [es:bx]             ; 0x6cdd
     mov dx, word [es:bx + 0x2]       ; 0x6ce0
     add ax, 0x10e                    ; 0x6ce4
@@ -14,7 +14,7 @@ api_idx_0004_MIQG:
     call ds_app_TMKJ                 ; 0x6cf0
     test ax, ax                      ; 0x6cf3
     jne short @..api_idx_0004_MIQG.l4 ; 0x6cf5
-    les bx, word [dseg_0002]         ; 0x6cf7
+    les bx, word [tick_counter_ptr]  ; 0x6cf7
     mov ax, word [es:bx]             ; 0x6cfb
     mov dx, word [es:bx + 0x2]       ; 0x6cfe
     cmp dx, word [bp - 0x0002]       ; 0x6d02

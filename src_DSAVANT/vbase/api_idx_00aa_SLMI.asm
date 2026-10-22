@@ -39,7 +39,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x6344
     mov ax, 0x41a                    ; 0x6345
     push ax                          ; 0x6348
-    call ds_app_mem_TIMR             ; 0x6349
+    call load_message_string         ; 0x6349
     add sp, byte 4                   ; 0x634c
     mov ax, word [bp - 0x0004]       ; 0x634f
     add ax, strict word 5            ; 0x6352
@@ -79,7 +79,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x639e
     mov ax, 0x41b                    ; 0x639f
     push ax                          ; 0x63a2
-    call ds_app_mem_TIMR             ; 0x63a3
+    call load_message_string         ; 0x63a3
     add sp, byte 4                   ; 0x63a6
     lea ax, word [bp - 0x00a8]       ; 0x63a9
     push ax                          ; 0x63ad
@@ -129,7 +129,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x6413
     mov ax, 0x41c                    ; 0x6414
     push ax                          ; 0x6417
-    call ds_app_mem_TIMR             ; 0x6418
+    call load_message_string         ; 0x6418
     add sp, byte 4                   ; 0x641b
     lea ax, word [bp - 0x00a8]       ; 0x641e
     push ax                          ; 0x6422
@@ -138,7 +138,7 @@ api_idx_00aa_SLMI:
     sub ah, ah                       ; 0x642b
     add ax, 0x423                    ; 0x642d
     push ax                          ; 0x6430
-    call ds_app_mem_TIMR             ; 0x6431
+    call load_message_string         ; 0x6431
     add sp, byte 4                   ; 0x6434
     mov ax, 0x24                     ; 0x6437
     push ax                          ; 0x643a
@@ -180,7 +180,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x648b
     mov ax, 0x41d                    ; 0x648c
     push ax                          ; 0x648f
-    call ds_app_mem_TIMR             ; 0x6490
+    call load_message_string         ; 0x6490
     add sp, byte 4                   ; 0x6493
     lea ax, word [bp - 0x00a8]       ; 0x6496
     push ax                          ; 0x649a
@@ -258,7 +258,7 @@ api_idx_00aa_SLMI:
     mov ax, word [bp - 0x0002]       ; 0x6543
     add ax, strict word 0x29         ; 0x6546
     push ax                          ; 0x6549
-    call ds_app_HTKI                 ; 0x654a
+    call draw_text_list              ; 0x654a
     add sp, byte 0x0e                ; 0x654d
     mov ax, word [bp - 0x0008]       ; 0x6550
     inc ax                           ; 0x6553
@@ -276,7 +276,7 @@ api_idx_00aa_SLMI:
     add sp, byte 8                   ; 0x6567
     mov ax, 0                        ; 0x656a
     push ax                          ; 0x656d
-    call ds_app_HKIJ                 ; 0x656e
+    call play_sound_effect           ; 0x656e
     pop cx                           ; 0x6571
     call flush_keyboard              ; 0x6572
     mov ax, 1                        ; 0x6575
@@ -294,7 +294,7 @@ api_idx_00aa_SLMI:
     mov ax, word [bp - 0x0002]       ; 0x658d
     add ax, strict word 0x29         ; 0x6590
     push ax                          ; 0x6593
-    call ds_app_HTKI                 ; 0x6594
+    call draw_text_list              ; 0x6594
     add sp, byte 0x0e                ; 0x6597
     mov ax, word [bp - 0x0004]       ; 0x659a
     add ax, strict word 0x2f         ; 0x659d
@@ -344,7 +344,7 @@ api_idx_00aa_SLMI:
     mov ax, word [bp - 0x0002]       ; 0x65ff
     add ax, strict word 0x29         ; 0x6602
     push ax                          ; 0x6605
-    call ds_app_HTKI                 ; 0x6606
+    call draw_text_list              ; 0x6606
     add sp, byte 0x0e                ; 0x6609
     mov ax, word [bp - 0x0004]       ; 0x660c
     add ax, strict word 0x2f         ; 0x660f

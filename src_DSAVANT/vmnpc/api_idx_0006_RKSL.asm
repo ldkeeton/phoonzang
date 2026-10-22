@@ -16,7 +16,7 @@ api_idx_0006_RKSL:
     call api_idx_0038_LJOP           ; 0x575f
     add sp, byte 0x0c                ; 0x5762
     mov word [bp - 0x0002], ax       ; 0x5765
-    mov ax, word [bss_904e]          ; 0x5768
+    mov ax, word [spell_dialog_result] ; 0x5768
     mov word [bp - 0x0004], ax       ; 0x576b
     cmp word [bp - 0x0002], byte 1   ; 0x576e
     jne short @..api_idx_0006_RKSL.l3 ; 0x5772

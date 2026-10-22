@@ -94,7 +94,7 @@ api_idx_007c_MIHQ:
     sub ah, ah                       ; 0x4653
     add ax, strict word 0x78         ; 0x4655
     push ax                          ; 0x4658
-    call ds_app_mem_TIMR             ; 0x4659
+    call load_message_string         ; 0x4659
     add sp, byte 4                   ; 0x465c
     mov ax, 0                        ; 0x465f
     push ax                          ; 0x4662

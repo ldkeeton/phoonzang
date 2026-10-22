@@ -9,7 +9,7 @@ api_idx_0020_ORSV:
     lea ax, word [bp - 0x000c]       ; 0x334b
     push ax                          ; 0x334e
     push word [bp + 0xe]             ; 0x334f
-    call ds_app_mem_TIMR             ; 0x3352
+    call load_message_string         ; 0x3352
     add sp, byte 4                   ; 0x3355
     lea ax, word [bp - 0x0016]       ; 0x3358
     push ax                          ; 0x335b
@@ -89,7 +89,7 @@ api_idx_0020_ORSV:
     push ax                          ; 0x33ff
     mov ax, 0x20                     ; 0x3400
     push ax                          ; 0x3403
-    call ds_loc_TJTV                 ; 0x3404
+    call draw_font_glyph             ; 0x3404
     add sp, byte 4                   ; 0x3407
     mov ax, 0                        ; 0x340a
     push ax                          ; 0x340d
@@ -118,7 +118,7 @@ api_idx_0020_ORSV:
     lea ax, word [bp - 0x000c]       ; 0x3442
     push ax                          ; 0x3445
     push word [bp + 0xe]             ; 0x3446
-    call ds_app_mem_TIMR             ; 0x3449
+    call load_message_string         ; 0x3449
     add sp, byte 4                   ; 0x344c
     mov word [bp - 0x0002], 6        ; 0x344f
     push word [bp + 0x14]            ; 0x3454

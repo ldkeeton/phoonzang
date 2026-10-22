@@ -7,7 +7,7 @@ api_idx_0002_OUKN:
     mov ax, word [bp + 0x4]          ; 0x2772
     add ax, 0x708                    ; 0x2775
     push ax                          ; 0x2778
-    call ds_app_mem_TIMR             ; 0x2779
+    call load_message_string         ; 0x2779
     add sp, byte 4                   ; 0x277c
     mov ax, 6                        ; 0x277f
     imul word [bp + 0x4]             ; 0x2782
@@ -53,7 +53,7 @@ api_idx_0002_OUKN:
     mov ax, 0x75a                    ; 0x27df
 @..api_idx_0002_OUKN.l5:
     push ax                          ; 0x27e2
-    call ds_app_mem_TIMR             ; 0x27e3
+    call load_message_string         ; 0x27e3
     add sp, byte 4                   ; 0x27e6
     mov ax, 0x958e                   ; 0x27e9
     push ax                          ; 0x27ec
@@ -92,7 +92,7 @@ api_idx_0002_OUKN:
     add ax, 0x6a4                    ; 0x2838
 @..api_idx_0002_OUKN.l8:
     push ax                          ; 0x283b
-    call ds_app_mem_TIMR             ; 0x283c
+    call load_message_string         ; 0x283c
     add sp, byte 4                   ; 0x283f
     jmp short @..api_idx_0002_OUKN.l10 ; 0x2842
 @..api_idx_0002_OUKN.l9:
@@ -100,7 +100,7 @@ api_idx_0002_OUKN:
     push ax                          ; 0x2847
     mov ax, 0x75b                    ; 0x2848
     push ax                          ; 0x284b
-    call ds_app_mem_TIMR             ; 0x284c
+    call load_message_string         ; 0x284c
     add sp, byte 4                   ; 0x284f
     mov ax, bss_958e                 ; 0x2852
     push ax                          ; 0x2855
@@ -111,7 +111,7 @@ api_idx_0002_OUKN:
     sub ah, ah                       ; 0x2862
     add ax, 0x6ea                    ; 0x2864
     push ax                          ; 0x2867
-    call ds_app_mem_TIMR             ; 0x2868
+    call load_message_string         ; 0x2868
     add sp, byte 4                   ; 0x286b
 @..api_idx_0002_OUKN.l10:
     mov ax, 0x23                     ; 0x286e

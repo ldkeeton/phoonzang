@@ -48,9 +48,9 @@ bss_9120 equ __zdseg_end + (__zobss_9120 - __zdata_start)
 bss_9122 equ __zdseg_end + (__zobss_9122 - __zdata_start)
 %include "vtrea/api_idx_000a_UUNU.asm"     ; 0x073b
 
-; bss_9116 equ __zdseg_end + (__zobss_9116 - __zdata_start)
-; bss_911e equ __zdseg_end + (__zobss_911e - __zdata_start)
-bss_9124 equ __zdseg_end + (__zobss_9124 - __zdata_start)
+; bss_9116              equ __zdseg_end + (__zobss_9116 - __zdata_start)
+; bss_911e              equ __zdseg_end + (__zobss_911e - __zdata_start)
+party_redraw_interval equ __zdseg_end + (__zobss_9124 - __zdata_start)
 %include "vtrea/loc_IKLI.asm"              ; 0x086b
 
 %include "vtrea/api_idx_0004_UQUT.asm"     ; 0x08eb
@@ -163,9 +163,9 @@ dseg_90da equ __zdseg_end + (__zdseg_90da - __zdata_start)
 loc_HTKI.api_idx1 equ api_idx_0004_SLIS
 %include "shared/loc_HTKI.asm"              ; 0x3a15
 
-dseg_90dc equ __zdseg_end + (__zdseg_90dc - __zdata_start)
-; bss_911c  equ __zdseg_end + (__zobss_911c - __zdata_start)
-; bss_9124  equ __zdseg_end + (__zobss_9124 - __zdata_start)
+dseg_90dc             equ __zdseg_end + (__zdseg_90dc - __zdata_start)
+; bss_911c              equ __zdseg_end + (__zobss_911c - __zdata_start)
+; party_redraw_interval equ __zdseg_end + (__zobss_9124 - __zdata_start)
 %include "vtrea/api_idx_0038_ULQM.asm"     ; 0x3a56
 
 ; bss_9114 equ __zdseg_end + (__zobss_9114 - __zdata_start)
@@ -258,11 +258,11 @@ dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 
 %include "vtrea/api_idx_0074_SGUS.asm"     ; 0x78ed
 
-; bss_911c equ __zdseg_end + (__zobss_911c - __zdata_start)
-; bss_9124 equ __zdseg_end + (__zobss_9124 - __zdata_start)
-; bss_9126 equ __zdseg_end + (__zobss_9126 - __zdata_start)
-; bss_9128 equ __zdseg_end + (__zobss_9128 - __zdata_start)
-; bss_91d4 equ __zdseg_end + (__zobss_91d4 - __zdata_start)
+; bss_911c              equ __zdseg_end + (__zobss_911c - __zdata_start)
+; party_redraw_interval equ __zdseg_end + (__zobss_9124 - __zdata_start)
+; bss_9126              equ __zdseg_end + (__zobss_9126 - __zdata_start)
+; bss_9128              equ __zdseg_end + (__zobss_9128 - __zdata_start)
+; bss_91d4              equ __zdseg_end + (__zobss_91d4 - __zdata_start)
 %include "vtrea/loc_SNOI.asm"              ; 0x7d99
 
 %include "vtrea/loc_VSIT.asm"              ; 0x7eba
@@ -292,26 +292,28 @@ dseg_90fa equ __zdseg_end + (__zdseg_90fa - __zdata_start)
 
 %include "shared/api_idx_0002_TIUI.asm"     ; 0x89bd
 
-%include "vtrea/api_idx_0004_JOHI.asm"     ; 0x8a18
+known_spell_list equ __zdseg_end + (__zobss_966a - __zdata_start)
+%include "vtrea/collect_known_spells.asm"  ; 0x8a18
 
-%include "vtrea/api_idx_000a_IIIU.asm"     ; 0x8a89
+%include "vtrea/draw_glyph_1_at_50_115.asm" ; 0x8a89
 
-%include "shared/loc_PTRP.asm"              ; 0x8ac7
+%include "shared/draw_power_digit.asm"      ; 0x8ac7
 
 dseg_9100 equ __zdseg_end + (__zdseg_9100 - __zdata_start)
-%include "vtrea/loc_HOII.asm"              ; 0x8b53
+%include "vtrea/draw_spell_cost.asm"       ; 0x8b53
 
-%include "shared/api_idx_000c_JQMN.asm"     ; 0x8bf4
+%include "shared/draw_realm_spell_points.asm" ; 0x8bf4
 
-; bss_9124 equ __zdseg_end + (__zobss_9124 - __zdata_start)
-loc_SRQQ.bss1     equ bss_9124
-loc_SRQQ.api_idx1 equ api_idx_000a_IIIU
-loc_SRQQ.api_idx2 equ api_idx_000c_JQMN
-%include "shared/loc_SRQQ.asm"              ; 0x8c8d
+; party_redraw_interval equ __zdseg_end + (__zobss_9124 - __zdata_start)
+periodic_party_redraw.bss1     equ party_redraw_interval
+periodic_party_redraw.api_idx1 equ draw_glyph_1_at_50_115
+periodic_party_redraw.api_idx2 equ draw_realm_spell_points
+%include "shared/periodic_party_redraw.asm" ; 0x8c8d
 
-dseg_9104 equ __zdseg_end + (__zdseg_9104 - __zdata_start)
-; bss_9124  equ __zdseg_end + (__zobss_9124 - __zdata_start)
-%include "vtrea/api_idx_0044_URKM.asm"     ; 0x8d1e
+str_swap_file_v       equ __zdseg_end + (__zstr_swap_file_v - __zdata_start)
+; party_redraw_interval equ __zdseg_end + (__zobss_9124 - __zdata_start)
+; known_spell_list      equ __zdseg_end + (__zobss_966a - __zdata_start)
+%include "vtrea/spell_select_dialog.asm"   ; 0x8d1e
 
 save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di  equ __zdseg_end + (__zsave_di - __zdata_start)
@@ -387,8 +389,8 @@ __zdseg_90fa:
     db 'V.$$$', 0
 __zdseg_9100:
     db 0x2a, 0x2a, 0x2a, 0x00
-__zdseg_9104:
-    db 'V.$$$', 0
+%include "vtrea/data/str_swap_file_v.asm"  ; 0x9a87
+
 %include "shared/data/save_si.asm"          ; 0x9a8d
 
 %include "shared/data/save_di.asm"          ; 0x9a8f
@@ -449,5 +451,7 @@ __zobss_95e0:
 __zobss_95e2:
     resb 0x0002
 __zobss_95e4:
-    resb 0x00d6
+    resb 0x0086
+__zobss_966a:
+    resb 0x0050
 __zobss_end:

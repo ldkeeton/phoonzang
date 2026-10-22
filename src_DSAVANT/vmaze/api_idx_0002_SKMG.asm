@@ -37,7 +37,7 @@ api_idx_0002_SKMG:
     jne short @..api_idx_0002_SKMG.l3 ; 0x8f7c
     mov ax, 8                        ; 0x8f7e
     push ax                          ; 0x8f81
-    call ds_app_HKIJ                 ; 0x8f82
+    call play_sound_effect           ; 0x8f82
     pop cx                           ; 0x8f85
 @..api_idx_0002_SKMG.l3:
     push word [bp - 0x0002]          ; 0x8f86

@@ -8,7 +8,7 @@ api_idx_0004_TLJT:
     mov ax, 6                        ; 0x0e4b
     imul word [bp - 0x0002]          ; 0x0e4e
     mov bx, ax                       ; 0x0e51
-    mov al, byte [bx + 0x620]        ; 0x0e53
+    mov al, byte [bx + spell_table]  ; 0x0e53
     sub ah, ah                       ; 0x0e57
     cmp ax, word [bp + 0x6]          ; 0x0e59
     jne short @..api_idx_0004_TLJT.l2 ; 0x0e5c
@@ -28,7 +28,7 @@ api_idx_0004_TLJT:
     mov ax, word [bp - 0x0002]       ; 0x0e7f
     add ax, 0xfa0                    ; 0x0e82
     push ax                          ; 0x0e85
-    call ds_app_mem_TIMR             ; 0x0e86
+    call load_message_string         ; 0x0e86
     add sp, byte 4                   ; 0x0e89
     mov ax, word [bp - 0x0002]       ; 0x0e8c
     mov cx, word [bp - 0x0004]       ; 0x0e8f

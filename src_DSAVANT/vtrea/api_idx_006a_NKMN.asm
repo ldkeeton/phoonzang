@@ -3,7 +3,7 @@ api_idx_006a_NKMN:
     mov ax, 0xff96                   ; 0x5fef
     call aztec_csav                  ; 0x5ff2
     mov word [bss_911c], 0x8d        ; 0x5ff5
-    mov word [bss_904e], 0xffff      ; 0x5ffb
+    mov word [spell_dialog_result], 0xffff ; 0x5ffb
     mov word [bp - 0x0006], 0x37     ; 0x6001
     mov word [bp - 0x0008], 0x8f     ; 0x6006
     mov word [bp - 0x000a], 0x108    ; 0x600b
@@ -34,7 +34,7 @@ api_idx_006a_NKMN:
     lea ax, word [bp - 0x006a]       ; 0x6048
     push ax                          ; 0x604b
     push word [bp + 0x6]             ; 0x604c
-    call ds_app_mem_TIMR             ; 0x604f
+    call load_message_string         ; 0x604f
     add sp, byte 4                   ; 0x6052
     mov ax, 0xc2                     ; 0x6055
     push ax                          ; 0x6058
@@ -155,7 +155,7 @@ api_idx_006a_NKMN:
     mov ax, word [bp + 0x6]          ; 0x6164
     inc ax                           ; 0x6167
     push ax                          ; 0x6168
-    call ds_app_mem_TIMR             ; 0x6169
+    call load_message_string         ; 0x6169
     add sp, byte 4                   ; 0x616c
     lea ax, word [bp - 0x006a]       ; 0x616f
     push ax                          ; 0x6172
@@ -331,7 +331,7 @@ api_idx_006a_NKMN:
     mov cx, ax                       ; 0x6302
     pop ax                           ; 0x6304
     sub ax, cx                       ; 0x6305
-    mov cx, word [bx + 0x5c18]       ; 0x6307
+    mov cx, word [bx + pc_spell_power_cap] ; 0x6307
     add ax, cx                       ; 0x630b
     mov word [bp - 0x001a], ax       ; 0x630d
     cmp byte [bx + 0x5e2d], 3        ; 0x6310
@@ -567,7 +567,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x651f
     call flash_button                ; 0x6520
     add sp, byte 0x0a                ; 0x6523
-    mov word [bss_9050], 0xffff      ; 0x6526
+    mov word [spell_dialog_button], 0xffff ; 0x6526
     mov word [bp - 0x0016], 0        ; 0x652c
 @..api_idx_006a_NKMN.l24:
     jmp near @..api_idx_006a_NKMN.l35 ; 0x6531
@@ -622,7 +622,7 @@ api_idx_006a_NKMN:
     add sp, byte 8                   ; 0x65ab
     mov ax, 4                        ; 0x65ae
     push ax                          ; 0x65b1
-    call ds_app_HKIJ                 ; 0x65b2
+    call play_sound_effect           ; 0x65b2
     pop cx                           ; 0x65b5
     mov ax, word [bp - 0x0002]       ; 0x65b6
     shl ax, 1                        ; 0x65b9
@@ -640,7 +640,7 @@ api_idx_006a_NKMN:
 @..api_idx_006a_NKMN.l27:
     mov ax, word [bp + 0xc]          ; 0x65d6
     inc ax                           ; 0x65d9
-    mov word [bss_9050], ax          ; 0x65da
+    mov word [spell_dialog_button], ax ; 0x65da
     mov word [bp - 0x0016], 0        ; 0x65dd
     jmp near @..api_idx_006a_NKMN.l32 ; 0x65e2
 @..api_idx_006a_NKMN.l28:
@@ -700,7 +700,7 @@ api_idx_006a_NKMN:
     add sp, byte 8                   ; 0x6669
     mov ax, 4                        ; 0x666c
     push ax                          ; 0x666f
-    call ds_app_HKIJ                 ; 0x6670
+    call play_sound_effect           ; 0x6670
     pop cx                           ; 0x6673
     jmp short @..api_idx_006a_NKMN.l32 ; 0x6674
 @..api_idx_006a_NKMN.l30:
@@ -715,7 +715,7 @@ api_idx_006a_NKMN:
     call loc_SIKN                    ; 0x668b
     add sp, byte 6                   ; 0x668e
 @..api_idx_006a_NKMN.l31:
-    mov word [bss_9050], 0           ; 0x6691
+    mov word [spell_dialog_button], 0 ; 0x6691
     mov word [bp - 0x0016], 0        ; 0x6697
 @..api_idx_006a_NKMN.l32:
     jmp short @..api_idx_006a_NKMN.l35 ; 0x669c
@@ -753,5 +753,5 @@ api_idx_006a_NKMN:
     push ax                          ; 0x66e0
     call gfx_show_area               ; 0x66e1
     add sp, byte 8                   ; 0x66e4
-    mov ax, word [bss_9050]          ; 0x66e7
+    mov ax, word [spell_dialog_button] ; 0x66e7
     ret                              ; 0x66ea

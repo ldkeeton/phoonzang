@@ -104,7 +104,7 @@ api_idx_0012_GQSK:
     push ax                          ; 0x0611
     mov ax, 0x12                     ; 0x0612
     push ax                          ; 0x0615
-    call ds_loc_TJTV                 ; 0x0616
+    call draw_font_glyph             ; 0x0616
     add sp, byte 4                   ; 0x0619
     mov ax, 0x9c                     ; 0x061c
     push ax                          ; 0x061f
@@ -116,7 +116,7 @@ api_idx_0012_GQSK:
     push ax                          ; 0x062d
     mov ax, 0x13                     ; 0x062e
     push ax                          ; 0x0631
-    call ds_loc_TJTV                 ; 0x0632
+    call draw_font_glyph             ; 0x0632
     add sp, byte 4                   ; 0x0635
     mov ax, 0x9c                     ; 0x0638
     push ax                          ; 0x063b
@@ -128,7 +128,7 @@ api_idx_0012_GQSK:
     push ax                          ; 0x0649
     mov ax, 0x14                     ; 0x064a
     push ax                          ; 0x064d
-    call ds_loc_TJTV                 ; 0x064e
+    call draw_font_glyph             ; 0x064e
     add sp, byte 4                   ; 0x0651
     mov ax, 0xa3                     ; 0x0654
     push ax                          ; 0x0657

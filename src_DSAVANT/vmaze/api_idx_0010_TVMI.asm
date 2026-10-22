@@ -139,7 +139,7 @@ api_idx_0010_TVMI:
     mov ax, 1                        ; 0x835a
 @..api_idx_0010_TVMI.l9:
     push ax                          ; 0x835d
-    call ds_app_HKIJ                 ; 0x835e
+    call play_sound_effect           ; 0x835e
     pop cx                           ; 0x8361
     mov ax, 2                        ; 0x8362
     push ax                          ; 0x8365
@@ -160,7 +160,7 @@ api_idx_0010_TVMI:
     jle short @..api_idx_0010_TVMI.l11 ; 0x8384
     mov ax, 0x10                     ; 0x8386
     push ax                          ; 0x8389
-    call ds_app_HKIJ                 ; 0x838a
+    call play_sound_effect           ; 0x838a
     pop cx                           ; 0x838d
     mov ax, 0x10                     ; 0x838e
     push ax                          ; 0x8391

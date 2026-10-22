@@ -36,7 +36,7 @@ api_idx_00ac_OJJU:
     mov ax, word [bp + 0x8]          ; 0x79e0
     add ax, 0xd16                    ; 0x79e3
     push ax                          ; 0x79e6
-    call ds_app_mem_TIMR             ; 0x79e7
+    call load_message_string         ; 0x79e7
     add sp, byte 4                   ; 0x79ea
     mov word [bp - 0x00a6], 0        ; 0x79ed
     mov ax, 0x248                    ; 0x79f3
@@ -83,7 +83,7 @@ api_idx_00ac_OJJU:
     pop cx                           ; 0x7a60
     add ax, 0xd39                    ; 0x7a61
     push ax                          ; 0x7a64
-    call ds_app_mem_TIMR             ; 0x7a65
+    call load_message_string         ; 0x7a65
     add sp, byte 4                   ; 0x7a68
 @..api_idx_00ac_OJJU.l3:
     cmp word [bp - 0x004c], strict word 0xff ; 0x7a6b
@@ -135,7 +135,7 @@ api_idx_00ac_OJJU:
     sub ah, ah                       ; 0x7ad7
     add ax, 0x1770                   ; 0x7ad9
     push ax                          ; 0x7adc
-    call ds_app_mem_TIMR             ; 0x7add
+    call load_message_string         ; 0x7add
     add sp, byte 4                   ; 0x7ae0
 @..api_idx_00ac_OJJU.l6:
     mov ax, bss_9186                 ; 0x7ae3
@@ -158,7 +158,7 @@ api_idx_00ac_OJJU:
     push ax                          ; 0x7b10
     mov ax, 0xd38                    ; 0x7b11
     push ax                          ; 0x7b14
-    call ds_app_mem_TIMR             ; 0x7b15
+    call load_message_string         ; 0x7b15
     add sp, byte 4                   ; 0x7b18
 @..api_idx_00ac_OJJU.l8:
     mov ax, 0x248                    ; 0x7b1b
@@ -225,7 +225,7 @@ jumptable_7c0e_case_28:
     push ax                          ; 0x7bbb
     mov ax, 0xd1f                    ; 0x7bbc
     push ax                          ; 0x7bbf
-    call ds_app_mem_TIMR             ; 0x7bc0
+    call load_message_string         ; 0x7bc0
     add sp, byte 4                   ; 0x7bc3
     jmp near @..api_idx_00ac_OJJU.l14 ; 0x7bc6
 jumptable_7c0e_case_31:
@@ -250,7 +250,7 @@ jumptable_7c0e_case_31:
     push ax                          ; 0x7bfb
     mov ax, 0xd1f                    ; 0x7bfc
     push ax                          ; 0x7bff
-    call ds_app_mem_TIMR             ; 0x7c00
+    call load_message_string         ; 0x7c00
     add sp, byte 4                   ; 0x7c03
     jmp short @..api_idx_00ac_OJJU.l14 ; 0x7c06
 @..api_idx_00ac_OJJU.l13:
@@ -308,7 +308,7 @@ jumptable_7c0e_case_32:
     mov ax, word [bp + 0x8]          ; 0x7c6f
     add ax, 0xd16                    ; 0x7c72
     push ax                          ; 0x7c75
-    call ds_app_mem_TIMR             ; 0x7c76
+    call load_message_string         ; 0x7c76
     add sp, byte 4                   ; 0x7c79
     mov bx, word [bp + 0x4]          ; 0x7c7c
     cmp byte [bx + 0x2b], 0          ; 0x7c7f
@@ -326,7 +326,7 @@ jumptable_7c0e_case_32:
     pop cx                           ; 0x7c9d
     add ax, 0xd39                    ; 0x7c9e
     push ax                          ; 0x7ca1
-    call ds_app_mem_TIMR             ; 0x7ca2
+    call load_message_string         ; 0x7ca2
     add sp, byte 4                   ; 0x7ca5
 @..api_idx_00ac_OJJU.l17:
     cmp word [bp + 0x8], byte 4      ; 0x7ca8
@@ -361,7 +361,7 @@ jumptable_7e61_case_49:
     push ax                          ; 0x7cfe
     mov ax, 0xd1f                    ; 0x7cff
     push ax                          ; 0x7d02
-    call ds_app_mem_TIMR             ; 0x7d03
+    call load_message_string         ; 0x7d03
     add sp, byte 4                   ; 0x7d06
     mov word [bp - 0x00ac], 1        ; 0x7d09
     jmp near @..api_idx_00ac_OJJU.l21 ; 0x7d0f
@@ -373,7 +373,7 @@ jumptable_7e61_case_50:
     push ax                          ; 0x7d26
     mov ax, 0xd1f                    ; 0x7d27
     push ax                          ; 0x7d2a
-    call ds_app_mem_TIMR             ; 0x7d2b
+    call load_message_string         ; 0x7d2b
     add sp, byte 4                   ; 0x7d2e
     mov word [bp - 0x00ac], 1        ; 0x7d31
     jmp near @..api_idx_00ac_OJJU.l21 ; 0x7d37
@@ -384,7 +384,7 @@ jumptable_7e61_case_7:
     push ax                          ; 0x7d48
     mov ax, 0xd1f                    ; 0x7d49
     push ax                          ; 0x7d4c
-    call ds_app_mem_TIMR             ; 0x7d4d
+    call load_message_string         ; 0x7d4d
     add sp, byte 4                   ; 0x7d50
     mov word [bp - 0x00a6], 0        ; 0x7d53
     jmp near @..api_idx_00ac_OJJU.l21 ; 0x7d59
@@ -406,7 +406,7 @@ jumptable_7e61_case_13:
     push ax                          ; 0x7d8b
     mov ax, 0xd1f                    ; 0x7d8c
     push ax                          ; 0x7d8f
-    call ds_app_mem_TIMR             ; 0x7d90
+    call load_message_string         ; 0x7d90
     add sp, byte 4                   ; 0x7d93
     mov word [bp - 0x00ac], 1        ; 0x7d96
     jmp near @..api_idx_00ac_OJJU.l21 ; 0x7d9c
@@ -437,7 +437,7 @@ jumptable_7e61_case_52:
     push ax                          ; 0x7de9
     mov ax, 0xd1f                    ; 0x7dea
     push ax                          ; 0x7ded
-    call ds_app_mem_TIMR             ; 0x7dee
+    call load_message_string         ; 0x7dee
     add sp, byte 4                   ; 0x7df1
     mov word [bp - 0x00ac], 1        ; 0x7df4
     jmp near @..api_idx_00ac_OJJU.l21 ; 0x7dfa
@@ -449,7 +449,7 @@ jumptable_7e61_case_56:
     push ax                          ; 0x7e11
     mov ax, 0xd1f                    ; 0x7e12
     push ax                          ; 0x7e15
-    call ds_app_mem_TIMR             ; 0x7e16
+    call load_message_string         ; 0x7e16
     add sp, byte 4                   ; 0x7e19
     mov word [bp - 0x00ac], 1        ; 0x7e1c
     jmp near @..api_idx_00ac_OJJU.l21 ; 0x7e22
@@ -467,7 +467,7 @@ jumptable_7e61_case_60:
     push ax                          ; 0x7e4d
     mov ax, 0xd3c                    ; 0x7e4e
     push ax                          ; 0x7e51
-    call ds_app_mem_TIMR             ; 0x7e52
+    call load_message_string         ; 0x7e52
     add sp, byte 4                   ; 0x7e55
     mov word [bp - 0x00ac], 1        ; 0x7e58
     jmp near @..api_idx_00ac_OJJU.l21 ; 0x7e5e
@@ -554,7 +554,7 @@ jumptable_7e61_case_0:
     sub ah, ah                       ; 0x7f05
     add ax, 0xed7                    ; 0x7f07
     push ax                          ; 0x7f0a
-    call ds_app_mem_TIMR             ; 0x7f0b
+    call load_message_string         ; 0x7f0b
     add sp, byte 4                   ; 0x7f0e
 @..api_idx_00ac_OJJU.l22:
     jmp short @..api_idx_00ac_OJJU.l24 ; 0x7f11
@@ -570,7 +570,7 @@ jumptable_7e61_case_0:
     sub ah, ah                       ; 0x7f29
     add ax, 0xd2b                    ; 0x7f2b
     push ax                          ; 0x7f2e
-    call ds_app_mem_TIMR             ; 0x7f2f
+    call load_message_string         ; 0x7f2f
     add sp, byte 4                   ; 0x7f32
 @..api_idx_00ac_OJJU.l24:
     cmp word [bp - 0x00a6], byte 0   ; 0x7f35
@@ -1861,7 +1861,7 @@ jumptable_883a:
     jne short @..api_idx_00ac_OJJU.l111 ; 0x8b94
     mov ax, 0x10                     ; 0x8b96
     push ax                          ; 0x8b99
-    call ds_app_HKIJ                 ; 0x8b9a
+    call play_sound_effect           ; 0x8b9a
     pop cx                           ; 0x8b9d
 @..api_idx_00ac_OJJU.l111:
     mov ax, word [bss_9058]          ; 0x8b9e
@@ -2007,7 +2007,7 @@ jumptable_883a:
     add sp, byte 6                   ; 0x8ce9
     mov ax, 7                        ; 0x8cec
     push ax                          ; 0x8cef
-    call ds_app_HKIJ                 ; 0x8cf0
+    call play_sound_effect           ; 0x8cf0
     pop cx                           ; 0x8cf3
     jmp near @..api_idx_00ac_OJJU.l142 ; 0x8cf4
 @..api_idx_00ac_OJJU.l121:
@@ -2055,7 +2055,7 @@ jumptable_883a:
     add sp, byte 6                   ; 0x8d5f
     mov ax, 7                        ; 0x8d62
     push ax                          ; 0x8d65
-    call ds_app_HKIJ                 ; 0x8d66
+    call play_sound_effect           ; 0x8d66
     pop cx                           ; 0x8d69
     mov ax, word [bp - 0x004e]       ; 0x8d6a
     shl ax, 1                        ; 0x8d6d
@@ -2073,7 +2073,7 @@ jumptable_883a:
     mov ax, word [bp - 0x006c]       ; 0x8d8d
     add ax, 0xd02                    ; 0x8d90
     push ax                          ; 0x8d93
-    call ds_app_mem_TIMR             ; 0x8d94
+    call load_message_string         ; 0x8d94
     add sp, byte 4                   ; 0x8d97
     jmp short @..api_idx_00ac_OJJU.l128 ; 0x8d9a
 @..api_idx_00ac_OJJU.l126:
@@ -2088,7 +2088,7 @@ jumptable_883a:
     mov ax, word [bp - 0x006c]       ; 0x8db2
     add ax, 0xd3e                    ; 0x8db5
     push ax                          ; 0x8db8
-    call ds_app_mem_TIMR             ; 0x8db9
+    call load_message_string         ; 0x8db9
     add sp, byte 4                   ; 0x8dbc
     jmp short @..api_idx_00ac_OJJU.l128 ; 0x8dbf
 @..api_idx_00ac_OJJU.l127:
@@ -2097,7 +2097,7 @@ jumptable_883a:
     mov ax, word [bp - 0x006c]       ; 0x8dc5
     add ax, 0xcf8                    ; 0x8dc8
     push ax                          ; 0x8dcb
-    call ds_app_mem_TIMR             ; 0x8dcc
+    call load_message_string         ; 0x8dcc
     add sp, byte 4                   ; 0x8dcf
 @..api_idx_00ac_OJJU.l128:
     inc word [bp - 0x0066]           ; 0x8dd2
@@ -2146,7 +2146,7 @@ jumptable_883a:
     push ax                          ; 0x8e45
     mov ax, 0xcea                    ; 0x8e46
     push ax                          ; 0x8e49
-    call ds_app_mem_TIMR             ; 0x8e4a
+    call load_message_string         ; 0x8e4a
     add sp, byte 4                   ; 0x8e4d
     mov ax, 0x43                     ; 0x8e50
     push ax                          ; 0x8e53
@@ -2264,7 +2264,7 @@ jumptable_883a:
     inc ax                           ; 0x8f61
     inc ax                           ; 0x8f62
     push ax                          ; 0x8f63
-    call ds_app_HKIJ                 ; 0x8f64
+    call play_sound_effect           ; 0x8f64
     pop cx                           ; 0x8f67
     mov ax, 1                        ; 0x8f68
     push ax                          ; 0x8f6b
@@ -2326,7 +2326,7 @@ jumptable_883a:
     push ax                          ; 0x8fe8
     mov ax, 0xce7                    ; 0x8fe9
     push ax                          ; 0x8fec
-    call ds_app_mem_TIMR             ; 0x8fed
+    call load_message_string         ; 0x8fed
     add sp, byte 4                   ; 0x8ff0
     mov byte [bss_9186], 0           ; 0x8ff3
     mov ax, 0x43                     ; 0x8ff8

@@ -19,7 +19,7 @@ api_idx_0004_GGOK:
     je short @..api_idx_0004_GGOK.l1 ; 0x3abb
     jmp near @..api_idx_0004_GGOK.l5 ; 0x3abd
 @..api_idx_0004_GGOK.l1:
-    mov ax, word [bss_904e]          ; 0x3ac0
+    mov ax, word [spell_dialog_result] ; 0x3ac0
     mov cx, 0x100                    ; 0x3ac3
     cwd                              ; 0x3ac6
     idiv cx                          ; 0x3ac7
@@ -50,7 +50,7 @@ api_idx_0004_GGOK:
     mov ax, 0x248                    ; 0x3b08
     imul word [bp + 0x4]             ; 0x3b0b
     mov cx, ax                       ; 0x3b0e
-    mov al, byte [bx + 0x620]        ; 0x3b10
+    mov al, byte [bx + spell_table]  ; 0x3b10
     sub ah, ah                       ; 0x3b14
     mov dx, ax                       ; 0x3b16
     shl ax, 1                        ; 0x3b18

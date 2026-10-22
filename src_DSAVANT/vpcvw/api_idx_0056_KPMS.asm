@@ -6,7 +6,7 @@ api_idx_0056_KPMS:
     push ax                          ; 0x4694
     mov ax, 0x164                    ; 0x4695
     push ax                          ; 0x4698
-    call ds_app_mem_TIMR             ; 0x4699
+    call load_message_string         ; 0x4699
     add sp, byte 4                   ; 0x469c
     lea ax, word [bp - 0x0056]       ; 0x469f
     push ax                          ; 0x46a2
@@ -60,7 +60,7 @@ api_idx_0056_KPMS:
     add sp, byte 8                   ; 0x4712
     mov ax, 0                        ; 0x4715
     push ax                          ; 0x4718
-    call ds_app_HKIJ                 ; 0x4719
+    call play_sound_effect           ; 0x4719
     pop cx                           ; 0x471c
     push word [message_delay]        ; 0x471d
     call ds_app_OIGN                 ; 0x4721

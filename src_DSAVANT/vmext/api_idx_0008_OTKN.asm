@@ -10,7 +10,7 @@ api_idx_0008_OTKN:
     jne short @..api_idx_0008_OTKN.l1 ; 0x1531
     mov ax, 0                        ; 0x1533
     push ax                          ; 0x1536
-    call ds_app_HKIJ                 ; 0x1537
+    call play_sound_effect           ; 0x1537
     pop cx                           ; 0x153a
     ret                              ; 0x153b
 @..api_idx_0008_OTKN.l1:
@@ -64,7 +64,7 @@ api_idx_0008_OTKN:
 @..api_idx_0008_OTKN.l4:
     mov ax, 0                        ; 0x15a6
     push ax                          ; 0x15a9
-    call ds_app_HKIJ                 ; 0x15aa
+    call play_sound_effect           ; 0x15aa
     pop cx                           ; 0x15ad
 @..api_idx_0008_OTKN.l5:
     ret                              ; 0x15ae

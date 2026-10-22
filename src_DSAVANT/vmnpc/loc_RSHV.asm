@@ -42,7 +42,7 @@ loc_RSHV:
     mov ax, word [bp + 0x4]          ; 0x1886
     add ax, word [bp - 0x0004]       ; 0x1889
     push ax                          ; 0x188c
-    call ds_app_mem_TIMR             ; 0x188d
+    call load_message_string         ; 0x188d
     add sp, byte 4                   ; 0x1890
     mov ax, word [bp - 0x0008]       ; 0x1893
     cwd                              ; 0x1896

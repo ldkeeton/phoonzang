@@ -52,7 +52,7 @@ api_idx_0050_MUIG:
     push ax                          ; 0x7fd1
     mov ax, 0x1388                   ; 0x7fd2
     push ax                          ; 0x7fd5
-    call ds_app_mem_TIMR             ; 0x7fd6
+    call load_message_string         ; 0x7fd6
     add sp, byte 4                   ; 0x7fd9
     mov ax, 0xa9                     ; 0x7fdc
     push ax                          ; 0x7fdf

@@ -64,7 +64,7 @@ api_idx_004a_UIIS:
     mov ax, word [bp - 0x0002]       ; 0x6953
     add ax, 0x898                    ; 0x6956
     push ax                          ; 0x6959
-    call ds_app_mem_TIMR             ; 0x695a
+    call load_message_string         ; 0x695a
     add sp, byte 4                   ; 0x695d
     mov ax, 0x1a                     ; 0x6960
     push ax                          ; 0x6963

@@ -14,7 +14,7 @@ api_idx_0002_SLOH:
     mov ax, word [bp + 0x4]          ; 0xa3f8
     add ax, word [bp - 0x0002]       ; 0xa3fb
     push ax                          ; 0xa3fe
-    call ds_app_mem_TIMR             ; 0xa3ff
+    call load_message_string         ; 0xa3ff
     add sp, byte 4                   ; 0xa402
     inc word [bp - 0x0002]           ; 0xa405
 @..api_idx_0002_SLOH.l2:

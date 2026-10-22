@@ -17,7 +17,7 @@ api_idx_0006_GQUO:
     call api_idx_0038_IJUK           ; 0x5d31
     add sp, byte 0x0c                ; 0x5d34
     mov word [bp - 0x0006], ax       ; 0x5d37
-    mov ax, word [bss_904e]          ; 0x5d3a
+    mov ax, word [spell_dialog_result] ; 0x5d3a
     mov word [bp - 0x0002], ax       ; 0x5d3d
     mov word [bp - 0x0004], 0        ; 0x5d40
     mov ax, word [bp - 0x0006]       ; 0x5d45

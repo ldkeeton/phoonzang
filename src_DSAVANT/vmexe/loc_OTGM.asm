@@ -138,7 +138,7 @@ loc_OTGM:
     mov word [bp - 0x0106], ax       ; 0x10d8
 @..loc_OTGM.l20:
     push word [bss_90de]             ; 0x10dc
-    call ds_app_HKIJ                 ; 0x10e0
+    call play_sound_effect           ; 0x10e0
     pop cx                           ; 0x10e3
     mov ax, 6                        ; 0x10e4
     imul word [bp + 0x8]             ; 0x10e7
@@ -302,7 +302,7 @@ loc_OTGM:
     mov word [bp - 0x0002], ax       ; 0x13ba
     jmp near @..loc_OTGM.l29         ; 0x13bd
 @..loc_OTGM.l24:
-    les bx, word [dseg_0002]         ; 0x13c0
+    les bx, word [tick_counter_ptr]  ; 0x13c0
     mov ax, word [es:bx]             ; 0x13c4
     mov dx, word [es:bx + 0x2]       ; 0x13c7
     mov word [bp - 0x0116], dx       ; 0x13cb
@@ -420,7 +420,7 @@ loc_OTGM:
     mov ax, word [bp - 0x0104]       ; 0x14f5
     mov word [bp - 0x0102], ax       ; 0x14f9
 @..loc_OTGM.l26:
-    les bx, word [dseg_0002]         ; 0x14fd
+    les bx, word [tick_counter_ptr]  ; 0x14fd
     mov ax, word [es:bx]             ; 0x1501
     mov dx, word [es:bx + 0x2]       ; 0x1504
     cmp dx, word [bp - 0x0116]       ; 0x1508

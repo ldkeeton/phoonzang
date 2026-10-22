@@ -107,7 +107,7 @@ api_idx_0056_KOPT:
     push ax                          ; 0x32b0
     mov ax, 0xdc6                    ; 0x32b1
     push ax                          ; 0x32b4
-    call ds_app_mem_TIMR             ; 0x32b5
+    call load_message_string         ; 0x32b5
     add sp, byte 4                   ; 0x32b8
     push word [bp - 0x0002]          ; 0x32bb
     call loc_JQLR                    ; 0x32be

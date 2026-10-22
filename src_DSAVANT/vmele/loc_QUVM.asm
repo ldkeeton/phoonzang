@@ -316,7 +316,7 @@ loc_QUVM:
     mov ax, 0xdb7                    ; 0x1cf6
 @..loc_QUVM.l21:
     push ax                          ; 0x1cf9
-    call ds_app_mem_TIMR             ; 0x1cfa
+    call load_message_string         ; 0x1cfa
     add sp, byte 4                   ; 0x1cfd
     mov ax, 0x11                     ; 0x1d00
     push ax                          ; 0x1d03

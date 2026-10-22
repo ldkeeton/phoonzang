@@ -541,7 +541,12 @@ def resplice_c(app, binary, check_only=False):
         if linked is not None:
             _report_linked(app, binary, label, linked)
         records = _merge_label_records(records, label_records)
-        fragment = (head + '\n'.join(_render_records(records, data, True)) + '\n')
+        # An overlay's switch table is spelled from its load origin, as the
+        # full render spells it (``case - IMAGE_BASE + __zres_end``).
+        corg = ('__zres_end' if getattr(segments, 'kind', None) == 'overlay'
+                else None)
+        fragment = (head + '\n'.join(_render_records(
+            records, data, True, corg_symbol=corg)) + '\n')
         if os.path.dirname(apath) == shared_dir:
             # Shared by several binaries: no one binary's addresses.
             from lib.shared import neutral

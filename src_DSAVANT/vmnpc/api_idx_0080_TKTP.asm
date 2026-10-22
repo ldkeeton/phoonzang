@@ -5,7 +5,7 @@ api_idx_0080_TKTP:
     lea ax, word [bp - 0x0080]       ; 0x96cd
     push ax                          ; 0x96d0
     push word [bp + 0x4]             ; 0x96d1
-    call ds_app_mem_TIMR             ; 0x96d4
+    call load_message_string         ; 0x96d4
     add sp, byte 4                   ; 0x96d7
     mov ax, 0x5e                     ; 0x96da
     push ax                          ; 0x96dd

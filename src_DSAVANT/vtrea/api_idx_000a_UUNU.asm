@@ -124,7 +124,7 @@ loc_SPML:
     je short @..loc_SPML.l5          ; 0x085a
     mov ax, 5                        ; 0x085c
     push ax                          ; 0x085f
-    call ds_app_HKIJ                 ; 0x0860
+    call play_sound_effect           ; 0x0860
     pop cx                           ; 0x0863
     mov word [bss_9118], 0           ; 0x0864
 @..loc_SPML.l5:

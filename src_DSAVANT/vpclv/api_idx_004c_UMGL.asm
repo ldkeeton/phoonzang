@@ -21,7 +21,7 @@ api_idx_004c_UMGL:
     push ax                          ; 0x2814
     mov ax, 0x63                     ; 0x2815
     push ax                          ; 0x2818
-    call ds_loc_TJTV                 ; 0x2819
+    call draw_font_glyph             ; 0x2819
     add sp, byte 4                   ; 0x281c
 @..api_idx_004c_UMGL.l1:
     cmp word [bss_9490], byte 0      ; 0x281f
@@ -145,7 +145,7 @@ api_idx_004c_UMGL:
     sub ah, ah                       ; 0x2934
     add ax, 0x1770                   ; 0x2936
     push ax                          ; 0x2939
-    call ds_app_mem_TIMR             ; 0x293a
+    call load_message_string         ; 0x293a
     add sp, byte 4                   ; 0x293d
 @..api_idx_004c_UMGL.l10:
     mov al, byte [bp - 0x0012]       ; 0x2940

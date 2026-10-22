@@ -5,7 +5,7 @@ api_idx_0050_GORG:
     lea ax, word [bp - 0x0050]       ; 0x0820
     push ax                          ; 0x0823
     push word [bp + 0x4]             ; 0x0824
-    call ds_app_mem_TIMR             ; 0x0827
+    call load_message_string         ; 0x0827
     add sp, byte 4                   ; 0x082a
     lea ax, word [bp - 0x0050]       ; 0x082d
     push ax                          ; 0x0830

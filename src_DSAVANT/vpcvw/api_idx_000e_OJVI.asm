@@ -40,7 +40,7 @@ api_idx_000e_OJVI:
     mov byte [bx + 0x6], al          ; 0x4567
     mov ax, 0                        ; 0x456a
     push ax                          ; 0x456d
-    call ds_app_HKIJ                 ; 0x456e
+    call play_sound_effect           ; 0x456e
     pop cx                           ; 0x4571
 @..api_idx_000e_OJVI.l1:
     ret                              ; 0x4572

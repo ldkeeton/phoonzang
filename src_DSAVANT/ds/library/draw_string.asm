@@ -20,7 +20,7 @@ draw_string:
     je short @..draw_string.l2       ; 0x3ab5
     push word [bp + 0x6]             ; 0x3ab7
     push ax                          ; 0x3aba
-    call ds_loc_TJTV                 ; 0x3abb
+    call draw_font_glyph             ; 0x3abb
     add sp, byte 4                   ; 0x3abe
     jmp short @..draw_string.l1      ; 0x3ac1
 @..draw_string.l2:

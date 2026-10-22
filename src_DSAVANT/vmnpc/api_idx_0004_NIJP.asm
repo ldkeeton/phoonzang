@@ -8,7 +8,7 @@ api_idx_0004_NIJP:
     mov ax, 6                        ; 0x753c
     imul word [bp - 0x0002]          ; 0x753f
     mov bx, ax                       ; 0x7542
-    mov al, byte [bx + 0x620]        ; 0x7544
+    mov al, byte [bx + spell_table]  ; 0x7544
     sub ah, ah                       ; 0x7548
     cmp ax, word [bp + 0x6]          ; 0x754a
     jne short @..api_idx_0004_NIJP.l2 ; 0x754d
@@ -28,7 +28,7 @@ api_idx_0004_NIJP:
     mov ax, word [bp - 0x0002]       ; 0x7570
     add ax, 0xfa0                    ; 0x7573
     push ax                          ; 0x7576
-    call ds_app_mem_TIMR             ; 0x7577
+    call load_message_string         ; 0x7577
     add sp, byte 4                   ; 0x757a
     mov ax, word [bp - 0x0002]       ; 0x757d
     mov cx, word [bp - 0x0004]       ; 0x7580

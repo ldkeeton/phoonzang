@@ -58,7 +58,7 @@ api_idx_0004_KHSO:
     push ax                          ; 0x3d1c
     mov ax, 0x63                     ; 0x3d1d
     push ax                          ; 0x3d20
-    call ds_loc_TJTV                 ; 0x3d21
+    call draw_font_glyph             ; 0x3d21
     add sp, byte 4                   ; 0x3d24
 @..api_idx_0004_KHSO.l4:
     mov ax, 0xe                      ; 0x3d27
@@ -80,7 +80,7 @@ api_idx_0004_KHSO:
     mov al, byte [bx - 0x6986]       ; 0x3d4d
     sub ah, ah                       ; 0x3d51
     push ax                          ; 0x3d53
-    call ds_loc_TJTV                 ; 0x3d54
+    call draw_font_glyph             ; 0x3d54
     add sp, byte 4                   ; 0x3d57
     push word [bp - 0x0004]          ; 0x3d5a
     mov ax, 0xe                      ; 0x3d5d

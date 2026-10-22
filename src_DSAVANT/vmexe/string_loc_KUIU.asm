@@ -432,7 +432,7 @@ jumptable_372d:
     mov ax, 0xc90                    ; 0x3a52
 @..string_loc_KUIU.l23:
     push ax                          ; 0x3a55
-    call ds_app_mem_TIMR             ; 0x3a56
+    call load_message_string         ; 0x3a56
     add sp, byte 4                   ; 0x3a59
     mov ax, 0x41                     ; 0x3a5c
     push ax                          ; 0x3a5f
@@ -451,7 +451,7 @@ jumptable_372d:
     add sp, byte 0x0e                ; 0x3a78
     mov ax, 0x10                     ; 0x3a7b
     push ax                          ; 0x3a7e
-    call ds_app_HKIJ                 ; 0x3a7f
+    call play_sound_effect           ; 0x3a7f
     pop cx                           ; 0x3a82
     cmp word [bp - 0x01ae], byte 0xff ; 0x3a83
     je short @..string_loc_KUIU.l24  ; 0x3a88

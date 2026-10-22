@@ -44,11 +44,11 @@ loc_JTTS:
     mov word [bss_a5f2], 0x55        ; 0x8ae4
     mov word [bss_a600], 0           ; 0x8aea
     mov word [bss_a5ae], 5           ; 0x8af0
-    les bx, word [dseg_0002]         ; 0x8af6
+    les bx, word [tick_counter_ptr]  ; 0x8af6
     mov ax, word [es:bx]             ; 0x8afa
     mov dx, word [es:bx + 0x2]       ; 0x8afd
     mov word [bss_908c], dx          ; 0x8b01
-    mov word [bss_908a], ax          ; 0x8b05
+    mov word [party_redraw_last_tick], ax ; 0x8b05
     call api_idx_000a_THHN           ; 0x8b08
     mov ax, 0                        ; 0x8b0b
     push ax                          ; 0x8b0e

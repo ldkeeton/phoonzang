@@ -8,7 +8,7 @@ api_idx_0004_VQQR:
     mov ax, 6                        ; 0x2d73
     imul word [bp - 0x0002]          ; 0x2d76
     mov bx, ax                       ; 0x2d79
-    mov al, byte [bx + 0x620]        ; 0x2d7b
+    mov al, byte [bx + spell_table]  ; 0x2d7b
     sub ah, ah                       ; 0x2d7f
     cmp ax, word [bp + 0x6]          ; 0x2d81
     jne short @..api_idx_0004_VQQR.l2 ; 0x2d84
@@ -28,7 +28,7 @@ api_idx_0004_VQQR:
     mov ax, word [bp - 0x0002]       ; 0x2da7
     add ax, 0xfa0                    ; 0x2daa
     push ax                          ; 0x2dad
-    call ds_app_mem_TIMR             ; 0x2dae
+    call load_message_string         ; 0x2dae
     add sp, byte 4                   ; 0x2db1
     mov ax, word [bp - 0x0002]       ; 0x2db4
     mov cx, word [bp - 0x0004]       ; 0x2db7

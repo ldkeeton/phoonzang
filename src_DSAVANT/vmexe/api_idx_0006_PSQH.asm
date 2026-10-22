@@ -7,7 +7,7 @@ api_idx_0006_PSQH:
     mov ax, 0x248                    ; 0x98a8
     imul word [bss_8462]             ; 0x98ab
     mov bx, ax                       ; 0x98af
-    mov ax, word [bx + 0x5c18]       ; 0x98b1
+    mov ax, word [bx + pc_spell_power_cap] ; 0x98b1
     push ax                          ; 0x98b5
     mov al, byte [bx + 0x5d7d]       ; 0x98b6
     sub ah, ah                       ; 0x98ba
@@ -70,7 +70,7 @@ api_idx_0006_PSQH:
     mov ax, 0x248                    ; 0x993d
     imul word [bp - 0x0002]          ; 0x9940
     mov bx, ax                       ; 0x9943
-    mov ax, word [bx + 0x5c18]       ; 0x9945
+    mov ax, word [bx + pc_spell_power_cap] ; 0x9945
     push ax                          ; 0x9949
     mov al, byte [bx + 0x5d65]       ; 0x994a
     sub ah, ah                       ; 0x994e
@@ -95,7 +95,7 @@ api_idx_0006_PSQH:
     push ax                          ; 0x997b
     mov ax, 0xdbb                    ; 0x997c
     push ax                          ; 0x997f
-    call ds_app_mem_TIMR             ; 0x9980
+    call load_message_string         ; 0x9980
     add sp, byte 4                   ; 0x9983
     mov byte [bss_9186], 0           ; 0x9986
     mov ax, 0x43                     ; 0x998b

@@ -24,13 +24,13 @@ api_idx_0038_HNUN:
     push ax                          ; 0x3021
     mov ax, 0x58c                    ; 0x3022
     push ax                          ; 0x3025
-    call ds_app_mem_TIMR             ; 0x3026
+    call load_message_string         ; 0x3026
     add sp, byte 4                   ; 0x3029
     lea ax, word [bp - 0x0038]       ; 0x302c
     push ax                          ; 0x302f
     mov ax, 0x58d                    ; 0x3030
     push ax                          ; 0x3033
-    call ds_app_mem_TIMR             ; 0x3034
+    call load_message_string         ; 0x3034
     add sp, byte 4                   ; 0x3037
     mov word [bp - 0x0010], 1        ; 0x303a
     cmp word [bp + 0x4], byte 0      ; 0x303f

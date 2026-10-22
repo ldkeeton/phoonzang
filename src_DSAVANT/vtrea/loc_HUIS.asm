@@ -288,7 +288,7 @@ loc_HUIS:
     push ax                          ; 0x5a3e
     mov ax, 0x138d                   ; 0x5a3f
     push ax                          ; 0x5a42
-    call ds_app_mem_TIMR             ; 0x5a43
+    call load_message_string         ; 0x5a43
     add sp, byte 4                   ; 0x5a46
     mov word [bp - 0x0002], 0        ; 0x5a49
     jmp near @..loc_HUIS.l44         ; 0x5a4e
@@ -331,7 +331,7 @@ loc_HUIS:
     sub ah, ah                       ; 0x5aa7
     add ax, 0x1770                   ; 0x5aa9
     push ax                          ; 0x5aac
-    call ds_app_mem_TIMR             ; 0x5aad
+    call load_message_string         ; 0x5aad
     add sp, byte 4                   ; 0x5ab0
 @..loc_HUIS.l28:
     mov ax, 0x16                     ; 0x5ab3
@@ -456,7 +456,7 @@ loc_HUIS:
     push ax                          ; 0x5bd9
     mov ax, 0x1398                   ; 0x5bda
     push ax                          ; 0x5bdd
-    call ds_app_mem_TIMR             ; 0x5bde
+    call load_message_string         ; 0x5bde
     add sp, byte 4                   ; 0x5be1
     jmp short @..loc_HUIS.l42        ; 0x5be4
 @..loc_HUIS.l39:
@@ -466,7 +466,7 @@ loc_HUIS:
     push ax                          ; 0x5bef
     mov ax, 0x1399                   ; 0x5bf0
     push ax                          ; 0x5bf3
-    call ds_app_mem_TIMR             ; 0x5bf4
+    call load_message_string         ; 0x5bf4
     add sp, byte 4                   ; 0x5bf7
     jmp short @..loc_HUIS.l42        ; 0x5bfa
 @..loc_HUIS.l40:
@@ -476,7 +476,7 @@ loc_HUIS:
     push ax                          ; 0x5c05
     mov ax, 0x139a                   ; 0x5c06
     push ax                          ; 0x5c09
-    call ds_app_mem_TIMR             ; 0x5c0a
+    call load_message_string         ; 0x5c0a
     add sp, byte 4                   ; 0x5c0d
     jmp short @..loc_HUIS.l42        ; 0x5c10
 @..loc_HUIS.l41:
@@ -515,7 +515,7 @@ loc_HUIS:
     push ax                          ; 0x5c5a
     mov ax, 0x138a                   ; 0x5c5b
     push ax                          ; 0x5c5e
-    call ds_app_mem_TIMR             ; 0x5c5f
+    call load_message_string         ; 0x5c5f
     add sp, byte 4                   ; 0x5c62
     lea ax, word [bp - 0x0154]       ; 0x5c65
     push ax                          ; 0x5c69
@@ -553,7 +553,7 @@ loc_HUIS:
     push ax                          ; 0x5cb9
     mov ax, 0x138b                   ; 0x5cba
     push ax                          ; 0x5cbd
-    call ds_app_mem_TIMR             ; 0x5cbe
+    call load_message_string         ; 0x5cbe
     add sp, byte 4                   ; 0x5cc1
     lea ax, word [bp - 0x0154]       ; 0x5cc4
     push ax                          ; 0x5cc8

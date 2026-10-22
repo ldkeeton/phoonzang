@@ -72,7 +72,7 @@ api_idx_004c_OGSK:
     sub ah, ah                       ; 0x5090
     add ax, 0x1770                   ; 0x5092
     push ax                          ; 0x5095
-    call ds_app_mem_TIMR             ; 0x5096
+    call load_message_string         ; 0x5096
     add sp, byte 4                   ; 0x5099
 @..api_idx_004c_OGSK.l5:
     mov al, byte [bp - 0x0013]       ; 0x509c

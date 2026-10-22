@@ -184,7 +184,7 @@ api_idx_005c_UIOK:
     push ax                          ; 0x169d
     mov ax, 0xdc4                    ; 0x169e
     push ax                          ; 0x16a1
-    call ds_app_mem_TIMR             ; 0x16a2
+    call load_message_string         ; 0x16a2
     add sp, byte 4                   ; 0x16a5
     mov ax, 0x11                     ; 0x16a8
     push ax                          ; 0x16ab

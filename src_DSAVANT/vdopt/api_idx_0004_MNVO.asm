@@ -8,7 +8,7 @@ api_idx_0004_MNVO:
     mov ax, 6                        ; 0x2692
     imul word [bp - 0x0002]          ; 0x2695
     mov bx, ax                       ; 0x2698
-    mov al, byte [bx + 0x620]        ; 0x269a
+    mov al, byte [bx + spell_table]  ; 0x269a
     sub ah, ah                       ; 0x269e
     cmp ax, word [bp + 0x6]          ; 0x26a0
     jne short @..api_idx_0004_MNVO.l2 ; 0x26a3
@@ -28,7 +28,7 @@ api_idx_0004_MNVO:
     mov ax, word [bp - 0x0002]       ; 0x26c6
     add ax, 0xfa0                    ; 0x26c9
     push ax                          ; 0x26cc
-    call ds_app_mem_TIMR             ; 0x26cd
+    call load_message_string         ; 0x26cd
     add sp, byte 4                   ; 0x26d0
     mov ax, word [bp - 0x0002]       ; 0x26d3
     mov cx, word [bp - 0x0004]       ; 0x26d6

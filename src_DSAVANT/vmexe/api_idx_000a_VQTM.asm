@@ -345,7 +345,7 @@ jumptable_78e5_case_5:
     mov ax, bss_9186                 ; 0x774b
     push ax                          ; 0x774e
     push word [bp - 0x000a]          ; 0x774f
-    call ds_app_mem_TIMR             ; 0x7752
+    call load_message_string         ; 0x7752
     add sp, byte 4                   ; 0x7755
     cmp word [bp - 0x0008], byte 0   ; 0x7758
     jle short @..api_idx_000a_VQTM.l15 ; 0x775c
@@ -367,7 +367,7 @@ jumptable_78e5_case_5:
     push ax                          ; 0x7780
     mov ax, 0xea6                    ; 0x7781
     push ax                          ; 0x7784
-    call ds_app_mem_TIMR             ; 0x7785
+    call load_message_string         ; 0x7785
     add sp, byte 4                   ; 0x7788
     mov ax, 4                        ; 0x778b
     push ax                          ; 0x778e
@@ -401,7 +401,7 @@ jumptable_78e5_case_5:
     sub ah, ah                       ; 0x77cd
     add ax, strict word 8            ; 0x77cf
     push ax                          ; 0x77d2
-    call ds_app_HKIJ                 ; 0x77d3
+    call play_sound_effect           ; 0x77d3
     pop cx                           ; 0x77d6
     mov ax, 1                        ; 0x77d7
     push ax                          ; 0x77da

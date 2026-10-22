@@ -151,7 +151,7 @@ check_cell_objects:
     pop cx                           ; 0x8dbb
     mov ax, 0                        ; 0x8dbc
     push ax                          ; 0x8dbf
-    call ds_app_HKIJ                 ; 0x8dc0
+    call play_sound_effect           ; 0x8dc0
     pop cx                           ; 0x8dc3
     mov ax, word [message_delay]     ; 0x8dc4
     mov cx, 2                        ; 0x8dc7

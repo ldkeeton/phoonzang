@@ -52,7 +52,7 @@ loc_LSRQ:
     mov ax, word [bp + 0x4]          ; 0x02b1
     add ax, word [bp - 0x0004]       ; 0x02b4
     push ax                          ; 0x02b7
-    call ds_app_mem_TIMR             ; 0x02b8
+    call load_message_string         ; 0x02b8
     add sp, byte 4                   ; 0x02bb
     mov ax, 0                        ; 0x02be
     push ax                          ; 0x02c1

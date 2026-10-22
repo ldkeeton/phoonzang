@@ -64,11 +64,11 @@ loc_TQHJ:
     call aztec_strcpy                ; 0x86cf
     add sp, byte 4                   ; 0x86d2
     mov word [bss_a5ae], 5           ; 0x86d5
-    les bx, word [dseg_0002]         ; 0x86db
+    les bx, word [tick_counter_ptr]  ; 0x86db
     mov ax, word [es:bx]             ; 0x86df
     mov dx, word [es:bx + 0x2]       ; 0x86e2
     mov word [bss_908c], dx          ; 0x86e6
-    mov word [bss_908a], ax          ; 0x86ea
+    mov word [party_redraw_last_tick], ax ; 0x86ea
     call api_idx_000a_THHN           ; 0x86ed
     mov ax, 0                        ; 0x86f0
     push ax                          ; 0x86f3

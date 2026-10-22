@@ -137,11 +137,11 @@ api_idx_0002_UUUJ:
     mov word [bss_a5b0], 0           ; 0x89e7
     mov word [bss_a4a4], 3           ; 0x89ed
     mov word [bss_a5ae], 5           ; 0x89f3
-    les bx, word [dseg_0002]         ; 0x89f9
+    les bx, word [tick_counter_ptr]  ; 0x89f9
     mov ax, word [es:bx]             ; 0x89fd
     mov dx, word [es:bx + 0x2]       ; 0x8a00
     mov word [bss_908c], dx          ; 0x8a04
-    mov word [bss_908a], ax          ; 0x8a08
+    mov word [party_redraw_last_tick], ax ; 0x8a08
     call api_idx_000a_THHN           ; 0x8a0b
     mov ax, 0                        ; 0x8a0e
     push ax                          ; 0x8a11

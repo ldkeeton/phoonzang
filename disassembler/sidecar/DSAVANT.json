@@ -35,6 +35,7 @@
     "api_idx_000a_IQHO": {
       "name": "fill_action_slot_table"
     },
+    "api_idx_000c_JQMN": {"name": "draw_realm_spell_points", "note": "prints a character's spell points for each of the six realms, centred in its own colour"},
     "api_idx_000c_LGVL": {
       "name": "draw_party_slot_letters",
       "note": "overlay stub 0x0c: draws one letter per party slot (six of them) via thunk_28, from the host's tables at ds:01d4/01a4/01bc/830e"
@@ -79,7 +80,9 @@
       "name": "strstr",
       "note": "ds: offset of a substring, 0xFFFF if absent"
     },
-    "loc_OUOJ": {"name": "mark_region_bits", "note": "sets the current region bit in per-level bitmaps when arg > 0 (both when > 1)"}
+    "loc_OUOJ": {"name": "mark_region_bits", "note": "sets the current region bit in per-level bitmaps when arg > 0 (both when > 1)"},
+    "loc_PTRP": {"name": "draw_power_digit", "note": "draws power digit i+1 at x+10*i, highlighted when selected; clears the first slot when neither"},
+    "loc_SRQQ": {"name": "periodic_party_redraw", "note": "once party_redraw_interval ticks have passed, redraws the party panel and slot letters"}
   },
   "binaries": {
     "ds": {
@@ -128,6 +131,7 @@
         },
         "03b8": {"name": "release_and_exit", "note": "releases resources then exits with status"},
         "0547": {"name": "str_subst_char", "note": "copies a string replacing each marker char with a second string"},
+        "0782": {"name": "load_message_string", "note": "looks up message id, reads its packed bytes from the message buffer (paging the file in as needed) and unpacks them into the caller's buffer"},
         "0883": {
           "name": "data_record_io",
           "note": "(type, buf, index, dir): seeks the data file (handle at DS 0x0e22) to the type's base (DS 0x521c) + index * the type's record size (bss_5524), then reads (dir 0) or writes (dir 1) one record; types 2-8 first map index through a per-type byte table, and a nonzero DS 0x556c[type] reads and unpacks it via ds_string_loc_HTNS"
@@ -139,6 +143,7 @@
         "0a09": {
           "name": "clamp_between"
         },
+        "0a27": {"name": "play_sound_effect", "note": "plays sound effect n from its 12-byte table entry through gfx_play_sound"},
         "0b54": {"name": "poll_hotspots", "note": "polls keyboard/mouse against the hotspot table, setting hotspot_hit"},
         "0ced": {"name": "set_hotspot", "note": "stores a clickable hotspot rectangle and key in the hotspot table"},
         "0e03": {"name": "draw_rect_outline", "note": "draws a colour-0 one-pixel outline just outside the corners left,top..right,bottom"},
@@ -147,6 +152,9 @@
         "0f2a": {"name": "draw_bevel_frame", "note": "fills a rectangle, outlines and bevels it, optionally adds an outer bevel, and colours its corner pixels"},
         "1034": {"name": "draw_framed_button", "note": "draws a bevelled frame sized in character cells with a centred label inside"},
         "10a6": {"name": "flash_button", "note": "inverts a button area to show it pressed"},
+        "10ff": {"name": "flash_area", "note": "inverts and shows a screen rectangle, then waits 35 ms when asked"},
+        "11de": {"name": "draw_text_list", "note": "clears a list box of 6-pixel rows and draws its visible entries from top, highlighting the selected row"},
+        "121f": {"name": "draw_scrollbar", "note": "draws a vertical scrollbar: bevel frame, up/down arrow glyphs and the thumb at the given offset"},
         "1308": {"name": "draw_button", "note": "draws a button label, framed or as plain centred text"},
         "1371": {
           "name": "free_picture_slot",
@@ -214,6 +222,7 @@
           "name": "font_memory_error",
           "note": "load_font_file's INT 21h AH=48h failure: prints 'Memory error loading font' and exits"
         },
+        "3a77": {"name": "draw_font_glyph", "note": "draws glyph code arg 1 in font arg 2 through the font driver; no-op when that font has no segment"},
         "3a95": {"name": "draw_string", "note": "draws a NUL-terminated string at the text position"},
         "3c0d": {
           "name": "stir_random_seeds",
@@ -293,10 +302,12 @@
       ],
       "ghidra_base_offset": -512,
       "data_names": {
+        "0002": {"name": "tick_counter_ptr", "note": "far pointer to the long timer tick counter"},
         "0110": {"name": "file_param_word", "note": "word in a small table (DS 0x10c.. = 0x21, 0x27, 0x26, 0x20, 0x26); vpcvw/vtrea read it after ds_app_file_KRUQ(2, ...) into bss_844e for ds_app_UKGP. The DS font loaders' `add ax, 0x110` (16-byte header + 256-byte table) only coincides with its address"},
         "01a4": {"name": "party_slot_x", "note": "int [2][6]: x of each party slot's letter for row 0/1; draw_party_slot_letters adds its x"},
         "01bc": {"name": "party_slot_y", "note": "int [2][6]: y of each party slot's letter for row 0/1; draw_party_slot_letters adds its y"},
         "01d4": {"name": "party_slot_glyphs", "note": "int [6][10]: per party slot, the glyph codes of its letter animation, 0xffff ends; draw_party_slot_letters reads the low byte of [slot][party_slot_frame[slot]]"},
+        "0620": {"name": "spell_table", "note": "6-byte entries per spell: +0 realm, +1 level (taken off the caster's power cap), +2 point cost per power level"},
         "0b74": {"name": "str_insert_savegame_disk", "note": "\"INSERT SAVEGAME DISK\" literal"},
         "0b89": {"name": "str_insert_disk_n", "note": "\"INSERT DISK (^)\" literal, ^ replaced by drive letter"},
         "0b99": {"name": "str_into_drive", "note": "\"INTO DRIVE ^\" literal, ^ replaced by drive name"},
@@ -333,6 +344,7 @@
         "5964": {"name": "screen_store_drive", "note": "byte: drive letter ('A'..'Z') save_screen_area spools screens to as \"X:\\name\""},
         "5985": {"name": "video_mode", "note": "byte: graphics adapter/mode selector; load_score_files picks .PBL for 5, .PBA otherwise (6 treated as 4)"},
         "5987": {"name": "install_mode", "note": "byte: install/disk configuration; 5 selects the alternate data path prefix in data_file_path and shifts indices in ensure_game_disk/ds_app_file_QQMM"},
+        "59fc": {"name": "space_key_hit", "note": "set by poll_hotspots when the last key was space"},
         "5b3e": {"name": "hotspot_hit", "note": "number of the hotspot last activated (0 for none)"},
         "5b6c": {"name": "current_maze", "note": "int: maze number passed to gfx_free_maze by free_current_maze; -1 when none"},
         "5b6e": {"name": "maze_variant", "note": "int 0-6: selects which extra mazes and picture slots free_current_maze frees along with current_maze"},
@@ -340,6 +352,7 @@
         "5b72": {"name": "saved_screen_kind", "note": "int [] per saved-screen slot: 3 when the screen was saved to the file saved_screen_file[n], -1 once freed"},
         "5b7c": {"name": "saved_screen_file", "note": "char [][20] per saved-screen slot: file name of a screen saved to disk"},
         "5be0": {"name": "saved_screen_ref", "note": "long [] per saved-screen slot: the driver's reference passed to gfx_restore_screen"},
+        "5c18": {"name": "pc_spell_power_cap", "note": "int at +0 of the 0x248-byte character records viewed here; per-realm spell points [cur, max] follow at +4"},
         "69ca": {"name": "data_path_buf", "note": "char []: static buffer in which data_file_path builds and returns prefix + file name"},
         "6a1a": {"name": "slot_rec_first", "note": "unsigned char [][350]: per-slot 350-byte records read from file 8 (ds_app_file_TSNH, 0x288e); +0x00 first entry per mode"},
         "6a1e": {"name": "slot_rec_count", "note": "+0x04 of the slot record: entry count per mode"},
@@ -370,9 +383,15 @@
         "8f42": {"name": "party_cell_x", "note": "party x within current map piece (0-7)"},
         "8f44": {"name": "party_world_y", "note": "party y in level coordinates"},
         "8f46": {"name": "party_world_x", "note": "party x in level coordinates"},
+        "904e": {"name": "spell_dialog_result", "note": "spell_select_dialog result: (power << 8) + spell + 0x100, -1 while open"},
+        "9050": {"name": "spell_dialog_button", "note": "which spell_select_dialog button closed it: 0 first, 1 second"},
         "905a": {"name": "message_delay", "note": "int: tick count passed to wait_ticks_or_key after a message"},
+        "908a": {"name": "party_redraw_last_tick", "note": "long: tick count at the last periodic_party_redraw refresh"},
+        "9104": {"name": "str_swap_file_v", "note": "\"V.$$$\" swap file name spell_select_dialog passes to save_screen_area"},
+        "9124": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes"},
         "919e": {"name": "save_location_flag", "note": "nonzero: record the destination as the saved location"},
         "91a8": {"name": "location_changed", "note": "set when the party is placed at a new location"},
+        "966a": {"name": "known_spell_list", "note": "int[]: spell ids collect_known_spells found, in list order"},
         "9bd0": {"name": "region_step_flag", "note": "cleared on move; when 1 loc_IPSH advances party_region"}
       },
       "code_data_names": {
@@ -655,6 +674,12 @@
       "fingerprint-end": "28a41ce973d74b574c1e907936aacc224f5595a92d4a6305e748497902ec108f"
     },
     "vtrea": {
+      "function_names": {
+        "8a0a": {"name": "collect_known_spells", "note": "fills known_spell_list with the realm's spells the character knows (and their names); returns the count"},
+        "8a7b": {"name": "draw_glyph_1_at_50_115", "note": "Draws the one-character string \"\\x01\" via gfx_draw_text at (50,115) with mode argument 1, clipped to the 320x200 screen"},
+        "8b45": {"name": "draw_spell_cost", "note": "clears the cost box and prints cost in 3 digits when 0 < cost <= available, else ***"},
+        "8d10": {"name": "spell_select_dialog", "note": "modal spell dialog for a character: realm hotspots F/W/A/E/M/D, scrolling known-spell list, power 1..7, two buttons; returns spell_dialog_button and leaves (power<<8)+spell+0x100 in spell_dialog_result"}
+      },
       "file": "VTREA.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,

@@ -64,7 +64,10 @@ def _claim_table(table, base, linked, name_to_addr):
     relocation to a case label.  A word is claimed when its relocation lands
     where the entry's label does; any other is a failure to report.
     """
-    if (table.get('entry_size', 2) != 2 or table.get('adjust', 0)
+    # An overlay's table is shifted to its ``o_corg`` (``adjust``); only the
+    # relocations, which carry that shift, can vouch for its entries.
+    if (table.get('entry_size', 2) != 2
+            or (table.get('adjust', 0) and linked is None)
             or table.get('keys', 0)
             or not all(isinstance(e, str) for e in table['entries'])):
         return False
@@ -391,19 +394,23 @@ def symbol_index(label_map, foreign_label_map, data_labels, sym_equ,
     """The :class:`lib.aztec.relink.SymbolIndex` a C routine links against.
 
     *segments* gives the data segment its canonical names and bytes; an
-    overlay's code addresses do not follow the image-base convention, and its
-    ``_Uend`` marks a place (:data:`lib.aztec.relink.OVERLAY_PLACE_SYMBOLS`).
+    overlay's code runs at its ``o_corg``, not CS 0, and its ``_Uend`` marks a
+    place (:data:`lib.aztec.relink.OVERLAY_PLACE_SYMBOLS`).
     """
     canonical = None
     if segments is not None and segments.data_space(0) is not None:
         def canonical(offset):
             return data_symbol(segments, offset)
     overlay = getattr(segments, 'kind', None) == 'overlay'
+    code_origin = ((getattr(segments, 'overlay', None) or {}).get('o_corg')
+                   if overlay else None)
     return relink.SymbolIndex(
         label_map, foreign_label_map, data_labels, sym_equ,
         data_symbol=canonical,
         data_bytes=lambda off, n: _data_bytes(segments, binary_data, off, n),
-        image_base=None if overlay else image_base,
+        # An overlay with no ``o_corg`` has no CS address for its code.
+        image_base=None if overlay and code_origin is None else image_base,
+        code_origin=code_origin,
         data_names=getattr(segments, 'data_names', None),
         places=(relink.OVERLAY_PLACE_SYMBOLS if overlay
                 else relink.PLACE_SYMBOLS))

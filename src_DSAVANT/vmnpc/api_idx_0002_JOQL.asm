@@ -7,7 +7,7 @@ api_idx_0002_JOQL:
     mov ax, bss_95a8                 ; 0xa2f2
     push ax                          ; 0xa2f5
     push word [bp + 0x4]             ; 0xa2f6
-    call ds_app_mem_TIMR             ; 0xa2f9
+    call load_message_string         ; 0xa2f9
     add sp, byte 4                   ; 0xa2fc
     cmp word [bss_5216], byte 0      ; 0xa2ff
     jne short @..api_idx_0002_JOQL.l2 ; 0xa304
@@ -38,7 +38,7 @@ api_idx_0002_JOQL:
     mov ax, bss_95a8                 ; 0xa341
     push ax                          ; 0xa344
     push word [bp + 0x6]             ; 0xa345
-    call ds_app_mem_TIMR             ; 0xa348
+    call load_message_string         ; 0xa348
     add sp, byte 4                   ; 0xa34b
     cmp word [bss_5216], byte 0      ; 0xa34e
     jne short @..api_idx_0002_JOQL.l4 ; 0xa353

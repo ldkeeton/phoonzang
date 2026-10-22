@@ -53,7 +53,7 @@ api_idx_000c_LVHV:
     add sp, byte 8                   ; 0x0385
     mov ax, 0x10                     ; 0x0388
     push ax                          ; 0x038b
-    call ds_app_HKIJ                 ; 0x038c
+    call play_sound_effect           ; 0x038c
     pop cx                           ; 0x038f
     cmp word [bp - 0x000c], byte 0xff ; 0x0390
     je short @..api_idx_000c_LVHV.l1 ; 0x0394

@@ -13,7 +13,7 @@ loc_GRON:
     jne short @..loc_GRON.l2         ; 0x6ae3
 @..loc_GRON.l1:
     push ax                          ; 0x6ae5
-    call ds_app_HKIJ                 ; 0x6ae6
+    call play_sound_effect           ; 0x6ae6
     pop cx                           ; 0x6ae9
     jmp short @..loc_GRON.l3         ; 0x6aea
 @..loc_GRON.l2:
@@ -22,7 +22,7 @@ loc_GRON:
     pop cx                           ; 0x6af2
     mov ax, 0x10                     ; 0x6af3
     push ax                          ; 0x6af6
-    call ds_app_HKIJ                 ; 0x6af7
+    call play_sound_effect           ; 0x6af7
     pop cx                           ; 0x6afa
     mov ax, 0x10                     ; 0x6afb
     push ax                          ; 0x6afe

@@ -32,7 +32,7 @@ ds_app_string_KVNI: ; Aztec csav frame=0x0054
     sub ah, ah                       ; 0x0c4e
     add ax, 0x9c4                    ; 0x0c50
     push ax                          ; 0x0c53
-    call ds_app_mem_TIMR             ; 0x0c54
+    call load_message_string         ; 0x0c54
     add sp, byte 4                   ; 0x0c57
     mov al, byte [bp - 0x0054]       ; 0x0c5a
     mov bx, word [bss_5b40]          ; 0x0c5d

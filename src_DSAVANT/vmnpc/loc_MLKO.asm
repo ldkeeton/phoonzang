@@ -56,7 +56,7 @@ loc_MLKO:
     je short @..loc_MLKO.l1          ; 0x138b
     mov ax, 0                        ; 0x138d
     push ax                          ; 0x1390
-    call ds_app_HKIJ                 ; 0x1391
+    call play_sound_effect           ; 0x1391
     pop cx                           ; 0x1394
 @..loc_MLKO.l1:
     mov ax, 0                        ; 0x1395

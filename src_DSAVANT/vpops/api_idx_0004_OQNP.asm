@@ -8,7 +8,7 @@ api_idx_0004_OQNP:
     mov ax, 6                        ; 0x19ac
     imul word [bp - 0x0002]          ; 0x19af
     mov bx, ax                       ; 0x19b2
-    mov al, byte [bx + 0x620]        ; 0x19b4
+    mov al, byte [bx + spell_table]  ; 0x19b4
     sub ah, ah                       ; 0x19b8
     cmp ax, word [bp + 0x6]          ; 0x19ba
     jne short @..api_idx_0004_OQNP.l2 ; 0x19bd
@@ -28,7 +28,7 @@ api_idx_0004_OQNP:
     mov ax, word [bp - 0x0002]       ; 0x19e0
     add ax, 0xfa0                    ; 0x19e3
     push ax                          ; 0x19e6
-    call ds_app_mem_TIMR             ; 0x19e7
+    call load_message_string         ; 0x19e7
     add sp, byte 4                   ; 0x19ea
     mov ax, word [bp - 0x0002]       ; 0x19ed
     mov cx, word [bp - 0x0004]       ; 0x19f0

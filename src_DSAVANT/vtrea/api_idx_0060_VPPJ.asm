@@ -39,7 +39,7 @@ api_idx_0060_VPPJ:
     mov ax, word [bss_91fe]          ; 0x2031
     add ax, 0x14b4                   ; 0x2034
     push ax                          ; 0x2037
-    call ds_app_mem_TIMR             ; 0x2038
+    call load_message_string         ; 0x2038
     add sp, byte 4                   ; 0x203b
     mov ax, 0                        ; 0x203e
     push ax                          ; 0x2041
@@ -375,7 +375,7 @@ api_idx_0060_VPPJ:
     mov cx, 2                        ; 0x2387
     cwd                              ; 0x238a
     idiv cx                          ; 0x238b
-    mov cx, word [bx + 0x5c18]       ; 0x238d
+    mov cx, word [bx + pc_spell_power_cap] ; 0x238d
     add ax, cx                       ; 0x2391
     push ax                          ; 0x2393
     mov bx, word [bp + 0x4]          ; 0x2394

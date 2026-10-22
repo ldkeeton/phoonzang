@@ -52,11 +52,11 @@ api_idx_0002_QRJS:
     mov word [bss_a5b0], 0           ; 0x8eef
     mov word [bss_a4a4], 8           ; 0x8ef5
     mov word [bss_a5ae], 5           ; 0x8efb
-    les bx, word [dseg_0002]         ; 0x8f01
+    les bx, word [tick_counter_ptr]  ; 0x8f01
     mov ax, word [es:bx]             ; 0x8f05
     mov dx, word [es:bx + 0x2]       ; 0x8f08
     mov word [bss_908c], dx          ; 0x8f0c
-    mov word [bss_908a], ax          ; 0x8f10
+    mov word [party_redraw_last_tick], ax ; 0x8f10
     call api_idx_000a_THHN           ; 0x8f13
     mov ax, 0                        ; 0x8f16
     push ax                          ; 0x8f19

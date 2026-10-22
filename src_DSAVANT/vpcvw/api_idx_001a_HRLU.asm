@@ -6,7 +6,7 @@ api_idx_001a_HRLU:
     push ax                          ; 0x7075
     mov ax, 0x1d7                    ; 0x7076
     push ax                          ; 0x7079
-    call ds_app_mem_TIMR             ; 0x707a
+    call load_message_string         ; 0x707a
     add sp, byte 4                   ; 0x707d
     mov word [bp - 0x0002], 0        ; 0x7080
 @..api_idx_001a_HRLU.l1:

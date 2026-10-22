@@ -3,7 +3,7 @@ api_idx_0074_MHUG:
     mov ax, 0xff8c                   ; 0x66eb
     call aztec_csav                  ; 0x66ee
     mov word [bss_911c], 0x8d        ; 0x66f1
-    mov word [bss_904e], 0xffff      ; 0x66f7
+    mov word [spell_dialog_result], 0xffff ; 0x66f7
     mov word [bp - 0x0006], 0x37     ; 0x66fd
     mov word [bp - 0x0008], 0x8f     ; 0x6702
     mov word [bp - 0x000a], 0x108    ; 0x6707
@@ -34,7 +34,7 @@ api_idx_0074_MHUG:
     lea ax, word [bp - 0x004c]       ; 0x6744
     push ax                          ; 0x6747
     push word [bp + 0x6]             ; 0x6748
-    call ds_app_mem_TIMR             ; 0x674b
+    call load_message_string         ; 0x674b
     add sp, byte 4                   ; 0x674e
     mov ax, 0xc2                     ; 0x6751
     push ax                          ; 0x6754
@@ -73,7 +73,7 @@ api_idx_0074_MHUG:
     mov ax, word [bp + 0x6]          ; 0x679f
     inc ax                           ; 0x67a2
     push ax                          ; 0x67a3
-    call ds_app_mem_TIMR             ; 0x67a4
+    call load_message_string         ; 0x67a4
     add sp, byte 4                   ; 0x67a7
     lea ax, word [bp - 0x0074]       ; 0x67aa
     push ax                          ; 0x67ad
@@ -96,7 +96,7 @@ api_idx_0074_MHUG:
     inc ax                           ; 0x67d4
     inc ax                           ; 0x67d5
     push ax                          ; 0x67d6
-    call ds_app_mem_TIMR             ; 0x67d7
+    call load_message_string         ; 0x67d7
     add sp, byte 4                   ; 0x67da
     lea ax, word [bp - 0x004c]       ; 0x67dd
     push ax                          ; 0x67e0
@@ -120,7 +120,7 @@ api_idx_0074_MHUG:
     inc ax                           ; 0x6808
     inc ax                           ; 0x6809
     push ax                          ; 0x680a
-    call ds_app_mem_TIMR             ; 0x680b
+    call load_message_string         ; 0x680b
     add sp, byte 4                   ; 0x680e
     mov ax, 0xc2                     ; 0x6811
     push ax                          ; 0x6814
@@ -158,7 +158,7 @@ api_idx_0074_MHUG:
     mov ax, word [bp + 0x6]          ; 0x685c
     add ax, strict word 4            ; 0x685f
     push ax                          ; 0x6862
-    call ds_app_mem_TIMR             ; 0x6863
+    call load_message_string         ; 0x6863
     add sp, byte 4                   ; 0x6866
     mov ax, 0xc2                     ; 0x6869
     push ax                          ; 0x686c
@@ -433,7 +433,7 @@ api_idx_0074_MHUG:
     mov ax, 0x248                    ; 0x6aca
     imul word [bp - 0x0002]          ; 0x6acd
     mov bx, ax                       ; 0x6ad0
-    mov ax, word [bx + 0x5c18]       ; 0x6ad2
+    mov ax, word [bx + pc_spell_power_cap] ; 0x6ad2
     mov cx, 3                        ; 0x6ad6
     cwd                              ; 0x6ad9
     idiv cx                          ; 0x6ada
@@ -454,7 +454,7 @@ api_idx_0074_MHUG:
     jg short @..api_idx_0074_MHUG.l11 ; 0x6afc
     mov ax, word [bp + 0xc]          ; 0x6afe
     inc ax                           ; 0x6b01
-    mov word [bss_9050], ax          ; 0x6b02
+    mov word [spell_dialog_button], ax ; 0x6b02
     mov word [bp - 0x0018], 0        ; 0x6b05
 @..api_idx_0074_MHUG.l11:
     mov ax, word [bp - 0x001c]       ; 0x6b0a
@@ -735,7 +735,7 @@ api_idx_0074_MHUG:
     add sp, byte 8                   ; 0x6d84
     mov ax, 4                        ; 0x6d87
     push ax                          ; 0x6d8a
-    call ds_app_HKIJ                 ; 0x6d8b
+    call play_sound_effect           ; 0x6d8b
     pop cx                           ; 0x6d8e
     mov ax, word [bp + 0xe]          ; 0x6d8f
     mov cx, 2                        ; 0x6d92
@@ -752,13 +752,13 @@ api_idx_0074_MHUG:
     pop ax                           ; 0x6daa
     cmp ax, cx                       ; 0x6dab
     jg short @..api_idx_0074_MHUG.l27 ; 0x6dad
-    mov word [bss_9050], 0           ; 0x6daf
+    mov word [spell_dialog_button], 0 ; 0x6daf
     mov word [bp - 0x0018], 0        ; 0x6db5
     jmp short @..api_idx_0074_MHUG.l28 ; 0x6dba
 @..api_idx_0074_MHUG.l27:
     mov ax, word [bp + 0xc]          ; 0x6dbc
     inc ax                           ; 0x6dbf
-    mov word [bss_9050], ax          ; 0x6dc0
+    mov word [spell_dialog_button], ax ; 0x6dc0
     mov word [bp - 0x0018], 0        ; 0x6dc3
 @..api_idx_0074_MHUG.l28:
     jmp short @..api_idx_0074_MHUG.l33 ; 0x6dc8
@@ -792,7 +792,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6e06
     call flash_button                ; 0x6e07
     add sp, byte 0x0a                ; 0x6e0a
-    mov word [bss_9050], 0xffff      ; 0x6e0d
+    mov word [spell_dialog_button], 0xffff ; 0x6e0d
     mov word [bp - 0x0018], 0        ; 0x6e13
 @..api_idx_0074_MHUG.l30:
     jmp short @..api_idx_0074_MHUG.l33 ; 0x6e18
@@ -831,5 +831,5 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6e5e
     call gfx_show_area               ; 0x6e5f
     add sp, byte 8                   ; 0x6e62
-    mov ax, word [bss_9050]          ; 0x6e65
+    mov ax, word [spell_dialog_button] ; 0x6e65
     ret                              ; 0x6e68

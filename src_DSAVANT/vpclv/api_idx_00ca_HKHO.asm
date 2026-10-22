@@ -124,7 +124,7 @@ api_idx_00ca_HKHO:
     push ax                          ; 0x1f67
     mov ax, 0x2be                    ; 0x1f68
     push ax                          ; 0x1f6b
-    call ds_app_mem_TIMR             ; 0x1f6c
+    call load_message_string         ; 0x1f6c
     add sp, byte 4                   ; 0x1f6f
     lea ax, word [bp - 0x00ca]       ; 0x1f72
     push ax                          ; 0x1f76
@@ -135,7 +135,7 @@ api_idx_00ca_HKHO:
     sub ah, ah                       ; 0x1f83
     add ax, strict word 0x78         ; 0x1f85
     push ax                          ; 0x1f88
-    call ds_app_mem_TIMR             ; 0x1f89
+    call load_message_string         ; 0x1f89
     add sp, byte 4                   ; 0x1f8c
     mov ax, 0x24                     ; 0x1f8f
     push ax                          ; 0x1f92
@@ -175,7 +175,7 @@ api_idx_00ca_HKHO:
     je short @..api_idx_00ca_HKHO.l11 ; 0x1fe4
     jmp near @..api_idx_00ca_HKHO.l13 ; 0x1fe6
 @..api_idx_00ca_HKHO.l11:
-    mov ax, word [bss_904e]          ; 0x1fe9
+    mov ax, word [spell_dialog_result] ; 0x1fe9
     mov cx, 0x100                    ; 0x1fec
     cwd                              ; 0x1fef
     idiv cx                          ; 0x1ff0
@@ -228,7 +228,7 @@ api_idx_00ca_HKHO:
     mov ax, 6                        ; 0x205b
     imul word [bp - 0x0006]          ; 0x205e
     mov bx, ax                       ; 0x2061
-    mov al, byte [bx + 0x620]        ; 0x2063
+    mov al, byte [bx + spell_table]  ; 0x2063
     sub ah, ah                       ; 0x2067
     mov word [bp - 0x0004], ax       ; 0x2069
     mov ax, 0x248                    ; 0x206c

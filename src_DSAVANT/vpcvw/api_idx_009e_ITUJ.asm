@@ -82,7 +82,7 @@ jumptable_3f96_case_3:
     mov ax, 0x248                    ; 0x3db2
     imul word [bp + 0x4]             ; 0x3db5
     mov bx, ax                       ; 0x3db8
-    mov cx, word [bx + 0x5c18]       ; 0x3dba
+    mov cx, word [bx + pc_spell_power_cap] ; 0x3dba
     pop ax                           ; 0x3dbe
     cmp ax, cx                       ; 0x3dbf
     jle short @..api_idx_009e_ITUJ.l4 ; 0x3dc1
@@ -90,7 +90,7 @@ jumptable_3f96_case_3:
     push ax                          ; 0x3dc7
     mov ax, 0x2d1                    ; 0x3dc8
     push ax                          ; 0x3dcb
-    call ds_app_mem_TIMR             ; 0x3dcc
+    call load_message_string         ; 0x3dcc
     add sp, byte 4                   ; 0x3dcf
     mov ax, 1                        ; 0x3dd2
     push ax                          ; 0x3dd5
@@ -113,7 +113,7 @@ jumptable_3f96_case_3:
     push ax                          ; 0x3dfe
     mov ax, 0x2d0                    ; 0x3dff
     push ax                          ; 0x3e02
-    call ds_app_mem_TIMR             ; 0x3e03
+    call load_message_string         ; 0x3e03
     add sp, byte 4                   ; 0x3e06
     mov ax, 1                        ; 0x3e09
     push ax                          ; 0x3e0c
@@ -130,7 +130,7 @@ jumptable_3f96_case_3:
     push ax                          ; 0x3e25
     mov ax, 0x2d2                    ; 0x3e26
     push ax                          ; 0x3e29
-    call ds_app_mem_TIMR             ; 0x3e2a
+    call load_message_string         ; 0x3e2a
     add sp, byte 4                   ; 0x3e2d
     mov ax, 1                        ; 0x3e30
     push ax                          ; 0x3e33
@@ -247,7 +247,7 @@ jumptable_3f96_case_6:
     sub ah, ah                       ; 0x3f37
     add ax, strict word 8            ; 0x3f39
     push ax                          ; 0x3f3c
-    call ds_app_HKIJ                 ; 0x3f3d
+    call play_sound_effect           ; 0x3f3d
     pop cx                           ; 0x3f40
     jmp near @..api_idx_009e_ITUJ.l13 ; 0x3f41
 jumptable_3f96_case_10:
@@ -341,7 +341,7 @@ jumptable_3f96_case_0:
 @..api_idx_009e_ITUJ.l16:
     mov ax, 0                        ; 0x4008
     push ax                          ; 0x400b
-    call ds_app_HKIJ                 ; 0x400c
+    call play_sound_effect           ; 0x400c
     pop cx                           ; 0x400f
 @..api_idx_009e_ITUJ.l17:
     ret                              ; 0x4010

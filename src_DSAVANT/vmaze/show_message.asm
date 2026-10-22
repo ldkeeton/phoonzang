@@ -5,7 +5,7 @@ show_message:
     lea ax, word [bp - 0x0050]       ; 0x109a
     push ax                          ; 0x109d
     push word [bp + 0x4]             ; 0x109e
-    call ds_app_mem_TIMR             ; 0x10a1
+    call load_message_string         ; 0x10a1
     add sp, byte 4                   ; 0x10a4
     lea ax, word [bp - 0x0050]       ; 0x10a7
     push ax                          ; 0x10aa

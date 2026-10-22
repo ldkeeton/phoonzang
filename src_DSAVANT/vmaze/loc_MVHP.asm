@@ -21,7 +21,7 @@ loc_MVHP:
     call random_below                ; 0x6b82
     pop cx                           ; 0x6b85
     cwd                              ; 0x6b86
-    les bx, word [dseg_0002]         ; 0x6b87
+    les bx, word [tick_counter_ptr]  ; 0x6b87
     mov cx, word [es:bx]             ; 0x6b8b
     mov bx, word [es:bx + 0x2]       ; 0x6b8e
     add ax, cx                       ; 0x6b92

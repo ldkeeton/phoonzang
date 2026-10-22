@@ -40,7 +40,7 @@ api_idx_0004_ONRQ:
 @..api_idx_0004_ONRQ.l5:
     mov ax, 0
     push ax
-    call ds_app_HKIJ
+    call play_sound_effect
     pop cx
     jmp short @..api_idx_0004_ONRQ.l5
 @..api_idx_0004_ONRQ.l6:

@@ -48,7 +48,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0ceb
     imul word [bp - 0x0002]          ; 0x0cee
     mov bx, ax                       ; 0x0cf1
-    mov ax, word [bx + 0x5c18]       ; 0x0cf3
+    mov ax, word [bx + pc_spell_power_cap] ; 0x0cf3
     push ax                          ; 0x0cf7
     mov ax, 0x2c                     ; 0x0cf8
     imul word [bp - 0x0002]          ; 0x0cfb

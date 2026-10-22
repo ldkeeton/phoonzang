@@ -8,7 +8,7 @@ api_idx_005a_STLR:
     push ax                          ; 0x2cee
     mov ax, 0x7e9                    ; 0x2cef
     push ax                          ; 0x2cf2
-    call ds_app_mem_TIMR             ; 0x2cf3
+    call load_message_string         ; 0x2cf3
     add sp, byte 4                   ; 0x2cf6
     mov ax, 0                        ; 0x2cf9
     push ax                          ; 0x2cfc
@@ -18,11 +18,11 @@ api_idx_005a_STLR:
     add sp, byte 4                   ; 0x2d04
 @..api_idx_005a_STLR.l1:
     mov word [bp - 0x000a], 0        ; 0x2d07
-    les bx, word [dseg_0002]         ; 0x2d0c
+    les bx, word [tick_counter_ptr]  ; 0x2d0c
     mov ax, word [es:bx]             ; 0x2d10
     mov dx, word [es:bx + 0x2]       ; 0x2d13
     mov word [bss_908c], dx          ; 0x2d17
-    mov word [bss_908a], ax          ; 0x2d1b
+    mov word [party_redraw_last_tick], ax ; 0x2d1b
     mov word [bp - 0x0002], 0        ; 0x2d1e
 @..api_idx_005a_STLR.l2:
     cmp word [bp + 0x4], byte 0      ; 0x2d23
@@ -34,7 +34,7 @@ api_idx_005a_STLR:
     jbe short @..api_idx_005a_STLR.l3 ; 0x2d38
     mov ax, 0x10                     ; 0x2d3a
     push ax                          ; 0x2d3d
-    call ds_app_HKIJ                 ; 0x2d3e
+    call play_sound_effect           ; 0x2d3e
     pop cx                           ; 0x2d41
 @..api_idx_005a_STLR.l3:
     mov word [bss_845e], 0xfffe      ; 0x2d42

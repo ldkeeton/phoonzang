@@ -12,7 +12,7 @@ api_idx_0002_SLJI:
     mov ax, 0x248                    ; 0x4286
     imul word [bp + 0x4]             ; 0x4289
     mov bx, ax                       ; 0x428c
-    mov ax, word [bx + 0x5c18]       ; 0x428e
+    mov ax, word [bx + pc_spell_power_cap] ; 0x428e
     dec ax                           ; 0x4292
     mov cx, 2                        ; 0x4293
     cwd                              ; 0x4296
@@ -28,7 +28,7 @@ api_idx_0002_SLJI:
     mov ax, 0x248                    ; 0x42ab
     imul word [bp + 0x4]             ; 0x42ae
     mov bx, ax                       ; 0x42b1
-    mov cx, word [bx + 0x5c18]       ; 0x42b3
+    mov cx, word [bx + pc_spell_power_cap] ; 0x42b3
     shl cx, 1                        ; 0x42b7
     shl cx, 1                        ; 0x42b9
     shl cx, 1                        ; 0x42bb

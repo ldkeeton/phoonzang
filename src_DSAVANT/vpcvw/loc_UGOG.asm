@@ -63,7 +63,7 @@ loc_UGOG:
     lea ax, word [bp - 0x01a6]       ; 0x1d32
     push ax                          ; 0x1d36
     push word [bp + 0x6]             ; 0x1d37
-    call ds_app_mem_TIMR             ; 0x1d3a
+    call load_message_string         ; 0x1d3a
     add sp, byte 4                   ; 0x1d3d
     mov ax, 0xc2                     ; 0x1d40
     push ax                          ; 0x1d43
@@ -138,7 +138,7 @@ loc_UGOG:
     mov ax, word [bp + 0x4]          ; 0x1ddb
     add ax, word [bp - 0x0004]       ; 0x1dde
     push ax                          ; 0x1de1
-    call ds_app_mem_TIMR             ; 0x1de2
+    call load_message_string         ; 0x1de2
     add sp, byte 4                   ; 0x1de5
     mov ax, word [bp - 0x0002]       ; 0x1de8
     cwd                              ; 0x1deb

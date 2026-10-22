@@ -11,6 +11,6 @@ loc_IVVH:
 @..loc_IVVH.l1:
     mov word [bss_93da], 0x10        ; 0x7443
     push word [bss_93da]             ; 0x7449
-    call ds_app_HKIJ                 ; 0x744d
+    call play_sound_effect           ; 0x744d
     pop cx                           ; 0x7450
     ret                              ; 0x7451

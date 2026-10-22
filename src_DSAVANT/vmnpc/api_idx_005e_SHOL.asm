@@ -49,7 +49,7 @@ api_idx_005e_SHOL:
     push ax                          ; 0x1462
     mov ax, 0x7e9                    ; 0x1463
     push ax                          ; 0x1466
-    call ds_app_mem_TIMR             ; 0x1467
+    call load_message_string         ; 0x1467
     add sp, byte 4                   ; 0x146a
     mov ax, 0                        ; 0x146d
     push ax                          ; 0x1470
@@ -70,11 +70,11 @@ api_idx_005e_SHOL:
     pop cx                           ; 0x1496
 @..api_idx_005e_SHOL.l7:
     mov word [bp - 0x000a], ax       ; 0x1497
-    les bx, word [dseg_0002]         ; 0x149a
+    les bx, word [tick_counter_ptr]  ; 0x149a
     mov ax, word [es:bx]             ; 0x149e
     mov dx, word [es:bx + 0x2]       ; 0x14a1
     mov word [bss_908c], dx          ; 0x14a5
-    mov word [bss_908a], ax          ; 0x14a9
+    mov word [party_redraw_last_tick], ax ; 0x14a9
     mov word [bp - 0x000c], 0        ; 0x14ac
     mov word [bp - 0x0002], 0        ; 0x14b1
 @..api_idx_005e_SHOL.l8:
@@ -85,7 +85,7 @@ api_idx_005e_SHOL:
     cmp word [bss_93da], byte 0      ; 0x14c2
     jle short @..api_idx_005e_SHOL.l9 ; 0x14c7
     push word [bss_93da]             ; 0x14c9
-    call ds_app_HKIJ                 ; 0x14cd
+    call play_sound_effect           ; 0x14cd
     pop cx                           ; 0x14d0
 @..api_idx_005e_SHOL.l9:
     mov word [bss_845e], 0xfffe      ; 0x14d1

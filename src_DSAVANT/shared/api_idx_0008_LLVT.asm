@@ -48,7 +48,7 @@ api_idx_0008_LLVT:
     push ax
     mov ax, 3
     push ax
-    call ds_loc_TJTV
+    call draw_font_glyph
     add sp, byte 4
 @..api_idx_0008_LLVT.l4:
     mov ax, word [bp + 0x8]
@@ -123,7 +123,7 @@ api_idx_0008_LLVT:
 @..api_idx_0008_LLVT.l9:
     mov ax, 0
     push ax
-    call ds_app_HKIJ
+    call play_sound_effect
     pop cx
 @..api_idx_0008_LLVT.l10:
     jmp near @..api_idx_0008_LLVT.l15
@@ -133,7 +133,7 @@ api_idx_0008_LLVT:
     jl short @..api_idx_0008_LLVT.l12
     mov ax, 0
     push ax
-    call ds_app_HKIJ
+    call play_sound_effect
     pop cx
     jmp near @..api_idx_0008_LLVT.l15
 @..api_idx_0008_LLVT.l12:
@@ -167,7 +167,7 @@ api_idx_0008_LLVT:
     mov al, byte [bp - 0x0002]
     sub ah, ah
     push ax
-    call ds_loc_TJTV
+    call draw_font_glyph
     add sp, byte 4
     mov ax, word [bp + 0x8]
     add ax, strict word 5

@@ -105,7 +105,7 @@ api_idx_006e_LVOK:
     push ax                          ; 0x3e5d
     mov ax, 0x2bf                    ; 0x3e5e
     push ax                          ; 0x3e61
-    call ds_app_mem_TIMR             ; 0x3e62
+    call load_message_string         ; 0x3e62
     add sp, byte 4                   ; 0x3e65
     mov ax, 1                        ; 0x3e68
     push ax                          ; 0x3e6b
@@ -137,7 +137,7 @@ api_idx_006e_LVOK:
     je short @..api_idx_006e_LVOK.l10 ; 0x3eaa
     jmp near @..api_idx_006e_LVOK.l12 ; 0x3eac
 @..api_idx_006e_LVOK.l10:
-    mov ax, word [bss_904e]          ; 0x3eaf
+    mov ax, word [spell_dialog_result] ; 0x3eaf
     mov cx, 0x100                    ; 0x3eb2
     cwd                              ; 0x3eb5
     idiv cx                          ; 0x3eb6
@@ -174,7 +174,7 @@ api_idx_006e_LVOK:
     mov ax, 6                        ; 0x3eff
     imul word [bp - 0x0006]          ; 0x3f02
     mov bx, ax                       ; 0x3f05
-    mov al, byte [bx + 0x620]        ; 0x3f07
+    mov al, byte [bx + spell_table]  ; 0x3f07
     sub ah, ah                       ; 0x3f0b
     mov word [bp - 0x0004], ax       ; 0x3f0d
     mov ax, 0x248                    ; 0x3f10

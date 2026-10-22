@@ -42,7 +42,7 @@ loc_HTRU:
     mov ax, word [bp + 0x4]          ; 0x1180
     add ax, word [bp - 0x0004]       ; 0x1183
     push ax                          ; 0x1186
-    call ds_app_mem_TIMR             ; 0x1187
+    call load_message_string         ; 0x1187
     add sp, byte 4                   ; 0x118a
     mov ax, word [bp - 0x0008]       ; 0x118d
     cwd                              ; 0x1190
