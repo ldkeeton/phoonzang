@@ -10,7 +10,7 @@ draw_font_glyph:
     mov ax, word [cs:bx]             ; 0x3a85
     or ax, ax                        ; 0x3a88
     je short @..draw_font_glyph.l1   ; 0x3a8a
-    call far [cs:cseg_2fb3 - IMAGE_BASE] ; 0x3a8c
+    call far [cs:gfx_drv_draw_glyph - IMAGE_BASE] ; 0x3a8c
 @..draw_font_glyph.l1:
     mov sp, bp                       ; 0x3a91
     pop bp                           ; 0x3a93

@@ -233,7 +233,7 @@
           "name": "font_memory_error",
           "note": "load_font_file's INT 21h AH=48h failure: prints 'Memory error loading font' and exits"
         },
-        "3a77": {"name": "draw_font_glyph", "note": "draws glyph code arg 1 in font arg 2 through the font driver; no-op when that font has no segment"},
+        "3a77": {"name": "draw_font_glyph", "note": "draws a glyph through the loaded font driver"},
         "3a95": {"name": "draw_string", "note": "draws a NUL-terminated string at the text position"},
         "3c0d": {
           "name": "stir_random_seeds",
@@ -484,6 +484,7 @@
         "2f4e": {"name": "misc_table_seg", "note": "segment read_misc_table reads the 0x400-byte misc table into and unpack_record reads from (0 until set at run time)"},
         "2f83": {"name": "play_drv_wait", "note": "far pointer to PLAY.DRV jump-table slot 7 (0x011f, leaf_loc_IUKK): with arg 0 busy-waits on the driver's flags; get_filtered_key calls it before reading a key"},
         "2faf": {"name": "gfx_drv_slot_10", "note": "far pointer to the graphics driver's jump-table slot 10 (0x012b, leaf_loc_UQHV: zeroes a driver word); flush_keyboard calls it"},
+        "2fb3": {"name": "gfx_drv_draw_glyph", "note": "far entry of the graphics driver glyph renderer"},
         "30dc": {"name": "random_seed_a", "note": "Wichmann-Hill seed 1 (mod 30269), stepped by stir_random_seeds"},
         "30de": {"name": "random_seed_b", "note": "Wichmann-Hill seed 2 (mod 30307), stepped by stir_random_seeds"},
         "30e0": {"name": "random_seed_c", "note": "Wichmann-Hill seed 3 (mod 30323), stepped by stir_random_seeds"},

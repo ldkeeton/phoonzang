@@ -1,0 +1,29 @@
+; draw_font_glyph(glyph, font): looks up the loaded segment for font and, if
+; present, passes it in AX to the graphics driver's draw-glyph entry; the
+; caller's glyph argument is left on the stack for the driver to read.
+	include	lmacros.h
+	assume	cs:codeseg
+	extrn	font_seg_table_:word
+	extrn	gfx_drv_draw_glyph_:dword
+glyph		equ	4	;arg: glyph code, read by the driver
+font		equ	6	;arg: index into font_seg_table
+	public	draw_font_glyph_
+draw_font_glyph_ proc near
+	push	bp
+	mov	bp,sp
+	cld
+	mov	ax,word ptr font[bp]
+	mov	bx,offset font_seg_table_
+	shl	ax,1		;font_seg_table entry is a word per font
+	add	bx,ax
+	mov	ax,word ptr cs:[bx]
+	or	ax,ax
+	je	no_font		;font not loaded: nothing to draw
+	call	dword ptr cs:gfx_drv_draw_glyph_
+no_font:
+	mov	sp,bp
+	pop	bp
+	ret
+draw_font_glyph_ endp
+	finish
+	end
