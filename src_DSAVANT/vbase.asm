@@ -309,7 +309,7 @@ dseg_912b equ __zdseg_end + (__zdseg_912b - __zdata_start)
 dseg_9138 equ __zdseg_end + (__zdseg_9138 - __zdata_start)
 %include "vbase/api_idx_0016_LTLN.asm"     ; 0x72d0
 
-%include "vbase/api_idx_000a_JPLR.asm"     ; 0x7340
+%include "vbase/draw_char_clipped_top_zero.asm" ; 0x7340
 
 %include "vbase/draw_char_clipped_top.asm" ; 0x737d
 

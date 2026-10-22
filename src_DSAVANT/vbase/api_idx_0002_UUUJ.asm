@@ -27,7 +27,7 @@ api_idx_0002_UUUJ:
     push ax                          ; 0x88c1
     mov ax, 0xf                      ; 0x88c2
     push ax                          ; 0x88c5
-    call api_idx_000a_JPLR           ; 0x88c6
+    call draw_char_clipped_top_zero  ; 0x88c6
     add sp, byte 8                   ; 0x88c9
     mov ax, 6                        ; 0x88cc
     push ax                          ; 0x88cf
@@ -36,7 +36,7 @@ api_idx_0002_UUUJ:
     push ax                          ; 0x88d7
     mov ax, 0xf                      ; 0x88d8
     push ax                          ; 0x88db
-    call api_idx_000a_JPLR           ; 0x88dc
+    call draw_char_clipped_top_zero  ; 0x88dc
     add sp, byte 8                   ; 0x88df
     mov ax, 6                        ; 0x88e2
     push ax                          ; 0x88e5
@@ -45,7 +45,7 @@ api_idx_0002_UUUJ:
     push ax                          ; 0x88ed
     mov ax, 0xf                      ; 0x88ee
     push ax                          ; 0x88f1
-    call api_idx_000a_JPLR           ; 0x88f2
+    call draw_char_clipped_top_zero  ; 0x88f2
     add sp, byte 8                   ; 0x88f5
     mov ax, 6                        ; 0x88f8
     push ax                          ; 0x88fb
@@ -54,7 +54,7 @@ api_idx_0002_UUUJ:
     push ax                          ; 0x8903
     mov ax, 0xf                      ; 0x8904
     push ax                          ; 0x8907
-    call api_idx_000a_JPLR           ; 0x8908
+    call draw_char_clipped_top_zero  ; 0x8908
     add sp, byte 8                   ; 0x890b
     mov ax, 6                        ; 0x890e
     push ax                          ; 0x8911
@@ -63,7 +63,7 @@ api_idx_0002_UUUJ:
     push ax                          ; 0x8919
     mov ax, 0xf                      ; 0x891a
     push ax                          ; 0x891d
-    call api_idx_000a_JPLR           ; 0x891e
+    call draw_char_clipped_top_zero  ; 0x891e
     add sp, byte 8                   ; 0x8921
     mov ax, 0xf                      ; 0x8924
     push ax                          ; 0x8927

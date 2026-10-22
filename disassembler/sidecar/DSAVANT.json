@@ -595,6 +595,7 @@
     },
     "vbase": {
       "function_names": {
+        "7332": {"name": "draw_char_clipped_top_zero", "note": "draws one character as a string clipped to the top 320x145 area, passing 0 as the final gfx_draw_text argument"},
         "736f": {"name": "draw_char_clipped_top", "note": "Draws one character via gfx_draw_text at (x,y), clipped to x 0..320, y 0..145"}
       },
       "file": "VBASE.OVR",

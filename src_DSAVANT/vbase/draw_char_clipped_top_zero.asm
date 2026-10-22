@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_000a_JPLR:
+draw_char_clipped_top_zero:
     mov ax, 0xfff6                   ; 0x7340
     call aztec_csav                  ; 0x7343
     mov al, byte [bp + 0x6]          ; 0x7346
