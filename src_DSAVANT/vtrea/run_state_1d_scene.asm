@@ -1,5 +1,5 @@
 ; auto-generated
-loc_HVOM:
+run_state_1d_scene:
     mov ax, 0                        ; 0x81db
     call aztec_csav                  ; 0x81de
     mov ax, 0                        ; 0x81e1

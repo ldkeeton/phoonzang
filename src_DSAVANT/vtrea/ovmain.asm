@@ -9,31 +9,31 @@ ovmain:
     cmp word [game_state], byte 0x0f ; 0x002c
     jne short @..ovmain.l1           ; 0x0031
     mov word [game_state], 0x16      ; 0x0033
-    call api_idx_0050_MUIG           ; 0x0039
+    call run_state_0f_scene          ; 0x0039
     jmp short @..ovmain.l6           ; 0x003c
 @..ovmain.l1:
     cmp word [game_state], byte 0x15 ; 0x003e
     jne short @..ovmain.l2           ; 0x0043
     mov word [game_state], 0x16      ; 0x0045
-    call loc_PKHU                    ; 0x004b
+    call run_state_15_scene          ; 0x004b
     jmp short @..ovmain.l6           ; 0x004e
 @..ovmain.l2:
     cmp word [game_state], byte 0x1a ; 0x0050
     jne short @..ovmain.l3           ; 0x0055
     mov word [game_state], 5         ; 0x0057
-    call loc_UIQM                    ; 0x005d
+    call run_state_1a_scene          ; 0x005d
     jmp short @..ovmain.l6           ; 0x0060
 @..ovmain.l3:
     cmp word [game_state], byte 0x1c ; 0x0062
     jne short @..ovmain.l4           ; 0x0067
     mov word [game_state], 5         ; 0x0069
-    call loc_PGGL                    ; 0x006f
+    call run_state_1c_scene          ; 0x006f
     jmp short @..ovmain.l6           ; 0x0072
 @..ovmain.l4:
     cmp word [game_state], byte 0x1d ; 0x0074
     jne short @..ovmain.l5           ; 0x0079
     mov word [game_state], 5         ; 0x007b
-    call loc_HVOM                    ; 0x0081
+    call run_state_1d_scene          ; 0x0081
     jmp short @..ovmain.l6           ; 0x0084
 @..ovmain.l5:
     mov word [game_state], 0x16      ; 0x0086

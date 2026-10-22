@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0050_MUIG:
+run_state_0f_scene:
     mov ax, 0xffb0                   ; 0x7f5a
     call aztec_csav                  ; 0x7f5d
     mov ax, 0x138c                   ; 0x7f60
@@ -25,7 +25,7 @@ api_idx_0050_MUIG:
     call ds_app_NNSU                 ; 0x7f90
     mov word [bss_8450], ax          ; 0x7f93
     test ax, ax                      ; 0x7f96
-    je short @..api_idx_0050_MUIG.l1 ; 0x7f98
+    je short @..run_state_0f_scene.l1 ; 0x7f98
     mov ax, 0                        ; 0x7f9a
     push ax                          ; 0x7f9d
     mov ax, 3                        ; 0x7f9e
@@ -47,7 +47,7 @@ api_idx_0050_MUIG:
     call ds_app_UKGP                 ; 0x7fc5
     add sp, byte 6                   ; 0x7fc8
     mov word [bss_844c], ax          ; 0x7fcb
-@..api_idx_0050_MUIG.l1:
+@..run_state_0f_scene.l1:
     lea ax, word [bp - 0x0050]       ; 0x7fce
     push ax                          ; 0x7fd1
     mov ax, 0x1388                   ; 0x7fd2
@@ -64,13 +64,13 @@ api_idx_0050_MUIG:
     call loc_OOHI                    ; 0x7fec
     add sp, byte 8                   ; 0x7fef
     cmp word [bss_8450], byte 0      ; 0x7ff2
-    je short @..api_idx_0050_MUIG.l4 ; 0x7ff7
-@..api_idx_0050_MUIG.l2:
+    je short @..run_state_0f_scene.l4 ; 0x7ff7
+@..run_state_0f_scene.l2:
     call gfx_is_music_playing        ; 0x7ff9
     test ax, ax                      ; 0x7ffc
-    je short @..api_idx_0050_MUIG.l3 ; 0x7ffe
-    jmp short @..api_idx_0050_MUIG.l2 ; 0x8000
-@..api_idx_0050_MUIG.l3:
+    je short @..run_state_0f_scene.l3 ; 0x7ffe
+    jmp short @..run_state_0f_scene.l2 ; 0x8000
+@..run_state_0f_scene.l3:
     mov ax, 0x190                    ; 0x8002
     push ax                          ; 0x8005
     call delay_ms                    ; 0x8006
@@ -88,17 +88,17 @@ api_idx_0050_MUIG:
     call ds_app_UKGP                 ; 0x8027
     add sp, byte 6                   ; 0x802a
     mov word [bss_844c], ax          ; 0x802d
-@..api_idx_0050_MUIG.l4:
+@..run_state_0f_scene.l4:
     cmp word [bss_84a4], byte 0      ; 0x8030
-    jl short @..api_idx_0050_MUIG.l5 ; 0x8035
-    jne short @..api_idx_0050_MUIG.l6 ; 0x8037
+    jl short @..run_state_0f_scene.l5 ; 0x8035
+    jne short @..run_state_0f_scene.l6 ; 0x8037
     cmp word [bss_84a2], byte 0      ; 0x8039
-    ja short @..api_idx_0050_MUIG.l6 ; 0x803e
-@..api_idx_0050_MUIG.l5:
-    jmp short @..api_idx_0050_MUIG.l7 ; 0x8040
-@..api_idx_0050_MUIG.l6:
+    ja short @..run_state_0f_scene.l6 ; 0x803e
+@..run_state_0f_scene.l5:
+    jmp short @..run_state_0f_scene.l7 ; 0x8040
+@..run_state_0f_scene.l6:
     call api_idx_00a8_JSHI           ; 0x8042
-@..api_idx_0050_MUIG.l7:
+@..run_state_0f_scene.l7:
     mov ax, 0                        ; 0x8045
     push ax                          ; 0x8048
     mov ax, 0xa4                     ; 0x8049
@@ -114,12 +114,12 @@ api_idx_0050_MUIG:
     call ds_app_TSGV                 ; 0x805f
     add sp, byte 4                   ; 0x8062
     cmp word [bss_84a0], byte 0xff   ; 0x8065
-    je short @..api_idx_0050_MUIG.l8 ; 0x806a
+    je short @..run_state_0f_scene.l8 ; 0x806a
     mov word [bss_905e], 0xf         ; 0x806c
     call loc_HUIS                    ; 0x8072
-@..api_idx_0050_MUIG.l8:
+@..run_state_0f_scene.l8:
     cmp word [bss_8450], byte 0      ; 0x8075
-    je short @..api_idx_0050_MUIG.l9 ; 0x807a
+    je short @..run_state_0f_scene.l9 ; 0x807a
     push word [bss_844c]             ; 0x807c
     push word [bss_844e]             ; 0x8080
     call fade_out_music              ; 0x8084
@@ -132,6 +132,6 @@ api_idx_0050_MUIG:
     push ax                          ; 0x8095
     call ds_app_gfx_free_score_VGJR  ; 0x8096
     pop cx                           ; 0x8099
-@..api_idx_0050_MUIG.l9:
+@..run_state_0f_scene.l9:
     call loc_VSIT                    ; 0x809a
     ret                              ; 0x809d

@@ -280,15 +280,15 @@ dseg_90ee        equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 %include "vtrea/loc_VSIT.asm"              ; 0x7eba
 
 ; bss_91d4 equ __zdseg_end + (__zobss_91d4 - __zdata_start)
-%include "vtrea/api_idx_0050_MUIG.asm"     ; 0x7f5a
+%include "vtrea/run_state_0f_scene.asm"    ; 0x7f5a
 
-%include "vtrea/loc_PKHU.asm"              ; 0x809e
+%include "vtrea/run_state_15_scene.asm"    ; 0x809e
 
-%include "vtrea/loc_UIQM.asm"              ; 0x811f
+%include "vtrea/run_state_1a_scene.asm"    ; 0x811f
 
-%include "vtrea/loc_PGGL.asm"              ; 0x81b6
+%include "vtrea/run_state_1c_scene.asm"    ; 0x81b6
 
-%include "vtrea/loc_HVOM.asm"              ; 0x81db
+%include "vtrea/run_state_1d_scene.asm"    ; 0x81db
 
 api_idx_002a_SRJL equ api_idx_002a_STSK
 %include "shared/game/api_idx_002a_STSK.asm"     ; 0x8200

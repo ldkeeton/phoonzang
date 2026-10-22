@@ -1,5 +1,5 @@
 ; auto-generated
-loc_PKHU:
+run_state_15_scene:
     mov ax, 0                        ; 0x809e
     call aztec_csav                  ; 0x80a1
     mov word [bss_849e], 0xffff      ; 0x80a4
@@ -12,11 +12,11 @@ loc_PKHU:
     call redraw_treasure_caption     ; 0x80b6
     pop cx                           ; 0x80b9
     cmp word [bss_84a0], byte 0xff   ; 0x80ba
-    je short @..loc_PKHU.l2          ; 0x80bf
+    je short @..run_state_15_scene.l2 ; 0x80bf
     call ds_app_NNSU                 ; 0x80c1
     mov word [bss_8450], ax          ; 0x80c4
     test ax, ax                      ; 0x80c7
-    je short @..loc_PKHU.l1          ; 0x80c9
+    je short @..run_state_15_scene.l1 ; 0x80c9
     mov ax, 1                        ; 0x80cb
     push ax                          ; 0x80ce
     mov ax, 2                        ; 0x80cf
@@ -32,11 +32,11 @@ loc_PKHU:
     call ds_app_UKGP                 ; 0x80e8
     add sp, byte 6                   ; 0x80eb
     mov word [bss_844c], ax          ; 0x80ee
-@..loc_PKHU.l1:
+@..run_state_15_scene.l1:
     mov word [bss_905e], 0x15        ; 0x80f1
     call loc_HUIS                    ; 0x80f7
     cmp word [bss_8450], byte 0      ; 0x80fa
-    je short @..loc_PKHU.l2          ; 0x80ff
+    je short @..run_state_15_scene.l2 ; 0x80ff
     push word [bss_844c]             ; 0x8101
     push word [bss_844e]             ; 0x8105
     call fade_out_music              ; 0x8109
@@ -45,7 +45,7 @@ loc_PKHU:
     push ax                          ; 0x8112
     call ds_app_gfx_free_score_VGJR  ; 0x8113
     pop cx                           ; 0x8116
-@..loc_PKHU.l2:
+@..run_state_15_scene.l2:
     inc word [party_region]          ; 0x8117
     call loc_VSIT                    ; 0x811b
     ret                              ; 0x811e
