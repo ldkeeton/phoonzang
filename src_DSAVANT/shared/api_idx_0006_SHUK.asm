@@ -20,7 +20,7 @@ api_idx_0006_SHUK:
     mov word [bp - 0x0002], ax
     mov ax, 0
     push ax
-    call api_idx_000a_QJGP
+    call redraw_glyph_strip
     pop cx
     mov ax, 1
     push ax
@@ -70,7 +70,7 @@ api_idx_0006_SHUK:
     mov word [bp - 0x0006], ax
     mov ax, 0
     push ax
-    call api_idx_000a_QJGP
+    call redraw_glyph_strip
     pop cx
     mov ax, 1
     push ax
@@ -104,7 +104,7 @@ api_idx_0006_SHUK:
     mov word [bp - 0x0002], ax
     mov ax, 0
     push ax
-    call api_idx_000a_QJGP
+    call redraw_glyph_strip
     pop cx
     mov ax, 1
     push ax
@@ -115,7 +115,7 @@ api_idx_0006_SHUK:
 @..api_idx_0006_SHUK.l4:
     mov ax, 0
     push ax
-    call api_idx_000a_QJGP
+    call redraw_glyph_strip
     pop cx
     jmp short @..api_idx_0006_SHUK.l8
 @..api_idx_0006_SHUK.l5:

@@ -35,6 +35,7 @@
     "api_idx_000a_IQHO": {
       "name": "fill_action_slot_table"
     },
+    "api_idx_000a_QJGP": {"name": "redraw_glyph_strip", "note": "restores both saved areas, draws glyph 1 at 55,154, optionally shows the strip"},
     "api_idx_000c_JQMN": {"name": "draw_realm_spell_points", "note": "prints a character's spell points for each of the six realms, centred in its own colour"},
     "api_idx_000c_LGVL": {
       "name": "draw_party_slot_letters",

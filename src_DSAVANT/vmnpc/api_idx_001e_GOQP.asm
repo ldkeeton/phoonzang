@@ -161,7 +161,7 @@ api_idx_001e_GOQP:
     add sp, byte 4                   ; 0x724a
     mov ax, 0                        ; 0x724d
     push ax                          ; 0x7250
-    call api_idx_000a_QJGP           ; 0x7251
+    call redraw_glyph_strip          ; 0x7251
     pop cx                           ; 0x7254
     mov word [bss_93ee], 1           ; 0x7255
     mov word [bss_9134], 0           ; 0x725b

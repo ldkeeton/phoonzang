@@ -41,7 +41,7 @@ api_idx_000e_NKQN.api_idx1 equ api_idx_0004_SMTU
 
 %include "shared/loc_SSIO.asm"              ; 0x0a56
 
-%include "shared/api_idx_000a_QJGP.asm"     ; 0x0ab2
+%include "shared/redraw_glyph_strip.asm"    ; 0x0ab2
 
 %include "shared/loc_VNIO.asm"              ; 0x0b30
 

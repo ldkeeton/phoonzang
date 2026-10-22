@@ -28,7 +28,7 @@ __zcode_start:
 
 %include "shared/api_idx_002a_STSK.asm"     ; 0x0022
 
-%include "shared/api_idx_000a_QJGP.asm"     ; 0x00cb
+%include "shared/redraw_glyph_strip.asm"    ; 0x00cb
 
 %include "shared/loc_VNIO.asm"              ; 0x0149
 
