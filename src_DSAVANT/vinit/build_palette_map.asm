@@ -1,97 +1,11 @@
 ; auto-generated
-api_idx_000c_QTSG:
-    mov ax, 0xfff4                   ; 0x0146
-    call aztec_csav                  ; 0x0149
-    mov ax, 0                        ; 0x014c
-    push ax                          ; 0x014f
-    push ax                          ; 0x0150
-    push word [bp + 0x4]             ; 0x0151
-    call data_file_path              ; 0x0154
-    add sp, byte 4                   ; 0x0157
-    push ax                          ; 0x015a
-    call aztec_open                  ; 0x015b
-    add sp, byte 4                   ; 0x015e
-    mov word [bp - 0x0002], ax       ; 0x0161
-    cmp ax, strict word 0xffff       ; 0x0164
-    jne short @..api_idx_000c_QTSG.l1 ; 0x0167
-    mov ax, 6                        ; 0x0169
-    push ax                          ; 0x016c
-    call release_and_exit            ; 0x016d
-    pop cx                           ; 0x0170
-@..api_idx_000c_QTSG.l1:
-    mov ax, 2                        ; 0x0171
-    push ax                          ; 0x0174
-    mov ax, 0                        ; 0x0175
-    mov dx, 0                        ; 0x0178
-    push dx                          ; 0x017b
-    push ax                          ; 0x017c
-    push word [bp - 0x0002]          ; 0x017d
-    call aztec_lseek                 ; 0x0180
-    add sp, byte 8                   ; 0x0183
-    mov word [bp - 0x0004], dx       ; 0x0186
-    mov word [bp - 0x0006], ax       ; 0x0189
-    push word [bp - 0x0004]          ; 0x018c
-    push word [bp - 0x0006]          ; 0x018f
-    call app_malloc                  ; 0x0192
-    add sp, byte 4                   ; 0x0195
-    mov word [bp - 0x0008], dx       ; 0x0198
-    mov word [bp - 0x000a], ax       ; 0x019b
-    push word [bp - 0x0006]          ; 0x019e
-    call aztec_malloc                ; 0x01a1
-    pop cx                           ; 0x01a4
-    mov word [bp - 0x000c], ax       ; 0x01a5
-    cmp word [bp - 0x0008], byte 0   ; 0x01a8
-    jne short @..api_idx_000c_QTSG.l2 ; 0x01ac
-    cmp word [bp - 0x000a], byte 0   ; 0x01ae
-@..api_idx_000c_QTSG.l2:
-    je short @..api_idx_000c_QTSG.l3 ; 0x01b2
-    cmp word [bp - 0x000c], byte 0   ; 0x01b4
-    jne short @..api_idx_000c_QTSG.l4 ; 0x01b8
-@..api_idx_000c_QTSG.l3:
-    mov ax, 6                        ; 0x01ba
-    push ax                          ; 0x01bd
-    call release_and_exit            ; 0x01be
-    pop cx                           ; 0x01c1
-@..api_idx_000c_QTSG.l4:
-    mov ax, 0                        ; 0x01c2
-    push ax                          ; 0x01c5
-    mov ax, 0                        ; 0x01c6
-    mov dx, 0                        ; 0x01c9
-    push dx                          ; 0x01cc
-    push ax                          ; 0x01cd
-    push word [bp - 0x0002]          ; 0x01ce
-    call aztec_lseek                 ; 0x01d1
-    add sp, byte 8                   ; 0x01d4
-    push word [bp - 0x0006]          ; 0x01d7
-    push word [bp - 0x000c]          ; 0x01da
-    push word [bp - 0x0002]          ; 0x01dd
-    call aztec_read                  ; 0x01e0
-    add sp, byte 6                   ; 0x01e3
-    push word [bp - 0x0002]          ; 0x01e6
-    call aztec_close                 ; 0x01e9
-    pop cx                           ; 0x01ec
-    push word [bp - 0x0006]          ; 0x01ed
-    push word [bp - 0x0008]          ; 0x01f0
-    push word [bp - 0x000a]          ; 0x01f3
-    mov ax, word [bp - 0x000c]       ; 0x01f6
-    mov dx, ds                       ; 0x01f9
-    push dx                          ; 0x01fb
-    push ax                          ; 0x01fc
-    call app_memmove                 ; 0x01fd
-    add sp, byte 0x0a                ; 0x0200
-    push word [bp - 0x000c]          ; 0x0203
-    call aztec_free                  ; 0x0206
-    pop cx                           ; 0x0209
-    mov ax, word [bp - 0x000a]       ; 0x020a
-    mov dx, word [bp - 0x0008]       ; 0x020d
-    ret                              ; 0x0210
-loc_PNTM:
+build_palette_map:
     mov ax, 0xfaf4                   ; 0x0211
     call aztec_csav                  ; 0x0214
     mov word [bp - 0x0002], 0        ; 0x0217
-@..loc_PNTM.l1:
+@..build_palette_map.l1:
     mov word [bp - 0x0004], 0        ; 0x021c
-@..loc_PNTM.l2:
+@..build_palette_map.l2:
     mov ax, 0x3f                     ; 0x0221
     push ax                          ; 0x0224
     mov ax, 0                        ; 0x0225
@@ -117,7 +31,7 @@ loc_PNTM:
     pop ax                           ; 0x0255
     mov byte [bx - 0x030c], al       ; 0x0256
     cmp al, 0x20                     ; 0x025a
-    jbe short @..loc_PNTM.l3         ; 0x025c
+    jbe short @..build_palette_map.l3 ; 0x025c
     sub ah, ah                       ; 0x025e
     add ax, strict word 0xffe0       ; 0x0260
     imul word [bp + 0x6]             ; 0x0263
@@ -144,15 +58,15 @@ loc_PNTM:
     add bx, bp                       ; 0x0295
     pop ax                           ; 0x0297
     mov byte [bx - 0x030c], al       ; 0x0298
-    jmp short @..loc_PNTM.l4         ; 0x029c
-@..loc_PNTM.l3:
+    jmp short @..build_palette_map.l4 ; 0x029c
+@..build_palette_map.l3:
     mov ax, 3                        ; 0x029e
     imul word [bp - 0x0002]          ; 0x02a1
     add ax, word [bp - 0x0004]       ; 0x02a4
     mov bx, ax                       ; 0x02a7
     add bx, bp                       ; 0x02a9
     cmp byte [bx - 0x030c], 0x20     ; 0x02ab
-    jae short @..loc_PNTM.l4         ; 0x02b0
+    jae short @..build_palette_map.l4 ; 0x02b0
     mov al, byte [bx - 0x030c]       ; 0x02b2
     sub ah, ah                       ; 0x02b6
     mov cx, ax                       ; 0x02b8
@@ -182,19 +96,19 @@ loc_PNTM:
     add bx, bp                       ; 0x02f1
     pop ax                           ; 0x02f3
     mov byte [bx - 0x030c], al       ; 0x02f4
-@..loc_PNTM.l4:
+@..build_palette_map.l4:
     inc word [bp - 0x0004]           ; 0x02f8
     mov ax, word [bp - 0x0004]       ; 0x02fb
     cmp ax, strict word 3            ; 0x02fe
-    jge short @..loc_PNTM.l5         ; 0x0301
-    jmp near @..loc_PNTM.l2          ; 0x0303
-@..loc_PNTM.l5:
+    jge short @..build_palette_map.l5 ; 0x0301
+    jmp near @..build_palette_map.l2 ; 0x0303
+@..build_palette_map.l5:
     inc word [bp - 0x0002]           ; 0x0306
     mov ax, word [bp - 0x0002]       ; 0x0309
     cmp ax, 0x100                    ; 0x030c
-    jge short @..loc_PNTM.l6         ; 0x030f
-    jmp near @..loc_PNTM.l1          ; 0x0311
-@..loc_PNTM.l6:
+    jge short @..build_palette_map.l6 ; 0x030f
+    jmp near @..build_palette_map.l1 ; 0x0311
+@..build_palette_map.l6:
     mov ax, 0xff                     ; 0x0314
     push ax                          ; 0x0317
     mov ax, 0x200                    ; 0x0318
@@ -204,7 +118,7 @@ loc_PNTM:
     call aztec_setmem                ; 0x0321
     add sp, byte 6                   ; 0x0324
     mov word [bp - 0x0002], 0        ; 0x0327
-@..loc_PNTM.l7:
+@..build_palette_map.l7:
     mov ax, 3                        ; 0x032c
     imul word [bp - 0x0002]          ; 0x032f
     mov bx, ax                       ; 0x0332
@@ -242,7 +156,7 @@ loc_PNTM:
     inc word [bp - 0x0002]           ; 0x0380
     mov ax, word [bp - 0x0002]       ; 0x0383
     cmp ax, 0x100                    ; 0x0386
-    jl short @..loc_PNTM.l7          ; 0x0389
+    jl short @..build_palette_map.l7 ; 0x0389
     lea ax, word [bp - 0x050c]       ; 0x038b
     push ax                          ; 0x038f
     lea ax, word [bp - 0x030c]       ; 0x0390

@@ -613,6 +613,10 @@
       ]
     },
     "vinit": {
+      "function_names": {
+        "0138": {"name": "load_file_data", "note": "reads the whole file at path into a far heap buffer and returns it"},
+        "0203": {"name": "build_palette_map", "note": "converts 3-byte RGB triples into a 6-bit palette and 512-byte colour map, then installs the palette"}
+      },
       "file": "VINIT.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,

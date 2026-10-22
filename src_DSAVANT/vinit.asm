@@ -34,7 +34,9 @@ __zcode_start:
 
 %include "vinit/api_idx_0002_TJHL.asm"     ; 0x010c
 
-%include "vinit/api_idx_000c_QTSG.asm"     ; 0x0146
+%include "vinit/load_file_data.asm"        ; 0x0146
+
+%include "vinit/build_palette_map.asm"     ; 0x0211
 
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 dseg_90a5 equ __zdseg_end + (__zdseg_90a5 - __zdata_start)

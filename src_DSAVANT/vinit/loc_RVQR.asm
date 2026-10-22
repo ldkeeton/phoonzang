@@ -186,19 +186,19 @@ loc_RVQR:
     call ds_app_OOHU                 ; 0x056c
     mov ax, dseg_9105                ; 0x056f
     push ax                          ; 0x0572
-    call api_idx_000c_QTSG           ; 0x0573
+    call load_file_data              ; 0x0573
     pop cx                           ; 0x0576
     mov word [bss_0e30], dx          ; 0x0577
     mov word [bss_0e2e], ax          ; 0x057b
     mov ax, dseg_9111                ; 0x057e
     push ax                          ; 0x0581
-    call api_idx_000c_QTSG           ; 0x0582
+    call load_file_data              ; 0x0582
     pop cx                           ; 0x0585
     mov word [bss_0e2c], dx          ; 0x0586
     mov word [bss_0e2a], ax          ; 0x058a
     mov ax, dseg_911d                ; 0x058d
     push ax                          ; 0x0590
-    call api_idx_000c_QTSG           ; 0x0591
+    call load_file_data              ; 0x0591
     pop cx                           ; 0x0594
     mov word [bss_0e28], dx          ; 0x0595
     mov word [bss_0e26], ax          ; 0x0599
@@ -512,7 +512,7 @@ loc_RVQR:
     mov al, byte [bss_5978]          ; 0x08a5
     cbw                              ; 0x08a8
     push ax                          ; 0x08a9
-    call loc_PNTM                    ; 0x08aa
+    call build_palette_map           ; 0x08aa
     add sp, byte 6                   ; 0x08ad
     mov word [game_state], 1         ; 0x08b0
     ret                              ; 0x08b6
