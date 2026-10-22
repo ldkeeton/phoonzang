@@ -109,7 +109,7 @@ dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)
 
 %include "vpops/api_idx_0004_LUOM.asm"     ; 0x2aef
 
-loc_HTKI.api_idx1 equ api_idx_0004_LUOM
+loc_HTKI.draw_list_rows1 equ api_idx_0004_LUOM
 %include "shared/game/loc_HTKI.asm"              ; 0x2c51
 
 dseg_90c5 equ __zdseg_end + (__zdseg_90c5 - __zdata_start)

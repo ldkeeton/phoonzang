@@ -59,7 +59,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x4206
     mov ax, 0x16                     ; 0x4207
     imul word [bp - 0x0094]          ; 0x420a
-    add ax, 0x9bb0                   ; 0x420e
+    add ax, list_row_name            ; 0x420e
     push ax                          ; 0x4211
     call aztec_strcpy                ; 0x4212
     add sp, byte 4                   ; 0x4215
@@ -67,7 +67,7 @@ api_idx_0094_LUVH:
 @..api_idx_0094_LUVH.l4:
     mov ax, 0x16                     ; 0x421a
     imul word [bp - 0x0094]          ; 0x421d
-    add ax, 0x9bb0                   ; 0x4221
+    add ax, list_row_name            ; 0x4221
     push ax                          ; 0x4224
     mov al, byte [bp - 0x0013]       ; 0x4225
     sub ah, ah                       ; 0x4228
@@ -81,9 +81,9 @@ api_idx_0094_LUVH:
     mov cx, word [bp - 0x0094]       ; 0x4239
     shl cx, 1                        ; 0x423d
     mov bx, cx                       ; 0x423f
-    mov word [bx - 0x6478], ax       ; 0x4241
+    mov word [bx + list_row_glyph], ax ; 0x4241
     mov ax, word [bp - 0x0050]       ; 0x4245
-    mov word [bx - 0x64a0], ax       ; 0x4248
+    mov word [bx + list_row_marked], ax ; 0x4248
     mov ax, 0x248                    ; 0x424c
     imul word [bp + 0x4]             ; 0x424f
     push ax                          ; 0x4252
@@ -124,13 +124,13 @@ api_idx_0094_LUVH:
     mov cx, word [bp - 0x0094]       ; 0x42a1
     shl cx, 1                        ; 0x42a5
     mov bx, cx                       ; 0x42a7
-    mov word [bx - 0x6298], ax       ; 0x42a9
+    mov word [bx + list_row_count], ax ; 0x42a9
     jmp short @..api_idx_0094_LUVH.l7 ; 0x42ad
 @..api_idx_0094_LUVH.l6:
     mov ax, word [bp - 0x0094]       ; 0x42af
     shl ax, 1                        ; 0x42b3
     mov bx, ax                       ; 0x42b5
-    mov word [bx - 0x6298], 0        ; 0x42b7
+    mov word [bx + list_row_count], 0 ; 0x42b7
 @..api_idx_0094_LUVH.l7:
     mov ax, word [bp - 0x0050]       ; 0x42bd
     xchg al, ah                      ; 0x42c0

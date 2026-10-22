@@ -164,7 +164,7 @@ dseg_90da        equ __zdseg_end + (__zdseg_90da - __zdata_start)
 
 %include "vtrea/api_idx_0004_SLIS.asm"     ; 0x38b3
 
-loc_HTKI.api_idx1 equ api_idx_0004_SLIS
+loc_HTKI.draw_list_rows1 equ api_idx_0004_SLIS
 %include "shared/game/loc_HTKI.asm"              ; 0x3a15
 
 dseg_90dc             equ __zdseg_end + (__zdseg_90dc - __zdata_start)

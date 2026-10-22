@@ -22,6 +22,6 @@ loc_HTKI:
     push word [bp + 0x8]
     push word [bp + 0x6]
     push word [bp + 0x4]
-    call loc_HTKI.api_idx1
+    call loc_HTKI.draw_list_rows1
     add sp, byte 0x0c
     ret

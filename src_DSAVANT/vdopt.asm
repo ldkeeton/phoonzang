@@ -192,9 +192,13 @@ dseg_909e         equ __zdseg_end + (__zdseg_909e - __zdata_start)
 
 %include "shared/game/api_idx_0018_RGOS.asm"     ; 0x378c
 
-%include "vdopt/api_idx_0004_PNVH.asm"     ; 0x3889
+list_row_marked equ __zdseg_end + (__zobss_9b60 - __zdata_start)
+list_row_glyph  equ __zdseg_end + (__zobss_9b88 - __zdata_start)
+list_row_name   equ __zdseg_end + (__zobss_9bb0 - __zdata_start)
+list_row_count  equ __zdseg_end + (__zobss_9d68 - __zdata_start)
+%include "vdopt/draw_list_rows.asm"        ; 0x3889
 
-loc_HTKI.api_idx1 equ api_idx_0004_PNVH
+loc_HTKI.draw_list_rows1 equ draw_list_rows
 %include "shared/game/loc_HTKI.asm"              ; 0x39eb
 
 dseg_90a4 equ __zdseg_end + (__zdseg_90a4 - __zdata_start)
@@ -204,6 +208,10 @@ dseg_90aa         equ __zdseg_end + (__zdseg_90aa - __zdata_start)
 ; pending_event     equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 ; pending_event_hi  equ __zdseg_end + (__zobss_90b8 - __zdata_start)
 ; party_redraw_mode equ __zdseg_end + (__zobss_9b5e - __zdata_start)
+; list_row_marked   equ __zdseg_end + (__zobss_9b60 - __zdata_start)
+; list_row_glyph    equ __zdseg_end + (__zobss_9b88 - __zdata_start)
+; list_row_name     equ __zdseg_end + (__zobss_9bb0 - __zdata_start)
+; list_row_count    equ __zdseg_end + (__zobss_9d68 - __zdata_start)
 spell_target      equ __zdseg_end + (__zobss_9d90 - __zdata_start)
 %include "vdopt/api_idx_0094_LUVH.asm"     ; 0x417c
 
@@ -307,7 +315,15 @@ __zobss_9b0c:
 __zobss_9b0e:
     resb 0x0050
 __zobss_9b5e:
-    resb 0x0232
+    resb 0x0002
+__zobss_9b60:
+    resb 0x0028
+__zobss_9b88:
+    resb 0x0028
+__zobss_9bb0:
+    resb 0x01b8
+__zobss_9d68:
+    resb 0x0028
 __zobss_9d90:
     resb 0x0004
 __zobss_end:
