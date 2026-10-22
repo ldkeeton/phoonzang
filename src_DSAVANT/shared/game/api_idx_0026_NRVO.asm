@@ -139,7 +139,7 @@ api_idx_0026_NRVO:
     call draw_string
     add sp, byte 4
     push word [bp + 0xc]
-    mov ax, bss_0e38
+    mov ax, known_spell_names
     push ax
     call aztec_strcpy
     add sp, byte 4
@@ -280,11 +280,11 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 0x0002]
     add ax, strict word 0x5f
     push ax
-    mov ax, bss_0e38
+    mov ax, known_spell_names
     push ax
     call api_idx_0008_LLVT
     add sp, byte 0x0e
-    mov ax, bss_0e38
+    mov ax, known_spell_names
     push ax
     push word [bp + 0xc]
     call aztec_strcpy
@@ -381,11 +381,11 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 0x0002]
     add ax, strict word 0x5f
     push ax
-    mov ax, bss_0e38
+    mov ax, known_spell_names
     push ax
     call api_idx_0008_LLVT
     add sp, byte 0x0e
-    mov ax, bss_0e38
+    mov ax, known_spell_names
     push ax
     push word [bp + 0xc]
     call aztec_strcpy

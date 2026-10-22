@@ -23,7 +23,7 @@ collect_known_spells:
     je short @..collect_known_spells.l2 ; 0x8a50
     mov ax, 0x14                     ; 0x8a52
     imul word [bp - 0x0004]          ; 0x8a55
-    add ax, bss_0e38                 ; 0x8a58
+    add ax, known_spell_names        ; 0x8a58
     push ax                          ; 0x8a5b
     mov ax, word [bp - 0x0002]       ; 0x8a5c
     add ax, 0xfa0                    ; 0x8a5f

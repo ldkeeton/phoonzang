@@ -161,7 +161,8 @@ report_line2_none equ __zdseg_end + (__zreport_line2_none - __zdata_start)
 
 %include "shared/game/api_idx_0002_TIUI.asm"     ; 0x2627
 
-%include "vdopt/api_idx_0004_MNVO.asm"     ; 0x2682
+known_spell_ids equ __zdseg_end + (__zobss_9b0e - __zdata_start)
+%include "vdopt/collect_known_realm_spells.asm" ; 0x2682
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x26f3
 
@@ -180,8 +181,9 @@ periodic_party_redraw.api_idx1 equ draw_marker_glyph
 periodic_party_redraw.api_idx2 equ draw_realm_spell_points
 %include "shared/game/periodic_party_redraw.asm" ; 0x28f7
 
-dseg_909e equ __zdseg_end + (__zdseg_909e - __zdata_start)
-; bss_9b5e  equ __zdseg_end + (__zobss_9b5e - __zdata_start)
+dseg_909e       equ __zdseg_end + (__zdseg_909e - __zdata_start)
+; known_spell_ids equ __zdseg_end + (__zobss_9b0e - __zdata_start)
+; bss_9b5e        equ __zdseg_end + (__zobss_9b5e - __zdata_start)
 %include "vdopt/api_idx_0044_PIIP.asm"     ; 0x2988
 
 %include "shared/game/api_idx_0008_RQRL.asm"     ; 0x362f
@@ -301,7 +303,9 @@ __zobss_9b08:
 __zobss_9b0a:
     resb 0x0002
 __zobss_9b0c:
-    resb 0x0052
+    resb 0x0002
+__zobss_9b0e:
+    resb 0x0050
 __zobss_9b5e:
     resb 0x0232
 __zobss_9d90:

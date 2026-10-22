@@ -237,7 +237,7 @@ jumptable_85bc:
     jne short @..api_idx_0004_PONI.l5 ; 0x8624
     mov ax, 0x14                     ; 0x8626
     imul word [bp - 0x0004]          ; 0x8629
-    add ax, bss_0e38                 ; 0x862c
+    add ax, known_spell_names        ; 0x862c
     push ax                          ; 0x862f
     mov ax, word [bp - 0x0002]       ; 0x8630
     add ax, 0x157c                   ; 0x8633

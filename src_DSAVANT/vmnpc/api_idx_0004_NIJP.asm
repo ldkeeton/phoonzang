@@ -23,7 +23,7 @@ api_idx_0004_NIJP:
     je short @..api_idx_0004_NIJP.l2 ; 0x7564
     mov ax, 0x14                     ; 0x7566
     imul word [bp - 0x0004]          ; 0x7569
-    add ax, bss_0e38                 ; 0x756c
+    add ax, known_spell_names        ; 0x756c
     push ax                          ; 0x756f
     mov ax, word [bp - 0x0002]       ; 0x7570
     add ax, 0xfa0                    ; 0x7573

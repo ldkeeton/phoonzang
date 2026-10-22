@@ -32,7 +32,7 @@ api_idx_0002_OGRO:
     push ax
     mov ax, 0x14
     imul word [bp - 0x0002]
-    add ax, bss_0e38
+    add ax, known_spell_names
     push ax
     call draw_string
     add sp, byte 4

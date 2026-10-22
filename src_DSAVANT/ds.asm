@@ -385,7 +385,7 @@ bss_598c equ __zbss_598c - __zdseg_start
 
 %include "ds/game/flash_area.asm"          ; 0x10ff
 
-bss_0e38 equ __zbss_0e38 - __zdseg_start
+known_spell_names equ __zbss_0e38 - __zdseg_start
 %include "ds/game/ds_app_string_UNSL.asm"  ; 0x1138
 
 %include "ds/game/draw_text_list.asm"      ; 0x11de

@@ -23,7 +23,7 @@ api_idx_0004_VQQR:
     je short @..api_idx_0004_VQQR.l2 ; 0x2d9b
     mov ax, 0x14                     ; 0x2d9d
     imul word [bp - 0x0004]          ; 0x2da0
-    add ax, bss_0e38                 ; 0x2da3
+    add ax, known_spell_names        ; 0x2da3
     push ax                          ; 0x2da6
     mov ax, word [bp - 0x0002]       ; 0x2da7
     add ax, 0xfa0                    ; 0x2daa

@@ -163,7 +163,7 @@ api_idx_0044_PIIP:
     add sp, byte 0x0a                ; 0x2b22
     push word [bp - 0x0042]          ; 0x2b25
     push word [bp + 0x4]             ; 0x2b28
-    call api_idx_0004_MNVO           ; 0x2b2b
+    call collect_known_realm_spells  ; 0x2b2b
     add sp, byte 4                   ; 0x2b2e
     mov word [bp - 0x0044], ax       ; 0x2b31
     mov ax, 7                        ; 0x2b34
@@ -1079,7 +1079,7 @@ jumptable_35d1_case_4:
     mov word [bp - 0x003c], 0xffff   ; 0x3381
     push ax                          ; 0x3386
     push word [bp + 0x4]             ; 0x3387
-    call api_idx_0004_MNVO           ; 0x338a
+    call collect_known_realm_spells  ; 0x338a
     add sp, byte 4                   ; 0x338d
     mov word [bp - 0x0044], ax       ; 0x3390
     mov ax, 7                        ; 0x3393
@@ -1204,7 +1204,7 @@ jumptable_35d1_case_4:
     mov word [bp - 0x0022], ax       ; 0x34b8
     shl ax, 1                        ; 0x34bb
     mov bx, ax                       ; 0x34bd
-    mov ax, word [bx - 0x64f2]       ; 0x34bf
+    mov ax, word [bx + known_spell_ids] ; 0x34bf
     mov word [bp - 0x003c], ax       ; 0x34c3
     push word [bp - 0x0024]          ; 0x34c6
     push word [bp - 0x0022]          ; 0x34c9

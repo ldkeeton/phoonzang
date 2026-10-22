@@ -23,7 +23,7 @@ api_idx_0004_NONK:
     je short @..api_idx_0004_NONK.l2 ; 0x29b6
     mov ax, 0x14                     ; 0x29b8
     imul word [bp - 0x0004]          ; 0x29bb
-    add ax, bss_0e38                 ; 0x29be
+    add ax, known_spell_names        ; 0x29be
     push ax                          ; 0x29c1
     mov ax, word [bp - 0x0002]       ; 0x29c2
     add ax, 0xfa0                    ; 0x29c5

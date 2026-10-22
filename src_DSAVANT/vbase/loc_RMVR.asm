@@ -2060,13 +2060,13 @@ loc_PVJJ:
     push ax                          ; 0x5f5c
     mov ax, 0x14                     ; 0x5f5d
     imul word [bp - 0x0008]          ; 0x5f60
-    add ax, bss_0e38                 ; 0x5f63
+    add ax, known_spell_names        ; 0x5f63
     push ax                          ; 0x5f66
     call aztec_strcpy                ; 0x5f67
     add sp, byte 4                   ; 0x5f6a
     mov ax, 0x14                     ; 0x5f6d
     imul word [bp - 0x0008]          ; 0x5f70
-    add ax, bss_0e38                 ; 0x5f73
+    add ax, known_spell_names        ; 0x5f73
     push ax                          ; 0x5f76
     call aztec_strlen                ; 0x5f77
     pop cx                           ; 0x5f7a
@@ -2078,7 +2078,7 @@ loc_PVJJ:
     imul word [bp - 0x0008]          ; 0x5f87
     add ax, word [bp - 0x0004]       ; 0x5f8a
     mov bx, ax                       ; 0x5f8d
-    mov byte [bx + bss_0e38], 0x20   ; 0x5f8f
+    mov byte [bx + known_spell_names], 0x20 ; 0x5f8f
     inc word [bp - 0x0004]           ; 0x5f94
     jmp short @..loc_PVJJ.l3         ; 0x5f97
 @..loc_PVJJ.l4:

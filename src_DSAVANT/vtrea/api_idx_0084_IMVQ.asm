@@ -7,7 +7,7 @@ api_idx_0084_IMVQ:
 @..api_idx_0084_IMVQ.l1:
     mov ax, 0x14                     ; 0x25b8
     imul word [bp - 0x0002]          ; 0x25bb
-    add ax, bss_0e38                 ; 0x25be
+    add ax, known_spell_names        ; 0x25be
     push ax                          ; 0x25c1
     mov ax, word [bp - 0x0002]       ; 0x25c2
     shl ax, 1                        ; 0x25c5

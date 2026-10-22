@@ -736,7 +736,7 @@ jumptable_4471_case_0:
 @..api_idx_0030_MLHO.l33:
     mov ax, word [grid_origin_y]     ; 0x453b
     mov word [grid_origin_x], ax     ; 0x453e
-    mov word [bss_9b0e], ax          ; 0x4541
+    mov word [known_spell_ids], ax   ; 0x4541
     jmp short @..api_idx_0030_MLHO.l35 ; 0x4544
 @..api_idx_0030_MLHO.l34:
     mov ax, 0                        ; 0x4546
@@ -771,7 +771,7 @@ jumptable_4471_case_0:
     push ax                          ; 0x4595
     call api_idx_0008_LUNN           ; 0x4596
     add sp, byte 0x0e                ; 0x4599
-    mov word [bss_9b0e], ax          ; 0x459c
+    mov word [known_spell_ids], ax   ; 0x459c
 @..api_idx_0030_MLHO.l35:
     mov ax, 0xffff                   ; 0x459f
     push ax                          ; 0x45a2
@@ -1094,7 +1094,7 @@ jumptable_4471_case_0:
     push ax                          ; 0x485b
     mov ax, 3                        ; 0x485c
     push ax                          ; 0x485f
-    push word [bss_9b0e]             ; 0x4860
+    push word [known_spell_ids]      ; 0x4860
     push word [bss_91aa]             ; 0x4864
     call api_idx_0012_JLRR           ; 0x4868
     add sp, byte 0x40                ; 0x486b

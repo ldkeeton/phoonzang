@@ -337,6 +337,7 @@
         "0e14": {"name": "maze_data", "note": "pointer to loaded maze data: wall planes at +0x90/+0x290, piece origins at +0x490/+0x4a0"},
         "0e22": {"name": "data_file_fd", "note": "int: handle of the open game data file that data_record_io seeks, reads and writes"},
         "0e24": {"name": "msg_dbs_fd", "note": "file handle of MSG.DBS"},
+        "0e38": {"name": "known_spell_names", "note": "20-byte spell name strings filled by collect_known_realm_spells"},
         "5218": {"name": "disk_header", "note": "buffer DISK.HDR is read into; first word is the disk number"},
         "521c": {"name": "record_base", "note": "long [] per record type: file offset of the type's first record in the data file"},
         "5244": {"name": "record_map_2", "note": "unsigned char []: index -> record number for data_record_io types 2 and 3"},
@@ -431,6 +432,7 @@
         "966a": {"name": "known_spell_list", "note": "int[]: spell ids collect_known_spells found, in list order"},
         "9b0a": {"name": "grid_origin_y", "note": "y pixel origin of the 7-pixel character grid"},
         "9b0c": {"name": "grid_origin_x", "note": "x pixel origin of the 7-pixel character grid"},
+        "9b0e": {"name": "known_spell_ids", "note": "spell numbers parallel to known_spell_names"},
         "9bd0": {"name": "region_step_flag", "note": "cleared on move; when 1 loc_IPSH advances party_region"},
         "a4a4": {"name": "scene_index", "note": "scene number 1..8 that draw_scene_frame draws; set by each scene starter"},
         "a5aa": {"name": "scene_tick", "note": "tick counter compared against the scene_cue_* ticks; reset to 1 by blank_scene_screen"},
@@ -673,7 +675,8 @@
         "0f71": {"name": "draw_grid_cell_char", "note": "draws one character at a 7-pixel grid cell plus pixel offset, relative to the grid origin"},
         "194d": {"name": "draw_centered_lines", "note": "draws up to three strings centered in a message box"},
         "1a4f": {"name": "roll_slot_detection_report", "note": "per-level percent rolls over 20 slots, shows a message box per detected slot or a none-found message"},
-        "237f": {"name": "trigger_keyed_cell_object", "note": "fires the type 0x13 or type 7 object in the party cell whose key matches a cell_key_grid entry"}
+        "237f": {"name": "trigger_keyed_cell_object", "note": "fires the type 0x13 or type 7 object in the party cell whose key matches a cell_key_grid entry"},
+        "2674": {"name": "collect_known_realm_spells", "note": "fills the known-spell name and id lists for one pc and realm; returns the count"}
       },
       "file": "VDOPT.OVR",
       "type": "aztec_overlay",

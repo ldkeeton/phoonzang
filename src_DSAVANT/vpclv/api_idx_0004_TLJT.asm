@@ -23,7 +23,7 @@ api_idx_0004_TLJT:
     je short @..api_idx_0004_TLJT.l2 ; 0x0e73
     mov ax, 0x14                     ; 0x0e75
     imul word [bp - 0x0004]          ; 0x0e78
-    add ax, bss_0e38                 ; 0x0e7b
+    add ax, known_spell_names        ; 0x0e7b
     push ax                          ; 0x0e7e
     mov ax, word [bp - 0x0002]       ; 0x0e7f
     add ax, 0xfa0                    ; 0x0e82

@@ -237,7 +237,7 @@ jumptable_240e:
     jne short @..api_idx_0004_SNNO.l5 ; 0x2476
     mov ax, 0x14                     ; 0x2478
     imul word [bp - 0x0004]          ; 0x247b
-    add ax, bss_0e38                 ; 0x247e
+    add ax, known_spell_names        ; 0x247e
     push ax                          ; 0x2481
     mov ax, word [bp - 0x0002]       ; 0x2482
     add ax, 0x157c                   ; 0x2485
