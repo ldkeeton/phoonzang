@@ -259,6 +259,7 @@ def resplice_c(app, binary, check_only=False, only=None):
     without them.
     """
     from lib.aztec import cache, relink
+    from lib.aztec.compile import project_headers
     from lib.aztec.modules import entry_for
     from lib.aztec.objread import external_label, fixup_width
     from lib.compare.cgate import CGateError, check_against_original
@@ -405,7 +406,7 @@ def resplice_c(app, binary, check_only=False, only=None):
         tool = cache._tool(app, binary, label, entry)
         in_stamp = hashlib.sha1(
             (env.hexdigest() + json.dumps(entry, sort_keys=True)
-             + repr(tool) + text)
+             + repr(tool) + text + project_headers(text))
             .encode('utf-8', 'replace')).hexdigest()
         prev = stamps.get(label)
         if prev and prev['in'] == in_stamp and os.path.isfile(apath):

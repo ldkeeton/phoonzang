@@ -5,6 +5,7 @@
 ; the following DOS print/exit code); an allocation error jumps to
 ; font_memory_error.
 	include	lmacros.h
+	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	font_header_seg_:word, font_seg_table_:word, font_io_error_msg_:byte
 	extrn	font_memory_error_:near
@@ -19,22 +20,17 @@ load_font_file_ proc near
 	mov	bp,sp
 	cld
 	sub	sp,8
-	push	si
-	push	di
-	push	ds
-	push	es
-	mov	ax,ds
-	mov	es,ax
+	pushs	si,di,ds,es
+	movseg	es,ds
 	mov	bx,word ptr cs:font_header_seg_	;ds = scratch segment for the header
 	mov	ds,bx
 	xor	dx,dx	;DOS 3Fh: read 16-byte header to ds:0
 	mov	bx,word ptr handle[bp]
 	mov	cx,10h
-	mov	ah,3fh
-	int	21h
-	jae	l1
-	jmp	l5
-l1:
+	dos	3fh
+	.if	carry?
+		jmp	l5
+	.endif
 	xor	bx,bx
 	mov	ax,word ptr 0ah[bx]	;glyph count (hdr 0Ah) * bytes per glyph (hdr 5)
 	xor	cx,cx
@@ -45,31 +41,29 @@ l1:
 	mov	word ptr font_size[bp],ax
 	mov	word ptr alloc_size[bp],ax
 	mov	al,byte ptr 2[bx]	;hdr byte 2 nonzero: no extra block
-	or	al,al
-	jne	l2
-	mov	dl,byte ptr 6[bx]	;flag bit 1: allocate an extra block
-	test	dl,2
-	je	l2
-	mov	ax,word ptr 0eh[bx]	;extra count (hdr 0Eh) * bytes per glyph
-	xor	ch,ch
-	mov	cl,byte ptr 5[bx]
-	mul	cx
-	add	word ptr alloc_size[bp],ax
-	mov	dl,byte ptr 6[bx]	;flag bit 2: the extra block is also in the file
-	test	dl,4
-	je	l2
-	add	word ptr font_size[bp],ax
-l2:
+	.if	not al
+		mov	dl,byte ptr 6[bx]	;flag bit 1: allocate an extra block
+		.if	dl and 2
+			mov	ax,word ptr 0eh[bx]	;extra count (hdr 0Eh) * bytes per glyph
+			xor	ch,ch
+			mov	cl,byte ptr 5[bx]
+			mul	cx
+			add	word ptr alloc_size[bp],ax
+			mov	dl,byte ptr 6[bx]	;flag bit 2: the extra block is also in the file
+			.if	dl and 4
+				add	word ptr font_size[bp],ax
+			.endif
+		.endif
+	.endif
 	mov	dx,word ptr alloc_size[bp]	;bytes to paragraphs, rounded up
 	add	dx,0fh
 	mov	cl,4
 	shr	dx,cl
 	mov	bx,dx
-	mov	ah,48h	;DOS 48h: allocate, ax = segment
-	int	21h
-	jae	l3
-	jmp	font_memory_error_
-l3:
+	dos	48h	;allocate, ax = segment
+	.if	carry?
+		jmp	font_memory_error_
+	.endif
 	mov	bx,offset font_seg_table_	;font_seg_table[slot] = segment (word table in cs)
 	mov	cx,word ptr slot[bp]
 	shl	cx,1
@@ -85,34 +79,26 @@ l3:
 	mov	bx,word ptr handle[bp]
 	mov	cx,word ptr font_size[bp]
 	sub	cx,dx
-	mov	ah,3fh
-	int	21h
+	dos	3fh
 	jb	l5
 	xor	bx,bx	;extra block allocated but not read (bit 1 set, bit 2 clear, byte 2 = 0):
 	mov	al,byte ptr 6[bx]
 	and	al,6
-	cmp	al,2
-	jne	l4
-	mov	al,byte ptr 2[bx]
-	or	al,al
-	jne	l4
-	mov	ax,ds	;fill it by copying the glyphs (at 110h) to hdr 0Ch
-	mov	es,ax
-	mov	di,word ptr 0ch[bx]
-	mov	si,110h
-	mov	cx,word ptr glyph_bytes[bp]
-	rep	movsb
-l4:
-	pop	es
-	pop	ds
-	pop	di
-	pop	si
-	mov	sp,bp
-	pop	bp
-	ret
+	.if	al == 2
+		mov	al,byte ptr 2[bx]
+		.if	not al
+			mov	ax,ds	;fill it by copying the glyphs (at 110h) to hdr 0Ch
+			mov	es,ax
+			mov	di,word ptr 0ch[bx]
+			mov	si,110h
+			mov	cx,word ptr glyph_bytes[bp]
+			rep	movsb
+		.endif
+	.endif
+	pops	es,ds,di,si
+	unframe
 l5:	;read error: ds:dx = message for the DOS print that follows
-	mov	ax,cs
-	mov	ds,ax
+	movseg	ds,cs
 	mov	dx,offset font_io_error_msg_
 load_font_file_ endp
 	finish

@@ -29,7 +29,7 @@ from lib.cachedirs import prebuild_dir
 
 from . import listing, objcache, sources
 from .compile import CompiledModule, DATA_VERSION
-from .compile import VERSION
+from .compile import VERSION, project_headers
 from .mux import MuxEngine, is_asm
 from .objread import fixup_width
 
@@ -312,7 +312,7 @@ def _module_key(project, binary, label, entry, source_text):
     return objcache.module_key(entry['includes'], entry['file'],
                                entry['compiler'],
                                _tool(project, binary, label, entry)[1],
-                               source_text)
+                               source_text + project_headers(source_text))
 
 
 def _compile_seeds(engine, project, binary, functions, objcache_dir,

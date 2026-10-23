@@ -47,6 +47,27 @@ VERSION = 'v42b'
 #: ``compiler_flags`` entry for this prefix is how Manx built the library.
 LIBRARY_PREFIX = 'aztec_'
 
+#: Macros a hand-written ``.s`` may ``include hlmacros.h``.  ``as`` finds an
+#: include in the current directory before INCLUDE, so it is copied beside the
+#: module, which keeps the module's own line numbers in its messages.
+HLMACROS = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                        'hlmacros.h')
+_HLMACROS_RE = re.compile(r'^\s*include\s+hlmacros\.h\b', re.I | re.M)
+
+
+def project_headers(source_text):
+    """The text of the project headers *source_text* includes ('' for none),
+    for its cache key: editing a header recompiles what includes it."""
+    if not _HLMACROS_RE.search(source_text):
+        return ''
+    with open(HLMACROS) as f:
+        return f.read()
+
+
+def _place_project_headers(work):
+    shutil.copy(HLMACROS, os.path.join(work, 'HLMACROS.H'))
+
+
 _COMPILER_DIRS = {
     VERSION: os.path.join(_DOSCOMP, 'Manx Aztec C86 v42b'),
 }
@@ -397,6 +418,8 @@ def compile_module(source_text, name, *, compiler=VERSION, includes=None,
         os.symlink(incdir, os.path.join(work, 'azinc'))
         with open(os.path.join(work, 'dosbox.conf'), 'w') as f:
             f.write(_CONF)
+        if kind == 'asm':
+            _place_project_headers(work)
         module = dos_names([name])[0]
         ext = 'ASM' if kind == 'asm' else 'C'
         with open(os.path.join(work, f'{module}.{ext}'), 'w') as f:
@@ -535,6 +558,8 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
         os.symlink(incdir, os.path.join(work, 'azinc'))
         with open(os.path.join(work, 'dosbox.conf'), 'w') as f:
             f.write(_CONF)
+        if kind == 'asm':
+            _place_project_headers(work)
 
         # DOSBox-X stops honouring -c flags after ~10, so the per-module work
         # goes into one batch file; the mounts stay as -c.

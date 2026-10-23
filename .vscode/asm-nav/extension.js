@@ -581,7 +581,14 @@ function claudePrompt(job) {
             `padding \`nop\`s or jumps \`cc\` would shorten; falling through into the next routine. ` +
             `Never put a whole routine body in \`#asm\` inside a C function: that is what a .s is for, ` +
             `and labels in \`#asm\` become linker symbols. \`#asm\` is only for a few instructions ` +
-            `inside real C.` +
+            `inside real C. A .s may \`include hlmacros.h\` (after lmacros.h) for MASM 6-style ` +
+            `\`.if\`/\`.elseif\`/\`.else\`/\`.endif\`, \`.while\`/\`.endw\`, \`.repeat\`/\`.until\`, \`.break\`/` +
+            `\`.continue\` (conditions like \`ax == 5\`, \`al lt 3\`, \`dl and 2\` (test), \`carry?\`, \`not cx\`; no \`!\`, \`<\` or ` +
+            `\`>\`), plus DOS/BIOS call, push/pop list and clamp shorthand, \`frame\`/\`unframe\` (bp frame), ` +
+            `\`movseg\` (segment via ax), \`outp\` (port writes), \`fatal\` (print and exit) and ` +
+            `\`jnear\` (jcc over a near jmp). ` +
+            `disassembler/lib/aztec/hlmacros.h lists each macro's exact expansion: use one only where ` +
+            `it expands to the original instructions. Indent each block body one tab past its directive.` +
             (handWritten ? ` The sidecar note marks this routine hand-written asm: write ${rel(sFile)}.` : ''),
         `Commands (repo root): \`make rebuild\` is the pass/fail gate: it recompiles every .c/.s, ` +
             `checks it against the original bytes, and assembles. ` +
@@ -634,7 +641,14 @@ function opencodePrompt(job) {
             `padding \`nop\`s or jumps \`cc\` would shorten; falling through into the next routine. ` +
             `Never put a whole routine body in \`#asm\` inside a C function: that is what a .s is for, ` +
             `and labels in \`#asm\` become linker symbols. \`#asm\` is only for a few instructions ` +
-            `inside real C.` +
+            `inside real C. A .s may \`include hlmacros.h\` (after lmacros.h) for MASM 6-style ` +
+            `\`.if\`/\`.elseif\`/\`.else\`/\`.endif\`, \`.while\`/\`.endw\`, \`.repeat\`/\`.until\`, \`.break\`/` +
+            `\`.continue\` (conditions like \`ax == 5\`, \`al lt 3\`, \`dl and 2\` (test), \`carry?\`, \`not cx\`; no \`!\`, \`<\` or ` +
+            `\`>\`), plus DOS/BIOS call, push/pop list and clamp shorthand, \`frame\`/\`unframe\` (bp frame), ` +
+            `\`movseg\` (segment via ax), \`outp\` (port writes), \`fatal\` (print and exit) and ` +
+            `\`jnear\` (jcc over a near jmp). ` +
+            `disassembler/lib/aztec/hlmacros.h lists each macro's exact expansion: use one only where ` +
+            `it expands to the original instructions. Indent each block body one tab past its directive.` +
             (handWritten ? ` The sidecar note marks this routine hand-written asm: write ${rel(sFile)}.` : ''),
         `Commands (repo root): \`make rebuild\` is the pass/fail gate: it recompiles every .c/.s, ` +
             `checks it against the original bytes, and assembles. ` +
