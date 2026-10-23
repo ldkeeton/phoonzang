@@ -554,7 +554,7 @@ api_idx_0068_OUHP:
     mov ax, 2                        ; 0x0f74
     push ax                          ; 0x0f77
     push word [bp - 0x005e]          ; 0x0f78
-    call ds_loc_JJGM                 ; 0x0f7b
+    call measure_text_width          ; 0x0f7b
     add sp, byte 4                   ; 0x0f7e
     inc ax                           ; 0x0f81
     mov cx, 2                        ; 0x0f82
@@ -680,7 +680,7 @@ api_idx_0068_OUHP:
     mov ax, 2                        ; 0x10a8
     push ax                          ; 0x10ab
     push word [bp - 0x005e]          ; 0x10ac
-    call ds_loc_JJGM                 ; 0x10af
+    call measure_text_width          ; 0x10af
     add sp, byte 4                   ; 0x10b2
     inc ax                           ; 0x10b5
     mov cx, 2                        ; 0x10b6

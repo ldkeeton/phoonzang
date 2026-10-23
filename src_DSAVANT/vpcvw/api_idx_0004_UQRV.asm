@@ -15,7 +15,7 @@ api_idx_0004_UQRV:
     mov ax, 2                        ; 0x3ac9
     push ax                          ; 0x3acc
     push bx                          ; 0x3acd
-    call ds_loc_JJGM                 ; 0x3ace
+    call measure_text_width          ; 0x3ace
     add sp, byte 4                   ; 0x3ad1
     inc ax                           ; 0x3ad4
     mov cx, 2                        ; 0x3ad5

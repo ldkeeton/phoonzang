@@ -822,7 +822,7 @@ font_io_error_msg:
 
 %include "ds/library/draw_text_glyphs.asm" ; 0x3a95
 
-%include "ds/library/ds_loc_JJGM.asm"      ; 0x3aca
+%include "ds/library/measure_text_width.asm" ; 0x3aca
 
 %include "ds/library/gfx_show_area.asm"    ; 0x3b21
 

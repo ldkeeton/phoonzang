@@ -73,7 +73,7 @@ loc_IPHP:
     push ax                          ; 0x9635
     lea ax, word [bp - 0x0108]       ; 0x9636
     push ax                          ; 0x963a
-    call ds_loc_JJGM                 ; 0x963b
+    call measure_text_width          ; 0x963b
     add sp, byte 4                   ; 0x963e
     mov word [bp - 0x0004], ax       ; 0x9641
     cmp ax, 0xb8                     ; 0x9644

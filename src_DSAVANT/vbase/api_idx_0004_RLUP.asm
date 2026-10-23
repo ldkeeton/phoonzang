@@ -15,7 +15,7 @@ api_idx_0004_RLUP:
     mov ax, 2                        ; 0x6d3c
     push ax                          ; 0x6d3f
     push bx                          ; 0x6d40
-    call ds_loc_JJGM                 ; 0x6d41
+    call measure_text_width          ; 0x6d41
     add sp, byte 4                   ; 0x6d44
     inc ax                           ; 0x6d47
     mov cx, 2                        ; 0x6d48

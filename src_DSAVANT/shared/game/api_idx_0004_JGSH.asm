@@ -18,7 +18,7 @@ api_idx_0004_JGSH:
     mov ax, 2
     push ax
     push bx
-    call ds_loc_JJGM
+    call measure_text_width
     add sp, byte 4
     inc ax
     mov cx, 2

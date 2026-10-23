@@ -11,7 +11,7 @@ draw_centered_lines:
     mov ax, 2                        ; 0x196f
     push ax                          ; 0x1972
     push word [bp + 0x4]             ; 0x1973
-    call ds_loc_JJGM                 ; 0x1976
+    call measure_text_width          ; 0x1976
     add sp, byte 4                   ; 0x1979
     inc ax                           ; 0x197c
     mov cx, 2                        ; 0x197d
@@ -41,7 +41,7 @@ draw_centered_lines:
     mov ax, 2                        ; 0x19b6
     push ax                          ; 0x19b9
     push word [bp + 0x6]             ; 0x19ba
-    call ds_loc_JJGM                 ; 0x19bd
+    call measure_text_width          ; 0x19bd
     add sp, byte 4                   ; 0x19c0
     inc ax                           ; 0x19c3
     mov cx, 2                        ; 0x19c4
@@ -69,7 +69,7 @@ draw_centered_lines:
     mov ax, 2                        ; 0x19fa
     push ax                          ; 0x19fd
     push word [bp + 0x8]             ; 0x19fe
-    call ds_loc_JJGM                 ; 0x1a01
+    call measure_text_width          ; 0x1a01
     add sp, byte 4                   ; 0x1a04
     inc ax                           ; 0x1a07
     mov cx, 2                        ; 0x1a08

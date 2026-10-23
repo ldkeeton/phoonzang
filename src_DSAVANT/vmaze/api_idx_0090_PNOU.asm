@@ -191,7 +191,7 @@ jumptable_6e12:
     push ax                          ; 0x6e76
     lea ax, word [bp - 0x0086]       ; 0x6e77
     push ax                          ; 0x6e7b
-    call ds_loc_JJGM                 ; 0x6e7c
+    call measure_text_width          ; 0x6e7c
     add sp, byte 4                   ; 0x6e7f
     mov word [bp - 0x0002], ax       ; 0x6e82
     cmp ax, 0xb8                     ; 0x6e85

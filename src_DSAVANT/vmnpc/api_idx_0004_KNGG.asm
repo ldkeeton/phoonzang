@@ -27,7 +27,7 @@ api_idx_0004_KNGG:
     shl ax, cl                       ; 0x0e50
     add ax, bss_91cc                 ; 0x0e52
     push ax                          ; 0x0e55
-    call ds_loc_JJGM                 ; 0x0e56
+    call measure_text_width          ; 0x0e56
     add sp, byte 4                   ; 0x0e59
     inc ax                           ; 0x0e5c
     mov cx, 2                        ; 0x0e5d

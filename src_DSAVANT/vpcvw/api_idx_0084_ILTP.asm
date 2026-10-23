@@ -53,7 +53,7 @@ api_idx_0084_ILTP:
     push ax                          ; 0x3bdd
     lea ax, word [bp - 0x0084]       ; 0x3bde
     push ax                          ; 0x3be2
-    call ds_loc_JJGM                 ; 0x3be3
+    call measure_text_width          ; 0x3be3
     add sp, byte 4                   ; 0x3be6
     mov word [bp - 0x0002], ax       ; 0x3be9
     cmp ax, 0xa8                     ; 0x3bec

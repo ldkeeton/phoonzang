@@ -9,7 +9,7 @@ api_idx_000c_LVHV:
     mov ax, 2                        ; 0x0318
     push ax                          ; 0x031b
     push word [bp + 0x4]             ; 0x031c
-    call ds_loc_JJGM                 ; 0x031f
+    call measure_text_width          ; 0x031f
     add sp, byte 4                   ; 0x0322
     mov word [bp - 0x0006], ax       ; 0x0325
     inc ax                           ; 0x0328
