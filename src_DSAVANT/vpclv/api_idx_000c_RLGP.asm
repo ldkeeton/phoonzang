@@ -4,8 +4,8 @@ api_idx_000c_RLGP:
     call aztec_csav                  ; 0x5164
     mov word [bss_905e], 5           ; 0x5167
     mov word [game_state], 5         ; 0x516d
-    mov word [bss_9436], 0x14        ; 0x5173
-    mov word [bss_9438], 0           ; 0x5179
+    mov word [banner_offset], 0x14   ; 0x5173
+    mov word [banner_plain_flag], 0  ; 0x5179
     mov word [bss_943a], 0           ; 0x517f
     mov word [bss_9704], 0xffff      ; 0x5185
     mov word [bp - 0x0004], 0        ; 0x518b
@@ -171,7 +171,7 @@ api_idx_000c_RLGP:
     call gfx_cache_area              ; 0x52fb
     add sp, byte 0x0c                ; 0x52fe
     mov word [bss_9434], dx          ; 0x5301
-    mov word [bss_9432], ax          ; 0x5305
+    mov word [saved_screen], ax      ; 0x5305
     mov ax, 0xf                      ; 0x5308
     push ax                          ; 0x530b
     mov ax, 0xb                      ; 0x530c
@@ -234,7 +234,7 @@ api_idx_000c_RLGP:
     mov ax, 1                        ; 0x53a1
     push ax                          ; 0x53a4
     push word [bss_9434]             ; 0x53a5
-    push word [bss_9432]             ; 0x53a9
+    push word [saved_screen]         ; 0x53a9
     call gfx_restore_screen          ; 0x53ad
     add sp, byte 8                   ; 0x53b0
     mov ax, 0                        ; 0x53b3

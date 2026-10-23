@@ -226,15 +226,15 @@ api_idx_007c_MOJH:
     mov cx, 0x12
     mov bx, 0
     call aztec_ldv
-    mov word [api_idx_007c_MOJH.bss5], ax
+    mov word [banner_offset], ax
     mov ax, 0x14
     push ax
     mov ax, 0
     push ax
-    push word [api_idx_007c_MOJH.bss5]
+    push word [banner_offset]
     call clamp_between
     add sp, byte 6
-    mov word [api_idx_007c_MOJH.bss5], ax
+    mov word [banner_offset], ax
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
@@ -245,10 +245,10 @@ api_idx_007c_MOJH:
 @..api_idx_007c_MOJH.l1:
     mov ax, 1
 @..api_idx_007c_MOJH.l2:
-    mov word [api_idx_007c_MOJH.bss6], ax
-    mov word [api_idx_007c_MOJH.bss7], 0
-    push word [api_idx_007c_MOJH.bss7]
-    call api_idx_000a_TITQ
+    mov word [banner_plain_flag], ax
+    mov word [api_idx_007c_MOJH.bss5], 0
+    push word [api_idx_007c_MOJH.bss5]
+    call draw_title_banner
     pop cx
     mov ax, 0
     push ax

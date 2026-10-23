@@ -38,7 +38,7 @@ loc_TTSP:
     idiv cx
     mov word [loc_TTSP.bss2], dx
     push dx
-    call api_idx_000a_TITQ
+    call draw_title_banner
     pop cx
     mov ax, 0x41
     push ax

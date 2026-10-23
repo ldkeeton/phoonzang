@@ -4,8 +4,8 @@ api_idx_0014_VORK:
     call aztec_csav                  ; 0x616f
     mov ax, word [bss_905e]          ; 0x6172
     mov word [game_state], ax        ; 0x6175
-    mov word [bss_942e], 0x14        ; 0x6178
-    mov word [bss_9430], 0           ; 0x617e
+    mov word [banner_offset], 0x14   ; 0x6178
+    mov word [banner_plain_flag], 0  ; 0x617e
     mov word [bss_9432], 0           ; 0x6184
     mov word [bss_940e], 0xffff      ; 0x618a
     cmp ax, strict word 0xd          ; 0x6190
@@ -191,7 +191,7 @@ api_idx_0014_VORK:
     call gfx_cache_area              ; 0x6324
     add sp, byte 0x0c                ; 0x6327
     mov word [bss_940c], dx          ; 0x632a
-    mov word [bss_940a], ax          ; 0x632e
+    mov word [saved_screen], ax      ; 0x632e
     mov ax, 0xf                      ; 0x6331
     push ax                          ; 0x6334
     mov ax, 0xb                      ; 0x6335
@@ -774,7 +774,7 @@ jumptable_67c3_case_15:
     mov ax, 1                        ; 0x6836
     push ax                          ; 0x6839
     push word [bss_940c]             ; 0x683a
-    push word [bss_940a]             ; 0x683e
+    push word [saved_screen]         ; 0x683e
     call gfx_restore_screen          ; 0x6842
     add sp, byte 8                   ; 0x6845
     mov ax, 0                        ; 0x6848

@@ -225,15 +225,15 @@ api_idx_0054_RLST:
     mov cx, 0x12                     ; 0x1d4e
     mov bx, 0                        ; 0x1d51
     call aztec_ldv                   ; 0x1d54
-    mov word [bss_95aa], ax          ; 0x1d57
+    mov word [banner_offset], ax     ; 0x1d57
     mov ax, 0x14                     ; 0x1d5a
     push ax                          ; 0x1d5d
     mov ax, 0                        ; 0x1d5e
     push ax                          ; 0x1d61
-    push word [bss_95aa]             ; 0x1d62
+    push word [banner_offset]        ; 0x1d62
     call clamp_between               ; 0x1d66
     add sp, byte 6                   ; 0x1d69
-    mov word [bss_95aa], ax          ; 0x1d6c
+    mov word [banner_offset], ax     ; 0x1d6c
     mov ax, 0x248                    ; 0x1d6f
     imul word [bp + 0x4]             ; 0x1d72
     mov bx, ax                       ; 0x1d75
@@ -244,10 +244,10 @@ api_idx_0054_RLST:
 @..api_idx_0054_RLST.l1:
     mov ax, 1                        ; 0x1d83
 @..api_idx_0054_RLST.l2:
-    mov word [bss_95ac], ax          ; 0x1d86
+    mov word [banner_plain_flag], ax ; 0x1d86
     mov word [bss_95ae], 0           ; 0x1d89
     push word [bss_95ae]             ; 0x1d8f
-    call api_idx_000a_TITQ           ; 0x1d93
+    call draw_title_banner           ; 0x1d93
     pop cx                           ; 0x1d96
     mov ax, 0                        ; 0x1d97
     push ax                          ; 0x1d9a

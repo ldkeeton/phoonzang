@@ -1,16 +1,16 @@
 ; auto-generated
-api_idx_000a_TITQ:
+draw_title_banner:
     mov ax, 0xfff6
     call aztec_csav
     mov ax, 0
     push ax
     push ax
-    push word [api_idx_000a_TITQ.bss1]
-    push word [api_idx_000a_TITQ.bss2]
+    push word [saved_screen + 0x2]
+    push word [saved_screen]
     call gfx_restore_screen
     add sp, byte 8
-    cmp word [api_idx_000a_TITQ.bss3], byte 0
-    jle short @..api_idx_000a_TITQ.l1
+    cmp word [banner_offset], byte 0
+    jle short @..draw_title_banner.l1
     mov byte [bp - 0x000a], 1
     mov byte [bp - 0x0009], 0
     mov ax, 0
@@ -23,7 +23,7 @@ api_idx_000a_TITQ:
     mov ax, 0xc7
     push ax
     mov ax, 0x41
-    sub ax, word [api_idx_000a_TITQ.bss3]
+    sub ax, word [banner_offset]
     push ax
     mov ax, 0x13f
     push ax
@@ -37,14 +37,14 @@ api_idx_000a_TITQ:
     push ax
     call gfx_draw_text
     add sp, byte 0x16
-@..api_idx_000a_TITQ.l1:
+@..draw_title_banner.l1:
     mov ax, 5
-    cmp word [api_idx_000a_TITQ.bss4], byte 0
-    jne short @..api_idx_000a_TITQ.l2
+    cmp word [banner_plain_flag], byte 0
+    jne short @..draw_title_banner.l2
     mov ax, word [bp + 0x4]
     inc ax
     inc ax
-@..api_idx_000a_TITQ.l2:
+@..draw_title_banner.l2:
     mov byte [bp - 0x000a], al
     mov byte [bp - 0x0009], 0
     mov ax, 0
@@ -63,7 +63,7 @@ api_idx_000a_TITQ:
     mov ax, 0
     push ax
     mov ax, 0x14
-    sub ax, word [api_idx_000a_TITQ.bss3]
+    sub ax, word [banner_offset]
     add ax, strict word 0x19
     push ax
     mov ax, 0x5a

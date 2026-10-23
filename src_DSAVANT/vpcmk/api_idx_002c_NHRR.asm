@@ -35,8 +35,8 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6a89
     call api_idx_0002_OOKN           ; 0x6a8a
     add sp, byte 4                   ; 0x6a8d
-    mov word [bss_95aa], 0x14        ; 0x6a90
-    mov word [bss_95ac], 0           ; 0x6a96
+    mov word [banner_offset], 0x14   ; 0x6a90
+    mov word [banner_plain_flag], 0  ; 0x6a96
     mov word [bss_95ae], 0           ; 0x6a9c
     mov ax, 0                        ; 0x6aa2
     push ax                          ; 0x6aa5
@@ -164,7 +164,7 @@ api_idx_002c_NHRR:
     call gfx_cache_area              ; 0x6bba
     add sp, byte 0x0c                ; 0x6bbd
     mov word [bss_9542], dx          ; 0x6bc0
-    mov word [bss_9540], ax          ; 0x6bc4
+    mov word [saved_screen], ax      ; 0x6bc4
     mov ax, 0xf                      ; 0x6bc7
     push ax                          ; 0x6bca
     mov ax, 0xb                      ; 0x6bcb
@@ -230,8 +230,8 @@ api_idx_002c_NHRR:
     mov word [bss_908c], dx          ; 0x6c6b
     mov word [party_redraw_last_tick], ax ; 0x6c6f
 @..api_idx_002c_NHRR.l4:
-    mov word [bss_95aa], 0x14        ; 0x6c72
-    mov word [bss_95ac], 0           ; 0x6c78
+    mov word [banner_offset], 0x14   ; 0x6c72
+    mov word [banner_plain_flag], 0  ; 0x6c78
     mov ax, 0                        ; 0x6c7e
     push ax                          ; 0x6c81
     push ax                          ; 0x6c82
@@ -478,7 +478,7 @@ jumptable_6e5f:
     mov ax, 1                        ; 0x6ea8
     push ax                          ; 0x6eab
     push word [bss_9542]             ; 0x6eac
-    push word [bss_9540]             ; 0x6eb0
+    push word [saved_screen]         ; 0x6eb0
     call gfx_restore_screen          ; 0x6eb4
     add sp, byte 8                   ; 0x6eb7
     mov ax, 0                        ; 0x6eba

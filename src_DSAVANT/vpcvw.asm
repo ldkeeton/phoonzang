@@ -74,32 +74,25 @@ api_idx_0004_RMVO.bss2 equ bss_9402
 
 %include "shared/game/api_idx_0010_STNH.asm"     ; 0x0ea1
 
-bss_940a equ __zdseg_end + (__zobss_940a - __zdata_start)
-bss_940c equ __zdseg_end + (__zobss_940c - __zdata_start)
-bss_942e equ __zdseg_end + (__zobss_942e - __zdata_start)
-bss_9430 equ __zdseg_end + (__zobss_9430 - __zdata_start)
-api_idx_000a_TITQ.bss1 equ bss_940c
-api_idx_000a_TITQ.bss2 equ bss_940a
-api_idx_000a_TITQ.bss3 equ bss_942e
-api_idx_000a_TITQ.bss4 equ bss_9430
-%include "shared/game/api_idx_000a_TITQ.asm"     ; 0x0f9e
+saved_screen      equ __zdseg_end + (__zobss_940a - __zdata_start)
+banner_offset     equ __zdseg_end + (__zobss_942e - __zdata_start)
+banner_plain_flag equ __zdseg_end + (__zobss_9430 - __zdata_start)
+%include "shared/game/draw_title_banner.asm"     ; 0x0f9e
 
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-bss_93ee  equ __zdseg_end + (__zobss_93ee - __zdata_start)
-bss_93f0  equ __zdseg_end + (__zobss_93f0 - __zdata_start)
-bss_93f2  equ __zdseg_end + (__zobss_93f2 - __zdata_start)
-bss_93f4  equ __zdseg_end + (__zobss_93f4 - __zdata_start)
-; bss_942e  equ __zdseg_end + (__zobss_942e - __zdata_start)
-; bss_9430  equ __zdseg_end + (__zobss_9430 - __zdata_start)
-bss_9432  equ __zdseg_end + (__zobss_9432 - __zdata_start)
+dseg_9098         equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+bss_93ee          equ __zdseg_end + (__zobss_93ee - __zdata_start)
+bss_93f0          equ __zdseg_end + (__zobss_93f0 - __zdata_start)
+bss_93f2          equ __zdseg_end + (__zobss_93f2 - __zdata_start)
+bss_93f4          equ __zdseg_end + (__zobss_93f4 - __zdata_start)
+; banner_offset     equ __zdseg_end + (__zobss_942e - __zdata_start)
+; banner_plain_flag equ __zdseg_end + (__zobss_9430 - __zdata_start)
+bss_9432          equ __zdseg_end + (__zobss_9432 - __zdata_start)
 api_idx_007c_OKMO          equ api_idx_007c_MOJH
 api_idx_007c_MOJH.bss1     equ bss_93f0
 api_idx_007c_MOJH.bss2     equ bss_93ee
 api_idx_007c_MOJH.bss3     equ bss_93f4
 api_idx_007c_MOJH.bss4     equ bss_93f2
-api_idx_007c_MOJH.bss5     equ bss_942e
-api_idx_007c_MOJH.bss6     equ bss_9430
-api_idx_007c_MOJH.bss7     equ bss_9432
+api_idx_007c_MOJH.bss5     equ bss_9432
 api_idx_007c_MOJH.api_idx1 equ api_idx_0012_PJTU
 %include "shared/game/api_idx_007c_MOJH.asm"     ; 0x1046
 
@@ -246,30 +239,30 @@ bss_9616         equ __zdseg_end + (__zobss_9616 - __zdata_start)
 roster_drawn     equ __zdseg_end + (__zobss_967a - __zdata_start)
 %include "vpcvw/api_idx_00c2_OUOT.asm"     ; 0x54fb
 
-dseg_90b3       equ __zdseg_end + (__zdseg_90b3 - __zdata_start)
-; bss_93ee        equ __zdseg_end + (__zobss_93ee - __zdata_start)
-; bss_93f0        equ __zdseg_end + (__zobss_93f0 - __zdata_start)
-; bss_93f2        equ __zdseg_end + (__zobss_93f2 - __zdata_start)
-; bss_93f4        equ __zdseg_end + (__zobss_93f4 - __zdata_start)
-; roster_screen_b equ __zdseg_end + (__zobss_93f6 - __zdata_start)
-; roster_screen_a equ __zdseg_end + (__zobss_93f8 - __zdata_start)
-bss_93fa        equ __zdseg_end + (__zobss_93fa - __zdata_start)
-bss_93fc        equ __zdseg_end + (__zobss_93fc - __zdata_start)
-bss_93fe        equ __zdseg_end + (__zobss_93fe - __zdata_start)
-bss_9400        equ __zdseg_end + (__zobss_9400 - __zdata_start)
-; bss_9402        equ __zdseg_end + (__zobss_9402 - __zdata_start)
-; bss_9404        equ __zdseg_end + (__zobss_9404 - __zdata_start)
-; bss_940a        equ __zdseg_end + (__zobss_940a - __zdata_start)
-; bss_940c        equ __zdseg_end + (__zobss_940c - __zdata_start)
-; bss_940e        equ __zdseg_end + (__zobss_940e - __zdata_start)
-; bss_942e        equ __zdseg_end + (__zobss_942e - __zdata_start)
-; bss_9430        equ __zdseg_end + (__zobss_9430 - __zdata_start)
-; bss_9432        equ __zdseg_end + (__zobss_9432 - __zdata_start)
-; roster_page     equ __zdseg_end + (__zobss_9434 - __zdata_start)
-; bss_9562        equ __zdseg_end + (__zobss_9562 - __zdata_start)
-; roster_alt_mode equ __zdseg_end + (__zobss_9614 - __zdata_start)
-; bss_9616        equ __zdseg_end + (__zobss_9616 - __zdata_start)
-; roster_drawn    equ __zdseg_end + (__zobss_967a - __zdata_start)
+dseg_90b3         equ __zdseg_end + (__zdseg_90b3 - __zdata_start)
+; bss_93ee          equ __zdseg_end + (__zobss_93ee - __zdata_start)
+; bss_93f0          equ __zdseg_end + (__zobss_93f0 - __zdata_start)
+; bss_93f2          equ __zdseg_end + (__zobss_93f2 - __zdata_start)
+; bss_93f4          equ __zdseg_end + (__zobss_93f4 - __zdata_start)
+; roster_screen_b   equ __zdseg_end + (__zobss_93f6 - __zdata_start)
+; roster_screen_a   equ __zdseg_end + (__zobss_93f8 - __zdata_start)
+bss_93fa          equ __zdseg_end + (__zobss_93fa - __zdata_start)
+bss_93fc          equ __zdseg_end + (__zobss_93fc - __zdata_start)
+bss_93fe          equ __zdseg_end + (__zobss_93fe - __zdata_start)
+bss_9400          equ __zdseg_end + (__zobss_9400 - __zdata_start)
+; bss_9402          equ __zdseg_end + (__zobss_9402 - __zdata_start)
+; bss_9404          equ __zdseg_end + (__zobss_9404 - __zdata_start)
+; saved_screen      equ __zdseg_end + (__zobss_940a - __zdata_start)
+bss_940c          equ __zdseg_end + (__zobss_940c - __zdata_start)
+; bss_940e          equ __zdseg_end + (__zobss_940e - __zdata_start)
+; banner_offset     equ __zdseg_end + (__zobss_942e - __zdata_start)
+; banner_plain_flag equ __zdseg_end + (__zobss_9430 - __zdata_start)
+; bss_9432          equ __zdseg_end + (__zobss_9432 - __zdata_start)
+; roster_page       equ __zdseg_end + (__zobss_9434 - __zdata_start)
+; bss_9562          equ __zdseg_end + (__zobss_9562 - __zdata_start)
+; roster_alt_mode   equ __zdseg_end + (__zobss_9614 - __zdata_start)
+; bss_9616          equ __zdseg_end + (__zobss_9616 - __zdata_start)
+; roster_drawn      equ __zdseg_end + (__zobss_967a - __zdata_start)
 %include "vpcvw/api_idx_0014_VORK.asm"     ; 0x616c
 
 %include "shared/game/draw_split_two_line_text.asm" ; 0x6977
