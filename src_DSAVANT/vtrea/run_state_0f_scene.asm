@@ -126,11 +126,11 @@ run_state_0f_scene:
     add sp, byte 4                   ; 0x8087
     mov ax, 1                        ; 0x808a
     push ax                          ; 0x808d
-    call ds_app_gfx_free_score_VGJR  ; 0x808e
+    call app_gfx_free_score          ; 0x808e
     pop cx                           ; 0x8091
     mov ax, 0                        ; 0x8092
     push ax                          ; 0x8095
-    call ds_app_gfx_free_score_VGJR  ; 0x8096
+    call app_gfx_free_score          ; 0x8096
     pop cx                           ; 0x8099
 @..run_state_0f_scene.l9:
     call loc_VSIT                    ; 0x809a

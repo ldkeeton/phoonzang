@@ -22,7 +22,7 @@ loc_RLUJ:
 @..loc_RLUJ.l2:
     mov ax, 0                        ; 0x3416
     push ax                          ; 0x3419
-    call ds_app_gfx_free_score_VGJR  ; 0x341a
+    call app_gfx_free_score          ; 0x341a
     pop cx                           ; 0x341d
 @..loc_RLUJ.l3:
     call free_current_maze           ; 0x341e

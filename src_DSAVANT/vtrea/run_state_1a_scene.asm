@@ -59,7 +59,7 @@ run_state_1a_scene:
     add sp, byte 4                   ; 0x81a7
     mov ax, 1                        ; 0x81aa
     push ax                          ; 0x81ad
-    call ds_app_gfx_free_score_VGJR  ; 0x81ae
+    call app_gfx_free_score          ; 0x81ae
     pop cx                           ; 0x81b1
 @..run_state_1a_scene.l3:
     call loc_VSIT                    ; 0x81b2

@@ -299,7 +299,7 @@ api_idx_0018_USPR:
     call gfx_stop_music              ; 0x1f7e
     mov ax, 0                        ; 0x1f81
     push ax                          ; 0x1f84
-    call ds_app_gfx_free_score_VGJR  ; 0x1f85
+    call app_gfx_free_score          ; 0x1f85
     pop cx                           ; 0x1f88
 @..api_idx_0018_USPR.l30:
     mov ax, 1                        ; 0x1f89
@@ -367,7 +367,7 @@ api_idx_0018_USPR:
     add sp, byte 4                   ; 0x2021
     mov ax, 0                        ; 0x2024
     push ax                          ; 0x2027
-    call ds_app_gfx_free_score_VGJR  ; 0x2028
+    call app_gfx_free_score          ; 0x2028
     pop cx                           ; 0x202b
 @..api_idx_0018_USPR.l37:
     call loc_VRKM                    ; 0x202c

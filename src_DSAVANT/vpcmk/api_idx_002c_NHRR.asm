@@ -466,7 +466,7 @@ jumptable_6e5f:
     add sp, byte 4                   ; 0x6e91
     mov ax, 0                        ; 0x6e94
     push ax                          ; 0x6e97
-    call ds_app_gfx_free_score_VGJR  ; 0x6e98
+    call app_gfx_free_score          ; 0x6e98
     pop cx                           ; 0x6e9b
 @..api_idx_002c_NHRR.l17:
     mov ax, 0xf                      ; 0x6e9c

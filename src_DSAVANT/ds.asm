@@ -541,7 +541,7 @@ loaded_score_num equ __zbss_82b6 - __zdseg_start
 %include "ds/game/load_score_files.asm"    ; 0x2a2e
 
 ; loaded_score_num equ __zbss_82b6 - __zdseg_start
-%include "ds/game/ds_app_gfx_free_score_VGJR.asm" ; 0x2b4e
+%include "ds/game/app_gfx_free_score.asm"  ; 0x2b4e
 
 %include "ds/game/fade_out_music.asm"      ; 0x2b62
 

@@ -216,6 +216,7 @@
           "name": "load_score_files",
           "note": "(num, arg): opens SCOREnn.CSF and SCOREnn.PBL (video_mode 5) or .PBA, passes both fds with the video mode (6 treated as 4) and arg to gfx_load_score, closes them and records num in loaded_score_num; fatal errors 15/16/17"
         },
+        "2b4e": {"name": "app_gfx_free_score", "note": "frees driver current score and clears loaded score number"},
         "2b62": {
           "name": "fade_out_music",
           "note": "(tempo, volume): while music plays, steps volume down by 10 every 25 ms through gfx_set_music_tempo_volume, then gfx_stop_music"
@@ -425,7 +426,7 @@
         "7b04": {"name": "marker_y", "note": "byte: y passed to add_overlay_item when marker_mode is -1"},
         "7ed4": {"name": "glyph_x_table_b", "note": "second set; one byte per glyph at twice the glyph code"},
         "7f1d": {"name": "glyph_y_table_b", "note": "second set; one byte per glyph"},
-        "82b6": {"name": "loaded_score_num", "note": "int: score number last loaded by load_score_files; ds_app_gfx_free_score_VGJR resets it to -1"},
+        "82b6": {"name": "loaded_score_num", "note": "int: score number last loaded by load_score_files; app_gfx_free_score resets it to -1"},
         "82ee": {"name": "party_tag", "note": "int: id compared with cell 2-bit tags and object owner bytes; written into cells by claim_cell"},
         "830a": {"name": "game_state", "note": "int: main's switch selector; each value picks the overlay (VINIT, VBASE, VMAZE, ...) main loads next, 3 quits"},
         "830c": {"name": "game_state_arg", "note": "int: main passes it as ensure_game_disk's second argument (which that routine does not read) for game_state 25"},

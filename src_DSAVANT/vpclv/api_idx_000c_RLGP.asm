@@ -222,7 +222,7 @@ api_idx_000c_RLGP:
     add sp, byte 4                   ; 0x538a
     mov ax, 0                        ; 0x538d
     push ax                          ; 0x5390
-    call ds_app_gfx_free_score_VGJR  ; 0x5391
+    call app_gfx_free_score          ; 0x5391
     pop cx                           ; 0x5394
 @..api_idx_000c_RLGP.l7:
     mov ax, 0xf                      ; 0x5395

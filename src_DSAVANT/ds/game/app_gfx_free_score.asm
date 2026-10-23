@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_gfx_free_score_VGJR: ; Aztec csav frame=0x0000
+app_gfx_free_score: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x2b4e
     call aztec_csav                  ; 0x2b51
     push word [bp + 0x4]             ; 0x2b54

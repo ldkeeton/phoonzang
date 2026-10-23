@@ -7,7 +7,7 @@
 //   * Manx ``cc``/``as`` diagnostics on save, and a provenance CodeLens
 const fs = require('fs');
 const path = require('path');
-const { execFile } = require('child_process');
+const { execFile, spawn } = require('child_process');
 const vscode = require('vscode');
 const { labels, occurrences, addresses, routineStart, locate } = require('./scan');
 const sidecar = require('./sidecar');
@@ -426,6 +426,16 @@ const AGENTS = {
             if (model) args.push('--model', model);
             return args;
         },
+        // Headless, for a batch: one --print session per routine, streamed as JSON so
+        // the conversation can still be shown as it happens.
+        batchArgs(prompt, model) {
+            const args = ['-p', prompt, '--output-format', 'stream-json', '--verbose',
+                '--permission-mode', 'auto',
+                '--allowedTools=Read,Write,Edit,Bash(make rebuild),Bash(make name:*),Bash(make refs:*)'];
+            if (model) args.push('--model', model);
+            return args;
+        },
+        format: formatClaudeEvent,
         // No IDE integration: don't auto-connect, and drop the port the Claude VS Code
         // extension injects into integrated terminals.
         env: { CLAUDE_CODE_AUTO_CONNECT_IDE: 'false', CLAUDE_CODE_SSE_PORT: null },
@@ -441,23 +451,70 @@ const AGENTS = {
             if (model) args.push('--model', model);
             return args;
         },
+        // Headless, for a batch: `run` prints the conversation and exits when done.
+        // --standalone: by default `run` goes through the shared background service,
+        // which works in whatever directory that service started in (not our cwd).
+        // `run` also ignores the model last picked in the TUI and falls back to a free
+        // default, so take the TUI's most recent one when none is configured.
+        batchArgs(prompt, model) {
+            const args = ['run', prompt, '--auto', '--standalone'];
+            if (!model) {
+                const state = readJson(path.join(require('os').homedir(),
+                    '.local', 'state', 'opencode', 'model.json'));
+                const recent = state && (state.recent || [])[0];
+                if (recent) model = `${recent.providerID}/${recent.modelID}`;
+            }
+            if (model) args.push('--model', model);
+            return args;
+        },
+        format: (line) => ({ text: line }),
         env: {},
     },
 };
 
+// One line of Claude's stream-json as readable text; `result` is the final message.
+function formatClaudeEvent(line) {
+    let ev;
+    try { ev = JSON.parse(line); } catch (e) { return { text: line }; }
+    const content = (ev.message && ev.message.content) || [];
+    if (ev.type === 'assistant') {
+        return { text: content.map((c) => {
+            if (c.type === 'text') return c.text;
+            if (c.type !== 'tool_use') return '';
+            const input = c.input || {};
+            const what = input.command || input.file_path || input.pattern || '';
+            return `\x1b[36m▸ ${c.name}\x1b[0m ${String(what).split('\n')[0].slice(0, 200)}`;
+        }).filter(Boolean).join('\n') };
+    }
+    if (ev.type === 'user') {
+        const failed = content.filter((c) => c.type === 'tool_result' && c.is_error);
+        return { text: failed.map((c) => {
+            const body = typeof c.content === 'string' ? c.content : JSON.stringify(c.content);
+            return `\x1b[31m  ✗ ${body.split('\n')[0].slice(0, 200)}\x1b[0m`;
+        }).join('\n') };
+    }
+    if (ev.type === 'result') {
+        return { text: `\x1b[1m${ev.result || ev.subtype}\x1b[0m`, result: ev.result || ev.subtype };
+    }
+    return { text: '' };
+}
+
 // Everything both agents share: resolve the routine, confirm a redo, work out the
 // sidecar key and compiler flags, and build the prompt.  Null when there is
-// nothing to do (bad selection, or the user backed out).
-async function prepareMakeC(uri, label) {
+// nothing to do (bad selection, or the user backed out).  In a batch nothing pops
+// up: the reason comes back as { skip } and a routine with source is just skipped.
+async function prepareMakeC(uri, label, batch) {
+    const fail = (msg) => batch ? { skip: msg } : vscode.window.showErrorMessage(msg);
     uri = uri || (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri);
     const where = uri && locate(uri.fsPath);
-    if (!where) return vscode.window.showErrorMessage('open a routine .asm under src_<PROJECT>/<binary>/');
+    if (!where) return fail('open a routine .asm under src_<PROJECT>/<binary>/');
     const dir = path.dirname(uri.fsPath);
     const asmFile = path.join(dir, `${where.label}.asm`);
     const cFile = path.join(dir, `${where.label}.c`);
     const sFile = path.join(dir, `${where.label}.s`);
-    if (!fs.existsSync(asmFile)) return vscode.window.showErrorMessage(`no ${asmFile}`);
+    if (!fs.existsSync(asmFile)) return fail(`no ${path.basename(asmFile)} (renamed by an earlier routine?)`);
     const existing = [cFile, sFile].find((f) => fs.existsSync(f));
+    if (existing && batch) return { skip: `${path.basename(existing)} exists` };
     if (existing) {
         const pick = await vscode.window.showWarningMessage(
             `${path.basename(existing)} exists. Have ${label} redo it?`, { modal: true }, 'Redo');
@@ -478,7 +535,7 @@ async function prepareMakeC(uri, label) {
         const addr = row < 0 ? null : routineStart(asmText, row);
         key = addr === null ? null : sidecarName(where, addr).key;
     }
-    if (!key) return vscode.window.showErrorMessage(`no sidecar key for ${where.label}`);
+    if (!key) return fail(`no sidecar key for ${where.label}`);
 
     const sidecar = readJson(sidecarPath(where.project)) || {};
     // A binary's own ``compiler_flags`` (``default``/``prefixes``) override the project's.
@@ -618,9 +675,21 @@ function opencodePrompt(job) {
 }
 
 
+// Open the source an agent wrote and check it; null when it wrote none.
+async function openMade(cFile, sFile) {
+    const made = [cFile, sFile].find((f) => fs.existsSync(f));
+    if (!made) return null;
+    const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(made));
+    await vscode.window.showTextDocument(doc, { preview: false });
+    if (isGeneratedC(doc)) checkFile(doc, true);
+    return made;
+}
+
 // One agent session per invocation, so Claude and OpenCode can each have a tab (and
-// both can run at once).
-async function makeC(kind, uri) {
+// both can run at once).  A multi-selection in the explorer becomes a batch.
+async function makeC(kind, uri, uris) {
+    const asms = (uris || []).filter((u) => /\.asm$/.test(u.fsPath) && locate(u.fsPath));
+    if (asms.length > 1) return makeCBatch(kind, asms);
     const agent = AGENTS[kind];
     const job = await prepareMakeC(uri, agent.label);
     if (!job) return;
@@ -635,12 +704,81 @@ async function makeC(kind, uri) {
     const sub = vscode.window.onDidCloseTerminal(async (t) => {
         if (t !== term) return;
         sub.dispose();
-        const made = [cFile, sFile].find((f) => fs.existsSync(f));
-        if (!made) return;
-        const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(made));
-        await vscode.window.showTextDocument(doc, { preview: false });
-        if (isGeneratedC(doc)) checkFile(doc, true);
+        await openMade(cFile, sFile);
     });
+}
+
+// Several routines, one after another in a single tab: each gets its own headless
+// agent process, so every routine starts from a clean context, and the next starts
+// only when the last has exited.  Each job is resolved just before it runs, since an
+// earlier routine's `make name` may rename the files.  Closing the tab stops the batch.
+function makeCBatch(kind, uris) {
+    const agent = AGENTS[kind];
+    const emitter = new vscode.EventEmitter();
+    const write = (text) => emitter.fire(text.replace(/\r?\n/g, '\r\n'));
+    let child = null, stopped = false;
+    // The extension host's PWD is wherever VS Code was launched; match it to the cwd.
+    const env = { ...process.env, PWD: root() };
+    for (const [k, v] of Object.entries(agent.env)) {
+        if (v === null) delete env[k]; else env[k] = v;
+    }
+
+    const runOne = (job) => new Promise((resolve) => {
+        let result = '', pending = '';
+        const emit = (line) => {
+            const out = agent.format(line);
+            if (out.result) result = out.result;
+            if (out.text) write(out.text + '\n');
+        };
+        const feed = (chunk) => {
+            const lines = (pending + chunk).split('\n');
+            pending = lines.pop();
+            lines.forEach(emit);
+        };
+        child = spawn(agent.cli(), agent.batchArgs(agent.prompt(job), agent.model()),
+            { cwd: root(), env, stdio: ['ignore', 'pipe', 'pipe'] });
+        child.stdout.setEncoding('utf8').on('data', feed);
+        child.stderr.setEncoding('utf8').on('data', (d) => write(`\x1b[2m${d}\x1b[0m`));
+        child.on('error', (e) => { write(`\x1b[31m${e.message}\x1b[0m\n`); });
+        child.on('close', (code) => {
+            if (pending) emit(pending);
+            child = null;
+            resolve({ code, result });
+        });
+    });
+
+    const run = async () => {
+        const summary = [];
+        for (const [i, uri] of uris.entries()) {
+            if (stopped) break;
+            const name = path.basename(uri.fsPath, '.asm');
+            write(`\x1b[1;33m=== [${i + 1}/${uris.length}] ${name} ===\x1b[0m\n`);
+            const job = await prepareMakeC(uri, agent.label, true);
+            if (!job || job.skip) {
+                write(`— skip: ${(job && job.skip) || 'nothing to do'}\n\n`);
+                summary.push(`skip  ${name}: ${(job && job.skip) || 'nothing to do'}`);
+                continue;
+            }
+            const { code, result } = await runOne(job);
+            if (stopped) break;
+            const made = await openMade(job.cFile, job.sFile);
+            const status = made && code === 0 ? 'done' : 'FAIL';
+            summary.push(`${status}  ${name}` + (result ? `: ${result.split('\n')[0]}` : ''));
+            write('\n');
+        }
+        write(`\x1b[1m=== batch ${stopped ? 'stopped' : 'finished'} ===\x1b[0m\n${summary.join('\n')}\n`);
+    };
+
+    const term = vscode.window.createTerminal({
+        name: `${agent.label}: batch (${uris.length})`,
+        location: vscode.TerminalLocation.Editor,
+        pty: {
+            onDidWrite: emitter.event,
+            open: () => { run(); },
+            close: () => { stopped = true; if (child) child.kill(); },
+        },
+    });
+    term.show();
 }
 
 // ---------------------------------------------------------------- lens
@@ -757,8 +895,8 @@ function activate(context) {
         vscode.commands.registerCommand('PHOONZANGAsmNav.goToAddress', async () => { await ready; return goToAddress(); }),
         vscode.commands.registerCommand('PHOONZANGAsmNav.nameRoutine', async () => { await ready; return nameRoutine(); }),
         vscode.commands.registerCommand('PHOONZANGAsmNav.diffVendor', diffVendor),
-        vscode.commands.registerCommand('PHOONZANGAsmNav.makeC', (uri) => makeC('claude', uri)),
-        vscode.commands.registerCommand('PHOONZANGAsmNav.makeCOpenCode', (uri) => makeC('opencode', uri)),
+        vscode.commands.registerCommand('PHOONZANGAsmNav.makeC', (uri, uris) => makeC('claude', uri, uris)),
+        vscode.commands.registerCommand('PHOONZANGAsmNav.makeCOpenCode', (uri, uris) => makeC('opencode', uri, uris)),
         vscode.commands.registerCommand('PHOONZANGAsmNav.check', async (uri) => {
             const doc = uri
                 ? await vscode.workspace.openTextDocument(uri)

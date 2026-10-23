@@ -762,7 +762,7 @@ jumptable_67c3_case_15:
     add sp, byte 4                   ; 0x681f
     mov ax, 0                        ; 0x6822
     push ax                          ; 0x6825
-    call ds_app_gfx_free_score_VGJR  ; 0x6826
+    call app_gfx_free_score          ; 0x6826
     pop cx                           ; 0x6829
 @..api_idx_0014_VORK.l22:
     mov ax, 0xf                      ; 0x682a

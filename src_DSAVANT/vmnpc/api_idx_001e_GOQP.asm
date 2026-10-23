@@ -13,7 +13,7 @@ api_idx_001e_GOQP:
 @..api_idx_001e_GOQP.l2:
     mov ax, 0                        ; 0x70d3
     push ax                          ; 0x70d6
-    call ds_app_gfx_free_score_VGJR  ; 0x70d7
+    call app_gfx_free_score          ; 0x70d7
     pop cx                           ; 0x70da
 @..api_idx_001e_GOQP.l3:
     call free_current_maze           ; 0x70db

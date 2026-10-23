@@ -897,7 +897,7 @@ api_idx_0068_OUHP:
     add sp, byte 4                   ; 0x12b8
     mov ax, 0                        ; 0x12bb
     push ax                          ; 0x12be
-    call ds_app_gfx_free_score_VGJR  ; 0x12bf
+    call app_gfx_free_score          ; 0x12bf
     pop cx                           ; 0x12c2
     jmp short @..api_idx_0068_OUHP.l56 ; 0x12c3
 @..api_idx_0068_OUHP.l55:

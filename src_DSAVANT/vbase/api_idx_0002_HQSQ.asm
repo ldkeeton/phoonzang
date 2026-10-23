@@ -378,7 +378,7 @@ api_idx_0002_HQSQ:
     add sp, byte 4                   ; 0x92b0
     mov ax, 0                        ; 0x92b3
     push ax                          ; 0x92b6
-    call ds_app_gfx_free_score_VGJR  ; 0x92b7
+    call app_gfx_free_score          ; 0x92b7
     pop cx                           ; 0x92ba
 @..api_idx_0002_HQSQ.l14:
     test word [bss_9056], 0x1000     ; 0x92bb

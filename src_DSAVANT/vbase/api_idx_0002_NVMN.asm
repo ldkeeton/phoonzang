@@ -178,7 +178,7 @@ jumptable_7185_case_0:
     add sp, byte 4                   ; 0x71e7
     mov ax, 0                        ; 0x71ea
     push ax                          ; 0x71ed
-    call ds_app_gfx_free_score_VGJR  ; 0x71ee
+    call app_gfx_free_score          ; 0x71ee
     pop cx                           ; 0x71f1
 @..api_idx_0002_NVMN.l7:
     test word [bss_9056], 0x1000     ; 0x71f2
