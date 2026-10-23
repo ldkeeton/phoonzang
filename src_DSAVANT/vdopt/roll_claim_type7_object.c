@@ -38,7 +38,7 @@ int skill;
 		result = 2;
 	if (result == 0)
 		claim_type7_object(obj);
-	pending_event = result + 0x841;
+	pending_event = result + 2113;
 	pending_event_hi = result;
 	return 0;
 }

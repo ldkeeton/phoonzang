@@ -1,4 +1,5 @@
 ; :ts=8
+	include	hlmacros.h
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
 	public	mpu401_reset_and_sync_
@@ -7,9 +8,7 @@ codeseg	segment	byte public 'code'
 mpu_status	equ	331h	;MPU-401 status/command port
 mpu_data	equ	330h	;MPU-401 data port
 mpu401_reset_and_sync_ proc near
-	push	bx
-	push	cx
-	push	dx
+	pushs	bx,cx,dx
 mpu401_write_ready_flag db	0	;set when status bit 6 clears within the timeout
 mpu401_read_ready_flag	db	0	;set when status bit 7 clears within the timeout
 	mov	dx,mpu_status
@@ -32,9 +31,7 @@ write_ready_poll:
 check_write_ready:
 	cmp	byte ptr cs:mpu401_write_ready_flag,0
 	je	no_write_ready
-	mov	dx,mpu_status
-	mov	al,0ffh		;MPU-401 reset command
-	out	dx,al
+	outp	mpu_status,0ffh	; MPU-401 reset command
 	jmp	near ptr try_read
 no_write_ready:
 	jmp	near ptr fail
@@ -71,9 +68,7 @@ wait_write_ready_again:
 	in	al,dx
 	and	al,40h		;bit 6: still busy
 	jne	wait_write_ready_again
-	mov	dx,mpu_status
-	mov	al,3fh		;MPU-401 enter UART mode
-	out	dx,al
+	outp	mpu_status,3fh	; MPU-401 enter UART mode
 read_until_active_sense:
 	mov	dx,mpu_status
 	in	al,dx
@@ -85,9 +80,7 @@ read_until_active_sense:
 	jne	read_until_active_sense
 	mov	ax,0		;success
 done:
-	pop	dx
-	pop	cx
-	pop	bx
+	pops	dx,cx,bx
 	ret
 mpu401_reset_and_sync_ endp
 codeseg	ends

@@ -52,7 +52,7 @@ int level;
 	}
 	free_picture_slot(2);
 	load_monster_picture(0, 14);
-	saved_area_a = gfx_save_area(0x37, 0x92, 0x109, 0xc6);	/* box corners */
+	saved_area_a = gfx_save_area(55, 146, 265, 198);	/* box corners */
 	restore_area_a_draw_glyph();
 	found = 0;
 	for (slot = 0; slot < 20; slot++) {
@@ -69,23 +69,23 @@ int level;
 		continue;
 hit:
 		found = 1;
-		load_message_string(slot + 0x6a4, title);	/* per-slot message */
+		load_message_string(slot + 1700, title);	/* per-slot message */
 		line1[0] = 0;
 		line2[0] = 0;
-		if (slot_records[slot].flag == 0 || (slot == 4 && test_bit(flag_bitset, 0x40)))
-			load_message_string(0x1e7, line1);
+		if (slot_records[slot].flag == 0 || (slot == 4 && test_bit(flag_bitset, 64)))
+			load_message_string(487, line1);
 		else {
-			load_message_string(0x1e5, line1);
-			load_message_string(slot_records[slot].kind + 0x6ea, line2);	/* per-kind message */
+			load_message_string(485, line1);
+			load_message_string(slot_records[slot].kind + 1770, line2);	/* per-kind message */
 		}
 		draw_centered_lines(title, line1, line2);
 	}
 	if (found == 0) {	/* nothing detected */
-		load_message_string(0x1e6, title);
+		load_message_string(486, title);
 		draw_centered_lines(title, report_line1_none, report_line2_none);
 	}
 	gfx_restore_area(saved_area_a, 1);
-	dissolve_or_show_area(0x37, 0x92, 0x109, 0xc6);
+	dissolve_or_show_area(55, 146, 265, 198);
 	free_picture_slot(14);
 	load_monster_picture(3, 2);
 }

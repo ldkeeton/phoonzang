@@ -1,36 +1,27 @@
 ; clears key_queue, drains the BIOS keyboard buffer, then calls the graphics
 ; driver slot 10
 	include	lmacros.h
+	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	key_queue_:word
 	extrn	gfx_drv_slot_10_:dword
 	public	flush_keyboard_
 flush_keyboard_ proc near
-	push	bp
-	mov	bp,sp
+	frame
 	cld
-	push	di
-	push	si
-	push	es
-	mov	ax,ds
-	mov	es,ax
+	pushs	di,si,es
+	movseg	es,ds
 	mov	ax,0	;empty key_queue (count = 0)
 	mov	word ptr cs:key_queue_,ax
 drain:
-	mov	ah,1	;int 16h/1: is a key waiting?
-	int	16h
+	kbd	1	; int 16h/1: is a key waiting?
 	jz	drained	;ZF set: BIOS buffer empty
-	mov	ah,0	;int 16h/0: read and discard it
-	int	16h
+	kbd	0	; int 16h/0: read and discard it
 	jmp	drain
 drained:
 	call	dword ptr cs:gfx_drv_slot_10_
-	pop	es
-	pop	si
-	pop	di
-	mov	sp,bp
-	pop	bp
-	ret
+	pops	es,si,di
+	unframe
 flush_keyboard_ endp
 	finish
 	end

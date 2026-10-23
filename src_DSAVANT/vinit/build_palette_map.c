@@ -16,23 +16,23 @@ unsigned char *src;
 	for (color = 0; color < 256; color++) {
 		for (component = 0; component < 3; component++) {
 			palette[color][component] =
-			    clamp_between(src[color*3+component] + base, 0, 0x3f);
-			if (palette[color][component] > 0x20) {
-				delta = (palette[color][component] - 0x20)
-				    * scale / 0x20;
+			    clamp_between(src[color*3+component] + base, 0, 63);
+			if (palette[color][component] > 32) {
+				delta = (palette[color][component] - 32)
+				    * scale / 32;
 				palette[color][component] =
 				    clamp_between(palette[color][component] + delta,
-						  0, 0x3f);
-			} else if (palette[color][component] < 0x20) {
-				delta = (0x20 - palette[color][component])
-				    * scale / 0x20;
+						  0, 63);
+			} else if (palette[color][component] < 32) {
+				delta = (32 - palette[color][component])
+				    * scale / 32;
 				palette[color][component] =
 				    clamp_between(palette[color][component] - delta,
-						  0, 0x3f);
+						  0, 63);
 			}
 		}
 	}
-	aztec_setmem(color_map, 0x200, 0xff);
+	aztec_setmem(color_map, 512, 255);
 	for (color = 0; color < 256; color++) {
 		red = palette[color][0] / 8;	/* top 3 bits of each component */
 		green = palette[color][1] / 8;
@@ -40,5 +40,5 @@ unsigned char *src;
 		color_map[(red << 6) + (green << 3) + blue] = color;
 	}
 	gfx_set_palette(palette, color_map);
-	gfx_reset_rgb(0xffff, 0xffff, 0xffff);
+	gfx_reset_rgb((unsigned)65535, (unsigned)65535, (unsigned)65535);
 }

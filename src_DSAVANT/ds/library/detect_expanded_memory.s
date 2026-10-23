@@ -11,8 +11,7 @@ detect_expanded_memory proc near
 	pushs	ds,es
 	dos	35h,67h		;get the int 67h vector into es:bx
 	mov	di,0ah		;device driver name field in the driver header
-	mov	ax,cs
-	mov	ds,ax
+	movseg	ds,cs
 	mov	si,offset ems_driver_signature	;"EMMXXXX0" signature in the code segment
 	mov	cx,8
 	rep	cmpsb		;compare the driver name with the signature

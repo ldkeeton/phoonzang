@@ -12,11 +12,11 @@ int left, top, right, bottom;
 	if (!no_dissolve) {			/* dissolve animation enabled */
 		if (mouse_active) {			/* pointer is on: hide it while the screen changes */
 			set_mouse_pointer_shape(mouse_pointer_shape);
-			gfx_mouse_glide_to(0x12e, 0xa4, 0);
+			gfx_mouse_glide_to(302, 164, 0);
 		}
 		gfx_dissolve_area(left, top, right, bottom, 0);
 		if (mouse_active) {
-			gfx_mouse_glide_back(0x12e, 0xa4, 0);
+			gfx_mouse_glide_back(302, 164, 0);
 			set_mouse_pointer_shape(0L);		/* no shape: restore the default pointer */
 		}
 	} else {

@@ -2,21 +2,18 @@
 ; key_queue or the BIOS buffer, moving a BIOS key into the queue when mode is
 ; nonzero
 	include	lmacros.h
+	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	key_queue_:word
 	extrn	stir_random_seeds_:near
 mode		equ	4	;arg: 0 any key, 2 digits, else printable/control
 	public	poll_filtered_key_
 poll_filtered_key_ proc near
-	push	bp
-	mov	bp,sp
+	frame
 	cld
-	push	ds
-	push	es
-	push	si
+	pushs	ds,es,si
 	cld
-	mov	ax,cs	;key_queue lives in the code segment
-	mov	ds,ax
+	movseg	ds,cs	; key_queue lives in the code segment
 	mov	es,ax
 	call	stir_random_seeds_	;stir the RNG on every poll
 	lea	si,key_queue_
@@ -65,34 +62,26 @@ next_key_2:	;short-jump trampoline back to next_key
 have_key:
 	mov	ax,1	;return 1; the key stays queued
 done:
-	pop	si
-	pop	es
-	pop	ds
-	mov	sp,bp
-	pop	bp
-	ret
+	pops	si,es,ds
+	unframe
 drop_key:	;discard oldest: count--, shift the queue left one byte
 	dec	word ptr [si]
-	push	si
-	push	di
+	pushs	si,di
 	add	si,3
 	mov	di,si
 	dec	di
 	mov	cx,20
 	rep	movsb
-	pop	di
-	pop	si
+	pops	di,si
 	jmp	short next_key
 poll_key:
-	mov	ah,1	;int 16h/1: key waiting? (ZF set = none)
-	int	16h
+	kbd	1	; int 16h/1: key waiting? (ZF set = none)
 	mov	ax,0	;mov keeps ZF: return 0 if none
 	je	done
 	mov	ax,1
 	cmp	word ptr [bp+mode],0	;mode 0: report it without consuming
 	je	done
-	mov	ah,7	;DOS 07h: move it into key_queue
-	int	21h
+	dos	7	; DOS 07h: move it into key_queue
 	mov	bx,word ptr [si]
 	mov	byte ptr [bx+si+2],al
 	inc	word ptr [si]
@@ -105,8 +94,7 @@ poll_key:
 	and	word ptr [bx+si+2],0dfh
 	jmp	short next_key_2
 extended_key:
-	mov	ah,7	;read the scan code
-	int	21h
+	dos	7	; read the scan code
 	mov	bx,word ptr [si]
 	mov	byte ptr [bx+si+1],8
 	cmp	al,75	;left -> 8

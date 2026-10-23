@@ -1,6 +1,6 @@
 PY := python3
 ASM := disassembler
-CMD := name refs info data probe init libcheck check clean run verify rebuild elf-rebuild set-baseline charts help all build prebuild decompile test readme
+CMD := name refs info data probe init libcheck check clean run verify lint rebuild elf-rebuild set-baseline charts help all build prebuild decompile test readme
 
 # The root has a `readme/` directory, so the target of the same name needs to
 # be phony or make reports it "up to date" and skips the recipe.
@@ -25,7 +25,7 @@ flow:
 	@cd $(ASM) && $(PY) -m flow.generate $(ARGS)
 
 ifneq ($(filter $(CMD),$(MAKECMDGOALS)),)
-name refs info data probe init libcheck check clean run verify rebuild elf-rebuild all build prebuild decompile test readme:
+name refs info data probe init libcheck check clean run verify lint rebuild elf-rebuild all build prebuild decompile test readme:
 	@cd $(ASM) && $(PY) -m make --$@ $(filter-out $(CMD),$(MAKECMDGOALS))
 $(filter-out $(CMD),$(MAKECMDGOALS)):
 	@true

@@ -19,7 +19,7 @@ int load_mode;
 		if (!(copy_protection_result = verify_answer_word())) {
 			load_result = -1;
 		} else {
-			ds_app_OIGN(0xc);	/* let the prompt's screen settle */
+			ds_app_OIGN(12);	/* let the prompt's screen settle */
 			load_result = load_game_data(load_mode);
 		}
 		startup_check_stage = 1;
@@ -27,7 +27,7 @@ int load_mode;
 		load_result = load_game_data(load_mode);
 	}
 	if (load_result == -1) {
-		gfx_show_area(0x36, 0x8e, 0x109, 0xc6);	/* copy-protection dialog area */
+		gfx_show_area(54, 142, 265, 198);	/* copy-protection dialog area */
 		return;
 	}
 	ensure_game_disk(0, game_state_arg);
@@ -35,13 +35,13 @@ int load_mode;
 	party_status_frame_step = 0;
 	party_status_heading = party_tag << 1;	/* two glyphs per heading */
 	party_status_frame_seen = 0;
-	for (slot = 0xf; slot < 0x12; slot++) {	/* the three party picture slots */
-		picture_slot_number[slot] = 0xff;
+	for (slot = 15; slot < 18; slot++) {	/* the three party picture slots */
+		picture_slot_number[slot] = 255;
 		picture_slot_used[slot] = 0;
 	}
 	maze_state = 0;
 	maze_variant = 0;
-	current_maze = 0xffff;
+	current_maze = (unsigned)65535;
 	if (startup_check_stage != 2) {
 		ds_app_string_MPHP();	/* verify the message-file checksum */
 		startup_check_stage = 2;

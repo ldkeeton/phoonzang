@@ -1,6 +1,7 @@
 ; allocates the driver memory blocks when a video driver was found; shares the
 ; caller's frame
 	include	lmacros.h
+	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	driver_block_table_:word
 	extrn	ds_loc_LGTQ_:near

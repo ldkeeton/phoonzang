@@ -1,5 +1,5 @@
 struct tbl {
-	char pad0[0x1e0];
+	char pad0[480];
 	int alt_arg[240];	/* +0x1e0: used when level byte is 99 */
 	int packed_loc[840];	/* +0x3c0: x:3 y:3 piece:4 bits:2 */
 	unsigned char level[240];	/* +0xa50 */
@@ -27,7 +27,7 @@ int dest;
 	party_map_piece = get_bits(loc, 6, 4);	/* bits 6-9: map piece */
 	level = maze_tables->level[dest];
 	dest_alt_arg = 0;
-	if (level == 0x63) {	/* 99: no level, pass alt_arg instead */
+	if (level == 99) {	/* 99: no level, pass alt_arg instead */
 		dest_alt_arg = maze_tables->alt_arg[dest];
 		level = -1;
 	}
@@ -38,8 +38,8 @@ int dest;
 		saved_cell_y = party_cell_y;
 	}
 	/* piece origin tables at +0x490 (x) and +0x4a0 (y) give world coords */
-	party_world_x = maze_data[party_map_piece + 0x490] + party_cell_x;
-	party_world_y = maze_data[party_map_piece + 0x4a0] + party_cell_y;
+	party_world_x = maze_data[party_map_piece + 1168] + party_cell_x;
+	party_world_y = maze_data[party_map_piece + 1184] + party_cell_y;
 	party_region = maze_tables->piece_region[party_map_piece];
 	region_step_flag = 0;
 	if (level == game_state_arg)

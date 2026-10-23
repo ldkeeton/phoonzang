@@ -1,21 +1,18 @@
 ; returns the next key from key_queue (filtering by mode), else waits on
 ; play_drv_wait and reads DOS keyboard input
 	include	lmacros.h
+	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	key_queue_:word
 	extrn	play_drv_wait_:dword
 mode		equ	4	;arg: 0 any key, 2 digits, else printable/control
 	public	get_filtered_key_
 get_filtered_key_ proc near
-	push	bp
-	mov	bp,sp
+	frame
 	cld
-	push	si
-	push	ds
-	push	es
+	pushs	si,ds,es
 	cld
-	mov	ax,cs	;key_queue lives in the code segment
-	mov	ds,ax
+	movseg	ds,cs	; key_queue lives in the code segment
 	mov	es,ax
 	lea	si,key_queue_
 next_key:
@@ -65,31 +62,24 @@ take_key:
 	mov	al,byte ptr [si+2]
 	mov	ah,0
 done:
-	pop	es
-	pop	ds
-	pop	si
-	mov	sp,bp
-	pop	bp
-	ret
+	pops	es,ds,si
+	unframe
 drop_key:	;discard oldest: count--, shift the queue left one byte
 	dec	word ptr [si]
-	push	si
-	push	di
+	pushs	si,di
 	add	si,3
 	mov	di,si
 	dec	di
 	mov	cx,20
 	rep	movsb
-	pop	di
-	pop	si
+	pops	di,si
 	jmp	short next_key
 read_key:
 	xor	ax,ax
 	push	ax
 	call	dword ptr cs:play_drv_wait_	;play driver wait hook, arg 0
 	pop	ax
-	mov	ah,7	;DOS 07h: unechoed key input, waits
-	int	21h
+	dos	7	; DOS 07h: unechoed key input, waits
 	mov	ah,0
 	cmp	word ptr [bp+mode],0	;mode 0: return the key unqueued
 	je	done
@@ -105,8 +95,7 @@ read_key:
 	and	word ptr [bx+si+2],0dfh
 	jmp	short next_key_2
 extended_key:
-	mov	ah,7	;read the scan code
-	int	21h
+	dos	7	; read the scan code
 	mov	bx,word ptr [si]
 	mov	byte ptr [bx+si+1],8
 	cmp	al,75	;left -> 8

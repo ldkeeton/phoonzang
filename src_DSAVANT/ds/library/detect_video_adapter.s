@@ -1,13 +1,13 @@
 ; reads the video mode, then picks the VGA or EGA driver; shares the caller's
 ; frame
 	include	lmacros.h
+	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	select_vga_driver_:near, select_ega_driver_:near
 	extrn	saved_video_mode_:byte
 	public	detect_video_adapter_, vga_palette_
 detect_video_adapter_ proc near
-	mov	ah,0fh	;int 10h/0Fh: get current video mode
-	int	10h
+	video	0fh	; int 10h/0Fh: get current video mode
 	mov	byte ptr cs:saved_video_mode_,al	;remember the mode in effect at startup
 	mov	ax,word ptr 4[bp]	;caller arg bit 0 set: VGA may be used
 	and	ax,1
@@ -23,8 +23,7 @@ try_vga:
 	or	al,al
 	jz	no_vga
 	xor	bx,bx
-	mov	ax,1a00h	;int 10h/1A00h: read display combination code
-	int	10h
+	videox	1a00h	; int 10h/1A00h: read display combination code
 	cmp	bl,7	;7 = VGA mono, 8 = VGA colour, active (bl) or alternate (bh)
 	je	is_vga
 	cmp	bh,7

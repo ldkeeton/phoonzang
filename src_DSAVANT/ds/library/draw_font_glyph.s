@@ -2,6 +2,7 @@
 ; present, passes it in AX to the graphics driver's draw-glyph entry; the
 ; caller's glyph argument is left on the stack for the driver to read.
 	include	lmacros.h
+	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	font_seg_table_:word
 	extrn	gfx_drv_draw_glyph_:dword
@@ -9,8 +10,7 @@ glyph		equ	4	;arg: glyph code, read by the driver
 font		equ	6	;arg: index into font_seg_table
 	public	draw_font_glyph_
 draw_font_glyph_ proc near
-	push	bp
-	mov	bp,sp
+	frame
 	cld
 	mov	ax,word ptr font[bp]
 	mov	bx,offset font_seg_table_
@@ -21,9 +21,7 @@ draw_font_glyph_ proc near
 	je	no_font		;font not loaded: nothing to draw
 	call	dword ptr cs:gfx_drv_draw_glyph_
 no_font:
-	mov	sp,bp
-	pop	bp
-	ret
+	unframe
 draw_font_glyph_ endp
 	finish
 	end

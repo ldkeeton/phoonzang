@@ -34,24 +34,24 @@ int page, row, col;
 		obj = find_object_at(party_cell_x, party_cell_y, party_map_piece, obj);
 		if (obj == -1)
 			break;
-		if (maze_tables->type[obj] == 0x13 &&
+		if (maze_tables->type[obj] == 19 &&
 		    cell_key_grid[page].row[row].cell[col].key == maze_tables->key[obj] &&
 		    (maze_tables->party_mask[obj] == 0 ||
 		     maze_tables->party_mask[obj] & (1 << party_tag))) {
 			/* flags bits 0-7 clear, bits 8-15 set a bit in the level's 16-byte map */
 			bit = get_bits(maze_tables->flags[obj], 0, 8);
-			set_bitmap_bit((game_state_arg << 4) + 0x8d14, bit, 0);
+			set_bitmap_bit((game_state_arg << 4) + (unsigned)36116, bit, 0);
 			if (bit = get_bits(maze_tables->flags[obj], 8, 8))
-				set_bitmap_bit((game_state_arg << 4) + 0x8d14, bit, 1);
+				set_bitmap_bit((game_state_arg << 4) + (unsigned)36116, bit, 1);
 			if (maze_tables->sound[obj] > 0) {
-				gfx_show_area(0x36, 0x8e, 0x109, 0xc6);
+				gfx_show_area(54, 142, 265, 198);
 				/* sounds below 5 and 8, 9 play directly; others load first */
 				if ((snd = maze_tables->sound[obj]) < 5 || snd == 8 || snd == 9)
 					play_sound_effect(snd);
 				else {
 					ds_app_QTIV(snd);
-					play_sound_effect(0x10);
-					wait_and_free_sound(0x10);
+					play_sound_effect(16);
+					wait_and_free_sound(16);
 					loaded_sound_id = -1;
 				}
 			}
@@ -65,7 +65,7 @@ int page, row, col;
 			key = maze_tables->party_mask[obj];
 			if (cell_key_grid[page].row[row].cell[col].key == key) {
 				claim_type7_object(obj);
-				pending_event = 0x841;
+				pending_event = 2113;
 				pending_event_hi = 0;
 				return 1;
 			}

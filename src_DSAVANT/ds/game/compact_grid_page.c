@@ -13,16 +13,16 @@ struct grid_page {
 	union {
 		struct grid_row row[4];		/* 0x000 */
 		struct {
-			char pad0[0x114];
+			char pad0[276];
 			unsigned char order[8];	/* +0x114: cell index per slot, 0xff free */
-			char pad1[0x3e];
+			char pad1[62];
 			unsigned char prev[14];	/* +0x15a: slot spacing last frame */
 			unsigned char cur[14];	/* +0x168: slot spacing this frame */
 			unsigned char count[8];	/* +0x176: per-slot tallies */
-			char pad2[0x7e];
+			char pad2[126];
 			unsigned char max_low;	/* +0x1fc: highest low nibble seen */
 			unsigned char max_high;	/* +0x1fd: highest high nibble seen */
-			char pad3[0x4a];
+			char pad3[74];
 		} compact;
 	} view;
 };
@@ -46,7 +46,7 @@ int page, entry;
 			cell_key_grid[page].view.compact.prev[i];
 	for (i = 0; i < 8; i++) {
 		if (cell_key_grid[page].view.compact.order[i] == entry) {
-			cell_key_grid[page].view.compact.order[i] = 0xff;
+			cell_key_grid[page].view.compact.order[i] = 255;
 			switch (i) {
 			case 0:
 			case 1:		/* slots 0 and 1 also reset their 0x12-byte record */
@@ -67,7 +67,7 @@ int page, entry;
 				break;
 			}
 		}
-		if (cell_key_grid[page].view.compact.order[i] == 0xff)
+		if (cell_key_grid[page].view.compact.order[i] == 255)
 			continue;		/* slot already empty */
 		for (j = 0; j < 2; j++) {	/* the cell's two packed positions */
 			q = cell_key_grid[page].view.row[0].cell
@@ -77,7 +77,7 @@ int page, entry;
 				16 * 10;	/* ten pixels per low nibble */
 			cell_key_grid[page].view.compact.cur[q] =
 				clamp_between(cell_key_grid[page].view.compact.cur[q] +
-				r, 0, 0x7d);	/* 0x7d: highest allowed position */
+				r, 0, 125);	/* 0x7d: highest allowed position */
 		}
 		q = cell_key_grid[page].view.row[0].cell
 			[cell_key_grid[page].view.compact.order[i]].coord / 16;

@@ -13,9 +13,9 @@ int pc, realm;
 	int spell, n;
 
 	n = 0;
-	for (spell = 0; spell < 0x66; spell++) {	/* 0x66 spells */
-		if (spell_table[spell].realm == realm && test_bit(pc * 0x248 + 0x5e12, spell)) {	/* 0x248-byte pc records */
-			load_message_string(spell + 0xfa0, known_spell_names[n]);	/* spell names start at message 0xfa0 */
+	for (spell = 0; spell < 102; spell++) {	/* 0x66 spells */
+		if (spell_table[spell].realm == realm && test_bit(pc * 584 + 24082, spell)) {	/* 0x248-byte pc records */
+			load_message_string(spell + 4000, known_spell_names[n]);	/* spell names start at message 0xfa0 */
 			known_spell_ids[n] = spell;
 			n++;
 		}

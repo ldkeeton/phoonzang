@@ -1,4 +1,5 @@
 ; :ts=8
+	include	hlmacros.h
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
 	extrn	play_device:byte
@@ -26,9 +27,7 @@ devok:
 	call	opl_write_
 	popf
 	push	dx
-	mov	dx,388h			;OPL address port
-	mov	al,40h			;select register 40h, as opl_write leaves it
-	out	dx,al
+	outp	388h,40h	; OPL address port; select register 40h, as opl_write leaves it
 	pop	dx
 	mov	ax,0
 	ret

@@ -16,8 +16,7 @@ alloc_size	equ	-4	;bytes to allocate (font_size + optional extra)
 glyph_bytes	equ	-8	;glyph count * bytes per glyph
 	public	load_font_file_
 load_font_file_ proc near
-	push	bp
-	mov	bp,sp
+	frame
 	cld
 	sub	sp,8
 	pushs	si,di,ds,es
@@ -87,8 +86,7 @@ load_font_file_ proc near
 	.if	al == 2
 		mov	al,byte ptr 2[bx]
 		.if	not al
-			mov	ax,ds	;fill it by copying the glyphs (at 110h) to hdr 0Ch
-			mov	es,ax
+			movseg	es,ds	; fill it by copying the glyphs (at 110h) to hdr 0Ch
 			mov	di,word ptr 0ch[bx]
 			mov	si,110h
 			mov	cx,word ptr glyph_bytes[bp]

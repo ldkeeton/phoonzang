@@ -11,10 +11,10 @@ int selector, map, x, y, wx, wy;
 {
 	switch (selector) {
 	case 0:
-		return ds_leaf_loc_NPSL(maze_data + 0x90,
+		return ds_leaf_loc_NPSL(maze_data + 144,
 			(map << 6) + (y << 3) + x, 4);	/* 8x8 cells per piece, 4-bit field */
 	case 1:
-		return ds_leaf_loc_NPSL(maze_data + 0x290,
+		return ds_leaf_loc_NPSL(maze_data + 656,
 			(map << 6) + (y << 3) + x, 4);
 	case 2:
 		return loc_UOPP(wx, wy, x, y, map);

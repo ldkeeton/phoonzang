@@ -12,6 +12,7 @@ from .common import _apps, _asm_one
 from .elf import cmd_elf_rebuild
 from .init import cmd_init
 from .inspect import cmd_data, cmd_info, cmd_probe
+from .lint import cmd_lint
 from .naming import cmd_name, cmd_refs, specs_from_makeflags
 from .prebuild import cmd_prebuild
 from .readme import cmd_readme
@@ -33,6 +34,11 @@ Commands (space-separated):
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox-x
   make verify [PROJECT...]  verify one or all projects
+  make lint [fix] [PROJECT...]  check hand-owned .c/.s sources (fix applies the
+                            rule fixers).  Rules: decimal constants in .c,
+                            include hlmacros.h in every .s, structured-flow
+                            indentation, and hlmacros shorthand where an exact
+                            instruction sequence can use it
   make clean [PROJECT...]   clean one or all projects (no args: delete .cache,
                             except the build lock and pinned baselines)
   make name PROJECT BIN SYMBOL=NAME[:NOTE] ...
@@ -122,11 +128,13 @@ def main():
         return
 
     if '--all' in flags:
+        cmd_lint(all_projects, True)
         for project in all_projects:
             cmd_prebuild(project)
         _build_projects(all_projects, all_projects, prebuild=False)
         cmd_verify([])
         cmd_elf_rebuild(None, None, all_projects)
+
         if 'notest' in args:
             return
         fast_ok = run_tests([])
@@ -143,6 +151,11 @@ def main():
 
     if '--verify' in flags:
         cmd_verify(args)
+        return
+
+    if '--lint' in flags:
+        fix = 'fix' in args or '--fix' in flags
+        cmd_lint([a for a in args if a != 'fix'], fix=fix)
         return
 
     if '--clean' in flags:
@@ -319,6 +332,7 @@ def main():
         return
 
     if '--build' in flags:
+        cmd_lint(all_projects, True)
         if len(args) == 2:
             project, binary = args
             if project not in all_projects:

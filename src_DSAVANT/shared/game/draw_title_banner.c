@@ -12,9 +12,9 @@ int glyph_base;
 	if (banner_offset > 0) {
 		buf[0] = 1;
 		buf[1] = 0;	/* NUL-terminate */
-		gfx_draw_text(15, 0x5a, 0x2d, 0, 0x13f, 0x41 - banner_offset, 0xc7, 0, buf, 0, 0);	/* clipped to full 320x200 */
+		gfx_draw_text(15, 90, 45, 0, 319, 65 - banner_offset, 199, 0, buf, 0, 0);	/* clipped to full 320x200 */
 	}
 	buf[0] = banner_plain_flag ? 5 : glyph_base + 2;
 	buf[1] = 0;
-	gfx_draw_text(15, 0x5a, 0x14 - banner_offset + 0x19, 0, 0x13f, 0, 0xc7, 0, buf, 0, 0);
+	gfx_draw_text(15, 90, 20 - banner_offset + 25, 0, 319, 0, 199, 0, buf, 0, 0);
 }

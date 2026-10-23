@@ -1,6 +1,6 @@
 /* 240 objects, one parallel array per field */
 struct maze_tables {
-	char pad0[0x3c0];
+	char pad0[960];
 	int flags[240];			/* packed bitfields, read via get_bits */
 	unsigned char type[240];
 	unsigned char x[240];
@@ -31,10 +31,10 @@ int announce;
 			shown = 2;
 	} else if (announce) {
 		shown = 1;
-		show_message(0x7fb);
+		show_message(2043);
 		wait_ticks_or_key(message_delay);
 	}
-	gfx_show_area(0, 0x92, 0x13f, 0x98);	/* message strip */
+	gfx_show_area(0, 146, 319, 152);	/* message strip */
 	obj = maze_tables->map_first[party_map_piece];
 	for (;;) {	/* each object at the party's x, y, map piece */
 		obj = find_object_at(party_cell_x, party_cell_y, party_map_piece, obj);
@@ -48,23 +48,23 @@ int announce;
 		}
 		if (maze_tables->type[obj] == 8 && check_type8_object(obj) == 1)
 			return;
-		if (maze_tables->type[obj] == 0x19 &&
+		if (maze_tables->type[obj] == 25 &&
 		    (found_object_owner = maze_tables->owner[obj]) == party_tag) {
-			game_state = 0x1b;
+			game_state = 27;
 			party_region = obj;
 			return;
 		}
 		obj++;
 	}
 	if (shown == 2) {
-		show_message(0x7fb);
+		show_message(2043);
 		wait_ticks_or_key(message_delay);
-		gfx_show_area(0, 0x92, 0x13f, 0x98);
+		gfx_show_area(0, 146, 319, 152);
 	}
 	if (shown) {
-		show_message(0x7fd);
+		show_message(2045);
 		play_sound_effect(0);
 		wait_ticks_or_key(message_delay / 2);	/* half the usual delay */
 	}
-	gfx_show_area(0, 0x92, 0x13f, 0x98);
+	gfx_show_area(0, 146, 319, 152);
 }

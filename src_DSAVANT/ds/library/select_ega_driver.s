@@ -1,6 +1,7 @@
 ; EGA present: mode 0eh with the 16-colour palette; [bp-2] = 2, [bp-4] =
 ; "ega.drv" in the caller's frame, else [bp-2] = 0
 	include	lmacros.h
+	include	hlmacros.h
 	assume	cs:codeseg
 bios_data_0410	equ	410h	;0040:0010 equipment byte, read with es = 0
 	extrn	saved_equip_byte_:byte
@@ -34,13 +35,10 @@ set_ega:
 	and	dl,0cfh	;bits 4-5 = 00: EGA/VGA in the equipment list
 	mov	byte ptr es:[bios_data_0410],dl
 	pop	es
-	mov	ax,0eh	;mode 0Eh: 640x200, 16 colours
-	int	10h
-	mov	ax,cs
-	mov	es,ax
+	videox	0eh	; mode 0Eh: 640x200, 16 colours
+	movseg	es,cs
 	mov	dx,offset ega_palette_	;int 10h/1002h: set 16 palette regs + overscan from es:dx
-	mov	ax,1002h
-	int	10h
+	videox	1002h
 	mov	word ptr -2[bp],2	;[bp-2] = 2: EGA
 	mov	bx,offset ega_drv_name_	;[bp-4] = driver file name
 	mov	word ptr -4[bp],bx

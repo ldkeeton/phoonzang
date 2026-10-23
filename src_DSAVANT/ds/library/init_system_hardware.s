@@ -1,6 +1,7 @@
 ; brings up the machine: seeds the random generator from the BIOS tick, detects
 ; video and mouse, loads the drivers and clears the screen; returns [bp-2]
 	include	lmacros.h
+	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	seed_random_from_timer:near, calibrate_loops_per_ms:near
 	extrn	detect_video_adapter:near, allocate_driver_blocks:near
@@ -12,16 +13,11 @@ mode	equ	4		;caller's video mode argument
 result	equ	-2		;status word: 1 = VGA, 2 = EGA, 1000h = mouse
 driver_name equ -4		;video driver file name set by the detector
 init_system_hardware_ proc near
-	push	bp
-	mov	bp,sp
+	frame
 	cld
 	sub	sp,4		;reserve result and driver_name for the frame-sharing helpers
-	push	ds
-	push	es
-	push	si
-	push	di
-	mov	ax,ds
-	mov	es,ax
+	pushs	ds,es,si,di
+	movseg	es,ds
 	call	seed_random_from_timer	;seed the random generator from the BIOS tick
 	call	calibrate_loops_per_ms	;calibrate loops_per_ms from the BIOS tick
 	call	detect_video_adapter	;set result and driver_name for the adapter found
@@ -35,13 +31,8 @@ init_system_hardware_ proc near
 	call	gfx_fill_screen_buffer
 	add	sp,2
 	mov	ax,word ptr result[bp]	;return the detector/mouse status word
-	pop	di
-	pop	si
-	pop	es
-	pop	ds
-	mov	sp,bp
-	pop	bp
-	ret
+	pops	di,si,es,ds
+	unframe
 init_system_hardware_ endp
 	finish
 	end

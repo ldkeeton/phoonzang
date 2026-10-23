@@ -1,4 +1,5 @@
 ; :ts=8
+	include	hlmacros.h
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
 	extrn	maze_mem_seg:word
@@ -37,15 +38,9 @@ block	equ	-14		;paragraph where the copy starts
 	public	cache_area_
 ; copy a screen rectangle to a file, MAZE memory or EMS; returns the slot index
 cache_area_ proc near
-	push	bp
-	mov	bp,sp
-	sub	sp,14
-	push	es
-	push	ds
-	push	di
-	push	si
-	mov	ax,ds
-	mov	es,ax
+	frame	14
+	pushs	es,ds,di,si
+	movseg	es,ds
 	cmp	word ptr mode[bp],3
 	jne	notfile		;not a file
 	mov	ax,x2[bp]
@@ -66,17 +61,14 @@ cache_area_ proc near
 	mov	srcoff[bp],ax
 	lea	bx,sizehi[bp]
 	mov	dx,bx
-	mov	ax,ss
-	mov	ds,ax
+	movseg	ds,ss
 	mov	cx,10		;header: size hi/lo, rows, cols, offset
 	mov	bx,handle[bp]
-	mov	ah,40h		;DOS write file
-	int	21h
+	dos	40h	; DOS write file
 	jae	f1
 	jmp	cache_area_disk_error_
 f1:
-	mov	ax,cs:screen_buf_seg
-	mov	ds,ax
+	movseg	ds,cs:screen_buf_seg
 	mov	cx,rows[bp]
 f2:				;write one row per pass
 	push	cx
@@ -84,8 +76,7 @@ f2:				;write one row per pass
 	add	word ptr srcoff[bp],320
 	mov	cx,cols[bp]
 	mov	bx,handle[bp]
-	mov	ah,40h		;DOS write file
-	int	21h
+	dos	40h	; DOS write file
 	jae	f3
 	jmp	cache_area_disk_error_
 f3:
@@ -155,8 +146,7 @@ c3:
 	mov	es,ax
 	mov	ax,srcoff[bp]
 	mov	cs:2[bx],ax
-	mov	ax,cs:screen_buf_seg
-	mov	ds,ax
+	movseg	ds,cs:screen_buf_seg
 	mov	ax,y1[bp]
 	mov	bx,320		;screen row stride
 	mul	bx
@@ -235,8 +225,7 @@ e3:
 	mov	cs:[bx],ax
 	mov	ax,srcoff[bp]
 	mov	cs:2[bx],ax
-	mov	ax,cs:ems_frame_seg
-	mov	es,ax
+	movseg	es,cs:ems_frame_seg
 	mov	ax,block[bp]
 	mov	di,ax
 	and	di,3ffh		;paragraph within a 16K page
@@ -246,8 +235,7 @@ e3:
 	shr	ax,cl		;16K page number
 	mov	cs:ems_cur_page,ax
 	call	ems_map_pages_
-	mov	ax,cs:screen_buf_seg
-	mov	ds,ax
+	movseg	ds,cs:screen_buf_seg
 	mov	ax,y1[bp]
 	mov	bx,320		;screen row stride
 	mul	bx

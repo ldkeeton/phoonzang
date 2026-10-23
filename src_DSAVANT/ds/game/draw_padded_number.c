@@ -7,7 +7,7 @@ int field_width, color;
 
 	format_long_decimal(value, buf);
 	while (aztec_strlen(buf) - field_width < 0) {	/* fewer glyphs than the field width */
-		draw_font_glyph(0x20, color);	/* space */
+		draw_font_glyph(32, color);	/* space */
 		field_width--;
 	}
 	draw_text_glyphs(buf + aztec_strlen(buf) - field_width, color);

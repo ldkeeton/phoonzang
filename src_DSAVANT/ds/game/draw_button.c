@@ -6,7 +6,7 @@ char *label;
 	if (boxed)
 		draw_framed_button(x, y, w, h, label);
 	else {
-		gfx_set_text_color(1, 0xc2);
+		gfx_set_text_color(1, 194);
 		/* centre in w cells; glyphs are 6 pixels wide */
 		gfx_set_text_pos((w - aztec_strlen(label)) * 6 / 2 + x + 1, y + 2);
 		draw_text_glyphs(label, 0);

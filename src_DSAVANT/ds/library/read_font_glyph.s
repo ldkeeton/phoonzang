@@ -2,6 +2,7 @@
 ; source * bytes_per_glyph, then reads one glyph record into the font segment
 ; at file_param_word + glyph_map[glyph] * bytes_per_glyph.
 	include	lmacros.h
+	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	font_seg_table_:word
 handle		equ	4	;arg: DOS file handle
@@ -10,24 +11,17 @@ source		equ	8	;arg: record number in the font file
 glyph		equ	10	;arg: glyph slot selected through the map at 10h
 	public	read_font_glyph_
 read_font_glyph_ proc near
-	push	bp
-	mov	bp,sp
+	frame
 	cld
 	sub	sp,8		;reserve 8 bytes of locals (not referenced here)
-	push	si
-	push	di
-	push	ds
-	push	es
-	mov	ax,ds
-	mov	es,ax
-	mov	ax,cs		;ds = cs to reach font_seg_table
-	mov	ds,ax
+	pushs	si,di,ds,es
+	movseg	es,ds
+	movseg	ds,cs	; ds = cs to reach font_seg_table
 	mov	ax,word ptr font[bp]
 	mov	bx,offset font_seg_table_
 	shl	ax,1
 	add	bx,ax
-	mov	ax,word ptr [bx]
-	mov	ds,ax		;ds = segment allocated for this font
+	movseg	ds,<word ptr [bx]>	; ds = segment allocated for this font
 	xor	bx,bx
 	xor	ah,ah
 	mov	al,byte ptr source[bp]
@@ -54,16 +48,10 @@ read_font_glyph_ proc near
 	mov	dx,ax		;ds:dx = glyph record in the font segment
 	mov	cx,word ptr 0ah[bx]
 	mov	bx,word ptr handle[bp]
-	mov	ah,3fh		;DOS 3Fh: read file
-	int	21h
+	dos	3fh	; DOS 3Fh: read file
 	xor	bx,bx
-	pop	es
-	pop	ds
-	pop	di
-	pop	si
-	mov	sp,bp
-	pop	bp
-	ret
+	pops	es,ds,di,si
+	unframe
 read_font_glyph_ endp
 	finish
 	end

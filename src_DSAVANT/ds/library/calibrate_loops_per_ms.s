@@ -1,6 +1,7 @@
 ; calibrates loops_per_ms from the 18.2 Hz BIOS tick: counts loop iterations
 ; over one tick and scales the 55-tick count; shares the caller's frame
 	include	lmacros.h
+	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	loops_per_ms_:word
 	public	calibrate_loops_per_ms_
@@ -9,12 +10,7 @@ ticks_per_ms	equ	55	;18.2 Hz / 1000, ticks in one millisecond
 half_tick	equ	27	;round up a remainder of this or more
 scale_shift	equ	3	;divide by 8 for the 15/16 scale
 calibrate_loops_per_ms_ proc near
-	push	ds
-	push	si
-	push	ax
-	push	bx
-	push	cx
-	push	dx
+	pushs	ds,si,ax,bx,cx,dx
 	mov	cx,0
 	mov	ds,cx		;ds = 0 to reach the BIOS data area
 	mov	bx,bios_tick
@@ -46,12 +42,7 @@ no_round:
 	shr	dx,1
 	add	ax,dx		;ax = ax - ax/8 + ax/16 = 15/16
 	mov	word ptr cs:loops_per_ms_,ax
-	pop	dx
-	pop	cx
-	pop	bx
-	pop	ax
-	pop	si
-	pop	ds
+	pops	dx,cx,bx,ax,si,ds
 	ret
 calibrate_loops_per_ms_ endp
 	finish

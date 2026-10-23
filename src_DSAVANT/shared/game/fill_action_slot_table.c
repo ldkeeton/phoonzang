@@ -19,29 +19,29 @@ int a, b, c, d;
 {
 	int v1, i, j, k, flag;
 
-	if (party_char[a][0x19f] == -1)	/* no slot record */
+	if (party_char[a][415] == -1)	/* no slot record */
 		return;
-	v1 = party_char[a][0x19f];
+	v1 = party_char[a][415];
 	flag = 0;
 	if (d == -1) {
 		d = 0;
-		if (slot_rec_forced[v1][0] != 0xfe)
+		if (slot_rec_forced[v1][0] != 254)
 			flag = 1;
 	}
 	/* one entry per record in group d's range */
 	for (i = slot_rec_first[v1][d]; i < slot_rec_first[v1][d] + slot_rec_count[v1][d]; ++i) { 
 		j = slot_rec_action[v1][i];
 		/* group 0 with a forced value (1..0xfd) overrides the record */
-		if (d == 0 && slot_rec_forced[v1][0] > 0 && slot_rec_forced[v1][0] < 0xfe) {
-			if (slot_rec_forced[v1][0] == 0xfd) {	/* forced to action 0, target 0 */
+		if (d == 0 && slot_rec_forced[v1][0] > 0 && slot_rec_forced[v1][0] < 254) {
+			if (slot_rec_forced[v1][0] == 253) {	/* forced to action 0, target 0 */
 				j = 0;
 				k = 0;
 			} else {
 				k = slot_rec_forced[v1][0];
 				/* special case: ext byte 0xd7 == 0x47 forces action 1, target 0xb */
-				if (party_char_ext[a][0xd7] == 0x47 && flag == 0) {
+				if (party_char_ext[a][215] == 71 && flag == 0) {
 					j = 1;
-					k = 0xb;
+					k = 11;
 				}
 			}
 		} else {

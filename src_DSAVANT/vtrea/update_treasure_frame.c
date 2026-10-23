@@ -27,7 +27,7 @@ update_treasure_frame()
 	if (animation_index >= 0)	/* animation index; -1 disables it */
 		animation_index = draw_animation_frame(animation_index);
 	/* refresh the strip x 0x48..0xf7, y 0x20..show_area_bottom */
-	gfx_show_area(0x48, 0x20, 0xf7, show_area_bottom);
+	gfx_show_area(72, 32, 247, show_area_bottom);
 	if (sound_request) {		/* one-shot sound request */
 		play_sound_effect(5);
 		sound_request = 0;

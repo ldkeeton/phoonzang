@@ -29,12 +29,12 @@ queue_marker_overlay()
 			variant = facing == 3;	/* second x-table column */
 			break;
 		}
-		add_overlay_item(0x1b, 3, glyph_x_table[glyph[0]][variant] + 1,
-			glyph_y_table[glyph[0]] + 1, 0x48, 0xf8, variant, 0, glyph);
+		add_overlay_item(27, 3, glyph_x_table[glyph[0]][variant] + 1,
+			glyph_y_table[glyph[0]] + 1, 72, 248, variant, 0, glyph);
 	}
 	if (marker_mode == -1) {	/* fixed position from marker_x/marker_y */
 		glyph[0] = 1;
 		glyph[1] = 0;	/* NUL-terminate */
-		add_overlay_item(0x1c, 0xc, marker_x, marker_y, 0x48, 0xf8, 0, 0, glyph);
+		add_overlay_item(28, 12, marker_x, marker_y, 72, 248, 0, 0, glyph);
 	}
 }

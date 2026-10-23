@@ -17,6 +17,6 @@ int x, y, row;
 		/* clip to the full 320x200 screen (0..0x13f, 0..0xc7) */
 		gfx_draw_text(2, party_slot_x[row][i] + x,
 			party_slot_y[row][i] + y,
-			0, 0x13f, 0, 0xc7, 0, buf, 0, 0);
+			0, 319, 0, 199, 0, buf, 0, 0);
 	}
 }

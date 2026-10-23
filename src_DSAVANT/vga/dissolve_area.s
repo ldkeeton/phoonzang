@@ -4,6 +4,7 @@
 ; component, then the buffer pixel becomes the nearest palette entry.  Passes
 ; repeat while any pixel changed, calling the delay hook between passes.
 ; :ts=8
+	include	hlmacros.h
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
 	extrn	screen_buf_seg:word	;segment of the off-screen screen buffer
@@ -52,15 +53,9 @@ screen_width	equ	140h		;bytes per row, 320
 
 	public	dissolve_area_
 dissolve_area_	proc	near
-	push	bp
-	mov	bp,sp
-	sub	sp,24h			;eleven words of locals plus two temporaries
-	push	ds
-	push	es
-	push	si
-	push	di
-	mov	ax,ds
-	mov	es,ax
+	frame	24h	; eleven words of locals plus two temporaries
+	pushs	ds,es,si,di
+	movseg	es,ds
 	call	request_mouse_redraw		;cursor must be redrawn when we finish
 	call	clip_mouse_pointer_to_area	;hide it if the area crosses it
 
@@ -336,13 +331,8 @@ restart_pass:
 finish:
 	call	redraw_mouse_pointer
 	call	update_mouse_pointer
-	pop	di
-	pop	si
-	pop	es
-	pop	ds
-	mov	sp,bp
-	pop	bp
-	ret
+	pops	di,si,es,ds
+	unframe
 dissolve_area_	endp
 codeseg	ends
 	end

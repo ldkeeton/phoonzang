@@ -1,4 +1,5 @@
 ; :ts=8
+	include	hlmacros.h
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
 	public	clamp_device_

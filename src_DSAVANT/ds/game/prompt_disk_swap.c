@@ -24,10 +24,10 @@ char *fname;
 	int x0, y0, x1, y1;
 	long saved;
 
-	x0 = 0x37;	/* dialog box corners */
-	y0 = 0x8f;
-	x1 = 0x108;
-	y1 = 0xc5;
+	x0 = 55;	/* dialog box corners */
+	y0 = 143;
+	x1 = 264;
+	y1 = 197;
 	saved = gfx_save_area(x0 - 1, y0 - 1, x1 + 1, y1 + 1);
 	gfx_wait_sound(0);
 	orig_drive = drive;
@@ -49,24 +49,24 @@ char *fname;
 				str_subst_char(msg, path, '^');	/* '^' -> drive letter */
 			}
 			draw_dialog_box(x0, y0, x1, y1);
-			gfx_set_text_color(1, 0xc2);
+			gfx_set_text_color(1, 194);
 			/* centre the line; glyphs are 6 pixels wide */
 			gfx_set_text_pos((x1 - x0 + 1 - aztec_strlen(msg) * 6) / 2 + x0, y0 + 12);
 			draw_text_glyphs(msg, 0);
 			aztec_strcpy(msg, "INTO DRIVE ^");
 			str_subst_char(msg, name, '^');
-			gfx_set_text_pos((x1 - x0 + 1 - aztec_strlen(msg) * 6) / 2 + x0, y0 + 0x12);
+			gfx_set_text_pos((x1 - x0 + 1 - aztec_strlen(msg) * 6) / 2 + x0, y0 + 18);
 			draw_text_glyphs(msg, 0);
-			draw_button(x0 + 0x44, y0 + 0x27, 12, 1, 1, "CONTINUE");
-			set_hotspot(0, x0 + 0x44, y0 + 0x27, x0 + 0x8c, y0 + 0x2f, 13, 0);
+			draw_button(x0 + 68, y0 + 39, 12, 1, 1, "CONTINUE");
+			set_hotspot(0, x0 + 68, y0 + 39, x0 + 140, y0 + 47, 13, 0);
 			set_hotspot(1, -1, 0, 0, 0, 0, 0);
 			gfx_show_area(x0 - 1, y0 - 1, x1 + 1, y1 + 1);
 			waiting = 1;
 			do {	/* until the CONTINUE button is hit */
-				poll_hotspots(0x59fe);	/* hotspot table address */
+				poll_hotspots(23038);	/* hotspot table address */
 				if (hotspot_hit == 1) {
-					flash_button(x0 + 0x44, y0 + 0x27, 12, 1, 1);
-					flash_button(x0 + 0x44, y0 + 0x27, 12, 1, 0);
+					flash_button(x0 + 68, y0 + 39, 12, 1, 1);
+					flash_button(x0 + 68, y0 + 39, 12, 1, 0);
 					waiting = 0;
 				}
 			} while (waiting);
@@ -85,7 +85,7 @@ char *fname;
 						found = 1;
 				}
 			} else if (fd != -1) {
-				nread = aztec_read(fd, disk_header, 0x30c);	/* whole disk header */
+				nread = aztec_read(fd, disk_header, 780);	/* whole disk header */
 				want = install_mode == 5 && 0 < drive ? drive - 2 : drive;	/* install mode 5 numbers disks two lower */
 				if (nread > 0 && want == disk_header[0])
 					found = 1;

@@ -6,7 +6,7 @@ extern int random_below();
 int item_slot_usable(member, item)
 int member, item;
 {
-	return party_char[member][item * 0x2c + 0x2b] != 0	/* 0x2c-byte item records */
-		&& (party_char[member][item * 0x2c + 0x2b] != 1
+	return party_char[member][item * 44 + 43] != 0	/* 0x2c-byte item records */
+		&& (party_char[member][item * 44 + 43] != 1
 			|| random_below(3) != 0);
 }

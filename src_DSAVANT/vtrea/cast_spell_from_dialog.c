@@ -12,9 +12,9 @@ struct pc_rec {	/* 0x248-byte records */
 	int cap;
 	int w10;
 	int points[6][2];	/* +0xc: [cur, max] per realm */
-	char pad1[0x14c - 0x24];
+	char pad1[332 - 36];
 	unsigned char b14c;	/* +0x14c: set to 6..11 when w0 bottoms out */
-	char pad2[0x248 - 0x14d];
+	char pad2[584 - 333];
 };
 extern struct spell_info spell_table[];
 extern struct pc_rec pc_records[];
@@ -26,7 +26,7 @@ int pc;
 {
 	int spell, power;
 
-	if (spell_select_dialog(pc, 0x7ea, 1, 1) == 0) {	/* zero: a spell was chosen */
+	if (spell_select_dialog(pc, 2026, 1, 1) == 0) {	/* zero: a spell was chosen */
 		power = spell_dialog_result / 256;	/* (power << 8) + spell + 0x100 */
 		spell = spell_dialog_result % 256;
 		if (spell_table[spell].targeted == 1) {

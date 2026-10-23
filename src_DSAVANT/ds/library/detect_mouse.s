@@ -1,6 +1,7 @@
 ; probes the mouse driver and sets bit 12 of the caller's result word;
 ; shares the caller's frame
 	include	lmacros.h
+	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	mouse_button_count:byte
 	public	detect_mouse
@@ -11,15 +12,13 @@ detect_mouse proc near
 	mov	ax,word ptr mode[bp]	;mode 4 needs no mouse check
 	cmp	ax,4
 	je	done
-	mov	ax,3533h	;int 21h/35h: get vector 33h (mouse)
-	int	21h
+	dosx	3533h	; int 21h/35h: get vector 33h (mouse)
 	mov	ax,es
 	or	ax,bx		;null vector: no driver loaded
 	je	done
 	cmp	es:byte ptr [bx],0cfh	;first byte cfh: vector is a bare iret stub
 	je	done
-	mov	ax,0		;int 33h/0: reset and get mouse status
-	int	33h
+	mouse	0	; int 33h/0: reset and get mouse status
 	mov	byte ptr cs:mouse_button_count,al	;save the installed-driver count
 	or	al,al		;0: driver reset failed
 	je	done

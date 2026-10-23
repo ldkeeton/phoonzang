@@ -1,6 +1,7 @@
 ; mode 13h with the 256-colour palette; [bp-2] = 1, [bp-4] = "vga.drv" in the
 ; caller's frame
 	include	lmacros.h
+	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	saved_equip_byte_:byte
 	extrn	video_is_ega_:byte, video_is_vga_:byte
@@ -21,15 +22,12 @@ select_vga_driver_ proc near
 	and	dl,0cfh	;bits 4-5 = 00: EGA/VGA in the equipment list
 	mov	byte ptr es:[bios_data_0410],dl
 	pop	es
-	mov	ax,13h	;mode 13h: 320x200, 256 colours
-	int	10h
-	mov	ax,cs
-	mov	es,ax
+	videox	13h	; mode 13h: 320x200, 256 colours
+	movseg	es,cs
 	mov	dx,offset vga_palette_	;int 10h/1012h: set DAC regs 0..255 from es:dx
 	xor	bx,bx
 	mov	cx,100h
-	mov	ax,1012h
-	int	10h
+	videox	1012h
 	mov	word ptr -2[bp],1	;[bp-2] = 1: VGA
 	mov	bx,offset vga_drv_name_	;[bp-4] = driver file name
 	mov	word ptr -4[bp],bx

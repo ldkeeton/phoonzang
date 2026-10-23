@@ -5,7 +5,7 @@ draw_scrollbar(x, y, w, rows, pos)
 	draw_inset_panel(x, y, x + w, 6 * rows + y);
 	draw_bevel_frame(x, y, x + 8, y + 6, 0);	/* top button */
 	draw_bevel_frame(x, 6 * rows + y - 6, x + 8, 6 * rows + y, 0);	/* bottom button */
-	gfx_set_text_color(0, 0xc0);
+	gfx_set_text_color(0, 192);
 	gfx_set_text_pos(x + 2, y + 1);
 	draw_font_glyph(1, 0);	/* glyph 1 in the top end */
 	gfx_set_text_pos(x + 2, 6 * rows + y - 5);

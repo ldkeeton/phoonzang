@@ -1,4 +1,5 @@
 ; :ts=8
+	include	hlmacros.h
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
 	extrn	play_device:byte
@@ -10,14 +11,8 @@ device	equ	15h		;stack arg byte: device number
 	public	play_select_device_
 ; jump-table slot 4: set the device (request 0ffh) or report the current one
 play_select_device_ proc near
-	push	bp
-	mov	bp,sp
-	push	di
-	push	si
-	push	es
-	push	ds
-	push	dx
-	push	bx
+	frame
+	pushs	di,si,es,ds,dx,bx
 	cmp	byte ptr request[bp],0ffh
 	jne	current			;not a set request
 	jmp	play_set_device_

@@ -13,22 +13,22 @@ ovmain()
 	animation_index = -1;	/* -1 disables the animation */
 	sound_request = 0;
 	pending_panel_call = -1;	/* no pending panel call */
-	if (game_state == 0x0f) {
-		game_state = 0x16;
+	if (game_state == 15) {
+		game_state = 22;
 		run_state_0f_scene();
-	} else if (game_state == 0x15) {
-		game_state = 0x16;
+	} else if (game_state == 21) {
+		game_state = 22;
 		run_state_15_scene();
-	} else if (game_state == 0x1a) {
+	} else if (game_state == 26) {
 		game_state = 5;
 		run_state_1a_scene();
-	} else if (game_state == 0x1c) {
+	} else if (game_state == 28) {
 		game_state = 5;
 		run_state_1c_scene();
-	} else if (game_state == 0x1d) {
+	} else if (game_state == 29) {
 		game_state = 5;
 		run_state_1d_scene();
 	} else
-		game_state = 0x16;	/* any other state continues in 0x16 */
+		game_state = 22;	/* any other state continues in 0x16 */
 	return 0;
 }
