@@ -68,7 +68,7 @@ api_idx_0008_HUTJ:
     mov ax, word [bp + 0x8]          ; 0x398c
     shl ax, 1                        ; 0x398f
     push ax                          ; 0x3991
-    call ds_app_HGSV                 ; 0x3992
+    call store_word_and_pair         ; 0x3992
     add sp, byte 6                   ; 0x3995
     mov cx, ax                       ; 0x3998
     sub sp, byte 4                   ; 0x399a

@@ -192,7 +192,7 @@ jumptable_78e5_case_5:
     mov ax, word [bp - 0x0006]       ; 0x75e6
     shl ax, 1                        ; 0x75e9
     push ax                          ; 0x75eb
-    call ds_app_HGSV                 ; 0x75ec
+    call store_word_and_pair         ; 0x75ec
     add sp, byte 6                   ; 0x75ef
     mov cx, ax                       ; 0x75f2
     sub sp, byte 4                   ; 0x75f4
@@ -245,7 +245,7 @@ jumptable_78e5_case_5:
     push ax                          ; 0x765c
     mov ax, 1                        ; 0x765d
     push ax                          ; 0x7660
-    call ds_app_HGSV                 ; 0x7661
+    call store_word_and_pair         ; 0x7661
     add sp, byte 6                   ; 0x7664
     mov cx, ax                       ; 0x7667
     sub sp, byte 4                   ; 0x7669

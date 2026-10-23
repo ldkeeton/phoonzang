@@ -417,7 +417,7 @@ api_idx_006a_NKMN:
     mov ax, 2                        ; 0x63cf
     push ax                          ; 0x63d2
     push word [bp - 0x0014]          ; 0x63d3
-    call ds_app_GUML                 ; 0x63d6
+    call draw_number_field           ; 0x63d6
     add sp, byte 6                   ; 0x63d9
     mov ax, 0                        ; 0x63dc
     push ax                          ; 0x63df

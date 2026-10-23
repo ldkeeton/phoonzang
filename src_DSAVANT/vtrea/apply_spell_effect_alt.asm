@@ -190,7 +190,7 @@ jumptable_4a7d_case_22:
     mov ax, 8                        ; 0x452b
     push ax                          ; 0x452e
     push word [bp - 0x0006]          ; 0x452f
-    call ds_app_HGSV                 ; 0x4532
+    call store_word_and_pair         ; 0x4532
     add sp, byte 6                   ; 0x4535
     mov cx, ax                       ; 0x4538
     sub sp, byte 4                   ; 0x453a
@@ -523,7 +523,7 @@ jumptable_4a7d_case_37:
     push word [bp - 0x0008]          ; 0x4852
     push word [bp - 0x0006]          ; 0x4855
     push word [bp + 0x8]             ; 0x4858
-    call ds_app_HGSV                 ; 0x485b
+    call store_word_and_pair         ; 0x485b
     add sp, byte 6                   ; 0x485e
     mov cx, ax                       ; 0x4861
     sub sp, byte 4                   ; 0x4863
@@ -634,7 +634,7 @@ jumptable_4a7d_case_42:
     mov ax, 8                        ; 0x4960
     push ax                          ; 0x4963
     push word [bp + 0x8]             ; 0x4964
-    call ds_app_HGSV                 ; 0x4967
+    call store_word_and_pair         ; 0x4967
     add sp, byte 6                   ; 0x496a
     mov cx, ax                       ; 0x496d
     sub sp, byte 4                   ; 0x496f
@@ -665,7 +665,7 @@ jumptable_4a7d_case_42:
     mov ax, 2                        ; 0x49ab
     push ax                          ; 0x49ae
     push word [bp + 0x8]             ; 0x49af
-    call ds_app_HGSV                 ; 0x49b2
+    call store_word_and_pair         ; 0x49b2
     add sp, byte 6                   ; 0x49b5
     mov cx, ax                       ; 0x49b8
     sub sp, byte 4                   ; 0x49ba
@@ -705,7 +705,7 @@ jumptable_4a7d_case_43:
     mov ax, 0xa                      ; 0x4a0b
     push ax                          ; 0x4a0e
     push word [bp + 0x8]             ; 0x4a0f
-    call ds_app_HGSV                 ; 0x4a12
+    call store_word_and_pair         ; 0x4a12
     add sp, byte 6                   ; 0x4a15
     mov cx, ax                       ; 0x4a18
     sub sp, byte 4                   ; 0x4a1a

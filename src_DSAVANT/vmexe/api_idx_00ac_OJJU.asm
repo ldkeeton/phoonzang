@@ -1110,7 +1110,7 @@ jumptable_8145:
     push ax                          ; 0x8431
     push ax                          ; 0x8432
     push ax                          ; 0x8433
-    call ds_app_HGSV                 ; 0x8434
+    call store_word_and_pair         ; 0x8434
     add sp, byte 6                   ; 0x8437
     mov bx, ax                       ; 0x843a
     mov ax, word [bx]                ; 0x843c

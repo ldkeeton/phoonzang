@@ -121,7 +121,7 @@ api_idx_0054_OPGG:
     mov bx, ax                       ; 0x4627
     push word [bx + bss_9938]        ; 0x4629
     push word [bx + bss_9936]        ; 0x462d
-    call ds_app_string_THKS          ; 0x4631
+    call draw_padded_number          ; 0x4631
     add sp, byte 8                   ; 0x4634
     mov ax, 0xc3                     ; 0x4637
     push ax                          ; 0x463a
@@ -246,7 +246,7 @@ api_idx_0054_OPGG:
     shl ax, 1                        ; 0x4758
     mov bx, ax                       ; 0x475a
     push word [bx + bss_9c6a]        ; 0x475c
-    call ds_app_GUML                 ; 0x4760
+    call draw_number_field           ; 0x4760
     add sp, byte 6                   ; 0x4763
 @..api_idx_0054_OPGG.l9:
     inc word [bp - 0x0002]           ; 0x4766

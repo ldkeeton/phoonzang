@@ -83,7 +83,7 @@ api_idx_0004_MKGU:
     mov al, byte [bx + 0x6]
     sub ah, ah
     push ax
-    call ds_app_GUML
+    call draw_number_field
     add sp, byte 6
 @..api_idx_0004_MKGU.l1:
     ret

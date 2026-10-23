@@ -81,7 +81,7 @@ api_idx_0004_KVIP:
     mov ax, 3                        ; 0x0a5a
     push ax                          ; 0x0a5d
     push word [bss_942c]             ; 0x0a5e
-    call ds_app_GUML                 ; 0x0a62
+    call draw_number_field           ; 0x0a62
     add sp, byte 6                   ; 0x0a65
 @..api_idx_0004_KVIP.l2:
     mov ax, 0xff                     ; 0x0a68

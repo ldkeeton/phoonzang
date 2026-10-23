@@ -45,7 +45,7 @@ api_idx_0012_VNOV:
     push word [bp - 0x000a]          ; 0x0f4d
     push word [bp - 0x000c]          ; 0x0f50
     push word [bp - 0x000a]          ; 0x0f53
-    call ds_app_HGSV                 ; 0x0f56
+    call store_word_and_pair         ; 0x0f56
     add sp, byte 6                   ; 0x0f59
     mov cx, ax                       ; 0x0f5c
     sub sp, byte 4                   ; 0x0f5e
@@ -118,7 +118,7 @@ jumptable_12fa_case_1:
     push word [bp - 0x000a]          ; 0x1000
     push word [bp - 0x000c]          ; 0x1003
     push word [bp - 0x000a]          ; 0x1006
-    call ds_app_HGSV                 ; 0x1009
+    call store_word_and_pair         ; 0x1009
     add sp, byte 6                   ; 0x100c
     mov cx, ax                       ; 0x100f
     sub sp, byte 4                   ; 0x1011
@@ -298,7 +298,7 @@ jumptable_12fa_case_9:
     push word [bp - 0x000a]          ; 0x11ba
     push word [bp - 0x000c]          ; 0x11bd
     push word [bp - 0x000a]          ; 0x11c0
-    call ds_app_HGSV                 ; 0x11c3
+    call store_word_and_pair         ; 0x11c3
     add sp, byte 6                   ; 0x11c6
     mov cx, ax                       ; 0x11c9
     sub sp, byte 4                   ; 0x11cb

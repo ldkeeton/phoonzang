@@ -86,7 +86,7 @@ api_idx_0008_VHMQ:
     mov al, byte [bx + 0x5d6b]       ; 0x49fa
     sub ah, ah                       ; 0x49fe
     push ax                          ; 0x4a00
-    call ds_app_GUML                 ; 0x4a01
+    call draw_number_field           ; 0x4a01
     add sp, byte 6                   ; 0x4a04
     mov ax, 0x53                     ; 0x4a07
     push ax                          ; 0x4a0a

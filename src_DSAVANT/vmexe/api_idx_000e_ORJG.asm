@@ -3032,7 +3032,7 @@ jumptable_5eb8_case_12:
     mov ax, 8                        ; 0x5647
     push ax                          ; 0x564a
     push word [bp - 0x0006]          ; 0x564b
-    call ds_app_HGSV                 ; 0x564e
+    call store_word_and_pair         ; 0x564e
     add sp, byte 6                   ; 0x5651
     mov cx, ax                       ; 0x5654
     sub sp, byte 4                   ; 0x5656
@@ -3460,7 +3460,7 @@ jumptable_5eb8_case_78:
     push word [bp - 0x0008]          ; 0x5a45
     push word [bp - 0x0006]          ; 0x5a48
     push word [bp + 0x8]             ; 0x5a4b
-    call ds_app_HGSV                 ; 0x5a4e
+    call store_word_and_pair         ; 0x5a4e
     add sp, byte 6                   ; 0x5a51
     mov cx, ax                       ; 0x5a54
     sub sp, byte 4                   ; 0x5a56
@@ -3543,7 +3543,7 @@ jumptable_5eb8_case_97:
     mov ax, 8                        ; 0x5b10
     push ax                          ; 0x5b13
     push word [bp + 0x8]             ; 0x5b14
-    call ds_app_HGSV                 ; 0x5b17
+    call store_word_and_pair         ; 0x5b17
     add sp, byte 6                   ; 0x5b1a
     mov cx, ax                       ; 0x5b1d
     sub sp, byte 4                   ; 0x5b1f
@@ -3593,7 +3593,7 @@ jumptable_5eb8_case_97:
     mov ax, 2                        ; 0x5b89
     push ax                          ; 0x5b8c
     push word [bp + 0x8]             ; 0x5b8d
-    call ds_app_HGSV                 ; 0x5b90
+    call store_word_and_pair         ; 0x5b90
     add sp, byte 6                   ; 0x5b93
     mov cx, ax                       ; 0x5b96
     sub sp, byte 4                   ; 0x5b98
@@ -3648,7 +3648,7 @@ jumptable_5eb8_case_98:
     mov ax, 0xa                      ; 0x5c0e
     push ax                          ; 0x5c11
     push word [bp + 0x8]             ; 0x5c12
-    call ds_app_HGSV                 ; 0x5c15
+    call store_word_and_pair         ; 0x5c15
     add sp, byte 6                   ; 0x5c18
     mov cx, ax                       ; 0x5c1b
     sub sp, byte 4                   ; 0x5c1d

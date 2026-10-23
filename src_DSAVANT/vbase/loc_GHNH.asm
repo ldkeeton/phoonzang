@@ -34,7 +34,7 @@ loc_GHNH:
     mov ax, 2                        ; 0x46ff
     push ax                          ; 0x4702
     push word [bp + 0x4]             ; 0x4703
-    call ds_app_GUML                 ; 0x4706
+    call draw_number_field           ; 0x4706
     add sp, byte 6                   ; 0x4709
     mov ax, word [bp + 0x8]          ; 0x470c
     add ax, strict word 6            ; 0x470f

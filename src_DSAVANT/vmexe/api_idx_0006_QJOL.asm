@@ -51,7 +51,7 @@ api_idx_0006_QJOL:
     push word [bp + 0x14]            ; 0x2110
     push word [bp + 0x12]            ; 0x2113
     push word [bp + 0x10]            ; 0x2116
-    call ds_app_HGSV                 ; 0x2119
+    call store_word_and_pair         ; 0x2119
     add sp, byte 6                   ; 0x211c
     mov cx, ax                       ; 0x211f
     sub sp, byte 4                   ; 0x2121

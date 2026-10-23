@@ -163,7 +163,7 @@ api_idx_007c_MOJH:
     imul word [bp + 0x4]
     mov bx, ax
     push word [bx + pc_spell_power_cap]
-    call ds_app_GUML
+    call draw_number_field
     add sp, byte 6
     mov ax, 0x248
     imul word [bp + 0x4]
@@ -290,7 +290,7 @@ api_idx_007c_MOJH:
     mov al, byte [bx + 0x5d64]
     sub ah, ah
     push ax
-    call ds_app_GUML
+    call draw_number_field
     add sp, byte 6
     inc word [bp - 0x0002]
     mov ax, word [bp - 0x0002]
@@ -397,7 +397,7 @@ api_idx_007c_MOJH:
     mov bx, ax
     push word [bx + 0x5c02]
     push word [bx + 0x5c00]
-    call ds_app_string_THKS
+    call draw_padded_number
     add sp, byte 8
     lea ax, word [bp - 0x0058]
     push ax
@@ -432,7 +432,7 @@ api_idx_007c_MOJH:
     mov bx, ax
     push word [bx + 0x5c06]
     push word [bx + 0x5c04]
-    call ds_app_string_THKS
+    call draw_padded_number
     add sp, byte 8
     mov ax, 0
     push ax

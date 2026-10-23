@@ -638,7 +638,7 @@ def resplice_c(app, binary, check_only=False, only=None):
         raise SystemExit(1)
     if mismatches:
         print(f'resplice {app}/{binary}: asm on disk differs from what its C '
-              f'regenerates (not written; fix the .asm or its .c/.s, or run '
+              f'regenerates (not written; fix the .c/.s, or run '
               f'"make build {app}"):', file=sys.stderr)
         print('\n'.join(mismatches), file=sys.stderr)
         raise SystemExit(1)

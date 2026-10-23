@@ -6,7 +6,7 @@ api_idx_003e_JGVR:
     push ax                          ; 0x11c5
     push word [bp + 0x8]             ; 0x11c6
     push word [bp + 0x6]             ; 0x11c9
-    call ds_app_HGSV                 ; 0x11cc
+    call store_word_and_pair         ; 0x11cc
     add sp, byte 6                   ; 0x11cf
     mov cx, ax                       ; 0x11d2
     sub sp, byte 4                   ; 0x11d4

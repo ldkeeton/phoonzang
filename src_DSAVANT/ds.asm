@@ -319,9 +319,9 @@ bss_0e34 equ __zbss_0e34 - __zdseg_start
 
 %include "ds/game/ds_app_OLKR.asm"         ; 0x04c4
 
-%include "ds/game/ds_app_string_THKS.asm"  ; 0x04da
+%include "ds/game/draw_padded_number.asm"  ; 0x04da
 
-%include "ds/game/ds_app_GUML.asm"         ; 0x052e
+%include "ds/game/draw_number_field.asm"   ; 0x052e
 
 %include "ds/game/str_subst_char.asm"      ; 0x0547
 
@@ -492,9 +492,9 @@ bss_69c8     equ __zbss_69c8 - __zdseg_start
 
 %include "ds/game/ds_app_QSQR.asm"         ; 0x2305
 
-bss_0cf6 equ __zbss_0cf6 - __zdseg_start
-bss_0cf8 equ __zbss_0cf8 - __zdseg_start
-%include "ds/game/ds_app_HGSV.asm"         ; 0x2331
+saved_word equ __zbss_0cf6 - __zdseg_start
+saved_pair equ __zbss_0cf8 - __zdseg_start
+%include "ds/game/store_word_and_pair.asm" ; 0x2331
 
 %include "ds/game/copy_through_char.asm"   ; 0x2359
 

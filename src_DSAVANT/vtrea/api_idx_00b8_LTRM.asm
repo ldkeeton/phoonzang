@@ -970,7 +970,7 @@ jumptable_1fa3_case_12:
     mov ax, word [bp + 0x8]          ; 0x1d11
     inc ax                           ; 0x1d14
     push ax                          ; 0x1d15
-    call ds_app_HGSV                 ; 0x1d16
+    call store_word_and_pair         ; 0x1d16
     add sp, byte 6                   ; 0x1d19
     mov cx, ax                       ; 0x1d1c
     sub sp, byte 4                   ; 0x1d1e

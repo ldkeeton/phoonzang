@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_GUML: ; Aztec csav frame=0x0000
+draw_number_field: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x052e
     call aztec_csav                  ; 0x0531
     push word [bp + 0x8]             ; 0x0534
@@ -8,6 +8,6 @@ ds_app_GUML: ; Aztec csav frame=0x0000
     cwd                              ; 0x053d
     push dx                          ; 0x053e
     push ax                          ; 0x053f
-    call ds_app_string_THKS          ; 0x0540
+    call draw_padded_number          ; 0x0540
     add sp, byte 8                   ; 0x0543
     ret                              ; 0x0546

@@ -95,7 +95,7 @@ api_idx_0054_NQHV:
     mov al, byte [bx + 0x1a1]        ; 0x0441
     sub ah, ah                       ; 0x0445
     push ax                          ; 0x0447
-    call ds_app_GUML                 ; 0x0448
+    call draw_number_field           ; 0x0448
     add sp, byte 6                   ; 0x044b
     mov ax, 0                        ; 0x044e
     push ax                          ; 0x0451
@@ -159,7 +159,7 @@ api_idx_0054_NQHV:
     mov al, byte [bx + 0x1a2]        ; 0x04d9
     sub ah, ah                       ; 0x04dd
     push ax                          ; 0x04df
-    call ds_app_GUML                 ; 0x04e0
+    call draw_number_field           ; 0x04e0
     add sp, byte 6                   ; 0x04e3
     mov ax, 0                        ; 0x04e6
     push ax                          ; 0x04e9

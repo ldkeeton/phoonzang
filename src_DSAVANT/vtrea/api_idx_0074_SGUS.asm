@@ -376,7 +376,7 @@ api_idx_0074_SGUS:
     push word [bp - 0x001a]          ; 0x7c63
     push word [bp - 0x001c]          ; 0x7c66
     push word [bp - 0x001a]          ; 0x7c69
-    call ds_app_HGSV                 ; 0x7c6c
+    call store_word_and_pair         ; 0x7c6c
     add sp, byte 6                   ; 0x7c6f
     mov cx, ax                       ; 0x7c72
     sub sp, byte 4                   ; 0x7c74

@@ -139,7 +139,7 @@ api_idx_0004_KHSO:
     shl ax, 1
     mov bx, ax
     push word [bx + list_row_count]
-    call ds_app_GUML
+    call draw_number_field
     add sp, byte 6
 @..api_idx_0004_KHSO.l7:
     inc word [bp - 0x0002]

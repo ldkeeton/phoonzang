@@ -44,7 +44,7 @@ api_idx_0002_SSJN:
     mov al, byte [bx + 0x5d64]       ; 0x1a12
     sub ah, ah                       ; 0x1a16
     push ax                          ; 0x1a18
-    call ds_app_GUML                 ; 0x1a19
+    call draw_number_field           ; 0x1a19
     add sp, byte 6                   ; 0x1a1c
     inc word [bp - 0x0002]           ; 0x1a1f
     mov ax, word [bp - 0x0002]       ; 0x1a22
@@ -81,7 +81,7 @@ api_idx_0002_SSJN:
     mov ax, 3                        ; 0x1a6d
     push ax                          ; 0x1a70
     push word [bss_9594]             ; 0x1a71
-    call ds_app_GUML                 ; 0x1a75
+    call draw_number_field           ; 0x1a75
     add sp, byte 6                   ; 0x1a78
 @..api_idx_0002_SSJN.l2:
     cmp word [bp + 0x6], byte 0      ; 0x1a7b

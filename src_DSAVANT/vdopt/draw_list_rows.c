@@ -28,7 +28,7 @@ int x, y, width, count, first, selected;
 		if (list_row_count[first + row] > 0) {	/* only positive counts are shown */
 			gfx_set_text_pos(x + 0x47, y + 14 * row + 8);
 			gfx_set_text_color(first + row == selected ? color : 2, 0);
-			ds_app_GUML(list_row_count[first + row], 3, 0);	/* 3-digit field */
+			draw_number_field(list_row_count[first + row], 3, 0);	/* 3-digit field */
 		}
 	}
 }

@@ -154,7 +154,7 @@ api_idx_0020_ORSV:
     mov ax, 3                        ; 0x34a0
     push ax                          ; 0x34a3
     push word [bp + 0xa]             ; 0x34a4
-    call ds_app_GUML                 ; 0x34a7
+    call draw_number_field           ; 0x34a7
     add sp, byte 6                   ; 0x34aa
 @..api_idx_0020_ORSV.l3:
     mov ax, word [bp + 0x8]          ; 0x34ad

@@ -52,7 +52,7 @@ api_idx_0004_RMVO:
     add ax, cx
     mov bx, ax
     push word [bx + 0x5c1c]
-    call ds_app_GUML
+    call draw_number_field
     add sp, byte 6
     inc word [bp - 0x0004]
     mov ax, word [bp - 0x0004]

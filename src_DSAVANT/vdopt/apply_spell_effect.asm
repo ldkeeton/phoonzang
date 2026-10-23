@@ -117,7 +117,7 @@ jumptable_2326_case_25:
     mov ax, 8                        ; 0x1de7
     push ax                          ; 0x1dea
     push word [bp - 0x0006]          ; 0x1deb
-    call ds_app_HGSV                 ; 0x1dee
+    call store_word_and_pair         ; 0x1dee
     add sp, byte 6                   ; 0x1df1
     mov cx, ax                       ; 0x1df4
     sub sp, byte 4                   ; 0x1df6
@@ -407,7 +407,7 @@ jumptable_2326_case_42:
     push word [bp - 0x0008]          ; 0x20a3
     push word [bp - 0x0006]          ; 0x20a6
     push word [bp + 0x8]             ; 0x20a9
-    call ds_app_HGSV                 ; 0x20ac
+    call store_word_and_pair         ; 0x20ac
     add sp, byte 6                   ; 0x20af
     mov cx, ax                       ; 0x20b2
     sub sp, byte 4                   ; 0x20b4
@@ -533,7 +533,7 @@ jumptable_2326_case_47:
     mov ax, 8                        ; 0x21cb
     push ax                          ; 0x21ce
     push word [bp + 0x8]             ; 0x21cf
-    call ds_app_HGSV                 ; 0x21d2
+    call store_word_and_pair         ; 0x21d2
     add sp, byte 6                   ; 0x21d5
     mov cx, ax                       ; 0x21d8
     sub sp, byte 4                   ; 0x21da
@@ -564,7 +564,7 @@ jumptable_2326_case_47:
     mov ax, 2                        ; 0x2216
     push ax                          ; 0x2219
     push word [bp + 0x8]             ; 0x221a
-    call ds_app_HGSV                 ; 0x221d
+    call store_word_and_pair         ; 0x221d
     add sp, byte 6                   ; 0x2220
     mov cx, ax                       ; 0x2223
     sub sp, byte 4                   ; 0x2225
@@ -599,7 +599,7 @@ jumptable_2326_case_48:
     mov ax, 0xa                      ; 0x2269
     push ax                          ; 0x226c
     push word [bp + 0x8]             ; 0x226d
-    call ds_app_HGSV                 ; 0x2270
+    call store_word_and_pair         ; 0x2270
     add sp, byte 6                   ; 0x2273
     mov cx, ax                       ; 0x2276
     sub sp, byte 4                   ; 0x2278

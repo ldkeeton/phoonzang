@@ -162,7 +162,7 @@ api_idx_0054_RLST:
     imul word [bp + 0x4]             ; 0x1cbf
     mov bx, ax                       ; 0x1cc2
     push word [bx + pc_spell_power_cap] ; 0x1cc4
-    call ds_app_GUML                 ; 0x1cc8
+    call draw_number_field           ; 0x1cc8
     add sp, byte 6                   ; 0x1ccb
     mov ax, 0x248                    ; 0x1cce
     imul word [bp + 0x4]             ; 0x1cd1
@@ -350,7 +350,7 @@ api_idx_0054_RLST:
     mov bx, ax                       ; 0x1e7b
     push word [bx + 0x5c02]          ; 0x1e7d
     push word [bx + 0x5c00]          ; 0x1e81
-    call ds_app_string_THKS          ; 0x1e85
+    call draw_padded_number          ; 0x1e85
     add sp, byte 8                   ; 0x1e88
     lea ax, word [bp - 0x0054]       ; 0x1e8b
     push ax                          ; 0x1e8e
@@ -385,7 +385,7 @@ api_idx_0054_RLST:
     mov bx, ax                       ; 0x1ed1
     push word [bx + 0x5c06]          ; 0x1ed3
     push word [bx + 0x5c04]          ; 0x1ed7
-    call ds_app_string_THKS          ; 0x1edb
+    call draw_padded_number          ; 0x1edb
     add sp, byte 8                   ; 0x1ede
     mov ax, 0                        ; 0x1ee1
     push ax                          ; 0x1ee4

@@ -139,7 +139,7 @@ draw_list_rows:
     shl ax, 1                        ; 0x39ce
     mov bx, ax                       ; 0x39d0
     push word [bx + list_row_count]  ; 0x39d2
-    call ds_app_GUML                 ; 0x39d6
+    call draw_number_field           ; 0x39d6
     add sp, byte 6                   ; 0x39d9
 @..draw_list_rows.l7:
     inc word [bp - 0x0002]           ; 0x39dc

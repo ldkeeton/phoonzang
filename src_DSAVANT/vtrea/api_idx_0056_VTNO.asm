@@ -12,7 +12,7 @@ api_idx_0056_VTNO:
     push word [bp + 0x10]            ; 0x12e2
     push word [bp + 0xe]             ; 0x12e5
     push word [bp + 0xc]             ; 0x12e8
-    call ds_app_HGSV                 ; 0x12eb
+    call store_word_and_pair         ; 0x12eb
     add sp, byte 6                   ; 0x12ee
     mov cx, ax                       ; 0x12f1
     sub sp, byte 4                   ; 0x12f3

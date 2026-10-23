@@ -66,7 +66,7 @@ api_idx_0002_OGRO:
     mov al, byte [bx + 0x5d6c]
     sub ah, ah
     push ax
-    call ds_app_GUML
+    call draw_number_field
     add sp, byte 6
     inc word [bp - 0x0002]
 @..api_idx_0002_OGRO.l2:

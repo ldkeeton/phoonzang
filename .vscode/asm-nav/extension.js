@@ -724,10 +724,14 @@ function makeCBatch(kind, uris) {
     }
 
     const runOne = (job) => new Promise((resolve) => {
-        let result = '', pending = '';
+        // Claude's `result` event is its final message; OpenCode has no such event,
+        // so its final message is taken as the last line it printed.
+        let result = '', last = '', pending = '';
         const emit = (line) => {
             const out = agent.format(line);
             if (out.result) result = out.result;
+            const plain = line.replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '').trim();
+            if (plain) last = plain;
             if (out.text) write(out.text + '\n');
         };
         const feed = (chunk) => {
@@ -743,7 +747,7 @@ function makeCBatch(kind, uris) {
         child.on('close', (code) => {
             if (pending) emit(pending);
             child = null;
-            resolve({ code, result });
+            resolve({ code, result: result || last });
         });
     });
 
@@ -756,14 +760,11 @@ function makeCBatch(kind, uris) {
             const job = await prepareMakeC(uri, agent.label, true);
             if (!job || job.skip) {
                 write(`— skip: ${(job && job.skip) || 'nothing to do'}\n\n`);
-                summary.push(`skip  ${name}: ${(job && job.skip) || 'nothing to do'}`);
                 continue;
             }
-            const { code, result } = await runOne(job);
+            const { result } = await runOne(job);
             if (stopped) break;
-            const made = await openMade(job.cFile, job.sFile);
-            const status = made && code === 0 ? 'done' : 'FAIL';
-            summary.push(`${status}  ${name}` + (result ? `: ${result.split('\n')[0]}` : ''));
+            summary.push(result);
             write('\n');
         }
         write(`\x1b[1m=== batch ${stopped ? 'stopped' : 'finished'} ===\x1b[0m\n${summary.join('\n')}\n`);

@@ -148,6 +148,8 @@
           "note": "(stage): switch on stage frees the allocated buffers and closes the data files from that point down, then stops sound and the mouse and calls ds_loc_IGLJ; main calls it with 0 before exiting"
         },
         "03b8": {"name": "release_and_exit", "note": "releases resources then exits with status"},
+        "04da": {"name": "draw_padded_number", "note": "format a long as a fixed-width decimal string, pad with leading spaces, and draw it"},
+        "052e": {"name": "draw_number_field", "note": "forward a signed value to the fixed-width number formatter"},
         "0547": {"name": "str_subst_char", "note": "copies a string replacing each marker char with a second string"},
         "06c6": {"name": "load_message_block", "note": "copies a message block into the working buffer, reusing the four-slot cache"},
         "0782": {"name": "load_message_string", "note": "looks up message id, reads its packed bytes from the message buffer (paging the file in as needed) and unpacks them into the caller's buffer"},
@@ -194,6 +196,7 @@
           "name": "restore_saved_screen"
         },
         "20f8": {"name": "pick_party_member", "note": "three-glyph prompt box; waits for keys 1..party count and returns slot 0.., or -1 on Esc"},
+        "2331": {"name": "store_word_and_pair", "note": "stores an int word and a two-char pair in the globals at 0xcf6/0xcf8 and returns the address of the word"},
         "2359": {
           "name": "copy_through_char",
           "note": "(dst, src, stop): copies src into dst up to and including the first stop char (or to the end of src), then NUL-terminates"
@@ -364,6 +367,8 @@
         "0cf0": {"name": "_ttrd", "note": "Aztec console read vector (io.asm's `_ttrd`, dos20/write.asm's read arm); the vendor's name so the #asm aztec_write links against it"},
         "0cf2": {"name": "_ttwr", "note": "Aztec console write vector (io.asm's `_ttwr`, dos20/write.asm `jmp [_ttwr]`); the vendor's name so the #asm aztec_write links against it"},
         "0c9e": {"name": "aztec_croot_empty_str", "note": "the empty string literal croot.c stores as Argv[0]"},
+        "0cf6": {"name": "saved_word", "note": "word written by store_word_and_pair; the routine returns its address"},
+        "0cf8": {"name": "saved_pair", "note": "two chars written by store_word_and_pair, directly after saved_word"},
         "0d08": {"name": "aztec_tty_rd_buffer", "note": "ttyio.c's `static char buffer[260]` in impl_tty_rd"},
         "0e0c": {"name": "aztec_tty_rd_bp", "note": "ttyio.c's `static char *bp` in impl_tty_rd: the read cursor into buffer"},
         "0cf5": {"name": "aztec_tty_wr_crbuf", "note": "ttyio.c's `static char crbuf = '\r'` in impl_tty_wr"},

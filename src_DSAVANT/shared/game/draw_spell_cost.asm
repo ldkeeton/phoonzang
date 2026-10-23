@@ -52,7 +52,7 @@ draw_spell_cost:
     mov ax, 3
     push ax
     push word [bp + 0xa]
-    call ds_app_GUML
+    call draw_number_field
     add sp, byte 6
     jmp short @..draw_spell_cost.l2
 @..draw_spell_cost.l1:

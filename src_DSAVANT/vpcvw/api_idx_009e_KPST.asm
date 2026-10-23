@@ -227,7 +227,7 @@ api_idx_009e_KPST:
     sbb dx, bx                       ; 0x1aba
     push dx                          ; 0x1abc
     push ax                          ; 0x1abd
-    call ds_app_string_THKS          ; 0x1abe
+    call draw_padded_number          ; 0x1abe
     add sp, byte 8                   ; 0x1ac1
     mov ax, 0x69                     ; 0x1ac4
     push ax                          ; 0x1ac7

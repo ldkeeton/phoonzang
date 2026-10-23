@@ -117,7 +117,7 @@ jumptable_291f_case_23:
     mov ax, 8                        ; 0x2315
     push ax                          ; 0x2318
     push word [bp - 0x0006]          ; 0x2319
-    call ds_app_HGSV                 ; 0x231c
+    call store_word_and_pair         ; 0x231c
     add sp, byte 6                   ; 0x231f
     mov cx, ax                       ; 0x2322
     sub sp, byte 4                   ; 0x2324
@@ -437,7 +437,7 @@ jumptable_291f_case_37:
     push word [bp - 0x0008]          ; 0x2612
     push word [bp - 0x0006]          ; 0x2615
     push word [bp + 0x8]             ; 0x2618
-    call ds_app_HGSV                 ; 0x261b
+    call store_word_and_pair         ; 0x261b
     add sp, byte 6                   ; 0x261e
     mov cx, ax                       ; 0x2621
     sub sp, byte 4                   ; 0x2623
@@ -547,7 +547,7 @@ jumptable_291f_case_44:
     mov ax, 8                        ; 0x271a
     push ax                          ; 0x271d
     push word [bp + 0x8]             ; 0x271e
-    call ds_app_HGSV                 ; 0x2721
+    call store_word_and_pair         ; 0x2721
     add sp, byte 6                   ; 0x2724
     mov cx, ax                       ; 0x2727
     sub sp, byte 4                   ; 0x2729
@@ -578,7 +578,7 @@ jumptable_291f_case_44:
     mov ax, 2                        ; 0x2765
     push ax                          ; 0x2768
     push word [bp + 0x8]             ; 0x2769
-    call ds_app_HGSV                 ; 0x276c
+    call store_word_and_pair         ; 0x276c
     add sp, byte 6                   ; 0x276f
     mov cx, ax                       ; 0x2772
     sub sp, byte 4                   ; 0x2774
@@ -613,7 +613,7 @@ jumptable_291f_case_45:
     mov ax, 0xa                      ; 0x27b8
     push ax                          ; 0x27bb
     push word [bp + 0x8]             ; 0x27bc
-    call ds_app_HGSV                 ; 0x27bf
+    call store_word_and_pair         ; 0x27bf
     add sp, byte 6                   ; 0x27c2
     mov cx, ax                       ; 0x27c5
     sub sp, byte 4                   ; 0x27c7

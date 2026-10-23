@@ -1091,7 +1091,7 @@ jumptable_76e2:
     cwd                              ; 0x7b3e
     idiv cx                          ; 0x7b3f
     push ax                          ; 0x7b41
-    call ds_app_GUML                 ; 0x7b42
+    call draw_number_field           ; 0x7b42
     add sp, byte 6                   ; 0x7b45
     mov ax, 0                        ; 0x7b48
     push ax                          ; 0x7b4b
@@ -1109,7 +1109,7 @@ jumptable_76e2:
     idiv cx                          ; 0x7b65
     mov ax, dx                       ; 0x7b67
     push ax                          ; 0x7b69
-    call ds_app_GUML                 ; 0x7b6a
+    call draw_number_field           ; 0x7b6a
     add sp, byte 6                   ; 0x7b6d
     lea ax, word [bp - 0x00f2]       ; 0x7b70
     push ax                          ; 0x7b74

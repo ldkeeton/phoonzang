@@ -32,6 +32,6 @@ loc_HOMM:
     mov ax, 2                        ; 0x42d5
     push ax                          ; 0x42d8
     push word [bp + 0x4]             ; 0x42d9
-    call ds_app_GUML                 ; 0x42dc
+    call draw_number_field           ; 0x42dc
     add sp, byte 6                   ; 0x42df
     ret                              ; 0x42e2

@@ -128,7 +128,7 @@ jumptable_4688_case_5:
     mov al, byte [bss_597c]          ; 0x4451
     sub ah, ah                       ; 0x4454
     push ax                          ; 0x4456
-    call ds_app_GUML                 ; 0x4457
+    call draw_number_field           ; 0x4457
     add sp, byte 6                   ; 0x445a
     mov ax, word [bp + 0x8]          ; 0x445d
     add ax, strict word 0x69         ; 0x4460
@@ -145,7 +145,7 @@ jumptable_4688_case_5:
     mov al, byte [bss_597d]          ; 0x4479
     sub ah, ah                       ; 0x447c
     push ax                          ; 0x447e
-    call ds_app_GUML                 ; 0x447f
+    call draw_number_field           ; 0x447f
     add sp, byte 6                   ; 0x4482
     mov ax, word [bp + 0x8]          ; 0x4485
     add ax, strict word 0x6f         ; 0x4488
@@ -162,7 +162,7 @@ jumptable_4688_case_5:
     mov al, byte [bss_597e]          ; 0x44a1
     sub ah, ah                       ; 0x44a4
     push ax                          ; 0x44a6
-    call ds_app_GUML                 ; 0x44a7
+    call draw_number_field           ; 0x44a7
     add sp, byte 6                   ; 0x44aa
     jmp near @..api_idx_0052_LJTK.l3 ; 0x44ad
 jumptable_4688_case_8:
@@ -352,7 +352,7 @@ jumptable_4688_case_15:
     mov al, byte [bss_5978]          ; 0x4654
     cbw                              ; 0x4657
     push ax                          ; 0x4658
-    call ds_app_GUML                 ; 0x4659
+    call draw_number_field           ; 0x4659
     add sp, byte 6                   ; 0x465c
     mov ax, word [bp + 0x8]          ; 0x465f
     add ax, strict word 0x69         ; 0x4662
@@ -369,7 +369,7 @@ jumptable_4688_case_15:
     mov al, byte [bss_5979]          ; 0x467b
     cbw                              ; 0x467e
     push ax                          ; 0x467f
-    call ds_app_GUML                 ; 0x4680
+    call draw_number_field           ; 0x4680
     add sp, byte 6                   ; 0x4683
     jmp short @..api_idx_0052_LJTK.l3 ; 0x4686
 jumptable_4688:

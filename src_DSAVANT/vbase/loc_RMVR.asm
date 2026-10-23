@@ -100,7 +100,7 @@ loc_RMVR:
     cwd                              ; 0x4dfa
     idiv cx                          ; 0x4dfb
     push ax                          ; 0x4dfd
-    call ds_app_GUML                 ; 0x4dfe
+    call draw_number_field           ; 0x4dfe
     add sp, byte 6                   ; 0x4e01
     mov ax, 0                        ; 0x4e04
     push ax                          ; 0x4e07
@@ -126,7 +126,7 @@ loc_RMVR:
     mov ax, 1                        ; 0x4e35
     push ax                          ; 0x4e38
     push word [bp - 0x0002]          ; 0x4e39
-    call ds_app_GUML                 ; 0x4e3c
+    call draw_number_field           ; 0x4e3c
     add sp, byte 6                   ; 0x4e3f
     jmp short @..loc_RMVR.l3         ; 0x4e42
 @..loc_RMVR.l2:
@@ -135,7 +135,7 @@ loc_RMVR:
     mov ax, 2                        ; 0x4e48
     push ax                          ; 0x4e4b
     push word [bp - 0x0002]          ; 0x4e4c
-    call ds_app_GUML                 ; 0x4e4f
+    call draw_number_field           ; 0x4e4f
     add sp, byte 6                   ; 0x4e52
 @..loc_RMVR.l3:
     mov ax, 0x5f                     ; 0x4e55

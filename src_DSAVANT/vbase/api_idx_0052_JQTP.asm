@@ -221,7 +221,7 @@ jumptable_4af5_case_15:
     mov al, byte [bss_5978]          ; 0x4a12
     cbw                              ; 0x4a15
     push ax                          ; 0x4a16
-    call ds_app_GUML                 ; 0x4a17
+    call draw_number_field           ; 0x4a17
     add sp, byte 6                   ; 0x4a1a
     mov ax, word [bp + 0x8]          ; 0x4a1d
     add ax, strict word 0x68         ; 0x4a20
@@ -276,7 +276,7 @@ jumptable_4af5_case_16:
     mov al, byte [bss_5979]          ; 0x4a92
     cbw                              ; 0x4a95
     push ax                          ; 0x4a96
-    call ds_app_GUML                 ; 0x4a97
+    call draw_number_field           ; 0x4a97
     add sp, byte 6                   ; 0x4a9a
     mov ax, word [bp + 0x8]          ; 0x4a9d
     add ax, strict word 0x6e         ; 0x4aa0
