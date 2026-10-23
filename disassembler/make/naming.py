@@ -17,7 +17,9 @@ wins.
 
 ``make refs PROJECT BIN ROUTINE`` lists the address-named symbols a routine's
 asm and source reference that still need names, with the sidecar entry each one
-resolves to.
+resolves to.  For a shared routine it also lists each dotted data alias
+(``stem.bss1``) with every donor's own ``bss_XXXX``; naming that alias writes
+each donor's entry in one command, whichever binary selected the routine.
 """
 
 import functools
@@ -43,6 +45,14 @@ _AUTO_ROUTINE = re.compile(r'^(?:\w+_)?loc_(?:[G-V]{4}(?:_[0-9a-f]{4,5})?|[0-9a-
 _TAGGED = re.compile(r'_[G-V]{4}(?:_[0-9a-f]{4,5})?$')
 _ADDR_COMMENT = re.compile(r';\s*0x([0-9a-fA-F]+)\s*$')
 _IDENT = re.compile(r'^[A-Za-z_]\w*$')
+#: A symbol spec: an identifier, or a shared common alias (``stem.bss1``).
+_SYMBOL = re.compile(r'^[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*$')
+_INCLUDE_LINE = re.compile(r'^[ \t]*%include\s+"([^"]+)"')
+_EQU_LINE = re.compile(r'^[ \t]*([A-Za-z_][\w.]*)[ \t]+equ[ \t]+(.*?)[ \t]*$')
+#: An alias line ``_place_equs`` commented because an earlier include used it.
+_COMMENTED_EQU_LINE = re.compile(
+    r'^[ \t]*;[ \t]*([A-Za-z_][\w.]*)[ \t]+equ[ \t]+(.*?)[ \t]*$')
+_TOKEN = re.compile(r'[A-Za-z_][\w.]*')
 #: Files a rename rewrites, when hand-owned.
 _REWRITE_SUFFIXES = ('.c', '.s', '.h', '.asm', '.inc')
 
@@ -159,6 +169,136 @@ def data_owner(sidecar, binary):
     if 'ds' in bins:
         return 'ds'
     return next(b for b in sorted(bins) if bins[b].get('type') == 'mz')
+
+
+@functools.lru_cache(maxsize=None)
+def _master_paths(project):
+    """``[(binary, src_<project>/<binary>.asm)]`` for the project's masters."""
+    if project is None:
+        return ()
+    root = src_dir(project, PROJECT)
+    try:
+        names = sorted(os.listdir(root))
+    except OSError:
+        return ()
+    return tuple((name[:-4], os.path.join(root, name))
+                 for name in names
+                 if name.endswith('.asm')
+                 and os.path.isfile(os.path.join(root, name)))
+
+
+@functools.lru_cache(maxsize=None)
+def _master_text(project, binary):
+    for name, path in _master_paths(project):
+        if name == binary:
+            try:
+                with open(path) as f:
+                    return f.read()
+            except OSError:
+                return ''
+    return ''
+
+
+def _defines_local(project, binary, symbol):
+    """True when *binary*'s own master defines *symbol*.
+
+    An overlay's ``bss_XXXX`` is overlay-local when its master spells the
+    ``equ``; the same spelling can also name a host ``ds`` object, so the
+    master is what tells the two apart.
+    """
+    return bool(re.search(
+        rf'^[ \t]*{re.escape(symbol)}(?:[ \t]+equ\b|:)',
+        _master_text(project, binary), re.M))
+
+
+def _equ_pairs_above(lines, index):
+    """``[(a, b)]`` of the contiguous ``a equ b`` lines just above *index*.
+
+    A name an earlier include already defined is commented the same way;
+    keep it, since it still says what this binary calls the shared name.
+    """
+    pairs = []
+    for line in reversed(lines[:index]):
+        m = _EQU_LINE.match(line) or _COMMENTED_EQU_LINE.match(line)
+        if not m:
+            break
+        pairs.append((m.group(1), m.group(2).strip()))
+    return pairs
+
+
+@functools.lru_cache(maxsize=None)
+def _shared_alias_index(project):
+    """``{common: [(binary, own)]}`` for dotted data aliases of shared files.
+
+    A shared fragment that differs only in the names it uses spells each by a
+    common ``<stem>.<kind><n>`` name; each master gives that common name its
+    own ``bss_XXXX`` just above the ``%include``.  A C source cannot spell the
+    dotted common name, so this is the surface ``make name`` fans out.
+    """
+    root = src_dir(project, PROJECT)
+    cache = {}
+    out = {}
+    for binary, master in _master_paths(project):
+        try:
+            with open(master) as f:
+                lines = f.read().split('\n')
+        except OSError:
+            continue
+        for i, line in enumerate(lines):
+            include = _INCLUDE_LINE.match(line)
+            if not include:
+                continue
+            rel = include.group(1)
+            if not rel.startswith(f'{SHARED_DIR}/'):
+                continue
+            path = os.path.join(root, rel)
+            if path not in cache:
+                try:
+                    with open(path) as f:
+                        cache[path] = f.read()
+                except OSError:
+                    cache[path] = None
+            text = cache[path]
+            if not text:
+                continue
+            tokens = set(_TOKEN.findall(text))
+            for a, b in _equ_pairs_above(lines, i):
+                if _DSEG.match(a) or _CSEG.match(a):
+                    common, own = b, a
+                elif _DSEG.match(b) or _CSEG.match(b):
+                    common, own = a, b
+                else:
+                    continue
+                if (common not in tokens or _IDENT.match(common)
+                        or _DSEG.match(common) or _CSEG.match(common)):
+                    continue
+                out.setdefault(common, []).append((binary, own))
+    return {common: sorted(set(pairs)) for common, pairs in out.items()}
+
+
+def _expand_shared_specs(project, binary, specs):
+    """Give each spec a target binary, fanning a shared alias out to donors.
+
+    ``make name PROJECT BIN stem.bss1=NAME`` names the equivalent
+    ``bss_XXXX`` in every binary that includes the shared fragment, whichever
+    binary (or the ``shared`` source folder) selected the routine.
+    """
+    index = _shared_alias_index(project)
+    out = []
+    chosen = {}
+    for sym, name, note in specs:
+        pairs = index.get(sym)
+        if not pairs:
+            out.append((sym, name, note, binary))
+            continue
+        for donor, own in pairs:
+            previous = chosen.setdefault((donor, own), name)
+            if previous != name:
+                raise SidecarError(
+                    f'{sym}: {donor} {own} is also named {previous!r} in '
+                    f'this command; one name per donor symbol')
+            out.append((own, name, note, donor))
+    return out
 
 
 def _asm_file(project, folder, label):
@@ -288,8 +428,13 @@ def resolve(sidecar, project, binary, symbol):
     if m:
         path, key = ['binaries', binary, 'code_data_names'], f'{int(m.group(1), 16):04x}'
     elif _DSEG.match(symbol):
-        path = ['binaries', owner, 'data_names']
         key = f'{int(_DSEG.match(symbol).group(1), 16):04x}'
+        # An overlay's BSS can reuse a host offset, so prefer its own
+        # data_names when it has an entry or spells the symbol itself.
+        local = (binary != SHARED_DIR
+                 and (key in (own.get('data_names') or {})
+                      or _defines_local(project, binary, symbol)))
+        path = ['binaries', binary if local else owner, 'data_names']
     elif _named(own.get('code_data_names'), symbol):
         path, key = ['binaries', binary, 'code_data_names'], _named(own['code_data_names'], symbol)
     elif _named(bins[owner].get('data_names'), symbol):
@@ -634,8 +779,13 @@ def plan_names(project, binary, specs):
     text = original
     renames = {}
     changes = []
-    for sym, name, note in specs:
-        path, key, entry = resolve(sidecar, project, binary, sym)
+    for spec in _expand_shared_specs(project, binary, specs):
+        if len(spec) == 4:
+            sym, name, note, target = spec
+        else:
+            sym, name, note = spec
+            target = binary
+        path, key, entry = resolve(sidecar, project, target, sym)
         old = entry.get('name') or sym
         entry = dict(entry)
         entry['name'] = name
@@ -646,11 +796,11 @@ def plan_names(project, binary, specs):
         changes.append({'symbol': sym, 'old': old, 'name': name,
                         'surface': f'{".".join(path)}["{key}"]'})
         is_routine = (path == ['routines']
-                      or path == ['binaries', binary, 'function_names'])
+                      or path == ['binaries', target, 'function_names'])
         if is_routine and old != name:
-            addr = _routine_address(project, binary, old, sym)
+            addr = _routine_address(project, target, old, sym)
             for cpath, ckey, centry in _routine_companions(
-                    sidecar, project, binary, old, addr,
+                    sidecar, project, target, old, addr,
                     (tuple(path), key)):
                 centry = dict(centry)
                 centry['name'] = name
@@ -659,10 +809,10 @@ def plan_names(project, binary, specs):
                 changes.append({
                     'symbol': sym, 'old': old, 'name': name,
                     'surface': f'{".".join(cpath)}["{ckey}"]'})
-            owner = dispatch_owner(sidecar, binary)
+            owner = dispatch_owner(sidecar, target)
             slots = [slot for slot, value in
                      _dispatch_names(sidecar, owner).items() if value == old]
-            if slots and owner != binary:
+            if slots and owner != target:
                 raise SidecarError(
                     f'{sym}: {owner}.dispatch_table.names['
                     f'{", ".join(sorted(slots))}] still says {old!r}; name '
@@ -670,22 +820,22 @@ def plan_names(project, binary, specs):
             if slots:
                 for slot in sorted(slots):
                     text = set_value(
-                        text, ['binaries', binary, 'dispatch_table', 'names'],
+                        text, ['binaries', target, 'dispatch_table', 'names'],
                         slot, name)
                     changes.append({
                         'symbol': sym, 'old': old, 'name': name,
-                        'surface': f'binaries.{binary}.dispatch_table.names'
+                        'surface': f'binaries.{target}.dispatch_table.names'
                                    f'["{slot}"]'})
                 sidecar = json.loads(text)
-            own = _binaries(sidecar).get(binary) or {}
+            own = _binaries(sidecar).get(target) or {}
             for driver_slots in own.get('driver_slots') or []:
                 driver = driver_slots.get('driver')
                 prefix = driver_slots.get('prefix') or ''
                 for slot, value in _dispatch_names(sidecar, driver).items():
                     wrapped = f'{prefix}_{value}' if prefix else value
-                    if wrapped == old and driver != binary:
+                    if wrapped == old and driver != target:
                         raise SidecarError(
-                            f'{sym}: {binary}.driver_slots['
+                            f'{sym}: {target}.driver_slots['
                             f'"{driver_slots["offset"]}"] wraps '
                             f'{driver}.dispatch_table.names["{slot}"] as '
                             f'{wrapped!r}; name the slot from {driver}')
@@ -741,7 +891,7 @@ def parse_specs(args):
     for arg in args:
         sym, sep, rest = arg.partition('=')
         name, colon, note = rest.partition(':')
-        if not sep or not _IDENT.match(sym) or not _IDENT.match(name):
+        if not sep or not _SYMBOL.match(sym) or not _IDENT.match(name):
             raise SystemExit(f'error: {arg!r} is not SYMBOL=NAME[:NOTE]')
         specs.append((sym, name, note.strip() if colon else None))
     return specs
@@ -987,6 +1137,35 @@ def _fact(project, binary, sym, sidecar, text, own):
     return fact
 
 
+def _shared_aliases(project, text, sidecar):
+    """Shared dotted aliases *text* uses, with each donor's own data symbol.
+
+    These are the names C cannot spell: a shared fragment that differs only
+    in its data names writes ``stem.bss1``, and every donor's master binds it
+    to its own ``bss_XXXX`` above the ``%include``.  ``make name`` fans one
+    such spec out to all donors.
+    """
+    tokens = set(_TOKEN.findall(text))
+    out = []
+    for common, pairs in sorted(_shared_alias_index(project).items()):
+        if common not in tokens:
+            continue
+        bindings = []
+        for donor, own in pairs:
+            fact = _fact(project, donor, own, sidecar, text, [])
+            bindings.append({
+                'binary': donor,
+                'symbol': own,
+                'value': fact['value'],
+                'space': fact['space'],
+                'canonical': fact['canonical'],
+            })
+        out.append({'symbol': common,
+                    'use': _use_line(text, common),
+                    'bindings': bindings})
+    return out
+
+
 def _raw_data_refs(project, text, model, known, skip):
     """Raw ``[bx + 0xNNNN]`` operands that no symbol names.
 
@@ -1066,16 +1245,18 @@ def cmd_refs(project, binary, routine, json_out=False):
     raws = _raw_data_refs(project, text, model, known,
                           {fact['value'] for fact in facts
                            if fact['value'] is not None})
+    aliases = _shared_aliases(project, text, sidecar)
     addr = _routine_addr(path, routine)
     names = provenance_rows(sidecar, project, binary, routine, addr)
     shared = api_consumers(sidecar, binary)
     if json_out:
         print(json.dumps({'routine': routine, 'binary': binary,
                           'names': names, 'shared_names': shared,
-                          'symbols': facts, 'unlabeled': raws}, indent=1))
+                          'symbols': facts, 'unlabeled': raws,
+                          'shared_aliases': aliases}, indent=1))
         return facts, raws
     print_provenance(names, shared)
-    if not facts and not raws:
+    if not facts and not raws and not aliases:
         print(f'{routine}: no address-named symbols')
         return facts, raws
     for fact in facts:
@@ -1100,6 +1281,20 @@ def cmd_refs(project, binary, routine, json_out=False):
               f'{fact["defined_in"] or ""}')
         if fact['use']:
             print(f'  {"":24} use: {fact["use"]}')
+    if aliases:
+        print('  shared aliases (dotted names C cannot spell):')
+        for alias in aliases:
+            print(f'  {alias["symbol"]:24}')
+            for bind in alias['bindings']:
+                value = ('0x%04x' % bind['value']
+                         if bind['value'] is not None else '?')
+                print(f'  {"":24} {bind["binary"]:8} {bind["symbol"]:16} '
+                      f'{value:8} {bind["space"] or "":5} '
+                      f'{bind["canonical"]}')
+            if alias['use']:
+                print(f'  {"":24} use: {alias["use"]}')
+        print('  name one with: make name PROJECT BIN '
+              '<alias>=NAME  (fans out to each donor)')
     return facts, raws
 
 

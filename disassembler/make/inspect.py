@@ -30,6 +30,7 @@ import re
 from lib.autogen import hand_owned
 from lib.cachedirs import spans_dir, symbols_dir
 from lib.cross_ref import read_label_json
+from lib.link import LinkError
 from lib.sidecar.binary import per_binary
 from lib.sidecar.constants import SIDECAR_DIR
 from lib.sidecar.loader import load as load_sidecar
@@ -88,7 +89,7 @@ def load_labels(project, binary):
                         f'{binary}_labels.json')
     try:
         return read_label_json(path)
-    except (OSError, ValueError):
+    except (OSError, ValueError, LinkError):
         return {}
 
 
@@ -262,14 +263,36 @@ def _split_top_labels(tops, symbols, start, end):
     return code, embedded
 
 
+def _shared_source(project, routine):
+    """A donor binary's ``(labels, spans, symbols)`` for a shared routine.
+
+    A ``shared/`` fragment is a copy of a routine from one or more binaries and
+    carries neither address comments nor label/span sidecars of its own.  The
+    routine's listing address and span live in each copy's binary, so borrow
+    the first donor that has a span for it.
+    """
+    for donor in discover_binaries(os.path.join(APPS, project)):
+        labels = load_labels(project, donor)
+        if not any(str(sym) == routine for sym in labels.values()):
+            continue
+        spans = load_spans(project, donor)
+        if routine not in spans:
+            continue
+        return labels, spans, load_symbols(project, donor)
+    return {}, {}, {}
+
+
 def _fragment(project, binary, routine):
     """The fragment's span and its top-level members."""
     path = asm_file(project, binary, routine)
     if path is None:
         raise SystemExit(f'error: no {routine}.asm in {binary}/ or {SHARED_DIR}/')
-    spans = load_spans(project, binary)
-    labels = load_labels(project, binary)
-    symbols = load_symbols(project, binary)
+    if binary == SHARED_DIR:
+        labels, spans, symbols = _shared_source(project, routine)
+    else:
+        spans = load_spans(project, binary)
+        labels = load_labels(project, binary)
+        symbols = load_symbols(project, binary)
     tops = top_labels(path)
     own_stem = os.path.splitext(os.path.basename(path))[0]
     # labels is keyed by offset; the name lives on the Symbol's str value.

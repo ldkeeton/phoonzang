@@ -75,7 +75,7 @@ api_idx_000c_VJPM:
     mov byte [bx + 0x2b], 3          ; 0x6ff2
     mov ax, 1                        ; 0x6ff6
     push ax                          ; 0x6ff9
-    call api_idx_000a_UUIH           ; 0x6ffa
+    call restore_areas_redraw_glyph  ; 0x6ffa
     pop cx                           ; 0x6ffd
     mov ax, 4                        ; 0x6ffe
     push ax                          ; 0x7001
@@ -129,7 +129,7 @@ api_idx_000c_VJPM:
     mov byte [bx + 0x25], 0          ; 0x7073
     mov ax, 1                        ; 0x7077
     push ax                          ; 0x707a
-    call api_idx_000a_UUIH           ; 0x707b
+    call restore_areas_redraw_glyph  ; 0x707b
     pop cx                           ; 0x707e
     mov ax, 4                        ; 0x707f
     push ax                          ; 0x7082
@@ -176,7 +176,7 @@ api_idx_000c_VJPM:
     mov byte [bx + 0x25], 0          ; 0x70e7
     mov ax, 1                        ; 0x70eb
     push ax                          ; 0x70ee
-    call api_idx_000a_UUIH           ; 0x70ef
+    call restore_areas_redraw_glyph  ; 0x70ef
     pop cx                           ; 0x70f2
     mov ax, 4                        ; 0x70f3
     push ax                          ; 0x70f6
@@ -266,7 +266,7 @@ api_idx_000c_VJPM:
 @..api_idx_000c_VJPM.l29:
     mov ax, 1                        ; 0x71c4
     push ax                          ; 0x71c7
-    call api_idx_000a_UUIH           ; 0x71c8
+    call restore_areas_redraw_glyph  ; 0x71c8
     pop cx                           ; 0x71cb
     mov ax, 4                        ; 0x71cc
     push ax                          ; 0x71cf

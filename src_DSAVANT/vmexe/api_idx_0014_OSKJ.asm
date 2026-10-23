@@ -28,7 +28,7 @@ api_idx_0014_OSKJ:
 @..api_idx_0014_OSKJ.l2:
     mov ax, 1                        ; 0x64c5
     push ax                          ; 0x64c8
-    call api_idx_000a_UUIH           ; 0x64c9
+    call restore_areas_redraw_glyph  ; 0x64c9
     pop cx                           ; 0x64cc
     mov word [bp - 0x0004], 0        ; 0x64cd
     mov word [bp - 0x0006], 0        ; 0x64d2
@@ -398,7 +398,7 @@ api_idx_0014_OSKJ:
 @..api_idx_0014_OSKJ.l25:
     mov ax, 1                        ; 0x68a9
     push ax                          ; 0x68ac
-    call api_idx_000a_UUIH           ; 0x68ad
+    call restore_areas_redraw_glyph  ; 0x68ad
     pop cx                           ; 0x68b0
     mov ax, 4                        ; 0x68b1
     push ax                          ; 0x68b4
@@ -445,7 +445,7 @@ api_idx_0014_OSKJ:
     pop cx                           ; 0x6916
     mov ax, 1                        ; 0x6917
     push ax                          ; 0x691a
-    call api_idx_000a_UUIH           ; 0x691b
+    call restore_areas_redraw_glyph  ; 0x691b
     pop cx                           ; 0x691e
 @..api_idx_0014_OSKJ.l27:
     cmp word [bp - 0x0006], byte 0   ; 0x691f
@@ -927,7 +927,7 @@ jumptable_6ea7_case_8:
     call loc_RPUI                    ; 0x6deb
     mov ax, 0                        ; 0x6dee
     push ax                          ; 0x6df1
-    call api_idx_000a_UUIH           ; 0x6df2
+    call restore_areas_redraw_glyph  ; 0x6df2
     pop cx                           ; 0x6df5
     mov word [game_state], 0x11      ; 0x6df6
     mov word [bss_905e], 0xd         ; 0x6dfc

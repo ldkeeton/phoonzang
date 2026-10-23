@@ -43,6 +43,7 @@
     "api_idx_000a_PQSU": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
     "api_idx_000a_QJGP": {"name": "redraw_glyph_strip", "note": "restores both saved areas, draws glyph 1 at 55,154, optionally shows the strip"},
     "api_idx_000a_TITQ": {"name": "draw_title_banner", "note": "restores saved screen, draws shadow text then main glyph"},
+    "api_idx_000a_UUIH": {"name": "restore_areas_redraw_glyph", "note": "restores both saved areas, redraws glyph 1, optionally shows the strip"},
     "api_idx_000c_JQMN": {"name": "draw_realm_spell_points", "note": "prints a character's spell points for each of the six realms, centred in its own colour"},
     "api_idx_000c_LGVL": {
       "name": "draw_party_slot_letters",

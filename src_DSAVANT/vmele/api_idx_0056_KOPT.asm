@@ -32,7 +32,7 @@ api_idx_0056_KOPT:
     jl short @..api_idx_0056_KOPT.l1 ; 0x31ea
     mov ax, 1                        ; 0x31ec
     push ax                          ; 0x31ef
-    call api_idx_000a_UUIH           ; 0x31f0
+    call restore_areas_redraw_glyph  ; 0x31f0
     pop cx                           ; 0x31f3
     cmp word [bss_845c], byte 1      ; 0x31f4
     je short @..api_idx_0056_KOPT.l5 ; 0x31f9

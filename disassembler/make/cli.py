@@ -41,13 +41,16 @@ Commands (space-separated):
                             writes every naming surface (function_names, routines,
                             dispatch_table slots), renames hand sources and their
                             references, then build + rebuild; DRY_RUN=1 / --dry-run
-                            lists the changes without writing
+                            lists the changes without writing.  A dotted shared
+                            alias (stem.bss1) names each donor's bss_XXXX
   make info PROJECT BIN ROUTINE  fragment span, co-tenant routines, callers, source
-                            and the tool/flags the build uses
+                            and the tool/flags the build uses; shared/ is searched
+                            when the routine is not in BIN's own folder
   make refs PROJECT BIN ROUTINE  list the symbols ROUTINE references that still
                             need names: value, space, width, canonical name,
                             definition, and raw data operands (already-named
-                            callees are omitted)
+                            callees are omitted).  For a shared routine it also
+                            lists each dotted alias and the donors' own names
   make data PROJECT SEG OFFSET [BIN]  bytes at DS/SS/ES/CS:OFFSET, its canonical name
                             and whether the image file backs it
   make probe PROJECT BIN ROUTINE [FILE=path] [LINKED=1]
@@ -56,7 +59,9 @@ Commands (space-separated):
                             resolves relocations and gates the linked bytes against
                             the original fragment
   make rebuild [PROJECT [BIN [ROUTINE]]]  recompile .c (must match the original bytes;
-                            --allow-diff to relax) + nasm; default: everything
+                            --allow-diff to relax) + nasm; default: everything.
+                            With two arguments the selector is the routine, gated
+                            against every binary that contains it
   make elf-rebuild [PROJECT [BIN]]  full rebuild from current sources (C resplice +
                             link + all binaries); ELF/DWARF for BIN (default host)
   make set-baseline         pin current stats as the local baseline

@@ -7,6 +7,7 @@ process, kept for the whole build so its later steps reuse its analysis, and
 both that step and the NASM step run on a thread pool.
 """
 
+import json
 import os
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -128,29 +129,76 @@ def cmd_build_binary(app, binary):
     print(f'build {app}/{binary} -> {bins[binary][0]}  [OK]')
 
 
+def _routine_donors(app, routine):
+    """The binaries whose span sidecar contains *routine*."""
+    from lib.cachedirs import spans_dir
+    out = []
+    for name in sorted(discover_binaries(os.path.join(APPS, app))):
+        path = os.path.join(spans_dir(app), f'{name}_aztec_spans.json')
+        try:
+            with open(path) as f:
+                spans = json.load(f)
+        except (OSError, ValueError):
+            continue
+        if routine in spans:
+            out.append(name)
+    return out
+
+
+def _rebuild_targets(app, bins, binary, only):
+    """``(binaries, routine)`` to gate for a rebuild selector.
+
+    The selector is a real binary, or — when no routine follows it — the
+    routine itself.  A routine is gated against every binary whose span
+    sidecar contains it; that is how a routine in ``shared/`` reaches all its
+    donors without ``shared/`` pretending to be a binary.
+    """
+    if binary is None:
+        if only is not None:
+            raise SystemExit(
+                'a routine needs its binary: make rebuild PROJECT BIN ROUTINE')
+        return sorted(bins), None
+    if binary in bins:
+        return [binary], only
+    if only is not None:
+        print(f'Unknown binary "{binary}" in {app}')
+        if binary == 'shared':
+            print('shared/ is a source folder, not a binary; pass the '
+                  f'routine instead: make rebuild {app} {only}')
+        else:
+            print(f'Known: {", ".join(sorted(bins))}')
+        raise SystemExit(1)
+    if binary == 'shared':
+        print('shared/ is a source folder, not a binary; pass the routine '
+              f'instead: make rebuild {app} ROUTINE')
+        raise SystemExit(1)
+    targets = _routine_donors(app, binary)
+    if not targets:
+        raise SystemExit(
+            f'error: {binary}: no binary contains that routine')
+    return targets, binary
+
+
 def _rebuild_project(app, binary=None, only=None):
     """Recompile every ``.c`` (gated against the original) then NASM-assemble.
 
     *only* limits the C gate to one routine's source; the binary still
     assembles, so the check covers both "the C reproduces its bytes" and
     "the fragment assembles in place".
+
+    ``BIN`` is a real binary when a routine follows it.  With only two
+    arguments the selector is the routine, gated against every binary whose
+    span sidecar contains it (including a routine that lives in ``shared/``).
     """
     from .elf import resplice_c
     app_dir = os.path.join(APPS, app)
     out_dir = src_dir(app, PROJECT)
     bins = discover_binaries(app_dir)
-    if binary is not None and binary not in bins:
-        print(f'Unknown binary "{binary}" in {app}')
-        print(f'Known: {", ".join(sorted(bins))}')
-        sys.exit(1)
-    if only is not None and binary is None:
-        print('a routine needs its binary: make rebuild PROJECT BIN ROUTINE')
-        sys.exit(1)
-    targets = [binary] if binary else sorted(bins)
+    targets, routine = _rebuild_targets(app, bins, binary, only)
     for name in targets:
         if _verbose():
             progress.log(f'{app}/{name} | resplicing C routines')
-        resplice_c(app, name, check_only=True, only=only)
+        resplice_c(app, name, check_only=True, only=routine)
     for name in targets:
         if _verbose():
             progress.log(f'{app}/{name} | nasm')

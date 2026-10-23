@@ -336,11 +336,22 @@ class ResolveTest(unittest.TestCase):
             with self.assertRaises(SidecarError):
                 naming.resolve(self.sidecar, 'P', 'play', 'nothing')
 
+    def test_overlay_local_data_when_its_master_defines_it(self):
+        self.sidecar['binaries']['play']['type'] = 'aztec_overlay'
+        with mock.patch.object(naming, '_defines_local', return_value=True):
+            self.assertEqual(
+                naming.resolve(self.sidecar, 'P', 'play', 'bss_0930')[:2],
+                (['binaries', 'play', 'data_names'], '0930'))
+
 
 class SpecsTest(unittest.TestCase):
     def test_parse(self):
         self.assertEqual(naming.parse_specs(['a_b=c', 'cseg_0d3a=n:byte: x y']),
                          [('a_b', 'c', None), ('cseg_0d3a', 'n', 'byte: x y')])
+
+    def test_parse_shared_alias(self):
+        self.assertEqual(naming.parse_specs(['stem.bss1=screen']),
+                         [('stem.bss1', 'screen', None)])
         with self.assertRaises(SystemExit):
             naming.parse_specs(['a=1x'])
 
@@ -349,6 +360,75 @@ class SpecsTest(unittest.TestCase):
         with mock.patch.dict(os.environ, {'MAKEFLAGS': flags}):
             self.assertEqual(naming.specs_from_makeflags(),
                              ['c=d', "a_b=foo:bar baz it's $x \\y"])
+
+
+class SharedAliasTest(unittest.TestCase):
+    """Dotted shared data aliases: refs reports them, name fans them out."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        self.src = os.path.join(self._tmp.name, 'src_P')
+        os.makedirs(os.path.join(self.src, 'shared', 'game'))
+        self.shared = os.path.join(self.src, 'shared', 'game', 'stem.asm')
+        with open(self.shared, 'w') as f:
+            f.write('stem:\n    push word [stem.bss1]\n    ret\n')
+        for binary, offset in (('bin1', '1234'), ('bin2', '2234')):
+            with open(os.path.join(self.src, binary + '.asm'), 'w') as f:
+                f.write(f'bss_{offset} equ __zdseg_end + '
+                        f'(__zobss_{offset} - __zdata_start)\n'
+                        f'stem.bss1 equ bss_{offset}\n'
+                        f'%include "shared/game/stem.asm"\n')
+        naming._master_paths.cache_clear()
+        naming._shared_alias_index.cache_clear()
+        self.addCleanup(naming._master_paths.cache_clear)
+        self.addCleanup(naming._shared_alias_index.cache_clear)
+
+    def test_index_and_expand(self):
+        with mock.patch.object(naming, 'src_dir', return_value=self.src):
+            self.assertEqual(naming._shared_alias_index('P'),
+                             {'stem.bss1': [('bin1', 'bss_1234'),
+                                            ('bin2', 'bss_2234')]})
+            self.assertEqual(
+                naming._expand_shared_specs(
+                    'P', 'bin1',
+                    [('stem.bss1', 'screen', 'note'), ('stem', 'f', None)]),
+                [('bss_1234', 'screen', 'note', 'bin1'),
+                 ('bss_2234', 'screen', 'note', 'bin2'),
+                 ('stem', 'f', None, 'bin1')])
+
+    def test_refs_reports_alias_bindings(self):
+        def fact(project, binary, sym, sidecar, text, own):
+            return {'value': 0x1234, 'space': 'ds', 'canonical': sym}
+        with mock.patch.object(naming, 'src_dir', return_value=self.src), \
+                mock.patch.object(naming, '_fact', side_effect=fact):
+            with open(self.shared) as f:
+                aliases = naming._shared_aliases('P', f.read(), {})
+        self.assertEqual(aliases[0]['symbol'], 'stem.bss1')
+        self.assertEqual([(b['binary'], b['symbol'])
+                          for b in aliases[0]['bindings']],
+                         [('bin1', 'bss_1234'), ('bin2', 'bss_2234')])
+
+    def test_name_fans_alias_out_to_each_donor(self):
+        sidecar = {'routines': {},
+                   'binaries': {
+                       'ds': {'type': 'mz', 'data_names': {}},
+                       'bin1': {'type': 'aztec_overlay', 'data_names': {}},
+                       'bin2': {'type': 'aztec_overlay',
+                                'data_names': {}}}}
+        path = os.path.join(self._tmp.name, 'side.json')
+        with open(path, 'w') as f:
+            json.dump(sidecar, f)
+        with mock.patch.object(naming, 'src_dir', return_value=self.src), \
+                mock.patch.object(naming, 'sidecar_path', return_value=path):
+            _text, _sidecar, renames, changes = naming.plan_names(
+                'P', 'bin1', [('stem.bss1', 'screen_area', 'note')])
+        self.assertEqual(renames, {'bss_1234': 'screen_area',
+                                   'bss_2234': 'screen_area'})
+        self.assertEqual(
+            [change['surface'] for change in changes],
+            ['binaries.bin1.data_names["1234"]',
+             'binaries.bin2.data_names["2234"]'])
 
 
 class ReferencedTest(unittest.TestCase):

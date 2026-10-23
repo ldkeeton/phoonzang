@@ -3,6 +3,7 @@ import tempfile
 import unittest
 from unittest import mock
 
+from lib.link import LinkError
 from lib.symtab import Kind, Source, Space, Symbol
 from make import inspect, naming
 
@@ -166,6 +167,36 @@ class FragmentRootTest(unittest.TestCase):
         self.assertEqual(frag['embedded_data'],
                          [{'start': 0x103, 'end': 0x104,
                            'names': ['flag_a']}])
+
+
+class SharedSourceTest(unittest.TestCase):
+    class _Sym:
+        def __init__(self, name):
+            self.name = name
+
+        def __str__(self):
+            return self.name
+
+    def test_missing_shared_labels_is_not_an_error(self):
+        with mock.patch.object(inspect, 'read_label_json',
+                               side_effect=LinkError('no export')):
+            self.assertEqual(inspect.load_labels('P', 'shared'), {})
+
+    def test_borrows_the_first_donor_with_a_span(self):
+        labels = {'b1': {}, 'b2': {0x10: self._Sym('root')}}
+        spans = {'b1': {}, 'b2': {'root': (0x10, 0x20)}}
+        symbols = {'b2': {'root': object()}}
+        with mock.patch.object(inspect, 'discover_binaries',
+                               return_value={'b1': ('x', 0),
+                                             'b2': ('y', 0)}), \
+                mock.patch.object(inspect, 'load_labels',
+                                  side_effect=lambda p, b: labels[b]), \
+                mock.patch.object(inspect, 'load_spans',
+                                  side_effect=lambda p, b: spans[b]), \
+                mock.patch.object(inspect, 'load_symbols',
+                                  side_effect=lambda p, b: symbols[b]):
+            got = inspect._shared_source('P', 'root')
+        self.assertEqual(got, (labels['b2'], spans['b2'], symbols['b2']))
 
 
 if __name__ == '__main__':

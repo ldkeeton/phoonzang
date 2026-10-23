@@ -29,6 +29,10 @@ make name  PROJECT BIN ROUTINE=NAME:'note' SYMBOL=NAME:'note' ...
 make rebuild PROJECT              # full check before calling it done
 ```
 
+A routine kept in `src_<project>/shared/` is selected through any binary that
+contains it; `make rebuild PROJECT ROUTINE` (no binary) gates it against every
+such binary.
+
 `JSON=1` makes `info`, `refs`, `data` and `probe` machine-readable. `LEN=n`
 sets how many bytes `data` prints.
 
@@ -38,6 +42,17 @@ example `dos_file_loc_IRLV`). `make name` updates that surface too; you can
 also name the tag itself, `make name PROJECT BIN dos_file_loc_IRLV=...`.
 Sources are renamed only after the sidecar validates; a failed build restores
 both sources and the sidecar, and drops label exports the failed build wrote.
+
+## Shared fragments
+
+A routine in `src_<project>/shared/` has no label/span sidecar of its own; use
+any binary that contains it for `info`/`refs`, or `make rebuild PROJECT
+ROUTINE` to gate it against all of them.
+
+A shared copy that differs only in its data names spells each by a dotted
+common alias (`stem.bss1`), which C cannot use. `make refs` lists those aliases
+with every donor's own `bss_XXXX`; `make name PROJECT BIN stem.bss1=NAME`
+writes all donors' entries at once (the alias itself selects the donors).
 
 ## Tools
 

@@ -1,16 +1,16 @@
 ; auto-generated
-api_idx_000a_UUIH:
+restore_areas_redraw_glyph:
     mov ax, 0xfff6
     call aztec_csav
     mov ax, 0
     push ax
-    push word [saved_area_a_hi]
+    push word [saved_area_a + 0x2]
     push word [saved_area_a]
     call gfx_restore_area
     add sp, byte 6
     mov ax, 0
     push ax
-    push word [saved_area_b_hi]
+    push word [saved_area_b + 0x2]
     push word [saved_area_b]
     call gfx_restore_area
     add sp, byte 6
@@ -40,7 +40,7 @@ api_idx_000a_UUIH:
     call gfx_draw_text
     add sp, byte 0x16
     cmp word [bp + 0x4], byte 0
-    je short @..api_idx_000a_UUIH.l1
+    je short @..restore_areas_redraw_glyph.l1
     mov ax, 0xc2
     push ax
     mov ax, 0x13a
@@ -51,5 +51,5 @@ api_idx_000a_UUIH:
     push ax
     call gfx_show_area
     add sp, byte 8
-@..api_idx_000a_UUIH.l1:
+@..restore_areas_redraw_glyph.l1:
     ret

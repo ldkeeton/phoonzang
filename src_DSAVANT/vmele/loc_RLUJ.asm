@@ -238,7 +238,7 @@ loc_RLUJ:
     add sp, byte 4                   ; 0x3611
     mov ax, 0                        ; 0x3614
     push ax                          ; 0x3617
-    call api_idx_000a_UUIH           ; 0x3618
+    call restore_areas_redraw_glyph  ; 0x3618
     pop cx                           ; 0x361b
     call api_idx_0004_NQLR           ; 0x361c
     mov ax, 1                        ; 0x361f
@@ -259,7 +259,7 @@ loc_RLUJ:
     jle short @..loc_RLUJ.l13        ; 0x364b
     mov ax, 1                        ; 0x364d
     push ax                          ; 0x3650
-    call api_idx_000a_UUIH           ; 0x3651
+    call restore_areas_redraw_glyph  ; 0x3651
     pop cx                           ; 0x3654
     mov ax, 1                        ; 0x3655
     push ax                          ; 0x3658

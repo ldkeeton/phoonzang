@@ -36,7 +36,7 @@ bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 
 %include "vmele/api_idx_0008_QLVR.asm"     ; 0x0164
 
-%include "shared/game/api_idx_000a_UUIH.asm"     ; 0x0244
+%include "shared/game/restore_areas_redraw_glyph.asm" ; 0x0244
 
 %include "shared/game/api_idx_0004_ULSR.asm"     ; 0x02c2
 

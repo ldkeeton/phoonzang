@@ -42,7 +42,7 @@ api_idx_0004_UONH:
 @..api_idx_0004_UONH.l2:
     mov ax, 0                        ; 0x1ba7
     push ax                          ; 0x1baa
-    call api_idx_000a_UUIH           ; 0x1bab
+    call restore_areas_redraw_glyph  ; 0x1bab
     pop cx                           ; 0x1bae
     cmp word [bp - 0x0004], byte 0   ; 0x1baf
     je short @..api_idx_0004_UONH.l3 ; 0x1bb3

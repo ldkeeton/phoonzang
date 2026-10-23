@@ -111,7 +111,7 @@ api_idx_005c_UIOK:
 @..api_idx_005c_UIOK.l7:
     mov ax, 1                        ; 0x15f5
     push ax                          ; 0x15f8
-    call api_idx_000a_UUIH           ; 0x15f9
+    call restore_areas_redraw_glyph  ; 0x15f9
     pop cx                           ; 0x15fc
     mov ax, 1                        ; 0x15fd
     push ax                          ; 0x1600

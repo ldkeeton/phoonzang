@@ -78,7 +78,7 @@ api_idx_0004_NIHO:
 @..api_idx_0004_NIHO.l1:
     mov ax, 0                        ; 0x2f76
     push ax                          ; 0x2f79
-    call api_idx_000a_UUIH           ; 0x2f7a
+    call restore_areas_redraw_glyph  ; 0x2f7a
     pop cx                           ; 0x2f7d
     mov ax, 1                        ; 0x2f7e
     push ax                          ; 0x2f81

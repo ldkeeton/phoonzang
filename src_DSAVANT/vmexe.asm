@@ -94,7 +94,7 @@ loc_UTQS.api_idx1 equ api_idx_0006_TMLR
 bss_90e4 equ __zdseg_end + (__zobss_90e4 - __zdata_start)
 %include "vmexe/api_idx_0004_QUPL.asm"     ; 0x1a5f
 
-%include "shared/game/api_idx_000a_UUIH.asm"     ; 0x1ac7
+%include "shared/game/restore_areas_redraw_glyph.asm" ; 0x1ac7
 
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
