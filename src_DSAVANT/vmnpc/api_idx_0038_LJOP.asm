@@ -92,7 +92,7 @@ api_idx_0038_LJOP:
     mov bx, ax                       ; 0x48bf
     push word [bx + bss_5c0a]        ; 0x48c1
     push word [bx + bss_5c08]        ; 0x48c5
-    call ds_app_SVGG                 ; 0x48c9
+    call format_long_decimal         ; 0x48c9
     add sp, byte 6                   ; 0x48cc
     mov ax, word [bp - 0x0006]       ; 0x48cf
     add ax, strict word 0xc          ; 0x48d2

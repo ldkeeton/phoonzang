@@ -11,7 +11,7 @@ loc_KOGT:
     push ax                          ; 0x1257
     call aztec_setmem                ; 0x1258
     add sp, byte 6                   ; 0x125b
-    mov word [bss_82ea], 0           ; 0x125e
+    mov word [party_status_frame_step], 0 ; 0x125e
     mov ax, word [bp + 0x4]          ; 0x1264
     jmp short @..loc_KOGT.l5         ; 0x1267
 @..loc_KOGT.l1:

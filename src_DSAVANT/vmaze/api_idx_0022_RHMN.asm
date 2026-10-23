@@ -37,8 +37,8 @@ api_idx_0022_RHMN:
     jl short @..api_idx_0022_RHMN.l3 ; 0x2274
     mov word [bss_91aa], 1           ; 0x2276
     mov word [location_changed], 1   ; 0x227c
-    mov word [bss_82e8], 0           ; 0x2282
-    mov word [bss_82ec], 0           ; 0x2288
+    mov word [party_status_frame], 0 ; 0x2282
+    mov word [party_status_frame_seen], 0 ; 0x2288
     mov word [bss_831a], 0           ; 0x228e
     call api_idx_0002_ITLQ           ; 0x2294
     mov word [bss_905e], 5           ; 0x2297
@@ -936,12 +936,12 @@ jumptable_2a3c_case_3:
     call loc_HVLG                    ; 0x2aa6
     test ax, ax                      ; 0x2aa9
     je short @..api_idx_0022_RHMN.l60 ; 0x2aab
-    mov ax, word [bss_82e8]          ; 0x2aad
+    mov ax, word [party_status_frame] ; 0x2aad
     inc ax                           ; 0x2ab0
     mov cx, 2                        ; 0x2ab1
     cwd                              ; 0x2ab4
     idiv cx                          ; 0x2ab5
-    mov word [bss_82e8], dx          ; 0x2ab7
+    mov word [party_status_frame], dx ; 0x2ab7
     cmp word [hotspot_hit], byte 0   ; 0x2abb
     jne short @..api_idx_0022_RHMN.l60 ; 0x2ac0
     call redraw_maze_view            ; 0x2ac2

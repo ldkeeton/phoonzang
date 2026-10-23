@@ -7,6 +7,6 @@ ds_app_OLKR: ; Aztec csav frame=0x0000
     cwd                              ; 0x04d0
     push dx                          ; 0x04d1
     push ax                          ; 0x04d2
-    call ds_app_SVGG                 ; 0x04d3
+    call format_long_decimal         ; 0x04d3
     add sp, byte 6                   ; 0x04d6
     ret                              ; 0x04d9

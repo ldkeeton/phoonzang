@@ -201,7 +201,7 @@ api_idx_0072_IPMP:
     je short @..api_idx_0072_IPMP.l11 ; 0x4c1d
     push ax                          ; 0x4c1f
     push word [bp + 0x4]             ; 0x4c20
-    call ds_app_UPSN                 ; 0x4c23
+    call compact_grid_page           ; 0x4c23
     add sp, byte 4                   ; 0x4c26
 @..api_idx_0072_IPMP.l11:
     jmp short @..api_idx_0072_IPMP.l13 ; 0x4c29
@@ -225,7 +225,7 @@ api_idx_0072_IPMP:
     je short @..api_idx_0072_IPMP.l13 ; 0x4c57
     push word [bp - 0x000a]          ; 0x4c59
     push word [bp + 0x4]             ; 0x4c5c
-    call ds_app_UPSN                 ; 0x4c5f
+    call compact_grid_page           ; 0x4c5f
     add sp, byte 4                   ; 0x4c62
 @..api_idx_0072_IPMP.l13:
     mov ax, 0x248                    ; 0x4c65
@@ -239,7 +239,7 @@ api_idx_0072_IPMP:
     je short @..api_idx_0072_IPMP.l14 ; 0x4c7c
     push ax                          ; 0x4c7e
     push word [bp + 0x4]             ; 0x4c7f
-    call ds_app_UPSN                 ; 0x4c82
+    call compact_grid_page           ; 0x4c82
     add sp, byte 4                   ; 0x4c85
 @..api_idx_0072_IPMP.l14:
     cmp word [bp - 0x000c], byte 0   ; 0x4c88

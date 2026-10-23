@@ -320,7 +320,7 @@ jumptable_36f8_case_10:
     push word [bp - 0x002c]          ; 0x2e94
     push word [bp - 0x002a]          ; 0x2e97
     push word [bp + 0x4]             ; 0x2e9a
-    call ds_app_IPJO                 ; 0x2e9d
+    call clear_cell_key              ; 0x2e9d
     add sp, byte 6                   ; 0x2ea0
 @..api_idx_0040_LSRO.l23:
     inc word [bp + 0x4]              ; 0x2ea3
@@ -512,7 +512,7 @@ jumptable_36f8_case_13:
     mov ax, 1                        ; 0x3066
     push ax                          ; 0x3069
     push word [bp + 0x4]             ; 0x306a
-    call ds_app_IPJO                 ; 0x306d
+    call clear_cell_key              ; 0x306d
     add sp, byte 6                   ; 0x3070
     mov ax, 3                        ; 0x3073
     push ax                          ; 0x3076
@@ -1100,7 +1100,7 @@ jumptable_36f8_case_42:
     push dx                          ; 0x35d2
     push ax                          ; 0x35d3
     push word [bp - 0x0030]          ; 0x35d4
-    call ds_app_IPJO                 ; 0x35d7
+    call clear_cell_key              ; 0x35d7
     add sp, byte 6                   ; 0x35da
     mov ax, 1                        ; 0x35dd
     push ax                          ; 0x35e0

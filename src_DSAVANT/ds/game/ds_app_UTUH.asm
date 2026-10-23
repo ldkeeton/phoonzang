@@ -24,7 +24,7 @@ ds_app_UTUH: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x1ca1
     push word [bp + 0x6]             ; 0x1ca4
     push word [bp + 0x4]             ; 0x1ca7
-    call ds_app_IPJO                 ; 0x1caa
+    call clear_cell_key              ; 0x1caa
     add sp, byte 6                   ; 0x1cad
 @..ds_app_UTUH.l1:
     ret                              ; 0x1cb0

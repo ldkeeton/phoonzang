@@ -132,14 +132,14 @@ api_idx_0006_TMLR:
     call queue_marker_overlay        ; 0x19e2
     cmp word [bp - 0x0006], byte 0   ; 0x19e5
     je short @..api_idx_0006_TMLR.l11 ; 0x19e9
-    mov ax, word [bss_82e8]          ; 0x19eb
+    mov ax, word [party_status_frame] ; 0x19eb
     inc ax                           ; 0x19ee
     mov cx, 2                        ; 0x19ef
     cwd                              ; 0x19f2
     idiv cx                          ; 0x19f3
-    mov word [bss_82e8], dx          ; 0x19f5
+    mov word [party_status_frame], dx ; 0x19f5
 @..api_idx_0006_TMLR.l11:
-    call ds_app_JKOJ                 ; 0x19f9
+    call draw_party_status_glyphs    ; 0x19f9
     jmp short @..api_idx_0006_TMLR.l17 ; 0x19fc
 @..api_idx_0006_TMLR.l12:
     push word [bss_845e]             ; 0x19fe

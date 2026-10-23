@@ -48,12 +48,12 @@ loc_MVHP:
     call loc_HVLG                    ; 0x6bc3
     test ax, ax                      ; 0x6bc6
     je short @..loc_MVHP.l4          ; 0x6bc8
-    mov ax, word [bss_82e8]          ; 0x6bca
+    mov ax, word [party_status_frame] ; 0x6bca
     inc ax                           ; 0x6bcd
     mov cx, 2                        ; 0x6bce
     cwd                              ; 0x6bd1
     idiv cx                          ; 0x6bd2
-    mov word [bss_82e8], dx          ; 0x6bd4
+    mov word [party_status_frame], dx ; 0x6bd4
     cmp word [hotspot_hit], byte 0   ; 0x6bd8
     jne short @..loc_MVHP.l4         ; 0x6bdd
     call redraw_maze_view            ; 0x6bdf

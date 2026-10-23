@@ -646,7 +646,7 @@ api_idx_007c_MOJH:
     mov bx, ax
     push word [bx + bss_5c0a]
     push word [bx + bss_5c08]
-    call ds_app_SVGG
+    call format_long_decimal
     add sp, byte 6
     mov ax, 0
     push ax

@@ -554,7 +554,7 @@ api_idx_0012_RMOL.jumptable_case3:
     cmp word [bp + 0x4], byte 5
     jge short @..api_idx_0012_RMOL.l44
     mov ax, word [api_idx_0012_RMOL.bss7]
-    add ax, word [bss_82e8]
+    add ax, word [party_status_frame]
     mov cx, 2
     cwd
     idiv cx

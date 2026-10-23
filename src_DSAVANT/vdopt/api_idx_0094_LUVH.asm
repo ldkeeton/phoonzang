@@ -452,7 +452,7 @@ api_idx_0094_LUVH:
     push word [bp - 0x0052]          ; 0x45a8
     push word [bp - 0x0050]          ; 0x45ab
     push word [bp + 0x4]             ; 0x45ae
-    call ds_app_IPJO                 ; 0x45b1
+    call clear_cell_key              ; 0x45b1
     add sp, byte 6                   ; 0x45b4
 @..api_idx_0094_LUVH.l33:
     mov ax, 0xc6                     ; 0x45b7

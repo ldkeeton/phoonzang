@@ -29,11 +29,11 @@ loc_IKLI:
     cwd                              ; 0x08a3
     idiv cx                          ; 0x08a4
     mov word [screen_cache_index], dx ; 0x08a6
-    mov ax, word [bss_82e8]          ; 0x08aa
+    mov ax, word [party_status_frame] ; 0x08aa
     inc ax                           ; 0x08ad
     cwd                              ; 0x08ae
     idiv cx                          ; 0x08af
-    mov word [bss_82e8], dx          ; 0x08b1
+    mov word [party_status_frame], dx ; 0x08b1
     mov ax, word [animation_frame]   ; 0x08b5
     inc ax                           ; 0x08b8
     mov cx, 3                        ; 0x08b9

@@ -7,12 +7,12 @@ loc_HMKT:
     jle short @..loc_HMKT.l3         ; 0x7cbe
     cmp word [bp + 0x6], byte 0      ; 0x7cc0
     je short @..loc_HMKT.l2          ; 0x7cc4
-    mov ax, word [bss_82e8]          ; 0x7cc6
+    mov ax, word [party_status_frame] ; 0x7cc6
     inc ax                           ; 0x7cc9
     mov cx, 2                        ; 0x7cca
     cwd                              ; 0x7ccd
     idiv cx                          ; 0x7cce
-    mov word [bss_82e8], dx          ; 0x7cd0
+    mov word [party_status_frame], dx ; 0x7cd0
     call redraw_maze_view            ; 0x7cd4
     mov ax, 0x10                     ; 0x7cd7
     push ax                          ; 0x7cda

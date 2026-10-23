@@ -145,7 +145,7 @@ api_idx_004e_PHKR:
     push word [bp - 0x0006]          ; 0x5cad
     push word [bp - 0x0004]          ; 0x5cb0
     push word [bp + 0x4]             ; 0x5cb3
-    call ds_app_IPJO                 ; 0x5cb6
+    call clear_cell_key              ; 0x5cb6
     add sp, byte 6                   ; 0x5cb9
     push word [bp + 0x6]             ; 0x5cbc
     call api_idx_0002_MIIL           ; 0x5cbf

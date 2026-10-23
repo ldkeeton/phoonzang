@@ -42,7 +42,7 @@ api_idx_0002_JLUK:
     shl ax, 1                        ; 0x686c
     mov bx, ax                       ; 0x686e
     push word [bx - 0x7d2e]          ; 0x6870
-    push word [bx - 0x7d30]          ; 0x6874
+    push word [bx + party_status_areas] ; 0x6874
     call gfx_restore_area            ; 0x6878
     add sp, byte 6                   ; 0x687b
     inc word [bp - 0x0002]           ; 0x687e

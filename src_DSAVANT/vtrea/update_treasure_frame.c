@@ -19,7 +19,7 @@ update_treasure_frame()
 		draw_animated_glyph_pair();
 	else
 		draw_party_glyph_row();
-	ds_app_JKOJ();
+	draw_party_status_glyphs();
 	if (pending_panel_call >= 0) {	/* pending draw_treasure_panel request */
 		draw_treasure_panel(pending_panel_arg0, pending_panel_arg1);
 		pending_panel_call = -1;

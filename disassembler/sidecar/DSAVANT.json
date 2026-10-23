@@ -148,6 +148,7 @@
           "note": "(stage): switch on stage frees the allocated buffers and closes the data files from that point down, then stops sound and the mouse and calls ds_loc_IGLJ; main calls it with 0 before exiting"
         },
         "03b8": {"name": "release_and_exit", "note": "releases resources then exits with status"},
+        "0422": {"name": "format_long_decimal", "note": "writes a signed long as a decimal string into the caller buffer"},
         "04da": {"name": "draw_padded_number", "note": "format a long as a fixed-width decimal string, pad with leading spaces, and draw it"},
         "052e": {"name": "draw_number_field", "note": "forward a signed value to the fixed-width number formatter"},
         "0547": {"name": "str_subst_char", "note": "copies a string replacing each marker char with a second string"},
@@ -195,6 +196,8 @@
         "16a0": {
           "name": "restore_saved_screen"
         },
+        "1a23": {"name": "compact_grid_page", "note": "removes one row-0 cell entry and compacts the page slot list, byte totals and clamped counts"},
+        "1c2f": {"name": "clear_cell_key", "note": "clears the key word of one grid cell and the row-0 page entry"},
         "20f8": {"name": "pick_party_member", "note": "three-glyph prompt box; waits for keys 1..party count and returns slot 0.., or -1 on Esc"},
         "2331": {"name": "store_word_and_pair", "note": "stores an int word and a two-char pair in the globals at 0xcf6/0xcf8 and returns the address of the word"},
         "2359": {
@@ -224,6 +227,7 @@
           "name": "fade_out_music",
           "note": "(tempo, volume): while music plays, steps volume down by 10 every 25 ms through gfx_set_music_tempo_volume, then gfx_stop_music"
         },
+        "2c69": {"name": "draw_party_status_glyphs", "note": "restores each party slot saved area and redraws its one-glyph status icon"},
         "2dd5": {
           "name": "main"
         },
@@ -432,7 +436,13 @@
         "7ed4": {"name": "glyph_x_table_b", "note": "second set; one byte per glyph at twice the glyph code"},
         "7f1d": {"name": "glyph_y_table_b", "note": "second set; one byte per glyph"},
         "82b6": {"name": "loaded_score_num", "note": "int: score number last loaded by load_score_files; app_gfx_free_score resets it to -1"},
+        "82d0": {"name": "party_status_areas", "note": "six saved screen areas, one per party slot, restored before its glyph is redrawn"},
+        "82e8": {"name": "party_status_frame", "note": "word frame counter the slot glyphs are built from; other overlays advance it"},
+        "82ea": {"name": "party_status_frame_step", "note": "multiplies the frame for slot 3 glyph; cleared when the game starts"},
+        "82ec": {"name": "party_status_frame_seen", "note": "frame value slot 4 last acted on"},
         "82ee": {"name": "party_tag", "note": "int: id compared with cell 2-bit tags and object owner bytes; written into cells by claim_cell"},
+        "82f0": {"name": "party_status_heading", "note": "0..7 heading behind slot 4 glyph; steps one or seven places toward party_tag*2 on a frame change"},
+        "82f2": {"name": "party_status_timer", "note": "six 4-byte records; +0 word positive while the slot is drawn, +2 word is a y offset used elsewhere"},
         "830a": {"name": "game_state", "note": "int: main's switch selector; each value picks the overlay (VINIT, VBASE, VMAZE, ...) main loads next, 3 quits"},
         "830c": {"name": "game_state_arg", "note": "int: main passes it as ensure_game_disk's second argument (which that routine does not read) for game_state 25"},
         "830e": {"name": "party_slot_frame", "note": "int [6]: current frame in party_slot_glyphs for each slot; api_idx_0002_TIUI advances it, wrapping at 0xffff"},

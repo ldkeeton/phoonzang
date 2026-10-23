@@ -5,12 +5,12 @@ loc_QQOI:
     call loc_HVLG
     test ax, ax
     je short @..loc_QQOI.l1
-    mov ax, word [bss_82e8]
+    mov ax, word [party_status_frame]
     inc ax
     mov cx, 2
     cwd
     idiv cx
-    mov word [bss_82e8], dx
+    mov word [party_status_frame], dx
     call redraw_maze_view
     mov ax, 1
     ret

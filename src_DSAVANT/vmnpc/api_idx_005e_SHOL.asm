@@ -197,7 +197,7 @@ api_idx_005e_SHOL:
     jmp near @..api_idx_005e_SHOL.l10 ; 0x15cf
 @..api_idx_005e_SHOL.l20:
     call queue_marker_overlay        ; 0x15d2
-    call ds_app_JKOJ                 ; 0x15d5
+    call draw_party_status_glyphs    ; 0x15d5
     mov word [bss_845e], 0           ; 0x15d8
 @..api_idx_005e_SHOL.l21:
     call api_idx_0006_SQTK           ; 0x15de
@@ -213,11 +213,11 @@ api_idx_005e_SHOL:
     cwd                              ; 0x15fb
     idiv cx                          ; 0x15fc
     mov word [screen_cache_index], dx ; 0x15fe
-    mov ax, word [bss_82e8]          ; 0x1602
+    mov ax, word [party_status_frame] ; 0x1602
     inc ax                           ; 0x1605
     cwd                              ; 0x1606
     idiv cx                          ; 0x1607
-    mov word [bss_82e8], dx          ; 0x1609
+    mov word [party_status_frame], dx ; 0x1609
 @..api_idx_005e_SHOL.l22:
     cmp word [bp - 0x000c], byte 0   ; 0x160d
     jne short @..api_idx_005e_SHOL.l23 ; 0x1611

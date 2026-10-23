@@ -23,7 +23,7 @@ api_idx_0054_IHKM:
     mov bx, ax                       ; 0x5dc3
     push word [bx + bss_5c0a]        ; 0x5dc5
     push word [bx + bss_5c08]        ; 0x5dc9
-    call ds_app_SVGG                 ; 0x5dcd
+    call format_long_decimal         ; 0x5dcd
     add sp, byte 6                   ; 0x5dd0
     push word [bp + 0xa]             ; 0x5dd3
     lea ax, word [bp - 0x0054]       ; 0x5dd6

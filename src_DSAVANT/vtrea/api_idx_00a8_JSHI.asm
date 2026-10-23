@@ -71,7 +71,7 @@ api_idx_00a8_JSHI:
     push ax                          ; 0x5e21
     push word [bp - 0x0006]          ; 0x5e22
     push word [bp - 0x0008]          ; 0x5e25
-    call ds_app_SVGG                 ; 0x5e28
+    call format_long_decimal         ; 0x5e28
     add sp, byte 6                   ; 0x5e2b
     mov ax, 0x24                     ; 0x5e2e
     push ax                          ; 0x5e31

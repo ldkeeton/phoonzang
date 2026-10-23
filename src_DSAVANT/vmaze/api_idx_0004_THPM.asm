@@ -10,7 +10,7 @@ api_idx_0004_THPM:
     pop cx                           ; 0x7556
     cmp ax, word [bss_8300]          ; 0x7557
     jge short @..api_idx_0004_THPM.l1 ; 0x755b
-    mov word [bss_82ea], 1           ; 0x755d
+    mov word [party_status_frame_step], 1 ; 0x755d
 @..api_idx_0004_THPM.l1:
     mov word [bp - 0x0002], 0        ; 0x7563
     jmp short @..api_idx_0004_THPM.l4 ; 0x7568

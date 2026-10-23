@@ -9,10 +9,10 @@ api_idx_0002_IPQN:
     shl cx, 1                        ; 0x1217
     shl cx, 1                        ; 0x1219
     mov bx, cx                       ; 0x121b
-    sub word [bx + bss_82f2], ax     ; 0x121d
-    cmp word [bx + bss_82f2], byte 0 ; 0x1221
+    sub word [bx + party_status_timer], ax ; 0x121d
+    cmp word [bx + party_status_timer], byte 0 ; 0x1221
     jg short @..api_idx_0002_IPQN.l2 ; 0x1226
-    mov word [bx + bss_82f2], 0      ; 0x1228
+    mov word [bx + party_status_timer], 0 ; 0x1228
     mov word [bx + bss_82f4], 0      ; 0x122e
 @..api_idx_0002_IPQN.l2:
     inc word [bp - 0x0002]           ; 0x1234

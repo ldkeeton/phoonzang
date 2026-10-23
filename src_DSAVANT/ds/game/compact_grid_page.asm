@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_UPSN: ; Aztec csav frame=0x0008
+compact_grid_page: ; Aztec csav frame=0x0008
     mov ax, 0xfff8                   ; 0x1a23
     call aztec_csav                  ; 0x1a26
     mov ax, 0x248                    ; 0x1a29
@@ -21,7 +21,7 @@ ds_app_UPSN: ; Aztec csav frame=0x0008
     mov byte [bx + 0x5e30], 0        ; 0x1a52
     mov byte [bx + 0x5e31], 0        ; 0x1a57
     mov word [bp - 0x0002], 0        ; 0x1a5c
-@..ds_app_UPSN.l1:
+@..compact_grid_page.l1:
     mov ax, 0x248                    ; 0x1a61
     imul word [bp + 0x4]             ; 0x1a64
     add ax, word [bp - 0x0002]       ; 0x1a67
@@ -31,9 +31,9 @@ ds_app_UPSN: ; Aztec csav frame=0x0008
     inc word [bp - 0x0002]           ; 0x1a74
     mov ax, word [bp - 0x0002]       ; 0x1a77
     cmp ax, strict word 0xe          ; 0x1a7a
-    jl short @..ds_app_UPSN.l1       ; 0x1a7d
+    jl short @..compact_grid_page.l1 ; 0x1a7d
     mov word [bp - 0x0002], 0        ; 0x1a7f
-@..ds_app_UPSN.l2:
+@..compact_grid_page.l2:
     mov ax, 0x248                    ; 0x1a84
     imul word [bp + 0x4]             ; 0x1a87
     add ax, word [bp - 0x0002]       ; 0x1a8a
@@ -41,12 +41,12 @@ ds_app_UPSN: ; Aztec csav frame=0x0008
     mov al, byte [bx + 0x5d48]       ; 0x1a8f
     sub ah, ah                       ; 0x1a93
     cmp ax, word [bp + 0x6]          ; 0x1a95
-    je short @..ds_app_UPSN.l3       ; 0x1a98
-    jmp near @..ds_app_UPSN.l5       ; 0x1a9a
-@..ds_app_UPSN.l3:
+    je short @..compact_grid_page.l3 ; 0x1a98
+    jmp near @..compact_grid_page.l5 ; 0x1a9a
+@..compact_grid_page.l3:
     mov byte [bx + 0x5d48], 0xff     ; 0x1a9d
     mov ax, word [bp - 0x0002]       ; 0x1aa2
-    jmp short @..ds_app_UPSN.l4      ; 0x1aa5
+    jmp short @..compact_grid_page.l4 ; 0x1aa5
 jumptable_1aff_case_0:
     push word [bp - 0x0002]          ; 0x1aa7
     push word [bp + 0x4]             ; 0x1aaa
@@ -68,13 +68,13 @@ jumptable_1aff_case_0:
     mov bx, ax                       ; 0x1ad2
     pop ax                           ; 0x1ad4
     add byte [bx + 0x5dab], al       ; 0x1ad5
-    jmp short @..ds_app_UPSN.l5      ; 0x1ad9
+    jmp short @..compact_grid_page.l5 ; 0x1ad9
 jumptable_1aff_case_2:
     mov ax, 0x248                    ; 0x1adb
     imul word [bp + 0x4]             ; 0x1ade
     mov bx, ax                       ; 0x1ae1
     mov byte [bx + 0x5dac], 0        ; 0x1ae3
-    jmp short @..ds_app_UPSN.l5      ; 0x1ae8
+    jmp short @..compact_grid_page.l5 ; 0x1ae8
 jumptable_1aff_case_3:
     mov ax, 0x248                    ; 0x1aea
     imul word [bp + 0x4]             ; 0x1aed
@@ -82,7 +82,7 @@ jumptable_1aff_case_3:
     mov al, byte [bx + 0x5daa]       ; 0x1af2
     add bx, word [bp - 0x0002]       ; 0x1af6
     mov byte [bx + 0x5daa], al       ; 0x1af9
-    jmp short @..ds_app_UPSN.l5      ; 0x1afd
+    jmp short @..compact_grid_page.l5 ; 0x1afd
 jumptable_1aff:
     dw jumptable_1aff_case_0 - IMAGE_BASE      ; 0x1aff
     dw jumptable_1aff_case_0 - IMAGE_BASE      ; 0x1b01
@@ -92,13 +92,13 @@ jumptable_1aff:
     dw jumptable_1aff_case_3 - IMAGE_BASE      ; 0x1b09
     dw jumptable_1aff_case_3 - IMAGE_BASE      ; 0x1b0b
     dw jumptable_1aff_case_3 - IMAGE_BASE      ; 0x1b0d
-@..ds_app_UPSN.l4:
+@..compact_grid_page.l4:
     cmp ax, strict word 8            ; 0x1b0f
-    jae short @..ds_app_UPSN.l5      ; 0x1b12
+    jae short @..compact_grid_page.l5 ; 0x1b12
     xchg bx, ax                      ; 0x1b14
     shl bx, 1                        ; 0x1b15
     jmp [cs:bx + jumptable_1aff - IMAGE_BASE] ; 0x1b17
-@..ds_app_UPSN.l5:
+@..compact_grid_page.l5:
     mov ax, 0x248                    ; 0x1b1c
     imul word [bp + 0x4]             ; 0x1b1f
     add ax, word [bp - 0x0002]       ; 0x1b22
@@ -106,11 +106,11 @@ jumptable_1aff:
     mov al, byte [bx + 0x5d48]       ; 0x1b27
     sub ah, ah                       ; 0x1b2b
     cmp ax, 0xff                     ; 0x1b2d
-    jne short @..ds_app_UPSN.l6      ; 0x1b30
-    jmp near @..ds_app_UPSN.l12      ; 0x1b32
-@..ds_app_UPSN.l6:
+    jne short @..compact_grid_page.l6 ; 0x1b30
+    jmp near @..compact_grid_page.l12 ; 0x1b32
+@..compact_grid_page.l6:
     mov word [bp - 0x0004], 0        ; 0x1b35
-@..ds_app_UPSN.l7:
+@..compact_grid_page.l7:
     mov ax, 0x248                    ; 0x1b3a
     imul word [bp + 0x4]             ; 0x1b3d
     push ax                          ; 0x1b40
@@ -159,7 +159,7 @@ jumptable_1aff:
     inc word [bp - 0x0004]           ; 0x1ba8
     mov ax, word [bp - 0x0004]       ; 0x1bab
     cmp ax, strict word 2            ; 0x1bae
-    jl short @..ds_app_UPSN.l7       ; 0x1bb1
+    jl short @..compact_grid_page.l7 ; 0x1bb1
     mov ax, 0x248                    ; 0x1bb3
     imul word [bp + 0x4]             ; 0x1bb6
     push ax                          ; 0x1bb9
@@ -187,30 +187,30 @@ jumptable_1aff:
     sub ah, ah                       ; 0x1bef
     mov dx, word [bp - 0x0008]       ; 0x1bf1
     cmp ax, dx                       ; 0x1bf4
-    jge short @..ds_app_UPSN.l8      ; 0x1bf6
+    jge short @..compact_grid_page.l8 ; 0x1bf6
     mov ax, dx                       ; 0x1bf8
-    jmp short @..ds_app_UPSN.l9      ; 0x1bfa
-@..ds_app_UPSN.l8:
+    jmp short @..compact_grid_page.l9 ; 0x1bfa
+@..compact_grid_page.l8:
     mov al, byte [bx + 0x5e30]       ; 0x1bfc
     sub ah, ah                       ; 0x1c00
-@..ds_app_UPSN.l9:
+@..compact_grid_page.l9:
     mov byte [bx + 0x5e30], al       ; 0x1c02
     mov al, byte [bx + 0x5e31]       ; 0x1c06
     sub ah, ah                       ; 0x1c0a
     cmp ax, word [bp - 0x0006]       ; 0x1c0c
-    jge short @..ds_app_UPSN.l10     ; 0x1c0f
+    jge short @..compact_grid_page.l10 ; 0x1c0f
     mov ax, word [bp - 0x0006]       ; 0x1c11
-    jmp short @..ds_app_UPSN.l11     ; 0x1c14
-@..ds_app_UPSN.l10:
+    jmp short @..compact_grid_page.l11 ; 0x1c14
+@..compact_grid_page.l10:
     mov al, byte [bx + 0x5e31]       ; 0x1c16
     sub ah, ah                       ; 0x1c1a
-@..ds_app_UPSN.l11:
+@..compact_grid_page.l11:
     mov byte [bx + 0x5e31], al       ; 0x1c1c
-@..ds_app_UPSN.l12:
+@..compact_grid_page.l12:
     inc word [bp - 0x0002]           ; 0x1c20
     mov ax, word [bp - 0x0002]       ; 0x1c23
     cmp ax, strict word 8            ; 0x1c26
-    jge short @..ds_app_UPSN.l13     ; 0x1c29
-    jmp near @..ds_app_UPSN.l2       ; 0x1c2b
-@..ds_app_UPSN.l13:
+    jge short @..compact_grid_page.l13 ; 0x1c29
+    jmp near @..compact_grid_page.l2 ; 0x1c2b
+@..compact_grid_page.l13:
     ret                              ; 0x1c2e

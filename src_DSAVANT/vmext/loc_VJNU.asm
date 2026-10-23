@@ -10,7 +10,7 @@ loc_VJNU:
     push ax                          ; 0x0647
     call aztec_setmem                ; 0x0648
     add sp, byte 6                   ; 0x064b
-    mov word [bss_82ea], 0           ; 0x064e
+    mov word [party_status_frame_step], 0 ; 0x064e
     mov ax, word [bp + 0x4]          ; 0x0654
     jmp short @..loc_VJNU.l5         ; 0x0657
 @..loc_VJNU.l1:

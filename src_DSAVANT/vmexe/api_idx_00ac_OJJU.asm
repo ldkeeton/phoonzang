@@ -1213,7 +1213,7 @@ jumptable_8145:
     pop ax                           ; 0x8533
     add ax, cx                       ; 0x8534
     mov word [bp - 0x0058], ax       ; 0x8536
-    cmp word [bss_82f2], byte 0      ; 0x8539
+    cmp word [party_status_timer], byte 0 ; 0x8539
     jle short @..api_idx_00ac_OJJU.l56 ; 0x853e
     mov ax, word [bss_82f4]          ; 0x8540
     add word [bp - 0x0058], ax       ; 0x8543

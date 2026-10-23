@@ -262,7 +262,7 @@ api_idx_005e_KVNO:
     push ax                          ; 0x5a0f
     push word [bp - 0x003c]          ; 0x5a10
     push word [bp - 0x003e]          ; 0x5a13
-    call ds_app_SVGG                 ; 0x5a16
+    call format_long_decimal         ; 0x5a16
     add sp, byte 6                   ; 0x5a19
     mov ax, 0x24                     ; 0x5a1c
     push ax                          ; 0x5a1f
@@ -381,7 +381,7 @@ api_idx_005e_KVNO:
     push word [bp - 0x000c]          ; 0x5b1d
     push word [bp - 0x000a]          ; 0x5b20
     push word [bp + 0x4]             ; 0x5b23
-    call ds_app_IPJO                 ; 0x5b26
+    call clear_cell_key              ; 0x5b26
     add sp, byte 6                   ; 0x5b29
     push word [bp + 0x6]             ; 0x5b2c
     call api_idx_0002_MIIL           ; 0x5b2f

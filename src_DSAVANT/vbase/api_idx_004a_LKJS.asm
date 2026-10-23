@@ -2,7 +2,7 @@
 api_idx_004a_LKJS:
     mov ax, 0xffb6                   ; 0x6a0f
     call aztec_csav                  ; 0x6a12
-    mov word [bss_82e8], 0           ; 0x6a15
+    mov word [party_status_frame], 0 ; 0x6a15
     mov word [bss_8af0], 0           ; 0x6a1b
     jmp short @..api_idx_004a_LKJS.l2 ; 0x6a21
 @..api_idx_004a_LKJS.l1:

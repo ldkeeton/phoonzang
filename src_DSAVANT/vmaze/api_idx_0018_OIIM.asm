@@ -43,12 +43,12 @@ api_idx_0018_OIIM:
     mov word [bp - 0x000a], dx       ; 0x7bbb
     mov word [bp - 0x0002], 1        ; 0x7bbe
 @..api_idx_0018_OIIM.l3:
-    mov ax, word [bss_82e8]          ; 0x7bc3
+    mov ax, word [party_status_frame] ; 0x7bc3
     inc ax                           ; 0x7bc6
     mov cx, 2                        ; 0x7bc7
     cwd                              ; 0x7bca
     idiv cx                          ; 0x7bcb
-    mov word [bss_82e8], dx          ; 0x7bcd
+    mov word [party_status_frame], dx ; 0x7bcd
     call api_idx_0030_JQMM           ; 0x7bd1
     mov al, byte [bp - 0x000c]       ; 0x7bd4
     mov byte [bp - 0x0018], al       ; 0x7bd7

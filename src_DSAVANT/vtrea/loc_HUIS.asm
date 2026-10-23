@@ -521,7 +521,7 @@ loc_HUIS:
     push ax                          ; 0x5c69
     push word [bp - 0x0086]          ; 0x5c6a
     push word [bp - 0x0088]          ; 0x5c6e
-    call ds_app_SVGG                 ; 0x5c72
+    call format_long_decimal         ; 0x5c72
     add sp, byte 6                   ; 0x5c75
     mov ax, 0x24                     ; 0x5c78
     push ax                          ; 0x5c7b
@@ -559,7 +559,7 @@ loc_HUIS:
     push ax                          ; 0x5cc8
     push word [bp - 0x008a]          ; 0x5cc9
     push word [bp - 0x008c]          ; 0x5ccd
-    call ds_app_SVGG                 ; 0x5cd1
+    call format_long_decimal         ; 0x5cd1
     add sp, byte 6                   ; 0x5cd4
     mov ax, 0x24                     ; 0x5cd7
     push ax                          ; 0x5cda

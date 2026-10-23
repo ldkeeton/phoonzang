@@ -22,7 +22,7 @@ jumptable_2326_case_36:
 jumptable_2326_case_43:
     mov ax, 0x23                     ; 0x1d03
     imul word [bp + 0x8]             ; 0x1d06
-    add word [bss_82f2], ax          ; 0x1d09
+    add word [party_status_timer], ax ; 0x1d09
     mov ax, 0                        ; 0x1d0d
     push ax                          ; 0x1d10
     push word [bss_82f4]             ; 0x1d11

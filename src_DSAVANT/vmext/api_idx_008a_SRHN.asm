@@ -80,12 +80,12 @@ api_idx_008a_SRHN:
     call loc_HVLG                    ; 0x0cd7
     test ax, ax                      ; 0x0cda
     je short @..api_idx_008a_SRHN.l5 ; 0x0cdc
-    mov ax, word [bss_82e8]          ; 0x0cde
+    mov ax, word [party_status_frame] ; 0x0cde
     inc ax                           ; 0x0ce1
     mov cx, 2                        ; 0x0ce2
     cwd                              ; 0x0ce5
     idiv cx                          ; 0x0ce6
-    mov word [bss_82e8], dx          ; 0x0ce8
+    mov word [party_status_frame], dx ; 0x0ce8
 @..api_idx_008a_SRHN.l5:
     call redraw_maze_view            ; 0x0cec
     cmp word [bp - 0x0006], byte 0   ; 0x0cef
@@ -245,12 +245,12 @@ api_idx_008a_SRHN:
     call loc_HVLG                    ; 0x0e46
     test ax, ax                      ; 0x0e49
     je short @..api_idx_008a_SRHN.l22 ; 0x0e4b
-    mov ax, word [bss_82e8]          ; 0x0e4d
+    mov ax, word [party_status_frame] ; 0x0e4d
     inc ax                           ; 0x0e50
     mov cx, 2                        ; 0x0e51
     cwd                              ; 0x0e54
     idiv cx                          ; 0x0e55
-    mov word [bss_82e8], dx          ; 0x0e57
+    mov word [party_status_frame], dx ; 0x0e57
 @..api_idx_008a_SRHN.l22:
     call redraw_maze_view            ; 0x0e5b
     cmp word [bp - 0x0006], byte 0   ; 0x0e5e

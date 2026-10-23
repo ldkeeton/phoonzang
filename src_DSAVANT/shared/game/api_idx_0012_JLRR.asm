@@ -620,7 +620,7 @@ api_idx_0012_JLRR.jumptable_case9:
     mov ax, word [bx + 0x3e8]
     mov word [bp - 0x0010], ax
     mov word [bp - 0x0008], 4
-    mov ax, word [bss_82e8]
+    mov ax, word [party_status_frame]
     add ax, strict word 5
     mov word [bp - 0x000a], ax
     jmp near @..api_idx_0012_JLRR.l49
@@ -645,7 +645,7 @@ api_idx_0012_JLRR.jumptable_case10:
     mov word [bp - 0x0010], ax
     mov word [bp - 0x0008], 9
     mov ax, 0
-    cmp word [bss_82e8], byte 0
+    cmp word [party_status_frame], byte 0
     je short @..api_idx_0012_JLRR.l40
     mov ax, 0xa
 @..api_idx_0012_JLRR.l40:

@@ -757,7 +757,7 @@ api_idx_0010_NIMV.jumptable_case9:
 api_idx_0010_NIMV.jumptable_case10:
     mov word [bp - 0x0010], 9
     mov word [bp - 0x000c], 1
-    mov ax, word [bss_82e8]
+    mov ax, word [party_status_frame]
     inc ax
     inc ax
     mov word [bp - 0x000e], ax
@@ -766,7 +766,7 @@ api_idx_0010_NIMV.jumptable_case11:
     mov word [bp - 0x0010], 9
     mov word [bp - 0x000c], 7
     mov ax, 0
-    cmp word [bss_82e8], byte 0
+    cmp word [party_status_frame], byte 0
     je short @..api_idx_0010_NIMV.l43
     mov ax, 8
 @..api_idx_0010_NIMV.l43:

@@ -315,7 +315,7 @@ bss_0e34 equ __zbss_0e34 - __zdseg_start
 
 %include "ds/game/ds_app_string_TVHI.asm"  ; 0x03da
 
-%include "ds/game/ds_app_SVGG.asm"         ; 0x0422
+%include "ds/game/format_long_decimal.asm" ; 0x0422
 
 %include "ds/game/ds_app_OLKR.asm"         ; 0x04c4
 
@@ -460,10 +460,10 @@ cell_key_grid equ __zbss_5c34 - __zdseg_start
 
 %include "ds/game/ds_app_mem_TMKK.asm"     ; 0x184f
 
-%include "ds/game/ds_app_UPSN.asm"         ; 0x1a23
+%include "ds/game/compact_grid_page.asm"   ; 0x1a23
 
 ; cell_key_grid equ __zbss_5c34 - __zdseg_start
-%include "ds/game/ds_app_IPJO.asm"         ; 0x1c2f
+%include "ds/game/clear_cell_key.asm"      ; 0x1c2f
 
 %include "ds/game/ds_app_UTUH.asm"         ; 0x1c6e
 
@@ -558,13 +558,14 @@ bss_597f equ __zbss_597f - __zdseg_start
 bss_82b8 equ __zbss_82b8 - __zdseg_start
 %include "ds/game/ds_app_LPKV.asm"         ; 0x2c11
 
-bss_82e8  equ __zbss_82e8 - __zdseg_start
-bss_82ea  equ __zbss_82ea - __zdseg_start
-bss_82ec  equ __zbss_82ec - __zdseg_start
-party_tag equ __zbss_82ee - __zdseg_start
-bss_82f0  equ __zbss_82f0 - __zdseg_start
-bss_82f2  equ __zbss_82f2 - __zdseg_start
-%include "ds/game/ds_app_JKOJ.asm"         ; 0x2c69
+party_status_areas      equ __zbss_82d0 - __zdseg_start
+party_status_frame      equ __zbss_82e8 - __zdseg_start
+party_status_frame_step equ __zbss_82ea - __zdseg_start
+party_status_frame_seen equ __zbss_82ec - __zdseg_start
+party_tag               equ __zbss_82ee - __zdseg_start
+party_status_heading    equ __zbss_82f0 - __zdseg_start
+party_status_timer      equ __zbss_82f2 - __zdseg_start
+%include "ds/game/draw_party_status_glyphs.asm" ; 0x2c69
 
 dseg_0bfa      equ __zdseg_0bfa - __zdseg_start
 game_state     equ __zbss_830a - __zdseg_start
@@ -1566,7 +1567,9 @@ __zbss_7f1d:
 __zbss_82b6:
     resb 0x0002
 __zbss_82b8:
-    resb 0x0030
+    resb 0x0018
+__zbss_82d0:
+    resb 0x0018
 __zbss_82e8:
     resb 0x0002
 __zbss_82ea:

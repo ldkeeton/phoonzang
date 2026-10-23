@@ -57,11 +57,11 @@ api_idx_0004_OPGP:
     push ax                          ; 0x66e6
     call aztec_setmem                ; 0x66e7
     add sp, byte 6                   ; 0x66ea
-    mov word [bss_82ea], 0           ; 0x66ed
+    mov word [party_status_frame_step], 0 ; 0x66ed
     mov ax, word [party_tag]         ; 0x66f3
     shl ax, 1                        ; 0x66f6
-    mov word [bss_82f0], ax          ; 0x66f8
-    mov word [bss_82ec], 0           ; 0x66fb
+    mov word [party_status_heading], ax ; 0x66f8
+    mov word [party_status_frame_seen], 0 ; 0x66fb
     mov word [bp - 0x0004], 0xf      ; 0x6701
 @..api_idx_0004_OPGP.l6:
     mov bx, word [bp - 0x0004]       ; 0x6706

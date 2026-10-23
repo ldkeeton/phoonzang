@@ -1,14 +1,14 @@
 ; auto-generated
-ds_app_IPJO: ; Aztec csav frame=0x0000
+clear_cell_key: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x1c2f
     call aztec_csav                  ; 0x1c32
     cmp word [bp + 0x6], byte 0      ; 0x1c35
-    jne short @..ds_app_IPJO.l1      ; 0x1c39
+    jne short @..clear_cell_key.l1   ; 0x1c39
     push word [bp + 0x8]             ; 0x1c3b
     push word [bp + 0x4]             ; 0x1c3e
-    call ds_app_UPSN                 ; 0x1c41
+    call compact_grid_page           ; 0x1c41
     add sp, byte 4                   ; 0x1c44
-@..ds_app_IPJO.l1:
+@..clear_cell_key.l1:
     mov ax, 0x248                    ; 0x1c47
     imul word [bp + 0x4]             ; 0x1c4a
     push ax                          ; 0x1c4d

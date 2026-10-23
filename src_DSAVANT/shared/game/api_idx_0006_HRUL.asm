@@ -108,14 +108,14 @@ api_idx_0006_HRUL:
     call queue_marker_overlay
     cmp word [bp - 0x0006], byte 0
     je short @..api_idx_0006_HRUL.l10
-    mov ax, word [bss_82e8]
+    mov ax, word [party_status_frame]
     inc ax
     mov cx, 2
     cwd
     idiv cx
-    mov word [bss_82e8], dx
+    mov word [party_status_frame], dx
 @..api_idx_0006_HRUL.l10:
-    call ds_app_JKOJ
+    call draw_party_status_glyphs
     jmp short @..api_idx_0006_HRUL.l16
 @..api_idx_0006_HRUL.l11:
     push word [bss_845e]

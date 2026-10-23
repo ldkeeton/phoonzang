@@ -549,7 +549,7 @@ api_idx_004e_HUKL:
     shl ax, 1                        ; 0x3d8e
     shl ax, 1                        ; 0x3d90
     mov bx, ax                       ; 0x3d92
-    mov ax, word [bx + bss_82f2]     ; 0x3d94
+    mov ax, word [bx + party_status_timer] ; 0x3d94
     mov word [bx + bss_9a32], ax     ; 0x3d98
     mov ax, word [bx + bss_82f4]     ; 0x3d9c
     mov word [bx + bss_9a34], ax     ; 0x3da0

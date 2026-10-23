@@ -20,7 +20,7 @@ update_treasure_frame:
 @..update_treasure_frame.l1:
     call draw_party_glyph_row        ; 0x080c
 @..update_treasure_frame.l2:
-    call ds_app_JKOJ                 ; 0x080f
+    call draw_party_status_glyphs    ; 0x080f
     cmp word [pending_panel_call], byte 0 ; 0x0812
     jl short @..update_treasure_frame.l3 ; 0x0817
     push word [pending_panel_arg1]   ; 0x0819

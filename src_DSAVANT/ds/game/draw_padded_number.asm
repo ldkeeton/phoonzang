@@ -6,7 +6,7 @@ draw_padded_number: ; Aztec csav frame=0x0100
     push ax                          ; 0x04e4
     push word [bp + 0x6]             ; 0x04e5
     push word [bp + 0x4]             ; 0x04e8
-    call ds_app_SVGG                 ; 0x04eb
+    call format_long_decimal         ; 0x04eb
     add sp, byte 6                   ; 0x04ee
 @..draw_padded_number.l1:
     lea ax, word [bp - 0x00ff]       ; 0x04f1

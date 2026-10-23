@@ -107,14 +107,14 @@ api_idx_0006_SQTK:
     call queue_marker_overlay        ; 0x104c
     cmp word [bp - 0x0006], byte 0   ; 0x104f
     je short @..api_idx_0006_SQTK.l10 ; 0x1053
-    mov ax, word [bss_82e8]          ; 0x1055
+    mov ax, word [party_status_frame] ; 0x1055
     inc ax                           ; 0x1058
     mov cx, 2                        ; 0x1059
     cwd                              ; 0x105c
     idiv cx                          ; 0x105d
-    mov word [bss_82e8], dx          ; 0x105f
+    mov word [party_status_frame], dx ; 0x105f
 @..api_idx_0006_SQTK.l10:
-    call ds_app_JKOJ                 ; 0x1063
+    call draw_party_status_glyphs    ; 0x1063
     jmp short @..api_idx_0006_SQTK.l16 ; 0x1066
 @..api_idx_0006_SQTK.l11:
     push word [bss_845e]             ; 0x1068

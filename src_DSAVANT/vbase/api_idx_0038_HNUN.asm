@@ -639,7 +639,7 @@ api_idx_0038_HNUN:
     shl ax, 1                        ; 0x35de
     mov bx, ax                       ; 0x35e0
     mov ax, word [bx + bss_9a32]     ; 0x35e2
-    mov word [bx + bss_82f2], ax     ; 0x35e6
+    mov word [bx + party_status_timer], ax ; 0x35e6
     mov ax, word [bx + bss_9a34]     ; 0x35ea
     mov word [bx + bss_82f4], ax     ; 0x35ee
     inc word [bp - 0x0002]           ; 0x35f2

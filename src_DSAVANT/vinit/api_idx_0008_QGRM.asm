@@ -108,7 +108,7 @@ api_idx_0008_QGRM:
     shl cx, 1                        ; 0x151a
     mov bx, cx                       ; 0x151c
     mov word [bx - 0x7d2e], dx       ; 0x151e
-    mov word [bx - 0x7d30], ax       ; 0x1522
+    mov word [bx + party_status_areas], ax ; 0x1522
     inc word [bp - 0x0002]           ; 0x1526
     mov ax, word [bp - 0x0002]       ; 0x1529
     cmp ax, strict word 6            ; 0x152c

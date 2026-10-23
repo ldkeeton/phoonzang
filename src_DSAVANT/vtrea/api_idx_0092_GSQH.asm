@@ -334,7 +334,7 @@ api_idx_0092_GSQH:
     push word [bp - 0x0050]          ; 0x4ed6
     push word [bp - 0x004e]          ; 0x4ed9
     push word [bp + 0x4]             ; 0x4edc
-    call ds_app_IPJO                 ; 0x4edf
+    call clear_cell_key              ; 0x4edf
     add sp, byte 6                   ; 0x4ee2
 @..api_idx_0092_GSQH.l19:
     mov ax, 0xc6                     ; 0x4ee5

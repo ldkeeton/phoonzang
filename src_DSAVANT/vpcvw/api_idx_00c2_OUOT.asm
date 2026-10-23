@@ -97,7 +97,7 @@ api_idx_00c2_OUOT:
     push word [bp + 0x6]             ; 0x55e0
     push word [roster_page]          ; 0x55e3
     push word [bp + 0x4]             ; 0x55e7
-    call ds_app_IPJO                 ; 0x55ea
+    call clear_cell_key              ; 0x55ea
     add sp, byte 6                   ; 0x55ed
     mov word [roster_alt_mode], 1    ; 0x55f0
     push word [bp + 0x4]             ; 0x55f6
@@ -752,7 +752,7 @@ api_idx_00c2_OUOT:
     push word [bp + 0x6]             ; 0x5be6
     push word [roster_page]          ; 0x5be9
     push word [bp + 0x4]             ; 0x5bed
-    call ds_app_IPJO                 ; 0x5bf0
+    call clear_cell_key              ; 0x5bf0
     add sp, byte 6                   ; 0x5bf3
     cmp word [bp - 0x001c], byte 0   ; 0x5bf6
     je short @..api_idx_00c2_OUOT.l46 ; 0x5bfa

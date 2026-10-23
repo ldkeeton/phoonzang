@@ -70,12 +70,12 @@ ovmain:
     add sp, byte 0x0a                ; 0x00d9
     mov word [bss_9068], ax          ; 0x00dc
     mov word [bss_906a], 1           ; 0x00df
-    mov ax, word [bss_82e8]          ; 0x00e5
+    mov ax, word [party_status_frame] ; 0x00e5
     inc ax                           ; 0x00e8
     mov cx, 2                        ; 0x00e9
     cwd                              ; 0x00ec
     idiv cx                          ; 0x00ed
-    mov word [bss_82e8], dx          ; 0x00ef
+    mov word [party_status_frame], dx ; 0x00ef
     call api_idx_0030_JQMM           ; 0x00f3
     mov word [screen_cache_index], 1 ; 0x00f6
     mov word [bss_8f22], 0           ; 0x00fc

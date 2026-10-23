@@ -277,7 +277,7 @@ api_idx_0010_UUTT:
     jmp near @..api_idx_0010_UUTT.l11 ; 0x9ccc
 @..api_idx_0010_UUTT.l19:
     call queue_marker_overlay        ; 0x9ccf
-    call ds_app_JKOJ                 ; 0x9cd2
+    call draw_party_status_glyphs    ; 0x9cd2
     mov word [bss_845e], 0           ; 0x9cd5
 @..api_idx_0010_UUTT.l20:
     call api_idx_0006_TMLR           ; 0x9cdb
@@ -293,11 +293,11 @@ api_idx_0010_UUTT:
     cwd                              ; 0x9cf8
     idiv cx                          ; 0x9cf9
     mov word [screen_cache_index], dx ; 0x9cfb
-    mov ax, word [bss_82e8]          ; 0x9cff
+    mov ax, word [party_status_frame] ; 0x9cff
     inc ax                           ; 0x9d02
     cwd                              ; 0x9d03
     idiv cx                          ; 0x9d04
-    mov word [bss_82e8], dx          ; 0x9d06
+    mov word [party_status_frame], dx ; 0x9d06
 @..api_idx_0010_UUTT.l21:
     cmp word [bp - 0x0010], byte 0   ; 0x9d0a
     jne short @..api_idx_0010_UUTT.l22 ; 0x9d0e

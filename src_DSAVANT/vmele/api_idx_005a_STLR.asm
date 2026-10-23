@@ -123,7 +123,7 @@ api_idx_005a_STLR:
     jmp near @..api_idx_005a_STLR.l4 ; 0x2e10
 @..api_idx_005a_STLR.l12:
     call queue_marker_overlay        ; 0x2e13
-    call ds_app_JKOJ                 ; 0x2e16
+    call draw_party_status_glyphs    ; 0x2e16
     mov word [bss_845e], 0           ; 0x2e19
 @..api_idx_005a_STLR.l13:
     call api_idx_0006_IRNH           ; 0x2e1f
@@ -139,11 +139,11 @@ api_idx_005a_STLR:
     cwd                              ; 0x2e3c
     idiv cx                          ; 0x2e3d
     mov word [screen_cache_index], dx ; 0x2e3f
-    mov ax, word [bss_82e8]          ; 0x2e43
+    mov ax, word [party_status_frame] ; 0x2e43
     inc ax                           ; 0x2e46
     cwd                              ; 0x2e47
     idiv cx                          ; 0x2e48
-    mov word [bss_82e8], dx          ; 0x2e4a
+    mov word [party_status_frame], dx ; 0x2e4a
 @..api_idx_005a_STLR.l14:
     cmp word [bp - 0x000a], byte 0   ; 0x2e4e
     jne short @..api_idx_005a_STLR.l15 ; 0x2e52

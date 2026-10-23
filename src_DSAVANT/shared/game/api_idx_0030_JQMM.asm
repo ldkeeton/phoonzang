@@ -116,7 +116,7 @@ api_idx_0030_JQMM:
     call gfx_draw_text
     add sp, byte 0x16
 @..api_idx_0030_JQMM.l4:
-    call ds_app_JKOJ
+    call draw_party_status_glyphs
     ret
 @..api_idx_0030_JQMM.l5:
     cmp word [maze_variant], byte 1
@@ -149,7 +149,7 @@ api_idx_0030_JQMM:
     call api_idx_001e_IGLM
     call api_idx_0024_NUGL
 @..api_idx_0030_JQMM.l7:
-    call ds_app_JKOJ
+    call draw_party_status_glyphs
     ret
 @..api_idx_0030_JQMM.l8:
     mov ax, 0
@@ -2227,5 +2227,5 @@ api_idx_0030_JQMM.jumptable_case7:
     jl short @..api_idx_0030_JQMM.l93
     jmp near @..api_idx_0030_JQMM.l40
 @..api_idx_0030_JQMM.l93:
-    call ds_app_JKOJ
+    call draw_party_status_glyphs
     ret

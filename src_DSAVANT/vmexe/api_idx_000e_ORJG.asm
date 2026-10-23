@@ -3831,7 +3831,7 @@ jumptable_5eb8_case_63:
 jumptable_5eb8_case_82:
     mov ax, 0x23                     ; 0x5deb
     imul word [bp + 0x8]             ; 0x5dee
-    add word [bss_82f2], ax          ; 0x5df1
+    add word [party_status_timer], ax ; 0x5df1
     mov ax, 0                        ; 0x5df5
     push ax                          ; 0x5df8
     push word [bss_82f4]             ; 0x5df9
