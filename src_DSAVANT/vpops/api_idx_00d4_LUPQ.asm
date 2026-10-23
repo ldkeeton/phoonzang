@@ -832,7 +832,7 @@ jumptable_4058_case_3:
     call loc_VNIO                    ; 0x3f3f
     add sp, byte 8                   ; 0x3f42
     push word [bp - 0x0006]          ; 0x3f45
-    call api_idx_000a_GVNM           ; 0x3f48
+    call pick_spell_action           ; 0x3f48
     pop cx                           ; 0x3f4b
     mov word [bp - 0x0098], ax       ; 0x3f4c
     cmp ax, strict word 0xffff       ; 0x3f50

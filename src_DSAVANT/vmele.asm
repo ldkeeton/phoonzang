@@ -103,9 +103,8 @@ loc_KRMP.bss1 equ bss_90b6
 %include "shared/game/loc_KRMP.asm"              ; 0x2b19
 
 ; bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)
-api_idx_0006_IRNH      equ api_idx_0006_HRUL
-api_idx_0006_HRUL.bss1 equ bss_90b6
-%include "shared/game/api_idx_0006_HRUL.asm"     ; 0x2b78
+api_idx_0006_IRNH.bss1 equ bss_90b6
+%include "shared/game/api_idx_0006_IRNH.asm"     ; 0x2b78
 
 loc_RPUI.api_idx1 equ api_idx_0006_IRNH
 %include "shared/game/loc_RPUI.asm"              ; 0x2cc7

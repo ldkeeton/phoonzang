@@ -970,7 +970,10 @@
       },
       "function_names": {
         "0d69": {"name": "queue_marker_overlay"},
-        "19ff": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"}
+        "107f": {"name": "wait_for_party_redraw", "note": "poll the party redraw tick until the animation settles"},
+        "19ff": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
+        "1c94": {"name": "action_spell_dialog", "note": "modal spell selection dialog; leaves (power << 8) + spell + 0x100 in spell_dialog_result"},
+        "2939": {"name": "pick_spell_action", "note": "pick a spell for the pc and record the picked member on a targeted spell"}
       },
       "file": "VPOPS.OVR",
       "type": "aztec_overlay",

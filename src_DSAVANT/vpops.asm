@@ -61,13 +61,13 @@ loc_KRMP.bss1 equ bss_90d6
 %include "shared/game/loc_KRMP.asm"              ; 0x0ec8
 
 ; bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
-api_idx_0006_HRUL.bss1 equ bss_90d6
-%include "shared/game/api_idx_0006_HRUL.asm"     ; 0x0f27
+api_idx_0006_IRNH.bss1 equ bss_90d6
+%include "shared/game/api_idx_0006_IRNH.asm"     ; 0x0f27
 
-loc_RPUI.api_idx1 equ api_idx_0006_HRUL
+loc_RPUI.api_idx1 equ api_idx_0006_IRNH
 %include "shared/game/loc_RPUI.asm"              ; 0x1076
 
-%include "vpops/loc_UTQS.asm"              ; 0x108d
+%include "vpops/wait_for_party_redraw.asm" ; 0x108d
 
 %include "vpops/loc_HTRU.asm"              ; 0x111b
 
@@ -101,9 +101,9 @@ periodic_party_redraw.api_idx1           equ draw_realm_spell_points
 dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)
 ; bss_90d6  equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 ; bss_9106  equ __zdseg_end + (__zobss_9106 - __zdata_start)
-%include "vpops/api_idx_0044_NJNI.asm"     ; 0x1ca2
+%include "vpops/action_spell_dialog.asm"   ; 0x1ca2
 
-%include "vpops/api_idx_000a_GVNM.asm"     ; 0x2947
+%include "vpops/pick_spell_action.asm"     ; 0x2947
 
 %include "shared/game/api_idx_0018_RGOS.asm"     ; 0x29f2
 

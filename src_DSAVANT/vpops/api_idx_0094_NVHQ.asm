@@ -174,7 +174,7 @@ api_idx_0094_NVHQ:
     mov ax, 0xffff                   ; 0x356d
     ret                              ; 0x3570
 @..api_idx_0094_NVHQ.l11:
-    call loc_UTQS                    ; 0x3571
+    call wait_for_party_redraw       ; 0x3571
     mov ax, 0x248                    ; 0x3574
     imul word [bp + 0x4]             ; 0x3577
     add ax, bss_5bf4                 ; 0x357a

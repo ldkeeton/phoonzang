@@ -1,9 +1,9 @@
 ; auto-generated
-api_idx_0044_NJNI:
+action_spell_dialog:
     mov ax, 0xffbc                   ; 0x1ca2
     call aztec_csav                  ; 0x1ca5
     mov word [bp - 0x0002], 0        ; 0x1ca8
-@..api_idx_0044_NJNI.l1:
+@..action_spell_dialog.l1:
     mov ax, word [bp - 0x0002]       ; 0x1cad
     shl ax, 1                        ; 0x1cb0
     mov bx, ax                       ; 0x1cb2
@@ -11,7 +11,7 @@ api_idx_0044_NJNI:
     inc word [bp - 0x0002]           ; 0x1cba
     mov ax, word [bp - 0x0002]       ; 0x1cbd
     cmp ax, strict word 6            ; 0x1cc0
-    jl short @..api_idx_0044_NJNI.l1 ; 0x1cc3
+    jl short @..action_spell_dialog.l1 ; 0x1cc3
     mov word [spell_dialog_result], 0xffff ; 0x1cc5
     mov word [bp - 0x0004], 0x32     ; 0x1ccb
     mov word [bp - 0x0006], 0x73     ; 0x1cd0
@@ -127,13 +127,13 @@ api_idx_0044_NJNI:
     mov word [bp - 0x003e], 0        ; 0x1de0
     mov word [bp - 0x0040], 0        ; 0x1de5
     mov word [bp - 0x0002], 0        ; 0x1dea
-@..api_idx_0044_NJNI.l2:
+@..action_spell_dialog.l2:
     mov ax, 0                        ; 0x1def
     mov cx, word [bp - 0x0002]       ; 0x1df2
     cmp cx, word [bp - 0x003e]       ; 0x1df5
-    jne short @..api_idx_0044_NJNI.l3 ; 0x1df8
+    jne short @..action_spell_dialog.l3 ; 0x1df8
     mov ax, 1                        ; 0x1dfa
-@..api_idx_0044_NJNI.l3:
+@..action_spell_dialog.l3:
     push ax                          ; 0x1dfd
     push cx                          ; 0x1dfe
     mov ax, word [bp - 0x0006]       ; 0x1dff
@@ -147,7 +147,7 @@ api_idx_0044_NJNI:
     inc word [bp - 0x0002]           ; 0x1e13
     mov ax, word [bp - 0x0002]       ; 0x1e16
     cmp ax, strict word 7            ; 0x1e19
-    jl short @..api_idx_0044_NJNI.l2 ; 0x1e1c
+    jl short @..action_spell_dialog.l2 ; 0x1e1c
     mov word [bp - 0x0042], 0        ; 0x1e1e
     mov ax, 0                        ; 0x1e23
     push ax                          ; 0x1e26
@@ -168,9 +168,9 @@ api_idx_0044_NJNI:
     mov word [bp - 0x0044], ax       ; 0x1e4b
     mov ax, 7                        ; 0x1e4e
     cmp word [bp - 0x0044], byte 7   ; 0x1e51
-    jge short @..api_idx_0044_NJNI.l4 ; 0x1e55
+    jge short @..action_spell_dialog.l4 ; 0x1e55
     mov ax, word [bp - 0x0044]       ; 0x1e57
-@..api_idx_0044_NJNI.l4:
+@..action_spell_dialog.l4:
     mov word [bp - 0x0024], ax       ; 0x1e5a
     mov word [bp - 0x0018], 0        ; 0x1e5d
     mov word [bp - 0x0022], 0xffff   ; 0x1e62
@@ -305,7 +305,7 @@ api_idx_0044_NJNI:
     call set_hotspot                 ; 0x1f91
     add sp, byte 0x0e                ; 0x1f94
     mov word [bp - 0x0002], 0        ; 0x1f97
-@..api_idx_0044_NJNI.l5:
+@..action_spell_dialog.l5:
     mov ax, 0                        ; 0x1f9c
     push ax                          ; 0x1f9f
     mov ax, word [bp - 0x0002]       ; 0x1fa0
@@ -336,7 +336,7 @@ api_idx_0044_NJNI:
     inc word [bp - 0x0002]           ; 0x1fdd
     mov ax, word [bp - 0x0002]       ; 0x1fe0
     cmp ax, strict word 7            ; 0x1fe3
-    jl short @..api_idx_0044_NJNI.l5 ; 0x1fe6
+    jl short @..action_spell_dialog.l5 ; 0x1fe6
     mov ax, 0                        ; 0x1fe8
     push ax                          ; 0x1feb
     mov ax, 0x46                     ; 0x1fec
@@ -435,12 +435,12 @@ api_idx_0044_NJNI:
     add sp, byte 0x0e                ; 0x20b1
     mov ax, 7                        ; 0x20b4
     cmp word [bp - 0x0044], byte 7   ; 0x20b7
-    jge short @..api_idx_0044_NJNI.l6 ; 0x20bb
+    jge short @..action_spell_dialog.l6 ; 0x20bb
     mov ax, word [bp - 0x0044]       ; 0x20bd
-@..api_idx_0044_NJNI.l6:
+@..action_spell_dialog.l6:
     mov word [bp - 0x0020], ax       ; 0x20c0
     mov word [bp - 0x0002], 0        ; 0x20c3
-@..api_idx_0044_NJNI.l7:
+@..action_spell_dialog.l7:
     mov ax, 0                        ; 0x20c8
     push ax                          ; 0x20cb
     push ax                          ; 0x20cc
@@ -468,7 +468,7 @@ api_idx_0044_NJNI:
     inc word [bp - 0x0002]           ; 0x2102
     mov ax, word [bp - 0x0002]       ; 0x2105
     cmp ax, strict word 7            ; 0x2108
-    jl short @..api_idx_0044_NJNI.l7 ; 0x210b
+    jl short @..action_spell_dialog.l7 ; 0x210b
     mov ax, 0                        ; 0x210d
     push ax                          ; 0x2110
     push ax                          ; 0x2111
@@ -500,7 +500,7 @@ api_idx_0044_NJNI:
     mov word [bss_908c], dx          ; 0x214c
     mov word [party_redraw_last_tick], ax ; 0x2150
     mov word [bp - 0x001c], 1        ; 0x2153
-@..api_idx_0044_NJNI.l8:
+@..action_spell_dialog.l8:
     push word [bp - 0x0042]          ; 0x2158
     push word [bp + 0x4]             ; 0x215b
     call periodic_party_redraw       ; 0x215e
@@ -512,17 +512,17 @@ api_idx_0044_NJNI:
     dec ax                           ; 0x216c
     mov word [bp - 0x001a], ax       ; 0x216d
     cmp word [space_key_hit], byte 0 ; 0x2170
-    je short @..api_idx_0044_NJNI.l12 ; 0x2175
+    je short @..action_spell_dialog.l12 ; 0x2175
     mov ax, word [bp - 0x0022]       ; 0x2177
     cmp ax, word [bp - 0x0018]       ; 0x217a
-    jl short @..api_idx_0044_NJNI.l9 ; 0x217d
+    jl short @..action_spell_dialog.l9 ; 0x217d
     inc word [bp - 0x0022]           ; 0x217f
-@..api_idx_0044_NJNI.l9:
+@..action_spell_dialog.l9:
     mov ax, word [bp - 0x0022]       ; 0x2182
     cmp ax, strict word 0xffff       ; 0x2185
-    je short @..api_idx_0044_NJNI.l10 ; 0x2188
+    je short @..action_spell_dialog.l10 ; 0x2188
     cmp ax, word [bp - 0x0018]       ; 0x218a
-    jl short @..api_idx_0044_NJNI.l10 ; 0x218d
+    jl short @..action_spell_dialog.l10 ; 0x218d
     mov ax, word [bp - 0x0018]       ; 0x218f
     add ax, word [bp - 0x0020]       ; 0x2192
     mov cx, ax                       ; 0x2195
@@ -530,23 +530,23 @@ api_idx_0044_NJNI:
     mov cx, ax                       ; 0x2198
     mov ax, word [bp - 0x0022]       ; 0x219a
     cmp cx, ax                       ; 0x219d
-    jge short @..api_idx_0044_NJNI.l11 ; 0x219f
-@..api_idx_0044_NJNI.l10:
+    jge short @..action_spell_dialog.l11 ; 0x219f
+@..action_spell_dialog.l10:
     mov ax, word [bp - 0x0018]       ; 0x21a1
     mov word [bp - 0x0022], ax       ; 0x21a4
-@..api_idx_0044_NJNI.l11:
+@..action_spell_dialog.l11:
     mov word [hotspot_hit], 1        ; 0x21a7
     mov ax, word [bp - 0x0022]       ; 0x21ad
     sub ax, word [bp - 0x0018]       ; 0x21b0
     add ax, strict word 0x12         ; 0x21b3
     mov word [bp - 0x001a], ax       ; 0x21b6
-@..api_idx_0044_NJNI.l12:
+@..action_spell_dialog.l12:
     cmp word [hotspot_hit], byte 1   ; 0x21b9
-    je short @..api_idx_0044_NJNI.l13 ; 0x21be
-    jmp near @..api_idx_0044_NJNI.l50 ; 0x21c0
-@..api_idx_0044_NJNI.l13:
+    je short @..action_spell_dialog.l13 ; 0x21be
+    jmp near @..action_spell_dialog.l50 ; 0x21c0
+@..action_spell_dialog.l13:
     mov ax, word [bp - 0x001a]       ; 0x21c3
-    jmp near @..api_idx_0044_NJNI.l48 ; 0x21c6
+    jmp near @..action_spell_dialog.l48 ; 0x21c6
 jumptable_28e9_case_0:
     lea ax, word [bp - 0x0010]       ; 0x21c9
     push ax                          ; 0x21cc
@@ -567,7 +567,7 @@ jumptable_28e9_case_0:
     call clamp_between               ; 0x21ee
     add sp, byte 6                   ; 0x21f1
     mov word [bp - 0x0016], ax       ; 0x21f4
-@..api_idx_0044_NJNI.l14:
+@..action_spell_dialog.l14:
     lea ax, word [bp - 0x0010]       ; 0x21f7
     push ax                          ; 0x21fa
     lea ax, word [bp - 0x000e]       ; 0x21fb
@@ -588,7 +588,7 @@ jumptable_28e9_case_0:
     add sp, byte 6                   ; 0x2221
     mov word [bp - 0x0012], ax       ; 0x2224
     cmp word [bp - 0x0044], byte 7   ; 0x2227
-    jle short @..api_idx_0044_NJNI.l15 ; 0x222b
+    jle short @..action_spell_dialog.l15 ; 0x222b
     mov cx, 0x64                     ; 0x222d
     imul cx                          ; 0x2230
     push ax                          ; 0x2232
@@ -604,7 +604,7 @@ jumptable_28e9_case_0:
     cwd                              ; 0x2247
     idiv cx                          ; 0x2248
     mov word [bp - 0x0018], ax       ; 0x224a
-@..api_idx_0044_NJNI.l15:
+@..action_spell_dialog.l15:
     push word [bp - 0x0024]          ; 0x224d
     push word [bp - 0x0022]          ; 0x2250
     push word [bp - 0x0018]          ; 0x2253
@@ -669,13 +669,13 @@ jumptable_28e9_case_0:
     call gfx_show_area               ; 0x22de
     add sp, byte 8                   ; 0x22e1
     cmp word [bp - 0x001e], byte 0   ; 0x22e4
-    je short @..api_idx_0044_NJNI.l16 ; 0x22e8
-    jmp near @..api_idx_0044_NJNI.l14 ; 0x22ea
-@..api_idx_0044_NJNI.l16:
-    jmp near @..api_idx_0044_NJNI.l50 ; 0x22ed
+    je short @..action_spell_dialog.l16 ; 0x22e8
+    jmp near @..action_spell_dialog.l14 ; 0x22ea
+@..action_spell_dialog.l16:
+    jmp near @..action_spell_dialog.l50 ; 0x22ed
 jumptable_28e9_case_1:
     cmp word [bp - 0x001a], byte 1   ; 0x22f0
-    jne short @..api_idx_0044_NJNI.l18 ; 0x22f4
+    jne short @..action_spell_dialog.l18 ; 0x22f4
     mov ax, 1                        ; 0x22f6
     push ax                          ; 0x22f9
     mov ax, word [bp - 0x0006]       ; 0x22fa
@@ -693,11 +693,11 @@ jumptable_28e9_case_1:
     call flash_area                  ; 0x2316
     add sp, byte 0x0a                ; 0x2319
     cmp word [bp - 0x0018], byte 0   ; 0x231c
-    jle short @..api_idx_0044_NJNI.l17 ; 0x2320
+    jle short @..action_spell_dialog.l17 ; 0x2320
     dec word [bp - 0x0018]           ; 0x2322
-@..api_idx_0044_NJNI.l17:
-    jmp short @..api_idx_0044_NJNI.l19 ; 0x2325
-@..api_idx_0044_NJNI.l18:
+@..action_spell_dialog.l17:
+    jmp short @..action_spell_dialog.l19 ; 0x2325
+@..action_spell_dialog.l18:
     mov ax, 1                        ; 0x2327
     push ax                          ; 0x232a
     mov ax, word [bp - 0x0006]       ; 0x232b
@@ -717,11 +717,11 @@ jumptable_28e9_case_1:
     mov ax, word [bp - 0x0044]       ; 0x234d
     add ax, strict word 0xfff9       ; 0x2350
     cmp ax, word [bp - 0x0018]       ; 0x2353
-    jle short @..api_idx_0044_NJNI.l19 ; 0x2356
+    jle short @..action_spell_dialog.l19 ; 0x2356
     inc word [bp - 0x0018]           ; 0x2358
-@..api_idx_0044_NJNI.l19:
+@..action_spell_dialog.l19:
     cmp word [bp - 0x0044], byte 7   ; 0x235b
-    jle short @..api_idx_0044_NJNI.l20 ; 0x235f
+    jle short @..action_spell_dialog.l20 ; 0x235f
     push word [bp - 0x0014]          ; 0x2361
     mov ax, 0                        ; 0x2364
     push ax                          ; 0x2367
@@ -740,7 +740,7 @@ jumptable_28e9_case_1:
     call clamp_between               ; 0x2384
     add sp, byte 6                   ; 0x2387
     mov word [bp - 0x0012], ax       ; 0x238a
-@..api_idx_0044_NJNI.l20:
+@..action_spell_dialog.l20:
     push word [bp - 0x0024]          ; 0x238d
     push word [bp - 0x0022]          ; 0x2390
     push word [bp - 0x0018]          ; 0x2393
@@ -804,23 +804,23 @@ jumptable_28e9_case_1:
     push ax                          ; 0x241d
     call gfx_show_area               ; 0x241e
     add sp, byte 8                   ; 0x2421
-    jmp near @..api_idx_0044_NJNI.l50 ; 0x2424
+    jmp near @..action_spell_dialog.l50 ; 0x2424
 jumptable_28e9_case_3:
     cmp word [bp + 0x8], byte 0      ; 0x2427
-    jne short @..api_idx_0044_NJNI.l21 ; 0x242b
-    jmp near @..api_idx_0044_NJNI.l26 ; 0x242d
-@..api_idx_0044_NJNI.l21:
+    jne short @..action_spell_dialog.l21 ; 0x242b
+    jmp near @..action_spell_dialog.l26 ; 0x242d
+@..action_spell_dialog.l21:
     cmp word [bp - 0x003c], byte 0   ; 0x2430
-    jge short @..api_idx_0044_NJNI.l22 ; 0x2434
-    jmp near @..api_idx_0044_NJNI.l25 ; 0x2436
-@..api_idx_0044_NJNI.l22:
+    jge short @..action_spell_dialog.l22 ; 0x2434
+    jmp near @..action_spell_dialog.l25 ; 0x2436
+@..action_spell_dialog.l22:
     cmp word [bp + 0xa], byte 0      ; 0x2439
-    je short @..api_idx_0044_NJNI.l24 ; 0x243d
+    je short @..action_spell_dialog.l24 ; 0x243d
     mov ax, word [bp - 0x003e]       ; 0x243f
     cmp ax, word [bp - 0x0040]       ; 0x2442
-    jle short @..api_idx_0044_NJNI.l23 ; 0x2445
-    jmp near @..api_idx_0044_NJNI.l25 ; 0x2447
-@..api_idx_0044_NJNI.l23:
+    jle short @..action_spell_dialog.l23 ; 0x2445
+    jmp near @..action_spell_dialog.l25 ; 0x2447
+@..action_spell_dialog.l23:
     mov ax, 6                        ; 0x244a
     imul word [bp - 0x003c]          ; 0x244d
     mov bx, ax                       ; 0x2450
@@ -841,8 +841,8 @@ jumptable_28e9_case_3:
     mov cx, word [bx + 0x5c1c]       ; 0x2472
     pop ax                           ; 0x2476
     cmp ax, cx                       ; 0x2477
-    jg short @..api_idx_0044_NJNI.l25 ; 0x2479
-@..api_idx_0044_NJNI.l24:
+    jg short @..action_spell_dialog.l25 ; 0x2479
+@..action_spell_dialog.l24:
     mov ax, 1                        ; 0x247b
     push ax                          ; 0x247e
     push ax                          ; 0x247f
@@ -872,15 +872,15 @@ jumptable_28e9_case_3:
     add sp, byte 0x0a                ; 0x24b5
     mov word [spell_dialog_button], 0 ; 0x24b8
     mov word [bp - 0x001c], 0        ; 0x24be
-@..api_idx_0044_NJNI.l25:
+@..action_spell_dialog.l25:
     cmp word [bp - 0x001c], byte 0   ; 0x24c3
-    je short @..api_idx_0044_NJNI.l26 ; 0x24c7
+    je short @..action_spell_dialog.l26 ; 0x24c7
     mov ax, 0                        ; 0x24c9
     push ax                          ; 0x24cc
     call play_sound_effect           ; 0x24cd
     pop cx                           ; 0x24d0
-@..api_idx_0044_NJNI.l26:
-    jmp near @..api_idx_0044_NJNI.l50 ; 0x24d1
+@..action_spell_dialog.l26:
+    jmp near @..action_spell_dialog.l50 ; 0x24d1
 jumptable_28e9_case_4:
     mov ax, 1                        ; 0x24d4
     push ax                          ; 0x24d7
@@ -911,16 +911,16 @@ jumptable_28e9_case_4:
     add sp, byte 0x0a                ; 0x250e
     mov word [spell_dialog_button], 1 ; 0x2511
     mov word [bp - 0x001c], 0        ; 0x2517
-    jmp near @..api_idx_0044_NJNI.l50 ; 0x251c
-@..api_idx_0044_NJNI.l27:
+    jmp near @..action_spell_dialog.l50 ; 0x251c
+@..action_spell_dialog.l27:
     cmp word [bp - 0x001a], byte 5   ; 0x251f
-    jge short @..api_idx_0044_NJNI.l28 ; 0x2523
-    jmp near @..api_idx_0044_NJNI.l36 ; 0x2525
-@..api_idx_0044_NJNI.l28:
+    jge short @..action_spell_dialog.l28 ; 0x2523
+    jmp near @..action_spell_dialog.l36 ; 0x2525
+@..action_spell_dialog.l28:
     cmp word [bp - 0x001a], byte 0x0b ; 0x2528
-    jle short @..api_idx_0044_NJNI.l29 ; 0x252c
-    jmp near @..api_idx_0044_NJNI.l36 ; 0x252e
-@..api_idx_0044_NJNI.l29:
+    jle short @..action_spell_dialog.l29 ; 0x252c
+    jmp near @..action_spell_dialog.l36 ; 0x252e
+@..action_spell_dialog.l29:
     mov ax, 0                        ; 0x2531
     push ax                          ; 0x2534
     push word [bp - 0x003e]          ; 0x2535
@@ -947,9 +947,9 @@ jumptable_28e9_case_4:
     call draw_power_digit            ; 0x256a
     add sp, byte 8                   ; 0x256d
     cmp word [bp - 0x003c], byte 0   ; 0x2570
-    jge short @..api_idx_0044_NJNI.l30 ; 0x2574
-    jmp near @..api_idx_0044_NJNI.l34 ; 0x2576
-@..api_idx_0044_NJNI.l30:
+    jge short @..action_spell_dialog.l30 ; 0x2574
+    jmp near @..action_spell_dialog.l34 ; 0x2576
+@..action_spell_dialog.l30:
     mov ax, 6                        ; 0x2579
     push ax                          ; 0x257c
     mov ax, 0                        ; 0x257d
@@ -981,10 +981,10 @@ jumptable_28e9_case_4:
     imul cx                          ; 0x25bd
     mov word [bp - 0x0002], ax       ; 0x25bf
     cmp word [bp + 0xa], byte 0      ; 0x25c2
-    jne short @..api_idx_0044_NJNI.l31 ; 0x25c6
+    jne short @..action_spell_dialog.l31 ; 0x25c6
     mov ax, 0x3e7                    ; 0x25c8
-    jmp short @..api_idx_0044_NJNI.l33 ; 0x25cb
-@..api_idx_0044_NJNI.l31:
+    jmp short @..action_spell_dialog.l33 ; 0x25cb
+@..action_spell_dialog.l31:
     mov ax, 0x248                    ; 0x25cd
     imul word [bp + 0x4]             ; 0x25d0
     mov cx, word [bp - 0x0042]       ; 0x25d3
@@ -994,11 +994,11 @@ jumptable_28e9_case_4:
     mov bx, ax                       ; 0x25dc
     mov ax, word [bx + 0x5c1c]       ; 0x25de
     cmp ax, word [bp - 0x0002]       ; 0x25e2
-    jge short @..api_idx_0044_NJNI.l32 ; 0x25e5
-    jmp short @..api_idx_0044_NJNI.l33 ; 0x25e7
-@..api_idx_0044_NJNI.l32:
+    jge short @..action_spell_dialog.l32 ; 0x25e5
+    jmp short @..action_spell_dialog.l33 ; 0x25e7
+@..action_spell_dialog.l32:
     mov ax, word [bp - 0x0002]       ; 0x25e9
-@..api_idx_0044_NJNI.l33:
+@..action_spell_dialog.l33:
     push ax                          ; 0x25ec
     mov ax, 6                        ; 0x25ed
     imul word [bp - 0x003c]          ; 0x25f0
@@ -1018,8 +1018,8 @@ jumptable_28e9_case_4:
     push ax                          ; 0x2612
     call loc_VGIT                    ; 0x2613
     add sp, byte 0x0a                ; 0x2616
-    jmp short @..api_idx_0044_NJNI.l35 ; 0x2619
-@..api_idx_0044_NJNI.l34:
+    jmp short @..action_spell_dialog.l35 ; 0x2619
+@..action_spell_dialog.l34:
     mov ax, 0                        ; 0x261b
     push ax                          ; 0x261e
     push ax                          ; 0x261f
@@ -1032,7 +1032,7 @@ jumptable_28e9_case_4:
     push ax                          ; 0x2630
     call loc_VGIT                    ; 0x2631
     add sp, byte 0x0a                ; 0x2634
-@..api_idx_0044_NJNI.l35:
+@..action_spell_dialog.l35:
     mov ax, word [bp - 0x0006]       ; 0x2637
     add ax, strict word 0x1c         ; 0x263a
     push ax                          ; 0x263d
@@ -1061,16 +1061,16 @@ jumptable_28e9_case_4:
     push ax                          ; 0x2674
     call gfx_show_area               ; 0x2675
     add sp, byte 8                   ; 0x2678
-    jmp near @..api_idx_0044_NJNI.l47 ; 0x267b
-@..api_idx_0044_NJNI.l36:
+    jmp near @..action_spell_dialog.l47 ; 0x267b
+@..action_spell_dialog.l36:
     cmp word [bp - 0x001a], byte 0x0c ; 0x267e
-    jge short @..api_idx_0044_NJNI.l37 ; 0x2682
-    jmp near @..api_idx_0044_NJNI.l41 ; 0x2684
-@..api_idx_0044_NJNI.l37:
+    jge short @..action_spell_dialog.l37 ; 0x2682
+    jmp near @..action_spell_dialog.l41 ; 0x2684
+@..action_spell_dialog.l37:
     cmp word [bp - 0x001a], byte 0x11 ; 0x2687
-    jle short @..api_idx_0044_NJNI.l38 ; 0x268b
-    jmp near @..api_idx_0044_NJNI.l41 ; 0x268d
-@..api_idx_0044_NJNI.l38:
+    jle short @..action_spell_dialog.l38 ; 0x268b
+    jmp near @..action_spell_dialog.l41 ; 0x268d
+@..action_spell_dialog.l38:
     mov ax, word [bp - 0x001a]       ; 0x2690
     add ax, strict word 0xfff4       ; 0x2693
     mov word [bp - 0x0042], ax       ; 0x2696
@@ -1082,15 +1082,15 @@ jumptable_28e9_case_4:
     mov word [bp - 0x0044], ax       ; 0x26a8
     mov ax, 7                        ; 0x26ab
     cmp word [bp - 0x0044], byte 7   ; 0x26ae
-    jge short @..api_idx_0044_NJNI.l39 ; 0x26b2
+    jge short @..action_spell_dialog.l39 ; 0x26b2
     mov ax, word [bp - 0x0044]       ; 0x26b4
-@..api_idx_0044_NJNI.l39:
+@..action_spell_dialog.l39:
     mov word [bp - 0x0024], ax       ; 0x26b7
     mov ax, 7                        ; 0x26ba
     cmp word [bp - 0x0044], byte 7   ; 0x26bd
-    jge short @..api_idx_0044_NJNI.l40 ; 0x26c1
+    jge short @..action_spell_dialog.l40 ; 0x26c1
     mov ax, word [bp - 0x0044]       ; 0x26c3
-@..api_idx_0044_NJNI.l40:
+@..action_spell_dialog.l40:
     mov word [bp - 0x0020], ax       ; 0x26c6
     mov word [bp - 0x0018], 0        ; 0x26c9
     mov word [bp - 0x0022], 0xffff   ; 0x26ce
@@ -1184,18 +1184,18 @@ jumptable_28e9_case_4:
     push ax                          ; 0x27a6
     call gfx_show_area               ; 0x27a7
     add sp, byte 8                   ; 0x27aa
-    jmp near @..api_idx_0044_NJNI.l47 ; 0x27ad
-@..api_idx_0044_NJNI.l41:
+    jmp near @..action_spell_dialog.l47 ; 0x27ad
+@..action_spell_dialog.l41:
     cmp word [bp - 0x001a], byte 0x12 ; 0x27b0
-    jge short @..api_idx_0044_NJNI.l42 ; 0x27b4
-    jmp near @..api_idx_0044_NJNI.l47 ; 0x27b6
-@..api_idx_0044_NJNI.l42:
+    jge short @..action_spell_dialog.l42 ; 0x27b4
+    jmp near @..action_spell_dialog.l47 ; 0x27b6
+@..action_spell_dialog.l42:
     mov ax, word [bp - 0x0020]       ; 0x27b9
     add ax, strict word 0x12         ; 0x27bc
     cmp ax, word [bp - 0x001a]       ; 0x27bf
-    jg short @..api_idx_0044_NJNI.l43 ; 0x27c2
-    jmp near @..api_idx_0044_NJNI.l47 ; 0x27c4
-@..api_idx_0044_NJNI.l43:
+    jg short @..action_spell_dialog.l43 ; 0x27c2
+    jmp near @..action_spell_dialog.l47 ; 0x27c4
+@..action_spell_dialog.l43:
     mov ax, word [bp - 0x0018]       ; 0x27c7
     add ax, word [bp - 0x001a]       ; 0x27ca
     add ax, strict word 0xffee       ; 0x27cd
@@ -1250,10 +1250,10 @@ jumptable_28e9_case_4:
     imul cx                          ; 0x2847
     mov word [bp - 0x0002], ax       ; 0x2849
     cmp word [bp + 0xa], byte 0      ; 0x284c
-    jne short @..api_idx_0044_NJNI.l44 ; 0x2850
+    jne short @..action_spell_dialog.l44 ; 0x2850
     mov ax, 0x3e7                    ; 0x2852
-    jmp short @..api_idx_0044_NJNI.l46 ; 0x2855
-@..api_idx_0044_NJNI.l44:
+    jmp short @..action_spell_dialog.l46 ; 0x2855
+@..action_spell_dialog.l44:
     mov ax, 0x248                    ; 0x2857
     imul word [bp + 0x4]             ; 0x285a
     mov cx, word [bp - 0x0042]       ; 0x285d
@@ -1263,11 +1263,11 @@ jumptable_28e9_case_4:
     mov bx, ax                       ; 0x2866
     mov ax, word [bx + 0x5c1c]       ; 0x2868
     cmp ax, word [bp - 0x0002]       ; 0x286c
-    jge short @..api_idx_0044_NJNI.l45 ; 0x286f
-    jmp short @..api_idx_0044_NJNI.l46 ; 0x2871
-@..api_idx_0044_NJNI.l45:
+    jge short @..action_spell_dialog.l45 ; 0x286f
+    jmp short @..action_spell_dialog.l46 ; 0x2871
+@..action_spell_dialog.l45:
     mov ax, word [bp - 0x0002]       ; 0x2873
-@..api_idx_0044_NJNI.l46:
+@..action_spell_dialog.l46:
     push ax                          ; 0x2876
     mov ax, 6                        ; 0x2877
     imul word [bp - 0x003c]          ; 0x287a
@@ -1315,27 +1315,27 @@ jumptable_28e9_case_4:
     push ax                          ; 0x28e0
     call gfx_show_area               ; 0x28e1
     add sp, byte 8                   ; 0x28e4
-@..api_idx_0044_NJNI.l47:
-    jmp short @..api_idx_0044_NJNI.l50 ; 0x28e7
+@..action_spell_dialog.l47:
+    jmp short @..action_spell_dialog.l50 ; 0x28e7
 jumptable_28e9:
     dw jumptable_28e9_case_0 - IMAGE_BASE + __zres_end ; 0x28e9
     dw jumptable_28e9_case_1 - IMAGE_BASE + __zres_end ; 0x28eb
     dw jumptable_28e9_case_1 - IMAGE_BASE + __zres_end ; 0x28ed
     dw jumptable_28e9_case_3 - IMAGE_BASE + __zres_end ; 0x28ef
     dw jumptable_28e9_case_4 - IMAGE_BASE + __zres_end ; 0x28f1
-@..api_idx_0044_NJNI.l48:
+@..action_spell_dialog.l48:
     cmp ax, strict word 5            ; 0x28f3
-    jae short @..api_idx_0044_NJNI.l49 ; 0x28f6
+    jae short @..action_spell_dialog.l49 ; 0x28f6
     xchg bx, ax                      ; 0x28f8
     shl bx, 1                        ; 0x28f9
     jmp [cs:bx + jumptable_28e9 - IMAGE_BASE + __zres_end] ; 0x28fb
-@..api_idx_0044_NJNI.l49:
-    jmp near @..api_idx_0044_NJNI.l27 ; 0x2900
-@..api_idx_0044_NJNI.l50:
+@..action_spell_dialog.l49:
+    jmp near @..action_spell_dialog.l27 ; 0x2900
+@..action_spell_dialog.l50:
     cmp word [bp - 0x001c], byte 0   ; 0x2903
-    je short @..api_idx_0044_NJNI.l51 ; 0x2907
-    jmp near @..api_idx_0044_NJNI.l8 ; 0x2909
-@..api_idx_0044_NJNI.l51:
+    je short @..action_spell_dialog.l51 ; 0x2907
+    jmp near @..action_spell_dialog.l8 ; 0x2909
+@..action_spell_dialog.l51:
     mov ax, 1                        ; 0x290c
     push ax                          ; 0x290f
     push word [bp - 0x003a]          ; 0x2910
