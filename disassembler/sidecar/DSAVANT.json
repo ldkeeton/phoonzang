@@ -257,6 +257,7 @@
         },
         "36f5": {"name": "allocate_driver_blocks", "note": "allocates each driver memory block in the code-segment table, freeing the blocks on a DOS failure"},
         "3760": {"name": "free_driver_blocks", "note": "frees the driver blocks from si back to the table start"},
+        "377b": {"name": "free_font_memory", "note": "frees every DOS block in font_seg_table, stopping at the 0xffff end marker"},
         "37a5": {"name": "detect_mouse", "note": "checks the INT 33h vector and resets the mouse; sets bit 12 of the caller result"},
         "37d9": {"name": "detect_expanded_memory", "note": "probes int 67h and records the EMS page frame and pages"},
         "3860": {

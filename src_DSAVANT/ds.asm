@@ -774,7 +774,7 @@ delay_loop_target:
 
 %include "ds/library/free_driver_blocks.asm" ; 0x3760
 
-%include "ds/library/ds_dos_mem_loc_GMLT.asm" ; 0x377b
+%include "ds/library/free_font_memory.asm" ; 0x377b
 
 %include "ds/library/ds_loc_RMTO.asm"      ; 0x3796
 

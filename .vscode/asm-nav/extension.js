@@ -549,7 +549,10 @@ async function prepareMakeC(uri, label, batch) {
     // A sidecar note saying "hand-written" settles the form; a sibling .s shows the style.
     const entry = shared ? sharedHit.entry : ((own || {}).function_names || {})[key];
     const handWritten = /^hand-written/.test((entry || {}).note || '');
-    const exampleS = fs.readdirSync(dir).filter((f) => f.endsWith('.s')).sort()[0];
+    // Prefer a sibling .s that uses hlmacros.h, so the style shown is the one asked for.
+    const siblingS = fs.readdirSync(dir).filter((f) => f.endsWith('.s')).sort();
+    const exampleS = siblingS.find((f) => /^\s*include\s+hlmacros\.h/m.test(
+        fs.readFileSync(path.join(dir, f), 'utf8'))) || siblingS[0];
     const flagList = [`default \`${(flags.default || []).join(' ')}\``].concat(
         Object.entries(flags.prefixes || {}).map(([p, f]) => `\`${p}\` → \`${f.join(' ')}\``)).join('; ');
 
@@ -581,14 +584,16 @@ function claudePrompt(job) {
             `padding \`nop\`s or jumps \`cc\` would shorten; falling through into the next routine. ` +
             `Never put a whole routine body in \`#asm\` inside a C function: that is what a .s is for, ` +
             `and labels in \`#asm\` become linker symbols. \`#asm\` is only for a few instructions ` +
-            `inside real C. A .s may \`include hlmacros.h\` (after lmacros.h) for MASM 6-style ` +
+            `inside real C. A .s always does \`include hlmacros.h\` (after lmacros.h) and uses its MASM 6-style ` +
             `\`.if\`/\`.elseif\`/\`.else\`/\`.endif\`, \`.while\`/\`.endw\`, \`.repeat\`/\`.until\`, \`.break\`/` +
             `\`.continue\` (conditions like \`ax == 5\`, \`al lt 3\`, \`dl and 2\` (test), \`carry?\`, \`not cx\`; no \`!\`, \`<\` or ` +
             `\`>\`), plus DOS/BIOS call, push/pop list and clamp shorthand, \`frame\`/\`unframe\` (bp frame), ` +
             `\`movseg\` (segment via ax), \`outp\` (port writes), \`fatal\` (print and exit) and ` +
             `\`jnear\` (jcc over a near jmp). ` +
-            `disassembler/lib/aztec/hlmacros.h lists each macro's exact expansion: use one only where ` +
-            `it expands to the original instructions. Indent each block body one tab past its directive.` +
+            `disassembler/lib/aztec/hlmacros.h lists each macro's exact expansion: use one wherever ` +
+            `it expands to the original instructions (structured blocks in place of labels and jumps ` +
+            `first), and write plain instructions only where none fits. Indent each block body one tab ` +
+            `past its directive.` +
             (handWritten ? ` The sidecar note marks this routine hand-written asm: write ${rel(sFile)}.` : ''),
         `Commands (repo root): \`make rebuild\` is the pass/fail gate: it recompiles every .c/.s, ` +
             `checks it against the original bytes, and assembles. ` +
