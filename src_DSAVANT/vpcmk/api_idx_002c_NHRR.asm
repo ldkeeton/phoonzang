@@ -6,13 +6,13 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6a48
     mov ax, 2                        ; 0x6a49
     push ax                          ; 0x6a4c
-    call ds_app_file_TSNH            ; 0x6a4d
+    call load_monster_picture        ; 0x6a4d
     add sp, byte 4                   ; 0x6a50
     mov ax, 2                        ; 0x6a53
     push ax                          ; 0x6a56
     mov ax, 3                        ; 0x6a57
     push ax                          ; 0x6a5a
-    call ds_app_file_TSNH            ; 0x6a5b
+    call load_monster_picture        ; 0x6a5b
     add sp, byte 4                   ; 0x6a5e
     mov ax, 0                        ; 0x6a61
     push ax                          ; 0x6a64
@@ -169,7 +169,7 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6bca
     mov ax, 0xb                      ; 0x6bcb
     push ax                          ; 0x6bce
-    call ds_app_file_TSNH            ; 0x6bcf
+    call load_monster_picture        ; 0x6bcf
     add sp, byte 4                   ; 0x6bd2
     call ds_app_NNSU                 ; 0x6bd5
     mov word [bss_8450], ax          ; 0x6bd8

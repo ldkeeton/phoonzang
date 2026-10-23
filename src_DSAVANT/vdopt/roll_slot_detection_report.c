@@ -51,7 +51,7 @@ int level;
 		;
 	}
 	free_picture_slot(2);
-	ds_app_file_TSNH(0, 14);
+	load_monster_picture(0, 14);
 	saved_area_a = gfx_save_area(0x37, 0x92, 0x109, 0xc6);	/* box corners */
 	restore_area_a_draw_glyph();
 	found = 0;
@@ -87,5 +87,5 @@ hit:
 	gfx_restore_area(saved_area_a, 1);
 	ds_app_VRKV(0x37, 0x92, 0x109, 0xc6);
 	free_picture_slot(14);
-	ds_app_file_TSNH(3, 2);
+	load_monster_picture(3, 2);
 }

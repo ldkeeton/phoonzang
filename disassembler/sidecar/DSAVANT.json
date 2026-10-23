@@ -149,6 +149,7 @@
         },
         "03b8": {"name": "release_and_exit", "note": "releases resources then exits with status"},
         "0547": {"name": "str_subst_char", "note": "copies a string replacing each marker char with a second string"},
+        "06c6": {"name": "load_message_block", "note": "copies a message block into the working buffer, reusing the four-slot cache"},
         "0782": {"name": "load_message_string", "note": "looks up message id, reads its packed bytes from the message buffer (paging the file in as needed) and unpacks them into the caller's buffer"},
         "0883": {
           "name": "data_record_io",
@@ -172,7 +173,8 @@
         "1034": {"name": "draw_framed_button", "note": "draws a bevelled frame sized in character cells with a centred label inside"},
         "10a6": {"name": "flash_button", "note": "inverts a button area to show it pressed"},
         "10ff": {"name": "flash_area", "note": "inverts and shows a screen rectangle, then waits 35 ms when asked"},
-        "11de": {"name": "draw_text_list", "note": "clears a list box of 6-pixel rows and draws its visible entries from top, highlighting the selected row"},
+        "1138": {"name": "draw_spell_list", "note": "draws count spell-name rows from first, highlighting selected"},
+        "11de": {"name": "draw_text_list", "note": "draws a framed list of spell names"},
         "121f": {"name": "draw_scrollbar", "note": "draws a vertical scrollbar: bevel frame, up/down arrow glyphs and the thumb at the given offset"},
         "1308": {"name": "draw_button", "note": "draws a button label, framed or as plain centred text"},
         "1371": {
@@ -203,6 +205,7 @@
           "name": "ensure_game_disk",
           "note": "picks a disk number from install_mode and, when it differs from DS 0x5218, prompts via ds_app_file_QQMM and redraws the full screen (gfx_show_area 0,0,319,199); main calls it before loading some overlays"
         },
+        "2863": {"name": "load_monster_picture", "note": "loads a monster picture record into a picture slot"},
         "290d": {"name": "wait_and_free_sound"},
         "2923": {
           "name": "load_sound_file"
@@ -347,6 +350,7 @@
         "0baf": {"name": "str_disk_hdr", "note": "\"DISK.HDR\" literal"},
         "0bb8": {"name": "str_msg_dbs", "note": "\"MSG.DBS\" literal"},
         "0bc0": {"name": "str_scenario_dbs", "note": "\"SCENARIO.DBS\" literal"},
+        "0bcd": {"name": "monster_pic_name", "note": "\"MON00.PIC\" filename template"},
         "0bda": {"name": "maze_blocks", "note": "MAZE block table, 4 bytes per id: start paragraph, paragraph count"},
         "0beb": {"name": "score_ext_csf", "note": "char []: \".CSF\" extension appended by load_score_files"},
         "0bf0": {"name": "score_ext_pbl", "note": "char []: \".PBL\" extension load_score_files uses when video_mode == 5"},
@@ -365,6 +369,10 @@
         "0e22": {"name": "data_file_fd", "note": "int: handle of the open game data file that data_record_io seeks, reads and writes"},
         "0e24": {"name": "msg_dbs_fd", "note": "file handle of MSG.DBS"},
         "0e38": {"name": "known_spell_names", "note": "20-byte spell name strings filled by collect_known_realm_spells"},
+        "3e0a": {"name": "message_cache_ids", "note": "block number stored in each of the four message cache slots"},
+        "3e12": {"name": "message_block_buffer", "note": "0x400-byte working buffer for the current message block"},
+        "5212": {"name": "message_block_current", "note": "block number currently held in the working buffer"},
+        "5214": {"name": "message_cache_next", "note": "next message cache slot to fill, round robin"},
         "5218": {"name": "disk_header", "note": "buffer DISK.HDR is read into; first word is the disk number"},
         "521c": {"name": "record_base", "note": "long [] per record type: file offset of the type's first record in the data file"},
         "5244": {"name": "record_map_2", "note": "unsigned char []: index -> record number for data_record_io types 2 and 3"},
@@ -385,6 +393,8 @@
         "598e": {"name": "loaded_sound_id", "note": "sound id last loaded by ds_app_QTIV, -1 none"},
         "59fc": {"name": "space_key_hit", "note": "set by poll_hotspots when the last key was space"},
         "5b3e": {"name": "hotspot_hit", "note": "number of the hotspot last activated (0 for none)"},
+        "5b48": {"name": "picture_slot_number", "note": "record number held in each picture slot; 0xff when free"},
+        "5b5a": {"name": "picture_slot_used", "note": "nonzero when the picture slot is in use"},
         "5b6c": {"name": "current_maze", "note": "int: maze number passed to gfx_free_maze by free_current_maze; -1 when none"},
         "5b6e": {"name": "maze_variant", "note": "int 0-6: selects which extra mazes and picture slots free_current_maze frees along with current_maze"},
         "5b70": {"name": "maze_state", "note": "int: cleared by free_current_maze"},

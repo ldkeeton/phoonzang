@@ -84,13 +84,13 @@ loc_RLUJ:
     push ax                          ; 0x3496
     mov ax, 9                        ; 0x3497
     push ax                          ; 0x349a
-    call ds_app_file_TSNH            ; 0x349b
+    call load_monster_picture        ; 0x349b
     add sp, byte 4                   ; 0x349e
     mov ax, 0xc                      ; 0x34a1
     push ax                          ; 0x34a4
     mov ax, 0x52                     ; 0x34a5
     push ax                          ; 0x34a8
-    call ds_app_file_TSNH            ; 0x34a9
+    call load_monster_picture        ; 0x34a9
     add sp, byte 4                   ; 0x34ac
     mov ax, 0                        ; 0x34af
     push ax                          ; 0x34b2
@@ -194,8 +194,8 @@ loc_RLUJ:
     mov word [bp - 0x0002], 0xf      ; 0x35a1
 @..loc_RLUJ.l10:
     mov bx, word [bp - 0x0002]       ; 0x35a6
-    mov byte [bx + 0x5b48], 0xff     ; 0x35a9
-    mov byte [bx + 0x5b5a], 0        ; 0x35ae
+    mov byte [bx + picture_slot_number], 0xff ; 0x35a9
+    mov byte [bx + picture_slot_used], 0 ; 0x35ae
     inc word [bp - 0x0002]           ; 0x35b3
     mov ax, word [bp - 0x0002]       ; 0x35b6
     cmp ax, strict word 0x12         ; 0x35b9
@@ -228,13 +228,13 @@ loc_RLUJ:
     push ax                          ; 0x35fb
     mov ax, 2                        ; 0x35fc
     push ax                          ; 0x35ff
-    call ds_app_file_TSNH            ; 0x3600
+    call load_monster_picture        ; 0x3600
     add sp, byte 4                   ; 0x3603
     mov ax, 2                        ; 0x3606
     push ax                          ; 0x3609
     mov ax, 3                        ; 0x360a
     push ax                          ; 0x360d
-    call ds_app_file_TSNH            ; 0x360e
+    call load_monster_picture        ; 0x360e
     add sp, byte 4                   ; 0x3611
     mov ax, 0                        ; 0x3614
     push ax                          ; 0x3617

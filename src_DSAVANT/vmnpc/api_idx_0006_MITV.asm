@@ -65,7 +65,7 @@ api_idx_0006_MITV:
     mov word [bp - 0x0002], 0xf      ; 0x7354
 @..api_idx_0006_MITV.l4:
     mov bx, word [bp - 0x0002]       ; 0x7359
-    mov al, byte [bx + 0x5b48]       ; 0x735c
+    mov al, byte [bx + picture_slot_number] ; 0x735c
     sub ah, ah                       ; 0x7360
     cmp ax, 0xff                     ; 0x7362
     je short @..api_idx_0006_MITV.l5 ; 0x7365

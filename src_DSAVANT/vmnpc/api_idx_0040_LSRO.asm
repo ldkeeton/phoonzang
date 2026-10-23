@@ -105,7 +105,7 @@ jumptable_36f8_case_4:
     jmp near @..api_idx_0040_LSRO.l10 ; 0x2c87
 @..api_idx_0040_LSRO.l7:
     mov bx, word [bp - 0x002c]       ; 0x2c8a
-    mov al, byte [bx + 0x5b48]       ; 0x2c8d
+    mov al, byte [bx + picture_slot_number] ; 0x2c8d
     sub ah, ah                       ; 0x2c91
     cmp ax, 0xff                     ; 0x2c93
     je short @..api_idx_0040_LSRO.l8 ; 0x2c96
@@ -119,7 +119,7 @@ jumptable_36f8_case_4:
 @..api_idx_0040_LSRO.l8:
     push word [bp - 0x002c]          ; 0x2ca7
     push word [bp - 0x0028]          ; 0x2caa
-    call ds_app_file_TSNH            ; 0x2cad
+    call load_monster_picture        ; 0x2cad
     add sp, byte 4                   ; 0x2cb0
     mov ax, word [bp - 0x002c]       ; 0x2cb3
     push ax                          ; 0x2cb6

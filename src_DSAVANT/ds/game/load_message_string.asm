@@ -14,10 +14,10 @@ load_message_string: ; Aztec csav frame=0x010a
     mov bx, ax                       ; 0x079d
     mov al, byte [bx + 0x5]          ; 0x079f
     sub ah, ah                       ; 0x07a2
-    cmp ax, word [bss_5212]          ; 0x07a4
+    cmp ax, word [message_block_current] ; 0x07a4
     je short @..load_message_string.l2 ; 0x07a8
     push ax                          ; 0x07aa
-    call ds_app_file_RPKG            ; 0x07ab
+    call load_message_block          ; 0x07ab
     pop cx                           ; 0x07ae
 @..load_message_string.l2:
     mov bx, word [bp - 0x0008]       ; 0x07af
@@ -30,7 +30,7 @@ load_message_string: ; Aztec csav frame=0x010a
     cmp ax, word [bp - 0x0004]       ; 0x07c0
     je short @..load_message_string.l4 ; 0x07c3
     mov bx, word [bp - 0x0002]       ; 0x07c5
-    mov al, byte [bx + bss_3e12]     ; 0x07c8
+    mov al, byte [bx + message_block_buffer] ; 0x07c8
     sub ah, ah                       ; 0x07cc
     add ax, bx                       ; 0x07ce
     inc ax                           ; 0x07d0
@@ -39,7 +39,7 @@ load_message_string: ; Aztec csav frame=0x010a
     jmp short @..load_message_string.l3 ; 0x07d7
 @..load_message_string.l4:
     mov bx, word [bp - 0x0002]       ; 0x07d9
-    mov al, byte [bx + bss_3e12]     ; 0x07dc
+    mov al, byte [bx + message_block_buffer] ; 0x07dc
     sub ah, ah                       ; 0x07e0
     mov word [bp - 0x0006], ax       ; 0x07e2
     inc word [bp - 0x0002]           ; 0x07e5
@@ -63,10 +63,10 @@ load_message_string: ; Aztec csav frame=0x010a
     sub ax, word [bp - 0x0002]       ; 0x0817
     sub word [bp - 0x0004], ax       ; 0x081a
     add word [bp - 0x000a], ax       ; 0x081d
-    mov ax, word [bss_5212]          ; 0x0820
+    mov ax, word [message_block_current] ; 0x0820
     inc ax                           ; 0x0823
     push ax                          ; 0x0824
-    call ds_app_file_RPKG            ; 0x0825
+    call load_message_block          ; 0x0825
     pop cx                           ; 0x0828
     mov word [bp - 0x0002], 0        ; 0x0829
 @..load_message_string.l5:

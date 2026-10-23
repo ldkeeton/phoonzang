@@ -17,8 +17,8 @@ api_idx_0068_OUHP:
     mov word [bp - 0x0008], 0        ; 0x0ae8
 @..api_idx_0068_OUHP.l2:
     mov bx, word [bp - 0x0008]       ; 0x0aed
-    mov byte [bx + 0x5b48], 0xff     ; 0x0af0
-    mov byte [bx + 0x5b5a], 0        ; 0x0af5
+    mov byte [bx + picture_slot_number], 0xff ; 0x0af0
+    mov byte [bx + picture_slot_used], 0 ; 0x0af5
     inc word [bp - 0x0008]           ; 0x0afa
     mov ax, word [bp - 0x0008]       ; 0x0afd
     cmp ax, strict word 0x12         ; 0x0b00
@@ -27,7 +27,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0b08
     mov ax, 0x3c                     ; 0x0b09
     push ax                          ; 0x0b0c
-    call ds_app_file_TSNH            ; 0x0b0d
+    call load_monster_picture        ; 0x0b0d
     add sp, byte 4                   ; 0x0b10
     mov ax, 0                        ; 0x0b13
     push ax                          ; 0x0b16
@@ -193,7 +193,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0c67
     mov ax, 0x3d                     ; 0x0c68
     push ax                          ; 0x0c6b
-    call ds_app_file_TSNH            ; 0x0c6c
+    call load_monster_picture        ; 0x0c6c
     add sp, byte 4                   ; 0x0c6f
     mov ax, 0x98                     ; 0x0c72
     push ax                          ; 0x0c75
@@ -304,7 +304,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0d4a
     mov ax, 0x3e                     ; 0x0d4b
     push ax                          ; 0x0d4e
-    call ds_app_file_TSNH            ; 0x0d4f
+    call load_monster_picture        ; 0x0d4f
     add sp, byte 4                   ; 0x0d52
     call api_idx_0002_PUOP           ; 0x0d55
     test ax, ax                      ; 0x0d58
@@ -407,7 +407,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0e1f
     mov ax, 0x3f                     ; 0x0e20
     push ax                          ; 0x0e23
-    call ds_app_file_TSNH            ; 0x0e24
+    call load_monster_picture        ; 0x0e24
     add sp, byte 4                   ; 0x0e27
     call api_idx_0002_PUOP           ; 0x0e2a
     test ax, ax                      ; 0x0e2d

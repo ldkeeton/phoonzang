@@ -1,18 +1,18 @@
 ; auto-generated
-ds_app_file_RPKG: ; Aztec csav frame=0x0002
+load_message_block: ; Aztec csav frame=0x0002
     mov ax, 0xfffe                   ; 0x06c6
     call aztec_csav                  ; 0x06c9
     mov word [bp - 0x0002], 0        ; 0x06cc
-@..ds_app_file_RPKG.l1:
+@..load_message_block.l1:
     mov ax, word [bp - 0x0002]       ; 0x06d1
     shl ax, 1                        ; 0x06d4
     mov bx, ax                       ; 0x06d6
-    mov ax, word [bx + 0x3e0a]       ; 0x06d8
+    mov ax, word [bx + message_cache_ids] ; 0x06d8
     cmp ax, word [bp + 0x4]          ; 0x06dc
-    jne short @..ds_app_file_RPKG.l2 ; 0x06df
+    jne short @..load_message_block.l2 ; 0x06df
     mov ax, 0x400                    ; 0x06e1
     push ax                          ; 0x06e4
-    mov ax, bss_3e12                 ; 0x06e5
+    mov ax, message_block_buffer     ; 0x06e5
     push ax                          ; 0x06e8
     mov ax, word [bp - 0x0002]       ; 0x06e9
     mov cx, 0xa                      ; 0x06ec
@@ -22,13 +22,13 @@ ds_app_file_RPKG: ; Aztec csav frame=0x0002
     call aztec_movmem                ; 0x06f5
     add sp, byte 6                   ; 0x06f8
     mov ax, word [bp + 0x4]          ; 0x06fb
-    mov word [bss_5212], ax          ; 0x06fe
+    mov word [message_block_current], ax ; 0x06fe
     ret                              ; 0x0701
-@..ds_app_file_RPKG.l2:
+@..load_message_block.l2:
     inc word [bp - 0x0002]           ; 0x0702
     mov ax, word [bp - 0x0002]       ; 0x0705
     cmp ax, strict word 4            ; 0x0708
-    jl short @..ds_app_file_RPKG.l1  ; 0x070b
+    jl short @..load_message_block.l1 ; 0x070b
     mov ax, 0                        ; 0x070d
     push ax                          ; 0x0710
     call gfx_wait_sound              ; 0x0711
@@ -38,10 +38,10 @@ ds_app_file_RPKG: ; Aztec csav frame=0x0002
     mov ax, word [bp + 0x4]          ; 0x0719
     cwd                              ; 0x071c
     mov cx, 0xa                      ; 0x071d
-@..ds_app_file_RPKG.l3:
+@..load_message_block.l3:
     shl ax, 1                        ; 0x0720
     rcl dx, 1                        ; 0x0722
-    loop @..ds_app_file_RPKG.l3      ; 0x0724
+    loop @..load_message_block.l3    ; 0x0724
     push dx                          ; 0x0726
     push ax                          ; 0x0727
     push word [msg_dbs_fd]           ; 0x0728
@@ -49,33 +49,33 @@ ds_app_file_RPKG: ; Aztec csav frame=0x0002
     add sp, byte 8                   ; 0x072f
     mov ax, 0x400                    ; 0x0732
     push ax                          ; 0x0735
-    mov ax, bss_3e12                 ; 0x0736
+    mov ax, message_block_buffer     ; 0x0736
     push ax                          ; 0x0739
     push word [msg_dbs_fd]           ; 0x073a
     call aztec_read                  ; 0x073e
     add sp, byte 6                   ; 0x0741
     mov ax, word [bp + 0x4]          ; 0x0744
-    mov word [bss_5212], ax          ; 0x0747
+    mov word [message_block_current], ax ; 0x0747
     mov ax, 0x400                    ; 0x074a
     push ax                          ; 0x074d
-    mov ax, word [bss_5214]          ; 0x074e
+    mov ax, word [message_cache_next] ; 0x074e
     mov cx, 0xa                      ; 0x0751
     shl ax, cl                       ; 0x0754
     add ax, 0x4212                   ; 0x0756
     push ax                          ; 0x0759
-    mov ax, bss_3e12                 ; 0x075a
+    mov ax, message_block_buffer     ; 0x075a
     push ax                          ; 0x075d
     call aztec_movmem                ; 0x075e
     add sp, byte 6                   ; 0x0761
     mov ax, word [bp + 0x4]          ; 0x0764
-    mov cx, word [bss_5214]          ; 0x0767
+    mov cx, word [message_cache_next] ; 0x0767
     shl cx, 1                        ; 0x076b
     mov bx, cx                       ; 0x076d
-    mov word [bx + 0x3e0a], ax       ; 0x076f
-    mov ax, word [bss_5214]          ; 0x0773
+    mov word [bx + message_cache_ids], ax ; 0x076f
+    mov ax, word [message_cache_next] ; 0x0773
     inc ax                           ; 0x0776
     mov cx, 4                        ; 0x0777
     cwd                              ; 0x077a
     idiv cx                          ; 0x077b
-    mov word [bss_5214], dx          ; 0x077d
+    mov word [message_cache_next], dx ; 0x077d
     ret                              ; 0x0781

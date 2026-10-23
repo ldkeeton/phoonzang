@@ -15,20 +15,20 @@ api_idx_0014_VORK:
     push ax                          ; 0x619b
     mov ax, 2                        ; 0x619c
     push ax                          ; 0x619f
-    call ds_app_file_TSNH            ; 0x61a0
+    call load_monster_picture        ; 0x61a0
     add sp, byte 4                   ; 0x61a3
     mov ax, 2                        ; 0x61a6
     push ax                          ; 0x61a9
     mov ax, 3                        ; 0x61aa
     push ax                          ; 0x61ad
-    call ds_app_file_TSNH            ; 0x61ae
+    call load_monster_picture        ; 0x61ae
     add sp, byte 4                   ; 0x61b1
     jmp short @..api_idx_0014_VORK.l4 ; 0x61b4
 @..api_idx_0014_VORK.l1:
     mov word [bp - 0x0002], 0xf      ; 0x61b6
 @..api_idx_0014_VORK.l2:
     mov bx, word [bp - 0x0002]       ; 0x61bb
-    mov al, byte [bx + 0x5b48]       ; 0x61be
+    mov al, byte [bx + picture_slot_number] ; 0x61be
     sub ah, ah                       ; 0x61c2
     shl bx, 1                        ; 0x61c4
     add bx, bp                       ; 0x61c6
@@ -196,7 +196,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x6334
     mov ax, 0xb                      ; 0x6335
     push ax                          ; 0x6338
-    call ds_app_file_TSNH            ; 0x6339
+    call load_monster_picture        ; 0x6339
     add sp, byte 4                   ; 0x633c
     call ds_app_NNSU                 ; 0x633f
     mov word [bss_8450], ax          ; 0x6342
@@ -861,7 +861,7 @@ jumptable_67c3_case_15:
     push ax                          ; 0x691a
     mov ax, 9                        ; 0x691b
     push ax                          ; 0x691e
-    call ds_app_file_TSNH            ; 0x691f
+    call load_monster_picture        ; 0x691f
     add sp, byte 4                   ; 0x6922
     mov word [bp - 0x0002], 0xf      ; 0x6925
 @..api_idx_0014_VORK.l23:
@@ -873,7 +873,7 @@ jumptable_67c3_case_15:
     je short @..api_idx_0014_VORK.l24 ; 0x6938
     push word [bp - 0x0002]          ; 0x693a
     push word [bx - 0x002a]          ; 0x693d
-    call ds_app_file_TSNH            ; 0x6940
+    call load_monster_picture        ; 0x6940
     add sp, byte 4                   ; 0x6943
 @..api_idx_0014_VORK.l24:
     inc word [bp - 0x0002]           ; 0x6946

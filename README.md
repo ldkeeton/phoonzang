@@ -56,7 +56,7 @@ Wizardry VII seems to have been originally compiled with Manx Aztec v4.2b
 
 ## Wizardry VII coverage
 
-Progress: **74 / 1349** (5.5%).
+Progress: **142 / 1217** (11.7%).
 
 ![C coverage heatmap](readme/heatmap.svg)
  
@@ -69,12 +69,16 @@ Run from the repo root.
 | `make init` | sparse-clone only the dos_compilers folders listed in sidecars, |
 | `make libcheck` | rebuild Aztec v4.2b C.LIB from dos_compilers/aztec_src/ and compare to the shipped one |
 | `make all` | prebuild (clean .cache + Aztec mux), build, verify all, elf-rebuild, make test, make test slow |
+| `make all notest` | the same, without the tests at the end |
 | `make build PROJECT [BIN]` | asm + nasm + assets (seeds .c; runs prebuild first if missing) |
 | `make prebuild [PROJECT...]` | clean .cache, rebuild aztec libs + signature DB, run the Aztec C mux |
 | `make run PROJECT` | run game in dosbox-x |
 | `make verify [PROJECT...]` | verify one or all projects |
 | `make clean [PROJECT...]` | clean one or all projects (no args: delete .cache, |
-| `make rebuild [PROJECT [BIN]]` | recompile .c (must match the original bytes; |
+| `make info PROJECT BIN ROUTINE` | fragment span, co-tenant routines, callers, source |
+| `make refs PROJECT BIN ROUTINE` | list the symbols ROUTINE references that still |
+| `make data PROJECT SEG OFFSET [BIN]` | bytes at DS/SS/ES/CS:OFFSET, its canonical name |
+| `make rebuild [PROJECT [BIN [ROUTINE]]]` | recompile .c (must match the original bytes; |
 | `make elf-rebuild [PROJECT [BIN]]` | full rebuild from current sources (C resplice + |
 | `make set-baseline` | pin current stats as the local baseline |
 | `make stats-diff` | current-vs-baseline KPI delta (+ delta.json) |

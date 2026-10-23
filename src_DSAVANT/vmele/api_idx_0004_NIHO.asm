@@ -146,7 +146,7 @@ api_idx_0004_NIHO:
     mov word [bp - 0x0004], 0xf      ; 0x301c
 @..api_idx_0004_NIHO.l5:
     mov bx, word [bp - 0x0004]       ; 0x3021
-    mov al, byte [bx + 0x5b48]       ; 0x3024
+    mov al, byte [bx + picture_slot_number] ; 0x3024
     sub ah, ah                       ; 0x3028
     cmp ax, 0xff                     ; 0x302a
     je short @..api_idx_0004_NIHO.l6 ; 0x302d
@@ -162,18 +162,18 @@ api_idx_0004_NIHO:
     push ax                          ; 0x3042
     mov ax, 1                        ; 0x3043
     push ax                          ; 0x3046
-    call ds_app_file_TSNH            ; 0x3047
+    call load_monster_picture        ; 0x3047
     add sp, byte 4                   ; 0x304a
     mov ax, 4                        ; 0x304d
     push ax                          ; 0x3050
     mov ax, 5                        ; 0x3051
     push ax                          ; 0x3054
-    call ds_app_file_TSNH            ; 0x3055
+    call load_monster_picture        ; 0x3055
     add sp, byte 4                   ; 0x3058
     mov ax, 6                        ; 0x305b
     push ax                          ; 0x305e
     mov ax, 7                        ; 0x305f
     push ax                          ; 0x3062
-    call ds_app_file_TSNH            ; 0x3063
+    call load_monster_picture        ; 0x3063
     add sp, byte 4                   ; 0x3066
     ret                              ; 0x3069

@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_file_TSNH: ; Aztec csav frame=0x0018
+load_monster_picture: ; Aztec csav frame=0x0018
     mov ax, 0xffe8                   ; 0x2863
     call aztec_csav                  ; 0x2866
     mov ax, 0                        ; 0x2869
@@ -7,24 +7,24 @@ ds_app_file_TSNH: ; Aztec csav frame=0x0018
     call gfx_wait_sound              ; 0x286d
     pop cx                           ; 0x2870
     mov bx, word [bp + 0x6]          ; 0x2871
-    mov al, byte [bx + 0x5b48]       ; 0x2874
+    mov al, byte [bx + picture_slot_number] ; 0x2874
     sub ah, ah                       ; 0x2878
     cmp ax, word [bp + 0x4]          ; 0x287a
-    jne short @..ds_app_file_TSNH.l1 ; 0x287d
-    jmp near @..ds_app_file_TSNH.l3  ; 0x287f
-@..ds_app_file_TSNH.l1:
+    jne short @..load_monster_picture.l1 ; 0x287d
+    jmp near @..load_monster_picture.l3 ; 0x287f
+@..load_monster_picture.l1:
     mov ax, 0                        ; 0x2882
     push ax                          ; 0x2885
     push word [bp + 0x4]             ; 0x2886
     mov ax, 0x15e                    ; 0x2889
     imul bx                          ; 0x288c
-    add ax, slot_rec_first           ; 0x288e
+    add ax, strict word slot_rec_first ; 0x288e
     push ax                          ; 0x2891
     mov ax, 8                        ; 0x2892
     push ax                          ; 0x2895
     call data_record_io              ; 0x2896
     add sp, byte 8                   ; 0x2899
-    mov ax, dseg_0bcd                ; 0x289c
+    mov ax, monster_pic_name         ; 0x289c
     push ax                          ; 0x289f
     lea ax, word [bp - 0x0018]       ; 0x28a0
     push ax                          ; 0x28a3
@@ -52,12 +52,12 @@ ds_app_file_TSNH: ; Aztec csav frame=0x0018
     add sp, byte 4                   ; 0x28d7
     mov word [bp - 0x0004], ax       ; 0x28da
     cmp ax, strict word 0xffff       ; 0x28dd
-    jne short @..ds_app_file_TSNH.l2 ; 0x28e0
+    jne short @..load_monster_picture.l2 ; 0x28e0
     mov ax, 0x12                     ; 0x28e2
     push ax                          ; 0x28e5
     call release_and_exit            ; 0x28e6
     pop cx                           ; 0x28e9
-@..ds_app_file_TSNH.l2:
+@..load_monster_picture.l2:
     push word [bp + 0x6]             ; 0x28ea
     push word [bp - 0x0004]          ; 0x28ed
     call gfx_load_picture            ; 0x28f0
@@ -67,7 +67,7 @@ ds_app_file_TSNH: ; Aztec csav frame=0x0018
     pop cx                           ; 0x28fc
     mov al, byte [bp + 0x4]          ; 0x28fd
     mov bx, word [bp + 0x6]          ; 0x2900
-    mov byte [bx + 0x5b48], al       ; 0x2903
-    mov byte [bx + 0x5b5a], 1        ; 0x2907
-@..ds_app_file_TSNH.l3:
+    mov byte [bx + picture_slot_number], al ; 0x2903
+    mov byte [bx + picture_slot_used], 1 ; 0x2907
+@..load_monster_picture.l3:
     ret                              ; 0x290c

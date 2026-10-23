@@ -334,15 +334,16 @@ bss_100a equ __zbss_100a - __zdseg_start
 bss_100c equ __zbss_100c - __zdseg_start
 %include "ds/game/ds_app_MRJK.asm"         ; 0x065d
 
-; msg_dbs_fd equ __zbss_0e24 - __zdseg_start
-bss_3e12   equ __zbss_3e12 - __zdseg_start
-bss_5212   equ __zbss_5212 - __zdseg_start
-bss_5214   equ __zbss_5214 - __zdseg_start
-%include "ds/game/ds_app_file_RPKG.asm"    ; 0x06c6
+; msg_dbs_fd            equ __zbss_0e24 - __zdseg_start
+message_cache_ids     equ __zbss_3e0a - __zdseg_start
+message_block_buffer  equ __zbss_3e12 - __zdseg_start
+message_block_current equ __zbss_5212 - __zdseg_start
+message_cache_next    equ __zbss_5214 - __zdseg_start
+%include "ds/game/load_message_block.asm"  ; 0x06c6
 
-; bss_3e12 equ __zbss_3e12 - __zdseg_start
-; bss_5212 equ __zbss_5212 - __zdseg_start
-bss_5216 equ __zbss_5216 - __zdseg_start
+; message_block_buffer  equ __zbss_3e12 - __zdseg_start
+; message_block_current equ __zbss_5212 - __zdseg_start
+bss_5216              equ __zbss_5216 - __zdseg_start
 %include "ds/game/load_message_string.asm" ; 0x0782
 
 %include "ds/game/ds_app_KQMO.asm"         ; 0x0860
@@ -423,7 +424,7 @@ bss_598c equ __zbss_598c - __zdseg_start
 %include "ds/game/flash_area.asm"          ; 0x10ff
 
 known_spell_names equ __zbss_0e38 - __zdseg_start
-%include "ds/game/ds_app_UNSL.asm"         ; 0x1138
+%include "ds/game/draw_spell_list.asm"     ; 0x1138
 
 %include "ds/game/draw_text_list.asm"      ; 0x11de
 
@@ -431,6 +432,8 @@ known_spell_names equ __zbss_0e38 - __zdseg_start
 
 %include "ds/game/draw_button.asm"         ; 0x1308
 
+picture_slot_number equ __zbss_5b48 - __zdseg_start
+picture_slot_used   equ __zbss_5b5a - __zdseg_start
 %include "ds/game/free_picture_slot.asm"   ; 0x1371
 
 current_maze equ __zbss_5b6c - __zdseg_start
@@ -515,9 +518,11 @@ disk_drive_name          equ __zbss_5926 - __zdseg_start
 ; install_mode       equ __zbss_5987 - __zdseg_start
 %include "ds/game/ensure_game_disk.asm"    ; 0x27e9
 
-dseg_0bcd      equ __zdseg_0bcd - __zdseg_start
-slot_rec_first equ __zbss_6a1a - __zdseg_start
-%include "ds/game/ds_app_file_TSNH.asm"    ; 0x2863
+monster_pic_name    equ __zmonster_pic_name - __zdseg_start
+; picture_slot_number equ __zbss_5b48 - __zdseg_start
+; picture_slot_used   equ __zbss_5b5a - __zdseg_start
+slot_rec_first      equ __zbss_6a1a - __zdseg_start
+%include "ds/game/load_monster_picture.asm" ; 0x2863
 
 %include "ds/game/wait_and_free_sound.asm" ; 0x290d
 
@@ -1205,8 +1210,8 @@ __zdseg_03dc:
 
 %include "ds/data/str_insert_savegame_disk.asm" ; 0x10cd4
 
-__zdseg_0bcd:
-    db 'MON00.PIC', 0
+%include "ds/data/monster_pic_name.asm"    ; 0x10d2d
+
 __zstr_0bd7:
 __zdseg_0bd7:
     db 'SOUND00.SND', 0
@@ -1372,7 +1377,9 @@ __zbss_100c:
 __zbss_2d40:
     resb 0x0018
 __zbss_2d58:
-    resb 0x10ba
+    resb 0x10b2
+__zbss_3e0a:
+    resb 0x0008
 __zbss_3e12:
     resb 0x1400
 __zbss_5212:
@@ -1486,9 +1493,13 @@ __zbss_5b42:
 __zbss_5b44:
     resb 0x0002
 __zbss_5b46:
-    resb 0x000f
+    resb 0x0002
+__zbss_5b48:
+    resb 0x000d
 __zbss_5b55:
-    resb 0x0017
+    resb 0x0005
+__zbss_5b5a:
+    resb 0x0012
 __zbss_5b6c:
     resb 0x0002
 __zbss_5b6e:

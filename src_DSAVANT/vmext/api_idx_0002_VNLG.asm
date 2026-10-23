@@ -93,25 +93,25 @@ jumptable_052d_case_1:
     push ax                          ; 0x032e
     mov ax, 6                        ; 0x032f
     push ax                          ; 0x0332
-    call ds_app_file_TSNH            ; 0x0333
+    call load_monster_picture        ; 0x0333
     add sp, byte 4                   ; 0x0336
     mov ax, 9                        ; 0x0339
     push ax                          ; 0x033c
     mov ax, 0xf                      ; 0x033d
     push ax                          ; 0x0340
-    call ds_app_file_TSNH            ; 0x0341
+    call load_monster_picture        ; 0x0341
     add sp, byte 4                   ; 0x0344
     mov ax, 0xa                      ; 0x0347
     push ax                          ; 0x034a
     mov ax, 0x10                     ; 0x034b
     push ax                          ; 0x034e
-    call ds_app_file_TSNH            ; 0x034f
+    call load_monster_picture        ; 0x034f
     add sp, byte 4                   ; 0x0352
     mov ax, 0xd                      ; 0x0355
     push ax                          ; 0x0358
     mov ax, 0x39                     ; 0x0359
     push ax                          ; 0x035c
-    call ds_app_file_TSNH            ; 0x035d
+    call load_monster_picture        ; 0x035d
     add sp, byte 4                   ; 0x0360
     mov word [current_maze], 0       ; 0x0363
     jmp near @..api_idx_0002_VNLG.l5 ; 0x0369
@@ -138,7 +138,7 @@ jumptable_052d_case_2:
     push ax                          ; 0x0399
     mov ax, 0x3a                     ; 0x039a
     push ax                          ; 0x039d
-    call ds_app_file_TSNH            ; 0x039e
+    call load_monster_picture        ; 0x039e
     add sp, byte 4                   ; 0x03a1
     mov word [current_maze], 1       ; 0x03a4
     jmp near @..api_idx_0002_VNLG.l5 ; 0x03aa
@@ -171,25 +171,25 @@ jumptable_052d_case_3:
     push ax                          ; 0x03e8
     mov ax, 8                        ; 0x03e9
     push ax                          ; 0x03ec
-    call ds_app_file_TSNH            ; 0x03ed
+    call load_monster_picture        ; 0x03ed
     add sp, byte 4                   ; 0x03f0
     mov ax, 0xa                      ; 0x03f3
     push ax                          ; 0x03f6
     mov ax, 0x10                     ; 0x03f7
     push ax                          ; 0x03fa
-    call ds_app_file_TSNH            ; 0x03fb
+    call load_monster_picture        ; 0x03fb
     add sp, byte 4                   ; 0x03fe
     mov ax, 0xb                      ; 0x0401
     push ax                          ; 0x0404
     mov ax, 0x11                     ; 0x0405
     push ax                          ; 0x0408
-    call ds_app_file_TSNH            ; 0x0409
+    call load_monster_picture        ; 0x0409
     add sp, byte 4                   ; 0x040c
     mov ax, 0xc                      ; 0x040f
     push ax                          ; 0x0412
     mov ax, 0x3b                     ; 0x0413
     push ax                          ; 0x0416
-    call ds_app_file_TSNH            ; 0x0417
+    call load_monster_picture        ; 0x0417
     add sp, byte 4                   ; 0x041a
     mov word [current_maze], 2       ; 0x041d
     jmp near @..api_idx_0002_VNLG.l5 ; 0x0423
@@ -210,7 +210,7 @@ jumptable_052d_case_4:
     push ax                          ; 0x0445
     mov ax, 0x3a                     ; 0x0446
     push ax                          ; 0x0449
-    call ds_app_file_TSNH            ; 0x044a
+    call load_monster_picture        ; 0x044a
     add sp, byte 4                   ; 0x044d
     mov word [current_maze], 1       ; 0x0450
     jmp near @..api_idx_0002_VNLG.l5 ; 0x0456
@@ -237,31 +237,31 @@ jumptable_052d_case_5:
     push ax                          ; 0x0486
     mov ax, 0x10                     ; 0x0487
     push ax                          ; 0x048a
-    call ds_app_file_TSNH            ; 0x048b
+    call load_monster_picture        ; 0x048b
     add sp, byte 4                   ; 0x048e
     mov ax, 0xb                      ; 0x0491
     push ax                          ; 0x0494
     mov ax, 0x36                     ; 0x0495
     push ax                          ; 0x0498
-    call ds_app_file_TSNH            ; 0x0499
+    call load_monster_picture        ; 0x0499
     add sp, byte 4                   ; 0x049c
     mov ax, 0xc                      ; 0x049f
     push ax                          ; 0x04a2
     mov ax, 0x3b                     ; 0x04a3
     push ax                          ; 0x04a6
-    call ds_app_file_TSNH            ; 0x04a7
+    call load_monster_picture        ; 0x04a7
     add sp, byte 4                   ; 0x04aa
     mov ax, 9                        ; 0x04ad
     push ax                          ; 0x04b0
     mov ax, 0x53                     ; 0x04b1
     push ax                          ; 0x04b4
-    call ds_app_file_TSNH            ; 0x04b5
+    call load_monster_picture        ; 0x04b5
     add sp, byte 4                   ; 0x04b8
     mov ax, 0xd                      ; 0x04bb
     push ax                          ; 0x04be
     mov ax, 0x38                     ; 0x04bf
     push ax                          ; 0x04c2
-    call ds_app_file_TSNH            ; 0x04c3
+    call load_monster_picture        ; 0x04c3
     add sp, byte 4                   ; 0x04c6
     mov word [current_maze], 2       ; 0x04c9
     jmp short @..api_idx_0002_VNLG.l5 ; 0x04cf
@@ -288,19 +288,19 @@ jumptable_052d_case_6:
     push ax                          ; 0x04fe
     mov ax, 0x3b                     ; 0x04ff
     push ax                          ; 0x0502
-    call ds_app_file_TSNH            ; 0x0503
+    call load_monster_picture        ; 0x0503
     add sp, byte 4                   ; 0x0506
     mov ax, 9                        ; 0x0509
     push ax                          ; 0x050c
     mov ax, 0x53                     ; 0x050d
     push ax                          ; 0x0510
-    call ds_app_file_TSNH            ; 0x0511
+    call load_monster_picture        ; 0x0511
     add sp, byte 4                   ; 0x0514
     mov ax, 0xd                      ; 0x0517
     push ax                          ; 0x051a
     mov ax, 0x3a                     ; 0x051b
     push ax                          ; 0x051e
-    call ds_app_file_TSNH            ; 0x051f
+    call load_monster_picture        ; 0x051f
     add sp, byte 4                   ; 0x0522
     mov word [current_maze], 1       ; 0x0525
     jmp short @..api_idx_0002_VNLG.l5 ; 0x052b

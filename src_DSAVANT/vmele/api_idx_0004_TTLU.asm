@@ -5,7 +5,7 @@ api_idx_0004_TTLU:
     mov word [bp - 0x0004], 0xf      ; 0x17b3
 @..api_idx_0004_TTLU.l1:
     mov bx, word [bp - 0x0004]       ; 0x17b8
-    mov byte [bx + 0x5b5a], 0        ; 0x17bb
+    mov byte [bx + picture_slot_used], 0 ; 0x17bb
     inc word [bp - 0x0004]           ; 0x17c0
     mov ax, word [bp - 0x0004]       ; 0x17c3
     cmp ax, strict word 0x12         ; 0x17c6
@@ -35,11 +35,11 @@ api_idx_0004_TTLU:
     mov word [bp - 0x0004], 0xf      ; 0x1803
 @..api_idx_0004_TTLU.l4:
     mov bx, word [bp - 0x0004]       ; 0x1808
-    mov al, byte [bx + 0x5b48]       ; 0x180b
+    mov al, byte [bx + picture_slot_number] ; 0x180b
     sub ah, ah                       ; 0x180f
     cmp ax, 0xff                     ; 0x1811
     je short @..api_idx_0004_TTLU.l5 ; 0x1814
-    cmp byte [bx + 0x5b5a], 0        ; 0x1816
+    cmp byte [bx + picture_slot_used], 0 ; 0x1816
     jne short @..api_idx_0004_TTLU.l5 ; 0x181b
     push bx                          ; 0x181d
     call free_picture_slot           ; 0x181e

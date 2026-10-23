@@ -263,18 +263,18 @@ loc_RVQR:
     call release_and_exit            ; 0x0622
     pop cx                           ; 0x0625
 @..loc_RVQR.l17:
-    mov word [bss_5212], 0xffff      ; 0x0626
-    mov word [bss_5214], 0           ; 0x062c
+    mov word [message_block_current], 0xffff ; 0x0626
+    mov word [message_cache_next], 0 ; 0x062c
 @..loc_RVQR.l18:
-    mov ax, word [bss_5214]          ; 0x0632
+    mov ax, word [message_cache_next] ; 0x0632
     shl ax, 1                        ; 0x0635
     mov bx, ax                       ; 0x0637
-    mov word [bx + 0x3e0a], 0xffff   ; 0x0639
-    inc word [bss_5214]              ; 0x063f
-    mov ax, word [bss_5214]          ; 0x0643
+    mov word [bx + message_cache_ids], 0xffff ; 0x0639
+    inc word [message_cache_next]    ; 0x063f
+    mov ax, word [message_cache_next] ; 0x0643
     cmp ax, strict word 4            ; 0x0646
     jl short @..loc_RVQR.l18         ; 0x0649
-    mov word [bss_5214], 0           ; 0x064b
+    mov word [message_cache_next], 0 ; 0x064b
     mov word [bp - 0x0006], 0        ; 0x0651
 @..loc_RVQR.l19:
     mov ax, word [bp - 0x0006]       ; 0x0656

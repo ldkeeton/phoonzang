@@ -8,7 +8,7 @@ api_idx_0012_UROU:
     push ax                          ; 0x0fe2
     mov ax, 0xe                      ; 0x0fe3
     push ax                          ; 0x0fe6
-    call ds_app_file_TSNH            ; 0x0fe7
+    call load_monster_picture        ; 0x0fe7
     add sp, byte 4                   ; 0x0fea
     mov ax, 0xf                      ; 0x0fed
     cmp word [bp + 0x6], byte 0      ; 0x0ff0

@@ -86,7 +86,7 @@ jumptable_0c85_case_5:
     push ax                          ; 0x0bdd
     mov ax, 0xa                      ; 0x0bde
     push ax                          ; 0x0be1
-    call ds_app_file_TSNH            ; 0x0be2
+    call load_monster_picture        ; 0x0be2
     add sp, byte 4                   ; 0x0be5
     mov byte [bp - 0x0090], 1        ; 0x0be8
     mov byte [bp - 0x008f], 0        ; 0x0bed

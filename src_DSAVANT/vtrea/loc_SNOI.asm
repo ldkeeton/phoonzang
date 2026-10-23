@@ -14,13 +14,13 @@ loc_SNOI:
     push ax                          ; 0x7db4
     mov ax, 9                        ; 0x7db5
     push ax                          ; 0x7db8
-    call ds_app_file_TSNH            ; 0x7db9
+    call load_monster_picture        ; 0x7db9
     add sp, byte 4                   ; 0x7dbc
     mov ax, 0xf                      ; 0x7dbf
     push ax                          ; 0x7dc2
     mov ax, 0xd                      ; 0x7dc3
     push ax                          ; 0x7dc6
-    call ds_app_file_TSNH            ; 0x7dc7
+    call load_monster_picture        ; 0x7dc7
     add sp, byte 4                   ; 0x7dca
     mov ax, 0                        ; 0x7dcd
     push ax                          ; 0x7dd0
@@ -92,13 +92,13 @@ loc_SNOI:
     push ax                          ; 0x7e72
     mov ax, 2                        ; 0x7e73
     push ax                          ; 0x7e76
-    call ds_app_file_TSNH            ; 0x7e77
+    call load_monster_picture        ; 0x7e77
     add sp, byte 4                   ; 0x7e7a
     mov ax, 2                        ; 0x7e7d
     push ax                          ; 0x7e80
     mov ax, 3                        ; 0x7e81
     push ax                          ; 0x7e84
-    call ds_app_file_TSNH            ; 0x7e85
+    call load_monster_picture        ; 0x7e85
     add sp, byte 4                   ; 0x7e88
     mov word [bss_91d4], 1           ; 0x7e8b
     mov word [party_redraw_interval], 5 ; 0x7e91

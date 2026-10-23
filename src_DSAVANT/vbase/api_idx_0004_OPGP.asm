@@ -65,8 +65,8 @@ api_idx_0004_OPGP:
     mov word [bp - 0x0004], 0xf      ; 0x6701
 @..api_idx_0004_OPGP.l6:
     mov bx, word [bp - 0x0004]       ; 0x6706
-    mov byte [bx + 0x5b48], 0xff     ; 0x6709
-    mov byte [bx + 0x5b5a], 0        ; 0x670e
+    mov byte [bx + picture_slot_number], 0xff ; 0x6709
+    mov byte [bx + picture_slot_used], 0 ; 0x670e
     inc word [bp - 0x0004]           ; 0x6713
     mov ax, word [bp - 0x0004]       ; 0x6716
     cmp ax, strict word 0x12         ; 0x6719

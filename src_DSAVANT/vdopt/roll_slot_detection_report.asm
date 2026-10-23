@@ -50,7 +50,7 @@ jumptable_1aa5_case_0:
     push ax                          ; 0x1acd
     mov ax, 0                        ; 0x1ace
     push ax                          ; 0x1ad1
-    call ds_app_file_TSNH            ; 0x1ad2
+    call load_monster_picture        ; 0x1ad2
     add sp, byte 4                   ; 0x1ad5
     mov ax, 0xc6                     ; 0x1ad8
     push ax                          ; 0x1adb
@@ -225,6 +225,6 @@ jumptable_1aa5_case_0:
     push ax                          ; 0x1c73
     mov ax, 3                        ; 0x1c74
     push ax                          ; 0x1c77
-    call ds_app_file_TSNH            ; 0x1c78
+    call load_monster_picture        ; 0x1c78
     add sp, byte 4                   ; 0x1c7b
     ret                              ; 0x1c7e

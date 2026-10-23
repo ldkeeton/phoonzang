@@ -32,13 +32,13 @@ api_idx_000c_RLGP:
     push ax                          ; 0x51c0
     mov ax, 2                        ; 0x51c1
     push ax                          ; 0x51c4
-    call ds_app_file_TSNH            ; 0x51c5
+    call load_monster_picture        ; 0x51c5
     add sp, byte 4                   ; 0x51c8
     mov ax, 2                        ; 0x51cb
     push ax                          ; 0x51ce
     mov ax, 3                        ; 0x51cf
     push ax                          ; 0x51d2
-    call ds_app_file_TSNH            ; 0x51d3
+    call load_monster_picture        ; 0x51d3
     add sp, byte 4                   ; 0x51d6
     mov ax, 0                        ; 0x51d9
     push ax                          ; 0x51dc
@@ -176,7 +176,7 @@ api_idx_000c_RLGP:
     push ax                          ; 0x530b
     mov ax, 0xb                      ; 0x530c
     push ax                          ; 0x530f
-    call ds_app_file_TSNH            ; 0x5310
+    call load_monster_picture        ; 0x5310
     add sp, byte 4                   ; 0x5313
     call ds_app_NNSU                 ; 0x5316
     mov word [bss_8450], ax          ; 0x5319

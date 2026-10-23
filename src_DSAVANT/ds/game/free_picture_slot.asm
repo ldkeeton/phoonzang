@@ -6,6 +6,6 @@ free_picture_slot: ; Aztec csav frame=0x0000
     call gfx_free_picture            ; 0x137a
     pop cx                           ; 0x137d
     mov bx, word [bp + 0x4]          ; 0x137e
-    mov byte [bx + 0x5b48], 0xff     ; 0x1381
-    mov byte [bx + 0x5b5a], 0        ; 0x1386
+    mov byte [bx + picture_slot_number], 0xff ; 0x1381
+    mov byte [bx + picture_slot_used], 0 ; 0x1386
     ret                              ; 0x138b

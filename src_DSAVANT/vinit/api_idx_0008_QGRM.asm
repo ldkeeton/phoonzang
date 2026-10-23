@@ -20,8 +20,8 @@ api_idx_0008_QGRM:
     mov word [bp - 0x0004], 0        ; 0x1430
 @..api_idx_0008_QGRM.l1:
     mov bx, word [bp - 0x0004]       ; 0x1435
-    mov byte [bx + 0x5b48], 0xff     ; 0x1438
-    mov byte [bx + 0x5b5a], 0        ; 0x143d
+    mov byte [bx + picture_slot_number], 0xff ; 0x1438
+    mov byte [bx + picture_slot_used], 0 ; 0x143d
     inc word [bp - 0x0004]           ; 0x1442
     mov ax, word [bp - 0x0004]       ; 0x1445
     cmp ax, strict word 0x12         ; 0x1448
@@ -34,37 +34,37 @@ api_idx_0008_QGRM:
     push ax                          ; 0x1468
     mov ax, 1                        ; 0x1469
     push ax                          ; 0x146c
-    call ds_app_file_TSNH            ; 0x146d
+    call load_monster_picture        ; 0x146d
     add sp, byte 4                   ; 0x1470
     mov ax, 3                        ; 0x1473
     push ax                          ; 0x1476
     mov ax, 4                        ; 0x1477
     push ax                          ; 0x147a
-    call ds_app_file_TSNH            ; 0x147b
+    call load_monster_picture        ; 0x147b
     add sp, byte 4                   ; 0x147e
     mov ax, 4                        ; 0x1481
     push ax                          ; 0x1484
     mov ax, 5                        ; 0x1485
     push ax                          ; 0x1488
-    call ds_app_file_TSNH            ; 0x1489
+    call load_monster_picture        ; 0x1489
     add sp, byte 4                   ; 0x148c
     mov ax, 6                        ; 0x148f
     push ax                          ; 0x1492
     mov ax, 7                        ; 0x1493
     push ax                          ; 0x1496
-    call ds_app_file_TSNH            ; 0x1497
+    call load_monster_picture        ; 0x1497
     add sp, byte 4                   ; 0x149a
     mov ax, 8                        ; 0x149d
     push ax                          ; 0x14a0
     mov ax, 0xc                      ; 0x14a1
     push ax                          ; 0x14a4
-    call ds_app_file_TSNH            ; 0x14a5
+    call load_monster_picture        ; 0x14a5
     add sp, byte 4                   ; 0x14a8
     mov ax, 0xe                      ; 0x14ab
     push ax                          ; 0x14ae
     mov ax, 0                        ; 0x14af
     push ax                          ; 0x14b2
-    call ds_app_file_TSNH            ; 0x14b3
+    call load_monster_picture        ; 0x14b3
     add sp, byte 4                   ; 0x14b6
     cmp word [bss_904c], byte 0      ; 0x14b9
     jne short @..api_idx_0008_QGRM.l2 ; 0x14be
@@ -113,7 +113,7 @@ api_idx_0008_QGRM:
     mov ax, word [bp - 0x0002]       ; 0x1529
     cmp ax, strict word 6            ; 0x152c
     jl short @..api_idx_0008_QGRM.l3 ; 0x152f
-    mov word [bss_5212], 0xffff      ; 0x1531
+    mov word [message_block_current], 0xffff ; 0x1531
     mov word [bss_69c8], 0           ; 0x1537
     mov word [bp - 0x0002], 0        ; 0x153d
 @..api_idx_0008_QGRM.l4:

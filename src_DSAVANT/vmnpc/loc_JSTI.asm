@@ -19,7 +19,7 @@ loc_JSTI:
     mov al, byte [bss_91c3]          ; 0x6dca
     sub ah, ah                       ; 0x6dcd
     push ax                          ; 0x6dcf
-    call ds_app_file_TSNH            ; 0x6dd0
+    call load_monster_picture        ; 0x6dd0
     add sp, byte 4                   ; 0x6dd3
     mov word [bss_843a], 0xf         ; 0x6dd6
     mov ax, 0xffff                   ; 0x6ddc

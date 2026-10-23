@@ -148,7 +148,7 @@ api_idx_0018_TROH:
     add ax, cx                       ; 0x0881
     mov word [bp - 0x000c], ax       ; 0x0883
     mov bx, word [bp - 0x0002]       ; 0x0886
-    cmp byte [bx + 0x5b48], 0x18     ; 0x0889
+    cmp byte [bx + picture_slot_number], 0x18 ; 0x0889
     jne short @..api_idx_0018_TROH.l9 ; 0x088e
     cmp word [bss_9134], byte 1      ; 0x0890
     jne short @..api_idx_0018_TROH.l9 ; 0x0895

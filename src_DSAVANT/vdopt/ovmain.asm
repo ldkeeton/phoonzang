@@ -23,13 +23,13 @@ ovmain:
     push ax                          ; 0x004d
     mov ax, 2                        ; 0x004e
     push ax                          ; 0x0051
-    call ds_app_file_TSNH            ; 0x0052
+    call load_monster_picture        ; 0x0052
     add sp, byte 4                   ; 0x0055
     mov ax, 2                        ; 0x0058
     push ax                          ; 0x005b
     mov ax, 3                        ; 0x005c
     push ax                          ; 0x005f
-    call ds_app_file_TSNH            ; 0x0060
+    call load_monster_picture        ; 0x0060
     add sp, byte 4                   ; 0x0063
     push word [bss_8af0]             ; 0x0066
     call cast_spell_from_menu        ; 0x006a
@@ -46,7 +46,7 @@ ovmain:
     push ax                          ; 0x0081
     mov ax, 0                        ; 0x0082
     push ax                          ; 0x0085
-    call ds_app_file_TSNH            ; 0x0086
+    call load_monster_picture        ; 0x0086
     add sp, byte 4                   ; 0x0089
 @..ovmain.l2:
     cmp word [game_state], byte 0x14 ; 0x008c

@@ -105,8 +105,8 @@ api_idx_001e_GOQP:
     mov word [bp - 0x0002], 0xf      ; 0x71b4
 @..api_idx_001e_GOQP.l7:
     mov bx, word [bp - 0x0002]       ; 0x71b9
-    mov byte [bx + 0x5b48], 0xff     ; 0x71bc
-    mov byte [bx + 0x5b5a], 0        ; 0x71c1
+    mov byte [bx + picture_slot_number], 0xff ; 0x71bc
+    mov byte [bx + picture_slot_used], 0 ; 0x71c1
     inc word [bp - 0x0002]           ; 0x71c6
     mov ax, word [bp - 0x0002]       ; 0x71c9
     cmp ax, strict word 0x12         ; 0x71cc
@@ -145,19 +145,19 @@ api_idx_001e_GOQP:
     push ax                          ; 0x7226
     mov ax, 2                        ; 0x7227
     push ax                          ; 0x722a
-    call ds_app_file_TSNH            ; 0x722b
+    call load_monster_picture        ; 0x722b
     add sp, byte 4                   ; 0x722e
     mov ax, 2                        ; 0x7231
     push ax                          ; 0x7234
     mov ax, 3                        ; 0x7235
     push ax                          ; 0x7238
-    call ds_app_file_TSNH            ; 0x7239
+    call load_monster_picture        ; 0x7239
     add sp, byte 4                   ; 0x723c
     mov ax, 0xc                      ; 0x723f
     push ax                          ; 0x7242
     mov ax, 0x52                     ; 0x7243
     push ax                          ; 0x7246
-    call ds_app_file_TSNH            ; 0x7247
+    call load_monster_picture        ; 0x7247
     add sp, byte 4                   ; 0x724a
     mov ax, 0                        ; 0x724d
     push ax                          ; 0x7250

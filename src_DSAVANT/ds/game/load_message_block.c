@@ -1,0 +1,28 @@
+extern int msg_dbs_fd;
+extern char message_block_buffer[];
+extern int message_cache_ids[];
+extern int message_block_current;
+extern int message_cache_next;
+
+/* loads message block into the working buffer, reusing one of four cached
+   slots when the block is already there */
+load_message_block(block)
+{
+	int cache_slot;
+
+	for (cache_slot = 0; cache_slot < 4; cache_slot++) {	/* four cache slots */
+		if (message_cache_ids[cache_slot] == block) {
+			/* 0x400-byte blocks, cache slots stride 0x400 from 0x4212 */
+			aztec_movmem(0x4212 + (cache_slot << 10), message_block_buffer, 0x400);
+			message_block_current = block;
+			return;
+		}
+	}
+	gfx_wait_sound(0);
+	aztec_lseek(msg_dbs_fd, (long)block * 0x400, 0);	/* block offset in MSG.DBS */
+	aztec_read(msg_dbs_fd, message_block_buffer, 0x400);
+	message_block_current = block;
+	aztec_movmem(message_block_buffer, 0x4212 + (message_cache_next << 10), 0x400);	/* save in round-robin slot */
+	message_cache_ids[message_cache_next] = block;
+	message_cache_next = (message_cache_next + 1) % 4;	/* round robin over four slots */
+}

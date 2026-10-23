@@ -22,6 +22,6 @@ draw_text_list: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x120f
     push word [bp + 0x6]             ; 0x1212
     push word [bp + 0x4]             ; 0x1215
-    call ds_app_UNSL                 ; 0x1218
+    call draw_spell_list             ; 0x1218
     add sp, byte 0x0c                ; 0x121b
     ret                              ; 0x121e

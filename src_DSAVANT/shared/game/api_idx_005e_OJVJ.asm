@@ -5,7 +5,7 @@ api_idx_005e_OJVJ:
     mov word [bp - 0x0002], 0xf
 @..api_idx_005e_OJVJ.l1:
     mov bx, word [bp - 0x0002]
-    mov al, byte [bx + 0x5b48]
+    mov al, byte [bx + picture_slot_number]
     sub ah, ah
     cmp ax, word [bp + 0x4]
     jne short @..api_idx_005e_OJVJ.l2
