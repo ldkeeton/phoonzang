@@ -5,9 +5,9 @@ ovmain:
     mov word [bss_90e0], 0           ; 0x17d7
     cmp word [game_state], byte 0x0d ; 0x17dd
     jne short @..ovmain.l1           ; 0x17e2
-    push word [bss_0e2c]             ; 0x17e4
-    push word [bss_0e2a]             ; 0x17e8
-    call ds_app_TSGV                 ; 0x17ec
+    push word [mouse_pointer_shape_seg] ; 0x17e4
+    push word [mouse_pointer_shape]  ; 0x17e8
+    call set_mouse_pointer_shape     ; 0x17ec
     add sp, byte 4                   ; 0x17ef
     mov ax, 0                        ; 0x17f2
     push ax                          ; 0x17f5
@@ -30,7 +30,7 @@ ovmain:
     mov dx, 0                        ; 0x181c
     push dx                          ; 0x181f
     push ax                          ; 0x1820
-    call ds_app_TSGV                 ; 0x1821
+    call set_mouse_pointer_shape     ; 0x1821
     add sp, byte 4                   ; 0x1824
 @..ovmain.l1:
     mov ax, 0                        ; 0x1827

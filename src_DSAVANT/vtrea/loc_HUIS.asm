@@ -272,9 +272,9 @@ loc_HUIS:
     call aztec_ldv                   ; 0x5a0f
     mov word [bp - 0x0086], dx       ; 0x5a12
     mov word [bp - 0x0088], ax       ; 0x5a16
-    push word [bss_0e2c]             ; 0x5a1a
-    push word [bss_0e2a]             ; 0x5a1e
-    call ds_app_TSGV                 ; 0x5a22
+    push word [mouse_pointer_shape_seg] ; 0x5a1a
+    push word [mouse_pointer_shape]  ; 0x5a1e
+    call set_mouse_pointer_shape     ; 0x5a22
     add sp, byte 4                   ; 0x5a25
     mov ax, 0                        ; 0x5a28
     push ax                          ; 0x5a2b
@@ -591,7 +591,7 @@ loc_HUIS:
     mov dx, 0                        ; 0x5d17
     push dx                          ; 0x5d1a
     push ax                          ; 0x5d1b
-    call ds_app_TSGV                 ; 0x5d1c
+    call set_mouse_pointer_shape     ; 0x5d1c
     add sp, byte 4                   ; 0x5d1f
     mov word [bp - 0x0002], 0        ; 0x5d22
     jmp short @..loc_HUIS.l54        ; 0x5d27

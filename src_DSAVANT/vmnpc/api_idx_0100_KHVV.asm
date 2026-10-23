@@ -69,7 +69,7 @@ api_idx_0100_KHVV:
     mov dx, 0                        ; 0x97e8
     push dx                          ; 0x97eb
     push ax                          ; 0x97ec
-    call ds_app_TSGV                 ; 0x97ed
+    call set_mouse_pointer_shape     ; 0x97ed
     add sp, byte 4                   ; 0x97f0
 @..api_idx_0100_KHVV.l6:
     call ds_app_TMKJ                 ; 0x97f3
@@ -78,9 +78,9 @@ api_idx_0100_KHVV:
     call api_idx_0006_SQTK           ; 0x97fa
     jmp short @..api_idx_0100_KHVV.l6 ; 0x97fd
 @..api_idx_0100_KHVV.l7:
-    push word [bss_0e2c]             ; 0x97ff
-    push word [bss_0e2a]             ; 0x9803
-    call ds_app_TSGV                 ; 0x9807
+    push word [mouse_pointer_shape_seg] ; 0x97ff
+    push word [mouse_pointer_shape]  ; 0x9803
+    call set_mouse_pointer_shape     ; 0x9807
     add sp, byte 4                   ; 0x980a
     mov ax, 0                        ; 0x980d
     push ax                          ; 0x9810

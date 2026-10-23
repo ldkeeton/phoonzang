@@ -49,9 +49,9 @@ api_idx_006a_QKPT:
     push ax                          ; 0xac1c
     call str_subst_char              ; 0xac1d
     add sp, byte 6                   ; 0xac20
-    push word [bss_0e2c]             ; 0xac23
-    push word [bss_0e2a]             ; 0xac27
-    call ds_app_TSGV                 ; 0xac2b
+    push word [mouse_pointer_shape_seg] ; 0xac23
+    push word [mouse_pointer_shape]  ; 0xac27
+    call set_mouse_pointer_shape     ; 0xac2b
     add sp, byte 4                   ; 0xac2e
     mov ax, 0                        ; 0xac31
     push ax                          ; 0xac34
@@ -213,7 +213,7 @@ api_idx_006a_QKPT:
     mov dx, 0                        ; 0xadfe
     push dx                          ; 0xae01
     push ax                          ; 0xae02
-    call ds_app_TSGV                 ; 0xae03
+    call set_mouse_pointer_shape     ; 0xae03
     add sp, byte 4                   ; 0xae06
     mov word [bss_93ee], 1           ; 0xae09
     ret                              ; 0xae0f

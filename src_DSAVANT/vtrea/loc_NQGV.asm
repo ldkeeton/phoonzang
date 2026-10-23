@@ -10,12 +10,12 @@ loc_NQGV:
     push ax                          ; 0x0a2b
     mov ax, 0x37                     ; 0x0a2c
     push ax                          ; 0x0a2f
-    call ds_app_VRKV                 ; 0x0a30
+    call dissolve_or_show_area       ; 0x0a30
     add sp, byte 8                   ; 0x0a33
     cmp word [bp + 0x4], byte 0      ; 0x0a36
     je short @..loc_NQGV.l2          ; 0x0a3a
     mov ax, word [message_delay]     ; 0x0a3c
-    cmp byte [bss_598c], 0           ; 0x0a3f
+    cmp byte [no_dissolve], 0        ; 0x0a3f
     je short @..loc_NQGV.l1          ; 0x0a44
     shl ax, 1                        ; 0x0a46
 @..loc_NQGV.l1:

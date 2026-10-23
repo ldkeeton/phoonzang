@@ -268,7 +268,7 @@ loc_TRPK:
     push ax
     call gfx_show_area
     add sp, byte 8
-    cmp word [bss_0e32], byte 0
+    cmp word [mouse_active], byte 0
     je short @..loc_TRPK.l11
 @..loc_TRPK.l10:
     mov ax, 0x59fe

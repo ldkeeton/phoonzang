@@ -62,6 +62,6 @@ loc_MLLK:
     push ax                          ; 0x6fb3
     mov ax, 0x37                     ; 0x6fb4
     push ax                          ; 0x6fb7
-    call ds_app_VRKV                 ; 0x6fb8
+    call dissolve_or_show_area       ; 0x6fb8
     add sp, byte 8                   ; 0x6fbb
     ret                              ; 0x6fbe

@@ -215,7 +215,7 @@ jumptable_1aa5_case_0:
     push ax                          ; 0x1c5d
     mov ax, 0x37                     ; 0x1c5e
     push ax                          ; 0x1c61
-    call ds_app_VRKV                 ; 0x1c62
+    call dissolve_or_show_area       ; 0x1c62
     add sp, byte 8                   ; 0x1c65
     mov ax, 0xe                      ; 0x1c68
     push ax                          ; 0x1c6b

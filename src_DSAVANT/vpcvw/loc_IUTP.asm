@@ -3,7 +3,7 @@ loc_IUTP:
     mov ax, 0xfe6c                   ; 0x70ca
     call aztec_csav                  ; 0x70cd
     mov word [bp - 0x0194], 0        ; 0x70d0
-    cmp word [bss_0e32], byte 0      ; 0x70d6
+    cmp word [mouse_active], byte 0  ; 0x70d6
     je short @..loc_IUTP.l1          ; 0x70db
     lea ax, word [bp - 0x000c]       ; 0x70dd
     push ax                          ; 0x70e0
@@ -1858,7 +1858,7 @@ jumptable_76e2:
     push ax                          ; 0x827e
     call gfx_show_area               ; 0x827f
     add sp, byte 8                   ; 0x8282
-    cmp word [bss_0e32], byte 0      ; 0x8285
+    cmp word [mouse_active], byte 0  ; 0x8285
     je short @..loc_IUTP.l85         ; 0x828a
     cmp word [bp + 0xa], byte 0      ; 0x828c
     jne short @..loc_IUTP.l82        ; 0x8290

@@ -5,8 +5,8 @@ loc_RVQR:
     mov word [bss_905c], 0           ; 0x03ae
     mov word [bss_0e30], 0           ; 0x03b4
     mov word [bss_0e2e], 0           ; 0x03ba
-    mov word [bss_0e2c], 0           ; 0x03c0
-    mov word [bss_0e2a], 0           ; 0x03c6
+    mov word [mouse_pointer_shape_seg], 0 ; 0x03c0
+    mov word [mouse_pointer_shape], 0 ; 0x03c6
     mov word [bss_0e28], 0           ; 0x03cc
     mov word [bss_0e26], 0           ; 0x03d2
     mov ax, 0                        ; 0x03d8
@@ -102,7 +102,7 @@ loc_RVQR:
     call ds_loc_QURR                 ; 0x04a1
     add sp, byte 4                   ; 0x04a4
     mov word [bss_59f8], 0x905c      ; 0x04a7
-    mov word [bss_0e32], 0           ; 0x04ad
+    mov word [mouse_active], 0       ; 0x04ad
     mov word [hotspot_hit], 0        ; 0x04b3
     mov word [bp - 0x0006], 0        ; 0x04b9
 @..loc_RVQR.l13:
@@ -194,8 +194,8 @@ loc_RVQR:
     push ax                          ; 0x0581
     call load_file_data              ; 0x0582
     pop cx                           ; 0x0585
-    mov word [bss_0e2c], dx          ; 0x0586
-    mov word [bss_0e2a], ax          ; 0x058a
+    mov word [mouse_pointer_shape_seg], dx ; 0x0586
+    mov word [mouse_pointer_shape], ax ; 0x058a
     mov ax, dseg_911d                ; 0x058d
     push ax                          ; 0x0590
     call load_file_data              ; 0x0591

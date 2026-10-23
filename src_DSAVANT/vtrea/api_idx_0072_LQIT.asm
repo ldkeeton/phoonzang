@@ -141,7 +141,7 @@ api_idx_0072_LQIT:
     mov ax, word [bp - 0x001c]       ; 0x72a6
     jmp short @..api_idx_0072_LQIT.l11 ; 0x72a9
 @..api_idx_0072_LQIT.l6:
-    cmp word [bss_0e32], byte 0      ; 0x72ab
+    cmp word [mouse_active], byte 0  ; 0x72ab
     jne short @..api_idx_0072_LQIT.l7 ; 0x72b0
     mov ax, 1                        ; 0x72b2
     push ax                          ; 0x72b5

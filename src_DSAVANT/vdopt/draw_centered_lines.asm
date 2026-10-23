@@ -98,10 +98,10 @@ draw_centered_lines:
     push ax                          ; 0x1a3d
     mov ax, 0x37                     ; 0x1a3e
     push ax                          ; 0x1a41
-    call ds_app_VRKV                 ; 0x1a42
+    call dissolve_or_show_area       ; 0x1a42
     add sp, byte 8                   ; 0x1a45
     mov ax, word [message_delay]     ; 0x1a48
-    cmp byte [bss_598c], 0           ; 0x1a4b
+    cmp byte [no_dissolve], 0        ; 0x1a4b
     je short @..draw_centered_lines.l3 ; 0x1a50
     shl ax, 1                        ; 0x1a52
 @..draw_centered_lines.l3:

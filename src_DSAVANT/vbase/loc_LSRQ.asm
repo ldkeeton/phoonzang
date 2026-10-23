@@ -175,7 +175,7 @@ loc_LSRQ:
     push ax                          ; 0x03d3
     call gfx_show_area               ; 0x03d4
     add sp, byte 8                   ; 0x03d7
-    cmp word [bss_0e32], byte 0      ; 0x03da
+    cmp word [mouse_active], byte 0  ; 0x03da
     je short @..loc_LSRQ.l7          ; 0x03df
 @..loc_LSRQ.l6:
     mov ax, 0x59fe                   ; 0x03e1

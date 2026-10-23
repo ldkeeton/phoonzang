@@ -45,7 +45,7 @@ api_idx_0040_LIPH:
     je short @..api_idx_0040_LIPH.l2 ; 0x53ad
     jmp near @..api_idx_0040_LIPH.l8 ; 0x53af
 @..api_idx_0040_LIPH.l2:
-    cmp word [bss_0e32], byte 0      ; 0x53b2
+    cmp word [mouse_active], byte 0  ; 0x53b2
     jne short @..api_idx_0040_LIPH.l3 ; 0x53b7
     mov ax, 0xc6                     ; 0x53b9
     push ax                          ; 0x53bc

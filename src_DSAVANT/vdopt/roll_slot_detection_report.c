@@ -85,7 +85,7 @@ hit:
 		draw_centered_lines(title, report_line1_none, report_line2_none);
 	}
 	gfx_restore_area(saved_area_a, 1);
-	ds_app_VRKV(0x37, 0x92, 0x109, 0xc6);
+	dissolve_or_show_area(0x37, 0x92, 0x109, 0xc6);
 	free_picture_slot(14);
 	load_monster_picture(3, 2);
 }

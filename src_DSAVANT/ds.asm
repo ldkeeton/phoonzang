@@ -287,25 +287,25 @@ __zbss_size equ __zbss_end - __zimage_end
 
 %include "ds/game/app_free.asm"            ; 0x022f
 
-bss_0e0e     equ __zbss_0e0e - __zdseg_start
-bss_0e10     equ __zbss_0e10 - __zdseg_start
-maze_tables  equ __zbss_0e12 - __zdseg_start
-maze_data    equ __zbss_0e14 - __zdseg_start
-bss_0e16     equ __zbss_0e16 - __zdseg_start
-bss_0e18     equ __zbss_0e18 - __zdseg_start
-bss_0e1a     equ __zbss_0e1a - __zdseg_start
-bss_0e1c     equ __zbss_0e1c - __zdseg_start
-bss_0e1e     equ __zbss_0e1e - __zdseg_start
-bss_0e20     equ __zbss_0e20 - __zdseg_start
-data_file_fd equ __zbss_0e22 - __zdseg_start
-msg_dbs_fd   equ __zbss_0e24 - __zdseg_start
-bss_0e26     equ __zbss_0e26 - __zdseg_start
-bss_0e28     equ __zbss_0e28 - __zdseg_start
-bss_0e2a     equ __zbss_0e2a - __zdseg_start
-bss_0e2c     equ __zbss_0e2c - __zdseg_start
-bss_0e2e     equ __zbss_0e2e - __zdseg_start
-bss_0e30     equ __zbss_0e30 - __zdseg_start
-bss_0e32     equ __zbss_0e32 - __zdseg_start
+bss_0e0e                equ __zbss_0e0e - __zdseg_start
+bss_0e10                equ __zbss_0e10 - __zdseg_start
+maze_tables             equ __zbss_0e12 - __zdseg_start
+maze_data               equ __zbss_0e14 - __zdseg_start
+bss_0e16                equ __zbss_0e16 - __zdseg_start
+bss_0e18                equ __zbss_0e18 - __zdseg_start
+bss_0e1a                equ __zbss_0e1a - __zdseg_start
+bss_0e1c                equ __zbss_0e1c - __zdseg_start
+bss_0e1e                equ __zbss_0e1e - __zdseg_start
+bss_0e20                equ __zbss_0e20 - __zdseg_start
+data_file_fd            equ __zbss_0e22 - __zdseg_start
+msg_dbs_fd              equ __zbss_0e24 - __zdseg_start
+bss_0e26                equ __zbss_0e26 - __zdseg_start
+bss_0e28                equ __zbss_0e28 - __zdseg_start
+mouse_pointer_shape     equ __zbss_0e2a - __zdseg_start
+mouse_pointer_shape_seg equ __zbss_0e2c - __zdseg_start
+bss_0e2e                equ __zbss_0e2e - __zdseg_start
+bss_0e30                equ __zbss_0e30 - __zdseg_start
+mouse_active            equ __zbss_0e32 - __zdseg_start
 %include "ds/game/release_resources.asm"   ; 0x0242
 
 %include "ds/game/release_and_exit.asm"    ; 0x03b8
@@ -379,9 +379,9 @@ bss_59f6 equ __zbss_59f6 - __zdseg_start
 bss_59f8 equ __zbss_59f8 - __zdseg_start
 %include "ds/game/ds_app_RMGT.asm"         ; 0x0ad7
 
-%include "ds/game/ds_app_TSGV.asm"         ; 0x0af6
+%include "ds/game/set_mouse_pointer_shape.asm" ; 0x0af6
 
-; bss_0e32      equ __zbss_0e32 - __zdseg_start
+; mouse_active  equ __zbss_0e32 - __zdseg_start
 bss_59fa      equ __zbss_59fa - __zdseg_start
 space_key_hit equ __zbss_59fc - __zdseg_start
 hotspot_hit   equ __zbss_5b3e - __zdseg_start
@@ -401,11 +401,10 @@ bss_5b46 equ __zbss_5b46 - __zdseg_start
 ; hotspot_hit equ __zbss_5b3e - __zdseg_start
 %include "ds/game/ds_app_TMKJ.asm"         ; 0x0d36
 
-; bss_0e2a equ __zbss_0e2a - __zdseg_start
-; bss_0e2c equ __zbss_0e2c - __zdseg_start
-; bss_0e32 equ __zbss_0e32 - __zdseg_start
-bss_598c equ __zbss_598c - __zdseg_start
-%include "ds/game/ds_app_VRKV.asm"         ; 0x0d7a
+; mouse_pointer_shape equ __zbss_0e2a - __zdseg_start
+; mouse_active        equ __zbss_0e32 - __zdseg_start
+no_dissolve         equ __zbss_598c - __zdseg_start
+%include "ds/game/dissolve_or_show_area.asm" ; 0x0d7a
 
 %include "ds/game/draw_rect_outline.asm"   ; 0x0e03
 
@@ -483,12 +482,12 @@ pc_records    equ __zbss_5c10 - __zdseg_start
 bss_5e2a      equ __zbss_5e2a - __zdseg_start
 %include "ds/game/ds_app_LUOV.asm"         ; 0x1d81
 
-; bss_0e2e    equ __zbss_0e2e - __zdseg_start
-; bss_0e30    equ __zbss_0e30 - __zdseg_start
-; bss_0e32    equ __zbss_0e32 - __zdseg_start
-; bss_59fa    equ __zbss_59fa - __zdseg_start
-; hotspot_hit equ __zbss_5b3e - __zdseg_start
-bss_69c8    equ __zbss_69c8 - __zdseg_start
+; bss_0e2e     equ __zbss_0e2e - __zdseg_start
+; bss_0e30     equ __zbss_0e30 - __zdseg_start
+; mouse_active equ __zbss_0e32 - __zdseg_start
+; bss_59fa     equ __zbss_59fa - __zdseg_start
+; hotspot_hit  equ __zbss_5b3e - __zdseg_start
+bss_69c8     equ __zbss_69c8 - __zdseg_start
 %include "ds/game/pick_party_member.asm"   ; 0x20f8
 
 %include "ds/game/ds_app_QSQR.asm"         ; 0x2305

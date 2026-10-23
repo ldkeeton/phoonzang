@@ -14,7 +14,7 @@ loc_MVHP:
     push ax                          ; 0x6b73
     mov ax, 0x37                     ; 0x6b74
     push ax                          ; 0x6b77
-    call ds_app_VRKV                 ; 0x6b78
+    call dissolve_or_show_area       ; 0x6b78
     add sp, byte 8                   ; 0x6b7b
     mov ax, 0x3c                     ; 0x6b7e
     push ax                          ; 0x6b81
@@ -33,7 +33,7 @@ loc_MVHP:
     cmp word [bp + 0x4], byte 0      ; 0x6ba3
     je short @..loc_MVHP.l3          ; 0x6ba7
     mov ax, word [message_delay]     ; 0x6ba9
-    cmp byte [bss_598c], 0           ; 0x6bac
+    cmp byte [no_dissolve], 0        ; 0x6bac
     je short @..loc_MVHP.l2          ; 0x6bb1
     shl ax, 1                        ; 0x6bb3
 @..loc_MVHP.l2:

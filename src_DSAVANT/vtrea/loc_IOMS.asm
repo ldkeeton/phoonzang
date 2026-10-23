@@ -268,7 +268,7 @@ loc_IOMS:
     push ax                          ; 0x86aa
     call gfx_show_area               ; 0x86ab
     add sp, byte 8                   ; 0x86ae
-    cmp word [bss_0e32], byte 0      ; 0x86b1
+    cmp word [mouse_active], byte 0  ; 0x86b1
     je short @..loc_IOMS.l12         ; 0x86b6
 @..loc_IOMS.l10:
     mov ax, 0x59fe                   ; 0x86b8

@@ -1156,7 +1156,7 @@ jumptable_34f1_case_3:
     push ax                          ; 0x3064
     call gfx_show_area               ; 0x3065
     add sp, byte 8                   ; 0x3068
-    cmp word [bss_0e32], byte 0      ; 0x306b
+    cmp word [mouse_active], byte 0  ; 0x306b
     je short @..api_idx_0084_IMVQ.l31 ; 0x3070
 @..api_idx_0084_IMVQ.l29:
     lea ax, word [bp - 0x0010]       ; 0x3072

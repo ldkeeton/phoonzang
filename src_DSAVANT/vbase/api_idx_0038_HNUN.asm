@@ -364,7 +364,7 @@ api_idx_0038_HNUN:
     mov al, byte [bss_98fd]          ; 0x3347
     mov byte [bss_598b], al          ; 0x334a
     mov al, byte [bss_98fe]          ; 0x334d
-    mov byte [bss_598c], al          ; 0x3350
+    mov byte [no_dissolve], al       ; 0x3350
     mov al, byte [bss_5986]          ; 0x3353
     sub ah, ah                       ; 0x3356
     mov word [bss_9058], ax          ; 0x3358

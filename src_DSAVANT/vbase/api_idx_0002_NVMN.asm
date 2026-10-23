@@ -29,11 +29,11 @@ api_idx_0002_NVMN:
     push ax                          ; 0x70a3
     call gfx_show_area               ; 0x70a4
     add sp, byte 8                   ; 0x70a7
-    cmp word [bss_0e32], byte 1      ; 0x70aa
+    cmp word [mouse_active], byte 1  ; 0x70aa
     jne short @..api_idx_0002_NVMN.l1 ; 0x70af
     call gfx_mouse_off               ; 0x70b1
 @..api_idx_0002_NVMN.l1:
-    mov word [bss_0e32], 0           ; 0x70b4
+    mov word [mouse_active], 0       ; 0x70b4
     call ds_app_NNSU                 ; 0x70ba
     mov word [bss_8450], ax          ; 0x70bd
     test ax, ax                      ; 0x70c0
@@ -185,11 +185,11 @@ jumptable_7185_case_0:
     je short @..api_idx_0002_NVMN.l9 ; 0x71f8
     cmp byte [bss_5989], 1           ; 0x71fa
     jne short @..api_idx_0002_NVMN.l9 ; 0x71ff
-    cmp word [bss_0e32], byte 0      ; 0x7201
+    cmp word [mouse_active], byte 0  ; 0x7201
     jne short @..api_idx_0002_NVMN.l8 ; 0x7206
     call gfx_mouse_init              ; 0x7208
 @..api_idx_0002_NVMN.l8:
-    mov word [bss_0e32], 1           ; 0x720b
+    mov word [mouse_active], 1       ; 0x720b
 @..api_idx_0002_NVMN.l9:
     mov ax, 0                        ; 0x7211
     push ax                          ; 0x7214

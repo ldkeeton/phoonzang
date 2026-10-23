@@ -285,7 +285,7 @@ loc_MOVJ:
     push ax                          ; 0x1fc9
     call gfx_show_area               ; 0x1fca
     add sp, byte 8                   ; 0x1fcd
-    cmp word [bss_0e32], byte 0      ; 0x1fd0
+    cmp word [mouse_active], byte 0  ; 0x1fd0
     je short @..loc_MOVJ.l11         ; 0x1fd5
 @..loc_MOVJ.l10:
     mov ax, 0x59fe                   ; 0x1fd7

@@ -113,7 +113,7 @@ api_idx_007a_NHII:
     mov ax, word [bp - 0x0008]       ; 0x5018
     jmp near @..api_idx_007a_NHII.l18 ; 0x501b
 jumptable_51bc_case_1:
-    cmp word [bss_0e32], byte 0      ; 0x501e
+    cmp word [mouse_active], byte 0  ; 0x501e
     jne short @..api_idx_007a_NHII.l5 ; 0x5023
     mov ax, 1                        ; 0x5025
     push ax                          ; 0x5028
@@ -147,7 +147,7 @@ jumptable_51bc_case_1:
 @..api_idx_007a_NHII.l6:
     jmp near @..api_idx_007a_NHII.l19 ; 0x5069
 jumptable_51bc_case_0:
-    cmp word [bss_0e32], byte 0      ; 0x506c
+    cmp word [mouse_active], byte 0  ; 0x506c
     jne short @..api_idx_007a_NHII.l7 ; 0x5071
     mov ax, 1                        ; 0x5073
     push ax                          ; 0x5076
@@ -226,7 +226,7 @@ jumptable_51bc_case_0:
 @..api_idx_007a_NHII.l11:
     jmp near @..api_idx_007a_NHII.l19 ; 0x5120
 jumptable_51bc_case_2:
-    cmp word [bss_0e32], byte 0      ; 0x5123
+    cmp word [mouse_active], byte 0  ; 0x5123
     jne short @..api_idx_007a_NHII.l12 ; 0x5128
     mov ax, 1                        ; 0x512a
     push ax                          ; 0x512d

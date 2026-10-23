@@ -228,7 +228,7 @@ jumptable_4688_case_10:
 jumptable_4688_case_11:
     lea ax, word [bp - 0x0052]       ; 0x4536
     push ax                          ; 0x4539
-    mov al, byte [bss_598c]          ; 0x453a
+    mov al, byte [no_dissolve]       ; 0x453a
     sub ah, ah                       ; 0x453d
     add ax, 0x93b                    ; 0x453f
     push ax                          ; 0x4542

@@ -50,7 +50,7 @@ api_idx_0012_MVLS:
     add ax, cx                       ; 0x0af5
     add ax, strict word 0x71         ; 0x0af7
     mov word [bp - 0x000a], ax       ; 0x0afa
-    cmp word [bss_0e32], byte 0      ; 0x0afd
+    cmp word [mouse_active], byte 0  ; 0x0afd
     jne short @..api_idx_0012_MVLS.l3 ; 0x0b02
     jmp near @..api_idx_0012_MVLS.l6 ; 0x0b04
 @..api_idx_0012_MVLS.l3:

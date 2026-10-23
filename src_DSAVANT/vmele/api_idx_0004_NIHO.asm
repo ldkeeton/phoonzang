@@ -110,7 +110,7 @@ api_idx_0004_NIHO:
     push ax                          ; 0x2fc4
     mov ax, 0x37                     ; 0x2fc5
     push ax                          ; 0x2fc8
-    call ds_app_VRKV                 ; 0x2fc9
+    call dissolve_or_show_area       ; 0x2fc9
     add sp, byte 8                   ; 0x2fcc
 @..api_idx_0004_NIHO.l2:
     mov word [bp - 0x0002], 0        ; 0x2fcf

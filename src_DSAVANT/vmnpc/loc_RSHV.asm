@@ -173,7 +173,7 @@ loc_RSHV:
     push word [bp + 0x6]             ; 0x19be
     call loc_HTQP                    ; 0x19c1
     pop cx                           ; 0x19c4
-    cmp word [bss_0e32], byte 0      ; 0x19c5
+    cmp word [mouse_active], byte 0  ; 0x19c5
     je short @..loc_RSHV.l9          ; 0x19ca
 @..loc_RSHV.l8:
     mov ax, 0x59fe                   ; 0x19cc

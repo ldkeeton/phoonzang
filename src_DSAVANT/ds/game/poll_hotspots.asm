@@ -54,7 +54,7 @@ poll_hotspots: ; Aztec csav frame=0x0004
     jmp short @..poll_hotspots.l3    ; 0x0bd7
 @..poll_hotspots.l6:
     mov word [bp - 0x0002], 0        ; 0x0bd9
-    cmp word [bss_0e32], byte 0      ; 0x0bde
+    cmp word [mouse_active], byte 0  ; 0x0bde
     je short @..poll_hotspots.l7     ; 0x0be3
     push word [bp + 0x4]             ; 0x0be5
     call gfx_mouse_hit_test          ; 0x0be8

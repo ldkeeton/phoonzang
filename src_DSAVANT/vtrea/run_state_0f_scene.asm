@@ -10,9 +10,9 @@ run_state_0f_scene:
     push ax                          ; 0x7f6b
     call redraw_treasure_caption     ; 0x7f6c
     pop cx                           ; 0x7f6f
-    push word [bss_0e2c]             ; 0x7f70
-    push word [bss_0e2a]             ; 0x7f74
-    call ds_app_TSGV                 ; 0x7f78
+    push word [mouse_pointer_shape_seg] ; 0x7f70
+    push word [mouse_pointer_shape]  ; 0x7f74
+    call set_mouse_pointer_shape     ; 0x7f78
     add sp, byte 4                   ; 0x7f7b
     mov ax, 0                        ; 0x7f7e
     push ax                          ; 0x7f81
@@ -111,7 +111,7 @@ run_state_0f_scene:
     mov dx, 0                        ; 0x805a
     push dx                          ; 0x805d
     push ax                          ; 0x805e
-    call ds_app_TSGV                 ; 0x805f
+    call set_mouse_pointer_shape     ; 0x805f
     add sp, byte 4                   ; 0x8062
     cmp word [bss_84a0], byte 0xff   ; 0x8065
     je short @..run_state_0f_scene.l8 ; 0x806a

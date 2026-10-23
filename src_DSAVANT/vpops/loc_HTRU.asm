@@ -220,7 +220,7 @@ loc_HTRU:
     push word [bp + 0x6]             ; 0x1320
     call loc_HTQP                    ; 0x1323
     pop cx                           ; 0x1326
-    cmp word [bss_0e32], byte 0      ; 0x1327
+    cmp word [mouse_active], byte 0  ; 0x1327
     je short @..loc_HTRU.l12         ; 0x132c
 @..loc_HTRU.l11:
     mov ax, 0x59fe                   ; 0x132e

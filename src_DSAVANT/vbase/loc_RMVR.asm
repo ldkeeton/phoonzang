@@ -1022,7 +1022,7 @@ loc_RMVR:
     mov word [bp - 0x0018], 1        ; 0x5630
     mov word [bp - 0x0016], 0        ; 0x5635
 @..loc_RMVR.l5:
-    cmp word [bss_0e32], byte 0      ; 0x563a
+    cmp word [mouse_active], byte 0  ; 0x563a
     je short @..loc_RMVR.l6          ; 0x563f
     mov ax, 0x59fe                   ; 0x5641
     push ax                          ; 0x5644
@@ -1653,14 +1653,14 @@ jumptable_5e7f_case_15:
     add sp, byte 6                   ; 0x5bd0
     jmp near @..loc_RMVR.l52         ; 0x5bd3
 jumptable_5e7f_case_16:
-    mov al, byte [bss_598c]          ; 0x5bd6
+    mov al, byte [no_dissolve]       ; 0x5bd6
     sub ah, ah                       ; 0x5bd9
     inc ax                           ; 0x5bdb
     mov cx, 2                        ; 0x5bdc
     cwd                              ; 0x5bdf
     idiv cx                          ; 0x5be0
     mov ax, dx                       ; 0x5be2
-    mov byte [bss_598c], al          ; 0x5be4
+    mov byte [no_dissolve], al       ; 0x5be4
     push word [bp - 0x000a]          ; 0x5be7
     push word [bp - 0x0008]          ; 0x5bea
     mov ax, 0xb                      ; 0x5bed
@@ -1989,7 +1989,7 @@ jumptable_5e7f:
 @..loc_RMVR.l52:
     cmp word [bp - 0x0018], byte 0   ; 0x5ebe
     je short @..loc_RMVR.l53         ; 0x5ec2
-    cmp word [bss_0e32], byte 0      ; 0x5ec4
+    cmp word [mouse_active], byte 0  ; 0x5ec4
     jne short @..loc_RMVR.l53        ; 0x5ec9
     push word [bp - 0x000a]          ; 0x5ecb
     push word [bp - 0x0008]          ; 0x5ece

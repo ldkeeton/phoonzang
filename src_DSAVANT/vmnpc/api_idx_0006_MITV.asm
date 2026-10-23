@@ -47,7 +47,7 @@ api_idx_0006_MITV:
     push ax                          ; 0x732a
     mov ax, 0x37                     ; 0x732b
     push ax                          ; 0x732e
-    call ds_app_VRKV                 ; 0x732f
+    call dissolve_or_show_area       ; 0x732f
     add sp, byte 8                   ; 0x7332
 @..api_idx_0006_MITV.l2:
     mov word [bp - 0x0002], 0        ; 0x7335

@@ -63,6 +63,6 @@ loc_VSIT:
     push ax                          ; 0x7f4e
     mov ax, 0x37                     ; 0x7f4f
     push ax                          ; 0x7f52
-    call ds_app_VRKV                 ; 0x7f53
+    call dissolve_or_show_area       ; 0x7f53
     add sp, byte 8                   ; 0x7f56
     ret                              ; 0x7f59

@@ -274,7 +274,7 @@ api_idx_0032_HGIM:
     jne short @..api_idx_0032_HGIM.l15
     mov ax, word [bp - 0x000e]
     mov word [bp - 0x0032], ax
-    cmp word [bss_0e32], byte 0
+    cmp word [mouse_active], byte 0
     jne short @..api_idx_0032_HGIM.l15
     mov ax, 0x16
     push ax
@@ -321,7 +321,7 @@ api_idx_0032_HGIM:
     push ax
     call gfx_show_area
     add sp, byte 8
-    cmp word [bss_0e32], byte 0
+    cmp word [mouse_active], byte 0
     je short @..api_idx_0032_HGIM.l19
 @..api_idx_0032_HGIM.l18:
     mov ax, 0x59fe

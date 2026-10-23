@@ -3,11 +3,11 @@ api_idx_0002_HQSQ:
     mov ax, 0xfffe                   ; 0x8f74
     call aztec_csav                  ; 0x8f77
     call blank_scene_screen          ; 0x8f7a
-    cmp word [bss_0e32], byte 1      ; 0x8f7d
+    cmp word [mouse_active], byte 1  ; 0x8f7d
     jne short @..api_idx_0002_HQSQ.l1 ; 0x8f82
     call gfx_mouse_off               ; 0x8f84
 @..api_idx_0002_HQSQ.l1:
-    mov word [bss_0e32], 0           ; 0x8f87
+    mov word [mouse_active], 0       ; 0x8f87
     call ds_app_NNSU                 ; 0x8f8d
     mov word [bss_8450], ax          ; 0x8f90
     test ax, ax                      ; 0x8f93
@@ -385,11 +385,11 @@ api_idx_0002_HQSQ:
     je short @..api_idx_0002_HQSQ.l16 ; 0x92c1
     cmp byte [bss_5989], 1           ; 0x92c3
     jne short @..api_idx_0002_HQSQ.l16 ; 0x92c8
-    cmp word [bss_0e32], byte 0      ; 0x92ca
+    cmp word [mouse_active], byte 0  ; 0x92ca
     jne short @..api_idx_0002_HQSQ.l15 ; 0x92cf
     call gfx_mouse_init              ; 0x92d1
 @..api_idx_0002_HQSQ.l15:
-    mov word [bss_0e32], 1           ; 0x92d4
+    mov word [mouse_active], 1       ; 0x92d4
 @..api_idx_0002_HQSQ.l16:
     mov ax, 0                        ; 0x92da
     push ax                          ; 0x92dd

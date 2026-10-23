@@ -38,7 +38,7 @@ jumptable_0c85_case_1:
     push ax                          ; 0x0b73
     mov ax, 0x37                     ; 0x0b74
     push ax                          ; 0x0b77
-    call ds_app_VRKV                 ; 0x0b78
+    call dissolve_or_show_area       ; 0x0b78
     add sp, byte 8                   ; 0x0b7b
     push word [message_delay]        ; 0x0b7e
     call api_idx_0004_UQUT           ; 0x0b82
@@ -58,7 +58,7 @@ jumptable_0c85_case_2:
     push ax                          ; 0x0b9f
     mov ax, 0x37                     ; 0x0ba0
     push ax                          ; 0x0ba3
-    call ds_app_VRKV                 ; 0x0ba4
+    call dissolve_or_show_area       ; 0x0ba4
     add sp, byte 8                   ; 0x0ba7
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0baa
 jumptable_0c85_case_3:

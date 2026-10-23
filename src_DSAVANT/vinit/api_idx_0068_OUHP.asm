@@ -943,10 +943,10 @@ api_idx_0068_OUHP:
     cmp byte [bss_5989], 1           ; 0x1318
     jne short @..api_idx_0068_OUHP.l57 ; 0x131d
     call gfx_mouse_init              ; 0x131f
-    mov word [bss_0e32], 1           ; 0x1322
+    mov word [mouse_active], 1       ; 0x1322
     jmp short @..api_idx_0068_OUHP.l58 ; 0x1328
 @..api_idx_0068_OUHP.l57:
-    mov word [bss_0e32], 0           ; 0x132a
+    mov word [mouse_active], 0       ; 0x132a
 @..api_idx_0068_OUHP.l58:
     mov word [hotspot_hit], 0        ; 0x1330
     mov word [game_state], 2         ; 0x1336

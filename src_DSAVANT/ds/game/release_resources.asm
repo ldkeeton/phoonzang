@@ -79,13 +79,13 @@ jumptable_0363_case_7:
     call app_free                    ; 0x0309
     add sp, byte 4                   ; 0x030c
 @..release_resources.l12:
-    cmp word [bss_0e2c], byte 0      ; 0x030f
+    cmp word [mouse_pointer_shape_seg], byte 0 ; 0x030f
     jne short @..release_resources.l13 ; 0x0314
-    cmp word [bss_0e2a], byte 0      ; 0x0316
+    cmp word [mouse_pointer_shape], byte 0 ; 0x0316
 @..release_resources.l13:
     je short @..release_resources.l14 ; 0x031b
-    push word [bss_0e2c]             ; 0x031d
-    push word [bss_0e2a]             ; 0x0321
+    push word [mouse_pointer_shape_seg] ; 0x031d
+    push word [mouse_pointer_shape]  ; 0x0321
     call app_free                    ; 0x0325
     add sp, byte 4                   ; 0x0328
 @..release_resources.l14:
@@ -106,7 +106,7 @@ jumptable_0363_case_4:
     call gfx_wait_sound              ; 0x0350
     pop cx                           ; 0x0353
     call gfx_stop_sound              ; 0x0354
-    cmp word [bss_0e32], byte 0      ; 0x0357
+    cmp word [mouse_active], byte 0  ; 0x0357
     je short @..release_resources.l17 ; 0x035c
     call gfx_mouse_off               ; 0x035e
 jumptable_0363_case_1:
