@@ -48,6 +48,7 @@
       "note": "overlay stub 0x0c: draws one letter per party slot (six of them) via thunk_28, from the host's tables at ds:01d4/01a4/01bc/830e"
     },
     "api_idx_000e_TIOP": {"name": "draw_party_glyph_row", "note": "draws one row of party glyphs from the party tag and count"},
+    "api_idx_002a_SRJL": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"},
     "api_idx_002a_STSK": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"},
     "bios_kbd_loc_UHUN": {
       "name": "dos_con_in_noecho",
@@ -908,7 +909,7 @@
         "81a8": {"name": "run_state_1c_scene", "note": "scene run when game_state is 0x1c; message 0x7f6 then api_idx_00e6"},
         "81cd": {"name": "run_state_1d_scene", "note": "scene run when game_state is 0x1d; message 0 then api_idx_0074"},
         "8a0a": {"name": "collect_known_spells", "note": "fills known_spell_list with the realm's spells the character knows (and their names); returns the count"},
-        "8a7b": {"name": "draw_glyph_1_at_50_115", "note": "Draws the one-character string \"\\x01\" via gfx_draw_text at (50,115) with mode argument 1, clipped to the 320x200 screen"},
+        "8a7b": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
         "8b45": {"name": "draw_spell_cost", "note": "clears the cost box and prints cost in 3 digits when 0 < cost <= available, else ***"},
         "8d10": {"name": "spell_select_dialog", "note": "modal spell dialog for a character: realm hotspots F/W/A/E/M/D, scrolling known-spell list, power 1..7, two buttons; returns spell_dialog_button and leaves (power<<8)+spell+0x100 in spell_dialog_result"}
       },

@@ -34,7 +34,7 @@ pending_event_hi equ __zdseg_end + (__zobss_90b8 - __zdata_start)
 
 %include "shared/game/find_object_at.asm"        ; 0x019b
 
-%include "vdopt/api_idx_002a_SRJL.asm"     ; 0x020b
+%include "shared/game/draw_split_two_line_text.asm" ; 0x020b
 
 %include "shared/game/loc_RULJ.asm"              ; 0x02b4
 
@@ -176,8 +176,7 @@ draw_spell_cost.dseg1 equ dseg_909a
 
 party_redraw_mode equ __zdseg_end + (__zobss_9b5e - __zdata_start)
 periodic_party_redraw.party_redraw_mode1 equ party_redraw_mode
-periodic_party_redraw.api_idx1           equ draw_marker_glyph
-periodic_party_redraw.api_idx2           equ draw_realm_spell_points
+periodic_party_redraw.api_idx1           equ draw_realm_spell_points
 %include "shared/game/periodic_party_redraw.asm" ; 0x28f7
 
 dseg_909e         equ __zdseg_end + (__zdseg_909e - __zdata_start)

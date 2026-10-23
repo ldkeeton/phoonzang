@@ -31,9 +31,9 @@ periodic_party_redraw:
     mov dx, word [bss_9090]
     mov word [bss_908c], dx
     mov word [party_redraw_last_tick], ax
-    call periodic_party_redraw.api_idx1
+    call draw_marker_glyph
     push word [bp + 0x4]
-    call periodic_party_redraw.api_idx2
+    call periodic_party_redraw.api_idx1
     pop cx
     push word [bp + 0x6]
     call api_idx_0002_TIUI

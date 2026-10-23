@@ -98,7 +98,7 @@ draw_list_rows:
     imul cx                          ; 0x396b
     add ax, strict word list_row_name ; 0x396d
     push ax                          ; 0x3970
-    call api_idx_002a_SRJL           ; 0x3971
+    call draw_split_two_line_text    ; 0x3971
     add sp, byte 8                   ; 0x3974
     mov ax, word [bp + 0xc]          ; 0x3977
     add ax, word [bp - 0x0002]       ; 0x397a

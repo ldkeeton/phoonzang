@@ -49,7 +49,7 @@ spell_select_dialog:
     push ax                          ; 0x8da4
     call draw_dialog_box             ; 0x8da5
     add sp, byte 8                   ; 0x8da8
-    call draw_glyph_1_at_50_115      ; 0x8dab
+    call draw_marker_glyph           ; 0x8dab
     push word [bp + 0x4]             ; 0x8dae
     call draw_realm_spell_points     ; 0x8db1
     pop cx                           ; 0x8db4

@@ -95,8 +95,7 @@ draw_spell_cost.dseg1 equ dseg_90bb
 
 ; bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 periodic_party_redraw.party_redraw_mode1 equ bss_90d6
-periodic_party_redraw.api_idx1           equ draw_marker_glyph
-periodic_party_redraw.api_idx2           equ draw_realm_spell_points
+periodic_party_redraw.api_idx1           equ draw_realm_spell_points
 %include "shared/game/periodic_party_redraw.asm" ; 0x1c11
 
 dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)

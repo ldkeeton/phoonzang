@@ -363,8 +363,7 @@ api_idx_000c_GHTR equ draw_realm_spell_points
 
 ; bss_93d6 equ __zdseg_end + (__zobss_93d6 - __zdata_start)
 periodic_party_redraw.party_redraw_mode1 equ bss_93d6
-periodic_party_redraw.api_idx1           equ draw_marker_glyph
-periodic_party_redraw.api_idx2           equ api_idx_000c_GHTR
+periodic_party_redraw.api_idx1           equ api_idx_000c_GHTR
 %include "shared/game/periodic_party_redraw.asm" ; 0x77a1
 
 %include "vmnpc/loc_UVUO.asm"              ; 0x7832

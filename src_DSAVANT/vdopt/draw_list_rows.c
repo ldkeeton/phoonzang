@@ -24,7 +24,7 @@ int x, y, width, count, first, selected;
 			draw_font_glyph(0x63, 4);	/* 'c' mark glyph */
 		gfx_set_text_pos(x + 0xf, y + 14 * row + 1);
 		draw_font_glyph(list_row_glyph[first + row].glyph, 4);
-		api_idx_002a_SRJL(list_row_name[first + row], x + 0x1d, y + 14 * row + 2, color);
+		draw_split_two_line_text(list_row_name[first + row], x + 0x1d, y + 14 * row + 2, color);
 		if (list_row_count[first + row] > 0) {	/* only positive counts are shown */
 			gfx_set_text_pos(x + 0x47, y + 14 * row + 8);
 			gfx_set_text_color(first + row == selected ? color : 2, 0);

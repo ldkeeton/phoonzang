@@ -41,7 +41,7 @@ int pc, label_id, ok_enabled, limit_by_points;
 	saved_area = save_screen_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1, str_swap_file_v);
 	draw_dialog_box(box_x0, box_y0, box_x1, box_y1);
 	draw_dialog_box(0x95, box_y0, box_x1, box_y1);
-	draw_glyph_1_at_50_115();
+	draw_marker_glyph();
 	draw_realm_spell_points(pc);
 	draw_party_slot_letters(0x32, 0x73, 1);
 	load_message_string(label_id, label);

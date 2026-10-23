@@ -324,7 +324,7 @@ dseg_90fa equ __zdseg_end + (__zdseg_90fa - __zdata_start)
 known_spell_list equ __zdseg_end + (__zobss_966a - __zdata_start)
 %include "vtrea/collect_known_spells.asm"  ; 0x8a18
 
-%include "vtrea/draw_glyph_1_at_50_115.asm" ; 0x8a89
+%include "shared/game/draw_marker_glyph.asm"     ; 0x8a89
 
 %include "shared/game/draw_power_digit.asm"      ; 0x8ac7
 
@@ -336,8 +336,7 @@ draw_spell_cost.dseg1 equ dseg_9100
 
 ; party_redraw_interval equ __zdseg_end + (__zobss_9124 - __zdata_start)
 periodic_party_redraw.party_redraw_mode1 equ party_redraw_interval
-periodic_party_redraw.api_idx1           equ draw_glyph_1_at_50_115
-periodic_party_redraw.api_idx2           equ draw_realm_spell_points
+periodic_party_redraw.api_idx1           equ draw_realm_spell_points
 %include "shared/game/periodic_party_redraw.asm" ; 0x8c8d
 
 str_swap_file_v       equ __zdseg_end + (__zstr_swap_file_v - __zdata_start)
