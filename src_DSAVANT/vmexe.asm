@@ -28,8 +28,8 @@ __zcode_start:
 
 %include "vmexe/api_idx_0004_QUVO.asm"     ; 0x0034
 
-bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
-%include "vmexe/api_idx_0012_PGSL.asm"     ; 0x00db
+window_record equ __zdseg_end + (__zobss_90bc - __zdata_start)
+%include "shared/game/api_idx_0012_PGSL.asm"     ; 0x00db
 
 %include "shared/game/api_idx_0008_MNJN.asm"     ; 0x0257
 
@@ -94,8 +94,8 @@ bss_90e4 equ __zdseg_end + (__zobss_90e4 - __zdata_start)
 
 %include "shared/game/api_idx_000a_UUIH.asm"     ; 0x1ac7
 
-report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
-dseg_909f         equ __zdseg_end + (__zdseg_909f - __zdata_start)
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
 %include "vmexe/api_idx_0004_UONH.asm"     ; 0x1b45
 
 %include "shared/game/loc_SIKN.asm"              ; 0x1bf4
@@ -278,8 +278,9 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/aztec/aztec_swapmem.asm"         ; 0xa520
 
-%include "shared/data/report_line1_none.asm" ; 0xa545
-
+__zdseg_9098:
+__zdata_start:
+    db 'V1.$$$', 0
 __zdseg_909f:
     db 'V2.$$$', 0
 __zdseg_90a6:

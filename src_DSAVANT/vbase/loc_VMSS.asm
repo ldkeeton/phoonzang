@@ -7,7 +7,7 @@ loc_VMSS:
     mov al, byte [bx]                ; 0x6de2
     sub ah, ah                       ; 0x6de4
     push ax                          ; 0x6de6
-    mov ax, glyph_painter            ; 0x6de7
+    mov ax, dseg_9114                ; 0x6de7
     push ax                          ; 0x6dea
     call strpos                      ; 0x6deb
     add sp, byte 4                   ; 0x6dee
@@ -97,7 +97,7 @@ jumptable_6e77:
     push ax                          ; 0x6ea4
     call aztec_strcpy                ; 0x6ea5
     add sp, byte 4                   ; 0x6ea8
-    mov ax, show_area_bottom         ; 0x6eab
+    mov ax, dseg_911c                ; 0x6eab
     push ax                          ; 0x6eae
     lea ax, word [bp - 0x0105]       ; 0x6eaf
     push ax                          ; 0x6eb3

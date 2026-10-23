@@ -165,7 +165,7 @@ api_idx_001e_GOQP:
     pop cx                           ; 0x7254
     mov word [bss_93ee], 1           ; 0x7255
     mov word [bss_9134], 0           ; 0x725b
-    mov word [list_row_count], 0     ; 0x7261
+    mov word [bss_9d68], 0           ; 0x7261
     mov word [bss_9d6a], 0           ; 0x7267
     mov word [bss_9d66], 0xffff      ; 0x726d
     mov ax, 0                        ; 0x7273

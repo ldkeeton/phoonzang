@@ -59,7 +59,7 @@ api_idx_0002_NVMN:
     je short @..api_idx_0002_NVMN.l3 ; 0x70f1
     mov ax, 2                        ; 0x70f3
     push ax                          ; 0x70f6
-    mov ax, animation_frame          ; 0x70f7
+    mov ax, dseg_911e                ; 0x70f7
     push ax                          ; 0x70fa
     call api_idx_0002_LVPS           ; 0x70fb
     add sp, byte 4                   ; 0x70fe

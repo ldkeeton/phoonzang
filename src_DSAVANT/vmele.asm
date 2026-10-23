@@ -46,9 +46,9 @@ bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 
 %include "vmele/api_idx_00a8_KNHJ.asm"     ; 0x041d
 
-report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 api_idx_005e_RKOR       equ api_idx_005e_OJVJ
-api_idx_005e_OJVJ.dseg1 equ report_line1_none
+api_idx_005e_OJVJ.dseg1 equ dseg_9098
 %include "shared/game/api_idx_005e_OJVJ.asm"     ; 0x0649
 
 %include "vmele/api_idx_0008_SJOG.asm"     ; 0x07ad
@@ -144,8 +144,9 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/aztec/aztec_swapmem.asm"         ; 0x374e
 
-%include "vmele/data/report_line1_none.asm" ; 0x3773
-
+__zdseg_9098:
+__zdata_start:
+    db 'MON00.PIC', 0
 __zdseg_90a2:
     db 0x20, 0x00
 __zdseg_90a4:

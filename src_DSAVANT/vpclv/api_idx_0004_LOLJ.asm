@@ -261,7 +261,7 @@ jumptable_3797:
     mov ax, word [word bx + 0x3a]    ; 0x3836
     cmp ax, word [bp - 0x0002]       ; 0x383a
     jge short @..api_idx_0004_LOLJ.l4 ; 0x383d
-    mov ax, bss_95dc                 ; 0x383f
+    mov ax, slot_prompt_text         ; 0x383f
     push ax                          ; 0x3842
     mov ax, 0x159e                   ; 0x3843
     push ax                          ; 0x3846

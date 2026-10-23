@@ -22,8 +22,8 @@ loc_NRTK:
     mov ax, 0                        ; 0x3a92
     push ax                          ; 0x3a95
     push ax                          ; 0x3a96
-    push word [bss_93f8]             ; 0x3a97
-    push word [bss_93f6]             ; 0x3a9b
+    push word [roster_screen_a]      ; 0x3a97
+    push word [roster_screen_b]      ; 0x3a9b
     call gfx_restore_screen          ; 0x3a9f
     add sp, byte 8                   ; 0x3aa2
     mov word [bss_9566], 0           ; 0x3aa5

@@ -79,7 +79,7 @@ api_idx_00a4_PTJS:
     mov ax, word [bp - 0x0002]       ; 0x4f5f
     shl ax, 1                        ; 0x4f62
     mov bx, ax                       ; 0x4f64
-    mov ax, word [bx - 0x6a10]       ; 0x4f66
+    mov ax, word [bx + slot_value]   ; 0x4f66
     add word [bp - 0x0004], ax       ; 0x4f6a
     inc word [bp - 0x0002]           ; 0x4f6d
     mov ax, word [bp - 0x0002]       ; 0x4f70

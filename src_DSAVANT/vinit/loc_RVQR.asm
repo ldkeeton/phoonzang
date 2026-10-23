@@ -11,7 +11,7 @@ loc_RVQR:
     mov word [bss_0e26], 0           ; 0x03d2
     mov ax, 0                        ; 0x03d8
     push ax                          ; 0x03db
-    mov ax, report_line1_none        ; 0x03dc
+    mov ax, dseg_9098                ; 0x03dc
     push ax                          ; 0x03df
     call aztec_open                  ; 0x03e0
     add sp, byte 4                   ; 0x03e3

@@ -5,7 +5,7 @@ api_idx_0002_GVOH:
     mov ax, word [bp + 0x6]          ; 0x56b6
     shl ax, 1                        ; 0x56b9
     mov bx, ax                       ; 0x56bb
-    mov ax, word [bx - 0x69f8]       ; 0x56bd
+    mov ax, word [bx + slot_value]   ; 0x56bd
     cwd                              ; 0x56c1
     idiv word [bp + 0x8]             ; 0x56c2
     push ax                          ; 0x56c5
@@ -28,11 +28,11 @@ api_idx_0002_GVOH:
     mov ax, word [bp + 0x6]          ; 0x56eb
     shl ax, 1                        ; 0x56ee
     mov bx, ax                       ; 0x56f0
-    mov ax, word [bx - 0x69f8]       ; 0x56f2
+    mov ax, word [bx + slot_value]   ; 0x56f2
     cmp ax, word [bp - 0x0002]       ; 0x56f6
     jge short @..api_idx_0002_GVOH.l2 ; 0x56f9
     mov word [bp - 0x0002], ax       ; 0x56fb
 @..api_idx_0002_GVOH.l2:
     mov ax, word [bp - 0x0002]       ; 0x56fe
-    sub word [bx - 0x69f8], ax       ; 0x5701
+    sub word [bx + slot_value], ax   ; 0x5701
     ret                              ; 0x5705

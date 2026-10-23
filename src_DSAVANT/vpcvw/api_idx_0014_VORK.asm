@@ -126,8 +126,8 @@ api_idx_0014_VORK:
     push ax                          ; 0x628f
     call gfx_cache_area              ; 0x6290
     add sp, byte 0x0c                ; 0x6293
-    mov word [bss_93f8], dx          ; 0x6296
-    mov word [bss_93f6], ax          ; 0x629a
+    mov word [roster_screen_a], dx   ; 0x6296
+    mov word [roster_screen_b], ax   ; 0x629a
     mov ax, 0                        ; 0x629d
     push ax                          ; 0x62a0
     mov ax, 2                        ; 0x62a1
@@ -219,9 +219,9 @@ api_idx_0014_VORK:
     add sp, byte 6                   ; 0x636c
     mov word [bss_844c], ax          ; 0x636f
 @..api_idx_0014_VORK.l5:
-    mov word [bss_967a], 0           ; 0x6372
-    mov word [bss_9614], 0           ; 0x6378
-    mov word [bss_9434], 0           ; 0x637e
+    mov word [roster_drawn], 0       ; 0x6372
+    mov word [roster_alt_mode], 0    ; 0x6378
+    mov word [roster_page], 0        ; 0x637e
     mov word [bp - 0x0002], 0        ; 0x6384
 @..api_idx_0014_VORK.l6:
     mov ax, 0xa                      ; 0x6389
@@ -622,7 +622,7 @@ api_idx_0014_VORK:
     imul word [bp + 0x4]             ; 0x66e9
     push ax                          ; 0x66ec
     mov ax, 0x78                     ; 0x66ed
-    imul word [bss_9434]             ; 0x66f0
+    imul word [roster_page]          ; 0x66f0
     mov cx, ax                       ; 0x66f4
     pop ax                           ; 0x66f6
     add ax, cx                       ; 0x66f7
@@ -663,7 +663,7 @@ jumptable_67c3_case_1:
     idiv word [bss_69c8]             ; 0x6746
     mov word [bss_8af0], dx          ; 0x674a
     mov word [bp + 0x4], dx          ; 0x674e
-    mov word [bss_967a], 0           ; 0x6751
+    mov word [roster_drawn], 0       ; 0x6751
 @..api_idx_0014_VORK.l16:
     jmp near @..api_idx_0014_VORK.l20 ; 0x6757
 jumptable_67c3_case_2:
@@ -675,7 +675,7 @@ jumptable_67c3_case_2:
     idiv word [bss_69c8]             ; 0x6765
     mov word [bss_8af0], dx          ; 0x6769
     mov word [bp + 0x4], dx          ; 0x676d
-    mov word [bss_967a], 0           ; 0x6770
+    mov word [roster_drawn], 0       ; 0x6770
 @..api_idx_0014_VORK.l17:
     jmp near @..api_idx_0014_VORK.l20 ; 0x6776
 jumptable_67c3_case_3:
@@ -688,13 +688,13 @@ jumptable_67c3_case_4:
 jumptable_67c3_case_5:
     jmp near @..api_idx_0014_VORK.l20 ; 0x6786
 jumptable_67c3_case_6:
-    mov ax, word [bss_9434]          ; 0x6789
+    mov ax, word [roster_page]       ; 0x6789
     inc ax                           ; 0x678c
     mov cx, 2                        ; 0x678d
     cwd                              ; 0x6790
     idiv cx                          ; 0x6791
-    mov word [bss_9434], dx          ; 0x6793
-    mov word [bss_967a], 0           ; 0x6797
+    mov word [roster_page], dx       ; 0x6793
+    mov word [roster_drawn], 0       ; 0x6797
     jmp short @..api_idx_0014_VORK.l20 ; 0x679d
 jumptable_67c3_case_7:
     push word [bp + 0x4]             ; 0x679f
@@ -805,8 +805,8 @@ jumptable_67c3_case_15:
     push ax                          ; 0x688d
     mov ax, 1                        ; 0x688e
     push ax                          ; 0x6891
-    push word [bss_93f8]             ; 0x6892
-    push word [bss_93f6]             ; 0x6896
+    push word [roster_screen_a]      ; 0x6892
+    push word [roster_screen_b]      ; 0x6896
     call gfx_restore_screen          ; 0x689a
     add sp, byte 8                   ; 0x689d
     mov ax, 0                        ; 0x68a0

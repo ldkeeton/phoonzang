@@ -13,7 +13,7 @@ api_idx_0088_QLNT:
     mov cx, word [bp - 0x0002]       ; 0x2c31
     shl cx, 1                        ; 0x2c34
     mov bx, cx                       ; 0x2c36
-    mov word [bx - 0x6928], ax       ; 0x2c38
+    mov word [bx + slot_limit], ax   ; 0x2c38
     inc word [bp - 0x0002]           ; 0x2c3c
     mov ax, word [bp - 0x0002]       ; 0x2c3f
     cmp ax, strict word 0x22         ; 0x2c42
@@ -22,7 +22,7 @@ api_idx_0088_QLNT:
 @..api_idx_0088_QLNT.l2:
     mov ax, 0x14                     ; 0x2c4c
     imul word [bp - 0x0002]          ; 0x2c4f
-    add ax, 0x9610                   ; 0x2c52
+    add ax, slot_label               ; 0x2c52
     push ax                          ; 0x2c55
     mov ax, word [bp - 0x0002]       ; 0x2c56
     add ax, 0x258                    ; 0x2c59

@@ -56,7 +56,7 @@ ovmain:
     je short @..ovmain.l4            ; 0x00b7
     mov word [bss_8f22], 1           ; 0x00b9
     call api_idx_0030_JQMM           ; 0x00bf
-    mov ax, report_line1_none        ; 0x00c2
+    mov ax, dseg_9098                ; 0x00c2
     push ax                          ; 0x00c5
     mov ax, 0x8f                     ; 0x00c6
     push ax                          ; 0x00c9

@@ -41,7 +41,7 @@ jumptable_85bc_case_2:
     push ax                          ; 0x8477
     mov ax, dseg_9125                ; 0x8478
     push ax                          ; 0x847b
-    mov ax, pending_panel_call       ; 0x847c
+    mov ax, dseg_911a                ; 0x847c
     push ax                          ; 0x847f
     push word [bp + 0x4]             ; 0x8480
     call api_idx_0004_IKOQ           ; 0x8483

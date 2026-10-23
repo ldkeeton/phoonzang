@@ -100,7 +100,7 @@ jumptable_a27d_case_0:
     adc word [bx + bss_5c0a], byte 0xff ; 0x9e1b
     add word [bss_91b6], byte 0x32   ; 0x9e20
     adc word [bss_91b8], byte 0      ; 0x9e25
-    cmp word [list_row_count], byte 0 ; 0x9e2a
+    cmp word [bss_9d68], byte 0      ; 0x9e2a
     jne short @..api_idx_0054_UOTQ.l12 ; 0x9e2f
     cmp word [location_changed], byte 0 ; 0x9e31
     jle short @..api_idx_0054_UOTQ.l12 ; 0x9e36
@@ -116,7 +116,7 @@ jumptable_a27d_case_0:
     push ax                          ; 0x9e4d
     call api_idx_0080_TKTP           ; 0x9e4e
     add sp, byte 4                   ; 0x9e51
-    mov word [list_row_count], 1     ; 0x9e54
+    mov word [bss_9d68], 1           ; 0x9e54
     jmp short @..api_idx_0054_UOTQ.l13 ; 0x9e5a
 @..api_idx_0054_UOTQ.l12:
     mov ax, 0                        ; 0x9e5c

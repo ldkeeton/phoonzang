@@ -58,7 +58,7 @@ api_idx_004c_OGSK:
     push ax                          ; 0x506e
     mov ax, 0x16                     ; 0x506f
     imul word [bss_9ca8]             ; 0x5072
-    add ax, 0x96a2                   ; 0x5076
+    add ax, list_row_name            ; 0x5076
     push ax                          ; 0x5079
     call aztec_strcpy                ; 0x507a
     add sp, byte 4                   ; 0x507d
@@ -66,7 +66,7 @@ api_idx_004c_OGSK:
 @..api_idx_004c_OGSK.l4:
     mov ax, 0x16                     ; 0x5082
     imul word [bss_9ca8]             ; 0x5085
-    add ax, 0x96a2                   ; 0x5089
+    add ax, list_row_name            ; 0x5089
     push ax                          ; 0x508c
     mov al, byte [bp - 0x0013]       ; 0x508d
     sub ah, ah                       ; 0x5090
@@ -80,9 +80,9 @@ api_idx_004c_OGSK:
     mov cx, word [bss_9ca8]          ; 0x50a1
     shl cx, 1                        ; 0x50a5
     mov bx, cx                       ; 0x50a7
-    mov word [bx - 0x6986], ax       ; 0x50a9
+    mov word [bx + list_row_glyph], ax ; 0x50a9
     mov ax, word [bp - 0x0002]       ; 0x50ad
-    mov word [bx - 0x69ae], ax       ; 0x50b0
+    mov word [bx + list_row_marked], ax ; 0x50b0
     mov ax, 0x248                    ; 0x50b4
     imul word [bp + 0x4]             ; 0x50b7
     push ax                          ; 0x50ba
@@ -123,13 +123,13 @@ api_idx_004c_OGSK:
     mov cx, word [bss_9ca8]          ; 0x5109
     shl cx, 1                        ; 0x510d
     mov bx, cx                       ; 0x510f
-    mov word [bx - 0x67a6], ax       ; 0x5111
+    mov word [bx + list_row_count], ax ; 0x5111
     jmp short @..api_idx_004c_OGSK.l7 ; 0x5115
 @..api_idx_004c_OGSK.l6:
     mov ax, word [bss_9ca8]          ; 0x5117
     shl ax, 1                        ; 0x511a
     mov bx, ax                       ; 0x511c
-    mov word [bx - 0x67a6], 0        ; 0x511e
+    mov word [bx + list_row_count], 0 ; 0x511e
 @..api_idx_004c_OGSK.l7:
     mov ax, word [bp - 0x0002]       ; 0x5124
     xchg al, ah                      ; 0x5127

@@ -95,6 +95,7 @@
   },
   "binaries": {
     "ds": {
+      "immediate_labels": {"0xff6": "__zdseg_para"},
       "file": "DS.EXE",
       "type": "mz",
       "start_offset": 512,
@@ -427,20 +428,6 @@
         "9060": {"name": "screen_cache", "note": "array of far pointers to the cached screens"},
         "906c": {"name": "screen_cache_index", "note": "selects one of the cached screens in screen_cache"},
         "908a": {"name": "party_redraw_last_tick", "note": "long: tick count at the last periodic_party_redraw refresh"},
-        "9098": {"name": "report_line1_none", "note": "second line text for the none-found report"},
-        "9099": {"name": "report_line2_none", "note": "third line text for the none-found report"},
-        "9104": {"name": "str_swap_file_v", "note": "\"V.$$$\" swap file name spell_select_dialog passes to save_screen_area"},
-        "9114": {"name": "glyph_painter", "note": "1 selects draw_animated_glyph_pair, else draw_party_glyph_row"},
-        "9116": {"name": "animation_index", "note": "0..6 animation index; -1 disables the frame update"},
-        "9118": {"name": "sound_request", "note": "nonzero plays sound effect 5 and clears it"},
-        "911a": {"name": "pending_panel_call", "note": ">=0 calls draw_treasure_panel with the pending arguments, then becomes -1"},
-        "911c": {"name": "show_area_bottom", "note": "bottom coordinate for gfx_show_area; 0x8d or 0x8f"},
-        "911e": {"name": "animation_frame", "note": "cycles 0..2; selects the second glyph as frame+2"},
-        "9120": {"name": "pending_panel_arg1", "note": "second argument for the pending panel call"},
-        "9122": {"name": "pending_panel_arg0", "note": "first argument for the pending panel call"},
-        "9124": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes"},
-        "9126": {"name": "treasure_caption_on", "note": "nonzero when treasure_caption should be drawn"},
-        "9128": {"name": "treasure_caption", "note": "caption text drawn centred at y=0x92 in the treasure screen"},
         "919e": {"name": "save_location_flag", "note": "nonzero: record the destination as the saved location"},
         "91a8": {"name": "location_changed", "note": "set when the party is placed at a new location"},
         "966a": {"name": "known_spell_list", "note": "int[]: spell ids collect_known_spells found, in list order"},
@@ -448,11 +435,7 @@
         "9b0c": {"name": "grid_origin_x", "note": "x pixel origin of the 7-pixel character grid"},
         "9b0e": {"name": "known_spell_ids", "note": "spell numbers parallel to known_spell_names"},
         "9b5e": {"name": "party_redraw_mode", "note": "word set to 5 before the spell dialog (periodic_party_redraw bss1)"},
-        "9b60": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
-        "9b88": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
-        "9bb0": {"name": "list_row_name", "note": "per-row 22-byte name strings"},
         "9bd0": {"name": "region_step_flag", "note": "cleared on move; when 1 loc_IPSH advances party_region"},
-        "9d68": {"name": "list_row_count", "note": "per-row int count, drawn when positive"},
         "9d90": {"name": "spell_target", "note": "party slot picked for a targeted spell, -1 on Esc"},
         "a4a4": {"name": "scene_index", "note": "scene number 1..8 that draw_scene_frame draws; set by each scene starter"},
         "a5aa": {"name": "scene_tick", "note": "tick counter compared against the scene_cue_* ticks; reset to 1 by blank_scene_screen"},
@@ -518,6 +501,7 @@
       }
     },
     "vinstall": {
+      "immediate_labels": {"0x38e": "__zdseg_para"},
       "file": "VINSTALL.EXE",
       "compiler_flags": {
         "default": ["-n"],
@@ -687,6 +671,12 @@
     },
     "vdopt": {
       "data_names": {
+        "9b60": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
+        "9b88": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
+        "9bb0": {"name": "list_row_name", "note": "per-row 22-byte name strings"},
+        "9d68": {"name": "list_row_count", "note": "per-row int count, drawn when positive"},
+        "9098": {"name": "report_line1_none", "note": "second line text for the none-found report"},
+        "9099": {"name": "report_line2_none", "note": "third line text for the none-found report"},
         "90b6": {"name": "pending_event", "note": "set to 0x841 after a type 7 object is claimed"},
         "90b8": {"name": "pending_event_hi", "note": "cleared alongside pending_event"}
       },
@@ -719,6 +709,12 @@
       "fingerprint-end": "5f236ebf8108dddf3960a4857c7c89fb31686a72420cd060a30b9d8264dee6f6"
     },
     "vmexe": {
+      "data_names": {
+        "90bc": {"name": "window_record", "note": "7-word window record api_idx_0012 fills from the box arguments and returns the address of"}
+      },
+      "immediate_pointers": [
+        {"offset": "0253", "space": "ds", "note": "`mov ax, window_record`: the address api_idx_0012 returns"}
+      ],
       "file": "VMEXE.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
@@ -752,6 +748,18 @@
       ]
     },
     "vmnpc": {
+      "function_names": {
+        "8542": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"}
+      },
+      "immediate_pointers": [
+        {"offset": "3d7b", "space": "ds", "note": "`add ax, list_row_name`: base of the 22-byte row name strings passed to draw_split_two_line_text"}
+      ],
+      "data_names": {
+        "9652": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
+        "967a": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
+        "96a2": {"name": "list_row_name", "note": "per-row 22-byte name strings"},
+        "985a": {"name": "list_row_count", "note": "per-row int count, drawn when positive"}
+      },
       "file": "VMNPC.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
@@ -759,6 +767,23 @@
       "fingerprint-end": "e0216eba09aade5df0f1a2ba3de10736eb3757014b86fde7bb218c287d1d8941"
     },
     "vpcvw": {
+      "data_names": {
+        "93f8": {"name": "roster_screen_a", "note": "word pushed with roster_screen_b to gfx_restore_screen at the start of the roster draw"},
+        "93f6": {"name": "roster_screen_b", "note": "word pushed first with roster_screen_a to gfx_restore_screen"},
+        "9434": {"name": "roster_page", "note": "0 or 1: which page of 10 roster slots (0x78 bytes of cell_key_grid per page) is shown"},
+        "9614": {"name": "roster_alt_mode", "note": "nonzero forces the row backdrop fills to be drawn even on page 0"},
+        "967a": {"name": "roster_drawn", "note": "set to 1 once the roster has been drawn; later passes skip re-reading the records"},
+        "9436": {"name": "roster_names", "note": "10 rows of 22-byte slot name strings (0x16 apart)"},
+        "9600": {"name": "roster_row_attr", "note": "word per row: attribute byte read from the slot record"},
+        "95ec": {"name": "roster_row_color", "note": "word per row: 0x69 by default, 0x55 for a flagged slot, or a value from the class table"},
+        "93e0": {"name": "window_record", "note": "7-word window record api_idx_0012 fills from the box arguments and returns the address of"}
+      },
+      "immediate_pointers": [
+        {"offset": "6e4b", "space": "ds", "note": "`add ax, roster_names`: base of the 22-byte slot name rows"},
+        {"offset": "6e5d", "space": "ds", "note": "`add ax, roster_names`: base of the 22-byte slot name rows"},
+        {"offset": "6f1a", "space": "ds", "note": "`add ax, roster_names`: base of the 22-byte slot name rows"},
+        {"offset": "02c3", "space": "ds", "note": "`mov ax, window_record`: the address api_idx_0012 returns"}
+      ],
       "file": "VPCVW.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
@@ -766,6 +791,29 @@
       "fingerprint-end": "6a64e76475eabcf56db577a52b85d64311bb4437bf6c9d2c5f19b8043207148c"
     },
     "vpclv": {
+      "data_names": {
+        "95f0": {"name": "slot_value", "note": "word per slot (4): the running value api_idx_0032 sums over the other slots and rewrites on exit"},
+        "95f8": {"name": "slot_label", "note": "4 rows of 20-byte label strings (0x14 apart), centred and drawn per row"},
+        "96c0": {"name": "slot_limit", "note": "word per row: threshold the row byte is compared against"},
+        "95dc": {"name": "slot_prompt_text", "note": "text drawn at (6,0xae) above the slot rows"},
+        "9420": {"name": "roster_screen_a", "note": "word pushed with roster_screen_b to gfx_restore_screen at the start of the roster draw"},
+        "941e": {"name": "roster_screen_b", "note": "word pushed first with roster_screen_a to gfx_restore_screen"},
+        "948e": {"name": "roster_page", "note": "0 or 1: which page of 10 roster slots (0x78 bytes of cell_key_grid per page) is shown"},
+        "9490": {"name": "roster_alt_mode", "note": "nonzero forces the row backdrop fills to be drawn even on page 0"},
+        "9492": {"name": "roster_drawn", "note": "set to 1 once the roster has been drawn; later passes skip re-reading the records"},
+        "9494": {"name": "roster_names", "note": "10 rows of 22-byte slot name strings (0x16 apart)"},
+        "9570": {"name": "roster_row_attr", "note": "word per row: attribute byte read from the slot record"},
+        "9584": {"name": "roster_row_color", "note": "word per row: 0x69 by default, 0x55 for a flagged slot, or a value from the class table"},
+        "9408": {"name": "window_record", "note": "7-word window record api_idx_0012 fills from the box arguments and returns the address of"}
+      },
+      "immediate_pointers": [
+        {"offset": "3c90", "space": "ds", "note": "`add ax, slot_label`: base of the 20-byte label rows"},
+        {"offset": "3cbf", "space": "ds", "note": "`add ax, slot_label`: base of the 20-byte label rows"},
+        {"offset": "291b", "space": "ds", "note": "`add ax, roster_names`: base of the 22-byte slot name rows"},
+        {"offset": "292d", "space": "ds", "note": "`add ax, roster_names`: base of the 22-byte slot name rows"},
+        {"offset": "29ea", "space": "ds", "note": "`add ax, roster_names`: base of the 22-byte slot name rows"},
+        {"offset": "01fe", "space": "ds", "note": "`mov ax, window_record`: the address api_idx_0012 returns"}
+      ],
       "file": "VPCLV.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
@@ -779,6 +827,16 @@
       ]
     },
     "vpcmk": {
+      "immediate_pointers": [
+        {"offset": "2907", "space": "ds", "note": "`add ax, slot_label`: base of the 20-byte label rows"},
+        {"offset": "2936", "space": "ds", "note": "`add ax, slot_label`: base of the 20-byte label rows"}
+      ],
+      "data_names": {
+        "9608": {"name": "slot_value", "note": "word per slot (4): the running value api_idx_0032 sums over the other slots and rewrites on exit"},
+        "9610": {"name": "slot_label", "note": "4 rows of 20-byte label strings (0x14 apart), centred and drawn per row"},
+        "96d8": {"name": "slot_limit", "note": "word per row: threshold the row byte is compared against"},
+        "95f4": {"name": "slot_prompt_text", "note": "text drawn at (6,0xae) above the slot rows"}
+      },
       "file": "VPCMK.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
@@ -786,6 +844,15 @@
       "fingerprint-end": "78d26a13eb62891e3c8cd98d8f74cd9f4f05b028031d0c418b0b663516a33f76"
     },
     "vpops": {
+      "immediate_pointers": [
+        {"offset": "2bd3", "space": "ds", "note": "`add ax, list_row_name`: base of the 22-byte row name strings passed to draw_split_two_line_text"}
+      ],
+      "data_names": {
+        "9156": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
+        "917e": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
+        "91a6": {"name": "list_row_name", "note": "per-row 22-byte name strings"},
+        "935e": {"name": "list_row_count", "note": "per-row int count, drawn when positive"}
+      },
       "function_names": {
         "19ff": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"}
       },
@@ -796,7 +863,29 @@
       "fingerprint-end": "28a41ce973d74b574c1e907936aacc224f5595a92d4a6305e748497902ec108f"
     },
     "vtrea": {
+      "immediate_pointers": [
+        {"offset": "3997", "space": "ds", "note": "`add ax, list_row_name`: base of the 22-byte row name strings passed to draw_split_two_line_text"}
+      ],
+      "data_names": {
+        "93ae": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
+        "93d6": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
+        "93fe": {"name": "list_row_name", "note": "per-row 22-byte name strings"},
+        "95b6": {"name": "list_row_count", "note": "per-row int count, drawn when positive"},
+        "9104": {"name": "str_swap_file_v", "note": "\"V.$$$\" swap file name spell_select_dialog passes to save_screen_area"},
+        "9114": {"name": "glyph_painter", "note": "1 selects draw_animated_glyph_pair, else draw_party_glyph_row"},
+        "9116": {"name": "animation_index", "note": "0..6 animation index; -1 disables the frame update"},
+        "9118": {"name": "sound_request", "note": "nonzero plays sound effect 5 and clears it"},
+        "911a": {"name": "pending_panel_call", "note": ">=0 calls draw_treasure_panel with the pending arguments, then becomes -1"},
+        "911c": {"name": "show_area_bottom", "note": "bottom coordinate for gfx_show_area; 0x8d or 0x8f"},
+        "911e": {"name": "animation_frame", "note": "cycles 0..2; selects the second glyph as frame+2"},
+        "9120": {"name": "pending_panel_arg1", "note": "second argument for the pending panel call"},
+        "9122": {"name": "pending_panel_arg0", "note": "first argument for the pending panel call"},
+        "9124": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes"},
+        "9126": {"name": "treasure_caption_on", "note": "nonzero when treasure_caption should be drawn"},
+        "9128": {"name": "treasure_caption", "note": "caption text drawn centred at y=0x92 in the treasure screen"}
+      },
       "function_names": {
+        "81f2": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"},
         "0082": {"name": "draw_animation_frame", "note": "draws animation frame 0..6; returns the index, -1 if out of range"},
         "0103": {"name": "draw_treasure_panel", "note": "draws the treasure panel grid for the pending action"},
         "072d": {"name": "draw_animated_glyph_pair", "note": "draws two animated two-glyph strings from the position tables"},

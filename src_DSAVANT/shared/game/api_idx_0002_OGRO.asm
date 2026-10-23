@@ -5,8 +5,8 @@ api_idx_0002_OGRO:
     mov ax, 0
     push ax
     push ax
-    push word [api_idx_0002_OGRO.bss1]
-    push word [api_idx_0002_OGRO.bss2]
+    push word [api_idx_0002_OGRO.roster_screen_a1]
+    push word [api_idx_0002_OGRO.roster_screen_b1]
     call gfx_restore_screen
     add sp, byte 8
     mov word [bp - 0x0002], 0

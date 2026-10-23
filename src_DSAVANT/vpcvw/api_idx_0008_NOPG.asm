@@ -658,7 +658,7 @@ jumptable_291f_case_34:
     imul word [bp + 0x4]             ; 0x2826
     push ax                          ; 0x2829
     mov ax, 0x78                     ; 0x282a
-    imul word [bss_9434]             ; 0x282d
+    imul word [roster_page]          ; 0x282d
     mov cx, ax                       ; 0x2831
     pop ax                           ; 0x2833
     add ax, cx                       ; 0x2834
@@ -674,7 +674,7 @@ jumptable_291f_case_34:
     push word [bp + 0x8]             ; 0x284c
     mov ax, 0x16                     ; 0x284f
     imul word [bss_8aee]             ; 0x2852
-    add ax, 0x9436                   ; 0x2856
+    add ax, roster_names             ; 0x2856
     push ax                          ; 0x2859
     add bx, strict word 0x5c34       ; 0x285a
     mov ax, bx                       ; 0x285e
@@ -738,7 +738,7 @@ jumptable_291f_case_42:
     imul word [bp + 0x4]             ; 0x28e1
     push ax                          ; 0x28e4
     mov ax, 0x78                     ; 0x28e5
-    imul word [bss_9434]             ; 0x28e8
+    imul word [roster_page]          ; 0x28e8
     mov cx, ax                       ; 0x28ec
     pop ax                           ; 0x28ee
     add ax, cx                       ; 0x28ef

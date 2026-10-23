@@ -5,7 +5,7 @@ api_idx_0002_SLJI:
     mov ax, word [bp + 0x6]          ; 0x4276
     shl ax, 1                        ; 0x4279
     mov bx, ax                       ; 0x427b
-    mov ax, word [bx - 0x6a10]       ; 0x427d
+    mov ax, word [bx + slot_value]   ; 0x427d
     cwd                              ; 0x4281
     idiv word [bp + 0x8]             ; 0x4282
     push ax                          ; 0x4285
@@ -49,13 +49,13 @@ api_idx_0002_SLJI:
     mov ax, word [bp + 0x6]          ; 0x42df
     shl ax, 1                        ; 0x42e2
     mov bx, ax                       ; 0x42e4
-    mov ax, word [bx - 0x6a10]       ; 0x42e6
+    mov ax, word [bx + slot_value]   ; 0x42e6
     cmp ax, word [bp - 0x0002]       ; 0x42ea
     jge short @..api_idx_0002_SLJI.l4 ; 0x42ed
     mov word [bp - 0x0002], ax       ; 0x42ef
 @..api_idx_0002_SLJI.l4:
     mov ax, word [bp - 0x0002]       ; 0x42f2
-    sub word [bx - 0x6a10], ax       ; 0x42f5
+    sub word [bx + slot_value], ax   ; 0x42f5
     mov al, byte [bp - 0x0002]       ; 0x42f9
     push ax                          ; 0x42fc
     mov ax, 0x248                    ; 0x42fd

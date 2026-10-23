@@ -573,7 +573,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    mov ax, report_line1_none
+    mov ax, dseg_9098
     push ax
     call draw_text_glyphs
     add sp, byte 4

@@ -7,7 +7,7 @@ api_idx_0090_NPLS:
     mov al, byte [bx]                ; 0x0b32
     sub ah, ah                       ; 0x0b34
     push ax                          ; 0x0b36
-    mov ax, report_line1_none        ; 0x0b37
+    mov ax, dseg_9098                ; 0x0b37
     push ax                          ; 0x0b3a
     call strpos                      ; 0x0b3b
     add sp, byte 4                   ; 0x0b3e

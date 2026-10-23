@@ -45,11 +45,11 @@ api_idx_000e_NKQN.api_idx1 equ api_idx_0004_SMTU
 
 %include "shared/game/loc_VNIO.asm"              ; 0x0b30
 
-report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
-dseg_909f         equ __zdseg_end + (__zdseg_909f - __zdata_start)
-dseg_90a6         equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
-dseg_90ad         equ __zdseg_end + (__zdseg_90ad - __zdata_start)
-dseg_90b4         equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
+dseg_90a6 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
+dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
+dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 %include "shared/game/api_idx_0006_SHUK.asm"     ; 0x0b74
 
 %include "shared/game/loc_HTQP.asm"              ; 0x0c96
@@ -182,7 +182,11 @@ bss_9650 equ __zdseg_end + (__zobss_9650 - __zdata_start)
 
 %include "shared/game/api_idx_0018_RGOS.asm"     ; 0x3b9a
 
-%include "vmnpc/api_idx_0004_KHSO.asm"     ; 0x3c97
+list_row_marked equ __zdseg_end + (__zobss_9652 - __zdata_start)
+list_row_glyph  equ __zdseg_end + (__zobss_967a - __zdata_start)
+list_row_name   equ __zdseg_end + (__zobss_96a2 - __zdata_start)
+list_row_count  equ __zdseg_end + (__zobss_985a - __zdata_start)
+%include "shared/game/api_idx_0004_KHSO.asm"     ; 0x3c97
 
 loc_HTKI.draw_list_rows1 equ api_idx_0004_KHSO
 %include "shared/game/loc_HTKI.asm"              ; 0x3df9
@@ -203,10 +207,18 @@ dseg_90d6 equ __zdseg_end + (__zdseg_90d6 - __zdata_start)
 bss_9ca6  equ __zdseg_end + (__zobss_9ca6 - __zdata_start)
 %include "vmnpc/api_idx_0038_LJOP.asm"     ; 0x47d9
 
-bss_9ca8 equ __zdseg_end + (__zobss_9ca8 - __zdata_start)
+; list_row_marked equ __zdseg_end + (__zobss_9652 - __zdata_start)
+; list_row_glyph  equ __zdseg_end + (__zobss_967a - __zdata_start)
+; list_row_name   equ __zdseg_end + (__zobss_96a2 - __zdata_start)
+; list_row_count  equ __zdseg_end + (__zobss_985a - __zdata_start)
+bss_9ca8        equ __zdseg_end + (__zobss_9ca8 - __zdata_start)
 %include "vmnpc/api_idx_004c_OGSK.asm"     ; 0x4fea
 
-; bss_9ca8 equ __zdseg_end + (__zobss_9ca8 - __zdata_start)
+; list_row_marked equ __zdseg_end + (__zobss_9652 - __zdata_start)
+; list_row_glyph  equ __zdseg_end + (__zobss_967a - __zdata_start)
+; list_row_name   equ __zdseg_end + (__zobss_96a2 - __zdata_start)
+; list_row_count  equ __zdseg_end + (__zobss_985a - __zdata_start)
+; bss_9ca8        equ __zdseg_end + (__zobss_9ca8 - __zdata_start)
 %include "vmnpc/api_idx_0002_MIIL.asm"     ; 0x515b
 
 ; bss_9650 equ __zdseg_end + (__zobss_9650 - __zdata_start)
@@ -232,12 +244,13 @@ bss_9cd4 equ __zdseg_end + (__zobss_9cd4 - __zdata_start)
 
 %include "shared/game/api_idx_0002_GKQL.asm"     ; 0x57bb
 
-bss_91ac equ __zdseg_end + (__zobss_91ac - __zdata_start)
-bss_91ae equ __zdseg_end + (__zobss_91ae - __zdata_start)
-; bss_91c6 equ __zdseg_end + (__zobss_91c6 - __zdata_start)
-; bss_95a8 equ __zdseg_end + (__zobss_95a8 - __zdata_start)
-; bss_95fa equ __zdseg_end + (__zobss_95fa - __zdata_start)
-bss_9d10 equ __zdseg_end + (__zobss_9d10 - __zdata_start)
+bss_91ac      equ __zdseg_end + (__zobss_91ac - __zdata_start)
+bss_91ae      equ __zdseg_end + (__zobss_91ae - __zdata_start)
+; bss_91c6      equ __zdseg_end + (__zobss_91c6 - __zdata_start)
+; bss_95a8      equ __zdseg_end + (__zobss_95a8 - __zdata_start)
+; bss_95fa      equ __zdseg_end + (__zobss_95fa - __zdata_start)
+; list_row_name equ __zdseg_end + (__zobss_96a2 - __zdata_start)
+bss_9d10      equ __zdseg_end + (__zobss_9d10 - __zdata_start)
 %include "vmnpc/api_idx_005e_KVNO.asm"     ; 0x57e1
 
 ; bss_91ae equ __zdseg_end + (__zobss_91ae - __zdata_start)
@@ -303,19 +316,19 @@ bss_91c9 equ __zdseg_end + (__zobss_91c9 - __zdata_start)
 ; bss_9cd4 equ __zdseg_end + (__zobss_9cd4 - __zdata_start)
 %include "vmnpc/api_idx_0086_JRHU.asm"     ; 0x6e0f
 
-; bss_9134       equ __zdseg_end + (__zobss_9134 - __zdata_start)
-; bss_9136       equ __zdseg_end + (__zobss_9136 - __zdata_start)
-; bss_9138       equ __zdseg_end + (__zobss_9138 - __zdata_start)
-; bss_93d6       equ __zdseg_end + (__zobss_93d6 - __zdata_start)
-; bss_93dc       equ __zdseg_end + (__zobss_93dc - __zdata_start)
-; bss_93ee       equ __zdseg_end + (__zobss_93ee - __zdata_start)
-; bss_94f0       equ __zdseg_end + (__zobss_94f0 - __zdata_start)
-; bss_95f8       equ __zdseg_end + (__zobss_95f8 - __zdata_start)
-; bss_964a       equ __zdseg_end + (__zobss_964a - __zdata_start)
-; bss_964c       equ __zdseg_end + (__zobss_964c - __zdata_start)
-; bss_9d66       equ __zdseg_end + (__zobss_9d66 - __zdata_start)
-list_row_count equ __zdseg_end + (__zobss_9d68 - __zdata_start)
-bss_9d6a       equ __zdseg_end + (__zobss_9d6a - __zdata_start)
+; bss_9134 equ __zdseg_end + (__zobss_9134 - __zdata_start)
+; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
+; bss_9138 equ __zdseg_end + (__zobss_9138 - __zdata_start)
+; bss_93d6 equ __zdseg_end + (__zobss_93d6 - __zdata_start)
+; bss_93dc equ __zdseg_end + (__zobss_93dc - __zdata_start)
+; bss_93ee equ __zdseg_end + (__zobss_93ee - __zdata_start)
+; bss_94f0 equ __zdseg_end + (__zobss_94f0 - __zdata_start)
+; bss_95f8 equ __zdseg_end + (__zobss_95f8 - __zdata_start)
+; bss_964a equ __zdseg_end + (__zobss_964a - __zdata_start)
+; bss_964c equ __zdseg_end + (__zobss_964c - __zdata_start)
+; bss_9d66 equ __zdseg_end + (__zobss_9d66 - __zdata_start)
+bss_9d68 equ __zdseg_end + (__zobss_9d68 - __zdata_start)
+bss_9d6a equ __zdseg_end + (__zobss_9d6a - __zdata_start)
 %include "vmnpc/api_idx_001e_GOQP.asm"     ; 0x70b7
 
 dseg_90dc equ __zdseg_end + (__zdseg_90dc - __zdata_start)
@@ -362,8 +375,7 @@ dseg_90e8 equ __zdseg_end + (__zdseg_90e8 - __zdata_start)
 
 %include "vmnpc/api_idx_0006_TLLQ.asm"     ; 0x84f0
 
-api_idx_002a_NJKV equ api_idx_002a_SRJL
-%include "shared/game/api_idx_002a_SRJL.asm"     ; 0x8550
+%include "shared/game/draw_split_two_line_text.asm" ; 0x8550
 
 ; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
 ; bss_91c7 equ __zdseg_end + (__zobss_91c7 - __zdata_start)
@@ -516,7 +528,7 @@ bss_b052 equ __zdseg_end + (__zobss_b052 - __zdata_start)
 ; location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
 ; bss_91b6         equ __zdseg_end + (__zobss_91b6 - __zdata_start)
 ; bss_91b8         equ __zdseg_end + (__zobss_91b8 - __zdata_start)
-; list_row_count   equ __zdseg_end + (__zobss_9d68 - __zdata_start)
+; bss_9d68         equ __zdseg_end + (__zobss_9d68 - __zdata_start)
 ; bss_9e42         equ __zdseg_end + (__zobss_9e42 - __zdata_start)
 ; bss_9e44         equ __zdseg_end + (__zobss_9e44 - __zdata_start)
 ; bss_9e46         equ __zdseg_end + (__zobss_9e46 - __zdata_start)
@@ -576,46 +588,46 @@ bss_b054 equ __zdseg_end + (__zobss_b054 - __zdata_start)
 
 %include "vmnpc/api_idx_00ba_TUGQ.asm"     ; 0xaa93
 
-pending_panel_arg1 equ __zdseg_end + (__zpending_panel_arg1 - __zdata_start)
-; bss_9136           equ __zdseg_end + (__zobss_9136 - __zdata_start)
-; bss_93d4           equ __zdseg_end + (__zobss_93d4 - __zdata_start)
-; bss_93ee           equ __zdseg_end + (__zobss_93ee - __zdata_start)
-; bss_9e42           equ __zdseg_end + (__zobss_9e42 - __zdata_start)
-; bss_9e44           equ __zdseg_end + (__zobss_9e44 - __zdata_start)
-; bss_9e46           equ __zdseg_end + (__zobss_9e46 - __zdata_start)
-; bss_9e48           equ __zdseg_end + (__zobss_9e48 - __zdata_start)
-; bss_9e4a           equ __zdseg_end + (__zobss_9e4a - __zdata_start)
-; bss_9e4c           equ __zdseg_end + (__zobss_9e4c - __zdata_start)
-; bss_9e4e           equ __zdseg_end + (__zobss_9e4e - __zdata_start)
-; bss_9e50           equ __zdseg_end + (__zobss_9e50 - __zdata_start)
-; bss_9e52           equ __zdseg_end + (__zobss_9e52 - __zdata_start)
-; bss_9e54           equ __zdseg_end + (__zobss_9e54 - __zdata_start)
-; bss_9e56           equ __zdseg_end + (__zobss_9e56 - __zdata_start)
-; bss_9e58           equ __zdseg_end + (__zobss_9e58 - __zdata_start)
-; bss_9e5a           equ __zdseg_end + (__zobss_9e5a - __zdata_start)
-; bss_9e5c           equ __zdseg_end + (__zobss_9e5c - __zdata_start)
-; bss_9e5e           equ __zdseg_end + (__zobss_9e5e - __zdata_start)
-; bss_9e60           equ __zdseg_end + (__zobss_9e60 - __zdata_start)
-; bss_9e62           equ __zdseg_end + (__zobss_9e62 - __zdata_start)
-; bss_9e64           equ __zdseg_end + (__zobss_9e64 - __zdata_start)
-; bss_9e66           equ __zdseg_end + (__zobss_9e66 - __zdata_start)
-; bss_9e68           equ __zdseg_end + (__zobss_9e68 - __zdata_start)
-; bss_9e6a           equ __zdseg_end + (__zobss_9e6a - __zdata_start)
-; bss_9e6c           equ __zdseg_end + (__zobss_9e6c - __zdata_start)
-; bss_9e6e           equ __zdseg_end + (__zobss_9e6e - __zdata_start)
-; bss_9e70           equ __zdseg_end + (__zobss_9e70 - __zdata_start)
-bss_9e72           equ __zdseg_end + (__zobss_9e72 - __zdata_start)
-; bss_9e74           equ __zdseg_end + (__zobss_9e74 - __zdata_start)
-; bss_9e76           equ __zdseg_end + (__zobss_9e76 - __zdata_start)
-; bss_9e78           equ __zdseg_end + (__zobss_9e78 - __zdata_start)
-; bss_9e7a           equ __zdseg_end + (__zobss_9e7a - __zdata_start)
-; bss_9e7c           equ __zdseg_end + (__zobss_9e7c - __zdata_start)
-; bss_9e7e           equ __zdseg_end + (__zobss_9e7e - __zdata_start)
-; bss_9e80           equ __zdseg_end + (__zobss_9e80 - __zdata_start)
-; bss_9e82           equ __zdseg_end + (__zobss_9e82 - __zdata_start)
-; bss_9e84           equ __zdseg_end + (__zobss_9e84 - __zdata_start)
-; bss_b030           equ __zdseg_end + (__zobss_b030 - __zdata_start)
-; bss_b04e           equ __zdseg_end + (__zobss_b04e - __zdata_start)
+dseg_9120 equ __zdseg_end + (__zdseg_9120 - __zdata_start)
+; bss_9136  equ __zdseg_end + (__zobss_9136 - __zdata_start)
+; bss_93d4  equ __zdseg_end + (__zobss_93d4 - __zdata_start)
+; bss_93ee  equ __zdseg_end + (__zobss_93ee - __zdata_start)
+; bss_9e42  equ __zdseg_end + (__zobss_9e42 - __zdata_start)
+; bss_9e44  equ __zdseg_end + (__zobss_9e44 - __zdata_start)
+; bss_9e46  equ __zdseg_end + (__zobss_9e46 - __zdata_start)
+; bss_9e48  equ __zdseg_end + (__zobss_9e48 - __zdata_start)
+; bss_9e4a  equ __zdseg_end + (__zobss_9e4a - __zdata_start)
+; bss_9e4c  equ __zdseg_end + (__zobss_9e4c - __zdata_start)
+; bss_9e4e  equ __zdseg_end + (__zobss_9e4e - __zdata_start)
+; bss_9e50  equ __zdseg_end + (__zobss_9e50 - __zdata_start)
+; bss_9e52  equ __zdseg_end + (__zobss_9e52 - __zdata_start)
+; bss_9e54  equ __zdseg_end + (__zobss_9e54 - __zdata_start)
+; bss_9e56  equ __zdseg_end + (__zobss_9e56 - __zdata_start)
+; bss_9e58  equ __zdseg_end + (__zobss_9e58 - __zdata_start)
+; bss_9e5a  equ __zdseg_end + (__zobss_9e5a - __zdata_start)
+; bss_9e5c  equ __zdseg_end + (__zobss_9e5c - __zdata_start)
+; bss_9e5e  equ __zdseg_end + (__zobss_9e5e - __zdata_start)
+; bss_9e60  equ __zdseg_end + (__zobss_9e60 - __zdata_start)
+; bss_9e62  equ __zdseg_end + (__zobss_9e62 - __zdata_start)
+; bss_9e64  equ __zdseg_end + (__zobss_9e64 - __zdata_start)
+; bss_9e66  equ __zdseg_end + (__zobss_9e66 - __zdata_start)
+; bss_9e68  equ __zdseg_end + (__zobss_9e68 - __zdata_start)
+; bss_9e6a  equ __zdseg_end + (__zobss_9e6a - __zdata_start)
+; bss_9e6c  equ __zdseg_end + (__zobss_9e6c - __zdata_start)
+; bss_9e6e  equ __zdseg_end + (__zobss_9e6e - __zdata_start)
+; bss_9e70  equ __zdseg_end + (__zobss_9e70 - __zdata_start)
+bss_9e72  equ __zdseg_end + (__zobss_9e72 - __zdata_start)
+; bss_9e74  equ __zdseg_end + (__zobss_9e74 - __zdata_start)
+; bss_9e76  equ __zdseg_end + (__zobss_9e76 - __zdata_start)
+; bss_9e78  equ __zdseg_end + (__zobss_9e78 - __zdata_start)
+; bss_9e7a  equ __zdseg_end + (__zobss_9e7a - __zdata_start)
+; bss_9e7c  equ __zdseg_end + (__zobss_9e7c - __zdata_start)
+; bss_9e7e  equ __zdseg_end + (__zobss_9e7e - __zdata_start)
+; bss_9e80  equ __zdseg_end + (__zobss_9e80 - __zdata_start)
+; bss_9e82  equ __zdseg_end + (__zobss_9e82 - __zdata_start)
+; bss_9e84  equ __zdseg_end + (__zobss_9e84 - __zdata_start)
+; bss_b030  equ __zdseg_end + (__zobss_b030 - __zdata_start)
+; bss_b04e  equ __zdseg_end + (__zobss_b04e - __zdata_start)
 %include "vmnpc/api_idx_006a_QKPT.asm"     ; 0xab8d
 
 save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
@@ -631,8 +643,9 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/aztec/aztec_strcmp.asm"          ; 0xae76
 
-%include "shared/data/report_line1_none.asm" ; 0xaedd
-
+__zdseg_9098:
+__zdata_start:
+    db 'V1.$$$', 0
 __zdseg_909f:
     db 'V1.$$$', 0
 __zdseg_90a6:
@@ -670,8 +683,8 @@ __zdseg_90f2:
     db 0x20
     times 45 db 0
 
-%include "vmnpc/data/pending_panel_arg1.asm" ; 0xaf65
-
+__zdseg_9120:
+    db 'PHOONZANG', 0
 %include "shared/data/save_si.asm"          ; 0xaf6f
 
 %include "shared/data/save_di.asm"          ; 0xaf71
@@ -770,7 +783,15 @@ __zobss_964c:
 __zobss_964e:
     resb 0x0002
 __zobss_9650:
-    resb 0x035e
+    resb 0x0002
+__zobss_9652:
+    resb 0x0028
+__zobss_967a:
+    resb 0x0028
+__zobss_96a2:
+    resb 0x01b8
+__zobss_985a:
+    resb 0x0154
 __zobss_99ae:
     resb 0x02f8
 __zobss_9ca6:

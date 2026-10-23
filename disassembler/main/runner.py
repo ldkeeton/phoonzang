@@ -690,8 +690,15 @@ def _data_names(project, name, data, label_map, segments, host, entries):
     if segments.kind == 'overlay' and host:
         from lib.cachedirs import labels_dir
         from lib.cross_ref import read_label_json
-        names.update(read_label_json(os.path.join(labels_dir(project),
-                                                  f'{host}_datanames.json')))
+        overlay = segments.overlay or {}
+        o_dorg, o_dsize = overlay.get('o_dorg'), overlay.get('o_dsize')
+        for offset, sym in read_label_json(os.path.join(
+                labels_dir(project), f'{host}_datanames.json')).items():
+            # The overlay's own initialized data replaces the host's at the
+            # same offsets, so the host's name would label a different object.
+            if (o_dorg is None or o_dsize is None
+                    or not o_dorg <= offset < o_dorg + o_dsize):
+                names[offset] = sym
     return names
 
 

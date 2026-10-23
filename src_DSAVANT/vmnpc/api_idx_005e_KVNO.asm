@@ -280,7 +280,7 @@ api_idx_005e_KVNO:
     add sp, byte 4                   ; 0x5a39
     mov ax, 0x16                     ; 0x5a3c
     imul word [bp + 0x6]             ; 0x5a3f
-    add ax, 0x96a2                   ; 0x5a42
+    add ax, list_row_name            ; 0x5a42
     push ax                          ; 0x5a45
     mov ax, bss_9d10                 ; 0x5a46
     push ax                          ; 0x5a49

@@ -202,7 +202,7 @@ jumptable_06b5_case_4:
     add sp, byte 4                   ; 0x05b9
     mov ax, 4                        ; 0x05bc
     push ax                          ; 0x05bf
-    mov ax, pending_panel_arg0       ; 0x05c0
+    mov ax, dseg_9122                ; 0x05c0
     push ax                          ; 0x05c3
     call api_idx_0002_PQLV           ; 0x05c4
     add sp, byte 4                   ; 0x05c7

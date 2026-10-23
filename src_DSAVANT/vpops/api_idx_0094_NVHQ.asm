@@ -58,7 +58,7 @@ api_idx_0094_NVHQ:
     push ax                          ; 0x345e
     mov ax, 0x16                     ; 0x345f
     imul word [bp - 0x006a]          ; 0x3462
-    add ax, 0x91a6                   ; 0x3465
+    add ax, list_row_name            ; 0x3465
     push ax                          ; 0x3468
     call aztec_strcpy                ; 0x3469
     add sp, byte 4                   ; 0x346c
@@ -66,7 +66,7 @@ api_idx_0094_NVHQ:
 @..api_idx_0094_NVHQ.l4:
     mov ax, 0x16                     ; 0x3471
     imul word [bp - 0x006a]          ; 0x3474
-    add ax, 0x91a6                   ; 0x3477
+    add ax, list_row_name            ; 0x3477
     push ax                          ; 0x347a
     mov ax, 0x248                    ; 0x347b
     imul word [bp + 0x4]             ; 0x347e
@@ -95,9 +95,9 @@ api_idx_0094_NVHQ:
     mov cx, word [bp - 0x006a]       ; 0x34b0
     shl cx, 1                        ; 0x34b3
     mov bx, cx                       ; 0x34b5
-    mov word [bx - 0x6e82], ax       ; 0x34b7
+    mov word [bx + list_row_glyph], ax ; 0x34b7
     mov ax, word [bp - 0x004e]       ; 0x34bb
-    mov word [bx - 0x6eaa], ax       ; 0x34be
+    mov word [bx + list_row_marked], ax ; 0x34be
     mov ax, 0x248                    ; 0x34c2
     imul word [bp + 0x4]             ; 0x34c5
     push ax                          ; 0x34c8
@@ -138,13 +138,13 @@ api_idx_0094_NVHQ:
     mov cx, word [bp - 0x006a]       ; 0x3517
     shl cx, 1                        ; 0x351a
     mov bx, cx                       ; 0x351c
-    mov word [bx - 0x6ca2], ax       ; 0x351e
+    mov word [bx + list_row_count], ax ; 0x351e
     jmp short @..api_idx_0094_NVHQ.l7 ; 0x3522
 @..api_idx_0094_NVHQ.l6:
     mov ax, word [bp - 0x006a]       ; 0x3524
     shl ax, 1                        ; 0x3527
     mov bx, ax                       ; 0x3529
-    mov word [bx - 0x6ca2], 0        ; 0x352b
+    mov word [bx + list_row_count], 0 ; 0x352b
 @..api_idx_0094_NVHQ.l7:
     mov ax, word [bp - 0x004e]       ; 0x3531
     xchg al, ah                      ; 0x3534

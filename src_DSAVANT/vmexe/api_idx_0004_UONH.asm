@@ -6,7 +6,7 @@ api_idx_0004_UONH:
     mov word [bp - 0x0004], 0        ; 0x1b50
     cmp word [bp + 0x4], byte 0      ; 0x1b55
     jle short @..api_idx_0004_UONH.l1 ; 0x1b59
-    mov ax, report_line1_none        ; 0x1b5b
+    mov ax, dseg_9098                ; 0x1b5b
     push ax                          ; 0x1b5e
     mov ax, 7                        ; 0x1b5f
     imul word [bp + 0x4]             ; 0x1b62

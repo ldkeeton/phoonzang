@@ -32,11 +32,11 @@ __zcode_start:
 
 %include "shared/game/loc_VNIO.asm"              ; 0x0149
 
-report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
-dseg_909f         equ __zdseg_end + (__zdseg_909f - __zdata_start)
-dseg_90a6         equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
-dseg_90ad         equ __zdseg_end + (__zdseg_90ad - __zdata_start)
-dseg_90b4         equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
+dseg_90a6 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
+dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
+dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 %include "shared/game/api_idx_0006_SHUK.asm"     ; 0x018d
 
 %include "shared/game/loc_HTQP.asm"              ; 0x02af
@@ -107,7 +107,12 @@ dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)
 
 %include "shared/game/api_idx_0018_RGOS.asm"     ; 0x29f2
 
-%include "vpops/api_idx_0004_LUOM.asm"     ; 0x2aef
+list_row_marked equ __zdseg_end + (__zobss_9156 - __zdata_start)
+list_row_glyph  equ __zdseg_end + (__zobss_917e - __zdata_start)
+list_row_name   equ __zdseg_end + (__zobss_91a6 - __zdata_start)
+list_row_count  equ __zdseg_end + (__zobss_935e - __zdata_start)
+api_idx_0004_LUOM equ api_idx_0004_KHSO
+%include "shared/game/api_idx_0004_KHSO.asm"     ; 0x2aef
 
 loc_HTKI.draw_list_rows1 equ api_idx_0004_LUOM
 %include "shared/game/loc_HTKI.asm"              ; 0x2c51
@@ -115,6 +120,10 @@ loc_HTKI.draw_list_rows1 equ api_idx_0004_LUOM
 dseg_90c5 equ __zdseg_end + (__zdseg_90c5 - __zdata_start)
 %include "vpops/api_idx_0038_PVVG.asm"     ; 0x2c92
 
+; list_row_marked equ __zdseg_end + (__zobss_9156 - __zdata_start)
+; list_row_glyph  equ __zdseg_end + (__zobss_917e - __zdata_start)
+; list_row_name   equ __zdseg_end + (__zobss_91a6 - __zdata_start)
+; list_row_count  equ __zdseg_end + (__zobss_935e - __zdata_start)
 %include "vpops/api_idx_0094_NVHQ.asm"     ; 0x33db
 
 %include "vpops/api_idx_0006_QUSK.asm"     ; 0x36c0
@@ -148,8 +157,9 @@ _Uorg    equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/aztec/aztec_ovbgn.asm"           ; 0x4e9d
 
-%include "shared/data/report_line1_none.asm" ; 0x4edb
-
+__zdseg_9098:
+__zdata_start:
+    db 'V1.$$$', 0
 __zdseg_909f:
     db 'V1.$$$', 0
 __zdseg_90a6:
@@ -181,7 +191,15 @@ absolute __zimage_end
 __zobss_90d6:
     resb 0x0002
 __zobss_90d8:
-    resb 0x02ae
+    resb 0x007e
+__zobss_9156:
+    resb 0x0028
+__zobss_917e:
+    resb 0x0028
+__zobss_91a6:
+    resb 0x01b8
+__zobss_935e:
+    resb 0x0028
 __zobss_9386:
     resb 0x0002
 __zobss_9388:

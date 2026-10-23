@@ -28,7 +28,7 @@ jumptable_3f96_case_1:
     imul word [bp + 0x4]             ; 0x3d3a
     push ax                          ; 0x3d3d
     mov ax, 0x78                     ; 0x3d3e
-    imul word [bss_9434]             ; 0x3d41
+    imul word [roster_page]          ; 0x3d41
     mov cx, ax                       ; 0x3d45
     pop ax                           ; 0x3d47
     add ax, cx                       ; 0x3d48

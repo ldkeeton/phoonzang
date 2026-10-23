@@ -5,7 +5,7 @@ cseg_4d38:
     db 0x00, 0x00
 __zinsn_4d3a:
 aztec_begin:
-    mov bp, 0xff6                    ; 0x4d3a
+    mov bp, __zdseg_para             ; 0x4d3a
     test bp, bp                      ; 0x4d3d
     jne short @..aztec_sbegin.notcom ; 0x4d3f
     mov bp, ds                       ; 0x4d41

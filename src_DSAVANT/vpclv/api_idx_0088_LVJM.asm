@@ -13,7 +13,7 @@ api_idx_0088_LVJM:
     mov cx, word [bp - 0x0002]       ; 0x3fba
     shl cx, 1                        ; 0x3fbd
     mov bx, cx                       ; 0x3fbf
-    mov word [bx - 0x6940], ax       ; 0x3fc1
+    mov word [bx + slot_limit], ax   ; 0x3fc1
     inc word [bp - 0x0002]           ; 0x3fc5
     mov ax, word [bp - 0x0002]       ; 0x3fc8
     cmp ax, strict word 0x22         ; 0x3fcb
@@ -22,7 +22,7 @@ api_idx_0088_LVJM:
 @..api_idx_0088_LVJM.l2:
     mov ax, 0x14                     ; 0x3fd5
     imul word [bp - 0x0002]          ; 0x3fd8
-    add ax, 0x95f8                   ; 0x3fdb
+    add ax, slot_label               ; 0x3fdb
     push ax                          ; 0x3fde
     mov ax, word [bp - 0x0002]       ; 0x3fdf
     add ax, 0x258                    ; 0x3fe2
@@ -80,11 +80,11 @@ api_idx_0088_LVJM:
     mov ax, word [bp - 0x0006]       ; 0x4069
     shl ax, 1                        ; 0x406c
     mov bx, ax                       ; 0x406e
-    mov ax, word [bx - 0x6a10]       ; 0x4070
+    mov ax, word [bx + slot_value]   ; 0x4070
     cmp ax, word [bp - 0x0002]       ; 0x4074
     jle short @..api_idx_0088_LVJM.l6 ; 0x4077
     mov ax, word [bp - 0x0002]       ; 0x4079
-    mov word [bx - 0x6a10], ax       ; 0x407c
+    mov word [bx + slot_value], ax   ; 0x407c
 @..api_idx_0088_LVJM.l6:
     lea ax, word [bp - 0x0020]       ; 0x4080
     push ax                          ; 0x4083

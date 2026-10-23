@@ -317,7 +317,7 @@ loc_HUIS:
     push ax                          ; 0x5a87
     mov ax, 0x16                     ; 0x5a88
     imul word [bp - 0x0002]          ; 0x5a8b
-    add ax, 0x93fe                   ; 0x5a8e
+    add ax, list_row_name            ; 0x5a8e
     push ax                          ; 0x5a91
     call aztec_strcpy                ; 0x5a92
     add sp, byte 4                   ; 0x5a95
@@ -325,7 +325,7 @@ loc_HUIS:
 @..loc_HUIS.l27:
     mov ax, 0x16                     ; 0x5a9a
     imul word [bp - 0x0002]          ; 0x5a9d
-    add ax, 0x93fe                   ; 0x5aa0
+    add ax, list_row_name            ; 0x5aa0
     push ax                          ; 0x5aa3
     mov al, byte [bp - 0x0049]       ; 0x5aa4
     sub ah, ah                       ; 0x5aa7
@@ -336,7 +336,7 @@ loc_HUIS:
 @..loc_HUIS.l28:
     mov ax, 0x16                     ; 0x5ab3
     imul word [bp - 0x0002]          ; 0x5ab6
-    add ax, 0x93fe                   ; 0x5ab9
+    add ax, list_row_name            ; 0x5ab9
     push ax                          ; 0x5abc
     lea ax, word [bp - 0x01a4]       ; 0x5abd
     push ax                          ; 0x5ac1
@@ -359,21 +359,21 @@ loc_HUIS:
     mov cx, word [bp - 0x0002]       ; 0x5aed
     shl cx, 1                        ; 0x5af0
     mov bx, cx                       ; 0x5af2
-    mov word [bx - 0x6a4a], ax       ; 0x5af4
+    mov word [bx + list_row_count], ax ; 0x5af4
     jmp short @..loc_HUIS.l30        ; 0x5af8
 @..loc_HUIS.l29:
     mov ax, word [bp - 0x0002]       ; 0x5afa
     shl ax, 1                        ; 0x5afd
     mov bx, ax                       ; 0x5aff
-    mov word [bx - 0x6a4a], 0xffff   ; 0x5b01
+    mov word [bx + list_row_count], 0xffff ; 0x5b01
 @..loc_HUIS.l30:
     mov al, byte [bp - 0x0049]       ; 0x5b07
     sub ah, ah                       ; 0x5b0a
     mov cx, word [bp - 0x0002]       ; 0x5b0c
     shl cx, 1                        ; 0x5b0f
     mov bx, cx                       ; 0x5b11
-    mov word [bx - 0x6c2a], ax       ; 0x5b13
-    mov word [bx - 0x6c52], 0        ; 0x5b17
+    mov word [bx + list_row_glyph], ax ; 0x5b13
+    mov word [bx + list_row_marked], 0 ; 0x5b17
     mov al, byte [bp - 0x004b]       ; 0x5b1d
     sub ah, ah                       ; 0x5b20
     test ax, 2                       ; 0x5b22
@@ -405,9 +405,9 @@ loc_HUIS:
     mov ax, word [bp - 0x0002]       ; 0x5b5e
     shl ax, 1                        ; 0x5b61
     mov bx, ax                       ; 0x5b63
-    cmp word [bx - 0x6a4a], byte 0   ; 0x5b65
+    cmp word [bx + list_row_count], byte 0 ; 0x5b65
     jle short @..loc_HUIS.l35        ; 0x5b6a
-    mov ax, word [bx - 0x6a4a]       ; 0x5b6c
+    mov ax, word [bx + list_row_count] ; 0x5b6c
     jmp short @..loc_HUIS.l36        ; 0x5b70
 @..loc_HUIS.l35:
     mov ax, 1                        ; 0x5b72

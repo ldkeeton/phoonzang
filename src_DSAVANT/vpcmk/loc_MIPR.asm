@@ -183,7 +183,7 @@ loc_MIPR:
     mov ax, word [bp - 0x0002]       ; 0x64bb
     shl ax, 1                        ; 0x64be
     mov bx, ax                       ; 0x64c0
-    mov ax, word [bx - 0x69f8]       ; 0x64c2
+    mov ax, word [bx + slot_value]   ; 0x64c2
     add word [bp - 0x0004], ax       ; 0x64c6
     inc word [bp - 0x0002]           ; 0x64c9
     mov ax, word [bp - 0x0002]       ; 0x64cc

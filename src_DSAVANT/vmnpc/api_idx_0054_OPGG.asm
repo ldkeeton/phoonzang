@@ -203,7 +203,7 @@ api_idx_0054_OPGG:
     imul cx                          ; 0x46ef
     add ax, 0x99d6                   ; 0x46f1
     push ax                          ; 0x46f4
-    call api_idx_002a_NJKV           ; 0x46f5
+    call draw_split_two_line_text    ; 0x46f5
     add sp, byte 8                   ; 0x46f8
     mov ax, word [bp + 0xe]          ; 0x46fb
     add ax, word [bp - 0x0002]       ; 0x46fe

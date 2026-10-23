@@ -24,13 +24,13 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 
-report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
-bss_9192          equ __zdseg_end + (__zobss_9192 - __zdata_start)
-bss_9194          equ __zdseg_end + (__zobss_9194 - __zdata_start)
-bss_9196          equ __zdseg_end + (__zobss_9196 - __zdata_start)
-bss_9198          equ __zdseg_end + (__zobss_9198 - __zdata_start)
-bss_919a          equ __zdseg_end + (__zobss_919a - __zdata_start)
-bss_919c          equ __zdseg_end + (__zobss_919c - __zdata_start)
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+bss_9192  equ __zdseg_end + (__zobss_9192 - __zdata_start)
+bss_9194  equ __zdseg_end + (__zobss_9194 - __zdata_start)
+bss_9196  equ __zdseg_end + (__zobss_9196 - __zdata_start)
+bss_9198  equ __zdseg_end + (__zobss_9198 - __zdata_start)
+bss_919a  equ __zdseg_end + (__zobss_919a - __zdata_start)
+bss_919c  equ __zdseg_end + (__zobss_919c - __zdata_start)
 %include "vmaze/ovmain.asm"                ; 0x000e
 
 ; bss_9194 equ __zdseg_end + (__zobss_9194 - __zdata_start)
@@ -55,24 +55,24 @@ api_idx_0002_PQLV equ api_idx_0002_OTTG
 
 %include "vmaze/loc_VRKM.asm"              ; 0x0344
 
-dseg_90a0          equ __zdseg_end + (__zdseg_90a0 - __zdata_start)
-dseg_90ad          equ __zdseg_end + (__zdseg_90ad - __zdata_start)
-dseg_90ba          equ __zdseg_end + (__zdseg_90ba - __zdata_start)
-dseg_90c7          equ __zdseg_end + (__zdseg_90c7 - __zdata_start)
-dseg_90d4          equ __zdseg_end + (__zdseg_90d4 - __zdata_start)
-dseg_90e1          equ __zdseg_end + (__zdseg_90e1 - __zdata_start)
-dseg_90ee          equ __zdseg_end + (__zdseg_90ee - __zdata_start)
-dseg_90fb          equ __zdseg_end + (__zdseg_90fb - __zdata_start)
-dseg_9108          equ __zdseg_end + (__zdseg_9108 - __zdata_start)
-dseg_9115          equ __zdseg_end + (__zdseg_9115 - __zdata_start)
-pending_panel_arg0 equ __zdseg_end + (__zpending_panel_arg0 - __zdata_start)
-dseg_912f          equ __zdseg_end + (__zdseg_912f - __zdata_start)
-dseg_913c          equ __zdseg_end + (__zdseg_913c - __zdata_start)
-dseg_9149          equ __zdseg_end + (__zdseg_9149 - __zdata_start)
-dseg_9156          equ __zdseg_end + (__zdseg_9156 - __zdata_start)
-dseg_9163          equ __zdseg_end + (__zdseg_9163 - __zdata_start)
-dseg_9170          equ __zdseg_end + (__zdseg_9170 - __zdata_start)
-bss_91a6           equ __zdseg_end + (__zobss_91a6 - __zdata_start)
+dseg_90a0 equ __zdseg_end + (__zdseg_90a0 - __zdata_start)
+dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
+dseg_90ba equ __zdseg_end + (__zdseg_90ba - __zdata_start)
+dseg_90c7 equ __zdseg_end + (__zdseg_90c7 - __zdata_start)
+dseg_90d4 equ __zdseg_end + (__zdseg_90d4 - __zdata_start)
+dseg_90e1 equ __zdseg_end + (__zdseg_90e1 - __zdata_start)
+dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
+dseg_90fb equ __zdseg_end + (__zdseg_90fb - __zdata_start)
+dseg_9108 equ __zdseg_end + (__zdseg_9108 - __zdata_start)
+dseg_9115 equ __zdseg_end + (__zdseg_9115 - __zdata_start)
+dseg_9122 equ __zdseg_end + (__zdseg_9122 - __zdata_start)
+dseg_912f equ __zdseg_end + (__zdseg_912f - __zdata_start)
+dseg_913c equ __zdseg_end + (__zdseg_913c - __zdata_start)
+dseg_9149 equ __zdseg_end + (__zdseg_9149 - __zdata_start)
+dseg_9156 equ __zdseg_end + (__zdseg_9156 - __zdata_start)
+dseg_9163 equ __zdseg_end + (__zdseg_9163 - __zdata_start)
+dseg_9170 equ __zdseg_end + (__zdseg_9170 - __zdata_start)
+bss_91a6  equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 %include "vmaze/api_idx_0002_TOSL.asm"     ; 0x03ea
 
 %include "vmaze/api_idx_0014_LHRI.asm"     ; 0x06da
@@ -555,8 +555,9 @@ _Uorg    equ __zdseg_end + (__zobss_9192 - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/aztec/aztec_ovbgn.asm"           ; 0xac30
 
-%include "vmaze/data/report_line1_none.asm" ; 0xac6e
-
+__zdseg_9098:
+__zdata_start:
+    db 'VM1.$$$', 0
 __zdseg_90a0:
     db 'MAZEDATA.VGA', 0
 __zdseg_90ad:
@@ -577,8 +578,8 @@ __zdseg_9108:
     db 'TILEDATA.VGA', 0
 __zdseg_9115:
     db 'TREEDATA.VGA', 0
-%include "vmaze/data/pending_panel_arg0.asm" ; 0xacf8
-
+__zdseg_9122:
+    db 'OCAVDATA.VGA', 0
 __zdseg_912f:
     db 'CAVEDATA.VGA', 0
 __zdseg_913c:

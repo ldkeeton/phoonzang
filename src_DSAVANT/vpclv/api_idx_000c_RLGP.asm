@@ -106,8 +106,8 @@ api_idx_000c_RLGP:
     push ax                          ; 0x5266
     call gfx_cache_area              ; 0x5267
     add sp, byte 0x0c                ; 0x526a
-    mov word [bss_9420], dx          ; 0x526d
-    mov word [bss_941e], ax          ; 0x5271
+    mov word [roster_screen_a], dx   ; 0x526d
+    mov word [roster_screen_b], ax   ; 0x5271
     mov ax, 0                        ; 0x5274
     push ax                          ; 0x5277
     mov ax, 2                        ; 0x5278
@@ -198,9 +198,9 @@ api_idx_000c_RLGP:
     add sp, byte 6                   ; 0x5340
     mov word [bss_844c], ax          ; 0x5343
 @..api_idx_000c_RLGP.l4:
-    mov word [bss_9492], 0           ; 0x5346
-    mov word [bss_9490], 0           ; 0x534c
-    mov word [bss_948e], 0           ; 0x5352
+    mov word [roster_drawn], 0       ; 0x5346
+    mov word [roster_alt_mode], 0    ; 0x534c
+    mov word [roster_page], 0        ; 0x5352
     mov word [bp - 0x0002], 0        ; 0x5358
     jmp short @..api_idx_000c_RLGP.l6 ; 0x535d
 @..api_idx_000c_RLGP.l5:
@@ -265,8 +265,8 @@ api_idx_000c_RLGP:
     push ax                          ; 0x53f8
     mov ax, 1                        ; 0x53f9
     push ax                          ; 0x53fc
-    push word [bss_9420]             ; 0x53fd
-    push word [bss_941e]             ; 0x5401
+    push word [roster_screen_a]      ; 0x53fd
+    push word [roster_screen_b]      ; 0x5401
     call gfx_restore_screen          ; 0x5405
     add sp, byte 8                   ; 0x5408
     mov ax, 0                        ; 0x540b

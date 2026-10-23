@@ -91,7 +91,7 @@ api_idx_006a_QKPT:
     mov byte [bx - 0x0055], 0        ; 0xac7c
     mov ax, 9                        ; 0xac80
     push ax                          ; 0xac83
-    mov ax, pending_panel_arg1       ; 0xac84
+    mov ax, dseg_9120                ; 0xac84
     push ax                          ; 0xac87
     lea ax, word [bp - 0x0056]       ; 0xac88
     push ax                          ; 0xac8b

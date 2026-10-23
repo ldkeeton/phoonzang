@@ -79,7 +79,7 @@ jumptable_02a3:
 jumptable_052d_case_1:
     mov ax, 0                        ; 0x030f
     push ax                          ; 0x0312
-    mov ax, report_line1_none        ; 0x0313
+    mov ax, dseg_9098                ; 0x0313
     push ax                          ; 0x0316
     call api_idx_0002_OTTG           ; 0x0317
     add sp, byte 4                   ; 0x031a
@@ -202,7 +202,7 @@ jumptable_052d_case_4:
     add sp, byte 4                   ; 0x0431
     mov ax, 4                        ; 0x0434
     push ax                          ; 0x0437
-    mov ax, pending_panel_call       ; 0x0438
+    mov ax, dseg_911a                ; 0x0438
     push ax                          ; 0x043b
     call api_idx_0002_OTTG           ; 0x043c
     add sp, byte 4                   ; 0x043f

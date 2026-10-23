@@ -95,8 +95,8 @@ loc_IUTP:
     mov ax, 0                        ; 0x71a0
     push ax                          ; 0x71a3
     push ax                          ; 0x71a4
-    push word [bss_93f8]             ; 0x71a5
-    push word [bss_93f6]             ; 0x71a9
+    push word [roster_screen_a]      ; 0x71a5
+    push word [roster_screen_b]      ; 0x71a9
     call gfx_restore_screen          ; 0x71ad
     add sp, byte 8                   ; 0x71b0
     mov word [bp - 0x000c], 0x72     ; 0x71b3

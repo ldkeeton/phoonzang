@@ -58,7 +58,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4c50
     mov ax, 0x16                     ; 0x4c51
     imul word [bp - 0x0092]          ; 0x4c54
-    add ax, 0x93fe                   ; 0x4c58
+    add ax, list_row_name            ; 0x4c58
     push ax                          ; 0x4c5b
     call aztec_strcpy                ; 0x4c5c
     add sp, byte 4                   ; 0x4c5f
@@ -66,7 +66,7 @@ api_idx_0092_GSQH:
 @..api_idx_0092_GSQH.l4:
     mov ax, 0x16                     ; 0x4c64
     imul word [bp - 0x0092]          ; 0x4c67
-    add ax, 0x93fe                   ; 0x4c6b
+    add ax, list_row_name            ; 0x4c6b
     push ax                          ; 0x4c6e
     mov al, byte [bp - 0x0011]       ; 0x4c6f
     sub ah, ah                       ; 0x4c72
@@ -80,9 +80,9 @@ api_idx_0092_GSQH:
     mov cx, word [bp - 0x0092]       ; 0x4c83
     shl cx, 1                        ; 0x4c87
     mov bx, cx                       ; 0x4c89
-    mov word [bx - 0x6c2a], ax       ; 0x4c8b
+    mov word [bx + list_row_glyph], ax ; 0x4c8b
     mov ax, word [bp - 0x004e]       ; 0x4c8f
-    mov word [bx - 0x6c52], ax       ; 0x4c92
+    mov word [bx + list_row_marked], ax ; 0x4c92
     mov ax, 0x248                    ; 0x4c96
     imul word [bp + 0x4]             ; 0x4c99
     push ax                          ; 0x4c9c
@@ -123,13 +123,13 @@ api_idx_0092_GSQH:
     mov cx, word [bp - 0x0092]       ; 0x4ceb
     shl cx, 1                        ; 0x4cef
     mov bx, cx                       ; 0x4cf1
-    mov word [bx - 0x6a4a], ax       ; 0x4cf3
+    mov word [bx + list_row_count], ax ; 0x4cf3
     jmp short @..api_idx_0092_GSQH.l7 ; 0x4cf7
 @..api_idx_0092_GSQH.l6:
     mov ax, word [bp - 0x0092]       ; 0x4cf9
     shl ax, 1                        ; 0x4cfd
     mov bx, ax                       ; 0x4cff
-    mov word [bx - 0x6a4a], 0        ; 0x4d01
+    mov word [bx + list_row_count], 0 ; 0x4d01
 @..api_idx_0092_GSQH.l7:
     mov ax, word [bp - 0x004e]       ; 0x4d07
     xchg al, ah                      ; 0x4d0a

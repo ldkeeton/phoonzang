@@ -10,7 +10,7 @@ api_idx_0002_SJMT:
     push ax
     mov ax, 0
     push ax
-    mov ax, report_line1_none
+    mov ax, dseg_9098
     push ax
     call data_file_path
     add sp, byte 4

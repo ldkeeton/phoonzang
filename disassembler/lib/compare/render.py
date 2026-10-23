@@ -1066,6 +1066,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
             name = immediate_labels[addr]
             if _defined(name):
                 continue
+            if name == '__zdseg_para':
+                continue  # the dynamic prologue's own symbol, defined below
             if label_map and addr in label_map and label_map[addr] == name:
                 continue
             anchor = anchors.get(addr)

@@ -71,10 +71,10 @@ api_idx_0004_JGSH.loc1 equ loc_NQGV
 api_idx_0004_JGSH.bss2 equ bss_9152
 %include "shared/game/api_idx_0004_JGSH.asm"     ; 0x0a6a
 
-report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
-dseg_90a0         equ __zdseg_end + (__zdseg_90a0 - __zdata_start)
-; bss_9150          equ __zdseg_end + (__zobss_9150 - __zdata_start)
-bss_9154          equ __zdseg_end + (__zobss_9154 - __zdata_start)
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+dseg_90a0 equ __zdseg_end + (__zdseg_90a0 - __zdata_start)
+; bss_9150  equ __zdseg_end + (__zobss_9150 - __zdata_start)
+bss_9154  equ __zdseg_end + (__zobss_9154 - __zdata_start)
 %include "vtrea/api_idx_0090_NPLS.asm"     ; 0x0b29
 
 api_idx_0004_QHUH          equ api_idx_0004_JQTM
@@ -162,7 +162,12 @@ dseg_90da        equ __zdseg_end + (__zdseg_90da - __zdata_start)
 
 %include "shared/game/api_idx_0018_RGOS.asm"     ; 0x37b6
 
-%include "vtrea/api_idx_0004_SLIS.asm"     ; 0x38b3
+list_row_marked equ __zdseg_end + (__zobss_93ae - __zdata_start)
+list_row_glyph  equ __zdseg_end + (__zobss_93d6 - __zdata_start)
+list_row_name   equ __zdseg_end + (__zobss_93fe - __zdata_start)
+list_row_count  equ __zdseg_end + (__zobss_95b6 - __zdata_start)
+api_idx_0004_SLIS equ api_idx_0004_KHSO
+%include "shared/game/api_idx_0004_KHSO.asm"     ; 0x38b3
 
 loc_HTKI.draw_list_rows1 equ api_idx_0004_SLIS
 %include "shared/game/loc_HTKI.asm"              ; 0x3a15
@@ -189,8 +194,12 @@ bss_95e0      equ __zdseg_end + (__zobss_95e0 - __zdata_start)
 bss_95e2 equ __zdseg_end + (__zobss_95e2 - __zdata_start)
 %include "vtrea/api_idx_0004_GKHR.asm"     ; 0x4ad8
 
-dseg_90e2 equ __zdseg_end + (__zdseg_90e2 - __zdata_start)
-; bss_95e2  equ __zdseg_end + (__zobss_95e2 - __zdata_start)
+dseg_90e2       equ __zdseg_end + (__zdseg_90e2 - __zdata_start)
+; list_row_marked equ __zdseg_end + (__zobss_93ae - __zdata_start)
+; list_row_glyph  equ __zdseg_end + (__zobss_93d6 - __zdata_start)
+; list_row_name   equ __zdseg_end + (__zobss_93fe - __zdata_start)
+; list_row_count  equ __zdseg_end + (__zobss_95b6 - __zdata_start)
+; bss_95e2        equ __zdseg_end + (__zobss_95e2 - __zdata_start)
 %include "vtrea/api_idx_0092_GSQH.asm"     ; 0x4bcc
 
 ; glyph_painter       equ __zdseg_end + (__zobss_9114 - __zdata_start)
@@ -206,7 +215,11 @@ dseg_90e2 equ __zdseg_end + (__zdseg_90e2 - __zdata_start)
 
 %include "shared/game/api_idx_0004_ONJT.asm"     ; 0x52ec
 
-bss_95e4 equ __zdseg_end + (__zobss_95e4 - __zdata_start)
+; list_row_marked equ __zdseg_end + (__zobss_93ae - __zdata_start)
+; list_row_glyph  equ __zdseg_end + (__zobss_93d6 - __zdata_start)
+; list_row_name   equ __zdseg_end + (__zobss_93fe - __zdata_start)
+; list_row_count  equ __zdseg_end + (__zobss_95b6 - __zdata_start)
+bss_95e4        equ __zdseg_end + (__zobss_95e4 - __zdata_start)
 %include "vtrea/api_idx_0040_LIPH.asm"     ; 0x5348
 
 %include "vtrea/api_idx_0006_OUPU.asm"     ; 0x550e
@@ -219,9 +232,13 @@ api_idx_0002_HHSQ equ api_idx_0002_GKQL
 api_idx_0002_MLKN equ api_idx_0002_QVIM
 %include "shared/game/api_idx_0002_QVIM.asm"     ; 0x56cc
 
-; glyph_painter equ __zdseg_end + (__zobss_9114 - __zdata_start)
-; bss_91d4      equ __zdseg_end + (__zobss_91d4 - __zdata_start)
-; bss_95e4      equ __zdseg_end + (__zobss_95e4 - __zdata_start)
+; glyph_painter   equ __zdseg_end + (__zobss_9114 - __zdata_start)
+; bss_91d4        equ __zdseg_end + (__zobss_91d4 - __zdata_start)
+; list_row_marked equ __zdseg_end + (__zobss_93ae - __zdata_start)
+; list_row_glyph  equ __zdseg_end + (__zobss_93d6 - __zdata_start)
+; list_row_name   equ __zdseg_end + (__zobss_93fe - __zdata_start)
+; list_row_count  equ __zdseg_end + (__zobss_95b6 - __zdata_start)
+; bss_95e4        equ __zdseg_end + (__zobss_95e4 - __zdata_start)
 %include "vtrea/loc_HUIS.asm"              ; 0x5789
 
 ; bss_91d4 equ __zdseg_end + (__zobss_91d4 - __zdata_start)
@@ -290,7 +307,7 @@ dseg_90ee        equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 
 %include "vtrea/run_state_1d_scene.asm"    ; 0x81db
 
-%include "shared/game/api_idx_002a_SRJL.asm"     ; 0x8200
+%include "shared/game/draw_split_two_line_text.asm" ; 0x8200
 
 %include "shared/game/loc_RULJ.asm"              ; 0x82a9
 
@@ -339,8 +356,9 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/aztec/aztec_cswit.asm"           ; 0x9a03
 
-%include "vtrea/data/report_line1_none.asm" ; 0x9a1b
-
+__zdseg_9098:
+__zdata_start:
+    db '!%&]@#~', 0
 __zdseg_90a0:
     db 0x20, 0x00
 __zdseg_90a2:
@@ -455,7 +473,15 @@ __zobss_9200:
 __zobss_9230:
     resb 0x0020
 __zobss_9250:
-    resb 0x038e
+    resb 0x015e
+__zobss_93ae:
+    resb 0x0028
+__zobss_93d6:
+    resb 0x0028
+__zobss_93fe:
+    resb 0x01b8
+__zobss_95b6:
+    resb 0x0028
 __zobss_95de:
     resb 0x0002
 __zobss_95e0:

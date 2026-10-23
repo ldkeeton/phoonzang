@@ -85,7 +85,7 @@ api_idx_0040_LIPH:
     shl ax, 1                        ; 0x5408
     mov bx, ax                       ; 0x540a
     push word [bx - 0x6a1a]          ; 0x540c
-    push word [bx - 0x6a4a]          ; 0x5410
+    push word [bx + list_row_count]  ; 0x5410
     mov ax, 0x248                    ; 0x5414
     imul word [bp - 0x0008]          ; 0x5417
     push ax                          ; 0x541a
@@ -119,7 +119,7 @@ api_idx_0040_LIPH:
     shl ax, 1                        ; 0x5455
     mov bx, ax                       ; 0x5457
     push word [bx - 0x6a1a]          ; 0x5459
-    push word [bx - 0x6a4a]          ; 0x545d
+    push word [bx + list_row_count]  ; 0x545d
     lea ax, word [bp - 0x0040]       ; 0x5461
     push ax                          ; 0x5464
     push word [bx - 0x69f2]          ; 0x5465
@@ -146,7 +146,7 @@ api_idx_0040_LIPH:
     push ax                          ; 0x5499
     mov ax, 0x16                     ; 0x549a
     imul word [bp - 0x0004]          ; 0x549d
-    add ax, 0x93fe                   ; 0x54a0
+    add ax, list_row_name            ; 0x54a0
     push ax                          ; 0x54a3
     call aztec_strcpy                ; 0x54a4
     add sp, byte 4                   ; 0x54a7
@@ -156,11 +156,11 @@ api_idx_0040_LIPH:
     mov ax, word [bx - 0x69f0]       ; 0x54b1
     mov word [bx - 0x69f2], ax       ; 0x54b5
     mov ax, word [bx - 0x6a48]       ; 0x54b9
-    mov word [bx - 0x6a4a], ax       ; 0x54bd
+    mov word [bx + list_row_count], ax ; 0x54bd
     mov ax, word [bx - 0x6c50]       ; 0x54c1
-    mov word [bx - 0x6c52], ax       ; 0x54c5
+    mov word [bx + list_row_marked], ax ; 0x54c5
     mov ax, word [bx - 0x6c28]       ; 0x54c9
-    mov word [bx - 0x6c2a], ax       ; 0x54cd
+    mov word [bx + list_row_glyph], ax ; 0x54cd
     mov ax, word [bx - 0x69c8]       ; 0x54d1
     mov word [bx - 0x69ca], ax       ; 0x54d5
     mov ax, word [bx - 0x6a18]       ; 0x54d9
