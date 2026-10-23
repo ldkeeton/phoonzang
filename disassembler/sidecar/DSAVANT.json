@@ -928,7 +928,16 @@
         {"offset": "31e0", "space": "cs", "note": "`mov ax, 0x2e53`: text_state_bytes, loaded by graphics_loc_PVIU"},
         {"offset": "3247", "space": "cs", "note": "`mov ax, 0x2e2b`: text_state_words, loaded by graphics_loc_PVIU"},
         {"offset": "32b7", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"},
-        {"offset": "32d0", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"}
+        {"offset": "32d0", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"},
+        {"offset": "33a1", "space": "cs", "note": "`mov ax, 0x2e2b`: text_state_words, loaded by graphics_loc_PVIU"},
+        {"offset": "34e1", "space": "cs", "note": "`mov ax, 0x2e2b`: text_state_words, loaded by graphics_loc_PVIU"},
+        {"offset": "3624", "space": "cs", "note": "`mov ax, 0x2e2b`: text_state_words, loaded by graphics_loc_PVIU"},
+        {"offset": "340f", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"},
+        {"offset": "3428", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"},
+        {"offset": "354f", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"},
+        {"offset": "3568", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"},
+        {"offset": "3692", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"},
+        {"offset": "36ab", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"}
       ],
       "immediate_labels": {
         "0x1dc4": "data_1dc4",
@@ -1101,7 +1110,13 @@
         {"offset": "3ed6", "space": "cs", "note": "as 3af9"},
         {"offset": "14ef", "space": "cs", "note": "`mov bx, 0x10e7`: maze_map_slots, indexed by map number (draw_maze_piece)"},
         {"offset": "3b69", "space": "cs", "note": "`mov bx, 0x40cd`: intensity_limits, indexed by the byte read from the source row"},
-        {"offset": "3b82", "space": "cs", "note": "`mov bx, 0x40cd`: intensity_limits, indexed by the byte read from the source row"}
+        {"offset": "3b82", "space": "cs", "note": "`mov bx, 0x40cd`: intensity_limits, indexed by the byte read from the source row"},
+        {"offset": "3cc1", "space": "cs", "note": "`mov bx, 0x40cd`: intensity_limits, indexed by the byte read from the source row"},
+        {"offset": "3cda", "space": "cs", "note": "`mov bx, 0x40cd`: intensity_limits, indexed by the byte read from the source row"},
+        {"offset": "3e01", "space": "cs", "note": "`mov bx, 0x40cd`: intensity_limits, indexed by the byte read from the source row"},
+        {"offset": "3e1a", "space": "cs", "note": "`mov bx, 0x40cd`: intensity_limits, indexed by the byte read from the source row"},
+        {"offset": "3f44", "space": "cs", "note": "`mov bx, 0x40cd`: intensity_limits, indexed by the byte read from the source row"},
+        {"offset": "3f5d", "space": "cs", "note": "`mov bx, 0x40cd`: intensity_limits, indexed by the byte read from the source row"}
       ]
     },
     "play": {

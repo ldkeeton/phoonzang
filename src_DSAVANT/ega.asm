@@ -594,26 +594,89 @@ graphics_loc_NVPK.leaf_loc1 equ leaf_loc_KSJN
 
 %include "shared/library/leaf_loc_KSJN.asm"           ; 0x3c12
 
-%include "ega/loc_3c2e.asm"                ; 0x3c2e
+loc_3c2e           equ loc_337c
+loc_3c3f           equ loc_337c.loc1
+loc_3c4f           equ loc_337c.loc2
+loc_3d42           equ loc_337c.loc3
+loc_3c5c           equ loc_337c.loc4
+loc_337c.leaf_loc1 equ leaf_loc_KSJN
+loc_3c6d           equ loc_337c.loc5
+loc_3d15           equ loc_337c.loc6
+loc_3c7d           equ loc_337c.loc7
+loc_3c87           equ loc_337c.loc8
+loc_3c8f           equ loc_337c.loc9
+loc_3d10           equ loc_337c.loc10
+loc_3c9d           equ loc_337c.loc11
+loc_3d0b           equ loc_337c.loc12
+loc_3ca7           equ loc_337c.loc13
+loc_3d03           equ loc_337c.loc14
+loc_3cef           equ loc_337c.loc15
+loc_3cd4           equ loc_337c.loc16
+loc_3ccf           equ loc_337c.loc17
+loc_3cec           equ loc_337c.loc18
+loc_3ce9           equ loc_337c.loc19
+loc_3cf6           equ loc_337c.loc20
+loc_3cfc           equ loc_337c.loc21
+loc_3d27           equ loc_337c.loc22
+loc_3d44           equ loc_337c.loc23
+loc_3d47           equ loc_337c.loc24
+%include "shared/library/loc_337c.asm"                ; 0x3c2e
 
-%include "ega/loc_3d4a.asm"                ; 0x3d4a
+loc_3d4a           equ loc_3498
+loc_3d82           equ loc_3498.loc1
+loc_3d8f           equ loc_3498.loc2
+loc_3e82           equ loc_3498.loc3
+loc_3d9c           equ loc_3498.loc4
+loc_3498.leaf_loc1 equ leaf_loc_KSJN
+loc_3dad           equ loc_3498.loc5
+loc_3e55           equ loc_3498.loc6
+loc_3dbd           equ loc_3498.loc7
+loc_3dc7           equ loc_3498.loc8
+loc_3dcf           equ loc_3498.loc9
+loc_3e50           equ loc_3498.loc10
+loc_3ddd           equ loc_3498.loc11
+loc_3e4b           equ loc_3498.loc12
+loc_3de7           equ loc_3498.loc13
+loc_3e43           equ loc_3498.loc14
+loc_3e2f           equ loc_3498.loc15
+loc_3e14           equ loc_3498.loc16
+loc_3e0f           equ loc_3498.loc17
+loc_3e2c           equ loc_3498.loc18
+loc_3e29           equ loc_3498.loc19
+loc_3e36           equ loc_3498.loc20
+loc_3e3c           equ loc_3498.loc21
+loc_3e67           equ loc_3498.loc22
+loc_3e84           equ loc_3498.loc23
+loc_3e87           equ loc_3498.loc24
+%include "shared/library/loc_3498.asm"                ; 0x3d4a
 
-%include "ega/loc_3e8a.asm"                ; 0x3e8a
-
-intensity_limits:
-
-    db 0x00, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f
-    db 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f
-    db '####++++++++////:::::::::::?????JJJJJJJJJJJOOOOO]]]]]]]]]]]]]]__oooooooooooooooowwwwwwww'
-    db 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f
-    db 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x93, 0x93, 0x93, 0x93, 0x96, 0x96, 0x96, 0x9f
-    db 0x9f, 0x9f, 0x9f, 0x9f, 0x9f, 0x9f, 0x9f, 0x9f, 0xa3, 0xa3, 0xa3, 0xa3, 0xa6, 0xa6, 0xa6, 0xaf
-    db 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xb7, 0xb7, 0xb7, 0xb7, 0xb7, 0xb7, 0xb7, 0xb7
-    db 0xbf, 0xbf, 0xbf, 0xbf, 0xbf, 0xbf, 0xbf, 0xbf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf
-    db 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xcf, 0xd6, 0xd6, 0xd6, 0xd6, 0xd6, 0xd6, 0xd6, 0xdf
-    db 0xdf, 0xdf, 0xdf, 0xdf, 0xdf, 0xdf, 0xdf, 0xdf, 0xe2, 0xe2, 0xe2, 0xe6, 0xe6, 0xe6, 0xe6, 0xef
-    db 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xf5, 0xf5, 0xf5, 0xf5, 0xf5, 0xf5, 0xfe, 0xfe
-    db 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xff
+loc_3e8a           equ loc_35d8
+loc_3ec2           equ loc_35d8.loc1
+loc_3ed2           equ loc_35d8.loc2
+loc_3fc5           equ loc_35d8.loc3
+loc_3edf           equ loc_35d8.loc4
+loc_35d8.leaf_loc1 equ leaf_loc_KSJN
+loc_3ef0           equ loc_35d8.loc5
+loc_3f98           equ loc_35d8.loc6
+loc_3f00           equ loc_35d8.loc7
+loc_3f0a           equ loc_35d8.loc8
+loc_3f12           equ loc_35d8.loc9
+loc_3f93           equ loc_35d8.loc10
+loc_3f20           equ loc_35d8.loc11
+loc_3f8e           equ loc_35d8.loc12
+loc_3f2a           equ loc_35d8.loc13
+loc_3f86           equ loc_35d8.loc14
+loc_3f72           equ loc_35d8.loc15
+loc_3f57           equ loc_35d8.loc16
+loc_3f52           equ loc_35d8.loc17
+loc_3f6f           equ loc_35d8.loc18
+loc_3f6c           equ loc_35d8.loc19
+loc_3f79           equ loc_35d8.loc20
+loc_3f7f           equ loc_35d8.loc21
+loc_3faa           equ loc_35d8.loc22
+loc_3fc7           equ loc_35d8.loc23
+loc_3fca           equ loc_35d8.loc24
+%include "shared/library/loc_35d8.asm"                ; 0x3e8a
 
 cseg_40dd equ cache_area_disk_error.cseg1
 %include "shared/library/cache_area_disk_error.asm"   ; 0x40cd

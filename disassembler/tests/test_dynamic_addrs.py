@@ -2160,10 +2160,10 @@ class InsertBytePropertyTests(unittest.TestCase):
             self.assertEqual(original[0x8ff:0x902], b'\xbb\xda\x0b')
             self.assertEqual(original[0x456e:0x4571], b'\xbb\xda\x0b')
 
-            frag = os.path.join(d, 'vga', 'load_screen.asm')
+            frag = os.path.join(d, 'shared', 'library', 'load_screen.asm')
             with open(frag) as f:
                 text = f.read()
-            needle = '    mov bx, data_0bda                ; 0x08ff\n'
+            needle = '    mov bx, maze_blocks - IMAGE_BASE\n'
             self.assertIn(needle, text)
             with open(frag, 'w') as f:
                 f.write(text.replace(needle, '    nop\n' + needle, 1))
