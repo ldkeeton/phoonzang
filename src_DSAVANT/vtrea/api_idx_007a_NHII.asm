@@ -252,7 +252,7 @@ jumptable_51bc_case_2:
     cmp word [bp - 0x0008], byte 2   ; 0x515a
     jne short @..api_idx_007a_NHII.l14 ; 0x515e
     push word [bp - 0x0006]          ; 0x5160
-    call api_idx_0004_GKHR           ; 0x5163
+    call cast_spell_from_dialog      ; 0x5163
     pop cx                           ; 0x5166
     jmp short @..api_idx_007a_NHII.l15 ; 0x5167
 @..api_idx_007a_NHII.l14:

@@ -67,9 +67,9 @@ bss_9188  equ __zdseg_end + (__zobss_9188 - __zdata_start)
 
 %include "shared/game/loc_IVLM.asm"              ; 0x0692
 
-loc_NJKS.loc1 equ loc_GPIH
-loc_NJKS.loc2 equ loc_MMMO
-%include "shared/game/loc_NJKS.asm"              ; 0x06c3
+get_cell_wall.loc1 equ loc_GPIH
+get_cell_wall.loc2 equ loc_MMMO
+%include "shared/game/get_cell_wall.asm"         ; 0x06c3
 
 %include "shared/game/api_idx_0008_OMTP.asm"     ; 0x0764
 

@@ -16,7 +16,7 @@ api_idx_0004_USIK:
     push word [party_cell_x]         ; 0x1818
     push word [party_map_piece]      ; 0x181c
     push dx                          ; 0x1820
-    call loc_NJKS                    ; 0x1821
+    call get_cell_wall               ; 0x1821
     add sp, byte 0x0c                ; 0x1824
     mov word [bp - 0x0002], ax       ; 0x1827
     mov ax, word [bp - 0x0004]       ; 0x182a

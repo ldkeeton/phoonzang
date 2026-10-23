@@ -66,9 +66,11 @@ jumptable_0457        equ log_maze_change.jumptable1
 
 %include "vdopt/loc_UOPP.asm"              ; 0x07d9
 
-loc_NJKS.loc1 equ loc_UOPP
-loc_NJKS.loc2 equ loc_KHGO
-%include "shared/game/loc_NJKS.asm"              ; 0x08b9
+%include "vdopt/loc_KHGO.asm"              ; 0x0849
+
+get_cell_wall.loc1 equ loc_UOPP
+get_cell_wall.loc2 equ loc_KHGO
+%include "shared/game/get_cell_wall.asm"         ; 0x08b9
 
 bss_90ba equ __zdseg_end + (__zobss_90ba - __zdata_start)
 %include "vdopt/loc_MOTJ.asm"              ; 0x095a

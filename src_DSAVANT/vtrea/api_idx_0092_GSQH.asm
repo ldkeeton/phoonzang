@@ -255,7 +255,7 @@ api_idx_0092_GSQH:
     cmp byte [bx + 0x624], 1         ; 0x4e1e
     jne short @..api_idx_0092_GSQH.l15 ; 0x4e23
     call pick_party_member           ; 0x4e25
-    mov word [bss_95e2], ax          ; 0x4e28
+    mov word [cast_spell_target], ax ; 0x4e28
     cmp ax, strict word 0xffff       ; 0x4e2b
     jne short @..api_idx_0092_GSQH.l15 ; 0x4e2e
     mov word [bp - 0x0052], 0xffff   ; 0x4e30
@@ -277,11 +277,11 @@ api_idx_0092_GSQH:
     push word [bp + 0x4]             ; 0x4e57
     call ds_app_UTUH                 ; 0x4e5a
     add sp, byte 6                   ; 0x4e5d
-    push word [bss_95e2]             ; 0x4e60
+    push word [cast_spell_target]    ; 0x4e60
     push word [bp - 0x0054]          ; 0x4e64
     push word [bp - 0x0052]          ; 0x4e67
     push word [bp + 0x4]             ; 0x4e6a
-    call api_idx_0008_HJOM           ; 0x4e6d
+    call apply_spell_effect_alt      ; 0x4e6d
     add sp, byte 8                   ; 0x4e70
 @..api_idx_0092_GSQH.l16:
     jmp short @..api_idx_0092_GSQH.l19 ; 0x4e73

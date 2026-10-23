@@ -8,7 +8,7 @@ api_idx_0002_JSVP:
     push word [party_cell_x]         ; 0x0b5b
     push word [party_map_piece]      ; 0x0b5f
     push word [party_tag]            ; 0x0b63
-    call loc_NJKS                    ; 0x0b67
+    call get_cell_wall               ; 0x0b67
     add sp, byte 0x0c                ; 0x0b6a
     mov word [bp - 0x0002], ax       ; 0x0b6d
     cmp ax, strict word 2            ; 0x0b70

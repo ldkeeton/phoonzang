@@ -200,17 +200,17 @@ bss_95e0      equ __zdseg_end + (__zobss_95e0 - __zdata_start)
 ; bss_9252 equ __zdseg_end + (__zobss_9252 - __zdata_start)
 ; bss_9372 equ __zdseg_end + (__zobss_9372 - __zdata_start)
 ; bss_95de equ __zdseg_end + (__zobss_95de - __zdata_start)
-%include "vtrea/api_idx_0008_HJOM.asm"     ; 0x4368
+%include "vtrea/apply_spell_effect_alt.asm" ; 0x4368
 
-bss_95e2 equ __zdseg_end + (__zobss_95e2 - __zdata_start)
-%include "vtrea/api_idx_0004_GKHR.asm"     ; 0x4ad8
+cast_spell_target equ __zdseg_end + (__zobss_95e2 - __zdata_start)
+%include "vtrea/cast_spell_from_dialog.asm" ; 0x4ad8
 
-dseg_90e2       equ __zdseg_end + (__zdseg_90e2 - __zdata_start)
-; list_row_marked equ __zdseg_end + (__zobss_93ae - __zdata_start)
-; list_row_glyph  equ __zdseg_end + (__zobss_93d6 - __zdata_start)
-; list_row_name   equ __zdseg_end + (__zobss_93fe - __zdata_start)
-; list_row_count  equ __zdseg_end + (__zobss_95b6 - __zdata_start)
-; bss_95e2        equ __zdseg_end + (__zobss_95e2 - __zdata_start)
+dseg_90e2         equ __zdseg_end + (__zdseg_90e2 - __zdata_start)
+; list_row_marked   equ __zdseg_end + (__zobss_93ae - __zdata_start)
+; list_row_glyph    equ __zdseg_end + (__zobss_93d6 - __zdata_start)
+; list_row_name     equ __zdseg_end + (__zobss_93fe - __zdata_start)
+; list_row_count    equ __zdseg_end + (__zobss_95b6 - __zdata_start)
+; cast_spell_target equ __zdseg_end + (__zobss_95e2 - __zdata_start)
 %include "vtrea/api_idx_0092_GSQH.asm"     ; 0x4bcc
 
 ; glyph_painter       equ __zdseg_end + (__zobss_9114 - __zdata_start)

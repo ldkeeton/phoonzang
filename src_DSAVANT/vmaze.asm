@@ -111,9 +111,9 @@ bss_91a6  equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 
 %include "vmaze/api_idx_0002_UGJG.asm"     ; 0x110e
 
-loc_NJKS.loc1 equ loc_GPIH
-loc_NJKS.loc2 equ loc_MMMO
-%include "shared/game/loc_NJKS.asm"              ; 0x1165
+get_cell_wall.loc1 equ loc_GPIH
+get_cell_wall.loc2 equ loc_MMMO
+%include "shared/game/get_cell_wall.asm"         ; 0x1165
 
 %include "vmaze/api_idx_0002_IPQN.asm"     ; 0x1206
 

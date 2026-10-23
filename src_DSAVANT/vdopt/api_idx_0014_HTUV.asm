@@ -336,7 +336,7 @@ jumptable_0c0b_case_1:
     push word [bp - 0x000c]          ; 0x0cee
     mov ax, 0                        ; 0x0cf1
     push ax                          ; 0x0cf4
-    call loc_NJKS                    ; 0x0cf5
+    call get_cell_wall               ; 0x0cf5
     add sp, byte 0x0c                ; 0x0cf8
     mov word [bp - 0x0012], ax       ; 0x0cfb
     jmp short @..api_idx_0014_HTUV.l32 ; 0x0cfe
@@ -395,7 +395,7 @@ jumptable_0d20_case_0:
     push word [bp - 0x000c]          ; 0x0d6e
     mov ax, 1                        ; 0x0d71
     push ax                          ; 0x0d74
-    call loc_NJKS                    ; 0x0d75
+    call get_cell_wall               ; 0x0d75
     add sp, byte 0x0c                ; 0x0d78
     mov word [bp - 0x0012], ax       ; 0x0d7b
     jmp short @..api_idx_0014_HTUV.l35 ; 0x0d7e
@@ -454,7 +454,7 @@ jumptable_0da0_case_0:
     push word [bp - 0x000c]          ; 0x0dee
     mov ax, 2                        ; 0x0df1
     push ax                          ; 0x0df4
-    call loc_NJKS                    ; 0x0df5
+    call get_cell_wall               ; 0x0df5
     add sp, byte 0x0c                ; 0x0df8
     mov word [bp - 0x0012], ax       ; 0x0dfb
     jmp short @..api_idx_0014_HTUV.l38 ; 0x0dfe
@@ -513,7 +513,7 @@ jumptable_0e20_case_0:
     push word [bp - 0x000c]          ; 0x0e6e
     mov ax, 3                        ; 0x0e71
     push ax                          ; 0x0e74
-    call loc_NJKS                    ; 0x0e75
+    call get_cell_wall               ; 0x0e75
     add sp, byte 0x0c                ; 0x0e78
     mov word [bp - 0x0012], ax       ; 0x0e7b
     jmp short @..api_idx_0014_HTUV.l41 ; 0x0e7e

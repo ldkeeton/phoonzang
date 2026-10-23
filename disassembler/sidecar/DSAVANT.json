@@ -95,6 +95,7 @@
       "name": "strstr",
       "note": "ds: offset of a substring, 0xFFFF if absent"
     },
+    "loc_NJKS": {"name": "get_cell_wall", "note": "reads the 4-bit wall field on one side of a maze cell"},
     "loc_OUOJ": {"name": "mark_region_bits", "note": "sets the current region bit in per-level bitmaps when arg > 0 (both when > 1)"},
     "loc_PTRP": {"name": "draw_power_digit", "note": "draws power digit i+1 at x+10*i, highlighted when selected; clears the first slot when neither"},
     "loc_SRQQ": {"name": "periodic_party_redraw", "note": "once party_redraw_interval ticks have passed, redraws the party panel and slot letters"}
@@ -917,9 +918,12 @@
         "9122": {"name": "pending_panel_arg0", "note": "first argument for the pending panel call"},
         "9124": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes"},
         "9126": {"name": "treasure_caption_on", "note": "nonzero when treasure_caption should be drawn"},
-        "9128": {"name": "treasure_caption", "note": "caption text drawn centred at y=0x92 in the treasure screen"}
+        "9128": {"name": "treasure_caption", "note": "caption text drawn centred at y=0x92 in the treasure screen"},
+        "95e2": {"name": "cast_spell_target", "note": "party slot picked for a targeted spell in this overlay, -1 on Esc"}
       },
       "function_names": {
+        "435a": {"name": "apply_spell_effect_alt", "note": "applies a cast spell: (pc, spell, power, target); larger vtrea variant of apply_spell_effect"},
+        "4aca": {"name": "cast_spell_from_dialog", "note": "spell dialog for a pc, then pays the points, applies the spell, drains record word +0 and redraws the spell points"},
         "81f2": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"},
         "0082": {"name": "draw_animation_frame", "note": "draws animation frame 0..6; returns the index, -1 if out of range"},
         "0103": {"name": "draw_treasure_panel", "note": "draws the treasure panel grid for the pending action"},
