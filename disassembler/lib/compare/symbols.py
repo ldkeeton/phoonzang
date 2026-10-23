@@ -59,6 +59,27 @@ def _host_space_limit(segments):
     return None
 
 
+#: A displacement this close under 0x10000 is a negative field offset
+#: (``[bx - 6]``), not an address.
+_NEGATIVE_OFFSET_SPAN = 0x1000
+
+
+def _overlay_own_address(segments, addr):
+    """True when *addr* is, whatever else is known, an address in an overlay's
+    own BSS (above ``o_dorg``, see :func:`_host_space_limit`).
+
+    Nothing but an object lives that high in the data segment, so an indexed
+    operand with such a displacement (``[bx - 0x6e26]``) names one, though no
+    code reads its start absolutely.  Only BSS: it is ``resb``, so a name
+    inside an array only splits the reservation, where one inside file-backed
+    data (``save_di``) would cut a static.
+    """
+    own = _host_space_limit(segments)
+    return (own is not None
+            and own <= addr < 0x10000 - _NEGATIVE_OFFSET_SPAN
+            and segments.data_space(addr) == 'bss')
+
+
 def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset,
                          ds_starts=frozenset(), indexed=True):
     """Choose a segment-correct symbol for every absolute memory operand.
@@ -82,7 +103,8 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset,
     displacement is the start of a named object: one this binary addresses
     absolutely, a known data name, or a host-space start another binary names
     (*ds_starts*, the build's union).  A displacement in the DS range is not
-    enough: record field offsets (``[si + 0x1a1]``) live there too.  With
+    enough: record field offsets (``[si + 0x1a1]``) live there too.  An
+    overlay's own BSS needs no such proof (:func:`_overlay_own_address`).  With
     *indexed* false that pass is left to the caller, which runs
     :func:`_resolve_indexed_symbols` once the immediates have been named too.
     """
@@ -158,7 +180,8 @@ def _resolve_indexed_symbols(insns, segment_flow, segments, named, ds_starts,
                     or op.mem.segment == X86_REG_CS):
                 continue
             addr = op.mem.disp & 0xFFFF
-            if addr < DS_INDEX_MIN or addr not in starts:
+            if addr < DS_INDEX_MIN or not (
+                    addr in starts or _overlay_own_address(segments, addr)):
                 continue
             if segment_flow.effective_segment(insn, op)[1] != DATA:
                 continue
@@ -196,7 +219,8 @@ def _resolve_index_offset_symbols(insns, segment_flow, segments, named,
         if key in resolved or space not in (None, DATA):
             continue
         value = by_addr[key[0]].operands[1].imm & 0xFFFF
-        if value < DS_INDEX_MIN or value not in starts:
+        if value < DS_INDEX_MIN or not (
+                value in starts or _overlay_own_address(segments, value)):
             continue
         name = data_symbol(segments, value)
         equ.setdefault(name, value)

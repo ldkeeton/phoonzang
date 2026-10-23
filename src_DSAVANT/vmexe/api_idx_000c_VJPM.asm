@@ -13,7 +13,7 @@ api_idx_000c_VJPM:
     shl cx, 1                        ; 0x6f52
     add ax, cx                       ; 0x6f54
     mov bx, ax                       ; 0x6f56
-    mov word [bx - 0x6f36], 0xffff   ; 0x6f58
+    mov word [bx + bss_90ca], 0xffff ; 0x6f58
     inc word [bp - 0x0004]           ; 0x6f5e
     mov ax, word [bp - 0x0004]       ; 0x6f61
     cmp ax, strict word 3            ; 0x6f64
@@ -484,7 +484,7 @@ jumptable_735e:
     shl cx, 1                        ; 0x73b8
     add ax, cx                       ; 0x73ba
     mov bx, ax                       ; 0x73bc
-    cmp word [bx - 0x6f36], byte 0xff ; 0x73be
+    cmp word [bx + bss_90ca], byte 0xff ; 0x73be
     je short @..api_idx_000c_VJPM.l37 ; 0x73c3
     mov ax, 1                        ; 0x73c5
     jmp short @..api_idx_000c_VJPM.l38 ; 0x73c8

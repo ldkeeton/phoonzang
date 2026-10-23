@@ -25,7 +25,7 @@ api_idx_0072_LQIT:
     mov ax, word [bp - 0x0002]       ; 0x718e
     shl ax, 1                        ; 0x7191
     mov bx, ax                       ; 0x7193
-    mov word [bx - 0x69a2], 2        ; 0x7195
+    mov word [bx + bss_965e], 2      ; 0x7195
     mov word [bp - 0x0004], 0        ; 0x719b
     jmp short @..api_idx_0072_LQIT.l3 ; 0x71a0
 @..api_idx_0072_LQIT.l2:
@@ -36,7 +36,7 @@ api_idx_0072_LQIT:
     mov cx, word [bp - 0x0002]       ; 0x71aa
     shl cx, 1                        ; 0x71ad
     mov bx, cx                       ; 0x71af
-    add word [bx - 0x69a2], ax       ; 0x71b1
+    add word [bx + bss_965e], ax     ; 0x71b1
     inc word [bp - 0x0004]           ; 0x71b5
 @..api_idx_0072_LQIT.l3:
     mov ax, word [bp - 0x0004]       ; 0x71b8
@@ -49,13 +49,13 @@ api_idx_0072_LQIT:
     mov ax, word [bp - 0x0002]       ; 0x71c8
     shl ax, 1                        ; 0x71cb
     mov bx, ax                       ; 0x71cd
-    push word [bx - 0x69a2]          ; 0x71cf
+    push word [bx + bss_965e]        ; 0x71cf
     call clamp_between               ; 0x71d3
     add sp, byte 6                   ; 0x71d6
     mov cx, word [bp - 0x0002]       ; 0x71d9
     shl cx, 1                        ; 0x71dc
     mov bx, cx                       ; 0x71de
-    mov word [bx - 0x69a2], ax       ; 0x71e0
+    mov word [bx + bss_965e], ax     ; 0x71e0
     inc word [bp - 0x0002]           ; 0x71e4
     mov ax, word [bp - 0x0002]       ; 0x71e7
     cmp ax, strict word 6            ; 0x71ea

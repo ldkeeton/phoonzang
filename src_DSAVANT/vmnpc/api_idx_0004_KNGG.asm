@@ -18,14 +18,14 @@ api_idx_0004_KNGG:
     mov ax, word [bp - 0x0004]       ; 0x0e38
     shl ax, 1                        ; 0x0e3b
     mov bx, ax                       ; 0x0e3d
-    cmp word [bx - 0x6c34], byte 0   ; 0x0e3f
+    cmp word [bx + bss_93cc], byte 0 ; 0x0e3f
     je short @..api_idx_0004_KNGG.l4 ; 0x0e44
     mov ax, 2                        ; 0x0e46
     push ax                          ; 0x0e49
     mov ax, word [bp - 0x0004]       ; 0x0e4a
     mov cx, 7                        ; 0x0e4d
     shl ax, cl                       ; 0x0e50
-    add ax, 0x91cc                   ; 0x0e52
+    add ax, bss_91cc                 ; 0x0e52
     push ax                          ; 0x0e55
     call ds_loc_JJGM                 ; 0x0e56
     add sp, byte 4                   ; 0x0e59
@@ -46,7 +46,7 @@ api_idx_0004_KNGG:
     mov cx, word [bp - 0x0004]       ; 0x0e7a
     shl cx, 1                        ; 0x0e7d
     mov bx, cx                       ; 0x0e7f
-    cmp word [bx - 0x6c34], byte 0   ; 0x0e81
+    cmp word [bx + bss_93cc], byte 0 ; 0x0e81
     je short @..api_idx_0004_KNGG.l6 ; 0x0e86
     mov cx, 0x92                     ; 0x0e88
     jmp short @..api_idx_0004_KNGG.l7 ; 0x0e8b
@@ -63,7 +63,7 @@ api_idx_0004_KNGG:
     mov ax, word [bp - 0x0004]       ; 0x0ea0
     shl ax, 1                        ; 0x0ea3
     mov bx, ax                       ; 0x0ea5
-    cmp word [bx - 0x6c34], byte 0   ; 0x0ea7
+    cmp word [bx + bss_93cc], byte 0 ; 0x0ea7
     je short @..api_idx_0004_KNGG.l8 ; 0x0eac
     mov ax, 0x55                     ; 0x0eae
     jmp short @..api_idx_0004_KNGG.l9 ; 0x0eb1
@@ -76,11 +76,11 @@ api_idx_0004_KNGG:
     mov ax, word [bp - 0x0004]       ; 0x0ebd
     shl ax, 1                        ; 0x0ec0
     mov bx, ax                       ; 0x0ec2
-    push word [bx - 0x6c34]          ; 0x0ec4
+    push word [bx + bss_93cc]        ; 0x0ec4
     mov ax, word [bp - 0x0004]       ; 0x0ec8
     mov cx, 7                        ; 0x0ecb
     shl ax, cl                       ; 0x0ece
-    add ax, 0x91cc                   ; 0x0ed0
+    add ax, bss_91cc                 ; 0x0ed0
     push ax                          ; 0x0ed3
     call draw_text_glyphs            ; 0x0ed4
     add sp, byte 4                   ; 0x0ed7

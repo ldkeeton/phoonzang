@@ -28,7 +28,7 @@ api_idx_0004_IKOQ:
     mov cx, si                       ; 0x8317
     shl cx, 1                        ; 0x8319
     mov bx, cx                       ; 0x831b
-    mov word [bx - 0x6968], ax       ; 0x831d
+    mov word [bx + bss_9698], ax     ; 0x831d
     inc word [bp - 0x0002]           ; 0x8321
 @..api_idx_0004_IKOQ.l5:
     push word [bp + 0x6]             ; 0x8324
@@ -62,7 +62,7 @@ api_idx_0004_IKOQ:
     mov cx, si                       ; 0x8367
     shl cx, 1                        ; 0x8369
     mov bx, cx                       ; 0x836b
-    mov word [bx - 0x6968], ax       ; 0x836d
+    mov word [bx + bss_9698], ax     ; 0x836d
     inc word [bp - 0x0002]           ; 0x8371
 @..api_idx_0004_IKOQ.l10:
     push word [bp + 0x8]             ; 0x8374
@@ -96,7 +96,7 @@ api_idx_0004_IKOQ:
     mov cx, si                       ; 0x83b7
     shl cx, 1                        ; 0x83b9
     mov bx, cx                       ; 0x83bb
-    mov word [bx - 0x6968], ax       ; 0x83bd
+    mov word [bx + bss_9698], ax     ; 0x83bd
     inc word [bp - 0x0002]           ; 0x83c1
 @..api_idx_0004_IKOQ.l15:
     push word [bp + 0xa]             ; 0x83c4
@@ -130,7 +130,7 @@ api_idx_0004_IKOQ:
     mov cx, si                       ; 0x8407
     shl cx, 1                        ; 0x8409
     mov bx, cx                       ; 0x840b
-    mov word [bx - 0x6968], ax       ; 0x840d
+    mov word [bx + bss_9698], ax     ; 0x840d
     inc word [bp - 0x0002]           ; 0x8411
 @..api_idx_0004_IKOQ.l20:
     push word [bp + 0xc]             ; 0x8414

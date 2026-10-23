@@ -73,6 +73,7 @@ dseg_90a2 equ __zdseg_end + (__zdseg_90a2 - __zdata_start)
 
 %include "vmele/api_idx_0014_UOQI.asm"     ; 0x1844
 
+bss_90be equ __zdseg_end + (__zobss_90be - __zdata_start)
 %include "vmele/loc_QUVM.asm"              ; 0x1a16
 
 %include "vmele/loc_QLKH.asm"              ; 0x1f39
@@ -89,11 +90,13 @@ api_idx_000e_NKQN.api_idx1 equ api_idx_0004_ONRQ
 
 %include "shared/game/loc_SSIO.asm"              ; 0x28a0
 
+; bss_90be equ __zdseg_end + (__zobss_90be - __zdata_start)
 %include "vmele/api_idx_0002_HMSQ.asm"     ; 0x28fc
 
 %include "vmele/loc_QMOS.asm"              ; 0x299f
 
 ; bss_90ba equ __zdseg_end + (__zobss_90ba - __zdata_start)
+; bss_90be equ __zdseg_end + (__zobss_90be - __zdata_start)
 %include "vmele/api_idx_000c_RTIP.asm"     ; 0x29c5
 
 ; bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)
@@ -111,6 +114,7 @@ loc_RPUI.api_idx1 equ api_idx_0006_IRNH
 
 ; bss_90b8 equ __zdseg_end + (__zobss_90b8 - __zdata_start)
 ; bss_90ba equ __zdseg_end + (__zobss_90ba - __zdata_start)
+; bss_90be equ __zdseg_end + (__zobss_90be - __zdata_start)
 %include "vmele/api_idx_005a_STLR.asm"     ; 0x2cde
 
 dseg_90a4 equ __zdseg_end + (__zdseg_90a4 - __zdata_start)
@@ -171,5 +175,7 @@ __zobss_90b8:
 __zobss_90ba:
     resb 0x0002
 __zobss_90bc:
-    resb 0x0014
+    resb 0x0002
+__zobss_90be:
+    resb 0x0012
 __zobss_end:

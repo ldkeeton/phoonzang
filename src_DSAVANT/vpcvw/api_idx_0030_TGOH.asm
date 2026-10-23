@@ -12,14 +12,14 @@ api_idx_0030_TGOH:
     sub ah, ah                       ; 0x92cc
     shl ax, 1                        ; 0x92ce
     mov bx, ax                       ; 0x92d0
-    mov word [bx - 0x6984], 0        ; 0x92d2
+    mov word [bx + bss_967c], 0      ; 0x92d2
     mov word [bp - 0x0006], 1        ; 0x92d8
     mov word [bp - 0x0002], 0        ; 0x92dd
 @..api_idx_0030_TGOH.l1:
     mov ax, word [bp - 0x0002]       ; 0x92e2
     shl ax, 1                        ; 0x92e5
     mov bx, ax                       ; 0x92e7
-    cmp word [bx - 0x6984], byte 1   ; 0x92e9
+    cmp word [bx + bss_967c], byte 1 ; 0x92e9
     jne short @..api_idx_0030_TGOH.l2 ; 0x92ee
     mov ax, 1                        ; 0x92f0
     jmp short @..api_idx_0030_TGOH.l3 ; 0x92f3

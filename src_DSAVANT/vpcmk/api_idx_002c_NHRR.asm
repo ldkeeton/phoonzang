@@ -196,7 +196,7 @@ api_idx_002c_NHRR:
 @..api_idx_002c_NHRR.l2:
     mov ax, 0xa                      ; 0x6c0d
     imul word [bp - 0x0002]          ; 0x6c10
-    add ax, 0x9544                   ; 0x6c13
+    add ax, bss_9544                 ; 0x6c13
     push ax                          ; 0x6c16
     mov ax, word [bp - 0x0002]       ; 0x6c17
     add ax, 0xcc                     ; 0x6c1a

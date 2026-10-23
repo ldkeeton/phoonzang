@@ -75,7 +75,7 @@ api_idx_00a2_IKRJ:
     je short @..api_idx_00a2_IKRJ.l4 ; 0x98fc
     mov ax, 0xa                      ; 0x98fe
     imul word [bss_9e46]             ; 0x9901
-    add ax, 0xa658                   ; 0x9905
+    add ax, bss_a658                 ; 0x9905
     push ax                          ; 0x9908
     lea ax, word [bp - 0x0052]       ; 0x9909
     push ax                          ; 0x990c

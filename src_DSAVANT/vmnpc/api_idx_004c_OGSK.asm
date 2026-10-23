@@ -138,7 +138,7 @@ api_idx_004c_OGSK:
     mov cx, word [bss_9ca8]          ; 0x512e
     shl cx, 1                        ; 0x5132
     mov bx, cx                       ; 0x5134
-    mov word [bx - 0x6356], ax       ; 0x5136
+    mov word [bx + bss_9caa], ax     ; 0x5136
     inc word [bss_9ca8]              ; 0x513a
 @..api_idx_004c_OGSK.l8:
     inc word [bp - 0x0004]           ; 0x513e

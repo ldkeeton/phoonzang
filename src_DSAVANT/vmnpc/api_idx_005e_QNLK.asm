@@ -236,7 +236,7 @@ api_idx_005e_QNLK:
     mov ax, word [bp - 0x000a]       ; 0x61e9
     shl ax, 1                        ; 0x61ec
     mov bx, ax                       ; 0x61ee
-    push word [bx - 0x6396]          ; 0x61f0
+    push word [bx + bss_9c6a]        ; 0x61f0
     mov ax, 0x248                    ; 0x61f4
     imul word [bp + 0x4]             ; 0x61f7
     push ax                          ; 0x61fa

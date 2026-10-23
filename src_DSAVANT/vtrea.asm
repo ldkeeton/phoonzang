@@ -135,11 +135,17 @@ dseg_90c4 equ __zdseg_end + (__zdseg_90c4 - __zdata_start)
 bss_91fe  equ __zdseg_end + (__zobss_91fe - __zdata_start)
 bss_9200  equ __zdseg_end + (__zobss_9200 - __zdata_start)
 bss_9230  equ __zdseg_end + (__zobss_9230 - __zdata_start)
+bss_9240  equ __zdseg_end + (__zobss_9240 - __zdata_start)
 bss_9250  equ __zdseg_end + (__zobss_9250 - __zdata_start)
+bss_9252  equ __zdseg_end + (__zobss_9252 - __zdata_start)
+bss_9342  equ __zdseg_end + (__zobss_9342 - __zdata_start)
+bss_9372  equ __zdseg_end + (__zobss_9372 - __zdata_start)
 %include "vtrea/api_idx_0060_VPPJ.asm"     ; 0x1fd5
 
 %include "vtrea/loc_OVQV.asm"              ; 0x242c
 
+; bss_9252 equ __zdseg_end + (__zobss_9252 - __zdata_start)
+; bss_9372 equ __zdseg_end + (__zobss_9372 - __zdata_start)
 %include "vtrea/api_idx_0002_PMUV.asm"     ; 0x251a
 
 dseg_90cd        equ __zdseg_end + (__zdseg_90cd - __zdata_start)
@@ -149,7 +155,10 @@ dseg_90d8        equ __zdseg_end + (__zdseg_90d8 - __zdata_start)
 dseg_90da        equ __zdseg_end + (__zdseg_90da - __zdata_start)
 ; show_area_bottom equ __zdseg_end + (__zobss_911c - __zdata_start)
 ; bss_9230         equ __zdseg_end + (__zobss_9230 - __zdata_start)
+; bss_9240         equ __zdseg_end + (__zobss_9240 - __zdata_start)
 ; bss_9250         equ __zdseg_end + (__zobss_9250 - __zdata_start)
+; bss_9252         equ __zdseg_end + (__zobss_9252 - __zdata_start)
+; bss_9342         equ __zdseg_end + (__zobss_9342 - __zdata_start)
 %include "vtrea/api_idx_0084_IMVQ.asm"     ; 0x25ab
 
 %include "shared/game/api_idx_0008_RQRL.asm"     ; 0x3552
@@ -188,6 +197,8 @@ bss_95e0      equ __zdseg_end + (__zobss_95e0 - __zdata_start)
 
 ; bss_91fe equ __zdseg_end + (__zobss_91fe - __zdata_start)
 ; bss_9250 equ __zdseg_end + (__zobss_9250 - __zdata_start)
+; bss_9252 equ __zdseg_end + (__zobss_9252 - __zdata_start)
+; bss_9372 equ __zdseg_end + (__zobss_9372 - __zdata_start)
 ; bss_95de equ __zdseg_end + (__zobss_95de - __zdata_start)
 %include "vtrea/api_idx_0008_HJOM.asm"     ; 0x4368
 
@@ -216,10 +227,20 @@ dseg_90e2       equ __zdseg_end + (__zdseg_90e2 - __zdata_start)
 %include "shared/game/api_idx_0004_ONJT.asm"     ; 0x52ec
 
 ; list_row_marked equ __zdseg_end + (__zobss_93ae - __zdata_start)
+bss_93b0        equ __zdseg_end + (__zobss_93b0 - __zdata_start)
 ; list_row_glyph  equ __zdseg_end + (__zobss_93d6 - __zdata_start)
+bss_93d8        equ __zdseg_end + (__zobss_93d8 - __zdata_start)
 ; list_row_name   equ __zdseg_end + (__zobss_93fe - __zdata_start)
+bss_9414        equ __zdseg_end + (__zobss_9414 - __zdata_start)
 ; list_row_count  equ __zdseg_end + (__zobss_95b6 - __zdata_start)
+bss_95b8        equ __zdseg_end + (__zobss_95b8 - __zdata_start)
 bss_95e4        equ __zdseg_end + (__zobss_95e4 - __zdata_start)
+bss_95e6        equ __zdseg_end + (__zobss_95e6 - __zdata_start)
+bss_95e8        equ __zdseg_end + (__zobss_95e8 - __zdata_start)
+bss_960e        equ __zdseg_end + (__zobss_960e - __zdata_start)
+bss_9610        equ __zdseg_end + (__zobss_9610 - __zdata_start)
+bss_9636        equ __zdseg_end + (__zobss_9636 - __zdata_start)
+bss_9638        equ __zdseg_end + (__zobss_9638 - __zdata_start)
 %include "vtrea/api_idx_0040_LIPH.asm"     ; 0x5348
 
 %include "vtrea/api_idx_0006_OUPU.asm"     ; 0x550e
@@ -239,6 +260,9 @@ api_idx_0002_MLKN equ api_idx_0002_QVIM
 ; list_row_name   equ __zdseg_end + (__zobss_93fe - __zdata_start)
 ; list_row_count  equ __zdseg_end + (__zobss_95b6 - __zdata_start)
 ; bss_95e4        equ __zdseg_end + (__zobss_95e4 - __zdata_start)
+; bss_95e6        equ __zdseg_end + (__zobss_95e6 - __zdata_start)
+; bss_960e        equ __zdseg_end + (__zobss_960e - __zdata_start)
+; bss_9636        equ __zdseg_end + (__zobss_9636 - __zdata_start)
 %include "vtrea/loc_HUIS.asm"              ; 0x5789
 
 ; bss_91d4 equ __zdseg_end + (__zobss_91d4 - __zdata_start)
@@ -258,6 +282,7 @@ dseg_90e3        equ __zdseg_end + (__zdseg_90e3 - __zdata_start)
 dseg_90e9        equ __zdseg_end + (__zdseg_90e9 - __zdata_start)
 dseg_90eb        equ __zdseg_end + (__zdseg_90eb - __zdata_start)
 ; show_area_bottom equ __zdseg_end + (__zobss_911c - __zdata_start)
+bss_965e         equ __zdseg_end + (__zobss_965e - __zdata_start)
 %include "vtrea/api_idx_006a_NKMN.asm"     ; 0x5fef
 
 dseg_90ee        equ __zdseg_end + (__zdseg_90ee - __zdata_start)
@@ -270,9 +295,11 @@ dseg_90ee        equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 
 %include "vtrea/loc_RVKS.asm"              ; 0x6f41
 
+; bss_965e equ __zdseg_end + (__zobss_965e - __zdata_start)
 %include "vtrea/api_idx_0034_NSGM.asm"     ; 0x6ff5
 
 ; treasure_caption_on equ __zdseg_end + (__zobss_9126 - __zdata_start)
+; bss_965e            equ __zdseg_end + (__zobss_965e - __zdata_start)
 %include "vtrea/api_idx_0072_LQIT.asm"     ; 0x7151
 
 %include "shared/game/api_idx_0004_KGNP.asm"     ; 0x7319
@@ -322,7 +349,8 @@ dseg_90fa equ __zdseg_end + (__zdseg_90fa - __zdata_start)
 %include "shared/game/api_idx_0002_TIUI.asm"     ; 0x89bd
 
 known_spell_list equ __zdseg_end + (__zobss_966a - __zdata_start)
-%include "vtrea/collect_known_spells.asm"  ; 0x8a18
+collect_known_spells.known_spell_list1 equ known_spell_list
+%include "shared/game/collect_known_spells.asm"  ; 0x8a18
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x8a89
 
@@ -470,17 +498,33 @@ __zobss_91fe:
 __zobss_9200:
     resb 0x0030
 __zobss_9230:
-    resb 0x0020
+    resb 0x0010
+__zobss_9240:
+    resb 0x0010
 __zobss_9250:
-    resb 0x015e
+    resb 0x0002
+__zobss_9252:
+    resb 0x00f0
+__zobss_9342:
+    resb 0x0030
+__zobss_9372:
+    resb 0x003c
 __zobss_93ae:
-    resb 0x0028
+    resb 0x0002
+__zobss_93b0:
+    resb 0x0026
 __zobss_93d6:
-    resb 0x0028
+    resb 0x0002
+__zobss_93d8:
+    resb 0x0026
 __zobss_93fe:
-    resb 0x01b8
+    resb 0x0016
+__zobss_9414:
+    resb 0x01a2
 __zobss_95b6:
-    resb 0x0028
+    resb 0x0002
+__zobss_95b8:
+    resb 0x0026
 __zobss_95de:
     resb 0x0002
 __zobss_95e0:
@@ -488,7 +532,21 @@ __zobss_95e0:
 __zobss_95e2:
     resb 0x0002
 __zobss_95e4:
-    resb 0x0086
+    resb 0x0002
+__zobss_95e6:
+    resb 0x0002
+__zobss_95e8:
+    resb 0x0026
+__zobss_960e:
+    resb 0x0002
+__zobss_9610:
+    resb 0x0026
+__zobss_9636:
+    resb 0x0002
+__zobss_9638:
+    resb 0x0026
+__zobss_965e:
+    resb 0x000c
 __zobss_966a:
     resb 0x0050
 __zobss_end:

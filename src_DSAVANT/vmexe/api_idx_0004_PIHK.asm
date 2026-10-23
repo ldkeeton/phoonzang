@@ -83,7 +83,7 @@ api_idx_0004_PIHK:
     shl cx, 1                        ; 0x1d2f
     add ax, cx                       ; 0x1d31
     mov bx, ax                       ; 0x1d33
-    mov word [bx - 0x6f36], 0        ; 0x1d35
+    mov word [bx + bss_90ca], 0      ; 0x1d35
     mov word [bss_8320], 0           ; 0x1d3b
     call loc_RPUI                    ; 0x1d41
     mov ax, 6                        ; 0x1d44

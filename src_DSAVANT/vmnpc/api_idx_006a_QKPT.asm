@@ -23,11 +23,11 @@ api_idx_006a_QKPT:
     mov cx, 7                        ; 0xabd2
     shl ax, cl                       ; 0xabd5
     mov bx, ax                       ; 0xabd7
-    mov byte [bx - 0x6e34], 0        ; 0xabd9
+    mov byte [bx + bss_91cc], 0      ; 0xabd9
     mov ax, word [bss_93d4]          ; 0xabde
     shl ax, 1                        ; 0xabe1
     mov bx, ax                       ; 0xabe3
-    mov word [bx - 0x6c34], 0        ; 0xabe5
+    mov word [bx + bss_93cc], 0      ; 0xabe5
     inc word [bss_93d4]              ; 0xabeb
     mov ax, word [bss_93d4]          ; 0xabef
     cmp ax, strict word 4            ; 0xabf2

@@ -27,7 +27,7 @@ api_idx_000c_NLKU:
     add ax, word [bp - 0x0004]       ; 0x409c
     mov bx, ax                       ; 0x409f
     pop ax                           ; 0x40a1
-    mov byte [bx - 0x606c], al       ; 0x40a2
+    mov byte [bx + bss_9f94], al     ; 0x40a2
     cmp al, 0x20                     ; 0x40a6
     jbe short @..api_idx_000c_NLKU.l3 ; 0x40a8
     sub ah, ah                       ; 0x40aa
@@ -41,7 +41,7 @@ api_idx_000c_NLKU:
     push ax                          ; 0x40be
     mov ax, 0                        ; 0x40bf
     push ax                          ; 0x40c2
-    mov al, byte [bx - 0x606c]       ; 0x40c3
+    mov al, byte [bx + bss_9f94]     ; 0x40c3
     sub ah, ah                       ; 0x40c7
     add ax, word [bp - 0x0006]       ; 0x40c9
     push ax                          ; 0x40cc
@@ -54,16 +54,16 @@ api_idx_000c_NLKU:
     add ax, word [bp - 0x0004]       ; 0x40dc
     mov bx, ax                       ; 0x40df
     pop ax                           ; 0x40e1
-    mov byte [bx - 0x606c], al       ; 0x40e2
+    mov byte [bx + bss_9f94], al     ; 0x40e2
     jmp short @..api_idx_000c_NLKU.l4 ; 0x40e6
 @..api_idx_000c_NLKU.l3:
     mov ax, 3                        ; 0x40e8
     imul word [bp - 0x0002]          ; 0x40eb
     add ax, word [bp - 0x0004]       ; 0x40ee
     mov bx, ax                       ; 0x40f1
-    cmp byte [bx - 0x606c], 0x20     ; 0x40f3
+    cmp byte [bx + bss_9f94], 0x20   ; 0x40f3
     jae short @..api_idx_000c_NLKU.l4 ; 0x40f8
-    mov al, byte [bx - 0x606c]       ; 0x40fa
+    mov al, byte [bx + bss_9f94]     ; 0x40fa
     sub ah, ah                       ; 0x40fe
     mov cx, ax                       ; 0x4100
     mov ax, 0x20                     ; 0x4102
@@ -77,7 +77,7 @@ api_idx_000c_NLKU:
     push ax                          ; 0x4116
     mov ax, 0                        ; 0x4117
     push ax                          ; 0x411a
-    mov al, byte [bx - 0x606c]       ; 0x411b
+    mov al, byte [bx + bss_9f94]     ; 0x411b
     sub ah, ah                       ; 0x411f
     sub ax, word [bp - 0x0006]       ; 0x4121
     push ax                          ; 0x4124
@@ -90,7 +90,7 @@ api_idx_000c_NLKU:
     add ax, word [bp - 0x0004]       ; 0x4134
     mov bx, ax                       ; 0x4137
     pop ax                           ; 0x4139
-    mov byte [bx - 0x606c], al       ; 0x413a
+    mov byte [bx + bss_9f94], al     ; 0x413a
 @..api_idx_000c_NLKU.l4:
     inc word [bp - 0x0004]           ; 0x413e
     mov ax, word [bp - 0x0004]       ; 0x4141
@@ -117,18 +117,18 @@ api_idx_000c_NLKU:
     mov ax, 3                        ; 0x4171
     imul word [bp - 0x0002]          ; 0x4174
     mov bx, ax                       ; 0x4177
-    mov al, byte [bx - 0x606c]       ; 0x4179
+    mov al, byte [bx + bss_9f94]     ; 0x4179
     sub ah, ah                       ; 0x417d
     mov cx, 8                        ; 0x417f
     cwd                              ; 0x4182
     idiv cx                          ; 0x4183
     mov word [bp - 0x0008], ax       ; 0x4185
-    mov al, byte [bx - 0x606b]       ; 0x4188
+    mov al, byte [bx + bss_9f95]     ; 0x4188
     sub ah, ah                       ; 0x418c
     cwd                              ; 0x418e
     idiv cx                          ; 0x418f
     mov word [bp - 0x000a], ax       ; 0x4191
-    mov al, byte [bx - 0x606a]       ; 0x4194
+    mov al, byte [bx + bss_9f96]     ; 0x4194
     sub ah, ah                       ; 0x4198
     cwd                              ; 0x419a
     idiv cx                          ; 0x419b

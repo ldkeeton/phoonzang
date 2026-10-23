@@ -12,7 +12,7 @@ api_idx_0084_IMVQ:
     mov ax, word [bp - 0x0002]       ; 0x25c2
     shl ax, 1                        ; 0x25c5
     mov bx, ax                       ; 0x25c7
-    mov ax, word [bx - 0x6cbe]       ; 0x25c9
+    mov ax, word [bx + bss_9342]     ; 0x25c9
     add ax, 0x14b4                   ; 0x25cd
     push ax                          ; 0x25d0
     call load_message_string         ; 0x25d1
@@ -32,7 +32,7 @@ api_idx_0084_IMVQ:
     imul word [bss_9250]             ; 0x25fc
     add ax, word [bp - 0x0004]       ; 0x2600
     mov bx, ax                       ; 0x2603
-    cmp byte [bx - 0x6dae], 0x2d     ; 0x2605
+    cmp byte [bx + bss_9252], 0x2d   ; 0x2605
     je short @..api_idx_0084_IMVQ.l4 ; 0x260a
     inc word [bp - 0x0078]           ; 0x260c
 @..api_idx_0084_IMVQ.l4:
@@ -299,7 +299,7 @@ api_idx_0084_IMVQ:
     mov ax, word [bp - 0x0002]       ; 0x2884
     shl ax, 1                        ; 0x2887
     mov bx, ax                       ; 0x2889
-    mov al, byte [bx - 0x6dc0]       ; 0x288b
+    mov al, byte [bx + bss_9240]     ; 0x288b
     sub ah, ah                       ; 0x288f
     push ax                          ; 0x2891
     call draw_font_glyph             ; 0x2892
@@ -1414,7 +1414,7 @@ jumptable_34f1_case_5:
     mov ax, word [bp - 0x0002]       ; 0x32c5
     shl ax, 1                        ; 0x32c8
     mov bx, ax                       ; 0x32ca
-    mov al, byte [bx - 0x6dc0]       ; 0x32cc
+    mov al, byte [bx + bss_9240]     ; 0x32cc
     sub ah, ah                       ; 0x32d0
     push ax                          ; 0x32d2
     call draw_font_glyph             ; 0x32d3
@@ -1475,7 +1475,7 @@ jumptable_34f1_case_5:
     imul word [bss_9250]             ; 0x335d
     add ax, word [bp - 0x0002]       ; 0x3361
     mov bx, ax                       ; 0x3364
-    mov al, byte [bx - 0x6dae]       ; 0x3366
+    mov al, byte [bx + bss_9252]     ; 0x3366
     sub ah, ah                       ; 0x336a
     mov cx, word [bp - 0x007a]       ; 0x336c
     add cx, byte 0x31                ; 0x336f
@@ -1571,7 +1571,7 @@ jumptable_34f1_case_5:
     mov ax, word [bp - 0x0002]       ; 0x3449
     shl ax, 1                        ; 0x344c
     mov bx, ax                       ; 0x344e
-    mov al, byte [bx - 0x6dc0]       ; 0x3450
+    mov al, byte [bx + bss_9240]     ; 0x3450
     sub ah, ah                       ; 0x3454
     push ax                          ; 0x3456
     call draw_font_glyph             ; 0x3457

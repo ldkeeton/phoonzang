@@ -2,7 +2,7 @@
 leaf_loc_NIGK:
     dec ax                           ; 0x3131
     cmp ax, word [bp - 0x0012]       ; 0x3132
-    jb short loc_3188                ; 0x3135
+    jb short table_entry_ptr         ; 0x3135
     mov bl, 0xa                      ; 0x3137
     div bl                           ; 0x3139
     or byte [cs:cseg_316f - IMAGE_BASE], al ; 0x313b

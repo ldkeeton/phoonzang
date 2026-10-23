@@ -354,7 +354,7 @@ api_idx_00c2_OUOT:
     push ax                          ; 0x5855
     mov ax, 0xa                      ; 0x5856
     imul word [bp - 0x0018]          ; 0x5859
-    add ax, 0x9616                   ; 0x585c
+    add ax, bss_9616                 ; 0x585c
     push ax                          ; 0x585f
     call aztec_strlen                ; 0x5860
     pop cx                           ; 0x5863
@@ -381,7 +381,7 @@ api_idx_00c2_OUOT:
     push ax                          ; 0x5890
     mov ax, 0xa                      ; 0x5891
     imul word [bp - 0x0018]          ; 0x5894
-    add ax, 0x9616                   ; 0x5897
+    add ax, bss_9616                 ; 0x5897
     push ax                          ; 0x589a
     call draw_text_glyphs            ; 0x589b
     add sp, byte 4                   ; 0x589e
@@ -946,7 +946,7 @@ api_idx_00c2_OUOT:
     push word [bp - 0x0004]          ; 0x5dc2
     mov ax, 0xa                      ; 0x5dc5
     imul word [bp - 0x0018]          ; 0x5dc8
-    add ax, 0x9616                   ; 0x5dcb
+    add ax, bss_9616                 ; 0x5dcb
     push ax                          ; 0x5dce
     call api_idx_0008_SKNL           ; 0x5dcf
     add sp, byte 0x12                ; 0x5dd2

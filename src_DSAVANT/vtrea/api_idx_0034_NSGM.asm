@@ -54,7 +54,7 @@ api_idx_0034_NSGM:
     mov ax, dx                       ; 0x707e
     shl ax, 1                        ; 0x7080
     mov bx, ax                       ; 0x7082
-    mov word [bx - 0x69a2], 0x64     ; 0x7084
+    mov word [bx + bss_965e], 0x64   ; 0x7084
     mov word [bp - 0x000c], 1        ; 0x708a
 @..api_idx_0034_NSGM.l2:
     cmp word [bp + 0x8], byte 0      ; 0x708f

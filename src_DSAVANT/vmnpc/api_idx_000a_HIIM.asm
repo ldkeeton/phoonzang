@@ -77,14 +77,14 @@ api_idx_000a_HIIM:
     mov ax, word [bss_93d4]          ; 0x949a
     mov cx, 7                        ; 0x949d
     shl ax, cl                       ; 0x94a0
-    add ax, 0x91cc                   ; 0x94a2
+    add ax, bss_91cc                 ; 0x94a2
     push ax                          ; 0x94a5
     call aztec_strcpy                ; 0x94a6
     add sp, byte 4                   ; 0x94a9
     mov ax, word [bss_93d4]          ; 0x94ac
     shl ax, 1                        ; 0x94af
     mov bx, ax                       ; 0x94b1
-    mov word [bx - 0x6c34], 2        ; 0x94b3
+    mov word [bx + bss_93cc], 2      ; 0x94b3
     call api_idx_000e_OOOK           ; 0x94b9
     mov bx, word [bp + 0x6]          ; 0x94bc
     mov byte [bx], 0                 ; 0x94bf
@@ -98,11 +98,11 @@ api_idx_000a_HIIM:
     mov cx, 7                        ; 0x94d5
     shl ax, cl                       ; 0x94d8
     mov bx, ax                       ; 0x94da
-    mov byte [bx - 0x6e34], 0        ; 0x94dc
+    mov byte [bx + bss_91cc], 0      ; 0x94dc
     mov ax, word [bp - 0x0002]       ; 0x94e1
     shl ax, 1                        ; 0x94e4
     mov bx, ax                       ; 0x94e6
-    mov word [bx - 0x6c34], 0        ; 0x94e8
+    mov word [bx + bss_93cc], 0      ; 0x94e8
     inc word [bp - 0x0002]           ; 0x94ee
     mov ax, word [bp - 0x0002]       ; 0x94f1
     cmp ax, strict word 4            ; 0x94f4

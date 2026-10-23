@@ -200,7 +200,7 @@ api_idx_0014_OSKJ:
     shl cx, 1                        ; 0x667c
     add ax, cx                       ; 0x667e
     mov bx, ax                       ; 0x6680
-    mov word [bx - 0x6f36], 0        ; 0x6682
+    mov word [bx + bss_90ca], 0      ; 0x6682
     mov word [bss_8320], 0           ; 0x6688
     call loc_RPUI                    ; 0x668e
     mov ax, 6                        ; 0x6691

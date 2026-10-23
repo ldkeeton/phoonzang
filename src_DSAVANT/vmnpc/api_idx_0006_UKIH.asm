@@ -6,7 +6,7 @@ api_idx_0006_UKIH:
     push ax                          ; 0x8852
     mov ax, 0x14                     ; 0x8853
     imul word [bp + 0x4]             ; 0x8856
-    add ax, 0x9e88                   ; 0x8859
+    add ax, bss_9e88                 ; 0x8859
     push ax                          ; 0x885c
     call strpos                      ; 0x885d
     add sp, byte 4                   ; 0x8860
@@ -17,7 +17,7 @@ api_idx_0006_UKIH:
     push ax                          ; 0x886c
     mov ax, 0x14                     ; 0x886d
     imul word [bp + 0x4]             ; 0x8870
-    add ax, 0x9e88                   ; 0x8873
+    add ax, bss_9e88                 ; 0x8873
     push ax                          ; 0x8876
     push word [bp + 0x6]             ; 0x8877
     call aztec_strncpy               ; 0x887a
@@ -34,7 +34,7 @@ api_idx_0006_UKIH:
     push ax                          ; 0x8899
     mov ax, 0x14                     ; 0x889a
     imul word [bp + 0x4]             ; 0x889d
-    add ax, 0x9e88                   ; 0x88a0
+    add ax, bss_9e88                 ; 0x88a0
     push ax                          ; 0x88a3
     call strpos                      ; 0x88a4
     add sp, byte 4                   ; 0x88a7
@@ -44,7 +44,7 @@ api_idx_0006_UKIH:
     push ax                          ; 0x88b2
     mov ax, 0x14                     ; 0x88b3
     imul word [bp + 0x4]             ; 0x88b6
-    add ax, 0x9e88                   ; 0x88b9
+    add ax, bss_9e88                 ; 0x88b9
     push ax                          ; 0x88bc
     push word [bp + 0x6]             ; 0x88bd
     call aztec_strncpy               ; 0x88c0
@@ -58,7 +58,7 @@ api_idx_0006_UKIH:
     push ax                          ; 0x88d5
     mov ax, 0x14                     ; 0x88d6
     imul word [bp + 0x4]             ; 0x88d9
-    add ax, 0x9e88                   ; 0x88dc
+    add ax, bss_9e88                 ; 0x88dc
     push ax                          ; 0x88df
     call strpos                      ; 0x88e0
     add sp, byte 4                   ; 0x88e3
@@ -73,7 +73,7 @@ api_idx_0006_UKIH:
     mov ax, word [bp - 0x0006]       ; 0x88f9
     add cx, ax                       ; 0x88fc
     mov bx, cx                       ; 0x88fe
-    mov al, byte [bx - 0x6177]       ; 0x8900
+    mov al, byte [bx + bss_9e89]     ; 0x8900
     sub ah, ah                       ; 0x8904
     add ax, strict word 0xffd0       ; 0x8906
     mov word [bp - 0x0004], ax       ; 0x8909
@@ -83,7 +83,7 @@ api_idx_0006_UKIH:
     push ax                          ; 0x8913
     mov ax, 0x14                     ; 0x8914
     imul word [bp + 0x4]             ; 0x8917
-    add ax, 0x9e88                   ; 0x891a
+    add ax, bss_9e88                 ; 0x891a
     push ax                          ; 0x891d
     push word [bp + 0x6]             ; 0x891e
     call aztec_strncpy               ; 0x8921
@@ -107,7 +107,7 @@ api_idx_0006_UKIH:
     imul word [bp + 0x4]             ; 0x894c
     add ax, word [bp - 0x0002]       ; 0x894f
     mov bx, ax                       ; 0x8952
-    mov al, byte [bx - 0x6178]       ; 0x8954
+    mov al, byte [bx + bss_9e88]     ; 0x8954
     mov bx, word [bp + 0x6]          ; 0x8958
     mov si, word [bp - 0x0004]       ; 0x895b
     mov byte [bx + si], al           ; 0x895e
@@ -118,7 +118,7 @@ api_idx_0006_UKIH:
 @..api_idx_0006_UKIH.l5:
     mov ax, 0x14                     ; 0x896d
     imul word [bp + 0x4]             ; 0x8970
-    add ax, 0x9e88                   ; 0x8973
+    add ax, bss_9e88                 ; 0x8973
     push ax                          ; 0x8976
     call aztec_strlen                ; 0x8977
     pop cx                           ; 0x897a

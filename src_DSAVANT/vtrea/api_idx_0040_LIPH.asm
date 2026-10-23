@@ -84,7 +84,7 @@ api_idx_0040_LIPH:
     mov ax, word [bp - 0x0002]       ; 0x5405
     shl ax, 1                        ; 0x5408
     mov bx, ax                       ; 0x540a
-    push word [bx - 0x6a1a]          ; 0x540c
+    push word [bx + bss_95e6]        ; 0x540c
     push word [bx + list_row_count]  ; 0x5410
     mov ax, 0x248                    ; 0x5414
     imul word [bp - 0x0008]          ; 0x5417
@@ -102,7 +102,7 @@ api_idx_0040_LIPH:
     add ax, cx                       ; 0x5430
     add ax, 0x5c34                   ; 0x5432
     push ax                          ; 0x5435
-    push word [bx - 0x69f2]          ; 0x5436
+    push word [bx + bss_960e]        ; 0x5436
     push word [bp - 0x0008]          ; 0x543a
     call api_idx_004c_RQSO           ; 0x543d
     add sp, byte 0x0a                ; 0x5440
@@ -118,11 +118,11 @@ api_idx_0040_LIPH:
     mov ax, word [bp - 0x0002]       ; 0x5452
     shl ax, 1                        ; 0x5455
     mov bx, ax                       ; 0x5457
-    push word [bx - 0x6a1a]          ; 0x5459
+    push word [bx + bss_95e6]        ; 0x5459
     push word [bx + list_row_count]  ; 0x545d
     lea ax, word [bp - 0x0040]       ; 0x5461
     push ax                          ; 0x5464
-    push word [bx - 0x69f2]          ; 0x5465
+    push word [bx + bss_960e]        ; 0x5465
     mov ax, 0                        ; 0x5469
     push ax                          ; 0x546c
     call api_idx_004c_RQSO           ; 0x546d
@@ -142,7 +142,7 @@ api_idx_0040_LIPH:
 @..api_idx_0040_LIPH.l10:
     mov ax, 0x16                     ; 0x5490
     imul word [bp - 0x0004]          ; 0x5493
-    add ax, 0x9414                   ; 0x5496
+    add ax, bss_9414                 ; 0x5496
     push ax                          ; 0x5499
     mov ax, 0x16                     ; 0x549a
     imul word [bp - 0x0004]          ; 0x549d
@@ -153,18 +153,18 @@ api_idx_0040_LIPH:
     mov ax, word [bp - 0x0004]       ; 0x54aa
     shl ax, 1                        ; 0x54ad
     mov bx, ax                       ; 0x54af
-    mov ax, word [bx - 0x69f0]       ; 0x54b1
-    mov word [bx - 0x69f2], ax       ; 0x54b5
-    mov ax, word [bx - 0x6a48]       ; 0x54b9
+    mov ax, word [bx + bss_9610]     ; 0x54b1
+    mov word [bx + bss_960e], ax     ; 0x54b5
+    mov ax, word [bx + bss_95b8]     ; 0x54b9
     mov word [bx + list_row_count], ax ; 0x54bd
-    mov ax, word [bx - 0x6c50]       ; 0x54c1
+    mov ax, word [bx + bss_93b0]     ; 0x54c1
     mov word [bx + list_row_marked], ax ; 0x54c5
-    mov ax, word [bx - 0x6c28]       ; 0x54c9
+    mov ax, word [bx + bss_93d8]     ; 0x54c9
     mov word [bx + list_row_glyph], ax ; 0x54cd
-    mov ax, word [bx - 0x69c8]       ; 0x54d1
-    mov word [bx - 0x69ca], ax       ; 0x54d5
-    mov ax, word [bx - 0x6a18]       ; 0x54d9
-    mov word [bx - 0x6a1a], ax       ; 0x54dd
+    mov ax, word [bx + bss_9638]     ; 0x54d1
+    mov word [bx + bss_9636], ax     ; 0x54d5
+    mov ax, word [bx + bss_95e8]     ; 0x54d9
+    mov word [bx + bss_95e6], ax     ; 0x54dd
     inc word [bp - 0x0004]           ; 0x54e1
 @..api_idx_0040_LIPH.l11:
     mov ax, word [bp - 0x0004]       ; 0x54e4

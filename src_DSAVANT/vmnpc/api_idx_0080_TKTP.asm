@@ -18,11 +18,11 @@ api_idx_0080_TKTP:
     mov cx, 7                        ; 0x96ee
     shl ax, cl                       ; 0x96f1
     mov bx, ax                       ; 0x96f3
-    cmp byte [bx - 0x6e34], 0        ; 0x96f5
+    cmp byte [bx + bss_91cc], 0      ; 0x96f5
     je short @..api_idx_0080_TKTP.l1 ; 0x96fa
     mov ax, dseg_90f0                ; 0x96fc
     push ax                          ; 0x96ff
-    add bx, strict word 0x91cc       ; 0x9700
+    add bx, bss_91cc                 ; 0x9700
     mov ax, bx                       ; 0x9704
     push ax                          ; 0x9706
     call aztec_strcat                ; 0x9707
@@ -33,14 +33,14 @@ api_idx_0080_TKTP:
     mov ax, word [bss_93d4]          ; 0x9711
     mov cx, 7                        ; 0x9714
     shl ax, cl                       ; 0x9717
-    add ax, 0x91cc                   ; 0x9719
+    add ax, bss_91cc                 ; 0x9719
     push ax                          ; 0x971c
     call aztec_strcat                ; 0x971d
     add sp, byte 4                   ; 0x9720
     mov ax, word [bss_93d4]          ; 0x9723
     mov cx, 7                        ; 0x9726
     shl ax, cl                       ; 0x9729
-    add ax, 0x91cc                   ; 0x972b
+    add ax, bss_91cc                 ; 0x972b
     push ax                          ; 0x972e
     lea ax, word [bp - 0x0080]       ; 0x972f
     push ax                          ; 0x9732

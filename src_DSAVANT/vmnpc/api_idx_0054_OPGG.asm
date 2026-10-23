@@ -31,7 +31,7 @@ api_idx_0054_OPGG:
     mov ax, word [bp + 0xe]          ; 0x4556
     add ax, word [bp - 0x0002]       ; 0x4559
     shl ax, 1                        ; 0x455c
-    add ax, 0x9882                   ; 0x455e
+    add ax, bss_9882                 ; 0x455e
     push ax                          ; 0x4561
     call test_bit                    ; 0x4562
     add sp, byte 4                   ; 0x4565
@@ -46,7 +46,7 @@ api_idx_0054_OPGG:
     mov ax, word [bp + 0xe]          ; 0x457b
     add ax, word [bp - 0x0002]       ; 0x457e
     shl ax, 1                        ; 0x4581
-    add ax, 0x98be                   ; 0x4583
+    add ax, bss_98be                 ; 0x4583
     push ax                          ; 0x4586
     call test_bit                    ; 0x4587
     add sp, byte 4                   ; 0x458a
@@ -80,7 +80,7 @@ api_idx_0054_OPGG:
     mov ax, word [bp + 0xe]          ; 0x45c8
     add ax, word [bp - 0x0002]       ; 0x45cb
     mov bx, ax                       ; 0x45ce
-    mov al, byte [bx - 0x66e8]       ; 0x45d0
+    mov al, byte [bx + bss_9918]     ; 0x45d0
     sub ah, ah                       ; 0x45d4
     add ax, 0x60e                    ; 0x45d6
     push ax                          ; 0x45d9
@@ -119,8 +119,8 @@ api_idx_0054_OPGG:
     shl ax, 1                        ; 0x4623
     shl ax, 1                        ; 0x4625
     mov bx, ax                       ; 0x4627
-    push word [bx - 0x66c8]          ; 0x4629
-    push word [bx - 0x66ca]          ; 0x462d
+    push word [bx + bss_9938]        ; 0x4629
+    push word [bx + bss_9936]        ; 0x462d
     call ds_app_string_THKS          ; 0x4631
     add sp, byte 8                   ; 0x4634
     mov ax, 0xc3                     ; 0x4637
@@ -182,7 +182,7 @@ api_idx_0054_OPGG:
     mov ax, word [bp + 0xe]          ; 0x46bb
     add ax, word [bp - 0x0002]       ; 0x46be
     mov bx, ax                       ; 0x46c1
-    mov al, byte [bx - 0x6648]       ; 0x46c3
+    mov al, byte [bx + bss_99b8]     ; 0x46c3
     sub ah, ah                       ; 0x46c7
     push ax                          ; 0x46c9
     call draw_font_glyph             ; 0x46ca
@@ -201,14 +201,14 @@ api_idx_0054_OPGG:
     add ax, word [bp - 0x0002]       ; 0x46e9
     mov cx, 0x16                     ; 0x46ec
     imul cx                          ; 0x46ef
-    add ax, 0x99d6                   ; 0x46f1
+    add ax, bss_99d6                 ; 0x46f1
     push ax                          ; 0x46f4
     call draw_split_two_line_text    ; 0x46f5
     add sp, byte 8                   ; 0x46f8
     mov ax, word [bp + 0xe]          ; 0x46fb
     add ax, word [bp - 0x0002]       ; 0x46fe
     mov bx, ax                       ; 0x4701
-    mov al, byte [bx - 0x66e8]       ; 0x4703
+    mov al, byte [bx + bss_9918]     ; 0x4703
     sub ah, ah                       ; 0x4707
     mov bx, ax                       ; 0x4709
     cmp byte [bx + 0x60e], 1         ; 0x470b
@@ -245,7 +245,7 @@ api_idx_0054_OPGG:
     add ax, word [bp - 0x0002]       ; 0x4755
     shl ax, 1                        ; 0x4758
     mov bx, ax                       ; 0x475a
-    push word [bx - 0x6396]          ; 0x475c
+    push word [bx + bss_9c6a]        ; 0x475c
     call ds_app_GUML                 ; 0x4760
     add sp, byte 6                   ; 0x4763
 @..api_idx_0054_OPGG.l9:

@@ -1,5 +1,5 @@
 ; auto-generated
-dos_con_loc_HLGP:
+dos_con_loc_IJTT:
     mov bx, cs                       ; 0x3156
     mov ds, bx                       ; 0x3158
     mov dx, cseg_3166 - IMAGE_BASE   ; 0x315a

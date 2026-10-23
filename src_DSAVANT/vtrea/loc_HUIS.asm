@@ -87,7 +87,7 @@ loc_HUIS:
     mov cx, word [bss_95e4]          ; 0x5866
     shl cx, 1                        ; 0x586a
     mov bx, cx                       ; 0x586c
-    mov word [bx - 0x69f2], ax       ; 0x586e
+    mov word [bx + bss_960e], ax     ; 0x586e
     inc word [bss_95e4]              ; 0x5872
 @..loc_HUIS.l7:
     push word [bp - 0x0002]          ; 0x5876
@@ -194,7 +194,7 @@ loc_HUIS:
     mov cx, word [bss_95e4]          ; 0x5957
     shl cx, 1                        ; 0x595b
     mov bx, cx                       ; 0x595d
-    mov word [bx - 0x69f2], ax       ; 0x595f
+    mov word [bx + bss_960e], ax     ; 0x595f
     push ax                          ; 0x5963
     call loc_GMVH                    ; 0x5964
     pop cx                           ; 0x5967
@@ -203,7 +203,7 @@ loc_HUIS:
     mov ax, word [bss_95e4]          ; 0x596c
     shl ax, 1                        ; 0x596f
     mov bx, ax                       ; 0x5971
-    mov ax, word [bx - 0x69f2]       ; 0x5973
+    mov ax, word [bx + bss_960e]     ; 0x5973
     add ax, 0xfe70                   ; 0x5977
     push ax                          ; 0x597a
     mov ax, 0xffff                   ; 0x597b
@@ -216,7 +216,7 @@ loc_HUIS:
     mov ax, word [bss_95e4]          ; 0x5989
     shl ax, 1                        ; 0x598c
     mov bx, ax                       ; 0x598e
-    cmp word [bx - 0x69f2], byte 0   ; 0x5990
+    cmp word [bx + bss_960e], byte 0 ; 0x5990
     jle short @..loc_HUIS.l16        ; 0x5995
     inc word [bss_95e4]              ; 0x5997
 @..loc_HUIS.l16:
@@ -296,13 +296,13 @@ loc_HUIS:
     mov ax, word [bp - 0x0002]       ; 0x5a51
     shl ax, 1                        ; 0x5a54
     mov bx, ax                       ; 0x5a56
-    cmp word [bx - 0x69f2], byte 0   ; 0x5a58
+    cmp word [bx + bss_960e], byte 0 ; 0x5a58
     jg short @..loc_HUIS.l26         ; 0x5a5d
     jmp near @..loc_HUIS.l43         ; 0x5a5f
 @..loc_HUIS.l26:
     mov ax, 0                        ; 0x5a62
     push ax                          ; 0x5a65
-    push word [bx - 0x69f2]          ; 0x5a66
+    push word [bx + bss_960e]        ; 0x5a66
     lea ax, word [bp - 0x0082]       ; 0x5a6a
     push ax                          ; 0x5a6e
     mov ax, 1                        ; 0x5a6f
@@ -383,7 +383,7 @@ loc_HUIS:
 @..loc_HUIS.l31:
     mov ax, 0                        ; 0x5b2c
 @..loc_HUIS.l32:
-    mov word [bx - 0x69ca], ax       ; 0x5b2f
+    mov word [bx + bss_9636], ax     ; 0x5b2f
     mov al, byte [bp - 0x004b]       ; 0x5b33
     sub ah, ah                       ; 0x5b36
     test ax, 1                       ; 0x5b38
@@ -393,7 +393,7 @@ loc_HUIS:
 @..loc_HUIS.l33:
     mov ax, 0                        ; 0x5b42
 @..loc_HUIS.l34:
-    mov word [bx - 0x6a1a], ax       ; 0x5b45
+    mov word [bx + bss_95e6], ax     ; 0x5b45
     lea ax, word [bp - 0x00b4]       ; 0x5b49
     push ax                          ; 0x5b4d
     lea ax, word [bp - 0x0104]       ; 0x5b4e

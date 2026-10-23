@@ -13,7 +13,7 @@ api_idx_000c_RTIP:
     shl cx, 1                        ; 0x29e1
     add ax, cx                       ; 0x29e3
     mov bx, ax                       ; 0x29e5
-    mov word [bx - 0x6f42], 0        ; 0x29e7
+    mov word [bx + bss_90be], 0      ; 0x29e7
     mov bx, cx                       ; 0x29ed
     add bx, bp                       ; 0x29ef
     mov word [bx - 0x000c], 0        ; 0x29f1

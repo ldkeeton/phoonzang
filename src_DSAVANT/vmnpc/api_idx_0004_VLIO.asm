@@ -49,11 +49,11 @@ loc_USTG:
     mov cx, 7                        ; 0x23df
     shl ax, cl                       ; 0x23e2
     mov bx, ax                       ; 0x23e4
-    mov byte [bx - 0x6e34], 0        ; 0x23e6
+    mov byte [bx + bss_91cc], 0      ; 0x23e6
     mov ax, word [bss_93d4]          ; 0x23eb
     shl ax, 1                        ; 0x23ee
     mov bx, ax                       ; 0x23f0
-    mov word [bx - 0x6c34], 0        ; 0x23f2
+    mov word [bx + bss_93cc], 0      ; 0x23f2
     inc word [bss_93d4]              ; 0x23f8
     mov ax, word [bss_93d4]          ; 0x23fc
     cmp ax, strict word 4            ; 0x23ff

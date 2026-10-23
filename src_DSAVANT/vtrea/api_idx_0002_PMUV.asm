@@ -37,7 +37,7 @@ api_idx_0002_PMUV:
     imul word [bp + 0x4]             ; 0x256c
     add ax, word [bp - 0x0002]       ; 0x256f
     mov bx, ax                       ; 0x2572
-    mov al, byte [bx - 0x6c8e]       ; 0x2574
+    mov al, byte [bx + bss_9372]     ; 0x2574
     sub ah, ah                       ; 0x2578
     push ax                          ; 0x257a
     call draw_font_glyph             ; 0x257b
@@ -50,7 +50,7 @@ api_idx_0002_PMUV:
     imul word [bp + 0x4]             ; 0x258a
     add ax, word [bp - 0x0002]       ; 0x258d
     mov bx, ax                       ; 0x2590
-    mov al, byte [bx - 0x6dae]       ; 0x2592
+    mov al, byte [bx + bss_9252]     ; 0x2592
     sub ah, ah                       ; 0x2596
     push ax                          ; 0x2598
     call draw_font_glyph             ; 0x2599

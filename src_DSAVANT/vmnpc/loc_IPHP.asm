@@ -83,14 +83,14 @@ loc_IPHP:
     mov ax, word [bss_93d4]          ; 0x964e
     mov cx, 7                        ; 0x9651
     shl ax, cl                       ; 0x9654
-    add ax, 0x91cc                   ; 0x9656
+    add ax, bss_91cc                 ; 0x9656
     push ax                          ; 0x9659
     call aztec_strcpy                ; 0x965a
     add sp, byte 4                   ; 0x965d
     mov ax, word [bss_93d4]          ; 0x9660
     shl ax, 1                        ; 0x9663
     mov bx, ax                       ; 0x9665
-    mov word [bx - 0x6c34], 2        ; 0x9667
+    mov word [bx + bss_93cc], 2      ; 0x9667
     call api_idx_000e_OOOK           ; 0x966d
     call api_idx_0004_KNGG           ; 0x9670
     lea ax, word [bp - 0x0158]       ; 0x9673
@@ -118,12 +118,12 @@ loc_IPHP:
     mov ax, word [bss_93d4]          ; 0x96a7
     mov cx, 7                        ; 0x96aa
     shl ax, cl                       ; 0x96ad
-    add ax, 0x91cc                   ; 0x96af
+    add ax, bss_91cc                 ; 0x96af
     push ax                          ; 0x96b2
     call aztec_strcpy                ; 0x96b3
     add sp, byte 4                   ; 0x96b6
     mov ax, word [bss_93d4]          ; 0x96b9
     shl ax, 1                        ; 0x96bc
     mov bx, ax                       ; 0x96be
-    mov word [bx - 0x6c34], 2        ; 0x96c0
+    mov word [bx + bss_93cc], 2      ; 0x96c0
     ret                              ; 0x96c6

@@ -237,7 +237,7 @@ api_idx_0060_VPPJ:
     mov cx, word [bp - 0x0004]       ; 0x2229
     shl cx, 1                        ; 0x222c
     mov bx, cx                       ; 0x222e
-    mov word [bx - 0x6dc0], ax       ; 0x2230
+    mov word [bx + bss_9240], ax     ; 0x2230
     inc word [bp - 0x0004]           ; 0x2234
 @..api_idx_0060_VPPJ.l24:
     inc word [bp - 0x0002]           ; 0x2237
@@ -260,7 +260,7 @@ api_idx_0060_VPPJ:
     push ax                          ; 0x226c
     mov ax, 0xa                      ; 0x226d
     imul word [bp - 0x0008]          ; 0x2270
-    add ax, 0x9252                   ; 0x2273
+    add ax, bss_9252                 ; 0x2273
     push ax                          ; 0x2276
     call aztec_strcpy                ; 0x2277
     add sp, byte 4                   ; 0x227a
@@ -288,7 +288,7 @@ api_idx_0060_VPPJ:
     mov cx, word [bp - 0x0006]       ; 0x22b5
     shl cx, 1                        ; 0x22b8
     mov bx, cx                       ; 0x22ba
-    mov cx, word [bx - 0x6dc0]       ; 0x22bc
+    mov cx, word [bx + bss_9240]     ; 0x22bc
     cmp ax, cx                       ; 0x22c0
     jne short @..api_idx_0060_VPPJ.l29 ; 0x22c2
     mov ax, word [bp - 0x0004]       ; 0x22c4
@@ -300,7 +300,7 @@ api_idx_0060_VPPJ:
     add ax, word [bp - 0x0006]       ; 0x22d3
     mov bx, ax                       ; 0x22d6
     pop ax                           ; 0x22d8
-    mov byte [bx - 0x6dae], al       ; 0x22d9
+    mov byte [bx + bss_9252], al     ; 0x22d9
 @..api_idx_0060_VPPJ.l29:
     inc word [bp - 0x0006]           ; 0x22dd
     mov ax, word [bp - 0x0006]       ; 0x22e0
@@ -315,7 +315,7 @@ api_idx_0060_VPPJ:
     mov cx, word [bp - 0x0008]       ; 0x22f6
     shl cx, 1                        ; 0x22f9
     mov bx, cx                       ; 0x22fb
-    mov word [bx - 0x6cbe], ax       ; 0x22fd
+    mov word [bx + bss_9342], ax     ; 0x22fd
     cmp ax, word [bss_91fe]          ; 0x2301
     jne short @..api_idx_0060_VPPJ.l31 ; 0x2305
     mov ax, word [bp - 0x0008]       ; 0x2307
@@ -336,7 +336,7 @@ api_idx_0060_VPPJ:
     push ax                          ; 0x2329
     mov ax, 0xa                      ; 0x232a
     imul word [bp - 0x0002]          ; 0x232d
-    add ax, 0x9372                   ; 0x2330
+    add ax, bss_9372                 ; 0x2330
     push ax                          ; 0x2333
     call aztec_strcpy                ; 0x2334
     add sp, byte 4                   ; 0x2337
@@ -405,7 +405,7 @@ api_idx_0060_VPPJ:
     imul word [bss_9250]             ; 0x23d1
     add ax, word [bp - 0x0004]       ; 0x23d5
     mov bx, ax                       ; 0x23d8
-    cmp byte [bx - 0x6dae], 0x2d     ; 0x23da
+    cmp byte [bx + bss_9252], 0x2d   ; 0x23da
     jne short @..api_idx_0060_VPPJ.l40 ; 0x23df
     mov ax, 0x2d                     ; 0x23e1
     jmp short @..api_idx_0060_VPPJ.l41 ; 0x23e4
@@ -419,14 +419,14 @@ api_idx_0060_VPPJ:
     add ax, word [bp - 0x0004]       ; 0x23f2
     mov bx, ax                       ; 0x23f5
     pop ax                           ; 0x23f7
-    mov byte [bx - 0x6c8e], al       ; 0x23f8
+    mov byte [bx + bss_9372], al     ; 0x23f8
     jmp short @..api_idx_0060_VPPJ.l43 ; 0x23fc
 @..api_idx_0060_VPPJ.l42:
     mov ax, 0xa                      ; 0x23fe
     imul word [bp - 0x0002]          ; 0x2401
     add ax, word [bp - 0x0004]       ; 0x2404
     mov bx, ax                       ; 0x2407
-    mov byte [bx - 0x6c8e], 0x2d     ; 0x2409
+    mov byte [bx + bss_9372], 0x2d   ; 0x2409
 @..api_idx_0060_VPPJ.l43:
     inc word [bp - 0x0004]           ; 0x240e
     mov ax, word [bp - 0x0004]       ; 0x2411

@@ -15,7 +15,7 @@ api_idx_0008_GUJV:
     push ax                          ; 0x5593
     mov ax, word [bp + 0x6]          ; 0x5594
     shl ax, 1                        ; 0x5597
-    add ax, 0x9882                   ; 0x5599
+    add ax, bss_9882                 ; 0x5599
     push ax                          ; 0x559c
     call test_bit                    ; 0x559d
     add sp, byte 4                   ; 0x55a0
@@ -29,7 +29,7 @@ api_idx_0008_GUJV:
     push ax                          ; 0x55b5
     mov ax, word [bp + 0x6]          ; 0x55b6
     shl ax, 1                        ; 0x55b9
-    add ax, 0x98be                   ; 0x55bb
+    add ax, bss_98be                 ; 0x55bb
     push ax                          ; 0x55be
     call test_bit                    ; 0x55bf
     add sp, byte 4                   ; 0x55c2
@@ -88,8 +88,8 @@ api_idx_0008_GUJV:
     shl cx, 1                        ; 0x563d
     shl cx, 1                        ; 0x563f
     mov bx, cx                       ; 0x5641
-    mov cx, word [bx - 0x66ca]       ; 0x5643
-    mov bx, word [bx - 0x66c8]       ; 0x5647
+    mov cx, word [bx + bss_9936]     ; 0x5643
+    mov bx, word [bx + bss_9938]     ; 0x5647
     cmp dx, bx                       ; 0x564b
     jg short @..api_idx_0008_GUJV.l4 ; 0x564d
     jne short @..api_idx_0008_GUJV.l5 ; 0x564f
@@ -144,7 +144,7 @@ api_idx_0008_GUJV:
     mov ax, word [bp + 0x6]          ; 0x56b3
     shl ax, 1                        ; 0x56b6
     mov bx, ax                       ; 0x56b8
-    push word [bx - 0x6396]          ; 0x56ba
+    push word [bx + bss_9c6a]        ; 0x56ba
     mov ax, 0x248                    ; 0x56be
     imul word [bp + 0x4]             ; 0x56c1
     push ax                          ; 0x56c4
@@ -172,8 +172,8 @@ api_idx_0008_GUJV:
     shl ax, 1                        ; 0x56f6
     shl ax, 1                        ; 0x56f8
     mov bx, ax                       ; 0x56fa
-    mov ax, word [bx - 0x66ca]       ; 0x56fc
-    mov dx, word [bx - 0x66c8]       ; 0x5700
+    mov ax, word [bx + bss_9936]     ; 0x56fc
+    mov dx, word [bx + bss_9938]     ; 0x5700
     push ax                          ; 0x5704
     push dx                          ; 0x5705
     mov ax, 0x248                    ; 0x5706

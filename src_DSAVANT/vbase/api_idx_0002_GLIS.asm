@@ -52,7 +52,7 @@ api_idx_0002_GLIS:
     mov cx, word [bp - 0x0002]       ; 0x87d6
     shl cx, 1                        ; 0x87d9
     mov bx, cx                       ; 0x87db
-    mov word [bx - 0x5a16], ax       ; 0x87dd
+    mov word [bx + bss_a5ea], ax     ; 0x87dd
     inc word [bp - 0x0002]           ; 0x87e1
     mov ax, word [bp - 0x0002]       ; 0x87e4
     cmp ax, strict word 8            ; 0x87e7

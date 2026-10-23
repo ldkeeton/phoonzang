@@ -14,11 +14,11 @@ api_idx_0100_KHVV:
     mov cx, 7                        ; 0x9766
     shl ax, cl                       ; 0x9769
     mov bx, ax                       ; 0x976b
-    cmp byte [bx - 0x6e34], 0        ; 0x976d
+    cmp byte [bx + bss_91cc], 0      ; 0x976d
     je short @..api_idx_0100_KHVV.l2 ; 0x9772
     mov ax, dseg_90f2                ; 0x9774
     push ax                          ; 0x9777
-    add bx, strict word 0x91cc       ; 0x9778
+    add bx, bss_91cc                 ; 0x9778
     mov ax, bx                       ; 0x977c
     push ax                          ; 0x977e
     call aztec_strcat                ; 0x977f
@@ -29,14 +29,14 @@ api_idx_0100_KHVV:
     mov ax, word [bss_93d4]          ; 0x978a
     mov cx, 7                        ; 0x978d
     shl ax, cl                       ; 0x9790
-    add ax, 0x91cc                   ; 0x9792
+    add ax, bss_91cc                 ; 0x9792
     push ax                          ; 0x9795
     call aztec_strcat                ; 0x9796
     add sp, byte 4                   ; 0x9799
     mov ax, word [bss_93d4]          ; 0x979c
     mov cx, 7                        ; 0x979f
     shl ax, cl                       ; 0x97a2
-    add ax, 0x91cc                   ; 0x97a4
+    add ax, bss_91cc                 ; 0x97a4
     push ax                          ; 0x97a7
     lea ax, word [bp - 0x00ff]       ; 0x97a8
     push ax                          ; 0x97ac

@@ -545,7 +545,7 @@ draw_text.graphics_loc1 equ graphics_loc_PVIU
 
 %include "vga/leaf_loc_NIGK.asm"           ; 0x3131
 
-%include "vga/dos_con_loc_HLGP.asm"        ; 0x3156
+%include "vga/dos_con_loc_IJTT.asm"        ; 0x3156
 
 cseg_316f:
     db 0x30
@@ -557,7 +557,7 @@ cseg_3182:
     db 0x30
 cseg_3183:
     db 0x30, 0x2e, 0x00, 0x0a, 0x24
-%include "vga/loc_3188.asm"                ; 0x3188
+%include "shared/library/table_entry_ptr.asm"         ; 0x3188
 
 %include "shared/library/leaf_loc_NOSG.asm"           ; 0x319f
 

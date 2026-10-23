@@ -8,17 +8,17 @@ api_idx_0016_MUKH:
     shl cx, 1                        ; 0x0e29
     add ax, cx                       ; 0x0e2b
     mov bx, ax                       ; 0x0e2d
-    cmp word [bx - 0x6f36], byte 0   ; 0x0e2f
+    cmp word [bx + bss_90ca], byte 0 ; 0x0e2f
     jl short @..api_idx_0016_MUKH.l1 ; 0x0e34
-    cmp word [bx - 0x6f36], byte 6   ; 0x0e36
+    cmp word [bx + bss_90ca], byte 6 ; 0x0e36
     jle short @..api_idx_0016_MUKH.l2 ; 0x0e3b
 @..api_idx_0016_MUKH.l1:
-    mov word [bx - 0x6f36], 0xffff   ; 0x0e3d
+    mov word [bx + bss_90ca], 0xffff ; 0x0e3d
     ret                              ; 0x0e43
 @..api_idx_0016_MUKH.l2:
     cmp word [bss_8320], byte 1      ; 0x0e44
     jne short @..api_idx_0016_MUKH.l3 ; 0x0e49
-    cmp word [bx - 0x6f36], byte 1   ; 0x0e4b
+    cmp word [bx + bss_90ca], byte 1 ; 0x0e4b
     jne short @..api_idx_0016_MUKH.l3 ; 0x0e50
     mov word [bss_90dc], 1           ; 0x0e52
 @..api_idx_0016_MUKH.l3:
@@ -37,7 +37,7 @@ api_idx_0016_MUKH:
     shl cx, 1                        ; 0x0e7e
     add ax, cx                       ; 0x0e80
     mov bx, ax                       ; 0x0e82
-    mov ax, word [bx - 0x6f36]       ; 0x0e84
+    mov ax, word [bx + bss_90ca]     ; 0x0e84
     inc ax                           ; 0x0e88
     mov word [bp - 0x0008], ax       ; 0x0e89
     mov al, byte [bp - 0x0008]       ; 0x0e8c
@@ -129,6 +129,6 @@ api_idx_0016_MUKH:
     shl cx, 1                        ; 0x0f5c
     add ax, cx                       ; 0x0f5e
     mov bx, ax                       ; 0x0f60
-    inc word [bx - 0x6f36]           ; 0x0f62
+    inc word [bx + bss_90ca]         ; 0x0f62
 @..api_idx_0016_MUKH.l6:
     ret                              ; 0x0f66

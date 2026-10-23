@@ -168,13 +168,13 @@ api_idx_0086_JRHU:
     push ax                          ; 0x6fac
     mov ax, 0x16                     ; 0x6fad
     imul word [bp - 0x0002]          ; 0x6fb0
-    add ax, 0x99d6                   ; 0x6fb3
+    add ax, bss_99d6                 ; 0x6fb3
     push ax                          ; 0x6fb6
     call aztec_strcpy                ; 0x6fb7
     add sp, byte 4                   ; 0x6fba
     mov al, byte [bp - 0x004e]       ; 0x6fbd
     mov bx, word [bp - 0x0002]       ; 0x6fc0
-    mov byte [bx - 0x66e8], al       ; 0x6fc3
+    mov byte [bx + bss_9918], al     ; 0x6fc3
     mov al, byte [bp - 0x006a]       ; 0x6fc7
     sub ah, ah                       ; 0x6fca
     push ax                          ; 0x6fcc
@@ -185,7 +185,7 @@ api_idx_0086_JRHU:
     imul cx                          ; 0x6fd5
     add ax, word [bp - 0x006c]       ; 0x6fd7
     shl bx, 1                        ; 0x6fda
-    mov word [bx - 0x6396], ax       ; 0x6fdc
+    mov word [bx + bss_9c6a], ax     ; 0x6fdc
     mov al, byte [bp - 0x004e]       ; 0x6fe0
     sub ah, ah                       ; 0x6fe3
     mov bx, ax                       ; 0x6fe5
@@ -194,7 +194,7 @@ api_idx_0086_JRHU:
     mov ax, word [bp - 0x0002]       ; 0x6fee
     shl ax, 1                        ; 0x6ff1
     mov bx, ax                       ; 0x6ff3
-    mov ax, word [bx - 0x6396]       ; 0x6ff5
+    mov ax, word [bx + bss_9c6a]     ; 0x6ff5
     cwd                              ; 0x6ff9
     push ax                          ; 0x6ffa
     push dx                          ; 0x6ffb
@@ -241,11 +241,11 @@ api_idx_0086_JRHU:
     shl cx, 1                        ; 0x7051
     shl cx, 1                        ; 0x7053
     mov bx, cx                       ; 0x7055
-    mov word [bx - 0x66c8], dx       ; 0x7057
-    mov word [bx - 0x66ca], ax       ; 0x705b
+    mov word [bx + bss_9938], dx     ; 0x7057
+    mov word [bx + bss_9936], ax     ; 0x705b
     mov al, byte [bp - 0x004d]       ; 0x705f
     mov bx, word [bp - 0x0002]       ; 0x7062
-    mov byte [bx - 0x6648], al       ; 0x7065
+    mov byte [bx + bss_99b8], al     ; 0x7065
     mov word [bp - 0x0004], 0        ; 0x7069
 @..api_idx_0086_JRHU.l18:
     mov bx, word [bp - 0x0004]       ; 0x706e
@@ -255,19 +255,19 @@ api_idx_0086_JRHU:
     shl cx, 1                        ; 0x7079
     add cx, word [bp - 0x0004]       ; 0x707b
     mov bx, cx                       ; 0x707e
-    mov byte [bx - 0x677e], al       ; 0x7080
+    mov byte [bx + bss_9882], al     ; 0x7080
     mov bx, word [bp - 0x0004]       ; 0x7084
     add bx, bp                       ; 0x7087
     mov al, byte [bx - 0x0052]       ; 0x7089
     mov bx, cx                       ; 0x708c
-    mov byte [bx - 0x6742], al       ; 0x708e
+    mov byte [bx + bss_98be], al     ; 0x708e
     inc word [bp - 0x0004]           ; 0x7092
     mov ax, word [bp - 0x0004]       ; 0x7095
     cmp ax, strict word 2            ; 0x7098
     jl short @..api_idx_0086_JRHU.l18 ; 0x709b
     mov al, byte [bp - 0x0050]       ; 0x709d
     mov bx, word [bp - 0x0002]       ; 0x70a0
-    mov byte [bx - 0x6706], al       ; 0x70a3
+    mov byte [bx + bss_98fa], al     ; 0x70a3
     inc word [bp - 0x0002]           ; 0x70a7
 @..api_idx_0086_JRHU.l19:
     mov ax, word [bp - 0x0002]       ; 0x70aa

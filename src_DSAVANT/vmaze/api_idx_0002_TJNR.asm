@@ -43,7 +43,7 @@ api_idx_0002_TJNR:
     mov cx, word [bss_9be6]          ; 0x8ff7
     shl cx, 1                        ; 0x8ffb
     mov bx, cx                       ; 0x8ffd
-    mov word [bx - 0x6418], ax       ; 0x8fff
+    mov word [bx + bss_9be8], ax     ; 0x8fff
     inc word [bss_9be6]              ; 0x9003
     mov ax, word [bss_9be6]          ; 0x9007
     cmp ax, strict word 0xc          ; 0x900a

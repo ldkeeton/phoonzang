@@ -94,7 +94,7 @@ jumptable_9188_case_8:
     mov ax, word [bp + 0x6]          ; 0x910e
     shl ax, 1                        ; 0x9111
     mov bx, ax                       ; 0x9113
-    mov word [bx - 0x6984], 0        ; 0x9115
+    mov word [bx + bss_967c], 0      ; 0x9115
 @..loc_PGKG.l2:
     jmp near @..loc_PGKG.l4          ; 0x911b
 jumptable_9188_case_9:

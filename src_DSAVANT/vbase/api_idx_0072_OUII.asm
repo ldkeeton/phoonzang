@@ -100,8 +100,8 @@ api_idx_0072_OUII:
     mov bx, ax                       ; 0x208a
     cmp byte [bx + bss_91ee], 0x5c   ; 0x208c
     je short @..api_idx_0072_OUII.l4 ; 0x2091
-    mov byte [bx - 0x6e11], 0x5c     ; 0x2093
-    mov byte [bx - 0x6e10], 0        ; 0x2098
+    mov byte [bx + bss_91ef], 0x5c   ; 0x2093
+    mov byte [bx + bss_91f0], 0      ; 0x2098
 @..api_idx_0072_OUII.l4:
     lea ax, word [bp - 0x0036]       ; 0x209d
     push ax                          ; 0x20a0
@@ -462,7 +462,7 @@ api_idx_0072_OUII:
     mov word [bp - 0x0004], 0        ; 0x23ea
 @..api_idx_0072_OUII.l29:
     mov bx, word [bp - 0x0004]       ; 0x23ef
-    mov al, byte [bx - 0x6ad2]       ; 0x23f2
+    mov al, byte [bx + bss_952e]     ; 0x23f2
     mov si, bx                       ; 0x23f6
     mov bx, word [bp - 0x0014]       ; 0x23f8
     mov byte [bx + si + 0x170], al   ; 0x23fb
@@ -595,7 +595,7 @@ api_idx_0072_OUII:
     shl ax, 1                        ; 0x2546
     shl ax, 1                        ; 0x2548
     mov bx, ax                       ; 0x254a
-    mov ax, word [bx - 0x6bd4]       ; 0x254c
+    mov ax, word [bx + bss_942c]     ; 0x254c
     cwd                              ; 0x2550
     idiv word [bss_9426]             ; 0x2551
     mov bx, word [bp - 0x0014]       ; 0x2555
@@ -750,7 +750,7 @@ jumptable_2668:
     cmp word [bp - 0x001c], byte 0   ; 0x26b4
     jle short @..api_idx_0072_OUII.l45 ; 0x26b8
     mov bx, word [bp - 0x0004]       ; 0x26ba
-    mov cl, byte [bx - 0x6aca]       ; 0x26bd
+    mov cl, byte [bx + bss_9536]     ; 0x26bd
     mov bx, word [bp - 0x0014]       ; 0x26c1
     mov si, word [bp - 0x001a]       ; 0x26c4
     mov al, byte [bx + si + 0x178]   ; 0x26c7
@@ -774,7 +774,7 @@ jumptable_2668:
     jmp short @..api_idx_0072_OUII.l44 ; 0x26f1
 @..api_idx_0072_OUII.l45:
     mov bx, word [bp - 0x0004]       ; 0x26f3
-    mov cl, byte [bx - 0x6aca]       ; 0x26f6
+    mov cl, byte [bx + bss_9536]     ; 0x26f6
     mov bx, word [bp - 0x0014]       ; 0x26fa
     mov si, word [bp - 0x001a]       ; 0x26fd
     mov al, byte [bx + si + 0x178]   ; 0x2700
@@ -791,7 +791,7 @@ jumptable_2668:
     mov word [bp - 0x0004], 0        ; 0x271a
 @..api_idx_0072_OUII.l48:
     mov bx, word [bp - 0x0004]       ; 0x271f
-    mov al, byte [bx - 0x6aac]       ; 0x2722
+    mov al, byte [bx + bss_9554]     ; 0x2722
     sub ah, ah                       ; 0x2726
     cwd                              ; 0x2728
     idiv word [bss_9426]             ; 0x2729
@@ -857,12 +857,12 @@ jumptable_2668:
     mov word [bp - 0x0004], 0        ; 0x27c2
 @..api_idx_0072_OUII.l51:
     mov bx, word [bp - 0x0004]       ; 0x27c7
-    mov al, byte [bx - 0x6a6a]       ; 0x27ca
+    mov al, byte [bx + bss_9596]     ; 0x27ca
     mov si, bx                       ; 0x27ce
     mov bx, word [bp - 0x0014]       ; 0x27d0
     mov byte [bx + si + 0x22e], al   ; 0x27d3
     mov bx, word [bp - 0x0004]       ; 0x27d7
-    mov al, byte [bx - 0x6a66]       ; 0x27da
+    mov al, byte [bx + bss_959a]     ; 0x27da
     mov si, bx                       ; 0x27de
     mov bx, word [bp - 0x0014]       ; 0x27e0
     mov byte [bx + si + 0x232], al   ; 0x27e3
@@ -1236,7 +1236,7 @@ jumptable_2af5:
     shl ax, 1                        ; 0x2baf
     shl ax, 1                        ; 0x2bb1
     mov bx, ax                       ; 0x2bb3
-    mov ax, word [bx - 0x6bbe]       ; 0x2bb5
+    mov ax, word [bx + bss_9442]     ; 0x2bb5
     mov word [bp - 0x0006], ax       ; 0x2bb9
     cmp ax, strict word 0            ; 0x2bbc
     jg short @..api_idx_0072_OUII.l73 ; 0x2bbf
@@ -1262,7 +1262,7 @@ jumptable_2af5:
     shl ax, 1                        ; 0x2be8
     shl ax, 1                        ; 0x2bea
     mov bx, ax                       ; 0x2bec
-    mov al, byte [bx - 0x6bb7]       ; 0x2bee
+    mov al, byte [bx + bss_9449]     ; 0x2bee
     sub ah, ah                       ; 0x2bf2
     test ax, 1                       ; 0x2bf4
     je short @..api_idx_0072_OUII.l75 ; 0x2bf7
@@ -1282,7 +1282,7 @@ jumptable_2af5:
     shl ax, 1                        ; 0x2c16
     shl ax, 1                        ; 0x2c18
     mov bx, ax                       ; 0x2c1a
-    mov al, byte [bx - 0x6bb8]       ; 0x2c1c
+    mov al, byte [bx + bss_9448]     ; 0x2c1c
     sub ah, ah                       ; 0x2c20
     push ax                          ; 0x2c22
     mov ax, 0x78                     ; 0x2c23
@@ -1322,7 +1322,7 @@ jumptable_2af5:
     shl ax, 1                        ; 0x2c79
     shl ax, 1                        ; 0x2c7b
     mov bx, ax                       ; 0x2c7d
-    mov ax, word [bx - 0x6b6e]       ; 0x2c7f
+    mov ax, word [bx + bss_9492]     ; 0x2c7f
     mov word [bp - 0x0006], ax       ; 0x2c83
     cmp ax, strict word 0            ; 0x2c86
     jg short @..api_idx_0072_OUII.l81 ; 0x2c89
@@ -1348,7 +1348,7 @@ jumptable_2af5:
     shl ax, 1                        ; 0x2cb2
     shl ax, 1                        ; 0x2cb4
     mov bx, ax                       ; 0x2cb6
-    mov al, byte [bx - 0x6b67]       ; 0x2cb8
+    mov al, byte [bx + bss_9499]     ; 0x2cb8
     sub ah, ah                       ; 0x2cbc
     test ax, 1                       ; 0x2cbe
     je short @..api_idx_0072_OUII.l83 ; 0x2cc1
@@ -1369,7 +1369,7 @@ jumptable_2af5:
     shl ax, 1                        ; 0x2ce3
     shl ax, 1                        ; 0x2ce5
     mov bx, ax                       ; 0x2ce7
-    mov al, byte [bx - 0x6b68]       ; 0x2ce9
+    mov al, byte [bx + bss_9498]     ; 0x2ce9
     sub ah, ah                       ; 0x2ced
     push ax                          ; 0x2cef
     mov ax, 0x78                     ; 0x2cf0
@@ -1410,7 +1410,7 @@ jumptable_2af5:
     shl ax, 1                        ; 0x2d4a
     shl ax, 1                        ; 0x2d4c
     mov bx, ax                       ; 0x2d4e
-    push word [bx - 0x6bbe]          ; 0x2d50
+    push word [bx + bss_9442]        ; 0x2d50
     call loc_JJHG                    ; 0x2d54
     pop cx                           ; 0x2d57
     mov word [bp - 0x0006], ax       ; 0x2d58
@@ -1433,7 +1433,7 @@ jumptable_2af5:
     shl ax, 1                        ; 0x2d7b
     shl ax, 1                        ; 0x2d7d
     mov bx, ax                       ; 0x2d7f
-    mov al, byte [bx - 0x6bb8]       ; 0x2d81
+    mov al, byte [bx + bss_9448]     ; 0x2d81
     sub ah, ah                       ; 0x2d85
     push ax                          ; 0x2d87
     mov ax, 0x78                     ; 0x2d88

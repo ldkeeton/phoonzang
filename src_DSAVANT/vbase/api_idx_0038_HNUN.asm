@@ -109,8 +109,8 @@ api_idx_0038_HNUN:
     mov bx, ax                       ; 0x30e4
     cmp byte [bx + bss_91ee], 0x5c   ; 0x30e6
     je short @..api_idx_0038_HNUN.l6 ; 0x30eb
-    mov byte [bx - 0x6e11], 0x5c     ; 0x30ed
-    mov byte [bx - 0x6e10], 0        ; 0x30f2
+    mov byte [bx + bss_91ef], 0x5c   ; 0x30ed
+    mov byte [bx + bss_91f0], 0      ; 0x30f2
 @..api_idx_0038_HNUN.l6:
     mov ax, bss_594e                 ; 0x30f7
     push ax                          ; 0x30fa
@@ -308,7 +308,7 @@ api_idx_0038_HNUN:
 @..api_idx_0038_HNUN.l22:
     mov ax, 0x14                     ; 0x32ab
     imul word [bp - 0x0002]          ; 0x32ae
-    add ax, 0x9884                   ; 0x32b1
+    add ax, bss_9884                 ; 0x32b1
     push ax                          ; 0x32b4
     mov ax, 0x14                     ; 0x32b5
     imul word [bp - 0x0002]          ; 0x32b8
@@ -337,7 +337,7 @@ api_idx_0038_HNUN:
     mov word [bp - 0x0002], 0        ; 0x32f6
 @..api_idx_0038_HNUN.l23:
     mov bx, word [bp - 0x0002]       ; 0x32fb
-    mov al, byte [bx - 0x6712]       ; 0x32fe
+    mov al, byte [bx + bss_98ee]     ; 0x32fe
     mov byte [bx + bss_597c], al     ; 0x3302
     inc word [bp - 0x0002]           ; 0x3306
     mov ax, word [bp - 0x0002]       ; 0x3309
@@ -638,9 +638,9 @@ api_idx_0038_HNUN:
     shl ax, 1                        ; 0x35dc
     shl ax, 1                        ; 0x35de
     mov bx, ax                       ; 0x35e0
-    mov ax, word [bx - 0x65ce]       ; 0x35e2
+    mov ax, word [bx + bss_9a32]     ; 0x35e2
     mov word [bx + bss_82f2], ax     ; 0x35e6
-    mov ax, word [bx - 0x65cc]       ; 0x35ea
+    mov ax, word [bx + bss_9a34]     ; 0x35ea
     mov word [bx + bss_82f4], ax     ; 0x35ee
     inc word [bp - 0x0002]           ; 0x35f2
     mov ax, word [bp - 0x0002]       ; 0x35f5

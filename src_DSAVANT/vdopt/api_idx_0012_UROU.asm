@@ -512,9 +512,9 @@ jumptable_147e_case_0:
     add ax, dx                       ; 0x153c
     mov bx, ax                       ; 0x153e
     pop ax                           ; 0x1540
-    mov word [bx - 0x6f46], ax       ; 0x1541
-    mov word [bx - 0x6cba], 0xffff   ; 0x1545
-    mov word [bx - 0x6a30], 0xffff   ; 0x154b
+    mov word [bx + bss_90ba], ax     ; 0x1541
+    mov word [bx + bss_9346], 0xffff ; 0x1545
+    mov word [bx + bss_95d0], 0xffff ; 0x154b
     inc word [bp - 0x0004]           ; 0x1551
 @..api_idx_0012_UROU.l62:
     mov ax, word [bp - 0x0008]       ; 0x1554
@@ -622,12 +622,12 @@ jumptable_147e_case_0:
     shl cx, 1                        ; 0x1644
     add ax, cx                       ; 0x1646
     mov bx, ax                       ; 0x1648
-    cmp word [bx - 0x6f46], byte 0xff ; 0x164a
+    cmp word [bx + bss_90ba], byte 0xff ; 0x164a
     je short @..api_idx_0012_UROU.l78 ; 0x164f
     mov ax, 0                        ; 0x1651
     push ax                          ; 0x1654
     push ax                          ; 0x1655
-    push word [bx - 0x6f46]          ; 0x1656
+    push word [bx + bss_90ba]        ; 0x1656
     mov ax, word [bp - 0x0004]       ; 0x165a
     dec ax                           ; 0x165d
     push ax                          ; 0x165e
@@ -659,12 +659,12 @@ jumptable_147e_case_0:
     shl cx, 1                        ; 0x1697
     add ax, cx                       ; 0x1699
     mov bx, ax                       ; 0x169b
-    cmp word [bx - 0x6cba], byte 0xff ; 0x169d
+    cmp word [bx + bss_9346], byte 0xff ; 0x169d
     je short @..api_idx_0012_UROU.l83 ; 0x16a2
     mov ax, 0xffff                   ; 0x16a4
     push ax                          ; 0x16a7
     push ax                          ; 0x16a8
-    push word [bx - 0x6cba]          ; 0x16a9
+    push word [bx + bss_9346]        ; 0x16a9
     mov ax, word [bp - 0x0004]       ; 0x16ad
     dec ax                           ; 0x16b0
     push ax                          ; 0x16b1
@@ -680,12 +680,12 @@ jumptable_147e_case_0:
     shl cx, 1                        ; 0x16c6
     add ax, cx                       ; 0x16c8
     mov bx, ax                       ; 0x16ca
-    cmp word [bx - 0x6a30], byte 0xff ; 0x16cc
+    cmp word [bx + bss_95d0], byte 0xff ; 0x16cc
     je short @..api_idx_0012_UROU.l84 ; 0x16d1
     mov ax, 0xffff                   ; 0x16d3
     push ax                          ; 0x16d6
     push ax                          ; 0x16d7
-    push word [bx - 0x6a30]          ; 0x16d8
+    push word [bx + bss_95d0]        ; 0x16d8
     mov ax, word [bp - 0x0004]       ; 0x16dc
     dec ax                           ; 0x16df
     push ax                          ; 0x16e0
@@ -721,7 +721,7 @@ jumptable_147e_case_0:
     shl cx, 1                        ; 0x1722
     add ax, cx                       ; 0x1724
     mov bx, ax                       ; 0x1726
-    cmp word [bx - 0x67a6], byte 1   ; 0x1728
+    cmp word [bx + bss_985a], byte 1 ; 0x1728
     jne short @..api_idx_0012_UROU.l89 ; 0x172d
     mov ax, word [bp - 0x0004]       ; 0x172f
     dec ax                           ; 0x1732

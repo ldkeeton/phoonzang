@@ -29,7 +29,7 @@ api_idx_0014_HTUV:
     shl cx, 1                        ; 0x0a08
     add ax, cx                       ; 0x0a0a
     mov bx, ax                       ; 0x0a0c
-    mov word [bx - 0x6f46], 0xffff   ; 0x0a0e
+    mov word [bx + bss_90ba], 0xffff ; 0x0a0e
     jmp short @..api_idx_0014_HTUV.l2 ; 0x0a14
 @..api_idx_0014_HTUV.l1:
     mov ax, word [bss_9342]          ; 0x0a16
@@ -42,11 +42,11 @@ api_idx_0014_HTUV:
     add ax, dx                       ; 0x0a27
     mov bx, ax                       ; 0x0a29
     pop ax                           ; 0x0a2b
-    mov word [bx - 0x6f46], ax       ; 0x0a2c
+    mov word [bx + bss_90ba], ax     ; 0x0a2c
     mov ax, word [bss_9344]          ; 0x0a30
-    mov word [bx - 0x6cba], ax       ; 0x0a33
+    mov word [bx + bss_9346], ax     ; 0x0a33
     mov ax, word [bss_95ce]          ; 0x0a37
-    mov word [bx - 0x6a30], ax       ; 0x0a3a
+    mov word [bx + bss_95d0], ax     ; 0x0a3a
 @..api_idx_0014_HTUV.l2:
     ret                              ; 0x0a3e
 @..api_idx_0014_HTUV.l3:
@@ -80,7 +80,7 @@ api_idx_0014_HTUV:
     shl cx, 1                        ; 0x0a8d
     add ax, cx                       ; 0x0a8f
     mov bx, ax                       ; 0x0a91
-    mov word [bx - 0x67a6], 1        ; 0x0a93
+    mov word [bx + bss_985a], 1      ; 0x0a93
 @..api_idx_0014_HTUV.l6:
     inc word [bp - 0x0014]           ; 0x0a99
     jmp short @..api_idx_0014_HTUV.l4 ; 0x0a9c
@@ -93,7 +93,7 @@ api_idx_0014_HTUV:
     shl cx, 1                        ; 0x0aa9
     add ax, cx                       ; 0x0aab
     mov bx, ax                       ; 0x0aad
-    mov word [bx - 0x67a6], 0        ; 0x0aaf
+    mov word [bx + bss_985a], 0      ; 0x0aaf
 @..api_idx_0014_HTUV.l9:
     mov ax, word [bp - 0x000c]       ; 0x0ab5
     mov cx, 6                        ; 0x0ab8
@@ -120,7 +120,7 @@ api_idx_0014_HTUV:
     shl cx, 1                        ; 0x0aec
     add ax, cx                       ; 0x0aee
     mov bx, ax                       ; 0x0af0
-    mov word [bx - 0x6f46], 0xffff   ; 0x0af2
+    mov word [bx + bss_90ba], 0xffff ; 0x0af2
     ret                              ; 0x0af8
 @..api_idx_0014_HTUV.l10:
     mov ax, 6                        ; 0x0af9
@@ -308,7 +308,7 @@ jumptable_0c0b_case_1:
     add ax, dx                       ; 0x0ca4
     mov bx, ax                       ; 0x0ca6
     pop ax                           ; 0x0ca8
-    mov word [bx - 0x6f46], ax       ; 0x0ca9
+    mov word [bx + bss_90ba], ax     ; 0x0ca9
 @..api_idx_0014_HTUV.l30:
     cmp word [maze_variant], byte 1  ; 0x0cad
     jne short @..api_idx_0014_HTUV.l31 ; 0x0cb2
@@ -326,7 +326,7 @@ jumptable_0c0b_case_1:
     shl cx, 1                        ; 0x0cd1
     add ax, cx                       ; 0x0cd3
     mov bx, ax                       ; 0x0cd5
-    mov word [bx - 0x6f46], 0xffff   ; 0x0cd7
+    mov word [bx + bss_90ba], 0xffff ; 0x0cd7
 @..api_idx_0014_HTUV.l31:
     mov word [bp - 0x0010], 0xffff   ; 0x0cdd
     push word [bp + 0x6]             ; 0x0ce2
@@ -385,7 +385,7 @@ jumptable_0d20_case_0:
     add ax, dx                       ; 0x0d54
     mov bx, ax                       ; 0x0d56
     pop ax                           ; 0x0d58
-    mov word [bx - 0x6cba], ax       ; 0x0d59
+    mov word [bx + bss_9346], ax     ; 0x0d59
 @..api_idx_0014_HTUV.l34:
     mov word [bp - 0x0010], 0xffff   ; 0x0d5d
     push word [bp + 0x6]             ; 0x0d62
@@ -444,7 +444,7 @@ jumptable_0da0_case_0:
     add ax, dx                       ; 0x0dd4
     mov bx, ax                       ; 0x0dd6
     pop ax                           ; 0x0dd8
-    mov word [bx - 0x6a30], ax       ; 0x0dd9
+    mov word [bx + bss_95d0], ax     ; 0x0dd9
 @..api_idx_0014_HTUV.l37:
     mov word [bp - 0x0010], 0xffff   ; 0x0ddd
     push word [bp + 0x6]             ; 0x0de2
@@ -503,7 +503,7 @@ jumptable_0e20_case_0:
     add ax, dx                       ; 0x0e54
     mov bx, ax                       ; 0x0e56
     pop ax                           ; 0x0e58
-    mov word [bx - 0x6cb8], ax       ; 0x0e59
+    mov word [bx + bss_9348], ax     ; 0x0e59
 @..api_idx_0014_HTUV.l40:
     mov word [bp - 0x0010], 0xffff   ; 0x0e5d
     push word [bp + 0x6]             ; 0x0e62
@@ -562,6 +562,6 @@ jumptable_0ea0_case_0:
     add ax, dx                       ; 0x0ed4
     mov bx, ax                       ; 0x0ed6
     pop ax                           ; 0x0ed8
-    mov word [bx - 0x6a54], ax       ; 0x0ed9
+    mov word [bx + bss_95ac], ax     ; 0x0ed9
 @..api_idx_0014_HTUV.l43:
     ret                              ; 0x0edd

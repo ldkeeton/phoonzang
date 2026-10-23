@@ -9,7 +9,7 @@ api_idx_0002_MIIL:
 @..api_idx_0002_MIIL.l1:
     mov ax, 0x16                     ; 0x516d
     imul word [bp - 0x0002]          ; 0x5170
-    add ax, 0x96b8                   ; 0x5173
+    add ax, bss_96b8                 ; 0x5173
     push ax                          ; 0x5176
     mov ax, 0x16                     ; 0x5177
     imul word [bp - 0x0002]          ; 0x517a
@@ -20,14 +20,14 @@ api_idx_0002_MIIL:
     mov ax, word [bp - 0x0002]       ; 0x5187
     shl ax, 1                        ; 0x518a
     mov bx, ax                       ; 0x518c
-    mov ax, word [bx - 0x6984]       ; 0x518e
+    mov ax, word [bx + bss_967c]     ; 0x518e
     mov word [bx + list_row_glyph], ax ; 0x5192
-    mov ax, word [bx - 0x69ac]       ; 0x5196
+    mov ax, word [bx + bss_9654]     ; 0x5196
     mov word [bx + list_row_marked], ax ; 0x519a
-    mov ax, word [bx - 0x67a4]       ; 0x519e
+    mov ax, word [bx + bss_985c]     ; 0x519e
     mov word [bx + list_row_count], ax ; 0x51a2
-    mov ax, word [bx - 0x6354]       ; 0x51a6
-    mov word [bx - 0x6356], ax       ; 0x51aa
+    mov ax, word [bx + bss_9cac]     ; 0x51a6
+    mov word [bx + bss_9caa], ax     ; 0x51aa
     inc word [bp - 0x0002]           ; 0x51ae
 @..api_idx_0002_MIIL.l2:
     mov ax, word [bp - 0x0002]       ; 0x51b1

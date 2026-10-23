@@ -5,7 +5,7 @@ api_idx_005e_KVNO:
     mov ax, word [bp + 0x6]          ; 0x57e7
     shl ax, 1                        ; 0x57ea
     mov bx, ax                       ; 0x57ec
-    mov ax, word [bx - 0x6356]       ; 0x57ee
+    mov ax, word [bx + bss_9caa]     ; 0x57ee
     mov cx, 0x100                    ; 0x57f2
     cwd                              ; 0x57f5
     idiv cx                          ; 0x57f6

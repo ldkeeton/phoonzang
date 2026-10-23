@@ -80,7 +80,10 @@ loc_RPUI.api_idx1 equ api_idx_0006_HRUL
 
 %include "shared/game/api_idx_0002_TIUI.asm"     ; 0x1941
 
-%include "vpops/api_idx_0004_OQNP.asm"     ; 0x199c
+bss_9106 equ __zdseg_end + (__zobss_9106 - __zdata_start)
+api_idx_0004_OQNP                      equ collect_known_spells
+collect_known_spells.known_spell_list1 equ bss_9106
+%include "shared/game/collect_known_spells.asm"     ; 0x199c
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x1a0d
 
@@ -100,6 +103,7 @@ periodic_party_redraw.api_idx1           equ draw_realm_spell_points
 
 dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)
 ; bss_90d6  equ __zdseg_end + (__zobss_90d6 - __zdata_start)
+; bss_9106  equ __zdseg_end + (__zobss_9106 - __zdata_start)
 %include "vpops/api_idx_0044_NJNI.asm"     ; 0x1ca2
 
 %include "vpops/api_idx_000a_GVNM.asm"     ; 0x2947
@@ -190,7 +194,9 @@ absolute __zimage_end
 __zobss_90d6:
     resb 0x0002
 __zobss_90d8:
-    resb 0x007e
+    resb 0x002e
+__zobss_9106:
+    resb 0x0050
 __zobss_9156:
     resb 0x0028
 __zobss_917e:

@@ -94,6 +94,8 @@ dseg_90c2 equ __zdseg_end + (__zdseg_90c2 - __zdata_start)
 bss_91c6  equ __zdseg_end + (__zobss_91c6 - __zdata_start)
 bss_91da  equ __zdseg_end + (__zobss_91da - __zdata_start)
 bss_91ee  equ __zdseg_end + (__zobss_91ee - __zdata_start)
+bss_91ef  equ __zdseg_end + (__zobss_91ef - __zdata_start)
+bss_91f0  equ __zdseg_end + (__zobss_91f0 - __zdata_start)
 bss_9220  equ __zdseg_end + (__zobss_9220 - __zdata_start)
 bss_93be  equ __zdseg_end + (__zobss_93be - __zdata_start)
 bss_93c0  equ __zdseg_end + (__zobss_93c0 - __zdata_start)
@@ -104,7 +106,19 @@ bss_940c  equ __zdseg_end + (__zobss_940c - __zdata_start)
 bss_941c  equ __zdseg_end + (__zobss_941c - __zdata_start)
 bss_9426  equ __zdseg_end + (__zobss_9426 - __zdata_start)
 bss_9428  equ __zdseg_end + (__zobss_9428 - __zdata_start)
+bss_942c  equ __zdseg_end + (__zobss_942c - __zdata_start)
+bss_9442  equ __zdseg_end + (__zobss_9442 - __zdata_start)
+bss_9448  equ __zdseg_end + (__zobss_9448 - __zdata_start)
+bss_9449  equ __zdseg_end + (__zobss_9449 - __zdata_start)
+bss_9492  equ __zdseg_end + (__zobss_9492 - __zdata_start)
+bss_9498  equ __zdseg_end + (__zobss_9498 - __zdata_start)
+bss_9499  equ __zdseg_end + (__zobss_9499 - __zdata_start)
+bss_952e  equ __zdseg_end + (__zobss_952e - __zdata_start)
+bss_9536  equ __zdseg_end + (__zobss_9536 - __zdata_start)
+bss_9554  equ __zdseg_end + (__zobss_9554 - __zdata_start)
 bss_958a  equ __zdseg_end + (__zobss_958a - __zdata_start)
+bss_9596  equ __zdseg_end + (__zobss_9596 - __zdata_start)
+bss_959a  equ __zdseg_end + (__zobss_959a - __zdata_start)
 bss_959f  equ __zdseg_end + (__zobss_959f - __zdata_start)
 bss_95a0  equ __zdseg_end + (__zobss_95a0 - __zdata_start)
 bss_95a1  equ __zdseg_end + (__zobss_95a1 - __zdata_start)
@@ -119,13 +133,17 @@ dseg_90cf equ __zdseg_end + (__zdseg_90cf - __zdata_start)
 ; bss_91c6  equ __zdseg_end + (__zobss_91c6 - __zdata_start)
 ; bss_91da  equ __zdseg_end + (__zobss_91da - __zdata_start)
 ; bss_91ee  equ __zdseg_end + (__zobss_91ee - __zdata_start)
+; bss_91ef  equ __zdseg_end + (__zobss_91ef - __zdata_start)
+; bss_91f0  equ __zdseg_end + (__zobss_91f0 - __zdata_start)
 ; bss_95b2  equ __zdseg_end + (__zobss_95b2 - __zdata_start)
 bss_95b4  equ __zdseg_end + (__zobss_95b4 - __zdata_start)
+bss_9884  equ __zdseg_end + (__zobss_9884 - __zdata_start)
 bss_98d4  equ __zdseg_end + (__zobss_98d4 - __zdata_start)
 bss_98d5  equ __zdseg_end + (__zobss_98d5 - __zdata_start)
 bss_98d6  equ __zdseg_end + (__zobss_98d6 - __zdata_start)
 bss_98ea  equ __zdseg_end + (__zobss_98ea - __zdata_start)
 bss_98eb  equ __zdseg_end + (__zobss_98eb - __zdata_start)
+bss_98ee  equ __zdseg_end + (__zobss_98ee - __zdata_start)
 bss_98f2  equ __zdseg_end + (__zobss_98f2 - __zdata_start)
 bss_98f4  equ __zdseg_end + (__zobss_98f4 - __zdata_start)
 bss_98f6  equ __zdseg_end + (__zobss_98f6 - __zdata_start)
@@ -164,6 +182,8 @@ bss_9a2a  equ __zdseg_end + (__zobss_9a2a - __zdata_start)
 bss_9a2c  equ __zdseg_end + (__zobss_9a2c - __zdata_start)
 bss_9a2e  equ __zdseg_end + (__zobss_9a2e - __zdata_start)
 bss_9a30  equ __zdseg_end + (__zobss_9a30 - __zdata_start)
+bss_9a32  equ __zdseg_end + (__zobss_9a32 - __zdata_start)
+bss_9a34  equ __zdseg_end + (__zobss_9a34 - __zdata_start)
 bss_9a4a  equ __zdseg_end + (__zobss_9a4a - __zdata_start)
 bss_9a4c  equ __zdseg_end + (__zobss_9a4c - __zdata_start)
 %include "vbase/api_idx_0038_HNUN.asm"     ; 0x2fef
@@ -172,6 +192,8 @@ dseg_90db equ __zdseg_end + (__zdseg_90db - __zdata_start)
 ; bss_91c6  equ __zdseg_end + (__zobss_91c6 - __zdata_start)
 ; bss_91da  equ __zdseg_end + (__zobss_91da - __zdata_start)
 ; bss_91ee  equ __zdseg_end + (__zobss_91ee - __zdata_start)
+; bss_91ef  equ __zdseg_end + (__zobss_91ef - __zdata_start)
+; bss_91f0  equ __zdseg_end + (__zobss_91f0 - __zdata_start)
 ; bss_9900  equ __zdseg_end + (__zobss_9900 - __zdata_start)
 ; bss_9980  equ __zdseg_end + (__zobss_9980 - __zdata_start)
 ; bss_9a00  equ __zdseg_end + (__zobss_9a00 - __zdata_start)
@@ -199,6 +221,8 @@ dseg_90db equ __zdseg_end + (__zdseg_90db - __zdata_start)
 ; bss_9a2c  equ __zdseg_end + (__zobss_9a2c - __zdata_start)
 ; bss_9a2e  equ __zdseg_end + (__zobss_9a2e - __zdata_start)
 ; bss_9a30  equ __zdseg_end + (__zobss_9a30 - __zdata_start)
+; bss_9a32  equ __zdseg_end + (__zobss_9a32 - __zdata_start)
+; bss_9a34  equ __zdseg_end + (__zobss_9a34 - __zdata_start)
 ; bss_9a4a  equ __zdseg_end + (__zobss_9a4a - __zdata_start)
 ; bss_9a4c  equ __zdseg_end + (__zobss_9a4c - __zdata_start)
 %include "vbase/api_idx_004e_HUKL.asm"     ; 0x388c
@@ -207,6 +231,9 @@ dseg_90e8 equ __zdseg_end + (__zdseg_90e8 - __zdata_start)
 %include "vbase/api_idx_0002_QRVU.asm"     ; 0x3fac
 
 bss_9c94 equ __zdseg_end + (__zobss_9c94 - __zdata_start)
+bss_9f94 equ __zdseg_end + (__zobss_9f94 - __zdata_start)
+bss_9f95 equ __zdseg_end + (__zobss_9f95 - __zdata_start)
+bss_9f96 equ __zdseg_end + (__zobss_9f96 - __zdata_start)
 bss_a294 equ __zdseg_end + (__zobss_a294 - __zdata_start)
 %include "vbase/api_idx_000c_NLKU.asm"     ; 0x4060
 
@@ -368,6 +395,7 @@ scene_backdrop_ref_hi equ __zdseg_end + (__zobss_a5b4 - __zdata_start)
 ; sprite_pos   equ __zdseg_end + (__zobss_a5da - __zdata_start)
 bss_a5e0     equ __zdseg_end + (__zobss_a5e0 - __zdata_start)
 ; actor_x      equ __zdseg_end + (__zobss_a5e2 - __zdata_start)
+bss_a5ea     equ __zdseg_end + (__zobss_a5ea - __zdata_start)
 bss_a5f0     equ __zdseg_end + (__zobss_a5f0 - __zdata_start)
 ; actor_y      equ __zdseg_end + (__zobss_a5f2 - __zdata_start)
 ; scene_step_b equ __zdseg_end + (__zobss_a5fa - __zdata_start)
@@ -390,6 +418,7 @@ scroll_x_4            equ __zdseg_end + (__zobss_a5d8 - __zdata_start)
 ; bss_a5e0              equ __zdseg_end + (__zobss_a5e0 - __zdata_start)
 ; actor_x               equ __zdseg_end + (__zobss_a5e2 - __zdata_start)
 ; trail_x               equ __zdseg_end + (__zobss_a5e4 - __zdata_start)
+; bss_a5ea              equ __zdseg_end + (__zobss_a5ea - __zdata_start)
 ; bss_a5f0              equ __zdseg_end + (__zobss_a5f0 - __zdata_start)
 ; actor_y               equ __zdseg_end + (__zobss_a5f2 - __zdata_start)
 ; scene_step_c          equ __zdseg_end + (__zobss_a5fc - __zdata_start)
@@ -422,6 +451,7 @@ dseg_9165             equ __zdseg_end + (__zdseg_9165 - __zdata_start)
 ; scroll_x_3            equ __zdseg_end + (__zobss_a5d6 - __zdata_start)
 ; sprite_pos            equ __zdseg_end + (__zobss_a5da - __zdata_start)
 ; actor_x               equ __zdseg_end + (__zobss_a5e2 - __zdata_start)
+; bss_a5ea              equ __zdseg_end + (__zobss_a5ea - __zdata_start)
 ; actor_y               equ __zdseg_end + (__zobss_a5f2 - __zdata_start)
 ; scene_clip_arg        equ __zdseg_end + (__zobss_a600 - __zdata_start)
 %include "vbase/api_idx_0002_GORG.asm"     ; 0x8b69
@@ -564,7 +594,11 @@ __zobss_91c6:
 __zobss_91da:
     resb 0x0014
 __zobss_91ee:
-    resb 0x0032
+    resb 0x0001
+__zobss_91ef:
+    resb 0x0001
+__zobss_91f0:
+    resb 0x0030
 __zobss_9220:
     resb 0x019e
 __zobss_93be:
@@ -584,9 +618,33 @@ __zobss_941c:
 __zobss_9426:
     resb 0x0002
 __zobss_9428:
-    resb 0x0162
+    resb 0x0004
+__zobss_942c:
+    resb 0x0016
+__zobss_9442:
+    resb 0x0006
+__zobss_9448:
+    resb 0x0001
+__zobss_9449:
+    resb 0x0049
+__zobss_9492:
+    resb 0x0006
+__zobss_9498:
+    resb 0x0001
+__zobss_9499:
+    resb 0x0095
+__zobss_952e:
+    resb 0x0008
+__zobss_9536:
+    resb 0x001e
+__zobss_9554:
+    resb 0x0036
 __zobss_958a:
-    resb 0x0015
+    resb 0x000c
+__zobss_9596:
+    resb 0x0004
+__zobss_959a:
+    resb 0x0005
 __zobss_959f:
     resb 0x0001
 __zobss_95a0:
@@ -604,7 +662,9 @@ __zobss_95b0:
 __zobss_95b2:
     resb 0x0002
 __zobss_95b4:
-    resb 0x0320
+    resb 0x02d0
+__zobss_9884:
+    resb 0x0050
 __zobss_98d4:
     resb 0x0001
 __zobss_98d5:
@@ -614,7 +674,9 @@ __zobss_98d6:
 __zobss_98ea:
     resb 0x0001
 __zobss_98eb:
-    resb 0x0007
+    resb 0x0003
+__zobss_98ee:
+    resb 0x0004
 __zobss_98f2:
     resb 0x0002
 __zobss_98f4:
@@ -690,13 +752,23 @@ __zobss_9a2c:
 __zobss_9a2e:
     resb 0x0002
 __zobss_9a30:
-    resb 0x001a
+    resb 0x0002
+__zobss_9a32:
+    resb 0x0002
+__zobss_9a34:
+    resb 0x0016
 __zobss_9a4a:
     resb 0x0002
 __zobss_9a4c:
     resb 0x0248
 __zobss_9c94:
-    resb 0x0600
+    resb 0x0300
+__zobss_9f94:
+    resb 0x0001
+__zobss_9f95:
+    resb 0x0001
+__zobss_9f96:
+    resb 0x02fe
 __zobss_a294:
     resb 0x0200
 __zobss_a494:
@@ -752,7 +824,9 @@ __zobss_a5e0:
 __zobss_a5e2:
     resb 0x0002
 __zobss_a5e4:
-    resb 0x000c
+    resb 0x0006
+__zobss_a5ea:
+    resb 0x0006
 __zobss_a5f0:
     resb 0x0002
 __zobss_a5f2:

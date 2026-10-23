@@ -101,7 +101,7 @@ api_idx_005a_STLR:
     sub ax, cx                       ; 0x2dda
     push ax                          ; 0x2ddc
     mov ax, 0                        ; 0x2ddd
-    cmp word [bx - 0x6f42], byte 1   ; 0x2de0
+    cmp word [bx + bss_90be], byte 1 ; 0x2de0
     jne short @..api_idx_005a_STLR.l10 ; 0x2de5
     mov ax, word [bp - 0x0008]       ; 0x2de7
 @..api_idx_005a_STLR.l10:
@@ -165,7 +165,7 @@ api_idx_005a_STLR:
     shl cx, 1                        ; 0x2e78
     add ax, cx                       ; 0x2e7a
     mov bx, ax                       ; 0x2e7c
-    mov word [bx - 0x6f42], 0        ; 0x2e7e
+    mov word [bx + bss_90be], 0      ; 0x2e7e
     inc word [bp - 0x0006]           ; 0x2e84
     mov ax, word [bp - 0x0006]       ; 0x2e87
     cmp ax, strict word 3            ; 0x2e8a

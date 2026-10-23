@@ -115,8 +115,8 @@ api_idx_004e_HUKL:
     mov bx, ax                       ; 0x398c
     cmp byte [bx + bss_91ee], 0x5c   ; 0x398e
     je short @..api_idx_004e_HUKL.l7 ; 0x3993
-    mov byte [bx - 0x6e11], 0x5c     ; 0x3995
-    mov byte [bx - 0x6e10], 0        ; 0x399a
+    mov byte [bx + bss_91ef], 0x5c   ; 0x3995
+    mov byte [bx + bss_91f0], 0      ; 0x399a
 @..api_idx_004e_HUKL.l7:
     lea ax, word [bp - 0x0026]       ; 0x399f
     push ax                          ; 0x39a2
@@ -550,9 +550,9 @@ api_idx_004e_HUKL:
     shl ax, 1                        ; 0x3d90
     mov bx, ax                       ; 0x3d92
     mov ax, word [bx + bss_82f2]     ; 0x3d94
-    mov word [bx - 0x65ce], ax       ; 0x3d98
+    mov word [bx + bss_9a32], ax     ; 0x3d98
     mov ax, word [bx + bss_82f4]     ; 0x3d9c
-    mov word [bx - 0x65cc], ax       ; 0x3da0
+    mov word [bx + bss_9a34], ax     ; 0x3da0
     inc word [bp - 0x0002]           ; 0x3da4
     mov ax, word [bp - 0x0002]       ; 0x3da7
     cmp ax, strict word 6            ; 0x3daa

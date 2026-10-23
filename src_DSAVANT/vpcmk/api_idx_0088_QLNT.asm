@@ -78,7 +78,7 @@ api_idx_0088_QLNT:
     mov ax, word [bp - 0x0002]       ; 0x2cdb
     shl ax, 1                        ; 0x2cde
     mov bx, ax                       ; 0x2ce0
-    cmp word [bx - 0x6a50], byte 0   ; 0x2ce2
+    cmp word [bx + bss_95b0], byte 0 ; 0x2ce2
     jne short @..api_idx_0088_QLNT.l6 ; 0x2ce7
     mov ax, 0x248                    ; 0x2ce9
     imul word [bp + 0x4]             ; 0x2cec

@@ -74,6 +74,7 @@ api_idx_0004_RMVO.bss2 equ bss_9538
 
 bss_953c equ __zdseg_end + (__zobss_953c - __zdata_start)
 bss_953e equ __zdseg_end + (__zobss_953e - __zdata_start)
+bss_9544 equ __zdseg_end + (__zobss_9544 - __zdata_start)
 bss_9594 equ __zdseg_end + (__zobss_9594 - __zdata_start)
 bss_9596 equ __zdseg_end + (__zobss_9596 - __zdata_start)
 %include "vpcmk/api_idx_0002_SSJN.asm"     ; 0x19ab
@@ -100,7 +101,10 @@ bss_95ae  equ __zdseg_end + (__zobss_95ae - __zdata_start)
 
 %include "shared/game/api_idx_0004_PMIU.asm"     ; 0x2090
 
-%include "vpcmk/api_idx_0004_GRKI.asm"     ; 0x2144
+bss_95b0 equ __zdseg_end + (__zobss_95b0 - __zdata_start)
+api_idx_0004_GRKI      equ api_idx_0004_GRGJ
+api_idx_0004_GRGJ.bss1 equ bss_95b0
+%include "shared/game/api_idx_0004_GRGJ.asm"     ; 0x2144
 
 dseg_90be        equ __zdseg_end + (__zdseg_90be - __zdata_start)
 dseg_90c9        equ __zdseg_end + (__zdseg_90c9 - __zdata_start)
@@ -158,9 +162,86 @@ dseg_92ac        equ __zdseg_end + (__zdseg_92ac - __zdata_start)
 dseg_92b7        equ __zdseg_end + (__zdseg_92b7 - __zdata_start)
 dseg_92c0        equ __zdseg_end + (__zdseg_92c0 - __zdata_start)
 dseg_92c7        equ __zdseg_end + (__zdseg_92c7 - __zdata_start)
+; bss_95b0         equ __zdseg_end + (__zobss_95b0 - __zdata_start)
 bss_95e8         equ __zdseg_end + (__zobss_95e8 - __zdata_start)
 slot_prompt_text equ __zdseg_end + (__zobss_95f4 - __zdata_start)
-%include "vpcmk/api_idx_0004_SNNO.asm"     ; 0x2273
+api_idx_0004_SNNO                   equ api_idx_0004_LOLJ
+jumptable_240e_case_0               equ api_idx_0004_LOLJ.jumptable_case1
+api_idx_0004_LOLJ.dseg1             equ dseg_90d9
+api_idx_0004_LOLJ.dseg2             equ dseg_90d2
+api_idx_0004_LOLJ.dseg3             equ dseg_90c9
+api_idx_0004_LOLJ.dseg4             equ dseg_90be
+api_idx_0004_LOLJ.api_idx1          equ api_idx_0004_GRKI
+jumptable_240e_case_1               equ api_idx_0004_LOLJ.jumptable_case2
+api_idx_0004_LOLJ.dseg5             equ dseg_90ff
+api_idx_0004_LOLJ.dseg6             equ dseg_90f8
+api_idx_0004_LOLJ.dseg7             equ dseg_90ef
+api_idx_0004_LOLJ.dseg8             equ dseg_90e4
+jumptable_240e_case_2               equ api_idx_0004_LOLJ.jumptable_case3
+api_idx_0004_LOLJ.dseg9             equ dseg_9125
+api_idx_0004_LOLJ.dseg10            equ dseg_911e
+api_idx_0004_LOLJ.dseg11            equ dseg_9115
+api_idx_0004_LOLJ.dseg12            equ dseg_910a
+jumptable_240e_case_3               equ api_idx_0004_LOLJ.jumptable_case4
+api_idx_0004_LOLJ.dseg13            equ dseg_914b
+api_idx_0004_LOLJ.dseg14            equ dseg_9144
+api_idx_0004_LOLJ.dseg15            equ dseg_913b
+api_idx_0004_LOLJ.dseg16            equ dseg_9130
+jumptable_240e_case_4               equ api_idx_0004_LOLJ.jumptable_case5
+api_idx_0004_LOLJ.dseg17            equ dseg_9171
+api_idx_0004_LOLJ.dseg18            equ dseg_916a
+api_idx_0004_LOLJ.dseg19            equ dseg_9161
+api_idx_0004_LOLJ.dseg20            equ dseg_9156
+jumptable_240e_case_5               equ api_idx_0004_LOLJ.jumptable_case6
+api_idx_0004_LOLJ.dseg21            equ dseg_9197
+api_idx_0004_LOLJ.dseg22            equ dseg_9190
+api_idx_0004_LOLJ.dseg23            equ dseg_9187
+api_idx_0004_LOLJ.dseg24            equ dseg_917c
+jumptable_240e_case_6               equ api_idx_0004_LOLJ.jumptable_case7
+api_idx_0004_LOLJ.dseg25            equ dseg_91bd
+api_idx_0004_LOLJ.dseg26            equ dseg_91b6
+api_idx_0004_LOLJ.dseg27            equ dseg_91ad
+api_idx_0004_LOLJ.dseg28            equ dseg_91a2
+jumptable_240e_case_7               equ api_idx_0004_LOLJ.jumptable_case8
+api_idx_0004_LOLJ.dseg29            equ dseg_91e3
+api_idx_0004_LOLJ.dseg30            equ dseg_91dc
+api_idx_0004_LOLJ.dseg31            equ dseg_91d3
+api_idx_0004_LOLJ.dseg32            equ dseg_91c8
+jumptable_240e_case_8               equ api_idx_0004_LOLJ.jumptable_case9
+api_idx_0004_LOLJ.dseg33            equ dseg_9209
+api_idx_0004_LOLJ.dseg34            equ dseg_9202
+api_idx_0004_LOLJ.dseg35            equ dseg_91f9
+api_idx_0004_LOLJ.dseg36            equ dseg_91ee
+jumptable_240e_case_9               equ api_idx_0004_LOLJ.jumptable_case10
+api_idx_0004_LOLJ.dseg37            equ dseg_922f
+api_idx_0004_LOLJ.dseg38            equ dseg_9228
+api_idx_0004_LOLJ.dseg39            equ dseg_921f
+api_idx_0004_LOLJ.dseg40            equ dseg_9214
+jumptable_240e_case_10              equ api_idx_0004_LOLJ.jumptable_case11
+api_idx_0004_LOLJ.dseg41            equ dseg_9255
+api_idx_0004_LOLJ.dseg42            equ dseg_924e
+api_idx_0004_LOLJ.dseg43            equ dseg_9245
+api_idx_0004_LOLJ.dseg44            equ dseg_923a
+jumptable_240e_case_11              equ api_idx_0004_LOLJ.jumptable_case12
+api_idx_0004_LOLJ.dseg45            equ dseg_927b
+api_idx_0004_LOLJ.dseg46            equ dseg_9274
+api_idx_0004_LOLJ.dseg47            equ dseg_926b
+api_idx_0004_LOLJ.dseg48            equ dseg_9260
+jumptable_240e_case_12              equ api_idx_0004_LOLJ.jumptable_case13
+api_idx_0004_LOLJ.dseg49            equ dseg_92a1
+api_idx_0004_LOLJ.dseg50            equ dseg_929a
+api_idx_0004_LOLJ.dseg51            equ dseg_9291
+api_idx_0004_LOLJ.dseg52            equ dseg_9286
+jumptable_240e_case_13              equ api_idx_0004_LOLJ.jumptable_case14
+api_idx_0004_LOLJ.dseg53            equ dseg_92c7
+api_idx_0004_LOLJ.dseg54            equ dseg_92c0
+api_idx_0004_LOLJ.dseg55            equ dseg_92b7
+api_idx_0004_LOLJ.dseg56            equ dseg_92ac
+jumptable_240e                      equ api_idx_0004_LOLJ.jumptable1
+api_idx_0004_LOLJ.bss1              equ bss_95e8
+api_idx_0004_LOLJ.bss2              equ bss_95b0
+api_idx_0004_LOLJ.slot_prompt_text1 equ slot_prompt_text
+%include "shared/game/api_idx_0004_LOLJ.asm"     ; 0x2273
 
 bss_952c equ __zdseg_end + (__zobss_952c - __zdata_start)
 bss_952e equ __zdseg_end + (__zobss_952e - __zdata_start)
@@ -179,11 +260,15 @@ slot_limit equ __zdseg_end + (__zobss_96d8 - __zdata_start)
 api_idx_0032_HGIM.api_idx1 equ api_idx_002e_JGHT
 %include "shared/game/api_idx_0032_HGIM.asm"     ; 0x26f1
 
+; bss_95b0   equ __zdseg_end + (__zobss_95b0 - __zdata_start)
 ; slot_label equ __zdseg_end + (__zobss_9610 - __zdata_start)
 ; slot_limit equ __zdseg_end + (__zobss_96d8 - __zdata_start)
 %include "vpcmk/api_idx_0088_QLNT.asm"     ; 0x2c15
 
-%include "vpcmk/api_idx_0004_VQQR.asm"     ; 0x2d63
+bss_971c equ __zdseg_end + (__zobss_971c - __zdata_start)
+api_idx_0004_VQQR                      equ collect_known_spells
+collect_known_spells.known_spell_list1 equ bss_971c
+%include "shared/game/collect_known_spells.asm"     ; 0x2d63
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x2dd4
 
@@ -202,8 +287,20 @@ periodic_party_redraw.api_idx1           equ draw_realm_spell_points
 %include "shared/game/periodic_party_redraw.asm" ; 0x2fd8
 
 dseg_92d6 equ __zdseg_end + (__zdseg_92d6 - __zdata_start)
+; bss_971c  equ __zdseg_end + (__zobss_971c - __zdata_start)
 ; bss_976c  equ __zdseg_end + (__zobss_976c - __zdata_start)
-%include "vpcmk/api_idx_0050_NHHL.asm"     ; 0x3069
+api_idx_0050_NHHL          equ api_idx_0050_MINM
+api_idx_0050_MINM.dseg1    equ dseg_92d6
+api_idx_0050_MINM.loc1     equ loc_HRLN
+api_idx_0050_MINM.api_idx1 equ api_idx_0004_VQQR
+api_idx_0050_MINM.bss1     equ bss_976c
+jumptable_3cc2_case_0      equ api_idx_0050_MINM.jumptable_case1
+jumptable_3cc2_case_1      equ api_idx_0050_MINM.jumptable_case2
+jumptable_3cc2_case_3      equ api_idx_0050_MINM.jumptable_case3
+jumptable_3cc2_case_4      equ api_idx_0050_MINM.jumptable_case4
+api_idx_0050_MINM.bss2     equ bss_971c
+jumptable_3cc2             equ api_idx_0050_MINM.jumptable1
+%include "shared/game/api_idx_0050_MINM.asm"     ; 0x3069
 
 %include "vpcmk/api_idx_006e_LVOK.asm"     ; 0x3d59
 
@@ -216,6 +313,7 @@ loc_TTSP.bss2 equ bss_95ae
 %include "vpcmk/api_idx_0002_IRKS.asm"     ; 0x402d
 
 ; bss_9594 equ __zdseg_end + (__zobss_9594 - __zdata_start)
+bss_976e equ __zdseg_end + (__zobss_976e - __zdata_start)
 %include "vpcmk/api_idx_0006_SKNL.asm"     ; 0x4081
 
 dseg_92dc equ __zdseg_end + (__zdseg_92dc - __zdata_start)
@@ -232,6 +330,7 @@ dseg_9336 equ __zdseg_end + (__zdseg_9336 - __zdata_start)
 dseg_933f equ __zdseg_end + (__zdseg_933f - __zdata_start)
 dseg_9348 equ __zdseg_end + (__zdseg_9348 - __zdata_start)
 dseg_9351 equ __zdseg_end + (__zdseg_9351 - __zdata_start)
+; bss_976e  equ __zdseg_end + (__zobss_976e - __zdata_start)
 %include "vpcmk/loc_UMTI.asm"              ; 0x4107
 
 api_idx_0002_MPHM.loc1 equ loc_UMTI
@@ -281,6 +380,7 @@ jumptable_436e         equ loc_SRNN.jumptable1
 
 %include "vpcmk/api_idx_007a_HMNU.asm"     ; 0x4498
 
+; bss_976e equ __zdseg_end + (__zobss_976e - __zdata_start)
 %include "vpcmk/api_idx_007c_MIHQ.asm"     ; 0x4585
 
 ; bss_9594 equ __zdseg_end + (__zobss_9594 - __zdata_start)
@@ -412,6 +512,7 @@ bss_9536  equ __zdseg_end + (__zobss_9536 - __zdata_start)
 ; bss_953e  equ __zdseg_end + (__zobss_953e - __zdata_start)
 ; bss_9540  equ __zdseg_end + (__zobss_9540 - __zdata_start)
 ; bss_9542  equ __zdseg_end + (__zobss_9542 - __zdata_start)
+; bss_9544  equ __zdseg_end + (__zobss_9544 - __zdata_start)
 ; bss_9596  equ __zdseg_end + (__zobss_9596 - __zdata_start)
 ; bss_95aa  equ __zdseg_end + (__zobss_95aa - __zdata_start)
 ; bss_95ac  equ __zdseg_end + (__zobss_95ac - __zdata_start)
@@ -702,7 +803,9 @@ __zobss_953e:
 __zobss_9540:
     resb 0x0002
 __zobss_9542:
-    resb 0x0052
+    resb 0x0002
+__zobss_9544:
+    resb 0x0050
 __zobss_9594:
     resb 0x0002
 __zobss_9596:
@@ -712,7 +815,9 @@ __zobss_95aa:
 __zobss_95ac:
     resb 0x0002
 __zobss_95ae:
-    resb 0x003a
+    resb 0x0002
+__zobss_95b0:
+    resb 0x0038
 __zobss_95e8:
     resb 0x000c
 __zobss_95f4:
@@ -724,9 +829,13 @@ __zobss_960c:
 __zobss_9610:
     resb 0x00c8
 __zobss_96d8:
-    resb 0x0094
+    resb 0x0044
+__zobss_971c:
+    resb 0x0050
 __zobss_976c:
-    resb 0x001e
+    resb 0x0002
+__zobss_976e:
+    resb 0x001c
 __zobss_978a:
     resb 0x0002
 __zobss_end:

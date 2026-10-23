@@ -21,7 +21,7 @@ loc_HOUQ:
     mov cx, 6                        ; 0x6f0e
     imul cx                          ; 0x6f11
     mov bx, ax                       ; 0x6f13
-    mov word [bx - 0x6f36], 0        ; 0x6f15
+    mov word [bx + bss_90ca], 0      ; 0x6f15
     mov word [bss_8320], 0           ; 0x6f1b
     call loc_RPUI                    ; 0x6f21
 @..loc_HOUQ.l2:

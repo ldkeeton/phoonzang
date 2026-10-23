@@ -97,7 +97,7 @@ jumptable_4267_case_8:
     mov ax, word [bp + 0x6]          ; 0x41ed
     shl ax, 1                        ; 0x41f0
     mov bx, ax                       ; 0x41f2
-    mov word [bx - 0x6892], 0        ; 0x41f4
+    mov word [bx + bss_976e], 0      ; 0x41f4
 @..loc_UMTI.l3:
     jmp near @..loc_UMTI.l5          ; 0x41fa
 jumptable_4267_case_9:

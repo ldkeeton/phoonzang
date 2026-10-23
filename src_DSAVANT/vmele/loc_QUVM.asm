@@ -353,7 +353,7 @@ loc_QUVM:
     shl cx, 1                        ; 0x1d4e
     add ax, cx                       ; 0x1d50
     mov bx, ax                       ; 0x1d52
-    mov word [bx - 0x6f42], 1        ; 0x1d54
+    mov word [bx + bss_90be], 1      ; 0x1d54
 @..loc_QUVM.l23:
     inc word [bp - 0x0004]           ; 0x1d5a
 @..loc_QUVM.l24:

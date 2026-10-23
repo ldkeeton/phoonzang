@@ -138,7 +138,7 @@ api_idx_0006_UMQS:
     mov ax, word [bp - 0x0002]       ; 0x9366
     shl ax, 1                        ; 0x9369
     mov bx, ax                       ; 0x936b
-    mov al, byte [bx - 0x6418]       ; 0x936d
+    mov al, byte [bx + bss_9be8]     ; 0x936d
     push ax                          ; 0x9371
     mov ax, 0x26                     ; 0x9372
     imul word [bp + 0x4]             ; 0x9375

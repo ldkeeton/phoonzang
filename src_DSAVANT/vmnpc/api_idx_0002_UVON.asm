@@ -7,7 +7,7 @@ api_idx_0002_UVON:
 @..api_idx_0002_UVON.l1:
     mov ax, 0x14                     ; 0xa39e
     imul word [bp - 0x0002]          ; 0xa3a1
-    add ax, 0xa7ac                   ; 0xa3a4
+    add ax, bss_a7ac                 ; 0xa3a4
     push ax                          ; 0xa3a7
     mov ax, word [bp - 0x0002]       ; 0xa3a8
     shl ax, 1                        ; 0xa3ab
@@ -17,7 +17,7 @@ api_idx_0002_UVON:
     add sp, byte 4                   ; 0xa3b4
     mov ax, 0x14                     ; 0xa3b7
     imul word [bp - 0x0002]          ; 0xa3ba
-    add ax, 0xa7b6                   ; 0xa3bd
+    add ax, bss_a7b6                 ; 0xa3bd
     push ax                          ; 0xa3c0
     mov ax, word [bp - 0x0002]       ; 0xa3c1
     shl ax, 1                        ; 0xa3c4

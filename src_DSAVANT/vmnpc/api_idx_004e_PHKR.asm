@@ -5,7 +5,7 @@ api_idx_004e_PHKR:
     mov ax, word [bp + 0x6]          ; 0x5b7a
     shl ax, 1                        ; 0x5b7d
     mov bx, ax                       ; 0x5b7f
-    mov ax, word [bx - 0x6356]       ; 0x5b81
+    mov ax, word [bx + bss_9caa]     ; 0x5b81
     mov cx, 0x100                    ; 0x5b85
     cwd                              ; 0x5b88
     idiv cx                          ; 0x5b89

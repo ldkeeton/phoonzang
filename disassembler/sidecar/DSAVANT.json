@@ -934,6 +934,7 @@
     },
     "vga": {
       "function_names": {
+        "3188": {"name": "table_entry_ptr", "note": "points ds:bx at entry al of the 4-byte offset/paragraph table at ds:2"},
         "0516": {"name": "clip_mouse_pointer_to_area", "note": "clips the saved mouse rectangle against the dissolve rectangle"},
         "067f": {"name": "redraw_mouse_pointer", "note": "copies the saved mouse shape into the screen buffer"},
         "1308": {"name": "request_mouse_redraw", "note": "sets mouse_redraw_pending when a mouse is present"},

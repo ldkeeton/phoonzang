@@ -25,6 +25,7 @@ IMAGE_BASE equ 0x000e + VBASE
 __zcode_start:
 
 bss_9180 equ __zdseg_end + (__zobss_9180 - __zdata_start)
+bss_9182 equ __zdseg_end + (__zobss_9182 - __zdata_start)
 %include "vmext/ovmain.asm"                ; 0x000e
 
 %include "shared/game/loc_MPHO.asm"              ; 0x00b6
@@ -144,7 +145,63 @@ loc_LPLI_194f.bss1 equ bss_91a6
 ; bss_9188         equ __zdseg_end + (__zobss_9188 - __zdata_start)
 location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
 bss_91aa         equ __zdseg_end + (__zobss_91aa - __zdata_start)
-%include "vmext/api_idx_0008_UNPO.asm"     ; 0x1a1d
+bss_91ae         equ __zdseg_end + (__zobss_91ae - __zdata_start)
+bss_91c7         equ __zdseg_end + (__zobss_91c7 - __zdata_start)
+bss_91e0         equ __zdseg_end + (__zobss_91e0 - __zdata_start)
+bss_91e5         equ __zdseg_end + (__zobss_91e5 - __zdata_start)
+bss_91f9         equ __zdseg_end + (__zobss_91f9 - __zdata_start)
+bss_9214         equ __zdseg_end + (__zobss_9214 - __zdata_start)
+bss_9246         equ __zdseg_end + (__zobss_9246 - __zdata_start)
+bss_9276         equ __zdseg_end + (__zobss_9276 - __zdata_start)
+bss_9292         equ __zdseg_end + (__zobss_9292 - __zdata_start)
+bss_92c4         equ __zdseg_end + (__zobss_92c4 - __zdata_start)
+api_idx_0008_UNPO       equ api_idx_0008_LJTR
+api_idx_0008_LJTR.bss1  equ location_changed
+jumptable_1a8f_case_0   equ api_idx_0008_LJTR.jumptable_case1
+jumptable_1a8f_case_3   equ api_idx_0008_LJTR.jumptable_case2
+api_idx_0008_LJTR.bss2  equ bss_9188
+jumptable_1a8f_case_1   equ api_idx_0008_LJTR.jumptable_case3
+api_idx_0008_LJTR.bss3  equ bss_91aa
+api_idx_0008_LJTR.bss4  equ bss_91ae
+jumptable_1a8f_case_5   equ api_idx_0008_LJTR.jumptable_case4
+jumptable_1a8f          equ api_idx_0008_LJTR.jumptable1
+jumptable_1b11_case_0   equ api_idx_0008_LJTR.jumptable_case5
+jumptable_1b11_case_1   equ api_idx_0008_LJTR.jumptable_case6
+jumptable_1b11_case_2   equ api_idx_0008_LJTR.jumptable_case7
+jumptable_1b11          equ api_idx_0008_LJTR.jumptable2
+jumptable_1ba0_case_1   equ api_idx_0008_LJTR.jumptable_case8
+jumptable_1ba0_case_2   equ api_idx_0008_LJTR.jumptable_case9
+api_idx_0008_LJTR.bss5  equ bss_91c7
+jumptable_1ba0_case_5   equ api_idx_0008_LJTR.jumptable_case10
+jumptable_1ba0_case_0   equ api_idx_0008_LJTR.jumptable_case11
+api_idx_0008_LJTR.bss6  equ bss_91e0
+api_idx_0008_LJTR.bss7  equ bss_91e5
+jumptable_1ba0          equ api_idx_0008_LJTR.jumptable3
+jumptable_1de5_case_1   equ api_idx_0008_LJTR.jumptable_case12
+jumptable_1de5_case_2   equ api_idx_0008_LJTR.jumptable_case13
+jumptable_1de5_case_3   equ api_idx_0008_LJTR.jumptable_case14
+jumptable_1de5_case_4   equ api_idx_0008_LJTR.jumptable_case15
+jumptable_1de5_case_5   equ api_idx_0008_LJTR.jumptable_case16
+jumptable_1de5_case_6   equ api_idx_0008_LJTR.jumptable_case17
+jumptable_1de5_case_7   equ api_idx_0008_LJTR.jumptable_case18
+api_idx_0008_LJTR.bss8  equ bss_91f9
+jumptable_1de5_case_8   equ api_idx_0008_LJTR.jumptable_case19
+api_idx_0008_LJTR.bss9  equ bss_9214
+jumptable_1de5_case_9   equ api_idx_0008_LJTR.jumptable_case20
+api_idx_0008_LJTR.bss10 equ bss_9246
+jumptable_1de5_case_10  equ api_idx_0008_LJTR.jumptable_case21
+jumptable_1de5_case_11  equ api_idx_0008_LJTR.jumptable_case22
+jumptable_1de5_case_12  equ api_idx_0008_LJTR.jumptable_case23
+api_idx_0008_LJTR.bss11 equ bss_9276
+jumptable_1de5_case_13  equ api_idx_0008_LJTR.jumptable_case24
+jumptable_1de5_case_14  equ api_idx_0008_LJTR.jumptable_case25
+api_idx_0008_LJTR.bss12 equ bss_9292
+jumptable_1de5_case_15  equ api_idx_0008_LJTR.jumptable_case26
+api_idx_0008_LJTR.bss13 equ bss_92c4
+jumptable_1de5_case_16  equ api_idx_0008_LJTR.jumptable_case27
+jumptable_1de5          equ api_idx_0008_LJTR.jumptable4
+jumptable_1de5_case_0   equ api_idx_0008_LJTR.jumptable_case28
+%include "shared/game/api_idx_0008_LJTR.asm"     ; 0x1a1d
 
 ; bss_9188         equ __zdseg_end + (__zobss_9188 - __zdata_start)
 ; location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
@@ -153,7 +210,34 @@ bss_91aa         equ __zdseg_end + (__zobss_91aa - __zdata_start)
 
 bss_92f2 equ __zdseg_end + (__zobss_92f2 - __zdata_start)
 bss_92f4 equ __zdseg_end + (__zobss_92f4 - __zdata_start)
-%include "vmext/api_idx_0004_RTNM.asm"     ; 0x201b
+bss_92f6 equ __zdseg_end + (__zobss_92f6 - __zdata_start)
+bss_92f8 equ __zdseg_end + (__zobss_92f8 - __zdata_start)
+bss_92fa equ __zdseg_end + (__zobss_92fa - __zdata_start)
+bss_92fc equ __zdseg_end + (__zobss_92fc - __zdata_start)
+bss_92fd equ __zdseg_end + (__zobss_92fd - __zdata_start)
+bss_92fe equ __zdseg_end + (__zobss_92fe - __zdata_start)
+bss_92ff equ __zdseg_end + (__zobss_92ff - __zdata_start)
+bss_9300 equ __zdseg_end + (__zobss_9300 - __zdata_start)
+bss_9301 equ __zdseg_end + (__zobss_9301 - __zdata_start)
+bss_9302 equ __zdseg_end + (__zobss_9302 - __zdata_start)
+bss_9303 equ __zdseg_end + (__zobss_9303 - __zdata_start)
+bss_9304 equ __zdseg_end + (__zobss_9304 - __zdata_start)
+api_idx_0004_RTNM       equ api_idx_0004_OVUO
+api_idx_0004_OVUO.bss1  equ bss_92f2
+api_idx_0004_OVUO.bss2  equ bss_9300
+api_idx_0004_OVUO.bss3  equ bss_9302
+api_idx_0004_OVUO.bss4  equ bss_92f4
+api_idx_0004_OVUO.bss5  equ bss_92f6
+api_idx_0004_OVUO.bss6  equ bss_92fc
+api_idx_0004_OVUO.bss7  equ bss_92fd
+api_idx_0004_OVUO.bss8  equ bss_92fe
+api_idx_0004_OVUO.bss9  equ bss_92ff
+api_idx_0004_OVUO.bss10 equ bss_92f8
+api_idx_0004_OVUO.bss11 equ bss_92fa
+api_idx_0004_OVUO.bss12 equ bss_9301
+api_idx_0004_OVUO.bss13 equ bss_9303
+api_idx_0004_OVUO.bss14 equ bss_9304
+%include "shared/game/api_idx_0004_OVUO.asm"     ; 0x201b
 
 ; bss_91a4         equ __zdseg_end + (__zobss_91a4 - __zdata_start)
 ; location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
@@ -247,13 +331,18 @@ api_idx_0012_RMOL.bss11    equ bss_91f7
 
 %include "shared/game/api_idx_001e_IGLM.asm"     ; 0x3d29
 
+; bss_9182           equ __zdseg_end + (__zobss_9182 - __zdata_start)
 ; bss_9188           equ __zdseg_end + (__zobss_9188 - __zdata_start)
+bss_918c           equ __zdseg_end + (__zobss_918c - __zdata_start)
+bss_9192           equ __zdseg_end + (__zobss_9192 - __zdata_start)
+bss_9198           equ __zdseg_end + (__zobss_9198 - __zdata_start)
 save_location_flag equ __zdseg_end + (__zobss_919e - __zdata_start)
 ; bss_91a4           equ __zdseg_end + (__zobss_91a4 - __zdata_start)
 ; bss_91a6           equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 ; location_changed   equ __zdseg_end + (__zobss_91a8 - __zdata_start)
 ; bss_91aa           equ __zdseg_end + (__zobss_91aa - __zdata_start)
 ; bss_91ac           equ __zdseg_end + (__zobss_91ac - __zdata_start)
+; bss_91ae           equ __zdseg_end + (__zobss_91ae - __zdata_start)
 bss_91b8           equ __zdseg_end + (__zobss_91b8 - __zdata_start)
 ; bss_91c5           equ __zdseg_end + (__zobss_91c5 - __zdata_start)
 bss_91de           equ __zdseg_end + (__zobss_91de - __zdata_start)
@@ -277,7 +366,58 @@ bss_9b14           equ __zdseg_end + (__zobss_9b14 - __zdata_start)
 bss_9b16           equ __zdseg_end + (__zobss_9b16 - __zdata_start)
 bss_9b18           equ __zdseg_end + (__zobss_9b18 - __zdata_start)
 bss_9b1a           equ __zdseg_end + (__zobss_9b1a - __zdata_start)
-%include "vmext/api_idx_0030_MLHO.asm"     ; 0x3e8c
+api_idx_0030_MLHO          equ api_idx_0030_JQMM
+api_idx_0030_JQMM.bss1     equ bss_9188
+api_idx_0030_JQMM.bss2     equ bss_91de
+api_idx_0030_JQMM.bss3     equ bss_91c5
+api_idx_0030_JQMM.bss4     equ bss_91ac
+api_idx_0030_JQMM.bss5     equ bss_9aee
+api_idx_0030_JQMM.bss6     equ bss_91f7
+api_idx_0030_JQMM.bss7     equ bss_928e
+api_idx_0030_JQMM.bss8     equ bss_9274
+api_idx_0030_JQMM.bss9     equ bss_9210
+api_idx_0030_JQMM.bss10    equ bss_92c0
+api_idx_0030_JQMM.bss11    equ bss_9242
+api_idx_0030_JQMM.bss12    equ bss_92f4
+api_idx_0030_JQMM.bss13    equ bss_92f2
+api_idx_0030_JQMM.bss14    equ bss_9b08
+api_idx_0030_JQMM.bss15    equ bss_91a6
+api_idx_0030_JQMM.bss16    equ location_changed
+jumptable_4471_case_1      equ api_idx_0030_JQMM.jumptable_case1
+api_idx_0030_JQMM.loc1     equ loc_UMHI_193b
+api_idx_0030_JQMM.loc2     equ loc_LPLI_194f
+jumptable_4471_case_2      equ api_idx_0030_JQMM.jumptable_case2
+jumptable_4471_case_3      equ api_idx_0030_JQMM.jumptable_case3
+jumptable_4471_case_4      equ api_idx_0030_JQMM.jumptable_case4
+jumptable_4471_case_5      equ api_idx_0030_JQMM.jumptable_case5
+jumptable_4471_case_6      equ api_idx_0030_JQMM.jumptable_case6
+jumptable_4471             equ api_idx_0030_JQMM.jumptable1
+jumptable_4471_case_0      equ api_idx_0030_JQMM.jumptable_case7
+api_idx_0030_JQMM.bss17    equ bss_91aa
+api_idx_0030_JQMM.bss18    equ bss_91a4
+api_idx_0030_JQMM.bss19    equ grid_origin_y
+api_idx_0030_JQMM.bss20    equ bss_91ae
+api_idx_0030_JQMM.bss21    equ grid_origin_x
+api_idx_0030_JQMM.bss22    equ known_spell_ids
+api_idx_0030_JQMM.api_idx1 equ api_idx_0008_UNPO
+api_idx_0030_JQMM.api_idx2 equ api_idx_0008_LUNN
+api_idx_0030_JQMM.bss23    equ bss_9b10
+api_idx_0030_JQMM.bss24    equ bss_9b12
+api_idx_0030_JQMM.bss25    equ bss_9b14
+api_idx_0030_JQMM.bss26    equ bss_9b16
+api_idx_0030_JQMM.bss27    equ bss_9b18
+api_idx_0030_JQMM.bss28    equ bss_9b1a
+api_idx_0030_JQMM.bss29    equ bss_9aec
+api_idx_0030_JQMM.api_idx3 equ api_idx_0010_NIMV
+api_idx_0030_JQMM.api_idx4 equ api_idx_0012_STJU
+api_idx_0030_JQMM.api_idx5 equ api_idx_0012_JLRR
+api_idx_0030_JQMM.bss30    equ bss_91b8
+api_idx_0030_JQMM.bss31    equ bss_9182
+api_idx_0030_JQMM.bss32    equ save_location_flag
+api_idx_0030_JQMM.bss33    equ bss_918c
+api_idx_0030_JQMM.bss34    equ bss_9192
+api_idx_0030_JQMM.bss35    equ bss_9198
+%include "shared/game/api_idx_0030_JQMM.asm"     ; 0x3e8c
 
 redraw_maze_view.api_idx1 equ api_idx_0030_MLHO
 %include "shared/game/redraw_maze_view.asm"      ; 0x51fb
@@ -341,11 +481,19 @@ __zdseg_9168:
 __zimage_end:
 absolute __zimage_end
 __zobss_9180:
-    resb 0x0008
+    resb 0x0002
+__zobss_9182:
+    resb 0x0006
 __zobss_9188:
     resb 0x0002
 __zobss_918a:
-    resb 0x0014
+    resb 0x0002
+__zobss_918c:
+    resb 0x0006
+__zobss_9192:
+    resb 0x0006
+__zobss_9198:
+    resb 0x0006
 __zobss_919e:
     resb 0x0006
 __zobss_91a4:
@@ -357,29 +505,73 @@ __zobss_91a8:
 __zobss_91aa:
     resb 0x0002
 __zobss_91ac:
-    resb 0x000c
+    resb 0x0002
+__zobss_91ae:
+    resb 0x000a
 __zobss_91b8:
     resb 0x000d
 __zobss_91c5:
-    resb 0x0019
+    resb 0x0002
+__zobss_91c7:
+    resb 0x0017
 __zobss_91de:
-    resb 0x0019
+    resb 0x0002
+__zobss_91e0:
+    resb 0x0005
+__zobss_91e5:
+    resb 0x0012
 __zobss_91f7:
-    resb 0x0019
+    resb 0x0002
+__zobss_91f9:
+    resb 0x0017
 __zobss_9210:
-    resb 0x0032
+    resb 0x0004
+__zobss_9214:
+    resb 0x002e
 __zobss_9242:
-    resb 0x0032
+    resb 0x0004
+__zobss_9246:
+    resb 0x002e
 __zobss_9274:
-    resb 0x001a
+    resb 0x0002
+__zobss_9276:
+    resb 0x0018
 __zobss_928e:
-    resb 0x0032
+    resb 0x0004
+__zobss_9292:
+    resb 0x002e
 __zobss_92c0:
-    resb 0x0032
+    resb 0x0004
+__zobss_92c4:
+    resb 0x002e
 __zobss_92f2:
     resb 0x0002
 __zobss_92f4:
-    resb 0x07f8
+    resb 0x0002
+__zobss_92f6:
+    resb 0x0002
+__zobss_92f8:
+    resb 0x0002
+__zobss_92fa:
+    resb 0x0002
+__zobss_92fc:
+    resb 0x0001
+__zobss_92fd:
+    resb 0x0001
+__zobss_92fe:
+    resb 0x0001
+__zobss_92ff:
+    resb 0x0001
+__zobss_9300:
+    resb 0x0001
+__zobss_9301:
+    resb 0x0001
+__zobss_9302:
+    resb 0x0001
+__zobss_9303:
+    resb 0x0001
+__zobss_9304:
+    resb 0x07e8
 __zobss_9aec:
     resb 0x0002
 __zobss_9aee:

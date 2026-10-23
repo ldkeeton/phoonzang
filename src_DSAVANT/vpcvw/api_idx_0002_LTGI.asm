@@ -5,7 +5,7 @@ api_idx_0002_LTGI:
     mov ax, word [bp + 0x6]          ; 0x8fbe
     shl ax, 1                        ; 0x8fc1
     mov bx, ax                       ; 0x8fc3
-    mov word [bx - 0x6984], 1        ; 0x8fc5
+    mov word [bx + bss_967c], 1      ; 0x8fc5
     mov word [bp - 0x0002], 0        ; 0x8fcb
 @..api_idx_0002_LTGI.l1:
     mov ax, 0x248                    ; 0x8fd0
@@ -42,7 +42,7 @@ api_idx_0002_LTGI:
     mov ax, word [bp + 0x6]          ; 0x9015
     shl ax, 1                        ; 0x9018
     mov bx, ax                       ; 0x901a
-    mov word [bx - 0x6984], 0        ; 0x901c
+    mov word [bx + bss_967c], 0      ; 0x901c
 @..api_idx_0002_LTGI.l3:
     inc word [bp - 0x0002]           ; 0x9022
     mov ax, word [bp - 0x0002]       ; 0x9025

@@ -226,7 +226,7 @@ api_idx_0014_VORK:
 @..api_idx_0014_VORK.l6:
     mov ax, 0xa                      ; 0x6389
     imul word [bp - 0x0002]          ; 0x638c
-    add ax, 0x9616                   ; 0x638f
+    add ax, bss_9616                 ; 0x638f
     push ax                          ; 0x6392
     mov ax, word [bp - 0x0002]       ; 0x6393
     add ax, 0x12c                    ; 0x6396

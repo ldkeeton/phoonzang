@@ -122,7 +122,7 @@ api_idx_0002_UUUJ:
     mov cx, word [bp - 0x0002]       ; 0x89a7
     shl cx, 1                        ; 0x89aa
     mov bx, cx                       ; 0x89ac
-    mov word [bx - 0x5a16], ax       ; 0x89ae
+    mov word [bx + bss_a5ea], ax     ; 0x89ae
     inc word [bp - 0x0002]           ; 0x89b2
     mov ax, word [bp - 0x0002]       ; 0x89b5
     cmp ax, strict word 8            ; 0x89b8

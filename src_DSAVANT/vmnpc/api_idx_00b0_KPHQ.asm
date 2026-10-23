@@ -137,7 +137,7 @@ api_idx_00b0_KPHQ:
     mov ax, word [bss_93d4]          ; 0xa98c
     mov cx, 7                        ; 0xa98f
     shl ax, cl                       ; 0xa992
-    add ax, 0x91cc                   ; 0xa994
+    add ax, bss_91cc                 ; 0xa994
     push ax                          ; 0xa997
     call aztec_strcpy                ; 0xa998
     add sp, byte 4                   ; 0xa99b
@@ -145,14 +145,14 @@ api_idx_00b0_KPHQ:
     mov ax, word [bss_93d4]          ; 0xa9a1
     mov cx, 7                        ; 0xa9a4
     shl ax, cl                       ; 0xa9a7
-    add ax, 0x91cc                   ; 0xa9a9
+    add ax, bss_91cc                 ; 0xa9a9
     push ax                          ; 0xa9ac
     call aztec_strcat                ; 0xa9ad
     add sp, byte 4                   ; 0xa9b0
     mov ax, word [bss_93d4]          ; 0xa9b3
     shl ax, 1                        ; 0xa9b6
     mov bx, ax                       ; 0xa9b8
-    mov word [bx - 0x6c34], 0        ; 0xa9ba
+    mov word [bx + bss_93cc], 0      ; 0xa9ba
     call api_idx_0004_KNGG           ; 0xa9c0
     push word [bp + 0x4]             ; 0xa9c3
     lea ax, word [bp - 0x0060]       ; 0xa9c6
@@ -191,7 +191,7 @@ api_idx_00b0_KPHQ:
     mov ax, word [bss_93d4]          ; 0xaa1b
     mov cx, 7                        ; 0xaa1e
     shl ax, cl                       ; 0xaa21
-    add ax, 0x91cc                   ; 0xaa23
+    add ax, bss_91cc                 ; 0xaa23
     push ax                          ; 0xaa26
     call aztec_strcpy                ; 0xaa27
     add sp, byte 4                   ; 0xaa2a
@@ -201,20 +201,20 @@ api_idx_00b0_KPHQ:
     mov cx, 7                        ; 0xaa32
     shl ax, cl                       ; 0xaa35
     mov bx, ax                       ; 0xaa37
-    mov byte [bx - 0x6e34], 0        ; 0xaa39
+    mov byte [bx + bss_91cc], 0      ; 0xaa39
 @..api_idx_00b0_KPHQ.l11:
     push word [bp + 0x4]             ; 0xaa3e
     mov ax, word [bss_93d4]          ; 0xaa41
     mov cx, 7                        ; 0xaa44
     shl ax, cl                       ; 0xaa47
-    add ax, 0x91cc                   ; 0xaa49
+    add ax, bss_91cc                 ; 0xaa49
     push ax                          ; 0xaa4c
     call aztec_strcat                ; 0xaa4d
     add sp, byte 4                   ; 0xaa50
     mov ax, word [bss_93d4]          ; 0xaa53
     shl ax, 1                        ; 0xaa56
     mov bx, ax                       ; 0xaa58
-    mov word [bx - 0x6c34], 0        ; 0xaa5a
+    mov word [bx + bss_93cc], 0      ; 0xaa5a
     call api_idx_0004_KNGG           ; 0xaa60
     cmp word [bp - 0x0008], byte 0   ; 0xaa63
     je short @..api_idx_00b0_KPHQ.l12 ; 0xaa67

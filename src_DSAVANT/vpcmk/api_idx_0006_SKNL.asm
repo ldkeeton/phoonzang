@@ -51,5 +51,5 @@ api_idx_0006_SKNL:
     mov cx, word [bp + 0x6]          ; 0x40fb
     shl cx, 1                        ; 0x40fe
     mov bx, cx                       ; 0x4100
-    mov word [bx - 0x6892], ax       ; 0x4102
+    mov word [bx + bss_976e], ax     ; 0x4102
     ret                              ; 0x4106

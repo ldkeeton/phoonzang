@@ -49,9 +49,11 @@ api_idx_000e_NKQN.api_idx1 equ api_idx_0004_ONRQ
 
 %include "shared/game/loc_SSIO.asm"              ; 0x0dbe
 
+bss_90ca equ __zdseg_end + (__zobss_90ca - __zdata_start)
 bss_90dc equ __zdseg_end + (__zobss_90dc - __zdata_start)
 %include "vmexe/api_idx_0016_MUKH.asm"     ; 0x0e1a
 
+; bss_90ca equ __zdseg_end + (__zobss_90ca - __zdata_start)
 ; bss_90dc equ __zdseg_end + (__zobss_90dc - __zdata_start)
 bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
 %include "vmexe/loc_OTGM.asm"              ; 0x0f67
@@ -102,6 +104,7 @@ dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
 
 %include "vmexe/loc_MUTI.asm"              ; 0x1c36
 
+; bss_90ca equ __zdseg_end + (__zobss_90ca - __zdata_start)
 %include "vmexe/api_idx_0004_PIHK.asm"     ; 0x1c5e
 
 bss_90e6 equ __zdseg_end + (__zobss_90e6 - __zdata_start)
@@ -195,6 +198,7 @@ bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
 
 %include "vmexe/api_idx_0008_NUPQ.asm"     ; 0x63cd
 
+; bss_90ca equ __zdseg_end + (__zobss_90ca - __zdata_start)
 ; bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
 ; bss_90e6 equ __zdseg_end + (__zobss_90e6 - __zdata_start)
 ; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
@@ -203,8 +207,10 @@ bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
 ; bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
 %include "vmexe/api_idx_0014_OSKJ.asm"     ; 0x6476
 
+; bss_90ca equ __zdseg_end + (__zobss_90ca - __zdata_start)
 %include "vmexe/loc_HOUQ.asm"              ; 0x6edc
 
+; bss_90ca equ __zdseg_end + (__zobss_90ca - __zdata_start)
 ; bss_90e2 equ __zdseg_end + (__zobss_90e2 - __zdata_start)
 %include "vmexe/api_idx_000c_VJPM.asm"     ; 0x6f33
 
@@ -301,7 +307,9 @@ __zdseg_90b0:
 __zimage_end:
 absolute __zimage_end
 __zobss_90bc:
-    resb 0x0020
+    resb 0x000e
+__zobss_90ca:
+    resb 0x0012
 __zobss_90dc:
     resb 0x0002
 __zobss_90de:

@@ -5,7 +5,7 @@ api_idx_0040_LSRO:
     mov ax, word [bp + 0x6]          ; 0x2b94
     shl ax, 1                        ; 0x2b97
     mov bx, ax                       ; 0x2b99
-    mov ax, word [bx - 0x6e88]       ; 0x2b9b
+    mov ax, word [bx + bss_9178]     ; 0x2b9b
     mov word [bp - 0x0004], ax       ; 0x2b9f
     mov ax, 0                        ; 0x2ba2
     push ax                          ; 0x2ba5
@@ -1190,7 +1190,7 @@ jumptable_36f8_case_46:
     mov cx, word [bp - 0x0028]       ; 0x369c
     shl cx, 1                        ; 0x369f
     mov bx, cx                       ; 0x36a1
-    mov word [bx - 0x6e88], ax       ; 0x36a3
+    mov word [bx + bss_9178], ax     ; 0x36a3
     jmp near @..api_idx_0040_LSRO.l85 ; 0x36a7
 jumptable_36f8_case_47:
     mov ax, word [bp - 0x0026]       ; 0x36aa

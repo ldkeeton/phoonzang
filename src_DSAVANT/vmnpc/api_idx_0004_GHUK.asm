@@ -19,69 +19,69 @@ api_idx_0004_GHUK:
     mov word [bx + bss_9cd4], ax     ; 0x539f
     mov ax, 0x16                     ; 0x53a3
     imul word [bp - 0x0002]          ; 0x53a6
-    add ax, 0x99d6                   ; 0x53a9
+    add ax, bss_99d6                 ; 0x53a9
     push ax                          ; 0x53ac
     mov ax, 0x16                     ; 0x53ad
     imul word [bss_9cd2]             ; 0x53b0
-    add ax, 0x99d6                   ; 0x53b4
+    add ax, bss_99d6                 ; 0x53b4
     push ax                          ; 0x53b7
     call aztec_strcpy                ; 0x53b8
     add sp, byte 4                   ; 0x53bb
     mov ax, word [bp - 0x0002]       ; 0x53be
     shl ax, 1                        ; 0x53c1
     mov bx, ax                       ; 0x53c3
-    mov ax, word [bx - 0x6396]       ; 0x53c5
+    mov ax, word [bx + bss_9c6a]     ; 0x53c5
     mov cx, word [bss_9cd2]          ; 0x53c9
     shl cx, 1                        ; 0x53cd
     mov bx, cx                       ; 0x53cf
-    mov word [bx - 0x6396], ax       ; 0x53d1
+    mov word [bx + bss_9c6a], ax     ; 0x53d1
     mov ax, word [bp - 0x0002]       ; 0x53d5
     shl ax, 1                        ; 0x53d8
     shl ax, 1                        ; 0x53da
     mov bx, ax                       ; 0x53dc
-    mov ax, word [bx - 0x66ca]       ; 0x53de
-    mov dx, word [bx - 0x66c8]       ; 0x53e2
+    mov ax, word [bx + bss_9936]     ; 0x53de
+    mov dx, word [bx + bss_9938]     ; 0x53e2
     mov cx, word [bss_9cd2]          ; 0x53e6
     shl cx, 1                        ; 0x53ea
     shl cx, 1                        ; 0x53ec
     mov bx, cx                       ; 0x53ee
-    mov word [bx - 0x66c8], dx       ; 0x53f0
-    mov word [bx - 0x66ca], ax       ; 0x53f4
+    mov word [bx + bss_9938], dx     ; 0x53f0
+    mov word [bx + bss_9936], ax     ; 0x53f4
     mov bx, word [bp - 0x0002]       ; 0x53f8
-    mov al, byte [bx - 0x66e8]       ; 0x53fb
+    mov al, byte [bx + bss_9918]     ; 0x53fb
     mov bx, word [bss_9cd2]          ; 0x53ff
-    mov byte [bx - 0x66e8], al       ; 0x5403
+    mov byte [bx + bss_9918], al     ; 0x5403
     mov bx, word [bp - 0x0002]       ; 0x5407
-    mov al, byte [bx - 0x6648]       ; 0x540a
+    mov al, byte [bx + bss_99b8]     ; 0x540a
     mov bx, word [bss_9cd2]          ; 0x540e
-    mov byte [bx - 0x6648], al       ; 0x5412
+    mov byte [bx + bss_99b8], al     ; 0x5412
     mov word [bp - 0x0004], 0        ; 0x5416
 @..api_idx_0004_GHUK.l3:
     mov ax, word [bp - 0x0002]       ; 0x541b
     shl ax, 1                        ; 0x541e
     add ax, word [bp - 0x0004]       ; 0x5420
     mov bx, ax                       ; 0x5423
-    mov al, byte [bx - 0x677e]       ; 0x5425
+    mov al, byte [bx + bss_9882]     ; 0x5425
     mov cx, word [bss_9cd2]          ; 0x5429
     shl cx, 1                        ; 0x542d
     add cx, word [bp - 0x0004]       ; 0x542f
     mov bx, cx                       ; 0x5432
-    mov byte [bx - 0x677e], al       ; 0x5434
+    mov byte [bx + bss_9882], al     ; 0x5434
     mov ax, word [bp - 0x0002]       ; 0x5438
     shl ax, 1                        ; 0x543b
     add ax, word [bp - 0x0004]       ; 0x543d
     mov bx, ax                       ; 0x5440
-    mov al, byte [bx - 0x6742]       ; 0x5442
+    mov al, byte [bx + bss_98be]     ; 0x5442
     mov bx, cx                       ; 0x5446
-    mov byte [bx - 0x6742], al       ; 0x5448
+    mov byte [bx + bss_98be], al     ; 0x5448
     inc word [bp - 0x0004]           ; 0x544c
     mov ax, word [bp - 0x0004]       ; 0x544f
     cmp ax, strict word 2            ; 0x5452
     jl short @..api_idx_0004_GHUK.l3 ; 0x5455
     mov bx, word [bp - 0x0002]       ; 0x5457
-    mov al, byte [bx - 0x6706]       ; 0x545a
+    mov al, byte [bx + bss_98fa]     ; 0x545a
     mov bx, word [bss_9cd2]          ; 0x545e
-    mov byte [bx - 0x6706], al       ; 0x5462
+    mov byte [bx + bss_98fa], al     ; 0x5462
     inc word [bss_9cd2]              ; 0x5466
 @..api_idx_0004_GHUK.l4:
     inc word [bp - 0x0002]           ; 0x546a

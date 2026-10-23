@@ -58,7 +58,12 @@ _TREE = shift_oracle.TREE
 # immediate spelling of ``[bx + 0x5bf4]`` and binds under the same proof
 # (``symbols._resolve_index_offset_symbols``); ds's ``add ax, 0x110`` after a
 # ``mul`` is its read buffer's end and now reads ``dseg_0110``.
-BASELINE = {'code': 26, 'data': 151, 'branch': 0}
+# Data 151 -> 137, code 26 -> 22: an indexed displacement in an overlay's own
+# BSS reads as the object it addresses, named or not (``[bx - 0x6e26]`` is
+# ``[bx + bss_91da]``, ``symbols._overlay_own_address``), and so does a table
+# start added to an index there; the overlays' copies of one routine then
+# differ only in names and share.
+BASELINE = {'code': 22, 'data': 137, 'branch': 0}
 
 
 def _sites(result):

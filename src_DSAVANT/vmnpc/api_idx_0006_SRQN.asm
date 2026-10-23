@@ -34,14 +34,14 @@ api_idx_0006_SRQN:
     mov ax, 6                        ; 0x37b7
     imul word [bp - 0x0002]          ; 0x37ba
     mov bx, ax                       ; 0x37bd
-    mov al, byte [bx - 0x6eb4]       ; 0x37bf
+    mov al, byte [bx + bss_914c]     ; 0x37bf
     cmp al, byte [bp + 0x6]          ; 0x37c3
     je short @..api_idx_0006_SRQN.l4 ; 0x37c6
     jmp near @..api_idx_0006_SRQN.l15 ; 0x37c8
 @..api_idx_0006_SRQN.l4:
     cmp byte [bp + 0x6], 2           ; 0x37cb
     jne short @..api_idx_0006_SRQN.l9 ; 0x37cf
-    mov ax, word [bx - 0x6eb8]       ; 0x37d1
+    mov ax, word [bx + bss_9148]     ; 0x37d1
     cwd                              ; 0x37d5
     mov cx, 8                        ; 0x37d6
 @..api_idx_0006_SRQN.l5:
@@ -53,7 +53,7 @@ api_idx_0006_SRQN:
     mov ax, 6                        ; 0x37e1
     imul word [bp - 0x0002]          ; 0x37e4
     mov bx, ax                       ; 0x37e7
-    mov al, byte [bx - 0x6eb6]       ; 0x37e9
+    mov al, byte [bx + bss_914a]     ; 0x37e9
     sub ah, ah                       ; 0x37ed
     cwd                              ; 0x37ef
     mov cx, ax                       ; 0x37f0
@@ -77,7 +77,7 @@ api_idx_0006_SRQN:
     mov ax, 6                        ; 0x381c
     imul word [bp - 0x0002]          ; 0x381f
     mov bx, ax                       ; 0x3822
-    mov al, byte [bx - 0x6eb3]       ; 0x3824
+    mov al, byte [bx + bss_914d]     ; 0x3824
     sub ah, ah                       ; 0x3828
     push ax                          ; 0x382a
     push word [bp + 0x4]             ; 0x382b
@@ -93,26 +93,26 @@ api_idx_0006_SRQN:
     mov ax, 6                        ; 0x3841
     imul word [bp - 0x0002]          ; 0x3844
     mov bx, ax                       ; 0x3847
-    cmp word [bx - 0x6eb8], byte 0   ; 0x3849
+    cmp word [bx + bss_9148], byte 0 ; 0x3849
     jne short @..api_idx_0006_SRQN.l10 ; 0x384e
     mov word [bp + 0x8], 0           ; 0x3850
 @..api_idx_0006_SRQN.l10:
     mov ax, 6                        ; 0x3855
     imul word [bp - 0x0002]          ; 0x3858
     mov bx, ax                       ; 0x385b
-    mov ax, word [bx - 0x6eb8]       ; 0x385d
+    mov ax, word [bx + bss_9148]     ; 0x385d
     cmp ax, word [bp + 0x8]          ; 0x3861
     je short @..api_idx_0006_SRQN.l11 ; 0x3864
     cmp word [bp + 0x8], byte 0      ; 0x3866
     jne short @..api_idx_0006_SRQN.l15 ; 0x386a
 @..api_idx_0006_SRQN.l11:
-    mov al, byte [bx - 0x6eb6]       ; 0x386c
+    mov al, byte [bx + bss_914a]     ; 0x386c
     cmp al, byte [bp + 0xa]          ; 0x3870
     je short @..api_idx_0006_SRQN.l12 ; 0x3873
     cmp byte [bp + 0xa], 0           ; 0x3875
     jne short @..api_idx_0006_SRQN.l15 ; 0x3879
 @..api_idx_0006_SRQN.l12:
-    mov al, byte [bx - 0x6eb5]       ; 0x387b
+    mov al, byte [bx + bss_914b]     ; 0x387b
     cmp al, byte [bp + 0xc]          ; 0x387f
     je short @..api_idx_0006_SRQN.l13 ; 0x3882
     cmp byte [bp + 0xc], 0           ; 0x3884
@@ -125,7 +125,7 @@ api_idx_0006_SRQN:
     mov ax, 6                        ; 0x3893
     imul word [bp - 0x0002]          ; 0x3896
     mov bx, ax                       ; 0x3899
-    mov al, byte [bx - 0x6eb3]       ; 0x389b
+    mov al, byte [bx + bss_914d]     ; 0x389b
     sub ah, ah                       ; 0x389f
     push ax                          ; 0x38a1
     push word [bp + 0x4]             ; 0x38a2

@@ -51,7 +51,7 @@ api_idx_0068_OUGS:
     mov ax, word [bp - 0x0002]       ; 0x5227
     shl ax, 1                        ; 0x522a
     mov bx, ax                       ; 0x522c
-    mov ax, word [bx - 0x6356]       ; 0x522e
+    mov ax, word [bx + bss_9caa]     ; 0x522e
     mov cx, 0x100                    ; 0x5232
     cwd                              ; 0x5235
     idiv cx                          ; 0x5236

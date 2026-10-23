@@ -122,18 +122,30 @@ class ResolveIndexedSymbolsTest(unittest.TestCase):
             insns, self._FLOW, _model(), {0x400}, frozenset(), equ)
         self.assertEqual(symbols[(0x200, 1)], 'bss_0400')
 
+    class _Overlay:
+        kind = 'overlay'
+        overlay = {'o_dorg': 0x450}
+        data_names = {}
+
+        def data_space(self, offset):
+            return 'bss' if offset >= 0x600 else 'dseg'
+
     def test_overlay_ignores_union_starts_in_its_own_data(self):
         # Past ``o_dorg`` the offset names a different object in each overlay.
-        class _Overlay:
-            kind = 'overlay'
-            overlay = {'o_dorg': 0x450}
-            data_names = {}
-
-            def data_space(self, offset):
-                return 'bss'
-        symbols, _ = self._resolve('8b870004' '8b870005', segments=_Overlay(),
+        symbols, _ = self._resolve('8b870004' '8b870005',
+                                   segments=self._Overlay(),
                                    ds_starts={0x400, 0x500})
         self.assertEqual(set(symbols), {(0x200, 1)})
+
+    def test_overlay_bss_displacement_is_an_object_whatever_names_it(self):
+        # mov ax, [bx + 0x700], [bx - 6]: its own BSS needs no named start; a
+        # small negative offset is a field offset, not an address.
+        flow = _FakeFlow({0x0700: DATA, 0xfffa: DATA})
+        insns = _disasm('8b870007' '8b87faff', 0x200)
+        symbols, equ = _resolve_mem_symbols(insns, flow, self._Overlay(), {},
+                                            0x200)
+        self.assertEqual(symbols, {(0x200, 1): 'bss_0700'})
+        self.assertEqual(equ['bss_0700'], 0x700)
 
 
 class ResolveIndexOffsetSymbolsTest(unittest.TestCase):

@@ -29,7 +29,7 @@ api_idx_0002_SSJN:
     push ax                          ; 0x19ee
     mov ax, 0xa                      ; 0x19ef
     imul word [bp - 0x0002]          ; 0x19f2
-    add ax, 0x9544                   ; 0x19f5
+    add ax, bss_9544                 ; 0x19f5
     push ax                          ; 0x19f8
     call draw_text_glyphs            ; 0x19f9
     add sp, byte 4                   ; 0x19fc

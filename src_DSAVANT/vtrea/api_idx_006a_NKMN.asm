@@ -427,13 +427,13 @@ api_idx_006a_NKMN:
     mov cx, word [bp - 0x0002]       ; 0x63e7
     shl cx, 1                        ; 0x63ea
     mov bx, cx                       ; 0x63ec
-    mov cx, word [bx - 0x69a2]       ; 0x63ee
+    mov cx, word [bx + bss_965e]     ; 0x63ee
     sub ax, cx                       ; 0x63f2
     mov cx, 3                        ; 0x63f4
     cwd                              ; 0x63f7
     idiv cx                          ; 0x63f8
     mov cx, ax                       ; 0x63fa
-    mov ax, word [bx - 0x69a2]       ; 0x63fc
+    mov ax, word [bx + bss_965e]     ; 0x63fc
     sub ax, cx                       ; 0x6400
     cmp ax, word [bp - 0x0014]       ; 0x6402
     jge short @..api_idx_006a_NKMN.l11 ; 0x6405
@@ -447,7 +447,7 @@ api_idx_006a_NKMN:
     mov ax, word [bp - 0x0002]       ; 0x6414
     shl ax, 1                        ; 0x6417
     mov bx, ax                       ; 0x6419
-    mov ax, word [bx - 0x69a2]       ; 0x641b
+    mov ax, word [bx + bss_965e]     ; 0x641b
     cmp ax, word [bp - 0x0014]       ; 0x641f
     jge short @..api_idx_006a_NKMN.l13 ; 0x6422
     mov ax, 1                        ; 0x6424

@@ -46,9 +46,9 @@ api_idx_009c_MRKK:
     mov word [bp - 0x0002], 0        ; 0x67f0
 @..api_idx_009c_MRKK.l4:
     mov bx, word [bp - 0x0002]       ; 0x67f5
-    cmp byte [bx - 0x6e46], 0        ; 0x67f8
+    cmp byte [bx + bss_91ba], 0      ; 0x67f8
     jbe short @..api_idx_009c_MRKK.l6 ; 0x67fd
-    mov al, byte [bx - 0x6e46]       ; 0x67ff
+    mov al, byte [bx + bss_91ba]     ; 0x67ff
     sub ah, ah                       ; 0x6803
     push ax                          ; 0x6805
     push word [bp - 0x000c]          ; 0x6806

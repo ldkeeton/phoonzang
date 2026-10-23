@@ -26,7 +26,7 @@ api_idx_0002_HMSQ:
     shl cx, 1                        ; 0x2938
     add ax, cx                       ; 0x293a
     mov bx, ax                       ; 0x293c
-    mov word [bx - 0x6f42], 1        ; 0x293e
+    mov word [bx + bss_90be], 1      ; 0x293e
     mov ax, 0xa                      ; 0x2944
     imul word [bp + 0x4]             ; 0x2947
     add ax, word [bp - 0x0002]       ; 0x294a

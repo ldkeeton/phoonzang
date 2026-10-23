@@ -19,10 +19,10 @@ api_idx_0002_JOQL:
     imul word [bp - 0x0002]          ; 0xa312
     mov bx, ax                       ; 0xa315
     pop ax                           ; 0xa317
-    mov word [bx - 0x617a], ax       ; 0xa318
+    mov word [bx + bss_9e86], ax     ; 0xa318
     mov ax, bss_95a9                 ; 0xa31c
     push ax                          ; 0xa31f
-    add bx, strict word 0x9e88       ; 0xa320
+    add bx, bss_9e88                 ; 0xa320
     mov ax, bx                       ; 0xa324
     push ax                          ; 0xa326
     call aztec_strcpy                ; 0xa327
@@ -50,10 +50,10 @@ api_idx_0002_JOQL:
     imul word [bp - 0x0002]          ; 0xa361
     mov bx, ax                       ; 0xa364
     pop ax                           ; 0xa366
-    mov word [bx - 0x617a], ax       ; 0xa367
+    mov word [bx + bss_9e86], ax     ; 0xa367
     mov ax, bss_95a9                 ; 0xa36b
     push ax                          ; 0xa36e
-    add bx, strict word 0x9e88       ; 0xa36f
+    add bx, bss_9e88                 ; 0xa36f
     mov ax, bx                       ; 0xa373
     push ax                          ; 0xa375
     call aztec_strcpy                ; 0xa376

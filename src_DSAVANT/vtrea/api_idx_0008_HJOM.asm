@@ -116,7 +116,7 @@ jumptable_4a7d_case_33:
     imul word [bss_9250]             ; 0x4480
     add ax, word [bp - 0x0006]       ; 0x4484
     mov bx, ax                       ; 0x4487
-    cmp byte [bx - 0x6dae], 0x2d     ; 0x4489
+    cmp byte [bx + bss_9252], 0x2d   ; 0x4489
     jne short @..api_idx_0008_HJOM.l3 ; 0x448e
     mov ax, 0x2d                     ; 0x4490
     jmp short @..api_idx_0008_HJOM.l4 ; 0x4493
@@ -130,14 +130,14 @@ jumptable_4a7d_case_33:
     add ax, word [bp - 0x0006]       ; 0x44a1
     mov bx, ax                       ; 0x44a4
     pop ax                           ; 0x44a6
-    mov byte [bx - 0x6c8e], al       ; 0x44a7
+    mov byte [bx + bss_9372], al     ; 0x44a7
     jmp short @..api_idx_0008_HJOM.l6 ; 0x44ab
 @..api_idx_0008_HJOM.l5:
     mov ax, 0xa                      ; 0x44ad
     imul word [bp - 0x0002]          ; 0x44b0
     add ax, word [bp - 0x0006]       ; 0x44b3
     mov bx, ax                       ; 0x44b6
-    mov byte [bx - 0x6c8e], 0x2d     ; 0x44b8
+    mov byte [bx + bss_9372], 0x2d   ; 0x44b8
 @..api_idx_0008_HJOM.l6:
     inc word [bp - 0x0002]           ; 0x44bd
 @..api_idx_0008_HJOM.l7:

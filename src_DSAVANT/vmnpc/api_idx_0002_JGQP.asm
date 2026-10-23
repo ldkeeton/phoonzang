@@ -6,7 +6,7 @@ api_idx_0002_JGQP:
     push ax                          ; 0x879c
     mov ax, 0x14                     ; 0x879d
     imul word [bp + 0x4]             ; 0x87a0
-    add ax, 0x9e88                   ; 0x87a3
+    add ax, bss_9e88                 ; 0x87a3
     push ax                          ; 0x87a6
     call strpos                      ; 0x87a7
     add sp, byte 4                   ; 0x87aa
@@ -16,7 +16,7 @@ api_idx_0002_JGQP:
     push ax                          ; 0x87b5
     mov ax, 0x14                     ; 0x87b6
     imul word [bp + 0x4]             ; 0x87b9
-    add ax, 0x9e88                   ; 0x87bc
+    add ax, bss_9e88                 ; 0x87bc
     push ax                          ; 0x87bf
     push word [bp + 0x6]             ; 0x87c0
     call aztec_strncpy               ; 0x87c3
@@ -30,7 +30,7 @@ api_idx_0002_JGQP:
     push ax                          ; 0x87d7
     mov ax, 0x14                     ; 0x87d8
     imul word [bp + 0x4]             ; 0x87db
-    add ax, 0x9e88                   ; 0x87de
+    add ax, bss_9e88                 ; 0x87de
     push ax                          ; 0x87e1
     call strpos                      ; 0x87e2
     add sp, byte 4                   ; 0x87e5
@@ -40,7 +40,7 @@ api_idx_0002_JGQP:
     push ax                          ; 0x87f0
     mov ax, 0x14                     ; 0x87f1
     imul word [bp + 0x4]             ; 0x87f4
-    add ax, 0x9e88                   ; 0x87f7
+    add ax, bss_9e88                 ; 0x87f7
     push ax                          ; 0x87fa
     push word [bp + 0x6]             ; 0x87fb
     call aztec_strncpy               ; 0x87fe
@@ -54,7 +54,7 @@ api_idx_0002_JGQP:
     push ax                          ; 0x8812
     mov ax, 0x14                     ; 0x8813
     imul word [bp + 0x4]             ; 0x8816
-    add ax, 0x9e88                   ; 0x8819
+    add ax, bss_9e88                 ; 0x8819
     push ax                          ; 0x881c
     call strpos                      ; 0x881d
     add sp, byte 4                   ; 0x8820
@@ -64,7 +64,7 @@ api_idx_0002_JGQP:
     push ax                          ; 0x882b
     mov ax, 0x14                     ; 0x882c
     imul word [bp + 0x4]             ; 0x882f
-    add ax, 0x9e88                   ; 0x8832
+    add ax, bss_9e88                 ; 0x8832
     push ax                          ; 0x8835
     push word [bp + 0x6]             ; 0x8836
     call aztec_strncpy               ; 0x8839

@@ -57,7 +57,7 @@ api_idx_0002_GORG:
     mov cx, word [bp - 0x0002]       ; 0x8c02
     shl cx, 1                        ; 0x8c05
     mov bx, cx                       ; 0x8c07
-    mov word [bx - 0x5a16], ax       ; 0x8c09
+    mov word [bx + bss_a5ea], ax     ; 0x8c09
     inc word [bp - 0x0002]           ; 0x8c0d
     mov ax, word [bp - 0x0002]       ; 0x8c10
     cmp ax, strict word 8            ; 0x8c13

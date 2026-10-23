@@ -111,7 +111,7 @@ api_idx_0088_LVJM:
     mov ax, word [bp - 0x0002]       ; 0x40b8
     shl ax, 1                        ; 0x40bb
     mov bx, ax                       ; 0x40bd
-    cmp word [bx - 0x6a68], byte 0   ; 0x40bf
+    cmp word [bx + bss_9598], byte 0 ; 0x40bf
     jne short @..api_idx_0088_LVJM.l9 ; 0x40c4
     mov ax, 0x248                    ; 0x40c6
     imul word [bp + 0x4]             ; 0x40c9

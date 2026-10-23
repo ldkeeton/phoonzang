@@ -10,7 +10,7 @@ api_idx_00a6_OTNK:
     mov ax, 0x32                     ; 0x8dd1
     imul word [bp - 0x0002]          ; 0x8dd4
     add ax, word [bp - 0x0004]       ; 0x8dd7
-    add ax, 0xa8c4                   ; 0x8dda
+    add ax, bss_a8c4                 ; 0x8dda
     push ax                          ; 0x8ddd
     call strpos                      ; 0x8dde
     add sp, byte 4                   ; 0x8de1
@@ -19,7 +19,7 @@ api_idx_00a6_OTNK:
     mov ax, 0x32                     ; 0x8de8
     imul word [bp - 0x0002]          ; 0x8deb
     add ax, word [bp - 0x0004]       ; 0x8dee
-    add ax, 0xa8c4                   ; 0x8df1
+    add ax, bss_a8c4                 ; 0x8df1
     push ax                          ; 0x8df4
     lea ax, word [bp - 0x0056]       ; 0x8df5
     push ax                          ; 0x8df8
@@ -38,7 +38,7 @@ api_idx_00a6_OTNK:
     mov ax, 0x32                     ; 0x8e17
     imul word [bp - 0x0002]          ; 0x8e1a
     add ax, word [bp - 0x0004]       ; 0x8e1d
-    add ax, 0xa8c4                   ; 0x8e20
+    add ax, bss_a8c4                 ; 0x8e20
     push ax                          ; 0x8e23
     call strpos                      ; 0x8e24
     add sp, byte 4                   ; 0x8e27
@@ -47,7 +47,7 @@ api_idx_00a6_OTNK:
     mov ax, 0x32                     ; 0x8e2e
     imul word [bp - 0x0002]          ; 0x8e31
     add ax, word [bp - 0x0004]       ; 0x8e34
-    add ax, 0xa8c4                   ; 0x8e37
+    add ax, bss_a8c4                 ; 0x8e37
     push ax                          ; 0x8e3a
     lea ax, word [bp - 0x00a6]       ; 0x8e3b
     push ax                          ; 0x8e3f
@@ -84,7 +84,7 @@ api_idx_00a6_OTNK:
     imul word [bp - 0x0002]          ; 0x8e8c
     add ax, word [bp - 0x0004]       ; 0x8e8f
     mov bx, ax                       ; 0x8e92
-    cmp byte [bx - 0x573c], 0        ; 0x8e94
+    cmp byte [bx + bss_a8c4], 0      ; 0x8e94
     je short @..api_idx_00a6_OTNK.l4 ; 0x8e99
     jmp near @..api_idx_00a6_OTNK.l2 ; 0x8e9b
 @..api_idx_00a6_OTNK.l4:

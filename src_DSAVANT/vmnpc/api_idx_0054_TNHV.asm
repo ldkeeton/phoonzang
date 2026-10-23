@@ -11,7 +11,7 @@ api_idx_0054_TNHV:
 jumptable_8b35_case_1:
     mov ax, 0xa                      ; 0x8a99
     imul word [bp - 0x0002]          ; 0x8a9c
-    add ax, 0xa658                   ; 0x8a9f
+    add ax, bss_a658                 ; 0x8a9f
     push ax                          ; 0x8aa2
     lea ax, word [bp - 0x0052]       ; 0x8aa3
     push ax                          ; 0x8aa6
@@ -21,7 +21,7 @@ jumptable_8b35_case_1:
 jumptable_8b35_case_2:
     mov ax, 0xa                      ; 0x8ab0
     imul word [bp - 0x0002]          ; 0x8ab3
-    add ax, 0xa6bc                   ; 0x8ab6
+    add ax, bss_a6bc                 ; 0x8ab6
     push ax                          ; 0x8ab9
     lea ax, word [bp - 0x0052]       ; 0x8aba
     push ax                          ; 0x8abd
@@ -31,7 +31,7 @@ jumptable_8b35_case_2:
 jumptable_8b35_case_3:
     mov ax, 0xa                      ; 0x8ac7
     imul word [bp - 0x0002]          ; 0x8aca
-    add ax, 0xa702                   ; 0x8acd
+    add ax, bss_a702                 ; 0x8acd
     push ax                          ; 0x8ad0
     lea ax, word [bp - 0x0052]       ; 0x8ad1
     push ax                          ; 0x8ad4
@@ -41,7 +41,7 @@ jumptable_8b35_case_3:
 jumptable_8b35_case_4:
     mov ax, 0xa                      ; 0x8add
     imul word [bp - 0x0002]          ; 0x8ae0
-    add ax, 0xa766                   ; 0x8ae3
+    add ax, bss_a766                 ; 0x8ae3
     push ax                          ; 0x8ae6
     lea ax, word [bp - 0x0052]       ; 0x8ae7
     push ax                          ; 0x8aea
@@ -51,7 +51,7 @@ jumptable_8b35_case_4:
 jumptable_8b35_case_7:
     mov ax, 0x14                     ; 0x8af3
     imul word [bp - 0x0002]          ; 0x8af6
-    add ax, 0xa7ac                   ; 0x8af9
+    add ax, bss_a7ac                 ; 0x8af9
     push ax                          ; 0x8afc
     lea ax, word [bp - 0x0052]       ; 0x8afd
     push ax                          ; 0x8b00
@@ -61,7 +61,7 @@ jumptable_8b35_case_7:
 jumptable_8b35_case_8:
     mov ax, 0xa                      ; 0x8b09
     imul word [bp - 0x0002]          ; 0x8b0c
-    add ax, 0xa810                   ; 0x8b0f
+    add ax, bss_a810                 ; 0x8b0f
     push ax                          ; 0x8b12
     lea ax, word [bp - 0x0052]       ; 0x8b13
     push ax                          ; 0x8b16
@@ -71,7 +71,7 @@ jumptable_8b35_case_8:
 jumptable_8b35_case_9:
     mov ax, 0xa                      ; 0x8b1f
     imul word [bp - 0x0002]          ; 0x8b22
-    add ax, 0xa856                   ; 0x8b25
+    add ax, bss_a856                 ; 0x8b25
     push ax                          ; 0x8b28
     lea ax, word [bp - 0x0052]       ; 0x8b29
     push ax                          ; 0x8b2c

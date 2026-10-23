@@ -44,6 +44,6 @@ loc_MOTJ:
     add ax, dx                       ; 0x09b6
     mov bx, ax                       ; 0x09b8
     pop ax                           ; 0x09ba
-    mov word [bx - 0x6f46], ax       ; 0x09bb
+    mov word [bx + bss_90ba], ax     ; 0x09bb
 @..loc_MOTJ.l7:
     ret                              ; 0x09bf

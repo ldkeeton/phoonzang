@@ -11,7 +11,7 @@ api_idx_007c_MIHQ:
     mov ax, word [bp - 0x0002]       ; 0x459c
     shl ax, 1                        ; 0x459f
     mov bx, ax                       ; 0x45a1
-    cmp word [bx - 0x6892], byte 1   ; 0x45a3
+    cmp word [bx + bss_976e], byte 1 ; 0x45a3
     jne short @..api_idx_007c_MIHQ.l2 ; 0x45a8
     mov ax, 1                        ; 0x45aa
     jmp short @..api_idx_007c_MIHQ.l3 ; 0x45ad

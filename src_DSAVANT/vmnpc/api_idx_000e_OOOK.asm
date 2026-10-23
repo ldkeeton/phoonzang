@@ -36,7 +36,7 @@ api_idx_000e_OOOK:
     mov ax, word [bss_93d4]          ; 0x92d4
     mov cx, 7                        ; 0x92d7
     shl ax, cl                       ; 0x92da
-    add ax, 0x91cc                   ; 0x92dc
+    add ax, bss_91cc                 ; 0x92dc
     push ax                          ; 0x92df
     call ds_loc_JJGM                 ; 0x92e0
     add sp, byte 4                   ; 0x92e3
@@ -54,7 +54,7 @@ api_idx_000e_OOOK:
     mov cx, word [bss_93d4]          ; 0x9301
     shl cx, 1                        ; 0x9305
     mov bx, cx                       ; 0x9307
-    cmp word [bx - 0x6c34], byte 0   ; 0x9309
+    cmp word [bx + bss_93cc], byte 0 ; 0x9309
     je short @..api_idx_000e_OOOK.l4 ; 0x930e
     mov cx, 0x92                     ; 0x9310
     jmp short @..api_idx_000e_OOOK.l5 ; 0x9313
@@ -71,7 +71,7 @@ api_idx_000e_OOOK:
     mov ax, word [bss_93d4]          ; 0x9328
     shl ax, 1                        ; 0x932b
     mov bx, ax                       ; 0x932d
-    cmp word [bx - 0x6c34], byte 0   ; 0x932f
+    cmp word [bx + bss_93cc], byte 0 ; 0x932f
     je short @..api_idx_000e_OOOK.l6 ; 0x9334
     mov ax, 0x55                     ; 0x9336
     jmp short @..api_idx_000e_OOOK.l7 ; 0x9339
@@ -84,11 +84,11 @@ api_idx_000e_OOOK:
     mov ax, word [bss_93d4]          ; 0x9345
     shl ax, 1                        ; 0x9348
     mov bx, ax                       ; 0x934a
-    push word [bx - 0x6c34]          ; 0x934c
+    push word [bx + bss_93cc]        ; 0x934c
     mov ax, word [bss_93d4]          ; 0x9350
     mov cx, 7                        ; 0x9353
     shl ax, cl                       ; 0x9356
-    add ax, 0x91cc                   ; 0x9358
+    add ax, bss_91cc                 ; 0x9358
     push ax                          ; 0x935b
     call draw_text_glyphs            ; 0x935c
     add sp, byte 4                   ; 0x935f

@@ -475,7 +475,7 @@ loc_OTGM:
     imul word [bp + 0xa]             ; 0x157a
     mov bx, ax                       ; 0x157d
     pop ax                           ; 0x157f
-    mov word [bx - 0x6f36], ax       ; 0x1580
+    mov word [bx + bss_90ca], ax     ; 0x1580
     mov word [bss_8320], 0           ; 0x1584
     mov ax, 4                        ; 0x158a
     push ax                          ; 0x158d

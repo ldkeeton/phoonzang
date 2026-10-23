@@ -8,11 +8,11 @@ loc_MGPH:
     mov cx, 7                        ; 0xa450
     shl ax, cl                       ; 0xa453
     mov bx, ax                       ; 0xa455
-    mov byte [bx - 0x6e34], 0        ; 0xa457
+    mov byte [bx + bss_91cc], 0      ; 0xa457
     mov ax, word [bss_93d4]          ; 0xa45c
     shl ax, 1                        ; 0xa45f
     mov bx, ax                       ; 0xa461
-    mov word [bx - 0x6c34], 0        ; 0xa463
+    mov word [bx + bss_93cc], 0      ; 0xa463
     inc word [bss_93d4]              ; 0xa469
     mov ax, word [bss_93d4]          ; 0xa46d
     cmp ax, strict word 4            ; 0xa470

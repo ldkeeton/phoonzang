@@ -7,7 +7,7 @@ api_idx_0002_NSKK:
 @..api_idx_0002_NSKK.l1:
     mov ax, 0x32                     ; 0xa41e
     imul word [bp - 0x0002]          ; 0xa421
-    add ax, 0xa8c4                   ; 0xa424
+    add ax, bss_a8c4                 ; 0xa424
     push ax                          ; 0xa427
     mov ax, word [bp + 0x4]          ; 0xa428
     add ax, word [bp - 0x0002]       ; 0xa42b
