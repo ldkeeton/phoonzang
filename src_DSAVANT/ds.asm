@@ -598,11 +598,11 @@ cseg_2f56:
 cseg_2f58:
     times 4 db 0
     db 0x3e, 0x2f, 0xbc, 0x34
-cseg_2f60:
+ems_allocated_paragraphs:
     db 0x00, 0x00
-cseg_2f62:
+ems_handle:
     db 0x00, 0x00
-cseg_2f64:
+ems_page_frame_segment:
     db 0x00, 0x00
 mouse_button_count:
     db 0x00
@@ -728,7 +728,7 @@ cseg_3063:
 %include "ds/library/ds_loc_IGLJ.asm"      ; 0x30a3
 
 bios_data_0410 equ 0x0410
-%include "ds/library/ds_bios_video_loc_PHVR.asm" ; 0x30c3
+%include "ds/library/restore_saved_video_state.asm" ; 0x30c3
 
 random_seed_a:
     db 0xb8, 0x0b
@@ -754,7 +754,7 @@ cseg_35ec:
     db 'play.drv', 0
 %include "ds/library/load_play_driver.asm" ; 0x35f5
 
-%include "ds/library/ds_dos_con_loc_GOVO.asm" ; 0x3640
+%include "ds/library/sound_driver_error_exit.asm" ; 0x3640
 
 loops_per_ms:
     db 0x90, 0x01
@@ -780,7 +780,7 @@ delay_loop_target:
 
 %include "ds/library/detect_mouse.asm"     ; 0x37a5
 
-cseg_37d1:
+ems_driver_signature:
     db 'EMMXXXX0'
 %include "ds/library/detect_expanded_memory.asm" ; 0x37d9
 

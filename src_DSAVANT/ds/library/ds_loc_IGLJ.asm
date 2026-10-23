@@ -10,7 +10,7 @@ ds_loc_IGLJ:
     push di                          ; 0x30ad
     mov ax, ds                       ; 0x30ae
     mov es, ax                       ; 0x30b0
-    call ds_bios_video_loc_PHVR      ; 0x30b2
+    call restore_saved_video_state   ; 0x30b2
     call ds_loc_RMTO                 ; 0x30b5
     call ds_leaf_loc_KIKO            ; 0x30b8
     pop di                           ; 0x30bb

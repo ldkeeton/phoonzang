@@ -232,6 +232,7 @@
           "name": "main"
         },
         "3067": {"name": "init_system_hardware", "note": "initializes timer, video, mouse and drivers; returns status bits"},
+        "30c3": {"name": "restore_saved_video_state", "note": "restores the startup equipment byte at 0040:0010 and sets the saved video mode via int 10h/00h"},
         "30e2": {"name": "seed_random_from_timer", "note": "seeds the random generator from the BIOS tick count"},
         "30f7": {
           "name": "detect_video_adapter",
@@ -247,7 +248,8 @@
         },
         "3534": {"name": "load_video_driver", "note": "loads the detected video driver and copies its tables"},
         "35f5": {"name": "load_play_driver", "note": "loads play.drv and builds its segment table"},
-        "3674": {"name": "calibrate_loops_per_ms", "note": "measures loops_per_ms against the BIOS tick"},
+        "3640": {"name": "sound_driver_error_exit", "note": "prints the sound driver load error and exits with code 1"},
+        "3674": {"name": "calibrate_loops_per_ms", "note": "counts loop iterations over one 18.2 Hz BIOS tick, divides by 55 ticks/ms and scales 15/16 for loops_per_ms"},
         "36d0": {
           "name": "delay_ms",
           "note": "hand-written asm: [bp+4] times, counts loops_per_ms (calibrated to one millisecond) down to delay_loop_target (always 0)"
@@ -523,6 +525,9 @@
         "2f40": {"name": "driver_block_table", "note": "paragraph count and allocated segment per driver block; a zero count ends the table"},
         "2f4a": {"name": "font_header_seg", "note": "segment load_font_file reads the 16-byte font header into (0 until set at run time)"},
         "2f4e": {"name": "misc_table_seg", "note": "segment read_misc_table reads the 0x400-byte misc table into and unpack_record reads from (0 until set at run time)"},
+        "2f60": {"name": "ems_allocated_paragraphs", "note": "size of the EMS allocation in paragraphs"},
+        "2f62": {"name": "ems_handle", "note": "EMS handle returned by int 67h AH=43h"},
+        "2f64": {"name": "ems_page_frame_segment", "note": "EMS page frame segment returned by int 67h AH=41h"},
         "2f66": {"name": "mouse_button_count", "note": "INT 33h reset result: button count, 0 = no mouse driver"},
         "2f83": {"name": "play_drv_wait", "note": "far pointer to PLAY.DRV jump-table slot 7 (0x011f, leaf_loc_IUKK): with arg 0 busy-waits on the driver's flags; get_filtered_key calls it before reading a key"},
         "2faf": {"name": "gfx_drv_slot_10", "note": "far pointer to the graphics driver's jump-table slot 10 (0x012b, leaf_loc_UQHV: zeroes a driver word); flush_keyboard calls it"},
@@ -537,6 +542,7 @@
         "3532": {"name": "drv_file_handle", "note": "DOS handle of the driver file while ds_dos_file_loc_SJIH/NKUS read it"},
         "3672": {"name": "loops_per_ms", "note": "busy-loop iterations per millisecond: ds_leaf_loc_QNNO counts loops over one BIOS tick, divides by 55 and scales by 15/16; delay_ms spins this many per ms"},
         "36ce": {"name": "delay_loop_target", "note": "constant 0 word: delay_ms compares its countdown against it"},
+        "37d1": {"name": "ems_driver_signature", "note": "EMMXXXX0 driver name the probe compares against"},
         "384a": {"name": "font_seg_table", "note": "word [10] + 0xffff end: DOS segment of each loaded font, set by load_font_file"},
         "393f": {"name": "font_io_error_msg", "note": "'I/O error loading font' ($-terminated), printed on a load_font_file read error"},
         "3c7f": {"name": "key_queue", "note": "word count, then up to 22 queued key bytes: filled and drained by poll_filtered_key/get_filtered_key, cleared by flush_keyboard"},

@@ -1,5 +1,5 @@
 ; auto-generated
-ds_bios_video_loc_PHVR:
+restore_saved_video_state:
     push es                          ; 0x30c3
     sub ax, ax                       ; 0x30c4
     mov es, ax                       ; 0x30c6
