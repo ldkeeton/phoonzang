@@ -242,7 +242,7 @@ def _neighbour_target(label, start, fx, func, index, original, labels_at):
 
 
 def link(label, start, func, index, original, labels_in=(), labels_at=None,
-         data_spans=()):
+         data_spans=(), aliases=None):
     """Resolve *func*'s relocations for placement at file offset *start*.
 
     *original* is the original image: its relocated words say where the
@@ -252,9 +252,18 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
     *labels_at* (``{offset: name}``) is every label the build placed, for a
     branch that leaves the routine for a module label beside it.
     *data_spans* (``[(start, end)]`` routine offsets) are the source's data.
+    *aliases* (``{name: own}``, :func:`lib.shared.donor_aliases`) give a
+    shared source's spelling of another binary's target this image's own
+    name, used only when this image does not define the spelling itself.
     """
     code = bytearray(func.code)
     out = Linked(code)
+    aliases = aliases or {}
+
+    def known(name, *spaces):
+        if any(name in space for space in spaces):
+            return name
+        return aliases.get(name, name)
 
     def unknown(fx, why):
         what = fx.symbol or ' '.join(x.strip() for x in fx.expr or ())
@@ -345,7 +354,7 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
             name = out.local_names[target]
             out.refs[site] = Ref(site, width, name, True, {name: target})
         elif fx.symbol_kind == 'GBLSYM' and fx.kind == 'WREL':
-            name = external_label(fx.symbol)
+            name = known(external_label(fx.symbol), index.code)
             if name not in index.code:
                 raise RelinkError(
                     f'{label}: call to unknown symbol {name!r} '
@@ -355,7 +364,7 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
             _put(code, site, 2, target - (start + site + 2))
             out.refs[site] = Ref(site, 2, name, True, {name: target})
         elif fx.symbol_kind == 'GBLSYM' and fx.kind == 'BREL':
-            name = external_label(fx.symbol)
+            name = known(external_label(fx.symbol), index.code)
             if name not in index.code:
                 raise RelinkError(
                     f'{label}: branch to unknown symbol {name!r} '
@@ -370,7 +379,9 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
             _put(code, site, 1, disp)
             out.refs[site] = Ref(site, 1, name, True, {name: target})
         elif fx.symbol_kind == 'GBLSYM' and fx.kind == 'WABS':
-            name = linked_name(external_label(fx.symbol), index.places)
+            name = known(linked_name(external_label(fx.symbol), index.places),
+                         index.places, index.data, index.code,
+                         index.named_data)
             if name in index.places:
                 word = int.from_bytes(original[start + site:start + site + 2],
                                       'little')

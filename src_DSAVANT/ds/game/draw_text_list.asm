@@ -14,7 +14,7 @@ draw_text_list: ; Aztec csav frame=0x0000
     push ax                          ; 0x11f9
     push word [bp + 0x6]             ; 0x11fa
     push word [bp + 0x4]             ; 0x11fd
-    call ds_app_OPOL                 ; 0x1200
+    call draw_inset_panel            ; 0x1200
     add sp, byte 8                   ; 0x1203
     push word [bp + 0xe]             ; 0x1206
     push word [bp + 0xc]             ; 0x1209

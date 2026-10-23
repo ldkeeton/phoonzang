@@ -44,7 +44,7 @@ api_idx_0002_HMSQ:
     push word [bp + 0x8]             ; 0x296c
     push word [bp + 0x6]             ; 0x296f
     push word [bp + 0x4]             ; 0x2972
-    call api_idx_000a_PKVL           ; 0x2975
+    call fill_action_slot_table_alt  ; 0x2975
     add sp, byte 8                   ; 0x2978
     mov ax, 0                        ; 0x297b
     ret                              ; 0x297e

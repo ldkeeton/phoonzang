@@ -147,7 +147,7 @@ api_idx_0014_UOQI:
     push word [bp - 0x0010]          ; 0x19b5
     push word [bp - 0x000e]          ; 0x19b8
     push word [bp - 0x0006]          ; 0x19bb
-    call api_idx_000a_PKVL           ; 0x19be
+    call fill_action_slot_table_alt  ; 0x19be
     add sp, byte 8                   ; 0x19c1
 @..api_idx_0014_UOQI.l10:
     inc word [bp - 0x0004]           ; 0x19c4

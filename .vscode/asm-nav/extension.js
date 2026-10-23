@@ -563,69 +563,60 @@ function claudePrompt(job) {
         authoringGuide(),
     ].join('\n\n');
 }
-
-// OpenCode's prompt: routine-scoped and explicit about the expected fragment
-// split, so it does not try to fill the original (possibly glued) span.
+ 
 function opencodePrompt(job) {
     const { where, asmFile, cFile, sFile, dir, rel, exampleS, handWritten,
         flagList } = job;
     return [
-        `Reproduce ${rel(asmFile)} as source that builds to byte-exact matching asm. ` +
-            `Never hand-edit the asm.`,
-        `Choose the form before writing. Write ${rel(cFile)} (K&R C for the Manx Aztec \`cc\`) only ` +
+        `Reproduce ${rel(asmFile)} as source that builds to byte-exact matching asm; never hand-edit ` +
+            `the asm. First decide the form. Write ${rel(cFile)} (K&R C for the Manx Aztec \`cc\`) only ` +
             `if \`cc\` could have generated this code; otherwise write ${rel(sFile)} (Manx \`as\` assembly` +
-            (exampleS ? `, in the style of ${rel(path.join(dir, exampleS))}` : '') + `). ` +
-            `Signs it is hand-written: no csav or \`push bp; mov bp,sp\` frame, or running in its ` +
-            `caller's frame; segment-register juggling (\`push cs; pop ds\`); \`cld\` and string ops; ` +
-            `code-segment data; padding \`nop\`s or jumps \`cc\` would shorten; falling through into the ` +
-            `next routine. Never put a whole routine body in \`#asm\` inside a C function: that is what ` +
-            `a .s is for, and labels in \`#asm\` become linker symbols. \`#asm\` is only for a few ` +
-            `instructions inside real C.` +
+            (exampleS ? `, in the style of ${rel(path.join(dir, exampleS))}` : '') + `). Signs it is ` +
+            `hand-written: no csav or \`push bp; mov bp,sp\` frame, or running in its caller's frame; ` +
+            `segment-register juggling (\`push cs; pop ds\`); \`cld\` and string ops; code-segment data; ` +
+            `padding \`nop\`s or jumps \`cc\` would shorten; falling through into the next routine. ` +
+            `Never put a whole routine body in \`#asm\` inside a C function: that is what a .s is for, ` +
+            `and labels in \`#asm\` become linker symbols. \`#asm\` is only for a few instructions ` +
+            `inside real C.` +
             (handWritten ? ` The sidecar note marks this routine hand-written asm: write ${rel(sFile)}.` : ''),
-        `Work routine-scoped; keep the loop cheap:\n` +
-            `- \`make info ${where.project} ${where.binary} ${where.label}\` shows the span, glued ` +
-            `co-tenants, callers and compiler flags.\n` +
-            `- \`make refs ${where.project} ${where.binary} ROUTINE\` lists symbols with values, spaces, ` +
-            `widths and canonical names.\n` +
-            `- \`make data ${where.project} DS OFFSET\` dumps a DS/BSS object when a raw operand is unclear.\n` +
-            `- \`make probe ${where.project} ${where.binary} ROUTINE\` compiles one source without the gate.\n` +
-            `- \`make rebuild ${where.project} ${where.binary} ROUTINE\` gates one source and assembles.\n` +
-            `- \`make build ${where.project}\` regenerates the asm tree and cuts a co-tenant into its ` +
-            `own file.`,
-        `Splitting is expected. A fragment can hold a bare \`loc_\` callee after the routine you are ` +
-            `writing. Put only that first routine in ${rel(cFile)} (or ${rel(sFile)}) and do not pad it ` +
-            `to the old fragment length. When it compiles to its own shorter length, the next ` +
-            `\`make build\` gives the tail its own \`<tail>.asm\`; then write and name that second ` +
-            `source too. Before the split, \`make probe\` may report \`[DIFF]\` against the whole span; ` +
-            `compare its length to the root size from \`make info\`, not the old fragment size.`,
+        `Commands (repo root): \`make rebuild\` is the pass/fail gate: it recompiles every .c/.s, ` +
+            `checks it against the original bytes, and assembles. ` +
+            `\`make refs ${where.project} ${where.binary} ROUTINE\` lists the address-named and ` +
+            `content-tagged symbols a routine references. \`make name ${where.project} ${where.binary} ` +
+            `SYMBOL=NAME[:NOTE] ...\` writes the sidecar, renames the hand-written sources and every ` +
+            `reference in them (file, routine, \`NAME_\` in .s, \`extern\`/\`extrn\`, C callers), then ` +
+            `builds and rebuilds; give SYMBOL as the build spells it (\`cseg_0d3a\`, \`bss_1234\`, ` +
+            `\`io_loc_KRUO\`, \`${where.label}\`) or by its current name, and single-quote any spec whose ` +
+            `note has spaces. \`make build ${where.project}\` regenerates the asm from the disassembly ` +
+            `and sources. The sidecar (${rel(sidecarPath(where.project))}) and the tooling under ` +
+            `disassembler/ are there to read when you need them.`,
         `Compiler flags come from the routine name's longest matching prefix: ${flagList} ` +
             `(a .s uses \`compiler_flags.asm\`).`,
         `Steps:\n` +
-            `1. Write the source with the routine still named \`${where.label}\`. Run ` +
-            `\`make rebuild ${where.project} ${where.binary} ${where.label}\` until it passes. If a ` +
-            `co-tenant follows and the build reports a length mismatch, run \`make build ` +
-            `${where.project}\` to cut it into its own fragment, then gate both routines. Name-only ` +
-            `differences on the same instructions and offsets are a byte match; a size difference is not.\n` +
+            `1. Write the source with the routine still named \`${where.label}\` and run \`make rebuild\` ` +
+            `until it passes. If the only differences left are symbol or label names on the same ` +
+            `instructions and offsets, the bytes match: go on to step 2 (step 3's \`make name\` ` +
+            `regenerates the asm). A report that the source compiles to a different size than its ` +
+            `fragment means the bytes do not match yet.\n` +
             `2. Give parameters and locals descriptive names in the source itself (C names; \`equ\` names ` +
-            `for .s and #asm stack arguments and locals). Add a one-line header and terse trailing ` +
-            `comments for loops, branches and magic numbers (BIOS/DOS function numbers, key codes, ` +
-            `header offsets, strides, flag bits). Describe what the code shows; do not guess intent.\n` +
-            `3. Run \`make refs\`, then name everything in one call: ` +
-            `\`make name ${where.project} ${where.binary} ${where.label}=NAME:'note' ` +
-            `SYMBOL=NAME:'note' ...\`. Name the routine and every listed symbol except "label inside" ` +
-            `rows, each with a note saying what it holds or does. Use descriptive ` +
-            `lowercase_underscore names and keep any prefix its flags need.\n` +
-            `4. Fix any rebuild failure until \`make rebuild\` passes. No address-named or content-tagged ` +
-            `symbol may remain in the source.`,
-        `The tooling is part of the job. If the workflow itself is wrong -- a byte-exact source is ` +
-            `rejected, a rename leaves a source orphaned, or build and rebuild disagree -- diagnose and ` +
-            `fix the disassembler/make CLI rather than forcing the routine through it. Say what you ` +
-            `changed.`,
-        `Your final message: only the routine's new name, or, if you could not finish, what is left ` +
-            `and why.`,
+            `for .s and #asm stack arguments and locals). Add terse comments that say why, not what: a ` +
+            `one-line header above the routine (a \`;\` line in a .s, \`/* */\` in C, never \`//\`), and ` +
+            `short trailing comments on loops, branches and magic numbers (BIOS/DOS function numbers, key ` +
+            `codes, header offsets, strides, flag bits). Describe only what the code shows; don't guess intent.\n` +
+            `3. Run \`make refs ${where.project} ${where.binary} ${where.label}\`, then name everything in ` +
+            `one call: \`make name ${where.project} ${where.binary} ${where.label}=NAME:'note' ` +
+            `SYMBOL=NAME:'note' ...\`. NAME for the routine is a descriptive lowercase_underscore name ` +
+            `keeping any prefix its flags need; add every symbol \`make refs\` listed (globals, code-segment ` +
+            `data, called routines, including those only in \`extrn\` lines) except "label inside" rows, ` +
+            `each with a note saying what it holds or does.\n` +
+            `4. If \`make name\` reports a rebuild failure, fix the source and run \`make rebuild\` until it ` +
+            `passes. No address-named or content-tagged symbol may remain in the source.\n\n` +
+            `Your final message: only the routine's new name, or, if you could not finish, what is ` +
+            `left and why.`,
         authoringGuide(),
     ].join('\n\n');
 }
+
 
 // One agent session per invocation, so Claude and OpenCode can each have a tab (and
 // both can run at once).

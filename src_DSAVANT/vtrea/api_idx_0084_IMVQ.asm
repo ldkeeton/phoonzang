@@ -165,7 +165,7 @@ api_idx_0084_IMVQ:
     mov ax, word [bp - 0x0006]       ; 0x2747
     add ax, strict word 0x36         ; 0x274a
     push ax                          ; 0x274d
-    call ds_app_OPOL                 ; 0x274e
+    call draw_inset_panel            ; 0x274e
     add sp, byte 8                   ; 0x2751
     mov ax, 0                        ; 0x2754
     push ax                          ; 0x2757
@@ -322,7 +322,7 @@ api_idx_0084_IMVQ:
     mov ax, word [bp - 0x0006]       ; 0x28bb
     add ax, strict word 0x5d         ; 0x28be
     push ax                          ; 0x28c1
-    call ds_app_OPOL                 ; 0x28c2
+    call draw_inset_panel            ; 0x28c2
     add sp, byte 8                   ; 0x28c5
     mov word [bp - 0x0018], 0        ; 0x28c8
     mov word [bp - 0x0022], 0xffff   ; 0x28cd
@@ -770,7 +770,7 @@ jumptable_34f1_case_0:
     mov ax, word [bp - 0x0006]       ; 0x2ccf
     add ax, strict word 0x36         ; 0x2cd2
     push ax                          ; 0x2cd5
-    call ds_app_OPOL                 ; 0x2cd6
+    call draw_inset_panel            ; 0x2cd6
     add sp, byte 8                   ; 0x2cd9
     mov ax, 0                        ; 0x2cdc
     push ax                          ; 0x2cdf
@@ -946,7 +946,7 @@ jumptable_34f1_case_1:
     mov ax, word [bp - 0x0006]       ; 0x2e6c
     add ax, strict word 0x36         ; 0x2e6f
     push ax                          ; 0x2e72
-    call ds_app_OPOL                 ; 0x2e73
+    call draw_inset_panel            ; 0x2e73
     add sp, byte 8                   ; 0x2e76
     mov ax, 0                        ; 0x2e79
     push ax                          ; 0x2e7c
@@ -1129,7 +1129,7 @@ jumptable_34f1_case_3:
     mov ax, word [bp - 0x0006]       ; 0x3021
     add ax, strict word 0x36         ; 0x3024
     push ax                          ; 0x3027
-    call ds_app_OPOL                 ; 0x3028
+    call draw_inset_panel            ; 0x3028
     add sp, byte 8                   ; 0x302b
     mov ax, 1                        ; 0x302e
     push ax                          ; 0x3031
@@ -1188,7 +1188,7 @@ jumptable_34f1_case_3:
     mov ax, word [bp - 0x0006]       ; 0x30a5
     add ax, strict word 0x36         ; 0x30a8
     push ax                          ; 0x30ab
-    call ds_app_OPOL                 ; 0x30ac
+    call draw_inset_panel            ; 0x30ac
     add sp, byte 8                   ; 0x30af
     mov ax, 0                        ; 0x30b2
     push ax                          ; 0x30b5

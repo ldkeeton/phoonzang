@@ -276,7 +276,7 @@ api_idx_0010_UUTT:
     jge short @..api_idx_0010_UUTT.l19 ; 0x9cca
     jmp near @..api_idx_0010_UUTT.l11 ; 0x9ccc
 @..api_idx_0010_UUTT.l19:
-    call api_idx_000e_NKQN           ; 0x9ccf
+    call queue_marker_overlay        ; 0x9ccf
     call ds_app_JKOJ                 ; 0x9cd2
     mov word [bss_845e], 0           ; 0x9cd5
 @..api_idx_0010_UUTT.l20:

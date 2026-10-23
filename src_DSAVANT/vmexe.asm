@@ -37,15 +37,14 @@ window_record equ __zdseg_end + (__zobss_90bc - __zdata_start)
 
 %include "shared/game/fill_action_slot_table.asm" ; 0x0456
 
-api_idx_000e_VRIR.api_idx1 equ fill_action_slot_table
-%include "shared/game/api_idx_000e_VRIR.asm"     ; 0x0656
+advance_action_slots.fill_action_slot_table_alt1 equ fill_action_slot_table
+%include "shared/game/advance_action_slots.asm"  ; 0x0656
 
-%include "shared/game/api_idx_0004_ONRQ.asm"     ; 0x0979
+%include "shared/game/add_overlay_item.asm"      ; 0x0979
 
 %include "shared/game/api_idx_001c_VLRT.asm"     ; 0x0a83
 
-api_idx_000e_NKQN.api_idx1 equ api_idx_0004_ONRQ
-%include "shared/game/api_idx_000e_NKQN.asm"     ; 0x0cc9
+%include "shared/game/queue_marker_overlay.asm"  ; 0x0cc9
 
 %include "shared/game/loc_SSIO.asm"              ; 0x0dbe
 

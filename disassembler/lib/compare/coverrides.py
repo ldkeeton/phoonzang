@@ -382,7 +382,8 @@ def _link(label, start, override, records, binary_data, index):
         if r['type'] == 'jump_table':
             labels_at.setdefault(r['start'], r['label'])
     return relink.link(label, start, func, index, binary_data, labels_in,
-                       labels_at, override.get('data_spans', ()))
+                       labels_at, override.get('data_spans', ()),
+                       aliases=override.get('aliases'))
 
 
 def _batch_relabels(c_overrides, records, binary_data, starts, index_names,

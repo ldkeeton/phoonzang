@@ -5,7 +5,7 @@ import os
 
 from lib import routine_source
 from lib.autogen import hand_owned
-from lib.shared import FOLDER, shared_dirs
+from lib.shared import FOLDER, label_aliases, shared_dirs
 from lib.sidecar.bands import band_for
 
 #: Where the vendor headers the C includes are copied (``src_<project>/include``).
@@ -249,6 +249,10 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         overrides[label] = {
             'func': func, 'text': text, 'path': path,
             'own_keys': {cache.own_key(routine, entry): label},
+            # A shared source may spell another binary's own target.
+            'aliases': (label_aliases(out_dir, name, routine)
+                        if os.path.dirname(path) in shared_dirs(out_dir)
+                        else None),
             'pristine': False,
             'compile': (lambda t, _l=routine, _e=entry:
                         cache.compile_source(project, name, _l, _e, t)),

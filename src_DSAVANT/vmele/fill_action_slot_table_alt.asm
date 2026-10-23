@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_000a_PKVL:
+fill_action_slot_table_alt:
     mov ax, 0xfff6                   ; 0x0f95
     call aztec_csav                  ; 0x0f98
     mov ax, word [bp + 0x4]          ; 0x0f9b
@@ -7,15 +7,15 @@ api_idx_000a_PKVL:
     mov bx, ax                       ; 0x0fa0
     mov bx, word [bx + party_char]   ; 0x0fa2
     cmp byte [bx + 0x19f], 0xff      ; 0x0fa6
-    jne short @..api_idx_000a_PKVL.l1 ; 0x0fab
+    jne short @..fill_action_slot_table_alt.l1 ; 0x0fab
     ret                              ; 0x0fad
-@..api_idx_000a_PKVL.l1:
+@..fill_action_slot_table_alt.l1:
     mov al, byte [bx + 0x19f]        ; 0x0fae
     cbw                              ; 0x0fb2
     mov word [bp - 0x0002], ax       ; 0x0fb3
     mov word [bp - 0x000a], 0        ; 0x0fb6
     cmp word [bp + 0xa], byte 0xff   ; 0x0fbb
-    jne short @..api_idx_000a_PKVL.l2 ; 0x0fbf
+    jne short @..fill_action_slot_table_alt.l2 ; 0x0fbf
     mov word [bp + 0xa], 0           ; 0x0fc1
     mov cx, 0x15e                    ; 0x0fc6
     imul cx                          ; 0x0fc9
@@ -23,9 +23,9 @@ api_idx_000a_PKVL:
     mov al, byte [bx + slot_rec_forced] ; 0x0fcd
     sub ah, ah                       ; 0x0fd1
     cmp ax, 0xfe                     ; 0x0fd3
-    je short @..api_idx_000a_PKVL.l2 ; 0x0fd6
+    je short @..fill_action_slot_table_alt.l2 ; 0x0fd6
     mov word [bp - 0x000a], 1        ; 0x0fd8
-@..api_idx_000a_PKVL.l2:
+@..fill_action_slot_table_alt.l2:
     mov ax, 0x15e                    ; 0x0fdd
     imul word [bp - 0x0002]          ; 0x0fe0
     add ax, word [bp + 0xa]          ; 0x0fe3
@@ -33,8 +33,8 @@ api_idx_000a_PKVL:
     mov al, byte [bx + slot_rec_first] ; 0x0fe8
     sub ah, ah                       ; 0x0fec
     mov word [bp - 0x0004], ax       ; 0x0fee
-    jmp near @..api_idx_000a_PKVL.l10 ; 0x0ff1
-@..api_idx_000a_PKVL.l3:
+    jmp near @..fill_action_slot_table_alt.l10 ; 0x0ff1
+@..fill_action_slot_table_alt.l3:
     mov ax, 0x15e                    ; 0x0ff4
     imul word [bp - 0x0002]          ; 0x0ff7
     add ax, word [bp - 0x0004]       ; 0x0ffa
@@ -43,48 +43,48 @@ api_idx_000a_PKVL:
     sub ah, ah                       ; 0x1003
     mov word [bp - 0x0006], ax       ; 0x1005
     cmp word [bp + 0xa], byte 0      ; 0x1008
-    je short @..api_idx_000a_PKVL.l4 ; 0x100c
-    jmp near @..api_idx_000a_PKVL.l8 ; 0x100e
-@..api_idx_000a_PKVL.l4:
+    je short @..fill_action_slot_table_alt.l4 ; 0x100c
+    jmp near @..fill_action_slot_table_alt.l8 ; 0x100e
+@..fill_action_slot_table_alt.l4:
     mov ax, 0x15e                    ; 0x1011
     imul word [bp - 0x0002]          ; 0x1014
     mov bx, ax                       ; 0x1017
     cmp byte [bx + slot_rec_forced], 0 ; 0x1019
-    jbe short @..api_idx_000a_PKVL.l8 ; 0x101e
+    jbe short @..fill_action_slot_table_alt.l8 ; 0x101e
     mov al, byte [bx + slot_rec_forced] ; 0x1020
     sub ah, ah                       ; 0x1024
     cmp ax, 0xfe                     ; 0x1026
-    jge short @..api_idx_000a_PKVL.l8 ; 0x1029
+    jge short @..fill_action_slot_table_alt.l8 ; 0x1029
     cmp ax, 0xfd                     ; 0x102b
-    jne short @..api_idx_000a_PKVL.l5 ; 0x102e
+    jne short @..fill_action_slot_table_alt.l5 ; 0x102e
     mov word [bp - 0x0006], 0        ; 0x1030
     mov word [bp - 0x0008], 0        ; 0x1035
-    jmp short @..api_idx_000a_PKVL.l7 ; 0x103a
-@..api_idx_000a_PKVL.l5:
+    jmp short @..fill_action_slot_table_alt.l7 ; 0x103a
+@..fill_action_slot_table_alt.l5:
     mov word [bp - 0x0008], ax       ; 0x103c
     mov ax, word [bp + 0x4]          ; 0x103f
     shl ax, 1                        ; 0x1042
     mov bx, ax                       ; 0x1044
     mov bx, word [bx + party_char_ext] ; 0x1046
     cmp byte [bx + 0xd7], 0x47       ; 0x104a
-    jne short @..api_idx_000a_PKVL.l7 ; 0x104f
+    jne short @..fill_action_slot_table_alt.l7 ; 0x104f
     cmp word [bss_90ba], byte 1      ; 0x1051
-    jne short @..api_idx_000a_PKVL.l6 ; 0x1056
+    jne short @..fill_action_slot_table_alt.l6 ; 0x1056
     mov ax, word [dest_alt_arg]      ; 0x1058
     mov cx, 0x100                    ; 0x105b
     cwd                              ; 0x105e
     idiv cx                          ; 0x105f
     mov word [bp - 0x0006], ax       ; 0x1061
     mov word [bp - 0x0008], dx       ; 0x1064
-    jmp short @..api_idx_000a_PKVL.l7 ; 0x1067
-@..api_idx_000a_PKVL.l6:
+    jmp short @..fill_action_slot_table_alt.l7 ; 0x1067
+@..fill_action_slot_table_alt.l6:
     cmp word [bp - 0x000a], byte 0   ; 0x1069
-    jne short @..api_idx_000a_PKVL.l7 ; 0x106d
+    jne short @..fill_action_slot_table_alt.l7 ; 0x106d
     mov word [bp - 0x0006], 1        ; 0x106f
     mov word [bp - 0x0008], 0xb      ; 0x1074
-@..api_idx_000a_PKVL.l7:
-    jmp short @..api_idx_000a_PKVL.l9 ; 0x1079
-@..api_idx_000a_PKVL.l8:
+@..fill_action_slot_table_alt.l7:
+    jmp short @..fill_action_slot_table_alt.l9 ; 0x1079
+@..fill_action_slot_table_alt.l8:
     mov ax, 0x15e                    ; 0x107b
     imul word [bp - 0x0002]          ; 0x107e
     add ax, word [bp - 0x0004]       ; 0x1081
@@ -103,14 +103,14 @@ api_idx_000a_PKVL:
     sub ah, ah                       ; 0x10a3
     mov word [bp - 0x0008], ax       ; 0x10a5
     cmp word [bp - 0x000a], byte 0   ; 0x10a8
-    je short @..api_idx_000a_PKVL.l9 ; 0x10ac
+    je short @..fill_action_slot_table_alt.l9 ; 0x10ac
     mov al, byte [bx + slot_rec_target_rand] ; 0x10ae
     sub ah, ah                       ; 0x10b2
     push ax                          ; 0x10b4
     call random_below                ; 0x10b5
     pop cx                           ; 0x10b8
     add word [bp - 0x0008], ax       ; 0x10b9
-@..api_idx_000a_PKVL.l9:
+@..fill_action_slot_table_alt.l9:
     mov al, byte [bp + 0xa]          ; 0x10bc
     push ax                          ; 0x10bf
     mov ax, 3                        ; 0x10c0
@@ -196,7 +196,7 @@ api_idx_000a_PKVL:
     pop ax                           ; 0x1182
     mov byte [bx - 0x7cdc], al       ; 0x1183
     inc word [bp - 0x0004]           ; 0x1187
-@..api_idx_000a_PKVL.l10:
+@..fill_action_slot_table_alt.l10:
     mov ax, 0x15e                    ; 0x118a
     imul word [bp - 0x0002]          ; 0x118d
     add ax, word [bp + 0xa]          ; 0x1190
@@ -210,7 +210,7 @@ api_idx_000a_PKVL:
     pop ax                           ; 0x11a4
     add ax, cx                       ; 0x11a5
     cmp ax, word [bp - 0x0004]       ; 0x11a7
-    jle short @..api_idx_000a_PKVL.l11 ; 0x11aa
-    jmp near @..api_idx_000a_PKVL.l3 ; 0x11ac
-@..api_idx_000a_PKVL.l11:
+    jle short @..fill_action_slot_table_alt.l11 ; 0x11aa
+    jmp near @..fill_action_slot_table_alt.l3 ; 0x11ac
+@..fill_action_slot_table_alt.l11:
     ret                              ; 0x11af

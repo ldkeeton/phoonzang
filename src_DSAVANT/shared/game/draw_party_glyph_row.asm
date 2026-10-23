@@ -2,12 +2,12 @@
 draw_party_glyph_row:
     mov ax, 0xfff2
     call aztec_csav
-    cmp word [bss_8f20], byte 0
+    cmp word [marker_mode], byte 0
     jg short @..draw_party_glyph_row.l1
     jmp near @..draw_party_glyph_row.l8
 @..draw_party_glyph_row.l1:
     mov ax, word [party_tag]
-    mov cx, word [bss_8f20]
+    mov cx, word [marker_mode]
     dec cx
     sub ax, cx
     add ax, strict word 6

@@ -213,7 +213,7 @@ api_idx_0074_MHUG:
     add ax, word [bp - 0x0006]       ; 0x68dc
     add ax, strict word 0x5c         ; 0x68df
     push ax                          ; 0x68e2
-    call ds_app_OPOL                 ; 0x68e3
+    call draw_inset_panel            ; 0x68e3
     add sp, byte 8                   ; 0x68e6
     mov ax, 0                        ; 0x68e9
     push ax                          ; 0x68ec
@@ -259,7 +259,7 @@ api_idx_0074_MHUG:
     add ax, word [bp - 0x0006]       ; 0x6948
     add ax, strict word 0x5c         ; 0x694b
     push ax                          ; 0x694e
-    call ds_app_OPOL                 ; 0x694f
+    call draw_inset_panel            ; 0x694f
     add sp, byte 8                   ; 0x6952
     mov ax, word [bp + 0xe]          ; 0x6955
     mov cx, 2                        ; 0x6958

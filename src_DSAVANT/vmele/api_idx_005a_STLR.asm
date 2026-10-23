@@ -122,7 +122,7 @@ api_idx_005a_STLR:
     jge short @..api_idx_005a_STLR.l12 ; 0x2e0e
     jmp near @..api_idx_005a_STLR.l4 ; 0x2e10
 @..api_idx_005a_STLR.l12:
-    call api_idx_000e_NKQN           ; 0x2e13
+    call queue_marker_overlay        ; 0x2e13
     call ds_app_JKOJ                 ; 0x2e16
     mov word [bss_845e], 0           ; 0x2e19
 @..api_idx_005a_STLR.l13:

@@ -15,7 +15,7 @@ from lib.compare.interrupts import _annotate_interrupts
 from lib.cachedirs import src_dir
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
 from lib.link import include_args
-from lib.shared import FOLDER, shared_dirs
+from lib.shared import FOLDER, label_aliases, shared_dirs
 from lib.symtab import Symbol
 from main.projects import discover_binaries
 
@@ -483,7 +483,9 @@ def resplice_c(app, binary, check_only=False, only=None):
                     raise SystemExit(f'error: {exc}')
             try:
                 linked = relink.link(label, start, func, index, data,
-                                     labels_in, labels_at, spans_here)
+                                     labels_in, labels_at, spans_here,
+                                     aliases=label_aliases(out_dir, binary,
+                                                           label))
             except relink.RelinkError as exc:
                 raise SystemExit(f'error: {exc}')
             compiled = linked.code

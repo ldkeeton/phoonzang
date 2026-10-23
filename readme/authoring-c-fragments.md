@@ -49,10 +49,19 @@ A routine in `src_<project>/shared/` has no label/span sidecar of its own; use
 any binary that contains it for `info`/`refs`, or `make rebuild PROJECT
 ROUTINE` to gate it against all of them.
 
-A shared copy that differs only in its data names spells each by a dotted
-common alias (`stem.bss1`), which C cannot use. `make refs` lists those aliases
-with every donor's own `bss_XXXX`; `make name PROJECT BIN stem.bss1=NAME`
-writes all donors' entries at once (the alias itself selects the donors).
+A shared copy that differs only in its data names or call targets spells each
+by a dotted common alias (`stem.bss1`, `stem.api_idx1`), which C cannot use.
+`make refs` lists those aliases with every donor's own name. In C, spell any
+one donor's name (`api_idx_0004_ONRQ`): each binary links it to its own copy,
+so the source builds before anything is named. `make name PROJECT BIN
+stem.api_idx1=NAME` writes all donors' entries at once (the alias itself
+selects the donors) and rewrites the C to match.
+
+Donors share a name only when their code matches: a routine with a shared
+hand source is the source of every routine of that name, so `make name`
+rejects giving a different copy that name. Give that copy its own name (from
+its binary: `make name PROJECT vmele api_idx_000a_PKVL=NAME_alt`); the C keeps
+calling the other donors' name and still links to it.
 
 ## Tools
 

@@ -43,7 +43,7 @@ api_idx_001c_VLRT:
     push word [bp + 0x4]
     push dx
     push word [bp - 0x0002]
-    call api_idx_000e_VRIR
+    call advance_action_slots
     add sp, byte 0x0c
     cmp byte [bp - 0x001c], 0
     jne short @..api_idx_001c_VLRT.l4
@@ -238,6 +238,6 @@ api_idx_001c_VLRT:
     push word [bp - 0x000e]
     push word [bp - 0x0006]
     push word [bp - 0x000c]
-    call api_idx_0004_ONRQ
+    call add_overlay_item
     add sp, byte 0x12
     ret

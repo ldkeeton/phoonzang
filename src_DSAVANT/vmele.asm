@@ -56,7 +56,7 @@ api_idx_005e_OJVJ.dseg1 equ dseg_9098
 %include "vmele/api_idx_0004_TJKU.asm"     ; 0x0c67
 
 ; bss_90ba equ __zdseg_end + (__zobss_90ba - __zdata_start)
-%include "vmele/api_idx_000a_PKVL.asm"     ; 0x0f95
+%include "vmele/fill_action_slot_table_alt.asm" ; 0x0f95
 
 %include "vmele/api_idx_000c_QNKI.asm"     ; 0x11b0
 
@@ -78,15 +78,14 @@ bss_90be equ __zdseg_end + (__zobss_90be - __zdata_start)
 
 %include "vmele/loc_QLKH.asm"              ; 0x1f39
 
-api_idx_000e_VRIR.api_idx1 equ api_idx_000a_PKVL
-%include "shared/game/api_idx_000e_VRIR.asm"     ; 0x2138
+advance_action_slots.fill_action_slot_table_alt1 equ fill_action_slot_table_alt
+%include "shared/game/advance_action_slots.asm"  ; 0x2138
 
-%include "shared/game/api_idx_0004_ONRQ.asm"     ; 0x245b
+%include "shared/game/add_overlay_item.asm"      ; 0x245b
 
 %include "shared/game/api_idx_001c_VLRT.asm"     ; 0x2565
 
-api_idx_000e_NKQN.api_idx1 equ api_idx_0004_ONRQ
-%include "shared/game/api_idx_000e_NKQN.asm"     ; 0x27ab
+%include "shared/game/queue_marker_overlay.asm"  ; 0x27ab
 
 %include "shared/game/loc_SSIO.asm"              ; 0x28a0
 
@@ -104,9 +103,8 @@ loc_KRMP.bss1 equ bss_90b6
 %include "shared/game/loc_KRMP.asm"              ; 0x2b19
 
 ; bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)
-api_idx_0006_IRNH          equ api_idx_0006_HRUL
-api_idx_0006_HRUL.bss1     equ bss_90b6
-api_idx_0006_HRUL.api_idx1 equ api_idx_000e_NKQN
+api_idx_0006_IRNH      equ api_idx_0006_HRUL
+api_idx_0006_HRUL.bss1 equ bss_90b6
 %include "shared/game/api_idx_0006_HRUL.asm"     ; 0x2b78
 
 loc_RPUI.api_idx1 equ api_idx_0006_IRNH

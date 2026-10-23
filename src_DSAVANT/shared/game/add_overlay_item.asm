@@ -1,26 +1,26 @@
 ; auto-generated
-api_idx_0004_ONRQ:
+add_overlay_item:
     mov ax, 0xfffc
     call aztec_csav
     mov word [bp - 0x0002], 0
-@..api_idx_0004_ONRQ.l1:
+@..add_overlay_item.l1:
     mov ax, word [bp - 0x0002]
     cmp ax, word [bss_8468]
-    jge short @..api_idx_0004_ONRQ.l2
+    jge short @..add_overlay_item.l2
     shl ax, 1
     mov bx, ax
     mov bx, word [bx - 0x7b96]
     mov al, byte [bx + 0x14]
     sub ah, ah
     cmp ax, word [bp + 0x4]
-    jg short @..api_idx_0004_ONRQ.l2
+    jg short @..add_overlay_item.l2
     inc word [bp - 0x0002]
-    jmp short @..api_idx_0004_ONRQ.l1
-@..api_idx_0004_ONRQ.l2:
+    jmp short @..add_overlay_item.l1
+@..add_overlay_item.l2:
     mov ax, word [bss_8468]
     mov word [bp - 0x0004], ax
-    jmp short @..api_idx_0004_ONRQ.l4
-@..api_idx_0004_ONRQ.l3:
+    jmp short @..add_overlay_item.l4
+@..add_overlay_item.l3:
     mov ax, word [bp - 0x0004]
     shl ax, 1
     mov bx, ax
@@ -31,19 +31,19 @@ api_idx_0004_ONRQ:
     mov cx, 0xc
     rep movsw
     dec word [bp - 0x0004]
-@..api_idx_0004_ONRQ.l4:
+@..add_overlay_item.l4:
     mov ax, word [bp - 0x0004]
     cmp ax, word [bp - 0x0002]
-    jg short @..api_idx_0004_ONRQ.l3
+    jg short @..add_overlay_item.l3
     cmp word [bp - 0x0002], byte 0x0c
-    jl short @..api_idx_0004_ONRQ.l6
-@..api_idx_0004_ONRQ.l5:
+    jl short @..add_overlay_item.l6
+@..add_overlay_item.l5:
     mov ax, 0
     push ax
     call play_sound_effect
     pop cx
-    jmp short @..api_idx_0004_ONRQ.l5
-@..api_idx_0004_ONRQ.l6:
+    jmp short @..add_overlay_item.l5
+@..add_overlay_item.l6:
     mov al, byte [bp + 0x4]
     mov cx, word [bp - 0x0002]
     shl cx, 1

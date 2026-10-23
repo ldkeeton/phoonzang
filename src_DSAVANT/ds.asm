@@ -95,9 +95,9 @@ slot_rec_ranges equ __zbss_6ac1 - __zdseg_start
 slot_rec_forced equ __zbss_6b75 - __zdseg_start
 glyph_x_table equ __zbss_6e6c - __zdseg_start
 glyph_y_table equ __zbss_6eb5 - __zdseg_start
-bss_7abc equ __zbss_7abc - __zdseg_start
+marker_x equ __zbss_7abc - __zdseg_start
 bss_7abe equ __zbss_7abe - __zdseg_start
-bss_7b04 equ __zbss_7b04 - __zdseg_start
+marker_y equ __zbss_7b04 - __zdseg_start
 bss_7b05 equ __zbss_7b05 - __zdseg_start
 bss_7d3c equ __zbss_7d3c - __zdseg_start
 glyph_x_table_b equ __zbss_7ed4 - __zdseg_start
@@ -196,7 +196,7 @@ bss_8f18 equ __zbss_8f18 - __zdseg_start
 bss_8f1a equ __zbss_8f1a - __zdseg_start
 bss_8f1c equ __zbss_8f1c - __zdseg_start
 bss_8f1e equ __zbss_8f1e - __zdseg_start
-bss_8f20 equ __zbss_8f20 - __zdseg_start
+marker_mode equ __zbss_8f20 - __zdseg_start
 bss_8f22 equ __zbss_8f22 - __zdseg_start
 found_object_owner equ __zbss_8f24 - __zdseg_start
 bss_8f26 equ __zbss_8f26 - __zdseg_start
@@ -414,7 +414,7 @@ bss_598c equ __zbss_598c - __zdseg_start
 
 %include "ds/game/draw_bevel_frame.asm"    ; 0x0f2a
 
-%include "ds/game/ds_app_OPOL.asm"         ; 0x0fdf
+%include "ds/game/draw_inset_panel.asm"    ; 0x0fdf
 
 %include "ds/game/draw_framed_button.asm"  ; 0x1034
 

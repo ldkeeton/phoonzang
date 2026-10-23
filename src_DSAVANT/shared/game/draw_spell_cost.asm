@@ -10,7 +10,7 @@ draw_spell_cost:
     push ax
     push word [bp + 0x6]
     push word [bp + 0x4]
-    call ds_app_OPOL
+    call draw_inset_panel
     add sp, byte 8
     mov ax, word [bp + 0x8]
     shl ax, 1

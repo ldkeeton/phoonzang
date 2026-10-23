@@ -104,7 +104,7 @@ api_idx_0006_SQTK:
     mov ax, word [bp - 0x0002]       ; 0x1044
     cmp ax, strict word 3            ; 0x1047
     jl short @..api_idx_0006_SQTK.l8 ; 0x104a
-    call api_idx_000e_NKQN           ; 0x104c
+    call queue_marker_overlay        ; 0x104c
     cmp word [bp - 0x0006], byte 0   ; 0x104f
     je short @..api_idx_0006_SQTK.l10 ; 0x1053
     mov ax, word [bss_82e8]          ; 0x1055

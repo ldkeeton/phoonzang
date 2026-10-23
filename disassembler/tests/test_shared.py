@@ -399,3 +399,20 @@ class IncludeAliasesTest(unittest.TestCase):
 
     def test_no_include_has_no_aliases(self):
         self.assertEqual(shared.include_aliases('', 'shared/f.asm'), [])
+
+
+class DonorAliasesTest(unittest.TestCase):
+    def test_other_binaries_names_map_to_this_ones(self):
+        with tempfile.TemporaryDirectory() as root:
+            _put(root, 'shared/game/f.asm', 'f:\n    call f.api_idx1\n')
+            _put(root, 'a.asm', 'f.api_idx1 equ api_idx_0004_ONRQ\n'
+                                '%include "shared/game/f.asm"\n')
+            _put(root, 'b.asm', 'f.api_idx1 equ api_idx_0004_SMTU\n'
+                                '%include "shared/game/f.asm"\n')
+            _put(root, 'c.asm', 'f.api_idx1 equ api_idx_0004_ONRQ\n'
+                                '%include "shared/game/f.asm"\n')
+            self.assertEqual(shared.label_aliases(root, 'b', 'f'),
+                             {'api_idx_0004_ONRQ': 'api_idx_0004_SMTU'})
+            self.assertEqual(shared.label_aliases(root, 'a', 'f'),
+                             {'api_idx_0004_SMTU': 'api_idx_0004_ONRQ'})
+            self.assertEqual(shared.label_aliases(root, 'a', 'g'), {})

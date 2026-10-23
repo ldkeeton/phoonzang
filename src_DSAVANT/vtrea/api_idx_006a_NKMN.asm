@@ -190,7 +190,7 @@ api_idx_006a_NKMN:
     add ax, word [bp - 0x0006]       ; 0x61b8
     add ax, strict word 0x59         ; 0x61bb
     push ax                          ; 0x61be
-    call ds_app_OPOL                 ; 0x61bf
+    call draw_inset_panel            ; 0x61bf
     add sp, byte 8                   ; 0x61c2
     mov ax, word [bp - 0x0008]       ; 0x61c5
     add ax, strict word 0x1d         ; 0x61c8
@@ -208,7 +208,7 @@ api_idx_006a_NKMN:
     add ax, word [bp - 0x0006]       ; 0x61e6
     add ax, strict word 0x5e         ; 0x61e9
     push ax                          ; 0x61ec
-    call ds_app_OPOL                 ; 0x61ed
+    call draw_inset_panel            ; 0x61ed
     add sp, byte 8                   ; 0x61f0
     mov ax, 0                        ; 0x61f3
     push ax                          ; 0x61f6

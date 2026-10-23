@@ -105,7 +105,7 @@ api_idx_0006_HRUL:
     mov ax, word [bp - 0x0002]
     cmp ax, strict word 3
     jl short @..api_idx_0006_HRUL.l8
-    call api_idx_0006_HRUL.api_idx1
+    call queue_marker_overlay
     cmp word [bp - 0x0006], byte 0
     je short @..api_idx_0006_HRUL.l10
     mov ax, word [bss_82e8]

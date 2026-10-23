@@ -30,14 +30,13 @@ bss_9134 equ __zdseg_end + (__zobss_9134 - __zdata_start)
 bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
 %include "vmnpc/api_idx_000c_POTM.asm"     ; 0x01d2
 
-%include "vmnpc/api_idx_0004_SMTU.asm"     ; 0x062d
+%include "vmnpc/add_overlay_item.asm"      ; 0x062d
 
 ; bss_9134 equ __zdseg_end + (__zobss_9134 - __zdata_start)
 ; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
 %include "vmnpc/api_idx_0018_TROH.asm"     ; 0x0727
 
-api_idx_000e_NKQN.api_idx1 equ api_idx_0004_SMTU
-%include "shared/game/api_idx_000e_NKQN.asm"     ; 0x0961
+%include "shared/game/queue_marker_overlay.asm"  ; 0x0961
 
 %include "shared/game/loc_SSIO.asm"              ; 0x0a56
 

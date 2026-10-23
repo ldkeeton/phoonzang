@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_000e_VRIR:
+advance_action_slots:
     mov ax, 0xfff2
     call aztec_csav
     mov bx, word [bp + 0xe]
@@ -9,9 +9,9 @@ api_idx_000e_VRIR:
     mov bx, ax
     mov bx, word [bx + party_char]
     cmp byte [bx + 0x19f], 0xff
-    jne short @..api_idx_000e_VRIR.l1
+    jne short @..advance_action_slots.l1
     ret
-@..api_idx_000e_VRIR.l1:
+@..advance_action_slots.l1:
     mov al, byte [bx + 0x19f]
     cbw
     mov word [bp - 0x0002], ax
@@ -32,8 +32,8 @@ api_idx_000e_VRIR:
     mov al, byte [bx + slot_rec_first]
     sub ah, ah
     mov word [bp - 0x0004], ax
-    jmp near @..api_idx_000e_VRIR.l15
-@..api_idx_000e_VRIR.l2:
+    jmp near @..advance_action_slots.l15
+@..advance_action_slots.l2:
     mov ax, 0x2c
     imul word [bp + 0x6]
     mov si, ax
@@ -42,12 +42,12 @@ api_idx_000e_VRIR:
     mov bx, ax
     mov bx, word [bx + party_char]
     cmp byte [bx + si + 0x22], 2
-    je short @..api_idx_000e_VRIR.l3
+    je short @..advance_action_slots.l3
     cmp byte [bx + si + 0x11], 0
-    ja short @..api_idx_000e_VRIR.l3
+    ja short @..advance_action_slots.l3
     cmp byte [bx + si + 0x10], 0
-    jbe short @..api_idx_000e_VRIR.l4
-@..api_idx_000e_VRIR.l3:
+    jbe short @..advance_action_slots.l4
+@..advance_action_slots.l3:
     mov ax, 0x5a
     imul word [bp + 0x8]
     push ax
@@ -75,8 +75,8 @@ api_idx_000e_VRIR:
     mov al, byte [bx + slot_rec_target]
     sub ah, ah
     mov word [bp - 0x0008], ax
-    jmp near @..api_idx_000e_VRIR.l11
-@..api_idx_000e_VRIR.l4:
+    jmp near @..advance_action_slots.l11
+@..advance_action_slots.l4:
     mov ax, 0x5a
     imul word [bp + 0x8]
     push ax
@@ -92,20 +92,20 @@ api_idx_000e_VRIR:
     pop ax
     add ax, cx
     mov bx, ax
-    mov al, byte [bx - 0x7cdd]
+    mov al, byte [bx + action_slot_table + 0x1]
     sub ah, ah
     mov word [bp - 0x0008], ax
-    mov al, byte [bx - 0x7cdc]
+    mov al, byte [bx + action_slot_table + 0x2]
     sub ah, ah
     mov word [bp - 0x000a], ax
     cmp word [bp + 0xc], byte 0
-    je short @..api_idx_000e_VRIR.l5
+    je short @..advance_action_slots.l5
     dec word [bp - 0x000a]
-@..api_idx_000e_VRIR.l5:
+@..advance_action_slots.l5:
     cmp word [bp - 0x000a], byte 0
-    jle short @..api_idx_000e_VRIR.l6
-    jmp near @..api_idx_000e_VRIR.l10
-@..api_idx_000e_VRIR.l6:
+    jle short @..advance_action_slots.l6
+    jmp near @..advance_action_slots.l10
+@..advance_action_slots.l6:
     mov al, byte [bx + action_slot_table]
     sub ah, ah
     mov word [bp - 0x0006], ax
@@ -126,22 +126,22 @@ api_idx_000e_VRIR:
     add ax, cx
     dec ax
     cmp ax, word [bp - 0x0008]
-    jl short @..api_idx_000e_VRIR.l7
-    jmp near @..api_idx_000e_VRIR.l9
-@..api_idx_000e_VRIR.l7:
+    jl short @..advance_action_slots.l7
+    jmp near @..advance_action_slots.l9
+@..advance_action_slots.l7:
     mov ax, 3
     imul word [bp + 0x8]
     add ax, word [bp + 0xa]
     mov bx, ax
     cmp byte [bx + action_slot_mode], 0
-    je short @..api_idx_000e_VRIR.l8
+    je short @..advance_action_slots.l8
     mov byte [bx + action_slot_mode], 0
     mov ax, 0
     push ax
     push word [bp + 0xa]
     push word [bp + 0x8]
     push word [bp + 0x4]
-    call api_idx_000e_VRIR.api_idx1
+    call advance_action_slots.fill_action_slot_table_alt1
     add sp, byte 8
     push word [bp + 0xe]
     mov ax, 0
@@ -150,10 +150,10 @@ api_idx_000e_VRIR:
     push word [bp + 0x8]
     push word [bp + 0x6]
     push word [bp + 0x4]
-    call api_idx_000e_VRIR
+    call advance_action_slots
     add sp, byte 0x0c
     ret
-@..api_idx_000e_VRIR.l8:
+@..advance_action_slots.l8:
     mov ax, 0x15e
     imul word [bp - 0x0002]
     add ax, word [bp - 0x0004]
@@ -197,7 +197,7 @@ api_idx_000e_VRIR:
     mov al, byte [bx + slot_rec_target]
     sub ah, ah
     mov word [bp - 0x0008], ax
-@..api_idx_000e_VRIR.l9:
+@..advance_action_slots.l9:
     mov al, byte [bp - 0x0008]
     push ax
     mov ax, 0x5a
@@ -213,7 +213,7 @@ api_idx_000e_VRIR:
     add cx, ax
     mov bx, cx
     pop ax
-    mov byte [bx - 0x7cdd], al
+    mov byte [bx + action_slot_table + 0x1], al
     mov ax, 0x15e
     imul word [bp - 0x0002]
     mov cx, word [bp - 0x0008]
@@ -221,7 +221,7 @@ api_idx_000e_VRIR:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x6ac2]
+    mov al, byte [bx + slot_rec_ranges + 0x1]
     sub ah, ah
     push ax
     call random_below
@@ -240,7 +240,7 @@ api_idx_000e_VRIR:
     pop ax
     add ax, cx
     mov word [bp - 0x000a], ax
-@..api_idx_000e_VRIR.l10:
+@..advance_action_slots.l10:
     mov al, byte [bp - 0x000a]
     push ax
     mov ax, 0x5a
@@ -256,8 +256,8 @@ api_idx_000e_VRIR:
     add cx, ax
     mov bx, cx
     pop ax
-    mov byte [bx - 0x7cdc], al
-@..api_idx_000e_VRIR.l11:
+    mov byte [bx + action_slot_table + 0x2], al
+@..advance_action_slots.l11:
     mov ax, 0x15e
     imul word [bp - 0x0002]
     mov cx, word [bp - 0x0008]
@@ -265,7 +265,7 @@ api_idx_000e_VRIR:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x6ac0]
+    mov al, byte [bx + slot_rec_ranges - 0x1]
     mov bx, word [bp + 0xe]
     mov si, word [bp - 0x000e]
     mov byte [bx + si], al
@@ -274,12 +274,12 @@ api_idx_000e_VRIR:
     mov bx, ax
     mov bx, word [bx + party_char]
     cmp byte [bx + 0x19e], 0x79
-    je short @..api_idx_000e_VRIR.l12
+    je short @..advance_action_slots.l12
     mov al, byte [bx + 0x19e]
     sub ah, ah
     cmp ax, 0x8d
-    jne short @..api_idx_000e_VRIR.l13
-@..api_idx_000e_VRIR.l12:
+    jne short @..advance_action_slots.l13
+@..advance_action_slots.l12:
     inc word [bp - 0x000e]
     mov bx, word [bp + 0xe]
     mov si, word [bp - 0x000e]
@@ -288,19 +288,19 @@ api_idx_000e_VRIR:
     mov ax, 0x15e
     imul word [bp - 0x0002]
     mov bx, ax
-    mov al, byte [bx + 0x6b76]
+    mov al, byte [bx + slot_rec_forced + 0x1]
     mov bx, word [bp + 0xe]
     mov si, word [bp - 0x000e]
     mov byte [bx + si - 0x0001], al
-@..api_idx_000e_VRIR.l13:
+@..advance_action_slots.l13:
     mov bx, word [bp + 0xe]
     mov si, word [bp - 0x000e]
     cmp byte [bx + si], 0
-    je short @..api_idx_000e_VRIR.l14
+    je short @..advance_action_slots.l14
     inc word [bp - 0x000e]
-@..api_idx_000e_VRIR.l14:
+@..advance_action_slots.l14:
     inc word [bp - 0x0004]
-@..api_idx_000e_VRIR.l15:
+@..advance_action_slots.l15:
     mov ax, 0x15e
     imul word [bp - 0x0002]
     push ax
@@ -323,9 +323,9 @@ api_idx_000e_VRIR:
     pop ax
     add ax, cx
     cmp ax, word [bp - 0x0004]
-    jle short @..api_idx_000e_VRIR.l16
-    jmp near @..api_idx_000e_VRIR.l2
-@..api_idx_000e_VRIR.l16:
+    jle short @..advance_action_slots.l16
+    jmp near @..advance_action_slots.l2
+@..advance_action_slots.l16:
     mov bx, word [bp + 0xe]
     mov si, word [bp - 0x000e]
     mov byte [bx + si], 0

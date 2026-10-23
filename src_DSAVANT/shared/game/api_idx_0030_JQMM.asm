@@ -7,7 +7,7 @@ api_idx_0030_JQMM:
     mov word [bp - 0x0020], 1
     mov word [bp - 0x001e], 3
     mov word [bp - 0x001c], 2
-    mov word [bss_8f20], 0
+    mov word [marker_mode], 0
     mov ax, word [party_world_x]
     mov word [bp - 0x000a], ax
     mov ax, word [party_world_y]
@@ -84,7 +84,7 @@ api_idx_0030_JQMM:
     jne short @..api_idx_0030_JQMM.l4
     cmp word [bss_8f22], byte 0
     je short @..api_idx_0030_JQMM.l3
-    mov word [bss_8f20], 0xffff
+    mov word [marker_mode], 0xffff
 @..api_idx_0030_JQMM.l3:
     mov byte [bp - 0x0030], 2
     mov byte [bp - 0x002f], 0

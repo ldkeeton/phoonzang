@@ -129,7 +129,7 @@ api_idx_0006_TMLR:
     mov ax, word [bp - 0x0002]       ; 0x19da
     cmp ax, strict word 3            ; 0x19dd
     jl short @..api_idx_0006_TMLR.l9 ; 0x19e0
-    call api_idx_000e_NKQN           ; 0x19e2
+    call queue_marker_overlay        ; 0x19e2
     cmp word [bp - 0x0006], byte 0   ; 0x19e5
     je short @..api_idx_0006_TMLR.l11 ; 0x19e9
     mov ax, word [bss_82e8]          ; 0x19eb

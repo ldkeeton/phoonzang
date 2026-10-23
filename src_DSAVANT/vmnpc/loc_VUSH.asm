@@ -14,7 +14,7 @@ loc_VUSH:
     push ax                          ; 0x4790
     push word [bp + 0x8]             ; 0x4791
     push word [bp + 0x6]             ; 0x4794
-    call ds_app_OPOL                 ; 0x4797
+    call draw_inset_panel            ; 0x4797
     add sp, byte 8                   ; 0x479a
     push word [bp + 0x10]            ; 0x479d
     push word [bp + 0xe]             ; 0x47a0

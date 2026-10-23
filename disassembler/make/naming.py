@@ -17,9 +17,10 @@ wins.
 
 ``make refs PROJECT BIN ROUTINE`` lists the address-named symbols a routine's
 asm and source reference that still need names, with the sidecar entry each one
-resolves to.  For a shared routine it also lists each dotted data alias
-(``stem.bss1``) with every donor's own ``bss_XXXX``; naming that alias writes
-each donor's entry in one command, whichever binary selected the routine.
+resolves to.  For a shared routine it also lists each dotted alias
+(``stem.bss1``, ``stem.api_idx1``) with every donor's own ``bss_XXXX`` or
+routine; naming that alias writes each donor's entry in one command, whichever
+binary selected the routine.
 """
 
 import functools
@@ -228,11 +229,12 @@ def _equ_pairs_above(lines, index):
 
 @functools.lru_cache(maxsize=None)
 def _shared_alias_index(project):
-    """``{common: [(binary, own)]}`` for dotted data aliases of shared files.
+    """``{common: [(binary, own)]}`` for dotted aliases of shared files.
 
     A shared fragment that differs only in the names it uses spells each by a
     common ``<stem>.<kind><n>`` name; each master gives that common name its
-    own ``bss_XXXX`` just above the ``%include``.  A C source cannot spell the
+    own ``bss_XXXX`` (or routine, ``stem.api_idx1``) just above the
+    ``%include``.  A C source cannot spell the
     dotted common name, so this is the surface ``make name`` fans out.
     """
     root = src_dir(project, PROJECT)
@@ -267,6 +269,9 @@ def _shared_alias_index(project):
                     common, own = b, a
                 elif _DSEG.match(b) or _CSEG.match(b):
                     common, own = a, b
+                elif '.' in a and _IDENT.match(b):
+                    # A call target (``stem.api_idx1 equ api_idx_0004_ONRQ``).
+                    common, own = a, b
                 else:
                     continue
                 if (common not in tokens or _IDENT.match(common)
@@ -299,6 +304,53 @@ def _expand_shared_specs(project, binary, specs):
                     f'this command; one name per donor symbol')
             out.append((own, name, note, donor))
     return out
+
+
+def _shared_equ(project, binary, symbol):
+    """The shared routine *binary*'s master makes *symbol* an ``equ`` of,
+    or None."""
+    m = re.search(rf'^[ \t]*{re.escape(symbol)}[ \t]+equ[ \t]+(\w+)[ \t]*$',
+                  _master_text(project, binary), re.M)
+    if m and _asm_file(project, SHARED_DIR, m.group(1)):
+        return m.group(1)
+    return None
+
+
+_SYMBOLISH = re.compile(r'@?[A-Za-z_][\w.@]*[_.][\w.@]*')
+
+
+def _shape_key(text):
+    """*text*'s instructions with every symbol written ``S``: copies that
+    differ only in what they call things compare equal."""
+    from lib.shared import _code_key
+    return _SYMBOLISH.sub('S', _code_key(text))
+
+
+def _shared_source_conflict(project, target, own, name):
+    """Why naming *target*'s routine *own* ``name`` would hand it a shared
+    hand source it does not match, or None.
+
+    A hand-written ``shared/.../name.c`` (or ``.s``) is the source of every
+    binary's routine of that name, so another copy may take the name only
+    when its code is the same.
+    """
+    from lib.routine_source import beside
+    if target == SHARED_DIR:
+        return None
+    mine = _asm_file(project, target, own)
+    theirs = _asm_file(project, SHARED_DIR, name)
+    if not mine or not theirs:
+        return None
+    source = beside(os.path.splitext(theirs)[0])
+    if not source or not hand_owned(source):
+        return None
+    with open(mine) as f, open(theirs) as g:
+        if _shape_key(f.read()) == _shape_key(g.read()):
+            return None
+    return (f'{target} {own}: {os.path.relpath(source, PROJECT)} is the '
+            f'source of every routine named {name!r}, and this copy\'s code '
+            f'differs; give it its own name (a shared C may still call it by '
+            f'{name!r}: each binary links that spelling to its own copy)')
 
 
 def _asm_file(project, folder, label):
@@ -469,6 +521,11 @@ def resolve(sidecar, project, binary, symbol):
         if key is None:
             raise SidecarError(f'{symbol}: shared routine with no content tag or routines entry')
         path = ['routines']
+    elif (binary != SHARED_DIR and _TAGGED.search(symbol)
+          and _shared_equ(project, binary, symbol)):
+        # This binary's copy of a shared routine under its own content tag
+        # (``api_idx_0004_RTNM equ api_idx_0004_OVUO``): its routines entry.
+        path, key = ['routines'], symbol
     else:
         raise SidecarError(f'{symbol}: not a cseg_/bss_/dseg_ address, a named global, '
                            f'or a routine in {binary}/ or {SHARED_DIR}/')
@@ -779,13 +836,22 @@ def plan_names(project, binary, specs):
     text = original
     renames = {}
     changes = []
-    for spec in _expand_shared_specs(project, binary, specs):
+    done = set()
+    queue = list(_expand_shared_specs(project, binary, specs))
+    for spec in queue:
         if len(spec) == 4:
             sym, name, note, target = spec
         else:
             sym, name, note = spec
             target = binary
         path, key, entry = resolve(sidecar, project, target, sym)
+        # Donors of one alias that include the same shared routine name it
+        # through one entry.
+        if (tuple(path), key, name) in done:
+            continue
+        done.add((tuple(path), key, name))
+        if entry.get('name') == name and not note:
+            continue    # a donor already so named; nothing to write
         old = entry.get('name') or sym
         entry = dict(entry)
         entry['name'] = name
@@ -798,6 +864,9 @@ def plan_names(project, binary, specs):
         is_routine = (path == ['routines']
                       or path == ['binaries', target, 'function_names'])
         if is_routine and old != name:
+            conflict = _shared_source_conflict(project, target, sym, name)
+            if conflict:
+                raise SidecarError(conflict)
             addr = _routine_address(project, target, old, sym)
             for cpath, ckey, centry in _routine_companions(
                     sidecar, project, target, old, addr,
@@ -841,7 +910,28 @@ def plan_names(project, binary, specs):
                             f'{wrapped!r}; name the slot from {driver}')
         if old != name:
             renames[old] = name
+        if is_routine and old != name and _asm_file(project, SHARED_DIR, old):
+            # Another binary's copy of this shared routine under its own
+            # content tag (``api_idx_000e_LVUJ equ api_idx_000e_NKQN``) is
+            # the same routine: it takes the name too, or it leaves the
+            # shared file.
+            for donor, alias in _tag_aliases(project, {old, sym}):
+                queue.append((alias, name, note, donor))
     return text, sidecar, renames, changes
+
+
+def _tag_aliases(project, labels):
+    """``[(binary, alias)]``: content-tagged ``alias equ label`` lines in the
+    masters, for each of *labels*."""
+    pattern = re.compile(
+        r'^[ \t]*(\w+)[ \t]+equ[ \t]+(' + '|'.join(map(re.escape, labels))
+        + r')[ \t]*$', re.M)
+    out = []
+    for binary, _path in _master_paths(project):
+        for m in pattern.finditer(_master_text(project, binary)):
+            if _TAGGED.search(m.group(1)) and m.group(1) not in labels:
+                out.append((binary, m.group(1)))
+    return out
 
 
 # ── commands ─────────────────────────────────────────────────────────────────
@@ -922,7 +1012,34 @@ def apply_names(project, binary, specs, journal=None):
     for change in rename_sources(project, renames, journal=journal):
         for line in _source_change_lines(change):
             print(line)
+    _rename_in_masters(project, renames, journal)
     return renames
+
+
+def _rename_in_masters(project, renames, journal=None):
+    """Apply *renames* to the generated masters too.
+
+    The build links a shared source through the alias ``equ`` lines and
+    ``%include`` paths the masters on disk hold
+    (:func:`lib.shared.donor_aliases`); written before that build, they would
+    still carry the names this transaction replaces.  The build regenerates
+    the masters, so this only keeps them consistent until it does.
+    """
+    if not renames:
+        return
+    pattern = re.compile(r'\b(' + '|'.join(map(re.escape, renames)) + r')\b')
+    for _binary, path in _master_paths(project):
+        with open(path) as f:
+            text = f.read()
+        new = pattern.sub(lambda m: renames[m.group(1)], text)
+        if new == text:
+            continue
+        if journal is not None:
+            journal.edit(path, new)
+        else:
+            with open(path, 'w') as f:
+                f.write(new)
+    _master_text.cache_clear()
 
 
 def _label_snapshot(project):
@@ -1137,12 +1254,20 @@ def _fact(project, binary, sym, sidecar, text, own):
     return fact
 
 
+def _generated_name(sym):
+    """True for an address-derived or content-tagged name."""
+    return bool(_DSEG.match(sym) or _CSEG.match(sym)
+                or _AUTO_ROUTINE.match(sym) or _TAGGED.search(sym))
+
+
 def _shared_aliases(project, text, sidecar):
-    """Shared dotted aliases *text* uses, with each donor's own data symbol.
+    """Shared dotted aliases *text* uses, with each donor's own symbol.
 
     These are the names C cannot spell: a shared fragment that differs only
-    in its data names writes ``stem.bss1``, and every donor's master binds it
-    to its own ``bss_XXXX`` above the ``%include``.  ``make name`` fans one
+    in its data names or call targets writes ``stem.bss1``/``stem.api_idx1``,
+    and every donor's master binds it to its own ``bss_XXXX`` or routine above
+    the ``%include``.  A C source may spell any donor's own name; each binary
+    links it as its own (:func:`lib.shared.donor_aliases`).  ``make name`` fans one
     such spec out to all donors.
     """
     tokens = set(_TOKEN.findall(text))
@@ -1162,7 +1287,10 @@ def _shared_aliases(project, text, sidecar):
             })
         out.append({'symbol': common,
                     'use': _use_line(text, common),
-                    'bindings': bindings})
+                    'bindings': bindings,
+                    # Every donor's own name is a person's: nothing to name.
+                    'named': not any(_generated_name(own)
+                                     for _donor, own in pairs)})
     return out
 
 
@@ -1180,6 +1308,9 @@ def _raw_data_refs(project, text, model, known, skip):
             value = int(match.group(2), 16)
             if value < 0x100:
                 continue
+            if expr.rstrip().endswith('-'):
+                # ``[bx - 0x7cdd]`` wraps: DS:0x8323.
+                value = (0x10000 - value) & 0xffff
             if re.search(r'\b(?:bp|sp|ss)\b', expr):
                 continue
             if re.search(r'\bcs\s*:', expr):
@@ -1195,8 +1326,14 @@ def _raw_data_refs(project, text, model, known, skip):
             if value in known:
                 canonical = str(known[value])
             seen.add(value)
+            # A raw operand is often a field of a named array (the C spells
+            # ``action_slot_table[...] + 1``), so say which name it follows.
+            below = max((off for off in known if off < value), default=None)
+            near = (f'{known[below]}+0x{value - below:x}'
+                    if below is not None and value - below < 0x200 else None)
             out.append({'symbol': None, 'kind': 'data', 'value': value,
                         'space': (sym.space.value if sym is not None else None),
+                        'near': near,
                         'canonical': canonical,
                         'defined_in': _data_defined_in(project, canonical),
                         'use': line.strip(), 'width': None,
@@ -1241,6 +1378,12 @@ def cmd_refs(project, binary, routine, json_out=False):
         known.setdefault(off, str(sym))
     for sym, value in (context.get('mem_equ') or {}).items():
         known.setdefault(value, str(sym))
+    # ``shared`` has no context of its own; its DS is the data owner's.
+    owner = (sidecar.get('binaries', {}).get(data_owner(sidecar, binary), {})
+             .get('data_names') or {})
+    for off, entry in owner.items():
+        if isinstance(entry, dict) and entry.get('name'):
+            known.setdefault(int(off, 16), entry['name'])
     model = _model_for(project, binary)
     raws = _raw_data_refs(project, text, model, known,
                           {fact['value'] for fact in facts
@@ -1256,7 +1399,7 @@ def cmd_refs(project, binary, routine, json_out=False):
                           'shared_aliases': aliases}, indent=1))
         return facts, raws
     print_provenance(names, shared)
-    if not facts and not raws and not aliases:
+    if not facts and not raws and all(a['named'] for a in aliases):
         print(f'{routine}: no address-named symbols')
         return facts, raws
     for fact in facts:
@@ -1276,15 +1419,18 @@ def cmd_refs(project, binary, routine, json_out=False):
             print(f'  {"":24} use: {fact["use"]}')
     for fact in raws:
         value = '0x%04x' % fact['value']
+        near = f'= {fact["near"]}' if fact.get('near') else ''
         print(f'  {"(unlabeled)":24} {value:8} {fact["space"] or "":5} '
               f'{"data":12} {fact["canonical"]:20} {"":5} '
-              f'{fact["defined_in"] or ""}')
+              f'{fact["defined_in"] or near}')
         if fact['use']:
             print(f'  {"":24} use: {fact["use"]}')
     if aliases:
-        print('  shared aliases (dotted names C cannot spell):')
+        print('  shared aliases (dotted names C cannot spell; C may use any '
+              'donor\'s own name):')
         for alias in aliases:
-            print(f'  {alias["symbol"]:24}')
+            done = '  (every donor named)' if alias['named'] else ''
+            print(f'  {alias["symbol"]:24}{done}')
             for bind in alias['bindings']:
                 value = ('0x%04x' % bind['value']
                          if bind['value'] is not None else '?')
@@ -1293,8 +1439,9 @@ def cmd_refs(project, binary, routine, json_out=False):
                       f'{bind["canonical"]}')
             if alias['use']:
                 print(f'  {"":24} use: {alias["use"]}')
-        print('  name one with: make name PROJECT BIN '
-              '<alias>=NAME  (fans out to each donor)')
+        if not all(alias['named'] for alias in aliases):
+            print('  name one with: make name PROJECT BIN '
+                  '<alias>=NAME  (fans out to each donor)')
     return facts, raws
 
 

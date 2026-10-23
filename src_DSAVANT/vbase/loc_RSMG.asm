@@ -13,7 +13,7 @@ loc_RSMG:
     push ax                          ; 0x42fb
     push word [bp + 0x8]             ; 0x42fc
     push word [bp + 0x6]             ; 0x42ff
-    call ds_app_OPOL                 ; 0x4302
+    call draw_inset_panel            ; 0x4302
     add sp, byte 8                   ; 0x4305
     mov ax, word [bp + 0x8]          ; 0x4308
     inc ax                           ; 0x430b

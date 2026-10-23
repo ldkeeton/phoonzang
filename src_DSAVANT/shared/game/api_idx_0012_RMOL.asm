@@ -778,7 +778,7 @@ api_idx_0012_RMOL.jumptable1:
     jne short @..api_idx_0012_RMOL.l64
     cmp word [bss_8f22], byte 0
     je short @..api_idx_0012_RMOL.l64
-    mov word [bss_8f20], 0xffff
+    mov word [marker_mode], 0xffff
 @..api_idx_0012_RMOL.l64:
     cmp word [bp + 0x4], byte 0
     jne short @..api_idx_0012_RMOL.l65
@@ -903,7 +903,7 @@ api_idx_0012_RMOL.jumptable1:
     je short @..api_idx_0012_RMOL.l73
     mov al, byte [bx + api_idx_0012_RMOL.bss11]
     sub ah, ah
-    mov word [bss_8f20], ax
+    mov word [marker_mode], ax
     jmp near @..api_idx_0012_RMOL.l82
 @..api_idx_0012_RMOL.l73:
     mov ax, word [bp + 0x4]

@@ -31,6 +31,7 @@
   },
   "routines": {
     "api_idx_0002_KQPU": {"name": "find_object_at", "note": "returns next object index from start whose x, y, map piece match and type is nonzero (subject to a state bit), else -1"},
+    "api_idx_0004_ONRQ": {"name": "add_overlay_item", "note": "inserts an item into the overlay list kept sorted by its first-argument key; hangs if 12 are queued"},
     "api_idx_0004_QVPP": {"name": "find_map_piece", "note": "maps world (x, y) to piece index and local x/y; 0 if found"},
     "api_idx_000a_GGLT": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
     "api_idx_000a_IQHO": {
@@ -49,7 +50,9 @@
       "name": "draw_party_slot_letters",
       "note": "overlay stub 0x0c: draws one letter per party slot (six of them) via thunk_28, from the host's tables at ds:01d4/01a4/01bc/830e"
     },
+    "api_idx_000e_NKQN": {"name": "queue_marker_overlay", "note": "queues glyph strings for the marker as overlay items: a facing-dependent glyph when marker_mode > 0, glyph 1 at marker_x/marker_y when -1"},
     "api_idx_000e_TIOP": {"name": "draw_party_glyph_row", "note": "draws one row of party glyphs from the party tag and count"},
+    "api_idx_000e_VRIR": {"name": "advance_action_slots", "note": "writes one byte per action entry of a party cell into a string, advancing rolls, targets and actions as they run out; refills the cell from group 0 when exhausted"},
     "api_idx_002a_SRJL": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"},
     "api_idx_002a_STSK": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"},
     "bios_kbd_loc_UHUN": {
@@ -164,6 +167,7 @@
         "0e82": {"name": "draw_rect_bevel", "note": "draws a one-pixel bevel: top/left edges in one colour, right/bottom in another"},
         "0ee1": {"name": "draw_dialog_box", "note": "fills a panel in colour 0xc2, outlines it and bevels its edges"},
         "0f2a": {"name": "draw_bevel_frame", "note": "fills a rectangle, outlines and bevels it, optionally adds an outer bevel, and colours its corner pixels"},
+        "0fdf": {"name": "draw_inset_panel", "note": "fills (left,top)-(right,bottom) with color 0xc3, outlines it, and bevels 2 px outside in 0xc5/0xb4"},
         "1034": {"name": "draw_framed_button", "note": "draws a bevelled frame sized in character cells with a centred label inside"},
         "10a6": {"name": "flash_button", "note": "inverts a button area to show it pressed"},
         "10ff": {"name": "flash_area", "note": "inverts and shows a screen rectangle, then waits 35 ms when asked"},
@@ -400,6 +404,8 @@
         "6b75": {"name": "slot_rec_forced", "note": "+0x15b of the slot record: forced target; 0xfd/0xfe special, 0 none"},
         "6e6c": {"name": "glyph_x_table", "note": "one byte per glyph at twice the glyph code; second gfx_draw_text argument plus one"},
         "6eb5": {"name": "glyph_y_table", "note": "one byte per glyph; third gfx_draw_text argument plus one"},
+        "7abc": {"name": "marker_x", "note": "byte: x passed to add_overlay_item when marker_mode is -1"},
+        "7b04": {"name": "marker_y", "note": "byte: y passed to add_overlay_item when marker_mode is -1"},
         "7ed4": {"name": "glyph_x_table_b", "note": "second set; one byte per glyph at twice the glyph code"},
         "7f1d": {"name": "glyph_y_table_b", "note": "second set; one byte per glyph"},
         "82b6": {"name": "loaded_score_num", "note": "int: score number last loaded by load_score_files; ds_app_gfx_free_score_VGJR resets it to -1"},
@@ -420,6 +426,7 @@
         "8d10": {"name": "saved_area_a_hi", "note": "high word of saved_area_a"},
         "8d12": {"name": "party_region", "note": "region index of the current map piece"},
         "8e64": {"name": "flag_bitset", "note": "bitset tested with test_bit (bit 0x40 by roll_slot_detection_report)"},
+        "8f20": {"name": "marker_mode", "note": "int: 0 none, >0 offset combined with party_tag to pick a facing glyph, -1 draw at marker_x/marker_y"},
         "8f24": {"name": "found_object_owner", "note": "int: owner byte of the last type-0x19 object checked by check_cell_objects"},
         "8f28": {"name": "saved_level", "note": "saved location level"},
         "8f2a": {"name": "saved_map_piece", "note": "saved location map piece"},
@@ -716,6 +723,9 @@
       "fingerprint-end": "fc8a5d7527045414e8771ddf3d475a04522f6a27059089e70e25885476ccd204"
     },
     "vmele": {
+      "function_names": {
+        "0f87": {"name": "fill_action_slot_table_alt", "note": "fill_action_slot_table with one more case: when ext byte 0xd7 is 0x47 and bss_90ba is 1, action/target come from dest_alt_arg / 256 and % 256"}
+      },
       "file": "VMELE.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,
@@ -763,6 +773,7 @@
     },
     "vmnpc": {
       "function_names": {
+        "061f": {"name": "add_overlay_item", "note": "inserts an item into the overlay list kept sorted by its first-argument key (no overflow check)"},
         "8542": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"}
       },
       "immediate_pointers": [
@@ -877,6 +888,7 @@
         "935e": {"name": "list_row_count", "note": "per-row int count, drawn when positive"}
       },
       "function_names": {
+        "0d69": {"name": "queue_marker_overlay"},
         "19ff": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"}
       },
       "file": "VPOPS.OVR",

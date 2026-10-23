@@ -235,6 +235,6 @@ api_idx_0018_TROH:
     push word [bp - 0x000a]          ; 0x0951
     push word [bp - 0x0002]          ; 0x0954
     push word [bp - 0x0008]          ; 0x0957
-    call api_idx_0004_SMTU           ; 0x095a
+    call add_overlay_item            ; 0x095a
     add sp, byte 0x12                ; 0x095d
     ret                              ; 0x0960

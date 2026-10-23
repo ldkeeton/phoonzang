@@ -10,7 +10,7 @@ loc_HOMM:
     push ax                          ; 0x42a5
     push word [bp + 0x8]             ; 0x42a6
     push word [bp + 0x6]             ; 0x42a9
-    call ds_app_OPOL                 ; 0x42ac
+    call draw_inset_panel            ; 0x42ac
     add sp, byte 8                   ; 0x42af
     mov ax, word [bp + 0x8]          ; 0x42b2
     inc ax                           ; 0x42b5

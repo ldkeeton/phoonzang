@@ -1,13 +1,13 @@
 ; auto-generated
-api_idx_000e_NKQN:
+queue_marker_overlay:
     mov ax, 0xfff2
     call aztec_csav
-    cmp word [bss_8f20], byte 0
-    jg short @..api_idx_000e_NKQN.l1
-    jmp near @..api_idx_000e_NKQN.l8
-@..api_idx_000e_NKQN.l1:
+    cmp word [marker_mode], byte 0
+    jg short @..queue_marker_overlay.l1
+    jmp near @..queue_marker_overlay.l8
+@..queue_marker_overlay.l1:
     mov ax, word [party_tag]
-    mov cx, word [bss_8f20]
+    mov cx, word [marker_mode]
     dec cx
     sub ax, cx
     add ax, strict word 6
@@ -16,39 +16,39 @@ api_idx_000e_NKQN:
     idiv cx
     mov word [bp - 0x0002], dx
     mov ax, dx
-    jmp short @..api_idx_000e_NKQN.l6
-@..api_idx_000e_NKQN.l2:
+    jmp short @..queue_marker_overlay.l6
+@..queue_marker_overlay.l2:
     mov byte [bp - 0x000e], 1
     mov byte [bp - 0x000d], 2
     mov ax, 5
     cmp word [bp - 0x0002], byte 0
-    jne short @..api_idx_000e_NKQN.l3
+    jne short @..queue_marker_overlay.l3
     mov ax, 4
-@..api_idx_000e_NKQN.l3:
+@..queue_marker_overlay.l3:
     mov byte [bp - 0x000c], al
     mov byte [bp - 0x000b], 0
     mov word [bp - 0x0004], 0
-    jmp short @..api_idx_000e_NKQN.l7
-@..api_idx_000e_NKQN.l4:
+    jmp short @..queue_marker_overlay.l7
+@..queue_marker_overlay.l4:
     mov byte [bp - 0x000e], 3
     mov byte [bp - 0x000d], 0
     mov ax, 0
     cmp word [bp - 0x0002], byte 3
-    jne short @..api_idx_000e_NKQN.l5
+    jne short @..queue_marker_overlay.l5
     mov ax, 1
-@..api_idx_000e_NKQN.l5:
+@..queue_marker_overlay.l5:
     mov word [bp - 0x0004], ax
-    jmp short @..api_idx_000e_NKQN.l7
-@..api_idx_000e_NKQN.l6:
+    jmp short @..queue_marker_overlay.l7
+@..queue_marker_overlay.l6:
     cmp ax, strict word 0
-    je short @..api_idx_000e_NKQN.l2
+    je short @..queue_marker_overlay.l2
     cmp ax, strict word 1
-    je short @..api_idx_000e_NKQN.l4
+    je short @..queue_marker_overlay.l4
     cmp ax, strict word 2
-    je short @..api_idx_000e_NKQN.l2
+    je short @..queue_marker_overlay.l2
     cmp ax, strict word 3
-    je short @..api_idx_000e_NKQN.l4
-@..api_idx_000e_NKQN.l7:
+    je short @..queue_marker_overlay.l4
+@..queue_marker_overlay.l7:
     lea ax, word [bp - 0x000e]
     push ax
     mov ax, 0
@@ -77,11 +77,11 @@ api_idx_000e_NKQN:
     push ax
     mov ax, 0x1b
     push ax
-    call api_idx_000e_NKQN.api_idx1
+    call add_overlay_item
     add sp, byte 0x12
-@..api_idx_000e_NKQN.l8:
-    cmp word [bss_8f20], byte 0xff
-    jne short @..api_idx_000e_NKQN.l9
+@..queue_marker_overlay.l8:
+    cmp word [marker_mode], byte 0xff
+    jne short @..queue_marker_overlay.l9
     mov byte [bp - 0x000e], 1
     mov byte [bp - 0x000d], 0
     lea ax, word [bp - 0x000e]
@@ -93,17 +93,17 @@ api_idx_000e_NKQN:
     push ax
     mov ax, 0x48
     push ax
-    mov al, byte [bss_7b04]
+    mov al, byte [marker_y]
     sub ah, ah
     push ax
-    mov al, byte [bss_7abc]
+    mov al, byte [marker_x]
     sub ah, ah
     push ax
     mov ax, 0xc
     push ax
     mov ax, 0x1c
     push ax
-    call api_idx_000e_NKQN.api_idx1
+    call add_overlay_item
     add sp, byte 0x12
-@..api_idx_000e_NKQN.l9:
+@..queue_marker_overlay.l9:
     ret

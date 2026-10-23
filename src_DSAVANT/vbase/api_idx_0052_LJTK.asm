@@ -105,7 +105,7 @@ jumptable_4688_case_5:
     mov ax, word [bp + 0x6]          ; 0x441a
     add ax, strict word 0x69         ; 0x441d
     push ax                          ; 0x4420
-    call ds_app_OPOL                 ; 0x4421
+    call draw_inset_panel            ; 0x4421
     add sp, byte 8                   ; 0x4424
     mov ax, 0xc3                     ; 0x4427
     push ax                          ; 0x442a
@@ -329,7 +329,7 @@ jumptable_4688_case_15:
     mov ax, word [bp + 0x6]          ; 0x461d
     add ax, 0xe7                     ; 0x4620
     push ax                          ; 0x4623
-    call ds_app_OPOL                 ; 0x4624
+    call draw_inset_panel            ; 0x4624
     add sp, byte 8                   ; 0x4627
     mov ax, 0xc3                     ; 0x462a
     push ax                          ; 0x462d

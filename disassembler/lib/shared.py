@@ -271,6 +271,50 @@ def include_aliases(master, rel):
     return []
 
 
+def donor_aliases(out_dir, binary, rel):
+    """``{other: own}``: each name another binary gives a common name of the
+    shared file *rel*, mapped to the name *binary* gives it.
+
+    A hand source shared by binaries whose copies call or read differently
+    named targets (``api_idx_0004_ONRQ`` here, ``api_idx_0004_SMTU`` there)
+    can spell only one of them; linked into *binary*, that spelling means
+    *binary*'s own.  Read from the masters on disk, as
+    :func:`include_aliases` is; ``{}`` when *binary* aliases nothing.
+    """
+    def master(name):
+        try:
+            return _read(os.path.join(out_dir, f'{name}.asm'))
+        except OSError:
+            return ''
+
+    mine = {common: own
+            for common, own in include_aliases(master(binary), rel)
+            if '.' in common}
+    if not mine:
+        return {}
+    out = {}
+    for name in sorted(os.listdir(out_dir)):
+        if not name.endswith('.asm') or name[:-4] == binary:
+            continue
+        for common, other in include_aliases(master(name[:-4]), rel):
+            own = mine.get(common)
+            if own is not None and other != own:
+                out.setdefault(other, own)
+    return out
+
+
+def label_aliases(out_dir, binary, label):
+    """:func:`donor_aliases` for routine *label*'s shared file, or ``{}``
+    when *label* is not shared."""
+    for folder in shared_dirs(out_dir):
+        path = os.path.join(folder, f'{label}.asm')
+        # The source names the file before a rename's build writes its .asm.
+        if os.path.isfile(path) or beside(path[:-4]):
+            return donor_aliases(out_dir, binary,
+                                 os.path.relpath(path, out_dir))
+    return {}
+
+
 def _common_names(text, binds):
     """*text* with each of its own names written as the common one."""
     for common, own in binds:

@@ -14,7 +14,7 @@ loc_HTKI:
     push ax
     push word [bp + 0x6]
     push word [bp + 0x4]
-    call ds_app_OPOL
+    call draw_inset_panel
     add sp, byte 8
     push word [bp + 0xe]
     push word [bp + 0xc]

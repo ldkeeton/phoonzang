@@ -11,7 +11,7 @@ draw_scrollbar: ; Aztec csav frame=0x0000
     push ax                          ; 0x1235
     push word [bp + 0x6]             ; 0x1236
     push word [bp + 0x4]             ; 0x1239
-    call ds_app_OPOL                 ; 0x123c
+    call draw_inset_panel            ; 0x123c
     add sp, byte 8                   ; 0x123f
     mov ax, 0                        ; 0x1242
     push ax                          ; 0x1245

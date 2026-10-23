@@ -45,16 +45,14 @@ dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 
 %include "shared/game/fill_action_slot_table.asm" ; 0x0504
 
-api_idx_000e_VRIR.api_idx1 equ fill_action_slot_table
-%include "shared/game/api_idx_000e_VRIR.asm"     ; 0x0704
+advance_action_slots.fill_action_slot_table_alt1 equ fill_action_slot_table
+%include "shared/game/advance_action_slots.asm"  ; 0x0704
 
-%include "shared/game/api_idx_0004_ONRQ.asm"     ; 0x0a27
+%include "shared/game/add_overlay_item.asm"      ; 0x0a27
 
 %include "shared/game/api_idx_001c_VLRT.asm"     ; 0x0b31
 
-api_idx_000e_LVUJ          equ api_idx_000e_NKQN
-api_idx_000e_NKQN.api_idx1 equ api_idx_0004_ONRQ
-%include "shared/game/api_idx_000e_NKQN.asm"     ; 0x0d77
+%include "shared/game/queue_marker_overlay.asm"  ; 0x0d77
 
 %include "shared/game/loc_SSIO.asm"              ; 0x0e6c
 
@@ -63,8 +61,7 @@ loc_KRMP.bss1 equ bss_90d6
 %include "shared/game/loc_KRMP.asm"              ; 0x0ec8
 
 ; bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
-api_idx_0006_HRUL.bss1     equ bss_90d6
-api_idx_0006_HRUL.api_idx1 equ api_idx_000e_LVUJ
+api_idx_0006_HRUL.bss1 equ bss_90d6
 %include "shared/game/api_idx_0006_HRUL.asm"     ; 0x0f27
 
 loc_RPUI.api_idx1 equ api_idx_0006_HRUL

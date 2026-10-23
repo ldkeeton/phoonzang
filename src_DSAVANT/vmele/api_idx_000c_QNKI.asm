@@ -78,7 +78,7 @@ api_idx_000c_QNKI:
     push word [bp - 0x000c]          ; 0x1275
     push word [bp - 0x000a]          ; 0x1278
     push word [bp + 0x4]             ; 0x127b
-    call api_idx_000a_PKVL           ; 0x127e
+    call fill_action_slot_table_alt  ; 0x127e
     add sp, byte 8                   ; 0x1281
 @..api_idx_000c_QNKI.l3:
     inc word [bp - 0x0002]           ; 0x1284

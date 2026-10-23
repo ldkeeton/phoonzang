@@ -119,7 +119,7 @@ api_idx_0016_MUKH:
     push ax                          ; 0x0f3f
     push word [bp - 0x0002]          ; 0x0f40
     push word [bp - 0x0016]          ; 0x0f43
-    call api_idx_0004_ONRQ           ; 0x0f46
+    call add_overlay_item            ; 0x0f46
     add sp, byte 0x12                ; 0x0f49
     cmp word [bss_8320], byte 0      ; 0x0f4c
     jne short @..api_idx_0016_MUKH.l6 ; 0x0f51

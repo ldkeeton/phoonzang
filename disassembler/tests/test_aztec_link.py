@@ -190,6 +190,24 @@ class LinkTest(unittest.TestCase):
         with self.assertRaisesRegex(relink.RelinkError, 'ds_loc_4462'):
             self.link(relink.SymbolIndex({}, None, None, {'bss_0cfa': 1}))
 
+    def test_an_alias_names_this_images_own_target(self):
+        # A shared C spells another binary's copy (``api_idx_0004_ONRQ``);
+        # this image calls its own copy of it.
+        code = {0x5100: 'api_idx_0004_SMTU'}
+        data = {'bss_0cfa': 0xcfa, 'tbl': 0xd20}
+        out = relink.link('aztec_foo', self.START, _foo(),
+                          relink.SymbolIndex(code, None, None, data), b'', (),
+                          aliases={'ds_loc_4462': 'api_idx_0004_SMTU'})
+        site = 0x18
+        disp = int.from_bytes(out.code[site:site + 2], 'little', signed=True)
+        self.assertEqual(self.START + site + 2 + disp, 0x5100)
+        self.assertEqual(out.refs[site].text, 'api_idx_0004_SMTU')
+
+    def test_an_alias_never_overrides_a_name_the_image_defines(self):
+        out = relink.link('aztec_foo', self.START, _foo(), _index(), b'', (),
+                          aliases={'ds_loc_4462': 'aztec_close'})
+        self.assertEqual(out.refs[0x18].text, 'ds_loc_4462')
+
     def _unnamed_index(self, canonical):
         code = {0x5000: 'ds_loc_4462', 0x4f00: 'aztec_close'}
         data = {'dseg_0d10': 0xd10, 'tbl': 0xd20}

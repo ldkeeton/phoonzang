@@ -462,7 +462,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x5140
     add ax, 0xa9                     ; 0x5143
     push ax                          ; 0x5146
-    call ds_app_OPOL                 ; 0x5147
+    call draw_inset_panel            ; 0x5147
     add sp, byte 8                   ; 0x514a
     lea ax, word [bp - 0x0068]       ; 0x514d
     push ax                          ; 0x5150
