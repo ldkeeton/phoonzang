@@ -115,6 +115,8 @@
         {"offset": "293e", "space": "ds", "note": "`mov ax, 0xc; imul word [bp + 0x6]; add ax, 0x5576; push ax`: element of a 12-byte-record array inside bss_552a, passed to ds_app_file_MPPM"}
       ],
       "data_pointers": [
+        {"offset": "10dce", "space": "ds", "note": "second word of the Aztec endmarker pair (dseg_0c6e): also the data offset of `first`"},
+        {"offset": "10dcc", "space": "ds", "note": "Aztec endmarker (dseg_0c6c): the word is the data offset of `first`, compared as `cmp si, word [dseg_0c6c]` (0x4724)"},
         {"offset": "10dd0", "space": "ds", "note": "Aztec heap-base pointer (dseg_0c70): read as `mov di, word es:[dseg_0c70]` then `stosb es:[di]` (0x4e24) and advanced by the malloc/brk routines (0x4daf, 0x51dc). Target 0xb198 lies past bss_boundary (0xcf6) but is a real DS offset at the end of the image; the CRT recomputes it at startup from psp_top_of_memory, so it must track the data end"},
         {"offset": "10dfc", "space": "cs", "note": "Aztec exit hook (dseg_0c9c): called as `call [dseg_0c9c]` by aztec_exit, so the CPU loads IP from the word; its default target CS 0x4ca3 (file 0x4ea3) is a `mov ax, 0; ret` stub"},
         {"offset": "10e50", "space": "cs", "note": "Aztec console read vector (dseg_0cf0): aztec_write dispatches a tty handle with `cmp ah, 0x3f; je; ...; jmp [dseg_0cf0]` (0x4fd6), so the word is the read routine's CS offset (file 0x505c)"},
@@ -128,7 +130,6 @@
         {"offset": "30de", "note": "next word of the same divide routine (read at 0x3bcb) - a number"},
         {"offset": "30e0", "note": "next word of the same divide routine (read at 0x3be9) - a number"},
         {"offset": "3672", "note": "read as `mov cx, word cs:[0x3472]; sub cx, 1; ... jne` (0x36db) - a loop counter, not a pointer"},
-        {"offset": "10dcc", "note": "read as `cmp si, word [dseg_0c6c]` (0x4724) - a comparison bound, not a pointer"},
         {"offset": "10dde", "note": "0xffff stack-pointer sentinel; written as `mov word [dseg_0c7e], sp` (0x4668)"},
         {"offset": "10e34", "note": "Aztec stack/heap size constant near the 'STACK SIZE' string at DS 0xcc8; read as `mov bx, word es:[dseg_0cd4]; shl bx, cl` - a number"},
         {"offset": "10e36", "note": "stack/heap size constant 0x0800 (2048); read as `mov ax, word es:[dseg_0cd6]; shl ax, 1` (0x4d76) - a number"},
@@ -578,6 +579,7 @@
         "2530": {"name": "_ttwr", "note": "Aztec console write vector (io.asm's `_ttwr`); the vendor's name so the #asm aztec_write links against it"},
         "24d8": {"name": "_dsval", "note": "sbegin.asm's `_dsval_` startup word; the vendor's name so the #asm aztec_begin links against it"},
         "24da": {"name": "_csval", "note": "sbegin.asm's `_csval_` startup word; the vendor's name so the #asm aztec_begin links against it"},
+        "24e2": {"name": "_lowwater", "note": "Aztec stack low-water mark, the word after _mtop (ds names it from csav, which vinstall does not link)"},
         "24e6": {"name": "bad8087", "note": "sbegin.asm's `bad8087` message ('8087/80287 is required!'); the vendor's name so the #asm aztec_begin links against it"},
         "230e": {"name": "env", "note": "fexec.asm's EXEC parameter block (`param`): environment segment; the vendor's names so the #asm aztec_fexec links against them"},
         "2310": {"name": "cline", "note": "fexec.asm's parameter block: command-tail far pointer"},
@@ -585,6 +587,8 @@
         "2318": {"name": "fcb2", "note": "fexec.asm's parameter block: second FCB far pointer"}
       },
       "data_pointers": [
+        {"offset": "5f30", "space": "ds", "note": "second word of the Aztec endmarker pair (dseg_2450): also the data offset of `first`"},
+        {"offset": "5f2e", "space": "ds", "note": "Aztec endmarker (dseg_244e): the word is the data offset of `first`, compared as `cmp si, word [dseg_244e]` (0x2f55)"},
         {"offset": "3ae2", "space": "ds", "note": "graphics-adapter menu 0 ('0-NO GRAPHICS BOARD   '); read at 0x164a as `push word [dseg_0004]` and indexed as `[bx+2]` in vinstall/leaf_loc_10a4.asm"},
         {"offset": "3ae4", "space": "ds", "note": "graphics-adapter menu 1 ('1-VGA/MCGA (256 Color)')"},
         {"offset": "3ae6", "space": "ds", "note": "graphics-adapter menu 2 ('2-EGA      (16 Color) '); read at 0x1674"},
@@ -641,7 +645,6 @@
         {"offset": "5856", "note": "bytes 'L ' (0x204c) inside the 'FULL INSTALL' string"},
         {"offset": "585e", "note": "bytes 'L ' (0x204c) inside the 'FULL INSTALL' string"},
         {"offset": "595a", "note": "bytes 'L ' (0x204c) inside the 'FULL INSTALL' string"},
-        {"offset": "5f2e", "note": "0x2538, read as `cmp si, word [dseg_244e]` (0x2f55) - a comparison bound, not a pointer"},
         {"offset": "5ff4", "note": "0x0800 (2048), an Aztec stack/heap size constant; read as `mov ax, word es:[dseg_2514]; shl ax, 1` (0x360e) - a number"}
       ]
     },

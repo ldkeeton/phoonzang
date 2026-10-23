@@ -49,6 +49,7 @@ dseg_0181 equ __zdseg_0181 - __zdseg_start
 dseg_0198 equ __zdseg_0198 - __zdseg_start
 dseg_01af equ __zdseg_01af - __zdseg_start
 dseg_01c6 equ __zdseg_01c6 - __zdseg_start
+_lowwater equ __z_lowwater - __zdseg_start
 __zbss_size equ __zbss_end - __zimage_end
 
 %include "vinstall/loc_ILSL.asm"           ; 0x0200
@@ -3150,7 +3151,8 @@ __zdseg_2357:
     db 0x01, 0x04, 0x00, 0x01
     times 198 db 0
 
-%include "vinstall/data/endmarker.asm"     ; 0x5f2e
+; first equ __zbss_2538 - __zdseg_start
+%include "shared/data/endmarker.asm"     ; 0x5f2e
 
 %include "vinstall/data/ctp_.asm"          ; 0x5f32
 
@@ -3169,7 +3171,9 @@ aztec_MEMRY.bss1 equ bss_2afe
 
 %include "shared/data/sbot.asm"          ; 0x5fbe
 
-%include "vinstall/data/mtop.asm"          ; 0x5fc0
+%include "shared/data/mtop.asm"          ; 0x5fc0
+
+%include "shared/data/lowwater.asm"      ; 0x5fc2
 
 %include "shared/data/PSP.asm"           ; 0x5fc4
 

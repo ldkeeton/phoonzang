@@ -1,3 +1,4 @@
 ; auto-generated
 __zendmarker:
-    db 0x38, 0x25, 0x38, 0x25
+    dw first
+    dw first

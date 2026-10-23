@@ -53,9 +53,11 @@ dseg_0116 equ __zdseg_0116 - __zdseg_start
 party_slot_x equ __zparty_slot_x - __zdseg_start
 party_slot_y equ __zparty_slot_y - __zdseg_start
 party_slot_glyphs equ __zparty_slot_glyphs - __zdseg_start
+ems_slots equ __zems_slots - __zdseg_start
 dseg_03ae equ __zdseg_03ae - __zdseg_start
 dseg_03dc equ __zdseg_03dc - __zdseg_start
 spell_table equ __zspell_table - __zdseg_start
+maze_blocks equ __zstr_0bd7 - __zdseg_start + 0x0003
 bss_0e36 equ __zbss_0e36 - __zdseg_start
 bss_0e4c equ __zbss_0e4c - __zdseg_start
 bss_2d40 equ __zbss_2d40 - __zdseg_start
@@ -242,6 +244,41 @@ bss_908e equ __zbss_908e - __zdseg_start
 bss_9090 equ __zbss_9090 - __zdseg_start
 bss_9092 equ __zbss_9092 - __zdseg_start
 bss_9094 equ __zbss_9094 - __zdseg_start
+save_location_flag equ __zbss_919e - __zdseg_start
+location_changed equ __zbss_91a8 - __zdseg_start
+known_spell_list equ __zbss_966a - __zdseg_start
+grid_origin_y equ __zbss_9b0a - __zdseg_start
+grid_origin_x equ __zbss_9b0c - __zdseg_start
+known_spell_ids equ __zbss_9b0e - __zdseg_start
+party_redraw_mode equ __zbss_9b5e - __zdseg_start
+region_step_flag equ __zbss_9bd0 - __zdseg_start
+spell_target equ __zbss_9d90 - __zdseg_start
+scene_index equ __zbss_a4a4 - __zdseg_start
+scene_tick equ __zbss_a5aa - __zdseg_start
+scene_running equ __zbss_a5ac - __zdseg_start
+scene_frame equ __zbss_a5b0 - __zdseg_start
+scene_backdrop_ref equ __zbss_a5b2 - __zdseg_start
+scene_backdrop_ref_hi equ __zbss_a5b4 - __zdseg_start
+scene_cue_a equ __zbss_a5b6 - __zdseg_start
+scene_cue_b equ __zbss_a5b8 - __zdseg_start
+scene_cue_c equ __zbss_a5ba - __zdseg_start
+scene_cue_d equ __zbss_a5bc - __zdseg_start
+scene_cue_e equ __zbss_a5be - __zdseg_start
+scene_digit_cycle equ __zbss_a5c6 - __zdseg_start
+scene_step_a equ __zbss_a5ce - __zdseg_start
+scroll_x equ __zbss_a5d0 - __zdseg_start
+scroll_x_1 equ __zbss_a5d2 - __zdseg_start
+scroll_x_2 equ __zbss_a5d4 - __zdseg_start
+scroll_x_3 equ __zbss_a5d6 - __zdseg_start
+scroll_x_4 equ __zbss_a5d8 - __zdseg_start
+sprite_pos equ __zbss_a5da - __zdseg_start
+actor_x equ __zbss_a5e2 - __zdseg_start
+trail_x equ __zbss_a5e4 - __zdseg_start
+actor_y equ __zbss_a5f2 - __zdseg_start
+scene_step_b equ __zbss_a5fa - __zdseg_start
+scene_step_c equ __zbss_a5fc - __zdseg_start
+scene_step_d equ __zbss_a5fe - __zdseg_start
+scene_clip_arg equ __zbss_a600 - __zdseg_start
 __zbss_size equ __zbss_end - __zimage_end
 
 %include "ds/game/app_malloc.asm"          ; 0x0200
@@ -1109,6 +1146,8 @@ __zdseg_0116:
 
 %include "ds/data/party_slot_glyphs.asm"   ; 0x10334
 
+%include "ds/data/ems_slots.asm"           ; 0x103fb
+
 __zdseg_03ae:
 
     db 0xa0, 0x00, 0x26, 0x01
@@ -1168,6 +1207,7 @@ __zdseg_03dc:
 
 __zdseg_0bcd:
     db 'MON00.PIC', 0
+__zstr_0bd7:
 __zdseg_0bd7:
     db 'SOUND00.SND', 0
 __zdseg_0be3:
@@ -1201,7 +1241,8 @@ __zdseg_0c4d:
     db 'Error %d loading overlay: %s$', 0
     db 0x00
 
-%include "ds/data/endmarker.asm"           ; 0x10dcc
+; first equ __zbss_0d02 - __zdseg_start
+%include "shared/data/endmarker.asm"           ; 0x10dcc
 
 bss_b198 equ __zbss_b198 - __zdseg_start
 aztec_MEMRY.bss1 equ bss_b198
@@ -1217,9 +1258,9 @@ aztec_MEMRY.bss1 equ bss_b198
 
 %include "shared/data/sbot.asm"                ; 0x10dda
 
-%include "ds/data/mtop.asm"                ; 0x10ddc
+%include "shared/data/mtop.asm"                ; 0x10ddc
 
-%include "ds/data/lowwater.asm"            ; 0x10dde
+%include "shared/data/lowwater.asm"            ; 0x10dde
 
 %include "shared/data/PSP.asm"                 ; 0x10de0
 
@@ -1822,7 +1863,77 @@ __zbss_9094:
 __zbss_9096:
     resb 0x0002
 __zbss_end:
-    resb 0x2100
+    resb 0x0106
+__zbss_919e:
+    resb 0x000a
+__zbss_91a8:
+    resb 0x04c2
+__zbss_966a:
+    resb 0x04a0
+__zbss_9b0a:
+    resb 0x0002
+__zbss_9b0c:
+    resb 0x0002
+__zbss_9b0e:
+    resb 0x0050
+__zbss_9b5e:
+    resb 0x0072
+__zbss_9bd0:
+    resb 0x01c0
+__zbss_9d90:
+    resb 0x0714
+__zbss_a4a4:
+    resb 0x0106
+__zbss_a5aa:
+    resb 0x0002
+__zbss_a5ac:
+    resb 0x0004
+__zbss_a5b0:
+    resb 0x0002
+__zbss_a5b2:
+    resb 0x0002
+__zbss_a5b4:
+    resb 0x0002
+__zbss_a5b6:
+    resb 0x0002
+__zbss_a5b8:
+    resb 0x0002
+__zbss_a5ba:
+    resb 0x0002
+__zbss_a5bc:
+    resb 0x0002
+__zbss_a5be:
+    resb 0x0008
+__zbss_a5c6:
+    resb 0x0008
+__zbss_a5ce:
+    resb 0x0002
+__zbss_a5d0:
+    resb 0x0002
+__zbss_a5d2:
+    resb 0x0002
+__zbss_a5d4:
+    resb 0x0002
+__zbss_a5d6:
+    resb 0x0002
+__zbss_a5d8:
+    resb 0x0002
+__zbss_a5da:
+    resb 0x0008
+__zbss_a5e2:
+    resb 0x0002
+__zbss_a5e4:
+    resb 0x000e
+__zbss_a5f2:
+    resb 0x0008
+__zbss_a5fa:
+    resb 0x0002
+__zbss_a5fc:
+    resb 0x0002
+__zbss_a5fe:
+    resb 0x0002
+__zbss_a600:
+    resb 0x0b98
 __zbss_b198:
     resb 0x4000
 __zstack_top:

@@ -2,7 +2,7 @@
 
 from capstone import CS_OP_MEM
 from lib.names import is_data
-from lib.symtab import Space, Symbol
+from lib.symtab import Source, Space, Symbol
 
 
 def _data_space(segments, offset):
@@ -118,6 +118,12 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset,
                 equ.setdefault(name, addr)
                 symbols[(insn.address, idx)] = name
                 named.add(addr)
+    for offset, sym in getattr(segments, 'data_names', {}).items():
+        # A sidecar name is a stated object boundary even where no code reads
+        # it.  An overlay's host already declares the names it inherits.
+        if (getattr(segments, 'kind', None) != 'overlay'
+                and getattr(sym, 'source', None) is Source.SIDECAR):
+            equ.setdefault(sym, offset)
     if indexed:
         symbols.update(_resolve_indexed_symbols(
             insns, segment_flow, segments, named, ds_starts, equ))
