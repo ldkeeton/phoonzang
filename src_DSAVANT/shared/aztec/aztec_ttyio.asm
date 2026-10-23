@@ -1,0 +1,95 @@
+; auto-generated
+aztec_impl_tty_rd:
+    push bp
+    mov bp, sp
+    push si
+    mov si, word [_TTrem]
+    test si, si
+    jne short @..aztec_impl_tty_rd.l2
+    mov ax, 0x104
+    push ax
+    mov ax, aztec_tty_rd_buffer
+    push ax
+    push word [bp + 0x4]
+    call aztec_impl_read
+    add sp, byte 6
+    mov si, ax
+    test si, si
+    je short @..aztec_impl_tty_rd.l1
+    cmp byte [si + aztec_tty_rd_buffer - 0x1], 0xa
+    jne short @..aztec_impl_tty_rd.l1
+    dec si
+    mov al, byte [_Eol]
+    mov byte [si + aztec_tty_rd_buffer - 0x1], al
+@..aztec_impl_tty_rd.l1:
+    mov word [aztec_tty_rd_bp], aztec_tty_rd_buffer
+    mov word [_TTrem], si
+@..aztec_impl_tty_rd.l2:
+    cmp si, word [bp + 0x8]
+    jle short @..aztec_impl_tty_rd.l3
+    mov si, word [bp + 0x8]
+@..aztec_impl_tty_rd.l3:
+    test si, si
+    je short @..aztec_impl_tty_rd.l4
+    push si
+    push word [bp + 0x6]
+    push word [aztec_tty_rd_bp]
+    call aztec_movmem
+    add sp, byte 6
+@..aztec_impl_tty_rd.l4:
+    add word [aztec_tty_rd_bp], si
+    sub word [_TTrem], si
+    mov ax, si
+    pop si
+    mov sp, bp
+    pop bp
+    ret
+aztec_impl_tty_wr:
+    push bp
+    mov bp, sp
+    push di
+    push si
+    mov di, word [bp + 0x6]
+    mov si, word [bp + 0x8]
+    jmp short @..aztec_impl_tty_wr.l2
+@..aztec_impl_tty_wr.l1:
+    mov bx, di
+    inc di
+    cmp byte [bx], 0xa
+    jne short @..aztec_impl_tty_wr.l2
+    mov ax, di
+    sub ax, word [bp + 0x6]
+    push ax
+    push word [bp + 0x6]
+    push word [bp + 0x4]
+    call aztec_impl_write
+    add sp, byte 6
+    mov ax, 1
+    push ax
+    mov ax, aztec_tty_wr_crbuf
+    push ax
+    push word [bp + 0x4]
+    call aztec_impl_write
+    add sp, byte 6
+    mov word [bp + 0x6], di
+@..aztec_impl_tty_wr.l2:
+    mov ax, si
+    dec si
+    test ax, ax
+    jne short @..aztec_impl_tty_wr.l1
+    cmp di, word [bp + 0x6]
+    je short @..aztec_impl_tty_wr.l3
+    mov ax, di
+    sub ax, word [bp + 0x6]
+    push ax
+    push word [bp + 0x6]
+    push word [bp + 0x4]
+    call aztec_impl_write
+    add sp, byte 6
+@..aztec_impl_tty_wr.l3:
+    mov ax, word [bp + 0x8]
+    pop si
+    pop di
+    mov sp, bp
+    pop bp
+    ret

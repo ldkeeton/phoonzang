@@ -19,7 +19,7 @@ _LINE_RE = re.compile(
     r'^([0-9a-f]{4}) {2}((?:[0-9a-f]{2}|xx)(?: (?:[0-9a-f]{2}|xx))*)?'
     r' +(\d+)(\+?) ?(.*)$', re.I)
 _SEGMENT_RE = re.compile(r'^\s*([A-Za-z_$@?][\w$@?]*)\s+(segment|ends)\b', re.I)
-_LABEL_RE = re.compile(r'^([A-Za-z_@?][\w@?]*):')
+_LABEL_RE = re.compile(r'^([A-Za-z_@?][\w@?]*)(?::|\s+proc\b)', re.I)
 _IDENT_RE = re.compile(r'[^A-Za-z0-9_]')
 
 # Boilerplate that carries no information about the routine.
@@ -107,7 +107,8 @@ def annotate(listing, func):
     """Local label names and comments for *func*, or ``None`` on a mismatch.
 
     Returns ``{'labels': {offset: name}, 'comments': {offset: text}}`` with
-    offsets relative to the start of the routine.
+    offsets relative to the start of the routine (``data_labels`` may be
+    negative: a module's own data precedes its first routine).
     """
     if not listing:
         return None
@@ -141,7 +142,39 @@ def annotate(listing, func):
     for off, found in labels.items():
         if start < off < end:
             names[off - start] = _IDENT_RE.sub('_', found[0])
-    return {'labels': names, 'comments': comments}
+    named_data = {off - start: _IDENT_RE.sub('_', name)
+                  for off, name in data_labels(listing).items()}
+    return {'labels': names, 'comments': comments, 'data_labels': named_data}
+
+
+_DATA_LABEL_RE = re.compile(r'^([A-Za-z_@?][\w@?]*):?\s+(db|dw|dd)\b', re.I)
+
+
+def data_labels(listing):
+    """``{offset: name}`` of each label a code-segment data directive carries.
+
+    ``exitcs dw 0`` and ``conv_routines dw ...`` name their own bytes, with no
+    colon, so :func:`parse` does not see them.  Unlike a code label one may sit
+    on the module's first byte.  The first name at an offset wins.
+    """
+    found = {}
+    stack = []
+    for raw in (listing or '').splitlines():
+        m = _LINE_RE.match(raw)
+        if not m or m.group(4):
+            continue
+        text = m.group(5)
+        seg = _SEGMENT_RE.match(text)
+        if seg:
+            if seg.group(2).lower() == 'segment':
+                stack.append(seg.group(1))
+            elif stack:
+                stack.pop()
+            continue
+        label = _DATA_LABEL_RE.match(text.strip())
+        if label and _is_code_segment(stack):
+            found.setdefault(int(m.group(1), 16), label.group(1))
+    return found
 
 
 _DATA_RE = re.compile(r'^(?:[A-Za-z_$@?][\w$@?]*\s+)?(db|dw|dd)\b', re.I)

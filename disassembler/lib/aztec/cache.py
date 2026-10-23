@@ -252,6 +252,7 @@ def _annotate_entry(engine, match, entry):
     if notes:
         entry['labels'] = sorted(notes['labels'].items())
         entry['comments'] = sorted(notes['comments'].items())
+        entry['data_labels'] = sorted(notes['data_labels'].items())
 
 
 def _miss_status(matches):

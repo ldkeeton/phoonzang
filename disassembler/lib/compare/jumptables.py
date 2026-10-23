@@ -414,7 +414,7 @@ def _rewrite_jump_dispatchers(records, disp_labels, start_offset,
 _TABLE_RECORD_TYPES = ('data_block', 'db', 'db_with_comment', 'jump_table')
 
 
-def _cs_table_symbol(records, off, mem_equ):
+def _cs_table_symbol(records, off, mem_equ, segments=None):
     """The name for file offset *off* inside a carved data object, or None.
 
     An injected table answers ``label`` / ``label + k`` (its span is one
@@ -441,7 +441,8 @@ def _cs_table_symbol(records, off, mem_equ):
         return covering['label'] if k == 0 else f"{covering['label']} + 0x{k:x}"
     if label is not None:
         return label
-    name = Symbol.data(Space.CSEG, off)
+    from lib.compare.symbols import cseg_symbol
+    name = cseg_symbol(segments, off)
     mem_equ.setdefault(name, off)
     return name
 
@@ -449,7 +450,7 @@ def _cs_table_symbol(records, off, mem_equ):
 def _bind_cs_table_operands(records, binary_data, start_offset, label_map,
                             local_labels, foreign_label_map, immediate_labels,
                             data_labels=None, mem_symbols=None, mem_equ=None,
-                            load_offset=0, o_corg=None):
+                            load_offset=0, o_corg=None, segments=None):
     """Name the table in every ``[cs:reg + disp]`` operand (plan.md §5).
 
     ``mov dx, [cs:bx + 0x5a5]`` or ``jmp [cs:bx + 0x5415]`` indexes a table in
@@ -492,7 +493,7 @@ def _bind_cs_table_operands(records, binary_data, start_offset, label_map,
                 off = disp + start_offset - load_offset
             if not start_offset <= off < total:
                 continue
-            name = _cs_table_symbol(records, off, mem_equ)
+            name = _cs_table_symbol(records, off, mem_equ, segments)
             if name is not None:
                 planned.append((rec, insn, idx, f'{name}{suffix}'))
     if not planned:

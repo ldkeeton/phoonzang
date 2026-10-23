@@ -592,6 +592,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
             _entries)
         _apply_sidecar_data_names(ctx.segments, ctx.sidecar_entry)
         _apply_sidecar_code_data_names(ctx.segments, ctx.sidecar_entry)
+        _apply_vendor_code_data_names(ctx.segments, asm_annotations)
     t_aztec_end = time.perf_counter()
     progress.log(f'{name} | analysis done '
                  f'({t_aztec_end - t_total:.1f}s)')
@@ -741,6 +742,28 @@ def _apply_sidecar_code_data_names(segments, sidecar_entry):
             info['name'], kind=Kind.DATA, source=Source.SIDECAR, offset=offset,
             space=Space.CSEG)
         use.applied('code_data_names', ident)
+
+
+def _apply_vendor_code_data_names(segments, annotations):
+    """Name a vendor module's own CS data (``exitcs``, ``conversions``).
+
+    The module's listing labels the words and strings it keeps in its code
+    segment.  They are the same bytes in every binary that links the module,
+    so the name must not come from the address.  A sidecar ``code_data_names``
+    entry at the same offset wins; the module prefixes its names, as the
+    vendor's are only unique within the module.
+    """
+    for module, note in (annotations or {}).items():
+        inside = sorted(addr for addr in note.get('data_labels', {})
+                        if note['start'] <= addr < note['end'])
+        for addr, end in zip(inside, inside[1:] + [note['end']]):
+            if addr in segments.cseg_names:
+                continue
+            sym = Symbol(f"{module}_{note['data_labels'][addr]}",
+                         kind=Kind.DATA, source=Source.SIGNATURE, offset=addr,
+                         space=Space.CSEG)
+            segments.cseg_names[addr] = sym
+            segments.cseg_spans.append((addr, end, sym))
 
 
 def _foreign_pointer_params(project, host):

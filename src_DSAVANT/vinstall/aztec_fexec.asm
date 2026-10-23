@@ -1,7 +1,7 @@
 ; auto-generated
-cseg_2a23:
+aztec_fexec_save_ss:
     db 0x00, 0x00
-cseg_2a25:
+aztec_fexec_save_sp:
     db 0x00, 0x00
 aztec_fexec:
     push bp                          ; 0x2a27
@@ -13,8 +13,8 @@ aztec_fexec:
     push word [dseg_002e]            ; 0x2a31
     push ds                          ; 0x2a35
     push es                          ; 0x2a36
-    mov word [cs:cseg_2a23 - IMAGE_BASE], ss ; 0x2a37
-    mov word [cs:cseg_2a25 - IMAGE_BASE], sp ; 0x2a3c
+    mov word [cs:aztec_fexec_save_ss - IMAGE_BASE], ss ; 0x2a37
+    mov word [cs:aztec_fexec_save_sp - IMAGE_BASE], sp ; 0x2a3c
     mov ax, word [bp + 0x6]          ; 0x2a41
     mov word [env], ax               ; 0x2a44
     mov ax, ds                       ; 0x2a47
@@ -34,8 +34,8 @@ aztec_fexec:
     mov dx, word [bp + 0x4]          ; 0x2a70
     mov ax, 0x4b00                   ; 0x2a73
     int 0x21 ; DOS function dispatcher
-    mov ss, word [cs:cseg_2a23 - IMAGE_BASE] ; 0x2a78
-    mov sp, word [cs:cseg_2a25 - IMAGE_BASE] ; 0x2a7d
+    mov ss, word [cs:aztec_fexec_save_ss - IMAGE_BASE] ; 0x2a78
+    mov sp, word [cs:aztec_fexec_save_sp - IMAGE_BASE] ; 0x2a7d
     pop es                           ; 0x2a82
     pop ds                           ; 0x2a83
     jae short @..aztec_fexec.noerror ; 0x2a84

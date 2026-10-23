@@ -1006,6 +1006,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         foreign_label_map, immediate_labels, data_labels=data_labels,
         mem_symbols=mem_symbols, mem_equ=mem_equ,
         load_offset=getattr(segments, 'load_offset', 0) or 0, o_corg=o_corg,
+        segments=segments,
     )
 
     stagelog.step('verify.jump_tables', 2, track={'labels': _label_records(records)},

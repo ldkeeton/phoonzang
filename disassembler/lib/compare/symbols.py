@@ -2,7 +2,7 @@
 
 from capstone import CS_OP_MEM
 from lib.names import is_data
-from lib.symtab import Source, Space, Symbol
+from lib.symtab import Kind, Source, Space, Symbol
 
 
 def _data_space(segments, offset):
@@ -22,7 +22,13 @@ def cseg_symbol(segments, file_off):
     """The symbol for a CS-reached byte at *file_off*: its sidecar name
     (``code_data_names``), else generated ``cseg_<file>``."""
     named = getattr(segments, 'cseg_names', {}).get(file_off)
-    return named or Symbol.data(Space.CSEG, file_off)
+    if named:
+        return named
+    for lo, hi, root in getattr(segments, 'cseg_spans', ()):
+        if lo < file_off < hi:
+            return Symbol(f'{root}_{file_off - lo:x}', kind=Kind.DATA,
+                          source=root.source, offset=file_off, space=Space.CSEG)
+    return Symbol.data(Space.CSEG, file_off)
 
 
 def _load_offset(segments):

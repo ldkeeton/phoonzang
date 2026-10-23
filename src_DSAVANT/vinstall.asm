@@ -30,7 +30,7 @@ IMAGE_BASE equ 0x0200 + VBASE
     dw 0x0000                                     ; e_ovno: overlay number (0 for main executable)
 
     times 4 db 0
-    dw __zinsn_35d2 + 0x1 - IMAGE_BASE, 0x0000 ; 0x33d3 ; relocation: segment word DOS patches
+    dw __zinsn_aztec_begin + 0x1 - IMAGE_BASE, 0x0000 ; 0x33d3 ; relocation: segment word DOS patches
     times 476 db 0
 %endif
 
@@ -404,10 +404,10 @@ endmarker equ __zendmarker - __zdseg_start
 keep      equ __zbss_2534 - __zdseg_start
 current   equ __zbss_2536 - __zdseg_start
 first     equ __zbss_2538 - __zdseg_start
-%include "vinstall/aztec_misc_lmalloc.asm" ; 0x2eac
+%include "shared/aztec/aztec_misc_lmalloc.asm" ; 0x2eac
 
 ; first equ __zbss_2538 - __zdseg_start
-%include "vinstall/aztec_format.asm"       ; 0x303e
+%include "shared/aztec/aztec_format.asm"       ; 0x303e
 
 ; errno  equ __zerrno - __zdseg_start
 _ioflg equ __z_ioflg - __zdseg_start
@@ -439,14 +439,14 @@ _HEAPSIZ          equ __z_HEAPSIZ - __zdseg_start
 _STKLOW           equ __z_STKLOW - __zdseg_start
 _Uorg             equ __zbss_2534 - __zdseg_start
 __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
-%include "vinstall/aztec_sbegin.asm"       ; 0x35ce
+%include "shared/aztec/aztec_sbegin.asm"       ; 0x35ce
 
-; cls_      equ __zcls_ - __zdseg_start
-dseg_2502 equ __zdseg_2502 - __zdseg_start
-; _ioflg    equ __z_ioflg - __zdseg_start
-Argc      equ __zbss_253a - __zdseg_start
-Argv      equ __zbss_253c - __zdseg_start
-%include "vinstall/aztec_croot.asm"        ; 0x373b
+; cls_                  equ __zcls_ - __zdseg_start
+aztec_croot_empty_str equ __zaztec_croot_empty_str - __zdseg_start
+; _ioflg                equ __z_ioflg - __zdseg_start
+Argc                  equ __zbss_253a - __zdseg_start
+Argv                  equ __zbss_253c - __zdseg_start
+%include "shared/aztec/aztec_croot.asm"        ; 0x373b
 
 %include "shared/aztec/aztec_fltstub.asm"      ; 0x381d
 
@@ -456,12 +456,12 @@ _ttrd  equ __z_ttrd - __zdseg_start
 _ttwr  equ __z_ttwr - __zdseg_start
 %include "shared/aztec/aztec_io.asm"           ; 0x381f
 
-_Eol      equ __z_Eol - __zdseg_start
-dseg_2533 equ __zdseg_2533 - __zdseg_start
-bss_253e  equ __zbss_253e - __zdseg_start
-bss_2642  equ __zbss_2642 - __zdseg_start
-_TTrem    equ __zbss_2afc - __zdseg_start
-%include "vinstall/aztec_ttyio.asm"        ; 0x38d9
+_Eol                equ __z_Eol - __zdseg_start
+aztec_tty_wr_crbuf  equ __zaztec_tty_wr_crbuf - __zdseg_start
+aztec_tty_rd_buffer equ __zbss_253e - __zdseg_start
+aztec_tty_rd_bp     equ __zbss_2642 - __zdseg_start
+_TTrem              equ __zbss_2afc - __zdseg_start
+%include "shared/aztec/aztec_ttyio.asm"        ; 0x38d9
 
 %include "shared/aztec/aztec_movmem.asm"       ; 0x39a0
 
@@ -3181,10 +3181,7 @@ aztec_MEMRY.bss1 equ bss_2afe
 
 %include "shared/data/cls_.asm"          ; 0x5fe0
 
-__zdseg_2502:
-
-    db 0x00
-    db 'Too many args.', 0
+%include "shared/data/aztec_croot_empty_str.asm" ; 0x5fe2
 
 %include "shared/data/stksiz.asm"        ; 0x5ff2
 
@@ -3196,8 +3193,8 @@ __zdseg_2502:
 
 %include "shared/data/Eol.asm"           ; 0x6012
 
-__zdseg_2533:
-    db 0x0d
+%include "shared/data/aztec_tty_wr_crbuf.asm" ; 0x6013
+
 
 __zimage_end:
 absolute __zimage_end

@@ -564,7 +564,8 @@ def _aztec_asm_annotations(entries, label_map, c_overrides=None):
     for label, entry in entries.items():
         start = by_name.get(label)
         if (start is None or not cache.is_asm_entry(entry)
-                or not (entry.get('labels') or entry.get('comments'))):
+                or not (entry.get('labels') or entry.get('comments')
+                        or entry.get('data_labels'))):
             continue
         out[label] = {
             'start': start,
@@ -572,6 +573,8 @@ def _aztec_asm_annotations(entries, label_map, c_overrides=None):
             'labels': {start + off: name for off, name in entry.get('labels', ())},
             'comments': {start + off: text
                          for off, text in entry.get('comments', ())},
+            'data_labels': {start + off: name
+                            for off, name in entry.get('data_labels', ())},
         }
     for module, override in (c_overrides or {}).items():
         if 'start' not in override:
@@ -581,13 +584,21 @@ def _aztec_asm_annotations(entries, label_map, c_overrides=None):
         inside = [label for label, note in out.items()
                   if start <= note['start'] < end]
         if not inside:
+            if module.startswith('aztec_') and module not in out:
+                # No hand-written routine, but the module's shared tails
+                # still want module-relative names (vendor.py).
+                out[module] = {'start': start, 'end': end, 'labels': {},
+                               'comments': {}, 'data_labels': {},
+                               'owners': {module}}
             continue
         merged = {'start': start, 'end': end, 'labels': {}, 'comments': {},
-                  'owners': {module, *inside}}
+                  'data_labels': {}, 'owners': {module, *inside}}
         for label in inside:
             note = out.pop(label)
             merged['labels'].update(note['labels'])
             merged['comments'].update(note['comments'])
+            for addr, name in note['data_labels'].items():
+                merged['data_labels'].setdefault(addr, name)
         out[module] = merged
     return out
 

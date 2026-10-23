@@ -150,6 +150,9 @@ class SegmentModel:
         # Sidecar names for data the code reaches through CS, ``{file offset:
         # Symbol}``; everything else gets ``cseg_<file>``.
         self.cseg_names = {}
+        # ``(start, end, Symbol)`` of each named CS object: a byte inside one
+        # is named ``<object>_<delta>``.
+        self.cseg_spans = []
 
     def resolve(self, segment, offset):
         """Resolve *segment*:*offset* to a concrete location.

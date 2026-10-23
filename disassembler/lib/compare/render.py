@@ -6,7 +6,7 @@ import struct
 from lib.compare.splitting import (_partition_function_records,
                                    _select_data_ranges)
 from lib.names import data_space, generic_prefix
-from lib.symtab import GENERIC, Space, Symbol
+from lib.symtab import GENERIC, Kind, Space, Symbol
 
 
 # Minimum printable-run length for the D1 string anchor.  Shorter runs are
@@ -646,7 +646,14 @@ def _instruction_anchor(records, binary_data, addr, name):
     if start == addr:
         return None
     from lib.compare.jumptables import _ensure_global_label
-    anchor = Symbol.anchor(f'{ANCHOR_PREFIX}insn_{start:04x}', start)
+    # A routine's own name says which instruction this is in every binary that
+    # links it; the address only says where.
+    owner = next((rec['name'] for rec in records
+                  if rec['type'] == 'label' and rec['offset'] == start
+                  and rec['name'].kind is Kind.ROUTINE
+                  and not rec['name'].generic), None)
+    anchor = Symbol.anchor(f'{ANCHOR_PREFIX}insn_{owner or format(start, "04x")}',
+                           start)
     if not _ensure_global_label(records, binary_data, start, anchor):
         return None
     return f'{anchor} + 0x{addr - start:x}'
