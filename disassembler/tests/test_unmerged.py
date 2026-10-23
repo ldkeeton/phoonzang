@@ -136,6 +136,23 @@ class GroupingTest(unittest.TestCase):
         self.assertEqual([f.kind for f in findings], ['code'])
         self.assertEqual(len(findings[0].members), 2)
 
+    def test_empty_functions_held_several_times_by_one_binary_are_not(self):
+        findings = _findings({
+            'a/one.asm': 'one:\n    ret\n',
+            'a/two.asm': 'two:\n    ret\n',
+            'b/three.asm': 'three:\n    ret\n',
+        })
+        self.assertEqual(findings, [])
+
+    def test_a_lone_empty_function_with_a_twin_elsewhere_is_still_reported(self):
+        findings = _findings({
+            'a/one.asm': 'one:\n    ret\n',
+            'a/two.asm': 'two:\n    ret\n',
+            'b/three.asm': 'three:\n    ret\n',
+            'c/four.asm': 'four:\n    ret\n',
+        })
+        self.assertEqual([len(f.members) for f in findings], [2])
+
     def test_generated_asm_with_a_hand_owned_source_is_reported(self):
         with tempfile.TemporaryDirectory() as root:
             _put(root, 'a/x.asm', 'x:\n    push bp\n    ret\n')

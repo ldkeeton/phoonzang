@@ -816,11 +816,67 @@ def _audit_fragments(out_dir):
         )
 
 
-def _spans_binaries(members):
-    """True when *members* still have two places a shared file could serve."""
-    binaries = {m.binary for m in members if m.binary != FOLDER}
-    has_shared = any(m.binary == FOLDER for m in members)
-    return len(binaries) >= 2 or bool(binaries and has_shared)
+def _spans_binaries(members, served=frozenset(), hosts=None):
+    """True when *members* still have two places a shared file could serve.
+
+    *served* is ``{(binary, shared rel)}`` its master already includes: that
+    binary has its one copy, and its other copies cannot also share.
+
+    *hosts* is :func:`_host_split`'s ``(host, overlays)``.  An overlay sees the
+    host only as a list of addresses, so a host copy and an overlay copy cannot
+    share one file: it would define the same labels twice in the overlay, and
+    the callee names would mean different things in each program.  When the
+    group has an overlay copy (its own, or a shared file an overlay includes)
+    the host's copies are not candidates.
+    """
+    if hosts:
+        host, overlays = hosts
+        if any(m.binary in overlays
+               or (m.binary == FOLDER
+                   and any((o, m.rel) in served for o in overlays))
+               for m in members):
+            members = [m for m in members if m.binary != host
+                       and not (m.binary == FOLDER
+                                and (host, m.rel) in served)]
+    shared = {m.rel for m in members if m.binary == FOLDER}
+    binaries = {m.binary for m in members if m.binary != FOLDER
+                and not any((m.binary, rel) in served for rel in shared)}
+    return len(binaries) >= 2 or bool(binaries and shared)
+
+
+def _masters_including(out_dir, pattern):
+    """``{master binary: [included path, ...]}`` for ``%include`` of *pattern*."""
+    include = re.compile(rf'^[ \t]*%include\s+"({pattern})"', re.M)
+    found = {}
+    for name in os.listdir(out_dir):
+        path = os.path.join(out_dir, name)
+        if name.endswith('.asm') and os.path.isfile(path):
+            found[name[:-4]] = include.findall(_read(path))
+    return found
+
+
+def _included(out_dir):
+    """``{(binary, shared rel)}`` for every shared file a master includes."""
+    return {(binary, rel)
+            for binary, rels in _masters_including(
+                out_dir, f'{FOLDER}/[^"]+').items()
+            for rel in rels}
+
+
+def _host_split(out_dir):
+    """``(host, overlays)``: the binary overlays see only by address, and them.
+
+    The host is the one ``include/host_symbols.inc`` pastes in; an overlay is a
+    master that includes that file.  ``None`` and no overlays when there is none.
+    """
+    path = os.path.join(out_dir, 'include', 'host_symbols.inc')
+    if not os.path.isfile(path):
+        return None, frozenset()
+    host = re.search(r'^[ \t]*%include\s+"([^"/]+)\.asm"', _read(path), re.M)
+    overlays = frozenset(
+        binary for binary, rels in _masters_including(
+            out_dir, 'include/host_symbols\\.inc').items() if rels)
+    return (host.group(1) if host else None), overlays
 
 
 def _target(members, data):
@@ -857,7 +913,30 @@ def _diffs(members):
     return tuple(out[:_MAX_DIFFS]), max(0, len(out) - _MAX_DIFFS)
 
 
-def _findings(frags):
+def _is_bare_return(frag):
+    """True for a body that is a lone ``ret``: nothing to tell copies apart."""
+    code = [c for c in (_strip_comment(line).strip()
+                        for line in frag.text.split('\n'))
+            if c and not _LABEL_DEF.match(c)]
+    return code == ['ret']
+
+
+def _distinct_entries(group):
+    """*group* less bare-``ret`` bodies a binary holds more than once.
+
+    Several empty functions in one binary are several entry points (a driver's
+    API slots), each its own function that happens to do nothing; a lone one
+    with a twin in another program is still the same function twice.
+    """
+    if not all(_is_bare_return(f) for f in group):
+        return group
+    count = defaultdict(int)
+    for frag in group:
+        count[frag.binary] += 1
+    return [f for f in group if f.binary == FOLDER or count[f.binary] == 1]
+
+
+def _findings(frags, served=frozenset(), hosts=None):
     code, data = defaultdict(list), defaultdict(lambda: defaultdict(list))
     for frag in frags:
         if frag.data:
@@ -866,7 +945,8 @@ def _findings(frags):
             code[frag.key].append(frag)
     findings = []
     for group in code.values():
-        if len(group) < 2 or not _spans_binaries(group):
+        group = _distinct_entries(group)
+        if len(group) < 2 or not _spans_binaries(group, served, hosts):
             continue
         group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
         diffs, more = _diffs(group)
@@ -886,7 +966,7 @@ def _findings(frags):
                                          bodies=ordered))
             continue
         group = next(iter(bodies.values()))
-        if not _spans_binaries(group):
+        if not _spans_binaries(group, served, hosts):
             continue
         group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
         diffs, more = _diffs(group)
@@ -895,14 +975,15 @@ def _findings(frags):
     return _sort_findings(findings)
 
 
-def _immediate_findings(frags):
+def _immediate_findings(frags, served=frozenset(), hosts=None):
     """Address-immediate groups: the same code with a bare address named."""
     groups = defaultdict(list)
     for frag in frags:
         groups[frag.key].append(frag)
     findings = []
     for group in groups.values():
-        if len(group) < 2 or not _spans_binaries(group):
+        group = _distinct_entries(group)
+        if len(group) < 2 or not _spans_binaries(group, served, hosts):
             continue
         group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
         diffs, more = _diffs(group)
@@ -927,7 +1008,9 @@ def scan(out_dir):
     :data:`_ADDRESS_IMMEDIATE_MIN` masked.
     """
     frags = list(_audit_fragments(out_dir))
-    findings = _findings(frags)
+    served = _included(out_dir)
+    hosts = _host_split(out_dir)
+    findings = _findings(frags, served, hosts)
     covered = {m.rel for f in findings if f.kind == 'code' for m in f.members}
     immediate = []
     for frag in frags:
@@ -937,7 +1020,7 @@ def scan(out_dir):
                                           mask_immediates=True)
         immediate.append(_Fragment(frag.rel, frag.binary, frag.stem, False,
                                    frag.text, tuple(stream), key, lines))
-    findings.extend(_immediate_findings(immediate))
+    findings.extend(_immediate_findings(immediate, served, hosts))
     return _sort_findings(findings)
 
 

@@ -1,4 +1,5 @@
 import os
+import shutil
 import tempfile
 import unittest
 
@@ -265,6 +266,74 @@ class OtherNameTest(unittest.TestCase):
             {'a': ('f_GGGG', ['push bp']), 'b': ('f_HHHH', ['push si'])},
             {'a': self._table('f_GGGG'), 'b': self._table('f_HHHH')})
         self.assertEqual(result, {})
+
+
+class ServedBinaryTest(unittest.TestCase):
+    """A binary that already includes a shared copy has its one."""
+
+    def test_a_binary_that_includes_the_shared_copy_is_served(self):
+        with tempfile.TemporaryDirectory() as root:
+            for rel, text in {
+                'shared/library/helper.asm': 'helper:\n    ret\n',
+                'a/other.asm': 'other:\n    ret\n',
+                'a.asm': '%include "shared/library/helper.asm"\n',
+            }.items():
+                _put(root, rel, text)
+            self.assertEqual(shared.scan(root), [])
+
+
+class HostOverlayTest(unittest.TestCase):
+    """A host copy and an overlay copy cannot share one file."""
+
+    BODY = '    push bp\n    mov bp, sp\n    pop bp\n    ret\n'
+
+    def _tree(self, files, host_symbols=True):
+        root = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, root)
+        masters = {'host.asm': '', 'over.asm': '', 'over2.asm': '', 'drv.asm': ''}
+        if host_symbols:
+            for master in ('over.asm', 'over2.asm'):
+                masters[master] = '%include "include/host_symbols.inc"\n'
+            _put(root, 'include/host_symbols.inc', '%include "host.asm"\n')
+        for rel, text in {**masters, **files}.items():
+            _put(root, rel, text)
+        return shared.scan(root)
+
+    def test_a_host_copy_and_an_overlay_copy_are_not_reported(self):
+        self.assertEqual(self._tree({
+            'host/x.asm': 'x:\n' + self.BODY,
+            'over/y.asm': 'y:\n' + self.BODY}), [])
+
+    def test_a_host_copy_and_an_overlay_shared_file_are_not_reported(self):
+        self.assertEqual(self._tree({
+            'host/x.asm': 'x:\n' + self.BODY,
+            'shared/library/y.asm': 'y:\n' + self.BODY,
+            'over.asm': '%include "include/host_symbols.inc"\n'
+                        '%include "shared/library/y.asm"\n',
+            'over2.asm': '%include "include/host_symbols.inc"\n'
+                         '%include "shared/library/y.asm"\n'}), [])
+
+    def test_two_overlay_copies_are_reported(self):
+        found = self._tree({'over/x.asm': 'x:\n' + self.BODY,
+                            'over2/y.asm': 'y:\n' + self.BODY})
+        self.assertEqual([f.kind for f in found], ['code'])
+
+    def test_a_host_copy_with_two_overlay_copies_is_reported(self):
+        found = self._tree({'host/x.asm': 'x:\n' + self.BODY,
+                            'over/y.asm': 'y:\n' + self.BODY,
+                            'over2/z.asm': 'z:\n' + self.BODY})
+        self.assertEqual([f.kind for f in found], ['code'])
+
+    def test_a_host_copy_and_a_driver_copy_are_reported(self):
+        found = self._tree({'host/x.asm': 'x:\n' + self.BODY,
+                            'drv/y.asm': 'y:\n' + self.BODY})
+        self.assertEqual([f.kind for f in found], ['code'])
+
+    def test_without_host_symbols_a_host_copy_is_an_ordinary_binary(self):
+        found = self._tree({'host/x.asm': 'x:\n' + self.BODY,
+                            'over/y.asm': 'y:\n' + self.BODY},
+                           host_symbols=False)
+        self.assertEqual([f.kind for f in found], ['code'])
 
 
 class BandTest(unittest.TestCase):
