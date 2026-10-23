@@ -16,7 +16,7 @@ loc_NJOH:
     add ax, cx
     add ax, word [bp + 0x8]
     mov bx, ax
-    mov al, byte [bx + 0x5d8e]
+    mov al, byte [bx + cell_key_grid + 0x15a]
     sub ah, ah
     add ax, word [bp + 0xa]
     push ax
@@ -33,5 +33,5 @@ loc_NJOH:
     add cx, word [bp + 0x8]
     mov bx, cx
     pop ax
-    mov byte [bx + 0x5d8e], al
+    mov byte [bx + cell_key_grid + 0x15a], al
     ret

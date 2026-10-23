@@ -101,7 +101,7 @@ api_idx_000e_HLRI:
     mov ax, 0x248                    ; 0x609b
     imul word [bss_8462]             ; 0x609e
     mov bx, ax                       ; 0x60a2
-    mov al, byte [bx + 0x5e2d]       ; 0x60a4
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x60a4
     cmp al, 5                        ; 0x60a8
     je short @..api_idx_000e_HLRI.l4 ; 0x60aa
     cmp al, 4                        ; 0x60ac
@@ -109,7 +109,7 @@ api_idx_000e_HLRI:
     cmp al, 0xd                      ; 0x60b0
     jne short @..api_idx_000e_HLRI.l5 ; 0x60b2
 @..api_idx_000e_HLRI.l4:
-    mov al, byte [bx + 0x5d89]       ; 0x60b4
+    mov al, byte [bx + cell_key_grid + 0x155] ; 0x60b4
     sub ah, ah                       ; 0x60b8
     mov cx, 3                        ; 0x60ba
     cwd                              ; 0x60bd
@@ -119,7 +119,7 @@ api_idx_000e_HLRI:
     mov ax, 6                        ; 0x60c4
     imul word [bp - 0x0006]          ; 0x60c7
     mov bx, ax                       ; 0x60ca
-    mov al, byte [bx + 0x621]        ; 0x60cc
+    mov al, byte [bx + spell_table + 0x1] ; 0x60cc
     sub ah, ah                       ; 0x60d0
     imul word [bp - 0x0004]          ; 0x60d2
     mov cx, ax                       ; 0x60d5
@@ -131,7 +131,7 @@ api_idx_000e_HLRI:
     mov ax, 0x248                    ; 0x60df
     imul word [bss_8462]             ; 0x60e2
     mov bx, ax                       ; 0x60e6
-    mov al, byte [bx + 0x5d7a]       ; 0x60e8
+    mov al, byte [bx + cell_key_grid + 0x146] ; 0x60e8
     sub ah, ah                       ; 0x60ec
     mov cx, 3                        ; 0x60ee
     cwd                              ; 0x60f1
@@ -141,7 +141,7 @@ api_idx_000e_HLRI:
     mov ax, 6                        ; 0x60f8
     imul word [bp - 0x0006]          ; 0x60fb
     mov bx, ax                       ; 0x60fe
-    mov al, byte [bx + 0x621]        ; 0x6100
+    mov al, byte [bx + spell_table + 0x1] ; 0x6100
     sub ah, ah                       ; 0x6104
     imul word [bp - 0x0004]          ; 0x6106
     mov cx, ax                       ; 0x6109
@@ -172,7 +172,7 @@ api_idx_000e_HLRI:
     mov ax, 0x248                    ; 0x6140
     imul word [bss_8462]             ; 0x6143
     mov bx, ax                       ; 0x6147
-    mov al, byte [bx + 0x5d6b]       ; 0x6149
+    mov al, byte [bx + cell_key_grid + 0x137] ; 0x6149
     sub ah, ah                       ; 0x614d
     mov cx, ax                       ; 0x614f
     add ax, strict word 0x12         ; 0x6151
@@ -203,7 +203,7 @@ api_idx_000e_HLRI:
     mov ax, 6                        ; 0x6190
     imul word [bp - 0x0006]          ; 0x6193
     mov bx, ax                       ; 0x6196
-    mov al, byte [bx + 0x621]        ; 0x6198
+    mov al, byte [bx + spell_table + 0x1] ; 0x6198
     sub ah, ah                       ; 0x619c
     imul word [bp - 0x0004]          ; 0x619e
     mov cx, ax                       ; 0x61a1
@@ -238,7 +238,7 @@ api_idx_000e_HLRI:
     mov ax, 0x248                    ; 0x61ed
     imul word [bss_8462]             ; 0x61f0
     mov bx, ax                       ; 0x61f4
-    mov al, byte [bx + 0x5e2d]       ; 0x61f6
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x61f6
     cmp al, 5                        ; 0x61fa
     je short @..api_idx_000e_HLRI.l12 ; 0x61fc
     cmp al, 4                        ; 0x61fe
@@ -269,7 +269,7 @@ api_idx_000e_HLRI:
     mov ax, 6                        ; 0x6234
     imul word [bp - 0x0006]          ; 0x6237
     mov bx, ax                       ; 0x623a
-    mov al, byte [bx + 0x623]        ; 0x623c
+    mov al, byte [bx + spell_table + 0x3] ; 0x623c
     sub ah, ah                       ; 0x6240
     test ax, 2                       ; 0x6242
     jne short @..api_idx_000e_HLRI.l17 ; 0x6245
@@ -281,7 +281,7 @@ api_idx_000e_HLRI:
     mov ax, 6                        ; 0x625a
     imul word [bp - 0x0006]          ; 0x625d
     mov bx, ax                       ; 0x6260
-    mov al, byte [bx + 0x623]        ; 0x6262
+    mov al, byte [bx + spell_table + 0x3] ; 0x6262
     sub ah, ah                       ; 0x6266
     test ax, 1                       ; 0x6268
     jne short @..api_idx_000e_HLRI.l18 ; 0x626b
@@ -363,7 +363,7 @@ api_idx_000e_HLRI:
     mov ax, 6                        ; 0x6323
     imul word [bp - 0x0006]          ; 0x6326
     mov bx, ax                       ; 0x6329
-    mov al, byte [bx + 0x622]        ; 0x632b
+    mov al, byte [bx + spell_table + 0x2] ; 0x632b
     sub ah, ah                       ; 0x632f
     imul word [bp - 0x0004]          ; 0x6331
     push ax                          ; 0x6334
@@ -379,7 +379,7 @@ api_idx_000e_HLRI:
     add cx, ax                       ; 0x634c
     mov bx, cx                       ; 0x634e
     pop ax                           ; 0x6350
-    sub word [bx + 0x5c1c], ax       ; 0x6351
+    sub word [bx + pc_spell_power_cap + 0x4], ax ; 0x6351
 @..api_idx_000e_HLRI.l23:
     push word [bp - 0x0004]          ; 0x6355
     call random_below                ; 0x6358
@@ -388,7 +388,7 @@ api_idx_000e_HLRI:
     mov ax, 6                        ; 0x635d
     imul word [bp - 0x0006]          ; 0x6360
     mov bx, ax                       ; 0x6363
-    mov al, byte [bx + 0x621]        ; 0x6365
+    mov al, byte [bx + spell_table + 0x1] ; 0x6365
     sub ah, ah                       ; 0x6369
     mov cx, ax                       ; 0x636b
     pop ax                           ; 0x636d

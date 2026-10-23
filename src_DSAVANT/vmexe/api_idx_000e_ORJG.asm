@@ -2782,7 +2782,7 @@ jumptable_5eb8_case_56:
     mov ax, 0x248                    ; 0x53eb
     imul word [bp - 0x000c]          ; 0x53ee
     mov bx, ax                       ; 0x53f1
-    mov al, byte [bx + 0x5d67]       ; 0x53f3
+    mov al, byte [bx + cell_key_grid + 0x133] ; 0x53f3
     sub ah, ah                       ; 0x53f7
     mov dx, ax                       ; 0x53f9
     mov cx, 0x15                     ; 0x53fb
@@ -2792,7 +2792,7 @@ jumptable_5eb8_case_56:
     jg short @..api_idx_000e_ORJG.l72 ; 0x5403
     jmp near @..api_idx_000e_ORJG.l75 ; 0x5405
 @..api_idx_000e_ORJG.l72:
-    dec byte [bx + 0x5d67]           ; 0x5408
+    dec byte [bx + cell_key_grid + 0x133] ; 0x5408
     mov ax, 0xb7                     ; 0x540c
     push ax                          ; 0x540f
     call random_below                ; 0x5410
@@ -2806,8 +2806,8 @@ jumptable_5eb8_case_56:
     mov bx, ax                       ; 0x5420
     pop dx                           ; 0x5422
     pop ax                           ; 0x5423
-    add word [bx + 0x5bfc], ax       ; 0x5424
-    adc word [bx + 0x5bfe], dx       ; 0x5428
+    add word [bx + bss_5bf4 + 0x8], ax ; 0x5424
+    adc word [bx + bss_5bf4 + 0xa], dx ; 0x5428
     mov ax, 0x12                     ; 0x542c
     push ax                          ; 0x542f
     call random_below                ; 0x5430
@@ -2816,7 +2816,7 @@ jumptable_5eb8_case_56:
     mov ax, 0x248                    ; 0x5435
     imul word [bp - 0x000c]          ; 0x5438
     mov bx, ax                       ; 0x543b
-    mov al, byte [bx + 0x5d67]       ; 0x543d
+    mov al, byte [bx + cell_key_grid + 0x133] ; 0x543d
     sub ah, ah                       ; 0x5441
     mov cx, ax                       ; 0x5443
     pop ax                           ; 0x5445
@@ -2894,7 +2894,7 @@ jumptable_5eb8_case_94:
     mov ax, 0x248                    ; 0x54fa
     imul word [bp - 0x000c]          ; 0x54fd
     mov bx, ax                       ; 0x5500
-    mov al, byte [bx + 0x5d67]       ; 0x5502
+    mov al, byte [bx + cell_key_grid + 0x133] ; 0x5502
     sub ah, ah                       ; 0x5506
     mov dx, ax                       ; 0x5508
     mov cx, 0x15                     ; 0x550a
@@ -2904,7 +2904,7 @@ jumptable_5eb8_case_94:
     jg short @..api_idx_000e_ORJG.l78 ; 0x5512
     jmp near @..api_idx_000e_ORJG.l79 ; 0x5514
 @..api_idx_000e_ORJG.l78:
-    dec byte [bx + 0x5d67]           ; 0x5517
+    dec byte [bx + cell_key_grid + 0x133] ; 0x5517
     mov ax, word [bp - 0x000a]       ; 0x551b
     shl ax, 1                        ; 0x551e
     mov bx, ax                       ; 0x5520
@@ -2952,7 +2952,7 @@ jumptable_5eb8_case_94:
     mov ax, 0x248                    ; 0x558b
     imul word [bp - 0x000c]          ; 0x558e
     mov bx, ax                       ; 0x5591
-    inc word [bx + 0x5c1a]           ; 0x5593
+    inc word [bx + pc_spell_power_cap + 0x2] ; 0x5593
     mov ax, 0xb7                     ; 0x5597
     push ax                          ; 0x559a
     call random_below                ; 0x559b
@@ -2966,8 +2966,8 @@ jumptable_5eb8_case_94:
     mov bx, ax                       ; 0x55ab
     pop dx                           ; 0x55ad
     pop ax                           ; 0x55ae
-    add word [bx + 0x5bfc], ax       ; 0x55af
-    adc word [bx + 0x5bfe], dx       ; 0x55b3
+    add word [bx + bss_5bf4 + 0x8], ax ; 0x55af
+    adc word [bx + bss_5bf4 + 0xa], dx ; 0x55b3
     mov ax, 0                        ; 0x55b7
     push ax                          ; 0x55ba
     push word [bp - 0x000c]          ; 0x55bb
@@ -3236,7 +3236,7 @@ jumptable_5eb8_case_25:
     mov ax, 0x248                    ; 0x5834
     imul word [bp - 0x000c]          ; 0x5837
     mov bx, ax                       ; 0x583a
-    mov al, byte [bx + 0x5d67]       ; 0x583c
+    mov al, byte [bx + cell_key_grid + 0x133] ; 0x583c
     sub ah, ah                       ; 0x5840
     mov dx, ax                       ; 0x5842
     mov cx, 0x12                     ; 0x5844
@@ -3501,8 +3501,8 @@ jumptable_5eb8_case_78:
     mov ax, 0x248                    ; 0x5aa8
     imul word [bp - 0x0002]          ; 0x5aab
     mov bx, ax                       ; 0x5aae
-    add word [bx + 0x5bfc], byte 1   ; 0x5ab0
-    adc word [bx + 0x5bfe], byte 0   ; 0x5ab5
+    add word [bx + bss_5bf4 + 0x8], byte 1 ; 0x5ab0
+    adc word [bx + bss_5bf4 + 0xa], byte 0 ; 0x5ab5
     mov ax, 0                        ; 0x5aba
     push ax                          ; 0x5abd
     push word [bp - 0x0002]          ; 0x5abe
@@ -3672,12 +3672,12 @@ jumptable_5eb8_case_98:
     add ax, dx                       ; 0x5c46
     mov bx, ax                       ; 0x5c48
     pop ax                           ; 0x5c4a
-    add word [bx + 0x5c1c], ax       ; 0x5c4b
-    mov ax, word [bx + 0x5c1c]       ; 0x5c4f
-    cmp ax, word [bx + 0x5c1e]       ; 0x5c53
+    add word [bx + pc_spell_power_cap + 0x4], ax ; 0x5c4b
+    mov ax, word [bx + pc_spell_power_cap + 0x4] ; 0x5c4f
+    cmp ax, word [bx + pc_spell_power_cap + 0x6] ; 0x5c53
     jle short @..api_idx_000e_ORJG.l120 ; 0x5c57
-    mov ax, word [bx + 0x5c1e]       ; 0x5c59
-    mov word [bx + 0x5c1c], ax       ; 0x5c5d
+    mov ax, word [bx + pc_spell_power_cap + 0x6] ; 0x5c59
+    mov word [bx + pc_spell_power_cap + 0x4], ax ; 0x5c5d
 @..api_idx_000e_ORJG.l120:
     inc word [bp - 0x0002]           ; 0x5c61
     mov ax, word [bp - 0x0002]       ; 0x5c64
@@ -3741,8 +3741,8 @@ jumptable_5eb8_case_100:
     shl cx, 1                        ; 0x5d01
     add ax, cx                       ; 0x5d03
     mov bx, ax                       ; 0x5d05
-    mov ax, word [bx + 0x5c1e]       ; 0x5d07
-    mov word [bx + 0x5c1c], ax       ; 0x5d0b
+    mov ax, word [bx + pc_spell_power_cap + 0x6] ; 0x5d07
+    mov word [bx + pc_spell_power_cap + 0x4], ax ; 0x5d0b
     inc word [bp - 0x0002]           ; 0x5d0f
     mov ax, word [bp - 0x0002]       ; 0x5d12
     cmp ax, strict word 6            ; 0x5d15
@@ -3750,9 +3750,9 @@ jumptable_5eb8_case_100:
     mov ax, 0x248                    ; 0x5d1a
     imul word [bp - 0x0006]          ; 0x5d1d
     mov bx, ax                       ; 0x5d20
-    cmp byte [bx + 0x5d67], 1        ; 0x5d22
+    cmp byte [bx + cell_key_grid + 0x133], 1 ; 0x5d22
     jae short @..api_idx_000e_ORJG.l125 ; 0x5d27
-    mov byte [bx + 0x5d67], 1        ; 0x5d29
+    mov byte [bx + cell_key_grid + 0x133], 1 ; 0x5d29
 @..api_idx_000e_ORJG.l125:
     mov ax, 4                        ; 0x5d2e
     push ax                          ; 0x5d31

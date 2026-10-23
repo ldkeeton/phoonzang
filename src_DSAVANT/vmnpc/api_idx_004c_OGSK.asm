@@ -50,7 +50,7 @@ api_idx_004c_OGSK:
     pop ax                           ; 0x505b
     add ax, cx                       ; 0x505c
     mov bx, ax                       ; 0x505e
-    mov al, byte [bx + 0x5c3b]       ; 0x5060
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x5060
     sub ah, ah                       ; 0x5064
     test ax, 0x80                    ; 0x5066
     je short @..api_idx_004c_OGSK.l4 ; 0x5069
@@ -98,7 +98,7 @@ api_idx_004c_OGSK:
     pop ax                           ; 0x50cf
     add ax, cx                       ; 0x50d0
     mov bx, ax                       ; 0x50d2
-    mov al, byte [bx + 0x5c38]       ; 0x50d4
+    mov al, byte [bx + cell_key_grid + 0x4] ; 0x50d4
     sub ah, ah                       ; 0x50d8
     mov bx, ax                       ; 0x50da
     cmp byte [bx + 0x60e], 1         ; 0x50dc
@@ -118,7 +118,7 @@ api_idx_004c_OGSK:
     pop ax                           ; 0x50fe
     add ax, cx                       ; 0x50ff
     mov bx, ax                       ; 0x5101
-    mov al, byte [bx + 0x5c3a]       ; 0x5103
+    mov al, byte [bx + cell_key_grid + 0x6] ; 0x5103
     sub ah, ah                       ; 0x5107
     mov cx, word [bss_9ca8]          ; 0x5109
     shl cx, 1                        ; 0x510d

@@ -84,7 +84,7 @@ api_idx_004e_PHKR:
     pop ax                           ; 0x5c2e
     add ax, cx                       ; 0x5c2f
     mov bx, ax                       ; 0x5c31
-    mov al, byte [bx + 0x5c3b]       ; 0x5c33
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x5c33
     sub ah, ah                       ; 0x5c37
     test ax, 1                       ; 0x5c39
     je short @..api_idx_004e_PHKR.l4 ; 0x5c3c

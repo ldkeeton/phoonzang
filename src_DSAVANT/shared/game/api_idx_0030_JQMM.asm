@@ -1946,7 +1946,7 @@ api_idx_0030_JQMM.jumptable_case7:
     mov ax, 0x48
     push ax
     mov bx, word [bx + api_idx_0030_JQMM.bss31]
-    mov al, byte [bx + 0x7c61]
+    mov al, byte [bx + bss_7b05 + 0x15c]
     sub ah, ah
     mov cx, word [bp - 0x0006]
     shl cx, 1
@@ -1957,7 +1957,7 @@ api_idx_0030_JQMM.jumptable_case7:
     shl ax, 1
     add ax, word [bx + api_idx_0030_JQMM.bss32]
     mov bx, ax
-    mov al, byte [bx + 0x7c18]
+    mov al, byte [bx + bss_7b05 + 0x113]
     sub ah, ah
     mov bx, cx
     add ax, word [bx + api_idx_0030_JQMM.bss34]
@@ -2144,7 +2144,7 @@ api_idx_0030_JQMM.jumptable_case7:
     add ax, word [api_idx_0030_JQMM.bss17]
     shl ax, 1
     mov bx, ax
-    cmp byte [bx + 0x76a0], 0
+    cmp byte [bx + glyph_y_table + 0x7eb], 0
     jne short @..api_idx_0030_JQMM.l86
     jmp near @..api_idx_0030_JQMM.l89
 @..api_idx_0030_JQMM.l86:
@@ -2170,7 +2170,7 @@ api_idx_0030_JQMM.jumptable_case7:
     shl ax, 1
     add ax, dx
     mov bx, ax
-    mov al, byte [bx + 0x76a0]
+    mov al, byte [bx + glyph_y_table + 0x7eb]
     sub ah, ah
     mov word [bp - 0x0006], ax
     cmp ax, 0xff
@@ -2201,7 +2201,7 @@ api_idx_0030_JQMM.jumptable_case7:
     shl ax, 1
     add ax, word [api_idx_0030_JQMM.bss17]
     mov bx, ax
-    mov al, byte [bx + 0x76e9]
+    mov al, byte [bx + glyph_y_table + 0x834]
     sub ah, ah
     push ax
     push word [bp - 0x0006]

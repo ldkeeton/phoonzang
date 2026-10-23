@@ -118,7 +118,7 @@ api_idx_0022_PNPP:
     mov ax, word [bp + 0x4]          ; 0x9599
     shl ax, 1                        ; 0x959c
     mov bx, ax                       ; 0x959e
-    push word [bx + 0x69bc]          ; 0x95a0
+    push word [bx + bss_5e2a + 0xb92] ; 0x95a0
     mov ax, 0x248                    ; 0x95a4
     imul word [bp + 0x4]             ; 0x95a7
     mov bx, ax                       ; 0x95aa

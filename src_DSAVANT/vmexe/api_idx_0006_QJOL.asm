@@ -29,7 +29,7 @@ api_idx_0006_QJOL:
     push ax                          ; 0x20dc
     mov ax, 0x248                    ; 0x20dd
     imul word [bp + 0x6]             ; 0x20e0
-    add ax, 0x5d9c                   ; 0x20e3
+    add ax, cell_key_grid + 0x168    ; 0x20e3
     push ax                          ; 0x20e6
     call aztec_movmem                ; 0x20e7
     add sp, byte 6                   ; 0x20ea
@@ -41,7 +41,7 @@ api_idx_0006_QJOL:
     mov ax, 0x248                    ; 0x20f9
     imul word [bp + 0x6]             ; 0x20fc
     mov bx, ax                       ; 0x20ff
-    mov al, byte [bx + 0x5d83]       ; 0x2101
+    mov al, byte [bx + cell_key_grid + 0x14f] ; 0x2101
     sub ah, ah                       ; 0x2105
     mov cx, 2                        ; 0x2107
     cwd                              ; 0x210a

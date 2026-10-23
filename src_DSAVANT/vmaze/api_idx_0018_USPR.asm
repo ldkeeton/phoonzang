@@ -112,7 +112,7 @@ api_idx_0018_USPR:
     mov ax, 0x248                    ; 0x1dbc
     imul word [bp - 0x0002]          ; 0x1dbf
     mov bx, ax                       ; 0x1dc2
-    mov byte [bx + 0x5d5c], 0xa      ; 0x1dc4
+    mov byte [bx + cell_key_grid + 0x128], 0xa ; 0x1dc4
     mov ax, 1                        ; 0x1dc9
     push ax                          ; 0x1dcc
     push word [bp - 0x0002]          ; 0x1dcd
@@ -133,7 +133,7 @@ api_idx_0018_USPR:
     je short @..api_idx_0018_USPR.l13 ; 0x1df8
     mov bx, word [maze_tables]       ; 0x1dfa
     mov si, word [party_map_piece]   ; 0x1dfe
-    mov al, byte [bx + si + 0xb40]   ; 0x1e02
+    mov al, byte [bx + si + spell_table + 0x520] ; 0x1e02
     sub ah, ah                       ; 0x1e06
     mov word [party_region], ax      ; 0x1e08
 @..api_idx_0018_USPR.l13:
@@ -203,7 +203,7 @@ api_idx_0018_USPR:
     mov ax, 0x248                    ; 0x1e9d
     imul word [bp - 0x0002]          ; 0x1ea0
     mov bx, ax                       ; 0x1ea3
-    mov al, byte [bx + 0x5e35]       ; 0x1ea5
+    mov al, byte [bx + bss_5e2a + 0xb] ; 0x1ea5
     sub ah, ah                       ; 0x1ea9
     jmp short @..api_idx_0018_USPR.l23 ; 0x1eab
 @..api_idx_0018_USPR.l22:
@@ -221,7 +221,7 @@ api_idx_0018_USPR:
     mov ax, 0x248                    ; 0x1ec3
     imul word [bp - 0x0002]          ; 0x1ec6
     mov bx, ax                       ; 0x1ec9
-    mov al, byte [bx + 0x5e34]       ; 0x1ecb
+    mov al, byte [bx + bss_5e2a + 0xa] ; 0x1ecb
     sub ah, ah                       ; 0x1ecf
     inc ax                           ; 0x1ed1
     jmp short @..api_idx_0018_USPR.l25 ; 0x1ed2
@@ -241,7 +241,7 @@ api_idx_0018_USPR:
     imul word [bp - 0x0002]          ; 0x1eed
     mov bx, ax                       ; 0x1ef0
     pop ax                           ; 0x1ef2
-    mov byte [bx + 0x5d5c], al       ; 0x1ef3
+    mov byte [bx + cell_key_grid + 0x128], al ; 0x1ef3
     mov ax, word [bp - 0x0008]       ; 0x1ef7
     mov cx, 6                        ; 0x1efa
     cwd                              ; 0x1efd
@@ -249,9 +249,9 @@ api_idx_0018_USPR:
     mov ax, dx                       ; 0x1f00
     test ax, ax                      ; 0x1f02
     jne short @..api_idx_0018_USPR.l26 ; 0x1f04
-    cmp byte [bx + 0x5e32], 0        ; 0x1f06
+    cmp byte [bx + bss_5e2a + 0x8], 0 ; 0x1f06
     jbe short @..api_idx_0018_USPR.l26 ; 0x1f0b
-    dec byte [bx + 0x5e32]           ; 0x1f0d
+    dec byte [bx + bss_5e2a + 0x8]   ; 0x1f0d
 @..api_idx_0018_USPR.l26:
     inc word [bp - 0x0002]           ; 0x1f11
 @..api_idx_0018_USPR.l27:
@@ -266,7 +266,7 @@ api_idx_0018_USPR:
     mov cx, 0x248                    ; 0x1f28
     imul cx                          ; 0x1f2b
     mov bx, ax                       ; 0x1f2d
-    mov byte [bx + 0x5d5c], 0        ; 0x1f2f
+    mov byte [bx + cell_key_grid + 0x128], 0 ; 0x1f2f
     mov ax, word [bp - 0x0008]       ; 0x1f34
     mov cx, 6                        ; 0x1f37
     cwd                              ; 0x1f3a
@@ -330,15 +330,15 @@ api_idx_0018_USPR:
     mov ax, 0x248                    ; 0x1fbe
     imul word [bp - 0x0002]          ; 0x1fc1
     mov bx, ax                       ; 0x1fc4
-    add word [bx + 0x5bfc], byte 1   ; 0x1fc6
-    adc word [bx + 0x5bfe], byte 0   ; 0x1fcb
+    add word [bx + bss_5bf4 + 0x8], byte 1 ; 0x1fc6
+    adc word [bx + bss_5bf4 + 0xa], byte 0 ; 0x1fcb
 @..api_idx_0018_USPR.l34:
     mov ax, 0x248                    ; 0x1fd0
     imul word [bp - 0x0002]          ; 0x1fd3
     mov bx, ax                       ; 0x1fd6
     mov ax, word [bx + pc_records]   ; 0x1fd8
     push ax                          ; 0x1fdc
-    mov ax, word [bx + 0x5c12]       ; 0x1fdd
+    mov ax, word [bx + pc_records + 0x2] ; 0x1fdd
     mov cx, 2                        ; 0x1fe1
     cwd                              ; 0x1fe4
     idiv cx                          ; 0x1fe5
@@ -346,7 +346,7 @@ api_idx_0018_USPR:
     pop ax                           ; 0x1fe9
     cmp ax, cx                       ; 0x1fea
     jle short @..api_idx_0018_USPR.l35 ; 0x1fec
-    mov byte [bx + 0x5d5c], 0        ; 0x1fee
+    mov byte [bx + cell_key_grid + 0x128], 0 ; 0x1fee
 @..api_idx_0018_USPR.l35:
     mov ax, 1                        ; 0x1ff3
     push ax                          ; 0x1ff6

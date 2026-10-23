@@ -22,7 +22,7 @@ api_idx_000e_RTSO:
     mov word [bp - 0x0006], ax       ; 0x807f
     mov bx, word [maze_tables]       ; 0x8082
     mov si, word [party_region]      ; 0x8086
-    mov al, byte [bx + si + 0xa50]   ; 0x808a
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x808a
     sub ah, ah                       ; 0x808e
     mov word [bp - 0x000a], ax       ; 0x8090
     cmp word [bp - 0x000a], byte 0   ; 0x8093
@@ -54,7 +54,7 @@ api_idx_000e_RTSO:
     pop ax                           ; 0x80c9
     add ax, cx                       ; 0x80ca
     mov bx, ax                       ; 0x80cc
-    mov al, byte [bx + 0x5d64]       ; 0x80ce
+    mov al, byte [bx + cell_key_grid + 0x130] ; 0x80ce
     sub ah, ah                       ; 0x80d2
     mov word [bp - 0x000a], ax       ; 0x80d4
     jmp near @..api_idx_000e_RTSO.l10 ; 0x80d7
@@ -74,13 +74,13 @@ api_idx_000e_RTSO:
     mov ax, 0x248                    ; 0x80f9
     imul word [bss_8af0]             ; 0x80fc
     mov bx, ax                       ; 0x8100
-    mov al, byte [bx + 0x5d68]       ; 0x8102
+    mov al, byte [bx + cell_key_grid + 0x134] ; 0x8102
     sub ah, ah                       ; 0x8106
     mov cx, 2                        ; 0x8108
     cwd                              ; 0x810b
     idiv cx                          ; 0x810c
     push ax                          ; 0x810e
-    mov al, byte [bx + 0x5d7e]       ; 0x810f
+    mov al, byte [bx + cell_key_grid + 0x14a] ; 0x810f
     sub ah, ah                       ; 0x8113
     mov cx, 3                        ; 0x8115
     cwd                              ; 0x8118
@@ -105,7 +105,7 @@ api_idx_000e_RTSO:
     mov ax, 0x248                    ; 0x8143
     imul word [bp - 0x0004]          ; 0x8146
     mov bx, ax                       ; 0x8149
-    mov al, byte [bx + 0x5d77]       ; 0x814b
+    mov al, byte [bx + cell_key_grid + 0x143] ; 0x814b
     sub ah, ah                       ; 0x814f
     add word [bp - 0x000a], ax       ; 0x8151
     mov ax, 2                        ; 0x8154
@@ -152,7 +152,7 @@ api_idx_000e_RTSO:
     mov ax, word [game_state_arg]    ; 0x81b3
     mov cx, 4                        ; 0x81b6
     shl ax, cl                       ; 0x81b9
-    add ax, 0x8d14                   ; 0x81bb
+    add ax, party_region + 0x2       ; 0x81bb
     push ax                          ; 0x81be
     call set_bitmap_bit              ; 0x81bf
     add sp, byte 6                   ; 0x81c2

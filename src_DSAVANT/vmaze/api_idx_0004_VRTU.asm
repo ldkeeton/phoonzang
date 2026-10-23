@@ -5,7 +5,7 @@ api_idx_0004_VRTU:
     mov ax, 0x26                     ; 0x96d4
     imul word [bp + 0x4]             ; 0x96d7
     mov bx, ax                       ; 0x96da
-    mov al, byte [bx - 0x7b15]       ; 0x96dc
+    mov al, byte [bx + bss_84e8 + 0x3] ; 0x96dc
     sub ah, ah                       ; 0x96e0
     push ax                          ; 0x96e2
     push word [bp + 0x4]             ; 0x96e3
@@ -16,10 +16,10 @@ api_idx_0004_VRTU:
     mov ax, 0x26                     ; 0x96f0
     imul word [bp + 0x4]             ; 0x96f3
     mov bx, ax                       ; 0x96f6
-    mov al, byte [bx - 0x7b15]       ; 0x96f8
+    mov al, byte [bx + bss_84e8 + 0x3] ; 0x96f8
     sub ah, ah                       ; 0x96fc
     push ax                          ; 0x96fe
-    add bx, strict word 0x8506       ; 0x96ff
+    add bx, slot_records + 0x1a      ; 0x96ff
     mov ax, bx                       ; 0x9703
     push ax                          ; 0x9705
     call test_bit                    ; 0x9706
@@ -29,12 +29,12 @@ api_idx_0004_VRTU:
     mov ax, 0x26                     ; 0x9710
     imul word [bp + 0x4]             ; 0x9713
     mov bx, ax                       ; 0x9716
-    mov al, byte [bx - 0x7b15]       ; 0x9718
+    mov al, byte [bx + bss_84e8 + 0x3] ; 0x9718
     sub ah, ah                       ; 0x971c
     push ax                          ; 0x971e
     mov ax, 6                        ; 0x971f
     push ax                          ; 0x9722
-    mov al, byte [bx - 0x7b15]       ; 0x9723
+    mov al, byte [bx + bss_84e8 + 0x3] ; 0x9723
     sub ah, ah                       ; 0x9727
     push ax                          ; 0x9729
     push word [bp + 0x4]             ; 0x972a
@@ -43,8 +43,8 @@ api_idx_0004_VRTU:
     mov ax, 0x26                     ; 0x9733
     imul word [bp + 0x4]             ; 0x9736
     mov bx, ax                       ; 0x9739
-    mov byte [bx - 0x7b16], 2        ; 0x973b
-    mov byte [bx - 0x7b13], 0        ; 0x9740
+    mov byte [bx + bss_84e8 + 0x2], 2 ; 0x973b
+    mov byte [bx + slot_records + 0x1], 0 ; 0x9740
     ret                              ; 0x9745
 @..api_idx_0004_VRTU.l1:
     push word [bp + 0x4]             ; 0x9746
@@ -59,7 +59,7 @@ api_idx_0004_VRTU:
     push word [bp - 0x0002]          ; 0x9757
     mov ax, 0x26                     ; 0x975a
     imul word [bp + 0x4]             ; 0x975d
-    add ax, 0x850a                   ; 0x9760
+    add ax, slot_records + 0x1e      ; 0x9760
     push ax                          ; 0x9763
     call test_bit                    ; 0x9764
     add sp, byte 4                   ; 0x9767
@@ -70,7 +70,7 @@ api_idx_0004_VRTU:
     push ax                          ; 0x9774
     mov ax, 0x26                     ; 0x9775
     imul word [bp + 0x4]             ; 0x9778
-    add ax, 0x850a                   ; 0x977b
+    add ax, slot_records + 0x1e      ; 0x977b
     push ax                          ; 0x977e
     call test_bit                    ; 0x977f
     add sp, byte 4                   ; 0x9782
@@ -79,7 +79,7 @@ api_idx_0004_VRTU:
     mov ax, 6                        ; 0x9789
     imul word [bp - 0x0002]          ; 0x978c
     mov bx, ax                       ; 0x978f
-    mov al, byte [bx - 0x7b58]       ; 0x9791
+    mov al, byte [bx + bss_84a6 + 0x2] ; 0x9791
     sub ah, ah                       ; 0x9795
     mov word [bp - 0x0004], ax       ; 0x9797
     push ax                          ; 0x979a
@@ -94,9 +94,9 @@ api_idx_0004_VRTU:
     imul word [bp + 0x4]             ; 0x97af
     mov bx, ax                       ; 0x97b2
     pop ax                           ; 0x97b4
-    mov byte [bx - 0x7b12], al       ; 0x97b5
-    mov byte [bx - 0x7b16], 4        ; 0x97b9
-    mov byte [bx - 0x7b13], 0        ; 0x97be
+    mov byte [bx + slot_records + 0x2], al ; 0x97b5
+    mov byte [bx + bss_84e8 + 0x2], 4 ; 0x97b9
+    mov byte [bx + slot_records + 0x1], 0 ; 0x97be
     ret                              ; 0x97c3
 @..api_idx_0004_VRTU.l4:
     mov al, byte [bp - 0x0004]       ; 0x97c4
@@ -105,7 +105,7 @@ api_idx_0004_VRTU:
     imul word [bp + 0x4]             ; 0x97cb
     mov bx, ax                       ; 0x97ce
     pop ax                           ; 0x97d0
-    mov byte [bx - 0x7b15], al       ; 0x97d1
+    mov byte [bx + bss_84e8 + 0x3], al ; 0x97d1
     push word [bp + 0x4]             ; 0x97d5
     call loc_QJRN                    ; 0x97d8
     pop cx                           ; 0x97db
@@ -116,7 +116,7 @@ api_idx_0004_VRTU:
     push word [bp - 0x0002]          ; 0x97e0
     mov ax, 0x26                     ; 0x97e3
     imul word [bp + 0x4]             ; 0x97e6
-    add ax, 0x8504                   ; 0x97e9
+    add ax, slot_records + 0x18      ; 0x97e9
     push ax                          ; 0x97ec
     call test_bit                    ; 0x97ed
     add sp, byte 4                   ; 0x97f0
@@ -127,7 +127,7 @@ api_idx_0004_VRTU:
     mov ax, 6                        ; 0x97fa
     imul word [bp - 0x0002]          ; 0x97fd
     mov bx, ax                       ; 0x9800
-    cmp byte [bx - 0x7b59], 1        ; 0x9802
+    cmp byte [bx + bss_84a6 + 0x1], 1 ; 0x9802
     jne short @..api_idx_0004_VRTU.l8 ; 0x9807
     mov al, byte [bx + bss_84a6]     ; 0x9809
     push ax                          ; 0x980d
@@ -135,7 +135,7 @@ api_idx_0004_VRTU:
     imul word [bp + 0x4]             ; 0x9811
     mov bx, ax                       ; 0x9814
     pop ax                           ; 0x9816
-    mov byte [bx - 0x7b15], al       ; 0x9817
+    mov byte [bx + bss_84e8 + 0x3], al ; 0x9817
     push word [bp + 0x4]             ; 0x981b
     call loc_QJRN                    ; 0x981e
     pop cx                           ; 0x9821
@@ -144,20 +144,20 @@ api_idx_0004_VRTU:
     mov ax, 6                        ; 0x9825
     imul word [bp - 0x0002]          ; 0x9828
     mov bx, ax                       ; 0x982b
-    cmp byte [bx - 0x7b59], 0        ; 0x982d
+    cmp byte [bx + bss_84a6 + 0x1], 0 ; 0x982d
     jne short @..api_idx_0004_VRTU.l10 ; 0x9832
     mov al, byte [bx + bss_84a6]     ; 0x9834
     sub ah, ah                       ; 0x9838
     mov cx, 0x26                     ; 0x983a
     imul cx                          ; 0x983d
     mov bx, ax                       ; 0x983f
-    mov al, byte [bx - 0x7b15]       ; 0x9841
+    mov al, byte [bx + bss_84e8 + 0x3] ; 0x9841
     push ax                          ; 0x9845
     mov ax, word [bp + 0x4]          ; 0x9846
     imul cx                          ; 0x9849
     mov bx, ax                       ; 0x984b
     pop ax                           ; 0x984d
-    mov byte [bx - 0x7b15], al       ; 0x984e
+    mov byte [bx + bss_84e8 + 0x3], al ; 0x984e
     mov ax, 6                        ; 0x9852
     imul word [bp - 0x0002]          ; 0x9855
     mov bx, ax                       ; 0x9858
@@ -167,14 +167,14 @@ api_idx_0004_VRTU:
     imul cx                          ; 0x9862
     mov bx, ax                       ; 0x9864
     pop ax                           ; 0x9866
-    mov byte [bx - 0x7b12], al       ; 0x9867
+    mov byte [bx + slot_records + 0x2], al ; 0x9867
     push word [bp + 0x4]             ; 0x986b
     call loc_QJRN                    ; 0x986e
     pop cx                           ; 0x9871
     mov ax, 0x26                     ; 0x9872
     imul word [bp + 0x4]             ; 0x9875
     mov bx, ax                       ; 0x9878
-    cmp byte [bx - 0x7b16], 0        ; 0x987a
+    cmp byte [bx + bss_84e8 + 0x2], 0 ; 0x987a
     jne short @..api_idx_0004_VRTU.l9 ; 0x987f
     push word [bp + 0x4]             ; 0x9881
     call api_idx_003a_HOUV           ; 0x9884
@@ -184,8 +184,8 @@ api_idx_0004_VRTU:
     mov ax, 0x26                     ; 0x9889
     imul word [bp + 0x4]             ; 0x988c
     mov bx, ax                       ; 0x988f
-    mov byte [bx - 0x7b16], 5        ; 0x9891
-    mov al, byte [bx - 0x7b12]       ; 0x9896
+    mov byte [bx + bss_84e8 + 0x2], 5 ; 0x9891
+    mov al, byte [bx + slot_records + 0x2] ; 0x9896
     sub ah, ah                       ; 0x989a
     push ax                          ; 0x989c
     mov ax, 0xa                      ; 0x989d

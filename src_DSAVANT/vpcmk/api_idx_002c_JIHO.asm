@@ -42,7 +42,7 @@ api_idx_002c_JIHO:
     cmp word [bp - 0x0002], byte 0   ; 0x6797
     jne short @..api_idx_002c_JIHO.l1 ; 0x679b
     mov bx, word [bp + 0x4]          ; 0x679d
-    mov byte [bx - 0x6f8a], 0        ; 0x67a0
+    mov byte [bx + bss_9074 + 0x2], 0 ; 0x67a0
     mov ax, 0                        ; 0x67a5
     push ax                          ; 0x67a8
     call gfx_wait_sound              ; 0x67a9

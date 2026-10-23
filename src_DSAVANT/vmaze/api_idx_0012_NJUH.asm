@@ -33,7 +33,7 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0x9f3f
     imul word [bp + 0x6]             ; 0x9f42
     mov bx, ax                       ; 0x9f45
-    cmp byte [bx - 0x7b16], 1        ; 0x9f47
+    cmp byte [bx + bss_84e8 + 0x2], 1 ; 0x9f47
     je short @..api_idx_0012_NJUH.l1 ; 0x9f4c
     cmp word [bp + 0x6], byte 0x13   ; 0x9f4e
     jne short @..api_idx_0012_NJUH.l2 ; 0x9f52
@@ -53,7 +53,7 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0x9f78
     imul word [bp + 0x6]             ; 0x9f7b
     mov bx, ax                       ; 0x9f7e
-    mov al, byte [bx - 0x7b00]       ; 0x9f80
+    mov al, byte [bx + slot_records + 0x14] ; 0x9f80
     cbw                              ; 0x9f84
     mov cx, 4                        ; 0x9f85
     cwd                              ; 0x9f88
@@ -67,7 +67,7 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0x9f97
     imul word [bp + 0x4]             ; 0x9f9a
     mov bx, ax                       ; 0x9f9d
-    mov al, byte [bx - 0x7b00]       ; 0x9f9f
+    mov al, byte [bx + slot_records + 0x14] ; 0x9f9f
     cbw                              ; 0x9fa3
     mov cx, 4                        ; 0x9fa4
     cwd                              ; 0x9fa7
@@ -81,7 +81,7 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0x9fb6
     imul word [bp + 0x4]             ; 0x9fb9
     mov bx, ax                       ; 0x9fbc
-    mov al, byte [bx - 0x7b00]       ; 0x9fbe
+    mov al, byte [bx + slot_records + 0x14] ; 0x9fbe
     cbw                              ; 0x9fc2
     push ax                          ; 0x9fc3
     call random_below                ; 0x9fc4
@@ -91,7 +91,7 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0x9fcd
     imul word [bp + 0x4]             ; 0x9fd0
     mov bx, ax                       ; 0x9fd3
-    mov byte [bx - 0x7b16], 7        ; 0x9fd5
+    mov byte [bx + bss_84e8 + 0x2], 7 ; 0x9fd5
     mov word [bp - 0x000e], 0xffff   ; 0x9fda
 @..api_idx_0012_NJUH.l5:
     cmp word [bp - 0x000e], byte 0   ; 0x9fdf
@@ -117,7 +117,7 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0xa006
     imul word [bp + 0x6]             ; 0xa009
     mov bx, ax                       ; 0xa00c
-    mov al, byte [bx - 0x7b00]       ; 0xa00e
+    mov al, byte [bx + slot_records + 0x14] ; 0xa00e
     cbw                              ; 0xa012
     mov cx, ax                       ; 0xa013
     pop ax                           ; 0xa015
@@ -133,12 +133,12 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0xa02d
     imul word [bp + 0x6]             ; 0xa030
     mov bx, ax                       ; 0xa033
-    mov al, byte [bx - 0x7b00]       ; 0xa035
+    mov al, byte [bx + slot_records + 0x14] ; 0xa035
     push ax                          ; 0xa039
     mov ax, 0x26                     ; 0xa03a
     imul word [bp + 0x4]             ; 0xa03d
     mov bx, ax                       ; 0xa040
-    mov cl, byte [bx - 0x7b00]       ; 0xa042
+    mov cl, byte [bx + slot_records + 0x14] ; 0xa042
     pop ax                           ; 0xa046
     cmp al, cl                       ; 0xa047
     jge short @..api_idx_0012_NJUH.l8 ; 0xa049
@@ -159,29 +159,29 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0xa06e
     imul word [bp + 0x4]             ; 0xa071
     mov bx, ax                       ; 0xa074
-    mov al, byte [bx - 0x7b00]       ; 0xa076
+    mov al, byte [bx + slot_records + 0x14] ; 0xa076
     cbw                              ; 0xa07a
     sub ax, word [bp - 0x0006]       ; 0xa07b
-    mov byte [bx - 0x7b00], al       ; 0xa07e
+    mov byte [bx + slot_records + 0x14], al ; 0xa07e
     mov ax, 0x26                     ; 0xa082
     imul word [bp + 0x6]             ; 0xa085
     mov bx, ax                       ; 0xa088
-    mov al, byte [bx - 0x7b00]       ; 0xa08a
+    mov al, byte [bx + slot_records + 0x14] ; 0xa08a
     cbw                              ; 0xa08e
     sub ax, word [bp - 0x0008]       ; 0xa08f
-    mov byte [bx - 0x7b00], al       ; 0xa092
+    mov byte [bx + slot_records + 0x14], al ; 0xa092
 @..api_idx_0012_NJUH.l9:
     cmp word [bp - 0x000e], byte 0   ; 0xa096
     jne short @..api_idx_0012_NJUH.l10 ; 0xa09a
     mov ax, 0x26                     ; 0xa09c
     imul word [bp + 0x4]             ; 0xa09f
     mov bx, ax                       ; 0xa0a2
-    cmp byte [bx - 0x7b00], 0        ; 0xa0a4
+    cmp byte [bx + slot_records + 0x14], 0 ; 0xa0a4
     jle short @..api_idx_0012_NJUH.l10 ; 0xa0a9
     mov ax, 0x26                     ; 0xa0ab
     imul word [bp + 0x6]             ; 0xa0ae
     mov bx, ax                       ; 0xa0b1
-    cmp byte [bx - 0x7b00], 0        ; 0xa0b3
+    cmp byte [bx + slot_records + 0x14], 0 ; 0xa0b3
     jle short @..api_idx_0012_NJUH.l10 ; 0xa0b8
     jmp near @..api_idx_0012_NJUH.l4 ; 0xa0ba
 @..api_idx_0012_NJUH.l10:
@@ -189,7 +189,7 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0xa0c2
     imul word [bp + 0x6]             ; 0xa0c5
     mov bx, ax                       ; 0xa0c8
-    cmp byte [bx - 0x7b00], 0        ; 0xa0ca
+    cmp byte [bx + slot_records + 0x14], 0 ; 0xa0ca
     jg short @..api_idx_0012_NJUH.l13 ; 0xa0cf
     cmp word [bp - 0x0010], byte 0   ; 0xa0d1
     je short @..api_idx_0012_NJUH.l11 ; 0xa0d5
@@ -203,14 +203,14 @@ api_idx_0012_NJUH:
     imul word [bp + 0x6]             ; 0xa0e6
     mov bx, ax                       ; 0xa0e9
     pop ax                           ; 0xa0eb
-    mov byte [bx - 0x7b00], al       ; 0xa0ec
+    mov byte [bx + slot_records + 0x14], al ; 0xa0ec
     jmp short @..api_idx_0012_NJUH.l12 ; 0xa0f0
 @..api_idx_0012_NJUH.l11:
     mov word [bp - 0x0012], 1        ; 0xa0f2
     mov ax, 0x26                     ; 0xa0f7
     imul word [bp + 0x6]             ; 0xa0fa
     mov bx, ax                       ; 0xa0fd
-    mov byte [bx - 0x7b00], 0        ; 0xa0ff
+    mov byte [bx + slot_records + 0x14], 0 ; 0xa0ff
 @..api_idx_0012_NJUH.l12:
     push word [bp + 0x6]             ; 0xa104
     push word [bp + 0x4]             ; 0xa107
@@ -222,12 +222,12 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0xa118
     imul word [bp + 0x6]             ; 0xa11b
     mov bx, ax                       ; 0xa11e
-    mov al, byte [bx - 0x7b00]       ; 0xa120
+    mov al, byte [bx + slot_records + 0x14] ; 0xa120
     push ax                          ; 0xa124
     mov ax, 0x26                     ; 0xa125
     imul word [bp + 0x4]             ; 0xa128
     mov bx, ax                       ; 0xa12b
-    mov cl, byte [bx - 0x7b00]       ; 0xa12d
+    mov cl, byte [bx + slot_records + 0x14] ; 0xa12d
     pop ax                           ; 0xa131
     cmp al, cl                       ; 0xa132
     jle short @..api_idx_0012_NJUH.l14 ; 0xa134
@@ -240,20 +240,20 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0xa142
     imul word [bp + 0x4]             ; 0xa145
     mov bx, ax                       ; 0xa148
-    mov byte [bx - 0x7b16], 7        ; 0xa14a
+    mov byte [bx + bss_84e8 + 0x2], 7 ; 0xa14a
     mov word [bp - 0x000e], 0xffff   ; 0xa14f
     jmp short @..api_idx_0012_NJUH.l16 ; 0xa154
 @..api_idx_0012_NJUH.l14:
     mov ax, 0x26                     ; 0xa156
     imul word [bp + 0x6]             ; 0xa159
     mov bx, ax                       ; 0xa15c
-    mov al, byte [bx - 0x7b00]       ; 0xa15e
+    mov al, byte [bx + slot_records + 0x14] ; 0xa15e
     cbw                              ; 0xa162
     push ax                          ; 0xa163
     mov ax, 0x26                     ; 0xa164
     imul word [bp + 0x4]             ; 0xa167
     mov bx, ax                       ; 0xa16a
-    mov al, byte [bx - 0x7b00]       ; 0xa16c
+    mov al, byte [bx + slot_records + 0x14] ; 0xa16c
     cbw                              ; 0xa170
     mov cx, 3                        ; 0xa171
     cwd                              ; 0xa174
@@ -265,9 +265,9 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0xa17e
     imul word [bp + 0x6]             ; 0xa181
     mov bx, ax                       ; 0xa184
-    cmp byte [bx - 0x7b16], 3        ; 0xa186
+    cmp byte [bx + bss_84e8 + 0x2], 3 ; 0xa186
     je short @..api_idx_0012_NJUH.l15 ; 0xa18b
-    cmp byte [bx - 0x7b16], 2        ; 0xa18d
+    cmp byte [bx + bss_84e8 + 0x2], 2 ; 0xa18d
     jne short @..api_idx_0012_NJUH.l16 ; 0xa192
 @..api_idx_0012_NJUH.l15:
     push word [bp + 0x6]             ; 0xa194
@@ -276,13 +276,13 @@ api_idx_0012_NJUH:
     mov ax, 0x26                     ; 0xa19b
     imul word [bp + 0x6]             ; 0xa19e
     mov bx, ax                       ; 0xa1a1
-    mov byte [bx - 0x7b16], 7        ; 0xa1a3
+    mov byte [bx + bss_84e8 + 0x2], 7 ; 0xa1a3
     mov word [bp - 0x000e], 1        ; 0xa1a8
 @..api_idx_0012_NJUH.l16:
     mov ax, 0x26                     ; 0xa1ad
     imul word [bp + 0x4]             ; 0xa1b0
     mov bx, ax                       ; 0xa1b3
-    cmp byte [bx - 0x7b00], 0        ; 0xa1b5
+    cmp byte [bx + slot_records + 0x14], 0 ; 0xa1b5
     jg short @..api_idx_0012_NJUH.l17 ; 0xa1ba
     mov ax, 3                        ; 0xa1bc
     push ax                          ; 0xa1bf
@@ -294,14 +294,14 @@ api_idx_0012_NJUH:
     imul word [bp + 0x4]             ; 0xa1c9
     mov bx, ax                       ; 0xa1cc
     pop ax                           ; 0xa1ce
-    mov byte [bx - 0x7b00], al       ; 0xa1cf
-    mov byte [bx - 0x7b16], 7        ; 0xa1d3
+    mov byte [bx + slot_records + 0x14], al ; 0xa1cf
+    mov byte [bx + bss_84e8 + 0x2], 7 ; 0xa1d3
     mov word [bp - 0x000e], 0xffff   ; 0xa1d8
 @..api_idx_0012_NJUH.l17:
     mov ax, 0x26                     ; 0xa1dd
     imul word [bp + 0x4]             ; 0xa1e0
     mov bx, ax                       ; 0xa1e3
-    cmp byte [bx - 0x7b16], 7        ; 0xa1e5
+    cmp byte [bx + bss_84e8 + 0x2], 7 ; 0xa1e5
     jne short @..api_idx_0012_NJUH.l18 ; 0xa1ea
     push word [bp + 0x4]             ; 0xa1ec
     call api_idx_003a_HOUV           ; 0xa1ef

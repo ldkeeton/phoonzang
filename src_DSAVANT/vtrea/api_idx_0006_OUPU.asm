@@ -38,7 +38,7 @@ api_idx_0006_OUPU:
     mov ax, 0x248                    ; 0x556c
     imul word [bp - 0x0002]          ; 0x556f
     mov bx, ax                       ; 0x5572
-    cmp byte [bx + 0x5e2f], 3        ; 0x5574
+    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x5574
     jae short @..api_idx_0006_OUPU.l5 ; 0x5579
     mov ax, 0xc8                     ; 0x557b
     push ax                          ; 0x557e
@@ -48,7 +48,7 @@ api_idx_0006_OUPU:
     mov ax, 0x248                    ; 0x5584
     imul word [bp - 0x0002]          ; 0x5587
     mov bx, ax                       ; 0x558a
-    mov al, byte [bx + 0x5da1]       ; 0x558c
+    mov al, byte [bx + cell_key_grid + 0x16d] ; 0x558c
     sub ah, ah                       ; 0x5590
     mov cx, ax                       ; 0x5592
     pop ax                           ; 0x5594
@@ -89,7 +89,7 @@ api_idx_0006_OUPU:
     mov ax, word [game_state_arg]    ; 0x55de
     mov cx, 4                        ; 0x55e1
     shl ax, cl                       ; 0x55e4
-    add ax, 0x8d14                   ; 0x55e6
+    add ax, party_region + 0x2       ; 0x55e6
     push ax                          ; 0x55e9
     call set_bitmap_bit              ; 0x55ea
     add sp, byte 6                   ; 0x55ed
@@ -127,13 +127,13 @@ api_idx_0006_OUPU:
     push ax                          ; 0x563b
     mov bx, word [maze_tables]       ; 0x563c
     mov si, word [party_region]      ; 0x5640
-    mov al, byte [bx + si + 0x960]   ; 0x5644
+    mov al, byte [bx + si + spell_table + 0x340] ; 0x5644
     sub ah, ah                       ; 0x5648
     push ax                          ; 0x564a
     mov ax, word [game_state_arg]    ; 0x564b
     mov cx, 4                        ; 0x564e
     shl ax, cl                       ; 0x5651
-    add ax, 0x8d14                   ; 0x5653
+    add ax, party_region + 0x2       ; 0x5653
     push ax                          ; 0x5656
     call set_bitmap_bit              ; 0x5657
     add sp, byte 6                   ; 0x565a
@@ -143,7 +143,7 @@ api_idx_0006_OUPU:
     push ax                          ; 0x5666
     mov bx, word [maze_tables]       ; 0x5667
     mov si, word [party_region]      ; 0x566b
-    mov al, byte [bx + si + 0x960]   ; 0x566f
+    mov al, byte [bx + si + spell_table + 0x340] ; 0x566f
     sub ah, ah                       ; 0x5673
     push ax                          ; 0x5675
     mov ax, word [game_state_arg]    ; 0x5676

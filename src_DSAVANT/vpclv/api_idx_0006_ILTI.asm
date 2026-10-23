@@ -58,11 +58,11 @@ jumptable_4e49:
     mov ax, 0x248                    ; 0x4e83
     imul word [bp + 0x4]             ; 0x4e86
     mov bx, ax                       ; 0x4e89
-    mov al, byte [bx + 0x5e2e]       ; 0x4e8b
+    mov al, byte [bx + bss_5e2a + 0x4] ; 0x4e8b
     sub ah, ah                       ; 0x4e8f
     cmp ax, word [bp - 0x0004]       ; 0x4e91
     jge short @..api_idx_0006_ILTI.l5 ; 0x4e94
     mov al, byte [bp - 0x0004]       ; 0x4e96
-    mov byte [bx + 0x5e2e], al       ; 0x4e99
+    mov byte [bx + bss_5e2a + 0x4], al ; 0x4e99
 @..api_idx_0006_ILTI.l5:
     ret                              ; 0x4e9d

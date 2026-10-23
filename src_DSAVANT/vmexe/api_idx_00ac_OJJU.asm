@@ -43,7 +43,7 @@ api_idx_00ac_OJJU:
     imul word [bss_8462]             ; 0x79f6
     add ax, word [bp + 0x6]          ; 0x79fa
     mov bx, ax                       ; 0x79fd
-    mov al, byte [bx + 0x5d48]       ; 0x79ff
+    mov al, byte [bx + cell_key_grid + 0x114] ; 0x79ff
     sub ah, ah                       ; 0x7a03
     mov word [bp - 0x004c], ax       ; 0x7a05
     cmp word [bp + 0x8], byte 8      ; 0x7a08
@@ -57,14 +57,14 @@ api_idx_00ac_OJJU:
     pop ax                           ; 0x7a1e
     add ax, cx                       ; 0x7a1f
     mov bx, ax                       ; 0x7a21
-    mov al, byte [bx + 0x5c3b]       ; 0x7a23
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x7a23
     sub ah, ah                       ; 0x7a27
     test ax, 0x20                    ; 0x7a29
     jne short @..api_idx_00ac_OJJU.l2 ; 0x7a2c
     mov ax, 0x248                    ; 0x7a2e
     imul word [bss_8462]             ; 0x7a31
     mov bx, ax                       ; 0x7a35
-    mov al, byte [bx + 0x5d49]       ; 0x7a37
+    mov al, byte [bx + cell_key_grid + 0x115] ; 0x7a37
     sub ah, ah                       ; 0x7a3b
     mov word [bp - 0x004c], ax       ; 0x7a3d
 @..api_idx_00ac_OJJU.l2:
@@ -117,7 +117,7 @@ api_idx_00ac_OJJU:
     pop ax                           ; 0x7ab0
     add ax, cx                       ; 0x7ab1
     mov bx, ax                       ; 0x7ab3
-    mov al, byte [bx + 0x5c3b]       ; 0x7ab5
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x7ab5
     sub ah, ah                       ; 0x7ab9
     test ax, 0x80                    ; 0x7abb
     je short @..api_idx_00ac_OJJU.l5 ; 0x7abe
@@ -170,7 +170,7 @@ api_idx_00ac_OJJU:
     pop ax                           ; 0x7b2b
     add ax, cx                       ; 0x7b2c
     mov bx, ax                       ; 0x7b2e
-    mov al, byte [bx + 0x5c39]       ; 0x7b30
+    mov al, byte [bx + cell_key_grid + 0x5] ; 0x7b30
     sub ah, ah                       ; 0x7b34
     jmp near @..api_idx_00ac_OJJU.l13 ; 0x7b36
 jumptable_7c0e_case_16:
@@ -213,7 +213,7 @@ jumptable_7c0e_case_28:
     pop ax                           ; 0x7b99
     add ax, cx                       ; 0x7b9a
     mov bx, ax                       ; 0x7b9c
-    cmp byte [bx + 0x5c3a], 0        ; 0x7b9e
+    cmp byte [bx + cell_key_grid + 0x6], 0 ; 0x7b9e
     jbe short @..api_idx_00ac_OJJU.l9 ; 0x7ba3
     mov word [bp - 0x0076], 0xf      ; 0x7ba5
     mov word [bss_90de], 0xc         ; 0x7baa
@@ -238,7 +238,7 @@ jumptable_7c0e_case_31:
     pop ax                           ; 0x7bd9
     add ax, cx                       ; 0x7bda
     mov bx, ax                       ; 0x7bdc
-    cmp byte [bx + 0x5c3a], 0        ; 0x7bde
+    cmp byte [bx + cell_key_grid + 0x6], 0 ; 0x7bde
     jbe short @..api_idx_00ac_OJJU.l11 ; 0x7be3
     mov word [bp - 0x0076], 8        ; 0x7be5
     mov word [bss_90de], 5           ; 0x7bea
@@ -732,7 +732,7 @@ jumptable_7e61_case_0:
     imul word [bss_8462]             ; 0x80b6
     add ax, word [bp + 0x6]          ; 0x80ba
     mov bx, ax                       ; 0x80bd
-    mov al, byte [bx + 0x5d48]       ; 0x80bf
+    mov al, byte [bx + cell_key_grid + 0x114] ; 0x80bf
     sub ah, ah                       ; 0x80c3
     cmp ax, 0xff                     ; 0x80c5
     jne short @..api_idx_00ac_OJJU.l35 ; 0x80c8
@@ -741,7 +741,7 @@ jumptable_7e61_case_0:
     mov ax, 0x248                    ; 0x80cd
     imul word [bss_8462]             ; 0x80d0
     push ax                          ; 0x80d4
-    mov al, byte [bx + 0x5d48]       ; 0x80d5
+    mov al, byte [bx + cell_key_grid + 0x114] ; 0x80d5
     sub ah, ah                       ; 0x80d9
     mov cx, 0xc                      ; 0x80db
     imul cx                          ; 0x80de
@@ -749,7 +749,7 @@ jumptable_7e61_case_0:
     pop ax                           ; 0x80e2
     add ax, cx                       ; 0x80e3
     mov bx, ax                       ; 0x80e5
-    mov al, byte [bx + 0x5c39]       ; 0x80e7
+    mov al, byte [bx + cell_key_grid + 0x5] ; 0x80e7
     sub ah, ah                       ; 0x80eb
     jmp short @..api_idx_00ac_OJJU.l36 ; 0x80ed
 jumptable_8145_case_41:
@@ -879,11 +879,11 @@ jumptable_8145:
     mov ax, 0x248                    ; 0x81f8
     imul word [bss_8462]             ; 0x81fb
     mov bx, ax                       ; 0x81ff
-    cmp byte [bx + 0x5d75], 0        ; 0x8201
+    cmp byte [bx + cell_key_grid + 0x141], 0 ; 0x8201
     ja short @..api_idx_00ac_OJJU.l40 ; 0x8206
-    cmp byte [bx + 0x5e2d], 0xc      ; 0x8208
+    cmp byte [bx + bss_5e2a + 0x3], 0xc ; 0x8208
     je short @..api_idx_00ac_OJJU.l40 ; 0x820d
-    cmp byte [bx + 0x5e2d], 0xd      ; 0x820f
+    cmp byte [bx + bss_5e2a + 0x3], 0xd ; 0x820f
     jne short @..api_idx_00ac_OJJU.l42 ; 0x8214
 @..api_idx_00ac_OJJU.l40:
     cmp word [bp - 0x007c], byte 0x12 ; 0x8216
@@ -891,7 +891,7 @@ jumptable_8145:
     mov ax, 0x248                    ; 0x821c
     imul word [bss_8462]             ; 0x821f
     mov bx, ax                       ; 0x8223
-    cmp byte [bx + 0x5d7e], 0        ; 0x8225
+    cmp byte [bx + cell_key_grid + 0x14a], 0 ; 0x8225
     jbe short @..api_idx_00ac_OJJU.l42 ; 0x822a
 @..api_idx_00ac_OJJU.l41:
     mov ax, 2                        ; 0x822c
@@ -933,7 +933,7 @@ jumptable_8145:
     pop ax                           ; 0x828a
     add ax, cx                       ; 0x828b
     mov bx, ax                       ; 0x828d
-    mov al, byte [bx + 0x5d32]       ; 0x828f
+    mov al, byte [bx + cell_key_grid + 0xfe] ; 0x828f
     cbw                              ; 0x8293
     mov cx, ax                       ; 0x8294
     pop ax                           ; 0x8296
@@ -942,7 +942,7 @@ jumptable_8145:
     mov ax, 0x248                    ; 0x829a
     imul word [bss_8462]             ; 0x829d
     mov bx, ax                       ; 0x82a1
-    mov al, byte [bx + 0x5e3a]       ; 0x82a3
+    mov al, byte [bx + bss_5e2a + 0x10] ; 0x82a3
     cbw                              ; 0x82a7
     mov cx, ax                       ; 0x82a8
     pop ax                           ; 0x82aa
@@ -966,7 +966,7 @@ jumptable_8145:
     imul word [bss_8462]             ; 0x82d0
     add ax, word [bp - 0x007c]       ; 0x82d4
     mov bx, ax                       ; 0x82d7
-    mov al, byte [bx + 0x5d6c]       ; 0x82d9
+    mov al, byte [bx + cell_key_grid + 0x138] ; 0x82d9
     sub ah, ah                       ; 0x82dd
     mov cx, 3                        ; 0x82df
     cwd                              ; 0x82e2
@@ -986,7 +986,7 @@ jumptable_8145:
     pop ax                           ; 0x8303
     add ax, cx                       ; 0x8304
     mov bx, ax                       ; 0x8306
-    mov al, byte [bx + 0x5d32]       ; 0x8308
+    mov al, byte [bx + cell_key_grid + 0xfe] ; 0x8308
     cbw                              ; 0x830c
     push ax                          ; 0x830d
     mov bx, word [bp + 0x4]          ; 0x830e
@@ -1003,7 +1003,7 @@ jumptable_8145:
     mov ax, 0x248                    ; 0x8326
     imul word [bss_8462]             ; 0x8329
     mov bx, ax                       ; 0x832d
-    mov al, byte [bx + 0x5d7e]       ; 0x832f
+    mov al, byte [bx + cell_key_grid + 0x14a] ; 0x832f
     sub ah, ah                       ; 0x8333
     mov cx, 2                        ; 0x8335
     cwd                              ; 0x8338
@@ -1022,9 +1022,9 @@ jumptable_8145:
     pop ax                           ; 0x8353
     add ax, cx                       ; 0x8354
     mov bx, ax                       ; 0x8356
-    mov ax, word [bx + 0x5d24]       ; 0x8358
+    mov ax, word [bx + cell_key_grid + 0xf0] ; 0x8358
     mov word [bp - 0x0070], ax       ; 0x835c
-    mov ax, word [bx + 0x5d26]       ; 0x835f
+    mov ax, word [bx + cell_key_grid + 0xf2] ; 0x835f
     mov word [bp - 0x006e], ax       ; 0x8363
     add bx, strict word 0x5d24       ; 0x8366
     mov word [bp - 0x0052], bx       ; 0x836a
@@ -1032,7 +1032,7 @@ jumptable_8145:
     imul word [bss_8462]             ; 0x8370
     add ax, word [bp + 0x6]          ; 0x8374
     mov bx, ax                       ; 0x8377
-    mov al, byte [bx + 0x5d48]       ; 0x8379
+    mov al, byte [bx + cell_key_grid + 0x114] ; 0x8379
     sub ah, ah                       ; 0x837d
     mov word [bp - 0x0072], ax       ; 0x837f
     cmp word [bp + 0x8], byte 8      ; 0x8382
@@ -1049,13 +1049,13 @@ jumptable_8145:
     pop ax                           ; 0x83a0
     add ax, cx                       ; 0x83a1
     mov bx, ax                       ; 0x83a3
-    mov al, byte [bx + 0x5c3b]       ; 0x83a5
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x83a5
     sub ah, ah                       ; 0x83a9
     test ax, 0x20                    ; 0x83ab
     jne short @..api_idx_00ac_OJJU.l46 ; 0x83ae
     jmp near @..api_idx_00ac_OJJU.l50 ; 0x83b0
 @..api_idx_00ac_OJJU.l46:
-    cmp byte [bx + 0x5c3a], 0        ; 0x83b3
+    cmp byte [bx + cell_key_grid + 0x6], 0 ; 0x83b3
     jne short @..api_idx_00ac_OJJU.l47 ; 0x83b8
     mov ax, word [bss_9058]          ; 0x83ba
     mov cx, 2                        ; 0x83bd
@@ -1090,11 +1090,11 @@ jumptable_8145:
     pop ax                           ; 0x83f9
     add ax, cx                       ; 0x83fa
     mov bx, ax                       ; 0x83fc
-    mov al, byte [bx + 0x5c3a]       ; 0x83fe
+    mov al, byte [bx + cell_key_grid + 0x6] ; 0x83fe
     sub ah, ah                       ; 0x8402
     cmp ax, 0xff                     ; 0x8404
     je short @..api_idx_00ac_OJJU.l48 ; 0x8407
-    dec byte [bx + 0x5c3a]           ; 0x8409
+    dec byte [bx + cell_key_grid + 0x6] ; 0x8409
 @..api_idx_00ac_OJJU.l48:
     mov bx, word [bp - 0x0052]       ; 0x840d
     cmp byte [bx + 0x11], 0x16       ; 0x8410
@@ -1123,7 +1123,7 @@ jumptable_8145:
     mov ax, 0x248                    ; 0x8449
     imul word [bss_8462]             ; 0x844c
     mov bx, ax                       ; 0x8450
-    mov al, byte [bx + 0x5d49]       ; 0x8452
+    mov al, byte [bx + cell_key_grid + 0x115] ; 0x8452
     sub ah, ah                       ; 0x8456
     mov word [bp - 0x0074], ax       ; 0x8458
     cmp ax, 0xff                     ; 0x845b
@@ -1131,21 +1131,21 @@ jumptable_8145:
     mov cx, 0xc                      ; 0x8460
     imul cx                          ; 0x8463
     add bx, ax                       ; 0x8465
-    cmp byte [bx + 0x5c38], 4        ; 0x8467
+    cmp byte [bx + cell_key_grid + 0x4], 4 ; 0x8467
     jne short @..api_idx_00ac_OJJU.l51 ; 0x846c
     mov ax, 0x248                    ; 0x846e
     imul word [bss_8462]             ; 0x8471
     mov bx, ax                       ; 0x8475
-    mov ax, word [bx + 0x5d36]       ; 0x8477
+    mov ax, word [bx + cell_key_grid + 0x102] ; 0x8477
     mov word [bp - 0x0070], ax       ; 0x847b
-    mov ax, word [bx + 0x5d38]       ; 0x847e
+    mov ax, word [bx + cell_key_grid + 0x104] ; 0x847e
     mov word [bp - 0x006e], ax       ; 0x8482
-    add bx, strict word 0x5d36       ; 0x8485
+    add bx, cell_key_grid + 0x102    ; 0x8485
     mov word [bp - 0x0052], bx       ; 0x8489
     mov ax, 0x248                    ; 0x848c
     imul word [bss_8462]             ; 0x848f
     mov bx, ax                       ; 0x8493
-    mov al, byte [bx + 0x5d44]       ; 0x8495
+    mov al, byte [bx + cell_key_grid + 0x110] ; 0x8495
     cbw                              ; 0x8499
     add word [bp - 0x0056], ax       ; 0x849a
     push word [bp - 0x0074]          ; 0x849d
@@ -1168,7 +1168,7 @@ jumptable_8145:
     pop ax                           ; 0x84c6
     add ax, cx                       ; 0x84c7
     mov bx, ax                       ; 0x84c9
-    mov al, byte [bx + 0x5c38]       ; 0x84cb
+    mov al, byte [bx + cell_key_grid + 0x4] ; 0x84cb
     cmp al, 0xe                      ; 0x84cf
     je short @..api_idx_00ac_OJJU.l53 ; 0x84d1
     cmp al, 0xc                      ; 0x84d3
@@ -1176,7 +1176,7 @@ jumptable_8145:
     cmp al, 2                        ; 0x84d7
     je short @..api_idx_00ac_OJJU.l54 ; 0x84d9
 @..api_idx_00ac_OJJU.l53:
-    mov byte [bx + 0x5c3a], 1        ; 0x84db
+    mov byte [bx + cell_key_grid + 0x6], 1 ; 0x84db
 @..api_idx_00ac_OJJU.l54:
     mov word [bp - 0x007e], 0        ; 0x84e0
     push word [bp - 0x0072]          ; 0x84e5
@@ -1577,7 +1577,7 @@ jumptable_883a:
     mov ax, 0x248                    ; 0x88c0
     imul word [bp - 0x0050]          ; 0x88c3
     mov bx, ax                       ; 0x88c6
-    mov al, byte [bx + 0x5d74]       ; 0x88c8
+    mov al, byte [bx + cell_key_grid + 0x140] ; 0x88c8
     sub ah, ah                       ; 0x88cc
     mov cx, 0xa                      ; 0x88ce
     cwd                              ; 0x88d1
@@ -1696,7 +1696,7 @@ jumptable_883a:
     push word [bp - 0x0002]          ; 0x89ef
     mov ax, 0x248                    ; 0x89f2
     imul word [bp - 0x0050]          ; 0x89f5
-    add ax, 0x5d33                   ; 0x89f8
+    add ax, cell_key_grid + 0xff     ; 0x89f8
     push ax                          ; 0x89fb
     call test_bit                    ; 0x89fc
     add sp, byte 4                   ; 0x89ff
@@ -1827,14 +1827,14 @@ jumptable_883a:
     mov ax, 0x248                    ; 0x8b32
     imul word [bp - 0x0050]          ; 0x8b35
     mov bx, ax                       ; 0x8b38
-    mov al, byte [bx + 0x5d49]       ; 0x8b3a
+    mov al, byte [bx + cell_key_grid + 0x115] ; 0x8b3a
     sub ah, ah                       ; 0x8b3e
     cmp ax, 0xff                     ; 0x8b40
     je short @..api_idx_00ac_OJJU.l110 ; 0x8b43
     mov cx, 0xc                      ; 0x8b45
     imul cx                          ; 0x8b48
     add bx, ax                       ; 0x8b4a
-    cmp byte [bx + 0x5c38], 0xb      ; 0x8b4c
+    cmp byte [bx + cell_key_grid + 0x4], 0xb ; 0x8b4c
     jne short @..api_idx_00ac_OJJU.l110 ; 0x8b51
     mov ax, 0                        ; 0x8b53
     push ax                          ; 0x8b56
@@ -2259,7 +2259,7 @@ jumptable_883a:
     mov ax, 0x248                    ; 0x8f53
     imul word [bp - 0x0050]          ; 0x8f56
     mov bx, ax                       ; 0x8f59
-    mov al, byte [bx + 0x5e2c]       ; 0x8f5b
+    mov al, byte [bx + bss_5e2a + 0x2] ; 0x8f5b
     sub ah, ah                       ; 0x8f5f
     inc ax                           ; 0x8f61
     inc ax                           ; 0x8f62

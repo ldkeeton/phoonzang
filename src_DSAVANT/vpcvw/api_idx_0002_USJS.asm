@@ -78,7 +78,7 @@ jumptable_45f0:
     mov ax, 0x248                    ; 0x461f
     imul word [bp + 0x4]             ; 0x4622
     mov bx, ax                       ; 0x4625
-    mov al, byte [bx + 0x5e2d]       ; 0x4627
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x4627
     sub ah, ah                       ; 0x462b
     push ax                          ; 0x462d
     mov ax, word [bp + 0x6]          ; 0x462e
@@ -91,7 +91,7 @@ jumptable_45f0:
     mov ax, 0x248                    ; 0x4640
     imul word [bp + 0x4]             ; 0x4643
     mov bx, ax                       ; 0x4646
-    mov al, byte [bx + 0x5e2b]       ; 0x4648
+    mov al, byte [bx + bss_5e2a + 0x1] ; 0x4648
     sub ah, ah                       ; 0x464c
     push ax                          ; 0x464e
     mov ax, word [bp + 0x6]          ; 0x464f
@@ -104,7 +104,7 @@ jumptable_45f0:
     mov ax, 0x248                    ; 0x4661
     imul word [bp + 0x4]             ; 0x4664
     mov bx, ax                       ; 0x4667
-    mov al, byte [bx + 0x5e2c]       ; 0x4669
+    mov al, byte [bx + bss_5e2a + 0x2] ; 0x4669
     sub ah, ah                       ; 0x466d
     push ax                          ; 0x466f
     mov ax, word [bp + 0x6]          ; 0x4670

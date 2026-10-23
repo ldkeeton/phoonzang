@@ -50,7 +50,7 @@ api_idx_0094_NVHQ:
     pop ax                           ; 0x344b
     add ax, cx                       ; 0x344c
     mov bx, ax                       ; 0x344e
-    mov al, byte [bx + 0x5c3b]       ; 0x3450
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x3450
     sub ah, ah                       ; 0x3454
     test ax, 0x80                    ; 0x3456
     je short @..api_idx_0094_NVHQ.l4 ; 0x3459
@@ -83,7 +83,7 @@ api_idx_0094_NVHQ:
     pop ax                           ; 0x3496
     add ax, cx                       ; 0x3497
     mov bx, ax                       ; 0x3499
-    mov al, byte [bx + 0x5c39]       ; 0x349b
+    mov al, byte [bx + cell_key_grid + 0x5] ; 0x349b
     sub ah, ah                       ; 0x349f
     add ax, 0x1770                   ; 0x34a1
     push ax                          ; 0x34a4
@@ -113,7 +113,7 @@ api_idx_0094_NVHQ:
     pop ax                           ; 0x34dd
     add ax, cx                       ; 0x34de
     mov bx, ax                       ; 0x34e0
-    mov al, byte [bx + 0x5c38]       ; 0x34e2
+    mov al, byte [bx + cell_key_grid + 0x4] ; 0x34e2
     sub ah, ah                       ; 0x34e6
     mov bx, ax                       ; 0x34e8
     cmp byte [bx + 0x60e], 1         ; 0x34ea
@@ -133,7 +133,7 @@ api_idx_0094_NVHQ:
     pop ax                           ; 0x350c
     add ax, cx                       ; 0x350d
     mov bx, ax                       ; 0x350f
-    mov al, byte [bx + 0x5c3a]       ; 0x3511
+    mov al, byte [bx + cell_key_grid + 0x6] ; 0x3511
     sub ah, ah                       ; 0x3515
     mov cx, word [bp - 0x006a]       ; 0x3517
     shl cx, 1                        ; 0x351a
@@ -269,7 +269,7 @@ api_idx_0094_NVHQ:
     mov ax, 6                        ; 0x3646
     imul dx                          ; 0x3649
     mov bx, ax                       ; 0x364b
-    cmp byte [bx + 0x624], 1         ; 0x364d
+    cmp byte [bx + spell_table + 0x4], 1 ; 0x364d
     jne short @..api_idx_0094_NVHQ.l15 ; 0x3652
     call pick_party_member           ; 0x3654
     mov word [bp - 0x0094], ax       ; 0x3657

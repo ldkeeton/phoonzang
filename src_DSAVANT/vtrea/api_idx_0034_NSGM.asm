@@ -10,7 +10,7 @@ api_idx_0034_NSGM:
     mov ax, word [bx + si + 0x1e0]   ; 0x7009
     mov word [bp - 0x0006], ax       ; 0x700d
     mov si, word [bp + 0x6]          ; 0x7010
-    mov al, byte [bx + si + 0xa50]   ; 0x7013
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x7013
     sub ah, ah                       ; 0x7017
     mov word [bp - 0x0002], ax       ; 0x7019
     mov ax, 5                        ; 0x701c

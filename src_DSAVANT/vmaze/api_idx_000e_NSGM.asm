@@ -83,9 +83,9 @@ api_idx_000e_NSGM:
     mov ax, 0x248                    ; 0x16f0
     imul word [bp - 0x000e]          ; 0x16f3
     mov bx, ax                       ; 0x16f6
-    cmp byte [bx + 0x5e2f], 0        ; 0x16f8
+    cmp byte [bx + bss_5e2a + 0x5], 0 ; 0x16f8
     jne short @..api_idx_000e_NSGM.l9 ; 0x16fd
-    cmp byte [bx + 0x5d83], 0        ; 0x16ff
+    cmp byte [bx + cell_key_grid + 0x14f], 0 ; 0x16ff
     jne short @..api_idx_000e_NSGM.l9 ; 0x1704
     mov ax, 0x64                     ; 0x1706
     push ax                          ; 0x1709
@@ -95,7 +95,7 @@ api_idx_000e_NSGM:
     mov ax, 0x248                    ; 0x170f
     imul word [bp - 0x000e]          ; 0x1712
     mov bx, ax                       ; 0x1715
-    mov al, byte [bx + 0x5da5]       ; 0x1717
+    mov al, byte [bx + cell_key_grid + 0x171] ; 0x1717
     sub ah, ah                       ; 0x171b
     mov cx, ax                       ; 0x171d
     pop ax                           ; 0x171f
@@ -113,7 +113,7 @@ api_idx_000e_NSGM:
     mov ax, 0x248                    ; 0x1735
     imul word [bp - 0x000e]          ; 0x1738
     mov bx, ax                       ; 0x173b
-    mov al, byte [bx + 0x5d5c]       ; 0x173d
+    mov al, byte [bx + cell_key_grid + 0x128] ; 0x173d
     sub ah, ah                       ; 0x1741
     mov cx, ax                       ; 0x1743
     pop ax                           ; 0x1745
@@ -127,7 +127,7 @@ api_idx_000e_NSGM:
     imul word [bp - 0x000e]          ; 0x1756
     mov bx, ax                       ; 0x1759
     pop ax                           ; 0x175b
-    mov byte [bx + 0x5d5c], al       ; 0x175c
+    mov byte [bx + cell_key_grid + 0x128], al ; 0x175c
     mov ax, 1                        ; 0x1760
     push ax                          ; 0x1763
     push word [bp - 0x000e]          ; 0x1764
@@ -186,7 +186,7 @@ api_idx_000e_NSGM:
     add sp, byte 6                   ; 0x17d6
     mov bx, word [maze_tables]       ; 0x17d9
     mov si, word [party_map_piece]   ; 0x17dd
-    mov al, byte [bx + si + 0xb40]   ; 0x17e1
+    mov al, byte [bx + si + spell_table + 0x520] ; 0x17e1
     sub ah, ah                       ; 0x17e5
     mov word [party_region], ax      ; 0x17e7
     mov ax, 0                        ; 0x17ea

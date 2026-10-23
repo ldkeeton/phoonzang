@@ -36,7 +36,7 @@ api_idx_006e_LVOK:
     push ax                          ; 0x3daf
     mov ax, 0x248                    ; 0x3db0
     imul word [bp + 0x4]             ; 0x3db3
-    add ax, 0x5e12                   ; 0x3db6
+    add ax, cell_key_grid + 0x1de    ; 0x3db6
     push ax                          ; 0x3db9
     call aztec_movmem                ; 0x3dba
     add sp, byte 6                   ; 0x3dbd
@@ -46,7 +46,7 @@ api_idx_006e_LVOK:
     push ax                          ; 0x3dc7
     mov ax, 0x248                    ; 0x3dc8
     imul word [bp + 0x4]             ; 0x3dcb
-    add ax, 0x5e12                   ; 0x3dce
+    add ax, cell_key_grid + 0x1de    ; 0x3dce
     push ax                          ; 0x3dd1
     call aztec_setmem                ; 0x3dd2
     add sp, byte 6                   ; 0x3dd5
@@ -57,11 +57,11 @@ api_idx_006e_LVOK:
     mov ax, 6                        ; 0x3de7
     imul word [bp - 0x0002]          ; 0x3dea
     mov bx, ax                       ; 0x3ded
-    mov al, byte [bx + 0x625]        ; 0x3def
+    mov al, byte [bx + spell_table + 0x5] ; 0x3def
     sub ah, ah                       ; 0x3df3
     test word [bp - 0x000c], ax      ; 0x3df5
     je short @..api_idx_006e_LVOK.l8 ; 0x3df8
-    mov al, byte [bx + 0x621]        ; 0x3dfa
+    mov al, byte [bx + spell_table + 0x1] ; 0x3dfa
     sub ah, ah                       ; 0x3dfe
     cmp ax, word [bp - 0x000a]       ; 0x3e00
     jg short @..api_idx_006e_LVOK.l8 ; 0x3e03
@@ -77,7 +77,7 @@ api_idx_006e_LVOK:
     push word [bp - 0x0002]          ; 0x3e1a
     mov ax, 0x248                    ; 0x3e1d
     imul word [bp + 0x4]             ; 0x3e20
-    add ax, 0x5e12                   ; 0x3e23
+    add ax, cell_key_grid + 0x1de    ; 0x3e23
     push ax                          ; 0x3e26
     call set_bitmap_bit              ; 0x3e27
     add sp, byte 6                   ; 0x3e2a
@@ -93,7 +93,7 @@ api_idx_006e_LVOK:
     push ax                          ; 0x3e44
     mov ax, 0x248                    ; 0x3e45
     imul word [bp + 0x4]             ; 0x3e48
-    add ax, 0x5e12                   ; 0x3e4b
+    add ax, cell_key_grid + 0x1de    ; 0x3e4b
     push ax                          ; 0x3e4e
     lea ax, word [bp - 0x001e]       ; 0x3e4f
     push ax                          ; 0x3e52
@@ -127,7 +127,7 @@ api_idx_006e_LVOK:
     push ax                          ; 0x3e91
     mov ax, 0x248                    ; 0x3e92
     imul word [bp + 0x4]             ; 0x3e95
-    add ax, 0x5e12                   ; 0x3e98
+    add ax, cell_key_grid + 0x1de    ; 0x3e98
     push ax                          ; 0x3e9b
     lea ax, word [bp - 0x001e]       ; 0x3e9c
     push ax                          ; 0x3e9f
@@ -148,20 +148,20 @@ api_idx_006e_LVOK:
     push dx                          ; 0x3ec2
     mov ax, 0x248                    ; 0x3ec3
     imul word [bp + 0x4]             ; 0x3ec6
-    add ax, 0x5e12                   ; 0x3ec9
+    add ax, cell_key_grid + 0x1de    ; 0x3ec9
     push ax                          ; 0x3ecc
     call set_bitmap_bit              ; 0x3ecd
     add sp, byte 6                   ; 0x3ed0
     mov ax, 6                        ; 0x3ed3
     imul word [bp - 0x0006]          ; 0x3ed6
     mov bx, ax                       ; 0x3ed9
-    mov al, byte [bx + 0x621]        ; 0x3edb
+    mov al, byte [bx + spell_table + 0x1] ; 0x3edb
     sub ah, ah                       ; 0x3edf
     push ax                          ; 0x3ee1
     mov ax, 0x248                    ; 0x3ee2
     imul word [bp + 0x4]             ; 0x3ee5
     mov bx, ax                       ; 0x3ee8
-    mov al, byte [bx + 0x5d66]       ; 0x3eea
+    mov al, byte [bx + cell_key_grid + 0x132] ; 0x3eea
     sub ah, ah                       ; 0x3eee
     mov cx, 6                        ; 0x3ef0
     cwd                              ; 0x3ef3
@@ -184,13 +184,13 @@ api_idx_006e_LVOK:
     shl cx, 1                        ; 0x3f1b
     add ax, cx                       ; 0x3f1d
     mov bx, ax                       ; 0x3f1f
-    mov ax, word [bx + 0x5c1e]       ; 0x3f21
+    mov ax, word [bx + pc_spell_power_cap + 0x6] ; 0x3f21
     add ax, word [bp - 0x0002]       ; 0x3f25
     push ax                          ; 0x3f28
     mov ax, 6                        ; 0x3f29
     imul word [bp - 0x0006]          ; 0x3f2c
     mov bx, ax                       ; 0x3f2f
-    mov al, byte [bx + 0x622]        ; 0x3f31
+    mov al, byte [bx + spell_table + 0x2] ; 0x3f31
     sub ah, ah                       ; 0x3f35
     mov cx, ax                       ; 0x3f37
     pop ax                           ; 0x3f39
@@ -203,7 +203,7 @@ api_idx_006e_LVOK:
     shl dx, 1                        ; 0x3f49
     add ax, dx                       ; 0x3f4b
     mov bx, ax                       ; 0x3f4d
-    sub cx, word [bx + 0x5c1e]       ; 0x3f4f
+    sub cx, word [bx + pc_spell_power_cap + 0x6] ; 0x3f4f
     mov word [bp - 0x0002], cx       ; 0x3f53
 @..api_idx_006e_LVOK.l11:
     mov ax, word [bp - 0x0002]       ; 0x3f56
@@ -217,11 +217,11 @@ api_idx_006e_LVOK:
     add ax, dx                       ; 0x3f69
     mov bx, ax                       ; 0x3f6b
     pop ax                           ; 0x3f6d
-    add word [bx + 0x5c1e], ax       ; 0x3f6e
-    add word [bx + 0x5c1c], ax       ; 0x3f72
+    add word [bx + pc_spell_power_cap + 0x6], ax ; 0x3f6e
+    add word [bx + pc_spell_power_cap + 0x4], ax ; 0x3f72
     add cx, word [bp + 0x6]          ; 0x3f76
     mov bx, cx                       ; 0x3f79
-    dec byte [bx + 0x5d50]           ; 0x3f7b
+    dec byte [bx + cell_key_grid + 0x11c] ; 0x3f7b
     push word [bp + 0x4]             ; 0x3f7f
     call api_idx_0004_RMVO           ; 0x3f82
     pop cx                           ; 0x3f85

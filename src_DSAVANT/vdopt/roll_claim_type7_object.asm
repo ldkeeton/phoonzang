@@ -16,7 +16,7 @@ roll_claim_type7_object:
     mov ax, word [bx + si + 0x1e0]   ; 0x0708
     mov word [bp - 0x0006], ax       ; 0x070c
     mov si, word [bp - 0x000e]       ; 0x070f
-    mov al, byte [bx + si + 0xa50]   ; 0x0712
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x0712
     sub ah, ah                       ; 0x0716
     mov word [bp - 0x0002], ax       ; 0x0718
     mov ax, 5                        ; 0x071b

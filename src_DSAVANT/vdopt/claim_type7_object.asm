@@ -45,7 +45,7 @@ claim_type7_object:
     mov ax, word [game_state_arg]    ; 0x0520
     mov cx, 4                        ; 0x0523
     shl ax, cl                       ; 0x0526
-    add ax, 0x8d14                   ; 0x0528
+    add ax, party_region + 0x2       ; 0x0528
     push ax                          ; 0x052b
     call set_bitmap_bit              ; 0x052c
     add sp, byte 6                   ; 0x052f

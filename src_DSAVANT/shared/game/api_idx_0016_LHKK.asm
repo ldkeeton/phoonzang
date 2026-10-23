@@ -52,7 +52,7 @@ api_idx_0016_LHKK:
     push word [bx + 0x6]
     push word [bx + 0x4]
     mov bx, word [bp - 0x0002]
-    mov al, byte [bx + 0x7013]
+    mov al, byte [bx + glyph_y_table + 0x15e]
     sub ah, ah
     add ax, word [bp - 0x000a]
     push ax
@@ -77,7 +77,7 @@ api_idx_0016_LHKK:
     pop ax
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x6fca]
+    mov al, byte [bx + glyph_y_table + 0x115]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -157,7 +157,7 @@ api_idx_0016_LHKK:
     pop ax
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x6fca]
+    mov al, byte [bx + glyph_y_table + 0x115]
     sub ah, ah
     push ax
     mov bx, word [bp + 0x4]

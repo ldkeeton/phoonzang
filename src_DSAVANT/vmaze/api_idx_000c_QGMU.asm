@@ -42,7 +42,7 @@ api_idx_000c_QGMU:
     mov ax, word [game_state_arg]    ; 0x87fb
     mov cx, 4                        ; 0x87fe
     shl ax, cl                       ; 0x8801
-    add ax, 0x8d14                   ; 0x8803
+    add ax, party_region + 0x2       ; 0x8803
     push ax                          ; 0x8806
     call test_bit                    ; 0x8807
     add sp, byte 4                   ; 0x880a
@@ -65,7 +65,7 @@ api_idx_000c_QGMU:
     push ax                          ; 0x8831
     mov bx, word [maze_tables]       ; 0x8832
     mov si, word [party_region]      ; 0x8836
-    mov al, byte [bx + si + 0xa50]   ; 0x883a
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x883a
     sub ah, ah                       ; 0x883e
     imul word [bp - 0x0006]          ; 0x8840
     shl si, 1                        ; 0x8843

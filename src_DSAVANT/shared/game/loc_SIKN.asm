@@ -6,9 +6,9 @@ loc_SIKN:
     imul word [bp + 0x4]
     add ax, word [bp + 0x6]
     mov bx, ax
-    cmp byte [bx + 0x5d6c], 0x64
+    cmp byte [bx + cell_key_grid + 0x138], 0x64
     jae short @..loc_SIKN.l1
-    mov al, byte [bx + 0x5d6c]
+    mov al, byte [bx + cell_key_grid + 0x138]
     sub ah, ah
     push ax
     call random_below
@@ -24,6 +24,6 @@ loc_SIKN:
     sub ax, cx
     jg short @..loc_SIKN.l1
     add bx, word [bp + 0x6]
-    inc byte [bx + 0x5d6c]
+    inc byte [bx + cell_key_grid + 0x138]
 @..loc_SIKN.l1:
     ret

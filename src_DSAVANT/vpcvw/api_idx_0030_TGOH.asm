@@ -8,7 +8,7 @@ api_idx_0030_TGOH:
     mov ax, 0x248                    ; 0x92c0
     imul word [bp + 0x4]             ; 0x92c3
     mov bx, ax                       ; 0x92c6
-    mov al, byte [bx + 0x5e2d]       ; 0x92c8
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x92c8
     sub ah, ah                       ; 0x92cc
     shl ax, 1                        ; 0x92ce
     mov bx, ax                       ; 0x92d0
@@ -87,25 +87,25 @@ api_idx_0030_TGOH:
     imul word [bp + 0x4]             ; 0x9376
     mov bx, ax                       ; 0x9379
     pop ax                           ; 0x937b
-    mov byte [bx + 0x5e2d], al       ; 0x937c
+    mov byte [bx + bss_5e2a + 0x3], al ; 0x937c
     cmp word [bx + pc_spell_power_cap], strict word 0xfa ; 0x9380
     jge short @..api_idx_0030_TGOH.l7 ; 0x9386
-    mov al, byte [bx + 0x5e3b]       ; 0x9388
+    mov al, byte [bx + bss_5e2a + 0x11] ; 0x9388
     sub ah, ah                       ; 0x938c
     cmp ax, word [bx + pc_spell_power_cap] ; 0x938e
     jge short @..api_idx_0030_TGOH.l6 ; 0x9392
     mov al, byte [bx + pc_spell_power_cap] ; 0x9394
-    mov byte [bx + 0x5e3b], al       ; 0x9398
+    mov byte [bx + bss_5e2a + 0x11], al ; 0x9398
 @..api_idx_0030_TGOH.l6:
     jmp short @..api_idx_0030_TGOH.l8 ; 0x939c
 @..api_idx_0030_TGOH.l7:
-    mov byte [bx + 0x5e3b], 0        ; 0x939e
+    mov byte [bx + bss_5e2a + 0x11], 0 ; 0x939e
 @..api_idx_0030_TGOH.l8:
     mov word [bx + pc_spell_power_cap], 1 ; 0x93a3
-    mov byte [bx + 0x5e2e], 0        ; 0x93a9
-    mov word [bx + 0x5c02], 0        ; 0x93ae
-    mov word [bx + 0x5c00], 0        ; 0x93b4
-    mov al, byte [bx + 0x5e2b]       ; 0x93ba
+    mov byte [bx + bss_5e2a + 0x4], 0 ; 0x93a9
+    mov word [bx + bss_5bf4 + 0xe], 0 ; 0x93ae
+    mov word [bx + bss_5bf4 + 0xc], 0 ; 0x93b4
+    mov al, byte [bx + bss_5e2a + 0x1] ; 0x93ba
     sub ah, ah                       ; 0x93be
     push ax                          ; 0x93c0
     push word [bp + 0x4]             ; 0x93c1
@@ -116,7 +116,7 @@ api_idx_0030_TGOH:
     mov ax, 0x248                    ; 0x93ce
     imul word [bp + 0x4]             ; 0x93d1
     mov bx, ax                       ; 0x93d4
-    mov al, byte [bx + 0x5e2d]       ; 0x93d6
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x93d6
     sub ah, ah                       ; 0x93da
     push ax                          ; 0x93dc
     push word [bp + 0x4]             ; 0x93dd
@@ -133,7 +133,7 @@ api_idx_0030_TGOH:
     pop ax                           ; 0x93fa
     add ax, cx                       ; 0x93fb
     mov bx, ax                       ; 0x93fd
-    mov al, byte [bx + 0x5c3b]       ; 0x93ff
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x93ff
     sub ah, ah                       ; 0x9403
     test ax, 1                       ; 0x9405
     je short @..api_idx_0030_TGOH.l10 ; 0x9408

@@ -111,7 +111,7 @@ api_idx_0068_OUGS:
     mov ax, 6                        ; 0x52b5
     imul dx                          ; 0x52b8
     mov bx, ax                       ; 0x52ba
-    cmp byte [bx + 0x624], 1         ; 0x52bc
+    cmp byte [bx + spell_table + 0x4], 1 ; 0x52bc
     jne short @..api_idx_0068_OUGS.l5 ; 0x52c1
     call pick_party_member           ; 0x52c3
     mov word [bss_9650], ax          ; 0x52c6

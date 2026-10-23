@@ -26,8 +26,8 @@ api_idx_0002_SKSN:
     shl ax, 1                        ; 0x1382
     shl ax, 1                        ; 0x1384
     mov bx, ax                       ; 0x1386
-    push word [bx + 0x69a6]          ; 0x1388
-    push word [bx + 0x69a4]          ; 0x138c
+    push word [bx + bss_5e2a + 0xb7c] ; 0x1388
+    push word [bx + bss_5e2a + 0xb7a] ; 0x138c
     call gfx_restore_area            ; 0x1390
     add sp, byte 6                   ; 0x1393
     inc word [bp - 0x0002]           ; 0x1396
@@ -42,7 +42,7 @@ api_idx_0002_SKSN:
     shl ax, 1                        ; 0x13ad
     shl ax, 1                        ; 0x13af
     mov bx, ax                       ; 0x13b1
-    push word [bx - 0x7d2e]          ; 0x13b3
+    push word [bx + party_status_areas + 0x2] ; 0x13b3
     push word [bx + party_status_areas] ; 0x13b7
     call gfx_restore_area            ; 0x13bb
     add sp, byte 6                   ; 0x13be

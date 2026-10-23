@@ -22,7 +22,7 @@ ds_app_MRJK: ; Aztec csav frame=0x0008
     mov word [bp - 0x0002], cx       ; 0x068b
     mov ax, 6                        ; 0x068e
     imul cx                          ; 0x0691
-    add ax, 0x100e                   ; 0x0693
+    add ax, bss_100c + 0x2           ; 0x0693
     mov word [bp - 0x0008], ax       ; 0x0696
     mov bx, ax                       ; 0x0699
     mov ax, word [bx]                ; 0x069b

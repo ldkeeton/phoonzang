@@ -71,6 +71,7 @@ loc_RPUI.api_idx1 equ api_idx_0006_IRNH
 
 %include "vpops/loc_HTRU.asm"              ; 0x111b
 
+save_di equ __zdseg_end + (__zsave_di - __zdata_start)
 %include "vpops/api_idx_000c_JUIH.asm"     ; 0x178a
 
 %include "shared/game/draw_party_slot_letters.asm" ; 0x18c2
@@ -149,7 +150,7 @@ bss_938c equ __zdseg_end + (__zobss_938c - __zdata_start)
 %include "vpops/api_idx_0004_NRTK.asm"     ; 0x4e3b
 
 save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
-save_di  equ __zdseg_end + (__zsave_di - __zdata_start)
+; save_di  equ __zdseg_end + (__zsave_di - __zdata_start)
 save_sp  equ __zdseg_end + (__zsave_sp - __zdata_start)
 save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)

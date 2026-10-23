@@ -405,7 +405,7 @@ api_idx_0024_NKNU:
     mov ax, 6                        ; 0x49d0
     imul word [bp - 0x001a]          ; 0x49d3
     mov bx, ax                       ; 0x49d6
-    cmp byte [bx + 0x624], 1         ; 0x49d8
+    cmp byte [bx + spell_table + 0x4], 1 ; 0x49d8
     je short @..api_idx_0024_NKNU.l32 ; 0x49dd
     mov ax, word [bp - 0x001a]       ; 0x49df
     cmp ax, strict word 0x58         ; 0x49e2
@@ -456,7 +456,7 @@ api_idx_0024_NKNU:
     mov ax, 6                        ; 0x4a4c
     imul word [bp - 0x001a]          ; 0x4a4f
     mov bx, ax                       ; 0x4a52
-    mov al, byte [bx + 0x621]        ; 0x4a54
+    mov al, byte [bx + spell_table + 0x1] ; 0x4a54
     sub ah, ah                       ; 0x4a58
     mov cx, ax                       ; 0x4a5a
     mov bx, word [bp - 0x0008]       ; 0x4a5c

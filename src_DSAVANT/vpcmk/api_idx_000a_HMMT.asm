@@ -5,8 +5,8 @@ api_idx_000a_HMMT:
     mov ax, 0x248                    ; 0x5a90
     imul word [bp + 0x4]             ; 0x5a93
     mov bx, ax                       ; 0x5a96
-    mov byte [bx + 0x5e34], 1        ; 0x5a98
-    mov byte [bx + 0x5e35], 0xa      ; 0x5a9d
+    mov byte [bx + bss_5e2a + 0xa], 1 ; 0x5a98
+    mov byte [bx + bss_5e2a + 0xb], 0xa ; 0x5a9d
     mov ax, 0x3e8                    ; 0x5aa2
     push ax                          ; 0x5aa5
     call random_below                ; 0x5aa6
@@ -20,15 +20,15 @@ api_idx_000a_HMMT:
     mov bx, ax                       ; 0x5ab6
     pop dx                           ; 0x5ab8
     pop ax                           ; 0x5ab9
-    mov word [bx + 0x5bfe], dx       ; 0x5aba
-    mov word [bx + 0x5bfc], ax       ; 0x5abe
-    mov al, byte [bx + 0x5d64]       ; 0x5ac2
+    mov word [bx + bss_5bf4 + 0xa], dx ; 0x5aba
+    mov word [bx + bss_5bf4 + 0x8], ax ; 0x5abe
+    mov al, byte [bx + cell_key_grid + 0x130] ; 0x5ac2
     sub ah, ah                       ; 0x5ac6
     mov word [bp - 0x0008], ax       ; 0x5ac8
-    mov al, byte [bx + 0x5d67]       ; 0x5acb
+    mov al, byte [bx + cell_key_grid + 0x133] ; 0x5acb
     sub ah, ah                       ; 0x5acf
     mov word [bp - 0x000a], ax       ; 0x5ad1
-    mov al, byte [bx + 0x5e2d]       ; 0x5ad4
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x5ad4
     sub ah, ah                       ; 0x5ad8
     jmp near @..api_idx_000a_HMMT.l1 ; 0x5ada
 jumptable_5cb4_case_0:
@@ -44,7 +44,7 @@ jumptable_5cb4_case_0:
     mov ax, 0x248                    ; 0x5af2
     imul word [bp + 0x4]             ; 0x5af5
     mov bx, ax                       ; 0x5af8
-    add byte [bx + 0x5e3a], 0xfd     ; 0x5afa
+    add byte [bx + bss_5e2a + 0x10], 0xfd ; 0x5afa
     jmp near @..api_idx_000a_HMMT.l2 ; 0x5aff
 jumptable_5cb4_case_1:
     mov ax, 3                        ; 0x5b02
@@ -84,7 +84,7 @@ jumptable_5cb4_case_3:
     mov ax, 0x248                    ; 0x5b46
     imul word [bp + 0x4]             ; 0x5b49
     mov bx, ax                       ; 0x5b4c
-    dec byte [bx + 0x5e3a]           ; 0x5b4e
+    dec byte [bx + bss_5e2a + 0x10]  ; 0x5b4e
     jmp near @..api_idx_000a_HMMT.l2 ; 0x5b52
 jumptable_5cb4_case_4:
     mov ax, 4                        ; 0x5b55
@@ -107,8 +107,8 @@ jumptable_5cb4_case_4:
     mov ax, 0x248                    ; 0x5b78
     imul word [bp + 0x4]             ; 0x5b7b
     mov bx, ax                       ; 0x5b7e
-    dec byte [bx + 0x5e3a]           ; 0x5b80
-    dec byte [bx + 0x5e3a]           ; 0x5b84
+    dec byte [bx + bss_5e2a + 0x10]  ; 0x5b80
+    dec byte [bx + bss_5e2a + 0x10]  ; 0x5b84
     jmp near @..api_idx_000a_HMMT.l2 ; 0x5b88
 jumptable_5cb4_case_5:
     mov ax, 4                        ; 0x5b8b
@@ -161,7 +161,7 @@ jumptable_5cb4_case_8:
     mov ax, 0x248                    ; 0x5be7
     imul word [bp + 0x4]             ; 0x5bea
     mov bx, ax                       ; 0x5bed
-    add byte [bx + 0x5e3a], 0xfc     ; 0x5bef
+    add byte [bx + bss_5e2a + 0x10], 0xfc ; 0x5bef
     jmp near @..api_idx_000a_HMMT.l2 ; 0x5bf4
 jumptable_5cb4_case_9:
     mov ax, 4                        ; 0x5bf7
@@ -189,7 +189,7 @@ jumptable_5cb4_case_10:
     mov ax, 0x248                    ; 0x5c24
     imul word [bp + 0x4]             ; 0x5c27
     mov bx, ax                       ; 0x5c2a
-    add byte [bx + 0x5e3a], 0xfc     ; 0x5c2c
+    add byte [bx + bss_5e2a + 0x10], 0xfc ; 0x5c2c
     jmp near @..api_idx_000a_HMMT.l2 ; 0x5c31
 jumptable_5cb4_case_11:
     mov ax, 4                        ; 0x5c34
@@ -212,7 +212,7 @@ jumptable_5cb4_case_11:
     mov ax, 0x248                    ; 0x5c57
     imul word [bp + 0x4]             ; 0x5c5a
     mov bx, ax                       ; 0x5c5d
-    add byte [bx + 0x5e3a], 0xfb     ; 0x5c5f
+    add byte [bx + bss_5e2a + 0x10], 0xfb ; 0x5c5f
     jmp short @..api_idx_000a_HMMT.l2 ; 0x5c64
 jumptable_5cb4_case_12:
     mov ax, 4                        ; 0x5c66
@@ -227,8 +227,8 @@ jumptable_5cb4_case_12:
     mov ax, 0x248                    ; 0x5c7b
     imul word [bp + 0x4]             ; 0x5c7e
     mov bx, ax                       ; 0x5c81
-    dec byte [bx + 0x5e3a]           ; 0x5c83
-    dec byte [bx + 0x5e3a]           ; 0x5c87
+    dec byte [bx + bss_5e2a + 0x10]  ; 0x5c83
+    dec byte [bx + bss_5e2a + 0x10]  ; 0x5c87
     jmp short @..api_idx_000a_HMMT.l2 ; 0x5c8b
 jumptable_5cb4_case_13:
     mov ax, 5                        ; 0x5c8d
@@ -243,8 +243,8 @@ jumptable_5cb4_case_13:
     mov ax, 0x248                    ; 0x5ca2
     imul word [bp + 0x4]             ; 0x5ca5
     mov bx, ax                       ; 0x5ca8
-    dec byte [bx + 0x5e3a]           ; 0x5caa
-    dec byte [bx + 0x5e3a]           ; 0x5cae
+    dec byte [bx + bss_5e2a + 0x10]  ; 0x5caa
+    dec byte [bx + bss_5e2a + 0x10]  ; 0x5cae
     jmp short @..api_idx_000a_HMMT.l2 ; 0x5cb2
 jumptable_5cb4:
     dw jumptable_5cb4_case_0 - IMAGE_BASE + __zres_end ; 0x5cb4
@@ -312,20 +312,20 @@ jumptable_5cb4:
     imul word [bp + 0x4]             ; 0x5d44
     mov bx, ax                       ; 0x5d47
     pop ax                           ; 0x5d49
-    mov word [bx + 0x5c0c], ax       ; 0x5d4a
-    mov word [bx + 0x5c0e], ax       ; 0x5d4e
+    mov word [bx + bss_5c0a + 0x2], ax ; 0x5d4a
+    mov word [bx + bss_5c0a + 0x4], ax ; 0x5d4e
     mov ax, word [bp - 0x0004]       ; 0x5d52
     mov word [bx + pc_records], ax   ; 0x5d55
-    mov word [bx + 0x5c12], ax       ; 0x5d59
-    mov word [bx + 0x5c14], 0        ; 0x5d5d
+    mov word [bx + pc_records + 0x2], ax ; 0x5d59
+    mov word [bx + pc_records + 0x4], 0 ; 0x5d5d
     mov ax, 0xf                      ; 0x5d63
     imul word [bp - 0x0006]          ; 0x5d66
-    mov word [bx + 0x5c16], ax       ; 0x5d69
-    cmp byte [bx + 0x5e2b], 5        ; 0x5d6d
+    mov word [bx + pc_records + 0x6], ax ; 0x5d69
+    cmp byte [bx + bss_5e2a + 0x1], 5 ; 0x5d6d
     jne short @..api_idx_000a_HMMT.l8 ; 0x5d72
     shl ax, 1                        ; 0x5d74
     cwd                              ; 0x5d76
     idiv cx                          ; 0x5d77
-    mov word [bx + 0x5c16], ax       ; 0x5d79
+    mov word [bx + pc_records + 0x6], ax ; 0x5d79
 @..api_idx_000a_HMMT.l8:
     ret                              ; 0x5d7d

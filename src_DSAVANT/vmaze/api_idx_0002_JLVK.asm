@@ -17,11 +17,11 @@ api_idx_0002_JLVK:
     cbw                              ; 0x93ce
     cmp ax, word [bp + 0x6]          ; 0x93cf
     jne short @..api_idx_0002_JLVK.l2 ; 0x93d2
-    mov al, byte [bx - 0x77d3]       ; 0x93d4
+    mov al, byte [bx + bss_882c + 0x1] ; 0x93d4
     cbw                              ; 0x93d8
     cmp ax, word [bp + 0x8]          ; 0x93d9
     jne short @..api_idx_0002_JLVK.l2 ; 0x93dc
-    mov al, byte [bx - 0x77d2]       ; 0x93de
+    mov al, byte [bx + bss_882c + 0x2] ; 0x93de
     cbw                              ; 0x93e2
     cmp ax, word [bp + 0xa]          ; 0x93e3
     jne short @..api_idx_0002_JLVK.l2 ; 0x93e6
@@ -39,7 +39,7 @@ api_idx_0002_JLVK:
     mov ax, 0x26                     ; 0x9400
     imul word [bp + 0x4]             ; 0x9403
     mov bx, ax                       ; 0x9406
-    mov al, byte [bx - 0x7b02]       ; 0x9408
+    mov al, byte [bx + slot_records + 0x12] ; 0x9408
     sub ah, ah                       ; 0x940c
     mov dx, 3                        ; 0x940e
     imul dx                          ; 0x9411
@@ -49,18 +49,18 @@ api_idx_0002_JLVK:
     pop ax                           ; 0x9419
     mov byte [bx + bss_882c], al     ; 0x941a
     mov al, byte [bp + 0x8]          ; 0x941e
-    mov byte [bx - 0x77d3], al       ; 0x9421
+    mov byte [bx + bss_882c + 0x1], al ; 0x9421
     mov al, byte [bp + 0xa]          ; 0x9425
-    mov byte [bx - 0x77d2], al       ; 0x9428
+    mov byte [bx + bss_882c + 0x2], al ; 0x9428
     mov ax, 0x26                     ; 0x942c
     imul word [bp + 0x4]             ; 0x942f
     mov bx, ax                       ; 0x9432
-    mov al, byte [bx - 0x7b02]       ; 0x9434
+    mov al, byte [bx + slot_records + 0x12] ; 0x9434
     sub ah, ah                       ; 0x9438
     inc ax                           ; 0x943a
     mov cx, 5                        ; 0x943b
     cwd                              ; 0x943e
     idiv cx                          ; 0x943f
     mov ax, dx                       ; 0x9441
-    mov byte [bx - 0x7b02], al       ; 0x9443
+    mov byte [bx + slot_records + 0x12], al ; 0x9443
     ret                              ; 0x9447

@@ -15,7 +15,7 @@ collect_known_spells:
     push word [bp - 0x0002]
     mov ax, 0x248
     imul word [bp + 0x4]
-    add ax, 0x5e12
+    add ax, cell_key_grid + 0x1de
     push ax
     call test_bit
     add sp, byte 4

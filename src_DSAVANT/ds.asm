@@ -56,7 +56,6 @@ party_slot_glyphs equ __zparty_slot_glyphs - __zdseg_start
 ems_slots equ __zems_slots - __zdseg_start
 dseg_03ae equ __zdseg_03ae - __zdseg_start
 dseg_03dc equ __zdseg_03dc - __zdseg_start
-spell_table equ __zspell_table - __zdseg_start
 maze_blocks equ __zstr_0bd7 - __zdseg_start + 0x0003
 bss_0e36 equ __zbss_0e36 - __zdseg_start
 bss_0e4c equ __zbss_0e4c - __zdseg_start
@@ -84,8 +83,6 @@ bss_598a equ __zbss_598a - __zdseg_start
 bss_598b equ __zbss_598b - __zdseg_start
 bss_5b55 equ __zbss_5b55 - __zdseg_start
 bss_5c08 equ __zbss_5c08 - __zdseg_start
-bss_5c0a equ __zbss_5c0a - __zdseg_start
-pc_spell_power_cap equ __zbss_5c18 - __zdseg_start
 slot_rec_count equ __zbss_6a1e - __zdseg_start
 slot_rec_action equ __zbss_6a22 - __zdseg_start
 slot_rec_action_rand equ __zbss_6a2c - __zdseg_start
@@ -94,7 +91,6 @@ slot_rec_target_rand equ __zbss_6a4a - __zdseg_start
 slot_rec_ranges equ __zbss_6ac1 - __zdseg_start
 slot_rec_forced equ __zbss_6b75 - __zdseg_start
 glyph_x_table equ __zbss_6e6c - __zdseg_start
-glyph_y_table equ __zbss_6eb5 - __zdseg_start
 marker_x equ __zbss_7abc - __zdseg_start
 bss_7abe equ __zbss_7abe - __zdseg_start
 marker_y equ __zbss_7b04 - __zdseg_start
@@ -396,6 +392,7 @@ code_index_3    equ __zbss_5b44 - __zdseg_start
 code_index_4    equ __zbss_5b46 - __zdseg_start
 %include "ds/game/ds_app_string_KVNI.asm"  ; 0x0c0b
 
+; space_key_hit equ __zbss_59fc - __zdseg_start
 %include "ds/game/set_hotspot.asm"         ; 0x0ced
 
 ; hotspot_hit equ __zbss_5b3e - __zdseg_start
@@ -453,11 +450,15 @@ saved_screen_ref          equ __zbss_5be0 - __zdseg_start
 ; saved_screen_ref  equ __zbss_5be0 - __zdseg_start
 %include "ds/game/restore_saved_screen.asm" ; 0x16a0
 
+cell_key_grid equ __zbss_5c34 - __zdseg_start
 %include "ds/game/ds_app_VOML.asm"         ; 0x1741
 
-cell_key_grid equ __zbss_5c34 - __zdseg_start
+pc_records    equ __zbss_5c10 - __zdseg_start
+; cell_key_grid equ __zbss_5c34 - __zdseg_start
 %include "ds/game/ds_app_OOUT.asm"         ; 0x17d6
 
+; cell_key_grid equ __zbss_5c34 - __zdseg_start
+bss_5e2a      equ __zbss_5e2a - __zdseg_start
 %include "ds/game/reset_page_record.asm"   ; 0x184f
 
 ; cell_key_grid equ __zbss_5c34 - __zdseg_start
@@ -466,6 +467,7 @@ cell_key_grid equ __zbss_5c34 - __zdseg_start
 ; cell_key_grid equ __zbss_5c34 - __zdseg_start
 %include "ds/game/clear_cell_key.asm"      ; 0x1c2f
 
+; cell_key_grid equ __zbss_5c34 - __zdseg_start
 %include "ds/game/ds_app_UTUH.asm"         ; 0x1c6e
 
 ; bss_0fd5        equ __zbss_0fd5 - __zdseg_start
@@ -473,14 +475,19 @@ cell_key_grid equ __zbss_5c34 - __zdseg_start
 ; bss_59f4        equ __zbss_59f4 - __zdseg_start
 %include "ds/game/ds_app_OOHU.asm"         ; 0x1cb1
 
+; cell_key_grid equ __zbss_5c34 - __zdseg_start
+; bss_5e2a      equ __zbss_5e2a - __zdseg_start
 %include "ds/game/ds_app_KTPM.asm"         ; 0x1ccc
 
 %include "ds/game/ds_app_TRNH.asm"         ; 0x1cf8
 
-bss_5bf4      equ __zbss_5bf4 - __zdseg_start
-pc_records    equ __zbss_5c10 - __zdseg_start
-; cell_key_grid equ __zbss_5c34 - __zdseg_start
-bss_5e2a      equ __zbss_5e2a - __zdseg_start
+spell_table        equ __zspell_table - __zdseg_start
+bss_5bf4           equ __zbss_5bf4 - __zdseg_start
+bss_5c0a           equ __zbss_5c0a - __zdseg_start
+; pc_records         equ __zbss_5c10 - __zdseg_start
+pc_spell_power_cap equ __zbss_5c18 - __zdseg_start
+; cell_key_grid      equ __zbss_5c34 - __zdseg_start
+; bss_5e2a           equ __zbss_5e2a - __zdseg_start
 %include "ds/game/ds_app_LUOV.asm"         ; 0x1d81
 
 ; bss_0e2e     equ __zbss_0e2e - __zdseg_start
@@ -848,6 +855,7 @@ font_io_error_msg:
 
 %include "ds/library/ds_loc_JRJK.asm"      ; 0x3ba3
 
+glyph_y_table equ __zbss_6eb5 - __zdseg_start
 %include "ds/library/stir_random_seeds.asm" ; 0x3c0d
 
 key_queue:

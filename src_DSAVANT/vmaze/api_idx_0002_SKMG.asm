@@ -4,7 +4,7 @@ api_idx_0002_SKMG:
     call aztec_csav                  ; 0x8f1d
     mov bx, word [maze_tables]       ; 0x8f20
     mov si, word [party_map_piece]   ; 0x8f24
-    mov al, byte [bx + si + 0xb40]   ; 0x8f28
+    mov al, byte [bx + si + spell_table + 0x520] ; 0x8f28
     sub ah, ah                       ; 0x8f2c
     mov word [bp - 0x0002], ax       ; 0x8f2e
 @..api_idx_0002_SKMG.l1:

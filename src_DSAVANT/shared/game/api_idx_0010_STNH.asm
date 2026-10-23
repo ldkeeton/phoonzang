@@ -9,7 +9,7 @@ api_idx_0010_STNH:
     mov ax, word [bp + 0x4]
     shl ax, 1
     mov bx, ax
-    push word [bx + 0x69bc]
+    push word [bx + bss_5e2a + 0xb92]
     mov ax, 5
     push ax
     call ds_loc_UQOV

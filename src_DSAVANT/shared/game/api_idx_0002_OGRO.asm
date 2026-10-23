@@ -63,7 +63,7 @@ api_idx_0002_OGRO:
     mov cx, word [bx + si]
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x5d6c]
+    mov al, byte [bx + cell_key_grid + 0x138]
     sub ah, ah
     push ax
     call draw_number_field

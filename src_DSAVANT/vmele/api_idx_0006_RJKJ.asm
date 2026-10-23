@@ -22,7 +22,7 @@ api_idx_0006_RJKJ:
     mov ax, 0x248                    ; 0x1745
     imul word [bp - 0x0004]          ; 0x1748
     mov bx, ax                       ; 0x174b
-    mov al, byte [bx + 0x5d85]       ; 0x174d
+    mov al, byte [bx + cell_key_grid + 0x151] ; 0x174d
     sub ah, ah                       ; 0x1751
     push ax                          ; 0x1753
     mov ax, 3                        ; 0x1754
@@ -32,7 +32,7 @@ api_idx_0006_RJKJ:
     sub ax, cx                       ; 0x175e
     cmp ax, word [bp - 0x0006]       ; 0x1760
     jg short @..api_idx_0006_RJKJ.l3 ; 0x1763
-    mov al, byte [bx + 0x5d65]       ; 0x1765
+    mov al, byte [bx + cell_key_grid + 0x131] ; 0x1765
     sub ah, ah                       ; 0x1769
     cmp ax, word [bp - 0x0006]       ; 0x176b
     jle short @..api_idx_0006_RJKJ.l4 ; 0x176e

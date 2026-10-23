@@ -67,8 +67,8 @@ api_idx_001e_GOQP:
     mov cx, word [bp - 0x0002]       ; 0x7150
     shl cx, 1                        ; 0x7153
     mov bx, cx                       ; 0x7155
-    mov word [bx - 0x7b96], ax       ; 0x7157
-    cmp word [bx - 0x7b96], byte 0   ; 0x715b
+    mov word [bx + bss_8468 + 0x2], ax ; 0x7157
+    cmp word [bx + bss_8468 + 0x2], byte 0 ; 0x715b
     jne short @..api_idx_001e_GOQP.l6 ; 0x7160
     mov ax, 0x1d                     ; 0x7162
     push ax                          ; 0x7165
@@ -78,7 +78,7 @@ api_idx_001e_GOQP:
     mov ax, word [bp - 0x0002]       ; 0x716a
     shl ax, 1                        ; 0x716d
     mov bx, ax                       ; 0x716f
-    mov bx, word [bx - 0x7b96]       ; 0x7171
+    mov bx, word [bx + bss_8468 + 0x2] ; 0x7171
     mov byte [bx + 0x14], 0xff       ; 0x7175
     inc word [bp - 0x0002]           ; 0x7179
     mov ax, word [bp - 0x0002]       ; 0x717c
@@ -183,7 +183,7 @@ api_idx_001e_GOQP:
     push ax                          ; 0x7290
     mov ax, word [bss_9136]          ; 0x7291
     shl ax, 1                        ; 0x7294
-    add ax, 0x584e                   ; 0x7296
+    add ax, bss_5842 + 0xc           ; 0x7296
     push ax                          ; 0x7299
     call aztec_movmem                ; 0x729a
     add sp, byte 6                   ; 0x729d

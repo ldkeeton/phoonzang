@@ -8,7 +8,7 @@ api_idx_0088_LVJM:
     imul word [bp + 0x4]             ; 0x3fac
     add ax, word [bp - 0x0002]       ; 0x3faf
     mov bx, ax                       ; 0x3fb2
-    mov al, byte [bx + 0x5d6c]       ; 0x3fb4
+    mov al, byte [bx + cell_key_grid + 0x138] ; 0x3fb4
     sub ah, ah                       ; 0x3fb8
     mov cx, word [bp - 0x0002]       ; 0x3fba
     shl cx, 1                        ; 0x3fbd
@@ -66,7 +66,7 @@ api_idx_0088_LVJM:
     mov cx, word [bx - 0x0020]       ; 0x4047
     add ax, cx                       ; 0x404a
     mov bx, ax                       ; 0x404c
-    mov al, byte [bx + 0x5d6c]       ; 0x404e
+    mov al, byte [bx + cell_key_grid + 0x138] ; 0x404e
     sub ah, ah                       ; 0x4052
     mov cx, ax                       ; 0x4054
     mov ax, 0x64                     ; 0x4056
@@ -117,7 +117,7 @@ api_idx_0088_LVJM:
     imul word [bp + 0x4]             ; 0x40c9
     add ax, word [bp - 0x0002]       ; 0x40cc
     mov bx, ax                       ; 0x40cf
-    cmp byte [bx + 0x5d6c], 0        ; 0x40d1
+    cmp byte [bx + cell_key_grid + 0x138], 0 ; 0x40d1
     jbe short @..api_idx_0088_LVJM.l10 ; 0x40d6
 @..api_idx_0088_LVJM.l9:
     mov ax, word [bp - 0x0004]       ; 0x40d8

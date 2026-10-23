@@ -5,8 +5,8 @@ api_idx_0006_MROT:
     mov ax, word [bp + 0x4]          ; 0x61e1
     shl ax, 1                        ; 0x61e4
     mov bx, ax                       ; 0x61e6
-    mov bx, word [bx - 0x750e]       ; 0x61e8
-    mov byte [bx - 0x6f8a], 1        ; 0x61ec
+    mov bx, word [bx + bss_8af0 + 0x2] ; 0x61e8
+    mov byte [bx + bss_9074 + 0x2], 1 ; 0x61ec
     dec word [bss_69c8]              ; 0x61f1
     mov ax, word [bp + 0x4]          ; 0x61f5
     mov word [bp - 0x0002], ax       ; 0x61f8
@@ -15,7 +15,7 @@ api_idx_0006_MROT:
     mov ax, 0x248                    ; 0x61fd
     imul word [bp - 0x0002]          ; 0x6200
     mov si, ax                       ; 0x6203
-    add ax, 0x5e3c                   ; 0x6205
+    add ax, bss_5e2a + 0x12          ; 0x6205
     mov si, ax                       ; 0x6208
     mov ax, 0x248                    ; 0x620a
     imul word [bp - 0x0002]          ; 0x620d
@@ -29,10 +29,10 @@ api_idx_0006_MROT:
     mov ax, word [bp - 0x0002]       ; 0x6220
     shl ax, 1                        ; 0x6223
     mov bx, ax                       ; 0x6225
-    mov ax, word [bx - 0x750c]       ; 0x6227
-    mov word [bx - 0x750e], ax       ; 0x622b
-    mov ax, word [bx + 0x69be]       ; 0x622f
-    mov word [bx + 0x69bc], ax       ; 0x6233
+    mov ax, word [bx + bss_8af0 + 0x4] ; 0x6227
+    mov word [bx + bss_8af0 + 0x2], ax ; 0x622b
+    mov ax, word [bx + bss_5e2a + 0xb94] ; 0x622f
+    mov word [bx + bss_5e2a + 0xb92], ax ; 0x6233
     inc word [bp - 0x0002]           ; 0x6237
 @..api_idx_0006_MROT.l2:
     mov ax, word [bp - 0x0002]       ; 0x623a
@@ -57,8 +57,8 @@ api_idx_0006_MROT:
     shl ax, 1                        ; 0x626a
     shl ax, 1                        ; 0x626c
     mov bx, ax                       ; 0x626e
-    push word [bx + 0x69a6]          ; 0x6270
-    push word [bx + 0x69a4]          ; 0x6274
+    push word [bx + bss_5e2a + 0xb7c] ; 0x6270
+    push word [bx + bss_5e2a + 0xb7a] ; 0x6274
     call gfx_restore_area            ; 0x6278
     add sp, byte 6                   ; 0x627b
     cmp word [bp + 0x6], byte 0      ; 0x627e

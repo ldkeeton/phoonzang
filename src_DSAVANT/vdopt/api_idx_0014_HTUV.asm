@@ -54,7 +54,7 @@ api_idx_0014_HTUV:
     je short @..api_idx_0014_HTUV.l8 ; 0x0a44
     mov bx, word [maze_tables]       ; 0x0a46
     mov si, word [bp - 0x000c]       ; 0x0a4a
-    mov al, byte [bx + si + 0xb40]   ; 0x0a4d
+    mov al, byte [bx + si + spell_table + 0x520] ; 0x0a4d
     sub ah, ah                       ; 0x0a51
     mov word [bp - 0x0014], ax       ; 0x0a53
 @..api_idx_0014_HTUV.l4:

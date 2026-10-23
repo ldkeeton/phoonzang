@@ -5,11 +5,11 @@ loc_SNPU:
     mov ax, 0x26                     ; 0xaad9
     imul word [bp + 0x4]             ; 0xaadc
     mov bx, ax                       ; 0xaadf
-    cmp byte [bx - 0x7b00], 0        ; 0xaae1
+    cmp byte [bx + slot_records + 0x14], 0 ; 0xaae1
     jg short @..loc_SNPU.l1          ; 0xaae6
     ret                              ; 0xaae8
 @..loc_SNPU.l1:
-    mov al, byte [bx - 0x7b16]       ; 0xaae9
+    mov al, byte [bx + bss_84e8 + 0x2] ; 0xaae9
     sub ah, ah                       ; 0xaaed
     jmp near @..loc_SNPU.l3          ; 0xaaef
 jumptable_ab7d_case_0:
@@ -46,7 +46,7 @@ jumptable_ab7d_case_5:
     mov ax, 0x26                     ; 0xab2f
     imul word [bp + 0x4]             ; 0xab32
     mov bx, ax                       ; 0xab35
-    mov al, byte [bx - 0x7b12]       ; 0xab37
+    mov al, byte [bx + slot_records + 0x2] ; 0xab37
     sub ah, ah                       ; 0xab3b
     push ax                          ; 0xab3d
     push word [bp + 0x4]             ; 0xab3e
@@ -67,7 +67,7 @@ jumptable_ab7d_case_7:
     mov ax, 0x26                     ; 0xab5f
     imul word [bp + 0x4]             ; 0xab62
     mov bx, ax                       ; 0xab65
-    cmp byte [bx - 0x7b16], 7        ; 0xab67
+    cmp byte [bx + bss_84e8 + 0x2], 7 ; 0xab67
     jne short @..loc_SNPU.l2         ; 0xab6c
     mov ax, 0xffff                   ; 0xab6e
     push ax                          ; 0xab71

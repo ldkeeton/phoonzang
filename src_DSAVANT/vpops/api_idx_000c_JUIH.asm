@@ -38,13 +38,13 @@ api_idx_000c_JUIH:
     imul word [bp + 0x6]             ; 0x17e8
     add ax, word [bp - 0x0006]       ; 0x17eb
     mov bx, ax                       ; 0x17ee
-    cmp byte [bx - 0x6f31], 0        ; 0x17f0
+    cmp byte [bx + save_di + 0x1], 0 ; 0x17f0
     je short @..api_idx_000c_JUIH.l6 ; 0x17f5
     mov ax, word [bp - 0x000a]       ; 0x17f7
     cmp ax, word [bp + 0x4]          ; 0x17fa
     jne short @..api_idx_000c_JUIH.l7 ; 0x17fd
 @..api_idx_000c_JUIH.l6:
-    mov byte [bx - 0x6f31], 1        ; 0x17ff
+    mov byte [bx + save_di + 0x1], 1 ; 0x17ff
     mov ax, word [bp - 0x0006]       ; 0x1804
     ret                              ; 0x1807
 @..api_idx_000c_JUIH.l7:
@@ -101,13 +101,13 @@ api_idx_000c_JUIH:
     mov dx, word [bp - 0x0006]       ; 0x1884
     add ax, dx                       ; 0x1887
     mov bx, ax                       ; 0x1889
-    cmp byte [bx - 0x6f31], 0        ; 0x188b
+    cmp byte [bx + save_di + 0x1], 0 ; 0x188b
     je short @..api_idx_000c_JUIH.l14 ; 0x1890
     mov ax, word [bp - 0x000a]       ; 0x1892
     cmp ax, word [bp + 0x4]          ; 0x1895
     jne short @..api_idx_000c_JUIH.l15 ; 0x1898
 @..api_idx_000c_JUIH.l14:
-    mov byte [bx - 0x6f31], 1        ; 0x189a
+    mov byte [bx + save_di + 0x1], 1 ; 0x189a
     mov ax, dx                       ; 0x189f
     ret                              ; 0x18a1
 @..api_idx_000c_JUIH.l15:

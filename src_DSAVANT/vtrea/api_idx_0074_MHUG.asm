@@ -397,7 +397,7 @@ api_idx_0074_MHUG:
     mov ax, 0x248                    ; 0x6a81
     imul word [bp - 0x0002]          ; 0x6a84
     mov bx, ax                       ; 0x6a87
-    mov ax, word [bx + 0x5c12]       ; 0x6a89
+    mov ax, word [bx + pc_records + 0x2] ; 0x6a89
     cwd                              ; 0x6a8d
     mov cx, ax                       ; 0x6a8e
     mov bx, dx                       ; 0x6a90
@@ -409,7 +409,7 @@ api_idx_0074_MHUG:
     mov ax, 0x248                    ; 0x6a99
     imul word [bp - 0x0002]          ; 0x6a9c
     mov bx, ax                       ; 0x6a9f
-    mov al, byte [bx + 0x5d64]       ; 0x6aa1
+    mov al, byte [bx + cell_key_grid + 0x130] ; 0x6aa1
     sub ah, ah                       ; 0x6aa5
     cwd                              ; 0x6aa7
     mov cx, ax                       ; 0x6aa8
@@ -481,7 +481,7 @@ api_idx_0074_MHUG:
     imul word [bp - 0x0002]          ; 0x6b39
     mov bx, ax                       ; 0x6b3c
     pop ax                           ; 0x6b3e
-    mov byte [bx + 0x5d5c], al       ; 0x6b3f
+    mov byte [bx + cell_key_grid + 0x128], al ; 0x6b3f
     mov word [bx + pc_records], 0    ; 0x6b43
 @..api_idx_0074_MHUG.l13:
     mov ax, 0                        ; 0x6b49

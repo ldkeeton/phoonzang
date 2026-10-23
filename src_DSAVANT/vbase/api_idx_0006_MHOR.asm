@@ -11,7 +11,7 @@ api_idx_0006_MHOR:
     mov ax, word [bp - 0x0004]       ; 0x05cd
     shl ax, 1                        ; 0x05d0
     mov bx, ax                       ; 0x05d2
-    mov ax, word [bx + 0x69bc]       ; 0x05d4
+    mov ax, word [bx + bss_5e2a + 0xb92] ; 0x05d4
     cmp ax, word [bp - 0x0002]       ; 0x05d8
     jne short @..api_idx_0006_MHOR.l3 ; 0x05db
     mov word [bp - 0x0006], 1        ; 0x05dd

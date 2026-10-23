@@ -44,7 +44,7 @@ move_party_to_dest:
     mov word [party_map_piece], ax   ; 0x730d
     mov bx, word [maze_tables]       ; 0x7310
     mov si, word [bp + 0x4]          ; 0x7314
-    mov al, byte [bx + si + 0xa50]   ; 0x7317
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x7317
     sub ah, ah                       ; 0x731b
     mov word [bp - 0x0004], ax       ; 0x731d
     mov word [dest_alt_arg], 0       ; 0x7320
@@ -77,7 +77,7 @@ move_party_to_dest:
     add ax, word [party_cell_y]      ; 0x7373
     mov word [party_world_y], ax     ; 0x7377
     mov bx, word [maze_tables]       ; 0x737a
-    mov al, byte [bx + si + 0xb40]   ; 0x737e
+    mov al, byte [bx + si + spell_table + 0x520] ; 0x737e
     sub ah, ah                       ; 0x7382
     mov word [party_region], ax      ; 0x7384
     mov word [region_step_flag], 0   ; 0x7387

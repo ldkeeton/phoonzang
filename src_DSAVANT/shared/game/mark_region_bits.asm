@@ -6,17 +6,17 @@ mark_region_bits:
     jle short @..mark_region_bits.l1
     mov bx, word [maze_tables]
     mov si, word [party_region]
-    cmp byte [bx + si + 0x960], 0
+    cmp byte [bx + si + spell_table + 0x340], 0
     jbe short @..mark_region_bits.l1
     mov ax, 1
     push ax
-    mov al, byte [bx + si + 0x960]
+    mov al, byte [bx + si + spell_table + 0x340]
     sub ah, ah
     push ax
     mov ax, word [game_state_arg]
     mov cx, 4
     shl ax, cl
-    add ax, 0x8d14
+    add ax, party_region + 0x2
     push ax
     call set_bitmap_bit
     add sp, byte 6
@@ -26,7 +26,7 @@ mark_region_bits:
     push ax
     mov bx, word [maze_tables]
     mov si, word [party_region]
-    mov al, byte [bx + si + 0x960]
+    mov al, byte [bx + si + spell_table + 0x340]
     sub ah, ah
     push ax
     mov ax, word [game_state_arg]

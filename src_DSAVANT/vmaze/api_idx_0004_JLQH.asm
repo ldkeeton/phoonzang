@@ -24,7 +24,7 @@ api_idx_0004_JLQH:
     mov ax, word [game_state_arg]    ; 0x133d
     mov cx, 4                        ; 0x1340
     shl ax, cl                       ; 0x1343
-    add ax, 0x8d14                   ; 0x1345
+    add ax, party_region + 0x2       ; 0x1345
     push ax                          ; 0x1348
     call test_bit                    ; 0x1349
     add sp, byte 4                   ; 0x134c

@@ -14,6 +14,7 @@ from lib.compare.symbols import (
     _resolve_imm_symbols,
 )
 from lib.format import format_instruction
+from lib.symtab import Kind, Source, Space, Symbol
 
 
 def _disasm(code_hex, base):
@@ -77,9 +78,10 @@ class ResolveMemSymbolsTest(unittest.TestCase):
 
 
 class ResolveIndexedSymbolsTest(unittest.TestCase):
-    """An indexed DATA displacement binds only to a named object's start."""
+    """An indexed DATA displacement binds at or inside a named object."""
 
-    _FLOW = _FakeFlow({0x0400: DATA, 0x0500: DATA, 0x01a1: DATA})
+    _FLOW = _FakeFlow({0x0400: DATA, 0x0500: DATA, 0x01a1: DATA,
+                       0x041a: DATA})
 
     def _resolve(self, code_hex, segments=None, ds_starts=frozenset()):
         insns = _disasm(code_hex, 0x200)
@@ -96,6 +98,54 @@ class ResolveIndexedSymbolsTest(unittest.TestCase):
         symbols, equ = self._resolve('8b84a101')
         self.assertEqual(symbols, {})
         self.assertEqual(equ, {})
+
+    def test_binds_inside_a_named_object(self):
+        # mov ax, [0x0400] | mov ax, [bx + 0x41a]: ``code_table[0x1a + i]``
+        symbols, equ = self._resolve('a10004' '8b871a04')
+        self.assertEqual(symbols[(0x203, 1)], 'bss_0400 + 0x1a')
+        self.assertEqual(equ, {'bss_0400': 0x400})
+
+    def test_the_nearest_start_below_owns_it(self):
+        # mov ax, [bx + 0x41a] with starts at 0x400 and 0x500
+        symbols, _ = self._resolve('8b871a04', ds_starts={0x400, 0x500})
+        self.assertEqual(symbols[(0x200, 1)], 'bss_0400 + 0x1a')
+
+    def test_an_object_does_not_span_the_bss_boundary(self):
+        # mov ax, [bx + 0x41a]: the only start below is file-backed (0x100)
+        symbols, equ = self._resolve('8b871a04', ds_starts={0x100})
+        self.assertEqual(symbols, {})
+        self.assertEqual(equ, {})
+
+    @staticmethod
+    def _ds_model(names=None):
+        model = SegmentModel(
+            kind='mz', file_size=0x3000, load_size=0x1000,
+            cs_origin=0x200, data_origin=0x1000, cs_base=0, data_base=0xe00,
+            bss_boundary=0x800, psp=True, entry_offset=0x200,
+            header_size=0x200)
+        model.data_names = {
+            off: Symbol(name, kind=Kind.DATA, source=Source.SIDECAR,
+                        offset=off, space=Space.DS)
+            for off, name in (names or {}).items()}
+        return model
+
+    def test_binds_inside_a_named_static(self):
+        # mov ax, [bx + 0x41a] after ``spell_table`` at 0x400
+        symbols, _ = self._resolve('8b871a04',
+                                   segments=self._ds_model({0x400: 'table'}))
+        self.assertEqual(symbols[(0x200, 1)], 'table + 0x1a')
+
+    def test_a_generic_static_owns_nothing_inside(self):
+        # mov ax, [bx + 0x41a]: ``dseg_0400 + 0x1a`` could be a field offset
+        symbols, _ = self._resolve('8b871a04', segments=self._ds_model(),
+                                   ds_starts={0x400})
+        self.assertEqual(symbols, {})
+
+    def test_a_low_field_offset_stays_inside_a_named_static(self):
+        # mov ax, [si + 0x1a1]: the party record's field, not ``table + 0xa1``
+        symbols, _ = self._resolve('8b84a101',
+                                   segments=self._ds_model({0x100: 'table'}))
+        self.assertEqual(symbols, {})
 
     def test_frame_slot_and_cs_table_are_skipped(self):
         # mov ax, [0x0400] | mov ax, [bp + 0x400] | mov ax, [cs:bx + 0x400]
@@ -167,6 +217,11 @@ class ResolveIndexOffsetSymbolsTest(unittest.TestCase):
         symbols, equ = self._resolve({0x400})
         self.assertEqual(symbols, {(0x203, 1): 'bss_0400'})
         self.assertEqual(equ, {'bss_0400': 0x400})
+
+    def test_binds_inside_a_named_object(self):
+        symbols, equ = self._resolve({0x3f0})
+        self.assertEqual(symbols, {(0x203, 1): 'bss_03f0 + 0x10'})
+        self.assertEqual(equ, {'bss_03f0': 0x3f0})
 
     def test_a_field_offset_stays_a_number(self):
         # No object starts at 0x400: an index plus a field offset.

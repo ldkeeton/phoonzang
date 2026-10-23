@@ -123,7 +123,7 @@ api_idx_004c_LTUL:
     pop ax
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x5c3b]
+    mov al, byte [bx + cell_key_grid + 0x7]
     sub ah, ah
     test ax, 0x80
     je short @..api_idx_004c_LTUL.l9
@@ -167,7 +167,7 @@ api_idx_004c_LTUL:
     imul word [bp + 0x4]
     add ax, word [bp - 0x0004]
     mov bx, ax
-    mov al, byte [bx + 0x5d48]
+    mov al, byte [bx + cell_key_grid + 0x114]
     sub ah, ah
     cmp ax, word [bp - 0x0002]
     jne short @..api_idx_004c_LTUL.l13
@@ -200,7 +200,7 @@ api_idx_004c_LTUL:
     pop ax
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x5c3b]
+    mov al, byte [bx + cell_key_grid + 0x7]
     sub ah, ah
     test ax, 2
     je short @..api_idx_004c_LTUL.l15

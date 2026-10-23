@@ -5,7 +5,7 @@ api_idx_0004_LOLJ:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + 0x5e2d]
+    mov al, byte [bx + bss_5e2a + 0x3]
     sub ah, ah
     jmp near @..api_idx_0004_LOLJ.l1
 api_idx_0004_LOLJ.jumptable_case1:
@@ -215,9 +215,9 @@ api_idx_0004_LOLJ.jumptable1:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    cmp byte [bx + 0x5d65], 0xd
+    cmp byte [bx + cell_key_grid + 0x131], 0xd
     jbe short @..api_idx_0004_LOLJ.l3
-    cmp byte [bx + 0x5d6a], 0xd
+    cmp byte [bx + cell_key_grid + 0x136], 0xd
     jbe short @..api_idx_0004_LOLJ.l3
     mov word [api_idx_0004_LOLJ.bss1], 1
 @..api_idx_0004_LOLJ.l3:

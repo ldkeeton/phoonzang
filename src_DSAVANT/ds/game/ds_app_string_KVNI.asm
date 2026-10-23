@@ -75,7 +75,7 @@ ds_app_string_KVNI: ; Aztec csav frame=0x0054
     idiv cx                          ; 0x0cc4
     mov ax, dx                       ; 0x0cc6
     mov bx, word [bp - 0x0004]       ; 0x0cc8
-    mov byte [bx + 0xff0], al        ; 0x0ccb
+    mov byte [bx + code_table + 0x1a], al ; 0x0ccb
     add bx, bp                       ; 0x0ccf
     mov al, byte [bx - 0x0050]       ; 0x0cd1
     sub ah, ah                       ; 0x0cd4

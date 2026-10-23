@@ -826,7 +826,7 @@ jumptable_35d1_case_3:
     mov ax, 6                        ; 0x3132
     imul word [bp - 0x003c]          ; 0x3135
     mov bx, ax                       ; 0x3138
-    mov al, byte [bx + 0x622]        ; 0x313a
+    mov al, byte [bx + spell_table + 0x2] ; 0x313a
     sub ah, ah                       ; 0x313e
     mov cx, word [bp - 0x003e]       ; 0x3140
     inc cx                           ; 0x3143
@@ -840,7 +840,7 @@ jumptable_35d1_case_3:
     shl dx, 1                        ; 0x3154
     add ax, dx                       ; 0x3156
     mov bx, ax                       ; 0x3158
-    mov cx, word [bx + 0x5c1c]       ; 0x315a
+    mov cx, word [bx + pc_spell_power_cap + 0x4] ; 0x315a
     pop ax                           ; 0x315e
     cmp ax, cx                       ; 0x315f
     jg short @..pick_spell_dialog.l25 ; 0x3161
@@ -964,7 +964,7 @@ jumptable_35d1_case_4:
     mov ax, 6                        ; 0x3276
     imul word [bp - 0x003c]          ; 0x3279
     mov bx, ax                       ; 0x327c
-    mov al, byte [bx + 0x621]        ; 0x327e
+    mov al, byte [bx + spell_table + 0x1] ; 0x327e
     sub ah, ah                       ; 0x3282
     mov cx, ax                       ; 0x3284
     pop ax                           ; 0x3286
@@ -976,7 +976,7 @@ jumptable_35d1_case_4:
     mov ax, 6                        ; 0x3293
     imul word [bp - 0x003c]          ; 0x3296
     mov bx, ax                       ; 0x3299
-    mov al, byte [bx + 0x622]        ; 0x329b
+    mov al, byte [bx + spell_table + 0x2] ; 0x329b
     sub ah, ah                       ; 0x329f
     mov cx, word [bp - 0x0040]       ; 0x32a1
     inc cx                           ; 0x32a4
@@ -994,7 +994,7 @@ jumptable_35d1_case_4:
     shl cx, 1                        ; 0x32c0
     add ax, cx                       ; 0x32c2
     mov bx, ax                       ; 0x32c4
-    mov ax, word [bx + 0x5c1c]       ; 0x32c6
+    mov ax, word [bx + pc_spell_power_cap + 0x4] ; 0x32c6
     cmp ax, word [bp - 0x0002]       ; 0x32ca
     jge short @..pick_spell_dialog.l32 ; 0x32cd
     jmp short @..pick_spell_dialog.l33 ; 0x32cf
@@ -1005,7 +1005,7 @@ jumptable_35d1_case_4:
     mov ax, 6                        ; 0x32d5
     imul word [bp - 0x003c]          ; 0x32d8
     mov bx, ax                       ; 0x32db
-    mov al, byte [bx + 0x622]        ; 0x32dd
+    mov al, byte [bx + spell_table + 0x2] ; 0x32dd
     sub ah, ah                       ; 0x32e1
     mov cx, word [bp - 0x003e]       ; 0x32e3
     inc cx                           ; 0x32e6
@@ -1233,7 +1233,7 @@ jumptable_35d1_case_4:
     mov ax, 6                        ; 0x3500
     imul word [bp - 0x003c]          ; 0x3503
     mov bx, ax                       ; 0x3506
-    mov al, byte [bx + 0x621]        ; 0x3508
+    mov al, byte [bx + spell_table + 0x1] ; 0x3508
     sub ah, ah                       ; 0x350c
     mov cx, ax                       ; 0x350e
     pop ax                           ; 0x3510
@@ -1245,7 +1245,7 @@ jumptable_35d1_case_4:
     mov ax, 6                        ; 0x351d
     imul word [bp - 0x003c]          ; 0x3520
     mov bx, ax                       ; 0x3523
-    mov al, byte [bx + 0x622]        ; 0x3525
+    mov al, byte [bx + spell_table + 0x2] ; 0x3525
     sub ah, ah                       ; 0x3529
     mov cx, word [bp - 0x0040]       ; 0x352b
     inc cx                           ; 0x352e
@@ -1263,7 +1263,7 @@ jumptable_35d1_case_4:
     shl cx, 1                        ; 0x354a
     add ax, cx                       ; 0x354c
     mov bx, ax                       ; 0x354e
-    mov ax, word [bx + 0x5c1c]       ; 0x3550
+    mov ax, word [bx + pc_spell_power_cap + 0x4] ; 0x3550
     cmp ax, word [bp - 0x0002]       ; 0x3554
     jge short @..pick_spell_dialog.l45 ; 0x3557
     jmp short @..pick_spell_dialog.l46 ; 0x3559
@@ -1274,7 +1274,7 @@ jumptable_35d1_case_4:
     mov ax, 6                        ; 0x355f
     imul word [bp - 0x003c]          ; 0x3562
     mov bx, ax                       ; 0x3565
-    mov al, byte [bx + 0x622]        ; 0x3567
+    mov al, byte [bx + spell_table + 0x2] ; 0x3567
     sub ah, ah                       ; 0x356b
     mov cx, word [bp - 0x003e]       ; 0x356d
     inc cx                           ; 0x3570

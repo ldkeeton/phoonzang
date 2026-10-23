@@ -38,7 +38,7 @@ ds_app_string_MPHP: ; Aztec csav frame=0x0054
     idiv cx                          ; 0x0624
     mov ax, dx                       ; 0x0626
     mov bx, word [bp - 0x0004]       ; 0x0628
-    mov cl, byte [bx + 0xff0]        ; 0x062b
+    mov cl, byte [bx + code_table + 0x1a] ; 0x062b
     cmp al, cl                       ; 0x062f
     je short @..ds_app_string_MPHP.l2 ; 0x0631
     ret                              ; 0x0633

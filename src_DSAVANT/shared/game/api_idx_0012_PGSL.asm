@@ -8,15 +8,15 @@ api_idx_0012_PGSL:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + 0x5e37]
+    mov al, byte [bx + bss_5e2a + 0xd]
     sub ah, ah
     mov word [bp - 0x0008], ax
-    mov al, byte [bx + 0x5e38]
+    mov al, byte [bx + bss_5e2a + 0xe]
     sub ah, ah
     mov word [bp - 0x0006], ax
     mov word [bp - 0x0004], 0
     mov word [bp - 0x0002], 9
-    mov ax, word [bx + 0x5c14]
+    mov ax, word [bx + pc_records + 0x4]
     mov bx, 0x64
     imul bx
     push ax
@@ -24,7 +24,7 @@ api_idx_0012_PGSL:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + 0x5c16]
+    mov ax, word [bx + pc_records + 0x6]
     cwd
     mov cx, ax
     mov bx, dx
@@ -85,7 +85,7 @@ api_idx_0012_PGSL:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + 0x5c12]
+    mov ax, word [bx + pc_records + 0x2]
     mov cx, 0x64
     cwd
     idiv cx
@@ -109,7 +109,7 @@ api_idx_0012_PGSL:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + 0x5c12]
+    mov ax, word [bx + pc_records + 0x2]
     mov cx, 0x32
     cwd
     idiv cx
@@ -125,7 +125,7 @@ api_idx_0012_PGSL:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + 0x5c12]
+    mov ax, word [bx + pc_records + 0x2]
     mov cx, 0x19
     cwd
     idiv cx

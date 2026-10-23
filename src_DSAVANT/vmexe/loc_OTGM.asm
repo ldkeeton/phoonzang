@@ -20,7 +20,7 @@ loc_OTGM:
     mov ax, 6                        ; 0x0f96
     imul word [bp + 0x8]             ; 0x0f99
     mov bx, ax                       ; 0x0f9c
-    mov al, byte [bx + 0x889]        ; 0x0f9e
+    mov al, byte [bx + spell_table + 0x269] ; 0x0f9e
     sub ah, ah                       ; 0x0fa2
     jmp short @..loc_OTGM.l5         ; 0x0fa4
 @..loc_OTGM.l2:
@@ -56,7 +56,7 @@ loc_OTGM:
     mov ax, 6                        ; 0x0ff8
     imul word [bp + 0x8]             ; 0x0ffb
     mov bx, ax                       ; 0x0ffe
-    mov al, byte [bx + 0x888]        ; 0x1000
+    mov al, byte [bx + spell_table + 0x268] ; 0x1000
     sub ah, ah                       ; 0x1004
     mov word [bp - 0x00fa], ax       ; 0x1006
     cmp word [bp + 0x4], byte 0      ; 0x100a
@@ -94,7 +94,7 @@ loc_OTGM:
     mov word [bp - 0x0008], 0        ; 0x106a
     mov word [bp - 0x000a], 0xffff   ; 0x106f
     mov word [bp - 0x000e], 0xffff   ; 0x1074
-    mov al, byte [bx + 0x889]        ; 0x1079
+    mov al, byte [bx + spell_table + 0x269] ; 0x1079
     sub ah, ah                       ; 0x107d
     jmp short @..loc_OTGM.l14        ; 0x107f
 @..loc_OTGM.l12:
@@ -143,9 +143,9 @@ loc_OTGM:
     mov ax, 6                        ; 0x10e4
     imul word [bp + 0x8]             ; 0x10e7
     mov bx, ax                       ; 0x10ea
-    mov ax, word [bx + 0x884]        ; 0x10ec
+    mov ax, word [bx + spell_table + 0x264] ; 0x10ec
     mov word [bp - 0x00ec], ax       ; 0x10f0
-    mov ax, word [bx + 0x886]        ; 0x10f4
+    mov ax, word [bx + spell_table + 0x266] ; 0x10f4
     mov word [bp - 0x00ee], ax       ; 0x10f8
     mov word [bp - 0x00ea], 0        ; 0x10fc
     mov word [bp - 0x00e8], 0        ; 0x1102
@@ -258,7 +258,7 @@ loc_OTGM:
     cmp word [bp - 0x000c], byte 0   ; 0x134b
     je short @..loc_OTGM.l21         ; 0x134f
     mov ax, 3                        ; 0x1351
-    cmp byte [bx + 0x889], 2         ; 0x1354
+    cmp byte [bx + spell_table + 0x269], 2 ; 0x1354
     je short @..loc_OTGM.l21         ; 0x1359
     mov ax, 5                        ; 0x135b
     cmp word [bp + 0xa], byte 0      ; 0x135e

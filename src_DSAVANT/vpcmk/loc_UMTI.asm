@@ -82,7 +82,7 @@ jumptable_4267_case_8:
     mov ax, 0x248                    ; 0x41c9
     imul word [bp + 0x4]             ; 0x41cc
     mov bx, ax                       ; 0x41cf
-    cmp byte [bx + 0x5e2c], 1        ; 0x41d1
+    cmp byte [bx + bss_5e2a + 0x2], 1 ; 0x41d1
     jne short @..loc_UMTI.l2         ; 0x41d6
 @..loc_UMTI.l1:
     push word [bp + 0x8]             ; 0x41d8

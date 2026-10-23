@@ -30,7 +30,7 @@ api_idx_0002_QMUL:
     push word [bp - 0x0002]          ; 0x8740
     mov si, word [party_region]      ; 0x8743
     mov bx, word [maze_tables]       ; 0x8747
-    mov al, byte [bx + si + 0xa50]   ; 0x874b
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x874b
     sub ah, ah                       ; 0x874f
     push ax                          ; 0x8751
     mov ax, bss_5842                 ; 0x8752
@@ -45,12 +45,12 @@ api_idx_0002_QMUL:
     push word [bp - 0x0002]          ; 0x8765
     mov bx, word [maze_tables]       ; 0x8768
     mov si, word [party_region]      ; 0x876c
-    mov al, byte [bx + si + 0xa50]   ; 0x8770
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x8770
     sub ah, ah                       ; 0x8774
     mov cx, 0x26                     ; 0x8776
     imul cx                          ; 0x8779
     mov bx, ax                       ; 0x877b
-    cmp byte [bx - 0x7b00], 0        ; 0x877d
+    cmp byte [bx + slot_records + 0x14], 0 ; 0x877d
     jne short @..api_idx_0002_QMUL.l2 ; 0x8782
     mov ax, 1                        ; 0x8784
     jmp short @..api_idx_0002_QMUL.l3 ; 0x8787

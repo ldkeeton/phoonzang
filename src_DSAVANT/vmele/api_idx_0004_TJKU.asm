@@ -62,7 +62,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0d0e
     imul word [bp - 0x0002]          ; 0x0d11
     mov bx, ax                       ; 0x0d14
-    mov ax, word [bx + 0x5c0e]       ; 0x0d16
+    mov ax, word [bx + bss_5c0a + 0x4] ; 0x0d16
     push ax                          ; 0x0d1a
     mov ax, 0x2c                     ; 0x0d1b
     imul word [bp - 0x0002]          ; 0x0d1e
@@ -76,7 +76,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0d32
     imul word [bp - 0x0002]          ; 0x0d35
     mov bx, ax                       ; 0x0d38
-    mov ax, word [bx + 0x5c0c]       ; 0x0d3a
+    mov ax, word [bx + bss_5c0a + 0x2] ; 0x0d3a
     push ax                          ; 0x0d3e
     mov ax, 0x2c                     ; 0x0d3f
     imul word [bp - 0x0002]          ; 0x0d42
@@ -90,7 +90,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0d56
     imul word [bp - 0x0002]          ; 0x0d59
     mov bx, ax                       ; 0x0d5c
-    mov ax, word [bx + 0x5c12]       ; 0x0d5e
+    mov ax, word [bx + pc_records + 0x2] ; 0x0d5e
     push ax                          ; 0x0d62
     mov ax, 0x2c                     ; 0x0d63
     imul word [bp - 0x0002]          ; 0x0d66
@@ -118,7 +118,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0d9e
     imul word [bp - 0x0002]          ; 0x0da1
     mov bx, ax                       ; 0x0da4
-    mov al, byte [bx + 0x5e2f]       ; 0x0da6
+    mov al, byte [bx + bss_5e2a + 0x5] ; 0x0da6
     push ax                          ; 0x0daa
     mov ax, 0x2c                     ; 0x0dab
     imul word [bp - 0x0002]          ; 0x0dae
@@ -143,14 +143,14 @@ api_idx_0004_TJKU:
     push ax                          ; 0x0dde
     mov ax, 0x248                    ; 0x0ddf
     imul word [bp - 0x0002]          ; 0x0de2
-    add ax, 0x5d5a                   ; 0x0de5
+    add ax, cell_key_grid + 0x126    ; 0x0de5
     push ax                          ; 0x0de8
     call aztec_movmem                ; 0x0de9
     add sp, byte 6                   ; 0x0dec
     mov ax, 0x248                    ; 0x0def
     imul word [bp - 0x0002]          ; 0x0df2
     mov bx, ax                       ; 0x0df5
-    mov al, byte [bx + 0x5e32]       ; 0x0df7
+    mov al, byte [bx + bss_5e2a + 0x8] ; 0x0df7
     push ax                          ; 0x0dfb
     mov ax, 0x2c                     ; 0x0dfc
     imul word [bp - 0x0002]          ; 0x0dff
@@ -180,7 +180,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0e41
     imul word [bp - 0x0002]          ; 0x0e44
     mov bx, ax                       ; 0x0e47
-    cmp byte [bx + 0x5d82], 0        ; 0x0e49
+    cmp byte [bx + cell_key_grid + 0x14e], 0 ; 0x0e49
     jbe short @..api_idx_0004_TJKU.l5 ; 0x0e4e
     mov ax, 0x2c                     ; 0x0e50
     imul word [bp - 0x0002]          ; 0x0e53
@@ -195,7 +195,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0e68
     imul word [bp - 0x0002]          ; 0x0e6b
     mov bx, ax                       ; 0x0e6e
-    mov al, byte [bx + 0x5d82]       ; 0x0e70
+    mov al, byte [bx + cell_key_grid + 0x14e] ; 0x0e70
     sub ah, ah                       ; 0x0e74
     mov cx, 0xa                      ; 0x0e76
     cwd                              ; 0x0e79
@@ -214,7 +214,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0e91
     imul word [bp - 0x0002]          ; 0x0e94
     mov bx, ax                       ; 0x0e97
-    cmp byte [bx + 0x5d7f], 0        ; 0x0e99
+    cmp byte [bx + cell_key_grid + 0x14b], 0 ; 0x0e99
     jbe short @..api_idx_0004_TJKU.l6 ; 0x0e9e
     mov ax, 0x2c                     ; 0x0ea0
     imul word [bp - 0x0002]          ; 0x0ea3
@@ -229,7 +229,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0eb8
     imul word [bp - 0x0002]          ; 0x0ebb
     mov bx, ax                       ; 0x0ebe
-    mov al, byte [bx + 0x5d7f]       ; 0x0ec0
+    mov al, byte [bx + cell_key_grid + 0x14b] ; 0x0ec0
     sub ah, ah                       ; 0x0ec4
     mov cx, 0xf                      ; 0x0ec6
     cwd                              ; 0x0ec9
@@ -249,7 +249,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0ee3
     imul word [bp - 0x0002]          ; 0x0ee6
     mov bx, ax                       ; 0x0ee9
-    cmp byte [bx + 0x5d81], 0        ; 0x0eeb
+    cmp byte [bx + cell_key_grid + 0x14d], 0 ; 0x0eeb
     jbe short @..api_idx_0004_TJKU.l7 ; 0x0ef0
     mov ax, 0x2c                     ; 0x0ef2
     imul word [bp - 0x0002]          ; 0x0ef5
@@ -264,7 +264,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0f0a
     imul word [bp - 0x0002]          ; 0x0f0d
     mov bx, ax                       ; 0x0f10
-    mov al, byte [bx + 0x5d81]       ; 0x0f12
+    mov al, byte [bx + cell_key_grid + 0x14d] ; 0x0f12
     sub ah, ah                       ; 0x0f16
     mov cx, 0xf                      ; 0x0f18
     cwd                              ; 0x0f1b
@@ -284,7 +284,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0f35
     imul word [bp - 0x0002]          ; 0x0f38
     mov bx, ax                       ; 0x0f3b
-    cmp byte [bx + 0x5d80], 0        ; 0x0f3d
+    cmp byte [bx + cell_key_grid + 0x14c], 0 ; 0x0f3d
     jbe short @..api_idx_0004_TJKU.l8 ; 0x0f42
     mov ax, 0x2c                     ; 0x0f44
     imul word [bp - 0x0002]          ; 0x0f47
@@ -299,7 +299,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0f5c
     imul word [bp - 0x0002]          ; 0x0f5f
     mov bx, ax                       ; 0x0f62
-    mov al, byte [bx + 0x5d80]       ; 0x0f64
+    mov al, byte [bx + cell_key_grid + 0x14c] ; 0x0f64
     sub ah, ah                       ; 0x0f68
     mov cx, 0xa                      ; 0x0f6a
     cwd                              ; 0x0f6d

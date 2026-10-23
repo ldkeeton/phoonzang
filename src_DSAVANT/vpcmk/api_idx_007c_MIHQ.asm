@@ -72,7 +72,7 @@ api_idx_007c_MIHQ:
     imul word [bp + 0x4]             ; 0x461d
     mov bx, ax                       ; 0x4620
     pop ax                           ; 0x4622
-    mov byte [bx + 0x5e2d], al       ; 0x4623
+    mov byte [bx + bss_5e2a + 0x3], al ; 0x4623
     mov ax, 0                        ; 0x4627
     push ax                          ; 0x462a
     mov ax, 0x84                     ; 0x462b
@@ -90,7 +90,7 @@ api_idx_007c_MIHQ:
     mov ax, 0x248                    ; 0x4647
     imul word [bp + 0x4]             ; 0x464a
     mov bx, ax                       ; 0x464d
-    mov al, byte [bx + 0x5e2d]       ; 0x464f
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x464f
     sub ah, ah                       ; 0x4653
     add ax, strict word 0x78         ; 0x4655
     push ax                          ; 0x4658
@@ -107,7 +107,7 @@ api_idx_007c_MIHQ:
     mov ax, 0x248                    ; 0x4671
     imul word [bp + 0x4]             ; 0x4674
     mov bx, ax                       ; 0x4677
-    mov al, byte [bx + 0x5e2d]       ; 0x4679
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x4679
     sub ah, ah                       ; 0x467d
     push ax                          ; 0x467f
     push word [bp + 0x4]             ; 0x4680

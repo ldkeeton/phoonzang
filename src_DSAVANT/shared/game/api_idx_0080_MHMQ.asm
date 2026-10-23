@@ -28,17 +28,17 @@ api_idx_0080_MHMQ:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + 0x5dab]
+    mov al, byte [bx + cell_key_grid + 0x177]
     cbw
     add ax, word [bp - 0x0018]
     mov word [bp - 0x000a], ax
-    mov al, byte [bx + 0x5dac]
+    mov al, byte [bx + cell_key_grid + 0x178]
     cbw
     mov cx, ax
     mov ax, word [bp - 0x000a]
     add cx, ax
     mov word [bp - 0x0008], cx
-    mov al, byte [bx + 0x5daa]
+    mov al, byte [bx + cell_key_grid + 0x176]
     cbw
     add ax, cx
     mov word [bp - 0x0006], ax
@@ -167,7 +167,7 @@ api_idx_0080_MHMQ:
     imul word [bp + 0x4]
     add ax, word [bp - 0x0002]
     mov bx, ax
-    mov al, byte [bx + 0x5d4b]
+    mov al, byte [bx + cell_key_grid + 0x117]
     sub ah, ah
     cmp ax, 0xff
     je short @..api_idx_0080_MHMQ.l4
@@ -183,7 +183,7 @@ api_idx_0080_MHMQ:
     imul word [bp + 0x4]
     add ax, word [bp - 0x0002]
     mov bx, ax
-    mov al, byte [bx + 0x5dad]
+    mov al, byte [bx + cell_key_grid + 0x179]
     cbw
     add ax, word [bp - 0x0008]
     mov word [bp - 0x0006], ax

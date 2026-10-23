@@ -288,7 +288,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3b1c
     mov ax, word [game_state_arg]    ; 0x3b1d
     shl ax, cl                       ; 0x3b20
-    add ax, 0x8d14                   ; 0x3b22
+    add ax, party_region + 0x2       ; 0x3b22
     push ax                          ; 0x3b25
     call aztec_movmem                ; 0x3b26
     add sp, byte 6                   ; 0x3b29

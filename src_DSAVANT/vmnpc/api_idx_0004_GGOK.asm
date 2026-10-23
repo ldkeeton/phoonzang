@@ -28,7 +28,7 @@ api_idx_0004_GGOK:
     mov ax, 6                        ; 0x3acf
     imul dx                          ; 0x3ad2
     mov bx, ax                       ; 0x3ad4
-    cmp byte [bx + 0x624], 1         ; 0x3ad6
+    cmp byte [bx + spell_table + 0x4], 1 ; 0x3ad6
     jne short @..api_idx_0004_GGOK.l2 ; 0x3adb
     call pick_party_member           ; 0x3add
     mov word [bss_9650], ax          ; 0x3ae0
@@ -43,7 +43,7 @@ api_idx_0004_GGOK:
     mov ax, 6                        ; 0x3af6
     imul word [bp - 0x0002]          ; 0x3af9
     mov bx, ax                       ; 0x3afc
-    mov al, byte [bx + 0x622]        ; 0x3afe
+    mov al, byte [bx + spell_table + 0x2] ; 0x3afe
     sub ah, ah                       ; 0x3b02
     imul word [bp - 0x0004]          ; 0x3b04
     push ax                          ; 0x3b07
@@ -59,7 +59,7 @@ api_idx_0004_GGOK:
     add cx, ax                       ; 0x3b1e
     mov bx, cx                       ; 0x3b20
     pop ax                           ; 0x3b22
-    sub word [bx + 0x5c1c], ax       ; 0x3b23
+    sub word [bx + pc_spell_power_cap + 0x4], ax ; 0x3b23
     push word [bss_9650]             ; 0x3b27
     push word [bp - 0x0004]          ; 0x3b2b
     push word [bp - 0x0002]          ; 0x3b2e
@@ -73,7 +73,7 @@ api_idx_0004_GGOK:
     mov ax, 6                        ; 0x3b42
     imul word [bp - 0x0002]          ; 0x3b45
     mov bx, ax                       ; 0x3b48
-    mov al, byte [bx + 0x621]        ; 0x3b4a
+    mov al, byte [bx + spell_table + 0x1] ; 0x3b4a
     sub ah, ah                       ; 0x3b4e
     mov cx, ax                       ; 0x3b50
     pop ax                           ; 0x3b52
@@ -98,7 +98,7 @@ api_idx_0004_GGOK:
     imul word [bp + 0x4]             ; 0x3b82
     mov bx, ax                       ; 0x3b85
     pop ax                           ; 0x3b87
-    mov byte [bx + 0x5d5c], al       ; 0x3b88
+    mov byte [bx + cell_key_grid + 0x128], al ; 0x3b88
 @..api_idx_0004_GGOK.l4:
     mov ax, 1                        ; 0x3b8c
     push ax                          ; 0x3b8f

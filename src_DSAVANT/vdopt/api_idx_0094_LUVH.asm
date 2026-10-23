@@ -51,7 +51,7 @@ api_idx_0094_LUVH:
     pop ax                           ; 0x41f3
     add ax, cx                       ; 0x41f4
     mov bx, ax                       ; 0x41f6
-    mov al, byte [bx + 0x5c3b]       ; 0x41f8
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x41f8
     sub ah, ah                       ; 0x41fc
     test ax, 0x80                    ; 0x41fe
     je short @..api_idx_0094_LUVH.l4 ; 0x4201
@@ -99,7 +99,7 @@ api_idx_0094_LUVH:
     pop ax                           ; 0x4267
     add ax, cx                       ; 0x4268
     mov bx, ax                       ; 0x426a
-    mov al, byte [bx + 0x5c38]       ; 0x426c
+    mov al, byte [bx + cell_key_grid + 0x4] ; 0x426c
     sub ah, ah                       ; 0x4270
     mov bx, ax                       ; 0x4272
     cmp byte [bx + 0x60e], 1         ; 0x4274
@@ -119,7 +119,7 @@ api_idx_0094_LUVH:
     pop ax                           ; 0x4296
     add ax, cx                       ; 0x4297
     mov bx, ax                       ; 0x4299
-    mov al, byte [bx + 0x5c3a]       ; 0x429b
+    mov al, byte [bx + cell_key_grid + 0x6] ; 0x429b
     sub ah, ah                       ; 0x429f
     mov cx, word [bp - 0x0094]       ; 0x42a1
     shl cx, 1                        ; 0x42a5
@@ -266,7 +266,7 @@ api_idx_0094_LUVH:
     mov ax, 6                        ; 0x43ec
     imul dx                          ; 0x43ef
     mov bx, ax                       ; 0x43f1
-    cmp byte [bx + 0x624], 1         ; 0x43f3
+    cmp byte [bx + spell_table + 0x4], 1 ; 0x43f3
     jne short @..api_idx_0094_LUVH.l17 ; 0x43f8
     call pick_party_member           ; 0x43fa
     mov word [spell_target], ax      ; 0x43fd
@@ -320,7 +320,7 @@ api_idx_0094_LUVH:
     mov ax, word [bp - 0x002e]       ; 0x446f
     mov cx, 4                        ; 0x4472
     shl ax, cl                       ; 0x4475
-    add ax, 0x8d14                   ; 0x4477
+    add ax, party_region + 0x2       ; 0x4477
     push ax                          ; 0x447a
     call set_bitmap_bit              ; 0x447b
     add sp, byte 6                   ; 0x447e
@@ -344,7 +344,7 @@ api_idx_0094_LUVH:
     mov ax, word [bp - 0x002e]       ; 0x44a7
     mov cx, 4                        ; 0x44aa
     shl ax, cl                       ; 0x44ad
-    add ax, 0x8d14                   ; 0x44af
+    add ax, party_region + 0x2       ; 0x44af
     push ax                          ; 0x44b2
     call set_bitmap_bit              ; 0x44b3
     add sp, byte 6                   ; 0x44b6
@@ -418,7 +418,7 @@ api_idx_0094_LUVH:
     pop ax                           ; 0x4561
     add ax, cx                       ; 0x4562
     mov bx, ax                       ; 0x4564
-    mov al, byte [bx + 0x5c3b]       ; 0x4566
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x4566
     sub ah, ah                       ; 0x456a
     test ax, 2                       ; 0x456c
     jne short @..api_idx_0094_LUVH.l31 ; 0x456f

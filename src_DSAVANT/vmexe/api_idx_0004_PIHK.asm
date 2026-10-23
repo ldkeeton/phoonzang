@@ -16,8 +16,8 @@ api_idx_0004_PIHK:
     mov cx, 0x248                    ; 0x1c84
     imul cx                          ; 0x1c87
     mov bx, ax                       ; 0x1c89
-    add word [bx + 0x5c04], byte 1   ; 0x1c8b
-    adc word [bx + 0x5c06], byte 0   ; 0x1c90
+    add word [bx + bss_5bf4 + 0x10], byte 1 ; 0x1c8b
+    adc word [bx + bss_5bf4 + 0x12], byte 0 ; 0x1c90
 @..api_idx_0004_PIHK.l2:
     mov ax, word [bp + 0x4]          ; 0x1c95
     shl ax, 1                        ; 0x1c98
@@ -48,7 +48,7 @@ api_idx_0004_PIHK:
     mov cx, 0x26                     ; 0x1cd7
     imul cx                          ; 0x1cda
     mov bx, ax                       ; 0x1cdc
-    mov byte [bx - 0x7b00], 0        ; 0x1cde
+    mov byte [bx + slot_records + 0x14], 0 ; 0x1cde
     mov ax, word [bp + 0x4]          ; 0x1ce3
     shl ax, 1                        ; 0x1ce6
     mov bx, ax                       ; 0x1ce8

@@ -8,30 +8,30 @@ find_object_at:
 @..find_object_at.l1:
     mov bx, word [maze_tables]
     mov si, word [bp - 0x0002]
-    mov al, byte [bx + si + 0x870]
+    mov al, byte [bx + si + spell_table + 0x250]
     sub ah, ah
     cmp ax, word [bp + 0x8]
     je short @..find_object_at.l2
     mov ax, 0xffff
     ret
 @..find_object_at.l2:
-    mov al, byte [bx + si + 0x690]
+    mov al, byte [bx + si + spell_table + 0x70]
     sub ah, ah
     cmp ax, word [bp + 0x4]
     jne short @..find_object_at.l3
-    mov al, byte [bx + si + 0x780]
+    mov al, byte [bx + si + spell_table + 0x160]
     sub ah, ah
     cmp ax, word [bp + 0x6]
     jne short @..find_object_at.l3
     cmp byte [bx + si + 0x5a0], 0
     jbe short @..find_object_at.l3
-    mov al, byte [bx + si + 0x960]
+    mov al, byte [bx + si + spell_table + 0x340]
     sub ah, ah
     push ax
     mov ax, word [game_state_arg]
     mov cx, 4
     shl ax, cl
-    add ax, 0x8d14
+    add ax, party_region + 0x2
     push ax
     call test_bit
     add sp, byte 4

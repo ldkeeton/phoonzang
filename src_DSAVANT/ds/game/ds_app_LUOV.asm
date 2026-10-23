@@ -8,8 +8,8 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     shl ax, 1                        ; 0x1d8e
     shl ax, 1                        ; 0x1d90
     mov bx, ax                       ; 0x1d92
-    push word [bx + 0x69a6]          ; 0x1d94
-    push word [bx + 0x69a4]          ; 0x1d98
+    push word [bx + bss_5e2a + 0xb7c] ; 0x1d94
+    push word [bx + bss_5e2a + 0xb7a] ; 0x1d98
     call gfx_restore_area            ; 0x1d9c
     add sp, byte 6                   ; 0x1d9f
     mov ax, word [bp + 0x4]          ; 0x1da2
@@ -38,7 +38,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov ax, word [bp + 0x4]          ; 0x1dda
     shl ax, 1                        ; 0x1ddd
     mov bx, ax                       ; 0x1ddf
-    mov al, byte [bx + 0x69bc]       ; 0x1de1
+    mov al, byte [bx + bss_5e2a + 0xb92] ; 0x1de1
     sub ah, ah                       ; 0x1de5
     push ax                          ; 0x1de7
     call draw_font_glyph             ; 0x1de8
@@ -84,7 +84,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov ax, 0x248                    ; 0x1e4a
     imul word [bp + 0x4]             ; 0x1e4d
     mov bx, ax                       ; 0x1e50
-    mov al, byte [bx + 0x5e2d]       ; 0x1e52
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x1e52
     sub ah, ah                       ; 0x1e56
     add ax, strict word 0x78         ; 0x1e58
     push ax                          ; 0x1e5b
@@ -100,18 +100,18 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov ax, 0x248                    ; 0x1e74
     imul word [bp + 0x4]             ; 0x1e77
     mov bx, ax                       ; 0x1e7a
-    mov al, byte [bx + 0x5e2f]       ; 0x1e7c
+    mov al, byte [bx + bss_5e2a + 0x5] ; 0x1e7c
     sub ah, ah                       ; 0x1e80
     shl ax, 1                        ; 0x1e82
     mov bx, ax                       ; 0x1e84
-    mov ax, word [bx + 0x920]        ; 0x1e86
+    mov ax, word [bx + spell_table + 0x300] ; 0x1e86
     mov word [bp - 0x0006], ax       ; 0x1e8a
     cmp ax, strict word 0xffff       ; 0x1e8d
     jne short @..ds_app_LUOV.l1      ; 0x1e90
     mov ax, 0x248                    ; 0x1e92
     imul word [bp + 0x4]             ; 0x1e95
     mov bx, ax                       ; 0x1e98
-    cmp byte [bx + 0x5d5c], 0        ; 0x1e9a
+    cmp byte [bx + cell_key_grid + 0x128], 0 ; 0x1e9a
     jbe short @..ds_app_LUOV.l1      ; 0x1e9f
     mov ax, 0                        ; 0x1ea1
     jmp short @..ds_app_LUOV.l2      ; 0x1ea4
@@ -124,7 +124,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov ax, 0x248                    ; 0x1eb1
     imul word [bp + 0x4]             ; 0x1eb4
     mov bx, ax                       ; 0x1eb7
-    cmp byte [bx + 0x5d5d], 0        ; 0x1eb9
+    cmp byte [bx + cell_key_grid + 0x129], 0 ; 0x1eb9
     jbe short @..ds_app_LUOV.l3      ; 0x1ebe
     mov ax, 1                        ; 0x1ec0
     jmp short @..ds_app_LUOV.l4      ; 0x1ec3
@@ -158,17 +158,17 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     imul word [bp + 0x4]             ; 0x1f06
     add ax, word [bp - 0x0002]       ; 0x1f09
     mov bx, ax                       ; 0x1f0c
-    cmp byte [bx + 0x5d5a], 0        ; 0x1f0e
+    cmp byte [bx + cell_key_grid + 0x126], 0 ; 0x1f0e
     jbe short @..ds_app_LUOV.l7      ; 0x1f13
     mov ax, word [bp - 0x0002]       ; 0x1f15
     shl ax, 1                        ; 0x1f18
     mov bx, ax                       ; 0x1f1a
-    mov ax, word [bx + 0x940]        ; 0x1f1c
+    mov ax, word [bx + spell_table + 0x320] ; 0x1f1c
     cmp ax, word [bp - 0x0008]       ; 0x1f20
     jle short @..ds_app_LUOV.l7      ; 0x1f23
-    mov ax, word [bx + 0x92c]        ; 0x1f25
+    mov ax, word [bx + spell_table + 0x30c] ; 0x1f25
     mov word [bp - 0x0006], ax       ; 0x1f29
-    mov ax, word [bx + 0x940]        ; 0x1f2c
+    mov ax, word [bx + spell_table + 0x320] ; 0x1f2c
     mov word [bp - 0x0008], ax       ; 0x1f30
 @..ds_app_LUOV.l7:
     inc word [bp - 0x0002]           ; 0x1f33
@@ -204,11 +204,11 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov ax, 0xa                      ; 0x1f7e
     jmp short @..ds_app_LUOV.l11     ; 0x1f81
 @..ds_app_LUOV.l10:
-    mov al, byte [bx + 0x5e2b]       ; 0x1f83
+    mov al, byte [bx + bss_5e2a + 0x1] ; 0x1f83
     sub ah, ah                       ; 0x1f87
     shl ax, 1                        ; 0x1f89
     mov bx, ax                       ; 0x1f8b
-    mov ax, word [bx + 0x954]        ; 0x1f8d
+    mov ax, word [bx + spell_table + 0x334] ; 0x1f8d
 @..ds_app_LUOV.l11:
     mov word [bp - 0x003a], ax       ; 0x1f91
     mov word [bp - 0x0002], 0        ; 0x1f94
@@ -227,7 +227,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     imul word [bp + 0x4]             ; 0x1fb6
     add ax, word [bp - 0x0002]       ; 0x1fb9
     mov bx, ax                       ; 0x1fbc
-    mov al, byte [bx + 0x5d48]       ; 0x1fbe
+    mov al, byte [bx + cell_key_grid + 0x114] ; 0x1fbe
     sub ah, ah                       ; 0x1fc2
     mov word [bp - 0x0004], ax       ; 0x1fc4
     cmp ax, 0xff                     ; 0x1fc7
@@ -245,7 +245,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     jle short @..ds_app_LUOV.l13     ; 0x1fe5
     mov ax, 4                        ; 0x1fe7
     push ax                          ; 0x1fea
-    mov al, byte [bx + 0x5c39]       ; 0x1feb
+    mov al, byte [bx + cell_key_grid + 0x5] ; 0x1feb
     sub ah, ah                       ; 0x1fef
     push ax                          ; 0x1ff1
     call draw_font_glyph             ; 0x1ff2
@@ -270,8 +270,8 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov ax, 0x248                    ; 0x201c
     imul word [bp + 0x4]             ; 0x201f
     mov bx, ax                       ; 0x2022
-    push word [bx + 0x5c0e]          ; 0x2024
-    push word [bx + 0x5c0c]          ; 0x2028
+    push word [bx + bss_5c0a + 0x4]  ; 0x2024
+    push word [bx + bss_5c0a + 0x2]  ; 0x2028
     mov ax, 0x16                     ; 0x202c
     push ax                          ; 0x202f
     mov ax, 3                        ; 0x2030
@@ -289,7 +289,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov ax, 0x248                    ; 0x204c
     imul word [bp + 0x4]             ; 0x204f
     mov bx, ax                       ; 0x2052
-    push word [bx + 0x5c12]          ; 0x2054
+    push word [bx + pc_records + 0x2] ; 0x2054
     push word [bx + pc_records]      ; 0x2058
     mov ax, 0x16                     ; 0x205c
     push ax                          ; 0x205f
@@ -314,9 +314,9 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     shl cx, 1                        ; 0x2092
     add ax, cx                       ; 0x2094
     mov bx, ax                       ; 0x2096
-    mov ax, word [bx + 0x5c1c]       ; 0x2098
+    mov ax, word [bx + pc_spell_power_cap + 0x4] ; 0x2098
     add word [bp - 0x000e], ax       ; 0x209c
-    mov ax, word [bx + 0x5c1e]       ; 0x209f
+    mov ax, word [bx + pc_spell_power_cap + 0x6] ; 0x209f
     add word [bp - 0x0010], ax       ; 0x20a3
     inc word [bp - 0x0002]           ; 0x20a6
     mov ax, word [bp - 0x0002]       ; 0x20a9

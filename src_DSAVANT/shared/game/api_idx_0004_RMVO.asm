@@ -51,7 +51,7 @@ api_idx_0004_RMVO:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    push word [bx + 0x5c1c]
+    push word [bx + pc_spell_power_cap + 0x4]
     call draw_number_field
     add sp, byte 6
     inc word [bp - 0x0004]

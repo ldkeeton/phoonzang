@@ -5,10 +5,10 @@ api_idx_0004_MMTP:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + 0x5d67]
+    mov al, byte [bx + cell_key_grid + 0x133]
     sub ah, ah
     push ax
-    mov al, byte [bx + 0x5d66]
+    mov al, byte [bx + cell_key_grid + 0x132]
     sub ah, ah
     mov cx, ax
     shl ax, 1
@@ -28,15 +28,15 @@ api_idx_0004_MMTP:
     jle short @..api_idx_0004_MMTP.l2
     inc word [bp - 0x0004]
 @..api_idx_0004_MMTP.l2:
-    cmp byte [bx + 0x5e2b], 5
+    cmp byte [bx + bss_5e2a + 0x1], 5
     jne short @..api_idx_0004_MMTP.l3
     inc word [bp - 0x0004]
 @..api_idx_0004_MMTP.l3:
-    cmp byte [bx + 0x5e2b], 6
+    cmp byte [bx + bss_5e2a + 0x1], 6
     jne short @..api_idx_0004_MMTP.l4
     dec word [bp - 0x0004]
 @..api_idx_0004_MMTP.l4:
-    mov al, byte [bx + 0x5e2d]
+    mov al, byte [bx + bss_5e2a + 0x3]
     sub ah, ah
     jmp near @..api_idx_0004_MMTP.l5
 api_idx_0004_MMTP.jumptable_case1:
@@ -56,7 +56,7 @@ api_idx_0004_MMTP.jumptable_case2:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov byte [bx + 0x5d50], 2
+    mov byte [bx + cell_key_grid + 0x11c], 2
     mov ax, word [bp - 0x0004]
     inc ax
     inc ax
@@ -82,7 +82,7 @@ api_idx_0004_MMTP.jumptable_case3:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov byte [bx + 0x5d51], 2
+    mov byte [bx + cell_key_grid + 0x11d], 2
     mov ax, word [bp - 0x0004]
     inc ax
     inc ax
@@ -129,7 +129,7 @@ api_idx_0004_MMTP.jumptable_case5:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov byte [bx + 0x5d52], 2
+    mov byte [bx + cell_key_grid + 0x11e], 2
     mov ax, word [bp - 0x0004]
     inc ax
     inc ax
@@ -179,7 +179,7 @@ api_idx_0004_MMTP.jumptable_case7:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov byte [bx + 0x5d53], 2
+    mov byte [bx + cell_key_grid + 0x11f], 2
     mov ax, word [bp - 0x0004]
     inc ax
     inc ax
@@ -227,8 +227,8 @@ api_idx_0004_MMTP.jumptable_case9:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov byte [bx + 0x5d50], 1
-    mov byte [bx + 0x5d51], 1
+    mov byte [bx + cell_key_grid + 0x11c], 1
+    mov byte [bx + cell_key_grid + 0x11d], 1
     mov ax, word [bp - 0x0004]
     inc ax
     inc ax

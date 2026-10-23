@@ -31,7 +31,7 @@ check_type8_object:
 @..check_type8_object.l1:
     mov bx, word [maze_tables]       ; 0x8b9b
     mov si, word [bp + 0x4]          ; 0x8b9f
-    mov al, byte [bx + si + 0xa50]   ; 0x8ba2
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x8ba2
     sub ah, ah                       ; 0x8ba6
     push ax                          ; 0x8ba8
     call loc_GRON                    ; 0x8ba9
@@ -57,7 +57,7 @@ check_type8_object:
     mov ax, word [game_state_arg]    ; 0x8bd9
     mov cx, 4                        ; 0x8bdc
     shl ax, cl                       ; 0x8bdf
-    add ax, 0x8d14                   ; 0x8be1
+    add ax, party_region + 0x2       ; 0x8be1
     push ax                          ; 0x8be4
     call set_bitmap_bit              ; 0x8be5
     add sp, byte 6                   ; 0x8be8
@@ -73,7 +73,7 @@ check_type8_object:
     mov ax, word [game_state_arg]    ; 0x8c05
     mov cx, 4                        ; 0x8c08
     shl ax, cl                       ; 0x8c0b
-    add ax, 0x8d14                   ; 0x8c0d
+    add ax, party_region + 0x2       ; 0x8c0d
     push ax                          ; 0x8c10
     call set_bitmap_bit              ; 0x8c11
     add sp, byte 6                   ; 0x8c14

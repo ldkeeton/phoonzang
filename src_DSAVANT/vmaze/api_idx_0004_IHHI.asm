@@ -24,7 +24,7 @@ api_idx_0004_IHHI:
     mov ax, 0x248                    ; 0x142d
     imul word [bp - 0x0002]          ; 0x1430
     mov bx, ax                       ; 0x1433
-    cmp byte [bx + 0x5e2f], 3        ; 0x1435
+    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x1435
     jae short @..api_idx_0004_IHHI.l3 ; 0x143a
     mov ax, 1                        ; 0x143c
     push ax                          ; 0x143f
@@ -51,18 +51,18 @@ api_idx_0004_IHHI:
     mov ax, 0x248                    ; 0x146c
     imul word [bp - 0x0002]          ; 0x146f
     mov bx, ax                       ; 0x1472
-    mov al, byte [bx + 0x5d76]       ; 0x1474
+    mov al, byte [bx + cell_key_grid + 0x142] ; 0x1474
     sub ah, ah                       ; 0x1478
     cwd                              ; 0x147a
     idiv cx                          ; 0x147b
     mov cx, ax                       ; 0x147d
     inc ax                           ; 0x147f
     mov cx, ax                       ; 0x1480
-    mov ax, word [bx + 0x5c12]       ; 0x1482
+    mov ax, word [bx + pc_records + 0x2] ; 0x1482
     cwd                              ; 0x1486
     idiv cx                          ; 0x1487
     push ax                          ; 0x1489
-    mov ax, word [bx + 0x5c12]       ; 0x148a
+    mov ax, word [bx + pc_records + 0x2] ; 0x148a
     mov cx, 0xa                      ; 0x148e
     cwd                              ; 0x1491
     idiv cx                          ; 0x1492

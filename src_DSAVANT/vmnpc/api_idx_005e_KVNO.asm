@@ -66,7 +66,7 @@ api_idx_005e_KVNO:
     pop ax                           ; 0x5875
     add ax, cx                       ; 0x5876
     mov bx, ax                       ; 0x5878
-    mov al, byte [bx + 0x5c3a]       ; 0x587a
+    mov al, byte [bx + cell_key_grid + 0x6] ; 0x587a
     sub ah, ah                       ; 0x587e
     mov word [bp - 0x0006], ax       ; 0x5880
     cmp ax, strict word 1            ; 0x5883
@@ -237,7 +237,7 @@ api_idx_005e_KVNO:
     pop ax                           ; 0x59d8
     add ax, cx                       ; 0x59d9
     mov bx, ax                       ; 0x59db
-    mov al, byte [bx + 0x5c3b]       ; 0x59dd
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x59dd
     sub ah, ah                       ; 0x59e1
     test ax, 1                       ; 0x59e3
     je short @..api_idx_005e_KVNO.l15 ; 0x59e6

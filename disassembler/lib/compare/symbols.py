@@ -1,8 +1,10 @@
 """Segment-aware operand symbolization and address inventory records."""
 
+import re
+
 from capstone import CS_OP_MEM
 from lib.names import is_data
-from lib.symtab import Kind, Source, Space, Symbol
+from lib.symtab import GENERIC, Kind, Source, Space, Symbol
 
 
 def _data_space(segments, offset):
@@ -63,6 +65,14 @@ def _host_space_limit(segments):
 #: (``[bx - 6]``), not an address.
 _NEGATIVE_OFFSET_SPAN = 0x1000
 
+#: The ``+ 0x<k>`` tail of an operand inside an object (:func:`_interior_symbol`).
+_INTERIOR_RE = re.compile(r' \+ 0x[0-9a-f]+$')
+
+#: Smallest file-backed DS address bound inside an object.  Below it record
+#: field offsets (``[bx + 0x1a1]``, the party record's) crowd the same range
+#: and would bind to whatever static precedes them (``dseg_0116 + 0x8b``).
+_INTERIOR_DS_MIN = 0x400
+
 
 def _overlay_own_address(segments, addr):
     """True when *addr* is, whatever else is known, an address in an overlay's
@@ -78,6 +88,60 @@ def _overlay_own_address(segments, addr):
     return (own is not None
             and own <= addr < 0x10000 - _NEGATIVE_OFFSET_SPAN
             and segments.data_space(addr) == 'bss')
+
+
+def _interior_symbol(segments, starts, addr):
+    """``(name, start)`` of the object *addr* lies inside.
+
+    The object is the greatest start in *starts* below *addr*; the next start
+    bounds it, so *addr* is inside it (``code_table[0x1a + i]`` is
+    ``[bx + code_table + 0x1a]``).  None when no start lies below, when the
+    two sit in different spaces (an object never spans the DS/BSS boundary,
+    nor an overlay's ``o_dorg``), or when *addr* is past the data segment.
+
+    BSS is ``resb`` far above any record field, so any start owns what
+    follows it.  File-backed DS needs more: a named owner (not ``dseg_``)
+    and an address from :data:`_INTERIOR_DS_MIN` up.
+    """
+    if (addr >= 0x10000 - _NEGATIVE_OFFSET_SPAN or segments is None
+            or segments.data_space(addr) is None):
+        return None
+    ds_size = getattr(segments, 'ds_size', None)
+    if ds_size and addr >= ds_size and _host_space_limit(segments) is None:
+        return None
+    below = [s for s in starts if s < addr]
+    if not below:
+        return None
+    start = max(below)
+    limit = _host_space_limit(segments)
+    if (limit is not None and (start < limit) != (addr < limit)
+            or segments.data_space(start) != segments.data_space(addr)):
+        return None
+    name = data_symbol(segments, start)
+    if segments.data_space(addr) == 'dseg' and (
+            addr < _INTERIOR_DS_MIN
+            or getattr(name, 'source', None) in GENERIC):
+        return None
+    return name, start
+
+
+def _bind_data_operand(segments, starts, addr, equ):
+    """The operand text for an indexed DS *addr*, registering its ``equ``.
+
+    An object start or an overlay's own BSS names *addr* itself; any other
+    address inside a known object is that object plus the offset.  None
+    leaves the number.
+    """
+    if addr in starts or _overlay_own_address(segments, addr):
+        name = data_symbol(segments, addr)
+        equ.setdefault(name, addr)
+        return name
+    interior = _interior_symbol(segments, starts, addr)
+    if interior is None:
+        return None
+    name, start = interior
+    equ.setdefault(name, start)
+    return f'{name} + 0x{addr - start:x}'
 
 
 def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset,
@@ -99,12 +163,13 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset,
     * **PSP** - ``psp_<field>`` for catalogued fields, else ``psp_<off>``.
     * **UNKNOWN** - left to the ``data_`` fallback (nothing emitted here).
 
-    An indexed DATA operand (``[bx - 0x7b7e]``) is bound only when its
-    displacement is the start of a named object: one this binary addresses
-    absolutely, a known data name, or a host-space start another binary names
-    (*ds_starts*, the build's union).  A displacement in the DS range is not
-    enough: record field offsets (``[si + 0x1a1]``) live there too.  An
-    overlay's own BSS needs no such proof (:func:`_overlay_own_address`).  With
+    An indexed DATA operand (``[bx - 0x7b7e]``) is bound when its
+    displacement is the start of a named object (one this binary addresses
+    absolutely, a known data name, or a host-space start another binary names:
+    *ds_starts*, the build's union), or lies inside one (``obj + k``).  A
+    displacement below every start stays a number: record field offsets
+    (``[si + 0x1a1]``) live there too.  An overlay's own BSS needs no such
+    proof (:func:`_overlay_own_address`).  With
     *indexed* false that pass is left to the caller, which runs
     :func:`_resolve_indexed_symbols` once the immediates have been named too.
     """
@@ -160,7 +225,7 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset,
 
 def _resolve_indexed_symbols(insns, segment_flow, segments, named, ds_starts,
                              equ):
-    """Symbols for indexed DATA displacements that start a named object.
+    """Symbols for indexed DATA displacements at or inside a named object.
 
     *named* holds the DATA addresses this binary binds absolutely; the known
     data names and the host-space part of *ds_starts* are added to it.  A
@@ -180,14 +245,13 @@ def _resolve_indexed_symbols(insns, segment_flow, segments, named, ds_starts,
                     or op.mem.segment == X86_REG_CS):
                 continue
             addr = op.mem.disp & 0xFFFF
-            if addr < DS_INDEX_MIN or not (
-                    addr in starts or _overlay_own_address(segments, addr)):
+            if addr < DS_INDEX_MIN:
                 continue
             if segment_flow.effective_segment(insn, op)[1] != DATA:
                 continue
-            name = data_symbol(segments, addr)
-            equ.setdefault(name, addr)
-            symbols[(insn.address, idx)] = name
+            text = _bind_data_operand(segments, starts, addr, equ)
+            if text is not None:
+                symbols[(insn.address, idx)] = text
     return symbols
 
 
@@ -205,9 +269,9 @@ def _resolve_index_offset_symbols(insns, segment_flow, segments, named,
 
     ``imul word [bp + 4]; add ax, 0x5bf4`` is the immediate spelling of
     ``[bx + 0x5bf4]``, so it binds under the same proof as
-    :func:`_resolve_indexed_symbols`: the constant starts a named object.  A
-    sum used through another segment, or a site already in *resolved*, is
-    left alone.
+    :func:`_resolve_indexed_symbols`: the constant starts or lies inside a
+    named object.  A sum used through another segment, or a site already in
+    *resolved*, is left alone.
     """
     from lib.segdataflow import index_offset_immediates, DATA
     from lib.compare.records import DS_INDEX_MIN
@@ -219,12 +283,11 @@ def _resolve_index_offset_symbols(insns, segment_flow, segments, named,
         if key in resolved or space not in (None, DATA):
             continue
         value = by_addr[key[0]].operands[1].imm & 0xFFFF
-        if value < DS_INDEX_MIN or not (
-                value in starts or _overlay_own_address(segments, value)):
+        if value < DS_INDEX_MIN:
             continue
-        name = data_symbol(segments, value)
-        equ.setdefault(name, value)
-        symbols[key] = str(name)
+        text = _bind_data_operand(segments, starts, value, equ)
+        if text is not None:
+            symbols[key] = str(text)
     return symbols
 
 
@@ -442,6 +505,8 @@ def _build_address_records(insns, mem_symbols, mem_equ, segment_flow,
             if rendered is None:
                 continue
             name = rendered[:-len(suffix)] if rendered.endswith(suffix) else rendered
+            # ``code_table + 0x1a`` references the object it is inside.
+            name = _INTERIOR_RE.sub('', name)
             value = mem_equ.get(name)
             if value is None:
                 value = label_value.get(name)

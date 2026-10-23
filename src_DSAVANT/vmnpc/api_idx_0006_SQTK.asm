@@ -60,7 +60,7 @@ api_idx_0006_SQTK:
     mov ax, word [bp - 0x0002]       ; 0x0fcf
     shl ax, 1                        ; 0x0fd2
     mov bx, ax                       ; 0x0fd4
-    mov bx, word [bx - 0x7b96]       ; 0x0fd6
+    mov bx, word [bx + bss_8468 + 0x2] ; 0x0fd6
     mov byte [bx + 0x14], 0xff       ; 0x0fda
     inc word [bp - 0x0002]           ; 0x0fde
     mov ax, word [bp - 0x0002]       ; 0x0fe1

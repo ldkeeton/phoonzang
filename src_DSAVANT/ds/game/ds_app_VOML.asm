@@ -17,7 +17,7 @@ ds_app_VOML: ; Aztec csav frame=0x0002
     pop ax                           ; 0x1762
     add ax, cx                       ; 0x1763
     mov bx, ax                       ; 0x1765
-    mov al, byte [bx + 0x5c38]       ; 0x1767
+    mov al, byte [bx + cell_key_grid + 0x4] ; 0x1767
     sub ah, ah                       ; 0x176b
     mov bx, ax                       ; 0x176d
     cmp byte [bx + 0x60e], 1         ; 0x176f
@@ -37,7 +37,7 @@ ds_app_VOML: ; Aztec csav frame=0x0002
     pop ax                           ; 0x1791
     add ax, cx                       ; 0x1792
     mov bx, ax                       ; 0x1794
-    mov al, byte [bx + 0x5c3a]       ; 0x1796
+    mov al, byte [bx + cell_key_grid + 0x6] ; 0x1796
     sub ah, ah                       ; 0x179a
     jmp short @..ds_app_VOML.l2      ; 0x179c
 @..ds_app_VOML.l1:
@@ -63,6 +63,6 @@ ds_app_VOML: ; Aztec csav frame=0x0002
     pop ax                           ; 0x17c9
     add ax, cx                       ; 0x17ca
     mov bx, ax                       ; 0x17cc
-    mov ax, word [bx + 0x5c36]       ; 0x17ce
+    mov ax, word [bx + cell_key_grid + 0x2] ; 0x17ce
     imul word [bp - 0x0002]          ; 0x17d2
     ret                              ; 0x17d5

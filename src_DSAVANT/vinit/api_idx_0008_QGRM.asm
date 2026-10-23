@@ -107,7 +107,7 @@ api_idx_0008_QGRM:
     shl cx, 1                        ; 0x1518
     shl cx, 1                        ; 0x151a
     mov bx, cx                       ; 0x151c
-    mov word [bx - 0x7d2e], dx       ; 0x151e
+    mov word [bx + party_status_areas + 0x2], dx ; 0x151e
     mov word [bx + party_status_areas], ax ; 0x1522
     inc word [bp - 0x0002]           ; 0x1526
     mov ax, word [bp - 0x0002]       ; 0x1529
@@ -120,7 +120,7 @@ api_idx_0008_QGRM:
     mov ax, word [bp - 0x0002]       ; 0x1542
     shl ax, 1                        ; 0x1545
     mov bx, ax                       ; 0x1547
-    mov word [bx - 0x750e], 0xffff   ; 0x1549
+    mov word [bx + bss_8af0 + 0x2], 0xffff ; 0x1549
     mov ax, word [bp - 0x0002]       ; 0x154f
     mov cx, 2                        ; 0x1552
     cwd                              ; 0x1555
@@ -152,8 +152,8 @@ api_idx_0008_QGRM:
     shl cx, 1                        ; 0x1596
     shl cx, 1                        ; 0x1598
     mov bx, cx                       ; 0x159a
-    mov word [bx + 0x69a6], dx       ; 0x159c
-    mov word [bx + 0x69a4], ax       ; 0x15a0
+    mov word [bx + bss_5e2a + 0xb7c], dx ; 0x159c
+    mov word [bx + bss_5e2a + 0xb7a], ax ; 0x15a0
     inc word [bp - 0x0002]           ; 0x15a4
     mov ax, word [bp - 0x0002]       ; 0x15a7
     cmp ax, strict word 6            ; 0x15aa

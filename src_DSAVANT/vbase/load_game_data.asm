@@ -817,7 +817,7 @@ load_game_data:
     mov cx, word [bss_69c8]          ; 0x379b
     shl cx, 1                        ; 0x379f
     mov bx, cx                       ; 0x37a1
-    mov word [bx + 0x69bc], ax       ; 0x37a3
+    mov word [bx + bss_5e2a + 0xb92], ax ; 0x37a3
     mov si, bss_9a4c                 ; 0x37a7
     mov ax, 0x248                    ; 0x37aa
     imul word [bss_69c8]             ; 0x37ad
@@ -880,7 +880,7 @@ load_game_data:
     mov ax, word [bp - 0x0002]       ; 0x3836
     shl ax, 1                        ; 0x3839
     mov bx, ax                       ; 0x383b
-    push word [bx + 0x69bc]          ; 0x383d
+    push word [bx + bss_5e2a + 0xb92] ; 0x383d
     mov ax, 0x248                    ; 0x3841
     imul word [bp - 0x0002]          ; 0x3844
     mov bx, ax                       ; 0x3847

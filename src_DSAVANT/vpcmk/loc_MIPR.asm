@@ -220,7 +220,7 @@ loc_MIPR:
     imul word [bp - 0x0006]          ; 0x6518
     add ax, word [bp - 0x0002]       ; 0x651b
     mov bx, ax                       ; 0x651e
-    cmp byte [bx + 0x5d50], 0        ; 0x6520
+    cmp byte [bx + cell_key_grid + 0x11c], 0 ; 0x6520
     jbe short @..loc_MIPR.l8         ; 0x6525
     push word [bp - 0x0002]          ; 0x6527
     push word [bp - 0x0006]          ; 0x652a
@@ -282,7 +282,7 @@ loc_MIPR:
     call api_idx_0002_SJMT           ; 0x65b1
     add sp, byte 6                   ; 0x65b4
     mov bx, word [bp + 0x6]          ; 0x65b7
-    mov byte [bx - 0x6f8a], 1        ; 0x65ba
+    mov byte [bx + bss_9074 + 0x2], 1 ; 0x65ba
     mov ax, 0                        ; 0x65bf
     push ax                          ; 0x65c2
     call gfx_wait_sound              ; 0x65c3

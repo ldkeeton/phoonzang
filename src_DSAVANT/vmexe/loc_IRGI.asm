@@ -33,37 +33,37 @@ loc_IRGI:
     mov ax, word [bp + 0x6]          ; 0x9dd7
     shl ax, 1                        ; 0x9dda
     mov bx, ax                       ; 0x9ddc
-    mov ax, word [bx - 0x750e]       ; 0x9dde
+    mov ax, word [bx + bss_8af0 + 0x2] ; 0x9dde
     mov word [bp - 0x0276], ax       ; 0x9de2
     mov ax, word [bp + 0x4]          ; 0x9de6
     shl ax, 1                        ; 0x9de9
     mov bx, ax                       ; 0x9deb
-    mov ax, word [bx - 0x750e]       ; 0x9ded
+    mov ax, word [bx + bss_8af0 + 0x2] ; 0x9ded
     mov cx, word [bp + 0x6]          ; 0x9df1
     shl cx, 1                        ; 0x9df4
     mov bx, cx                       ; 0x9df6
-    mov word [bx - 0x750e], ax       ; 0x9df8
+    mov word [bx + bss_8af0 + 0x2], ax ; 0x9df8
     mov ax, word [bp - 0x0276]       ; 0x9dfc
     mov cx, word [bp + 0x4]          ; 0x9e00
     shl cx, 1                        ; 0x9e03
     mov bx, cx                       ; 0x9e05
-    mov word [bx - 0x750e], ax       ; 0x9e07
+    mov word [bx + bss_8af0 + 0x2], ax ; 0x9e07
     mov ax, word [bp + 0x6]          ; 0x9e0b
     shl ax, 1                        ; 0x9e0e
     mov bx, ax                       ; 0x9e10
-    mov ax, word [bx + 0x69bc]       ; 0x9e12
+    mov ax, word [bx + bss_5e2a + 0xb92] ; 0x9e12
     mov word [bp - 0x0276], ax       ; 0x9e16
     mov bx, cx                       ; 0x9e1a
-    mov ax, word [bx + 0x69bc]       ; 0x9e1c
+    mov ax, word [bx + bss_5e2a + 0xb92] ; 0x9e1c
     mov cx, word [bp + 0x6]          ; 0x9e20
     shl cx, 1                        ; 0x9e23
     mov bx, cx                       ; 0x9e25
-    mov word [bx + 0x69bc], ax       ; 0x9e27
+    mov word [bx + bss_5e2a + 0xb92], ax ; 0x9e27
     mov ax, word [bp - 0x0276]       ; 0x9e2b
     mov cx, word [bp + 0x4]          ; 0x9e2f
     shl cx, 1                        ; 0x9e32
     mov bx, cx                       ; 0x9e34
-    mov word [bx + 0x69bc], ax       ; 0x9e36
+    mov word [bx + bss_5e2a + 0xb92], ax ; 0x9e36
     mov ax, 0                        ; 0x9e3a
     push ax                          ; 0x9e3d
     push word [bp + 0x4]             ; 0x9e3e

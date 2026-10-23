@@ -113,7 +113,7 @@ api_idx_0012_JIRG:
     mov ax, word [game_state_arg]    ; 0x8676
     mov cx, 4                        ; 0x8679
     shl ax, cl                       ; 0x867c
-    add ax, 0x8d14                   ; 0x867e
+    add ax, party_region + 0x2       ; 0x867e
     push ax                          ; 0x8681
     call set_bitmap_bit              ; 0x8682
     add sp, byte 6                   ; 0x8685

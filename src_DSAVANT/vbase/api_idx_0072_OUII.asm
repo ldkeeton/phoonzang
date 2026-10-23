@@ -429,7 +429,7 @@ api_idx_0072_OUII:
     mov cx, word [bss_69c8]          ; 0x2387
     shl cx, 1                        ; 0x238b
     mov bx, cx                       ; 0x238d
-    mov word [bx + 0x69bc], ax       ; 0x238f
+    mov word [bx + bss_5e2a + 0xb92], ax ; 0x238f
     mov ax, 0x248                    ; 0x2393
     imul word [bss_69c8]             ; 0x2396
     add ax, bss_5bf4                 ; 0x239a
@@ -826,7 +826,7 @@ jumptable_2668:
     mov cx, 6                        ; 0x277a
     imul cx                          ; 0x277d
     mov bx, ax                       ; 0x277f
-    cmp byte [bx + 0x621], 4         ; 0x2781
+    cmp byte [bx + spell_table + 0x1], 4 ; 0x2781
     jae short @..api_idx_0072_OUII.l50 ; 0x2786
     push cx                          ; 0x2788
     call random_below                ; 0x2789
@@ -835,7 +835,7 @@ jumptable_2668:
     mov ax, 6                        ; 0x278e
     imul word [bp - 0x0006]          ; 0x2791
     mov bx, ax                       ; 0x2794
-    mov al, byte [bx + 0x621]        ; 0x2796
+    mov al, byte [bx + spell_table + 0x1] ; 0x2796
     sub ah, ah                       ; 0x279a
     mov cx, ax                       ; 0x279c
     pop ax                           ; 0x279e
@@ -1471,7 +1471,7 @@ jumptable_2af5:
     push word [bp - 0x0006]          ; 0x2dd9
     mov ax, 0x248                    ; 0x2ddc
     imul word [bp - 0x0004]          ; 0x2ddf
-    add ax, 0x5e26                   ; 0x2de2
+    add ax, cell_key_grid + 0x1f2    ; 0x2de2
     push ax                          ; 0x2de5
     call test_bit                    ; 0x2de6
     add sp, byte 4                   ; 0x2de9

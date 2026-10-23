@@ -5,14 +5,14 @@ play_sound_effect: ; Aztec csav frame=0x0006
     mov ax, 0xc                      ; 0x0a2d
     imul word [bp + 0x4]             ; 0x0a30
     mov bx, ax                       ; 0x0a33
-    mov al, byte [bx + 0x5580]       ; 0x0a35
+    mov al, byte [bx + sound_slot_info + 0xa] ; 0x0a35
     sub ah, ah                       ; 0x0a39
     mov word [bp - 0x0004], ax       ; 0x0a3b
     mov ax, word [bp + 0x4]          ; 0x0a3e
     mov word [bp - 0x0002], ax       ; 0x0a41
-    cmp word [bx + 0x557c], byte 0   ; 0x0a44
+    cmp word [bx + sound_slot_info + 0x6], byte 0 ; 0x0a44
     jne short @..play_sound_effect.l1 ; 0x0a49
-    cmp word [bx + 0x557a], byte 0   ; 0x0a4b
+    cmp word [bx + sound_slot_info + 0x4], byte 0 ; 0x0a4b
 @..play_sound_effect.l1:
     jne short @..play_sound_effect.l2 ; 0x0a50
     mov ax, word [bx + sound_slot_info] ; 0x0a52
@@ -56,11 +56,11 @@ play_sound_effect: ; Aztec csav frame=0x0006
     mov ax, 0xc                      ; 0x0ab7
     imul word [bp + 0x4]             ; 0x0aba
     mov bx, ax                       ; 0x0abd
-    mov al, byte [bx + 0x5581]       ; 0x0abf
+    mov al, byte [bx + sound_slot_info + 0xb] ; 0x0abf
     sub ah, ah                       ; 0x0ac3
     push ax                          ; 0x0ac5
     push word [bp - 0x0004]          ; 0x0ac6
-    push word [bx + 0x557e]          ; 0x0ac9
+    push word [bx + sound_slot_info + 0x8] ; 0x0ac9
     push word [bp - 0x0002]          ; 0x0acd
     call gfx_play_sound              ; 0x0ad0
     add sp, byte 8                   ; 0x0ad3

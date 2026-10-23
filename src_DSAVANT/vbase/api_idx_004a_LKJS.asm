@@ -46,7 +46,7 @@ api_idx_004a_LKJS:
     jmp short @..api_idx_004a_LKJS.l9 ; 0x6a97
 @..api_idx_004a_LKJS.l7:
     mov bx, word [bp - 0x0002]       ; 0x6a99
-    cmp byte [bx - 0x6f8a], 1        ; 0x6a9c
+    cmp byte [bx + bss_9074 + 0x2], 1 ; 0x6a9c
     jne short @..api_idx_004a_LKJS.l8 ; 0x6aa1
     mov word [bp - 0x0020], 1        ; 0x6aa3
 @..api_idx_004a_LKJS.l8:
@@ -149,8 +149,8 @@ jumptable_6bfb_case_4:
     mov ax, word [bp - 0x0002]       ; 0x6b91
     shl ax, 1                        ; 0x6b94
     mov bx, ax                       ; 0x6b96
-    mov bx, word [bx - 0x750e]       ; 0x6b98
-    mov byte [bx - 0x6f8a], 1        ; 0x6b9c
+    mov bx, word [bx + bss_8af0 + 0x2] ; 0x6b98
+    mov byte [bx + bss_9074 + 0x2], 1 ; 0x6b9c
     inc word [bp - 0x0002]           ; 0x6ba1
 @..api_idx_004a_LKJS.l16:
     mov ax, word [bp - 0x0002]       ; 0x6ba4

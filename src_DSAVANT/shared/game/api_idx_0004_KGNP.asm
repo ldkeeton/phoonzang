@@ -22,7 +22,7 @@ api_idx_0004_KGNP:
     mov ax, word [game_state_arg]
     mov cx, 4
     shl ax, cl
-    add ax, 0x8d14
+    add ax, party_region + 0x2
     push ax
     call set_bitmap_bit
     add sp, byte 6
@@ -45,7 +45,7 @@ api_idx_0004_KGNP:
     mov ax, word [game_state_arg]
     mov cx, 4
     shl ax, cl
-    add ax, 0x8d14
+    add ax, party_region + 0x2
     push ax
     call set_bitmap_bit
     add sp, byte 6

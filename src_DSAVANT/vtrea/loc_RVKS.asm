@@ -45,7 +45,7 @@ loc_RVKS:
     mov ax, word [game_state_arg]    ; 0x6faa
     mov cx, 4                        ; 0x6fad
     shl ax, cl                       ; 0x6fb0
-    add ax, 0x8d14                   ; 0x6fb2
+    add ax, party_region + 0x2       ; 0x6fb2
     push ax                          ; 0x6fb5
     call set_bitmap_bit              ; 0x6fb6
     add sp, byte 6                   ; 0x6fb9

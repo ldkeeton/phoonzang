@@ -25,7 +25,7 @@ api_idx_003e_JGVR:
     mov ax, 0x248                    ; 0x11f2
     imul word [bp + 0x4]             ; 0x11f5
     mov bx, ax                       ; 0x11f8
-    cmp byte [bx + 0x5e2f], 3        ; 0x11fa
+    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x11fa
     jb short @..api_idx_003e_JGVR.l2 ; 0x11ff
 @..api_idx_003e_JGVR.l1:
     mov ax, 0                        ; 0x1201
@@ -51,13 +51,13 @@ api_idx_003e_JGVR:
     mov ax, 0x248                    ; 0x122e
     imul word [bp + 0x4]             ; 0x1231
     mov bx, ax                       ; 0x1234
-    mov ax, word [bx + 0x5c0c]       ; 0x1236
+    mov ax, word [bx + bss_5c0a + 0x2] ; 0x1236
     cmp ax, word [bp - 0x0002]       ; 0x123a
     jge short @..api_idx_003e_JGVR.l3 ; 0x123d
     mov word [bp - 0x0002], ax       ; 0x123f
 @..api_idx_003e_JGVR.l3:
     mov ax, word [bp - 0x0002]       ; 0x1242
-    sub word [bx + 0x5c0c], ax       ; 0x1245
+    sub word [bx + bss_5c0a + 0x2], ax ; 0x1245
     mov ax, 0x43                     ; 0x1249
     push ax                          ; 0x124c
     mov ax, 0x41                     ; 0x124d
@@ -83,7 +83,7 @@ api_idx_003e_JGVR:
     mov ax, 0x248                    ; 0x127b
     imul word [bp + 0x4]             ; 0x127e
     mov bx, ax                       ; 0x1281
-    cmp word [bx + 0x5c0c], byte 0   ; 0x1283
+    cmp word [bx + bss_5c0a + 0x2], byte 0 ; 0x1283
     jg short @..api_idx_003e_JGVR.l4 ; 0x1288
     mov ax, 4                        ; 0x128a
     push ax                          ; 0x128d
@@ -104,7 +104,7 @@ api_idx_003e_JGVR:
     mov ax, 0x248                    ; 0x12ab
     imul word [bp + 0x4]             ; 0x12ae
     mov bx, ax                       ; 0x12b1
-    mov al, byte [bx + 0x5e2c]       ; 0x12b3
+    mov al, byte [bx + bss_5e2a + 0x2] ; 0x12b3
     sub ah, ah                       ; 0x12b7
     inc ax                           ; 0x12b9
     inc ax                           ; 0x12ba

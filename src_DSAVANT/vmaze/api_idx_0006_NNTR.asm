@@ -5,7 +5,7 @@ api_idx_0006_NNTR:
     mov ax, 0x26                     ; 0x99e3
     imul word [bp + 0x4]             ; 0x99e6
     mov bx, ax                       ; 0x99e9
-    mov al, byte [bx - 0x7b15]       ; 0x99eb
+    mov al, byte [bx + bss_84e8 + 0x3] ; 0x99eb
     sub ah, ah                       ; 0x99ef
     mov word [bp - 0x0006], ax       ; 0x99f1
     mov word [bp - 0x0002], 0        ; 0x99f4
@@ -13,7 +13,7 @@ api_idx_0006_NNTR:
     mov ax, 6                        ; 0x99f9
     imul word [bp - 0x0002]          ; 0x99fc
     mov bx, ax                       ; 0x99ff
-    cmp byte [bx - 0x7b59], 0        ; 0x9a01
+    cmp byte [bx + bss_84a6 + 0x1], 0 ; 0x9a01
     jbe short @..api_idx_0006_NNTR.l3 ; 0x9a06
     mov al, byte [bx + bss_84a6]     ; 0x9a08
     sub ah, ah                       ; 0x9a0c
@@ -22,7 +22,7 @@ api_idx_0006_NNTR:
     push word [bp - 0x0002]          ; 0x9a13
     mov ax, 0x26                     ; 0x9a16
     imul word [bp + 0x4]             ; 0x9a19
-    add ax, 0x8504                   ; 0x9a1c
+    add ax, slot_records + 0x18      ; 0x9a1c
     push ax                          ; 0x9a1f
     call test_bit                    ; 0x9a20
     add sp, byte 4                   ; 0x9a23
@@ -31,7 +31,7 @@ api_idx_0006_NNTR:
     push word [bp - 0x0002]          ; 0x9a2a
     mov ax, 0x26                     ; 0x9a2d
     imul word [bp + 0x4]             ; 0x9a30
-    add ax, 0x850a                   ; 0x9a33
+    add ax, slot_records + 0x1e      ; 0x9a33
     push ax                          ; 0x9a36
     call test_bit                    ; 0x9a37
     add sp, byte 4                   ; 0x9a3a

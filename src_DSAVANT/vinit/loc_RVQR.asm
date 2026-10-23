@@ -289,7 +289,7 @@ loc_RVQR:
     shl ax, 1                        ; 0x0673
     shl ax, 1                        ; 0x0675
     mov bx, ax                       ; 0x0677
-    mov word [bx + 0x5be2], 0        ; 0x0679
+    mov word [bx + saved_screen_ref + 0x2], 0 ; 0x0679
     mov word [bx + saved_screen_ref], 0 ; 0x067f
     inc word [bp - 0x0006]           ; 0x0685
     mov ax, word [bp - 0x0006]       ; 0x0688

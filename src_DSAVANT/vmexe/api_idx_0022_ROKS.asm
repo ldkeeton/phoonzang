@@ -54,7 +54,7 @@ api_idx_0022_ROKS:
     push ax                          ; 0x22c0
     mov ax, 0x248                    ; 0x22c1
     imul word [bp + 0x6]             ; 0x22c4
-    add ax, 0x5d9c                   ; 0x22c7
+    add ax, cell_key_grid + 0x168    ; 0x22c7
     push ax                          ; 0x22ca
     call aztec_movmem                ; 0x22cb
     add sp, byte 6                   ; 0x22ce
@@ -237,7 +237,7 @@ api_idx_0022_ROKS:
     mov ax, 0x248                    ; 0x246c
     imul word [bp + 0x6]             ; 0x246f
     mov bx, ax                       ; 0x2472
-    mov al, byte [bx + 0x5e2c]       ; 0x2474
+    mov al, byte [bx + bss_5e2a + 0x2] ; 0x2474
     sub ah, ah                       ; 0x2478
     inc ax                           ; 0x247a
     inc ax                           ; 0x247b

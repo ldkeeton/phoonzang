@@ -10,7 +10,7 @@ loc_HOSN:
     imul word [bp + 0x4]             ; 0x860a
     add ax, word [bss_9136]          ; 0x860d
     mov bx, ax                       ; 0x8611
-    mov al, byte [bx + 0x5db2]       ; 0x8613
+    mov al, byte [bx + cell_key_grid + 0x17e] ; 0x8613
     cbw                              ; 0x8617
     add ax, word [bp + 0x6]          ; 0x8618
     push ax                          ; 0x861b
@@ -23,7 +23,7 @@ loc_HOSN:
     add ax, word [bss_9136]          ; 0x862b
     mov bx, ax                       ; 0x862f
     pop ax                           ; 0x8631
-    mov byte [bx + 0x5db2], al       ; 0x8632
+    mov byte [bx + cell_key_grid + 0x17e], al ; 0x8632
     mov ax, 0x64                     ; 0x8636
     push ax                          ; 0x8639
     mov ax, 0xff9c                   ; 0x863a

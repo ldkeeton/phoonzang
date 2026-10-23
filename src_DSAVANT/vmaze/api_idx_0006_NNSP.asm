@@ -47,7 +47,7 @@ api_idx_0006_NNSP:
 @..api_idx_0006_NNSP.l3:
     mov bx, word [maze_tables]       ; 0x7625
     mov si, word [party_region]      ; 0x7629
-    mov al, byte [bx + si + 0xa50]   ; 0x762d
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x762d
     sub ah, ah                       ; 0x7631
     mov word [bp - 0x0006], ax       ; 0x7633
     mov ax, 2                        ; 0x7636

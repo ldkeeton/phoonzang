@@ -9,7 +9,7 @@ api_idx_0006_PSQH:
     mov bx, ax                       ; 0x98af
     mov ax, word [bx + pc_spell_power_cap] ; 0x98b1
     push ax                          ; 0x98b5
-    mov al, byte [bx + 0x5d7d]       ; 0x98b6
+    mov al, byte [bx + cell_key_grid + 0x149] ; 0x98b6
     sub ah, ah                       ; 0x98ba
     mov cx, ax                       ; 0x98bc
     pop ax                           ; 0x98be
@@ -72,7 +72,7 @@ api_idx_0006_PSQH:
     mov bx, ax                       ; 0x9943
     mov ax, word [bx + pc_spell_power_cap] ; 0x9945
     push ax                          ; 0x9949
-    mov al, byte [bx + 0x5d65]       ; 0x994a
+    mov al, byte [bx + cell_key_grid + 0x131] ; 0x994a
     sub ah, ah                       ; 0x994e
     mov cx, ax                       ; 0x9950
     pop ax                           ; 0x9952

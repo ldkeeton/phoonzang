@@ -16,7 +16,7 @@ api_idx_0004_IKOQ:
     add ax, word [bp - 0x0004]       ; 0x82fe
     add ax, si                       ; 0x8301
     mov bx, ax                       ; 0x8303
-    cmp byte [bx + 0x5d6c], 0        ; 0x8305
+    cmp byte [bx + cell_key_grid + 0x138], 0 ; 0x8305
     jbe short @..api_idx_0004_IKOQ.l3 ; 0x830a
 @..api_idx_0004_IKOQ.l2:
     mov ax, 1                        ; 0x830c
@@ -50,7 +50,7 @@ api_idx_0004_IKOQ:
     add ax, word [bp - 0x0004]       ; 0x834e
     add ax, si                       ; 0x8351
     mov bx, ax                       ; 0x8353
-    cmp byte [bx + 0x5d6c], 0        ; 0x8355
+    cmp byte [bx + cell_key_grid + 0x138], 0 ; 0x8355
     jbe short @..api_idx_0004_IKOQ.l8 ; 0x835a
 @..api_idx_0004_IKOQ.l7:
     mov ax, 1                        ; 0x835c
@@ -84,7 +84,7 @@ api_idx_0004_IKOQ:
     add ax, word [bp - 0x0004]       ; 0x839e
     add ax, si                       ; 0x83a1
     mov bx, ax                       ; 0x83a3
-    cmp byte [bx + 0x5d6c], 0        ; 0x83a5
+    cmp byte [bx + cell_key_grid + 0x138], 0 ; 0x83a5
     jbe short @..api_idx_0004_IKOQ.l13 ; 0x83aa
 @..api_idx_0004_IKOQ.l12:
     mov ax, 1                        ; 0x83ac
@@ -118,7 +118,7 @@ api_idx_0004_IKOQ:
     add ax, word [bp - 0x0004]       ; 0x83ee
     add ax, si                       ; 0x83f1
     mov bx, ax                       ; 0x83f3
-    cmp byte [bx + 0x5d6c], 0        ; 0x83f5
+    cmp byte [bx + cell_key_grid + 0x138], 0 ; 0x83f5
     jbe short @..api_idx_0004_IKOQ.l18 ; 0x83fa
 @..api_idx_0004_IKOQ.l17:
     mov ax, 1                        ; 0x83fc

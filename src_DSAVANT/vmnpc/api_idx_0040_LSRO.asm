@@ -266,7 +266,7 @@ jumptable_36f8_case_8:
     mov word [party_tag], ax         ; 0x2e08
     mov bx, word [maze_tables]       ; 0x2e0b
     mov si, word [party_map_piece]   ; 0x2e0f
-    mov al, byte [bx + si + 0xb40]   ; 0x2e13
+    mov al, byte [bx + si + spell_table + 0x520] ; 0x2e13
     sub ah, ah                       ; 0x2e17
     mov word [party_region], ax      ; 0x2e19
     mov word [game_state], 5         ; 0x2e1c
@@ -502,9 +502,9 @@ jumptable_36f8_case_13:
     pop ax                           ; 0x304c
     add ax, cx                       ; 0x304d
     mov bx, ax                       ; 0x304f
-    cmp word [bx + 0x5cac], byte 0   ; 0x3051
+    cmp word [bx + cell_key_grid + 0x78], byte 0 ; 0x3051
     jle short @..api_idx_0040_LSRO.l42 ; 0x3056
-    mov al, byte [bx + 0x5cb3]       ; 0x3058
+    mov al, byte [bx + cell_key_grid + 0x7f] ; 0x3058
     sub ah, ah                       ; 0x305c
     test ax, 0x40                    ; 0x305e
     jne short @..api_idx_0040_LSRO.l42 ; 0x3061
@@ -538,7 +538,7 @@ jumptable_36f8_case_14:
     mov ax, word [game_state_arg]    ; 0x30a3
     mov cx, 4                        ; 0x30a6
     shl ax, cl                       ; 0x30a9
-    add ax, 0x8d14                   ; 0x30ab
+    add ax, party_region + 0x2       ; 0x30ab
     push ax                          ; 0x30ae
     call set_bitmap_bit              ; 0x30af
     add sp, byte 6                   ; 0x30b2
@@ -555,7 +555,7 @@ jumptable_36f8_case_15:
     mov ax, word [game_state_arg]    ; 0x30c9
     mov cx, 4                        ; 0x30cc
     shl ax, cl                       ; 0x30cf
-    add ax, 0x8d14                   ; 0x30d1
+    add ax, party_region + 0x2       ; 0x30d1
     push ax                          ; 0x30d4
     call set_bitmap_bit              ; 0x30d5
     add sp, byte 6                   ; 0x30d8
@@ -600,7 +600,7 @@ jumptable_36f8_case_17:
     push word [bp - 0x0026]          ; 0x3132
     mov ax, word [bss_9136]          ; 0x3135
     shl ax, 1                        ; 0x3138
-    add ax, 0x584e                   ; 0x313a
+    add ax, bss_5842 + 0xc           ; 0x313a
     push ax                          ; 0x313d
     call set_bitmap_bit              ; 0x313e
     add sp, byte 6                   ; 0x3141
@@ -611,7 +611,7 @@ jumptable_36f8_case_18:
     mov ax, word [game_state_arg]    ; 0x314a
     mov cx, 4                        ; 0x314d
     shl ax, cl                       ; 0x3150
-    add ax, 0x8d14                   ; 0x3152
+    add ax, party_region + 0x2       ; 0x3152
     push ax                          ; 0x3155
     call test_bit                    ; 0x3156
     add sp, byte 4                   ; 0x3159
@@ -626,7 +626,7 @@ jumptable_36f8_case_19:
     mov ax, word [game_state_arg]    ; 0x316b
     mov cx, 4                        ; 0x316e
     shl ax, cl                       ; 0x3171
-    add ax, 0x8d14                   ; 0x3173
+    add ax, party_region + 0x2       ; 0x3173
     push ax                          ; 0x3176
     call test_bit                    ; 0x3177
     add sp, byte 4                   ; 0x317a
@@ -722,7 +722,7 @@ jumptable_36f8_case_25:
     mov ax, word [game_state_arg]    ; 0x323e
     mov cx, 4                        ; 0x3241
     shl ax, cl                       ; 0x3244
-    add ax, 0x8d14                   ; 0x3246
+    add ax, party_region + 0x2       ; 0x3246
     push ax                          ; 0x3249
     call test_bit                    ; 0x324a
     add sp, byte 4                   ; 0x324d
@@ -743,7 +743,7 @@ jumptable_36f8_case_26:
     mov ax, word [game_state_arg]    ; 0x326f
     mov cx, 4                        ; 0x3272
     shl ax, cl                       ; 0x3275
-    add ax, 0x8d14                   ; 0x3277
+    add ax, party_region + 0x2       ; 0x3277
     push ax                          ; 0x327a
     call test_bit                    ; 0x327b
     add sp, byte 4                   ; 0x327e
@@ -816,12 +816,12 @@ jumptable_36f8_case_30:
     mov ax, 0x26                     ; 0x3316
     imul word [bp - 0x0026]          ; 0x3319
     mov bx, ax                       ; 0x331c
-    mov al, byte [bx - 0x7aff]       ; 0x331e
-    mov byte [bx - 0x7b00], al       ; 0x3322
-    mov byte [bx - 0x7b16], 0        ; 0x3326
+    mov al, byte [bx + slot_records + 0x15] ; 0x331e
+    mov byte [bx + slot_records + 0x14], al ; 0x3322
+    mov byte [bx + bss_84e8 + 0x2], 0 ; 0x3326
     mov al, byte [bp - 0x0028]       ; 0x332b
     mov byte [bx + slot_records], al ; 0x332e
-    mov byte [bx - 0x7b15], al       ; 0x3332
+    mov byte [bx + bss_84e8 + 0x3], al ; 0x3332
     jmp near @..api_idx_0040_LSRO.l85 ; 0x3336
 jumptable_36f8_case_31:
     mov ax, word [bp - 0x0026]       ; 0x3339
@@ -889,9 +889,9 @@ jumptable_36f8_case_32:
     imul word [bp - 0x002c]          ; 0x33c0
     add ax, word [bp - 0x003a]       ; 0x33c3
     mov bx, ax                       ; 0x33c6
-    cmp byte [bx + 0x5d64], 0x13     ; 0x33c8
+    cmp byte [bx + cell_key_grid + 0x130], 0x13 ; 0x33c8
     jae short @..api_idx_0040_LSRO.l69 ; 0x33cd
-    inc byte [bx + 0x5d64]           ; 0x33cf
+    inc byte [bx + cell_key_grid + 0x130] ; 0x33cf
     mov ax, bss_95a8                 ; 0x33d3
     push ax                          ; 0x33d6
     mov ax, 0x1397                   ; 0x33d7
@@ -1011,7 +1011,7 @@ jumptable_36f8_case_37:
     cbw                              ; 0x34e6
     mov cx, 0x26                     ; 0x34e7
     imul cx                          ; 0x34ea
-    add ax, 0x8502                   ; 0x34ec
+    add ax, slot_records + 0x16      ; 0x34ec
     push ax                          ; 0x34ef
     call test_bit                    ; 0x34f0
     add sp, byte 4                   ; 0x34f3
@@ -1203,7 +1203,7 @@ jumptable_36f8_case_48:
     push word [bp - 0x0028]          ; 0x36b8
     mov ax, word [bp - 0x0026]       ; 0x36bb
     shl ax, 1                        ; 0x36be
-    add ax, 0x584e                   ; 0x36c0
+    add ax, bss_5842 + 0xc           ; 0x36c0
     push ax                          ; 0x36c3
     call set_bitmap_bit              ; 0x36c4
     add sp, byte 6                   ; 0x36c7

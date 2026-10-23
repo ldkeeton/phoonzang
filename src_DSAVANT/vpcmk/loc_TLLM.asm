@@ -6,7 +6,7 @@ loc_TLLM:
     jmp short @..loc_TLLM.l3         ; 0x6631
 @..loc_TLLM.l1:
     mov bx, word [bp - 0x0002]       ; 0x6633
-    cmp byte [bx - 0x6f8a], 0        ; 0x6636
+    cmp byte [bx + bss_9074 + 0x2], 0 ; 0x6636
     jbe short @..loc_TLLM.l2         ; 0x663b
     mov ax, 0                        ; 0x663d
     push ax                          ; 0x6640

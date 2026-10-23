@@ -44,7 +44,7 @@ api_idx_000e_LLMU:
     mov ax, word [bx + cell_key_grid] ; 0x84af
     cmp ax, word [bp - 0x000a]       ; 0x84b3
     jne short @..api_idx_000e_LLMU.l5 ; 0x84b6
-    mov al, byte [bx + 0x5c3b]       ; 0x84b8
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x84b8
     sub ah, ah                       ; 0x84bc
     test ax, 1                       ; 0x84be
     jne short @..api_idx_000e_LLMU.l4 ; 0x84c1
@@ -69,7 +69,7 @@ api_idx_000e_LLMU:
     push word [bp - 0x000e]          ; 0x84f0
     mov si, word [party_region]      ; 0x84f3
     mov bx, word [maze_tables]       ; 0x84f7
-    mov al, byte [bx + si + 0xa50]   ; 0x84fb
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x84fb
     sub ah, ah                       ; 0x84ff
     push ax                          ; 0x8501
     shl si, 1                        ; 0x8502

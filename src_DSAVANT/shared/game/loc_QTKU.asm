@@ -5,9 +5,9 @@ loc_QTKU:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    cmp byte [bx + 0x5e2f], 3
+    cmp byte [bx + bss_5e2a + 0x5], 3
     jae short @..loc_QTKU.l1
-    mov al, byte [bx + 0x5e2c]
+    mov al, byte [bx + bss_5e2a + 0x2]
     sub ah, ah
     add ax, strict word 8
     push ax
@@ -17,8 +17,8 @@ loc_QTKU:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov byte [bx + 0x5e2f], 3
-    mov word [bx + 0x5c0c], 0
+    mov byte [bx + bss_5e2a + 0x5], 3
+    mov word [bx + bss_5c0a + 0x2], 0
     mov word [bx + pc_records], 0
     cmp word [bp + 0x6], byte 0
     jle short @..loc_QTKU.l2

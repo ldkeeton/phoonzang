@@ -12,7 +12,7 @@ api_idx_0002_OUKN:
     mov ax, 6                        ; 0x277f
     imul word [bp + 0x4]             ; 0x2782
     mov bx, ax                       ; 0x2785
-    cmp byte [bx - 0x7b59], 0        ; 0x2787
+    cmp byte [bx + bss_84a6 + 0x1], 0 ; 0x2787
     je short @..api_idx_0002_OUKN.l1 ; 0x278c
     jmp near @..api_idx_0002_OUKN.l9 ; 0x278e
 @..api_idx_0002_OUKN.l1:

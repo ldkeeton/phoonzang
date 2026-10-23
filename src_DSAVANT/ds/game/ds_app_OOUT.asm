@@ -5,7 +5,7 @@ ds_app_OOUT: ; Aztec csav frame=0x0004
     mov ax, 0x248                    ; 0x17dc
     imul word [bp + 0x4]             ; 0x17df
     mov bx, ax                       ; 0x17e2
-    mov word [bx + 0x5c14], 0        ; 0x17e4
+    mov word [bx + pc_records + 0x4], 0 ; 0x17e4
     mov word [bp - 0x0004], 0        ; 0x17ea
 @..ds_app_OOUT.l1:
     mov word [bp - 0x0002], 0        ; 0x17ef
@@ -37,7 +37,7 @@ ds_app_OOUT: ; Aztec csav frame=0x0004
     imul word [bp + 0x4]             ; 0x182e
     mov bx, ax                       ; 0x1831
     pop ax                           ; 0x1833
-    add word [bx + 0x5c14], ax       ; 0x1834
+    add word [bx + pc_records + 0x4], ax ; 0x1834
 @..ds_app_OOUT.l3:
     inc word [bp - 0x0002]           ; 0x1838
     mov ax, word [bp - 0x0002]       ; 0x183b

@@ -18,7 +18,7 @@ api_idx_000c_NRPK:
     imul word [bp + 0x4]             ; 0x7937
     mov bx, ax                       ; 0x793a
     pop ax                           ; 0x793c
-    add word [bx + 0x557e], ax       ; 0x793d
+    add word [bx + sound_slot_info + 0x8], ax ; 0x793d
     push word [bp + 0x4]             ; 0x7941
     call play_sound_effect           ; 0x7944
     pop cx                           ; 0x7947

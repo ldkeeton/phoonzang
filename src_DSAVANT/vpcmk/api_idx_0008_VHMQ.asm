@@ -53,10 +53,10 @@ api_idx_0008_VHMQ:
     imul word [bp + 0x4]             ; 0x49a9
     mov bx, ax                       ; 0x49ac
     pop ax                           ; 0x49ae
-    mov byte [bx + 0x5d6b], al       ; 0x49af
-    cmp byte [bx + 0x5e2c], 1        ; 0x49b3
+    mov byte [bx + cell_key_grid + 0x137], al ; 0x49af
+    cmp byte [bx + bss_5e2a + 0x2], 1 ; 0x49b3
     jne short @..api_idx_0008_VHMQ.l2 ; 0x49b8
-    inc byte [bx + 0x5d6b]           ; 0x49ba
+    inc byte [bx + cell_key_grid + 0x137] ; 0x49ba
 @..api_idx_0008_VHMQ.l2:
     mov ax, 0                        ; 0x49be
     push ax                          ; 0x49c1
@@ -83,7 +83,7 @@ api_idx_0008_VHMQ:
     mov ax, 0x248                    ; 0x49f2
     imul word [bp + 0x4]             ; 0x49f5
     mov bx, ax                       ; 0x49f8
-    mov al, byte [bx + 0x5d6b]       ; 0x49fa
+    mov al, byte [bx + cell_key_grid + 0x137] ; 0x49fa
     sub ah, ah                       ; 0x49fe
     push ax                          ; 0x4a00
     call draw_number_field           ; 0x4a01

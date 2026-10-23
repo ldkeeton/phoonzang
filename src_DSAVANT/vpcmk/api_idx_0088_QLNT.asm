@@ -8,7 +8,7 @@ api_idx_0088_QLNT:
     imul word [bp + 0x4]             ; 0x2c23
     add ax, word [bp - 0x0002]       ; 0x2c26
     mov bx, ax                       ; 0x2c29
-    mov al, byte [bx + 0x5d6c]       ; 0x2c2b
+    mov al, byte [bx + cell_key_grid + 0x138] ; 0x2c2b
     sub ah, ah                       ; 0x2c2f
     mov cx, word [bp - 0x0002]       ; 0x2c31
     shl cx, 1                        ; 0x2c34
@@ -84,7 +84,7 @@ api_idx_0088_QLNT:
     imul word [bp + 0x4]             ; 0x2cec
     add ax, word [bp - 0x0002]       ; 0x2cef
     mov bx, ax                       ; 0x2cf2
-    cmp byte [bx + 0x5d6c], 0        ; 0x2cf4
+    cmp byte [bx + cell_key_grid + 0x138], 0 ; 0x2cf4
     jbe short @..api_idx_0088_QLNT.l7 ; 0x2cf9
 @..api_idx_0088_QLNT.l6:
     mov ax, word [bp - 0x0004]       ; 0x2cfb

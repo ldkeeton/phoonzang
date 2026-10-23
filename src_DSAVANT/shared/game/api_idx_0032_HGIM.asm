@@ -468,7 +468,7 @@ api_idx_0032_HGIM:
     mov cx, word [bx + si]
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x5d6c]
+    mov al, byte [bx + cell_key_grid + 0x138]
     sub ah, ah
     shl cx, 1
     mov bx, cx
@@ -481,7 +481,7 @@ api_idx_0032_HGIM:
     mov cx, word [bx + si]
     add ax, cx
     mov bx, ax
-    dec byte [bx + 0x5d6c]
+    dec byte [bx + cell_key_grid + 0x138]
     inc word [bp - 0x000c]
     jmp short @..api_idx_0032_HGIM.l34
 @..api_idx_0032_HGIM.l33:
@@ -504,11 +504,11 @@ api_idx_0032_HGIM:
     mov cx, word [bx + si]
     add ax, cx
     mov bx, ax
-    cmp byte [bx + 0x5d6c], 0x64
+    cmp byte [bx + cell_key_grid + 0x138], 0x64
     jae short @..api_idx_0032_HGIM.l36
     cmp word [bp - 0x000c], byte 0
     jle short @..api_idx_0032_HGIM.l36
-    inc byte [bx + 0x5d6c]
+    inc byte [bx + cell_key_grid + 0x138]
     dec word [bp - 0x000c]
     jmp short @..api_idx_0032_HGIM.l37
 @..api_idx_0032_HGIM.l36:

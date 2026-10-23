@@ -26,7 +26,7 @@ api_idx_0004_UUMM:
     mov ax, 6                        ; 0x39ac
     imul dx                          ; 0x39af
     mov bx, ax                       ; 0x39b1
-    cmp byte [bx + 0x624], 1         ; 0x39b3
+    cmp byte [bx + spell_table + 0x4], 1 ; 0x39b3
     jne short @..api_idx_0004_UUMM.l3 ; 0x39b8
     call api_idx_0012_GQSK           ; 0x39ba
     mov word [bss_9564], ax          ; 0x39bd
@@ -41,7 +41,7 @@ api_idx_0004_UUMM:
     mov ax, 6                        ; 0x39d3
     imul word [bp - 0x0002]          ; 0x39d6
     mov bx, ax                       ; 0x39d9
-    mov al, byte [bx + 0x622]        ; 0x39db
+    mov al, byte [bx + spell_table + 0x2] ; 0x39db
     sub ah, ah                       ; 0x39df
     imul word [bp - 0x0004]          ; 0x39e1
     push ax                          ; 0x39e4
@@ -57,7 +57,7 @@ api_idx_0004_UUMM:
     add cx, ax                       ; 0x39fb
     mov bx, cx                       ; 0x39fd
     pop ax                           ; 0x39ff
-    sub word [bx + 0x5c1c], ax       ; 0x3a00
+    sub word [bx + pc_spell_power_cap + 0x4], ax ; 0x3a00
     push word [bp - 0x0004]          ; 0x3a04
     call random_below                ; 0x3a07
     pop cx                           ; 0x3a0a
@@ -65,7 +65,7 @@ api_idx_0004_UUMM:
     mov ax, 6                        ; 0x3a0c
     imul word [bp - 0x0002]          ; 0x3a0f
     mov bx, ax                       ; 0x3a12
-    mov al, byte [bx + 0x621]        ; 0x3a14
+    mov al, byte [bx + spell_table + 0x1] ; 0x3a14
     sub ah, ah                       ; 0x3a18
     mov cx, ax                       ; 0x3a1a
     pop ax                           ; 0x3a1c
@@ -90,7 +90,7 @@ api_idx_0004_UUMM:
     imul word [bp + 0x4]             ; 0x3a4c
     mov bx, ax                       ; 0x3a4f
     pop ax                           ; 0x3a51
-    mov byte [bx + 0x5d5c], al       ; 0x3a52
+    mov byte [bx + cell_key_grid + 0x128], al ; 0x3a52
 @..api_idx_0004_UUMM.l5:
     push word [bss_9564]             ; 0x3a56
     push word [bp - 0x0004]          ; 0x3a5a

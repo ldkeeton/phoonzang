@@ -7,7 +7,7 @@ api_idx_0002_KQIK:
     mov bx, ax
     mov ax, word [bx + pc_spell_power_cap]
     push ax
-    mov al, byte [bx + 0x5e3b]
+    mov al, byte [bx + bss_5e2a + 0x11]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -40,7 +40,7 @@ api_idx_0002_KQIK:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + 0x5d68]
+    mov al, byte [bx + cell_key_grid + 0x134]
     sub ah, ah
     mov cx, 6
     cwd
@@ -55,11 +55,11 @@ api_idx_0002_KQIK:
     pop ax
     add ax, cx
     dec ax
-    mov byte [bx + 0x5e37], al
+    mov byte [bx + bss_5e2a + 0xd], al
     push word [bp + 0x6]
     mov ax, 1
     push ax
-    mov al, byte [bx + 0x5e37]
+    mov al, byte [bx + bss_5e2a + 0xd]
     sub ah, ah
     push ax
     call clamp_between
@@ -69,8 +69,8 @@ api_idx_0002_KQIK:
     imul word [bp + 0x4]
     mov bx, ax
     pop ax
-    mov byte [bx + 0x5e37], al
-    mov al, byte [bx + 0x5d69]
+    mov byte [bx + bss_5e2a + 0xd], al
+    mov al, byte [bx + cell_key_grid + 0x135]
     sub ah, ah
     mov cx, 6
     cwd
@@ -85,11 +85,11 @@ api_idx_0002_KQIK:
     pop ax
     add ax, cx
     dec ax
-    mov byte [bx + 0x5e38], al
+    mov byte [bx + bss_5e2a + 0xe], al
     push word [bp + 0x6]
     mov ax, 1
     push ax
-    mov al, byte [bx + 0x5e38]
+    mov al, byte [bx + bss_5e2a + 0xe]
     sub ah, ah
     push ax
     call clamp_between
@@ -99,9 +99,9 @@ api_idx_0002_KQIK:
     imul word [bp + 0x4]
     mov bx, ax
     pop ax
-    mov byte [bx + 0x5e38], al
-    mov al, byte [bx + 0x5d69]
+    mov byte [bx + bss_5e2a + 0xe], al
+    mov al, byte [bx + cell_key_grid + 0x135]
     sub ah, ah
     add ax, word [bp - 0x0002]
-    mov byte [bx + 0x5e39], al
+    mov byte [bx + bss_5e2a + 0xf], al
     ret

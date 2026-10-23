@@ -26,7 +26,7 @@ api_idx_00b4_QLQS:
     imul word [bp + 0x4]             ; 0x4cff
     add ax, word [bp - 0x0002]       ; 0x4d02
     mov bx, ax                       ; 0x4d05
-    cmp byte [bx + 0x5d64], 0x12     ; 0x4d07
+    cmp byte [bx + cell_key_grid + 0x130], 0x12 ; 0x4d07
     jae short @..api_idx_00b4_QLQS.l4 ; 0x4d0c
     mov ax, word [bp - 0x0002]       ; 0x4d0e
     shl ax, 1                        ; 0x4d11
@@ -42,7 +42,7 @@ api_idx_00b4_QLQS:
     imul word [bp + 0x4]             ; 0x4d26
     add ax, word [bp - 0x0002]       ; 0x4d29
     mov bx, ax                       ; 0x4d2c
-    cmp byte [bx + 0x5d64], 0x12     ; 0x4d2e
+    cmp byte [bx + cell_key_grid + 0x130], 0x12 ; 0x4d2e
     jb short @..api_idx_00b4_QLQS.l6 ; 0x4d33
     jmp near @..api_idx_00b4_QLQS.l8 ; 0x4d35
 @..api_idx_00b4_QLQS.l6:
@@ -59,7 +59,7 @@ api_idx_00b4_QLQS:
     imul word [bp + 0x4]             ; 0x4d52
     add ax, word [bp - 0x0002]       ; 0x4d55
     mov bx, ax                       ; 0x4d58
-    inc byte [bx + 0x5d64]           ; 0x4d5a
+    inc byte [bx + cell_key_grid + 0x130] ; 0x4d5a
     mov ax, 1                        ; 0x4d5e
     push ax                          ; 0x4d61
     mov ax, 0x18                     ; 0x4d62
@@ -73,7 +73,7 @@ api_idx_00b4_QLQS:
     push ax                          ; 0x4d74
     mov ax, 0                        ; 0x4d75
     push ax                          ; 0x4d78
-    mov al, byte [bx + 0x5d64]       ; 0x4d79
+    mov al, byte [bx + cell_key_grid + 0x130] ; 0x4d79
     sub ah, ah                       ; 0x4d7d
     push ax                          ; 0x4d7f
     mov ax, 6                        ; 0x4d80

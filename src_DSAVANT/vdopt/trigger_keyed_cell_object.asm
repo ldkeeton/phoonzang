@@ -4,7 +4,7 @@ trigger_keyed_cell_object:
     call aztec_csav                  ; 0x2390
     mov bx, word [maze_tables]       ; 0x2393
     mov si, word [party_map_piece]   ; 0x2397
-    mov al, byte [bx + si + 0xb40]   ; 0x239b
+    mov al, byte [bx + si + spell_table + 0x520] ; 0x239b
     sub ah, ah                       ; 0x239f
     mov word [bp - 0x0008], ax       ; 0x23a1
 @..trigger_keyed_cell_object.l1:
@@ -71,7 +71,7 @@ trigger_keyed_cell_object:
     mov ax, word [game_state_arg]    ; 0x243c
     mov cx, 4                        ; 0x243f
     shl ax, cl                       ; 0x2442
-    add ax, 0x8d14                   ; 0x2444
+    add ax, party_region + 0x2       ; 0x2444
     push ax                          ; 0x2447
     call set_bitmap_bit              ; 0x2448
     add sp, byte 6                   ; 0x244b
@@ -94,14 +94,14 @@ trigger_keyed_cell_object:
     mov ax, word [game_state_arg]    ; 0x2476
     mov cx, 4                        ; 0x2479
     shl ax, cl                       ; 0x247c
-    add ax, 0x8d14                   ; 0x247e
+    add ax, party_region + 0x2       ; 0x247e
     push ax                          ; 0x2481
     call set_bitmap_bit              ; 0x2482
     add sp, byte 6                   ; 0x2485
 @..trigger_keyed_cell_object.l6:
     mov bx, word [maze_tables]       ; 0x2488
     mov si, word [bp - 0x0008]       ; 0x248c
-    cmp byte [bx + si + 0xa50], 0    ; 0x248f
+    cmp byte [bx + si + spell_table + 0x430], 0 ; 0x248f
     jbe short @..trigger_keyed_cell_object.l9 ; 0x2494
     mov ax, 0xc6                     ; 0x2496
     push ax                          ; 0x2499
@@ -115,7 +115,7 @@ trigger_keyed_cell_object:
     add sp, byte 8                   ; 0x24a9
     mov bx, word [maze_tables]       ; 0x24ac
     mov si, word [bp - 0x0008]       ; 0x24b0
-    mov al, byte [bx + si + 0xa50]   ; 0x24b3
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x24b3
     sub ah, ah                       ; 0x24b7
     mov word [bp - 0x000c], ax       ; 0x24b9
     cmp ax, strict word 5            ; 0x24bc

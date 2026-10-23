@@ -137,7 +137,7 @@ fill_action_slot_table_alt:
     pop ax                           ; 0x10f4
     mov byte [bx + action_slot_table], al ; 0x10f5
     mov al, byte [bp - 0x0008]       ; 0x10f9
-    mov byte [bx - 0x7cdd], al       ; 0x10fc
+    mov byte [bx + action_slot_table + 0x1], al ; 0x10fc
     mov ax, 0x15e                    ; 0x1100
     imul word [bp - 0x0002]          ; 0x1103
     mov cx, word [bp - 0x0008]       ; 0x1106
@@ -161,8 +161,8 @@ fill_action_slot_table_alt:
     add cx, ax                       ; 0x1132
     mov bx, cx                       ; 0x1134
     pop ax                           ; 0x1136
-    mov byte [bx - 0x7cdc], al       ; 0x1137
-    mov al, byte [bx - 0x7cdc]       ; 0x113b
+    mov byte [bx + action_slot_table + 0x2], al ; 0x1137
+    mov al, byte [bx + action_slot_table + 0x2] ; 0x113b
     sub ah, ah                       ; 0x113f
     mov cx, ax                       ; 0x1141
     push cx                          ; 0x1143
@@ -173,7 +173,7 @@ fill_action_slot_table_alt:
     shl cx, 1                        ; 0x114f
     add ax, cx                       ; 0x1151
     mov bx, ax                       ; 0x1153
-    mov al, byte [bx + 0x6ac2]       ; 0x1155
+    mov al, byte [bx + slot_rec_ranges + 0x1] ; 0x1155
     sub ah, ah                       ; 0x1159
     push ax                          ; 0x115b
     call random_below                ; 0x115c
@@ -194,7 +194,7 @@ fill_action_slot_table_alt:
     add cx, ax                       ; 0x117e
     mov bx, cx                       ; 0x1180
     pop ax                           ; 0x1182
-    mov byte [bx - 0x7cdc], al       ; 0x1183
+    mov byte [bx + action_slot_table + 0x2], al ; 0x1183
     inc word [bp - 0x0004]           ; 0x1187
 @..fill_action_slot_table_alt.l10:
     mov ax, 0x15e                    ; 0x118a

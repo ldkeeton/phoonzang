@@ -31,7 +31,7 @@ api_idx_0002_UTVG:
     push ax                          ; 0x1fdc
     mov ax, 0x248                    ; 0x1fdd
     imul word [bp + 0x6]             ; 0x1fe0
-    add ax, 0x5d9c                   ; 0x1fe3
+    add ax, cell_key_grid + 0x168    ; 0x1fe3
     push ax                          ; 0x1fe6
     call aztec_movmem                ; 0x1fe7
     add sp, byte 6                   ; 0x1fea
@@ -80,7 +80,7 @@ api_idx_0002_UTVG:
     mov ax, 0x248                    ; 0x2054
     imul word [bp + 0x6]             ; 0x2057
     mov bx, ax                       ; 0x205a
-    mov al, byte [bx + 0x5e2c]       ; 0x205c
+    mov al, byte [bx + bss_5e2a + 0x2] ; 0x205c
     sub ah, ah                       ; 0x2060
     add ax, strict word 8            ; 0x2062
     mov word [bp - 0x0002], ax       ; 0x2065

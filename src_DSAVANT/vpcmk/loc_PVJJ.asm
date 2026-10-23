@@ -7,7 +7,7 @@ loc_PVJJ:
     jmp near @..loc_PVJJ.l7          ; 0x690a
 @..loc_PVJJ.l1:
     mov bx, word [bp - 0x0002]       ; 0x690d
-    cmp byte [bx - 0x6f8a], 1        ; 0x6910
+    cmp byte [bx + bss_9074 + 0x2], 1 ; 0x6910
     je short @..loc_PVJJ.l2          ; 0x6915
     jmp near @..loc_PVJJ.l6          ; 0x6917
 @..loc_PVJJ.l2:
@@ -58,8 +58,8 @@ loc_PVJJ:
     imul word [bp - 0x0008]          ; 0x6987
     mov bx, ax                       ; 0x698a
     pop ax                           ; 0x698c
-    mov byte [bx + 0xe42], al        ; 0x698d
-    mov byte [bx + 0xe43], 0x2d      ; 0x6991
+    mov byte [bx + known_spell_names + 0xa], al ; 0x698d
+    mov byte [bx + known_spell_names + 0xb], 0x2d ; 0x6991
     lea ax, word [bp - 0x02a0]       ; 0x6996
     push ax                          ; 0x699a
     mov al, byte [bp - 0x0017]       ; 0x699b
@@ -80,7 +80,7 @@ loc_PVJJ:
     add ax, word [bp - 0x0004]       ; 0x69c1
     mov bx, ax                       ; 0x69c4
     pop ax                           ; 0x69c6
-    mov byte [bx + 0xe44], al        ; 0x69c7
+    mov byte [bx + known_spell_names + 0xc], al ; 0x69c7
     inc word [bp - 0x0004]           ; 0x69cb
     mov ax, word [bp - 0x0004]       ; 0x69ce
     cmp ax, strict word 3            ; 0x69d1
@@ -88,7 +88,7 @@ loc_PVJJ:
     mov ax, 0x14                     ; 0x69d6
     imul word [bp - 0x0008]          ; 0x69d9
     mov bx, ax                       ; 0x69dc
-    mov byte [bx + 0xe47], 0         ; 0x69de
+    mov byte [bx + known_spell_names + 0xf], 0 ; 0x69de
     mov ax, word [bp - 0x0002]       ; 0x69e3
     mov cx, word [bp - 0x0008]       ; 0x69e6
     shl cx, 1                        ; 0x69e9

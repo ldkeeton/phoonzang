@@ -13,7 +13,7 @@ api_idx_005a_SIOK:
     imul word [bp + 0x4]             ; 0x1113
     add ax, word [bp + 0x8]          ; 0x1116
     mov bx, ax                       ; 0x1119
-    mov al, byte [bx + 0x5d9c]       ; 0x111b
+    mov al, byte [bx + cell_key_grid + 0x168] ; 0x111b
     sub ah, ah                       ; 0x111f
     mov cx, ax                       ; 0x1121
     pop ax                           ; 0x1123
@@ -24,17 +24,17 @@ api_idx_005a_SIOK:
     mov ax, 0x248                    ; 0x112b
     imul word [bp + 0x4]             ; 0x112e
     mov bx, ax                       ; 0x1131
-    mov al, byte [bx + 0x5e2f]       ; 0x1133
+    mov al, byte [bx + bss_5e2a + 0x5] ; 0x1133
     sub ah, ah                       ; 0x1137
     cmp ax, word [bp + 0xa]          ; 0x1139
     jl short @..api_idx_005a_SIOK.l2 ; 0x113c
     jmp near @..api_idx_005a_SIOK.l5 ; 0x113e
 @..api_idx_005a_SIOK.l2:
     mov al, byte [bp + 0xa]          ; 0x1141
-    mov byte [bx + 0x5e2f], al       ; 0x1144
+    mov byte [bx + bss_5e2a + 0x5], al ; 0x1144
     cmp word [bp + 0xa], byte 3      ; 0x1148
     jl short @..api_idx_005a_SIOK.l3 ; 0x114c
-    mov word [bx + 0x5c0c], 0        ; 0x114e
+    mov word [bx + bss_5c0a + 0x2], 0 ; 0x114e
     mov word [bx + pc_records], 0    ; 0x1154
 @..api_idx_005a_SIOK.l3:
     lea ax, word [bp - 0x0050]       ; 0x115a
@@ -61,9 +61,9 @@ api_idx_005a_SIOK:
     mov ax, 0x248                    ; 0x1189
     imul word [bp + 0x4]             ; 0x118c
     mov bx, ax                       ; 0x118f
-    cmp byte [bx + 0x5e2f], 3        ; 0x1191
+    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x1191
     jb short @..api_idx_005a_SIOK.l4 ; 0x1196
-    mov al, byte [bx + 0x5e2c]       ; 0x1198
+    mov al, byte [bx + bss_5e2a + 0x2] ; 0x1198
     sub ah, ah                       ; 0x119c
     add ax, strict word 8            ; 0x119e
     push ax                          ; 0x11a1

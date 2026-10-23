@@ -50,7 +50,7 @@ api_idx_0092_GSQH:
     pop ax                           ; 0x4c3d
     add ax, cx                       ; 0x4c3e
     mov bx, ax                       ; 0x4c40
-    mov al, byte [bx + 0x5c3b]       ; 0x4c42
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x4c42
     sub ah, ah                       ; 0x4c46
     test ax, 0x80                    ; 0x4c48
     je short @..api_idx_0092_GSQH.l4 ; 0x4c4b
@@ -98,7 +98,7 @@ api_idx_0092_GSQH:
     pop ax                           ; 0x4cb1
     add ax, cx                       ; 0x4cb2
     mov bx, ax                       ; 0x4cb4
-    mov al, byte [bx + 0x5c38]       ; 0x4cb6
+    mov al, byte [bx + cell_key_grid + 0x4] ; 0x4cb6
     sub ah, ah                       ; 0x4cba
     mov bx, ax                       ; 0x4cbc
     cmp byte [bx + 0x60e], 1         ; 0x4cbe
@@ -118,7 +118,7 @@ api_idx_0092_GSQH:
     pop ax                           ; 0x4ce0
     add ax, cx                       ; 0x4ce1
     mov bx, ax                       ; 0x4ce3
-    mov al, byte [bx + 0x5c3a]       ; 0x4ce5
+    mov al, byte [bx + cell_key_grid + 0x6] ; 0x4ce5
     sub ah, ah                       ; 0x4ce9
     mov cx, word [bp - 0x0092]       ; 0x4ceb
     shl cx, 1                        ; 0x4cef
@@ -252,7 +252,7 @@ api_idx_0092_GSQH:
     mov ax, 6                        ; 0x4e17
     imul dx                          ; 0x4e1a
     mov bx, ax                       ; 0x4e1c
-    cmp byte [bx + 0x624], 1         ; 0x4e1e
+    cmp byte [bx + spell_table + 0x4], 1 ; 0x4e1e
     jne short @..api_idx_0092_GSQH.l15 ; 0x4e23
     call pick_party_member           ; 0x4e25
     mov word [cast_spell_target], ax ; 0x4e28
@@ -303,7 +303,7 @@ api_idx_0092_GSQH:
     pop ax                           ; 0x4e96
     add ax, cx                       ; 0x4e97
     mov bx, ax                       ; 0x4e99
-    mov al, byte [bx + 0x5c3b]       ; 0x4e9b
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x4e9b
     sub ah, ah                       ; 0x4e9f
     test ax, 2                       ; 0x4ea1
     je short @..api_idx_0092_GSQH.l18 ; 0x4ea4

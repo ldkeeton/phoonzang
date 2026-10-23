@@ -72,7 +72,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + 0x5e2c]
+    mov al, byte [bx + bss_5e2a + 0x2]
     sub ah, ah
     add ax, 0x8c
     push ax
@@ -96,7 +96,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + 0x5e2b]
+    mov al, byte [bx + bss_5e2a + 0x1]
     sub ah, ah
     add ax, strict word 0x64
     push ax
@@ -125,7 +125,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + 0x5e2d]
+    mov al, byte [bx + bss_5e2a + 0x3]
     sub ah, ah
     add ax, strict word 0x78
     push ax
@@ -168,8 +168,8 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + 0x5bfc]
-    mov dx, word [bx + 0x5bfe]
+    mov ax, word [bx + bss_5bf4 + 0x8]
+    mov dx, word [bx + bss_5bf4 + 0xa]
     mov cx, 0x16d
     mov bx, 0
     call aztec_ldv
@@ -183,7 +183,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + 0x5c1a]
+    mov ax, word [bx + pc_spell_power_cap + 0x2]
     cwd
     mov cx, ax
     mov bx, dx
@@ -206,7 +206,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + 0x5d67]
+    mov al, byte [bx + cell_key_grid + 0x133]
     sub ah, ah
     cwd
     mov cx, ax
@@ -238,7 +238,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    cmp byte [bx + 0x5e2f], 3
+    cmp byte [bx + bss_5e2a + 0x5], 3
     jae short @..api_idx_007c_MOJH.l1
     mov ax, 0
     jmp short @..api_idx_007c_MOJH.l2
@@ -287,7 +287,7 @@ api_idx_007c_MOJH:
     imul word [bp + 0x4]
     add ax, word [bp - 0x0002]
     mov bx, ax
-    mov al, byte [bx + 0x5d64]
+    mov al, byte [bx + cell_key_grid + 0x130]
     sub ah, ah
     push ax
     call draw_number_field
@@ -325,12 +325,12 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + 0x5e2d]
+    mov al, byte [bx + bss_5e2a + 0x3]
     sub ah, ah
     mov cx, 0xa
     imul cx
     push ax
-    mov al, byte [bx + 0x5e2e]
+    mov al, byte [bx + bss_5e2a + 0x4]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -395,8 +395,8 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    push word [bx + 0x5c02]
-    push word [bx + 0x5c00]
+    push word [bx + bss_5bf4 + 0xe]
+    push word [bx + bss_5bf4 + 0xc]
     call draw_padded_number
     add sp, byte 8
     lea ax, word [bp - 0x0058]
@@ -430,8 +430,8 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    push word [bx + 0x5c06]
-    push word [bx + 0x5c04]
+    push word [bx + bss_5bf4 + 0x12]
+    push word [bx + bss_5bf4 + 0x10]
     call draw_padded_number
     add sp, byte 8
     mov ax, 0
@@ -475,7 +475,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    push word [bx + 0x5c0c]
+    push word [bx + bss_5c0a + 0x2]
     call format_int_decimal
     add sp, byte 4
     mov ax, 0
@@ -495,7 +495,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    push word [bx + 0x5c0e]
+    push word [bx + bss_5c0a + 0x4]
     call format_int_decimal
     add sp, byte 4
     mov ax, 0
@@ -546,7 +546,7 @@ api_idx_007c_MOJH:
     mov ax, word [bx + pc_records]
     mov cx, 0x64
     imul cx
-    mov cx, word [bx + 0x5c12]
+    mov cx, word [bx + pc_records + 0x2]
     cwd
     idiv cx
     mov word [bp - 0x0008], ax
@@ -594,7 +594,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    push word [bx + 0x5c12]
+    push word [bx + pc_records + 0x2]
     call format_int_decimal
     add sp, byte 4
     mov ax, 0
@@ -672,7 +672,7 @@ api_idx_007c_MOJH:
     imul word [bp + 0x4]
     mov bx, ax
     pop ax
-    mov byte [bx + 0x5e33], al
+    mov byte [bx + bss_5e2a + 0x9], al
     mov ax, 0
     push ax
     push word [bp - 0x0070]
@@ -707,7 +707,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + 0x5c14]
+    mov ax, word [bx + pc_records + 0x4]
     mov cx, 0xa
     cwd
     idiv cx
@@ -731,7 +731,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + 0x5c16]
+    mov ax, word [bx + pc_records + 0x6]
     mov cx, 0xa
     cwd
     idiv cx
@@ -751,18 +751,18 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + 0x5e2f]
+    mov al, byte [bx + bss_5e2a + 0x5]
     sub ah, ah
     shl ax, 1
     mov bx, ax
-    mov ax, word [bx + 0x920]
+    mov ax, word [bx + spell_table + 0x300]
     mov word [bp - 0x0006], ax
     cmp ax, strict word 0xffff
     jne short @..api_idx_007c_MOJH.l6
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    cmp byte [bx + 0x5d5c], 0
+    cmp byte [bx + cell_key_grid + 0x128], 0
     jbe short @..api_idx_007c_MOJH.l6
     mov ax, 0
     jmp short @..api_idx_007c_MOJH.l7
@@ -775,7 +775,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    cmp byte [bx + 0x5d5d], 0
+    cmp byte [bx + cell_key_grid + 0x129], 0
     jbe short @..api_idx_007c_MOJH.l8
     mov ax, 1
     jmp short @..api_idx_007c_MOJH.l9
@@ -820,14 +820,14 @@ api_idx_007c_MOJH:
     jge short @..api_idx_007c_MOJH.l12
     shl ax, 1
     mov bx, ax
-    mov ax, word [bx + 0x92c]
+    mov ax, word [bx + spell_table + 0x30c]
     cmp ax, word [bp - 0x0006]
     je short @..api_idx_007c_MOJH.l12
     mov ax, 0x248
     imul word [bp + 0x4]
     add ax, word [bp - 0x0008]
     mov bx, ax
-    cmp byte [bx + 0x5d5a], 0
+    cmp byte [bx + cell_key_grid + 0x126], 0
     jbe short @..api_idx_007c_MOJH.l12
     mov ax, word [bp - 0x0004]
     mov cx, 3
@@ -853,7 +853,7 @@ api_idx_007c_MOJH:
     mov ax, word [bp - 0x0008]
     shl ax, 1
     mov bx, ax
-    mov al, byte [bx + 0x92c]
+    mov al, byte [bx + spell_table + 0x30c]
     sub ah, ah
     push ax
     call draw_font_glyph
@@ -861,7 +861,7 @@ api_idx_007c_MOJH:
     mov ax, word [bp - 0x0008]
     shl ax, 1
     mov bx, ax
-    mov ax, word [bx + 0x92c]
+    mov ax, word [bx + spell_table + 0x30c]
     mov word [bp - 0x0006], ax
     inc word [bp - 0x0004]
 @..api_idx_007c_MOJH.l12:

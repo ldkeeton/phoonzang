@@ -47,7 +47,7 @@ api_idx_007a_HMNU:
     imul word [bp + 0x4]             ; 0x44ff
     mov bx, ax                       ; 0x4502
     pop ax                           ; 0x4504
-    mov byte [bx + 0x5e2c], al       ; 0x4505
+    mov byte [bx + bss_5e2a + 0x2], al ; 0x4505
     mov ax, 0                        ; 0x4509
     push ax                          ; 0x450c
     mov ax, 1                        ; 0x450d
@@ -65,7 +65,7 @@ api_idx_007a_HMNU:
     mov ax, 0x248                    ; 0x4529
     imul word [bp + 0x4]             ; 0x452c
     mov bx, ax                       ; 0x452f
-    mov al, byte [bx + 0x5e2c]       ; 0x4531
+    mov al, byte [bx + bss_5e2a + 0x2] ; 0x4531
     sub ah, ah                       ; 0x4535
     add ax, 0x8c                     ; 0x4537
     push ax                          ; 0x453a
@@ -87,7 +87,7 @@ api_idx_007a_HMNU:
     mov ax, 0x248                    ; 0x455f
     imul word [bp + 0x4]             ; 0x4562
     mov bx, ax                       ; 0x4565
-    mov al, byte [bx + 0x5e2c]       ; 0x4567
+    mov al, byte [bx + bss_5e2a + 0x2] ; 0x4567
     sub ah, ah                       ; 0x456b
     push ax                          ; 0x456d
     push word [bp + 0x4]             ; 0x456e

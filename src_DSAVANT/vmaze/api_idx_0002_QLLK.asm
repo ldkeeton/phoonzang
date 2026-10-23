@@ -4,7 +4,7 @@ api_idx_0002_QLLK:
     call aztec_csav                  ; 0x8e6d
     mov bx, word [maze_tables]       ; 0x8e70
     mov si, word [party_map_piece]   ; 0x8e74
-    mov al, byte [bx + si + 0xb40]   ; 0x8e78
+    mov al, byte [bx + si + spell_table + 0x520] ; 0x8e78
     sub ah, ah                       ; 0x8e7c
     mov word [bp - 0x0002], ax       ; 0x8e7e
 @..api_idx_0002_QLLK.l1:

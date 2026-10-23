@@ -104,7 +104,7 @@ api_idx_0008_JGKT:
     pop ax                           ; 0x0116
     mov byte [bx + action_slot_table], al ; 0x0117
     mov al, byte [bp - 0x0006]       ; 0x011b
-    mov byte [bx - 0x7cdd], al       ; 0x011e
+    mov byte [bx + action_slot_table + 0x1], al ; 0x011e
     mov ax, 0x15e                    ; 0x0122
     imul word [bp + 0x4]             ; 0x0125
     mov cx, word [bp - 0x0006]       ; 0x0128
@@ -128,8 +128,8 @@ api_idx_0008_JGKT:
     add cx, ax                       ; 0x0154
     mov bx, cx                       ; 0x0156
     pop ax                           ; 0x0158
-    mov byte [bx - 0x7cdc], al       ; 0x0159
-    mov al, byte [bx - 0x7cdc]       ; 0x015d
+    mov byte [bx + action_slot_table + 0x2], al ; 0x0159
+    mov al, byte [bx + action_slot_table + 0x2] ; 0x015d
     sub ah, ah                       ; 0x0161
     mov cx, ax                       ; 0x0163
     push cx                          ; 0x0165
@@ -140,7 +140,7 @@ api_idx_0008_JGKT:
     shl cx, 1                        ; 0x0171
     add ax, cx                       ; 0x0173
     mov bx, ax                       ; 0x0175
-    mov al, byte [bx + 0x6ac2]       ; 0x0177
+    mov al, byte [bx + slot_rec_ranges + 0x1] ; 0x0177
     sub ah, ah                       ; 0x017b
     push ax                          ; 0x017d
     call random_below                ; 0x017e
@@ -161,7 +161,7 @@ api_idx_0008_JGKT:
     add cx, ax                       ; 0x01a0
     mov bx, cx                       ; 0x01a2
     pop ax                           ; 0x01a4
-    mov byte [bx - 0x7cdc], al       ; 0x01a5
+    mov byte [bx + action_slot_table + 0x2], al ; 0x01a5
     inc word [bp - 0x0002]           ; 0x01a9
 @..api_idx_0008_JGKT.l7:
     mov ax, 0x15e                    ; 0x01ac

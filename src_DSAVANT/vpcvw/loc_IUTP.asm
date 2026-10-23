@@ -61,7 +61,7 @@ loc_IUTP:
     mov ax, 0x248                    ; 0x7153
     imul word [bp + 0x4]             ; 0x7156
     mov bx, ax                       ; 0x7159
-    mov al, byte [bx + 0x5d84]       ; 0x715b
+    mov al, byte [bx + cell_key_grid + 0x150] ; 0x715b
     sub ah, ah                       ; 0x715f
     mov cx, 5                        ; 0x7161
     cwd                              ; 0x7164
@@ -694,7 +694,7 @@ jumptable_76e2:
     mov ax, 0x248                    ; 0x7790
     imul word [bp + 0x4]             ; 0x7793
     mov bx, ax                       ; 0x7796
-    mov al, byte [bx + 0x5e2b]       ; 0x7798
+    mov al, byte [bx + bss_5e2a + 0x1] ; 0x7798
     sub ah, ah                       ; 0x779c
     push ax                          ; 0x779e
     lea ax, word [bp - 0x0046]       ; 0x779f
@@ -706,7 +706,7 @@ jumptable_76e2:
     mov ax, 0x248                    ; 0x77ae
     imul word [bp + 0x4]             ; 0x77b1
     mov bx, ax                       ; 0x77b4
-    mov al, byte [bx + 0x5e2d]       ; 0x77b6
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x77b6
     sub ah, ah                       ; 0x77ba
     push ax                          ; 0x77bc
     lea ax, word [bp - 0x0048]       ; 0x77bd
@@ -718,7 +718,7 @@ jumptable_76e2:
     mov ax, 0x248                    ; 0x77cc
     imul word [bp + 0x4]             ; 0x77cf
     mov bx, ax                       ; 0x77d2
-    mov al, byte [bx + 0x5e2c]       ; 0x77d4
+    mov al, byte [bx + bss_5e2a + 0x2] ; 0x77d4
     sub ah, ah                       ; 0x77d8
     push ax                          ; 0x77da
     lea ax, word [bp - 0x0044]       ; 0x77db

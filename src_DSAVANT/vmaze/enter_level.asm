@@ -29,7 +29,7 @@ enter_level:
     mov ax, word [game_state_arg]    ; 0x0cff
     mov cx, 4                        ; 0x0d02
     shl ax, cl                       ; 0x0d05
-    add ax, 0x8d14                   ; 0x0d07
+    add ax, party_region + 0x2       ; 0x0d07
     push ax                          ; 0x0d0a
     mov ax, word [game_state_arg]    ; 0x0d0b
     shl ax, cl                       ; 0x0d0e
@@ -49,14 +49,14 @@ enter_level:
     add sp, byte 6                   ; 0x0d35
     mov bx, word [maze_tables]       ; 0x0d38
     mov si, word [party_map_piece]   ; 0x0d3c
-    mov al, byte [bx + si + 0xb40]   ; 0x0d40
+    mov al, byte [bx + si + spell_table + 0x520] ; 0x0d40
     sub ah, ah                       ; 0x0d44
     mov word [party_region], ax      ; 0x0d46
     mov word [bp - 0x0002], 0        ; 0x0d49
 @..enter_level.l2:
     mov bx, word [maze_tables]       ; 0x0d4e
     mov si, word [bp - 0x0002]       ; 0x0d52
-    mov al, byte [bx + si + 0xb40]   ; 0x0d55
+    mov al, byte [bx + si + spell_table + 0x520] ; 0x0d55
     sub ah, ah                       ; 0x0d59
     mov word [bp - 0x0004], ax       ; 0x0d5b
 @..enter_level.l3:
@@ -64,7 +64,7 @@ enter_level:
     jge short @..enter_level.l5      ; 0x0d63
     mov si, word [bp - 0x0004]       ; 0x0d65
     mov bx, word [maze_tables]       ; 0x0d68
-    mov al, byte [bx + si + 0x870]   ; 0x0d6c
+    mov al, byte [bx + si + spell_table + 0x250] ; 0x0d6c
     sub ah, ah                       ; 0x0d70
     cmp ax, word [bp - 0x0002]       ; 0x0d72
     jne short @..enter_level.l5      ; 0x0d75
@@ -76,7 +76,7 @@ enter_level:
     mov cx, 6                        ; 0x0d85
     shl ax, cl                       ; 0x0d88
     push ax                          ; 0x0d8a
-    mov al, byte [bx + si + 0x780]   ; 0x0d8b
+    mov al, byte [bx + si + spell_table + 0x160] ; 0x0d8b
     sub ah, ah                       ; 0x0d8f
     mov cx, ax                       ; 0x0d91
     shl ax, 1                        ; 0x0d93
@@ -86,7 +86,7 @@ enter_level:
     pop ax                           ; 0x0d9b
     add ax, cx                       ; 0x0d9c
     push ax                          ; 0x0d9e
-    mov al, byte [bx + si + 0x690]   ; 0x0d9f
+    mov al, byte [bx + si + spell_table + 0x70] ; 0x0d9f
     sub ah, ah                       ; 0x0da3
     mov cx, ax                       ; 0x0da5
     pop ax                           ; 0x0da7

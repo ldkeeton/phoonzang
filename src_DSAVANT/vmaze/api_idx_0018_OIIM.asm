@@ -6,7 +6,7 @@ api_idx_0018_OIIM:
     inc ax                           ; 0x7b5c
     mov word [bp - 0x000c], ax       ; 0x7b5d
     mov bx, ax                       ; 0x7b60
-    mov al, byte [bx + 0x7171]       ; 0x7b62
+    mov al, byte [bx + glyph_y_table + 0x2bc] ; 0x7b62
     sub ah, ah                       ; 0x7b66
     dec ax                           ; 0x7b68
     mov word [bp - 0x0004], ax       ; 0x7b69
@@ -73,7 +73,7 @@ api_idx_0018_OIIM:
     idiv cx                          ; 0x7c03
     push ax                          ; 0x7c05
     mov bx, word [bp - 0x000c]       ; 0x7c06
-    mov al, byte [bx + 0x7171]       ; 0x7c09
+    mov al, byte [bx + glyph_y_table + 0x2bc] ; 0x7c09
     sub ah, ah                       ; 0x7c0d
     mov cx, ax                       ; 0x7c0f
     pop ax                           ; 0x7c11
@@ -92,7 +92,7 @@ api_idx_0018_OIIM:
     shl ax, 1                        ; 0x7c2f
     add ax, word [bp - 0x000a]       ; 0x7c31
     mov bx, ax                       ; 0x7c34
-    mov al, byte [bx + 0x7128]       ; 0x7c36
+    mov al, byte [bx + glyph_y_table + 0x273] ; 0x7c36
     sub ah, ah                       ; 0x7c3a
     mov cx, ax                       ; 0x7c3c
     pop ax                           ; 0x7c3e

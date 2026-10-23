@@ -33,7 +33,7 @@ api_idx_001c_HVVI:
     mov cx, word [bx - 0x001c]
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x5d64]
+    mov al, byte [bx + cell_key_grid + 0x130]
     sub ah, ah
     push ax
     mov ax, 0x248
@@ -46,7 +46,7 @@ api_idx_001c_HVVI:
     mov cx, word [bx - 0x001a]
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x5d64]
+    mov al, byte [bx + cell_key_grid + 0x130]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -103,7 +103,7 @@ api_idx_001c_HVVI:
     imul word [bp + 0x4]
     add ax, word [bp - 0x0002]
     mov bx, ax
-    cmp byte [bx + 0x5d6c], 0
+    cmp byte [bx + cell_key_grid + 0x138], 0
     jbe short @..api_idx_001c_HVVI.l7
     mov ax, 2
     push ax

@@ -8,9 +8,9 @@ api_idx_0002_TJNR:
     shl ax, 1                        ; 0x8fa2
     shl ax, 1                        ; 0x8fa4
     mov bx, ax                       ; 0x8fa6
-    cmp byte [bx - 0x7590], 0xff     ; 0x8fa8
+    cmp byte [bx + bss_8a6e + 0x2], 0xff ; 0x8fa8
     je short @..api_idx_0002_TJNR.l2 ; 0x8fad
-    mov al, byte [bx - 0x7590]       ; 0x8faf
+    mov al, byte [bx + bss_8a6e + 0x2] ; 0x8faf
     cbw                              ; 0x8fb3
     shl ax, 1                        ; 0x8fb4
     mov bx, ax                       ; 0x8fb6
@@ -25,12 +25,12 @@ api_idx_0002_TJNR:
     sub ah, ah                       ; 0x8fcc
     cmp ax, word [bp + 0x4]          ; 0x8fce
     jne short @..api_idx_0002_TJNR.l3 ; 0x8fd1
-    mov al, byte [bx - 0x7591]       ; 0x8fd3
+    mov al, byte [bx + bss_8a6e + 0x1] ; 0x8fd3
     sub ah, ah                       ; 0x8fd7
     cmp ax, word [bp + 0x6]          ; 0x8fd9
     je short @..api_idx_0002_TJNR.l4 ; 0x8fdc
 @..api_idx_0002_TJNR.l3:
-    mov al, byte [bx - 0x7591]       ; 0x8fde
+    mov al, byte [bx + bss_8a6e + 0x1] ; 0x8fde
     sub ah, ah                       ; 0x8fe2
     cmp ax, word [bp + 0x4]          ; 0x8fe4
     jne short @..api_idx_0002_TJNR.l6 ; 0x8fe7

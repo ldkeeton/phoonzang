@@ -20,7 +20,7 @@ api_idx_0086_JRHU:
     cbw                              ; 0x6e3f
     mov cx, 0x26                     ; 0x6e40
     imul cx                          ; 0x6e43
-    add ax, 0x8502                   ; 0x6e45
+    add ax, slot_records + 0x16      ; 0x6e45
     push ax                          ; 0x6e48
     call test_bit                    ; 0x6e49
     add sp, byte 4                   ; 0x6e4c

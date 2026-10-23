@@ -61,7 +61,7 @@ api_idx_0006_IRNH:
     mov ax, word [bp - 0x0002]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx - 0x7b96]
+    mov bx, word [bx + bss_8468 + 0x2]
     mov byte [bx + 0x14], 0xff
     inc word [bp - 0x0002]
     mov ax, word [bp - 0x0002]

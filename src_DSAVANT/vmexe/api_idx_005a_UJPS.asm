@@ -71,7 +71,7 @@ api_idx_005a_UJPS:
     pop ax                           ; 0x9ffe
     add ax, cx                       ; 0x9fff
     mov bx, ax                       ; 0xa001
-    mov al, byte [bx + 0x5c3b]       ; 0xa003
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0xa003
     sub ah, ah                       ; 0xa007
     test ax, 0x80                    ; 0xa009
     je short @..api_idx_005a_UJPS.l2 ; 0xa00c
@@ -155,9 +155,9 @@ api_idx_005a_UJPS:
     mov ax, 0x248                    ; 0xa0b7
     imul word [bss_8462]             ; 0xa0ba
     mov bx, ax                       ; 0xa0be
-    cmp byte [bx + 0x5d79], 0        ; 0xa0c0
+    cmp byte [bx + cell_key_grid + 0x145], 0 ; 0xa0c0
     jbe short @..api_idx_005a_UJPS.l14 ; 0xa0c5
-    mov al, byte [bx + 0x5d79]       ; 0xa0c7
+    mov al, byte [bx + cell_key_grid + 0x145] ; 0xa0c7
     sub ah, ah                       ; 0xa0cb
     mov cx, 0xf                      ; 0xa0cd
     cwd                              ; 0xa0d0
@@ -168,7 +168,7 @@ api_idx_005a_UJPS:
     mov ax, 6                        ; 0xa0d6
     imul word [bp - 0x0006]          ; 0xa0d9
     mov bx, ax                       ; 0xa0dc
-    mov al, byte [bx + 0x621]        ; 0xa0de
+    mov al, byte [bx + spell_table + 0x1] ; 0xa0de
     sub ah, ah                       ; 0xa0e2
     mov cx, ax                       ; 0xa0e4
     pop ax                           ; 0xa0e6
@@ -337,7 +337,7 @@ api_idx_005a_UJPS:
     pop ax                           ; 0xa25d
     add ax, cx                       ; 0xa25e
     mov bx, ax                       ; 0xa260
-    mov byte [bx + 0x5c3a], 1        ; 0xa262
+    mov byte [bx + cell_key_grid + 0x6], 1 ; 0xa262
     push word [bp - 0x000a]          ; 0xa267
     push word [bp - 0x0008]          ; 0xa26a
     push word [bss_8462]             ; 0xa26d
@@ -418,7 +418,7 @@ api_idx_005a_UJPS:
     mov ax, 6                        ; 0xa327
     imul word [bp - 0x0006]          ; 0xa32a
     mov bx, ax                       ; 0xa32d
-    mov al, byte [bx + 0x621]        ; 0xa32f
+    mov al, byte [bx + spell_table + 0x1] ; 0xa32f
     sub ah, ah                       ; 0xa333
     mov cx, 0xa                      ; 0xa335
     imul cx                          ; 0xa338
@@ -447,7 +447,7 @@ api_idx_005a_UJPS:
     imul word [bss_8462]             ; 0xa372
     add ax, word [bp - 0x0012]       ; 0xa376
     mov bx, ax                       ; 0xa379
-    mov al, byte [bx + 0x5d6c]       ; 0xa37b
+    mov al, byte [bx + cell_key_grid + 0x138] ; 0xa37b
     sub ah, ah                       ; 0xa37f
     cmp ax, word [bp - 0x0010]       ; 0xa381
     jge short @..api_idx_005a_UJPS.l36 ; 0xa384
@@ -461,7 +461,7 @@ api_idx_005a_UJPS:
     mov ax, 0x248                    ; 0xa396
     imul word [bss_8462]             ; 0xa399
     mov bx, ax                       ; 0xa39d
-    mov al, byte [bx + 0x5d6b]       ; 0xa39f
+    mov al, byte [bx + cell_key_grid + 0x137] ; 0xa39f
     sub ah, ah                       ; 0xa3a3
     mov cx, ax                       ; 0xa3a5
     add ax, strict word 0x12         ; 0xa3a7
@@ -508,7 +508,7 @@ api_idx_005a_UJPS:
     mov ax, 6                        ; 0xa40b
     imul word [bp - 0x0006]          ; 0xa40e
     mov bx, ax                       ; 0xa411
-    mov al, byte [bx + 0x623]        ; 0xa413
+    mov al, byte [bx + spell_table + 0x3] ; 0xa413
     sub ah, ah                       ; 0xa417
     test ax, 2                       ; 0xa419
     jne short @..api_idx_005a_UJPS.l40 ; 0xa41c
@@ -520,7 +520,7 @@ api_idx_005a_UJPS:
     mov ax, 6                        ; 0xa431
     imul word [bp - 0x0006]          ; 0xa434
     mov bx, ax                       ; 0xa437
-    mov al, byte [bx + 0x623]        ; 0xa439
+    mov al, byte [bx + spell_table + 0x3] ; 0xa439
     sub ah, ah                       ; 0xa43d
     test ax, 1                       ; 0xa43f
     jne short @..api_idx_005a_UJPS.l41 ; 0xa442

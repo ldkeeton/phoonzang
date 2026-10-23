@@ -5,7 +5,7 @@ api_idx_0056_VTNO:
     mov ax, 0x248                    ; 0x12d2
     imul word [bp + 0x4]             ; 0x12d5
     mov bx, ax                       ; 0x12d8
-    cmp byte [bx + 0x5e2f], 2        ; 0x12da
+    cmp byte [bx + bss_5e2a + 0x5], 2 ; 0x12da
     jb short @..api_idx_0056_VTNO.l1 ; 0x12df
     ret                              ; 0x12e1
 @..api_idx_0056_VTNO.l1:
@@ -37,7 +37,7 @@ api_idx_0056_VTNO:
     imul word [bp + 0x4]             ; 0x131d
     add ax, word [bp + 0x8]          ; 0x1320
     mov bx, ax                       ; 0x1323
-    mov al, byte [bx + 0x5d9c]       ; 0x1325
+    mov al, byte [bx + cell_key_grid + 0x168] ; 0x1325
     sub ah, ah                       ; 0x1329
     mov cx, ax                       ; 0x132b
     pop ax                           ; 0x132d
@@ -51,29 +51,29 @@ api_idx_0056_VTNO:
     imul word [bp + 0x4]             ; 0x133f
     add ax, word [bp + 0xa]          ; 0x1342
     mov bx, ax                       ; 0x1345
-    mov byte [bx + 0x5d5a], 0xff     ; 0x1347
+    mov byte [bx + cell_key_grid + 0x126], 0xff ; 0x1347
     jmp short @..api_idx_0056_VTNO.l5 ; 0x134c
 @..api_idx_0056_VTNO.l3:
     mov ax, 0x248                    ; 0x134e
     imul word [bp + 0x4]             ; 0x1351
     add ax, word [bp + 0xa]          ; 0x1354
     mov bx, ax                       ; 0x1357
-    mov al, byte [bx + 0x5d5a]       ; 0x1359
+    mov al, byte [bx + cell_key_grid + 0x126] ; 0x1359
     sub ah, ah                       ; 0x135d
     add ax, word [bp - 0x0006]       ; 0x135f
     cmp ax, 0xfa                     ; 0x1362
     jle short @..api_idx_0056_VTNO.l4 ; 0x1365
-    mov al, byte [bx + 0x5d5a]       ; 0x1367
+    mov al, byte [bx + cell_key_grid + 0x126] ; 0x1367
     sub ah, ah                       ; 0x136b
     mov cx, ax                       ; 0x136d
     mov ax, 0xfa                     ; 0x136f
     sub ax, cx                       ; 0x1372
     mov word [bp - 0x0006], ax       ; 0x1374
 @..api_idx_0056_VTNO.l4:
-    mov al, byte [bx + 0x5d5a]       ; 0x1377
+    mov al, byte [bx + cell_key_grid + 0x126] ; 0x1377
     sub ah, ah                       ; 0x137b
     add ax, word [bp - 0x0006]       ; 0x137d
-    mov byte [bx + 0x5d5a], al       ; 0x1380
+    mov byte [bx + cell_key_grid + 0x126], al ; 0x1380
 @..api_idx_0056_VTNO.l5:
     cmp word [bp + 0xa], byte 5      ; 0x1384
     jne short @..api_idx_0056_VTNO.l6 ; 0x1388
@@ -83,7 +83,7 @@ api_idx_0056_VTNO:
     imul word [bp + 0x4]             ; 0x1391
     mov bx, ax                       ; 0x1394
     pop ax                           ; 0x1396
-    mov byte [bx + 0x5e32], al       ; 0x1397
+    mov byte [bx + bss_5e2a + 0x8], al ; 0x1397
 @..api_idx_0056_VTNO.l6:
     lea ax, word [bp - 0x0056]       ; 0x139b
     push ax                          ; 0x139e

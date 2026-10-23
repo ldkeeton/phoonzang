@@ -31,7 +31,7 @@ api_idx_001e_QHIQ:
     idiv cx                          ; 0x7e8b
     mov word [bp - 0x001a], dx       ; 0x7e8d
     mov si, word [party_region]      ; 0x7e90
-    mov al, byte [bx + si + 0xa50]   ; 0x7e94
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x7e94
     sub ah, ah                       ; 0x7e98
     mov word [bp - 0x0014], ax       ; 0x7e9a
     cmp word [bp - 0x0014], byte 0   ; 0x7e9d
@@ -205,7 +205,7 @@ api_idx_001e_QHIQ:
 @..api_idx_001e_QHIQ.l14:
     mov si, word [party_region]      ; 0x8036
     mov bx, word [maze_tables]       ; 0x803a
-    cmp byte [bx + si + 0x960], 0    ; 0x803e
+    cmp byte [bx + si + spell_table + 0x340], 0 ; 0x803e
     jbe short @..api_idx_001e_QHIQ.l15 ; 0x8043
     mov ax, 2                        ; 0x8045
     push ax                          ; 0x8048

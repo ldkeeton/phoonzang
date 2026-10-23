@@ -5,7 +5,7 @@ loc_SSIO:
     mov ax, word [bp + 0x4]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx - 0x7b96]
+    mov bx, word [bx + bss_8468 + 0x2]
     mov al, byte [bx + 0x14]
     sub ah, ah
     cmp ax, 0xff
@@ -21,7 +21,7 @@ loc_SSIO:
     mov ax, word [bp + 0x4]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx - 0x7b96]
+    mov bx, word [bx + bss_8468 + 0x2]
     mov al, byte [bx + 0x16]
     sub ah, ah
     push ax

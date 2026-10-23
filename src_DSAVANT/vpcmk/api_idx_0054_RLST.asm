@@ -65,7 +65,7 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1bd6
     imul word [bp + 0x4]             ; 0x1bd9
     mov bx, ax                       ; 0x1bdc
-    mov al, byte [bx + 0x5e2c]       ; 0x1bde
+    mov al, byte [bx + bss_5e2a + 0x2] ; 0x1bde
     sub ah, ah                       ; 0x1be2
     add ax, 0x8c                     ; 0x1be4
     push ax                          ; 0x1be7
@@ -89,7 +89,7 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1c10
     imul word [bp + 0x4]             ; 0x1c13
     mov bx, ax                       ; 0x1c16
-    mov al, byte [bx + 0x5e2b]       ; 0x1c18
+    mov al, byte [bx + bss_5e2a + 0x1] ; 0x1c18
     sub ah, ah                       ; 0x1c1c
     add ax, strict word 0x64         ; 0x1c1e
     push ax                          ; 0x1c21
@@ -118,7 +118,7 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1c56
     imul word [bp + 0x4]             ; 0x1c59
     mov bx, ax                       ; 0x1c5c
-    mov al, byte [bx + 0x5e2d]       ; 0x1c5e
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x1c5e
     sub ah, ah                       ; 0x1c62
     add ax, strict word 0x78         ; 0x1c64
     push ax                          ; 0x1c67
@@ -167,8 +167,8 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1cce
     imul word [bp + 0x4]             ; 0x1cd1
     mov bx, ax                       ; 0x1cd4
-    mov ax, word [bx + 0x5bfc]       ; 0x1cd6
-    mov dx, word [bx + 0x5bfe]       ; 0x1cda
+    mov ax, word [bx + bss_5bf4 + 0x8] ; 0x1cd6
+    mov dx, word [bx + bss_5bf4 + 0xa] ; 0x1cda
     mov cx, 0x16d                    ; 0x1cde
     mov bx, 0                        ; 0x1ce1
     call aztec_ldv                   ; 0x1ce4
@@ -182,7 +182,7 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1cf8
     imul word [bp + 0x4]             ; 0x1cfb
     mov bx, ax                       ; 0x1cfe
-    mov ax, word [bx + 0x5c1a]       ; 0x1d00
+    mov ax, word [bx + pc_spell_power_cap + 0x2] ; 0x1d00
     cwd                              ; 0x1d04
     mov cx, ax                       ; 0x1d05
     mov bx, dx                       ; 0x1d07
@@ -205,7 +205,7 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1d29
     imul word [bp + 0x4]             ; 0x1d2c
     mov bx, ax                       ; 0x1d2f
-    mov al, byte [bx + 0x5d67]       ; 0x1d31
+    mov al, byte [bx + cell_key_grid + 0x133] ; 0x1d31
     sub ah, ah                       ; 0x1d35
     cwd                              ; 0x1d37
     mov cx, ax                       ; 0x1d38
@@ -237,7 +237,7 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1d6f
     imul word [bp + 0x4]             ; 0x1d72
     mov bx, ax                       ; 0x1d75
-    cmp byte [bx + 0x5e2f], 3        ; 0x1d77
+    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x1d77
     jae short @..api_idx_0054_RLST.l1 ; 0x1d7c
     mov ax, 0                        ; 0x1d7e
     jmp short @..api_idx_0054_RLST.l2 ; 0x1d81
@@ -278,12 +278,12 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1dd3
     imul word [bp + 0x4]             ; 0x1dd6
     mov bx, ax                       ; 0x1dd9
-    mov al, byte [bx + 0x5e2d]       ; 0x1ddb
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x1ddb
     sub ah, ah                       ; 0x1ddf
     mov cx, 0xa                      ; 0x1de1
     imul cx                          ; 0x1de4
     push ax                          ; 0x1de6
-    mov al, byte [bx + 0x5e2e]       ; 0x1de7
+    mov al, byte [bx + bss_5e2a + 0x4] ; 0x1de7
     sub ah, ah                       ; 0x1deb
     mov cx, ax                       ; 0x1ded
     pop ax                           ; 0x1def
@@ -348,8 +348,8 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1e75
     imul word [bp + 0x4]             ; 0x1e78
     mov bx, ax                       ; 0x1e7b
-    push word [bx + 0x5c02]          ; 0x1e7d
-    push word [bx + 0x5c00]          ; 0x1e81
+    push word [bx + bss_5bf4 + 0xe]  ; 0x1e7d
+    push word [bx + bss_5bf4 + 0xc]  ; 0x1e81
     call draw_padded_number          ; 0x1e85
     add sp, byte 8                   ; 0x1e88
     lea ax, word [bp - 0x0054]       ; 0x1e8b
@@ -383,8 +383,8 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1ecb
     imul word [bp + 0x4]             ; 0x1ece
     mov bx, ax                       ; 0x1ed1
-    push word [bx + 0x5c06]          ; 0x1ed3
-    push word [bx + 0x5c04]          ; 0x1ed7
+    push word [bx + bss_5bf4 + 0x12] ; 0x1ed3
+    push word [bx + bss_5bf4 + 0x10] ; 0x1ed7
     call draw_padded_number          ; 0x1edb
     add sp, byte 8                   ; 0x1ede
     mov ax, 0                        ; 0x1ee1
@@ -428,7 +428,7 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1f39
     imul word [bp + 0x4]             ; 0x1f3c
     mov bx, ax                       ; 0x1f3f
-    push word [bx + 0x5c0c]          ; 0x1f41
+    push word [bx + bss_5c0a + 0x2]  ; 0x1f41
     call format_int_decimal          ; 0x1f45
     add sp, byte 4                   ; 0x1f48
     mov ax, 0                        ; 0x1f4b
@@ -448,7 +448,7 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1f6b
     imul word [bp + 0x4]             ; 0x1f6e
     mov bx, ax                       ; 0x1f71
-    push word [bx + 0x5c0e]          ; 0x1f73
+    push word [bx + bss_5c0a + 0x4]  ; 0x1f73
     call format_int_decimal          ; 0x1f77
     add sp, byte 4                   ; 0x1f7a
     mov ax, 0                        ; 0x1f7d
@@ -499,7 +499,7 @@ api_idx_0054_RLST:
     mov ax, word [bx + pc_records]   ; 0x1fe7
     mov cx, 0x64                     ; 0x1feb
     imul cx                          ; 0x1fee
-    mov cx, word [bx + 0x5c12]       ; 0x1ff0
+    mov cx, word [bx + pc_records + 0x2] ; 0x1ff0
     cwd                              ; 0x1ff4
     idiv cx                          ; 0x1ff5
     mov word [bp - 0x0004], ax       ; 0x1ff7
@@ -547,7 +547,7 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x205a
     imul word [bp + 0x4]             ; 0x205d
     mov bx, ax                       ; 0x2060
-    push word [bx + 0x5c12]          ; 0x2062
+    push word [bx + pc_records + 0x2] ; 0x2062
     call format_int_decimal          ; 0x2066
     add sp, byte 4                   ; 0x2069
     mov ax, 0                        ; 0x206c

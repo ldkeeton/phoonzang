@@ -807,7 +807,7 @@ jumptable_8492_case_3:
     mov ax, 6                        ; 0x7ff3
     imul word [bp - 0x003c]          ; 0x7ff6
     mov bx, ax                       ; 0x7ff9
-    mov al, byte [bx + 0x622]        ; 0x7ffb
+    mov al, byte [bx + spell_table + 0x2] ; 0x7ffb
     sub ah, ah                       ; 0x7fff
     mov cx, word [bp - 0x003e]       ; 0x8001
     inc cx                           ; 0x8004
@@ -821,7 +821,7 @@ jumptable_8492_case_3:
     shl dx, 1                        ; 0x8015
     add ax, dx                       ; 0x8017
     mov bx, ax                       ; 0x8019
-    mov cx, word [bx + 0x5c1c]       ; 0x801b
+    mov cx, word [bx + pc_spell_power_cap + 0x4] ; 0x801b
     pop ax                           ; 0x801f
     cmp ax, cx                       ; 0x8020
     jg short @..api_idx_0044_NORP.l22 ; 0x8022
@@ -945,7 +945,7 @@ jumptable_8492_case_4:
     mov ax, 6                        ; 0x8137
     imul word [bp - 0x003c]          ; 0x813a
     mov bx, ax                       ; 0x813d
-    mov al, byte [bx + 0x621]        ; 0x813f
+    mov al, byte [bx + spell_table + 0x1] ; 0x813f
     sub ah, ah                       ; 0x8143
     mov cx, ax                       ; 0x8145
     pop ax                           ; 0x8147
@@ -957,7 +957,7 @@ jumptable_8492_case_4:
     mov ax, 6                        ; 0x8154
     imul word [bp - 0x003c]          ; 0x8157
     mov bx, ax                       ; 0x815a
-    mov al, byte [bx + 0x622]        ; 0x815c
+    mov al, byte [bx + spell_table + 0x2] ; 0x815c
     sub ah, ah                       ; 0x8160
     mov cx, word [bp - 0x0040]       ; 0x8162
     inc cx                           ; 0x8165
@@ -975,7 +975,7 @@ jumptable_8492_case_4:
     shl cx, 1                        ; 0x8181
     add ax, cx                       ; 0x8183
     mov bx, ax                       ; 0x8185
-    mov ax, word [bx + 0x5c1c]       ; 0x8187
+    mov ax, word [bx + pc_spell_power_cap + 0x4] ; 0x8187
     cmp ax, word [bp - 0x0002]       ; 0x818b
     jge short @..api_idx_0044_NORP.l29 ; 0x818e
     jmp short @..api_idx_0044_NORP.l30 ; 0x8190
@@ -986,7 +986,7 @@ jumptable_8492_case_4:
     mov ax, 6                        ; 0x8196
     imul word [bp - 0x003c]          ; 0x8199
     mov bx, ax                       ; 0x819c
-    mov al, byte [bx + 0x622]        ; 0x819e
+    mov al, byte [bx + spell_table + 0x2] ; 0x819e
     sub ah, ah                       ; 0x81a2
     mov cx, word [bp - 0x003e]       ; 0x81a4
     inc cx                           ; 0x81a7
@@ -1214,7 +1214,7 @@ jumptable_8492_case_4:
     mov ax, 6                        ; 0x83c1
     imul word [bp - 0x003c]          ; 0x83c4
     mov bx, ax                       ; 0x83c7
-    mov al, byte [bx + 0x621]        ; 0x83c9
+    mov al, byte [bx + spell_table + 0x1] ; 0x83c9
     sub ah, ah                       ; 0x83cd
     mov cx, ax                       ; 0x83cf
     pop ax                           ; 0x83d1
@@ -1226,7 +1226,7 @@ jumptable_8492_case_4:
     mov ax, 6                        ; 0x83de
     imul word [bp - 0x003c]          ; 0x83e1
     mov bx, ax                       ; 0x83e4
-    mov al, byte [bx + 0x622]        ; 0x83e6
+    mov al, byte [bx + spell_table + 0x2] ; 0x83e6
     sub ah, ah                       ; 0x83ea
     mov cx, word [bp - 0x0040]       ; 0x83ec
     inc cx                           ; 0x83ef
@@ -1244,7 +1244,7 @@ jumptable_8492_case_4:
     shl cx, 1                        ; 0x840b
     add ax, cx                       ; 0x840d
     mov bx, ax                       ; 0x840f
-    mov ax, word [bx + 0x5c1c]       ; 0x8411
+    mov ax, word [bx + pc_spell_power_cap + 0x4] ; 0x8411
     cmp ax, word [bp - 0x0002]       ; 0x8415
     jge short @..api_idx_0044_NORP.l42 ; 0x8418
     jmp short @..api_idx_0044_NORP.l43 ; 0x841a
@@ -1255,7 +1255,7 @@ jumptable_8492_case_4:
     mov ax, 6                        ; 0x8420
     imul word [bp - 0x003c]          ; 0x8423
     mov bx, ax                       ; 0x8426
-    mov al, byte [bx + 0x622]        ; 0x8428
+    mov al, byte [bx + spell_table + 0x2] ; 0x8428
     sub ah, ah                       ; 0x842c
     mov cx, word [bp - 0x003e]       ; 0x842e
     inc cx                           ; 0x8431

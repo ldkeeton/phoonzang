@@ -54,7 +54,7 @@ api_idx_0004_TLVR:
 @..api_idx_0004_TLVR.l3:
     mov bx, word [maze_tables]       ; 0x74ca
     mov si, word [party_region]      ; 0x74ce
-    mov al, byte [bx + si + 0xa50]   ; 0x74d2
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x74d2
     sub ah, ah                       ; 0x74d6
     mov word [bss_84a0], ax          ; 0x74d8
     mov word [game_state], 0x15      ; 0x74db

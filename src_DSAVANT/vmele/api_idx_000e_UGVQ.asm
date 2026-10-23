@@ -181,9 +181,9 @@ api_idx_000e_UGVQ:
     mov ax, 0x248                    ; 0x146d
     imul word [bp - 0x0002]          ; 0x1470
     mov bx, ax                       ; 0x1473
-    cmp byte [bx + 0x5d80], 0        ; 0x1475
+    cmp byte [bx + cell_key_grid + 0x14c], 0 ; 0x1475
     jbe short @..api_idx_000e_UGVQ.l14 ; 0x147a
-    mov al, byte [bx + 0x5d80]       ; 0x147c
+    mov al, byte [bx + cell_key_grid + 0x14c] ; 0x147c
     sub ah, ah                       ; 0x1480
     mov cx, 0xa                      ; 0x1482
     cwd                              ; 0x1485

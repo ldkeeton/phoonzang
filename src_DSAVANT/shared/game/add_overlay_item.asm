@@ -9,7 +9,7 @@ add_overlay_item:
     jge short @..add_overlay_item.l2
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx - 0x7b96]
+    mov bx, word [bx + bss_8468 + 0x2]
     mov al, byte [bx + 0x14]
     sub ah, ah
     cmp ax, word [bp + 0x4]
@@ -25,7 +25,7 @@ add_overlay_item:
     shl ax, 1
     mov bx, ax
     mov si, word [bx + bss_8468]
-    mov di, word [bx - 0x7b96]
+    mov di, word [bx + bss_8468 + 0x2]
     mov cx, ds
     mov es, cx
     mov cx, 0xc
@@ -48,55 +48,55 @@ add_overlay_item:
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx - 0x7b96]
+    mov bx, word [bx + bss_8468 + 0x2]
     mov byte [bx + 0x14], al
     mov al, byte [bp + 0x6]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx - 0x7b96]
+    mov bx, word [bx + bss_8468 + 0x2]
     mov byte [bx + 0x15], al
     mov ax, word [bp + 0x8]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx - 0x7b96]
+    mov bx, word [bx + bss_8468 + 0x2]
     mov word [bx], ax
     mov ax, word [bp + 0xa]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx - 0x7b96]
+    mov bx, word [bx + bss_8468 + 0x2]
     mov word [bx + 0x2], ax
     mov ax, word [bp + 0xc]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx - 0x7b96]
+    mov bx, word [bx + bss_8468 + 0x2]
     mov word [bx + 0x4], ax
     mov ax, word [bp + 0xe]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx - 0x7b96]
+    mov bx, word [bx + bss_8468 + 0x2]
     mov word [bx + 0x6], ax
     mov al, byte [bp + 0x10]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx - 0x7b96]
+    mov bx, word [bx + bss_8468 + 0x2]
     mov byte [bx + 0x16], al
     mov al, byte [bp + 0x12]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx - 0x7b96]
+    mov bx, word [bx + bss_8468 + 0x2]
     mov byte [bx + 0x17], al
     push word [bp + 0x14]
     mov ax, word [bp - 0x0002]
     shl ax, 1
     mov bx, ax
-    mov ax, word [bx - 0x7b96]
+    mov ax, word [bx + bss_8468 + 0x2]
     add ax, strict word 8
     push ax
     call aztec_strcpy

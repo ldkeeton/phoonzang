@@ -11,7 +11,7 @@ save_level_state:
     push ax                          ; 0x6907
     mov ax, word [game_state_arg]    ; 0x6908
     shl ax, cl                       ; 0x690b
-    add ax, 0x8d14                   ; 0x690d
+    add ax, party_region + 0x2       ; 0x690d
     push ax                          ; 0x6910
     call aztec_movmem                ; 0x6911
     add sp, byte 6                   ; 0x6914

@@ -24,17 +24,17 @@ loc_LQIO:
     call api_idx_0002_SJMT           ; 0x609c
     add sp, byte 6                   ; 0x609f
     mov bx, word [bp - 0x0002]       ; 0x60a2
-    mov byte [bx - 0x6f8a], 2        ; 0x60a5
+    mov byte [bx + bss_9074 + 0x2], 2 ; 0x60a5
     mov si, word [bss_69c8]          ; 0x60aa
     shl si, 1                        ; 0x60ae
-    mov word [si - 0x750e], bx       ; 0x60b0
+    mov word [si + bss_8af0 + 0x2], bx ; 0x60b0
     push word [bss_69c8]             ; 0x60b4
     call api_idx_0006_MHOR           ; 0x60b8
     pop cx                           ; 0x60bb
     mov cx, word [bss_69c8]          ; 0x60bc
     shl cx, 1                        ; 0x60c0
     mov bx, cx                       ; 0x60c2
-    mov word [bx + 0x69bc], ax       ; 0x60c4
+    mov word [bx + bss_5e2a + 0xb92], ax ; 0x60c4
     push ax                          ; 0x60c8
     mov al, byte [bp - 0x0018]       ; 0x60c9
     sub ah, ah                       ; 0x60cc

@@ -80,7 +80,7 @@ jumptable_9188_case_8:
     mov ax, 0x248                    ; 0x90ea
     imul word [bp + 0x4]             ; 0x90ed
     mov bx, ax                       ; 0x90f0
-    cmp byte [bx + 0x5e2c], 1        ; 0x90f2
+    cmp byte [bx + bss_5e2a + 0x2], 1 ; 0x90f2
     jne short @..loc_PGKG.l1         ; 0x90f7
     push word [bp + 0x8]             ; 0x90f9
     mov ax, dseg_9330                ; 0x90fc

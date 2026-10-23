@@ -6,11 +6,11 @@ api_idx_00a4_PTJS:
     imul word [bp + 0x4]             ; 0x4ea7
     mov bx, ax                       ; 0x4eaa
     inc word [bx + pc_spell_power_cap] ; 0x4eac
-    mov al, byte [bx + 0x5e3b]       ; 0x4eb0
+    mov al, byte [bx + bss_5e2a + 0x11] ; 0x4eb0
     sub ah, ah                       ; 0x4eb4
     cmp ax, word [bx + pc_spell_power_cap] ; 0x4eb6
     jg short @..api_idx_00a4_PTJS.l1 ; 0x4eba
-    mov byte [bx + 0x5e3b], 0        ; 0x4ebc
+    mov byte [bx + bss_5e2a + 0x11], 0 ; 0x4ebc
 @..api_idx_00a4_PTJS.l1:
     push word [bp + 0x4]             ; 0x4ec1
     call api_idx_0006_ILTI           ; 0x4ec4
@@ -41,7 +41,7 @@ api_idx_00a4_PTJS:
     mov ax, 0x248                    ; 0x4f00
     imul word [bp + 0x4]             ; 0x4f03
     mov bx, ax                       ; 0x4f06
-    mov al, byte [bx + 0x5e2d]       ; 0x4f08
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x4f08
     sub ah, ah                       ; 0x4f0c
     add ax, strict word 0x78         ; 0x4f0e
     push ax                          ; 0x4f11
@@ -105,7 +105,7 @@ api_idx_00a4_PTJS:
     imul word [bp + 0x4]             ; 0x4fa1
     add ax, word [bp - 0x0002]       ; 0x4fa4
     mov bx, ax                       ; 0x4fa7
-    cmp byte [bx + 0x5d50], 0        ; 0x4fa9
+    cmp byte [bx + cell_key_grid + 0x11c], 0 ; 0x4fa9
     jbe short @..api_idx_00a4_PTJS.l5 ; 0x4fae
     push word [bp - 0x0002]          ; 0x4fb0
     push word [bp + 0x4]             ; 0x4fb3

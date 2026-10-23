@@ -21,8 +21,8 @@ loc_QJRN:
     mov ax, 0x26                     ; 0x9470
     imul word [bp + 0x4]             ; 0x9473
     mov bx, ax                       ; 0x9476
-    mov byte [bx - 0x7b16], 3        ; 0x9478
-    mov al, byte [bx - 0x7b15]       ; 0x947d
+    mov byte [bx + bss_84e8 + 0x2], 3 ; 0x9478
+    mov al, byte [bx + bss_84e8 + 0x3] ; 0x947d
     sub ah, ah                       ; 0x9481
     push ax                          ; 0x9483
     mov al, byte [bx + slot_records] ; 0x9484
@@ -36,6 +36,6 @@ loc_QJRN:
     mov ax, 0x26                     ; 0x9498
     imul word [bp + 0x4]             ; 0x949b
     mov bx, ax                       ; 0x949e
-    mov byte [bx - 0x7b16], 0        ; 0x94a0
+    mov byte [bx + bss_84e8 + 0x2], 0 ; 0x94a0
 @..loc_QJRN.l1:
     ret                              ; 0x94a5

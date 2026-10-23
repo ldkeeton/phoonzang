@@ -31,7 +31,7 @@ api_idx_0004_PULL:
 @..api_idx_0004_PULL.l3:
     cmp word [bp + 0x6], byte 0      ; 0x2329
     je short @..api_idx_0004_PULL.l6 ; 0x232d
-    mov al, byte [bx + 0x5c3b]       ; 0x232f
+    mov al, byte [bx + cell_key_grid + 0x7] ; 0x232f
     sub ah, ah                       ; 0x2333
     test ax, 1                       ; 0x2335
     jne short @..api_idx_0004_PULL.l4 ; 0x2338

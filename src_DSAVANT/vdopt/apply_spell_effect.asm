@@ -110,7 +110,7 @@ jumptable_2326_case_25:
     mov ax, 0x248                    ; 0x1dd4
     imul word [bp - 0x0002]          ; 0x1dd7
     mov bx, ax                       ; 0x1dda
-    push word [bx + 0x5c12]          ; 0x1ddc
+    push word [bx + pc_records + 0x2] ; 0x1ddc
     mov ax, 0                        ; 0x1de0
     push ax                          ; 0x1de3
     push word [bp - 0x0008]          ; 0x1de4
@@ -155,7 +155,7 @@ jumptable_2326_case_26:
     mov ax, 0x248                    ; 0x1e3c
     imul word [bp + 0xa]             ; 0x1e3f
     mov bx, ax                       ; 0x1e42
-    mov al, byte [bx + 0x5d5d]       ; 0x1e44
+    mov al, byte [bx + cell_key_grid + 0x129] ; 0x1e44
     sub ah, ah                       ; 0x1e48
     push ax                          ; 0x1e4a
     mov ax, 0x19                     ; 0x1e4b
@@ -169,24 +169,24 @@ jumptable_2326_case_26:
     mov word [bp - 0x0002], 0        ; 0x1e5e
 @..apply_spell_effect.l7:
     mov al, byte [bp - 0x0002]       ; 0x1e63
-    mov byte [bx + 0x5d5d], al       ; 0x1e66
+    mov byte [bx + cell_key_grid + 0x129], al ; 0x1e66
     jmp near @..apply_spell_effect.l37 ; 0x1e6a
 jumptable_2326_case_29:
     mov ax, 0x248                    ; 0x1e6d
     imul word [bp + 0xa]             ; 0x1e70
     mov bx, ax                       ; 0x1e73
-    mov al, byte [bx + 0x5e32]       ; 0x1e75
+    mov al, byte [bx + bss_5e2a + 0x8] ; 0x1e75
     sub ah, ah                       ; 0x1e79
     sub ax, word [bp + 0x8]          ; 0x1e7b
     mov word [bp - 0x0002], ax       ; 0x1e7e
     cmp ax, strict word 0            ; 0x1e81
     jg short @..apply_spell_effect.l8 ; 0x1e84
     mov word [bp - 0x0002], 0        ; 0x1e86
-    mov byte [bx + 0x5d5f], 0        ; 0x1e8b
+    mov byte [bx + cell_key_grid + 0x12b], 0 ; 0x1e8b
 @..apply_spell_effect.l8:
     mov al, byte [bp - 0x0002]       ; 0x1e90
-    mov byte [bx + 0x5e32], al       ; 0x1e93
-    mov al, byte [bx + 0x5d5f]       ; 0x1e97
+    mov byte [bx + bss_5e2a + 0x8], al ; 0x1e93
+    mov al, byte [bx + cell_key_grid + 0x12b] ; 0x1e97
     sub ah, ah                       ; 0x1e9b
     push ax                          ; 0x1e9d
     mov ax, 5                        ; 0x1e9e
@@ -198,21 +198,21 @@ jumptable_2326_case_29:
     cmp ax, strict word 0            ; 0x1eac
     jg short @..apply_spell_effect.l9 ; 0x1eaf
     mov word [bp - 0x0002], 0        ; 0x1eb1
-    mov byte [bx + 0x5e32], 0        ; 0x1eb6
+    mov byte [bx + bss_5e2a + 0x8], 0 ; 0x1eb6
 @..apply_spell_effect.l9:
     mov al, byte [bp - 0x0002]       ; 0x1ebb
-    mov byte [bx + 0x5d5f], al       ; 0x1ebe
+    mov byte [bx + cell_key_grid + 0x12b], al ; 0x1ebe
     jmp near @..apply_spell_effect.l37 ; 0x1ec2
 jumptable_2326_case_34:
     mov ax, 0x248                    ; 0x1ec5
     imul word [bp + 0xa]             ; 0x1ec8
     mov bx, ax                       ; 0x1ecb
-    cmp byte [bx + 0x5e2f], 2        ; 0x1ecd
+    cmp byte [bx + bss_5e2a + 0x5], 2 ; 0x1ecd
     jne short @..apply_spell_effect.l11 ; 0x1ed2
     mov ax, 3                        ; 0x1ed4
     imul word [bp + 0x8]             ; 0x1ed7
     push ax                          ; 0x1eda
-    mov al, byte [bx + 0x5d67]       ; 0x1edb
+    mov al, byte [bx + cell_key_grid + 0x133] ; 0x1edb
     sub ah, ah                       ; 0x1edf
     mov dx, ax                       ; 0x1ee1
     mov cx, 0x15                     ; 0x1ee3
@@ -220,7 +220,7 @@ jumptable_2326_case_34:
     pop ax                           ; 0x1ee8
     cmp ax, cx                       ; 0x1ee9
     jle short @..apply_spell_effect.l11 ; 0x1eeb
-    dec byte [bx + 0x5d67]           ; 0x1eed
+    dec byte [bx + cell_key_grid + 0x133] ; 0x1eed
     mov ax, 0xb7                     ; 0x1ef1
     push ax                          ; 0x1ef4
     call random_below                ; 0x1ef5
@@ -234,8 +234,8 @@ jumptable_2326_case_34:
     mov bx, ax                       ; 0x1f05
     pop dx                           ; 0x1f07
     pop ax                           ; 0x1f08
-    add word [bx + 0x5bfc], ax       ; 0x1f09
-    adc word [bx + 0x5bfe], dx       ; 0x1f0d
+    add word [bx + bss_5bf4 + 0x8], ax ; 0x1f09
+    adc word [bx + bss_5bf4 + 0xa], dx ; 0x1f0d
     mov ax, 0x12                     ; 0x1f11
     push ax                          ; 0x1f14
     call random_below                ; 0x1f15
@@ -244,25 +244,25 @@ jumptable_2326_case_34:
     mov ax, 0x248                    ; 0x1f1a
     imul word [bp + 0xa]             ; 0x1f1d
     mov bx, ax                       ; 0x1f20
-    mov al, byte [bx + 0x5d67]       ; 0x1f22
+    mov al, byte [bx + cell_key_grid + 0x133] ; 0x1f22
     sub ah, ah                       ; 0x1f26
     mov cx, ax                       ; 0x1f28
     pop ax                           ; 0x1f2a
     cmp ax, cx                       ; 0x1f2b
     jle short @..apply_spell_effect.l10 ; 0x1f2d
-    mov byte [bx + 0x5e2f], 3        ; 0x1f2f
-    mov word [bx + 0x5c0c], 0        ; 0x1f34
+    mov byte [bx + bss_5e2a + 0x5], 3 ; 0x1f2f
+    mov word [bx + bss_5c0a + 0x2], 0 ; 0x1f34
     mov word [bx + pc_records], 0    ; 0x1f3a
     jmp short @..apply_spell_effect.l11 ; 0x1f40
 @..apply_spell_effect.l10:
-    mov byte [bx + 0x5e2f], 0        ; 0x1f42
+    mov byte [bx + bss_5e2a + 0x5], 0 ; 0x1f42
 @..apply_spell_effect.l11:
     jmp near @..apply_spell_effect.l37 ; 0x1f47
 jumptable_2326_case_38:
     mov ax, 0x248                    ; 0x1f4a
     imul word [bp + 0xa]             ; 0x1f4d
     mov bx, ax                       ; 0x1f50
-    mov al, byte [bx + 0x5d61]       ; 0x1f52
+    mov al, byte [bx + cell_key_grid + 0x12d] ; 0x1f52
     sub ah, ah                       ; 0x1f56
     push ax                          ; 0x1f58
     mov ax, 0x19                     ; 0x1f59
@@ -276,7 +276,7 @@ jumptable_2326_case_38:
     mov word [bp - 0x0002], 0        ; 0x1f6c
 @..apply_spell_effect.l12:
     mov al, byte [bp - 0x0002]       ; 0x1f71
-    mov byte [bx + 0x5d61], al       ; 0x1f74
+    mov byte [bx + cell_key_grid + 0x12d], al ; 0x1f74
     jmp near @..apply_spell_effect.l37 ; 0x1f78
 jumptable_2326_case_28:
     mov ax, 3                        ; 0x1f7b
@@ -285,7 +285,7 @@ jumptable_2326_case_28:
     mov ax, 0x248                    ; 0x1f82
     imul word [bp + 0xa]             ; 0x1f85
     mov bx, ax                       ; 0x1f88
-    mov al, byte [bx + 0x5d67]       ; 0x1f8a
+    mov al, byte [bx + cell_key_grid + 0x133] ; 0x1f8a
     sub ah, ah                       ; 0x1f8e
     mov dx, ax                       ; 0x1f90
     mov cx, 0x12                     ; 0x1f92
@@ -293,7 +293,7 @@ jumptable_2326_case_28:
     pop ax                           ; 0x1f97
     cmp ax, cx                       ; 0x1f98
     jle short @..apply_spell_effect.l13 ; 0x1f9a
-    mov byte [bx + 0x5d60], 0        ; 0x1f9c
+    mov byte [bx + cell_key_grid + 0x12c], 0 ; 0x1f9c
 @..apply_spell_effect.l13:
     jmp near @..apply_spell_effect.l37 ; 0x1fa1
 jumptable_2326_case_37:
@@ -303,7 +303,7 @@ jumptable_2326_case_37:
     mov ax, 0x248                    ; 0x1fab
     imul word [bp + 0xa]             ; 0x1fae
     mov bx, ax                       ; 0x1fb1
-    mov al, byte [bx + 0x5d5c]       ; 0x1fb3
+    mov al, byte [bx + cell_key_grid + 0x128] ; 0x1fb3
     sub ah, ah                       ; 0x1fb7
     push ax                          ; 0x1fb9
     mov ax, word [bp + 0x8]          ; 0x1fba
@@ -319,7 +319,7 @@ jumptable_2326_case_37:
     mov word [bp - 0x0004], 0        ; 0x1fd1
 @..apply_spell_effect.l15:
     mov al, byte [bp - 0x0004]       ; 0x1fd6
-    mov byte [bx + 0x5d5c], al       ; 0x1fd9
+    mov byte [bx + cell_key_grid + 0x128], al ; 0x1fd9
     inc word [bp - 0x0002]           ; 0x1fdd
 @..apply_spell_effect.l16:
     mov ax, word [bp - 0x0002]       ; 0x1fe0
@@ -347,7 +347,7 @@ jumptable_2326_case_35:
     mov ax, word [bp - 0x0004]       ; 0x2015
     add cx, ax                       ; 0x2018
     mov bx, cx                       ; 0x201a
-    mov al, byte [bx + 0x5d5a]       ; 0x201c
+    mov al, byte [bx + cell_key_grid + 0x126] ; 0x201c
     sub ah, ah                       ; 0x2020
     push ax                          ; 0x2022
     mov ax, word [bp + 0x8]          ; 0x2023
@@ -363,7 +363,7 @@ jumptable_2326_case_35:
     mov word [bp - 0x0002], 0        ; 0x203a
 @..apply_spell_effect.l19:
     mov al, byte [bp - 0x0002]       ; 0x203f
-    mov byte [bx + 0x5d5a], al       ; 0x2042
+    mov byte [bx + cell_key_grid + 0x126], al ; 0x2042
 @..apply_spell_effect.l20:
     inc word [bp - 0x0004]           ; 0x2046
     mov ax, word [bp - 0x0004]       ; 0x2049
@@ -401,7 +401,7 @@ jumptable_2326_case_42:
     mov ax, 0x248                    ; 0x2093
     imul word [bp - 0x0002]          ; 0x2096
     mov bx, ax                       ; 0x2099
-    push word [bx + 0x5c0e]          ; 0x209b
+    push word [bx + bss_5c0a + 0x4]  ; 0x209b
     mov ax, 0                        ; 0x209f
     push ax                          ; 0x20a2
     push word [bp - 0x0008]          ; 0x20a3
@@ -425,7 +425,7 @@ jumptable_2326_case_42:
     imul word [bp - 0x0002]          ; 0x20cd
     mov bx, ax                       ; 0x20d0
     pop ax                           ; 0x20d2
-    add ax, word [bx + 0x5c0c]       ; 0x20d3
+    add ax, word [bx + bss_5c0a + 0x2] ; 0x20d3
     push ax                          ; 0x20d7
     call clamp_between               ; 0x20d8
     add sp, byte 6                   ; 0x20db
@@ -434,9 +434,9 @@ jumptable_2326_case_42:
     imul word [bp - 0x0002]          ; 0x20e2
     mov bx, ax                       ; 0x20e5
     pop ax                           ; 0x20e7
-    mov word [bx + 0x5c0c], ax       ; 0x20e8
-    add word [bx + 0x5bfc], byte 1   ; 0x20ec
-    adc word [bx + 0x5bfe], byte 0   ; 0x20f1
+    mov word [bx + bss_5c0a + 0x2], ax ; 0x20e8
+    add word [bx + bss_5bf4 + 0x8], byte 1 ; 0x20ec
+    adc word [bx + bss_5bf4 + 0xa], byte 0 ; 0x20f1
     inc word [bp - 0x0002]           ; 0x20f6
 @..apply_spell_effect.l26:
     mov ax, word [bp - 0x0002]       ; 0x20f9
@@ -447,14 +447,14 @@ jumptable_2326_case_46:
     mov ax, 0x248                    ; 0x2104
     imul word [bp + 0xa]             ; 0x2107
     mov bx, ax                       ; 0x210a
-    cmp byte [bx + 0x5e2f], 3        ; 0x210c
+    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x210c
     je short @..apply_spell_effect.l27 ; 0x2111
     jmp near @..apply_spell_effect.l28 ; 0x2113
 @..apply_spell_effect.l27:
     mov ax, 3                        ; 0x2116
     imul word [bp + 0x8]             ; 0x2119
     push ax                          ; 0x211c
-    mov al, byte [bx + 0x5d67]       ; 0x211d
+    mov al, byte [bx + cell_key_grid + 0x133] ; 0x211d
     sub ah, ah                       ; 0x2121
     mov dx, ax                       ; 0x2123
     mov cx, 0x15                     ; 0x2125
@@ -462,12 +462,12 @@ jumptable_2326_case_46:
     pop ax                           ; 0x212a
     cmp ax, cx                       ; 0x212b
     jle short @..apply_spell_effect.l28 ; 0x212d
-    dec byte [bx + 0x5d67]           ; 0x212f
-    mov byte [bx + 0x5e2f], 0        ; 0x2133
-    push word [bx + 0x5c0e]          ; 0x2138
+    dec byte [bx + cell_key_grid + 0x133] ; 0x212f
+    mov byte [bx + bss_5e2a + 0x5], 0 ; 0x2133
+    push word [bx + bss_5c0a + 0x4]  ; 0x2138
     mov ax, 1                        ; 0x213c
     push ax                          ; 0x213f
-    mov ax, word [bx + 0x5c0e]       ; 0x2140
+    mov ax, word [bx + bss_5c0a + 0x4] ; 0x2140
     mov cx, 3                        ; 0x2144
     cwd                              ; 0x2147
     idiv cx                          ; 0x2148
@@ -479,13 +479,13 @@ jumptable_2326_case_46:
     imul word [bp + 0xa]             ; 0x2155
     mov bx, ax                       ; 0x2158
     pop ax                           ; 0x215a
-    mov word [bx + 0x5c0c], ax       ; 0x215b
-    mov ax, word [bx + 0x5c12]       ; 0x215f
+    mov word [bx + bss_5c0a + 0x2], ax ; 0x215b
+    mov ax, word [bx + pc_records + 0x2] ; 0x215f
     mov cx, 0xa                      ; 0x2163
     cwd                              ; 0x2166
     idiv cx                          ; 0x2167
     mov word [bx + pc_records], ax   ; 0x2169
-    inc word [bx + 0x5c1a]           ; 0x216d
+    inc word [bx + pc_spell_power_cap + 0x2] ; 0x216d
     mov ax, 0xb7                     ; 0x2171
     push ax                          ; 0x2174
     call random_below                ; 0x2175
@@ -499,8 +499,8 @@ jumptable_2326_case_46:
     mov bx, ax                       ; 0x2185
     pop dx                           ; 0x2187
     pop ax                           ; 0x2188
-    add word [bx + 0x5bfc], ax       ; 0x2189
-    adc word [bx + 0x5bfe], dx       ; 0x218d
+    add word [bx + bss_5bf4 + 0x8], ax ; 0x2189
+    adc word [bx + bss_5bf4 + 0xa], dx ; 0x218d
 @..apply_spell_effect.l28:
     jmp near @..apply_spell_effect.l37 ; 0x2191
 jumptable_2326_case_32:
@@ -554,9 +554,9 @@ jumptable_2326_case_47:
     pop ax                           ; 0x21fb
     add word [bx + pc_records], ax   ; 0x21fc
     mov ax, word [bx + pc_records]   ; 0x2200
-    cmp ax, word [bx + 0x5c12]       ; 0x2204
+    cmp ax, word [bx + pc_records + 0x2] ; 0x2204
     jle short @..apply_spell_effect.l30 ; 0x2208
-    mov ax, word [bx + 0x5c12]       ; 0x220a
+    mov ax, word [bx + pc_records + 0x2] ; 0x220a
     mov word [bx + pc_records], ax   ; 0x220e
 @..apply_spell_effect.l30:
     mov ax, 0                        ; 0x2212
@@ -583,12 +583,12 @@ jumptable_2326_case_47:
     imul word [bp + 0x4]             ; 0x2241
     mov bx, ax                       ; 0x2244
     pop ax                           ; 0x2246
-    add word [bx + 0x5c0c], ax       ; 0x2247
-    mov ax, word [bx + 0x5c0c]       ; 0x224b
-    cmp ax, word [bx + 0x5c0e]       ; 0x224f
+    add word [bx + bss_5c0a + 0x2], ax ; 0x2247
+    mov ax, word [bx + bss_5c0a + 0x2] ; 0x224b
+    cmp ax, word [bx + bss_5c0a + 0x4] ; 0x224f
     jle short @..apply_spell_effect.l31 ; 0x2253
-    mov ax, word [bx + 0x5c0e]       ; 0x2255
-    mov word [bx + 0x5c0c], ax       ; 0x2259
+    mov ax, word [bx + bss_5c0a + 0x4] ; 0x2255
+    mov word [bx + bss_5c0a + 0x2], ax ; 0x2259
 @..apply_spell_effect.l31:
     jmp near @..apply_spell_effect.l37 ; 0x225d
 jumptable_2326_case_48:
@@ -623,12 +623,12 @@ jumptable_2326_case_48:
     add ax, dx                       ; 0x22a0
     mov bx, ax                       ; 0x22a2
     pop ax                           ; 0x22a4
-    add word [bx + 0x5c1c], ax       ; 0x22a5
-    mov ax, word [bx + 0x5c1c]       ; 0x22a9
-    cmp ax, word [bx + 0x5c1e]       ; 0x22ad
+    add word [bx + pc_spell_power_cap + 0x4], ax ; 0x22a5
+    mov ax, word [bx + pc_spell_power_cap + 0x4] ; 0x22a9
+    cmp ax, word [bx + pc_spell_power_cap + 0x6] ; 0x22ad
     jle short @..apply_spell_effect.l33 ; 0x22b1
-    mov ax, word [bx + 0x5c1e]       ; 0x22b3
-    mov word [bx + 0x5c1c], ax       ; 0x22b7
+    mov ax, word [bx + pc_spell_power_cap + 0x6] ; 0x22b3
+    mov word [bx + pc_spell_power_cap + 0x4], ax ; 0x22b7
 @..apply_spell_effect.l33:
     inc word [bp - 0x0002]           ; 0x22bb
     mov ax, word [bp - 0x0002]       ; 0x22be
@@ -643,7 +643,7 @@ jumptable_2326_case_49:
     mov ax, 0x248                    ; 0x22d8
     imul word [bp + 0x4]             ; 0x22db
     mov bx, ax                       ; 0x22de
-    mov al, byte [bx + 0x5d86]       ; 0x22e0
+    mov al, byte [bx + cell_key_grid + 0x152] ; 0x22e0
     sub ah, ah                       ; 0x22e4
     cmp ax, word [bp - 0x0006]       ; 0x22e6
     jl short @..apply_spell_effect.l35 ; 0x22e9

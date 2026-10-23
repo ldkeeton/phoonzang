@@ -4,7 +4,7 @@ api_idx_000a_SRNS:
     call aztec_csav                  ; 0x7852
     mov bx, word [maze_tables]       ; 0x7855
     mov si, word [party_region]      ; 0x7859
-    mov al, byte [bx + si + 0xa50]   ; 0x785d
+    mov al, byte [bx + si + spell_table + 0x430] ; 0x785d
     sub ah, ah                       ; 0x7861
     push ax                          ; 0x7863
     call loc_GRON                    ; 0x7864
@@ -31,7 +31,7 @@ api_idx_000a_SRNS:
     mov ax, word [game_state_arg]    ; 0x789b
     mov cx, 4                        ; 0x789e
     shl ax, cl                       ; 0x78a1
-    add ax, 0x8d14                   ; 0x78a3
+    add ax, party_region + 0x2       ; 0x78a3
     push ax                          ; 0x78a6
     call test_bit                    ; 0x78a7
     add sp, byte 4                   ; 0x78aa
@@ -47,7 +47,7 @@ api_idx_000a_SRNS:
     mov ax, word [game_state_arg]    ; 0x78c5
     mov cx, 4                        ; 0x78c8
     shl ax, cl                       ; 0x78cb
-    add ax, 0x8d14                   ; 0x78cd
+    add ax, party_region + 0x2       ; 0x78cd
     push ax                          ; 0x78d0
     call test_bit                    ; 0x78d1
     add sp, byte 4                   ; 0x78d4
@@ -89,7 +89,7 @@ api_idx_000a_SRNS:
     mov ax, word [bp - 0x0008]       ; 0x7923
     mov cx, 4                        ; 0x7926
     shl ax, cl                       ; 0x7929
-    add ax, 0x8d14                   ; 0x792b
+    add ax, party_region + 0x2       ; 0x792b
     push ax                          ; 0x792e
     call set_bitmap_bit              ; 0x792f
     add sp, byte 6                   ; 0x7932
@@ -101,7 +101,7 @@ api_idx_000a_SRNS:
     mov ax, word [bp - 0x0008]       ; 0x793e
     mov cx, 4                        ; 0x7941
     shl ax, cl                       ; 0x7944
-    add ax, 0x8d14                   ; 0x7946
+    add ax, party_region + 0x2       ; 0x7946
     push ax                          ; 0x7949
     call set_bitmap_bit              ; 0x794a
     add sp, byte 6                   ; 0x794d
@@ -125,7 +125,7 @@ api_idx_000a_SRNS:
     mov ax, word [bp - 0x0008]       ; 0x7975
     mov cx, 4                        ; 0x7978
     shl ax, cl                       ; 0x797b
-    add ax, 0x8d14                   ; 0x797d
+    add ax, party_region + 0x2       ; 0x797d
     push ax                          ; 0x7980
     call test_bit                    ; 0x7981
     add sp, byte 4                   ; 0x7984

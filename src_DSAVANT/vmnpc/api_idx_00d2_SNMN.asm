@@ -67,10 +67,10 @@ jumptable_6599_case_0:
     mov ax, 0x248                    ; 0x63c8
     imul word [bp + 0x4]             ; 0x63cb
     mov bx, ax                       ; 0x63ce
-    mov al, byte [bx + 0x5d6a]       ; 0x63d0
+    mov al, byte [bx + cell_key_grid + 0x136] ; 0x63d0
     sub ah, ah                       ; 0x63d4
     push ax                          ; 0x63d6
-    mov al, byte [bx + 0x5d88]       ; 0x63d7
+    mov al, byte [bx + cell_key_grid + 0x154] ; 0x63d7
     sub ah, ah                       ; 0x63db
     mov cx, 2                        ; 0x63dd
     cwd                              ; 0x63e0
@@ -87,12 +87,12 @@ jumptable_6599_case_0:
     pop ax                           ; 0x63f5
     add ax, cx                       ; 0x63f6
     add word [bp - 0x0002], ax       ; 0x63f8
-    cmp byte [bx + 0x5e2d], 0xa      ; 0x63fb
+    cmp byte [bx + bss_5e2a + 0x3], 0xa ; 0x63fb
     je short @..api_idx_00d2_SNMN.l6 ; 0x6400
-    cmp byte [bx + 0x5e2d], 9        ; 0x6402
+    cmp byte [bx + bss_5e2a + 0x3], 9 ; 0x6402
     jne short @..api_idx_00d2_SNMN.l7 ; 0x6407
 @..api_idx_00d2_SNMN.l6:
-    mov al, byte [bx + 0x5d6a]       ; 0x6409
+    mov al, byte [bx + cell_key_grid + 0x136] ; 0x6409
     sub ah, ah                       ; 0x640d
     add word [bp - 0x0002], ax       ; 0x640f
 @..api_idx_00d2_SNMN.l7:
@@ -282,11 +282,11 @@ jumptable_6599:
     mov ax, 0x248                    ; 0x65c5
     imul word [bp + 0x4]             ; 0x65c8
     mov bx, ax                       ; 0x65cb
-    mov al, byte [bx + 0x5d6b]       ; 0x65cd
+    mov al, byte [bx + cell_key_grid + 0x137] ; 0x65cd
     sub ah, ah                       ; 0x65d1
     push ax                          ; 0x65d3
     add bx, word [bss_9136]          ; 0x65d4
-    mov al, byte [bx + 0x5db2]       ; 0x65d8
+    mov al, byte [bx + cell_key_grid + 0x17e] ; 0x65d8
     cbw                              ; 0x65dc
     add ax, word [bss_964e]          ; 0x65dd
     mov cx, 3                        ; 0x65e1

@@ -307,7 +307,7 @@ jumptable_78e5_case_5:
     imul word [bp + 0xa]             ; 0x76f5
     mov bx, ax                       ; 0x76f8
     pop ax                           ; 0x76fa
-    mov word [bx + 0x5c0c], ax       ; 0x76fb
+    mov word [bx + bss_5c0a + 0x2], ax ; 0x76fb
     mov ax, word [bp + 0x8]          ; 0x76ff
     shl ax, 1                        ; 0x7702
     mov bx, ax                       ; 0x7704
@@ -318,7 +318,7 @@ jumptable_78e5_case_5:
     imul word [bp + 0xa]             ; 0x7711
     mov bx, ax                       ; 0x7714
     pop ax                           ; 0x7716
-    mov word [bx + 0x5c0e], ax       ; 0x7717
+    mov word [bx + bss_5c0a + 0x4], ax ; 0x7717
 @..api_idx_000a_VQTM.l9:
     mov word [bp - 0x000a], 0xea8    ; 0x771b
 @..api_idx_000a_VQTM.l10:
@@ -397,7 +397,7 @@ jumptable_78e5_case_5:
     mov ax, 0x248                    ; 0x77c1
     imul word [bp + 0xa]             ; 0x77c4
     mov bx, ax                       ; 0x77c7
-    mov al, byte [bx + 0x5e2c]       ; 0x77c9
+    mov al, byte [bx + bss_5e2a + 0x2] ; 0x77c9
     sub ah, ah                       ; 0x77cd
     add ax, strict word 8            ; 0x77cf
     push ax                          ; 0x77d2

@@ -5,7 +5,7 @@ loc_QVUI:
     mov ax, 0x248                    ; 0x570c
     imul word [bp + 0x4]             ; 0x570f
     mov bx, ax                       ; 0x5712
-    mov al, byte [bx + 0x5e2d]       ; 0x5714
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x5714
     sub ah, ah                       ; 0x5718
     jmp near @..loc_QVUI.l1          ; 0x571a
 jumptable_5a60_case_0:
@@ -41,7 +41,7 @@ jumptable_5a60_case_1:
     imul word [bp + 0x4]             ; 0x575f
     mov bx, ax                       ; 0x5762
     pop ax                           ; 0x5764
-    mov byte [bx + 0x5d8c], al       ; 0x5765
+    mov byte [bx + cell_key_grid + 0x158], al ; 0x5765
     jmp near @..loc_QVUI.l2          ; 0x5769
 jumptable_5a60_case_2:
     mov ax, 0xc                      ; 0x576c
@@ -65,7 +65,7 @@ jumptable_5a60_case_2:
     imul word [bp + 0x4]             ; 0x5796
     mov bx, ax                       ; 0x5799
     pop ax                           ; 0x579b
-    mov byte [bx + 0x5d8a], al       ; 0x579c
+    mov byte [bx + cell_key_grid + 0x156], al ; 0x579c
     jmp near @..loc_QVUI.l2          ; 0x57a0
 jumptable_5a60_case_3:
     mov ax, 4                        ; 0x57a3
@@ -89,7 +89,7 @@ jumptable_5a60_case_3:
     imul word [bp + 0x4]             ; 0x57cd
     mov bx, ax                       ; 0x57d0
     pop ax                           ; 0x57d2
-    mov byte [bx + 0x5d7c], al       ; 0x57d3
+    mov byte [bx + cell_key_grid + 0x148], al ; 0x57d3
     jmp near @..loc_QVUI.l2          ; 0x57d7
 jumptable_5a60_case_4:
     mov ax, 5                        ; 0x57da
@@ -112,7 +112,7 @@ jumptable_5a60_case_4:
     imul word [bp + 0x4]             ; 0x5801
     mov bx, ax                       ; 0x5804
     pop ax                           ; 0x5806
-    mov byte [bx + 0x5d73], al       ; 0x5807
+    mov byte [bx + cell_key_grid + 0x13f], al ; 0x5807
     mov ax, 3                        ; 0x580b
     push ax                          ; 0x580e
     mov ax, 1                        ; 0x580f
@@ -125,7 +125,7 @@ jumptable_5a60_case_4:
     imul word [bp + 0x4]             ; 0x5820
     mov bx, ax                       ; 0x5823
     pop ax                           ; 0x5825
-    mov byte [bx + 0x5d78], al       ; 0x5826
+    mov byte [bx + cell_key_grid + 0x144], al ; 0x5826
     jmp near @..loc_QVUI.l2          ; 0x582a
 jumptable_5a60_case_6:
     mov ax, 6                        ; 0x582d
@@ -149,7 +149,7 @@ jumptable_5a60_case_6:
     imul word [bp + 0x4]             ; 0x5857
     mov bx, ax                       ; 0x585a
     pop ax                           ; 0x585c
-    mov byte [bx + 0x5d79], al       ; 0x585d
+    mov byte [bx + cell_key_grid + 0x145], al ; 0x585d
     jmp near @..loc_QVUI.l2          ; 0x5861
 jumptable_5a60_case_5:
     mov ax, 0xc                      ; 0x5864
@@ -173,7 +173,7 @@ jumptable_5a60_case_5:
     imul word [bp + 0x4]             ; 0x588e
     mov bx, ax                       ; 0x5891
     pop ax                           ; 0x5893
-    mov byte [bx + 0x5d89], al       ; 0x5894
+    mov byte [bx + cell_key_grid + 0x155], al ; 0x5894
     jmp near @..loc_QVUI.l2          ; 0x5898
 jumptable_5a60_case_7:
     mov ax, 0xc                      ; 0x589b
@@ -197,7 +197,7 @@ jumptable_5a60_case_7:
     imul word [bp + 0x4]             ; 0x58c5
     mov bx, ax                       ; 0x58c8
     pop ax                           ; 0x58ca
-    mov byte [bx + 0x5d8b], al       ; 0x58cb
+    mov byte [bx + cell_key_grid + 0x157], al ; 0x58cb
     jmp near @..loc_QVUI.l2          ; 0x58cf
 jumptable_5a60_case_9:
     mov ax, 0xd                      ; 0x58d2
@@ -219,7 +219,7 @@ jumptable_5a60_case_9:
     imul word [bp + 0x4]             ; 0x58f6
     mov bx, ax                       ; 0x58f9
     pop ax                           ; 0x58fb
-    mov byte [bx + 0x5d8c], al       ; 0x58fc
+    mov byte [bx + cell_key_grid + 0x158], al ; 0x58fc
     mov ax, 2                        ; 0x5900
     push ax                          ; 0x5903
     mov ax, 3                        ; 0x5904
@@ -232,7 +232,7 @@ jumptable_5a60_case_9:
     imul word [bp + 0x4]             ; 0x5915
     mov bx, ax                       ; 0x5918
     pop ax                           ; 0x591a
-    mov byte [bx + 0x5d8a], al       ; 0x591b
+    mov byte [bx + cell_key_grid + 0x156], al ; 0x591b
     jmp near @..loc_QVUI.l2          ; 0x591f
 jumptable_5a60_case_8:
     mov ax, 5                        ; 0x5922
@@ -255,7 +255,7 @@ jumptable_5a60_case_8:
     imul word [bp + 0x4]             ; 0x5949
     mov bx, ax                       ; 0x594c
     pop ax                           ; 0x594e
-    mov byte [bx + 0x5d70], al       ; 0x594f
+    mov byte [bx + cell_key_grid + 0x13c], al ; 0x594f
     jmp near @..loc_QVUI.l2          ; 0x5953
 jumptable_5a60_case_10:
     mov ax, 5                        ; 0x5956
@@ -277,7 +277,7 @@ jumptable_5a60_case_10:
     imul word [bp + 0x4]             ; 0x597a
     mov bx, ax                       ; 0x597d
     pop ax                           ; 0x597f
-    mov byte [bx + 0x5d88], al       ; 0x5980
+    mov byte [bx + cell_key_grid + 0x154], al ; 0x5980
     jmp near @..loc_QVUI.l2          ; 0x5984
 jumptable_5a60_case_11:
     mov ax, 5                        ; 0x5987
@@ -300,7 +300,7 @@ jumptable_5a60_case_11:
     imul word [bp + 0x4]             ; 0x59ae
     mov bx, ax                       ; 0x59b1
     pop ax                           ; 0x59b3
-    mov byte [bx + 0x5d6d], al       ; 0x59b4
+    mov byte [bx + cell_key_grid + 0x139], al ; 0x59b4
     jmp near @..loc_QVUI.l2          ; 0x59b8
 jumptable_5a60_case_12:
     mov ax, 6                        ; 0x59bb
@@ -323,7 +323,7 @@ jumptable_5a60_case_12:
     imul word [bp + 0x4]             ; 0x59e2
     mov bx, ax                       ; 0x59e5
     pop ax                           ; 0x59e7
-    mov byte [bx + 0x5d75], al       ; 0x59e8
+    mov byte [bx + cell_key_grid + 0x141], al ; 0x59e8
     mov ax, 3                        ; 0x59ec
     push ax                          ; 0x59ef
     push ax                          ; 0x59f0
@@ -335,7 +335,7 @@ jumptable_5a60_case_12:
     imul word [bp + 0x4]             ; 0x59fe
     mov bx, ax                       ; 0x5a01
     pop ax                           ; 0x5a03
-    mov byte [bx + 0x5d8b], al       ; 0x5a04
+    mov byte [bx + cell_key_grid + 0x157], al ; 0x5a04
     jmp near @..loc_QVUI.l2          ; 0x5a08
 jumptable_5a60_case_13:
     mov ax, 4                        ; 0x5a0b
@@ -359,7 +359,7 @@ jumptable_5a60_case_13:
     imul word [bp + 0x4]             ; 0x5a35
     mov bx, ax                       ; 0x5a38
     pop ax                           ; 0x5a3a
-    mov byte [bx + 0x5d75], al       ; 0x5a3b
+    mov byte [bx + cell_key_grid + 0x141], al ; 0x5a3b
     mov ax, 2                        ; 0x5a3f
     push ax                          ; 0x5a42
     mov ax, 1                        ; 0x5a43
@@ -372,7 +372,7 @@ jumptable_5a60_case_13:
     imul word [bp + 0x4]             ; 0x5a54
     mov bx, ax                       ; 0x5a57
     pop ax                           ; 0x5a59
-    mov byte [bx + 0x5d7d], al       ; 0x5a5a
+    mov byte [bx + cell_key_grid + 0x149], al ; 0x5a5a
     jmp short @..loc_QVUI.l2         ; 0x5a5e
 jumptable_5a60:
     dw jumptable_5a60_case_0 - IMAGE_BASE + __zres_end ; 0x5a60

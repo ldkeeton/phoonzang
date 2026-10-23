@@ -69,7 +69,7 @@ api_idx_001c_VLRT:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x6abf]
+    mov al, byte [bx + slot_rec_target_rand + 0x75]
     sub ah, ah
     mov word [bp - 0x000c], ax
     cmp word [bp - 0x000c], byte 0
@@ -124,7 +124,7 @@ api_idx_001c_VLRT:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x6a52]
+    mov al, byte [bx + slot_rec_target_rand + 0x8]
     sub ah, ah
     push ax
     mov ax, 0x15e
@@ -133,7 +133,7 @@ api_idx_001c_VLRT:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x6b60]
+    mov al, byte [bx + slot_rec_ranges + 0x9f]
     cbw
     mov cx, ax
     pop ax
@@ -146,7 +146,7 @@ api_idx_001c_VLRT:
     imul word [bp - 0x0006]
     add ax, word [bp - 0x000a]
     mov bx, ax
-    mov al, byte [bx + 0x6a9b]
+    mov al, byte [bx + slot_rec_target_rand + 0x51]
     sub ah, ah
     push ax
     mov ax, 0x15e
@@ -155,7 +155,7 @@ api_idx_001c_VLRT:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x6b61]
+    mov al, byte [bx + slot_rec_ranges + 0xa0]
     cbw
     mov cx, ax
     pop ax
@@ -198,7 +198,7 @@ api_idx_001c_VLRT:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x6a52]
+    mov al, byte [bx + slot_rec_target_rand + 0x8]
     sub ah, ah
     mov cx, ax
     mov ax, 0xa0

@@ -9,13 +9,13 @@ api_idx_0002_QVIM:
     mov bx, ax
     pop ax
     mov byte [bx + bss_84a6], al
-    mov byte [bx - 0x7b59], 0
+    mov byte [bx + bss_84a6 + 0x1], 0
     mov ax, 1
     push ax
     push word [bp + 0x8]
     mov ax, 0x26
     imul word [bp + 0x4]
-    add ax, 0x8502
+    add ax, slot_records + 0x16
     push ax
     call set_bitmap_bit
     add sp, byte 6
@@ -24,7 +24,7 @@ api_idx_0002_QVIM:
     push word [bp + 0x8]
     mov ax, 0x26
     imul word [bp + 0x4]
-    add ax, 0x850a
+    add ax, slot_records + 0x1e
     push ax
     call set_bitmap_bit
     add sp, byte 6
@@ -35,7 +35,7 @@ api_idx_0002_QVIM:
     push word [bp + 0x8]
     mov ax, 0x26
     imul word [bp - 0x0002]
-    add ax, 0x8504
+    add ax, slot_records + 0x18
     push ax
     call set_bitmap_bit
     add sp, byte 6
@@ -48,7 +48,7 @@ api_idx_0002_QVIM:
     push word [bp + 0x8]
     mov ax, 0x26
     imul word [bp + 0x4]
-    add ax, 0x8504
+    add ax, slot_records + 0x18
     push ax
     call set_bitmap_bit
     add sp, byte 6
@@ -59,7 +59,7 @@ api_idx_0002_QVIM:
     push word [bp + 0x8]
     mov ax, 0x26
     imul word [bp + 0x6]
-    add ax, 0x8502
+    add ax, slot_records + 0x16
     push ax
     call set_bitmap_bit
     add sp, byte 6
@@ -68,7 +68,7 @@ api_idx_0002_QVIM:
     push word [bp + 0x8]
     mov ax, 0x26
     imul word [bp + 0x6]
-    add ax, 0x8504
+    add ax, slot_records + 0x18
     push ax
     call set_bitmap_bit
     add sp, byte 6

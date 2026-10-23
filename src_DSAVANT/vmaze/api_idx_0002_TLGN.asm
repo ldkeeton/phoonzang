@@ -5,7 +5,7 @@ api_idx_0002_TLGN:
     mov ax, 0x26                     ; 0xa7b8
     imul word [bp + 0x4]             ; 0xa7bb
     mov bx, ax                       ; 0xa7be
-    cmp byte [bx - 0x7b16], 3        ; 0xa7c0
+    cmp byte [bx + bss_84e8 + 0x2], 3 ; 0xa7c0
     jne short @..api_idx_0002_TLGN.l1 ; 0xa7c5
     mov ax, 3                        ; 0xa7c7
     push ax                          ; 0xa7ca
@@ -21,18 +21,18 @@ api_idx_0002_TLGN:
     mov ax, 0x26                     ; 0xa7dd
     imul word [bp + 0x4]             ; 0xa7e0
     mov bx, ax                       ; 0xa7e3
-    cmp byte [bx - 0x7b16], 5        ; 0xa7e5
+    cmp byte [bx + bss_84e8 + 0x2], 5 ; 0xa7e5
     je short @..api_idx_0002_TLGN.l2 ; 0xa7ea
     jmp near @..api_idx_0002_TLGN.l6 ; 0xa7ec
 @..api_idx_0002_TLGN.l2:
-    cmp byte [bx - 0x7b11], 0        ; 0xa7ef
+    cmp byte [bx + slot_records + 0x3], 0 ; 0xa7ef
     jge short @..api_idx_0002_TLGN.l5 ; 0xa7f4
-    mov al, byte [bx - 0x7b12]       ; 0xa7f6
+    mov al, byte [bx + slot_records + 0x2] ; 0xa7f6
     sub ah, ah                       ; 0xa7fa
     mov cx, 0x26                     ; 0xa7fc
     imul cx                          ; 0xa7ff
     mov bx, ax                       ; 0xa801
-    mov al, byte [bx - 0x7b15]       ; 0xa803
+    mov al, byte [bx + bss_84e8 + 0x3] ; 0xa803
     push ax                          ; 0xa807
     mov ax, cx                       ; 0xa808
     imul word [bp + 0x4]             ; 0xa80a
@@ -40,14 +40,14 @@ api_idx_0002_TLGN:
     pop ax                           ; 0xa80f
     cmp al, byte [bx + slot_records] ; 0xa810
     je short @..api_idx_0002_TLGN.l4 ; 0xa814
-    mov byte [bx - 0x7b15], al       ; 0xa816
+    mov byte [bx + bss_84e8 + 0x3], al ; 0xa816
     push word [bp + 0x4]             ; 0xa81a
     call loc_QJRN                    ; 0xa81d
     pop cx                           ; 0xa820
     mov ax, 0x26                     ; 0xa821
     imul word [bp + 0x4]             ; 0xa824
     mov bx, ax                       ; 0xa827
-    cmp byte [bx - 0x7b16], 0        ; 0xa829
+    cmp byte [bx + bss_84e8 + 0x2], 0 ; 0xa829
     jne short @..api_idx_0002_TLGN.l3 ; 0xa82e
     push word [bp + 0x4]             ; 0xa830
     call api_idx_003a_HOUV           ; 0xa833
@@ -57,7 +57,7 @@ api_idx_0002_TLGN:
     mov ax, 0x26                     ; 0xa838
     imul word [bp + 0x4]             ; 0xa83b
     mov bx, ax                       ; 0xa83e
-    mov byte [bx - 0x7b16], 5        ; 0xa840
+    mov byte [bx + bss_84e8 + 0x2], 5 ; 0xa840
     jmp short @..api_idx_0002_TLGN.l5 ; 0xa845
 @..api_idx_0002_TLGN.l4:
     mov ax, 0x10                     ; 0xa847
@@ -69,29 +69,29 @@ api_idx_0002_TLGN:
     imul word [bp + 0x4]             ; 0xa853
     mov bx, ax                       ; 0xa856
     pop ax                           ; 0xa858
-    mov byte [bx - 0x7b13], al       ; 0xa859
+    mov byte [bx + slot_records + 0x1], al ; 0xa859
 @..api_idx_0002_TLGN.l5:
     mov ax, 0x26                     ; 0xa85d
     imul word [bp + 0x4]             ; 0xa860
     mov bx, ax                       ; 0xa863
-    cmp byte [bx - 0x7b12], 0x15     ; 0xa865
+    cmp byte [bx + slot_records + 0x2], 0x15 ; 0xa865
     je short @..api_idx_0002_TLGN.l6 ; 0xa86a
-    mov al, byte [bx - 0x7b12]       ; 0xa86c
+    mov al, byte [bx + slot_records + 0x2] ; 0xa86c
     sub ah, ah                       ; 0xa870
     mov cx, 0x26                     ; 0xa872
     imul cx                          ; 0xa875
     mov bx, ax                       ; 0xa877
-    cmp byte [bx - 0x7b00], 0        ; 0xa879
+    cmp byte [bx + slot_records + 0x14], 0 ; 0xa879
     jg short @..api_idx_0002_TLGN.l6 ; 0xa87e
     mov ax, cx                       ; 0xa880
     imul word [bp + 0x4]             ; 0xa882
     mov bx, ax                       ; 0xa885
-    mov byte [bx - 0x7b16], 3        ; 0xa887
+    mov byte [bx + bss_84e8 + 0x2], 3 ; 0xa887
 @..api_idx_0002_TLGN.l6:
     mov ax, 0x26                     ; 0xa88c
     imul word [bp + 0x4]             ; 0xa88f
     mov bx, ax                       ; 0xa892
-    cmp byte [bx - 0x7b16], 7        ; 0xa894
+    cmp byte [bx + bss_84e8 + 0x2], 7 ; 0xa894
     je short @..api_idx_0002_TLGN.l9 ; 0xa899
     push word [bp + 0x6]             ; 0xa89b
     push word [bp + 0x4]             ; 0xa89e
@@ -100,7 +100,7 @@ api_idx_0002_TLGN:
     mov ax, 0x26                     ; 0xa8a7
     imul word [bp + 0x4]             ; 0xa8aa
     mov bx, ax                       ; 0xa8ad
-    mov al, byte [bx - 0x7b16]       ; 0xa8af
+    mov al, byte [bx + bss_84e8 + 0x2] ; 0xa8af
     cmp al, 3                        ; 0xa8b3
     je short @..api_idx_0002_TLGN.l7 ; 0xa8b5
     cmp al, 7                        ; 0xa8b7
@@ -108,7 +108,7 @@ api_idx_0002_TLGN:
     cmp al, 5                        ; 0xa8bb
     jne short @..api_idx_0002_TLGN.l8 ; 0xa8bd
 @..api_idx_0002_TLGN.l7:
-    cmp byte [bx - 0x7b00], 0        ; 0xa8bf
+    cmp byte [bx + slot_records + 0x14], 0 ; 0xa8bf
     jg short @..api_idx_0002_TLGN.l9 ; 0xa8c4
 @..api_idx_0002_TLGN.l8:
     ret                              ; 0xa8c6
@@ -116,9 +116,9 @@ api_idx_0002_TLGN:
     mov ax, 0x26                     ; 0xa8c7
     imul word [bp + 0x4]             ; 0xa8ca
     mov bx, ax                       ; 0xa8cd
-    cmp byte [bx - 0x7b11], 0        ; 0xa8cf
+    cmp byte [bx + slot_records + 0x3], 0 ; 0xa8cf
     jge short @..api_idx_0002_TLGN.l11 ; 0xa8d4
-    cmp byte [bx - 0x7b16], 5        ; 0xa8d6
+    cmp byte [bx + bss_84e8 + 0x2], 5 ; 0xa8d6
     je short @..api_idx_0002_TLGN.l10 ; 0xa8db
     push word [bp + 0x4]             ; 0xa8dd
     call api_idx_003a_HOUV           ; 0xa8e0
@@ -132,62 +132,62 @@ api_idx_0002_TLGN:
     mov ax, 0x26                     ; 0xa8ec
     imul word [bp + 0x4]             ; 0xa8ef
     mov bx, ax                       ; 0xa8f2
-    mov al, byte [bx - 0x7b11]       ; 0xa8f4
+    mov al, byte [bx + slot_records + 0x3] ; 0xa8f4
     cbw                              ; 0xa8f8
     mov cx, ax                       ; 0xa8f9
     pop ax                           ; 0xa8fb
     add ax, cx                       ; 0xa8fc
     mov bx, ax                       ; 0xa8fe
-    mov al, byte [bx - 0x7b10]       ; 0xa900
+    mov al, byte [bx + slot_records + 0x4] ; 0xa900
     sub ah, ah                       ; 0xa904
     mov word [bp - 0x0002], ax       ; 0xa906
     mov ax, 0x26                     ; 0xa909
     imul word [bp + 0x4]             ; 0xa90c
     mov bx, ax                       ; 0xa90f
-    inc byte [bx - 0x7b13]           ; 0xa911
+    inc byte [bx + slot_records + 0x1] ; 0xa911
     mov ax, word [bp - 0x0002]       ; 0xa915
     shl ax, 1                        ; 0xa918
     shl ax, 1                        ; 0xa91a
     mov si, ax                       ; 0xa91c
-    mov al, byte [si - 0x758f]       ; 0xa91e
-    cmp al, byte [bx - 0x7b13]       ; 0xa922
+    mov al, byte [si + bss_8a6e + 0x3] ; 0xa91e
+    cmp al, byte [bx + slot_records + 0x1] ; 0xa922
     jbe short @..api_idx_0002_TLGN.l12 ; 0xa926
     jmp near @..api_idx_0002_TLGN.l16 ; 0xa928
 @..api_idx_0002_TLGN.l12:
-    mov byte [bx - 0x7b13], 0        ; 0xa92b
+    mov byte [bx + slot_records + 0x1], 0 ; 0xa92b
     mov al, byte [bx + slot_records] ; 0xa930
     cmp al, byte [si + bss_8a6e]     ; 0xa934
     jne short @..api_idx_0002_TLGN.l13 ; 0xa938
-    mov al, byte [si - 0x7591]       ; 0xa93a
+    mov al, byte [si + bss_8a6e + 0x1] ; 0xa93a
     mov byte [bx + slot_records], al ; 0xa93e
     jmp short @..api_idx_0002_TLGN.l14 ; 0xa942
 @..api_idx_0002_TLGN.l13:
     mov al, byte [bx + slot_records] ; 0xa944
-    cmp al, byte [si - 0x7591]       ; 0xa948
+    cmp al, byte [si + bss_8a6e + 0x1] ; 0xa948
     jne short @..api_idx_0002_TLGN.l14 ; 0xa94c
     mov al, byte [si + bss_8a6e]     ; 0xa94e
     mov byte [bx + slot_records], al ; 0xa952
 @..api_idx_0002_TLGN.l14:
-    cmp byte [bx - 0x7b16], 7        ; 0xa956
+    cmp byte [bx + bss_84e8 + 0x2], 7 ; 0xa956
     jne short @..api_idx_0002_TLGN.l15 ; 0xa95b
-    mov byte [bx - 0x7b16], 3        ; 0xa95d
+    mov byte [bx + bss_84e8 + 0x2], 3 ; 0xa95d
 @..api_idx_0002_TLGN.l15:
-    dec byte [bx - 0x7b11]           ; 0xa962
+    dec byte [bx + slot_records + 0x3] ; 0xa962
     jge short @..api_idx_0002_TLGN.l16 ; 0xa966
-    cmp byte [bx - 0x7b16], 3        ; 0xa968
+    cmp byte [bx + bss_84e8 + 0x2], 3 ; 0xa968
     jne short @..api_idx_0002_TLGN.l16 ; 0xa96d
-    mov byte [bx - 0x7b16], 0        ; 0xa96f
+    mov byte [bx + bss_84e8 + 0x2], 0 ; 0xa96f
     mov al, byte [bx + slot_records] ; 0xa974
-    cmp al, byte [bx - 0x7b15]       ; 0xa978
+    cmp al, byte [bx + bss_84e8 + 0x3] ; 0xa978
     jne short @..api_idx_0002_TLGN.l16 ; 0xa97c
-    mov byte [bx - 0x7b16], 2        ; 0xa97e
-    mov byte [bx - 0x7b13], 0        ; 0xa983
-    mov al, byte [bx - 0x7b15]       ; 0xa988
+    mov byte [bx + bss_84e8 + 0x2], 2 ; 0xa97e
+    mov byte [bx + slot_records + 0x1], 0 ; 0xa983
+    mov al, byte [bx + bss_84e8 + 0x3] ; 0xa988
     sub ah, ah                       ; 0xa98c
     push ax                          ; 0xa98e
     mov ax, 6                        ; 0xa98f
     push ax                          ; 0xa992
-    mov al, byte [bx - 0x7b15]       ; 0xa993
+    mov al, byte [bx + bss_84e8 + 0x3] ; 0xa993
     sub ah, ah                       ; 0xa997
     push ax                          ; 0xa999
     push word [bp + 0x4]             ; 0xa99a

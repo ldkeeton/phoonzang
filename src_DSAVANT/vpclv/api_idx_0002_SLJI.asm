@@ -22,7 +22,7 @@ api_idx_0002_SLJI:
     sub ax, cx                       ; 0x429c
     mov word [bp - 0x0002], ax       ; 0x429e
     add bx, word [bp + 0xa]          ; 0x42a1
-    mov al, byte [bx + 0x5d6c]       ; 0x42a4
+    mov al, byte [bx + cell_key_grid + 0x138] ; 0x42a4
     sub ah, ah                       ; 0x42a8
     push ax                          ; 0x42aa
     mov ax, 0x248                    ; 0x42ab
@@ -64,5 +64,5 @@ api_idx_0002_SLJI:
     add ax, word [bp + 0xa]          ; 0x4305
     mov bx, ax                       ; 0x4308
     pop ax                           ; 0x430a
-    add byte [bx + 0x5d6c], al       ; 0x430b
+    add byte [bx + cell_key_grid + 0x138], al ; 0x430b
     ret                              ; 0x430f

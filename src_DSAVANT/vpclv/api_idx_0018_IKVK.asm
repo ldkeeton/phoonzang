@@ -5,19 +5,19 @@ api_idx_0018_IKVK:
     mov ax, 0x248                    ; 0x495b
     imul word [bp + 0x4]             ; 0x495e
     mov bx, ax                       ; 0x4961
-    mov al, byte [bx + 0x5d65]       ; 0x4963
+    mov al, byte [bx + cell_key_grid + 0x131] ; 0x4963
     sub ah, ah                       ; 0x4967
     mov word [bp - 0x0004], ax       ; 0x4969
-    mov al, byte [bx + 0x5d66]       ; 0x496c
+    mov al, byte [bx + cell_key_grid + 0x132] ; 0x496c
     sub ah, ah                       ; 0x4970
     mov word [bp - 0x0006], ax       ; 0x4972
-    mov al, byte [bx + 0x5d67]       ; 0x4975
+    mov al, byte [bx + cell_key_grid + 0x133] ; 0x4975
     sub ah, ah                       ; 0x4979
     mov word [bp - 0x0008], ax       ; 0x497b
-    mov al, byte [bx + 0x5d6a]       ; 0x497e
+    mov al, byte [bx + cell_key_grid + 0x136] ; 0x497e
     sub ah, ah                       ; 0x4982
     mov word [bp - 0x000a], ax       ; 0x4984
-    mov al, byte [bx + 0x5e2d]       ; 0x4987
+    mov al, byte [bx + bss_5e2a + 0x3] ; 0x4987
     sub ah, ah                       ; 0x498b
     jmp near @..api_idx_0018_IKVK.l3 ; 0x498d
 jumptable_4b3c_case_1:
@@ -205,7 +205,7 @@ jumptable_4b3c:
     jmp near @..api_idx_0018_IKVK.l18 ; 0x4b7f
 @..api_idx_0018_IKVK.l7:
     add bx, word [bp - 0x0014]       ; 0x4b82
-    inc byte [bx + 0x5d50]           ; 0x4b85
+    inc byte [bx + cell_key_grid + 0x11c] ; 0x4b85
     mov word [bp - 0x0002], 0        ; 0x4b89
 @..api_idx_0018_IKVK.l8:
     mov word [bp - 0x0012], 0        ; 0x4b8e
@@ -216,7 +216,7 @@ jumptable_4b3c:
     shl cx, 1                        ; 0x4b9e
     add ax, cx                       ; 0x4ba0
     mov bx, ax                       ; 0x4ba2
-    cmp word [bx + 0x5c1e], byte 0   ; 0x4ba4
+    cmp word [bx + pc_spell_power_cap + 0x6], byte 0 ; 0x4ba4
     jle short @..api_idx_0018_IKVK.l11 ; 0x4ba9
     mov word [bp - 0x0004], 0        ; 0x4bab
 @..api_idx_0018_IKVK.l9:
@@ -230,7 +230,7 @@ jumptable_4b3c:
     push word [bp - 0x0004]          ; 0x4bc3
     mov ax, 0x248                    ; 0x4bc6
     imul word [bp + 0x4]             ; 0x4bc9
-    add ax, 0x5e12                   ; 0x4bcc
+    add ax, cell_key_grid + 0x1de    ; 0x4bcc
     push ax                          ; 0x4bcf
     call test_bit                    ; 0x4bd0
     add sp, byte 4                   ; 0x4bd3
@@ -261,7 +261,7 @@ jumptable_4b3c:
     mov bx, ax                       ; 0x4c0f
     mov ax, word [bx + pc_spell_power_cap] ; 0x4c11
     push ax                          ; 0x4c15
-    mov al, byte [bx + 0x5e3b]       ; 0x4c16
+    mov al, byte [bx + bss_5e2a + 0x11] ; 0x4c16
     sub ah, ah                       ; 0x4c1a
     mov cx, ax                       ; 0x4c1c
     pop ax                           ; 0x4c1e
@@ -271,14 +271,14 @@ jumptable_4b3c:
     shl ax, 1                        ; 0x4c26
     shl ax, 1                        ; 0x4c28
     add bx, ax                       ; 0x4c2a
-    inc word [bx + 0x5c1e]           ; 0x4c2c
+    inc word [bx + pc_spell_power_cap + 0x6] ; 0x4c2c
     jmp near @..api_idx_0018_IKVK.l17 ; 0x4c30
 @..api_idx_0018_IKVK.l15:
     mov ax, 0x248                    ; 0x4c33
     imul word [bp + 0x4]             ; 0x4c36
     add ax, word [bp - 0x0002]       ; 0x4c39
     mov bx, ax                       ; 0x4c3c
-    mov al, byte [bx + 0x5d54]       ; 0x4c3e
+    mov al, byte [bx + cell_key_grid + 0x120] ; 0x4c3e
     sub ah, ah                       ; 0x4c42
     push ax                          ; 0x4c44
     call random_below                ; 0x4c45
@@ -288,7 +288,7 @@ jumptable_4b3c:
     imul word [bp + 0x4]             ; 0x4c4d
     add ax, word [bp - 0x0016]       ; 0x4c50
     mov bx, ax                       ; 0x4c53
-    mov al, byte [bx + 0x5d6c]       ; 0x4c55
+    mov al, byte [bx + cell_key_grid + 0x138] ; 0x4c55
     sub ah, ah                       ; 0x4c59
     mov cx, 0x14                     ; 0x4c5b
     cwd                              ; 0x4c5e
@@ -303,7 +303,7 @@ jumptable_4b3c:
     mov ax, 0x248                    ; 0x4c6c
     imul word [bp + 0x4]             ; 0x4c6f
     mov bx, ax                       ; 0x4c72
-    mov al, byte [bx + 0x5d66]       ; 0x4c74
+    mov al, byte [bx + cell_key_grid + 0x132] ; 0x4c74
     sub ah, ah                       ; 0x4c78
     mov cx, 6                        ; 0x4c7a
     cwd                              ; 0x4c7d
@@ -323,10 +323,10 @@ jumptable_4b3c:
     shl cx, 1                        ; 0x4c9e
     shl cx, 1                        ; 0x4ca0
     add bx, cx                       ; 0x4ca2
-    add word [bx + 0x5c1e], ax       ; 0x4ca4
-    cmp word [bx + 0x5c1e], strict word 0x3e7 ; 0x4ca8
+    add word [bx + pc_spell_power_cap + 0x6], ax ; 0x4ca4
+    cmp word [bx + pc_spell_power_cap + 0x6], strict word 0x3e7 ; 0x4ca8
     jle short @..api_idx_0018_IKVK.l17 ; 0x4cae
-    mov word [bx + 0x5c1e], 0x3e7    ; 0x4cb0
+    mov word [bx + pc_spell_power_cap + 0x6], 0x3e7 ; 0x4cb0
 @..api_idx_0018_IKVK.l17:
     inc word [bp - 0x0002]           ; 0x4cb6
     mov ax, word [bp - 0x0002]       ; 0x4cb9

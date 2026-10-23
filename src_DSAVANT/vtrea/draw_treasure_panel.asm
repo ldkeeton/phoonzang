@@ -6,7 +6,7 @@ draw_treasure_panel:
     mov ax, 6                        ; 0x011d
     imul word [bp + 0x6]             ; 0x0120
     mov bx, ax                       ; 0x0123
-    mov al, byte [bx + 0x889]        ; 0x0125
+    mov al, byte [bx + spell_table + 0x269] ; 0x0125
     sub ah, ah                       ; 0x0129
     jmp short @..draw_treasure_panel.l4 ; 0x012b
 @..draw_treasure_panel.l1:
@@ -37,7 +37,7 @@ draw_treasure_panel:
     mov ax, 6                        ; 0x0175
     imul word [bp + 0x6]             ; 0x0178
     mov bx, ax                       ; 0x017b
-    mov al, byte [bx + 0x888]        ; 0x017d
+    mov al, byte [bx + spell_table + 0x268] ; 0x017d
     sub ah, ah                       ; 0x0181
     mov word [bp - 0x00f8], ax       ; 0x0183
     mov word [bp - 0x000c], 1        ; 0x0187
@@ -46,7 +46,7 @@ draw_treasure_panel:
     mov word [bp - 0x0006], ax       ; 0x0191
     mov word [bp - 0x0008], 0        ; 0x0194
     mov word [bp - 0x000a], 0xffff   ; 0x0199
-    mov al, byte [bx + 0x889]        ; 0x019e
+    mov al, byte [bx + spell_table + 0x269] ; 0x019e
     sub ah, ah                       ; 0x01a2
     jmp short @..draw_treasure_panel.l8 ; 0x01a4
 @..draw_treasure_panel.l6:
@@ -92,9 +92,9 @@ draw_treasure_panel:
     mov ax, 6                        ; 0x0201
     imul word [bp + 0x6]             ; 0x0204
     mov bx, ax                       ; 0x0207
-    mov ax, word [bx + 0x884]        ; 0x0209
+    mov ax, word [bx + spell_table + 0x264] ; 0x0209
     mov word [bp - 0x00ea], ax       ; 0x020d
-    mov ax, word [bx + 0x886]        ; 0x0211
+    mov ax, word [bx + spell_table + 0x266] ; 0x0211
     mov word [bp - 0x00ec], ax       ; 0x0215
     mov word [bp - 0x00e8], 0        ; 0x0219
     mov word [bp - 0x00e6], 0        ; 0x021f
@@ -207,7 +207,7 @@ draw_treasure_panel:
     cmp word [bp - 0x000c], byte 0   ; 0x0467
     je short @..draw_treasure_panel.l15 ; 0x046b
     mov ax, 5                        ; 0x046d
-    cmp byte [bx + 0x889], 2         ; 0x0470
+    cmp byte [bx + spell_table + 0x269], 2 ; 0x0470
     jne short @..draw_treasure_panel.l15 ; 0x0475
     mov ax, 3                        ; 0x0477
 @..draw_treasure_panel.l15:

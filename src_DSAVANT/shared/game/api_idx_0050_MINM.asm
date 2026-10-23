@@ -832,7 +832,7 @@ api_idx_0050_MINM.jumptable_case3:
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + 0x622]
+    mov al, byte [bx + spell_table + 0x2]
     sub ah, ah
     mov cx, word [bp - 0x003e]
     inc cx
@@ -846,7 +846,7 @@ api_idx_0050_MINM.jumptable_case3:
     shl dx, 1
     add ax, dx
     mov bx, ax
-    mov cx, word [bx + 0x5c1c]
+    mov cx, word [bx + pc_spell_power_cap + 0x4]
     pop ax
     cmp ax, cx
     jg short @..api_idx_0050_MINM.l25
@@ -970,7 +970,7 @@ api_idx_0050_MINM.jumptable_case4:
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + 0x621]
+    mov al, byte [bx + spell_table + 0x1]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -982,7 +982,7 @@ api_idx_0050_MINM.jumptable_case4:
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + 0x622]
+    mov al, byte [bx + spell_table + 0x2]
     sub ah, ah
     mov cx, word [bp - 0x0040]
     inc cx
@@ -1000,7 +1000,7 @@ api_idx_0050_MINM.jumptable_case4:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx + 0x5c1c]
+    mov ax, word [bx + pc_spell_power_cap + 0x4]
     cmp ax, word [bp - 0x0002]
     jge short @..api_idx_0050_MINM.l32
     jmp short @..api_idx_0050_MINM.l33
@@ -1011,7 +1011,7 @@ api_idx_0050_MINM.jumptable_case4:
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + 0x622]
+    mov al, byte [bx + spell_table + 0x2]
     sub ah, ah
     mov cx, word [bp - 0x003e]
     inc cx
@@ -1239,7 +1239,7 @@ api_idx_0050_MINM.jumptable_case4:
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + 0x621]
+    mov al, byte [bx + spell_table + 0x1]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -1251,7 +1251,7 @@ api_idx_0050_MINM.jumptable_case4:
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + 0x622]
+    mov al, byte [bx + spell_table + 0x2]
     sub ah, ah
     mov cx, word [bp - 0x0040]
     inc cx
@@ -1269,7 +1269,7 @@ api_idx_0050_MINM.jumptable_case4:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx + 0x5c1c]
+    mov ax, word [bx + pc_spell_power_cap + 0x4]
     cmp ax, word [bp - 0x0002]
     jge short @..api_idx_0050_MINM.l45
     jmp short @..api_idx_0050_MINM.l46
@@ -1280,7 +1280,7 @@ api_idx_0050_MINM.jumptable_case4:
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + 0x622]
+    mov al, byte [bx + spell_table + 0x2]
     sub ah, ah
     mov cx, word [bp - 0x003e]
     inc cx
