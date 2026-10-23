@@ -748,7 +748,7 @@ random_seed_c:
 
 %include "ds/library/load_video_driver.asm" ; 0x3534
 
-%include "ds/library/ds_dos_con_loc_OQQL.asm" ; 0x35b8
+%include "ds/library/display_driver_error_exit.asm" ; 0x35b8
 
 cseg_35ec:
     db 'play.drv', 0

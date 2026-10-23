@@ -247,6 +247,7 @@
           "note": "hand-written asm, shares its caller's frame: no EGA (0040:0087 zero) gives [bp-2] = 0; else mode 0eh, the 16-colour palette at cs 0x32f6, [bp-2] = 2, [bp-4] = 'ega.drv'"
         },
         "3534": {"name": "load_video_driver", "note": "loads the detected video driver and copies its tables"},
+        "35b8": {"name": "display_driver_error_exit", "note": "prints the display driver load error and exits with code 1"},
         "35f5": {"name": "load_play_driver", "note": "loads play.drv and builds its segment table"},
         "3640": {"name": "sound_driver_error_exit", "note": "prints the sound driver load error and exits with code 1"},
         "3674": {"name": "calibrate_loops_per_ms", "note": "counts loop iterations over one 18.2 Hz BIOS tick, divides by 55 ticks/ms and scales 15/16 for loops_per_ms"},
