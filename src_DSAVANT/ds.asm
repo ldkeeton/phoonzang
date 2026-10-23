@@ -585,7 +585,7 @@ video_is_cga:
     db 0x00
 video_is_herc:
     times 5 db 0
-cseg_2f40:
+driver_block_table:
     db 0x80, 0x41, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x40, 0x01
 font_header_seg:
     db 0x00, 0x00, 0x40, 0x00
@@ -768,11 +768,11 @@ delay_loop_target:
     db 0x00, 0x00
 %include "ds/library/delay_ms.asm"         ; 0x36d0
 
-%include "ds/library/allocate_driver_memory.asm" ; 0x36f5
+%include "ds/library/allocate_driver_blocks.asm" ; 0x36f5
 
 %include "ds/library/ds_dos_mem_loc_JMGG.asm" ; 0x371d
 
-%include "ds/library/ds_dos_mem_loc_GSMJ.asm" ; 0x3760
+%include "ds/library/free_driver_blocks.asm" ; 0x3760
 
 %include "ds/library/ds_dos_mem_loc_GMLT.asm" ; 0x377b
 

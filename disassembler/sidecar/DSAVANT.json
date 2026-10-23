@@ -252,7 +252,8 @@
           "name": "delay_ms",
           "note": "hand-written asm: [bp+4] times, counts loops_per_ms (calibrated to one millisecond) down to delay_loop_target (always 0)"
         },
-        "36f5": {"name": "allocate_driver_memory", "note": "allocates the driver memory blocks; no-op when no video driver"},
+        "36f5": {"name": "allocate_driver_blocks", "note": "allocates each driver memory block in the code-segment table, freeing the blocks on a DOS failure"},
+        "3760": {"name": "free_driver_blocks", "note": "frees the driver blocks from si back to the table start"},
         "37a5": {"name": "detect_mouse", "note": "checks the INT 33h vector and resets the mouse; sets bit 12 of the caller result"},
         "37d9": {"name": "detect_expanded_memory", "note": "probes int 67h and records the EMS page frame and pages"},
         "3860": {
@@ -519,6 +520,7 @@
         "2f39": {"name": "video_is_vga", "note": "1 when select_vga_driver picked VGA"},
         "2f3a": {"name": "video_is_cga", "note": "only cleared here, never set in DS; by the driver order (vga, ega, cga, herc, tandy) presumably CGA: unconfirmed"},
         "2f3b": {"name": "video_is_herc", "note": "only cleared here, never set in DS; by the driver order presumably Hercules: unconfirmed"},
+        "2f40": {"name": "driver_block_table", "note": "paragraph count and allocated segment per driver block; a zero count ends the table"},
         "2f4a": {"name": "font_header_seg", "note": "segment load_font_file reads the 16-byte font header into (0 until set at run time)"},
         "2f4e": {"name": "misc_table_seg", "note": "segment read_misc_table reads the 0x400-byte misc table into and unpack_record reads from (0 until set at run time)"},
         "2f66": {"name": "mouse_button_count", "note": "INT 33h reset result: button count, 0 = no mouse driver"},

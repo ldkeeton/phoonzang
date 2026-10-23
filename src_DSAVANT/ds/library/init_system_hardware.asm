@@ -13,7 +13,7 @@ init_system_hardware:
     call seed_random_from_timer      ; 0x3076
     call calibrate_loops_per_ms      ; 0x3079
     call detect_video_adapter        ; 0x307c
-    call allocate_driver_memory      ; 0x307f
+    call allocate_driver_blocks      ; 0x307f
     call detect_mouse                ; 0x3082
     call detect_expanded_memory      ; 0x3085
     call load_play_driver            ; 0x3088

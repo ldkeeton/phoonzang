@@ -3,7 +3,7 @@
 	include	lmacros.h
 	assume	cs:codeseg
 	extrn	seed_random_from_timer:near, calibrate_loops_per_ms:near
-	extrn	detect_video_adapter:near, allocate_driver_memory:near
+	extrn	detect_video_adapter:near, allocate_driver_blocks:near
 	extrn	detect_mouse:near, detect_expanded_memory:near
 	extrn	load_play_driver:near, load_video_driver:near
 	extrn	gfx_fill_screen_buffer:near
@@ -25,7 +25,7 @@ init_system_hardware_ proc near
 	call	seed_random_from_timer	;seed the random generator from the BIOS tick
 	call	calibrate_loops_per_ms	;calibrate loops_per_ms from the BIOS tick
 	call	detect_video_adapter	;set result and driver_name for the adapter found
-	call	allocate_driver_memory	;no video driver (result 0): return without allocating
+	call	allocate_driver_blocks	;no video driver (result 0): return without allocating
 	call	detect_mouse		;set bit 1000h in result if a mouse answers
 	call	detect_expanded_memory	;probe EMS and record its page frame
 	call	load_play_driver	;load play.drv and build its segment table
