@@ -198,6 +198,7 @@
         "16a0": {
           "name": "restore_saved_screen"
         },
+        "184f": {"name": "reset_page_record", "note": "clears one 0x12-byte page record, seeds its variant and edge fields from the page and fixes the record-0 counters; returns the index"},
         "1a23": {"name": "compact_grid_page", "note": "removes one row-0 cell entry and compacts the page slot list, byte totals and clamped counts"},
         "1c2f": {"name": "clear_cell_key", "note": "clears the key word of one grid cell and the row-0 page entry"},
         "20f8": {"name": "pick_party_member", "note": "three-glyph prompt box; waits for keys 1..party count and returns slot 0.., or -1 on Esc"},

@@ -585,7 +585,7 @@ jumptable_30fe:
 @..api_idx_0052_LHVG.l17:
     push word [bp - 0x0002]          ; 0x312c
     push word [bp + 0x4]             ; 0x312f
-    call ds_app_mem_TMKK             ; 0x3132
+    call reset_page_record           ; 0x3132
     add sp, byte 4                   ; 0x3135
     mov ax, 0x248                    ; 0x3138
     imul word [bp + 0x4]             ; 0x313b

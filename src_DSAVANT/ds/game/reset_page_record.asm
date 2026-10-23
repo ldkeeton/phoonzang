@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_mem_TMKK: ; Aztec csav frame=0x0016
+reset_page_record: ; Aztec csav frame=0x0016
     mov ax, 0xffea                   ; 0x184f
     call aztec_csav                  ; 0x1852
     mov ax, 0                        ; 0x1855
@@ -45,10 +45,10 @@ ds_app_mem_TMKK: ; Aztec csav frame=0x0016
     idiv cx                          ; 0x18ba
     mov word [bp - 0x0004], ax       ; 0x18bc
     cmp byte [bx + 0x5e2d], 0xd      ; 0x18bf
-    je short @..ds_app_mem_TMKK.l1   ; 0x18c4
+    je short @..reset_page_record.l1 ; 0x18c4
     cmp byte [bx + 0x5e2d], 0xc      ; 0x18c6
-    jne short @..ds_app_mem_TMKK.l2  ; 0x18cb
-@..ds_app_mem_TMKK.l1:
+    jne short @..reset_page_record.l2 ; 0x18cb
+@..reset_page_record.l1:
     mov ax, word [bp - 0x0002]       ; 0x18cd
     mov cx, 3                        ; 0x18d0
     cwd                              ; 0x18d3
@@ -66,10 +66,10 @@ ds_app_mem_TMKK: ; Aztec csav frame=0x0016
     mov ax, word [bp - 0x0004]       ; 0x18ed
     add ax, strict word 5            ; 0x18f0
     mov byte [bx + 0x5d2e], al       ; 0x18f3
-    jmp short @..ds_app_mem_TMKK.l4  ; 0x18f7
-@..ds_app_mem_TMKK.l2:
+    jmp short @..reset_page_record.l4 ; 0x18f7
+@..reset_page_record.l2:
     cmp word [bp - 0x0002], byte 0   ; 0x18f9
-    jle short @..ds_app_mem_TMKK.l3  ; 0x18fd
+    jle short @..reset_page_record.l3 ; 0x18fd
     mov ax, word [bp - 0x0002]       ; 0x18ff
     mov cx, 4                        ; 0x1902
     cwd                              ; 0x1905
@@ -87,9 +87,9 @@ ds_app_mem_TMKK: ; Aztec csav frame=0x0016
     pop ax                           ; 0x191e
     mov byte [bx + 0x5d27], al       ; 0x191f
     or byte [bx + 0x5d33], 0x40      ; 0x1923
-@..ds_app_mem_TMKK.l3:
+@..reset_page_record.l3:
     cmp word [bp - 0x0004], byte 0   ; 0x1928
-    jle short @..ds_app_mem_TMKK.l4  ; 0x192c
+    jle short @..reset_page_record.l4 ; 0x192c
     mov al, byte [bp - 0x0004]       ; 0x192e
     push ax                          ; 0x1931
     mov ax, 0x248                    ; 0x1932
@@ -102,20 +102,20 @@ ds_app_mem_TMKK: ; Aztec csav frame=0x0016
     mov bx, cx                       ; 0x1944
     pop ax                           ; 0x1946
     mov byte [bx + 0x5d2e], al       ; 0x1947
-@..ds_app_mem_TMKK.l4:
+@..reset_page_record.l4:
     mov ax, word [bp + 0x6]          ; 0x194b
-    jmp near @..ds_app_mem_TMKK.l16  ; 0x194e
-@..ds_app_mem_TMKK.l5:
+    jmp near @..reset_page_record.l16 ; 0x194e
+@..reset_page_record.l5:
     mov ax, 0x248                    ; 0x1951
     imul word [bp + 0x4]             ; 0x1954
     mov bx, ax                       ; 0x1957
     cmp byte [bx + 0x5d64], 0xf      ; 0x1959
-    jbe short @..ds_app_mem_TMKK.l6  ; 0x195e
+    jbe short @..reset_page_record.l6 ; 0x195e
     mov ax, 1                        ; 0x1960
-    jmp short @..ds_app_mem_TMKK.l7  ; 0x1963
-@..ds_app_mem_TMKK.l6:
+    jmp short @..reset_page_record.l7 ; 0x1963
+@..reset_page_record.l6:
     mov ax, 0                        ; 0x1965
-@..ds_app_mem_TMKK.l7:
+@..reset_page_record.l7:
     push ax                          ; 0x1968
     mov ax, 0x12                     ; 0x1969
     imul word [bp + 0x6]             ; 0x196c
@@ -127,12 +127,12 @@ ds_app_mem_TMKK: ; Aztec csav frame=0x0016
     imul word [bp + 0x4]             ; 0x197b
     mov bx, ax                       ; 0x197e
     cmp byte [bx + 0x5d64], 0x11     ; 0x1980
-    jbe short @..ds_app_mem_TMKK.l8  ; 0x1985
+    jbe short @..reset_page_record.l8 ; 0x1985
     mov ax, 1                        ; 0x1987
-    jmp short @..ds_app_mem_TMKK.l9  ; 0x198a
-@..ds_app_mem_TMKK.l8:
+    jmp short @..reset_page_record.l9 ; 0x198a
+@..reset_page_record.l8:
     mov ax, 0                        ; 0x198c
-@..ds_app_mem_TMKK.l9:
+@..reset_page_record.l9:
     add bx, cx                       ; 0x198f
     add word [bx + 0x5d24], ax       ; 0x1991
     mov al, byte [bx + 0x5d32]       ; 0x1995
@@ -143,12 +143,12 @@ ds_app_mem_TMKK: ; Aztec csav frame=0x0016
     mov bx, ax                       ; 0x19a1
     cmp byte [bx + 0x5d68], 0xf      ; 0x19a3
     pop ax                           ; 0x19a8
-    jbe short @..ds_app_mem_TMKK.l10 ; 0x19a9
+    jbe short @..reset_page_record.l10 ; 0x19a9
     mov cx, 5                        ; 0x19ab
-    jmp short @..ds_app_mem_TMKK.l11 ; 0x19ae
-@..ds_app_mem_TMKK.l10:
+    jmp short @..reset_page_record.l11 ; 0x19ae
+@..reset_page_record.l10:
     mov cx, 0                        ; 0x19b0
-@..ds_app_mem_TMKK.l11:
+@..reset_page_record.l11:
     sub ax, cx                       ; 0x19b3
     push ax                          ; 0x19b5
     mov ax, 0x12                     ; 0x19b6
@@ -164,12 +164,12 @@ ds_app_mem_TMKK: ; Aztec csav frame=0x0016
     mov bx, ax                       ; 0x19cd
     cmp byte [bx + 0x5d68], 0x11     ; 0x19cf
     pop ax                           ; 0x19d4
-    jbe short @..ds_app_mem_TMKK.l12 ; 0x19d5
+    jbe short @..reset_page_record.l12 ; 0x19d5
     mov cx, 5                        ; 0x19d7
-    jmp short @..ds_app_mem_TMKK.l13 ; 0x19da
-@..ds_app_mem_TMKK.l12:
+    jmp short @..reset_page_record.l13 ; 0x19da
+@..reset_page_record.l12:
     mov cx, 0                        ; 0x19dc
-@..ds_app_mem_TMKK.l13:
+@..reset_page_record.l13:
     sub ax, cx                       ; 0x19df
     push ax                          ; 0x19e1
     mov ax, 0x12                     ; 0x19e2
@@ -178,8 +178,8 @@ ds_app_mem_TMKK: ; Aztec csav frame=0x0016
     add bx, ax                       ; 0x19ea
     pop ax                           ; 0x19ec
     mov byte [bx + 0x5d32], al       ; 0x19ed
-    jmp short @..ds_app_mem_TMKK.l18 ; 0x19f1
-@..ds_app_mem_TMKK.l14:
+    jmp short @..reset_page_record.l18 ; 0x19f1
+@..reset_page_record.l14:
     mov ax, 0x248                    ; 0x19f3
     imul word [bp + 0x4]             ; 0x19f6
     mov bx, ax                       ; 0x19f9
@@ -187,18 +187,18 @@ ds_app_mem_TMKK: ; Aztec csav frame=0x0016
     cbw                              ; 0x19ff
     mov cx, 0                        ; 0x1a00
     cmp byte [bx + 0x5d68], 0x11     ; 0x1a03
-    jbe short @..ds_app_mem_TMKK.l15 ; 0x1a08
+    jbe short @..reset_page_record.l15 ; 0x1a08
     mov cx, 5                        ; 0x1a0a
-@..ds_app_mem_TMKK.l15:
+@..reset_page_record.l15:
     sub ax, cx                       ; 0x1a0d
     mov byte [bx + 0x5d44], al       ; 0x1a0f
-    jmp short @..ds_app_mem_TMKK.l18 ; 0x1a13
-@..ds_app_mem_TMKK.l16:
+    jmp short @..reset_page_record.l18 ; 0x1a13
+@..reset_page_record.l16:
     cmp ax, strict word 0            ; 0x1a15
-    jne short @..ds_app_mem_TMKK.l17 ; 0x1a18
-    jmp near @..ds_app_mem_TMKK.l5   ; 0x1a1a
-@..ds_app_mem_TMKK.l17:
+    jne short @..reset_page_record.l17 ; 0x1a18
+    jmp near @..reset_page_record.l5 ; 0x1a1a
+@..reset_page_record.l17:
     cmp ax, strict word 1            ; 0x1a1d
-    je short @..ds_app_mem_TMKK.l14  ; 0x1a20
-@..ds_app_mem_TMKK.l18:
+    je short @..reset_page_record.l14 ; 0x1a20
+@..reset_page_record.l18:
     ret                              ; 0x1a22

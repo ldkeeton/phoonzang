@@ -975,7 +975,7 @@ jumptable_2668:
 @..api_idx_0072_OUII.l54:
     push word [bp - 0x0004]          ; 0x290f
     push word [bss_69c8]             ; 0x2912
-    call ds_app_mem_TMKK             ; 0x2916
+    call reset_page_record           ; 0x2916
     add sp, byte 4                   ; 0x2919
     inc word [bp - 0x0004]           ; 0x291c
     mov ax, word [bp - 0x0004]       ; 0x291f

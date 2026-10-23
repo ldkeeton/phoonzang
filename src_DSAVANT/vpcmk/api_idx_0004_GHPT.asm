@@ -480,7 +480,7 @@ jumptable_547c:
 @..api_idx_0004_GHPT.l11:
     push word [bp - 0x0002]          ; 0x54aa
     push word [bp + 0x4]             ; 0x54ad
-    call ds_app_mem_TMKK             ; 0x54b0
+    call reset_page_record           ; 0x54b0
     add sp, byte 4                   ; 0x54b3
     inc word [bp - 0x0002]           ; 0x54b6
     mov ax, word [bp - 0x0002]       ; 0x54b9

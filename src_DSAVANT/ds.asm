@@ -458,8 +458,9 @@ saved_screen_ref          equ __zbss_5be0 - __zdseg_start
 cell_key_grid equ __zbss_5c34 - __zdseg_start
 %include "ds/game/ds_app_OOUT.asm"         ; 0x17d6
 
-%include "ds/game/ds_app_mem_TMKK.asm"     ; 0x184f
+%include "ds/game/reset_page_record.asm"   ; 0x184f
 
+; cell_key_grid equ __zbss_5c34 - __zdseg_start
 %include "ds/game/compact_grid_page.asm"   ; 0x1a23
 
 ; cell_key_grid equ __zbss_5c34 - __zdseg_start
