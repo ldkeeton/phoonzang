@@ -392,7 +392,7 @@ jumptable_372d:
     mov al, byte [bx + 0x1a1]        ; 0x39f1
     sub ah, ah                       ; 0x39f5
     push ax                          ; 0x39f7
-    call ds_app_OLKR                 ; 0x39f8
+    call format_int_decimal          ; 0x39f8
     add sp, byte 4                   ; 0x39fb
     mov ax, word [bp - 0x0004]       ; 0x39fe
     shl ax, 1                        ; 0x3a01

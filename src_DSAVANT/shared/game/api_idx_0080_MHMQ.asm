@@ -69,7 +69,7 @@ api_idx_0080_MHMQ:
     add ax, cx
     push ax
     push word [bp - 0x0006]
-    call ds_app_OLKR
+    call format_int_decimal
     add sp, byte 4
     lea ax, word [bp - 0x0068]
     push ax
@@ -96,7 +96,7 @@ api_idx_0080_MHMQ:
     add ax, cx
     push ax
     push word [bp - 0x0008]
-    call ds_app_OLKR
+    call format_int_decimal
     add sp, byte 4
     lea ax, word [bp - 0x0068]
     push ax
@@ -199,7 +199,7 @@ api_idx_0080_MHMQ:
     lea ax, word [bp - 0x0068]
     push ax
     push word [bp - 0x0006]
-    call ds_app_OLKR
+    call format_int_decimal
     add sp, byte 4
     mov ax, 0
     push ax

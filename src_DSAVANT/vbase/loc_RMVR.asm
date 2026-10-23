@@ -1401,7 +1401,7 @@ jumptable_5e7f_case_3:
     push ax                          ; 0x5982
     mov ax, bss_593a                 ; 0x5983
     push ax                          ; 0x5986
-    call api_idx_0008_LLVT           ; 0x5987
+    call input_text_field            ; 0x5987
     add sp, byte 0x0e                ; 0x598a
     push word [bp - 0x000a]          ; 0x598d
     push word [bp - 0x0008]          ; 0x5990
@@ -1440,7 +1440,7 @@ jumptable_5e7f_case_4:
     push ax                          ; 0x59dc
     mov ax, bss_594e                 ; 0x59dd
     push ax                          ; 0x59e0
-    call api_idx_0008_LLVT           ; 0x59e1
+    call input_text_field            ; 0x59e1
     add sp, byte 0x0e                ; 0x59e4
     push word [bp - 0x000a]          ; 0x59e7
     push word [bp - 0x0008]          ; 0x59ea
@@ -1760,7 +1760,7 @@ jumptable_5e7f_case_18:
     push ax                          ; 0x5cc3
     mov ax, screen_store_drive       ; 0x5cc4
     push ax                          ; 0x5cc7
-    call api_idx_0008_LLVT           ; 0x5cc8
+    call input_text_field            ; 0x5cc8
     add sp, byte 0x0e                ; 0x5ccb
     push word [bp - 0x000a]          ; 0x5cce
     push word [bp - 0x0008]          ; 0x5cd1

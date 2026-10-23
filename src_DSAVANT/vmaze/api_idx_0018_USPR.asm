@@ -178,7 +178,7 @@ api_idx_0018_USPR:
     call random_below                ; 0x1e6a
     pop cx                           ; 0x1e6d
     mov bx, word [bp - 0x0002]       ; 0x1e6e
-    mov byte [bx + bss_5990], al     ; 0x1e71
+    mov byte [bx + code_characters], al ; 0x1e71
 @..api_idx_0018_USPR.l18:
     mov word [bp - 0x0002], 0        ; 0x1e75
     jmp near @..api_idx_0018_USPR.l27 ; 0x1e7a

@@ -270,7 +270,7 @@ jumptable_4679:
     lea ax, word [bp - 0x00ac]       ; 0x483a
     push ax                          ; 0x483e
     push word [bp - 0x0002]          ; 0x483f
-    call ds_app_OLKR                 ; 0x4842
+    call format_int_decimal          ; 0x4842
     add sp, byte 4                   ; 0x4845
     mov ax, 0x24                     ; 0x4848
     push ax                          ; 0x484b

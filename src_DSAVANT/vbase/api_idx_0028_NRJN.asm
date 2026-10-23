@@ -421,7 +421,7 @@ jumptable_14d6_case_0:
     push ax                          ; 0x12bd
     mov ax, known_spell_names        ; 0x12be
     push ax                          ; 0x12c1
-    call api_idx_0008_LLVT           ; 0x12c2
+    call input_text_field            ; 0x12c2
     add sp, byte 0x0e                ; 0x12c5
     mov ax, known_spell_names        ; 0x12c8
     push ax                          ; 0x12cb
@@ -508,7 +508,7 @@ jumptable_14d6_case_1:
     push ax                          ; 0x1383
     mov ax, bss_0e4c                 ; 0x1384
     push ax                          ; 0x1387
-    call api_idx_0008_LLVT           ; 0x1388
+    call input_text_field            ; 0x1388
     add sp, byte 0x0e                ; 0x138b
     mov ax, bss_0e4c                 ; 0x138e
     push ax                          ; 0x1391

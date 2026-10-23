@@ -117,7 +117,7 @@ api_idx_006a_NKMN:
     mov al, byte [bx + 0x5d7c]       ; 0x610c
     sub ah, ah                       ; 0x6110
     push ax                          ; 0x6112
-    call ds_app_OLKR                 ; 0x6113
+    call format_int_decimal          ; 0x6113
     add sp, byte 4                   ; 0x6116
     mov ax, dseg_90eb                ; 0x6119
     push ax                          ; 0x611c

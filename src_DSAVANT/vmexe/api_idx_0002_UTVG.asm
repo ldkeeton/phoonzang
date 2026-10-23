@@ -15,7 +15,7 @@ api_idx_0002_UTVG:
     jge short @..api_idx_0002_UTVG.l1 ; 0x1fb9
     push word [bp + 0x6]             ; 0x1fbb
     push word [bp + 0x4]             ; 0x1fbe
-    call loc_MHUK                    ; 0x1fc1
+    call item_slot_usable            ; 0x1fc1
     add sp, byte 4                   ; 0x1fc4
     test ax, ax                      ; 0x1fc7
     je short @..api_idx_0002_UTVG.l2 ; 0x1fc9

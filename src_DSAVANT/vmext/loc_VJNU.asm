@@ -6,7 +6,7 @@ loc_VJNU:
     push ax                          ; 0x063f
     mov ax, 8                        ; 0x0640
     push ax                          ; 0x0643
-    mov ax, bss_8cfe                 ; 0x0644
+    mov ax, adjacent_object_type     ; 0x0644
     push ax                          ; 0x0647
     call aztec_setmem                ; 0x0648
     add sp, byte 6                   ; 0x064b

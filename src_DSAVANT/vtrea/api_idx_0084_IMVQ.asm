@@ -120,7 +120,7 @@ api_idx_0084_IMVQ:
     mov al, byte [bx + 0x5d7c]       ; 0x26de
     sub ah, ah                       ; 0x26e2
     push ax                          ; 0x26e4
-    call ds_app_OLKR                 ; 0x26e5
+    call format_int_decimal          ; 0x26e5
     add sp, byte 4                   ; 0x26e8
     mov ax, dseg_90d5                ; 0x26eb
     push ax                          ; 0x26ee

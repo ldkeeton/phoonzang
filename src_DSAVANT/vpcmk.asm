@@ -31,7 +31,7 @@ __zcode_start:
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 %include "shared/game/api_idx_0002_SJMT.asm"     ; 0x0085
 
-%include "shared/game/api_idx_0008_LLVT.asm"     ; 0x0104
+%include "shared/game/input_text_field.asm"      ; 0x0104
 
 api_idx_0008_VRRI equ api_idx_0008_JJHR
 %include "shared/game/api_idx_0008_JJHR.asm"     ; 0x02bc

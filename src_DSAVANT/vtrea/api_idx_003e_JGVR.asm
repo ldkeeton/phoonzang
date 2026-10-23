@@ -34,7 +34,7 @@ api_idx_003e_JGVR:
     lea ax, word [bp - 0x002a]       ; 0x1205
     push ax                          ; 0x1208
     push word [bp - 0x0002]          ; 0x1209
-    call ds_app_OLKR                 ; 0x120c
+    call format_int_decimal          ; 0x120c
     add sp, byte 4                   ; 0x120f
     lea ax, word [bp - 0x0016]       ; 0x1212
     push ax                          ; 0x1215

@@ -977,7 +977,7 @@ jumptable_76e2:
     pop ax                           ; 0x7a38
     sub ax, cx                       ; 0x7a39
     push ax                          ; 0x7a3b
-    call ds_app_OLKR                 ; 0x7a3c
+    call format_int_decimal          ; 0x7a3c
     add sp, byte 4                   ; 0x7a3f
     mov ax, 0                        ; 0x7a42
     push ax                          ; 0x7a45
@@ -1147,7 +1147,7 @@ jumptable_76e2:
     sub ah, ah                       ; 0x7bbf
     add ax, word [bp - 0x005c]       ; 0x7bc1
     push ax                          ; 0x7bc4
-    call ds_app_OLKR                 ; 0x7bc5
+    call format_int_decimal          ; 0x7bc5
     add sp, byte 4                   ; 0x7bc8
     lea ax, word [bp - 0x0192]       ; 0x7bcb
     push ax                          ; 0x7bcf
@@ -1161,7 +1161,7 @@ jumptable_76e2:
     imul cx                          ; 0x7bde
     add ax, word [bp - 0x005c]       ; 0x7be0
     push ax                          ; 0x7be3
-    call ds_app_OLKR                 ; 0x7be4
+    call format_int_decimal          ; 0x7be4
     add sp, byte 4                   ; 0x7be7
     lea ax, word [bp - 0x0142]       ; 0x7bea
     push ax                          ; 0x7bee
@@ -1222,7 +1222,7 @@ jumptable_76e2:
     mov al, byte [bp - 0x0039]       ; 0x7c77
     cbw                              ; 0x7c7a
     push ax                          ; 0x7c7b
-    call ds_app_OLKR                 ; 0x7c7c
+    call format_int_decimal          ; 0x7c7c
     add sp, byte 4                   ; 0x7c7f
     lea ax, word [bp - 0x0142]       ; 0x7c82
     push ax                          ; 0x7c86
@@ -1300,7 +1300,7 @@ jumptable_76e2:
     mov ax, word [bp - 0x0008]       ; 0x7d2f
     sub ax, word [bp - 0x0004]       ; 0x7d32
     push ax                          ; 0x7d35
-    call ds_app_OLKR                 ; 0x7d36
+    call format_int_decimal          ; 0x7d36
     add sp, byte 4                   ; 0x7d39
     lea ax, word [bp - 0x0142]       ; 0x7d3c
     push ax                          ; 0x7d40
@@ -1430,7 +1430,7 @@ jumptable_76e2:
     lea ax, word [bp - 0x00f2]       ; 0x7e71
     push ax                          ; 0x7e75
     push word [bp - 0x0030]          ; 0x7e76
-    call ds_app_OLKR                 ; 0x7e79
+    call format_int_decimal          ; 0x7e79
     add sp, byte 4                   ; 0x7e7c
     mov ax, dseg_90c8                ; 0x7e7f
     push ax                          ; 0x7e82
@@ -1455,7 +1455,7 @@ jumptable_76e2:
     mov al, byte [bx + 0x6]          ; 0x7eb0
     sub ah, ah                       ; 0x7eb3
     push ax                          ; 0x7eb5
-    call ds_app_OLKR                 ; 0x7eb6
+    call format_int_decimal          ; 0x7eb6
     add sp, byte 4                   ; 0x7eb9
 @..loc_IUTP.l61:
     lea ax, word [bp - 0x0142]       ; 0x7ebc
@@ -1781,7 +1781,7 @@ jumptable_76e2:
     lea ax, word [bp - 0x00f2]       ; 0x81c6
     push ax                          ; 0x81ca
     push word [bp - 0x0008]          ; 0x81cb
-    call ds_app_OLKR                 ; 0x81ce
+    call format_int_decimal          ; 0x81ce
     add sp, byte 4                   ; 0x81d1
     mov ax, dseg_90cc                ; 0x81d4
     push ax                          ; 0x81d7

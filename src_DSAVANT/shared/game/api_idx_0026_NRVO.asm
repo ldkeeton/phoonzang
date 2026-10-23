@@ -282,7 +282,7 @@ api_idx_0026_NRVO:
     push ax
     mov ax, known_spell_names
     push ax
-    call api_idx_0008_LLVT
+    call input_text_field
     add sp, byte 0x0e
     mov ax, known_spell_names
     push ax
@@ -383,7 +383,7 @@ api_idx_0026_NRVO:
     push ax
     mov ax, known_spell_names
     push ax
-    call api_idx_0008_LLVT
+    call input_text_field
     add sp, byte 0x0e
     mov ax, known_spell_names
     push ax

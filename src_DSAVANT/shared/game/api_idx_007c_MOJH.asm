@@ -476,7 +476,7 @@ api_idx_007c_MOJH:
     imul word [bp + 0x4]
     mov bx, ax
     push word [bx + 0x5c0c]
-    call ds_app_OLKR
+    call format_int_decimal
     add sp, byte 4
     mov ax, 0
     push ax
@@ -496,7 +496,7 @@ api_idx_007c_MOJH:
     imul word [bp + 0x4]
     mov bx, ax
     push word [bx + 0x5c0e]
-    call ds_app_OLKR
+    call format_int_decimal
     add sp, byte 4
     mov ax, 0
     push ax
@@ -563,7 +563,7 @@ api_idx_007c_MOJH:
     lea ax, word [bp - 0x0058]
     push ax
     push word [bp - 0x0008]
-    call ds_app_OLKR
+    call format_int_decimal
     add sp, byte 4
     mov ax, 0
     push ax
@@ -595,7 +595,7 @@ api_idx_007c_MOJH:
     imul word [bp + 0x4]
     mov bx, ax
     push word [bx + 0x5c12]
-    call ds_app_OLKR
+    call format_int_decimal
     add sp, byte 4
     mov ax, 0
     push ax
@@ -712,7 +712,7 @@ api_idx_007c_MOJH:
     cwd
     idiv cx
     push ax
-    call ds_app_OLKR
+    call format_int_decimal
     add sp, byte 4
     mov ax, 0
     push ax
@@ -736,7 +736,7 @@ api_idx_007c_MOJH:
     cwd
     idiv cx
     push ax
-    call ds_app_OLKR
+    call format_int_decimal
     add sp, byte 4
     mov ax, 0
     push ax

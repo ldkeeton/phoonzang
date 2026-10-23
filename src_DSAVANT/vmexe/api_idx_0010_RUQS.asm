@@ -27,7 +27,7 @@ api_idx_0010_RUQS:
 @..api_idx_0010_RUQS.l2:
     push word [bp - 0x0002]          ; 0x2e98
     push word [bp + 0x4]             ; 0x2e9b
-    call loc_MHUK                    ; 0x2e9e
+    call item_slot_usable            ; 0x2e9e
     add sp, byte 4                   ; 0x2ea1
     test ax, ax                      ; 0x2ea4
     je short @..api_idx_0010_RUQS.l3 ; 0x2ea6
@@ -62,7 +62,7 @@ api_idx_0010_RUQS:
     push ax                          ; 0x2eea
     push word [bp + 0xa]             ; 0x2eeb
     push word [bp + 0x4]             ; 0x2eee
-    call api_idx_0002_LKMM           ; 0x2ef1
+    call api_idx_0002_NHHH           ; 0x2ef1
     add sp, byte 8                   ; 0x2ef4
     mov word [bp - 0x0006], ax       ; 0x2ef7
     cmp ax, strict word 0            ; 0x2efa

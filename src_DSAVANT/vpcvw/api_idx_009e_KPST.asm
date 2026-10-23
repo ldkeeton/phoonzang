@@ -75,7 +75,7 @@ api_idx_009e_KPST:
     mov bx, 0                        ; 0x194b
     call aztec_ldv                   ; 0x194e
     push ax                          ; 0x1951
-    call ds_app_OLKR                 ; 0x1952
+    call format_int_decimal          ; 0x1952
     add sp, byte 4                   ; 0x1955
     mov ax, 0                        ; 0x1958
     push ax                          ; 0x195b
@@ -119,7 +119,7 @@ api_idx_009e_KPST:
     imul word [bp + 0x4]             ; 0x19b7
     mov bx, ax                       ; 0x19ba
     push word [bx + 0x5c1a]          ; 0x19bc
-    call ds_app_OLKR                 ; 0x19c0
+    call format_int_decimal          ; 0x19c0
     add sp, byte 4                   ; 0x19c3
     mov ax, 0                        ; 0x19c6
     push ax                          ; 0x19c9

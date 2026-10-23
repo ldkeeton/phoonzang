@@ -178,7 +178,7 @@ api_idx_0022_RHMN:
     call random_below                ; 0x23de
     pop cx                           ; 0x23e1
     mov bx, word [bp - 0x0004]       ; 0x23e2
-    mov byte [bx + bss_5990], al     ; 0x23e5
+    mov byte [bx + code_characters], al ; 0x23e5
 @..api_idx_0022_RHMN.l15:
     mov ax, word [bss_8f1c]          ; 0x23e9
     mov dx, word [bss_8f1e]          ; 0x23ec

@@ -33,6 +33,7 @@
     "api_idx_0002_KQPU": {"name": "find_object_at", "note": "returns next object index from start whose x, y, map piece match and type is nonzero (subject to a state bit), else -1"},
     "api_idx_0004_ONRQ": {"name": "add_overlay_item", "note": "inserts an item into the overlay list kept sorted by its first-argument key; hangs if 12 are queued"},
     "api_idx_0004_QVPP": {"name": "find_map_piece", "note": "maps world (x, y) to piece index and local x/y; 0 if found"},
+    "api_idx_0008_LLVT": {"name": "input_text_field", "note": "reads up to max_len characters into buf at x,y until Enter; the last argument 1 accepts only digits"},
     "api_idx_000a_GGLT": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
     "api_idx_000a_IQHO": {
       "name": "fill_action_slot_table"
@@ -149,6 +150,7 @@
         },
         "03b8": {"name": "release_and_exit", "note": "releases resources then exits with status"},
         "0422": {"name": "format_long_decimal", "note": "writes a signed long as a decimal string into the caller buffer"},
+        "04c4": {"name": "format_int_decimal", "note": "writes a signed int as decimal text into the caller buffer"},
         "04da": {"name": "draw_padded_number", "note": "format a long as a fixed-width decimal string, pad with leading spaces, and draw it"},
         "052e": {"name": "draw_number_field", "note": "forward a signed value to the fixed-width number formatter"},
         "0547": {"name": "str_subst_char", "note": "copies a string replacing each marker char with a second string"},
@@ -413,8 +415,13 @@
         "5987": {"name": "install_mode", "note": "byte: install/disk configuration; 5 selects the alternate data path prefix in data_file_path and shifts indices in ensure_game_disk/ds_app_file_QQMM"},
         "598c": {"name": "no_dissolve", "note": "byte: nonzero skips the screen-dissolve animation; message waits elsewhere double to compensate"},
         "598e": {"name": "loaded_sound_id", "note": "sound id last loaded by ds_app_QTIV, -1 none"},
+        "5990": {"name": "code_characters", "note": "100-byte code-character table; four positions are filled at startup and shown in the clue lines"},
         "59fc": {"name": "space_key_hit", "note": "set by poll_hotspots when the last key was space"},
         "5b3e": {"name": "hotspot_hit", "note": "number of the hotspot last activated (0 for none)"},
+        "5b40": {"name": "code_index_1", "note": "offset of the first clue character in the code table (1..0x18)"},
+        "5b42": {"name": "code_index_2", "note": "offset of the second clue character in the code table (0x19..0x31)"},
+        "5b44": {"name": "code_index_3", "note": "offset of the third clue character in the code table (0x32..0x4a)"},
+        "5b46": {"name": "code_index_4", "note": "offset of the fourth clue character in the code table (0x4b..0x63)"},
         "5b48": {"name": "picture_slot_number", "note": "record number held in each picture slot; 0xff when free"},
         "5b5a": {"name": "picture_slot_used", "note": "nonzero when the picture slot is in use"},
         "5b6c": {"name": "current_maze", "note": "int: maze number passed to gfx_free_maze by free_current_maze; -1 when none"},
@@ -442,6 +449,7 @@
         "7ed4": {"name": "glyph_x_table_b", "note": "second set; one byte per glyph at twice the glyph code"},
         "7f1d": {"name": "glyph_y_table_b", "note": "second set; one byte per glyph"},
         "82b6": {"name": "loaded_score_num", "note": "int: score number last loaded by load_score_files; app_gfx_free_score resets it to -1"},
+        "82b8": {"name": "answer_word", "note": "answer word typed in the prompt, checked by the caller"},
         "82d0": {"name": "party_status_areas", "note": "six saved screen areas, one per party slot, restored before its glyph is redrawn"},
         "82e8": {"name": "party_status_frame", "note": "word frame counter the slot glyphs are built from; other overlays advance it"},
         "82ea": {"name": "party_status_frame_step", "note": "multiplies the frame for slot 3 glyph; cleared when the game starts"},
@@ -459,6 +467,7 @@
         "8490": {"name": "party_char_ext", "note": "char *[] per party member, a second record; fill_action_slot_table tests [0xd7] == 0x47"},
         "84ec": {"name": "slot_records", "note": "20 slot records, 0x26-byte stride; byte 0 kind (<25 in use), byte 1 map piece, byte 0x14 flag"},
         "8979": {"name": "kind_state_table", "note": "4-byte entries per slot kind; byte 0 compared with game_state_arg"},
+        "8cfe": {"name": "adjacent_object_type", "note": "per-direction 0-3 object code in the maze cell around the party"},
         "8d0a": {"name": "saved_area_b", "note": "second gfx_save_area handle (long) restored with saved_area_a"},
         "8d0c": {"name": "saved_area_b_hi", "note": "high word of saved_area_b"},
         "8d0e": {"name": "saved_area_a", "note": "gfx_save_area handle (long) restored before redrawing the message strip"},
@@ -476,6 +485,7 @@
         "8f42": {"name": "party_cell_x", "note": "party x within current map piece (0-7)"},
         "8f44": {"name": "party_world_y", "note": "party y in level coordinates"},
         "8f46": {"name": "party_world_x", "note": "party x in level coordinates"},
+        "904c": {"name": "startup_check_stage", "note": "0 unchecked 1 copy protection answered 2 message checksum verified"},
         "904e": {"name": "spell_dialog_result", "note": "spell_select_dialog result: (power << 8) + spell + 0x100, -1 while open"},
         "9050": {"name": "spell_dialog_button", "note": "which spell_select_dialog button closed it: 0 first, 1 second"},
         "905a": {"name": "message_delay", "note": "int: tick count passed to wait_ticks_or_key after a message"},
@@ -722,11 +732,20 @@
       "fingerprint-end": "19413ae6ba3589e0f4a879c23822ba988cf4dfdb22725e7a88a067ef49ae2fed"
     },
     "vbase": {
+      "data_names": {
+        "910d": {"name": "screen_temp_file", "note": "\"V.$$$\" screen-save file name"},
+        "95b2": {"name": "intro_screen_number", "note": "1-4 picks the new-game intro screen; 0 skips it"},
+        "a494": {"name": "copy_protection_result", "note": "nonzero when the answer word passed the copy check"}
+      },
       "function_names": {
+        "2fe1": {"name": "load_game_data", "note": "loads party maze and monster data for the requested game start mode"},
+        "62d7": {"name": "copy_protection_prompt", "note": "draws four clue lines from the code characters and reads the answer word"},
+        "6657": {"name": "begin_game", "note": "starts a game after loading: resets party and maze state and shows the intro"},
         "7332": {"name": "draw_char_clipped_top_zero", "note": "draws one character as a string clipped to the top 320x145 area, passing 0 as the final gfx_draw_text argument"},
         "736f": {"name": "draw_char_clipped_top", "note": "Draws one character via gfx_draw_text at (x,y), clipped to x 0..320, y 0..145"},
         "7407": {"name": "draw_scene_frame", "note": "draws one frame of the scene selected by scene_index (1..8) and advances its animation state"},
-        "85e2": {"name": "blank_scene_screen", "note": "sets scene_tick to 1, fades out and blanks the 320x200 screen"}
+        "85e2": {"name": "blank_scene_screen", "note": "sets scene_tick to 1, fades out and blanks the 320x200 screen"},
+        "8f66": {"name": "show_intro_screen", "note": "draws the intro screen the given number selects"}
       },
       "file": "VBASE.OVR",
       "type": "aztec_overlay",
@@ -777,6 +796,9 @@
       "fingerprint-end": "5f236ebf8108dddf3960a4857c7c89fb31686a72420cd060a30b9d8264dee6f6"
     },
     "vmexe": {
+      "function_names": {
+        "1f4f": {"name": "item_slot_usable", "note": "nonzero when a party member item slot is usable; empty is never, flag 1 fails a one-in-three roll"}
+      },
       "data_names": {
         "90bc": {"name": "window_record", "note": "7-word window record api_idx_0012 fills from the box arguments and returns the address of"}
       },

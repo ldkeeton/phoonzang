@@ -111,7 +111,7 @@ loc_RVQR:
     call random_below                ; 0x04c2
     pop cx                           ; 0x04c5
     mov bx, word [bp - 0x0006]       ; 0x04c6
-    mov byte [bx + bss_5990], al     ; 0x04c9
+    mov byte [bx + code_characters], al ; 0x04c9
     inc word [bp - 0x0006]           ; 0x04cd
     mov ax, word [bp - 0x0006]       ; 0x04d0
     cmp ax, strict word 0x64         ; 0x04d3
@@ -475,7 +475,7 @@ loc_RVQR:
     call release_and_exit            ; 0x0852
     pop cx                           ; 0x0855
 @..loc_RVQR.l30:
-    mov word [bss_904c], 0           ; 0x0856
+    mov word [startup_check_stage], 0 ; 0x0856
     mov ax, 0                        ; 0x085c
     push ax                          ; 0x085f
     push ax                          ; 0x0860

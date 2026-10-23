@@ -1,20 +1,20 @@
 ; auto-generated
-api_idx_0038_HNUN:
+load_game_data:
     mov ax, 0xffc8                   ; 0x2fef
     call aztec_csav                  ; 0x2ff2
     mov word [bp - 0x000c], 0        ; 0x2ff5
     mov ax, word [disk_header]       ; 0x2ffa
     mov word [bp - 0x000e], ax       ; 0x2ffd
     cmp byte [install_mode], 5       ; 0x3000
-    jne short @..api_idx_0038_HNUN.l1 ; 0x3005
+    jne short @..load_game_data.l1   ; 0x3005
     cmp ax, strict word 0            ; 0x3007
-    jle short @..api_idx_0038_HNUN.l1 ; 0x300a
+    jle short @..load_game_data.l1   ; 0x300a
     inc ax                           ; 0x300c
     inc ax                           ; 0x300d
-    jmp short @..api_idx_0038_HNUN.l2 ; 0x300e
-@..api_idx_0038_HNUN.l1:
+    jmp short @..load_game_data.l2   ; 0x300e
+@..load_game_data.l1:
     mov ax, word [bp - 0x000e]       ; 0x3010
-@..api_idx_0038_HNUN.l2:
+@..load_game_data.l2:
     mov word [bp - 0x000e], ax       ; 0x3013
     mov ax, 0                        ; 0x3016
     push ax                          ; 0x3019
@@ -34,12 +34,12 @@ api_idx_0038_HNUN:
     add sp, byte 4                   ; 0x3037
     mov word [bp - 0x0010], 1        ; 0x303a
     cmp word [bp + 0x4], byte 0      ; 0x303f
-    je short @..api_idx_0038_HNUN.l3 ; 0x3043
+    je short @..load_game_data.l3    ; 0x3043
     mov ax, word [bp + 0x4]          ; 0x3045
     cmp ax, strict word 2            ; 0x3048
-    jne short @..api_idx_0038_HNUN.l4 ; 0x304b
-@..api_idx_0038_HNUN.l3:
-    mov word [bss_95b2], 4           ; 0x304d
+    jne short @..load_game_data.l4   ; 0x304b
+@..load_game_data.l3:
+    mov word [intro_screen_number], 4 ; 0x304d
     mov ax, 1                        ; 0x3053
     push ax                          ; 0x3056
     mov ax, dseg_90cf                ; 0x3057
@@ -51,9 +51,9 @@ api_idx_0038_HNUN:
     push ax                          ; 0x3065
     call aztec_strcpy                ; 0x3066
     add sp, byte 4                   ; 0x3069
-    jmp near @..api_idx_0038_HNUN.l13 ; 0x306c
-@..api_idx_0038_HNUN.l4:
-    mov word [bss_95b2], 0           ; 0x306f
+    jmp near @..load_game_data.l13   ; 0x306c
+@..load_game_data.l4:
+    mov word [intro_screen_number], 0 ; 0x306f
     mov ax, bss_594e                 ; 0x3075
     push ax                          ; 0x3078
     mov ax, bss_593a                 ; 0x3079
@@ -68,10 +68,10 @@ api_idx_0038_HNUN:
     call api_idx_0028_NRJN           ; 0x308a
     add sp, byte 0x0c                ; 0x308d
     cmp ax, strict word 2            ; 0x3090
-    jne short @..api_idx_0038_HNUN.l5 ; 0x3093
+    jne short @..load_game_data.l5   ; 0x3093
     mov ax, 0xffff                   ; 0x3095
     ret                              ; 0x3098
-@..api_idx_0038_HNUN.l5:
+@..load_game_data.l5:
     mov ax, 0x3a                     ; 0x3099
     push ax                          ; 0x309c
     mov ax, data_path_prefixes       ; 0x309d
@@ -99,7 +99,7 @@ api_idx_0038_HNUN:
     call aztec_strlen                ; 0x30cf
     pop cx                           ; 0x30d2
     cmp ax, strict word 0            ; 0x30d3
-    jle short @..api_idx_0038_HNUN.l6 ; 0x30d6
+    jle short @..load_game_data.l6   ; 0x30d6
     mov ax, bss_91ee                 ; 0x30d8
     push ax                          ; 0x30db
     call aztec_strlen                ; 0x30dc
@@ -108,10 +108,10 @@ api_idx_0038_HNUN:
     mov word [bp - 0x0002], ax       ; 0x30e1
     mov bx, ax                       ; 0x30e4
     cmp byte [bx + bss_91ee], 0x5c   ; 0x30e6
-    je short @..api_idx_0038_HNUN.l6 ; 0x30eb
+    je short @..load_game_data.l6    ; 0x30eb
     mov byte [bx + bss_91ef], 0x5c   ; 0x30ed
     mov byte [bx + bss_91f0], 0      ; 0x30f2
-@..api_idx_0038_HNUN.l6:
+@..load_game_data.l6:
     mov ax, bss_594e                 ; 0x30f7
     push ax                          ; 0x30fa
     mov ax, bss_91ee                 ; 0x30fb
@@ -119,7 +119,7 @@ api_idx_0038_HNUN:
     call aztec_strcat                ; 0x30ff
     add sp, byte 4                   ; 0x3102
     cmp byte [install_mode], 1       ; 0x3105
-    jne short @..api_idx_0038_HNUN.l7 ; 0x310a
+    jne short @..load_game_data.l7   ; 0x310a
     mov ax, bss_91da                 ; 0x310c
     push ax                          ; 0x310f
     mov ax, bss_91c6                 ; 0x3110
@@ -127,15 +127,15 @@ api_idx_0038_HNUN:
     call aztec_strcmp                ; 0x3114
     add sp, byte 4                   ; 0x3117
     test ax, ax                      ; 0x311a
-    jne short @..api_idx_0038_HNUN.l7 ; 0x311c
-    jmp near @..api_idx_0038_HNUN.l13 ; 0x311e
-@..api_idx_0038_HNUN.l7:
+    jne short @..load_game_data.l7   ; 0x311c
+    jmp near @..load_game_data.l13   ; 0x311e
+@..load_game_data.l7:
     mov ax, bss_91da                 ; 0x3121
     push ax                          ; 0x3124
     call aztec_strlen                ; 0x3125
     pop cx                           ; 0x3128
     cmp ax, strict word 0            ; 0x3129
-    jle short @..api_idx_0038_HNUN.l11 ; 0x312c
+    jle short @..load_game_data.l11  ; 0x312c
     mov ax, bss_91da                 ; 0x312e
     push ax                          ; 0x3131
     mov ax, bss_91c6                 ; 0x3132
@@ -143,12 +143,12 @@ api_idx_0038_HNUN:
     call aztec_strcmp                ; 0x3136
     add sp, byte 4                   ; 0x3139
     test ax, ax                      ; 0x313c
-    je short @..api_idx_0038_HNUN.l8 ; 0x313e
+    je short @..load_game_data.l8    ; 0x313e
     cmp byte [install_mode], 5       ; 0x3140
-    jne short @..api_idx_0038_HNUN.l9 ; 0x3145
-@..api_idx_0038_HNUN.l8:
+    jne short @..load_game_data.l9   ; 0x3145
+@..load_game_data.l8:
     mov word [bp - 0x000c], 1        ; 0x3147
-@..api_idx_0038_HNUN.l9:
+@..load_game_data.l9:
     mov ax, 0                        ; 0x314c
     push ax                          ; 0x314f
     push word [bp - 0x000c]          ; 0x3150
@@ -160,14 +160,14 @@ api_idx_0038_HNUN:
     add sp, byte 8                   ; 0x315e
     mov ax, 1                        ; 0x3161
     cmp word [bp - 0x000c], byte 0   ; 0x3164
-    je short @..api_idx_0038_HNUN.l10 ; 0x3168
+    je short @..load_game_data.l10   ; 0x3168
     mov ax, 0                        ; 0x316a
-@..api_idx_0038_HNUN.l10:
+@..load_game_data.l10:
     mov word [bp - 0x0010], ax       ; 0x316d
-    jmp short @..api_idx_0038_HNUN.l13 ; 0x3170
-@..api_idx_0038_HNUN.l11:
+    jmp short @..load_game_data.l13  ; 0x3170
+@..load_game_data.l11:
     cmp byte [install_mode], 1       ; 0x3172
-    jbe short @..api_idx_0038_HNUN.l13 ; 0x3177
+    jbe short @..load_game_data.l13  ; 0x3177
     mov word [bp - 0x000c], 1        ; 0x3179
     mov ax, 0                        ; 0x317e
     push ax                          ; 0x3181
@@ -180,13 +180,13 @@ api_idx_0038_HNUN:
     add sp, byte 8                   ; 0x3190
     mov ax, 1                        ; 0x3193
     cmp word [bp - 0x000c], byte 0   ; 0x3196
-    je short @..api_idx_0038_HNUN.l12 ; 0x319a
+    je short @..load_game_data.l12   ; 0x319a
     mov ax, 0                        ; 0x319c
-@..api_idx_0038_HNUN.l12:
+@..load_game_data.l12:
     mov word [bp - 0x0010], ax       ; 0x319f
-@..api_idx_0038_HNUN.l13:
+@..load_game_data.l13:
     cmp word [bp + 0x4], byte 2      ; 0x31a2
-    je short @..api_idx_0038_HNUN.l14 ; 0x31a6
+    je short @..load_game_data.l14   ; 0x31a6
     mov ax, 0xc7                     ; 0x31a8
     push ax                          ; 0x31ab
     mov ax, 0x13f                    ; 0x31ac
@@ -196,7 +196,7 @@ api_idx_0038_HNUN:
     push ax                          ; 0x31b4
     call gfx_show_area               ; 0x31b5
     add sp, byte 8                   ; 0x31b8
-@..api_idx_0038_HNUN.l14:
+@..load_game_data.l14:
     mov ax, 0                        ; 0x31bb
     push ax                          ; 0x31be
     mov ax, bss_91ee                 ; 0x31bf
@@ -205,13 +205,13 @@ api_idx_0038_HNUN:
     add sp, byte 4                   ; 0x31c6
     mov word [bp - 0x000a], ax       ; 0x31c9
     cmp ax, strict word 0xffff       ; 0x31cc
-    jne short @..api_idx_0038_HNUN.l16 ; 0x31cf
+    jne short @..load_game_data.l16  ; 0x31cf
     lea ax, word [bp - 0x0024]       ; 0x31d1
     push ax                          ; 0x31d4
     call loc_KPLK                    ; 0x31d5
     pop cx                           ; 0x31d8
     cmp word [bp - 0x000c], byte 0   ; 0x31d9
-    je short @..api_idx_0038_HNUN.l15 ; 0x31dd
+    je short @..load_game_data.l15   ; 0x31dd
     mov ax, 1                        ; 0x31df
     push ax                          ; 0x31e2
     push word [bp - 0x0010]          ; 0x31e3
@@ -220,18 +220,18 @@ api_idx_0038_HNUN:
     push ax                          ; 0x31ec
     call prompt_disk_swap            ; 0x31ed
     add sp, byte 8                   ; 0x31f0
-@..api_idx_0038_HNUN.l15:
+@..load_game_data.l15:
     mov ax, 0xffff                   ; 0x31f3
     ret                              ; 0x31f6
-@..api_idx_0038_HNUN.l16:
+@..load_game_data.l16:
     cmp word [bp + 0x4], byte 0      ; 0x31f7
-    je short @..api_idx_0038_HNUN.l17 ; 0x31fb
+    je short @..load_game_data.l17   ; 0x31fb
     mov ax, word [bp + 0x4]          ; 0x31fd
     cmp ax, strict word 2            ; 0x3200
-    jne short @..api_idx_0038_HNUN.l18 ; 0x3203
-@..api_idx_0038_HNUN.l17:
-    jmp short @..api_idx_0038_HNUN.l19 ; 0x3205
-@..api_idx_0038_HNUN.l18:
+    jne short @..load_game_data.l18  ; 0x3203
+@..load_game_data.l17:
+    jmp short @..load_game_data.l19  ; 0x3205
+@..load_game_data.l18:
     mov ax, 0xc7                     ; 0x3207
     push ax                          ; 0x320a
     mov ax, 0x13f                    ; 0x320b
@@ -257,7 +257,7 @@ api_idx_0038_HNUN:
     push ax                          ; 0x3235
     call api_idx_0004_VUIP           ; 0x3236
     add sp, byte 0x0e                ; 0x3239
-@..api_idx_0038_HNUN.l19:
+@..load_game_data.l19:
     mov si, bss_5642                 ; 0x323c
     mov di, bss_95b4                 ; 0x323f
     mov cx, ds                       ; 0x3242
@@ -282,7 +282,7 @@ api_idx_0038_HNUN:
     add sp, byte 6                   ; 0x326e
     mov word [bp - 0x0008], ax       ; 0x3271
     cmp ax, strict word 0            ; 0x3274
-    jg short @..api_idx_0038_HNUN.l21 ; 0x3277
+    jg short @..load_game_data.l21   ; 0x3277
     lea ax, word [bp - 0x0024]       ; 0x3279
     push ax                          ; 0x327c
     call loc_KPLK                    ; 0x327d
@@ -291,7 +291,7 @@ api_idx_0038_HNUN:
     call aztec_close                 ; 0x3284
     pop cx                           ; 0x3287
     cmp word [bp - 0x000c], byte 0   ; 0x3288
-    je short @..api_idx_0038_HNUN.l20 ; 0x328c
+    je short @..load_game_data.l20   ; 0x328c
     mov ax, 1                        ; 0x328e
     push ax                          ; 0x3291
     push word [bp - 0x0010]          ; 0x3292
@@ -300,12 +300,12 @@ api_idx_0038_HNUN:
     push ax                          ; 0x329b
     call prompt_disk_swap            ; 0x329c
     add sp, byte 8                   ; 0x329f
-@..api_idx_0038_HNUN.l20:
+@..load_game_data.l20:
     mov ax, 0xffff                   ; 0x32a2
     ret                              ; 0x32a5
-@..api_idx_0038_HNUN.l21:
+@..load_game_data.l21:
     mov word [bp - 0x0002], 0        ; 0x32a6
-@..api_idx_0038_HNUN.l22:
+@..load_game_data.l22:
     mov ax, 0x14                     ; 0x32ab
     imul word [bp - 0x0002]          ; 0x32ae
     add ax, bss_9884                 ; 0x32b1
@@ -319,7 +319,7 @@ api_idx_0038_HNUN:
     inc word [bp - 0x0002]           ; 0x32c5
     mov ax, word [bp - 0x0002]       ; 0x32c8
     cmp ax, strict word 4            ; 0x32cb
-    jl short @..api_idx_0038_HNUN.l22 ; 0x32ce
+    jl short @..load_game_data.l22   ; 0x32ce
     mov al, byte [bss_98d4]          ; 0x32d0
     mov byte [screen_store_1_enabled], al ; 0x32d3
     mov al, byte [bss_98d5]          ; 0x32d6
@@ -335,14 +335,14 @@ api_idx_0038_HNUN:
     mov al, byte [bss_98eb]          ; 0x32f0
     mov byte [bss_5979], al          ; 0x32f3
     mov word [bp - 0x0002], 0        ; 0x32f6
-@..api_idx_0038_HNUN.l23:
+@..load_game_data.l23:
     mov bx, word [bp - 0x0002]       ; 0x32fb
     mov al, byte [bx + bss_98ee]     ; 0x32fe
     mov byte [bx + bss_597c], al     ; 0x3302
     inc word [bp - 0x0002]           ; 0x3306
     mov ax, word [bp - 0x0002]       ; 0x3309
     cmp ax, strict word 4            ; 0x330c
-    jl short @..api_idx_0038_HNUN.l23 ; 0x330f
+    jl short @..load_game_data.l23   ; 0x330f
     mov al, byte [bss_98f6]          ; 0x3311
     mov byte [bss_5984], al          ; 0x3314
     mov al, byte [bss_98f7]          ; 0x3317
@@ -372,7 +372,7 @@ api_idx_0038_HNUN:
     imul word [bss_590e]             ; 0x335e
     mov word [bp - 0x0006], ax       ; 0x3362
     cmp ax, strict word 0            ; 0x3365
-    jle short @..api_idx_0038_HNUN.l25 ; 0x3368
+    jle short @..load_game_data.l25  ; 0x3368
     push ax                          ; 0x336a
     push word [bss_0e10]             ; 0x336b
     push word [bp - 0x000a]          ; 0x336f
@@ -380,7 +380,7 @@ api_idx_0038_HNUN:
     add sp, byte 6                   ; 0x3375
     mov word [bp - 0x0008], ax       ; 0x3378
     cmp ax, strict word 0            ; 0x337b
-    jg short @..api_idx_0038_HNUN.l25 ; 0x337e
+    jg short @..load_game_data.l25   ; 0x337e
     lea ax, word [bp - 0x0024]       ; 0x3380
     push ax                          ; 0x3383
     call loc_KPLK                    ; 0x3384
@@ -389,7 +389,7 @@ api_idx_0038_HNUN:
     call aztec_close                 ; 0x338b
     pop cx                           ; 0x338e
     cmp word [bp - 0x000c], byte 0   ; 0x338f
-    je short @..api_idx_0038_HNUN.l24 ; 0x3393
+    je short @..load_game_data.l24   ; 0x3393
     mov ax, 1                        ; 0x3395
     push ax                          ; 0x3398
     push word [bp - 0x0010]          ; 0x3399
@@ -398,17 +398,17 @@ api_idx_0038_HNUN:
     push ax                          ; 0x33a2
     call prompt_disk_swap            ; 0x33a3
     add sp, byte 8                   ; 0x33a6
-@..api_idx_0038_HNUN.l24:
+@..load_game_data.l24:
     mov ax, 0xffff                   ; 0x33a9
     ret                              ; 0x33ac
-@..api_idx_0038_HNUN.l25:
+@..load_game_data.l25:
     mov ax, word [bss_5910]          ; 0x33ad
     shl ax, 1                        ; 0x33b0
     shl ax, 1                        ; 0x33b2
     shl ax, 1                        ; 0x33b4
     mov word [bp - 0x0006], ax       ; 0x33b6
     cmp ax, strict word 0            ; 0x33b9
-    jle short @..api_idx_0038_HNUN.l27 ; 0x33bc
+    jle short @..load_game_data.l27  ; 0x33bc
     push ax                          ; 0x33be
     push word [bss_0e0e]             ; 0x33bf
     push word [bp - 0x000a]          ; 0x33c3
@@ -416,7 +416,7 @@ api_idx_0038_HNUN:
     add sp, byte 6                   ; 0x33c9
     mov word [bp - 0x0008], ax       ; 0x33cc
     cmp ax, strict word 0            ; 0x33cf
-    jg short @..api_idx_0038_HNUN.l27 ; 0x33d2
+    jg short @..load_game_data.l27   ; 0x33d2
     lea ax, word [bp - 0x0024]       ; 0x33d4
     push ax                          ; 0x33d7
     call loc_KPLK                    ; 0x33d8
@@ -425,7 +425,7 @@ api_idx_0038_HNUN:
     call aztec_close                 ; 0x33df
     pop cx                           ; 0x33e2
     cmp word [bp - 0x000c], byte 0   ; 0x33e3
-    je short @..api_idx_0038_HNUN.l26 ; 0x33e7
+    je short @..load_game_data.l26   ; 0x33e7
     mov ax, 1                        ; 0x33e9
     push ax                          ; 0x33ec
     push word [bp - 0x0010]          ; 0x33ed
@@ -434,12 +434,12 @@ api_idx_0038_HNUN:
     push ax                          ; 0x33f6
     call prompt_disk_swap            ; 0x33f7
     add sp, byte 8                   ; 0x33fa
-@..api_idx_0038_HNUN.l26:
+@..load_game_data.l26:
     mov ax, 0xffff                   ; 0x33fd
     ret                              ; 0x3400
-@..api_idx_0038_HNUN.l27:
+@..load_game_data.l27:
     mov word [bp - 0x0004], 0        ; 0x3401
-@..api_idx_0038_HNUN.l28:
+@..load_game_data.l28:
     mov ax, 0x80                     ; 0x3406
     push ax                          ; 0x3409
     mov ax, bss_9900                 ; 0x340a
@@ -449,7 +449,7 @@ api_idx_0038_HNUN:
     add sp, byte 6                   ; 0x3414
     mov word [bp - 0x0008], ax       ; 0x3417
     cmp ax, strict word 0            ; 0x341a
-    jg short @..api_idx_0038_HNUN.l30 ; 0x341d
+    jg short @..load_game_data.l30   ; 0x341d
     lea ax, word [bp - 0x0024]       ; 0x341f
     push ax                          ; 0x3422
     call loc_KPLK                    ; 0x3423
@@ -458,7 +458,7 @@ api_idx_0038_HNUN:
     call aztec_close                 ; 0x342a
     pop cx                           ; 0x342d
     cmp word [bp - 0x000c], byte 0   ; 0x342e
-    je short @..api_idx_0038_HNUN.l29 ; 0x3432
+    je short @..load_game_data.l29   ; 0x3432
     mov ax, 1                        ; 0x3434
     push ax                          ; 0x3437
     push word [bp - 0x0010]          ; 0x3438
@@ -467,10 +467,10 @@ api_idx_0038_HNUN:
     push ax                          ; 0x3441
     call prompt_disk_swap            ; 0x3442
     add sp, byte 8                   ; 0x3445
-@..api_idx_0038_HNUN.l29:
+@..load_game_data.l29:
     mov ax, 0xffff                   ; 0x3448
     ret                              ; 0x344b
-@..api_idx_0038_HNUN.l30:
+@..load_game_data.l30:
     mov ax, 0x80                     ; 0x344c
     push ax                          ; 0x344f
     mov ax, bss_9980                 ; 0x3450
@@ -480,7 +480,7 @@ api_idx_0038_HNUN:
     add sp, byte 6                   ; 0x345a
     mov word [bp - 0x0008], ax       ; 0x345d
     cmp ax, strict word 0            ; 0x3460
-    jg short @..api_idx_0038_HNUN.l32 ; 0x3463
+    jg short @..load_game_data.l32   ; 0x3463
     lea ax, word [bp - 0x0024]       ; 0x3465
     push ax                          ; 0x3468
     call loc_KPLK                    ; 0x3469
@@ -489,7 +489,7 @@ api_idx_0038_HNUN:
     call aztec_close                 ; 0x3470
     pop cx                           ; 0x3473
     cmp word [bp - 0x000c], byte 0   ; 0x3474
-    je short @..api_idx_0038_HNUN.l31 ; 0x3478
+    je short @..load_game_data.l31   ; 0x3478
     mov ax, 1                        ; 0x347a
     push ax                          ; 0x347d
     push word [bp - 0x0010]          ; 0x347e
@@ -498,10 +498,10 @@ api_idx_0038_HNUN:
     push ax                          ; 0x3487
     call prompt_disk_swap            ; 0x3488
     add sp, byte 8                   ; 0x348b
-@..api_idx_0038_HNUN.l31:
+@..load_game_data.l31:
     mov ax, 0xffff                   ; 0x348e
     ret                              ; 0x3491
-@..api_idx_0038_HNUN.l32:
+@..load_game_data.l32:
     mov ax, 0x80                     ; 0x3492
     push ax                          ; 0x3495
     mov ax, word [bp - 0x0004]       ; 0x3496
@@ -537,9 +537,9 @@ api_idx_0038_HNUN:
     inc word [bp - 0x0004]           ; 0x34da
     mov ax, word [bp - 0x0004]       ; 0x34dd
     cmp ax, strict word 0x20         ; 0x34e0
-    jge short @..api_idx_0038_HNUN.l33 ; 0x34e3
-    jmp near @..api_idx_0038_HNUN.l28 ; 0x34e5
-@..api_idx_0038_HNUN.l33:
+    jge short @..load_game_data.l33  ; 0x34e3
+    jmp near @..load_game_data.l28   ; 0x34e5
+@..load_game_data.l33:
     mov ax, 0x4c                     ; 0x34e8
     push ax                          ; 0x34eb
     mov ax, bss_9a00                 ; 0x34ec
@@ -549,7 +549,7 @@ api_idx_0038_HNUN:
     add sp, byte 6                   ; 0x34f6
     mov word [bp - 0x0008], ax       ; 0x34f9
     cmp ax, strict word 0            ; 0x34fc
-    jg short @..api_idx_0038_HNUN.l35 ; 0x34ff
+    jg short @..load_game_data.l35   ; 0x34ff
     lea ax, word [bp - 0x0024]       ; 0x3501
     push ax                          ; 0x3504
     call loc_KPLK                    ; 0x3505
@@ -558,7 +558,7 @@ api_idx_0038_HNUN:
     call aztec_close                 ; 0x350c
     pop cx                           ; 0x350f
     cmp word [bp - 0x000c], byte 0   ; 0x3510
-    je short @..api_idx_0038_HNUN.l34 ; 0x3514
+    je short @..load_game_data.l34   ; 0x3514
     mov ax, 1                        ; 0x3516
     push ax                          ; 0x3519
     push word [bp - 0x0010]          ; 0x351a
@@ -567,12 +567,12 @@ api_idx_0038_HNUN:
     push ax                          ; 0x3523
     call prompt_disk_swap            ; 0x3524
     add sp, byte 8                   ; 0x3527
-@..api_idx_0038_HNUN.l34:
+@..load_game_data.l34:
     mov ax, 0xffff                   ; 0x352a
     ret                              ; 0x352d
-@..api_idx_0038_HNUN.l35:
+@..load_game_data.l35:
     cmp word [bss_9a00], byte 0xff   ; 0x352e
-    jne short @..api_idx_0038_HNUN.l37 ; 0x3533
+    jne short @..load_game_data.l37  ; 0x3533
     lea ax, word [bp - 0x0024]       ; 0x3535
     push ax                          ; 0x3538
     call loc_KPLK                    ; 0x3539
@@ -581,7 +581,7 @@ api_idx_0038_HNUN:
     call aztec_close                 ; 0x3540
     pop cx                           ; 0x3543
     cmp word [bp - 0x000c], byte 0   ; 0x3544
-    je short @..api_idx_0038_HNUN.l36 ; 0x3548
+    je short @..load_game_data.l36   ; 0x3548
     mov ax, 1                        ; 0x354a
     push ax                          ; 0x354d
     push word [bp - 0x0010]          ; 0x354e
@@ -590,10 +590,10 @@ api_idx_0038_HNUN:
     push ax                          ; 0x3557
     call prompt_disk_swap            ; 0x3558
     add sp, byte 8                   ; 0x355b
-@..api_idx_0038_HNUN.l36:
+@..load_game_data.l36:
     mov ax, 0xffff                   ; 0x355e
     ret                              ; 0x3561
-@..api_idx_0038_HNUN.l37:
+@..load_game_data.l37:
     mov ax, word [bss_9a02]          ; 0x3562
     mov word [party_world_x], ax     ; 0x3565
     mov ax, word [bss_9a04]          ; 0x3568
@@ -633,7 +633,7 @@ api_idx_0038_HNUN:
     mov ax, word [bss_9a24]          ; 0x35ce
     mov word [bss_8f26], ax          ; 0x35d1
     mov word [bp - 0x0002], 0        ; 0x35d4
-@..api_idx_0038_HNUN.l38:
+@..load_game_data.l38:
     mov ax, word [bp - 0x0002]       ; 0x35d9
     shl ax, 1                        ; 0x35dc
     shl ax, 1                        ; 0x35de
@@ -645,7 +645,7 @@ api_idx_0038_HNUN:
     inc word [bp - 0x0002]           ; 0x35f2
     mov ax, word [bp - 0x0002]       ; 0x35f5
     cmp ax, strict word 6            ; 0x35f8
-    jl short @..api_idx_0038_HNUN.l38 ; 0x35fb
+    jl short @..load_game_data.l38   ; 0x35fb
     mov ax, word [bss_9a26]          ; 0x35fd
     mov dx, word [bss_9a28]          ; 0x3600
     mov word [bss_8f1e], dx          ; 0x3604
@@ -707,7 +707,7 @@ api_idx_0038_HNUN:
     add sp, byte 6                   ; 0x3699
     mov word [bp - 0x0008], ax       ; 0x369c
     cmp ax, strict word 0            ; 0x369f
-    jg short @..api_idx_0038_HNUN.l40 ; 0x36a2
+    jg short @..load_game_data.l40   ; 0x36a2
     lea ax, word [bp - 0x0024]       ; 0x36a4
     push ax                          ; 0x36a7
     call loc_KPLK                    ; 0x36a8
@@ -716,7 +716,7 @@ api_idx_0038_HNUN:
     call aztec_close                 ; 0x36af
     pop cx                           ; 0x36b2
     cmp word [bp - 0x000c], byte 0   ; 0x36b3
-    je short @..api_idx_0038_HNUN.l39 ; 0x36b7
+    je short @..load_game_data.l39   ; 0x36b7
     mov ax, 1                        ; 0x36b9
     push ax                          ; 0x36bc
     push word [bp - 0x0010]          ; 0x36bd
@@ -725,36 +725,36 @@ api_idx_0038_HNUN:
     push ax                          ; 0x36c6
     call prompt_disk_swap            ; 0x36c7
     add sp, byte 8                   ; 0x36ca
-@..api_idx_0038_HNUN.l39:
+@..load_game_data.l39:
     mov ax, 0xffff                   ; 0x36cd
     ret                              ; 0x36d0
-@..api_idx_0038_HNUN.l40:
+@..load_game_data.l40:
     mov word [bp - 0x0002], 0        ; 0x36d1
-@..api_idx_0038_HNUN.l41:
+@..load_game_data.l41:
     mov ax, 0x64                     ; 0x36d6
     push ax                          ; 0x36d9
     call random_below                ; 0x36da
     pop cx                           ; 0x36dd
     mov bx, word [bp - 0x0002]       ; 0x36de
-    mov byte [bx + bss_5990], al     ; 0x36e1
+    mov byte [bx + code_characters], al ; 0x36e1
     inc word [bp - 0x0002]           ; 0x36e5
     mov ax, word [bp - 0x0002]       ; 0x36e8
     cmp ax, strict word 0x64         ; 0x36eb
-    jl short @..api_idx_0038_HNUN.l41 ; 0x36ee
+    jl short @..load_game_data.l41   ; 0x36ee
     cmp word [bp + 0x4], byte 1      ; 0x36f0
-    je short @..api_idx_0038_HNUN.l42 ; 0x36f4
-    jmp near @..api_idx_0038_HNUN.l49 ; 0x36f6
-@..api_idx_0038_HNUN.l42:
+    je short @..load_game_data.l42   ; 0x36f4
+    jmp near @..load_game_data.l49   ; 0x36f6
+@..load_game_data.l42:
     mov ax, 0x64                     ; 0x36f9
     push ax                          ; 0x36fc
-    mov ax, bss_5990                 ; 0x36fd
+    mov ax, code_characters          ; 0x36fd
     push ax                          ; 0x3700
     push word [bp - 0x000a]          ; 0x3701
     call aztec_read                  ; 0x3704
     add sp, byte 6                   ; 0x3707
     mov word [bp - 0x0008], ax       ; 0x370a
     cmp ax, strict word 0            ; 0x370d
-    jg short @..api_idx_0038_HNUN.l44 ; 0x3710
+    jg short @..load_game_data.l44   ; 0x3710
     lea ax, word [bp - 0x0024]       ; 0x3712
     push ax                          ; 0x3715
     call loc_KPLK                    ; 0x3716
@@ -763,7 +763,7 @@ api_idx_0038_HNUN:
     call aztec_close                 ; 0x371d
     pop cx                           ; 0x3720
     cmp word [bp - 0x000c], byte 0   ; 0x3721
-    je short @..api_idx_0038_HNUN.l43 ; 0x3725
+    je short @..load_game_data.l43   ; 0x3725
     mov ax, 1                        ; 0x3727
     push ax                          ; 0x372a
     push word [bp - 0x0010]          ; 0x372b
@@ -772,14 +772,14 @@ api_idx_0038_HNUN:
     push ax                          ; 0x3734
     call prompt_disk_swap            ; 0x3735
     add sp, byte 8                   ; 0x3738
-@..api_idx_0038_HNUN.l43:
+@..load_game_data.l43:
     mov ax, 0xffff                   ; 0x373b
     ret                              ; 0x373e
-@..api_idx_0038_HNUN.l44:
+@..load_game_data.l44:
     mov word [bss_69c8], 0           ; 0x373f
     mov word [bp - 0x0002], 0        ; 0x3745
-    jmp near @..api_idx_0038_HNUN.l48 ; 0x374a
-@..api_idx_0038_HNUN.l45:
+    jmp near @..load_game_data.l48   ; 0x374a
+@..load_game_data.l45:
     mov ax, 0x248                    ; 0x374d
     push ax                          ; 0x3750
     mov ax, bss_9a4c                 ; 0x3751
@@ -789,7 +789,7 @@ api_idx_0038_HNUN:
     add sp, byte 6                   ; 0x375b
     mov word [bp - 0x0008], ax       ; 0x375e
     cmp ax, strict word 0            ; 0x3761
-    jg short @..api_idx_0038_HNUN.l47 ; 0x3764
+    jg short @..load_game_data.l47   ; 0x3764
     lea ax, word [bp - 0x0024]       ; 0x3766
     push ax                          ; 0x3769
     call loc_KPLK                    ; 0x376a
@@ -798,7 +798,7 @@ api_idx_0038_HNUN:
     call aztec_close                 ; 0x3771
     pop cx                           ; 0x3774
     cmp word [bp - 0x000c], byte 0   ; 0x3775
-    je short @..api_idx_0038_HNUN.l46 ; 0x3779
+    je short @..load_game_data.l46   ; 0x3779
     mov ax, 1                        ; 0x377b
     push ax                          ; 0x377e
     push word [bp - 0x0010]          ; 0x377f
@@ -807,10 +807,10 @@ api_idx_0038_HNUN:
     push ax                          ; 0x3788
     call prompt_disk_swap            ; 0x3789
     add sp, byte 8                   ; 0x378c
-@..api_idx_0038_HNUN.l46:
+@..load_game_data.l46:
     mov ax, 0xffff                   ; 0x378f
     ret                              ; 0x3792
-@..api_idx_0038_HNUN.l47:
+@..load_game_data.l47:
     push word [bss_69c8]             ; 0x3793
     call api_idx_0006_MHOR           ; 0x3797
     pop cx                           ; 0x379a
@@ -830,17 +830,17 @@ api_idx_0038_HNUN:
     rep movsw                        ; 0x37bf
     inc word [bss_69c8]              ; 0x37c1
     inc word [bp - 0x0002]           ; 0x37c5
-@..api_idx_0038_HNUN.l48:
+@..load_game_data.l48:
     mov ax, word [bp - 0x0002]       ; 0x37c8
     cmp ax, word [bss_9a4a]          ; 0x37cb
-    jge short @..api_idx_0038_HNUN.l49 ; 0x37cf
-    jmp near @..api_idx_0038_HNUN.l45 ; 0x37d1
-@..api_idx_0038_HNUN.l49:
+    jge short @..load_game_data.l49  ; 0x37cf
+    jmp near @..load_game_data.l45   ; 0x37d1
+@..load_game_data.l49:
     push word [bp - 0x000a]          ; 0x37d4
     call aztec_close                 ; 0x37d7
     pop cx                           ; 0x37da
     cmp word [bp - 0x000c], byte 0   ; 0x37db
-    je short @..api_idx_0038_HNUN.l50 ; 0x37df
+    je short @..load_game_data.l50   ; 0x37df
     mov ax, 1                        ; 0x37e1
     push ax                          ; 0x37e4
     push word [bp - 0x0010]          ; 0x37e5
@@ -849,11 +849,11 @@ api_idx_0038_HNUN:
     push ax                          ; 0x37ee
     call prompt_disk_swap            ; 0x37ef
     add sp, byte 8                   ; 0x37f2
-@..api_idx_0038_HNUN.l50:
+@..load_game_data.l50:
     cmp word [bp + 0x4], byte 2      ; 0x37f5
-    jne short @..api_idx_0038_HNUN.l52 ; 0x37f9
+    jne short @..load_game_data.l52  ; 0x37f9
     mov word [bp - 0x0002], 0        ; 0x37fb
-@..api_idx_0038_HNUN.l51:
+@..load_game_data.l51:
     mov ax, 0                        ; 0x3800
     push ax                          ; 0x3803
     mov ax, 0x248                    ; 0x3804
@@ -867,16 +867,16 @@ api_idx_0038_HNUN:
     inc word [bp - 0x0002]           ; 0x3818
     mov ax, word [bp - 0x0002]       ; 0x381b
     cmp ax, strict word 6            ; 0x381e
-    jl short @..api_idx_0038_HNUN.l51 ; 0x3821
+    jl short @..load_game_data.l51   ; 0x3821
     call api_idx_0072_OUII           ; 0x3823
     cmp ax, strict word 0xffff       ; 0x3826
-    jne short @..api_idx_0038_HNUN.l52 ; 0x3829
+    jne short @..load_game_data.l52  ; 0x3829
     mov ax, 0xffff                   ; 0x382b
     ret                              ; 0x382e
-@..api_idx_0038_HNUN.l52:
+@..load_game_data.l52:
     mov word [bp - 0x0002], 0        ; 0x382f
-    jmp short @..api_idx_0038_HNUN.l55 ; 0x3834
-@..api_idx_0038_HNUN.l53:
+    jmp short @..load_game_data.l55  ; 0x3834
+@..load_game_data.l53:
     mov ax, word [bp - 0x0002]       ; 0x3836
     shl ax, 1                        ; 0x3839
     mov bx, ax                       ; 0x383b
@@ -890,18 +890,18 @@ api_idx_0038_HNUN:
     call api_idx_0016_KOOO           ; 0x3850
     add sp, byte 4                   ; 0x3853
     cmp word [bp + 0x4], byte 2      ; 0x3856
-    je short @..api_idx_0038_HNUN.l54 ; 0x385a
+    je short @..load_game_data.l54   ; 0x385a
     mov ax, 0                        ; 0x385c
     push ax                          ; 0x385f
     push word [bp - 0x0002]          ; 0x3860
     call ds_app_LUOV                 ; 0x3863
     add sp, byte 4                   ; 0x3866
-@..api_idx_0038_HNUN.l54:
+@..load_game_data.l54:
     inc word [bp - 0x0002]           ; 0x3869
-@..api_idx_0038_HNUN.l55:
+@..load_game_data.l55:
     mov ax, word [bp - 0x0002]       ; 0x386c
     cmp ax, word [bss_69c8]          ; 0x386f
-    jl short @..api_idx_0038_HNUN.l53 ; 0x3873
+    jl short @..load_game_data.l53   ; 0x3873
     mov ax, 0xc7                     ; 0x3875
     push ax                          ; 0x3878
     mov ax, 0x13f                    ; 0x3879

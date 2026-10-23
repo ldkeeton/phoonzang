@@ -8,6 +8,6 @@ ds_app_OOHU: ; Aztec csav frame=0x0000
     pop cx                           ; 0x1cbe
     mov word [bss_59f4], ax          ; 0x1cbf
     mov al, byte [bss_59f4]          ; 0x1cc2
-    mov byte [bss_5990], al          ; 0x1cc5
+    mov byte [code_characters], al   ; 0x1cc5
     mov byte [bss_0fd5], al          ; 0x1cc8
     ret                              ; 0x1ccb

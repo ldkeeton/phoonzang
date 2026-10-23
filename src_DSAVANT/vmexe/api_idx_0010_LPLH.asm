@@ -80,7 +80,7 @@ api_idx_0010_LPLH:
 @..api_idx_0010_LPLH.l9:
     push word [bp - 0x0002]          ; 0x271d
     push word [bp + 0x4]             ; 0x2720
-    call loc_MHUK                    ; 0x2723
+    call item_slot_usable            ; 0x2723
     add sp, byte 4                   ; 0x2726
     test ax, ax                      ; 0x2729
     je short @..api_idx_0010_LPLH.l10 ; 0x272b
@@ -131,7 +131,7 @@ api_idx_0010_LPLH:
     push si                          ; 0x2791
     push word [bp - 0x000c]          ; 0x2792
     push word [bp + 0x4]             ; 0x2795
-    call api_idx_0002_LKMM           ; 0x2798
+    call api_idx_0002_NHHH           ; 0x2798
     add sp, byte 8                   ; 0x279b
     mov word [bp - 0x000c], ax       ; 0x279e
     jmp short @..api_idx_0010_LPLH.l16 ; 0x27a1
@@ -181,7 +181,7 @@ api_idx_0010_LPLH:
     mov ax, bss_9136                 ; 0x2804
     push ax                          ; 0x2807
     push word [bp - 0x000c]          ; 0x2808
-    call ds_app_OLKR                 ; 0x280b
+    call format_int_decimal          ; 0x280b
     add sp, byte 4                   ; 0x280e
     mov ax, bss_90e6                 ; 0x2811
     push ax                          ; 0x2814

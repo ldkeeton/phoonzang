@@ -181,7 +181,7 @@ bss_8afe equ __zbss_8afe - __zdseg_start
 bss_8b7e equ __zbss_8b7e - __zdseg_start
 bss_8bfe equ __zbss_8bfe - __zdseg_start
 bss_8c7e equ __zbss_8c7e - __zdseg_start
-bss_8cfe equ __zbss_8cfe - __zdseg_start
+adjacent_object_type equ __zbss_8cfe - __zdseg_start
 bss_8d06 equ __zbss_8d06 - __zdseg_start
 bss_8d08 equ __zbss_8d08 - __zdseg_start
 saved_area_b equ __zbss_8d0a - __zdseg_start
@@ -217,7 +217,7 @@ party_cell_x equ __zbss_8f42 - __zdseg_start
 party_world_y equ __zbss_8f44 - __zdseg_start
 party_world_x equ __zbss_8f46 - __zdseg_start
 bss_8f48 equ __zbss_8f48 - __zdseg_start
-bss_904c equ __zbss_904c - __zdseg_start
+startup_check_stage equ __zbss_904c - __zdseg_start
 spell_dialog_result equ __zbss_904e - __zdseg_start
 spell_dialog_button equ __zbss_9050 - __zdseg_start
 bss_9052 equ __zbss_9052 - __zdseg_start
@@ -317,7 +317,7 @@ bss_0e34 equ __zbss_0e34 - __zdseg_start
 
 %include "ds/game/format_long_decimal.asm" ; 0x0422
 
-%include "ds/game/ds_app_OLKR.asm"         ; 0x04c4
+%include "ds/game/format_int_decimal.asm"  ; 0x04c4
 
 %include "ds/game/draw_padded_number.asm"  ; 0x04da
 
@@ -372,11 +372,11 @@ bss_5984        equ __zbss_5984 - __zdseg_start
 loaded_sound_id equ __zbss_598e - __zdseg_start
 %include "ds/game/play_sound_effect.asm"   ; 0x0a27
 
-; bss_0e34 equ __zbss_0e34 - __zdseg_start
-bss_5990 equ __zbss_5990 - __zdseg_start
-bss_59f4 equ __zbss_59f4 - __zdseg_start
-bss_59f6 equ __zbss_59f6 - __zdseg_start
-bss_59f8 equ __zbss_59f8 - __zdseg_start
+; bss_0e34        equ __zbss_0e34 - __zdseg_start
+code_characters equ __zbss_5990 - __zdseg_start
+bss_59f4        equ __zbss_59f4 - __zdseg_start
+bss_59f6        equ __zbss_59f6 - __zdseg_start
+bss_59f8        equ __zbss_59f8 - __zdseg_start
 %include "ds/game/ds_app_RMGT.asm"         ; 0x0ad7
 
 %include "ds/game/set_mouse_pointer_shape.asm" ; 0x0af6
@@ -387,13 +387,13 @@ space_key_hit equ __zbss_59fc - __zdseg_start
 hotspot_hit   equ __zbss_5b3e - __zdseg_start
 %include "ds/game/poll_hotspots.asm"       ; 0x0b54
 
-; bss_0fd6 equ __zbss_0fd6 - __zdseg_start
-; bss_5990 equ __zbss_5990 - __zdseg_start
-; bss_59f6 equ __zbss_59f6 - __zdseg_start
-bss_5b40 equ __zbss_5b40 - __zdseg_start
-bss_5b42 equ __zbss_5b42 - __zdseg_start
-bss_5b44 equ __zbss_5b44 - __zdseg_start
-bss_5b46 equ __zbss_5b46 - __zdseg_start
+; bss_0fd6        equ __zbss_0fd6 - __zdseg_start
+; code_characters equ __zbss_5990 - __zdseg_start
+; bss_59f6        equ __zbss_59f6 - __zdseg_start
+code_index_1    equ __zbss_5b40 - __zdseg_start
+code_index_2    equ __zbss_5b42 - __zdseg_start
+code_index_3    equ __zbss_5b44 - __zdseg_start
+code_index_4    equ __zbss_5b46 - __zdseg_start
 %include "ds/game/ds_app_string_KVNI.asm"  ; 0x0c0b
 
 %include "ds/game/set_hotspot.asm"         ; 0x0ced
@@ -467,9 +467,9 @@ cell_key_grid equ __zbss_5c34 - __zdseg_start
 
 %include "ds/game/ds_app_UTUH.asm"         ; 0x1c6e
 
-; bss_0fd5 equ __zbss_0fd5 - __zdseg_start
-; bss_5990 equ __zbss_5990 - __zdseg_start
-; bss_59f4 equ __zbss_59f4 - __zdseg_start
+; bss_0fd5        equ __zbss_0fd5 - __zdseg_start
+; code_characters equ __zbss_5990 - __zdseg_start
+; bss_59f4        equ __zbss_59f4 - __zdseg_start
 %include "ds/game/ds_app_OOHU.asm"         ; 0x1cb1
 
 %include "ds/game/ds_app_KTPM.asm"         ; 0x1ccc
@@ -552,10 +552,10 @@ bss_597f equ __zbss_597f - __zdseg_start
 ; video_mode equ __zbss_5985 - __zdseg_start
 %include "ds/game/ds_app_NNSU.asm"         ; 0x2bed
 
-; bss_1008 equ __zbss_1008 - __zdseg_start
-; bss_59f6 equ __zbss_59f6 - __zdseg_start
-; bss_59f8 equ __zbss_59f8 - __zdseg_start
-bss_82b8 equ __zbss_82b8 - __zdseg_start
+; bss_1008    equ __zbss_1008 - __zdseg_start
+; bss_59f6    equ __zbss_59f6 - __zdseg_start
+; bss_59f8    equ __zbss_59f8 - __zdseg_start
+answer_word equ __zbss_82b8 - __zdseg_start
 %include "ds/game/ds_app_LPKV.asm"         ; 0x2c11
 
 party_status_areas      equ __zbss_82d0 - __zdseg_start

@@ -606,8 +606,6 @@ function claudePrompt(job) {
             `note has spaces. \`make build ${where.project}\` regenerates the asm from the disassembly ` +
             `and sources. The sidecar (${rel(sidecarPath(where.project))}) and the tooling under ` +
             `disassembler/ are there to read when you need them.`,
-        `Compiler flags come from the routine name's longest matching prefix: ${flagList} ` +
-            `(a .s uses \`compiler_flags.asm\`).`,
         `Steps:\n` +
             `1. Write the source with the routine still named \`${where.label}\` and run \`make rebuild\` ` +
             `until it passes. If the only differences left are symbol or label names on the same ` +

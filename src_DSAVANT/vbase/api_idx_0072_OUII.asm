@@ -1521,7 +1521,7 @@ jumptable_2af5:
     push ax                          ; 0x2e6a
     call loc_MJMJ                    ; 0x2e6b
     add sp, byte 0x14                ; 0x2e6e
-    mov word [bss_95b2], 1           ; 0x2e71
+    mov word [intro_screen_number], 1 ; 0x2e71
     jmp near @..api_idx_0072_OUII.l104 ; 0x2e77
 @..api_idx_0072_OUII.l98:
     mov word [party_world_x], 0x8c   ; 0x2e7a
@@ -1554,7 +1554,7 @@ jumptable_2af5:
     push ax                          ; 0x2ed4
     call loc_MJMJ                    ; 0x2ed5
     add sp, byte 0x14                ; 0x2ed8
-    mov word [bss_95b2], 2           ; 0x2edb
+    mov word [intro_screen_number], 2 ; 0x2edb
     jmp near @..api_idx_0072_OUII.l104 ; 0x2ee1
 @..api_idx_0072_OUII.l99:
     mov word [party_world_x], 0x6e   ; 0x2ee4
@@ -1585,10 +1585,10 @@ jumptable_2af5:
     push ax                          ; 0x2f32
     call loc_MJMJ                    ; 0x2f33
     add sp, byte 0x14                ; 0x2f36
-    mov word [bss_95b2], 3           ; 0x2f39
+    mov word [intro_screen_number], 3 ; 0x2f39
     jmp short @..api_idx_0072_OUII.l104 ; 0x2f3f
 @..api_idx_0072_OUII.l100:
-    mov word [bss_95b2], 4           ; 0x2f41
+    mov word [intro_screen_number], 4 ; 0x2f41
     jmp short @..api_idx_0072_OUII.l104 ; 0x2f47
 @..api_idx_0072_OUII.l101:
     cmp ax, strict word 0xffff       ; 0x2f49

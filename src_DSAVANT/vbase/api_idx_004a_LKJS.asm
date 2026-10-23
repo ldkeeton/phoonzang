@@ -16,7 +16,7 @@ api_idx_004a_LKJS:
     mov ax, word [bss_8af0]          ; 0x6a35
     cmp ax, word [bss_69c8]          ; 0x6a38
     jl short @..api_idx_004a_LKJS.l1 ; 0x6a3c
-    mov word [bss_a494], 0xffff      ; 0x6a3e
+    mov word [copy_protection_result], 0xffff ; 0x6a3e
     mov word [game_state], 0xffff    ; 0x6a44
 @..api_idx_004a_LKJS.l3:
     cmp word [game_state], byte 0    ; 0x6a4a
@@ -64,7 +64,7 @@ api_idx_004a_LKJS:
     mov word [bp - 0x0018], 0        ; 0x6ac7
     mov word [bp - 0x0014], 0        ; 0x6acc
 @..api_idx_004a_LKJS.l11:
-    cmp word [bss_a494], byte 0      ; 0x6ad1
+    cmp word [copy_protection_result], byte 0 ; 0x6ad1
     jne short @..api_idx_004a_LKJS.l12 ; 0x6ad6
     mov ax, 0x15                     ; 0x6ad8
     push ax                          ; 0x6adb
@@ -158,13 +158,13 @@ jumptable_6bfb_case_4:
     jl short @..api_idx_004a_LKJS.l15 ; 0x6bab
     mov ax, 0                        ; 0x6bad
     push ax                          ; 0x6bb0
-    call api_idx_0004_OPGP           ; 0x6bb1
+    call begin_game                  ; 0x6bb1
     pop cx                           ; 0x6bb4
     jmp short @..api_idx_004a_LKJS.l19 ; 0x6bb5
 jumptable_6bfb_case_5:
     mov ax, 1                        ; 0x6bb7
     push ax                          ; 0x6bba
-    call api_idx_0004_OPGP           ; 0x6bbb
+    call begin_game                  ; 0x6bbb
     pop cx                           ; 0x6bbe
     jmp short @..api_idx_004a_LKJS.l19 ; 0x6bbf
 jumptable_6bfb_case_6:
@@ -186,7 +186,7 @@ jumptable_6bfb_case_6:
 jumptable_6bfb_case_7:
     mov ax, 2                        ; 0x6be3
     push ax                          ; 0x6be6
-    call api_idx_0004_OPGP           ; 0x6be7
+    call begin_game                  ; 0x6be7
     pop cx                           ; 0x6bea
     jmp short @..api_idx_004a_LKJS.l19 ; 0x6beb
 jumptable_6bfb_case_8:

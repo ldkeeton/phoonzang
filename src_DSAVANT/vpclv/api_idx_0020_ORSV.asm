@@ -14,12 +14,12 @@ api_idx_0020_ORSV:
     lea ax, word [bp - 0x0016]       ; 0x3358
     push ax                          ; 0x335b
     push word [bp + 0xa]             ; 0x335c
-    call ds_app_OLKR                 ; 0x335f
+    call format_int_decimal          ; 0x335f
     add sp, byte 4                   ; 0x3362
     lea ax, word [bp - 0x0020]       ; 0x3365
     push ax                          ; 0x3368
     push word [bp + 0xc]             ; 0x3369
-    call ds_app_OLKR                 ; 0x336c
+    call format_int_decimal          ; 0x336c
     add sp, byte 4                   ; 0x336f
     lea ax, word [bp - 0x000c]       ; 0x3372
     push ax                          ; 0x3375

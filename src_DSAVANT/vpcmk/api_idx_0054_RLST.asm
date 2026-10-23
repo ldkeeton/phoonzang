@@ -429,7 +429,7 @@ api_idx_0054_RLST:
     imul word [bp + 0x4]             ; 0x1f3c
     mov bx, ax                       ; 0x1f3f
     push word [bx + 0x5c0c]          ; 0x1f41
-    call ds_app_OLKR                 ; 0x1f45
+    call format_int_decimal          ; 0x1f45
     add sp, byte 4                   ; 0x1f48
     mov ax, 0                        ; 0x1f4b
     push ax                          ; 0x1f4e
@@ -449,7 +449,7 @@ api_idx_0054_RLST:
     imul word [bp + 0x4]             ; 0x1f6e
     mov bx, ax                       ; 0x1f71
     push word [bx + 0x5c0e]          ; 0x1f73
-    call ds_app_OLKR                 ; 0x1f77
+    call format_int_decimal          ; 0x1f77
     add sp, byte 4                   ; 0x1f7a
     mov ax, 0                        ; 0x1f7d
     push ax                          ; 0x1f80
@@ -516,7 +516,7 @@ api_idx_0054_RLST:
     lea ax, word [bp - 0x0054]       ; 0x2011
     push ax                          ; 0x2014
     push word [bp - 0x0004]          ; 0x2015
-    call ds_app_OLKR                 ; 0x2018
+    call format_int_decimal          ; 0x2018
     add sp, byte 4                   ; 0x201b
     mov ax, 0                        ; 0x201e
     push ax                          ; 0x2021
@@ -548,7 +548,7 @@ api_idx_0054_RLST:
     imul word [bp + 0x4]             ; 0x205d
     mov bx, ax                       ; 0x2060
     push word [bx + 0x5c12]          ; 0x2062
-    call ds_app_OLKR                 ; 0x2066
+    call format_int_decimal          ; 0x2066
     add sp, byte 4                   ; 0x2069
     mov ax, 0                        ; 0x206c
     push ax                          ; 0x206f

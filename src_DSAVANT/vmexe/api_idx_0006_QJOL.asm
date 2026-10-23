@@ -13,7 +13,7 @@ api_idx_0006_QJOL:
     jae short @..api_idx_0006_QJOL.l1 ; 0x20b9
     push word [bp + 0x6]             ; 0x20bb
     push word [bp + 0x4]             ; 0x20be
-    call loc_MHUK                    ; 0x20c1
+    call item_slot_usable            ; 0x20c1
     add sp, byte 4                   ; 0x20c4
     test ax, ax                      ; 0x20c7
     je short @..api_idx_0006_QJOL.l2 ; 0x20c9
@@ -69,7 +69,7 @@ api_idx_0006_QJOL:
     push word [bp + 0xa]             ; 0x213c
     push ax                          ; 0x213f
     push word [bp + 0x4]             ; 0x2140
-    call api_idx_0002_LKMM           ; 0x2143
+    call api_idx_0002_NHHH           ; 0x2143
     add sp, byte 8                   ; 0x2146
     mov word [bp - 0x0006], ax       ; 0x2149
     cmp ax, strict word 0            ; 0x214c

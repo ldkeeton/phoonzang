@@ -453,7 +453,7 @@ api_idx_0002_OGRO.roster_screen_b1 equ roster_screen_b
 
 %include "shared/game/api_idx_0058_GKGM.asm"     ; 0x8730
 
-%include "shared/game/api_idx_0008_LLVT.asm"     ; 0x88b6
+%include "shared/game/input_text_field.asm"      ; 0x88b6
 
 dseg_92e2 equ __zdseg_end + (__zdseg_92e2 - __zdata_start)
 api_idx_0026_QIGS       equ api_idx_0026_NRVO

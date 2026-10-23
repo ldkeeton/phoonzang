@@ -7,45 +7,45 @@ ds_app_string_KVNI: ; Aztec csav frame=0x0054
     call random_below                ; 0x0c15
     pop cx                           ; 0x0c18
     inc ax                           ; 0x0c19
-    mov word [bss_5b40], ax          ; 0x0c1a
+    mov word [code_index_1], ax      ; 0x0c1a
     mov ax, 0x19                     ; 0x0c1d
     push ax                          ; 0x0c20
     call random_below                ; 0x0c21
     pop cx                           ; 0x0c24
     add ax, strict word 0x19         ; 0x0c25
-    mov word [bss_5b42], ax          ; 0x0c28
+    mov word [code_index_2], ax      ; 0x0c28
     mov ax, 0x19                     ; 0x0c2b
     push ax                          ; 0x0c2e
     call random_below                ; 0x0c2f
     pop cx                           ; 0x0c32
     add ax, strict word 0x32         ; 0x0c33
-    mov word [bss_5b44], ax          ; 0x0c36
+    mov word [code_index_3], ax      ; 0x0c36
     mov ax, 0x19                     ; 0x0c39
     push ax                          ; 0x0c3c
     call random_below                ; 0x0c3d
     pop cx                           ; 0x0c40
     add ax, strict word 0x4b         ; 0x0c41
-    mov word [bss_5b46], ax          ; 0x0c44
+    mov word [code_index_4], ax      ; 0x0c44
     lea ax, word [bp - 0x0054]       ; 0x0c47
     push ax                          ; 0x0c4a
-    mov al, byte [bss_5990]          ; 0x0c4b
+    mov al, byte [code_characters]   ; 0x0c4b
     sub ah, ah                       ; 0x0c4e
     add ax, 0x9c4                    ; 0x0c50
     push ax                          ; 0x0c53
     call load_message_string         ; 0x0c54
     add sp, byte 4                   ; 0x0c57
     mov al, byte [bp - 0x0054]       ; 0x0c5a
-    mov bx, word [bss_5b40]          ; 0x0c5d
-    mov byte [bx + bss_5990], al     ; 0x0c61
+    mov bx, word [code_index_1]      ; 0x0c5d
+    mov byte [bx + code_characters], al ; 0x0c61
     mov al, byte [bp - 0x0053]       ; 0x0c65
-    mov bx, word [bss_5b42]          ; 0x0c68
-    mov byte [bx + bss_5990], al     ; 0x0c6c
+    mov bx, word [code_index_2]      ; 0x0c68
+    mov byte [bx + code_characters], al ; 0x0c6c
     mov al, byte [bp - 0x0052]       ; 0x0c70
-    mov bx, word [bss_5b44]          ; 0x0c73
-    mov byte [bx + bss_5990], al     ; 0x0c77
+    mov bx, word [code_index_3]      ; 0x0c73
+    mov byte [bx + code_characters], al ; 0x0c77
     mov al, byte [bp - 0x0051]       ; 0x0c7b
-    mov bx, word [bss_5b46]          ; 0x0c7e
-    mov byte [bx + bss_5990], al     ; 0x0c82
+    mov bx, word [code_index_4]      ; 0x0c7e
+    mov byte [bx + code_characters], al ; 0x0c82
     mov word [bp - 0x0002], 0        ; 0x0c86
     lea ax, word [bp - 0x0054]       ; 0x0c8b
     push ax                          ; 0x0c8e

@@ -413,7 +413,7 @@ loc_HUIS:
     mov ax, 1                        ; 0x5b72
 @..loc_HUIS.l36:
     push ax                          ; 0x5b75
-    call ds_app_OLKR                 ; 0x5b76
+    call format_int_decimal          ; 0x5b76
     add sp, byte 4                   ; 0x5b79
     mov ax, 0x25                     ; 0x5b7c
     push ax                          ; 0x5b7f

@@ -50,7 +50,7 @@ api_idx_002e_ILPL:
     add ax, cx
     push ax
     push word [bx + slot_value]
-    call ds_app_OLKR
+    call format_int_decimal
     add sp, byte 4
     mov word [bp - 0x0006], 1
     jmp short @..api_idx_002e_ILPL.l6
@@ -68,7 +68,7 @@ api_idx_002e_ILPL:
     add ax, cx
     push ax
     push word [bp + 0x6]
-    call ds_app_OLKR
+    call format_int_decimal
     add sp, byte 4
     mov word [bp - 0x0006], 1
 @..api_idx_002e_ILPL.l6:

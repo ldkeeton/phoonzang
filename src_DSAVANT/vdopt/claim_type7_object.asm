@@ -5,7 +5,7 @@ claim_type7_object:
     mov ax, word [party_tag]         ; 0x04bd
     shl ax, 1                        ; 0x04c0
     mov bx, ax                       ; 0x04c2
-    mov word [bx + bss_8cfe], 0      ; 0x04c4
+    mov word [bx + adjacent_object_type], 0 ; 0x04c4
     push ax                          ; 0x04ca
     mov cx, word [bp + 0x4]          ; 0x04cb
     shl cx, 1                        ; 0x04ce

@@ -14,7 +14,7 @@ api_idx_0022_ROKS:
     jae short @..api_idx_0022_ROKS.l1 ; 0x2265
     push word [bp + 0x6]             ; 0x2267
     push word [bp + 0x4]             ; 0x226a
-    call loc_MHUK                    ; 0x226d
+    call item_slot_usable            ; 0x226d
     add sp, byte 4                   ; 0x2270
     test ax, ax                      ; 0x2273
     je short @..api_idx_0022_ROKS.l2 ; 0x2275
@@ -81,7 +81,7 @@ api_idx_0022_ROKS:
     push si                          ; 0x22fd
     push word [bp - 0x0002]          ; 0x22fe
     push word [bp + 0x4]             ; 0x2301
-    call api_idx_0002_LKMM           ; 0x2304
+    call api_idx_0002_NHHH           ; 0x2304
     add sp, byte 8                   ; 0x2307
     mov word [bp - 0x0002], ax       ; 0x230a
     jmp short @..api_idx_0022_ROKS.l9 ; 0x230d
@@ -131,7 +131,7 @@ api_idx_0022_ROKS:
     mov ax, bss_90e6                 ; 0x2370
     push ax                          ; 0x2373
     push word [bp - 0x0002]          ; 0x2374
-    call ds_app_OLKR                 ; 0x2377
+    call format_int_decimal          ; 0x2377
     add sp, byte 4                   ; 0x237a
     mov ax, bss_9136                 ; 0x237d
     push ax                          ; 0x2380

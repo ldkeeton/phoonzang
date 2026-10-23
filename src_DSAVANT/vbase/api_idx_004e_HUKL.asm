@@ -675,7 +675,7 @@ api_idx_004e_HUKL:
 @..api_idx_004e_HUKL.l35:
     mov ax, 0x64                     ; 0x3ecf
     push ax                          ; 0x3ed2
-    mov ax, bss_5990                 ; 0x3ed3
+    mov ax, code_characters          ; 0x3ed3
     push ax                          ; 0x3ed6
     push word [bp - 0x000a]          ; 0x3ed7
     call aztec_write                 ; 0x3eda

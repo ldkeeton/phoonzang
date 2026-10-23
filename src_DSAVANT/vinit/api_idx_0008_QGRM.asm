@@ -66,7 +66,7 @@ api_idx_0008_QGRM:
     push ax                          ; 0x14b2
     call load_monster_picture        ; 0x14b3
     add sp, byte 4                   ; 0x14b6
-    cmp word [bss_904c], byte 0      ; 0x14b9
+    cmp word [startup_check_stage], byte 0 ; 0x14b9
     jne short @..api_idx_0008_QGRM.l2 ; 0x14be
     call ds_app_RMGT                 ; 0x14c0
 @..api_idx_0008_QGRM.l2:

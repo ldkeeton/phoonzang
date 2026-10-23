@@ -6,7 +6,7 @@ ds_app_LPKV: ; Aztec csav frame=0x0002
     jmp short @..ds_app_LPKV.l4      ; 0x2c1c
 @..ds_app_LPKV.l1:
     mov bx, word [bp - 0x0002]       ; 0x2c1e
-    mov al, byte [bx + bss_82b8]     ; 0x2c21
+    mov al, byte [bx + answer_word]  ; 0x2c21
     sub ah, ah                       ; 0x2c25
     mov cx, 0x25                     ; 0x2c27
     imul cx                          ; 0x2c2a

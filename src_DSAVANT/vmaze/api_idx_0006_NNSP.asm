@@ -20,7 +20,7 @@ api_idx_0006_NNSP:
     mov cx, word [bp - 0x0002]       ; 0x75dd
     shl cx, 1                        ; 0x75e0
     mov bx, cx                       ; 0x75e2
-    mov word [bx + bss_8cfe], ax     ; 0x75e4
+    mov word [bx + adjacent_object_type], ax ; 0x75e4
     mov ax, 2                        ; 0x75e8
     push ax                          ; 0x75eb
     add cx, byte 8                   ; 0x75ec

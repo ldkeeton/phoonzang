@@ -1,17 +1,17 @@
 ; auto-generated
-api_idx_0002_HQSQ:
+show_intro_screen:
     mov ax, 0xfffe                   ; 0x8f74
     call aztec_csav                  ; 0x8f77
     call blank_scene_screen          ; 0x8f7a
     cmp word [mouse_active], byte 1  ; 0x8f7d
-    jne short @..api_idx_0002_HQSQ.l1 ; 0x8f82
+    jne short @..show_intro_screen.l1 ; 0x8f82
     call gfx_mouse_off               ; 0x8f84
-@..api_idx_0002_HQSQ.l1:
+@..show_intro_screen.l1:
     mov word [mouse_active], 0       ; 0x8f87
     call ds_app_NNSU                 ; 0x8f8d
     mov word [bss_8450], ax          ; 0x8f90
     test ax, ax                      ; 0x8f93
-    je short @..api_idx_0002_HQSQ.l2 ; 0x8f95
+    je short @..show_intro_screen.l2 ; 0x8f95
     mov ax, 0                        ; 0x8f97
     push ax                          ; 0x8f9a
     mov ax, 5                        ; 0x8f9b
@@ -28,12 +28,12 @@ api_idx_0002_HQSQ:
     call ds_app_UKGP                 ; 0x8fb7
     add sp, byte 6                   ; 0x8fba
     mov word [bss_844c], ax          ; 0x8fbd
-@..api_idx_0002_HQSQ.l2:
+@..show_intro_screen.l2:
     mov ax, word [bp + 0x4]          ; 0x8fc0
-    jmp near @..api_idx_0002_HQSQ.l9 ; 0x8fc3
-@..api_idx_0002_HQSQ.l3:
+    jmp near @..show_intro_screen.l9 ; 0x8fc3
+@..show_intro_screen.l3:
     cmp word [bp + 0x4], byte 4      ; 0x8fc6
-    jne short @..api_idx_0002_HQSQ.l4 ; 0x8fca
+    jne short @..show_intro_screen.l4 ; 0x8fca
     mov ax, 0x63                     ; 0x8fcc
     push ax                          ; 0x8fcf
     push ax                          ; 0x8fd0
@@ -45,8 +45,8 @@ api_idx_0002_HQSQ:
     push ax                          ; 0x8fdc
     call loc_TQHJ                    ; 0x8fdd
     add sp, byte 0x0a                ; 0x8fe0
-    jmp short @..api_idx_0002_HQSQ.l5 ; 0x8fe3
-@..api_idx_0002_HQSQ.l4:
+    jmp short @..show_intro_screen.l5 ; 0x8fe3
+@..show_intro_screen.l4:
     mov ax, 0x63                     ; 0x8fe5
     push ax                          ; 0x8fe8
     push ax                          ; 0x8fe9
@@ -58,7 +58,7 @@ api_idx_0002_HQSQ:
     push ax                          ; 0x8ff5
     call loc_TQHJ                    ; 0x8ff6
     add sp, byte 0x0a                ; 0x8ff9
-@..api_idx_0002_HQSQ.l5:
+@..show_intro_screen.l5:
     mov ax, 0x63                     ; 0x8ffc
     push ax                          ; 0x8fff
     push ax                          ; 0x9000
@@ -111,9 +111,9 @@ api_idx_0002_HQSQ:
     mov ax, 0                        ; 0x9067
     push ax                          ; 0x906a
     cmp word [bp + 0x4], byte 4      ; 0x906b
-    jne short @..api_idx_0002_HQSQ.l6 ; 0x906f
+    jne short @..show_intro_screen.l6 ; 0x906f
     mov ax, 0x63                     ; 0x9071
-@..api_idx_0002_HQSQ.l6:
+@..show_intro_screen.l6:
     push ax                          ; 0x9074
     mov ax, 0x7b52                   ; 0x9075
     push ax                          ; 0x9078
@@ -141,8 +141,8 @@ api_idx_0002_HQSQ:
     push ax                          ; 0x90aa
     call api_idx_0002_GORG           ; 0x90ab
     add sp, byte 4                   ; 0x90ae
-    jmp near @..api_idx_0002_HQSQ.l13 ; 0x90b1
-@..api_idx_0002_HQSQ.l7:
+    jmp near @..show_intro_screen.l13 ; 0x90b1
+@..show_intro_screen.l7:
     mov ax, 0                        ; 0x90b4
     push ax                          ; 0x90b7
     push ax                          ; 0x90b8
@@ -252,8 +252,8 @@ api_idx_0002_HQSQ:
     push ax                          ; 0x9198
     call api_idx_0002_GORG           ; 0x9199
     add sp, byte 4                   ; 0x919c
-    jmp near @..api_idx_0002_HQSQ.l13 ; 0x919f
-@..api_idx_0002_HQSQ.l8:
+    jmp near @..show_intro_screen.l13 ; 0x919f
+@..show_intro_screen.l8:
     mov ax, 0                        ; 0x91a2
     push ax                          ; 0x91a5
     mov ax, 0x63                     ; 0x91a6
@@ -352,26 +352,26 @@ api_idx_0002_HQSQ:
     push ax                          ; 0x9275
     call api_idx_0002_GORG           ; 0x9276
     add sp, byte 4                   ; 0x9279
-    jmp short @..api_idx_0002_HQSQ.l13 ; 0x927c
-@..api_idx_0002_HQSQ.l9:
+    jmp short @..show_intro_screen.l13 ; 0x927c
+@..show_intro_screen.l9:
     cmp ax, strict word 1            ; 0x927e
-    jne short @..api_idx_0002_HQSQ.l10 ; 0x9281
-    jmp near @..api_idx_0002_HQSQ.l3 ; 0x9283
-@..api_idx_0002_HQSQ.l10:
+    jne short @..show_intro_screen.l10 ; 0x9281
+    jmp near @..show_intro_screen.l3 ; 0x9283
+@..show_intro_screen.l10:
     cmp ax, strict word 2            ; 0x9286
-    jne short @..api_idx_0002_HQSQ.l11 ; 0x9289
-    jmp near @..api_idx_0002_HQSQ.l7 ; 0x928b
-@..api_idx_0002_HQSQ.l11:
+    jne short @..show_intro_screen.l11 ; 0x9289
+    jmp near @..show_intro_screen.l7 ; 0x928b
+@..show_intro_screen.l11:
     cmp ax, strict word 3            ; 0x928e
-    jne short @..api_idx_0002_HQSQ.l12 ; 0x9291
-    jmp near @..api_idx_0002_HQSQ.l8 ; 0x9293
-@..api_idx_0002_HQSQ.l12:
+    jne short @..show_intro_screen.l12 ; 0x9291
+    jmp near @..show_intro_screen.l8 ; 0x9293
+@..show_intro_screen.l12:
     cmp ax, strict word 4            ; 0x9296
-    jne short @..api_idx_0002_HQSQ.l13 ; 0x9299
-    jmp near @..api_idx_0002_HQSQ.l3 ; 0x929b
-@..api_idx_0002_HQSQ.l13:
+    jne short @..show_intro_screen.l13 ; 0x9299
+    jmp near @..show_intro_screen.l3 ; 0x929b
+@..show_intro_screen.l13:
     cmp word [bss_8450], byte 0      ; 0x929e
-    je short @..api_idx_0002_HQSQ.l14 ; 0x92a3
+    je short @..show_intro_screen.l14 ; 0x92a3
     push word [bss_844c]             ; 0x92a5
     push word [bss_844e]             ; 0x92a9
     call fade_out_music              ; 0x92ad
@@ -380,17 +380,17 @@ api_idx_0002_HQSQ:
     push ax                          ; 0x92b6
     call app_gfx_free_score          ; 0x92b7
     pop cx                           ; 0x92ba
-@..api_idx_0002_HQSQ.l14:
+@..show_intro_screen.l14:
     test word [bss_9056], 0x1000     ; 0x92bb
-    je short @..api_idx_0002_HQSQ.l16 ; 0x92c1
+    je short @..show_intro_screen.l16 ; 0x92c1
     cmp byte [bss_5989], 1           ; 0x92c3
-    jne short @..api_idx_0002_HQSQ.l16 ; 0x92c8
+    jne short @..show_intro_screen.l16 ; 0x92c8
     cmp word [mouse_active], byte 0  ; 0x92ca
-    jne short @..api_idx_0002_HQSQ.l15 ; 0x92cf
+    jne short @..show_intro_screen.l15 ; 0x92cf
     call gfx_mouse_init              ; 0x92d1
-@..api_idx_0002_HQSQ.l15:
+@..show_intro_screen.l15:
     mov word [mouse_active], 1       ; 0x92d4
-@..api_idx_0002_HQSQ.l16:
+@..show_intro_screen.l16:
     mov ax, 0                        ; 0x92da
     push ax                          ; 0x92dd
     mov ax, dseg_91ae                ; 0x92de
@@ -398,18 +398,18 @@ api_idx_0002_HQSQ:
     call api_idx_0002_LVPS           ; 0x92e2
     add sp, byte 4                   ; 0x92e5
     mov word [bp - 0x0002], 0        ; 0x92e8
-    jmp short @..api_idx_0002_HQSQ.l18 ; 0x92ed
-@..api_idx_0002_HQSQ.l17:
+    jmp short @..show_intro_screen.l18 ; 0x92ed
+@..show_intro_screen.l17:
     mov ax, 0                        ; 0x92ef
     push ax                          ; 0x92f2
     push word [bp - 0x0002]          ; 0x92f3
     call ds_app_LUOV                 ; 0x92f6
     add sp, byte 4                   ; 0x92f9
     inc word [bp - 0x0002]           ; 0x92fc
-@..api_idx_0002_HQSQ.l18:
+@..show_intro_screen.l18:
     mov ax, word [bp - 0x0002]       ; 0x92ff
     cmp ax, word [bss_69c8]          ; 0x9302
-    jl short @..api_idx_0002_HQSQ.l17 ; 0x9306
+    jl short @..show_intro_screen.l17 ; 0x9306
     mov ax, 0                        ; 0x9308
     push ax                          ; 0x930b
     push ax                          ; 0x930c

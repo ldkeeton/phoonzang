@@ -1665,7 +1665,7 @@ jumptable_5eb8_case_53:
     push ax                          ; 0x4a14
     push word [bp + 0x8]             ; 0x4a15
     push word [bp - 0x000a]          ; 0x4a18
-    call api_idx_0002_LKMM           ; 0x4a1b
+    call api_idx_0002_NHHH           ; 0x4a1b
     add sp, byte 8                   ; 0x4a1e
     mov word [bp - 0x0004], ax       ; 0x4a21
     mov word [bp - 0x0002], 0        ; 0x4a24

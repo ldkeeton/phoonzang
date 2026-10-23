@@ -2,7 +2,7 @@
 ds_app_RMGT: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x0ad7
     call aztec_csav                  ; 0x0ada
-    mov al, byte [bss_5990]          ; 0x0add
+    mov al, byte [code_characters]   ; 0x0add
     sub ah, ah                       ; 0x0ae0
     cmp ax, word [bss_59f4]          ; 0x0ae2
     jne short @..ds_app_RMGT.l1      ; 0x0ae6

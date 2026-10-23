@@ -352,7 +352,7 @@ jumptable_78e5_case_5:
     mov ax, bss_9136                 ; 0x775e
     push ax                          ; 0x7761
     push word [bp - 0x0008]          ; 0x7762
-    call ds_app_OLKR                 ; 0x7765
+    call format_int_decimal          ; 0x7765
     add sp, byte 4                   ; 0x7768
     mov ax, 0x24                     ; 0x776b
     push ax                          ; 0x776e

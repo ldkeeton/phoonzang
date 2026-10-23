@@ -14,7 +14,7 @@ draw_realm_spell_points:
     add ax, cx
     mov bx, ax
     push word [bx + 0x5c1c]
-    call ds_app_OLKR
+    call format_int_decimal
     add sp, byte 4
     mov ax, 0
     push ax

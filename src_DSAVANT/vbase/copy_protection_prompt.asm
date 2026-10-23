@@ -1,12 +1,12 @@
 ; auto-generated
-api_idx_00aa_SLMI:
+copy_protection_prompt:
     mov ax, 0xff56                   ; 0x62e5
     call aztec_csav                  ; 0x62e8
     mov word [bp - 0x0002], 0x37     ; 0x62eb
     mov word [bp - 0x0004], 0x8f     ; 0x62f0
     mov word [bp - 0x0006], 0x108    ; 0x62f5
     mov word [bp - 0x0008], 0xc5     ; 0x62fa
-    mov ax, dseg_910d                ; 0x62ff
+    mov ax, screen_temp_file         ; 0x62ff
     push ax                          ; 0x6302
     mov ax, word [bp - 0x0008]       ; 0x6303
     inc ax                           ; 0x6306
@@ -83,11 +83,11 @@ api_idx_00aa_SLMI:
     add sp, byte 4                   ; 0x63a6
     lea ax, word [bp - 0x00a8]       ; 0x63a9
     push ax                          ; 0x63ad
-    mov bx, word [bss_5b40]          ; 0x63ae
-    mov al, byte [bx + bss_5990]     ; 0x63b2
+    mov bx, word [code_index_1]      ; 0x63ae
+    mov al, byte [bx + code_characters] ; 0x63b2
     sub ah, ah                       ; 0x63b6
     push ax                          ; 0x63b8
-    call ds_app_OLKR                 ; 0x63b9
+    call format_int_decimal          ; 0x63b9
     add sp, byte 4                   ; 0x63bc
     mov ax, 0x24                     ; 0x63bf
     push ax                          ; 0x63c2
@@ -133,8 +133,8 @@ api_idx_00aa_SLMI:
     add sp, byte 4                   ; 0x641b
     lea ax, word [bp - 0x00a8]       ; 0x641e
     push ax                          ; 0x6422
-    mov bx, word [bss_5b46]          ; 0x6423
-    mov al, byte [bx + bss_5990]     ; 0x6427
+    mov bx, word [code_index_4]      ; 0x6423
+    mov al, byte [bx + code_characters] ; 0x6427
     sub ah, ah                       ; 0x642b
     add ax, 0x423                    ; 0x642d
     push ax                          ; 0x6430
@@ -184,11 +184,11 @@ api_idx_00aa_SLMI:
     add sp, byte 4                   ; 0x6493
     lea ax, word [bp - 0x00a8]       ; 0x6496
     push ax                          ; 0x649a
-    mov bx, word [bss_5b42]          ; 0x649b
-    mov al, byte [bx + bss_5990]     ; 0x649f
+    mov bx, word [code_index_2]      ; 0x649b
+    mov al, byte [bx + code_characters] ; 0x649f
     sub ah, ah                       ; 0x64a3
     push ax                          ; 0x64a5
-    call ds_app_OLKR                 ; 0x64a6
+    call format_int_decimal          ; 0x64a6
     add sp, byte 4                   ; 0x64a9
     mov ax, 0x5e                     ; 0x64ac
     push ax                          ; 0x64af
@@ -200,11 +200,11 @@ api_idx_00aa_SLMI:
     add sp, byte 6                   ; 0x64bc
     lea ax, word [bp - 0x00a8]       ; 0x64bf
     push ax                          ; 0x64c3
-    mov bx, word [bss_5b44]          ; 0x64c4
-    mov al, byte [bx + bss_5990]     ; 0x64c8
+    mov bx, word [code_index_3]      ; 0x64c4
+    mov al, byte [bx + code_characters] ; 0x64c8
     sub ah, ah                       ; 0x64cc
     push ax                          ; 0x64ce
-    call ds_app_OLKR                 ; 0x64cf
+    call format_int_decimal          ; 0x64cf
     add sp, byte 4                   ; 0x64d2
     mov ax, 0x25                     ; 0x64d5
     push ax                          ; 0x64d8
@@ -326,7 +326,7 @@ api_idx_00aa_SLMI:
     push ax                          ; 0x65d9
     mov ax, known_spell_names        ; 0x65da
     push ax                          ; 0x65dd
-    call api_idx_0008_LLVT           ; 0x65de
+    call input_text_field            ; 0x65de
     add sp, byte 0x0e                ; 0x65e1
     mov ax, 1                        ; 0x65e4
     push ax                          ; 0x65e7
@@ -381,7 +381,7 @@ api_idx_00aa_SLMI:
     add sp, byte 8                   ; 0x6653
     mov ax, known_spell_names        ; 0x6656
     push ax                          ; 0x6659
-    mov ax, bss_82b8                 ; 0x665a
+    mov ax, answer_word              ; 0x665a
     push ax                          ; 0x665d
     call aztec_strcpy                ; 0x665e
     add sp, byte 4                   ; 0x6661

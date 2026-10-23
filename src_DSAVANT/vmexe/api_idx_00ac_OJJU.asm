@@ -2140,7 +2140,7 @@ jumptable_883a:
     mov ax, bss_9136                 ; 0x8e35
     push ax                          ; 0x8e38
     push word [bp - 0x006a]          ; 0x8e39
-    call ds_app_OLKR                 ; 0x8e3c
+    call format_int_decimal          ; 0x8e3c
     add sp, byte 4                   ; 0x8e3f
     mov ax, bss_9186                 ; 0x8e42
     push ax                          ; 0x8e45

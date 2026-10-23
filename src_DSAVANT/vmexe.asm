@@ -112,9 +112,9 @@ bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
 bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 %include "vmexe/loc_NJKR.asm"              ; 0x1e35
 
-%include "vmexe/api_idx_0002_LKMM.asm"     ; 0x1f00
+%include "vmexe/api_idx_0002_NHHH.asm"     ; 0x1f00
 
-%include "vmexe/loc_MHUK.asm"              ; 0x1f5d
+%include "vmexe/item_slot_usable.asm"      ; 0x1f5d
 
 %include "vmexe/api_idx_0002_UTVG.asm"     ; 0x1f98
 
