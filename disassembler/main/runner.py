@@ -60,6 +60,7 @@ from lib.names import (
 from lib import symtab
 from lib.symtab import GENERIC, Kind, Source, Space, Symbol
 from lib.sidecar.usage import SidecarUse
+from lib.sidecar.patches import PatchError, normalize as normalize_patches
 from lib import stagelog
 from lib import progress
 from lib.report import write_report, write_layers, write_summary, print_short_report
@@ -117,6 +118,17 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     progress.log(f'{name} | loading {rel_path}')
     with open(path, 'rb') as f:
         data = f.read()
+
+    # A shipped binary may carry bytes a compiler never emits (a crack, a
+    # publisher edit).  Analyse the code the compiler produced, so a byte-exact
+    # source can match and an unreachable block left by the edit is not taken
+    # for a function root.  The final assembly gets the shipped bytes back.
+    patches = (sidecar_entry or {}).get('byte_patches') or ()
+    if patches:
+        try:
+            data = normalize_patches(data, patches)
+        except PatchError as exc:
+            raise SystemExit(f'error: {name}: {exc}') from exc
 
     t_total = time.perf_counter()
     clear_assemble_cache()

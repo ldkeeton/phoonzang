@@ -8,6 +8,7 @@ from .data_names import _data_names_map, _validate_data_names
 from .errors import SidecarError
 from .external_data import _external_data_map, _validate_external_data
 from .offsets import _parse_offset
+from .patches import _validate_patches, parse_patches
 from .jump_tables import _validate_jump_tables, _validate_code_tables
 from .pointers import (_expand_pointer_arrays, _pointer_assertions,
                        _validate_corpus)
@@ -66,6 +67,10 @@ def _validate_binary(name, info):
     for block in ('data_names', 'code_data_names'):
         if block in info:
             _validate_data_names(info[block], f'binaries.{name}.{block}')
+
+    if 'byte_patches' in info:
+        _validate_patches(info['byte_patches'],
+                          f'binaries.{name}.byte_patches')
 
     _validate_corpus(info, f'binaries.{name}')
 
@@ -128,7 +133,8 @@ def per_binary(sidecar, short_name):
         force_data,
         force_code, external_data, char_tables, data_pointers (with each
         ``pointer_arrays`` word expanded into it), not_pointers,
-        immediate_pointers,
+        immediate_pointers, byte_patches (each with its ``natural``, ``apply``
+        and ``allow`` bytes),
         fingerprint-start, fingerprint-end
 
     Missing optional fields default to ``None`` / empty dict.
@@ -146,6 +152,7 @@ def per_binary(sidecar, short_name):
         'external_data': {},
         'data_names': {},
         'code_data_names': {},
+        'byte_patches': [],
         'jump_tables': [],
         'code_tables': [],
         'char_tables': [],
@@ -180,6 +187,9 @@ def per_binary(sidecar, short_name):
             result['data_names'] = _data_names_map(b.get('data_names', {}))
             result['code_data_names'] = _data_names_map(
                 b.get('code_data_names', {}))
+            result['byte_patches'] = parse_patches(
+                b.get('byte_patches'),
+                f'binaries.{short_name}.byte_patches')
             result['jump_tables'] = b.get('jump_tables', [])
             result['code_tables'] = b.get('code_tables', [])
             result['char_tables'] = _char_tables(

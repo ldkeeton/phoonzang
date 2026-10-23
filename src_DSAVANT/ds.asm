@@ -325,10 +325,10 @@ bss_0e34 equ __zbss_0e34 - __zdseg_start
 
 %include "ds/game/str_subst_char.asm"      ; 0x0547
 
-bss_0fd5 equ __zbss_0fd5 - __zdseg_start
-bss_0fd6 equ __zbss_0fd6 - __zdseg_start
-bss_1008 equ __zbss_1008 - __zdseg_start
-bss_100a equ __zbss_100a - __zdseg_start
+bss_0fd5          equ __zbss_0fd5 - __zdseg_start
+code_table        equ __zbss_0fd6 - __zdseg_start
+answer_check_word equ __zbss_1008 - __zdseg_start
+bss_100a          equ __zbss_100a - __zdseg_start
 %include "ds/game/ds_app_string_MPHP.asm"  ; 0x05d0
 
 bss_100c equ __zbss_100c - __zdseg_start
@@ -375,8 +375,8 @@ loaded_sound_id equ __zbss_598e - __zdseg_start
 ; bss_0e34        equ __zbss_0e34 - __zdseg_start
 code_characters equ __zbss_5990 - __zdseg_start
 bss_59f4        equ __zbss_59f4 - __zdseg_start
-bss_59f6        equ __zbss_59f6 - __zdseg_start
-bss_59f8        equ __zbss_59f8 - __zdseg_start
+answer_length   equ __zbss_59f6 - __zdseg_start
+code_check_word equ __zbss_59f8 - __zdseg_start
 %include "ds/game/ds_app_RMGT.asm"         ; 0x0ad7
 
 %include "ds/game/set_mouse_pointer_shape.asm" ; 0x0af6
@@ -387,9 +387,9 @@ space_key_hit equ __zbss_59fc - __zdseg_start
 hotspot_hit   equ __zbss_5b3e - __zdseg_start
 %include "ds/game/poll_hotspots.asm"       ; 0x0b54
 
-; bss_0fd6        equ __zbss_0fd6 - __zdseg_start
+; code_table      equ __zbss_0fd6 - __zdseg_start
 ; code_characters equ __zbss_5990 - __zdseg_start
-; bss_59f6        equ __zbss_59f6 - __zdseg_start
+; answer_length   equ __zbss_59f6 - __zdseg_start
 code_index_1    equ __zbss_5b40 - __zdseg_start
 code_index_2    equ __zbss_5b42 - __zdseg_start
 code_index_3    equ __zbss_5b44 - __zdseg_start
@@ -553,11 +553,12 @@ bss_597f equ __zbss_597f - __zdseg_start
 ; video_mode equ __zbss_5985 - __zdseg_start
 %include "ds/game/ds_app_NNSU.asm"         ; 0x2bed
 
-; bss_1008    equ __zbss_1008 - __zdseg_start
-; bss_59f6    equ __zbss_59f6 - __zdseg_start
-; bss_59f8    equ __zbss_59f8 - __zdseg_start
-answer_word equ __zbss_82b8 - __zdseg_start
-%include "ds/game/ds_app_LPKV.asm"         ; 0x2c11
+; code_table        equ __zbss_0fd6 - __zdseg_start
+; answer_check_word equ __zbss_1008 - __zdseg_start
+; answer_length     equ __zbss_59f6 - __zdseg_start
+; code_check_word   equ __zbss_59f8 - __zdseg_start
+answer_word       equ __zbss_82b8 - __zdseg_start
+%include "ds/game/verify_answer_word.asm"  ; 0x2c11
 
 party_status_areas      equ __zbss_82d0 - __zdseg_start
 party_status_frame      equ __zbss_82e8 - __zdseg_start

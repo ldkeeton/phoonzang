@@ -101,7 +101,7 @@ loc_RVQR:
     push ax                          ; 0x04a0
     call ds_loc_QURR                 ; 0x04a1
     add sp, byte 4                   ; 0x04a4
-    mov word [bss_59f8], 0x905c      ; 0x04a7
+    mov word [code_check_word], 0x905c ; 0x04a7
     mov word [mouse_active], 0       ; 0x04ad
     mov word [hotspot_hit], 0        ; 0x04b3
     mov word [bp - 0x0006], 0        ; 0x04b9
@@ -208,7 +208,7 @@ loc_RVQR:
     push ax                          ; 0x05a3
     call api_idx_0002_OGHR           ; 0x05a4
     add sp, byte 4                   ; 0x05a7
-    mov word [bss_1008], 0x905c      ; 0x05aa
+    mov word [answer_check_word], 0x905c ; 0x05aa
     mov ax, 0x52                     ; 0x05b0
     push ax                          ; 0x05b3
     mov ax, record_size              ; 0x05b4

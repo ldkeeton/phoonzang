@@ -6,7 +6,7 @@ begin_game:
     cmp word [startup_check_stage], byte 0 ; 0x6671
     jne short @..begin_game.l3       ; 0x6676
     call copy_protection_prompt      ; 0x6678
-    call ds_app_LPKV                 ; 0x667b
+    call verify_answer_word          ; 0x667b
     mov word [copy_protection_result], ax ; 0x667e
     test ax, ax                      ; 0x6681
     jne short @..begin_game.l1       ; 0x6683

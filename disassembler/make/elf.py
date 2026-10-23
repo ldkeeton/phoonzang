@@ -16,6 +16,9 @@ from lib.cachedirs import src_dir
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
 from lib.link import include_args
 from lib.shared import FOLDER, label_aliases, shared_dirs
+from lib.sidecar.binary import per_binary as sidecar_per_binary
+from lib.sidecar.loader import load as load_sidecar
+from lib.sidecar.patches import PatchError, normalize as normalize_patches
 from lib.symtab import Symbol
 from main.projects import discover_binaries
 
@@ -298,6 +301,14 @@ def resplice_c(app, binary, check_only=False, only=None):
     bins = discover_binaries(os.path.join(APPS, app))
     with open(os.path.join(APPS, app, bins[binary][0]), 'rb') as f:
         data = f.read()
+    # The C gate works from the code the compiler produced; the shipped bytes
+    # are restored after assembly (lib.sidecar.patches).
+    sidecar = load_sidecar(app)
+    entry = sidecar_per_binary(sidecar, binary) if sidecar else {}
+    try:
+        data = normalize_patches(data, entry.get('byte_patches') or ())
+    except PatchError as exc:
+        raise SystemExit(f'error: {binary}: {exc}') from exc
     index = image_base = None
     segments = None
     if context is not None:

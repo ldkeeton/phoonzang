@@ -53,7 +53,7 @@ ds_app_string_KVNI: ; Aztec csav frame=0x0054
     pop cx                           ; 0x0c92
     add ax, strict word 0xfffc       ; 0x0c93
     mov word [bp - 0x0004], ax       ; 0x0c96
-    mov word [bss_59f6], ax          ; 0x0c99
+    mov word [answer_length], ax     ; 0x0c99
 @..ds_app_string_KVNI.l1:
     cmp word [bp - 0x0004], byte 0   ; 0x0c9c
     jle short @..ds_app_string_KVNI.l2 ; 0x0ca0
@@ -88,5 +88,5 @@ ds_app_string_KVNI: ; Aztec csav frame=0x0054
     jmp short @..ds_app_string_KVNI.l1 ; 0x0ce4
 @..ds_app_string_KVNI.l2:
     mov al, byte [bp - 0x0002]       ; 0x0ce6
-    mov byte [bss_0fd6], al          ; 0x0ce9
+    mov byte [code_table], al        ; 0x0ce9
     ret                              ; 0x0cec

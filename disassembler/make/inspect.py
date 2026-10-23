@@ -34,6 +34,7 @@ from lib.link import LinkError
 from lib.sidecar.binary import per_binary
 from lib.sidecar.constants import SIDECAR_DIR
 from lib.sidecar.loader import load as load_sidecar
+from lib.sidecar.patches import PatchError, normalize as normalize_patches
 from lib.symtab import Kind
 from main.projects import discover_binaries
 
@@ -119,13 +120,25 @@ def load_context(project, binary):
 
 
 def binary_bytes(project, binary):
-    """``(data, start_offset)`` of *binary*'s image, or ``(None, 0)``."""
+    """``(data, start_offset)`` of *binary*'s analysis image, or ``(None, 0)``.
+
+    The image is the shipped file with each ``byte_patches`` entry's
+    ``natural`` bytes in place, so inspection compares against the code the
+    compiler produced rather than a later crack.
+    """
     bins = discover_binaries(os.path.join(APPS, project))
     if binary not in bins:
         return None, 0
     rel_path, start = bins[binary]
     with open(os.path.join(APPS, project, rel_path), 'rb') as f:
-        return f.read(), start
+        data = f.read()
+    sidecar = load_sidecar(project)
+    entry = per_binary(sidecar, binary) if sidecar else {}
+    try:
+        data = normalize_patches(data, entry.get('byte_patches') or ())
+    except PatchError as exc:
+        raise SystemExit(f'error: {binary}: {exc}') from exc
+    return data, start
 
 
 @functools.lru_cache(maxsize=None)
@@ -391,12 +404,30 @@ def _name_surfaces(project, binary, routine, addr):
             api_consumers(sidecar, binary))
 
 
+def patches_in(project, binary, start, end):
+    """The ``byte_patches`` entries overlapping ``[start, end)``."""
+    sidecar = load_sidecar(project)
+    entry = per_binary(sidecar, binary) if sidecar else {}
+    return [patch for patch in (entry.get('byte_patches') or ())
+            if patch['offset'] < end
+            and start < patch['offset'] + patch['length']]
+
+
+def print_patches(project, binary, start, end):
+    for patch in patches_in(project, binary, start, end):
+        stop = patch['offset'] + patch['length']
+        print(f'  patch   0x{patch["offset"]:04x}..0x{stop:04x}  '
+              f'natural {patch["natural"].hex()}  '
+              f'apply {patch["apply"].hex()}  ({patch["note"]})')
+
+
 def cmd_info(project, binary, routine, json_out=False):
     frag = _fragment(project, binary, routine)
     src = _source_summary(project, binary, routine)
     suffix = src['suffix'] if src else '.c'
     tool, flags, provenance = _tool_summary(project, binary, routine, suffix)
     names, shared = _name_surfaces(project, binary, routine, frag['start'])
+    patches = patches_in(project, binary, frag['start'], frag['end'])
     info = {
         'routine': routine,
         'binary': binary,
@@ -413,6 +444,11 @@ def cmd_info(project, binary, routine, json_out=False):
         'provenance': provenance,
         'names': names,
         'shared_names': shared,
+        'patches': [dict(patch,
+                         natural=patch['natural'].hex(),
+                         apply=patch['apply'].hex(),
+                         allow=[value.hex() for value in patch['allow']])
+                    for patch in patches],
     }
     if json_out:
         print(json.dumps(info, indent=1))
@@ -449,6 +485,11 @@ def cmd_info(project, binary, routine, json_out=False):
               f'write one source for it')
     if frag['next']:
         print(f'  next   {frag["next"][0]} 0x{frag["next"][1]:04x}')
+    for patch in patches:
+        stop = patch['offset'] + patch['length']
+        print(f'  patch  0x{patch["offset"]:04x}..0x{stop:04x}  '
+              f'natural {patch["natural"].hex()}  '
+              f'apply {patch["apply"].hex()}  ({patch["note"]})')
     return info
 
 

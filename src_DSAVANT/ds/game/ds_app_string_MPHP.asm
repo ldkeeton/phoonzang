@@ -55,10 +55,10 @@ ds_app_string_MPHP: ; Aztec csav frame=0x0054
     mov word [bp - 0x0002], dx       ; 0x0649
     jmp short @..ds_app_string_MPHP.l1 ; 0x064c
 @..ds_app_string_MPHP.l3:
-    mov al, byte [bss_0fd6]          ; 0x064e
+    mov al, byte [code_table]        ; 0x064e
     cmp al, byte [bp - 0x0002]       ; 0x0651
     jne short @..ds_app_string_MPHP.l4 ; 0x0654
-    mov ax, word [bss_1008]          ; 0x0656
+    mov ax, word [answer_check_word] ; 0x0656
     mov word [bss_100a], ax          ; 0x0659
 @..ds_app_string_MPHP.l4:
     ret                              ; 0x065c

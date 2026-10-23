@@ -5,8 +5,10 @@ import subprocess
 import sys
 import tempfile
 
+from lib import progress
 from lib.cachedirs import src_dir
 from lib.model import IS_CODE
+from lib.sidecar.patches import PatchError, finalize as finalize_patches
 
 from .options import APPS_DIR, EXACT_BYTES, PROJECT_ROOT
 from .projects import (
@@ -48,6 +50,22 @@ def byte_verify(name, orig_dir, rel_path, asm_dir, start_offset,
             orig = f.read()
         with open(tmp.name, 'rb') as f:
             built = f.read()
+
+    # Reapply each post-link edit before comparing with the shipped file.  The
+    # source holds the compiler's bytes (the analysis view); the artifact and
+    # the original carry the shipped bytes.
+    patches = (sidecar_entry or {}).get('byte_patches') or ()
+    if patches:
+        try:
+            def applied(patch, before):
+                progress.log(f'  patch {name}: 0x{patch["offset"]:04x} '
+                             f'{before.hex()} -> {patch["apply"].hex()} '
+                             f'({patch["note"]})')
+
+            built = finalize_patches(built, patches, on_apply=applied)
+        except PatchError as exc:
+            print(f'{name} -> {rel_path}  [FAIL]  {exc}')
+            return False
 
     if len(orig) != len(built):
         print(f'{name} -> {rel_path}  [FAIL]  size {len(orig)} != {len(built)}')

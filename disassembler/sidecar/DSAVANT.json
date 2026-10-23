@@ -108,6 +108,15 @@
       "type": "mz",
       "start_offset": 512,
       "entry_symbol": "aztec_begin",
+      "byte_patches": [
+        {
+          "offset": "2c45",
+          "natural": "7404",
+          "apply": "eb04",
+          "allow": ["7404", "eb04"],
+          "note": "copy protection crack"
+        }
+      ],
       "bands": [
         {"name": "game", "start": "0200", "end": "2f34", "note": "cc-compiled game objects (all csav), ending with main; 0x2f35 is the linker's word-alignment pad (0x00) before the library object, outside every band"},
         {"name": "library", "start": "2f36", "end": "4378", "note": "in-house assembly library: CS-resident data block (video flags, gfx driver slots) and frameless routines: video detect, driver load, gfx_entry thunks, keyboard, font"},
@@ -230,6 +239,7 @@
           "name": "fade_out_music",
           "note": "(tempo, volume): while music plays, steps volume down by 10 every 25 ms through gfx_set_music_tempo_volume, then gfx_stop_music"
         },
+        "2c11": {"name": "verify_answer_word", "note": "checks the entered answer word against the code table; publishes the code check word on the last match"},
         "2c69": {"name": "draw_party_status_glyphs", "note": "restores each party slot saved area and redraws its one-glyph status icon"},
         "2dd5": {
           "name": "main"
@@ -393,6 +403,8 @@
         "0e2c": {"name": "mouse_pointer_shape_seg", "note": "high word (segment) of mouse_pointer_shape"},
         "0e32": {"name": "mouse_active", "note": "word: nonzero while the mouse driver is initialised and the pointer is on"},
         "0e38": {"name": "known_spell_names", "note": "20-byte spell name strings filled by collect_known_realm_spells"},
+        "0fd6": {"name": "code_table", "note": "generated code table: byte 0 is the expected checksum, bytes 1ah+ the expected per-slot bytes"},
+        "1008": {"name": "answer_check_word", "note": "result word published when the last answer slot matches"},
         "3e0a": {"name": "message_cache_ids", "note": "block number stored in each of the four message cache slots"},
         "3e12": {"name": "message_block_buffer", "note": "0x400-byte working buffer for the current message block"},
         "5212": {"name": "message_block_current", "note": "block number currently held in the working buffer"},
@@ -417,6 +429,8 @@
         "598c": {"name": "no_dissolve", "note": "byte: nonzero skips the screen-dissolve animation; message waits elsewhere double to compensate"},
         "598e": {"name": "loaded_sound_id", "note": "sound id last loaded by ds_app_QTIV, -1 none"},
         "5990": {"name": "code_characters", "note": "100-byte code-character table; four positions are filled at startup and shown in the clue lines"},
+        "59f6": {"name": "answer_length", "note": "number of answer slots to check; KVNI sets it to strlen-4"},
+        "59f8": {"name": "code_check_word", "note": "word copied to the answer-check result on the last matched slot"},
         "59fc": {"name": "space_key_hit", "note": "set by poll_hotspots when the last key was space"},
         "5b3e": {"name": "hotspot_hit", "note": "number of the hotspot last activated (0 for none)"},
         "5b40": {"name": "code_index_1", "note": "offset of the first clue character in the code table (1..0x18)"},

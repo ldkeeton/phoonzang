@@ -1392,13 +1392,32 @@ def cmd_refs(project, binary, routine, json_out=False):
     addr = _routine_addr(path, routine)
     names = provenance_rows(sidecar, project, binary, routine, addr)
     shared = api_consumers(sidecar, binary)
+    patches = []
+    try:
+        from .inspect import _fragment, patches_in
+        frag = _fragment(project, binary, routine)
+        patches = patches_in(project, binary, frag['start'], frag['end'])
+    except SystemExit:
+        pass
     if json_out:
-        print(json.dumps({'routine': routine, 'binary': binary,
-                          'names': names, 'shared_names': shared,
-                          'symbols': facts, 'unlabeled': raws,
-                          'shared_aliases': aliases}, indent=1))
+        print(json.dumps({
+            'routine': routine, 'binary': binary,
+            'names': names, 'shared_names': shared,
+            'symbols': facts, 'unlabeled': raws,
+            'shared_aliases': aliases,
+            'patches': [dict(patch,
+                             natural=patch['natural'].hex(),
+                             apply=patch['apply'].hex(),
+                             allow=[value.hex() for value in patch['allow']])
+                        for patch in patches],
+        }, indent=1))
         return facts, raws
     print_provenance(names, shared)
+    for patch in patches:
+        stop = patch['offset'] + patch['length']
+        print(f'  patch  0x{patch["offset"]:04x}..0x{stop:04x}  '
+              f'natural {patch["natural"].hex()}  '
+              f'apply {patch["apply"].hex()}  ({patch["note"]})')
     if not facts and not raws and all(a['named'] for a in aliases):
         print(f'{routine}: no address-named symbols')
         return facts, raws

@@ -16,7 +16,7 @@ int load_mode;
 	intro_screen_number = 0;
 	if (startup_check_stage == 0) {
 		copy_protection_prompt();
-		if (!(copy_protection_result = ds_app_LPKV())) {
+		if (!(copy_protection_result = verify_answer_word())) {
 			load_result = -1;
 		} else {
 			ds_app_OIGN(0xc);	/* let the prompt's screen settle */

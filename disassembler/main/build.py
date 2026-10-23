@@ -52,8 +52,10 @@ from lib.link import (
     write_ds_starts, write_host_data_offsets,
     include_args,
 )
+from lib.sidecar.binary import per_binary as sidecar_per_binary
 from lib.sidecar.loader import load as load_sidecar
 from lib.sidecar.errors import SidecarError
+from lib.sidecar.patches import PatchError, finalize as finalize_patches
 from lib.shared import share_files
 from lib.symtab import project_tables
 
@@ -116,8 +118,23 @@ def foreign_args(project, name, cross_refs):
     return [f'--foreign-labels={json_path}', f'--foreign-prefix={prefix}']
 
 
-def nasm_binary(out_dir, name, rel_path):
-    """Assemble one binary with NASM; return its exit status."""
+def _patches_for(out_dir, name):
+    """The per-binary ``byte_patches`` entries for *out_dir*'s project."""
+    base = os.path.basename(os.path.normpath(out_dir))
+    project = base[len('src_'):] if base.startswith('src_') else base
+    sidecar = load_sidecar(project) if project else None
+    return ((sidecar_per_binary(sidecar, name) if sidecar else {})
+            .get('byte_patches') or ())
+
+
+def nasm_binary(out_dir, name, rel_path, patches=None):
+    """Assemble one binary with NASM; return its exit status.
+
+    After a successful assembly, each ``byte_patches`` entry writes its
+    ``apply`` bytes into ``build_out``.  The source keeps the compiler's
+    (``natural``) bytes, so a byte-exact C routine can gate and verify; only
+    the shipped artifact gets the post-link edit.
+    """
     asm_path = os.path.join(out_dir, f'{name}.asm')
     bin_path = os.path.join(out_dir, 'build_out', rel_path)
     os.makedirs(os.path.dirname(bin_path), exist_ok=True)
@@ -130,7 +147,28 @@ def nasm_binary(out_dir, name, rel_path):
         print(f'  BUILD FAIL: {name}.asm -> {rel_path}')
         for line in r.stderr.strip().split('\n'):
             print(f'    {line}')
-    return r.returncode
+        return r.returncode
+
+    if patches is None:
+        patches = _patches_for(out_dir, name)
+    if patches:
+        try:
+            with open(bin_path, 'rb') as f:
+                data = f.read()
+
+            def applied(patch, before):
+                progress.log(f'  patch {name}: 0x{patch["offset"]:04x} '
+                             f'{before.hex()} -> {patch["apply"].hex()} '
+                             f'({patch["note"]})')
+
+            patched = finalize_patches(data, patches, on_apply=applied)
+            if patched != data:
+                with open(bin_path, 'wb') as f:
+                    f.write(patched)
+        except PatchError as exc:
+            print(f'  BUILD FAIL: {name}.asm -> {rel_path}: {exc}')
+            return 1
+    return 0
 
 
 def _batch(batch, items):
