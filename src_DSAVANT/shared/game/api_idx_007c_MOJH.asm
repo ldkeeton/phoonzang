@@ -655,7 +655,7 @@ api_idx_007c_MOJH:
     call draw_text_glyphs
     add sp, byte 4
     push word [bp + 0x4]
-    call ds_app_OOUT
+    call sum_page_cell_values
     pop cx
     push word [bp + 0x4]
     call api_idx_007c_MOJH.api_idx1

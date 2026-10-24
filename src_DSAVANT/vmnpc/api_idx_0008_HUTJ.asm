@@ -79,7 +79,7 @@ api_idx_0008_HUTJ:
     mov di, ax                       ; 0x39a5
     movsw                            ; 0x39a7
     movsw                            ; 0x39a8
-    call ds_app_QSQR                 ; 0x39a9
+    call add_random_steps            ; 0x39a9
     add sp, byte 4                   ; 0x39ac
     add word [bss_964e], ax          ; 0x39af
 @..api_idx_0008_HUTJ.l4:

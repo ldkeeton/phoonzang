@@ -214,13 +214,17 @@
         "16a0": {
           "name": "restore_saved_screen"
         },
+        "1741": {"name": "cell_power", "note": "returns a cell near +2 word times its +6 level (at least 1) when the +4 byte selects an entry equal to 1 in the byte table at 0x60e, else just the word"},
+        "17d6": {"name": "sum_page_cell_values", "note": "sums each positive-key cell value over the 2x10 grid into the page record word at +4"},
         "184f": {"name": "reset_page_record", "note": "clears one 0x12-byte page record, seeds its variant and edge fields from the page and fixes the record-0 counters; returns the index"},
         "1a23": {"name": "compact_grid_page", "note": "removes one row-0 cell entry and compacts the page slot list, byte totals and clamped counts"},
         "1c2f": {"name": "clear_cell_key", "note": "clears the key word of one grid cell and the row-0 page entry"},
+        "1cb1": {"name": "pick_code_char", "note": "picks a random clue-character index and records it for the code check"},
         "1ccc": {"name": "member_is_active", "note": "1 when a party member's +5 state byte and both counters at +0x128/+0x129 are zero"},
         "1cf8": {"name": "draw_power_bar", "note": "fills a w x h rectangle with a color column whose height scales cur/max"},
         "1d81": {"name": "draw_party_member_panel", "note": "draws one party member panel: slot icon, name, two cell icons and three bars"},
         "20f8": {"name": "pick_party_member", "note": "three-glyph prompt box; waits for keys 1..party count and returns slot 0.., or -1 on Esc"},
+        "2305": {"name": "add_random_steps", "note": "returns base plus count random steps in 1..span"},
         "2331": {"name": "store_word_and_pair", "note": "stores an int word and a two-char pair in the globals at 0xcf6/0xcf8 and returns the address of the word"},
         "2359": {
           "name": "copy_through_char",
@@ -415,6 +419,7 @@
         "0e32": {"name": "mouse_active", "note": "word: nonzero while the mouse driver is initialised and the pointer is on"},
         "0e34": {"name": "code_check_value", "note": "word published as code_check_word when the code-character count matches; 0xe36 here"},
         "0e38": {"name": "known_spell_names", "note": "20-byte spell name strings filled by collect_known_realm_spells"},
+        "0fd5": {"name": "code_char_message_index", "note": "byte: clue index added to message 2500 to load the clue text"},
         "0fd6": {"name": "code_table", "note": "generated code table: byte 0 is the expected checksum, bytes 1ah+ the expected per-slot bytes"},
         "1008": {"name": "answer_check_word", "note": "result word published when the last answer slot matches"},
         "100c": {"name": "message_directory", "note": "message directory: record count then 6-byte records"},
@@ -443,6 +448,7 @@
         "598c": {"name": "no_dissolve", "note": "byte: nonzero skips the screen-dissolve animation; message waits elsewhere double to compensate"},
         "598e": {"name": "loaded_sound_id", "note": "sound id last loaded by ds_app_QTIV, -1 none"},
         "5990": {"name": "code_characters", "note": "100-byte code-character table; four positions are filled at startup and shown in the clue lines"},
+        "59f4": {"name": "code_char_index", "note": "word: random clue-character index, tested against code_characters[0] by ds_app_RMGT"},
         "59f6": {"name": "answer_length", "note": "number of answer slots to check; KVNI sets it to strlen-4"},
         "59f8": {"name": "code_check_word", "note": "word copied to the answer-check result on the last matched slot"},
         "59fc": {"name": "space_key_hit", "note": "set by poll_hotspots when the last key was space"},

@@ -3043,7 +3043,7 @@ jumptable_5eb8_case_12:
     mov di, ax                       ; 0x5661
     movsw                            ; 0x5663
     movsw                            ; 0x5664
-    call ds_app_QSQR                 ; 0x5665
+    call add_random_steps            ; 0x5665
     add sp, byte 4                   ; 0x5668
     push ax                          ; 0x566b
     mov ax, 0x2c                     ; 0x566c
@@ -3471,7 +3471,7 @@ jumptable_5eb8_case_78:
     mov di, ax                       ; 0x5a61
     movsw                            ; 0x5a63
     movsw                            ; 0x5a64
-    call ds_app_QSQR                 ; 0x5a65
+    call add_random_steps            ; 0x5a65
     add sp, byte 4                   ; 0x5a68
     push ax                          ; 0x5a6b
     mov ax, 0x2c                     ; 0x5a6c
@@ -3554,7 +3554,7 @@ jumptable_5eb8_case_97:
     mov di, ax                       ; 0x5b2a
     movsw                            ; 0x5b2c
     movsw                            ; 0x5b2d
-    call ds_app_QSQR                 ; 0x5b2e
+    call add_random_steps            ; 0x5b2e
     add sp, byte 4                   ; 0x5b31
     push ax                          ; 0x5b34
     mov ax, 0x2c                     ; 0x5b35
@@ -3604,7 +3604,7 @@ jumptable_5eb8_case_97:
     mov di, ax                       ; 0x5ba3
     movsw                            ; 0x5ba5
     movsw                            ; 0x5ba6
-    call ds_app_QSQR                 ; 0x5ba7
+    call add_random_steps            ; 0x5ba7
     add sp, byte 4                   ; 0x5baa
     push ax                          ; 0x5bad
     mov ax, 0x2c                     ; 0x5bae
@@ -3659,7 +3659,7 @@ jumptable_5eb8_case_98:
     mov di, ax                       ; 0x5c28
     movsw                            ; 0x5c2a
     movsw                            ; 0x5c2b
-    call ds_app_QSQR                 ; 0x5c2c
+    call add_random_steps            ; 0x5c2c
     add sp, byte 4                   ; 0x5c2f
     mov word [bp - 0x0004], ax       ; 0x5c32
     push ax                          ; 0x5c35

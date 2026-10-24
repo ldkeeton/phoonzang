@@ -981,7 +981,7 @@ jumptable_1fa3_case_12:
     mov di, ax                       ; 0x1d29
     movsw                            ; 0x1d2b
     movsw                            ; 0x1d2c
-    call ds_app_QSQR                 ; 0x1d2d
+    call add_random_steps            ; 0x1d2d
     add sp, byte 4                   ; 0x1d30
     mov cx, ax                       ; 0x1d33
     mov ax, 0x248                    ; 0x1d35

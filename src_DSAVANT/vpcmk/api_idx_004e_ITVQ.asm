@@ -110,7 +110,7 @@ api_idx_004e_ITVQ:
     or byte [bx + 0x7], 0x40         ; 0x4c15
 @..api_idx_004e_ITVQ.l7:
     push word [bp + 0x4]             ; 0x4c19
-    call ds_app_OOUT                 ; 0x4c1c
+    call sum_page_cell_values        ; 0x4c1c
     pop cx                           ; 0x4c1f
     ret                              ; 0x4c20
 loc_VPRH:

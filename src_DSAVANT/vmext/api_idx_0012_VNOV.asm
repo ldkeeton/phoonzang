@@ -56,7 +56,7 @@ api_idx_0012_VNOV:
     mov di, ax                       ; 0x0f69
     movsw                            ; 0x0f6b
     movsw                            ; 0x0f6c
-    call ds_app_QSQR                 ; 0x0f6d
+    call add_random_steps            ; 0x0f6d
     add sp, byte 4                   ; 0x0f70
     mov word [bp - 0x000e], ax       ; 0x0f73
     mov word [bp - 0x0002], 0        ; 0x0f76
@@ -129,7 +129,7 @@ jumptable_12fa_case_1:
     mov di, ax                       ; 0x101c
     movsw                            ; 0x101e
     movsw                            ; 0x101f
-    call ds_app_QSQR                 ; 0x1020
+    call add_random_steps            ; 0x1020
     add sp, byte 4                   ; 0x1023
     push ax                          ; 0x1026
     mov ax, 0x248                    ; 0x1027
@@ -309,7 +309,7 @@ jumptable_12fa_case_9:
     mov di, ax                       ; 0x11d6
     movsw                            ; 0x11d8
     movsw                            ; 0x11d9
-    call ds_app_QSQR                 ; 0x11da
+    call add_random_steps            ; 0x11da
     add sp, byte 4                   ; 0x11dd
     mov cx, ax                       ; 0x11e0
     mov ax, 0x248                    ; 0x11e2

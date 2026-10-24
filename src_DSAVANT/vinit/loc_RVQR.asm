@@ -183,7 +183,7 @@ loc_RVQR:
     push ax                          ; 0x0565
     call api_idx_0002_JOSN           ; 0x0566
     add sp, byte 4                   ; 0x0569
-    call ds_app_OOHU                 ; 0x056c
+    call pick_code_char              ; 0x056c
     mov ax, dseg_9105                ; 0x056f
     push ax                          ; 0x0572
     call load_file_data              ; 0x0573

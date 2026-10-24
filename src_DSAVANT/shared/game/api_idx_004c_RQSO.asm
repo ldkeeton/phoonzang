@@ -30,7 +30,7 @@ api_idx_004c_RQSO:
     jne short @..api_idx_004c_RQSO.l2
     push word [bp - 0x0030]
     push word [bp - 0x0032]
-    call ds_app_QSQR
+    call add_random_steps
     add sp, byte 4
     mov bx, word [bp + 0x8]
     mov byte [bx + 0x6], al
@@ -107,6 +107,6 @@ api_idx_004c_RQSO:
     or byte [bx + 0x7], 0x40
 @..api_idx_004c_RQSO.l9:
     push word [bp + 0x4]
-    call ds_app_OOUT
+    call sum_page_cell_values
     pop cx
     ret

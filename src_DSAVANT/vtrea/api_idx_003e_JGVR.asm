@@ -17,7 +17,7 @@ api_idx_003e_JGVR:
     mov di, ax                       ; 0x11df
     movsw                            ; 0x11e1
     movsw                            ; 0x11e2
-    call ds_app_QSQR                 ; 0x11e3
+    call add_random_steps            ; 0x11e3
     add sp, byte 4                   ; 0x11e6
     mov word [bp - 0x0002], ax       ; 0x11e9
     cmp word [bp - 0x0002], byte 0   ; 0x11ec

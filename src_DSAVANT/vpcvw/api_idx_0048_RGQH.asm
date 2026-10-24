@@ -32,7 +32,7 @@ api_idx_0048_RGQH:
     mov byte [bx + 0x7], 0x80        ; 0x42a1
     push word [bp - 0x002c]          ; 0x42a5
     push word [bp - 0x002e]          ; 0x42a8
-    call ds_app_QSQR                 ; 0x42ab
+    call add_random_steps            ; 0x42ab
     add sp, byte 4                   ; 0x42ae
     mov bx, word [bp + 0x6]          ; 0x42b1
     mov byte [bx + 0x6], al          ; 0x42b4

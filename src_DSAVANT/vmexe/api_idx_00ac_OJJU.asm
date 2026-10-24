@@ -2114,7 +2114,7 @@ jumptable_883a:
     jle short @..api_idx_00ac_OJJU.l131 ; 0x8df4
     push word [bp - 0x006e]          ; 0x8df6
     push word [bp - 0x0070]          ; 0x8df9
-    call ds_app_QSQR                 ; 0x8dfc
+    call add_random_steps            ; 0x8dfc
     add sp, byte 4                   ; 0x8dff
     add word [bp - 0x006a], ax       ; 0x8e02
     dec word [bp - 0x009c]           ; 0x8e05

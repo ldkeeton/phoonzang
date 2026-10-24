@@ -201,7 +201,7 @@ jumptable_4a7d_case_22:
     mov di, ax                       ; 0x4545
     movsw                            ; 0x4547
     movsw                            ; 0x4548
-    call ds_app_QSQR                 ; 0x4549
+    call add_random_steps            ; 0x4549
     add sp, byte 4                   ; 0x454c
     push ax                          ; 0x454f
     mov ax, 0x248                    ; 0x4550
@@ -534,7 +534,7 @@ jumptable_4a7d_case_37:
     mov di, ax                       ; 0x486e
     movsw                            ; 0x4870
     movsw                            ; 0x4871
-    call ds_app_QSQR                 ; 0x4872
+    call add_random_steps            ; 0x4872
     add sp, byte 4                   ; 0x4875
     push ax                          ; 0x4878
     mov ax, 0x248                    ; 0x4879
@@ -645,7 +645,7 @@ jumptable_4a7d_case_42:
     mov di, ax                       ; 0x497a
     movsw                            ; 0x497c
     movsw                            ; 0x497d
-    call ds_app_QSQR                 ; 0x497e
+    call add_random_steps            ; 0x497e
     add sp, byte 4                   ; 0x4981
     mov word [bp - 0x0002], ax       ; 0x4984
     push ax                          ; 0x4987
@@ -676,7 +676,7 @@ jumptable_4a7d_case_42:
     mov di, ax                       ; 0x49c5
     movsw                            ; 0x49c7
     movsw                            ; 0x49c8
-    call ds_app_QSQR                 ; 0x49c9
+    call add_random_steps            ; 0x49c9
     add sp, byte 4                   ; 0x49cc
     mov word [bp - 0x0002], ax       ; 0x49cf
     push ax                          ; 0x49d2
@@ -716,7 +716,7 @@ jumptable_4a7d_case_43:
     mov di, ax                       ; 0x4a25
     movsw                            ; 0x4a27
     movsw                            ; 0x4a28
-    call ds_app_QSQR                 ; 0x4a29
+    call add_random_steps            ; 0x4a29
     add sp, byte 4                   ; 0x4a2c
     mov word [bp - 0x0004], ax       ; 0x4a2f
     push ax                          ; 0x4a32

@@ -62,7 +62,7 @@ api_idx_0006_QJOL:
     mov di, ax                       ; 0x212c
     movsw                            ; 0x212e
     movsw                            ; 0x212f
-    call ds_app_QSQR                 ; 0x2130
+    call add_random_steps            ; 0x2130
     add sp, byte 4                   ; 0x2133
     mov word [bp - 0x0006], ax       ; 0x2136
     push word [bp + 0xe]             ; 0x2139

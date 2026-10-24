@@ -128,7 +128,7 @@ jumptable_2326_case_25:
     mov di, ax                       ; 0x1e01
     movsw                            ; 0x1e03
     movsw                            ; 0x1e04
-    call ds_app_QSQR                 ; 0x1e05
+    call add_random_steps            ; 0x1e05
     add sp, byte 4                   ; 0x1e08
     push ax                          ; 0x1e0b
     mov ax, 0x248                    ; 0x1e0c
@@ -418,7 +418,7 @@ jumptable_2326_case_42:
     mov di, ax                       ; 0x20bf
     movsw                            ; 0x20c1
     movsw                            ; 0x20c2
-    call ds_app_QSQR                 ; 0x20c3
+    call add_random_steps            ; 0x20c3
     add sp, byte 4                   ; 0x20c6
     push ax                          ; 0x20c9
     mov ax, 0x248                    ; 0x20ca
@@ -544,7 +544,7 @@ jumptable_2326_case_47:
     mov di, ax                       ; 0x21e5
     movsw                            ; 0x21e7
     movsw                            ; 0x21e8
-    call ds_app_QSQR                 ; 0x21e9
+    call add_random_steps            ; 0x21e9
     add sp, byte 4                   ; 0x21ec
     mov word [bp - 0x0002], ax       ; 0x21ef
     push ax                          ; 0x21f2
@@ -575,7 +575,7 @@ jumptable_2326_case_47:
     mov di, ax                       ; 0x2230
     movsw                            ; 0x2232
     movsw                            ; 0x2233
-    call ds_app_QSQR                 ; 0x2234
+    call add_random_steps            ; 0x2234
     add sp, byte 4                   ; 0x2237
     mov word [bp - 0x0002], ax       ; 0x223a
     push ax                          ; 0x223d
@@ -610,7 +610,7 @@ jumptable_2326_case_48:
     mov di, ax                       ; 0x2283
     movsw                            ; 0x2285
     movsw                            ; 0x2286
-    call ds_app_QSQR                 ; 0x2287
+    call add_random_steps            ; 0x2287
     add sp, byte 4                   ; 0x228a
     mov word [bp - 0x0004], ax       ; 0x228d
     push ax                          ; 0x2290

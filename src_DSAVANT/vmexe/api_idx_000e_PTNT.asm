@@ -8,7 +8,7 @@ api_idx_000e_PTNT:
     call ds_app_UTUH                 ; 0x179d
     add sp, byte 6                   ; 0x17a0
     push word [bp + 0x4]             ; 0x17a3
-    call ds_app_OOUT                 ; 0x17a6
+    call sum_page_cell_values        ; 0x17a6
     pop cx                           ; 0x17a9
     push word [bp + 0x4]             ; 0x17aa
     call api_idx_0012_PGSL           ; 0x17ad

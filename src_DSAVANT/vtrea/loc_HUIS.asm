@@ -353,7 +353,7 @@ loc_HUIS:
     jne short @..loc_HUIS.l29        ; 0x5add
     push word [bp - 0x0066]          ; 0x5adf
     push word [bp - 0x0068]          ; 0x5ae2
-    call ds_app_QSQR                 ; 0x5ae5
+    call add_random_steps            ; 0x5ae5
     add sp, byte 4                   ; 0x5ae8
     sub ah, ah                       ; 0x5aeb
     mov cx, word [bp - 0x0002]       ; 0x5aed

@@ -387,7 +387,7 @@ api_idx_0074_SGUS:
     mov di, ax                       ; 0x7c7f
     movsw                            ; 0x7c81
     movsw                            ; 0x7c82
-    call ds_app_QSQR                 ; 0x7c83
+    call add_random_steps            ; 0x7c83
     add sp, byte 4                   ; 0x7c86
     mov cx, ax                       ; 0x7c89
     mov ax, 0x248                    ; 0x7c8b

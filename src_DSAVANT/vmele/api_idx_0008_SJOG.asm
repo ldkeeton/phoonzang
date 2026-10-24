@@ -110,7 +110,7 @@ api_idx_0008_SJOG:
     mov di, ax                       ; 0x08b5
     movsw                            ; 0x08b7
     movsw                            ; 0x08b8
-    call ds_app_QSQR                 ; 0x08b9
+    call add_random_steps            ; 0x08b9
     add sp, byte 4                   ; 0x08bc
     mov cx, word [bp + 0x6]          ; 0x08bf
     shl cx, 1                        ; 0x08c2
@@ -202,7 +202,7 @@ api_idx_0008_SJOG:
     mov di, ax                       ; 0x09b1
     movsw                            ; 0x09b3
     movsw                            ; 0x09b4
-    call ds_app_QSQR                 ; 0x09b5
+    call add_random_steps            ; 0x09b5
     add sp, byte 4                   ; 0x09b8
     push ax                          ; 0x09bb
     mov ax, 0x2c                     ; 0x09bc
@@ -236,7 +236,7 @@ api_idx_0008_SJOG:
     mov di, ax                       ; 0x0a06
     movsw                            ; 0x0a08
     movsw                            ; 0x0a09
-    call ds_app_QSQR                 ; 0x0a0a
+    call add_random_steps            ; 0x0a0a
     add sp, byte 4                   ; 0x0a0d
     push ax                          ; 0x0a10
     mov ax, 0x2c                     ; 0x0a11

@@ -23,7 +23,7 @@ api_idx_0056_VTNO:
     mov di, ax                       ; 0x12fe
     movsw                            ; 0x1300
     movsw                            ; 0x1301
-    call ds_app_QSQR                 ; 0x1302
+    call add_random_steps            ; 0x1302
     add sp, byte 4                   ; 0x1305
     mov word [bp - 0x0006], ax       ; 0x1308
     cmp word [bp + 0x8], byte 0      ; 0x130b

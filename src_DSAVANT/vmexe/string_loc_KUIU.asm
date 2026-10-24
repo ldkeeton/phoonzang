@@ -194,7 +194,7 @@ jumptable_372d:
     mov di, ax                       ; 0x37e5
     movsw                            ; 0x37e7
     movsw                            ; 0x37e8
-    call ds_app_QSQR                 ; 0x37e9
+    call add_random_steps            ; 0x37e9
     add sp, byte 4                   ; 0x37ec
     mov cx, word [bp - 0x0004]       ; 0x37ef
     shl cx, 1                        ; 0x37f2
@@ -278,7 +278,7 @@ jumptable_372d:
     mov di, ax                       ; 0x38cb
     movsw                            ; 0x38cd
     movsw                            ; 0x38ce
-    call ds_app_QSQR                 ; 0x38cf
+    call add_random_steps            ; 0x38cf
     add sp, byte 4                   ; 0x38d2
     push ax                          ; 0x38d5
     mov ax, 0x2c                     ; 0x38d6
@@ -312,7 +312,7 @@ jumptable_372d:
     mov di, ax                       ; 0x3920
     movsw                            ; 0x3922
     movsw                            ; 0x3923
-    call ds_app_QSQR                 ; 0x3924
+    call add_random_steps            ; 0x3924
     add sp, byte 4                   ; 0x3927
     push ax                          ; 0x392a
     mov ax, 0x2c                     ; 0x392b

@@ -128,7 +128,7 @@ jumptable_291f_case_23:
     mov di, ax                       ; 0x232f
     movsw                            ; 0x2331
     movsw                            ; 0x2332
-    call ds_app_QSQR                 ; 0x2333
+    call add_random_steps            ; 0x2333
     add sp, byte 4                   ; 0x2336
     push ax                          ; 0x2339
     mov ax, 0x248                    ; 0x233a
@@ -448,7 +448,7 @@ jumptable_291f_case_37:
     mov di, ax                       ; 0x262e
     movsw                            ; 0x2630
     movsw                            ; 0x2631
-    call ds_app_QSQR                 ; 0x2632
+    call add_random_steps            ; 0x2632
     add sp, byte 4                   ; 0x2635
     push ax                          ; 0x2638
     mov ax, 0x248                    ; 0x2639
@@ -558,7 +558,7 @@ jumptable_291f_case_44:
     mov di, ax                       ; 0x2734
     movsw                            ; 0x2736
     movsw                            ; 0x2737
-    call ds_app_QSQR                 ; 0x2738
+    call add_random_steps            ; 0x2738
     add sp, byte 4                   ; 0x273b
     mov word [bp - 0x0002], ax       ; 0x273e
     push ax                          ; 0x2741
@@ -589,7 +589,7 @@ jumptable_291f_case_44:
     mov di, ax                       ; 0x277f
     movsw                            ; 0x2781
     movsw                            ; 0x2782
-    call ds_app_QSQR                 ; 0x2783
+    call add_random_steps            ; 0x2783
     add sp, byte 4                   ; 0x2786
     mov word [bp - 0x0002], ax       ; 0x2789
     push ax                          ; 0x278c
@@ -624,7 +624,7 @@ jumptable_291f_case_45:
     mov di, ax                       ; 0x27d2
     movsw                            ; 0x27d4
     movsw                            ; 0x27d5
-    call ds_app_QSQR                 ; 0x27d6
+    call add_random_steps            ; 0x27d6
     add sp, byte 4                   ; 0x27d9
     mov word [bp - 0x0004], ax       ; 0x27dc
     push ax                          ; 0x27df

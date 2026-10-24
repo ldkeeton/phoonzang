@@ -203,7 +203,7 @@ jumptable_78e5_case_5:
     mov di, ax                       ; 0x75ff
     movsw                            ; 0x7601
     movsw                            ; 0x7602
-    call ds_app_QSQR                 ; 0x7603
+    call add_random_steps            ; 0x7603
     add sp, byte 4                   ; 0x7606
     mov word [bp - 0x0008], ax       ; 0x7609
     push ax                          ; 0x760c
@@ -256,7 +256,7 @@ jumptable_78e5_case_5:
     mov di, ax                       ; 0x7674
     movsw                            ; 0x7676
     movsw                            ; 0x7677
-    call ds_app_QSQR                 ; 0x7678
+    call add_random_steps            ; 0x7678
     add sp, byte 4                   ; 0x767b
     mov word [bp - 0x0008], ax       ; 0x767e
     mov ax, word [bp - 0x0008]       ; 0x7681

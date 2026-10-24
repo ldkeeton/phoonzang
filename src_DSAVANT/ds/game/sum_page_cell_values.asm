@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_OOUT: ; Aztec csav frame=0x0004
+sum_page_cell_values: ; Aztec csav frame=0x0004
     mov ax, 0xfffc                   ; 0x17d6
     call aztec_csav                  ; 0x17d9
     mov ax, 0x248                    ; 0x17dc
@@ -7,9 +7,9 @@ ds_app_OOUT: ; Aztec csav frame=0x0004
     mov bx, ax                       ; 0x17e2
     mov word [bx + pc_records + 0x4], 0 ; 0x17e4
     mov word [bp - 0x0004], 0        ; 0x17ea
-@..ds_app_OOUT.l1:
+@..sum_page_cell_values.l1:
     mov word [bp - 0x0002], 0        ; 0x17ef
-@..ds_app_OOUT.l2:
+@..sum_page_cell_values.l2:
     mov ax, 0x248                    ; 0x17f4
     imul word [bp + 0x4]             ; 0x17f7
     push ax                          ; 0x17fa
@@ -26,11 +26,11 @@ ds_app_OOUT: ; Aztec csav frame=0x0004
     add ax, cx                       ; 0x1810
     mov bx, ax                       ; 0x1812
     cmp word [bx + cell_key_grid], byte 0 ; 0x1814
-    jle short @..ds_app_OOUT.l3      ; 0x1819
+    jle short @..sum_page_cell_values.l3 ; 0x1819
     push word [bp - 0x0002]          ; 0x181b
     push word [bp - 0x0004]          ; 0x181e
     push word [bp + 0x4]             ; 0x1821
-    call ds_app_VOML                 ; 0x1824
+    call cell_power                  ; 0x1824
     add sp, byte 6                   ; 0x1827
     push ax                          ; 0x182a
     mov ax, 0x248                    ; 0x182b
@@ -38,13 +38,13 @@ ds_app_OOUT: ; Aztec csav frame=0x0004
     mov bx, ax                       ; 0x1831
     pop ax                           ; 0x1833
     add word [bx + pc_records + 0x4], ax ; 0x1834
-@..ds_app_OOUT.l3:
+@..sum_page_cell_values.l3:
     inc word [bp - 0x0002]           ; 0x1838
     mov ax, word [bp - 0x0002]       ; 0x183b
     cmp ax, strict word 0xa          ; 0x183e
-    jl short @..ds_app_OOUT.l2       ; 0x1841
+    jl short @..sum_page_cell_values.l2 ; 0x1841
     inc word [bp - 0x0004]           ; 0x1843
     mov ax, word [bp - 0x0004]       ; 0x1846
     cmp ax, strict word 2            ; 0x1849
-    jl short @..ds_app_OOUT.l1       ; 0x184c
+    jl short @..sum_page_cell_values.l1 ; 0x184c
     ret                              ; 0x184e

@@ -321,10 +321,10 @@ code_check_value equ __zbss_0e34 - __zdseg_start
 
 %include "ds/game/str_subst_char.asm"      ; 0x0547
 
-bss_0fd5          equ __zbss_0fd5 - __zdseg_start
-code_table        equ __zbss_0fd6 - __zdseg_start
-answer_check_word equ __zbss_1008 - __zdseg_start
-bss_100a          equ __zbss_100a - __zdseg_start
+code_char_message_index equ __zbss_0fd5 - __zdseg_start
+code_table              equ __zbss_0fd6 - __zdseg_start
+answer_check_word       equ __zbss_1008 - __zdseg_start
+bss_100a                equ __zbss_100a - __zdseg_start
 %include "ds/game/ds_app_string_MPHP.asm"  ; 0x05d0
 
 message_directory equ __zbss_100c - __zdseg_start
@@ -370,7 +370,7 @@ loaded_sound_id equ __zbss_598e - __zdseg_start
 
 ; code_check_value equ __zbss_0e34 - __zdseg_start
 code_characters  equ __zbss_5990 - __zdseg_start
-bss_59f4         equ __zbss_59f4 - __zdseg_start
+code_char_index  equ __zbss_59f4 - __zdseg_start
 answer_length    equ __zbss_59f6 - __zdseg_start
 code_check_word  equ __zbss_59f8 - __zdseg_start
 %include "ds/game/ds_app_RMGT.asm"         ; 0x0ad7
@@ -455,11 +455,11 @@ saved_screen_ref          equ __zbss_5be0 - __zdseg_start
 %include "ds/game/restore_saved_screen.asm" ; 0x16a0
 
 cell_key_grid equ __zbss_5c34 - __zdseg_start
-%include "ds/game/ds_app_VOML.asm"         ; 0x1741
+%include "ds/game/cell_power.asm"          ; 0x1741
 
 pc_records    equ __zbss_5c10 - __zdseg_start
 ; cell_key_grid equ __zbss_5c34 - __zdseg_start
-%include "ds/game/ds_app_OOUT.asm"         ; 0x17d6
+%include "ds/game/sum_page_cell_values.asm" ; 0x17d6
 
 ; cell_key_grid equ __zbss_5c34 - __zdseg_start
 member_state  equ __zbss_5e2a - __zdseg_start
@@ -474,10 +474,10 @@ member_state  equ __zbss_5e2a - __zdseg_start
 ; cell_key_grid equ __zbss_5c34 - __zdseg_start
 %include "ds/game/ds_app_UTUH.asm"         ; 0x1c6e
 
-; bss_0fd5        equ __zbss_0fd5 - __zdseg_start
-; code_characters equ __zbss_5990 - __zdseg_start
-; bss_59f4        equ __zbss_59f4 - __zdseg_start
-%include "ds/game/ds_app_OOHU.asm"         ; 0x1cb1
+; code_char_message_index equ __zbss_0fd5 - __zdseg_start
+; code_characters         equ __zbss_5990 - __zdseg_start
+; code_char_index         equ __zbss_59f4 - __zdseg_start
+%include "ds/game/pick_code_char.asm"      ; 0x1cb1
 
 ; cell_key_grid equ __zbss_5c34 - __zdseg_start
 ; member_state  equ __zbss_5e2a - __zdseg_start
@@ -503,7 +503,7 @@ pc_spell_power_cap equ __zbss_5c18 - __zdseg_start
 bss_69c8      equ __zbss_69c8 - __zdseg_start
 %include "ds/game/pick_party_member.asm"   ; 0x20f8
 
-%include "ds/game/ds_app_QSQR.asm"         ; 0x2305
+%include "ds/game/add_random_steps.asm"    ; 0x2305
 
 saved_word equ __zbss_0cf6 - __zdseg_start
 saved_pair equ __zbss_0cf8 - __zdseg_start
