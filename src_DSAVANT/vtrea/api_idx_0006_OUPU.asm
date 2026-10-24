@@ -38,7 +38,7 @@ api_idx_0006_OUPU:
     mov ax, 0x248                    ; 0x556c
     imul word [bp - 0x0002]          ; 0x556f
     mov bx, ax                       ; 0x5572
-    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x5574
+    cmp byte [bx + member_state + 0x5], 3 ; 0x5574
     jae short @..api_idx_0006_OUPU.l5 ; 0x5579
     mov ax, 0xc8                     ; 0x557b
     push ax                          ; 0x557e

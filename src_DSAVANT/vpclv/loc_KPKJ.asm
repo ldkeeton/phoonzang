@@ -5,7 +5,7 @@ loc_KPKJ:
     mov ax, 0x248                    ; 0x4316
     imul word [bp + 0x4]             ; 0x4319
     mov bx, ax                       ; 0x431c
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x431e
+    mov al, byte [bx + member_state + 0x3] ; 0x431e
     sub ah, ah                       ; 0x4322
     jmp near @..loc_KPKJ.l1          ; 0x4324
 jumptable_45b6_case_0:

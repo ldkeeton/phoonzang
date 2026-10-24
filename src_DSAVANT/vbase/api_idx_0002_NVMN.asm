@@ -34,7 +34,7 @@ api_idx_0002_NVMN:
     call gfx_mouse_off               ; 0x70b1
 @..api_idx_0002_NVMN.l1:
     mov word [mouse_active], 0       ; 0x70b4
-    call ds_app_NNSU                 ; 0x70ba
+    call score_music_enabled         ; 0x70ba
     mov word [bss_8450], ax          ; 0x70bd
     test ax, ax                      ; 0x70c0
     je short @..api_idx_0002_NVMN.l2 ; 0x70c2

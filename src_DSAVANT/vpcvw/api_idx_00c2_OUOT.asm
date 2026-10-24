@@ -285,7 +285,7 @@ api_idx_00c2_OUOT:
     mov word [bp - 0x0092], 0        ; 0x57a5
 @..api_idx_00c2_OUOT.l7:
     push word [bp + 0x4]             ; 0x57ab
-    call ds_app_KTPM                 ; 0x57ae
+    call member_is_active            ; 0x57ae
     pop cx                           ; 0x57b1
     test ax, ax                      ; 0x57b2
     jne short @..api_idx_00c2_OUOT.l8 ; 0x57b4

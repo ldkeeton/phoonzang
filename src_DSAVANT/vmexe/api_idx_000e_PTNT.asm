@@ -25,5 +25,5 @@ api_idx_000e_PTNT:
     imul word [bp + 0x4]             ; 0x17c6
     mov bx, ax                       ; 0x17c9
     pop ax                           ; 0x17cb
-    mov byte [bx + bss_5e2a + 0x9], al ; 0x17cc
+    mov byte [bx + member_state + 0x9], al ; 0x17cc
     ret                              ; 0x17d0

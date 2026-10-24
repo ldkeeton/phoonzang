@@ -2806,8 +2806,8 @@ jumptable_5eb8_case_56:
     mov bx, ax                       ; 0x5420
     pop dx                           ; 0x5422
     pop ax                           ; 0x5423
-    add word [bx + bss_5bf4 + 0x8], ax ; 0x5424
-    adc word [bx + bss_5bf4 + 0xa], dx ; 0x5428
+    add word [bx + party_records + 0x8], ax ; 0x5424
+    adc word [bx + party_records + 0xa], dx ; 0x5428
     mov ax, 0x12                     ; 0x542c
     push ax                          ; 0x542f
     call random_below                ; 0x5430
@@ -2966,8 +2966,8 @@ jumptable_5eb8_case_94:
     mov bx, ax                       ; 0x55ab
     pop dx                           ; 0x55ad
     pop ax                           ; 0x55ae
-    add word [bx + bss_5bf4 + 0x8], ax ; 0x55af
-    adc word [bx + bss_5bf4 + 0xa], dx ; 0x55b3
+    add word [bx + party_records + 0x8], ax ; 0x55af
+    adc word [bx + party_records + 0xa], dx ; 0x55b3
     mov ax, 0                        ; 0x55b7
     push ax                          ; 0x55ba
     push word [bp - 0x000c]          ; 0x55bb
@@ -3501,8 +3501,8 @@ jumptable_5eb8_case_78:
     mov ax, 0x248                    ; 0x5aa8
     imul word [bp - 0x0002]          ; 0x5aab
     mov bx, ax                       ; 0x5aae
-    add word [bx + bss_5bf4 + 0x8], byte 1 ; 0x5ab0
-    adc word [bx + bss_5bf4 + 0xa], byte 0 ; 0x5ab5
+    add word [bx + party_records + 0x8], byte 1 ; 0x5ab0
+    adc word [bx + party_records + 0xa], byte 0 ; 0x5ab5
     mov ax, 0                        ; 0x5aba
     push ax                          ; 0x5abd
     push word [bp - 0x0002]          ; 0x5abe

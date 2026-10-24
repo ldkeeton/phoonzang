@@ -62,7 +62,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0d0e
     imul word [bp - 0x0002]          ; 0x0d11
     mov bx, ax                       ; 0x0d14
-    mov ax, word [bx + bss_5c0a + 0x4] ; 0x0d16
+    mov ax, word [bx + member_pair_points + 0x4] ; 0x0d16
     push ax                          ; 0x0d1a
     mov ax, 0x2c                     ; 0x0d1b
     imul word [bp - 0x0002]          ; 0x0d1e
@@ -76,7 +76,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0d32
     imul word [bp - 0x0002]          ; 0x0d35
     mov bx, ax                       ; 0x0d38
-    mov ax, word [bx + bss_5c0a + 0x2] ; 0x0d3a
+    mov ax, word [bx + member_pair_points + 0x2] ; 0x0d3a
     push ax                          ; 0x0d3e
     mov ax, 0x2c                     ; 0x0d3f
     imul word [bp - 0x0002]          ; 0x0d42
@@ -118,7 +118,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0d9e
     imul word [bp - 0x0002]          ; 0x0da1
     mov bx, ax                       ; 0x0da4
-    mov al, byte [bx + bss_5e2a + 0x5] ; 0x0da6
+    mov al, byte [bx + member_state + 0x5] ; 0x0da6
     push ax                          ; 0x0daa
     mov ax, 0x2c                     ; 0x0dab
     imul word [bp - 0x0002]          ; 0x0dae
@@ -150,7 +150,7 @@ api_idx_0004_TJKU:
     mov ax, 0x248                    ; 0x0def
     imul word [bp - 0x0002]          ; 0x0df2
     mov bx, ax                       ; 0x0df5
-    mov al, byte [bx + bss_5e2a + 0x8] ; 0x0df7
+    mov al, byte [bx + member_state + 0x8] ; 0x0df7
     push ax                          ; 0x0dfb
     mov ax, 0x2c                     ; 0x0dfc
     imul word [bp - 0x0002]          ; 0x0dff

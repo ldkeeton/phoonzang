@@ -221,7 +221,7 @@ jumptable_4a7d_case_22:
     mov ax, 1                        ; 0x4572
     push ax                          ; 0x4575
     push word [bp - 0x0002]          ; 0x4576
-    call ds_app_LUOV                 ; 0x4579
+    call draw_party_member_panel     ; 0x4579
     add sp, byte 4                   ; 0x457c
     inc word [bp - 0x0002]           ; 0x457f
 @..apply_spell_effect_alt.l15:
@@ -251,14 +251,14 @@ jumptable_4a7d_case_23:
     mov ax, 1                        ; 0x45bb
     push ax                          ; 0x45be
     push word [bp + 0xa]             ; 0x45bf
-    call ds_app_LUOV                 ; 0x45c2
+    call draw_party_member_panel     ; 0x45c2
     add sp, byte 4                   ; 0x45c5
     jmp near @..apply_spell_effect_alt.l45 ; 0x45c8
 jumptable_4a7d_case_26:
     mov ax, 0x248                    ; 0x45cb
     imul word [bp + 0xa]             ; 0x45ce
     mov bx, ax                       ; 0x45d1
-    mov al, byte [bx + bss_5e2a + 0x8] ; 0x45d3
+    mov al, byte [bx + member_state + 0x8] ; 0x45d3
     sub ah, ah                       ; 0x45d7
     sub ax, word [bp + 0x8]          ; 0x45d9
     mov word [bp - 0x0002], ax       ; 0x45dc
@@ -268,7 +268,7 @@ jumptable_4a7d_case_26:
     mov byte [bx + cell_key_grid + 0x12b], 0 ; 0x45e9
 @..apply_spell_effect_alt.l17:
     mov al, byte [bp - 0x0002]       ; 0x45ee
-    mov byte [bx + bss_5e2a + 0x8], al ; 0x45f1
+    mov byte [bx + member_state + 0x8], al ; 0x45f1
     mov al, byte [bx + cell_key_grid + 0x12b] ; 0x45f5
     sub ah, ah                       ; 0x45f9
     push ax                          ; 0x45fb
@@ -281,21 +281,21 @@ jumptable_4a7d_case_26:
     cmp ax, strict word 0            ; 0x460a
     jg short @..apply_spell_effect_alt.l18 ; 0x460d
     mov word [bp - 0x0002], 0        ; 0x460f
-    mov byte [bx + bss_5e2a + 0x8], 0 ; 0x4614
+    mov byte [bx + member_state + 0x8], 0 ; 0x4614
 @..apply_spell_effect_alt.l18:
     mov al, byte [bp - 0x0002]       ; 0x4619
     mov byte [bx + cell_key_grid + 0x12b], al ; 0x461c
     mov ax, 1                        ; 0x4620
     push ax                          ; 0x4623
     push word [bp + 0xa]             ; 0x4624
-    call ds_app_LUOV                 ; 0x4627
+    call draw_party_member_panel     ; 0x4627
     add sp, byte 4                   ; 0x462a
     jmp near @..apply_spell_effect_alt.l45 ; 0x462d
 jumptable_4a7d_case_31:
     mov ax, 0x248                    ; 0x4630
     imul word [bp + 0xa]             ; 0x4633
     mov bx, ax                       ; 0x4636
-    cmp byte [bx + bss_5e2a + 0x5], 2 ; 0x4638
+    cmp byte [bx + member_state + 0x5], 2 ; 0x4638
     je short @..apply_spell_effect_alt.l19 ; 0x463d
     jmp near @..apply_spell_effect_alt.l22 ; 0x463f
 @..apply_spell_effect_alt.l19:
@@ -324,8 +324,8 @@ jumptable_4a7d_case_31:
     mov bx, ax                       ; 0x4673
     pop dx                           ; 0x4675
     pop ax                           ; 0x4676
-    add word [bx + bss_5bf4 + 0x8], ax ; 0x4677
-    adc word [bx + bss_5bf4 + 0xa], dx ; 0x467b
+    add word [bx + party_records + 0x8], ax ; 0x4677
+    adc word [bx + party_records + 0xa], dx ; 0x467b
     mov ax, 0x12                     ; 0x467f
     push ax                          ; 0x4682
     call random_below                ; 0x4683
@@ -340,17 +340,17 @@ jumptable_4a7d_case_31:
     pop ax                           ; 0x4698
     cmp ax, cx                       ; 0x4699
     jle short @..apply_spell_effect_alt.l20 ; 0x469b
-    mov byte [bx + bss_5e2a + 0x5], 3 ; 0x469d
-    mov word [bx + bss_5c0a + 0x2], 0 ; 0x46a2
+    mov byte [bx + member_state + 0x5], 3 ; 0x469d
+    mov word [bx + member_pair_points + 0x2], 0 ; 0x46a2
     mov word [bx + pc_records], 0    ; 0x46a8
     jmp short @..apply_spell_effect_alt.l21 ; 0x46ae
 @..apply_spell_effect_alt.l20:
-    mov byte [bx + bss_5e2a + 0x5], 0 ; 0x46b0
+    mov byte [bx + member_state + 0x5], 0 ; 0x46b0
 @..apply_spell_effect_alt.l21:
     mov ax, 1                        ; 0x46b5
     push ax                          ; 0x46b8
     push word [bp + 0xa]             ; 0x46b9
-    call ds_app_LUOV                 ; 0x46bc
+    call draw_party_member_panel     ; 0x46bc
     add sp, byte 4                   ; 0x46bf
 @..apply_spell_effect_alt.l22:
     jmp near @..apply_spell_effect_alt.l45 ; 0x46c2
@@ -376,7 +376,7 @@ jumptable_4a7d_case_36:
     mov ax, 1                        ; 0x46f3
     push ax                          ; 0x46f6
     push word [bp + 0xa]             ; 0x46f7
-    call ds_app_LUOV                 ; 0x46fa
+    call draw_party_member_panel     ; 0x46fa
     add sp, byte 4                   ; 0x46fd
     jmp near @..apply_spell_effect_alt.l45 ; 0x4700
 jumptable_4a7d_case_25:
@@ -399,7 +399,7 @@ jumptable_4a7d_case_25:
     mov ax, 1                        ; 0x4729
     push ax                          ; 0x472c
     push word [bp + 0xa]             ; 0x472d
-    call ds_app_LUOV                 ; 0x4730
+    call draw_party_member_panel     ; 0x4730
     add sp, byte 4                   ; 0x4733
     jmp near @..apply_spell_effect_alt.l45 ; 0x4736
 jumptable_4a7d_case_35:
@@ -429,7 +429,7 @@ jumptable_4a7d_case_35:
     mov ax, 1                        ; 0x4772
     push ax                          ; 0x4775
     push word [bp - 0x0002]          ; 0x4776
-    call ds_app_LUOV                 ; 0x4779
+    call draw_party_member_panel     ; 0x4779
     add sp, byte 4                   ; 0x477c
     inc word [bp - 0x0002]           ; 0x477f
 @..apply_spell_effect_alt.l27:
@@ -483,7 +483,7 @@ jumptable_4a7d_case_32:
     mov ax, 1                        ; 0x47f3
     push ax                          ; 0x47f6
     push word [bp + 0xa]             ; 0x47f7
-    call ds_app_LUOV                 ; 0x47fa
+    call draw_party_member_panel     ; 0x47fa
     add sp, byte 4                   ; 0x47fd
     jmp near @..apply_spell_effect_alt.l45 ; 0x4800
 jumptable_4a7d_case_37:
@@ -517,7 +517,7 @@ jumptable_4a7d_case_37:
     mov ax, 0x248                    ; 0x4842
     imul word [bp - 0x0002]          ; 0x4845
     mov bx, ax                       ; 0x4848
-    push word [bx + bss_5c0a + 0x4]  ; 0x484a
+    push word [bx + member_pair_points + 0x4] ; 0x484a
     mov ax, 0                        ; 0x484e
     push ax                          ; 0x4851
     push word [bp - 0x0008]          ; 0x4852
@@ -541,7 +541,7 @@ jumptable_4a7d_case_37:
     imul word [bp - 0x0002]          ; 0x487c
     mov bx, ax                       ; 0x487f
     pop ax                           ; 0x4881
-    add ax, word [bx + bss_5c0a + 0x2] ; 0x4882
+    add ax, word [bx + member_pair_points + 0x2] ; 0x4882
     push ax                          ; 0x4886
     call clamp_between               ; 0x4887
     add sp, byte 6                   ; 0x488a
@@ -550,13 +550,13 @@ jumptable_4a7d_case_37:
     imul word [bp - 0x0002]          ; 0x4891
     mov bx, ax                       ; 0x4894
     pop ax                           ; 0x4896
-    mov word [bx + bss_5c0a + 0x2], ax ; 0x4897
-    add word [bx + bss_5bf4 + 0x8], byte 1 ; 0x489b
-    adc word [bx + bss_5bf4 + 0xa], byte 0 ; 0x48a0
+    mov word [bx + member_pair_points + 0x2], ax ; 0x4897
+    add word [bx + party_records + 0x8], byte 1 ; 0x489b
+    adc word [bx + party_records + 0xa], byte 0 ; 0x48a0
     mov ax, 1                        ; 0x48a5
     push ax                          ; 0x48a8
     push word [bp - 0x0002]          ; 0x48a9
-    call ds_app_LUOV                 ; 0x48ac
+    call draw_party_member_panel     ; 0x48ac
     add sp, byte 4                   ; 0x48af
     inc word [bp - 0x0002]           ; 0x48b2
 @..apply_spell_effect_alt.l37:
@@ -568,7 +568,7 @@ jumptable_4a7d_case_41:
     mov ax, 0x248                    ; 0x48c0
     imul word [bp + 0xa]             ; 0x48c3
     mov bx, ax                       ; 0x48c6
-    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x48c8
+    cmp byte [bx + member_state + 0x5], 3 ; 0x48c8
     je short @..apply_spell_effect_alt.l38 ; 0x48cd
     jmp near @..apply_spell_effect_alt.l39 ; 0x48cf
 @..apply_spell_effect_alt.l38:
@@ -584,11 +584,11 @@ jumptable_4a7d_case_41:
     cmp ax, cx                       ; 0x48e7
     jle short @..apply_spell_effect_alt.l39 ; 0x48e9
     dec byte [bx + cell_key_grid + 0x133] ; 0x48eb
-    mov byte [bx + bss_5e2a + 0x5], 0 ; 0x48ef
-    push word [bx + bss_5c0a + 0x4]  ; 0x48f4
+    mov byte [bx + member_state + 0x5], 0 ; 0x48ef
+    push word [bx + member_pair_points + 0x4] ; 0x48f4
     mov ax, 1                        ; 0x48f8
     push ax                          ; 0x48fb
-    mov ax, word [bx + bss_5c0a + 0x4] ; 0x48fc
+    mov ax, word [bx + member_pair_points + 0x4] ; 0x48fc
     mov cx, 3                        ; 0x4900
     cwd                              ; 0x4903
     idiv cx                          ; 0x4904
@@ -600,7 +600,7 @@ jumptable_4a7d_case_41:
     imul word [bp + 0xa]             ; 0x4911
     mov bx, ax                       ; 0x4914
     pop ax                           ; 0x4916
-    mov word [bx + bss_5c0a + 0x2], ax ; 0x4917
+    mov word [bx + member_pair_points + 0x2], ax ; 0x4917
     mov ax, word [bx + pc_records + 0x2] ; 0x491b
     mov cx, 0xa                      ; 0x491f
     cwd                              ; 0x4922
@@ -620,12 +620,12 @@ jumptable_4a7d_case_41:
     mov bx, ax                       ; 0x4941
     pop dx                           ; 0x4943
     pop ax                           ; 0x4944
-    add word [bx + bss_5bf4 + 0x8], ax ; 0x4945
-    adc word [bx + bss_5bf4 + 0xa], dx ; 0x4949
+    add word [bx + party_records + 0x8], ax ; 0x4945
+    adc word [bx + party_records + 0xa], dx ; 0x4949
     mov ax, 1                        ; 0x494d
     push ax                          ; 0x4950
     push word [bp + 0xa]             ; 0x4951
-    call ds_app_LUOV                 ; 0x4954
+    call draw_party_member_panel     ; 0x4954
     add sp, byte 4                   ; 0x4957
 @..apply_spell_effect_alt.l39:
     jmp near @..apply_spell_effect_alt.l45 ; 0x495a
@@ -684,17 +684,17 @@ jumptable_4a7d_case_42:
     imul word [bp + 0x4]             ; 0x49d6
     mov bx, ax                       ; 0x49d9
     pop ax                           ; 0x49db
-    add word [bx + bss_5c0a + 0x2], ax ; 0x49dc
-    mov ax, word [bx + bss_5c0a + 0x2] ; 0x49e0
-    cmp ax, word [bx + bss_5c0a + 0x4] ; 0x49e4
+    add word [bx + member_pair_points + 0x2], ax ; 0x49dc
+    mov ax, word [bx + member_pair_points + 0x2] ; 0x49e0
+    cmp ax, word [bx + member_pair_points + 0x4] ; 0x49e4
     jle short @..apply_spell_effect_alt.l41 ; 0x49e8
-    mov ax, word [bx + bss_5c0a + 0x4] ; 0x49ea
-    mov word [bx + bss_5c0a + 0x2], ax ; 0x49ee
+    mov ax, word [bx + member_pair_points + 0x4] ; 0x49ea
+    mov word [bx + member_pair_points + 0x2], ax ; 0x49ee
 @..apply_spell_effect_alt.l41:
     mov ax, 1                        ; 0x49f2
     push ax                          ; 0x49f5
     push word [bp + 0x4]             ; 0x49f6
-    call ds_app_LUOV                 ; 0x49f9
+    call draw_party_member_panel     ; 0x49f9
     add sp, byte 4                   ; 0x49fc
     jmp near @..apply_spell_effect_alt.l45 ; 0x49ff
 jumptable_4a7d_case_43:
@@ -743,7 +743,7 @@ jumptable_4a7d_case_43:
     mov ax, 1                        ; 0x4a68
     push ax                          ; 0x4a6b
     push word [bp + 0x4]             ; 0x4a6c
-    call ds_app_LUOV                 ; 0x4a6f
+    call draw_party_member_panel     ; 0x4a6f
     add sp, byte 4                   ; 0x4a72
     jmp short @..apply_spell_effect_alt.l45 ; 0x4a75
 @..apply_spell_effect_alt.l44:

@@ -16,7 +16,7 @@ api_idx_007a_NHII:
     pop cx                           ; 0x4f32
     mov word [bp - 0x0006], ax       ; 0x4f33
     push word [bp - 0x0006]          ; 0x4f36
-    call ds_app_KTPM                 ; 0x4f39
+    call member_is_active            ; 0x4f39
     pop cx                           ; 0x4f3c
     test ax, ax                      ; 0x4f3d
     je short @..api_idx_007a_NHII.l1 ; 0x4f3f
@@ -125,7 +125,7 @@ jumptable_51bc_case_1:
     cmp ax, strict word 0xffff       ; 0x5033
     je short @..api_idx_007a_NHII.l6 ; 0x5036
     push ax                          ; 0x5038
-    call ds_app_KTPM                 ; 0x5039
+    call member_is_active            ; 0x5039
     pop cx                           ; 0x503c
     test ax, ax                      ; 0x503d
     je short @..api_idx_007a_NHII.l6 ; 0x503f
@@ -161,7 +161,7 @@ jumptable_51bc_case_0:
     jmp near @..api_idx_007a_NHII.l11 ; 0x5086
 @..api_idx_007a_NHII.l8:
     push ax                          ; 0x5089
-    call ds_app_KTPM                 ; 0x508a
+    call member_is_active            ; 0x508a
     pop cx                           ; 0x508d
     test ax, ax                      ; 0x508e
     jne short @..api_idx_007a_NHII.l9 ; 0x5090
@@ -240,7 +240,7 @@ jumptable_51bc_case_2:
     jmp near @..api_idx_007a_NHII.l17 ; 0x513d
 @..api_idx_007a_NHII.l13:
     push ax                          ; 0x5140
-    call ds_app_KTPM                 ; 0x5141
+    call member_is_active            ; 0x5141
     pop cx                           ; 0x5144
     test ax, ax                      ; 0x5145
     je short @..api_idx_007a_NHII.l17 ; 0x5147

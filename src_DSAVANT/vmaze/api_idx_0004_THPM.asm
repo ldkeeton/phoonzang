@@ -16,7 +16,7 @@ api_idx_0004_THPM:
     jmp short @..api_idx_0004_THPM.l4 ; 0x7568
 @..api_idx_0004_THPM.l2:
     push word [bp - 0x0002]          ; 0x756a
-    call ds_app_KTPM                 ; 0x756d
+    call member_is_active            ; 0x756d
     pop cx                           ; 0x7570
     test ax, ax                      ; 0x7571
     je short @..api_idx_0004_THPM.l3 ; 0x7573

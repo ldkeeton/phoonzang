@@ -178,7 +178,7 @@ api_idx_000c_RLGP:
     push ax                          ; 0x530f
     call load_monster_picture        ; 0x5310
     add sp, byte 4                   ; 0x5313
-    call ds_app_NNSU                 ; 0x5316
+    call score_music_enabled         ; 0x5316
     mov word [bss_8450], ax          ; 0x5319
     test ax, ax                      ; 0x531c
     je short @..api_idx_000c_RLGP.l4 ; 0x531e

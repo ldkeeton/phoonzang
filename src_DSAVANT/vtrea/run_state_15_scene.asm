@@ -13,7 +13,7 @@ run_state_15_scene:
     pop cx                           ; 0x80b9
     cmp word [bss_84a0], byte 0xff   ; 0x80ba
     je short @..run_state_15_scene.l2 ; 0x80bf
-    call ds_app_NNSU                 ; 0x80c1
+    call score_music_enabled         ; 0x80c1
     mov word [bss_8450], ax          ; 0x80c4
     test ax, ax                      ; 0x80c7
     je short @..run_state_15_scene.l1 ; 0x80c9

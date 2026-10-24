@@ -153,7 +153,7 @@ api_idx_0072_LQIT:
     cmp ax, strict word 0xffff       ; 0x72c0
     je short @..api_idx_0072_LQIT.l8 ; 0x72c3
     push ax                          ; 0x72c5
-    call ds_app_KTPM                 ; 0x72c6
+    call member_is_active            ; 0x72c6
     pop cx                           ; 0x72c9
     test ax, ax                      ; 0x72ca
     je short @..api_idx_0072_LQIT.l8 ; 0x72cc

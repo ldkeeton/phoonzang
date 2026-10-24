@@ -212,7 +212,7 @@ api_idx_0074_SGUS:
     mov ax, 0x248                    ; 0x7ae9
     imul word [bp - 0x0014]          ; 0x7aec
     mov bx, ax                       ; 0x7aef
-    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x7af1
+    cmp byte [bx + member_state + 0x5], 3 ; 0x7af1
     jb short @..api_idx_0074_SGUS.l13 ; 0x7af6
     inc word [bp - 0x0014]           ; 0x7af8
     jmp short @..api_idx_0074_SGUS.l12 ; 0x7afb

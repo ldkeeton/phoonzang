@@ -344,7 +344,7 @@ api_idx_0060_VPPJ:
     mov ax, 0x248                    ; 0x233f
     imul word [bp - 0x0002]          ; 0x2342
     mov bx, ax                       ; 0x2345
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x2347
+    mov al, byte [bx + member_state + 0x3] ; 0x2347
     sub ah, ah                       ; 0x234b
     jmp short @..api_idx_0060_VPPJ.l37 ; 0x234d
 @..api_idx_0060_VPPJ.l35:

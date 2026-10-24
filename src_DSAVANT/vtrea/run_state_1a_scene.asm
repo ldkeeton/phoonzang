@@ -24,7 +24,7 @@ run_state_1a_scene:
     push ax                          ; 0x814e
     call gfx_show_area               ; 0x814f
     add sp, byte 8                   ; 0x8152
-    call ds_app_NNSU                 ; 0x8155
+    call score_music_enabled         ; 0x8155
     mov word [bss_8450], ax          ; 0x8158
     test ax, ax                      ; 0x815b
     je short @..run_state_1a_scene.l2 ; 0x815d

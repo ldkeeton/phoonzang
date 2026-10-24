@@ -12,7 +12,7 @@ api_idx_0004_MLLS:
     imul word [bp + 0x4]             ; 0x0324
     mov bx, ax                       ; 0x0327
     pop ax                           ; 0x0329
-    mov word [bx + bss_5c0a + 0x2], ax ; 0x032a
+    mov word [bx + member_pair_points + 0x2], ax ; 0x032a
     mov bx, word [party_char]        ; 0x032e
     mov ax, word [bx + si + 0x6]     ; 0x0332
     push ax                          ; 0x0335
@@ -28,7 +28,7 @@ api_idx_0004_MLLS:
     imul word [bp + 0x4]             ; 0x034e
     mov bx, ax                       ; 0x0351
     pop ax                           ; 0x0353
-    mov byte [bx + bss_5e2a + 0x5], al ; 0x0354
+    mov byte [bx + member_state + 0x5], al ; 0x0354
     mov ax, 0xa                      ; 0x0358
     push ax                          ; 0x035b
     add bx, cell_key_grid + 0x126    ; 0x035c
@@ -50,7 +50,7 @@ api_idx_0004_MLLS:
     imul word [bp + 0x4]             ; 0x0385
     mov bx, ax                       ; 0x0388
     pop ax                           ; 0x038a
-    mov byte [bx + bss_5e2a + 0x8], al ; 0x038b
+    mov byte [bx + member_state + 0x8], al ; 0x038b
     mov ax, 0                        ; 0x038f
     push ax                          ; 0x0392
     push word [bp + 0x4]             ; 0x0393
@@ -82,7 +82,7 @@ api_idx_0004_MLLS:
     push ax                          ; 0x03d6
     mov ax, 0x248                    ; 0x03d7
     imul word [bp + 0x4]             ; 0x03da
-    add ax, bss_5bf4                 ; 0x03dd
+    add ax, party_records            ; 0x03dd
     push ax                          ; 0x03e0
     call aztec_strlen                ; 0x03e1
     pop cx                           ; 0x03e4
@@ -121,7 +121,7 @@ api_idx_0004_MLLS:
     push ax                          ; 0x042a
     mov ax, 0x248                    ; 0x042b
     imul word [bp + 0x4]             ; 0x042e
-    add ax, bss_5bf4                 ; 0x0431
+    add ax, party_records            ; 0x0431
     push ax                          ; 0x0434
     call draw_text_glyphs            ; 0x0435
     add sp, byte 4                   ; 0x0438

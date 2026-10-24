@@ -44,9 +44,9 @@ reset_page_record: ; Aztec csav frame=0x0016
     cwd                              ; 0x18b9
     idiv cx                          ; 0x18ba
     mov word [bp - 0x0004], ax       ; 0x18bc
-    cmp byte [bx + bss_5e2a + 0x3], 0xd ; 0x18bf
+    cmp byte [bx + member_state + 0x3], 0xd ; 0x18bf
     je short @..reset_page_record.l1 ; 0x18c4
-    cmp byte [bx + bss_5e2a + 0x3], 0xc ; 0x18c6
+    cmp byte [bx + member_state + 0x3], 0xc ; 0x18c6
     jne short @..reset_page_record.l2 ; 0x18cb
 @..reset_page_record.l1:
     mov ax, word [bp - 0x0002]       ; 0x18cd

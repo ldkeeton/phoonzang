@@ -8,7 +8,7 @@ show_intro_screen:
     call gfx_mouse_off               ; 0x8f84
 @..show_intro_screen.l1:
     mov word [mouse_active], 0       ; 0x8f87
-    call ds_app_NNSU                 ; 0x8f8d
+    call score_music_enabled         ; 0x8f8d
     mov word [bss_8450], ax          ; 0x8f90
     test ax, ax                      ; 0x8f93
     je short @..show_intro_screen.l2 ; 0x8f95
@@ -403,7 +403,7 @@ show_intro_screen:
     mov ax, 0                        ; 0x92ef
     push ax                          ; 0x92f2
     push word [bp - 0x0002]          ; 0x92f3
-    call ds_app_LUOV                 ; 0x92f6
+    call draw_party_member_panel     ; 0x92f6
     add sp, byte 4                   ; 0x92f9
     inc word [bp - 0x0002]           ; 0x92fc
 @..show_intro_screen.l18:

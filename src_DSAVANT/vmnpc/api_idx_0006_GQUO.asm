@@ -5,7 +5,7 @@ api_idx_0006_GQUO:
     call loc_UTQS                    ; 0x5d14
     mov ax, 0x248                    ; 0x5d17
     imul word [bp + 0x4]             ; 0x5d1a
-    add ax, bss_5bf4                 ; 0x5d1d
+    add ax, party_records            ; 0x5d1d
     push ax                          ; 0x5d20
     push word [bss_9ca8]             ; 0x5d21
     mov ax, 1                        ; 0x5d25

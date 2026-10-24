@@ -11,7 +11,7 @@ api_idx_0050_QVOG:
     push ax                          ; 0x74f8
     mov ax, 0x248                    ; 0x74f9
     imul word [bp + 0x4]             ; 0x74fc
-    add ax, bss_5bf4                 ; 0x74ff
+    add ax, party_records            ; 0x74ff
     push ax                          ; 0x7502
     lea ax, word [bp - 0x0050]       ; 0x7503
     push ax                          ; 0x7506

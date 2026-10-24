@@ -171,7 +171,7 @@ api_idx_004e_PHKR:
     mov ax, 1                        ; 0x5ceb
     push ax                          ; 0x5cee
     push word [bp + 0x4]             ; 0x5cef
-    call ds_app_LUOV                 ; 0x5cf2
+    call draw_party_member_panel     ; 0x5cf2
     add sp, byte 4                   ; 0x5cf5
     mov ax, 0                        ; 0x5cf8
     push ax                          ; 0x5cfb

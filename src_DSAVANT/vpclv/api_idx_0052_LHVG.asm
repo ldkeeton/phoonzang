@@ -5,7 +5,7 @@ api_idx_0052_LHVG:
     mov ax, 0x248                    ; 0x2c12
     imul word [bp + 0x4]             ; 0x2c15
     mov bx, ax                       ; 0x2c18
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x2c1a
+    mov al, byte [bx + member_state + 0x3] ; 0x2c1a
     sub ah, ah                       ; 0x2c1e
     jmp near @..api_idx_0052_LHVG.l1 ; 0x2c20
 jumptable_2ce6_case_0:
@@ -123,7 +123,7 @@ jumptable_2ce6:
     mov ax, 0x248                    ; 0x2d0f
     imul word [bp + 0x4]             ; 0x2d12
     mov bx, ax                       ; 0x2d15
-    mov al, byte [bx + bss_5e2a + 0x1] ; 0x2d17
+    mov al, byte [bx + member_state + 0x1] ; 0x2d17
     sub ah, ah                       ; 0x2d1b
     jmp near @..api_idx_0052_LHVG.l3 ; 0x2d1d
 jumptable_2ebe_case_0:
@@ -513,7 +513,7 @@ jumptable_2ebe:
     mov ax, 0x248                    ; 0x3097
     imul word [bp + 0x4]             ; 0x309a
     mov bx, ax                       ; 0x309d
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x309f
+    mov al, byte [bx + member_state + 0x3] ; 0x309f
     sub ah, ah                       ; 0x30a3
     jmp short @..api_idx_0052_LHVG.l15 ; 0x30a5
 jumptable_30fe_case_0:
@@ -650,15 +650,15 @@ jumptable_30fe:
     mov al, byte [bx + cell_key_grid + 0x176] ; 0x31d1
     cbw                              ; 0x31d5
     mov cx, 0                        ; 0x31d6
-    cmp byte [bx + bss_5e2a + 0x1], 5 ; 0x31d9
+    cmp byte [bx + member_state + 0x1], 5 ; 0x31d9
     jne short @..api_idx_0052_LHVG.l21 ; 0x31de
     mov cx, 2                        ; 0x31e0
 @..api_idx_0052_LHVG.l21:
     sub ax, cx                       ; 0x31e3
     mov byte [bx + cell_key_grid + 0x176], al ; 0x31e5
-    cmp byte [bx + bss_5e2a + 0x3], 0xd ; 0x31e9
+    cmp byte [bx + member_state + 0x3], 0xd ; 0x31e9
     je short @..api_idx_0052_LHVG.l22 ; 0x31ee
-    cmp byte [bx + bss_5e2a + 0x3], 0xc ; 0x31f0
+    cmp byte [bx + member_state + 0x3], 0xc ; 0x31f0
     jne short @..api_idx_0052_LHVG.l24 ; 0x31f5
 @..api_idx_0052_LHVG.l22:
     mov ax, 0xa                      ; 0x31f7

@@ -233,7 +233,7 @@ jumptable_6c16_case_0:
     jmp near @..api_idx_009c_MRKK.l22 ; 0x69d7
 @..api_idx_009c_MRKK.l17:
     push ax                          ; 0x69da
-    call ds_app_KTPM                 ; 0x69db
+    call member_is_active            ; 0x69db
     pop cx                           ; 0x69de
     test ax, ax                      ; 0x69df
     jne short @..api_idx_009c_MRKK.l18 ; 0x69e1
@@ -300,7 +300,7 @@ jumptable_6c16_case_3:
     cmp ax, strict word 0            ; 0x6a6c
     jl short @..api_idx_009c_MRKK.l29 ; 0x6a6f
     push ax                          ; 0x6a71
-    call ds_app_KTPM                 ; 0x6a72
+    call member_is_active            ; 0x6a72
     pop cx                           ; 0x6a75
     test ax, ax                      ; 0x6a76
     je short @..api_idx_009c_MRKK.l29 ; 0x6a78

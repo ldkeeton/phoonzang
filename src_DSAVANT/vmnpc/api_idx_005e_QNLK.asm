@@ -24,7 +24,7 @@ api_idx_005e_QNLK:
     pop ax                           ; 0x6001
     add ax, cx                       ; 0x6002
     mov word [bp - 0x0002], ax       ; 0x6004
-    cmp byte [bx + bss_5e2a + 0x3], 3 ; 0x6007
+    cmp byte [bx + member_state + 0x3], 3 ; 0x6007
     jne short @..api_idx_005e_QNLK.l1 ; 0x600c
     mov al, byte [bx + cell_key_grid + 0x134] ; 0x600e
     sub ah, ah                       ; 0x6012
@@ -32,7 +32,7 @@ api_idx_005e_QNLK:
     add word [bp - 0x0002], ax       ; 0x6016
     jmp short @..api_idx_005e_QNLK.l3 ; 0x6019
 @..api_idx_005e_QNLK.l1:
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x601b
+    mov al, byte [bx + member_state + 0x3] ; 0x601b
     cmp al, 4                        ; 0x601f
     je short @..api_idx_005e_QNLK.l2 ; 0x6021
     cmp al, 6                        ; 0x6023
@@ -89,7 +89,7 @@ api_idx_005e_QNLK:
     mov ax, 0x248                    ; 0x609d
     imul word [bp + 0x4]             ; 0x60a0
     mov bx, ax                       ; 0x60a3
-    mov al, byte [bx + bss_5e2a + 0x2] ; 0x60a5
+    mov al, byte [bx + member_state + 0x2] ; 0x60a5
     sub ah, ah                       ; 0x60a9
     add ax, 0x622                    ; 0x60ab
     push ax                          ; 0x60ae
@@ -99,7 +99,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x60b8
     mov ax, 0x248                    ; 0x60b9
     imul word [bp + 0x4]             ; 0x60bc
-    add ax, bss_5bf4                 ; 0x60bf
+    add ax, party_records            ; 0x60bf
     push ax                          ; 0x60c2
     lea ax, word [bp - 0x005e]       ; 0x60c3
     push ax                          ; 0x60c6
@@ -215,7 +215,7 @@ api_idx_005e_QNLK:
     pop dx                           ; 0x61bc
     pop ax                           ; 0x61bd
     add word [bx + bss_5c08], ax     ; 0x61be
-    adc word [bx + bss_5c0a], dx     ; 0x61c2
+    adc word [bx + member_pair_points], dx ; 0x61c2
     lea ax, word [bp - 0x005e]       ; 0x61c6
     push ax                          ; 0x61c9
     mov ax, 0x626                    ; 0x61ca
@@ -289,7 +289,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x6268
     mov ax, 0x248                    ; 0x6269
     imul word [bp + 0x4]             ; 0x626c
-    add ax, bss_5bf4                 ; 0x626f
+    add ax, party_records            ; 0x626f
     push ax                          ; 0x6272
     lea ax, word [bp - 0x005e]       ; 0x6273
     push ax                          ; 0x6276
@@ -353,7 +353,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x62f2
     mov ax, 0x248                    ; 0x62f3
     imul word [bp + 0x4]             ; 0x62f6
-    add ax, bss_5bf4                 ; 0x62f9
+    add ax, party_records            ; 0x62f9
     push ax                          ; 0x62fc
     lea ax, word [bp - 0x005e]       ; 0x62fd
     push ax                          ; 0x6300

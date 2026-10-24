@@ -28,15 +28,15 @@ api_idx_0004_MMTP:
     jle short @..api_idx_0004_MMTP.l2
     inc word [bp - 0x0004]
 @..api_idx_0004_MMTP.l2:
-    cmp byte [bx + bss_5e2a + 0x1], 5
+    cmp byte [bx + member_state + 0x1], 5
     jne short @..api_idx_0004_MMTP.l3
     inc word [bp - 0x0004]
 @..api_idx_0004_MMTP.l3:
-    cmp byte [bx + bss_5e2a + 0x1], 6
+    cmp byte [bx + member_state + 0x1], 6
     jne short @..api_idx_0004_MMTP.l4
     dec word [bp - 0x0004]
 @..api_idx_0004_MMTP.l4:
-    mov al, byte [bx + bss_5e2a + 0x3]
+    mov al, byte [bx + member_state + 0x3]
     sub ah, ah
     jmp near @..api_idx_0004_MMTP.l5
 api_idx_0004_MMTP.jumptable_case1:

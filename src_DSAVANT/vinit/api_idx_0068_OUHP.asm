@@ -2,7 +2,7 @@
 api_idx_0068_OUHP:
     mov ax, 0xff98                   ; 0x0ac7
     call aztec_csav                  ; 0x0aca
-    call ds_app_NNSU                 ; 0x0acd
+    call score_music_enabled         ; 0x0acd
     mov word [bss_8450], ax          ; 0x0ad0
     test ax, ax                      ; 0x0ad3
     je short @..api_idx_0068_OUHP.l1 ; 0x0ad5

@@ -17,14 +17,14 @@ api_idx_0004_IHHI:
     jmp near @..api_idx_0004_IHHI.l7 ; 0x141f
 @..api_idx_0004_IHHI.l2:
     push word [bp - 0x0002]          ; 0x1422
-    call ds_app_KTPM                 ; 0x1425
+    call member_is_active            ; 0x1425
     pop cx                           ; 0x1428
     test ax, ax                      ; 0x1429
     jne short @..api_idx_0004_IHHI.l4 ; 0x142b
     mov ax, 0x248                    ; 0x142d
     imul word [bp - 0x0002]          ; 0x1430
     mov bx, ax                       ; 0x1433
-    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x1435
+    cmp byte [bx + member_state + 0x5], 3 ; 0x1435
     jae short @..api_idx_0004_IHHI.l3 ; 0x143a
     mov ax, 1                        ; 0x143c
     push ax                          ; 0x143f
@@ -105,7 +105,7 @@ api_idx_0004_IHHI:
     mov ax, 1                        ; 0x14e7
     push ax                          ; 0x14ea
     push word [bp - 0x0002]          ; 0x14eb
-    call ds_app_LUOV                 ; 0x14ee
+    call draw_party_member_panel     ; 0x14ee
     add sp, byte 4                   ; 0x14f1
 @..api_idx_0004_IHHI.l6:
     inc word [bp - 0x0002]           ; 0x14f4

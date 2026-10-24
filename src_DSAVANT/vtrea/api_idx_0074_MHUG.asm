@@ -382,7 +382,7 @@ api_idx_0074_MHUG:
     jmp near @..api_idx_0074_MHUG.l9 ; 0x6a60
 @..api_idx_0074_MHUG.l7:
     push word [bp - 0x0002]          ; 0x6a63
-    call ds_app_KTPM                 ; 0x6a66
+    call member_is_active            ; 0x6a66
     pop cx                           ; 0x6a69
     test ax, ax                      ; 0x6a6a
     je short @..api_idx_0074_MHUG.l8 ; 0x6a6c
@@ -460,7 +460,7 @@ api_idx_0074_MHUG:
     mov ax, word [bp - 0x001c]       ; 0x6b0a
     mov word [bp - 0x0002], ax       ; 0x6b0d
     push ax                          ; 0x6b10
-    call ds_app_KTPM                 ; 0x6b11
+    call member_is_active            ; 0x6b11
     pop cx                           ; 0x6b14
     test ax, ax                      ; 0x6b15
     jne short @..api_idx_0074_MHUG.l12 ; 0x6b17
@@ -487,7 +487,7 @@ api_idx_0074_MHUG:
     mov ax, 0                        ; 0x6b49
     push ax                          ; 0x6b4c
     push word [bp - 0x0002]          ; 0x6b4d
-    call ds_app_LUOV                 ; 0x6b50
+    call draw_party_member_panel     ; 0x6b50
     add sp, byte 4                   ; 0x6b53
     mov ax, word [bp - 0x0002]       ; 0x6b56
     mov cx, 2                        ; 0x6b59

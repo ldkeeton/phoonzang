@@ -817,12 +817,12 @@ load_game_data:
     mov cx, word [bss_69c8]          ; 0x379b
     shl cx, 1                        ; 0x379f
     mov bx, cx                       ; 0x37a1
-    mov word [bx + bss_5e2a + 0xb92], ax ; 0x37a3
+    mov word [bx + member_state + 0xb92], ax ; 0x37a3
     mov si, bss_9a4c                 ; 0x37a7
     mov ax, 0x248                    ; 0x37aa
     imul word [bss_69c8]             ; 0x37ad
     mov di, ax                       ; 0x37b1
-    add ax, bss_5bf4                 ; 0x37b3
+    add ax, party_records            ; 0x37b3
     mov di, ax                       ; 0x37b6
     mov cx, ds                       ; 0x37b8
     mov es, cx                       ; 0x37ba
@@ -860,7 +860,7 @@ load_game_data:
     push ax                          ; 0x3807
     mov ax, 0x248                    ; 0x3808
     imul word [bp - 0x0002]          ; 0x380b
-    add ax, bss_5bf4                 ; 0x380e
+    add ax, party_records            ; 0x380e
     push ax                          ; 0x3811
     call aztec_setmem                ; 0x3812
     add sp, byte 6                   ; 0x3815
@@ -880,11 +880,11 @@ load_game_data:
     mov ax, word [bp - 0x0002]       ; 0x3836
     shl ax, 1                        ; 0x3839
     mov bx, ax                       ; 0x383b
-    push word [bx + bss_5e2a + 0xb92] ; 0x383d
+    push word [bx + member_state + 0xb92] ; 0x383d
     mov ax, 0x248                    ; 0x3841
     imul word [bp - 0x0002]          ; 0x3844
     mov bx, ax                       ; 0x3847
-    mov al, byte [bx + bss_5e2a]     ; 0x3849
+    mov al, byte [bx + member_state] ; 0x3849
     sub ah, ah                       ; 0x384d
     push ax                          ; 0x384f
     call api_idx_0016_KOOO           ; 0x3850
@@ -894,7 +894,7 @@ load_game_data:
     mov ax, 0                        ; 0x385c
     push ax                          ; 0x385f
     push word [bp - 0x0002]          ; 0x3860
-    call ds_app_LUOV                 ; 0x3863
+    call draw_party_member_panel     ; 0x3863
     add sp, byte 4                   ; 0x3866
 @..load_game_data.l54:
     inc word [bp - 0x0002]           ; 0x3869

@@ -5,7 +5,7 @@ api_idx_0004_LOLJ:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + bss_5e2a + 0x3]
+    mov al, byte [bx + member_state + 0x3]
     sub ah, ah
     jmp near @..api_idx_0004_LOLJ.l1
 api_idx_0004_LOLJ.jumptable_case1:

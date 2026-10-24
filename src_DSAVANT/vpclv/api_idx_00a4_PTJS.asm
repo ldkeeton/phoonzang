@@ -6,11 +6,11 @@ api_idx_00a4_PTJS:
     imul word [bp + 0x4]             ; 0x4ea7
     mov bx, ax                       ; 0x4eaa
     inc word [bx + pc_spell_power_cap] ; 0x4eac
-    mov al, byte [bx + bss_5e2a + 0x11] ; 0x4eb0
+    mov al, byte [bx + member_state + 0x11] ; 0x4eb0
     sub ah, ah                       ; 0x4eb4
     cmp ax, word [bx + pc_spell_power_cap] ; 0x4eb6
     jg short @..api_idx_00a4_PTJS.l1 ; 0x4eba
-    mov byte [bx + bss_5e2a + 0x11], 0 ; 0x4ebc
+    mov byte [bx + member_state + 0x11], 0 ; 0x4ebc
 @..api_idx_00a4_PTJS.l1:
     push word [bp + 0x4]             ; 0x4ec1
     call api_idx_0006_ILTI           ; 0x4ec4
@@ -30,7 +30,7 @@ api_idx_00a4_PTJS:
     push ax                          ; 0x4ee6
     mov ax, 0x248                    ; 0x4ee7
     imul word [bp + 0x4]             ; 0x4eea
-    add ax, bss_5bf4                 ; 0x4eed
+    add ax, party_records            ; 0x4eed
     push ax                          ; 0x4ef0
     lea ax, word [bp - 0x0054]       ; 0x4ef1
     push ax                          ; 0x4ef4
@@ -41,7 +41,7 @@ api_idx_00a4_PTJS:
     mov ax, 0x248                    ; 0x4f00
     imul word [bp + 0x4]             ; 0x4f03
     mov bx, ax                       ; 0x4f06
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x4f08
+    mov al, byte [bx + member_state + 0x3] ; 0x4f08
     sub ah, ah                       ; 0x4f0c
     add ax, strict word 0x78         ; 0x4f0e
     push ax                          ; 0x4f11

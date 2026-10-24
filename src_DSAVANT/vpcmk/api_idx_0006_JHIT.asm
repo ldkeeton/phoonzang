@@ -19,7 +19,7 @@ api_idx_0006_JHIT:
     push ax                          ; 0x68af
     call loc_TUUJ                    ; 0x68b0
     add sp, byte 4                   ; 0x68b3
-    mov al, byte [bss_5e2a]          ; 0x68b6
+    mov al, byte [member_state]      ; 0x68b6
     sub ah, ah                       ; 0x68b9
     mov word [bp - 0x0002], ax       ; 0x68bb
     push word [bp - 0x0004]          ; 0x68be
@@ -34,14 +34,14 @@ api_idx_0006_JHIT:
     push word [bp - 0x0006]          ; 0x68d5
     call gfx_restore_area            ; 0x68d8
     add sp, byte 6                   ; 0x68db
-    mov al, byte [bss_5e2a]          ; 0x68de
+    mov al, byte [member_state]      ; 0x68de
     sub ah, ah                       ; 0x68e1
     cmp ax, word [bp - 0x0002]       ; 0x68e3
     je short @..api_idx_0006_JHIT.l1 ; 0x68e6
     mov ax, 1                        ; 0x68e8
     push ax                          ; 0x68eb
     push word [bp + 0x4]             ; 0x68ec
-    mov ax, bss_5bf4                 ; 0x68ef
+    mov ax, party_records            ; 0x68ef
     push ax                          ; 0x68f2
     call api_idx_0002_SJMT           ; 0x68f3
     add sp, byte 6                   ; 0x68f6

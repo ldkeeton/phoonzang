@@ -245,7 +245,7 @@ loc_HUIS:
     mov ax, 0x248                    ; 0x59cd
     imul word [bp - 0x0002]          ; 0x59d0
     mov bx, ax                       ; 0x59d3
-    cmp byte [bx + bss_5e2a + 0x5], 0 ; 0x59d5
+    cmp byte [bx + member_state + 0x5], 0 ; 0x59d5
     jne short @..loc_HUIS.l22        ; 0x59da
     inc word [bp - 0x0084]           ; 0x59dc
 @..loc_HUIS.l22:
@@ -599,16 +599,16 @@ loc_HUIS:
     mov ax, 0x248                    ; 0x5d29
     imul word [bp - 0x0002]          ; 0x5d2c
     mov bx, ax                       ; 0x5d2f
-    cmp byte [bx + bss_5e2a + 0x5], 0 ; 0x5d31
+    cmp byte [bx + member_state + 0x5], 0 ; 0x5d31
     jne short @..loc_HUIS.l53        ; 0x5d36
     mov ax, word [bp - 0x008c]       ; 0x5d38
     mov dx, word [bp - 0x008a]       ; 0x5d3c
-    add word [bx + bss_5bf4 + 0xc], ax ; 0x5d40
-    adc word [bx + bss_5bf4 + 0xe], dx ; 0x5d44
+    add word [bx + party_records + 0xc], ax ; 0x5d40
+    adc word [bx + party_records + 0xe], dx ; 0x5d44
     mov ax, word [bp - 0x0088]       ; 0x5d48
     mov dx, word [bp - 0x0086]       ; 0x5d4c
     add word [bx + bss_5c08], ax     ; 0x5d50
-    adc word [bx + bss_5c0a], dx     ; 0x5d54
+    adc word [bx + member_pair_points], dx ; 0x5d54
 @..loc_HUIS.l53:
     inc word [bp - 0x0002]           ; 0x5d58
 @..loc_HUIS.l54:

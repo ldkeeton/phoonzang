@@ -9,7 +9,7 @@ api_idx_00a8_JSHI:
     mov ax, 0x248                    ; 0x5d92
     imul word [bp - 0x0002]          ; 0x5d95
     mov bx, ax                       ; 0x5d98
-    cmp byte [bx + bss_5e2a + 0x5], 0 ; 0x5d9a
+    cmp byte [bx + member_state + 0x5], 0 ; 0x5d9a
     jne short @..api_idx_00a8_JSHI.l2 ; 0x5d9f
     inc word [bp - 0x0004]           ; 0x5da1
 @..api_idx_00a8_JSHI.l2:
@@ -96,12 +96,12 @@ api_idx_00a8_JSHI:
     mov ax, 0x248                    ; 0x5e5e
     imul word [bp - 0x0002]          ; 0x5e61
     mov bx, ax                       ; 0x5e64
-    cmp byte [bx + bss_5e2a + 0x5], 0 ; 0x5e66
+    cmp byte [bx + member_state + 0x5], 0 ; 0x5e66
     jne short @..api_idx_00a8_JSHI.l5 ; 0x5e6b
     mov ax, word [bp - 0x0008]       ; 0x5e6d
     mov dx, word [bp - 0x0006]       ; 0x5e70
-    add word [bx + bss_5bf4 + 0xc], ax ; 0x5e73
-    adc word [bx + bss_5bf4 + 0xe], dx ; 0x5e77
+    add word [bx + party_records + 0xc], ax ; 0x5e73
+    adc word [bx + party_records + 0xe], dx ; 0x5e77
 @..api_idx_00a8_JSHI.l5:
     inc word [bp - 0x0002]           ; 0x5e7b
 @..api_idx_00a8_JSHI.l6:

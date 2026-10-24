@@ -131,7 +131,7 @@ api_idx_00ca_HKHO:
     mov ax, 0x248                    ; 0x1f77
     imul word [bp + 0x4]             ; 0x1f7a
     mov bx, ax                       ; 0x1f7d
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x1f7f
+    mov al, byte [bx + member_state + 0x3] ; 0x1f7f
     sub ah, ah                       ; 0x1f83
     add ax, strict word 0x78         ; 0x1f85
     push ax                          ; 0x1f88

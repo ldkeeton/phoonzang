@@ -429,10 +429,10 @@ api_idx_0072_OUII:
     mov cx, word [bss_69c8]          ; 0x2387
     shl cx, 1                        ; 0x238b
     mov bx, cx                       ; 0x238d
-    mov word [bx + bss_5e2a + 0xb92], ax ; 0x238f
+    mov word [bx + member_state + 0xb92], ax ; 0x238f
     mov ax, 0x248                    ; 0x2393
     imul word [bss_69c8]             ; 0x2396
-    add ax, bss_5bf4                 ; 0x239a
+    add ax, party_records            ; 0x239a
     mov word [bp - 0x0014], ax       ; 0x239d
     mov ax, word [bss_9426]          ; 0x23a0
     push ax                          ; 0x23a3
@@ -1499,7 +1499,7 @@ jumptable_2af5:
     mov word [party_map_piece], 3    ; 0x2e2b
     mov word [party_tag], 2          ; 0x2e31
     mov word [game_state_arg], 0     ; 0x2e37
-    mov word [bss_5c0a], 0           ; 0x2e3d
+    mov word [member_pair_points], 0 ; 0x2e3d
     mov word [bss_5c08], 0x1388      ; 0x2e43
     mov ax, 0                        ; 0x2e49
     push ax                          ; 0x2e4c
@@ -1531,7 +1531,7 @@ jumptable_2af5:
     mov word [party_map_piece], 0xb  ; 0x2e92
     mov word [party_tag], 3          ; 0x2e98
     mov word [game_state_arg], 6     ; 0x2e9e
-    mov word [bss_5c0a], 0           ; 0x2ea4
+    mov word [member_pair_points], 0 ; 0x2ea4
     mov word [bss_5c08], 0x2710      ; 0x2eaa
     mov ax, 0x5a                     ; 0x2eb0
     push ax                          ; 0x2eb3

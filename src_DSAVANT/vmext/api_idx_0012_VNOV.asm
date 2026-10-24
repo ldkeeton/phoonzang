@@ -29,7 +29,7 @@ api_idx_0012_VNOV:
     mov cx, 0x248                    ; 0x0f27
     imul cx                          ; 0x0f2a
     mov bx, ax                       ; 0x0f2c
-    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x0f2e
+    cmp byte [bx + member_state + 0x5], 3 ; 0x0f2e
     jb short @..api_idx_0012_VNOV.l3 ; 0x0f33
     mov ax, 1                        ; 0x0f35
     push ax                          ; 0x0f38
@@ -167,10 +167,10 @@ jumptable_12fa_case_2:
     mov ax, 0x248                    ; 0x1070
     imul word [bp - 0x0006]          ; 0x1073
     mov bx, ax                       ; 0x1076
-    push word [bx + bss_5c0a + 0x4]  ; 0x1078
+    push word [bx + member_pair_points + 0x4] ; 0x1078
     mov ax, 0                        ; 0x107c
     push ax                          ; 0x107f
-    mov ax, word [bx + bss_5c0a + 0x2] ; 0x1080
+    mov ax, word [bx + member_pair_points + 0x2] ; 0x1080
     add ax, word [bp - 0x000e]       ; 0x1084
     push ax                          ; 0x1087
     call clamp_between               ; 0x1088
@@ -180,13 +180,13 @@ jumptable_12fa_case_2:
     imul word [bp - 0x0006]          ; 0x1092
     mov bx, ax                       ; 0x1095
     pop ax                           ; 0x1097
-    mov word [bx + bss_5c0a + 0x2], ax ; 0x1098
+    mov word [bx + member_pair_points + 0x2], ax ; 0x1098
     jmp near @..api_idx_0012_VNOV.l24 ; 0x109c
 jumptable_12fa_case_3:
     mov ax, 0x248                    ; 0x109f
     imul word [bp - 0x0006]          ; 0x10a2
     mov bx, ax                       ; 0x10a5
-    mov byte [bx + bss_5e2a + 0x8], 0 ; 0x10a7
+    mov byte [bx + member_state + 0x8], 0 ; 0x10a7
     mov byte [bx + cell_key_grid + 0x12b], 0 ; 0x10ac
     jmp near @..api_idx_0012_VNOV.l24 ; 0x10b1
 jumptable_12fa_case_4:
@@ -199,9 +199,9 @@ jumptable_12fa_case_5:
     mov ax, 0x248                    ; 0x10c4
     imul word [bp - 0x0006]          ; 0x10c7
     mov bx, ax                       ; 0x10ca
-    cmp byte [bx + bss_5e2a + 0x5], 2 ; 0x10cc
+    cmp byte [bx + member_state + 0x5], 2 ; 0x10cc
     jne short @..api_idx_0012_VNOV.l10 ; 0x10d1
-    mov byte [bx + bss_5e2a + 0x5], 0 ; 0x10d3
+    mov byte [bx + member_state + 0x5], 0 ; 0x10d3
 @..api_idx_0012_VNOV.l10:
     mov byte [bx + cell_key_grid + 0x12c], 0 ; 0x10d8
     jmp near @..api_idx_0012_VNOV.l24 ; 0x10dd
@@ -237,9 +237,9 @@ jumptable_12fa_case_7:
     mov ax, 0x248                    ; 0x1123
     imul word [bp - 0x0006]          ; 0x1126
     mov bx, ax                       ; 0x1129
-    mov byte [bx + bss_5e2a + 0x5], 0 ; 0x112b
-    mov ax, word [bx + bss_5c0a + 0x4] ; 0x1130
-    mov word [bx + bss_5c0a + 0x2], ax ; 0x1134
+    mov byte [bx + member_state + 0x5], 0 ; 0x112b
+    mov ax, word [bx + member_pair_points + 0x4] ; 0x1130
+    mov word [bx + member_pair_points + 0x2], ax ; 0x1134
     mov ax, word [bx + pc_records + 0x2] ; 0x1138
     mov word [bx + pc_records], ax   ; 0x113c
     jmp near @..api_idx_0012_VNOV.l24 ; 0x1140
@@ -346,10 +346,10 @@ jumptable_12fa_case_10:
     mov ax, 0x248                    ; 0x122a
     imul word [bp - 0x0006]          ; 0x122d
     mov bx, ax                       ; 0x1230
-    push word [bx + bss_5c0a + 0x4]  ; 0x1232
+    push word [bx + member_pair_points + 0x4] ; 0x1232
     mov ax, 0                        ; 0x1236
     push ax                          ; 0x1239
-    mov ax, word [bx + bss_5c0a + 0x2] ; 0x123a
+    mov ax, word [bx + member_pair_points + 0x2] ; 0x123a
     sub ax, word [bp - 0x000e]       ; 0x123e
     push ax                          ; 0x1241
     call clamp_between               ; 0x1242
@@ -359,13 +359,13 @@ jumptable_12fa_case_10:
     imul word [bp - 0x0006]          ; 0x124c
     mov bx, ax                       ; 0x124f
     pop ax                           ; 0x1251
-    mov word [bx + bss_5c0a + 0x2], ax ; 0x1252
+    mov word [bx + member_pair_points + 0x2], ax ; 0x1252
     cmp ax, strict word 0            ; 0x1256
     jg short @..api_idx_0012_VNOV.l17 ; 0x1259
-    mov byte [bx + bss_5e2a + 0x5], 3 ; 0x125b
-    mov word [bx + bss_5c0a + 0x2], 0 ; 0x1260
+    mov byte [bx + member_state + 0x5], 3 ; 0x125b
+    mov word [bx + member_pair_points + 0x2], 0 ; 0x1260
     mov word [bx + pc_records], 0    ; 0x1266
-    mov al, byte [bx + bss_5e2a + 0x2] ; 0x126c
+    mov al, byte [bx + member_state + 0x2] ; 0x126c
     sub ah, ah                       ; 0x1270
     add ax, strict word 8            ; 0x1272
     push ax                          ; 0x1275
@@ -377,12 +377,12 @@ jumptable_12fa_case_11:
     mov ax, 0x248                    ; 0x127d
     imul word [bp - 0x0006]          ; 0x1280
     mov bx, ax                       ; 0x1283
-    mov al, byte [bx + bss_5e2a + 0x8] ; 0x1285
+    mov al, byte [bx + member_state + 0x8] ; 0x1285
     sub ah, ah                       ; 0x1289
     cmp ax, word [bp - 0x000a]       ; 0x128b
     jge short @..api_idx_0012_VNOV.l18 ; 0x128e
     mov al, byte [bp - 0x000a]       ; 0x1290
-    mov byte [bx + bss_5e2a + 0x8], al ; 0x1293
+    mov byte [bx + member_state + 0x8], al ; 0x1293
 @..api_idx_0012_VNOV.l18:
     mov al, byte [bx + cell_key_grid + 0x12b] ; 0x1297
     sub ah, ah                       ; 0x129b
@@ -408,9 +408,9 @@ jumptable_12fa_case_13:
     mov ax, 0x248                    ; 0x12c8
     imul word [bp - 0x0006]          ; 0x12cb
     mov bx, ax                       ; 0x12ce
-    cmp byte [bx + bss_5e2a + 0x5], 2 ; 0x12d0
+    cmp byte [bx + member_state + 0x5], 2 ; 0x12d0
     jae short @..api_idx_0012_VNOV.l21 ; 0x12d5
-    mov byte [bx + bss_5e2a + 0x5], 2 ; 0x12d7
+    mov byte [bx + member_state + 0x5], 2 ; 0x12d7
 @..api_idx_0012_VNOV.l21:
     jmp short @..api_idx_0012_VNOV.l24 ; 0x12dc
 jumptable_12fa_case_14:
@@ -457,7 +457,7 @@ jumptable_12fa:
     mov ax, 1                        ; 0x1333
     push ax                          ; 0x1336
     push word [bp - 0x0006]          ; 0x1337
-    call ds_app_LUOV                 ; 0x133a
+    call draw_party_member_panel     ; 0x133a
     add sp, byte 4                   ; 0x133d
     mov ax, word [bp - 0x0010]       ; 0x1340
     add ax, word [bp - 0x0012]       ; 0x1343

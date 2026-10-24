@@ -63,7 +63,7 @@ api_idx_0006_HMNQ:
     mov ax, 0x248                    ; 0x6165
     imul word [bp + 0x4]             ; 0x6168
     mov bx, ax                       ; 0x616b
-    mov al, byte [bx + bss_5e2a]     ; 0x616d
+    mov al, byte [bx + member_state] ; 0x616d
     sub ah, ah                       ; 0x6171
     push ax                          ; 0x6173
     call api_idx_0016_JNJG           ; 0x6174
@@ -100,27 +100,27 @@ api_idx_0006_HMNQ:
     mov ax, 0x248                    ; 0x61b9
     imul word [bp + 0x4]             ; 0x61bc
     mov bx, ax                       ; 0x61bf
-    mov al, byte [bx + bss_5e2a]     ; 0x61c1
+    mov al, byte [bx + member_state] ; 0x61c1
     sub ah, ah                       ; 0x61c5
     add ax, strict word 0x20         ; 0x61c7
     mov cx, 0x21                     ; 0x61ca
     cwd                              ; 0x61cd
     idiv cx                          ; 0x61ce
     mov ax, dx                       ; 0x61d0
-    mov byte [bx + bss_5e2a], al     ; 0x61d2
+    mov byte [bx + member_state], al ; 0x61d2
     jmp short @..api_idx_0006_HMNQ.l6 ; 0x61d6
 @..api_idx_0006_HMNQ.l4:
     mov ax, 0x248                    ; 0x61d8
     imul word [bp + 0x4]             ; 0x61db
     mov bx, ax                       ; 0x61de
-    mov al, byte [bx + bss_5e2a]     ; 0x61e0
+    mov al, byte [bx + member_state] ; 0x61e0
     sub ah, ah                       ; 0x61e4
     inc ax                           ; 0x61e6
     mov cx, 0x21                     ; 0x61e7
     cwd                              ; 0x61ea
     idiv cx                          ; 0x61eb
     mov ax, dx                       ; 0x61ed
-    mov byte [bx + bss_5e2a], al     ; 0x61ef
+    mov byte [bx + member_state], al ; 0x61ef
     jmp short @..api_idx_0006_HMNQ.l6 ; 0x61f3
 @..api_idx_0006_HMNQ.l5:
     cmp ax, strict word 0            ; 0x61f5

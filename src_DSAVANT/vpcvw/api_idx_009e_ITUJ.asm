@@ -56,7 +56,7 @@ jumptable_3f96_case_3:
     mov ax, 0x248                    ; 0x3d76
     imul word [bp + 0x4]             ; 0x3d79
     mov bx, ax                       ; 0x3d7c
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x3d7e
+    mov al, byte [bx + member_state + 0x3] ; 0x3d7e
     sub ah, ah                       ; 0x3d82
     push ax                          ; 0x3d84
     lea ax, word [bp - 0x0018]       ; 0x3d85
@@ -201,9 +201,9 @@ jumptable_3f96_case_6:
     mov ax, 0x248                    ; 0x3ec4
     imul word [bp + 0x4]             ; 0x3ec7
     mov bx, ax                       ; 0x3eca
-    cmp byte [bx + bss_5e2a + 0x8], 3 ; 0x3ecc
+    cmp byte [bx + member_state + 0x8], 3 ; 0x3ecc
     jae short @..api_idx_009e_ITUJ.l9 ; 0x3ed1
-    mov byte [bx + bss_5e2a + 0x8], 3 ; 0x3ed3
+    mov byte [bx + member_state + 0x8], 3 ; 0x3ed3
 @..api_idx_009e_ITUJ.l9:
     mov ax, 0xfa                     ; 0x3ed8
     push ax                          ; 0x3edb
@@ -243,7 +243,7 @@ jumptable_3f96_case_6:
     mov ax, 0x248                    ; 0x3f2b
     imul word [bp + 0x4]             ; 0x3f2e
     mov bx, ax                       ; 0x3f31
-    mov al, byte [bx + bss_5e2a + 0x2] ; 0x3f33
+    mov al, byte [bx + member_state + 0x2] ; 0x3f33
     sub ah, ah                       ; 0x3f37
     add ax, strict word 8            ; 0x3f39
     push ax                          ; 0x3f3c

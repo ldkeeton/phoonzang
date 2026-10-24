@@ -198,7 +198,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x6338
     call load_monster_picture        ; 0x6339
     add sp, byte 4                   ; 0x633c
-    call ds_app_NNSU                 ; 0x633f
+    call score_music_enabled         ; 0x633f
     mov word [bss_8450], ax          ; 0x6342
     test ax, ax                      ; 0x6345
     je short @..api_idx_0014_VORK.l5 ; 0x6347
@@ -705,7 +705,7 @@ jumptable_67c3_case_8:
     jmp short @..api_idx_0014_VORK.l20 ; 0x67a8
 jumptable_67c3_case_25:
     push word [bp + 0x4]             ; 0x67aa
-    call ds_app_KTPM                 ; 0x67ad
+    call member_is_active            ; 0x67ad
     pop cx                           ; 0x67b0
     test ax, ax                      ; 0x67b1
     je short @..api_idx_0014_VORK.l18 ; 0x67b3

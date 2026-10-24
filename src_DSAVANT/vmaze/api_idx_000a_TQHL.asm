@@ -5,7 +5,7 @@ api_idx_000a_TQHL:
     mov ax, 0x248                    ; 0x1962
     imul word [bp + 0x4]             ; 0x1965
     mov bx, ax                       ; 0x1968
-    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x196a
+    cmp byte [bx + member_state + 0x5], 3 ; 0x196a
     jb short @..api_idx_000a_TQHL.l1 ; 0x196f
     jmp near @..api_idx_000a_TQHL.l24 ; 0x1971
 @..api_idx_000a_TQHL.l1:
@@ -73,13 +73,13 @@ jumptable_19c1:
     mov ax, 0x248                    ; 0x19f9
     imul word [bp + 0x4]             ; 0x19fc
     mov bx, ax                       ; 0x19ff
-    mov al, byte [bx + bss_5e2a + 0x8] ; 0x1a01
+    mov al, byte [bx + member_state + 0x8] ; 0x1a01
     sub ah, ah                       ; 0x1a05
     mov cx, ax                       ; 0x1a07
     pop ax                           ; 0x1a09
     add ax, cx                       ; 0x1a0a
     inc ax                           ; 0x1a0c
-    mov byte [bx + bss_5e2a + 0x8], al ; 0x1a0d
+    mov byte [bx + member_state + 0x8], al ; 0x1a0d
 @..api_idx_000a_TQHL.l6:
     mov ax, 7                        ; 0x1a11
     push ax                          ; 0x1a14
@@ -109,7 +109,7 @@ jumptable_19c1:
     mov ax, 0x248                    ; 0x1a4a
     imul word [bp + 0x4]             ; 0x1a4d
     mov bx, ax                       ; 0x1a50
-    cmp word [bx + bss_5c0a + 0x4], byte 2 ; 0x1a52
+    cmp word [bx + member_pair_points + 0x4], byte 2 ; 0x1a52
     jle short @..api_idx_000a_TQHL.l8 ; 0x1a57
     mov ax, 3                        ; 0x1a59
     push ax                          ; 0x1a5c
@@ -120,36 +120,36 @@ jumptable_19c1:
     imul word [bp + 0x4]             ; 0x1a65
     mov bx, ax                       ; 0x1a68
     pop ax                           ; 0x1a6a
-    sub word [bx + bss_5c0a + 0x4], ax ; 0x1a6b
+    sub word [bx + member_pair_points + 0x4], ax ; 0x1a6b
 @..api_idx_000a_TQHL.l8:
     mov ax, 0x248                    ; 0x1a6f
     imul word [bp + 0x4]             ; 0x1a72
     mov bx, ax                       ; 0x1a75
-    mov al, byte [bx + bss_5e2a + 0x6] ; 0x1a77
+    mov al, byte [bx + member_state + 0x6] ; 0x1a77
     sub ah, ah                       ; 0x1a7b
     imul word [bp + 0xa]             ; 0x1a7d
     push ax                          ; 0x1a80
-    mov al, byte [bx + bss_5e2a + 0x7] ; 0x1a81
+    mov al, byte [bx + member_state + 0x7] ; 0x1a81
     sub ah, ah                       ; 0x1a85
     imul word [bp + 0xa]             ; 0x1a87
     mov cx, ax                       ; 0x1a8a
     pop ax                           ; 0x1a8c
     sub ax, cx                       ; 0x1a8d
     push ax                          ; 0x1a8f
-    mov al, byte [bx + bss_5e2a + 0x8] ; 0x1a90
+    mov al, byte [bx + member_state + 0x8] ; 0x1a90
     sub ah, ah                       ; 0x1a94
     imul word [bp + 0xa]             ; 0x1a96
     mov cx, ax                       ; 0x1a99
     pop ax                           ; 0x1a9b
     sub ax, cx                       ; 0x1a9c
-    add word [bx + bss_5c0a + 0x2], ax ; 0x1a9e
-    mov ax, word [bx + bss_5c0a + 0x2] ; 0x1aa2
-    cmp ax, word [bx + bss_5c0a + 0x4] ; 0x1aa6
+    add word [bx + member_pair_points + 0x2], ax ; 0x1a9e
+    mov ax, word [bx + member_pair_points + 0x2] ; 0x1aa2
+    cmp ax, word [bx + member_pair_points + 0x4] ; 0x1aa6
     jle short @..api_idx_000a_TQHL.l9 ; 0x1aaa
-    mov ax, word [bx + bss_5c0a + 0x4] ; 0x1aac
-    mov word [bx + bss_5c0a + 0x2], ax ; 0x1ab0
+    mov ax, word [bx + member_pair_points + 0x4] ; 0x1aac
+    mov word [bx + member_pair_points + 0x2], ax ; 0x1ab0
 @..api_idx_000a_TQHL.l9:
-    cmp word [bx + bss_5c0a + 0x2], byte 0 ; 0x1ab4
+    cmp word [bx + member_pair_points + 0x2], byte 0 ; 0x1ab4
     jg short @..api_idx_000a_TQHL.l10 ; 0x1ab9
     mov ax, 0                        ; 0x1abb
     push ax                          ; 0x1abe
@@ -166,34 +166,34 @@ jumptable_19c1:
     mov ax, 0x248                    ; 0x1ad3
     imul word [bp + 0x4]             ; 0x1ad6
     mov bx, ax                       ; 0x1ad9
-    mov al, byte [bx + bss_5e2a + 0x6] ; 0x1adb
+    mov al, byte [bx + member_state + 0x6] ; 0x1adb
     sub ah, ah                       ; 0x1adf
     imul word [bp + 0xa]             ; 0x1ae1
     mov cx, ax                       ; 0x1ae4
     pop ax                           ; 0x1ae6
     add ax, cx                       ; 0x1ae7
     push ax                          ; 0x1ae9
-    mov al, byte [bx + bss_5e2a + 0x7] ; 0x1aea
+    mov al, byte [bx + member_state + 0x7] ; 0x1aea
     sub ah, ah                       ; 0x1aee
     imul word [bp + 0xa]             ; 0x1af0
     mov cx, ax                       ; 0x1af3
     pop ax                           ; 0x1af5
     sub ax, cx                       ; 0x1af6
     push ax                          ; 0x1af8
-    mov al, byte [bx + bss_5e2a + 0x8] ; 0x1af9
+    mov al, byte [bx + member_state + 0x8] ; 0x1af9
     sub ah, ah                       ; 0x1afd
     imul word [bp + 0xa]             ; 0x1aff
     mov cx, ax                       ; 0x1b02
     pop ax                           ; 0x1b04
     sub ax, cx                       ; 0x1b05
-    add word [bx + bss_5c0a + 0x2], ax ; 0x1b07
-    mov ax, word [bx + bss_5c0a + 0x2] ; 0x1b0b
-    cmp ax, word [bx + bss_5c0a + 0x4] ; 0x1b0f
+    add word [bx + member_pair_points + 0x2], ax ; 0x1b07
+    mov ax, word [bx + member_pair_points + 0x2] ; 0x1b0b
+    cmp ax, word [bx + member_pair_points + 0x4] ; 0x1b0f
     jle short @..api_idx_000a_TQHL.l12 ; 0x1b13
-    mov ax, word [bx + bss_5c0a + 0x4] ; 0x1b15
-    mov word [bx + bss_5c0a + 0x2], ax ; 0x1b19
+    mov ax, word [bx + member_pair_points + 0x4] ; 0x1b15
+    mov word [bx + member_pair_points + 0x2], ax ; 0x1b19
 @..api_idx_000a_TQHL.l12:
-    cmp word [bx + bss_5c0a + 0x2], byte 0 ; 0x1b1d
+    cmp word [bx + member_pair_points + 0x2], byte 0 ; 0x1b1d
     jg short @..api_idx_000a_TQHL.l13 ; 0x1b22
     mov ax, 0                        ; 0x1b24
     push ax                          ; 0x1b27
@@ -293,11 +293,11 @@ jumptable_19c1:
     mov bx, ax                       ; 0x1c14
     cmp byte [bx + cell_key_grid + 0x12b], 0 ; 0x1c16
     je short @..api_idx_000a_TQHL.l19 ; 0x1c1b
-    cmp byte [bx + bss_5e2a + 0x8], 0 ; 0x1c1d
+    cmp byte [bx + member_state + 0x8], 0 ; 0x1c1d
     jne short @..api_idx_000a_TQHL.l20 ; 0x1c22
 @..api_idx_000a_TQHL.l19:
     mov byte [bx + cell_key_grid + 0x12b], 0 ; 0x1c24
-    mov byte [bx + bss_5e2a + 0x8], 0 ; 0x1c29
+    mov byte [bx + member_state + 0x8], 0 ; 0x1c29
 @..api_idx_000a_TQHL.l20:
     cmp word [bp + 0xc], byte 0      ; 0x1c2e
     jle short @..api_idx_000a_TQHL.l23 ; 0x1c32
@@ -338,7 +338,7 @@ jumptable_19c1:
     mov ax, 1                        ; 0x1c86
     push ax                          ; 0x1c89
     push word [bp + 0x4]             ; 0x1c8a
-    call ds_app_LUOV                 ; 0x1c8d
+    call draw_party_member_panel     ; 0x1c8d
     add sp, byte 4                   ; 0x1c90
 @..api_idx_000a_TQHL.l24:
     ret                              ; 0x1c93

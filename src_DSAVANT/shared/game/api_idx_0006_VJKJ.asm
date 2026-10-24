@@ -14,7 +14,7 @@ api_idx_0006_VJKJ:
     mov bx, ax
     mov ax, word [bx + pc_spell_power_cap]
     push ax
-    mov al, byte [bx + bss_5e2a + 0x11]
+    mov al, byte [bx + member_state + 0x11]
     sub ah, ah
     mov cx, ax
     pop ax

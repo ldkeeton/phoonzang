@@ -55,7 +55,7 @@ api_idx_0038_LJOP:
     push ax                          ; 0x4868
     mov ax, 0x248                    ; 0x4869
     imul word [bp + 0x4]             ; 0x486c
-    add ax, bss_5bf4                 ; 0x486f
+    add ax, party_records            ; 0x486f
     push ax                          ; 0x4872
     call aztec_strlen                ; 0x4873
     pop cx                           ; 0x4876
@@ -75,7 +75,7 @@ api_idx_0038_LJOP:
     push ax                          ; 0x4896
     mov ax, 0x248                    ; 0x4897
     imul word [bp + 0x4]             ; 0x489a
-    add ax, bss_5bf4                 ; 0x489d
+    add ax, party_records            ; 0x489d
     push ax                          ; 0x48a0
     call draw_text_glyphs            ; 0x48a1
     add sp, byte 4                   ; 0x48a4
@@ -90,7 +90,7 @@ api_idx_0038_LJOP:
     mov ax, 0x248                    ; 0x48b9
     imul word [bp + 0x4]             ; 0x48bc
     mov bx, ax                       ; 0x48bf
-    push word [bx + bss_5c0a]        ; 0x48c1
+    push word [bx + member_pair_points] ; 0x48c1
     push word [bx + bss_5c08]        ; 0x48c5
     call format_long_decimal         ; 0x48c9
     add sp, byte 6                   ; 0x48cc

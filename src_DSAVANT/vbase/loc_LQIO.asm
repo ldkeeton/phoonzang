@@ -34,7 +34,7 @@ loc_LQIO:
     mov cx, word [bss_69c8]          ; 0x60bc
     shl cx, 1                        ; 0x60c0
     mov bx, cx                       ; 0x60c2
-    mov word [bx + bss_5e2a + 0xb92], ax ; 0x60c4
+    mov word [bx + member_state + 0xb92], ax ; 0x60c4
     push ax                          ; 0x60c8
     mov al, byte [bp - 0x0018]       ; 0x60c9
     sub ah, ah                       ; 0x60cc
@@ -45,7 +45,7 @@ loc_LQIO:
     mov ax, 0x248                    ; 0x60d9
     imul word [bss_69c8]             ; 0x60dc
     mov di, ax                       ; 0x60e0
-    add ax, bss_5bf4                 ; 0x60e2
+    add ax, party_records            ; 0x60e2
     mov di, ax                       ; 0x60e5
     mov cx, ds                       ; 0x60e7
     mov es, cx                       ; 0x60e9
@@ -54,7 +54,7 @@ loc_LQIO:
     mov ax, 0                        ; 0x60f0
     push ax                          ; 0x60f3
     push word [bss_69c8]             ; 0x60f4
-    call ds_app_LUOV                 ; 0x60f8
+    call draw_party_member_panel     ; 0x60f8
     add sp, byte 4                   ; 0x60fb
     mov ax, word [bss_69c8]          ; 0x60fe
     mov cx, 2                        ; 0x6101

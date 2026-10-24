@@ -327,8 +327,8 @@ answer_check_word equ __zbss_1008 - __zdseg_start
 bss_100a          equ __zbss_100a - __zdseg_start
 %include "ds/game/ds_app_string_MPHP.asm"  ; 0x05d0
 
-bss_100c equ __zbss_100c - __zdseg_start
-%include "ds/game/ds_app_MRJK.asm"         ; 0x065d
+message_directory equ __zbss_100c - __zdseg_start
+%include "ds/game/find_message_record.asm" ; 0x065d
 
 ; msg_dbs_fd            equ __zbss_0e24 - __zdseg_start
 message_cache_ids     equ __zbss_3e0a - __zdseg_start
@@ -458,7 +458,7 @@ pc_records    equ __zbss_5c10 - __zdseg_start
 %include "ds/game/ds_app_OOUT.asm"         ; 0x17d6
 
 ; cell_key_grid equ __zbss_5c34 - __zdseg_start
-bss_5e2a      equ __zbss_5e2a - __zdseg_start
+member_state  equ __zbss_5e2a - __zdseg_start
 %include "ds/game/reset_page_record.asm"   ; 0x184f
 
 ; cell_key_grid equ __zbss_5c34 - __zdseg_start
@@ -476,19 +476,19 @@ bss_5e2a      equ __zbss_5e2a - __zdseg_start
 %include "ds/game/ds_app_OOHU.asm"         ; 0x1cb1
 
 ; cell_key_grid equ __zbss_5c34 - __zdseg_start
-; bss_5e2a      equ __zbss_5e2a - __zdseg_start
-%include "ds/game/ds_app_KTPM.asm"         ; 0x1ccc
+; member_state  equ __zbss_5e2a - __zdseg_start
+%include "ds/game/member_is_active.asm"    ; 0x1ccc
 
-%include "ds/game/ds_app_TRNH.asm"         ; 0x1cf8
+%include "ds/game/draw_power_bar.asm"      ; 0x1cf8
 
 spell_table        equ __zspell_table - __zdseg_start
-bss_5bf4           equ __zbss_5bf4 - __zdseg_start
-bss_5c0a           equ __zbss_5c0a - __zdseg_start
+party_records      equ __zbss_5bf4 - __zdseg_start
+member_pair_points equ __zbss_5c0a - __zdseg_start
 ; pc_records         equ __zbss_5c10 - __zdseg_start
 pc_spell_power_cap equ __zbss_5c18 - __zdseg_start
 ; cell_key_grid      equ __zbss_5c34 - __zdseg_start
-; bss_5e2a           equ __zbss_5e2a - __zdseg_start
-%include "ds/game/ds_app_LUOV.asm"         ; 0x1d81
+; member_state       equ __zbss_5e2a - __zdseg_start
+%include "ds/game/draw_party_member_panel.asm" ; 0x1d81
 
 ; bss_0e2e     equ __zbss_0e2e - __zdseg_start
 ; bss_0e30     equ __zbss_0e30 - __zdseg_start
@@ -553,12 +553,12 @@ loaded_score_num equ __zbss_82b6 - __zdseg_start
 
 %include "ds/game/fade_out_music.asm"      ; 0x2b62
 
-bss_597f equ __zbss_597f - __zdseg_start
+music_volume equ __zbss_597f - __zdseg_start
 %include "ds/game/ds_app_UKGP.asm"         ; 0x2bab
 
-; bss_597f   equ __zbss_597f - __zdseg_start
-; video_mode equ __zbss_5985 - __zdseg_start
-%include "ds/game/ds_app_NNSU.asm"         ; 0x2bed
+; music_volume equ __zbss_597f - __zdseg_start
+; video_mode   equ __zbss_5985 - __zdseg_start
+%include "ds/game/score_music_enabled.asm" ; 0x2bed
 
 ; code_table        equ __zbss_0fd6 - __zdseg_start
 ; answer_check_word equ __zbss_1008 - __zdseg_start

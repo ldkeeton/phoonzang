@@ -7,7 +7,7 @@ loc_TUUJ:
     push word [bp + 0x6]             ; 0x66cd
     mov ax, 0x248                    ; 0x66d0
     imul word [bp + 0x4]             ; 0x66d3
-    add ax, bss_5bf4                 ; 0x66d6
+    add ax, party_records            ; 0x66d6
     push ax                          ; 0x66d9
     call api_idx_0002_SJMT           ; 0x66da
     add sp, byte 6                   ; 0x66dd
@@ -20,7 +20,7 @@ loc_TUUJ:
     mov ax, 0x248                    ; 0x66f1
     imul word [bp + 0x4]             ; 0x66f4
     mov bx, ax                       ; 0x66f7
-    mov al, byte [bx + bss_5e2a]     ; 0x66f9
+    mov al, byte [bx + member_state] ; 0x66f9
     sub ah, ah                       ; 0x66fd
     push ax                          ; 0x66ff
     call api_idx_0016_JNJG           ; 0x6700

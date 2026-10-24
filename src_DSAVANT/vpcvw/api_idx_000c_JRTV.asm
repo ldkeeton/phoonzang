@@ -28,7 +28,7 @@ api_idx_000c_JRTV:
     mov ax, word [bp + 0x4]          ; 0x03b9
     shl ax, 1                        ; 0x03bc
     mov bx, ax                       ; 0x03be
-    mov al, byte [bx + bss_5e2a + 0xb92] ; 0x03c0
+    mov al, byte [bx + member_state + 0xb92] ; 0x03c0
     sub ah, ah                       ; 0x03c4
     push ax                          ; 0x03c6
     call draw_font_glyph             ; 0x03c7
@@ -42,7 +42,7 @@ api_idx_000c_JRTV:
     push ax                          ; 0x03dd
     mov ax, 0x248                    ; 0x03de
     imul word [bp + 0x4]             ; 0x03e1
-    add ax, bss_5bf4                 ; 0x03e4
+    add ax, party_records            ; 0x03e4
     push ax                          ; 0x03e7
     call aztec_strlen                ; 0x03e8
     pop cx                           ; 0x03eb
@@ -79,7 +79,7 @@ api_idx_000c_JRTV:
     push ax                          ; 0x0430
     mov ax, 0x248                    ; 0x0431
     imul word [bp + 0x4]             ; 0x0434
-    add ax, bss_5bf4                 ; 0x0437
+    add ax, party_records            ; 0x0437
     push ax                          ; 0x043a
     call draw_text_glyphs            ; 0x043b
     add sp, byte 4                   ; 0x043e
@@ -88,8 +88,8 @@ api_idx_000c_JRTV:
     mov ax, 0x248                    ; 0x0445
     imul word [bp + 0x4]             ; 0x0448
     mov bx, ax                       ; 0x044b
-    push word [bx + bss_5c0a + 0x4]  ; 0x044d
-    push word [bx + bss_5c0a + 0x2]  ; 0x0451
+    push word [bx + member_pair_points + 0x4] ; 0x044d
+    push word [bx + member_pair_points + 0x2] ; 0x0451
     mov ax, 0x16                     ; 0x0455
     push ax                          ; 0x0458
     mov ax, 3                        ; 0x0459
@@ -100,7 +100,7 @@ api_idx_000c_JRTV:
     mov ax, word [bp - 0x0006]       ; 0x0464
     add ax, strict word 0x22         ; 0x0467
     push ax                          ; 0x046a
-    call ds_app_TRNH                 ; 0x046b
+    call draw_power_bar              ; 0x046b
     add sp, byte 0x0e                ; 0x046e
     mov ax, 0x56                     ; 0x0471
     push ax                          ; 0x0474
@@ -119,7 +119,7 @@ api_idx_000c_JRTV:
     mov ax, word [bp - 0x0006]       ; 0x0494
     add ax, strict word 0x26         ; 0x0497
     push ax                          ; 0x049a
-    call ds_app_TRNH                 ; 0x049b
+    call draw_power_bar              ; 0x049b
     add sp, byte 0x0e                ; 0x049e
     mov word [bp - 0x000a], 0        ; 0x04a1
     mov word [bp - 0x000c], 0        ; 0x04a6
@@ -154,7 +154,7 @@ api_idx_000c_JRTV:
     mov ax, word [bp - 0x0006]       ; 0x04f3
     add ax, strict word 0x2a         ; 0x04f6
     push ax                          ; 0x04f9
-    call ds_app_TRNH                 ; 0x04fa
+    call draw_power_bar              ; 0x04fa
     add sp, byte 0x0e                ; 0x04fd
     cmp word [bp + 0x6], byte 0      ; 0x0500
     je short @..api_idx_000c_JRTV.l3 ; 0x0504

@@ -3,7 +3,7 @@ api_idx_0018_USPR:
     mov ax, 0xffe8                   ; 0x1c94
     call aztec_csav                  ; 0x1c97
     call loc_OGHL                    ; 0x1c9a
-    call ds_app_NNSU                 ; 0x1c9d
+    call score_music_enabled         ; 0x1c9d
     mov word [bss_8450], ax          ; 0x1ca0
     test ax, ax                      ; 0x1ca3
     je short @..api_idx_0018_USPR.l1 ; 0x1ca5
@@ -116,7 +116,7 @@ api_idx_0018_USPR:
     mov ax, 1                        ; 0x1dc9
     push ax                          ; 0x1dcc
     push word [bp - 0x0002]          ; 0x1dcd
-    call ds_app_LUOV                 ; 0x1dd0
+    call draw_party_member_panel     ; 0x1dd0
     add sp, byte 4                   ; 0x1dd3
     inc word [bp - 0x0002]           ; 0x1dd6
 @..api_idx_0018_USPR.l12:
@@ -203,7 +203,7 @@ api_idx_0018_USPR:
     mov ax, 0x248                    ; 0x1e9d
     imul word [bp - 0x0002]          ; 0x1ea0
     mov bx, ax                       ; 0x1ea3
-    mov al, byte [bx + bss_5e2a + 0xb] ; 0x1ea5
+    mov al, byte [bx + member_state + 0xb] ; 0x1ea5
     sub ah, ah                       ; 0x1ea9
     jmp short @..api_idx_0018_USPR.l23 ; 0x1eab
 @..api_idx_0018_USPR.l22:
@@ -221,7 +221,7 @@ api_idx_0018_USPR:
     mov ax, 0x248                    ; 0x1ec3
     imul word [bp - 0x0002]          ; 0x1ec6
     mov bx, ax                       ; 0x1ec9
-    mov al, byte [bx + bss_5e2a + 0xa] ; 0x1ecb
+    mov al, byte [bx + member_state + 0xa] ; 0x1ecb
     sub ah, ah                       ; 0x1ecf
     inc ax                           ; 0x1ed1
     jmp short @..api_idx_0018_USPR.l25 ; 0x1ed2
@@ -249,9 +249,9 @@ api_idx_0018_USPR:
     mov ax, dx                       ; 0x1f00
     test ax, ax                      ; 0x1f02
     jne short @..api_idx_0018_USPR.l26 ; 0x1f04
-    cmp byte [bx + bss_5e2a + 0x8], 0 ; 0x1f06
+    cmp byte [bx + member_state + 0x8], 0 ; 0x1f06
     jbe short @..api_idx_0018_USPR.l26 ; 0x1f0b
-    dec byte [bx + bss_5e2a + 0x8]   ; 0x1f0d
+    dec byte [bx + member_state + 0x8] ; 0x1f0d
 @..api_idx_0018_USPR.l26:
     inc word [bp - 0x0002]           ; 0x1f11
 @..api_idx_0018_USPR.l27:
@@ -330,8 +330,8 @@ api_idx_0018_USPR:
     mov ax, 0x248                    ; 0x1fbe
     imul word [bp - 0x0002]          ; 0x1fc1
     mov bx, ax                       ; 0x1fc4
-    add word [bx + bss_5bf4 + 0x8], byte 1 ; 0x1fc6
-    adc word [bx + bss_5bf4 + 0xa], byte 0 ; 0x1fcb
+    add word [bx + party_records + 0x8], byte 1 ; 0x1fc6
+    adc word [bx + party_records + 0xa], byte 0 ; 0x1fcb
 @..api_idx_0018_USPR.l34:
     mov ax, 0x248                    ; 0x1fd0
     imul word [bp - 0x0002]          ; 0x1fd3
@@ -351,7 +351,7 @@ api_idx_0018_USPR:
     mov ax, 1                        ; 0x1ff3
     push ax                          ; 0x1ff6
     push word [bp - 0x0002]          ; 0x1ff7
-    call ds_app_LUOV                 ; 0x1ffa
+    call draw_party_member_panel     ; 0x1ffa
     add sp, byte 4                   ; 0x1ffd
     inc word [bp - 0x0002]           ; 0x2000
 @..api_idx_0018_USPR.l36:

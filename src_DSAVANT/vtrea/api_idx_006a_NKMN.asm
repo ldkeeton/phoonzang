@@ -79,7 +79,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x60b3
     mov ax, 0x248                    ; 0x60b4
     imul word [bp + 0x4]             ; 0x60b7
-    add ax, bss_5bf4                 ; 0x60ba
+    add ax, party_records            ; 0x60ba
     push ax                          ; 0x60bd
     call aztec_strlen                ; 0x60be
     pop cx                           ; 0x60c1
@@ -99,7 +99,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x60e1
     mov ax, 0x248                    ; 0x60e2
     imul word [bp + 0x4]             ; 0x60e5
-    add ax, bss_5bf4                 ; 0x60e8
+    add ax, party_records            ; 0x60e8
     push ax                          ; 0x60eb
     call draw_text_glyphs            ; 0x60ec
     add sp, byte 4                   ; 0x60ef
@@ -334,7 +334,7 @@ api_idx_006a_NKMN:
     mov cx, word [bx + pc_spell_power_cap] ; 0x6307
     add ax, cx                       ; 0x630b
     mov word [bp - 0x001a], ax       ; 0x630d
-    cmp byte [bx + bss_5e2a + 0x3], 3 ; 0x6310
+    cmp byte [bx + member_state + 0x3], 3 ; 0x6310
     jne short @..api_idx_006a_NKMN.l5 ; 0x6315
     mov al, byte [bx + cell_key_grid + 0x134] ; 0x6317
     sub ah, ah                       ; 0x631b
@@ -342,7 +342,7 @@ api_idx_006a_NKMN:
     mov word [bp - 0x001c], 2        ; 0x6320
     jmp short @..api_idx_006a_NKMN.l7 ; 0x6325
 @..api_idx_006a_NKMN.l5:
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x6327
+    mov al, byte [bx + member_state + 0x3] ; 0x6327
     cmp al, 0xd                      ; 0x632b
     je short @..api_idx_006a_NKMN.l6 ; 0x632d
     cmp al, 4                        ; 0x632f

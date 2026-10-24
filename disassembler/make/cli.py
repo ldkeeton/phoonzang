@@ -153,6 +153,7 @@ def main():
         return
 
     if '--prebuild' in flags:
+        cmd_lint(all_projects, True)
         for project in args:
             if project not in all_projects:
                 print(f'Unknown project: {project}')
@@ -298,6 +299,7 @@ def main():
         if routine and not binary:
             print('Usage: make rebuild [PROJECT [BIN [ROUTINE]]]')
             sys.exit(1)
+        cmd_lint(all_projects, True)
         cmd_rebuild(project, binary, all_projects, only=routine)
         return
 

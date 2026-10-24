@@ -171,7 +171,7 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6bce
     call load_monster_picture        ; 0x6bcf
     add sp, byte 4                   ; 0x6bd2
-    call ds_app_NNSU                 ; 0x6bd5
+    call score_music_enabled         ; 0x6bd5
     mov word [bss_8450], ax          ; 0x6bd8
     test ax, ax                      ; 0x6bdb
     je short @..api_idx_002c_NHRR.l1 ; 0x6bdd

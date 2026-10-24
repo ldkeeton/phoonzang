@@ -83,7 +83,7 @@ api_idx_000e_NSGM:
     mov ax, 0x248                    ; 0x16f0
     imul word [bp - 0x000e]          ; 0x16f3
     mov bx, ax                       ; 0x16f6
-    cmp byte [bx + bss_5e2a + 0x5], 0 ; 0x16f8
+    cmp byte [bx + member_state + 0x5], 0 ; 0x16f8
     jne short @..api_idx_000e_NSGM.l9 ; 0x16fd
     cmp byte [bx + cell_key_grid + 0x14f], 0 ; 0x16ff
     jne short @..api_idx_000e_NSGM.l9 ; 0x1704
@@ -131,7 +131,7 @@ api_idx_000e_NSGM:
     mov ax, 1                        ; 0x1760
     push ax                          ; 0x1763
     push word [bp - 0x000e]          ; 0x1764
-    call ds_app_LUOV                 ; 0x1767
+    call draw_party_member_panel     ; 0x1767
     add sp, byte 4                   ; 0x176a
 @..api_idx_000e_NSGM.l9:
     inc word [bp - 0x000e]           ; 0x176d

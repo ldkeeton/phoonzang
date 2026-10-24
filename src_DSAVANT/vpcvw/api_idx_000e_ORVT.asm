@@ -13,7 +13,7 @@ api_idx_000e_ORVT:
     add sp, byte 8                   ; 0x96eb
     mov ax, 0x248                    ; 0x96ee
     imul word [bp + 0x4]             ; 0x96f1
-    add ax, bss_5bf4                 ; 0x96f4
+    add ax, party_records            ; 0x96f4
     push ax                          ; 0x96f7
     lea ax, word [bp - 0x000a]       ; 0x96f8
     push ax                          ; 0x96fb
@@ -44,7 +44,7 @@ api_idx_000e_ORVT:
     push ax                          ; 0x972e
     mov ax, 0x248                    ; 0x972f
     imul word [bp + 0x4]             ; 0x9732
-    add ax, bss_5bf4                 ; 0x9735
+    add ax, party_records            ; 0x9735
     push ax                          ; 0x9738
     call aztec_strcpy                ; 0x9739
     add sp, byte 4                   ; 0x973c

@@ -97,7 +97,7 @@ cast_spell_from_dialog:
     mov ax, 1                        ; 0x4bbe
     push ax                          ; 0x4bc1
     push word [bp + 0x4]             ; 0x4bc2
-    call ds_app_LUOV                 ; 0x4bc5
+    call draw_party_member_panel     ; 0x4bc5
     add sp, byte 4                   ; 0x4bc8
 @..cast_spell_from_dialog.l5:
     ret                              ; 0x4bcb

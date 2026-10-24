@@ -26,7 +26,7 @@ loc_HTTH:
     push ax                          ; 0x15ec
     mov ax, 0x248                    ; 0x15ed
     imul word [bp + 0x4]             ; 0x15f0
-    add ax, bss_5bf4                 ; 0x15f3
+    add ax, party_records            ; 0x15f3
     push ax                          ; 0x15f6
     call aztec_strlen                ; 0x15f7
     pop cx                           ; 0x15fa
@@ -65,7 +65,7 @@ loc_HTTH:
     push ax                          ; 0x1645
     mov ax, 0x248                    ; 0x1646
     imul word [bp + 0x4]             ; 0x1649
-    add ax, bss_5bf4                 ; 0x164c
+    add ax, party_records            ; 0x164c
     push ax                          ; 0x164f
     call draw_text_glyphs            ; 0x1650
     add sp, byte 4                   ; 0x1653
@@ -95,14 +95,14 @@ loc_HTTH:
     mov ax, 1                        ; 0x168c
     push ax                          ; 0x168f
     push word [bp + 0x4]             ; 0x1690
-    call ds_app_LUOV                 ; 0x1693
+    call draw_party_member_panel     ; 0x1693
     add sp, byte 4                   ; 0x1696
     ret                              ; 0x1699
 @..loc_HTTH.l2:
     mov ax, 0x248                    ; 0x169a
     imul word [bp + 0x4]             ; 0x169d
     mov si, ax                       ; 0x16a0
-    add ax, bss_5bf4                 ; 0x16a2
+    add ax, party_records            ; 0x16a2
     mov si, ax                       ; 0x16a5
     lea di, word [bp - 0x024a]       ; 0x16a7
     mov cx, ds                       ; 0x16ab
@@ -114,17 +114,17 @@ loc_HTTH:
     mov bx, ax                       ; 0x16b9
     mov ax, word [bx + bss_8af0 + 0x2] ; 0x16bb
     mov word [bp - 0x024c], ax       ; 0x16bf
-    mov ax, word [bx + bss_5e2a + 0xb92] ; 0x16c3
+    mov ax, word [bx + member_state + 0xb92] ; 0x16c3
     mov word [bp - 0x024e], ax       ; 0x16c7
     mov ax, 0x248                    ; 0x16cb
     imul word [bp - 0x0002]          ; 0x16ce
     mov si, ax                       ; 0x16d1
-    add ax, bss_5bf4                 ; 0x16d3
+    add ax, party_records            ; 0x16d3
     mov si, ax                       ; 0x16d6
     mov ax, 0x248                    ; 0x16d8
     imul word [bp + 0x4]             ; 0x16db
     mov di, ax                       ; 0x16de
-    add ax, bss_5bf4                 ; 0x16e0
+    add ax, party_records            ; 0x16e0
     mov di, ax                       ; 0x16e3
     mov cx, ds                       ; 0x16e5
     mov es, cx                       ; 0x16e7
@@ -141,14 +141,14 @@ loc_HTTH:
     mov ax, word [bp - 0x0002]       ; 0x1704
     shl ax, 1                        ; 0x1707
     mov bx, ax                       ; 0x1709
-    mov ax, word [bx + bss_5e2a + 0xb92] ; 0x170b
+    mov ax, word [bx + member_state + 0xb92] ; 0x170b
     mov bx, cx                       ; 0x170f
-    mov word [bx + bss_5e2a + 0xb92], ax ; 0x1711
+    mov word [bx + member_state + 0xb92], ax ; 0x1711
     lea si, word [bp - 0x024a]       ; 0x1715
     mov ax, 0x248                    ; 0x1719
     imul word [bp - 0x0002]          ; 0x171c
     mov di, ax                       ; 0x171f
-    add ax, bss_5bf4                 ; 0x1721
+    add ax, party_records            ; 0x1721
     mov di, ax                       ; 0x1724
     mov cx, ds                       ; 0x1726
     mov es, cx                       ; 0x1728
@@ -160,15 +160,15 @@ loc_HTTH:
     mov bx, cx                       ; 0x1738
     mov word [bx + bss_8af0 + 0x2], ax ; 0x173a
     mov ax, word [bp - 0x024e]       ; 0x173e
-    mov word [bx + bss_5e2a + 0xb92], ax ; 0x1742
+    mov word [bx + member_state + 0xb92], ax ; 0x1742
     mov ax, 0                        ; 0x1746
     push ax                          ; 0x1749
     mov ax, word [bp + 0x4]          ; 0x174a
     shl ax, 1                        ; 0x174d
     shl ax, 1                        ; 0x174f
     mov bx, ax                       ; 0x1751
-    push word [bx + bss_5e2a + 0xb7c] ; 0x1753
-    push word [bx + bss_5e2a + 0xb7a] ; 0x1757
+    push word [bx + member_state + 0xb7c] ; 0x1753
+    push word [bx + member_state + 0xb7a] ; 0x1757
     call gfx_restore_area            ; 0x175b
     add sp, byte 6                   ; 0x175e
     mov ax, word [bp + 0x4]          ; 0x1761
@@ -203,8 +203,8 @@ loc_HTTH:
     shl ax, 1                        ; 0x17ae
     shl ax, 1                        ; 0x17b0
     mov bx, ax                       ; 0x17b2
-    push word [bx + bss_5e2a + 0xb7c] ; 0x17b4
-    push word [bx + bss_5e2a + 0xb7a] ; 0x17b8
+    push word [bx + member_state + 0xb7c] ; 0x17b4
+    push word [bx + member_state + 0xb7a] ; 0x17b8
     call gfx_restore_area            ; 0x17bc
     add sp, byte 6                   ; 0x17bf
     mov ax, word [bp - 0x0002]       ; 0x17c2
@@ -236,11 +236,11 @@ loc_HTTH:
     mov ax, 1                        ; 0x1808
     push ax                          ; 0x180b
     push word [bp + 0x4]             ; 0x180c
-    call ds_app_LUOV                 ; 0x180f
+    call draw_party_member_panel     ; 0x180f
     add sp, byte 4                   ; 0x1812
     mov ax, 1                        ; 0x1815
     push ax                          ; 0x1818
     push word [bp - 0x0002]          ; 0x1819
-    call ds_app_LUOV                 ; 0x181c
+    call draw_party_member_panel     ; 0x181c
     add sp, byte 4                   ; 0x181f
     ret                              ; 0x1822

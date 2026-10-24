@@ -28,7 +28,7 @@ api_idx_0022_RHMN:
     mov ax, 1                        ; 0x225d
     push ax                          ; 0x2260
     push word [bp - 0x0004]          ; 0x2261
-    call ds_app_LUOV                 ; 0x2264
+    call draw_party_member_panel     ; 0x2264
     add sp, byte 4                   ; 0x2267
     inc word [bp - 0x0004]           ; 0x226a
 @..api_idx_0022_RHMN.l4:
@@ -198,7 +198,7 @@ api_idx_0022_RHMN:
     mov ax, 0x248                    ; 0x240e
     imul word [bp - 0x0004]          ; 0x2411
     mov bx, ax                       ; 0x2414
-    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x2416
+    cmp byte [bx + member_state + 0x5], 3 ; 0x2416
     jb short @..api_idx_0022_RHMN.l19 ; 0x241b
     jmp near @..api_idx_0022_RHMN.l24 ; 0x241d
 @..api_idx_0022_RHMN.l19:
@@ -234,7 +234,7 @@ api_idx_0022_RHMN:
     mov ax, 0x248                    ; 0x245e
     imul word [bp - 0x0004]          ; 0x2461
     mov bx, ax                       ; 0x2464
-    mov al, byte [bx + bss_5e2a + 0x9] ; 0x2466
+    mov al, byte [bx + member_state + 0x9] ; 0x2466
     sub ah, ah                       ; 0x246a
     inc ax                           ; 0x246c
     sub word [bx + pc_records], ax   ; 0x246d
@@ -267,7 +267,7 @@ api_idx_0022_RHMN:
     mov ax, 0x248                    ; 0x24b3
     imul word [bp - 0x0004]          ; 0x24b6
     mov bx, ax                       ; 0x24b9
-    cmp byte [bx + bss_5e2a + 0x5], 0 ; 0x24bb
+    cmp byte [bx + member_state + 0x5], 0 ; 0x24bb
     jne short @..api_idx_0022_RHMN.l29 ; 0x24c0
     inc word [bp - 0x0016]           ; 0x24c2
     cmp byte [bx + cell_key_grid + 0x128], 0 ; 0x24c5
@@ -1110,7 +1110,7 @@ jumptable_2d1b_case_8:
     cmp ax, strict word 0xffff       ; 0x2c81
     je short @..api_idx_0022_RHMN.l76 ; 0x2c84
     push ax                          ; 0x2c86
-    call ds_app_KTPM                 ; 0x2c87
+    call member_is_active            ; 0x2c87
     pop cx                           ; 0x2c8a
     test ax, ax                      ; 0x2c8b
     je short @..api_idx_0022_RHMN.l76 ; 0x2c8d
@@ -1171,7 +1171,7 @@ jumptable_2d1b_case_24:
     cmp ax, strict word 0xffff       ; 0x2d05
     je short @..api_idx_0022_RHMN.l80 ; 0x2d08
     push ax                          ; 0x2d0a
-    call ds_app_KTPM                 ; 0x2d0b
+    call member_is_active            ; 0x2d0b
     pop cx                           ; 0x2d0e
     test ax, ax                      ; 0x2d0f
     je short @..api_idx_0022_RHMN.l80 ; 0x2d11

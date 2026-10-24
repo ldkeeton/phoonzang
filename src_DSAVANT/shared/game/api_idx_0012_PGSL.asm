@@ -8,10 +8,10 @@ api_idx_0012_PGSL:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + bss_5e2a + 0xd]
+    mov al, byte [bx + member_state + 0xd]
     sub ah, ah
     mov word [bp - 0x0008], ax
-    mov al, byte [bx + bss_5e2a + 0xe]
+    mov al, byte [bx + member_state + 0xe]
     sub ah, ah
     mov word [bp - 0x0006], ax
     mov word [bp - 0x0004], 0

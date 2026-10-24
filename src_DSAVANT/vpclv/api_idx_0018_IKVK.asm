@@ -17,7 +17,7 @@ api_idx_0018_IKVK:
     mov al, byte [bx + cell_key_grid + 0x136] ; 0x497e
     sub ah, ah                       ; 0x4982
     mov word [bp - 0x000a], ax       ; 0x4984
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x4987
+    mov al, byte [bx + member_state + 0x3] ; 0x4987
     sub ah, ah                       ; 0x498b
     jmp near @..api_idx_0018_IKVK.l3 ; 0x498d
 jumptable_4b3c_case_1:
@@ -261,7 +261,7 @@ jumptable_4b3c:
     mov bx, ax                       ; 0x4c0f
     mov ax, word [bx + pc_spell_power_cap] ; 0x4c11
     push ax                          ; 0x4c15
-    mov al, byte [bx + bss_5e2a + 0x11] ; 0x4c16
+    mov al, byte [bx + member_state + 0x11] ; 0x4c16
     sub ah, ah                       ; 0x4c1a
     mov cx, ax                       ; 0x4c1c
     pop ax                           ; 0x4c1e

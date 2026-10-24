@@ -45,9 +45,9 @@ api_idx_0004_GUSS:
     cwd
     idiv cx
     mov word [bp - 0x0004], ax
-    cmp byte [bx + bss_5e2a + 0x3], 0xc
+    cmp byte [bx + member_state + 0x3], 0xc
     je short @..api_idx_0004_GUSS.l2
-    cmp byte [bx + bss_5e2a + 0x3], 0xd
+    cmp byte [bx + member_state + 0x3], 0xd
     jne short @..api_idx_0004_GUSS.l3
 @..api_idx_0004_GUSS.l2:
     mov ax, 0x12
@@ -116,7 +116,7 @@ api_idx_0004_GUSS:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    cmp byte [bx + bss_5e2a + 0x3], 4
+    cmp byte [bx + member_state + 0x3], 4
     jne short @..api_idx_0004_GUSS.l5
     mov bx, cx
     add byte [bx + cell_key_grid + 0xfe], 0xf1

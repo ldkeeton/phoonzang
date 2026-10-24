@@ -710,7 +710,7 @@ api_idx_004e_HUKL:
     mov ax, 0x248                    ; 0x3f1c
     imul word [bp - 0x0002]          ; 0x3f1f
     mov si, ax                       ; 0x3f22
-    add ax, bss_5bf4                 ; 0x3f24
+    add ax, party_records            ; 0x3f24
     mov si, ax                       ; 0x3f27
     mov di, bss_9a4c                 ; 0x3f29
     mov cx, ds                       ; 0x3f2c

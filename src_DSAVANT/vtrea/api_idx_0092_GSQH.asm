@@ -350,7 +350,7 @@ api_idx_0092_GSQH:
     mov ax, 1                        ; 0x4efb
     push ax                          ; 0x4efe
     push word [bp + 0x4]             ; 0x4eff
-    call ds_app_LUOV                 ; 0x4f02
+    call draw_party_member_panel     ; 0x4f02
     add sp, byte 4                   ; 0x4f05
     call api_idx_0006_KPLV           ; 0x4f08
     ret                              ; 0x4f0b

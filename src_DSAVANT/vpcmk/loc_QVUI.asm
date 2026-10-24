@@ -5,7 +5,7 @@ loc_QVUI:
     mov ax, 0x248                    ; 0x570c
     imul word [bp + 0x4]             ; 0x570f
     mov bx, ax                       ; 0x5712
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x5714
+    mov al, byte [bx + member_state + 0x3] ; 0x5714
     sub ah, ah                       ; 0x5718
     jmp near @..loc_QVUI.l1          ; 0x571a
 jumptable_5a60_case_0:

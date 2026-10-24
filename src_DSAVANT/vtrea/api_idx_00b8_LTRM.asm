@@ -39,7 +39,7 @@ api_idx_00b8_LTRM:
     mov ax, 0x248                    ; 0x1539
     imul word [bp - 0x0002]          ; 0x153c
     mov bx, ax                       ; 0x153f
-    cmp byte [bx + bss_5e2a + 0x5], 3 ; 0x1541
+    cmp byte [bx + member_state + 0x5], 3 ; 0x1541
     jb short @..api_idx_00b8_LTRM.l3 ; 0x1546
     mov ax, word [bp - 0x0002]       ; 0x1548
     shl ax, 1                        ; 0x154b
@@ -1044,7 +1044,7 @@ jumptable_1fa3_case_12:
     mov ax, 1                        ; 0x1dba
     push ax                          ; 0x1dbd
     push word [bp - 0x0002]          ; 0x1dbe
-    call ds_app_LUOV                 ; 0x1dc1
+    call draw_party_member_panel     ; 0x1dc1
     add sp, byte 4                   ; 0x1dc4
     push word [message_delay]        ; 0x1dc7
     call api_idx_0004_UQUT           ; 0x1dcb
@@ -1093,7 +1093,7 @@ jumptable_1fa3_case_15:
     mov ax, 0x248                    ; 0x1e25
     imul word [bp - 0x0002]          ; 0x1e28
     mov bx, ax                       ; 0x1e2b
-    push word [bx + bss_5c0a + 0x4]  ; 0x1e2d
+    push word [bx + member_pair_points + 0x4] ; 0x1e2d
     mov ax, 1                        ; 0x1e31
     push ax                          ; 0x1e34
     mov ax, 4                        ; 0x1e35
@@ -1104,7 +1104,7 @@ jumptable_1fa3_case_15:
     mov ax, 0x248                    ; 0x1e3f
     imul word [bp - 0x0002]          ; 0x1e42
     mov bx, ax                       ; 0x1e45
-    mov ax, word [bx + bss_5c0a + 0x4] ; 0x1e47
+    mov ax, word [bx + member_pair_points + 0x4] ; 0x1e47
     sub ax, cx                       ; 0x1e4b
     inc ax                           ; 0x1e4d
     push ax                          ; 0x1e4e
@@ -1115,10 +1115,10 @@ jumptable_1fa3_case_15:
     imul word [bp - 0x0002]          ; 0x1e59
     mov bx, ax                       ; 0x1e5c
     pop ax                           ; 0x1e5e
-    mov word [bx + bss_5c0a + 0x4], ax ; 0x1e5f
-    cmp ax, word [bx + bss_5c0a + 0x2] ; 0x1e63
+    mov word [bx + member_pair_points + 0x4], ax ; 0x1e5f
+    cmp ax, word [bx + member_pair_points + 0x2] ; 0x1e63
     jge short @..api_idx_00b8_LTRM.l55 ; 0x1e67
-    mov word [bx + bss_5c0a + 0x2], ax ; 0x1e69
+    mov word [bx + member_pair_points + 0x2], ax ; 0x1e69
 @..api_idx_00b8_LTRM.l55:
     lea ax, word [bp - 0x0068]       ; 0x1e6d
     push ax                          ; 0x1e70

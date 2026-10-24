@@ -33,7 +33,7 @@ api_idx_000e_RTSO:
     cmp ax, strict word 0xffff       ; 0x809f
     je short @..api_idx_000e_RTSO.l2 ; 0x80a2
     push ax                          ; 0x80a4
-    call ds_app_KTPM                 ; 0x80a5
+    call member_is_active            ; 0x80a5
     pop cx                           ; 0x80a8
     test ax, ax                      ; 0x80a9
     jne short @..api_idx_000e_RTSO.l3 ; 0x80ab
@@ -98,7 +98,7 @@ api_idx_000e_RTSO:
     jmp short @..api_idx_000e_RTSO.l9 ; 0x8136
 @..api_idx_000e_RTSO.l7:
     push word [bp - 0x0004]          ; 0x8138
-    call ds_app_KTPM                 ; 0x813b
+    call member_is_active            ; 0x813b
     pop cx                           ; 0x813e
     test ax, ax                      ; 0x813f
     je short @..api_idx_000e_RTSO.l8 ; 0x8141

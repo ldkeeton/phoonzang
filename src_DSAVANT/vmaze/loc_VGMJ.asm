@@ -5,7 +5,7 @@ loc_VGMJ:
     call loc_OGHL                    ; 0x0b1a
     cmp word [bp + 0x8], byte 0      ; 0x0b1d
     je short @..loc_VGMJ.l1          ; 0x0b21
-    call ds_app_NNSU                 ; 0x0b23
+    call score_music_enabled         ; 0x0b23
     mov word [bss_8450], ax          ; 0x0b26
     test ax, ax                      ; 0x0b29
     je short @..loc_VGMJ.l1          ; 0x0b2b

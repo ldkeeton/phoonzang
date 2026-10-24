@@ -14,10 +14,10 @@ loc_QLKH:
     mov ax, 0x248                    ; 0x1f58
     imul word [bp - 0x0002]          ; 0x1f5b
     mov bx, ax                       ; 0x1f5e
-    mov al, byte [bx + bss_5e2a + 0x7] ; 0x1f60
+    mov al, byte [bx + member_state + 0x7] ; 0x1f60
     sub ah, ah                       ; 0x1f64
     push ax                          ; 0x1f66
-    mov al, byte [bx + bss_5e2a + 0x6] ; 0x1f67
+    mov al, byte [bx + member_state + 0x6] ; 0x1f67
     sub ah, ah                       ; 0x1f6b
     push ax                          ; 0x1f6d
     push word [bp - 0x0002]          ; 0x1f6e
@@ -33,12 +33,12 @@ loc_QLKH:
     mov ax, 1                        ; 0x1f87
     push ax                          ; 0x1f8a
     push word [bp - 0x0002]          ; 0x1f8b
-    call ds_app_LUOV                 ; 0x1f8e
+    call draw_party_member_panel     ; 0x1f8e
     add sp, byte 4                   ; 0x1f91
     mov ax, 0x248                    ; 0x1f94
     imul word [bp - 0x0002]          ; 0x1f97
     mov bx, ax                       ; 0x1f9a
-    mov al, byte [bx + bss_5e2a + 0x2] ; 0x1f9c
+    mov al, byte [bx + member_state + 0x2] ; 0x1f9c
     sub ah, ah                       ; 0x1fa0
     add ax, strict word 8            ; 0x1fa2
     push ax                          ; 0x1fa5
@@ -72,12 +72,12 @@ loc_QLKH:
     mov ax, 0x248                    ; 0x1fe2
     imul word [bp - 0x0002]          ; 0x1fe5
     mov bx, ax                       ; 0x1fe8
-    mov al, byte [bx + bss_5e2a + 0x5] ; 0x1fea
+    mov al, byte [bx + member_state + 0x5] ; 0x1fea
     push ax                          ; 0x1fee
     mov ax, 0x248                    ; 0x1fef
     imul word [bp - 0x0004]          ; 0x1ff2
     mov bx, ax                       ; 0x1ff5
-    mov cl, byte [bx + bss_5e2a + 0x5] ; 0x1ff7
+    mov cl, byte [bx + member_state + 0x5] ; 0x1ff7
     pop ax                           ; 0x1ffb
     cmp al, cl                       ; 0x1ffc
     ja short @..loc_QLKH.l8          ; 0x1ffe
@@ -90,7 +90,7 @@ loc_QLKH:
     push ax                          ; 0x200d
     mov ax, 0x248                    ; 0x200e
     imul word [bp - 0x0002]          ; 0x2011
-    add ax, bss_5bf4                 ; 0x2014
+    add ax, party_records            ; 0x2014
     push ax                          ; 0x2017
     call aztec_swapmem               ; 0x2018
     add sp, byte 6                   ; 0x201b
@@ -131,19 +131,19 @@ loc_QLKH:
     mov ax, word [bp - 0x0002]       ; 0x2078
     shl ax, 1                        ; 0x207b
     mov bx, ax                       ; 0x207d
-    mov ax, word [bx + bss_5e2a + 0xb92] ; 0x207f
+    mov ax, word [bx + member_state + 0xb92] ; 0x207f
     mov word [bp - 0x027a], ax       ; 0x2083
     mov bx, cx                       ; 0x2087
-    mov ax, word [bx + bss_5e2a + 0xb92] ; 0x2089
+    mov ax, word [bx + member_state + 0xb92] ; 0x2089
     mov cx, word [bp - 0x0002]       ; 0x208d
     shl cx, 1                        ; 0x2090
     mov bx, cx                       ; 0x2092
-    mov word [bx + bss_5e2a + 0xb92], ax ; 0x2094
+    mov word [bx + member_state + 0xb92], ax ; 0x2094
     mov ax, word [bp - 0x027a]       ; 0x2098
     mov cx, word [bp - 0x0004]       ; 0x209c
     shl cx, 1                        ; 0x209f
     mov bx, cx                       ; 0x20a1
-    mov word [bx + bss_5e2a + 0xb92], ax ; 0x20a3
+    mov word [bx + member_state + 0xb92], ax ; 0x20a3
 @..loc_QLKH.l9:
     inc word [bp - 0x0004]           ; 0x20a7
 @..loc_QLKH.l10:
@@ -168,7 +168,7 @@ loc_QLKH:
     mov ax, 0x248                    ; 0x20d7
     imul word [bp - 0x0002]          ; 0x20da
     mov bx, ax                       ; 0x20dd
-    cmp byte [bx + bss_5e2a + 0x5], 2 ; 0x20df
+    cmp byte [bx + member_state + 0x5], 2 ; 0x20df
     jb short @..loc_QLKH.l15         ; 0x20e4
     inc word [bp - 0x0004]           ; 0x20e6
 @..loc_QLKH.l15:

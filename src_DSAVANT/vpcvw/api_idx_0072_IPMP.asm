@@ -584,7 +584,7 @@ api_idx_0072_IPMP:
     mov ax, 0x248                    ; 0x4fb5
     imul word [bp + 0x4]             ; 0x4fb8
     mov bx, ax                       ; 0x4fbb
-    mov al, byte [bx + bss_5e2a + 0x6] ; 0x4fbd
+    mov al, byte [bx + member_state + 0x6] ; 0x4fbd
     sub ah, ah                       ; 0x4fc1
     mov dx, word [bp - 0x0014]       ; 0x4fc3
     cmp ax, dx                       ; 0x4fc6
@@ -592,21 +592,21 @@ api_idx_0072_IPMP:
     mov ax, dx                       ; 0x4fca
     jmp short @..api_idx_0072_IPMP.l35 ; 0x4fcc
 @..api_idx_0072_IPMP.l34:
-    mov al, byte [bx + bss_5e2a + 0x6] ; 0x4fce
+    mov al, byte [bx + member_state + 0x6] ; 0x4fce
     sub ah, ah                       ; 0x4fd2
 @..api_idx_0072_IPMP.l35:
-    mov byte [bx + bss_5e2a + 0x6], al ; 0x4fd4
-    mov al, byte [bx + bss_5e2a + 0x7] ; 0x4fd8
+    mov byte [bx + member_state + 0x6], al ; 0x4fd4
+    mov al, byte [bx + member_state + 0x7] ; 0x4fd8
     sub ah, ah                       ; 0x4fdc
     cmp ax, word [bp - 0x0012]       ; 0x4fde
     jge short @..api_idx_0072_IPMP.l36 ; 0x4fe1
     mov ax, word [bp - 0x0012]       ; 0x4fe3
     jmp short @..api_idx_0072_IPMP.l37 ; 0x4fe6
 @..api_idx_0072_IPMP.l36:
-    mov al, byte [bx + bss_5e2a + 0x7] ; 0x4fe8
+    mov al, byte [bx + member_state + 0x7] ; 0x4fe8
     sub ah, ah                       ; 0x4fec
 @..api_idx_0072_IPMP.l37:
-    mov byte [bx + bss_5e2a + 0x7], al ; 0x4fee
+    mov byte [bx + member_state + 0x7], al ; 0x4fee
 @..api_idx_0072_IPMP.l38:
     inc word [bp - 0x0002]           ; 0x4ff2
     mov ax, word [bp - 0x0002]       ; 0x4ff5

@@ -5,7 +5,7 @@ api_idx_0056_VTNO:
     mov ax, 0x248                    ; 0x12d2
     imul word [bp + 0x4]             ; 0x12d5
     mov bx, ax                       ; 0x12d8
-    cmp byte [bx + bss_5e2a + 0x5], 2 ; 0x12da
+    cmp byte [bx + member_state + 0x5], 2 ; 0x12da
     jb short @..api_idx_0056_VTNO.l1 ; 0x12df
     ret                              ; 0x12e1
 @..api_idx_0056_VTNO.l1:
@@ -83,7 +83,7 @@ api_idx_0056_VTNO:
     imul word [bp + 0x4]             ; 0x1391
     mov bx, ax                       ; 0x1394
     pop ax                           ; 0x1396
-    mov byte [bx + bss_5e2a + 0x8], al ; 0x1397
+    mov byte [bx + member_state + 0x8], al ; 0x1397
 @..api_idx_0056_VTNO.l6:
     lea ax, word [bp - 0x0056]       ; 0x139b
     push ax                          ; 0x139e
@@ -109,7 +109,7 @@ api_idx_0056_VTNO:
     mov ax, 1                        ; 0x13ca
     push ax                          ; 0x13cd
     push word [bp + 0x4]             ; 0x13ce
-    call ds_app_LUOV                 ; 0x13d1
+    call draw_party_member_panel     ; 0x13d1
     add sp, byte 4                   ; 0x13d4
     push word [message_delay]        ; 0x13d7
     call api_idx_0004_UQUT           ; 0x13db

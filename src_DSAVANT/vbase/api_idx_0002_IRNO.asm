@@ -38,8 +38,8 @@ api_idx_0002_IRNO:
     shl ax, 1                        ; 0x67b2
     shl ax, 1                        ; 0x67b4
     mov bx, ax                       ; 0x67b6
-    push word [bx + bss_5e2a + 0xb7c] ; 0x67b8
-    push word [bx + bss_5e2a + 0xb7a] ; 0x67bc
+    push word [bx + member_state + 0xb7c] ; 0x67b8
+    push word [bx + member_state + 0xb7a] ; 0x67bc
     call gfx_restore_area            ; 0x67c0
     add sp, byte 6                   ; 0x67c3
     inc word [bp - 0x0002]           ; 0x67c6

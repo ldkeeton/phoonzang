@@ -1,10 +1,10 @@
 ; auto-generated
-ds_app_TRNH: ; Aztec csav frame=0x0002
+draw_power_bar: ; Aztec csav frame=0x0002
     mov ax, 0xfffe                   ; 0x1cf8
     call aztec_csav                  ; 0x1cfb
     mov word [bp - 0x0002], 0        ; 0x1cfe
     cmp word [bp + 0xe], byte 0      ; 0x1d03
-    jle short @..ds_app_TRNH.l1      ; 0x1d07
+    jle short @..draw_power_bar.l1   ; 0x1d07
     mov ax, word [bp + 0xc]          ; 0x1d09
     mov bx, 0x64                     ; 0x1d0c
     imul bx                          ; 0x1d0f
@@ -30,19 +30,19 @@ ds_app_TRNH: ; Aztec csav frame=0x0002
     add ax, strict word 1            ; 0x1d33
     adc dx, byte 0                   ; 0x1d36
     mov word [bp - 0x0002], ax       ; 0x1d39
-@..ds_app_TRNH.l1:
+@..draw_power_bar.l1:
     mov ax, word [bp + 0xa]          ; 0x1d3c
     mov cx, word [bp + 0xc]          ; 0x1d3f
     cmp cx, word [bp + 0xe]          ; 0x1d42
-    je short @..ds_app_TRNH.l2       ; 0x1d45
+    je short @..draw_power_bar.l2    ; 0x1d45
     mov ax, 0                        ; 0x1d47
     cmp cx, byte 0                   ; 0x1d4a
-    jle short @..ds_app_TRNH.l2      ; 0x1d4d
+    jle short @..draw_power_bar.l2   ; 0x1d4d
     mov ax, word [bp - 0x0002]       ; 0x1d4f
-@..ds_app_TRNH.l2:
+@..draw_power_bar.l2:
     mov word [bp - 0x0002], ax       ; 0x1d52
     cmp ax, strict word 0            ; 0x1d55
-    jle short @..ds_app_TRNH.l3      ; 0x1d58
+    jle short @..draw_power_bar.l3   ; 0x1d58
     push word [bp + 0x10]            ; 0x1d5a
     mov ax, word [bp + 0x6]          ; 0x1d5d
     add ax, word [bp + 0xa]          ; 0x1d60
@@ -59,5 +59,5 @@ ds_app_TRNH: ; Aztec csav frame=0x0002
     push word [bp + 0x4]             ; 0x1d77
     call gfx_fill_area               ; 0x1d7a
     add sp, byte 0x0a                ; 0x1d7d
-@..ds_app_TRNH.l3:
+@..draw_power_bar.l3:
     ret                              ; 0x1d80

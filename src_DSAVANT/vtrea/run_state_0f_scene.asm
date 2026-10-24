@@ -22,7 +22,7 @@ run_state_0f_scene:
     push ax                          ; 0x7f89
     call gfx_mouse_glide_to          ; 0x7f8a
     add sp, byte 6                   ; 0x7f8d
-    call ds_app_NNSU                 ; 0x7f90
+    call score_music_enabled         ; 0x7f90
     mov word [bss_8450], ax          ; 0x7f93
     test ax, ax                      ; 0x7f96
     je short @..run_state_0f_scene.l1 ; 0x7f98

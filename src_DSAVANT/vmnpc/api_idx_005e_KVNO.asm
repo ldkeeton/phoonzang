@@ -396,11 +396,11 @@ api_idx_005e_KVNO:
     pop dx                           ; 0x5b43
     pop ax                           ; 0x5b44
     add word [bx + bss_5c08], ax     ; 0x5b45
-    adc word [bx + bss_5c0a], dx     ; 0x5b49
+    adc word [bx + member_pair_points], dx ; 0x5b49
     mov ax, 1                        ; 0x5b4d
     push ax                          ; 0x5b50
     push word [bp + 0x4]             ; 0x5b51
-    call ds_app_LUOV                 ; 0x5b54
+    call draw_party_member_panel     ; 0x5b54
     add sp, byte 4                   ; 0x5b57
     mov ax, 0                        ; 0x5b5a
     push ax                          ; 0x5b5d

@@ -10,7 +10,7 @@ api_idx_0008_GUJV:
     mov ax, 0x248                    ; 0x5585
     imul word [bp + 0x4]             ; 0x5588
     mov bx, ax                       ; 0x558b
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x558d
+    mov al, byte [bx + member_state + 0x3] ; 0x558d
     sub ah, ah                       ; 0x5591
     push ax                          ; 0x5593
     mov ax, word [bp + 0x6]          ; 0x5594
@@ -24,7 +24,7 @@ api_idx_0008_GUJV:
     mov ax, 0x248                    ; 0x55a7
     imul word [bp + 0x4]             ; 0x55aa
     mov bx, ax                       ; 0x55ad
-    mov al, byte [bx + bss_5e2a + 0x1] ; 0x55af
+    mov al, byte [bx + member_state + 0x1] ; 0x55af
     sub ah, ah                       ; 0x55b3
     push ax                          ; 0x55b5
     mov ax, word [bp + 0x6]          ; 0x55b6
@@ -38,7 +38,7 @@ api_idx_0008_GUJV:
     mov ax, 0x248                    ; 0x55c9
     imul word [bp + 0x4]             ; 0x55cc
     mov bx, ax                       ; 0x55cf
-    mov al, byte [bx + bss_5e2a + 0x2] ; 0x55d1
+    mov al, byte [bx + member_state + 0x2] ; 0x55d1
     sub ah, ah                       ; 0x55d5
     push ax                          ; 0x55d7
     mov ax, word [bp + 0x6]          ; 0x55d8
@@ -83,7 +83,7 @@ api_idx_0008_GUJV:
     imul word [bp + 0x4]             ; 0x562d
     mov bx, ax                       ; 0x5630
     mov ax, word [bx + bss_5c08]     ; 0x5632
-    mov dx, word [bx + bss_5c0a]     ; 0x5636
+    mov dx, word [bx + member_pair_points] ; 0x5636
     mov cx, word [bp + 0x6]          ; 0x563a
     shl cx, 1                        ; 0x563d
     shl cx, 1                        ; 0x563f
@@ -182,7 +182,7 @@ api_idx_0008_GUJV:
     pop dx                           ; 0x570e
     pop ax                           ; 0x570f
     sub word [bx + bss_5c08], ax     ; 0x5710
-    sbb word [bx + bss_5c0a], dx     ; 0x5714
+    sbb word [bx + member_pair_points], dx ; 0x5714
     mov ax, word [bp + 0x6]          ; 0x5718
     shl ax, 1                        ; 0x571b
     mov bx, ax                       ; 0x571d

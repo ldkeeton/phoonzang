@@ -44,7 +44,7 @@ int pc;
 				pc_records[pc].w0 = 0;
 				pc_records[pc].b14c = random_below(6) + 6;	/* 6..11 */
 			}
-			ds_app_LUOV(pc, 1);
+			draw_party_member_panel(pc, 1);
 		}
 	}
 }

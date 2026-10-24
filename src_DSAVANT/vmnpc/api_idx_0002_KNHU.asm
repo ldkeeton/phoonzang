@@ -22,7 +22,7 @@ api_idx_0002_KNHU:
     mov ax, 1                        ; 0x38f2
     push ax                          ; 0x38f5
     push word [bp + 0x4]             ; 0x38f6
-    call ds_app_LUOV                 ; 0x38f9
+    call draw_party_member_panel     ; 0x38f9
     add sp, byte 4                   ; 0x38fc
 @..api_idx_0002_KNHU.l2:
     ret                              ; 0x38ff

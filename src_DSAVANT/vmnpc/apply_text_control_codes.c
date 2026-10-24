@@ -19,12 +19,12 @@ char *token, *pending_line;
 		switch (*cursor) {
 		case '@':		/* page effect */
 		case '[':
-			gfx_mouse_glide_back(0x12e, 0xa4, 0);
+			gfx_mouse_glide_back(302, 164, 0);
 			set_mouse_pointer_shape(0L);
 			while (!poll_fullscreen_hotspot())
 				step_party_animation();
 			set_mouse_pointer_shape(mouse_pointer_shape);
-			gfx_mouse_glide_to(0x12e, 0xa4, 0);
+			gfx_mouse_glide_to(302, 164, 0);
 			if (*cursor == '@') {	/* second page code */
 				next_text_line();
 				next_text_line();
@@ -33,7 +33,7 @@ char *token, *pending_line;
 			++cursor;
 			break;
 		case '%':		/* pause */
-			wait_ticks_abortable(0x36, 1);
+			wait_ticks_abortable(54, 1);
 			++cursor;
 			break;
 		case '!':		/* new line */

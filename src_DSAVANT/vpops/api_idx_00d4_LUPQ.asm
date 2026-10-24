@@ -25,7 +25,7 @@ api_idx_00d4_LUPQ:
     mov ax, 0x248                    ; 0x3747
     imul word [bp - 0x0006]          ; 0x374a
     mov bx, ax                       ; 0x374d
-    mov al, byte [bx + bss_5e2a + 0xf] ; 0x374f
+    mov al, byte [bx + member_state + 0xf] ; 0x374f
     sub ah, ah                       ; 0x3753
     mov cx, ax                       ; 0x3755
     pop ax                           ; 0x3757
@@ -52,7 +52,7 @@ api_idx_00d4_LUPQ:
     mov ax, 0x248                    ; 0x378c
     imul word [bp - 0x0006]          ; 0x378f
     mov bx, ax                       ; 0x3792
-    mov al, byte [bx + bss_5e2a + 0xe] ; 0x3794
+    mov al, byte [bx + member_state + 0xe] ; 0x3794
     sub ah, ah                       ; 0x3798
     mov cx, ax                       ; 0x379a
     mov ax, word [bp - 0x00a4]       ; 0x379c
@@ -97,7 +97,7 @@ api_idx_00d4_LUPQ:
     mov ax, 0x248                    ; 0x37fd
     imul word [bp - 0x0006]          ; 0x3800
     mov bx, ax                       ; 0x3803
-    mov al, byte [bx + bss_5e2a + 0xe] ; 0x3805
+    mov al, byte [bx + member_state + 0xe] ; 0x3805
     sub ah, ah                       ; 0x3809
     push ax                          ; 0x380b
     mov ax, 0x2c                     ; 0x380c
@@ -129,7 +129,7 @@ api_idx_00d4_LUPQ:
     mov ax, 0x248                    ; 0x3853
     imul word [bp - 0x0006]          ; 0x3856
     mov bx, ax                       ; 0x3859
-    cmp byte [bx + bss_5e2a + 0x5], 2 ; 0x385b
+    cmp byte [bx + member_state + 0x5], 2 ; 0x385b
     jae short @..api_idx_00d4_LUPQ.l8 ; 0x3860
     cmp byte [bx + cell_key_grid + 0x129], 0 ; 0x3862
     ja short @..api_idx_00d4_LUPQ.l8 ; 0x3867
@@ -177,7 +177,7 @@ api_idx_00d4_LUPQ:
     jmp near @..api_idx_00d4_LUPQ.l96 ; 0x38da
 @..api_idx_00d4_LUPQ.l14:
     push ax                          ; 0x38dd
-    call ds_app_KTPM                 ; 0x38de
+    call member_is_active            ; 0x38de
     pop cx                           ; 0x38e1
     test ax, ax                      ; 0x38e2
     jne short @..api_idx_00d4_LUPQ.l15 ; 0x38e4
@@ -224,7 +224,7 @@ api_idx_00d4_LUPQ:
     mov ax, 0x248                    ; 0x394d
     imul word [bp - 0x0006]          ; 0x3950
     mov bx, ax                       ; 0x3953
-    cmp byte [bx + bss_5e2a + 0x1], 7 ; 0x3955
+    cmp byte [bx + member_state + 0x1], 7 ; 0x3955
     je short @..api_idx_00d4_LUPQ.l20 ; 0x395a
     mov word [bp - 0x001e], 0        ; 0x395c
 @..api_idx_00d4_LUPQ.l20:
@@ -237,7 +237,7 @@ api_idx_00d4_LUPQ:
     mov ax, 0x248                    ; 0x3973
     imul word [bp - 0x0006]          ; 0x3976
     mov bx, ax                       ; 0x3979
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x397b
+    mov al, byte [bx + member_state + 0x3] ; 0x397b
     cmp al, 3                        ; 0x397f
     je short @..api_idx_00d4_LUPQ.l22 ; 0x3981
     cmp al, 0xd                      ; 0x3983
@@ -472,7 +472,7 @@ api_idx_00d4_LUPQ:
     push ax                          ; 0x3bcb
     mov ax, 0x248                    ; 0x3bcc
     imul word [bp - 0x0006]          ; 0x3bcf
-    add ax, bss_5bf4                 ; 0x3bd2
+    add ax, party_records            ; 0x3bd2
     push ax                          ; 0x3bd5
     call loc_VNIO                    ; 0x3bd6
     add sp, byte 8                   ; 0x3bd9
@@ -551,7 +551,7 @@ jumptable_4058_case_0:
     push ax                          ; 0x3c7e
     mov ax, 0x248                    ; 0x3c7f
     imul word [bp - 0x0006]          ; 0x3c82
-    add ax, bss_5bf4                 ; 0x3c85
+    add ax, party_records            ; 0x3c85
     push ax                          ; 0x3c88
     call loc_VNIO                    ; 0x3c89
     add sp, byte 8                   ; 0x3c8c
@@ -740,7 +740,7 @@ jumptable_4058_case_1:
     push ax                          ; 0x3e61
     mov ax, 0x248                    ; 0x3e62
     imul word [bp - 0x0006]          ; 0x3e65
-    add ax, bss_5bf4                 ; 0x3e68
+    add ax, party_records            ; 0x3e68
     push ax                          ; 0x3e6b
     call loc_VNIO                    ; 0x3e6c
     add sp, byte 8                   ; 0x3e6f
@@ -1264,9 +1264,9 @@ jumptable_4058:
     mov ax, 0x248                    ; 0x4365
     imul word [bp - 0x0006]          ; 0x4368
     mov bx, ax                       ; 0x436b
-    mov word [bx + bss_5c0a + 0x2], 0 ; 0x436d
+    mov word [bx + member_pair_points + 0x2], 0 ; 0x436d
     mov word [bx + pc_records], 0    ; 0x4373
-    mov byte [bx + bss_5e2a + 0x5], 3 ; 0x4379
+    mov byte [bx + member_state + 0x5], 3 ; 0x4379
     mov bx, word [party_char]        ; 0x437e
     mov word [bx + si + 0x2], 0      ; 0x4382
     mov ax, 0x2c                     ; 0x4387
@@ -1282,7 +1282,7 @@ jumptable_4058:
     mov ax, 0x248                    ; 0x43a8
     imul word [bp - 0x0006]          ; 0x43ab
     mov bx, ax                       ; 0x43ae
-    mov al, byte [bx + bss_5e2a + 0x2] ; 0x43b0
+    mov al, byte [bx + member_state + 0x2] ; 0x43b0
     sub ah, ah                       ; 0x43b4
     add ax, strict word 8            ; 0x43b6
     push ax                          ; 0x43b9
@@ -1291,7 +1291,7 @@ jumptable_4058:
     mov ax, 1                        ; 0x43be
     push ax                          ; 0x43c1
     push word [bp - 0x0006]          ; 0x43c2
-    call ds_app_LUOV                 ; 0x43c5
+    call draw_party_member_panel     ; 0x43c5
     add sp, byte 4                   ; 0x43c8
     mov ax, 8                        ; 0x43cb
     push ax                          ; 0x43ce

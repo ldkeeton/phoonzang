@@ -3,7 +3,7 @@ api_idx_0008_MNJN:
     mov ax, 0xfff8
     call aztec_csav
     push word [bp + 0x4]
-    call ds_app_KTPM
+    call member_is_active
     pop cx
     test ax, ax
     jne short @..api_idx_0008_MNJN.l1
@@ -22,7 +22,7 @@ api_idx_0008_MNJN:
     mov ax, 0
     push ax
     push word [bp + 0x4]
-    call ds_app_LUOV
+    call draw_party_member_panel
     add sp, byte 4
     mov ax, word [bp + 0x4]
     mov cx, 2
@@ -71,7 +71,7 @@ api_idx_0008_MNJN:
 @..api_idx_0008_MNJN.l4:
     push word [bp + 0x6]
     push word [bp + 0x4]
-    call ds_app_LUOV
+    call draw_party_member_panel
     add sp, byte 4
 @..api_idx_0008_MNJN.l5:
     ret

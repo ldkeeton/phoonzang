@@ -25,7 +25,7 @@ api_idx_0054_OPGG:
     mov ax, 0x248                    ; 0x4547
     imul word [bp + 0x4]             ; 0x454a
     mov bx, ax                       ; 0x454d
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x454f
+    mov al, byte [bx + member_state + 0x3] ; 0x454f
     sub ah, ah                       ; 0x4553
     push ax                          ; 0x4555
     mov ax, word [bp + 0xe]          ; 0x4556
@@ -40,7 +40,7 @@ api_idx_0054_OPGG:
     mov ax, 0x248                    ; 0x456c
     imul word [bp + 0x4]             ; 0x456f
     mov bx, ax                       ; 0x4572
-    mov al, byte [bx + bss_5e2a + 0x1] ; 0x4574
+    mov al, byte [bx + member_state + 0x1] ; 0x4574
     sub ah, ah                       ; 0x4578
     push ax                          ; 0x457a
     mov ax, word [bp + 0xe]          ; 0x457b
@@ -55,7 +55,7 @@ api_idx_0054_OPGG:
     mov ax, 0x248                    ; 0x4591
     imul word [bp + 0x4]             ; 0x4594
     mov bx, ax                       ; 0x4597
-    mov al, byte [bx + bss_5e2a + 0x2] ; 0x4599
+    mov al, byte [bx + member_state + 0x2] ; 0x4599
     sub ah, ah                       ; 0x459d
     push ax                          ; 0x459f
     mov ax, word [bp + 0xe]          ; 0x45a0

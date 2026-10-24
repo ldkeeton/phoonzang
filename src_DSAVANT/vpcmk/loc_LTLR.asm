@@ -5,7 +5,7 @@ loc_LTLR:
     mov ax, 0x248                    ; 0x4c88
     imul word [bp + 0x4]             ; 0x4c8b
     mov bx, ax                       ; 0x4c8e
-    cmp byte [bx + bss_5e2a + 0x1], 5 ; 0x4c90
+    cmp byte [bx + member_state + 0x1], 5 ; 0x4c90
     jne short @..loc_LTLR.l1         ; 0x4c95
     mov ax, 0x180                    ; 0x4c97
     push ax                          ; 0x4c9a
@@ -25,7 +25,7 @@ loc_LTLR:
     mov ax, 0x248                    ; 0x4cb5
     imul word [bp + 0x4]             ; 0x4cb8
     mov bx, ax                       ; 0x4cbb
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x4cbd
+    mov al, byte [bx + member_state + 0x3] ; 0x4cbd
     sub ah, ah                       ; 0x4cc1
     jmp near @..loc_LTLR.l2          ; 0x4cc3
 jumptable_4e83_case_0:

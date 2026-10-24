@@ -10,7 +10,7 @@ api_idx_0024_NKNU:
     jmp short @..api_idx_0024_NKNU.l3 ; 0x4612
 @..api_idx_0024_NKNU.l1:
     push word [bp - 0x0004]          ; 0x4614
-    call ds_app_KTPM                 ; 0x4617
+    call member_is_active            ; 0x4617
     pop cx                           ; 0x461a
     test ax, ax                      ; 0x461b
     je short @..api_idx_0024_NKNU.l2 ; 0x461d

@@ -9,14 +9,14 @@ loc_MIPR:
     push ax                          ; 0x630d
     mov ax, 0x248                    ; 0x630e
     imul word [bp - 0x0006]          ; 0x6311
-    add ax, bss_5bf4                 ; 0x6314
+    add ax, party_records            ; 0x6314
     push ax                          ; 0x6317
     call aztec_setmem                ; 0x6318
     add sp, byte 6                   ; 0x631b
     push word [bp + 0x4]             ; 0x631e
     mov ax, 0x248                    ; 0x6321
     imul word [bp - 0x0006]          ; 0x6324
-    add ax, bss_5bf4                 ; 0x6327
+    add ax, party_records            ; 0x6327
     push ax                          ; 0x632a
     call aztec_strcpy                ; 0x632b
     add sp, byte 4                   ; 0x632e
@@ -29,7 +29,7 @@ loc_MIPR:
     push ax                          ; 0x633f
     mov ax, 0x248                    ; 0x6340
     imul word [bp - 0x0006]          ; 0x6343
-    add ax, bss_5bf4                 ; 0x6346
+    add ax, party_records            ; 0x6346
     push ax                          ; 0x6349
     call aztec_strlen                ; 0x634a
     pop cx                           ; 0x634d
@@ -48,7 +48,7 @@ loc_MIPR:
     push ax                          ; 0x636a
     mov ax, 0x248                    ; 0x636b
     imul word [bp - 0x0006]          ; 0x636e
-    add ax, bss_5bf4                 ; 0x6371
+    add ax, party_records            ; 0x6371
     push ax                          ; 0x6374
     call draw_text_glyphs            ; 0x6375
     add sp, byte 4                   ; 0x6378
@@ -148,7 +148,7 @@ loc_MIPR:
     mov ax, 0x248                    ; 0x6457
     imul word [bp - 0x0006]          ; 0x645a
     mov bx, ax                       ; 0x645d
-    mov byte [bx + bss_5e2a], 0      ; 0x645f
+    mov byte [bx + member_state], 0  ; 0x645f
     push word [bp - 0x027a]          ; 0x6464
     push word [bp - 0x027c]          ; 0x6468
     push word [bp - 0x0006]          ; 0x646c
@@ -165,7 +165,7 @@ loc_MIPR:
     mov ax, 0x248                    ; 0x648b
     imul word [bp - 0x0006]          ; 0x648e
     mov bx, ax                       ; 0x6491
-    mov al, byte [bx + bss_5e2a]     ; 0x6493
+    mov al, byte [bx + member_state] ; 0x6493
     sub ah, ah                       ; 0x6497
     push ax                          ; 0x6499
     call api_idx_0016_JNJG           ; 0x649a
@@ -277,7 +277,7 @@ loc_MIPR:
     push word [bp + 0x6]             ; 0x65a4
     mov ax, 0x248                    ; 0x65a7
     imul word [bp - 0x0006]          ; 0x65aa
-    add ax, bss_5bf4                 ; 0x65ad
+    add ax, party_records            ; 0x65ad
     push ax                          ; 0x65b0
     call api_idx_0002_SJMT           ; 0x65b1
     add sp, byte 6                   ; 0x65b4

@@ -101,7 +101,7 @@ api_idx_000e_HLRI:
     mov ax, 0x248                    ; 0x609b
     imul word [bss_8462]             ; 0x609e
     mov bx, ax                       ; 0x60a2
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x60a4
+    mov al, byte [bx + member_state + 0x3] ; 0x60a4
     cmp al, 5                        ; 0x60a8
     je short @..api_idx_000e_HLRI.l4 ; 0x60aa
     cmp al, 4                        ; 0x60ac
@@ -238,7 +238,7 @@ api_idx_000e_HLRI:
     mov ax, 0x248                    ; 0x61ed
     imul word [bss_8462]             ; 0x61f0
     mov bx, ax                       ; 0x61f4
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x61f6
+    mov al, byte [bx + member_state + 0x3] ; 0x61f6
     cmp al, 5                        ; 0x61fa
     je short @..api_idx_000e_HLRI.l12 ; 0x61fc
     cmp al, 4                        ; 0x61fe

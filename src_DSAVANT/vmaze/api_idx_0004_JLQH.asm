@@ -7,7 +7,7 @@ api_idx_0004_JLQH:
     jmp short @..api_idx_0004_JLQH.l2 ; 0x1318
 @..api_idx_0004_JLQH.l1:
     push word [bp - 0x0002]          ; 0x131a
-    call ds_app_KTPM                 ; 0x131d
+    call member_is_active            ; 0x131d
     pop cx                           ; 0x1320
     or word [bp - 0x0004], ax        ; 0x1321
     inc word [bp - 0x0002]           ; 0x1324

@@ -16,7 +16,7 @@ api_idx_0068_OUGS:
     call loc_UTQS                    ; 0x51d8
     mov ax, 0x248                    ; 0x51db
     imul word [bp + 0x4]             ; 0x51de
-    add ax, bss_5bf4                 ; 0x51e1
+    add ax, party_records            ; 0x51e1
     push ax                          ; 0x51e4
     push word [bss_9ca8]             ; 0x51e5
     mov ax, 1                        ; 0x51e9
@@ -156,7 +156,7 @@ api_idx_0068_OUGS:
     mov ax, 1                        ; 0x5327
     push ax                          ; 0x532a
     push word [bp + 0x4]             ; 0x532b
-    call ds_app_LUOV                 ; 0x532e
+    call draw_party_member_panel     ; 0x532e
     add sp, byte 4                   ; 0x5331
     cmp word [bp - 0x004c], byte 1   ; 0x5334
     jne short @..api_idx_0068_OUGS.l7 ; 0x5338

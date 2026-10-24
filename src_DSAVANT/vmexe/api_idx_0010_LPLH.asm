@@ -230,7 +230,7 @@ api_idx_0010_LPLH:
     mov ax, 0x248                    ; 0x287c
     imul word [bp - 0x0002]          ; 0x287f
     mov bx, ax                       ; 0x2882
-    mov al, byte [bx + bss_5e2a + 0x2] ; 0x2884
+    mov al, byte [bx + member_state + 0x2] ; 0x2884
     sub ah, ah                       ; 0x2888
     add ax, strict word 8            ; 0x288a
     push ax                          ; 0x288d

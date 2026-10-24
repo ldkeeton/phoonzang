@@ -6,11 +6,11 @@ loc_IRGI:
     push ax                          ; 0x9d96
     mov ax, 0x248                    ; 0x9d97
     imul word [bp + 0x4]             ; 0x9d9a
-    add ax, bss_5bf4                 ; 0x9d9d
+    add ax, party_records            ; 0x9d9d
     push ax                          ; 0x9da0
     mov ax, 0x248                    ; 0x9da1
     imul word [bp + 0x6]             ; 0x9da4
-    add ax, bss_5bf4                 ; 0x9da7
+    add ax, party_records            ; 0x9da7
     push ax                          ; 0x9daa
     call aztec_swapmem               ; 0x9dab
     add sp, byte 6                   ; 0x9dae
@@ -51,19 +51,19 @@ loc_IRGI:
     mov ax, word [bp + 0x6]          ; 0x9e0b
     shl ax, 1                        ; 0x9e0e
     mov bx, ax                       ; 0x9e10
-    mov ax, word [bx + bss_5e2a + 0xb92] ; 0x9e12
+    mov ax, word [bx + member_state + 0xb92] ; 0x9e12
     mov word [bp - 0x0276], ax       ; 0x9e16
     mov bx, cx                       ; 0x9e1a
-    mov ax, word [bx + bss_5e2a + 0xb92] ; 0x9e1c
+    mov ax, word [bx + member_state + 0xb92] ; 0x9e1c
     mov cx, word [bp + 0x6]          ; 0x9e20
     shl cx, 1                        ; 0x9e23
     mov bx, cx                       ; 0x9e25
-    mov word [bx + bss_5e2a + 0xb92], ax ; 0x9e27
+    mov word [bx + member_state + 0xb92], ax ; 0x9e27
     mov ax, word [bp - 0x0276]       ; 0x9e2b
     mov cx, word [bp + 0x4]          ; 0x9e2f
     shl cx, 1                        ; 0x9e32
     mov bx, cx                       ; 0x9e34
-    mov word [bx + bss_5e2a + 0xb92], ax ; 0x9e36
+    mov word [bx + member_state + 0xb92], ax ; 0x9e36
     mov ax, 0                        ; 0x9e3a
     push ax                          ; 0x9e3d
     push word [bp + 0x4]             ; 0x9e3e

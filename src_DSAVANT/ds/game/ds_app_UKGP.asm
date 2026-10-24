@@ -4,7 +4,7 @@ ds_app_UKGP: ; Aztec csav frame=0x0004
     call aztec_csav                  ; 0x2bae
     mov ax, 0xa                      ; 0x2bb1
     push ax                          ; 0x2bb4
-    mov al, byte [bss_597f]          ; 0x2bb5
+    mov al, byte [music_volume]      ; 0x2bb5
     sub ah, ah                       ; 0x2bb8
     mov cx, ax                       ; 0x2bba
     pop ax                           ; 0x2bbc

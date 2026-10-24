@@ -510,7 +510,7 @@ loc_JQLR:
     imul word [bp + 0x4]             ; 0x1ecd
     mov bx, ax                       ; 0x1ed0
     pop ax                           ; 0x1ed2
-    mov word [bx + bss_5c0a + 0x2], ax ; 0x1ed3
+    mov word [bx + member_pair_points + 0x2], ax ; 0x1ed3
     mov bx, word [party_char]        ; 0x1ed7
     mov ax, word [bx + si + 0x6]     ; 0x1edb
     push ax                          ; 0x1ede
@@ -526,7 +526,7 @@ loc_JQLR:
     imul word [bp + 0x4]             ; 0x1ef7
     mov bx, ax                       ; 0x1efa
     pop ax                           ; 0x1efc
-    mov byte [bx + bss_5e2a + 0x5], al ; 0x1efd
+    mov byte [bx + member_state + 0x5], al ; 0x1efd
     mov ax, 0xa                      ; 0x1f01
     push ax                          ; 0x1f04
     add bx, cell_key_grid + 0x126    ; 0x1f05
@@ -548,5 +548,5 @@ loc_JQLR:
     imul word [bp + 0x4]             ; 0x1f2e
     mov bx, ax                       ; 0x1f31
     pop ax                           ; 0x1f33
-    mov byte [bx + bss_5e2a + 0x8], al ; 0x1f34
+    mov byte [bx + member_state + 0x8], al ; 0x1f34
     ret                              ; 0x1f38

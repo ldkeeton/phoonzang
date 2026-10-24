@@ -3,7 +3,7 @@ load_message_string: ; Aztec csav frame=0x010a
     mov ax, 0xfef6                   ; 0x0782
     call aztec_csav                  ; 0x0785
     push word [bp + 0x4]             ; 0x0788
-    call ds_app_MRJK                 ; 0x078b
+    call find_message_record         ; 0x078b
     pop cx                           ; 0x078e
     mov word [bp - 0x0008], ax       ; 0x078f
     test ax, ax                      ; 0x0792

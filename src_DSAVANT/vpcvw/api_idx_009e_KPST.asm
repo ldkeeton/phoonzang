@@ -25,7 +25,7 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x18ce
     imul word [bp + 0x4]             ; 0x18d1
     mov bx, ax                       ; 0x18d4
-    mov al, byte [bx + bss_5e2a + 0x3] ; 0x18d6
+    mov al, byte [bx + member_state + 0x3] ; 0x18d6
     sub ah, ah                       ; 0x18da
     push ax                          ; 0x18dc
     lea ax, word [bp - 0x004c]       ; 0x18dd
@@ -69,8 +69,8 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x1938
     imul word [bp + 0x4]             ; 0x193b
     mov bx, ax                       ; 0x193e
-    mov ax, word [bx + bss_5bf4 + 0x8] ; 0x1940
-    mov dx, word [bx + bss_5bf4 + 0xa] ; 0x1944
+    mov ax, word [bx + party_records + 0x8] ; 0x1940
+    mov dx, word [bx + party_records + 0xa] ; 0x1944
     mov cx, 0x16d                    ; 0x1948
     mov bx, 0                        ; 0x194b
     call aztec_ldv                   ; 0x194e
@@ -219,8 +219,8 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x1aa2
     imul word [bp + 0x4]             ; 0x1aa5
     mov bx, ax                       ; 0x1aa8
-    mov cx, word [bx + bss_5bf4 + 0xc] ; 0x1aaa
-    mov bx, word [bx + bss_5bf4 + 0xe] ; 0x1aae
+    mov cx, word [bx + party_records + 0xc] ; 0x1aaa
+    mov bx, word [bx + party_records + 0xe] ; 0x1aae
     mov ax, word [bp - 0x000c]       ; 0x1ab2
     mov dx, word [bp - 0x000a]       ; 0x1ab5
     sub ax, cx                       ; 0x1ab8

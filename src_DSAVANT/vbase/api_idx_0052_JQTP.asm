@@ -127,7 +127,7 @@ jumptable_4af5_case_9:
     mov ax, word [bp + 0x6]          ; 0x493c
     add ax, strict word 0x69         ; 0x493f
     push ax                          ; 0x4942
-    mov al, byte [bss_597f]          ; 0x4943
+    mov al, byte [music_volume]      ; 0x4943
     sub ah, ah                       ; 0x4946
     push ax                          ; 0x4948
     call loc_GHNH                    ; 0x4949

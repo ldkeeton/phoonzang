@@ -227,7 +227,7 @@ loc_RVQR:
     add sp, byte 6                   ; 0x05d1
     mov ax, 0x2dfe                   ; 0x05d4
     push ax                          ; 0x05d7
-    mov ax, bss_100c                 ; 0x05d8
+    mov ax, message_directory        ; 0x05d8
     push ax                          ; 0x05db
     mov ax, dseg_914a                ; 0x05dc
     push ax                          ; 0x05df

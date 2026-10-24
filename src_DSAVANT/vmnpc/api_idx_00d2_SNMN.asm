@@ -4,7 +4,7 @@ api_idx_00d2_SNMN:
     call aztec_csav                  ; 0x6321
     mov ax, 0x248                    ; 0x6324
     imul word [bp + 0x4]             ; 0x6327
-    add ax, bss_5bf4                 ; 0x632a
+    add ax, party_records            ; 0x632a
     push ax                          ; 0x632d
     lea ax, word [bp - 0x00c4]       ; 0x632e
     push ax                          ; 0x6332
@@ -37,7 +37,7 @@ api_idx_00d2_SNMN:
     mov ax, 0x248                    ; 0x637c
     imul word [bp + 0x4]             ; 0x637f
     mov bx, ax                       ; 0x6382
-    cmp word [bx + bss_5c0a], byte 0 ; 0x6384
+    cmp word [bx + member_pair_points], byte 0 ; 0x6384
     jne short @..api_idx_00d2_SNMN.l3 ; 0x6389
     cmp word [bx + bss_5c08], byte 0 ; 0x638b
 @..api_idx_00d2_SNMN.l3:
@@ -87,9 +87,9 @@ jumptable_6599_case_0:
     pop ax                           ; 0x63f5
     add ax, cx                       ; 0x63f6
     add word [bp - 0x0002], ax       ; 0x63f8
-    cmp byte [bx + bss_5e2a + 0x3], 0xa ; 0x63fb
+    cmp byte [bx + member_state + 0x3], 0xa ; 0x63fb
     je short @..api_idx_00d2_SNMN.l6 ; 0x6400
-    cmp byte [bx + bss_5e2a + 0x3], 9 ; 0x6402
+    cmp byte [bx + member_state + 0x3], 9 ; 0x6402
     jne short @..api_idx_00d2_SNMN.l7 ; 0x6407
 @..api_idx_00d2_SNMN.l6:
     mov al, byte [bx + cell_key_grid + 0x136] ; 0x6409
@@ -104,7 +104,7 @@ jumptable_6599_case_2:
     jmp short @..api_idx_00d2_SNMN.l10 ; 0x6425
 @..api_idx_00d2_SNMN.l8:
     push word [bp - 0x005e]          ; 0x6427
-    call ds_app_KTPM                 ; 0x642a
+    call member_is_active            ; 0x642a
     pop cx                           ; 0x642d
     test ax, ax                      ; 0x642e
     je short @..api_idx_00d2_SNMN.l9 ; 0x6430
@@ -170,7 +170,7 @@ jumptable_6599_case_1:
     imul word [bp + 0x4]             ; 0x64c2
     mov bx, ax                       ; 0x64c5
     mov cx, word [bx + bss_5c08]     ; 0x64c7
-    mov bx, word [bx + bss_5c0a]     ; 0x64cb
+    mov bx, word [bx + member_pair_points] ; 0x64cb
     mov ax, word [bp - 0x00d2]       ; 0x64cf
     mov dx, word [bp - 0x00d0]       ; 0x64d3
     cmp bx, dx                       ; 0x64d7
@@ -194,7 +194,7 @@ jumptable_6599_case_1:
     pop dx                           ; 0x64fd
     pop ax                           ; 0x64fe
     sub word [bx + bss_5c08], ax     ; 0x64ff
-    sbb word [bx + bss_5c0a], dx     ; 0x6503
+    sbb word [bx + member_pair_points], dx ; 0x6503
     mov cx, 0xa                      ; 0x6507
     mov bx, 0                        ; 0x650a
     call aztec_ldv                   ; 0x650d
@@ -339,7 +339,7 @@ jumptable_6599:
     push ax                          ; 0x6652
     mov ax, 0x248                    ; 0x6653
     imul word [bp + 0x4]             ; 0x6656
-    add ax, bss_5bf4                 ; 0x6659
+    add ax, party_records            ; 0x6659
     push ax                          ; 0x665c
     lea ax, word [bp - 0x005a]       ; 0x665d
     push ax                          ; 0x6660
