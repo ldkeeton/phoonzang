@@ -1419,7 +1419,7 @@ def cmd_refs(project, binary, routine, json_out=False):
               f'natural {patch["natural"].hex()}  '
               f'apply {patch["apply"].hex()}  ({patch["note"]})')
     if not facts and not raws and all(a['named'] for a in aliases):
-        print(f'{routine}: no address-named symbols')
+        print(f'{routine}: no unnamed symbols (already-named callees are not listed)')
         return facts, raws
     for fact in facts:
         value = ('0x%04x' % fact['value']) if fact['value'] is not None else '?'

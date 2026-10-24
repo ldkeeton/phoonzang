@@ -53,7 +53,7 @@ loc_JTQK_001f.load_screen1 equ leaf_loc_IUKK
 
 %include "play/io_loc_MNPU.asm"            ; 0x0203
 
-%include "play/io_loc_LPON.asm"            ; 0x0222
+%include "play/mpu_all_notes_off.asm"      ; 0x0222
 
 %include "play/io_loc_QVTL.asm"            ; 0x023f
 

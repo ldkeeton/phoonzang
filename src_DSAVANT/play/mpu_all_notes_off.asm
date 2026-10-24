@@ -1,8 +1,8 @@
 ; auto-generated
-io_loc_LPON:
+mpu_all_notes_off:
     push bx                          ; 0x0222
     mov bl, 1                        ; 0x0223
-@..io_loc_LPON.l1:
+@..mpu_all_notes_off.l1:
     mov al, bl                       ; 0x0225
     or al, 0xb0                      ; 0x0227
     call mpu_send_byte               ; 0x0229
@@ -12,6 +12,6 @@ io_loc_LPON:
     call mpu_send_byte               ; 0x0233
     inc bl                           ; 0x0236
     cmp bl, 0xa                      ; 0x0238
-    jb short @..io_loc_LPON.l1       ; 0x023b
+    jb short @..mpu_all_notes_off.l1 ; 0x023b
     pop bx                           ; 0x023d
     ret                              ; 0x023e

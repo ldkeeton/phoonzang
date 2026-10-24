@@ -65,15 +65,21 @@ def asm_file(project, binary, label):
 
 
 def source_path(project, binary, routine):
-    """The hand source beside the routine's asm, if any."""
+    """The hand source beside the routine's asm, if any.
+
+    Both a ``.c`` and a ``.s`` is an error: the build would pick the ``.c``
+    and silently ignore the assembly."""
     path = asm_file(project, binary, routine)
     if path is None:
         return None
     stem = os.path.splitext(path)[0]
-    for suffix in ('.c', '.s'):
-        if os.path.isfile(stem + suffix):
-            return stem + suffix
-    return None
+    found = [stem + suffix for suffix in ('.c', '.s')
+             if os.path.isfile(stem + suffix)]
+    if len(found) > 1:
+        raise SystemExit(f'error: both {os.path.basename(found[0])} and '
+                         f'{os.path.basename(found[1])} exist for {routine}; '
+                         'delete one')
+    return found[0] if found else None
 
 
 def load_spans(project, binary):
@@ -460,9 +466,15 @@ def cmd_info(project, binary, routine, json_out=False):
     print(f'  asm    {info["asm"]}')
     print(f'  source {info["source"] or "none"}'
           + ('  [hand-owned]' if info['hand'] else ''))
-    if tool:
+    if tool and src is None:
+        # No source yet, so the flags are a guess: .c and .s build differently.
+        from lib.sidecar.compiler import asm_flags
+        print(f'  tool   unrecorded  (cc {" ".join(flags)} for a .c, '
+              f'as {" ".join(asm_flags(project))} for a .s)')
+    elif tool:
+        origin = provenance if provenance != 'default' else os.path.basename(src['path'])
         print(f'  tool   {tool}  {" ".join(flags)}'
-              f'  ({provenance})')
+              f'  ({origin})')
     else:
         print(f'  tool   unknown  ({provenance})')
     from .naming import print_provenance

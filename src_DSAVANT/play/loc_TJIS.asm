@@ -21,4 +21,4 @@ jumptable_01da:
     dw loc_PLIR - IMAGE_BASE                   ; 0x01de
     dw loc_PLIR - IMAGE_BASE                   ; 0x01e0
     dw opl_keys_off - IMAGE_BASE               ; 0x01e2
-    dw io_loc_LPON - IMAGE_BASE                ; 0x01e4
+    dw mpu_all_notes_off - IMAGE_BASE          ; 0x01e4

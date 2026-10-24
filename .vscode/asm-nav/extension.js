@@ -568,66 +568,31 @@ function authoringGuide() {
         `\`make info\`/\`probe\`/\`data\` loop), already included in full:\n\n${text}` : '';
 }
 
-// Claude Code's prompt: unchanged from the long-form workflow that has been in
-// use.  OpenCode gets a separate, more directive prompt below.
+// Claude Code's prompt.  The text lives in prompt.txt beside this file and is
+// read on every use, so it can be edited without reloading the window;
+// {{name}} placeholders are filled per job.
 function claudePrompt(job) {
-    const { where, asmFile, cFile, sFile, dir, rel, exampleS, handWritten,
-        flagList } = job;
-    return [
-        `Reproduce ${rel(asmFile)} as source that builds to byte-exact matching asm; never hand-edit ` +
-            `the asm. First decide the form. Write ${rel(cFile)} (K&R C for the Manx Aztec \`cc\`) only ` +
-            `if \`cc\` could have generated this code; otherwise write ${rel(sFile)} (Manx \`as\` assembly` +
-            (exampleS ? `, in the style of ${rel(path.join(dir, exampleS))}` : '') + `). Signs it is ` +
-            `hand-written: no csav or \`push bp; mov bp,sp\` frame, or running in its caller's frame; ` +
-            `segment-register juggling (\`push cs; pop ds\`); \`cld\` and string ops; code-segment data; ` +
-            `padding \`nop\`s or jumps \`cc\` would shorten; falling through into the next routine. ` +
-            `Never put a whole routine body in \`#asm\` inside a C function: that is what a .s is for, ` +
-            `and labels in \`#asm\` become linker symbols. \`#asm\` is only for a few instructions ` +
-            `inside real C. A .s always does \`include lmacros.h\` and uses its MASM 6-style ` +
-            `\`.if\`/\`.elseif\`/\`.else\`/\`.endif\`, \`.while\`/\`.endw\`, \`.repeat\`/\`.until\`, \`.break\`/` +
-            `\`.continue\` (conditions like \`ax == 5\`, \`al lt 3\`, \`dl and 2\` (test), \`carry?\`, \`not cx\`; no \`!\`, \`<\` or ` +
-            `\`>\`), plus DOS/BIOS call, push/pop list and clamp shorthand, lmacros' \`procdef\`/\`pret\` for a bp frame (write the prologue and epilogue out when the stack layout is custom), ` +
-            `\`movseg\` (segment via ax), \`outp\` (port writes), \`fatal\` (print and exit) and ` +
-            `\`jnear\` (jcc over a near jmp). ` +
-            `the project's \`include/lmacros.h\` (built from \`disassembler/lib/aztec/lmacros_master.h\`) lists each macro's exact expansion: use one wherever ` +
-            `it expands to the original instructions (structured blocks in place of labels and jumps ` +
-            `first), and write plain instructions only where none fits. Indent each block body one tab ` +
-            `past its directive.` +
-            (handWritten ? ` The sidecar note marks this routine hand-written asm: write ${rel(sFile)}.` : ''),
-        `Commands (repo root): \`make rebuild\` is the pass/fail gate: it recompiles every .c/.s, ` +
-            `checks it against the original bytes, and assembles. ` +
-            `\`make refs ${where.project} ${where.binary} ROUTINE\` lists the address-named and ` +
-            `content-tagged symbols a routine references. \`make name ${where.project} ${where.binary} ` +
-            `SYMBOL=NAME[:NOTE] ...\` writes the sidecar, renames the hand-written sources and every ` +
-            `reference in them (file, routine, \`NAME_\` in .s, \`extern\`/\`extrn\`, C callers), then ` +
-            `builds and rebuilds; give SYMBOL as the build spells it (\`cseg_0d3a\`, \`bss_1234\`, ` +
-            `\`io_loc_KRUO\`, \`${where.label}\`) or by its current name, and single-quote any spec whose ` +
-            `note has spaces. \`make build ${where.project}\` regenerates the asm from the disassembly ` +
-            `and sources. The sidecar (${rel(sidecarPath(where.project))}) and the tooling under ` +
-            `disassembler/ are there to read when you need them.`,
-        `Steps:\n` +
-            `1. Write the source with the routine still named \`${where.label}\` and run \`make rebuild\` ` +
-            `until it passes. If the only differences left are symbol or label names on the same ` +
-            `instructions and offsets, the bytes match: go on to step 2 (step 3's \`make name\` ` +
-            `regenerates the asm). A report that the source compiles to a different size than its ` +
-            `fragment means the bytes do not match yet.\n` +
-            `2. Give parameters and locals descriptive names in the source itself (C names; \`equ\` names ` +
-            `for .s and #asm stack arguments and locals). Add terse comments that say why, not what: a ` +
-            `one-line header above the routine (a \`;\` line in a .s, \`/* */\` in C, never \`//\`), and ` +
-            `short trailing comments on loops, branches and magic numbers (BIOS/DOS function numbers, key ` +
-            `codes, header offsets, strides, flag bits). Describe only what the code shows; don't guess intent.\n` +
-            `3. Run \`make refs ${where.project} ${where.binary} ${where.label}\`, then name everything in ` +
-            `one call: \`make name ${where.project} ${where.binary} ${where.label}=NAME:'note' ` +
-            `SYMBOL=NAME:'note' ...\`. NAME for the routine is a descriptive lowercase_underscore name ` +
-            `keeping any prefix its flags need; add every symbol \`make refs\` listed (globals, code-segment ` +
-            `data, called routines, including those only in \`extrn\` lines) except "label inside" rows, ` +
-            `each with a note saying what it holds or does.\n` +
-            `4. If \`make name\` reports a rebuild failure, fix the source and run \`make rebuild\` until it ` +
-            `passes. No address-named or content-tagged symbol may remain in the source.\n\n` +
-            `Your final message: only the routine's new name, or, if you could not finish, what is ` +
-            `left and why.`,
-        authoringGuide(),
-    ].join('\n\n');
+    const { where, asmFile, cFile, sFile, dir, rel, exampleS, handWritten } = job;
+    const file = path.join(__dirname, 'prompt.txt');
+    let text;
+    try {
+        text = fs.readFileSync(file, 'utf8');
+    } catch (e) {
+        throw new Error(`cannot read ${file}: ${e.message}`);
+    }
+    const values = {
+        asm: rel(asmFile),
+        c: rel(cFile),
+        s: rel(sFile),
+        style: exampleS ? `, in the style of ${rel(path.join(dir, exampleS))}` : '',
+        hand: handWritten ? ` The sidecar note marks this routine hand-written asm: write ${rel(sFile)}.` : '',
+        project: where.project,
+        binary: where.binary,
+        label: where.label,
+        sidecar: rel(sidecarPath(where.project)),
+        guide: authoringGuide(),
+    };
+    return text.replace(/\{\{(\w+)\}\}/g, (m, key) => key in values ? values[key] : m).trim();
 }
   
 
@@ -650,7 +615,13 @@ async function makeC(kind, uri, uris) {
     const job = await prepareMakeC(uri, agent.label);
     if (!job) return;
     const { where, cFile, sFile } = job;
-    const prompt = agent.prompt(job);
+    let prompt;
+    try {
+        prompt = agent.prompt(job);
+    } catch (e) {
+        vscode.window.showErrorMessage(e.message);
+        return;
+    }
     const term = vscode.window.createTerminal({
         name: `${agent.label}: ${where.label}`, cwd: root(),
         shellPath: agent.cli(), shellArgs: agent.args(prompt, agent.model()),
@@ -695,7 +666,15 @@ function makeCBatch(kind, uris) {
             pending = lines.pop();
             lines.forEach(emit);
         };
-        child = spawn(agent.cli(), agent.batchArgs(agent.prompt(job), agent.model()),
+        let prompt;
+        try {
+            prompt = agent.prompt(job);
+        } catch (e) {
+            write(`\x1b[31m${e.message}\x1b[0m\n`);
+            resolve({ code: -1, result: '' });
+            return;
+        }
+        child = spawn(agent.cli(), agent.batchArgs(prompt, agent.model()),
             { cwd: root(), env, stdio: ['ignore', 'pipe', 'pipe'] });
         child.stdout.setEncoding('utf8').on('data', feed);
         child.stderr.setEncoding('utf8').on('data', (d) => write(`\x1b[2m${d}\x1b[0m`));
