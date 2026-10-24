@@ -104,7 +104,7 @@ api_idx_0008_OMPR:
     pop ax                           ; 0xa6ae
     add ax, cx                       ; 0xa6af
     mov bx, ax                       ; 0xa6b1
-    mov al, byte [bx + bss_89de]     ; 0xa6b3
+    mov al, byte [bx + target_weight] ; 0xa6b3
     cbw                              ; 0xa6b7
     mov word [bp - 0x0008], ax       ; 0xa6b8
     mov ax, 0xa                      ; 0xa6bb

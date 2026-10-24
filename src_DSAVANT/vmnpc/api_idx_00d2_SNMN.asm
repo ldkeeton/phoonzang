@@ -305,7 +305,7 @@ jumptable_6599:
     mov al, byte [bss_91c7]          ; 0x65fd
     sub ah, ah                       ; 0x6600
     mov bx, ax                       ; 0x6602
-    mov al, byte [bx + bss_89de]     ; 0x6604
+    mov al, byte [bx + target_weight] ; 0x6604
     cbw                              ; 0x6608
     add ax, word [bss_964e]          ; 0x6609
     mov cx, 3                        ; 0x660d

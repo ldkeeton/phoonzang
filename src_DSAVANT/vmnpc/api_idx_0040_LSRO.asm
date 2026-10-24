@@ -857,7 +857,7 @@ jumptable_36f8_case_31:
     mov al, byte [bss_91c7]          ; 0x3378
     sub ah, ah                       ; 0x337b
     mov bx, ax                       ; 0x337d
-    mov al, byte [bx + bss_89de]     ; 0x337f
+    mov al, byte [bx + target_weight] ; 0x337f
     cbw                              ; 0x3383
     add ax, word [bp - 0x003a]       ; 0x3384
     push ax                          ; 0x3387
@@ -868,7 +868,7 @@ jumptable_36f8_case_31:
     sub ah, ah                       ; 0x3392
     mov bx, ax                       ; 0x3394
     pop ax                           ; 0x3396
-    mov byte [bx + bss_89de], al     ; 0x3397
+    mov byte [bx + target_weight], al ; 0x3397
     jmp near @..api_idx_0040_LSRO.l85 ; 0x339b
 jumptable_36f8_case_32:
     mov word [bp - 0x002c], 0        ; 0x339e
@@ -1066,7 +1066,7 @@ jumptable_36f8_case_41:
     mov al, byte [bss_91c7]          ; 0x357c
     sub ah, ah                       ; 0x357f
     mov bx, ax                       ; 0x3581
-    mov al, byte [bx + bss_89de]     ; 0x3583
+    mov al, byte [bx + target_weight] ; 0x3583
     cbw                              ; 0x3587
     cmp ax, word [bp - 0x0026]       ; 0x3588
     jge short @..api_idx_0040_LSRO.l77 ; 0x358b

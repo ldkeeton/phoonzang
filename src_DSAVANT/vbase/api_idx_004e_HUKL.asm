@@ -612,7 +612,7 @@ api_idx_004e_HUKL:
     mov word [bp - 0x0008], ax       ; 0x3e36
     mov ax, 0x90                     ; 0x3e39
     push ax                          ; 0x3e3c
-    mov ax, bss_89de                 ; 0x3e3d
+    mov ax, target_weight            ; 0x3e3d
     push ax                          ; 0x3e40
     push word [bp - 0x000a]          ; 0x3e41
     call aztec_write                 ; 0x3e44

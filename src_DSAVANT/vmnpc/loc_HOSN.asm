@@ -31,7 +31,7 @@ loc_HOSN:
     mov al, byte [bss_91c7]          ; 0x863e
     sub ah, ah                       ; 0x8641
     mov bx, ax                       ; 0x8643
-    mov al, byte [bx + bss_89de]     ; 0x8645
+    mov al, byte [bx + target_weight] ; 0x8645
     cbw                              ; 0x8649
     add ax, word [bp + 0x8]          ; 0x864a
     push ax                          ; 0x864d
@@ -42,5 +42,5 @@ loc_HOSN:
     sub ah, ah                       ; 0x8658
     mov bx, ax                       ; 0x865a
     pop ax                           ; 0x865c
-    mov byte [bx + bss_89de], al     ; 0x865d
+    mov byte [bx + target_weight], al ; 0x865d
     ret                              ; 0x8661

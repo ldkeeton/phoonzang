@@ -20,7 +20,7 @@ api_idx_0002_NUKT:
     imul cx                          ; 0x9bf5
     add ax, word [bp + 0x4]          ; 0x9bf7
     mov bx, ax                       ; 0x9bfa
-    mov al, byte [bx + bss_89de]     ; 0x9bfc
+    mov al, byte [bx + target_weight] ; 0x9bfc
     cbw                              ; 0x9c00
     mov word [bp - 0x0002], ax       ; 0x9c01
     cmp word [bp + 0x4], byte 0      ; 0x9c04
@@ -28,7 +28,7 @@ api_idx_0002_NUKT:
     mov al, byte [bss_91c7]          ; 0x9c0a
     sub ah, ah                       ; 0x9c0d
     mov bx, ax                       ; 0x9c0f
-    mov al, byte [bx + bss_89de]     ; 0x9c11
+    mov al, byte [bx + target_weight] ; 0x9c11
     cbw                              ; 0x9c15
     mov word [bp - 0x0002], ax       ; 0x9c16
 @..api_idx_0002_NUKT.l2:

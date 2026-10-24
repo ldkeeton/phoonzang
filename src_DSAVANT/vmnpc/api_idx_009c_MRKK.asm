@@ -89,7 +89,7 @@ api_idx_009c_MRKK:
     mov al, byte [bss_91c7]          ; 0x6867
     sub ah, ah                       ; 0x686a
     mov bx, ax                       ; 0x686c
-    mov al, byte [bx + bss_89de]     ; 0x686e
+    mov al, byte [bx + target_weight] ; 0x686e
     cbw                              ; 0x6872
     mov word [bp - 0x000a], ax       ; 0x6873
     cmp byte [bss_91c6], 0xff        ; 0x6876
@@ -442,14 +442,14 @@ jumptable_6c16_case_7:
     mov al, byte [bss_91c7]          ; 0x6bb4
     sub ah, ah                       ; 0x6bb7
     mov bx, ax                       ; 0x6bb9
-    cmp byte [bx + bss_89de], 0      ; 0x6bbb
+    cmp byte [bx + target_weight], 0 ; 0x6bbb
     jle short @..api_idx_009c_MRKK.l41 ; 0x6bc0
-    mov al, byte [bx + bss_89de]     ; 0x6bc2
+    mov al, byte [bx + target_weight] ; 0x6bc2
     cbw                              ; 0x6bc6
     mov cx, 5                        ; 0x6bc7
     cwd                              ; 0x6bca
     idiv cx                          ; 0x6bcb
-    mov byte [bx + bss_89de], al     ; 0x6bcd
+    mov byte [bx + target_weight], al ; 0x6bcd
 @..api_idx_009c_MRKK.l41:
     mov ax, 0xf                      ; 0x6bd1
     push ax                          ; 0x6bd4
@@ -535,7 +535,7 @@ jumptable_6c16:
     mov al, byte [bss_91c7]          ; 0x6c89
     sub ah, ah                       ; 0x6c8c
     mov bx, ax                       ; 0x6c8e
-    mov al, byte [bx + bss_89de]     ; 0x6c90
+    mov al, byte [bx + target_weight] ; 0x6c90
     cbw                              ; 0x6c94
     add ax, word [bss_964e]          ; 0x6c95
     mov word [bp - 0x0002], ax       ; 0x6c99

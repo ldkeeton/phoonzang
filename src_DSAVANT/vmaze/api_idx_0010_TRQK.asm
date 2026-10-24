@@ -63,7 +63,7 @@ api_idx_0010_TRQK:
     imul cx                          ; 0xa373
     add ax, word [bp - 0x0008]       ; 0xa375
     mov bx, ax                       ; 0xa378
-    mov al, byte [bx + bss_89de]     ; 0xa37a
+    mov al, byte [bx + target_weight] ; 0xa37a
     cbw                              ; 0xa37e
     mov word [bp - 0x000a], ax       ; 0xa37f
     mov ax, 0x64                     ; 0xa382
@@ -155,7 +155,7 @@ api_idx_0010_TRQK:
     pop ax                           ; 0xa44e
     add ax, cx                       ; 0xa44f
     mov bx, ax                       ; 0xa451
-    mov al, byte [bx + bss_89de]     ; 0xa453
+    mov al, byte [bx + target_weight] ; 0xa453
     cbw                              ; 0xa457
     mov word [bp - 0x000e], ax       ; 0xa458
     mov ax, 0xa                      ; 0xa45b

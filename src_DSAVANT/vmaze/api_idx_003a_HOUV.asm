@@ -100,7 +100,7 @@ api_idx_003a_HOUV:
     imul cx                          ; 0x95eb
     add ax, word [bp - 0x0004]       ; 0x95ed
     mov bx, ax                       ; 0x95f0
-    mov al, byte [bx + bss_89de]     ; 0x95f2
+    mov al, byte [bx + target_weight] ; 0x95f2
     cbw                              ; 0x95f6
 @..api_idx_003a_HOUV.l7:
     mov word [bp - 0x0006], ax       ; 0x95f7

@@ -519,6 +519,7 @@
         "8490": {"name": "party_char_ext", "note": "char *[] per party member, a second record; fill_action_slot_table tests [0xd7] == 0x47"},
         "84ec": {"name": "slot_records", "note": "20 slot records, 0x26-byte stride; byte 0 kind (<25 in use), byte 1 map piece, byte 0x14 flag"},
         "8979": {"name": "kind_state_table", "note": "4-byte entries per slot kind; byte 0 compared with game_state_arg"},
+        "89de": {"name": "target_weight", "note": "per-class target weight bytes, indexed class*12 + target"},
         "8cfe": {"name": "adjacent_object_type", "note": "per-direction 0-3 object code in the maze cell around the party"},
         "8d0a": {"name": "saved_area_b", "note": "second gfx_save_area handle (long) restored with saved_area_a"},
         "8d0c": {"name": "saved_area_b_hi", "note": "high word of saved_area_b"},
@@ -840,6 +841,7 @@
     },
     "vmele": {
       "function_names": {
+        "040f": {"name": "pick_target_slot", "note": "picks an unused target from a character class target table"},
         "0f87": {"name": "fill_action_slot_table_alt", "note": "fill_action_slot_table with one more case: when ext byte 0xd7 is 0x47 and bss_90ba is 1, action/target come from dest_alt_arg / 256 and % 256"}
       },
       "file": "VMELE.OVR",

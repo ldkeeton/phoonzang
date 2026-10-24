@@ -23,7 +23,7 @@ loc_HULT:
     pop ax                           ; 0x968a
     add ax, cx                       ; 0x968b
     mov bx, ax                       ; 0x968d
-    mov al, byte [bx + bss_89de]     ; 0x968f
+    mov al, byte [bx + target_weight] ; 0x968f
     cbw                              ; 0x9693
     add ax, word [bp + 0x8]          ; 0x9694
     push ax                          ; 0x9697
@@ -47,5 +47,5 @@ loc_HULT:
     add cx, ax                       ; 0x96c4
     mov bx, cx                       ; 0x96c6
     pop ax                           ; 0x96c8
-    mov byte [bx + bss_89de], al     ; 0x96c9
+    mov byte [bx + target_weight], al ; 0x96c9
     ret                              ; 0x96cd

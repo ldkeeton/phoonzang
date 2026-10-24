@@ -44,7 +44,7 @@ bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 
 %include "vmele/api_idx_0004_RPUQ.asm"     ; 0x03b9
 
-%include "vmele/api_idx_00a8_KNHJ.asm"     ; 0x041d
+%include "vmele/pick_target_slot.asm"      ; 0x041d
 
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 api_idx_005e_RKOR       equ api_idx_005e_OJVJ

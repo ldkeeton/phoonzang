@@ -397,7 +397,7 @@ api_idx_0008_SJOG:
     jle short @..api_idx_0008_SJOG.l27 ; 0x0ba3
     push word [bp + 0x4]             ; 0x0ba5
     push word [bp - 0x0008]          ; 0x0ba8
-    call api_idx_00a8_KNHJ           ; 0x0bab
+    call pick_target_slot            ; 0x0bab
     add sp, byte 4                   ; 0x0bae
     mov word [bp + 0x4], ax          ; 0x0bb1
     push word [bp - 0x0004]          ; 0x0bb4

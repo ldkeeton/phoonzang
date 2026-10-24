@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_00a8_KNHJ:
+pick_target_slot:
     mov ax, 0xff58                   ; 0x041d
     call aztec_csav                  ; 0x0420
     mov ax, word [bp + 0x4]          ; 0x0423
@@ -7,17 +7,17 @@ api_idx_00a8_KNHJ:
     mov bx, ax                       ; 0x0428
     mov bx, word [bx + party_char_ext] ; 0x042a
     cmp byte [bx + 0xe5], 2          ; 0x042e
-    jge short @..api_idx_00a8_KNHJ.l1 ; 0x0433
+    jge short @..pick_target_slot.l1 ; 0x0433
     mov ax, 0xffff                   ; 0x0435
     ret                              ; 0x0438
-@..api_idx_00a8_KNHJ.l1:
+@..pick_target_slot.l1:
     mov al, byte [bx + 0xe5]         ; 0x0439
     cbw                              ; 0x043d
     mov word [bp - 0x000a], ax       ; 0x043e
     mov word [bp - 0x0002], 0        ; 0x0441
-@..api_idx_00a8_KNHJ.l2:
+@..pick_target_slot.l2:
     mov word [bp - 0x0004], 0        ; 0x0446
-@..api_idx_00a8_KNHJ.l3:
+@..pick_target_slot.l3:
     mov ax, 0xc                      ; 0x044b
     imul word [bp - 0x0002]          ; 0x044e
     mov cx, word [bp - 0x0004]       ; 0x0451
@@ -29,11 +29,11 @@ api_idx_00a8_KNHJ:
     inc word [bp - 0x0004]           ; 0x0462
     mov ax, word [bp - 0x0004]       ; 0x0465
     cmp ax, strict word 6            ; 0x0468
-    jl short @..api_idx_00a8_KNHJ.l3 ; 0x046b
+    jl short @..pick_target_slot.l3  ; 0x046b
     inc word [bp - 0x0002]           ; 0x046d
     mov ax, word [bp - 0x0002]       ; 0x0470
     cmp ax, strict word 0xc          ; 0x0473
-    jl short @..api_idx_00a8_KNHJ.l2 ; 0x0476
+    jl short @..pick_target_slot.l2  ; 0x0476
     mov word [bp - 0x0090], 0xffff   ; 0x0478
     mov word [bp - 0x008e], 0x5e     ; 0x047e
     mov word [bp - 0x008c], 0x5e     ; 0x0484
@@ -82,16 +82,16 @@ api_idx_00a8_KNHJ:
     idiv cx                          ; 0x0559
     mov ax, dx                       ; 0x055b
     test ax, ax                      ; 0x055d
-    jne short @..api_idx_00a8_KNHJ.l4 ; 0x055f
+    jne short @..pick_target_slot.l4 ; 0x055f
     mov word [bp - 0x003c], 0xffff   ; 0x0561
     mov word [bp - 0x003a], 0x62     ; 0x0566
     mov word [bp - 0x0038], 0x63     ; 0x056b
     mov word [bp - 0x0036], 0x63     ; 0x0570
     mov word [bp - 0x0034], 0x64     ; 0x0575
     mov word [bp - 0x0032], 0x64     ; 0x057a
-@..api_idx_00a8_KNHJ.l4:
+@..pick_target_slot.l4:
     mov word [bp - 0x0002], 0        ; 0x057f
-@..api_idx_00a8_KNHJ.l5:
+@..pick_target_slot.l5:
     mov ax, 0xc                      ; 0x0584
     imul word [bp - 0x000a]          ; 0x0587
     mov cx, word [bp - 0x0002]       ; 0x058a
@@ -101,9 +101,9 @@ api_idx_00a8_KNHJ:
     add bx, bp                       ; 0x0593
     mov ax, word [bx - 0x009c]       ; 0x0595
     cmp ax, word [bp + 0x6]          ; 0x0599
-    je short @..api_idx_00a8_KNHJ.l6 ; 0x059c
-    jmp near @..api_idx_00a8_KNHJ.l9 ; 0x059e
-@..api_idx_00a8_KNHJ.l6:
+    je short @..pick_target_slot.l6  ; 0x059c
+    jmp near @..pick_target_slot.l9  ; 0x059e
+@..pick_target_slot.l6:
     mov ax, 0                        ; 0x05a1
     push ax                          ; 0x05a4
     mov ax, 0xc                      ; 0x05a5
@@ -126,7 +126,7 @@ api_idx_00a8_KNHJ:
     add sp, byte 6                   ; 0x05ce
     mov word [bp - 0x0008], ax       ; 0x05d1
     mov word [bp - 0x0006], 0        ; 0x05d4
-@..api_idx_00a8_KNHJ.l7:
+@..pick_target_slot.l7:
     mov ax, 8                        ; 0x05d9
     push ax                          ; 0x05dc
     call random_below                ; 0x05dd
@@ -136,7 +136,7 @@ api_idx_00a8_KNHJ:
     mov bx, word [bp - 0x000c]       ; 0x05e5
     add bx, bp                       ; 0x05e8
     cmp byte [bx - 0x00a8], 0        ; 0x05ea
-    jne short @..api_idx_00a8_KNHJ.l7 ; 0x05ef
+    jne short @..pick_target_slot.l7 ; 0x05ef
     mov bx, word [bp - 0x000c]       ; 0x05f1
     add bx, bp                       ; 0x05f4
     mov byte [bx - 0x00a8], 1        ; 0x05f6
@@ -145,8 +145,8 @@ api_idx_00a8_KNHJ:
     imul word [bp - 0x000a]          ; 0x0601
     add ax, word [bp - 0x000c]       ; 0x0604
     mov bx, ax                       ; 0x0607
-    cmp byte [bx + bss_89de], 0x23   ; 0x0609
-    jle short @..api_idx_00a8_KNHJ.l8 ; 0x060e
+    cmp byte [bx + target_weight], 0x23 ; 0x0609
+    jle short @..pick_target_slot.l8 ; 0x060e
     mov ax, 0xc                      ; 0x0610
     imul word [bp - 0x000c]          ; 0x0613
     mov cx, word [bp - 0x0008]       ; 0x0616
@@ -155,20 +155,20 @@ api_idx_00a8_KNHJ:
     mov bx, ax                       ; 0x061d
     add bx, bp                       ; 0x061f
     cmp word [bx - 0x009c], byte 0xff ; 0x0621
-    je short @..api_idx_00a8_KNHJ.l8 ; 0x0626
+    je short @..pick_target_slot.l8  ; 0x0626
     mov ax, word [bx - 0x009c]       ; 0x0628
     ret                              ; 0x062c
-@..api_idx_00a8_KNHJ.l8:
+@..pick_target_slot.l8:
     cmp word [bp - 0x0006], byte 3   ; 0x062d
-    jl short @..api_idx_00a8_KNHJ.l7 ; 0x0631
+    jl short @..pick_target_slot.l7  ; 0x0631
     mov ax, 0xffff                   ; 0x0633
     ret                              ; 0x0636
-@..api_idx_00a8_KNHJ.l9:
+@..pick_target_slot.l9:
     inc word [bp - 0x0002]           ; 0x0637
     mov ax, word [bp - 0x0002]       ; 0x063a
     cmp ax, strict word 6            ; 0x063d
-    jge short @..api_idx_00a8_KNHJ.l10 ; 0x0640
-    jmp near @..api_idx_00a8_KNHJ.l5 ; 0x0642
-@..api_idx_00a8_KNHJ.l10:
+    jge short @..pick_target_slot.l10 ; 0x0640
+    jmp near @..pick_target_slot.l5  ; 0x0642
+@..pick_target_slot.l10:
     mov ax, 0xffff                   ; 0x0645
     ret                              ; 0x0648

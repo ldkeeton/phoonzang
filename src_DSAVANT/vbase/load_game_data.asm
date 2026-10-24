@@ -668,7 +668,7 @@ load_game_data:
     mov word [bp - 0x0008], ax       ; 0x3638
     mov ax, 0x90                     ; 0x363b
     push ax                          ; 0x363e
-    mov ax, bss_89de                 ; 0x363f
+    mov ax, target_weight            ; 0x363f
     push ax                          ; 0x3642
     push word [bp - 0x000a]          ; 0x3643
     call aztec_read                  ; 0x3646

@@ -146,7 +146,7 @@ bss_8822 equ __zbss_8822 - __zdseg_start
 bss_882c equ __zbss_882c - __zdseg_start
 bss_8976 equ __zbss_8976 - __zdseg_start
 kind_state_table equ __zbss_8979 - __zdseg_start
-bss_89de equ __zbss_89de - __zdseg_start
+target_weight equ __zbss_89de - __zdseg_start
 bss_89df equ __zbss_89df - __zdseg_start
 bss_89e0 equ __zbss_89e0 - __zdseg_start
 bss_89e1 equ __zbss_89e1 - __zdseg_start
