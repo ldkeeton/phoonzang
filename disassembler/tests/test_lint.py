@@ -1,4 +1,4 @@
-"""``make lint`` rules and fixers (``lib``-free unit tests)."""
+"""Lint rules and fixers (``lib``-free unit tests)."""
 
 import unittest
 

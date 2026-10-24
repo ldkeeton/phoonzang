@@ -13,7 +13,7 @@ how the hand-written sources already wrap.  A trailing comment that no longer
 fits moves onto its own line; a long comment on its own is wrapped as prose.
 
 A line whose pieces cannot be split (one very long token) is still reported,
-but not marked fixable, so ``make lint fix`` cannot churn on it.
+but not marked fixable, so the fixer cannot churn on it.
 """
 
 import re

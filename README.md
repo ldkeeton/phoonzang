@@ -74,7 +74,6 @@ Run from the repo root.
 | `make prebuild [PROJECT...]` | clean .cache, rebuild aztec libs + signature DB, run the Aztec C mux |
 | `make run PROJECT` | run game in dosbox-x |
 | `make verify [PROJECT...]` | verify one or all projects |
-| `make lint [fix] [PROJECT...]` | check hand-owned .c/.s sources (fix applies the |
 | `make clean [PROJECT...]` | clean one or all projects (no args: delete .cache, |
 | `make info PROJECT BIN ROUTINE` | fragment span, co-tenant routines, callers, source |
 | `make refs PROJECT BIN ROUTINE` | list the symbols ROUTINE references that still |

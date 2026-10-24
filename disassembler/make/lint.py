@@ -1,8 +1,8 @@
-"""``make lint`` — check the hand-owned project sources.
+"""Lint the hand-owned project sources.
 
 The rules live in :mod:`lint` and are registered there.  This module only
 walks the projects, prints findings, and applies the rules' fixers when asked
-(``make lint fix``); adding a rule does not touch this file.
+(the build runs it in fix mode); adding a rule does not touch this file.
 """
 
 import os

@@ -34,7 +34,6 @@ Commands (space-separated):
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox-x
   make verify [PROJECT...]  verify one or all projects
-  make lint [fix] [PROJECT...]  run linter
   make clean [PROJECT...]   clean one or all projects (no args: delete .cache,
                             except the build lock and pinned baselines)
   make name PROJECT BIN SYMBOL=NAME[:NOTE] ...
@@ -147,11 +146,6 @@ def main():
 
     if '--verify' in flags:
         cmd_verify(args)
-        return
-
-    if '--lint' in flags:
-        fix = 'fix' in args or '--fix' in flags
-        cmd_lint([a for a in args if a != 'fix'], fix=fix)
         return
 
     if '--clean' in flags:

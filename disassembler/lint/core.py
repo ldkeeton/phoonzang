@@ -1,4 +1,4 @@
-"""The ``make lint`` rule registry.
+"""The lint rule registry.
 
 A rule is a small class with three pieces:
 
