@@ -402,6 +402,77 @@ class BandTest(unittest.TestCase):
         self.assertFalse([p for p in files if p.endswith('.c')])
 
 
+class ResharePartialTest(unittest.TestCase):
+    """A partial build puts its routines back where the full build shared them."""
+
+    def _full(self, root, a='f', b='f', tables=None):
+        """A full build of binaries a and b, sharing f, written at *root*."""
+        files = {}
+        for name, stem in (('a', a), ('b', b)):
+            files[f'{name}/{stem}.asm'] = BODY.format(name=stem, a='1', b='2', c='3')
+            files[f'{name}.asm'] = f'%include "{name}/{stem}.asm"\n'
+        files, result = shared.share_files(files, root, tables or {})
+        self.assertEqual(len(result), 1)
+        for rel, text in files.items():
+            _put(root, rel, text)
+        return files
+
+    def test_an_unchanged_copy_goes_back_to_shared(self):
+        with tempfile.TemporaryDirectory() as root:
+            full = self._full(root)
+            files, result, diverged = shared.reshare_partial(
+                {'a/f.asm': BODY.format(name='f', a='7', b='8', c='9'),
+                 'a.asm': '%include "a/f.asm"\n'}, root, 'a')
+        self.assertEqual(result, {'shared/library/f.asm': ['a/f.asm']})
+        self.assertEqual(diverged, [])
+        self.assertEqual(files, {'a.asm': full['a.asm']})
+
+    def test_an_aliased_copy_gets_its_aliases_back(self):
+        tables = {'a': OtherNameTest._table('f_GGGG'),
+                  'b': OtherNameTest._table('f_HHHH')}
+        with tempfile.TemporaryDirectory() as root:
+            full = self._full(root, 'f_GGGG', 'f_HHHH', tables)
+            files, result, _ = shared.reshare_partial(
+                {'b/f_HHHH.asm': BODY.format(name='f_HHHH', a='1', b='2', c='3'),
+                 'b.asm': '%include "b/f_HHHH.asm"\n'}, root, 'b')
+        self.assertEqual(result, {'shared/library/f_GGGG.asm': ['b/f_HHHH.asm']})
+        self.assertEqual(files['b.asm'], full['b.asm'])
+
+    def test_a_changed_copy_keeps_its_own(self):
+        with tempfile.TemporaryDirectory() as root:
+            self._full(root)
+            changed = BODY.format(name='f', a='1', b='2', c='3').replace(
+                'push bp', 'push si')
+            files, result, diverged = shared.reshare_partial(
+                {'a/f.asm': changed, 'a.asm': '%include "a/f.asm"\n'}, root, 'a')
+        self.assertEqual(result, {})
+        self.assertEqual(diverged, ['shared/library/f.asm'])
+        self.assertEqual(files['a/f.asm'], changed)
+
+    def test_a_changed_c_keeps_its_own(self):
+        with tempfile.TemporaryDirectory() as root:
+            for b in ('a', 'b'):
+                _put(root, f'{b}/f.asm', BODY.format(name='f', a='1', b='2', c='3'))
+                _put(root, f'{b}/f.c', 'int f;\n')
+                _put(root, f'{b}.asm', f'%include "{b}/f.asm"\n')
+            shared.share_identical(root)
+            asm = BODY.format(name='f', a='1', b='2', c='3')
+            _, same, _ = shared.reshare_partial(
+                {'a/f.asm': asm, 'a/f.c': 'int f;\n',
+                 'a.asm': '%include "a/f.asm"\n'}, root, 'a')
+            _, other, diverged = shared.reshare_partial(
+                {'a/f.asm': asm, 'a/f.c': 'int g;\n',
+                 'a.asm': '%include "a/f.asm"\n'}, root, 'a')
+        self.assertEqual(list(same), ['shared/game/f.asm'])
+        self.assertEqual((other, diverged), ({}, ['shared/game/f.asm']))
+
+    def test_no_full_build_leaves_the_files_alone(self):
+        files = {'a/f.asm': 'f:\n    ret\n', 'a.asm': '%include "a/f.asm"\n'}
+        with tempfile.TemporaryDirectory() as root:
+            self.assertEqual(shared.reshare_partial(files, root, 'a'),
+                             (files, {}, []))
+
+
 class MergeFilesTest(unittest.TestCase):
     def test_one_copy_of_a_file_binaries_lay_out_alike(self):
         from main.build import merge_files

@@ -2,7 +2,6 @@
 ; key_queue or the BIOS buffer, moving a BIOS key into the queue when mode is
 ; nonzero
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	key_queue_:word
 	extrn	stir_random_seeds_:near

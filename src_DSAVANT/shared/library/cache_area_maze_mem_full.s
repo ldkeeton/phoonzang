@@ -1,6 +1,5 @@
 ; prints the CACHEAREA() maze/pic memory exhaustion error and exits to DOS with code 1
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	public	cache_area_maze_mem_full_
 cache_area_maze_mem_full_ proc near

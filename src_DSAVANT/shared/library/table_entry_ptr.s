@@ -1,5 +1,5 @@
 ; :ts=8
-	include	hlmacros.h
+	include	lmacros.h
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
 	public	table_entry_ptr_

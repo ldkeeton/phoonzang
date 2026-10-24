@@ -1,7 +1,6 @@
 ; mode 13h with the 256-colour palette; [bp-2] = 1, [bp-4] = "vga.drv" in the
 ; caller's frame
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	saved_equip_byte_:byte
 	extrn	video_is_ega_:byte, video_is_vga_:byte

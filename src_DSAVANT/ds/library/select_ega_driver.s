@@ -1,7 +1,6 @@
 ; EGA present: mode 0eh with the 16-colour palette; [bp-2] = 2, [bp-4] =
 ; "ega.drv" in the caller's frame, else [bp-2] = 0
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 bios_data_0410	equ	410h	;0040:0010 equipment byte, read with es = 0
 	extrn	saved_equip_byte_:byte

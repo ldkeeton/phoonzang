@@ -145,6 +145,9 @@ def load_or_build(project, binary, data, aztec_labels, *, mode='build',
 def _prebuild(project, binary, data, aztec_labels, path, verbose,
               more=False, present=None):
     from . import compile as azc
+    # Stage the vendor include tree first: the build reads headers only from
+    # prebuild, and the merged lmacros.h is generated from this copy.
+    sources.stage_headers(project)
     objcache_dir = os.path.join(prebuild_dir(project), 'objs')
     os.makedirs(objcache_dir, exist_ok=True)
     from lib.sidecar.compiler import asm_flags, compiler_flags
@@ -331,13 +334,15 @@ def _compile_seeds(engine, project, binary, functions, objcache_dir,
         text = seed_source_text(project, binary, label, entry, engine)
         if text is None:
             continue
+        headers_dir = sources.staged_include_dir(project, entry['includes'])
         key = _module_key(project, binary, label, entry, text)
         kind, flags = _tool(project, binary, label, entry)
         requests.setdefault(
             key, (f'X{len(requests):04d}', text, entry['compiler'],
-                  entry['includes'], flags, kind))
-    missing = [(key, dos, text, compiler, includes, flags, kind)
-               for key, (dos, text, compiler, includes, flags, kind)
+                  entry['includes'], flags, kind, headers_dir))
+    missing = [(key, dos, text, compiler, includes, flags, kind, headers_dir)
+               for key, (dos, text, compiler, includes, flags, kind,
+                         headers_dir)
                in requests.items()
                if _stale(objcache.load(objcache_dir, key))]
     if missing:
@@ -404,13 +409,15 @@ def compile_data(project, binary, label, entry, source_text):
     through the ``objs`` cache like :func:`compile_source_module`."""
     from . import compile as azc
 
+    headers_dir = sources.project_include_dir(project)
     key = _module_key(project, binary, label, entry, source_text)
     module = objcache.load(objs_dir(project), key)
     if _stale(module):
         kind, flags = _tool(project, binary, label, entry)
         module = azc.compile_module(
             source_text, label, compiler=entry['compiler'],
-            includes=entry['includes'], flags=flags, kind=kind)
+            includes=entry['includes'], flags=flags, kind=kind,
+            headers_dir=headers_dir)
         objcache.save(objs_dir(project), key, module)
     if isinstance(module, Exception):
         raise module
@@ -422,13 +429,15 @@ def compile_source_module(project, binary, label, entry, source_text):
     (:meth:`lib.aztec.compile.CompiledModule.whole`)."""
     from . import compile as azc
 
+    headers_dir = sources.project_include_dir(project)
     key = _module_key(project, binary, label, entry, source_text)
     module = objcache.load(objs_dir(project), key)
     if _stale(module):
         kind, flags = _tool(project, binary, label, entry)
         module = azc.compile_module(
             source_text, label, compiler=entry['compiler'],
-            includes=entry['includes'], flags=flags, kind=kind)
+            includes=entry['includes'], flags=flags, kind=kind,
+            headers_dir=headers_dir)
         # Keep it: an unedited seed hits this cache on every later build.
         objcache.save(objs_dir(project), key, module)
     if isinstance(module, Exception):
@@ -447,6 +456,7 @@ def precompile(project, binary, items):
     """
     from . import compile as azc
 
+    headers_dir = sources.project_include_dir(project)
     pending = {}
     for label, entry, text in items:
         key = _module_key(project, binary, label, entry, text)
@@ -461,7 +471,7 @@ def precompile(project, binary, items):
                                            in pending.values())):
         kind, flags = _tool(project, binary, label, entry)
         requests.append((key, dos, text, entry['compiler'], entry['includes'],
-                         flags, kind))
+                         flags, kind, headers_dir))
     failed = {}
     for key, result in azc.compile_batch(requests).items():
         if isinstance(result, Exception):

@@ -1,6 +1,6 @@
 """``.s`` rule: structured flow (``.if``/loops) uses one tab per level.
 
-The high-level block macros are documented in ``readme/hlmacros.md``: a block
+The high-level block macros are documented in ``readme/lmacros.md``: a block
 directive sits in the instruction column and its body is exactly one tab
 further in.  ``.elseif``/``.else``/``.endif`` line up with their opener.
 

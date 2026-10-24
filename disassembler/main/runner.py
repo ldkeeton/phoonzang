@@ -280,9 +280,14 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     for slots in (sidecar_entry or {}).get('driver_slots') or ():
         entries = driver_thunk_entries(data, label_targets, slots, start_offset)
         if project:
-            ctx.driver_pointer_args.update(thunk_pointer_args(
-                entries, slots, _exported_pointer_params(project,
-                                                         slots['driver'])))
+            # Only verify reads the driver's pointer-argument export, and a
+            # prebuild stops before verify -- it never writes one either, so a
+            # clean prebuild would otherwise fail looking for the driver's.
+            handler_params = ({} if AZTEC_PREBUILD_ONLY else
+                              _exported_pointer_params(project,
+                                                       slots['driver']))
+            ctx.driver_pointer_args.update(
+                thunk_pointer_args(entries, slots, handler_params))
         for off, n in entries.items():
             label_map[off] = _sidecar_routine(
                 thunk_name(n, slots), off)

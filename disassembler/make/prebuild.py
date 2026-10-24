@@ -4,7 +4,7 @@ import os
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from lib.aztec import build_db
+from lib.aztec import build_db, sources
 from lib import progress
 from lib.cachedirs import aztec_funcs_path, prebuild_dir
 from main.projects import discover_binaries
@@ -42,6 +42,8 @@ def _run_prebuild(app):
 
     out_dir = prebuild_dir(app)
     os.makedirs(out_dir, exist_ok=True)
+    # The vendor headers every later build reads, staged once here.
+    sources.stage_headers(app)
     # The signature DB feeds the disassembly (main/seeding.py), so it must
     # exist before any binary is processed.  Both steps are no-ops once built.
     if not os.path.exists(aztec_funcs_path(app)):
@@ -92,6 +94,9 @@ def _run_prebuild(app):
 
 def _ensure_prebuild(app):
     """Run the prebuild only when its ``.cache/<app>/`` data is incomplete."""
+    # Backfill the staged vendor headers for a cache written before they were
+    # kept; the build reads every header from here.
+    sources.stage_headers(app)
     if (os.path.isdir(prebuild_dir(app))
             and (os.path.exists(aztec_funcs_path(app))
                  or not build_db.project_binaries(app))):

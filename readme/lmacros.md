@@ -1,12 +1,7 @@
-# hlmacros.h
-
-These are high-level macros for hand-written `.s` files. They are modelled on
-MASM 6.0. They live in
-[disassembler/lib/aztec/hlmacros.h](../disassembler/lib/aztec/hlmacros.h).
-
+# lmacros.h
+ 
 ```asm
 	include	lmacros.h
-	include	hlmacros.h
 ```
 
 Write macro names and their arguments in lower case. If an argument contains

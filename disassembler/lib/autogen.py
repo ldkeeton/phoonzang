@@ -20,9 +20,13 @@ def marker_for(path):
     return MARKER_C if path.endswith(_C_SUFFIXES) else MARKER_ASM
 
 
-def stamp(text, path):
-    """Return *text* with the marker as its first line (idempotent)."""
-    marker = marker_for(path)
+def stamp(text, path, marker=None):
+    """Return *text* with the marker as its first line (idempotent).
+
+    *marker* overrides the one :func:`marker_for` picks from the extension --
+    a ``.h`` the assembler includes needs the comment its parser accepts.
+    """
+    marker = marker or marker_for(path)
     if text.split('\n', 1)[0].rstrip() == marker:
         return text
     return marker + '\n' + text

@@ -2,7 +2,6 @@
 ; entry in the font's 10h table and the signed byte at header offset 7, and
 ; returns the sum; 0ffffh when the font slot holds no segment
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	font_seg_table_:word
 spacing		equ	-2	;local: signed per-character spacing from the font header

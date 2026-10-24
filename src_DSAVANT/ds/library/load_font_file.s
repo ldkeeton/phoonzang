@@ -5,7 +5,6 @@
 ; the following DOS print/exit code); an allocation error jumps to
 ; font_memory_error.
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	font_header_seg_:word, font_seg_table_:word, font_io_error_msg_:byte
 	extrn	font_memory_error_:near

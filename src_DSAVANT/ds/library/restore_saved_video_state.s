@@ -1,6 +1,5 @@
 ; restores the startup video equipment byte and video mode through the BIOS
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	saved_equip_byte_:byte
 	extrn	saved_video_mode_:byte

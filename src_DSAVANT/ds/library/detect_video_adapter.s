@@ -1,7 +1,6 @@
 ; reads the video mode, then picks the VGA or EGA driver; shares the caller's
 ; frame
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	select_vga_driver_:near, select_ega_driver_:near
 	extrn	saved_video_mode_:byte

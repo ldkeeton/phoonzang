@@ -1,11 +1,13 @@
-; hlmacros.h: shorthand for hand-written Manx assembly (.s), Aztec as v4.10d.
+; lmacros_master.h: high-level macros appended to the Manx LMACROS.H.
 ;
-; A .s takes it with `include hlmacros.h` (after lmacros.h).  The build puts
-; this file beside the module, where `as` finds it; editing it recompiles every
-; .s that includes it.  Each macro expands to exactly the instructions listed
-; here, so a routine stays byte-exact; anything irregular stays a plain
-; instruction.  Write macros and their arguments in lower case (`as` compares
-; them case-sensitively).  An operand with spaces or commas goes in <>:
+; Prebuild stages the vendor LMACROS.H; the build appends this file to it,
+; generating the project's include/lmacros.h, which the build mounts as
+; INCLUDE.  A .s takes the result with `include lmacros.h`.  Editing
+; this file recompiles every .s that includes it.  Each macro expands to
+; exactly the instructions listed here, so a routine stays byte-exact;
+; anything irregular stays a plain instruction.  Write macros and their
+; arguments in lower case (`as` compares them case-sensitively).  An operand
+; with spaces or commas goes in <>:
 ;	umin	cx,<word ptr cs:limit>
 ;
 ; Structured flow follows MASM 6.0 (.if/.elseif/.else/.endif, .while/.endw,
@@ -68,7 +70,7 @@
 ; Clamps (unsigned):
 ;	umin r,v	cmp r,v / jb ok / mov r,v / ok:
 ;	umax r,v	cmp r,v / jae ok / mov r,v / ok:
-; A standard argument layout uses 
+; A standard argument layout uses
 ; procdef (push bp / mov bp,sp) and pret (pop bp / ret); a custom layout writes
 ; push bp / mov bp,sp / [sub sp,n] and mov sp,bp / pop bp / ret.
 ; Segments, ports, exits:
@@ -316,7 +318,7 @@ else
 ifidn	<q_c>,<np>
 	jp	q_p&q_n
 else
-	_hlmacros_unknown_condition_&q_c
+	_lmacros_unknown_condition_&q_c
 endif
 endif
 endif
@@ -383,9 +385,9 @@ ifidn	<q_o>,<sge>
 	_hj	q_s, ge, q_p, q_n
 else
 ifidn	<q_o>,<=>
-	_hlmacros_write_ne_for_not_equal
+	_lmacros_write_ne_for_not_equal
 else
-	_hlmacros_unknown_operator_&q_o
+	_lmacros_unknown_operator_&q_o
 endif
 endif
 endif
@@ -446,7 +448,7 @@ else
 endif
 else
 ifnb	<q_x>
-	_hlmacros_bad_condition_&q_a&_&q_o
+	_lmacros_bad_condition_&q_a&_&q_o
 else
 ifnb	<q_b>
 ifidn	<q_o>,<and>
@@ -458,7 +460,7 @@ else
 endif
 else
 ifnb	<q_o>
-	_hlmacros_bad_condition_&q_a&_&q_o
+	_lmacros_bad_condition_&q_a&_&q_o
 else
 	_hone	q_s, <q_a>, q_p, q_n
 endif

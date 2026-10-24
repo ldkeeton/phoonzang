@@ -1,7 +1,6 @@
 ; clears key_queue, drains the BIOS keyboard buffer, then calls the graphics
 ; driver slot 10
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	key_queue_:word
 	extrn	gfx_drv_slot_10_:dword

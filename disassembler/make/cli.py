@@ -29,7 +29,8 @@ Commands (space-separated):
   make libcheck             rebuild Aztec v4.2b C.LIB from dos_compilers/aztec_src/ and compare to the shipped one
   make all                  prebuild (clean .cache + Aztec mux), build, verify all, elf-rebuild, make test, make test slow
   make all notest           the same, without the tests at the end
-  make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if missing)
+  make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if
+                            missing; BIN keeps the last full build's shared/ layout)
   make prebuild [PROJECT...]  clean .cache, rebuild aztec libs + signature DB, run the Aztec C mux
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox-x

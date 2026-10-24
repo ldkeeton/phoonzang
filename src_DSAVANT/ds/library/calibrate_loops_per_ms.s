@@ -1,7 +1,6 @@
 ; calibrates loops_per_ms from the 18.2 Hz BIOS tick: counts loop iterations
 ; over one tick and scales the 55-tick count; shares the caller's frame
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	loops_per_ms_:word
 	public	calibrate_loops_per_ms_

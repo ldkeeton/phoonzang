@@ -1,4 +1,4 @@
-"""``.s`` rule: use the ``hlmacros`` shorthand where it is an exact fit.
+"""``.s`` rule: use the ``lmacros`` shorthand where it is an exact fit.
 
 Only instruction sequences whose expansion is byte-for-byte identical are
 matched:

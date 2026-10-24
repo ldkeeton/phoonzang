@@ -1,7 +1,6 @@
 ; probes the mouse driver and sets bit 12 of the caller's result word;
 ; shares the caller's frame
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	mouse_button_count:byte
 	public	detect_mouse

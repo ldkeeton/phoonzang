@@ -47,25 +47,22 @@ VERSION = 'v42b'
 #: ``compiler_flags`` entry for this prefix is how Manx built the library.
 LIBRARY_PREFIX = 'aztec_'
 
-#: Macros a hand-written ``.s`` may ``include hlmacros.h``.  ``as`` finds an
-#: include in the current directory before INCLUDE, so it is copied beside the
-#: module, which keeps the module's own line numbers in its messages.
-HLMACROS = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                        'hlmacros.h')
-_HLMACROS_RE = re.compile(r'^\s*include\s+hlmacros\.h\b', re.I | re.M)
+#: A hand-written ``.s`` includes the project's ``lmacros.h``.  The build
+#: installs the merged header in ``src_<project>/include`` and mounts that
+#: directory as INCLUDE.
+_LMACROS_RE = re.compile(r'^\s*include\s+lmacros\.h\b', re.I | re.M)
 
 
 def project_headers(source_text):
-    """The text of the project headers *source_text* includes ('' for none),
-    for its cache key: editing a header recompiles what includes it."""
-    if not _HLMACROS_RE.search(source_text):
+    """The high-level lmacros text *source_text* gains when it includes
+    ``lmacros.h`` (``''`` otherwise), for the compile cache key.
+
+    The vendor base comes from prebuild and is fixed for the cached tree; the
+    master fragment is what a build can change.
+    """
+    if not _LMACROS_RE.search(source_text):
         return ''
-    with open(HLMACROS) as f:
-        return f.read()
-
-
-def _place_project_headers(work):
-    shutil.copy(HLMACROS, os.path.join(work, 'HLMACROS.H'))
+    return sources.master_text()
 
 
 _COMPILER_DIRS = {
@@ -394,18 +391,20 @@ def _tool_line(kind, flags, module, log):
 
 
 def compile_module(source_text, name, *, compiler=VERSION, includes=None,
-                   flags, keep=False, kind='c'):
+                   flags, keep=False, kind='c', headers_dir=None):
     """Compile *source_text* and return a :class:`CompiledModule`.
 
     ``kind='asm'`` assembles a Manx assembly module (a vendor ``.asm``, or a
     routine's ``.s``) with ``as`` instead of compiling C with ``cc``.
 
     ``compiler`` selects the code generator; ``includes`` selects the header
-    tree (defaults to the same version as the compiler).
+    tree (defaults to the same version as the compiler).  *headers_dir* is the
+    include directory to mount; the build passes the project's
+    ``src_<project>/include``, while prebuild passes its staged copy.
     """
     inc_version = includes or compiler
     cbin = _compiler_dir(compiler)
-    incdir = sources.include_dir(inc_version)
+    incdir = headers_dir or sources.include_dir(inc_version)
     if not os.path.isdir(cbin):
         raise AztecCompileError(f'Aztec {compiler} compiler not found at {cbin!r}')
     exe = shutil.which(DOSBOX)
@@ -418,8 +417,6 @@ def compile_module(source_text, name, *, compiler=VERSION, includes=None,
         os.symlink(incdir, os.path.join(work, 'azinc'))
         with open(os.path.join(work, 'dosbox.conf'), 'w') as f:
             f.write(_CONF)
-        if kind == 'asm':
-            _place_project_headers(work)
         module = dos_names([name])[0]
         ext = 'ASM' if kind == 'asm' else 'C'
         with open(os.path.join(work, f'{module}.{ext}'), 'w') as f:
@@ -515,11 +512,12 @@ def compile_batch(requests, *, verbose=False):
     """Compile many modules with as few DOSBox launches as possible.
 
     ``requests`` is an iterable of
-    ``(key, dos_name, source_text, compiler, includes, flags[, kind])`` tuples
-    (``kind`` is ``'c'`` by default, ``'asm'`` for a hand-written module).  One
-    DOSBox session is used per ``(compiler, includes, flags)`` group: mixing
-    compilers in a single session wedges the DOS ``cc`` driver, and repeatedly
-    opening/closing DOSBox is both slow and unreliable.
+    ``(key, dos_name, source_text, compiler, includes, flags[, kind[, headers_dir]])``
+    tuples (``kind`` is ``'c'`` by default, ``'asm'`` for a hand-written
+    module).  One DOSBox session is used per
+    ``(compiler, includes, flags, kind, headers_dir)`` group: mixing compilers
+    in a single session wedges the DOS ``cc`` driver, and repeatedly opening
+    and closing DOSBox is both slow and unreliable.
 
     Returns ``{key: CompiledModule | Exception}``.  A session that times out
     raises :class:`AztecCompileError` naming the module it stopped in.
@@ -527,19 +525,21 @@ def compile_batch(requests, *, verbose=False):
     groups = {}
     for key, dos_name, source_text, compiler, includes, flags, *rest in requests:
         kind = rest[0] if rest else 'c'
-        groups.setdefault((compiler, includes, tuple(flags), kind), []).append(
-            (key, dos_name, source_text))
+        headers_dir = rest[1] if len(rest) > 1 else None
+        groups.setdefault((compiler, includes, tuple(flags), kind, headers_dir),
+                          []).append((key, dos_name, source_text))
     results = {}
-    for (compiler, includes, flags, kind), members in groups.items():
+    for (compiler, includes, flags, kind, headers_dir), members in groups.items():
         results.update(_compile_group(compiler, includes, flags, members,
-                                      verbose=verbose, kind=kind))
+                                      verbose=verbose, kind=kind,
+                                      headers_dir=headers_dir))
     return results
 
 
 def _compile_group(compiler, inc_version, flags, members, *, verbose,
-                   kind='c'):
+                   kind='c', headers_dir=None):
     cbin = _compiler_dir(compiler)
-    incdir = sources.include_dir(inc_version)
+    incdir = headers_dir or sources.include_dir(inc_version)
     if not os.path.isdir(cbin):
         raise AztecCompileError(
             f'Aztec {compiler} compiler not found at {cbin!r}')
@@ -558,8 +558,6 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
         os.symlink(incdir, os.path.join(work, 'azinc'))
         with open(os.path.join(work, 'dosbox.conf'), 'w') as f:
             f.write(_CONF)
-        if kind == 'asm':
-            _place_project_headers(work)
 
         # DOSBox-X stops honouring -c flags after ~10, so the per-module work
         # goes into one batch file; the mounts stay as -c.

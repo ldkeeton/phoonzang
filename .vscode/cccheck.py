@@ -25,9 +25,10 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _ASM = os.path.join(_ROOT, 'disassembler')
 sys.path.insert(0, _ASM)
 
-from lib.aztec import cache  # noqa: E402
+from lib.aztec import cache, sources  # noqa: E402
 from lib.aztec import compile as azc  # noqa: E402
 from lib.aztec.modules import entry_for  # noqa: E402
+from lib.cachedirs import src_dir  # noqa: E402
 
 _MSG = re.compile(r'^\S+\.C:(\d+): (ERROR|WARNING) (\d+): ?(.*?):?\s*$', re.I)
 _AS_MSG = re.compile(r'^(ERROR|WARNING):\S+\.ASM:(\d+): ?(.*?)\s*$', re.I)
@@ -66,10 +67,14 @@ def check(path):
     with open(path, errors='replace') as f:
         source = f.read()
     kind, flags = cache._tool(project, binary, label, entry)
+    headers_dir = None
+    if project:
+        sources.install_headers(project, src_dir(project))
+        headers_dir = sources.project_include_dir(project)
     try:
         cc_log = azc.compile_module(source, 'check', compiler=compiler,
                                     includes=includes, flags=flags,
-                                    kind=kind).cc_log
+                                    kind=kind, headers_dir=headers_dir).cc_log
     except azc.AztecCompileError as exc:
         cc_log = exc.cc_log
         if not cc_log:

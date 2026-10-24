@@ -1,7 +1,6 @@
 ; redraws the mouse pointer when the INT 33h position differs from the one
 ; last drawn, unless a glide is moving it; then clears mouse_redraw_pending
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	mouse_glide_active_:byte, mouse_present_:byte
 	extrn	mouse_redraw_pending_:byte

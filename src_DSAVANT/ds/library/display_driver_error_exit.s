@@ -1,7 +1,6 @@
 ; prints the display driver load error and exits with code 1; the message is
 ; kept in the code segment, so ds is pointed at cs before the DOS call
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	public	display_driver_error_exit
 display_driver_error_exit proc near

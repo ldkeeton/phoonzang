@@ -36,6 +36,7 @@ whole-project decisions.  A family binary's partial build still runs the
 family's labels-only pass: its ``ds_starts`` union is this build's too.
 """
 
+import json
 import os
 from concurrent.futures import ThreadPoolExecutor
 
@@ -56,7 +57,7 @@ from lib.sidecar.binary import per_binary as sidecar_per_binary
 from lib.sidecar.loader import load as load_sidecar
 from lib.sidecar.errors import SidecarError
 from lib.sidecar.patches import PatchError, finalize as finalize_patches
-from lib.shared import share_files
+from lib.shared import reshare_partial, share_files
 from lib.symtab import project_tables
 
 from .options import APPS_DIR, PROJECT_ROOT
@@ -208,6 +209,46 @@ def merge_files(emitted):
     return files
 
 
+def _restamp_export(path):
+    """A previous build's export data, for its writer to re-stamp.
+
+    Returns the data, or ``None`` when there is no usable export.
+    """
+    try:
+        with open(path) as f:
+            record = json.load(f)
+    except (OSError, ValueError):
+        return None
+    data = (record.get('data')
+            if isinstance(record, dict) and 'run' in record else record)
+    return data or None
+
+
+def _host_partial_args(project):
+    """The last full build's host unions, for a partial build of the host.
+
+    The union of the overlays' host-data references and the family's DS starts
+    are whole-project decisions a partial build does not make.  The previous
+    full build's files still say what they said when nothing else changed;
+    re-stamp them for this build and hand them to the host, so it emits the
+    same names it did then.
+    """
+    from lib.link import (DS_STARTS_NAME, HOST_DATA_OFFSETS_NAME,
+                          write_ds_starts, write_host_data_offsets)
+    path = os.path.join(labels_dir(project), HOST_DATA_OFFSETS_NAME)
+    data = _restamp_export(path)
+    if not data:
+        return []
+    write_host_data_offsets(project, data)
+    args = [f'--host-data-offsets={path}']
+    path = os.path.join(labels_dir(project), DS_STARTS_NAME)
+    data = _restamp_export(path)
+    if data:
+        write_ds_starts(project, data)
+        args.append(f'--ds-starts={path}')
+    return args
+
+
 def _sync(out_dir, files, report, scopes=None):
     """Bring *out_dir* to this build's *files*: the tree is left alone until
     the layout is final, then only what changed is written or removed.  A
@@ -254,6 +295,9 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
     app_dir = os.path.join(APPS_DIR, project)
     out_dir = src_dir(project, PROJECT_ROOT)
     os.makedirs(out_dir, exist_ok=True)
+    # Install the self-contained header tree before any worker compiles.
+    from lib.aztec import sources
+    sources.install_headers(project, out_dir)
 
     bins = discover_binaries(app_dir)
     if not bins:
@@ -316,9 +360,13 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
         if only is not None:
             needed = ({src for _, src in cross_refs.get(only, [])}
                       | ({only} if only in source_names else set()))
-        # The host is emitted once, in step 4; a partial build never reaches it.
+        # The host is emitted once, in step 4; a partial build never reaches it,
+        # so it takes the last full build's whole-project unions instead.
+        host_partial = (_host_partial_args(project)
+                        if only == host else [])
         items = [(name, ['--export-labels']
-                  + (['--labels-only'] if name == host and only is None else []))
+                  + (['--labels-only'] if name == host and only != host else [])
+                  + (host_partial if name == host else []))
                  for name in sorted(source_names & set(bins) & needed)]
         progress.log(f'{project} | export sources: {len(items)} binary(ies)')
         failed = _generate(run_batch, items, emitted)
@@ -379,11 +427,21 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
         stagelog.step('project.consumers', 0, metrics={'consumers': len(targets)})
 
         if only is not None:
-            # A partial build makes no whole-project decision, and assembling it
-            # alone must not leave the others' stale artifacts in build_out.
+            # Sharing is a whole-tree decision: the binary's routines go back to
+            # the shared files its master included last full build, where its
+            # new copies still match them (:func:`reshare_partial`).
             progress.log(f'{project} | syncing partial build: {only}')
-            _sync(out_dir, merge_files(emitted), report,
-                  scopes=[f'{only}.asm', only])
+            files, shared, diverged = reshare_partial(merge_files(emitted),
+                                                      out_dir, only)
+            if shared:
+                report(f'  Shared: {len(shared)} fragments of {only} '
+                       f'-> shared/')
+            for rel in diverged:
+                report(f'  {only}: its copy differs from {rel}; kept its '
+                       f'own until a full build re-decides')
+            # Assembling it alone must not leave the others' stale artifacts
+            # in build_out, so only this binary's scope is pruned.
+            _sync(out_dir, files, report, scopes=[f'{only}.asm', only])
             progress.log(f'{project} | copying assets for {only}')
             copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
                         {bins[only][0]})

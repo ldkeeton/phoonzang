@@ -1,7 +1,6 @@
 ; returns the next key from key_queue (filtering by mode), else waits on
 ; play_drv_wait and reads DOS keyboard input
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	key_queue_:word
 	extrn	play_drv_wait_:dword

@@ -1,7 +1,6 @@
 ; probes int 67h for an EMS driver and records its page frame, handle and size;
 ; shares the caller's frame
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	ems_driver_signature:byte
 	extrn	ems_allocated_paragraphs:word, ems_handle:word, ems_page_frame_segment:word

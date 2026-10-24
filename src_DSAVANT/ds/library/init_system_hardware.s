@@ -1,7 +1,6 @@
 ; brings up the machine: seeds the random generator from the BIOS tick, detects
 ; video and mouse, loads the drivers and clears the screen; returns [bp-2]
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	seed_random_from_timer:near, calibrate_loops_per_ms:near
 	extrn	detect_video_adapter:near, allocate_driver_blocks:near

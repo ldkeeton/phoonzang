@@ -1,6 +1,5 @@
 ; frees every font segment listed in font_seg_table up to its 0xffff end marker
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	font_seg_table_:word
 	public	free_font_memory_

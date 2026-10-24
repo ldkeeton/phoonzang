@@ -1,6 +1,5 @@
 ; prints the CACHEAREA() out-of-EMS-slots error and exits to DOS with code 1
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	public	cache_area_ems_slots_full_
 cache_area_ems_slots_full_ proc near

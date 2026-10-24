@@ -2,7 +2,6 @@
 ; present, passes it in AX to the graphics driver's draw-glyph entry; the
 ; caller's glyph argument is left on the stack for the driver to read.
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	font_seg_table_:word
 	extrn	gfx_drv_draw_glyph_:dword

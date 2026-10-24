@@ -274,8 +274,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'file': entry['file'], 'compiler': entry['compiler'],
             'includes': entry['includes'],
         }
-    headers = _headers(out_dir, [(ov['text'], ov['includes'])
-                                 for ov in overrides.values()])
+    headers = _headers(out_dir)
     return overrides, entries, headers
 
 
@@ -428,34 +427,28 @@ def _name_c_callees(project, binary, data, entries, label_map,
         taken.add(new)
 
 
-def _headers(out_dir, sources_in):
-    """The vendor headers the C includes, for ``<out_dir>/include/``.
+def _headers(out_dir):
+    """The generated headers already installed in ``<out_dir>/include/``.
 
-    *sources_in* is ``[(text, includes version)]``; returns ``{relative path:
-    text}`` of the headers not already there.  The copy is what the C reads;
-    the compile still reads the vendor's own directory, so a copy that differs
-    from it (an edit, or two versions wanting one name) is an error rather
-    than a header the build silently ignores.
+    The build installs them from prebuild before compiling
+    (:func:`lib.aztec.sources.install_headers`); the compiler reads this same
+    tree.  Returning them here keeps the build's sync from pruning them.  The
+    renderer's ``host_symbols.inc`` is not a vendor header and comes from the
+    normal emitted files instead.
     """
-    from lib.autogen import stamp
+    from lib.autogen import is_generated
     from lib.aztec import sources
+    include = os.path.join(out_dir, INCLUDE_FOLDER)
     files = {}
-    for text, version in sources_in:
-        for name, header in sources.headers(version, text).items():
-            rel = f'{INCLUDE_FOLDER}/{name}'
-            path = os.path.join(out_dir, rel)
-            want = stamp(header, path)
-            if hand_owned(path):
-                with open(path) as f:
-                    if f.read() == header:
-                        continue
-            elif files.get(rel, want) == want:
-                files[rel] = want
-                continue
-            raise SystemExit(
-                f'error: {path} differs from the {version} header the C '
-                f'compiles with; the compile reads the vendor copy, so '
-                f'this one must match it (delete it to have it regenerated)')
+    if not os.path.isdir(include):
+        return files
+    for name in sorted(os.listdir(include)):
+        path = os.path.join(include, name)
+        if name == sources.HOST_SYMBOLS_INC or not os.path.isfile(path):
+            continue
+        if is_generated(path):
+            with open(path) as f:
+                files[f'{INCLUDE_FOLDER}/{name}'] = f.read()
     return files
 
 

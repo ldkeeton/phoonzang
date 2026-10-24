@@ -1,7 +1,6 @@
 ; spins [bp+4] milliseconds: each one counts loops_per_ms down to
 ; delay_loop_target (always 0)
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	loops_per_ms_:word
 	extrn	delay_loop_target_:word

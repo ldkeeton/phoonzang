@@ -1,7 +1,6 @@
 ; draws every byte of text with draw_font_glyph until NUL, advancing the
 ; saved text pointer past each character
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	draw_font_glyph_:near
 cursor		equ	-2	;local: next character to draw

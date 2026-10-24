@@ -413,35 +413,6 @@ class FunctionCommentTest(unittest.TestCase):
         self.assertEqual([item.line for item in found], [6])
 
 
-class HlmacrosIncludeTest(unittest.TestCase):
-    def setUp(self):
-        self.rule = next(rule for rule in _rules('.s')
-                         if rule.name == 'asm-hlmacros')
-
-    def test_missing_include_is_found(self):
-        found = list(self.rule.check('\tinclude\tlmacros.h\n', 'x.s'))
-        self.assertEqual(len(found), 1)
-        self.assertEqual(found[0].rule, 'asm-hlmacros')
-
-    def test_fix_inserts_after_lmacros(self):
-        text = '; comment\n\tinclude\tlmacros.h\n\tassume\tcs:codeseg\n'
-        self.assertEqual(
-            self.rule.fix(text, 'x.s'),
-            '; comment\n\tinclude\tlmacros.h\n\tinclude\thlmacros.h\n'
-            '\tassume\tcs:codeseg\n')
-
-    def test_fix_inserts_after_leading_comments_without_lmacros(self):
-        text = '; comment\n\n\tassume\tcs:codeseg\n'
-        self.assertEqual(
-            self.rule.fix(text, 'x.s'),
-            '; comment\n\n\tinclude\thlmacros.h\n\tassume\tcs:codeseg\n')
-
-    def test_present_include_is_accepted(self):
-        text = '\tinclude\tlmacros.h\n\tinclude\thlmacros.h\n'
-        self.assertEqual(list(self.rule.check(text, 'x.s')), [])
-        self.assertEqual(self.rule.fix(text, 'x.s'), text)
-
-
 class StructuredIndentTest(unittest.TestCase):
     def setUp(self):
         self.rule = next(rule for rule in _rules('.s')

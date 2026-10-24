@@ -37,7 +37,7 @@ import re
 from collections import defaultdict
 from dataclasses import dataclass
 
-from .autogen import MARKER_ASM, MARKER_C, hand_owned, is_generated
+from .autogen import MARKER_ASM, MARKER_C, hand_owned, is_generated, stamp
 from .cachedirs import project_of_src_dir
 from .routine_source import SUFFIXES, beside
 from .sidecar.bands import BAND_NAMES
@@ -501,6 +501,13 @@ def share_files(files, out_dir, tables):
                 files[shared_rel[:-4] + ctext[0]] = ctext[1]
         shared[shared_rel] = members
 
+    _apply(files, shared, bindings, out_dir)
+    return files, shared
+
+
+def _apply(files, shared, bindings, out_dir):
+    """Point the masters at the *shared* files and drop the copies they
+    replace (with their sources) from *files*."""
     _place_equs(files, out_dir)
     _rewrite_includes(files, shared, bindings)
     for members in shared.values():
@@ -508,7 +515,69 @@ def share_files(files, out_dir, tables):
             files.pop(rel, None)
             for suffix in SUFFIXES:
                 files.pop(rel[:-4] + suffix, None)
-    return files, shared
+
+
+def reshare_partial(files, out_dir, binary):
+    """:func:`share_files` for a partial build of *binary*, from the tree.
+
+    *files* holds only what the partial build emitted; the other binaries'
+    fragments are not there to compare against.  The last full build's
+    decisions are: *binary*'s master on disk includes each routine it shared
+    from ``shared/`` (with its aliases just above, :func:`include_aliases`).
+    Each such routine whose new copy still matches the shared file goes back
+    there; one that changed keeps its own copy until a full build re-decides.
+    Returns ``(files, shared, diverged)``, *diverged* the shared files a copy
+    no longer matches.
+    """
+    files = dict(files)
+    master = f'{binary}.asm'
+    try:
+        old = _read(os.path.join(out_dir, master))
+    except OSError:
+        return files, {}, []
+    new_includes = [m.group(1) for m in map(_INCLUDE.match,
+                                            files.get(master, '').split('\n'))
+                    if m and _binary(m.group(1)) == binary]
+    shared, bindings, diverged = {}, {}, []
+    for line in old.split('\n'):
+        include = _INCLUDE.match(line)
+        if not include or _binary(include.group(1)) != FOLDER:
+            continue
+        shared_rel = include.group(1)
+        path = os.path.join(out_dir, shared_rel)
+        if shared_rel in shared or not is_generated(path):
+            continue
+        stem = _stem(shared_rel)
+        # Read upward from the include: put them back in the master's order.
+        pairs = include_aliases(old, shared_rel)[::-1]
+        own = next((o for c, o in pairs if c == stem), stem)
+        rels = [rel for rel in new_includes if _stem(rel) == own]
+        text = _read(path)
+        if len(rels) != 1 or not _still_shared(files, out_dir, rels[0],
+                                               shared_rel, text, pairs):
+            diverged.append(shared_rel)
+            continue
+        defined = set(re.findall(r'^([\w.]+):', text, re.M))
+        shared[shared_rel] = rels
+        bindings[rels[0]] = [(c, o, c in defined) for c, o in pairs]
+    _apply(files, shared, bindings, out_dir)
+    return files, shared, diverged
+
+
+def _still_shared(files, out_dir, rel, shared_rel, text, pairs):
+    """True when *rel*, spelled with the common names *pairs* give, is the
+    shared file *text*, and its source (if it has one) is the shared one."""
+    if rel not in files or beside(rel[:-4], lambda p: _on_disk(out_dir, p)):
+        return False
+    if _code_key(_common_names(files[rel], pairs)) != _code_key(text):
+        return False
+    own = beside(rel[:-4], files.__contains__)
+    if own is None:
+        return True
+    theirs = beside(os.path.join(out_dir, shared_rel[:-4]))
+    if theirs is None or not theirs.endswith(own[len(rel) - 4:]):
+        return False
+    return stamp(files[own], own) == _read(theirs)
 
 
 def share_identical(out_dir):

@@ -79,7 +79,7 @@ def rules():
 # Importing a rule module registers it.  Keep this last: the modules import
 # Rule/Finding/register from this one.
 from . import (  # noqa: E402,F401
-    asm_include, asm_indent, asm_macros,
+    asm_indent, asm_macros,
     c_comment_column, c_comment_style, c_comma_space, c_decimal,
     c_declaration_order, c_file_comment, c_final_newline, c_function_brace,
     c_function_comment, c_keyword_space, c_knr, c_line_length,

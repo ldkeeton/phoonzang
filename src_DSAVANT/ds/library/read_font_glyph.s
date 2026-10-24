@@ -2,7 +2,6 @@
 ; source * bytes_per_glyph, then reads one glyph record into the font segment
 ; at file_param_word + glyph_map[glyph] * bytes_per_glyph.
 	include	lmacros.h
-	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	font_seg_table_:word
 	procdef	read_font_glyph,<<handle,word>,<font,word>,<source,byte>,<glyph,byte>>
