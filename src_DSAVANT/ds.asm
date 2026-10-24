@@ -342,7 +342,7 @@ message_cache_next    equ __zbss_5214 - __zdseg_start
 bss_5216              equ __zbss_5216 - __zdseg_start
 %include "ds/game/load_message_string.asm" ; 0x0782
 
-%include "ds/game/ds_app_KQMO.asm"         ; 0x0860
+%include "ds/game/draw_message_string.asm" ; 0x0860
 
 ; data_file_fd  equ __zbss_0e22 - __zdseg_start
 record_base   equ __zbss_521c - __zdseg_start

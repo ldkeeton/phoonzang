@@ -167,6 +167,7 @@
         "0547": {"name": "str_subst_char", "note": "copies a string replacing each marker char with a second string"},
         "06c6": {"name": "load_message_block", "note": "copies a message block into the working buffer, reusing the four-slot cache"},
         "0782": {"name": "load_message_string", "note": "looks up message id, reads its packed bytes from the message buffer (paging the file in as needed) and unpacks them into the caller's buffer"},
+        "0860": {"name": "draw_message_string", "note": "loads a message string into a local buffer and draws it in one color"},
         "0883": {
           "name": "data_record_io",
           "note": "(type, buf, index, dir): seeks the data file (handle at DS 0x0e22) to the type's base (DS 0x521c) + index * the type's record size (bss_5524), then reads (dir 0) or writes (dir 1) one record; types 2-8 first map index through a per-type byte table, and a nonzero DS 0x556c[type] reads and unpacks it via ds_string_loc_HTNS"

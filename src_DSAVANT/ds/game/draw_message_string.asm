@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_KQMO: ; Aztec csav frame=0x0100
+draw_message_string: ; Aztec csav frame=0x0100
     mov ax, 0xff00                   ; 0x0860
     call aztec_csav                  ; 0x0863
     lea ax, word [bp - 0x00ff]       ; 0x0866
