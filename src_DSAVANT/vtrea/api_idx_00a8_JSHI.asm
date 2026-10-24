@@ -16,16 +16,16 @@ api_idx_00a8_JSHI:
     inc word [bp - 0x0002]           ; 0x5da4
 @..api_idx_00a8_JSHI.l3:
     mov ax, word [bp - 0x0002]       ; 0x5da7
-    cmp ax, word [bss_69c8]          ; 0x5daa
+    cmp ax, word [party_char_count]  ; 0x5daa
     jl short @..api_idx_00a8_JSHI.l1 ; 0x5dae
-    mov ax, word [bss_84a2]          ; 0x5db0
-    mov dx, word [bss_84a4]          ; 0x5db3
+    mov ax, word [item_action_reward] ; 0x5db0
+    mov dx, word [item_action_reward_hi] ; 0x5db3
     mov cx, 0x14                     ; 0x5db7
     mov bx, 0                        ; 0x5dba
     call aztec_ldv                   ; 0x5dbd
     push ax                          ; 0x5dc0
     push dx                          ; 0x5dc1
-    mov ax, word [bss_69c8]          ; 0x5dc2
+    mov ax, word [party_char_count]  ; 0x5dc2
     sub ax, word [bp - 0x0004]       ; 0x5dc5
     cwd                              ; 0x5dc8
     mov cx, ax                       ; 0x5dc9
@@ -46,10 +46,10 @@ api_idx_00a8_JSHI:
     mov word [bp - 0x0008], ax       ; 0x5de2
     mov ax, word [bp - 0x0008]       ; 0x5de5
     mov dx, word [bp - 0x0006]       ; 0x5de8
-    add word [bss_84a2], ax          ; 0x5deb
-    adc word [bss_84a4], dx          ; 0x5def
-    mov ax, word [bss_84a2]          ; 0x5df3
-    mov dx, word [bss_84a4]          ; 0x5df6
+    add word [item_action_reward], ax ; 0x5deb
+    adc word [item_action_reward_hi], dx ; 0x5def
+    mov ax, word [item_action_reward] ; 0x5df3
+    mov dx, word [item_action_reward_hi] ; 0x5df6
     push ax                          ; 0x5dfa
     push dx                          ; 0x5dfb
     mov ax, word [bp - 0x0004]       ; 0x5dfc
@@ -106,6 +106,6 @@ api_idx_00a8_JSHI:
     inc word [bp - 0x0002]           ; 0x5e7b
 @..api_idx_00a8_JSHI.l6:
     mov ax, word [bp - 0x0002]       ; 0x5e7e
-    cmp ax, word [bss_69c8]          ; 0x5e81
+    cmp ax, word [party_char_count]  ; 0x5e81
     jl short @..api_idx_00a8_JSHI.l4 ; 0x5e85
     ret                              ; 0x5e87

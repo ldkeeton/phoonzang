@@ -569,7 +569,7 @@ api_idx_004e_HUKL:
     mov dx, word [bss_8f16]          ; 0x3dce
     mov word [bss_9a30], dx          ; 0x3dd2
     mov word [bss_9a2e], ax          ; 0x3dd6
-    mov ax, word [bss_69c8]          ; 0x3dd9
+    mov ax, word [party_char_count]  ; 0x3dd9
     mov word [bss_9a4a], ax          ; 0x3ddc
     mov ax, 0x4c                     ; 0x3ddf
     push ax                          ; 0x3de2
@@ -751,7 +751,7 @@ api_idx_004e_HUKL:
     inc word [bp - 0x0002]           ; 0x3f7b
 @..api_idx_004e_HUKL.l41:
     mov ax, word [bp - 0x0002]       ; 0x3f7e
-    cmp ax, word [bss_69c8]          ; 0x3f81
+    cmp ax, word [party_char_count]  ; 0x3f81
     jl short @..api_idx_004e_HUKL.l38 ; 0x3f85
     push word [bp - 0x000a]          ; 0x3f87
     call aztec_close                 ; 0x3f8a

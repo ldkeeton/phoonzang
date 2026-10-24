@@ -69,7 +69,7 @@ api_idx_0002_GORG:
     les bx, word [tick_counter_ptr]  ; 0x8c30
     mov ax, word [es:bx]             ; 0x8c34
     mov dx, word [es:bx + 0x2]       ; 0x8c37
-    mov word [bss_908c], dx          ; 0x8c3b
+    mov word [party_redraw_last_tick_hi], dx ; 0x8c3b
     mov word [party_redraw_last_tick], ax ; 0x8c3f
     call draw_scene_frame            ; 0x8c42
     mov ax, 0                        ; 0x8c45

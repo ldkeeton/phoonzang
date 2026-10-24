@@ -50,7 +50,7 @@ api_idx_00b8_LTRM:
     inc word [bp - 0x0002]           ; 0x1556
 @..api_idx_00b8_LTRM.l4:
     mov ax, word [bp - 0x0002]       ; 0x1559
-    cmp ax, word [bss_69c8]          ; 0x155c
+    cmp ax, word [party_char_count]  ; 0x155c
     jl short @..api_idx_00b8_LTRM.l2 ; 0x1560
     mov ax, word [bp + 0x4]          ; 0x1562
     jmp near @..api_idx_00b8_LTRM.l60 ; 0x1565

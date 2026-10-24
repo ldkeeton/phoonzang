@@ -1848,7 +1848,7 @@ jumptable_883a:
     je short @..api_idx_00ac_OJJU.l111 ; 0x8b69
     cmp word [bp - 0x009e], byte 0   ; 0x8b6b
     jne short @..api_idx_00ac_OJJU.l111 ; 0x8b70
-    mov bx, word [bss_8492]          ; 0x8b72
+    mov bx, word [party_member_ext_1] ; 0x8b72
     cmp byte [bx + 0xd8], 0          ; 0x8b76
     jbe short @..api_idx_00ac_OJJU.l111 ; 0x8b7b
     mov ax, word [bss_8464]          ; 0x8b7d
@@ -1856,7 +1856,7 @@ jumptable_883a:
     mov bx, ax                       ; 0x8b82
     mov bx, word [bx + party_char_ext] ; 0x8b84
     mov al, byte [bx + 0xd8]         ; 0x8b88
-    mov bx, word [bss_8492]          ; 0x8b8c
+    mov bx, word [party_member_ext_1] ; 0x8b8c
     cmp al, byte [bx + 0xd8]         ; 0x8b90
     jne short @..api_idx_00ac_OJJU.l111 ; 0x8b94
     mov ax, 0x10                     ; 0x8b96

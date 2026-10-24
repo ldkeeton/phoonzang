@@ -408,7 +408,7 @@ show_intro_screen:
     inc word [bp - 0x0002]           ; 0x92fc
 @..show_intro_screen.l18:
     mov ax, word [bp - 0x0002]       ; 0x92ff
-    cmp ax, word [bss_69c8]          ; 0x9302
+    cmp ax, word [party_char_count]  ; 0x9302
     jl short @..show_intro_screen.l17 ; 0x9306
     mov ax, 0                        ; 0x9308
     push ax                          ; 0x930b

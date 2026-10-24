@@ -155,7 +155,7 @@ api_idx_00d4_LUPQ:
     inc word [bp - 0x0006]           ; 0x38a2
 @..api_idx_00d4_LUPQ.l11:
     mov ax, word [bp - 0x0006]       ; 0x38a5
-    cmp ax, word [bss_69c8]          ; 0x38a8
+    cmp ax, word [party_char_count]  ; 0x38a8
     jge short @..api_idx_00d4_LUPQ.l12 ; 0x38ac
     jmp near @..api_idx_00d4_LUPQ.l1 ; 0x38ae
 @..api_idx_00d4_LUPQ.l12:
@@ -172,7 +172,7 @@ api_idx_00d4_LUPQ:
     mov word [bp - 0x0006], 0        ; 0x38cc
 @..api_idx_00d4_LUPQ.l13:
     mov ax, word [bp - 0x0006]       ; 0x38d1
-    cmp ax, word [bss_69c8]          ; 0x38d4
+    cmp ax, word [party_char_count]  ; 0x38d4
     jl short @..api_idx_00d4_LUPQ.l14 ; 0x38d8
     jmp near @..api_idx_00d4_LUPQ.l96 ; 0x38da
 @..api_idx_00d4_LUPQ.l14:
@@ -1173,7 +1173,7 @@ jumptable_4058:
 @..api_idx_00d4_LUPQ.l82:
     inc word [bp - 0x0006]           ; 0x428e
     mov ax, word [bp - 0x0006]       ; 0x4291
-    cmp ax, word [bss_69c8]          ; 0x4294
+    cmp ax, word [party_char_count]  ; 0x4294
     je short @..api_idx_00d4_LUPQ.l83 ; 0x4298
     jmp near @..api_idx_00d4_LUPQ.l95 ; 0x429a
 @..api_idx_00d4_LUPQ.l83:
@@ -1301,7 +1301,7 @@ jumptable_4058:
     inc word [bp - 0x0006]           ; 0x43d3
 @..api_idx_00d4_LUPQ.l89:
     mov ax, word [bp - 0x0006]       ; 0x43d6
-    cmp ax, word [bss_69c8]          ; 0x43d9
+    cmp ax, word [party_char_count]  ; 0x43d9
     jge short @..api_idx_00d4_LUPQ.l90 ; 0x43dd
     jmp near @..api_idx_00d4_LUPQ.l87 ; 0x43df
 @..api_idx_00d4_LUPQ.l90:
@@ -1342,7 +1342,7 @@ jumptable_4058:
 @..api_idx_00d4_LUPQ.l93:
     inc word [bp - 0x009a]           ; 0x4435
 @..api_idx_00d4_LUPQ.l94:
-    mov ax, word [bss_69c8]          ; 0x4439
+    mov ax, word [party_char_count]  ; 0x4439
     dec ax                           ; 0x443c
     cmp ax, word [bp - 0x009a]       ; 0x443d
     jg short @..api_idx_00d4_LUPQ.l92 ; 0x4441
@@ -1431,7 +1431,7 @@ jumptable_4058:
     inc word [bp - 0x0006]           ; 0x4515
 @..api_idx_00d4_LUPQ.l105:
     mov ax, word [bp - 0x0006]       ; 0x4518
-    cmp ax, word [bss_69c8]          ; 0x451b
+    cmp ax, word [party_char_count]  ; 0x451b
     jge short @..api_idx_00d4_LUPQ.l106 ; 0x451f
     jmp near @..api_idx_00d4_LUPQ.l97 ; 0x4521
 @..api_idx_00d4_LUPQ.l106:

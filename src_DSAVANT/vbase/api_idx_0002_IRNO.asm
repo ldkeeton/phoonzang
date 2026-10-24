@@ -2,14 +2,14 @@
 api_idx_0002_IRNO:
     mov ax, 0xfffe                   ; 0x6756
     call aztec_csav                  ; 0x6759
-    cmp word [bss_906a], byte 0      ; 0x675c
+    cmp word [saved_screen_pending], byte 0 ; 0x675c
     je short @..api_idx_0002_IRNO.l1 ; 0x6761
     mov ax, 1                        ; 0x6763
     push ax                          ; 0x6766
-    push word [bss_9068]             ; 0x6767
+    push word [saved_screen_slot]    ; 0x6767
     call restore_saved_screen        ; 0x676b
     add sp, byte 4                   ; 0x676e
-    mov word [bss_906a], 0           ; 0x6771
+    mov word [saved_screen_pending], 0 ; 0x6771
 @..api_idx_0002_IRNO.l1:
     call free_current_maze           ; 0x6777
     mov ax, 0                        ; 0x677a
@@ -61,6 +61,6 @@ api_idx_0002_IRNO:
     push ax                          ; 0x67ec
     call gfx_show_area               ; 0x67ed
     add sp, byte 8                   ; 0x67f0
-    mov word [bss_69c8], 0           ; 0x67f3
+    mov word [party_char_count], 0   ; 0x67f3
     mov word [game_state], 4         ; 0x67f9
     ret                              ; 0x67ff

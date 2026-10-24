@@ -56,7 +56,7 @@ api_idx_0006_PSQH:
     imul cx                          ; 0x991e
     add ax, strict word 0x32         ; 0x9920
     mov word [bp - 0x0006], ax       ; 0x9923
-    mov ax, word [bss_69c8]          ; 0x9926
+    mov ax, word [party_char_count]  ; 0x9926
     push ax                          ; 0x9929
     cmp ax, strict word 3            ; 0x992a
     pop ax                           ; 0x992d

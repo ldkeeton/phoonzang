@@ -121,7 +121,7 @@ api_idx_0018_USPR:
     inc word [bp - 0x0002]           ; 0x1dd6
 @..api_idx_0018_USPR.l12:
     mov ax, word [bp - 0x0002]       ; 0x1dd9
-    cmp ax, word [bss_69c8]          ; 0x1ddc
+    cmp ax, word [party_char_count]  ; 0x1ddc
     jl short @..api_idx_0018_USPR.l11 ; 0x1de0
     cmp word [bp - 0x0014], byte 0   ; 0x1de2
     je short @..api_idx_0018_USPR.l13 ; 0x1de6
@@ -256,11 +256,11 @@ api_idx_0018_USPR:
     inc word [bp - 0x0002]           ; 0x1f11
 @..api_idx_0018_USPR.l27:
     mov ax, word [bp - 0x0002]       ; 0x1f14
-    cmp ax, word [bss_69c8]          ; 0x1f17
+    cmp ax, word [party_char_count]  ; 0x1f17
     jge short @..api_idx_0018_USPR.l28 ; 0x1f1b
     jmp near @..api_idx_0018_USPR.l19 ; 0x1f1d
 @..api_idx_0018_USPR.l28:
-    push word [bss_69c8]             ; 0x1f20
+    push word [party_char_count]     ; 0x1f20
     call random_below                ; 0x1f24
     pop cx                           ; 0x1f27
     mov cx, 0x248                    ; 0x1f28
@@ -356,7 +356,7 @@ api_idx_0018_USPR:
     inc word [bp - 0x0002]           ; 0x2000
 @..api_idx_0018_USPR.l36:
     mov ax, word [bp - 0x0002]       ; 0x2003
-    cmp ax, word [bss_69c8]          ; 0x2006
+    cmp ax, word [party_char_count]  ; 0x2006
     jl short @..api_idx_0018_USPR.l33 ; 0x200a
     call loc_QQOI                    ; 0x200c
     cmp word [bss_8450], byte 0      ; 0x200f

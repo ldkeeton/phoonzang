@@ -11,7 +11,7 @@ api_idx_0004_PIHK:
     cmp word [bss_8462], byte 0      ; 0x1c74
     jl short @..api_idx_0004_PIHK.l2 ; 0x1c79
     mov ax, word [bss_8462]          ; 0x1c7b
-    cmp ax, word [bss_69c8]          ; 0x1c7e
+    cmp ax, word [party_char_count]  ; 0x1c7e
     jge short @..api_idx_0004_PIHK.l2 ; 0x1c82
     mov cx, 0x248                    ; 0x1c84
     imul cx                          ; 0x1c87
@@ -32,7 +32,7 @@ api_idx_0004_PIHK:
     mov al, byte [bx + 0xe0]         ; 0x1caf
     sub ah, ah                       ; 0x1cb3
     push ax                          ; 0x1cb5
-    mov ax, bss_5842                 ; 0x1cb6
+    mov ax, action_bitmap            ; 0x1cb6
     push ax                          ; 0x1cb9
     call set_bitmap_bit              ; 0x1cba
     add sp, byte 6                   ; 0x1cbd
@@ -55,7 +55,7 @@ api_idx_0004_PIHK:
     mov bx, word [bx + party_char_ext] ; 0x1cea
     mov al, byte [bx + 0xe4]         ; 0x1cee
     cbw                              ; 0x1cf2
-    mov word [bss_849e], ax          ; 0x1cf3
+    mov word [selected_item_slot], ax ; 0x1cf3
 @..api_idx_0004_PIHK.l4:
     mov ax, 0x2c                     ; 0x1cf6
     imul word [bp + 0x6]             ; 0x1cf9
@@ -85,7 +85,7 @@ api_idx_0004_PIHK:
     mov bx, ax                       ; 0x1d33
     mov word [bx + bss_90ca], 0      ; 0x1d35
     mov word [bss_8320], 0           ; 0x1d3b
-    call loc_RPUI                    ; 0x1d41
+    call run_party_screen_animation  ; 0x1d41
     mov ax, 6                        ; 0x1d44
     imul word [bp - 0x0002]          ; 0x1d47
     mov cx, word [bp - 0x0004]       ; 0x1d4a
@@ -167,7 +167,7 @@ api_idx_0004_PIHK:
     mov bx, word [bx + party_char_ext] ; 0x1e22
     mov ax, word [bx + 0x40]         ; 0x1e26
     mov dx, word [bx + 0x42]         ; 0x1e29
-    add word [bss_84a2], ax          ; 0x1e2c
-    adc word [bss_84a4], dx          ; 0x1e30
+    add word [item_action_reward], ax ; 0x1e2c
+    adc word [item_action_reward_hi], dx ; 0x1e30
 @..api_idx_0004_PIHK.l7:
     ret                              ; 0x1e34

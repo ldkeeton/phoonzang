@@ -229,7 +229,7 @@ jumptable_7185_case_0:
     inc word [bp - 0x0002]           ; 0x725a
 @..api_idx_0002_NVMN.l11:
     mov ax, word [bp - 0x0002]       ; 0x725d
-    cmp ax, word [bss_69c8]          ; 0x7260
+    cmp ax, word [party_char_count]  ; 0x7260
     jl short @..api_idx_0002_NVMN.l10 ; 0x7264
     mov ax, 1                        ; 0x7266
     push ax                          ; 0x7269

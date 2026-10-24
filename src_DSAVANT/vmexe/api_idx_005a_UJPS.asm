@@ -309,11 +309,11 @@ api_idx_005a_UJPS:
     call load_message_string         ; 0xa20f
     add sp, byte 4                   ; 0xa212
 @..api_idx_005a_UJPS.l28:
-    cmp word [bss_0e36], strict word 0xe1 ; 0xa215
+    cmp word [character_record_index], strict word 0xe1 ; 0xa215
     jne short @..api_idx_005a_UJPS.l29 ; 0xa21b
     cmp byte [bp - 0x001b], 0x58     ; 0xa21d
     jne short @..api_idx_005a_UJPS.l29 ; 0xa221
-    mov word [bss_8458], 1           ; 0xa223
+    mov word [e1_event_flag], 1      ; 0xa223
     mov ax, bss_9136                 ; 0xa229
     push ax                          ; 0xa22c
     mov ax, 0xcf0                    ; 0xa22d

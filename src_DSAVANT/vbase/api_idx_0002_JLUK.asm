@@ -2,14 +2,14 @@
 api_idx_0002_JLUK:
     mov ax, 0xfffe                   ; 0x6800
     call aztec_csav                  ; 0x6803
-    cmp word [bss_906a], byte 0      ; 0x6806
+    cmp word [saved_screen_pending], byte 0 ; 0x6806
     je short @..api_idx_0002_JLUK.l1 ; 0x680b
     mov ax, 1                        ; 0x680d
     push ax                          ; 0x6810
-    push word [bss_9068]             ; 0x6811
+    push word [saved_screen_slot]    ; 0x6811
     call restore_saved_screen        ; 0x6815
     add sp, byte 4                   ; 0x6818
-    mov word [bss_906a], 0           ; 0x681b
+    mov word [saved_screen_pending], 0 ; 0x681b
 @..api_idx_0002_JLUK.l1:
     mov ax, 1                        ; 0x6821
     push ax                          ; 0x6824

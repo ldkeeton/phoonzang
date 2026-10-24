@@ -22,7 +22,7 @@ api_idx_000c_VJPM:
     mov ax, word [bp - 0x0002]       ; 0x6f6c
     cmp ax, strict word 3            ; 0x6f6f
     jl short @..api_idx_000c_VJPM.l1 ; 0x6f72
-    mov bx, word [bss_8492]          ; 0x6f74
+    mov bx, word [party_member_ext_1] ; 0x6f74
     cmp byte [bx + 0xd8], 0          ; 0x6f78
     jbe short @..api_idx_000c_VJPM.l3 ; 0x6f7d
     mov ax, 0x10                     ; 0x6f7f
@@ -500,7 +500,7 @@ jumptable_735e:
     mov ax, word [bp - 0x0002]       ; 0x73de
     cmp ax, strict word 3            ; 0x73e1
     jl short @..api_idx_000c_VJPM.l35 ; 0x73e4
-    call loc_RPUI                    ; 0x73e6
+    call run_party_screen_animation  ; 0x73e6
     cmp word [bp - 0x000c], byte 0   ; 0x73e9
     jne short @..api_idx_000c_VJPM.l34 ; 0x73ed
     mov word [game_state], 0xe       ; 0x73ef

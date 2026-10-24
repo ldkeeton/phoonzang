@@ -499,7 +499,7 @@ pick_spell_dialog:
     les bx, word [tick_counter_ptr]  ; 0x2e29
     mov ax, word [es:bx]             ; 0x2e2d
     mov dx, word [es:bx + 0x2]       ; 0x2e30
-    mov word [bss_908c], dx          ; 0x2e34
+    mov word [party_redraw_last_tick_hi], dx ; 0x2e34
     mov word [party_redraw_last_tick], ax ; 0x2e38
     mov word [bp - 0x001c], 1        ; 0x2e3b
 @..pick_spell_dialog.l8:

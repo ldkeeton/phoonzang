@@ -44,6 +44,6 @@ api_idx_0004_THPM:
     inc word [bp - 0x0002]           ; 0x75a1
 @..api_idx_0004_THPM.l4:
     mov ax, word [bp - 0x0002]       ; 0x75a4
-    cmp ax, word [bss_69c8]          ; 0x75a7
+    cmp ax, word [party_char_count]  ; 0x75a7
     jl short @..api_idx_0004_THPM.l2 ; 0x75ab
     ret                              ; 0x75ad

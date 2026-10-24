@@ -72,7 +72,7 @@ api_idx_0016_TOUQ:
     jne short @..api_idx_0016_TOUQ.l6 ; 0xa5fd
     cmp word [bp - 0x000a], byte 0   ; 0xa5ff
     jne short @..api_idx_0016_TOUQ.l4 ; 0xa603
-    call loc_RPUI                    ; 0xa605
+    call run_party_screen_animation  ; 0xa605
     mov ax, 0                        ; 0xa608
     push ax                          ; 0xa60b
     push word [bp - 0x0014]          ; 0xa60c

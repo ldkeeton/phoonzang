@@ -6,7 +6,7 @@ loc_GSUP:
     mov ax, word [es:bx]             ; 0x73c6
     mov dx, word [es:bx + 0x2]       ; 0x73c9
     sub ax, word [party_redraw_last_tick] ; 0x73cd
-    sbb dx, word [bss_908c]          ; 0x73d1
+    sbb dx, word [party_redraw_last_tick_hi] ; 0x73d1
     push ax                          ; 0x73d5
     push dx                          ; 0x73d6
     mov ax, word [bss_a5ae]          ; 0x73d7
@@ -32,7 +32,7 @@ loc_GSUP:
     les bx, word [tick_counter_ptr]  ; 0x73fb
     mov ax, word [es:bx]             ; 0x73ff
     mov dx, word [es:bx + 0x2]       ; 0x7402
-    mov word [bss_908c], dx          ; 0x7406
+    mov word [party_redraw_last_tick_hi], dx ; 0x7406
     mov word [party_redraw_last_tick], ax ; 0x740a
     mov ax, 1                        ; 0x740d
     ret                              ; 0x7410

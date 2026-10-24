@@ -2,7 +2,7 @@
 api_idx_000c_RLGP:
     mov ax, 0xfff4                   ; 0x5161
     call aztec_csav                  ; 0x5164
-    mov word [bss_905e], 5           ; 0x5167
+    mov word [party_return_state], 5 ; 0x5167
     mov word [game_state], 5         ; 0x516d
     mov word [banner_offset], 0x14   ; 0x5173
     mov word [banner_plain_flag], 0  ; 0x5179
@@ -21,7 +21,7 @@ api_idx_000c_RLGP:
     inc word [bp - 0x0002]           ; 0x51a7
 @..api_idx_000c_RLGP.l2:
     mov ax, word [bp - 0x0002]       ; 0x51aa
-    cmp ax, word [bss_69c8]          ; 0x51ad
+    cmp ax, word [party_char_count]  ; 0x51ad
     jl short @..api_idx_000c_RLGP.l1 ; 0x51b1
     cmp word [bp - 0x0004], byte 0   ; 0x51b3
     jne short @..api_idx_000c_RLGP.l3 ; 0x51b7
@@ -212,7 +212,7 @@ api_idx_000c_RLGP:
     inc word [bp - 0x0002]           ; 0x536c
 @..api_idx_000c_RLGP.l6:
     mov ax, word [bp - 0x0002]       ; 0x536f
-    cmp ax, word [bss_69c8]          ; 0x5372
+    cmp ax, word [party_char_count]  ; 0x5372
     jl short @..api_idx_000c_RLGP.l5 ; 0x5376
     cmp word [bss_8450], byte 0      ; 0x5378
     je short @..api_idx_000c_RLGP.l7 ; 0x537d

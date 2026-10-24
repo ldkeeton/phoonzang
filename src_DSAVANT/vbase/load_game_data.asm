@@ -776,7 +776,7 @@ load_game_data:
     mov ax, 0xffff                   ; 0x373b
     ret                              ; 0x373e
 @..load_game_data.l44:
-    mov word [bss_69c8], 0           ; 0x373f
+    mov word [party_char_count], 0   ; 0x373f
     mov word [bp - 0x0002], 0        ; 0x3745
     jmp near @..load_game_data.l48   ; 0x374a
 @..load_game_data.l45:
@@ -811,16 +811,16 @@ load_game_data:
     mov ax, 0xffff                   ; 0x378f
     ret                              ; 0x3792
 @..load_game_data.l47:
-    push word [bss_69c8]             ; 0x3793
+    push word [party_char_count]     ; 0x3793
     call api_idx_0006_MHOR           ; 0x3797
     pop cx                           ; 0x379a
-    mov cx, word [bss_69c8]          ; 0x379b
+    mov cx, word [party_char_count]  ; 0x379b
     shl cx, 1                        ; 0x379f
     mov bx, cx                       ; 0x37a1
     mov word [bx + member_state + 0xb92], ax ; 0x37a3
     mov si, bss_9a4c                 ; 0x37a7
     mov ax, 0x248                    ; 0x37aa
-    imul word [bss_69c8]             ; 0x37ad
+    imul word [party_char_count]     ; 0x37ad
     mov di, ax                       ; 0x37b1
     add ax, party_records            ; 0x37b3
     mov di, ax                       ; 0x37b6
@@ -828,7 +828,7 @@ load_game_data:
     mov es, cx                       ; 0x37ba
     mov cx, 0x124                    ; 0x37bc
     rep movsw                        ; 0x37bf
-    inc word [bss_69c8]              ; 0x37c1
+    inc word [party_char_count]      ; 0x37c1
     inc word [bp - 0x0002]           ; 0x37c5
 @..load_game_data.l48:
     mov ax, word [bp - 0x0002]       ; 0x37c8
@@ -900,7 +900,7 @@ load_game_data:
     inc word [bp - 0x0002]           ; 0x3869
 @..load_game_data.l55:
     mov ax, word [bp - 0x0002]       ; 0x386c
-    cmp ax, word [bss_69c8]          ; 0x386f
+    cmp ax, word [party_char_count]  ; 0x386f
     jl short @..load_game_data.l53   ; 0x3873
     mov ax, 0xc7                     ; 0x3875
     push ax                          ; 0x3878

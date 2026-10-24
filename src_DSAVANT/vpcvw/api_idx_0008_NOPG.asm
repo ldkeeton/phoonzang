@@ -68,16 +68,16 @@ jumptable_291f_case_29:
 jumptable_291f_case_39:
     mov ax, 0x32                     ; 0x229f
     imul word [bp + 0x8]             ; 0x22a2
-    add word [bss_82fa], ax          ; 0x22a5
+    add word [party_buff_turns], ax  ; 0x22a5
     mov ax, 0                        ; 0x22a9
     push ax                          ; 0x22ac
-    push word [bss_82fc]             ; 0x22ad
+    push word [party_buff_charge]    ; 0x22ad
     mov ax, 5                        ; 0x22b1
     imul word [bp + 0x8]             ; 0x22b4
     push ax                          ; 0x22b7
     call loc_QQUT                    ; 0x22b8
     add sp, byte 6                   ; 0x22bb
-    mov word [bss_82fc], ax          ; 0x22be
+    mov word [party_buff_charge], ax ; 0x22be
     jmp near @..api_idx_0008_NOPG.l43 ; 0x22c1
 jumptable_291f_case_23:
     mov ax, 0                        ; 0x22c4
@@ -86,7 +86,7 @@ jumptable_291f_case_23:
     mov ax, word [bp + 0xa]          ; 0x22cd
 @..api_idx_0008_NOPG.l1:
     mov word [bp - 0x0002], ax       ; 0x22d0
-    mov ax, word [bss_69c8]          ; 0x22d3
+    mov ax, word [party_char_count]  ; 0x22d3
     cmp word [bp + 0x6], byte 0x13   ; 0x22d6
     je short @..api_idx_0008_NOPG.l2 ; 0x22da
     mov ax, word [bp + 0xa]          ; 0x22dc
@@ -350,7 +350,7 @@ jumptable_291f_case_35:
     inc word [bp - 0x0002]           ; 0x2545
 @..api_idx_0008_NOPG.l19:
     mov ax, word [bp - 0x0002]       ; 0x2548
-    cmp ax, word [bss_69c8]          ; 0x254b
+    cmp ax, word [party_char_count]  ; 0x254b
     jl short @..api_idx_0008_NOPG.l17 ; 0x254f
     jmp near @..api_idx_0008_NOPG.l43 ; 0x2551
 jumptable_291f_case_32:
@@ -407,7 +407,7 @@ jumptable_291f_case_37:
     mov ax, word [bp + 0xa]          ; 0x25cc
 @..api_idx_0008_NOPG.l24:
     mov word [bp - 0x0002], ax       ; 0x25cf
-    mov ax, word [bss_69c8]          ; 0x25d2
+    mov ax, word [party_char_count]  ; 0x25d2
     cmp word [bp + 0x6], byte 0x58   ; 0x25d5
     je short @..api_idx_0008_NOPG.l25 ; 0x25d9
     mov ax, word [bp + 0xa]          ; 0x25db

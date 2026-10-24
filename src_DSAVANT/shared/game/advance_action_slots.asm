@@ -141,7 +141,7 @@ advance_action_slots:
     push word [bp + 0xa]
     push word [bp + 0x8]
     push word [bp + 0x4]
-    call advance_action_slots.fill_action_slot_table_alt1
+    call advance_action_slots.fill_action_slot_table_vmnpc1
     add sp, byte 8
     push word [bp + 0xe]
     mov ax, 0

@@ -41,7 +41,7 @@ api_idx_0006_TMLR:
     mov ax, word [es:bx]             ; 0x1903
     mov dx, word [es:bx + 0x2]       ; 0x1906
     sub ax, word [party_redraw_last_tick] ; 0x190a
-    sbb dx, word [bss_908c]          ; 0x190e
+    sbb dx, word [party_redraw_last_tick_hi] ; 0x190e
     push ax                          ; 0x1912
     push dx                          ; 0x1913
     mov ax, word [bss_90e2]          ; 0x1914
@@ -72,7 +72,7 @@ api_idx_0006_TMLR:
     shl ax, 1                        ; 0x1940
     shl ax, 1                        ; 0x1942
     mov bx, ax                       ; 0x1944
-    push word [bx + bss_9062]        ; 0x1946
+    push word [bx + screen_cache_0_seg] ; 0x1946
     push word [bx + screen_cache]    ; 0x194a
     call gfx_restore_screen          ; 0x194e
     add sp, byte 8                   ; 0x1951

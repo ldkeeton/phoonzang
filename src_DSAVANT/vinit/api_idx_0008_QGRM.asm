@@ -26,7 +26,7 @@ api_idx_0008_QGRM:
     mov ax, word [bp - 0x0004]       ; 0x1445
     cmp ax, strict word 0x12         ; 0x1448
     jl short @..api_idx_0008_QGRM.l1 ; 0x144b
-    mov word [bss_906a], 0           ; 0x144d
+    mov word [saved_screen_pending], 0 ; 0x144d
     mov word [maze_state], 0         ; 0x1453
     mov word [maze_variant], 0       ; 0x1459
     mov word [current_maze], 0xffff  ; 0x145f
@@ -114,13 +114,13 @@ api_idx_0008_QGRM:
     cmp ax, strict word 6            ; 0x152c
     jl short @..api_idx_0008_QGRM.l3 ; 0x152f
     mov word [message_block_current], 0xffff ; 0x1531
-    mov word [bss_69c8], 0           ; 0x1537
+    mov word [party_char_count], 0   ; 0x1537
     mov word [bp - 0x0002], 0        ; 0x153d
 @..api_idx_0008_QGRM.l4:
     mov ax, word [bp - 0x0002]       ; 0x1542
     shl ax, 1                        ; 0x1545
     mov bx, ax                       ; 0x1547
-    mov word [bx + bss_8af0 + 0x2], 0xffff ; 0x1549
+    mov word [bx + member_roster_index + 0x2], 0xffff ; 0x1549
     mov ax, word [bp - 0x0002]       ; 0x154f
     mov cx, 2                        ; 0x1552
     cwd                              ; 0x1555
@@ -170,6 +170,6 @@ api_idx_0008_QGRM:
     add sp, byte 8                   ; 0x15c2
     mov word [bss_8d08], dx          ; 0x15c5
     mov word [bss_8d06], ax          ; 0x15c9
-    mov word [bss_0e36], 0           ; 0x15cc
+    mov word [character_record_index], 0 ; 0x15cc
     mov word [game_state], 4         ; 0x15d2
     ret                              ; 0x15d8

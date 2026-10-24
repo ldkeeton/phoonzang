@@ -80,7 +80,7 @@ pick_party_member: ; Aztec csav frame=0x0012
 @..pick_party_member.l3:
     cmp ax, strict word 0x31         ; 0x21b0
     jl short @..pick_party_member.l4 ; 0x21b3
-    mov cx, word [bss_69c8]          ; 0x21b5
+    mov cx, word [party_char_count]  ; 0x21b5
     add cx, byte 0x31                ; 0x21b9
     cmp cx, ax                       ; 0x21bc
     jle short @..pick_party_member.l4 ; 0x21be
@@ -152,7 +152,7 @@ pick_party_member: ; Aztec csav frame=0x0012
     inc word [bp - 0x0002]           ; 0x225a
 @..pick_party_member.l8:
     mov ax, word [bp - 0x0002]       ; 0x225d
-    cmp ax, word [bss_69c8]          ; 0x2260
+    cmp ax, word [party_char_count]  ; 0x2260
     jl short @..pick_party_member.l7 ; 0x2264
     mov ax, 0                        ; 0x2266
     push ax                          ; 0x2269
@@ -162,7 +162,7 @@ pick_party_member: ; Aztec csav frame=0x0012
     push ax                          ; 0x226d
     mov ax, 0xffff                   ; 0x226e
     push ax                          ; 0x2271
-    push word [bss_69c8]             ; 0x2272
+    push word [party_char_count]     ; 0x2272
     call set_hotspot                 ; 0x2276
     add sp, byte 0x0e                ; 0x2279
     mov word [bp - 0x0008], 0        ; 0x227c

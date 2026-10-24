@@ -112,7 +112,7 @@ loc_HTTH:
     mov ax, word [bp + 0x4]          ; 0x16b4
     shl ax, 1                        ; 0x16b7
     mov bx, ax                       ; 0x16b9
-    mov ax, word [bx + bss_8af0 + 0x2] ; 0x16bb
+    mov ax, word [bx + member_roster_index + 0x2] ; 0x16bb
     mov word [bp - 0x024c], ax       ; 0x16bf
     mov ax, word [bx + member_state + 0xb92] ; 0x16c3
     mov word [bp - 0x024e], ax       ; 0x16c7
@@ -133,11 +133,11 @@ loc_HTTH:
     mov ax, word [bp - 0x0002]       ; 0x16ee
     shl ax, 1                        ; 0x16f1
     mov bx, ax                       ; 0x16f3
-    mov ax, word [bx + bss_8af0 + 0x2] ; 0x16f5
+    mov ax, word [bx + member_roster_index + 0x2] ; 0x16f5
     mov cx, word [bp + 0x4]          ; 0x16f9
     shl cx, 1                        ; 0x16fc
     mov bx, cx                       ; 0x16fe
-    mov word [bx + bss_8af0 + 0x2], ax ; 0x1700
+    mov word [bx + member_roster_index + 0x2], ax ; 0x1700
     mov ax, word [bp - 0x0002]       ; 0x1704
     shl ax, 1                        ; 0x1707
     mov bx, ax                       ; 0x1709
@@ -158,7 +158,7 @@ loc_HTTH:
     mov cx, word [bp - 0x0002]       ; 0x1733
     shl cx, 1                        ; 0x1736
     mov bx, cx                       ; 0x1738
-    mov word [bx + bss_8af0 + 0x2], ax ; 0x173a
+    mov word [bx + member_roster_index + 0x2], ax ; 0x173a
     mov ax, word [bp - 0x024e]       ; 0x173e
     mov word [bx + member_state + 0xb92], ax ; 0x1742
     mov ax, 0                        ; 0x1746

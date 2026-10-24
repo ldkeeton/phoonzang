@@ -56,14 +56,14 @@ party_slot_glyphs equ __zparty_slot_glyphs - __zdseg_start
 dseg_03ae equ __zdseg_03ae - __zdseg_start
 dseg_03dc equ __zdseg_03dc - __zdseg_start
 maze_blocks equ __zstr_0bd7 - __zdseg_start + 0x0003
-bss_0e36 equ __zbss_0e36 - __zdseg_start
+character_record_index equ __zbss_0e36 - __zdseg_start
 bss_0e4c equ __zbss_0e4c - __zdseg_start
 bss_2d40 equ __zbss_2d40 - __zdseg_start
 bss_2d58 equ __zbss_2d58 - __zdseg_start
 bss_5528 equ __zbss_5528 - __zdseg_start
 bss_552a equ __zbss_552a - __zdseg_start
 bss_5642 equ __zbss_5642 - __zdseg_start
-bss_5842 equ __zbss_5842 - __zdseg_start
+action_bitmap equ __zbss_5842 - __zdseg_start
 bss_590e equ __zbss_590e - __zdseg_start
 bss_5910 equ __zbss_5910 - __zdseg_start
 bss_593a equ __zbss_593a - __zdseg_start
@@ -100,8 +100,8 @@ glyph_y_table_b equ __zbss_7f1d - __zdseg_start
 bss_82f4 equ __zbss_82f4 - __zdseg_start
 bss_82f6 equ __zbss_82f6 - __zdseg_start
 bss_82f8 equ __zbss_82f8 - __zdseg_start
-bss_82fa equ __zbss_82fa - __zdseg_start
-bss_82fc equ __zbss_82fc - __zdseg_start
+party_buff_turns equ __zbss_82fa - __zdseg_start
+party_buff_charge equ __zbss_82fc - __zdseg_start
 bss_82fe equ __zbss_82fe - __zdseg_start
 bss_8300 equ __zbss_8300 - __zdseg_start
 bss_8302 equ __zbss_8302 - __zdseg_start
@@ -116,12 +116,12 @@ cell_slot_ref equ __zbss_843a - __zdseg_start
 bss_844c equ __zbss_844c - __zdseg_start
 bss_844e equ __zbss_844e - __zdseg_start
 bss_8450 equ __zbss_8450 - __zdseg_start
-bss_8452 equ __zbss_8452 - __zdseg_start
+party_entry_mode equ __zbss_8452 - __zdseg_start
 row_limit equ __zbss_8454 - __zdseg_start
-bss_8456 equ __zbss_8456 - __zdseg_start
-bss_8458 equ __zbss_8458 - __zdseg_start
-bss_845a equ __zbss_845a - __zdseg_start
-bss_845c equ __zbss_845c - __zdseg_start
+requested_row_limit equ __zbss_8456 - __zdseg_start
+e1_event_flag equ __zbss_8458 - __zdseg_start
+party_entry_flag equ __zbss_845a - __zdseg_start
+party_screen_done equ __zbss_845c - __zdseg_start
 bss_845e equ __zbss_845e - __zdseg_start
 dest_alt_arg equ __zbss_8460 - __zdseg_start
 bss_8462 equ __zbss_8462 - __zdseg_start
@@ -131,11 +131,11 @@ overlay_list equ __zbss_8468 - __zdseg_start
 party_char equ __zbss_8482 - __zdseg_start
 bss_848e equ __zbss_848e - __zdseg_start
 party_char_ext equ __zbss_8490 - __zdseg_start
-bss_8492 equ __zbss_8492 - __zdseg_start
-bss_849e equ __zbss_849e - __zdseg_start
-bss_84a0 equ __zbss_84a0 - __zdseg_start
-bss_84a2 equ __zbss_84a2 - __zdseg_start
-bss_84a4 equ __zbss_84a4 - __zdseg_start
+party_member_ext_1 equ __zbss_8492 - __zdseg_start
+selected_item_slot equ __zbss_849e - __zdseg_start
+selected_item_record equ __zbss_84a0 - __zdseg_start
+item_action_reward equ __zbss_84a2 - __zdseg_start
+item_action_reward_hi equ __zbss_84a4 - __zdseg_start
 bss_84a6 equ __zbss_84a6 - __zdseg_start
 bss_84e8 equ __zbss_84e8 - __zdseg_start
 slot_records equ __zbss_84ec - __zdseg_start
@@ -170,7 +170,7 @@ bss_8a56 equ __zbss_8a56 - __zdseg_start
 bss_8a6e equ __zbss_8a6e - __zdseg_start
 bss_8aac equ __zbss_8aac - __zdseg_start
 bss_8aee equ __zbss_8aee - __zdseg_start
-bss_8af0 equ __zbss_8af0 - __zdseg_start
+member_roster_index equ __zbss_8af0 - __zdseg_start
 bss_8afe equ __zbss_8afe - __zdseg_start
 bss_8b7e equ __zbss_8b7e - __zdseg_start
 bss_8bfe equ __zbss_8bfe - __zdseg_start
@@ -219,13 +219,13 @@ bss_9056 equ __zbss_9056 - __zdseg_start
 bss_9058 equ __zbss_9058 - __zdseg_start
 message_delay equ __zbss_905a - __zdseg_start
 bss_905c equ __zbss_905c - __zdseg_start
-bss_905e equ __zbss_905e - __zdseg_start
+party_return_state equ __zbss_905e - __zdseg_start
 screen_cache equ __zbss_9060 - __zdseg_start
-bss_9062 equ __zbss_9062 - __zdseg_start
-bss_9064 equ __zbss_9064 - __zdseg_start
-bss_9066 equ __zbss_9066 - __zdseg_start
-bss_9068 equ __zbss_9068 - __zdseg_start
-bss_906a equ __zbss_906a - __zdseg_start
+screen_cache_0_seg equ __zbss_9062 - __zdseg_start
+screen_cache_1_off equ __zbss_9064 - __zdseg_start
+screen_cache_1_seg equ __zbss_9066 - __zdseg_start
+saved_screen_slot equ __zbss_9068 - __zdseg_start
+saved_screen_pending equ __zbss_906a - __zdseg_start
 screen_cache_index equ __zbss_906c - __zdseg_start
 bss_906e equ __zbss_906e - __zdseg_start
 bss_9070 equ __zbss_9070 - __zdseg_start
@@ -233,7 +233,7 @@ bss_9072 equ __zbss_9072 - __zdseg_start
 bss_9074 equ __zbss_9074 - __zdseg_start
 bss_9088 equ __zbss_9088 - __zdseg_start
 party_redraw_last_tick equ __zbss_908a - __zdseg_start
-bss_908c equ __zbss_908c - __zdseg_start
+party_redraw_last_tick_hi equ __zbss_908c - __zdseg_start
 bss_908e equ __zbss_908e - __zdseg_start
 bss_9090 equ __zbss_9090 - __zdseg_start
 bss_9092 equ __zbss_9092 - __zdseg_start
@@ -493,13 +493,13 @@ pc_spell_power_cap equ __zbss_5c18 - __zdseg_start
 ; member_state       equ __zbss_5e2a - __zdseg_start
 %include "ds/game/draw_party_member_panel.asm" ; 0x1d81
 
-; bss_0e2e      equ __zbss_0e2e - __zdseg_start
-; bss_0e30      equ __zbss_0e30 - __zdseg_start
-; mouse_active  equ __zbss_0e32 - __zdseg_start
-; bss_59fa      equ __zbss_59fa - __zdseg_start
-; hotspot_rects equ __zbss_59fe - __zdseg_start
-; hotspot_hit   equ __zbss_5b3e - __zdseg_start
-bss_69c8      equ __zbss_69c8 - __zdseg_start
+; bss_0e2e         equ __zbss_0e2e - __zdseg_start
+; bss_0e30         equ __zbss_0e30 - __zdseg_start
+; mouse_active     equ __zbss_0e32 - __zdseg_start
+; bss_59fa         equ __zbss_59fa - __zdseg_start
+; hotspot_rects    equ __zbss_59fe - __zdseg_start
+; hotspot_hit      equ __zbss_5b3e - __zdseg_start
+party_char_count equ __zbss_69c8 - __zdseg_start
 %include "ds/game/pick_party_member.asm"   ; 0x20f8
 
 %include "ds/game/add_random_steps.asm"    ; 0x2305

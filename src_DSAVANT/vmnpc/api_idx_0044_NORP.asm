@@ -497,7 +497,7 @@ api_idx_0044_NORP:
     les bx, word [tick_counter_ptr]  ; 0x7d0b
     mov ax, word [es:bx]             ; 0x7d0f
     mov dx, word [es:bx + 0x2]       ; 0x7d12
-    mov word [bss_908c], dx          ; 0x7d16
+    mov word [party_redraw_last_tick_hi], dx ; 0x7d16
     mov word [party_redraw_last_tick], ax ; 0x7d1a
     mov word [bp - 0x001c], 1        ; 0x7d1d
 @..api_idx_0044_NORP.l8:

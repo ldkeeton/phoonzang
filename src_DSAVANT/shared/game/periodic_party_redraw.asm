@@ -10,7 +10,7 @@ periodic_party_redraw:
     mov ax, word [bss_908e]
     mov dx, word [bss_9090]
     sub ax, word [party_redraw_last_tick]
-    sbb dx, word [bss_908c]
+    sbb dx, word [party_redraw_last_tick_hi]
     mov word [bss_9094], dx
     mov word [bss_9092], ax
     mov ax, word [periodic_party_redraw.party_redraw_mode1]
@@ -29,7 +29,7 @@ periodic_party_redraw:
 @..periodic_party_redraw.l2:
     mov ax, word [bss_908e]
     mov dx, word [bss_9090]
-    mov word [bss_908c], dx
+    mov word [party_redraw_last_tick_hi], dx
     mov word [party_redraw_last_tick], ax
     call draw_marker_glyph
     push word [bp + 0x4]

@@ -20,10 +20,10 @@ loc_GPUL:
 @..loc_GPUL.l1:
     mov al, byte [bss_91c2]          ; 0x298a
     sub ah, ah                       ; 0x298d
-    mov word [bss_0e36], ax          ; 0x298f
-    mov word [bss_8452], 1           ; 0x2992
-    mov word [bss_845a], 0           ; 0x2998
+    mov word [character_record_index], ax ; 0x298f
+    mov word [party_entry_mode], 1   ; 0x2992
+    mov word [party_entry_flag], 0   ; 0x2998
     mov word [bss_95a6], 0           ; 0x299e
     mov word [game_state], 0xa       ; 0x29a4
-    mov word [bss_905e], 0x12        ; 0x29aa
+    mov word [party_return_state], 0x12 ; 0x29aa
     ret                              ; 0x29b0

@@ -10,7 +10,7 @@ loc_TTSP:
     mov ax, word [bss_908e]
     mov dx, word [bss_9090]
     sub ax, word [party_redraw_last_tick]
-    sbb dx, word [bss_908c]
+    sbb dx, word [party_redraw_last_tick_hi]
     mov word [bss_9094], dx
     mov word [bss_9092], ax
     mov ax, word [loc_TTSP.bss1]
@@ -29,7 +29,7 @@ loc_TTSP:
 @..loc_TTSP.l2:
     mov ax, word [bss_908e]
     mov dx, word [bss_9090]
-    mov word [bss_908c], dx
+    mov word [party_redraw_last_tick_hi], dx
     mov word [party_redraw_last_tick], ax
     mov ax, word [loc_TTSP.bss2]
     inc ax

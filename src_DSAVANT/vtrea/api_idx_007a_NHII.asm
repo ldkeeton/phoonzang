@@ -11,7 +11,7 @@ api_idx_007a_NHII:
     cmp byte [bx + 0x35], 2          ; 0x4f25
     jne short @..api_idx_007a_NHII.l2 ; 0x4f29
 @..api_idx_007a_NHII.l1:
-    push word [bss_69c8]             ; 0x4f2b
+    push word [party_char_count]     ; 0x4f2b
     call random_below                ; 0x4f2f
     pop cx                           ; 0x4f32
     mov word [bp - 0x0006], ax       ; 0x4f33

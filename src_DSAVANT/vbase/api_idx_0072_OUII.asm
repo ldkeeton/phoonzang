@@ -388,7 +388,7 @@ api_idx_0072_OUII:
     mov ax, 0xffff                   ; 0x2327
     ret                              ; 0x232a
 @..api_idx_0072_OUII.l24:
-    mov word [bss_69c8], 0           ; 0x232b
+    mov word [party_char_count], 0   ; 0x232b
     mov word [bp - 0x0002], 0        ; 0x2331
     jmp near @..api_idx_0072_OUII.l91 ; 0x2336
 @..api_idx_0072_OUII.l25:
@@ -423,15 +423,15 @@ api_idx_0072_OUII:
     mov ax, 0xffff                   ; 0x237b
     ret                              ; 0x237e
 @..api_idx_0072_OUII.l27:
-    push word [bss_69c8]             ; 0x237f
+    push word [party_char_count]     ; 0x237f
     call api_idx_0006_MHOR           ; 0x2383
     pop cx                           ; 0x2386
-    mov cx, word [bss_69c8]          ; 0x2387
+    mov cx, word [party_char_count]  ; 0x2387
     shl cx, 1                        ; 0x238b
     mov bx, cx                       ; 0x238d
     mov word [bx + member_state + 0xb92], ax ; 0x238f
     mov ax, 0x248                    ; 0x2393
-    imul word [bss_69c8]             ; 0x2396
+    imul word [party_char_count]     ; 0x2396
     add ax, party_records            ; 0x239a
     mov word [bp - 0x0014], ax       ; 0x239d
     mov ax, word [bss_9426]          ; 0x23a0
@@ -974,7 +974,7 @@ jumptable_2668:
     mov word [bp - 0x0004], 0        ; 0x290a
 @..api_idx_0072_OUII.l54:
     push word [bp - 0x0004]          ; 0x290f
-    push word [bss_69c8]             ; 0x2912
+    push word [party_char_count]     ; 0x2912
     call reset_page_record           ; 0x2916
     add sp, byte 4                   ; 0x2919
     inc word [bp - 0x0004]           ; 0x291c
@@ -1079,12 +1079,12 @@ jumptable_2668:
     mov ax, word [bp - 0x0004]       ; 0x2a20
     cmp ax, strict word 8            ; 0x2a23
     jl short @..api_idx_0072_OUII.l65 ; 0x2a26
-    push word [bss_69c8]             ; 0x2a28
+    push word [party_char_count]     ; 0x2a28
     call api_idx_0004_MMTP           ; 0x2a2c
     pop cx                           ; 0x2a2f
     mov word [bp - 0x0016], 0        ; 0x2a30
     mov word [bp - 0x0018], 0        ; 0x2a35
-    cmp word [bss_69c8], byte 0      ; 0x2a3a
+    cmp word [party_char_count], byte 0 ; 0x2a3a
     jne short @..api_idx_0072_OUII.l66 ; 0x2a3f
     mov ax, 1                        ; 0x2a41
     push ax                          ; 0x2a44
@@ -1102,7 +1102,7 @@ jumptable_2668:
     push ax                          ; 0x2a61
     mov ax, 0x19b                    ; 0x2a62
     push ax                          ; 0x2a65
-    push word [bss_69c8]             ; 0x2a66
+    push word [party_char_count]     ; 0x2a66
     call api_idx_004c_MUGV           ; 0x2a6a
     add sp, byte 0x0a                ; 0x2a6d
     inc word [bp - 0x0018]           ; 0x2a70
@@ -1200,7 +1200,7 @@ jumptable_2af5:
     add ax, strict word 0x40         ; 0x2b52
     push ax                          ; 0x2b55
     push word [bp - 0x0004]          ; 0x2b56
-    push word [bss_69c8]             ; 0x2b59
+    push word [party_char_count]     ; 0x2b59
     call api_idx_004c_MUGV           ; 0x2b5d
     add sp, byte 0x0a                ; 0x2b60
     inc word [bp - 0x0018]           ; 0x2b63
@@ -1222,7 +1222,7 @@ jumptable_2af5:
     add ax, strict word 0x40         ; 0x2b89
     push ax                          ; 0x2b8c
     push word [bp - 0x0006]          ; 0x2b8d
-    push word [bss_69c8]             ; 0x2b90
+    push word [party_char_count]     ; 0x2b90
     call api_idx_004c_MUGV           ; 0x2b94
     add sp, byte 0x0a                ; 0x2b97
     inc word [bp - 0x0018]           ; 0x2b9a
@@ -1296,7 +1296,7 @@ jumptable_2af5:
     add ax, strict word 0x40         ; 0x2c38
     push ax                          ; 0x2c3b
     push word [bp - 0x0006]          ; 0x2c3c
-    push word [bss_69c8]             ; 0x2c3f
+    push word [party_char_count]     ; 0x2c3f
     call api_idx_004c_MUGV           ; 0x2c43
     add sp, byte 0x0a                ; 0x2c46
     inc word [bp - 0x0018]           ; 0x2c49
@@ -1383,7 +1383,7 @@ jumptable_2af5:
     add ax, strict word 0x40         ; 0x2d05
     push ax                          ; 0x2d08
     push word [bp - 0x0006]          ; 0x2d09
-    push word [bss_69c8]             ; 0x2d0c
+    push word [party_char_count]     ; 0x2d0c
     call api_idx_004c_MUGV           ; 0x2d10
     add sp, byte 0x0a                ; 0x2d13
     inc word [bp - 0x0018]           ; 0x2d16
@@ -1447,11 +1447,11 @@ jumptable_2af5:
     add ax, strict word 0x40         ; 0x2d9d
     push ax                          ; 0x2da0
     push word [bp - 0x0006]          ; 0x2da1
-    push word [bss_69c8]             ; 0x2da4
+    push word [party_char_count]     ; 0x2da4
     call api_idx_004c_MUGV           ; 0x2da8
     add sp, byte 0x0a                ; 0x2dab
 @..api_idx_0072_OUII.l90:
-    inc word [bss_69c8]              ; 0x2dae
+    inc word [party_char_count]      ; 0x2dae
     inc word [bp - 0x0002]           ; 0x2db2
 @..api_idx_0072_OUII.l91:
     mov ax, word [bp - 0x0002]       ; 0x2db5
@@ -1487,7 +1487,7 @@ jumptable_2af5:
     inc word [bp - 0x0004]           ; 0x2e01
 @..api_idx_0072_OUII.l96:
     mov ax, word [bp - 0x0004]       ; 0x2e04
-    cmp ax, word [bss_69c8]          ; 0x2e07
+    cmp ax, word [party_char_count]  ; 0x2e07
     jl short @..api_idx_0072_OUII.l93 ; 0x2e0b
     mov ax, word [bp - 0x001a]       ; 0x2e0d
     jmp near @..api_idx_0072_OUII.l101 ; 0x2e10

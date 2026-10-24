@@ -56,6 +56,6 @@ api_idx_0004_TLVR:
     mov si, word [party_region]      ; 0x74ce
     mov al, byte [bx + si + spell_table + 0x430] ; 0x74d2
     sub ah, ah                       ; 0x74d6
-    mov word [bss_84a0], ax          ; 0x74d8
+    mov word [selected_item_record], ax ; 0x74d8
     mov word [game_state], 0x15      ; 0x74db
     ret                              ; 0x74e1

@@ -24,7 +24,7 @@ api_idx_0008_KNNO:
     inc word [bp - 0x0006]           ; 0x29ea
 @..api_idx_0008_KNNO.l2:
     mov ax, word [bp - 0x0006]       ; 0x29ed
-    cmp ax, word [bss_69c8]          ; 0x29f0
+    cmp ax, word [party_char_count]  ; 0x29f0
     jge short @..api_idx_0008_KNNO.l3 ; 0x29f4
     cmp word [bp - 0x0002], byte 0xff ; 0x29f6
     je short @..api_idx_0008_KNNO.l1 ; 0x29fa
@@ -45,7 +45,7 @@ api_idx_0008_KNNO:
     inc word [bp - 0x0006]           ; 0x2a1f
 @..api_idx_0008_KNNO.l5:
     mov ax, word [bp - 0x0006]       ; 0x2a22
-    cmp ax, word [bss_69c8]          ; 0x2a25
+    cmp ax, word [party_char_count]  ; 0x2a25
     jge short @..api_idx_0008_KNNO.l6 ; 0x2a29
     cmp word [bp - 0x0002], byte 0xff ; 0x2a2b
     je short @..api_idx_0008_KNNO.l4 ; 0x2a2f

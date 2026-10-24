@@ -44,7 +44,7 @@ run_state_1a_scene:
     add sp, byte 6                   ; 0x817f
     mov word [bss_844c], ax          ; 0x8182
 @..run_state_1a_scene.l2:
-    push word [bss_84a0]             ; 0x8185
+    push word [selected_item_record] ; 0x8185
     call api_idx_0072_LQIT           ; 0x8189
     pop cx                           ; 0x818c
     mov ax, 1                        ; 0x818d

@@ -15,7 +15,7 @@ loc_OTGM:
     jne short @..loc_OTGM.l1         ; 0x0f8a
     ret                              ; 0x0f8c
 @..loc_OTGM.l1:
-    call loc_RPUI                    ; 0x0f8d
+    call run_party_screen_animation  ; 0x0f8d
     mov word [bp - 0x00f8], 7        ; 0x0f90
     mov ax, 6                        ; 0x0f96
     imul word [bp + 0x8]             ; 0x0f99

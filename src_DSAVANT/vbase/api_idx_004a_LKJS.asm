@@ -3,18 +3,18 @@ api_idx_004a_LKJS:
     mov ax, 0xffb6                   ; 0x6a0f
     call aztec_csav                  ; 0x6a12
     mov word [party_status_frame], 0 ; 0x6a15
-    mov word [bss_8af0], 0           ; 0x6a1b
+    mov word [member_roster_index], 0 ; 0x6a1b
     jmp short @..api_idx_004a_LKJS.l2 ; 0x6a21
 @..api_idx_004a_LKJS.l1:
     mov ax, 1                        ; 0x6a23
     push ax                          ; 0x6a26
-    push word [bss_8af0]             ; 0x6a27
+    push word [member_roster_index]  ; 0x6a27
     call draw_party_member_panel     ; 0x6a2b
     add sp, byte 4                   ; 0x6a2e
-    inc word [bss_8af0]              ; 0x6a31
+    inc word [member_roster_index]   ; 0x6a31
 @..api_idx_004a_LKJS.l2:
-    mov ax, word [bss_8af0]          ; 0x6a35
-    cmp ax, word [bss_69c8]          ; 0x6a38
+    mov ax, word [member_roster_index] ; 0x6a35
+    cmp ax, word [party_char_count]  ; 0x6a38
     jl short @..api_idx_004a_LKJS.l1 ; 0x6a3c
     mov word [copy_protection_result], 0xffff ; 0x6a3e
     mov word [game_state], 0xffff    ; 0x6a44
@@ -35,7 +35,7 @@ api_idx_004a_LKJS:
     cmp ax, strict word 9            ; 0x6a6d
     jl short @..api_idx_004a_LKJS.l5 ; 0x6a70
     mov word [bp - 0x0010], 0xffff   ; 0x6a72
-    cmp word [bss_69c8], byte 1      ; 0x6a77
+    cmp word [party_char_count], byte 1 ; 0x6a77
     jge short @..api_idx_004a_LKJS.l6 ; 0x6a7c
     mov word [bp - 0x001e], 0        ; 0x6a7e
     mov word [bp - 0x001c], 0        ; 0x6a83
@@ -55,11 +55,11 @@ api_idx_004a_LKJS:
     mov ax, word [bp - 0x0002]       ; 0x6aab
     cmp ax, word [bss_9070]          ; 0x6aae
     jl short @..api_idx_004a_LKJS.l7 ; 0x6ab2
-    cmp word [bss_69c8], byte 5      ; 0x6ab4
+    cmp word [party_char_count], byte 5 ; 0x6ab4
     jle short @..api_idx_004a_LKJS.l10 ; 0x6ab9
     mov word [bp - 0x0020], 0        ; 0x6abb
 @..api_idx_004a_LKJS.l10:
-    cmp word [bss_69c8], byte 0      ; 0x6ac0
+    cmp word [party_char_count], byte 0 ; 0x6ac0
     jle short @..api_idx_004a_LKJS.l11 ; 0x6ac5
     mov word [bp - 0x0018], 0        ; 0x6ac7
     mov word [bp - 0x0014], 0        ; 0x6acc
@@ -119,21 +119,21 @@ jumptable_6bfb_case_1:
     jmp near @..api_idx_004a_LKJS.l19 ; 0x6b45
 jumptable_6bfb_case_2:
     call pick_party_member           ; 0x6b48
-    mov word [bss_8af0], ax          ; 0x6b4b
+    mov word [member_roster_index], ax ; 0x6b4b
     cmp ax, strict word 0xffff       ; 0x6b4e
     je short @..api_idx_004a_LKJS.l13 ; 0x6b51
     mov word [game_state], 0x11      ; 0x6b53
-    mov word [bss_905e], 4           ; 0x6b59
+    mov word [party_return_state], 4 ; 0x6b59
 @..api_idx_004a_LKJS.l13:
     jmp near @..api_idx_004a_LKJS.l19 ; 0x6b5f
 jumptable_6bfb_case_3:
     call pick_party_member           ; 0x6b62
-    mov word [bss_8af0], ax          ; 0x6b65
+    mov word [member_roster_index], ax ; 0x6b65
     cmp ax, strict word 0xffff       ; 0x6b68
     je short @..api_idx_004a_LKJS.l14 ; 0x6b6b
     mov ax, 1                        ; 0x6b6d
     push ax                          ; 0x6b70
-    push word [bss_8af0]             ; 0x6b71
+    push word [member_roster_index]  ; 0x6b71
     call api_idx_0006_MROT           ; 0x6b75
     add sp, byte 4                   ; 0x6b78
 @..api_idx_004a_LKJS.l14:
@@ -149,12 +149,12 @@ jumptable_6bfb_case_4:
     mov ax, word [bp - 0x0002]       ; 0x6b91
     shl ax, 1                        ; 0x6b94
     mov bx, ax                       ; 0x6b96
-    mov bx, word [bx + bss_8af0 + 0x2] ; 0x6b98
+    mov bx, word [bx + member_roster_index + 0x2] ; 0x6b98
     mov byte [bx + bss_9074 + 0x2], 1 ; 0x6b9c
     inc word [bp - 0x0002]           ; 0x6ba1
 @..api_idx_004a_LKJS.l16:
     mov ax, word [bp - 0x0002]       ; 0x6ba4
-    cmp ax, word [bss_69c8]          ; 0x6ba7
+    cmp ax, word [party_char_count]  ; 0x6ba7
     jl short @..api_idx_004a_LKJS.l15 ; 0x6bab
     mov ax, 0                        ; 0x6bad
     push ax                          ; 0x6bb0

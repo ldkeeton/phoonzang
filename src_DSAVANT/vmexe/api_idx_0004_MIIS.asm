@@ -23,7 +23,7 @@ api_idx_0004_MIIS:
     mov ax, word [bp - 0x0004]       ; 0x63a5
     ret                              ; 0x63a8
 @..api_idx_0004_MIIS.l3:
-    mov ax, word [bss_69c8]          ; 0x63a9
+    mov ax, word [party_char_count]  ; 0x63a9
     dec ax                           ; 0x63ac
     cmp ax, word [bp + 0x4]          ; 0x63ad
     jle short @..api_idx_0004_MIIS.l4 ; 0x63b0

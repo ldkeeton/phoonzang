@@ -435,7 +435,7 @@ api_idx_0060_VPPJ:
     inc word [bp - 0x0002]           ; 0x2419
 @..api_idx_0060_VPPJ.l44:
     mov ax, word [bp - 0x0002]       ; 0x241c
-    cmp ax, word [bss_69c8]          ; 0x241f
+    cmp ax, word [party_char_count]  ; 0x241f
     jge short @..api_idx_0060_VPPJ.l45 ; 0x2423
     jmp near @..api_idx_0060_VPPJ.l34 ; 0x2425
 @..api_idx_0060_VPPJ.l45:

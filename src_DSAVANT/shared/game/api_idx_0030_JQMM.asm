@@ -19,7 +19,7 @@ api_idx_0030_JQMM:
     mov ax, word [party_map_piece]
     mov word [bp - 0x0012], ax
     mov word [bss_8f48], 0
-    mov word [bss_8456], 0
+    mov word [requested_row_limit], 0
     mov ax, 0
     push ax
     mov ax, 0x8f
@@ -848,10 +848,10 @@ api_idx_0030_JQMM.jumptable_case7:
 @..api_idx_0030_JQMM.l37:
     cmp word [api_idx_0030_JQMM.bss19], byte 0
     jne short @..api_idx_0030_JQMM.l38
-    mov ax, word [bss_8456]
+    mov ax, word [requested_row_limit]
     cmp ax, word [api_idx_0030_JQMM.bss17]
     jne short @..api_idx_0030_JQMM.l38
-    inc word [bss_8456]
+    inc word [requested_row_limit]
 @..api_idx_0030_JQMM.l38:
     mov ax, word [api_idx_0030_JQMM.bss18]
     mov word [api_idx_0030_JQMM.bss29], ax
@@ -1915,7 +1915,7 @@ api_idx_0030_JQMM.jumptable_case7:
     mov ax, dx
     test ax, ax
     jne short @..api_idx_0030_JQMM.l60
-    cmp word [bss_8456], byte 1
+    cmp word [requested_row_limit], byte 1
     jg short @..api_idx_0030_JQMM.l60
     jmp near @..api_idx_0030_JQMM.l77
 @..api_idx_0030_JQMM.l60:

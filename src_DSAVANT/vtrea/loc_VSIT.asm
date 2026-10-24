@@ -6,15 +6,15 @@ loc_VSIT:
     push ax                          ; 0x7ec3
     mov ax, 1                        ; 0x7ec4
     push ax                          ; 0x7ec7
-    push word [bss_9066]             ; 0x7ec8
-    push word [bss_9064]             ; 0x7ecc
+    push word [screen_cache_1_seg]   ; 0x7ec8
+    push word [screen_cache_1_off]   ; 0x7ecc
     call gfx_restore_screen          ; 0x7ed0
     add sp, byte 8                   ; 0x7ed3
     mov ax, 0                        ; 0x7ed6
     push ax                          ; 0x7ed9
     mov ax, 1                        ; 0x7eda
     push ax                          ; 0x7edd
-    push word [bss_9062]             ; 0x7ede
+    push word [screen_cache_0_seg]   ; 0x7ede
     push word [screen_cache]         ; 0x7ee2
     call gfx_restore_screen          ; 0x7ee6
     add sp, byte 8                   ; 0x7ee9

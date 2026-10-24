@@ -3898,16 +3898,16 @@ jumptable_5eb8_case_84:
     jne short @..api_idx_000e_ORJG.l130 ; 0x5e91
     mov ax, 0x32                     ; 0x5e93
     imul word [bp + 0x8]             ; 0x5e96
-    add word [bss_82fa], ax          ; 0x5e99
+    add word [party_buff_turns], ax  ; 0x5e99
     mov ax, 0                        ; 0x5e9d
     push ax                          ; 0x5ea0
-    push word [bss_82fc]             ; 0x5ea1
+    push word [party_buff_charge]    ; 0x5ea1
     mov ax, 0xa                      ; 0x5ea5
     imul word [bp + 0x8]             ; 0x5ea8
     push ax                          ; 0x5eab
     call loc_QQUT                    ; 0x5eac
     add sp, byte 6                   ; 0x5eaf
-    mov word [bss_82fc], ax          ; 0x5eb2
+    mov word [party_buff_charge], ax ; 0x5eb2
 @..api_idx_000e_ORJG.l130:
     jmp near @..api_idx_000e_ORJG.l132 ; 0x5eb5
 jumptable_5eb8:

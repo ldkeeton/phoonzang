@@ -37,7 +37,7 @@ enter_level:
     push ax                          ; 0x0d13
     call aztec_movmem                ; 0x0d14
     add sp, byte 6                   ; 0x0d17
-    mov word [bss_905e], 5           ; 0x0d1a
+    mov word [party_return_state], 5 ; 0x0d1a
     mov word [found_object_owner], 0xffff ; 0x0d20
     mov ax, 0                        ; 0x0d26
     push ax                          ; 0x0d29

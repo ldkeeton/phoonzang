@@ -2,7 +2,7 @@
 api_idx_000e_HLRI:
     mov ax, 0xfff2                   ; 0x5fa1
     call aztec_csav                  ; 0x5fa4
-    mov al, byte [bss_69c8]          ; 0x5fa7
+    mov al, byte [party_char_count]  ; 0x5fa7
     mov bx, word [party_char]        ; 0x5faa
     mov byte [bx + 0x1a1], al        ; 0x5fae
     mov bx, word [bp + 0x4]          ; 0x5fb2

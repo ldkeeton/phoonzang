@@ -117,7 +117,7 @@ api_idx_0010_UUTT:
     call load_message_string         ; 0x9b4d
     add sp, byte 4                   ; 0x9b50
 @..api_idx_0010_UUTT.l4:
-    cmp word [bss_845a], byte 1      ; 0x9b53
+    cmp word [party_entry_flag], byte 1 ; 0x9b53
     jne short @..api_idx_0010_UUTT.l5 ; 0x9b58
     mov word [bp - 0x000e], 0        ; 0x9b5a
 @..api_idx_0010_UUTT.l5:
@@ -167,7 +167,7 @@ api_idx_0010_UUTT:
     sub ah, ah                       ; 0x9bc1
     test ax, 1                       ; 0x9bc3
     je short @..api_idx_0010_UUTT.l8 ; 0x9bc6
-    mov word [bss_84a0], 0           ; 0x9bc8
+    mov word [selected_item_record], 0 ; 0x9bc8
 @..api_idx_0010_UUTT.l8:
     mov bx, word [bp + 0x4]          ; 0x9bce
     mov byte [bx + 0x2b], 2          ; 0x9bd1
@@ -330,7 +330,7 @@ api_idx_0010_UUTT:
     mov word [bx + cell_slot_ref], 0 ; 0x9d4a
     mov bx, word [bp + 0x4]          ; 0x9d50
     mov byte [bx + 0x2a], 0xff       ; 0x9d53
-    call loc_RPUI                    ; 0x9d57
+    call run_party_screen_animation  ; 0x9d57
     jmp short @..api_idx_0010_UUTT.l25 ; 0x9d5a
 @..api_idx_0010_UUTT.l24:
     mov ax, word [bss_9058]          ; 0x9d5c

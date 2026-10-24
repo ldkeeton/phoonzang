@@ -10,10 +10,10 @@ loc_KRMP:
     mov ax, word [bss_908e]
     mov dx, word [bss_9090]
     sub ax, word [party_redraw_last_tick]
-    sbb dx, word [bss_908c]
+    sbb dx, word [party_redraw_last_tick_hi]
     mov word [bss_9094], dx
     mov word [bss_9092], ax
-    mov ax, word [loc_KRMP.bss1]
+    mov ax, word [loc_KRMP.panel_redraw_ticks1]
     cwd
     mov cx, ax
     mov bx, dx
@@ -29,7 +29,7 @@ loc_KRMP:
 @..loc_KRMP.l2:
     mov ax, word [bss_908e]
     mov dx, word [bss_9090]
-    mov word [bss_908c], dx
+    mov word [party_redraw_last_tick_hi], dx
     mov word [party_redraw_last_tick], ax
     mov ax, 1
     ret

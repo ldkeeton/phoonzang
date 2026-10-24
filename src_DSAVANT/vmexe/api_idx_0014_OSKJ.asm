@@ -202,7 +202,7 @@ api_idx_0014_OSKJ:
     mov bx, ax                       ; 0x6680
     mov word [bx + bss_90ca], 0      ; 0x6682
     mov word [bss_8320], 0           ; 0x6688
-    call loc_RPUI                    ; 0x668e
+    call run_party_screen_animation  ; 0x668e
     mov ax, 6                        ; 0x6691
     imul word [bp - 0x000e]          ; 0x6694
     mov cx, word [bp - 0x0010]       ; 0x6697
@@ -924,15 +924,15 @@ jumptable_6ea7_case_8:
     push word [bp - 0x0002]          ; 0x6de2
     call loc_TGJH                    ; 0x6de5
     add sp, byte 4                   ; 0x6de8
-    call loc_RPUI                    ; 0x6deb
+    call run_party_screen_animation  ; 0x6deb
     mov ax, 0                        ; 0x6dee
     push ax                          ; 0x6df1
     call restore_areas_redraw_glyph  ; 0x6df2
     pop cx                           ; 0x6df5
     mov word [game_state], 0x11      ; 0x6df6
-    mov word [bss_905e], 0xd         ; 0x6dfc
+    mov word [party_return_state], 0xd ; 0x6dfc
     mov ax, word [bss_8462]          ; 0x6e02
-    mov word [bss_8af0], ax          ; 0x6e05
+    mov word [member_roster_index], ax ; 0x6e05
     ret                              ; 0x6e08
 jumptable_6ea7_case_4:
     mov ax, 4                        ; 0x6e09

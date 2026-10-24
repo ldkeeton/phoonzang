@@ -31,13 +31,13 @@ __zcode_start:
 window_record equ __zdseg_end + (__zobss_90bc - __zdata_start)
 %include "shared/game/api_idx_0012_PGSL.asm"     ; 0x00db
 
-%include "shared/game/api_idx_0008_MNJN.asm"     ; 0x0257
+%include "shared/game/draw_active_member_panel.asm" ; 0x0257
 
 %include "vmexe/api_idx_0004_MLLS.asm"     ; 0x030b
 
 %include "shared/game/fill_action_slot_table.asm" ; 0x0456
 
-advance_action_slots.fill_action_slot_table_alt1 equ fill_action_slot_table
+advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
 %include "shared/game/advance_action_slots.asm"  ; 0x0656
 
 %include "shared/game/add_overlay_item.asm"      ; 0x0979
@@ -77,15 +77,15 @@ bss_90e0 equ __zdseg_end + (__zobss_90e0 - __zdata_start)
 %include "vmexe/loc_TGJH.asm"              ; 0x182b
 
 bss_90e2 equ __zdseg_end + (__zobss_90e2 - __zdata_start)
-loc_KRMP.bss1 equ bss_90e2
+loc_KRMP.panel_redraw_ticks1 equ bss_90e2
 %include "shared/game/loc_KRMP.asm"              ; 0x1849
 
 ; bss_90dc equ __zdseg_end + (__zobss_90dc - __zdata_start)
 ; bss_90e2 equ __zdseg_end + (__zobss_90e2 - __zdata_start)
 %include "vmexe/api_idx_0006_TMLR.asm"     ; 0x18a8
 
-loc_RPUI.api_idx1 equ api_idx_0006_TMLR
-%include "shared/game/loc_RPUI.asm"              ; 0x1a35
+run_party_screen_animation.api_idx1 equ api_idx_0006_TMLR
+%include "shared/game/run_party_screen_animation.asm" ; 0x1a35
 
 loc_UTQS.api_idx1 equ api_idx_0006_TMLR
 %include "shared/game/loc_UTQS.asm"              ; 0x1a4c

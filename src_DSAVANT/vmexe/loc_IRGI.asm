@@ -33,21 +33,21 @@ loc_IRGI:
     mov ax, word [bp + 0x6]          ; 0x9dd7
     shl ax, 1                        ; 0x9dda
     mov bx, ax                       ; 0x9ddc
-    mov ax, word [bx + bss_8af0 + 0x2] ; 0x9dde
+    mov ax, word [bx + member_roster_index + 0x2] ; 0x9dde
     mov word [bp - 0x0276], ax       ; 0x9de2
     mov ax, word [bp + 0x4]          ; 0x9de6
     shl ax, 1                        ; 0x9de9
     mov bx, ax                       ; 0x9deb
-    mov ax, word [bx + bss_8af0 + 0x2] ; 0x9ded
+    mov ax, word [bx + member_roster_index + 0x2] ; 0x9ded
     mov cx, word [bp + 0x6]          ; 0x9df1
     shl cx, 1                        ; 0x9df4
     mov bx, cx                       ; 0x9df6
-    mov word [bx + bss_8af0 + 0x2], ax ; 0x9df8
+    mov word [bx + member_roster_index + 0x2], ax ; 0x9df8
     mov ax, word [bp - 0x0276]       ; 0x9dfc
     mov cx, word [bp + 0x4]          ; 0x9e00
     shl cx, 1                        ; 0x9e03
     mov bx, cx                       ; 0x9e05
-    mov word [bx + bss_8af0 + 0x2], ax ; 0x9e07
+    mov word [bx + member_roster_index + 0x2], ax ; 0x9e07
     mov ax, word [bp + 0x6]          ; 0x9e0b
     shl ax, 1                        ; 0x9e0e
     mov bx, ax                       ; 0x9e10

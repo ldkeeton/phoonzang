@@ -137,7 +137,7 @@ api_idx_000e_NSGM:
     inc word [bp - 0x000e]           ; 0x176d
 @..api_idx_000e_NSGM.l10:
     mov ax, word [bp - 0x000e]       ; 0x1770
-    cmp ax, word [bss_69c8]          ; 0x1773
+    cmp ax, word [party_char_count]  ; 0x1773
     jge short @..api_idx_000e_NSGM.l11 ; 0x1777
     jmp near @..api_idx_000e_NSGM.l8 ; 0x1779
 @..api_idx_000e_NSGM.l11:

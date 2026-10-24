@@ -276,9 +276,9 @@ api_idx_00c2_OUOT:
     mov ax, word [bp - 0x0002]       ; 0x5789
     cmp ax, strict word 4            ; 0x578c
     jl short @..api_idx_00c2_OUOT.l5 ; 0x578f
-    cmp word [bss_905e], byte 4      ; 0x5791
+    cmp word [party_return_state], byte 4 ; 0x5791
     je short @..api_idx_00c2_OUOT.l6 ; 0x5796
-    cmp word [bss_905e], byte 0x0d   ; 0x5798
+    cmp word [party_return_state], byte 0x0d ; 0x5798
     jne short @..api_idx_00c2_OUOT.l7 ; 0x579d
 @..api_idx_00c2_OUOT.l6:
     mov word [bp - 0x0098], 0        ; 0x579f
@@ -1164,16 +1164,16 @@ api_idx_00c2_OUOT:
     mov ax, word [bp - 0x0004]       ; 0x5fb5
     jmp near @..api_idx_00c2_OUOT.l77 ; 0x5fb8
 @..api_idx_00c2_OUOT.l68:
-    cmp word [bss_905e], byte 0x0d   ; 0x5fbb
+    cmp word [party_return_state], byte 0x0d ; 0x5fbb
     je short @..api_idx_00c2_OUOT.l69 ; 0x5fc0
-    cmp word [bss_905e], byte 4      ; 0x5fc2
+    cmp word [party_return_state], byte 4 ; 0x5fc2
     je short @..api_idx_00c2_OUOT.l69 ; 0x5fc7
     mov ax, word [bp + 0x4]          ; 0x5fc9
-    add ax, word [bss_69c8]          ; 0x5fcc
+    add ax, word [party_char_count]  ; 0x5fcc
     dec ax                           ; 0x5fd0
     cwd                              ; 0x5fd1
-    idiv word [bss_69c8]             ; 0x5fd2
-    mov word [bss_8af0], dx          ; 0x5fd6
+    idiv word [party_char_count]     ; 0x5fd2
+    mov word [member_roster_index], dx ; 0x5fd6
     mov word [bp + 0x4], dx          ; 0x5fda
     mov word [roster_drawn], 0       ; 0x5fdd
     mov ax, 0                        ; 0x5fe3
@@ -1185,15 +1185,15 @@ api_idx_00c2_OUOT:
 @..api_idx_00c2_OUOT.l69:
     jmp near @..api_idx_00c2_OUOT.l81 ; 0x5ff3
 @..api_idx_00c2_OUOT.l70:
-    cmp word [bss_905e], byte 0x0d   ; 0x5ff6
+    cmp word [party_return_state], byte 0x0d ; 0x5ff6
     je short @..api_idx_00c2_OUOT.l71 ; 0x5ffb
-    cmp word [bss_905e], byte 4      ; 0x5ffd
+    cmp word [party_return_state], byte 4 ; 0x5ffd
     je short @..api_idx_00c2_OUOT.l71 ; 0x6002
     mov ax, word [bp + 0x4]          ; 0x6004
     inc ax                           ; 0x6007
     cwd                              ; 0x6008
-    idiv word [bss_69c8]             ; 0x6009
-    mov word [bss_8af0], dx          ; 0x600d
+    idiv word [party_char_count]     ; 0x6009
+    mov word [member_roster_index], dx ; 0x600d
     mov word [bp + 0x4], dx          ; 0x6011
     mov word [roster_drawn], 0       ; 0x6014
     mov ax, 0                        ; 0x601a

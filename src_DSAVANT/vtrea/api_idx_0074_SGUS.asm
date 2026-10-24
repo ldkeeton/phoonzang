@@ -77,7 +77,7 @@ api_idx_0074_SGUS:
     inc word [bp - 0x0002]           ; 0x79a9
 @..api_idx_0074_SGUS.l3:
     mov ax, word [bp - 0x0002]       ; 0x79ac
-    cmp ax, word [bss_69c8]          ; 0x79af
+    cmp ax, word [party_char_count]  ; 0x79af
     jl short @..api_idx_0074_SGUS.l2 ; 0x79b3
     mov ax, word [message_delay]     ; 0x79b5
     shl ax, 1                        ; 0x79b8
@@ -217,14 +217,14 @@ api_idx_0074_SGUS:
     inc word [bp - 0x0014]           ; 0x7af8
     jmp short @..api_idx_0074_SGUS.l12 ; 0x7afb
 @..api_idx_0074_SGUS.l13:
-    mov ax, word [bss_69c8]          ; 0x7afd
+    mov ax, word [party_char_count]  ; 0x7afd
     cmp word [bp - 0x0004], byte 0x0c ; 0x7b00
     jne short @..api_idx_0074_SGUS.l14 ; 0x7b04
     mov ax, word [bp - 0x0014]       ; 0x7b06
     inc ax                           ; 0x7b09
 @..api_idx_0074_SGUS.l14:
     mov word [bp - 0x0016], ax       ; 0x7b0a
-    mov ax, word [bss_69c8]          ; 0x7b0d
+    mov ax, word [party_char_count]  ; 0x7b0d
     push ax                          ; 0x7b10
     cmp ax, word [bp - 0x0016]       ; 0x7b11
     pop ax                           ; 0x7b14

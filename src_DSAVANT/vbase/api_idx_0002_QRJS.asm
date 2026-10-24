@@ -55,7 +55,7 @@ api_idx_0002_QRJS:
     les bx, word [tick_counter_ptr]  ; 0x8f01
     mov ax, word [es:bx]             ; 0x8f05
     mov dx, word [es:bx + 0x2]       ; 0x8f08
-    mov word [bss_908c], dx          ; 0x8f0c
+    mov word [party_redraw_last_tick_hi], dx ; 0x8f0c
     mov word [party_redraw_last_tick], ax ; 0x8f10
     call draw_scene_frame            ; 0x8f13
     mov ax, 0                        ; 0x8f16

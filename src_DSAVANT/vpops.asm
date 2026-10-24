@@ -45,7 +45,7 @@ dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 
 %include "shared/game/fill_action_slot_table.asm" ; 0x0504
 
-advance_action_slots.fill_action_slot_table_alt1 equ fill_action_slot_table
+advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
 %include "shared/game/advance_action_slots.asm"  ; 0x0704
 
 %include "shared/game/add_overlay_item.asm"      ; 0x0a27
@@ -57,15 +57,15 @@ advance_action_slots.fill_action_slot_table_alt1 equ fill_action_slot_table
 %include "shared/game/loc_SSIO.asm"              ; 0x0e6c
 
 bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
-loc_KRMP.bss1 equ bss_90d6
+loc_KRMP.panel_redraw_ticks1 equ bss_90d6
 %include "shared/game/loc_KRMP.asm"              ; 0x0ec8
 
 ; bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
-api_idx_0006_IRNH.bss1 equ bss_90d6
+api_idx_0006_IRNH.panel_redraw_ticks1 equ bss_90d6
 %include "shared/game/api_idx_0006_IRNH.asm"     ; 0x0f27
 
-loc_RPUI.api_idx1 equ api_idx_0006_IRNH
-%include "shared/game/loc_RPUI.asm"              ; 0x1076
+run_party_screen_animation.api_idx1 equ api_idx_0006_IRNH
+%include "shared/game/run_party_screen_animation.asm" ; 0x1076
 
 %include "vpops/wait_for_party_redraw.asm" ; 0x108d
 

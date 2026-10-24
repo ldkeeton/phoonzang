@@ -7,7 +7,7 @@ ovmain:
     les bx, word [tick_counter_ptr]  ; 0x0020
     mov ax, word [es:bx]             ; 0x0024
     mov dx, word [es:bx + 0x2]       ; 0x0027
-    mov word [bss_908c], dx          ; 0x002b
+    mov word [party_redraw_last_tick_hi], dx ; 0x002b
     mov word [party_redraw_last_tick], ax ; 0x002f
     mov word [bp - 0x0002], 0        ; 0x0032
 @..ovmain.l1:
@@ -19,14 +19,14 @@ ovmain:
     mov ax, word [bp - 0x0002]       ; 0x0047
     cmp ax, strict word 3            ; 0x004a
     jl short @..ovmain.l1            ; 0x004d
-    cmp word [bss_906a], byte 0      ; 0x004f
+    cmp word [saved_screen_pending], byte 0 ; 0x004f
     je short @..ovmain.l2            ; 0x0054
     mov ax, 1                        ; 0x0056
     push ax                          ; 0x0059
-    push word [bss_9068]             ; 0x005a
+    push word [saved_screen_slot]    ; 0x005a
     call restore_saved_screen        ; 0x005e
     add sp, byte 4                   ; 0x0061
-    mov word [bss_906a], 0           ; 0x0064
+    mov word [saved_screen_pending], 0 ; 0x0064
 @..ovmain.l2:
     cmp word [game_state], byte 0x17 ; 0x006a
     jne short @..ovmain.l3           ; 0x006f
@@ -46,13 +46,13 @@ ovmain:
 @..ovmain.l4:
     cmp word [game_state], byte 0x1e ; 0x008e
     jne short @..ovmain.l5           ; 0x0093
-    push word [bss_8af0]             ; 0x0095
+    push word [member_roster_index]  ; 0x0095
     call api_idx_0008_OTKN           ; 0x0099
     pop cx                           ; 0x009c
 @..ovmain.l5:
     cmp word [game_state], byte 0x1f ; 0x009d
     jne short @..ovmain.l6           ; 0x00a2
-    push word [bss_8af0]             ; 0x00a4
+    push word [member_roster_index]  ; 0x00a4
     call loc_HTTH                    ; 0x00a8
     pop cx                           ; 0x00ab
 @..ovmain.l6:

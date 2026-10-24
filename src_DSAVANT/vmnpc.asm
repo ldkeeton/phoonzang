@@ -73,15 +73,15 @@ text_line_index  equ __zdseg_end + (__zobss_93d4 - __zdata_start)
 %include "vmnpc/next_text_line.asm"        ; 0x0e15
 
 bss_93d6 equ __zdseg_end + (__zobss_93d6 - __zdata_start)
-loc_KRMP.bss1 equ bss_93d6
+loc_KRMP.panel_redraw_ticks1 equ bss_93d6
 %include "shared/game/loc_KRMP.asm"              ; 0x0ef1
 
 ; bss_93d6 equ __zdseg_end + (__zobss_93d6 - __zdata_start)
 bss_93d8 equ __zdseg_end + (__zobss_93d8 - __zdata_start)
 %include "vmnpc/step_party_animation.asm"  ; 0x0f50
 
-loc_RPUI.api_idx1 equ step_party_animation
-%include "shared/game/loc_RPUI.asm"              ; 0x109f
+run_party_screen_animation.api_idx1 equ step_party_animation
+%include "shared/game/run_party_screen_animation.asm" ; 0x109f
 
 loc_UTQS.api_idx1 equ step_party_animation
 %include "shared/game/loc_UTQS.asm"              ; 0x10b6
@@ -486,7 +486,7 @@ bss_a856 equ __zdseg_end + (__zobss_a856 - __zdata_start)
 bss_a7b6 equ __zdseg_end + (__zobss_a7b6 - __zdata_start)
 %include "vmnpc/api_idx_0002_UHGS.asm"     ; 0x8be8
 
-%include "shared/game/api_idx_0004_ULSR.asm"     ; 0x8c2a
+%include "shared/game/titlecase_string.asm"      ; 0x8c2a
 
 ; location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
 bss_9e42         equ __zdseg_end + (__zobss_9e42 - __zdata_start)

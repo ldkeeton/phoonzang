@@ -68,16 +68,16 @@ jumptable_2326_case_31:
 jumptable_2326_case_44:
     mov ax, 0x32                     ; 0x1d71
     imul word [bp + 0x8]             ; 0x1d74
-    add word [bss_82fa], ax          ; 0x1d77
+    add word [party_buff_turns], ax  ; 0x1d77
     mov ax, 0                        ; 0x1d7b
     push ax                          ; 0x1d7e
-    push word [bss_82fc]             ; 0x1d7f
+    push word [party_buff_charge]    ; 0x1d7f
     mov ax, 5                        ; 0x1d83
     imul word [bp + 0x8]             ; 0x1d86
     push ax                          ; 0x1d89
     call loc_QQUT                    ; 0x1d8a
     add sp, byte 6                   ; 0x1d8d
-    mov word [bss_82fc], ax          ; 0x1d90
+    mov word [party_buff_charge], ax ; 0x1d90
     jmp near @..apply_spell_effect.l37 ; 0x1d93
 jumptable_2326_case_25:
     mov ax, 0                        ; 0x1d96
@@ -86,7 +86,7 @@ jumptable_2326_case_25:
     mov ax, word [bp + 0xa]          ; 0x1d9f
 @..apply_spell_effect.l1:
     mov word [bp - 0x0002], ax       ; 0x1da2
-    mov ax, word [bss_69c8]          ; 0x1da5
+    mov ax, word [party_char_count]  ; 0x1da5
     cmp word [bp + 0x6], byte 0x13   ; 0x1da8
     je short @..apply_spell_effect.l2 ; 0x1dac
     mov ax, word [bp + 0xa]          ; 0x1dae
@@ -323,7 +323,7 @@ jumptable_2326_case_37:
     inc word [bp - 0x0002]           ; 0x1fdd
 @..apply_spell_effect.l16:
     mov ax, word [bp - 0x0002]       ; 0x1fe0
-    cmp ax, word [bss_69c8]          ; 0x1fe3
+    cmp ax, word [party_char_count]  ; 0x1fe3
     jl short @..apply_spell_effect.l14 ; 0x1fe7
     jmp near @..apply_spell_effect.l37 ; 0x1fe9
 jumptable_2326_case_35:
@@ -377,7 +377,7 @@ jumptable_2326_case_42:
     mov ax, word [bp + 0xa]          ; 0x205d
 @..apply_spell_effect.l21:
     mov word [bp - 0x0002], ax       ; 0x2060
-    mov ax, word [bss_69c8]          ; 0x2063
+    mov ax, word [party_char_count]  ; 0x2063
     cmp word [bp + 0x6], byte 0x58   ; 0x2066
     je short @..apply_spell_effect.l22 ; 0x206a
     mov ax, word [bp + 0xa]          ; 0x206c

@@ -111,7 +111,7 @@ api_idx_0004_IHHI:
     inc word [bp - 0x0002]           ; 0x14f4
 @..api_idx_0004_IHHI.l7:
     mov ax, word [bp - 0x0002]       ; 0x14f7
-    cmp ax, word [bss_69c8]          ; 0x14fa
+    cmp ax, word [party_char_count]  ; 0x14fa
     jge short @..api_idx_0004_IHHI.l8 ; 0x14fe
     jmp near @..api_idx_0004_IHHI.l2 ; 0x1500
 @..api_idx_0004_IHHI.l8:

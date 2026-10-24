@@ -64,7 +64,7 @@ api_idx_000e_LLMU:
     inc word [bp - 0x0002]           ; 0x84e4
 @..api_idx_000e_LLMU.l6:
     mov ax, word [bp - 0x0002]       ; 0x84e7
-    cmp ax, word [bss_69c8]          ; 0x84ea
+    cmp ax, word [party_char_count]  ; 0x84ea
     jl short @..api_idx_000e_LLMU.l1 ; 0x84ee
     push word [bp - 0x000e]          ; 0x84f0
     mov si, word [party_region]      ; 0x84f3

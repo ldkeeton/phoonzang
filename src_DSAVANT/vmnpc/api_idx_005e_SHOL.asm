@@ -40,7 +40,7 @@ api_idx_005e_SHOL:
     call gfx_show_area               ; 0x144f
     add sp, byte 8                   ; 0x1452
 @..api_idx_005e_SHOL.l4:
-    call loc_RPUI                    ; 0x1455
+    call run_party_screen_animation  ; 0x1455
     ret                              ; 0x1458
 @..api_idx_005e_SHOL.l5:
     cmp word [bp + 0x6], byte 0      ; 0x1459
@@ -73,7 +73,7 @@ api_idx_005e_SHOL:
     les bx, word [tick_counter_ptr]  ; 0x149a
     mov ax, word [es:bx]             ; 0x149e
     mov dx, word [es:bx + 0x2]       ; 0x14a1
-    mov word [bss_908c], dx          ; 0x14a5
+    mov word [party_redraw_last_tick_hi], dx ; 0x14a5
     mov word [party_redraw_last_tick], ax ; 0x14a9
     mov word [bp - 0x000c], 0        ; 0x14ac
     mov word [bp - 0x0002], 0        ; 0x14b1

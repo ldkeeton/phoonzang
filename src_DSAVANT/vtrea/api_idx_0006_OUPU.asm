@@ -72,7 +72,7 @@ api_idx_0006_OUPU:
     inc word [bp - 0x0002]           ; 0x55b7
 @..api_idx_0006_OUPU.l6:
     mov ax, word [bp - 0x0002]       ; 0x55ba
-    cmp ax, word [bss_69c8]          ; 0x55bd
+    cmp ax, word [party_char_count]  ; 0x55bd
     jl short @..api_idx_0006_OUPU.l4 ; 0x55c1
 @..api_idx_0006_OUPU.l7:
     mov ax, 8                        ; 0x55c3

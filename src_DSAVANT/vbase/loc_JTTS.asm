@@ -47,7 +47,7 @@ loc_JTTS:
     les bx, word [tick_counter_ptr]  ; 0x8af6
     mov ax, word [es:bx]             ; 0x8afa
     mov dx, word [es:bx + 0x2]       ; 0x8afd
-    mov word [bss_908c], dx          ; 0x8b01
+    mov word [party_redraw_last_tick_hi], dx ; 0x8b01
     mov word [party_redraw_last_tick], ax ; 0x8b05
     call draw_scene_frame            ; 0x8b08
     mov ax, 0                        ; 0x8b0b

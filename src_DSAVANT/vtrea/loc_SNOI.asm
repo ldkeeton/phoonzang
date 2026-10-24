@@ -36,16 +36,16 @@ loc_SNOI:
     push ax                          ; 0x7de4
     call gfx_cache_area              ; 0x7de5
     add sp, byte 0x0c                ; 0x7de8
-    mov word [bss_9062], dx          ; 0x7deb
+    mov word [screen_cache_0_seg], dx ; 0x7deb
     mov word [screen_cache], ax      ; 0x7def
-    cmp word [bss_906a], byte 0      ; 0x7df2
+    cmp word [saved_screen_pending], byte 0 ; 0x7df2
     je short @..loc_SNOI.l1          ; 0x7df7
     mov ax, 1                        ; 0x7df9
     push ax                          ; 0x7dfc
-    push word [bss_9068]             ; 0x7dfd
+    push word [saved_screen_slot]    ; 0x7dfd
     call restore_saved_screen        ; 0x7e01
     add sp, byte 4                   ; 0x7e04
-    mov word [bss_906a], 0           ; 0x7e07
+    mov word [saved_screen_pending], 0 ; 0x7e07
 @..loc_SNOI.l1:
     mov ax, 0                        ; 0x7e0d
     push ax                          ; 0x7e10
@@ -61,8 +61,8 @@ loc_SNOI:
     push ax                          ; 0x7e24
     call gfx_cache_area              ; 0x7e25
     add sp, byte 0x0c                ; 0x7e28
-    mov word [bss_9066], dx          ; 0x7e2b
-    mov word [bss_9064], ax          ; 0x7e2f
+    mov word [screen_cache_1_seg], dx ; 0x7e2b
+    mov word [screen_cache_1_off], ax ; 0x7e2f
     call draw_party_glyph_row        ; 0x7e32
     mov ax, 0xc6                     ; 0x7e35
     push ax                          ; 0x7e38

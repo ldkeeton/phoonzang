@@ -62,7 +62,7 @@ loc_HVLG:
     mov ax, word [es:bx]             ; 0x0f27
     mov dx, word [es:bx + 0x2]       ; 0x0f2a
     sub ax, word [party_redraw_last_tick] ; 0x0f2e
-    sbb dx, word [bss_908c]          ; 0x0f32
+    sbb dx, word [party_redraw_last_tick_hi] ; 0x0f32
     push ax                          ; 0x0f36
     push dx                          ; 0x0f37
     mov ax, word [bss_9192]          ; 0x0f38
@@ -82,7 +82,7 @@ loc_HVLG:
     les bx, word [tick_counter_ptr]  ; 0x0f4e
     mov ax, word [es:bx]             ; 0x0f52
     mov dx, word [es:bx + 0x2]       ; 0x0f55
-    mov word [bss_908c], dx          ; 0x0f59
+    mov word [party_redraw_last_tick_hi], dx ; 0x0f59
     mov word [party_redraw_last_tick], ax ; 0x0f5d
     mov ax, 1                        ; 0x0f60
     ret                              ; 0x0f63

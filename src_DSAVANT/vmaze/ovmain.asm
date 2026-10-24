@@ -7,7 +7,7 @@ ovmain:
     les bx, word [tick_counter_ptr]  ; 0x0020
     mov ax, word [es:bx]             ; 0x0024
     mov dx, word [es:bx + 0x2]       ; 0x0027
-    mov word [bss_908c], dx          ; 0x002b
+    mov word [party_redraw_last_tick_hi], dx ; 0x002b
     mov word [party_redraw_last_tick], ax ; 0x002f
     mov word [bss_9194], 0           ; 0x0032
     mov word [bss_9196], 0           ; 0x0038
@@ -19,14 +19,14 @@ ovmain:
     mov word [bss_919c], dx          ; 0x0051
     mov word [bss_919a], ax          ; 0x0055
     call api_idx_0002_LMTG           ; 0x0058
-    cmp word [bss_906a], byte 0      ; 0x005b
+    cmp word [saved_screen_pending], byte 0 ; 0x005b
     je short @..ovmain.l1            ; 0x0060
     mov ax, 1                        ; 0x0062
     push ax                          ; 0x0065
-    push word [bss_9068]             ; 0x0066
+    push word [saved_screen_slot]    ; 0x0066
     call restore_saved_screen        ; 0x006a
     add sp, byte 4                   ; 0x006d
-    mov word [bss_906a], 0           ; 0x0070
+    mov word [saved_screen_pending], 0 ; 0x0070
 @..ovmain.l1:
     cmp word [game_state], byte 6    ; 0x0076
     jne short @..ovmain.l2           ; 0x007b
@@ -68,8 +68,8 @@ ovmain:
     push ax                          ; 0x00d5
     call save_screen_area            ; 0x00d6
     add sp, byte 0x0a                ; 0x00d9
-    mov word [bss_9068], ax          ; 0x00dc
-    mov word [bss_906a], 1           ; 0x00df
+    mov word [saved_screen_slot], ax ; 0x00dc
+    mov word [saved_screen_pending], 1 ; 0x00df
     mov ax, word [party_status_frame] ; 0x00e5
     inc ax                           ; 0x00e8
     mov cx, 2                        ; 0x00e9

@@ -117,7 +117,7 @@ jumptable_6599_case_2:
     inc word [bp - 0x005e]           ; 0x6441
 @..api_idx_00d2_SNMN.l10:
     mov ax, word [bp - 0x005e]       ; 0x6444
-    cmp ax, word [bss_69c8]          ; 0x6447
+    cmp ax, word [party_char_count]  ; 0x6447
     jl short @..api_idx_00d2_SNMN.l8 ; 0x644b
     mov al, byte [bss_91c5]          ; 0x644d
     sub ah, ah                       ; 0x6450

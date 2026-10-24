@@ -67,7 +67,7 @@ loc_TQHJ:
     les bx, word [tick_counter_ptr]  ; 0x86db
     mov ax, word [es:bx]             ; 0x86df
     mov dx, word [es:bx + 0x2]       ; 0x86e2
-    mov word [bss_908c], dx          ; 0x86e6
+    mov word [party_redraw_last_tick_hi], dx ; 0x86e6
     mov word [party_redraw_last_tick], ax ; 0x86ea
     call draw_scene_frame            ; 0x86ed
     mov ax, 0                        ; 0x86f0

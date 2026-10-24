@@ -68,7 +68,7 @@ api_idx_0002_GLIS:
     les bx, word [tick_counter_ptr]  ; 0x881c
     mov ax, word [es:bx]             ; 0x8820
     mov dx, word [es:bx + 0x2]       ; 0x8823
-    mov word [bss_908c], dx          ; 0x8827
+    mov word [party_redraw_last_tick_hi], dx ; 0x8827
     mov word [party_redraw_last_tick], ax ; 0x882b
     call draw_scene_frame            ; 0x882e
     mov ax, 0                        ; 0x8831

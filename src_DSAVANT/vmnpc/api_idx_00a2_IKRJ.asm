@@ -24,7 +24,7 @@ api_idx_00a2_IKRJ:
     pop cx                           ; 0x9881
     lea ax, word [bp - 0x0052]       ; 0x9882
     push ax                          ; 0x9885
-    call api_idx_0004_ULSR           ; 0x9886
+    call titlecase_string            ; 0x9886
     pop cx                           ; 0x9889
     lea ax, word [bp - 0x00a2]       ; 0x988a
     push ax                          ; 0x988e
@@ -56,7 +56,7 @@ api_idx_00a2_IKRJ:
     pop cx                           ; 0x98ce
     lea ax, word [bp - 0x0052]       ; 0x98cf
     push ax                          ; 0x98d2
-    call api_idx_0004_ULSR           ; 0x98d3
+    call titlecase_string            ; 0x98d3
     pop cx                           ; 0x98d6
     lea ax, word [bp - 0x0052]       ; 0x98d7
     push ax                          ; 0x98da
@@ -83,7 +83,7 @@ api_idx_00a2_IKRJ:
     add sp, byte 4                   ; 0x9910
     lea ax, word [bp - 0x0052]       ; 0x9913
     push ax                          ; 0x9916
-    call api_idx_0004_ULSR           ; 0x9917
+    call titlecase_string            ; 0x9917
     pop cx                           ; 0x991a
     lea ax, word [bp - 0x0052]       ; 0x991b
     push ax                          ; 0x991e
@@ -134,7 +134,7 @@ api_idx_00a2_IKRJ:
     pop cx                           ; 0x9980
     lea ax, word [bp - 0x0052]       ; 0x9981
     push ax                          ; 0x9984
-    call api_idx_0004_ULSR           ; 0x9985
+    call titlecase_string            ; 0x9985
     pop cx                           ; 0x9988
     lea ax, word [bp - 0x0052]       ; 0x9989
     push ax                          ; 0x998c

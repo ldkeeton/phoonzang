@@ -140,7 +140,7 @@ api_idx_0002_UUUJ:
     les bx, word [tick_counter_ptr]  ; 0x89f9
     mov ax, word [es:bx]             ; 0x89fd
     mov dx, word [es:bx + 0x2]       ; 0x8a00
-    mov word [bss_908c], dx          ; 0x8a04
+    mov word [party_redraw_last_tick_hi], dx ; 0x8a04
     mov word [party_redraw_last_tick], ax ; 0x8a08
     call draw_scene_frame            ; 0x8a0b
     mov ax, 0                        ; 0x8a0e

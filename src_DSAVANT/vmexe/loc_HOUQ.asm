@@ -23,7 +23,7 @@ loc_HOUQ:
     mov bx, ax                       ; 0x6f13
     mov word [bx + bss_90ca], 0      ; 0x6f15
     mov word [bss_8320], 0           ; 0x6f1b
-    call loc_RPUI                    ; 0x6f21
+    call run_party_screen_animation  ; 0x6f21
 @..loc_HOUQ.l2:
     mov ax, word [bss_9058]          ; 0x6f24
     mov cx, 2                        ; 0x6f27

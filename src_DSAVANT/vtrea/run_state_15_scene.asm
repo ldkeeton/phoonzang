@@ -2,7 +2,7 @@
 run_state_15_scene:
     mov ax, 0                        ; 0x809e
     call aztec_csav                  ; 0x80a1
-    mov word [bss_849e], 0xffff      ; 0x80a4
+    mov word [selected_item_slot], 0xffff ; 0x80a4
     mov ax, 0x138c                   ; 0x80aa
     push ax                          ; 0x80ad
     call loc_SNOI                    ; 0x80ae
@@ -11,7 +11,7 @@ run_state_15_scene:
     push ax                          ; 0x80b5
     call redraw_treasure_caption     ; 0x80b6
     pop cx                           ; 0x80b9
-    cmp word [bss_84a0], byte 0xff   ; 0x80ba
+    cmp word [selected_item_record], byte 0xff ; 0x80ba
     je short @..run_state_15_scene.l2 ; 0x80bf
     call score_music_enabled         ; 0x80c1
     mov word [bss_8450], ax          ; 0x80c4
@@ -33,7 +33,7 @@ run_state_15_scene:
     add sp, byte 6                   ; 0x80eb
     mov word [bss_844c], ax          ; 0x80ee
 @..run_state_15_scene.l1:
-    mov word [bss_905e], 0x15        ; 0x80f1
+    mov word [party_return_state], 0x15 ; 0x80f1
     call loc_HUIS                    ; 0x80f7
     cmp word [bss_8450], byte 0      ; 0x80fa
     je short @..run_state_15_scene.l2 ; 0x80ff

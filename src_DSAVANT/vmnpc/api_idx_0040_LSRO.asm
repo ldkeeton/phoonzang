@@ -81,7 +81,7 @@ jumptable_36f8_case_3:
 @..api_idx_0040_LSRO.l6:
     mov word [bss_95a6], 1           ; 0x2c46
     mov word [game_state], 5         ; 0x2c4c
-    mov word [bss_905e], 0x12        ; 0x2c52
+    mov word [party_return_state], 0x12 ; 0x2c52
     mov ax, 1                        ; 0x2c58
     ret                              ; 0x2c5b
 jumptable_36f8_case_36:
@@ -154,7 +154,7 @@ jumptable_36f8_case_4:
     call api_idx_005e_SHOL           ; 0x2d00
     add sp, byte 4                   ; 0x2d03
 @..api_idx_0040_LSRO.l9:
-    call loc_RPUI                    ; 0x2d06
+    call run_party_screen_animation  ; 0x2d06
     jmp short @..api_idx_0040_LSRO.l12 ; 0x2d09
 @..api_idx_0040_LSRO.l10:
     cmp word [bp - 0x0040], byte 0   ; 0x2d0b
@@ -180,7 +180,7 @@ jumptable_36f8_case_4:
     add ax, cx                       ; 0x2d3f
     mov bx, ax                       ; 0x2d41
     mov word [bx + cell_slot_ref], 0 ; 0x2d43
-    call loc_RPUI                    ; 0x2d49
+    call run_party_screen_animation  ; 0x2d49
 @..api_idx_0040_LSRO.l12:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x2d4c
 jumptable_36f8_case_5:
@@ -270,7 +270,7 @@ jumptable_36f8_case_8:
     sub ah, ah                       ; 0x2e17
     mov word [party_region], ax      ; 0x2e19
     mov word [game_state], 5         ; 0x2e1c
-    mov word [bss_905e], 0x12        ; 0x2e22
+    mov word [party_return_state], 0x12 ; 0x2e22
     mov ax, 1                        ; 0x2e28
     ret                              ; 0x2e2b
 @..api_idx_0040_LSRO.l20:
@@ -326,7 +326,7 @@ jumptable_36f8_case_10:
     inc word [bp + 0x4]              ; 0x2ea3
 @..api_idx_0040_LSRO.l24:
     mov ax, word [bp + 0x4]          ; 0x2ea6
-    cmp ax, word [bss_69c8]          ; 0x2ea9
+    cmp ax, word [party_char_count]  ; 0x2ea9
     jge short @..api_idx_0040_LSRO.l25 ; 0x2ead
     cmp word [bp - 0x003a], byte 0xff ; 0x2eaf
     je short @..api_idx_0040_LSRO.l21 ; 0x2eb3
@@ -422,7 +422,7 @@ jumptable_36f8_case_12:
     inc word [bp - 0x002c]           ; 0x2f93
 @..api_idx_0040_LSRO.l33:
     mov ax, word [bp - 0x002c]       ; 0x2f96
-    cmp ax, word [bss_69c8]          ; 0x2f99
+    cmp ax, word [party_char_count]  ; 0x2f99
     jl short @..api_idx_0040_LSRO.l30 ; 0x2f9d
 @..api_idx_0040_LSRO.l34:
     mov ax, 0x248                    ; 0x2f9f
@@ -600,7 +600,7 @@ jumptable_36f8_case_17:
     push word [bp - 0x0026]          ; 0x3132
     mov ax, word [bss_9136]          ; 0x3135
     shl ax, 1                        ; 0x3138
-    add ax, bss_5842 + 0xc           ; 0x313a
+    add ax, action_bitmap + 0xc      ; 0x313a
     push ax                          ; 0x313d
     call set_bitmap_bit              ; 0x313e
     add sp, byte 6                   ; 0x3141
@@ -682,7 +682,7 @@ jumptable_36f8_case_22:
     inc word [bp - 0x002c]           ; 0x31eb
 @..api_idx_0040_LSRO.l53:
     mov ax, word [bp - 0x002c]       ; 0x31ee
-    cmp ax, word [bss_69c8]          ; 0x31f1
+    cmp ax, word [party_char_count]  ; 0x31f1
     jge short @..api_idx_0040_LSRO.l54 ; 0x31f5
     cmp word [bp - 0x003a], byte 0xff ; 0x31f7
     je short @..api_idx_0040_LSRO.l52 ; 0x31fb
@@ -936,7 +936,7 @@ jumptable_36f8_case_32:
     inc word [bp - 0x002c]           ; 0x342f
 @..api_idx_0040_LSRO.l70:
     mov ax, word [bp - 0x002c]       ; 0x3432
-    cmp ax, word [bss_69c8]          ; 0x3435
+    cmp ax, word [party_char_count]  ; 0x3435
     jge short @..api_idx_0040_LSRO.l71 ; 0x3439
     jmp near @..api_idx_0040_LSRO.l67 ; 0x343b
 @..api_idx_0040_LSRO.l71:
@@ -1059,7 +1059,7 @@ jumptable_36f8_case_40:
     mov word [party_tag], 0          ; 0x3560
     mov word [game_state_arg], 0x13  ; 0x3566
     mov word [game_state], 6         ; 0x356c
-    mov word [bss_905e], 0x12        ; 0x3572
+    mov word [party_return_state], 0x12 ; 0x3572
     mov ax, 1                        ; 0x3578
     ret                              ; 0x357b
 jumptable_36f8_case_41:
@@ -1145,7 +1145,7 @@ jumptable_36f8_case_42:
     inc word [bp - 0x0030]           ; 0x3634
 @..api_idx_0040_LSRO.l80:
     mov ax, word [bp - 0x0030]       ; 0x3637
-    cmp ax, word [bss_69c8]          ; 0x363a
+    cmp ax, word [party_char_count]  ; 0x363a
     jge short @..api_idx_0040_LSRO.l81 ; 0x363e
     cmp word [bp - 0x003a], byte 0xff ; 0x3640
     jne short @..api_idx_0040_LSRO.l81 ; 0x3644
@@ -1203,14 +1203,14 @@ jumptable_36f8_case_48:
     push word [bp - 0x0028]          ; 0x36b8
     mov ax, word [bp - 0x0026]       ; 0x36bb
     shl ax, 1                        ; 0x36be
-    add ax, bss_5842 + 0xc           ; 0x36c0
+    add ax, action_bitmap + 0xc      ; 0x36c0
     push ax                          ; 0x36c3
     call set_bitmap_bit              ; 0x36c4
     add sp, byte 6                   ; 0x36c7
     jmp near @..api_idx_0040_LSRO.l85 ; 0x36ca
 jumptable_36f8_case_49:
     push word [bp - 0x0026]          ; 0x36cd
-    mov ax, bss_5842                 ; 0x36d0
+    mov ax, action_bitmap            ; 0x36d0
     push ax                          ; 0x36d3
     call test_bit                    ; 0x36d4
     add sp, byte 4                   ; 0x36d7

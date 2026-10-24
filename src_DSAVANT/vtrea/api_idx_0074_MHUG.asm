@@ -446,7 +446,7 @@ api_idx_0074_MHUG:
     inc word [bp - 0x0002]           ; 0x6ae9
 @..api_idx_0074_MHUG.l9:
     mov ax, word [bp - 0x0002]       ; 0x6aec
-    cmp ax, word [bss_69c8]          ; 0x6aef
+    cmp ax, word [party_char_count]  ; 0x6aef
     jge short @..api_idx_0074_MHUG.l10 ; 0x6af3
     jmp near @..api_idx_0074_MHUG.l7 ; 0x6af5
 @..api_idx_0074_MHUG.l10:
@@ -574,7 +574,7 @@ api_idx_0074_MHUG:
     mov ax, word [bp - 0x001c]       ; 0x6c15
     inc ax                           ; 0x6c18
     cwd                              ; 0x6c19
-    idiv word [bss_69c8]             ; 0x6c1a
+    idiv word [party_char_count]     ; 0x6c1a
     mov word [bp - 0x001c], dx       ; 0x6c1e
     push word [bp - 0x0022]          ; 0x6c21
     call random_below                ; 0x6c24

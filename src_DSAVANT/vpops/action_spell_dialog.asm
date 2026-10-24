@@ -497,7 +497,7 @@ action_spell_dialog:
     les bx, word [tick_counter_ptr]  ; 0x2141
     mov ax, word [es:bx]             ; 0x2145
     mov dx, word [es:bx + 0x2]       ; 0x2148
-    mov word [bss_908c], dx          ; 0x214c
+    mov word [party_redraw_last_tick_hi], dx ; 0x214c
     mov word [party_redraw_last_tick], ax ; 0x2150
     mov word [bp - 0x001c], 1        ; 0x2153
 @..action_spell_dialog.l8:

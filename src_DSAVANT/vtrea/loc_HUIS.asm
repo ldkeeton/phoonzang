@@ -4,14 +4,14 @@ loc_HUIS:
     call aztec_csav                  ; 0x578c
     mov ax, 0                        ; 0x578f
     push ax                          ; 0x5792
-    push word [bss_84a0]             ; 0x5793
+    push word [selected_item_record] ; 0x5793
     lea ax, word [bp - 0x003a]       ; 0x5797
     push ax                          ; 0x579a
     mov ax, 7                        ; 0x579b
     push ax                          ; 0x579e
     call data_record_io              ; 0x579f
     add sp, byte 8                   ; 0x57a2
-    mov word [bss_84a0], 0xffff      ; 0x57a5
+    mov word [selected_item_record], 0xffff ; 0x57a5
     cmp byte [bp - 0x0005], 0        ; 0x57ab
     jbe short @..loc_HUIS.l2         ; 0x57af
     mov ax, 0xc6                     ; 0x57b1
@@ -41,7 +41,7 @@ loc_HUIS:
     call redraw_treasure_caption     ; 0x57e1
     pop cx                           ; 0x57e4
 @..loc_HUIS.l2:
-    cmp word [bss_905e], byte 0x15   ; 0x57e5
+    cmp word [party_return_state], byte 0x15 ; 0x57e5
     jne short @..loc_HUIS.l3         ; 0x57ea
     call api_idx_0006_OUPU           ; 0x57ec
 @..loc_HUIS.l3:
@@ -54,12 +54,12 @@ loc_HUIS:
     mov word [bp - 0x008a], 0        ; 0x5803
     mov word [bp - 0x008c], 0        ; 0x5809
     mov word [bss_95e4], 0           ; 0x580f
-    cmp word [bss_849e], byte 0xff   ; 0x5815
+    cmp word [selected_item_slot], byte 0xff ; 0x5815
     jne short @..loc_HUIS.l4         ; 0x581a
     jmp near @..loc_HUIS.l9          ; 0x581c
 @..loc_HUIS.l4:
     mov ax, 0x26                     ; 0x581f
-    imul word [bss_849e]             ; 0x5822
+    imul word [selected_item_slot]   ; 0x5822
     mov bx, ax                       ; 0x5826
     cmp byte [bx + slot_records + 0x14], 0 ; 0x5828
     jle short @..loc_HUIS.l5         ; 0x582d
@@ -69,7 +69,7 @@ loc_HUIS:
 @..loc_HUIS.l6:
     push word [bp - 0x0002]          ; 0x5837
     mov ax, 0x26                     ; 0x583a
-    imul word [bss_849e]             ; 0x583d
+    imul word [selected_item_slot]   ; 0x583d
     add ax, slot_records + 0x16      ; 0x5841
     push ax                          ; 0x5844
     call test_bit                    ; 0x5845
@@ -77,7 +77,7 @@ loc_HUIS:
     test ax, ax                      ; 0x584b
     je short @..loc_HUIS.l7          ; 0x584d
     push word [bp - 0x0002]          ; 0x584f
-    push word [bss_849e]             ; 0x5852
+    push word [selected_item_slot]   ; 0x5852
     mov ax, 0x15                     ; 0x5856
     push ax                          ; 0x5859
     call api_idx_0002_MLKN           ; 0x585a
@@ -92,7 +92,7 @@ loc_HUIS:
 @..loc_HUIS.l7:
     push word [bp - 0x0002]          ; 0x5876
     mov ax, 0x26                     ; 0x5879
-    imul word [bss_849e]             ; 0x587c
+    imul word [selected_item_slot]   ; 0x587c
     add ax, slot_records + 0x18      ; 0x5880
     push ax                          ; 0x5883
     call test_bit                    ; 0x5884
@@ -252,7 +252,7 @@ loc_HUIS:
     inc word [bp - 0x0002]           ; 0x59e0
 @..loc_HUIS.l23:
     mov ax, word [bp - 0x0002]       ; 0x59e3
-    cmp ax, word [bss_69c8]          ; 0x59e6
+    cmp ax, word [party_char_count]  ; 0x59e6
     jl short @..loc_HUIS.l21         ; 0x59ea
     cmp word [bp - 0x0084], byte 0   ; 0x59ec
     jne short @..loc_HUIS.l24        ; 0x59f1
@@ -613,7 +613,7 @@ loc_HUIS:
     inc word [bp - 0x0002]           ; 0x5d58
 @..loc_HUIS.l54:
     mov ax, word [bp - 0x0002]       ; 0x5d5b
-    cmp ax, word [bss_69c8]          ; 0x5d5e
+    cmp ax, word [party_char_count]  ; 0x5d5e
     jl short @..loc_HUIS.l52         ; 0x5d62
     cmp word [bss_95e4], byte 0      ; 0x5d64
     jle short @..loc_HUIS.l55        ; 0x5d69

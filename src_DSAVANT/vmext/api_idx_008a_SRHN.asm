@@ -10,7 +10,7 @@ api_idx_008a_SRHN:
     push ax                          ; 0x0c31
     call aztec_setmem                ; 0x0c32
     add sp, byte 6                   ; 0x0c35
-    mov word [bss_905e], 0x17        ; 0x0c38
+    mov word [party_return_state], 0x17 ; 0x0c38
     mov word [game_state], 5         ; 0x0c3e
     mov ax, 0x98                     ; 0x0c44
     push ax                          ; 0x0c47

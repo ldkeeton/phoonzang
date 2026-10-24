@@ -42,5 +42,5 @@ loc_JSTI:
     push ax                          ; 0x6e04
     call api_idx_005e_SHOL           ; 0x6e05
     add sp, byte 4                   ; 0x6e08
-    call loc_RPUI                    ; 0x6e0b
+    call run_party_screen_animation  ; 0x6e0b
     ret                              ; 0x6e0e

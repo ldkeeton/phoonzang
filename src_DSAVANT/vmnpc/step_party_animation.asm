@@ -20,7 +20,7 @@ step_party_animation:
     mov ax, word [es:bx]             ; 0x0f79
     mov dx, word [es:bx + 0x2]       ; 0x0f7c
     sub ax, word [party_redraw_last_tick] ; 0x0f80
-    sbb dx, word [bss_908c]          ; 0x0f84
+    sbb dx, word [party_redraw_last_tick_hi] ; 0x0f84
     push ax                          ; 0x0f88
     push dx                          ; 0x0f89
     mov ax, word [bss_93d6]          ; 0x0f8a
@@ -51,7 +51,7 @@ step_party_animation:
     shl ax, 1                        ; 0x0fb6
     shl ax, 1                        ; 0x0fb8
     mov bx, ax                       ; 0x0fba
-    push word [bx + bss_9062]        ; 0x0fbc
+    push word [bx + screen_cache_0_seg] ; 0x0fbc
     push word [bx + screen_cache]    ; 0x0fc0
     call gfx_restore_screen          ; 0x0fc4
     add sp, byte 8                   ; 0x0fc7

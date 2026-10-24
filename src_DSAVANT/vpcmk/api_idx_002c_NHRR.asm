@@ -227,7 +227,7 @@ api_idx_002c_NHRR:
     les bx, word [tick_counter_ptr]  ; 0x6c60
     mov ax, word [es:bx]             ; 0x6c64
     mov dx, word [es:bx + 0x2]       ; 0x6c67
-    mov word [bss_908c], dx          ; 0x6c6b
+    mov word [party_redraw_last_tick_hi], dx ; 0x6c6b
     mov word [party_redraw_last_tick], ax ; 0x6c6f
 @..api_idx_002c_NHRR.l4:
     mov word [banner_offset], 0x14   ; 0x6c72

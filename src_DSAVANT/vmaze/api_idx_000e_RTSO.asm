@@ -67,12 +67,12 @@ api_idx_000e_RTSO:
     push ax                          ; 0x80ea
     mov ax, 0x12                     ; 0x80eb
     push ax                          ; 0x80ee
-    push word [bss_8af0]             ; 0x80ef
+    push word [member_roster_index]  ; 0x80ef
     call loc_SIKN                    ; 0x80f3
     add sp, byte 6                   ; 0x80f6
 @..api_idx_000e_RTSO.l5:
     mov ax, 0x248                    ; 0x80f9
-    imul word [bss_8af0]             ; 0x80fc
+    imul word [member_roster_index]  ; 0x80fc
     mov bx, ax                       ; 0x8100
     mov al, byte [bx + cell_key_grid + 0x134] ; 0x8102
     sub ah, ah                       ; 0x8106
@@ -119,11 +119,11 @@ api_idx_000e_RTSO:
     inc word [bp - 0x0004]           ; 0x8165
 @..api_idx_000e_RTSO.l9:
     mov ax, word [bp - 0x0004]       ; 0x8168
-    cmp ax, word [bss_69c8]          ; 0x816b
+    cmp ax, word [party_char_count]  ; 0x816b
     jl short @..api_idx_000e_RTSO.l7 ; 0x816f
     mov ax, word [bp - 0x000a]       ; 0x8171
     cwd                              ; 0x8174
-    idiv word [bss_69c8]             ; 0x8175
+    idiv word [party_char_count]     ; 0x8175
     mov word [bp - 0x000a], ax       ; 0x8179
 @..api_idx_000e_RTSO.l10:
     push word [bp - 0x0006]          ; 0x817c

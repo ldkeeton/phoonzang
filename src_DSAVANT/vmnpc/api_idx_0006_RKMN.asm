@@ -105,8 +105,8 @@ api_idx_0006_RKMN:
     push ax                          ; 0x73b3
     mov ax, 1                        ; 0x73b4
     push ax                          ; 0x73b7
-    push word [bss_9066]             ; 0x73b8
-    push word [bss_9064]             ; 0x73bc
+    push word [screen_cache_1_seg]   ; 0x73b8
+    push word [screen_cache_1_off]   ; 0x73bc
     call gfx_restore_screen          ; 0x73c0
     add sp, byte 8                   ; 0x73c3
     mov ax, dseg_90dc                ; 0x73c6
@@ -121,13 +121,13 @@ api_idx_0006_RKMN:
     push ax                          ; 0x73d9
     call save_screen_area            ; 0x73da
     add sp, byte 0x0a                ; 0x73dd
-    mov word [bss_9068], ax          ; 0x73e0
-    mov word [bss_906a], 1           ; 0x73e3
+    mov word [saved_screen_slot], ax ; 0x73e0
+    mov word [saved_screen_pending], 1 ; 0x73e3
     mov ax, 0                        ; 0x73e9
     push ax                          ; 0x73ec
     mov ax, 1                        ; 0x73ed
     push ax                          ; 0x73f0
-    push word [bss_9062]             ; 0x73f1
+    push word [screen_cache_0_seg]   ; 0x73f1
     push word [screen_cache]         ; 0x73f5
     call gfx_restore_screen          ; 0x73f9
     add sp, byte 8                   ; 0x73fc

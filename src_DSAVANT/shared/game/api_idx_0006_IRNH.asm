@@ -21,10 +21,10 @@ api_idx_0006_IRNH:
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     sub ax, word [party_redraw_last_tick]
-    sbb dx, word [bss_908c]
+    sbb dx, word [party_redraw_last_tick_hi]
     push ax
     push dx
-    mov ax, word [api_idx_0006_IRNH.bss1]
+    mov ax, word [api_idx_0006_IRNH.panel_redraw_ticks1]
     cwd
     mov cx, ax
     mov bx, dx
@@ -52,7 +52,7 @@ api_idx_0006_IRNH:
     shl ax, 1
     shl ax, 1
     mov bx, ax
-    push word [bx + bss_9062]
+    push word [bx + screen_cache_0_seg]
     push word [bx + screen_cache]
     call gfx_restore_screen
     add sp, byte 8

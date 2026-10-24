@@ -13,7 +13,7 @@ api_idx_0004_JLQH:
     inc word [bp - 0x0002]           ; 0x1324
 @..api_idx_0004_JLQH.l2:
     mov ax, word [bp - 0x0002]       ; 0x1327
-    cmp ax, word [bss_69c8]          ; 0x132a
+    cmp ax, word [party_char_count]  ; 0x132a
     jl short @..api_idx_0004_JLQH.l1 ; 0x132e
     cmp word [bp - 0x0004], byte 0   ; 0x1330
     je short @..api_idx_0004_JLQH.l3 ; 0x1334

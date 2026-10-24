@@ -61,7 +61,7 @@ api_idx_0002_QLLK:
     jne short @..api_idx_0002_QLLK.l5 ; 0x8f04
 @..api_idx_0002_QLLK.l4:
     mov ax, word [bp - 0x0002]       ; 0x8f06
-    mov word [bss_84a0], ax          ; 0x8f09
+    mov word [selected_item_record], ax ; 0x8f09
     mov word [game_state], 0x1a      ; 0x8f0c
     ret                              ; 0x8f12
 @..api_idx_0002_QLLK.l5:

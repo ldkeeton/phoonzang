@@ -55,7 +55,7 @@ api_idx_0012_GQSK:
     inc word [bp - 0x0002]           ; 0x05a2
 @..api_idx_0012_GQSK.l2:
     mov ax, word [bp - 0x0002]       ; 0x05a5
-    cmp ax, word [bss_69c8]          ; 0x05a8
+    cmp ax, word [party_char_count]  ; 0x05a8
     jl short @..api_idx_0012_GQSK.l1 ; 0x05ac
     mov ax, 0                        ; 0x05ae
     push ax                          ; 0x05b1
@@ -65,7 +65,7 @@ api_idx_0012_GQSK:
     push ax                          ; 0x05b5
     mov ax, 0xffff                   ; 0x05b6
     push ax                          ; 0x05b9
-    push word [bss_69c8]             ; 0x05ba
+    push word [party_char_count]     ; 0x05ba
     call set_hotspot                 ; 0x05be
     add sp, byte 0x0e                ; 0x05c1
     mov ax, 0xbb                     ; 0x05c4
@@ -156,7 +156,7 @@ api_idx_0012_GQSK:
 @..api_idx_0012_GQSK.l5:
     cmp ax, strict word 0x31         ; 0x068c
     jl short @..api_idx_0012_GQSK.l6 ; 0x068f
-    mov cx, word [bss_69c8]          ; 0x0691
+    mov cx, word [party_char_count]  ; 0x0691
     add cx, byte 0x31                ; 0x0695
     cmp cx, ax                       ; 0x0698
     jle short @..api_idx_0012_GQSK.l6 ; 0x069a

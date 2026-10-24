@@ -54,7 +54,7 @@ api_idx_0004_MLLS:
     mov ax, 0                        ; 0x038f
     push ax                          ; 0x0392
     push word [bp + 0x4]             ; 0x0393
-    call api_idx_0008_MNJN           ; 0x0396
+    call draw_active_member_panel    ; 0x0396
     add sp, byte 4                   ; 0x0399
     mov ax, word [bp + 0x4]          ; 0x039c
     mov cx, 2                        ; 0x039f

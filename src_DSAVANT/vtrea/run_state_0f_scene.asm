@@ -89,10 +89,10 @@ run_state_0f_scene:
     add sp, byte 6                   ; 0x802a
     mov word [bss_844c], ax          ; 0x802d
 @..run_state_0f_scene.l4:
-    cmp word [bss_84a4], byte 0      ; 0x8030
+    cmp word [item_action_reward_hi], byte 0 ; 0x8030
     jl short @..run_state_0f_scene.l5 ; 0x8035
     jne short @..run_state_0f_scene.l6 ; 0x8037
-    cmp word [bss_84a2], byte 0      ; 0x8039
+    cmp word [item_action_reward], byte 0 ; 0x8039
     ja short @..run_state_0f_scene.l6 ; 0x803e
 @..run_state_0f_scene.l5:
     jmp short @..run_state_0f_scene.l7 ; 0x8040
@@ -113,9 +113,9 @@ run_state_0f_scene:
     push ax                          ; 0x805e
     call set_mouse_pointer_shape     ; 0x805f
     add sp, byte 4                   ; 0x8062
-    cmp word [bss_84a0], byte 0xff   ; 0x8065
+    cmp word [selected_item_record], byte 0xff ; 0x8065
     je short @..run_state_0f_scene.l8 ; 0x806a
-    mov word [bss_905e], 0xf         ; 0x806c
+    mov word [party_return_state], 0xf ; 0x806c
     call loc_HUIS                    ; 0x8072
 @..run_state_0f_scene.l8:
     cmp word [bss_8450], byte 0      ; 0x8075

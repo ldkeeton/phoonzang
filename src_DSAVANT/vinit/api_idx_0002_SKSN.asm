@@ -2,14 +2,14 @@
 api_idx_0002_SKSN:
     mov ax, 0xfffe                   ; 0x133d
     call aztec_csav                  ; 0x1340
-    cmp word [bss_906a], byte 0      ; 0x1343
+    cmp word [saved_screen_pending], byte 0 ; 0x1343
     je short @..api_idx_0002_SKSN.l1 ; 0x1348
     mov ax, 1                        ; 0x134a
     push ax                          ; 0x134d
-    push word [bss_9068]             ; 0x134e
+    push word [saved_screen_slot]    ; 0x134e
     call restore_saved_screen        ; 0x1352
     add sp, byte 4                   ; 0x1355
-    mov word [bss_906a], 0           ; 0x1358
+    mov word [saved_screen_pending], 0 ; 0x1358
 @..api_idx_0002_SKSN.l1:
     mov ax, 1                        ; 0x135e
     push ax                          ; 0x1361
@@ -17,7 +17,7 @@ api_idx_0002_SKSN:
     push word [bss_8d06]             ; 0x1366
     call gfx_restore_area            ; 0x136a
     add sp, byte 6                   ; 0x136d
-    mov word [bss_69c8], 0           ; 0x1370
+    mov word [party_char_count], 0   ; 0x1370
     mov word [bp - 0x0002], 0        ; 0x1376
 @..api_idx_0002_SKSN.l2:
     mov ax, 1                        ; 0x137b

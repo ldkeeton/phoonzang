@@ -45,7 +45,7 @@ api_idx_0002_JHTS:
     les bx, word [tick_counter_ptr]  ; 0x8d19
     mov ax, word [es:bx]             ; 0x8d1d
     mov dx, word [es:bx + 0x2]       ; 0x8d20
-    mov word [bss_908c], dx          ; 0x8d24
+    mov word [party_redraw_last_tick_hi], dx ; 0x8d24
     mov word [party_redraw_last_tick], ax ; 0x8d28
     call draw_scene_frame            ; 0x8d2b
     mov ax, 0                        ; 0x8d2e

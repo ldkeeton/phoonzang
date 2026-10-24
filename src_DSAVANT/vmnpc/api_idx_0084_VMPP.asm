@@ -106,6 +106,6 @@ api_idx_0084_VMPP:
     add sp, byte 4                   ; 0x8d78
     mov word [bss_9e42], ax          ; 0x8d7b
     push word [bp + 0x4]             ; 0x8d7e
-    call api_idx_0004_ULSR           ; 0x8d81
+    call titlecase_string            ; 0x8d81
     pop cx                           ; 0x8d84
     ret                              ; 0x8d85

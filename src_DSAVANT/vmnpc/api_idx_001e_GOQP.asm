@@ -31,16 +31,16 @@ api_idx_001e_GOQP:
     push ax                          ; 0x70f5
     call gfx_cache_area              ; 0x70f6
     add sp, byte 0x0c                ; 0x70f9
-    mov word [bss_9062], dx          ; 0x70fc
+    mov word [screen_cache_0_seg], dx ; 0x70fc
     mov word [screen_cache], ax      ; 0x7100
-    cmp word [bss_906a], byte 0      ; 0x7103
+    cmp word [saved_screen_pending], byte 0 ; 0x7103
     je short @..api_idx_001e_GOQP.l4 ; 0x7108
     mov ax, 1                        ; 0x710a
     push ax                          ; 0x710d
-    push word [bss_9068]             ; 0x710e
+    push word [saved_screen_slot]    ; 0x710e
     call restore_saved_screen        ; 0x7112
     add sp, byte 4                   ; 0x7115
-    mov word [bss_906a], 0           ; 0x7118
+    mov word [saved_screen_pending], 0 ; 0x7118
 @..api_idx_001e_GOQP.l4:
     mov ax, 0                        ; 0x711e
     push ax                          ; 0x7121
@@ -56,8 +56,8 @@ api_idx_001e_GOQP:
     push ax                          ; 0x7135
     call gfx_cache_area              ; 0x7136
     add sp, byte 0x0c                ; 0x7139
-    mov word [bss_9066], dx          ; 0x713c
-    mov word [bss_9064], ax          ; 0x7140
+    mov word [screen_cache_1_seg], dx ; 0x713c
+    mov word [screen_cache_1_off], ax ; 0x7140
     mov word [bp - 0x0002], 0        ; 0x7143
 @..api_idx_001e_GOQP.l5:
     mov ax, 0x18                     ; 0x7148
@@ -114,7 +114,7 @@ api_idx_001e_GOQP:
     les bx, word [tick_counter_ptr]  ; 0x71d1
     mov ax, word [es:bx]             ; 0x71d5
     mov dx, word [es:bx + 0x2]       ; 0x71d8
-    mov word [bss_908c], dx          ; 0x71dc
+    mov word [party_redraw_last_tick_hi], dx ; 0x71dc
     mov word [party_redraw_last_tick], ax ; 0x71e0
     mov word [bss_93d6], 5           ; 0x71e3
     mov ax, 0xc6                     ; 0x71e9
@@ -183,7 +183,7 @@ api_idx_001e_GOQP:
     push ax                          ; 0x7290
     mov ax, word [bss_9136]          ; 0x7291
     shl ax, 1                        ; 0x7294
-    add ax, bss_5842 + 0xc           ; 0x7296
+    add ax, action_bitmap + 0xc      ; 0x7296
     push ax                          ; 0x7299
     call aztec_movmem                ; 0x729a
     add sp, byte 6                   ; 0x729d

@@ -26,8 +26,8 @@ loc_VGMJ:
     mov word [bss_844c], ax          ; 0x0b50
 @..loc_VGMJ.l1:
     mov ax, word [bp + 0x4]          ; 0x0b53
-    mov word [bss_8452], ax          ; 0x0b56
+    mov word [party_entry_mode], ax  ; 0x0b56
     mov ax, word [bp + 0x6]          ; 0x0b59
-    mov word [bss_845a], ax          ; 0x0b5c
+    mov word [party_entry_flag], ax  ; 0x0b5c
     mov word [game_state], 0xa       ; 0x0b5f
     ret                              ; 0x0b65

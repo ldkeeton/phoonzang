@@ -66,7 +66,7 @@ api_idx_009c_MRKK:
     call api_idx_005e_SHOL           ; 0x6829
     add sp, byte 4                   ; 0x682c
     mov word [cell_slot_ref], 0      ; 0x682f
-    call loc_RPUI                    ; 0x6835
+    call run_party_screen_animation  ; 0x6835
 @..api_idx_009c_MRKK.l5:
     ret                              ; 0x6838
 @..api_idx_009c_MRKK.l6:
@@ -437,7 +437,7 @@ jumptable_6c16_case_7:
     inc word [bp - 0x0002]           ; 0x6ba8
 @..api_idx_009c_MRKK.l40:
     mov ax, word [bp - 0x0002]       ; 0x6bab
-    cmp ax, word [bss_69c8]          ; 0x6bae
+    cmp ax, word [party_char_count]  ; 0x6bae
     jl short @..api_idx_009c_MRKK.l38 ; 0x6bb2
     mov al, byte [bss_91c7]          ; 0x6bb4
     sub ah, ah                       ; 0x6bb7
@@ -499,7 +499,7 @@ jumptable_6c16:
 @..api_idx_009c_MRKK.l43:
     cmp word [bp - 0x000c], byte 0   ; 0x6c37
     jl short @..api_idx_009c_MRKK.l44 ; 0x6c3b
-    mov ax, word [bss_69c8]          ; 0x6c3d
+    mov ax, word [party_char_count]  ; 0x6c3d
     dec ax                           ; 0x6c40
     cmp ax, word [bp - 0x000c]       ; 0x6c41
     jl short @..api_idx_009c_MRKK.l44 ; 0x6c44
@@ -510,7 +510,7 @@ jumptable_6c16:
     test ax, ax                      ; 0x6c4e
     jne short @..api_idx_009c_MRKK.l45 ; 0x6c50
 @..api_idx_009c_MRKK.l44:
-    push word [bss_69c8]             ; 0x6c52
+    push word [party_char_count]     ; 0x6c52
     call random_below                ; 0x6c56
     pop cx                           ; 0x6c59
     mov word [bp - 0x000c], ax       ; 0x6c5a
@@ -646,6 +646,6 @@ jumptable_6c16:
     call api_idx_005e_SHOL           ; 0x6d8d
     add sp, byte 4                   ; 0x6d90
     mov word [cell_slot_ref], 0      ; 0x6d93
-    call loc_RPUI                    ; 0x6d99
+    call run_party_screen_animation  ; 0x6d99
 @..api_idx_009c_MRKK.l54:
     ret                              ; 0x6d9c

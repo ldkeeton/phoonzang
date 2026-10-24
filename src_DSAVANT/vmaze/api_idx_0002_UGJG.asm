@@ -17,7 +17,7 @@ api_idx_0002_UGJG:
     inc word [bp - 0x0002]           ; 0x1132
 @..api_idx_0002_UGJG.l2:
     mov ax, word [bp - 0x0002]       ; 0x1135
-    cmp ax, word [bss_69c8]          ; 0x1138
+    cmp ax, word [party_char_count]  ; 0x1138
     jl short @..api_idx_0002_UGJG.l1 ; 0x113c
     mov ax, word [message_delay]     ; 0x113e
     shl ax, 1                        ; 0x1141

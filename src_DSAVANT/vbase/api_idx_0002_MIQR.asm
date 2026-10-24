@@ -45,7 +45,7 @@ api_idx_0002_MIQR:
     les bx, word [tick_counter_ptr]  ; 0x8e00
     mov ax, word [es:bx]             ; 0x8e04
     mov dx, word [es:bx + 0x2]       ; 0x8e07
-    mov word [bss_908c], dx          ; 0x8e0b
+    mov word [party_redraw_last_tick_hi], dx ; 0x8e0b
     mov word [party_redraw_last_tick], ax ; 0x8e0f
     call draw_scene_frame            ; 0x8e12
     mov ax, 0                        ; 0x8e15

@@ -68,16 +68,16 @@ jumptable_4a7d_case_28:
 jumptable_4a7d_case_39:
     mov ax, 0x32                     ; 0x440a
     imul word [bp + 0x8]             ; 0x440d
-    add word [bss_82fa], ax          ; 0x4410
+    add word [party_buff_turns], ax  ; 0x4410
     mov ax, 0                        ; 0x4414
     push ax                          ; 0x4417
-    push word [bss_82fc]             ; 0x4418
+    push word [party_buff_charge]    ; 0x4418
     mov ax, 5                        ; 0x441c
     imul word [bp + 0x8]             ; 0x441f
     push ax                          ; 0x4422
     call loc_QQUT                    ; 0x4423
     add sp, byte 6                   ; 0x4426
-    mov word [bss_82fc], ax          ; 0x4429
+    mov word [party_buff_charge], ax ; 0x4429
     jmp near @..apply_spell_effect_alt.l45 ; 0x442c
 jumptable_4a7d_case_29:
     push word [bp + 0x8]             ; 0x442f
@@ -142,7 +142,7 @@ jumptable_4a7d_case_33:
     inc word [bp - 0x0002]           ; 0x44bd
 @..apply_spell_effect_alt.l7:
     mov ax, word [bp - 0x0002]       ; 0x44c0
-    cmp ax, word [bss_69c8]          ; 0x44c3
+    cmp ax, word [party_char_count]  ; 0x44c3
     jl short @..apply_spell_effect_alt.l2 ; 0x44c7
 @..apply_spell_effect_alt.l8:
     inc word [bp - 0x0006]           ; 0x44c9
@@ -159,7 +159,7 @@ jumptable_4a7d_case_22:
     mov ax, word [bp + 0xa]          ; 0x44e3
 @..apply_spell_effect_alt.l10:
     mov word [bp - 0x0002], ax       ; 0x44e6
-    mov ax, word [bss_69c8]          ; 0x44e9
+    mov ax, word [party_char_count]  ; 0x44e9
     cmp word [bp + 0x6], byte 0x13   ; 0x44ec
     je short @..apply_spell_effect_alt.l11 ; 0x44f0
     mov ax, word [bp + 0xa]          ; 0x44f2
@@ -434,7 +434,7 @@ jumptable_4a7d_case_35:
     inc word [bp - 0x0002]           ; 0x477f
 @..apply_spell_effect_alt.l27:
     mov ax, word [bp - 0x0002]       ; 0x4782
-    cmp ax, word [bss_69c8]          ; 0x4785
+    cmp ax, word [party_char_count]  ; 0x4785
     jl short @..apply_spell_effect_alt.l25 ; 0x4789
     jmp near @..apply_spell_effect_alt.l45 ; 0x478b
 jumptable_4a7d_case_32:
@@ -493,7 +493,7 @@ jumptable_4a7d_case_37:
     mov ax, word [bp + 0xa]          ; 0x480c
 @..apply_spell_effect_alt.l32:
     mov word [bp - 0x0002], ax       ; 0x480f
-    mov ax, word [bss_69c8]          ; 0x4812
+    mov ax, word [party_char_count]  ; 0x4812
     cmp word [bp + 0x6], byte 0x58   ; 0x4815
     je short @..apply_spell_effect_alt.l33 ; 0x4819
     mov ax, word [bp + 0xa]          ; 0x481b

@@ -505,7 +505,7 @@ api_idx_0050_MINM:
     les bx, word [tick_counter_ptr]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
-    mov word [bss_908c], dx
+    mov word [party_redraw_last_tick_hi], dx
     mov word [party_redraw_last_tick], ax
     mov word [bp - 0x001c], 1
 @..api_idx_0050_MINM.l8:
@@ -1381,7 +1381,7 @@ api_idx_0050_MINM.jumptable1:
     les bx, word [tick_counter_ptr]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
-    mov word [bss_908c], dx
+    mov word [party_redraw_last_tick_hi], dx
     mov word [party_redraw_last_tick], ax
     mov ax, word [bp - 0x003e]
     xchg al, ah

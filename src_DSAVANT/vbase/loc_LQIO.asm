@@ -3,7 +3,7 @@ loc_LQIO:
     mov ax, 0xfdb2                   ; 0x606d
     call aztec_csav                  ; 0x6070
 @..loc_LQIO.l1:
-    cmp word [bss_69c8], byte 6      ; 0x6073
+    cmp word [party_char_count], byte 6 ; 0x6073
     jl short @..loc_LQIO.l2          ; 0x6078
     jmp near @..loc_LQIO.l10         ; 0x607a
 @..loc_LQIO.l2:
@@ -25,13 +25,13 @@ loc_LQIO:
     add sp, byte 6                   ; 0x609f
     mov bx, word [bp - 0x0002]       ; 0x60a2
     mov byte [bx + bss_9074 + 0x2], 2 ; 0x60a5
-    mov si, word [bss_69c8]          ; 0x60aa
+    mov si, word [party_char_count]  ; 0x60aa
     shl si, 1                        ; 0x60ae
-    mov word [si + bss_8af0 + 0x2], bx ; 0x60b0
-    push word [bss_69c8]             ; 0x60b4
+    mov word [si + member_roster_index + 0x2], bx ; 0x60b0
+    push word [party_char_count]     ; 0x60b4
     call api_idx_0006_MHOR           ; 0x60b8
     pop cx                           ; 0x60bb
-    mov cx, word [bss_69c8]          ; 0x60bc
+    mov cx, word [party_char_count]  ; 0x60bc
     shl cx, 1                        ; 0x60c0
     mov bx, cx                       ; 0x60c2
     mov word [bx + member_state + 0xb92], ax ; 0x60c4
@@ -43,7 +43,7 @@ loc_LQIO:
     add sp, byte 4                   ; 0x60d2
     lea si, word [bp - 0x024e]       ; 0x60d5
     mov ax, 0x248                    ; 0x60d9
-    imul word [bss_69c8]             ; 0x60dc
+    imul word [party_char_count]     ; 0x60dc
     mov di, ax                       ; 0x60e0
     add ax, party_records            ; 0x60e2
     mov di, ax                       ; 0x60e5
@@ -53,10 +53,10 @@ loc_LQIO:
     rep movsw                        ; 0x60ee
     mov ax, 0                        ; 0x60f0
     push ax                          ; 0x60f3
-    push word [bss_69c8]             ; 0x60f4
+    push word [party_char_count]     ; 0x60f4
     call draw_party_member_panel     ; 0x60f8
     add sp, byte 4                   ; 0x60fb
-    mov ax, word [bss_69c8]          ; 0x60fe
+    mov ax, word [party_char_count]  ; 0x60fe
     mov cx, 2                        ; 0x6101
     cwd                              ; 0x6104
     idiv cx                          ; 0x6105
@@ -65,7 +65,7 @@ loc_LQIO:
     imul cx                          ; 0x610c
     add ax, strict word 5            ; 0x610e
     mov word [bp - 0x0004], ax       ; 0x6111
-    mov ax, word [bss_69c8]          ; 0x6114
+    mov ax, word [party_char_count]  ; 0x6114
     mov cx, 2                        ; 0x6117
     cwd                              ; 0x611a
     idiv cx                          ; 0x611b
@@ -73,7 +73,7 @@ loc_LQIO:
     imul cx                          ; 0x6120
     add ax, strict word 0x12         ; 0x6122
     mov word [bp - 0x0006], ax       ; 0x6125
-    mov ax, word [bss_69c8]          ; 0x6128
+    mov ax, word [party_char_count]  ; 0x6128
     jmp near @..loc_LQIO.l7          ; 0x612b
 @..loc_LQIO.l4:
     mov ax, 0x8d                     ; 0x612e
@@ -138,7 +138,7 @@ loc_LQIO:
     je short @..loc_LQIO.l5          ; 0x61b9
     jmp short @..loc_LQIO.l6         ; 0x61bb
 @..loc_LQIO.l9:
-    inc word [bss_69c8]              ; 0x61bd
+    inc word [party_char_count]      ; 0x61bd
     jmp near @..loc_LQIO.l1          ; 0x61c1
 @..loc_LQIO.l10:
     mov ax, 0xc6                     ; 0x61c4
