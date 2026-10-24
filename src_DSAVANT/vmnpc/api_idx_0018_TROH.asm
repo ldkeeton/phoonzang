@@ -47,7 +47,7 @@ api_idx_0018_TROH:
     mov ax, 0x15e                    ; 0x0794
     imul word [bp - 0x0002]          ; 0x0797
     mov bx, ax                       ; 0x079a
-    cmp byte [bx + slot_rec_forced], 0 ; 0x079c
+    cmp byte [bx + slot_recs + 0x15b], 0 ; 0x079c
     je short @..api_idx_0018_TROH.l5 ; 0x07a1
     mov word [bp + 0x8], 0           ; 0x07a3
 @..api_idx_0018_TROH.l5:
@@ -56,7 +56,7 @@ api_idx_0018_TROH:
     shl cx, 1                        ; 0x07ad
     add ax, cx                       ; 0x07af
     mov bx, ax                       ; 0x07b1
-    mov al, byte [bx + slot_rec_target_rand + 0x75] ; 0x07b3
+    mov al, byte [bx + slot_recs + 0xa5] ; 0x07b3
     sub ah, ah                       ; 0x07b7
     mov word [bp - 0x0008], ax       ; 0x07b9
     cmp word [bp - 0x0008], byte 0   ; 0x07bc
@@ -110,7 +110,7 @@ api_idx_0018_TROH:
     shl cx, 1                        ; 0x0828
     add ax, cx                       ; 0x082a
     mov bx, ax                       ; 0x082c
-    mov al, byte [bx + slot_rec_target_rand + 0x8] ; 0x082e
+    mov al, byte [bx + slot_recs + 0x38] ; 0x082e
     sub ah, ah                       ; 0x0832
     push ax                          ; 0x0834
     mov ax, 0x15e                    ; 0x0835
@@ -119,7 +119,7 @@ api_idx_0018_TROH:
     shl cx, 1                        ; 0x083e
     add ax, cx                       ; 0x0840
     mov bx, ax                       ; 0x0842
-    mov al, byte [bx + slot_rec_ranges + 0x9f] ; 0x0844
+    mov al, byte [bx + slot_recs + 0x146] ; 0x0844
     cbw                              ; 0x0848
     mov cx, ax                       ; 0x0849
     pop ax                           ; 0x084b
@@ -132,7 +132,7 @@ api_idx_0018_TROH:
     imul word [bp - 0x0002]          ; 0x085b
     add ax, word [bp - 0x0006]       ; 0x085e
     mov bx, ax                       ; 0x0861
-    mov al, byte [bx + slot_rec_target_rand + 0x51] ; 0x0863
+    mov al, byte [bx + slot_recs + 0x81] ; 0x0863
     sub ah, ah                       ; 0x0867
     push ax                          ; 0x0869
     mov ax, 0x15e                    ; 0x086a
@@ -141,7 +141,7 @@ api_idx_0018_TROH:
     shl cx, 1                        ; 0x0873
     add ax, cx                       ; 0x0875
     mov bx, ax                       ; 0x0877
-    mov al, byte [bx + slot_rec_ranges + 0xa0] ; 0x0879
+    mov al, byte [bx + slot_recs + 0x147] ; 0x0879
     cbw                              ; 0x087d
     mov cx, ax                       ; 0x087e
     pop ax                           ; 0x0880
@@ -195,7 +195,7 @@ api_idx_0018_TROH:
     shl cx, 1                        ; 0x08f2
     add ax, cx                       ; 0x08f4
     mov bx, ax                       ; 0x08f6
-    mov al, byte [bx + slot_rec_target_rand + 0x8] ; 0x08f8
+    mov al, byte [bx + slot_recs + 0x38] ; 0x08f8
     sub ah, ah                       ; 0x08fc
     mov cx, ax                       ; 0x08fe
     mov ax, 0xa0                     ; 0x0900

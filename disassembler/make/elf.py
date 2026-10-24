@@ -278,6 +278,7 @@ def resplice_c(app, binary, check_only=False, only=None):
 
     out_dir = src_dir(app, PROJECT)
     sources.install_headers(app, out_dir)
+    include_dir = sources.project_include_dir(app, out_dir)
     dest = os.path.join(out_dir, binary)
     from lib.cachedirs import labels_dir, render_dir, spans_dir
     from lib.renderctx import context_path
@@ -418,7 +419,8 @@ def resplice_c(app, binary, check_only=False, only=None):
         tool = cache._tool(app, binary, label, entry)
         in_stamp = hashlib.sha1(
             (env.hexdigest() + json.dumps(entry, sort_keys=True)
-             + repr(tool) + text + project_headers(text))
+             + repr(tool) + text
+             + project_headers(text, include_dir))
             .encode('utf-8', 'replace')).hexdigest()
         prev = stamps.get(label)
         if prev and prev['in'] == in_stamp and os.path.isfile(apath):

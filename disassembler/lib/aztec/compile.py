@@ -52,17 +52,44 @@ LIBRARY_PREFIX = 'aztec_'
 #: directory as INCLUDE.
 _LMACROS_RE = re.compile(r'^\s*include\s+lmacros\.h\b', re.I | re.M)
 
+#: A C ``#include "name.h"`` or ``#include <name.h>``.
+_C_INCLUDE_RE = re.compile(r'^\s*#\s*include\s*["<]([^">]+)[">]', re.M)
 
-def project_headers(source_text):
-    """The high-level lmacros text *source_text* gains when it includes
-    ``lmacros.h`` (``''`` otherwise), for the compile cache key.
+
+def _included_headers(source_text, include_dir):
+    """The text of every header in *include_dir* that *source_text* includes,
+    directly or through another header, each once in first-seen order."""
+    seen, out, pending = set(), [], [source_text]
+    while pending:
+        for name in _C_INCLUDE_RE.findall(pending.pop(0)):
+            name = name.lower()
+            if name in seen:
+                continue
+            seen.add(name)
+            try:
+                with open(os.path.join(include_dir, name),
+                          errors='replace') as f:
+                    text = f.read()
+            except OSError:
+                continue
+            out.append(f'\n#{name}\n{text}')
+            pending.append(text)
+    return ''.join(out)
+
+
+def project_headers(source_text, include_dir=None):
+    """The header text *source_text* depends on, for the compile cache key:
+    the high-level lmacros text when it includes ``lmacros.h``, and with
+    *include_dir* the project headers a C source ``#include``s.
 
     The vendor base comes from prebuild and is fixed for the cached tree; the
-    master fragment is what a build can change.
+    master fragment and the hand-owned struct headers are what a build or an
+    edit can change.
     """
-    if not _LMACROS_RE.search(source_text):
-        return ''
-    return sources.master_text()
+    text = sources.master_text() if _LMACROS_RE.search(source_text) else ''
+    if include_dir:
+        text += _included_headers(source_text, include_dir)
+    return text
 
 
 _COMPILER_DIRS = {

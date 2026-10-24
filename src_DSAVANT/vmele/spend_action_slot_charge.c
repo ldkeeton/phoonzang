@@ -1,12 +1,8 @@
 /* decays every member's action-slot charge and ticks each slot's delay down */
 
-struct member_record {
-	char head[396];
-	unsigned char charge[6];	/* 0x18c: per-action charge left */
-	unsigned char delay[6];		/* 0x192: per-action delay counter */
-};
+#include "structs/member.h"
 
-extern struct member_record *party_char[];
+extern struct member_rec *party_char[];
 extern int party_buff_turns;		/* passes left for the party buff */
 extern int party_buff_charge;		/* buff charge given to each member */
 

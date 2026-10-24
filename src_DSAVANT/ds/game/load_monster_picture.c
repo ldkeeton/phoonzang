@@ -2,7 +2,7 @@
    already holds num */
 
 extern unsigned char picture_slot_number[], picture_slot_used[];
-extern unsigned char slot_rec_first[][350];
+extern unsigned char slot_recs[][350];	/* 350-byte monster records */
 extern char monster_pic_name[];
 
 load_monster_picture(num, n)
@@ -13,7 +13,7 @@ load_monster_picture(num, n)
 
 	gfx_wait_sound(0);
 	if (picture_slot_number[n] != num) {
-		data_record_io(8, slot_rec_first[n], num, 0);	/* type 8: monsters */
+		data_record_io(8, slot_recs[n], num, 0);	/* type 8: monsters */
 		aztec_strcpy(name, monster_pic_name);		/* "MON00.PIC" */
 		name[3] = num / 10 + '0';			/* patch the two digits */
 		name[4] = num % 10 + '0';

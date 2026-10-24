@@ -29,7 +29,7 @@ advance_action_slots:
     pop ax
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_rec_first]
+    mov al, byte [bx + slot_recs]
     sub ah, ah
     mov word [bp - 0x0004], ax
     jmp near @..advance_action_slots.l15
@@ -72,7 +72,7 @@ advance_action_slots:
     mov ax, word [bp - 0x0006]
     add cx, ax
     mov bx, cx
-    mov al, byte [bx + slot_rec_target]
+    mov al, byte [bx + slot_recs + 0x26]
     sub ah, ah
     mov word [bp - 0x0008], ax
     jmp near @..advance_action_slots.l11
@@ -116,10 +116,10 @@ advance_action_slots:
     mov ax, word [bp - 0x0006]
     add cx, ax
     mov bx, cx
-    mov al, byte [bx + slot_rec_target]
+    mov al, byte [bx + slot_recs + 0x26]
     sub ah, ah
     push ax
-    mov al, byte [bx + slot_rec_target_rand]
+    mov al, byte [bx + slot_recs + 0x30]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -158,7 +158,7 @@ advance_action_slots:
     imul word [bp - 0x0002]
     add ax, word [bp - 0x0004]
     mov bx, ax
-    mov al, byte [bx + slot_rec_action_rand]
+    mov al, byte [bx + slot_recs + 0x12]
     sub ah, ah
     push ax
     call random_below
@@ -168,7 +168,7 @@ advance_action_slots:
     imul word [bp - 0x0002]
     add ax, word [bp - 0x0004]
     mov bx, ax
-    mov al, byte [bx + slot_rec_action]
+    mov al, byte [bx + slot_recs + 0x8]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -194,7 +194,7 @@ advance_action_slots:
     imul word [bp - 0x0002]
     add ax, word [bp - 0x0006]
     mov bx, ax
-    mov al, byte [bx + slot_rec_target]
+    mov al, byte [bx + slot_recs + 0x26]
     sub ah, ah
     mov word [bp - 0x0008], ax
 @..advance_action_slots.l9:
@@ -221,7 +221,7 @@ advance_action_slots:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_rec_ranges + 0x1]
+    mov al, byte [bx + slot_recs + 0xa8]
     sub ah, ah
     push ax
     call random_below
@@ -234,7 +234,7 @@ advance_action_slots:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_rec_ranges]
+    mov al, byte [bx + slot_recs + 0xa7]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -265,7 +265,7 @@ advance_action_slots:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_rec_ranges - 0x1]
+    mov al, byte [bx + slot_recs + 0xa6]
     mov bx, word [bp + 0xe]
     mov si, word [bp - 0x000e]
     mov byte [bx + si], al
@@ -288,7 +288,7 @@ advance_action_slots:
     mov ax, 0x15e
     imul word [bp - 0x0002]
     mov bx, ax
-    mov al, byte [bx + slot_rec_forced + 0x1]
+    mov al, byte [bx + slot_recs + 0x15c]
     mov bx, word [bp + 0xe]
     mov si, word [bp - 0x000e]
     mov byte [bx + si - 0x0001], al
@@ -314,10 +314,10 @@ advance_action_slots:
     pop ax
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_rec_first]
+    mov al, byte [bx + slot_recs]
     sub ah, ah
     push ax
-    mov al, byte [bx + slot_rec_count]
+    mov al, byte [bx + slot_recs + 0x4]
     sub ah, ah
     mov cx, ax
     pop ax

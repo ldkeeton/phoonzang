@@ -210,7 +210,7 @@ party_screen:
     mov cx, 0x15e                    ; 0x1c07
     imul cx                          ; 0x1c0a
     mov bx, ax                       ; 0x1c0c
-    cmp byte [bx + slot_rec_forced], 0 ; 0x1c0e
+    cmp byte [bx + slot_recs + 0x15b], 0 ; 0x1c0e
     je short @..party_screen.l13     ; 0x1c13
     mov ax, word [bp - 0x0002]       ; 0x1c15
     shl ax, 1                        ; 0x1c18

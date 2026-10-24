@@ -315,7 +315,9 @@ def _module_key(project, binary, label, entry, source_text):
     return objcache.module_key(entry['includes'], entry['file'],
                                entry['compiler'],
                                _tool(project, binary, label, entry)[1],
-                               source_text + project_headers(source_text))
+                               source_text + project_headers(
+                                   source_text,
+                                   sources.project_include_dir(project)))
 
 
 def _compile_seeds(engine, project, binary, functions, objcache_dir,

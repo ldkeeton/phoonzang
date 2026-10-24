@@ -60,7 +60,7 @@ queue_cell_action_overlay:
     mov ax, 0x15e
     imul word [bp - 0x0006]
     mov bx, ax
-    cmp byte [bx + slot_rec_forced], 0
+    cmp byte [bx + slot_recs + 0x15b], 0
     je short @..queue_cell_action_overlay.l5
     mov word [bp + 0x8], 0
 @..queue_cell_action_overlay.l5:
@@ -69,7 +69,7 @@ queue_cell_action_overlay:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_rec_target_rand + 0x75]
+    mov al, byte [bx + slot_recs + 0xa5]
     sub ah, ah
     mov word [bp - 0x000c], ax
     cmp word [bp - 0x000c], byte 0
@@ -124,7 +124,7 @@ queue_cell_action_overlay:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_rec_target_rand + 0x8]
+    mov al, byte [bx + slot_recs + 0x38]
     sub ah, ah
     push ax
     mov ax, 0x15e
@@ -133,7 +133,7 @@ queue_cell_action_overlay:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_rec_ranges + 0x9f]
+    mov al, byte [bx + slot_recs + 0x146]
     cbw
     mov cx, ax
     pop ax
@@ -146,7 +146,7 @@ queue_cell_action_overlay:
     imul word [bp - 0x0006]
     add ax, word [bp - 0x000a]
     mov bx, ax
-    mov al, byte [bx + slot_rec_target_rand + 0x51]
+    mov al, byte [bx + slot_recs + 0x81]
     sub ah, ah
     push ax
     mov ax, 0x15e
@@ -155,7 +155,7 @@ queue_cell_action_overlay:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_rec_ranges + 0xa0]
+    mov al, byte [bx + slot_recs + 0x147]
     cbw
     mov cx, ax
     pop ax
@@ -198,7 +198,7 @@ queue_cell_action_overlay:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_rec_target_rand + 0x8]
+    mov al, byte [bx + slot_recs + 0x38]
     sub ah, ah
     mov cx, ax
     mov ax, 0xa0

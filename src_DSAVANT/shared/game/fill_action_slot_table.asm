@@ -20,7 +20,7 @@ fill_action_slot_table:
     mov cx, 0x15e
     imul cx
     mov bx, ax
-    mov al, byte [bx + slot_rec_forced]
+    mov al, byte [bx + slot_recs + 0x15b]
     sub ah, ah
     cmp ax, 0xfe
     je short @..fill_action_slot_table.l2
@@ -30,7 +30,7 @@ fill_action_slot_table:
     imul word [bp - 0x0002]
     add ax, word [bp + 0xa]
     mov bx, ax
-    mov al, byte [bx + slot_rec_first]
+    mov al, byte [bx + slot_recs]
     sub ah, ah
     mov word [bp - 0x0004], ax
     jmp near @..fill_action_slot_table.l8
@@ -39,7 +39,7 @@ fill_action_slot_table:
     imul word [bp - 0x0002]
     add ax, word [bp - 0x0004]
     mov bx, ax
-    mov al, byte [bx + slot_rec_action]
+    mov al, byte [bx + slot_recs + 0x8]
     sub ah, ah
     mov word [bp - 0x0006], ax
     cmp word [bp + 0xa], byte 0
@@ -47,9 +47,9 @@ fill_action_slot_table:
     mov ax, 0x15e
     imul word [bp - 0x0002]
     mov bx, ax
-    cmp byte [bx + slot_rec_forced], 0
+    cmp byte [bx + slot_recs + 0x15b], 0
     jbe short @..fill_action_slot_table.l6
-    mov al, byte [bx + slot_rec_forced]
+    mov al, byte [bx + slot_recs + 0x15b]
     sub ah, ah
     cmp ax, 0xfe
     jge short @..fill_action_slot_table.l6
@@ -77,7 +77,7 @@ fill_action_slot_table:
     imul word [bp - 0x0002]
     add ax, word [bp - 0x0004]
     mov bx, ax
-    mov al, byte [bx + slot_rec_action_rand]
+    mov al, byte [bx + slot_recs + 0x12]
     sub ah, ah
     push ax
     call random_below
@@ -87,12 +87,12 @@ fill_action_slot_table:
     imul word [bp - 0x0002]
     add ax, word [bp - 0x0006]
     mov bx, ax
-    mov al, byte [bx + slot_rec_target]
+    mov al, byte [bx + slot_recs + 0x26]
     sub ah, ah
     mov word [bp - 0x0008], ax
     cmp word [bp - 0x000a], byte 0
     je short @..fill_action_slot_table.l7
-    mov al, byte [bx + slot_rec_target_rand]
+    mov al, byte [bx + slot_recs + 0x30]
     sub ah, ah
     push ax
     call random_below
@@ -133,7 +133,7 @@ fill_action_slot_table:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_rec_ranges]
+    mov al, byte [bx + slot_recs + 0xa7]
     inc al
     push ax
     mov ax, 0x5a
@@ -161,7 +161,7 @@ fill_action_slot_table:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_rec_ranges + 0x1]
+    mov al, byte [bx + slot_recs + 0xa8]
     sub ah, ah
     push ax
     call random_below
@@ -189,10 +189,10 @@ fill_action_slot_table:
     imul word [bp - 0x0002]
     add ax, word [bp + 0xa]
     mov bx, ax
-    mov al, byte [bx + slot_rec_first]
+    mov al, byte [bx + slot_recs]
     sub ah, ah
     push ax
-    mov al, byte [bx + slot_rec_count]
+    mov al, byte [bx + slot_recs + 0x4]
     sub ah, ah
     mov cx, ax
     pop ax

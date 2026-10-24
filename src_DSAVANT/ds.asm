@@ -82,13 +82,6 @@ bss_598a equ __zbss_598a - __zdseg_start
 bss_598b equ __zbss_598b - __zdseg_start
 bss_5b55 equ __zbss_5b55 - __zdseg_start
 bss_5c08 equ __zbss_5c08 - __zdseg_start
-slot_rec_count equ __zbss_6a1e - __zdseg_start
-slot_rec_action equ __zbss_6a22 - __zdseg_start
-slot_rec_action_rand equ __zbss_6a2c - __zdseg_start
-slot_rec_target equ __zbss_6a40 - __zdseg_start
-slot_rec_target_rand equ __zbss_6a4a - __zdseg_start
-slot_rec_ranges equ __zbss_6ac1 - __zdseg_start
-slot_rec_forced equ __zbss_6b75 - __zdseg_start
 glyph_x_table equ __zbss_6e6c - __zdseg_start
 marker_x equ __zbss_7abc - __zdseg_start
 bss_7abe equ __zbss_7abe - __zdseg_start
@@ -533,7 +526,7 @@ disk_drive_name          equ __zbss_5926 - __zdseg_start
 monster_pic_name    equ __zmonster_pic_name - __zdseg_start
 ; picture_slot_number equ __zbss_5b48 - __zdseg_start
 ; picture_slot_used   equ __zbss_5b5a - __zdseg_start
-slot_rec_first      equ __zbss_6a1a - __zdseg_start
+slot_recs           equ __zbss_6a1a - __zdseg_start
 %include "ds/game/load_monster_picture.asm" ; 0x2863
 
 %include "ds/game/wait_and_free_sound.asm" ; 0x290d
@@ -1306,21 +1299,7 @@ __zbss_69c8:
 __zbss_69ca:
     resb 0x0050
 __zbss_6a1a:
-    resb 0x0004
-__zbss_6a1e:
-    resb 0x0004
-__zbss_6a22:
-    resb 0x000a
-__zbss_6a2c:
-    resb 0x0014
-__zbss_6a40:
-    resb 0x000a
-__zbss_6a4a:
-    resb 0x0077
-__zbss_6ac1:
-    resb 0x00b4
-__zbss_6b75:
-    resb 0x02f7
+    resb 0x0452
 __zbss_6e6c:
     resb 0x0049
 __zbss_6eb5:
