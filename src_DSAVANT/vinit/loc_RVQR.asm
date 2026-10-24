@@ -83,7 +83,7 @@ loc_RVQR:
     call release_and_exit            ; 0x0472
     pop cx                           ; 0x0475
 @..loc_RVQR.l10:
-    mov word [bss_0e34], 0x905c      ; 0x0476
+    mov word [code_check_value], 0x905c ; 0x0476
     mov al, byte [bss_5984]          ; 0x047c
     sub ah, ah                       ; 0x047f
     mov word [bp - 0x000a], ax       ; 0x0481
@@ -116,7 +116,7 @@ loc_RVQR:
     mov ax, word [bp - 0x0006]       ; 0x04d0
     cmp ax, strict word 0x64         ; 0x04d3
     jl short @..loc_RVQR.l13         ; 0x04d6
-    call ds_app_OGNR                 ; 0x04d8
+    call set_code_check_value        ; 0x04d8
     mov ax, 0                        ; 0x04db
     push ax                          ; 0x04de
     push ax                          ; 0x04df

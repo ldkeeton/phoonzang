@@ -21,7 +21,7 @@ int load_mode;
 		if (!(copy_protection_result = verify_answer_word())) {
 			load_result = -1;
 		} else {
-			ds_app_OIGN(12);	/* let the prompt's screen settle */
+			wait_for_hotspot_timeout(12);	/* let the prompt's screen settle */
 			load_result = load_game_data(load_mode);
 		}
 		startup_check_stage = 1;

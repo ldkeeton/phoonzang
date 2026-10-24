@@ -33,7 +33,7 @@ loc_KPLK:
     pop cx                           ; 0x1551
     mov ax, 0x28                     ; 0x1552
     push ax                          ; 0x1555
-    call ds_app_OIGN                 ; 0x1556
+    call wait_for_hotspot_timeout    ; 0x1556
     pop cx                           ; 0x1559
     mov ax, 0xc7                     ; 0x155a
     push ax                          ; 0x155d

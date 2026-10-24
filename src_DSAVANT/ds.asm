@@ -306,8 +306,8 @@ mouse_active            equ __zbss_0e32 - __zdseg_start
 
 %include "ds/game/release_and_exit.asm"    ; 0x03b8
 
-bss_0e34 equ __zbss_0e34 - __zdseg_start
-%include "ds/game/ds_app_OGNR.asm"         ; 0x03cd
+code_check_value equ __zbss_0e34 - __zdseg_start
+%include "ds/game/set_code_check_value.asm" ; 0x03cd
 
 %include "ds/game/ds_app_string_TVHI.asm"  ; 0x03da
 
@@ -356,7 +356,7 @@ record_packed equ __zbss_556c - __zdseg_start
 %include "ds/game/data_record_io.asm"      ; 0x0883
 
 tick_counter_ptr equ __ztick_counter_ptr - __zdseg_start
-%include "ds/game/ds_app_OIGN.asm"         ; 0x09a5
+%include "ds/game/wait_for_hotspot_timeout.asm" ; 0x09a5
 
 %include "ds/game/random_below.asm"        ; 0x09f0
 
@@ -368,11 +368,11 @@ bss_5984        equ __zbss_5984 - __zdseg_start
 loaded_sound_id equ __zbss_598e - __zdseg_start
 %include "ds/game/play_sound_effect.asm"   ; 0x0a27
 
-; bss_0e34        equ __zbss_0e34 - __zdseg_start
-code_characters equ __zbss_5990 - __zdseg_start
-bss_59f4        equ __zbss_59f4 - __zdseg_start
-answer_length   equ __zbss_59f6 - __zdseg_start
-code_check_word equ __zbss_59f8 - __zdseg_start
+; code_check_value equ __zbss_0e34 - __zdseg_start
+code_characters  equ __zbss_5990 - __zdseg_start
+bss_59f4         equ __zbss_59f4 - __zdseg_start
+answer_length    equ __zbss_59f6 - __zdseg_start
+code_check_word  equ __zbss_59f8 - __zdseg_start
 %include "ds/game/ds_app_RMGT.asm"         ; 0x0ad7
 
 %include "ds/game/set_mouse_pointer_shape.asm" ; 0x0af6

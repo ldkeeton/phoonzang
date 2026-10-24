@@ -31,7 +31,7 @@ loc_QTKU:
     jle short @..loc_QTKU.l2
     mov ax, 8
     push ax
-    call ds_app_OIGN
+    call wait_for_hotspot_timeout
     pop cx
 @..loc_QTKU.l2:
     ret

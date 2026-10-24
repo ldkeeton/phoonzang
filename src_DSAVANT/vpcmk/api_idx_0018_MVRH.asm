@@ -9,7 +9,7 @@ api_idx_0018_MVRH:
     add sp, byte 4                   ; 0x680f
     mov ax, 8                        ; 0x6812
     push ax                          ; 0x6815
-    call ds_app_OIGN                 ; 0x6816
+    call wait_for_hotspot_timeout    ; 0x6816
     pop cx                           ; 0x6819
     mov ax, party_records            ; 0x681a
     push ax                          ; 0x681d

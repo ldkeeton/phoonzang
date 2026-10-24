@@ -59,7 +59,7 @@ api_idx_0004_PMIU:
     pop cx
 @..api_idx_0004_PMIU.l1:
     push word [message_delay]
-    call ds_app_OIGN
+    call wait_for_hotspot_timeout
     pop cx
     mov ax, 1
     push ax

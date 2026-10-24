@@ -1250,7 +1250,7 @@ jumptable_4058:
 @..api_idx_00d4_LUPQ.l86:
     mov ax, 5                        ; 0x4343
     push ax                          ; 0x4346
-    call ds_app_OIGN                 ; 0x4347
+    call wait_for_hotspot_timeout    ; 0x4347
     pop cx                           ; 0x434a
     mov word [bp - 0x0006], 0        ; 0x434b
     jmp near @..api_idx_00d4_LUPQ.l89 ; 0x4350
@@ -1295,7 +1295,7 @@ jumptable_4058:
     add sp, byte 4                   ; 0x43c8
     mov ax, 8                        ; 0x43cb
     push ax                          ; 0x43ce
-    call ds_app_OIGN                 ; 0x43cf
+    call wait_for_hotspot_timeout    ; 0x43cf
     pop cx                           ; 0x43d2
 @..api_idx_00d4_LUPQ.l88:
     inc word [bp - 0x0006]           ; 0x43d3

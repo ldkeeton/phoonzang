@@ -63,7 +63,7 @@ api_idx_0056_KPMS:
     call play_sound_effect           ; 0x4719
     pop cx                           ; 0x471c
     push word [message_delay]        ; 0x471d
-    call ds_app_OIGN                 ; 0x4721
+    call wait_for_hotspot_timeout    ; 0x4721
     pop cx                           ; 0x4724
     mov ax, 1                        ; 0x4725
     push ax                          ; 0x4728

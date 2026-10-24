@@ -263,7 +263,7 @@ loc_RLUJ:
     pop cx                           ; 0x3654
     mov ax, 1                        ; 0x3655
     push ax                          ; 0x3658
-    call ds_app_OIGN                 ; 0x3659
+    call wait_for_hotspot_timeout    ; 0x3659
     pop cx                           ; 0x365c
     push word [bss_8492]             ; 0x365d
     lea ax, word [bp - 0x0056]       ; 0x3661

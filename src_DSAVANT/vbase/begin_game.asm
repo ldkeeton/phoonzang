@@ -15,7 +15,7 @@ begin_game:
 @..begin_game.l1:
     mov ax, 0xc                      ; 0x668c
     push ax                          ; 0x668f
-    call ds_app_OIGN                 ; 0x6690
+    call wait_for_hotspot_timeout    ; 0x6690
     pop cx                           ; 0x6693
     push word [bp + 0x4]             ; 0x6694
     call load_game_data              ; 0x6697

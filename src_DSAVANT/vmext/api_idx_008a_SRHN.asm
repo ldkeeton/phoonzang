@@ -95,7 +95,7 @@ api_idx_008a_SRHN:
 @..api_idx_008a_SRHN.l6:
     mov ax, 2                        ; 0x0cfb
     push ax                          ; 0x0cfe
-    call ds_app_OIGN                 ; 0x0cff
+    call wait_for_hotspot_timeout    ; 0x0cff
     pop cx                           ; 0x0d02
     jmp short @..api_idx_008a_SRHN.l4 ; 0x0d03
 @..api_idx_008a_SRHN.l7:
@@ -260,7 +260,7 @@ api_idx_008a_SRHN:
 @..api_idx_008a_SRHN.l23:
     mov ax, 2                        ; 0x0e6a
     push ax                          ; 0x0e6d
-    call ds_app_OIGN                 ; 0x0e6e
+    call wait_for_hotspot_timeout    ; 0x0e6e
     pop cx                           ; 0x0e71
     mov ax, 0x98                     ; 0x0e72
     push ax                          ; 0x0e75

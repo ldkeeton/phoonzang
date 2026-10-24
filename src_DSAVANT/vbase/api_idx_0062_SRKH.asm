@@ -153,7 +153,7 @@ api_idx_0062_SRKH:
     mov ax, word [message_delay]     ; 0x4cf6
     shl ax, 1                        ; 0x4cf9
     push ax                          ; 0x4cfb
-    call ds_app_OIGN                 ; 0x4cfc
+    call wait_for_hotspot_timeout    ; 0x4cfc
     pop cx                           ; 0x4cff
     mov ax, 1                        ; 0x4d00
     push ax                          ; 0x4d03

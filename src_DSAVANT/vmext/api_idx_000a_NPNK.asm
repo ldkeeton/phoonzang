@@ -35,7 +35,7 @@ api_idx_000a_NPNK:
     call redraw_maze_view            ; 0x0be3
     mov ax, 2                        ; 0x0be6
     push ax                          ; 0x0be9
-    call ds_app_OIGN                 ; 0x0bea
+    call wait_for_hotspot_timeout    ; 0x0bea
     pop cx                           ; 0x0bed
     mov ax, word [bp - 0x0002]       ; 0x0bee
     mov word [party_world_x], ax     ; 0x0bf1

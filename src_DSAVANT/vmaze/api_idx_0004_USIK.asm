@@ -65,13 +65,13 @@ api_idx_0004_USIK:
     mov word [loaded_sound_id], 0xffff ; 0x188a
     mov ax, 2                        ; 0x1890
     push ax                          ; 0x1893
-    call ds_app_OIGN                 ; 0x1894
+    call wait_for_hotspot_timeout    ; 0x1894
     pop cx                           ; 0x1897
     mov word [bss_831a], 2           ; 0x1898
     call redraw_maze_view            ; 0x189e
     mov ax, 2                        ; 0x18a1
     push ax                          ; 0x18a4
-    call ds_app_OIGN                 ; 0x18a5
+    call wait_for_hotspot_timeout    ; 0x18a5
     pop cx                           ; 0x18a8
     mov word [bss_831a], 0           ; 0x18a9
     push word [bp - 0x0004]          ; 0x18af
