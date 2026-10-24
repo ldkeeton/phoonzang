@@ -433,7 +433,7 @@ class ResharePartialTest(unittest.TestCase):
             full = self._full(root)
             files, result, diverged = shared.reshare_partial(
                 {'a/f.asm': BODY.format(name='f', a='7', b='8', c='9'),
-                 'a.asm': '%include "a/f.asm"\n'}, root, 'a')
+                 'a.asm': '%include "a/f.asm"\n'}, root)
         self.assertEqual(result, {'shared/library/f.asm': ['a/f.asm']})
         self.assertEqual(diverged, [])
         self.assertEqual(files, {'a.asm': full['a.asm']})
@@ -445,7 +445,7 @@ class ResharePartialTest(unittest.TestCase):
             full = self._full(root, 'f_GGGG', 'f_HHHH', tables)
             files, result, _ = shared.reshare_partial(
                 {'b/f_HHHH.asm': BODY.format(name='f_HHHH', a='1', b='2', c='3'),
-                 'b.asm': '%include "b/f_HHHH.asm"\n'}, root, 'b')
+                 'b.asm': '%include "b/f_HHHH.asm"\n'}, root)
         self.assertEqual(result, {'shared/library/f_GGGG.asm': ['b/f_HHHH.asm']})
         self.assertEqual(files['b.asm'], full['b.asm'])
 
@@ -455,9 +455,9 @@ class ResharePartialTest(unittest.TestCase):
             changed = BODY.format(name='f', a='1', b='2', c='3').replace(
                 'push bp', 'push si')
             files, result, diverged = shared.reshare_partial(
-                {'a/f.asm': changed, 'a.asm': '%include "a/f.asm"\n'}, root, 'a')
+                {'a/f.asm': changed, 'a.asm': '%include "a/f.asm"\n'}, root)
         self.assertEqual(result, {})
-        self.assertEqual(diverged, ['shared/library/f.asm'])
+        self.assertEqual(diverged, [('a', 'shared/library/f.asm')])
         self.assertEqual(files['a/f.asm'], changed)
 
     def test_a_changed_c_keeps_its_own(self):
@@ -470,17 +470,27 @@ class ResharePartialTest(unittest.TestCase):
             asm = BODY.format(name='f', a='1', b='2', c='3')
             _, same, _ = shared.reshare_partial(
                 {'a/f.asm': asm, 'a/f.c': 'int f;\n',
-                 'a.asm': '%include "a/f.asm"\n'}, root, 'a')
+                 'a.asm': '%include "a/f.asm"\n'}, root)
             _, other, diverged = shared.reshare_partial(
                 {'a/f.asm': asm, 'a/f.c': 'int g;\n',
-                 'a.asm': '%include "a/f.asm"\n'}, root, 'a')
+                 'a.asm': '%include "a/f.asm"\n'}, root)
         self.assertEqual(list(same), ['shared/game/f.asm'])
-        self.assertEqual((other, diverged), ({}, ['shared/game/f.asm']))
+        self.assertEqual((other, diverged), ({}, [('a', 'shared/game/f.asm')]))
+
+    def test_every_binary_the_partial_build_emits_reshares(self):
+        with tempfile.TemporaryDirectory() as root:
+            full = self._full(root)
+            body = BODY.format(name='f', a='1', b='2', c='3')
+            files, result, _ = shared.reshare_partial(
+                {'a/f.asm': body, 'a.asm': '%include "a/f.asm"\n',
+                 'b/f.asm': body, 'b.asm': '%include "b/f.asm"\n'}, root)
+        self.assertEqual(result, {'shared/library/f.asm': ['a/f.asm', 'b/f.asm']})
+        self.assertEqual(files, {'a.asm': full['a.asm'], 'b.asm': full['b.asm']})
 
     def test_no_full_build_leaves_the_files_alone(self):
         files = {'a/f.asm': 'f:\n    ret\n', 'a.asm': '%include "a/f.asm"\n'}
         with tempfile.TemporaryDirectory() as root:
-            self.assertEqual(shared.reshare_partial(files, root, 'a'),
+            self.assertEqual(shared.reshare_partial(files, root),
                              (files, {}, []))
 
 

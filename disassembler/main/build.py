@@ -432,12 +432,12 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
             # new copies still match them (:func:`reshare_partial`).
             progress.log(f'{project} | syncing partial build: {only}')
             files, shared, diverged = reshare_partial(merge_files(emitted),
-                                                      out_dir, only)
+                                                      out_dir)
             if shared:
-                report(f'  Shared: {len(shared)} fragments of {only} '
-                       f'-> shared/')
-            for rel in diverged:
-                report(f'  {only}: its copy differs from {rel}; kept its '
+                report(f'  Shared: {sum(len(v) for v in shared.values())} '
+                       f'fragments -> {len(shared)} files in shared/')
+            for name, rel in diverged:
+                report(f'  {name}: its copy differs from {rel}; kept its '
                        f'own until a full build re-decides')
             # Assembling it alone must not leave the others' stale artifacts
             # in build_out, so only this binary's scope is pruned.
