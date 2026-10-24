@@ -107,6 +107,9 @@ def _buckets(fragments, tables):
     """
     keys, hosts = {}, _hosts(tables)
     for rel, (text, ctext) in fragments.items():
+        if binary_local(rel):
+            keys[rel] = []
+            continue
         base = _shared_base(rel)
         keys[rel] = [(base, ctext)]
         # A host's copy under an overlay's name would define it twice in
@@ -376,6 +379,18 @@ def _band(rel, text, ctext, tables):
             r'^\s*call\s+(?:near\s+)?aztec_csav\b', text, re.M):
         return 'game'
     return 'library'
+
+
+#: A data file named for its address (``vmele/data/dseg_9098.asm``,
+#: :func:`lib.compare.splitting._select_leftover_data_ranges`): one address in
+#: two programs is two objects, so it is its binary's own and never shared.
+_ADDRESS_DATA = re.compile(r'(?:dseg|cseg|str|cp)_[0-9a-f]{4,5}')
+
+
+def binary_local(rel):
+    """True for a data file named for its address (:data:`_ADDRESS_DATA`)."""
+    return (os.path.basename(os.path.dirname(rel)) == 'data'
+            and _ADDRESS_DATA.fullmatch(_stem(rel)) is not None)
 
 
 def _shared_base(rel):
@@ -984,7 +999,9 @@ def _findings(frags, served=frozenset(), hosts=None):
     code, data = defaultdict(list), defaultdict(lambda: defaultdict(list))
     for frag in frags:
         if frag.data:
-            data[frag.stem][frag.key].append(frag)
+            stem = (f'{frag.binary}/{frag.stem}' if binary_local(frag.rel)
+                    else frag.stem)
+            data[stem][frag.key].append(frag)
         else:
             code[frag.key].append(frag)
     findings = []

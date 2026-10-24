@@ -158,24 +158,9 @@ _Uorg    equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/aztec/aztec_ovbgn.asm"           ; 0x4e9d
 
-__zdseg_9098:
 __zdata_start:
-    db 'V1.$$$', 0
-__zdseg_909f:
-    db 'V1.$$$', 0
-__zdseg_90a6:
-    db 'V2.$$$', 0
-__zdseg_90ad:
-    db 'V3.$$$', 0
-__zdseg_90b4:
-    db 'V1.$$$', 0
-__zdseg_90bb:
-    db 0x2a, 0x2a, 0x2a, 0x00
-__zdseg_90bf:
-    db 'V.$$$', 0
-__zdseg_90c5:
-    db 'V.$$$', 0
-    db 0x00
+%include "vpops/data/dseg_9098.asm"        ; 0x4edb
+
 %include "shared/data/save_si.asm"          ; 0x4f0f
 
 %include "shared/data/save_di.asm"          ; 0x4f11

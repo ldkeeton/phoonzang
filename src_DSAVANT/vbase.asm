@@ -515,66 +515,13 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/aztec/aztec_strcmp.asm"          ; 0x9386
 
-__zdseg_9098:
 __zdata_start:
-    db 'PCFILE.DBS', 0
-__zdseg_90a3:
-    db 'V.$$$', 0
-__zdseg_90a9:
-    db 'PORTDATA.VGA', 0
-__zdseg_90b6:
-    db 'V.$$$', 0
-__zdseg_90bc:
-    db 'V.$$$', 0
-__zdseg_90c2:
-    db 'SAVEGAME.BCF', 0
-__zdseg_90cf:
-    db 'NEWGAME.DBS', 0
-__zdseg_90db:
-    db 'CRUSADER.END', 0
-__zdseg_90e8:
-    db 'SCENARIO.HDR', 0
-__zdseg_90f5:
-    db 'V.$$$', 0
-__zdseg_90fb:
-    db 'PALETTE.DEF', 0
-__zdseg_9107:
-    db 'V.$$$', 0
+%include "vbase/data/dseg_9098.asm"        ; 0x93ed
+
 %include "vbase/data/screen_temp_file.asm" ; 0x9462
 
-__zdseg_9114:
-    db '!%&]@#|', 0
-__zdseg_911c:
-    db 0x20, 0x00
-__zdseg_911e:
-    db 'STARSCRN.VGA', 0
-__zdseg_912b:
-    db 'MAINSCRN.VGA', 0
-__zdseg_9138:
-    db 'VIDEO00.PIC', 0
-__zdseg_9144:
-    db 'VIDSCN01.VGA', 0
-__zdseg_9151:
-    db '123432', 0
-__zdseg_9158:
-    db 'STARSCRN.VGA', 0
-__zdseg_9165:
-    db 'VIDSCN02.VGA', 0
-__zdseg_9172:
-    db 'VIDSCN03.VGA', 0
-__zdseg_917f:
-    db '123432', 0
-__zdseg_9186:
-    db 'VIDSCN04.VGA', 0
-__zdseg_9193:
-    db '123432', 0
-__zdseg_919a:
-    db 'VIDSCN05.VGA', 0
-__zdseg_91a7:
-    db '123432', 0
-__zdseg_91ae:
-    db 'MAINSCRN.VGA', 0
-    db 0x00
+%include "vbase/data/dseg_9114.asm"        ; 0x9469
+
 %include "shared/data/save_si.asm"          ; 0x9511
 
 %include "shared/data/save_di.asm"          ; 0x9513

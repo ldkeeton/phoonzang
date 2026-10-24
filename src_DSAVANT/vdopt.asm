@@ -247,18 +247,13 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/aztec/aztec_cswit.asm"           ; 0x4717
 
+__zdata_start:
 %include "vdopt/data/report_line1_none.asm" ; 0x472f
 
 %include "vdopt/data/report_line2_none.asm" ; 0x4730
 
-__zdseg_909a:
-    db 0x2a, 0x2a, 0x2a, 0x00
-__zdseg_909e:
-    db 'V.$$$', 0
-__zdseg_90a4:
-    db 'V.$$$', 0
-__zdseg_90aa:
-    db 0x00, 0x00
+%include "vdopt/data/dseg_909a.asm"        ; 0x4731
+
 %include "shared/data/save_si.asm"          ; 0x4743
 
 %include "shared/data/save_di.asm"          ; 0x4745

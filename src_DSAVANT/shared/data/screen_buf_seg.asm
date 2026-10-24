@@ -1,0 +1,3 @@
+; auto-generated
+screen_buf_seg:
+    db 0x00, 0x00, 0x40, 0x01

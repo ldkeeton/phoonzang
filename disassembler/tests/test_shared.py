@@ -175,6 +175,36 @@ class ShareFilesTest(unittest.TestCase):
         self.assertIn('b/f.asm', files)
 
 
+class AddressDataTest(unittest.TestCase):
+    """A data file named for its address is its binary's own."""
+
+    def _files(self, stem):
+        from lib.autogen import stamp
+        files = {
+            f'a/data/{stem}.asm': f'__z{stem}:\n    db 0x56, 0x00\n',
+            f'b/data/{stem}.asm': f'__z{stem}:\n    db 0x56, 0x00\n',
+            'a.asm': f'%include "a/data/{stem}.asm"   ; 0x3773\n',
+            'b.asm': f'%include "b/data/{stem}.asm"   ; 0x3773\n',
+        }
+        return {rel: stamp(text, rel) for rel, text in files.items()}
+
+    def test_one_address_in_two_programs_is_not_shared(self):
+        with tempfile.TemporaryDirectory() as root:
+            _, result = shared.share_files(self._files('dseg_9098'), root, {})
+        self.assertEqual(result, {})
+
+    def test_a_named_object_still_is(self):
+        with tempfile.TemporaryDirectory() as root:
+            _, result = shared.share_files(self._files('save_si'), root, {})
+        self.assertEqual(list(result), ['shared/data/save_si.asm'])
+
+    def test_binary_local_is_the_address_name_in_a_data_folder(self):
+        self.assertTrue(shared.binary_local('vmele/data/dseg_9098.asm'))
+        self.assertTrue(shared.binary_local('ega/data/cseg_1add.asm'))
+        self.assertFalse(shared.binary_local('ega/data/mouse_drawn_y.asm'))
+        self.assertFalse(shared.binary_local('play/cseg_0870.asm'))
+
+
 class OtherNameTest(unittest.TestCase):
     """Copies whose content tags differ share when their code agrees."""
 

@@ -1,15 +1,21 @@
 ; auto-generated
-loc_0875:
+io_loc_PVQO:
+    cli                              ; 0x0870
+    push ax                          ; 0x0871
+    push ds                          ; 0x0872
+    push dx                          ; 0x0873
+    push bx                          ; 0x0874
+loc_GILG:
     mov al, byte [cs:cseg_086e - IMAGE_BASE] ; 0x0875
     cmp al, byte [cs:cseg_086f - IMAGE_BASE] ; 0x0879
-    je short loc_089e                ; 0x087e
+    je short loc_MTMG                ; 0x087e
     inc byte [cs:cseg_086e - IMAGE_BASE] ; 0x0880
     mov dx, 0x389                    ; 0x0885
     mov bx, cseg_193a - IMAGE_BASE   ; 0x0888
     cs xlatb                         ; 0x088b
     out dx, al                       ; 0x088d
     dec word [cs:cseg_0a81 - IMAGE_BASE] ; 0x088e
-    je short @..io_loc_TGPU.l1       ; 0x0893
+    je short loc_GHVG                ; 0x0893
     mov al, 0x20                     ; 0x0895
     out 0x20, al                     ; 0x0897
     pop bx                           ; 0x0899
@@ -17,7 +23,7 @@ loc_0875:
     pop ds                           ; 0x089b
     pop ax                           ; 0x089c
     iret                             ; 0x089d
-loc_089e:
+loc_MTMG:
     mov byte [cs:cseg_08ae - IMAGE_BASE], 0 ; 0x089e
     mov al, 0x20                     ; 0x08a4
     out 0x20, al                     ; 0x08a6

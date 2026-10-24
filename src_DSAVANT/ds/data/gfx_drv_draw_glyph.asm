@@ -1,0 +1,3 @@
+; auto-generated
+gfx_drv_draw_glyph:
+    db 0x2f, 0x01, 0x00, 0x00

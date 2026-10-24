@@ -385,7 +385,6 @@
         "01a4": {"name": "party_slot_x", "note": "int [2][6]: x of each party slot's letter for row 0/1; draw_party_slot_letters adds its x"},
         "01bc": {"name": "party_slot_y", "note": "int [2][6]: y of each party slot's letter for row 0/1; draw_party_slot_letters adds its y"},
         "01d4": {"name": "party_slot_glyphs", "note": "int [6][10]: per party slot, the glyph codes of its letter animation, 0xffff ends; draw_party_slot_letters reads the low byte of [slot][party_slot_frame[slot]]"},
-        "029b": {"name": "ems_slots", "note": "20 EMS slot words, each a block id or 0 when free"},
         "0620": {"name": "spell_table", "note": "6-byte entries per spell: +0 realm, +1 level (taken off the caster's power cap), +2 point cost per power level"},
         "0b74": {"name": "str_insert_savegame_disk", "note": "\"INSERT SAVEGAME DISK\" literal"},
         "0b89": {"name": "str_insert_disk_n", "note": "\"INSERT DISK (^)\" literal, ^ replaced by drive letter"},
@@ -1382,7 +1381,8 @@
         {"start": "03cd", "end": "03db", "note": "Fifteen zero bytes between the device switch's last arm (jmp at 0x03ca) and the case-1 arm at 0x03dc; decoding them linearly straddles 0x03dc and hides the table target"}
       ],
       "force_code": [
-        {"start": "0e51", "end": "0f27", "note": "Unreachable code after `jmp near loc_LPMH` at 0x0e4e: a switch on cs:[0x0e46] (6-10) that sets OPL rhythm bits through register 0xBD, plus its helper at 0x0f12 (`cs xlatb` through 0x1529) ending in the ret at 0x0f27."}
+        {"start": "0e51", "end": "0f27", "note": "Unreachable code after `jmp near loc_LPMH` at 0x0e4e: a switch on cs:[0x0e46] (6-10) that sets OPL rhythm bits through register 0xBD, plus its helper at 0x0f12 (`cs xlatb` through 0x1529) ending in the ret at 0x0f27."},
+        {"start": "0870", "end": "0874", "note": "Unreachable INT 08h handler entry: `cli` and the push ax/ds/dx/bx of io_loc_TGPU's prologue (0x08af), falling into the body at 0x0875 that io_loc_TGPU's `js` shares. Not in the 0495 handler table and never loaded as an immediate; the bytes before it (0x086e/0x086f) are the counter and limit that body compares."}
       ],
       "code_tables": [
         {"table": "035e", "jmp": "0359", "entry_size": 2, "count": 5, "note": "Device dispatch read by `jmp [cs:bx+0x45e]` (0x0359). Declared here so the decoder roots its five arms before the table's bytes are decoded as code: target 0x368 is mid-instruction in that decode, which stops the auto-scan before it can prove three targets"},

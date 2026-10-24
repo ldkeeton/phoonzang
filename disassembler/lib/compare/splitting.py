@@ -368,6 +368,95 @@ def _select_data_ranges(records, roots, binary_data=None, modules=()):
     return ranges
 
 
+#: Layout labels: the image's own frame (header sizes, the BSS block), never an
+#: object's.  They stay in the master file, ahead of a fragment that starts on
+#: the same byte.
+LAYOUT_LABELS = frozenset({'__zcode_start', '__zdata_start'})
+
+
+def _starts_object(name):
+    """True when a label in leftover data names an object of its own.
+
+    An anchor (``__zdseg_1444``, ``__zstr_0c80``) and an address name
+    (``cseg_086e``) are only handles on a byte, so the run goes on past them.
+    """
+    return (name.kind not in (Kind.ANCHOR, Kind.LOCAL)
+            and not name.generic)
+
+
+def _select_leftover_data_ranges(records, claimed, name_at):
+    """``[(start, end, name)]``: a file for each run of data no range takes.
+
+    Every data byte belongs to some fragment, so the master file is layout
+    only.  A run is the data bytes left between *claimed* ranges (functions,
+    named objects), cut at any other record and at a layout label.  A named
+    label inside it is an object of its own, up to the next label; a generic
+    one is not.  A run is named for the label on its first byte, ``__z``
+    dropped (``dseg_001e``), else ``name_at(offset)``.
+    """
+    from lib.compare.render import _DATA_RECORD_TYPES
+    taken = sorted((start, end) for start, end, _ in claimed)
+    pieces = []
+    for rec in records:
+        if rec['type'] == 'label':
+            continue
+        start, end = _record_span(rec)
+        if rec['type'] not in _DATA_RECORD_TYPES + ('data_ptr',):
+            pieces.append((start, end, False))
+            continue
+        for lo, hi in taken:
+            if hi <= start or lo >= end:
+                continue
+            if lo > start:
+                pieces.append((start, lo, True))
+            start = max(start, hi)
+            if start >= end:
+                break
+        if start < end:
+            pieces.append((start, end, True))
+    # A record that is not data (even an empty one, the code-to-data pad on
+    # a binary without one) ends the run.
+    runs = []
+    broken = True
+    for start, end, is_data in sorted(pieces):
+        if not is_data:
+            broken = True
+            continue
+        if runs and not broken and runs[-1][1] == start:
+            runs[-1][1] = end
+        else:
+            runs.append([start, end])
+        broken = False
+    labels = {}
+    for rec in records:
+        if rec['type'] == 'label':
+            labels.setdefault(rec['offset'], []).append(rec['name'])
+
+    def names_object(off):
+        return any(map(_starts_object, labels.get(off, ())))
+
+    ranges = []
+    for start, end in runs:
+        # A named object ends at the next label, as one with a root does
+        # (:func:`_select_data_ranges`); what follows is a run again.
+        inside = sorted(off for off in labels if start <= off < end)
+        cuts = {start, end}
+        for at, off in enumerate(inside):
+            if any(n in LAYOUT_LABELS for n in labels[off]):
+                cuts.add(off)
+            if names_object(off):
+                cuts.add(off)
+                cuts.add(inside[at + 1] if at + 1 < len(inside) else end)
+        cuts = sorted(cuts)
+        for lo, hi in zip(cuts, cuts[1:]):
+            names = [n for n in labels.get(lo, ()) if n not in LAYOUT_LABELS]
+            named = next((n for n in names if _starts_object(n)), None)
+            if named is None and names:
+                named = str(names[0]).removeprefix('__z')
+            ranges.append((lo, hi, named or name_at(lo)))
+    return ranges
+
+
 def _group_module(ranges, roots, binary_data, module, ends):
     """*ranges* with *module*'s objects made one, when the image holds it.
 
@@ -408,6 +497,25 @@ def _band_dir(split_dir, bands, start, name):
         raise ValueError(f'{name}: 0x{start:x} is in no sidecar band of '
                          f'{split_dir}')
     return f'{split_dir}/{band[2]}'
+
+
+def _layout_labels_first(records):
+    """*records* with each layout label ahead of the labels on its byte.
+
+    A layout label stays in the master file; one that follows a fragment's
+    first label would be emitted after the fragment's include, past its byte.
+    """
+    out = []
+    for rec in records:
+        if rec['type'] == 'label' and rec.get('name') in LAYOUT_LABELS:
+            at = len(out)
+            while (at and out[at - 1]['type'] == 'label'
+                   and out[at - 1]['offset'] == rec['offset']):
+                at -= 1
+            out.insert(at, rec)
+        else:
+            out.append(rec)
+    return out
 
 
 def _partition_function_records(records, split_ranges, split_dir, bands=(),
@@ -486,7 +594,7 @@ def _partition_function_records(records, split_ranges, split_dir, bands=(),
             {**rec, 'start': start, 'end': end}
             for start, end in zip(cuts, cuts[1:])
         )
-    records = partitioned_records
+    records = _layout_labels_first(partitioned_records)
 
     main_records = []
     split_records = {name: [] for _, _, name in ranges}
@@ -500,6 +608,9 @@ def _partition_function_records(records, split_ranges, split_dir, bands=(),
         rec_start, rec_end = _record_span(rec)
         owner = None
         if rec['type'] == 'label':
+            if rec.get('name') in LAYOUT_LABELS:
+                main_records.append(rec)
+                continue
             i = bisect_right(range_starts, rec_start) - 1
             if i >= 0 and rec_start < range_ends[i]:
                 owner = ranges[i]

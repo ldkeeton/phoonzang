@@ -1,0 +1,3 @@
+; auto-generated
+music_stop_far:
+    db 0x0f, 0x01, 0x00, 0x00

@@ -1,0 +1,3 @@
+; auto-generated
+maze_mem_seg:
+    db 0x00, 0x00, 0x00, 0x10

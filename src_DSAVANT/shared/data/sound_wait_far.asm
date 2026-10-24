@@ -1,0 +1,3 @@
+; auto-generated
+sound_wait_far:
+    db 0x1f, 0x01, 0x00, 0x00

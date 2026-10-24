@@ -695,48 +695,9 @@ _Uorg    equ __zdseg_end + (__zobss_9192 - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/aztec/aztec_ovbgn.asm"           ; 0xac30
 
-__zdseg_9098:
 __zdata_start:
-    db 'VM1.$$$', 0
-__zdseg_90a0:
-    db 'MAZEDATA.VGA', 0
-__zdseg_90ad:
-    db 'WATRDATA.VGA', 0
-__zdseg_90ba:
-    db 'TREEDATA.VGA', 0
-__zdseg_90c7:
-    db 'OTWNDATA.VGA', 0
-__zdseg_90d4:
-    db 'TILEDATA.VGA', 0
-__zdseg_90e1:
-    db 'TOWNDATA.VGA', 0
-__zdseg_90ee:
-    db 'OTWNDATA.VGA', 0
-__zdseg_90fb:
-    db 'WATRDATA.VGA', 0
-__zdseg_9108:
-    db 'TILEDATA.VGA', 0
-__zdseg_9115:
-    db 'TREEDATA.VGA', 0
-__zdseg_9122:
-    db 'OCAVDATA.VGA', 0
-__zdseg_912f:
-    db 'CAVEDATA.VGA', 0
-__zdseg_913c:
-    db 'OCAVDATA.VGA', 0
-__zdseg_9149:
-    db 'WATRDATA.VGA', 0
-__zdseg_9156:
-    db 'TREEDATA.VGA', 0
-__zdseg_9163:
-    db 'OTWNDATA.VGA', 0
-__zdseg_9170:
-    db 'WATRDATA.VGA', 0
-    db 0x00
-__zdseg_917e:
-    db '!%&]@#~', 0
-__zdseg_9186:
-    db 0x20, 0x00
+%include "vmaze/data/dseg_9098.asm"        ; 0xac6e
+
 %include "shared/data/save_si.asm"          ; 0xad5e
 
 %include "shared/data/save_di.asm"          ; 0xad60

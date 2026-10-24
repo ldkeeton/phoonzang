@@ -31,7 +31,7 @@ from collections import defaultdict
 from lib.autogen import is_generated
 from lib.cachedirs import project_of_src_dir
 from lib.routine_source import beside
-from lib.shared import FOLDER
+from lib.shared import FOLDER, binary_local
 from lib.symtab import Kind, project_tables
 
 _LABEL = re.compile(r'^([A-Za-z_@][A-Za-z0-9_.@]*):')
@@ -199,6 +199,10 @@ def scan(out_dir, symbols=None, files=None):
         # is its own.
         if beside(rel[:-4], lambda p: p in files or os.path.isfile(
                 os.path.join(out_dir, p))):
+            continue
+        # A data run named for its address is the bytes no object claims,
+        # one file per run by design: its labels are handles on its bytes.
+        if binary_local(rel):
             continue
         extras = [n for n in _defined_labels(text, symbols) if n != root]
         if not extras:

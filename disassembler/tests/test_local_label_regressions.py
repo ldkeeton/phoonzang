@@ -136,11 +136,16 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         self.assertTrue(all(value == IS_DATA
                             for value in self.bitmap[0x2f35:0x3067]))
 
-        asm_text = (pathlib.Path(self._output.name) / 'ds.asm').read_text()
+        # The master and its data fragments, where the bytes now are; an
+        # ``%include`` line's offset is where its file starts, not code.
+        output = pathlib.Path(self._output.name)
+        asm_text = '\n'.join(path.read_text() for path in [
+            output / 'ds.asm', *sorted((output / 'ds' / 'data').glob('*.asm'))])
         emitted_instruction_offsets = {
             int(match.group(1), 16)
             for line in asm_text.splitlines()
-            if (match := re.search(r';\s*0x([0-9a-fA-F]+)\s*$', line))
+            if not line.startswith('%include')
+            and (match := re.search(r';\s*0x([0-9a-fA-F]+)\s*$', line))
         }
         self.assertFalse(
             any(0x2f35 <= offset <= 0x3066

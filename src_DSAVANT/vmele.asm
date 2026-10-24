@@ -145,13 +145,9 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/aztec/aztec_swapmem.asm"         ; 0x374e
 
-__zdseg_9098:
 __zdata_start:
-    db 'MON00.PIC', 0
-__zdseg_90a2:
-    db 0x20, 0x00
-__zdseg_90a4:
-    db 'VM1.$$$', 0
+%include "vmele/data/dseg_9098.asm"        ; 0x3773
+
 %include "shared/data/save_si.asm"          ; 0x3787
 
 %include "shared/data/save_di.asm"          ; 0x3789

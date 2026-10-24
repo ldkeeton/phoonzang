@@ -1,0 +1,7 @@
+; auto-generated
+font_io_error_msg:
+
+    db 0x07, 0x0d, 0x0a
+    db 'I/O error loading font'
+    db 0x0d, 0x0a, 0x24
+

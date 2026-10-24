@@ -25,7 +25,8 @@ from main.options import APPS_DIR
 from main.runner import process
 
 from lib.compare import promote as PR
-from lib.compare.render import _build_source, mz_data_gap
+from lib.compare.render import mz_data_gap
+from tests.inline import build_source as _build_source
 from lib.compare.records import count_frozen_addrs
 from lib.segments import SegmentModel
 

@@ -18,7 +18,8 @@ import unittest
 
 from tests.slow import slow
 
-from lib.compare.render import HOST_SYMBOLS_INC, _build_source
+from lib.compare.render import HOST_SYMBOLS_INC
+from tests.inline import build_source as _build_source
 from lib.compare.records import (
     DISPATCH_STRIDE, count_ds_index, count_frozen_addrs, count_hidden_flow,
     count_name_use, count_string_immediates, dispatch_handlers, far_entry_runs,
@@ -81,6 +82,20 @@ def _copy_source_tree(dest):
         target = os.path.join(dest, rel)
         os.makedirs(os.path.dirname(target), exist_ok=True)
         shutil.copy2(path, target)
+
+
+def _edit_data(master, old, new):
+    """Replace the first *old* in *master* or in one of its ``data/``
+    fragments, where every data byte is; return whether it was found."""
+    root = os.path.dirname(master)
+    stem = os.path.splitext(os.path.basename(master))[0]
+    fragments = sorted(pathlib.Path(root, stem, 'data').glob('*.asm'))
+    for path in [pathlib.Path(master), *fragments]:
+        text = path.read_text()
+        if old in text:
+            path.write_text(text.replace(old, new, 1))
+            return True
+    return False
 
 
 def _mz_header(e_ss):
@@ -1842,13 +1857,8 @@ class InsertBytePropertyTests(unittest.TestCase):
             content = original[target:target + 23]
             self.assertEqual(content, b'0-NO GRAPHICS BOARD   \x00')
 
-            with open(master) as f:
-                src = f.read()
-            grown_src = src.replace('__zdseg_000e:',
-                                    '    db 0xee\n__zdseg_000e:', 1)
-            self.assertNotEqual(grown_src, src)
-            with open(master, 'w') as f:
-                f.write(grown_src)
+            self.assertTrue(_edit_data(master, '__zdseg_000e:',
+                                       '    db 0xee\n__zdseg_000e:'))
             grown = _nasm_file(master, d)
 
             new_origin = 0x200 + struct.unpack_from('<H', grown, 14)[0] * 16
@@ -1880,13 +1890,9 @@ class InsertBytePropertyTests(unittest.TestCase):
                 original[data_origin + name:data_origin + name + 10],
                 b'WROOT.EXE\x00')
 
-            with open(master) as f:
-                src = f.read()
             label = f'__zdseg_{name:04x}:'
-            grown_src = src.replace(label, f'    db 0xee\n{label}', 1)
-            self.assertNotEqual(grown_src, src)
-            with open(master, 'w') as f:
-                f.write(grown_src)
+            self.assertTrue(_edit_data(master, label,
+                                       f'    db 0xee\n{label}'))
             grown = _nasm_file(master, d)
 
             for record in range(records):
@@ -1908,13 +1914,9 @@ class InsertBytePropertyTests(unittest.TestCase):
             start = struct.unpack_from('<H', original, 0x3ae2)[0]
             content = original[data_origin + start:data_origin + start + 23]
 
-            with open(master) as f:
-                src = f.read()
-            shrunk_src = src.replace('__zdseg_start:\n    db 0x00, 0x00\n',
-                                     '__zdseg_start:\n', 1)
-            self.assertNotEqual(shrunk_src, src)
-            with open(master, 'w') as f:
-                f.write(shrunk_src)
+            # DS 0x0000's two bytes, the data segment's first.
+            first = pathlib.Path(d, 'vinstall', 'data', 'dseg_0000.asm')
+            self.assertTrue(_edit_data(str(first), '    db 0x00, 0x00\n', ''))
             shrunk = _nasm_file(master, d)
 
             new_origin = 0x200 + struct.unpack_from('<H', shrunk, 14)[0] * 16
@@ -2065,11 +2067,8 @@ class InsertBytePropertyTests(unittest.TestCase):
             original = _nasm_file(master, d)
             self.assertEqual(original[0x1ad5:0x1ad9], b'\xfd\x1b\x7d\x20')
             self.assertEqual(original[0x2d2a:0x2d2d], b'\xbf\xfd\x24')
-            with open(master) as f:
-                text = f.read()
-            with open(master, 'w') as f:
-                f.write(text.replace('cseg_1ad5:\n',
-                                     '    db 0xee\ncseg_1ad5:\n', 1))
+            self.assertTrue(_edit_data(master, 'cseg_1ad5:\n',
+                                       '    db 0xee\ncseg_1ad5:\n'))
             grown = _nasm_file(master, d)
         self.assertEqual(len(grown), len(original) + 1)
         self.assertEqual(grown[0x1ad6:0x1ada], b'\xfe\x1b\x7e\x20')

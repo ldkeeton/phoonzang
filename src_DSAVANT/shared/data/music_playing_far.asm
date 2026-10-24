@@ -1,0 +1,3 @@
+; auto-generated
+music_playing_far:
+    db 0x1b, 0x01, 0x00, 0x00

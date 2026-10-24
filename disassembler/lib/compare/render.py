@@ -4,7 +4,8 @@ import re
 import struct
 
 from lib.compare.splitting import (_partition_function_records,
-                                   _select_data_ranges)
+                                   _select_data_ranges,
+                                   _select_leftover_data_ranges)
 from lib.names import data_space, generic_prefix
 from lib.symtab import GENERIC, Kind, Space, Symbol
 
@@ -138,9 +139,10 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
     """Render ordered body records, including textual NASM include directives.
 
     *gap* is an optional ``(block_start, gap_end, header_size, gap_len)`` tuple
-    naming the MZ code→data gap.  The data block starting at ``block_start``
-    is emitted with a dynamic ``__zdseg_para`` prologue instead of a frozen
-    zero pad, so the data segment follows a relocated image.
+    naming the MZ code→data gap.  Its ``ds_start`` record
+    (:func:`_split_ds_start`) is emitted as a dynamic ``__zdseg_para`` prologue
+    instead of a frozen zero pad, so the data segment follows a relocated
+    image.
 
     *ds_size* is the image's data-segment size.  A code immediate equal to it
     is the shared host/overlay geometry value (plan.md D7.0).  When
@@ -175,8 +177,8 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
         elif rec['type'] == 'label':
             out.append(f'{rec["text"]}')
 
-        elif rec['type'] == 'data_block':
-            if gap is not None and rec['start'] == gap[0]:
+        elif rec['type'] == 'ds_start':
+            if gap is not None:
                 block_start, gap_end, header_size, gap_len = gap
                 out.append('')
                 if resident_end is not None:
@@ -203,10 +205,8 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
                 )
                 out.append('%endif')
                 out.append('__zdseg_start:')
-                out.extend(_render_data_block(binary_data[gap_end:rec['end']]))
-                out.append('')
-                i += 1
-                continue
+
+        elif rec['type'] == 'data_block':
             blk_size = rec['end'] - rec['start']
             fmt = rec.get('format_hint', '')
             is_tiny = blk_size < 16
@@ -720,6 +720,44 @@ def mz_data_gap(records, binary_data, start_offset):
     return None
 
 
+def _leftover_namer(binary_data, start_offset, gap):
+    """``name_at(file offset)`` for a data run with no label on its first byte:
+    ``dseg_<DS offset>`` in the data segment, else ``cseg_<file offset>``."""
+    ds_origin = ds_base = None
+    if gap is not None:
+        ds_origin, ds_base = gap[1], 0
+    elif (start_offset >= 14 and len(binary_data) >= 14
+            and binary_data[:2] == b'\xf2\x00'):
+        o_csize, o_dorg = struct.unpack_from('<HH', binary_data, 4)
+        ds_origin, ds_base = start_offset + o_csize, o_dorg
+
+    def name_at(off):
+        if ds_origin is not None and off >= ds_origin:
+            return f'dseg_{ds_base + off - ds_origin:04x}'
+        return f'cseg_{off:04x}'
+    return name_at
+
+
+def _split_ds_start(records, gap):
+    """*records* with the MZ code->data pad as a ``ds_start`` record.
+
+    The pad is layout (the master's ``__zdseg_para`` prologue), the bytes after
+    it are data, so the data can go to a fragment while the pad stays put.
+    """
+    if gap is None:
+        return records
+    out = []
+    for rec in records:
+        if rec['type'] == 'data_block' and rec['start'] == gap[0]:
+            out.append({'type': 'ds_start', 'offset': gap[0],
+                        'size': gap[1] - gap[0]})
+            if rec['end'] > gap[1]:
+                out.append({**rec, 'start': gap[1]})
+            continue
+        out.append(rec)
+    return out
+
+
 def image_geometry(records, binary_data, start_offset, ds_size):
     """``{symbol: value}`` for the image-size symbols the renderer defines.
 
@@ -1209,8 +1247,13 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     if label_map or immediate_labels or mem_equ or ds_end_symbol is not None:
         out.append('')
 
+    records = _split_ds_start(records, gap)
     data_ranges = _select_data_ranges(records, data_roots, binary_data,
                                       data_modules)
+    # Every other data byte too: the master file is layout only.
+    data_ranges = sorted([*data_ranges, *_select_leftover_data_ranges(
+        records, [*(split_ranges or ()), *data_ranges],
+        _leftover_namer(binary_data, start_offset, gap))])
     main_records, split_records = _partition_function_records(
         records, [*(split_ranges or ()), *data_ranges], split_dir, bands,
         data_starts={start for start, _, _ in data_ranges},
