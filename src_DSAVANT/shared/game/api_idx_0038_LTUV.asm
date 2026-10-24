@@ -320,7 +320,7 @@ api_idx_0038_LTUV:
     add sp, byte 8
     mov word [bp - 0x001a], 1
 @..api_idx_0038_LTUV.l5:
-    mov ax, 0x59fe
+    mov ax, hotspot_rects
     push ax
     call poll_hotspots
     pop cx

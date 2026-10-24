@@ -184,7 +184,7 @@ pick_party_member: ; Aztec csav frame=0x0012
     push ax                          ; 0x22a4
     call delay_ms                    ; 0x22a5
     pop cx                           ; 0x22a8
-    mov ax, 0x59fe                   ; 0x22a9
+    mov ax, hotspot_rects            ; 0x22a9
     push ax                          ; 0x22ac
     call poll_hotspots               ; 0x22ad
     pop cx                           ; 0x22b0

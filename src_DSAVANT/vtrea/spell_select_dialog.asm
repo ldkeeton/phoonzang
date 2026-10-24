@@ -507,7 +507,7 @@ spell_select_dialog:
     push word [bp + 0x4]             ; 0x91d9
     call periodic_party_redraw       ; 0x91dc
     add sp, byte 4                   ; 0x91df
-    mov ax, 0x59fe                   ; 0x91e2
+    mov ax, hotspot_rects            ; 0x91e2
     push ax                          ; 0x91e5
     call poll_hotspots               ; 0x91e6
     pop cx                           ; 0x91e9

@@ -29,6 +29,7 @@ from lib.verify.assemble import assemble_stats, reset_assemble_stats
 from lib.match.pattern import match_patterns
 from lib.match.trampoline import match_trampolines
 from lib.match.driver_slots import (driver_thunk_entries, entry_handlers,
+                                    thunk_pointer_args,
                                     thunk_name)
 from lib.match.categorize import categorize_call_targets
 from lib.phases.settle import SettlePhase
@@ -275,8 +276,13 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
             continue
         label_map[off] = _sidecar_routine(entry_name, off)
         use.final_names[('dispatch_table.names', key)] = (off, entry_name)
+    ctx.driver_pointer_args = {}
     for slots in (sidecar_entry or {}).get('driver_slots') or ():
         entries = driver_thunk_entries(data, label_targets, slots, start_offset)
+        if project:
+            ctx.driver_pointer_args.update(thunk_pointer_args(
+                entries, slots, _exported_pointer_params(project,
+                                                         slots['driver'])))
         for off, n in entries.items():
             label_map[off] = _sidecar_routine(
                 thunk_name(n, slots), off)
@@ -778,6 +784,15 @@ def _apply_vendor_code_data_names(segments, annotations):
             segments.cseg_spans.append((addr, end, sym))
 
 
+def _exported_pointer_params(project, name):
+    """Binary *name*'s pointer arguments, ``{routine: frozenset(arguments)}``."""
+    from lib.cachedirs import labels_dir
+    from lib.link import read_export
+    path = os.path.join(labels_dir(project), f'{name}_ptrparams.json')
+    return {routine: frozenset(args)
+            for routine, args in read_export(path).items()}
+
+
 def _foreign_pointer_params(project, host):
     """The host's pointer arguments, ``{routine: [argument, ...]}``.
 
@@ -785,10 +800,7 @@ def _foreign_pointer_params(project, host):
     """
     if not project or not host:
         return {}
-    from lib.cachedirs import labels_dir
-    from lib.link import read_export
-    path = os.path.join(labels_dir(project), f'{host}_ptrparams.json')
-    return {name: frozenset(args) for name, args in read_export(path).items()}
+    return _exported_pointer_params(project, host)
 
 
 def _render(a, exact_bytes, show_offsets, host_data_offsets,
@@ -840,6 +852,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         char_tables=(ctx.sidecar_entry or {}).get('char_tables', []),
         immediate_pointers=(ctx.sidecar_entry or {}).get(
             'immediate_pointers', []),
+        driver_pointer_args=getattr(ctx, 'driver_pointer_args', {}),
         host_data_offsets=host_data_offsets,
         ds_starts=ds_starts,
         foreign_pointer_params=_foreign_pointer_params(project, a.foreign_prefix),

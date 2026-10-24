@@ -326,7 +326,7 @@ api_idx_0038_PVVG:
     add sp, byte 8                   ; 0x2f91
     mov word [bp - 0x001a], 1        ; 0x2f94
 @..api_idx_0038_PVVG.l7:
-    mov ax, 0x59fe                   ; 0x2f99
+    mov ax, hotspot_rects            ; 0x2f99
     push ax                          ; 0x2f9c
     call poll_hotspots               ; 0x2f9d
     pop cx                           ; 0x2fa0

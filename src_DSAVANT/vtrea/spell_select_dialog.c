@@ -16,6 +16,7 @@ struct pc_rec {	/* 0x248-byte records */
 	char pad[584 - 28];
 };
 extern int party_slot_frame[];
+extern int hotspot_rects[];
 extern int spell_dialog_result, party_redraw_interval, spell_dialog_button,
 	space_key_hit, hotspot_hit;
 extern long party_redraw_last_tick;
@@ -98,7 +99,7 @@ int pc, label_id, ok_enabled, limit_by_points;
 	running = 1;
 	do {
 		periodic_party_redraw(pc, realm);
-		hit = poll_hotspots(23038) - 1;	/* 0x59fe: hotspot table; 0-based id */
+		hit = poll_hotspots(hotspot_rects) - 1;	/* 0-based id */
 		if (space_key_hit) {
 			/* space: select the next row, wrapping to the first shown */
 			if (sel_row >= list_top)

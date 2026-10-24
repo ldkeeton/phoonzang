@@ -655,7 +655,7 @@ api_idx_0074_MHUG:
     call delay_ms                    ; 0x6ccf
     pop cx                           ; 0x6cd2
 @..api_idx_0074_MHUG.l23:
-    mov ax, 0x59fe                   ; 0x6cd3
+    mov ax, hotspot_rects            ; 0x6cd3
     push ax                          ; 0x6cd6
     call poll_hotspots               ; 0x6cd7
     pop cx                           ; 0x6cda

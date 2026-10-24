@@ -439,7 +439,7 @@ api_idx_0038_LJOP:
     add sp, byte 8                   ; 0x4bdf
     mov word [bp - 0x001a], 1        ; 0x4be2
 @..api_idx_0038_LJOP.l8:
-    mov ax, 0x59fe                   ; 0x4be7
+    mov ax, hotspot_rects            ; 0x4be7
     push ax                          ; 0x4bea
     call poll_hotspots               ; 0x4beb
     pop cx                           ; 0x4bee

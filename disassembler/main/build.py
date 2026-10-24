@@ -92,6 +92,14 @@ def check_build_sidecar_use(project, bins):
             f'not applied:\n  ' + '\n  '.join(problems))
 
 
+def _slot_drivers(project):
+    """The binaries some binary's ``driver_slots`` calls the API of."""
+    sidecar = load_sidecar(project) or {}
+    return {slots['driver']
+            for info in (sidecar.get('binaries') or {}).values()
+            for slots in info.get('driver_slots') or ()}
+
+
 def aggregate_host_data(project, consumers):
     """Merge the *consumers*' exported DS refs into the host's union (D7.1).
 
@@ -271,13 +279,19 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
     family = {host} | {n for n, refs in cross_refs.items()
                        if any(src == host for _, src in refs)}
 
-    # 0. a consumer outside the host family that takes no source labels
-    #    needs nothing from the passes below: it runs alongside them, and
-    #    only the host's DS union (step 4) waits for it.
+    # 0. a driver a program calls through ``driver_slots`` runs before
+    #    everything: the program's thunks read through the arguments the
+    #    driver's handlers do (its pointer-parameter export), and the host's
+    #    are handed on to the overlays in step 1.
+    drivers = sorted(_slot_drivers(project) & set(bins))
+    # a consumer outside the host family that takes no source labels needs
+    # nothing from the passes below: it runs alongside them, and only the
+    # host's DS union (step 4) waits for it.
     early = []
     if overlap and only is None:
         early = [n for n in sorted(bins) if n not in source_names
-                 and n not in family and n not in cross_refs]
+                 and n not in family and n not in cross_refs
+                 and n not in drivers]
     pool = early_run = None
     early_emitted = {}
     if early:
@@ -287,6 +301,16 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
         early_run = pool.submit(_generate, run_batch,
                                 [(n, None) for n in early], early_emitted)
     try:
+        if drivers:
+            progress.log(f'{project} | drivers: {len(drivers)} binary(ies)')
+            failed = _generate(run_batch, [
+                (n, foreign_args(project, n, cross_refs)) for n in drivers],
+                emitted)
+            if failed:
+                report(f'{project}: driver(s) failed: '
+                       f'{", ".join(sorted(set(failed)))}')
+                return failed
+
         # 1. the sources, so each consumer below can be handed their labels
         needed = source_names
         if only is not None:
@@ -305,7 +329,8 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
             return failed
 
         # 3. the consumers
-        consumers = [n for n in sorted(bins) if n not in source_names]
+        consumers = [n for n in sorted(bins)
+                     if n not in source_names and n not in drivers]
         targets = consumers
         if only is not None:
             targets = [only] if only in targets else []
@@ -367,7 +392,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
 
         # 4. the host declares the union of the DS offsets its consumers reference
         progress.log(f'{project} | aggregating host data from {len(targets)} consumer(s)')
-        offsets = aggregate_host_data(project, targets)
+        offsets = aggregate_host_data(project, targets + drivers)
         if host in source_names:
             progress.log(f'{project} | host emit: {host}')
             flags = ['--export-labels']

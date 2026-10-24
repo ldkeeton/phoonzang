@@ -1024,7 +1024,7 @@ loc_RMVR:
 @..loc_RMVR.l5:
     cmp word [mouse_active], byte 0  ; 0x563a
     je short @..loc_RMVR.l6          ; 0x563f
-    mov ax, 0x59fe                   ; 0x5641
+    mov ax, hotspot_rects            ; 0x5641
     push ax                          ; 0x5644
     call poll_hotspots               ; 0x5645
     pop cx                           ; 0x5648

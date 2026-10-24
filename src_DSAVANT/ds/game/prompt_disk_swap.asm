@@ -218,7 +218,7 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     add sp, byte 8                   ; 0x2603
     mov word [bp - 0x00a4], 1        ; 0x2606
 @..prompt_disk_swap.l6:
-    mov ax, 0x59fe                   ; 0x260c
+    mov ax, hotspot_rects            ; 0x260c
     push ax                          ; 0x260f
     call poll_hotspots               ; 0x2610
     pop cx                           ; 0x2613

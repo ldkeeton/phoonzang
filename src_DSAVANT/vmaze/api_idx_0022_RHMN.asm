@@ -927,7 +927,7 @@ jumptable_2a3c_case_3:
     mov word [bss_919c], dx          ; 0x2a93
     mov word [bss_919a], ax          ; 0x2a97
 @..api_idx_0022_RHMN.l59:
-    mov ax, 0x59fe                   ; 0x2a9a
+    mov ax, hotspot_rects            ; 0x2a9a
     push ax                          ; 0x2a9d
     call poll_hotspots               ; 0x2a9e
     pop cx                           ; 0x2aa1

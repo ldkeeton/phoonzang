@@ -323,7 +323,7 @@ api_idx_0026_NRVO:
     add sp, byte 8
     mov word [bp - 0x0010], 1
 @..api_idx_0026_NRVO.l1:
-    mov ax, 0x59fe
+    mov ax, hotspot_rects
     push ax
     call poll_hotspots
     pop cx

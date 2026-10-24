@@ -443,6 +443,8 @@
         "59f6": {"name": "answer_length", "note": "number of answer slots to check; KVNI sets it to strlen-4"},
         "59f8": {"name": "code_check_word", "note": "word copied to the answer-check result on the last matched slot"},
         "59fc": {"name": "space_key_hit", "note": "set by poll_hotspots when the last key was space"},
+        "59fe": {"name": "hotspot_rects", "note": "int [][4] per hotspot id: x0, y0, x1, y1 (x0 == -1 disables it); set_hotspot fills it and poll_hotspots takes its address"},
+        "5afe": {"name": "hotspot_keys", "note": "char [][2] per hotspot id: the two keys that activate it, stored by set_hotspot"},
         "5b3e": {"name": "hotspot_hit", "note": "number of the hotspot last activated (0 for none)"},
         "5b40": {"name": "code_index_1", "note": "offset of the first clue character in the code table (1..0x18)"},
         "5b42": {"name": "code_index_2", "note": "offset of the second clue character in the code table (0x19..0x31)"},

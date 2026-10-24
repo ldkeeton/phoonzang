@@ -606,7 +606,7 @@ api_idx_0014_VORK:
     push word [bp + 0x4]             ; 0x66c0
     call loc_TTSP                    ; 0x66c3
     pop cx                           ; 0x66c6
-    mov ax, 0x59fe                   ; 0x66c7
+    mov ax, hotspot_rects            ; 0x66c7
     push ax                          ; 0x66ca
     call poll_hotspots               ; 0x66cb
     pop cx                           ; 0x66ce

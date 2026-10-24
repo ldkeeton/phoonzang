@@ -676,7 +676,7 @@ api_idx_0084_IMVQ:
     call delay_ms                    ; 0x2bf9
     pop cx                           ; 0x2bfc
 @..api_idx_0084_IMVQ.l18:
-    mov ax, 0x59fe                   ; 0x2bfd
+    mov ax, hotspot_rects            ; 0x2bfd
     push ax                          ; 0x2c00
     call poll_hotspots               ; 0x2c01
     pop cx                           ; 0x2c04

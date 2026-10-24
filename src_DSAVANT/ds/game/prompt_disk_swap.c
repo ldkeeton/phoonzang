@@ -5,6 +5,7 @@ extern char install_mode;
 extern int msg_dbs_fd;
 extern int data_file_fd;
 extern int hotspot_hit;
+extern int hotspot_rects[];
 extern int disk_header[];
 extern char disk_drive_name[];
 long gfx_save_area();
@@ -64,7 +65,7 @@ char *fname;
 			gfx_show_area(x0 - 1, y0 - 1, x1 + 1, y1 + 1);
 			waiting = 1;
 			do {	/* until the CONTINUE button is hit */
-				poll_hotspots(23038);	/* hotspot table address */
+				poll_hotspots(hotspot_rects);
 				if (hotspot_hit == 1) {
 					flash_button(x0 + 68, y0 + 39, 12, 1, 1);
 					flash_button(x0 + 68, y0 + 39, 12, 1, 0);

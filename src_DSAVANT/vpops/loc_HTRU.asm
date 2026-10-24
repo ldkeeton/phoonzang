@@ -223,7 +223,7 @@ loc_HTRU:
     cmp word [mouse_active], byte 0  ; 0x1327
     je short @..loc_HTRU.l12         ; 0x132c
 @..loc_HTRU.l11:
-    mov ax, 0x59fe                   ; 0x132e
+    mov ax, hotspot_rects            ; 0x132e
     push ax                          ; 0x1331
     call poll_hotspots               ; 0x1332
     pop cx                           ; 0x1335

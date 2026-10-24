@@ -326,7 +326,7 @@ api_idx_0038_IJUK:
     add sp, byte 8                   ; 0x4139
     mov word [bp - 0x001a], 1        ; 0x413c
 @..api_idx_0038_IJUK.l7:
-    mov ax, 0x59fe                   ; 0x4141
+    mov ax, hotspot_rects            ; 0x4141
     push ax                          ; 0x4144
     call poll_hotspots               ; 0x4145
     pop cx                           ; 0x4148

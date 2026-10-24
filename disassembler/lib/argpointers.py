@@ -38,6 +38,7 @@ _BODY_LIMIT = 6000
 _ARG0 = 4
 
 _GPRS = ('ax', 'bx', 'cx', 'dx', 'si', 'di')
+_SEGMENT_REGS = ('es', 'cs', 'ss', 'ds')
 #: Registers an Aztec C routine keeps across a call (its register variables).
 _CALLEE_SAVED = frozenset(('si', 'di'))
 #: The smallest constant taken as a passed address: a routine wrongly taken
@@ -47,7 +48,9 @@ _MIN_ADDRESS = 0x100
 #: Runtime-library routines that hand an argument to DOS (``int 21h`` reads
 #: ``DS:DX``) or keep it for later, so no read through it shows in their body.
 #: Each is the Aztec C library routine of that name; the indices are its
-#: ``char *``/buffer arguments.
+#: ``char *``/buffer arguments.  A thunk that hands its frame to a driver
+#: takes its handler's instead (the *declared* argument below,
+#: :func:`lib.match.driver_slots.thunk_pointer_args`).
 _LIBRARY_POINTER_ARGS = {
     'aztec_open': frozenset((0,)),        # open(name, mode)
     'aztec_read': frozenset((1,)),        # read(fd, buf, len)
@@ -221,8 +224,9 @@ class _Image:
 
         ``('imm', i)`` for ``mov reg, imm16`` at index *i*, ``('arg', n)`` for
         a load of argument *n*, ``('local', d)`` for a load of the frame local
-        at ``[bp + d]`` (``d < 0``), ``None`` otherwise or when a join point
-        or a control transfer comes first.
+        at ``[bp + d]`` (``d < 0``), ``('seg', s, i)`` for a copy of segment
+        register *s* at index *i* (``mov dx, ds``), ``None`` otherwise or when
+        a join point or a control transfer comes first.
         """
         for j in range(k - 1, max(k - 1 - _BACK_LIMIT, -1), -1):
             insn = self.insns[j]
@@ -239,6 +243,8 @@ class _Image:
                     return ('imm', j)
                 if src.type == CS_OP_REG:
                     reg = _parent(insn, src.reg)
+                    if reg in _SEGMENT_REGS:
+                        return ('seg', reg, j)
                     if reg not in _GPRS:
                         return None
                     if insn.address in self.joins:
@@ -301,7 +307,11 @@ class _Image:
                 op = insn.operands[0]
                 if op.type == CS_OP_REG:
                     reg = _parent(insn, op.reg)
-                    args[n] = self.value_of(j, reg) if reg in _GPRS else None
+                    if reg in _SEGMENT_REGS:
+                        args[n] = ('seg', reg, j)
+                    else:
+                        args[n] = (self.value_of(j, reg) if reg in _GPRS
+                                   else None)
                 elif op.type == CS_OP_MEM:
                     slot = _frame_slot(insn, op)
                     args[n] = ('arg', slot) if slot is not None else None
@@ -444,16 +454,19 @@ def _known(name, foreign):
 
 
 def pointer_params(insns, flow, name_of=lambda t: None, foreign=None,
-                   labels=()):
+                   labels=(), declared=None):
     """``{entry: frozenset(argument indices)}`` read as DS pointers.
 
     *name_of* names a call target (for ``$csav`` and *foreign*); *foreign*
     maps a routine outside this image, by name, to its pointer arguments (the
-    host's, for an overlay).  An argument handed on to a pointer argument of
-    another routine is one too, to a fixed point.
+    host's, for an overlay).  *declared* maps a routine's entry to arguments
+    it reads through where no read shows here: a driver thunk's ``call far``
+    hands them to the driver's handler, which reads them.  An argument handed on to a pointer argument of another
+    routine is one too, to a fixed point.
     """
     image = insns if isinstance(insns, _Image) else _Image(insns, labels)
     foreign = foreign or {}
+    declared = declared or {}
     # A labelled routine is an entry even when nothing here calls it: a
     # host routine only the overlays call still exports its pointer
     # arguments to them.
@@ -466,12 +479,14 @@ def pointer_params(insns, flow, name_of=lambda t: None, foreign=None,
     # reached by the near calls matched here, so it is left out entirely.
     entries = {e for e in entries
                if not any(image.insns[k].mnemonic == 'retf' for k in bodies[e])}
-    params = {e: _direct_pointer_args(image, bodies[e], flow) for e in entries}
+    params = {e: _direct_pointer_args(image, bodies[e], flow)
+              | set(declared.get(e, ())) for e in entries}
     calls = {e: [(k, _direct_target(image.insns[k])) for k in bodies[e]
                  if _is_near_call(image.insns[k])] for e in entries}
 
     def of(target):
-        known = _known(name_of(target), foreign)
+        known = _known(name_of(target), foreign) | frozenset(
+            declared.get(target, ()))
         return params[target] | known if target in params else known
 
     changed = True
@@ -487,12 +502,39 @@ def pointer_params(insns, flow, name_of=lambda t: None, foreign=None,
                             and src[1] not in params[e]):
                         params[e].add(src[1])
                         changed = True
-    return {e: frozenset(p | set(_known(name_of(e), {})))
-            for e, p in params.items() if p or _known(name_of(e), {})}
+    result = {e: frozenset(p | set(_known(name_of(e), {})))
+              for e, p in params.items() if p or _known(name_of(e), {})}
+    for e, args in declared.items():
+        if e not in result and e in image.index:
+            result[e] = frozenset(args)
+    return result
+
+
+def _far_pointer_offsets(image, k, flow):
+    """``{(insn.address, 1): DATA}`` for each constant passed as the offset
+    of a far pointer whose segment is ``DS``.
+
+    A far pointer argument is two words: the segment pushed first (the higher
+    argument), then the offset (``push ds; mov ax, 0x8b7e; push ax``).  With
+    the segment ``DS``, the offset addresses DS whatever the callee does.
+    """
+    proven = {}
+    args = image.call_args(k)
+    for n, src in args.items():
+        seg = args.get(n + 1)
+        if not (src and src[0] == 'imm' and seg and seg[0] == 'seg'):
+            continue
+        _, reg, j = seg
+        if flow.space_of(image.insns[j].address, reg) != DATA:
+            continue
+        mov = image.insns[src[1]]
+        if mov.operands[1].imm & 0xFFFF >= _MIN_ADDRESS:
+            proven[(mov.address, 1)] = DATA
+    return proven
 
 
 def argument_pointer_immediates(insns, flow, name_of=lambda t: None,
-                                foreign=None, labels=()):
+                                foreign=None, labels=(), declared=None):
     """``{(insn.address, 1): DATA}`` for each constant passed as a pointer.
 
     The ``mov reg, imm16`` whose register is pushed into a pointer argument
@@ -500,10 +542,12 @@ def argument_pointer_immediates(insns, flow, name_of=lambda t: None,
     proofs and the parameter map (for export to the overlays).
     """
     image = _Image(insns, labels)
-    params = pointer_params(image, flow, name_of, foreign, labels)
+    params = pointer_params(image, flow, name_of, foreign, labels, declared)
     foreign = foreign or {}
     proven = {}
     for k, insn in enumerate(image.insns):
+        if insn.mnemonic in ('call', 'lcall'):
+            proven.update(_far_pointer_offsets(image, k, flow))
         if not _is_near_call(insn):
             continue
         target = _direct_target(insn)

@@ -324,7 +324,7 @@ api_idx_0032_HGIM:
     cmp word [mouse_active], byte 0
     je short @..api_idx_0032_HGIM.l19
 @..api_idx_0032_HGIM.l18:
-    mov ax, 0x59fe
+    mov ax, hotspot_rects
     push ax
     call poll_hotspots
     pop cx

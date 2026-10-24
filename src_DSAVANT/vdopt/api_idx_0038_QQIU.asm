@@ -331,7 +331,7 @@ api_idx_0038_QQIU:
     add sp, byte 8                   ; 0x3d32
     mov word [bp - 0x001a], 1        ; 0x3d35
 @..api_idx_0038_QQIU.l7:
-    mov ax, 0x59fe                   ; 0x3d3a
+    mov ax, hotspot_rects            ; 0x3d3a
     push ax                          ; 0x3d3d
     call poll_hotspots               ; 0x3d3e
     pop cx                           ; 0x3d41

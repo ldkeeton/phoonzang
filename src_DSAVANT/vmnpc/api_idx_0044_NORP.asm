@@ -505,7 +505,7 @@ api_idx_0044_NORP:
     push word [bp + 0x4]             ; 0x7d25
     call periodic_party_redraw       ; 0x7d28
     add sp, byte 4                   ; 0x7d2b
-    mov ax, 0x59fe                   ; 0x7d2e
+    mov ax, hotspot_rects            ; 0x7d2e
     push ax                          ; 0x7d31
     call poll_hotspots               ; 0x7d32
     pop cx                           ; 0x7d35

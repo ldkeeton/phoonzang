@@ -271,7 +271,7 @@ loc_IOMS:
     cmp word [mouse_active], byte 0  ; 0x86b1
     je short @..loc_IOMS.l12         ; 0x86b6
 @..loc_IOMS.l10:
-    mov ax, 0x59fe                   ; 0x86b8
+    mov ax, hotspot_rects            ; 0x86b8
     push ax                          ; 0x86bb
     call poll_hotspots               ; 0x86bc
     pop cx                           ; 0x86bf

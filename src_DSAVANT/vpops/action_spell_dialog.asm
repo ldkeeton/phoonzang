@@ -505,7 +505,7 @@ action_spell_dialog:
     push word [bp + 0x4]             ; 0x215b
     call periodic_party_redraw       ; 0x215e
     add sp, byte 4                   ; 0x2161
-    mov ax, 0x59fe                   ; 0x2164
+    mov ax, hotspot_rects            ; 0x2164
     push ax                          ; 0x2167
     call poll_hotspots               ; 0x2168
     pop cx                           ; 0x216b

@@ -513,7 +513,7 @@ api_idx_0050_MINM:
     push word [bp + 0x4]
     call periodic_party_redraw
     add sp, byte 4
-    mov ax, 0x59fe
+    mov ax, hotspot_rects
     push ax
     call poll_hotspots
     pop cx

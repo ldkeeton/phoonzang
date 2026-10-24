@@ -514,7 +514,7 @@ load_game_data:
     push dx                          ; 0x34a9
     push ax                          ; 0x34aa
     push ds                          ; 0x34ab
-    mov ax, 0x9900                   ; 0x34ac
+    mov ax, bss_9900                 ; 0x34ac
     push ax                          ; 0x34af
     call app_memmove                 ; 0x34b0
     add sp, byte 0x0a                ; 0x34b3
@@ -530,7 +530,7 @@ load_game_data:
     push dx                          ; 0x34cd
     push ax                          ; 0x34ce
     push ds                          ; 0x34cf
-    mov ax, 0x9980                   ; 0x34d0
+    mov ax, bss_9980                 ; 0x34d0
     push ax                          ; 0x34d3
     call app_memmove                 ; 0x34d4
     add sp, byte 0x0a                ; 0x34d7

@@ -288,7 +288,7 @@ loc_MOVJ:
     cmp word [mouse_active], byte 0  ; 0x1fd0
     je short @..loc_MOVJ.l11         ; 0x1fd5
 @..loc_MOVJ.l10:
-    mov ax, 0x59fe                   ; 0x1fd7
+    mov ax, hotspot_rects            ; 0x1fd7
     push ax                          ; 0x1fda
     call poll_hotspots               ; 0x1fdb
     pop cx                           ; 0x1fde

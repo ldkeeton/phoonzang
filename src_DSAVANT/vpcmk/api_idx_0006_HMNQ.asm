@@ -86,7 +86,7 @@ api_idx_0006_HMNQ:
     call gfx_show_area               ; 0x619b
     add sp, byte 8                   ; 0x619e
 @..api_idx_0006_HMNQ.l2:
-    mov ax, 0x59fe                   ; 0x61a1
+    mov ax, hotspot_rects            ; 0x61a1
     push ax                          ; 0x61a4
     call poll_hotspots               ; 0x61a5
     pop cx                           ; 0x61a8

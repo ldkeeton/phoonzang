@@ -213,7 +213,7 @@ api_idx_0012_GQSK:
     push ax                          ; 0x0712
     call delay_ms                    ; 0x0713
     pop cx                           ; 0x0716
-    mov ax, 0x59fe                   ; 0x0717
+    mov ax, hotspot_rects            ; 0x0717
     push ax                          ; 0x071a
     call poll_hotspots               ; 0x071b
     pop cx                           ; 0x071e

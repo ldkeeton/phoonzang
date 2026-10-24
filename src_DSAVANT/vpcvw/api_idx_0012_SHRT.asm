@@ -199,7 +199,7 @@ api_idx_0012_SHRT:
     push ax                          ; 0x0940
     call delay_ms                    ; 0x0941
     pop cx                           ; 0x0944
-    mov ax, 0x59fe                   ; 0x0945
+    mov ax, hotspot_rects            ; 0x0945
     push ax                          ; 0x0948
     call poll_hotspots               ; 0x0949
     pop cx                           ; 0x094c

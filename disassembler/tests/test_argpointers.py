@@ -101,6 +101,36 @@ class ArgumentPointerTests(unittest.TestCase):
         self.assertEqual(_proven(insns, name_of=names.get), {(0x104, 1): DATA})
 
 
+    def test_a_declared_thunk_argument_is_a_pointer(self):
+        # f(p) hands its frame to a driver: ``call far [0x2f8f]``, no read.
+        f = _FRAME + bytes.fromhex('ff1e8f2f') + _RET    # 0x100 .. 0x109
+        g_at = 0x100 + len(f)
+        g_body = bytes.fromhex('ff7604') + _call(g_at + 6, 0x100) + b'\x59'
+        g = _FRAME + g_body + _RET
+        at = g_at + len(g)
+        code = f + g + bytes.fromhex('b8fe59' '50') + _call(at + 4, g_at)
+        self.assertEqual(_proven(_disasm(code)), {})
+        self.assertEqual(_proven(_disasm(code), declared={0x100: {0}}),
+                         {(at, 1): DATA})
+
+    def test_the_offset_of_a_ds_far_pointer_is_an_address(self):
+        # memmove(DS:0x8b7e, ...): ``push ds; mov ax, 0x8b7e; push ax``.
+        code = bytes.fromhex('1e' 'b87e8b' '50')
+        insns = _disasm(code + _call(0x100 + len(code), 0x500))
+        self.assertEqual(_proven(insns), {(0x101, 1): DATA})
+
+    def test_a_segment_copied_through_a_register_pairs_too(self):
+        # mov dx, ds; push dx; mov ax, 0x8b7e; push ax
+        code = bytes.fromhex('8cda' '52' 'b87e8b' '50')
+        insns = _disasm(code + _call(0x100 + len(code), 0x500))
+        self.assertEqual(_proven(insns), {(0x103, 1): DATA})
+
+    def test_a_constant_beside_a_number_is_no_far_offset(self):
+        # f(0x8b7e, 5): the word pushed before the constant is not a segment.
+        code = bytes.fromhex('b80500' '50' 'b87e8b' '50')
+        insns = _disasm(code + _call(0x100 + len(code), 0x500))
+        self.assertEqual(_proven(insns), {})
+
 
 class FrameLocalTests(unittest.TestCase):
     """``[bx + si]`` with a provable index, and arguments kept in locals."""

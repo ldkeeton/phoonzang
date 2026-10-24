@@ -380,6 +380,8 @@ code_check_word equ __zbss_59f8 - __zdseg_start
 ; mouse_active  equ __zbss_0e32 - __zdseg_start
 bss_59fa      equ __zbss_59fa - __zdseg_start
 space_key_hit equ __zbss_59fc - __zdseg_start
+hotspot_rects equ __zbss_59fe - __zdseg_start
+hotspot_keys  equ __zbss_5afe - __zdseg_start
 hotspot_hit   equ __zbss_5b3e - __zdseg_start
 %include "ds/game/poll_hotspots.asm"       ; 0x0b54
 
@@ -392,10 +394,12 @@ code_index_3    equ __zbss_5b44 - __zdseg_start
 code_index_4    equ __zbss_5b46 - __zdseg_start
 %include "ds/game/ds_app_string_KVNI.asm"  ; 0x0c0b
 
-; space_key_hit equ __zbss_59fc - __zdseg_start
+; hotspot_rects equ __zbss_59fe - __zdseg_start
+; hotspot_keys  equ __zbss_5afe - __zdseg_start
 %include "ds/game/set_hotspot.asm"         ; 0x0ced
 
-; hotspot_hit equ __zbss_5b3e - __zdseg_start
+; hotspot_rects equ __zbss_59fe - __zdseg_start
+; hotspot_hit   equ __zbss_5b3e - __zdseg_start
 %include "ds/game/poll_fullscreen_hotspot.asm" ; 0x0d36
 
 ; mouse_pointer_shape equ __zbss_0e2a - __zdseg_start
@@ -490,12 +494,13 @@ pc_spell_power_cap equ __zbss_5c18 - __zdseg_start
 ; member_state       equ __zbss_5e2a - __zdseg_start
 %include "ds/game/draw_party_member_panel.asm" ; 0x1d81
 
-; bss_0e2e     equ __zbss_0e2e - __zdseg_start
-; bss_0e30     equ __zbss_0e30 - __zdseg_start
-; mouse_active equ __zbss_0e32 - __zdseg_start
-; bss_59fa     equ __zbss_59fa - __zdseg_start
-; hotspot_hit  equ __zbss_5b3e - __zdseg_start
-bss_69c8     equ __zbss_69c8 - __zdseg_start
+; bss_0e2e      equ __zbss_0e2e - __zdseg_start
+; bss_0e30      equ __zbss_0e30 - __zdseg_start
+; mouse_active  equ __zbss_0e32 - __zdseg_start
+; bss_59fa      equ __zbss_59fa - __zdseg_start
+; hotspot_rects equ __zbss_59fe - __zdseg_start
+; hotspot_hit   equ __zbss_5b3e - __zdseg_start
+bss_69c8      equ __zbss_69c8 - __zdseg_start
 %include "ds/game/pick_party_member.asm"   ; 0x20f8
 
 %include "ds/game/ds_app_QSQR.asm"         ; 0x2305
@@ -517,6 +522,7 @@ str_insert_savegame_disk equ __zstr_insert_savegame_disk - __zdseg_start
 disk_header              equ __zbss_5218 - __zdseg_start
 disk_drive_name          equ __zbss_5926 - __zdseg_start
 ; install_mode             equ __zbss_5987 - __zdseg_start
+; hotspot_rects            equ __zbss_59fe - __zdseg_start
 ; hotspot_hit              equ __zbss_5b3e - __zdseg_start
 %include "ds/game/prompt_disk_swap.asm"    ; 0x23ef
 
@@ -1493,7 +1499,11 @@ __zbss_59f8:
 __zbss_59fa:
     resb 0x0002
 __zbss_59fc:
-    resb 0x0142
+    resb 0x0002
+__zbss_59fe:
+    resb 0x0100
+__zbss_5afe:
+    resb 0x0040
 __zbss_5b3e:
     resb 0x0002
 __zbss_5b40:

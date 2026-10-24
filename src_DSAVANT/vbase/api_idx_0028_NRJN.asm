@@ -348,7 +348,7 @@ api_idx_0028_NRJN:
     add sp, byte 8                   ; 0x120f
     mov word [bp - 0x0010], 1        ; 0x1212
 @..api_idx_0028_NRJN.l1:
-    mov ax, 0x59fe                   ; 0x1217
+    mov ax, hotspot_rects            ; 0x1217
     push ax                          ; 0x121a
     call poll_hotspots               ; 0x121b
     pop cx                           ; 0x121e

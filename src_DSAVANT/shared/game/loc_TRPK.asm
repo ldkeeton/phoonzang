@@ -271,7 +271,7 @@ loc_TRPK:
     cmp word [mouse_active], byte 0
     je short @..loc_TRPK.l11
 @..loc_TRPK.l10:
-    mov ax, 0x59fe
+    mov ax, hotspot_rects
     push ax
     call poll_hotspots
     pop cx

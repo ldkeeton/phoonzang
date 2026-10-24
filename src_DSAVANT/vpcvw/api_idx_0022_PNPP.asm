@@ -145,7 +145,7 @@ api_idx_0022_PNPP:
     call gfx_show_area               ; 0x95da
     add sp, byte 8                   ; 0x95dd
 @..api_idx_0022_PNPP.l5:
-    mov ax, 0x59fe                   ; 0x95e0
+    mov ax, hotspot_rects            ; 0x95e0
     push ax                          ; 0x95e3
     call poll_hotspots               ; 0x95e4
     pop cx                           ; 0x95e7

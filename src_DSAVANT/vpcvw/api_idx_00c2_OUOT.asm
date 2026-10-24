@@ -457,7 +457,7 @@ api_idx_00c2_OUOT:
     cmp word [mouse_active], byte 0  ; 0x593b
     je short @..api_idx_00c2_OUOT.l17 ; 0x5940
 @..api_idx_00c2_OUOT.l16:
-    mov ax, 0x59fe                   ; 0x5942
+    mov ax, hotspot_rects            ; 0x5942
     push ax                          ; 0x5945
     call poll_hotspots               ; 0x5946
     pop cx                           ; 0x5949

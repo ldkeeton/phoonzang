@@ -176,7 +176,7 @@ api_idx_006c_JNMM:
     call gfx_show_area               ; 0x481a
     add sp, byte 8                   ; 0x481d
 @..api_idx_006c_JNMM.l8:
-    mov ax, 0x59fe                   ; 0x4820
+    mov ax, hotspot_rects            ; 0x4820
     push ax                          ; 0x4823
     call poll_hotspots               ; 0x4824
     pop cx                           ; 0x4827

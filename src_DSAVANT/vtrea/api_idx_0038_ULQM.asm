@@ -403,7 +403,7 @@ api_idx_0038_ULQM:
     jne short @..api_idx_0038_ULQM.l11 ; 0x3e07
     call loc_IKLI                    ; 0x3e09
 @..api_idx_0038_ULQM.l11:
-    mov ax, 0x59fe                   ; 0x3e0c
+    mov ax, hotspot_rects            ; 0x3e0c
     push ax                          ; 0x3e0f
     call poll_hotspots               ; 0x3e10
     pop cx                           ; 0x3e13

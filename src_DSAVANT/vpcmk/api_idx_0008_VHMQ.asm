@@ -98,7 +98,7 @@ api_idx_0008_VHMQ:
     push ax                          ; 0x4a16
     call gfx_show_area               ; 0x4a17
     add sp, byte 8                   ; 0x4a1a
-    mov ax, 0x59fe                   ; 0x4a1d
+    mov ax, hotspot_rects            ; 0x4a1d
     push ax                          ; 0x4a20
     call poll_hotspots               ; 0x4a21
     pop cx                           ; 0x4a24

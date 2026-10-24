@@ -259,7 +259,7 @@ api_idx_004e_HUKL:
     push dx                          ; 0x3adc
     push ax                          ; 0x3add
     push ds                          ; 0x3ade
-    mov ax, 0x8b7e                   ; 0x3adf
+    mov ax, bss_8b7e                 ; 0x3adf
     push ax                          ; 0x3ae2
     call app_memmove                 ; 0x3ae3
     add sp, byte 0x0a                ; 0x3ae6
@@ -275,7 +275,7 @@ api_idx_004e_HUKL:
     push dx                          ; 0x3b00
     push ax                          ; 0x3b01
     push ds                          ; 0x3b02
-    mov ax, 0x8afe                   ; 0x3b03
+    mov ax, bss_8afe                 ; 0x3b03
     push ax                          ; 0x3b06
     call app_memmove                 ; 0x3b07
     add sp, byte 0x0a                ; 0x3b0a
@@ -408,7 +408,7 @@ api_idx_004e_HUKL:
     mov ax, 0x80                     ; 0x3c32
     push ax                          ; 0x3c35
     push ds                          ; 0x3c36
-    mov ax, 0x9900                   ; 0x3c37
+    mov ax, bss_9900                 ; 0x3c37
     push ax                          ; 0x3c3a
     mov ax, word [bp - 0x0004]       ; 0x3c3b
     mov cx, 7                        ; 0x3c3e
@@ -424,7 +424,7 @@ api_idx_004e_HUKL:
     mov ax, 0x80                     ; 0x3c56
     push ax                          ; 0x3c59
     push ds                          ; 0x3c5a
-    mov ax, 0x9980                   ; 0x3c5b
+    mov ax, bss_9980                 ; 0x3c5b
     push ax                          ; 0x3c5e
     mov ax, word [bp - 0x0004]       ; 0x3c5f
     mov cx, 7                        ; 0x3c62

@@ -526,7 +526,7 @@ api_idx_006a_NKMN:
     call delay_ms                    ; 0x64c6
     pop cx                           ; 0x64c9
 @..api_idx_006a_NKMN.l21:
-    mov ax, 0x59fe                   ; 0x64ca
+    mov ax, hotspot_rects            ; 0x64ca
     push ax                          ; 0x64cd
     call poll_hotspots               ; 0x64ce
     pop cx                           ; 0x64d1

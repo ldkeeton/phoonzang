@@ -18,6 +18,11 @@ from capstone.x86 import X86_OP_MEM, X86_REG_CS, X86_REG_INVALID
 from lib.segments import _DRIVER_LOAD
 
 _THUNK_SHAPE = ('push', 'mov', 'cld', 'lcall', 'mov', 'pop', 'ret')
+#: The thunk's argument 0 is word 4 of the handler's arguments
+#: (``[bp + 4 + 2*4]``): the thunk's saved ``bp`` and the far return its
+#: ``call far`` pushes lie between, and the entry's ``call handler; retf``
+#: adds a near return the handler's own frame already counts.
+_THUNK_ARG_SHIFT = 4
 
 
 def _thunk_slot(md, data, off, start_offset):
@@ -71,6 +76,25 @@ def entry_handlers(data, table):
             rel = int.from_bytes(data[addr + 1:addr + 3], 'little', signed=True)
             handlers[n] = (addr + 3 + rel) & 0xFFFF
     return handlers
+
+
+def thunk_pointer_args(entries, slots, handler_params):
+    """``{thunk offset: frozenset(argument indices)}`` the thunks read through.
+
+    A thunk reads nothing itself; it hands its frame to the driver, so its
+    pointer arguments are those of the handler its entry calls.
+    *handler_params* is the driver's export (``{handler name: [argument]}``,
+    :mod:`lib.argpointers`) and *entries* :func:`driver_thunk_entries`.
+    """
+    names = slots['dispatch_table'].get('names') or {}
+    result = {}
+    for off, n in entries.items():
+        args = frozenset(a - _THUNK_ARG_SHIFT
+                         for a in handler_params.get(names.get(str(n)), ())
+                         if a >= _THUNK_ARG_SHIFT)
+        if args:
+            result[off] = args
+    return result
 
 
 def thunk_name(n, slots):

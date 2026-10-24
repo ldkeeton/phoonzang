@@ -178,7 +178,7 @@ loc_LSRQ:
     cmp word [mouse_active], byte 0  ; 0x03da
     je short @..loc_LSRQ.l7          ; 0x03df
 @..loc_LSRQ.l6:
-    mov ax, 0x59fe                   ; 0x03e1
+    mov ax, hotspot_rects            ; 0x03e1
     push ax                          ; 0x03e4
     call poll_hotspots               ; 0x03e5
     pop cx                           ; 0x03e8

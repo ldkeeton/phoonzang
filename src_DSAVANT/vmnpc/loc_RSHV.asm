@@ -176,7 +176,7 @@ loc_RSHV:
     cmp word [mouse_active], byte 0  ; 0x19c5
     je short @..loc_RSHV.l9          ; 0x19ca
 @..loc_RSHV.l8:
-    mov ax, 0x59fe                   ; 0x19cc
+    mov ax, hotspot_rects            ; 0x19cc
     push ax                          ; 0x19cf
     call poll_hotspots               ; 0x19d0
     pop cx                           ; 0x19d3

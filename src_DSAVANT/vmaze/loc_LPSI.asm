@@ -21,7 +21,7 @@ loc_LPSI:
     mov ax, 0x80                     ; 0x09fd
     push ax                          ; 0x0a00
     push ds                          ; 0x0a01
-    mov ax, 0x8b7e                   ; 0x0a02
+    mov ax, bss_8b7e                 ; 0x0a02
     push ax                          ; 0x0a05
     mov ax, word [game_state_arg]    ; 0x0a06
     mov cx, 7                        ; 0x0a09
@@ -37,7 +37,7 @@ loc_LPSI:
     mov ax, 0x80                     ; 0x0a21
     push ax                          ; 0x0a24
     push ds                          ; 0x0a25
-    mov ax, 0x8afe                   ; 0x0a26
+    mov ax, bss_8afe                 ; 0x0a26
     push ax                          ; 0x0a29
     mov ax, word [game_state_arg]    ; 0x0a2a
     mov cx, 7                        ; 0x0a2d

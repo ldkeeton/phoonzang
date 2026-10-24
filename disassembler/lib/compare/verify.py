@@ -312,6 +312,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            segment_flow=None, segments=None, external_data=None,
            entry_symbol=None, data_pointers=(), not_pointers=(),
            char_tables=(), immediate_pointers=(), host_data_offsets=None,
+           driver_pointer_args=None,
            ds_starts=frozenset(), foreign_pointer_params=None,
            sidecar_use=None, bands=(), data_modules=()):
     """Produce NASM source text from *binary_data* and *instructions*.
@@ -568,7 +569,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                     or (foreign_label_map or {}).get(target))
         arg_pointers, params = argument_pointer_immediates(
             insns, segment_flow, _name_of, foreign=foreign_pointer_params,
-            labels=label_map or ())
+            labels=label_map or (), declared=driver_pointer_args)
         pointer_params = {str(label_map[e]): sorted(p)
                           for e, p in params.items() if e in (label_map or {})}
     # A code-segment string's address stored or pushed for another routine

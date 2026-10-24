@@ -507,7 +507,7 @@ pick_spell_dialog:
     push word [bp + 0x4]             ; 0x2e43
     call periodic_party_redraw       ; 0x2e46
     add sp, byte 4                   ; 0x2e49
-    mov ax, 0x59fe                   ; 0x2e4c
+    mov ax, hotspot_rects            ; 0x2e4c
     push ax                          ; 0x2e4f
     call poll_hotspots               ; 0x2e50
     pop cx                           ; 0x2e53
