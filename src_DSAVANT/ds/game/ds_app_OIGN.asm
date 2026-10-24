@@ -23,7 +23,7 @@ ds_app_OIGN: ; Aztec csav frame=0x0004
 @..ds_app_OIGN.l2:
     jmp short @..ds_app_OIGN.l5      ; 0x09db
 @..ds_app_OIGN.l3:
-    call ds_app_TMKJ                 ; 0x09dd
+    call poll_fullscreen_hotspot     ; 0x09dd
     test ax, ax                      ; 0x09e0
     je short @..ds_app_OIGN.l4       ; 0x09e2
     ret                              ; 0x09e4

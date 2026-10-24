@@ -24,7 +24,7 @@ api_idx_0004_RPUO:
     call api_idx_0004_MIJS           ; 0x1178
     add sp, byte 0x14                ; 0x117b
 @..api_idx_0004_RPUO.l1:
-    call ds_app_TMKJ                 ; 0x117e
+    call poll_fullscreen_hotspot     ; 0x117e
     test ax, ax                      ; 0x1181
     jne short @..api_idx_0004_RPUO.l2 ; 0x1183
     jmp short @..api_idx_0004_RPUO.l1 ; 0x1185

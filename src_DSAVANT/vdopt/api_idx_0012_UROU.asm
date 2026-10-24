@@ -807,7 +807,7 @@ jumptable_147e_case_0:
     mov word [bp - 0x0010], dx       ; 0x17ec
     mov word [bp - 0x0012], ax       ; 0x17ef
 @..api_idx_0012_UROU.l93:
-    call ds_app_TMKJ                 ; 0x17f2
+    call poll_fullscreen_hotspot     ; 0x17f2
     test ax, ax                      ; 0x17f5
     je short @..api_idx_0012_UROU.l94 ; 0x17f7
     jmp near @..api_idx_0012_UROU.l95 ; 0x17f9

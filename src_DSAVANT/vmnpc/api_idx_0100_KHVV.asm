@@ -72,7 +72,7 @@ api_idx_0100_KHVV:
     call set_mouse_pointer_shape     ; 0x97ed
     add sp, byte 4                   ; 0x97f0
 @..api_idx_0100_KHVV.l6:
-    call ds_app_TMKJ                 ; 0x97f3
+    call poll_fullscreen_hotspot     ; 0x97f3
     test ax, ax                      ; 0x97f6
     jne short @..api_idx_0100_KHVV.l7 ; 0x97f8
     call step_party_animation        ; 0x97fa

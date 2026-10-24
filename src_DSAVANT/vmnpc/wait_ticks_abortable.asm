@@ -24,7 +24,7 @@ wait_ticks_abortable:
 @..wait_ticks_abortable.l2:
     jmp short @..wait_ticks_abortable.l6 ; 0x11d7
 @..wait_ticks_abortable.l3:
-    call ds_app_TMKJ                 ; 0x11d9
+    call poll_fullscreen_hotspot     ; 0x11d9
     test ax, ax                      ; 0x11dc
     je short @..wait_ticks_abortable.l4 ; 0x11de
     ret                              ; 0x11e0

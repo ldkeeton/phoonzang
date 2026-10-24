@@ -137,7 +137,7 @@ api_idx_0018_USPR:
     sub ah, ah                       ; 0x1e06
     mov word [party_region], ax      ; 0x1e08
 @..api_idx_0018_USPR.l13:
-    call ds_app_TMKJ                 ; 0x1e0b
+    call poll_fullscreen_hotspot     ; 0x1e0b
     test ax, ax                      ; 0x1e0e
     je short @..api_idx_0018_USPR.l14 ; 0x1e10
     mov word [bss_91ae], 1           ; 0x1e12

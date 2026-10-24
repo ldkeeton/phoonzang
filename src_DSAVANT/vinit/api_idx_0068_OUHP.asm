@@ -901,7 +901,7 @@ api_idx_0068_OUHP:
     pop cx                           ; 0x12c2
     jmp short @..api_idx_0068_OUHP.l56 ; 0x12c3
 @..api_idx_0068_OUHP.l55:
-    call ds_app_TMKJ                 ; 0x12c5
+    call poll_fullscreen_hotspot     ; 0x12c5
     test ax, ax                      ; 0x12c8
     jne short @..api_idx_0068_OUHP.l56 ; 0x12ca
     jmp short @..api_idx_0068_OUHP.l55 ; 0x12cc

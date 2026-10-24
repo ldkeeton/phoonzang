@@ -1879,7 +1879,7 @@ jumptable_76e2:
 @..loc_IUTP.l82:
     call flush_keyboard              ; 0x82af
 @..loc_IUTP.l83:
-    call ds_app_TMKJ                 ; 0x82b2
+    call poll_fullscreen_hotspot     ; 0x82b2
     test ax, ax                      ; 0x82b5
     jne short @..loc_IUTP.l84        ; 0x82b7
     jmp short @..loc_IUTP.l83        ; 0x82b9

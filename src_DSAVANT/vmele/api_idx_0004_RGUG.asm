@@ -24,7 +24,7 @@ api_idx_0004_RGUG:
 @..api_idx_0004_RGUG.l2:
     jmp short @..api_idx_0004_RGUG.l6 ; 0x013b
 @..api_idx_0004_RGUG.l3:
-    call ds_app_TMKJ                 ; 0x013d
+    call poll_fullscreen_hotspot     ; 0x013d
     test ax, ax                      ; 0x0140
     je short @..api_idx_0004_RGUG.l4 ; 0x0142
     ret                              ; 0x0144

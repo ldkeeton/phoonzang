@@ -396,7 +396,7 @@ code_index_4    equ __zbss_5b46 - __zdseg_start
 %include "ds/game/set_hotspot.asm"         ; 0x0ced
 
 ; hotspot_hit equ __zbss_5b3e - __zdseg_start
-%include "ds/game/ds_app_TMKJ.asm"         ; 0x0d36
+%include "ds/game/poll_fullscreen_hotspot.asm" ; 0x0d36
 
 ; mouse_pointer_shape equ __zbss_0e2a - __zdseg_start
 ; mouse_active        equ __zbss_0e32 - __zdseg_start

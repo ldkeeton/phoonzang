@@ -241,7 +241,7 @@ jumptable_36f8_case_6:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x2dcc
 jumptable_36f8_case_7:
 @..api_idx_0040_LSRO.l18:
-    call ds_app_TMKJ                 ; 0x2dcf
+    call poll_fullscreen_hotspot     ; 0x2dcf
     test ax, ax                      ; 0x2dd2
     jne short @..api_idx_0040_LSRO.l19 ; 0x2dd4
     call step_party_animation        ; 0x2dd6

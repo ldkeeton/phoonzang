@@ -182,6 +182,7 @@
         "0af6": {"name": "set_mouse_pointer_shape", "note": "points the mouse at the shape whose first two bytes are the hotspot, or at the default pointer for NULL"},
         "0b54": {"name": "poll_hotspots", "note": "polls keyboard/mouse against the hotspot table, setting hotspot_hit"},
         "0ced": {"name": "set_hotspot", "note": "stores a clickable hotspot rectangle and key in the hotspot table"},
+        "0d36": {"name": "poll_fullscreen_hotspot", "note": "installs a full-screen Enter/Esc hotspot, disables hotspot 1, polls the 0x59fe table once and returns the hit id"},
         "0d7a": {"name": "dissolve_or_show_area", "note": "dissolves left,top..right,bottom into view, or shows it at once when no_dissolve is set, moving the mouse pointer aside and back around the effect"},
         "0e03": {"name": "draw_rect_outline", "note": "draws a colour-0 one-pixel outline just outside the corners left,top..right,bottom"},
         "0e82": {"name": "draw_rect_bevel", "note": "draws a one-pixel bevel: top/left edges in one colour, right/bottom in another"},

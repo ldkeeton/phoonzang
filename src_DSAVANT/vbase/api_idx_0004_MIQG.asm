@@ -11,7 +11,7 @@ api_idx_0004_MIQG:
     mov word [bp - 0x0002], dx       ; 0x6cea
     mov word [bp - 0x0004], ax       ; 0x6ced
 @..api_idx_0004_MIQG.l1:
-    call ds_app_TMKJ                 ; 0x6cf0
+    call poll_fullscreen_hotspot     ; 0x6cf0
     test ax, ax                      ; 0x6cf3
     jne short @..api_idx_0004_MIQG.l4 ; 0x6cf5
     les bx, word [tick_counter_ptr]  ; 0x6cf7

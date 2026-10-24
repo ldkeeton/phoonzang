@@ -24,7 +24,7 @@ api_idx_0004_TTGQ:
 @..api_idx_0004_TTGQ.l2:
     jmp short @..api_idx_0004_TTGQ.l5
 @..api_idx_0004_TTGQ.l3:
-    call ds_app_TMKJ
+    call poll_fullscreen_hotspot
     test ax, ax
     je short @..api_idx_0004_TTGQ.l4
     ret

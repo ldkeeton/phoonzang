@@ -24,7 +24,7 @@ api_idx_0004_KQNK:
 @..api_idx_0004_KQNK.l2:
     jmp short @..api_idx_0004_KQNK.l6 ; 0x061f
 @..api_idx_0004_KQNK.l3:
-    call ds_app_TMKJ                 ; 0x0621
+    call poll_fullscreen_hotspot     ; 0x0621
     test ax, ax                      ; 0x0624
     je short @..api_idx_0004_KQNK.l4 ; 0x0626
     ret                              ; 0x0628

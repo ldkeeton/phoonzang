@@ -24,7 +24,7 @@ wait_ticks_or_key:
 @..wait_ticks_or_key.l2:
     jmp short @..wait_ticks_or_key.l5 ; 0x0fc7
 @..wait_ticks_or_key.l3:
-    call ds_app_TMKJ                 ; 0x0fc9
+    call poll_fullscreen_hotspot     ; 0x0fc9
     test ax, ax                      ; 0x0fcc
     je short @..wait_ticks_or_key.l4 ; 0x0fce
     ret                              ; 0x0fd0

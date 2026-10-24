@@ -24,7 +24,7 @@ loc_NQGV:
     pop cx                           ; 0x0a4c
     jmp short @..loc_NQGV.l3         ; 0x0a4d
 @..loc_NQGV.l2:
-    call ds_app_TMKJ                 ; 0x0a4f
+    call poll_fullscreen_hotspot     ; 0x0a4f
     test ax, ax                      ; 0x0a52
     jne short @..loc_NQGV.l3         ; 0x0a54
     call loc_IKLI                    ; 0x0a56

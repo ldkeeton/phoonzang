@@ -21,7 +21,7 @@ char *token, *pending_line;
 		case '[':
 			gfx_mouse_glide_back(0x12e, 0xa4, 0);
 			set_mouse_pointer_shape(0L);
-			while (!ds_app_TMKJ())
+			while (!poll_fullscreen_hotspot())
 				step_party_animation();
 			set_mouse_pointer_shape(mouse_pointer_shape);
 			gfx_mouse_glide_to(0x12e, 0xa4, 0);

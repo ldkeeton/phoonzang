@@ -31,7 +31,7 @@ apply_text_control_codes:
     call set_mouse_pointer_shape     ; 0x942a
     add sp, byte 4                   ; 0x942d
 @..apply_text_control_codes.l4:
-    call ds_app_TMKJ                 ; 0x9430
+    call poll_fullscreen_hotspot     ; 0x9430
     test ax, ax                      ; 0x9433
     jne short @..apply_text_control_codes.l5 ; 0x9435
     call step_party_animation        ; 0x9437

@@ -24,7 +24,7 @@ api_idx_0004_UQUT:
 @..api_idx_0004_UQUT.l2:
     jmp short @..api_idx_0004_UQUT.l7 ; 0x0924
 @..api_idx_0004_UQUT.l3:
-    call ds_app_TMKJ                 ; 0x0926
+    call poll_fullscreen_hotspot     ; 0x0926
     test ax, ax                      ; 0x0929
     je short @..api_idx_0004_UQUT.l4 ; 0x092b
     ret                              ; 0x092d

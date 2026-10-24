@@ -25,7 +25,7 @@ api_idx_0004_QUPL:
 @..api_idx_0004_QUPL.l2:
     jmp short @..api_idx_0004_QUPL.l6 ; 0x1a9e
 @..api_idx_0004_QUPL.l3:
-    call ds_app_TMKJ                 ; 0x1aa0
+    call poll_fullscreen_hotspot     ; 0x1aa0
     test ax, ax                      ; 0x1aa3
     je short @..api_idx_0004_QUPL.l4 ; 0x1aa5
     ret                              ; 0x1aa7

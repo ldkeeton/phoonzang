@@ -14,7 +14,7 @@ loc_NRTK:
     add sp, byte 8                   ; 0x3a83
     call flush_keyboard              ; 0x3a86
 @..loc_NRTK.l1:
-    call ds_app_TMKJ                 ; 0x3a89
+    call poll_fullscreen_hotspot     ; 0x3a89
     test ax, ax                      ; 0x3a8c
     jne short @..loc_NRTK.l2         ; 0x3a8e
     jmp short @..loc_NRTK.l1         ; 0x3a90

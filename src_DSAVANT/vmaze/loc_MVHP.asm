@@ -42,7 +42,7 @@ loc_MVHP:
     pop cx                           ; 0x6bb9
     jmp short @..loc_MVHP.l5         ; 0x6bba
 @..loc_MVHP.l3:
-    call ds_app_TMKJ                 ; 0x6bbc
+    call poll_fullscreen_hotspot     ; 0x6bbc
     test ax, ax                      ; 0x6bbf
     jne short @..loc_MVHP.l5         ; 0x6bc1
     call loc_HVLG                    ; 0x6bc3
