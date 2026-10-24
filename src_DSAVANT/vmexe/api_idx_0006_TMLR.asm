@@ -81,13 +81,13 @@ api_idx_0006_TMLR:
     mov ax, word [bp - 0x0002]       ; 0x1959
     shl ax, 1                        ; 0x195c
     mov bx, ax                       ; 0x195e
-    mov bx, word [bx + bss_8468 + 0x2] ; 0x1960
+    mov bx, word [bx + overlay_list + 0x2] ; 0x1960
     mov byte [bx + 0x14], 0xff       ; 0x1964
     inc word [bp - 0x0002]           ; 0x1968
     mov ax, word [bp - 0x0002]       ; 0x196b
     cmp ax, strict word 0xc          ; 0x196e
     jl short @..api_idx_0006_TMLR.l7 ; 0x1971
-    mov word [bss_8468], 0           ; 0x1973
+    mov word [overlay_list], 0       ; 0x1973
     jmp near @..api_idx_0006_TMLR.l17 ; 0x1979
 @..api_idx_0006_TMLR.l8:
     call loc_KRMP                    ; 0x197c

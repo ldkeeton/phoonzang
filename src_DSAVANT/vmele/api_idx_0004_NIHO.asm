@@ -136,7 +136,7 @@ api_idx_0004_NIHO:
     mov ax, word [bp - 0x0002]       ; 0x3002
     shl ax, 1                        ; 0x3005
     mov bx, ax                       ; 0x3007
-    push word [bx + bss_8468 + 0x2]  ; 0x3009
+    push word [bx + overlay_list + 0x2] ; 0x3009
     call aztec_free                  ; 0x300d
     pop cx                           ; 0x3010
     inc word [bp - 0x0002]           ; 0x3011

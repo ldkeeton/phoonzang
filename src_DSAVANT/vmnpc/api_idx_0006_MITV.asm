@@ -55,7 +55,7 @@ api_idx_0006_MITV:
     mov ax, word [bp - 0x0002]       ; 0x733a
     shl ax, 1                        ; 0x733d
     mov bx, ax                       ; 0x733f
-    push word [bx + bss_8468 + 0x2]  ; 0x7341
+    push word [bx + overlay_list + 0x2] ; 0x7341
     call aztec_free                  ; 0x7345
     pop cx                           ; 0x7348
     inc word [bp - 0x0002]           ; 0x7349

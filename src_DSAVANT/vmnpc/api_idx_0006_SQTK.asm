@@ -60,13 +60,13 @@ api_idx_0006_SQTK:
     mov ax, word [bp - 0x0002]       ; 0x0fcf
     shl ax, 1                        ; 0x0fd2
     mov bx, ax                       ; 0x0fd4
-    mov bx, word [bx + bss_8468 + 0x2] ; 0x0fd6
+    mov bx, word [bx + overlay_list + 0x2] ; 0x0fd6
     mov byte [bx + 0x14], 0xff       ; 0x0fda
     inc word [bp - 0x0002]           ; 0x0fde
     mov ax, word [bp - 0x0002]       ; 0x0fe1
     cmp ax, strict word 0xc          ; 0x0fe4
     jl short @..api_idx_0006_SQTK.l6 ; 0x0fe7
-    mov word [bss_8468], 0           ; 0x0fe9
+    mov word [overlay_list], 0       ; 0x0fe9
     jmp near @..api_idx_0006_SQTK.l16 ; 0x0fef
 @..api_idx_0006_SQTK.l7:
     call loc_KRMP                    ; 0x0ff2

@@ -128,7 +128,7 @@ dest_alt_arg equ __zbss_8460 - __zdseg_start
 bss_8462 equ __zbss_8462 - __zdseg_start
 bss_8464 equ __zbss_8464 - __zdseg_start
 bss_8466 equ __zbss_8466 - __zdseg_start
-bss_8468 equ __zbss_8468 - __zdseg_start
+overlay_list equ __zbss_8468 - __zdseg_start
 party_char equ __zbss_8482 - __zdseg_start
 bss_8484 equ __zbss_8484 - __zdseg_start
 bss_848e equ __zbss_848e - __zdseg_start

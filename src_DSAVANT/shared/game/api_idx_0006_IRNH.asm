@@ -61,13 +61,13 @@ api_idx_0006_IRNH:
     mov ax, word [bp - 0x0002]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx + bss_8468 + 0x2]
+    mov bx, word [bx + overlay_list + 0x2]
     mov byte [bx + 0x14], 0xff
     inc word [bp - 0x0002]
     mov ax, word [bp - 0x0002]
     cmp ax, strict word 0xc
     jl short @..api_idx_0006_IRNH.l6
-    mov word [bss_8468], 0
+    mov word [overlay_list], 0
     jmp near @..api_idx_0006_IRNH.l16
 @..api_idx_0006_IRNH.l7:
     call loc_KRMP

@@ -31,7 +31,7 @@
   },
   "routines": {
     "api_idx_0002_KQPU": {"name": "find_object_at", "note": "returns next object index from start whose x, y, map piece match and type is nonzero (subject to a state bit), else -1"},
-    "api_idx_0004_ONRQ": {"name": "add_overlay_item", "note": "inserts an item into the overlay list kept sorted by its first-argument key; hangs if 12 are queued"},
+    "api_idx_0004_ONRQ": {"name": "add_overlay_item", "note": "inserts an overlay item in code order, hanging when the 12-slot table is full"},
     "api_idx_0004_QVPP": {"name": "find_map_piece", "note": "maps world (x, y) to piece index and local x/y; 0 if found"},
     "api_idx_0008_LLVT": {"name": "input_text_field", "note": "reads up to max_len characters into buf at x,y until Enter; the last argument 1 accepts only digits"},
     "api_idx_000a_GGLT": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
@@ -478,6 +478,7 @@
         "8322": {"name": "action_slot_table", "note": "unsigned char [6][3][10][3]: {action, target, range} per member, mode and entry"},
         "8430": {"name": "action_slot_mode", "note": "unsigned char [6][3]: the mode each member's slot was filled for"},
         "8460": {"name": "dest_alt_arg", "note": "alt_arg of a level-99 destination, else 0"},
+        "8468": {"name": "overlay_list", "note": "count word then 12 pointers to 24-byte overlay items"},
         "8482": {"name": "party_char", "note": "char *[] per party member; [0x19f] is the member's record slot in slot_rec_*, -1 when none"},
         "8490": {"name": "party_char_ext", "note": "char *[] per party member, a second record; fill_action_slot_table tests [0xd7] == 0x47"},
         "84ec": {"name": "slot_records", "note": "20 slot records, 0x26-byte stride; byte 0 kind (<25 in use), byte 1 map piece, byte 0x14 flag"},

@@ -5,11 +5,11 @@ add_overlay_item:
     mov word [bp - 0x0002], 0
 @..add_overlay_item.l1:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [bss_8468]
+    cmp ax, word [overlay_list]
     jge short @..add_overlay_item.l2
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx + bss_8468 + 0x2]
+    mov bx, word [bx + overlay_list + 0x2]
     mov al, byte [bx + 0x14]
     sub ah, ah
     cmp ax, word [bp + 0x4]
@@ -17,15 +17,15 @@ add_overlay_item:
     inc word [bp - 0x0002]
     jmp short @..add_overlay_item.l1
 @..add_overlay_item.l2:
-    mov ax, word [bss_8468]
+    mov ax, word [overlay_list]
     mov word [bp - 0x0004], ax
     jmp short @..add_overlay_item.l4
 @..add_overlay_item.l3:
     mov ax, word [bp - 0x0004]
     shl ax, 1
     mov bx, ax
-    mov si, word [bx + bss_8468]
-    mov di, word [bx + bss_8468 + 0x2]
+    mov si, word [bx + overlay_list]
+    mov di, word [bx + overlay_list + 0x2]
     mov cx, ds
     mov es, cx
     mov cx, 0xc
@@ -48,58 +48,58 @@ add_overlay_item:
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx + bss_8468 + 0x2]
+    mov bx, word [bx + overlay_list + 0x2]
     mov byte [bx + 0x14], al
     mov al, byte [bp + 0x6]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx + bss_8468 + 0x2]
+    mov bx, word [bx + overlay_list + 0x2]
     mov byte [bx + 0x15], al
     mov ax, word [bp + 0x8]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx + bss_8468 + 0x2]
+    mov bx, word [bx + overlay_list + 0x2]
     mov word [bx], ax
     mov ax, word [bp + 0xa]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx + bss_8468 + 0x2]
+    mov bx, word [bx + overlay_list + 0x2]
     mov word [bx + 0x2], ax
     mov ax, word [bp + 0xc]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx + bss_8468 + 0x2]
+    mov bx, word [bx + overlay_list + 0x2]
     mov word [bx + 0x4], ax
     mov ax, word [bp + 0xe]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx + bss_8468 + 0x2]
+    mov bx, word [bx + overlay_list + 0x2]
     mov word [bx + 0x6], ax
     mov al, byte [bp + 0x10]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx + bss_8468 + 0x2]
+    mov bx, word [bx + overlay_list + 0x2]
     mov byte [bx + 0x16], al
     mov al, byte [bp + 0x12]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov bx, word [bx + bss_8468 + 0x2]
+    mov bx, word [bx + overlay_list + 0x2]
     mov byte [bx + 0x17], al
     push word [bp + 0x14]
     mov ax, word [bp - 0x0002]
     shl ax, 1
     mov bx, ax
-    mov ax, word [bx + bss_8468 + 0x2]
+    mov ax, word [bx + overlay_list + 0x2]
     add ax, strict word 8
     push ax
     call aztec_strcpy
     add sp, byte 4
-    inc word [bss_8468]
+    inc word [overlay_list]
     ret

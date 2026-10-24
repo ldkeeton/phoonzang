@@ -174,8 +174,8 @@ loc_RLUJ:
     mov cx, word [bp - 0x0002]       ; 0x356d
     shl cx, 1                        ; 0x3570
     mov bx, cx                       ; 0x3572
-    mov word [bx + bss_8468 + 0x2], ax ; 0x3574
-    cmp word [bx + bss_8468 + 0x2], byte 0 ; 0x3578
+    mov word [bx + overlay_list + 0x2], ax ; 0x3574
+    cmp word [bx + overlay_list + 0x2], byte 0 ; 0x3578
     jne short @..loc_RLUJ.l9         ; 0x357d
     mov ax, 0x1d                     ; 0x357f
     push ax                          ; 0x3582
@@ -185,7 +185,7 @@ loc_RLUJ:
     mov ax, word [bp - 0x0002]       ; 0x3587
     shl ax, 1                        ; 0x358a
     mov bx, ax                       ; 0x358c
-    mov bx, word [bx + bss_8468 + 0x2] ; 0x358e
+    mov bx, word [bx + overlay_list + 0x2] ; 0x358e
     mov byte [bx + 0x14], 0xff       ; 0x3592
     inc word [bp - 0x0002]           ; 0x3596
     mov ax, word [bp - 0x0002]       ; 0x3599

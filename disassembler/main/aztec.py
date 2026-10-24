@@ -523,16 +523,19 @@ def _hand_c_tree(dest, bands):
 
 
 def c_path(dest, label, folder=None, suffix='.c'):
-    """The routine's source: the hand-owned ``shared/`` copy when there is
-    one, else the hand-owned one in *folder* (its band's, :func:`_band_home`)
-    or *dest*, else where a new one goes, with *suffix* (``.c``, ``.s``)."""
+    """The routine's source: the hand-owned one in *folder* (its band's,
+    :func:`_band_home`) or *dest*, else the hand-owned ``shared/`` copy, else
+    where a new one goes, with *suffix* (``.c``, ``.s``)."""
+    base = os.path.join(folder or dest, label)
+    mine = routine_source.beside(base, hand_owned)
+    if mine:
+        return mine
     for home in shared_dirs(os.path.dirname(dest)):
         shared = routine_source.beside(os.path.join(home, label),
                                        hand_owned)
         if shared:
             return shared
-    base = os.path.join(folder or dest, label)
-    return routine_source.beside(base, hand_owned) or base + suffix
+    return base + suffix
 
 
 def _seed_aztec_c(cache, project, binary, label, entry, dest, folder=None):

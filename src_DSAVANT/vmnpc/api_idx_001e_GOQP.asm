@@ -67,8 +67,8 @@ api_idx_001e_GOQP:
     mov cx, word [bp - 0x0002]       ; 0x7150
     shl cx, 1                        ; 0x7153
     mov bx, cx                       ; 0x7155
-    mov word [bx + bss_8468 + 0x2], ax ; 0x7157
-    cmp word [bx + bss_8468 + 0x2], byte 0 ; 0x715b
+    mov word [bx + overlay_list + 0x2], ax ; 0x7157
+    cmp word [bx + overlay_list + 0x2], byte 0 ; 0x715b
     jne short @..api_idx_001e_GOQP.l6 ; 0x7160
     mov ax, 0x1d                     ; 0x7162
     push ax                          ; 0x7165
@@ -78,13 +78,13 @@ api_idx_001e_GOQP:
     mov ax, word [bp - 0x0002]       ; 0x716a
     shl ax, 1                        ; 0x716d
     mov bx, ax                       ; 0x716f
-    mov bx, word [bx + bss_8468 + 0x2] ; 0x7171
+    mov bx, word [bx + overlay_list + 0x2] ; 0x7171
     mov byte [bx + 0x14], 0xff       ; 0x7175
     inc word [bp - 0x0002]           ; 0x7179
     mov ax, word [bp - 0x0002]       ; 0x717c
     cmp ax, strict word 0xc          ; 0x717f
     jl short @..api_idx_001e_GOQP.l5 ; 0x7182
-    mov word [bss_8468], 0           ; 0x7184
+    mov word [overlay_list], 0       ; 0x7184
     mov word [bss_845e], 0xfffe      ; 0x718a
     mov ax, 0                        ; 0x7190
     push ax                          ; 0x7193

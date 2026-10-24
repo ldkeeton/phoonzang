@@ -1,0 +1,43 @@
+/* inserts an overlay item into the code-ordered 12-slot table */
+
+struct overlay_item {
+	int x;			/* 0x00: text position */
+	int y;			/* 0x02 */
+	int clip_left;		/* 0x04: gfx_draw_text clip bounds */
+	int clip_right;		/* 0x06 */
+	char text[12];		/* 0x08: glyph string */
+	unsigned char code;	/* 0x14: sort key, 0xff marks a free slot */
+	unsigned char color;	/* 0x15 */
+	unsigned char variant;	/* 0x16 */
+	unsigned char flag;	/* 0x17 */
+};
+
+extern struct {
+	int count;
+	struct overlay_item *items[12];
+} overlay_list;
+
+add_overlay_item(code, color, x, y, clip_left, clip_right, variant, flag, text)
+int code, color, x, y, clip_left, clip_right, variant, flag;
+char *text;
+{
+	int pos, i;
+
+	pos = 0;
+	/* records are kept ascending by code */
+	while (pos < overlay_list.count && overlay_list.items[pos]->code <= code)
+		++pos;
+	/* make room by moving the tail up one 24-byte record */
+	for (i = overlay_list.count; i > pos; --i)
+		*overlay_list.items[i] = *overlay_list.items[i - 1];
+	overlay_list.items[pos]->code = code;
+	overlay_list.items[pos]->color = color;
+	overlay_list.items[pos]->x = x;
+	overlay_list.items[pos]->y = y;
+	overlay_list.items[pos]->clip_left = clip_left;
+	overlay_list.items[pos]->clip_right = clip_right;
+	overlay_list.items[pos]->variant = variant;
+	overlay_list.items[pos]->flag = flag;
+	aztec_strcpy(overlay_list.items[pos]->text, text);
+	++overlay_list.count;
+}
