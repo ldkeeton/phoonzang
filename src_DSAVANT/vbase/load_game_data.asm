@@ -649,7 +649,7 @@ load_game_data:
     mov ax, word [bss_9a26]          ; 0x35fd
     mov dx, word [bss_9a28]          ; 0x3600
     mov word [bss_8f1e], dx          ; 0x3604
-    mov word [bss_8f1c], ax          ; 0x3608
+    mov word [game_time], ax         ; 0x3608
     mov ax, word [bss_9a2a]          ; 0x360b
     mov dx, word [bss_9a2c]          ; 0x360e
     mov word [bss_8f1a], dx          ; 0x3612

@@ -72,7 +72,7 @@ api_idx_0086_JRHU:
     mov word [bp - 0x0008], ax       ; 0x6eba
     cmp byte [bx - 0x003a], 3        ; 0x6ebd
     jne short @..api_idx_0086_JRHU.l8 ; 0x6ec1
-    mov ax, word [bss_8f1c]          ; 0x6ec3
+    mov ax, word [game_time]         ; 0x6ec3
     mov dx, word [bss_8f1e]          ; 0x6ec6
     mov cx, 0x5a0                    ; 0x6eca
     mov bx, 0                        ; 0x6ecd

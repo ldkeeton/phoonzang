@@ -57,7 +57,7 @@ api_idx_0008_URRP:
     jmp short @..api_idx_0008_URRP.l12 ; 0x024c
 @..api_idx_0008_URRP.l6:
     mov word [bp - 0x0004], 0x14a    ; 0x024e
-    mov ax, word [bss_8f1c]          ; 0x0253
+    mov ax, word [game_time]         ; 0x0253
     mov dx, word [bss_8f1e]          ; 0x0256
     push ax                          ; 0x025a
     push dx                          ; 0x025b

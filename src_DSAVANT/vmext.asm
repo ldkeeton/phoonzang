@@ -329,7 +329,7 @@ api_idx_0012_RMOL.bss11    equ bss_91f7
 
 %include "shared/game/api_idx_0024_NUGL.asm"     ; 0x3b83
 
-%include "shared/game/api_idx_001e_IGLM.asm"     ; 0x3d29
+%include "shared/game/draw_clock_marker_glyph.asm" ; 0x3d29
 
 ; bss_9182           equ __zdseg_end + (__zobss_9182 - __zdata_start)
 ; bss_9188           equ __zdseg_end + (__zobss_9188 - __zdata_start)

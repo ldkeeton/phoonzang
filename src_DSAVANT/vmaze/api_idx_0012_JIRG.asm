@@ -39,7 +39,7 @@ api_idx_0012_JIRG:
     call get_bits                    ; 0x85c4
     add sp, byte 6                   ; 0x85c7
     mov word [bp - 0x0012], ax       ; 0x85ca
-    mov ax, word [bss_8f1c]          ; 0x85cd
+    mov ax, word [game_time]         ; 0x85cd
     mov dx, word [bss_8f1e]          ; 0x85d0
     mov cx, 0x5a0                    ; 0x85d4
     mov bx, 0                        ; 0x85d7

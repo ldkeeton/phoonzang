@@ -188,7 +188,7 @@ bss_8f14 equ __zbss_8f14 - __zdseg_start
 bss_8f16 equ __zbss_8f16 - __zdseg_start
 bss_8f18 equ __zbss_8f18 - __zdseg_start
 bss_8f1a equ __zbss_8f1a - __zdseg_start
-bss_8f1c equ __zbss_8f1c - __zdseg_start
+game_time equ __zbss_8f1c - __zdseg_start
 bss_8f1e equ __zbss_8f1e - __zdseg_start
 marker_mode equ __zbss_8f20 - __zdseg_start
 bss_8f22 equ __zbss_8f22 - __zdseg_start

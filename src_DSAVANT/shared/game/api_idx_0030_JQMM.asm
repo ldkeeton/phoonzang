@@ -146,7 +146,7 @@ api_idx_0030_JQMM:
     push ax
     call gfx_fill_area
     add sp, byte 0x0a
-    call api_idx_001e_IGLM
+    call draw_clock_marker_glyph
     call api_idx_0024_NUGL
 @..api_idx_0030_JQMM.l7:
     call draw_party_status_glyphs
@@ -328,7 +328,7 @@ api_idx_0030_JQMM.jumptable_case2:
     push ax
     call gfx_fill_area
     add sp, byte 0x0a
-    call api_idx_001e_IGLM
+    call draw_clock_marker_glyph
     call api_idx_0024_NUGL
     mov ax, 4
     push ax
@@ -379,7 +379,7 @@ api_idx_0030_JQMM.jumptable_case3:
     push ax
     call gfx_fill_area
     add sp, byte 0x0a
-    call api_idx_001e_IGLM
+    call draw_clock_marker_glyph
     call api_idx_0024_NUGL
     cmp word [game_state_arg], byte 0x0e
     jne short @..api_idx_0030_JQMM.l12
@@ -462,7 +462,7 @@ api_idx_0030_JQMM.jumptable_case4:
     push ax
     call gfx_fill_area
     add sp, byte 0x0a
-    call api_idx_001e_IGLM
+    call draw_clock_marker_glyph
     call api_idx_0024_NUGL
     mov ax, 4
     push ax
@@ -516,7 +516,7 @@ api_idx_0030_JQMM.jumptable_case5:
     push ax
     call gfx_fill_area
     add sp, byte 0x0a
-    call api_idx_001e_IGLM
+    call draw_clock_marker_glyph
     call api_idx_0024_NUGL
     mov ax, 0
     push ax
@@ -562,7 +562,7 @@ api_idx_0030_JQMM.jumptable_case6:
     push ax
     call gfx_fill_area
     add sp, byte 0x0a
-    call api_idx_001e_IGLM
+    call draw_clock_marker_glyph
     call api_idx_0024_NUGL
     mov ax, 0x3e
     push ax
@@ -2212,7 +2212,7 @@ api_idx_0030_JQMM.jumptable_case7:
 @..api_idx_0030_JQMM.l89:
     cmp word [api_idx_0030_JQMM.bss1], byte 0
     je short @..api_idx_0030_JQMM.l90
-    call api_idx_001e_IGLM
+    call draw_clock_marker_glyph
     call api_idx_0024_NUGL
 @..api_idx_0030_JQMM.l90:
     inc word [bp - 0x0014]

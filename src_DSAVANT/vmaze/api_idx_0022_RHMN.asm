@@ -92,7 +92,7 @@ api_idx_0022_RHMN:
     call gfx_show_area               ; 0x2320
     add sp, byte 8                   ; 0x2323
 @..api_idx_0022_RHMN.l8:
-    add word [bss_8f1c], byte 1      ; 0x2326
+    add word [game_time], byte 1     ; 0x2326
     adc word [bss_8f1e], byte 0      ; 0x232b
     call api_idx_0002_ITLQ           ; 0x2330
     mov ax, word [bss_9198]          ; 0x2333
@@ -152,7 +152,7 @@ api_idx_0022_RHMN:
     cmp ax, strict word 3            ; 0x239f
     je short @..api_idx_0022_RHMN.l11 ; 0x23a2
 @..api_idx_0022_RHMN.l13:
-    mov ax, word [bss_8f1c]          ; 0x23a4
+    mov ax, word [game_time]         ; 0x23a4
     mov dx, word [bss_8f1e]          ; 0x23a7
     mov cx, 0x3c                     ; 0x23ab
     mov bx, 0                        ; 0x23ae
@@ -161,7 +161,7 @@ api_idx_0022_RHMN:
     jne short @..api_idx_0022_RHMN.l14 ; 0x23b6
     call api_idx_0032_TNQM           ; 0x23b8
 @..api_idx_0022_RHMN.l14:
-    mov ax, word [bss_8f1c]          ; 0x23bb
+    mov ax, word [game_time]         ; 0x23bb
     mov dx, word [bss_8f1e]          ; 0x23be
     mov cx, 0xf0                     ; 0x23c2
     mov bx, 0                        ; 0x23c5
@@ -180,7 +180,7 @@ api_idx_0022_RHMN:
     mov bx, word [bp - 0x0004]       ; 0x23e2
     mov byte [bx + code_characters], al ; 0x23e5
 @..api_idx_0022_RHMN.l15:
-    mov ax, word [bss_8f1c]          ; 0x23e9
+    mov ax, word [game_time]         ; 0x23e9
     mov dx, word [bss_8f1e]          ; 0x23ec
     mov cx, 0xa                      ; 0x23f0
     mov bx, 0                        ; 0x23f3
@@ -202,7 +202,7 @@ api_idx_0022_RHMN:
     jb short @..api_idx_0022_RHMN.l19 ; 0x241b
     jmp near @..api_idx_0022_RHMN.l24 ; 0x241d
 @..api_idx_0022_RHMN.l19:
-    mov ax, word [bss_8f1c]          ; 0x2420
+    mov ax, word [game_time]         ; 0x2420
     mov dx, word [bss_8f1e]          ; 0x2423
     mov cx, 0x3c                     ; 0x2427
     mov bx, 0                        ; 0x242a
@@ -364,7 +364,7 @@ api_idx_0022_RHMN:
     je short @..api_idx_0022_RHMN.l35 ; 0x259d
     ret                              ; 0x259f
 @..api_idx_0022_RHMN.l35:
-    mov ax, word [bss_8f1c]          ; 0x25a0
+    mov ax, word [game_time]         ; 0x25a0
     mov dx, word [bss_8f1e]          ; 0x25a3
     mov cx, 0x1e                     ; 0x25a7
     mov bx, 0                        ; 0x25aa

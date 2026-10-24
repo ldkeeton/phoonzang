@@ -58,6 +58,7 @@
     "api_idx_001c_HVVI": {"name": "roll_slot_values", "note": "rerolls slot_value[0,1,3] from three base args plus pairs of record bytes at +0x130 (/6 - 3, floor 1, then uniform in half..value); slot_value[2] gains 1-2 per nonzero +0x138 byte indexed index_range2_first..last"},
     "api_idx_001c_ITKQ": {"name": "roll_slot_values", "note": "rerolls slot_value[0,1,3] from three base args plus pairs of record bytes at +0x130 (/6 - 3, floor 1, then uniform in half..value); slot_value[2] gains 1-2 per nonzero +0x138 byte indexed index_range2_first..last"},
     "api_idx_001c_VLRT": {"name": "queue_cell_action_overlay", "note": "queues one cell's action glyphs as overlay items, projected by nearness"},
+    "api_idx_001e_IGLM": {"name": "draw_clock_marker_glyph", "note": "draws the active party slot marker glyph at its time-of-day position"},
     "api_idx_002a_SRJL": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"},
     "api_idx_002a_STSK": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"},
     "bios_kbd_loc_UHUN": {
@@ -523,6 +524,7 @@
         "8d10": {"name": "saved_area_a_hi", "note": "high word of saved_area_a"},
         "8d12": {"name": "party_region", "note": "region index of the current map piece"},
         "8e64": {"name": "flag_bitset", "note": "bitset tested with test_bit (bit 0x40 by roll_slot_detection_report)"},
+        "8f1c": {"name": "game_time", "note": "32-bit game clock in minutes"},
         "8f20": {"name": "marker_mode", "note": "int: 0 none, >0 offset combined with party_tag to pick a facing glyph, -1 draw at marker_x/marker_y"},
         "8f24": {"name": "found_object_owner", "note": "int: owner byte of the last type-0x19 object checked by check_cell_objects"},
         "8f28": {"name": "saved_level", "note": "saved location level"},
