@@ -1,5 +1,5 @@
 ; auto-generated
-io_loc_LPTR:
+opl_silent_note_pulse:
     pushf                            ; 0x06ec
     cli                              ; 0x06ed
     mov al, 0x36                     ; 0x06ee
@@ -37,7 +37,7 @@ io_loc_LPTR:
     mov bl, al                       ; 0x0741
     in al, 0x40                      ; 0x0743
     mov bh, al                       ; 0x0745
-@..io_loc_LPTR.l1:
+@..opl_silent_note_pulse.l1:
     mov al, 0                        ; 0x0747
     out 0x43, al                     ; 0x0749
     in al, 0x40                      ; 0x074b
@@ -47,7 +47,7 @@ io_loc_LPTR:
     neg cx                           ; 0x0753
     add cx, bx                       ; 0x0755
     cmp cx, strict word 0x952        ; 0x0757
-    jb short @..io_loc_LPTR.l1       ; 0x075b
+    jb short @..opl_silent_note_pulse.l1 ; 0x075b
     mov ax, 0xb020                   ; 0x075d
     call opl_write                   ; 0x0760
     mov ax, 0xa000                   ; 0x0763
@@ -55,10 +55,10 @@ io_loc_LPTR:
     mov dx, 0x388                    ; 0x0769
     mov al, 0x40                     ; 0x076c
     out dx, al                       ; 0x076e
-    call io_loc_RPJI                 ; 0x076f
+    call opl_delay_short             ; 0x076f
     mov al, 0x3f                     ; 0x0772
     inc dx                           ; 0x0774
     out dx, al                       ; 0x0775
-    call io_loc_TOKT                 ; 0x0776
+    call opl_delay_long              ; 0x0776
     popf                             ; 0x0779
     ret                              ; 0x077a

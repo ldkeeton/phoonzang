@@ -9,17 +9,17 @@ opl_write:
     xchg ah, al                      ; 0x0804
     pushf                            ; 0x0806
     cli                              ; 0x0807
-    call io_loc_TOKT                 ; 0x0808
+    call opl_delay_long              ; 0x0808
     out dx, al                       ; 0x080b
-    call io_loc_RPJI                 ; 0x080c
+    call opl_delay_short             ; 0x080c
     inc dx                           ; 0x080f
     xchg ah, al                      ; 0x0810
     out dx, al                       ; 0x0812
-    call io_loc_TOKT                 ; 0x0813
+    call opl_delay_long              ; 0x0813
     dec dx                           ; 0x0816
     mov al, 0x40                     ; 0x0817
     out dx, al                       ; 0x0819
-    call io_loc_TOKT                 ; 0x081a
+    call opl_delay_long              ; 0x081a
     popf                             ; 0x081d
     pop dx                           ; 0x081e
     pop bx                           ; 0x081f

@@ -70,7 +70,7 @@ api_idx_0004_IKOQ:
     pop cx                           ; 0x837a
     cmp ax, word [bp - 0x0002]       ; 0x837b
     jg short @..api_idx_0004_IKOQ.l6 ; 0x837e
-    mov ax, word [dseg_0040]         ; 0x8380
+    mov ax, word [index_range2_first] ; 0x8380
     mov word [bp - 0x0004], ax       ; 0x8383
     mov word [bp - 0x0002], 0        ; 0x8386
     jmp short @..api_idx_0004_IKOQ.l15 ; 0x838b

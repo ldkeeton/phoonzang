@@ -70,5 +70,5 @@ jumptable_035e_case_4:
     jmp near jumptable_035e_case_0   ; 0x03ca
     times 15 db 0
 jumptable_035e_case_1:
-    call io_loc_LPTR                 ; 0x03dc
+    call opl_silent_note_pulse       ; 0x03dc
     jmp near jumptable_035e_case_0   ; 0x03df

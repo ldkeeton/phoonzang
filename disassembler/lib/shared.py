@@ -104,9 +104,12 @@ def _buckets(fragments, tables):
     A copy is a candidate with every copy of its name (:func:`_shared_base`)
     and, when it is code without a source, with every such copy of the same
     :func:`_shape` whatever its name, unless it is the host's or a lone
-    ``ret`` (:func:`_is_bare_return`).
+    ``ret`` (:func:`_is_bare_return`).  A copy with a hand-written source
+    keeps those source-less copies, so writing the source never splits the
+    file they shared; two hand sources of one shape stay apart.
     """
     keys, hosts = {}, _hosts(tables)
+    shapes = {}
     for rel, (text, ctext) in fragments.items():
         if binary_local(rel):
             keys[rel] = []
@@ -115,9 +118,17 @@ def _buckets(fragments, tables):
         keys[rel] = [(base, ctext)]
         # A host's copy under an overlay's name would define it twice in
         # that overlay, which sees the host's symbols.
-        if (ctext is None and not base.startswith(f'{FOLDER}/data/')
-                and _binary(rel) not in hosts and not _is_bare_return(text)):
-            keys[rel].append(('shape', _shape(rel, text, tables)))
+        if (not base.startswith(f'{FOLDER}/data/')
+                and _binary(rel) not in hosts and not _is_bare_return(text)
+                and (ctext is None or not _generated_source(ctext))):
+            shapes[rel] = _shape(rel, text, tables)
+    hand = defaultdict(set)
+    for rel, shape in shapes.items():
+        if fragments[rel][1] is not None:
+            hand[shape].add(fragments[rel][1])
+    for rel, shape in shapes.items():
+        if fragments[rel][1] is None or len(hand[shape]) == 1:
+            keys[rel].append(('shape', shape))
     parent = {}
 
     def find(x):
@@ -131,8 +142,11 @@ def _buckets(fragments, tables):
     out = defaultdict(list)
     for rel in sorted(fragments):
         out[find(('rel', rel))].append(rel)
-    return sorted(((fragments[rels[0]][1], rels) for rels in out.values()),
-                  key=repr)
+    # A bucket's source is its one member's that has one (_shared_base ties
+    # same-named copies to one source; the shape key admits only one more).
+    return sorted(((next((fragments[r][1] for r in rels
+                          if fragments[r][1] is not None), None), rels)
+                   for rels in out.values()), key=repr)
 
 
 def _family(sym):
@@ -222,9 +236,12 @@ def _clusters(fragments, rels, ctext, tables):
         for rel in left:
             count[_stem(rel)] += 1
 
+        # The copy that owns the source names the group: the shared file
+        # must sit beside that source under its name.
         def rank(rel):
             sym = tables.get(_binary(rel), {}).get(_stem(rel))
-            return (_generic(sym), -count[_stem(rel)], _stem(rel), rel)
+            return (fragments[rel][1] is None, _generic(sym),
+                    -count[_stem(rel)], _stem(rel), rel)
 
         order = sorted(left, key=rank)
         stem = _stem(order[0])
@@ -470,8 +487,13 @@ def share_files(files, out_dir, tables):
         for base, members, binds in _clusters(fragments, rels, ctext, tables):
             if len({p.split('/')[0] for p in members}) < 2:
                 continue
+            # A group takes only its own members' source: another group of
+            # the same shape may sit in the bucket of a hand source it did
+            # not join (_bind refuses two people's names).
+            own = next((fragments[r][1] for r in members
+                        if fragments[r][1] is not None), None)
             if base not in best or len(members) > len(best[base][0]):
-                best[base] = (members, binds, ctext)
+                best[base] = (members, binds, own)
 
     shared, bindings = {}, {}
     for base, (members, binds, ctext) in best.items():

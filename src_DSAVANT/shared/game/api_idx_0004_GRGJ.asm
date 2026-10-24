@@ -62,7 +62,7 @@ api_idx_0004_GRGJ:
     mov ax, word [bp - 0x0002]
     cmp ax, strict word 8
     jl short @..api_idx_0004_GRGJ.l5
-    mov ax, word [dseg_0040]
+    mov ax, word [index_range2_first]
     mov word [bp - 0x0004], ax
     mov word [bp - 0x0002], 0
 @..api_idx_0004_GRGJ.l9:

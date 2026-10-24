@@ -16,7 +16,7 @@ jumptable_5a60_case_0:
     mov ax, 0xa                      ; 0x5725
     push ax                          ; 0x5728
     push word [bp + 0x4]             ; 0x5729
-    call api_idx_001c_ITKQ           ; 0x572c
+    call roll_slot_values            ; 0x572c
     add sp, byte 8                   ; 0x572f
     jmp near @..loc_QVUI.l2          ; 0x5732
 jumptable_5a60_case_1:
@@ -27,7 +27,7 @@ jumptable_5a60_case_1:
     mov ax, 3                        ; 0x573d
     push ax                          ; 0x5740
     push word [bp + 0x4]             ; 0x5741
-    call api_idx_001c_ITKQ           ; 0x5744
+    call roll_slot_values            ; 0x5744
     add sp, byte 8                   ; 0x5747
     mov ax, 2                        ; 0x574a
     push ax                          ; 0x574d
@@ -51,7 +51,7 @@ jumptable_5a60_case_2:
     mov ax, 3                        ; 0x5774
     push ax                          ; 0x5777
     push word [bp + 0x4]             ; 0x5778
-    call api_idx_001c_ITKQ           ; 0x577b
+    call roll_slot_values            ; 0x577b
     add sp, byte 8                   ; 0x577e
     mov ax, 2                        ; 0x5781
     push ax                          ; 0x5784
@@ -75,7 +75,7 @@ jumptable_5a60_case_3:
     mov ax, 5                        ; 0x57ab
     push ax                          ; 0x57ae
     push word [bp + 0x4]             ; 0x57af
-    call api_idx_001c_ITKQ           ; 0x57b2
+    call roll_slot_values            ; 0x57b2
     add sp, byte 8                   ; 0x57b5
     mov ax, 2                        ; 0x57b8
     push ax                          ; 0x57bb
@@ -98,7 +98,7 @@ jumptable_5a60_case_4:
     push ax                          ; 0x57e1
     push ax                          ; 0x57e2
     push word [bp + 0x4]             ; 0x57e3
-    call api_idx_001c_ITKQ           ; 0x57e6
+    call roll_slot_values            ; 0x57e6
     add sp, byte 8                   ; 0x57e9
     mov ax, 3                        ; 0x57ec
     push ax                          ; 0x57ef
@@ -135,7 +135,7 @@ jumptable_5a60_case_6:
     mov ax, 6                        ; 0x5835
     push ax                          ; 0x5838
     push word [bp + 0x4]             ; 0x5839
-    call api_idx_001c_ITKQ           ; 0x583c
+    call roll_slot_values            ; 0x583c
     add sp, byte 8                   ; 0x583f
     mov ax, 2                        ; 0x5842
     push ax                          ; 0x5845
@@ -159,7 +159,7 @@ jumptable_5a60_case_5:
     mov ax, 3                        ; 0x586c
     push ax                          ; 0x586f
     push word [bp + 0x4]             ; 0x5870
-    call api_idx_001c_ITKQ           ; 0x5873
+    call roll_slot_values            ; 0x5873
     add sp, byte 8                   ; 0x5876
     mov ax, 2                        ; 0x5879
     push ax                          ; 0x587c
@@ -183,7 +183,7 @@ jumptable_5a60_case_7:
     mov ax, 3                        ; 0x58a3
     push ax                          ; 0x58a6
     push word [bp + 0x4]             ; 0x58a7
-    call api_idx_001c_ITKQ           ; 0x58aa
+    call roll_slot_values            ; 0x58aa
     add sp, byte 8                   ; 0x58ad
     mov ax, 2                        ; 0x58b0
     push ax                          ; 0x58b3
@@ -206,7 +206,7 @@ jumptable_5a60_case_9:
     push ax                          ; 0x58d9
     push ax                          ; 0x58da
     push word [bp + 0x4]             ; 0x58db
-    call api_idx_001c_ITKQ           ; 0x58de
+    call roll_slot_values            ; 0x58de
     add sp, byte 8                   ; 0x58e1
     mov ax, 3                        ; 0x58e4
     push ax                          ; 0x58e7
@@ -241,7 +241,7 @@ jumptable_5a60_case_8:
     mov ax, 9                        ; 0x5927
     push ax                          ; 0x592a
     push word [bp + 0x4]             ; 0x592b
-    call api_idx_001c_ITKQ           ; 0x592e
+    call roll_slot_values            ; 0x592e
     add sp, byte 8                   ; 0x5931
     mov ax, 3                        ; 0x5934
     push ax                          ; 0x5937
@@ -264,7 +264,7 @@ jumptable_5a60_case_10:
     mov ax, 9                        ; 0x595b
     push ax                          ; 0x595e
     push word [bp + 0x4]             ; 0x595f
-    call api_idx_001c_ITKQ           ; 0x5962
+    call roll_slot_values            ; 0x5962
     add sp, byte 8                   ; 0x5965
     mov ax, 3                        ; 0x5968
     push ax                          ; 0x596b
@@ -286,7 +286,7 @@ jumptable_5a60_case_11:
     mov ax, 9                        ; 0x598c
     push ax                          ; 0x598f
     push word [bp + 0x4]             ; 0x5990
-    call api_idx_001c_ITKQ           ; 0x5993
+    call roll_slot_values            ; 0x5993
     add sp, byte 8                   ; 0x5996
     mov ax, 2                        ; 0x5999
     push ax                          ; 0x599c
@@ -309,7 +309,7 @@ jumptable_5a60_case_12:
     mov ax, 7                        ; 0x59c0
     push ax                          ; 0x59c3
     push word [bp + 0x4]             ; 0x59c4
-    call api_idx_001c_ITKQ           ; 0x59c7
+    call roll_slot_values            ; 0x59c7
     add sp, byte 8                   ; 0x59ca
     mov ax, 3                        ; 0x59cd
     push ax                          ; 0x59d0
@@ -345,7 +345,7 @@ jumptable_5a60_case_13:
     mov ax, 8                        ; 0x5a13
     push ax                          ; 0x5a16
     push word [bp + 0x4]             ; 0x5a17
-    call api_idx_001c_ITKQ           ; 0x5a1a
+    call roll_slot_values            ; 0x5a1a
     add sp, byte 8                   ; 0x5a1d
     mov ax, 2                        ; 0x5a20
     push ax                          ; 0x5a23

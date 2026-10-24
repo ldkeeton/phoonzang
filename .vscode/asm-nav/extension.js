@@ -549,13 +549,16 @@ async function prepareMakeC(uri, label, batch) {
     // A sidecar note saying "hand-written" settles the form; a sibling .s shows the style.
     const entry = shared ? sharedHit.entry : ((own || {}).function_names || {})[key];
     const handWritten = /^hand-written/.test((entry || {}).note || '');
-    // A sibling .s shows the house style the new file should follow.
-    const siblingS = fs.readdirSync(dir).filter((f) => f.endsWith('.s')).sort();
-    const exampleS = siblingS[0];
+    // The newest sibling .s/.c shows the current house style the new file should follow.
+    const newest = (ext) => fs.readdirSync(dir).filter((f) => f.endsWith(ext))
+        .map((f) => [f, fs.statSync(path.join(dir, f)).mtimeMs])
+        .sort((a, b) => b[1] - a[1]).map(([f]) => f)[0];
+    const exampleS = newest('.s');
+    const exampleC = newest('.c');
     const flagList = [`default \`${(flags.default || []).join(' ')}\``].concat(
         Object.entries(flags.prefixes || {}).map(([p, f]) => `\`${p}\` → \`${f.join(' ')}\``)).join('; ');
 
-    return { where, asmFile, cFile, sFile, dir, rel, exampleS, handWritten,
+    return { where, asmFile, cFile, sFile, dir, rel, exampleS, exampleC, handWritten,
         flagList };
 }
 
@@ -572,7 +575,8 @@ function authoringGuide() {
 // read on every use, so it can be edited without reloading the window;
 // {{name}} placeholders are filled per job.
 function claudePrompt(job) {
-    const { where, asmFile, cFile, sFile, dir, rel, exampleS, handWritten } = job;
+    const { where, asmFile, cFile, sFile, dir, rel, exampleS, exampleC, handWritten,
+        flagList } = job;
     const file = path.join(__dirname, 'prompt.txt');
     let text;
     try {
@@ -585,6 +589,8 @@ function claudePrompt(job) {
         c: rel(cFile),
         s: rel(sFile),
         style: exampleS ? `, in the style of ${rel(path.join(dir, exampleS))}` : '',
+        cstyle: exampleC ? `, in the style of ${rel(path.join(dir, exampleC))}` : '',
+        flags: flagList,
         hand: handWritten ? ` The sidecar note marks this routine hand-written asm: write ${rel(sFile)}.` : '',
         project: where.project,
         binary: where.binary,

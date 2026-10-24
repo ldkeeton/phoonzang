@@ -421,11 +421,9 @@ dseg_94cb equ __zdseg_end + (__zdseg_94cb - __zdata_start)
 dseg_94da equ __zdseg_end + (__zdseg_94da - __zdata_start)
 %include "vpcmk/api_idx_0004_GHPT.asm"     ; 0x5087
 
-; slot_value equ __zdseg_end + (__zobss_9608 - __zdata_start)
-bss_960c   equ __zdseg_end + (__zobss_960c - __zdata_start)
-api_idx_001c_ITKQ      equ api_idx_001c_HVVI
-api_idx_001c_HVVI.bss1 equ bss_960c
-%include "shared/game/api_idx_001c_HVVI.asm"     ; 0x5580
+; slot_value  equ __zdseg_end + (__zobss_9608 - __zdata_start)
+slot_value2 equ __zdseg_end + (__zobss_960c - __zdata_start)
+%include "shared/game/roll_slot_values.asm"      ; 0x5580
 
 ; slot_value equ __zdseg_end + (__zobss_9608 - __zdata_start)
 %include "vpcmk/api_idx_0002_GVOH.asm"     ; 0x56b0

@@ -302,6 +302,59 @@ class OtherNameTest(unittest.TestCase):
         from lib.symtab import Kind, Source, Symbol
         return {text: Symbol(text, kind=Kind.ROUTINE, source=Source.SIDECAR)}
 
+    def _share_with_hand(self, copies, tables, hand):
+        """:meth:`_share` with hand-written sources ``{rel: text}`` on disk."""
+        files = {}
+        for b, (name, ops) in copies.items():
+            files[f'{b}/{name}.asm'] = (f'{name}:\n' + ''.join(
+                f'    {op}\n' for op in ops) + f'    jmp short @..{name}.l1\n'
+                f'@..{name}.l1:\n    ret\n')
+            files[f'{b}.asm'] = f'%include "{b}/{name}.asm"\n'
+        with tempfile.TemporaryDirectory() as root:
+            for rel, text in hand.items():
+                path = os.path.join(root, rel)
+                os.makedirs(os.path.dirname(path), exist_ok=True)
+                with open(path, 'w') as f:
+                    f.write(text)
+            return shared.share_files(files, root, tables)
+
+    def test_a_hand_source_keeps_its_other_tag_copy(self):
+        # Writing shared/game/f_HHHH.c must not split f_GGGG's binary off
+        # the file both copies shared, whichever tag sorts first.
+        files, result = self._share_with_hand(
+            {'a': ('f_GGGG', ['mov ax, [bss_10]']),
+             'b': ('f_HHHH', ['mov ax, [bss_20]'])},
+            {'a': self._table('f_GGGG', 'bss_10'),
+             'b': self._table('f_HHHH', 'bss_20')},
+            {'shared/game/f_HHHH.c': 'f_HHHH() {}\n'})
+        self.assertEqual(result, {'shared/game/f_HHHH.asm':
+                                  ['a/f_GGGG.asm', 'b/f_HHHH.asm']})
+        self.assertIn('f_GGGG      equ f_HHHH', files['a.asm'])
+        self.assertIn('f_HHHH.bss1 equ bss_10', files['a.asm'])
+
+    def test_a_named_group_of_the_same_shape_gets_no_source(self):
+        # draw's copies share a bucket with f_HHHH's hand source but never
+        # join it (a person's name), so no source is written beside draw.
+        files, result = self._share_with_hand(
+            {'a': ('f_HHHH', ['push bp']), 'c': ('draw', ['push bp']),
+             'd': ('draw', ['push bp'])},
+            {'a': self._table('f_HHHH'), 'c': self._named('draw'),
+             'd': self._named('draw')},
+            {'shared/game/f_HHHH.c': 'f_HHHH() {}\n'})
+        self.assertEqual(result, {'shared/library/draw.asm':
+                                  ['c/draw.asm', 'd/draw.asm']})
+        self.assertFalse([rel for rel in files
+                          if os.path.basename(rel).startswith('draw.')
+                          and not rel.endswith('.asm')])
+
+    def test_two_hand_sources_of_one_shape_stay_apart(self):
+        _, result = self._share_with_hand(
+            {'a': ('f_GGGG', ['push bp']), 'b': ('f_HHHH', ['push bp'])},
+            {'a': self._table('f_GGGG'), 'b': self._table('f_HHHH')},
+            {'shared/game/f_GGGG.c': 'f_GGGG() {}\n',
+             'shared/game/f_HHHH.c': 'f_HHHH() { }\n'})
+        self.assertEqual(result, {})
+
     def test_different_code_under_two_tags_stays(self):
         _, result = self._share(
             {'a': ('f_GGGG', ['push bp']), 'b': ('f_HHHH', ['push si'])},

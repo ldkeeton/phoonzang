@@ -89,15 +89,15 @@ cseg_1904 equ __zinsn_18ff + 0x5
 ; cseg_0b12 equ __zinsn_0b0f + 0x3
 %include "play/loc_0614.asm"               ; 0x0614
 
-%include "play/io_loc_LPTR.asm"            ; 0x06ec
+%include "play/opl_silent_note_pulse.asm"  ; 0x06ec
 
 %include "play/leaf_loc_JKKL.asm"          ; 0x077b
 
 %include "play/opl_write.asm"              ; 0x07f6
 
-%include "play/io_loc_TOKT.asm"            ; 0x0821
+%include "play/opl_delay_long.asm"         ; 0x0821
 
-%include "play/io_loc_RPJI.asm"            ; 0x0831
+%include "play/opl_delay_short.asm"        ; 0x0831
 
 %include "play/io_loc_UVLK_0841.asm"       ; 0x0841
 

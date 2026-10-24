@@ -343,6 +343,17 @@ class ResolveTest(unittest.TestCase):
                 naming.resolve(self.sidecar, 'P', 'play', 'bss_0930')[:2],
                 (['binaries', 'play', 'data_names'], '0930'))
 
+    def test_overlay_local_data_by_its_name(self):
+        # A shared alias's donor already named resolves to its own entry,
+        # not the host's (the alias fan-out re-names it by that name).
+        self.sidecar['binaries']['play']['type'] = 'aztec_overlay'
+        self.sidecar['binaries']['play']['data_names'] = {
+            '0930': {'name': 'slot_value2'}}
+        with mock.patch.object(naming, '_asm_file', return_value=None):
+            self.assertEqual(
+                naming.resolve(self.sidecar, 'P', 'play', 'slot_value2')[:2],
+                (['binaries', 'play', 'data_names'], '0930'))
+
 
 class SpecsTest(unittest.TestCase):
     def test_parse(self):

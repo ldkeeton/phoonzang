@@ -42,8 +42,8 @@ dseg_0024 equ __zdseg_0024 - __zdseg_start
 dseg_0030 equ __zdseg_0030 - __zdseg_start
 dseg_0038 equ __zdseg_0038 - __zdseg_start
 dseg_003c equ __zdseg_003c - __zdseg_start
-dseg_0040 equ __zdseg_0040 - __zdseg_start
-dseg_0042 equ __zdseg_0042 - __zdseg_start
+index_range2_first equ __zindex_range2_first - __zdseg_start
+index_range2_last equ __zindex_range2_last - __zdseg_start
 dseg_0044 equ __zdseg_0044 - __zdseg_start
 dseg_010c equ __zdseg_010c - __zdseg_start
 dseg_010e equ __zdseg_010e - __zdseg_start
@@ -983,6 +983,12 @@ __zdseg_start:
 %include "ds/data/tick_counter_ptr.asm"    ; 0x10162
 
 %include "ds/data/dseg_001e.asm"           ; 0x1017e
+
+%include "ds/data/index_range2_first.asm"  ; 0x101a0
+
+%include "ds/data/index_range2_last.asm"   ; 0x101a2
+
+%include "ds/data/dseg_0044.asm"           ; 0x101a4
 
 %include "ds/data/file_param_word.asm"     ; 0x10270
 

@@ -489,6 +489,9 @@ def resolve(sidecar, project, binary, symbol):
         path = ['binaries', binary if local else owner, 'data_names']
     elif _named(own.get('code_data_names'), symbol):
         path, key = ['binaries', binary, 'code_data_names'], _named(own['code_data_names'], symbol)
+    elif binary != owner and _named(own.get('data_names'), symbol):
+        # An overlay's own BSS, named (a shared alias's donor already named).
+        path, key = ['binaries', binary, 'data_names'], _named(own['data_names'], symbol)
     elif _named(bins[owner].get('data_names'), symbol):
         path, key = ['binaries', owner, 'data_names'], _named(bins[owner]['data_names'], symbol)
     elif symbol in (sidecar.get('routines') or {}):

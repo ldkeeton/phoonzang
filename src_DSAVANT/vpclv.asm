@@ -338,10 +338,9 @@ api_idx_0032_HGIM.api_idx1 equ api_idx_002e_ILPL
 ; slot_limit equ __zdseg_end + (__zobss_96c0 - __zdata_start)
 %include "vpclv/api_idx_0088_LVJM.asm"     ; 0x3f9e
 
-; slot_value equ __zdseg_end + (__zobss_95f0 - __zdata_start)
-bss_95f4   equ __zdseg_end + (__zobss_95f4 - __zdata_start)
-api_idx_001c_HVVI.bss1 equ bss_95f4
-%include "shared/game/api_idx_001c_HVVI.asm"     ; 0x4140
+; slot_value  equ __zdseg_end + (__zobss_95f0 - __zdata_start)
+slot_value2 equ __zdseg_end + (__zobss_95f4 - __zdata_start)
+%include "shared/game/roll_slot_values.asm"      ; 0x4140
 
 ; slot_value equ __zdseg_end + (__zobss_95f0 - __zdata_start)
 %include "vpclv/api_idx_0002_SLJI.asm"     ; 0x4270
