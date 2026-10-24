@@ -34,11 +34,7 @@ Commands (space-separated):
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox-x
   make verify [PROJECT...]  verify one or all projects
-  make lint [fix] [PROJECT...]  check hand-owned .c/.s sources (fix applies the
-                            rule fixers).  Rules: decimal constants in .c,
-                            include hlmacros.h in every .s, structured-flow
-                            indentation, and hlmacros shorthand where an exact
-                            instruction sequence can use it
+  make lint [fix] [PROJECT...]  run linter
   make clean [PROJECT...]   clean one or all projects (no args: delete .cache,
                             except the build lock and pinned baselines)
   make name PROJECT BIN SYMBOL=NAME[:NOTE] ...

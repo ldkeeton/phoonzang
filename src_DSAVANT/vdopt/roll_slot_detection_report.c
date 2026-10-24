@@ -1,3 +1,6 @@
+/* for each of 20 slots, roll percent chances scaled by level to report it in a
+   message box */
+
 struct rec {
 	unsigned char kind;	/* < 25 means the slot is in use */
 	unsigned char map_piece;
@@ -18,7 +21,6 @@ extern long saved_area_a;
 extern char flag_bitset[], report_line1_none[], report_line2_none[];
 long gfx_save_area();
 
-/* for each of 20 slots, roll percent chances scaled by level to report it in a message box */
 roll_slot_detection_report(level)
 int level;
 {
@@ -60,7 +62,8 @@ int level;
 			continue;
 		if (random_below(100) < chance_any)
 			goto hit;
-		if (kind_state_table[slot_records[slot].kind].state == game_state_arg && random_below(100) < chance_state)
+		if (kind_state_table[slot_records[slot].kind].state == game_state_arg
+			&& random_below(100) < chance_state)
 			goto hit;
 		if (slot_records[slot].map_piece != party_map_piece)
 			continue;
@@ -76,7 +79,8 @@ hit:
 			load_message_string(487, line1);
 		else {
 			load_message_string(485, line1);
-			load_message_string(slot_records[slot].kind + 1770, line2);	/* per-kind message */
+			load_message_string(slot_records[slot].kind + 1770,
+				line2);	/* per-kind message */
 		}
 		draw_centered_lines(title, line1, line2);
 	}

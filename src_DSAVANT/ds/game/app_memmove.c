@@ -4,5 +4,5 @@ long src;
 long dst;
 unsigned n;
 {
-    aztec_movblock(src, dst, n);
+	aztec_movblock(src, dst, n);
 }

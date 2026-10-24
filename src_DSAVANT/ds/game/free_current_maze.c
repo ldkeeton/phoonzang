@@ -1,7 +1,8 @@
-extern int current_maze, maze_variant, maze_state;
-
 /* frees the current maze plus the extra mazes and picture slots its variant
    loaded, then marks no maze current */
+
+extern int current_maze, maze_variant, maze_state;
+
 free_current_maze()
 {
 	if (current_maze >= 0) {	/* -1: nothing loaded */

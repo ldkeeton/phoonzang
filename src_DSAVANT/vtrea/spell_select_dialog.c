@@ -1,5 +1,10 @@
+/* modal spell dialog for pc: six realm hotspots, a scrolling list of known
+   spells, a 1..7 power row and two buttons; returns spell_dialog_button (0
+   first button, 1 second) and leaves (power << 8) + spell + 0x100 in
+   spell_dialog_result */
+
 struct spell_info {	/* 6-byte entries */
-	char realm;	/* +0: 0..5 */
+	char realm;		/* +0: 0..5 */
 	unsigned char level;	/* +1: subtracted from pc_rec.cap for the power limit */
 	unsigned char cost;	/* +2: per power level, against points[realm][0] */
 	char pad[3];
@@ -11,7 +16,8 @@ struct pc_rec {	/* 0x248-byte records */
 	char pad[584 - 28];
 };
 extern int party_slot_frame[];
-extern int spell_dialog_result, party_redraw_interval, spell_dialog_button, space_key_hit, hotspot_hit;
+extern int spell_dialog_result, party_redraw_interval, spell_dialog_button,
+	space_key_hit, hotspot_hit;
 extern long party_redraw_last_tick;
 extern long far *tick_counter_ptr;
 extern char str_swap_file_v[];
@@ -19,13 +25,11 @@ extern struct spell_info spell_table[];
 extern struct pc_rec pc_spell_power_cap[];
 extern int known_spell_list[];
 
-/* modal spell dialog for pc: six realm hotspots, a scrolling list of known
-   spells, a 1..7 power row and two buttons; returns spell_dialog_button (0 first button, 1 second) and
-   leaves (power << 8) + spell + 0x100 in spell_dialog_result */
 spell_select_dialog(pc, label_id, ok_enabled, limit_by_points)
 int pc, label_id, ok_enabled, limit_by_points;
 {
-	int i, box_x0, box_y0, box_x1, box_y1, panel_x, mouse_x, mouse_y, thumb_y, thumb_travel, grab_dy, list_top, hit;
+	int i, box_x0, box_y0, box_x1, box_y1, panel_x, mouse_x, mouse_y, thumb_y,
+		thumb_travel, grab_dy, list_top, hit;
 	int running, mouse_btn, rows_shown, sel_row, rows_drawn;
 	char label[20];
 	int saved_area, spell, power, max_power, realm, spell_count;
@@ -38,7 +42,8 @@ int pc, label_id, ok_enabled, limit_by_points;
 	box_y1 = 197;
 	panel_x = 149;
 	thumb_travel = 22;
-	saved_area = save_screen_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1, str_swap_file_v);
+	saved_area = save_screen_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1,
+		str_swap_file_v);
 	draw_dialog_box(box_x0, box_y0, box_x1, box_y1);
 	draw_dialog_box(149, box_y0, box_x1, box_y1);
 	draw_marker_glyph();
@@ -62,16 +67,19 @@ int pc, label_id, ok_enabled, limit_by_points;
 	rows_drawn = spell_count < 7 ? spell_count : 7;
 	list_top = 0;
 	sel_row = -1;
-	draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row, rows_drawn);
+	draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row,
+		rows_drawn);
 	thumb_y = 0;
 	draw_scrollbar(panel_x + 106, box_y0 + 34, 8, 7, thumb_y);
-	set_hotspot(0, panel_x + 106, box_y0 + thumb_y + 42, panel_x + 114, box_y0 + thumb_y + 46, 0, 0);
+	set_hotspot(0, panel_x + 106, box_y0 + thumb_y + 42, panel_x + 114,
+		box_y0 + thumb_y + 46, 0, 0);
 	set_hotspot(1, panel_x + 106, box_y0 + 34, panel_x + 114, box_y0 + 40, 9, 0);
 	set_hotspot(2, panel_x + 106, box_y0 + 70, panel_x + 114, box_y0 + 76, 11, 0);
 	set_hotspot(3, panel_x + 6, box_y0 + 6, panel_x + 54, box_y0 + 14, 13, 0);
 	set_hotspot(4, panel_x + 66, box_y0 + 6, panel_x + 114, box_y0 + 14, 27, 0);
 	for (i = 0; i < 7; i++)	/* hotspots 5..11: power digits, keys 1..7 */
-		set_hotspot(i + 5, 10 * i + panel_x + 12, box_y0 + 20, 10 * i + panel_x + 19, box_y0 + 27, (char)(i + '1'), 0);
+		set_hotspot(i + 5, 10 * i + panel_x + 12, box_y0 + 20, 10 * i + panel_x + 19,
+			box_y0 + 27, (char)(i + '1'), 0);
 	/* realm hotspots 12..17, keyed F W A E M D */
 	set_hotspot(12, 70, 116, 82, 135, 'F', 0);
 	set_hotspot(13, 50, 144, 75, 157, 'W', 0);
@@ -81,7 +89,8 @@ int pc, label_id, ok_enabled, limit_by_points;
 	set_hotspot(17, 113, 166, 129, 185, 'D', 0);
 	rows_shown = spell_count < 7 ? spell_count : 7;
 	for (i = 0; i < 7; i++)	/* hotspots 18..24: list rows, 6 px apart */
-		set_hotspot(i + 18, panel_x + 6, 6 * i + box_y0 + 34, panel_x + 98, 6 * i + box_y0 + 40, 0, 0);
+		set_hotspot(i + 18, panel_x + 6, 6 * i + box_y0 + 34, panel_x + 98,
+			6 * i + box_y0 + 40, 0, 0);
 	set_hotspot(25, -1, 0, 0, 0, 0, 0);
 	gfx_show_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1);
 	party_redraw_interval = 5;
@@ -90,10 +99,12 @@ int pc, label_id, ok_enabled, limit_by_points;
 	do {
 		periodic_party_redraw(pc, realm);
 		hit = poll_hotspots(23038) - 1;	/* 0x59fe: hotspot table; 0-based id */
-		if (space_key_hit) {	/* space: select the next row, wrapping to the first shown */
+		if (space_key_hit) {
+			/* space: select the next row, wrapping to the first shown */
 			if (sel_row >= list_top)
 				sel_row++;
-			if (sel_row == -1 || sel_row < list_top || list_top + rows_shown - 1 < sel_row)
+			if (sel_row == -1 || sel_row < list_top
+				|| list_top + rows_shown - 1 < sel_row)
 				sel_row = list_top;
 			hotspot_hit = 1;
 			hit = sel_row - list_top + 18;
@@ -105,12 +116,16 @@ int pc, label_id, ok_enabled, limit_by_points;
 				grab_dy = clamp_between(mouse_y - (box_y0 + thumb_y + 42), 0, 4);
 				do {
 					mouse_btn = gfx_get_mouse(&mouse_x, &mouse_y);
-					thumb_y = clamp_between(mouse_y - (box_y0 + 42) - grab_dy, 0, thumb_travel);
+					thumb_y = clamp_between(mouse_y - (box_y0 + 42) - grab_dy, 0,
+						thumb_travel);
 					if (spell_count > 7)	/* more than the 7 visible rows */
-						list_top = thumb_y * 100 / ((thumb_travel * 100 + 100) / (spell_count - 6));
-					draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row, rows_drawn);
+						list_top = thumb_y * 100 /
+							((thumb_travel * 100 + 100) / (spell_count - 6));
+					draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row,
+						rows_drawn);
 					draw_scrollbar(panel_x + 106, box_y0 + 34, 8, 7, thumb_y);
-					set_hotspot(0, panel_x + 106, box_y0 + thumb_y + 42, panel_x + 114, box_y0 + thumb_y + 46, 0, 0);
+					set_hotspot(0, panel_x + 106, box_y0 + thumb_y + 42, panel_x + 114,
+						box_y0 + thumb_y + 46, 0, 0);
 					gfx_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);
 				} while (mouse_btn);
 				break;
@@ -126,16 +141,20 @@ int pc, label_id, ok_enabled, limit_by_points;
 						list_top++;
 				}
 				if (spell_count > 7)
-					thumb_y = clamp_between((100 * thumb_travel + 100) / (spell_count - 7) * list_top / 100, 0, thumb_travel);
-				draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row, rows_drawn);
+					thumb_y = clamp_between((100 * thumb_travel + 100) / (
+						spell_count - 7) * list_top / 100, 0, thumb_travel);
+				draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row,
+					rows_drawn);
 				draw_scrollbar(panel_x + 106, box_y0 + 34, 8, 7, thumb_y);
-				set_hotspot(0, panel_x + 106, box_y0 + thumb_y + 42, panel_x + 114, box_y0 + thumb_y + 46, 0, 0);
+				set_hotspot(0, panel_x + 106, box_y0 + thumb_y + 42, panel_x + 114,
+					box_y0 + thumb_y + 46, 0, 0);
 				gfx_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);
 				break;
 			case 3:	/* first button: needs a spell and, when limiting, enough points */
 				if (ok_enabled) {
 					if (spell >= 0 && (!limit_by_points || power <= max_power
-					    && spell_table[spell].cost * (power + 1) <= pc_spell_power_cap[pc].points[realm][0])) {
+					    && spell_table[spell].cost * (power + 1)
+					    	<= pc_spell_power_cap[pc].points[realm][0])) {
 						flash_button(panel_x + 6, box_y0 + 6, 8, 1, 1);
 						flash_button(panel_x + 6, box_y0 + 6, 8, 1, 0);
 						spell_dialog_button = 0;
@@ -157,10 +176,13 @@ int pc, label_id, ok_enabled, limit_by_points;
 					power = hit - 5;
 					draw_power_digit(panel_x + 12, box_y0 + 20, power, 1);
 					if (spell >= 0) {
-						max_power = clamp_between(pc_spell_power_cap[pc].cap - spell_table[spell].level, 0, 6);
+						max_power = clamp_between(
+							pc_spell_power_cap[pc].cap - spell_table[spell].level, 0, 6);
 						i = spell_table[spell].cost * (max_power + 1);
-						draw_spell_cost(panel_x + 94, box_y0 + 21, realm, spell_table[spell].cost * (power + 1),
-							!limit_by_points ? 999 : (pc_spell_power_cap[pc].points[realm][0] < i ? pc_spell_power_cap[pc].points[realm][0] : i));
+						draw_spell_cost(panel_x + 94, box_y0 + 21, realm,
+							spell_table[spell].cost * (power + 1),
+							!limit_by_points ? 999 : (pc_spell_power_cap[pc].points[realm][0] < i
+								? pc_spell_power_cap[pc].points[realm][0] : i));
 					} else
 						draw_spell_cost(panel_x + 94, box_y0 + 21, realm, 0, 0);
 					gfx_show_area(panel_x + 11, box_y0 + 20, panel_x + 86, box_y0 + 28);
@@ -173,21 +195,27 @@ int pc, label_id, ok_enabled, limit_by_points;
 					rows_shown = spell_count < 7 ? spell_count : 7;
 					list_top = 0;
 					sel_row = -1;
-					draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row, rows_drawn);
+					draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row,
+						rows_drawn);
 					thumb_y = 0;
 					draw_scrollbar(panel_x + 106, box_y0 + 34, 8, 7, thumb_y);
-					set_hotspot(0, panel_x + 106, box_y0 + thumb_y + 42, panel_x + 114, box_y0 + thumb_y + 46, 0, 0);
+					set_hotspot(0, panel_x + 106, box_y0 + thumb_y + 42, panel_x + 114,
+						box_y0 + thumb_y + 46, 0, 0);
 					draw_spell_cost(panel_x + 94, box_y0 + 21, realm, 0, 0);
 					gfx_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);
 					gfx_show_area(panel_x + 94, box_y0 + 21, panel_x + 114, box_y0 + 27);
 				} else if (hit >= 18 && rows_shown + 18 > hit) {	/* list row */
 					sel_row = list_top + hit - 18;
 					spell = known_spell_list[sel_row];
-					draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row, rows_drawn);
-					max_power = clamp_between(pc_spell_power_cap[pc].cap - spell_table[spell].level, 0, 6);
+					draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row,
+						rows_drawn);
+					max_power = clamp_between(
+						pc_spell_power_cap[pc].cap - spell_table[spell].level, 0, 6);
 					i = spell_table[spell].cost * (max_power + 1);
-					draw_spell_cost(panel_x + 94, box_y0 + 21, realm, spell_table[spell].cost * (power + 1),
-						!limit_by_points ? 999 : (pc_spell_power_cap[pc].points[realm][0] < i ? pc_spell_power_cap[pc].points[realm][0] : i));
+					draw_spell_cost(panel_x + 94, box_y0 + 21, realm,
+						spell_table[spell].cost * (power + 1),
+						!limit_by_points ? 999 : (pc_spell_power_cap[pc].points[realm][0] < i
+							? pc_spell_power_cap[pc].points[realm][0] : i));
 					gfx_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);
 					gfx_show_area(panel_x + 94, box_y0 + 21, panel_x + 114, box_y0 + 27);
 				}

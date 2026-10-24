@@ -1,9 +1,10 @@
+/* checks the entered answer word against the code table; publishing the code
+   check word on the last matched slot */
+
 extern unsigned char answer_word[];
 extern int answer_length, code_check_word, answer_check_word;
 extern char code_table[];
 
-/* checks the entered answer word against the code table; publishing the code
-   check word on the last matched slot */
 verify_answer_word()
 {
 	int i;

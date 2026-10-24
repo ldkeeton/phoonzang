@@ -8,7 +8,9 @@ struct grid_cell {
 	unsigned char coord;		/* +0xa: packed nibbles tracked as page maxima */
 	unsigned char weight;		/* +0xb */
 };
-struct grid_row { struct grid_cell cell[10]; };	/* 0x78 */
+struct grid_row {
+	struct grid_cell cell[10];
+};	/* 0x78 */
 struct grid_page {
 	union {
 		struct grid_row row[4];		/* 0x000 */

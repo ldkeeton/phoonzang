@@ -13,14 +13,23 @@ struct maze_tables {
 };
 
 /* strides 0xc, 0x78, 0x248 */
-struct grid_cell { int key; char pad[10]; };
-struct grid_row { struct grid_cell cell[10]; };
-struct grid_page { struct grid_row row[4]; char pad[104]; };
+struct grid_cell {
+	int key;
+	char pad[10];
+};
+struct grid_row {
+	struct grid_cell cell[10];
+};
+struct grid_page {
+	struct grid_row row[4];
+	char pad[104];
+};
 
 extern struct maze_tables *maze_tables;
 extern struct grid_page cell_key_grid[];
 extern int party_map_piece, party_cell_y, party_cell_x, party_tag;
-extern int party_region, game_state_arg, loaded_sound_id, pending_event, pending_event_hi;
+extern int party_region, game_state_arg, loaded_sound_id, pending_event,
+	pending_event_hi;
 
 /* scan the objects in the party's cell for one keyed to grid entry
    [page][row][col]; returns 1 if a type 0x13 or type 7 object fired */

@@ -1,3 +1,7 @@
+/* fills the action entries for table cell (b, c) from character a's slot
+   record; d picks the record group, -1 meaning group 0 plus randomized
+   targets unless the forced byte is 0xfe */
+
 extern char *party_char[];
 extern char *party_char_ext[];
 extern unsigned char slot_rec_first[][350];
@@ -11,9 +15,6 @@ extern unsigned char slot_rec_ranges[][350];
 extern unsigned char action_slot_mode[];
 extern unsigned char action_slot_table[];
 
-/* fills the action entries for table cell (b, c) from character a's slot
-   record; d picks the record group, -1 meaning group 0 plus randomized
-   targets unless the forced byte is 0xfe */
 fill_action_slot_table(a, b, c, d)
 int a, b, c, d;
 {
@@ -29,7 +30,8 @@ int a, b, c, d;
 			flag = 1;
 	}
 	/* one entry per record in group d's range */
-	for (i = slot_rec_first[v1][d]; i < slot_rec_first[v1][d] + slot_rec_count[v1][d]; ++i) { 
+	for (i = slot_rec_first[v1][d];
+		i < slot_rec_first[v1][d] + slot_rec_count[v1][d]; ++i) {
 		j = slot_rec_action[v1][i];
 		/* group 0 with a forced value (1..0xfd) overrides the record */
 		if (d == 0 && slot_rec_forced[v1][0] > 0 && slot_rec_forced[v1][0] < 254) {
@@ -56,7 +58,9 @@ int a, b, c, d;
 		action_slot_table[b * 90 + c * 30 + i * 3] = j;
 		action_slot_table[b * 90 + c * 30 + i * 3 + 1] = k;
 		/* roll = base + 1 + random extra, from target k's 4-byte range entry */
-		action_slot_table[b * 90 + c * 30 + i * 3 + 2] = slot_rec_ranges[v1][k * 4] + 1;
-		action_slot_table[b * 90 + c * 30 + i * 3 + 2] += random_below(slot_rec_ranges[v1][k * 4 + 1]);
+		action_slot_table[b * 90 + c * 30 + i * 3 + 2] =
+			slot_rec_ranges[v1][k * 4] + 1;
+		action_slot_table[b * 90 + c * 30 + i * 3 + 2] +=
+			random_below(slot_rec_ranges[v1][k * 4 + 1]);
 	}
 }

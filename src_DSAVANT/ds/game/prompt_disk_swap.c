@@ -1,3 +1,6 @@
+/* boxed prompt to insert a disk until DISK.HDR on it checks out; optionally
+   closes the data files first and reopens them afterwards */
+
 extern char install_mode;
 extern int msg_dbs_fd;
 extern int data_file_fd;
@@ -6,8 +9,6 @@ extern int disk_header[];
 extern char disk_drive_name[];
 long gfx_save_area();
 
-/* boxed prompt to insert a disk until DISK.HDR on it checks out; optionally
-   closes the data files first and reopens them afterwards */
 prompt_disk_swap(fname, drive, close_first, reopen)
 char *fname;
 {
@@ -86,7 +87,8 @@ char *fname;
 				}
 			} else if (fd != -1) {
 				nread = aztec_read(fd, disk_header, 780);	/* whole disk header */
-				want = install_mode == 5 && 0 < drive ? drive - 2 : drive;	/* install mode 5 numbers disks two lower */
+				/* install mode 5 numbers disks two lower */
+				want = install_mode == 5 && 0 < drive ? drive - 2 : drive;
 				if (nread > 0 && want == disk_header[0])
 					found = 1;
 				aztec_close(fd);
@@ -101,7 +103,8 @@ char *fname;
 	if (reopen) {
 		if ((msg_dbs_fd = aztec_open(data_file_path("MSG.DBS", 0), 0)) == -1)
 			release_and_exit(25);	/* exit status: MSG.DBS missing */
-		if ((data_file_fd = aztec_open(data_file_path("SCENARIO.DBS", orig_drive == 0 ? 0 : 1), 0)) == -1)
+		if ((data_file_fd = aztec_open(data_file_path("SCENARIO.DBS", orig_drive == 0
+			? 0 : 1), 0)) == -1)
 			release_and_exit(26);	/* exit status: SCENARIO.DBS missing */
 	}
 }

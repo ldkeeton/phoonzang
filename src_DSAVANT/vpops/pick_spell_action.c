@@ -1,3 +1,5 @@
+/* let pc pick a spell and, for a targeted one, pick the member it lands on */
+
 struct spell_info {	/* 6-byte entries */
 	unsigned char realm;	/* +0 */
 	unsigned char level;	/* +1 */
@@ -14,7 +16,6 @@ void wait_for_party_redraw();
 int action_spell_dialog();
 int pick_party_member();
 
-/* let pc pick a spell and, for a targeted one, pick the member it lands on */
 int pick_spell_action(pc)
 int pc;
 {
@@ -25,8 +26,8 @@ int pc;
 	result = spell_dialog_result;
 	if (button == 1)	/* second button: cancelled */
 		return -1;
-	power = result / 256;		/* high byte: power */
-	spell = result % 256;		/* low byte: spell id */
+	power = result / 256;			/* high byte: power */
+	spell = result % 256;			/* low byte: spell id */
 	if (spell_table[spell].targeted == 1) {	/* 1: needs a party member */
 		target = pick_party_member();
 		if (target == -1)	/* -1: Esc */

@@ -1,3 +1,7 @@
+/* writes one byte per action entry of cell (b, c) into out, advancing each
+   entry's roll, target and action as they run out; refills the cell from
+   group 0 when its targets are exhausted in another group */
+
 extern char *party_char[];
 extern unsigned char slot_rec_first[][350];
 extern unsigned char slot_rec_count[][350];
@@ -10,9 +14,6 @@ extern unsigned char slot_rec_forced[][350];
 extern unsigned char action_slot_mode[];
 extern unsigned char action_slot_table[];
 
-/* writes one byte per action entry of cell (b, c) into out, advancing each
-   entry's roll, target and action as they run out; refills the cell from
-   group 0 when its targets are exhausted in another group */
 advance_action_slots(member, item, b, c, consume, out)
 int member, item, b, c, consume;
 char *out;
@@ -43,23 +44,28 @@ char *out;
 				action = action_slot_table[b * 90 + c * 30 + entry * 3];
 				++target;
 				/* past the action's target range: new action */
-				if (slot_rec_target[rec][action] + slot_rec_target_rand[rec][action] - 1 < target) {
-					if (action_slot_mode[b * 3 + c] != 0) {	/* refill from group 0 and start over */
+				if (slot_rec_target[rec][action] + slot_rec_target_rand[rec][action] - 1
+					< target) {
+					if (action_slot_mode[b * 3 + c] != 0) {
+						/* refill from group 0 and start over */
 						action_slot_mode[b * 3 + c] = 0;
 						fill_action_slot_table(member, b, c, 0);
 						advance_action_slots(member, item, b, c, 0, out);
 						return;
 					}
-					action = random_below(slot_rec_action_rand[rec][entry]) + slot_rec_action[rec][entry];
+					action = random_below(slot_rec_action_rand[rec][entry])
+						+ slot_rec_action[rec][entry];
 					action_slot_table[b * 90 + c * 30 + entry * 3] = action;
 					target = slot_rec_target[rec][action];
 				}
 				action_slot_table[b * 90 + c * 30 + entry * 3 + 1] = target;
-				roll = random_below(slot_rec_ranges[rec][target * 4 + 1]) + slot_rec_ranges[rec][target * 4];
+				roll = random_below(slot_rec_ranges[rec][target * 4 + 1])
+					+ slot_rec_ranges[rec][target * 4];
 			}
 			action_slot_table[b * 90 + c * 30 + entry * 3 + 2] = roll;
 		}
-		out[len] = slot_rec_ranges[rec][target * 4 - 1];	/* byte before the target's range entry */
+		/* byte before the target's range entry */
+		out[len] = slot_rec_ranges[rec][target * 4 - 1];
 		/* 0x79 or 0x8d at 0x19e: slot_rec_forced[1] goes before this byte */
 		if (party_char[member][414] == 121
 				|| ((unsigned char *)party_char[member])[414] == 141) {

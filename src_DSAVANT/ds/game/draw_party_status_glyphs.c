@@ -1,12 +1,14 @@
+/* puts back each slot's saved screen area, then draws its one-glyph icon */
+
 extern long party_status_areas[];		/* one saved area per slot */
-extern int party_status_frame, party_status_frame_step, party_status_frame_seen, party_status_heading;
+extern int party_status_frame, party_status_frame_step,
+	party_status_frame_seen, party_status_heading;
 extern int party_status_timer[];			/* six 4-byte records, +0 word first */
 extern int party_tag;
 extern gfx_restore_area();
 extern gfx_draw_text();
 extern gfx_show_area();
 
-/* puts back each slot's saved screen area, then draws its one-glyph icon */
 draw_party_status_glyphs()
 {
 	int slot, glyph, turn, x, y;

@@ -1,13 +1,16 @@
+/* draws one frame of the scene selected by scene_index and advances its
+   animation state */
+
 extern int scene_index, scene_tick, scene_running, scene_frame;
 extern long scene_backdrop_ref;
-extern int scene_cue_a, scene_cue_b, scene_cue_c, scene_cue_d, scene_cue_e, scene_step_a;
+extern int scene_cue_a, scene_cue_b, scene_cue_c, scene_cue_d, scene_cue_e,
+	scene_step_a;
 extern unsigned char scene_digit_cycle[];
 extern int scroll_x[5];
 extern int sprite_pos[2][8];	/* row 0 x, row 1 y */
 extern int actor_x, trail_x, actor_y;
 extern int scene_step_b, scene_step_c, scene_step_d, scene_clip_arg;
 
-/* draws one frame of the scene selected by scene_index and advances its animation state */
 draw_scene_frame()
 {
 	int slot, obj, cel, x_off, y_off;
@@ -19,7 +22,7 @@ draw_scene_frame()
 			draw_char_clipped_top_zero(17, 6, 189, 79);
 		draw_char_clipped_top_zero(17, scene_frame % 3 + 1, 116, 43);
 		draw_char_clipped_top_zero(17, scene_frame % 2 + 4, 164, 63);
-		cel = scene_digit_cycle[scene_frame % 6] - '1';	/* table holds '1'-based digits */
+		cel = scene_digit_cycle[scene_frame % 6] - '1';	/* '1'-based */
 		draw_char_clipped_top_zero(17, cel + 7, 161, 6);
 		cel = scene_digit_cycle[(scene_frame + 1) % 6] - '1';
 		draw_char_clipped_top_zero(17, cel + 11, 191, 30);
@@ -30,7 +33,8 @@ draw_scene_frame()
 			x_off = scene_frame < 6 ? scene_frame : 6 - scene_frame % 6;
 			cel = (scene_frame + 3) % 12;
 			y_off = cel < 6 ? 6 - cel : cel % 6;
-			draw_char_clipped_top_zero(16, scene_frame % 2 + 2, x_off + 159, y_off + 76);
+			draw_char_clipped_top_zero(16, scene_frame % 2 + 2, x_off + 159,
+				y_off + 76);
 		}
 		if (scene_cue_b < scene_tick) {
 			if (scene_step_a < 16) {
@@ -73,7 +77,8 @@ draw_scene_frame()
 		for (slot = 0; slot < 3; slot++) {	/* objects 1..3 */
 			obj = slot + 1;
 			if (sprite_pos[0][obj] < 320) {	/* on screen: x below 320 */
-				draw_char_clipped_top_zero(15, slot + 6, sprite_pos[0][obj], sprite_pos[1][obj]);
+				draw_char_clipped_top_zero(15, slot + 6, sprite_pos[0][obj],
+					sprite_pos[1][obj]);
 				if (slot == 2)
 					sprite_pos[0][obj] -= 10;
 				else
@@ -101,10 +106,11 @@ draw_scene_frame()
 		break;
 	case 3:
 		gfx_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
-		for (slot = 0; slot < 2; slot++) {	/* objects 1..2 */
+		for (slot = 0; slot < 2; slot++) {		/* objects 1..2 */
 			obj = slot + 1;
 			if (sprite_pos[0][obj] < 320) {
-				draw_char_clipped_top_zero(15, slot + 6, sprite_pos[0][obj], sprite_pos[1][obj]);
+				draw_char_clipped_top_zero(15, slot + 6, sprite_pos[0][obj],
+					sprite_pos[1][obj]);
 				sprite_pos[0][obj] -= 20;
 				if (sprite_pos[0][obj] < -0x10)
 					sprite_pos[0][obj] = 320;
@@ -123,11 +129,13 @@ draw_scene_frame()
 			draw_char_clipped_top_zero(17, scene_step_c + 5, actor_x, actor_y + 2);
 			if (scene_cue_e < scene_tick) {
 				if (actor_x - 5 > trail_x) {
-					draw_char_clipped_top_zero(17, random_below(2) + 16, trail_x, actor_y + 24);
+					draw_char_clipped_top_zero(17, random_below(2) + 16, trail_x,
+						actor_y + 24);
 					trail_x++;
 					trail_x++;
 				} else {
-					draw_char_clipped_top_zero(17, scene_step_d + 18, actor_x - 5, actor_y + 24);
+					draw_char_clipped_top_zero(17, scene_step_d + 18, actor_x - 5,
+						actor_y + 24);
 					if (scene_step_d < 7)
 						scene_step_d++;
 					else {
@@ -139,16 +147,26 @@ draw_scene_frame()
 					}
 				}
 			}
-			draw_char_clipped_top_zero(17, random_below(4) + 12, actor_x + 217, actor_y - 28);
-			draw_char_clipped_top_zero(17, scene_frame % 6 + 26, actor_x + 204, actor_y + 9);
-			draw_char_clipped_top_zero(17, (scene_frame + 3) % 6 + 32, actor_x + 128, actor_y + 18);
-			draw_char_clipped_top_zero(17, scene_frame / 3 + 38, actor_x + 151, actor_y - 30);
-			draw_char_clipped_top_zero(17, (scene_frame + 5) % 12 / 3 + 42, actor_x + 168, actor_y - 14);
-			draw_char_clipped_top_zero(17, scene_frame % 4 + 46, actor_x + 174, actor_y + 25);
-			draw_char_clipped_top_zero(17, scene_frame / 2 % 4 + 50, actor_x + 212, actor_y - 62);
-			draw_char_clipped_top_zero(17, scene_frame < 4 ? scene_frame + 54 : 54, actor_x + 130, actor_y - 41);
-			draw_char_clipped_top_zero(17, scene_frame % 4 + 58, actor_x + 109, actor_y + 34);
-			draw_char_clipped_top_zero(16, scene_frame % 6 + 1, actor_x + 122, actor_y - 23);
+			draw_char_clipped_top_zero(17, random_below(4) + 12, actor_x + 217,
+				actor_y - 28);
+			draw_char_clipped_top_zero(17, scene_frame % 6 + 26, actor_x + 204,
+				actor_y + 9);
+			draw_char_clipped_top_zero(17, (scene_frame + 3) % 6 + 32, actor_x + 128,
+				actor_y + 18);
+			draw_char_clipped_top_zero(17, scene_frame / 3 + 38, actor_x + 151,
+				actor_y - 30);
+			draw_char_clipped_top_zero(17, (scene_frame + 5) % 12 / 3 + 42,
+				actor_x + 168, actor_y - 14);
+			draw_char_clipped_top_zero(17, scene_frame % 4 + 46, actor_x + 174,
+				actor_y + 25);
+			draw_char_clipped_top_zero(17, scene_frame / 2 % 4 + 50, actor_x + 212,
+				actor_y - 62);
+			draw_char_clipped_top_zero(17, scene_frame < 4 ? scene_frame + 54
+				: 54, actor_x + 130, actor_y - 41);
+			draw_char_clipped_top_zero(17, scene_frame % 4 + 58, actor_x + 109,
+				actor_y + 34);
+			draw_char_clipped_top_zero(16, scene_frame % 6 + 1, actor_x + 122,
+				actor_y - 23);
 			if (actor_x > 60)
 				actor_x -= 3;
 			if (actor_x - 5 < trail_x)
@@ -160,7 +178,8 @@ draw_scene_frame()
 		draw_char_clipped_top_zero(15, scene_step_a, 112, 18);
 		if (scene_cue_b < scene_tick && scene_clip_arg < 100) {
 			draw_char_clipped_top(17, 6, actor_x, actor_y, scene_clip_arg);
-			draw_char_clipped_top(17, random_below(2) + 7, actor_x, actor_y, scene_clip_arg);
+			draw_char_clipped_top(17, random_below(2) + 7, actor_x, actor_y,
+				scene_clip_arg);
 			if (actor_x > 20) {
 				scene_clip_arg++;
 				scene_clip_arg++;
@@ -187,12 +206,14 @@ draw_scene_frame()
 		for (slot = 0; slot < 2; slot++) {
 			obj = slot + 1;
 			if (sprite_pos[0][obj] < 320) {
-				draw_char_clipped_top_zero(15, slot + 5, sprite_pos[0][obj], sprite_pos[1][obj]);
+				draw_char_clipped_top_zero(15, slot + 5, sprite_pos[0][obj],
+					sprite_pos[1][obj]);
 				sprite_pos[0][obj] -= 3 - slot;
 				if (sprite_pos[0][obj] < -0x50)
 					sprite_pos[0][obj] = 320;
 			} else if (random_below(30) == obj &&
-			    (sprite_pos[0][(slot + 1) % 2 + 1] == 320 || sprite_pos[0][(slot + 1) % 2 + 1] < 240)) {
+			    (sprite_pos[0][(slot + 1) % 2 + 1] == 320
+			    	|| sprite_pos[0][(slot + 1) % 2 + 1] < 240)) {
 				sprite_pos[0][obj] = 318;
 				sprite_pos[1][obj] = random_below(16) + 4;
 			}
@@ -201,7 +222,8 @@ draw_scene_frame()
 		draw_char_clipped_top_zero(15, 2, 160, 0);
 		if (scene_cue_b < scene_tick && scene_clip_arg < 100) {
 			draw_char_clipped_top(17, 6, actor_x, actor_y, scene_clip_arg);
-			draw_char_clipped_top(17, random_below(2) + 7, actor_x, actor_y, scene_clip_arg);
+			draw_char_clipped_top(17, random_below(2) + 7, actor_x, actor_y,
+				scene_clip_arg);
 			if (actor_x > 10) {
 				scene_clip_arg++;
 				scene_clip_arg++;

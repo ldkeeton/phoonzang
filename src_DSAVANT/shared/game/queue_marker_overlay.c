@@ -1,10 +1,12 @@
+/* queues the marker glyph string(s) selected by marker_mode as overlay
+   items */
+
 extern int marker_mode;
 extern int party_tag;
 extern unsigned char glyph_y_table[];
 extern unsigned char glyph_x_table[][2];
 extern unsigned char marker_y, marker_x;
 
-/* queues the marker glyph string(s) selected by marker_mode as overlay items */
 queue_marker_overlay()
 {
 	int facing;
@@ -12,7 +14,7 @@ queue_marker_overlay()
 	unsigned char glyph[10];
 
 	if (marker_mode > 0) {
-		facing = (party_tag - (marker_mode - 1) + 6) % 4;	/* relative to party_tag, 4 directions */
+		facing = (party_tag - (marker_mode - 1) + 6) % 4;	/* from tag */
 		switch (facing) {
 		case 0:
 		case 2:
@@ -25,7 +27,7 @@ queue_marker_overlay()
 		case 1:
 		case 3:
 			glyph[0] = 3;
-			glyph[1] = 0;	/* NUL-terminate */
+			glyph[1] = 0;		/* NUL-terminate */
 			variant = facing == 3;	/* second x-table column */
 			break;
 		}

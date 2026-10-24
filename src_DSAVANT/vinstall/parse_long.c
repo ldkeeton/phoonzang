@@ -1,6 +1,7 @@
+/* decimal string to long */
+
 long aztec_atol();
 
-/* decimal string to long */
 long
 parse_long(s)
 char *s;

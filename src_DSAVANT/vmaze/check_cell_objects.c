@@ -1,3 +1,6 @@
+/* on entering the party's cell: optionally show a message unless the cell
+   is already tagged for party_tag, then act on the first matching object */
+
 /* 240 objects, one parallel array per field */
 struct maze_tables {
 	char pad0[960];
@@ -12,17 +15,17 @@ struct maze_tables {
 };
 
 extern struct maze_tables *maze_tables;
-extern int party_map_piece, party_cell_y, party_cell_x, party_tag, message_delay;
+extern int party_map_piece, party_cell_y, party_cell_x, party_tag,
+	message_delay;
 extern int found_object_owner, party_region, game_state;
 
-/* on entering the party's cell: optionally show a message unless the cell
-   is already tagged for party_tag, then act on the first matching object */
 check_cell_objects(announce)
 int announce;
 {
 	int cell, obj, kind, tag, shown;
 
-	cell = (party_map_piece << 6) + (party_cell_y << 3) + party_cell_x;	/* 8x8 cells per piece */
+	cell = (party_map_piece << 6) + (party_cell_y << 3) + party_cell_x;
+		/* 8x8 cells per piece */
 	loc_RRJG(cell, &kind, &tag);
 	shown = 0;
 	/* kinds 5, 10, 11 already tagged with party_tag: defer the message */

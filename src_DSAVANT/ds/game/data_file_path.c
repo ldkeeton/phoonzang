@@ -1,9 +1,10 @@
+/* builds "<prefix>name" in data_path_buf; the second prefix is used only when
+   alt == 1 and install_mode is 5, otherwise the first */
+
 extern char install_mode;
 extern char data_path_prefixes[][20];
 extern char data_path_buf[];
 
-/* builds "<prefix>name" in data_path_buf; the second prefix is used only when
-   alt == 1 and install_mode is 5, otherwise the first */
 char *
 data_file_path(name, alt)
 char *name;

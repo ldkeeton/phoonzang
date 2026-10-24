@@ -1,19 +1,22 @@
+/* moves the party to table entry dest: unpacks its cell, piece and level,
+   switching level first when it differs from the current one */
+
 struct tbl {
 	char pad0[480];
-	int alt_arg[240];	/* +0x1e0: used when level byte is 99 */
-	int packed_loc[840];	/* +0x3c0: x:3 y:3 piece:4 bits:2 */
+	int alt_arg[240];		/* +0x1e0: used when level byte is 99 */
+	int packed_loc[840];		/* +0x3c0: x:3 y:3 piece:4 bits:2 */
 	unsigned char level[240];	/* +0xa50 */
 	unsigned char piece_region[1];	/* +0xb40, per map piece */
 };
 extern struct tbl *maze_tables;
 extern unsigned char *maze_data;
 extern int game_state_arg;
-extern int party_cell_x, party_cell_y, party_map_piece, dest_alt_arg, save_location_flag;
+extern int party_cell_x, party_cell_y, party_map_piece, dest_alt_arg,
+	save_location_flag;
 extern int saved_level, saved_map_piece, saved_cell_x, saved_cell_y;
-extern int party_world_x, party_world_y, party_region, region_step_flag, location_changed;
+extern int party_world_x, party_world_y, party_region, region_step_flag,
+	location_changed;
 
-/* moves the party to table entry dest: unpacks its cell, piece and level,
-   switching level first when it differs from the current one */
 move_party_to_dest(dest)
 int dest;
 {

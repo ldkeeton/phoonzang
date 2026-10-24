@@ -1,8 +1,9 @@
+/* sets the 4-bit wall value on one edge of cell (x, y) in map piece map,
+   logging the change; side 2/3 address the y-1/x-1 edge via the neighbour */
+
 extern unsigned char *maze_data;
 extern int game_state_arg;
 
-/* sets the 4-bit wall value on one edge of cell (x, y) in map piece map,
-   logging the change; side 2/3 address the y-1/x-1 edge via the neighbour */
 set_cell_wall(side, value, map, x, y)
 int side, value, map, x, y;
 {
@@ -12,7 +13,7 @@ int side, value, map, x, y;
 	wx = maze_data[map + 1168] + x;
 	wy = maze_data[map + 1184] + y;
 	cell = (map << 6) + (y << 3) + x;	/* 8x8 cells per piece */
-	plane = -1;	/* -1: unknown side, nothing written */
+	plane = -1;				/* -1: unknown side, nothing written */
 	switch (side) {
 	case 0:
 		plane = 0;

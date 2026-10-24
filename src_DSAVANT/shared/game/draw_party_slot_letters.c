@@ -1,10 +1,11 @@
+/* draws one glyph per party member at the positions for layout row, offset by
+   x, y; each member has a 20-byte glyph strip indexed by its current frame */
+
 extern char party_slot_glyphs[];
 extern int party_slot_frame[];
 extern int party_slot_x[][6];
 extern int party_slot_y[][6];
 
-/* draws one glyph per party member at the positions for layout row, offset by
-   x, y; each member has a 20-byte glyph strip indexed by its current frame */
 draw_party_slot_letters(x, y, row)
 int x, y, row;
 {

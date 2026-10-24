@@ -1,7 +1,8 @@
+/* main loop: load and run the overlay game_state selects, forever */
+
 extern int game_state;
 extern int game_state_arg;
 
-/* main loop: load and run the overlay game_state selects, forever */
 main()
 {
 	int entry;

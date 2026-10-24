@@ -1,9 +1,10 @@
+/* opens SCOREnn.CSF and its picture file for the current video mode, hands
+   both to the driver, and remembers num as the loaded score */
+
 extern unsigned char video_mode;
 extern int loaded_score_num;
 extern char score_ext_csf[], score_ext_pbl[], score_ext_pba[];
 
-/* opens SCOREnn.CSF and its picture file for the current video mode, hands
-   both to the driver, and remembers num as the loaded score */
 load_score_files(num, arg)
 {
 	int fd_csf;

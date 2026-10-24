@@ -1,9 +1,12 @@
-extern int saved_screen_kind[];
-extern struct { char name[20]; } saved_screen_file[];
-extern long saved_screen_ref[];
-
 /* redraws saved screen n; kind 3 means it was spooled to a disk file.
    flag also releases the slot (deleting its file) after restoring */
+
+extern int saved_screen_kind[];
+extern struct {
+	char name[20];
+} saved_screen_file[];
+extern long saved_screen_ref[];
+
 restore_saved_screen(n, flag)
 {
 	int fd;

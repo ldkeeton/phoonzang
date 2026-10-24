@@ -1,11 +1,12 @@
+/* reads the 4-bit wall field on one side (selector 0..3) of the maze cell at
+   (map, x, y) with world coords (wx, wy); sides 0/1 read the plane 0/1 field
+   (at +0x90/+0x290), sides 2/3 resolve the shared edge's neighbour piece */
+
 extern unsigned char *maze_data;
 extern int ds_leaf_loc_NPSL();
 extern int loc_UOPP();
 extern int loc_KHGO();
 
-/* reads the 4-bit wall field on one side (selector 0..3) of the maze cell at
-   (map, x, y) with world coords (wx, wy); sides 0/1 read the plane 0/1 field
-   (at +0x90/+0x290), sides 2/3 resolve the shared edge's neighbour piece */
 get_cell_wall(selector, map, x, y, wx, wy)
 int selector, map, x, y, wx, wy;
 {

@@ -1,4 +1,5 @@
-/* fades the music out: steps volume toward 0 by 10 every 25 ms, then stops it */
+/* fades the music out: steps volume toward 0 by 10 every 25 ms, then stops
+   it */
 fade_out_music(tempo, volume)
 {
 	if (gfx_is_music_playing()) {

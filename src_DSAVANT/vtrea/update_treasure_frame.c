@@ -1,5 +1,6 @@
 /* per-frame update: restore the cached screen, choose the glyph painter, run
-   the pending panel call and animation, refresh the strip and play a request */
+   the pending panel call and animation, refresh the strip and play a
+   request */
 
 extern int glyph_painter;
 extern int animation_index;
@@ -13,7 +14,8 @@ extern long screen_cache[];		/* screen-cache far pointers */
 
 update_treasure_frame()
 {
-	/* screen_cache_index selects one of the cached screens in the screen_cache array */
+	/* screen_cache_index selects one of the cached screens in the screen_cache
+	   array */
 	gfx_restore_screen(screen_cache[screen_cache_index], 0, 0);
 	if (glyph_painter == 1)	/* which glyph painter is active */
 		draw_animated_glyph_pair();

@@ -1,6 +1,7 @@
+/* resets scene_tick to 1, fades out and blanks the 320x200 screen */
+
 extern int scene_tick;
 
-/* resets scene_tick to 1, fades out and blanks the 320x200 screen */
 blank_scene_screen()
 {
 	scene_tick = 1;

@@ -1,3 +1,6 @@
+/* reads (dir 0) or writes (dir 1) record index of the given type in the data
+   file; packed types are only ever read, then unpacked into buf */
+
 extern int data_file_fd;
 extern long record_base[];
 extern unsigned char record_map_2[], record_map_5[], record_map_7[];
@@ -5,8 +8,6 @@ extern unsigned char record_map_4[], record_map_8[];
 extern int record_size[];
 extern char record_packed[];
 
-/* reads (dir 0) or writes (dir 1) record index of the given type in the data
-   file; packed types are only ever read, then unpacked into buf */
 data_record_io(type, buf, index, dir)
 char *buf;
 {
@@ -33,7 +34,8 @@ char *buf;
 	}
 	gfx_wait_sound(0);
 	/* each type is a fixed-size array starting at record_base[type] */
-	aztec_lseek(data_file_fd, (long)index * record_size[type] + record_base[type], 0);
+	aztec_lseek(data_file_fd, (long)index * record_size[type] + record_base[type],
+		0);
 	if (record_packed[type] == 0) {
 		if (dir == 0)
 			aztec_read(data_file_fd, buf, record_size[type]);

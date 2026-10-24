@@ -1,8 +1,14 @@
-extern struct { int num; int pad; long size; int pad2[2]; } sound_slot_info[];
-
 /* fetches sound record num into slot n, then loads SOUNDnn.SND into the
    driver; a zero-size record redirects to another sound number, and flag
    skips the load in that case */
+
+extern struct {
+	int num;
+	int pad;
+	long size;
+	int pad2[2];
+} sound_slot_info[];
+
 load_sound_file(num, n, flag)
 {
 	int load;

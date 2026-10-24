@@ -1,5 +1,10 @@
+/* saves the screen rectangle into the last free slot, picking store 1, 2 or a
+   disk file (kind 3) by free space; returns the slot */
+
 extern int saved_screen_kind[];
-extern struct { char name[20]; } saved_screen_file[];
+extern struct {
+	char name[20];
+} saved_screen_file[];
 extern long saved_screen_ref[];
 extern char screen_store_1_enabled;
 extern char screen_store_disk_enabled;
@@ -7,8 +12,6 @@ extern unsigned char screen_store_drive;
 long gfx_get_free_space();
 long gfx_cache_area();
 
-/* saves the screen rectangle into the last free slot, picking store 1, 2 or a
-   disk file (kind 3) by free space; returns the slot */
 save_screen_area(x1, y1, x2, y2, name)
 char *name;
 {
