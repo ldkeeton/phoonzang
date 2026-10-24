@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0004_GRRG:
+wait_ticks_abortable:
     mov ax, 0xfffc                   ; 0x119e
     call aztec_csav                  ; 0x11a1
     call flush_keyboard              ; 0x11a4
@@ -12,31 +12,31 @@ api_idx_0004_GRRG:
     adc dx, bx                       ; 0x11b8
     mov word [bp - 0x0002], dx       ; 0x11ba
     mov word [bp - 0x0004], ax       ; 0x11bd
-@..api_idx_0004_GRRG.l1:
+@..wait_ticks_abortable.l1:
     les bx, word [tick_counter_ptr]  ; 0x11c0
     mov ax, word [es:bx]             ; 0x11c4
     mov dx, word [es:bx + 0x2]       ; 0x11c7
     cmp dx, word [bp - 0x0002]       ; 0x11cb
-    jg short @..api_idx_0004_GRRG.l2 ; 0x11ce
-    jne short @..api_idx_0004_GRRG.l3 ; 0x11d0
+    jg short @..wait_ticks_abortable.l2 ; 0x11ce
+    jne short @..wait_ticks_abortable.l3 ; 0x11d0
     cmp ax, word [bp - 0x0004]       ; 0x11d2
-    jb short @..api_idx_0004_GRRG.l3 ; 0x11d5
-@..api_idx_0004_GRRG.l2:
-    jmp short @..api_idx_0004_GRRG.l6 ; 0x11d7
-@..api_idx_0004_GRRG.l3:
+    jb short @..wait_ticks_abortable.l3 ; 0x11d5
+@..wait_ticks_abortable.l2:
+    jmp short @..wait_ticks_abortable.l6 ; 0x11d7
+@..wait_ticks_abortable.l3:
     call ds_app_TMKJ                 ; 0x11d9
     test ax, ax                      ; 0x11dc
-    je short @..api_idx_0004_GRRG.l4 ; 0x11de
+    je short @..wait_ticks_abortable.l4 ; 0x11de
     ret                              ; 0x11e0
-@..api_idx_0004_GRRG.l4:
+@..wait_ticks_abortable.l4:
     cmp word [bp + 0x6], byte 0      ; 0x11e1
-    je short @..api_idx_0004_GRRG.l5 ; 0x11e5
+    je short @..wait_ticks_abortable.l5 ; 0x11e5
     cmp word [space_key_hit], byte 0 ; 0x11e7
-    je short @..api_idx_0004_GRRG.l5 ; 0x11ec
+    je short @..wait_ticks_abortable.l5 ; 0x11ec
     call api_idx_0004_RPUO           ; 0x11ee
     ret                              ; 0x11f1
-@..api_idx_0004_GRRG.l5:
-    call api_idx_0006_SQTK           ; 0x11f2
-    jmp short @..api_idx_0004_GRRG.l1 ; 0x11f5
-@..api_idx_0004_GRRG.l6:
+@..wait_ticks_abortable.l5:
+    call step_party_animation        ; 0x11f2
+    jmp short @..wait_ticks_abortable.l1 ; 0x11f5
+@..wait_ticks_abortable.l6:
     ret                              ; 0x11f7

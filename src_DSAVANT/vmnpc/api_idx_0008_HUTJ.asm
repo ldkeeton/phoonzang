@@ -133,7 +133,7 @@ api_idx_0008_HUTJ:
     push ax                          ; 0x3a1b
     mov ax, 0x48                     ; 0x3a1c
     push ax                          ; 0x3a1f
-    call api_idx_0004_GRRG           ; 0x3a20
+    call wait_ticks_abortable        ; 0x3a20
     add sp, byte 4                   ; 0x3a23
     ret                              ; 0x3a26
 @..api_idx_0008_HUTJ.l7:

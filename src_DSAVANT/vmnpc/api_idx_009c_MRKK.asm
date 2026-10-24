@@ -145,7 +145,7 @@ api_idx_009c_MRKK:
     mov word [bp - 0x000c], 0xffff   ; 0x6910
     mov ax, 3                        ; 0x6915
     push ax                          ; 0x6918
-    call api_idx_0006_SHUK           ; 0x6919
+    call redraw_area_set             ; 0x6919
     pop cx                           ; 0x691c
     call api_idx_0054_UKJH           ; 0x691d
     mov ax, 1                        ; 0x6920
@@ -279,7 +279,7 @@ jumptable_6c16_case_0:
     add sp, byte 4                   ; 0x6a3b
     mov ax, 3                        ; 0x6a3e
     push ax                          ; 0x6a41
-    call api_idx_0006_SHUK           ; 0x6a42
+    call redraw_area_set             ; 0x6a42
     pop cx                           ; 0x6a45
     mov ax, 1                        ; 0x6a46
     push ax                          ; 0x6a49
@@ -290,7 +290,7 @@ jumptable_6c16_case_0:
     mov ax, 0                        ; 0x6a55
     push ax                          ; 0x6a58
     push word [message_delay]        ; 0x6a59
-    call api_idx_0004_GRRG           ; 0x6a5d
+    call wait_ticks_abortable        ; 0x6a5d
     add sp, byte 4                   ; 0x6a60
 @..api_idx_009c_MRKK.l22:
     jmp near @..api_idx_009c_MRKK.l43 ; 0x6a63

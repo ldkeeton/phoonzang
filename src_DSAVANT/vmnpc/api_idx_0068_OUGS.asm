@@ -11,7 +11,7 @@ api_idx_0068_OUGS:
 @..api_idx_0068_OUGS.l1:
     mov ax, 0                        ; 0x51d0
     push ax                          ; 0x51d3
-    call api_idx_0006_SHUK           ; 0x51d4
+    call redraw_area_set             ; 0x51d4
     pop cx                           ; 0x51d7
     call loc_UTQS                    ; 0x51d8
     mov ax, 0x248                    ; 0x51db

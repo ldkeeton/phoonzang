@@ -187,7 +187,7 @@ jumptable_36f8_case_5:
     mov ax, 1                        ; 0x2d4f
     push ax                          ; 0x2d52
     push word [bp - 0x0028]          ; 0x2d53
-    call api_idx_0004_GRRG           ; 0x2d56
+    call wait_ticks_abortable        ; 0x2d56
     add sp, byte 4                   ; 0x2d59
     jmp near @..api_idx_0040_LSRO.l85 ; 0x2d5c
 jumptable_36f8_case_6:
@@ -244,7 +244,7 @@ jumptable_36f8_case_7:
     call ds_app_TMKJ                 ; 0x2dcf
     test ax, ax                      ; 0x2dd2
     jne short @..api_idx_0040_LSRO.l19 ; 0x2dd4
-    call api_idx_0006_SQTK           ; 0x2dd6
+    call step_party_animation        ; 0x2dd6
     jmp short @..api_idx_0040_LSRO.l18 ; 0x2dd9
 @..api_idx_0040_LSRO.l19:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x2ddb
@@ -998,7 +998,7 @@ jumptable_36f8_case_34:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x34c7
 jumptable_36f8_case_35:
     push word [bp - 0x0026]          ; 0x34ca
-    call loc_IVVH                    ; 0x34cd
+    call play_sound_cue              ; 0x34cd
     pop cx                           ; 0x34d0
     jmp near @..api_idx_0040_LSRO.l85 ; 0x34d1
 jumptable_36f8_case_37:

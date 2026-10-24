@@ -4,7 +4,7 @@ api_idx_0004_GGOK:
     call aztec_csav                  ; 0x3a99
     mov ax, 0                        ; 0x3a9c
     push ax                          ; 0x3a9f
-    call api_idx_0006_SHUK           ; 0x3aa0
+    call redraw_area_set             ; 0x3aa0
     pop cx                           ; 0x3aa3
     call loc_UTQS                    ; 0x3aa4
     mov ax, 1                        ; 0x3aa7

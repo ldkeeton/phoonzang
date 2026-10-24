@@ -236,7 +236,7 @@ jumptable_6599_case_1:
 @..api_idx_00d2_SNMN.l16:
     mov ax, 2                        ; 0x6569
     push ax                          ; 0x656c
-    call api_idx_0006_SHUK           ; 0x656d
+    call redraw_area_set             ; 0x656d
     pop cx                           ; 0x6570
     mov ax, 1                        ; 0x6571
     push ax                          ; 0x6574
@@ -250,7 +250,7 @@ jumptable_6599_case_1:
     add sp, byte 8                   ; 0x6585
     mov ax, 2                        ; 0x6588
     push ax                          ; 0x658b
-    call loc_HTQP                    ; 0x658c
+    call show_area_set               ; 0x658c
     pop cx                           ; 0x658f
     jmp short @..api_idx_00d2_SNMN.l18 ; 0x6590
 jumptable_6599_case_5:

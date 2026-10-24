@@ -46,7 +46,7 @@ loc_IPHP:
     push ax                          ; 0x95f0
     lea ax, word [bp - 0x0158]       ; 0x95f1
     push ax                          ; 0x95f5
-    call api_idx_000a_HIIM           ; 0x95f6
+    call apply_text_control_codes    ; 0x95f6
     add sp, byte 4                   ; 0x95f9
     lea ax, word [bp - 0x0088]       ; 0x95fc
     push ax                          ; 0x9600
@@ -80,19 +80,19 @@ loc_IPHP:
     jle short @..loc_IPHP.l5         ; 0x9647
     lea ax, word [bp - 0x0088]       ; 0x9649
     push ax                          ; 0x964d
-    mov ax, word [bss_93d4]          ; 0x964e
+    mov ax, word [text_line_index]   ; 0x964e
     mov cx, 7                        ; 0x9651
     shl ax, cl                       ; 0x9654
-    add ax, bss_91cc                 ; 0x9656
+    add ax, text_line_buffer         ; 0x9656
     push ax                          ; 0x9659
     call aztec_strcpy                ; 0x965a
     add sp, byte 4                   ; 0x965d
-    mov ax, word [bss_93d4]          ; 0x9660
+    mov ax, word [text_line_index]   ; 0x9660
     shl ax, 1                        ; 0x9663
     mov bx, ax                       ; 0x9665
-    mov word [bx + bss_93cc], 2      ; 0x9667
-    call api_idx_000e_OOOK           ; 0x966d
-    call api_idx_0004_KNGG           ; 0x9670
+    mov word [bx + text_line_color], 2 ; 0x9667
+    call reveal_text_line            ; 0x966d
+    call next_text_line              ; 0x9670
     lea ax, word [bp - 0x0158]       ; 0x9673
     push ax                          ; 0x9677
     lea ax, word [bp - 0x0088]       ; 0x9678
@@ -115,15 +115,15 @@ loc_IPHP:
 @..loc_IPHP.l7:
     lea ax, word [bp - 0x0088]       ; 0x96a2
     push ax                          ; 0x96a6
-    mov ax, word [bss_93d4]          ; 0x96a7
+    mov ax, word [text_line_index]   ; 0x96a7
     mov cx, 7                        ; 0x96aa
     shl ax, cl                       ; 0x96ad
-    add ax, bss_91cc                 ; 0x96af
+    add ax, text_line_buffer         ; 0x96af
     push ax                          ; 0x96b2
     call aztec_strcpy                ; 0x96b3
     add sp, byte 4                   ; 0x96b6
-    mov ax, word [bss_93d4]          ; 0x96b9
+    mov ax, word [text_line_index]   ; 0x96b9
     shl ax, 1                        ; 0x96bc
     mov bx, ax                       ; 0x96be
-    mov word [bx + bss_93cc], 2      ; 0x96c0
+    mov word [bx + text_line_color], 2 ; 0x96c0
     ret                              ; 0x96c6

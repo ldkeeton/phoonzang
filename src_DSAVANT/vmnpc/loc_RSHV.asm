@@ -171,7 +171,7 @@ loc_RSHV:
     call set_hotspot                 ; 0x19b8
     add sp, byte 0x0e                ; 0x19bb
     push word [bp + 0x6]             ; 0x19be
-    call loc_HTQP                    ; 0x19c1
+    call show_area_set               ; 0x19c1
     pop cx                           ; 0x19c4
     cmp word [mouse_active], byte 0  ; 0x19c5
     je short @..loc_RSHV.l9          ; 0x19ca
@@ -181,7 +181,7 @@ loc_RSHV:
     call poll_hotspots               ; 0x19d0
     pop cx                           ; 0x19d3
     mov word [bp - 0x0004], ax       ; 0x19d4
-    call api_idx_0006_SQTK           ; 0x19d7
+    call step_party_animation        ; 0x19d7
     cmp word [hotspot_hit], byte 0   ; 0x19da
     je short @..loc_RSHV.l8          ; 0x19df
     jmp near @..loc_RSHV.l35         ; 0x19e1
@@ -243,7 +243,7 @@ loc_RSHV:
     call loc_MNNG                    ; 0x1a63
     add sp, byte 0x0a                ; 0x1a66
     push word [bp + 0x6]             ; 0x1a69
-    call loc_HTQP                    ; 0x1a6c
+    call show_area_set               ; 0x1a6c
     pop cx                           ; 0x1a6f
     mov ax, 0                        ; 0x1a70
     push ax                          ; 0x1a73
@@ -271,7 +271,7 @@ loc_RSHV:
     pop cx                           ; 0x1aa6
     test ax, ax                      ; 0x1aa7
     jne short @..loc_RSHV.l14        ; 0x1aa9
-    call api_idx_0006_SQTK           ; 0x1aab
+    call step_party_animation        ; 0x1aab
     jmp short @..loc_RSHV.l13        ; 0x1aae
 @..loc_RSHV.l14:
     mov ax, 1                        ; 0x1ab0
@@ -432,7 +432,7 @@ loc_RSHV:
     mov word [bp - 0x0004], ax       ; 0x1c1c
     inc word [bp - 0x0004]           ; 0x1c1f
     push word [bp + 0x6]             ; 0x1c22
-    call loc_HTQP                    ; 0x1c25
+    call show_area_set               ; 0x1c25
     pop cx                           ; 0x1c28
 @..loc_RSHV.l35:
     dec word [bp - 0x0004]           ; 0x1c29

@@ -33,6 +33,7 @@
     "api_idx_0002_KQPU": {"name": "find_object_at", "note": "returns next object index from start whose x, y, map piece match and type is nonzero (subject to a state bit), else -1"},
     "api_idx_0004_ONRQ": {"name": "add_overlay_item", "note": "inserts an overlay item in code order, hanging when the 12-slot table is full"},
     "api_idx_0004_QVPP": {"name": "find_map_piece", "note": "maps world (x, y) to piece index and local x/y; 0 if found"},
+    "api_idx_0006_SHUK": {"name": "redraw_area_set", "note": "repaints one of four fixed screen-area sets around the glyph strip"},
     "api_idx_0008_LLVT": {"name": "input_text_field", "note": "reads up to max_len characters into buf at x,y until Enter; the last argument 1 accepts only digits"},
     "api_idx_000a_GGLT": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
     "api_idx_000a_IQHO": {
@@ -85,6 +86,7 @@
       "note": "ds: index of a char in a string, 0xFFFF if absent (repne scasb)"
     },
     "loc_HILS": {"name": "check_at_saved_location", "note": "flags whether current level/piece/cell equals the saved location"},
+    "loc_HTQP": {"name": "show_area_set", "note": "repaints one of four fixed screen-area sets"},
     "loc_IONR": {"name": "redraw_maze_view", "note": "redraws the maze view and shows its screen area"},
     "loc_KSUH": {
       "name": "aztec_printf",
@@ -856,12 +858,21 @@
     "vmnpc": {
       "function_names": {
         "061f": {"name": "add_overlay_item", "note": "inserts an item into the overlay list kept sorted by its first-argument key (no overflow check)"},
-        "8542": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"}
+        "0e07": {"name": "next_text_line", "note": "advances the text line index and redraws the four lines"},
+        "0f42": {"name": "step_party_animation", "note": "advances one party-status animation and redraws the party status"},
+        "1190": {"name": "wait_ticks_abortable", "note": "waits arg1 timer ticks, aborting on a key or space when arg2 is set"},
+        "7420": {"name": "play_sound_cue", "note": "plays a sound id unless it is the already loaded one"},
+        "8542": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"},
+        "926f": {"name": "reveal_text_line", "note": "draws the current text line centered with a left-to-right reveal"},
+        "93d9": {"name": "apply_text_control_codes", "note": "applies a word's leading control codes to the four-line text display"}
       },
       "immediate_pointers": [
         {"offset": "3d7b", "space": "ds", "note": "`add ax, list_row_name`: base of the 22-byte row name strings passed to draw_split_two_line_text"}
       ],
       "data_names": {
+        "91cc": {"name": "text_line_buffer", "note": "four 128-byte text line buffers"},
+        "93cc": {"name": "text_line_color", "note": "per-line draw color; nonzero means stored, 2 highlights"},
+        "93d4": {"name": "text_line_index", "note": "index 0..3 of the current text line"},
         "9652": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
         "967a": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
         "96a2": {"name": "list_row_name", "note": "per-row 22-byte name strings"},

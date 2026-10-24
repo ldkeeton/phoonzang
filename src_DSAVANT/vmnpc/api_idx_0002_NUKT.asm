@@ -71,6 +71,6 @@ api_idx_0002_NUKT:
     push ax                          ; 0x9c6e
     call loc_IPHP                    ; 0x9c6f
     pop cx                           ; 0x9c72
-    call api_idx_000e_OOOK           ; 0x9c73
-    call api_idx_0004_KNGG           ; 0x9c76
+    call reveal_text_line            ; 0x9c73
+    call next_text_line              ; 0x9c76
     ret                              ; 0x9c79

@@ -218,7 +218,7 @@ loc_HTRU:
     add sp, byte 0x0e                ; 0x131d
 @..loc_HTRU.l10:
     push word [bp + 0x6]             ; 0x1320
-    call loc_HTQP                    ; 0x1323
+    call show_area_set               ; 0x1323
     pop cx                           ; 0x1326
     cmp word [mouse_active], byte 0  ; 0x1327
     je short @..loc_HTRU.l12         ; 0x132c
@@ -290,7 +290,7 @@ loc_HTRU:
     call loc_MNNG                    ; 0x13c5
     add sp, byte 0x0a                ; 0x13c8
     push word [bp + 0x6]             ; 0x13cb
-    call loc_HTQP                    ; 0x13ce
+    call show_area_set               ; 0x13ce
     pop cx                           ; 0x13d1
     mov ax, 0                        ; 0x13d2
     push ax                          ; 0x13d5
@@ -574,7 +574,7 @@ loc_HTRU:
 @..loc_HTRU.l45:
     inc word [bp - 0x0004]           ; 0x165b
     push word [bp + 0x6]             ; 0x165e
-    call loc_HTQP                    ; 0x1661
+    call show_area_set               ; 0x1661
     pop cx                           ; 0x1664
 @..loc_HTRU.l46:
     dec word [bp - 0x0004]           ; 0x1665

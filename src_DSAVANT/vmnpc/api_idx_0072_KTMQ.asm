@@ -103,7 +103,7 @@ api_idx_0072_KTMQ:
     pop cx                           ; 0x5f89
     mov ax, 2                        ; 0x5f8a
     push ax                          ; 0x5f8d
-    call api_idx_0006_SHUK           ; 0x5f8e
+    call redraw_area_set             ; 0x5f8e
     pop cx                           ; 0x5f91
     mov ax, 1                        ; 0x5f92
     push ax                          ; 0x5f95
@@ -117,7 +117,7 @@ api_idx_0072_KTMQ:
     add sp, byte 8                   ; 0x5fa5
     mov ax, 2                        ; 0x5fa8
     push ax                          ; 0x5fab
-    call loc_HTQP                    ; 0x5fac
+    call show_area_set               ; 0x5fac
     pop cx                           ; 0x5faf
     jmp short @..api_idx_0072_KTMQ.l13 ; 0x5fb0
 @..api_idx_0072_KTMQ.l12:

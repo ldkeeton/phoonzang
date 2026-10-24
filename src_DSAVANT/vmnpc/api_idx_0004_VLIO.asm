@@ -43,22 +43,22 @@ api_idx_0004_VLIO:
 loc_USTG:
     mov ax, 0                        ; 0x23d0
     call aztec_csav                  ; 0x23d3
-    mov word [bss_93d4], 0           ; 0x23d6
+    mov word [text_line_index], 0    ; 0x23d6
 @..loc_USTG.l1:
-    mov ax, word [bss_93d4]          ; 0x23dc
+    mov ax, word [text_line_index]   ; 0x23dc
     mov cx, 7                        ; 0x23df
     shl ax, cl                       ; 0x23e2
     mov bx, ax                       ; 0x23e4
-    mov byte [bx + bss_91cc], 0      ; 0x23e6
-    mov ax, word [bss_93d4]          ; 0x23eb
+    mov byte [bx + text_line_buffer], 0 ; 0x23e6
+    mov ax, word [text_line_index]   ; 0x23eb
     shl ax, 1                        ; 0x23ee
     mov bx, ax                       ; 0x23f0
-    mov word [bx + bss_93cc], 0      ; 0x23f2
-    inc word [bss_93d4]              ; 0x23f8
-    mov ax, word [bss_93d4]          ; 0x23fc
+    mov word [bx + text_line_color], 0 ; 0x23f2
+    inc word [text_line_index]       ; 0x23f8
+    mov ax, word [text_line_index]   ; 0x23fc
     cmp ax, strict word 4            ; 0x23ff
     jl short @..loc_USTG.l1          ; 0x2402
-    mov word [bss_93d4], 0           ; 0x2404
+    mov word [text_line_index], 0    ; 0x2404
     push word [mouse_pointer_shape_seg] ; 0x240a
     push word [mouse_pointer_shape]  ; 0x240e
     call set_mouse_pointer_shape     ; 0x2412
@@ -73,11 +73,11 @@ loc_USTG:
     add sp, byte 6                   ; 0x2427
     mov ax, 3                        ; 0x242a
     push ax                          ; 0x242d
-    call api_idx_0006_SHUK           ; 0x242e
+    call redraw_area_set             ; 0x242e
     pop cx                           ; 0x2431
     mov ax, 3                        ; 0x2432
     push ax                          ; 0x2435
-    call loc_HTQP                    ; 0x2436
+    call show_area_set               ; 0x2436
     pop cx                           ; 0x2439
     ret                              ; 0x243a
 loc_SOOS:
@@ -85,11 +85,11 @@ loc_SOOS:
     call aztec_csav                  ; 0x243e
     mov ax, 3                        ; 0x2441
     push ax                          ; 0x2444
-    call api_idx_0006_SHUK           ; 0x2445
+    call redraw_area_set             ; 0x2445
     pop cx                           ; 0x2448
     mov ax, 3                        ; 0x2449
     push ax                          ; 0x244c
-    call loc_HTQP                    ; 0x244d
+    call show_area_set               ; 0x244d
     pop cx                           ; 0x2450
     mov ax, 0                        ; 0x2451
     push ax                          ; 0x2454

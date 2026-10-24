@@ -1,18 +1,18 @@
 ; auto-generated
-api_idx_0006_MITV:
+api_idx_0006_RKMN:
     mov ax, 0xfffa                   ; 0x72bf
     call aztec_csav                  ; 0x72c2
     mov ax, 3                        ; 0x72c5
     push ax                          ; 0x72c8
-    call api_idx_0006_SHUK           ; 0x72c9
+    call redraw_area_set             ; 0x72c9
     pop cx                           ; 0x72cc
     cmp word [game_state], byte 0x0a ; 0x72cd
-    je short @..api_idx_0006_MITV.l1 ; 0x72d2
+    je short @..api_idx_0006_RKMN.l1 ; 0x72d2
     mov ax, 3                        ; 0x72d4
     push ax                          ; 0x72d7
-    call loc_HTQP                    ; 0x72d8
+    call show_area_set               ; 0x72d8
     pop cx                           ; 0x72db
-@..api_idx_0006_MITV.l1:
+@..api_idx_0006_RKMN.l1:
     mov ax, 1                        ; 0x72dc
     push ax                          ; 0x72df
     call free_picture_slot           ; 0x72e0
@@ -38,7 +38,7 @@ api_idx_0006_MITV:
     call gfx_restore_area            ; 0x7312
     add sp, byte 6                   ; 0x7315
     cmp word [game_state], byte 0x0a ; 0x7318
-    je short @..api_idx_0006_MITV.l2 ; 0x731d
+    je short @..api_idx_0006_RKMN.l2 ; 0x731d
     mov ax, 0xc6                     ; 0x731f
     push ax                          ; 0x7322
     mov ax, 0x109                    ; 0x7323
@@ -49,9 +49,9 @@ api_idx_0006_MITV:
     push ax                          ; 0x732e
     call dissolve_or_show_area       ; 0x732f
     add sp, byte 8                   ; 0x7332
-@..api_idx_0006_MITV.l2:
+@..api_idx_0006_RKMN.l2:
     mov word [bp - 0x0002], 0        ; 0x7335
-@..api_idx_0006_MITV.l3:
+@..api_idx_0006_RKMN.l3:
     mov ax, word [bp - 0x0002]       ; 0x733a
     shl ax, 1                        ; 0x733d
     mov bx, ax                       ; 0x733f
@@ -61,22 +61,22 @@ api_idx_0006_MITV:
     inc word [bp - 0x0002]           ; 0x7349
     mov ax, word [bp - 0x0002]       ; 0x734c
     cmp ax, strict word 0xc          ; 0x734f
-    jl short @..api_idx_0006_MITV.l3 ; 0x7352
+    jl short @..api_idx_0006_RKMN.l3 ; 0x7352
     mov word [bp - 0x0002], 0xf      ; 0x7354
-@..api_idx_0006_MITV.l4:
+@..api_idx_0006_RKMN.l4:
     mov bx, word [bp - 0x0002]       ; 0x7359
     mov al, byte [bx + picture_slot_number] ; 0x735c
     sub ah, ah                       ; 0x7360
     cmp ax, 0xff                     ; 0x7362
-    je short @..api_idx_0006_MITV.l5 ; 0x7365
+    je short @..api_idx_0006_RKMN.l5 ; 0x7365
     push bx                          ; 0x7367
     call free_picture_slot           ; 0x7368
     pop cx                           ; 0x736b
-@..api_idx_0006_MITV.l5:
+@..api_idx_0006_RKMN.l5:
     inc word [bp - 0x0002]           ; 0x736c
     mov ax, word [bp - 0x0002]       ; 0x736f
     cmp ax, strict word 0x12         ; 0x7372
-    jl short @..api_idx_0006_MITV.l4 ; 0x7375
+    jl short @..api_idx_0006_RKMN.l4 ; 0x7375
     mov ax, 0                        ; 0x7377
     push ax                          ; 0x737a
     mov ax, 0x12                     ; 0x737b
@@ -94,13 +94,13 @@ api_idx_0006_MITV:
     call aztec_setmem                ; 0x7395
     add sp, byte 6                   ; 0x7398
     cmp word [loaded_sound_id], byte 0xff ; 0x739b
-    je short @..api_idx_0006_MITV.l6 ; 0x73a0
+    je short @..api_idx_0006_RKMN.l6 ; 0x73a0
     mov ax, 0x10                     ; 0x73a2
     push ax                          ; 0x73a5
     call wait_and_free_sound         ; 0x73a6
     pop cx                           ; 0x73a9
     mov word [loaded_sound_id], 0xffff ; 0x73aa
-@..api_idx_0006_MITV.l6:
+@..api_idx_0006_RKMN.l6:
     mov ax, 0                        ; 0x73b0
     push ax                          ; 0x73b3
     mov ax, 1                        ; 0x73b4

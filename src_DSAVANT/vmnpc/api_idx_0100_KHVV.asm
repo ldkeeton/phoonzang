@@ -10,15 +10,15 @@ api_idx_0100_KHVV:
     add sp, byte 4                   ; 0x9759
     cmp word [bss_5216], byte 0      ; 0x975c
     jne short @..api_idx_0100_KHVV.l3 ; 0x9761
-    mov ax, word [bss_93d4]          ; 0x9763
+    mov ax, word [text_line_index]   ; 0x9763
     mov cx, 7                        ; 0x9766
     shl ax, cl                       ; 0x9769
     mov bx, ax                       ; 0x976b
-    cmp byte [bx + bss_91cc], 0      ; 0x976d
+    cmp byte [bx + text_line_buffer], 0 ; 0x976d
     je short @..api_idx_0100_KHVV.l2 ; 0x9772
     mov ax, dseg_90f2                ; 0x9774
     push ax                          ; 0x9777
-    add bx, bss_91cc                 ; 0x9778
+    add bx, text_line_buffer         ; 0x9778
     mov ax, bx                       ; 0x977c
     push ax                          ; 0x977e
     call aztec_strcat                ; 0x977f
@@ -26,17 +26,17 @@ api_idx_0100_KHVV:
 @..api_idx_0100_KHVV.l2:
     lea ax, word [bp - 0x00ff]       ; 0x9785
     push ax                          ; 0x9789
-    mov ax, word [bss_93d4]          ; 0x978a
+    mov ax, word [text_line_index]   ; 0x978a
     mov cx, 7                        ; 0x978d
     shl ax, cl                       ; 0x9790
-    add ax, bss_91cc                 ; 0x9792
+    add ax, text_line_buffer         ; 0x9792
     push ax                          ; 0x9795
     call aztec_strcat                ; 0x9796
     add sp, byte 4                   ; 0x9799
-    mov ax, word [bss_93d4]          ; 0x979c
+    mov ax, word [text_line_index]   ; 0x979c
     mov cx, 7                        ; 0x979f
     shl ax, cl                       ; 0x97a2
-    add ax, bss_91cc                 ; 0x97a4
+    add ax, text_line_buffer         ; 0x97a4
     push ax                          ; 0x97a7
     lea ax, word [bp - 0x00ff]       ; 0x97a8
     push ax                          ; 0x97ac
@@ -50,11 +50,11 @@ api_idx_0100_KHVV:
 @..api_idx_0100_KHVV.l3:
     cmp word [bss_5216], byte 0      ; 0x97bf
     je short @..api_idx_0100_KHVV.l1 ; 0x97c4
-    call api_idx_000e_OOOK           ; 0x97c6
+    call reveal_text_line            ; 0x97c6
     mov ax, word [bp + 0x6]          ; 0x97c9
     jmp short @..api_idx_0100_KHVV.l9 ; 0x97cc
 @..api_idx_0100_KHVV.l4:
-    call api_idx_0004_KNGG           ; 0x97ce
+    call next_text_line              ; 0x97ce
     jmp short @..api_idx_0100_KHVV.l10 ; 0x97d1
 @..api_idx_0100_KHVV.l5:
     mov ax, 0                        ; 0x97d3
@@ -75,7 +75,7 @@ api_idx_0100_KHVV:
     call ds_app_TMKJ                 ; 0x97f3
     test ax, ax                      ; 0x97f6
     jne short @..api_idx_0100_KHVV.l7 ; 0x97f8
-    call api_idx_0006_SQTK           ; 0x97fa
+    call step_party_animation        ; 0x97fa
     jmp short @..api_idx_0100_KHVV.l6 ; 0x97fd
 @..api_idx_0100_KHVV.l7:
     push word [mouse_pointer_shape_seg] ; 0x97ff
@@ -96,9 +96,9 @@ api_idx_0100_KHVV:
     push ax                          ; 0x9824
     mov ax, 0x36                     ; 0x9825
     push ax                          ; 0x9828
-    call api_idx_0004_GRRG           ; 0x9829
+    call wait_ticks_abortable        ; 0x9829
     add sp, byte 4                   ; 0x982c
-    call api_idx_0004_KNGG           ; 0x982f
+    call next_text_line              ; 0x982f
     jmp short @..api_idx_0100_KHVV.l10 ; 0x9832
 @..api_idx_0100_KHVV.l9:
     cmp ax, strict word 0            ; 0x9834

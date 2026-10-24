@@ -9,21 +9,21 @@ api_idx_0004_NRTK:
     mov word [bss_938c], 5           ; 0x4e59
     mov ax, 3                        ; 0x4e5f
     push ax                          ; 0x4e62
-    call api_idx_0006_SHUK           ; 0x4e63
+    call redraw_area_set             ; 0x4e63
     pop cx                           ; 0x4e66
     mov ax, 3                        ; 0x4e67
     push ax                          ; 0x4e6a
-    call loc_HTQP                    ; 0x4e6b
+    call show_area_set               ; 0x4e6b
     pop cx                           ; 0x4e6e
     call api_idx_00d4_LUPQ           ; 0x4e6f
     mov word [bp - 0x0004], ax       ; 0x4e72
     mov ax, 3                        ; 0x4e75
     push ax                          ; 0x4e78
-    call api_idx_0006_SHUK           ; 0x4e79
+    call redraw_area_set             ; 0x4e79
     pop cx                           ; 0x4e7c
     mov ax, 3                        ; 0x4e7d
     push ax                          ; 0x4e80
-    call loc_HTQP                    ; 0x4e81
+    call show_area_set               ; 0x4e81
     pop cx                           ; 0x4e84
     cmp word [bp - 0x0004], byte 0   ; 0x4e85
     je short @..api_idx_0004_NRTK.l1 ; 0x4e89

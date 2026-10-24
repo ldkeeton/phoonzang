@@ -24,7 +24,7 @@ api_idx_00b0_KPHQ:
     mov word [bp - 0x000c], ax       ; 0xa86d
     mov word [bp - 0x000a], 0x44     ; 0xa870
     mov ax, 0xc                      ; 0xa875
-    imul word [bss_93d4]             ; 0xa878
+    imul word [text_line_index]      ; 0xa878
     add ax, 0x97                     ; 0xa87c
     push ax                          ; 0xa87f
     mov ax, 0x44                     ; 0xa880
@@ -44,7 +44,7 @@ api_idx_00b0_KPHQ:
     add sp, byte 4                   ; 0xa8a2
     mov ax, 3                        ; 0xa8a5
     push ax                          ; 0xa8a8
-    call loc_HTQP                    ; 0xa8a9
+    call show_area_set               ; 0xa8a9
     pop cx                           ; 0xa8ac
     mov word [bp - 0x0008], 0        ; 0xa8ad
     mov bx, word [bp + 0x4]          ; 0xa8b2
@@ -63,7 +63,7 @@ api_idx_00b0_KPHQ:
     add bx, bp                       ; 0xa8ce
     push word [bx - 0x0010]          ; 0xa8d0
     mov ax, 0xc                      ; 0xa8d3
-    imul word [bss_93d4]             ; 0xa8d6
+    imul word [text_line_index]      ; 0xa8d6
     add ax, 0x97                     ; 0xa8da
     push ax                          ; 0xa8dd
     mov ax, word [bp - 0x0008]       ; 0xa8de
@@ -134,26 +134,26 @@ api_idx_00b0_KPHQ:
     mov byte [bx - 0x00b0], al       ; 0xa980
     mov byte [bx - 0x00af], 0        ; 0xa984
     push word [bp + 0x6]             ; 0xa989
-    mov ax, word [bss_93d4]          ; 0xa98c
+    mov ax, word [text_line_index]   ; 0xa98c
     mov cx, 7                        ; 0xa98f
     shl ax, cl                       ; 0xa992
-    add ax, bss_91cc                 ; 0xa994
+    add ax, text_line_buffer         ; 0xa994
     push ax                          ; 0xa997
     call aztec_strcpy                ; 0xa998
     add sp, byte 4                   ; 0xa99b
     push word [bp + 0x4]             ; 0xa99e
-    mov ax, word [bss_93d4]          ; 0xa9a1
+    mov ax, word [text_line_index]   ; 0xa9a1
     mov cx, 7                        ; 0xa9a4
     shl ax, cl                       ; 0xa9a7
-    add ax, bss_91cc                 ; 0xa9a9
+    add ax, text_line_buffer         ; 0xa9a9
     push ax                          ; 0xa9ac
     call aztec_strcat                ; 0xa9ad
     add sp, byte 4                   ; 0xa9b0
-    mov ax, word [bss_93d4]          ; 0xa9b3
+    mov ax, word [text_line_index]   ; 0xa9b3
     shl ax, 1                        ; 0xa9b6
     mov bx, ax                       ; 0xa9b8
-    mov word [bx + bss_93cc], 0      ; 0xa9ba
-    call api_idx_0004_KNGG           ; 0xa9c0
+    mov word [bx + text_line_color], 0 ; 0xa9ba
+    call next_text_line              ; 0xa9c0
     push word [bp + 0x4]             ; 0xa9c3
     lea ax, word [bp - 0x0060]       ; 0xa9c6
     push ax                          ; 0xa9c9
@@ -171,9 +171,9 @@ api_idx_00b0_KPHQ:
     jne short @..api_idx_00b0_KPHQ.l8 ; 0xa9e9
     mov ax, 3                        ; 0xa9eb
     push ax                          ; 0xa9ee
-    call api_idx_0006_SHUK           ; 0xa9ef
+    call redraw_area_set             ; 0xa9ef
     pop cx                           ; 0xa9f2
-    dec word [bss_93d4]              ; 0xa9f3
+    dec word [text_line_index]       ; 0xa9f3
     lea ax, word [bp - 0x0060]       ; 0xa9f7
     push ax                          ; 0xa9fa
     push word [bp + 0x4]             ; 0xa9fb
@@ -188,34 +188,34 @@ api_idx_00b0_KPHQ:
     cmp word [bp - 0x0008], byte 0   ; 0xaa12
     jne short @..api_idx_00b0_KPHQ.l10 ; 0xaa16
     push word [bp + 0x6]             ; 0xaa18
-    mov ax, word [bss_93d4]          ; 0xaa1b
+    mov ax, word [text_line_index]   ; 0xaa1b
     mov cx, 7                        ; 0xaa1e
     shl ax, cl                       ; 0xaa21
-    add ax, bss_91cc                 ; 0xaa23
+    add ax, text_line_buffer         ; 0xaa23
     push ax                          ; 0xaa26
     call aztec_strcpy                ; 0xaa27
     add sp, byte 4                   ; 0xaa2a
     jmp short @..api_idx_00b0_KPHQ.l11 ; 0xaa2d
 @..api_idx_00b0_KPHQ.l10:
-    mov ax, word [bss_93d4]          ; 0xaa2f
+    mov ax, word [text_line_index]   ; 0xaa2f
     mov cx, 7                        ; 0xaa32
     shl ax, cl                       ; 0xaa35
     mov bx, ax                       ; 0xaa37
-    mov byte [bx + bss_91cc], 0      ; 0xaa39
+    mov byte [bx + text_line_buffer], 0 ; 0xaa39
 @..api_idx_00b0_KPHQ.l11:
     push word [bp + 0x4]             ; 0xaa3e
-    mov ax, word [bss_93d4]          ; 0xaa41
+    mov ax, word [text_line_index]   ; 0xaa41
     mov cx, 7                        ; 0xaa44
     shl ax, cl                       ; 0xaa47
-    add ax, bss_91cc                 ; 0xaa49
+    add ax, text_line_buffer         ; 0xaa49
     push ax                          ; 0xaa4c
     call aztec_strcat                ; 0xaa4d
     add sp, byte 4                   ; 0xaa50
-    mov ax, word [bss_93d4]          ; 0xaa53
+    mov ax, word [text_line_index]   ; 0xaa53
     shl ax, 1                        ; 0xaa56
     mov bx, ax                       ; 0xaa58
-    mov word [bx + bss_93cc], 0      ; 0xaa5a
-    call api_idx_0004_KNGG           ; 0xaa60
+    mov word [bx + text_line_color], 0 ; 0xaa5a
+    call next_text_line              ; 0xaa60
     cmp word [bp - 0x0008], byte 0   ; 0xaa63
     je short @..api_idx_00b0_KPHQ.l12 ; 0xaa67
     push word [bp + 0x4]             ; 0xaa69

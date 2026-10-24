@@ -453,7 +453,7 @@ api_idx_00d4_LUPQ:
     mov byte [bx + si + 0x20], 0     ; 0x3b9e
     mov ax, 3                        ; 0x3ba2
     push ax                          ; 0x3ba5
-    call api_idx_0006_SHUK           ; 0x3ba6
+    call redraw_area_set             ; 0x3ba6
     pop cx                           ; 0x3ba9
     mov ax, 0x2c                     ; 0x3baa
     imul word [bp - 0x0006]          ; 0x3bad
@@ -541,7 +541,7 @@ api_idx_00d4_LUPQ:
 jumptable_4058_case_0:
     mov ax, 0                        ; 0x3c6b
     push ax                          ; 0x3c6e
-    call api_idx_0006_SHUK           ; 0x3c6f
+    call redraw_area_set             ; 0x3c6f
     pop cx                           ; 0x3c72
     mov ax, 1                        ; 0x3c73
     push ax                          ; 0x3c76
@@ -730,7 +730,7 @@ jumptable_4058_case_0:
 jumptable_4058_case_1:
     mov ax, 0                        ; 0x3e4e
     push ax                          ; 0x3e51
-    call api_idx_0006_SHUK           ; 0x3e52
+    call redraw_area_set             ; 0x3e52
     pop cx                           ; 0x3e55
     mov ax, 1                        ; 0x3e56
     push ax                          ; 0x3e59
@@ -819,7 +819,7 @@ jumptable_4058_case_8:
 jumptable_4058_case_3:
     mov ax, 0                        ; 0x3f26
     push ax                          ; 0x3f29
-    call api_idx_0006_SHUK           ; 0x3f2a
+    call redraw_area_set             ; 0x3f2a
     pop cx                           ; 0x3f2d
     mov ax, 0x16                     ; 0x3f2e
     push ax                          ; 0x3f31
@@ -843,7 +843,7 @@ jumptable_4058_case_3:
 jumptable_4058_case_4:
     mov ax, 0                        ; 0x3f5e
     push ax                          ; 0x3f61
-    call api_idx_0006_SHUK           ; 0x3f62
+    call redraw_area_set             ; 0x3f62
     pop cx                           ; 0x3f65
     mov ax, 0x16                     ; 0x3f66
     push ax                          ; 0x3f69
@@ -965,7 +965,7 @@ jumptable_4058:
 @..api_idx_00d4_LUPQ.l68:
     mov ax, 0                        ; 0x4085
     push ax                          ; 0x4088
-    call api_idx_0006_SHUK           ; 0x4089
+    call redraw_area_set             ; 0x4089
     pop cx                           ; 0x408c
     mov ax, 0x16                     ; 0x408d
     push ax                          ; 0x4090
@@ -979,7 +979,7 @@ jumptable_4058:
     add sp, byte 8                   ; 0x40a1
     mov ax, 0                        ; 0x40a4
     push ax                          ; 0x40a7
-    call loc_HTQP                    ; 0x40a8
+    call show_area_set               ; 0x40a8
     pop cx                           ; 0x40ab
     mov ax, 0x32                     ; 0x40ac
     push ax                          ; 0x40af
@@ -1179,7 +1179,7 @@ jumptable_4058:
 @..api_idx_00d4_LUPQ.l83:
     mov ax, 3                        ; 0x429d
     push ax                          ; 0x42a0
-    call api_idx_0006_SHUK           ; 0x42a1
+    call redraw_area_set             ; 0x42a1
     pop cx                           ; 0x42a4
     lea ax, word [bp - 0x0096]       ; 0x42a5
     push ax                          ; 0x42a9
@@ -1199,7 +1199,7 @@ jumptable_4058:
     add sp, byte 8                   ; 0x42c8
     mov ax, 3                        ; 0x42cb
     push ax                          ; 0x42ce
-    call loc_HTQP                    ; 0x42cf
+    call show_area_set               ; 0x42cf
     pop cx                           ; 0x42d2
     mov word [bp - 0x0002], 0        ; 0x42d3
 @..api_idx_00d4_LUPQ.l84:

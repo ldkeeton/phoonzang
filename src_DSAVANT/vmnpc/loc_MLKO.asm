@@ -4,11 +4,11 @@ loc_MLKO:
     call aztec_csav                  ; 0x130e
     mov ax, 3                        ; 0x1311
     push ax                          ; 0x1314
-    call api_idx_0006_SHUK           ; 0x1315
+    call redraw_area_set             ; 0x1315
     pop cx                           ; 0x1318
     mov ax, 3                        ; 0x1319
     push ax                          ; 0x131c
-    call loc_HTQP                    ; 0x131d
+    call show_area_set               ; 0x131d
     pop cx                           ; 0x1320
     mov ax, 0                        ; 0x1321
     push ax                          ; 0x1324
@@ -62,14 +62,14 @@ loc_MLKO:
     mov ax, 0                        ; 0x1395
     push ax                          ; 0x1398
     push word [message_delay]        ; 0x1399
-    call api_idx_0004_GRRG           ; 0x139d
+    call wait_ticks_abortable        ; 0x139d
     add sp, byte 4                   ; 0x13a0
     mov ax, 3                        ; 0x13a3
     push ax                          ; 0x13a6
-    call api_idx_0006_SHUK           ; 0x13a7
+    call redraw_area_set             ; 0x13a7
     pop cx                           ; 0x13aa
     mov ax, 3                        ; 0x13ab
     push ax                          ; 0x13ae
-    call loc_HTQP                    ; 0x13af
+    call show_area_set               ; 0x13af
     pop cx                           ; 0x13b2
     ret                              ; 0x13b3

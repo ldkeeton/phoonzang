@@ -4,7 +4,7 @@ api_idx_0054_UKJH:
     call aztec_csav                  ; 0x0d49
     mov ax, 1                        ; 0x0d4c
     push ax                          ; 0x0d4f
-    call api_idx_0006_SHUK           ; 0x0d50
+    call redraw_area_set             ; 0x0d50
     pop cx                           ; 0x0d53
     mov ax, 0x5f                     ; 0x0d54
     push ax                          ; 0x0d57

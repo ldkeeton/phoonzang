@@ -445,7 +445,7 @@ api_idx_0038_LJOP:
     pop cx                           ; 0x4bee
     dec ax                           ; 0x4bef
     mov word [bp - 0x0018], ax       ; 0x4bf0
-    call api_idx_0006_SQTK           ; 0x4bf3
+    call step_party_animation        ; 0x4bf3
     cmp word [space_key_hit], byte 0 ; 0x4bf6
     je short @..api_idx_0038_LJOP.l9 ; 0x4bfb
     push word [bp - 0x001e]          ; 0x4bfd

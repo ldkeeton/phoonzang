@@ -89,7 +89,7 @@ api_idx_005e_SHOL:
     pop cx                           ; 0x14d0
 @..api_idx_005e_SHOL.l9:
     mov word [bss_845e], 0xfffe      ; 0x14d1
-    call api_idx_0006_SQTK           ; 0x14d7
+    call step_party_animation        ; 0x14d7
     mov word [bp - 0x0004], 0        ; 0x14da
 @..api_idx_005e_SHOL.l10:
     mov word [bp - 0x0006], 0        ; 0x14df
@@ -200,7 +200,7 @@ api_idx_005e_SHOL:
     call draw_party_status_glyphs    ; 0x15d5
     mov word [bss_845e], 0           ; 0x15d8
 @..api_idx_005e_SHOL.l21:
-    call api_idx_0006_SQTK           ; 0x15de
+    call step_party_animation        ; 0x15de
     cmp word [bss_845e], byte 0xfe   ; 0x15e1
     jne short @..api_idx_005e_SHOL.l21 ; 0x15e6
     call loc_KRMP                    ; 0x15e8

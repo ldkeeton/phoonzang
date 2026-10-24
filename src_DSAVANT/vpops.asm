@@ -37,9 +37,9 @@ dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
 dseg_90a6 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
 dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
 dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
-%include "shared/game/api_idx_0006_SHUK.asm"     ; 0x018d
+%include "shared/game/redraw_area_set.asm"       ; 0x018d
 
-%include "shared/game/loc_HTQP.asm"              ; 0x02af
+%include "shared/game/show_area_set.asm"         ; 0x02af
 
 %include "vpops/api_idx_0054_NQHV.asm"     ; 0x035f
 

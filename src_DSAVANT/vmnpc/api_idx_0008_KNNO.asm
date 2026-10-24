@@ -155,10 +155,10 @@ api_idx_0008_KNNO:
 @..api_idx_0008_KNNO.l11:
     cmp word [bp + 0x8], byte 2      ; 0x2b1f
     jne short @..api_idx_0008_KNNO.l12 ; 0x2b23
-    mov ax, word [bss_93d4]          ; 0x2b25
+    mov ax, word [text_line_index]   ; 0x2b25
     mov cx, 7                        ; 0x2b28
     shl ax, cl                       ; 0x2b2b
-    add ax, bss_91cc                 ; 0x2b2d
+    add ax, text_line_buffer         ; 0x2b2d
     push ax                          ; 0x2b30
     mov ax, 0x5e5                    ; 0x2b31
     push ax                          ; 0x2b34
@@ -174,25 +174,25 @@ api_idx_0008_KNNO:
     mov cx, 2                        ; 0x2b4a
     cwd                              ; 0x2b4d
     idiv cx                          ; 0x2b4e
-    mov dx, word [bss_93d4]          ; 0x2b50
+    mov dx, word [text_line_index]   ; 0x2b50
     mov cx, 7                        ; 0x2b54
     shl dx, cl                       ; 0x2b57
     mov cx, dx                       ; 0x2b59
     add ax, cx                       ; 0x2b5b
     mov bx, ax                       ; 0x2b5d
-    mov byte [bx + bss_91cc], 0      ; 0x2b5f
+    mov byte [bx + text_line_buffer], 0 ; 0x2b5f
     mov ax, bss_95a8                 ; 0x2b64
     push ax                          ; 0x2b67
-    add cx, bss_91cc                 ; 0x2b68
+    add cx, text_line_buffer         ; 0x2b68
     mov ax, cx                       ; 0x2b6c
     push ax                          ; 0x2b6e
     call aztec_strcat                ; 0x2b6f
     add sp, byte 4                   ; 0x2b72
-    mov ax, word [bss_93d4]          ; 0x2b75
+    mov ax, word [text_line_index]   ; 0x2b75
     shl ax, 1                        ; 0x2b78
     mov bx, ax                       ; 0x2b7a
-    mov word [bx + bss_93cc], 0      ; 0x2b7c
-    call api_idx_0004_KNGG           ; 0x2b82
+    mov word [bx + text_line_color], 0 ; 0x2b7c
+    call next_text_line              ; 0x2b82
     mov ax, 0                        ; 0x2b85
     push ax                          ; 0x2b88
     call play_sound_effect           ; 0x2b89

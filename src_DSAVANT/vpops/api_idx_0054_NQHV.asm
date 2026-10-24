@@ -4,7 +4,7 @@ api_idx_0054_NQHV:
     call aztec_csav                  ; 0x0362
     mov ax, 1                        ; 0x0365
     push ax                          ; 0x0368
-    call api_idx_0006_SHUK           ; 0x0369
+    call redraw_area_set             ; 0x0369
     pop cx                           ; 0x036c
     mov word [bp - 0x0002], 1        ; 0x036d
     jmp near @..api_idx_0054_NQHV.l9 ; 0x0372

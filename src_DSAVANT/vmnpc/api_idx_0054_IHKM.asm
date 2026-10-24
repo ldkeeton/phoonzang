@@ -4,7 +4,7 @@ api_idx_0054_IHKM:
     call aztec_csav                  ; 0x5d96
     mov ax, 3                        ; 0x5d99
     push ax                          ; 0x5d9c
-    call api_idx_0006_SHUK           ; 0x5d9d
+    call redraw_area_set             ; 0x5d9d
     pop cx                           ; 0x5da0
     call api_idx_0054_UKJH           ; 0x5da1
     mov ax, 1                        ; 0x5da4
@@ -88,7 +88,7 @@ api_idx_0054_IHKM:
     mov word [bp - 0x0004], ax       ; 0x5e5c
     mov ax, 0                        ; 0x5e5f
     push ax                          ; 0x5e62
-    call api_idx_0006_SHUK           ; 0x5e63
+    call redraw_area_set             ; 0x5e63
     pop cx                           ; 0x5e66
     mov ax, 1                        ; 0x5e67
     push ax                          ; 0x5e6a

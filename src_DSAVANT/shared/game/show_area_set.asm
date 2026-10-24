@@ -1,10 +1,10 @@
 ; auto-generated
-loc_HTQP:
+show_area_set:
     mov ax, 0
     call aztec_csav
     mov ax, word [bp + 0x4]
-    jmp near @..loc_HTQP.l5
-@..loc_HTQP.l1:
+    jmp near @..show_area_set.l5
+@..show_area_set.l1:
     mov ax, 0x9f
     push ax
     mov ax, 0xcd
@@ -35,8 +35,8 @@ loc_HTQP:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp short @..loc_HTQP.l7
-@..loc_HTQP.l2:
+    jmp short @..show_area_set.l7
+@..show_area_set.l2:
     mov ax, 0xc2
     push ax
     mov ax, 0xe0
@@ -47,8 +47,8 @@ loc_HTQP:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp short @..loc_HTQP.l7
-@..loc_HTQP.l3:
+    jmp short @..show_area_set.l7
+@..show_area_set.l3:
     mov ax, 0x9f
     push ax
     mov ax, 0xcd
@@ -59,8 +59,8 @@ loc_HTQP:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp short @..loc_HTQP.l7
-@..loc_HTQP.l4:
+    jmp short @..show_area_set.l7
+@..show_area_set.l4:
     mov ax, 0xc2
     push ax
     mov ax, 0x13a
@@ -71,17 +71,17 @@ loc_HTQP:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp short @..loc_HTQP.l7
-@..loc_HTQP.l5:
+    jmp short @..show_area_set.l7
+@..show_area_set.l5:
     cmp ax, strict word 0
-    jne short @..loc_HTQP.l6
-    jmp near @..loc_HTQP.l1
-@..loc_HTQP.l6:
+    jne short @..show_area_set.l6
+    jmp near @..show_area_set.l1
+@..show_area_set.l6:
     cmp ax, strict word 1
-    je short @..loc_HTQP.l2
+    je short @..show_area_set.l2
     cmp ax, strict word 2
-    je short @..loc_HTQP.l3
+    je short @..show_area_set.l3
     cmp ax, strict word 3
-    je short @..loc_HTQP.l4
-@..loc_HTQP.l7:
+    je short @..show_area_set.l4
+@..show_area_set.l7:
     ret

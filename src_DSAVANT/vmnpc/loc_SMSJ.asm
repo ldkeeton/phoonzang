@@ -25,7 +25,7 @@ jumptable_9baa_case_1:
     mov ax, 0                        ; 0x9a48
     push ax                          ; 0x9a4b
     push word [message_delay]        ; 0x9a4c
-    call api_idx_0004_GRRG           ; 0x9a50
+    call wait_ticks_abortable        ; 0x9a50
     add sp, byte 4                   ; 0x9a53
 @..loc_SMSJ.l1:
     jmp near @..loc_SMSJ.l5          ; 0x9a56

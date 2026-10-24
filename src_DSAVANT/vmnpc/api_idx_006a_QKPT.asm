@@ -17,22 +17,22 @@ api_idx_006a_QKPT:
     mov word [bss_9e4c], 0           ; 0xabb7
     mov word [bss_9e4e], 0xffff      ; 0xabbd
     mov word [bss_9e50], 0xffff      ; 0xabc3
-    mov word [bss_93d4], 0           ; 0xabc9
+    mov word [text_line_index], 0    ; 0xabc9
 @..api_idx_006a_QKPT.l1:
-    mov ax, word [bss_93d4]          ; 0xabcf
+    mov ax, word [text_line_index]   ; 0xabcf
     mov cx, 7                        ; 0xabd2
     shl ax, cl                       ; 0xabd5
     mov bx, ax                       ; 0xabd7
-    mov byte [bx + bss_91cc], 0      ; 0xabd9
-    mov ax, word [bss_93d4]          ; 0xabde
+    mov byte [bx + text_line_buffer], 0 ; 0xabd9
+    mov ax, word [text_line_index]   ; 0xabde
     shl ax, 1                        ; 0xabe1
     mov bx, ax                       ; 0xabe3
-    mov word [bx + bss_93cc], 0      ; 0xabe5
-    inc word [bss_93d4]              ; 0xabeb
-    mov ax, word [bss_93d4]          ; 0xabef
+    mov word [bx + text_line_color], 0 ; 0xabe5
+    inc word [text_line_index]       ; 0xabeb
+    mov ax, word [text_line_index]   ; 0xabef
     cmp ax, strict word 4            ; 0xabf2
     jl short @..api_idx_006a_QKPT.l1 ; 0xabf5
-    mov word [bss_93d4], 0           ; 0xabf7
+    mov word [text_line_index], 0    ; 0xabf7
     lea ax, word [bp - 0x006a]       ; 0xabfd
     push ax                          ; 0xac00
     mov ax, 0x5e9                    ; 0xac01
@@ -63,11 +63,11 @@ api_idx_006a_QKPT:
     add sp, byte 6                   ; 0xac40
     mov ax, 3                        ; 0xac43
     push ax                          ; 0xac46
-    call api_idx_0006_SHUK           ; 0xac47
+    call redraw_area_set             ; 0xac47
     pop cx                           ; 0xac4a
     mov ax, 3                        ; 0xac4b
     push ax                          ; 0xac4e
-    call loc_HTQP                    ; 0xac4f
+    call show_area_set               ; 0xac4f
     pop cx                           ; 0xac52
 @..api_idx_006a_QKPT.l2:
     lea ax, word [bp - 0x006a]       ; 0xac53
@@ -195,11 +195,11 @@ api_idx_006a_QKPT:
 @..api_idx_006a_QKPT.l10:
     mov ax, 3                        ; 0xadd9
     push ax                          ; 0xaddc
-    call api_idx_0006_SHUK           ; 0xaddd
+    call redraw_area_set             ; 0xaddd
     pop cx                           ; 0xade0
     mov ax, 3                        ; 0xade1
     push ax                          ; 0xade4
-    call loc_HTQP                    ; 0xade5
+    call show_area_set               ; 0xade5
     pop cx                           ; 0xade8
     mov ax, 0                        ; 0xade9
     push ax                          ; 0xadec
