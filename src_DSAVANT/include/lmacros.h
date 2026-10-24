@@ -1,4 +1,3 @@
-/* auto-generated */
 ; auto-generated
 	nlist
 ; Copyright (C) 1985 by Manx Software Systems, Inc.
