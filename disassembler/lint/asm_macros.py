@@ -4,7 +4,6 @@ Only instruction sequences whose expansion is byte-for-byte identical are
 matched:
 
 * interrupt calls: ``mov ah,fn`` (+ ``mov al,arg``) / ``int 21h`` and friends
-* ``frame`` / ``unframe``
 * ``pushs`` / ``pops`` for runs of two or more registers
 * ``movseg``
 * ``outp``
@@ -282,45 +281,6 @@ def _match_interrupt(lines, i):
                   _usage(name, args))
 
 
-def _match_frame(lines, i):
-    parsed = [_parse(lines[i + j]) if i + j < len(lines) else None
-              for j in range(3)]
-    if parsed[0] is None or parsed[0].label:
-        return None
-    if parsed[0].mnemonic != 'push' or not _same(parsed[0].operands, 'bp'):
-        return None
-    if not _mov(parsed[1], 'bp', 'sp'):
-        return None
-    args = []
-    span = 2
-    if parsed[2] is not None and not parsed[2].label:
-        parts = _operands(parsed[2].operands)
-        if (parsed[2].mnemonic == 'sub' and len(parts) == 2
-                and _same(parts[0], 'sp')):
-            args = [_arg(parts[1])]
-            span = 3
-    comments = _comments(parsed[:span])
-    indent = parsed[0].indent
-    return _Match(span, [_code(indent, 'frame', args, comments)],
-                  _usage('frame', args))
-
-
-def _match_unframe(lines, i):
-    parsed = [_parse(lines[i + j]) if i + j < len(lines) else None
-              for j in range(3)]
-    if any(line is None or line.label for line in parsed):
-        return None
-    if not _mov(parsed[0], 'sp', 'bp'):
-        return None
-    if parsed[1].mnemonic != 'pop' or not _same(parsed[1].operands, 'bp'):
-        return None
-    if parsed[2].mnemonic != 'ret':
-        return None
-    comments = _comments(parsed)
-    return _Match(3, [_code(parsed[0].indent, 'unframe', [], comments)],
-                  'unframe')
-
-
 def _match_movseg(lines, i):
     parsed = [_parse(lines[i + j]) if i + j < len(lines) else None
               for j in range(2)]
@@ -392,8 +352,6 @@ def _match(lines, i):
             _match_fatal,
             _match_outp,
             _match_interrupt,
-            _match_frame,
-            _match_unframe,
             _match_movseg,
             _match_umin,
             lambda ls, n: _match_pushrun(ls, n, 'push'),

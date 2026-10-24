@@ -7,7 +7,8 @@
 	extrn	gfx_drv_slot_10_:dword
 	public	flush_keyboard_
 flush_keyboard_ proc near
-	frame
+	push	bp
+	mov	bp,sp
 	cld
 	pushs	di,si,es
 	movseg	es,ds
@@ -21,7 +22,9 @@ drain:
 drained:
 	call	dword ptr cs:gfx_drv_slot_10_
 	pops	es,si,di
-	unframe
+	mov	sp,bp
+	pop	bp
+	ret
 flush_keyboard_ endp
 	finish
 	end

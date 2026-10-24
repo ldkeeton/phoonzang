@@ -8,7 +8,8 @@ fill_byte	equ	0ch		;stack arg: byte written to the buffer
 buffer_size	equ	0fa00h		;64000 bytes, one EGA screen plane
 ; fill the 64000-byte screen buffer at screen_buf_seg with one byte
 fill_screen_buffer_ proc near
-	frame
+	push	bp
+	mov	bp,sp
 	pushs	es,di
 	movseg	es,<word ptr cs:screen_buf_seg>	; segment of the off-screen buffer
 	xor	di,di			;start at offset 0
@@ -16,7 +17,9 @@ fill_screen_buffer_ proc near
 	mov	cx,buffer_size
 	rep stosb			;fill the whole plane
 	pops	di,es
-	unframe
+	mov	sp,bp
+	pop	bp
+	ret
 fill_screen_buffer_ endp
 codeseg	ends
 	end

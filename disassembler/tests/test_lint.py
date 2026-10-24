@@ -497,17 +497,15 @@ class HlmacroUsageTest(unittest.TestCase):
     def _usage(self, text):
         return [finding.message for finding in self.rule.check(text, 'x.s')]
 
-    def test_frame_and_unframe(self):
+    def test_explicit_frame_is_left_alone(self):
         text = ('\tpush\tbp\n'
                 '\tmov\tbp,sp\n'
                 '\tsub\tsp,4\n'
                 '\tmov\tsp,bp\n'
                 '\tpop\tbp\n'
                 '\tret\n')
-        self.assertEqual(self._usage(text),
-                         ["use 'frame 4'", "use 'unframe'"])
-        self.assertEqual(self.rule.fix(text, 'x.s'),
-                         '\tframe\t4\n\tunframe\n')
+        self.assertEqual(self._usage(text), [])
+        self.assertEqual(self.rule.fix(text, 'x.s'), text)
 
     def test_interrupt_forms(self):
         cases = {

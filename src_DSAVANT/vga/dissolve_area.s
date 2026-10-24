@@ -53,7 +53,9 @@ screen_width	equ	140h		;bytes per row, 320
 
 	public	dissolve_area_
 dissolve_area_	proc	near
-	frame	24h	; eleven words of locals plus two temporaries
+	push	bp
+	mov	bp,sp
+	sub	sp,24h	; eleven words of locals plus two temporaries
 	pushs	ds,es,si,di
 	movseg	es,ds
 	call	request_mouse_redraw		;cursor must be redrawn when we finish
@@ -332,7 +334,9 @@ finish:
 	call	redraw_mouse_pointer
 	call	update_mouse_pointer
 	pops	di,si,es,ds
-	unframe
+	mov	sp,bp
+	pop	bp
+	ret
 dissolve_area_	endp
 codeseg	ends
 	end

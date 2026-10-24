@@ -6,13 +6,9 @@
 	assume	cs:codeseg
 	extrn	font_seg_table_:word
 	extrn	gfx_drv_draw_glyph_:dword
-glyph		equ	4	;arg: glyph code, read by the driver
-font		equ	6	;arg: index into font_seg_table
-	public	draw_font_glyph_
-draw_font_glyph_ proc near
-	frame
+	procdef	draw_font_glyph,<<glyph,word>,<font,word>>
 	cld
-	mov	ax,word ptr font[bp]
+	mov	ax,font
 	mov	bx,offset font_seg_table_
 	shl	ax,1		;font_seg_table entry is a word per font
 	add	bx,ax
@@ -21,7 +17,8 @@ draw_font_glyph_ proc near
 	je	no_font		;font not loaded: nothing to draw
 	call	dword ptr cs:gfx_drv_draw_glyph_
 no_font:
-	unframe
-draw_font_glyph_ endp
+	mov	sp,bp
+	pret
+	pend	draw_font_glyph
 	finish
 	end

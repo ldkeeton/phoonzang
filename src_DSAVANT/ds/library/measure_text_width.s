@@ -5,18 +5,14 @@
 	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	font_seg_table_:word
-text		equ	4	;arg: NUL-terminated string
-font		equ	6	;arg: index into font_seg_table
 spacing		equ	-2	;local: signed per-character spacing from the font header
-	public	measure_text_width_
-measure_text_width_ proc near
-	frame
+	procdef	measure_text_width,<<text,word>,<font,word>>
 	cld
 	sub	sp,2		;reserve the spacing local
 	pushs	es,si
 	movseg	es,ds
 	mov	cx,0ffffh	;font not loaded: -1
-	mov	ax,word ptr font[bp]
+	mov	ax,font
 	mov	bx,offset font_seg_table_
 	shl	ax,1		;word per font slot
 	add	bx,ax
@@ -28,7 +24,7 @@ measure_text_width_ proc near
 		cbw
 		mov	word ptr spacing[bp],ax
 		xor	cx,cx
-		mov	si,word ptr text[bp]
+		mov	si,text
 next_char:
 		mov	bx,10h		;10h table: word per character
 		xor	ah,ah
@@ -46,7 +42,8 @@ next_char:
 	.endif
 	mov	ax,cx
 	pops	si,es
-	unframe
-measure_text_width_ endp
+	mov	sp,bp
+	pret
+	pend	measure_text_width
 	finish
 	end

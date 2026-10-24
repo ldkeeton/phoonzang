@@ -587,7 +587,7 @@ function claudePrompt(job) {
             `inside real C. A .s always does \`include hlmacros.h\` (after lmacros.h) and uses its MASM 6-style ` +
             `\`.if\`/\`.elseif\`/\`.else\`/\`.endif\`, \`.while\`/\`.endw\`, \`.repeat\`/\`.until\`, \`.break\`/` +
             `\`.continue\` (conditions like \`ax == 5\`, \`al lt 3\`, \`dl and 2\` (test), \`carry?\`, \`not cx\`; no \`!\`, \`<\` or ` +
-            `\`>\`), plus DOS/BIOS call, push/pop list and clamp shorthand, \`frame\`/\`unframe\` (bp frame), ` +
+            `\`>\`), plus DOS/BIOS call, push/pop list and clamp shorthand, lmacros' \`procdef\`/\`pret\` for a bp frame (write the prologue and epilogue out when the stack layout is custom), ` +
             `\`movseg\` (segment via ax), \`outp\` (port writes), \`fatal\` (print and exit) and ` +
             `\`jnear\` (jcc over a near jmp). ` +
             `disassembler/lib/aztec/hlmacros.h lists each macro's exact expansion: use one wherever ` +

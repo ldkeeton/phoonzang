@@ -38,7 +38,9 @@ block	equ	-14		;paragraph where the copy starts
 	public	cache_area_
 ; copy a screen rectangle to a file, MAZE memory or EMS; returns the slot index
 cache_area_ proc near
-	frame	14
+	push	bp
+	mov	bp,sp
+	sub	sp,14
 	pushs	es,ds,di,si
 	movseg	es,ds
 	cmp	word ptr mode[bp],3

@@ -68,10 +68,9 @@
 ; Clamps (unsigned):
 ;	umin r,v	cmp r,v / jb ok / mov r,v / ok:
 ;	umax r,v	cmp r,v / jae ok / mov r,v / ok:
-; Frames (saved registers go between, with pushs/pops; a cld between
-; mov bp,sp and sub sp stays written out):
-;	frame [n]	push bp / mov bp,sp / [sub sp,n]
-;	unframe		mov sp,bp / pop bp / ret	(lmacros.h's pret: pop bp / ret)
+; A standard argument layout uses 
+; procdef (push bp / mov bp,sp) and pret (pop bp / ret); a custom layout writes
+; push bp / mov bp,sp / [sub sp,n] and mov sp,bp / pop bp / ret.
 ; Segments, ports, exits:
 ;	movseg sr,src	mov ax,src / mov sr,ax		(clobbers ax)
 ;	outp p,v[,v2]	mov dx,p / mov al,v / out dx,al / [inc dx / mov al,v2 /
@@ -154,20 +153,6 @@ umax	macro	reg, val
 	jae	ok
 	mov	reg,val
 ok:
-	endm
-
-frame	macro	n
-	push	bp
-	mov	bp,sp
-ifnb	<n>
-	sub	sp,n
-endif
-	endm
-
-unframe	macro
-	mov	sp,bp
-	pop	bp
-	ret
 	endm
 
 movseg	macro	dst, src

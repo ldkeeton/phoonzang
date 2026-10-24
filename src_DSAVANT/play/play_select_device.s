@@ -11,7 +11,8 @@ device	equ	15h		;stack arg byte: device number
 	public	play_select_device_
 ; jump-table slot 4: set the device (request 0ffh) or report the current one
 play_select_device_ proc near
-	frame
+	push	bp
+	mov	bp,sp
 	pushs	di,si,es,ds,dx,bx
 	cmp	byte ptr request[bp],0ffh
 	jne	current			;not a set request

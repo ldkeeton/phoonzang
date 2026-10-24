@@ -9,14 +9,10 @@
 	assume	cs:codeseg
 	extrn	font_header_seg_:word, font_seg_table_:word, font_io_error_msg_:byte
 	extrn	font_memory_error_:near
-handle		equ	4	;arg: DOS file handle
-slot		equ	6	;arg: index into font_seg_table
 font_size	equ	-2	;header + table + glyphs, bytes to read
 alloc_size	equ	-4	;bytes to allocate (font_size + optional extra)
 glyph_bytes	equ	-8	;glyph count * bytes per glyph
-	public	load_font_file_
-load_font_file_ proc near
-	frame
+	procdef	load_font_file,<<handle,word>,<slot,word>>
 	cld
 	sub	sp,8
 	pushs	si,di,ds,es
@@ -24,7 +20,7 @@ load_font_file_ proc near
 	mov	bx,word ptr cs:font_header_seg_	;ds = scratch segment for the header
 	mov	ds,bx
 	xor	dx,dx	;DOS 3Fh: read 16-byte header to ds:0
-	mov	bx,word ptr handle[bp]
+	mov	bx,handle
 	mov	cx,10h
 	dos	3fh
 	.if	carry?
@@ -64,7 +60,7 @@ load_font_file_ proc near
 		jmp	font_memory_error_
 	.endif
 	mov	bx,offset font_seg_table_	;font_seg_table[slot] = segment (word table in cs)
-	mov	cx,word ptr slot[bp]
+	mov	cx,slot
 	shl	cx,1
 	add	bx,cx
 	mov	word ptr cs:[bx],ax
@@ -75,7 +71,7 @@ load_font_file_ proc near
 	rep	movsb
 	mov	ds,ax	;read the rest of the file after the header
 	mov	dx,10h
-	mov	bx,word ptr handle[bp]
+	mov	bx,handle
 	mov	cx,word ptr font_size[bp]
 	sub	cx,dx
 	dos	3fh
@@ -94,10 +90,11 @@ load_font_file_ proc near
 		.endif
 	.endif
 	pops	es,ds,di,si
-	unframe
+	mov	sp,bp
+	pret
 l5:	;read error: ds:dx = message for the DOS print that follows
 	movseg	ds,cs
 	mov	dx,offset font_io_error_msg_
-load_font_file_ endp
+	pend	load_font_file
 	finish
 	end

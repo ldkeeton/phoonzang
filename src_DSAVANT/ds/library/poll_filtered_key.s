@@ -6,10 +6,7 @@
 	assume	cs:codeseg
 	extrn	key_queue_:word
 	extrn	stir_random_seeds_:near
-mode		equ	4	;arg: 0 any key, 2 digits, else printable/control
-	public	poll_filtered_key_
-poll_filtered_key_ proc near
-	frame
+	procdef	poll_filtered_key,<<mode,word>>
 	cld
 	pushs	ds,es,si
 	cld
@@ -21,7 +18,7 @@ next_key:
 	mov	bx,word ptr [si]	;[si] = queued count, keys from [si+2]
 	or	bx,bx
 	je	poll_key	;queue empty: ask the BIOS
-	mov	ax,word ptr [bp+mode]	;mode 0: any key passes
+	mov	ax,mode	;mode 0: any key passes
 	cmp	al,0
 	je	have_key
 	cmp	al,2
@@ -63,7 +60,8 @@ have_key:
 	mov	ax,1	;return 1; the key stays queued
 done:
 	pops	si,es,ds
-	unframe
+	mov	sp,bp
+	pret
 drop_key:	;discard oldest: count--, shift the queue left one byte
 	dec	word ptr [si]
 	pushs	si,di
@@ -79,7 +77,7 @@ poll_key:
 	mov	ax,0	;mov keeps ZF: return 0 if none
 	je	done
 	mov	ax,1
-	cmp	word ptr [bp+mode],0	;mode 0: report it without consuming
+	cmp	mode,0	;mode 0: report it without consuming
 	je	done
 	dos	7	; DOS 07h: move it into key_queue
 	mov	bx,word ptr [si]
@@ -111,6 +109,6 @@ extended_key:
 	mov	byte ptr [bx+si+1],0	;other extended key: drop it, keep reading
 	dec	word ptr [si]
 	jmp	short poll_key
-poll_filtered_key_ endp
+	pend	poll_filtered_key
 	finish
 	end

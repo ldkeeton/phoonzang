@@ -3,12 +3,9 @@
 	include	lmacros.h
 	include	hlmacros.h
 	assume	cs:codeseg
-ms	equ	4
 	extrn	loops_per_ms_:word
 	extrn	delay_loop_target_:word
-	public	delay_ms_
-delay_ms_ proc near
-	frame
+	procdef	delay_ms,<<ms,word>>
 	cld
 	pushs	ds,si,cs	; ds = cs so [bx] reaches delay_loop_target
 	pop	ds
@@ -22,10 +19,11 @@ spin:
 no_pad:
 	cmp	cx,word ptr [bx]	;memory compare (not jz) keeps the calibrated loop cost
 	jne	spin
-	dec	word ptr ms[bp]	;ms done; repeat until the count hits 0
+	dec	ms	;ms done; repeat until the count hits 0
 	jne	next_ms
 	pops	si,ds
-	unframe
-delay_ms_ endp
+	mov	sp,bp
+	pret
+	pend	delay_ms
 	finish
 	end

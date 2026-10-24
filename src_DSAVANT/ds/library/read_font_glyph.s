@@ -5,37 +5,31 @@
 	include	hlmacros.h
 	assume	cs:codeseg
 	extrn	font_seg_table_:word
-handle		equ	4	;arg: DOS file handle
-font		equ	6	;arg: index into font_seg_table
-source		equ	8	;arg: record number in the font file
-glyph		equ	10	;arg: glyph slot selected through the map at 10h
-	public	read_font_glyph_
-read_font_glyph_ proc near
-	frame
+	procdef	read_font_glyph,<<handle,word>,<font,word>,<source,byte>,<glyph,byte>>
 	cld
 	sub	sp,8		;reserve 8 bytes of locals (not referenced here)
 	pushs	si,di,ds,es
 	movseg	es,ds
 	movseg	ds,cs	; ds = cs to reach font_seg_table
-	mov	ax,word ptr font[bp]
+	mov	ax,font
 	mov	bx,offset font_seg_table_
 	shl	ax,1
 	add	bx,ax
 	movseg	ds,<word ptr [bx]>	; ds = segment allocated for this font
 	xor	bx,bx
 	xor	ah,ah
-	mov	al,byte ptr source[bp]
+	mov	al,source
 	mov	cx,word ptr 0ah[bx]	;bytes per glyph (header offset 0Ah)
 	mul	cx
 	mov	cx,dx		;cx:dx = 32-bit file offset
 	mov	dx,ax
 	mov	ah,42h		;DOS 42h: seek from start (AL = 0)
 	mov	al,0
-	mov	bx,word ptr handle[bp]
+	mov	bx,handle
 	int	21h
 	xor	bx,bx
 	xor	ah,ah
-	mov	al,byte ptr glyph[bp]
+	mov	al,glyph
 	shl	al,1		;glyph map entry is a word at header offset 10h
 	add	bx,10h
 	add	bx,ax
@@ -47,11 +41,12 @@ read_font_glyph_ proc near
 	add	ax,110h		;16-byte header + 256-byte map (file_param_word)
 	mov	dx,ax		;ds:dx = glyph record in the font segment
 	mov	cx,word ptr 0ah[bx]
-	mov	bx,word ptr handle[bp]
+	mov	bx,handle
 	dos	3fh	; DOS 3Fh: read file
 	xor	bx,bx
 	pops	es,ds,di,si
-	unframe
-read_font_glyph_ endp
+	mov	sp,bp
+	pret
+	pend	read_font_glyph
 	finish
 	end

@@ -5,10 +5,7 @@
 	assume	cs:codeseg
 	extrn	key_queue_:word
 	extrn	play_drv_wait_:dword
-mode		equ	4	;arg: 0 any key, 2 digits, else printable/control
-	public	get_filtered_key_
-get_filtered_key_ proc near
-	frame
+	procdef	get_filtered_key,<<mode,word>>
 	cld
 	pushs	si,ds,es
 	cld
@@ -19,7 +16,7 @@ next_key:
 	mov	bx,word ptr [si]	;[si] = queued count, keys from [si+2]
 	or	bx,bx
 	je	read_key	;queue empty: wait for a key
-	mov	ax,word ptr [bp+mode]	;mode 0: any key passes
+	mov	ax,mode	;mode 0: any key passes
 	cmp	al,0
 	je	take_key
 	cmp	al,2
@@ -63,7 +60,8 @@ take_key:
 	mov	ah,0
 done:
 	pops	es,ds,si
-	unframe
+	mov	sp,bp
+	pret
 drop_key:	;discard oldest: count--, shift the queue left one byte
 	dec	word ptr [si]
 	pushs	si,di
@@ -81,7 +79,7 @@ read_key:
 	pop	ax
 	dos	7	; DOS 07h: unechoed key input, waits
 	mov	ah,0
-	cmp	word ptr [bp+mode],0	;mode 0: return the key unqueued
+	cmp	mode,0	;mode 0: return the key unqueued
 	je	done
 	mov	bx,word ptr [si]	;append to key_queue
 	mov	byte ptr [bx+si+2],al
@@ -114,6 +112,6 @@ extended_key:
 	jmp	short read_key
 ext_done:
 	jmp	near ptr next_key	;re-filter from the queue
-get_filtered_key_ endp
+	pend	get_filtered_key
 	finish
 	end

@@ -8,12 +8,9 @@
 	extrn	detect_mouse:near, detect_expanded_memory:near
 	extrn	load_play_driver:near, load_video_driver:near
 	extrn	gfx_fill_screen_buffer:near
-	public	init_system_hardware_
-mode	equ	4		;caller's video mode argument
 result	equ	-2		;status word: 1 = VGA, 2 = EGA, 1000h = mouse
 driver_name equ -4		;video driver file name set by the detector
-init_system_hardware_ proc near
-	frame
+	procdef	init_system_hardware,<<mode,word>>	;mode: caller's video mode argument
 	cld
 	sub	sp,4		;reserve result and driver_name for the frame-sharing helpers
 	pushs	ds,es,si,di
@@ -32,7 +29,8 @@ init_system_hardware_ proc near
 	add	sp,2
 	mov	ax,word ptr result[bp]	;return the detector/mouse status word
 	pops	di,si,es,ds
-	unframe
-init_system_hardware_ endp
+	mov	sp,bp
+	pret
+	pend	init_system_hardware
 	finish
 	end

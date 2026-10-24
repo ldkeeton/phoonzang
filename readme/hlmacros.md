@@ -185,29 +185,25 @@ list backwards: `pops es,ds,di,si`.
 
 ---
 
-## frame / unframe
-
-**Syntax**
-
-```
-frame [size]
-unframe
-```
-
-`frame` sets up a bp stack frame and reserves *size* bytes of locals.
-`unframe` tears the frame down and returns.
 
 **Example**
 
 ```asm
 my_routine_ proc near
-	frame	8
+	push	bp
+	mov	bp,sp
+	sub	sp,8
 	pushs	si,di
 	...
 	pops	di,si
-	unframe
+	mov	sp,bp
+	pop	bp
+	ret
 my_routine_ endp
 ```
+
+`pret` is `pop bp` / `ret`, so `mov sp,bp` is written separately to discard
+locals.
 
 ---
 
