@@ -30,7 +30,7 @@ api_idx_000c_QNKI:
     shl cx, 1                        ; 0x11f4
     add ax, cx                       ; 0x11f6
     mov bx, ax                       ; 0x11f8
-    mov word [bx + bss_843a], 0      ; 0x11fa
+    mov word [bx + cell_slot_ref], 0 ; 0x11fa
     mov ax, word [bp + 0x4]          ; 0x1200
     shl ax, 1                        ; 0x1203
     mov bx, ax                       ; 0x1205
@@ -42,7 +42,7 @@ api_idx_000c_QNKI:
     shl cx, 1                        ; 0x1218
     add ax, cx                       ; 0x121a
     mov bx, ax                       ; 0x121c
-    mov ax, word [bx + 0x5ec]        ; 0x121e
+    mov ax, word [bx + cell_overlay_code + 0x36] ; 0x121e
     mov cx, 0xa                      ; 0x1222
     cwd                              ; 0x1225
     idiv cx                          ; 0x1226
@@ -54,12 +54,12 @@ api_idx_000c_QNKI:
     shl cx, 1                        ; 0x1236
     add ax, cx                       ; 0x1238
     mov bx, ax                       ; 0x123a
-    cmp word [bx + bss_843a], byte 0 ; 0x123c
+    cmp word [bx + cell_slot_ref], byte 0 ; 0x123c
     jne short @..api_idx_000c_QNKI.l3 ; 0x1241
     mov ax, 0xa                      ; 0x1243
     imul word [bp + 0x4]             ; 0x1246
     add ax, word [bp - 0x0002]       ; 0x1249
-    mov word [bx + bss_843a], ax     ; 0x124c
+    mov word [bx + cell_slot_ref], ax ; 0x124c
     mov ax, 0xa                      ; 0x1250
     imul word [bp - 0x000a]          ; 0x1253
     add ax, word [bp - 0x000c]       ; 0x1256

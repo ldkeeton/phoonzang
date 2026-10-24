@@ -59,7 +59,7 @@ api_idx_0004_MKGU:
     mov al, byte [bx + 0x4]
     sub ah, ah
     mov bx, ax
-    cmp byte [bx + 0x60e], 1
+    cmp byte [bx + cell_overlay_code + 0x58], 1
     jne short @..api_idx_0004_MKGU.l1
     mov ax, word [bp - 0x0004]
     add ax, strict word 6

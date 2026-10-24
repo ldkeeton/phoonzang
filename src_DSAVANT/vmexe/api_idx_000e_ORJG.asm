@@ -1977,7 +1977,7 @@ jumptable_5eb8_case_64:
     inc word [bp - 0x0002]           ; 0x4ce0
 @..api_idx_000e_ORJG.l39:
     mov ax, word [bp - 0x0002]       ; 0x4ce3
-    cmp ax, word [bss_8466]          ; 0x4ce6
+    cmp ax, word [party_member_count] ; 0x4ce6
     jle short @..api_idx_000e_ORJG.l37 ; 0x4cea
     jmp near @..api_idx_000e_ORJG.l132 ; 0x4cec
 jumptable_5eb8_case_67:

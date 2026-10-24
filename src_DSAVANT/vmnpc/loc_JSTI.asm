@@ -21,7 +21,7 @@ loc_JSTI:
     push ax                          ; 0x6dcf
     call load_monster_picture        ; 0x6dd0
     add sp, byte 4                   ; 0x6dd3
-    mov word [bss_843a], 0xf         ; 0x6dd6
+    mov word [cell_slot_ref], 0xf    ; 0x6dd6
     mov ax, 0xffff                   ; 0x6ddc
     push ax                          ; 0x6ddf
     mov ax, 0                        ; 0x6de0
@@ -33,7 +33,7 @@ loc_JSTI:
     add sp, byte 8                   ; 0x6dec
     jmp short @..loc_JSTI.l3         ; 0x6def
 @..loc_JSTI.l2:
-    mov word [bss_843a], 0           ; 0x6df1
+    mov word [cell_slot_ref], 0      ; 0x6df1
 @..loc_JSTI.l3:
     mov word [bss_93dc], 1           ; 0x6df7
     mov ax, 1                        ; 0x6dfd

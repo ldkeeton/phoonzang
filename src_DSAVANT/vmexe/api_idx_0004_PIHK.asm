@@ -92,7 +92,7 @@ api_idx_0004_PIHK:
     shl cx, 1                        ; 0x1d4d
     add ax, cx                       ; 0x1d4f
     mov bx, ax                       ; 0x1d51
-    mov word [bx + bss_843a], 0      ; 0x1d53
+    mov word [bx + cell_slot_ref], 0 ; 0x1d53
 @..api_idx_0004_PIHK.l5:
     mov ax, 0x2c                     ; 0x1d59
     imul word [bp + 0x6]             ; 0x1d5c

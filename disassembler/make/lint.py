@@ -87,8 +87,8 @@ def cmd_lint(projects, fix=False):
                     text = rewritten
                     findings = check_text(text, path)
             for finding in findings:
-                progress.log(f'{_display(path)}:{finding.line}:{finding.col}: '
-                      f'{finding.rule}: {finding.message}')
+                print(f'{_display(path)}:{finding.line}:{finding.col}: '
+                      f'{finding.rule}: {finding.message}', file=sys.stderr)
             findings_here += len(findings)
         progress.log(f'{project}: {len(files)} files, {findings_here} finding(s)')
         total_findings += findings_here
@@ -96,6 +96,7 @@ def cmd_lint(projects, fix=False):
     if fix:
         progress.log(f'fixed {fixed} finding(s)')
     if total_findings:
-        progress.log(f'{total_findings} finding(s) in {total_files} file(s)')
+        print(f'lint: {total_findings} finding(s) in {total_files} file(s)',
+              file=sys.stderr)
         sys.exit(1)
     progress.log(f'{total_files} file(s) clean')

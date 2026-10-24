@@ -89,7 +89,7 @@ api_idx_005c_UIOK:
     add ax, dx                       ; 0x15c4
     mov bx, ax                       ; 0x15c6
     pop ax                           ; 0x15c8
-    mov word [bx + bss_843a], ax     ; 0x15c9
+    mov word [bx + cell_slot_ref], ax ; 0x15c9
 @..api_idx_005c_UIOK.l3:
     inc word [bp - 0x0002]           ; 0x15cd
 @..api_idx_005c_UIOK.l4:

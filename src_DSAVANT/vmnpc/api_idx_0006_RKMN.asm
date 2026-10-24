@@ -81,7 +81,7 @@ api_idx_0006_RKMN:
     push ax                          ; 0x737a
     mov ax, 0x12                     ; 0x737b
     push ax                          ; 0x737e
-    mov ax, bss_843a                 ; 0x737f
+    mov ax, cell_slot_ref            ; 0x737f
     push ax                          ; 0x7382
     call aztec_setmem                ; 0x7383
     add sp, byte 6                   ; 0x7386

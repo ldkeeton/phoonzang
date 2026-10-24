@@ -78,7 +78,7 @@ api_idx_0024_NKNU:
     inc word [bp - 0x0004]           ; 0x46ba
 @..api_idx_0024_NKNU.l9:
     mov ax, word [bp - 0x0004]       ; 0x46bd
-    cmp ax, word [bss_8466]          ; 0x46c0
+    cmp ax, word [party_member_count] ; 0x46c0
     jle short @..api_idx_0024_NKNU.l6 ; 0x46c4
     cmp word [bp + 0x4], byte 6      ; 0x46c6
     jne short @..api_idx_0024_NKNU.l10 ; 0x46ca
@@ -441,7 +441,7 @@ api_idx_0024_NKNU:
     add sp, byte 4                   ; 0x4a29
     test ax, ax                      ; 0x4a2c
     jne short @..api_idx_0024_NKNU.l35 ; 0x4a2e
-    push word [bss_8466]             ; 0x4a30
+    push word [party_member_count]   ; 0x4a30
     call random_below                ; 0x4a34
     pop cx                           ; 0x4a37
     inc ax                           ; 0x4a38

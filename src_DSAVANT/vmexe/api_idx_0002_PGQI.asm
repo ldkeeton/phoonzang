@@ -22,7 +22,7 @@ api_idx_0002_PGQI:
     inc word [bp - 0x0002]           ; 0x2c27
 @..api_idx_0002_PGQI.l2:
     mov ax, word [bp - 0x0002]       ; 0x2c2a
-    cmp ax, word [bss_8466]          ; 0x2c2d
+    cmp ax, word [party_member_count] ; 0x2c2d
     jle short @..api_idx_0002_PGQI.l1 ; 0x2c31
     jmp short @..api_idx_0002_PGQI.l4 ; 0x2c33
 @..api_idx_0002_PGQI.l3:

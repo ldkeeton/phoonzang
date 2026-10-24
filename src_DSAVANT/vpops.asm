@@ -50,7 +50,7 @@ advance_action_slots.fill_action_slot_table_alt1 equ fill_action_slot_table
 
 %include "shared/game/add_overlay_item.asm"      ; 0x0a27
 
-%include "shared/game/api_idx_001c_VLRT.asm"     ; 0x0b31
+%include "shared/game/queue_cell_action_overlay.asm" ; 0x0b31
 
 %include "shared/game/queue_marker_overlay.asm"  ; 0x0d77
 

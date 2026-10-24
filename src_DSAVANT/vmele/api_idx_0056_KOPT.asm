@@ -20,7 +20,7 @@ api_idx_0056_KOPT:
     jb short @..api_idx_0056_KOPT.l2 ; 0x31cf
     mov al, byte [bx + si + 0x1f]    ; 0x31d1
     sub ah, ah                       ; 0x31d4
-    cmp ax, word [bss_8466]          ; 0x31d6
+    cmp ax, word [party_member_count] ; 0x31d6
     jle short @..api_idx_0056_KOPT.l3 ; 0x31da
 @..api_idx_0056_KOPT.l2:
     mov byte [bx + si + 0x1f], 1     ; 0x31dc

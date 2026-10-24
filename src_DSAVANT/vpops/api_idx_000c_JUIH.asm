@@ -88,7 +88,7 @@ api_idx_000c_JUIH:
     pop ax                           ; 0x1864
     add ax, cx                       ; 0x1865
     mov bx, ax                       ; 0x1867
-    mov ax, word [bx + bss_843a]     ; 0x1869
+    mov ax, word [bx + cell_slot_ref] ; 0x1869
     mov cx, 0xa                      ; 0x186d
     cwd                              ; 0x1870
     idiv cx                          ; 0x1871

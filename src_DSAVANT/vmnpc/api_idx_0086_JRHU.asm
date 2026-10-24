@@ -189,7 +189,7 @@ api_idx_0086_JRHU:
     mov al, byte [bp - 0x004e]       ; 0x6fe0
     sub ah, ah                       ; 0x6fe3
     mov bx, ax                       ; 0x6fe5
-    cmp byte [bx + 0x60e], 1         ; 0x6fe7
+    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x6fe7
     jne short @..api_idx_0086_JRHU.l15 ; 0x6fec
     mov ax, word [bp - 0x0002]       ; 0x6fee
     shl ax, 1                        ; 0x6ff1

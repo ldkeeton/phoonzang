@@ -20,7 +20,7 @@ cell_power: ; Aztec csav frame=0x0002
     mov al, byte [bx + cell_key_grid + 0x4] ; 0x1767
     sub ah, ah                       ; 0x176b
     mov bx, ax                       ; 0x176d
-    cmp byte [bx + 0x60e], 1         ; 0x176f
+    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x176f
     jne short @..cell_power.l1       ; 0x1774
     mov ax, 0x248                    ; 0x1776
     imul word [bp + 0x4]             ; 0x1779

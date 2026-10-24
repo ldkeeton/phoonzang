@@ -60,7 +60,7 @@ api_idx_0004_KVIP:
     call draw_split_two_line_text    ; 0x0a23
     add sp, byte 8                   ; 0x0a26
     mov bx, word [bss_942a]          ; 0x0a29
-    cmp byte [bx + 0x60e], 1         ; 0x0a2d
+    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x0a2d
     jne short @..api_idx_0004_KVIP.l2 ; 0x0a32
     mov ax, word [bp - 0x0004]       ; 0x0a34
     add ax, strict word 6            ; 0x0a37

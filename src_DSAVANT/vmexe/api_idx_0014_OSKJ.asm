@@ -209,7 +209,7 @@ api_idx_0014_OSKJ:
     shl cx, 1                        ; 0x669a
     add ax, cx                       ; 0x669c
     mov bx, ax                       ; 0x669e
-    mov word [bx + bss_843a], 0      ; 0x66a0
+    mov word [bx + cell_slot_ref], 0 ; 0x66a0
 @..api_idx_0014_OSKJ.l11:
     mov ax, 0x2c                     ; 0x66a6
     imul word [bss_8462]             ; 0x66a9

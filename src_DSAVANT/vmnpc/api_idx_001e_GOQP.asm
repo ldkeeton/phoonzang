@@ -90,7 +90,7 @@ api_idx_001e_GOQP:
     push ax                          ; 0x7193
     mov ax, 0x12                     ; 0x7194
     push ax                          ; 0x7197
-    mov ax, bss_843a                 ; 0x7198
+    mov ax, cell_slot_ref            ; 0x7198
     push ax                          ; 0x719b
     call aztec_setmem                ; 0x719c
     add sp, byte 6                   ; 0x719f

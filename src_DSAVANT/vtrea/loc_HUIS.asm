@@ -349,7 +349,7 @@ loc_HUIS:
     mov al, byte [bp - 0x004a]       ; 0x5ad1
     sub ah, ah                       ; 0x5ad4
     mov bx, ax                       ; 0x5ad6
-    cmp byte [bx + 0x60e], 1         ; 0x5ad8
+    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x5ad8
     jne short @..loc_HUIS.l29        ; 0x5add
     push word [bp - 0x0066]          ; 0x5adf
     push word [bp - 0x0068]          ; 0x5ae2

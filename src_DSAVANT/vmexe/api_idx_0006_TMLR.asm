@@ -115,7 +115,7 @@ api_idx_0006_TMLR:
     push ax                          ; 0x19b3
     push word [bp - 0x0004]          ; 0x19b4
     push word [bp - 0x0002]          ; 0x19b7
-    call api_idx_001c_VLRT           ; 0x19ba
+    call queue_cell_action_overlay   ; 0x19ba
     add sp, byte 0x0e                ; 0x19bd
     push word [bp - 0x0004]          ; 0x19c0
     push word [bp - 0x0002]          ; 0x19c3

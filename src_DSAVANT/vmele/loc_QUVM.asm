@@ -221,11 +221,11 @@ loc_QUVM:
     inc word [bp - 0x0002]           ; 0x1c23
 @..loc_QUVM.l14:
     mov ax, word [bp - 0x0002]       ; 0x1c26
-    cmp ax, word [bss_8466]          ; 0x1c29
+    cmp ax, word [party_member_count] ; 0x1c29
     jg short @..loc_QUVM.l15         ; 0x1c2d
     jmp near @..loc_QUVM.l1          ; 0x1c2f
 @..loc_QUVM.l15:
-    mov ax, word [bss_8466]          ; 0x1c32
+    mov ax, word [party_member_count] ; 0x1c32
     mov word [bp - 0x0002], ax       ; 0x1c35
     jmp near @..loc_QUVM.l33         ; 0x1c38
 @..loc_QUVM.l16:
@@ -398,7 +398,7 @@ loc_QUVM:
     shl cx, 1                        ; 0x1dbb
     add ax, cx                       ; 0x1dbd
     mov bx, ax                       ; 0x1dbf
-    mov word [bx + bss_843a], 0      ; 0x1dc1
+    mov word [bx + cell_slot_ref], 0 ; 0x1dc1
     mov ax, word [bp - 0x0002]       ; 0x1dc7
     shl ax, 1                        ; 0x1dca
     mov bx, ax                       ; 0x1dcc

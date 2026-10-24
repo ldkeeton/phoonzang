@@ -101,7 +101,7 @@ api_idx_004c_OGSK:
     mov al, byte [bx + cell_key_grid + 0x4] ; 0x50d4
     sub ah, ah                       ; 0x50d8
     mov bx, ax                       ; 0x50da
-    cmp byte [bx + 0x60e], 1         ; 0x50dc
+    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x50dc
     jne short @..api_idx_004c_OGSK.l6 ; 0x50e1
     mov ax, 0x248                    ; 0x50e3
     imul word [bp + 0x4]             ; 0x50e6

@@ -58,7 +58,7 @@ api_idx_0006_RJKJ:
     inc word [bp - 0x0002]           ; 0x179d
 @..api_idx_0006_RJKJ.l6:
     mov ax, word [bp - 0x0002]       ; 0x17a0
-    cmp ax, word [bss_8466]          ; 0x17a3
+    cmp ax, word [party_member_count] ; 0x17a3
     jg short @..api_idx_0006_RJKJ.l7 ; 0x17a7
     jmp near @..api_idx_0006_RJKJ.l1 ; 0x17a9
 @..api_idx_0006_RJKJ.l7:

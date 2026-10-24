@@ -54,11 +54,11 @@ def environment(work):
 
 def timeout():
     """Seconds one DOSBox session may run, or ``None`` when disabled."""
-    raw = os.environ.get('ASM_DOSBOX_TIMEOUT', '900')
+    raw = os.environ.get('ASM_DOSBOX_TIMEOUT', '15')
     try:
         value = float(raw)
     except ValueError:
-        value = 900.0
+        value = 15.0
     return None if value <= 0 else value
 
 

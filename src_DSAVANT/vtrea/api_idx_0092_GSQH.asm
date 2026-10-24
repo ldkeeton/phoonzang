@@ -101,7 +101,7 @@ api_idx_0092_GSQH:
     mov al, byte [bx + cell_key_grid + 0x4] ; 0x4cb6
     sub ah, ah                       ; 0x4cba
     mov bx, ax                       ; 0x4cbc
-    cmp byte [bx + 0x60e], 1         ; 0x4cbe
+    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x4cbe
     jne short @..api_idx_0092_GSQH.l6 ; 0x4cc3
     mov ax, 0x248                    ; 0x4cc5
     imul word [bp + 0x4]             ; 0x4cc8

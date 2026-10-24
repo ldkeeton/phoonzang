@@ -170,7 +170,7 @@ api_idx_0054_NQHV:
     inc word [bp - 0x0002]           ; 0x04f4
 @..api_idx_0054_NQHV.l9:
     mov ax, word [bp - 0x0002]       ; 0x04f7
-    cmp ax, word [bss_8466]          ; 0x04fa
+    cmp ax, word [party_member_count] ; 0x04fa
     jg short @..api_idx_0054_NQHV.l10 ; 0x04fe
     jmp near @..api_idx_0054_NQHV.l1 ; 0x0500
 @..api_idx_0054_NQHV.l10:

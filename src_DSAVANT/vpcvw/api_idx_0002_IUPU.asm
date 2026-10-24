@@ -14,7 +14,7 @@ api_idx_0002_IUPU:
     mov al, byte [bx + 0x4]          ; 0x443b
     sub ah, ah                       ; 0x443e
     mov bx, ax                       ; 0x4440
-    cmp byte [bx + 0x60e], 1         ; 0x4442
+    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x4442
     je short @..api_idx_0002_IUPU.l2 ; 0x4447
     jmp near @..api_idx_0002_IUPU.l7 ; 0x4449
 @..api_idx_0002_IUPU.l2:

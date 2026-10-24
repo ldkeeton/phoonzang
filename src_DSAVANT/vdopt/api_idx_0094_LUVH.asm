@@ -102,7 +102,7 @@ api_idx_0094_LUVH:
     mov al, byte [bx + cell_key_grid + 0x4] ; 0x426c
     sub ah, ah                       ; 0x4270
     mov bx, ax                       ; 0x4272
-    cmp byte [bx + 0x60e], 1         ; 0x4274
+    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x4274
     jne short @..api_idx_0094_LUVH.l6 ; 0x4279
     mov ax, 0x248                    ; 0x427b
     imul word [bp + 0x4]             ; 0x427e

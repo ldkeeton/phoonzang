@@ -3,7 +3,7 @@ api_idx_0002_HMSQ:
     mov ax, 0xfffe                   ; 0x28fc
     call aztec_csav                  ; 0x28ff
     mov ax, word [bp + 0x4]          ; 0x2902
-    cmp ax, word [bss_8466]          ; 0x2905
+    cmp ax, word [party_member_count] ; 0x2905
     jle short @..api_idx_0002_HMSQ.l1 ; 0x2909
     mov ax, 0xffff                   ; 0x290b
     ret                              ; 0x290e
@@ -30,7 +30,7 @@ api_idx_0002_HMSQ:
     mov ax, 0xa                      ; 0x2944
     imul word [bp + 0x4]             ; 0x2947
     add ax, word [bp - 0x0002]       ; 0x294a
-    mov word [bx + bss_843a], ax     ; 0x294d
+    mov word [bx + cell_slot_ref], ax ; 0x294d
     mov ax, 0xa                      ; 0x2951
     imul word [bp + 0x6]             ; 0x2954
     add ax, word [bp + 0x8]          ; 0x2957

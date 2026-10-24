@@ -24,7 +24,7 @@ api_idx_0002_NGRN:
     inc word [bp - 0x0002]           ; 0x2dab
 @..api_idx_0002_NGRN.l2:
     mov ax, word [bp - 0x0002]       ; 0x2dae
-    cmp ax, word [bss_8466]          ; 0x2db1
+    cmp ax, word [party_member_count] ; 0x2db1
     jle short @..api_idx_0002_NGRN.l1 ; 0x2db5
     jmp short @..api_idx_0002_NGRN.l4 ; 0x2db7
 @..api_idx_0002_NGRN.l3:

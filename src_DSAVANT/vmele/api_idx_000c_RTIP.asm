@@ -55,7 +55,7 @@ api_idx_000c_RTIP:
     shl ax, 1                        ; 0x2a51
     add cx, ax                       ; 0x2a53
     mov bx, cx                       ; 0x2a55
-    cmp word [bx + bss_843a], byte 0 ; 0x2a57
+    cmp word [bx + cell_slot_ref], byte 0 ; 0x2a57
     je short @..api_idx_000c_RTIP.l6 ; 0x2a5c
     jmp near @..api_idx_000c_RTIP.l17 ; 0x2a5e
 @..api_idx_000c_RTIP.l6:
@@ -70,7 +70,7 @@ api_idx_000c_RTIP:
     add sp, byte 6                   ; 0x2a74
     jmp near @..api_idx_000c_RTIP.l17 ; 0x2a77
 @..api_idx_000c_RTIP.l8:
-    cmp word [bss_8466], byte 1      ; 0x2a7a
+    cmp word [party_member_count], byte 1 ; 0x2a7a
     jne short @..api_idx_000c_RTIP.l9 ; 0x2a7f
     push word [bp - 0x0004]          ; 0x2a81
     push word [bp - 0x0002]          ; 0x2a84
@@ -89,7 +89,7 @@ api_idx_000c_RTIP:
 @..api_idx_000c_RTIP.l10:
     jmp short @..api_idx_000c_RTIP.l17 ; 0x2aa3
 @..api_idx_000c_RTIP.l11:
-    cmp word [bss_8466], byte 1      ; 0x2aa5
+    cmp word [party_member_count], byte 1 ; 0x2aa5
     jne short @..api_idx_000c_RTIP.l12 ; 0x2aaa
     push word [bp - 0x0004]          ; 0x2aac
     push word [bp - 0x0002]          ; 0x2aaf
@@ -99,7 +99,7 @@ api_idx_000c_RTIP:
     add sp, byte 6                   ; 0x2ab9
     jmp short @..api_idx_000c_RTIP.l14 ; 0x2abc
 @..api_idx_000c_RTIP.l12:
-    cmp word [bss_8466], byte 2      ; 0x2abe
+    cmp word [party_member_count], byte 2 ; 0x2abe
     jne short @..api_idx_000c_RTIP.l13 ; 0x2ac3
     push word [bp - 0x0004]          ; 0x2ac5
     push word [bp - 0x0002]          ; 0x2ac8
@@ -136,7 +136,7 @@ api_idx_000c_RTIP:
     inc word [bp - 0x0002]           ; 0x2b09
 @..api_idx_000c_RTIP.l19:
     mov ax, word [bp - 0x0002]       ; 0x2b0c
-    cmp ax, word [bss_8454]          ; 0x2b0f
+    cmp ax, word [row_limit]         ; 0x2b0f
     jg short @..api_idx_000c_RTIP.l20 ; 0x2b13
     jmp near @..api_idx_000c_RTIP.l1 ; 0x2b15
 @..api_idx_000c_RTIP.l20:

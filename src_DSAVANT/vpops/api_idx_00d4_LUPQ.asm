@@ -205,7 +205,7 @@ api_idx_00d4_LUPQ:
     jb short @..api_idx_00d4_LUPQ.l17 ; 0x391e
     mov al, byte [bx + si + 0x1f]    ; 0x3920
     sub ah, ah                       ; 0x3923
-    cmp ax, word [bss_8466]          ; 0x3925
+    cmp ax, word [party_member_count] ; 0x3925
     jle short @..api_idx_00d4_LUPQ.l18 ; 0x3929
 @..api_idx_00d4_LUPQ.l17:
     mov byte [bx + si + 0x1f], 1     ; 0x392b

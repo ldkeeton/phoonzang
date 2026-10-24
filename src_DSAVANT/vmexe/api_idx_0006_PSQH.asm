@@ -46,7 +46,7 @@ api_idx_0006_PSQH:
     inc word [bp - 0x0002]           ; 0x9908
 @..api_idx_0006_PSQH.l2:
     mov ax, word [bp - 0x0002]       ; 0x990b
-    cmp ax, word [bss_8466]          ; 0x990e
+    cmp ax, word [party_member_count] ; 0x990e
     jle short @..api_idx_0006_PSQH.l1 ; 0x9912
     jmp short @..api_idx_0006_PSQH.l7 ; 0x9914
 @..api_idx_0006_PSQH.l3:

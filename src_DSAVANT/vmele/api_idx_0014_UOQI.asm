@@ -100,7 +100,7 @@ api_idx_0014_UOQI:
     shl cx, 1                        ; 0x193a
     add ax, cx                       ; 0x193c
     mov bx, ax                       ; 0x193e
-    mov ax, word [bx + 0x5ec]        ; 0x1940
+    mov ax, word [bx + cell_overlay_code + 0x36] ; 0x1940
     mov cx, 0xa                      ; 0x1944
     cwd                              ; 0x1947
     idiv cx                          ; 0x1948
@@ -112,7 +112,7 @@ api_idx_0014_UOQI:
     shl cx, 1                        ; 0x1958
     add ax, cx                       ; 0x195a
     mov bx, ax                       ; 0x195c
-    cmp word [bx + bss_843a], byte 0 ; 0x195e
+    cmp word [bx + cell_slot_ref], byte 0 ; 0x195e
     jne short @..api_idx_0014_UOQI.l10 ; 0x1963
     mov ax, 6                        ; 0x1965
     imul word [bp - 0x000a]          ; 0x1968
@@ -120,7 +120,7 @@ api_idx_0014_UOQI:
     shl cx, 1                        ; 0x196e
     add ax, cx                       ; 0x1970
     mov bx, ax                       ; 0x1972
-    mov word [bx + bss_843a], 0      ; 0x1974
+    mov word [bx + cell_slot_ref], 0 ; 0x1974
     mov ax, 0xa                      ; 0x197a
     imul word [bp - 0x0006]          ; 0x197d
     add ax, word [bp - 0x0004]       ; 0x1980
@@ -133,7 +133,7 @@ api_idx_0014_UOQI:
     add ax, dx                       ; 0x1991
     mov bx, ax                       ; 0x1993
     pop ax                           ; 0x1995
-    mov word [bx + bss_843a], ax     ; 0x1996
+    mov word [bx + cell_slot_ref], ax ; 0x1996
     mov ax, 0xa                      ; 0x199a
     imul word [bp - 0x000e]          ; 0x199d
     add ax, word [bp - 0x0010]       ; 0x19a0
@@ -165,13 +165,13 @@ api_idx_0014_UOQI:
     inc word [bp - 0x0002]           ; 0x19e0
 @..api_idx_0014_UOQI.l13:
     mov ax, word [bp - 0x0002]       ; 0x19e3
-    cmp ax, word [bss_8466]          ; 0x19e6
+    cmp ax, word [party_member_count] ; 0x19e6
     jg short @..api_idx_0014_UOQI.l14 ; 0x19ea
     jmp near @..api_idx_0014_UOQI.l1 ; 0x19ec
 @..api_idx_0014_UOQI.l14:
     mov ax, word [bp - 0x0006]       ; 0x19ef
-    mov word [bss_8466], ax          ; 0x19f2
-    cmp word [bss_8466], byte 0      ; 0x19f5
+    mov word [party_member_count], ax ; 0x19f2
+    cmp word [party_member_count], byte 0 ; 0x19f5
     jne short @..api_idx_0014_UOQI.l16 ; 0x19fa
     cmp word [bss_905e], byte 8      ; 0x19fc
     je short @..api_idx_0014_UOQI.l15 ; 0x1a01

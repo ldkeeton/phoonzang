@@ -66,7 +66,7 @@ api_idx_0010_UUTT:
     inc word [bp - 0x0002]           ; 0x9ad3
 @..api_idx_0010_UUTT.l2:
     mov ax, word [bp - 0x0002]       ; 0x9ad6
-    cmp ax, word [bss_8466]          ; 0x9ad9
+    cmp ax, word [party_member_count] ; 0x9ad9
     jle short @..api_idx_0010_UUTT.l1 ; 0x9add
     jmp short @..api_idx_0010_UUTT.l4 ; 0x9adf
 @..api_idx_0010_UUTT.l3:
@@ -218,7 +218,7 @@ api_idx_0010_UUTT:
     mov ax, word [bp - 0x0002]       ; 0x9c3e
     shl ax, 1                        ; 0x9c41
     mov bx, ax                       ; 0x9c43
-    mov cx, word [bx + 0x606]        ; 0x9c45
+    mov cx, word [bx + cell_overlay_code + 0x50] ; 0x9c45
     mov ax, 0                        ; 0x9c49
     sub ax, cx                       ; 0x9c4c
     jmp short @..api_idx_0010_UUTT.l15 ; 0x9c4e
@@ -226,7 +226,7 @@ api_idx_0010_UUTT:
     mov ax, word [bp - 0x0002]       ; 0x9c50
     shl ax, 1                        ; 0x9c53
     mov bx, ax                       ; 0x9c55
-    mov ax, word [bx + 0x606]        ; 0x9c57
+    mov ax, word [bx + cell_overlay_code + 0x50] ; 0x9c57
 @..api_idx_0010_UUTT.l15:
     mov word [bp - 0x000c], ax       ; 0x9c5b
     push word [bp - 0x0010]          ; 0x9c5e
@@ -258,7 +258,7 @@ api_idx_0010_UUTT:
     push ax                          ; 0x9c9a
     push word [bp - 0x0006]          ; 0x9c9b
     push word [bp - 0x0004]          ; 0x9c9e
-    call api_idx_001c_VLRT           ; 0x9ca1
+    call queue_cell_action_overlay   ; 0x9ca1
     add sp, byte 0x0e                ; 0x9ca4
     push word [bp - 0x0006]          ; 0x9ca7
     push word [bp - 0x0004]          ; 0x9caa
@@ -327,7 +327,7 @@ api_idx_0010_UUTT:
     shl cx, 1                        ; 0x9d44
     add ax, cx                       ; 0x9d46
     mov bx, ax                       ; 0x9d48
-    mov word [bx + bss_843a], 0      ; 0x9d4a
+    mov word [bx + cell_slot_ref], 0 ; 0x9d4a
     mov bx, word [bp + 0x4]          ; 0x9d50
     mov byte [bx + 0x2a], 0xff       ; 0x9d53
     call loc_RPUI                    ; 0x9d57

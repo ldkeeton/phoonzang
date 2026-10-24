@@ -116,7 +116,7 @@ api_idx_000e_UGVQ:
     shl cx, 1                        ; 0x13d3
     add ax, cx                       ; 0x13d5
     mov bx, ax                       ; 0x13d7
-    mov word [bx + bss_843a], 0      ; 0x13d9
+    mov word [bx + cell_slot_ref], 0 ; 0x13d9
     mov bx, word [bp - 0x0004]       ; 0x13df
     mov byte [bx + 0x2a], 0xff       ; 0x13e2
 @..api_idx_000e_UGVQ.l7:

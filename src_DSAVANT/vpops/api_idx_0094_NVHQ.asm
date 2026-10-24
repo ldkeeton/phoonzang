@@ -116,7 +116,7 @@ api_idx_0094_NVHQ:
     mov al, byte [bx + cell_key_grid + 0x4] ; 0x34e2
     sub ah, ah                       ; 0x34e6
     mov bx, ax                       ; 0x34e8
-    cmp byte [bx + 0x60e], 1         ; 0x34ea
+    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x34ea
     jne short @..api_idx_0094_NVHQ.l6 ; 0x34ef
     mov ax, 0x248                    ; 0x34f1
     imul word [bp + 0x4]             ; 0x34f4

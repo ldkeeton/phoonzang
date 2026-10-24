@@ -61,7 +61,7 @@ api_idx_005a_STLR:
     shl cx, 1                        ; 0x2d77
     add ax, cx                       ; 0x2d79
     mov bx, ax                       ; 0x2d7b
-    mov cx, word [bx + 0x5fe]        ; 0x2d7d
+    mov cx, word [bx + cell_overlay_code + 0x48] ; 0x2d7d
     mov ax, 0                        ; 0x2d81
     sub ax, cx                       ; 0x2d84
     jmp short @..api_idx_005a_STLR.l8 ; 0x2d86
@@ -74,7 +74,7 @@ api_idx_005a_STLR:
     shl cx, 1                        ; 0x2d94
     add ax, cx                       ; 0x2d96
     mov bx, ax                       ; 0x2d98
-    mov ax, word [bx + 0x5fe]        ; 0x2d9a
+    mov ax, word [bx + cell_overlay_code + 0x48] ; 0x2d9a
 @..api_idx_005a_STLR.l8:
     mov word [bp - 0x0008], ax       ; 0x2d9e
     cmp word [bp - 0x0004], byte 0   ; 0x2da1
@@ -108,7 +108,7 @@ api_idx_005a_STLR:
     push ax                          ; 0x2dea
     push word [bp - 0x0006]          ; 0x2deb
     push word [bp - 0x0004]          ; 0x2dee
-    call api_idx_001c_VLRT           ; 0x2df1
+    call queue_cell_action_overlay   ; 0x2df1
     add sp, byte 0x0e                ; 0x2df4
     inc word [bp - 0x0006]           ; 0x2df7
     mov ax, word [bp - 0x0006]       ; 0x2dfa

@@ -86,7 +86,7 @@ step_party_animation:
     shl cx, 1                        ; 0x1016
     add ax, cx                       ; 0x1018
     mov bx, ax                       ; 0x101a
-    mov cx, word [bx + 0x5c8]        ; 0x101c
+    mov cx, word [bx + cell_overlay_code + 0x12] ; 0x101c
     mov ax, 0x64                     ; 0x1020
     sub ax, cx                       ; 0x1023
     push ax                          ; 0x1025

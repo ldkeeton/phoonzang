@@ -83,7 +83,7 @@ advance_action_slots.fill_action_slot_table_alt1 equ fill_action_slot_table_alt
 
 %include "shared/game/add_overlay_item.asm"      ; 0x245b
 
-%include "shared/game/api_idx_001c_VLRT.asm"     ; 0x2565
+%include "shared/game/queue_cell_action_overlay.asm" ; 0x2565
 
 %include "shared/game/queue_marker_overlay.asm"  ; 0x27ab
 

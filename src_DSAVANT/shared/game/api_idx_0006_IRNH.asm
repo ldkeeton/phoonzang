@@ -95,7 +95,7 @@ api_idx_0006_IRNH:
     push ax
     push word [bp - 0x0004]
     push word [bp - 0x0002]
-    call api_idx_001c_VLRT
+    call queue_cell_action_overlay
     add sp, byte 0x0e
     inc word [bp - 0x0004]
     mov ax, word [bp - 0x0004]

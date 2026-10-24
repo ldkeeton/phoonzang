@@ -9,7 +9,7 @@ api_idx_0018_TROH:
     shl cx, 1                        ; 0x073a
     add ax, cx                       ; 0x073c
     mov bx, ax                       ; 0x073e
-    mov ax, word [bx + bss_843a]     ; 0x0740
+    mov ax, word [bx + cell_slot_ref] ; 0x0740
     mov word [bp - 0x0002], ax       ; 0x0744
     cmp word [bp - 0x0002], byte 0   ; 0x0747
     jne short @..api_idx_0018_TROH.l1 ; 0x074b
@@ -67,7 +67,7 @@ api_idx_0018_TROH:
     shl cx, 1                        ; 0x07cb
     add ax, cx                       ; 0x07cd
     mov bx, ax                       ; 0x07cf
-    mov ax, word [bx + 0x5da]        ; 0x07d1
+    mov ax, word [bx + cell_overlay_code + 0x24] ; 0x07d1
     mov word [bp - 0x0008], ax       ; 0x07d5
     jmp short @..api_idx_0018_TROH.l8 ; 0x07d8
 @..api_idx_0018_TROH.l6:

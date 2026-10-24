@@ -25,7 +25,7 @@ api_idx_0008_NUPQ:
     pop ax                           ; 0x6402
     add ax, cx                       ; 0x6403
     mov bx, ax                       ; 0x6405
-    mov ax, word [bx + bss_843a]     ; 0x6407
+    mov ax, word [bx + cell_slot_ref] ; 0x6407
     mov cx, 0xa                      ; 0x640b
     cwd                              ; 0x640e
     idiv cx                          ; 0x640f

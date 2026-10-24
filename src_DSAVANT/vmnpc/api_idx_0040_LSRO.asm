@@ -131,7 +131,7 @@ jumptable_36f8_case_4:
     add ax, dx                       ; 0x2cc4
     mov bx, ax                       ; 0x2cc6
     pop ax                           ; 0x2cc8
-    mov word [bx + bss_843a], ax     ; 0x2cc9
+    mov word [bx + cell_slot_ref], ax ; 0x2cc9
     mov ax, 0xffff                   ; 0x2ccd
     push ax                          ; 0x2cd0
     push word [bp - 0x0030]          ; 0x2cd1
@@ -179,7 +179,7 @@ jumptable_36f8_case_4:
     shl cx, 1                        ; 0x2d3d
     add ax, cx                       ; 0x2d3f
     mov bx, ax                       ; 0x2d41
-    mov word [bx + bss_843a], 0      ; 0x2d43
+    mov word [bx + cell_slot_ref], 0 ; 0x2d43
     call loc_RPUI                    ; 0x2d49
 @..api_idx_0040_LSRO.l12:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x2d4c
@@ -959,7 +959,7 @@ jumptable_36f8_case_33:
     shl cx, 1                        ; 0x3465
     add ax, cx                       ; 0x3467
     mov bx, ax                       ; 0x3469
-    mov ax, word [bx + bss_843a]     ; 0x346b
+    mov ax, word [bx + cell_slot_ref] ; 0x346b
     push ax                          ; 0x346f
     mov ax, 6                        ; 0x3470
     imul word [bp - 0x002e]          ; 0x3473
@@ -969,12 +969,12 @@ jumptable_36f8_case_33:
     add ax, dx                       ; 0x347d
     mov bx, ax                       ; 0x347f
     pop ax                           ; 0x3481
-    mov word [bx + bss_843a], ax     ; 0x3482
+    mov word [bx + cell_slot_ref], ax ; 0x3482
     mov ax, 0xffff                   ; 0x3486
     push ax                          ; 0x3489
     push word [bp - 0x0030]          ; 0x348a
     push word [bp - 0x002e]          ; 0x348d
-    push word [bx + bss_843a]        ; 0x3490
+    push word [bx + cell_slot_ref]   ; 0x3490
     call api_idx_0008_JGKT           ; 0x3494
     add sp, byte 8                   ; 0x3497
     mov ax, 6                        ; 0x349a
@@ -983,7 +983,7 @@ jumptable_36f8_case_33:
     shl cx, 1                        ; 0x34a3
     add ax, cx                       ; 0x34a5
     mov bx, ax                       ; 0x34a7
-    mov word [bx + bss_843a], 0      ; 0x34a9
+    mov word [bx + cell_slot_ref], 0 ; 0x34a9
     jmp near @..api_idx_0040_LSRO.l85 ; 0x34af
 jumptable_36f8_case_34:
     push word [bp - 0x0028]          ; 0x34b2

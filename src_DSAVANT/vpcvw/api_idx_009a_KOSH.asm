@@ -40,7 +40,7 @@ api_idx_009a_KOSH:
     mov al, byte [bp - 0x0012]       ; 0x6fbd
     sub ah, ah                       ; 0x6fc0
     mov bx, ax                       ; 0x6fc2
-    cmp byte [bx + 0x60e], 1         ; 0x6fc4
+    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x6fc4
     je short @..api_idx_009a_KOSH.l1 ; 0x6fc9
     cmp byte [bp - 0x0012], 0xd      ; 0x6fcb
     jne short @..api_idx_009a_KOSH.l2 ; 0x6fcf

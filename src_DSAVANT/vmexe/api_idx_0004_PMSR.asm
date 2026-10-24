@@ -70,7 +70,7 @@ api_idx_0004_PMSR:
     idiv cx                          ; 0x347f
     mov word [bp - 0x0004], ax       ; 0x3481
 @..api_idx_0004_PMSR.l9:
-    push word [bss_8454]             ; 0x3484
+    push word [row_limit]            ; 0x3484
     mov ax, 0                        ; 0x3488
     push ax                          ; 0x348b
     push word [bp - 0x0004]          ; 0x348c

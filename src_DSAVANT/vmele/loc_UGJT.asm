@@ -6,7 +6,7 @@ loc_UGJT:
     push ax                          ; 0x3325
     mov ax, 0x12                     ; 0x3326
     push ax                          ; 0x3329
-    mov ax, bss_843a                 ; 0x332a
+    mov ax, cell_slot_ref            ; 0x332a
     push ax                          ; 0x332d
     call aztec_setmem                ; 0x332e
     add sp, byte 6                   ; 0x3331
@@ -37,7 +37,7 @@ loc_UGJT:
     mov ax, word [bp - 0x0002]       ; 0x3375
     cmp ax, strict word 7            ; 0x3378
     jl short @..loc_UGJT.l2          ; 0x337b
-    mov word [bss_8466], 0           ; 0x337d
+    mov word [party_member_count], 0 ; 0x337d
     mov word [bss_845c], 0           ; 0x3383
     mov word [bss_845e], 0xfffe      ; 0x3389
     ret                              ; 0x338f

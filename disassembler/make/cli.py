@@ -79,7 +79,7 @@ Env:
                             with the binary and a timestamp; worker stderr is echoed as
                             it is written
   ASM_DOSBOX_SHOW=1         show the DOSBox window while compiling (headless otherwise)
-  ASM_DOSBOX_TIMEOUT=SECS   bound one DOSBox session (default 300; 0 disables)
+  ASM_DOSBOX_TIMEOUT=SECS   bound one DOSBox session (0 disables)
   ASM_PROFILE=DIR           write each build worker's cProfile to DIR/<binary>.prof
   JSON=1                    machine-readable output from ``info``/``refs``/``data``/``probe``
   LEN=N                     bytes ``make data`` prints (default 16)

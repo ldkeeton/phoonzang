@@ -65,7 +65,7 @@ api_idx_009c_MRKK:
     push ax                          ; 0x6828
     call api_idx_005e_SHOL           ; 0x6829
     add sp, byte 4                   ; 0x682c
-    mov word [bss_843a], 0           ; 0x682f
+    mov word [cell_slot_ref], 0      ; 0x682f
     call loc_RPUI                    ; 0x6835
 @..api_idx_009c_MRKK.l5:
     ret                              ; 0x6838
@@ -645,7 +645,7 @@ jumptable_6c16:
     push ax                          ; 0x6d8c
     call api_idx_005e_SHOL           ; 0x6d8d
     add sp, byte 4                   ; 0x6d90
-    mov word [bss_843a], 0           ; 0x6d93
+    mov word [cell_slot_ref], 0      ; 0x6d93
     call loc_RPUI                    ; 0x6d99
 @..api_idx_009c_MRKK.l54:
     ret                              ; 0x6d9c

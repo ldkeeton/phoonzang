@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_001c_VLRT:
+queue_cell_action_overlay:
     mov ax, 0xffe4
     call aztec_csav
     mov byte [bp - 0x001c], 0
@@ -9,30 +9,30 @@ api_idx_001c_VLRT:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx + bss_843a]
+    mov ax, word [bx + cell_slot_ref]
     mov cx, 0xa
     cwd
     idiv cx
     mov word [bp - 0x0002], ax
     mov word [bp - 0x0004], dx
     cmp ax, strict word 1
-    jl short @..api_idx_001c_VLRT.l1
+    jl short @..queue_cell_action_overlay.l1
     cmp ax, strict word 3
-    jg short @..api_idx_001c_VLRT.l1
+    jg short @..queue_cell_action_overlay.l1
     mov ax, word [bp + 0x4]
-    cmp ax, word [bss_8454]
-    jle short @..api_idx_001c_VLRT.l2
-@..api_idx_001c_VLRT.l1:
+    cmp ax, word [row_limit]
+    jle short @..queue_cell_action_overlay.l2
+@..queue_cell_action_overlay.l1:
     ret
-@..api_idx_001c_VLRT.l2:
+@..queue_cell_action_overlay.l2:
     mov ax, word [bp - 0x0002]
     shl ax, 1
     mov bx, ax
     mov bx, word [bx + party_char]
     cmp byte [bx + 0x19f], 0xff
-    jne short @..api_idx_001c_VLRT.l3
+    jne short @..queue_cell_action_overlay.l3
     ret
-@..api_idx_001c_VLRT.l3:
+@..queue_cell_action_overlay.l3:
     mov al, byte [bx + 0x19f]
     cbw
     mov word [bp - 0x0006], ax
@@ -46,9 +46,9 @@ api_idx_001c_VLRT:
     call advance_action_slots
     add sp, byte 0x0c
     cmp byte [bp - 0x001c], 0
-    jne short @..api_idx_001c_VLRT.l4
+    jne short @..queue_cell_action_overlay.l4
     ret
-@..api_idx_001c_VLRT.l4:
+@..queue_cell_action_overlay.l4:
     mov ax, word [bp + 0x6]
     mov cx, 2
     cwd
@@ -61,9 +61,9 @@ api_idx_001c_VLRT:
     imul word [bp - 0x0006]
     mov bx, ax
     cmp byte [bx + slot_rec_forced], 0
-    je short @..api_idx_001c_VLRT.l5
+    je short @..queue_cell_action_overlay.l5
     mov word [bp + 0x8], 0
-@..api_idx_001c_VLRT.l5:
+@..queue_cell_action_overlay.l5:
     mov cx, word [bp - 0x000a]
     shl cx, 1
     shl cx, 1
@@ -73,18 +73,18 @@ api_idx_001c_VLRT:
     sub ah, ah
     mov word [bp - 0x000c], ax
     cmp word [bp - 0x000c], byte 0
-    jne short @..api_idx_001c_VLRT.l6
+    jne short @..queue_cell_action_overlay.l6
     mov ax, 6
     imul word [bp + 0x4]
     mov cx, word [bp + 0x6]
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx + 0x5b6]
+    mov ax, word [bx + cell_overlay_code]
     sub ax, word [bp - 0x0002]
     mov word [bp - 0x000c], ax
-    jmp short @..api_idx_001c_VLRT.l8
-@..api_idx_001c_VLRT.l6:
+    jmp short @..queue_cell_action_overlay.l8
+@..queue_cell_action_overlay.l6:
     mov ax, 0x64
     push ax
     mov ax, 5
@@ -94,9 +94,9 @@ api_idx_001c_VLRT:
     mov cx, ax
     mov ax, 0
     cmp word [bp + 0x6], byte 0
-    jne short @..api_idx_001c_VLRT.l7
+    jne short @..queue_cell_action_overlay.l7
     mov ax, 5
-@..api_idx_001c_VLRT.l7:
+@..queue_cell_action_overlay.l7:
     add cx, ax
     mov ax, word [bp - 0x000c]
     sub ax, cx
@@ -104,7 +104,7 @@ api_idx_001c_VLRT:
     call clamp_between
     add sp, byte 6
     mov word [bp - 0x000c], ax
-@..api_idx_001c_VLRT.l8:
+@..queue_cell_action_overlay.l8:
     mov ax, word [bp + 0xe]
     dec ax
     push ax
@@ -161,15 +161,15 @@ api_idx_001c_VLRT:
     pop ax
     add ax, cx
     mov word [bp - 0x0010], ax
-    cmp word [bss_8466], byte 1
-    jne short @..api_idx_001c_VLRT.l9
-    mov bx, word [bss_8484]
+    cmp word [party_member_count], byte 1
+    jne short @..queue_cell_action_overlay.l9
+    mov bx, word [party_char + 0x2]
     cmp byte [bx + 0x1a1], 1
-    jne short @..api_idx_001c_VLRT.l9
+    jne short @..queue_cell_action_overlay.l9
     cmp word [bp + 0x4], byte 0
-    jne short @..api_idx_001c_VLRT.l9
+    jne short @..queue_cell_action_overlay.l9
     mov word [bp + 0xa], 0
-@..api_idx_001c_VLRT.l9:
+@..queue_cell_action_overlay.l9:
     mov ax, 0xa0
     sub ax, word [bp - 0x000e]
     imul word [bp + 0xa]
@@ -183,7 +183,7 @@ api_idx_001c_VLRT:
     idiv cx
     mov ax, dx
     test ax, ax
-    je short @..api_idx_001c_VLRT.l10
+    je short @..queue_cell_action_overlay.l10
     mov ax, 0x15e
     imul word [bp - 0x0006]
     mov cx, ax
@@ -209,7 +209,7 @@ api_idx_001c_VLRT:
     cwd
     idiv cx
     sub word [bp - 0x000e], ax
-@..api_idx_001c_VLRT.l10:
+@..queue_cell_action_overlay.l10:
     mov ax, word [bp + 0xe]
     dec ax
     push ax

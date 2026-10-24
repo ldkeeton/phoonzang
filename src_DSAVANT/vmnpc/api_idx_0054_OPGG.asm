@@ -211,7 +211,7 @@ api_idx_0054_OPGG:
     mov al, byte [bx + bss_9918]     ; 0x4703
     sub ah, ah                       ; 0x4707
     mov bx, ax                       ; 0x4709
-    cmp byte [bx + 0x60e], 1         ; 0x470b
+    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x470b
     jne short @..api_idx_0054_OPGG.l9 ; 0x4710
     mov ax, 0xe                      ; 0x4712
     imul word [bp - 0x0002]          ; 0x4715

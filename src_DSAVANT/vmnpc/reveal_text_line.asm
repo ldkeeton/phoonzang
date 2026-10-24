@@ -13,7 +13,7 @@ reveal_text_line:
     shl cx, 1                        ; 0x929b
     add ax, cx                       ; 0x929d
     mov bx, ax                       ; 0x929f
-    cmp word [bx + bss_843a], byte 0 ; 0x92a1
+    cmp word [bx + cell_slot_ref], byte 0 ; 0x92a1
     je short @..reveal_text_line.l3  ; 0x92a6
     inc word [bp - 0x000c]           ; 0x92a8
 @..reveal_text_line.l3:

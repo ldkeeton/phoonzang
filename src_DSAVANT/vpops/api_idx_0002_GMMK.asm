@@ -42,7 +42,7 @@ api_idx_0002_GMMK:
     inc word [bp - 0x0002]           ; 0x4df7
 @..api_idx_0002_GMMK.l5:
     mov ax, word [bp - 0x0002]       ; 0x4dfa
-    cmp ax, word [bss_8466]          ; 0x4dfd
+    cmp ax, word [party_member_count] ; 0x4dfd
     jle short @..api_idx_0002_GMMK.l1 ; 0x4e01
     mov bx, word [bss_848e]          ; 0x4e03
     cmp byte [bx + 0x1a1], 0         ; 0x4e07
@@ -50,7 +50,7 @@ api_idx_0002_GMMK:
     mov word [bp - 0x0002], 1        ; 0x4e0e
 @..api_idx_0002_GMMK.l6:
     mov ax, word [bp - 0x0002]       ; 0x4e13
-    cmp ax, word [bss_8466]          ; 0x4e16
+    cmp ax, word [party_member_count] ; 0x4e16
     jge short @..api_idx_0002_GMMK.l7 ; 0x4e1a
     mov ax, 3                        ; 0x4e1c
     push ax                          ; 0x4e1f

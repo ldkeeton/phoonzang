@@ -28,7 +28,7 @@ api_idx_0008_SJOG:
     jne short @..api_idx_0008_SJOG.l1 ; 0x07ee
     ret                              ; 0x07f0
 @..api_idx_0008_SJOG.l1:
-    inc word [bss_8466]              ; 0x07f1
+    inc word [party_member_count]    ; 0x07f1
     mov al, byte [bp + 0x4]          ; 0x07f5
     mov cx, word [bp + 0x6]          ; 0x07f8
     shl cx, 1                        ; 0x07fb

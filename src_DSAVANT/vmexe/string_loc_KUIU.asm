@@ -37,10 +37,10 @@ string_loc_KUIU:
 @..string_loc_KUIU.l3:
     cmp word [bp + 0x10], byte 0     ; 0x3675
     jle short @..string_loc_KUIU.l4  ; 0x3679
-    cmp word [bss_8466], byte 5      ; 0x367b
+    cmp word [party_member_count], byte 5 ; 0x367b
     jge short @..string_loc_KUIU.l4  ; 0x3680
-    inc word [bss_8466]              ; 0x3682
-    mov ax, word [bss_8466]          ; 0x3686
+    inc word [party_member_count]    ; 0x3682
+    mov ax, word [party_member_count] ; 0x3686
     mov word [bp - 0x0004], ax       ; 0x3689
     jmp short @..string_loc_KUIU.l5  ; 0x368c
 @..string_loc_KUIU.l4:
@@ -157,7 +157,7 @@ jumptable_372d:
     pop cx                           ; 0x378b
     cmp ax, strict word 0xffff       ; 0x378c
     jne short @..string_loc_KUIU.l12 ; 0x378f
-    dec word [bss_8466]              ; 0x3791
+    dec word [party_member_count]    ; 0x3791
     mov ax, 2                        ; 0x3795
     push ax                          ; 0x3798
     mov ax, 0x41                     ; 0x3799

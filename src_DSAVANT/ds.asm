@@ -112,12 +112,12 @@ bss_831a equ __zbss_831a - __zdseg_start
 bss_8320 equ __zbss_8320 - __zdseg_start
 action_slot_table equ __zbss_8322 - __zdseg_start
 action_slot_mode equ __zbss_8430 - __zdseg_start
-bss_843a equ __zbss_843a - __zdseg_start
+cell_slot_ref equ __zbss_843a - __zdseg_start
 bss_844c equ __zbss_844c - __zdseg_start
 bss_844e equ __zbss_844e - __zdseg_start
 bss_8450 equ __zbss_8450 - __zdseg_start
 bss_8452 equ __zbss_8452 - __zdseg_start
-bss_8454 equ __zbss_8454 - __zdseg_start
+row_limit equ __zbss_8454 - __zdseg_start
 bss_8456 equ __zbss_8456 - __zdseg_start
 bss_8458 equ __zbss_8458 - __zdseg_start
 bss_845a equ __zbss_845a - __zdseg_start
@@ -126,10 +126,9 @@ bss_845e equ __zbss_845e - __zdseg_start
 dest_alt_arg equ __zbss_8460 - __zdseg_start
 bss_8462 equ __zbss_8462 - __zdseg_start
 bss_8464 equ __zbss_8464 - __zdseg_start
-bss_8466 equ __zbss_8466 - __zdseg_start
+party_member_count equ __zbss_8466 - __zdseg_start
 overlay_list equ __zbss_8468 - __zdseg_start
 party_char equ __zbss_8482 - __zdseg_start
-bss_8484 equ __zbss_8484 - __zdseg_start
 bss_848e equ __zbss_848e - __zdseg_start
 party_char_ext equ __zbss_8490 - __zdseg_start
 bss_8492 equ __zbss_8492 - __zdseg_start
@@ -453,7 +452,8 @@ saved_screen_ref          equ __zbss_5be0 - __zdseg_start
 ; saved_screen_ref  equ __zbss_5be0 - __zdseg_start
 %include "ds/game/restore_saved_screen.asm" ; 0x16a0
 
-cell_key_grid equ __zbss_5c34 - __zdseg_start
+cell_overlay_code equ __zcell_overlay_code - __zdseg_start
+cell_key_grid     equ __zbss_5c34 - __zdseg_start
 %include "ds/game/cell_power.asm"          ; 0x1741
 
 pc_records    equ __zbss_5c10 - __zdseg_start
@@ -1002,6 +1002,8 @@ __zdseg_start:
 
 %include "ds/data/dseg_03ae.asm"           ; 0x1050e
 
+%include "ds/data/cell_overlay_code.asm"   ; 0x10716
+
 %include "ds/data/spell_table.asm"         ; 0x10780
 
 %include "ds/data/str_insert_savegame_disk.asm" ; 0x10cd4
@@ -1422,9 +1424,7 @@ __zbss_8466:
 __zbss_8468:
     resb 0x001a
 __zbss_8482:
-    resb 0x0002
-__zbss_8484:
-    resb 0x000a
+    resb 0x000c
 __zbss_848e:
     resb 0x0002
 __zbss_8490:

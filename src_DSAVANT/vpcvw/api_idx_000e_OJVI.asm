@@ -6,7 +6,7 @@ api_idx_000e_OJVI:
     mov al, byte [bx + 0x4]          ; 0x450e
     sub ah, ah                       ; 0x4511
     mov bx, ax                       ; 0x4513
-    cmp byte [bx + 0x60e], 1         ; 0x4515
+    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x4515
     jne short @..api_idx_000e_OJVI.l1 ; 0x451a
     mov bx, word [bp + 0x4]          ; 0x451c
     cmp byte [bx + 0x6], 1           ; 0x451f

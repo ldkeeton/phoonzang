@@ -30,7 +30,7 @@ api_idx_0004_TTLU:
     inc word [bp - 0x0002]           ; 0x17f7
 @..api_idx_0004_TTLU.l3:
     mov ax, word [bp - 0x0002]       ; 0x17fa
-    cmp ax, word [bss_8466]          ; 0x17fd
+    cmp ax, word [party_member_count] ; 0x17fd
     jle short @..api_idx_0004_TTLU.l2 ; 0x1801
     mov word [bp - 0x0004], 0xf      ; 0x1803
 @..api_idx_0004_TTLU.l4:

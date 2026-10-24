@@ -10,7 +10,7 @@ loc_RLUJ:
     push word [bss_8456]             ; 0x33f3
     call clamp_between               ; 0x33f7
     add sp, byte 6                   ; 0x33fa
-    mov word [bss_8454], ax          ; 0x33fd
+    mov word [row_limit], ax         ; 0x33fd
     mov word [bss_8458], 0           ; 0x3400
     cmp word [loaded_score_num], byte 0xff ; 0x3406
     je short @..loc_RLUJ.l3          ; 0x340b
@@ -255,7 +255,7 @@ loc_RLUJ:
     mov word [bss_90ba], ax          ; 0x363c
     cmp word [bss_905e], byte 0x12   ; 0x363f
     jne short @..loc_RLUJ.l13        ; 0x3644
-    cmp word [bss_8466], byte 1      ; 0x3646
+    cmp word [party_member_count], byte 1 ; 0x3646
     jle short @..loc_RLUJ.l13        ; 0x364b
     mov ax, 1                        ; 0x364d
     push ax                          ; 0x3650
