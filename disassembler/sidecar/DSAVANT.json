@@ -1378,7 +1378,8 @@
         "format": "e8_rel16_cb"
       },
       "force_data": [
-        {"start": "03cd", "end": "03db", "note": "Fifteen zero bytes between the device switch's last arm (jmp at 0x03ca) and the case-1 arm at 0x03dc; decoding them linearly straddles 0x03dc and hides the table target"}
+        {"start": "03cd", "end": "03db", "note": "Fifteen zero bytes between the device switch's last arm (jmp at 0x03ca) and the case-1 arm at 0x03dc; decoding them linearly straddles 0x03dc and hides the table target"},
+        {"start": "0e21", "end": "0e23", "note": "Three zero bytes between the skip-byte event handler's jmp at 0x0e20 and the note handler at 0x0e24; naming that handler makes the force-code sweep decode them across 0x0e24"}
       ],
       "force_code": [
         {"start": "0e51", "end": "0f27", "note": "Unreachable code after `jmp near loc_LPMH` at 0x0e4e: a switch on cs:[0x0e46] (6-10) that sets OPL rhythm bits through register 0xBD, plus its helper at 0x0f12 (`cs xlatb` through 0x1529) ending in the ret at 0x0f27."},
@@ -1409,6 +1410,7 @@
         {"offset": "0e57", "space": "cs", "note": "`mov bx, 0x1b3a` in the force_code routine at 0x0e51: the volume-curve table the sibling at 0x130d loads for `cs xlatb` after the same `cs:[0x0e3f] * cs:[0x0ba8]` product. Here the xlat was replaced by `mov cl, 0x3f; sub cl, al` and bx is overwritten (helper at 0x0f12) before any read"}
       ],
       "function_names": {
+        "00b6": {"name": "mpu401_reset_with_retries", "note": "retries mpu401_reset_and_sync up to ten times while it keeps failing; returns its last status (0 = ready, 0fffh = timed out)"},
         "00c4": {"name": "opl_init"},
         "01e6": {"name": "opl_keys_off", "note": "clears the key-on bit (0x20) of OPL registers B0h+n for n = 0..opl_voice_count from the shadow at 1429; B1h base on devices 1 and 4; falls through into 0203"},
         "0294": {"name": "play_select_device"},
@@ -1416,13 +1418,56 @@
         "0322": {"name": "play_set_device", "note": "entered by jmp in the caller's frame: INT 13h reset, then stores the device byte [bp+15h] (4 becomes 1) in play_device"},
         "03e2": {"name": "play_install_handler", "note": "entered by jmp in the caller's frame: installs the INT 08h handler picked by play_device through the table at 0495"},
         "07f6": {"name": "opl_write", "note": "writes al to OPL register ah at port 388h, recording it in the register shadow at 1429"},
-        "1217": {"name": "mpu401_reset_and_sync", "note": "reset the MPU-401 at ports 330h/331h and wait for MIDI active sensing; returns 0 on success, 0fffh after retries time out"}
+        "09d4": {"name": "sound_stop_and_restore_timer", "note": "turns the speaker off, restores the saved INT 08h vector, reloads timer 0 with count 0 (65536), and restores the saved PIC mask"},
+        "0a41": {"name": "speaker_sample_interrupt", "note": "INT 08h tick: reads the index byte at di, looks it up in the cs table at bx and writes the result to PIT channel 2, advances the di:ax accumulator by 8000h, and on di wrap stops playback through sound_stop_and_restore_timer"},
+        "0ad9": {"name": "music_stop", "note": "clears the running flag, silences the OPL on device 1, and returns through the player saved registers"},
+        "0af6": {"name": "music_player_tick", "note": "one music step: chains the saved timer handler on a countdown, plays the MPU-401 event path, and dispatches OPL events by opcode"},
+        "0c97": {"name": "restore_timer_handler", "note": "restores the saved INT 08h vector and PIC mask, stops PIT channel 0, and clears the installed flag"},
+        "0cca": {"name": "music_loop_event", "note": "0feh command: reads a word into the restart delay, saves si as the restart offset, and stops the step"},
+        "0e01": {"name": "store_nibble_event", "note": "30h-3fh event: stores the next byte in the 16-byte channel table at cseg_0cdf indexed by the low nibble"},
+        "0e11": {"name": "skip_byte_event", "note": "50h-5fh event: skips one byte of event data"},
+        "0e15": {"name": "store_word_event", "note": "60h-6fh event: reads a word into cseg_0d41"},
+        "0e1d": {"name": "skip_word_event", "note": "20h-2fh event: skips one word of event data"},
+        "0e24": {"name": "note_event_high", "note": "10h-1fh event: note handler; looks up the channel voice and starts or retriggers the note"},
+        "1081": {"name": "note_event_low", "note": "00h-0fh event: same note handler code as the 10h-1fh range"},
+        "11da": {"name": "mpu_set_volume", "note": "sends MIDI controller 7 on channels 1-15 with half the music volume"},
+        "11fb": {"name": "mpu_send_byte", "note": "waits for the MPU-401 write-ready status bit, then writes al to port 330h"},
+        "1217": {"name": "mpu401_reset_and_sync", "note": "reset the MPU-401 at ports 330h/331h and wait for MIDI active sensing; returns 0 on success, 0fffh after retries time out"},
+        "18e4": {"name": "pit_sample_interrupt", "note": "INT 08h handler: plays one sample byte through PIT channel 2, counts down the music divider, and restores the timer when the sample ends"}
       },
       "code_data_names": {
+        "0a7c": {"name": "music_device", "note": "byte: music device 0-5; 5 selects the MPU-401 event path, other values the OPL opcode dispatch"},
         "0a7d": {"name": "play_device", "note": "byte: output device 0-5; indexes the INT 08h handler sub-tables at 0495, set by play_set_device"},
+        "0a7e": {"name": "stream_running", "note": "byte: set when event processing starts; a restart-delay expiry returns without restarting while it is set"},
+        "0a7f": {"name": "restart_delay", "note": "word: countdown to the next block; set to 1 at init and loaded from a 0feh command, cleared on restart"},
+        "0a81": {"name": "tick_divider", "note": "word: reloaded from the tempo on each player step; the INT 08h handlers decrement it and call the player when it reaches zero"},
+        "0a83": {"name": "chain_period", "note": "word: reload for the chained-handler countdown, computed as 038eh divided by the tempo"},
+        "0a85": {"name": "chain_countdown", "note": "word: decremented on each player step; when it reaches zero the saved INT 08h handler is called and the count reloaded"},
+        "0a8f": {"name": "saved_pic_mask", "note": "8259 master interrupt mask saved by the installer and written back when the sound handler stops"},
+        "0a94": {"name": "timer_handler_installed", "note": "byte: 0 when no INT 08h handler is installed; end of stream uninstalls the handler when nonzero"},
+        "0a95": {"name": "sample_step_fraction", "note": "byte: sample-position fraction; adding 80h per tick advances the patched sample offset once every two ticks"},
+        "0a9a": {"name": "music_enabled", "note": "byte: 0 makes a player step stop and silence the OPL; set to 1 by the init path once the driver is loaded"},
+        "0a9d": {"name": "loop_at_end", "note": "byte: nonzero makes end of stream restart at the saved start offset instead of stopping"},
+        "0a9e": {"name": "stream_start_offset", "note": "word: stream offset saved at init, used to restart when the stream ends"},
+        "0aa2": {"name": "stream_segment", "note": "word: segment of the track byte stream, loaded into ds while stepping"},
+        "0aa4": {"name": "stream_offset", "note": "word: offset of the next track byte, saved for a loop or restart"},
+        "0aa6": {"name": "music_tempo", "note": "word: tempo; the timer reload is computed from it and each player step reloads the tick divider with it"},
+        "0aa8": {"name": "playback_volume", "note": "byte: volume 0-255; the MPU volume setup halves it for controller 7"},
+        "0aa9": {"name": "last_playback_volume", "note": "byte: last volume sent to the MPU, so controller 7 is only re-sent when it changes"},
+        "0aac": {"name": "music_data_segment", "note": "word: segment of the instrument/patch table, set with the offset by the driver setup call"},
+        "0aae": {"name": "music_data_offset", "note": "word: offset of the instrument/patch table, set with the segment by the driver setup call"},
+        "0ad7": {"name": "event_class_flag", "note": "byte: cleared before each OPL event and set to 1 for the 10h-1fh range"},
+        "0ad8": {"name": "note_started", "note": "byte: cleared before each OPL event and set to 1 by the OPL note-start path"},
         "0d3a": {"name": "opl_voice_count", "note": "byte: highest OPL channel opl_keys_off clears and bound of the loops over the 5-byte records at 0d03; set to 8 by opl_init"},
+        "11bf": {"name": "event_byte_counts", "note": "7 bytes: number of data bytes that follow for event command nibbles 0-6"},
+        "11c6": {"name": "channel_last_byte", "note": "16 bytes: last event data byte stored for each channel (low nibble)"},
+        "11d6": {"name": "byte_remap_table", "note": "word pairs: event byte and its replacement, terminated by 0ffffh"},
+        "11d7": {"name": "current_event", "note": "byte: the track event byte being processed"},
+        "11d8": {"name": "event_channel", "note": "byte: low nibble of the current event byte"},
+        "11d9": {"name": "event_command", "note": "byte: high nibble of the current event byte"},
         "121a": {"name": "mpu401_write_ready_flag", "note": "set when MPU-401 status bit 6 clears within the timeout"},
-        "121b": {"name": "mpu401_read_ready_flag", "note": "set when MPU-401 status bit 7 clears within the timeout"}
+        "121b": {"name": "mpu401_read_ready_flag", "note": "set when MPU-401 status bit 7 clears within the timeout"},
+        "193a": {"name": "sample_count_table", "note": "byte table: sample byte to PIT channel 2 count low byte, read with cs xlatb by the INT 08h handlers"}
       }
     }
   },

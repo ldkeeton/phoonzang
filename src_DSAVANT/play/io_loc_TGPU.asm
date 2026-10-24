@@ -14,14 +14,14 @@ __zinsn_08be:
 __zinsn_08c3:
     mov al, byte [0x0000]            ; 0x08c3
     mov dx, 0x389                    ; 0x08c6
-    mov bx, cseg_193a - IMAGE_BASE   ; 0x08c9
+    mov bx, sample_count_table - IMAGE_BASE ; 0x08c9
     cs xlatb                         ; 0x08cc
     out dx, al                       ; 0x08ce
 __zinsn_08cf:
-    add byte [cs:cseg_0a95 - IMAGE_BASE], 0x80 ; 0x08cf
+    add byte [cs:sample_step_fraction - IMAGE_BASE], 0x80 ; 0x08cf
     adc word [cs:cseg_08c4 - IMAGE_BASE], byte 0 ; 0x08d5
     jb short @..io_loc_TGPU.l1       ; 0x08db
-    dec word [cs:cseg_0a81 - IMAGE_BASE] ; 0x08dd
+    dec word [cs:tick_divider - IMAGE_BASE] ; 0x08dd
     je short loc_GHVG                ; 0x08e2
     mov al, 0x20                     ; 0x08e4
     out 0x20, al                     ; 0x08e6
@@ -31,7 +31,7 @@ __zinsn_08cf:
     pop ax                           ; 0x08eb
     iret                             ; 0x08ec
 loc_GHVG:
-    call io_loc_JPGM                 ; 0x08ed
+    call music_player_tick           ; 0x08ed
     mov dx, 0x388                    ; 0x08f0
     mov al, 0x40                     ; 0x08f3
     out dx, al                       ; 0x08f5
@@ -62,10 +62,10 @@ loc_GHVG:
     je short @..io_loc_TGPU.l3       ; 0x0925
     dec byte [cs:cseg_086e - IMAGE_BASE] ; 0x0927
     mov dx, 0x389                    ; 0x092c
-    mov bx, cseg_193a - IMAGE_BASE   ; 0x092f
+    mov bx, sample_count_table - IMAGE_BASE ; 0x092f
     cs xlatb                         ; 0x0932
     out dx, al                       ; 0x0934
-    dec word [cs:cseg_0a81 - IMAGE_BASE] ; 0x0935
+    dec word [cs:tick_divider - IMAGE_BASE] ; 0x0935
     je short loc_GHVG                ; 0x093a
     mov al, 0x20                     ; 0x093c
     out 0x20, al                     ; 0x093e
@@ -79,7 +79,7 @@ loc_GHVG:
     mov al, 0x3f                     ; 0x094b
     mov dx, 0x388                    ; 0x094d
     out dx, al                       ; 0x0950
-    call io_loc_UQMR                 ; 0x0951
+    call sound_stop_and_restore_timer ; 0x0951
     mov al, 0x20                     ; 0x0954
     out 0x20, al                     ; 0x0956
     pop bx                           ; 0x0958

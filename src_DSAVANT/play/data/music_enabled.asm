@@ -1,0 +1,3 @@
+; auto-generated
+music_enabled:
+    db 0x00, 0x00, 0x00

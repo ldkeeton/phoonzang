@@ -128,30 +128,25 @@ class ImmediateTest(unittest.TestCase):
 
 
 class GroupingTest(unittest.TestCase):
-    def test_one_instruction_stub_is_reported(self):
-        findings = _findings({
+    def test_empty_functions_under_other_names_are_not_reported(self):
+        self.assertEqual(_findings({
             'a/one.asm': 'one:\n    ret\n',
             'b/two.asm': 'two:\n    ret\n',
-        })
-        self.assertEqual([f.kind for f in findings], ['code'])
-        self.assertEqual(len(findings[0].members), 2)
+        }), [])
 
-    def test_empty_functions_held_several_times_by_one_binary_are_not(self):
+    def test_an_empty_function_with_its_name_elsewhere_is_reported(self):
         findings = _findings({
             'a/one.asm': 'one:\n    ret\n',
-            'a/two.asm': 'two:\n    ret\n',
-            'b/three.asm': 'three:\n    ret\n',
-        })
-        self.assertEqual(findings, [])
-
-    def test_a_lone_empty_function_with_a_twin_elsewhere_is_still_reported(self):
-        findings = _findings({
-            'a/one.asm': 'one:\n    ret\n',
-            'a/two.asm': 'two:\n    ret\n',
-            'b/three.asm': 'three:\n    ret\n',
-            'c/four.asm': 'four:\n    ret\n',
+            'b/one.asm': 'one:\n    ret\n',
+            'b/two.asm': 'two:\n    ret\n',
         })
         self.assertEqual([len(f.members) for f in findings], [2])
+
+    def test_a_shared_empty_function_and_another_name_are_silent(self):
+        self.assertEqual(_findings({
+            'shared/library/fade_in.asm': 'fade_in:\n    ret\n',
+            'ds/library/other.asm': 'other:\n    ret\n',
+        }), [])
 
     def test_generated_asm_with_a_hand_owned_source_is_reported(self):
         with tempfile.TemporaryDirectory() as root:

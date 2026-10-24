@@ -13,13 +13,13 @@ __zinsn_097a:
     out 0x20, al                     ; 0x0987
     iret                             ; 0x0989
 @..io_loc_UVLK_0975.l1:
-    call io_loc_JPGM                 ; 0x098a
-    mov si, word [cs:cseg_0a81 - IMAGE_BASE] ; 0x098d
+    call music_player_tick           ; 0x098a
+    mov si, word [cs:tick_divider - IMAGE_BASE] ; 0x098d
     mov al, 0x20                     ; 0x0992
     out 0x20, al                     ; 0x0994
     iret                             ; 0x0996
 @..io_loc_UVLK_0975.l2:
-    call io_loc_UQMR                 ; 0x0997
+    call sound_stop_and_restore_timer ; 0x0997
     mov al, 0x20                     ; 0x099a
     out 0x20, al                     ; 0x099c
     iret                             ; 0x099e

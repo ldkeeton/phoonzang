@@ -11,10 +11,10 @@ loc_GILG:
     je short loc_MTMG                ; 0x087e
     inc byte [cs:cseg_086e - IMAGE_BASE] ; 0x0880
     mov dx, 0x389                    ; 0x0885
-    mov bx, cseg_193a - IMAGE_BASE   ; 0x0888
+    mov bx, sample_count_table - IMAGE_BASE ; 0x0888
     cs xlatb                         ; 0x088b
     out dx, al                       ; 0x088d
-    dec word [cs:cseg_0a81 - IMAGE_BASE] ; 0x088e
+    dec word [cs:tick_divider - IMAGE_BASE] ; 0x088e
     je short loc_GHVG                ; 0x0893
     mov al, 0x20                     ; 0x0895
     out 0x20, al                     ; 0x0897

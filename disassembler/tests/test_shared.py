@@ -277,6 +277,17 @@ class OtherNameTest(unittest.TestCase):
             {'a': self._named('fade_in'), 'b': self._named('fade_out')})
         self.assertEqual(result, {})
 
+    def test_empty_functions_under_two_tags_stay(self):
+        files = {'a/f_GGGG.asm': 'f_GGGG:\n    ret\n',
+                 'b/f_HHHH.asm': 'f_HHHH:\n    ret\n',
+                 'a.asm': '%include "a/f_GGGG.asm"\n',
+                 'b.asm': '%include "b/f_HHHH.asm"\n'}
+        with tempfile.TemporaryDirectory() as root:
+            _, result = shared.share_files(
+                files, root, {'a': self._table('f_GGGG'),
+                              'b': self._table('f_HHHH')})
+        self.assertEqual(result, {})
+
     def test_the_host_s_copy_keeps_its_own_name(self):
         from lib.symtab import Kind, Symbol
         host = {'ds_f_GGGG': Symbol.generated('f', 0, Kind.ROUTINE,

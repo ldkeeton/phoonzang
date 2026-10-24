@@ -20,7 +20,7 @@ jumptable_0789_case_0:
     mov ah, al                       ; 0x07a0
 @..loc_0793.l1:
     mov byte [cs:cseg_0a93 - IMAGE_BASE], ah ; 0x07a2
-    mov bx, cseg_193a - IMAGE_BASE   ; 0x07a7
+    mov bx, sample_count_table - IMAGE_BASE ; 0x07a7
     xor cl, cl                       ; 0x07aa
     mov al, byte [bp + 0x12]         ; 0x07ac
     mov byte [cs:cseg_0a92 - IMAGE_BASE], al ; 0x07af
@@ -43,7 +43,7 @@ jumptable_0789_case_0:
     jne short @..loc_0793.l2         ; 0x07d8
     ret                              ; 0x07da
 jumptable_0789_case_2:
-    mov bx, cseg_193a - IMAGE_BASE   ; 0x07db
+    mov bx, sample_count_table - IMAGE_BASE ; 0x07db
     xor cl, cl                       ; 0x07de
     mov al, byte [bp + 0x12]         ; 0x07e0
     mov dl, al                       ; 0x07e3

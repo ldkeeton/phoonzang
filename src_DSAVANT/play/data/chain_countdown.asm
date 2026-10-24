@@ -1,0 +1,3 @@
+; auto-generated
+chain_countdown:
+    db 0x83, 0x0b, 0x20, 0x02

@@ -1,6 +1,6 @@
 ; auto-generated
 loc_095d:
-    call io_loc_JPGM                 ; 0x095d
+    call music_player_tick           ; 0x095d
     mov al, 0x20                     ; 0x0960
     out 0x20, al                     ; 0x0962
     pop bx                           ; 0x0964

@@ -7,7 +7,7 @@ play_set_device:
     mov byte [bp + 0x15], 1          ; 0x032c
 @..play_set_device.l1:
     mov ax, 0x64                     ; 0x0330
-    mov word [cs:cseg_0a81 - IMAGE_BASE], ax ; 0x0333
+    mov word [cs:tick_divider - IMAGE_BASE], ax ; 0x0333
     mov al, byte [bp + 0x15]         ; 0x0337
     mov byte [cs:play_device - IMAGE_BASE], al ; 0x033a
     mov byte [cs:cseg_0a90 - IMAGE_BASE], 0 ; 0x033e

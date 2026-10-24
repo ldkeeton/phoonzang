@@ -14,7 +14,7 @@ loc_061f:
     mov ax, word [cs:cseg_0b12 - IMAGE_BASE] ; 0x062d
     stosw                            ; 0x0631
     mov byte [cs:cseg_0321 - IMAGE_BASE], 0 ; 0x0632
-    call io_loc_TVNV                 ; 0x0638
+    call io_loc_MPGK                 ; 0x0638
     mov al, 0x36                     ; 0x063b
     out 0x43, al                     ; 0x063d
     call leaf_loc_STGJ               ; 0x063f
@@ -23,7 +23,7 @@ loc_061f:
     call leaf_loc_STGJ               ; 0x0647
     mov al, ah                       ; 0x064a
     out 0x40, al                     ; 0x064c
-    mov al, byte [cs:cseg_0a8f - IMAGE_BASE] ; 0x064e
+    mov al, byte [cs:saved_pic_mask - IMAGE_BASE] ; 0x064e
     out 0x21, al                     ; 0x0652
     sti                              ; 0x0654
     jmp near jumptable_035e_case_0   ; 0x0655
@@ -32,7 +32,7 @@ cseg_0658:
 jumptable_0789_case_1:
     push di                          ; 0x065a
     push si                          ; 0x065b
-    mov di, cseg_193a - IMAGE_BASE   ; 0x065c
+    mov di, sample_count_table - IMAGE_BASE ; 0x065c
     mov si, cseg_1a3a - IMAGE_BASE   ; 0x065f
     xor bh, bh                       ; 0x0662
     mov bl, byte [bp + 0x12]         ; 0x0664
@@ -64,7 +64,7 @@ jumptable_0789_case_1:
     cmp byte [cs:play_device - IMAGE_BASE], 4 ; 0x069e
     mov si, ax                       ; 0x06a4
     mov al, byte [cs:si + cseg_1a3a - IMAGE_BASE] ; 0x06a6
-    mov byte [cs:bx + cseg_193a - IMAGE_BASE], al ; 0x06ab
+    mov byte [cs:bx + sample_count_table - IMAGE_BASE], al ; 0x06ab
     inc bx                           ; 0x06b0
     cmp bx, strict word 0x80         ; 0x06b1
     jb short @..loc_065a.l2          ; 0x06b5

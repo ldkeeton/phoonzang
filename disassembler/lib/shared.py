@@ -103,7 +103,8 @@ def _buckets(fragments, tables):
 
     A copy is a candidate with every copy of its name (:func:`_shared_base`)
     and, when it is code without a source, with every such copy of the same
-    :func:`_shape` whatever its name, unless it is the host's.
+    :func:`_shape` whatever its name, unless it is the host's or a lone
+    ``ret`` (:func:`_is_bare_return`).
     """
     keys, hosts = {}, _hosts(tables)
     for rel, (text, ctext) in fragments.items():
@@ -115,7 +116,7 @@ def _buckets(fragments, tables):
         # A host's copy under an overlay's name would define it twice in
         # that overlay, which sees the host's symbols.
         if (ctext is None and not base.startswith(f'{FOLDER}/data/')
-                and _binary(rel) not in hosts):
+                and _binary(rel) not in hosts and not _is_bare_return(text)):
             keys[rel].append(('shape', _shape(rel, text, tables)))
     parent = {}
 
@@ -1041,27 +1042,16 @@ def _diffs(members):
     return tuple(out[:_MAX_DIFFS]), max(0, len(out) - _MAX_DIFFS)
 
 
-def _is_bare_return(frag):
-    """True for a body that is a lone ``ret``: nothing to tell copies apart."""
+def _is_bare_return(text):
+    """True for a body that is a lone ``ret``: nothing to tell copies apart.
+
+    Such a stub is only ever the same function as a copy of the same name;
+    matched by code alone, every empty routine would fold into one.
+    """
     code = [c for c in (_strip_comment(line).strip()
-                        for line in frag.text.split('\n'))
+                        for line in text.split('\n'))
             if c and not _LABEL_DEF.match(c)]
     return code == ['ret']
-
-
-def _distinct_entries(group):
-    """*group* less bare-``ret`` bodies a binary holds more than once.
-
-    Several empty functions in one binary are several entry points (a driver's
-    API slots), each its own function that happens to do nothing; a lone one
-    with a twin in another program is still the same function twice.
-    """
-    if not all(_is_bare_return(f) for f in group):
-        return group
-    count = defaultdict(int)
-    for frag in group:
-        count[frag.binary] += 1
-    return [f for f in group if f.binary == FOLDER or count[f.binary] == 1]
 
 
 def _findings(frags, served=frozenset(), hosts=None):
@@ -1071,11 +1061,12 @@ def _findings(frags, served=frozenset(), hosts=None):
             stem = (f'{frag.binary}/{frag.stem}' if binary_local(frag.rel)
                     else frag.stem)
             data[stem][frag.key].append(frag)
+        elif _is_bare_return(frag.text):
+            code[('ret', frag.stem)].append(frag)
         else:
             code[frag.key].append(frag)
     findings = []
     for group in code.values():
-        group = _distinct_entries(group)
         if len(group) < 2 or not _spans_binaries(group, served, hosts):
             continue
         group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
@@ -1112,7 +1103,6 @@ def _immediate_findings(frags, served=frozenset(), hosts=None):
         groups[frag.key].append(frag)
     findings = []
     for group in groups.values():
-        group = _distinct_entries(group)
         if len(group) < 2 or not _spans_binaries(group, served, hosts):
             continue
         group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
@@ -1144,7 +1134,8 @@ def scan(out_dir):
     covered = {m.rel for f in findings if f.kind == 'code' for m in f.members}
     immediate = []
     for frag in frags:
-        if frag.data or frag.binary == FOLDER or frag.rel in covered:
+        if (frag.data or frag.binary == FOLDER or frag.rel in covered
+                or _is_bare_return(frag.text)):
             continue
         stream, key, lines = _mask_stream(frag.text, data=False,
                                           mask_immediates=True)

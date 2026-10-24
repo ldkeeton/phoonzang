@@ -6,6 +6,7 @@ Unlike the regex census it reads the binaries, so a new spelling cannot hide
 a frozen reference from it.
 """
 
+import re
 import shutil
 import tempfile
 import unittest
@@ -66,6 +67,19 @@ _TREE = shift_oracle.TREE
 BASELINE = {'code': 22, 'data': 137, 'branch': 0}
 
 
+def _frag(binary, addr):
+    """The fragment *binary*'s master includes at *addr*.
+
+    Sites are pinned by address, not file name: generated names carry a
+    content tag that changes whenever the code (or what it calls) does, and a
+    stale path would leave an ``assertNotIn`` passing on nothing.
+    """
+    master = (_TREE / f'{binary}.asm').read_text()
+    found = re.findall(rf'^%include "([^"]+)"\s*; 0x{addr:04x}\b', master, re.M)
+    assert len(found) == 1, f'{binary}.asm includes {found} at 0x{addr:04x}'
+    return found[0]
+
+
 def _sites(result):
     return {(f[0].file, f[0].line) for f in result['frozen']
             if f[4] != 'symbolic'}
@@ -78,45 +92,45 @@ class ShiftOracleSanityTests(unittest.TestCase):
     def test_a_known_frozen_ds_address_is_reported(self):
         # ``mov si, 0x110`` names ``dseg_0110`` (ds.asm) as a number.
         r = shift_oracle.run('ds', 'data')
-        self.assertIn(('ds/library/load_font_file.asm', 87), _sites(r))
+        self.assertIn((_frag('ds', 0x3860), 87), _sites(r))
 
     def test_binding_the_address_clears_the_report(self):
         with tempfile.TemporaryDirectory() as d:
             tree = Path(d) / 'src_DSAVANT'
             shutil.copytree(_TREE, tree, ignore=shutil.ignore_patterns(
                 'build_out', '*.c', '*.o', '*.bin'))
-            frag = tree / 'ds/library/load_font_file.asm'
+            frag = tree / _frag('ds', 0x3860)
             text = frag.read_text()
             self.assertIn('mov si, 0x110 ', text)
             frag.write_text(text.replace('mov si, 0x110 ',
                                          'mov si, file_param_word ', 1))
             r = shift_oracle.run('ds', 'data', tree=tree)
-        self.assertNotIn(('ds/library/load_font_file.asm', 87), _sites(r))
+        self.assertNotIn((_frag('ds', 0x3860), 87), _sites(r))
 
     def test_a_displacement_counts_only_in_its_segment(self):
         # ``lea cx, [bp - 0x156]`` is a frame slot that equals a code label.
         r = shift_oracle.run('vmnpc', 'code')
-        self.assertNotIn(('vmnpc/loc_MOVJ.asm', 151), _sites(r))
+        self.assertNotIn((_frag('vmnpc', 0x1d39), 151), _sites(r))
         # ``[bx - 0x6a7c]`` is overlay DS 0x9584; a code value equal to it moves
         # on a code insert, but a DS displacement does not.
         r = shift_oracle.run('vpclv', 'code')
-        self.assertNotIn(('vpclv/api_idx_004c_UMGL.asm', 161), _sites(r))
+        self.assertNotIn((_frag('vpclv', 0x27e3), 161), _sites(r))
 
     def test_an_indexed_ds_array_moves(self):
         # ``mov bx, word [bx + bss_8482]`` was ``[bx - 0x7b7e]``.
         r = shift_oracle.run('vmexe', 'data')
-        self.assertNotIn(('shared/api_idx_000e_VRIR.asm', 10), _sites(r))
+        self.assertNotIn((_frag('vmexe', 0x0656), 10), _sites(r))
 
     def test_a_constant_passed_as_a_pointer_moves(self):
         # ``mov ax, 0xb74; push ax; call ...`` into an argument the callee
         # reads through: the string's address is now a name.
         r = shift_oracle.run('ds', 'data')
-        self.assertNotIn(('ds/ds_app_file_QQMM.asm', 51), _sites(r))
+        self.assertNotIn((_frag('ds', 0x23ef), 51), _sites(r))
 
     def test_a_driver_table_start_plus_an_index_moves(self):
         # ``mov bx, 0x13df; shl ax, 1; add bx, ax; mov dx, word [cs:bx]``.
         r = shift_oracle.run('play', 'code')
-        self.assertNotIn(('play/leaf_loc_VSLO.asm', 6), _sites(r))
+        self.assertNotIn((_frag('play', 0x12f1), 6), _sites(r))
         self.assertEqual(r['frozen'], [])
 
 

@@ -33,7 +33,7 @@ loc_JTQK_001f.load_screen1 equ leaf_loc_IUKK
 
 %include "play/loc_MMRI.asm"               ; 0x0023
 
-%include "play/io_loc_HLUI.asm"            ; 0x00b6
+%include "play/mpu401_reset_with_retries.asm" ; 0x00b6
 
 %include "play/opl_init.asm"               ; 0x00c4
 
@@ -124,29 +124,75 @@ dissolve_area.show_area1 equ loc_121d
 
 ; cseg_0b10 equ __zinsn_0b0f + 0x1
 ; cseg_0b12 equ __zinsn_0b0f + 0x3
-%include "play/io_loc_UQMR.asm"            ; 0x09d4
+%include "play/sound_stop_and_restore_timer.asm" ; 0x09d4
 
 %include "play/string_loc_OJPI.asm"        ; 0x0a2a
 
-%include "play/io_loc_HTKU.asm"            ; 0x0a41
+%include "play/speaker_sample_interrupt.asm" ; 0x0a41
 
-%include "play/io_loc_TVNV.asm"            ; 0x0a6d
+%include "play/io_loc_MPGK.asm"            ; 0x0a6d
 
-%include "play/data/cseg_0a7c.asm"         ; 0x0a7c
+%include "play/data/music_device.asm"      ; 0x0a7c
 
 %include "play/data/play_device.asm"       ; 0x0a7d
 
-%include "play/data/cseg_0a7e.asm"         ; 0x0a7e
+%include "play/data/stream_running.asm"    ; 0x0a7e
 
-%include "play/loc_IILK.asm"               ; 0x0ad9
+%include "play/data/restart_delay.asm"     ; 0x0a7f
 
-%include "play/io_loc_JPGM.asm"            ; 0x0af6
+%include "play/data/tick_divider.asm"      ; 0x0a81
+
+%include "play/data/chain_period.asm"      ; 0x0a83
+
+%include "play/data/chain_countdown.asm"   ; 0x0a85
+
+%include "play/data/cseg_0a89.asm"         ; 0x0a89
+
+%include "play/data/saved_pic_mask.asm"    ; 0x0a8f
+
+%include "play/data/cseg_0a90.asm"         ; 0x0a90
+
+%include "play/data/timer_handler_installed.asm" ; 0x0a94
+
+%include "play/data/sample_step_fraction.asm" ; 0x0a95
+
+%include "play/data/cseg_0a96.asm"         ; 0x0a96
+
+%include "play/data/music_enabled.asm"     ; 0x0a9a
+
+%include "play/data/loop_at_end.asm"       ; 0x0a9d
+
+%include "play/data/stream_start_offset.asm" ; 0x0a9e
+
+%include "play/data/cseg_0aa0.asm"         ; 0x0aa0
+
+%include "play/data/stream_segment.asm"    ; 0x0aa2
+
+%include "play/data/stream_offset.asm"     ; 0x0aa4
+
+%include "play/data/music_tempo.asm"       ; 0x0aa6
+
+%include "play/data/playback_volume.asm"   ; 0x0aa8
+
+%include "play/data/last_playback_volume.asm" ; 0x0aa9
+
+%include "play/data/music_data_segment.asm" ; 0x0aac
+
+%include "play/data/music_data_offset.asm" ; 0x0aae
+
+%include "play/data/event_class_flag.asm"  ; 0x0ad7
+
+%include "play/data/note_started.asm"      ; 0x0ad8
+
+%include "play/music_stop.asm"             ; 0x0ad9
+
+%include "play/music_player_tick.asm"      ; 0x0af6
 
 ; cseg_0b10 equ __zinsn_0b0f + 0x1
 ; cseg_0b12 equ __zinsn_0b0f + 0x3
-%include "play/io_loc_TTNM.asm"            ; 0x0c97
+%include "play/restore_timer_handler.asm"  ; 0x0c97
 
-%include "play/loc_NSQH.asm"               ; 0x0cca
+%include "play/music_loop_event.asm"       ; 0x0cca
 
 %include "play/data/cseg_0cdf.asm"         ; 0x0cdf
 
@@ -154,31 +200,43 @@ dissolve_area.show_area1 equ loc_121d
 
 %include "play/data/cseg_0d3b.asm"         ; 0x0d3b
 
-%include "play/string_loc_ROMP.asm"        ; 0x0d50
+%include "play/string_loc_SLGG.asm"        ; 0x0d50
 
-%include "play/loc_OJOO.asm"               ; 0x0e01
+%include "play/store_nibble_event.asm"     ; 0x0e01
 
-%include "play/loc_MQJR.asm"               ; 0x0e11
+%include "play/skip_byte_event.asm"        ; 0x0e11
 
-%include "play/loc_JKSQ.asm"               ; 0x0e15
+%include "play/store_word_event.asm"       ; 0x0e15
 
-%include "play/loc_JIPR.asm"               ; 0x0e1d
+%include "play/skip_word_event.asm"        ; 0x0e1d
 
-%include "play/loc_HOVS_0e24.asm"          ; 0x0e24
+%include "play/note_event_high.asm"        ; 0x0e24
 
-%include "play/loc_MNKP.asm"               ; 0x0e51
+%include "play/leaf_loc_JSPM.asm"          ; 0x0f55
 
-%include "play/loc_NPTG.asm"               ; 0x0f44
+%include "play/note_event_low.asm"         ; 0x1081
 
-%include "play/leaf_loc_TKVU.asm"          ; 0x0f55
+%include "play/loc_IMHI.asm"               ; 0x1167
 
 %include "play/loc_PLIR.asm"               ; 0x1184
 
-%include "play/data/cseg_11bf.asm"         ; 0x11bf
+%include "play/loc_ONLU.asm"               ; 0x1185
 
-%include "play/loc_PGTM.asm"               ; 0x11da
+%include "play/data/event_byte_counts.asm" ; 0x11bf
 
-%include "play/io_loc_QUNR.asm"            ; 0x11fb
+%include "play/data/channel_last_byte.asm" ; 0x11c6
+
+%include "play/data/byte_remap_table.asm"  ; 0x11d6
+
+%include "play/data/current_event.asm"     ; 0x11d7
+
+%include "play/data/event_channel.asm"     ; 0x11d8
+
+%include "play/data/event_command.asm"     ; 0x11d9
+
+%include "play/mpu_set_volume.asm"         ; 0x11da
+
+%include "play/mpu_send_byte.asm"          ; 0x11fb
 
 %include "play/mpu401_reset_and_sync.asm"  ; 0x1217
 
@@ -200,8 +258,11 @@ dissolve_area.show_area1 equ loc_121d
 
 %include "play/io_loc_VHII.asm"            ; 0x18cb
 
-; cseg_18f2 equ __zinsn_18f1 + 0x1
-%include "play/io_loc_KNIR.asm"            ; 0x18e4
+%include "play/pit_sample_interrupt.asm"   ; 0x18e4
 
 %include "play/data/cseg_1939.asm"         ; 0x1939
+
+%include "play/data/sample_count_table.asm" ; 0x193a
+
+%include "play/data/cseg_19ba.asm"         ; 0x19ba
 

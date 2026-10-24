@@ -5,11 +5,11 @@ io_loc_LPON:
 @..io_loc_LPON.l1:
     mov al, bl                       ; 0x0225
     or al, 0xb0                      ; 0x0227
-    call io_loc_QUNR                 ; 0x0229
+    call mpu_send_byte               ; 0x0229
     mov al, 0x7b                     ; 0x022c
-    call io_loc_QUNR                 ; 0x022e
+    call mpu_send_byte               ; 0x022e
     mov al, 0                        ; 0x0231
-    call io_loc_QUNR                 ; 0x0233
+    call mpu_send_byte               ; 0x0233
     inc bl                           ; 0x0236
     cmp bl, 0xa                      ; 0x0238
     jb short @..io_loc_LPON.l1       ; 0x023b

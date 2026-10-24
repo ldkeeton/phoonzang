@@ -9,6 +9,7 @@ mistaken for a handler table.
 """
 
 import pathlib
+import re
 import struct
 import tempfile
 import unittest
@@ -210,19 +211,18 @@ class PlayBoundaryTreeTests(unittest.TestCase):
     def test_handler_entries_decode_as_named_routines(self):
         # The table's targets (and the two extra entries the driver installs)
         # are real routine fragments, so the bytes are code rather than a `db`
-        # blob glued into the master.
+        # blob glued into the master.  Pinned by offset, not label: generated
+        # names carry a content tag that changes with the code, and people
+        # rename handlers as they work them out.
         text = self._play_ascii()
-        for label, offset in (
-            ('io_loc_UVLK_0841', '0x0841'), ('io_loc_TGPU', '0x08af'),
-            ('io_loc_UVLK_0975', '0x0975'), ('io_loc_PNPV', '0x099f'),
-            ('io_loc_HTKU', '0x0a41'), ('io_loc_KNIR', '0x18e4'),
-        ):
-            with self.subTest(handler=label):
-                self.assertIn(f'{label}:', text)
-                # The label's own line is followed by an instruction; the
-                # offset comment on it is the handler address.
+        for offset in ('0x0841', '0x08af', '0x0975', '0x099f', '0x0a41',
+                       '0x18e4'):
+            with self.subTest(handler=offset):
+                # Some label's own line is followed by an instruction (not a
+                # ``db``) whose offset comment is the handler address.
                 self.assertRegex(
-                    text, rf'{label}:\n\s+\S.*;\s*{offset}\b')
+                    text, re.compile(rf'^[A-Za-z_][\w.]*:\n\s+(?!d[bwd]\b)\S.*'
+                                     rf';\s*{offset}\b', re.M))
 
 
 

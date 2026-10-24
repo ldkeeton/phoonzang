@@ -5,9 +5,9 @@ string_loc_NOSM:
     push dx                          ; 0x137c
     push si                          ; 0x137d
     push ds                          ; 0x137e
-    mov bx, word [cs:cseg_0aac - IMAGE_BASE] ; 0x137f
+    mov bx, word [cs:music_data_segment - IMAGE_BASE] ; 0x137f
     mov ds, bx                       ; 0x1384
-    mov si, word [cs:cseg_0aae - IMAGE_BASE] ; 0x1386
+    mov si, word [cs:music_data_offset - IMAGE_BASE] ; 0x1386
     mov bl, byte [cs:cseg_0d3e - IMAGE_BASE] ; 0x138b
     shr bl, 1                        ; 0x1390
     shr bl, 1                        ; 0x1392

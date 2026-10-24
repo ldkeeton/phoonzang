@@ -10,14 +10,14 @@ __zinsn_09a3:
 __zinsn_09a8:
     mov al, byte [0x0000]            ; 0x09a8
     mov dx, word [cs:cseg_0a8d - IMAGE_BASE] ; 0x09ab
-    mov bx, cseg_193a - IMAGE_BASE   ; 0x09b0
+    mov bx, sample_count_table - IMAGE_BASE ; 0x09b0
     cs xlatb                         ; 0x09b3
     out dx, al                       ; 0x09b5
 __zinsn_09b6:
-    add byte [cs:cseg_0a95 - IMAGE_BASE], 0x80 ; 0x09b6
+    add byte [cs:sample_step_fraction - IMAGE_BASE], 0x80 ; 0x09b6
     adc word [cs:cseg_09a9 - IMAGE_BASE], byte 0 ; 0x09bc
     jb short loc_0969                ; 0x09c2
-    dec word [cs:cseg_0a81 - IMAGE_BASE] ; 0x09c4
+    dec word [cs:tick_divider - IMAGE_BASE] ; 0x09c4
     je short loc_095d                ; 0x09c9
     mov al, 0x20                     ; 0x09cb
     out 0x20, al                     ; 0x09cd

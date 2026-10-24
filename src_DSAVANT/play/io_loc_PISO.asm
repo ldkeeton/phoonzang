@@ -6,7 +6,7 @@ io_loc_PISO:
     cmp byte [cs:cseg_0321 - IMAGE_BASE], 0 ; 0x02bd
     jne short @..io_loc_PISO.l1      ; 0x02c3
     in al, 0x21                      ; 0x02c5
-    mov byte [cs:cseg_0a8f - IMAGE_BASE], al ; 0x02c7
+    mov byte [cs:saved_pic_mask - IMAGE_BASE], al ; 0x02c7
     cli                              ; 0x02cb
     xor ax, ax                       ; 0x02cc
     mov es, ax                       ; 0x02ce
@@ -31,7 +31,7 @@ io_loc_PISO:
     mov word [cs:cseg_0a96 - IMAGE_BASE], ax ; 0x02fb
     mov al, 0x34                     ; 0x02ff
     out 0x43, al                     ; 0x0301
-    mov ax, word [cs:cseg_0aa6 - IMAGE_BASE] ; 0x0303
+    mov ax, word [cs:music_tempo - IMAGE_BASE] ; 0x0303
     mov bl, 0x48                     ; 0x0307
     mul bl                           ; 0x0309
     mov word [cs:cseg_0a98 - IMAGE_BASE], ax ; 0x030b

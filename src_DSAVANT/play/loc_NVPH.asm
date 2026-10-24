@@ -8,9 +8,9 @@ loc_NVPH:
     push ds                          ; 0x177a
     push si                          ; 0x177b
     mov byte [cs:cseg_1774 - IMAGE_BASE], 0x20 ; 0x177c
-    mov bx, word [cs:cseg_0aac - IMAGE_BASE] ; 0x1782
+    mov bx, word [cs:music_data_segment - IMAGE_BASE] ; 0x1782
     mov ds, bx                       ; 0x1787
-    mov si, word [cs:cseg_0aae - IMAGE_BASE] ; 0x1789
+    mov si, word [cs:music_data_offset - IMAGE_BASE] ; 0x1789
     mov bl, byte [cs:cseg_0d3e - IMAGE_BASE] ; 0x178e
     shr bl, 1                        ; 0x1793
     shr bl, 1                        ; 0x1795

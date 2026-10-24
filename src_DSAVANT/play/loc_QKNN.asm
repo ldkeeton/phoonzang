@@ -9,7 +9,7 @@ loc_QKNN:
     mov al, byte [cs:cseg_0d3f - IMAGE_BASE] ; 0x1310
     shl al, 1                        ; 0x1314
     xor ah, ah                       ; 0x1316
-    mov cl, byte [cs:cseg_0aa8 - IMAGE_BASE] ; 0x1318
+    mov cl, byte [cs:playback_volume - IMAGE_BASE] ; 0x1318
     mul cl                           ; 0x131d
     mov al, ah                       ; 0x131f
     cs xlatb                         ; 0x1321
@@ -31,7 +31,7 @@ loc_QKNN:
 loc_QVOP:
     push dx                          ; 0x1344
     mov dx, ax                       ; 0x1345
-    mov al, byte [cs:cseg_0aa8 - IMAGE_BASE] ; 0x1347
+    mov al, byte [cs:playback_volume - IMAGE_BASE] ; 0x1347
     mov cl, byte [cs:cseg_0d3f - IMAGE_BASE] ; 0x134b
     shl cl, 1                        ; 0x1350
     inc cl                           ; 0x1352

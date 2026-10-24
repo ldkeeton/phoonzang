@@ -1,6 +1,6 @@
 ; auto-generated
 loc_0969:
-    call io_loc_UQMR                 ; 0x0969
+    call sound_stop_and_restore_timer ; 0x0969
     mov al, 0x20                     ; 0x096c
     out 0x20, al                     ; 0x096e
     pop bx                           ; 0x0970
