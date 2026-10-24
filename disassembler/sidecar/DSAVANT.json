@@ -1095,6 +1095,7 @@
     },
     "vga": {
       "function_names": {
+        "28ba": {"name": "fade_in_no_memory_exit", "note": "prints a no-memory message and terminates to DOS with errorlevel 1"},
         "3188": {"name": "table_entry_ptr", "note": "points ds:bx at entry al of the 4-byte offset/paragraph table at ds:2"},
         "0516": {"name": "clip_mouse_pointer_to_area", "note": "clips the saved mouse rectangle against the dissolve rectangle"},
         "067f": {"name": "redraw_mouse_pointer", "note": "copies the saved mouse shape into the screen buffer"},

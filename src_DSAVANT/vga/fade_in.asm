@@ -13,7 +13,7 @@ fade_in:
     mov bx, 0x30                     ; 0x2812
     int 0x21 ; DOS allocate memory
     jae short @..fade_in.l1          ; 0x2817
-    jmp near bios_video_loc_GGUP     ; 0x2819
+    jmp near fade_in_no_memory_exit  ; 0x2819
 @..fade_in.l1:
     mov word [bp - 0x0002], ax       ; 0x281c
     mov ax, 0x1017                   ; 0x281f

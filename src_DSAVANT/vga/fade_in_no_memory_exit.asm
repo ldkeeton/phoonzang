@@ -1,5 +1,5 @@
 ; auto-generated
-bios_video_loc_GGUP:
+fade_in_no_memory_exit:
     mov ax, cs                       ; 0x28ba
     mov ds, ax                       ; 0x28bc
     mov dx, cseg_28ca - IMAGE_BASE   ; 0x28be

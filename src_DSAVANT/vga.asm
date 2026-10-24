@@ -356,7 +356,7 @@ cseg_22fe        equ dos_con_loc_QMKK.cseg1
 
 %include "vga/fade_in.asm"                 ; 0x2802
 
-%include "vga/bios_video_loc_GGUP.asm"     ; 0x28ba
+%include "vga/fade_in_no_memory_exit.asm"  ; 0x28ba
 
 %include "vga/fade_out.asm"                ; 0x28f0
 
