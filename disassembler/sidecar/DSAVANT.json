@@ -283,6 +283,7 @@
         "35f5": {"name": "load_play_driver", "note": "loads play.drv and builds its segment table"},
         "3640": {"name": "sound_driver_error_exit", "note": "prints the sound driver load error and exits with code 1"},
         "3674": {"name": "calibrate_loops_per_ms", "note": "counts loop iterations over one 18.2 Hz BIOS tick, divides by 55 ticks/ms and scales 15/16 for loops_per_ms"},
+        "36cd": {"name": "no_operation", "note": "'empty near procedure that returns immediately without touching any register'"},
         "36d0": {
           "name": "delay_ms",
           "note": "hand-written asm: [bp+4] times, counts loops_per_ms (calibrated to one millisecond) down to delay_loop_target (always 0)"

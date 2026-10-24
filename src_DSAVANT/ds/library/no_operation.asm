@@ -1,3 +1,3 @@
 ; auto-generated
-ds_dos_mem_loc_PLIR:
+no_operation:
     ret                              ; 0x36cd

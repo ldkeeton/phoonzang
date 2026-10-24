@@ -667,7 +667,7 @@ bios_data_0410 equ 0x0410
 
 %include "ds/library/ds_dos_mem_loc_OHLH.asm" ; 0x36bc
 
-%include "ds/library/ds_dos_mem_loc_PLIR.asm" ; 0x36cd
+%include "ds/library/no_operation.asm"     ; 0x36cd
 
 %include "ds/data/delay_loop_target.asm"   ; 0x36ce
 
