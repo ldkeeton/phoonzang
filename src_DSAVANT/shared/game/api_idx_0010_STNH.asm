@@ -12,7 +12,7 @@ api_idx_0010_STNH:
     push word [bx + member_state + 0xb92]
     mov ax, 5
     push ax
-    call ds_loc_UQOV
+    call get_font_glyph
     add sp, byte 8
     mov word [bp - 0x0006], dx
     mov word [bp - 0x0008], ax

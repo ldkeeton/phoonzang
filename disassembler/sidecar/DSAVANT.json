@@ -82,6 +82,7 @@
       "name": "dos_con_in_noecho",
       "note": "vinstall: INT 21h AH=7, returns the key"
     },
+    "loc_UQOV": {"name": "get_font_glyph", "note": "returns dx:ax = the glyph record in the font segment and copies the font header bytes 0 and 1 into the caller's width and height words"},
     "dos_file_loc_IRLV": {"name": "read_font_glyph", "note": "seeks the font file to source * bytes_per_glyph and reads one glyph record into the font segment at 110h + map[glyph] * bytes_per_glyph"},
     "leaf_loc_HLGJ": {"name": "ems_map_pages", "note": "maps EMS logical pages ax and ax+1 into frame pages 0 and 1"},
     "leaf_loc_JHTT": {"name": "draw_mouse_pointer_at", "note": "far-returning entry: unless already busy, sets its busy flag, stores the pointer position (cx/2, dx) and falls into the adapter pointer drawer"},

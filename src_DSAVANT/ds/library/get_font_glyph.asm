@@ -1,5 +1,5 @@
 ; auto-generated
-ds_loc_UQOV:
+get_font_glyph:
     push bp                          ; 0x39f6
     mov bp, sp                       ; 0x39f7
     cld                              ; 0x39f9

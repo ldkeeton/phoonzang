@@ -708,7 +708,7 @@ file_param_word equ __zfile_param_word - __zdseg_start
 %include "ds/library/read_font_glyph.asm"  ; 0x398a
 
 ; file_param_word equ __zfile_param_word - __zdseg_start
-%include "ds/library/ds_loc_UQOV.asm"      ; 0x39f6
+%include "ds/library/get_font_glyph.asm"   ; 0x39f6
 
 %include "ds/library/gfx_set_text_pos.asm" ; 0x3a50
 
