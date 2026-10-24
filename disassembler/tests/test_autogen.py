@@ -13,6 +13,12 @@ class AutogenTest(unittest.TestCase):
         c = autogen.stamp('int x;\n', 'x.c')
         self.assertEqual(c.split('\n')[0], '/* auto-generated */')
 
+    def test_stamp_keeps_other_marker(self):
+        # lmacros.h is installed with the asm marker; a later sync of the .h
+        # must not stack the C marker on top of it.
+        text = '; auto-generated\n\tnlist\n'
+        self.assertEqual(autogen.stamp(text, 'include/lmacros.h'), text)
+
     def test_remove_only_marked(self):
         with tempfile.TemporaryDirectory() as root:
             os.makedirs(os.path.join(root, 'ds'))

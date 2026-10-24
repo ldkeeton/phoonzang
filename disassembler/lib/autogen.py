@@ -25,9 +25,11 @@ def stamp(text, path, marker=None):
 
     *marker* overrides the one :func:`marker_for` picks from the extension --
     a ``.h`` the assembler includes needs the comment its parser accepts.
+    Text that already starts with either marker is kept as it is, so a later
+    pass never stacks a second marker on the one chosen first.
     """
     marker = marker or marker_for(path)
-    if text.split('\n', 1)[0].rstrip() == marker:
+    if text.split('\n', 1)[0].rstrip() in (MARKER_ASM, MARKER_C):
         return text
     return marker + '\n' + text
 
