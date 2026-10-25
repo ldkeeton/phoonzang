@@ -90,16 +90,16 @@ api_idx_0030_TGOH:
     mov byte [bx + party_records + pc_rec.label], al ; 0x937c
     cmp word [bx + party_records + pc_rec.power_cap], strict word 0xfa ; 0x9380
     jge short @..api_idx_0030_TGOH.l7 ; 0x9386
-    mov al, byte [bx + party_records + pc_rec.f_0247] ; 0x9388
+    mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x9388
     sub ah, ah                       ; 0x938c
     cmp ax, word [bx + party_records + pc_rec.power_cap] ; 0x938e
     jge short @..api_idx_0030_TGOH.l6 ; 0x9392
     mov al, byte [bx + party_records + pc_rec.power_cap] ; 0x9394
-    mov byte [bx + party_records + pc_rec.f_0247], al ; 0x9398
+    mov byte [bx + party_records + pc_rec.power_floor], al ; 0x9398
 @..api_idx_0030_TGOH.l6:
     jmp short @..api_idx_0030_TGOH.l8 ; 0x939c
 @..api_idx_0030_TGOH.l7:
-    mov byte [bx + party_records + pc_rec.f_0247], 0 ; 0x939e
+    mov byte [bx + party_records + pc_rec.power_floor], 0 ; 0x939e
 @..api_idx_0030_TGOH.l8:
     mov word [bx + party_records + pc_rec.power_cap], 1 ; 0x93a3
     mov byte [bx + party_records + pc_rec.f_023a], 0 ; 0x93a9

@@ -82,7 +82,7 @@ jumptable_48eb:
     mov bx, ax                       ; 0x4923
     mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x4925
     push ax                          ; 0x4929
-    mov al, byte [bx + party_records + pc_rec.f_0247] ; 0x492a
+    mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x492a
     sub ah, ah                       ; 0x492e
     mov cx, ax                       ; 0x4930
     pop ax                           ; 0x4932

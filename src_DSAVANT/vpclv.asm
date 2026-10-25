@@ -241,7 +241,7 @@ api_idx_004c_UMGL equ api_idx_004c_LTUL
 
 %include "shared/game/api_idx_0006_VJKJ.asm"     ; 0x2a85
 
-%include "shared/game/api_idx_0002_KQIK.asm"     ; 0x2b1a
+%include "shared/game/update_party_stat_adjustments.asm" ; 0x2b1a
 
 %include "vpclv/api_idx_0052_LHVG.asm"     ; 0x2c0c
 

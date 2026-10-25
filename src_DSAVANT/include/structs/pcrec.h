@@ -45,7 +45,12 @@ struct pc_rec {				/* 0x248 bytes */
 	unsigned char state;		/* +0x23b: 0 when settled */
 	unsigned char attack;		/* +0x23c: also the cells' highest low nibble */
 	unsigned char defense;		/* +0x23d: also the cells' highest high nibble */
-	char pad3[10];			/* +0x23e */
+	char pad3[5];			/* +0x23e */
+	unsigned char adjusted_stat4;	/* +0x243 */
+	unsigned char adjusted_stat5;	/* +0x244 */
+	unsigned char stat5_plus_power;	/* +0x245 */
+	char pad4;			/* +0x246 */
+	unsigned char power_floor;		/* +0x247 */
 };
 
 #endif

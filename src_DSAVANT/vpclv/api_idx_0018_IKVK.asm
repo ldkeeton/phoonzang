@@ -260,7 +260,7 @@ jumptable_4b3c:
     mov bx, ax                       ; 0x4c0f
     mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x4c11
     push ax                          ; 0x4c15
-    mov al, byte [bx + party_records + pc_rec.f_0247] ; 0x4c16
+    mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x4c16
     sub ah, ah                       ; 0x4c1a
     mov cx, ax                       ; 0x4c1c
     pop ax                           ; 0x4c1e

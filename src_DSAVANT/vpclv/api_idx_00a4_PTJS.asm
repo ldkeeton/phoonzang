@@ -6,11 +6,11 @@ api_idx_00a4_PTJS:
     imul word [bp + 0x4]             ; 0x4ea7
     mov bx, ax                       ; 0x4eaa
     inc word [bx + party_records + pc_rec.power_cap] ; 0x4eac
-    mov al, byte [bx + party_records + pc_rec.f_0247] ; 0x4eb0
+    mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x4eb0
     sub ah, ah                       ; 0x4eb4
     cmp ax, word [bx + party_records + pc_rec.power_cap] ; 0x4eb6
     jg short @..api_idx_00a4_PTJS.l1 ; 0x4eba
-    mov byte [bx + party_records + pc_rec.f_0247], 0 ; 0x4ebc
+    mov byte [bx + party_records + pc_rec.power_floor], 0 ; 0x4ebc
 @..api_idx_00a4_PTJS.l1:
     push word [bp + 0x4]             ; 0x4ec1
     call api_idx_0006_ILTI           ; 0x4ec4

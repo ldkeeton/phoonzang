@@ -149,7 +149,7 @@ jumptable_4679:
     mov bx, ax                       ; 0x4713
     mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x4715
     push ax                          ; 0x4719
-    mov al, byte [bx + party_records + pc_rec.f_0247] ; 0x471a
+    mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x471a
     sub ah, ah                       ; 0x471e
     mov cx, ax                       ; 0x4720
     pop ax                           ; 0x4722

@@ -100,11 +100,11 @@ struc pc_rec
     .f_023f: resb 1
     .f_0240: resb 1
     .f_0241: resb 2
-    .f_0243: resb 1
-    .f_0244: resb 1
-    .f_0245: resb 1
+    .adjusted_stat4: resb 1
+    .adjusted_stat5: resb 1
+    .stat5_plus_power: resb 1
     .f_0246: resb 1
-    .f_0247: resb 1
+    .power_floor: resb 1
 endstruc
 
 ; records at DS 0x6a1a

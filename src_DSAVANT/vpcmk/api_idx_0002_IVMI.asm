@@ -38,9 +38,9 @@ api_idx_0002_IVMI:
     mov ax, 0x248                    ; 0x62de
     imul word [bp + 0x4]             ; 0x62e1
     mov bx, ax                       ; 0x62e4
-    mov byte [bx + party_records + pc_rec.f_0243], 1 ; 0x62e6
-    mov byte [bx + party_records + pc_rec.f_0244], 1 ; 0x62eb
+    mov byte [bx + party_records + pc_rec.adjusted_stat4], 1 ; 0x62e6
+    mov byte [bx + party_records + pc_rec.adjusted_stat5], 1 ; 0x62eb
     mov al, byte [bx + party_records + pc_rec.stat + 0x5] ; 0x62f0
     inc al                           ; 0x62f4
-    mov byte [bx + party_records + pc_rec.f_0245], al ; 0x62f6
+    mov byte [bx + party_records + pc_rec.stat5_plus_power], al ; 0x62f6
     ret                              ; 0x62fa

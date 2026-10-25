@@ -418,7 +418,7 @@ jumptable_436e         equ loc_SRNN.jumptable1
 
 %include "shared/game/api_idx_0006_VJKJ.asm"     ; 0x4f00
 
-%include "shared/game/api_idx_0002_KQIK.asm"     ; 0x4f95
+%include "shared/game/update_party_stat_adjustments.asm" ; 0x4f95
 
 %include "vpcmk/api_idx_0004_GHPT.asm"     ; 0x5087
 

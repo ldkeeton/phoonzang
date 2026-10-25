@@ -423,7 +423,7 @@ jumptable_547c_case_0:
     mov ax, 4                        ; 0x5435
     push ax                          ; 0x5438
     push word [bp + 0x4]             ; 0x5439
-    call api_idx_0002_KQIK           ; 0x543c
+    call update_party_stat_adjustments ; 0x543c
     add sp, byte 0x0c                ; 0x543f
     jmp short @..api_idx_0004_GHPT.l10 ; 0x5442
 jumptable_547c_case_1:
@@ -436,7 +436,7 @@ jumptable_547c_case_1:
     mov ax, 2                        ; 0x544e
     push ax                          ; 0x5451
     push word [bp + 0x4]             ; 0x5452
-    call api_idx_0002_KQIK           ; 0x5455
+    call update_party_stat_adjustments ; 0x5455
     add sp, byte 0x0c                ; 0x5458
     jmp short @..api_idx_0004_GHPT.l10 ; 0x545b
 jumptable_547c_case_2:
@@ -451,7 +451,7 @@ jumptable_547c_case_2:
     mov ax, 3                        ; 0x546d
     push ax                          ; 0x5470
     push word [bp + 0x4]             ; 0x5471
-    call api_idx_0002_KQIK           ; 0x5474
+    call update_party_stat_adjustments ; 0x5474
     add sp, byte 0x0c                ; 0x5477
     jmp short @..api_idx_0004_GHPT.l10 ; 0x547a
 jumptable_547c:

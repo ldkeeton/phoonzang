@@ -14,7 +14,7 @@ api_idx_0006_VJKJ:
     mov bx, ax
     mov ax, word [bx + party_records + pc_rec.power_cap]
     push ax
-    mov al, byte [bx + party_records + pc_rec.f_0247]
+    mov al, byte [bx + party_records + pc_rec.power_floor]
     sub ah, ah
     mov cx, ax
     pop ax

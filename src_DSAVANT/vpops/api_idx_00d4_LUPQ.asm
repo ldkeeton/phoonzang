@@ -25,7 +25,7 @@ api_idx_00d4_LUPQ:
     mov ax, 0x248                    ; 0x3747
     imul word [bp - 0x0006]          ; 0x374a
     mov bx, ax                       ; 0x374d
-    mov al, byte [bx + party_records + pc_rec.f_0245] ; 0x374f
+    mov al, byte [bx + party_records + pc_rec.stat5_plus_power] ; 0x374f
     sub ah, ah                       ; 0x3753
     mov cx, ax                       ; 0x3755
     pop ax                           ; 0x3757
@@ -52,7 +52,7 @@ api_idx_00d4_LUPQ:
     mov ax, 0x248                    ; 0x378c
     imul word [bp - 0x0006]          ; 0x378f
     mov bx, ax                       ; 0x3792
-    mov al, byte [bx + party_records + pc_rec.f_0244] ; 0x3794
+    mov al, byte [bx + party_records + pc_rec.adjusted_stat5] ; 0x3794
     sub ah, ah                       ; 0x3798
     mov cx, ax                       ; 0x379a
     mov ax, word [bp - 0x00a4]       ; 0x379c
@@ -97,7 +97,7 @@ api_idx_00d4_LUPQ:
     mov ax, 0x248                    ; 0x37fd
     imul word [bp - 0x0006]          ; 0x3800
     mov bx, ax                       ; 0x3803
-    mov al, byte [bx + party_records + pc_rec.f_0244] ; 0x3805
+    mov al, byte [bx + party_records + pc_rec.adjusted_stat5] ; 0x3805
     sub ah, ah                       ; 0x3809
     push ax                          ; 0x380b
     mov ax, 0x2c                     ; 0x380c

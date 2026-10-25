@@ -61,18 +61,18 @@ jumptable_532e_case_0:
     mov ax, 0x248                    ; 0x50db
     imul word [bp + 0x4]             ; 0x50de
     mov bx, ax                       ; 0x50e1
-    cmp byte [bx + party_records + pc_rec.f_0243], 4 ; 0x50e3
+    cmp byte [bx + party_records + pc_rec.adjusted_stat4], 4 ; 0x50e3
     jae short @..api_idx_0010_GVMH.l4 ; 0x50e8
-    mov byte [bx + party_records + pc_rec.f_0243], 4 ; 0x50ea
+    mov byte [bx + party_records + pc_rec.adjusted_stat4], 4 ; 0x50ea
 @..api_idx_0010_GVMH.l4:
     jmp near jumptable_532e_case_9   ; 0x50ef
 jumptable_532e_case_1:
     mov ax, 0x248                    ; 0x50f2
     imul word [bp + 0x4]             ; 0x50f5
     mov bx, ax                       ; 0x50f8
-    cmp byte [bx + party_records + pc_rec.f_0244], 4 ; 0x50fa
+    cmp byte [bx + party_records + pc_rec.adjusted_stat5], 4 ; 0x50fa
     jae short @..api_idx_0010_GVMH.l5 ; 0x50ff
-    mov byte [bx + party_records + pc_rec.f_0244], 4 ; 0x5101
+    mov byte [bx + party_records + pc_rec.adjusted_stat5], 4 ; 0x5101
 @..api_idx_0010_GVMH.l5:
     jmp near jumptable_532e_case_9   ; 0x5106
 jumptable_532e_case_2:
