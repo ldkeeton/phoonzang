@@ -57,7 +57,7 @@ from lib.sidecar.binary import per_binary as sidecar_per_binary
 from lib.sidecar.loader import load as load_sidecar
 from lib.sidecar.errors import SidecarError
 from lib.sidecar.patches import PatchError, finalize as finalize_patches
-from lib.shared import reshare_partial, share_files
+from lib.shared import check_companions, companion_moves, reshare_partial, share_files
 from lib.symtab import project_tables
 
 from .options import APPS_DIR, PROJECT_ROOT
@@ -302,24 +302,30 @@ def _write_record_layouts(project, host, family, starts_path, report):
     return len(layouts)
 
 
-def _sync(out_dir, files, report, scopes=None):
+def _sync(out_dir, files, report, scopes=None, shared=None, source_moves=None):
     """Bring *out_dir* to this build's *files*: the tree is left alone until
     the layout is final, then only what changed is written or removed.  A
     partial build prunes only its own *scopes*."""
     # A generated prebuild seed may have the same output path as a preserved,
     # hand-owned C/S review source.  Keep the seed in the logical file set
     # through sharing, then avoid replacing that hand-owned file on disk.
+    moves = companion_moves(out_dir, shared or {}) if source_moves else []
+    moved = {dest for source, dest in moves}
     files = {rel: text for rel, text in files.items()
+             if rel not in moved
              if not (rel.endswith(('.c', '.s'))
                      and hand_owned(os.path.join(out_dir, rel)))}
+    check_companions(out_dir, files, scopes=scopes, moves=moves)
     written, unchanged, removed = sync(out_dir, files, scopes,
                                        skip=('build_out',))
+    if moves:
+        source_moves(out_dir, moves)
     report(f'  {os.path.basename(out_dir)}: {written} written, '
            f'{unchanged} unchanged, {removed} removed')
 
 
 def build_project(project, run_batch, nasm_batch, *, only=None, report=print,
-                  overlap=False):
+                  overlap=False, source_moves=None):
     """Run the whole project build, recording its level-0 stage ledger.
 
     *overlap* says two *run_batch* calls may run at once (one worker process
@@ -332,7 +338,7 @@ def build_project(project, run_batch, nasm_batch, *, only=None, report=print,
         with write_once():
             failed = _build_project(project, run_batch, nasm_batch,
                                     only=only, report=report,
-                                    overlap=overlap)
+                                    overlap=overlap, source_moves=source_moves)
     finally:
         end_run(previous_run)
         from lib.cachedirs import stages_dir
@@ -343,7 +349,7 @@ def build_project(project, run_batch, nasm_batch, *, only=None, report=print,
 
 
 def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
-                   overlap=False):
+                   overlap=False, source_moves=None):
     """Generate *project*; return the names that failed (empty on success).
 
     *run_batch(items)* takes ``(name, extra_args)`` pairs, generates each binary
@@ -520,7 +526,8 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
                        f'own until a full build re-decides')
             # Assembling it alone must not leave the others' stale artifacts
             # in build_out, so only this binary's scope is pruned.
-            _sync(out_dir, files, report, scopes=[f'{only}.asm', only])
+            _sync(out_dir, files, report, scopes=[f'{only}.asm', only],
+                  shared=shared, source_moves=source_moves)
             progress.log(f'{project} | copying assets for {only}')
             copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
                         {bins[only][0]})
@@ -580,7 +587,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
         progress.log(f'{project} | syncing {len(files)} generated file(s)')
         # The headers are build outputs too; keep them through synchronization.
         files.update(headers)
-        _sync(out_dir, files, report)
+        _sync(out_dir, files, report, shared=shared, source_moves=source_moves)
         progress.log(f'{project} | copying assets')
         copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
                     {rel for rel, _s in bins.values()})

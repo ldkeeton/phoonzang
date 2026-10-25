@@ -99,7 +99,7 @@ bss_9aee equ __zdseg_end + (__zobss_9aee - __zdata_start)
 bss_9b08 equ __zdseg_end + (__zobss_9b08 - __zdata_start)
 grid_origin_y equ __zdseg_end + (__zobss_9b0a - __zdata_start)
 grid_origin_x equ __zdseg_end + (__zobss_9b0c - __zdata_start)
-known_spell_ids equ __zdseg_end + (__zobss_9b0e - __zdata_start)
+bss_9b0e equ __zdseg_end + (__zobss_9b0e - __zdata_start)
 bss_9b10 equ __zdseg_end + (__zobss_9b10 - __zdata_start)
 bss_9b12 equ __zdseg_end + (__zobss_9b12 - __zdata_start)
 bss_9b14 equ __zdseg_end + (__zobss_9b14 - __zdata_start)
@@ -373,7 +373,7 @@ api_idx_0030_JQMM.bss18    equ bss_91a4
 api_idx_0030_JQMM.bss19    equ grid_origin_y
 api_idx_0030_JQMM.bss20    equ bss_91ae
 api_idx_0030_JQMM.bss21    equ grid_origin_x
-api_idx_0030_JQMM.bss22    equ known_spell_ids
+api_idx_0030_JQMM.bss22    equ bss_9b0e
 api_idx_0030_JQMM.api_idx1 equ api_idx_0008_UNPO
 api_idx_0030_JQMM.api_idx2 equ api_idx_0008_LUNN
 api_idx_0030_JQMM.bss23    equ bss_9b10

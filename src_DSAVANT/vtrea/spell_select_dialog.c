@@ -15,7 +15,7 @@ extern long far *tick_counter_ptr;
 extern char str_swap_file_v[];
 extern struct spell_info spell_table[];
 extern struct pc_rec party_records[];
-extern int known_spell_list[];
+extern int known_spell_ids[];
 
 spell_select_dialog(pc, button_msg, ok_enabled, limit_by_points)
 int pc, button_msg, ok_enabled, limit_by_points;
@@ -198,7 +198,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 					gfx_show_area(panel_x + 94, box_y0 + 21, panel_x + 114, box_y0 + 27);
 				} else if (hit >= 18 && rows_shown + 18 > hit) {	/* list row */
 					sel_row = list_top + hit - 18;
-					spell = known_spell_list[sel_row];
+					spell = known_spell_ids[sel_row];
 					draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row,
 						rows_drawn);
 					max_power = clamp_between(

@@ -15,18 +15,21 @@
             { "command": "PHOONZANGAsmNav.diffVendor", "title": "PHOONZANG:Diff against vendor seed" },
             { "command": "PHOONZANGAsmNav.check", "title": "PHOONZANG:Check with Manx cc/as" },
             { "command": "PHOONZANGAsmNav.makeC", "title": "PHOONZANG:Make C file (Claude)" },
-            { "command": "PHOONZANGAsmNav.makeCOpenCode", "title": "PHOONZANG:Make C file (OpenCode)" }
+            { "command": "PHOONZANGAsmNav.makeCOpenCode", "title": "PHOONZANG:Make C file (OpenCode)" },
+            { "command": "PHOONZANGAsmNav.makeCCodex", "title": "PHOONZANG:Make C file (OpenAI Codex)" }
         ],
         "menus": {
             "editor/context": [
                 { "command": "PHOONZANGAsmNav.nameRoutine", "when": "resourcePath =~ /src_[^/]+\\//", "group": "PHOONZANG@1" },
                 { "command": "PHOONZANGAsmNav.diffVendor", "when": "resourcePath =~ /src_[^/]+\\/.*\\.[cs]$/", "group": "PHOONZANG@2" },
                 { "command": "PHOONZANGAsmNav.makeC", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@3" },
-                { "command": "PHOONZANGAsmNav.makeCOpenCode", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@4" }
+                { "command": "PHOONZANGAsmNav.makeCOpenCode", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@4" },
+                { "command": "PHOONZANGAsmNav.makeCCodex", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@5" }
             ],
             "explorer/context": [
                 { "command": "PHOONZANGAsmNav.makeC", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@3" },
-                { "command": "PHOONZANGAsmNav.makeCOpenCode", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@4" }
+                { "command": "PHOONZANGAsmNav.makeCOpenCode", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@4" },
+                { "command": "PHOONZANGAsmNav.makeCCodex", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@5" }
             ]
         },
         "keybindings": [
@@ -64,6 +67,16 @@
                     "type": "string",
                     "default": "",
                     "description": "Model for 'Make C file (OpenCode)' as provider/model; empty uses the CLI default."
+                },
+                "PHOONZANGAsmNav.codex": {
+                    "type": "string",
+                    "default": "/usr/lib/chatgpt/resources/codex",
+                    "description": "Path to the OpenAI Codex CLI executable used by 'Make C file (OpenAI Codex)'. On this system it is bundled at /usr/lib/chatgpt/resources/codex."
+                },
+                "PHOONZANGAsmNav.codexModel": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Model for 'Make C file (OpenAI Codex)'; empty uses the CLI default."
                 },
                 "PHOONZANGAsmNav.python": {
                     "type": "string",

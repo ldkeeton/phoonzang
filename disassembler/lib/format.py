@@ -232,8 +232,8 @@ def _label_comment(insn, label_map):
 class LinkedSymbol(str):
     """Operand text chosen by the C linker (``lib.aztec.relink``).
 
-    Distinguishes a relocation's symbol from the segment-dataflow symbols in
-    ``mem_symbols`` so the encoding fix-ups only treat the former specially.
+    Marks relocation-derived text in ``mem_symbols``.  Encoding qualifiers
+    follow the instruction and symbolic operand, regardless of its origin.
     """
     __slots__ = ()
 
@@ -346,13 +346,6 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
 
     ops = ', '.join(parts)
 
-    # An immediate the linker (or segment dataflow) replaced with a symbol must
-    # not be re-expanded to a number by the encoding fix-ups below.
-    sym_imm = bool(mem_symbols) and any(
-        op.type == CS_OP_IMM
-        and isinstance(mem_symbols.get((insn.address, i)), LinkedSymbol)
-        for i, op in enumerate(insn.operands))
-
     # — x87 FPU memory operand needs an explicit size for NASM ------------
     # Capstone omits it; without e.g. ``qword`` NASM guesses dword and the
     # encoding (and length) changes.
@@ -438,8 +431,7 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
         # Full imm16 — with -O0 NASM uses this, but ensure strict word
         # to prevent future optimizer surprises
         parts_list = ops.split(',')
-        if len(parts_list) >= 2 and (parts_list[-1].strip().startswith('0x')
-                                     or sym_imm):
+        if len(parts_list) >= 2 and parts_list[-1].strip().startswith('0x'):
             val_str = parts_list[-1].strip()
             parts_list[-1] = f' strict word {val_str}'
             ops = ','.join(parts_list)
@@ -448,14 +440,9 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
     if op_b0 in _AX_ALU:
         m = list(insn.operands)
         if (len(m) == 2 and m[0].type == CS_OP_REG and m[1].type == CS_OP_IMM):
-            if sym_imm:
-                # The opcode is the imm16 form; a small symbol value must not
-                # let NASM pick the sign-extended short one.
-                ops = f'{insn.reg_name(m[0].reg)}, strict word {parts[1]}'
-            else:
-                val = m[1].imm & 0xFFFF
-                if 0 <= val <= 0x7F or 0xFF80 <= val <= 0xFFFF:
-                    ops = f'ax, strict word {_fmt_imm(val)}'
+            val = m[1].imm & 0xFFFF
+            if 0 <= val <= 0x7F or 0xFF80 <= val <= 0xFFFF:
+                ops = f'ax, strict word {_fmt_imm(val)}'
 
     # — Rotate/shift with implicit count=1 ----------------------------------
     if mnem in _OPS_NEED_IMPLICIT_ONE:

@@ -131,7 +131,7 @@ trigger_keyed_cell_object:
     jmp short @..trigger_keyed_cell_object.l9 ; 0x24d0
 @..trigger_keyed_cell_object.l8:
     push word [bp - 0x000c]          ; 0x24d2
-    call ds_app_QTIV                 ; 0x24d5
+    call ensure_sound_loaded         ; 0x24d5
     pop cx                           ; 0x24d8
     mov ax, 0x10                     ; 0x24d9
     push ax                          ; 0x24dc

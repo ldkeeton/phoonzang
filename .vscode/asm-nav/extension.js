@@ -470,6 +470,42 @@ const AGENTS = {
         format: (line) => ({ text: line }),
         env: {},
     },
+    codex: {
+        label: 'OpenAI Codex',
+        prompt: claudePrompt,
+        cli: () => cfg().get('codex'),
+        model: () => cfg().get('codexModel'),
+        // Interactive Codex starts the normal TUI in the workspace.
+        args(prompt, model) {
+            const args = ['--cd', root()];
+            if (model) args.push('--model', model);
+            args.push(prompt);
+            return args;
+        },
+        // Codex exec emits JSONL events; keep the session sandboxed to this workspace.
+        batchArgs(prompt, model) {
+            const args = ['exec', '--json', '--cd', root(), '--sandbox', 'workspace-write'];
+            if (model) args.push('--model', model);
+            args.push(prompt);
+            return args;
+        },
+        format: formatCodexEvent,
+        env: {},
+        // Codex is an executable, not a shell. Run it through the user's login shell
+        // so shell aliases/wrappers and the PATH used by VS Code terminals resolve.
+        terminalArgs(prompt, model) {
+            const args = ['exec', '--cd', root(), '--sandbox', 'workspace-write'];
+            if (model) args.push('--model', model);
+            args.push(prompt);
+            const quote = (s) => `'${String(s).replace(/'/g, `'\\''`)}'`;
+            const command = `${quote(cfg().get('codex'))} ${args.map(quote).join(' ')}`;
+            return process.platform === 'win32'
+                ? { shellPath: process.env.COMSPEC || 'cmd.exe',
+                    shellArgs: ['/d', '/s', '/c', `${command} & set codex_status=%errorlevel% & echo. & echo Codex exited with status %codex_status%. & pause`] }
+                : { shellPath: process.env.SHELL || '/bin/bash',
+                    shellArgs: ['-lc', `${command}; codex_status=$?; echo; echo "Codex exited with status $codex_status. Press Enter to close this terminal."; read _`] };
+        },
+    },
 };
 
 // One line of Claude's stream-json as readable text; `result` is the final message.
@@ -496,6 +532,31 @@ function formatClaudeEvent(line) {
     if (ev.type === 'result') {
         return { text: `\x1b[1m${ev.result || ev.subtype}\x1b[0m`, result: ev.result || ev.subtype };
     }
+    return { text: '' };
+}
+
+// Render Codex JSONL events in the batch terminal; item.started exposes tool calls,
+// while item.completed may contain the final assistant message or command output.
+function formatCodexEvent(line) {
+    let ev;
+    try { ev = JSON.parse(line); } catch (e) { return { text: line }; }
+    const item = ev.item || {};
+    if (ev.type === 'item.started' || ev.type === 'item.updated' || ev.type === 'item.completed') {
+        if (item.type === 'command_execution') {
+            const cmd = (item.command || '').split('\n')[0];
+            if (ev.type === 'item.started') return { text: `\x1b[36m▸ command\x1b[0m ${cmd.slice(0, 200)}` };
+            if (ev.type === 'item.completed' && item.aggregated_output)
+                return { text: item.aggregated_output };
+        }
+        if ((item.type === 'agent_message' || item.type === 'reasoning') && item.text) {
+            return { text: item.text, result: ev.type === 'item.completed' ? item.text : '' };
+        }
+    }
+    if (ev.type === 'turn.completed') {
+        return { text: '', result: ev.last_agent_message || ev.last_agent_message_text || '' };
+    }
+    if (ev.type === 'error' || ev.type === 'turn.failed')
+        return { text: `\x1b[31m${ev.message || ev.error || JSON.stringify(ev)}\x1b[0m` };
     return { text: '' };
 }
 
@@ -630,7 +691,9 @@ async function makeC(kind, uri, uris) {
     }
     const term = vscode.window.createTerminal({
         name: `${agent.label}: ${where.label}`, cwd: root(),
-        shellPath: agent.cli(), shellArgs: agent.args(prompt, agent.model()),
+        ...(agent.terminalArgs ? agent.terminalArgs(prompt, agent.model()) : {
+            shellPath: agent.cli(), shellArgs: agent.args(prompt, agent.model()),
+        }),
         env: agent.env, location: vscode.TerminalLocation.Editor,
     });
     term.show();
@@ -657,8 +720,8 @@ function makeCBatch(kind, uris) {
     }
 
     const runOne = (job) => new Promise((resolve) => {
-        // Claude's `result` event is its final message; OpenCode has no such event,
-        // so its final message is taken as the last line it printed.
+        // Agent formatters identify final messages where their CLI exposes them;
+        // otherwise the last printed line is used for the batch summary.
         let result = '', last = '', pending = '';
         const emit = (line) => {
             const out = agent.format(line);
@@ -839,6 +902,7 @@ function activate(context) {
         vscode.commands.registerCommand('PHOONZANGAsmNav.diffVendor', diffVendor),
         vscode.commands.registerCommand('PHOONZANGAsmNav.makeC', (uri, uris) => makeC('claude', uri, uris)),
         vscode.commands.registerCommand('PHOONZANGAsmNav.makeCOpenCode', (uri, uris) => makeC('opencode', uri, uris)),
+        vscode.commands.registerCommand('PHOONZANGAsmNav.makeCCodex', (uri, uris) => makeC('codex', uri, uris)),
         vscode.commands.registerCommand('PHOONZANGAsmNav.check', async (uri) => {
             const doc = uri
                 ? await vscode.workspace.openTextDocument(uri)

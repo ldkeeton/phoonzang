@@ -55,7 +55,7 @@ setup_party_pictures:
     mov al, byte [bx + 0xd8]         ; 0x1838
     sub ah, ah                       ; 0x183c
     push ax                          ; 0x183e
-    call ds_app_QTIV                 ; 0x183f
+    call ensure_sound_loaded         ; 0x183f
     pop cx                           ; 0x1842
 @..setup_party_pictures.l6:
     ret                              ; 0x1843

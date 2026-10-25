@@ -67,9 +67,9 @@ aztec_impl_ovld:
     call aztec_loadabort             ; 0x4408
     pop cx                           ; 0x440b
 @..aztec_impl_ovld.l4:
-    cmp word [bp - 0x0010], strict word __zres_end ; 0x440c
+    cmp word [bp - 0x0010], __zres_end ; 0x440c
     jb short @..aztec_impl_ovld.l5   ; 0x4411
-    cmp word [bp - 0x000c], strict word __zdseg_end ; 0x4413
+    cmp word [bp - 0x000c], __zdseg_end ; 0x4413
     jae short @..aztec_impl_ovld.l6  ; 0x4418
 @..aztec_impl_ovld.l5:
     mov ax, 0x3c                     ; 0x441a

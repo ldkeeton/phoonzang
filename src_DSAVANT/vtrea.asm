@@ -106,7 +106,7 @@ bss_9610 equ __zdseg_end + (__zobss_9610 - __zdata_start)
 bss_9636 equ __zdseg_end + (__zobss_9636 - __zdata_start)
 bss_9638 equ __zdseg_end + (__zobss_9638 - __zdata_start)
 bss_965e equ __zdseg_end + (__zobss_965e - __zdata_start)
-known_spell_list equ __zdseg_end + (__zobss_966a - __zdata_start)
+known_spell_ids equ __zdseg_end + (__zobss_966a - __zdata_start)
 _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vtrea/ovmain.asm"                ; 0x000e
@@ -282,7 +282,6 @@ jumptable_5fd3        equ log_maze_change.jumptable1
 
 %include "shared/game/api_idx_0002_TIUI.asm"     ; 0x89bd
 
-collect_known_spells.known_spell_ids1 equ known_spell_list
 %include "shared/game/collect_known_spells.asm"  ; 0x8a18
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x8a89

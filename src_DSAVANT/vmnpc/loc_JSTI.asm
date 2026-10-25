@@ -8,7 +8,7 @@ loc_JSTI:
     mov al, byte [bss_91ca]          ; 0x6db0
     cbw                              ; 0x6db3
     push ax                          ; 0x6db4
-    call ds_app_QTIV                 ; 0x6db5
+    call ensure_sound_loaded         ; 0x6db5
     pop cx                           ; 0x6db8
     mov word [bss_93da], 0x10        ; 0x6db9
 @..loc_JSTI.l1:

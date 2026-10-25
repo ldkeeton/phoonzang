@@ -76,12 +76,12 @@ def _assemble(out_dir):
     return run
 
 
-def asm_app(app):
+def asm_app(app, *, source_moves=None):
     out_dir = src_dir(app, PROJECT)
     try:
         with Workers(app) as workers:
             failed = build_project(app, _generate(workers), _assemble(out_dir),
-                                   overlap=True)
+                                   overlap=True, source_moves=source_moves)
     except SidecarError as exc:
         print(f'{app}: sidecar configuration error: {exc}')
         sys.exit(1)
@@ -218,7 +218,7 @@ def cmd_rebuild(app=None, binary=None, all_projects=(), only=None):
         _rebuild_project(project, binary, only)
 
 
-def _build_projects(targets, all_projects, *, prebuild=True):
+def _build_projects(targets, all_projects, *, prebuild=True, source_moves=None):
     for project in targets:
         if project not in all_projects:
             print(f'Unknown project: {project}')
@@ -226,4 +226,4 @@ def _build_projects(targets, all_projects, *, prebuild=True):
             sys.exit(1)
     for project in targets:
         _prepare(project, prebuild=prebuild)
-        asm_app(project)
+        asm_app(project, source_moves=source_moves)

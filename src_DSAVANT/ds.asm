@@ -397,10 +397,8 @@ bss_9094 equ __zbss_9094 - __zdseg_start
 _TTrem equ __zbss_9096 - __zdseg_start
 save_location_flag equ __zbss_919e - __zdseg_start
 location_changed equ __zbss_91a8 - __zdseg_start
-known_spell_list equ __zbss_966a - __zdseg_start
 grid_origin_y equ __zbss_9b0a - __zdseg_start
 grid_origin_x equ __zbss_9b0c - __zdseg_start
-known_spell_ids equ __zbss_9b0e - __zdseg_start
 party_redraw_mode equ __zbss_9b5e - __zdseg_start
 region_step_flag equ __zbss_9bd0 - __zdseg_start
 spell_target equ __zbss_9d90 - __zdseg_start
@@ -564,7 +562,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/load_sound_file.asm"     ; 0x2923
 
-%include "ds/game/ds_app_QTIV.asm"         ; 0x29f1
+%include "ds/game/ensure_sound_loaded.asm" ; 0x29f1
 
 %include "ds/game/load_score_files.asm"    ; 0x2a2e
 
@@ -1578,15 +1576,11 @@ __zbss_end:
 __zbss_919e:
     resb 0x000a
 __zbss_91a8:
-    resb 0x04c2
-__zbss_966a:
-    resb 0x04a0
+    resb 0x0962
 __zbss_9b0a:
     resb 0x0002
 __zbss_9b0c:
-    resb 0x0002
-__zbss_9b0e:
-    resb 0x0050
+    resb 0x0052
 __zbss_9b5e:
     resb 0x0072
 __zbss_9bd0:

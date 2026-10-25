@@ -18,7 +18,7 @@ loc_GRON:
     jmp short @..loc_GRON.l3         ; 0x6aea
 @..loc_GRON.l2:
     push word [bp + 0x4]             ; 0x6aec
-    call ds_app_QTIV                 ; 0x6aef
+    call ensure_sound_loaded         ; 0x6aef
     pop cx                           ; 0x6af2
     mov ax, 0x10                     ; 0x6af3
     push ax                          ; 0x6af6

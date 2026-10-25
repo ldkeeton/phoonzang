@@ -1,7 +1,10 @@
+import contextlib
+import io
 import os
 import shutil
 import tempfile
 import unittest
+from unittest import mock
 
 from lib import shared
 from lib.autogen import write_text
@@ -582,3 +585,79 @@ class IsSharedTest(unittest.TestCase):
             _put(root, 'shared/game/f.asm', 'f:\n    ret\n')
             self.assertTrue(shared.is_shared(root, 'f'))
             self.assertFalse(shared.is_shared(root, 'g'))
+
+
+class PartialShareWarningTest(unittest.TestCase):
+    def setUp(self):
+        verbose = mock.patch.dict(os.environ, {'VERBOSE': '1'})
+        verbose.start()
+        self.addCleanup(verbose.stop)
+
+    def _share(self, root, names):
+        from lib.symtab import Space, Symbol
+        files, tables = {}, {}
+        for binary, name in zip(('a', 'b'), names):
+            files[f'{binary}/f.asm'] = (
+                f'f:\n    mov ax, [{name}]\n    ret\n')
+            files[f'{binary}.asm'] = f'%include "{binary}/f.asm"\n'
+            tables[binary] = {name: Symbol.data(Space.BSS, 0x9000, name)}
+        return shared.share_files(files, root, tables)
+
+    def test_warns_with_per_binary_names_and_keeps_sharing(self):
+        output = io.StringIO()
+        with tempfile.TemporaryDirectory() as root, \
+                contextlib.redirect_stdout(output):
+            files, groups = self._share(root, ('spell_ids', 'spell_list'))
+        self.assertEqual(groups['shared/library/f.asm'], ['a/f.asm', 'b/f.asm'])
+        self.assertIn('f.spell_ids1', files['shared/library/f.asm'])
+        warning = output.getvalue()
+        self.assertIn('warning: partial share shared/library/f.asm', warning)
+        self.assertIn('a=spell_ids', warning)
+        self.assertIn('b=spell_list', warning)
+
+    def test_matching_names_are_quiet(self):
+        output = io.StringIO()
+        with tempfile.TemporaryDirectory() as root, \
+                contextlib.redirect_stdout(output):
+            self._share(root, ('spell_ids', 'spell_ids'))
+        self.assertEqual(output.getvalue(), '')
+
+    def test_inconsistent_names_are_quiet_without_verbose_one(self):
+        for value in (None, '', '0'):
+            with self.subTest(verbose=value), \
+                    mock.patch.dict(os.environ), \
+                    tempfile.TemporaryDirectory() as root:
+                if value is None:
+                    os.environ.pop('VERBOSE', None)
+                else:
+                    os.environ['VERBOSE'] = value
+                output = io.StringIO()
+                with contextlib.redirect_stdout(output):
+                    _, groups = self._share(root, ('spell_ids', 'spell_list'))
+                self.assertIn('shared/library/f.asm', groups)
+                self.assertEqual(output.getvalue(), '')
+
+    def test_partial_build_warns_for_preserved_alias(self):
+        with tempfile.TemporaryDirectory() as root:
+            with contextlib.redirect_stdout(io.StringIO()):
+                files, _ = self._share(root, ('spell_ids', 'spell_list'))
+            for path, text in files.items():
+                _put(root, path, text)
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                _, groups, diverged = shared.reshare_partial({
+                    'a.asm': '%include "a/f.asm"\n',
+                    'a/f.asm': 'f:\n    mov ax, [spell_ids]\n    ret\n',
+                }, root)
+            self.assertFalse(diverged)
+            self.assertIn('shared/library/f.asm', groups)
+            self.assertIn('a=spell_ids', output.getvalue())
+
+    def test_internal_labels_and_routine_aliases_are_quiet(self):
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            shared._warn_partial_shares(
+                {'shared/library/f.asm': ['a/f.asm']},
+                {'a/f.asm': [('f', 'other_f', True),
+                             ('f.loc1', 'local_label', True)]})
+        self.assertEqual(output.getvalue(), '')

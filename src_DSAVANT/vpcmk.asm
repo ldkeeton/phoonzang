@@ -173,7 +173,7 @@ slot_value equ __zdseg_end + (__zobss_9608 - __zdata_start)
 slot_value2 equ __zdseg_end + (__zobss_960c - __zdata_start)
 slot_label equ __zdseg_end + (__zobss_9610 - __zdata_start)
 slot_limit equ __zdseg_end + (__zobss_96d8 - __zdata_start)
-bss_971c equ __zdseg_end + (__zobss_971c - __zdata_start)
+known_spell_ids equ __zdseg_end + (__zobss_971c - __zdata_start)
 bss_976c equ __zdseg_end + (__zobss_976c - __zdata_start)
 bss_976e equ __zdseg_end + (__zobss_976e - __zdata_start)
 bss_978a equ __zdseg_end + (__zobss_978a - __zdata_start)
@@ -323,8 +323,7 @@ api_idx_0032_HGIM.api_idx1 equ api_idx_002e_JGHT
 
 %include "vpcmk/api_idx_0088_QLNT.asm"     ; 0x2c15
 
-api_idx_0004_VQQR                     equ collect_known_spells
-collect_known_spells.known_spell_ids1 equ bss_971c
+api_idx_0004_VQQR equ collect_known_spells
 %include "shared/game/collect_known_spells.asm"     ; 0x2d63
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x2dd4
@@ -350,7 +349,6 @@ jumptable_3cc2_case_0      equ api_idx_0050_MINM.jumptable_case1
 jumptable_3cc2_case_1      equ api_idx_0050_MINM.jumptable_case2
 jumptable_3cc2_case_3      equ api_idx_0050_MINM.jumptable_case3
 jumptable_3cc2_case_4      equ api_idx_0050_MINM.jumptable_case4
-api_idx_0050_MINM.bss2     equ bss_971c
 jumptable_3cc2             equ api_idx_0050_MINM.jumptable1
 %include "shared/game/api_idx_0050_MINM.asm"     ; 0x3069
 

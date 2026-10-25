@@ -60,7 +60,7 @@ add_party_member:
     mov al, byte [bx + 0xd8]         ; 0x0844
     sub ah, ah                       ; 0x0848
     push ax                          ; 0x084a
-    call ds_app_QTIV                 ; 0x084b
+    call ensure_sound_loaded         ; 0x084b
     pop cx                           ; 0x084e
 @..add_party_member.l2:
     mov ax, word [bp + 0x6]          ; 0x084f

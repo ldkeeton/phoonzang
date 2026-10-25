@@ -10,7 +10,7 @@ decided on the build's files as data (:func:`share_files`), before any is
 written, so a routine shared is written once, to ``shared/``, and its masters
 already include it there.  Prebuild-derived C seeds and hand-owned ``.s``
 sources can guide sharing.  Hand-owned ``.c`` files are checked against the
-binary, but do not affect ASM sharing or emitted source layout.
+binary. Only the naming transaction moves them into a shared folder.
 
 Copies without C that differ only in the label names they use (each binary's
 own ``bss_0d00``, ``loc_HOIR``: names its symbol table, ``.cache/<project>/
@@ -501,11 +501,105 @@ def share_files(files, out_dir, tables):
     return files, shared
 
 
+def check_companions(out_dir, files, scopes=None, moves=()):
+    """Warn about orphan C/S in the proposed tree before synchronizing output."""
+
+    def in_scope(rel):
+        return scopes is None or any(rel == scope or rel.startswith(scope + '/')
+                                     for scope in scopes)
+
+    # Generated files in the synchronized scopes will be replaced by *files*;
+    # hand-owned files and files outside a partial build's scopes survive.
+    final = set(files)
+    for folder, dirs, names in os.walk(out_dir):
+        dirs[:] = [d for d in dirs if d != 'build_out' and not d.startswith('.')]
+        for name in names:
+            if not name.endswith(('.asm',) + SUFFIXES):
+                continue
+            path = os.path.join(folder, name)
+            rel = os.path.relpath(path, out_dir).replace(os.sep, '/')
+            if hand_owned(path) or not in_scope(rel):
+                final.add(rel)
+    for source, dest in moves:
+        final.discard(source)
+        final.add(dest)
+    orphans = sorted(rel for rel in final if rel.endswith(SUFFIXES)
+                     and in_scope(rel) and rel.rsplit('.', 1)[0] + '.asm' not in final)
+    if orphans:
+        print('warning: source file(s) with no companion asm in the same folder: '
+              + ', '.join(orphans))
+
+def companion_moves(out_dir, shared):
+    """Plan hand-owned source moves after deciding the assembly placement.
+
+    Source text does not feed back into disassembly or sharing.  Conflicting
+    companions must be resolved before any file is moved or synchronized.
+    """
+    moves, contents, kinds = [], {}, {}
+    for target, members in sorted(shared.items()):
+        for member in members:
+            for suffix in SUFFIXES:
+                source = member[:-4] + suffix
+                path = os.path.join(out_dir, source)
+                if not hand_owned(path):
+                    continue
+                dest = target[:-4] + suffix
+                if _stem(member) != _stem(target):
+                    raise ValueError(f'{source}: cannot move beside {target} '
+                                     'without renaming its routine')
+                other = kinds.setdefault(target, suffix)
+                if other != suffix:
+                    raise ValueError(f'{target}: both .c and .s companions')
+                text = _read(path)
+                previous = contents.setdefault(dest, text)
+                existing = beside(os.path.join(out_dir, target[:-4]))
+                if previous != text or (existing is not None and
+                        (not existing.endswith(suffix) or _read(existing) != text)):
+                    raise ValueError(f'{source}: conflicting source beside {target}')
+                moves.append((source, dest))
+    return moves
+
+
+def move_companions(out_dir, moves, journal=None):
+    """Apply a validated companion plan, preserving source text and ownership."""
+    for source, dest in moves:
+        source, dest = os.path.join(out_dir, source), os.path.join(out_dir, dest)
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
+        if os.path.exists(dest):
+            if journal is not None:
+                journal.remove(source)
+            else:
+                os.unlink(source)  # the plan checked that both copies are identical
+        elif journal is not None:
+            journal.rename(source, dest)
+        else:
+            os.rename(source, dest)
+
+
+def _warn_partial_shares(shared, bindings):
+    """With VERBOSE=1, report external names still using shared aliases."""
+    if os.environ.get('VERBOSE') != '1':
+        return
+    for path, members in sorted(shared.items()):
+        aliases = defaultdict(list)
+        for rel in sorted(members):
+            for common, own, defined in bindings.get(rel, ()):
+                if common.startswith(_stem(path) + '.') and not defined:
+                    aliases[common].append(f'{_binary(rel)}={own}')
+        if aliases:
+            detail = '; '.join(f'{common}: {", ".join(names)}'
+                               for common, names in sorted(aliases.items()))
+            print(f'warning: partial share {path}: inconsistent symbol names '
+                  f'({detail}); normalize corresponding sidecar names '
+                  'before sharing C')
+
+
 def _apply(files, shared, bindings, out_dir):
     """Point the masters at the *shared* files and drop the copies they
     replace (with their sources) from *files*."""
     _place_equs(files, out_dir)
     _rewrite_includes(files, shared, bindings)
+    _warn_partial_shares(shared, bindings)
     for members in shared.values():
         for rel in members:
             files.pop(rel, None)
@@ -598,6 +692,7 @@ def share_identical(out_dir):
     project = project_of_src_dir(out_dir)
     tables = project_tables(project) if project else {}
     after, shared = share_files(before, out_dir, tables)
+    check_companions(out_dir, after)
     for rel, text in after.items():
         if before.get(rel) != text:
             path = os.path.join(out_dir, rel)

@@ -144,7 +144,7 @@ jumptable_0c85_case_6:
     jmp short @..api_idx_0090_NPLS.l6 ; 0x0c61
 @..api_idx_0090_NPLS.l5:
     push word [bp - 0x0006]          ; 0x0c63
-    call ds_app_QTIV                 ; 0x0c66
+    call ensure_sound_loaded         ; 0x0c66
     pop cx                           ; 0x0c69
     mov ax, 0x10                     ; 0x0c6a
     push ax                          ; 0x0c6d

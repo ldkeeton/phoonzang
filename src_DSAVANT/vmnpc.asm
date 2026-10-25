@@ -136,7 +136,7 @@ bss_9d66 equ __zdseg_end + (__zobss_9d66 - __zdata_start)
 bss_9d68 equ __zdseg_end + (__zobss_9d68 - __zdata_start)
 bss_9d6a equ __zdseg_end + (__zobss_9d6a - __zdata_start)
 bss_9d6c equ __zdseg_end + (__zobss_9d6c - __zdata_start)
-bss_9df2 equ __zdseg_end + (__zobss_9df2 - __zdata_start)
+known_spell_ids equ __zdseg_end + (__zobss_9df2 - __zdata_start)
 bss_9e42 equ __zdseg_end + (__zobss_9e42 - __zdata_start)
 bss_9e44 equ __zdseg_end + (__zobss_9e44 - __zdata_start)
 bss_9e46 equ __zdseg_end + (__zobss_9e46 - __zdata_start)
@@ -354,8 +354,7 @@ loc_HTKI.draw_list_rows1 equ api_idx_0004_KHSO
 
 %include "shared/game/api_idx_0002_TIUI.asm"     ; 0x74d1
 
-api_idx_0004_NIJP                     equ collect_known_spells
-collect_known_spells.known_spell_ids1 equ bss_9df2
+api_idx_0004_NIJP equ collect_known_spells
 %include "shared/game/collect_known_spells.asm"     ; 0x752c
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x759d

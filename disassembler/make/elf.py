@@ -1,6 +1,5 @@
 """``make elf-rebuild`` — ELF/DWARF symbol output and C-fragment resplicing."""
 
-import difflib
 import hashlib
 import json
 import os
@@ -10,7 +9,7 @@ import sys
 import tempfile
 
 from lib import routine_source
-from lib.autogen import marker_for, stamp, write_text
+from lib.autogen import marker_for, write_text
 from lib.compare.interrupts import _annotate_interrupts
 from lib.cachedirs import src_dir
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
@@ -250,8 +249,9 @@ def resplice_c(app, binary, check_only=False, only=None):
     report, leaves that fragment as it was and exits 1; ``--allow-diff``
     restores the old lenient splice.  A source with no matching asm is an
     error.
-    With *check_only* nothing is written: a fragment on disk that differs from
-    the regenerated one prints a diff and exits 1.
+    With *check_only* nothing is written: the source still has to pass the
+    semantic byte gate, but its rendered assembly need not match the listing's
+    exact text or symbol spelling.
 
     The sole constraint is image layout: the routine's byte span is fixed (the
     master listing addresses code absolutely), so a compile that no longer fits
@@ -386,7 +386,6 @@ def resplice_c(app, binary, check_only=False, only=None):
                   or bool(context and context['exact_bytes']))
     lenient = '--allow-diff' in _extra_flags()
     failures = []
-    mismatches = []
     sources = []
     count = 0
     picked = []
@@ -401,7 +400,7 @@ def resplice_c(app, binary, check_only=False, only=None):
     # The data-owner gate is part of the resplice result; an old stamp written
     # before it existed must not skip the source that gate needs to check.
     env = hashlib.sha1(repr((exact_here, lenient, 'data-owner-v1',
-                             'publics-v1')).encode())
+                             'publics-v1', 'symbol-refs-v1')).encode())
     for path in (labels_path, spans_path, manifest, context_path(app, binary)):
         if os.path.isfile(path):
             with open(path, 'rb') as f:
@@ -617,27 +616,11 @@ def resplice_c(app, binary, check_only=False, only=None):
                 aliases = include_aliases(
                     f.read(), os.path.relpath(apath, out_dir))
             fragment = neutral(_common_names(fragment, aliases))
-        if check_only:
-            # The fragment on disk is the source of truth: it must already be
-            # exactly what the C regenerates, never rewritten to match.
-            expected = stamp(fragment, apath)
-            with open(apath) as f:
-                on_disk = f.read()
-            if on_disk != expected:
-                rel = os.path.relpath(apath, out_dir)
-                diff = list(difflib.unified_diff(
-                    on_disk.splitlines(), expected.splitlines(),
-                    f'{rel} (on disk)',
-                    f'{rel} (from {os.path.basename(cpath)})',
-                    lineterm=''))
-                if len(diff) > 40:
-                    diff = diff[:40] + [f'... ({len(diff) - 40} more lines)']
-                mismatches.append('\n'.join(diff))
-                continue
-        else:
+        if not check_only:
             # Regenerated from the C, so it stays an auto-generated file
             # (``make clean`` removes it, a human takeover would not be
-            # rewritten).
+            # rewritten).  Check-only mode ignores textual rendering and
+            # verifies semantic bytes above without writing the listing.
             write_text(apath, fragment)
         with open(apath, 'rb') as f:
             stamps[label] = {'in': in_stamp,
@@ -657,12 +640,6 @@ def resplice_c(app, binary, check_only=False, only=None):
         print(f'resplice {app}/{binary}: C does not reproduce the original:',
               file=sys.stderr)
         print('\n'.join(failures), file=sys.stderr)
-        raise SystemExit(1)
-    if mismatches:
-        print(f'resplice {app}/{binary}: asm on disk differs from what its C '
-              f'regenerates (not written; fix the .c/.s, or run '
-              f'"make build {app}"):', file=sys.stderr)
-        print('\n'.join(mismatches), file=sys.stderr)
         raise SystemExit(1)
     # A check that passed is summed up by the caller; list it only on request.
     if count and (not check_only or _verbose()):

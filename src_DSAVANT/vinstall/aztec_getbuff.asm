@@ -6,7 +6,7 @@ aztec_newstream:
     cmp byte [si + 0x6], 0           ; 0x2e49
     je short @..aztec_newstream.l4   ; 0x2e4d
     add si, byte 0x0d                ; 0x2e4f
-    cmp si, strict word Cbuffs + 0x104 ; 0x2e52
+    cmp si, Cbuffs + 0x104           ; 0x2e52
     jb short @..aztec_newstream.l3   ; 0x2e56
     mov ax, 0                        ; 0x2e58
 @..aztec_newstream.l2:

@@ -135,7 +135,7 @@ bss_9434 equ __zdseg_end + (__zobss_9434 - __zdata_start)
 banner_offset equ __zdseg_end + (__zobss_9436 - __zdata_start)
 banner_plain_flag equ __zdseg_end + (__zobss_9438 - __zdata_start)
 bss_943a equ __zdseg_end + (__zobss_943a - __zdata_start)
-bss_943c equ __zdseg_end + (__zobss_943c - __zdata_start)
+known_spell_ids equ __zdseg_end + (__zobss_943c - __zdata_start)
 bss_948c equ __zdseg_end + (__zobss_948c - __zdata_start)
 roster_page equ __zdseg_end + (__zobss_948e - __zdata_start)
 roster_alt_mode equ __zdseg_end + (__zobss_9490 - __zdata_start)
@@ -185,8 +185,7 @@ api_idx_007c_MOJH.api_idx1 equ api_idx_0012_RLJJ
 
 %include "vpclv/loc_MNNG.asm"              ; 0x0dc0
 
-api_idx_0004_TLJT                     equ collect_known_spells
-collect_known_spells.known_spell_ids1 equ bss_943c
+api_idx_0004_TLJT equ collect_known_spells
 %include "shared/game/collect_known_spells.asm"     ; 0x0e3b
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x0eac
@@ -211,7 +210,6 @@ jumptable_1d9a_case_0      equ api_idx_0050_MINM.jumptable_case1
 jumptable_1d9a_case_1      equ api_idx_0050_MINM.jumptable_case2
 jumptable_1d9a_case_3      equ api_idx_0050_MINM.jumptable_case3
 jumptable_1d9a_case_4      equ api_idx_0050_MINM.jumptable_case4
-api_idx_0050_MINM.bss2     equ bss_943c
 jumptable_1d9a             equ api_idx_0050_MINM.jumptable1
 %include "shared/game/api_idx_0050_MINM.asm"     ; 0x1141
 

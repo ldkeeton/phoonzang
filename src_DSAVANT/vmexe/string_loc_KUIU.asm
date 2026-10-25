@@ -381,7 +381,7 @@ jumptable_372d:
     mov word [bp - 0x01ae], ax       ; 0x39d6
     mov ax, 0x11                     ; 0x39da
     push ax                          ; 0x39dd
-    call ds_app_QTIV                 ; 0x39de
+    call ensure_sound_loaded         ; 0x39de
     pop cx                           ; 0x39e1
     mov ax, bss_90e6                 ; 0x39e2
     push ax                          ; 0x39e5
@@ -456,7 +456,7 @@ jumptable_372d:
     cmp word [bp - 0x01ae], byte 0xff ; 0x3a83
     je short @..string_loc_KUIU.l24  ; 0x3a88
     push word [bp - 0x01ae]          ; 0x3a8a
-    call ds_app_QTIV                 ; 0x3a8e
+    call ensure_sound_loaded         ; 0x3a8e
     pop cx                           ; 0x3a91
     jmp short @..string_loc_KUIU.l25 ; 0x3a92
 @..string_loc_KUIU.l24:

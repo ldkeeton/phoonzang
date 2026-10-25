@@ -95,6 +95,7 @@ class SymbolIndex:
         # The image's known DS names (the vendor C's, the library's) by name,
         # whether or not an asm operand uses them yet.
         self.named_data = {str(sym): sym for sym in (data_names or {}).values()}
+        self.data_names = dict(data_names or {})
         self.data_bytes = data_bytes
         self.image_base = image_base
         self.code_origin = code_origin
@@ -310,6 +311,24 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
 
     def put_data(fx, name, value):
         from lib.record_layout import data_text
+        # Validate the identifier before rendering or applying its addend.
+        # Equal bytes alone cannot distinguish an obsolete alias from the
+        # canonical variable name.  Check the base, not value + addend: a far
+        # pointer's high word and array elements legitimately use base + offset.
+        if name not in index.places and name not in LINKER_SYMBOLS.values():
+            canonical = index.data_names.get(value)
+            authoritative = canonical is not None
+            if canonical is None and index.data_symbol is not None:
+                canonical = index.data_symbol(value)
+                authoritative = (canonical is not None and
+                                 getattr(canonical, 'source', None)
+                                 in (Source.SIDECAR, Source.LIBRARY))
+            if (canonical is not None and canonical != name
+                    and (authoritative or _DATA_BY_ADDRESS.fullmatch(name))):
+                raise RelinkError(
+                    f'{label}: data reference {name!r} (from C identifier '
+                    f'{fx.symbol!r}): the build calls DS:0x{value:04x} '
+                    f'{canonical!r}; use the canonical variable name')
         _put(code, fx.offset, 2, value + fx.addend)
         text = (data_text(name, value, fx.addend)
                 or name + _addend_text(fx.addend))

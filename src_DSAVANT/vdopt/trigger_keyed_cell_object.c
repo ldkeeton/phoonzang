@@ -36,7 +36,7 @@ int page, row, col;
 				if ((snd = maze_tables->sound[obj]) < 5 || snd == 8 || snd == 9)
 					play_sound_effect(snd);
 				else {
-					ds_app_QTIV(snd);
+					ensure_sound_loaded(snd);
 					play_sound_effect(16);
 					wait_and_free_sound(16);
 					loaded_sound_id = -1;

@@ -1202,7 +1202,7 @@ jumptable_28e9_case_4:
     mov word [bp - 0x0022], ax       ; 0x27d0
     shl ax, 1                        ; 0x27d3
     mov bx, ax                       ; 0x27d5
-    mov ax, word [bx + bss_9106]     ; 0x27d7
+    mov ax, word [bx + known_spell_ids] ; 0x27d7
     mov word [bp - 0x003c], ax       ; 0x27db
     push word [bp - 0x0024]          ; 0x27de
     push word [bp - 0x0022]          ; 0x27e1

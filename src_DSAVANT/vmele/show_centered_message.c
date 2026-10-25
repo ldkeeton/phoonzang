@@ -4,7 +4,7 @@
 extern int loaded_sound_id;
 extern measure_text_width(), gfx_set_text_color(), gfx_set_text_pos(),
 	draw_text_glyphs(), gfx_show_area(), play_sound_effect(),
-	ds_app_QTIV(), wait_and_free_sound(), restore_areas_redraw_glyph(),
+	ensure_sound_loaded(), wait_and_free_sound(), restore_areas_redraw_glyph(),
 	flush_keyboard();
 
 show_centered_message(text, sound_id)
@@ -21,11 +21,11 @@ int sound_id;
 	gfx_set_text_pos(left, 164);		/* text row */
 	draw_text_glyphs(text, 2);
 	old_sound = loaded_sound_id;
-	ds_app_QTIV(sound_id);
+	ensure_sound_loaded(sound_id);
 	gfx_show_area(left, 164, right, 176);	/* message box */
 	play_sound_effect(16);			/* message sound slot */
 	if (old_sound != -1)			/* -1: nothing was loaded */
-		ds_app_QTIV(old_sound);
+		ensure_sound_loaded(old_sound);
 	else {
 		wait_and_free_sound(16);
 		loaded_sound_id = -1;

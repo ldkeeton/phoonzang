@@ -1210,7 +1210,7 @@ api_idx_0050_MINM.jumptable_case4:
     mov word [bp - 0x0022], ax
     shl ax, 1
     mov bx, ax
-    mov ax, word [bx + api_idx_0050_MINM.bss2]
+    mov ax, word [bx + known_spell_ids]
     mov word [bp - 0x003c], ax
     push word [bp - 0x0024]
     push word [bp - 0x0022]

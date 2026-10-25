@@ -733,6 +733,12 @@ class _Journal:
         os.rename(old, new)
         self._renames.append((old, new))
 
+    def remove(self, path):
+        if path not in self._edits:
+            with open(path) as f:
+                self._edits[path] = f.read()
+        os.unlink(path)
+
     def rollback(self):
         for old, new in reversed(self._renames):
             if os.path.exists(new):
@@ -1115,25 +1121,14 @@ def cmd_name(project, binary, args, all_projects, dry_run=False):
             print('dry run: no name change')
         return
     from .build import _build_projects, _rebuild_project
-    journal = _Journal()
-    snapshot = None
+    from lib.shared import move_companions
     try:
-        apply_names(project, binary, specs, journal=journal)
-        snapshot = _label_snapshot(project)
-        _build_projects([project], all_projects)
+        apply_names(project, binary, specs)
+        _build_projects([project], all_projects,
+                        source_moves=move_companions)
         _rebuild_project(project)
     except SidecarError as exc:
-        journal.rollback()
-        if snapshot is not None:
-            _invalidate_changed_labels(project, snapshot)
-        print('name changes rolled back')
         raise SystemExit(f'error: {exc}')
-    except BaseException:
-        journal.rollback()
-        if snapshot is not None:
-            _invalidate_changed_labels(project, snapshot)
-        print('name changes rolled back')
-        raise
 
 
 _REF = re.compile(r'\b(?:cseg|bss|dseg)_[0-9a-f]{4,5}\b|\b(?:\w+_)?loc_[0-9A-Za-z_]+\b')

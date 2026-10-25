@@ -275,6 +275,7 @@
         "2923": {
           "name": "load_sound_file"
         },
+        "29f1": {"name": "ensure_sound_loaded", "note": "Waits and replaces sound slot 16 when the requested sound ID changes"},
         "2a2e": {
           "name": "load_score_files",
           "note": "(num, arg): opens SCOREnn.CSF and SCOREnn.PBL (video_mode 5) or .PBA, passes both fds with the video mode (6 treated as 4) and arg to gfx_load_score, closes them and records num in loaded_score_num; fatal errors 15/16/17"
@@ -590,10 +591,8 @@
         "908c": {"name": "party_redraw_last_tick_hi", "note": "high word of party_redraw_last_tick"},
         "919e": {"name": "save_location_flag", "note": "nonzero: record the destination as the saved location"},
         "91a8": {"name": "location_changed", "note": "set when the party is placed at a new location"},
-        "966a": {"name": "known_spell_list", "note": "int[]: spell ids collect_known_spells found, in list order"},
         "9b0a": {"name": "grid_origin_y", "note": "y pixel origin of the 7-pixel character grid"},
         "9b0c": {"name": "grid_origin_x", "note": "x pixel origin of the 7-pixel character grid"},
-        "9b0e": {"name": "known_spell_ids", "note": "spell numbers parallel to known_spell_names"},
         "9b5e": {"name": "party_redraw_mode", "note": "word set to 5 before the spell dialog (periodic_party_redraw bss1)"},
         "9bd0": {"name": "region_step_flag", "note": "cleared on move; when 1 loc_IPSH advances party_region"},
         "9d90": {"name": "spell_target", "note": "party slot picked for a targeted spell, -1 on Esc"},
@@ -851,6 +850,7 @@
     },
     "vdopt": {
       "data_names": {
+        "9b0e": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "909e": {"name": "spell_screen_temp_file", "note": "screen save name suffix \"V.$$$\""},
         "9b60": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
         "9b88": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
@@ -985,6 +985,7 @@
         {"offset": "3d7b", "space": "ds", "note": "`add ax, list_row_name`: base of the 22-byte row name strings passed to draw_split_two_line_text"}
       ],
       "data_names": {
+        "9df2": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "91cc": {"name": "text_line_buffer", "note": "four 128-byte text line buffers"},
         "93cc": {"name": "text_line_color", "note": "per-line draw color; nonzero means stored, 2 highlights"},
         "93d4": {"name": "text_line_index", "note": "index 0..3 of the current text line"},
@@ -1001,6 +1002,7 @@
     },
     "vpcvw": {
       "data_names": {
+        "9512": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "940a": {"name": "saved_screen", "note": "gfx_save_screen handle (long) restored before drawing the banner"},
         "942e": {"name": "banner_offset", "note": "vertical shift of the banner text rows"},
         "9430": {"name": "banner_plain_flag", "note": "zero selects glyph n+2, nonzero glyph 5"},
@@ -1030,6 +1032,7 @@
       "function_names": {
       },
       "data_names": {
+        "943c": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "9432": {"name": "saved_screen", "note": "gfx_save_screen handle (long) restored before drawing the banner"},
         "9436": {"name": "banner_offset", "note": "vertical shift of the banner text rows"},
         "9438": {"name": "banner_plain_flag", "note": "zero selects glyph n+2, nonzero glyph 5"},
@@ -1076,6 +1079,7 @@
         {"offset": "2936", "space": "ds", "note": "`add ax, slot_label`: base of the 20-byte label rows"}
       ],
       "data_names": {
+        "971c": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "9540": {"name": "saved_screen", "note": "gfx_save_screen handle (long) restored before drawing the banner"},
         "95aa": {"name": "banner_offset", "note": "vertical shift of the banner text rows"},
         "95ac": {"name": "banner_plain_flag", "note": "zero selects glyph n+2, nonzero glyph 5"},
@@ -1096,6 +1100,7 @@
         {"offset": "2bd3", "space": "ds", "note": "`add ax, list_row_name`: base of the 22-byte row name strings passed to draw_split_two_line_text"}
       ],
       "data_names": {
+        "9106": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "9156": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
         "917e": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
         "91a6": {"name": "list_row_name", "note": "per-row 22-byte name strings"},
@@ -1119,6 +1124,7 @@
         {"offset": "3997", "space": "ds", "note": "`add ax, list_row_name`: base of the 22-byte row name strings passed to draw_split_two_line_text"}
       ],
       "data_names": {
+        "966a": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "93ae": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
         "93d6": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
         "93fe": {"name": "list_row_name", "note": "per-row 22-byte name strings"},
@@ -1151,7 +1157,7 @@
         "8111": {"name": "run_state_1a_scene", "note": "scene run when game_state is 0x1a; message 0x138e/0x138f by maze_variant"},
         "81a8": {"name": "run_state_1c_scene", "note": "scene run when game_state is 0x1c; message 0x7f6 then api_idx_00e6"},
         "81cd": {"name": "run_state_1d_scene", "note": "scene run when game_state is 0x1d; message 0 then api_idx_0074"},
-        "8a0a": {"name": "collect_known_spells", "note": "fills known_spell_list with the realm's spells the character knows (and their names); returns the count"},
+        "8a0a": {"name": "collect_known_spells", "note": "fills known_spell_ids with the realm's spells the character knows (and their names); returns the count"},
         "8a7b": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
         "8b45": {"name": "draw_spell_cost", "note": "clears the cost box and prints cost in 3 digits when 0 < cost <= available, else ***"},
         "8d10": {"name": "spell_select_dialog", "note": "modal spell dialog for a character: realm hotspots F/W/A/E/M/D, scrolling known-spell list, power 1..7, two buttons; returns spell_dialog_button and leaves (power<<8)+spell+0x100 in spell_dialog_result"}

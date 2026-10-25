@@ -151,7 +151,6 @@ get_cell_wall.get_cell_wall_variant_b1 equ get_cell_wall_variant_b
 
 %include "shared/game/api_idx_0002_TIUI.asm"     ; 0x2627
 
-collect_known_spells.known_spell_ids1 equ known_spell_ids
 %include "shared/game/collect_known_spells.asm"  ; 0x2682
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x26f3

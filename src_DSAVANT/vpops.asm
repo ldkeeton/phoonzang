@@ -41,7 +41,7 @@ save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 bss_90d8 equ __zdseg_end + (__zobss_90d8 - __zdata_start)
-bss_9106 equ __zdseg_end + (__zobss_9106 - __zdata_start)
+known_spell_ids equ __zdseg_end + (__zobss_9106 - __zdata_start)
 list_row_marked equ __zdseg_end + (__zobss_9156 - __zdata_start)
 list_row_glyph equ __zdseg_end + (__zobss_917e - __zdata_start)
 list_row_name equ __zdseg_end + (__zobss_91a6 - __zdata_start)
@@ -98,8 +98,7 @@ run_party_screen_animation.api_idx1 equ api_idx_0006_IRNH
 
 %include "shared/game/api_idx_0002_TIUI.asm"     ; 0x1941
 
-api_idx_0004_OQNP                     equ collect_known_spells
-collect_known_spells.known_spell_ids1 equ bss_9106
+api_idx_0004_OQNP equ collect_known_spells
 %include "shared/game/collect_known_spells.asm"     ; 0x199c
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x1a0d

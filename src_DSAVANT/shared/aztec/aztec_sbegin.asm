@@ -36,7 +36,7 @@ aztec_begin:
     ja short @..aztec_sbegin.sizeok
     mov bx, ax
 @..aztec_sbegin.sizeok:
-    add bx, strict word __zdseg_end
+    add bx, __zdseg_end
 @..aztec_sbegin.setstk:
     cli
     mov ss, bp

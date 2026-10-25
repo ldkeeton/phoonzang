@@ -5,7 +5,7 @@ extern unsigned char picture_slot_number[], picture_slot_used[];
 extern unsigned char *party_char_ext[], *party_char[];
 extern int party_member_count;
 extern unsigned char *party_member_ext_1;
-extern find_picture_slot(), free_picture_slot(), ds_app_QTIV();
+extern find_picture_slot(), free_picture_slot(), ensure_sound_loaded();
 
 setup_party_pictures()
 {
@@ -21,5 +21,5 @@ setup_party_pictures()
 		    && picture_slot_used[slot] == 0)
 			free_picture_slot(slot);
 	if (party_member_ext_1[216] > 0)		/* 216: pending picture count */
-		ds_app_QTIV(party_member_ext_1[216]);
+		ensure_sound_loaded(party_member_ext_1[216]);
 }

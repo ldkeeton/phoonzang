@@ -112,7 +112,7 @@ aztec_format:
     mov di, aztec_format_conversions - IMAGE_BASE
     mov cx, 0x15
     repne scasb
-    sub di, strict word aztec_format_conversions + 0x1 - IMAGE_BASE
+    sub di, aztec_format_conversions + 0x1 - IMAGE_BASE
     shl di, 1
     jmp [cs:di + @..aztec_format.conv_routines - IMAGE_BASE]
 @..aztec_format.ldblopt:

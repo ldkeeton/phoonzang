@@ -87,7 +87,7 @@ api_idx_0010_TVMI:
     cmp word [bp - 0x0010], byte 0   ; 0x82e9
     jle short @..api_idx_0010_TVMI.l1 ; 0x82ed
     push word [bp - 0x0010]          ; 0x82ef
-    call ds_app_QTIV                 ; 0x82f2
+    call ensure_sound_loaded         ; 0x82f2
     pop cx                           ; 0x82f5
 @..api_idx_0010_TVMI.l1:
     mov ax, 1                        ; 0x82f6

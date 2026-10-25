@@ -1204,7 +1204,7 @@ jumptable_9967_case_4:
     mov word [bp - 0x0022], ax       ; 0x984e
     shl ax, 1                        ; 0x9851
     mov bx, ax                       ; 0x9853
-    mov ax, word [bx + known_spell_list] ; 0x9855
+    mov ax, word [bx + known_spell_ids] ; 0x9855
     mov word [bp - 0x003c], ax       ; 0x9859
     push word [bp - 0x0024]          ; 0x985c
     push word [bp - 0x0022]          ; 0x985f

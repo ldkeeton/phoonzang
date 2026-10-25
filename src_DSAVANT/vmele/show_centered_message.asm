@@ -41,7 +41,7 @@ show_centered_message:
     mov ax, word [loaded_sound_id]   ; 0x0367
     mov word [bp - 0x000c], ax       ; 0x036a
     push word [bp + 0x6]             ; 0x036d
-    call ds_app_QTIV                 ; 0x0370
+    call ensure_sound_loaded         ; 0x0370
     pop cx                           ; 0x0373
     mov ax, 0xb0                     ; 0x0374
     push ax                          ; 0x0377
@@ -58,7 +58,7 @@ show_centered_message:
     cmp word [bp - 0x000c], byte 0xff ; 0x0390
     je short @..show_centered_message.l1 ; 0x0394
     push word [bp - 0x000c]          ; 0x0396
-    call ds_app_QTIV                 ; 0x0399
+    call ensure_sound_loaded         ; 0x0399
     pop cx                           ; 0x039c
     jmp short @..show_centered_message.l2 ; 0x039d
 @..show_centered_message.l1:

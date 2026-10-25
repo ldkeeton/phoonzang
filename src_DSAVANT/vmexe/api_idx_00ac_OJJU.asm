@@ -457,7 +457,7 @@ jumptable_7e61_case_60:
     mov word [bp - 0x0076], 0xe      ; 0x7e31
     mov ax, 0x39                     ; 0x7e36
     push ax                          ; 0x7e39
-    call ds_app_QTIV                 ; 0x7e3a
+    call ensure_sound_loaded         ; 0x7e3a
     pop cx                           ; 0x7e3d
     mov word [bp - 0x00a8], 0x2c     ; 0x7e3e
     mov word [bss_90de], 0x10        ; 0x7e44
@@ -2391,7 +2391,7 @@ jumptable_883a:
     cmp word [bp - 0x00a8], byte 0   ; 0x907d
     jle short @..api_idx_00ac_OJJU.l147 ; 0x9082
     push word [bp - 0x00a8]          ; 0x9084
-    call ds_app_QTIV                 ; 0x9088
+    call ensure_sound_loaded         ; 0x9088
     pop cx                           ; 0x908b
 @..api_idx_00ac_OJJU.l147:
     ret                              ; 0x908c

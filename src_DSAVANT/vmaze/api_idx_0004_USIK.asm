@@ -46,7 +46,7 @@ api_idx_0004_USIK:
     jne short @..api_idx_0004_USIK.l5 ; 0x185f
     mov ax, 0xf                      ; 0x1861
     push ax                          ; 0x1864
-    call ds_app_QTIV                 ; 0x1865
+    call ensure_sound_loaded         ; 0x1865
     pop cx                           ; 0x1868
     mov ax, 1                        ; 0x1869
     push ax                          ; 0x186c

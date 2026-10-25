@@ -149,7 +149,7 @@ api_idx_0074_SGUS:
     add sp, byte 8                   ; 0x7a51
     mov ax, 0x11                     ; 0x7a54
     push ax                          ; 0x7a57
-    call ds_app_QTIV                 ; 0x7a58
+    call ensure_sound_loaded         ; 0x7a58
     pop cx                           ; 0x7a5b
     mov ax, 0x10                     ; 0x7a5c
     push ax                          ; 0x7a5f
@@ -184,7 +184,7 @@ api_idx_0074_SGUS:
     jmp short @..api_idx_0074_SGUS.l10 ; 0x7aa4
 @..api_idx_0074_SGUS.l9:
     push word [bp - 0x0022]          ; 0x7aa6
-    call ds_app_QTIV                 ; 0x7aa9
+    call ensure_sound_loaded         ; 0x7aa9
     pop cx                           ; 0x7aac
     mov ax, 0x10                     ; 0x7aad
     push ax                          ; 0x7ab0

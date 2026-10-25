@@ -42,7 +42,7 @@ api_idx_001e_QHIQ:
     pop cx                           ; 0x7eaa
     mov ax, 0x10                     ; 0x7eab
     push ax                          ; 0x7eae
-    call ds_app_QTIV                 ; 0x7eaf
+    call ensure_sound_loaded         ; 0x7eaf
     pop cx                           ; 0x7eb2
 @..api_idx_001e_QHIQ.l1:
     mov ax, word [party_region]      ; 0x7eb3
