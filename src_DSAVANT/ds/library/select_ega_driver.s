@@ -43,15 +43,6 @@ set_ega:
 	mov	word ptr -4[bp],bx
 	ret
 select_ega_driver_ endp
-
-ega_palette_	db	000h,017h,011h,015h,014h,016h,012h,013h,010h,007h,001h,005h,004h,006h,002h,003h	;16 palette registers, then overscan
-	db	000h
-
-vga_drv_name_	db	'vga.drv',0	;driver file names
-ega_drv_name_	db	'ega.drv',0
-	db	'cga.drv',0
-	db	'herc.drv',0
-	db	'tandy.drv',0
-drv_file_handle_ dw	0
+ 
 	finish
 	end
