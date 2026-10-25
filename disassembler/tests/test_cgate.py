@@ -36,5 +36,21 @@ class CGateTest(unittest.TestCase):
         self.assertTrue(self.check(ORIG + b'\x90'))
 
 
+class VerificationRecordsTest(unittest.TestCase):
+    def test_equivalent_compile_keeps_records_and_bad_compile_fails(self):
+        from lib.compare.coverrides import _apply_c_overrides
+        from lib.compare.cgate import CGateError
+
+        records = [{'type': 'label', 'offset': 0, 'name': 'f'}]
+        check = {'code': bytes.fromhex('5589e58b46045dc3'),
+                 'check_only': True}
+        self.assertIs(_apply_c_overrides(
+            records, {'f': check}, ORIG, {0: 'f'}, {}, {}, {}), records)
+        check['code'] = bytes.fromhex('558bec8b46065dc3')
+        with self.assertRaises(CGateError):
+            _apply_c_overrides(
+                records, {'f': check}, ORIG, {0: 'f'}, {}, {}, {})
+
+
 if __name__ == '__main__':
     unittest.main()

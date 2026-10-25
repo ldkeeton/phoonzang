@@ -168,14 +168,15 @@ class ShareFilesTest(unittest.TestCase):
         self.assertEqual(sorted(files), ['a.asm', 'b.asm', 'shared/library/f.asm'])
         self.assertIn('%include "shared/library/f.asm"', files['a.asm'])
 
-    def test_a_hand_owned_c_on_disk_keeps_its_fragment(self):
+    def test_hand_owned_c_does_not_change_assembly_sharing(self):
         with tempfile.TemporaryDirectory() as root:
             os.makedirs(os.path.join(root, 'b'))
             with open(os.path.join(root, 'b', 'f.c'), 'w') as f:
                 f.write('int f;\n')
             files, result = shared.share_files(self._files(), root, {})
-        self.assertEqual(result, {})
-        self.assertIn('b/f.asm', files)
+        self.assertEqual(result, {'shared/library/f.asm': ['a/f.asm', 'b/f.asm']})
+        self.assertNotIn('b/f.asm', files)
+        self.assertFalse([p for p in files if p.endswith('.c')])
 
 
 class AddressDataTest(unittest.TestCase):
@@ -321,23 +322,22 @@ class OtherNameTest(unittest.TestCase):
                     f.write(text)
             return shared.share_files(files, root, tables)
 
-    def test_a_hand_source_keeps_its_other_tag_copy(self):
-        # Writing shared/game/f_HHHH.c must not split f_GGGG's binary off
-        # the file both copies shared, whichever tag sorts first.
+    def test_hand_c_does_not_change_which_tag_names_the_shared_copy(self):
+        # Verification-only C does not change assembly placement or aliases.
         files, result = self._share_with_hand(
             {'a': ('f_GGGG', ['mov ax, [bss_10]']),
              'b': ('f_HHHH', ['mov ax, [bss_20]'])},
             {'a': self._table('f_GGGG', 'bss_10'),
              'b': self._table('f_HHHH', 'bss_20')},
             {'shared/game/f_HHHH.c': 'f_HHHH() {}\n'})
-        self.assertEqual(result, {'shared/game/f_HHHH.asm':
+        self.assertEqual(result, {'shared/library/f_GGGG.asm':
                                   ['a/f_GGGG.asm', 'b/f_HHHH.asm']})
-        self.assertIn('f_GGGG      equ f_HHHH', files['a.asm'])
-        self.assertIn('f_HHHH.bss1 equ bss_10', files['a.asm'])
+        self.assertRegex(files['b.asm'], r'f_HHHH\s+equ f_GGGG')
+        self.assertIn('f_GGGG.bss1 equ bss_10', files['a.asm'])
 
     def test_a_named_group_of_the_same_shape_gets_no_source(self):
-        # draw's copies share a bucket with f_HHHH's hand source but never
-        # join it (a person's name), so no source is written beside draw.
+        # Matching assembly shares under the explicit routine name.  The
+        # hand-owned C is not copied to that routine.
         files, result = self._share_with_hand(
             {'a': ('f_HHHH', ['push bp']), 'c': ('draw', ['push bp']),
              'd': ('draw', ['push bp'])},
@@ -345,18 +345,19 @@ class OtherNameTest(unittest.TestCase):
              'd': self._named('draw')},
             {'shared/game/f_HHHH.c': 'f_HHHH() {}\n'})
         self.assertEqual(result, {'shared/library/draw.asm':
-                                  ['c/draw.asm', 'd/draw.asm']})
+                                  ['a/f_HHHH.asm', 'c/draw.asm', 'd/draw.asm']})
         self.assertFalse([rel for rel in files
                           if os.path.basename(rel).startswith('draw.')
                           and not rel.endswith('.asm')])
 
-    def test_two_hand_sources_of_one_shape_stay_apart(self):
+    def test_two_hand_c_sources_do_not_split_matching_assembly(self):
         _, result = self._share_with_hand(
             {'a': ('f_GGGG', ['push bp']), 'b': ('f_HHHH', ['push bp'])},
             {'a': self._table('f_GGGG'), 'b': self._table('f_HHHH')},
             {'shared/game/f_GGGG.c': 'f_GGGG() {}\n',
              'shared/game/f_HHHH.c': 'f_HHHH() { }\n'})
-        self.assertEqual(result, {})
+        self.assertEqual(result, {'shared/library/f_GGGG.asm':
+                                  ['a/f_GGGG.asm', 'b/f_HHHH.asm']})
 
     def test_different_code_under_two_tags_stays(self):
         _, result = self._share(
@@ -459,13 +460,13 @@ class BandTest(unittest.TestCase):
         _, result = self._share('f', ['push bp'])
         self.assertEqual(list(result), ['shared/library/f.asm'])
 
-    def test_hand_c_in_the_flat_folder_still_counts(self):
+    def test_hand_c_does_not_change_the_assembly_band(self):
         with tempfile.TemporaryDirectory() as root:
             os.makedirs(os.path.join(root, 'shared'))
             with open(os.path.join(root, 'shared', 'f.c'), 'w') as f:
                 f.write('int f;\n')
             files, result = self._share('f', ['push bp'], root)
-        self.assertEqual(list(result), ['shared/game/f.asm'])
+        self.assertEqual(list(result), ['shared/library/f.asm'])
         self.assertFalse([p for p in files if p.endswith('.c')])
 
 

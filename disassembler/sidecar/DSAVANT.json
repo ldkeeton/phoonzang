@@ -1580,6 +1580,7 @@
         "11d9": {"name": "event_command", "note": "byte: high nibble of the current event byte"},
         "121a": {"name": "mpu401_write_ready_flag", "note": "set when MPU-401 status bit 6 clears within the timeout"},
         "121b": {"name": "mpu401_read_ready_flag", "note": "set when MPU-401 status bit 7 clears within the timeout"},
+        "18f2": {"name": "sample_offset", "note": "pit_sample_interrupt's `mov al, [0]` operand word: the sample offset the installer patches and the handler advances with `adc`"},
         "193a": {"name": "sample_count_table", "note": "byte table: sample byte to PIT channel 2 count low byte, read with cs xlatb by the INT 08h handlers"}
       }
     }

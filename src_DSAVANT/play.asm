@@ -67,20 +67,20 @@ cseg_0b12 equ __zinsn_0b0f + 0x3
 
 %include "play/play_set_device.asm"        ; 0x0322
 
-cseg_0848 equ __zinsn_0846 + 0x2
-cseg_08bf equ __zinsn_08be + 0x1
-cseg_08c4 equ __zinsn_08c3 + 0x1
-cseg_08d4 equ __zinsn_08cf + 0x5
-cseg_097c equ __zinsn_097a + 0x2
-cseg_09a4 equ __zinsn_09a3 + 0x1
-cseg_09a9 equ __zinsn_09a8 + 0x1
-cseg_09bb equ __zinsn_09b6 + 0x5
-cseg_0a54 equ __zinsn_0a52 + 0x2
-; cseg_0b10 equ __zinsn_0b0f + 0x1
-; cseg_0b12 equ __zinsn_0b0f + 0x3
-cseg_18e8 equ __zinsn_18e7 + 0x1
-cseg_18f2 equ __zinsn_18f1 + 0x1
-cseg_1904 equ __zinsn_18ff + 0x5
+cseg_0848     equ __zinsn_0846 + 0x2
+cseg_08bf     equ __zinsn_08be + 0x1
+cseg_08c4     equ __zinsn_08c3 + 0x1
+cseg_08d4     equ __zinsn_08cf + 0x5
+cseg_097c     equ __zinsn_097a + 0x2
+cseg_09a4     equ __zinsn_09a3 + 0x1
+cseg_09a9     equ __zinsn_09a8 + 0x1
+cseg_09bb     equ __zinsn_09b6 + 0x5
+cseg_0a54     equ __zinsn_0a52 + 0x2
+; cseg_0b10     equ __zinsn_0b0f + 0x1
+; cseg_0b12     equ __zinsn_0b0f + 0x3
+cseg_18e8     equ __zinsn_18e7 + 0x1
+sample_offset equ __zinsn_18f1 + 0x1
+cseg_1904     equ __zinsn_18ff + 0x5
 %include "play/play_install_handler.asm"   ; 0x03e2
 
 %include "play/leaf_loc_STGJ.asm"          ; 0x0610
@@ -101,7 +101,7 @@ cseg_1904 equ __zinsn_18ff + 0x5
 
 %include "play/io_loc_UVLK_0841.asm"       ; 0x0841
 
-loc_121d equ __zinsn_121b + 0x2
+loc_121d equ __zinsn_121c + 0x1
 io_loc_LPSH              equ dissolve_area
 dissolve_area.show_area1 equ loc_121d
 %include "shared/library/dissolve_area.asm"            ; 0x086b
@@ -238,6 +238,7 @@ dissolve_area.show_area1 equ loc_121d
 
 %include "play/mpu_send_byte.asm"          ; 0x11fb
 
+mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 %include "play/mpu401_reset_and_sync.asm"  ; 0x1217
 
 %include "play/string_loc_OSJN.asm"        ; 0x12af
@@ -258,6 +259,7 @@ dissolve_area.show_area1 equ loc_121d
 
 %include "play/io_loc_VHII.asm"            ; 0x18cb
 
+; sample_offset equ __zinsn_18f1 + 0x1
 %include "play/pit_sample_interrupt.asm"   ; 0x18e4
 
 %include "play/data/cseg_1939.asm"         ; 0x1939

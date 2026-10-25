@@ -124,7 +124,7 @@ jumptable_0495:
     add ax, strict word 0x10         ; 0x051b
     mov di, ax                       ; 0x051e
     mov bx, ax                       ; 0x0520
-    mov word [cs:cseg_18f2 - IMAGE_BASE], ax ; 0x0522
+    mov word [cs:sample_offset - IMAGE_BASE], ax ; 0x0522
     mov word [cs:cseg_08c4 - IMAGE_BASE], ax ; 0x0526
     mov word [cs:cseg_09a9 - IMAGE_BASE], ax ; 0x052a
     mov al, byte [bx]                ; 0x052e

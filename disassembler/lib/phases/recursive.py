@@ -701,6 +701,11 @@ class RecursiveDescentPhase(Phase):
                 dos_term = is_dos_terminator(data, insn)
 
                 if mnem in _TERMINATORS or dos_term:
+                    # A dead `ret` right after a DOS exit still closes the
+                    # routine (`ret ; not reached`).
+                    if (dos_term and insn_end < n and data[insn_end] == 0xC3
+                            and not ctx.is_hard_data(insn_end)):
+                        insn_end += 1
                     fork_ranges.append((spec_start, insn_end))
                     fork_exits.append('ret' if not dos_term else 'hlt')
                     break

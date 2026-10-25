@@ -492,6 +492,8 @@ loc_3715           equ loc_35d8.loc23
 loc_3718           equ loc_35d8.loc24
 %include "shared/library/loc_35d8.asm"                ; 0x35d8
 
+%include "shared/data/intensity_limits.asm"   ; 0x371b
+
 cseg_382b equ cache_area_disk_error.cseg1
 %include "shared/library/cache_area_disk_error.asm"   ; 0x381b
 

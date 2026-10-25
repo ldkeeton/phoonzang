@@ -5,12 +5,10 @@ at the next named routine, so a bare `loc_` callee can be glued after the root.
 
 ## Splitting
 
-The source owns only the bytes it compiles to. Write the first routine; do not
-pad it or merge in the co-tenant. `make build PROJECT` caps the fragment at the
-compiled length and cuts the tail into `<tail>.asm`. Write and name that tail as
-its own fragment.
+Companion `.c` and `.s` files are verification inputs. Their compiled code
+must fit the recorded routine span and pass the byte/semantic gate.
 
-`make info` shows the root and co-tenant spans. Before the cut, `make probe`
+`make info` shows the root and co-tenant spans.
 reports `[DIFF]` against the whole fragment; compare the compiled length with
 the **root** size, not the old fragment size.
 

@@ -368,9 +368,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
     used_ids = collect_message_ids(project)
     headers, header_stats = msgids.generate_project(
         project, PROJECT_ROOT, used_ids=used_ids)
-    if header_stats['constants']:
-        report(f"{project}: {header_stats['c_constants']} used message constants "
-               f"in C header ({header_stats['constants']} in ASM catalog)")
+
     # Install the self-contained header tree before any worker compiles.
     from lib.aztec import sources
     sources.install_headers(project, out_dir)

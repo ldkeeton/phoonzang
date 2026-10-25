@@ -4,10 +4,9 @@ mpu401_reset_and_sync:
     push cx                          ; 0x1218
     push dx                          ; 0x1219
 mpu401_write_ready_flag:
-    db 0x00
-mpu401_read_ready_flag:
-__zinsn_121b:
-    add byte [bp + si + 0x331], bh   ; 0x121b
+    add byte [bx + si], al           ; 0x121a
+__zinsn_121c:
+    mov dx, 0x331                    ; 0x121c
     in al, dx                        ; 0x121f
     and al, 0x80                     ; 0x1220
     jne short @..mpu401_reset_and_sync.l1 ; 0x1222

@@ -24,15 +24,17 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     """Resolve Aztec runtime routines to C and compile the current seeds.
 
     Returns ``(overrides, checks, entries, files)``.  Prebuild-derived
-    *overrides* feed the byte-preserving splice in :func:`lib.compare.verify`;
-    hand-owned C sources become check-only *checks*.  *entries* records the
-    winning provenance and *files* are vendor headers the C includes.
+    *overrides* feed the byte-preserving splice in :func:`lib.compare.verify`
+    from generated Aztec prebuild C and .s (the vendor's original source);
+    hand-owned sources are check-only inputs.
+    *entries* records the winning provenance and *files* are vendor headers
+    the C includes.
 
     ``ASM_AZTEC_PREBUILD=1`` runs the DOSBox search and writes
     ``.cache/<project>/prebuild/``; otherwise the prebuilt manifest is read and a
     missing prebuild is a hard error.  Prebuild module C is always seeded from
     the cached vendor source.  A hand-owned C file is compiled only for the
-    semantic gate; a hand-owned ``.s`` remains an explicit override.
+    semantic gate, as is a hand-owned ``.s``.
     """
     if not project or AZTEC_MUX_DISABLED:
         return {}, {}, {}, {}
@@ -40,8 +42,9 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
               if getattr(nm, 'role', None) == 'aztec']
     dest = os.path.join(out_dir, name)
     # A binary with sidecar ``bands`` keeps each routine's source beside its
-    # .asm, in the band's folder (``ds/game/x.c``).  Hand-owned C is compiled
-    # as a check only; hand-owned .s remains an assembly override.
+    # .asm, in the band's folder (``ds/game/x.c``).  Hand-owned C and .s are
+    # compiled for verification only; generated Aztec prebuild sources supply
+    # their reassembled instructions.
     bands = _sidecar_bands(project, name)
     found_local = _hand_source_tree(dest, bands)
     found_shared = _hand_shared_source_tree(out_dir)
@@ -216,11 +219,15 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'file': entry['file'], 'compiler': entry['compiler'],
             'includes': entry['includes'],
             'asm_stub': cache.is_asm_entry(entry),
+            # Generated prebuild C and .s are the vendor's original source:
+            # their reassembled records replace the disassembly.  Hand-owned
+            # sources remain check-only below.
+            'check_only': not generated,
         }
     # A hand-written <label>.c or .s outside every placed module (an
     # application routine, or a vendor routine whose module stays assembly)
-    # replaces that routine too.  It owns exactly what it compiled to: the
-    # recorded span's tail, if any, becomes its own fragment on this build.
+    # is checked without replacing its disassembly.  It must fit inside the
+    # recorded span, the next routine, and its sidecar band.
     recorded = _recorded_spans(project, name)
     roots = sorted(function_roots or ())
     for label in hand:
@@ -249,8 +256,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
                 band_end=(band[1] + 1) if band is not None else None)
         except routine_source.FragmentLengthError as exc:
             raise SystemExit(f'error: {os.path.basename(path)}: {exc}')
-        target = checks if path.endswith('.c') else overrides
-        target[label] = {
+        checks[label] = {
             'func': func, 'text': text, 'path': path,
             'start': start,
             'own_keys': {cache.own_key(routine, entry): label},
@@ -278,10 +284,10 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'source_version': entry['source_version'],
             'file': entry['file'], 'compiler': entry['compiler'],
             'includes': entry['includes'],
-            'check_only': path.endswith('.c'),
+            'check_only': True,
         }
     # A hand-owned module C file is checked against the same original module
-    # span, while its prebuild seed remains the source used for ASM emission.
+    # span; the prebuild seed is also verified without replacing ASM.
     all_hand_c = dict(found_shared_c)
     all_hand_c.update(found_c)
     for label, path in sorted(all_hand_c.items()):

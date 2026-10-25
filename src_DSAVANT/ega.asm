@@ -512,6 +512,8 @@ loc_3fc7           equ loc_35d8.loc23
 loc_3fca           equ loc_35d8.loc24
 %include "shared/library/loc_35d8.asm"                ; 0x3e8a
 
+%include "shared/data/intensity_limits.asm"   ; 0x3fcd
+
 cseg_40dd equ cache_area_disk_error.cseg1
 %include "shared/library/cache_area_disk_error.asm"   ; 0x40cd
 

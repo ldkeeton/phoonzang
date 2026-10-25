@@ -646,12 +646,15 @@ def _instruction_anchor(records, binary_data, addr, name):
     if start == addr:
         return None
     from lib.compare.jumptables import _ensure_global_label
+    named = [rec['name'] for rec in records
+             if rec['type'] == 'label' and rec['offset'] == start
+             and not rec['name'].generic]
     # A routine's own name says which instruction this is in every binary that
     # links it; the address only says where.
-    owner = next((rec['name'] for rec in records
-                  if rec['type'] == 'label' and rec['offset'] == start
-                  and rec['name'].kind is Kind.ROUTINE
-                  and not rec['name'].generic), None)
+    owner = next((n for n in named if n.kind is Kind.ROUTINE), None)
+    # Any other name already on the instruction serves as the anchor itself
+    if owner is None and named:
+        return f'{named[0]} + 0x{addr - start:x}'
     anchor = Symbol.anchor(f'{ANCHOR_PREFIX}insn_{owner or format(start, "04x")}',
                            start)
     if not _ensure_global_label(records, binary_data, start, anchor):

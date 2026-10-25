@@ -7,7 +7,7 @@ from itertools import accumulate
 from lib.compare.records import _record_span
 from lib.names import is_address_label, is_data
 from lib.sidecar.bands import band_for
-from lib.symtab import Kind
+from lib.symtab import Kind, Source
 
 #: Tokens removed before looking for label references: quoted strings and the
 #: trailing ``; 0x<offset>`` comment.
@@ -292,7 +292,11 @@ def _split_off_foreign_objects(split_ranges, records, owners=None, fixed=()):
             # A tail label the range's own code never names is a neighbour: it is
             # referenced from outside (a blob, a bare ``loc_`` callee) or not at
             # all (a dead name).  Either way it is not this routine's.
-            if any(owner(source) == index for source in refs.get(label, ())):
+            # A named data object past the routine's code is its own object
+            # even when that code reads it (``ega_palette``).
+            if (any(owner(source) == index for source in refs.get(label, ()))
+                    and not (label.kind is Kind.DATA
+                             and label.source is Source.SIDECAR)):
                 kept.append((offset, label))
                 continue
             cuts.append((offset, label))
