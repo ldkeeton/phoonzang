@@ -25,7 +25,7 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x18ce
     imul word [bp + 0x4]             ; 0x18d1
     mov bx, ax                       ; 0x18d4
-    mov al, byte [bx + member_state + 0x3] ; 0x18d6
+    mov al, byte [bx + party_records + pc_rec.label] ; 0x18d6
     sub ah, ah                       ; 0x18da
     push ax                          ; 0x18dc
     lea ax, word [bp - 0x004c]       ; 0x18dd
@@ -69,8 +69,8 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x1938
     imul word [bp + 0x4]             ; 0x193b
     mov bx, ax                       ; 0x193e
-    mov ax, word [bx + party_records + 0x8] ; 0x1940
-    mov dx, word [bx + party_records + 0xa] ; 0x1944
+    mov ax, word [bx + party_records + pc_rec.f_0008] ; 0x1940
+    mov dx, word [bx + party_records + pc_rec.f_000a] ; 0x1944
     mov cx, 0x16d                    ; 0x1948
     mov bx, 0                        ; 0x194b
     call aztec_ldv                   ; 0x194e
@@ -118,7 +118,7 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x19b4
     imul word [bp + 0x4]             ; 0x19b7
     mov bx, ax                       ; 0x19ba
-    push word [bx + pc_spell_power_cap + 0x2] ; 0x19bc
+    push word [bx + party_records + pc_rec.f_0026] ; 0x19bc
     call format_int_decimal          ; 0x19c0
     add sp, byte 4                   ; 0x19c3
     mov ax, 0                        ; 0x19c6
@@ -130,9 +130,9 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x19d5
     imul word [bp + 0x4]             ; 0x19d8
     mov bx, ax                       ; 0x19db
-    cmp word [bx + pc_spell_power_cap], byte 0x10 ; 0x19dd
+    cmp word [bx + party_records + pc_rec.power_cap], byte 0x10 ; 0x19dd
     jge short @..api_idx_009e_KPST.l2 ; 0x19e2
-    mov ax, word [bx + pc_spell_power_cap] ; 0x19e4
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x19e4
     shl ax, 1                        ; 0x19e8
     shl ax, 1                        ; 0x19ea
     mov bx, ax                       ; 0x19ec
@@ -146,7 +146,7 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x19fe
     imul word [bp + 0x4]             ; 0x1a01
     mov bx, ax                       ; 0x1a04
-    mov ax, word [bx + pc_spell_power_cap] ; 0x1a06
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x1a06
     add ax, strict word 0xfff0       ; 0x1a0a
     mov word [bp - 0x004e], ax       ; 0x1a0d
     mov ax, word [bp - 0x0010]       ; 0x1a10
@@ -219,8 +219,8 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x1aa2
     imul word [bp + 0x4]             ; 0x1aa5
     mov bx, ax                       ; 0x1aa8
-    mov cx, word [bx + party_records + 0xc] ; 0x1aaa
-    mov bx, word [bx + party_records + 0xe] ; 0x1aae
+    mov cx, word [bx + party_records + pc_rec.f_000c] ; 0x1aaa
+    mov bx, word [bx + party_records + pc_rec.f_000e] ; 0x1aae
     mov ax, word [bp - 0x000c]       ; 0x1ab2
     mov dx, word [bp - 0x000a]       ; 0x1ab5
     sub ax, cx                       ; 0x1ab8

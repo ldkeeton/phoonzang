@@ -22,13 +22,13 @@ api_idx_0092_GSQH:
     pop ax                           ; 0x4bfd
     add ax, cx                       ; 0x4bfe
     mov bx, ax                       ; 0x4c00
-    cmp word [bx + cell_key_grid], byte 0 ; 0x4c02
+    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x4c02
     jg short @..api_idx_0092_GSQH.l3 ; 0x4c07
     jmp near @..api_idx_0092_GSQH.l8 ; 0x4c09
 @..api_idx_0092_GSQH.l3:
     mov ax, 0                        ; 0x4c0c
     push ax                          ; 0x4c0f
-    push word [bx + cell_key_grid]   ; 0x4c10
+    push word [bx + party_records + pc_rec.cell] ; 0x4c10
     lea ax, word [bp - 0x004a]       ; 0x4c14
     push ax                          ; 0x4c17
     mov ax, 1                        ; 0x4c18
@@ -50,7 +50,7 @@ api_idx_0092_GSQH:
     pop ax                           ; 0x4c3d
     add ax, cx                       ; 0x4c3e
     mov bx, ax                       ; 0x4c40
-    mov al, byte [bx + cell_key_grid + 0x7] ; 0x4c42
+    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4c42
     sub ah, ah                       ; 0x4c46
     test ax, 0x80                    ; 0x4c48
     je short @..api_idx_0092_GSQH.l4 ; 0x4c4b
@@ -98,7 +98,7 @@ api_idx_0092_GSQH:
     pop ax                           ; 0x4cb1
     add ax, cx                       ; 0x4cb2
     mov bx, ax                       ; 0x4cb4
-    mov al, byte [bx + cell_key_grid + 0x4] ; 0x4cb6
+    mov al, byte [bx + party_records + pc_rec.cell + 0x4] ; 0x4cb6
     sub ah, ah                       ; 0x4cba
     mov bx, ax                       ; 0x4cbc
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x4cbe
@@ -118,7 +118,7 @@ api_idx_0092_GSQH:
     pop ax                           ; 0x4ce0
     add ax, cx                       ; 0x4ce1
     mov bx, ax                       ; 0x4ce3
-    mov al, byte [bx + cell_key_grid + 0x6] ; 0x4ce5
+    mov al, byte [bx + party_records + pc_rec.cell + 0x6] ; 0x4ce5
     sub ah, ah                       ; 0x4ce9
     mov cx, word [bp - 0x0092]       ; 0x4ceb
     shl cx, 1                        ; 0x4cef
@@ -234,7 +234,7 @@ api_idx_0092_GSQH:
     pop ax                           ; 0x4deb
     add ax, cx                       ; 0x4dec
     mov bx, ax                       ; 0x4dee
-    push word [bx + cell_key_grid]   ; 0x4df0
+    push word [bx + party_records + pc_rec.cell] ; 0x4df0
     lea ax, word [bp - 0x004a]       ; 0x4df4
     push ax                          ; 0x4df7
     mov ax, 1                        ; 0x4df8
@@ -252,7 +252,7 @@ api_idx_0092_GSQH:
     mov ax, 6                        ; 0x4e17
     imul dx                          ; 0x4e1a
     mov bx, ax                       ; 0x4e1c
-    cmp byte [bx + spell_table + 0x4], 1 ; 0x4e1e
+    cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x4e1e
     jne short @..api_idx_0092_GSQH.l15 ; 0x4e23
     call pick_party_member           ; 0x4e25
     mov word [cast_spell_target], ax ; 0x4e28
@@ -303,7 +303,7 @@ api_idx_0092_GSQH:
     pop ax                           ; 0x4e96
     add ax, cx                       ; 0x4e97
     mov bx, ax                       ; 0x4e99
-    mov al, byte [bx + cell_key_grid + 0x7] ; 0x4e9b
+    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4e9b
     sub ah, ah                       ; 0x4e9f
     test ax, 2                       ; 0x4ea1
     je short @..api_idx_0092_GSQH.l18 ; 0x4ea4

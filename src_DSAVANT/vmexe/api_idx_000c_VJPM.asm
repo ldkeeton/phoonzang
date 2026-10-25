@@ -23,7 +23,7 @@ api_idx_000c_VJPM:
     cmp ax, strict word 3            ; 0x6f6f
     jl short @..api_idx_000c_VJPM.l1 ; 0x6f72
     mov bx, word [party_member_ext_1] ; 0x6f74
-    cmp byte [bx + 0xd8], 0          ; 0x6f78
+    cmp byte [bx + party_member_ext_1_rec.f_00d8], 0 ; 0x6f78
     jbe short @..api_idx_000c_VJPM.l3 ; 0x6f7d
     mov ax, 0x10                     ; 0x6f7f
     push ax                          ; 0x6f82

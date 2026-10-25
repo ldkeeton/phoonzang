@@ -132,7 +132,7 @@ api_idx_000c_RMGQ:
 @..api_idx_000c_RMGQ.l8:
     mov si, word [party_map_piece]   ; 0x0b01
     mov bx, word [maze_tables]       ; 0x0b05
-    mov al, byte [bx + si + spell_table + 0x520] ; 0x0b09
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x0b09
     sub ah, ah                       ; 0x0b0d
     push ax                          ; 0x0b0f
     push si                          ; 0x0b10
@@ -151,7 +151,7 @@ api_idx_000c_RMGQ:
 @..api_idx_000c_RMGQ.l9:
     mov bx, word [maze_tables]       ; 0x0b34
     mov si, word [party_map_piece]   ; 0x0b38
-    mov al, byte [bx + si + spell_table + 0x520] ; 0x0b3c
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x0b3c
     sub ah, ah                       ; 0x0b40
     mov word [party_region], ax      ; 0x0b42
     mov ax, 0                        ; 0x0b45

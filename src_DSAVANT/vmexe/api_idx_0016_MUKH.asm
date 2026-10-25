@@ -77,14 +77,14 @@ api_idx_0016_MUKH:
     shl cx, 1                        ; 0x0ee1
     add ax, cx                       ; 0x0ee3
     mov bx, ax                       ; 0x0ee5
-    mov al, byte [bx + slot_recs + 0x147] ; 0x0ee7
+    mov al, byte [bx + slot_recs + slot_rec.cell_ofs + 0x1] ; 0x0ee7
     cbw                              ; 0x0eeb
     push ax                          ; 0x0eec
     mov ax, 0x15e                    ; 0x0eed
     imul word [bp - 0x0002]          ; 0x0ef0
     add ax, word [bp - 0x0008]       ; 0x0ef3
     mov bx, ax                       ; 0x0ef6
-    mov al, byte [bx + slot_recs + 0x81] ; 0x0ef8
+    mov al, byte [bx + slot_recs + slot_rec.glyph_y] ; 0x0ef8
     sub ah, ah                       ; 0x0efc
     mov cx, ax                       ; 0x0efe
     pop ax                           ; 0x0f00
@@ -102,7 +102,7 @@ api_idx_0016_MUKH:
     shl cx, 1                        ; 0x0f19
     add ax, cx                       ; 0x0f1b
     mov bx, ax                       ; 0x0f1d
-    mov al, byte [bx + slot_recs + 0x146] ; 0x0f1f
+    mov al, byte [bx + slot_recs + slot_rec.cell_ofs] ; 0x0f1f
     cbw                              ; 0x0f23
     push ax                          ; 0x0f24
     mov ax, 0x15e                    ; 0x0f25
@@ -111,7 +111,7 @@ api_idx_0016_MUKH:
     shl cx, 1                        ; 0x0f2e
     add ax, cx                       ; 0x0f30
     mov bx, ax                       ; 0x0f32
-    mov al, byte [bx + slot_recs + 0x38] ; 0x0f34
+    mov al, byte [bx + slot_recs + slot_rec.glyph_x] ; 0x0f34
     sub ah, ah                       ; 0x0f38
     mov cx, ax                       ; 0x0f3a
     pop ax                           ; 0x0f3c

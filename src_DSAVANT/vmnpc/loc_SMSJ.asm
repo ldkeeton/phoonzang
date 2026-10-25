@@ -145,7 +145,7 @@ jumptable_9baa_case_9:
     imul word [bss_b04e]             ; 0x9b79
     add ax, word [bss_9136]          ; 0x9b7d
     mov bx, ax                       ; 0x9b81
-    cmp byte [bx + cell_key_grid + 0x17e], 0x32 ; 0x9b83
+    cmp byte [bx + party_records + pc_rec.pad_01be], 0x32 ; 0x9b83
     jge short @..loc_SMSJ.l3         ; 0x9b88
     mov ax, 0                        ; 0x9b8a
     push ax                          ; 0x9b8d

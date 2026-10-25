@@ -22,14 +22,14 @@ api_idx_0004_OVUO:
     add ax, cx
     add ax, word [bp + 0x1a]
     mov bx, ax
-    mov al, byte [bx + slot_recs + 0x38]
+    mov al, byte [bx + slot_recs + slot_rec.glyph_x]
     sub ah, ah
     mov word [bp - 0x0002], ax
     mov ax, 0x15e
     imul word [bp + 0x4]
     add ax, word [bp + 0xa]
     mov bx, ax
-    mov al, byte [bx + slot_recs + 0x81]
+    mov al, byte [bx + slot_recs + slot_rec.glyph_y]
     sub ah, ah
     mov word [bp - 0x0004], ax
     cmp word [bp + 0x18], byte 0
@@ -75,7 +75,7 @@ api_idx_0004_OVUO:
     add ax, cx
     add ax, word [bp + 0x1a]
     mov bx, ax
-    mov al, byte [bx + slot_recs + 0x38]
+    mov al, byte [bx + slot_recs + slot_rec.glyph_x]
     sub ah, ah
     mov cx, ax
     mov ax, 0xa0
@@ -140,7 +140,7 @@ api_idx_0004_OVUO:
     add ax, cx
     add ax, word [bp + 0x1a]
     mov bx, ax
-    mov al, byte [bx + slot_recs + 0x38]
+    mov al, byte [bx + slot_recs + slot_rec.glyph_x]
     sub ah, ah
     mov cx, ax
     mov ax, 0xa0

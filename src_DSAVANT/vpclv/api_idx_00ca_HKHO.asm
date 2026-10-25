@@ -36,7 +36,7 @@ api_idx_00ca_HKHO:
     push ax                          ; 0x1e87
     mov ax, 0x248                    ; 0x1e88
     imul word [bp + 0x4]             ; 0x1e8b
-    add ax, cell_key_grid + 0x1de    ; 0x1e8e
+    add ax, party_records + pc_rec.pad_01be + 0x60 ; 0x1e8e
     push ax                          ; 0x1e91
     call aztec_movmem                ; 0x1e92
     add sp, byte 6                   ; 0x1e95
@@ -46,7 +46,7 @@ api_idx_00ca_HKHO:
     push ax                          ; 0x1e9f
     mov ax, 0x248                    ; 0x1ea0
     imul word [bp + 0x4]             ; 0x1ea3
-    add ax, cell_key_grid + 0x1de    ; 0x1ea6
+    add ax, party_records + pc_rec.pad_01be + 0x60 ; 0x1ea6
     push ax                          ; 0x1ea9
     call aztec_setmem                ; 0x1eaa
     add sp, byte 6                   ; 0x1ead
@@ -54,14 +54,14 @@ api_idx_00ca_HKHO:
     imul word [bp + 0x4]             ; 0x1eb3
     add ax, word [bp - 0x000e]       ; 0x1eb6
     mov bx, ax                       ; 0x1eb9
-    mov al, byte [bx + cell_key_grid + 0x138] ; 0x1ebb
+    mov al, byte [bx + party_records + pc_rec.flag] ; 0x1ebb
     sub ah, ah                       ; 0x1ebf
     mov cx, 0x12                     ; 0x1ec1
     cwd                              ; 0x1ec4
     idiv cx                          ; 0x1ec5
     inc ax                           ; 0x1ec7
     mov word [bp - 0x000a], ax       ; 0x1ec8
-    cmp byte [bx + cell_key_grid + 0x138], 0x62 ; 0x1ecb
+    cmp byte [bx + party_records + pc_rec.flag], 0x62 ; 0x1ecb
     jb short @..api_idx_00ca_HKHO.l7 ; 0x1ed0
     mov word [bp - 0x000a], 7        ; 0x1ed2
 @..api_idx_00ca_HKHO.l7:
@@ -71,11 +71,11 @@ api_idx_00ca_HKHO:
     mov ax, 6                        ; 0x1ee1
     imul word [bp - 0x0002]          ; 0x1ee4
     mov bx, ax                       ; 0x1ee7
-    mov al, byte [bx + spell_table + 0x5] ; 0x1ee9
+    mov al, byte [bx + spell_table + spell_table_rec.f_0005] ; 0x1ee9
     sub ah, ah                       ; 0x1eed
     test word [bp - 0x000c], ax      ; 0x1eef
     je short @..api_idx_00ca_HKHO.l9 ; 0x1ef2
-    mov al, byte [bx + spell_table + 0x1] ; 0x1ef4
+    mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x1ef4
     sub ah, ah                       ; 0x1ef8
     cmp ax, word [bp - 0x000a]       ; 0x1efa
     jg short @..api_idx_00ca_HKHO.l9 ; 0x1efd
@@ -91,7 +91,7 @@ api_idx_00ca_HKHO:
     push word [bp - 0x0002]          ; 0x1f14
     mov ax, 0x248                    ; 0x1f17
     imul word [bp + 0x4]             ; 0x1f1a
-    add ax, cell_key_grid + 0x1de    ; 0x1f1d
+    add ax, party_records + pc_rec.pad_01be + 0x60 ; 0x1f1d
     push ax                          ; 0x1f20
     call set_bitmap_bit              ; 0x1f21
     add sp, byte 6                   ; 0x1f24
@@ -107,12 +107,12 @@ api_idx_00ca_HKHO:
     imul word [bp + 0x4]             ; 0x1f3e
     add ax, word [bp + 0x6]          ; 0x1f41
     mov bx, ax                       ; 0x1f44
-    mov byte [bx + cell_key_grid + 0x11c], 0 ; 0x1f46
+    mov byte [bx + party_records + pc_rec.f_015c], 0 ; 0x1f46
     mov ax, 0x10                     ; 0x1f4b
     push ax                          ; 0x1f4e
     mov ax, 0x248                    ; 0x1f4f
     imul word [bp + 0x4]             ; 0x1f52
-    add ax, cell_key_grid + 0x1de    ; 0x1f55
+    add ax, party_records + pc_rec.pad_01be + 0x60 ; 0x1f55
     push ax                          ; 0x1f58
     lea ax, word [bp - 0x001e]       ; 0x1f59
     push ax                          ; 0x1f5c
@@ -131,7 +131,7 @@ api_idx_00ca_HKHO:
     mov ax, 0x248                    ; 0x1f77
     imul word [bp + 0x4]             ; 0x1f7a
     mov bx, ax                       ; 0x1f7d
-    mov al, byte [bx + member_state + 0x3] ; 0x1f7f
+    mov al, byte [bx + party_records + pc_rec.label] ; 0x1f7f
     sub ah, ah                       ; 0x1f83
     add ax, strict word 0x78         ; 0x1f85
     push ax                          ; 0x1f88
@@ -165,7 +165,7 @@ api_idx_00ca_HKHO:
     push ax                          ; 0x1fcb
     mov ax, 0x248                    ; 0x1fcc
     imul word [bp + 0x4]             ; 0x1fcf
-    add ax, cell_key_grid + 0x1de    ; 0x1fd2
+    add ax, party_records + pc_rec.pad_01be + 0x60 ; 0x1fd2
     push ax                          ; 0x1fd5
     lea ax, word [bp - 0x001e]       ; 0x1fd6
     push ax                          ; 0x1fd9
@@ -186,7 +186,7 @@ api_idx_00ca_HKHO:
     push dx                          ; 0x1ffc
     mov ax, 0x248                    ; 0x1ffd
     imul word [bp + 0x4]             ; 0x2000
-    add ax, cell_key_grid + 0x1de    ; 0x2003
+    add ax, party_records + pc_rec.pad_01be + 0x60 ; 0x2003
     push ax                          ; 0x2006
     call set_bitmap_bit              ; 0x2007
     add sp, byte 6                   ; 0x200a
@@ -194,7 +194,7 @@ api_idx_00ca_HKHO:
     imul word [bp + 0x4]             ; 0x2010
     add ax, word [bp - 0x000e]       ; 0x2013
     mov bx, ax                       ; 0x2016
-    mov al, byte [bx + cell_key_grid + 0x138] ; 0x2018
+    mov al, byte [bx + party_records + pc_rec.flag] ; 0x2018
     sub ah, ah                       ; 0x201c
     mov cx, 0x14                     ; 0x201e
     cwd                              ; 0x2021
@@ -206,13 +206,13 @@ api_idx_00ca_HKHO:
     mov ax, 6                        ; 0x202a
     imul word [bp - 0x0006]          ; 0x202d
     mov bx, ax                       ; 0x2030
-    mov al, byte [bx + spell_table + 0x1] ; 0x2032
+    mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x2032
     sub ah, ah                       ; 0x2036
     push ax                          ; 0x2038
     mov ax, 0x248                    ; 0x2039
     imul word [bp + 0x4]             ; 0x203c
     mov bx, ax                       ; 0x203f
-    mov al, byte [bx + cell_key_grid + 0x132] ; 0x2041
+    mov al, byte [bx + party_records + pc_rec.stat + 0x2] ; 0x2041
     sub ah, ah                       ; 0x2045
     mov cx, 6                        ; 0x2047
     cwd                              ; 0x204a
@@ -238,13 +238,13 @@ api_idx_00ca_HKHO:
     shl cx, 1                        ; 0x2077
     add ax, cx                       ; 0x2079
     mov bx, ax                       ; 0x207b
-    mov ax, word [bx + pc_spell_power_cap + 0x6] ; 0x207d
+    mov ax, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x207d
     add ax, word [bp - 0x0002]       ; 0x2081
     push ax                          ; 0x2084
     mov ax, 6                        ; 0x2085
     imul word [bp - 0x0006]          ; 0x2088
     mov bx, ax                       ; 0x208b
-    mov al, byte [bx + spell_table + 0x2] ; 0x208d
+    mov al, byte [bx + spell_table + spell_table_rec.f_0002] ; 0x208d
     sub ah, ah                       ; 0x2091
     mov cx, ax                       ; 0x2093
     pop ax                           ; 0x2095
@@ -257,7 +257,7 @@ api_idx_00ca_HKHO:
     shl dx, 1                        ; 0x20a5
     add ax, dx                       ; 0x20a7
     mov bx, ax                       ; 0x20a9
-    sub cx, word [bx + pc_spell_power_cap + 0x6] ; 0x20ab
+    sub cx, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x20ab
     mov word [bp - 0x0002], cx       ; 0x20af
 @..api_idx_00ca_HKHO.l12:
     mov ax, word [bp - 0x0002]       ; 0x20b2
@@ -271,11 +271,11 @@ api_idx_00ca_HKHO:
     add ax, dx                       ; 0x20c5
     mov bx, ax                       ; 0x20c7
     pop ax                           ; 0x20c9
-    add word [bx + pc_spell_power_cap + 0x6], ax ; 0x20ca
-    add word [bx + pc_spell_power_cap + 0x4], ax ; 0x20ce
+    add word [bx + party_records + pc_rec.realm_points + 0x2], ax ; 0x20ca
+    add word [bx + party_records + pc_rec.realm_points], ax ; 0x20ce
     add cx, word [bp + 0x6]          ; 0x20d2
     mov bx, cx                       ; 0x20d5
-    dec byte [bx + cell_key_grid + 0x11c] ; 0x20d7
+    dec byte [bx + party_records + pc_rec.f_015c] ; 0x20d7
     push word [bp + 0x4]             ; 0x20db
     call api_idx_0004_RMVO           ; 0x20de
     pop cx                           ; 0x20e1

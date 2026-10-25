@@ -3,17 +3,14 @@
    first button, 1 second) and leaves (power << 8) + spell + 0x100 in
    spell_dialog_result */
 
+#include "structs/pcrec.h"
+
 struct spell_info {	/* 6-byte entries */
 	char realm;		/* +0: 0..5 */
-	unsigned char level;	/* +1: subtracted from pc_rec.cap for the power limit */
-	unsigned char cost;	/* +2: per power level, against points[realm][0] */
+	unsigned char level;
+		/* +1: subtracted from pc_rec.power_cap for the power limit */
+	unsigned char cost;	/* +2: per power level, against realm_points[realm][0] */
 	char pad[3];
-};
-struct pc_rec {	/* 0x248-byte records */
-	int cap;
-	int w2;
-	int points[6][2];	/* +4: one per realm */
-	char pad[584 - 28];
 };
 extern int party_slot_frame[];
 extern int hotspot_rects[];
@@ -23,7 +20,7 @@ extern long party_redraw_last_tick;
 extern long far *tick_counter_ptr;
 extern char str_swap_file_v[];
 extern struct spell_info spell_table[];
-extern struct pc_rec pc_spell_power_cap[];
+extern struct pc_rec party_records[];
 extern int known_spell_list[];
 
 spell_select_dialog(pc, label_id, ok_enabled, limit_by_points)
@@ -155,7 +152,7 @@ int pc, label_id, ok_enabled, limit_by_points;
 				if (ok_enabled) {
 					if (spell >= 0 && (!limit_by_points || power <= max_power
 					    && spell_table[spell].cost * (power + 1)
-					    	<= pc_spell_power_cap[pc].points[realm][0])) {
+					    	<= party_records[pc].realm_points[realm][0])) {
 						flash_button(panel_x + 6, box_y0 + 6, 8, 1, 1);
 						flash_button(panel_x + 6, box_y0 + 6, 8, 1, 0);
 						spell_dialog_button = 0;
@@ -178,12 +175,12 @@ int pc, label_id, ok_enabled, limit_by_points;
 					draw_power_digit(panel_x + 12, box_y0 + 20, power, 1);
 					if (spell >= 0) {
 						max_power = clamp_between(
-							pc_spell_power_cap[pc].cap - spell_table[spell].level, 0, 6);
+							party_records[pc].power_cap - spell_table[spell].level, 0, 6);
 						i = spell_table[spell].cost * (max_power + 1);
 						draw_spell_cost(panel_x + 94, box_y0 + 21, realm,
 							spell_table[spell].cost * (power + 1),
-							!limit_by_points ? 999 : (pc_spell_power_cap[pc].points[realm][0] < i
-								? pc_spell_power_cap[pc].points[realm][0] : i));
+							!limit_by_points ? 999 : (party_records[pc].realm_points[realm][0] < i
+								? party_records[pc].realm_points[realm][0] : i));
 					} else
 						draw_spell_cost(panel_x + 94, box_y0 + 21, realm, 0, 0);
 					gfx_show_area(panel_x + 11, box_y0 + 20, panel_x + 86, box_y0 + 28);
@@ -211,12 +208,12 @@ int pc, label_id, ok_enabled, limit_by_points;
 					draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row,
 						rows_drawn);
 					max_power = clamp_between(
-						pc_spell_power_cap[pc].cap - spell_table[spell].level, 0, 6);
+						party_records[pc].power_cap - spell_table[spell].level, 0, 6);
 					i = spell_table[spell].cost * (max_power + 1);
 					draw_spell_cost(panel_x + 94, box_y0 + 21, realm,
 						spell_table[spell].cost * (power + 1),
-						!limit_by_points ? 999 : (pc_spell_power_cap[pc].points[realm][0] < i
-							? pc_spell_power_cap[pc].points[realm][0] : i));
+						!limit_by_points ? 999 : (party_records[pc].realm_points[realm][0] < i
+							? party_records[pc].realm_points[realm][0] : i));
 					gfx_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);
 					gfx_show_area(panel_x + 94, box_y0 + 21, panel_x + 114, box_y0 + 27);
 				}

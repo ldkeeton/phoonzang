@@ -15,14 +15,14 @@ api_idx_0002_OOUO:
     mov ax, 0x26                     ; 0xa2a7
     imul word [bp + 0x4]             ; 0xa2aa
     mov bx, ax                       ; 0xa2ad
-    mov al, byte [bx + slot_records + 0x14] ; 0xa2af
+    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa2af
     cbw                              ; 0xa2b3
     mov cx, ax                       ; 0xa2b4
     pop ax                           ; 0xa2b6
     add ax, cx                       ; 0xa2b7
     add ax, word [bp + 0x6]          ; 0xa2b9
     mov word [bp - 0x0002], ax       ; 0xa2bc
-    mov al, byte [bx + slot_records + 0x15] ; 0xa2bf
+    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0xa2bf
     cbw                              ; 0xa2c3
     mov cx, ax                       ; 0xa2c4
     mov ax, word [bp - 0x0002]       ; 0xa2c6
@@ -31,7 +31,7 @@ api_idx_0002_OOUO:
     mov word [bp - 0x0002], cx       ; 0xa2cd
 @..api_idx_0002_OOUO.l1:
     mov al, byte [bp - 0x0002]       ; 0xa2d0
-    mov byte [bx + slot_records + 0x14], al ; 0xa2d3
+    mov byte [bx + slot_records + slot_record.flag], al ; 0xa2d3
     mov ax, 1                        ; 0xa2d7
     ret                              ; 0xa2da
 @..api_idx_0002_OOUO.l2:

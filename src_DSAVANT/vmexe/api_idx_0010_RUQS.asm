@@ -21,7 +21,7 @@ api_idx_0010_RUQS:
     shl ax, 1                        ; 0x2e87
     mov bx, ax                       ; 0x2e89
     mov bx, word [bx + party_char]   ; 0x2e8b
-    cmp byte [bx + si + 0x22], 3     ; 0x2e8f
+    cmp byte [bx + si + member_rec.item_state], 3 ; 0x2e8f
     jb short @..api_idx_0010_RUQS.l2 ; 0x2e93
     jmp near @..api_idx_0010_RUQS.l18 ; 0x2e95
 @..api_idx_0010_RUQS.l2:
@@ -78,7 +78,7 @@ api_idx_0010_RUQS:
     shl ax, 1                        ; 0x2f0e
     mov bx, ax                       ; 0x2f10
     mov bx, word [bx + party_char_ext] ; 0x2f12
-    mov al, byte [bx + 0x9d]         ; 0x2f16
+    mov al, byte [bx + member_ext.f_009d] ; 0x2f16
     sub ah, ah                       ; 0x2f1a
     mov cx, ax                       ; 0x2f1c
     sub ax, word [bp + 0x8]          ; 0x2f1e
@@ -101,7 +101,7 @@ api_idx_0010_RUQS:
     shl ax, 1                        ; 0x2f43
     mov bx, ax                       ; 0x2f45
     mov bx, word [bx + party_char]   ; 0x2f47
-    mov al, byte [bx + si + 0x28]    ; 0x2f4b
+    mov al, byte [bx + si + member_rec.f_0028] ; 0x2f4b
     cbw                              ; 0x2f4e
     push ax                          ; 0x2f4f
     mov ax, word [bp - 0x0006]       ; 0x2f50
@@ -122,7 +122,7 @@ api_idx_0010_RUQS:
     mov bx, ax                       ; 0x2f70
     mov bx, word [bx + party_char]   ; 0x2f72
     pop ax                           ; 0x2f76
-    mov byte [bx + si + 0x28], al    ; 0x2f77
+    mov byte [bx + si + member_rec.f_0028], al ; 0x2f77
     mov ax, 0                        ; 0x2f7a
     push ax                          ; 0x2f7d
     mov ax, 0x2c                     ; 0x2f7e
@@ -132,7 +132,7 @@ api_idx_0010_RUQS:
     shl ax, 1                        ; 0x2f89
     mov bx, ax                       ; 0x2f8b
     mov bx, word [bx + party_char]   ; 0x2f8d
-    mov al, byte [bx + si + 0x27]    ; 0x2f91
+    mov al, byte [bx + si + member_rec.f_0027] ; 0x2f91
     cbw                              ; 0x2f94
     push ax                          ; 0x2f95
     mov ax, word [bp - 0x0006]       ; 0x2f96
@@ -153,7 +153,7 @@ api_idx_0010_RUQS:
     mov bx, ax                       ; 0x2fb6
     mov bx, word [bx + party_char]   ; 0x2fb8
     pop ax                           ; 0x2fbc
-    mov byte [bx + si + 0x27], al    ; 0x2fbd
+    mov byte [bx + si + member_rec.f_0027], al ; 0x2fbd
     mov ax, 0x2c                     ; 0x2fc0
     imul word [bp - 0x0002]          ; 0x2fc3
     mov si, ax                       ; 0x2fc6
@@ -182,7 +182,7 @@ api_idx_0010_RUQS:
     shl ax, 1                        ; 0x3001
     mov bx, ax                       ; 0x3003
     mov bx, word [bx + party_char]   ; 0x3005
-    mov al, byte [bx + si + 0x29]    ; 0x3009
+    mov al, byte [bx + si + member_rec.item_level] ; 0x3009
     cbw                              ; 0x300c
     push ax                          ; 0x300d
     mov ax, 3                        ; 0x300e
@@ -199,7 +199,7 @@ api_idx_0010_RUQS:
     mov bx, ax                       ; 0x3029
     mov bx, word [bx + party_char]   ; 0x302b
     pop ax                           ; 0x302f
-    mov byte [bx + si + 0x29], al    ; 0x3030
+    mov byte [bx + si + member_rec.item_level], al ; 0x3030
     mov word [bp - 0x000e], 0        ; 0x3033
 @..api_idx_0010_RUQS.l10:
     mov ax, 0x2c                     ; 0x3038
@@ -210,12 +210,12 @@ api_idx_0010_RUQS:
     shl ax, 1                        ; 0x3046
     mov bx, ax                       ; 0x3048
     mov bx, word [bx + party_char]   ; 0x304a
-    mov al, byte [bx + si + 0x18]    ; 0x304e
+    mov al, byte [bx + si + member_rec.f_0018] ; 0x304e
     sub ah, ah                       ; 0x3051
     mov cx, 2                        ; 0x3053
     cwd                              ; 0x3056
     idiv cx                          ; 0x3057
-    mov byte [bx + si + 0x18], al    ; 0x3059
+    mov byte [bx + si + member_rec.f_0018], al ; 0x3059
     inc word [bp - 0x000e]           ; 0x305c
     mov ax, word [bp - 0x000e]       ; 0x305f
     cmp ax, strict word 4            ; 0x3062
@@ -227,7 +227,7 @@ api_idx_0010_RUQS:
     shl ax, 1                        ; 0x3072
     mov bx, ax                       ; 0x3074
     mov bx, word [bx + party_char]   ; 0x3076
-    cmp byte [bx + si + 0x29], 0     ; 0x307a
+    cmp byte [bx + si + member_rec.item_level], 0 ; 0x307a
     jge short @..api_idx_0010_RUQS.l14 ; 0x307e
     cmp byte [bx + si + 0x29], 0     ; 0x3080
     jge short @..api_idx_0010_RUQS.l11 ; 0x3084

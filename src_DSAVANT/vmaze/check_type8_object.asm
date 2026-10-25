@@ -6,7 +6,7 @@ check_type8_object:
     shl ax, 1                        ; 0x8b5b
     mov si, ax                       ; 0x8b5d
     mov bx, word [maze_tables]       ; 0x8b5f
-    mov ax, word [bx + si + 0x3c0]   ; 0x8b63
+    mov ax, word [bx + si + maze_tables_rec.f_03c0] ; 0x8b63
     mov word [bp - 0x0002], ax       ; 0x8b67
     mov ax, 1                        ; 0x8b6a
     push ax                          ; 0x8b6d
@@ -31,7 +31,7 @@ check_type8_object:
 @..check_type8_object.l1:
     mov bx, word [maze_tables]       ; 0x8b9b
     mov si, word [bp + 0x4]          ; 0x8b9f
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x8ba2
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x8ba2
     sub ah, ah                       ; 0x8ba6
     push ax                          ; 0x8ba8
     call loc_GRON                    ; 0x8ba9
@@ -65,7 +65,7 @@ check_type8_object:
     shl ax, 1                        ; 0x8bee
     mov si, ax                       ; 0x8bf0
     mov bx, word [maze_tables]       ; 0x8bf2
-    cmp word [bx + si + 0x1e0], byte 0 ; 0x8bf6
+    cmp word [bx + si + maze_tables_rec.f_01e0], byte 0 ; 0x8bf6
     jle short @..check_type8_object.l2 ; 0x8bfb
     mov ax, 0                        ; 0x8bfd
     push ax                          ; 0x8c00

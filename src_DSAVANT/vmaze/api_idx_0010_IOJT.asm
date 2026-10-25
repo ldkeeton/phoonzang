@@ -9,7 +9,7 @@ api_idx_0010_IOJT:
     push word [bp - 0x0002]          ; 0x9a95
     mov ax, 0x26                     ; 0x9a98
     imul word [bp + 0x4]             ; 0x9a9b
-    add ax, slot_records + 0x16      ; 0x9a9e
+    add ax, slot_records + slot_record.f_0019 + 0x1 ; 0x9a9e
     push ax                          ; 0x9aa1
     call test_bit                    ; 0x9aa2
     add sp, byte 4                   ; 0x9aa5
@@ -18,7 +18,7 @@ api_idx_0010_IOJT:
     push word [bp - 0x0002]          ; 0x9aac
     mov ax, 0x26                     ; 0x9aaf
     imul word [bp + 0x6]             ; 0x9ab2
-    add ax, slot_records + 0x1e      ; 0x9ab5
+    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x9ab5
     push ax                          ; 0x9ab8
     call test_bit                    ; 0x9ab9
     add sp, byte 4                   ; 0x9abc
@@ -27,7 +27,7 @@ api_idx_0010_IOJT:
     mov ax, 6                        ; 0x9ac3
     imul word [bp - 0x0002]          ; 0x9ac6
     mov bx, ax                       ; 0x9ac9
-    mov al, byte [bx + bss_84a6 + 0x2] ; 0x9acb
+    mov al, byte [bx + bss_84a6 + rec_84a6.f_0002] ; 0x9acb
     sub ah, ah                       ; 0x9acf
     mov word [bp - 0x0006], ax       ; 0x9ad1
     push ax                          ; 0x9ad4
@@ -42,7 +42,7 @@ api_idx_0010_IOJT:
     push word [bp - 0x0002]          ; 0x9ae8
     mov ax, 0x26                     ; 0x9aeb
     imul word [bp + 0x6]             ; 0x9aee
-    add ax, slot_records + 0x16      ; 0x9af1
+    add ax, slot_records + slot_record.f_0019 + 0x1 ; 0x9af1
     push ax                          ; 0x9af4
     call test_bit                    ; 0x9af5
     add sp, byte 4                   ; 0x9af8
@@ -51,7 +51,7 @@ api_idx_0010_IOJT:
     push word [bp - 0x0002]          ; 0x9aff
     mov ax, 0x26                     ; 0x9b02
     imul word [bp + 0x4]             ; 0x9b05
-    add ax, slot_records + 0x1e      ; 0x9b08
+    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x9b08
     push ax                          ; 0x9b0b
     call test_bit                    ; 0x9b0c
     add sp, byte 4                   ; 0x9b0f
@@ -63,7 +63,7 @@ api_idx_0010_IOJT:
     push word [bp - 0x0002]          ; 0x9b1c
     mov ax, 0x26                     ; 0x9b1f
     imul word [bp + 0x4]             ; 0x9b22
-    add ax, slot_records + 0x18      ; 0x9b25
+    add ax, slot_records + slot_record.f_0019 + 0x3 ; 0x9b25
     push ax                          ; 0x9b28
     call test_bit                    ; 0x9b29
     add sp, byte 4                   ; 0x9b2c
@@ -74,7 +74,7 @@ api_idx_0010_IOJT:
     push word [bp - 0x0002]          ; 0x9b37
     mov ax, 0x26                     ; 0x9b3a
     imul word [bp + 0x6]             ; 0x9b3d
-    add ax, slot_records + 0x18      ; 0x9b40
+    add ax, slot_records + slot_record.f_0019 + 0x3 ; 0x9b40
     push ax                          ; 0x9b43
     call set_bitmap_bit              ; 0x9b44
     add sp, byte 6                   ; 0x9b47
@@ -82,7 +82,7 @@ api_idx_0010_IOJT:
     push word [bp - 0x0002]          ; 0x9b4a
     mov ax, 0x26                     ; 0x9b4d
     imul word [bp + 0x6]             ; 0x9b50
-    add ax, slot_records + 0x18      ; 0x9b53
+    add ax, slot_records + slot_record.f_0019 + 0x3 ; 0x9b53
     push ax                          ; 0x9b56
     call test_bit                    ; 0x9b57
     add sp, byte 4                   ; 0x9b5a
@@ -93,7 +93,7 @@ api_idx_0010_IOJT:
     push word [bp - 0x0002]          ; 0x9b65
     mov ax, 0x26                     ; 0x9b68
     imul word [bp + 0x4]             ; 0x9b6b
-    add ax, slot_records + 0x18      ; 0x9b6e
+    add ax, slot_records + slot_record.f_0019 + 0x3 ; 0x9b6e
     push ax                          ; 0x9b71
     call set_bitmap_bit              ; 0x9b72
     add sp, byte 6                   ; 0x9b75
@@ -101,12 +101,12 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9b78
     imul word [bp + 0x4]             ; 0x9b7b
     mov bx, ax                       ; 0x9b7e
-    mov al, byte [bx + bss_84e8]     ; 0x9b80
+    mov al, byte [bx + slot_records] ; 0x9b80
     push ax                          ; 0x9b84
     mov ax, 0x26                     ; 0x9b85
     imul word [bp + 0x6]             ; 0x9b88
     mov bx, ax                       ; 0x9b8b
-    mov cl, byte [bx + bss_84e8]     ; 0x9b8d
+    mov cl, byte [bx + slot_records] ; 0x9b8d
     pop ax                           ; 0x9b91
     cmp al, cl                       ; 0x9b92
     je short @..api_idx_0010_IOJT.l6 ; 0x9b94
@@ -115,7 +115,7 @@ api_idx_0010_IOJT:
     push word [bp - 0x0002]          ; 0x9b99
     mov ax, 0x26                     ; 0x9b9c
     imul word [bp + 0x4]             ; 0x9b9f
-    add ax, slot_records + 0x1e      ; 0x9ba2
+    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x9ba2
     push ax                          ; 0x9ba5
     call test_bit                    ; 0x9ba6
     add sp, byte 4                   ; 0x9ba9
@@ -126,7 +126,7 @@ api_idx_0010_IOJT:
     push word [bp - 0x0002]          ; 0x9bb4
     mov ax, 0x26                     ; 0x9bb7
     imul word [bp + 0x6]             ; 0x9bba
-    add ax, slot_records + 0x1e      ; 0x9bbd
+    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x9bbd
     push ax                          ; 0x9bc0
     call set_bitmap_bit              ; 0x9bc1
     add sp, byte 6                   ; 0x9bc4
@@ -134,7 +134,7 @@ api_idx_0010_IOJT:
     push word [bp - 0x0002]          ; 0x9bc7
     mov ax, 0x26                     ; 0x9bca
     imul word [bp + 0x6]             ; 0x9bcd
-    add ax, slot_records + 0x1e      ; 0x9bd0
+    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x9bd0
     push ax                          ; 0x9bd3
     call test_bit                    ; 0x9bd4
     add sp, byte 4                   ; 0x9bd7
@@ -145,7 +145,7 @@ api_idx_0010_IOJT:
     push word [bp - 0x0002]          ; 0x9be2
     mov ax, 0x26                     ; 0x9be5
     imul word [bp + 0x4]             ; 0x9be8
-    add ax, slot_records + 0x1e      ; 0x9beb
+    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x9beb
     push ax                          ; 0x9bee
     call set_bitmap_bit              ; 0x9bef
     add sp, byte 6                   ; 0x9bf2
@@ -155,7 +155,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9bfb
     mov ax, 0x26                     ; 0x9bfc
     imul word [bp + 0x4]             ; 0x9bff
-    add ax, slot_records + 0x1e      ; 0x9c02
+    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x9c02
     push ax                          ; 0x9c05
     call test_bit                    ; 0x9c06
     add sp, byte 4                   ; 0x9c09
@@ -168,7 +168,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9c1a
     mov ax, 0x26                     ; 0x9c1b
     imul word [bp + 0x6]             ; 0x9c1e
-    add ax, slot_records + 0x1e      ; 0x9c21
+    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x9c21
     push ax                          ; 0x9c24
     call set_bitmap_bit              ; 0x9c25
     add sp, byte 6                   ; 0x9c28
@@ -178,7 +178,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9c31
     mov ax, 0x26                     ; 0x9c32
     imul word [bp + 0x6]             ; 0x9c35
-    add ax, slot_records + 0x1e      ; 0x9c38
+    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x9c38
     push ax                          ; 0x9c3b
     call test_bit                    ; 0x9c3c
     add sp, byte 4                   ; 0x9c3f
@@ -191,7 +191,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9c50
     mov ax, 0x26                     ; 0x9c51
     imul word [bp + 0x4]             ; 0x9c54
-    add ax, slot_records + 0x1e      ; 0x9c57
+    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x9c57
     push ax                          ; 0x9c5a
     call set_bitmap_bit              ; 0x9c5b
     add sp, byte 6                   ; 0x9c5e
@@ -234,7 +234,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9cb9
     imul word [bp + 0x4]             ; 0x9cbc
     mov bx, ax                       ; 0x9cbf
-    mov al, byte [bx + slot_records + 0x15] ; 0x9cc1
+    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x9cc1
     cbw                              ; 0x9cc5
     mov cx, 0xa                      ; 0x9cc6
     cwd                              ; 0x9cc9
@@ -244,7 +244,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9cd0
     imul word [bp + 0x6]             ; 0x9cd3
     mov bx, ax                       ; 0x9cd6
-    mov al, byte [bx + slot_records + 0x15] ; 0x9cd8
+    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x9cd8
     cbw                              ; 0x9cdc
     cwd                              ; 0x9cdd
     idiv cx                          ; 0x9cde
@@ -253,20 +253,20 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9ce4
     imul word [bp + 0x4]             ; 0x9ce7
     mov bx, ax                       ; 0x9cea
-    mov al, byte [bx + bss_84e8]     ; 0x9cec
+    mov al, byte [bx + slot_records] ; 0x9cec
     push ax                          ; 0x9cf0
     mov ax, 0x26                     ; 0x9cf1
     imul word [bp + 0x6]             ; 0x9cf4
     mov bx, ax                       ; 0x9cf7
     pop ax                           ; 0x9cf9
-    cmp al, byte [bx + bss_84e8]     ; 0x9cfa
+    cmp al, byte [bx + slot_records] ; 0x9cfa
     jne short @..api_idx_0010_IOJT.l13 ; 0x9cfe
-    cmp byte [bx + bss_84e8 + 0x2], 1 ; 0x9d00
+    cmp byte [bx + slot_records + slot_record.f_0002], 1 ; 0x9d00
     jne short @..api_idx_0010_IOJT.l13 ; 0x9d05
     mov ax, 0x26                     ; 0x9d07
     imul word [bp + 0x4]             ; 0x9d0a
     mov bx, ax                       ; 0x9d0d
-    cmp byte [bx + slot_records + 0x15], 0x41 ; 0x9d0f
+    cmp byte [bx + slot_records + slot_record.f_0019], 0x41 ; 0x9d0f
     jge short @..api_idx_0010_IOJT.l13 ; 0x9d14
     mov ax, 3                        ; 0x9d16
     push ax                          ; 0x9d19
@@ -277,7 +277,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9d22
     imul word [bp + 0x4]             ; 0x9d25
     mov bx, ax                       ; 0x9d28
-    inc byte [bx + slot_records + 0x15] ; 0x9d2a
+    inc byte [bx + slot_records + slot_record.f_0019] ; 0x9d2a
 @..api_idx_0010_IOJT.l13:
     cmp word [bp - 0x000c], byte 0xff ; 0x9d2e
     jne short @..api_idx_0010_IOJT.l14 ; 0x9d32
@@ -306,7 +306,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9d5f
     imul word [bp + 0x6]             ; 0x9d62
     mov bx, ax                       ; 0x9d65
-    mov al, byte [bx + slot_records + 0x15] ; 0x9d67
+    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x9d67
     cbw                              ; 0x9d6b
     add ax, word [bp - 0x000e]       ; 0x9d6c
     push ax                          ; 0x9d6f
@@ -317,7 +317,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x6]             ; 0x9d7a
     mov bx, ax                       ; 0x9d7d
     pop ax                           ; 0x9d7f
-    mov byte [bx + slot_records + 0x15], al ; 0x9d80
+    mov byte [bx + slot_records + slot_record.f_0019], al ; 0x9d80
     mov ax, 0x64                     ; 0x9d84
     push ax                          ; 0x9d87
     mov ax, 1                        ; 0x9d88
@@ -325,7 +325,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9d8c
     imul word [bp + 0x4]             ; 0x9d8f
     mov bx, ax                       ; 0x9d92
-    mov al, byte [bx + slot_records + 0x15] ; 0x9d94
+    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x9d94
     cbw                              ; 0x9d98
     sub ax, word [bp - 0x000e]       ; 0x9d99
     push ax                          ; 0x9d9c
@@ -336,7 +336,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x4]             ; 0x9da7
     mov bx, ax                       ; 0x9daa
     pop ax                           ; 0x9dac
-    mov byte [bx + slot_records + 0x15], al ; 0x9dad
+    mov byte [bx + slot_records + slot_record.f_0019], al ; 0x9dad
 @..api_idx_0010_IOJT.l17:
     push word [bp + 0x6]             ; 0x9db1
     mov ax, 3                        ; 0x9db4
@@ -378,7 +378,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9e04
     imul word [bp + 0x4]             ; 0x9e07
     mov bx, ax                       ; 0x9e0a
-    mov al, byte [bx + slot_records + 0x15] ; 0x9e0c
+    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x9e0c
     cbw                              ; 0x9e10
     add ax, word [bp - 0x0010]       ; 0x9e11
     push ax                          ; 0x9e14
@@ -389,7 +389,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x4]             ; 0x9e1f
     mov bx, ax                       ; 0x9e22
     pop ax                           ; 0x9e24
-    mov byte [bx + slot_records + 0x15], al ; 0x9e25
+    mov byte [bx + slot_records + slot_record.f_0019], al ; 0x9e25
     mov ax, 0x64                     ; 0x9e29
     push ax                          ; 0x9e2c
     mov ax, 1                        ; 0x9e2d
@@ -397,7 +397,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9e31
     imul word [bp + 0x6]             ; 0x9e34
     mov bx, ax                       ; 0x9e37
-    mov al, byte [bx + slot_records + 0x15] ; 0x9e39
+    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x9e39
     cbw                              ; 0x9e3d
     sub ax, word [bp - 0x0010]       ; 0x9e3e
     push ax                          ; 0x9e41
@@ -408,7 +408,7 @@ api_idx_0010_IOJT:
     imul word [bp + 0x6]             ; 0x9e4c
     mov bx, ax                       ; 0x9e4f
     pop ax                           ; 0x9e51
-    mov byte [bx + slot_records + 0x15], al ; 0x9e52
+    mov byte [bx + slot_records + slot_record.f_0019], al ; 0x9e52
 @..api_idx_0010_IOJT.l22:
     push word [bp + 0x4]             ; 0x9e56
     mov ax, 3                        ; 0x9e59

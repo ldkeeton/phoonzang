@@ -222,7 +222,7 @@ jumptable_7185_case_0:
     push ax                          ; 0x7249
     mov ax, 0x248                    ; 0x724a
     imul word [bp - 0x0002]          ; 0x724d
-    add ax, cell_key_grid + 0x1f2    ; 0x7250
+    add ax, party_records + pc_rec.pad_01be + 0x74 ; 0x7250
     push ax                          ; 0x7253
     call set_bitmap_bit              ; 0x7254
     add sp, byte 6                   ; 0x7257

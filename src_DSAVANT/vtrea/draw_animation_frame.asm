@@ -36,7 +36,7 @@ draw_animation_frame:
     imul word [bp - 0x0002]          ; 0x00dc
     add ax, word [bp - 0x0004]       ; 0x00df
     mov bx, ax                       ; 0x00e2
-    mov al, byte [bx + slot_recs + 0x81] ; 0x00e4
+    mov al, byte [bx + slot_recs + slot_rec.glyph_y] ; 0x00e4
     sub ah, ah                       ; 0x00e8
     add ax, strict word 0x20         ; 0x00ea
     push ax                          ; 0x00ed
@@ -46,7 +46,7 @@ draw_animation_frame:
     shl cx, 1                        ; 0x00f7
     add ax, cx                       ; 0x00f9
     mov bx, ax                       ; 0x00fb
-    mov al, byte [bx + slot_recs + 0x38] ; 0x00fd
+    mov al, byte [bx + slot_recs + slot_rec.glyph_x] ; 0x00fd
     sub ah, ah                       ; 0x0101
     push ax                          ; 0x0103
     push word [bp - 0x0002]          ; 0x0104

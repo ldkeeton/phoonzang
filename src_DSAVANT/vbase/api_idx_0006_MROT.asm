@@ -15,7 +15,7 @@ api_idx_0006_MROT:
     mov ax, 0x248                    ; 0x61fd
     imul word [bp - 0x0002]          ; 0x6200
     mov si, ax                       ; 0x6203
-    add ax, member_state + 0x12      ; 0x6205
+    add ax, party_records + pc_rec_size*1 ; 0x6205
     mov si, ax                       ; 0x6208
     mov ax, 0x248                    ; 0x620a
     imul word [bp - 0x0002]          ; 0x620d
@@ -31,8 +31,8 @@ api_idx_0006_MROT:
     mov bx, ax                       ; 0x6225
     mov ax, word [bx + member_roster_index + 0x4] ; 0x6227
     mov word [bx + member_roster_index + 0x2], ax ; 0x622b
-    mov ax, word [bx + member_state + 0xb94] ; 0x622f
-    mov word [bx + member_state + 0xb92], ax ; 0x6233
+    mov ax, word [bx + member_icon + 0x2] ; 0x622f
+    mov word [bx + member_icon], ax  ; 0x6233
     inc word [bp - 0x0002]           ; 0x6237
 @..api_idx_0006_MROT.l2:
     mov ax, word [bp - 0x0002]       ; 0x623a
@@ -57,8 +57,8 @@ api_idx_0006_MROT:
     shl ax, 1                        ; 0x626a
     shl ax, 1                        ; 0x626c
     mov bx, ax                       ; 0x626e
-    push word [bx + member_state + 0xb7c] ; 0x6270
-    push word [bx + member_state + 0xb7a] ; 0x6274
+    push word [bx + panel_area + 0x2] ; 0x6270
+    push word [bx + panel_area]      ; 0x6274
     call gfx_restore_area            ; 0x6278
     add sp, byte 6                   ; 0x627b
     cmp word [bp + 0x6], byte 0      ; 0x627e

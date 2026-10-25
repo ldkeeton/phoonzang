@@ -28,7 +28,7 @@ pick_spell_action:
     mov ax, 6                        ; 0x2984
     imul dx                          ; 0x2987
     mov bx, ax                       ; 0x2989
-    cmp byte [bx + spell_table + 0x4], 1 ; 0x298b
+    cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x298b
     jne short @..pick_spell_action.l3 ; 0x2990
     call pick_party_member           ; 0x2992
     mov word [bp - 0x000a], ax       ; 0x2995
@@ -41,7 +41,7 @@ pick_spell_action:
     imul word [bp + 0x4]             ; 0x29a4
     mov si, ax                       ; 0x29a7
     mov bx, word [party_char]        ; 0x29a9
-    mov byte [bx + si + 0x1f], 0     ; 0x29ad
+    mov byte [bx + si + member_rec.f_001f], 0 ; 0x29ad
     mov al, byte [bp - 0x000a]       ; 0x29b1
     push ax                          ; 0x29b4
     mov ax, 0x2c                     ; 0x29b5
@@ -49,7 +49,7 @@ pick_spell_action:
     mov si, ax                       ; 0x29bb
     mov bx, word [party_char]        ; 0x29bd
     pop ax                           ; 0x29c1
-    mov byte [bx + si + 0x20], al    ; 0x29c2
+    mov byte [bx + si + member_rec.f_0020], al ; 0x29c2
 @..pick_spell_action.l3:
     mov ax, word [bp - 0x0008]       ; 0x29c5
     cmp ax, strict word 0x13         ; 0x29c8
@@ -63,7 +63,7 @@ pick_spell_action:
     imul word [bp + 0x4]             ; 0x29da
     mov si, ax                       ; 0x29dd
     mov bx, word [party_char]        ; 0x29df
-    mov byte [bx + si + 0x1f], 0     ; 0x29e3
+    mov byte [bx + si + member_rec.f_001f], 0 ; 0x29e3
 @..pick_spell_action.l5:
     mov ax, word [bp - 0x0006]       ; 0x29e7
     xchg al, ah                      ; 0x29ea

@@ -71,7 +71,7 @@ jumptable_1aa5_case_0:
     mov ax, 0x26                     ; 0x1b02
     imul word [bp - 0x0002]          ; 0x1b05
     mov bx, ax                       ; 0x1b08
-    cmp byte [bx + slot_records], 0x19 ; 0x1b0a
+    cmp byte [bx + slot_records + slot_record.kind], 0x19 ; 0x1b0a
     jb short @..roll_slot_detection_report.l4 ; 0x1b0f
     jmp near @..roll_slot_detection_report.l11 ; 0x1b11
 @..roll_slot_detection_report.l4:
@@ -84,7 +84,7 @@ jumptable_1aa5_case_0:
     mov ax, 0x26                     ; 0x1b21
     imul word [bp - 0x0002]          ; 0x1b24
     mov bx, ax                       ; 0x1b27
-    mov al, byte [bx + slot_records] ; 0x1b29
+    mov al, byte [bx + slot_records + slot_record.kind] ; 0x1b29
     sub ah, ah                       ; 0x1b2d
     shl ax, 1                        ; 0x1b2f
     shl ax, 1                        ; 0x1b31
@@ -103,7 +103,7 @@ jumptable_1aa5_case_0:
     mov ax, 0x26                     ; 0x1b4d
     imul word [bp - 0x0002]          ; 0x1b50
     mov bx, ax                       ; 0x1b53
-    mov al, byte [bx + slot_records + 0x1] ; 0x1b55
+    mov al, byte [bx + slot_records + slot_record.map_piece] ; 0x1b55
     sub ah, ah                       ; 0x1b59
     cmp ax, word [party_map_piece]   ; 0x1b5b
     je short @..roll_slot_detection_report.l6 ; 0x1b5f
@@ -130,7 +130,7 @@ jumptable_1aa5_case_0:
     mov ax, 0x26                     ; 0x1b94
     imul word [bp - 0x0002]          ; 0x1b97
     mov bx, ax                       ; 0x1b9a
-    cmp byte [bx + slot_records + 0x14], 0 ; 0x1b9c
+    cmp byte [bx + slot_records + slot_record.flag], 0 ; 0x1b9c
     je short @..roll_slot_detection_report.l8 ; 0x1ba1
     cmp word [bp - 0x0002], byte 4   ; 0x1ba3
     jne short @..roll_slot_detection_report.l9 ; 0x1ba7
@@ -162,7 +162,7 @@ jumptable_1aa5_case_0:
     mov ax, 0x26                     ; 0x1be0
     imul word [bp - 0x0002]          ; 0x1be3
     mov bx, ax                       ; 0x1be6
-    mov al, byte [bx + slot_records] ; 0x1be8
+    mov al, byte [bx + slot_records + slot_record.kind] ; 0x1be8
     sub ah, ah                       ; 0x1bec
     add ax, 0x6ea                    ; 0x1bee
     push ax                          ; 0x1bf1

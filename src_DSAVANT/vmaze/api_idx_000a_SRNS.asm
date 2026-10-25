@@ -4,7 +4,7 @@ api_idx_000a_SRNS:
     call aztec_csav                  ; 0x7852
     mov bx, word [maze_tables]       ; 0x7855
     mov si, word [party_region]      ; 0x7859
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x785d
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x785d
     sub ah, ah                       ; 0x7861
     push ax                          ; 0x7863
     call loc_GRON                    ; 0x7864

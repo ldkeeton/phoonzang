@@ -1,5 +1,6 @@
 ; auto-generated
 bits 16
+%include "include/structs.inc"
 %include "include/host_symbols.inc"
 %ifndef VBASE
 %ifdef ELF_BUILD

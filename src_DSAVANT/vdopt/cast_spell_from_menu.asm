@@ -24,7 +24,7 @@ cast_spell_from_menu:
     mov ax, 6                        ; 0x4611
     imul dx                          ; 0x4614
     mov bx, ax                       ; 0x4616
-    cmp byte [bx + spell_table + 0x4], 1 ; 0x4618
+    cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x4618
     jne short @..cast_spell_from_menu.l2 ; 0x461d
     call pick_party_member           ; 0x461f
     mov word [spell_target], ax      ; 0x4622
@@ -38,7 +38,7 @@ cast_spell_from_menu:
     mov ax, 6                        ; 0x4633
     imul word [bp - 0x0002]          ; 0x4636
     mov bx, ax                       ; 0x4639
-    mov al, byte [bx + spell_table + 0x2] ; 0x463b
+    mov al, byte [bx + spell_table + spell_table_rec.f_0002] ; 0x463b
     sub ah, ah                       ; 0x463f
     imul word [bp - 0x0004]          ; 0x4641
     push ax                          ; 0x4644
@@ -54,7 +54,7 @@ cast_spell_from_menu:
     add cx, ax                       ; 0x465b
     mov bx, cx                       ; 0x465d
     pop ax                           ; 0x465f
-    sub word [bx + pc_records + 0xc], ax ; 0x4660
+    sub word [bx + party_records + pc_rec.realm_points], ax ; 0x4660
     push word [spell_target]         ; 0x4664
     push word [bp - 0x0004]          ; 0x4668
     push word [bp - 0x0002]          ; 0x466b
@@ -68,7 +68,7 @@ cast_spell_from_menu:
     mov ax, 6                        ; 0x467f
     imul word [bp - 0x0002]          ; 0x4682
     mov bx, ax                       ; 0x4685
-    mov al, byte [bx + spell_table + 0x1] ; 0x4687
+    mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x4687
     sub ah, ah                       ; 0x468b
     mov cx, ax                       ; 0x468d
     pop ax                           ; 0x468f
@@ -79,10 +79,10 @@ cast_spell_from_menu:
     imul word [bp + 0x4]             ; 0x4699
     mov bx, ax                       ; 0x469c
     pop ax                           ; 0x469e
-    sub word [bx + pc_records], ax   ; 0x469f
-    cmp word [bx + pc_records], byte 0 ; 0x46a3
+    sub word [bx + party_records + pc_rec.pair_b], ax ; 0x469f
+    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x46a3
     jge short @..cast_spell_from_menu.l4 ; 0x46a8
-    mov word [bx + pc_records], 0    ; 0x46aa
+    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x46aa
     mov ax, 6                        ; 0x46b0
     push ax                          ; 0x46b3
     call random_below                ; 0x46b4
@@ -93,7 +93,7 @@ cast_spell_from_menu:
     imul word [bp + 0x4]             ; 0x46bf
     mov bx, ax                       ; 0x46c2
     pop ax                           ; 0x46c4
-    mov byte [bx + pc_records + 0x14c], al ; 0x46c5
+    mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x46c5
 @..cast_spell_from_menu.l4:
     cmp word [pending_event], byte 0 ; 0x46c9
     jle short @..cast_spell_from_menu.l5 ; 0x46ce

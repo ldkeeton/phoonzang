@@ -10,7 +10,7 @@ api_idx_0022_ROKS:
     shl ax, 1                        ; 0x2259
     mov bx, ax                       ; 0x225b
     mov bx, word [bx + party_char]   ; 0x225d
-    cmp byte [bx + si + 0x22], 3     ; 0x2261
+    cmp byte [bx + si + member_rec.item_state], 3 ; 0x2261
     jae short @..api_idx_0022_ROKS.l1 ; 0x2265
     push word [bp + 0x6]             ; 0x2267
     push word [bp + 0x4]             ; 0x226a
@@ -54,7 +54,7 @@ api_idx_0022_ROKS:
     push ax                          ; 0x22c0
     mov ax, 0x248                    ; 0x22c1
     imul word [bp + 0x6]             ; 0x22c4
-    add ax, cell_key_grid + 0x168    ; 0x22c7
+    add ax, party_records + pc_rec.cur ; 0x22c7
     push ax                          ; 0x22ca
     call aztec_movmem                ; 0x22cb
     add sp, byte 6                   ; 0x22ce
@@ -69,7 +69,7 @@ api_idx_0022_ROKS:
     mov bx, ax                       ; 0x22df
     mov bx, word [bx + party_char_ext] ; 0x22e1
     mov si, word [bp + 0xe]          ; 0x22e5
-    mov al, byte [bx + si + 0x9a]    ; 0x22e8
+    mov al, byte [bx + si + member_ext.f_009a] ; 0x22e8
     sub ah, ah                       ; 0x22ec
     mov cx, ax                       ; 0x22ee
     sub ax, word [bp + 0x10]         ; 0x22f0
@@ -164,7 +164,7 @@ api_idx_0022_ROKS:
     mov bx, ax                       ; 0x23bd
     mov bx, word [bx + party_char]   ; 0x23bf
     pop ax                           ; 0x23c3
-    sub word [bx + si + 0x2], ax     ; 0x23c4
+    sub word [bx + si + member_rec.item_charges], ax ; 0x23c4
     mov ax, 0x2c                     ; 0x23c7
     imul word [bp + 0x6]             ; 0x23ca
     mov si, ax                       ; 0x23cd
@@ -172,7 +172,7 @@ api_idx_0022_ROKS:
     shl ax, 1                        ; 0x23d2
     mov bx, ax                       ; 0x23d4
     mov bx, word [bx + party_char]   ; 0x23d6
-    mov byte [bx + si + 0x10], 0     ; 0x23da
+    mov byte [bx + si + member_rec.item_counter + 0x2], 0 ; 0x23da
     mov ax, 3                        ; 0x23de
     push ax                          ; 0x23e1
     call random_below                ; 0x23e2
@@ -188,7 +188,7 @@ api_idx_0022_ROKS:
     shl ax, 1                        ; 0x23f7
     mov bx, ax                       ; 0x23f9
     mov bx, word [bx + party_char]   ; 0x23fb
-    mov al, byte [bx + si + 0x11]    ; 0x23ff
+    mov al, byte [bx + si + member_rec.item_counter + 0x3] ; 0x23ff
     sub ah, ah                       ; 0x2402
     sub ax, cx                       ; 0x2404
     mov word [bp - 0x000e], ax       ; 0x2406
@@ -205,7 +205,7 @@ api_idx_0022_ROKS:
     shl ax, 1                        ; 0x2424
     mov bx, ax                       ; 0x2426
     mov bx, word [bx + party_char]   ; 0x2428
-    cmp word [bx + si + 0x2], byte 0 ; 0x242c
+    cmp word [bx + si + member_rec.item_charges], byte 0 ; 0x242c
     jg short @..api_idx_0022_ROKS.l13 ; 0x2430
     mov ax, word [bss_9058]          ; 0x2432
     mov cx, 2                        ; 0x2435
@@ -237,7 +237,7 @@ api_idx_0022_ROKS:
     mov ax, 0x248                    ; 0x246c
     imul word [bp + 0x6]             ; 0x246f
     mov bx, ax                       ; 0x2472
-    mov al, byte [bx + member_state + 0x2] ; 0x2474
+    mov al, byte [bx + party_records + pc_rec.sound] ; 0x2474
     sub ah, ah                       ; 0x2478
     inc ax                           ; 0x247a
     inc ax                           ; 0x247b

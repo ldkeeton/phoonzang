@@ -21,7 +21,7 @@ api_idx_0004_ONJT:
     pop ax
     add ax, cx
     mov bx, ax
-    cmp word [bx + cell_key_grid], byte 0
+    cmp word [bx + party_records + pc_rec.cell], byte 0
     jne short @..api_idx_0004_ONJT.l3
     mov ax, word [bp - 0x0002]
     xchg al, ah

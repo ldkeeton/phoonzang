@@ -662,6 +662,8 @@ def _link_probe(project, binary, routine, entry, whole, text):
                  in context['label_records']}
     for offset, name in context.get('table_labels', {}).items():
         labels_at.setdefault(offset, name)
+    from lib.record_layout import activate
+    activate(context.get('record_layouts'))
     try:
         linked = relink.link(routine, start, whole, index, data,
                              labels_in, labels_at,

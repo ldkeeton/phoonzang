@@ -9,7 +9,7 @@ api_idx_0002_ROVK:
     mov bx, ax                       ; 0x45c3
     mov bx, word [bx + party_char_ext] ; 0x45c5
     mov si, word [bp - 0x0002]       ; 0x45c9
-    cmp byte [bx + si + 0x86], 0     ; 0x45cc
+    cmp byte [bx + si + member_ext.f_0086], 0 ; 0x45cc
     je short @..api_idx_0002_ROVK.l2 ; 0x45d1
     mov ax, 2                        ; 0x45d3
     push ax                          ; 0x45d6

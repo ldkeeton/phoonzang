@@ -49,9 +49,9 @@ api_idx_0010_GVMH:
     mov ax, word [bp - 0x0004]       ; 0x50c0
     add cx, ax                       ; 0x50c3
     mov bx, cx                       ; 0x50c5
-    cmp byte [bx + cell_key_grid + 0x130], 0x14 ; 0x50c7
+    cmp byte [bx + party_records + pc_rec.stat], 0x14 ; 0x50c7
     jae short @..api_idx_0010_GVMH.l2 ; 0x50cc
-    inc byte [bx + cell_key_grid + 0x130] ; 0x50ce
+    inc byte [bx + party_records + pc_rec.stat] ; 0x50ce
 @..api_idx_0010_GVMH.l2:
     jmp near @..api_idx_0010_GVMH.l17 ; 0x50d2
 @..api_idx_0010_GVMH.l3:
@@ -61,32 +61,32 @@ jumptable_532e_case_0:
     mov ax, 0x248                    ; 0x50db
     imul word [bp + 0x4]             ; 0x50de
     mov bx, ax                       ; 0x50e1
-    cmp byte [bx + member_state + 0xd], 4 ; 0x50e3
+    cmp byte [bx + party_records + pc_rec.f_0243], 4 ; 0x50e3
     jae short @..api_idx_0010_GVMH.l4 ; 0x50e8
-    mov byte [bx + member_state + 0xd], 4 ; 0x50ea
+    mov byte [bx + party_records + pc_rec.f_0243], 4 ; 0x50ea
 @..api_idx_0010_GVMH.l4:
     jmp near @..api_idx_0010_GVMH.l17 ; 0x50ef
 jumptable_532e_case_1:
     mov ax, 0x248                    ; 0x50f2
     imul word [bp + 0x4]             ; 0x50f5
     mov bx, ax                       ; 0x50f8
-    cmp byte [bx + member_state + 0xe], 4 ; 0x50fa
+    cmp byte [bx + party_records + pc_rec.f_0244], 4 ; 0x50fa
     jae short @..api_idx_0010_GVMH.l5 ; 0x50ff
-    mov byte [bx + member_state + 0xe], 4 ; 0x5101
+    mov byte [bx + party_records + pc_rec.f_0244], 4 ; 0x5101
 @..api_idx_0010_GVMH.l5:
     jmp near @..api_idx_0010_GVMH.l17 ; 0x5106
 jumptable_532e_case_2:
     mov ax, 0x248                    ; 0x5109
     imul word [bp + 0x4]             ; 0x510c
     mov bx, ax                       ; 0x510f
-    mov byte [bx + member_state + 0x5], 0 ; 0x5111
+    mov byte [bx + party_records + pc_rec.state], 0 ; 0x5111
     mov word [bp - 0x0004], 0        ; 0x5116
 @..api_idx_0010_GVMH.l6:
     mov ax, 0x248                    ; 0x511b
     imul word [bp + 0x4]             ; 0x511e
     add ax, word [bp - 0x0004]       ; 0x5121
     mov bx, ax                       ; 0x5124
-    mov byte [bx + cell_key_grid + 0x126], 0 ; 0x5126
+    mov byte [bx + party_records + pc_rec.status], 0 ; 0x5126
     inc word [bp - 0x0004]           ; 0x512b
     mov ax, word [bp - 0x0004]       ; 0x512e
     cmp ax, strict word 0xa          ; 0x5131
@@ -94,18 +94,18 @@ jumptable_532e_case_2:
     mov ax, 0x248                    ; 0x5136
     imul word [bp + 0x4]             ; 0x5139
     mov bx, ax                       ; 0x513c
-    mov ax, word [bx + member_pair_points + 0x4] ; 0x513e
-    mov word [bx + member_pair_points + 0x2], ax ; 0x5142
-    mov ax, word [bx + pc_records + 0x2] ; 0x5146
-    mov word [bx + pc_records], ax   ; 0x514a
+    mov ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x513e
+    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x5142
+    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x5146
+    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x514a
 jumptable_532e_case_3:
     cmp word [bp + 0xa], byte 0x0b   ; 0x514e
     je short @..api_idx_0010_GVMH.l10 ; 0x5152
     mov ax, 0x248                    ; 0x5154
     imul word [bp + 0x4]             ; 0x5157
     mov bx, ax                       ; 0x515a
-    mov ax, word [bx + party_records + 0x8] ; 0x515c
-    mov dx, word [bx + party_records + 0xa] ; 0x5160
+    mov ax, word [bx + party_records + pc_rec.f_0008] ; 0x515c
+    mov dx, word [bx + party_records + pc_rec.f_000a] ; 0x5160
     mov cx, 0x16d                    ; 0x5164
     mov bx, 0                        ; 0x5167
     call aztec_ldv                   ; 0x516a
@@ -120,15 +120,15 @@ jumptable_532e_case_3:
     mov ax, 0x248                    ; 0x517b
     imul word [bp + 0x4]             ; 0x517e
     mov bx, ax                       ; 0x5181
-    add word [bx + party_records + 0x8], strict word 0xfe92 ; 0x5183
-    adc word [bx + party_records + 0xa], byte 0xff ; 0x5189
+    add word [bx + party_records + pc_rec.f_0008], strict word 0xfe92 ; 0x5183
+    adc word [bx + party_records + pc_rec.f_000a], byte 0xff ; 0x5189
 @..api_idx_0010_GVMH.l9:
     mov ax, 0x248                    ; 0x518e
     imul word [bp + 0x4]             ; 0x5191
     mov bx, ax                       ; 0x5194
-    cmp byte [bx + cell_key_grid + 0x133], 0x12 ; 0x5196
+    cmp byte [bx + party_records + pc_rec.stat + 0x3], 0x12 ; 0x5196
     jae short @..api_idx_0010_GVMH.l10 ; 0x519b
-    inc byte [bx + cell_key_grid + 0x133] ; 0x519d
+    inc byte [bx + party_records + pc_rec.stat + 0x3] ; 0x519d
 @..api_idx_0010_GVMH.l10:
     jmp near @..api_idx_0010_GVMH.l17 ; 0x51a1
 jumptable_532e_case_4:
@@ -144,8 +144,8 @@ jumptable_532e_case_4:
     imul word [bp + 0x4]             ; 0x51b5
     mov bx, ax                       ; 0x51b8
     pop ax                           ; 0x51ba
-    add word [bx + member_pair_points + 0x4], ax ; 0x51bb
-    add word [bx + member_pair_points + 0x2], ax ; 0x51bf
+    add word [bx + party_records + pc_rec.pair_a + 0x2], ax ; 0x51bb
+    add word [bx + party_records + pc_rec.pair_a], ax ; 0x51bf
     jmp near @..api_idx_0010_GVMH.l17 ; 0x51c3
 jumptable_532e_case_5:
     mov word [bp - 0x0004], 0        ; 0x51c6
@@ -157,8 +157,8 @@ jumptable_532e_case_5:
     shl cx, 1                        ; 0x51d6
     add ax, cx                       ; 0x51d8
     mov bx, ax                       ; 0x51da
-    mov ax, word [bx + pc_spell_power_cap + 0x6] ; 0x51dc
-    mov word [bx + pc_spell_power_cap + 0x4], ax ; 0x51e0
+    mov ax, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x51dc
+    mov word [bx + party_records + pc_rec.realm_points], ax ; 0x51e0
     inc word [bp - 0x0004]           ; 0x51e4
     mov ax, word [bp - 0x0004]       ; 0x51e7
     cmp ax, strict word 6            ; 0x51ea
@@ -168,13 +168,13 @@ jumptable_532e_case_6:
     mov ax, 0x248                    ; 0x51f2
     imul word [bp + 0x4]             ; 0x51f5
     mov bx, ax                       ; 0x51f8
-    cmp byte [bx + cell_key_grid + 0x134], 0x12 ; 0x51fa
+    cmp byte [bx + party_records + pc_rec.stat + 0x4], 0x12 ; 0x51fa
     jae short @..api_idx_0010_GVMH.l12 ; 0x51ff
-    mov byte [bx + cell_key_grid + 0x134], 0x12 ; 0x5201
+    mov byte [bx + party_records + pc_rec.stat + 0x4], 0x12 ; 0x5201
 @..api_idx_0010_GVMH.l12:
-    cmp byte [bx + cell_key_grid + 0x135], 0x12 ; 0x5206
+    cmp byte [bx + party_records + pc_rec.stat + 0x5], 0x12 ; 0x5206
     jae short @..api_idx_0010_GVMH.l13 ; 0x520b
-    mov byte [bx + cell_key_grid + 0x135], 0x12 ; 0x520d
+    mov byte [bx + party_records + pc_rec.stat + 0x5], 0x12 ; 0x520d
 @..api_idx_0010_GVMH.l13:
     mov ax, 5                        ; 0x5212
     push ax                          ; 0x5215
@@ -192,11 +192,11 @@ jumptable_532e_case_7:
     mov ax, 0x248                    ; 0x522f
     imul word [bp + 0x4]             ; 0x5232
     mov bx, ax                       ; 0x5235
-    cmp byte [bx + cell_key_grid + 0x137], 0 ; 0x5237
+    cmp byte [bx + party_records + pc_rec.stat + 0x7], 0 ; 0x5237
     jbe short @..api_idx_0010_GVMH.l15 ; 0x523c
     cmp word [bp - 0x0002], byte 0   ; 0x523e
     jne short @..api_idx_0010_GVMH.l15 ; 0x5242
-    dec byte [bx + cell_key_grid + 0x137] ; 0x5244
+    dec byte [bx + party_records + pc_rec.stat + 0x7] ; 0x5244
     mov ax, 3                        ; 0x5248
     push ax                          ; 0x524b
     call random_below                ; 0x524c

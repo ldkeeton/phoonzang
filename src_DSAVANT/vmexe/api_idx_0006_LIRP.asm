@@ -14,7 +14,7 @@ api_idx_0006_LIRP:
     shl ax, 1                        ; 0x2ca1
     mov bx, ax                       ; 0x2ca3
     mov bx, word [bx + party_char]   ; 0x2ca5
-    mov al, byte [bx + 0x18f]        ; 0x2ca9
+    mov al, byte [bx + member_rec.charge + 0x3] ; 0x2ca9
     sub ah, ah                       ; 0x2cad
     mov cx, 5                        ; 0x2caf
     cwd                              ; 0x2cb2
@@ -86,7 +86,7 @@ api_idx_0006_LIRP:
     shl ax, 1                        ; 0x2d57
     mov bx, ax                       ; 0x2d59
     mov bx, word [bx + party_char]   ; 0x2d5b
-    mov al, byte [bx + 0x1a1]        ; 0x2d5f
+    mov al, byte [bx + member_rec.item_count] ; 0x2d5f
     sub ah, ah                       ; 0x2d63
     cmp ax, word [bp - 0x0002]       ; 0x2d65
     jg short @..api_idx_0006_LIRP.l4 ; 0x2d68

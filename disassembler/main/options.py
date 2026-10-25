@@ -27,6 +27,7 @@ FOREIGN_LABELS_PATH = None
 FOREIGN_PREFIX = None
 HOST_DATA_OFFSETS_PATH = None
 DS_STARTS_PATH = None
+RECORDS_PATH = None
 _MAX_FUNC_SIZE = None
 for a in sys.argv:
     if a.startswith('--foreign-labels='):
@@ -37,6 +38,8 @@ for a in sys.argv:
         HOST_DATA_OFFSETS_PATH = a.split('=', 1)[1]
     elif a.startswith('--ds-starts='):
         DS_STARTS_PATH = a.split('=', 1)[1]
+    elif a.startswith('--records='):
+        RECORDS_PATH = a.split('=', 1)[1]
     elif a.startswith('--max-func-size='):
         try:
             _MAX_FUNC_SIZE = int(a.split('=', 1)[1])

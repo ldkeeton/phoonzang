@@ -23,7 +23,7 @@ claim_type7_object:
     shl ax, 1                        ; 0x04e8
     mov si, ax                       ; 0x04ea
     mov bx, word [maze_tables]       ; 0x04ec
-    push word [bx + si + 0x3c0]      ; 0x04f0
+    push word [bx + si + maze_tables_rec.f_03c0] ; 0x04f0
     mov ax, 0                        ; 0x04f4
     push ax                          ; 0x04f7
     push ax                          ; 0x04f8

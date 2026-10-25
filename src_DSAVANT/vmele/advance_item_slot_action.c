@@ -2,9 +2,11 @@
    action from the member's stat difference, and pays the party when it
    bottoms out */
 
+#include "structs/pcrec.h"
+
 extern char *party_char[];
 extern char *party_char_ext[];
-extern char cell_key_grid[];
+extern struct pc_rec party_records[];
 extern int cell_slot_ref[][3];		/* cells: member*10 + item slot, 0 free */
 extern unsigned char action_bitmap[];	/* 0xcc-byte bitmap */
 extern long item_action_reward;		/* running total shared by the party */
@@ -66,11 +68,9 @@ scan:
 		((unsigned char *)rec)[35] = 0;
 	i = *(signed char *)(rec + 41);	/* level eases toward 0 */
 	*(signed char *)(rec + 41) = i < 0 ? i + 1 : i > 0 ? i - 1 : i;
-	/* member 0: top the level up from the 0x248-byte cell-key page's
-	   +0x14c byte */
-	if (member == 0 &&
-	    ((unsigned char *)cell_key_grid)[step_max * 584 + 332] > 0) {
-		i = ((unsigned char *)cell_key_grid)[step_max * 584 + 332] / 10 + 2;
+	/* member 0: top the level up from party record flag[20] */
+	if (member == 0 && party_records[step_max].flag[20] > 0) {
+		i = party_records[step_max].flag[20] / 10 + 2;
 		if (*(signed char *)(rec + 41) < i)
 			(*(signed char *)(rec + 41))++;
 	}

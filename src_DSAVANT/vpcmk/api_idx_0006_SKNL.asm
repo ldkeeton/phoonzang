@@ -10,7 +10,7 @@ api_idx_0006_SKNL:
     imul word [bp + 0x4]             ; 0x4095
     add ax, word [bp - 0x0002]       ; 0x4098
     mov bx, ax                       ; 0x409b
-    mov al, byte [bx + cell_key_grid + 0x130] ; 0x409d
+    mov al, byte [bx + party_records + pc_rec.stat] ; 0x409d
     sub ah, ah                       ; 0x40a1
     mov word [bp - 0x0004], ax       ; 0x40a3
 @..api_idx_0006_SKNL.l2:
@@ -29,7 +29,7 @@ api_idx_0006_SKNL:
     imul word [bp + 0x4]             ; 0x40c6
     add ax, si                       ; 0x40c9
     mov bx, ax                       ; 0x40cb
-    inc byte [bx + cell_key_grid + 0x130] ; 0x40cd
+    inc byte [bx + party_records + pc_rec.stat] ; 0x40cd
     dec word [bss_9594]              ; 0x40d1
     mov ax, 1                        ; 0x40d5
     push ax                          ; 0x40d8

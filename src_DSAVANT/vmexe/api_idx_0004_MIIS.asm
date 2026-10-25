@@ -16,7 +16,7 @@ api_idx_0004_MIIS:
     imul word [bp - 0x0004]          ; 0x6390
     mov si, ax                       ; 0x6393
     mov bx, word [party_char]        ; 0x6395
-    cmp byte [bx + si + 0x22], 3     ; 0x6399
+    cmp byte [bx + si + member_rec.item_state], 3 ; 0x6399
     jae short @..api_idx_0004_MIIS.l3 ; 0x639d
     cmp byte [bx + si + 0x2b], 0     ; 0x639f
     jne short @..api_idx_0004_MIIS.l3 ; 0x63a3

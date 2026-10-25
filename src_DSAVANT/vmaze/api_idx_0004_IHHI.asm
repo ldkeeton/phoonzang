@@ -24,7 +24,7 @@ api_idx_0004_IHHI:
     mov ax, 0x248                    ; 0x142d
     imul word [bp - 0x0002]          ; 0x1430
     mov bx, ax                       ; 0x1433
-    cmp byte [bx + member_state + 0x5], 3 ; 0x1435
+    cmp byte [bx + party_records + pc_rec.state], 3 ; 0x1435
     jae short @..api_idx_0004_IHHI.l3 ; 0x143a
     mov ax, 1                        ; 0x143c
     push ax                          ; 0x143f
@@ -51,18 +51,18 @@ api_idx_0004_IHHI:
     mov ax, 0x248                    ; 0x146c
     imul word [bp - 0x0002]          ; 0x146f
     mov bx, ax                       ; 0x1472
-    mov al, byte [bx + cell_key_grid + 0x142] ; 0x1474
+    mov al, byte [bx + party_records + pc_rec.flag + 0xa] ; 0x1474
     sub ah, ah                       ; 0x1478
     cwd                              ; 0x147a
     idiv cx                          ; 0x147b
     mov cx, ax                       ; 0x147d
     inc ax                           ; 0x147f
     mov cx, ax                       ; 0x1480
-    mov ax, word [bx + pc_records + 0x2] ; 0x1482
+    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x1482
     cwd                              ; 0x1486
     idiv cx                          ; 0x1487
     push ax                          ; 0x1489
-    mov ax, word [bx + pc_records + 0x2] ; 0x148a
+    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x148a
     mov cx, 0xa                      ; 0x148e
     cwd                              ; 0x1491
     idiv cx                          ; 0x1492
@@ -78,8 +78,8 @@ api_idx_0004_IHHI:
     imul word [bp - 0x0002]          ; 0x14a5
     mov bx, ax                       ; 0x14a8
     pop ax                           ; 0x14aa
-    sub word [bx + pc_records], ax   ; 0x14ab
-    cmp word [bx + pc_records], byte 0 ; 0x14af
+    sub word [bx + party_records + pc_rec.pair_b], ax ; 0x14ab
+    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x14af
     jg short @..api_idx_0004_IHHI.l5 ; 0x14b4
     mov ax, 1                        ; 0x14b6
     push ax                          ; 0x14b9

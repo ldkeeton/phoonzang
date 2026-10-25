@@ -6,7 +6,7 @@ api_idx_0002_KNHU:
     imul word [bp + 0x4]             ; 0x38ca
     add ax, word [bp + 0x6]          ; 0x38cd
     mov bx, ax                       ; 0x38d0
-    mov al, byte [bx + cell_key_grid + 0x126] ; 0x38d2
+    mov al, byte [bx + party_records + pc_rec.status] ; 0x38d2
     sub ah, ah                       ; 0x38d6
     sub ax, word [bp + 0x8]          ; 0x38d8
     mov word [bp - 0x0002], ax       ; 0x38db
@@ -16,7 +16,7 @@ api_idx_0002_KNHU:
     jge short @..api_idx_0002_KNHU.l1 ; 0x38e3
     mov ax, 0                        ; 0x38e5
 @..api_idx_0002_KNHU.l1:
-    mov byte [bx + cell_key_grid + 0x126], al ; 0x38e8
+    mov byte [bx + party_records + pc_rec.status], al ; 0x38e8
     cmp word [bp + 0xa], byte 0      ; 0x38ec
     je short @..api_idx_0002_KNHU.l2 ; 0x38f0
     mov ax, 1                        ; 0x38f2

@@ -9,7 +9,7 @@ api_idx_0002_UTVG:
     shl ax, 1                        ; 0x1fa9
     mov bx, ax                       ; 0x1fab
     mov bx, word [bx + party_char]   ; 0x1fad
-    mov al, byte [bx + si + 0x22]    ; 0x1fb1
+    mov al, byte [bx + si + member_rec.item_state] ; 0x1fb1
     sub ah, ah                       ; 0x1fb4
     cmp ax, word [bp + 0xc]          ; 0x1fb6
     jge short @..api_idx_0002_UTVG.l1 ; 0x1fb9
@@ -31,7 +31,7 @@ api_idx_0002_UTVG:
     push ax                          ; 0x1fdc
     mov ax, 0x248                    ; 0x1fdd
     imul word [bp + 0x6]             ; 0x1fe0
-    add ax, cell_key_grid + 0x168    ; 0x1fe3
+    add ax, party_records + pc_rec.cur ; 0x1fe3
     push ax                          ; 0x1fe6
     call aztec_movmem                ; 0x1fe7
     add sp, byte 6                   ; 0x1fea
@@ -49,7 +49,7 @@ api_idx_0002_UTVG:
     mov bx, ax                       ; 0x2006
     mov bx, word [bx + party_char_ext] ; 0x2008
     mov si, word [bp + 0xa]          ; 0x200c
-    mov al, byte [bx + si + 0x9a]    ; 0x200f
+    mov al, byte [bx + si + member_ext.f_009a] ; 0x200f
     sub ah, ah                       ; 0x2013
     mov cx, ax                       ; 0x2015
     sub ax, word [bp + 0xe]          ; 0x2017
@@ -68,7 +68,7 @@ api_idx_0002_UTVG:
     mov bx, ax                       ; 0x2032
     mov bx, word [bx + party_char]   ; 0x2034
     pop ax                           ; 0x2038
-    mov byte [bx + si + 0x22], al    ; 0x2039
+    mov byte [bx + si + member_rec.item_state], al ; 0x2039
     cmp word [bp + 0xc], byte 3      ; 0x203c
     jl short @..api_idx_0002_UTVG.l5 ; 0x2040
     push word [bp + 0x6]             ; 0x2042
@@ -80,7 +80,7 @@ api_idx_0002_UTVG:
     mov ax, 0x248                    ; 0x2054
     imul word [bp + 0x6]             ; 0x2057
     mov bx, ax                       ; 0x205a
-    mov al, byte [bx + member_state + 0x2] ; 0x205c
+    mov al, byte [bx + party_records + pc_rec.sound] ; 0x205c
     sub ah, ah                       ; 0x2060
     add ax, strict word 8            ; 0x2062
     mov word [bp - 0x0002], ax       ; 0x2065

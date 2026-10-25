@@ -4,12 +4,12 @@ api_idx_0002_GMMK:
     call aztec_csav                  ; 0x4d94
     mov al, byte [party_char_count]  ; 0x4d97
     mov bx, word [party_char]        ; 0x4d9a
-    mov byte [bx + 0x1a1], al        ; 0x4d9e
+    mov byte [bx + member_rec.item_count], al ; 0x4d9e
     mov word [bp - 0x0002], 1        ; 0x4da2
     jmp short @..api_idx_0002_GMMK.l5 ; 0x4da7
 @..api_idx_0002_GMMK.l1:
     mov bx, word [bss_848e]          ; 0x4da9
-    cmp byte [bx + 0x1a1], 0         ; 0x4dad
+    cmp byte [bx + rec_848e.f_01a1], 0 ; 0x4dad
     jbe short @..api_idx_0002_GMMK.l2 ; 0x4db2
     mov ax, 4                        ; 0x4db4
     push ax                          ; 0x4db7
@@ -21,7 +21,7 @@ api_idx_0002_GMMK:
     shl ax, 1                        ; 0x4dc4
     mov bx, ax                       ; 0x4dc6
     mov bx, word [bx + party_char_ext] ; 0x4dc8
-    cmp byte [bx + 0xd6], 0x16       ; 0x4dcc
+    cmp byte [bx + member_ext.f_00d6], 0x16 ; 0x4dcc
     je short @..api_idx_0002_GMMK.l2 ; 0x4dd1
     cmp word [character_record_index], strict word 0xe1 ; 0x4dd3
     jne short @..api_idx_0002_GMMK.l3 ; 0x4dd9
@@ -45,7 +45,7 @@ api_idx_0002_GMMK:
     cmp ax, word [party_member_count] ; 0x4dfd
     jle short @..api_idx_0002_GMMK.l1 ; 0x4e01
     mov bx, word [bss_848e]          ; 0x4e03
-    cmp byte [bx + 0x1a1], 0         ; 0x4e07
+    cmp byte [bx + rec_848e.f_01a1], 0 ; 0x4e07
     jbe short @..api_idx_0002_GMMK.l8 ; 0x4e0c
     mov word [bp - 0x0002], 1        ; 0x4e0e
 @..api_idx_0002_GMMK.l6:

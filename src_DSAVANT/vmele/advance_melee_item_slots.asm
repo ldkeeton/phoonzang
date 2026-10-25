@@ -9,15 +9,15 @@ advance_melee_item_slots:
     imul word [bp - 0x0002]          ; 0x1f49
     mov si, ax                       ; 0x1f4c
     mov bx, word [party_char]        ; 0x1f4e
-    cmp byte [bx + si + 0x22], 3     ; 0x1f52
+    cmp byte [bx + si + member_rec.item_state], 3 ; 0x1f52
     jae short @..advance_melee_item_slots.l2 ; 0x1f56
     mov ax, 0x248                    ; 0x1f58
     imul word [bp - 0x0002]          ; 0x1f5b
     mov bx, ax                       ; 0x1f5e
-    mov al, byte [bx + member_state + 0x7] ; 0x1f60
+    mov al, byte [bx + party_records + pc_rec.defense] ; 0x1f60
     sub ah, ah                       ; 0x1f64
     push ax                          ; 0x1f66
-    mov al, byte [bx + member_state + 0x6] ; 0x1f67
+    mov al, byte [bx + party_records + pc_rec.attack] ; 0x1f67
     sub ah, ah                       ; 0x1f6b
     push ax                          ; 0x1f6d
     push word [bp - 0x0002]          ; 0x1f6e
@@ -38,7 +38,7 @@ advance_melee_item_slots:
     mov ax, 0x248                    ; 0x1f94
     imul word [bp - 0x0002]          ; 0x1f97
     mov bx, ax                       ; 0x1f9a
-    mov al, byte [bx + member_state + 0x2] ; 0x1f9c
+    mov al, byte [bx + party_records + pc_rec.sound] ; 0x1f9c
     sub ah, ah                       ; 0x1fa0
     add ax, strict word 8            ; 0x1fa2
     push ax                          ; 0x1fa5
@@ -72,12 +72,12 @@ advance_melee_item_slots:
     mov ax, 0x248                    ; 0x1fe2
     imul word [bp - 0x0002]          ; 0x1fe5
     mov bx, ax                       ; 0x1fe8
-    mov al, byte [bx + member_state + 0x5] ; 0x1fea
+    mov al, byte [bx + party_records + pc_rec.state] ; 0x1fea
     push ax                          ; 0x1fee
     mov ax, 0x248                    ; 0x1fef
     imul word [bp - 0x0004]          ; 0x1ff2
     mov bx, ax                       ; 0x1ff5
-    mov cl, byte [bx + member_state + 0x5] ; 0x1ff7
+    mov cl, byte [bx + party_records + pc_rec.state] ; 0x1ff7
     pop ax                           ; 0x1ffb
     cmp al, cl                       ; 0x1ffc
     ja short @..advance_melee_item_slots.l8 ; 0x1ffe
@@ -131,19 +131,19 @@ advance_melee_item_slots:
     mov ax, word [bp - 0x0002]       ; 0x2078
     shl ax, 1                        ; 0x207b
     mov bx, ax                       ; 0x207d
-    mov ax, word [bx + member_state + 0xb92] ; 0x207f
+    mov ax, word [bx + member_icon]  ; 0x207f
     mov word [bp - 0x027a], ax       ; 0x2083
     mov bx, cx                       ; 0x2087
-    mov ax, word [bx + member_state + 0xb92] ; 0x2089
+    mov ax, word [bx + member_icon]  ; 0x2089
     mov cx, word [bp - 0x0002]       ; 0x208d
     shl cx, 1                        ; 0x2090
     mov bx, cx                       ; 0x2092
-    mov word [bx + member_state + 0xb92], ax ; 0x2094
+    mov word [bx + member_icon], ax  ; 0x2094
     mov ax, word [bp - 0x027a]       ; 0x2098
     mov cx, word [bp - 0x0004]       ; 0x209c
     shl cx, 1                        ; 0x209f
     mov bx, cx                       ; 0x20a1
-    mov word [bx + member_state + 0xb92], ax ; 0x20a3
+    mov word [bx + member_icon], ax  ; 0x20a3
 @..advance_melee_item_slots.l9:
     inc word [bp - 0x0004]           ; 0x20a7
 @..advance_melee_item_slots.l10:
@@ -168,7 +168,7 @@ advance_melee_item_slots:
     mov ax, 0x248                    ; 0x20d7
     imul word [bp - 0x0002]          ; 0x20da
     mov bx, ax                       ; 0x20dd
-    cmp byte [bx + member_state + 0x5], 2 ; 0x20df
+    cmp byte [bx + party_records + pc_rec.state], 2 ; 0x20df
     jb short @..advance_melee_item_slots.l15 ; 0x20e4
     inc word [bp - 0x0004]           ; 0x20e6
 @..advance_melee_item_slots.l15:
@@ -176,7 +176,7 @@ advance_melee_item_slots:
     imul word [bp - 0x0002]          ; 0x20ec
     mov si, ax                       ; 0x20ef
     mov bx, word [party_char]        ; 0x20f1
-    cmp byte [bx + si + 0x2b], 2     ; 0x20f5
+    cmp byte [bx + si + member_rec.item_phase], 2 ; 0x20f5
     jne short @..advance_melee_item_slots.l16 ; 0x20f9
     mov word [bp - 0x027c], 1        ; 0x20fb
 @..advance_melee_item_slots.l16:

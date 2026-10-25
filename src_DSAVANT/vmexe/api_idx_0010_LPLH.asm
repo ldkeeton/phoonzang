@@ -62,7 +62,7 @@ api_idx_0010_LPLH:
     push ax                          ; 0x26f0
     mov ax, 0x248                    ; 0x26f1
     imul word [bp - 0x0002]          ; 0x26f4
-    add ax, cell_key_grid + 0x168    ; 0x26f7
+    add ax, party_records + pc_rec.cur ; 0x26f7
     push ax                          ; 0x26fa
     call aztec_movmem                ; 0x26fb
     add sp, byte 6                   ; 0x26fe
@@ -74,7 +74,7 @@ api_idx_0010_LPLH:
     shl ax, 1                        ; 0x270c
     mov bx, ax                       ; 0x270e
     mov bx, word [bx + party_char]   ; 0x2710
-    cmp byte [bx + si + 0x22], 3     ; 0x2714
+    cmp byte [bx + si + member_rec.item_state], 3 ; 0x2714
     jb short @..api_idx_0010_LPLH.l9 ; 0x2718
     jmp near @..api_idx_0010_LPLH.l22 ; 0x271a
 @..api_idx_0010_LPLH.l9:
@@ -119,7 +119,7 @@ api_idx_0010_LPLH:
     mov bx, ax                       ; 0x2773
     mov bx, word [bx + party_char_ext] ; 0x2775
     mov si, word [bp + 0xe]          ; 0x2779
-    mov al, byte [bx + si + 0x9a]    ; 0x277c
+    mov al, byte [bx + si + member_ext.f_009a] ; 0x277c
     sub ah, ah                       ; 0x2780
     mov cx, ax                       ; 0x2782
     sub ax, word [bp + 0x10]         ; 0x2784
@@ -230,7 +230,7 @@ api_idx_0010_LPLH:
     mov ax, 0x248                    ; 0x287c
     imul word [bp - 0x0002]          ; 0x287f
     mov bx, ax                       ; 0x2882
-    mov al, byte [bx + member_state + 0x2] ; 0x2884
+    mov al, byte [bx + party_records + pc_rec.sound] ; 0x2884
     sub ah, ah                       ; 0x2888
     add ax, strict word 8            ; 0x288a
     push ax                          ; 0x288d

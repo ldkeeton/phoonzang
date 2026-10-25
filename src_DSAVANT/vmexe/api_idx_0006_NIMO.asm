@@ -21,7 +21,7 @@ api_idx_0006_NIMO:
     shl ax, 1                        ; 0x315c
     mov bx, ax                       ; 0x315e
     mov bx, word [bx + party_char]   ; 0x3160
-    cmp byte [bx + si + 0x22], 3     ; 0x3164
+    cmp byte [bx + si + member_rec.item_state], 3 ; 0x3164
     jb short @..api_idx_0006_NIMO.l2 ; 0x3168
     jmp near @..api_idx_0006_NIMO.l8 ; 0x316a
 @..api_idx_0006_NIMO.l2:
@@ -34,7 +34,7 @@ api_idx_0006_NIMO:
     shl ax, 1                        ; 0x3179
     mov bx, ax                       ; 0x317b
     mov bx, word [bx + party_char_ext] ; 0x317d
-    mov al, byte [bx + 0x9c]         ; 0x3181
+    mov al, byte [bx + member_ext.f_009c] ; 0x3181
     sub ah, ah                       ; 0x3185
     mov cx, ax                       ; 0x3187
     sub ax, word [bp + 0xa]          ; 0x3189
@@ -263,7 +263,7 @@ jumptable_3341:
     shl ax, 1                        ; 0x336f
     mov bx, ax                       ; 0x3371
     mov bx, word [bx + party_char]   ; 0x3373
-    cmp byte [bx + si + 0x2b], 0     ; 0x3377
+    cmp byte [bx + si + member_rec.item_phase], 0 ; 0x3377
     jne short @..api_idx_0006_NIMO.l8 ; 0x337b
     mov ax, 4                        ; 0x337d
     push ax                          ; 0x3380

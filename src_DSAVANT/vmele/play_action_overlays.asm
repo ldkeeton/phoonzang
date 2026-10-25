@@ -30,7 +30,7 @@ play_action_overlays:
     cmp word [bp - 0x0002], byte 1   ; 0x2d29
     jne short @..play_action_overlays.l3 ; 0x2d2d
     mov bx, word [party_member_ext_1] ; 0x2d2f
-    cmp byte [bx + 0xd8], 0          ; 0x2d33
+    cmp byte [bx + party_member_ext_1_rec.f_00d8], 0 ; 0x2d33
     jbe short @..play_action_overlays.l3 ; 0x2d38
     mov ax, 0x10                     ; 0x2d3a
     push ax                          ; 0x2d3d

@@ -1,5 +1,6 @@
 ; auto-generated
 bits 16
+%include "include/structs.inc"
 %ifndef VBASE
 %ifdef ELF_BUILD
 VBASE equ 0
@@ -81,7 +82,6 @@ bss_5989 equ __zbss_5989 - __zdseg_start
 bss_598a equ __zbss_598a - __zdseg_start
 bss_598b equ __zbss_598b - __zdseg_start
 bss_5b55 equ __zbss_5b55 - __zdseg_start
-bss_5c08 equ __zbss_5c08 - __zdseg_start
 glyph_x_table equ __zbss_6e6c - __zdseg_start
 marker_x equ __zbss_7abc - __zdseg_start
 bss_7abe equ __zbss_7abe - __zdseg_start
@@ -130,9 +130,7 @@ selected_item_record equ __zbss_84a0 - __zdseg_start
 item_action_reward equ __zbss_84a2 - __zdseg_start
 item_action_reward_hi equ __zbss_84a4 - __zdseg_start
 bss_84a6 equ __zbss_84a6 - __zdseg_start
-bss_84e8 equ __zbss_84e8 - __zdseg_start
-slot_records equ __zbss_84ec - __zdseg_start
-bss_86c8 equ __zbss_86c8 - __zdseg_start
+slot_records equ __zbss_84e8 - __zdseg_start
 bss_8809 equ __zbss_8809 - __zdseg_start
 bss_880a equ __zbss_880a - __zdseg_start
 bss_8822 equ __zbss_8822 - __zdseg_start
@@ -446,24 +444,22 @@ saved_screen_ref          equ __zbss_5be0 - __zdseg_start
 %include "ds/game/restore_saved_screen.asm" ; 0x16a0
 
 cell_overlay_code equ __zcell_overlay_code - __zdseg_start
-cell_key_grid     equ __zbss_5c34 - __zdseg_start
+party_records     equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/cell_power.asm"          ; 0x1741
 
-pc_records    equ __zbss_5c10 - __zdseg_start
-; cell_key_grid equ __zbss_5c34 - __zdseg_start
+; party_records equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/sum_page_cell_values.asm" ; 0x17d6
 
-; cell_key_grid equ __zbss_5c34 - __zdseg_start
-member_state  equ __zbss_5e2a - __zdseg_start
+; party_records equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/reset_page_record.asm"   ; 0x184f
 
-; cell_key_grid equ __zbss_5c34 - __zdseg_start
+; party_records equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/compact_grid_page.asm"   ; 0x1a23
 
-; cell_key_grid equ __zbss_5c34 - __zdseg_start
+; party_records equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/clear_cell_key.asm"      ; 0x1c2f
 
-; cell_key_grid equ __zbss_5c34 - __zdseg_start
+; party_records equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/ds_app_UTUH.asm"         ; 0x1c6e
 
 ; code_char_message_index equ __zbss_0fd5 - __zdseg_start
@@ -471,19 +467,15 @@ member_state  equ __zbss_5e2a - __zdseg_start
 ; code_char_index         equ __zbss_59f4 - __zdseg_start
 %include "ds/game/pick_code_char.asm"      ; 0x1cb1
 
-; cell_key_grid equ __zbss_5c34 - __zdseg_start
-; member_state  equ __zbss_5e2a - __zdseg_start
+; party_records equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/member_is_active.asm"    ; 0x1ccc
 
 %include "ds/game/draw_power_bar.asm"      ; 0x1cf8
 
-spell_table        equ __zspell_table - __zdseg_start
-party_records      equ __zbss_5bf4 - __zdseg_start
-member_pair_points equ __zbss_5c0a - __zdseg_start
-; pc_records         equ __zbss_5c10 - __zdseg_start
-pc_spell_power_cap equ __zbss_5c18 - __zdseg_start
-; cell_key_grid      equ __zbss_5c34 - __zdseg_start
-; member_state       equ __zbss_5e2a - __zdseg_start
+spell_table   equ __zspell_table - __zdseg_start
+; party_records equ __zbss_5bf4 - __zdseg_start
+panel_area    equ __zbss_69a4 - __zdseg_start
+member_icon   equ __zbss_69bc - __zdseg_start
 %include "ds/game/draw_party_member_panel.asm" ; 0x1d81
 
 ; bss_0e2e         equ __zbss_0e2e - __zdseg_start
@@ -1281,19 +1273,11 @@ __zbss_5b7c:
 __zbss_5be0:
     resb 0x0014
 __zbss_5bf4:
-    resb 0x0014
-__zbss_5c08:
-    resb 0x0002
-__zbss_5c0a:
-    resb 0x0006
-__zbss_5c10:
-    resb 0x0008
-__zbss_5c18:
-    resb 0x001c
-__zbss_5c34:
-    resb 0x01f6
-__zbss_5e2a:
-    resb 0x0b9e
+    resb 0x0db0
+__zbss_69a4:
+    resb 0x0018
+__zbss_69bc:
+    resb 0x000c
 __zbss_69c8:
     resb 0x0002
 __zbss_69ca:
@@ -1421,11 +1405,7 @@ __zbss_84a4:
 __zbss_84a6:
     resb 0x0042
 __zbss_84e8:
-    resb 0x0004
-__zbss_84ec:
-    resb 0x01dc
-__zbss_86c8:
-    resb 0x0141
+    resb 0x0321
 __zbss_8809:
     resb 0x0001
 __zbss_880a:

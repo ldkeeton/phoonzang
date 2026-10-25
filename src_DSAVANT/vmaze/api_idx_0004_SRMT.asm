@@ -7,7 +7,7 @@ api_idx_0004_SRMT:
     push word [bp - 0x0002]          ; 0x9e84
     mov ax, 0x26                     ; 0x9e87
     imul word [bp + 0x6]             ; 0x9e8a
-    add ax, slot_records + 0x18      ; 0x9e8d
+    add ax, slot_records + slot_record.f_0019 + 0x3 ; 0x9e8d
     push ax                          ; 0x9e90
     call test_bit                    ; 0x9e91
     add sp, byte 4                   ; 0x9e94
@@ -18,7 +18,7 @@ api_idx_0004_SRMT:
     push word [bp - 0x0002]          ; 0x9e9f
     mov ax, 0x26                     ; 0x9ea2
     imul word [bp + 0x4]             ; 0x9ea5
-    add ax, slot_records + 0x18      ; 0x9ea8
+    add ax, slot_records + slot_record.f_0019 + 0x3 ; 0x9ea8
     push ax                          ; 0x9eab
     call set_bitmap_bit              ; 0x9eac
     add sp, byte 6                   ; 0x9eaf
@@ -26,7 +26,7 @@ api_idx_0004_SRMT:
     push word [bp - 0x0002]          ; 0x9eb2
     mov ax, 0x26                     ; 0x9eb5
     imul word [bp + 0x6]             ; 0x9eb8
-    add ax, slot_records + 0x16      ; 0x9ebb
+    add ax, slot_records + slot_record.f_0019 + 0x1 ; 0x9ebb
     push ax                          ; 0x9ebe
     call test_bit                    ; 0x9ebf
     add sp, byte 4                   ; 0x9ec2

@@ -5,15 +5,15 @@ api_idx_0004_KJII:
     mov ax, 0x248                    ; 0x488a
     imul word [bp + 0x4]             ; 0x488d
     mov bx, ax                       ; 0x4890
-    cmp word [bx + pc_spell_power_cap], byte 0x14 ; 0x4892
+    cmp word [bx + party_records + pc_rec.power_cap], byte 0x14 ; 0x4892
     jle short @..api_idx_0004_KJII.l1 ; 0x4897
     ret                              ; 0x4899
 @..api_idx_0004_KJII.l1:
-    mov al, byte [bx + cell_key_grid + 0x134] ; 0x489a
+    mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x489a
     sub ah, ah                       ; 0x489e
     mov word [bp - 0x0004], ax       ; 0x48a0
     mov word [bp - 0x0002], 0        ; 0x48a3
-    mov al, byte [bx + member_state + 0x3] ; 0x48a8
+    mov al, byte [bx + party_records + pc_rec.label] ; 0x48a8
     sub ah, ah                       ; 0x48ac
     jmp short @..api_idx_0004_KJII.l2 ; 0x48ae
 jumptable_48eb_case_0:
@@ -80,9 +80,9 @@ jumptable_48eb:
     mov ax, 0x248                    ; 0x491d
     imul word [bp + 0x4]             ; 0x4920
     mov bx, ax                       ; 0x4923
-    mov ax, word [bx + pc_spell_power_cap] ; 0x4925
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x4925
     push ax                          ; 0x4929
-    mov al, byte [bx + member_state + 0x11] ; 0x492a
+    mov al, byte [bx + party_records + pc_rec.f_0247] ; 0x492a
     sub ah, ah                       ; 0x492e
     mov cx, ax                       ; 0x4930
     pop ax                           ; 0x4932
@@ -90,12 +90,12 @@ jumptable_48eb:
     jge short @..api_idx_0004_KJII.l5 ; 0x4935
     mov word [bp - 0x0002], 0        ; 0x4937
 @..api_idx_0004_KJII.l5:
-    mov al, byte [bx + member_state + 0x10] ; 0x493c
+    mov al, byte [bx + party_records + pc_rec.f_0246] ; 0x493c
     cbw                              ; 0x4940
     sub ax, word [bp - 0x0002]       ; 0x4941
-    mov byte [bx + member_state + 0x10], al ; 0x4944
-    cmp byte [bx + member_state + 0x10], 0 ; 0x4948
+    mov byte [bx + party_records + pc_rec.f_0246], al ; 0x4944
+    cmp byte [bx + party_records + pc_rec.f_0246], 0 ; 0x4948
     jge short @..api_idx_0004_KJII.l6 ; 0x494d
-    mov byte [bx + member_state + 0x10], 0 ; 0x494f
+    mov byte [bx + party_records + pc_rec.f_0246], 0 ; 0x494f
 @..api_idx_0004_KJII.l6:
     ret                              ; 0x4954

@@ -67,6 +67,7 @@ def encode(context):
         'jump_tables': [{**rec, 'label': to_record(rec['label']),
                          'entries': [to_record(e) for e in rec['entries']]}
                         for rec in context.get('jump_tables', ())],
+        'record_layouts': dict(context.get('record_layouts') or {}),
     }
 
 
@@ -93,4 +94,5 @@ def decode(raw):
         'jump_tables': [{**rec, 'label': from_record(rec['label']),
                          'entries': [from_record(e) for e in rec['entries']]}
                         for rec in raw.get('jump_tables', ())],
+        'record_layouts': raw.get('record_layouts', {}),
     }

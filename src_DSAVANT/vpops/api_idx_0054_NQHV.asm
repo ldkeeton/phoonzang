@@ -13,7 +13,7 @@ api_idx_0054_NQHV:
     shl ax, 1                        ; 0x0378
     mov bx, ax                       ; 0x037a
     mov bx, word [bx + party_char]   ; 0x037c
-    mov byte [bx + 0x1a2], 0         ; 0x0380
+    mov byte [bx + member_rec.f_01a2], 0 ; 0x0380
     mov word [bp - 0x0004], 0        ; 0x0385
     jmp short @..api_idx_0054_NQHV.l4 ; 0x038a
 @..api_idx_0054_NQHV.l2:
@@ -24,7 +24,7 @@ api_idx_0054_NQHV:
     shl ax, 1                        ; 0x0397
     mov bx, ax                       ; 0x0399
     mov bx, word [bx + party_char]   ; 0x039b
-    cmp byte [bx + si + 0x22], 2     ; 0x039f
+    cmp byte [bx + si + member_rec.item_state], 2 ; 0x039f
     jae short @..api_idx_0054_NQHV.l3 ; 0x03a3
     cmp byte [bx + si + 0x11], 0     ; 0x03a5
     jne short @..api_idx_0054_NQHV.l3 ; 0x03a9
@@ -38,7 +38,7 @@ api_idx_0054_NQHV:
     shl ax, 1                        ; 0x03bb
     mov bx, ax                       ; 0x03bd
     mov bx, word [bx + party_char]   ; 0x03bf
-    mov al, byte [bx + 0x1a1]        ; 0x03c3
+    mov al, byte [bx + member_rec.item_count] ; 0x03c3
     sub ah, ah                       ; 0x03c7
     cmp ax, word [bp - 0x0004]       ; 0x03c9
     jg short @..api_idx_0054_NQHV.l2 ; 0x03cc
@@ -92,7 +92,7 @@ api_idx_0054_NQHV:
     shl ax, 1                        ; 0x0439
     mov bx, ax                       ; 0x043b
     mov bx, word [bx + party_char]   ; 0x043d
-    mov al, byte [bx + 0x1a1]        ; 0x0441
+    mov al, byte [bx + member_rec.item_count] ; 0x0441
     sub ah, ah                       ; 0x0445
     push ax                          ; 0x0447
     call draw_number_field           ; 0x0448
@@ -109,7 +109,7 @@ api_idx_0054_NQHV:
     shl ax, 1                        ; 0x0463
     mov bx, ax                       ; 0x0465
     mov bx, word [bx + party_char]   ; 0x0467
-    cmp byte [bx + 0x1a1], 1         ; 0x046b
+    cmp byte [bx + member_rec.item_count], 1 ; 0x046b
     jne short @..api_idx_0054_NQHV.l7 ; 0x0470
     mov ax, 0                        ; 0x0472
     jmp short @..api_idx_0054_NQHV.l8 ; 0x0475
@@ -156,7 +156,7 @@ api_idx_0054_NQHV:
     shl ax, 1                        ; 0x04d1
     mov bx, ax                       ; 0x04d3
     mov bx, word [bx + party_char]   ; 0x04d5
-    mov al, byte [bx + 0x1a2]        ; 0x04d9
+    mov al, byte [bx + member_rec.f_01a2] ; 0x04d9
     sub ah, ah                       ; 0x04dd
     push ax                          ; 0x04df
     call draw_number_field           ; 0x04e0

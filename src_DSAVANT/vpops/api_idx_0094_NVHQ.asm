@@ -22,13 +22,13 @@ api_idx_0094_NVHQ:
     pop ax                           ; 0x340b
     add ax, cx                       ; 0x340c
     mov bx, ax                       ; 0x340e
-    cmp word [bx + cell_key_grid], byte 0 ; 0x3410
+    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x3410
     jg short @..api_idx_0094_NVHQ.l3 ; 0x3415
     jmp near @..api_idx_0094_NVHQ.l8 ; 0x3417
 @..api_idx_0094_NVHQ.l3:
     mov ax, 0                        ; 0x341a
     push ax                          ; 0x341d
-    push word [bx + cell_key_grid]   ; 0x341e
+    push word [bx + party_records + pc_rec.cell] ; 0x341e
     lea ax, word [bp - 0x004a]       ; 0x3422
     push ax                          ; 0x3425
     mov ax, 1                        ; 0x3426
@@ -50,7 +50,7 @@ api_idx_0094_NVHQ:
     pop ax                           ; 0x344b
     add ax, cx                       ; 0x344c
     mov bx, ax                       ; 0x344e
-    mov al, byte [bx + cell_key_grid + 0x7] ; 0x3450
+    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x3450
     sub ah, ah                       ; 0x3454
     test ax, 0x80                    ; 0x3456
     je short @..api_idx_0094_NVHQ.l4 ; 0x3459
@@ -83,7 +83,7 @@ api_idx_0094_NVHQ:
     pop ax                           ; 0x3496
     add ax, cx                       ; 0x3497
     mov bx, ax                       ; 0x3499
-    mov al, byte [bx + cell_key_grid + 0x5] ; 0x349b
+    mov al, byte [bx + party_records + pc_rec.cell + 0x5] ; 0x349b
     sub ah, ah                       ; 0x349f
     add ax, 0x1770                   ; 0x34a1
     push ax                          ; 0x34a4
@@ -113,7 +113,7 @@ api_idx_0094_NVHQ:
     pop ax                           ; 0x34dd
     add ax, cx                       ; 0x34de
     mov bx, ax                       ; 0x34e0
-    mov al, byte [bx + cell_key_grid + 0x4] ; 0x34e2
+    mov al, byte [bx + party_records + pc_rec.cell + 0x4] ; 0x34e2
     sub ah, ah                       ; 0x34e6
     mov bx, ax                       ; 0x34e8
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x34ea
@@ -133,7 +133,7 @@ api_idx_0094_NVHQ:
     pop ax                           ; 0x350c
     add ax, cx                       ; 0x350d
     mov bx, ax                       ; 0x350f
-    mov al, byte [bx + cell_key_grid + 0x6] ; 0x3511
+    mov al, byte [bx + party_records + pc_rec.cell + 0x6] ; 0x3511
     sub ah, ah                       ; 0x3515
     mov cx, word [bp - 0x006a]       ; 0x3517
     shl cx, 1                        ; 0x351a
@@ -251,7 +251,7 @@ api_idx_0094_NVHQ:
     pop ax                           ; 0x361a
     add ax, cx                       ; 0x361b
     mov bx, ax                       ; 0x361d
-    push word [bx + cell_key_grid]   ; 0x361f
+    push word [bx + party_records + pc_rec.cell] ; 0x361f
     lea ax, word [bp - 0x004a]       ; 0x3623
     push ax                          ; 0x3626
     mov ax, 1                        ; 0x3627
@@ -269,7 +269,7 @@ api_idx_0094_NVHQ:
     mov ax, 6                        ; 0x3646
     imul dx                          ; 0x3649
     mov bx, ax                       ; 0x364b
-    cmp byte [bx + spell_table + 0x4], 1 ; 0x364d
+    cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x364d
     jne short @..api_idx_0094_NVHQ.l15 ; 0x3652
     call pick_party_member           ; 0x3654
     mov word [bp - 0x0094], ax       ; 0x3657
@@ -292,7 +292,7 @@ api_idx_0094_NVHQ:
     imul word [bp + 0x4]             ; 0x367d
     mov si, ax                       ; 0x3680
     mov bx, word [party_char]        ; 0x3682
-    mov byte [bx + si + 0x1f], 0     ; 0x3686
+    mov byte [bx + si + member_rec.f_001f], 0 ; 0x3686
     mov al, byte [bp - 0x0094]       ; 0x368a
     push ax                          ; 0x368e
     mov ax, 0x2c                     ; 0x368f
@@ -300,7 +300,7 @@ api_idx_0094_NVHQ:
     mov si, ax                       ; 0x3695
     mov bx, word [party_char]        ; 0x3697
     pop ax                           ; 0x369b
-    mov byte [bx + si + 0x20], al    ; 0x369c
+    mov byte [bx + si + member_rec.f_0020], al ; 0x369c
 @..api_idx_0094_NVHQ.l15:
     mov ax, 0xc6                     ; 0x369f
     push ax                          ; 0x36a2

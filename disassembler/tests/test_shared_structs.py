@@ -96,6 +96,188 @@ class SharedStructsTest(unittest.TestCase):
         self.assertEqual(bad, [])
 
 
+#: The generated record layouts (``lib.record_layout``), and the sidecar
+#: whose ``data_names`` place each label.
+_STRUCTS_INC = _TREE / 'include' / 'structs.inc'
+_SIDECAR = pathlib.Path(__file__).resolve().parents[1] / 'sidecar' / 'DSAVANT.json'
+
+_SIZES = {'char': 1, 'short': 2, 'int': 2, 'long': 4, 'unsigned': 2,
+          'signed': 2}
+_TYPE_WORDS = {'unsigned', 'signed', 'char', 'short', 'int', 'long',
+               'register'}
+_EXTERN = re.compile(r'^extern\s+struct\s+(\w+)\s+(\*?)\s*(\w+)'
+                     r'((?:\s*\[[^\]]*\])*)\s*;', re.M)
+_INCLUDE = re.compile(r'^#include\s+"(structs/\w+\.h)"', re.M)
+
+
+def _scalar_size(words, pointer):
+    """The size of a scalar member type, or None when it is not one."""
+    if pointer:
+        return 2
+    words = [w for w in words if w not in ('unsigned', 'signed', 'register')
+             ] or ['int']
+    return _SIZES.get(words[-1]) if len(words) == 1 else (
+        4 if words == ['long', 'int'] else None)
+
+
+def _dim(text):
+    """An array bound: a constant expression (``584 - 28``), else None."""
+    if not re.fullmatch(r'[0-9a-fA-FxX\s+\-*()]+', text):
+        return None
+    try:
+        return int(eval(text, {'__builtins__': {}}))
+    except (SyntaxError, ValueError):
+        return None
+
+
+def struct_layouts(text):
+    """``{tag: (size, leaf starts)}`` of the struct bodies in *text*, members
+    packed as Aztec lays them out; a tag with a member this cannot size
+    (a union, a bit field) is left out."""
+    code = _code(text)
+    bodies = {}
+    for match in re.finditer(r'\bstruct\s+(\w+)\s*\{([^{}]*)\}', code):
+        bodies[match.group(1)] = match.group(2)
+    layouts = {}
+
+    def layout(tag, depth=0):
+        if tag in layouts or tag not in bodies or depth > 8:
+            return layouts.get(tag)
+        at, starts = 0, set()
+        for member in bodies[tag].split(';'):
+            member = member.strip()
+            if not member:
+                continue
+            if ':' in member:
+                return None
+            words = member.split()
+            if words[0] == 'struct':
+                kind, rest = words[:2], ' '.join(words[2:])
+            else:
+                n = 0
+                while n < len(words) and words[n] in _TYPE_WORDS:
+                    n += 1
+                kind, rest = words[:n], ' '.join(words[n:])
+            if not kind or not rest:
+                return None
+            for decl in rest.split(','):
+                d = re.match(r'\s*(\*?)\s*(\w+)((?:\s*\[[^\]]*\])*)', decl)
+                dims = [_dim(x) for x in re.findall(r'\[([^\]]*)\]',
+                                                    d.group(3))]
+                if None in dims:
+                    return None
+                if kind[0] == 'struct' and not d.group(1):
+                    inner = layout(kind[1], depth + 1)
+                    if inner is None:
+                        return None
+                    size, inner_starts = inner
+                else:
+                    size = _scalar_size(kind, d.group(1))
+                    if size is None:
+                        return None
+                    inner_starts = {0}
+                count = 1
+                for dim in dims:
+                    count *= dim
+                for k in range(count):
+                    starts |= {at + k * size + s for s in inner_starts}
+                at += size * count
+        layouts[tag] = (at, frozenset(starts))
+        return layouts[tag]
+
+    for tag in list(bodies):
+        layout(tag)
+    return layouts
+
+
+def generated_layouts(text):
+    """``{DS offset: (pointer, size or None, field offsets)}`` of the
+    ``include/structs.inc`` text."""
+    out = {}
+    blocks = re.finditer(r'^; records (at|pointed at by) DS 0x([0-9a-f]+)\n'
+                         r'struc \w+\n(.*?)^endstruc', text, re.M | re.S)
+    for match in blocks:
+        at, fields = 0, []
+        for name, span in re.findall(r'^\s+\.(\w+): resb (\d+)$',
+                                     match.group(3), re.M):
+            if not name.startswith('pad_'):
+                fields.append(at)
+            at += int(span)
+        pointer = match.group(1) != 'at'
+        out[int(match.group(2), 16)] = (pointer, None if pointer else at,
+                                        fields)
+    return out
+
+
+class GeneratedLayoutTest(unittest.TestCase):
+    """The hand-written struct views agree with the layouts the build found.
+
+    The build never reads them (it works from the original bytes alone); this
+    checks them afterwards.  Every field the code was seen to use must start
+    a scalar of the C view, and an indexed record's stride must be the C
+    element's size (or the struct's own, when the sidecar gave the record a
+    smaller ``size``).
+    """
+
+    def test_parsers(self):
+        text = ('struct cell { int key; unsigned char a, b[3]; char *p; };\n'
+                'struct row { struct cell c[2]; char pad; };\n')
+        layouts = struct_layouts(text)
+        self.assertEqual(layouts['cell'], (8, frozenset({0, 2, 3, 4, 5, 6})))
+        self.assertEqual(layouts['row'][0], 17)
+        inc = ('; records at DS 0x6a1a\nstruc slot_rec\n'
+               '    .pad_0000: resb 4\n    .f_0004: resb 4\nendstruc\n')
+        self.assertEqual(generated_layouts(inc), {0x6a1a: (False, 8, [4])})
+
+    def test_c_views_match_the_generated_layouts(self):
+        if not _STRUCTS_INC.is_file():
+            self.skipTest('no generated include/structs.inc; run make build')
+        import json
+        generated = generated_layouts(_STRUCTS_INC.read_text())
+        sidecar = json.loads(_SIDECAR.read_text())
+        place = {}
+        for info in (sidecar.get('binaries') or {}).values():
+            for key, entry in (info.get('data_names') or {}).items():
+                place.setdefault(entry['name'], int(key, 16))
+        problems = []
+        for path in sorted(_TREE.rglob('*.c')):
+            text = path.read_text(errors='replace')
+            if '\nextern struct' not in '\n' + text:
+                continue
+            full = text + ''.join(
+                (_TREE / 'include' / inc).read_text(errors='replace')
+                for inc in _INCLUDE.findall(text)
+                if (_TREE / 'include' / inc).is_file())
+            views = struct_layouts(full)
+            for tag, star, label, dims in _EXTERN.findall(_code(text)):
+                found = generated.get(place.get(label))
+                if found is None or tag not in views:
+                    continue
+                pointer, size, fields = found
+                if pointer != bool(star):
+                    continue
+                c_size, starts = views[tag]
+                where = f'{path.relative_to(_TREE)}: struct {tag} {label}'
+                inner = [_dim(x) or 1
+                         for x in re.findall(r'\[([^\]]+)\]', dims)]
+                stride = c_size
+                for dim in inner:
+                    stride *= dim
+                if size is not None and size not in (c_size, stride):
+                    problems.append(f'{where}: the code steps {size} bytes, '
+                                    f'the C element is {stride}')
+                    continue
+                bad = [f for f in fields
+                       if f < c_size and f % c_size not in starts]
+                if bad:
+                    problems.append(f'{where}: the code uses '
+                                    + ', '.join(f'+0x{f:x}' for f in bad)
+                                    + ', inside a C member')
+        if problems:
+            self.fail(f'{len(problems)} C struct views disagree with '
+                      'include/structs.inc:\n' + '\n'.join(problems))
+
+
 class HeaderCacheKeyTest(unittest.TestCase):
     """An edited header must change the compile cache key of its users."""
 

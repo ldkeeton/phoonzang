@@ -4,7 +4,7 @@ api_idx_0002_QLLK:
     call aztec_csav                  ; 0x8e6d
     mov bx, word [maze_tables]       ; 0x8e70
     mov si, word [party_map_piece]   ; 0x8e74
-    mov al, byte [bx + si + spell_table + 0x520] ; 0x8e78
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x8e78
     sub ah, ah                       ; 0x8e7c
     mov word [bp - 0x0002], ax       ; 0x8e7e
 @..api_idx_0002_QLLK.l1:
@@ -54,7 +54,7 @@ api_idx_0002_QLLK:
     shl ax, 1                        ; 0x8eef
     mov si, ax                       ; 0x8ef1
     mov bx, word [maze_tables]       ; 0x8ef3
-    push word [bx + si + 0x3c0]      ; 0x8ef7
+    push word [bx + si + maze_tables_rec.f_03c0] ; 0x8ef7
     call get_bits                    ; 0x8efb
     add sp, byte 6                   ; 0x8efe
     cmp ax, strict word 2            ; 0x8f01

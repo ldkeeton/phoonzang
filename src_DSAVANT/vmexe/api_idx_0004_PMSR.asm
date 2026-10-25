@@ -49,7 +49,7 @@ api_idx_0004_PMSR:
     shl ax, 1                        ; 0x344e
     mov bx, ax                       ; 0x3450
     mov bx, word [bx + party_char]   ; 0x3452
-    cmp byte [bx + si + 0x2a], 0xff  ; 0x3456
+    cmp byte [bx + si + member_rec.item_cell], 0xff ; 0x3456
     jne short @..api_idx_0004_PMSR.l8 ; 0x345a
     mov ax, 0                        ; 0x345c
     mov cx, word [bp + 0x4]          ; 0x345f

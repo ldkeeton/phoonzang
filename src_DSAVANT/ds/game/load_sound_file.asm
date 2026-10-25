@@ -21,9 +21,9 @@ load_sound_file: ; Aztec csav frame=0x0018
     mov ax, 0xc                      ; 0x2951
     imul word [bp + 0x6]             ; 0x2954
     mov bx, ax                       ; 0x2957
-    cmp word [bx + sound_slot_info + 0x6], byte 0 ; 0x2959
+    cmp word [bx + sound_slot_info + sound_slot_info_rec.f_0006], byte 0 ; 0x2959
     jne short @..load_sound_file.l1  ; 0x295e
-    cmp word [bx + sound_slot_info + 0x4], byte 0 ; 0x2960
+    cmp word [bx + sound_slot_info + sound_slot_info_rec.pad_0000 + 0x4], byte 0 ; 0x2960
 @..load_sound_file.l1:
     jne short @..load_sound_file.l3  ; 0x2965
     mov ax, word [bx + sound_slot_info] ; 0x2967

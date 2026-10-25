@@ -5,9 +5,9 @@ api_idx_0002_KQIK:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + pc_spell_power_cap]
+    mov ax, word [bx + party_records + pc_rec.power_cap]
     push ax
-    mov al, byte [bx + member_state + 0x11]
+    mov al, byte [bx + party_records + pc_rec.f_0247]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -16,7 +16,7 @@ api_idx_0002_KQIK:
     mov ax, cx
     jmp short @..api_idx_0002_KQIK.l2
 @..api_idx_0002_KQIK.l1:
-    mov ax, word [bx + pc_spell_power_cap]
+    mov ax, word [bx + party_records + pc_rec.power_cap]
 @..api_idx_0002_KQIK.l2:
     mov word [bp - 0x0002], ax
     push ax
@@ -40,7 +40,7 @@ api_idx_0002_KQIK:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + cell_key_grid + 0x134]
+    mov al, byte [bx + party_records + pc_rec.stat + 0x4]
     sub ah, ah
     mov cx, 6
     cwd
@@ -55,11 +55,11 @@ api_idx_0002_KQIK:
     pop ax
     add ax, cx
     dec ax
-    mov byte [bx + member_state + 0xd], al
+    mov byte [bx + party_records + pc_rec.f_0243], al
     push word [bp + 0x6]
     mov ax, 1
     push ax
-    mov al, byte [bx + member_state + 0xd]
+    mov al, byte [bx + party_records + pc_rec.f_0243]
     sub ah, ah
     push ax
     call clamp_between
@@ -69,8 +69,8 @@ api_idx_0002_KQIK:
     imul word [bp + 0x4]
     mov bx, ax
     pop ax
-    mov byte [bx + member_state + 0xd], al
-    mov al, byte [bx + cell_key_grid + 0x135]
+    mov byte [bx + party_records + pc_rec.f_0243], al
+    mov al, byte [bx + party_records + pc_rec.stat + 0x5]
     sub ah, ah
     mov cx, 6
     cwd
@@ -85,11 +85,11 @@ api_idx_0002_KQIK:
     pop ax
     add ax, cx
     dec ax
-    mov byte [bx + member_state + 0xe], al
+    mov byte [bx + party_records + pc_rec.f_0244], al
     push word [bp + 0x6]
     mov ax, 1
     push ax
-    mov al, byte [bx + member_state + 0xe]
+    mov al, byte [bx + party_records + pc_rec.f_0244]
     sub ah, ah
     push ax
     call clamp_between
@@ -99,9 +99,9 @@ api_idx_0002_KQIK:
     imul word [bp + 0x4]
     mov bx, ax
     pop ax
-    mov byte [bx + member_state + 0xe], al
-    mov al, byte [bx + cell_key_grid + 0x135]
+    mov byte [bx + party_records + pc_rec.f_0244], al
+    mov al, byte [bx + party_records + pc_rec.stat + 0x5]
     sub ah, ah
     add ax, word [bp - 0x0002]
-    mov byte [bx + member_state + 0xf], al
+    mov byte [bx + party_records + pc_rec.f_0245], al
     ret

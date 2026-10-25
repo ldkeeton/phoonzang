@@ -12,7 +12,7 @@ api_idx_0002_SLJI:
     mov ax, 0x248                    ; 0x4286
     imul word [bp + 0x4]             ; 0x4289
     mov bx, ax                       ; 0x428c
-    mov ax, word [bx + pc_spell_power_cap] ; 0x428e
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x428e
     dec ax                           ; 0x4292
     mov cx, 2                        ; 0x4293
     cwd                              ; 0x4296
@@ -22,13 +22,13 @@ api_idx_0002_SLJI:
     sub ax, cx                       ; 0x429c
     mov word [bp - 0x0002], ax       ; 0x429e
     add bx, word [bp + 0xa]          ; 0x42a1
-    mov al, byte [bx + cell_key_grid + 0x138] ; 0x42a4
+    mov al, byte [bx + party_records + pc_rec.flag] ; 0x42a4
     sub ah, ah                       ; 0x42a8
     push ax                          ; 0x42aa
     mov ax, 0x248                    ; 0x42ab
     imul word [bp + 0x4]             ; 0x42ae
     mov bx, ax                       ; 0x42b1
-    mov cx, word [bx + pc_spell_power_cap] ; 0x42b3
+    mov cx, word [bx + party_records + pc_rec.power_cap] ; 0x42b3
     shl cx, 1                        ; 0x42b7
     shl cx, 1                        ; 0x42b9
     shl cx, 1                        ; 0x42bb
@@ -64,5 +64,5 @@ api_idx_0002_SLJI:
     add ax, word [bp + 0xa]          ; 0x4305
     mov bx, ax                       ; 0x4308
     pop ax                           ; 0x430a
-    add byte [bx + cell_key_grid + 0x138], al ; 0x430b
+    add byte [bx + party_records + pc_rec.flag], al ; 0x430b
     ret                              ; 0x430f

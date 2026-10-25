@@ -11,23 +11,23 @@ compact_grid_page: ; Aztec csav frame=0x0008
     pop ax                           ; 0x1a38
     add ax, cx                       ; 0x1a39
     mov bx, ax                       ; 0x1a3b
-    mov al, byte [bx + cell_key_grid + 0x7] ; 0x1a3d
+    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x1a3d
     sub ah, ah                       ; 0x1a41
     and ax, strict word 0xfffe       ; 0x1a43
-    mov byte [bx + cell_key_grid + 0x7], al ; 0x1a46
+    mov byte [bx + party_records + pc_rec.cell + 0x7], al ; 0x1a46
     mov ax, 0x248                    ; 0x1a4a
     imul word [bp + 0x4]             ; 0x1a4d
     mov bx, ax                       ; 0x1a50
-    mov byte [bx + cell_key_grid + 0x1fc], 0 ; 0x1a52
-    mov byte [bx + cell_key_grid + 0x1fd], 0 ; 0x1a57
+    mov byte [bx + party_records + pc_rec.attack], 0 ; 0x1a52
+    mov byte [bx + party_records + pc_rec.defense], 0 ; 0x1a57
     mov word [bp - 0x0002], 0        ; 0x1a5c
 @..compact_grid_page.l1:
     mov ax, 0x248                    ; 0x1a61
     imul word [bp + 0x4]             ; 0x1a64
     add ax, word [bp - 0x0002]       ; 0x1a67
     mov bx, ax                       ; 0x1a6a
-    mov al, byte [bx + cell_key_grid + 0x15a] ; 0x1a6c
-    mov byte [bx + cell_key_grid + 0x168], al ; 0x1a70
+    mov al, byte [bx + party_records + pc_rec.prev] ; 0x1a6c
+    mov byte [bx + party_records + pc_rec.cur], al ; 0x1a70
     inc word [bp - 0x0002]           ; 0x1a74
     mov ax, word [bp - 0x0002]       ; 0x1a77
     cmp ax, strict word 0xe          ; 0x1a7a
@@ -38,13 +38,13 @@ compact_grid_page: ; Aztec csav frame=0x0008
     imul word [bp + 0x4]             ; 0x1a87
     add ax, word [bp - 0x0002]       ; 0x1a8a
     mov bx, ax                       ; 0x1a8d
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x1a8f
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x1a8f
     sub ah, ah                       ; 0x1a93
     cmp ax, word [bp + 0x6]          ; 0x1a95
     je short @..compact_grid_page.l3 ; 0x1a98
     jmp near @..compact_grid_page.l5 ; 0x1a9a
 @..compact_grid_page.l3:
-    mov byte [bx + cell_key_grid + 0x114], 0xff ; 0x1a9d
+    mov byte [bx + party_records + pc_rec.order], 0xff ; 0x1a9d
     mov ax, word [bp - 0x0002]       ; 0x1aa2
     jmp short @..compact_grid_page.l4 ; 0x1aa5
 jumptable_1aff_case_0:
@@ -61,27 +61,27 @@ jumptable_1aff_case_0:
     pop ax                           ; 0x1ac2
     add ax, cx                       ; 0x1ac3
     mov bx, ax                       ; 0x1ac5
-    mov al, byte [bx + cell_key_grid + 0xb] ; 0x1ac7
+    mov al, byte [bx + party_records + pc_rec.cell + 0xb] ; 0x1ac7
     push ax                          ; 0x1acb
     mov ax, 0x248                    ; 0x1acc
     imul word [bp + 0x4]             ; 0x1acf
     mov bx, ax                       ; 0x1ad2
     pop ax                           ; 0x1ad4
-    add byte [bx + cell_key_grid + 0x177], al ; 0x1ad5
+    add byte [bx + party_records + pc_rec.count + 0x1], al ; 0x1ad5
     jmp short @..compact_grid_page.l5 ; 0x1ad9
 jumptable_1aff_case_2:
     mov ax, 0x248                    ; 0x1adb
     imul word [bp + 0x4]             ; 0x1ade
     mov bx, ax                       ; 0x1ae1
-    mov byte [bx + cell_key_grid + 0x178], 0 ; 0x1ae3
+    mov byte [bx + party_records + pc_rec.count + 0x2], 0 ; 0x1ae3
     jmp short @..compact_grid_page.l5 ; 0x1ae8
 jumptable_1aff_case_3:
     mov ax, 0x248                    ; 0x1aea
     imul word [bp + 0x4]             ; 0x1aed
     mov bx, ax                       ; 0x1af0
-    mov al, byte [bx + cell_key_grid + 0x176] ; 0x1af2
+    mov al, byte [bx + party_records + pc_rec.count] ; 0x1af2
     add bx, word [bp - 0x0002]       ; 0x1af6
-    mov byte [bx + cell_key_grid + 0x176], al ; 0x1af9
+    mov byte [bx + party_records + pc_rec.count], al ; 0x1af9
     jmp short @..compact_grid_page.l5 ; 0x1afd
 jumptable_1aff:
     dw jumptable_1aff_case_0 - IMAGE_BASE      ; 0x1aff
@@ -103,7 +103,7 @@ jumptable_1aff:
     imul word [bp + 0x4]             ; 0x1b1f
     add ax, word [bp - 0x0002]       ; 0x1b22
     mov bx, ax                       ; 0x1b25
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x1b27
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x1b27
     sub ah, ah                       ; 0x1b2b
     cmp ax, 0xff                     ; 0x1b2d
     jne short @..compact_grid_page.l6 ; 0x1b30
@@ -116,7 +116,7 @@ jumptable_1aff:
     push ax                          ; 0x1b40
     add ax, word [bp - 0x0002]       ; 0x1b41
     mov bx, ax                       ; 0x1b44
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x1b46
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x1b46
     sub ah, ah                       ; 0x1b4a
     mov cx, 0xc                      ; 0x1b4c
     imul cx                          ; 0x1b4f
@@ -125,7 +125,7 @@ jumptable_1aff:
     add ax, cx                       ; 0x1b54
     add ax, word [bp - 0x0004]       ; 0x1b56
     mov bx, ax                       ; 0x1b59
-    mov al, byte [bx + cell_key_grid + 0x8] ; 0x1b5b
+    mov al, byte [bx + party_records + pc_rec.cell + 0x8] ; 0x1b5b
     sub ah, ah                       ; 0x1b5f
     mov cx, 0x10                     ; 0x1b61
     cwd                              ; 0x1b64
@@ -142,7 +142,7 @@ jumptable_1aff:
     imul word [bp + 0x4]             ; 0x1b7d
     add ax, word [bp - 0x0006]       ; 0x1b80
     mov bx, ax                       ; 0x1b83
-    mov al, byte [bx + cell_key_grid + 0x168] ; 0x1b85
+    mov al, byte [bx + party_records + pc_rec.cur] ; 0x1b85
     sub ah, ah                       ; 0x1b89
     add ax, word [bp - 0x0008]       ; 0x1b8b
     push ax                          ; 0x1b8e
@@ -155,7 +155,7 @@ jumptable_1aff:
     add ax, word [bp - 0x0006]       ; 0x1b9e
     mov bx, ax                       ; 0x1ba1
     pop ax                           ; 0x1ba3
-    mov byte [bx + cell_key_grid + 0x168], al ; 0x1ba4
+    mov byte [bx + party_records + pc_rec.cur], al ; 0x1ba4
     inc word [bp - 0x0004]           ; 0x1ba8
     mov ax, word [bp - 0x0004]       ; 0x1bab
     cmp ax, strict word 2            ; 0x1bae
@@ -165,7 +165,7 @@ jumptable_1aff:
     push ax                          ; 0x1bb9
     add ax, word [bp - 0x0002]       ; 0x1bba
     mov bx, ax                       ; 0x1bbd
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x1bbf
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x1bbf
     sub ah, ah                       ; 0x1bc3
     mov cx, 0xc                      ; 0x1bc5
     imul cx                          ; 0x1bc8
@@ -173,7 +173,7 @@ jumptable_1aff:
     pop ax                           ; 0x1bcc
     add ax, cx                       ; 0x1bcd
     mov bx, ax                       ; 0x1bcf
-    mov al, byte [bx + cell_key_grid + 0xa] ; 0x1bd1
+    mov al, byte [bx + party_records + pc_rec.cell + 0xa] ; 0x1bd1
     sub ah, ah                       ; 0x1bd5
     mov cx, 0x10                     ; 0x1bd7
     cwd                              ; 0x1bda
@@ -183,7 +183,7 @@ jumptable_1aff:
     mov ax, 0x248                    ; 0x1be3
     imul word [bp + 0x4]             ; 0x1be6
     mov bx, ax                       ; 0x1be9
-    mov al, byte [bx + cell_key_grid + 0x1fc] ; 0x1beb
+    mov al, byte [bx + party_records + pc_rec.attack] ; 0x1beb
     sub ah, ah                       ; 0x1bef
     mov dx, word [bp - 0x0008]       ; 0x1bf1
     cmp ax, dx                       ; 0x1bf4
@@ -191,21 +191,21 @@ jumptable_1aff:
     mov ax, dx                       ; 0x1bf8
     jmp short @..compact_grid_page.l9 ; 0x1bfa
 @..compact_grid_page.l8:
-    mov al, byte [bx + cell_key_grid + 0x1fc] ; 0x1bfc
+    mov al, byte [bx + party_records + pc_rec.attack] ; 0x1bfc
     sub ah, ah                       ; 0x1c00
 @..compact_grid_page.l9:
-    mov byte [bx + cell_key_grid + 0x1fc], al ; 0x1c02
-    mov al, byte [bx + cell_key_grid + 0x1fd] ; 0x1c06
+    mov byte [bx + party_records + pc_rec.attack], al ; 0x1c02
+    mov al, byte [bx + party_records + pc_rec.defense] ; 0x1c06
     sub ah, ah                       ; 0x1c0a
     cmp ax, word [bp - 0x0006]       ; 0x1c0c
     jge short @..compact_grid_page.l10 ; 0x1c0f
     mov ax, word [bp - 0x0006]       ; 0x1c11
     jmp short @..compact_grid_page.l11 ; 0x1c14
 @..compact_grid_page.l10:
-    mov al, byte [bx + cell_key_grid + 0x1fd] ; 0x1c16
+    mov al, byte [bx + party_records + pc_rec.defense] ; 0x1c16
     sub ah, ah                       ; 0x1c1a
 @..compact_grid_page.l11:
-    mov byte [bx + cell_key_grid + 0x1fd], al ; 0x1c1c
+    mov byte [bx + party_records + pc_rec.defense], al ; 0x1c1c
 @..compact_grid_page.l12:
     inc word [bp - 0x0002]           ; 0x1c20
     mov ax, word [bp - 0x0002]       ; 0x1c23

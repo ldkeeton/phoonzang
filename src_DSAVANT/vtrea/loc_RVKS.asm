@@ -23,7 +23,7 @@ loc_RVKS:
     shl ax, 1                        ; 0x6f72
     mov si, ax                       ; 0x6f74
     mov bx, word [maze_tables]       ; 0x6f76
-    push word [bx + si + 0x3c0]      ; 0x6f7a
+    push word [bx + si + maze_tables_rec.f_03c0] ; 0x6f7a
     mov ax, 0                        ; 0x6f7e
     push ax                          ; 0x6f81
     push ax                          ; 0x6f82

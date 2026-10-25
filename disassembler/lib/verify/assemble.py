@@ -122,12 +122,15 @@ def _build_equ_prelude(label_map, local_labels, foreign_label_map=None, immediat
                        disp_labels=None, image_base=None, mem_equ=None):
     """Build and cache the EQU preamble string for a label_map+local_labels pair."""
     global _equ_prelude, _equ_hash
+    from lib.record_layout import active_equ
+    # The record layouts' ``struc`` names the operands spell (``slot_rec.f_0026``).
+    struct_equ = active_equ()
     h = (id(label_map) ^ id(local_labels) ^ id(foreign_label_map)
          ^ id(immediate_labels) ^ id(disp_labels) ^ hash(image_base)
-         ^ id(mem_equ))
+         ^ id(mem_equ) ^ hash(struct_equ))
     if h == _equ_hash and _equ_prelude:
         return _equ_prelude
-    lines = []
+    lines = [struct_equ] if struct_equ else []
     if label_map:
         for lbl_off, lbl_name in label_map.items():
             lines.append(f'{lbl_name} equ 0x{lbl_off:04x}')

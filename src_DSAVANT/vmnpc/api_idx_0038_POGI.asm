@@ -16,15 +16,15 @@ api_idx_0038_POGI:
     mov ax, 0x26                     ; 0x24d0
     imul word [bp - 0x0002]          ; 0x24d3
     mov bx, ax                       ; 0x24d6
-    cmp byte [bx + slot_records + 0x14], 0 ; 0x24d8
+    cmp byte [bx + slot_records + slot_record.flag], 0 ; 0x24d8
     jle short @..api_idx_0038_POGI.l3 ; 0x24dd
-    mov al, byte [bx + bss_84e8]     ; 0x24df
+    mov al, byte [bx + slot_records] ; 0x24df
     sub ah, ah                       ; 0x24e3
     cmp ax, word [bp + 0x4]          ; 0x24e5
     je short @..api_idx_0038_POGI.l2 ; 0x24e8
     cmp word [bp + 0x4], byte 0xff   ; 0x24ea
     jne short @..api_idx_0038_POGI.l3 ; 0x24ee
-    mov al, byte [bx + slot_records] ; 0x24f0
+    mov al, byte [bx + slot_records + slot_record.kind] ; 0x24f0
     sub ah, ah                       ; 0x24f4
     shl ax, 1                        ; 0x24f6
     shl ax, 1                        ; 0x24f8
@@ -36,7 +36,7 @@ api_idx_0038_POGI:
     mov ax, 0x26                     ; 0x2507
     imul word [bp - 0x0002]          ; 0x250a
     mov bx, ax                       ; 0x250d
-    mov al, byte [bx + bss_84e8]     ; 0x250f
+    mov al, byte [bx + slot_records] ; 0x250f
     cmp al, byte [bss_91c7]          ; 0x2513
     jne short @..api_idx_0038_POGI.l3 ; 0x2517
 @..api_idx_0038_POGI.l2:
@@ -142,7 +142,7 @@ api_idx_0038_POGI:
     imul word [bp - 0x0002]          ; 0x260c
     add ax, cx                       ; 0x260f
     mov bx, ax                       ; 0x2611
-    mov al, byte [bx + bss_882c + 0x1] ; 0x2613
+    mov al, byte [bx + bss_882c + rec_882c.f_0001] ; 0x2613
     cbw                              ; 0x2617
     add ax, 0x73a                    ; 0x2618
     push ax                          ; 0x261b
@@ -172,7 +172,7 @@ api_idx_0038_POGI:
     pop ax                           ; 0x2650
     add ax, cx                       ; 0x2651
     mov bx, ax                       ; 0x2653
-    mov al, byte [bx + bss_882c + 0x1] ; 0x2655
+    mov al, byte [bx + bss_882c + rec_882c.f_0001] ; 0x2655
     cbw                              ; 0x2659
     jmp short @..api_idx_0038_POGI.l14 ; 0x265a
 jumptable_268c_case_0:
@@ -239,7 +239,7 @@ jumptable_268c:
     pop ax                           ; 0x26eb
     add ax, cx                       ; 0x26ec
     mov bx, ax                       ; 0x26ee
-    mov al, byte [bx + bss_882c + 0x2] ; 0x26f0
+    mov al, byte [bx + bss_882c + rec_882c.f_0002] ; 0x26f0
     cbw                              ; 0x26f4
     add ax, word [bp - 0x000c]       ; 0x26f5
     push ax                          ; 0x26f8

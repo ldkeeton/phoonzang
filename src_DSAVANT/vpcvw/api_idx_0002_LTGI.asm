@@ -12,7 +12,7 @@ api_idx_0002_LTGI:
     imul word [bp + 0x4]             ; 0x8fd3
     add ax, word [bp - 0x0002]       ; 0x8fd6
     mov bx, ax                       ; 0x8fd9
-    mov al, byte [bx + cell_key_grid + 0x130] ; 0x8fdb
+    mov al, byte [bx + party_records + pc_rec.stat] ; 0x8fdb
     sub ah, ah                       ; 0x8fdf
     push ax                          ; 0x8fe1
     mov bx, word [bp + 0x8]          ; 0x8fe2
@@ -36,7 +36,7 @@ api_idx_0002_LTGI:
     add ax, si                       ; 0x900a
     mov bx, ax                       ; 0x900c
     pop ax                           ; 0x900e
-    mov byte [bx + cell_key_grid + 0x130], al ; 0x900f
+    mov byte [bx + party_records + pc_rec.stat], al ; 0x900f
     jmp short @..api_idx_0002_LTGI.l3 ; 0x9013
 @..api_idx_0002_LTGI.l2:
     mov ax, word [bp + 0x6]          ; 0x9015

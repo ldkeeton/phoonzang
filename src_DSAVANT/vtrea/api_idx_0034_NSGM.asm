@@ -7,10 +7,10 @@ api_idx_0034_NSGM:
     shl ax, 1                        ; 0x7001
     mov si, ax                       ; 0x7003
     mov bx, word [maze_tables]       ; 0x7005
-    mov ax, word [bx + si + 0x1e0]   ; 0x7009
+    mov ax, word [bx + si + maze_tables_rec.f_01e0] ; 0x7009
     mov word [bp - 0x0006], ax       ; 0x700d
     mov si, word [bp + 0x6]          ; 0x7010
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x7013
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7013
     sub ah, ah                       ; 0x7017
     mov word [bp - 0x0002], ax       ; 0x7019
     mov ax, 5                        ; 0x701c
@@ -35,7 +35,7 @@ api_idx_0034_NSGM:
     shl ax, 1                        ; 0x704c
     mov si, ax                       ; 0x704e
     mov bx, word [maze_tables]       ; 0x7050
-    mov ax, word [bx + si + 0x3c0]   ; 0x7054
+    mov ax, word [bx + si + maze_tables_rec.f_03c0] ; 0x7054
     mov word [bp - 0x0002], ax       ; 0x7058
     mov ax, 2                        ; 0x705b
     push ax                          ; 0x705e

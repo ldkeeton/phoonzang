@@ -28,14 +28,14 @@ api_idx_0010_UUTT:
     shl ax, 1                        ; 0x9a76
     mov bx, ax                       ; 0x9a78
     mov bx, word [bx + party_char_ext] ; 0x9a7a
-    mov al, byte [bx + 0x80]         ; 0x9a7e
+    mov al, byte [bx + member_ext.f_0080] ; 0x9a7e
     sub ah, ah                       ; 0x9a82
     push ax                          ; 0x9a84
     mov ax, word [bp - 0x0002]       ; 0x9a85
     shl ax, 1                        ; 0x9a88
     mov bx, ax                       ; 0x9a8a
     mov bx, word [bx + party_char]   ; 0x9a8c
-    mov al, byte [bx + 0x1a1]        ; 0x9a90
+    mov al, byte [bx + member_rec.item_count] ; 0x9a90
     sub ah, ah                       ; 0x9a94
     mov cx, ax                       ; 0x9a96
     pop ax                           ; 0x9a98
@@ -48,7 +48,7 @@ api_idx_0010_UUTT:
     shl ax, 1                        ; 0x9aa6
     mov bx, ax                       ; 0x9aa8
     mov bx, word [bx + party_char_ext] ; 0x9aaa
-    mov al, byte [bx + 0x8f]         ; 0x9aae
+    mov al, byte [bx + member_ext.f_008f] ; 0x9aae
     sub ah, ah                       ; 0x9ab2
     mov cx, ax                       ; 0x9ab4
     mov ax, word [bss_8464]          ; 0x9ab6
@@ -91,7 +91,7 @@ api_idx_0010_UUTT:
     shl ax, 1                        ; 0x9b0d
     mov bx, ax                       ; 0x9b0f
     mov bx, word [bx + party_char_ext] ; 0x9b11
-    mov al, byte [bx + 0x8f]         ; 0x9b15
+    mov al, byte [bx + member_ext.f_008f] ; 0x9b15
     sub ah, ah                       ; 0x9b19
     mov cx, ax                       ; 0x9b1b
     mov ax, word [bss_8464]          ; 0x9b1d

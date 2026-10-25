@@ -79,7 +79,7 @@ api_idx_001e_GOQP:
     shl ax, 1                        ; 0x716d
     mov bx, ax                       ; 0x716f
     mov bx, word [bx + overlay_list + 0x2] ; 0x7171
-    mov byte [bx + 0x14], 0xff       ; 0x7175
+    mov byte [bx + overlay_list_rec.f_0014], 0xff ; 0x7175
     inc word [bp - 0x0002]           ; 0x7179
     mov ax, word [bp - 0x0002]       ; 0x717c
     cmp ax, strict word 0xc          ; 0x717f

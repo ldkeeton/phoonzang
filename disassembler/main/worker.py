@@ -77,7 +77,8 @@ class BinaryRun:
                     if f.partition('=')[0] in _ANALYSIS_FLAGS)
         kwargs = _worker_kwargs(flags)
         render = {k: kwargs.pop(k) for k in ('host_data_offsets', 'ds_starts',
-                                              'emit') if k in kwargs}
+                                              'emit', 'record_layouts')
+                  if k in kwargs}
         fresh = self.analysis is None or key != self.key
         if fresh:
             self.close()
@@ -103,7 +104,8 @@ class BinaryRun:
             return step(a, EXACT_BYTES, _SHOW_OFFSETS,
                         render.get('host_data_offsets'),
                         render.get('ds_starts', frozenset()),
-                        render.get('emit', True))
+                        render.get('emit', True),
+                        render.get('record_layouts'))
         finally:
             stagelog.end(ledger, stagelog.ledger_path(p.name, name))
 

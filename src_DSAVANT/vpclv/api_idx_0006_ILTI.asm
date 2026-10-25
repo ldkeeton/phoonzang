@@ -46,7 +46,7 @@ jumptable_4e49:
     mov ax, 0x248                    ; 0x4e64
     imul word [bp + 0x4]             ; 0x4e67
     mov bx, ax                       ; 0x4e6a
-    mov ax, word [bx + pc_spell_power_cap] ; 0x4e6c
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x4e6c
     cmp ax, word [bp - 0x0006]       ; 0x4e70
     jl short @..api_idx_0006_ILTI.l4 ; 0x4e73
     inc word [bp - 0x0004]           ; 0x4e75
@@ -58,11 +58,11 @@ jumptable_4e49:
     mov ax, 0x248                    ; 0x4e83
     imul word [bp + 0x4]             ; 0x4e86
     mov bx, ax                       ; 0x4e89
-    mov al, byte [bx + member_state + 0x4] ; 0x4e8b
+    mov al, byte [bx + party_records + pc_rec.f_023a] ; 0x4e8b
     sub ah, ah                       ; 0x4e8f
     cmp ax, word [bp - 0x0004]       ; 0x4e91
     jge short @..api_idx_0006_ILTI.l5 ; 0x4e94
     mov al, byte [bp - 0x0004]       ; 0x4e96
-    mov byte [bx + member_state + 0x4], al ; 0x4e99
+    mov byte [bx + party_records + pc_rec.f_023a], al ; 0x4e99
 @..api_idx_0006_ILTI.l5:
     ret                              ; 0x4e9d

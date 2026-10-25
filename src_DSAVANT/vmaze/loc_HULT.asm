@@ -9,7 +9,7 @@ loc_HULT:
     mov ax, 0x26                     ; 0x9666
     imul word [bp + 0x4]             ; 0x9669
     mov bx, ax                       ; 0x966c
-    mov al, byte [bx + bss_84e8]     ; 0x966e
+    mov al, byte [bx + slot_records] ; 0x966e
     sub ah, ah                       ; 0x9672
     mov cx, 0xc                      ; 0x9674
     imul cx                          ; 0x9677
@@ -17,7 +17,7 @@ loc_HULT:
     mov ax, 0x26                     ; 0x967a
     imul word [bp + 0x6]             ; 0x967d
     mov bx, ax                       ; 0x9680
-    mov al, byte [bx + bss_84e8]     ; 0x9682
+    mov al, byte [bx + slot_records] ; 0x9682
     sub ah, ah                       ; 0x9686
     mov cx, ax                       ; 0x9688
     pop ax                           ; 0x968a
@@ -33,7 +33,7 @@ loc_HULT:
     mov ax, 0x26                     ; 0x969f
     imul word [bp + 0x4]             ; 0x96a2
     mov bx, ax                       ; 0x96a5
-    mov al, byte [bx + bss_84e8]     ; 0x96a7
+    mov al, byte [bx + slot_records] ; 0x96a7
     sub ah, ah                       ; 0x96ab
     mov cx, 0xc                      ; 0x96ad
     imul cx                          ; 0x96b0
@@ -41,7 +41,7 @@ loc_HULT:
     mov ax, 0x26                     ; 0x96b4
     imul word [bp + 0x6]             ; 0x96b7
     mov bx, ax                       ; 0x96ba
-    mov al, byte [bx + bss_84e8]     ; 0x96bc
+    mov al, byte [bx + slot_records] ; 0x96bc
     sub ah, ah                       ; 0x96c0
     mov dx, ax                       ; 0x96c2
     add cx, ax                       ; 0x96c4

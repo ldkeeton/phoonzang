@@ -433,8 +433,8 @@ def _headers(out_dir):
     The build installs them from prebuild before compiling
     (:func:`lib.aztec.sources.install_headers`); the compiler reads this same
     tree.  Returning them here keeps the build's sync from pruning them.  The
-    renderer's ``host_symbols.inc`` is not a vendor header and comes from the
-    normal emitted files instead.
+    renderer's ``host_symbols.inc`` and ``structs.inc`` are not vendor
+    headers and come from the normal emitted files instead.
     """
     from lib.autogen import is_generated
     from lib.aztec import sources
@@ -444,7 +444,8 @@ def _headers(out_dir):
         return files
     for name in sorted(os.listdir(include)):
         path = os.path.join(include, name)
-        if name == sources.HOST_SYMBOLS_INC or not os.path.isfile(path):
+        if (name in (sources.HOST_SYMBOLS_INC, sources.STRUCTS_INC)
+                or not os.path.isfile(path)):
             continue
         if is_generated(path):
             with open(path) as f:

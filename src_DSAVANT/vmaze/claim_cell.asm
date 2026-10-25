@@ -119,7 +119,7 @@ claim_cell:
     shl ax, 1                        ; 0x8b2f
     mov si, ax                       ; 0x8b31
     mov bx, word [maze_tables]       ; 0x8b33
-    push word [bx + si + 0x3c0]      ; 0x8b37
+    push word [bx + si + maze_tables_rec.f_03c0] ; 0x8b37
     mov ax, 0                        ; 0x8b3b
     push ax                          ; 0x8b3e
     push ax                          ; 0x8b3f

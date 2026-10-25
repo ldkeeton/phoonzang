@@ -79,9 +79,9 @@ api_idx_0060_VPPJ:
     shl cx, 1                        ; 0x2096
     add ax, cx                       ; 0x2098
     mov bx, ax                       ; 0x209a
-    cmp word [bx + spell_table + 0x37a], strict word 0xff ; 0x209c
+    cmp word [bx + spell_table + spell_table_rec_size*148 + spell_table_rec.f_0002], strict word 0xff ; 0x209c
     je short @..api_idx_0060_VPPJ.l6 ; 0x20a2
-    mov ax, word [bx + spell_table + 0x37a] ; 0x20a4
+    mov ax, word [bx + spell_table + spell_table_rec_size*148 + spell_table_rec.f_0002] ; 0x20a4
     shl ax, 1                        ; 0x20a8
     mov bx, ax                       ; 0x20aa
     add bx, bp                       ; 0x20ac
@@ -100,7 +100,7 @@ api_idx_0060_VPPJ:
     mov ax, word [bss_91fe]          ; 0x20cf
     shl ax, 1                        ; 0x20d2
     mov bx, ax                       ; 0x20d4
-    mov ax, word [bx + spell_table + 0x34a] ; 0x20d6
+    mov ax, word [bx + spell_table + spell_table_rec_size*140 + spell_table_rec.f_0002] ; 0x20d6
 @..api_idx_0060_VPPJ.l8:
     mov word [bp - 0x000c], ax       ; 0x20da
     mov word [bp - 0x0002], ax       ; 0x20dd
@@ -139,9 +139,9 @@ api_idx_0060_VPPJ:
     shl cx, 1                        ; 0x212f
     add ax, cx                       ; 0x2131
     mov bx, ax                       ; 0x2133
-    cmp word [bx + spell_table + 0x37a], strict word 0xff ; 0x2135
+    cmp word [bx + spell_table + spell_table_rec_size*148 + spell_table_rec.f_0002], strict word 0xff ; 0x2135
     je short @..api_idx_0060_VPPJ.l13 ; 0x213b
-    mov ax, word [bx + spell_table + 0x37a] ; 0x213d
+    mov ax, word [bx + spell_table + spell_table_rec_size*148 + spell_table_rec.f_0002] ; 0x213d
     shl ax, 1                        ; 0x2141
     mov bx, ax                       ; 0x2143
     add bx, bp                       ; 0x2145
@@ -178,9 +178,9 @@ api_idx_0060_VPPJ:
     shl cx, 1                        ; 0x2195
     add ax, cx                       ; 0x2197
     mov bx, ax                       ; 0x2199
-    cmp word [bx + spell_table + 0x37a], strict word 0xff ; 0x219b
+    cmp word [bx + spell_table + spell_table_rec_size*148 + spell_table_rec.f_0002], strict word 0xff ; 0x219b
     je short @..api_idx_0060_VPPJ.l15 ; 0x21a1
-    mov ax, word [bx + spell_table + 0x37a] ; 0x21a3
+    mov ax, word [bx + spell_table + spell_table_rec_size*148 + spell_table_rec.f_0002] ; 0x21a3
     shl ax, 1                        ; 0x21a7
     mov bx, ax                       ; 0x21a9
     add bx, bp                       ; 0x21ab
@@ -273,7 +273,7 @@ api_idx_0060_VPPJ:
     shl cx, 1                        ; 0x228d
     add ax, cx                       ; 0x228f
     mov bx, ax                       ; 0x2291
-    cmp word [bx + spell_table + 0x37a], strict word 0xff ; 0x2293
+    cmp word [bx + spell_table + spell_table_rec_size*148 + spell_table_rec.f_0002], strict word 0xff ; 0x2293
     je short @..api_idx_0060_VPPJ.l30 ; 0x2299
     mov word [bp - 0x0006], 0        ; 0x229b
 @..api_idx_0060_VPPJ.l28:
@@ -284,7 +284,7 @@ api_idx_0060_VPPJ:
     shl cx, 1                        ; 0x22ab
     add ax, cx                       ; 0x22ad
     mov bx, ax                       ; 0x22af
-    mov ax, word [bx + spell_table + 0x37a] ; 0x22b1
+    mov ax, word [bx + spell_table + spell_table_rec_size*148 + spell_table_rec.f_0002] ; 0x22b1
     mov cx, word [bp - 0x0006]       ; 0x22b5
     shl cx, 1                        ; 0x22b8
     mov bx, cx                       ; 0x22ba
@@ -344,7 +344,7 @@ api_idx_0060_VPPJ:
     mov ax, 0x248                    ; 0x233f
     imul word [bp - 0x0002]          ; 0x2342
     mov bx, ax                       ; 0x2345
-    mov al, byte [bx + member_state + 0x3] ; 0x2347
+    mov al, byte [bx + party_records + pc_rec.label] ; 0x2347
     sub ah, ah                       ; 0x234b
     jmp short @..api_idx_0060_VPPJ.l37 ; 0x234d
 @..api_idx_0060_VPPJ.l35:
@@ -370,12 +370,12 @@ api_idx_0060_VPPJ:
     mov ax, 0x248                    ; 0x2379
     imul word [bp - 0x0002]          ; 0x237c
     mov bx, ax                       ; 0x237f
-    mov al, byte [bx + cell_key_grid + 0x148] ; 0x2381
+    mov al, byte [bx + party_records + pc_rec.flag + 0x10] ; 0x2381
     sub ah, ah                       ; 0x2385
     mov cx, 2                        ; 0x2387
     cwd                              ; 0x238a
     idiv cx                          ; 0x238b
-    mov cx, word [bx + pc_spell_power_cap] ; 0x238d
+    mov cx, word [bx + party_records + pc_rec.power_cap] ; 0x238d
     add ax, cx                       ; 0x2391
     push ax                          ; 0x2393
     mov bx, word [bp + 0x4]          ; 0x2394

@@ -33,7 +33,7 @@ roll_slot_values:
     mov cx, word [bx - 0x001c]
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + cell_key_grid + 0x130]
+    mov al, byte [bx + party_records + pc_rec.stat]
     sub ah, ah
     push ax
     mov ax, 0x248
@@ -46,7 +46,7 @@ roll_slot_values:
     mov cx, word [bx - 0x001a]
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + cell_key_grid + 0x130]
+    mov al, byte [bx + party_records + pc_rec.stat]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -103,7 +103,7 @@ roll_slot_values:
     imul word [bp + 0x4]
     add ax, word [bp - 0x0002]
     mov bx, ax
-    cmp byte [bx + cell_key_grid + 0x138], 0
+    cmp byte [bx + party_records + pc_rec.flag], 0
     jbe short @..roll_slot_values.l7
     mov ax, 2
     push ax

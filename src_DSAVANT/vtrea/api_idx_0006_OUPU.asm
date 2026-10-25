@@ -38,7 +38,7 @@ api_idx_0006_OUPU:
     mov ax, 0x248                    ; 0x556c
     imul word [bp - 0x0002]          ; 0x556f
     mov bx, ax                       ; 0x5572
-    cmp byte [bx + member_state + 0x5], 3 ; 0x5574
+    cmp byte [bx + party_records + pc_rec.state], 3 ; 0x5574
     jae short @..api_idx_0006_OUPU.l5 ; 0x5579
     mov ax, 0xc8                     ; 0x557b
     push ax                          ; 0x557e
@@ -48,7 +48,7 @@ api_idx_0006_OUPU:
     mov ax, 0x248                    ; 0x5584
     imul word [bp - 0x0002]          ; 0x5587
     mov bx, ax                       ; 0x558a
-    mov al, byte [bx + cell_key_grid + 0x16d] ; 0x558c
+    mov al, byte [bx + party_records + pc_rec.cur + 0x5] ; 0x558c
     sub ah, ah                       ; 0x5590
     mov cx, ax                       ; 0x5592
     pop ax                           ; 0x5594
@@ -127,7 +127,7 @@ api_idx_0006_OUPU:
     push ax                          ; 0x563b
     mov bx, word [maze_tables]       ; 0x563c
     mov si, word [party_region]      ; 0x5640
-    mov al, byte [bx + si + spell_table + 0x340] ; 0x5644
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*138 + spell_table_rec.f_0004] ; 0x5644
     sub ah, ah                       ; 0x5648
     push ax                          ; 0x564a
     mov ax, word [game_state_arg]    ; 0x564b
@@ -143,7 +143,7 @@ api_idx_0006_OUPU:
     push ax                          ; 0x5666
     mov bx, word [maze_tables]       ; 0x5667
     mov si, word [party_region]      ; 0x566b
-    mov al, byte [bx + si + spell_table + 0x340] ; 0x566f
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*138 + spell_table_rec.f_0004] ; 0x566f
     sub ah, ah                       ; 0x5673
     push ax                          ; 0x5675
     mov ax, word [game_state_arg]    ; 0x5676

@@ -20,7 +20,7 @@ party_screen:
     shl ax, 1                        ; 0x1a45
     mov bx, ax                       ; 0x1a47
     mov bx, word [bx + party_char]   ; 0x1a49
-    cmp byte [bx + si + 0x22], 0     ; 0x1a4d
+    cmp byte [bx + si + member_rec.item_state], 0 ; 0x1a4d
     je short @..party_screen.l3      ; 0x1a51
     jmp near @..party_screen.l7      ; 0x1a53
 @..party_screen.l3:
@@ -41,7 +41,7 @@ party_screen:
     shl ax, 1                        ; 0x1a7d
     mov bx, ax                       ; 0x1a7f
     mov bx, word [bx + party_char]   ; 0x1a81
-    cmp byte [bx + si + 0xe], 0      ; 0x1a85
+    cmp byte [bx + si + member_rec.item_counter], 0 ; 0x1a85
     jbe short @..party_screen.l6     ; 0x1a89
     mov ax, 0x2c                     ; 0x1a8b
     imul word [bp - 0x0004]          ; 0x1a8e
@@ -63,7 +63,7 @@ party_screen:
     shl ax, 1                        ; 0x1ab5
     mov bx, ax                       ; 0x1ab7
     mov bx, word [bx + party_char]   ; 0x1ab9
-    mov ax, word [bx + si + 0x2]     ; 0x1abd
+    mov ax, word [bx + si + member_rec.item_charges] ; 0x1abd
     cmp ax, word [bp - 0x000c]       ; 0x1ac0
     jle short @..party_screen.l7     ; 0x1ac3
     mov ax, word [bx + si + 0x2]     ; 0x1ac5
@@ -80,7 +80,7 @@ party_screen:
     shl ax, 1                        ; 0x1add
     mov bx, ax                       ; 0x1adf
     mov bx, word [bx + party_char]   ; 0x1ae1
-    mov al, byte [bx + 0x1a1]        ; 0x1ae5
+    mov al, byte [bx + member_rec.item_count] ; 0x1ae5
     sub ah, ah                       ; 0x1ae9
     cmp ax, word [bp - 0x0004]       ; 0x1aeb
     jle short @..party_screen.l9     ; 0x1aee
@@ -90,7 +90,7 @@ party_screen:
     shl ax, 1                        ; 0x1af6
     mov bx, ax                       ; 0x1af8
     mov bx, word [bx + party_char_ext] ; 0x1afa
-    cmp byte [bx + 0xae], 0          ; 0x1afe
+    cmp byte [bx + member_ext.f_00ae], 0 ; 0x1afe
     jbe short @..party_screen.l10    ; 0x1b03
     mov bx, ax                       ; 0x1b05
     add bx, bp                       ; 0x1b07
@@ -100,7 +100,7 @@ party_screen:
     shl ax, 1                        ; 0x1b10
     mov si, ax                       ; 0x1b12
     mov si, word [si + party_char_ext] ; 0x1b14
-    mov al, byte [si + 0xae]         ; 0x1b18
+    mov al, byte [si + member_ext.f_00ae] ; 0x1b18
     sub ah, ah                       ; 0x1b1c
     mov cx, 0xa                      ; 0x1b1e
     cwd                              ; 0x1b21
@@ -117,7 +117,7 @@ party_screen:
     shl ax, 1                        ; 0x1b33
     mov bx, ax                       ; 0x1b35
     mov bx, word [bx + party_char_ext] ; 0x1b37
-    cmp byte [bx + 0xb0], 0          ; 0x1b3b
+    cmp byte [bx + member_ext.f_00b0], 0 ; 0x1b3b
     jbe short @..party_screen.l11    ; 0x1b40
     mov bx, ax                       ; 0x1b42
     add bx, bp                       ; 0x1b44
@@ -127,7 +127,7 @@ party_screen:
     shl ax, 1                        ; 0x1b4d
     mov bx, ax                       ; 0x1b4f
     mov bx, word [bx + party_char_ext] ; 0x1b51
-    mov al, byte [bx + 0xb0]         ; 0x1b55
+    mov al, byte [bx + member_ext.f_00b0] ; 0x1b55
     sub ah, ah                       ; 0x1b59
     mov cx, ax                       ; 0x1b5b
     pop ax                           ; 0x1b5d
@@ -160,7 +160,7 @@ party_screen:
     shl ax, 1                        ; 0x1b93
     mov bx, ax                       ; 0x1b95
     mov bx, word [bx + party_char_ext] ; 0x1b97
-    cmp byte [bx + 0xb1], 0          ; 0x1b9b
+    cmp byte [bx + member_ext.f_00b1], 0 ; 0x1b9b
     jbe short @..party_screen.l12    ; 0x1ba0
     mov bx, ax                       ; 0x1ba2
     add bx, bp                       ; 0x1ba4
@@ -170,7 +170,7 @@ party_screen:
     shl ax, 1                        ; 0x1bad
     mov bx, ax                       ; 0x1baf
     mov bx, word [bx + party_char_ext] ; 0x1bb1
-    mov al, byte [bx + 0xb1]         ; 0x1bb5
+    mov al, byte [bx + member_ext.f_00b1] ; 0x1bb5
     sub ah, ah                       ; 0x1bb9
     mov cx, ax                       ; 0x1bbb
     pop ax                           ; 0x1bbd
@@ -203,14 +203,14 @@ party_screen:
     shl ax, 1                        ; 0x1bf3
     mov bx, ax                       ; 0x1bf5
     mov bx, word [bx + party_char]   ; 0x1bf7
-    cmp byte [bx + 0x19f], 0xff      ; 0x1bfb
+    cmp byte [bx + member_rec.slot], 0xff ; 0x1bfb
     je short @..party_screen.l13     ; 0x1c00
     mov al, byte [bx + 0x19f]        ; 0x1c02
     cbw                              ; 0x1c06
     mov cx, 0x15e                    ; 0x1c07
     imul cx                          ; 0x1c0a
     mov bx, ax                       ; 0x1c0c
-    cmp byte [bx + slot_recs + 0x15b], 0 ; 0x1c0e
+    cmp byte [bx + slot_recs + slot_rec.forced], 0 ; 0x1c0e
     je short @..party_screen.l13     ; 0x1c13
     mov ax, word [bp - 0x0002]       ; 0x1c15
     shl ax, 1                        ; 0x1c18
@@ -262,7 +262,7 @@ party_screen:
     shl ax, 1                        ; 0x1c79
     mov bx, ax                       ; 0x1c7b
     mov bx, word [bx + party_char]   ; 0x1c7d
-    cmp byte [bx + 0x1a1], 1         ; 0x1c81
+    cmp byte [bx + member_rec.item_count], 1 ; 0x1c81
     jne short @..party_screen.l18    ; 0x1c86
     mov ax, 0                        ; 0x1c88
     jmp short @..party_screen.l19    ; 0x1c8b
@@ -308,7 +308,7 @@ party_screen:
     shl ax, 1                        ; 0x1ce2
     mov bx, ax                       ; 0x1ce4
     mov bx, word [bx + party_char]   ; 0x1ce6
-    cmp byte [bx + 0x1a1], 1         ; 0x1cea
+    cmp byte [bx + member_rec.item_count], 1 ; 0x1cea
     jne short @..party_screen.l20    ; 0x1cef
     mov ax, 0xdb6                    ; 0x1cf1
     jmp short @..party_screen.l21    ; 0x1cf4
@@ -334,7 +334,7 @@ party_screen:
     shl ax, 1                        ; 0x1d20
     mov bx, ax                       ; 0x1d22
     mov bx, word [bx + overlay_list + 0x18] ; 0x1d24
-    cmp byte [bx + si + 0x2a], 0xff  ; 0x1d28
+    cmp byte [bx + si + overlay_list_rec.f_002a], 0xff ; 0x1d28
     je short @..party_screen.l23     ; 0x1d2c
     mov al, byte [bx + si + 0x2a]    ; 0x1d2e
     cbw                              ; 0x1d31
@@ -361,7 +361,7 @@ party_screen:
     shl ax, 1                        ; 0x1d60
     mov bx, ax                       ; 0x1d62
     mov bx, word [bx + overlay_list + 0x18] ; 0x1d64
-    mov al, byte [bx + 0x1a1]        ; 0x1d68
+    mov al, byte [bx + overlay_list_rec.f_01a1] ; 0x1d68
     sub ah, ah                       ; 0x1d6c
     cmp ax, word [bp - 0x0004]       ; 0x1d6e
     jg short @..party_screen.l22     ; 0x1d71
@@ -379,7 +379,7 @@ party_screen:
     shl ax, 1                        ; 0x1d8d
     mov bx, ax                       ; 0x1d8f
     mov bx, word [bx + overlay_list + 0x18] ; 0x1d91
-    cmp byte [bx + si + 0x2a], 0xff  ; 0x1d95
+    cmp byte [bx + si + overlay_list_rec.f_002a], 0xff ; 0x1d95
     je short @..party_screen.l26     ; 0x1d99
     mov al, byte [bx + si + 0x2a]    ; 0x1d9b
     cbw                              ; 0x1d9e
@@ -411,7 +411,7 @@ party_screen:
     shl ax, 1                        ; 0x1ddc
     mov bx, ax                       ; 0x1dde
     mov bx, word [bx + overlay_list + 0x18] ; 0x1de0
-    mov al, byte [bx + 0x1a1]        ; 0x1de4
+    mov al, byte [bx + overlay_list_rec.f_01a1] ; 0x1de4
     sub ah, ah                       ; 0x1de8
     cmp ax, word [bp - 0x0004]       ; 0x1dea
     jg short @..party_screen.l25     ; 0x1ded
@@ -451,7 +451,7 @@ party_screen:
     imul word [bp - 0x000e]          ; 0x1e49
     mov si, ax                       ; 0x1e4c
     mov bx, word [party_char]        ; 0x1e4e
-    mov al, byte [bx + si + 0x1f]    ; 0x1e52
+    mov al, byte [bx + si + member_rec.f_001f] ; 0x1e52
     sub ah, ah                       ; 0x1e55
     cmp ax, word [bp - 0x0002]       ; 0x1e57
     jne short @..party_screen.l29    ; 0x1e5a
@@ -464,7 +464,7 @@ party_screen:
     imul word [bp - 0x000e]          ; 0x1e68
     mov si, ax                       ; 0x1e6b
     mov bx, word [party_char]        ; 0x1e6d
-    mov al, byte [bx + si + 0x1f]    ; 0x1e71
+    mov al, byte [bx + si + member_rec.f_001f] ; 0x1e71
     sub ah, ah                       ; 0x1e74
     mov cx, word [bp - 0x0002]       ; 0x1e76
     dec cx                           ; 0x1e79

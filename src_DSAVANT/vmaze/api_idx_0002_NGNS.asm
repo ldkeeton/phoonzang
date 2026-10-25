@@ -6,7 +6,7 @@ api_idx_0002_NGNS:
     shl ax, 1                        ; 0x8df2
     mov si, ax                       ; 0x8df4
     mov bx, word [maze_tables]       ; 0x8df6
-    mov ax, word [bx + si + 0x3c0]   ; 0x8dfa
+    mov ax, word [bx + si + maze_tables_rec.f_03c0] ; 0x8dfa
     mov word [bp - 0x0002], ax       ; 0x8dfe
     mov ax, 1                        ; 0x8e01
     push ax                          ; 0x8e04
@@ -45,7 +45,7 @@ api_idx_0002_NGNS:
     mov word [party_region], ax      ; 0x8e4e
     mov bx, word [maze_tables]       ; 0x8e51
     mov si, ax                       ; 0x8e55
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x8e57
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x8e57
     sub ah, ah                       ; 0x8e5b
     mov word [selected_item_record], ax ; 0x8e5d
     mov word [game_state], 0x15      ; 0x8e60

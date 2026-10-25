@@ -826,7 +826,7 @@ jumptable_9967_case_3:
     mov ax, 6                        ; 0x94c8
     imul word [bp - 0x003c]          ; 0x94cb
     mov bx, ax                       ; 0x94ce
-    mov al, byte [bx + spell_table + 0x2] ; 0x94d0
+    mov al, byte [bx + spell_table + spell_table_rec.f_0002] ; 0x94d0
     sub ah, ah                       ; 0x94d4
     mov cx, word [bp - 0x003e]       ; 0x94d6
     inc cx                           ; 0x94d9
@@ -840,7 +840,7 @@ jumptable_9967_case_3:
     shl dx, 1                        ; 0x94ea
     add ax, dx                       ; 0x94ec
     mov bx, ax                       ; 0x94ee
-    mov cx, word [bx + pc_spell_power_cap + 0x4] ; 0x94f0
+    mov cx, word [bx + party_records + pc_rec.realm_points] ; 0x94f0
     pop ax                           ; 0x94f4
     cmp ax, cx                       ; 0x94f5
     jg short @..spell_select_dialog.l25 ; 0x94f7
@@ -959,12 +959,12 @@ jumptable_9967_case_4:
     mov ax, 0x248                    ; 0x95ff
     imul word [bp + 0x4]             ; 0x9602
     mov bx, ax                       ; 0x9605
-    mov ax, word [bx + pc_spell_power_cap] ; 0x9607
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x9607
     push ax                          ; 0x960b
     mov ax, 6                        ; 0x960c
     imul word [bp - 0x003c]          ; 0x960f
     mov bx, ax                       ; 0x9612
-    mov al, byte [bx + spell_table + 0x1] ; 0x9614
+    mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x9614
     sub ah, ah                       ; 0x9618
     mov cx, ax                       ; 0x961a
     pop ax                           ; 0x961c
@@ -976,7 +976,7 @@ jumptable_9967_case_4:
     mov ax, 6                        ; 0x9629
     imul word [bp - 0x003c]          ; 0x962c
     mov bx, ax                       ; 0x962f
-    mov al, byte [bx + spell_table + 0x2] ; 0x9631
+    mov al, byte [bx + spell_table + spell_table_rec.f_0002] ; 0x9631
     sub ah, ah                       ; 0x9635
     mov cx, word [bp - 0x0040]       ; 0x9637
     inc cx                           ; 0x963a
@@ -994,7 +994,7 @@ jumptable_9967_case_4:
     shl cx, 1                        ; 0x9656
     add ax, cx                       ; 0x9658
     mov bx, ax                       ; 0x965a
-    mov ax, word [bx + pc_spell_power_cap + 0x4] ; 0x965c
+    mov ax, word [bx + party_records + pc_rec.realm_points] ; 0x965c
     cmp ax, word [bp - 0x0002]       ; 0x9660
     jge short @..spell_select_dialog.l32 ; 0x9663
     jmp short @..spell_select_dialog.l33 ; 0x9665
@@ -1005,7 +1005,7 @@ jumptable_9967_case_4:
     mov ax, 6                        ; 0x966b
     imul word [bp - 0x003c]          ; 0x966e
     mov bx, ax                       ; 0x9671
-    mov al, byte [bx + spell_table + 0x2] ; 0x9673
+    mov al, byte [bx + spell_table + spell_table_rec.f_0002] ; 0x9673
     sub ah, ah                       ; 0x9677
     mov cx, word [bp - 0x003e]       ; 0x9679
     inc cx                           ; 0x967c
@@ -1228,12 +1228,12 @@ jumptable_9967_case_4:
     mov ax, 0x248                    ; 0x9889
     imul word [bp + 0x4]             ; 0x988c
     mov bx, ax                       ; 0x988f
-    mov ax, word [bx + pc_spell_power_cap] ; 0x9891
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x9891
     push ax                          ; 0x9895
     mov ax, 6                        ; 0x9896
     imul word [bp - 0x003c]          ; 0x9899
     mov bx, ax                       ; 0x989c
-    mov al, byte [bx + spell_table + 0x1] ; 0x989e
+    mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x989e
     sub ah, ah                       ; 0x98a2
     mov cx, ax                       ; 0x98a4
     pop ax                           ; 0x98a6
@@ -1245,7 +1245,7 @@ jumptable_9967_case_4:
     mov ax, 6                        ; 0x98b3
     imul word [bp - 0x003c]          ; 0x98b6
     mov bx, ax                       ; 0x98b9
-    mov al, byte [bx + spell_table + 0x2] ; 0x98bb
+    mov al, byte [bx + spell_table + spell_table_rec.f_0002] ; 0x98bb
     sub ah, ah                       ; 0x98bf
     mov cx, word [bp - 0x0040]       ; 0x98c1
     inc cx                           ; 0x98c4
@@ -1263,7 +1263,7 @@ jumptable_9967_case_4:
     shl cx, 1                        ; 0x98e0
     add ax, cx                       ; 0x98e2
     mov bx, ax                       ; 0x98e4
-    mov ax, word [bx + pc_spell_power_cap + 0x4] ; 0x98e6
+    mov ax, word [bx + party_records + pc_rec.realm_points] ; 0x98e6
     cmp ax, word [bp - 0x0002]       ; 0x98ea
     jge short @..spell_select_dialog.l45 ; 0x98ed
     jmp short @..spell_select_dialog.l46 ; 0x98ef
@@ -1274,7 +1274,7 @@ jumptable_9967_case_4:
     mov ax, 6                        ; 0x98f5
     imul word [bp - 0x003c]          ; 0x98f8
     mov bx, ax                       ; 0x98fb
-    mov al, byte [bx + spell_table + 0x2] ; 0x98fd
+    mov al, byte [bx + spell_table + spell_table_rec.f_0002] ; 0x98fd
     sub ah, ah                       ; 0x9901
     mov cx, word [bp - 0x003e]       ; 0x9903
     inc cx                           ; 0x9906

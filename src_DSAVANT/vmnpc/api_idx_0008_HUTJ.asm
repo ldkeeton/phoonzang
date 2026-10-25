@@ -11,7 +11,7 @@ api_idx_0008_HUTJ:
     mov ax, 0x248                    ; 0x3913
     imul word [bp + 0x4]             ; 0x3916
     mov bx, ax                       ; 0x3919
-    mov ax, word [bx + pc_spell_power_cap] ; 0x391b
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x391b
     push ax                          ; 0x391f
     mov al, byte [bss_91c5]          ; 0x3920
     sub ah, ah                       ; 0x3923
@@ -94,7 +94,7 @@ api_idx_0008_HUTJ:
     mov ax, 0x248                    ; 0x39c7
     imul word [bp + 0x4]             ; 0x39ca
     mov bx, ax                       ; 0x39cd
-    mov ax, word [bx + pc_spell_power_cap] ; 0x39cf
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x39cf
     push ax                          ; 0x39d3
     mov ax, 3                        ; 0x39d4
     imul word [bp + 0x8]             ; 0x39d7

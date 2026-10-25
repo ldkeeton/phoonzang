@@ -28,7 +28,7 @@ api_idx_000c_JRTV:
     mov ax, word [bp + 0x4]          ; 0x03b9
     shl ax, 1                        ; 0x03bc
     mov bx, ax                       ; 0x03be
-    mov al, byte [bx + member_state + 0xb92] ; 0x03c0
+    mov al, byte [bx + member_icon]  ; 0x03c0
     sub ah, ah                       ; 0x03c4
     push ax                          ; 0x03c6
     call draw_font_glyph             ; 0x03c7
@@ -88,8 +88,8 @@ api_idx_000c_JRTV:
     mov ax, 0x248                    ; 0x0445
     imul word [bp + 0x4]             ; 0x0448
     mov bx, ax                       ; 0x044b
-    push word [bx + member_pair_points + 0x4] ; 0x044d
-    push word [bx + member_pair_points + 0x2] ; 0x0451
+    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x044d
+    push word [bx + party_records + pc_rec.pair_a] ; 0x0451
     mov ax, 0x16                     ; 0x0455
     push ax                          ; 0x0458
     mov ax, 3                        ; 0x0459
@@ -107,8 +107,8 @@ api_idx_000c_JRTV:
     mov ax, 0x248                    ; 0x0475
     imul word [bp + 0x4]             ; 0x0478
     mov bx, ax                       ; 0x047b
-    push word [bx + pc_records + 0x2] ; 0x047d
-    push word [bx + pc_records]      ; 0x0481
+    push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x047d
+    push word [bx + party_records + pc_rec.pair_b] ; 0x0481
     mov ax, 0x16                     ; 0x0485
     push ax                          ; 0x0488
     mov ax, 3                        ; 0x0489
@@ -132,9 +132,9 @@ api_idx_000c_JRTV:
     shl cx, 1                        ; 0x04bb
     add ax, cx                       ; 0x04bd
     mov bx, ax                       ; 0x04bf
-    mov ax, word [bx + pc_spell_power_cap + 0x4] ; 0x04c1
+    mov ax, word [bx + party_records + pc_rec.realm_points] ; 0x04c1
     add word [bp - 0x000a], ax       ; 0x04c5
-    mov ax, word [bx + pc_spell_power_cap + 0x6] ; 0x04c8
+    mov ax, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x04c8
     add word [bp - 0x000c], ax       ; 0x04cc
     inc word [bp - 0x0002]           ; 0x04cf
     mov ax, word [bp - 0x0002]       ; 0x04d2

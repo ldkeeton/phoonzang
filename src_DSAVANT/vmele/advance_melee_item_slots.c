@@ -1,8 +1,11 @@
 /* advances member 0's item slots from each member's attack and defense, then
    orders the party by the member state byte and picks the return state */
 
+#include "structs/pcrec.h"
+
 extern char *party_char[];			/* pointers to 0x2c-byte item records */
-extern char member_state[], party_records[];	/* 0x248-byte records */
+extern struct pc_rec party_records[];
+extern int member_icon[];
 extern char member_roster_index[];
 extern int party_char_count, party_return_state, party_screen_done;
 extern advance_item_slot_action(), copy_member_party_record(),
@@ -19,13 +22,12 @@ advance_melee_item_slots()
 		/* 0x22: item action phase; 0x2c: item record stride */
 		if (((unsigned char *)party_char[0])[member * 44 + 34] < 3) {
 			if (advance_item_slot_action(0, member,
-				/* +6 attack, +7 defense */
-				*(unsigned char *)(member_state + member * 584 + 6),
-				*(unsigned char *)(member_state + member * 584 + 7)) == 1) {
+				party_records[member].attack,
+				party_records[member].defense) == 1) {
 				copy_member_party_record(member);
 				draw_party_member_panel(member, 1);	/* reveal */
 				play_sound_effect(
-					*(unsigned char *)(member_state + member * 584 + 2) + 8);
+					party_records[member].sound + 8);
 			}
 		}
 	}
@@ -36,28 +38,27 @@ advance_melee_item_slots()
 	   the two parallel word arrays together */
 	for (member = 0; member < party_char_count - 1; member++) {
 		for (other = member + 1; other < party_char_count; other++) {
-			/* 584: roster record size, 44: item record size */
-			if (*(unsigned char *)(member_state + member * 584 + 5) >	/* +5 state */
-			    *(unsigned char *)(member_state + other * 584 + 5)) {
-				aztec_swapmem(party_records + member * 584,
-					party_records + other * 584, 584);
+			/* 44: item record size */
+			if (party_records[member].state >
+			    party_records[other].state) {
+				aztec_swapmem(&party_records[member],
+					&party_records[other], sizeof(struct pc_rec));
 				aztec_swapmem(party_char[0] + member * 44,
 					party_char[0] + other * 44, sizeof(char[44]));
 				swap = *(int *)(member_roster_index + member * 2 + 2);
 				*(int *)(member_roster_index + member * 2 + 2) =
 					*(int *)(member_roster_index + other * 2 + 2);
 				*(int *)(member_roster_index + other * 2 + 2) = swap;
-				swap = *(int *)(member_state + member * 2 + 2962);	/* +0xb92 */
-				*(int *)(member_state + member * 2 + 2962) =
-					*(int *)(member_state + other * 2 + 2962);
-				*(int *)(member_state + other * 2 + 2962) = swap;
+				swap = member_icon[member];
+				member_icon[member] = member_icon[other];
+				member_icon[other] = swap;
 			}
 		}
 	}
 	other = 0;				/* members in state >= 2 */
 	found = 0;				/* a member is in phase 2 */
 	for (member = 0; member < party_char_count; member++) {
-		if (*(unsigned char *)(member_state + member * 584 + 5) >= 2)
+		if (party_records[member].state >= 2)
 			other++;
 		if (((unsigned char *)party_char[0])[member * 44 + 43] == 2)	/* +0x2b */
 			found = 1;

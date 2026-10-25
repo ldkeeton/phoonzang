@@ -11,7 +11,7 @@ spend_action_slot_charge:
     mov bx, ax                       ; 0x307f
     mov bx, word [bx + party_char]   ; 0x3081
     mov si, word [bp - 0x0004]       ; 0x3085
-    mov al, byte [bx + si + 0x18c]   ; 0x3088
+    mov al, byte [bx + si + member_rec.charge] ; 0x3088
     sub ah, ah                       ; 0x308c
     mov word [bp - 0x0008], ax       ; 0x308e
     cmp ax, strict word 0            ; 0x3091
@@ -88,7 +88,7 @@ jumptable_30ea:
     mov bx, cx                       ; 0x3127
     mov bx, word [bx + party_char]   ; 0x3129
     mov si, word [bp - 0x0004]       ; 0x312d
-    mov byte [bx + si + 0x18c], al   ; 0x3130
+    mov byte [bx + si + member_rec.charge], al ; 0x3130
 @..spend_action_slot_charge.l8:
     inc word [bp - 0x0004]           ; 0x3134
     mov ax, word [bp - 0x0004]       ; 0x3137
@@ -103,7 +103,7 @@ jumptable_30ea:
     mov bx, ax                       ; 0x314c
     mov bx, word [bx + party_char]   ; 0x314e
     mov si, word [bp - 0x0004]       ; 0x3152
-    cmp byte [bx + si + 0x192], 0    ; 0x3155
+    cmp byte [bx + si + member_rec.delay], 0 ; 0x3155
     jbe short @..spend_action_slot_charge.l11 ; 0x315a
     dec byte [bx + si + 0x192]       ; 0x315c
 @..spend_action_slot_charge.l11:
@@ -120,7 +120,7 @@ jumptable_30ea:
     cmp word [party_buff_turns], byte 0 ; 0x3179
     jle short @..spend_action_slot_charge.l13 ; 0x317e
     mov bx, word [party_char]        ; 0x3180
-    mov al, byte [bx + 0x190]        ; 0x3184
+    mov al, byte [bx + member_rec.charge + 0x4] ; 0x3184
     sub ah, ah                       ; 0x3188
     mov word [party_buff_charge], ax ; 0x318a
 @..spend_action_slot_charge.l13:

@@ -9,7 +9,7 @@ api_idx_0010_STNH:
     mov ax, word [bp + 0x4]
     shl ax, 1
     mov bx, ax
-    push word [bx + member_state + 0xb92]
+    push word [bx + member_icon]
     mov ax, 5
     push ax
     call get_font_glyph

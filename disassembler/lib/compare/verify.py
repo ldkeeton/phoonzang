@@ -58,6 +58,8 @@ from lib.compare.analysis import (
     _direct_flow_targets,
 )
 from lib.compare.coverrides import _apply_c_overrides
+from lib.record_layout import activate as activate_record_layouts
+from lib.record_layout import observe as observe_records
 from lib.compare.vendor import _apply_asm_annotations
 from lib.compare.interrupts import _set_insn_fields, _annotate_interrupts
 from lib.names import data_space, is_data, is_label, loc_name
@@ -207,6 +209,14 @@ def _label_records(records):
     return {r['text']: r['offset'] for r in records if r['type'] == 'label'}
 
 
+def _structs_inc(layouts):
+    """The family's ``include/structs.inc`` text, or None without layouts."""
+    if not layouts:
+        return None
+    from lib.record_layout import inc_text
+    return inc_text(layouts)
+
+
 def _host_space_starts(mem_equ, segments):
     """DS/BSS offsets named in *mem_equ* that lie in the host's data space."""
     from lib.compare.symbols import _host_space_limit
@@ -313,7 +323,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            entry_symbol=None, data_pointers=(), not_pointers=(),
            char_tables=(), immediate_pointers=(), host_data_offsets=None,
            driver_pointer_args=None,
-           ds_starts=frozenset(), foreign_pointer_params=None,
+           ds_starts=frozenset(), record_layouts=None,
+           foreign_pointer_params=None,
            sidecar_use=None, bands=(), data_modules=()):
     """Produce NASM source text from *binary_data* and *instructions*.
 
@@ -455,6 +466,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     known_addrs = set(label_map.keys()) if label_map else set()
     if code_targets:
         known_addrs |= code_targets
+    # The operands, a C routine's relinked ones too, may spell record fields;
+    # each instruction is assembled alone, so it needs their values
+    # (``include/structs.inc`` in the tree).
+    activate_record_layouts(record_layouts)
 
     t0 = time.perf_counter()
 
@@ -584,6 +599,13 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         insns, immediate_pointers, segments, label_map, mem_equ,
         start_offset, owner=name)
     mem_symbols.update(declared)
+    if record_layouts:
+        # A name inside a counted record array is one of its fields.
+        from lib.compare.symbols import data_symbol
+        from lib.record_layout import absorb_symbols
+        absorb_symbols(mem_symbols, mem_equ, record_layouts,
+                       lambda base: data_symbol(segments, base),
+                       lambda sym: data_space(sym) in (Space.DS, Space.BSS))
     # An indexed operand binds to any object this binary names, however it
     # was proven: an absolute operand, an immediate, a declared pointer
     # (``mov ax, bss_91ee`` lets ``[bx + bss_91ee]`` bind).  The same starts
@@ -592,10 +614,17 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
              if data_space(sym) in (Space.DS, Space.BSS)}
     if segment_flow is not None:
         mem_symbols.update(_resolve_indexed_symbols(
-            insns, segment_flow, segments, named, ds_starts, mem_equ))
+            insns, segment_flow, segments, named, ds_starts, mem_equ,
+            record_layouts))
         mem_symbols.update(_resolve_index_offset_symbols(
             insns, segment_flow, segments, named, ds_starts, mem_equ,
-            mem_symbols))
+            mem_symbols, record_layouts))
+        if record_layouts:
+            # A field of the records a pointer table points at
+            # (``[bx + party_char_rec.f_019f]``, :mod:`lib.record_layout`).
+            from lib.record_layout import pointer_symbols
+            mem_symbols.update(pointer_symbols(insns, segment_flow,
+                                               record_layouts, mem_symbols))
     if sidecar_use is not None:
         _note_declared_immediates(sidecar_use, immediate_pointers, declared,
                                   insn_by_addr, immediate_labels)
@@ -1291,6 +1320,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         host_data_offsets=host_data_offsets,
         load_offset=getattr(segments, 'load_offset', 0) or 0,
         overlay_own=overlay_own, bands=bands, data_modules=data_modules,
+        structs_inc=_structs_inc(record_layouts),
     )
     t6 = time.perf_counter()
     progress.log(f'{name} | verify: source built')
@@ -1376,6 +1406,11 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         # every binary of the host's family bind an indexed operand
         # (``symbols._resolve_indexed_symbols``).
         'ds_starts': _host_space_starts(mem_equ, segments),
+        # The record accesses this binary makes, for the family's layouts
+        # (``lib.record_layout``), and how many layouts it was rendered with.
+        'record_observations': (observe_records(insns, segment_flow)
+                                if segment_flow is not None else []),
+        'record_layouts': len(record_layouts or ()),
         # The arguments each named routine reads memory through, for the
         # overlays that call it (``lib.argpointers``).
         'pointer_params': pointer_params,
@@ -1411,6 +1446,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             # The DS names the pipeline learned, which resplice's rebuilt
             # segment model cannot.
             'data_names': dict(getattr(segments, 'data_names', None) or {}),
+            # The record layouts the operands spell (``lib.record_layout``).
+            'record_layouts': dict(record_layouts or {}),
         },
         'status': 'OK',
         'timing_func_boundaries': t1 - t0,

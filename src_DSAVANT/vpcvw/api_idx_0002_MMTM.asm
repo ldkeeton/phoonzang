@@ -7,7 +7,7 @@ api_idx_0002_MMTM:
     mov ax, 6                        ; 0x4366
     imul word [bp - 0x0002]          ; 0x4369
     mov bx, ax                       ; 0x436c
-    mov ax, word [bx + spell_table + 0x4fa] ; 0x436e
+    mov ax, word [bx + spell_table + spell_table_rec_size*212 + spell_table_rec.f_0002] ; 0x436e
     mov bx, word [bp + 0x4]          ; 0x4372
     mov cx, word [bx]                ; 0x4375
     cmp ax, cx                       ; 0x4377
@@ -15,7 +15,7 @@ api_idx_0002_MMTM:
     mov ax, 6                        ; 0x437b
     imul word [bp - 0x0002]          ; 0x437e
     mov bx, ax                       ; 0x4381
-    mov ax, word [bx + spell_table + 0x4fc] ; 0x4383
+    mov ax, word [bx + spell_table + spell_table_rec_size*212 + spell_table_rec.f_0004] ; 0x4383
     mov bx, word [bp + 0x6]          ; 0x4387
     mov cx, word [bx]                ; 0x438a
     cmp ax, cx                       ; 0x438c
@@ -24,7 +24,7 @@ api_idx_0002_MMTM:
     mov ax, 6                        ; 0x4390
     imul word [bp - 0x0002]          ; 0x4393
     mov bx, ax                       ; 0x4396
-    mov ax, word [bx + spell_table + 0x4fc] ; 0x4398
+    mov ax, word [bx + spell_table + spell_table_rec_size*212 + spell_table_rec.f_0004] ; 0x4398
     mov bx, word [bp + 0x4]          ; 0x439c
     mov cx, word [bx]                ; 0x439f
     cmp ax, cx                       ; 0x43a1
@@ -32,7 +32,7 @@ api_idx_0002_MMTM:
     mov ax, 6                        ; 0x43a5
     imul word [bp - 0x0002]          ; 0x43a8
     mov bx, ax                       ; 0x43ab
-    mov ax, word [bx + spell_table + 0x4fa] ; 0x43ad
+    mov ax, word [bx + spell_table + spell_table_rec_size*212 + spell_table_rec.f_0002] ; 0x43ad
     mov bx, word [bp + 0x6]          ; 0x43b1
     mov cx, word [bx]                ; 0x43b4
     cmp ax, cx                       ; 0x43b6
@@ -68,7 +68,7 @@ api_idx_0002_MMTM:
     mov ax, 6                        ; 0x43f9
     imul word [bp - 0x0002]          ; 0x43fc
     mov bx, ax                       ; 0x43ff
-    push word [bx + spell_table + 0x4fe] ; 0x4401
+    push word [bx + spell_table + spell_table_rec_size*213] ; 0x4401
     call api_idx_0048_RGQH           ; 0x4405
     add sp, byte 8                   ; 0x4408
     mov ax, 1                        ; 0x440b

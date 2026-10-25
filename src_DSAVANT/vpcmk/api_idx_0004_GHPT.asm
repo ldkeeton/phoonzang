@@ -5,7 +5,7 @@ api_idx_0004_GHPT:
     mov ax, 0x248                    ; 0x508d
     imul word [bp + 0x4]             ; 0x5090
     mov bx, ax                       ; 0x5093
-    mov al, byte [bx + member_state + 0x3] ; 0x5095
+    mov al, byte [bx + party_records + pc_rec.label] ; 0x5095
     sub ah, ah                       ; 0x5099
     jmp near @..api_idx_0004_GHPT.l1 ; 0x509b
 jumptable_5161_case_0:
@@ -123,7 +123,7 @@ jumptable_5161:
     mov ax, 0x248                    ; 0x518a
     imul word [bp + 0x4]             ; 0x518d
     mov bx, ax                       ; 0x5190
-    mov al, byte [bx + member_state + 0x1] ; 0x5192
+    mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x5192
     sub ah, ah                       ; 0x5196
     jmp near @..api_idx_0004_GHPT.l3 ; 0x5198
 jumptable_5339_case_0:
@@ -141,7 +141,7 @@ jumptable_5339_case_2:
     mov ax, 0x248                    ; 0x51b3
     imul word [bp + 0x4]             ; 0x51b6
     mov bx, ax                       ; 0x51b9
-    mov al, byte [bx + cell_key_grid + 0x133] ; 0x51bb
+    mov al, byte [bx + party_records + pc_rec.stat + 0x3] ; 0x51bb
     sub ah, ah                       ; 0x51bf
     mov cx, 5                        ; 0x51c1
     cwd                              ; 0x51c4
@@ -159,7 +159,7 @@ jumptable_5339_case_3:
     mov ax, 0x248                    ; 0x51db
     imul word [bp + 0x4]             ; 0x51de
     mov bx, ax                       ; 0x51e1
-    mov al, byte [bx + cell_key_grid + 0x133] ; 0x51e3
+    mov al, byte [bx + party_records + pc_rec.stat + 0x3] ; 0x51e3
     sub ah, ah                       ; 0x51e7
     mov cx, 5                        ; 0x51e9
     cwd                              ; 0x51ec
@@ -333,7 +333,7 @@ jumptable_5339:
     mov ax, 0x248                    ; 0x535c
     imul word [bp + 0x4]             ; 0x535f
     mov bx, ax                       ; 0x5362
-    cmp byte [bx + cell_key_grid + 0x133], 0xf ; 0x5364
+    cmp byte [bx + party_records + pc_rec.stat + 0x3], 0xf ; 0x5364
     jbe short @..api_idx_0004_GHPT.l5 ; 0x5369
     mov ax, 5                        ; 0x536b
     push ax                          ; 0x536e
@@ -357,7 +357,7 @@ jumptable_5339:
     mov ax, 0x248                    ; 0x5395
     imul word [bp + 0x4]             ; 0x5398
     mov bx, ax                       ; 0x539b
-    cmp byte [bx + cell_key_grid + 0x131], 0xf ; 0x539d
+    cmp byte [bx + party_records + pc_rec.stat + 0x1], 0xf ; 0x539d
     jbe short @..api_idx_0004_GHPT.l6 ; 0x53a2
     mov ax, 5                        ; 0x53a4
     push ax                          ; 0x53a7
@@ -372,7 +372,7 @@ jumptable_5339:
     mov ax, 0x248                    ; 0x53b9
     imul word [bp + 0x4]             ; 0x53bc
     mov bx, ax                       ; 0x53bf
-    cmp byte [bx + cell_key_grid + 0x135], 0xf ; 0x53c1
+    cmp byte [bx + party_records + pc_rec.stat + 0x5], 0xf ; 0x53c1
     jbe short @..api_idx_0004_GHPT.l7 ; 0x53c6
     mov ax, 5                        ; 0x53c8
     push ax                          ; 0x53cb
@@ -399,8 +399,8 @@ jumptable_5339:
     imul word [bp + 0x4]             ; 0x53fa
     add ax, word [bp - 0x0004]       ; 0x53fd
     mov bx, ax                       ; 0x5400
-    mov al, byte [bx + cell_key_grid + 0x15a] ; 0x5402
-    mov byte [bx + cell_key_grid + 0x168], al ; 0x5406
+    mov al, byte [bx + party_records + pc_rec.prev] ; 0x5402
+    mov byte [bx + party_records + pc_rec.cur], al ; 0x5406
     inc word [bp - 0x0004]           ; 0x540a
     mov ax, word [bp - 0x0004]       ; 0x540d
     cmp ax, strict word 0xe          ; 0x5410
@@ -408,7 +408,7 @@ jumptable_5339:
     mov ax, 0x248                    ; 0x5415
     imul word [bp + 0x4]             ; 0x5418
     mov bx, ax                       ; 0x541b
-    mov al, byte [bx + member_state + 0x3] ; 0x541d
+    mov al, byte [bx + party_records + pc_rec.label] ; 0x541d
     sub ah, ah                       ; 0x5421
     jmp short @..api_idx_0004_GHPT.l9 ; 0x5423
 jumptable_547c_case_0:
@@ -489,68 +489,68 @@ jumptable_547c:
     mov ax, 0x248                    ; 0x54c1
     imul word [bp + 0x4]             ; 0x54c4
     mov bx, ax                       ; 0x54c7
-    mov byte [bx + cell_key_grid + 0x176], 0xa ; 0x54c9
-    mov al, byte [bx + cell_key_grid + 0x176] ; 0x54ce
+    mov byte [bx + party_records + pc_rec.count], 0xa ; 0x54c9
+    mov al, byte [bx + party_records + pc_rec.count] ; 0x54ce
     cbw                              ; 0x54d2
     mov cx, 0                        ; 0x54d3
-    cmp byte [bx + cell_key_grid + 0x135], 0xf ; 0x54d6
+    cmp byte [bx + party_records + pc_rec.stat + 0x5], 0xf ; 0x54d6
     jbe short @..api_idx_0004_GHPT.l12 ; 0x54db
     mov cx, 1                        ; 0x54dd
 @..api_idx_0004_GHPT.l12:
     sub ax, cx                       ; 0x54e0
-    mov byte [bx + cell_key_grid + 0x176], al ; 0x54e2
+    mov byte [bx + party_records + pc_rec.count], al ; 0x54e2
     cbw                              ; 0x54e6
     mov cx, 0                        ; 0x54e7
-    cmp byte [bx + cell_key_grid + 0x135], 0x11 ; 0x54ea
+    cmp byte [bx + party_records + pc_rec.stat + 0x5], 0x11 ; 0x54ea
     jbe short @..api_idx_0004_GHPT.l13 ; 0x54ef
     mov cx, 1                        ; 0x54f1
 @..api_idx_0004_GHPT.l13:
     sub ax, cx                       ; 0x54f4
-    mov byte [bx + cell_key_grid + 0x176], al ; 0x54f6
-    mov al, byte [bx + cell_key_grid + 0x176] ; 0x54fa
+    mov byte [bx + party_records + pc_rec.count], al ; 0x54f6
+    mov al, byte [bx + party_records + pc_rec.count] ; 0x54fa
     cbw                              ; 0x54fe
     mov cx, 0                        ; 0x54ff
-    cmp byte [bx + member_state + 0x1], 5 ; 0x5502
+    cmp byte [bx + party_records + pc_rec.glyph_set], 5 ; 0x5502
     jne short @..api_idx_0004_GHPT.l14 ; 0x5507
     mov cx, 2                        ; 0x5509
 @..api_idx_0004_GHPT.l14:
     sub ax, cx                       ; 0x550c
-    mov byte [bx + cell_key_grid + 0x176], al ; 0x550e
-    cmp byte [bx + member_state + 0x3], 0xd ; 0x5512
+    mov byte [bx + party_records + pc_rec.count], al ; 0x550e
+    cmp byte [bx + party_records + pc_rec.label], 0xd ; 0x5512
     je short @..api_idx_0004_GHPT.l15 ; 0x5517
-    cmp byte [bx + member_state + 0x3], 0xc ; 0x5519
+    cmp byte [bx + party_records + pc_rec.label], 0xc ; 0x5519
     jne short @..api_idx_0004_GHPT.l17 ; 0x551e
 @..api_idx_0004_GHPT.l15:
     mov ax, 0xa                      ; 0x5520
-    cmp word [bx + pc_spell_power_cap], byte 0x14 ; 0x5523
+    cmp word [bx + party_records + pc_rec.power_cap], byte 0x14 ; 0x5523
     jg short @..api_idx_0004_GHPT.l16 ; 0x5528
-    mov ax, word [bx + pc_spell_power_cap] ; 0x552a
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x552a
     mov cx, 2                        ; 0x552e
     cwd                              ; 0x5531
     idiv cx                          ; 0x5532
 @..api_idx_0004_GHPT.l16:
     mov word [bp - 0x0002], ax       ; 0x5534
-    mov al, byte [bx + cell_key_grid + 0x149] ; 0x5537
+    mov al, byte [bx + party_records + pc_rec.flag + 0x11] ; 0x5537
     sub ah, ah                       ; 0x553b
     mov cx, 0xa                      ; 0x553d
     cwd                              ; 0x5540
     idiv cx                          ; 0x5541
     add word [bp - 0x0002], ax       ; 0x5543
-    mov al, byte [bx + cell_key_grid + 0x176] ; 0x5546
+    mov al, byte [bx + party_records + pc_rec.count] ; 0x5546
     cbw                              ; 0x554a
     sub ax, word [bp - 0x0002]       ; 0x554b
-    mov byte [bx + cell_key_grid + 0x176], al ; 0x554e
+    mov byte [bx + party_records + pc_rec.count], al ; 0x554e
 @..api_idx_0004_GHPT.l17:
-    mov byte [bx + cell_key_grid + 0x177], 0 ; 0x5552
-    mov byte [bx + cell_key_grid + 0x178], 0 ; 0x5557
+    mov byte [bx + party_records + pc_rec.count + 0x1], 0 ; 0x5552
+    mov byte [bx + party_records + pc_rec.count + 0x2], 0 ; 0x5557
     mov word [bp - 0x0002], 3        ; 0x555c
 @..api_idx_0004_GHPT.l18:
     mov ax, 0x248                    ; 0x5561
     imul word [bp + 0x4]             ; 0x5564
     mov bx, ax                       ; 0x5567
-    mov al, byte [bx + cell_key_grid + 0x176] ; 0x5569
+    mov al, byte [bx + party_records + pc_rec.count] ; 0x5569
     add bx, word [bp - 0x0002]       ; 0x556d
-    mov byte [bx + cell_key_grid + 0x176], al ; 0x5570
+    mov byte [bx + party_records + pc_rec.count], al ; 0x5570
     inc word [bp - 0x0002]           ; 0x5574
     mov ax, word [bp - 0x0002]       ; 0x5577
     cmp ax, strict word 8            ; 0x557a

@@ -60,7 +60,7 @@ check_cell_objects:
     add sp, byte 8                   ; 0x8cd4
     mov bx, word [maze_tables]       ; 0x8cd7
     mov si, word [party_map_piece]   ; 0x8cdb
-    mov al, byte [bx + si + spell_table + 0x520] ; 0x8cdf
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x8cdf
     sub ah, ah                       ; 0x8ce3
     mov word [bp - 0x0004], ax       ; 0x8ce5
 @..check_cell_objects.l5:
@@ -111,7 +111,7 @@ check_cell_objects:
     mov si, word [bp - 0x0004]       ; 0x8d58
     cmp byte [bx + si + 0x5a0], 0x19 ; 0x8d5b
     jne short @..check_cell_objects.l9 ; 0x8d60
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x8d62
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x8d62
     sub ah, ah                       ; 0x8d66
     mov word [found_object_owner], ax ; 0x8d68
     cmp ax, word [party_tag]         ; 0x8d6b

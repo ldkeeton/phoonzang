@@ -21,7 +21,7 @@ api_idx_0004_VLIO:
     pop ax                           ; 0x239d
     add ax, cx                       ; 0x239e
     mov bx, ax                       ; 0x23a0
-    mov ax, word [bx + cell_key_grid] ; 0x23a2
+    mov ax, word [bx + party_records + pc_rec.cell] ; 0x23a2
     cmp ax, word [bp + 0x6]          ; 0x23a6
     jne short @..api_idx_0004_VLIO.l3 ; 0x23a9
     mov ax, word [bp - 0x0004]       ; 0x23ab

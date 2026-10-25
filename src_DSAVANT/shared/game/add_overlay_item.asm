@@ -49,13 +49,13 @@ add_overlay_item:
     shl cx, 1
     mov bx, cx
     mov bx, word [bx + overlay_list + 0x2]
-    mov byte [bx + 0x14], al
+    mov byte [bx + overlay_list_rec.f_0014], al
     mov al, byte [bp + 0x6]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
     mov bx, word [bx + overlay_list + 0x2]
-    mov byte [bx + 0x15], al
+    mov byte [bx + overlay_list_rec.f_0015], al
     mov ax, word [bp + 0x8]
     mov cx, word [bp - 0x0002]
     shl cx, 1
@@ -67,31 +67,31 @@ add_overlay_item:
     shl cx, 1
     mov bx, cx
     mov bx, word [bx + overlay_list + 0x2]
-    mov word [bx + 0x2], ax
+    mov word [bx + overlay_list_rec.f_0002], ax
     mov ax, word [bp + 0xc]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
     mov bx, word [bx + overlay_list + 0x2]
-    mov word [bx + 0x4], ax
+    mov word [bx + overlay_list_rec.f_0004], ax
     mov ax, word [bp + 0xe]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
     mov bx, word [bx + overlay_list + 0x2]
-    mov word [bx + 0x6], ax
+    mov word [bx + overlay_list_rec.f_0006], ax
     mov al, byte [bp + 0x10]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
     mov bx, word [bx + overlay_list + 0x2]
-    mov byte [bx + 0x16], al
+    mov byte [bx + overlay_list_rec.f_0016], al
     mov al, byte [bp + 0x12]
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
     mov bx, word [bx + overlay_list + 0x2]
-    mov byte [bx + 0x17], al
+    mov byte [bx + overlay_list_rec.f_0017], al
     push word [bp + 0x14]
     mov ax, word [bp - 0x0002]
     shl ax, 1

@@ -58,7 +58,7 @@ api_idx_0004_IHLT:
     shl ax, 1                        ; 0x6f1e
     mov si, ax                       ; 0x6f20
     mov bx, word [maze_tables]       ; 0x6f22
-    push word [bx + si + 0x3c0]      ; 0x6f26
+    push word [bx + si + maze_tables_rec.f_03c0] ; 0x6f26
     mov ax, 0                        ; 0x6f2a
     push ax                          ; 0x6f2d
     push ax                          ; 0x6f2e

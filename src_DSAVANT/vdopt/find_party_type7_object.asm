@@ -4,7 +4,7 @@ find_party_type7_object:
     call aztec_csav                  ; 0x065e
     mov bx, word [maze_tables]       ; 0x0661
     mov si, word [party_map_piece]   ; 0x0665
-    mov al, byte [bx + si + spell_table + 0x520] ; 0x0669
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x0669
     sub ah, ah                       ; 0x066d
     mov word [bp - 0x0002], ax       ; 0x066f
 @..find_party_type7_object.l1:
@@ -41,7 +41,7 @@ find_party_type7_object:
     shl ax, 1                        ; 0x06c4
     mov si, ax                       ; 0x06c6
     mov bx, word [maze_tables]       ; 0x06c8
-    push word [bx + si + 0x3c0]      ; 0x06cc
+    push word [bx + si + maze_tables_rec.f_03c0] ; 0x06cc
     call get_bits                    ; 0x06d0
     add sp, byte 6                   ; 0x06d3
     cmp ax, strict word 2            ; 0x06d6

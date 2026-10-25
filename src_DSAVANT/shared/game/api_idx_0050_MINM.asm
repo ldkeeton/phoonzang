@@ -832,7 +832,7 @@ api_idx_0050_MINM.jumptable_case3:
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + spell_table + 0x2]
+    mov al, byte [bx + spell_table + spell_table_rec.f_0002]
     sub ah, ah
     mov cx, word [bp - 0x003e]
     inc cx
@@ -846,7 +846,7 @@ api_idx_0050_MINM.jumptable_case3:
     shl dx, 1
     add ax, dx
     mov bx, ax
-    mov cx, word [bx + pc_spell_power_cap + 0x4]
+    mov cx, word [bx + party_records + pc_rec.realm_points]
     pop ax
     cmp ax, cx
     jg short @..api_idx_0050_MINM.l25
@@ -965,12 +965,12 @@ api_idx_0050_MINM.jumptable_case4:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + pc_spell_power_cap]
+    mov ax, word [bx + party_records + pc_rec.power_cap]
     push ax
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + spell_table + 0x1]
+    mov al, byte [bx + spell_table + spell_table_rec.f_0001]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -982,7 +982,7 @@ api_idx_0050_MINM.jumptable_case4:
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + spell_table + 0x2]
+    mov al, byte [bx + spell_table + spell_table_rec.f_0002]
     sub ah, ah
     mov cx, word [bp - 0x0040]
     inc cx
@@ -1000,7 +1000,7 @@ api_idx_0050_MINM.jumptable_case4:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx + pc_spell_power_cap + 0x4]
+    mov ax, word [bx + party_records + pc_rec.realm_points]
     cmp ax, word [bp - 0x0002]
     jge short @..api_idx_0050_MINM.l32
     jmp short @..api_idx_0050_MINM.l33
@@ -1011,7 +1011,7 @@ api_idx_0050_MINM.jumptable_case4:
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + spell_table + 0x2]
+    mov al, byte [bx + spell_table + spell_table_rec.f_0002]
     sub ah, ah
     mov cx, word [bp - 0x003e]
     inc cx
@@ -1234,12 +1234,12 @@ api_idx_0050_MINM.jumptable_case4:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + pc_spell_power_cap]
+    mov ax, word [bx + party_records + pc_rec.power_cap]
     push ax
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + spell_table + 0x1]
+    mov al, byte [bx + spell_table + spell_table_rec.f_0001]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -1251,7 +1251,7 @@ api_idx_0050_MINM.jumptable_case4:
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + spell_table + 0x2]
+    mov al, byte [bx + spell_table + spell_table_rec.f_0002]
     sub ah, ah
     mov cx, word [bp - 0x0040]
     inc cx
@@ -1269,7 +1269,7 @@ api_idx_0050_MINM.jumptable_case4:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx + pc_spell_power_cap + 0x4]
+    mov ax, word [bx + party_records + pc_rec.realm_points]
     cmp ax, word [bp - 0x0002]
     jge short @..api_idx_0050_MINM.l45
     jmp short @..api_idx_0050_MINM.l46
@@ -1280,7 +1280,7 @@ api_idx_0050_MINM.jumptable_case4:
     mov ax, 6
     imul word [bp - 0x003c]
     mov bx, ax
-    mov al, byte [bx + spell_table + 0x2]
+    mov al, byte [bx + spell_table + spell_table_rec.f_0002]
     sub ah, ah
     mov cx, word [bp - 0x003e]
     inc cx

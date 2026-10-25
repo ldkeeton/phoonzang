@@ -692,7 +692,7 @@ load_game_data:
     mov word [bp - 0x0008], ax       ; 0x3674
     mov ax, 0x344                    ; 0x3677
     push ax                          ; 0x367a
-    mov ax, bss_84e8                 ; 0x367b
+    mov ax, slot_records             ; 0x367b
     push ax                          ; 0x367e
     push word [bp - 0x000a]          ; 0x367f
     call aztec_read                  ; 0x3682
@@ -817,7 +817,7 @@ load_game_data:
     mov cx, word [party_char_count]  ; 0x379b
     shl cx, 1                        ; 0x379f
     mov bx, cx                       ; 0x37a1
-    mov word [bx + member_state + 0xb92], ax ; 0x37a3
+    mov word [bx + member_icon], ax  ; 0x37a3
     mov si, bss_9a4c                 ; 0x37a7
     mov ax, 0x248                    ; 0x37aa
     imul word [party_char_count]     ; 0x37ad
@@ -880,11 +880,11 @@ load_game_data:
     mov ax, word [bp - 0x0002]       ; 0x3836
     shl ax, 1                        ; 0x3839
     mov bx, ax                       ; 0x383b
-    push word [bx + member_state + 0xb92] ; 0x383d
+    push word [bx + member_icon]     ; 0x383d
     mov ax, 0x248                    ; 0x3841
     imul word [bp - 0x0002]          ; 0x3844
     mov bx, ax                       ; 0x3847
-    mov al, byte [bx + member_state] ; 0x3849
+    mov al, byte [bx + party_records + pc_rec.kind] ; 0x3849
     sub ah, ah                       ; 0x384d
     push ax                          ; 0x384f
     call api_idx_0016_KOOO           ; 0x3850

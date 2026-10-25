@@ -15,7 +15,7 @@ api_idx_0004_GRGJ:
     add ax, word [bp - 0x0004]
     add ax, si
     mov bx, ax
-    cmp byte [bx + cell_key_grid + 0x138], 0
+    cmp byte [bx + party_records + pc_rec.flag], 0
     jbe short @..api_idx_0004_GRGJ.l3
 @..api_idx_0004_GRGJ.l2:
     mov ax, 1
@@ -45,7 +45,7 @@ api_idx_0004_GRGJ:
     add ax, word [bp - 0x0004]
     add ax, si
     mov bx, ax
-    cmp byte [bx + cell_key_grid + 0x138], 0
+    cmp byte [bx + party_records + pc_rec.flag], 0
     jbe short @..api_idx_0004_GRGJ.l7
 @..api_idx_0004_GRGJ.l6:
     mov ax, 1
@@ -75,7 +75,7 @@ api_idx_0004_GRGJ:
     add ax, word [bp - 0x0004]
     add ax, si
     mov bx, ax
-    cmp byte [bx + cell_key_grid + 0x138], 0
+    cmp byte [bx + party_records + pc_rec.flag], 0
     jbe short @..api_idx_0004_GRGJ.l11
 @..api_idx_0004_GRGJ.l10:
     mov ax, 1
@@ -105,7 +105,7 @@ api_idx_0004_GRGJ:
     add ax, word [bp - 0x0004]
     add ax, si
     mov bx, ax
-    cmp byte [bx + cell_key_grid + 0x138], 0
+    cmp byte [bx + party_records + pc_rec.flag], 0
     jbe short @..api_idx_0004_GRGJ.l15
 @..api_idx_0004_GRGJ.l14:
     mov ax, 1

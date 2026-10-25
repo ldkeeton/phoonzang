@@ -178,7 +178,7 @@ jumptable_78e5_case_5:
     shl ax, 1                        ; 0x75c6
     mov bx, ax                       ; 0x75c8
     mov bx, word [bx + party_char_ext] ; 0x75ca
-    mov al, byte [bx + 0xa5]         ; 0x75ce
+    mov al, byte [bx + member_ext.f_00a5] ; 0x75ce
     sub ah, ah                       ; 0x75d2
     mov cx, ax                       ; 0x75d4
     pop ax                           ; 0x75d6
@@ -231,7 +231,7 @@ jumptable_78e5_case_5:
     shl ax, 1                        ; 0x763d
     mov bx, ax                       ; 0x763f
     mov bx, word [bx + party_char_ext] ; 0x7641
-    mov al, byte [bx + 0xa5]         ; 0x7645
+    mov al, byte [bx + member_ext.f_00a5] ; 0x7645
     sub ah, ah                       ; 0x7649
     mov cx, ax                       ; 0x764b
     pop ax                           ; 0x764d
@@ -269,7 +269,7 @@ jumptable_78e5_case_5:
     mov bx, ax                       ; 0x7692
     mov bx, word [bx + party_char]   ; 0x7694
     pop ax                           ; 0x7698
-    sub word [bx + si + 0x4], ax     ; 0x7699
+    sub word [bx + si + member_rec.item_charge_cap], ax ; 0x7699
     mov ax, word [bp - 0x0008]       ; 0x769c
     push ax                          ; 0x769f
     mov ax, 0x2c                     ; 0x76a0
@@ -280,7 +280,7 @@ jumptable_78e5_case_5:
     mov bx, ax                       ; 0x76ad
     mov bx, word [bx + party_char]   ; 0x76af
     pop ax                           ; 0x76b3
-    sub word [bx + si + 0x2], ax     ; 0x76b4
+    sub word [bx + si + member_rec.item_charges], ax ; 0x76b4
     mov ax, 0x2c                     ; 0x76b7
     imul word [bp + 0xa]             ; 0x76ba
     mov si, ax                       ; 0x76bd
@@ -288,7 +288,7 @@ jumptable_78e5_case_5:
     shl ax, 1                        ; 0x76c2
     mov bx, ax                       ; 0x76c4
     mov bx, word [bx + party_char]   ; 0x76c6
-    cmp word [bx + si + 0x4], byte 1 ; 0x76ca
+    cmp word [bx + si + member_rec.item_charge_cap], byte 1 ; 0x76ca
     jge short @..api_idx_000a_VQTM.l8 ; 0x76ce
     mov word [bx + si + 0x4], 1      ; 0x76d0
 @..api_idx_000a_VQTM.l8:
@@ -301,24 +301,24 @@ jumptable_78e5_case_5:
     shl ax, 1                        ; 0x76e6
     mov bx, ax                       ; 0x76e8
     mov bx, word [bx + party_char]   ; 0x76ea
-    mov ax, word [bx + si + 0x2]     ; 0x76ee
+    mov ax, word [bx + si + member_rec.item_charges] ; 0x76ee
     push ax                          ; 0x76f1
     mov ax, 0x248                    ; 0x76f2
     imul word [bp + 0xa]             ; 0x76f5
     mov bx, ax                       ; 0x76f8
     pop ax                           ; 0x76fa
-    mov word [bx + member_pair_points + 0x2], ax ; 0x76fb
+    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x76fb
     mov ax, word [bp + 0x8]          ; 0x76ff
     shl ax, 1                        ; 0x7702
     mov bx, ax                       ; 0x7704
     mov bx, word [bx + party_char]   ; 0x7706
-    mov ax, word [bx + si + 0x4]     ; 0x770a
+    mov ax, word [bx + si + member_rec.item_charge_cap] ; 0x770a
     push ax                          ; 0x770d
     mov ax, 0x248                    ; 0x770e
     imul word [bp + 0xa]             ; 0x7711
     mov bx, ax                       ; 0x7714
     pop ax                           ; 0x7716
-    mov word [bx + member_pair_points + 0x4], ax ; 0x7717
+    mov word [bx + party_records + pc_rec.pair_a + 0x2], ax ; 0x7717
 @..api_idx_000a_VQTM.l9:
     mov word [bp - 0x000a], 0xea8    ; 0x771b
 @..api_idx_000a_VQTM.l10:
@@ -397,7 +397,7 @@ jumptable_78e5_case_5:
     mov ax, 0x248                    ; 0x77c1
     imul word [bp + 0xa]             ; 0x77c4
     mov bx, ax                       ; 0x77c7
-    mov al, byte [bx + member_state + 0x2] ; 0x77c9
+    mov al, byte [bx + party_records + pc_rec.sound] ; 0x77c9
     sub ah, ah                       ; 0x77cd
     add ax, strict word 8            ; 0x77cf
     push ax                          ; 0x77d2
@@ -419,7 +419,7 @@ jumptable_78e5_case_5:
     shl ax, 1                        ; 0x77f7
     mov bx, ax                       ; 0x77f9
     mov bx, word [bx + party_char]   ; 0x77fb
-    cmp word [bx + si + 0x2], byte 0 ; 0x77ff
+    cmp word [bx + si + member_rec.item_charges], byte 0 ; 0x77ff
     jg short @..api_idx_000a_VQTM.l18 ; 0x7803
     mov ax, 0                        ; 0x7805
     push ax                          ; 0x7808
@@ -455,7 +455,7 @@ jumptable_78e5_case_6:
     mov bx, ax                       ; 0x7848
     mov bx, word [bx + party_char_ext] ; 0x784a
     mov si, word [bp - 0x000a]       ; 0x784e
-    mov al, byte [bx + si + 0x9a]    ; 0x7851
+    mov al, byte [bx + si + member_ext.f_009a] ; 0x7851
     sub ah, ah                       ; 0x7855
     mov cx, ax                       ; 0x7857
     sub ax, word [bp - 0x0004]       ; 0x7859

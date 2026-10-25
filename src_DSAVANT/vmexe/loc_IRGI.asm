@@ -51,19 +51,19 @@ loc_IRGI:
     mov ax, word [bp + 0x6]          ; 0x9e0b
     shl ax, 1                        ; 0x9e0e
     mov bx, ax                       ; 0x9e10
-    mov ax, word [bx + member_state + 0xb92] ; 0x9e12
+    mov ax, word [bx + member_icon]  ; 0x9e12
     mov word [bp - 0x0276], ax       ; 0x9e16
     mov bx, cx                       ; 0x9e1a
-    mov ax, word [bx + member_state + 0xb92] ; 0x9e1c
+    mov ax, word [bx + member_icon]  ; 0x9e1c
     mov cx, word [bp + 0x6]          ; 0x9e20
     shl cx, 1                        ; 0x9e23
     mov bx, cx                       ; 0x9e25
-    mov word [bx + member_state + 0xb92], ax ; 0x9e27
+    mov word [bx + member_icon], ax  ; 0x9e27
     mov ax, word [bp - 0x0276]       ; 0x9e2b
     mov cx, word [bp + 0x4]          ; 0x9e2f
     shl cx, 1                        ; 0x9e32
     mov bx, cx                       ; 0x9e34
-    mov word [bx + member_state + 0xb92], ax ; 0x9e36
+    mov word [bx + member_icon], ax  ; 0x9e36
     mov ax, 0                        ; 0x9e3a
     push ax                          ; 0x9e3d
     push word [bp + 0x4]             ; 0x9e3e

@@ -809,7 +809,7 @@ def _foreign_pointer_params(project, host):
 
 
 def _render(a, exact_bytes, show_offsets, host_data_offsets,
-            ds_starts=frozenset(), final=True):
+            ds_starts=frozenset(), final=True, record_layouts=None):
     """Render an analysed binary to assembly text; still writes no sources.
 
     The host's DS declarations depend on ``host_data_offsets``, which exist only
@@ -860,6 +860,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         driver_pointer_args=getattr(ctx, 'driver_pointer_args', {}),
         host_data_offsets=host_data_offsets,
         ds_starts=ds_starts,
+        record_layouts=record_layouts,
         foreign_pointer_params=_foreign_pointer_params(project, a.foreign_prefix),
         sidecar_use=(ctx.sidecar_entry or {}).get('use'),
         bands=(ctx.sidecar_entry or {}).get('bands') or (),
@@ -890,6 +891,10 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
     if project:
         from lib.link import write_ds_starts_export
         write_ds_starts_export(project, name, stats.get('ds_starts', ()))
+        # The record accesses it makes, which the build unites the same way
+        # into one layout per object (``lib.record_layout``).
+        from lib.record_layout import write_observations
+        write_observations(project, name, stats.get('record_observations', []))
     # Hard gate: a decoded instruction that could not be re-encoded is emitted
     # as ``db 0x.. ; <disassembly>``.  In the default semantic mode every
     # instruction must encode (exactly or semantically); these fallbacks are
@@ -1104,7 +1109,7 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False,
              show_offsets=True, output_dir=None, project=None,
              sidecar_entry=None, foreign_label_map=None, export_labels=False,
              host_model=None, foreign_prefix=None, host_data_offsets=None,
-             emit=True, ds_starts=frozenset()):
+             emit=True, ds_starts=frozenset(), record_layouts=None):
     """Generate one binary: analyse, render, export its labels, then emit.
 
     ``emit=False`` is the labels phase: the same analysis and render (so the
@@ -1125,7 +1130,7 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False,
         return a.ctx.bitmap, a.label_map
     try:
         files = step(a, exact_bytes, show_offsets, host_data_offsets,
-                     ds_starts, emit)
+                     ds_starts, emit, record_layouts)
     finally:
         finish(a)
     if files:
@@ -1142,7 +1147,8 @@ def analyze(name, *args, export_labels=False, **kwargs):
     return a
 
 
-def step(a, exact_bytes, show_offsets, host_data_offsets, ds_starts, emit):
+def step(a, exact_bytes, show_offsets, host_data_offsets, ds_starts, emit,
+         record_layouts=None):
     """One build step of an analysed binary: render, export, maybe emit.
 
     The build runs a binary's steps against one analysis (its labels-only
@@ -1153,7 +1159,7 @@ def step(a, exact_bytes, show_offsets, host_data_offsets, ds_starts, emit):
     set_generic_prefix(a.generic_prefix)
     progress.log(f'{a.name} | render')
     r = _render(a, exact_bytes, show_offsets, host_data_offsets, ds_starts,
-                final=emit)
+                final=emit, record_layouts=record_layouts)
     progress.log(f'{a.name} | render done')
     _export_labels(a)
     if not emit:

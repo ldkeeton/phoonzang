@@ -93,7 +93,7 @@ api_idx_0068_OUGS:
     pop ax                           ; 0x5289
     add ax, cx                       ; 0x528a
     mov bx, ax                       ; 0x528c
-    push word [bx + cell_key_grid]   ; 0x528e
+    push word [bx + party_records + pc_rec.cell] ; 0x528e
     lea ax, word [bp - 0x004a]       ; 0x5292
     push ax                          ; 0x5295
     mov ax, 1                        ; 0x5296
@@ -111,7 +111,7 @@ api_idx_0068_OUGS:
     mov ax, 6                        ; 0x52b5
     imul dx                          ; 0x52b8
     mov bx, ax                       ; 0x52ba
-    cmp byte [bx + spell_table + 0x4], 1 ; 0x52bc
+    cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x52bc
     jne short @..api_idx_0068_OUGS.l5 ; 0x52c1
     call pick_party_member           ; 0x52c3
     mov word [bss_9650], ax          ; 0x52c6
@@ -178,7 +178,7 @@ api_idx_0068_OUGS:
     pop ax                           ; 0x535a
     add ax, cx                       ; 0x535b
     mov bx, ax                       ; 0x535d
-    push word [bx + cell_key_grid]   ; 0x535f
+    push word [bx + party_records + pc_rec.cell] ; 0x535f
     mov ax, 9                        ; 0x5363
     push ax                          ; 0x5366
     push word [bp + 0x4]             ; 0x5367

@@ -23,7 +23,7 @@ api_idx_0072_IPMP:
     pop ax                           ; 0x4a76
     add ax, cx                       ; 0x4a77
     mov bx, ax                       ; 0x4a79
-    cmp word [bx + cell_key_grid], byte 0 ; 0x4a7b
+    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x4a7b
     jle short @..api_idx_0072_IPMP.l3 ; 0x4a80
     inc word [bp - 0x000e]           ; 0x4a82
     mov ax, word [bp - 0x000e]       ; 0x4a85
@@ -118,14 +118,14 @@ api_idx_0072_IPMP:
     mov ax, 0x248                    ; 0x4b54
     imul word [bp + 0x4]             ; 0x4b57
     mov bx, ax                       ; 0x4b5a
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x4b5c
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x4b5c
     sub ah, ah                       ; 0x4b60
     cmp ax, 0xff                     ; 0x4b62
     je short @..api_idx_0072_IPMP.l9 ; 0x4b65
     mov cx, 0xc                      ; 0x4b67
     imul cx                          ; 0x4b6a
     add bx, ax                       ; 0x4b6c
-    mov al, byte [bx + cell_key_grid + 0x7] ; 0x4b6e
+    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4b6e
     sub ah, ah                       ; 0x4b72
     test ax, 8                       ; 0x4b74
     je short @..api_idx_0072_IPMP.l9 ; 0x4b77
@@ -194,7 +194,7 @@ api_idx_0072_IPMP:
     mov ax, 0x248                    ; 0x4c09
     imul word [bp + 0x4]             ; 0x4c0c
     mov bx, ax                       ; 0x4c0f
-    mov al, byte [bx + cell_key_grid + 0x115] ; 0x4c11
+    mov al, byte [bx + party_records + pc_rec.order + 0x1] ; 0x4c11
     sub ah, ah                       ; 0x4c15
     mov word [bp - 0x000a], ax       ; 0x4c17
     cmp ax, 0xff                     ; 0x4c1a
@@ -211,7 +211,7 @@ api_idx_0072_IPMP:
     mov ax, 0x248                    ; 0x4c31
     imul word [bp + 0x4]             ; 0x4c34
     mov bx, ax                       ; 0x4c37
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x4c39
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x4c39
     sub ah, ah                       ; 0x4c3d
     mov word [bp - 0x000a], ax       ; 0x4c3f
     cmp ax, 0xff                     ; 0x4c42
@@ -219,7 +219,7 @@ api_idx_0072_IPMP:
     mov cx, 0xc                      ; 0x4c47
     imul cx                          ; 0x4c4a
     add bx, ax                       ; 0x4c4c
-    mov al, byte [bx + cell_key_grid + 0x7] ; 0x4c4e
+    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4c4e
     sub ah, ah                       ; 0x4c52
     test ax, 8                       ; 0x4c54
     je short @..api_idx_0072_IPMP.l13 ; 0x4c57
@@ -232,7 +232,7 @@ api_idx_0072_IPMP:
     imul word [bp + 0x4]             ; 0x4c68
     add ax, word [bp - 0x0006]       ; 0x4c6b
     mov bx, ax                       ; 0x4c6e
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x4c70
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x4c70
     sub ah, ah                       ; 0x4c74
     mov word [bp - 0x000a], ax       ; 0x4c76
     cmp ax, 0xff                     ; 0x4c79
@@ -247,7 +247,7 @@ api_idx_0072_IPMP:
     mov ax, 0x248                    ; 0x4c8e
     imul word [bp + 0x4]             ; 0x4c91
     mov si, ax                       ; 0x4c94
-    add ax, cell_key_grid + 0x6c     ; 0x4c96
+    add ax, party_records + pc_rec.cell + 0x6c ; 0x4c96
     mov si, ax                       ; 0x4c99
     mov ax, 0x248                    ; 0x4c9b
     imul word [bp + 0x4]             ; 0x4c9e
@@ -312,7 +312,7 @@ api_idx_0072_IPMP:
     pop ax                           ; 0x4d25
     add ax, cx                       ; 0x4d26
     mov bx, ax                       ; 0x4d28
-    or byte [bx + cell_key_grid + 0x7], 1 ; 0x4d2a
+    or byte [bx + party_records + pc_rec.cell + 0x7], 1 ; 0x4d2a
     mov al, byte [bp - 0x000e]       ; 0x4d2f
     push ax                          ; 0x4d32
     mov ax, 0x248                    ; 0x4d33
@@ -321,7 +321,7 @@ api_idx_0072_IPMP:
     add ax, word [bp - 0x0006]       ; 0x4d3b
     mov bx, ax                       ; 0x4d3e
     pop ax                           ; 0x4d40
-    mov byte [bx + cell_key_grid + 0x114], al ; 0x4d41
+    mov byte [bx + party_records + pc_rec.order], al ; 0x4d41
     cmp byte [bp - 0x0029], 0        ; 0x4d45
     jbe short @..api_idx_0072_IPMP.l16 ; 0x4d49
     mov ax, 0x78                     ; 0x4d4b
@@ -335,7 +335,7 @@ api_idx_0072_IPMP:
     pop ax                           ; 0x4d5e
     add ax, cx                       ; 0x4d5f
     mov bx, ax                       ; 0x4d61
-    or byte [bx + cell_key_grid + 0x7], 2 ; 0x4d63
+    or byte [bx + party_records + pc_rec.cell + 0x7], 2 ; 0x4d63
     call api_idx_0056_KPMS           ; 0x4d68
 @..api_idx_0072_IPMP.l16:
     mov word [bp - 0x0002], 0        ; 0x4d6b
@@ -349,7 +349,7 @@ api_idx_0072_IPMP:
     imul word [bp + 0x4]             ; 0x4d81
     add ax, word [bp - 0x0002]       ; 0x4d84
     mov bx, ax                       ; 0x4d87
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x4d89
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x4d89
     sub ah, ah                       ; 0x4d8d
     mov word [bp - 0x000e], ax       ; 0x4d8f
     cmp ax, 0xff                     ; 0x4d92
@@ -391,7 +391,7 @@ api_idx_0072_IPMP:
     imul word [bp + 0x4]             ; 0x4de3
     add ax, cx                       ; 0x4de6
     mov di, ax                       ; 0x4de8
-    add ax, cell_key_grid            ; 0x4dea
+    add ax, party_records + pc_rec.cell ; 0x4dea
     mov di, ax                       ; 0x4ded
     mov cx, ds                       ; 0x4def
     mov es, cx                       ; 0x4df1
@@ -403,14 +403,14 @@ api_idx_0072_IPMP:
     imul word [bp + 0x4]             ; 0x4e00
     add ax, word [bp - 0x0004]       ; 0x4e03
     mov bx, ax                       ; 0x4e06
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x4e08
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x4e08
     sub ah, ah                       ; 0x4e0c
     mov cx, word [bp - 0x000e]       ; 0x4e0e
     dec cx                           ; 0x4e11
     cmp ax, cx                       ; 0x4e12
     jne short @..api_idx_0072_IPMP.l22 ; 0x4e14
     mov al, byte [bp - 0x000e]       ; 0x4e16
-    mov byte [bx + cell_key_grid + 0x114], al ; 0x4e19
+    mov byte [bx + party_records + pc_rec.order], al ; 0x4e19
 @..api_idx_0072_IPMP.l22:
     inc word [bp - 0x0004]           ; 0x4e1d
     mov ax, word [bp - 0x0004]       ; 0x4e20
@@ -443,7 +443,7 @@ api_idx_0072_IPMP:
     add ax, word [bp - 0x0002]       ; 0x4e5e
     mov bx, ax                       ; 0x4e61
     pop ax                           ; 0x4e63
-    mov byte [bx + cell_key_grid + 0x114], al ; 0x4e64
+    mov byte [bx + party_records + pc_rec.order], al ; 0x4e64
     mov ax, word [bp - 0x0006]       ; 0x4e68
     cmp ax, word [bp - 0x0002]       ; 0x4e6b
     jne short @..api_idx_0072_IPMP.l24 ; 0x4e6e
@@ -467,7 +467,7 @@ api_idx_0072_IPMP:
     imul word [bp + 0x4]             ; 0x4e94
     mov bx, ax                       ; 0x4e97
     pop ax                           ; 0x4e99
-    sub byte [bx + cell_key_grid + 0x177], al ; 0x4e9a
+    sub byte [bx + party_records + pc_rec.count + 0x1], al ; 0x4e9a
     lea ax, word [bp - 0x0066]       ; 0x4e9e
     push ax                          ; 0x4ea1
     push word [bp - 0x0006]          ; 0x4ea2
@@ -484,7 +484,7 @@ api_idx_0072_IPMP:
     add ax, word [bp - 0x0006]       ; 0x4ebc
     mov bx, ax                       ; 0x4ebf
     pop ax                           ; 0x4ec1
-    sub byte [bx + cell_key_grid + 0x176], al ; 0x4ec2
+    sub byte [bx + party_records + pc_rec.count], al ; 0x4ec2
 @..api_idx_0072_IPMP.l29:
     mov word [bp - 0x0002], 0        ; 0x4ec6
 @..api_idx_0072_IPMP.l30:
@@ -492,8 +492,8 @@ api_idx_0072_IPMP:
     imul word [bp + 0x4]             ; 0x4ece
     add ax, word [bp - 0x0002]       ; 0x4ed1
     mov bx, ax                       ; 0x4ed4
-    mov al, byte [bx + cell_key_grid + 0x15a] ; 0x4ed6
-    mov byte [bx + cell_key_grid + 0x168], al ; 0x4eda
+    mov al, byte [bx + party_records + pc_rec.prev] ; 0x4ed6
+    mov byte [bx + party_records + pc_rec.cur], al ; 0x4eda
     inc word [bp - 0x0002]           ; 0x4ede
     mov ax, word [bp - 0x0002]       ; 0x4ee1
     cmp ax, strict word 0xe          ; 0x4ee4
@@ -504,7 +504,7 @@ api_idx_0072_IPMP:
     imul word [bp + 0x4]             ; 0x4ef1
     add ax, word [bp - 0x0002]       ; 0x4ef4
     mov bx, ax                       ; 0x4ef7
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x4ef9
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x4ef9
     sub ah, ah                       ; 0x4efd
     cmp ax, 0xff                     ; 0x4eff
     jne short @..api_idx_0072_IPMP.l32 ; 0x4f02
@@ -517,7 +517,7 @@ api_idx_0072_IPMP:
     push ax                          ; 0x4f12
     add ax, word [bp - 0x0002]       ; 0x4f13
     mov bx, ax                       ; 0x4f16
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x4f18
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x4f18
     sub ah, ah                       ; 0x4f1c
     mov cx, 0xc                      ; 0x4f1e
     imul cx                          ; 0x4f21
@@ -526,7 +526,7 @@ api_idx_0072_IPMP:
     add ax, cx                       ; 0x4f26
     add ax, word [bp - 0x0010]       ; 0x4f28
     mov bx, ax                       ; 0x4f2b
-    mov al, byte [bx + cell_key_grid + 0x8] ; 0x4f2d
+    mov al, byte [bx + party_records + pc_rec.cell + 0x8] ; 0x4f2d
     sub ah, ah                       ; 0x4f31
     mov cx, 0x10                     ; 0x4f33
     cwd                              ; 0x4f36
@@ -543,7 +543,7 @@ api_idx_0072_IPMP:
     imul word [bp + 0x4]             ; 0x4f4f
     add ax, word [bp - 0x0012]       ; 0x4f52
     mov bx, ax                       ; 0x4f55
-    mov al, byte [bx + cell_key_grid + 0x168] ; 0x4f57
+    mov al, byte [bx + party_records + pc_rec.cur] ; 0x4f57
     sub ah, ah                       ; 0x4f5b
     add ax, word [bp - 0x0014]       ; 0x4f5d
     push ax                          ; 0x4f60
@@ -556,7 +556,7 @@ api_idx_0072_IPMP:
     add ax, word [bp - 0x0012]       ; 0x4f70
     mov bx, ax                       ; 0x4f73
     pop ax                           ; 0x4f75
-    mov byte [bx + cell_key_grid + 0x168], al ; 0x4f76
+    mov byte [bx + party_records + pc_rec.cur], al ; 0x4f76
     inc word [bp - 0x0010]           ; 0x4f7a
     mov ax, word [bp - 0x0010]       ; 0x4f7d
     cmp ax, strict word 2            ; 0x4f80
@@ -566,7 +566,7 @@ api_idx_0072_IPMP:
     push ax                          ; 0x4f8b
     add ax, word [bp - 0x0002]       ; 0x4f8c
     mov bx, ax                       ; 0x4f8f
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x4f91
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x4f91
     sub ah, ah                       ; 0x4f95
     mov cx, 0xc                      ; 0x4f97
     imul cx                          ; 0x4f9a
@@ -574,7 +574,7 @@ api_idx_0072_IPMP:
     pop ax                           ; 0x4f9e
     add ax, cx                       ; 0x4f9f
     mov bx, ax                       ; 0x4fa1
-    mov al, byte [bx + cell_key_grid + 0xa] ; 0x4fa3
+    mov al, byte [bx + party_records + pc_rec.cell + 0xa] ; 0x4fa3
     sub ah, ah                       ; 0x4fa7
     mov cx, 0x10                     ; 0x4fa9
     cwd                              ; 0x4fac
@@ -584,7 +584,7 @@ api_idx_0072_IPMP:
     mov ax, 0x248                    ; 0x4fb5
     imul word [bp + 0x4]             ; 0x4fb8
     mov bx, ax                       ; 0x4fbb
-    mov al, byte [bx + member_state + 0x6] ; 0x4fbd
+    mov al, byte [bx + party_records + pc_rec.attack] ; 0x4fbd
     sub ah, ah                       ; 0x4fc1
     mov dx, word [bp - 0x0014]       ; 0x4fc3
     cmp ax, dx                       ; 0x4fc6
@@ -592,21 +592,21 @@ api_idx_0072_IPMP:
     mov ax, dx                       ; 0x4fca
     jmp short @..api_idx_0072_IPMP.l35 ; 0x4fcc
 @..api_idx_0072_IPMP.l34:
-    mov al, byte [bx + member_state + 0x6] ; 0x4fce
+    mov al, byte [bx + party_records + pc_rec.attack] ; 0x4fce
     sub ah, ah                       ; 0x4fd2
 @..api_idx_0072_IPMP.l35:
-    mov byte [bx + member_state + 0x6], al ; 0x4fd4
-    mov al, byte [bx + member_state + 0x7] ; 0x4fd8
+    mov byte [bx + party_records + pc_rec.attack], al ; 0x4fd4
+    mov al, byte [bx + party_records + pc_rec.defense] ; 0x4fd8
     sub ah, ah                       ; 0x4fdc
     cmp ax, word [bp - 0x0012]       ; 0x4fde
     jge short @..api_idx_0072_IPMP.l36 ; 0x4fe1
     mov ax, word [bp - 0x0012]       ; 0x4fe3
     jmp short @..api_idx_0072_IPMP.l37 ; 0x4fe6
 @..api_idx_0072_IPMP.l36:
-    mov al, byte [bx + member_state + 0x7] ; 0x4fe8
+    mov al, byte [bx + party_records + pc_rec.defense] ; 0x4fe8
     sub ah, ah                       ; 0x4fec
 @..api_idx_0072_IPMP.l37:
-    mov byte [bx + member_state + 0x7], al ; 0x4fee
+    mov byte [bx + party_records + pc_rec.defense], al ; 0x4fee
 @..api_idx_0072_IPMP.l38:
     inc word [bp - 0x0002]           ; 0x4ff2
     mov ax, word [bp - 0x0002]       ; 0x4ff5

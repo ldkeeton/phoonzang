@@ -125,9 +125,9 @@ save_screen_area: ; Aztec csav frame=0x000c
     mov bx, ax                       ; 0x15f4
     pop ax                           ; 0x15f6
     mov byte [bx + saved_screen_file], al ; 0x15f7
-    mov byte [bx + saved_screen_file + 0x1], 0x3a ; 0x15fb
-    mov byte [bx + saved_screen_file + 0x2], 0x5c ; 0x1600
-    mov byte [bx + saved_screen_file + 0x3], 0 ; 0x1605
+    mov byte [bx + saved_screen_file + saved_screen_file_rec.f_0001], 0x3a ; 0x15fb
+    mov byte [bx + saved_screen_file + saved_screen_file_rec.f_0002], 0x5c ; 0x1600
+    mov byte [bx + saved_screen_file + saved_screen_file_rec.f_0003], 0 ; 0x1605
 @..save_screen_area.l12:
     push word [bp + 0xc]             ; 0x160a
     mov ax, 0x14                     ; 0x160d

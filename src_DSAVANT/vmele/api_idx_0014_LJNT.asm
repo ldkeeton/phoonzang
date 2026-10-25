@@ -13,7 +13,7 @@ api_idx_0014_LJNT:
     shl ax, 1                        ; 0x1861
     mov bx, ax                       ; 0x1863
     mov bx, word [bx + party_char]   ; 0x1865
-    cmp byte [bx + 0x1a1], 0         ; 0x1869
+    cmp byte [bx + member_rec.item_count], 0 ; 0x1869
     ja short @..api_idx_0014_LJNT.l2 ; 0x186e
     jmp near @..api_idx_0014_LJNT.l12 ; 0x1870
 @..api_idx_0014_LJNT.l2:
@@ -50,7 +50,7 @@ api_idx_0014_LJNT:
     imul word [bp - 0x0012]          ; 0x18bd
     mov si, ax                       ; 0x18c0
     mov bx, word [party_char]        ; 0x18c2
-    mov al, byte [bx + si + 0x1f]    ; 0x18c6
+    mov al, byte [bx + si + member_rec.f_001f] ; 0x18c6
     sub ah, ah                       ; 0x18c9
     cmp ax, word [bp - 0x0002]       ; 0x18cb
     jne short @..api_idx_0014_LJNT.l5 ; 0x18ce
@@ -69,7 +69,7 @@ api_idx_0014_LJNT:
     shl ax, 1                        ; 0x18ec
     mov bx, ax                       ; 0x18ee
     mov bx, word [bx + party_char]   ; 0x18f0
-    mov byte [bx + 0x1a1], 0         ; 0x18f4
+    mov byte [bx + member_rec.item_count], 0 ; 0x18f4
     jmp near @..api_idx_0014_LJNT.l12 ; 0x18f9
 @..api_idx_0014_LJNT.l7:
     mov word [bp - 0x0004], 0        ; 0x18fc
@@ -82,7 +82,7 @@ api_idx_0014_LJNT:
     shl ax, 1                        ; 0x190f
     mov bx, ax                       ; 0x1911
     mov bx, word [bx + party_char]   ; 0x1913
-    mov al, byte [bx + si + 0x2a]    ; 0x1917
+    mov al, byte [bx + si + member_rec.item_cell] ; 0x1917
     cbw                              ; 0x191a
     mov word [bp - 0x0008], ax       ; 0x191b
     cmp ax, strict word 0xffff       ; 0x191e
@@ -156,7 +156,7 @@ api_idx_0014_LJNT:
     shl ax, 1                        ; 0x19ca
     mov bx, ax                       ; 0x19cc
     mov bx, word [bx + party_char]   ; 0x19ce
-    mov al, byte [bx + 0x1a1]        ; 0x19d2
+    mov al, byte [bx + member_rec.item_count] ; 0x19d2
     sub ah, ah                       ; 0x19d6
     cmp ax, word [bp - 0x0004]       ; 0x19d8
     jle short @..api_idx_0014_LJNT.l12 ; 0x19db

@@ -633,7 +633,7 @@ api_idx_0014_VORK:
     pop ax                           ; 0x6702
     add ax, cx                       ; 0x6703
     mov bx, ax                       ; 0x6705
-    cmp word [bx + saved_screen_file + 0x4], byte 0 ; 0x6707
+    cmp word [bx + saved_screen_file + saved_screen_file_rec.f_0003 + 0x1], byte 0 ; 0x6707
     jle short @..api_idx_0014_VORK.l14 ; 0x670c
     mov ax, word [bp - 0x0004]       ; 0x670e
     add ax, strict word 0xfff1       ; 0x6711

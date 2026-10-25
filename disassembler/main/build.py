@@ -246,7 +246,60 @@ def _host_partial_args(project):
     if data:
         write_ds_starts(project, data)
         args.append(f'--ds-starts={path}')
+    path = _records_path(project)
+    data = _restamp_export(path)
+    if data is not None:
+        from lib.record_layout import write_layouts
+        write_layouts(project, data)
+        args.append(f'--records={path}')
     return args
+
+
+def _records_path(project):
+    from lib.record_layout import RECORDS_NAME
+    return os.path.join(labels_dir(project), RECORDS_NAME)
+
+
+def _record_configs(project, host):
+    """``(names, configs)``: the host's data names by offset, and the
+    sidecar ``record`` of each host ``data_names`` entry that has one."""
+    names = {off: str(sym) for off, sym in read_label_json(
+        os.path.join(labels_dir(project), f'{host}_datanames.json')).items()}
+    entry = ((load_sidecar(project) or {}).get('binaries') or {}).get(host) or {}
+    configs = {int(key, 16): info['record']
+               for key, info in (entry.get('data_names') or {}).items()
+               if isinstance(info, dict) and 'record' in info}
+    return names, configs
+
+
+def _family_starts(project, host, family):
+    """The family's ``ds_starts`` union, less the field addresses inside a
+    counted sidecar record: the second pass spells those as the record's
+    fields (``lib.record_layout.absorb_symbols``)."""
+    from lib import record_layout
+    union = collect_ds_starts(labels_dir(project), family)
+    names, configs = _record_configs(project, host)
+    return set(union) - record_layout.absorbed_starts(union, configs,
+                                                      keep=names)
+
+
+def _write_record_layouts(project, host, family, starts_path, report):
+    """Unite the family's record accesses into one layout per object.
+
+    The objects are the family's ``ds_starts`` union and the host's data
+    names; the sidecar's ``record`` on a host ``data_names`` entry names a
+    layout and its fields.  Returns how many layouts were written.
+    """
+    from lib import record_layout
+    names, configs = _record_configs(project, host)
+    layouts, notes = record_layout.merge(
+        record_layout.collect(labels_dir(project), family),
+        set(read_ds_starts(starts_path)) | set(names), names, configs)
+    record_layout.write_layouts(project, layouts)
+    progress.log(f'{project} | records: {len(layouts)} layout(s)')
+    for line in notes:
+        report(f'  records: {line}')
+    return len(layouts)
 
 
 def _sync(out_dir, files, report, scopes=None):
@@ -397,18 +450,24 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
                 report(f'{project}: ds_starts pass failed: '
                        f'{", ".join(sorted(set(failed)))}')
                 return failed
-            starts = write_ds_starts(project, collect_ds_starts(
-                labels_dir(project), family))
+            starts = write_ds_starts(project, _family_starts(
+                project, host, family))
             progress.log(f'{project} | ds_starts: {len(read_ds_starts(starts))} start(s)')
             stagelog.step('project.ds_starts', 0, metrics={'starts': len(
                 read_ds_starts(starts))},
                 why='an indexed operand binds only to an object some binary of the '
                     'host family names; the union exists after every one has run')
+            layouts = _write_record_layouts(project, host, family, starts,
+                                            report)
+            stagelog.step('project.records', 0, metrics={'layouts': layouts},
+                why='a record layout is one per object across the family, so '
+                    'shared fragments spell its fields alike')
 
         def consumer_flags(n):
             flags = foreign_args(project, n, cross_refs)
             if n in family and starts:
-                flags = (flags or []) + [f'--ds-starts={starts}']
+                flags = (flags or []) + [f'--ds-starts={starts}',
+                                         f'--records={_records_path(project)}']
             return flags
 
         progress.log(f'{project} | generating consumers: {len(targets)}')
@@ -458,6 +517,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
                 flags.append(f'--host-data-offsets={offsets}')
             if starts:
                 flags.append(f'--ds-starts={starts}')
+                flags.append(f'--records={_records_path(project)}')
             failed = _generate(run_batch, [(host, flags)], emitted)
             if failed:
                 report(f'{project}: generating {host} with the DS union failed')
@@ -523,6 +583,9 @@ def _worker_kwargs(flags):
             kwargs['host_data_offsets'] = read_host_data_offsets(value)
         elif key == '--ds-starts':
             kwargs['ds_starts'] = read_ds_starts(value)
+        elif key == '--records':
+            from lib.record_layout import read_layouts
+            kwargs['record_layouts'] = read_layouts(value)
     return kwargs
 
 

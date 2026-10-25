@@ -16,12 +16,12 @@ loc_OKIJ:
     push ax                          ; 0x86cc
     mov si, word [party_region]      ; 0x86cd
     mov bx, word [maze_tables]       ; 0x86d1
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x86d5
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x86d5
     sub ah, ah                       ; 0x86d9
     mov cx, 6                        ; 0x86db
     imul cx                          ; 0x86de
     mov bx, ax                       ; 0x86e0
-    cmp byte [bx + bss_84a6 + 0x1], 0 ; 0x86e2
+    cmp byte [bx + bss_84a6 + rec_84a6.f_0001], 0 ; 0x86e2
     je short @..loc_OKIJ.l1          ; 0x86e7
     mov ax, 0                        ; 0x86e9
     jmp short @..loc_OKIJ.l2         ; 0x86ec

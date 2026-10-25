@@ -636,7 +636,7 @@ api_idx_004e_HUKL:
     mov word [bp - 0x0008], ax       ; 0x3e72
     mov ax, 0x344                    ; 0x3e75
     push ax                          ; 0x3e78
-    mov ax, bss_84e8                 ; 0x3e79
+    mov ax, slot_records             ; 0x3e79
     push ax                          ; 0x3e7c
     push word [bp - 0x000a]          ; 0x3e7d
     call aztec_write                 ; 0x3e80

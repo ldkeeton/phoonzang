@@ -6,7 +6,7 @@ fill_action_slot_table_vmnpc:
     shl ax, 1                        ; 0x0f9e
     mov bx, ax                       ; 0x0fa0
     mov bx, word [bx + party_char]   ; 0x0fa2
-    cmp byte [bx + 0x19f], 0xff      ; 0x0fa6
+    cmp byte [bx + member_rec.slot], 0xff ; 0x0fa6
     jne short @..fill_action_slot_table_vmnpc.l1 ; 0x0fab
     ret                              ; 0x0fad
 @..fill_action_slot_table_vmnpc.l1:
@@ -20,7 +20,7 @@ fill_action_slot_table_vmnpc:
     mov cx, 0x15e                    ; 0x0fc6
     imul cx                          ; 0x0fc9
     mov bx, ax                       ; 0x0fcb
-    mov al, byte [bx + slot_recs + 0x15b] ; 0x0fcd
+    mov al, byte [bx + slot_recs + slot_rec.forced] ; 0x0fcd
     sub ah, ah                       ; 0x0fd1
     cmp ax, 0xfe                     ; 0x0fd3
     je short @..fill_action_slot_table_vmnpc.l2 ; 0x0fd6
@@ -39,7 +39,7 @@ fill_action_slot_table_vmnpc:
     imul word [bp - 0x0002]          ; 0x0ff7
     add ax, word [bp - 0x0004]       ; 0x0ffa
     mov bx, ax                       ; 0x0ffd
-    mov al, byte [bx + slot_recs + 0x8] ; 0x0fff
+    mov al, byte [bx + slot_recs + slot_rec.action] ; 0x0fff
     sub ah, ah                       ; 0x1003
     mov word [bp - 0x0006], ax       ; 0x1005
     cmp word [bp + 0xa], byte 0      ; 0x1008
@@ -49,9 +49,9 @@ fill_action_slot_table_vmnpc:
     mov ax, 0x15e                    ; 0x1011
     imul word [bp - 0x0002]          ; 0x1014
     mov bx, ax                       ; 0x1017
-    cmp byte [bx + slot_recs + 0x15b], 0 ; 0x1019
+    cmp byte [bx + slot_recs + slot_rec.forced], 0 ; 0x1019
     jbe short @..fill_action_slot_table_vmnpc.l8 ; 0x101e
-    mov al, byte [bx + slot_recs + 0x15b] ; 0x1020
+    mov al, byte [bx + slot_recs + slot_rec.forced] ; 0x1020
     sub ah, ah                       ; 0x1024
     cmp ax, 0xfe                     ; 0x1026
     jge short @..fill_action_slot_table_vmnpc.l8 ; 0x1029
@@ -66,7 +66,7 @@ fill_action_slot_table_vmnpc:
     shl ax, 1                        ; 0x1042
     mov bx, ax                       ; 0x1044
     mov bx, word [bx + party_char_ext] ; 0x1046
-    cmp byte [bx + 0xd7], 0x47       ; 0x104a
+    cmp byte [bx + member_ext.kind], 0x47 ; 0x104a
     jne short @..fill_action_slot_table_vmnpc.l7 ; 0x104f
     cmp word [npc_melee], byte 1     ; 0x1051
     jne short @..fill_action_slot_table_vmnpc.l6 ; 0x1056
@@ -89,7 +89,7 @@ fill_action_slot_table_vmnpc:
     imul word [bp - 0x0002]          ; 0x107e
     add ax, word [bp - 0x0004]       ; 0x1081
     mov bx, ax                       ; 0x1084
-    mov al, byte [bx + slot_recs + 0x12] ; 0x1086
+    mov al, byte [bx + slot_recs + slot_rec.action_rand] ; 0x1086
     sub ah, ah                       ; 0x108a
     push ax                          ; 0x108c
     call random_below                ; 0x108d
@@ -99,12 +99,12 @@ fill_action_slot_table_vmnpc:
     imul word [bp - 0x0002]          ; 0x1097
     add ax, word [bp - 0x0006]       ; 0x109a
     mov bx, ax                       ; 0x109d
-    mov al, byte [bx + slot_recs + 0x26] ; 0x109f
+    mov al, byte [bx + slot_recs + slot_rec.target] ; 0x109f
     sub ah, ah                       ; 0x10a3
     mov word [bp - 0x0008], ax       ; 0x10a5
     cmp word [bp - 0x000a], byte 0   ; 0x10a8
     je short @..fill_action_slot_table_vmnpc.l9 ; 0x10ac
-    mov al, byte [bx + slot_recs + 0x30] ; 0x10ae
+    mov al, byte [bx + slot_recs + slot_rec.target_rand] ; 0x10ae
     sub ah, ah                       ; 0x10b2
     push ax                          ; 0x10b4
     call random_below                ; 0x10b5
@@ -137,7 +137,7 @@ fill_action_slot_table_vmnpc:
     pop ax                           ; 0x10f4
     mov byte [bx + action_slot_table], al ; 0x10f5
     mov al, byte [bp - 0x0008]       ; 0x10f9
-    mov byte [bx + action_slot_table + 0x1], al ; 0x10fc
+    mov byte [bx + action_slot_table + action_slot.target], al ; 0x10fc
     mov ax, 0x15e                    ; 0x1100
     imul word [bp - 0x0002]          ; 0x1103
     mov cx, word [bp - 0x0008]       ; 0x1106
@@ -145,7 +145,7 @@ fill_action_slot_table_vmnpc:
     shl cx, 1                        ; 0x110b
     add ax, cx                       ; 0x110d
     mov bx, ax                       ; 0x110f
-    mov al, byte [bx + slot_recs + 0xa7] ; 0x1111
+    mov al, byte [bx + slot_recs + slot_rec.range + 0x2] ; 0x1111
     inc al                           ; 0x1115
     push ax                          ; 0x1117
     mov ax, 0x5a                     ; 0x1118
@@ -161,8 +161,8 @@ fill_action_slot_table_vmnpc:
     add cx, ax                       ; 0x1132
     mov bx, cx                       ; 0x1134
     pop ax                           ; 0x1136
-    mov byte [bx + action_slot_table + 0x2], al ; 0x1137
-    mov al, byte [bx + action_slot_table + 0x2] ; 0x113b
+    mov byte [bx + action_slot_table + action_slot.roll], al ; 0x1137
+    mov al, byte [bx + action_slot_table + action_slot.roll] ; 0x113b
     sub ah, ah                       ; 0x113f
     mov cx, ax                       ; 0x1141
     push cx                          ; 0x1143
@@ -173,7 +173,7 @@ fill_action_slot_table_vmnpc:
     shl cx, 1                        ; 0x114f
     add ax, cx                       ; 0x1151
     mov bx, ax                       ; 0x1153
-    mov al, byte [bx + slot_recs + 0xa8] ; 0x1155
+    mov al, byte [bx + slot_recs + slot_rec.range + 0x3] ; 0x1155
     sub ah, ah                       ; 0x1159
     push ax                          ; 0x115b
     call random_below                ; 0x115c
@@ -194,7 +194,7 @@ fill_action_slot_table_vmnpc:
     add cx, ax                       ; 0x117e
     mov bx, cx                       ; 0x1180
     pop ax                           ; 0x1182
-    mov byte [bx + action_slot_table + 0x2], al ; 0x1183
+    mov byte [bx + action_slot_table + action_slot.roll], al ; 0x1183
     inc word [bp - 0x0004]           ; 0x1187
 @..fill_action_slot_table_vmnpc.l10:
     mov ax, 0x15e                    ; 0x118a
@@ -204,7 +204,7 @@ fill_action_slot_table_vmnpc:
     mov al, byte [bx + slot_recs]    ; 0x1195
     sub ah, ah                       ; 0x1199
     push ax                          ; 0x119b
-    mov al, byte [bx + slot_recs + 0x4] ; 0x119c
+    mov al, byte [bx + slot_recs + slot_rec.count] ; 0x119c
     sub ah, ah                       ; 0x11a0
     mov cx, ax                       ; 0x11a2
     pop ax                           ; 0x11a4

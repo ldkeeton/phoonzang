@@ -117,7 +117,7 @@ api_idx_0084_IMVQ:
     mov ax, 0x248                    ; 0x26d6
     imul word [bp + 0x4]             ; 0x26d9
     mov bx, ax                       ; 0x26dc
-    mov al, byte [bx + cell_key_grid + 0x148] ; 0x26de
+    mov al, byte [bx + party_records + pc_rec.flag + 0x10] ; 0x26de
     sub ah, ah                       ; 0x26e2
     push ax                          ; 0x26e4
     call format_int_decimal          ; 0x26e5
@@ -541,7 +541,7 @@ api_idx_0084_IMVQ:
     mov ax, 0x248                    ; 0x2aba
     imul word [bp + 0x4]             ; 0x2abd
     mov bx, ax                       ; 0x2ac0
-    mov al, byte [bx + cell_key_grid + 0x148] ; 0x2ac2
+    mov al, byte [bx + party_records + pc_rec.flag + 0x10] ; 0x2ac2
     sub ah, ah                       ; 0x2ac6
     push ax                          ; 0x2ac8
     mov ax, 5                        ; 0x2ac9
@@ -550,7 +550,7 @@ api_idx_0084_IMVQ:
     pop ax                           ; 0x2ad1
     sub ax, cx                       ; 0x2ad2
     push ax                          ; 0x2ad4
-    mov al, byte [bx + cell_key_grid + 0x134] ; 0x2ad5
+    mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x2ad5
     sub ah, ah                       ; 0x2ad9
     mov cx, 2                        ; 0x2adb
     cwd                              ; 0x2ade
@@ -559,7 +559,7 @@ api_idx_0084_IMVQ:
     pop ax                           ; 0x2ae3
     add ax, cx                       ; 0x2ae4
     push ax                          ; 0x2ae6
-    mov ax, word [bx + pc_spell_power_cap] ; 0x2ae7
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x2ae7
     mov cx, 2                        ; 0x2aeb
     cwd                              ; 0x2aee
     idiv cx                          ; 0x2aef
@@ -568,9 +568,9 @@ api_idx_0084_IMVQ:
     add ax, cx                       ; 0x2af4
     mov word [bp - 0x007c], ax       ; 0x2af6
     mov word [bp - 0x007e], 0        ; 0x2af9
-    cmp byte [bx + member_state + 0x3], 3 ; 0x2afe
+    cmp byte [bx + party_records + pc_rec.label], 3 ; 0x2afe
     jne short @..api_idx_0084_IMVQ.l9 ; 0x2b03
-    mov al, byte [bx + cell_key_grid + 0x134] ; 0x2b05
+    mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x2b05
     sub ah, ah                       ; 0x2b09
     mov cx, 3                        ; 0x2b0b
     imul cx                          ; 0x2b0e
@@ -578,7 +578,7 @@ api_idx_0084_IMVQ:
     mov word [bp - 0x007e], 3        ; 0x2b13
     jmp short @..api_idx_0084_IMVQ.l11 ; 0x2b18
 @..api_idx_0084_IMVQ.l9:
-    mov al, byte [bx + member_state + 0x3] ; 0x2b1a
+    mov al, byte [bx + party_records + pc_rec.label] ; 0x2b1a
     cmp al, 0xd                      ; 0x2b1e
     je short @..api_idx_0084_IMVQ.l10 ; 0x2b20
     cmp al, 4                        ; 0x2b22
@@ -586,7 +586,7 @@ api_idx_0084_IMVQ:
     cmp al, 6                        ; 0x2b26
     jne short @..api_idx_0084_IMVQ.l11 ; 0x2b28
 @..api_idx_0084_IMVQ.l10:
-    mov al, byte [bx + cell_key_grid + 0x134] ; 0x2b2a
+    mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x2b2a
     sub ah, ah                       ; 0x2b2e
     shl ax, 1                        ; 0x2b30
     add word [bp - 0x007c], ax       ; 0x2b32

@@ -29,7 +29,7 @@ api_idx_0012_VNOV:
     mov cx, 0x248                    ; 0x0f27
     imul cx                          ; 0x0f2a
     mov bx, ax                       ; 0x0f2c
-    cmp byte [bx + member_state + 0x5], 3 ; 0x0f2e
+    cmp byte [bx + party_records + pc_rec.state], 3 ; 0x0f2e
     jb short @..api_idx_0012_VNOV.l3 ; 0x0f33
     mov ax, 1                        ; 0x0f35
     push ax                          ; 0x0f38
@@ -87,10 +87,10 @@ jumptable_12fa_case_0:
     mov ax, 0x248                    ; 0x0fb3
     imul word [bp - 0x0006]          ; 0x0fb6
     mov bx, ax                       ; 0x0fb9
-    push word [bx + pc_records + 0x2] ; 0x0fbb
+    push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x0fbb
     mov ax, 0                        ; 0x0fbf
     push ax                          ; 0x0fc2
-    mov ax, word [bx + pc_records]   ; 0x0fc3
+    mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x0fc3
     add ax, word [bp - 0x000e]       ; 0x0fc7
     push ax                          ; 0x0fca
     call clamp_between               ; 0x0fcb
@@ -100,7 +100,7 @@ jumptable_12fa_case_0:
     imul word [bp - 0x0006]          ; 0x0fd5
     mov bx, ax                       ; 0x0fd8
     pop ax                           ; 0x0fda
-    mov word [bx + pc_records], ax   ; 0x0fdb
+    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x0fdb
     jmp near @..api_idx_0012_VNOV.l24 ; 0x0fdf
 jumptable_12fa_case_1:
     mov word [bp - 0x0004], 0        ; 0x0fe2
@@ -112,7 +112,7 @@ jumptable_12fa_case_1:
     shl cx, 1                        ; 0x0ff2
     add ax, cx                       ; 0x0ff4
     mov bx, ax                       ; 0x0ff6
-    push word [bx + pc_spell_power_cap + 0x6] ; 0x0ff8
+    push word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x0ff8
     mov ax, 0                        ; 0x0ffc
     push ax                          ; 0x0fff
     push word [bp - 0x000a]          ; 0x1000
@@ -141,7 +141,7 @@ jumptable_12fa_case_1:
     add ax, dx                       ; 0x1036
     mov bx, ax                       ; 0x1038
     pop ax                           ; 0x103a
-    add ax, word [bx + pc_spell_power_cap + 0x4] ; 0x103b
+    add ax, word [bx + party_records + pc_rec.realm_points] ; 0x103b
     push ax                          ; 0x103f
     call clamp_between               ; 0x1040
     add sp, byte 6                   ; 0x1043
@@ -155,7 +155,7 @@ jumptable_12fa_case_1:
     add ax, dx                       ; 0x1056
     mov bx, ax                       ; 0x1058
     pop ax                           ; 0x105a
-    mov word [bx + pc_spell_power_cap + 0x4], ax ; 0x105b
+    mov word [bx + party_records + pc_rec.realm_points], ax ; 0x105b
     inc word [bp - 0x0004]           ; 0x105f
     mov ax, word [bp - 0x0004]       ; 0x1062
     cmp ax, strict word 6            ; 0x1065
@@ -167,10 +167,10 @@ jumptable_12fa_case_2:
     mov ax, 0x248                    ; 0x1070
     imul word [bp - 0x0006]          ; 0x1073
     mov bx, ax                       ; 0x1076
-    push word [bx + member_pair_points + 0x4] ; 0x1078
+    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x1078
     mov ax, 0                        ; 0x107c
     push ax                          ; 0x107f
-    mov ax, word [bx + member_pair_points + 0x2] ; 0x1080
+    mov ax, word [bx + party_records + pc_rec.pair_a] ; 0x1080
     add ax, word [bp - 0x000e]       ; 0x1084
     push ax                          ; 0x1087
     call clamp_between               ; 0x1088
@@ -180,30 +180,30 @@ jumptable_12fa_case_2:
     imul word [bp - 0x0006]          ; 0x1092
     mov bx, ax                       ; 0x1095
     pop ax                           ; 0x1097
-    mov word [bx + member_pair_points + 0x2], ax ; 0x1098
+    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x1098
     jmp near @..api_idx_0012_VNOV.l24 ; 0x109c
 jumptable_12fa_case_3:
     mov ax, 0x248                    ; 0x109f
     imul word [bp - 0x0006]          ; 0x10a2
     mov bx, ax                       ; 0x10a5
-    mov byte [bx + member_state + 0x8], 0 ; 0x10a7
-    mov byte [bx + cell_key_grid + 0x12b], 0 ; 0x10ac
+    mov byte [bx + party_records + pc_rec.f_023e], 0 ; 0x10a7
+    mov byte [bx + party_records + pc_rec.status + 0x5], 0 ; 0x10ac
     jmp near @..api_idx_0012_VNOV.l24 ; 0x10b1
 jumptable_12fa_case_4:
     mov ax, 0x248                    ; 0x10b4
     imul word [bp - 0x0006]          ; 0x10b7
     mov bx, ax                       ; 0x10ba
-    mov byte [bx + cell_key_grid + 0x129], 0 ; 0x10bc
+    mov byte [bx + party_records + pc_rec.status + 0x3], 0 ; 0x10bc
     jmp near @..api_idx_0012_VNOV.l24 ; 0x10c1
 jumptable_12fa_case_5:
     mov ax, 0x248                    ; 0x10c4
     imul word [bp - 0x0006]          ; 0x10c7
     mov bx, ax                       ; 0x10ca
-    cmp byte [bx + member_state + 0x5], 2 ; 0x10cc
+    cmp byte [bx + party_records + pc_rec.state], 2 ; 0x10cc
     jne short @..api_idx_0012_VNOV.l10 ; 0x10d1
-    mov byte [bx + member_state + 0x5], 0 ; 0x10d3
+    mov byte [bx + party_records + pc_rec.state], 0 ; 0x10d3
 @..api_idx_0012_VNOV.l10:
-    mov byte [bx + cell_key_grid + 0x12c], 0 ; 0x10d8
+    mov byte [bx + party_records + pc_rec.status + 0x6], 0 ; 0x10d8
     jmp near @..api_idx_0012_VNOV.l24 ; 0x10dd
 jumptable_12fa_case_6:
     mov word [bp - 0x0004], 1        ; 0x10e0
@@ -226,7 +226,7 @@ jumptable_12fa_case_6:
     mov ax, word [bp - 0x0004]       ; 0x1109
     add cx, ax                       ; 0x110c
     mov bx, cx                       ; 0x110e
-    mov byte [bx + cell_key_grid + 0x126], 0 ; 0x1110
+    mov byte [bx + party_records + pc_rec.status], 0 ; 0x1110
 @..api_idx_0012_VNOV.l13:
     inc word [bp - 0x0004]           ; 0x1115
     mov ax, word [bp - 0x0004]       ; 0x1118
@@ -237,20 +237,20 @@ jumptable_12fa_case_7:
     mov ax, 0x248                    ; 0x1123
     imul word [bp - 0x0006]          ; 0x1126
     mov bx, ax                       ; 0x1129
-    mov byte [bx + member_state + 0x5], 0 ; 0x112b
-    mov ax, word [bx + member_pair_points + 0x4] ; 0x1130
-    mov word [bx + member_pair_points + 0x2], ax ; 0x1134
-    mov ax, word [bx + pc_records + 0x2] ; 0x1138
-    mov word [bx + pc_records], ax   ; 0x113c
+    mov byte [bx + party_records + pc_rec.state], 0 ; 0x112b
+    mov ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x1130
+    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x1134
+    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x1138
+    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x113c
     jmp near @..api_idx_0012_VNOV.l24 ; 0x1140
 jumptable_12fa_case_8:
     mov ax, 0x248                    ; 0x1143
     imul word [bp - 0x0006]          ; 0x1146
     mov bx, ax                       ; 0x1149
-    push word [bx + pc_records + 0x2] ; 0x114b
+    push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x114b
     mov ax, 0                        ; 0x114f
     push ax                          ; 0x1152
-    mov ax, word [bx + pc_records]   ; 0x1153
+    mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x1153
     sub ax, word [bp - 0x000e]       ; 0x1157
     push ax                          ; 0x115a
     call clamp_between               ; 0x115b
@@ -260,10 +260,10 @@ jumptable_12fa_case_8:
     imul word [bp - 0x0006]          ; 0x1165
     mov bx, ax                       ; 0x1168
     pop ax                           ; 0x116a
-    mov word [bx + pc_records], ax   ; 0x116b
+    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x116b
     cmp ax, strict word 0            ; 0x116f
     jg short @..api_idx_0012_VNOV.l14 ; 0x1172
-    mov al, byte [bx + cell_key_grid + 0x128] ; 0x1174
+    mov al, byte [bx + party_records + pc_rec.status + 0x2] ; 0x1174
     sub ah, ah                       ; 0x1178
     mov cx, ax                       ; 0x117a
     push cx                          ; 0x117c
@@ -279,7 +279,7 @@ jumptable_12fa_case_8:
     imul word [bp - 0x0006]          ; 0x118f
     mov bx, ax                       ; 0x1192
     pop ax                           ; 0x1194
-    mov byte [bx + cell_key_grid + 0x128], al ; 0x1195
+    mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x1195
 @..api_idx_0012_VNOV.l14:
     jmp near @..api_idx_0012_VNOV.l24 ; 0x1199
 jumptable_12fa_case_9:
@@ -292,7 +292,7 @@ jumptable_12fa_case_9:
     shl cx, 1                        ; 0x11ac
     add ax, cx                       ; 0x11ae
     mov bx, ax                       ; 0x11b0
-    push word [bx + pc_spell_power_cap + 0x6] ; 0x11b2
+    push word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x11b2
     mov ax, 0                        ; 0x11b6
     push ax                          ; 0x11b9
     push word [bp - 0x000a]          ; 0x11ba
@@ -319,7 +319,7 @@ jumptable_12fa_case_9:
     shl dx, 1                        ; 0x11ed
     add ax, dx                       ; 0x11ef
     mov bx, ax                       ; 0x11f1
-    mov ax, word [bx + pc_spell_power_cap + 0x4] ; 0x11f3
+    mov ax, word [bx + party_records + pc_rec.realm_points] ; 0x11f3
     sub ax, cx                       ; 0x11f7
     push ax                          ; 0x11f9
     call clamp_between               ; 0x11fa
@@ -334,7 +334,7 @@ jumptable_12fa_case_9:
     add ax, dx                       ; 0x1210
     mov bx, ax                       ; 0x1212
     pop ax                           ; 0x1214
-    mov word [bx + pc_spell_power_cap + 0x4], ax ; 0x1215
+    mov word [bx + party_records + pc_rec.realm_points], ax ; 0x1215
     inc word [bp - 0x0004]           ; 0x1219
     mov ax, word [bp - 0x0004]       ; 0x121c
     cmp ax, strict word 6            ; 0x121f
@@ -346,10 +346,10 @@ jumptable_12fa_case_10:
     mov ax, 0x248                    ; 0x122a
     imul word [bp - 0x0006]          ; 0x122d
     mov bx, ax                       ; 0x1230
-    push word [bx + member_pair_points + 0x4] ; 0x1232
+    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x1232
     mov ax, 0                        ; 0x1236
     push ax                          ; 0x1239
-    mov ax, word [bx + member_pair_points + 0x2] ; 0x123a
+    mov ax, word [bx + party_records + pc_rec.pair_a] ; 0x123a
     sub ax, word [bp - 0x000e]       ; 0x123e
     push ax                          ; 0x1241
     call clamp_between               ; 0x1242
@@ -359,13 +359,13 @@ jumptable_12fa_case_10:
     imul word [bp - 0x0006]          ; 0x124c
     mov bx, ax                       ; 0x124f
     pop ax                           ; 0x1251
-    mov word [bx + member_pair_points + 0x2], ax ; 0x1252
+    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x1252
     cmp ax, strict word 0            ; 0x1256
     jg short @..api_idx_0012_VNOV.l17 ; 0x1259
-    mov byte [bx + member_state + 0x5], 3 ; 0x125b
-    mov word [bx + member_pair_points + 0x2], 0 ; 0x1260
-    mov word [bx + pc_records], 0    ; 0x1266
-    mov al, byte [bx + member_state + 0x2] ; 0x126c
+    mov byte [bx + party_records + pc_rec.state], 3 ; 0x125b
+    mov word [bx + party_records + pc_rec.pair_a], 0 ; 0x1260
+    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x1266
+    mov al, byte [bx + party_records + pc_rec.sound] ; 0x126c
     sub ah, ah                       ; 0x1270
     add ax, strict word 8            ; 0x1272
     push ax                          ; 0x1275
@@ -377,52 +377,52 @@ jumptable_12fa_case_11:
     mov ax, 0x248                    ; 0x127d
     imul word [bp - 0x0006]          ; 0x1280
     mov bx, ax                       ; 0x1283
-    mov al, byte [bx + member_state + 0x8] ; 0x1285
+    mov al, byte [bx + party_records + pc_rec.f_023e] ; 0x1285
     sub ah, ah                       ; 0x1289
     cmp ax, word [bp - 0x000a]       ; 0x128b
     jge short @..api_idx_0012_VNOV.l18 ; 0x128e
     mov al, byte [bp - 0x000a]       ; 0x1290
-    mov byte [bx + member_state + 0x8], al ; 0x1293
+    mov byte [bx + party_records + pc_rec.f_023e], al ; 0x1293
 @..api_idx_0012_VNOV.l18:
-    mov al, byte [bx + cell_key_grid + 0x12b] ; 0x1297
+    mov al, byte [bx + party_records + pc_rec.status + 0x5] ; 0x1297
     sub ah, ah                       ; 0x129b
     cmp ax, word [bp - 0x000e]       ; 0x129d
     jge short @..api_idx_0012_VNOV.l19 ; 0x12a0
     mov al, byte [bp - 0x000e]       ; 0x12a2
-    mov byte [bx + cell_key_grid + 0x12b], al ; 0x12a5
+    mov byte [bx + party_records + pc_rec.status + 0x5], al ; 0x12a5
 @..api_idx_0012_VNOV.l19:
     jmp near @..api_idx_0012_VNOV.l24 ; 0x12a9
 jumptable_12fa_case_12:
     mov ax, 0x248                    ; 0x12ac
     imul word [bp - 0x0006]          ; 0x12af
     mov bx, ax                       ; 0x12b2
-    mov al, byte [bx + cell_key_grid + 0x129] ; 0x12b4
+    mov al, byte [bx + party_records + pc_rec.status + 0x3] ; 0x12b4
     sub ah, ah                       ; 0x12b8
     cmp ax, word [bp - 0x000e]       ; 0x12ba
     jge short @..api_idx_0012_VNOV.l20 ; 0x12bd
     mov al, byte [bp - 0x000e]       ; 0x12bf
-    mov byte [bx + cell_key_grid + 0x129], al ; 0x12c2
+    mov byte [bx + party_records + pc_rec.status + 0x3], al ; 0x12c2
 @..api_idx_0012_VNOV.l20:
     jmp short @..api_idx_0012_VNOV.l24 ; 0x12c6
 jumptable_12fa_case_13:
     mov ax, 0x248                    ; 0x12c8
     imul word [bp - 0x0006]          ; 0x12cb
     mov bx, ax                       ; 0x12ce
-    cmp byte [bx + member_state + 0x5], 2 ; 0x12d0
+    cmp byte [bx + party_records + pc_rec.state], 2 ; 0x12d0
     jae short @..api_idx_0012_VNOV.l21 ; 0x12d5
-    mov byte [bx + member_state + 0x5], 2 ; 0x12d7
+    mov byte [bx + party_records + pc_rec.state], 2 ; 0x12d7
 @..api_idx_0012_VNOV.l21:
     jmp short @..api_idx_0012_VNOV.l24 ; 0x12dc
 jumptable_12fa_case_14:
     mov ax, 0x248                    ; 0x12de
     imul word [bp - 0x0006]          ; 0x12e1
     mov bx, ax                       ; 0x12e4
-    mov al, byte [bx + cell_key_grid + 0x128] ; 0x12e6
+    mov al, byte [bx + party_records + pc_rec.status + 0x2] ; 0x12e6
     sub ah, ah                       ; 0x12ea
     cmp ax, word [bp - 0x000e]       ; 0x12ec
     jge short @..api_idx_0012_VNOV.l22 ; 0x12ef
     mov al, byte [bp - 0x000e]       ; 0x12f1
-    mov byte [bx + cell_key_grid + 0x128], al ; 0x12f4
+    mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x12f4
 @..api_idx_0012_VNOV.l22:
     jmp short @..api_idx_0012_VNOV.l24 ; 0x12f8
 jumptable_12fa:

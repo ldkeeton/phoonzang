@@ -5,7 +5,7 @@ api_idx_0052_LHVG:
     mov ax, 0x248                    ; 0x2c12
     imul word [bp + 0x4]             ; 0x2c15
     mov bx, ax                       ; 0x2c18
-    mov al, byte [bx + member_state + 0x3] ; 0x2c1a
+    mov al, byte [bx + party_records + pc_rec.label] ; 0x2c1a
     sub ah, ah                       ; 0x2c1e
     jmp near @..api_idx_0052_LHVG.l1 ; 0x2c20
 jumptable_2ce6_case_0:
@@ -123,7 +123,7 @@ jumptable_2ce6:
     mov ax, 0x248                    ; 0x2d0f
     imul word [bp + 0x4]             ; 0x2d12
     mov bx, ax                       ; 0x2d15
-    mov al, byte [bx + member_state + 0x1] ; 0x2d17
+    mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x2d17
     sub ah, ah                       ; 0x2d1b
     jmp near @..api_idx_0052_LHVG.l3 ; 0x2d1d
 jumptable_2ebe_case_0:
@@ -141,7 +141,7 @@ jumptable_2ebe_case_2:
     mov ax, 0x248                    ; 0x2d38
     imul word [bp + 0x4]             ; 0x2d3b
     mov bx, ax                       ; 0x2d3e
-    mov al, byte [bx + cell_key_grid + 0x133] ; 0x2d40
+    mov al, byte [bx + party_records + pc_rec.stat + 0x3] ; 0x2d40
     sub ah, ah                       ; 0x2d44
     mov cx, 5                        ; 0x2d46
     cwd                              ; 0x2d49
@@ -159,7 +159,7 @@ jumptable_2ebe_case_3:
     mov ax, 0x248                    ; 0x2d60
     imul word [bp + 0x4]             ; 0x2d63
     mov bx, ax                       ; 0x2d66
-    mov al, byte [bx + cell_key_grid + 0x133] ; 0x2d68
+    mov al, byte [bx + party_records + pc_rec.stat + 0x3] ; 0x2d68
     sub ah, ah                       ; 0x2d6c
     mov cx, 5                        ; 0x2d6e
     cwd                              ; 0x2d71
@@ -333,7 +333,7 @@ jumptable_2ebe:
     mov ax, 0x248                    ; 0x2ee1
     imul word [bp + 0x4]             ; 0x2ee4
     mov bx, ax                       ; 0x2ee7
-    cmp byte [bx + cell_key_grid + 0x133], 0xf ; 0x2ee9
+    cmp byte [bx + party_records + pc_rec.stat + 0x3], 0xf ; 0x2ee9
     jbe short @..api_idx_0052_LHVG.l5 ; 0x2eee
     mov ax, 5                        ; 0x2ef0
     push ax                          ; 0x2ef3
@@ -357,7 +357,7 @@ jumptable_2ebe:
     mov ax, 0x248                    ; 0x2f1a
     imul word [bp + 0x4]             ; 0x2f1d
     mov bx, ax                       ; 0x2f20
-    cmp byte [bx + cell_key_grid + 0x131], 0xf ; 0x2f22
+    cmp byte [bx + party_records + pc_rec.stat + 0x1], 0xf ; 0x2f22
     jbe short @..api_idx_0052_LHVG.l6 ; 0x2f27
     mov ax, 5                        ; 0x2f29
     push ax                          ; 0x2f2c
@@ -372,7 +372,7 @@ jumptable_2ebe:
     mov ax, 0x248                    ; 0x2f3e
     imul word [bp + 0x4]             ; 0x2f41
     mov bx, ax                       ; 0x2f44
-    cmp byte [bx + cell_key_grid + 0x135], 0xf ; 0x2f46
+    cmp byte [bx + party_records + pc_rec.stat + 0x5], 0xf ; 0x2f46
     jbe short @..api_idx_0052_LHVG.l7 ; 0x2f4b
     mov ax, 5                        ; 0x2f4d
     push ax                          ; 0x2f50
@@ -396,9 +396,9 @@ jumptable_2ebe:
     mov ax, 0x248                    ; 0x2f77
     imul word [bp + 0x4]             ; 0x2f7a
     mov bx, ax                       ; 0x2f7d
-    cmp byte [bx + cell_key_grid + 0x14f], 0 ; 0x2f7f
+    cmp byte [bx + party_records + pc_rec.flag + 0x17], 0 ; 0x2f7f
     jbe short @..api_idx_0052_LHVG.l8 ; 0x2f84
-    mov al, byte [bx + cell_key_grid + 0x14f] ; 0x2f86
+    mov al, byte [bx + party_records + pc_rec.flag + 0x17] ; 0x2f86
     sub ah, ah                       ; 0x2f8a
     mov cx, 2                        ; 0x2f8c
     cwd                              ; 0x2f8f
@@ -414,7 +414,7 @@ jumptable_2ebe:
     mov ax, 0x248                    ; 0x2fa4
     imul word [bp + 0x4]             ; 0x2fa7
     mov bx, ax                       ; 0x2faa
-    mov al, byte [bx + cell_key_grid + 0x14f] ; 0x2fac
+    mov al, byte [bx + party_records + pc_rec.flag + 0x17] ; 0x2fac
     sub ah, ah                       ; 0x2fb0
     mov cx, 3                        ; 0x2fb2
     cwd                              ; 0x2fb5
@@ -434,8 +434,8 @@ jumptable_2ebe:
     imul word [bp + 0x4]             ; 0x2fd2
     add ax, word [bp - 0x0004]       ; 0x2fd5
     mov bx, ax                       ; 0x2fd8
-    mov al, byte [bx + cell_key_grid + 0x15a] ; 0x2fda
-    mov byte [bx + cell_key_grid + 0x168], al ; 0x2fde
+    mov al, byte [bx + party_records + pc_rec.prev] ; 0x2fda
+    mov byte [bx + party_records + pc_rec.cur], al ; 0x2fde
     inc word [bp - 0x0004]           ; 0x2fe2
     mov ax, word [bp - 0x0004]       ; 0x2fe5
     cmp ax, strict word 0xe          ; 0x2fe8
@@ -446,7 +446,7 @@ jumptable_2ebe:
     imul word [bp + 0x4]             ; 0x2ff5
     add ax, word [bp - 0x0004]       ; 0x2ff8
     mov bx, ax                       ; 0x2ffb
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x2ffd
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x2ffd
     sub ah, ah                       ; 0x3001
     cmp ax, 0xff                     ; 0x3003
     jne short @..api_idx_0052_LHVG.l11 ; 0x3006
@@ -459,7 +459,7 @@ jumptable_2ebe:
     push ax                          ; 0x3016
     add ax, word [bp - 0x0004]       ; 0x3017
     mov bx, ax                       ; 0x301a
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x301c
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x301c
     sub ah, ah                       ; 0x3020
     mov cx, 0xc                      ; 0x3022
     imul cx                          ; 0x3025
@@ -468,7 +468,7 @@ jumptable_2ebe:
     add ax, cx                       ; 0x302a
     add ax, word [bp - 0x000a]       ; 0x302c
     mov bx, ax                       ; 0x302f
-    mov al, byte [bx + cell_key_grid + 0x8] ; 0x3031
+    mov al, byte [bx + party_records + pc_rec.cell + 0x8] ; 0x3031
     sub ah, ah                       ; 0x3035
     mov cx, 0x10                     ; 0x3037
     cwd                              ; 0x303a
@@ -485,7 +485,7 @@ jumptable_2ebe:
     imul word [bp + 0x4]             ; 0x3053
     add ax, word [bp - 0x0006]       ; 0x3056
     mov bx, ax                       ; 0x3059
-    mov al, byte [bx + cell_key_grid + 0x168] ; 0x305b
+    mov al, byte [bx + party_records + pc_rec.cur] ; 0x305b
     sub ah, ah                       ; 0x305f
     add ax, word [bp - 0x0008]       ; 0x3061
     push ax                          ; 0x3064
@@ -498,7 +498,7 @@ jumptable_2ebe:
     add ax, word [bp - 0x0006]       ; 0x3074
     mov bx, ax                       ; 0x3077
     pop ax                           ; 0x3079
-    mov byte [bx + cell_key_grid + 0x168], al ; 0x307a
+    mov byte [bx + party_records + pc_rec.cur], al ; 0x307a
     inc word [bp - 0x000a]           ; 0x307e
     mov ax, word [bp - 0x000a]       ; 0x3081
     cmp ax, strict word 2            ; 0x3084
@@ -513,7 +513,7 @@ jumptable_2ebe:
     mov ax, 0x248                    ; 0x3097
     imul word [bp + 0x4]             ; 0x309a
     mov bx, ax                       ; 0x309d
-    mov al, byte [bx + member_state + 0x3] ; 0x309f
+    mov al, byte [bx + party_records + pc_rec.label] ; 0x309f
     sub ah, ah                       ; 0x30a3
     jmp short @..api_idx_0052_LHVG.l15 ; 0x30a5
 jumptable_30fe_case_0:
@@ -591,7 +591,7 @@ jumptable_30fe:
     imul word [bp + 0x4]             ; 0x313b
     add ax, word [bp - 0x0002]       ; 0x313e
     mov bx, ax                       ; 0x3141
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x3143
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x3143
     sub ah, ah                       ; 0x3147
     cmp ax, 0xff                     ; 0x3149
     je short @..api_idx_0052_LHVG.l18 ; 0x314c
@@ -600,7 +600,7 @@ jumptable_30fe:
     mov ax, 0x248                    ; 0x3152
     imul word [bp + 0x4]             ; 0x3155
     push ax                          ; 0x3158
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x3159
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x3159
     sub ah, ah                       ; 0x315d
     mov cx, 0xc                      ; 0x315f
     imul cx                          ; 0x3162
@@ -608,7 +608,7 @@ jumptable_30fe:
     pop ax                           ; 0x3166
     add ax, cx                       ; 0x3167
     mov bx, ax                       ; 0x3169
-    push word [bx + cell_key_grid]   ; 0x316b
+    push word [bx + party_records + pc_rec.cell] ; 0x316b
     lea ax, word [bp - 0x0052]       ; 0x316f
     push ax                          ; 0x3172
     mov ax, 1                        ; 0x3173
@@ -629,74 +629,74 @@ jumptable_30fe:
     mov ax, 0x248                    ; 0x3198
     imul word [bp + 0x4]             ; 0x319b
     mov bx, ax                       ; 0x319e
-    mov byte [bx + cell_key_grid + 0x176], 0xa ; 0x31a0
-    mov al, byte [bx + cell_key_grid + 0x176] ; 0x31a5
+    mov byte [bx + party_records + pc_rec.count], 0xa ; 0x31a0
+    mov al, byte [bx + party_records + pc_rec.count] ; 0x31a5
     cbw                              ; 0x31a9
     mov cx, 0                        ; 0x31aa
-    cmp byte [bx + cell_key_grid + 0x135], 0xf ; 0x31ad
+    cmp byte [bx + party_records + pc_rec.stat + 0x5], 0xf ; 0x31ad
     jbe short @..api_idx_0052_LHVG.l19 ; 0x31b2
     mov cx, 1                        ; 0x31b4
 @..api_idx_0052_LHVG.l19:
     sub ax, cx                       ; 0x31b7
-    mov byte [bx + cell_key_grid + 0x176], al ; 0x31b9
+    mov byte [bx + party_records + pc_rec.count], al ; 0x31b9
     cbw                              ; 0x31bd
     mov cx, 0                        ; 0x31be
-    cmp byte [bx + cell_key_grid + 0x135], 0x11 ; 0x31c1
+    cmp byte [bx + party_records + pc_rec.stat + 0x5], 0x11 ; 0x31c1
     jbe short @..api_idx_0052_LHVG.l20 ; 0x31c6
     mov cx, 1                        ; 0x31c8
 @..api_idx_0052_LHVG.l20:
     sub ax, cx                       ; 0x31cb
-    mov byte [bx + cell_key_grid + 0x176], al ; 0x31cd
-    mov al, byte [bx + cell_key_grid + 0x176] ; 0x31d1
+    mov byte [bx + party_records + pc_rec.count], al ; 0x31cd
+    mov al, byte [bx + party_records + pc_rec.count] ; 0x31d1
     cbw                              ; 0x31d5
     mov cx, 0                        ; 0x31d6
-    cmp byte [bx + member_state + 0x1], 5 ; 0x31d9
+    cmp byte [bx + party_records + pc_rec.glyph_set], 5 ; 0x31d9
     jne short @..api_idx_0052_LHVG.l21 ; 0x31de
     mov cx, 2                        ; 0x31e0
 @..api_idx_0052_LHVG.l21:
     sub ax, cx                       ; 0x31e3
-    mov byte [bx + cell_key_grid + 0x176], al ; 0x31e5
-    cmp byte [bx + member_state + 0x3], 0xd ; 0x31e9
+    mov byte [bx + party_records + pc_rec.count], al ; 0x31e5
+    cmp byte [bx + party_records + pc_rec.label], 0xd ; 0x31e9
     je short @..api_idx_0052_LHVG.l22 ; 0x31ee
-    cmp byte [bx + member_state + 0x3], 0xc ; 0x31f0
+    cmp byte [bx + party_records + pc_rec.label], 0xc ; 0x31f0
     jne short @..api_idx_0052_LHVG.l24 ; 0x31f5
 @..api_idx_0052_LHVG.l22:
     mov ax, 0xa                      ; 0x31f7
-    cmp word [bx + pc_spell_power_cap], byte 0x14 ; 0x31fa
+    cmp word [bx + party_records + pc_rec.power_cap], byte 0x14 ; 0x31fa
     jg short @..api_idx_0052_LHVG.l23 ; 0x31ff
-    mov ax, word [bx + pc_spell_power_cap] ; 0x3201
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x3201
     mov cx, 2                        ; 0x3205
     cwd                              ; 0x3208
     idiv cx                          ; 0x3209
 @..api_idx_0052_LHVG.l23:
     mov word [bp - 0x0002], ax       ; 0x320b
-    mov al, byte [bx + cell_key_grid + 0x149] ; 0x320e
+    mov al, byte [bx + party_records + pc_rec.flag + 0x11] ; 0x320e
     sub ah, ah                       ; 0x3212
     mov cx, 0xa                      ; 0x3214
     cwd                              ; 0x3217
     idiv cx                          ; 0x3218
     add word [bp - 0x0002], ax       ; 0x321a
-    mov al, byte [bx + cell_key_grid + 0x176] ; 0x321d
+    mov al, byte [bx + party_records + pc_rec.count] ; 0x321d
     cbw                              ; 0x3221
     sub ax, word [bp - 0x0002]       ; 0x3222
-    mov byte [bx + cell_key_grid + 0x176], al ; 0x3225
+    mov byte [bx + party_records + pc_rec.count], al ; 0x3225
 @..api_idx_0052_LHVG.l24:
     mov word [bp - 0x0002], 3        ; 0x3229
 @..api_idx_0052_LHVG.l25:
     mov ax, 0x248                    ; 0x322e
     imul word [bp + 0x4]             ; 0x3231
     mov bx, ax                       ; 0x3234
-    mov al, byte [bx + cell_key_grid + 0x176] ; 0x3236
+    mov al, byte [bx + party_records + pc_rec.count] ; 0x3236
     add bx, word [bp - 0x0002]       ; 0x323a
-    mov byte [bx + cell_key_grid + 0x176], al ; 0x323d
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x3241
+    mov byte [bx + party_records + pc_rec.count], al ; 0x323d
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x3241
     sub ah, ah                       ; 0x3245
     cmp ax, 0xff                     ; 0x3247
     je short @..api_idx_0052_LHVG.l26 ; 0x324a
     mov ax, 0x248                    ; 0x324c
     imul word [bp + 0x4]             ; 0x324f
     push ax                          ; 0x3252
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x3253
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x3253
     sub ah, ah                       ; 0x3257
     mov cx, 0xc                      ; 0x3259
     imul cx                          ; 0x325c
@@ -704,7 +704,7 @@ jumptable_30fe:
     pop ax                           ; 0x3260
     add ax, cx                       ; 0x3261
     mov bx, ax                       ; 0x3263
-    mov al, byte [bx + cell_key_grid + 0xb] ; 0x3265
+    mov al, byte [bx + party_records + pc_rec.cell + 0xb] ; 0x3265
     push ax                          ; 0x3269
     mov ax, 0x248                    ; 0x326a
     imul word [bp + 0x4]             ; 0x326d
@@ -712,7 +712,7 @@ jumptable_30fe:
     add ax, word [bp - 0x0002]       ; 0x3272
     mov bx, ax                       ; 0x3275
     pop ax                           ; 0x3277
-    sub byte [bx + cell_key_grid + 0x176], al ; 0x3278
+    sub byte [bx + party_records + pc_rec.count], al ; 0x3278
 @..api_idx_0052_LHVG.l26:
     inc word [bp - 0x0002]           ; 0x327c
     mov ax, word [bp - 0x0002]       ; 0x327f

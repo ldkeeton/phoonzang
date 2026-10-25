@@ -38,7 +38,7 @@ api_idx_0002_PGQI:
     call api_idx_000a_PJIK           ; 0x2c4c
     add sp, byte 0x0e                ; 0x2c4f
     mov bx, word [bss_848e]          ; 0x2c52
-    cmp byte [bx + 0x1a1], 0         ; 0x2c56
+    cmp byte [bx + rec_848e.f_01a1], 0 ; 0x2c56
     jbe short @..api_idx_0002_PGQI.l4 ; 0x2c5b
     push word [bp + 0xe]             ; 0x2c5d
     push word [bp + 0xc]             ; 0x2c60

@@ -835,6 +835,14 @@ def _host_include_lines():
     ]
 
 
+def _structs_include_lines(structs_inc):
+    """The line that pulls in the family's record layouts, when it has any."""
+    if not structs_inc:
+        return []
+    from lib.record_layout import STRUCTS_INC
+    return [f'%include "{STRUCTS_INC}"']
+
+
 def _anchor_data_byte(records, binary_data, file_off, origin, value, name,
                       placed):
     """Label the data byte at *file_off*; return ``(anchor, delta)`` or None.
@@ -898,8 +906,12 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
                   label_defined=None, ds_size=None, host_symbols=None,
                   host_data_offsets=None, load_offset=0, overlay_own=None,
-                  bands=(), data_modules=()):
+                  bands=(), data_modules=(), structs_inc=None):
     """Render the master NASM source and any generated includes.
+
+    *structs_inc* is the text of the host family's record layouts
+    (:func:`lib.record_layout.inc_text`): the master includes it first, and
+    it is emitted to ``STRUCTS_INC`` once, like ``HOST_SYMBOLS_INC``.
 
     *host_symbols* is ``(master_file, host_vbase)`` for an overlay with a host:
     the master pulls the host source in through ``HOST_SYMBOLS_INC`` -- which is
@@ -931,7 +943,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # include has defined and cleared the host's frame.
         vbase_text = (f'{corg_symbol} - 0x{start_offset:04x}' if corg_symbol
                       else _signed_hex(vbase))
-        out = ['bits 16']
+        out = ['bits 16', *_structs_include_lines(structs_inc)]
         if host_symbols:
             # The host source comes *first*: it defines the absolute anchor the
             # overlay's load origin derives from, and ``section ... vstart=``
@@ -948,7 +960,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         else:
             out.append('section .text vstart=VBASE')
     else:
-        out = ['org 0', 'bits 16']
+        out = ['org 0', 'bits 16', *_structs_include_lines(structs_inc)]
     code_value = (lambda addr: f'0x{addr:04x} + VBASE') if vbase else (
         lambda addr: f'0x{addr:04x}')
 
@@ -1282,6 +1294,9 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         split_sources[HOST_SYMBOLS_INC] = (
             '\n'.join(host_symbols_inc_lines(*host_symbols)) + '\n'
         )
+    if structs_inc:
+        from lib.record_layout import STRUCTS_INC
+        split_sources[STRUCTS_INC] = structs_inc
     if is_mz or (start_offset >= 14 and len(binary_data) >= 14
                  and binary_data[:2] == b'\xf2\x00'):
         # End-of-image anchor for the dynamic header fields (e_cblp/e_cp,

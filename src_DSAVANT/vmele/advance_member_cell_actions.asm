@@ -12,7 +12,7 @@ advance_member_cell_actions:
     shl ax, 1                        ; 0x11c9
     mov bx, ax                       ; 0x11cb
     mov bx, word [bx + party_char]   ; 0x11cd
-    mov al, byte [bx + si + 0x2a]    ; 0x11d1
+    mov al, byte [bx + si + member_rec.item_cell] ; 0x11d1
     cbw                              ; 0x11d4
     mov word [bp - 0x0004], ax       ; 0x11d5
     cmp ax, strict word 0xffff       ; 0x11d8
@@ -72,7 +72,7 @@ advance_member_cell_actions:
     mov bx, ax                       ; 0x1267
     mov bx, word [bx + party_char]   ; 0x1269
     pop ax                           ; 0x126d
-    mov byte [bx + si + 0x2a], al    ; 0x126e
+    mov byte [bx + si + member_rec.item_cell], al ; 0x126e
     mov ax, 0xffff                   ; 0x1271
     push ax                          ; 0x1274
     push word [bp - 0x000c]          ; 0x1275
@@ -87,7 +87,7 @@ advance_member_cell_actions:
     shl ax, 1                        ; 0x128a
     mov bx, ax                       ; 0x128c
     mov bx, word [bx + party_char]   ; 0x128e
-    mov al, byte [bx + 0x1a1]        ; 0x1292
+    mov al, byte [bx + member_rec.item_count] ; 0x1292
     sub ah, ah                       ; 0x1296
     cmp ax, word [bp - 0x0002]       ; 0x1298
     jle short @..advance_member_cell_actions.l5 ; 0x129b

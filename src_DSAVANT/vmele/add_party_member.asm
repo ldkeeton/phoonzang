@@ -19,7 +19,7 @@ add_party_member:
     shl ax, 1                        ; 0x07d8
     mov bx, ax                       ; 0x07da
     mov bx, word [bx + party_char_ext] ; 0x07dc
-    mov al, byte [bx + 0xd7]         ; 0x07e0
+    mov al, byte [bx + member_ext.kind] ; 0x07e0
     sub ah, ah                       ; 0x07e4
     push ax                          ; 0x07e6
     call api_idx_005e_RKOR           ; 0x07e7
@@ -34,12 +34,12 @@ add_party_member:
     shl cx, 1                        ; 0x07fb
     mov bx, cx                       ; 0x07fd
     mov bx, word [bx + party_char]   ; 0x07ff
-    mov byte [bx + 0x19e], al        ; 0x0803
+    mov byte [bx + member_rec.kind], al ; 0x0803
     mov ax, word [bp + 0x6]          ; 0x0807
     shl ax, 1                        ; 0x080a
     mov bx, ax                       ; 0x080c
     mov bx, word [bx + party_char_ext] ; 0x080e
-    mov al, byte [bx + 0xd7]         ; 0x0812
+    mov al, byte [bx + member_ext.kind] ; 0x0812
     sub ah, ah                       ; 0x0816
     push ax                          ; 0x0818
     call find_picture_slot           ; 0x0819
@@ -48,14 +48,14 @@ add_party_member:
     shl cx, 1                        ; 0x0820
     mov bx, cx                       ; 0x0822
     mov bx, word [bx + party_char]   ; 0x0824
-    mov byte [bx + 0x19f], al        ; 0x0828
+    mov byte [bx + member_rec.slot], al ; 0x0828
     cmp word [bp + 0x6], byte 1      ; 0x082c
     jne short @..add_party_member.l2 ; 0x0830
     mov ax, word [bp + 0x6]          ; 0x0832
     shl ax, 1                        ; 0x0835
     mov bx, ax                       ; 0x0837
     mov bx, word [bx + party_char_ext] ; 0x0839
-    cmp byte [bx + 0xd8], 0          ; 0x083d
+    cmp byte [bx + member_ext.f_00d8], 0 ; 0x083d
     jbe short @..add_party_member.l2 ; 0x0842
     mov al, byte [bx + 0xd8]         ; 0x0844
     sub ah, ah                       ; 0x0848
@@ -67,7 +67,7 @@ add_party_member:
     shl ax, 1                        ; 0x0852
     mov bx, ax                       ; 0x0854
     mov bx, word [bx + party_char_ext] ; 0x0856
-    mov al, byte [bx + 0xe2]         ; 0x085a
+    mov al, byte [bx + member_ext.f_00e2] ; 0x085a
     sub ah, ah                       ; 0x085e
     test ax, 1                       ; 0x0860
     jne short @..add_party_member.l7 ; 0x0863
@@ -79,7 +79,7 @@ add_party_member:
     shl ax, 1                        ; 0x086f
     mov bx, ax                       ; 0x0871
     mov bx, word [bx + party_char_ext] ; 0x0873
-    cmp word [bx + 0x7a], byte 0     ; 0x0877
+    cmp word [bx + member_ext.f_007a], byte 0 ; 0x0877
     jle short @..add_party_member.l4 ; 0x087b
     dec word [bx + 0x7a]             ; 0x087d
 @..add_party_member.l4:
@@ -89,7 +89,7 @@ add_party_member:
     shl ax, 1                        ; 0x0885
     mov bx, ax                       ; 0x0887
     mov bx, word [bx + party_char_ext] ; 0x0889
-    inc word [bx + 0x7a]             ; 0x088d
+    inc word [bx + member_ext.f_007a] ; 0x088d
     jmp short @..add_party_member.l7 ; 0x0890
 @..add_party_member.l6:
     cmp ax, strict word 1            ; 0x0892
@@ -116,12 +116,12 @@ add_party_member:
     shl cx, 1                        ; 0x08c2
     mov bx, cx                       ; 0x08c4
     mov bx, word [bx + party_char]   ; 0x08c6
-    mov byte [bx + 0x1a1], al        ; 0x08ca
+    mov byte [bx + member_rec.item_count], al ; 0x08ca
     mov ax, word [bp + 0x6]          ; 0x08ce
     shl ax, 1                        ; 0x08d1
     mov bx, ax                       ; 0x08d3
     mov bx, word [bx + party_char]   ; 0x08d5
-    cmp byte [bx + 0x1a1], 1         ; 0x08d9
+    cmp byte [bx + member_rec.item_count], 1 ; 0x08d9
     jae short @..add_party_member.l8 ; 0x08de
     mov byte [bx + 0x1a1], 1         ; 0x08e0
 @..add_party_member.l8:
@@ -129,7 +129,7 @@ add_party_member:
     shl ax, 1                        ; 0x08e8
     mov bx, ax                       ; 0x08ea
     mov bx, word [bx + party_char]   ; 0x08ec
-    cmp byte [bx + 0x1a1], 9         ; 0x08f0
+    cmp byte [bx + member_rec.item_count], 9 ; 0x08f0
     jbe short @..add_party_member.l9 ; 0x08f5
     mov byte [bx + 0x1a1], 9         ; 0x08f7
 @..add_party_member.l9:
@@ -137,7 +137,7 @@ add_party_member:
     shl ax, 1                        ; 0x08ff
     mov bx, ax                       ; 0x0901
     mov bx, word [bx + party_char]   ; 0x0903
-    mov byte [bx + 0x1a0], 1         ; 0x0907
+    mov byte [bx + member_rec.f_01a0], 1 ; 0x0907
     mov word [bp - 0x0002], 0        ; 0x090c
 @..add_party_member.l10:
     mov ax, word [bp + 0x6]          ; 0x0911
@@ -145,7 +145,7 @@ add_party_member:
     mov bx, ax                       ; 0x0916
     mov bx, word [bx + party_char]   ; 0x0918
     mov si, word [bp - 0x0002]       ; 0x091c
-    mov byte [bx + si + 0x18c], 0    ; 0x091f
+    mov byte [bx + si + member_rec.charge], 0 ; 0x091f
     inc word [bp - 0x0002]           ; 0x0924
     mov ax, word [bp - 0x0002]       ; 0x0927
     cmp ax, strict word 6            ; 0x092a
@@ -157,7 +157,7 @@ add_party_member:
     mov bx, ax                       ; 0x0939
     mov bx, word [bx + party_char]   ; 0x093b
     mov si, word [bp - 0x0002]       ; 0x093f
-    mov byte [bx + si + 0x192], 0    ; 0x0942
+    mov byte [bx + si + member_rec.delay], 0 ; 0x0942
     inc word [bp - 0x0002]           ; 0x0947
     mov ax, word [bp - 0x0002]       ; 0x094a
     cmp ax, strict word 6            ; 0x094d
@@ -168,7 +168,7 @@ add_party_member:
     shl ax, 1                        ; 0x095c
     mov bx, ax                       ; 0x095e
     mov bx, word [bx + party_char_ext] ; 0x0960
-    inc byte [bx + 0x80]             ; 0x0964
+    inc byte [bx + member_ext.f_0080] ; 0x0964
 @..add_party_member.l12:
     mov word [bp - 0x0002], 0        ; 0x0968
     jmp near @..add_party_member.l19 ; 0x096d
@@ -177,7 +177,7 @@ add_party_member:
     shl ax, 1                        ; 0x0973
     mov bx, ax                       ; 0x0975
     mov bx, word [bx + party_char_ext] ; 0x0977
-    mov al, byte [bx + 0x80]         ; 0x097b
+    mov al, byte [bx + member_ext.f_0080] ; 0x097b
     sub ah, ah                       ; 0x097f
     push ax                          ; 0x0981
     mov ax, 0x2c                     ; 0x0982
@@ -213,7 +213,7 @@ add_party_member:
     mov bx, ax                       ; 0x09c9
     mov bx, word [bx + party_char]   ; 0x09cb
     pop ax                           ; 0x09cf
-    mov word [bx + si + 0x4], ax     ; 0x09d0
+    mov word [bx + si + member_rec.item_charge_cap], ax ; 0x09d0
     mov ax, 0x2c                     ; 0x09d3
     imul word [bp - 0x0002]          ; 0x09d6
     mov si, ax                       ; 0x09d9
@@ -221,8 +221,8 @@ add_party_member:
     shl ax, 1                        ; 0x09de
     mov bx, ax                       ; 0x09e0
     mov bx, word [bx + party_char]   ; 0x09e2
-    mov ax, word [bx + si + 0x4]     ; 0x09e6
-    mov word [bx + si + 0x2], ax     ; 0x09e9
+    mov ax, word [bx + si + member_rec.item_charge_cap] ; 0x09e6
+    mov word [bx + si + member_rec.item_charges], ax ; 0x09e9
     mov ax, word [bp + 0x6]          ; 0x09ec
     shl ax, 1                        ; 0x09ef
     mov bx, ax                       ; 0x09f1
@@ -247,7 +247,7 @@ add_party_member:
     mov bx, ax                       ; 0x0a1e
     mov bx, word [bx + party_char]   ; 0x0a20
     pop ax                           ; 0x0a24
-    mov word [bx + si + 0x8], ax     ; 0x0a25
+    mov word [bx + si + member_rec.item_timer_max], ax ; 0x0a25
     mov ax, 0x2c                     ; 0x0a28
     imul word [bp - 0x0002]          ; 0x0a2b
     mov si, ax                       ; 0x0a2e
@@ -255,8 +255,8 @@ add_party_member:
     shl ax, 1                        ; 0x0a33
     mov bx, ax                       ; 0x0a35
     mov bx, word [bx + party_char]   ; 0x0a37
-    mov ax, word [bx + si + 0x8]     ; 0x0a3b
-    mov word [bx + si + 0x6], ax     ; 0x0a3e
+    mov ax, word [bx + si + member_rec.item_timer_max] ; 0x0a3b
+    mov word [bx + si + member_rec.item_timer], ax ; 0x0a3e
     mov ax, 0x2c                     ; 0x0a41
     imul word [bp - 0x0002]          ; 0x0a44
     mov si, ax                       ; 0x0a47
@@ -264,7 +264,7 @@ add_party_member:
     shl ax, 1                        ; 0x0a4c
     mov bx, ax                       ; 0x0a4e
     mov bx, word [bx + party_char]   ; 0x0a50
-    mov byte [bx + si + 0x2a], 0xff  ; 0x0a54
+    mov byte [bx + si + member_rec.item_cell], 0xff ; 0x0a54
     mov al, byte [bss_5988]          ; 0x0a58
     sub ah, ah                       ; 0x0a5b
     jmp near @..add_party_member.l16 ; 0x0a5d
@@ -276,7 +276,7 @@ add_party_member:
     shl ax, 1                        ; 0x0a6b
     mov bx, ax                       ; 0x0a6d
     mov bx, word [bx + party_char]   ; 0x0a6f
-    mov byte [bx + si + 0x26], 2     ; 0x0a73
+    mov byte [bx + si + member_rec.f_0026], 2 ; 0x0a73
     mov ax, 0x2c                     ; 0x0a77
     imul word [bp - 0x0002]          ; 0x0a7a
     mov si, ax                       ; 0x0a7d
@@ -284,7 +284,7 @@ add_party_member:
     shl ax, 1                        ; 0x0a82
     mov bx, ax                       ; 0x0a84
     mov bx, word [bx + party_char]   ; 0x0a86
-    mov byte [bx + si + 0x27], 2     ; 0x0a8a
+    mov byte [bx + si + member_rec.f_0027], 2 ; 0x0a8a
     mov ax, 0x2c                     ; 0x0a8e
     imul word [bp - 0x0002]          ; 0x0a91
     mov si, ax                       ; 0x0a94
@@ -292,7 +292,7 @@ add_party_member:
     shl ax, 1                        ; 0x0a99
     mov bx, ax                       ; 0x0a9b
     mov bx, word [bx + party_char]   ; 0x0a9d
-    mov byte [bx + si + 0x29], 0xfb  ; 0x0aa1
+    mov byte [bx + si + member_rec.item_level], 0xfb ; 0x0aa1
     jmp short @..add_party_member.l18 ; 0x0aa5
 @..add_party_member.l15:
     mov ax, 0x2c                     ; 0x0aa7
@@ -302,7 +302,7 @@ add_party_member:
     shl ax, 1                        ; 0x0ab2
     mov bx, ax                       ; 0x0ab4
     mov bx, word [bx + party_char]   ; 0x0ab6
-    mov byte [bx + si + 0x26], 0xfe  ; 0x0aba
+    mov byte [bx + si + member_rec.f_0026], 0xfe ; 0x0aba
     mov ax, 0x2c                     ; 0x0abe
     imul word [bp - 0x0002]          ; 0x0ac1
     mov si, ax                       ; 0x0ac4
@@ -310,7 +310,7 @@ add_party_member:
     shl ax, 1                        ; 0x0ac9
     mov bx, ax                       ; 0x0acb
     mov bx, word [bx + party_char]   ; 0x0acd
-    mov byte [bx + si + 0x27], 0xfe  ; 0x0ad1
+    mov byte [bx + si + member_rec.f_0027], 0xfe ; 0x0ad1
     mov ax, 0x2c                     ; 0x0ad5
     imul word [bp - 0x0002]          ; 0x0ad8
     mov si, ax                       ; 0x0adb
@@ -318,7 +318,7 @@ add_party_member:
     shl ax, 1                        ; 0x0ae0
     mov bx, ax                       ; 0x0ae2
     mov bx, word [bx + party_char]   ; 0x0ae4
-    mov byte [bx + si + 0x29], 5     ; 0x0ae8
+    mov byte [bx + si + member_rec.item_level], 5 ; 0x0ae8
     jmp short @..add_party_member.l18 ; 0x0aec
 @..add_party_member.l16:
     cmp ax, strict word 1            ; 0x0aee
@@ -334,7 +334,7 @@ add_party_member:
     shl ax, 1                        ; 0x0b01
     mov bx, ax                       ; 0x0b03
     mov bx, word [bx + party_char]   ; 0x0b05
-    mov al, byte [bx + 0x1a1]        ; 0x0b09
+    mov al, byte [bx + member_rec.item_count] ; 0x0b09
     sub ah, ah                       ; 0x0b0d
     cmp ax, word [bp - 0x0002]       ; 0x0b0f
     jle short @..add_party_member.l20 ; 0x0b12
@@ -347,7 +347,7 @@ add_party_member:
     mov ax, 0x248                    ; 0x0b23
     imul word [bp - 0x0002]          ; 0x0b26
     mov bx, ax                       ; 0x0b29
-    mov ax, word [bx + pc_spell_power_cap] ; 0x0b2b
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x0b2b
     add word [bp - 0x0006], ax       ; 0x0b2f
     inc word [bp - 0x0002]           ; 0x0b32
 @..add_party_member.l22:
@@ -408,7 +408,7 @@ add_party_member:
     shl ax, 1                        ; 0x0bbf
     mov bx, ax                       ; 0x0bc1
     mov bx, word [bx + party_char_ext] ; 0x0bc3
-    mov al, byte [bx + 0xac]         ; 0x0bc7
+    mov al, byte [bx + member_ext.f_00ac] ; 0x0bc7
     sub ah, ah                       ; 0x0bcb
     mov cx, ax                       ; 0x0bcd
     pop ax                           ; 0x0bcf
@@ -429,7 +429,7 @@ add_party_member:
     mov bx, ax                       ; 0x0bf0
     mov bx, word [bx + party_char_ext] ; 0x0bf2
     mov si, word [bp - 0x0002]       ; 0x0bf6
-    cmp byte [bx + si + 0xac], 0     ; 0x0bf9
+    cmp byte [bx + si + member_ext.f_00ac], 0 ; 0x0bf9
     jbe short @..add_party_member.l30 ; 0x0bfe
     mov ax, word [bp + 0x6]          ; 0x0c00
     shl ax, 1                        ; 0x0c03
@@ -446,7 +446,7 @@ add_party_member:
     mov bx, ax                       ; 0x0c1f
     mov bx, word [bx + party_char_ext] ; 0x0c21
     mov si, word [bp - 0x0002]       ; 0x0c25
-    mov al, byte [bx + si + 0xac]    ; 0x0c28
+    mov al, byte [bx + si + member_ext.f_00ac] ; 0x0c28
     sub ah, ah                       ; 0x0c2c
     mov cx, ax                       ; 0x0c2e
     pop ax                           ; 0x0c30

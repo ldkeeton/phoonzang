@@ -7,7 +7,7 @@ api_idx_0004_QLTQ:
     mov bx, ax                       ; 0x24fb
     mov bx, word [bx + party_char]   ; 0x24fd
     mov si, word [bp + 0x6]          ; 0x2501
-    mov al, byte [bx + si + 0x18c]   ; 0x2504
+    mov al, byte [bx + si + member_rec.charge] ; 0x2504
     sub ah, ah                       ; 0x2508
     mov word [bp - 0x0002], ax       ; 0x250a
     push word [bp + 0xa]             ; 0x250d

@@ -13,7 +13,7 @@ advance_item_slot_action:
     mov word [bp - 0x0004], ax       ; 0x12c7
     mov word [bp - 0x000a], 0        ; 0x12ca
     mov bx, ax                       ; 0x12cf
-    cmp byte [bx + 0x10], 0          ; 0x12d1
+    cmp byte [bx + member_rec.item_counter + 0x2], 0 ; 0x12d1
     jbe short @..advance_item_slot_action.l1 ; 0x12d5
     mov ax, word [bx + 0x8]          ; 0x12d7
     mov bx, 5                        ; 0x12da
@@ -91,8 +91,8 @@ advance_item_slot_action:
     shl ax, 1                        ; 0x1394
     mov bx, ax                       ; 0x1396
     mov bx, word [bx + party_char_ext] ; 0x1398
-    mov ax, word [bx + 0x40]         ; 0x139c
-    mov dx, word [bx + 0x42]         ; 0x139f
+    mov ax, word [bx + member_ext.f_0040] ; 0x139c
+    mov dx, word [bx + member_ext.f_0042] ; 0x139f
     add word [item_action_reward], ax ; 0x13a2
     adc word [item_action_reward + 0x2], dx ; 0x13a6
 @..advance_item_slot_action.l6:
@@ -124,7 +124,7 @@ advance_item_slot_action:
     shl ax, 1                        ; 0x13e9
     mov bx, ax                       ; 0x13eb
     mov bx, word [bx + party_char_ext] ; 0x13ed
-    mov al, byte [bx + 0xe2]         ; 0x13f1
+    mov al, byte [bx + member_ext.f_00e2] ; 0x13f1
     sub ah, ah                       ; 0x13f5
     test ax, 1                       ; 0x13f7
     je short @..advance_item_slot_action.l8 ; 0x13fa
@@ -181,9 +181,9 @@ advance_item_slot_action:
     mov ax, 0x248                    ; 0x146d
     imul word [bp - 0x0002]          ; 0x1470
     mov bx, ax                       ; 0x1473
-    cmp byte [bx + cell_key_grid + 0x14c], 0 ; 0x1475
+    cmp byte [bx + party_records + pc_rec.flag + 0x14], 0 ; 0x1475
     jbe short @..advance_item_slot_action.l14 ; 0x147a
-    mov al, byte [bx + cell_key_grid + 0x14c] ; 0x147c
+    mov al, byte [bx + party_records + pc_rec.flag + 0x14] ; 0x147c
     sub ah, ah                       ; 0x1480
     mov cx, 0xa                      ; 0x1482
     cwd                              ; 0x1485

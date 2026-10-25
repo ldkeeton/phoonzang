@@ -62,7 +62,7 @@ api_idx_001e_KGSI:
     mov word [bp - 0x0010], ax       ; 0x70c8
     mov bx, word [maze_tables]       ; 0x70cb
     mov si, word [party_region]      ; 0x70cf
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x70d3
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x70d3
     sub ah, ah                       ; 0x70d7
     mov word [bp - 0x0012], ax       ; 0x70d9
     mov ax, 1                        ; 0x70dc
@@ -197,7 +197,7 @@ api_idx_001e_KGSI:
 @..api_idx_001e_KGSI.l14:
     mov bx, word [maze_tables]       ; 0x7212
     mov si, word [party_map_piece]   ; 0x7216
-    mov al, byte [bx + si + spell_table + 0x520] ; 0x721a
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x721a
     sub ah, ah                       ; 0x721e
     mov word [party_region], ax      ; 0x7220
     mov word [region_step_flag], 0   ; 0x7223

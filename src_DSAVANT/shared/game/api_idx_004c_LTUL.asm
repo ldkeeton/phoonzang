@@ -91,7 +91,7 @@ api_idx_004c_LTUL:
     pop ax
     add ax, cx
     mov bx, ax
-    cmp word [bx + cell_key_grid], byte 0
+    cmp word [bx + party_records + pc_rec.cell], byte 0
     jg short @..api_idx_004c_LTUL.l7
     jmp near @..api_idx_004c_LTUL.l16
 @..api_idx_004c_LTUL.l7:
@@ -101,7 +101,7 @@ api_idx_004c_LTUL:
 @..api_idx_004c_LTUL.l8:
     mov ax, 0
     push ax
-    push word [bx + cell_key_grid]
+    push word [bx + party_records + pc_rec.cell]
     lea ax, word [bp - 0x004c]
     push ax
     mov ax, 1
@@ -123,7 +123,7 @@ api_idx_004c_LTUL:
     pop ax
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + cell_key_grid + 0x7]
+    mov al, byte [bx + party_records + pc_rec.cell + 0x7]
     sub ah, ah
     test ax, 0x80
     je short @..api_idx_004c_LTUL.l9
@@ -167,7 +167,7 @@ api_idx_004c_LTUL:
     imul word [bp + 0x4]
     add ax, word [bp - 0x0004]
     mov bx, ax
-    mov al, byte [bx + cell_key_grid + 0x114]
+    mov al, byte [bx + party_records + pc_rec.order]
     sub ah, ah
     cmp ax, word [bp - 0x0002]
     jne short @..api_idx_004c_LTUL.l13
@@ -200,7 +200,7 @@ api_idx_004c_LTUL:
     pop ax
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + cell_key_grid + 0x7]
+    mov al, byte [bx + party_records + pc_rec.cell + 0x7]
     sub ah, ah
     test ax, 2
     je short @..api_idx_004c_LTUL.l15

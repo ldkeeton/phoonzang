@@ -266,7 +266,7 @@ jumptable_36f8_case_8:
     mov word [party_tag], ax         ; 0x2e08
     mov bx, word [maze_tables]       ; 0x2e0b
     mov si, word [party_map_piece]   ; 0x2e0f
-    mov al, byte [bx + si + spell_table + 0x520] ; 0x2e13
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x2e13
     sub ah, ah                       ; 0x2e17
     mov word [party_region], ax      ; 0x2e19
     mov word [game_state], 5         ; 0x2e1c
@@ -350,8 +350,8 @@ jumptable_36f8_case_11:
     mov bx, ax                       ; 0x2edc
     pop dx                           ; 0x2ede
     pop ax                           ; 0x2edf
-    add word [bx + bss_5c08], ax     ; 0x2ee0
-    adc word [bx + member_pair_points], dx ; 0x2ee4
+    add word [bx + party_records + pc_rec.f_0014], ax ; 0x2ee0
+    adc word [bx + party_records + pc_rec.f_0016], dx ; 0x2ee4
     mov ax, word [bp - 0x0036]       ; 0x2ee8
     mov dx, word [bp - 0x0034]       ; 0x2eeb
     sub word [bss_91b6], ax          ; 0x2eee
@@ -387,8 +387,8 @@ jumptable_36f8_case_12:
     mov ax, 0x248                    ; 0x2f3e
     imul word [bp - 0x002c]          ; 0x2f41
     mov bx, ax                       ; 0x2f44
-    mov ax, word [bx + bss_5c08]     ; 0x2f46
-    mov dx, word [bx + member_pair_points] ; 0x2f4a
+    mov ax, word [bx + party_records + pc_rec.f_0014] ; 0x2f46
+    mov dx, word [bx + party_records + pc_rec.f_0016] ; 0x2f4a
     push ax                          ; 0x2f4e
     push dx                          ; 0x2f4f
     mov ax, word [bp - 0x0028]       ; 0x2f50
@@ -409,15 +409,15 @@ jumptable_36f8_case_12:
     mov bx, ax                       ; 0x2f71
     pop dx                           ; 0x2f73
     pop ax                           ; 0x2f74
-    sub word [bx + bss_5c08], ax     ; 0x2f75
-    sbb word [bx + member_pair_points], dx ; 0x2f79
+    sub word [bx + party_records + pc_rec.f_0014], ax ; 0x2f75
+    sbb word [bx + party_records + pc_rec.f_0016], dx ; 0x2f79
     jmp short @..api_idx_0040_LSRO.l32 ; 0x2f7d
 @..api_idx_0040_LSRO.l31:
     mov ax, 0x248                    ; 0x2f7f
     imul word [bp - 0x002c]          ; 0x2f82
     mov bx, ax                       ; 0x2f85
-    mov word [bx + member_pair_points], 0 ; 0x2f87
-    mov word [bx + bss_5c08], 0      ; 0x2f8d
+    mov word [bx + party_records + pc_rec.f_0016], 0 ; 0x2f87
+    mov word [bx + party_records + pc_rec.f_0014], 0 ; 0x2f8d
 @..api_idx_0040_LSRO.l32:
     inc word [bp - 0x002c]           ; 0x2f93
 @..api_idx_0040_LSRO.l33:
@@ -428,8 +428,8 @@ jumptable_36f8_case_12:
     mov ax, 0x248                    ; 0x2f9f
     imul word [bp + 0x4]             ; 0x2fa2
     mov bx, ax                       ; 0x2fa5
-    mov ax, word [bx + bss_5c08]     ; 0x2fa7
-    mov dx, word [bx + member_pair_points] ; 0x2fab
+    mov ax, word [bx + party_records + pc_rec.f_0014] ; 0x2fa7
+    mov dx, word [bx + party_records + pc_rec.f_0016] ; 0x2fab
     cmp dx, word [bp - 0x0034]       ; 0x2faf
     jg short @..api_idx_0040_LSRO.l35 ; 0x2fb2
     jne short @..api_idx_0040_LSRO.l36 ; 0x2fb4
@@ -444,8 +444,8 @@ jumptable_36f8_case_12:
     mov ax, 0x248                    ; 0x2fc4
     imul word [bp + 0x4]             ; 0x2fc7
     mov bx, ax                       ; 0x2fca
-    mov ax, word [bx + bss_5c08]     ; 0x2fcc
-    mov dx, word [bx + member_pair_points] ; 0x2fd0
+    mov ax, word [bx + party_records + pc_rec.f_0014] ; 0x2fcc
+    mov dx, word [bx + party_records + pc_rec.f_0016] ; 0x2fd0
     cmp dx, word [bp - 0x0034]       ; 0x2fd4
     jg short @..api_idx_0040_LSRO.l37 ; 0x2fd7
     jne short @..api_idx_0040_LSRO.l38 ; 0x2fd9
@@ -477,8 +477,8 @@ jumptable_36f8_case_12:
     mov bx, ax                       ; 0x300f
     pop dx                           ; 0x3011
     pop ax                           ; 0x3012
-    sub word [bx + bss_5c08], ax     ; 0x3013
-    sbb word [bx + member_pair_points], dx ; 0x3017
+    sub word [bx + party_records + pc_rec.f_0014], ax ; 0x3013
+    sbb word [bx + party_records + pc_rec.f_0016], dx ; 0x3017
     mov ax, word [bp - 0x0036]       ; 0x301b
     mov dx, word [bp - 0x0034]       ; 0x301e
     add word [bss_91b6], ax          ; 0x3021
@@ -502,9 +502,9 @@ jumptable_36f8_case_13:
     pop ax                           ; 0x304c
     add ax, cx                       ; 0x304d
     mov bx, ax                       ; 0x304f
-    cmp word [bx + cell_key_grid + 0x78], byte 0 ; 0x3051
+    cmp word [bx + party_records + pc_rec.cell + 0x78], byte 0 ; 0x3051
     jle short @..api_idx_0040_LSRO.l42 ; 0x3056
-    mov al, byte [bx + cell_key_grid + 0x7f] ; 0x3058
+    mov al, byte [bx + party_records + pc_rec.cell + 0x7f] ; 0x3058
     sub ah, ah                       ; 0x305c
     test ax, 0x40                    ; 0x305e
     jne short @..api_idx_0040_LSRO.l42 ; 0x3061
@@ -816,12 +816,12 @@ jumptable_36f8_case_30:
     mov ax, 0x26                     ; 0x3316
     imul word [bp - 0x0026]          ; 0x3319
     mov bx, ax                       ; 0x331c
-    mov al, byte [bx + slot_records + 0x15] ; 0x331e
-    mov byte [bx + slot_records + 0x14], al ; 0x3322
-    mov byte [bx + bss_84e8 + 0x2], 0 ; 0x3326
+    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x331e
+    mov byte [bx + slot_records + slot_record.flag], al ; 0x3322
+    mov byte [bx + slot_records + slot_record.f_0002], 0 ; 0x3326
     mov al, byte [bp - 0x0028]       ; 0x332b
-    mov byte [bx + slot_records], al ; 0x332e
-    mov byte [bx + bss_84e8 + 0x3], al ; 0x3332
+    mov byte [bx + slot_records + slot_record.kind], al ; 0x332e
+    mov byte [bx + slot_records + slot_record.f_0003], al ; 0x3332
     jmp near @..api_idx_0040_LSRO.l85 ; 0x3336
 jumptable_36f8_case_31:
     mov ax, word [bp - 0x0026]       ; 0x3339
@@ -889,9 +889,9 @@ jumptable_36f8_case_32:
     imul word [bp - 0x002c]          ; 0x33c0
     add ax, word [bp - 0x003a]       ; 0x33c3
     mov bx, ax                       ; 0x33c6
-    cmp byte [bx + cell_key_grid + 0x130], 0x13 ; 0x33c8
+    cmp byte [bx + party_records + pc_rec.stat], 0x13 ; 0x33c8
     jae short @..api_idx_0040_LSRO.l69 ; 0x33cd
-    inc byte [bx + cell_key_grid + 0x130] ; 0x33cf
+    inc byte [bx + party_records + pc_rec.stat] ; 0x33cf
     mov ax, bss_95a8                 ; 0x33d3
     push ax                          ; 0x33d6
     mov ax, 0x1397                   ; 0x33d7
@@ -1011,7 +1011,7 @@ jumptable_36f8_case_37:
     cbw                              ; 0x34e6
     mov cx, 0x26                     ; 0x34e7
     imul cx                          ; 0x34ea
-    add ax, slot_records + 0x16      ; 0x34ec
+    add ax, slot_records + slot_record.f_0019 + 0x1 ; 0x34ec
     push ax                          ; 0x34ef
     call test_bit                    ; 0x34f0
     add sp, byte 4                   ; 0x34f3
@@ -1222,7 +1222,7 @@ jumptable_36f8_case_49:
     mov ax, word [bp - 0x0026]       ; 0x36e3
     cmp ax, strict word 0xc          ; 0x36e6
     jne short @..api_idx_0040_LSRO.l83 ; 0x36e9
-    cmp byte [bss_86c8], 0           ; 0x36eb
+    cmp byte [slot_records + slot_record_size*12 + slot_record.flag], 0 ; 0x36eb
     jne short @..api_idx_0040_LSRO.l83 ; 0x36f0
     mov ax, 0                        ; 0x36f2
     ret                              ; 0x36f5

@@ -18,7 +18,7 @@ api_idx_0002_MTJS:
     shl ax, 1                        ; 0x2921
     mov bx, ax                       ; 0x2923
     mov bx, word [bx + party_char]   ; 0x2925
-    cmp byte [bx + si + 0x2a], 0xff  ; 0x2929
+    cmp byte [bx + si + member_rec.item_cell], 0xff ; 0x2929
     jne short @..api_idx_0002_MTJS.l3 ; 0x292d
     mov ax, 6                        ; 0x292f
     imul word [bp + 0x6]             ; 0x2932
@@ -55,7 +55,7 @@ api_idx_0002_MTJS:
     shl ax, 1                        ; 0x2985
     mov bx, ax                       ; 0x2987
     mov bx, word [bx + party_char]   ; 0x2989
-    mov al, byte [bx + 0x1a1]        ; 0x298d
+    mov al, byte [bx + member_rec.item_count] ; 0x298d
     sub ah, ah                       ; 0x2991
     cmp ax, word [bp - 0x0002]       ; 0x2993
     jle short @..api_idx_0002_MTJS.l5 ; 0x2996

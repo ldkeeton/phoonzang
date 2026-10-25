@@ -13,10 +13,10 @@ roll_claim_type7_object:
     shl ax, 1                        ; 0x0700
     mov si, ax                       ; 0x0702
     mov bx, word [maze_tables]       ; 0x0704
-    mov ax, word [bx + si + 0x1e0]   ; 0x0708
+    mov ax, word [bx + si + maze_tables_rec.f_01e0] ; 0x0708
     mov word [bp - 0x0006], ax       ; 0x070c
     mov si, word [bp - 0x000e]       ; 0x070f
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x0712
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x0712
     sub ah, ah                       ; 0x0716
     mov word [bp - 0x0002], ax       ; 0x0718
     mov ax, 5                        ; 0x071b
@@ -32,7 +32,7 @@ roll_claim_type7_object:
     shl ax, 1                        ; 0x0737
     mov si, ax                       ; 0x0739
     mov bx, word [maze_tables]       ; 0x073b
-    mov ax, word [bx + si + 0x3c0]   ; 0x073f
+    mov ax, word [bx + si + maze_tables_rec.f_03c0] ; 0x073f
     mov word [bp - 0x0002], ax       ; 0x0743
     mov ax, 2                        ; 0x0746
     push ax                          ; 0x0749

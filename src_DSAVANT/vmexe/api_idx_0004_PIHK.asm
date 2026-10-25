@@ -16,14 +16,14 @@ api_idx_0004_PIHK:
     mov cx, 0x248                    ; 0x1c84
     imul cx                          ; 0x1c87
     mov bx, ax                       ; 0x1c89
-    add word [bx + party_records + 0x10], byte 1 ; 0x1c8b
-    adc word [bx + party_records + 0x12], byte 0 ; 0x1c90
+    add word [bx + party_records + pc_rec.f_0010], byte 1 ; 0x1c8b
+    adc word [bx + party_records + pc_rec.f_0012], byte 0 ; 0x1c90
 @..api_idx_0004_PIHK.l2:
     mov ax, word [bp + 0x4]          ; 0x1c95
     shl ax, 1                        ; 0x1c98
     mov bx, ax                       ; 0x1c9a
     mov bx, word [bx + party_char_ext] ; 0x1c9c
-    mov al, byte [bx + 0xe2]         ; 0x1ca0
+    mov al, byte [bx + member_ext.f_00e2] ; 0x1ca0
     sub ah, ah                       ; 0x1ca4
     test ax, 1                       ; 0x1ca6
     je short @..api_idx_0004_PIHK.l3 ; 0x1ca9
@@ -41,19 +41,19 @@ api_idx_0004_PIHK:
     shl ax, 1                        ; 0x1cc3
     mov bx, ax                       ; 0x1cc5
     mov bx, word [bx + party_char_ext] ; 0x1cc7
-    cmp byte [bx + 0xe4], 0xff       ; 0x1ccb
+    cmp byte [bx + member_ext.f_00e4], 0xff ; 0x1ccb
     je short @..api_idx_0004_PIHK.l4 ; 0x1cd0
     mov al, byte [bx + 0xe4]         ; 0x1cd2
     cbw                              ; 0x1cd6
     mov cx, 0x26                     ; 0x1cd7
     imul cx                          ; 0x1cda
     mov bx, ax                       ; 0x1cdc
-    mov byte [bx + slot_records + 0x14], 0 ; 0x1cde
+    mov byte [bx + slot_records + slot_record.flag], 0 ; 0x1cde
     mov ax, word [bp + 0x4]          ; 0x1ce3
     shl ax, 1                        ; 0x1ce6
     mov bx, ax                       ; 0x1ce8
     mov bx, word [bx + party_char_ext] ; 0x1cea
-    mov al, byte [bx + 0xe4]         ; 0x1cee
+    mov al, byte [bx + member_ext.f_00e4] ; 0x1cee
     cbw                              ; 0x1cf2
     mov word [selected_item_slot], ax ; 0x1cf3
 @..api_idx_0004_PIHK.l4:
@@ -64,7 +64,7 @@ api_idx_0004_PIHK:
     shl ax, 1                        ; 0x1d01
     mov bx, ax                       ; 0x1d03
     mov bx, word [bx + party_char]   ; 0x1d05
-    cmp byte [bx + si + 0x2a], 0xff  ; 0x1d09
+    cmp byte [bx + si + member_rec.item_cell], 0xff ; 0x1d09
     je short @..api_idx_0004_PIHK.l5 ; 0x1d0d
     mov al, byte [bx + si + 0x2a]    ; 0x1d0f
     cbw                              ; 0x1d12
@@ -101,7 +101,7 @@ api_idx_0004_PIHK:
     shl ax, 1                        ; 0x1d64
     mov bx, ax                       ; 0x1d66
     mov bx, word [bx + party_char]   ; 0x1d68
-    mov byte [bx + si + 0x2a], 0xff  ; 0x1d6c
+    mov byte [bx + si + member_rec.item_cell], 0xff ; 0x1d6c
     mov ax, 0x2c                     ; 0x1d70
     imul word [bp + 0x6]             ; 0x1d73
     mov si, ax                       ; 0x1d76
@@ -109,7 +109,7 @@ api_idx_0004_PIHK:
     shl ax, 1                        ; 0x1d7b
     mov bx, ax                       ; 0x1d7d
     mov bx, word [bx + party_char]   ; 0x1d7f
-    mov byte [bx + si + 0x22], 3     ; 0x1d83
+    mov byte [bx + si + member_rec.item_state], 3 ; 0x1d83
     mov ax, 0x2c                     ; 0x1d87
     imul word [bp + 0x6]             ; 0x1d8a
     mov si, ax                       ; 0x1d8d
@@ -117,7 +117,7 @@ api_idx_0004_PIHK:
     shl ax, 1                        ; 0x1d92
     mov bx, ax                       ; 0x1d94
     mov bx, word [bx + party_char]   ; 0x1d96
-    mov word [bx + si + 0x2], 0      ; 0x1d9a
+    mov word [bx + si + member_rec.item_charges], 0 ; 0x1d9a
     mov ax, 0x2c                     ; 0x1d9f
     imul word [bp + 0x6]             ; 0x1da2
     mov si, ax                       ; 0x1da5
@@ -125,7 +125,7 @@ api_idx_0004_PIHK:
     shl ax, 1                        ; 0x1daa
     mov bx, ax                       ; 0x1dac
     mov bx, word [bx + party_char]   ; 0x1dae
-    mov word [bx + si + 0x6], 0      ; 0x1db2
+    mov word [bx + si + member_rec.item_timer], 0 ; 0x1db2
     mov ax, 0x2c                     ; 0x1db7
     imul word [bp + 0x6]             ; 0x1dba
     mov si, ax                       ; 0x1dbd
@@ -133,7 +133,7 @@ api_idx_0004_PIHK:
     shl ax, 1                        ; 0x1dc2
     mov bx, ax                       ; 0x1dc4
     mov bx, word [bx + party_char]   ; 0x1dc6
-    mov byte [bx + si + 0x24], 0     ; 0x1dca
+    mov byte [bx + si + member_rec.item_countdown], 0 ; 0x1dca
     mov ax, 0x2c                     ; 0x1dce
     imul word [bp + 0x6]             ; 0x1dd1
     mov si, ax                       ; 0x1dd4
@@ -141,7 +141,7 @@ api_idx_0004_PIHK:
     shl ax, 1                        ; 0x1dd9
     mov bx, ax                       ; 0x1ddb
     mov bx, word [bx + party_char]   ; 0x1ddd
-    mov byte [bx + si + 0x25], 0     ; 0x1de1
+    mov byte [bx + si + member_rec.f_0025], 0 ; 0x1de1
     mov word [bp - 0x0002], 0        ; 0x1de5
 @..api_idx_0004_PIHK.l6:
     mov ax, 0x2c                     ; 0x1dea
@@ -152,7 +152,7 @@ api_idx_0004_PIHK:
     shl ax, 1                        ; 0x1df8
     mov bx, ax                       ; 0x1dfa
     mov bx, word [bx + party_char]   ; 0x1dfc
-    mov byte [bx + si + 0x18], 0     ; 0x1e00
+    mov byte [bx + si + member_rec.f_0018], 0 ; 0x1e00
     inc word [bp - 0x0002]           ; 0x1e04
     mov ax, word [bp - 0x0002]       ; 0x1e07
     cmp ax, strict word 4            ; 0x1e0a
@@ -165,8 +165,8 @@ api_idx_0004_PIHK:
     shl ax, 1                        ; 0x1e1e
     mov bx, ax                       ; 0x1e20
     mov bx, word [bx + party_char_ext] ; 0x1e22
-    mov ax, word [bx + 0x40]         ; 0x1e26
-    mov dx, word [bx + 0x42]         ; 0x1e29
+    mov ax, word [bx + member_ext.f_0040] ; 0x1e26
+    mov dx, word [bx + member_ext.f_0042] ; 0x1e29
     add word [item_action_reward], ax ; 0x1e2c
     adc word [item_action_reward_hi], dx ; 0x1e30
 @..api_idx_0004_PIHK.l7:

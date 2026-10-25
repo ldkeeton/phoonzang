@@ -28,7 +28,7 @@ api_idx_0004_THPM:
     mov ax, 0x248                    ; 0x757e
     imul word [bp - 0x0002]          ; 0x7581
     mov bx, ax                       ; 0x7584
-    mov al, byte [bx + cell_key_grid + 0x144] ; 0x7586
+    mov al, byte [bx + party_records + pc_rec.flag + 0xc] ; 0x7586
     sub ah, ah                       ; 0x758a
     mov cx, ax                       ; 0x758c
     pop ax                           ; 0x758e

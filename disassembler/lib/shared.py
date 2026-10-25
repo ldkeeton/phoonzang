@@ -672,7 +672,8 @@ _INCLUDE = re.compile(r'^[ \t]*%include\s+"([^"]+)"')
 def _is_header(path):
     """An include that is part of the master's header, not a routine."""
     from lib.compare.render import HOST_SYMBOLS_INC
-    return path.startswith('inc/') or path == HOST_SYMBOLS_INC
+    from lib.record_layout import STRUCTS_INC
+    return path.startswith('inc/') or path in (HOST_SYMBOLS_INC, STRUCTS_INC)
 
 
 def _place_equs(files, out_dir):

@@ -47,7 +47,7 @@ api_idx_007a_GTOG:
     imul word [bp + 0x4]             ; 0x4422
     mov bx, ax                       ; 0x4425
     pop ax                           ; 0x4427
-    mov byte [bx + member_state + 0x1], al ; 0x4428
+    mov byte [bx + party_records + pc_rec.glyph_set], al ; 0x4428
     mov ax, 0                        ; 0x442c
     push ax                          ; 0x442f
     mov ax, 1                        ; 0x4430
@@ -65,7 +65,7 @@ api_idx_007a_GTOG:
     mov ax, 0x248                    ; 0x444c
     imul word [bp + 0x4]             ; 0x444f
     mov bx, ax                       ; 0x4452
-    mov al, byte [bx + member_state + 0x1] ; 0x4454
+    mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x4454
     sub ah, ah                       ; 0x4458
     add ax, strict word 0x64         ; 0x445a
     push ax                          ; 0x445d
@@ -80,7 +80,7 @@ api_idx_007a_GTOG:
     mov ax, 0x248                    ; 0x4472
     imul word [bp + 0x4]             ; 0x4475
     mov bx, ax                       ; 0x4478
-    mov al, byte [bx + member_state + 0x1] ; 0x447a
+    mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x447a
     sub ah, ah                       ; 0x447e
     push ax                          ; 0x4480
     push word [bp + 0x4]             ; 0x4481

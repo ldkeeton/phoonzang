@@ -26,8 +26,8 @@ api_idx_0002_SKSN:
     shl ax, 1                        ; 0x1382
     shl ax, 1                        ; 0x1384
     mov bx, ax                       ; 0x1386
-    push word [bx + member_state + 0xb7c] ; 0x1388
-    push word [bx + member_state + 0xb7a] ; 0x138c
+    push word [bx + panel_area + 0x2] ; 0x1388
+    push word [bx + panel_area]      ; 0x138c
     call gfx_restore_area            ; 0x1390
     add sp, byte 6                   ; 0x1393
     inc word [bp - 0x0002]           ; 0x1396

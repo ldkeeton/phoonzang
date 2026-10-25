@@ -41,7 +41,7 @@ api_idx_0002_NGRN:
     call api_idx_0006_LIRP           ; 0x2dd5
     add sp, byte 0x12                ; 0x2dd8
     mov bx, word [bss_848e]          ; 0x2ddb
-    cmp byte [bx + 0x1a1], 0         ; 0x2ddf
+    cmp byte [bx + rec_848e.f_01a1], 0 ; 0x2ddf
     jbe short @..api_idx_0002_NGRN.l4 ; 0x2de4
     push word [bp + 0x14]            ; 0x2de6
     push word [bp + 0x12]            ; 0x2de9

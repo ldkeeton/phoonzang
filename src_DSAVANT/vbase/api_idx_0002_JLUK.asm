@@ -25,8 +25,8 @@ api_idx_0002_JLUK:
     shl ax, 1                        ; 0x683f
     shl ax, 1                        ; 0x6841
     mov bx, ax                       ; 0x6843
-    push word [bx + member_state + 0xb7c] ; 0x6845
-    push word [bx + member_state + 0xb7a] ; 0x6849
+    push word [bx + panel_area + 0x2] ; 0x6845
+    push word [bx + panel_area]      ; 0x6849
     call gfx_restore_area            ; 0x684d
     add sp, byte 6                   ; 0x6850
     inc word [bp - 0x0002]           ; 0x6853

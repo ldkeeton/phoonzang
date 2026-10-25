@@ -13,7 +13,7 @@ api_idx_000c_JUIH:
     shl ax, 1                        ; 0x17a7
     mov bx, ax                       ; 0x17a9
     mov bx, word [bx + party_char]   ; 0x17ab
-    cmp byte [bx + si + 0x2a], 0xff  ; 0x17af
+    cmp byte [bx + si + member_rec.item_cell], 0xff ; 0x17af
     je short @..api_idx_000c_JUIH.l2 ; 0x17b3
     mov word [bp - 0x000c], 0        ; 0x17b5
 @..api_idx_000c_JUIH.l2:
@@ -23,7 +23,7 @@ api_idx_000c_JUIH:
     shl ax, 1                        ; 0x17c0
     mov bx, ax                       ; 0x17c2
     mov bx, word [bx + party_char]   ; 0x17c4
-    mov al, byte [bx + 0x1a1]        ; 0x17c8
+    mov al, byte [bx + member_rec.item_count] ; 0x17c8
     sub ah, ah                       ; 0x17cc
     cmp ax, word [bp - 0x0006]       ; 0x17ce
     jg short @..api_idx_000c_JUIH.l1 ; 0x17d1
@@ -55,7 +55,7 @@ api_idx_000c_JUIH:
     shl ax, 1                        ; 0x1811
     mov bx, ax                       ; 0x1813
     mov bx, word [bx + party_char]   ; 0x1815
-    mov al, byte [bx + 0x1a1]        ; 0x1819
+    mov al, byte [bx + member_rec.item_count] ; 0x1819
     sub ah, ah                       ; 0x181d
     cmp ax, word [bp - 0x0006]       ; 0x181f
     jg short @..api_idx_000c_JUIH.l5 ; 0x1822

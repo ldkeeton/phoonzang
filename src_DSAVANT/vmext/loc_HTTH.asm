@@ -114,7 +114,7 @@ loc_HTTH:
     mov bx, ax                       ; 0x16b9
     mov ax, word [bx + member_roster_index + 0x2] ; 0x16bb
     mov word [bp - 0x024c], ax       ; 0x16bf
-    mov ax, word [bx + member_state + 0xb92] ; 0x16c3
+    mov ax, word [bx + member_icon]  ; 0x16c3
     mov word [bp - 0x024e], ax       ; 0x16c7
     mov ax, 0x248                    ; 0x16cb
     imul word [bp - 0x0002]          ; 0x16ce
@@ -141,9 +141,9 @@ loc_HTTH:
     mov ax, word [bp - 0x0002]       ; 0x1704
     shl ax, 1                        ; 0x1707
     mov bx, ax                       ; 0x1709
-    mov ax, word [bx + member_state + 0xb92] ; 0x170b
+    mov ax, word [bx + member_icon]  ; 0x170b
     mov bx, cx                       ; 0x170f
-    mov word [bx + member_state + 0xb92], ax ; 0x1711
+    mov word [bx + member_icon], ax  ; 0x1711
     lea si, word [bp - 0x024a]       ; 0x1715
     mov ax, 0x248                    ; 0x1719
     imul word [bp - 0x0002]          ; 0x171c
@@ -160,15 +160,15 @@ loc_HTTH:
     mov bx, cx                       ; 0x1738
     mov word [bx + member_roster_index + 0x2], ax ; 0x173a
     mov ax, word [bp - 0x024e]       ; 0x173e
-    mov word [bx + member_state + 0xb92], ax ; 0x1742
+    mov word [bx + member_icon], ax  ; 0x1742
     mov ax, 0                        ; 0x1746
     push ax                          ; 0x1749
     mov ax, word [bp + 0x4]          ; 0x174a
     shl ax, 1                        ; 0x174d
     shl ax, 1                        ; 0x174f
     mov bx, ax                       ; 0x1751
-    push word [bx + member_state + 0xb7c] ; 0x1753
-    push word [bx + member_state + 0xb7a] ; 0x1757
+    push word [bx + panel_area + 0x2] ; 0x1753
+    push word [bx + panel_area]      ; 0x1757
     call gfx_restore_area            ; 0x175b
     add sp, byte 6                   ; 0x175e
     mov ax, word [bp + 0x4]          ; 0x1761
@@ -203,8 +203,8 @@ loc_HTTH:
     shl ax, 1                        ; 0x17ae
     shl ax, 1                        ; 0x17b0
     mov bx, ax                       ; 0x17b2
-    push word [bx + member_state + 0xb7c] ; 0x17b4
-    push word [bx + member_state + 0xb7a] ; 0x17b8
+    push word [bx + panel_area + 0x2] ; 0x17b4
+    push word [bx + panel_area]      ; 0x17b8
     call gfx_restore_area            ; 0x17bc
     add sp, byte 6                   ; 0x17bf
     mov ax, word [bp - 0x0002]       ; 0x17c2

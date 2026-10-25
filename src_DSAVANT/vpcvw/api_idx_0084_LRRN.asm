@@ -12,7 +12,7 @@ api_idx_0084_LRRN:
     imul word [bp + 0x4]             ; 0x410a
     add ax, word [bp - 0x0002]       ; 0x410d
     mov bx, ax                       ; 0x4110
-    cmp byte [bx + cell_key_grid + 0x138], 0 ; 0x4112
+    cmp byte [bx + party_records + pc_rec.flag], 0 ; 0x4112
     jbe short @..api_idx_0084_LRRN.l2 ; 0x4117
     mov word [bp - 0x0008], 1        ; 0x4119
 @..api_idx_0084_LRRN.l2:

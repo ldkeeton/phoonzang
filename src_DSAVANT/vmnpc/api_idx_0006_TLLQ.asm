@@ -10,12 +10,12 @@ api_idx_0006_TLLQ:
     mov ax, 0x248                    ; 0x8507
     imul word [bp - 0x0006]          ; 0x850a
     mov bx, ax                       ; 0x850d
-    mov ax, word [bx + bss_5c08]     ; 0x850f
-    mov dx, word [bx + member_pair_points] ; 0x8513
+    mov ax, word [bx + party_records + pc_rec.f_0014] ; 0x850f
+    mov dx, word [bx + party_records + pc_rec.f_0016] ; 0x8513
     add word [bp - 0x0004], ax       ; 0x8517
     adc word [bp - 0x0002], dx       ; 0x851a
-    mov word [bx + member_pair_points], 0 ; 0x851d
-    mov word [bx + bss_5c08], 0      ; 0x8523
+    mov word [bx + party_records + pc_rec.f_0016], 0 ; 0x851d
+    mov word [bx + party_records + pc_rec.f_0014], 0 ; 0x8523
     inc word [bp - 0x0006]           ; 0x8529
 @..api_idx_0006_TLLQ.l2:
     mov ax, word [bp - 0x0006]       ; 0x852c
@@ -30,6 +30,6 @@ api_idx_0006_TLLQ:
     mov bx, ax                       ; 0x8543
     pop dx                           ; 0x8545
     pop ax                           ; 0x8546
-    mov word [bx + member_pair_points], dx ; 0x8547
-    mov word [bx + bss_5c08], ax     ; 0x854b
+    mov word [bx + party_records + pc_rec.f_0016], dx ; 0x8547
+    mov word [bx + party_records + pc_rec.f_0014], ax ; 0x854b
     ret                              ; 0x854f

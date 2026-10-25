@@ -7,7 +7,7 @@ api_idx_0002_NHHH:
     mov bx, ax                       ; 0x1f0b
     mov bx, word [bx + party_char_ext] ; 0x1f0d
     mov si, word [bp + 0x8]          ; 0x1f11
-    mov al, byte [bx + si + 0x9a]    ; 0x1f14
+    mov al, byte [bx + si + member_ext.f_009a] ; 0x1f14
     sub ah, ah                       ; 0x1f18
     mov cx, ax                       ; 0x1f1a
     sub ax, word [bp + 0xa]          ; 0x1f1c

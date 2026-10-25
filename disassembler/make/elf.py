@@ -300,6 +300,9 @@ def resplice_c(app, binary, check_only=False, only=None):
     from lib.cross_ref import read_label_json
     label_map = read_label_json(labels_path)
     context = _load_render_context(app, binary)
+    # A relinked C routine spells record fields as the build rendered them.
+    from lib.record_layout import activate
+    activate((context or {}).get('record_layouts'))
     bins = discover_binaries(os.path.join(APPS, app))
     with open(os.path.join(APPS, app, bins[binary][0]), 'rb') as f:
         data = f.read()

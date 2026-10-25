@@ -12,7 +12,7 @@ api_idx_0002_GVOH:
     mov ax, 0x248                    ; 0x56c6
     imul word [bp + 0x4]             ; 0x56c9
     mov bx, ax                       ; 0x56cc
-    mov ax, word [bx + pc_spell_power_cap] ; 0x56ce
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x56ce
     dec ax                           ; 0x56d2
     mov cx, 2                        ; 0x56d3
     cwd                              ; 0x56d6

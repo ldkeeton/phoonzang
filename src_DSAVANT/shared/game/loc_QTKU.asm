@@ -5,9 +5,9 @@ loc_QTKU:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    cmp byte [bx + member_state + 0x5], 3
+    cmp byte [bx + party_records + pc_rec.state], 3
     jae short @..loc_QTKU.l1
-    mov al, byte [bx + member_state + 0x2]
+    mov al, byte [bx + party_records + pc_rec.sound]
     sub ah, ah
     add ax, strict word 8
     push ax
@@ -17,9 +17,9 @@ loc_QTKU:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov byte [bx + member_state + 0x5], 3
-    mov word [bx + member_pair_points + 0x2], 0
-    mov word [bx + pc_records], 0
+    mov byte [bx + party_records + pc_rec.state], 3
+    mov word [bx + party_records + pc_rec.pair_a], 0
+    mov word [bx + party_records + pc_rec.pair_b], 0
     cmp word [bp + 0x6], byte 0
     jle short @..loc_QTKU.l2
     mov ax, 1

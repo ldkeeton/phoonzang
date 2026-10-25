@@ -4,7 +4,7 @@ api_idx_00e6_QNPR:
     call aztec_csav                  ; 0x73b1
     mov bx, word [maze_tables]       ; 0x73b4
     mov si, word [party_region]      ; 0x73b8
-    cmp byte [bx + si + spell_table + 0x430], 0 ; 0x73bc
+    cmp byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004], 0 ; 0x73bc
     jbe short @..api_idx_00e6_QNPR.l1 ; 0x73c1
     mov ax, 0                        ; 0x73c3
     push ax                          ; 0x73c6
@@ -12,7 +12,7 @@ api_idx_00e6_QNPR:
     mov ax, word [bx + si]           ; 0x73c9
     push ax                          ; 0x73cb
     mov si, word [party_region]      ; 0x73cc
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x73d0
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x73d0
     sub ah, ah                       ; 0x73d4
     mov cx, ax                       ; 0x73d6
     pop ax                           ; 0x73d8

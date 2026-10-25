@@ -307,7 +307,7 @@ jumptable_5eb8_case_9:
     shl ax, 1                        ; 0x3dc5
     mov bx, ax                       ; 0x3dc7
     mov bx, word [bx + party_char]   ; 0x3dc9
-    mov al, byte [bx + 0x192]        ; 0x3dcd
+    mov al, byte [bx + member_rec.delay] ; 0x3dcd
     sub ah, ah                       ; 0x3dd1
     mov word [bp - 0x0002], ax       ; 0x3dd3
     cmp ax, word [bp + 0x8]          ; 0x3dd6
@@ -324,7 +324,7 @@ jumptable_5eb8_case_9:
     shl cx, 1                        ; 0x3df0
     mov bx, cx                       ; 0x3df2
     mov bx, word [bx + party_char]   ; 0x3df4
-    mov byte [bx + 0x198], al        ; 0x3df8
+    mov byte [bx + member_rec.f_0198], al ; 0x3df8
     jmp near @..api_idx_000e_ORJG.l132 ; 0x3dfc
 jumptable_5eb8_case_10:
     mov ax, 0xb                      ; 0x3dff
@@ -763,7 +763,7 @@ jumptable_5eb8_case_24:
     shl ax, 1                        ; 0x41ea
     mov bx, ax                       ; 0x41ec
     mov bx, word [bx + party_char]   ; 0x41ee
-    mov al, byte [bx + 0x196]        ; 0x41f2
+    mov al, byte [bx + member_rec.delay + 0x4] ; 0x41f2
     sub ah, ah                       ; 0x41f6
     mov word [bp - 0x0002], ax       ; 0x41f8
     cmp ax, word [bp + 0x8]          ; 0x41fb
@@ -780,7 +780,7 @@ jumptable_5eb8_case_24:
     shl cx, 1                        ; 0x4215
     mov bx, cx                       ; 0x4217
     mov bx, word [bx + party_char]   ; 0x4219
-    mov byte [bx + 0x19c], al        ; 0x421d
+    mov byte [bx + member_rec.f_019c], al ; 0x421d
     jmp near @..api_idx_000e_ORJG.l132 ; 0x4221
 jumptable_5eb8_case_26:
     mov ax, 6                        ; 0x4224
@@ -997,7 +997,7 @@ jumptable_5eb8_case_32:
     shl ax, 1                        ; 0x440a
     mov bx, ax                       ; 0x440c
     mov bx, word [bx + party_char]   ; 0x440e
-    mov al, byte [bx + 0x193]        ; 0x4412
+    mov al, byte [bx + member_rec.delay + 0x1] ; 0x4412
     sub ah, ah                       ; 0x4416
     mov word [bp - 0x0002], ax       ; 0x4418
     cmp ax, word [bp + 0x8]          ; 0x441b
@@ -1014,7 +1014,7 @@ jumptable_5eb8_case_32:
     shl cx, 1                        ; 0x4435
     mov bx, cx                       ; 0x4437
     mov bx, word [bx + party_char]   ; 0x4439
-    mov byte [bx + 0x199], al        ; 0x443d
+    mov byte [bx + member_rec.f_0199], al ; 0x443d
     jmp near @..api_idx_000e_ORJG.l132 ; 0x4441
 jumptable_5eb8_case_34:
     mov ax, 6                        ; 0x4444
@@ -1230,7 +1230,7 @@ jumptable_5eb8_case_38:
     shl ax, 1                        ; 0x4628
     mov bx, ax                       ; 0x462a
     mov bx, word [bx + party_char]   ; 0x462c
-    mov al, byte [bx + 0x194]        ; 0x4630
+    mov al, byte [bx + member_rec.delay + 0x2] ; 0x4630
     sub ah, ah                       ; 0x4634
     mov word [bp - 0x0002], ax       ; 0x4636
     cmp ax, word [bp + 0x8]          ; 0x4639
@@ -1247,7 +1247,7 @@ jumptable_5eb8_case_38:
     shl cx, 1                        ; 0x4653
     mov bx, cx                       ; 0x4655
     mov bx, word [bx + party_char]   ; 0x4657
-    mov byte [bx + 0x19a], al        ; 0x465b
+    mov byte [bx + member_rec.f_019a], al ; 0x465b
     jmp near @..api_idx_000e_ORJG.l132 ; 0x465f
 jumptable_5eb8_case_39:
     mov ax, 6                        ; 0x4662
@@ -1398,7 +1398,7 @@ jumptable_5eb8_case_42:
     shl ax, 1                        ; 0x47a3
     mov bx, ax                       ; 0x47a5
     mov bx, word [bx + party_char]   ; 0x47a7
-    mov al, byte [bx + 0x197]        ; 0x47ab
+    mov al, byte [bx + member_rec.delay + 0x5] ; 0x47ab
     sub ah, ah                       ; 0x47af
     mov word [bp - 0x0002], ax       ; 0x47b1
     cmp ax, word [bp + 0x8]          ; 0x47b4
@@ -1415,7 +1415,7 @@ jumptable_5eb8_case_42:
     shl cx, 1                        ; 0x47ce
     mov bx, cx                       ; 0x47d0
     mov bx, word [bx + party_char]   ; 0x47d2
-    mov byte [bx + 0x19d], al        ; 0x47d6
+    mov byte [bx + member_rec.f_019d], al ; 0x47d6
     jmp near @..api_idx_000e_ORJG.l132 ; 0x47da
 jumptable_5eb8_case_43:
     mov ax, 6                        ; 0x47dd
@@ -1496,7 +1496,7 @@ jumptable_5eb8_case_45:
     shl ax, 1                        ; 0x488b
     mov bx, ax                       ; 0x488d
     mov bx, word [bx + party_char]   ; 0x488f
-    mov al, byte [bx + si + 0x26]    ; 0x4893
+    mov al, byte [bx + si + member_rec.f_0026] ; 0x4893
     cbw                              ; 0x4896
     push ax                          ; 0x4897
     push word [bp + 0x8]             ; 0x4898
@@ -1511,7 +1511,7 @@ jumptable_5eb8_case_45:
     mov bx, ax                       ; 0x48af
     mov bx, word [bx + party_char]   ; 0x48b1
     pop ax                           ; 0x48b5
-    mov byte [bx + si + 0x26], al    ; 0x48b6
+    mov byte [bx + si + member_rec.f_0026], al ; 0x48b6
     jmp near @..api_idx_000e_ORJG.l132 ; 0x48b9
 jumptable_5eb8_case_48:
     mov ax, 6                        ; 0x48bc
@@ -1630,7 +1630,7 @@ jumptable_5eb8_case_52:
     shl ax, 1                        ; 0x49bc
     mov bx, ax                       ; 0x49be
     mov bx, word [bx + party_char]   ; 0x49c0
-    mov al, byte [bx + 0x195]        ; 0x49c4
+    mov al, byte [bx + member_rec.delay + 0x3] ; 0x49c4
     sub ah, ah                       ; 0x49c8
     mov word [bp - 0x0002], ax       ; 0x49ca
     cmp ax, word [bp + 0x8]          ; 0x49cd
@@ -1647,7 +1647,7 @@ jumptable_5eb8_case_52:
     shl cx, 1                        ; 0x49e7
     mov bx, cx                       ; 0x49e9
     mov bx, word [bx + party_char]   ; 0x49eb
-    mov byte [bx + 0x19b], al        ; 0x49ef
+    mov byte [bx + member_rec.f_019b], al ; 0x49ef
     jmp near @..api_idx_000e_ORJG.l132 ; 0x49f3
 jumptable_5eb8_case_53:
     mov ax, 0xa                      ; 0x49f6
@@ -1680,7 +1680,7 @@ jumptable_5eb8_case_53:
     shl ax, 1                        ; 0x4a3a
     mov bx, ax                       ; 0x4a3c
     mov bx, word [bx + party_char]   ; 0x4a3e
-    mov al, byte [bx + si + 0x26]    ; 0x4a42
+    mov al, byte [bx + si + member_rec.f_0026] ; 0x4a42
     cbw                              ; 0x4a45
     push ax                          ; 0x4a46
     push word [bp - 0x0004]          ; 0x4a47
@@ -1695,14 +1695,14 @@ jumptable_5eb8_case_53:
     mov bx, ax                       ; 0x4a5e
     mov bx, word [bx + party_char]   ; 0x4a60
     pop ax                           ; 0x4a64
-    mov byte [bx + si + 0x26], al    ; 0x4a65
+    mov byte [bx + si + member_rec.f_0026], al ; 0x4a65
     inc word [bp - 0x0002]           ; 0x4a68
 @..api_idx_000e_ORJG.l30:
     mov ax, word [bp - 0x000a]       ; 0x4a6b
     shl ax, 1                        ; 0x4a6e
     mov bx, ax                       ; 0x4a70
     mov bx, word [bx + party_char]   ; 0x4a72
-    mov al, byte [bx + 0x1a1]        ; 0x4a76
+    mov al, byte [bx + member_rec.item_count] ; 0x4a76
     sub ah, ah                       ; 0x4a7a
     cmp ax, word [bp - 0x0002]       ; 0x4a7c
     jg short @..api_idx_000e_ORJG.l29 ; 0x4a7f
@@ -1972,7 +1972,7 @@ jumptable_5eb8_case_64:
     shl ax, 1                        ; 0x4cd3
     mov bx, ax                       ; 0x4cd5
     mov bx, word [bx + party_char]   ; 0x4cd7
-    mov byte [bx + 0x1a0], 0         ; 0x4cdb
+    mov byte [bx + member_rec.f_01a0], 0 ; 0x4cdb
 @..api_idx_000e_ORJG.l38:
     inc word [bp - 0x0002]           ; 0x4ce0
 @..api_idx_000e_ORJG.l39:
@@ -2309,7 +2309,7 @@ jumptable_5eb8_case_81:
     shl ax, 1                        ; 0x4fb4
     mov bx, ax                       ; 0x4fb6
     mov bx, word [bx + party_char_ext] ; 0x4fb8
-    cmp byte [bx + 0xd6], 0x14       ; 0x4fbc
+    cmp byte [bx + member_ext.f_00d6], 0x14 ; 0x4fbc
     je short @..api_idx_000e_ORJG.l49 ; 0x4fc1
     mov word [bp - 0x000e], 0xff9c   ; 0x4fc3
     jmp short @..api_idx_000e_ORJG.l50 ; 0x4fc8
@@ -2508,7 +2508,7 @@ jumptable_5eb8_case_86:
     shl ax, 1                        ; 0x5169
     mov bx, ax                       ; 0x516b
     mov bx, word [bx + party_char]   ; 0x516d
-    mov al, byte [bx + 0x191]        ; 0x5171
+    mov al, byte [bx + member_rec.charge + 0x5] ; 0x5171
     sub ah, ah                       ; 0x5175
     push ax                          ; 0x5177
     mov ax, word [bp + 0x8]          ; 0x5178
@@ -2520,7 +2520,7 @@ jumptable_5eb8_case_86:
     shl cx, 1                        ; 0x5187
     mov bx, cx                       ; 0x5189
     mov bx, word [bx + party_char]   ; 0x518b
-    mov byte [bx + 0x191], al        ; 0x518f
+    mov byte [bx + member_rec.charge + 0x5], al ; 0x518f
     jmp near @..api_idx_000e_ORJG.l132 ; 0x5193
 jumptable_5eb8_case_90:
     mov ax, 0xa                      ; 0x5196
@@ -2538,7 +2538,7 @@ jumptable_5eb8_case_90:
     shl ax, 1                        ; 0x51b2
     mov bx, ax                       ; 0x51b4
     mov bx, word [bx + party_char_ext] ; 0x51b6
-    cmp byte [bx + 0xd6], 0x15       ; 0x51ba
+    cmp byte [bx + member_ext.f_00d6], 0x15 ; 0x51ba
     je short @..api_idx_000e_ORJG.l58 ; 0x51bf
     mov word [bp - 0x000e], 0xff9c   ; 0x51c1
     jmp short @..api_idx_000e_ORJG.l59 ; 0x51c6
@@ -2593,7 +2593,7 @@ jumptable_5eb8_case_91:
     shl ax, 1                        ; 0x5233
     mov bx, ax                       ; 0x5235
     mov bx, word [bx + party_char_ext] ; 0x5237
-    cmp byte [bx + 0xd6], 0x14       ; 0x523b
+    cmp byte [bx + member_ext.f_00d6], 0x14 ; 0x523b
     je short @..api_idx_000e_ORJG.l60 ; 0x5240
     mov word [bp - 0x000e], 0xff9c   ; 0x5242
     jmp short @..api_idx_000e_ORJG.l61 ; 0x5247
@@ -2713,7 +2713,7 @@ jumptable_5eb8_case_96:
     shl ax, 1                        ; 0x5345
     mov bx, ax                       ; 0x5347
     mov bx, word [bx + party_char_ext] ; 0x5349
-    cmp byte [bx + 0xd6], 0x14       ; 0x534d
+    cmp byte [bx + member_ext.f_00d6], 0x14 ; 0x534d
     je short @..api_idx_000e_ORJG.l68 ; 0x5352
     cmp byte [bx + 0xd6], 0x15       ; 0x5354
     je short @..api_idx_000e_ORJG.l68 ; 0x5359
@@ -2726,7 +2726,7 @@ jumptable_5eb8_case_96:
     shl ax, 1                        ; 0x536b
     mov bx, ax                       ; 0x536d
     mov bx, word [bx + party_char]   ; 0x536f
-    mov ax, word [bx + si + 0x2]     ; 0x5373
+    mov ax, word [bx + si + member_rec.item_charges] ; 0x5373
     cwd                              ; 0x5376
     shl ax, 1                        ; 0x5377
     rcl dx, 1                        ; 0x5379
@@ -2736,7 +2736,7 @@ jumptable_5eb8_case_96:
     rcl dx, 1                        ; 0x5381
     push ax                          ; 0x5383
     push dx                          ; 0x5384
-    mov ax, word [bx + si + 0x4]     ; 0x5385
+    mov ax, word [bx + si + member_rec.item_charge_cap] ; 0x5385
     cwd                              ; 0x5388
     mov cx, ax                       ; 0x5389
     mov bx, dx                       ; 0x538b
@@ -2772,7 +2772,7 @@ jumptable_5eb8_case_56:
     shl ax, 1                        ; 0x53d3
     mov bx, ax                       ; 0x53d5
     mov bx, word [bx + party_char]   ; 0x53d7
-    cmp byte [bx + si + 0x22], 2     ; 0x53db
+    cmp byte [bx + si + member_rec.item_state], 2 ; 0x53db
     je short @..api_idx_000e_ORJG.l71 ; 0x53df
     jmp near @..api_idx_000e_ORJG.l75 ; 0x53e1
 @..api_idx_000e_ORJG.l71:
@@ -2782,7 +2782,7 @@ jumptable_5eb8_case_56:
     mov ax, 0x248                    ; 0x53eb
     imul word [bp - 0x000c]          ; 0x53ee
     mov bx, ax                       ; 0x53f1
-    mov al, byte [bx + cell_key_grid + 0x133] ; 0x53f3
+    mov al, byte [bx + party_records + pc_rec.stat + 0x3] ; 0x53f3
     sub ah, ah                       ; 0x53f7
     mov dx, ax                       ; 0x53f9
     mov cx, 0x15                     ; 0x53fb
@@ -2792,7 +2792,7 @@ jumptable_5eb8_case_56:
     jg short @..api_idx_000e_ORJG.l72 ; 0x5403
     jmp near @..api_idx_000e_ORJG.l75 ; 0x5405
 @..api_idx_000e_ORJG.l72:
-    dec byte [bx + cell_key_grid + 0x133] ; 0x5408
+    dec byte [bx + party_records + pc_rec.stat + 0x3] ; 0x5408
     mov ax, 0xb7                     ; 0x540c
     push ax                          ; 0x540f
     call random_below                ; 0x5410
@@ -2806,8 +2806,8 @@ jumptable_5eb8_case_56:
     mov bx, ax                       ; 0x5420
     pop dx                           ; 0x5422
     pop ax                           ; 0x5423
-    add word [bx + party_records + 0x8], ax ; 0x5424
-    adc word [bx + party_records + 0xa], dx ; 0x5428
+    add word [bx + party_records + pc_rec.f_0008], ax ; 0x5424
+    adc word [bx + party_records + pc_rec.f_000a], dx ; 0x5428
     mov ax, 0x12                     ; 0x542c
     push ax                          ; 0x542f
     call random_below                ; 0x5430
@@ -2816,7 +2816,7 @@ jumptable_5eb8_case_56:
     mov ax, 0x248                    ; 0x5435
     imul word [bp - 0x000c]          ; 0x5438
     mov bx, ax                       ; 0x543b
-    mov al, byte [bx + cell_key_grid + 0x133] ; 0x543d
+    mov al, byte [bx + party_records + pc_rec.stat + 0x3] ; 0x543d
     sub ah, ah                       ; 0x5441
     mov cx, ax                       ; 0x5443
     pop ax                           ; 0x5445
@@ -2829,7 +2829,7 @@ jumptable_5eb8_case_56:
     shl ax, 1                        ; 0x5455
     mov bx, ax                       ; 0x5457
     mov bx, word [bx + party_char]   ; 0x5459
-    mov byte [bx + si + 0x22], 3     ; 0x545d
+    mov byte [bx + si + member_rec.item_state], 3 ; 0x545d
     mov ax, 0x2c                     ; 0x5461
     imul word [bp - 0x000c]          ; 0x5464
     mov si, ax                       ; 0x5467
@@ -2837,7 +2837,7 @@ jumptable_5eb8_case_56:
     shl ax, 1                        ; 0x546c
     mov bx, ax                       ; 0x546e
     mov bx, word [bx + party_char]   ; 0x5470
-    mov word [bx + si + 0x2], 0      ; 0x5474
+    mov word [bx + si + member_rec.item_charges], 0 ; 0x5474
     mov ax, 0x2c                     ; 0x5479
     imul word [bp - 0x000c]          ; 0x547c
     mov si, ax                       ; 0x547f
@@ -2845,7 +2845,7 @@ jumptable_5eb8_case_56:
     shl ax, 1                        ; 0x5484
     mov bx, ax                       ; 0x5486
     mov bx, word [bx + party_char]   ; 0x5488
-    mov word [bx + si + 0x6], 0      ; 0x548c
+    mov word [bx + si + member_rec.item_timer], 0 ; 0x548c
     jmp short @..api_idx_000e_ORJG.l74 ; 0x5491
 @..api_idx_000e_ORJG.l73:
     mov ax, 0x2c                     ; 0x5493
@@ -2855,7 +2855,7 @@ jumptable_5eb8_case_56:
     shl ax, 1                        ; 0x549e
     mov bx, ax                       ; 0x54a0
     mov bx, word [bx + party_char]   ; 0x54a2
-    mov byte [bx + si + 0x22], 0     ; 0x54a6
+    mov byte [bx + si + member_rec.item_state], 0 ; 0x54a6
     mov ax, 0x55                     ; 0x54aa
     push ax                          ; 0x54ad
     mov ax, 0xc4e                    ; 0x54ae
@@ -2884,7 +2884,7 @@ jumptable_5eb8_case_94:
     shl ax, 1                        ; 0x54e2
     mov bx, ax                       ; 0x54e4
     mov bx, word [bx + party_char]   ; 0x54e6
-    cmp byte [bx + si + 0x22], 3     ; 0x54ea
+    cmp byte [bx + si + member_rec.item_state], 3 ; 0x54ea
     je short @..api_idx_000e_ORJG.l77 ; 0x54ee
     jmp near @..api_idx_000e_ORJG.l79 ; 0x54f0
 @..api_idx_000e_ORJG.l77:
@@ -2894,7 +2894,7 @@ jumptable_5eb8_case_94:
     mov ax, 0x248                    ; 0x54fa
     imul word [bp - 0x000c]          ; 0x54fd
     mov bx, ax                       ; 0x5500
-    mov al, byte [bx + cell_key_grid + 0x133] ; 0x5502
+    mov al, byte [bx + party_records + pc_rec.stat + 0x3] ; 0x5502
     sub ah, ah                       ; 0x5506
     mov dx, ax                       ; 0x5508
     mov cx, 0x15                     ; 0x550a
@@ -2904,7 +2904,7 @@ jumptable_5eb8_case_94:
     jg short @..api_idx_000e_ORJG.l78 ; 0x5512
     jmp near @..api_idx_000e_ORJG.l79 ; 0x5514
 @..api_idx_000e_ORJG.l78:
-    dec byte [bx + cell_key_grid + 0x133] ; 0x5517
+    dec byte [bx + party_records + pc_rec.stat + 0x3] ; 0x5517
     mov ax, word [bp - 0x000a]       ; 0x551b
     shl ax, 1                        ; 0x551e
     mov bx, ax                       ; 0x5520
@@ -2917,10 +2917,10 @@ jumptable_5eb8_case_94:
     shl ax, 1                        ; 0x5535
     mov bx, ax                       ; 0x5537
     mov bx, word [bx + party_char]   ; 0x5539
-    push word [bx + si + 0x4]        ; 0x553d
+    push word [bx + si + member_rec.item_charge_cap] ; 0x553d
     mov ax, 1                        ; 0x5540
     push ax                          ; 0x5543
-    mov ax, word [bx + si + 0x4]     ; 0x5544
+    mov ax, word [bx + si + member_rec.item_charge_cap] ; 0x5544
     mov cx, 3                        ; 0x5547
     cwd                              ; 0x554a
     idiv cx                          ; 0x554b
@@ -2936,7 +2936,7 @@ jumptable_5eb8_case_94:
     mov bx, ax                       ; 0x5562
     mov bx, word [bx + party_char]   ; 0x5564
     pop ax                           ; 0x5568
-    mov word [bx + si + 0x2], ax     ; 0x5569
+    mov word [bx + si + member_rec.item_charges], ax ; 0x5569
     mov ax, 0x2c                     ; 0x556c
     imul word [bp - 0x000c]          ; 0x556f
     mov si, ax                       ; 0x5572
@@ -2944,15 +2944,15 @@ jumptable_5eb8_case_94:
     shl ax, 1                        ; 0x5577
     mov bx, ax                       ; 0x5579
     mov bx, word [bx + party_char]   ; 0x557b
-    mov ax, word [bx + si + 0x8]     ; 0x557f
+    mov ax, word [bx + si + member_rec.item_timer_max] ; 0x557f
     mov cx, 0xa                      ; 0x5582
     cwd                              ; 0x5585
     idiv cx                          ; 0x5586
-    mov word [bx + si + 0x6], ax     ; 0x5588
+    mov word [bx + si + member_rec.item_timer], ax ; 0x5588
     mov ax, 0x248                    ; 0x558b
     imul word [bp - 0x000c]          ; 0x558e
     mov bx, ax                       ; 0x5591
-    inc word [bx + pc_spell_power_cap + 0x2] ; 0x5593
+    inc word [bx + party_records + pc_rec.f_0026] ; 0x5593
     mov ax, 0xb7                     ; 0x5597
     push ax                          ; 0x559a
     call random_below                ; 0x559b
@@ -2966,8 +2966,8 @@ jumptable_5eb8_case_94:
     mov bx, ax                       ; 0x55ab
     pop dx                           ; 0x55ad
     pop ax                           ; 0x55ae
-    add word [bx + party_records + 0x8], ax ; 0x55af
-    adc word [bx + party_records + 0xa], dx ; 0x55b3
+    add word [bx + party_records + pc_rec.f_0008], ax ; 0x55af
+    adc word [bx + party_records + pc_rec.f_000a], dx ; 0x55b3
     mov ax, 0                        ; 0x55b7
     push ax                          ; 0x55ba
     push word [bp - 0x000c]          ; 0x55bb
@@ -3000,7 +3000,7 @@ jumptable_5eb8_case_12:
     shl ax, 1                        ; 0x55f9
     mov bx, ax                       ; 0x55fb
     mov bx, word [bx + party_char]   ; 0x55fd
-    mov al, byte [bx + 0x1a1]        ; 0x5601
+    mov al, byte [bx + member_rec.item_count] ; 0x5601
     sub ah, ah                       ; 0x5605
 @..api_idx_000e_ORJG.l82:
     mov word [bp - 0x0004], ax       ; 0x5607
@@ -3025,7 +3025,7 @@ jumptable_5eb8_case_12:
     shl ax, 1                        ; 0x5635
     mov bx, ax                       ; 0x5637
     mov bx, word [bx + party_char]   ; 0x5639
-    push word [bx + si + 0x8]        ; 0x563d
+    push word [bx + si + member_rec.item_timer_max] ; 0x563d
     mov ax, 0                        ; 0x5640
     push ax                          ; 0x5643
     push word [bp - 0x0008]          ; 0x5644
@@ -3054,7 +3054,7 @@ jumptable_5eb8_case_12:
     mov bx, ax                       ; 0x5679
     mov bx, word [bx + party_char]   ; 0x567b
     pop ax                           ; 0x567f
-    add ax, word [bx + si + 0x6]     ; 0x5680
+    add ax, word [bx + si + member_rec.item_timer] ; 0x5680
     push ax                          ; 0x5683
     call clamp_between               ; 0x5684
     add sp, byte 6                   ; 0x5687
@@ -3067,7 +3067,7 @@ jumptable_5eb8_case_12:
     mov bx, ax                       ; 0x5698
     mov bx, word [bx + party_char]   ; 0x569a
     pop ax                           ; 0x569e
-    mov word [bx + si + 0x6], ax     ; 0x569f
+    mov word [bx + si + member_rec.item_timer], ax ; 0x569f
     cmp word [bp - 0x000a], byte 0   ; 0x56a2
     jne short @..api_idx_000e_ORJG.l86 ; 0x56a6
     mov ax, 0                        ; 0x56a8
@@ -3102,7 +3102,7 @@ jumptable_5eb8_case_17:
     shl ax, 1                        ; 0x56eb
     mov bx, ax                       ; 0x56ed
     mov bx, word [bx + party_char]   ; 0x56ef
-    mov al, byte [bx + si + 0x11]    ; 0x56f3
+    mov al, byte [bx + si + member_rec.item_counter + 0x3] ; 0x56f3
     sub ah, ah                       ; 0x56f6
     push ax                          ; 0x56f8
     mov ax, 0x19                     ; 0x56f9
@@ -3134,7 +3134,7 @@ jumptable_5eb8_case_33:
     shl ax, 1                        ; 0x5738
     mov bx, ax                       ; 0x573a
     mov bx, word [bx + party_char]   ; 0x573c
-    mov al, byte [bx + si + 0x23]    ; 0x5740
+    mov al, byte [bx + si + member_rec.item_resist] ; 0x5740
     sub ah, ah                       ; 0x5743
     sub ax, word [bp + 0x8]          ; 0x5745
     mov word [bp - 0x0002], ax       ; 0x5748
@@ -3153,7 +3153,7 @@ jumptable_5eb8_case_33:
     mov bx, ax                       ; 0x576a
     mov bx, word [bx + party_char]   ; 0x576c
     pop ax                           ; 0x5770
-    mov byte [bx + si + 0x23], al    ; 0x5771
+    mov byte [bx + si + member_rec.item_resist], al ; 0x5771
     mov ax, 0x2c                     ; 0x5774
     imul word [bp - 0x000c]          ; 0x5777
     mov si, ax                       ; 0x577a
@@ -3161,7 +3161,7 @@ jumptable_5eb8_case_33:
     shl ax, 1                        ; 0x577f
     mov bx, ax                       ; 0x5781
     mov bx, word [bx + party_char]   ; 0x5783
-    mov al, byte [bx + si + 0x13]    ; 0x5787
+    mov al, byte [bx + si + member_rec.item_counter + 0x5] ; 0x5787
     sub ah, ah                       ; 0x578a
     push ax                          ; 0x578c
     mov ax, 5                        ; 0x578d
@@ -3185,7 +3185,7 @@ jumptable_5eb8_case_33:
     mov bx, ax                       ; 0x57ba
     mov bx, word [bx + party_char]   ; 0x57bc
     pop ax                           ; 0x57c0
-    mov byte [bx + si + 0x13], al    ; 0x57c1
+    mov byte [bx + si + member_rec.item_counter + 0x5], al ; 0x57c1
     cmp word [bp - 0x000a], byte 0   ; 0x57c4
     jne short @..api_idx_000e_ORJG.l93 ; 0x57c8
     mov ax, 0                        ; 0x57ca
@@ -3203,7 +3203,7 @@ jumptable_5eb8_case_69:
     shl ax, 1                        ; 0x57e5
     mov bx, ax                       ; 0x57e7
     mov bx, word [bx + party_char]   ; 0x57e9
-    mov al, byte [bx + si + 0x15]    ; 0x57ed
+    mov al, byte [bx + si + member_rec.item_counter + 0x7] ; 0x57ed
     sub ah, ah                       ; 0x57f0
     push ax                          ; 0x57f2
     mov ax, 0x19                     ; 0x57f3
@@ -3236,7 +3236,7 @@ jumptable_5eb8_case_25:
     mov ax, 0x248                    ; 0x5834
     imul word [bp - 0x000c]          ; 0x5837
     mov bx, ax                       ; 0x583a
-    mov al, byte [bx + cell_key_grid + 0x133] ; 0x583c
+    mov al, byte [bx + party_records + pc_rec.stat + 0x3] ; 0x583c
     sub ah, ah                       ; 0x5840
     mov dx, ax                       ; 0x5842
     mov cx, 0x12                     ; 0x5844
@@ -3251,7 +3251,7 @@ jumptable_5eb8_case_25:
     shl ax, 1                        ; 0x5859
     mov bx, ax                       ; 0x585b
     mov bx, word [bx + party_char]   ; 0x585d
-    mov byte [bx + si + 0x14], 0     ; 0x5861
+    mov byte [bx + si + member_rec.item_counter + 0x6], 0 ; 0x5861
 @..api_idx_000e_ORJG.l96:
     mov ax, 0                        ; 0x5865
     push ax                          ; 0x5868
@@ -3271,7 +3271,7 @@ jumptable_5eb8_case_66:
     shl ax, 1                        ; 0x5887
     mov bx, ax                       ; 0x5889
     mov bx, word [bx + party_char]   ; 0x588b
-    mov al, byte [bx + si + 0x10]    ; 0x588f
+    mov al, byte [bx + si + member_rec.item_counter + 0x2] ; 0x588f
     sub ah, ah                       ; 0x5892
     push ax                          ; 0x5894
     mov ax, word [bp + 0x8]          ; 0x5895
@@ -3294,7 +3294,7 @@ jumptable_5eb8_case_66:
     shl ax, 1                        ; 0x58bd
     mov bx, ax                       ; 0x58bf
     mov bx, word [bx + party_char]   ; 0x58c1
-    mov al, byte [bx + 0x1a1]        ; 0x58c5
+    mov al, byte [bx + member_rec.item_count] ; 0x58c5
     sub ah, ah                       ; 0x58c9
     cmp ax, word [bp - 0x0002]       ; 0x58cb
     jg short @..api_idx_000e_ORJG.l98 ; 0x58ce
@@ -3324,7 +3324,7 @@ jumptable_5eb8_case_61:
     shl ax, 1                        ; 0x5906
     mov bx, ax                       ; 0x5908
     mov bx, word [bx + party_char]   ; 0x590a
-    mov al, byte [bx + si + 0xe]     ; 0x590e
+    mov al, byte [bx + si + member_rec.item_counter] ; 0x590e
     sub ah, ah                       ; 0x5911
     push ax                          ; 0x5913
     mov ax, word [bp + 0x8]          ; 0x5914
@@ -3429,7 +3429,7 @@ jumptable_5eb8_case_78:
     shl ax, 1                        ; 0x59f9
     mov bx, ax                       ; 0x59fb
     mov bx, word [bx + party_char]   ; 0x59fd
-    mov al, byte [bx + 0x1a1]        ; 0x5a01
+    mov al, byte [bx + member_rec.item_count] ; 0x5a01
     sub ah, ah                       ; 0x5a05
 @..api_idx_000e_ORJG.l110:
     mov word [bp - 0x0004], ax       ; 0x5a07
@@ -3454,7 +3454,7 @@ jumptable_5eb8_case_78:
     shl ax, 1                        ; 0x5a36
     mov bx, ax                       ; 0x5a38
     mov bx, word [bx + party_char]   ; 0x5a3a
-    push word [bx + si + 0x4]        ; 0x5a3e
+    push word [bx + si + member_rec.item_charge_cap] ; 0x5a3e
     mov ax, 0                        ; 0x5a41
     push ax                          ; 0x5a44
     push word [bp - 0x0008]          ; 0x5a45
@@ -3482,7 +3482,7 @@ jumptable_5eb8_case_78:
     mov bx, ax                       ; 0x5a79
     mov bx, word [bx + party_char]   ; 0x5a7b
     pop ax                           ; 0x5a7f
-    add ax, word [bx + si + 0x2]     ; 0x5a80
+    add ax, word [bx + si + member_rec.item_charges] ; 0x5a80
     push ax                          ; 0x5a83
     call clamp_between               ; 0x5a84
     add sp, byte 6                   ; 0x5a87
@@ -3495,14 +3495,14 @@ jumptable_5eb8_case_78:
     mov bx, ax                       ; 0x5a98
     mov bx, word [bx + party_char]   ; 0x5a9a
     pop ax                           ; 0x5a9e
-    mov word [bx + si + 0x2], ax     ; 0x5a9f
+    mov word [bx + si + member_rec.item_charges], ax ; 0x5a9f
     cmp word [bp - 0x000a], byte 0   ; 0x5aa2
     jne short @..api_idx_000e_ORJG.l114 ; 0x5aa6
     mov ax, 0x248                    ; 0x5aa8
     imul word [bp - 0x0002]          ; 0x5aab
     mov bx, ax                       ; 0x5aae
-    add word [bx + party_records + 0x8], byte 1 ; 0x5ab0
-    adc word [bx + party_records + 0xa], byte 0 ; 0x5ab5
+    add word [bx + party_records + pc_rec.f_0008], byte 1 ; 0x5ab0
+    adc word [bx + party_records + pc_rec.f_000a], byte 0 ; 0x5ab5
     mov ax, 0                        ; 0x5aba
     push ax                          ; 0x5abd
     push word [bp - 0x0002]          ; 0x5abe
@@ -3672,12 +3672,12 @@ jumptable_5eb8_case_98:
     add ax, dx                       ; 0x5c46
     mov bx, ax                       ; 0x5c48
     pop ax                           ; 0x5c4a
-    add word [bx + pc_spell_power_cap + 0x4], ax ; 0x5c4b
-    mov ax, word [bx + pc_spell_power_cap + 0x4] ; 0x5c4f
-    cmp ax, word [bx + pc_spell_power_cap + 0x6] ; 0x5c53
+    add word [bx + party_records + pc_rec.realm_points], ax ; 0x5c4b
+    mov ax, word [bx + party_records + pc_rec.realm_points] ; 0x5c4f
+    cmp ax, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x5c53
     jle short @..api_idx_000e_ORJG.l120 ; 0x5c57
-    mov ax, word [bx + pc_spell_power_cap + 0x6] ; 0x5c59
-    mov word [bx + pc_spell_power_cap + 0x4], ax ; 0x5c5d
+    mov ax, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x5c59
+    mov word [bx + party_records + pc_rec.realm_points], ax ; 0x5c5d
 @..api_idx_000e_ORJG.l120:
     inc word [bp - 0x0002]           ; 0x5c61
     mov ax, word [bp - 0x0002]       ; 0x5c64
@@ -3741,8 +3741,8 @@ jumptable_5eb8_case_100:
     shl cx, 1                        ; 0x5d01
     add ax, cx                       ; 0x5d03
     mov bx, ax                       ; 0x5d05
-    mov ax, word [bx + pc_spell_power_cap + 0x6] ; 0x5d07
-    mov word [bx + pc_spell_power_cap + 0x4], ax ; 0x5d0b
+    mov ax, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x5d07
+    mov word [bx + party_records + pc_rec.realm_points], ax ; 0x5d0b
     inc word [bp - 0x0002]           ; 0x5d0f
     mov ax, word [bp - 0x0002]       ; 0x5d12
     cmp ax, strict word 6            ; 0x5d15
@@ -3750,9 +3750,9 @@ jumptable_5eb8_case_100:
     mov ax, 0x248                    ; 0x5d1a
     imul word [bp - 0x0006]          ; 0x5d1d
     mov bx, ax                       ; 0x5d20
-    cmp byte [bx + cell_key_grid + 0x133], 1 ; 0x5d22
+    cmp byte [bx + party_records + pc_rec.stat + 0x3], 1 ; 0x5d22
     jae short @..api_idx_000e_ORJG.l125 ; 0x5d27
-    mov byte [bx + cell_key_grid + 0x133], 1 ; 0x5d29
+    mov byte [bx + party_records + pc_rec.stat + 0x3], 1 ; 0x5d29
 @..api_idx_000e_ORJG.l125:
     mov ax, 4                        ; 0x5d2e
     push ax                          ; 0x5d31

@@ -23,7 +23,7 @@ cast_spell_from_dialog:
     mov ax, 6                        ; 0x4b06
     imul dx                          ; 0x4b09
     mov bx, ax                       ; 0x4b0b
-    cmp byte [bx + spell_table + 0x4], 1 ; 0x4b0d
+    cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x4b0d
     jne short @..cast_spell_from_dialog.l2 ; 0x4b12
     call pick_party_member           ; 0x4b14
     mov word [cast_spell_target], ax ; 0x4b17
@@ -37,7 +37,7 @@ cast_spell_from_dialog:
     mov ax, 6                        ; 0x4b28
     imul word [bp - 0x0002]          ; 0x4b2b
     mov bx, ax                       ; 0x4b2e
-    mov al, byte [bx + spell_table + 0x2] ; 0x4b30
+    mov al, byte [bx + spell_table + spell_table_rec.f_0002] ; 0x4b30
     sub ah, ah                       ; 0x4b34
     imul word [bp - 0x0004]          ; 0x4b36
     push ax                          ; 0x4b39
@@ -53,7 +53,7 @@ cast_spell_from_dialog:
     add cx, ax                       ; 0x4b50
     mov bx, cx                       ; 0x4b52
     pop ax                           ; 0x4b54
-    sub word [bx + pc_records + 0xc], ax ; 0x4b55
+    sub word [bx + party_records + pc_rec.realm_points], ax ; 0x4b55
     push word [cast_spell_target]    ; 0x4b59
     push word [bp - 0x0004]          ; 0x4b5d
     push word [bp - 0x0002]          ; 0x4b60
@@ -67,7 +67,7 @@ cast_spell_from_dialog:
     mov ax, 6                        ; 0x4b74
     imul word [bp - 0x0002]          ; 0x4b77
     mov bx, ax                       ; 0x4b7a
-    mov al, byte [bx + spell_table + 0x1] ; 0x4b7c
+    mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x4b7c
     sub ah, ah                       ; 0x4b80
     mov cx, ax                       ; 0x4b82
     pop ax                           ; 0x4b84
@@ -78,10 +78,10 @@ cast_spell_from_dialog:
     imul word [bp + 0x4]             ; 0x4b8e
     mov bx, ax                       ; 0x4b91
     pop ax                           ; 0x4b93
-    sub word [bx + pc_records], ax   ; 0x4b94
-    cmp word [bx + pc_records], byte 0 ; 0x4b98
+    sub word [bx + party_records + pc_rec.pair_b], ax ; 0x4b94
+    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x4b98
     jge short @..cast_spell_from_dialog.l4 ; 0x4b9d
-    mov word [bx + pc_records], 0    ; 0x4b9f
+    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x4b9f
     mov ax, 6                        ; 0x4ba5
     push ax                          ; 0x4ba8
     call random_below                ; 0x4ba9
@@ -92,7 +92,7 @@ cast_spell_from_dialog:
     imul word [bp + 0x4]             ; 0x4bb4
     mov bx, ax                       ; 0x4bb7
     pop ax                           ; 0x4bb9
-    mov byte [bx + pc_records + 0x14c], al ; 0x4bba
+    mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x4bba
 @..cast_spell_from_dialog.l4:
     mov ax, 1                        ; 0x4bbe
     push ax                          ; 0x4bc1

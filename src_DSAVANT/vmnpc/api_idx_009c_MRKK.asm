@@ -243,13 +243,13 @@ jumptable_6c16_case_0:
     imul word [bp - 0x000c]          ; 0x69e9
     add ax, word [bss_9136]          ; 0x69ec
     mov bx, ax                       ; 0x69f0
-    mov al, byte [bx + cell_key_grid + 0x17e] ; 0x69f2
+    mov al, byte [bx + party_records + pc_rec.pad_01be] ; 0x69f2
     cbw                              ; 0x69f6
     push ax                          ; 0x69f7
     mov ax, 0x248                    ; 0x69f8
     imul word [bp - 0x000c]          ; 0x69fb
     mov bx, ax                       ; 0x69fe
-    mov al, byte [bx + cell_key_grid + 0x136] ; 0x6a00
+    mov al, byte [bx + party_records + pc_rec.stat + 0x6] ; 0x6a00
     sub ah, ah                       ; 0x6a04
     mov cx, ax                       ; 0x6a06
     pop ax                           ; 0x6a08
@@ -410,14 +410,14 @@ jumptable_6c16_case_7:
     imul word [bp - 0x0002]          ; 0x6b67
     add ax, word [bss_9136]          ; 0x6b6a
     mov bx, ax                       ; 0x6b6e
-    cmp byte [bx + cell_key_grid + 0x17e], 0 ; 0x6b70
+    cmp byte [bx + party_records + pc_rec.pad_01be], 0 ; 0x6b70
     jle short @..api_idx_009c_MRKK.l39 ; 0x6b75
-    mov al, byte [bx + cell_key_grid + 0x17e] ; 0x6b77
+    mov al, byte [bx + party_records + pc_rec.pad_01be] ; 0x6b77
     cbw                              ; 0x6b7b
     mov cx, 5                        ; 0x6b7c
     cwd                              ; 0x6b7f
     idiv cx                          ; 0x6b80
-    mov byte [bx + cell_key_grid + 0x17e], al ; 0x6b82
+    mov byte [bx + party_records + pc_rec.pad_01be], al ; 0x6b82
 @..api_idx_009c_MRKK.l39:
     mov ax, 0                        ; 0x6b86
     push ax                          ; 0x6b89
@@ -519,13 +519,13 @@ jumptable_6c16:
     imul word [bp - 0x000c]          ; 0x6c60
     add ax, word [bss_9136]          ; 0x6c63
     mov bx, ax                       ; 0x6c67
-    mov al, byte [bx + cell_key_grid + 0x17e] ; 0x6c69
+    mov al, byte [bx + party_records + pc_rec.pad_01be] ; 0x6c69
     cbw                              ; 0x6c6d
     push ax                          ; 0x6c6e
     mov ax, 0x248                    ; 0x6c6f
     imul word [bp - 0x000c]          ; 0x6c72
     mov bx, ax                       ; 0x6c75
-    mov al, byte [bx + cell_key_grid + 0x136] ; 0x6c77
+    mov al, byte [bx + party_records + pc_rec.stat + 0x6] ; 0x6c77
     sub ah, ah                       ; 0x6c7b
     mov cx, ax                       ; 0x6c7d
     pop ax                           ; 0x6c7f

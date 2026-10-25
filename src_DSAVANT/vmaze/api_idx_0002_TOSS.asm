@@ -9,7 +9,7 @@ api_idx_0002_TOSS:
     push ax                          ; 0x0ada
     mov bx, word [maze_data]         ; 0x0adb
     mov si, word [bp + 0x4]          ; 0x0adf
-    mov al, byte [bx + si + spell_table + 0x4a0] ; 0x0ae2
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*197 + spell_table_rec.f_0002] ; 0x0ae2
     sub ah, ah                       ; 0x0ae6
     mov cx, ax                       ; 0x0ae8
     pop ax                           ; 0x0aea

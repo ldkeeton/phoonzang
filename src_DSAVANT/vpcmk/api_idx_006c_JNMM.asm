@@ -205,7 +205,7 @@ api_idx_006c_JNMM:
     imul word [bp + 0x4]             ; 0x4861
     add ax, word [bp - 0x0006]       ; 0x4864
     mov bx, ax                       ; 0x4867
-    dec byte [bx + cell_key_grid + 0x130] ; 0x4869
+    dec byte [bx + party_records + pc_rec.stat] ; 0x4869
     mov ax, word [bp - 0x0006]       ; 0x486d
     shl ax, 1                        ; 0x4870
     mov bx, ax                       ; 0x4872
@@ -227,11 +227,11 @@ api_idx_006c_JNMM:
     imul word [bp + 0x4]             ; 0x4892
     add ax, word [bp - 0x0006]       ; 0x4895
     mov bx, ax                       ; 0x4898
-    cmp byte [bx + cell_key_grid + 0x130], 0x12 ; 0x489a
+    cmp byte [bx + party_records + pc_rec.stat], 0x12 ; 0x489a
     jae short @..api_idx_006c_JNMM.l13 ; 0x489f
     cmp word [bss_9594], byte 0      ; 0x48a1
     jle short @..api_idx_006c_JNMM.l13 ; 0x48a6
-    inc byte [bx + cell_key_grid + 0x130] ; 0x48a8
+    inc byte [bx + party_records + pc_rec.stat] ; 0x48a8
     mov ax, word [bp - 0x0006]       ; 0x48ac
     shl ax, 1                        ; 0x48af
     mov bx, ax                       ; 0x48b1

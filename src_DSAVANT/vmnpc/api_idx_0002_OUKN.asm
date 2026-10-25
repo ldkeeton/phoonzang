@@ -12,7 +12,7 @@ api_idx_0002_OUKN:
     mov ax, 6                        ; 0x277f
     imul word [bp + 0x4]             ; 0x2782
     mov bx, ax                       ; 0x2785
-    cmp byte [bx + bss_84a6 + 0x1], 0 ; 0x2787
+    cmp byte [bx + bss_84a6 + rec_84a6.f_0001], 0 ; 0x2787
     je short @..api_idx_0002_OUKN.l1 ; 0x278c
     jmp near @..api_idx_0002_OUKN.l9 ; 0x278e
 @..api_idx_0002_OUKN.l1:
@@ -21,7 +21,7 @@ api_idx_0002_OUKN:
     mov cx, 0x26                     ; 0x2797
     imul cx                          ; 0x279a
     mov bx, ax                       ; 0x279c
-    mov al, byte [bx + bss_84e8]     ; 0x279e
+    mov al, byte [bx + slot_records] ; 0x279e
     cmp al, byte [bss_91c7]          ; 0x27a2
     jne short @..api_idx_0002_OUKN.l2 ; 0x27a6
     mov ax, 0                        ; 0x27a8
@@ -79,7 +79,7 @@ api_idx_0002_OUKN:
     mov cx, 0x26                     ; 0x2818
     imul cx                          ; 0x281b
     mov bx, ax                       ; 0x281d
-    mov al, byte [bx + bss_84e8]     ; 0x281f
+    mov al, byte [bx + slot_records] ; 0x281f
     sub ah, ah                       ; 0x2823
     add ax, 0x6d6                    ; 0x2825
     jmp short @..api_idx_0002_OUKN.l8 ; 0x2828

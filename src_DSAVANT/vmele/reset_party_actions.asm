@@ -32,7 +32,7 @@ reset_party_actions:
     shl ax, 1                        ; 0x3365
     mov bx, ax                       ; 0x3367
     mov bx, word [bx + party_char]   ; 0x3369
-    mov byte [bx + 0x1a1], 0         ; 0x336d
+    mov byte [bx + member_rec.item_count], 0 ; 0x336d
     inc word [bp - 0x0002]           ; 0x3372
     mov ax, word [bp - 0x0002]       ; 0x3375
     cmp ax, strict word 7            ; 0x3378

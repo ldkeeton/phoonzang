@@ -11,10 +11,10 @@ loc_LGQU:
     mov ax, 0x26                     ; 0x94b8
     imul word [bp + 0x4]             ; 0x94bb
     mov bx, ax                       ; 0x94be
-    mov al, byte [bx + slot_records + 0x14] ; 0x94c0
+    mov al, byte [bx + slot_records + slot_record.flag] ; 0x94c0
     cbw                              ; 0x94c4
     push ax                          ; 0x94c5
-    mov al, byte [bx + slot_records + 0x15] ; 0x94c6
+    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x94c6
     cbw                              ; 0x94ca
     mov cx, 2                        ; 0x94cb
     cwd                              ; 0x94ce
@@ -23,8 +23,8 @@ loc_LGQU:
     pop ax                           ; 0x94d3
     cmp ax, cx                       ; 0x94d4
     jge short @..loc_LGQU.l1         ; 0x94d6
-    mov al, byte [bx + bss_84e8 + 0x1] ; 0x94d8
-    mov byte [bx + bss_84e8 + 0x3], al ; 0x94dc
+    mov al, byte [bx + slot_records + slot_record.f_0001] ; 0x94d8
+    mov byte [bx + slot_records + slot_record.f_0003], al ; 0x94dc
     push word [bp + 0x4]             ; 0x94e0
     call loc_QJRN                    ; 0x94e3
     pop cx                           ; 0x94e6

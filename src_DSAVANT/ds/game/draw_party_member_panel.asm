@@ -8,8 +8,8 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     shl ax, 1                        ; 0x1d8e
     shl ax, 1                        ; 0x1d90
     mov bx, ax                       ; 0x1d92
-    push word [bx + member_state + 0xb7c] ; 0x1d94
-    push word [bx + member_state + 0xb7a] ; 0x1d98
+    push word [bx + panel_area + 0x2] ; 0x1d94
+    push word [bx + panel_area]      ; 0x1d98
     call gfx_restore_area            ; 0x1d9c
     add sp, byte 6                   ; 0x1d9f
     mov ax, word [bp + 0x4]          ; 0x1da2
@@ -38,7 +38,7 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     mov ax, word [bp + 0x4]          ; 0x1dda
     shl ax, 1                        ; 0x1ddd
     mov bx, ax                       ; 0x1ddf
-    mov al, byte [bx + member_state + 0xb92] ; 0x1de1
+    mov al, byte [bx + member_icon]  ; 0x1de1
     sub ah, ah                       ; 0x1de5
     push ax                          ; 0x1de7
     call draw_font_glyph             ; 0x1de8
@@ -84,7 +84,7 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     mov ax, 0x248                    ; 0x1e4a
     imul word [bp + 0x4]             ; 0x1e4d
     mov bx, ax                       ; 0x1e50
-    mov al, byte [bx + member_state + 0x3] ; 0x1e52
+    mov al, byte [bx + party_records + pc_rec.label] ; 0x1e52
     sub ah, ah                       ; 0x1e56
     add ax, strict word 0x78         ; 0x1e58
     push ax                          ; 0x1e5b
@@ -100,18 +100,18 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     mov ax, 0x248                    ; 0x1e74
     imul word [bp + 0x4]             ; 0x1e77
     mov bx, ax                       ; 0x1e7a
-    mov al, byte [bx + member_state + 0x5] ; 0x1e7c
+    mov al, byte [bx + party_records + pc_rec.state] ; 0x1e7c
     sub ah, ah                       ; 0x1e80
     shl ax, 1                        ; 0x1e82
     mov bx, ax                       ; 0x1e84
-    mov ax, word [bx + spell_table + 0x300] ; 0x1e86
+    mov ax, word [bx + spell_table + spell_table_rec_size*128] ; 0x1e86
     mov word [bp - 0x0006], ax       ; 0x1e8a
     cmp ax, strict word 0xffff       ; 0x1e8d
     jne short @..draw_party_member_panel.l1 ; 0x1e90
     mov ax, 0x248                    ; 0x1e92
     imul word [bp + 0x4]             ; 0x1e95
     mov bx, ax                       ; 0x1e98
-    cmp byte [bx + cell_key_grid + 0x128], 0 ; 0x1e9a
+    cmp byte [bx + party_records + pc_rec.status + 0x2], 0 ; 0x1e9a
     jbe short @..draw_party_member_panel.l1 ; 0x1e9f
     mov ax, 0                        ; 0x1ea1
     jmp short @..draw_party_member_panel.l2 ; 0x1ea4
@@ -124,7 +124,7 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     mov ax, 0x248                    ; 0x1eb1
     imul word [bp + 0x4]             ; 0x1eb4
     mov bx, ax                       ; 0x1eb7
-    cmp byte [bx + cell_key_grid + 0x129], 0 ; 0x1eb9
+    cmp byte [bx + party_records + pc_rec.status + 0x3], 0 ; 0x1eb9
     jbe short @..draw_party_member_panel.l3 ; 0x1ebe
     mov ax, 1                        ; 0x1ec0
     jmp short @..draw_party_member_panel.l4 ; 0x1ec3
@@ -158,17 +158,17 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     imul word [bp + 0x4]             ; 0x1f06
     add ax, word [bp - 0x0002]       ; 0x1f09
     mov bx, ax                       ; 0x1f0c
-    cmp byte [bx + cell_key_grid + 0x126], 0 ; 0x1f0e
+    cmp byte [bx + party_records + pc_rec.status], 0 ; 0x1f0e
     jbe short @..draw_party_member_panel.l7 ; 0x1f13
     mov ax, word [bp - 0x0002]       ; 0x1f15
     shl ax, 1                        ; 0x1f18
     mov bx, ax                       ; 0x1f1a
-    mov ax, word [bx + spell_table + 0x320] ; 0x1f1c
+    mov ax, word [bx + spell_table + spell_table_rec_size*133 + spell_table_rec.f_0002] ; 0x1f1c
     cmp ax, word [bp - 0x0008]       ; 0x1f20
     jle short @..draw_party_member_panel.l7 ; 0x1f23
-    mov ax, word [bx + spell_table + 0x30c] ; 0x1f25
+    mov ax, word [bx + spell_table + spell_table_rec_size*130] ; 0x1f25
     mov word [bp - 0x0006], ax       ; 0x1f29
-    mov ax, word [bx + spell_table + 0x320] ; 0x1f2c
+    mov ax, word [bx + spell_table + spell_table_rec_size*133 + spell_table_rec.f_0002] ; 0x1f2c
     mov word [bp - 0x0008], ax       ; 0x1f30
 @..draw_party_member_panel.l7:
     inc word [bp - 0x0002]           ; 0x1f33
@@ -196,19 +196,19 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     mov ax, 0x248                    ; 0x1f68
     imul word [bp + 0x4]             ; 0x1f6b
     mov bx, ax                       ; 0x1f6e
-    cmp byte [bx + member_state], 0x13 ; 0x1f70
+    cmp byte [bx + party_records + pc_rec.kind], 0x13 ; 0x1f70
     je short @..draw_party_member_panel.l9 ; 0x1f75
-    cmp byte [bx + member_state], 0x19 ; 0x1f77
+    cmp byte [bx + party_records + pc_rec.kind], 0x19 ; 0x1f77
     jne short @..draw_party_member_panel.l10 ; 0x1f7c
 @..draw_party_member_panel.l9:
     mov ax, 0xa                      ; 0x1f7e
     jmp short @..draw_party_member_panel.l11 ; 0x1f81
 @..draw_party_member_panel.l10:
-    mov al, byte [bx + member_state + 0x1] ; 0x1f83
+    mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x1f83
     sub ah, ah                       ; 0x1f87
     shl ax, 1                        ; 0x1f89
     mov bx, ax                       ; 0x1f8b
-    mov ax, word [bx + spell_table + 0x334] ; 0x1f8d
+    mov ax, word [bx + spell_table + spell_table_rec_size*136 + spell_table_rec.f_0004] ; 0x1f8d
 @..draw_party_member_panel.l11:
     mov word [bp - 0x003a], ax       ; 0x1f91
     mov word [bp - 0x0002], 0        ; 0x1f94
@@ -227,7 +227,7 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     imul word [bp + 0x4]             ; 0x1fb6
     add ax, word [bp - 0x0002]       ; 0x1fb9
     mov bx, ax                       ; 0x1fbc
-    mov al, byte [bx + cell_key_grid + 0x114] ; 0x1fbe
+    mov al, byte [bx + party_records + pc_rec.order] ; 0x1fbe
     sub ah, ah                       ; 0x1fc2
     mov word [bp - 0x0004], ax       ; 0x1fc4
     cmp ax, 0xff                     ; 0x1fc7
@@ -241,11 +241,11 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     pop ax                           ; 0x1fdb
     add ax, cx                       ; 0x1fdc
     mov bx, ax                       ; 0x1fde
-    cmp word [bx + cell_key_grid], byte 0 ; 0x1fe0
+    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x1fe0
     jle short @..draw_party_member_panel.l13 ; 0x1fe5
     mov ax, 4                        ; 0x1fe7
     push ax                          ; 0x1fea
-    mov al, byte [bx + cell_key_grid + 0x5] ; 0x1feb
+    mov al, byte [bx + party_records + pc_rec.cell + 0x5] ; 0x1feb
     sub ah, ah                       ; 0x1fef
     push ax                          ; 0x1ff1
     call draw_font_glyph             ; 0x1ff2
@@ -270,8 +270,8 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     mov ax, 0x248                    ; 0x201c
     imul word [bp + 0x4]             ; 0x201f
     mov bx, ax                       ; 0x2022
-    push word [bx + member_pair_points + 0x4] ; 0x2024
-    push word [bx + member_pair_points + 0x2] ; 0x2028
+    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x2024
+    push word [bx + party_records + pc_rec.pair_a] ; 0x2028
     mov ax, 0x16                     ; 0x202c
     push ax                          ; 0x202f
     mov ax, 3                        ; 0x2030
@@ -289,8 +289,8 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     mov ax, 0x248                    ; 0x204c
     imul word [bp + 0x4]             ; 0x204f
     mov bx, ax                       ; 0x2052
-    push word [bx + pc_records + 0x2] ; 0x2054
-    push word [bx + pc_records]      ; 0x2058
+    push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x2054
+    push word [bx + party_records + pc_rec.pair_b] ; 0x2058
     mov ax, 0x16                     ; 0x205c
     push ax                          ; 0x205f
     mov ax, 3                        ; 0x2060
@@ -314,9 +314,9 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     shl cx, 1                        ; 0x2092
     add ax, cx                       ; 0x2094
     mov bx, ax                       ; 0x2096
-    mov ax, word [bx + pc_spell_power_cap + 0x4] ; 0x2098
+    mov ax, word [bx + party_records + pc_rec.realm_points] ; 0x2098
     add word [bp - 0x000e], ax       ; 0x209c
-    mov ax, word [bx + pc_spell_power_cap + 0x6] ; 0x209f
+    mov ax, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x209f
     add word [bp - 0x0010], ax       ; 0x20a3
     inc word [bp - 0x0002]           ; 0x20a6
     mov ax, word [bp - 0x0002]       ; 0x20a9

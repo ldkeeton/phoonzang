@@ -17,7 +17,7 @@ cell_power: ; Aztec csav frame=0x0002
     pop ax                           ; 0x1762
     add ax, cx                       ; 0x1763
     mov bx, ax                       ; 0x1765
-    mov al, byte [bx + cell_key_grid + 0x4] ; 0x1767
+    mov al, byte [bx + party_records + pc_rec.cell + 0x4] ; 0x1767
     sub ah, ah                       ; 0x176b
     mov bx, ax                       ; 0x176d
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x176f
@@ -37,7 +37,7 @@ cell_power: ; Aztec csav frame=0x0002
     pop ax                           ; 0x1791
     add ax, cx                       ; 0x1792
     mov bx, ax                       ; 0x1794
-    mov al, byte [bx + cell_key_grid + 0x6] ; 0x1796
+    mov al, byte [bx + party_records + pc_rec.cell + 0x6] ; 0x1796
     sub ah, ah                       ; 0x179a
     jmp short @..cell_power.l2       ; 0x179c
 @..cell_power.l1:
@@ -63,6 +63,6 @@ cell_power: ; Aztec csav frame=0x0002
     pop ax                           ; 0x17c9
     add ax, cx                       ; 0x17ca
     mov bx, ax                       ; 0x17cc
-    mov ax, word [bx + cell_key_grid + 0x2] ; 0x17ce
+    mov ax, word [bx + party_records + pc_rec.cell + 0x2] ; 0x17ce
     imul word [bp - 0x0002]          ; 0x17d2
     ret                              ; 0x17d5

@@ -6,7 +6,7 @@ loc_SSIO:
     shl ax, 1
     mov bx, ax
     mov bx, word [bx + overlay_list + 0x2]
-    mov al, byte [bx + 0x14]
+    mov al, byte [bx + overlay_list_rec.f_0014]
     sub ah, ah
     cmp ax, 0xff
     je short @..loc_SSIO.l1
@@ -22,18 +22,18 @@ loc_SSIO:
     shl ax, 1
     mov bx, ax
     mov bx, word [bx + overlay_list + 0x2]
-    mov al, byte [bx + 0x16]
+    mov al, byte [bx + overlay_list_rec.f_0016]
     sub ah, ah
     push ax
     mov ax, 0x8e
     push ax
     mov ax, 0x21
     push ax
-    push word [bx + 0x6]
-    push word [bx + 0x4]
-    push word [bx + 0x2]
+    push word [bx + overlay_list_rec.f_0006]
+    push word [bx + overlay_list_rec.f_0004]
+    push word [bx + overlay_list_rec.f_0002]
     push word [bx]
-    mov al, byte [bx + 0x15]
+    mov al, byte [bx + overlay_list_rec.f_0015]
     sub ah, ah
     push ax
     call gfx_draw_text

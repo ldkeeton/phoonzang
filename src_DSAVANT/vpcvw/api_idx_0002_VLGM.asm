@@ -8,7 +8,7 @@ api_idx_0002_VLGM:
     imul word [bp + 0x4]             ; 0x8f72
     add ax, word [bp - 0x0002]       ; 0x8f75
     mov bx, ax                       ; 0x8f78
-    mov al, byte [bx + cell_key_grid + 0x130] ; 0x8f7a
+    mov al, byte [bx + party_records + pc_rec.stat] ; 0x8f7a
     sub ah, ah                       ; 0x8f7e
     push ax                          ; 0x8f80
     mov bx, word [bp + 0x6]          ; 0x8f81
@@ -30,7 +30,7 @@ api_idx_0002_VLGM:
     add ax, si                       ; 0x8fa3
     mov bx, ax                       ; 0x8fa5
     pop ax                           ; 0x8fa7
-    mov byte [bx + cell_key_grid + 0x130], al ; 0x8fa8
+    mov byte [bx + party_records + pc_rec.stat], al ; 0x8fa8
 @..api_idx_0002_VLGM.l2:
     inc word [bp - 0x0002]           ; 0x8fac
     mov ax, word [bp - 0x0002]       ; 0x8faf

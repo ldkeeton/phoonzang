@@ -5,7 +5,7 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa2e5
     imul word [bp + 0x4]             ; 0xa2e8
     mov bx, ax                       ; 0xa2eb
-    mov al, byte [bx + bss_84e8 + 0x3] ; 0xa2ed
+    mov al, byte [bx + slot_records + slot_record.f_0003] ; 0xa2ed
     sub ah, ah                       ; 0xa2f1
     push ax                          ; 0xa2f3
     push word [bp + 0x4]             ; 0xa2f4
@@ -16,13 +16,13 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa301
     imul word [bp + 0x4]             ; 0xa304
     mov bx, ax                       ; 0xa307
-    mov byte [bx + bss_84e8 + 0x2], 0 ; 0xa309
+    mov byte [bx + slot_records + slot_record.f_0002], 0 ; 0xa309
     ret                              ; 0xa30e
 @..api_idx_0010_TRQK.l1:
     mov ax, 0x26                     ; 0xa30f
     imul word [bp + 0x4]             ; 0xa312
     mov bx, ax                       ; 0xa315
-    inc byte [bx + slot_records + 0x1] ; 0xa317
+    inc byte [bx + slot_records + slot_record.map_piece] ; 0xa317
     mov ax, 3                        ; 0xa31b
     push ax                          ; 0xa31e
     mov ax, 2                        ; 0xa31f
@@ -37,7 +37,7 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa331
     imul word [bp + 0x4]             ; 0xa334
     mov bx, ax                       ; 0xa337
-    mov al, byte [bx + bss_84e8 + 0x3] ; 0xa339
+    mov al, byte [bx + slot_records + slot_record.f_0003] ; 0xa339
     sub ah, ah                       ; 0xa33d
     mov word [bp - 0x0006], ax       ; 0xa33f
     shl ax, 1                        ; 0xa342
@@ -57,7 +57,7 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa362
     imul word [bp + 0x4]             ; 0xa365
     mov bx, ax                       ; 0xa368
-    mov al, byte [bx + bss_84e8]     ; 0xa36a
+    mov al, byte [bx + slot_records] ; 0xa36a
     sub ah, ah                       ; 0xa36e
     mov cx, 0xc                      ; 0xa370
     imul cx                          ; 0xa373
@@ -88,7 +88,7 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa3ab
     imul word [bp + 0x4]             ; 0xa3ae
     mov bx, ax                       ; 0xa3b1
-    mov byte [bx + bss_84e8 + 0x2], 7 ; 0xa3b3
+    mov byte [bx + slot_records + slot_record.f_0002], 7 ; 0xa3b3
     ret                              ; 0xa3b8
 @..api_idx_0010_TRQK.l3:
     mov word [bp - 0x000c], 0        ; 0xa3b9
@@ -101,7 +101,7 @@ api_idx_0010_TRQK:
     mov cx, 0x26                     ; 0xa3c9
     imul cx                          ; 0xa3cc
     mov bx, ax                       ; 0xa3ce
-    cmp byte [bx + slot_records + 0x14], 0 ; 0xa3d0
+    cmp byte [bx + slot_records + slot_record.flag], 0 ; 0xa3d0
     jg short @..api_idx_0010_TRQK.l6 ; 0xa3d5
     jmp near @..api_idx_0010_TRQK.l17 ; 0xa3d7
 @..api_idx_0010_TRQK.l6:
@@ -124,9 +124,9 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa402
     imul word [bp - 0x000c]          ; 0xa405
     mov bx, ax                       ; 0xa408
-    cmp byte [bx + bss_84e8 + 0x2], 2 ; 0xa40a
+    cmp byte [bx + slot_records + slot_record.f_0002], 2 ; 0xa40a
     je short @..api_idx_0010_TRQK.l9 ; 0xa40f
-    cmp byte [bx + bss_84e8 + 0x2], 1 ; 0xa411
+    cmp byte [bx + slot_records + slot_record.f_0002], 1 ; 0xa411
     je short @..api_idx_0010_TRQK.l9 ; 0xa416
     jmp near @..api_idx_0010_TRQK.l17 ; 0xa418
 @..api_idx_0010_TRQK.l9:
@@ -141,7 +141,7 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa42a
     imul word [bp + 0x4]             ; 0xa42d
     mov bx, ax                       ; 0xa430
-    mov al, byte [bx + bss_84e8]     ; 0xa432
+    mov al, byte [bx + slot_records] ; 0xa432
     sub ah, ah                       ; 0xa436
     mov cx, 0xc                      ; 0xa438
     imul cx                          ; 0xa43b
@@ -149,7 +149,7 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa43e
     imul word [bp - 0x000c]          ; 0xa441
     mov bx, ax                       ; 0xa444
-    mov al, byte [bx + bss_84e8]     ; 0xa446
+    mov al, byte [bx + slot_records] ; 0xa446
     sub ah, ah                       ; 0xa44a
     mov cx, ax                       ; 0xa44c
     pop ax                           ; 0xa44e
@@ -183,13 +183,13 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa48b
     imul word [bp + 0x4]             ; 0xa48e
     mov bx, ax                       ; 0xa491
-    mov al, byte [bx + slot_records + 0x14] ; 0xa493
+    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa493
     cbw                              ; 0xa497
     push ax                          ; 0xa498
     mov ax, 0x26                     ; 0xa499
     imul word [bp - 0x000c]          ; 0xa49c
     mov bx, ax                       ; 0xa49f
-    mov al, byte [bx + slot_records + 0x14] ; 0xa4a1
+    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa4a1
     cbw                              ; 0xa4a5
     mov dx, ax                       ; 0xa4a6
     pop ax                           ; 0xa4a8
@@ -207,13 +207,13 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa4c1
     imul word [bp + 0x4]             ; 0xa4c4
     mov bx, ax                       ; 0xa4c7
-    mov al, byte [bx + slot_records + 0x14] ; 0xa4c9
+    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa4c9
     cbw                              ; 0xa4cd
     push ax                          ; 0xa4ce
     mov ax, 0x26                     ; 0xa4cf
     imul word [bp - 0x000c]          ; 0xa4d2
     mov bx, ax                       ; 0xa4d5
-    mov al, byte [bx + slot_records + 0x14] ; 0xa4d7
+    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa4d7
     cbw                              ; 0xa4db
     mov cx, 2                        ; 0xa4dc
     cwd                              ; 0xa4df
@@ -256,7 +256,7 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa52b
     imul word [bp + 0x4]             ; 0xa52e
     mov bx, ax                       ; 0xa531
-    mov byte [bx + bss_84e8 + 0x2], 0 ; 0xa533
+    mov byte [bx + slot_records + slot_record.f_0002], 0 ; 0xa533
 @..api_idx_0010_TRQK.l16:
     mov ax, 3                        ; 0xa538
     push ax                          ; 0xa53b
@@ -275,7 +275,7 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa553
     imul word [bp + 0x4]             ; 0xa556
     mov bx, ax                       ; 0xa559
-    mov al, byte [bx + slot_records + 0x1] ; 0xa55b
+    mov al, byte [bx + slot_records + slot_record.map_piece] ; 0xa55b
     sub ah, ah                       ; 0xa55f
     mov cx, 4                        ; 0xa561
     cwd                              ; 0xa564
@@ -294,7 +294,7 @@ api_idx_0010_TRQK:
     push word [bp - 0x0006]          ; 0xa57f
     mov ax, 0x26                     ; 0xa582
     imul word [bp + 0x4]             ; 0xa585
-    add ax, slot_records + 0x1a      ; 0xa588
+    add ax, slot_records + slot_record.f_0019 + 0x5 ; 0xa588
     push ax                          ; 0xa58b
     call set_bitmap_bit              ; 0xa58c
     add sp, byte 6                   ; 0xa58f
@@ -302,15 +302,15 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa592
     imul word [bp + 0x4]             ; 0xa595
     mov bx, ax                       ; 0xa598
-    mov al, byte [bx + bss_84e8 + 0x1] ; 0xa59a
+    mov al, byte [bx + slot_records + slot_record.f_0001] ; 0xa59a
     sub ah, ah                       ; 0xa59e
     cmp ax, word [bp - 0x0006]       ; 0xa5a0
     jne short @..api_idx_0010_TRQK.l20 ; 0xa5a3
-    mov al, byte [bx + slot_records + 0x15] ; 0xa5a5
-    mov byte [bx + slot_records + 0x14], al ; 0xa5a9
+    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0xa5a5
+    mov byte [bx + slot_records + slot_record.flag], al ; 0xa5a9
 @..api_idx_0010_TRQK.l20:
-    cmp byte [bx + slot_records + 0x1], 0x18 ; 0xa5ad
+    cmp byte [bx + slot_records + slot_record.map_piece], 0x18 ; 0xa5ad
     jbe short @..api_idx_0010_TRQK.l21 ; 0xa5b2
-    mov byte [bx + bss_84e8 + 0x2], 0 ; 0xa5b4
+    mov byte [bx + slot_records + slot_record.f_0002], 0 ; 0xa5b4
 @..api_idx_0010_TRQK.l21:
     ret                              ; 0xa5b9

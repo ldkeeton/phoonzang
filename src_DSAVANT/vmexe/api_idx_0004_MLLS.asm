@@ -6,32 +6,32 @@ api_idx_0004_MLLS:
     imul word [bp + 0x4]             ; 0x0314
     mov si, ax                       ; 0x0317
     mov bx, word [party_char]        ; 0x0319
-    mov ax, word [bx + si + 0x2]     ; 0x031d
+    mov ax, word [bx + si + member_rec.item_charges] ; 0x031d
     push ax                          ; 0x0320
     mov ax, 0x248                    ; 0x0321
     imul word [bp + 0x4]             ; 0x0324
     mov bx, ax                       ; 0x0327
     pop ax                           ; 0x0329
-    mov word [bx + member_pair_points + 0x2], ax ; 0x032a
+    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x032a
     mov bx, word [party_char]        ; 0x032e
-    mov ax, word [bx + si + 0x6]     ; 0x0332
+    mov ax, word [bx + si + member_rec.item_timer] ; 0x0332
     push ax                          ; 0x0335
     mov ax, 0x248                    ; 0x0336
     imul word [bp + 0x4]             ; 0x0339
     mov bx, ax                       ; 0x033c
     pop ax                           ; 0x033e
-    mov word [bx + pc_records], ax   ; 0x033f
+    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x033f
     mov bx, word [party_char]        ; 0x0343
-    mov al, byte [bx + si + 0x22]    ; 0x0347
+    mov al, byte [bx + si + member_rec.item_state] ; 0x0347
     push ax                          ; 0x034a
     mov ax, 0x248                    ; 0x034b
     imul word [bp + 0x4]             ; 0x034e
     mov bx, ax                       ; 0x0351
     pop ax                           ; 0x0353
-    mov byte [bx + member_state + 0x5], al ; 0x0354
+    mov byte [bx + party_records + pc_rec.state], al ; 0x0354
     mov ax, 0xa                      ; 0x0358
     push ax                          ; 0x035b
-    add bx, cell_key_grid + 0x126    ; 0x035c
+    add bx, party_records + pc_rec.status ; 0x035c
     mov ax, bx                       ; 0x0360
     push ax                          ; 0x0362
     mov ax, word [party_char]        ; 0x0363
@@ -44,13 +44,13 @@ api_idx_0004_MLLS:
     imul word [bp + 0x4]             ; 0x0375
     mov si, ax                       ; 0x0378
     mov bx, word [party_char]        ; 0x037a
-    mov al, byte [bx + si + 0x23]    ; 0x037e
+    mov al, byte [bx + si + member_rec.item_resist] ; 0x037e
     push ax                          ; 0x0381
     mov ax, 0x248                    ; 0x0382
     imul word [bp + 0x4]             ; 0x0385
     mov bx, ax                       ; 0x0388
     pop ax                           ; 0x038a
-    mov byte [bx + member_state + 0x8], al ; 0x038b
+    mov byte [bx + party_records + pc_rec.f_023e], al ; 0x038b
     mov ax, 0                        ; 0x038f
     push ax                          ; 0x0392
     push word [bp + 0x4]             ; 0x0393

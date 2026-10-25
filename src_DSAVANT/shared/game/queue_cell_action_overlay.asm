@@ -29,7 +29,7 @@ queue_cell_action_overlay:
     shl ax, 1
     mov bx, ax
     mov bx, word [bx + party_char]
-    cmp byte [bx + 0x19f], 0xff
+    cmp byte [bx + member_rec.slot], 0xff
     jne short @..queue_cell_action_overlay.l3
     ret
 @..queue_cell_action_overlay.l3:
@@ -60,7 +60,7 @@ queue_cell_action_overlay:
     mov ax, 0x15e
     imul word [bp - 0x0006]
     mov bx, ax
-    cmp byte [bx + slot_recs + 0x15b], 0
+    cmp byte [bx + slot_recs + slot_rec.forced], 0
     je short @..queue_cell_action_overlay.l5
     mov word [bp + 0x8], 0
 @..queue_cell_action_overlay.l5:
@@ -69,7 +69,7 @@ queue_cell_action_overlay:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_recs + 0xa5]
+    mov al, byte [bx + slot_recs + slot_rec.range]
     sub ah, ah
     mov word [bp - 0x000c], ax
     cmp word [bp - 0x000c], byte 0
@@ -124,7 +124,7 @@ queue_cell_action_overlay:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_recs + 0x38]
+    mov al, byte [bx + slot_recs + slot_rec.glyph_x]
     sub ah, ah
     push ax
     mov ax, 0x15e
@@ -133,7 +133,7 @@ queue_cell_action_overlay:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_recs + 0x146]
+    mov al, byte [bx + slot_recs + slot_rec.cell_ofs]
     cbw
     mov cx, ax
     pop ax
@@ -146,7 +146,7 @@ queue_cell_action_overlay:
     imul word [bp - 0x0006]
     add ax, word [bp - 0x000a]
     mov bx, ax
-    mov al, byte [bx + slot_recs + 0x81]
+    mov al, byte [bx + slot_recs + slot_rec.glyph_y]
     sub ah, ah
     push ax
     mov ax, 0x15e
@@ -155,7 +155,7 @@ queue_cell_action_overlay:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_recs + 0x147]
+    mov al, byte [bx + slot_recs + slot_rec.cell_ofs + 0x1]
     cbw
     mov cx, ax
     pop ax
@@ -164,7 +164,7 @@ queue_cell_action_overlay:
     cmp word [party_member_count], byte 1
     jne short @..queue_cell_action_overlay.l9
     mov bx, word [party_char + 0x2]
-    cmp byte [bx + 0x1a1], 1
+    cmp byte [bx + rec_8484.f_01a1], 1
     jne short @..queue_cell_action_overlay.l9
     cmp word [bp + 0x4], byte 0
     jne short @..queue_cell_action_overlay.l9
@@ -198,7 +198,7 @@ queue_cell_action_overlay:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + slot_recs + 0x38]
+    mov al, byte [bx + slot_recs + slot_rec.glyph_x]
     sub ah, ah
     mov cx, ax
     mov ax, 0xa0

@@ -8,24 +8,24 @@ find_object_at:
 @..find_object_at.l1:
     mov bx, word [maze_tables]
     mov si, word [bp - 0x0002]
-    mov al, byte [bx + si + spell_table + 0x250]
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*98 + spell_table_rec.f_0004]
     sub ah, ah
     cmp ax, word [bp + 0x8]
     je short @..find_object_at.l2
     mov ax, 0xffff
     ret
 @..find_object_at.l2:
-    mov al, byte [bx + si + spell_table + 0x70]
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*18 + spell_table_rec.f_0004]
     sub ah, ah
     cmp ax, word [bp + 0x4]
     jne short @..find_object_at.l3
-    mov al, byte [bx + si + spell_table + 0x160]
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*58 + spell_table_rec.f_0004]
     sub ah, ah
     cmp ax, word [bp + 0x6]
     jne short @..find_object_at.l3
     cmp byte [bx + si + 0x5a0], 0
     jbe short @..find_object_at.l3
-    mov al, byte [bx + si + spell_table + 0x340]
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*138 + spell_table_rec.f_0004]
     sub ah, ah
     push ax
     mov ax, word [game_state_arg]

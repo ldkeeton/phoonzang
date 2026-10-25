@@ -1,12 +1,13 @@
 /* for each of 20 slots, roll percent chances scaled by level to report it in a
    message box */
 
-struct rec {
-	unsigned char kind;	/* < 25 means the slot is in use */
-	unsigned char map_piece;
-	char pad[18];
-	unsigned char flag;	/* +0x14 */
-	char pad2[17];
+struct slot_record {
+	char pad0[4];
+	unsigned char kind;		/* +4: < 25 means the slot is in use */
+	unsigned char map_piece;	/* +5 */
+	char pad1[18];
+	unsigned char flag;	/* +0x18 */
+	char pad2[13];
 };				/* 0x26-byte stride */
 
 struct kind_info {
@@ -14,7 +15,7 @@ struct kind_info {
 	char pad[3];
 };				/* 4-byte stride */
 
-extern struct rec slot_records[];
+extern struct slot_record slot_records[];
 extern struct kind_info kind_state_table[];
 extern int game_state_arg, party_map_piece;
 extern long saved_area_a;

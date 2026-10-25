@@ -9,7 +9,7 @@ item_slot_usable:
     shl ax, 1                        ; 0x1f6e
     mov bx, ax                       ; 0x1f70
     mov bx, word [bx + party_char]   ; 0x1f72
-    cmp byte [bx + si + 0x2b], 0     ; 0x1f76
+    cmp byte [bx + si + member_rec.item_phase], 0 ; 0x1f76
     je short @..item_slot_usable.l1  ; 0x1f7a
     mov al, byte [bx + si + 0x2b]    ; 0x1f7c
     cmp al, 1                        ; 0x1f7f

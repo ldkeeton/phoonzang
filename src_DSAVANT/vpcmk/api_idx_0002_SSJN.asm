@@ -41,7 +41,7 @@ api_idx_0002_SSJN:
     imul word [bp + 0x4]             ; 0x1a0a
     add ax, word [bp - 0x0002]       ; 0x1a0d
     mov bx, ax                       ; 0x1a10
-    mov al, byte [bx + cell_key_grid + 0x130] ; 0x1a12
+    mov al, byte [bx + party_records + pc_rec.stat] ; 0x1a12
     sub ah, ah                       ; 0x1a16
     push ax                          ; 0x1a18
     call draw_number_field           ; 0x1a19

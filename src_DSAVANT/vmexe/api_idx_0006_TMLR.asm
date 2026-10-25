@@ -82,7 +82,7 @@ api_idx_0006_TMLR:
     shl ax, 1                        ; 0x195c
     mov bx, ax                       ; 0x195e
     mov bx, word [bx + overlay_list + 0x2] ; 0x1960
-    mov byte [bx + 0x14], 0xff       ; 0x1964
+    mov byte [bx + overlay_list_rec.f_0014], 0xff ; 0x1964
     inc word [bp - 0x0002]           ; 0x1968
     mov ax, word [bp - 0x0002]       ; 0x196b
     cmp ax, strict word 0xc          ; 0x196e

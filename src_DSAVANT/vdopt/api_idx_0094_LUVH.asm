@@ -23,13 +23,13 @@ api_idx_0094_LUVH:
     pop ax                           ; 0x41b3
     add ax, cx                       ; 0x41b4
     mov bx, ax                       ; 0x41b6
-    cmp word [bx + cell_key_grid], byte 0 ; 0x41b8
+    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x41b8
     jg short @..api_idx_0094_LUVH.l3 ; 0x41bd
     jmp near @..api_idx_0094_LUVH.l8 ; 0x41bf
 @..api_idx_0094_LUVH.l3:
     mov ax, 0                        ; 0x41c2
     push ax                          ; 0x41c5
-    push word [bx + cell_key_grid]   ; 0x41c6
+    push word [bx + party_records + pc_rec.cell] ; 0x41c6
     lea ax, word [bp - 0x004c]       ; 0x41ca
     push ax                          ; 0x41cd
     mov ax, 1                        ; 0x41ce
@@ -51,7 +51,7 @@ api_idx_0094_LUVH:
     pop ax                           ; 0x41f3
     add ax, cx                       ; 0x41f4
     mov bx, ax                       ; 0x41f6
-    mov al, byte [bx + cell_key_grid + 0x7] ; 0x41f8
+    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x41f8
     sub ah, ah                       ; 0x41fc
     test ax, 0x80                    ; 0x41fe
     je short @..api_idx_0094_LUVH.l4 ; 0x4201
@@ -99,7 +99,7 @@ api_idx_0094_LUVH:
     pop ax                           ; 0x4267
     add ax, cx                       ; 0x4268
     mov bx, ax                       ; 0x426a
-    mov al, byte [bx + cell_key_grid + 0x4] ; 0x426c
+    mov al, byte [bx + party_records + pc_rec.cell + 0x4] ; 0x426c
     sub ah, ah                       ; 0x4270
     mov bx, ax                       ; 0x4272
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x4274
@@ -119,7 +119,7 @@ api_idx_0094_LUVH:
     pop ax                           ; 0x4296
     add ax, cx                       ; 0x4297
     mov bx, ax                       ; 0x4299
-    mov al, byte [bx + cell_key_grid + 0x6] ; 0x429b
+    mov al, byte [bx + party_records + pc_rec.cell + 0x6] ; 0x429b
     sub ah, ah                       ; 0x429f
     mov cx, word [bp - 0x0094]       ; 0x42a1
     shl cx, 1                        ; 0x42a5
@@ -229,7 +229,7 @@ api_idx_0094_LUVH:
     pop ax                           ; 0x4394
     add ax, cx                       ; 0x4395
     mov bx, ax                       ; 0x4397
-    mov ax, word [bx + cell_key_grid] ; 0x4399
+    mov ax, word [bx + party_records + pc_rec.cell] ; 0x4399
     mov word [bp - 0x0004], ax       ; 0x439d
     cmp word [bp - 0x004e], byte 0   ; 0x43a0
     je short @..api_idx_0094_LUVH.l14 ; 0x43a4
@@ -266,7 +266,7 @@ api_idx_0094_LUVH:
     mov ax, 6                        ; 0x43ec
     imul dx                          ; 0x43ef
     mov bx, ax                       ; 0x43f1
-    cmp byte [bx + spell_table + 0x4], 1 ; 0x43f3
+    cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x43f3
     jne short @..api_idx_0094_LUVH.l17 ; 0x43f8
     call pick_party_member           ; 0x43fa
     mov word [spell_target], ax      ; 0x43fd
@@ -418,7 +418,7 @@ api_idx_0094_LUVH:
     pop ax                           ; 0x4561
     add ax, cx                       ; 0x4562
     mov bx, ax                       ; 0x4564
-    mov al, byte [bx + cell_key_grid + 0x7] ; 0x4566
+    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4566
     sub ah, ah                       ; 0x456a
     test ax, 2                       ; 0x456c
     jne short @..api_idx_0094_LUVH.l31 ; 0x456f

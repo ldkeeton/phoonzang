@@ -37,9 +37,9 @@ api_idx_00d2_SNMN:
     mov ax, 0x248                    ; 0x637c
     imul word [bp + 0x4]             ; 0x637f
     mov bx, ax                       ; 0x6382
-    cmp word [bx + member_pair_points], byte 0 ; 0x6384
+    cmp word [bx + party_records + pc_rec.f_0016], byte 0 ; 0x6384
     jne short @..api_idx_00d2_SNMN.l3 ; 0x6389
-    cmp word [bx + bss_5c08], byte 0 ; 0x638b
+    cmp word [bx + party_records + pc_rec.f_0014], byte 0 ; 0x638b
 @..api_idx_00d2_SNMN.l3:
     jne short @..api_idx_00d2_SNMN.l4 ; 0x6390
     mov word [bp - 0x0072], 0        ; 0x6392
@@ -67,10 +67,10 @@ jumptable_6599_case_0:
     mov ax, 0x248                    ; 0x63c8
     imul word [bp + 0x4]             ; 0x63cb
     mov bx, ax                       ; 0x63ce
-    mov al, byte [bx + cell_key_grid + 0x136] ; 0x63d0
+    mov al, byte [bx + party_records + pc_rec.stat + 0x6] ; 0x63d0
     sub ah, ah                       ; 0x63d4
     push ax                          ; 0x63d6
-    mov al, byte [bx + cell_key_grid + 0x154] ; 0x63d7
+    mov al, byte [bx + party_records + pc_rec.flag + 0x1c] ; 0x63d7
     sub ah, ah                       ; 0x63db
     mov cx, 2                        ; 0x63dd
     cwd                              ; 0x63e0
@@ -79,7 +79,7 @@ jumptable_6599_case_0:
     pop ax                           ; 0x63e5
     add ax, cx                       ; 0x63e6
     push ax                          ; 0x63e8
-    mov ax, word [bx + pc_spell_power_cap] ; 0x63e9
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x63e9
     mov cx, 2                        ; 0x63ed
     cwd                              ; 0x63f0
     idiv cx                          ; 0x63f1
@@ -87,12 +87,12 @@ jumptable_6599_case_0:
     pop ax                           ; 0x63f5
     add ax, cx                       ; 0x63f6
     add word [bp - 0x0002], ax       ; 0x63f8
-    cmp byte [bx + member_state + 0x3], 0xa ; 0x63fb
+    cmp byte [bx + party_records + pc_rec.label], 0xa ; 0x63fb
     je short @..api_idx_00d2_SNMN.l6 ; 0x6400
-    cmp byte [bx + member_state + 0x3], 9 ; 0x6402
+    cmp byte [bx + party_records + pc_rec.label], 9 ; 0x6402
     jne short @..api_idx_00d2_SNMN.l7 ; 0x6407
 @..api_idx_00d2_SNMN.l6:
-    mov al, byte [bx + cell_key_grid + 0x136] ; 0x6409
+    mov al, byte [bx + party_records + pc_rec.stat + 0x6] ; 0x6409
     sub ah, ah                       ; 0x640d
     add word [bp - 0x0002], ax       ; 0x640f
 @..api_idx_00d2_SNMN.l7:
@@ -111,7 +111,7 @@ jumptable_6599_case_2:
     mov ax, 0x248                    ; 0x6432
     imul word [bp - 0x005e]          ; 0x6435
     mov bx, ax                       ; 0x6438
-    mov ax, word [bx + pc_spell_power_cap] ; 0x643a
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x643a
     add word [bp - 0x0002], ax       ; 0x643e
 @..api_idx_00d2_SNMN.l9:
     inc word [bp - 0x005e]           ; 0x6441
@@ -169,8 +169,8 @@ jumptable_6599_case_1:
     mov ax, 0x248                    ; 0x64bf
     imul word [bp + 0x4]             ; 0x64c2
     mov bx, ax                       ; 0x64c5
-    mov cx, word [bx + bss_5c08]     ; 0x64c7
-    mov bx, word [bx + member_pair_points] ; 0x64cb
+    mov cx, word [bx + party_records + pc_rec.f_0014] ; 0x64c7
+    mov bx, word [bx + party_records + pc_rec.f_0016] ; 0x64cb
     mov ax, word [bp - 0x00d2]       ; 0x64cf
     mov dx, word [bp - 0x00d0]       ; 0x64d3
     cmp bx, dx                       ; 0x64d7
@@ -193,8 +193,8 @@ jumptable_6599_case_1:
     mov bx, ax                       ; 0x64fb
     pop dx                           ; 0x64fd
     pop ax                           ; 0x64fe
-    sub word [bx + bss_5c08], ax     ; 0x64ff
-    sbb word [bx + member_pair_points], dx ; 0x6503
+    sub word [bx + party_records + pc_rec.f_0014], ax ; 0x64ff
+    sbb word [bx + party_records + pc_rec.f_0016], dx ; 0x6503
     mov cx, 0xa                      ; 0x6507
     mov bx, 0                        ; 0x650a
     call aztec_ldv                   ; 0x650d
@@ -282,11 +282,11 @@ jumptable_6599:
     mov ax, 0x248                    ; 0x65c5
     imul word [bp + 0x4]             ; 0x65c8
     mov bx, ax                       ; 0x65cb
-    mov al, byte [bx + cell_key_grid + 0x137] ; 0x65cd
+    mov al, byte [bx + party_records + pc_rec.stat + 0x7] ; 0x65cd
     sub ah, ah                       ; 0x65d1
     push ax                          ; 0x65d3
     add bx, word [bss_9136]          ; 0x65d4
-    mov al, byte [bx + cell_key_grid + 0x17e] ; 0x65d8
+    mov al, byte [bx + party_records + pc_rec.pad_01be] ; 0x65d8
     cbw                              ; 0x65dc
     add ax, word [bss_964e]          ; 0x65dd
     mov cx, 3                        ; 0x65e1

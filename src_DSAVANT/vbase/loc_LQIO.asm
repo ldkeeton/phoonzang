@@ -34,7 +34,7 @@ loc_LQIO:
     mov cx, word [party_char_count]  ; 0x60bc
     shl cx, 1                        ; 0x60c0
     mov bx, cx                       ; 0x60c2
-    mov word [bx + member_state + 0xb92], ax ; 0x60c4
+    mov word [bx + member_icon], ax  ; 0x60c4
     push ax                          ; 0x60c8
     mov al, byte [bp - 0x0018]       ; 0x60c9
     sub ah, ah                       ; 0x60cc

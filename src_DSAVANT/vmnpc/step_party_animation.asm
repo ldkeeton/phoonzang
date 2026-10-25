@@ -61,7 +61,7 @@ step_party_animation:
     shl ax, 1                        ; 0x0fd2
     mov bx, ax                       ; 0x0fd4
     mov bx, word [bx + overlay_list + 0x2] ; 0x0fd6
-    mov byte [bx + 0x14], 0xff       ; 0x0fda
+    mov byte [bx + overlay_list_rec.f_0014], 0xff ; 0x0fda
     inc word [bp - 0x0002]           ; 0x0fde
     mov ax, word [bp - 0x0002]       ; 0x0fe1
     cmp ax, strict word 0xc          ; 0x0fe4

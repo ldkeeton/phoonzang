@@ -166,7 +166,7 @@ api_idx_0074_SGUS:
 @..api_idx_0074_SGUS.l7:
     mov bx, word [maze_tables]       ; 0x7a7a
     mov si, word [party_region]      ; 0x7a7e
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x7a82
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7a82
     sub ah, ah                       ; 0x7a86
     mov word [bp - 0x0022], ax       ; 0x7a88
     cmp ax, strict word 0            ; 0x7a8b
@@ -212,7 +212,7 @@ api_idx_0074_SGUS:
     mov ax, 0x248                    ; 0x7ae9
     imul word [bp - 0x0014]          ; 0x7aec
     mov bx, ax                       ; 0x7aef
-    cmp byte [bx + member_state + 0x5], 3 ; 0x7af1
+    cmp byte [bx + party_records + pc_rec.state], 3 ; 0x7af1
     jb short @..api_idx_0074_SGUS.l13 ; 0x7af6
     inc word [bp - 0x0014]           ; 0x7af8
     jmp short @..api_idx_0074_SGUS.l12 ; 0x7afb
@@ -262,7 +262,7 @@ api_idx_0074_SGUS:
     mov ax, 0x248                    ; 0x7b59
     imul word [bp - 0x0002]          ; 0x7b5c
     mov bx, ax                       ; 0x7b5f
-    mov al, byte [bx + cell_key_grid + 0x134] ; 0x7b61
+    mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x7b61
     sub ah, ah                       ; 0x7b65
     mov cx, ax                       ; 0x7b67
     sub ax, word [bp - 0x0008]       ; 0x7b69
@@ -277,7 +277,7 @@ api_idx_0074_SGUS:
     mov ax, word [bp - 0x000c]       ; 0x7b7c
     cmp ax, strict word 0xd          ; 0x7b7f
     jne short @..api_idx_0074_SGUS.l21 ; 0x7b82
-    mov al, byte [bx + cell_key_grid + 0x143] ; 0x7b84
+    mov al, byte [bx + party_records + pc_rec.flag + 0xb] ; 0x7b84
     sub ah, ah                       ; 0x7b88
     sub ax, word [bp - 0x0008]       ; 0x7b8a
     jmp short @..api_idx_0074_SGUS.l23 ; 0x7b8d
@@ -285,13 +285,13 @@ api_idx_0074_SGUS:
     mov ax, word [bp - 0x000c]       ; 0x7b8f
     cmp ax, strict word 3            ; 0x7b92
     jne short @..api_idx_0074_SGUS.l22 ; 0x7b95
-    mov al, byte [bx + cell_key_grid + 0x142] ; 0x7b97
+    mov al, byte [bx + party_records + pc_rec.flag + 0xa] ; 0x7b97
     sub ah, ah                       ; 0x7b9b
     sub ax, word [bp - 0x0008]       ; 0x7b9d
     jmp short @..api_idx_0074_SGUS.l23 ; 0x7ba0
 @..api_idx_0074_SGUS.l22:
     add bx, word [bp - 0x000c]       ; 0x7ba2
-    mov al, byte [bx + cell_key_grid + 0x168] ; 0x7ba5
+    mov al, byte [bx + party_records + pc_rec.cur] ; 0x7ba5
     sub ah, ah                       ; 0x7ba9
     push ax                          ; 0x7bab
     mov ax, 3                        ; 0x7bac
@@ -368,9 +368,9 @@ api_idx_0074_SGUS:
     mov ax, 0x248                    ; 0x7c4c
     imul word [bp - 0x0002]          ; 0x7c4f
     mov bx, ax                       ; 0x7c52
-    cmp word [bx + pc_records], byte 0 ; 0x7c54
+    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x7c54
     jle short @..api_idx_0074_SGUS.l33 ; 0x7c59
-    push word [bx + pc_records]      ; 0x7c5b
+    push word [bx + party_records + pc_rec.pair_b] ; 0x7c5b
     mov ax, 1                        ; 0x7c5f
     push ax                          ; 0x7c62
     push word [bp - 0x001a]          ; 0x7c63
@@ -393,7 +393,7 @@ api_idx_0074_SGUS:
     mov ax, 0x248                    ; 0x7c8b
     imul word [bp - 0x0002]          ; 0x7c8e
     mov bx, ax                       ; 0x7c91
-    mov ax, word [bx + pc_records]   ; 0x7c93
+    mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x7c93
     sub ax, cx                       ; 0x7c97
     push ax                          ; 0x7c99
     call clamp_between               ; 0x7c9a
@@ -403,7 +403,7 @@ api_idx_0074_SGUS:
     imul word [bp - 0x0002]          ; 0x7ca4
     mov bx, ax                       ; 0x7ca7
     pop ax                           ; 0x7ca9
-    mov word [bx + pc_records], ax   ; 0x7caa
+    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x7caa
 @..api_idx_0074_SGUS.l33:
     push word [bp - 0x001c]          ; 0x7cae
     push word [bp - 0x001a]          ; 0x7cb1
@@ -470,7 +470,7 @@ api_idx_0074_SGUS:
     mov ax, 0x248                    ; 0x7d44
     imul word [bp - 0x0002]          ; 0x7d47
     mov bx, ax                       ; 0x7d4a
-    cmp byte [bx + cell_key_grid + 0x128], 0 ; 0x7d4c
+    cmp byte [bx + party_records + pc_rec.status + 0x2], 0 ; 0x7d4c
     jne short @..api_idx_0074_SGUS.l39 ; 0x7d51
     mov ax, 2                        ; 0x7d53
     push ax                          ; 0x7d56

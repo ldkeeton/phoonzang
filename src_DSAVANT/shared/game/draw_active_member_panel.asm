@@ -13,7 +13,7 @@ draw_active_member_panel:
     imul word [bp + 0x4]
     mov si, ax
     mov bx, word [party_char]
-    cmp byte [bx + si + 0x2b], 1
+    cmp byte [bx + si + member_rec.item_phase], 1
     je short @..draw_active_member_panel.l2
     cmp byte [bx + si + 0x2b], 3
     je short @..draw_active_member_panel.l2

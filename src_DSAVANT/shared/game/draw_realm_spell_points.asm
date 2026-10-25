@@ -13,7 +13,7 @@ draw_realm_spell_points:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    push word [bx + pc_spell_power_cap + 0x4]
+    push word [bx + party_records + pc_rec.realm_points]
     call format_int_decimal
     add sp, byte 4
     mov ax, 0

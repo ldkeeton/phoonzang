@@ -4,7 +4,7 @@ trigger_keyed_cell_object:
     call aztec_csav                  ; 0x2390
     mov bx, word [maze_tables]       ; 0x2393
     mov si, word [party_map_piece]   ; 0x2397
-    mov al, byte [bx + si + spell_table + 0x520] ; 0x239b
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x239b
     sub ah, ah                       ; 0x239f
     mov word [bp - 0x0008], ax       ; 0x23a1
 @..trigger_keyed_cell_object.l1:
@@ -40,7 +40,7 @@ trigger_keyed_cell_object:
     pop ax                           ; 0x23ef
     add ax, cx                       ; 0x23f0
     mov bx, ax                       ; 0x23f2
-    mov ax, word [bx + cell_key_grid] ; 0x23f4
+    mov ax, word [bx + party_records + pc_rec.cell] ; 0x23f4
     shl si, 1                        ; 0x23f8
     mov bx, word [maze_tables]       ; 0x23fa
     mov cx, word [bx + si]           ; 0x23fe
@@ -82,7 +82,7 @@ trigger_keyed_cell_object:
     shl ax, 1                        ; 0x2456
     mov si, ax                       ; 0x2458
     mov bx, word [maze_tables]       ; 0x245a
-    push word [bx + si + 0x3c0]      ; 0x245e
+    push word [bx + si + maze_tables_rec.f_03c0] ; 0x245e
     call get_bits                    ; 0x2462
     add sp, byte 6                   ; 0x2465
     mov word [bp - 0x000a], ax       ; 0x2468
@@ -101,7 +101,7 @@ trigger_keyed_cell_object:
 @..trigger_keyed_cell_object.l6:
     mov bx, word [maze_tables]       ; 0x2488
     mov si, word [bp - 0x0008]       ; 0x248c
-    cmp byte [bx + si + spell_table + 0x430], 0 ; 0x248f
+    cmp byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004], 0 ; 0x248f
     jbe short @..trigger_keyed_cell_object.l9 ; 0x2494
     mov ax, 0xc6                     ; 0x2496
     push ax                          ; 0x2499
@@ -115,7 +115,7 @@ trigger_keyed_cell_object:
     add sp, byte 8                   ; 0x24a9
     mov bx, word [maze_tables]       ; 0x24ac
     mov si, word [bp - 0x0008]       ; 0x24b0
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x24b3
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x24b3
     sub ah, ah                       ; 0x24b7
     mov word [bp - 0x000c], ax       ; 0x24b9
     cmp ax, strict word 5            ; 0x24bc
@@ -175,7 +175,7 @@ trigger_keyed_cell_object:
     shl ax, 1                        ; 0x2533
     mov si, ax                       ; 0x2535
     mov bx, word [maze_tables]       ; 0x2537
-    push word [bx + si + 0x3c0]      ; 0x253b
+    push word [bx + si + maze_tables_rec.f_03c0] ; 0x253b
     call get_bits                    ; 0x253f
     add sp, byte 6                   ; 0x2542
     cmp ax, strict word 2            ; 0x2545
@@ -185,7 +185,7 @@ trigger_keyed_cell_object:
     shl ax, 1                        ; 0x254d
     mov si, ax                       ; 0x254f
     mov bx, word [maze_tables]       ; 0x2551
-    mov ax, word [bx + si + 0x1e0]   ; 0x2555
+    mov ax, word [bx + si + maze_tables_rec.f_01e0] ; 0x2555
     mov word [bp - 0x0006], ax       ; 0x2559
     mov ax, 0x248                    ; 0x255c
     imul word [bp + 0x4]             ; 0x255f
@@ -202,7 +202,7 @@ trigger_keyed_cell_object:
     pop ax                           ; 0x2577
     add ax, cx                       ; 0x2578
     mov bx, ax                       ; 0x257a
-    mov cx, word [bx + cell_key_grid] ; 0x257c
+    mov cx, word [bx + party_records + pc_rec.cell] ; 0x257c
     mov ax, word [bp - 0x0006]       ; 0x2580
     cmp cx, ax                       ; 0x2583
     jne short @..trigger_keyed_cell_object.l13 ; 0x2585

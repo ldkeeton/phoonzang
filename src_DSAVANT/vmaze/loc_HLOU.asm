@@ -17,7 +17,7 @@ loc_HLOU:
     jne short @..loc_HLOU.l1         ; 0x7a5a
     mov si, word [party_region]      ; 0x7a5c
     mov bx, word [maze_tables]       ; 0x7a60
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x7a64
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7a64
     sub ah, ah                       ; 0x7a68
     push ax                          ; 0x7a6a
     call api_idx_0006_KUNS           ; 0x7a6b
@@ -28,7 +28,7 @@ loc_HLOU:
 @..loc_HLOU.l1:
     mov bx, word [maze_tables]       ; 0x7a77
     mov si, word [party_region]      ; 0x7a7b
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x7a7f
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7a7f
     sub ah, ah                       ; 0x7a83
     mov bx, word [bss_100a]          ; 0x7a85
     mov word [bx], ax                ; 0x7a89

@@ -5,7 +5,7 @@ api_idx_005e_QNLK:
     mov ax, 0x248                    ; 0x5fd6
     imul word [bp + 0x4]             ; 0x5fd9
     mov bx, ax                       ; 0x5fdc
-    mov ax, word [bx + pc_spell_power_cap] ; 0x5fde
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x5fde
     push ax                          ; 0x5fe2
     mov al, byte [bss_91c5]          ; 0x5fe3
     sub ah, ah                       ; 0x5fe6
@@ -15,7 +15,7 @@ api_idx_005e_QNLK:
     mov cx, 5                        ; 0x5fed
     imul cx                          ; 0x5ff0
     push ax                          ; 0x5ff2
-    mov al, byte [bx + cell_key_grid + 0x147] ; 0x5ff3
+    mov al, byte [bx + party_records + pc_rec.flag + 0xf] ; 0x5ff3
     sub ah, ah                       ; 0x5ff7
     mov cx, 2                        ; 0x5ff9
     cwd                              ; 0x5ffc
@@ -24,15 +24,15 @@ api_idx_005e_QNLK:
     pop ax                           ; 0x6001
     add ax, cx                       ; 0x6002
     mov word [bp - 0x0002], ax       ; 0x6004
-    cmp byte [bx + member_state + 0x3], 3 ; 0x6007
+    cmp byte [bx + party_records + pc_rec.label], 3 ; 0x6007
     jne short @..api_idx_005e_QNLK.l1 ; 0x600c
-    mov al, byte [bx + cell_key_grid + 0x134] ; 0x600e
+    mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x600e
     sub ah, ah                       ; 0x6012
     shl ax, 1                        ; 0x6014
     add word [bp - 0x0002], ax       ; 0x6016
     jmp short @..api_idx_005e_QNLK.l3 ; 0x6019
 @..api_idx_005e_QNLK.l1:
-    mov al, byte [bx + member_state + 0x3] ; 0x601b
+    mov al, byte [bx + party_records + pc_rec.label] ; 0x601b
     cmp al, 4                        ; 0x601f
     je short @..api_idx_005e_QNLK.l2 ; 0x6021
     cmp al, 6                        ; 0x6023
@@ -40,15 +40,15 @@ api_idx_005e_QNLK:
     cmp al, 0xd                      ; 0x6027
     jne short @..api_idx_005e_QNLK.l3 ; 0x6029
 @..api_idx_005e_QNLK.l2:
-    mov al, byte [bx + cell_key_grid + 0x134] ; 0x602b
+    mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x602b
     sub ah, ah                       ; 0x602f
     add word [bp - 0x0002], ax       ; 0x6031
 @..api_idx_005e_QNLK.l3:
-    mov al, byte [bx + cell_key_grid + 0x136] ; 0x6034
+    mov al, byte [bx + party_records + pc_rec.stat + 0x6] ; 0x6034
     sub ah, ah                       ; 0x6038
     push ax                          ; 0x603a
     add bx, word [bss_9136]          ; 0x603b
-    mov al, byte [bx + cell_key_grid + 0x17e] ; 0x603f
+    mov al, byte [bx + party_records + pc_rec.pad_01be] ; 0x603f
     cbw                              ; 0x6043
     add ax, word [bss_964e]          ; 0x6044
     mov cx, 4                        ; 0x6048
@@ -89,7 +89,7 @@ api_idx_005e_QNLK:
     mov ax, 0x248                    ; 0x609d
     imul word [bp + 0x4]             ; 0x60a0
     mov bx, ax                       ; 0x60a3
-    mov al, byte [bx + member_state + 0x2] ; 0x60a5
+    mov al, byte [bx + party_records + pc_rec.sound] ; 0x60a5
     sub ah, ah                       ; 0x60a9
     add ax, 0x622                    ; 0x60ab
     push ax                          ; 0x60ae
@@ -214,8 +214,8 @@ api_idx_005e_QNLK:
     mov bx, ax                       ; 0x61ba
     pop dx                           ; 0x61bc
     pop ax                           ; 0x61bd
-    add word [bx + bss_5c08], ax     ; 0x61be
-    adc word [bx + member_pair_points], dx ; 0x61c2
+    add word [bx + party_records + pc_rec.f_0014], ax ; 0x61be
+    adc word [bx + party_records + pc_rec.f_0016], dx ; 0x61c2
     lea ax, word [bp - 0x005e]       ; 0x61c6
     push ax                          ; 0x61c9
     mov ax, 0x626                    ; 0x61ca

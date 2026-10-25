@@ -6,7 +6,7 @@ api_idx_0022_RHMN:
     jl short @..api_idx_0022_RHMN.l1 ; 0x2220
     mov bx, word [maze_tables]       ; 0x2222
     mov si, word [party_map_piece]   ; 0x2226
-    mov al, byte [bx + si + spell_table + 0x520] ; 0x222a
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x222a
     sub ah, ah                       ; 0x222e
     cmp ax, word [party_region]      ; 0x2230
     jle short @..api_idx_0022_RHMN.l1 ; 0x2234
@@ -198,7 +198,7 @@ api_idx_0022_RHMN:
     mov ax, 0x248                    ; 0x240e
     imul word [bp - 0x0004]          ; 0x2411
     mov bx, ax                       ; 0x2414
-    cmp byte [bx + member_state + 0x5], 3 ; 0x2416
+    cmp byte [bx + party_records + pc_rec.state], 3 ; 0x2416
     jb short @..api_idx_0022_RHMN.l19 ; 0x241b
     jmp near @..api_idx_0022_RHMN.l24 ; 0x241d
 @..api_idx_0022_RHMN.l19:
@@ -234,13 +234,13 @@ api_idx_0022_RHMN:
     mov ax, 0x248                    ; 0x245e
     imul word [bp - 0x0004]          ; 0x2461
     mov bx, ax                       ; 0x2464
-    mov al, byte [bx + member_state + 0x9] ; 0x2466
+    mov al, byte [bx + party_records + pc_rec.f_023f] ; 0x2466
     sub ah, ah                       ; 0x246a
     inc ax                           ; 0x246c
-    sub word [bx + pc_records], ax   ; 0x246d
-    cmp word [bx + pc_records], byte 0 ; 0x2471
+    sub word [bx + party_records + pc_rec.pair_b], ax ; 0x246d
+    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x2471
     jge short @..api_idx_0022_RHMN.l23 ; 0x2476
-    mov word [bx + pc_records], 0    ; 0x2478
+    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x2478
 @..api_idx_0022_RHMN.l23:
     push word [bp - 0x0012]          ; 0x247e
     mov ax, 1                        ; 0x2481
@@ -267,12 +267,12 @@ api_idx_0022_RHMN:
     mov ax, 0x248                    ; 0x24b3
     imul word [bp - 0x0004]          ; 0x24b6
     mov bx, ax                       ; 0x24b9
-    cmp byte [bx + member_state + 0x5], 0 ; 0x24bb
+    cmp byte [bx + party_records + pc_rec.state], 0 ; 0x24bb
     jne short @..api_idx_0022_RHMN.l29 ; 0x24c0
     inc word [bp - 0x0016]           ; 0x24c2
-    cmp byte [bx + cell_key_grid + 0x128], 0 ; 0x24c5
+    cmp byte [bx + party_records + pc_rec.status + 0x2], 0 ; 0x24c5
     ja short @..api_idx_0022_RHMN.l28 ; 0x24ca
-    cmp byte [bx + cell_key_grid + 0x129], 0 ; 0x24cc
+    cmp byte [bx + party_records + pc_rec.status + 0x3], 0 ; 0x24cc
     jbe short @..api_idx_0022_RHMN.l29 ; 0x24d1
 @..api_idx_0022_RHMN.l28:
     inc word [bp - 0x0018]           ; 0x24d3
@@ -375,11 +375,11 @@ api_idx_0022_RHMN:
     mov cx, 0x26                     ; 0x25b8
     imul cx                          ; 0x25bb
     mov bx, ax                       ; 0x25bd
-    cmp byte [bx + slot_records + 0x14], 0 ; 0x25bf
+    cmp byte [bx + slot_records + slot_record.flag], 0 ; 0x25bf
     jle short @..api_idx_0022_RHMN.l37 ; 0x25c4
-    cmp byte [bx + bss_84e8 + 0x2], 1 ; 0x25c6
+    cmp byte [bx + slot_records + slot_record.f_0002], 1 ; 0x25c6
     je short @..api_idx_0022_RHMN.l37 ; 0x25cb
-    mov al, byte [bx + slot_records] ; 0x25cd
+    mov al, byte [bx + slot_records + slot_record.kind] ; 0x25cd
     sub ah, ah                       ; 0x25d1
     shl ax, 1                        ; 0x25d3
     shl ax, 1                        ; 0x25d5
@@ -391,7 +391,7 @@ api_idx_0022_RHMN:
     mov ax, word [bp - 0x0008]       ; 0x25e4
     imul cx                          ; 0x25e7
     mov bx, ax                       ; 0x25e9
-    mov al, byte [bx + slot_records + 0x1] ; 0x25eb
+    mov al, byte [bx + slot_records + slot_record.map_piece] ; 0x25eb
     sub ah, ah                       ; 0x25ef
     cmp ax, word [party_map_piece]   ; 0x25f1
     jne short @..api_idx_0022_RHMN.l37 ; 0x25f5
@@ -1040,7 +1040,7 @@ jumptable_2d1b_case_1:
     mov word [location_changed], 1   ; 0x2baf
     mov bx, word [maze_tables]       ; 0x2bb5
     mov si, word [party_map_piece]   ; 0x2bb9
-    mov al, byte [bx + si + spell_table + 0x520] ; 0x2bbd
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x2bbd
     sub ah, ah                       ; 0x2bc1
     mov word [party_region], ax      ; 0x2bc3
 @..api_idx_0022_RHMN.l70:

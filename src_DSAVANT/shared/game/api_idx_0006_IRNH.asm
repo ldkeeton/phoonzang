@@ -62,7 +62,7 @@ api_idx_0006_IRNH:
     shl ax, 1
     mov bx, ax
     mov bx, word [bx + overlay_list + 0x2]
-    mov byte [bx + 0x14], 0xff
+    mov byte [bx + overlay_list_rec.f_0014], 0xff
     inc word [bp - 0x0002]
     mov ax, word [bp - 0x0002]
     cmp ax, strict word 0xc

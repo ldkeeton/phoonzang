@@ -66,7 +66,7 @@ def _host_space_limit(segments):
 _NEGATIVE_OFFSET_SPAN = 0x1000
 
 #: The ``+ 0x<k>`` tail of an operand inside an object (:func:`_interior_symbol`).
-_INTERIOR_RE = re.compile(r' \+ 0x[0-9a-f]+$')
+_INTERIOR_RE = re.compile(r' \+ .*$')
 
 #: Smallest file-backed DS address bound inside an object.  Below it record
 #: field offsets (``[bx + 0x1a1]``, the party record's) crowd the same range
@@ -125,12 +125,14 @@ def _interior_symbol(segments, starts, addr):
     return name, start
 
 
-def _bind_data_operand(segments, starts, addr, equ):
+def _bind_data_operand(segments, starts, addr, equ, records=None):
     """The operand text for an indexed DS *addr*, registering its ``equ``.
 
     An object start or an overlay's own BSS names *addr* itself; any other
-    address inside a known object is that object plus the offset.  None
-    leaves the number.
+    address inside a known object is that object plus the offset, spelled as
+    its field when the object is a record in *records*
+    (``slot_recs + slot_rec.f_0026``, :mod:`lib.record_layout`).  None leaves
+    the number.
     """
     if addr in starts or _overlay_own_address(segments, addr):
         name = data_symbol(segments, addr)
@@ -141,6 +143,10 @@ def _bind_data_operand(segments, starts, addr, equ):
         return None
     name, start = interior
     equ.setdefault(name, start)
+    layout = (records or {}).get(f'{start:04x}')
+    if layout is not None and not layout['pointer']:
+        from lib.record_layout import field_text
+        return f'{name} + {field_text(layout, addr - start)}'
     return f'{name} + 0x{addr - start:x}'
 
 
@@ -224,7 +230,7 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset,
 
 
 def _resolve_indexed_symbols(insns, segment_flow, segments, named, ds_starts,
-                             equ):
+                             equ, records=None):
     """Symbols for indexed DATA displacements at or inside a named object.
 
     *named* holds the DATA addresses this binary binds absolutely; the known
@@ -249,7 +255,7 @@ def _resolve_indexed_symbols(insns, segment_flow, segments, named, ds_starts,
                 continue
             if segment_flow.effective_segment(insn, op)[1] != DATA:
                 continue
-            text = _bind_data_operand(segments, starts, addr, equ)
+            text = _bind_data_operand(segments, starts, addr, equ, records)
             if text is not None:
                 symbols[(insn.address, idx)] = text
     return symbols
@@ -264,7 +270,7 @@ def _object_starts(segments, named, ds_starts):
 
 
 def _resolve_index_offset_symbols(insns, segment_flow, segments, named,
-                                  ds_starts, equ, resolved):
+                                  ds_starts, equ, resolved, records=None):
     """Symbols for a DS table start added to an index.
 
     ``imul word [bp + 4]; add ax, 0x5bf4`` is the immediate spelling of
@@ -285,7 +291,7 @@ def _resolve_index_offset_symbols(insns, segment_flow, segments, named,
         value = by_addr[key[0]].operands[1].imm & 0xFFFF
         if value < DS_INDEX_MIN:
             continue
-        text = _bind_data_operand(segments, starts, value, equ)
+        text = _bind_data_operand(segments, starts, value, equ, records)
         if text is not None:
             symbols[key] = str(text)
     return symbols

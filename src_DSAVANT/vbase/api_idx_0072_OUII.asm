@@ -429,7 +429,7 @@ api_idx_0072_OUII:
     mov cx, word [party_char_count]  ; 0x2387
     shl cx, 1                        ; 0x238b
     mov bx, cx                       ; 0x238d
-    mov word [bx + member_state + 0xb92], ax ; 0x238f
+    mov word [bx + member_icon], ax  ; 0x238f
     mov ax, 0x248                    ; 0x2393
     imul word [party_char_count]     ; 0x2396
     add ax, party_records            ; 0x239a
@@ -826,7 +826,7 @@ jumptable_2668:
     mov cx, 6                        ; 0x277a
     imul cx                          ; 0x277d
     mov bx, ax                       ; 0x277f
-    cmp byte [bx + spell_table + 0x1], 4 ; 0x2781
+    cmp byte [bx + spell_table + spell_table_rec.f_0001], 4 ; 0x2781
     jae short @..api_idx_0072_OUII.l50 ; 0x2786
     push cx                          ; 0x2788
     call random_below                ; 0x2789
@@ -835,7 +835,7 @@ jumptable_2668:
     mov ax, 6                        ; 0x278e
     imul word [bp - 0x0006]          ; 0x2791
     mov bx, ax                       ; 0x2794
-    mov al, byte [bx + spell_table + 0x1] ; 0x2796
+    mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x2796
     sub ah, ah                       ; 0x279a
     mov cx, ax                       ; 0x279c
     pop ax                           ; 0x279e
@@ -1471,7 +1471,7 @@ jumptable_2af5:
     push word [bp - 0x0006]          ; 0x2dd9
     mov ax, 0x248                    ; 0x2ddc
     imul word [bp - 0x0004]          ; 0x2ddf
-    add ax, cell_key_grid + 0x1f2    ; 0x2de2
+    add ax, party_records + pc_rec.pad_01be + 0x74 ; 0x2de2
     push ax                          ; 0x2de5
     call test_bit                    ; 0x2de6
     add sp, byte 4                   ; 0x2de9
@@ -1499,8 +1499,8 @@ jumptable_2af5:
     mov word [party_map_piece], 3    ; 0x2e2b
     mov word [party_tag], 2          ; 0x2e31
     mov word [game_state_arg], 0     ; 0x2e37
-    mov word [member_pair_points], 0 ; 0x2e3d
-    mov word [bss_5c08], 0x1388      ; 0x2e43
+    mov word [party_records + pc_rec.f_0016], 0 ; 0x2e3d
+    mov word [party_records + pc_rec.f_0014], 0x1388 ; 0x2e43
     mov ax, 0                        ; 0x2e49
     push ax                          ; 0x2e4c
     mov ax, 0x5a                     ; 0x2e4d
@@ -1531,8 +1531,8 @@ jumptable_2af5:
     mov word [party_map_piece], 0xb  ; 0x2e92
     mov word [party_tag], 3          ; 0x2e98
     mov word [game_state_arg], 6     ; 0x2e9e
-    mov word [member_pair_points], 0 ; 0x2ea4
-    mov word [bss_5c08], 0x2710      ; 0x2eaa
+    mov word [party_records + pc_rec.f_0016], 0 ; 0x2ea4
+    mov word [party_records + pc_rec.f_0014], 0x2710 ; 0x2eaa
     mov ax, 0x5a                     ; 0x2eb0
     push ax                          ; 0x2eb3
     mov ax, 0                        ; 0x2eb4

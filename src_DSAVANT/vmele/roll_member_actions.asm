@@ -17,12 +17,12 @@ roll_member_actions:
     shl ax, 1                        ; 0x1736
     mov bx, ax                       ; 0x1738
     mov bx, word [bx + party_char]   ; 0x173a
-    cmp byte [bx + 0x1a0], 1         ; 0x173e
+    cmp byte [bx + member_rec.f_01a0], 1 ; 0x173e
     jne short @..roll_member_actions.l4 ; 0x1743
     mov ax, 0x248                    ; 0x1745
     imul word [bp - 0x0004]          ; 0x1748
     mov bx, ax                       ; 0x174b
-    mov al, byte [bx + cell_key_grid + 0x151] ; 0x174d
+    mov al, byte [bx + party_records + pc_rec.flag + 0x19] ; 0x174d
     sub ah, ah                       ; 0x1751
     push ax                          ; 0x1753
     mov ax, 3                        ; 0x1754
@@ -32,7 +32,7 @@ roll_member_actions:
     sub ax, cx                       ; 0x175e
     cmp ax, word [bp - 0x0006]       ; 0x1760
     jg short @..roll_member_actions.l3 ; 0x1763
-    mov al, byte [bx + cell_key_grid + 0x131] ; 0x1765
+    mov al, byte [bx + party_records + pc_rec.stat + 0x1] ; 0x1765
     sub ah, ah                       ; 0x1769
     cmp ax, word [bp - 0x0006]       ; 0x176b
     jle short @..roll_member_actions.l4 ; 0x176e
@@ -41,7 +41,7 @@ roll_member_actions:
     shl ax, 1                        ; 0x1773
     mov bx, ax                       ; 0x1775
     mov bx, word [bx + party_char]   ; 0x1777
-    mov byte [bx + 0x1a0], 0         ; 0x177b
+    mov byte [bx + member_rec.f_01a0], 0 ; 0x177b
     mov ax, 0                        ; 0x1780
     push ax                          ; 0x1783
     mov ax, 0x19                     ; 0x1784

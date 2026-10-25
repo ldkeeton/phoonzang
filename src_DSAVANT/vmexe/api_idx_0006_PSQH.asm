@@ -7,9 +7,9 @@ api_idx_0006_PSQH:
     mov ax, 0x248                    ; 0x98a8
     imul word [bss_8462]             ; 0x98ab
     mov bx, ax                       ; 0x98af
-    mov ax, word [bx + pc_spell_power_cap] ; 0x98b1
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x98b1
     push ax                          ; 0x98b5
-    mov al, byte [bx + cell_key_grid + 0x149] ; 0x98b6
+    mov al, byte [bx + party_records + pc_rec.flag + 0x11] ; 0x98b6
     sub ah, ah                       ; 0x98ba
     mov cx, ax                       ; 0x98bc
     pop ax                           ; 0x98be
@@ -23,20 +23,20 @@ api_idx_0006_PSQH:
     shl ax, 1                        ; 0x98d1
     mov bx, ax                       ; 0x98d3
     mov bx, word [bx + party_char]   ; 0x98d5
-    mov al, byte [bx + 0x1a1]        ; 0x98d9
+    mov al, byte [bx + member_rec.item_count] ; 0x98d9
     sub ah, ah                       ; 0x98dd
     push ax                          ; 0x98df
     mov ax, word [bp - 0x0002]       ; 0x98e0
     shl ax, 1                        ; 0x98e3
     mov bx, ax                       ; 0x98e5
     mov bx, word [bx + party_char_ext] ; 0x98e7
-    mov al, byte [bx + 0x80]         ; 0x98eb
+    mov al, byte [bx + member_ext.f_0080] ; 0x98eb
     sub ah, ah                       ; 0x98ef
     mov cx, ax                       ; 0x98f1
     pop ax                           ; 0x98f3
     add ax, cx                       ; 0x98f4
     push ax                          ; 0x98f6
-    mov al, byte [bx + 0x8d]         ; 0x98f7
+    mov al, byte [bx + member_ext.f_008d] ; 0x98f7
     sub ah, ah                       ; 0x98fb
     mov cx, ax                       ; 0x98fd
     pop ax                           ; 0x98ff
@@ -70,9 +70,9 @@ api_idx_0006_PSQH:
     mov ax, 0x248                    ; 0x993d
     imul word [bp - 0x0002]          ; 0x9940
     mov bx, ax                       ; 0x9943
-    mov ax, word [bx + pc_spell_power_cap] ; 0x9945
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x9945
     push ax                          ; 0x9949
-    mov al, byte [bx + cell_key_grid + 0x131] ; 0x994a
+    mov al, byte [bx + party_records + pc_rec.stat + 0x1] ; 0x994a
     sub ah, ah                       ; 0x994e
     mov cx, ax                       ; 0x9950
     pop ax                           ; 0x9952

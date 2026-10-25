@@ -186,7 +186,7 @@ start_melee_battle:
     shl ax, 1                        ; 0x358a
     mov bx, ax                       ; 0x358c
     mov bx, word [bx + overlay_list + 0x2] ; 0x358e
-    mov byte [bx + 0x14], 0xff       ; 0x3592
+    mov byte [bx + overlay_list_rec.f_0014], 0xff ; 0x3592
     inc word [bp - 0x0002]           ; 0x3596
     mov ax, word [bp - 0x0002]       ; 0x3599
     cmp ax, strict word 0xc          ; 0x359c

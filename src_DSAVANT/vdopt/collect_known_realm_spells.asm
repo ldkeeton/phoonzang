@@ -15,7 +15,7 @@ collect_known_realm_spells:
     push word [bp - 0x0002]          ; 0x26a5
     mov ax, 0x248                    ; 0x26a8
     imul word [bp + 0x4]             ; 0x26ab
-    add ax, cell_key_grid + 0x1de    ; 0x26ae
+    add ax, party_records + pc_rec.pad_01be + 0x60 ; 0x26ae
     push ax                          ; 0x26b1
     call test_bit                    ; 0x26b2
     add sp, byte 4                   ; 0x26b5

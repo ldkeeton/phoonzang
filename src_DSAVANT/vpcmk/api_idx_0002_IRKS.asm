@@ -8,7 +8,7 @@ api_idx_0002_IRKS:
     imul word [bp + 0x4]             ; 0x403b
     add ax, word [bp - 0x0002]       ; 0x403e
     mov bx, ax                       ; 0x4041
-    mov al, byte [bx + cell_key_grid + 0x130] ; 0x4043
+    mov al, byte [bx + party_records + pc_rec.stat] ; 0x4043
     sub ah, ah                       ; 0x4047
     push ax                          ; 0x4049
     mov bx, word [bp + 0x6]          ; 0x404a
@@ -30,7 +30,7 @@ api_idx_0002_IRKS:
     add ax, si                       ; 0x406c
     mov bx, ax                       ; 0x406e
     pop ax                           ; 0x4070
-    mov byte [bx + cell_key_grid + 0x130], al ; 0x4071
+    mov byte [bx + party_records + pc_rec.stat], al ; 0x4071
 @..api_idx_0002_IRKS.l2:
     inc word [bp - 0x0002]           ; 0x4075
     mov ax, word [bp - 0x0002]       ; 0x4078

@@ -8,13 +8,13 @@ api_idx_0006_VJKJ:
     imul word [bp + 0x4]
     add ax, word [bp - 0x0002]
     mov bx, ax
-    mov byte [bx + cell_key_grid + 0x15a], 0
+    mov byte [bx + party_records + pc_rec.prev], 0
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov ax, word [bx + pc_spell_power_cap]
+    mov ax, word [bx + party_records + pc_rec.power_cap]
     push ax
-    mov al, byte [bx + member_state + 0x11]
+    mov al, byte [bx + party_records + pc_rec.f_0247]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -23,7 +23,7 @@ api_idx_0006_VJKJ:
     mov ax, cx
     jmp short @..api_idx_0006_VJKJ.l3
 @..api_idx_0006_VJKJ.l2:
-    mov ax, word [bx + pc_spell_power_cap]
+    mov ax, word [bx + party_records + pc_rec.power_cap]
 @..api_idx_0006_VJKJ.l3:
     mov word [bp - 0x0006], ax
     mov ax, 0x10

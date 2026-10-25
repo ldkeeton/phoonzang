@@ -17,7 +17,7 @@ setup_party_pictures:
     shl ax, 1                        ; 0x17d5
     mov bx, ax                       ; 0x17d7
     mov bx, word [bx + party_char_ext] ; 0x17d9
-    mov al, byte [bx + 0xd7]         ; 0x17dd
+    mov al, byte [bx + member_ext.kind] ; 0x17dd
     sub ah, ah                       ; 0x17e1
     push ax                          ; 0x17e3
     call find_picture_slot           ; 0x17e4
@@ -26,7 +26,7 @@ setup_party_pictures:
     shl cx, 1                        ; 0x17eb
     mov bx, cx                       ; 0x17ed
     mov bx, word [bx + party_char]   ; 0x17ef
-    mov byte [bx + 0x19f], al        ; 0x17f3
+    mov byte [bx + member_rec.slot], al ; 0x17f3
     inc word [bp - 0x0002]           ; 0x17f7
 @..setup_party_pictures.l3:
     mov ax, word [bp - 0x0002]       ; 0x17fa
@@ -50,7 +50,7 @@ setup_party_pictures:
     cmp ax, strict word 0x12         ; 0x1828
     jl short @..setup_party_pictures.l4 ; 0x182b
     mov bx, word [party_member_ext_1] ; 0x182d
-    cmp byte [bx + 0xd8], 0          ; 0x1831
+    cmp byte [bx + party_member_ext_1_rec.f_00d8], 0 ; 0x1831
     jbe short @..setup_party_pictures.l6 ; 0x1836
     mov al, byte [bx + 0xd8]         ; 0x1838
     sub ah, ah                       ; 0x183c

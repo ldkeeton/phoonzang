@@ -114,7 +114,7 @@ api_idx_006a_NKMN:
     mov ax, 0x248                    ; 0x6104
     imul word [bp + 0x4]             ; 0x6107
     mov bx, ax                       ; 0x610a
-    mov al, byte [bx + cell_key_grid + 0x148] ; 0x610c
+    mov al, byte [bx + party_records + pc_rec.flag + 0x10] ; 0x610c
     sub ah, ah                       ; 0x6110
     push ax                          ; 0x6112
     call format_int_decimal          ; 0x6113
@@ -323,7 +323,7 @@ api_idx_006a_NKMN:
     mov ax, 0x248                    ; 0x62ed
     imul word [bp + 0x4]             ; 0x62f0
     mov bx, ax                       ; 0x62f3
-    mov al, byte [bx + cell_key_grid + 0x148] ; 0x62f5
+    mov al, byte [bx + party_records + pc_rec.flag + 0x10] ; 0x62f5
     sub ah, ah                       ; 0x62f9
     push ax                          ; 0x62fb
     mov ax, 3                        ; 0x62fc
@@ -331,18 +331,18 @@ api_idx_006a_NKMN:
     mov cx, ax                       ; 0x6302
     pop ax                           ; 0x6304
     sub ax, cx                       ; 0x6305
-    mov cx, word [bx + pc_spell_power_cap] ; 0x6307
+    mov cx, word [bx + party_records + pc_rec.power_cap] ; 0x6307
     add ax, cx                       ; 0x630b
     mov word [bp - 0x001a], ax       ; 0x630d
-    cmp byte [bx + member_state + 0x3], 3 ; 0x6310
+    cmp byte [bx + party_records + pc_rec.label], 3 ; 0x6310
     jne short @..api_idx_006a_NKMN.l5 ; 0x6315
-    mov al, byte [bx + cell_key_grid + 0x134] ; 0x6317
+    mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x6317
     sub ah, ah                       ; 0x631b
     add word [bp - 0x001a], ax       ; 0x631d
     mov word [bp - 0x001c], 2        ; 0x6320
     jmp short @..api_idx_006a_NKMN.l7 ; 0x6325
 @..api_idx_006a_NKMN.l5:
-    mov al, byte [bx + member_state + 0x3] ; 0x6327
+    mov al, byte [bx + party_records + pc_rec.label] ; 0x6327
     cmp al, 0xd                      ; 0x632b
     je short @..api_idx_006a_NKMN.l6 ; 0x632d
     cmp al, 4                        ; 0x632f
@@ -350,7 +350,7 @@ api_idx_006a_NKMN:
     cmp al, 6                        ; 0x6333
     jne short @..api_idx_006a_NKMN.l7 ; 0x6335
 @..api_idx_006a_NKMN.l6:
-    mov al, byte [bx + cell_key_grid + 0x134] ; 0x6337
+    mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x6337
     sub ah, ah                       ; 0x633b
     mov cx, 2                        ; 0x633d
     cwd                              ; 0x6340

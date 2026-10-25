@@ -278,9 +278,11 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
         return canonical
 
     def put_data(fx, name, value):
+        from lib.record_layout import data_text
         _put(code, fx.offset, 2, value + fx.addend)
-        out.refs[fx.offset] = Ref(fx.offset, 2, name + _addend_text(fx.addend),
-                                  False, {name: value})
+        text = (data_text(name, value, fx.addend)
+                or name + _addend_text(fx.addend))
+        out.refs[fx.offset] = Ref(fx.offset, 2, text, False, {name: value})
 
     # A target keeps the name the build gave it: a global, or a local label
     # (``@..aztec_mkdir.dircommon``, the vendor's) that a neighbour's branch

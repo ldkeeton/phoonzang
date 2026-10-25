@@ -1,3 +1,7 @@
+/* fires the maze object keyed to one party record cell */
+
+#include "structs/pcrec.h"
+
 /* 240 objects, one parallel array per field */
 struct maze_tables {
 	int key[240];
@@ -12,21 +16,8 @@ struct maze_tables {
 	unsigned char map_first[1];	/* indexed by map piece */
 };
 
-/* strides 0xc, 0x78, 0x248 */
-struct grid_cell {
-	int key;
-	char pad[10];
-};
-struct grid_row {
-	struct grid_cell cell[10];
-};
-struct grid_page {
-	struct grid_row row[4];
-	char pad[104];
-};
-
 extern struct maze_tables *maze_tables;
-extern struct grid_page cell_key_grid[];
+extern struct pc_rec party_records[];
 extern int party_map_piece, party_cell_y, party_cell_x, party_tag;
 extern int party_region, game_state_arg, loaded_sound_id, pending_event,
 	pending_event_hi;
@@ -44,7 +35,7 @@ int page, row, col;
 		if (obj == -1)
 			break;
 		if (maze_tables->type[obj] == 19 &&
-		    cell_key_grid[page].row[row].cell[col].key == maze_tables->key[obj] &&
+		    party_records[page].cell[row][col].key == maze_tables->key[obj] &&
 		    (maze_tables->party_mask[obj] == 0 ||
 		     maze_tables->party_mask[obj] & (1 << party_tag))) {
 			/* flags bits 0-7 clear, bits 8-15 set a bit in the level's 16-byte map */
@@ -72,7 +63,7 @@ int page, row, col;
 		    (get_bits(maze_tables->flags[obj], party_tag << 1, 2) == 1 ||
 		     get_bits(maze_tables->flags[obj], party_tag << 1, 2) == 2)) {
 			key = maze_tables->party_mask[obj];
-			if (cell_key_grid[page].row[row].cell[col].key == key) {
+			if (party_records[page].cell[row][col].key == key) {
 				claim_type7_object(obj);
 				pending_event = 2113;
 				pending_event_hi = 0;

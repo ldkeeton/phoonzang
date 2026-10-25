@@ -26,7 +26,7 @@ api_idx_004e_PHKR:
     pop ax                           ; 0x5bac
     add ax, cx                       ; 0x5bad
     mov bx, ax                       ; 0x5baf
-    mov ax, word [bx + cell_key_grid] ; 0x5bb1
+    mov ax, word [bx + party_records + pc_rec.cell] ; 0x5bb1
     mov word [bp - 0x0002], ax       ; 0x5bb5
     mov ax, 0                        ; 0x5bb8
     push ax                          ; 0x5bbb
@@ -84,7 +84,7 @@ api_idx_004e_PHKR:
     pop ax                           ; 0x5c2e
     add ax, cx                       ; 0x5c2f
     mov bx, ax                       ; 0x5c31
-    mov al, byte [bx + cell_key_grid + 0x7] ; 0x5c33
+    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x5c33
     sub ah, ah                       ; 0x5c37
     test ax, 1                       ; 0x5c39
     je short @..api_idx_004e_PHKR.l4 ; 0x5c3c

@@ -1,5 +1,8 @@
-/* let pc pick and cast a spell: pay its points, apply it, drain w0 by a roll;
+/* let pc pick and cast a spell: pay its points, apply it, drain pair_b by a
+   roll;
    then refresh the party */
+
+#include "structs/pcrec.h"
 
 struct spell_info {	/* 6-byte entries */
 	unsigned char realm;	/* +0 */
@@ -9,18 +12,8 @@ struct spell_info {	/* 6-byte entries */
 	unsigned char targeted;	/* +4: 1 when a party member is picked */
 	char pad;
 };
-struct pc_rec {	/* 0x248-byte records */
-	int w0;	/* +0: drained by casting, floored at 0 */
-	int w2[3];
-	int cap;
-	int w10;
-	int points[6][2];	/* +0xc: [cur, max] per realm */
-	char pad1[332 - 36];
-	unsigned char b14c;	/* +0x14c: set to 6..11 when w0 bottoms out */
-	char pad2[584 - 333];
-};
 extern struct spell_info spell_table[];
-extern struct pc_rec pc_records[];
+extern struct pc_rec party_records[];
 extern int cast_spell_target, spell_dialog_result;
 
 cast_spell_from_dialog(pc)
@@ -36,13 +29,14 @@ int pc;
 				;
 		}
 		if (spell >= 0) {
-			pc_records[pc].points[spell_table[spell].realm][0] -=
+			party_records[pc].realm_points[spell_table[spell].realm][0] -=
 				spell_table[spell].cost * power;
 			apply_spell_effect_alt(pc, spell, power, cast_spell_target);
-			pc_records[pc].w0 -= random_below(power) + spell_table[spell].level + power;
-			if (pc_records[pc].w0 < 0) {
-				pc_records[pc].w0 = 0;
-				pc_records[pc].b14c = random_below(6) + 6;	/* 6..11 */
+			party_records[pc].pair_b[0] -=
+				random_below(power) + spell_table[spell].level + power;
+			if (party_records[pc].pair_b[0] < 0) {
+				party_records[pc].pair_b[0] = 0;
+				party_records[pc].status[2] = random_below(6) + 6;	/* 6..11 */
 			}
 			draw_party_member_panel(pc, 1);
 		}

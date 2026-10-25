@@ -17,9 +17,9 @@ ds_app_UTUH: ; Aztec csav frame=0x0000
     pop ax                           ; 0x1c8f
     add ax, cx                       ; 0x1c90
     mov bx, ax                       ; 0x1c92
-    cmp byte [bx + cell_key_grid + 0x6], 0 ; 0x1c94
+    cmp byte [bx + party_records + pc_rec.cell + 0x6], 0 ; 0x1c94
     jbe short @..ds_app_UTUH.l1      ; 0x1c99
-    dec byte [bx + cell_key_grid + 0x6] ; 0x1c9b
+    dec byte [bx + party_records + pc_rec.cell + 0x6] ; 0x1c9b
     jne short @..ds_app_UTUH.l1      ; 0x1c9f
     push word [bp + 0x8]             ; 0x1ca1
     push word [bp + 0x6]             ; 0x1ca4

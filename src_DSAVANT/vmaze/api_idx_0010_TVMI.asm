@@ -50,7 +50,7 @@ api_idx_0010_TVMI:
     mov ax, word [bx + si]           ; 0x8287
     mov word [bp - 0x000c], ax       ; 0x8289
     mov si, word [party_region]      ; 0x828c
-    mov al, byte [bx + si + spell_table + 0x430] ; 0x8290
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x8290
     sub ah, ah                       ; 0x8294
     mov word [bp - 0x000e], ax       ; 0x8296
     mov ax, 0                        ; 0x8299

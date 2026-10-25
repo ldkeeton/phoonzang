@@ -5,7 +5,7 @@ loc_PQKO:
     mov ax, 0x26                     ; 0x944e
     imul word [bp + 0x4]             ; 0x9451
     mov bx, ax                       ; 0x9454
-    mov al, byte [bx + slot_records] ; 0x9456
+    mov al, byte [bx + slot_records + slot_record.kind] ; 0x9456
     sub ah, ah                       ; 0x945a
     cmp ax, word [bp + 0x6]          ; 0x945c
     jne short @..loc_PQKO.l1         ; 0x945f
@@ -21,11 +21,11 @@ loc_QJRN:
     mov ax, 0x26                     ; 0x9470
     imul word [bp + 0x4]             ; 0x9473
     mov bx, ax                       ; 0x9476
-    mov byte [bx + bss_84e8 + 0x2], 3 ; 0x9478
-    mov al, byte [bx + bss_84e8 + 0x3] ; 0x947d
+    mov byte [bx + slot_records + slot_record.f_0002], 3 ; 0x9478
+    mov al, byte [bx + slot_records + slot_record.f_0003] ; 0x947d
     sub ah, ah                       ; 0x9481
     push ax                          ; 0x9483
-    mov al, byte [bx + slot_records] ; 0x9484
+    mov al, byte [bx + slot_records + slot_record.kind] ; 0x9484
     sub ah, ah                       ; 0x9488
     push ax                          ; 0x948a
     push word [bp + 0x4]             ; 0x948b
@@ -36,6 +36,6 @@ loc_QJRN:
     mov ax, 0x26                     ; 0x9498
     imul word [bp + 0x4]             ; 0x949b
     mov bx, ax                       ; 0x949e
-    mov byte [bx + bss_84e8 + 0x2], 0 ; 0x94a0
+    mov byte [bx + slot_records + slot_record.f_0002], 0 ; 0x94a0
 @..loc_QJRN.l1:
     ret                              ; 0x94a5

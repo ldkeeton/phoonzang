@@ -5,13 +5,13 @@ api_idx_00ac_MSQO:
     mov ax, 0x248                    ; 0x45e6
     imul word [bp + 0x4]             ; 0x45e9
     mov bx, ax                       ; 0x45ec
-    mov al, byte [bx + cell_key_grid + 0x130] ; 0x45ee
+    mov al, byte [bx + party_records + pc_rec.stat] ; 0x45ee
     sub ah, ah                       ; 0x45f2
     mov word [bp - 0x0006], ax       ; 0x45f4
-    mov al, byte [bx + cell_key_grid + 0x133] ; 0x45f7
+    mov al, byte [bx + party_records + pc_rec.stat + 0x3] ; 0x45f7
     sub ah, ah                       ; 0x45fb
     mov word [bp - 0x0008], ax       ; 0x45fd
-    mov al, byte [bx + member_state + 0x3] ; 0x4600
+    mov al, byte [bx + party_records + pc_rec.label] ; 0x4600
     sub ah, ah                       ; 0x4604
     jmp near @..api_idx_00ac_MSQO.l1 ; 0x4606
 jumptable_4679_case_0:
@@ -147,9 +147,9 @@ jumptable_4679:
     mov ax, 0x248                    ; 0x470d
     imul word [bp + 0x4]             ; 0x4710
     mov bx, ax                       ; 0x4713
-    mov ax, word [bx + pc_spell_power_cap] ; 0x4715
+    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x4715
     push ax                          ; 0x4719
-    mov al, byte [bx + member_state + 0x11] ; 0x471a
+    mov al, byte [bx + party_records + pc_rec.f_0247] ; 0x471a
     sub ah, ah                       ; 0x471e
     mov cx, ax                       ; 0x4720
     pop ax                           ; 0x4722
@@ -159,30 +159,30 @@ jumptable_4679:
     mov word [bp - 0x0004], 1        ; 0x472c
 @..api_idx_00ac_MSQO.l9:
     mov ax, word [bp - 0x0002]       ; 0x4731
-    add word [bx + member_pair_points + 0x2], ax ; 0x4734
-    add word [bx + member_pair_points + 0x4], ax ; 0x4738
+    add word [bx + party_records + pc_rec.pair_a], ax ; 0x4734
+    add word [bx + party_records + pc_rec.pair_a + 0x2], ax ; 0x4738
     mov ax, word [bp - 0x0004]       ; 0x473c
-    add word [bx + pc_records], ax   ; 0x473f
-    add word [bx + pc_records + 0x2], ax ; 0x4743
+    add word [bx + party_records + pc_rec.pair_b], ax ; 0x473f
+    add word [bx + party_records + pc_rec.pair_b + 0x2], ax ; 0x4743
     mov ax, 0xf                      ; 0x4747
     imul word [bp - 0x000c]          ; 0x474a
-    mov word [bx + pc_records + 0x6], ax ; 0x474d
-    cmp byte [bx + member_state + 0x1], 5 ; 0x4751
+    mov word [bx + party_records + pc_rec.f_0022], ax ; 0x474d
+    cmp byte [bx + party_records + pc_rec.glyph_set], 5 ; 0x4751
     jne short @..api_idx_00ac_MSQO.l10 ; 0x4756
     shl ax, 1                        ; 0x4758
     mov cx, 3                        ; 0x475a
     cwd                              ; 0x475d
     idiv cx                          ; 0x475e
-    mov word [bx + pc_records + 0x6], ax ; 0x4760
+    mov word [bx + party_records + pc_rec.f_0022], ax ; 0x4760
 @..api_idx_00ac_MSQO.l10:
     mov ax, 0x64                     ; 0x4764
-    imul word [bx + pc_records]      ; 0x4767
+    imul word [bx + party_records + pc_rec.pair_b] ; 0x4767
     cwd                              ; 0x476b
-    idiv word [bx + pc_records + 0x2] ; 0x476c
+    idiv word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x476c
     mov word [bp - 0x000a], ax       ; 0x4770
     cmp ax, strict word 1            ; 0x4773
     jge short @..api_idx_00ac_MSQO.l11 ; 0x4776
-    cmp word [bx + pc_records], byte 0 ; 0x4778
+    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x4778
     jle short @..api_idx_00ac_MSQO.l11 ; 0x477d
     mov ax, 1                        ; 0x477f
     jmp short @..api_idx_00ac_MSQO.l12 ; 0x4782
@@ -200,7 +200,7 @@ jumptable_4679:
     push ax                          ; 0x4799
     mov ax, 0xd5                     ; 0x479a
     push ax                          ; 0x479d
-    push word [bx + pc_records + 0x2] ; 0x479e
+    push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x479e
     push word [bp - 0x000a]          ; 0x47a2
     mov ax, 0x63                     ; 0x47a5
     push ax                          ; 0x47a8
@@ -247,8 +247,8 @@ jumptable_4679:
     mov ax, 0x248                    ; 0x4801
     imul word [bp + 0x4]             ; 0x4804
     mov bx, ax                       ; 0x4807
-    push word [bx + member_pair_points + 0x4] ; 0x4809
-    push word [bx + member_pair_points + 0x2] ; 0x480d
+    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x4809
+    push word [bx + party_records + pc_rec.pair_a] ; 0x480d
     mov ax, 0x5d                     ; 0x4811
     push ax                          ; 0x4814
     mov ax, 6                        ; 0x4815

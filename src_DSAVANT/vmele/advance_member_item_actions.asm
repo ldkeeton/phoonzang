@@ -14,7 +14,7 @@ advance_member_item_actions:
     shl ax, 1                        ; 0x1509
     mov bx, ax                       ; 0x150b
     mov bx, word [bx + party_char]   ; 0x150d
-    cmp byte [bx + si + 0x22], 3     ; 0x1511
+    cmp byte [bx + si + member_rec.item_state], 3 ; 0x1511
     jae short @..advance_member_item_actions.l2 ; 0x1515
     mov ax, 0                        ; 0x1517
     push ax                          ; 0x151a
@@ -22,7 +22,7 @@ advance_member_item_actions:
     shl ax, 1                        ; 0x151e
     mov bx, ax                       ; 0x1520
     mov bx, word [bx + party_char_ext] ; 0x1522
-    mov al, byte [bx + 0xdd]         ; 0x1526
+    mov al, byte [bx + member_ext.f_00dd] ; 0x1526
     sub ah, ah                       ; 0x152a
     push ax                          ; 0x152c
     push word [bp - 0x0004]          ; 0x152d
@@ -40,7 +40,7 @@ advance_member_item_actions:
     shl ax, 1                        ; 0x154c
     mov bx, ax                       ; 0x154e
     mov bx, word [bx + party_char]   ; 0x1550
-    cmp byte [bx + si + 0x22], 3     ; 0x1554
+    cmp byte [bx + si + member_rec.item_state], 3 ; 0x1554
     jae short @..advance_member_item_actions.l4 ; 0x1558
     add bx, si                       ; 0x155a
     mov si, bx                       ; 0x155c
@@ -64,7 +64,7 @@ advance_member_item_actions:
     shl ax, 1                        ; 0x1589
     mov bx, ax                       ; 0x158b
     mov bx, word [bx + party_char]   ; 0x158d
-    cmp byte [bx + si + 0x2a], 0xff  ; 0x1591
+    cmp byte [bx + si + member_rec.item_cell], 0xff ; 0x1591
     je short @..advance_member_item_actions.l3 ; 0x1595
     mov al, byte [bx + si + 0x2a]    ; 0x1597
     cbw                              ; 0x159a
@@ -99,7 +99,7 @@ advance_member_item_actions:
     shl ax, 1                        ; 0x15d6
     mov bx, ax                       ; 0x15d8
     mov bx, word [bx + party_char]   ; 0x15da
-    mov al, byte [bx + 0x1a1]        ; 0x15de
+    mov al, byte [bx + member_rec.item_count] ; 0x15de
     sub ah, ah                       ; 0x15e2
     cmp ax, word [bp - 0x0004]       ; 0x15e4
     jle short @..advance_member_item_actions.l6 ; 0x15e7
@@ -121,7 +121,7 @@ advance_member_item_actions:
     shl ax, 1                        ; 0x1608
     mov bx, ax                       ; 0x160a
     mov bx, word [bx + party_char]   ; 0x160c
-    cmp byte [bx + 0x1a1], 1         ; 0x1610
+    cmp byte [bx + member_rec.item_count], 1 ; 0x1610
     jne short @..advance_member_item_actions.l8 ; 0x1615
     mov byte [bp - 0x005c], 0        ; 0x1617
     jmp short @..advance_member_item_actions.l9 ; 0x161b
@@ -151,7 +151,7 @@ advance_member_item_actions:
     shl ax, 1                        ; 0x164f
     mov bx, ax                       ; 0x1651
     mov bx, word [bx + party_char]   ; 0x1653
-    mov al, byte [bx + 0x1a0]        ; 0x1657
+    mov al, byte [bx + member_rec.f_01a0] ; 0x1657
     sub ah, ah                       ; 0x165b
     mov cx, 5                        ; 0x165d
     shl ax, cl                       ; 0x1660
@@ -201,5 +201,5 @@ advance_member_item_actions:
     shl cx, 1                        ; 0x16c4
     mov bx, cx                       ; 0x16c6
     mov bx, word [bx + party_char]   ; 0x16c8
-    mov byte [bx + 0x1a1], al        ; 0x16cc
+    mov byte [bx + member_rec.item_count], al ; 0x16cc
     ret                              ; 0x16d0
