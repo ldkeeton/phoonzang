@@ -1,13 +1,7 @@
 /* let pc pick a spell and, for a targeted one, pick the member it lands on */
 
-struct spell_info {	/* 6-byte entries */
-	unsigned char realm;	/* +0 */
-	unsigned char level;	/* +1 */
-	unsigned char cost;	/* +2: points per power level */
-	unsigned char f3;
-	unsigned char targeted;	/* +4: 1 when a party member is picked */
-	char pad;
-};
+#include "structs/spell.h"
+
 extern struct spell_info spell_table[];
 extern char *party_char[];
 extern int spell_dialog_result;

@@ -67,7 +67,7 @@ add_party_member:
     shl ax, 1                        ; 0x0852
     mov bx, ax                       ; 0x0854
     mov bx, word [bx + party_char_ext] ; 0x0856
-    mov al, byte [bx + member_ext.f_00e2] ; 0x085a
+    mov al, byte [bx + member_ext.flags] ; 0x085a
     sub ah, ah                       ; 0x085e
     test ax, 1                       ; 0x0860
     jne short @..add_party_member.l7 ; 0x0863
@@ -137,7 +137,7 @@ add_party_member:
     shl ax, 1                        ; 0x08ff
     mov bx, ax                       ; 0x0901
     mov bx, word [bx + party_char]   ; 0x0903
-    mov byte [bx + member_rec.f_01a0], 1 ; 0x0907
+    mov byte [bx + member_rec.name_row], 1 ; 0x0907
     mov word [bp - 0x0002], 0        ; 0x090c
 @..add_party_member.l10:
     mov ax, word [bp + 0x6]          ; 0x0911

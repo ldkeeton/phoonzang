@@ -23,7 +23,7 @@ api_idx_0004_PIHK:
     shl ax, 1                        ; 0x1c98
     mov bx, ax                       ; 0x1c9a
     mov bx, word [bx + party_char_ext] ; 0x1c9c
-    mov al, byte [bx + member_ext.f_00e2] ; 0x1ca0
+    mov al, byte [bx + member_ext.flags] ; 0x1ca0
     sub ah, ah                       ; 0x1ca4
     test ax, 1                       ; 0x1ca6
     je short @..api_idx_0004_PIHK.l3 ; 0x1ca9
@@ -165,8 +165,8 @@ api_idx_0004_PIHK:
     shl ax, 1                        ; 0x1e1e
     mov bx, ax                       ; 0x1e20
     mov bx, word [bx + party_char_ext] ; 0x1e22
-    mov ax, word [bx + member_ext.f_0040] ; 0x1e26
-    mov dx, word [bx + member_ext.f_0042] ; 0x1e29
+    mov ax, word [bx + member_ext.reward] ; 0x1e26
+    mov dx, word [bx + member_ext.reward + 0x2] ; 0x1e29
     add word [item_action_reward], ax ; 0x1e2c
     adc word [item_action_reward_hi], dx ; 0x1e30
 @..api_idx_0004_PIHK.l7:

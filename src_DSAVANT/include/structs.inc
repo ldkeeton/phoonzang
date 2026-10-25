@@ -184,7 +184,7 @@ struc member_rec
     .f_019d: resb 1
     .kind: resb 1
     .slot: resb 1
-    .f_01a0: resb 1
+    .name_row: resb 1
     .item_count: resb 1
     .f_01a2: resb 1
 endstruc
@@ -205,8 +205,8 @@ endstruc
 ; records pointed at by DS 0x8490
 struc member_ext
     .f_0000: resb 64
-    .f_0040: resb 2
-    .f_0042: resb 15
+    .reward: resb 4
+    .pad_0044: resb 13
     .f_0051: resb 41
     .f_007a: resb 3
     .f_007d: resb 3
@@ -237,11 +237,12 @@ struc member_ext
     .f_00da: resb 1
     .f_00db: resb 1
     .f_00dc: resb 1
-    .f_00dd: resb 1
-    .f_00de: resb 4
-    .f_00e2: resb 2
+    .attack: resb 1
+    .f_00de: resb 2
+    .bitmap_bit: resb 2
+    .flags: resb 2
     .f_00e4: resb 1
-    .f_00e5: resb 1
+    .class_id: resb 3
 endstruc
 
 ; records pointed at by DS 0x8492

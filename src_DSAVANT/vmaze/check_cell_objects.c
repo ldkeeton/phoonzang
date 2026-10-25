@@ -1,18 +1,7 @@
 /* on entering the party's cell: optionally show a message unless the cell
    is already tagged for party_tag, then act on the first matching object */
 
-/* 240 objects, one parallel array per field */
-struct maze_tables {
-	char pad0[960];
-	int flags[240];			/* packed bitfields, read via get_bits */
-	unsigned char type[240];
-	unsigned char x[240];
-	unsigned char y[240];
-	unsigned char map[240];
-	unsigned char f960[240];
-	unsigned char owner[240];
-	unsigned char map_first[1];	/* indexed by map piece */
-};
+#include "structs/maze.h"
 
 extern struct maze_tables *maze_tables;
 extern int party_map_piece, party_cell_y, party_cell_x, party_tag,
@@ -52,7 +41,7 @@ int announce;
 		if (maze_tables->type[obj] == 8 && check_type8_object(obj) == 1)
 			return;
 		if (maze_tables->type[obj] == 25 &&
-		    (found_object_owner = maze_tables->owner[obj]) == party_tag) {
+		    (found_object_owner = maze_tables->sound[obj]) == party_tag) {
 			game_state = 27;
 			party_region = obj;
 			return;

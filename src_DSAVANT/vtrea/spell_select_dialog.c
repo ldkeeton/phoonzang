@@ -4,14 +4,8 @@
    spell_dialog_result */
 
 #include "structs/pcrec.h"
+#include "structs/spell.h"
 
-struct spell_info {	/* 6-byte entries */
-	char realm;		/* +0: 0..5 */
-	unsigned char level;
-		/* +1: subtracted from pc_rec.power_cap for the power limit */
-	unsigned char cost;	/* +2: per power level, against realm_points[realm][0] */
-	char pad[3];
-};
 extern int party_slot_frame[];
 extern int hotspot_rects[];
 extern int spell_dialog_result, party_redraw_interval, spell_dialog_button,

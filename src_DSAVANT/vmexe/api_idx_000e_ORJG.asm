@@ -1972,7 +1972,7 @@ jumptable_5eb8_case_64:
     shl ax, 1                        ; 0x4cd3
     mov bx, ax                       ; 0x4cd5
     mov bx, word [bx + party_char]   ; 0x4cd7
-    mov byte [bx + member_rec.f_01a0], 0 ; 0x4cdb
+    mov byte [bx + member_rec.name_row], 0 ; 0x4cdb
 @..api_idx_000e_ORJG.l38:
     inc word [bp - 0x0002]           ; 0x4ce0
 @..api_idx_000e_ORJG.l39:

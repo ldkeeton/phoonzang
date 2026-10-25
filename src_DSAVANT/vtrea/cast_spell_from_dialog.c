@@ -3,15 +3,8 @@
    then refresh the party */
 
 #include "structs/pcrec.h"
+#include "structs/spell.h"
 
-struct spell_info {	/* 6-byte entries */
-	unsigned char realm;	/* +0 */
-	unsigned char level;	/* +1 */
-	unsigned char cost;	/* +2: points per power level */
-	unsigned char f3;
-	unsigned char targeted;	/* +4: 1 when a party member is picked */
-	char pad;
-};
 extern struct spell_info spell_table[];
 extern struct pc_rec party_records[];
 extern int cast_spell_target, spell_dialog_result;

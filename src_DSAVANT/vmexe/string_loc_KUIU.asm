@@ -245,7 +245,7 @@ jumptable_372d:
     shl ax, 1                        ; 0x3875
     mov bx, ax                       ; 0x3877
     mov bx, word [bx + party_char]   ; 0x3879
-    mov byte [bx + member_rec.f_01a0], 0 ; 0x387d
+    mov byte [bx + member_rec.name_row], 0 ; 0x387d
     mov word [bp - 0x0002], 0        ; 0x3882
     jmp near @..string_loc_KUIU.l18  ; 0x3887
 @..string_loc_KUIU.l17:

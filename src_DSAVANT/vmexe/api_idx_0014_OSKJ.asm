@@ -3,7 +3,7 @@ api_idx_0014_OSKJ:
     mov ax, 0xffec                   ; 0x6476
     call aztec_csav                  ; 0x6479
     mov bx, word [party_char_ext]    ; 0x647c
-    mov byte [bx + member_ext.f_00e2], 0 ; 0x6480
+    mov byte [bx + member_ext.flags], 0 ; 0x6480
     mov word [bss_90de], 6           ; 0x6485
     mov word [bss_91d8], 0           ; 0x648b
     mov word [bss_91da], 0           ; 0x6491

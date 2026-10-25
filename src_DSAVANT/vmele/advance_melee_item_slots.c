@@ -1,12 +1,13 @@
 /* advances member 0's item slots from each member's attack and defense, then
    orders the party by the member state byte and picks the return state */
 
+#include "structs/member.h"
 #include "structs/pcrec.h"
 
-extern char *party_char[];			/* pointers to 0x2c-byte item records */
+extern struct member_rec *party_char[];		/* member records; item slots first */
 extern struct pc_rec party_records[];
 extern int member_icon[];
-extern char member_roster_index[];
+extern int member_roster_index[];		/* word 0 is scratch */
 extern int party_char_count, party_return_state, party_screen_done;
 extern advance_item_slot_action(), copy_member_party_record(),
 	draw_party_member_panel(),
@@ -19,8 +20,8 @@ advance_melee_item_slots()
 	int swap, found;
 
 	for (member = 0; member < party_char_count; member++) {
-		/* 0x22: item action phase; 0x2c: item record stride */
-		if (((unsigned char *)party_char[0])[member * 44 + 34] < 3) {
+		/* member 0's item slots are advanced one per party member */
+		if (party_char[0]->item[member].state < 3) {
 			if (advance_item_slot_action(0, member,
 				party_records[member].attack,
 				party_records[member].defense) == 1) {
@@ -43,12 +44,13 @@ advance_melee_item_slots()
 			    party_records[other].state) {
 				aztec_swapmem(&party_records[member],
 					&party_records[other], sizeof(struct pc_rec));
-				aztec_swapmem(party_char[0] + member * 44,
-					party_char[0] + other * 44, sizeof(char[44]));
-				swap = *(int *)(member_roster_index + member * 2 + 2);
-				*(int *)(member_roster_index + member * 2 + 2) =
-					*(int *)(member_roster_index + other * 2 + 2);
-				*(int *)(member_roster_index + other * 2 + 2) = swap;
+				aztec_swapmem(&party_char[0]->item[member],
+					&party_char[0]->item[other],
+					sizeof(struct item_slot));
+				swap = member_roster_index[member + 1];
+				member_roster_index[member + 1] =
+					member_roster_index[other + 1];
+				member_roster_index[other + 1] = swap;
 				swap = member_icon[member];
 				member_icon[member] = member_icon[other];
 				member_icon[other] = swap;
@@ -60,7 +62,7 @@ advance_melee_item_slots()
 	for (member = 0; member < party_char_count; member++) {
 		if (party_records[member].state >= 2)
 			other++;
-		if (((unsigned char *)party_char[0])[member * 44 + 43] == 2)	/* +0x2b */
+		if (party_char[0]->item[member].phase == 2)
 			found = 1;
 	}
 	if (other == party_char_count) {	/* all spent: back to the battle */

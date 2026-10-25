@@ -1,10 +1,8 @@
 /* collect the spells of realm that pc knows: names into known_spell_names, ids
    into known_spell_ids; returns the count */
 
-struct spell_info {	/* 6-byte entries */
-	unsigned char realm;
-	char pad[5];
-};
+#include "structs/spell.h"
+
 extern struct spell_info spell_table[];
 extern char known_spell_names[][20];
 extern int known_spell_ids[];

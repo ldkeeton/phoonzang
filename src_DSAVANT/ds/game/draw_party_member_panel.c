@@ -2,8 +2,9 @@
    reveal makes the drawn area visible */
 
 #include "structs/pcrec.h"
+#include "structs/spell.h"
 
-extern char spell_table[];	/* 6-byte entries, plus word arrays at +0x300 */
+extern char spell_table[];		/* the spell entries and the tables after */
 extern struct pc_rec party_records[];
 extern long panel_area[];
 extern int member_icon[];
@@ -32,8 +33,8 @@ int pc, reveal;
 		name);
 	name[7] = 0;		/* keep seven characters */
 	draw_text_glyphs(name, 0);
-	icon = *(int *)(spell_table + 768 +
-		2 * party_records[pc].state);
+	icon = ((struct spell_table_view *)spell_table)
+		->state_icon[party_records[pc].state];
 	/* -1 becomes 0 or 1 once the matching per-member counter is set */
 	icon = (icon == -1
 		&& party_records[pc].status[2] > 0) ? 0 : icon;
@@ -43,14 +44,17 @@ int pc, reveal;
 		gfx_set_text_pos(x + 28, y + 21);
 		draw_font_glyph((unsigned char)icon, 6);
 	}
-	/* ten status bytes: keep the icon that goes with the largest +0x320 word */
+	/* ten status bytes: keep the icon with the largest weight */
 	icon = -1;
 	best = -1;
 	for (i = 0; i < 10; i++) {
 		if (party_records[pc].status[i] > 0 &&
-		    *(int *)(spell_table + 800 + i * 2) > best) {
-			icon = *(int *)(spell_table + 780 + i * 2);
-			best = *(int *)(spell_table + 800 + i * 2);
+		    ((struct spell_table_view *)spell_table)->status_weight[i]
+			> best) {
+			icon = ((struct spell_table_view *)spell_table)
+				->status_icon[i];
+			best = ((struct spell_table_view *)spell_table)
+				->status_weight[i];
 		}
 	}
 	if (icon != -1) {
@@ -60,8 +64,8 @@ int pc, reveal;
 	/* kinds 0x13/0x19 use base 10, else the word glyph_set picks */
 	glyph_base = (party_records[pc].kind == 19 ||
 		  party_records[pc].kind == 25)
-		? 10 : *(int *)(spell_table + 820 +
-		 2 * party_records[pc].glyph_set);
+		? 10 : ((struct spell_table_view *)spell_table)
+		  ->glyph_base[party_records[pc].glyph_set];
 	for (i = 0; i < 2; i++) {	/* two cells, 14 px apart */
 		gfx_set_text_pos(i * 14 + x + 30, y + 7);
 		key = party_records[pc].order[i];

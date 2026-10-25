@@ -143,7 +143,7 @@ api_idx_0024_NKNU:
     shl ax, 1                        ; 0x474b
     mov bx, ax                       ; 0x474d
     mov bx, word [bx + party_char_ext] ; 0x474f
-    mov al, byte [bx + member_ext.f_00e2] ; 0x4753
+    mov al, byte [bx + member_ext.flags] ; 0x4753
     sub ah, ah                       ; 0x4757
     test ax, 1                       ; 0x4759
     je short @..api_idx_0024_NKNU.l13 ; 0x475c

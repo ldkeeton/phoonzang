@@ -2,17 +2,7 @@
    meets its level,
    then post event 0x841 + outcome; returns -1 if there is none */
 
-struct maze_tables {
-	int key[240];
-	int party_mask[240];
-	int flags[240];
-	unsigned char type[240];
-	unsigned char x[240];
-	unsigned char y[240];
-	unsigned char map[240];
-	unsigned char f960[240];
-	unsigned char sound[240];	/* low 5 bits: type 7 difficulty level */
-};
+#include "structs/maze.h"
 
 extern struct maze_tables *maze_tables;
 extern int party_tag, pending_event, pending_event_hi;

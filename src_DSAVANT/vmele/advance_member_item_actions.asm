@@ -22,7 +22,7 @@ advance_member_item_actions:
     shl ax, 1                        ; 0x151e
     mov bx, ax                       ; 0x1520
     mov bx, word [bx + party_char_ext] ; 0x1522
-    mov al, byte [bx + member_ext.f_00dd] ; 0x1526
+    mov al, byte [bx + member_ext.attack] ; 0x1526
     sub ah, ah                       ; 0x152a
     push ax                          ; 0x152c
     push word [bp - 0x0004]          ; 0x152d
@@ -151,7 +151,7 @@ advance_member_item_actions:
     shl ax, 1                        ; 0x164f
     mov bx, ax                       ; 0x1651
     mov bx, word [bx + party_char]   ; 0x1653
-    mov al, byte [bx + member_rec.f_01a0] ; 0x1657
+    mov al, byte [bx + member_rec.name_row] ; 0x1657
     sub ah, ah                       ; 0x165b
     mov cx, 5                        ; 0x165d
     shl ax, cl                       ; 0x1660

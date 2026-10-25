@@ -17,7 +17,7 @@ roll_member_actions:
     shl ax, 1                        ; 0x1736
     mov bx, ax                       ; 0x1738
     mov bx, word [bx + party_char]   ; 0x173a
-    cmp byte [bx + member_rec.f_01a0], 1 ; 0x173e
+    cmp byte [bx + member_rec.name_row], 1 ; 0x173e
     jne short @..roll_member_actions.l4 ; 0x1743
     mov ax, 0x248                    ; 0x1745
     imul word [bp - 0x0004]          ; 0x1748
@@ -41,7 +41,7 @@ roll_member_actions:
     shl ax, 1                        ; 0x1773
     mov bx, ax                       ; 0x1775
     mov bx, word [bx + party_char]   ; 0x1777
-    mov byte [bx + member_rec.f_01a0], 0 ; 0x177b
+    mov byte [bx + member_rec.name_row], 0 ; 0x177b
     mov ax, 0                        ; 0x1780
     push ax                          ; 0x1783
     mov ax, 0x19                     ; 0x1784

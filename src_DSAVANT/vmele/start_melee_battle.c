@@ -1,6 +1,8 @@
 /* state 0x0a: tears down the map screen, loads the sound and monster picture
    slots, saves the two screen areas and sets up the melee party */
 
+#include "structs/ovlitem.h"
+
 extern int battle_setup_done, row_limit, loaded_score_num;
 extern int requested_row_limit, e1_event_flag;
 extern int show_melee_result;		/* nonzero unless the melee goes to VMNPC */
@@ -15,13 +17,6 @@ extern char *party_char[];		/* 0x1a4-byte member records */
 extern char *party_char_ext[];		/* 0xe8-byte extended member records */
 extern unsigned char *party_member_ext_1;
 extern unsigned char picture_slot_number[], picture_slot_used[];
-struct overlay_item {
-	int x, y;
-	int clip_left, clip_right;
-	char text[12];
-	unsigned char code;		/* 0x14: sort key, 0xff marks a free slot */
-	unsigned char color, variant, flag;
-};
 extern struct {
 	int count;
 	struct overlay_item *items[12];

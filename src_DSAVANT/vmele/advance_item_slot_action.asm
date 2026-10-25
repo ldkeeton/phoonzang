@@ -91,8 +91,8 @@ advance_item_slot_action:
     shl ax, 1                        ; 0x1394
     mov bx, ax                       ; 0x1396
     mov bx, word [bx + party_char_ext] ; 0x1398
-    mov ax, word [bx + member_ext.f_0040] ; 0x139c
-    mov dx, word [bx + member_ext.f_0042] ; 0x139f
+    mov ax, word [bx + member_ext.reward] ; 0x139c
+    mov dx, word [bx + member_ext.reward + 0x2] ; 0x139f
     add word [item_action_reward], ax ; 0x13a2
     adc word [item_action_reward + 0x2], dx ; 0x13a6
 @..advance_item_slot_action.l6:
@@ -124,7 +124,7 @@ advance_item_slot_action:
     shl ax, 1                        ; 0x13e9
     mov bx, ax                       ; 0x13eb
     mov bx, word [bx + party_char_ext] ; 0x13ed
-    mov al, byte [bx + member_ext.f_00e2] ; 0x13f1
+    mov al, byte [bx + member_ext.flags] ; 0x13f1
     sub ah, ah                       ; 0x13f5
     test ax, 1                       ; 0x13f7
     je short @..advance_item_slot_action.l8 ; 0x13fa

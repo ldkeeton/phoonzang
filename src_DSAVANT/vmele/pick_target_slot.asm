@@ -6,7 +6,7 @@ pick_target_slot:
     shl ax, 1                        ; 0x0426
     mov bx, ax                       ; 0x0428
     mov bx, word [bx + party_char_ext] ; 0x042a
-    cmp byte [bx + member_ext.f_00e5], 2 ; 0x042e
+    cmp byte [bx + member_ext.class_id], 2 ; 0x042e
     jge short @..pick_target_slot.l1 ; 0x0433
     mov ax, 0xffff                   ; 0x0435
     ret                              ; 0x0438

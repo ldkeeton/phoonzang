@@ -1,20 +1,7 @@
 /* fires the maze object keyed to one party record cell */
 
+#include "structs/maze.h"
 #include "structs/pcrec.h"
-
-/* 240 objects, one parallel array per field */
-struct maze_tables {
-	int key[240];
-	int party_mask[240];		/* 0: any party, else bit per party_tag */
-	int flags[240];			/* packed bitfields, read via get_bits */
-	unsigned char type[240];
-	unsigned char x[240];
-	unsigned char y[240];
-	unsigned char map[240];
-	unsigned char f960[240];
-	unsigned char sound[240];
-	unsigned char map_first[1];	/* indexed by map piece */
-};
 
 extern struct maze_tables *maze_tables;
 extern struct pc_rec party_records[];
