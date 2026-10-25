@@ -344,7 +344,7 @@ loc_HUIS:
     add sp, byte 4                   ; 0x5ac5
     lea ax, word [bp - 0x01a4]       ; 0x5ac8
     push ax                          ; 0x5acc
-    call api_idx_0002_HHSQ           ; 0x5acd
+    call replace_slashes_with_spaces ; 0x5acd
     pop cx                           ; 0x5ad0
     mov al, byte [bp - 0x004a]       ; 0x5ad1
     sub ah, ah                       ; 0x5ad4

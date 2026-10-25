@@ -94,7 +94,7 @@ api_idx_005a_UJPS:
 @..api_idx_005a_UJPS.l3:
     mov ax, bss_9186                 ; 0xa031
     push ax                          ; 0xa034
-    call api_idx_0002_GKQL           ; 0xa035
+    call replace_slashes_with_spaces ; 0xa035
     pop cx                           ; 0xa038
     cmp word [bp - 0x0038], byte 0   ; 0xa039
     jne short @..api_idx_005a_UJPS.l4 ; 0xa03d

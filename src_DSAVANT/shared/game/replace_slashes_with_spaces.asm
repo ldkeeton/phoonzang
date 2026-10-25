@@ -1,8 +1,8 @@
 ; auto-generated
-api_idx_0002_GKQL:
+replace_slashes_with_spaces:
     mov ax, 0xfffe
     call aztec_csav
-@..api_idx_0002_GKQL.l1:
+@..replace_slashes_with_spaces.l1:
     mov ax, 0x2f
     push ax
     push word [bp + 0x4]
@@ -10,10 +10,10 @@ api_idx_0002_GKQL:
     add sp, byte 4
     mov word [bp - 0x0002], ax
     cmp ax, strict word 0xffff
-    je short @..api_idx_0002_GKQL.l2
+    je short @..replace_slashes_with_spaces.l2
     mov bx, word [bp + 0x4]
     mov si, ax
     mov byte [bx + si], 0x20
-    jmp short @..api_idx_0002_GKQL.l1
-@..api_idx_0002_GKQL.l2:
+    jmp short @..replace_slashes_with_spaces.l1
+@..replace_slashes_with_spaces.l2:
     ret

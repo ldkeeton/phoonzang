@@ -320,7 +320,7 @@ loc_HTKI.draw_list_rows1 equ api_idx_0004_KHSO
 
 %include "vmnpc/api_idx_0006_RKSL.asm"     ; 0x573e
 
-%include "shared/game/api_idx_0002_GKQL.asm"     ; 0x57bb
+%include "shared/game/replace_slashes_with_spaces.asm" ; 0x57bb
 
 %include "vmnpc/api_idx_005e_KVNO.asm"     ; 0x57e1
 

@@ -140,7 +140,7 @@ api_idx_00ac_OJJU:
 @..api_idx_00ac_OJJU.l6:
     mov ax, bss_9186                 ; 0x7ae3
     push ax                          ; 0x7ae6
-    call api_idx_0002_GKQL           ; 0x7ae7
+    call replace_slashes_with_spaces ; 0x7ae7
     pop cx                           ; 0x7aea
     cmp word [bp + 0x8], byte 4      ; 0x7aeb
     je short @..api_idx_00ac_OJJU.l7 ; 0x7aef

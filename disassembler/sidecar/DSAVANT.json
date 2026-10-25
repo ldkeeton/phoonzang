@@ -35,6 +35,8 @@
     }
   },
   "routines": {
+    "api_idx_0002_GKQL": {"name": "replace_slashes_with_spaces", "note": "Replaces every slash in a string with a space"},
+    "api_idx_0002_HHSQ": {"name": "replace_slashes_with_spaces", "note": "Replaces every slash in a string with a space"},
     "api_idx_0002_KQPU": {"name": "find_object_at", "note": "returns next object index from start whose x, y, map piece match and type is nonzero (subject to a state bit), else -1"},
     "api_idx_0004_ONRQ": {"name": "add_overlay_item", "note": "inserts an overlay item in code order, hanging when the 12-slot table is full"},
     "api_idx_0004_QVPP": {"name": "find_map_piece", "note": "maps world (x, y) to piece index and local x/y; 0 if found"},

@@ -210,8 +210,7 @@ loc_HTKI.draw_list_rows1 equ api_idx_0004_SLIS
 
 %include "vtrea/api_idx_0006_OUPU.asm"     ; 0x550e
 
-api_idx_0002_HHSQ equ api_idx_0002_GKQL
-%include "shared/game/api_idx_0002_GKQL.asm"     ; 0x5689
+%include "shared/game/replace_slashes_with_spaces.asm" ; 0x5689
 
 %include "shared/game/loc_GMVH.asm"              ; 0x56af
 

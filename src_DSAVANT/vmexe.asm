@@ -50,7 +50,7 @@ bss_91d8 equ __zdseg_end + (__zobss_91d8 - __zdata_start)
 bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
 _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
-%include "shared/game/api_idx_0002_GKQL.asm"     ; 0x000e
+%include "shared/game/replace_slashes_with_spaces.asm" ; 0x000e
 
 %include "vmexe/api_idx_0004_QUVO.asm"     ; 0x0034
 

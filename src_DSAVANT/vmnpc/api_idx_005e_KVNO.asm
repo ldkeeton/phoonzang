@@ -288,7 +288,7 @@ api_idx_005e_KVNO:
     add sp, byte 4                   ; 0x5a4d
     mov ax, bss_9d10                 ; 0x5a50
     push ax                          ; 0x5a53
-    call api_idx_0002_GKQL           ; 0x5a54
+    call replace_slashes_with_spaces ; 0x5a54
     pop cx                           ; 0x5a57
     mov ax, 0x24                     ; 0x5a58
     push ax                          ; 0x5a5b
