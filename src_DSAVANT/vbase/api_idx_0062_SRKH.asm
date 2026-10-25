@@ -12,7 +12,7 @@ api_idx_0062_SRKH:
     push ax                          ; 0x4baf
     call load_message_string         ; 0x4bb0
     add sp, byte 4                   ; 0x4bb3
-    cmp word [bss_5216], byte 0      ; 0x4bb6
+    cmp word [message_not_found], byte 0 ; 0x4bb6
     jne short @..api_idx_0062_SRKH.l3 ; 0x4bbb
     lea ax, word [bp - 0x005e]       ; 0x4bbd
     push ax                          ; 0x4bc0
@@ -30,7 +30,7 @@ api_idx_0062_SRKH:
 @..api_idx_0062_SRKH.l2:
     inc word [bp - 0x0002]           ; 0x4bd7
 @..api_idx_0062_SRKH.l3:
-    cmp word [bss_5216], byte 0      ; 0x4bda
+    cmp word [message_not_found], byte 0 ; 0x4bda
     je short @..api_idx_0062_SRKH.l1 ; 0x4bdf
     mov ax, 6                        ; 0x4be1
     imul word [bp - 0x0062]          ; 0x4be4
@@ -96,7 +96,7 @@ api_idx_0062_SRKH:
     push ax                          ; 0x4c75
     call load_message_string         ; 0x4c76
     add sp, byte 4                   ; 0x4c79
-    cmp word [bss_5216], byte 0      ; 0x4c7c
+    cmp word [message_not_found], byte 0 ; 0x4c7c
     jne short @..api_idx_0062_SRKH.l5 ; 0x4c81
     mov ax, 6                        ; 0x4c83
     imul word [bp - 0x0002]          ; 0x4c86
@@ -134,7 +134,7 @@ api_idx_0062_SRKH:
     add sp, byte 4                   ; 0x4ccf
     inc word [bp - 0x0002]           ; 0x4cd2
 @..api_idx_0062_SRKH.l5:
-    cmp word [bss_5216], byte 0      ; 0x4cd5
+    cmp word [message_not_found], byte 0 ; 0x4cd5
     je short @..api_idx_0062_SRKH.l4 ; 0x4cda
     mov ax, word [bp - 0x000e]       ; 0x4cdc
     inc ax                           ; 0x4cdf

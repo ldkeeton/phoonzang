@@ -19,7 +19,7 @@ pick_spell_dialog:
     mov word [bp - 0x000a], 0xc5     ; 0x29c0
     mov word [bp - 0x000c], 0x95     ; 0x29c5
     mov word [bp - 0x0014], 0x16     ; 0x29ca
-    mov ax, dseg_909e                ; 0x29cf
+    mov ax, spell_screen_temp_file   ; 0x29cf
     push ax                          ; 0x29d2
     mov ax, word [bp - 0x000a]       ; 0x29d3
     inc ax                           ; 0x29d6
@@ -159,7 +159,7 @@ pick_spell_dialog:
     mov ax, word [bp - 0x000c]       ; 0x2b18
     add ax, strict word 0x5e         ; 0x2b1b
     push ax                          ; 0x2b1e
-    call loc_TJJR                    ; 0x2b1f
+    call draw_spell_cost             ; 0x2b1f
     add sp, byte 0x0a                ; 0x2b22
     push word [bp - 0x0042]          ; 0x2b25
     push word [bp + 0x4]             ; 0x2b28
@@ -499,7 +499,7 @@ pick_spell_dialog:
     les bx, word [tick_counter_ptr]  ; 0x2e29
     mov ax, word [es:bx]             ; 0x2e2d
     mov dx, word [es:bx + 0x2]       ; 0x2e30
-    mov word [party_redraw_last_tick_hi], dx ; 0x2e34
+    mov word [party_redraw_last_tick + 0x2], dx ; 0x2e34
     mov word [party_redraw_last_tick], ax ; 0x2e38
     mov word [bp - 0x001c], 1        ; 0x2e3b
 @..pick_spell_dialog.l8:
@@ -1018,7 +1018,7 @@ jumptable_35d1_case_4:
     mov ax, word [bp - 0x000c]       ; 0x32f4
     add ax, strict word 0x5e         ; 0x32f7
     push ax                          ; 0x32fa
-    call loc_TJJR                    ; 0x32fb
+    call draw_spell_cost             ; 0x32fb
     add sp, byte 0x0a                ; 0x32fe
     jmp short @..pick_spell_dialog.l35 ; 0x3301
 @..pick_spell_dialog.l34:
@@ -1032,7 +1032,7 @@ jumptable_35d1_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3312
     add ax, strict word 0x5e         ; 0x3315
     push ax                          ; 0x3318
-    call loc_TJJR                    ; 0x3319
+    call draw_spell_cost             ; 0x3319
     add sp, byte 0x0a                ; 0x331c
 @..pick_spell_dialog.l35:
     mov ax, word [bp - 0x0006]       ; 0x331f
@@ -1156,7 +1156,7 @@ jumptable_35d1_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3444
     add ax, strict word 0x5e         ; 0x3447
     push ax                          ; 0x344a
-    call loc_TJJR                    ; 0x344b
+    call draw_spell_cost             ; 0x344b
     add sp, byte 0x0a                ; 0x344e
     mov ax, word [bp - 0x0006]       ; 0x3451
     add ax, strict word 0x4c         ; 0x3454
@@ -1287,7 +1287,7 @@ jumptable_35d1_case_4:
     mov ax, word [bp - 0x000c]       ; 0x357e
     add ax, strict word 0x5e         ; 0x3581
     push ax                          ; 0x3584
-    call loc_TJJR                    ; 0x3585
+    call draw_spell_cost             ; 0x3585
     add sp, byte 0x0a                ; 0x3588
     mov ax, word [bp - 0x0006]       ; 0x358b
     add ax, strict word 0x4c         ; 0x358e
@@ -1337,6 +1337,7 @@ jumptable_35d1:
     cmp word [bp - 0x001c], byte 0   ; 0x35eb
     je short @..pick_spell_dialog.l51 ; 0x35ef
     jmp near @..pick_spell_dialog.l8 ; 0x35f1
+@..pick_spell_dialog.l52:
 @..pick_spell_dialog.l51:
     mov ax, 1                        ; 0x35f4
     push ax                          ; 0x35f7

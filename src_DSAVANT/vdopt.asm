@@ -187,9 +187,8 @@ known_spell_ids equ __zdseg_end + (__zobss_9b0e - __zdata_start)
 %include "shared/game/draw_power_digit.asm"      ; 0x2731
 
 dseg_909a equ __zdseg_end + (__zdseg_909a - __zdata_start)
-loc_TJJR              equ draw_spell_cost
 draw_spell_cost.dseg1 equ dseg_909a
-%include "shared/game/draw_spell_cost.asm"              ; 0x27bd
+%include "shared/game/draw_spell_cost.asm"       ; 0x27bd
 
 %include "shared/game/draw_realm_spell_points.asm" ; 0x285e
 
@@ -198,9 +197,9 @@ periodic_party_redraw.party_redraw_mode1 equ party_redraw_mode
 periodic_party_redraw.api_idx1           equ draw_realm_spell_points
 %include "shared/game/periodic_party_redraw.asm" ; 0x28f7
 
-dseg_909e         equ __zdseg_end + (__zdseg_909e - __zdata_start)
-; known_spell_ids   equ __zdseg_end + (__zobss_9b0e - __zdata_start)
-; party_redraw_mode equ __zdseg_end + (__zobss_9b5e - __zdata_start)
+spell_screen_temp_file equ __zdseg_end + (__zspell_screen_temp_file - __zdata_start)
+; known_spell_ids        equ __zdseg_end + (__zobss_9b0e - __zdata_start)
+; party_redraw_mode      equ __zdseg_end + (__zobss_9b5e - __zdata_start)
 %include "vdopt/pick_spell_dialog.asm"     ; 0x2988
 
 %include "shared/game/api_idx_0008_RQRL.asm"     ; 0x362f
@@ -254,6 +253,10 @@ __zdata_start:
 %include "vdopt/data/report_line2_none.asm" ; 0x4730
 
 %include "vdopt/data/dseg_909a.asm"        ; 0x4731
+
+%include "vdopt/data/spell_screen_temp_file.asm" ; 0x4735
+
+%include "vdopt/data/dseg_90a4.asm"        ; 0x473b
 
 %include "shared/data/save_si.asm"          ; 0x4743
 

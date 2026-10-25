@@ -18,7 +18,7 @@ api_idx_0056_QRVG:
     push word [bp + 0x4]             ; 0x3ca9
     call load_message_string         ; 0x3cac
     add sp, byte 4                   ; 0x3caf
-    cmp word [bss_5216], byte 0      ; 0x3cb2
+    cmp word [message_not_found], byte 0 ; 0x3cb2
     jne short @..api_idx_0056_QRVG.l2 ; 0x3cb7
     lea ax, word [bp - 0x0056]       ; 0x3cb9
     push ax                          ; 0x3cbc
@@ -26,7 +26,7 @@ api_idx_0056_QRVG:
     pop cx                           ; 0x3cc0
     inc word [bp + 0x4]              ; 0x3cc1
 @..api_idx_0056_QRVG.l2:
-    cmp word [bss_5216], byte 0      ; 0x3cc4
+    cmp word [message_not_found], byte 0 ; 0x3cc4
     je short @..api_idx_0056_QRVG.l1 ; 0x3cc9
     cmp byte [bss_956a], 0           ; 0x3ccb
     je short @..api_idx_0056_QRVG.l3 ; 0x3cd0

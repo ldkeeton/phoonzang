@@ -8,7 +8,7 @@ api_idx_0100_KHVV:
     push word [bp + 0x4]             ; 0x9753
     call load_message_string         ; 0x9756
     add sp, byte 4                   ; 0x9759
-    cmp word [bss_5216], byte 0      ; 0x975c
+    cmp word [message_not_found], byte 0 ; 0x975c
     jne short @..api_idx_0100_KHVV.l3 ; 0x9761
     mov ax, word [text_line_index]   ; 0x9763
     mov cx, 7                        ; 0x9766
@@ -48,7 +48,7 @@ api_idx_0100_KHVV:
     pop cx                           ; 0x97bb
     inc word [bp + 0x4]              ; 0x97bc
 @..api_idx_0100_KHVV.l3:
-    cmp word [bss_5216], byte 0      ; 0x97bf
+    cmp word [message_not_found], byte 0 ; 0x97bf
     je short @..api_idx_0100_KHVV.l1 ; 0x97c4
     call reveal_text_line            ; 0x97c6
     mov ax, word [bp + 0x6]          ; 0x97c9

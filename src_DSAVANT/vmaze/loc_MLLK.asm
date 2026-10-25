@@ -25,7 +25,7 @@ loc_MLLK:
     push word [bp + 0x4]             ; 0x6f56
     call load_message_string         ; 0x6f59
     add sp, byte 4                   ; 0x6f5c
-    cmp word [bss_5216], byte 0      ; 0x6f5f
+    cmp word [message_not_found], byte 0 ; 0x6f5f
     jne short @..loc_MLLK.l3         ; 0x6f64
     cmp word [bss_9b48], byte 0      ; 0x6f66
     jne short @..loc_MLLK.l2         ; 0x6f6b
@@ -36,7 +36,7 @@ loc_MLLK:
 @..loc_MLLK.l2:
     inc word [bp + 0x4]              ; 0x6f76
 @..loc_MLLK.l3:
-    cmp word [bss_5216], byte 0      ; 0x6f79
+    cmp word [message_not_found], byte 0 ; 0x6f79
     je short @..loc_MLLK.l1          ; 0x6f7e
     cmp byte [bss_9b50], 0           ; 0x6f80
     je short @..loc_MLLK.l4          ; 0x6f85

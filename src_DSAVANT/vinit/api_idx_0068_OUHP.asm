@@ -860,7 +860,7 @@ api_idx_0068_OUHP:
     lea ax, word [bp - 0x005c]       ; 0x125d
     mov word [bp - 0x005e], ax       ; 0x1260
 @..api_idx_0068_OUHP.l50:
-    cmp word [bss_5216], byte 0      ; 0x1263
+    cmp word [message_not_found], byte 0 ; 0x1263
     jne short @..api_idx_0068_OUHP.l51 ; 0x1268
     jmp near @..api_idx_0068_OUHP.l34 ; 0x126a
 @..api_idx_0068_OUHP.l51:

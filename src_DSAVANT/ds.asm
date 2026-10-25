@@ -328,7 +328,7 @@ message_cache_next    equ __zbss_5214 - __zdseg_start
 
 ; message_block_buffer  equ __zbss_3e12 - __zdseg_start
 ; message_block_current equ __zbss_5212 - __zdseg_start
-bss_5216              equ __zbss_5216 - __zdseg_start
+message_not_found     equ __zbss_5216 - __zdseg_start
 %include "ds/game/load_message_string.asm" ; 0x0782
 
 %include "ds/game/draw_message_string.asm" ; 0x0860

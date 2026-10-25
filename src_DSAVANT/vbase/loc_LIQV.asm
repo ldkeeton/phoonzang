@@ -13,7 +13,7 @@ loc_LIQV:
     push word [bp + 0x4]             ; 0x6f9e
     call load_message_string         ; 0x6fa1
     add sp, byte 4                   ; 0x6fa4
-    cmp word [bss_5216], byte 0      ; 0x6fa7
+    cmp word [message_not_found], byte 0 ; 0x6fa7
     jne short @..loc_LIQV.l2         ; 0x6fac
     lea ax, word [bp - 0x0105]       ; 0x6fae
     push ax                          ; 0x6fb2
@@ -21,7 +21,7 @@ loc_LIQV:
     pop cx                           ; 0x6fb6
     inc word [bp + 0x4]              ; 0x6fb7
 @..loc_LIQV.l2:
-    cmp word [bss_5216], byte 0      ; 0x6fba
+    cmp word [message_not_found], byte 0 ; 0x6fba
     je short @..loc_LIQV.l1          ; 0x6fbf
     cmp byte [bss_a4aa], 0           ; 0x6fc1
     je short @..loc_LIQV.l3          ; 0x6fc6

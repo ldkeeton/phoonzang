@@ -9,7 +9,7 @@ api_idx_0002_JOQL:
     push word [bp + 0x4]             ; 0xa2f6
     call load_message_string         ; 0xa2f9
     add sp, byte 4                   ; 0xa2fc
-    cmp word [bss_5216], byte 0      ; 0xa2ff
+    cmp word [message_not_found], byte 0 ; 0xa2ff
     jne short @..api_idx_0002_JOQL.l2 ; 0xa304
     mov al, byte [bss_95a8]          ; 0xa306
     sub ah, ah                       ; 0xa309
@@ -30,7 +30,7 @@ api_idx_0002_JOQL:
     add word [bp + 0x4], byte 5      ; 0xa32d
     inc word [bp - 0x0002]           ; 0xa331
 @..api_idx_0002_JOQL.l2:
-    cmp word [bss_5216], byte 0      ; 0xa334
+    cmp word [message_not_found], byte 0 ; 0xa334
     je short @..api_idx_0002_JOQL.l1 ; 0xa339
     mov ax, word [bp - 0x0002]       ; 0xa33b
     mov word [bss_b046], ax          ; 0xa33e
@@ -40,7 +40,7 @@ api_idx_0002_JOQL:
     push word [bp + 0x6]             ; 0xa345
     call load_message_string         ; 0xa348
     add sp, byte 4                   ; 0xa34b
-    cmp word [bss_5216], byte 0      ; 0xa34e
+    cmp word [message_not_found], byte 0 ; 0xa34e
     jne short @..api_idx_0002_JOQL.l4 ; 0xa353
     mov al, byte [bss_95a8]          ; 0xa355
     sub ah, ah                       ; 0xa358
@@ -61,7 +61,7 @@ api_idx_0002_JOQL:
     add word [bp + 0x6], byte 5      ; 0xa37c
     inc word [bp - 0x0002]           ; 0xa380
 @..api_idx_0002_JOQL.l4:
-    cmp word [bss_5216], byte 0      ; 0xa383
+    cmp word [message_not_found], byte 0 ; 0xa383
     je short @..api_idx_0002_JOQL.l3 ; 0xa388
     mov ax, word [bp - 0x0002]       ; 0xa38a
     mov word [bss_a656], ax          ; 0xa38d

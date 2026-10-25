@@ -15,7 +15,7 @@ loc_KIOQ:
     push word [bp + 0x4]             ; 0x0dab
     call load_message_string         ; 0x0dae
     add sp, byte 4                   ; 0x0db1
-    cmp word [bss_5216], byte 0      ; 0x0db4
+    cmp word [message_not_found], byte 0 ; 0x0db4
     jne short @..loc_KIOQ.l2         ; 0x0db9
     lea ax, word [bp - 0x0105]       ; 0x0dbb
     push ax                          ; 0x0dbf
@@ -23,7 +23,7 @@ loc_KIOQ:
     pop cx                           ; 0x0dc3
     inc word [bp + 0x4]              ; 0x0dc4
 @..loc_KIOQ.l2:
-    cmp word [bss_5216], byte 0      ; 0x0dc7
+    cmp word [message_not_found], byte 0 ; 0x0dc7
     je short @..loc_KIOQ.l1          ; 0x0dcc
     cmp byte [bss_9154], 0           ; 0x0dce
     je short @..loc_KIOQ.l3          ; 0x0dd3

@@ -85,6 +85,7 @@
       "note": "vinstall: INT 21h AH=7, returns the key"
     },
     "loc_RPUI": {"name": "run_party_screen_animation", "note": "runs one full 12-step pass of the party screen state machine"},
+    "loc_TJJR": {"name": "draw_spell_cost", "note": "clears the spell cost box and prints the cost in up to three digits, else ***"},
     "loc_UQOV": {"name": "get_font_glyph", "note": "returns dx:ax = the glyph record in the font segment and copies the font header bytes 0 and 1 into the caller's width and height words"},
     "dos_file_loc_IRLV": {"name": "read_font_glyph", "note": "seeks the font file to source * bytes_per_glyph and reads one glyph record into the font segment at 110h + map[glyph] * bytes_per_glyph"},
     "leaf_loc_HLGJ": {"name": "ems_map_pages", "note": "maps EMS logical pages ax and ax+1 into frame pages 0 and 1"},
@@ -176,7 +177,7 @@
         "0547": {"name": "str_subst_char", "note": "copies a string replacing each marker char with a second string"},
         "065d": {"name": "find_message_record", "note": "finds the message directory record whose number range covers a message number"},
         "06c6": {"name": "load_message_block", "note": "copies a message block into the working buffer, reusing the four-slot cache"},
-        "0782": {"name": "load_message_string", "note": "looks up message id, reads its packed bytes from the message buffer (paging the file in as needed) and unpacks them into the caller's buffer"},
+        "0782": {"name": "load_message_string", "note": "loads a message number text into a buffer, following block refills and unpacking it; sets message_not_found when the directory has no such number"},
         "0860": {"name": "draw_message_string", "note": "loads a message string into a local buffer and draws it in one color"},
         "0883": {
           "name": "data_record_io",
@@ -439,6 +440,7 @@
         "3e12": {"name": "message_block_buffer", "note": "0x400-byte working buffer for the current message block"},
         "5212": {"name": "message_block_current", "note": "block number currently held in the working buffer"},
         "5214": {"name": "message_cache_next", "note": "next message cache slot to fill, round robin"},
+        "5216": {"name": "message_not_found", "note": "word: set when a message number is missing from the message directory, cleared on success"},
         "5218": {"name": "disk_header", "note": "buffer DISK.HDR is read into; first word is the disk number"},
         "521c": {"name": "record_base", "note": "long [] per record type: file offset of the type's first record in the data file"},
         "5244": {"name": "record_map_2", "note": "unsigned char []: index -> record number for data_record_io types 2 and 3"},
@@ -825,6 +827,7 @@
     },
     "vdopt": {
       "data_names": {
+        "909e": {"name": "spell_screen_temp_file", "note": "screen save name suffix \"V.$$$\""},
         "9b60": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
         "9b88": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
         "9bb0": {"name": "list_row_name", "note": "per-row 22-byte name strings"},
@@ -845,7 +848,7 @@
         "1cc1": {"name": "apply_spell_effect", "note": "applies a cast spell: (pc, spell, power, target)"},
         "237f": {"name": "trigger_keyed_cell_object", "note": "fires the type 0x13 or type 7 object in the party cell whose key matches a cell_key_grid entry"},
         "2674": {"name": "collect_known_realm_spells", "note": "fills the known-spell name and id lists for one pc and realm; returns the count"},
-        "297a": {"name": "pick_spell_dialog", "note": "spell selection dialog (pc, 0x7ea, 1, 1 here); returns 0 when a spell was chosen, result in spell_dialog_result"},
+        "297a": {"name": "pick_spell_dialog", "note": "modal spell picker: realm hotspots, scrolling known-spell list, power row and two buttons; leaves (power << 8) + spell + 0x100 in spell_dialog_result and returns spell_dialog_button"},
         "387b": {"name": "draw_list_rows", "note": "draws a page of list rows with highlight bar, mark, glyph, name and count"},
         "45cf": {"name": "cast_spell_from_menu", "note": "spell dialog for a pc, then pays the spell points, applies the spell and drains record word +0 by random(power)+level+power; shows any pending event"}
       },
