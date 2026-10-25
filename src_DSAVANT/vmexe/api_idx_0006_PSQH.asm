@@ -93,7 +93,7 @@ api_idx_0006_PSQH:
     add sp, byte 6                   ; 0x9975
     mov ax, bss_9136                 ; 0x9978
     push ax                          ; 0x997b
-    mov ax, 0xdbb                    ; 0x997c
+    mov ax, MSG_HIDES                ; 0x997c
     push ax                          ; 0x997f
     call load_message_string         ; 0x9980
     add sp, byte 4                   ; 0x9983

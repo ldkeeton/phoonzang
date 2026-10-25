@@ -4,6 +4,7 @@
 
 #include "structs/pcrec.h"
 #include "structs/spell.h"
+#include "msg.h"
 
 extern struct spell_info spell_table[];
 extern struct pc_rec party_records[];
@@ -14,7 +15,8 @@ int pc;
 {
 	int spell, power;
 
-	if (spell_select_dialog(pc, 2026, 1, 1) == 0) {	/* zero: a spell was chosen */
+	/* zero: a spell was chosen */
+	if (spell_select_dialog(pc, MSG_CAST, 1, 1) == 0) {
 		power = spell_dialog_result / 256;	/* (power << 8) + spell + 0x100 */
 		spell = spell_dialog_result % 256;
 		if (spell_table[spell].targeted == 1) {

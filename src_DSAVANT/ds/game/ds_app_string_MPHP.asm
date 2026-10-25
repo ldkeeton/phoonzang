@@ -6,7 +6,7 @@ ds_app_string_MPHP: ; Aztec csav frame=0x0054
     push ax                          ; 0x05d9
     mov al, byte [code_char_message_index] ; 0x05da
     sub ah, ah                       ; 0x05dd
-    add ax, 0x9c4                    ; 0x05df
+    add ax, MSG_CODE_CHAR_BASE       ; 0x05df
     push ax                          ; 0x05e2
     call load_message_string         ; 0x05e3
     add sp, byte 4                   ; 0x05e6

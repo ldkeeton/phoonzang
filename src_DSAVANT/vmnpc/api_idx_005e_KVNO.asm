@@ -254,7 +254,7 @@ api_idx_005e_KVNO:
 @..api_idx_005e_KVNO.l15:
     mov ax, bss_95a8                 ; 0x59fe
     push ax                          ; 0x5a01
-    mov ax, 0x633                    ; 0x5a02
+    mov ax, MSG_ACCEPT_GP_FOR        ; 0x5a02
     push ax                          ; 0x5a05
     call load_message_string         ; 0x5a06
     add sp, byte 4                   ; 0x5a09
@@ -274,7 +274,7 @@ api_idx_005e_KVNO:
     add sp, byte 6                   ; 0x5a2b
     mov ax, bss_95fa                 ; 0x5a2e
     push ax                          ; 0x5a31
-    mov ax, 0x634                    ; 0x5a32
+    mov ax, MSG_YOUR                 ; 0x5a32
     push ax                          ; 0x5a35
     call load_message_string         ; 0x5a36
     add sp, byte 4                   ; 0x5a39

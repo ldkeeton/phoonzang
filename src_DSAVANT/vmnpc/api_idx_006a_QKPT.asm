@@ -35,7 +35,7 @@ api_idx_006a_QKPT:
     mov word [text_line_index], 0    ; 0xabf7
     lea ax, word [bp - 0x006a]       ; 0xabfd
     push ax                          ; 0xac00
-    mov ax, 0x5e9                    ; 0xac01
+    mov ax, MSG_1513                 ; 0xac01
     push ax                          ; 0xac04
     call load_message_string         ; 0xac05
     add sp, byte 4                   ; 0xac08

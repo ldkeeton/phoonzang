@@ -145,7 +145,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     lea ax, word [bp - 0x0058]
     push ax
-    mov ax, 0xc8
+    mov ax, MSG_LVL
     push ax
     call load_message_string
     add sp, byte 4
@@ -304,7 +304,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     lea ax, word [bp - 0x0058]
     push ax
-    mov ax, 0xc9
+    mov ax, MSG_RNK
     push ax
     call load_message_string
     add sp, byte 4
@@ -366,7 +366,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     lea ax, word [bp - 0x0058]
     push ax
-    mov ax, 0xca
+    mov ax, MSG_EXP
     push ax
     call load_message_string
     add sp, byte 4
@@ -401,7 +401,7 @@ api_idx_007c_MOJH:
     add sp, byte 8
     lea ax, word [bp - 0x0058]
     push ax
-    mov ax, 0xcb
+    mov ax, MSG_MKS
     push ax
     call load_message_string
     add sp, byte 4
@@ -442,7 +442,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     lea ax, word [bp - 0x0058]
     push ax
-    mov ax, 0xd4
+    mov ax, MSG_HP
     push ax
     call load_message_string
     add sp, byte 4
@@ -512,7 +512,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     lea ax, word [bp - 0x0058]
     push ax
-    mov ax, 0xd5
+    mov ax, MSG_ST
     push ax
     call load_message_string
     add sp, byte 4
@@ -617,7 +617,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     lea ax, word [bp - 0x0058]
     push ax
-    mov ax, 0xd6
+    mov ax, MSG_GP_214
     push ax
     call load_message_string
     add sp, byte 4
@@ -680,7 +680,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     lea ax, word [bp - 0x0058]
     push ax
-    mov ax, 0xd7
+    mov ax, MSG_CC
     push ax
     call load_message_string
     add sp, byte 4

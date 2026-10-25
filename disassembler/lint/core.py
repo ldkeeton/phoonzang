@@ -83,5 +83,5 @@ from . import (  # noqa: E402,F401
     c_comment_column, c_comment_style, c_comma_space, c_decimal,
     c_declaration_order, c_file_comment, c_final_newline, c_function_brace,
     c_function_comment, c_keyword_space, c_knr, c_line_length,
-    c_struct_layout, c_tabs, c_trailing_space,
+    c_message_id, c_struct_layout, c_tabs, c_trailing_space,
 )

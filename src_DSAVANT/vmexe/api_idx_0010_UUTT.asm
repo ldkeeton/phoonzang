@@ -10,7 +10,7 @@ api_idx_0010_UUTT:
     add sp, byte 6                   ; 0x9a44
     mov ax, bss_9136                 ; 0x9a47
     push ax                          ; 0x9a4a
-    mov ax, 0xdbd                    ; 0x9a4b
+    mov ax, MSG_RUNS                 ; 0x9a4b
     push ax                          ; 0x9a4e
     call load_message_string         ; 0x9a4f
     add sp, byte 4                   ; 0x9a52
@@ -112,7 +112,7 @@ api_idx_0010_UUTT:
     je short @..api_idx_0010_UUTT.l4 ; 0x9b43
     mov ax, bss_9136                 ; 0x9b45
     push ax                          ; 0x9b48
-    mov ax, 0xdc5                    ; 0x9b49
+    mov ax, MSG_FLIES                ; 0x9b49
     push ax                          ; 0x9b4c
     call load_message_string         ; 0x9b4d
     add sp, byte 4                   ; 0x9b50

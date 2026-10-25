@@ -69,7 +69,7 @@ api_idx_0054_OPGG:
 @..api_idx_0054_OPGG.l2:
     lea ax, word [bp - 0x0054]       ; 0x45b4
     push ax                          ; 0x45b7
-    mov ax, 0x61f                    ; 0x45b8
+    mov ax, MSG_UNUSABLE_1567        ; 0x45b8
     push ax                          ; 0x45bb
     call load_message_string         ; 0x45bc
     add sp, byte 4                   ; 0x45bf

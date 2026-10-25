@@ -55,6 +55,12 @@ def encode(context):
                         in (context.get('mem_symbols') or {}).items()},
         'mem_equ': [[to_record(name), value]
                     for name, value in (context.get('mem_equ') or {}).items()],
+        'message_symbols': {f'{addr},{idx}': name
+                            for (addr, idx), name
+                            in (context.get('message_symbols') or {}).items()},
+        'message_equ': [[name, value]
+                        for name, value
+                        in (context.get('message_equ') or {}).items()],
         'foreign_label_map': _encode_addr_map(context.get('foreign_label_map')),
         'immediate_labels': _encode_addr_map(context.get('immediate_labels')),
         'exact_bytes': bool(context.get('exact_bytes', False)),
@@ -82,6 +88,11 @@ def decode(raw):
                         for k, v in raw.get('mem_symbols', {}).items()},
         'mem_equ': {from_record(name): value
                     for name, value in raw.get('mem_equ', ())},
+        'message_symbols': {tuple(int(part) for part in key.split(',')): name
+                            for key, name
+                            in raw.get('message_symbols', {}).items()},
+        'message_equ': {name: value
+                        for name, value in raw.get('message_equ', ())},
         'foreign_label_map': _decode_addr_map(foreign) if foreign else None,
         'immediate_labels': _decode_addr_map(immediate) if immediate else None,
         'exact_bytes': bool(raw.get('exact_bytes', False)),

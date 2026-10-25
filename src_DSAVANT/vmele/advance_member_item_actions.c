@@ -2,6 +2,7 @@
    announces how many of them fired */
 
 #include "structs/member.h"
+#include "msg.h"
 
 extern struct member_rec *party_char[];		/* 0x1a4-byte member records */
 extern struct member_ext *party_char_ext[];	/* 0xe8-byte extended records */
@@ -56,7 +57,7 @@ int member;
 		titlecase_string(buf);
 		len = aztec_strlen(buf);
 		buf[len] = ' ';
-		load_message_string(3524, buf + len + 1);	/* 3524: message id */
+		load_message_string(MSG_DIED, buf + len + 1);
 		show_centered_message(buf, 17);			/* 17: its message sound */
 		wait_ticks_with_events(message_delay);
 	}

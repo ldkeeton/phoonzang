@@ -16,6 +16,8 @@ class EncodeDecodeTest(unittest.TestCase):
             'data_labels': {0x0d00: bss(0x0d00)},
             'mem_symbols': {(0x4804, 1): bss(0x0d00)},
             'mem_equ': {bss(0x0d00): 0x0d00},
+            'message_symbols': {(0x45ee, 1): 'MSG_CAST'},
+            'message_equ': {'MSG_CAST': 2026},
             'foreign_label_map': {0x200: 'host_thing'},
             'immediate_labels': {0x300: 'api_idx_0004'},
             'exact_bytes': True,
@@ -28,6 +30,8 @@ class EncodeDecodeTest(unittest.TestCase):
         self.assertEqual(out['data_labels'], {0x0d00: 'bss_0d00'})
         self.assertEqual(out['mem_symbols'], {(0x4804, 1): 'bss_0d00'})
         self.assertEqual(out['mem_equ'], {'bss_0d00': 0x0d00})
+        self.assertEqual(out['message_symbols'], {(0x45ee, 1): 'MSG_CAST'})
+        self.assertEqual(out['message_equ'], {'MSG_CAST': 2026})
         self.assertEqual(out['foreign_label_map'], {0x200: 'host_thing'})
         self.assertEqual(out['immediate_labels'], {0x300: 'api_idx_0004'})
         self.assertTrue(out['exact_bytes'])

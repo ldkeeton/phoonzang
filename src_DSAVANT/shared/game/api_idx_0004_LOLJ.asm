@@ -263,7 +263,7 @@ api_idx_0004_LOLJ.jumptable1:
     jge short @..api_idx_0004_LOLJ.l4
     mov ax, api_idx_0004_LOLJ.slot_prompt_text1
     push ax
-    mov ax, 0x159e
+    mov ax, MSG_SKILL_POINTS
     push ax
     call load_message_string
     add sp, byte 4

@@ -36,7 +36,7 @@ api_idx_009e_KPST:
     add sp, byte 8                   ; 0x18e8
     lea ax, word [bp - 0x009e]       ; 0x18eb
     push ax                          ; 0x18ef
-    mov ax, 0xd9                     ; 0x18f0
+    mov ax, MSG_AGE_217              ; 0x18f0
     push ax                          ; 0x18f3
     call load_message_string         ; 0x18f4
     add sp, byte 4                   ; 0x18f7
@@ -85,7 +85,7 @@ api_idx_009e_KPST:
     add sp, byte 4                   ; 0x1964
     lea ax, word [bp - 0x009e]       ; 0x1967
     push ax                          ; 0x196b
-    mov ax, 0xda                     ; 0x196c
+    mov ax, MSG_LIFE                 ; 0x196c
     push ax                          ; 0x196f
     call load_message_string         ; 0x1970
     add sp, byte 4                   ; 0x1973
@@ -178,7 +178,7 @@ api_idx_009e_KPST:
 @..api_idx_009e_KPST.l3:
     lea ax, word [bp - 0x009e]       ; 0x1a44
     push ax                          ; 0x1a48
-    mov ax, 0xdb                     ; 0x1a49
+    mov ax, MSG_NEXT_LVL             ; 0x1a49
     push ax                          ; 0x1a4c
     call load_message_string         ; 0x1a4d
     add sp, byte 4                   ; 0x1a50

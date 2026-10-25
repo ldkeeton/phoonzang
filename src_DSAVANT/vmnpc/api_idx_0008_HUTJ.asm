@@ -115,7 +115,7 @@ api_idx_0008_HUTJ:
 @..api_idx_0008_HUTJ.l6:
     mov ax, bss_95fa                 ; 0x39f4
     push ax                          ; 0x39f7
-    mov ax, 0x609                    ; 0x39f8
+    mov ax, MSG_NOTHING_1545         ; 0x39f8
     push ax                          ; 0x39fb
     call load_message_string         ; 0x39fc
     add sp, byte 4                   ; 0x39ff
@@ -162,7 +162,7 @@ api_idx_0008_HUTJ:
     add sp, byte 4                   ; 0x3a52
     mov ax, bss_95fa                 ; 0x3a55
     push ax                          ; 0x3a58
-    mov ax, 0x60a                    ; 0x3a59
+    mov ax, MSG_1546                 ; 0x3a59
     push ax                          ; 0x3a5c
     call load_message_string         ; 0x3a5d
     add sp, byte 4                   ; 0x3a60

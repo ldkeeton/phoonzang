@@ -185,7 +185,7 @@ api_idx_0010_LPLH:
     add sp, byte 4                   ; 0x280e
     mov ax, bss_90e6                 ; 0x2811
     push ax                          ; 0x2814
-    mov ax, 0xea7                    ; 0x2815
+    mov ax, MSG_STAMINA_3751         ; 0x2815
     push ax                          ; 0x2818
     call load_message_string         ; 0x2819
     add sp, byte 4                   ; 0x281c

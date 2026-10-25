@@ -282,7 +282,7 @@ start_melee_battle:
     lea cx, word [bp - 0x0056]       ; 0x367e
     add ax, cx                       ; 0x3681
     push ax                          ; 0x3683
-    mov ax, 0xdb8                    ; 0x3684
+    mov ax, MSG_CALLS_FOR_HELP       ; 0x3684
     push ax                          ; 0x3687
     call load_message_string         ; 0x3688
     add sp, byte 4                   ; 0x368b

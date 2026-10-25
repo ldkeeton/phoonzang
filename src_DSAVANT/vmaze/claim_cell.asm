@@ -31,7 +31,7 @@ claim_cell:
     call set_bitfield                ; 0x8a5c
     add sp, byte 8                   ; 0x8a5f
     call redraw_maze_view            ; 0x8a62
-    mov ax, 0x7fc                    ; 0x8a65
+    mov ax, MSG_PRESS_BUTTON         ; 0x8a65
     push ax                          ; 0x8a68
     call show_message                ; 0x8a69
     pop cx                           ; 0x8a6c

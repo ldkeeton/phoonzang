@@ -1079,7 +1079,7 @@ api_idx_00c2_OUOT:
     add sp, byte 8                   ; 0x5ef6
     lea ax, word [bp - 0x00c2]       ; 0x5ef9
     push ax                          ; 0x5efd
-    mov ax, 0x1d1                    ; 0x5efe
+    mov ax, MSG_FAILURE_465          ; 0x5efe
     push ax                          ; 0x5f01
     call load_message_string         ; 0x5f02
     add sp, byte 4                   ; 0x5f05

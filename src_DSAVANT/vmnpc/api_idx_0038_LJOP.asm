@@ -4,7 +4,7 @@ api_idx_0038_LJOP:
     call aztec_csav                  ; 0x47dc
     mov ax, bss_99ae                 ; 0x47df
     push ax                          ; 0x47e2
-    mov ax, 0x5e4                    ; 0x47e3
+    mov ax, MSG_GP_1508              ; 0x47e3
     push ax                          ; 0x47e6
     call load_message_string         ; 0x47e7
     add sp, byte 4                   ; 0x47ea

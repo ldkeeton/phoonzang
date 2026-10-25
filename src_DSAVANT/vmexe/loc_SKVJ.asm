@@ -10,7 +10,7 @@ loc_SKVJ:
     add sp, byte 6                   ; 0x9857
     mov ax, bss_9136                 ; 0x985a
     push ax                          ; 0x985d
-    mov ax, 0xcef                    ; 0x985e
+    mov ax, MSG_CHANGES_EQUIPMENT    ; 0x985e
     push ax                          ; 0x9861
     call load_message_string         ; 0x9862
     add sp, byte 4                   ; 0x9865

@@ -15,7 +15,7 @@ from lib.compare.interrupts import _annotate_interrupts
 from lib.cachedirs import src_dir
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
 from lib.link import include_args
-from lib.shared import FOLDER, label_aliases, shared_dirs
+from lib.shared import FOLDER, is_shared, shared_dirs
 from lib.sidecar.binary import per_binary as sidecar_per_binary
 from lib.sidecar.loader import load as load_sidecar
 from lib.sidecar.patches import PatchError, normalize as normalize_patches
@@ -502,8 +502,8 @@ def resplice_c(app, binary, check_only=False, only=None):
             try:
                 linked = relink.link(label, start, func, index, data,
                                      labels_in, labels_at, spans_here,
-                                     aliases=label_aliases(out_dir, binary,
-                                                           label))
+                                     resolve_by_address=is_shared(out_dir,
+                                                                  label))
             except relink.RelinkError as exc:
                 raise SystemExit(f'error: {exc}')
             compiled = linked.code
@@ -548,6 +548,8 @@ def resplice_c(app, binary, check_only=False, only=None):
             data_labels = context['data_labels']
             mem_symbols = context['mem_symbols']
             mem_equ = context['mem_equ']
+            message_symbols = context.get('message_symbols') or {}
+            message_equ = context.get('message_equ') or {}
             foreign_label_map = context['foreign_label_map']
             immediate_labels = context['immediate_labels']
             exact_bytes = context['exact_bytes']
@@ -570,6 +572,7 @@ def resplice_c(app, binary, check_only=False, only=None):
                 _label_record(name, addr)
                 for addr, name in sorted(local_labels.items()))
             data_labels = mem_symbols = mem_equ = None
+            message_symbols = message_equ = None
             foreign_label_map = immediate_labels = None
             exact_bytes = False
             tables, label_addrs = [], None
@@ -584,7 +587,8 @@ def resplice_c(app, binary, check_only=False, only=None):
             data_spans=[*spans_here, *((r['start'] - start, r['end'] - start)
                                        for r in tables)],
             label_offsets=[r['offset'] for r in label_records],
-            jump_tables=tables, label_addrs=label_addrs)
+            jump_tables=tables, label_addrs=label_addrs,
+            message_symbols=message_symbols, message_equ=message_equ)
         head = _leading_lines(apath, str(label_map.get(first, label)), lead)
         if lead:
             # The leading lines already carry the labels up to the root.

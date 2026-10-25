@@ -98,7 +98,7 @@ api_idx_0028_NRJN:
     add sp, byte 0x0c                ; 0x0fe1
     lea ax, word [bp - 0x0024]       ; 0x0fe4
     push ax                          ; 0x0fe7
-    mov ax, 0x5aa                    ; 0x0fe8
+    mov ax, MSG_DIRECTORY            ; 0x0fe8
     push ax                          ; 0x0feb
     call load_message_string         ; 0x0fec
     add sp, byte 4                   ; 0x0fef
@@ -181,7 +181,7 @@ api_idx_0028_NRJN:
     add sp, byte 0x0e                ; 0x109e
     lea ax, word [bp - 0x0024]       ; 0x10a1
     push ax                          ; 0x10a4
-    mov ax, 0x5ab                    ; 0x10a5
+    mov ax, MSG_FILENAME             ; 0x10a5
     push ax                          ; 0x10a8
     call load_message_string         ; 0x10a9
     add sp, byte 4                   ; 0x10ac

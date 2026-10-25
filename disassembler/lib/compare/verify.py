@@ -325,6 +325,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            driver_pointer_args=None,
            ds_starts=frozenset(), record_layouts=None,
            foreign_pointer_params=None,
+           message_calls=(), message_names=None, message_bases=None,
            sidecar_use=None, bands=(), data_modules=()):
     """Produce NASM source text from *binary_data* and *instructions*.
 
@@ -765,6 +766,48 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         if spec.get('table_end', 0) > spec['table_addr']
     ]
 
+    # ── Message-id operands ────────────────────────────────────────────────
+    # A message id is a game constant, not an address.  The sidecar says which
+    # routines take one and at which argument; lib.msgids walks the pushes and
+    # names the *producer* instruction, so an unrelated immediate of the same
+    # value is never rewritten.  The map is per operand, never global.
+    message_symbols = {}
+    message_equ = {}
+    message_inc = None
+    if message_calls and message_names:
+        from lib.msgids import find_message_symbols, inc_rel
+        boundaries = set(label_map) | set(local_labels)
+        if code_targets:
+            boundaries |= set(code_targets)
+
+        def _routine(insn):
+            hit = mem_symbols.get((insn.address, 0))
+            if hit is not None:
+                return str(hit)
+            if not insn.operands:
+                return None
+            target = insn.operands[0].imm & 0xffff
+            name = local_labels.get(target) or label_map.get(target)
+            if name is None and foreign_label_map:
+                name = foreign_label_map.get(target)
+            return name
+
+        message_symbols, _message_uses = find_message_symbols(
+            insns, message_calls, message_names, message_bases or {},
+            _routine, boundaries=boundaries)
+        # Only the names this binary actually spells need equ lines, plus the
+        # bases it computes from; the table itself is the whole database.
+        used = set(message_symbols.values())
+        merged = {value: name for value, name in message_names.items()
+                  if name in used}
+        merged.update(message_bases or {})
+        message_equ = {name: value for value, name in merged.items()}
+        if message_symbols:
+            message_inc = inc_rel()
+    # micro_assemble sees one instruction at a time, so it needs the constants
+    # as equ lines.  The emitted source gets them from the project include.
+    asm_equ = {**(mem_equ or {}), **message_equ} if message_equ else mem_equ
+
     # ── Pre-collect data labels from insn operands, MZ relocs, and data gaps ──
     # Assemble every candidate instruction in a single NASM round-trip rather
     # than spawning a subprocess per instruction.  Falls back to per-instruction
@@ -777,7 +820,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         text = format_instruction(
             insn, label_map, local_labels, foreign_label_map,
             immediate_labels=immediate_labels, data_labels=data_labels,
-            mem_symbols=mem_symbols,
+            mem_symbols=mem_symbols, message_symbols=message_symbols,
         )
         text_by_addr[insn.address] = text
         if text:
@@ -786,7 +829,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         built_batch = assemble_batch(
             batch_reqs, label_map, local_labels, foreign_label_map,
             immediate_labels=immediate_labels, image_base=roundtrip_base,
-            mem_equ=mem_equ,
+            mem_equ=asm_equ,
         )
         if built_batch is None:
             progress.log(f'{name} | verify: batch failed, assembling '
@@ -795,7 +838,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 micro_assemble(
                     text, addr, label_map, local_labels,
                     foreign_label_map=foreign_label_map,
-                    immediate_labels=immediate_labels, mem_equ=mem_equ,
+                    immediate_labels=immediate_labels, mem_equ=asm_equ,
                     image_base=roundtrip_base,
                 )
                 for text, addr in batch_reqs
@@ -985,7 +1028,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         formatted = format_instruction(
             insn, label_map, local_labels, foreign_label_map,
             immediate_labels=immediate_labels, data_labels=data_labels,
-            mem_symbols=mem_symbols,
+            mem_symbols=mem_symbols, message_symbols=message_symbols,
         )
         if formatted is not None:
             rec['text'] = formatted
@@ -1170,6 +1213,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 records, binary_data, start_offset,
                 getattr(segments, 'ds_size', None)),
             segments=segments,
+            message_symbols=message_symbols, message_equ=message_equ,
         )
 
     _annotate_interrupts(records)
@@ -1321,6 +1365,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         load_offset=getattr(segments, 'load_offset', 0) or 0,
         overlay_own=overlay_own, bands=bands, data_modules=data_modules,
         structs_inc=_structs_inc(record_layouts),
+        message_symbols=message_symbols,
+        message_inc=message_inc,
     )
     t6 = time.perf_counter()
     progress.log(f'{name} | verify: source built')
@@ -1428,6 +1474,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             'local_labels': local_labels,
             'mem_symbols': mem_symbols,
             'mem_equ': mem_equ,
+            'message_symbols': message_symbols,
+            'message_equ': message_equ,
             'data_labels': data_labels,
             'foreign_label_map': foreign_label_map,
             'immediate_labels': immediate_labels,

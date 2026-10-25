@@ -4,7 +4,7 @@ api_idx_00d4_LUPQ:
     call aztec_csav                  ; 0x3713
     lea ax, word [bp - 0x00d4]       ; 0x3716
     push ax                          ; 0x371a
-    mov ax, 0xdaf                    ; 0x371b
+    mov ax, MSG_VS_3503              ; 0x371b
     push ax                          ; 0x371e
     call load_message_string         ; 0x371f
     add sp, byte 4                   ; 0x3722
@@ -1183,7 +1183,7 @@ jumptable_4058:
     pop cx                           ; 0x42a4
     lea ax, word [bp - 0x0096]       ; 0x42a5
     push ax                          ; 0x42a9
-    mov ax, 0xdb2                    ; 0x42aa
+    mov ax, MSG_FINAL_ORDERS         ; 0x42aa
     push ax                          ; 0x42ad
     call load_message_string         ; 0x42ae
     add sp, byte 4                   ; 0x42b1

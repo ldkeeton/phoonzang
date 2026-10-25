@@ -2,6 +2,7 @@
    slots, saves the two screen areas and sets up the melee party */
 
 #include "structs/ovlitem.h"
+#include "msg.h"
 
 extern int battle_setup_done, row_limit, loaded_score_num;
 extern int requested_row_limit, e1_event_flag;
@@ -98,7 +99,7 @@ start_melee_battle()
 		titlecase_string(buf);
 		len = aztec_strlen(buf);
 		/* 0xdb8: message id appended to the member's name */
-		load_message_string(3512, buf + len);
+		load_message_string(MSG_CALLS_FOR_HELP, buf + len);
 		show_centered_message(buf, 17);	/* 17: message sound */
 	}
 	advance_melee_item_slots();

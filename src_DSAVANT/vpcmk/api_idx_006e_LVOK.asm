@@ -103,7 +103,7 @@ api_idx_006e_LVOK:
 @..api_idx_006e_LVOK.l9:
     lea ax, word [bp - 0x006e]       ; 0x3e5a
     push ax                          ; 0x3e5d
-    mov ax, 0x2bf                    ; 0x3e5e
+    mov ax, MSG_SELECT_A_NEW_SPELL_FOR_703 ; 0x3e5e
     push ax                          ; 0x3e61
     call load_message_string         ; 0x3e62
     add sp, byte 4                   ; 0x3e65

@@ -4,7 +4,7 @@ api_idx_0040_LIPH:
     call aztec_csav                  ; 0x534b
     lea ax, word [bp - 0x0034]       ; 0x534e
     push ax                          ; 0x5351
-    mov ax, 0x13ec                   ; 0x5352
+    mov ax, MSG_DIVVY_LOOT           ; 0x5352
     push ax                          ; 0x5355
     call load_message_string         ; 0x5356
     add sp, byte 4                   ; 0x5359

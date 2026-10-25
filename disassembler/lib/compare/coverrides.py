@@ -100,7 +100,8 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
                         immediate_labels, exact_bytes=False, data_labels=None,
                         mem_symbols=None, mem_equ=None, image_base=None,
                         linked=None, skip=0, data_spans=(), label_offsets=(),
-                        jump_tables=(), label_addrs=None):
+                        jump_tables=(), label_addrs=None, message_symbols=None,
+                        message_equ=None):
     """Disassemble compiler-produced code into emission records.
 
     *linked* (a :class:`lib.aztec.relink.Linked`) names the operands the C
@@ -139,6 +140,9 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
                 if getattr(name, 'space', None) is Space.ABS}
     if absolute:
         mem_equ = {**absolute, **(mem_equ or {})}
+    # The assembly check must know the message-id constants the rendered text
+    # spells; they are not part of the routine's own ``mem_equ``.
+    assemble_equ = {**(mem_equ or {}), **(message_equ or {})}
 
     def decode():
         """Instructions, and ``(lo, hi)`` for each data span, in order.
@@ -209,7 +213,7 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
         nasm_text = format_instruction(
             insn, label_map, local_labels, foreign_label_map,
             immediate_labels=immediate_labels, data_labels=data_labels,
-            mem_symbols=sym_map)
+            mem_symbols=sym_map, message_symbols=message_symbols)
         if nasm_text:
             assemble_text = (_numeric_form(nasm_text, sym_ops.values())
                              if sym_ops else nasm_text)
@@ -229,13 +233,13 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
     built_all = assemble_batch(
         requests, label_map, local_labels, foreign_label_map,
         immediate_labels=immediate_labels, image_base=image_base,
-        mem_equ=mem_equ) if requests else []
+        mem_equ=assemble_equ) if requests else []
     if built_all is None:
         built_all = [
             micro_assemble(
                 text, addr, label_map, local_labels,
                 foreign_label_map=foreign_label_map,
-                immediate_labels=immediate_labels, mem_equ=mem_equ,
+                immediate_labels=immediate_labels, mem_equ=assemble_equ,
                 image_base=image_base)
             for text, addr in requests]
     for (rec, _, bts, linked_ops), built in zip(pending, built_all):
@@ -383,7 +387,7 @@ def _link(label, start, override, records, binary_data, index):
             labels_at.setdefault(r['start'], r['label'])
     return relink.link(label, start, func, index, binary_data, labels_in,
                        labels_at, override.get('data_spans', ()),
-                       aliases=override.get('aliases'))
+                       resolve_by_address=bool(override.get('shared')))
 
 
 def _batch_relabels(c_overrides, records, binary_data, starts, index_names,
@@ -541,7 +545,8 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                        local_labels, foreign_label_map, immediate_labels,
                        exact_bytes=False, data_labels=None,
                        mem_symbols=None, mem_equ=None, image_base=None,
-                       allow_diff=False, geometry=None, segments=None):
+                       allow_diff=False, geometry=None, segments=None,
+                       message_symbols=None, message_equ=None):
     """Replace disassembled records with code compiled from C.
 
     ``c_overrides`` maps a function label to ``{'code': bytes,
@@ -708,7 +713,8 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
             linked=linked, skip=lead, data_spans=spans,
             label_offsets=[r['offset'] for r in labels_in], jump_tables=tables,
-            label_addrs=label_addrs)
+            label_addrs=label_addrs, message_symbols=message_symbols,
+            message_equ=message_equ)
         if linked is not None:
             _check_linked(label, linked)
             linked_spans.append((start + lead, end))

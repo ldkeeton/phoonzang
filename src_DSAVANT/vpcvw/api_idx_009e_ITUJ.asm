@@ -88,7 +88,7 @@ jumptable_3f96_case_3:
     jle short @..api_idx_009e_ITUJ.l4 ; 0x3dc1
     lea ax, word [bp - 0x009e]       ; 0x3dc3
     push ax                          ; 0x3dc7
-    mov ax, 0x2d1                    ; 0x3dc8
+    mov ax, MSG_YOU_ARE_NOT_ADVANCED_EN_721 ; 0x3dc8
     push ax                          ; 0x3dcb
     call load_message_string         ; 0x3dcc
     add sp, byte 4                   ; 0x3dcf
@@ -111,7 +111,7 @@ jumptable_3f96_case_3:
     add sp, byte 6                   ; 0x3df7
     lea ax, word [bp - 0x009e]       ; 0x3dfa
     push ax                          ; 0x3dfe
-    mov ax, 0x2d0                    ; 0x3dff
+    mov ax, MSG_THE_SPELL_HAS_BEEN_SCRI_720 ; 0x3dff
     push ax                          ; 0x3e02
     call load_message_string         ; 0x3e03
     add sp, byte 4                   ; 0x3e06
@@ -128,7 +128,7 @@ jumptable_3f96_case_3:
 @..api_idx_009e_ITUJ.l6:
     lea ax, word [bp - 0x009e]       ; 0x3e21
     push ax                          ; 0x3e25
-    mov ax, 0x2d2                    ; 0x3e26
+    mov ax, MSG_YOU_ARE_NOT_ELIGIBLE_TO_722 ; 0x3e26
     push ax                          ; 0x3e29
     call load_message_string         ; 0x3e2a
     add sp, byte 4                   ; 0x3e2d

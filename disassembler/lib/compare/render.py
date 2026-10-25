@@ -843,6 +843,13 @@ def _structs_include_lines(structs_inc):
     return [f'%include "{STRUCTS_INC}"']
 
 
+def _message_include_lines(message_inc):
+    """The line that pulls in the binary's message-id constants, if any."""
+    if not message_inc:
+        return []
+    return [f'%include "{message_inc}"']
+
+
 def _anchor_data_byte(records, binary_data, file_off, origin, value, name,
                       placed):
     """Label the data byte at *file_off*; return ``(anchor, delta)`` or None.
@@ -906,7 +913,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
                   label_defined=None, ds_size=None, host_symbols=None,
                   host_data_offsets=None, load_offset=0, overlay_own=None,
-                  bands=(), data_modules=(), structs_inc=None):
+                  bands=(), data_modules=(), structs_inc=None,
+                  message_symbols=None, message_inc=None):
     """Render the master NASM source and any generated includes.
 
     *structs_inc* is the text of the host family's record layouts
@@ -943,7 +951,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # include has defined and cleared the host's frame.
         vbase_text = (f'{corg_symbol} - 0x{start_offset:04x}' if corg_symbol
                       else _signed_hex(vbase))
-        out = ['bits 16', *_structs_include_lines(structs_inc)]
+        out = ['bits 16', *_structs_include_lines(structs_inc),
+               *_message_include_lines(message_inc)]
         if host_symbols:
             # The host source comes *first*: it defines the absolute anchor the
             # overlay's load origin derives from, and ``section ... vstart=``
@@ -960,7 +969,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         else:
             out.append('section .text vstart=VBASE')
     else:
-        out = ['org 0', 'bits 16', *_structs_include_lines(structs_inc)]
+        out = ['org 0', 'bits 16', *_structs_include_lines(structs_inc),
+               *_message_include_lines(message_inc)]
     code_value = (lambda addr: f'0x{addr:04x} + VBASE') if vbase else (
         lambda addr: f'0x{addr:04x}')
 

@@ -32,7 +32,7 @@ api_idx_0054_TIQK:
     mov word [glyph_painter], 1      ; 0x42a4
     lea ax, word [bp - 0x0054]       ; 0x42aa
     push ax                          ; 0x42ad
-    mov ax, 0x1472                   ; 0x42ae
+    mov ax, MSG_THE_CHEST_OPENS      ; 0x42ae
     push ax                          ; 0x42b1
     call load_message_string         ; 0x42b2
     add sp, byte 4                   ; 0x42b5
@@ -63,7 +63,7 @@ api_idx_0054_TIQK:
     mov word [bss_95e0], 0           ; 0x42f0
     lea ax, word [bp - 0x0054]       ; 0x42f6
     push ax                          ; 0x42f9
-    mov ax, 0x1473                   ; 0x42fa
+    mov ax, MSG_THE_CHEST_DID_NOT_OPEN ; 0x42fa
     push ax                          ; 0x42fd
     call load_message_string         ; 0x42fe
     add sp, byte 4                   ; 0x4301

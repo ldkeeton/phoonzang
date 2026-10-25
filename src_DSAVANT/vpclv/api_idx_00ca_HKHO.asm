@@ -122,7 +122,7 @@ api_idx_00ca_HKHO:
 @..api_idx_00ca_HKHO.l10:
     lea ax, word [bp - 0x007a]       ; 0x1f64
     push ax                          ; 0x1f67
-    mov ax, 0x2be                    ; 0x1f68
+    mov ax, MSG_YOU_LEARNED_A_NEW_SPELL ; 0x1f68
     push ax                          ; 0x1f6b
     call load_message_string         ; 0x1f6c
     add sp, byte 4                   ; 0x1f6f

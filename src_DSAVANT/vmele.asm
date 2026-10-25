@@ -1,6 +1,7 @@
 ; auto-generated
 bits 16
 %include "include/structs.inc"
+%include "include/msg.inc"
 %include "include/host_symbols.inc"
 %ifndef VBASE
 %ifdef ELF_BUILD
@@ -24,11 +25,22 @@ IMAGE_BASE equ 0x000e + VBASE
     dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0x8757 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+space_text equ __zdseg_end + (__zspace_text - __zdata_start)
+screen_temp_name equ __zdseg_end + (__zscreen_temp_name - __zdata_start)
+save_si equ __zdseg_end + (__zsave_si - __zdata_start)
+save_di equ __zdseg_end + (__zsave_di - __zdata_start)
+save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
+save_bp equ __zdseg_end + (__zsave_bp - __zdata_start)
+save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
+_Uorg equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 panel_redraw_ticks equ __zdseg_end + (__zobss_90b6 - __zdata_start)
-show_melee_result  equ __zdseg_end + (__zobss_90b8 - __zdata_start)
-npc_melee          equ __zdseg_end + (__zobss_90ba - __zdata_start)
-battle_setup_done  equ __zdseg_end + (__zobss_90bc - __zdata_start)
+show_melee_result equ __zdseg_end + (__zobss_90b8 - __zdata_start)
+npc_melee equ __zdseg_end + (__zobss_90ba - __zdata_start)
+battle_setup_done equ __zdseg_end + (__zobss_90bc - __zdata_start)
+cell_action_marks equ __zdseg_end + (__zobss_90be - __zdata_start)
+_Uend equ __zdseg_end + (__zobss_end - __zdata_start)
+
 %include "vmele/ovmain.asm"                ; 0x000e
 
 %include "shared/game/draw_active_member_panel.asm" ; 0x004e
@@ -47,7 +59,6 @@ battle_setup_done  equ __zdseg_end + (__zobss_90bc - __zdata_start)
 
 %include "vmele/pick_target_slot.asm"      ; 0x041d
 
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 api_idx_005e_RKOR       equ api_idx_005e_OJVJ
 api_idx_005e_OJVJ.dseg1 equ dseg_9098
 %include "shared/game/api_idx_005e_OJVJ.asm"     ; 0x0649
@@ -56,14 +67,12 @@ api_idx_005e_OJVJ.dseg1 equ dseg_9098
 
 %include "vmele/copy_member_stats.asm"     ; 0x0c67
 
-; npc_melee equ __zdseg_end + (__zobss_90ba - __zdata_start)
 %include "vmele/fill_action_slot_table_vmnpc.asm" ; 0x0f95
 
 %include "vmele/advance_member_cell_actions.asm" ; 0x11b0
 
 %include "vmele/advance_item_slot_action.asm" ; 0x12ac
 
-space_text equ __zdseg_end + (__zspace_text - __zdata_start)
 %include "vmele/advance_member_item_actions.asm" ; 0x14e6
 
 %include "shared/game/loc_SIKN.asm"              ; 0x16d1
@@ -74,7 +83,6 @@ space_text equ __zdseg_end + (__zspace_text - __zdata_start)
 
 %include "vmele/api_idx_0014_LJNT.asm"     ; 0x1844
 
-cell_action_marks equ __zdseg_end + (__zobss_90be - __zdata_start)
 %include "vmele/party_screen.asm"          ; 0x1a16
 
 %include "vmele/copy_member_party_record.asm" ; 0x1eb4
@@ -92,32 +100,23 @@ advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table_vm
 
 %include "shared/game/loc_SSIO.asm"              ; 0x28a0
 
-; cell_action_marks equ __zdseg_end + (__zobss_90be - __zdata_start)
 %include "vmele/api_idx_0002_MTJS.asm"     ; 0x28fc
 
 %include "vmele/claim_cell_for_member.asm" ; 0x299f
 
-; npc_melee         equ __zdseg_end + (__zobss_90ba - __zdata_start)
-; cell_action_marks equ __zdseg_end + (__zobss_90be - __zdata_start)
 %include "vmele/fill_row_action_slots.asm" ; 0x29c5
 
-; panel_redraw_ticks equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 loc_KRMP.panel_redraw_ticks1 equ panel_redraw_ticks
 %include "shared/game/loc_KRMP.asm"              ; 0x2b19
 
-; panel_redraw_ticks equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 api_idx_0006_IRNH.panel_redraw_ticks1 equ panel_redraw_ticks
 %include "shared/game/api_idx_0006_IRNH.asm"     ; 0x2b78
 
 run_party_screen_animation.api_idx1 equ api_idx_0006_IRNH
 %include "shared/game/run_party_screen_animation.asm" ; 0x2cc7
 
-; show_melee_result equ __zdseg_end + (__zobss_90b8 - __zdata_start)
-; npc_melee         equ __zdseg_end + (__zobss_90ba - __zdata_start)
-; cell_action_marks equ __zdseg_end + (__zobss_90be - __zdata_start)
 %include "vmele/play_action_overlays.asm"  ; 0x2cde
 
-screen_temp_name equ __zdseg_end + (__zscreen_temp_name - __zdata_start)
 %include "vmele/close_party_screen.asm"    ; 0x2ec4
 
 %include "vmele/spend_action_slot_charge.asm" ; 0x306a
@@ -128,22 +127,10 @@ screen_temp_name equ __zdseg_end + (__zscreen_temp_name - __zdata_start)
 
 %include "vmele/setup_melee_party.asm"     ; 0x3390
 
-; show_melee_result equ __zdseg_end + (__zobss_90b8 - __zdata_start)
-; npc_melee         equ __zdseg_end + (__zobss_90ba - __zdata_start)
-; battle_setup_done equ __zdseg_end + (__zobss_90bc - __zdata_start)
 %include "vmele/start_melee_battle.asm"    ; 0x33df
 
-; panel_redraw_ticks equ __zdseg_end + (__zobss_90b6 - __zdata_start)
-; battle_setup_done  equ __zdseg_end + (__zobss_90bc - __zdata_start)
 %include "vmele/redraw_party_before_battle.asm" ; 0x36b8
 
-save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
-save_di  equ __zdseg_end + (__zsave_di - __zdata_start)
-save_sp  equ __zdseg_end + (__zsave_sp - __zdata_start)
-save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
-save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
-_Uorg    equ __zdseg_end + (__zobss_90b6 - __zdata_start)
-_Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/aztec/aztec_ovbgn.asm"           ; 0x3710
 
 %include "shared/aztec/aztec_swapmem.asm"         ; 0x374e

@@ -43,7 +43,7 @@ loc_IUTP:
 @..loc_IUTP.l2:
     lea ax, word [bp - 0x00f2]       ; 0x712f
     push ax                          ; 0x7133
-    mov ax, 0x1d1                    ; 0x7134
+    mov ax, MSG_FAILURE_465          ; 0x7134
     push ax                          ; 0x7137
     call load_message_string         ; 0x7138
     add sp, byte 4                   ; 0x713b
@@ -386,7 +386,7 @@ jumptable_742b:
     add sp, byte 4                   ; 0x74cf
     lea ax, word [bp - 0x00f2]       ; 0x74d2
     push ax                          ; 0x74d6
-    mov ax, 0x1c6                    ; 0x74d7
+    mov ax, MSG_HEDGHFLDFRM          ; 0x74d7
     push ax                          ; 0x74da
     call load_message_string         ; 0x74db
     add sp, byte 4                   ; 0x74de
@@ -429,7 +429,7 @@ jumptable_742b:
     add sp, byte 4                   ; 0x7536
     lea ax, word [bp - 0x00f2]       ; 0x7539
     push ax                          ; 0x753d
-    mov ax, 0x1c7                    ; 0x753e
+    mov ax, MSG_MF                   ; 0x753e
     push ax                          ; 0x7541
     call load_message_string         ; 0x7542
     add sp, byte 4                   ; 0x7545
@@ -474,7 +474,7 @@ jumptable_742b:
     add sp, byte 4                   ; 0x75a1
     lea ax, word [bp - 0x00f2]       ; 0x75a4
     push ax                          ; 0x75a8
-    mov ax, 0x1c8                    ; 0x75a9
+    mov ax, MSG_FMPTRABPVBLSMN       ; 0x75a9
     push ax                          ; 0x75ac
     call load_message_string         ; 0x75ad
     add sp, byte 4                   ; 0x75b0
@@ -730,7 +730,7 @@ jumptable_76e2:
 @..loc_IUTP.l29:
     lea ax, word [bp - 0x00f2]       ; 0x77ea
     push ax                          ; 0x77ee
-    mov ax, 0x61f                    ; 0x77ef
+    mov ax, MSG_UNUSABLE_1567        ; 0x77ef
     push ax                          ; 0x77f2
     call load_message_string         ; 0x77f3
     add sp, byte 4                   ; 0x77f6
@@ -744,7 +744,7 @@ jumptable_76e2:
 @..loc_IUTP.l30:
     lea ax, word [bp - 0x00a2]       ; 0x7809
     push ax                          ; 0x780d
-    mov ax, 0x1c2                    ; 0x780e
+    mov ax, MSG_SKILL_450            ; 0x780e
     push ax                          ; 0x7811
     call load_message_string         ; 0x7812
     add sp, byte 4                   ; 0x7815
@@ -806,7 +806,7 @@ jumptable_76e2:
     jne short @..loc_IUTP.l34        ; 0x78a0
     lea ax, word [bp - 0x00f2]       ; 0x78a2
     push ax                          ; 0x78a6
-    mov ax, 0xbf2                    ; 0x78a7
+    mov ax, MSG_SHOOT                ; 0x78a7
     push ax                          ; 0x78aa
     call load_message_string         ; 0x78ab
     add sp, byte 4                   ; 0x78ae
@@ -886,7 +886,7 @@ jumptable_76e2:
 @..loc_IUTP.l38:
     lea ax, word [bp - 0x00f2]       ; 0x7967
     push ax                          ; 0x796b
-    mov ax, 0x1c3                    ; 0x796c
+    mov ax, MSG_PS                   ; 0x796c
     push ax                          ; 0x796f
     call load_message_string         ; 0x7970
     add sp, byte 4                   ; 0x7973
@@ -946,7 +946,7 @@ jumptable_76e2:
     je short @..loc_IUTP.l43         ; 0x79ee
     lea ax, word [bp - 0x00f2]       ; 0x79f0
     push ax                          ; 0x79f4
-    mov ax, 0x1c4                    ; 0x79f5
+    mov ax, MSG_AC_452               ; 0x79f5
     push ax                          ; 0x79f8
     call load_message_string         ; 0x79f9
     add sp, byte 4                   ; 0x79fc
@@ -1113,7 +1113,7 @@ jumptable_76e2:
     add sp, byte 6                   ; 0x7b6d
     lea ax, word [bp - 0x00f2]       ; 0x7b70
     push ax                          ; 0x7b74
-    mov ax, 0x1c5                    ; 0x7b75
+    mov ax, MSG_LB                   ; 0x7b75
     push ax                          ; 0x7b78
     call load_message_string         ; 0x7b79
     add sp, byte 4                   ; 0x7b7c
@@ -1137,7 +1137,7 @@ jumptable_76e2:
     add sp, byte 4                   ; 0x7ba5
     lea ax, word [bp - 0x00f2]       ; 0x7ba8
     push ax                          ; 0x7bac
-    mov ax, 0x1d2                    ; 0x7bad
+    mov ax, MSG_DAMAGE_466           ; 0x7bad
     push ax                          ; 0x7bb0
     call load_message_string         ; 0x7bb1
     add sp, byte 4                   ; 0x7bb4
@@ -1171,7 +1171,7 @@ jumptable_76e2:
     add sp, byte 4                   ; 0x7bf7
     lea ax, word [bp - 0x0142]       ; 0x7bfa
     push ax                          ; 0x7bfe
-    mov ax, 0x1d3                    ; 0x7bff
+    mov ax, MSG_TO_467               ; 0x7bff
     push ax                          ; 0x7c02
     call load_message_string         ; 0x7c03
     add sp, byte 4                   ; 0x7c06
@@ -1281,7 +1281,7 @@ jumptable_76e2:
     add sp, byte 4                   ; 0x7d01
     lea ax, word [bp - 0x00f2]       ; 0x7d04
     push ax                          ; 0x7d08
-    mov ax, 0x1d4                    ; 0x7d09
+    mov ax, MSG_REGEN                ; 0x7d09
     push ax                          ; 0x7d0c
     call load_message_string         ; 0x7d0d
     add sp, byte 4                   ; 0x7d10
@@ -1330,7 +1330,7 @@ jumptable_76e2:
     add sp, byte 4                   ; 0x7d79
     lea ax, word [bp - 0x00f2]       ; 0x7d7c
     push ax                          ; 0x7d80
-    mov ax, 0x1d5                    ; 0x7d81
+    mov ax, MSG_CURSED_469           ; 0x7d81
     push ax                          ; 0x7d84
     call load_message_string         ; 0x7d85
     add sp, byte 4                   ; 0x7d88
@@ -1357,7 +1357,7 @@ jumptable_76e2:
     add sp, byte 4                   ; 0x7dbc
     lea ax, word [bp - 0x00f2]       ; 0x7dbf
     push ax                          ; 0x7dc3
-    mov ax, 0x1d6                    ; 0x7dc4
+    mov ax, MSG_SPECIAL_POWER        ; 0x7dc4
     push ax                          ; 0x7dc7
     call load_message_string         ; 0x7dc8
     add sp, byte 4                   ; 0x7dcb
@@ -1443,7 +1443,7 @@ jumptable_76e2:
     jne short @..loc_IUTP.l60        ; 0x7e95
     lea ax, word [bp - 0x0142]       ; 0x7e97
     push ax                          ; 0x7e9b
-    mov ax, 0x1da                    ; 0x7e9c
+    mov ax, MSG_MAX                  ; 0x7e9c
     push ax                          ; 0x7e9f
     call load_message_string         ; 0x7ea0
     add sp, byte 4                   ; 0x7ea3
@@ -1499,7 +1499,7 @@ jumptable_76e2:
     add sp, byte 4                   ; 0x7f19
     lea ax, word [bp - 0x00f2]       ; 0x7f1c
     push ax                          ; 0x7f20
-    mov ax, 0x1d8                    ; 0x7f21
+    mov ax, MSG_SPECIAL_ATTACKS      ; 0x7f21
     push ax                          ; 0x7f24
     call load_message_string         ; 0x7f25
     add sp, byte 4                   ; 0x7f28
@@ -1708,7 +1708,7 @@ jumptable_76e2:
     add sp, byte 4                   ; 0x810d
     lea ax, word [bp - 0x00f2]       ; 0x8110
     push ax                          ; 0x8114
-    mov ax, 0x1d9                    ; 0x8115
+    mov ax, MSG_SPECIAL_RESISTANCES  ; 0x8115
     push ax                          ; 0x8118
     call load_message_string         ; 0x8119
     add sp, byte 4                   ; 0x811c
@@ -1821,7 +1821,7 @@ jumptable_76e2:
     jne short @..loc_IUTP.l79        ; 0x822a
     lea ax, word [bp - 0x00f2]       ; 0x822c
     push ax                          ; 0x8230
-    mov ax, 0x1e3                    ; 0x8231
+    mov ax, MSG_NONE_483             ; 0x8231
     push ax                          ; 0x8234
     call load_message_string         ; 0x8235
     add sp, byte 4                   ; 0x8238

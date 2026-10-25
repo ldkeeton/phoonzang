@@ -40,7 +40,7 @@ api_idx_0006_JJVQ:
     jle short @..api_idx_0006_JJVQ.l5 ; 0x9eb1
     mov ax, bss_9136                 ; 0x9eb3
     push ax                          ; 0x9eb6
-    mov ax, 0xdb9                    ; 0x9eb7
+    mov ax, MSG_ADVANCES_3513        ; 0x9eb7
     push ax                          ; 0x9eba
     call load_message_string         ; 0x9ebb
     add sp, byte 4                   ; 0x9ebe
@@ -49,7 +49,7 @@ api_idx_0006_JJVQ:
 @..api_idx_0006_JJVQ.l5:
     mov ax, bss_9136                 ; 0x9ec8
     push ax                          ; 0x9ecb
-    mov ax, 0xdba                    ; 0x9ecc
+    mov ax, MSG_RETREATS             ; 0x9ecc
     push ax                          ; 0x9ecf
     call load_message_string         ; 0x9ed0
     add sp, byte 4                   ; 0x9ed3

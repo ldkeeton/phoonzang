@@ -22,13 +22,13 @@ load_game_data:
     pop cx                           ; 0x301d
     lea ax, word [bp - 0x0024]       ; 0x301e
     push ax                          ; 0x3021
-    mov ax, 0x58c                    ; 0x3022
+    mov ax, MSG_DISK_ERROR           ; 0x3022
     push ax                          ; 0x3025
     call load_message_string         ; 0x3026
     add sp, byte 4                   ; 0x3029
     lea ax, word [bp - 0x0038]       ; 0x302c
     push ax                          ; 0x302f
-    mov ax, 0x58d                    ; 0x3030
+    mov ax, MSG_LOADING              ; 0x3030
     push ax                          ; 0x3033
     call load_message_string         ; 0x3034
     add sp, byte 4                   ; 0x3037

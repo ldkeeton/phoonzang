@@ -27,7 +27,8 @@ Commands (space-separated):
   make init                 sparse-clone only the dos_compilers folders listed in sidecars,
                             then unpack the Aztec runtime sources into dos_compilers/aztec_src/
   make libcheck             rebuild Aztec v4.2b C.LIB from dos_compilers/aztec_src/ and compare to the shipped one
-  make all                  prebuild (clean .cache + Aztec mux), build, verify all, elf-rebuild, make test, make test slow
+  make all                  clean, prebuild (Aztec mux), build, verify all,
+                            elf-rebuild, make test, make test slow
   make all notest           the same, without the tests at the end
   make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if
                             missing; BIN keeps the last full build's shared/ layout)
@@ -124,6 +125,9 @@ def main():
         return
 
     if '--all' in flags:
+        # A full run always starts from a clean tree: generated output and the
+        # whole .cache go first (the build lock and pinned baselines survive).
+        cmd_clean([])
         cmd_lint(all_projects, True)
         for project in all_projects:
             cmd_prebuild(project)

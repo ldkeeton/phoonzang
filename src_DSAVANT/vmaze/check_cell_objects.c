@@ -2,6 +2,7 @@
    is already tagged for party_tag, then act on the first matching object */
 
 #include "structs/maze.h"
+#include "msg.h"
 
 extern struct maze_tables *maze_tables;
 extern int party_map_piece, party_cell_y, party_cell_x, party_tag,
@@ -23,7 +24,7 @@ int announce;
 			shown = 2;
 	} else if (announce) {
 		shown = 1;
-		show_message(2043);
+		show_message(MSG_SEARCHING);
 		wait_ticks_or_key(message_delay);
 	}
 	gfx_show_area(0, 146, 319, 152);	/* message strip */
@@ -49,12 +50,12 @@ int announce;
 		obj++;
 	}
 	if (shown == 2) {
-		show_message(2043);
+		show_message(MSG_SEARCHING);
 		wait_ticks_or_key(message_delay);
 		gfx_show_area(0, 146, 319, 152);
 	}
 	if (shown) {
-		show_message(2045);
+		show_message(MSG_NOTHING_2045);
 		play_sound_effect(0);
 		wait_ticks_or_key(message_delay / 2);	/* half the usual delay */
 	}

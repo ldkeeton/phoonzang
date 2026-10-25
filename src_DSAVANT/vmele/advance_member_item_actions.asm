@@ -182,7 +182,7 @@ advance_member_item_actions:
     lea cx, word [bp - 0x005b]       ; 0x1698
     add ax, cx                       ; 0x169b
     push ax                          ; 0x169d
-    mov ax, 0xdc4                    ; 0x169e
+    mov ax, MSG_DIED                 ; 0x169e
     push ax                          ; 0x16a1
     call load_message_string         ; 0x16a2
     add sp, byte 4                   ; 0x16a5

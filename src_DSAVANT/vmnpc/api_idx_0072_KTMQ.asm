@@ -31,7 +31,7 @@ api_idx_0072_KTMQ:
     add sp, byte 4                   ; 0x5ee4
     lea ax, word [bp - 0x0072]       ; 0x5ee7
     push ax                          ; 0x5eea
-    mov ax, 0x5e8                    ; 0x5eeb
+    mov ax, MSG_GP_1512              ; 0x5eeb
     push ax                          ; 0x5eee
     call load_message_string         ; 0x5eef
     add sp, byte 4                   ; 0x5ef2

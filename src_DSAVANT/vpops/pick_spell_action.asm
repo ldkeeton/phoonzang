@@ -6,7 +6,7 @@ pick_spell_action:
     mov ax, 1                        ; 0x2950
     push ax                          ; 0x2953
     push ax                          ; 0x2954
-    mov ax, 0x7ea                    ; 0x2955
+    mov ax, MSG_CAST                 ; 0x2955
     push ax                          ; 0x2958
     push word [bp + 0x4]             ; 0x2959
     call action_spell_dialog         ; 0x295c

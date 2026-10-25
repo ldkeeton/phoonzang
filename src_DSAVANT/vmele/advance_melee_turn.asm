@@ -105,7 +105,7 @@ advance_melee_turn:
     lea cx, word [bp - 0x0055]       ; 0x32ab
     add ax, cx                       ; 0x32ae
     push ax                          ; 0x32b0
-    mov ax, 0xdc6                    ; 0x32b1
+    mov ax, MSG_BLESSED_AGAIN        ; 0x32b1
     push ax                          ; 0x32b4
     call load_message_string         ; 0x32b5
     add sp, byte 4                   ; 0x32b8

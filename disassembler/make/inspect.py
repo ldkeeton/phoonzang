@@ -636,7 +636,7 @@ def _link_probe(project, binary, routine, entry, whole, text):
     from lib.aztec import cache, relink
     from lib.cachedirs import src_dir
     from lib.compare.coverrides import symbol_index
-    from lib.shared import label_aliases
+    from lib.shared import is_shared
 
     spans = load_spans(project, binary)
     span = spans.get(routine)
@@ -669,8 +669,8 @@ def _link_probe(project, binary, routine, entry, whole, text):
                              labels_in, labels_at,
                              cache.data_spans(project, binary, routine,
                                               entry, text),
-                             aliases=label_aliases(
-                                 src_dir(project, PROJECT), binary, routine))
+                             resolve_by_address=is_shared(
+                                 src_dir(project, PROJECT), routine))
     except relink.RelinkError as exc:
         return None, None, [str(exc)]
     return bytes(linked.code), data[start:end], []

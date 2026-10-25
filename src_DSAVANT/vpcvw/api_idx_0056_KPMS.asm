@@ -4,7 +4,7 @@ api_idx_0056_KPMS:
     call aztec_csav                  ; 0x468e
     lea ax, word [bp - 0x0056]       ; 0x4691
     push ax                          ; 0x4694
-    mov ax, 0x164                    ; 0x4695
+    mov ax, MSG_CURSED_356           ; 0x4695
     push ax                          ; 0x4698
     call load_message_string         ; 0x4699
     add sp, byte 4                   ; 0x469c

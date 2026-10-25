@@ -4,7 +4,7 @@ api_idx_001a_HRLU:
     call aztec_csav                  ; 0x706f
     lea ax, word [bp - 0x001a]       ; 0x7072
     push ax                          ; 0x7075
-    mov ax, 0x1d7                    ; 0x7076
+    mov ax, MSG_471                  ; 0x7076
     push ax                          ; 0x7079
     call load_message_string         ; 0x707a
     add sp, byte 4                   ; 0x707d

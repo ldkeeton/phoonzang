@@ -22,7 +22,7 @@ api_idx_00a4_PTJS:
     add sp, byte 4                   ; 0x4ed2
     lea ax, word [bp - 0x0054]       ; 0x4ed5
     push ax                          ; 0x4ed8
-    mov ax, 0x1392                   ; 0x4ed9
+    mov ax, MSG_YOU_MADE_A_LEVEL     ; 0x4ed9
     push ax                          ; 0x4edc
     call load_message_string         ; 0x4edd
     add sp, byte 4                   ; 0x4ee0

@@ -38,13 +38,13 @@ api_idx_003e_JGVR:
     add sp, byte 4                   ; 0x120f
     lea ax, word [bp - 0x0016]       ; 0x1212
     push ax                          ; 0x1215
-    mov ax, 0x146f                   ; 0x1216
+    mov ax, MSG_TAKES                ; 0x1216
     push ax                          ; 0x1219
     call load_message_string         ; 0x121a
     add sp, byte 4                   ; 0x121d
     lea ax, word [bp - 0x003e]       ; 0x1220
     push ax                          ; 0x1223
-    mov ax, 0x1470                   ; 0x1224
+    mov ax, MSG_DAMAGE_5232          ; 0x1224
     push ax                          ; 0x1227
     call load_message_string         ; 0x1228
     add sp, byte 4                   ; 0x122b

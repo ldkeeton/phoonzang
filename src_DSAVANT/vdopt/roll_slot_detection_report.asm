@@ -121,7 +121,7 @@ jumptable_1aa5_case_0:
     lea ax, word [bp - 0x005a]       ; 0x1b79
     push ax                          ; 0x1b7c
     mov ax, word [bp - 0x0002]       ; 0x1b7d
-    add ax, 0x6a4                    ; 0x1b80
+    add ax, MSG_SLOT_NAME_BASE       ; 0x1b80
     push ax                          ; 0x1b83
     call load_message_string         ; 0x1b84
     add sp, byte 4                   ; 0x1b87
@@ -145,7 +145,7 @@ jumptable_1aa5_case_0:
 @..roll_slot_detection_report.l8:
     lea ax, word [bp - 0x00aa]       ; 0x1bbb
     push ax                          ; 0x1bbf
-    mov ax, 0x1e7                    ; 0x1bc0
+    mov ax, MSG_IS_DEAD              ; 0x1bc0
     push ax                          ; 0x1bc3
     call load_message_string         ; 0x1bc4
     add sp, byte 4                   ; 0x1bc7
@@ -153,7 +153,7 @@ jumptable_1aa5_case_0:
 @..roll_slot_detection_report.l9:
     lea ax, word [bp - 0x00aa]       ; 0x1bcc
     push ax                          ; 0x1bd0
-    mov ax, 0x1e5                    ; 0x1bd1
+    mov ax, MSG_AT                   ; 0x1bd1
     push ax                          ; 0x1bd4
     call load_message_string         ; 0x1bd5
     add sp, byte 4                   ; 0x1bd8
@@ -164,7 +164,7 @@ jumptable_1aa5_case_0:
     mov bx, ax                       ; 0x1be6
     mov al, byte [bx + slot_records + slot_record.kind] ; 0x1be8
     sub ah, ah                       ; 0x1bec
-    add ax, 0x6ea                    ; 0x1bee
+    add ax, MSG_SLOT_KIND_BASE       ; 0x1bee
     push ax                          ; 0x1bf1
     call load_message_string         ; 0x1bf2
     add sp, byte 4                   ; 0x1bf5
@@ -188,7 +188,7 @@ jumptable_1aa5_case_0:
     jne short @..roll_slot_detection_report.l13 ; 0x1c1e
     lea ax, word [bp - 0x005a]       ; 0x1c20
     push ax                          ; 0x1c23
-    mov ax, 0x1e6                    ; 0x1c24
+    mov ax, MSG_FAILURE_486          ; 0x1c24
     push ax                          ; 0x1c27
     call load_message_string         ; 0x1c28
     add sp, byte 4                   ; 0x1c2b

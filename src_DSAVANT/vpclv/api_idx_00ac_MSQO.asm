@@ -212,7 +212,7 @@ jumptable_4679:
     add sp, byte 0x14                ; 0x47b4
     lea ax, word [bp - 0x005c]       ; 0x47b7
     push ax                          ; 0x47ba
-    mov ax, 0x1395                   ; 0x47bb
+    mov ax, MSG_YOU_INCREASED_STAMINA ; 0x47bb
     push ax                          ; 0x47be
     call load_message_string         ; 0x47bf
     add sp, byte 4                   ; 0x47c2

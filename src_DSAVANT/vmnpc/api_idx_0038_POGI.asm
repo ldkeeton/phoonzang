@@ -281,7 +281,7 @@ jumptable_268c:
 @..api_idx_0038_POGI.l18:
     mov ax, bss_93f0                 ; 0x2749
     push ax                          ; 0x274c
-    mov ax, 0x669                    ; 0x274d
+    mov ax, MSG_HEH_HEH_WHY_I_HAVEN_T_1641 ; 0x274d
     push ax                          ; 0x2750
     call load_message_string         ; 0x2751
     add sp, byte 4                   ; 0x2754

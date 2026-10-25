@@ -29,14 +29,14 @@ api_idx_000e_HLRI:
     add sp, byte 6                   ; 0x5fe9
     mov ax, bss_9136                 ; 0x5fec
     push ax                          ; 0x5fef
-    mov ax, 0xcec                    ; 0x5ff0
+    mov ax, MSG_CASTS_3308           ; 0x5ff0
     push ax                          ; 0x5ff3
     call load_message_string         ; 0x5ff4
     add sp, byte 4                   ; 0x5ff7
     mov ax, bss_9186                 ; 0x5ffa
     push ax                          ; 0x5ffd
     mov ax, word [bp - 0x0006]       ; 0x5ffe
-    add ax, 0xfa0                    ; 0x6001
+    add ax, MSG_SPELL_NAME_BASE      ; 0x6001
     push ax                          ; 0x6004
     call load_message_string         ; 0x6005
     add sp, byte 4                   ; 0x6008

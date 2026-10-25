@@ -47,7 +47,7 @@ api_idx_009a_KOSH:
 @..api_idx_009a_KOSH.l1:
     lea ax, word [bp - 0x009a]       ; 0x6fd1
     push ax                          ; 0x6fd5
-    mov ax, 0x1d1                    ; 0x6fd6
+    mov ax, MSG_FAILURE_465          ; 0x6fd6
     push ax                          ; 0x6fd9
     call load_message_string         ; 0x6fda
     add sp, byte 4                   ; 0x6fdd
@@ -104,7 +104,7 @@ api_idx_009a_KOSH:
     mov word [bx], 0                 ; 0x7048
     lea ax, word [bp - 0x009a]       ; 0x704c
     push ax                          ; 0x7050
-    mov ax, 0x1d1                    ; 0x7051
+    mov ax, MSG_FAILURE_465          ; 0x7051
     push ax                          ; 0x7054
     call load_message_string         ; 0x7055
     add sp, byte 4                   ; 0x7058

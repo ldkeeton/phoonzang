@@ -6,7 +6,7 @@ play_action_overlays:
     je short @..play_action_overlays.l1 ; 0x2ce9
     lea ax, word [bp - 0x005a]       ; 0x2ceb
     push ax                          ; 0x2cee
-    mov ax, 0x7e9                    ; 0x2cef
+    mov ax, MSG_AN_ENCOUNTER         ; 0x2cef
     push ax                          ; 0x2cf2
     call load_message_string         ; 0x2cf3
     add sp, byte 4                   ; 0x2cf6

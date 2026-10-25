@@ -9,7 +9,7 @@ api_idx_00ba_TUGQ:
     add sp, byte 4                   ; 0xaaa4
     lea ax, word [bp - 0x0066]       ; 0xaaa7
     push ax                          ; 0xaaaa
-    mov ax, 0x5e9                    ; 0xaaab
+    mov ax, MSG_1513                 ; 0xaaab
     push ax                          ; 0xaaae
     call load_message_string         ; 0xaaaf
     add sp, byte 4                   ; 0xaab2

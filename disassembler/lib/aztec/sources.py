@@ -161,6 +161,9 @@ def install_headers(project, out_dir, versions=None):
         with open(path, 'w') as f:
             f.write(data)
     keep = set(files) | {HOST_SYMBOLS_INC, STRUCTS_INC}
+    # The message headers are generated too, by ``lib.msgids`` in the build.
+    from lib import msgids
+    keep.update(os.path.basename(path) for path in msgids.HEADER_PATHS)
     for name in os.listdir(dest):
         path = os.path.join(dest, name)
         if name in keep or not os.path.isfile(path):

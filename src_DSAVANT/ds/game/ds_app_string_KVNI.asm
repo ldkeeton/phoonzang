@@ -30,7 +30,7 @@ ds_app_string_KVNI: ; Aztec csav frame=0x0054
     push ax                          ; 0x0c4a
     mov al, byte [code_characters]   ; 0x0c4b
     sub ah, ah                       ; 0x0c4e
-    add ax, 0x9c4                    ; 0x0c50
+    add ax, MSG_CODE_CHAR_BASE       ; 0x0c50
     push ax                          ; 0x0c53
     call load_message_string         ; 0x0c54
     add sp, byte 4                   ; 0x0c57

@@ -10,7 +10,7 @@ api_idx_00b8_LTRM:
     jne short @..api_idx_00b8_LTRM.l1 ; 0x14f9
     lea ax, word [bp - 0x0068]       ; 0x14fb
     push ax                          ; 0x14fe
-    mov ax, 0x146c                   ; 0x14ff
+    mov ax, MSG_THE_CHEST_WAS_NOT_TRAPPED ; 0x14ff
     push ax                          ; 0x1502
     call load_message_string         ; 0x1503
     add sp, byte 4                   ; 0x1506
@@ -226,7 +226,7 @@ jumptable_1fa3_case_4:
     add sp, byte 4                   ; 0x16d2
     lea ax, word [bp - 0x0068]       ; 0x16d5
     push ax                          ; 0x16d8
-    mov ax, 0x1496                   ; 0x16d9
+    mov ax, MSG_A_DEMONIC_FORCE_APPEARS ; 0x16d9
     push ax                          ; 0x16dc
     call load_message_string         ; 0x16dd
     add sp, byte 4                   ; 0x16e0
@@ -241,7 +241,7 @@ jumptable_1fa3_case_4:
     add sp, byte 8                   ; 0x16f6
     lea ax, word [bp - 0x0068]       ; 0x16f9
     push ax                          ; 0x16fc
-    mov ax, 0x1497                   ; 0x16fd
+    mov ax, MSG_IS_ATTACKED          ; 0x16fd
     push ax                          ; 0x1700
     call load_message_string         ; 0x1701
     add sp, byte 4                   ; 0x1704
@@ -294,7 +294,7 @@ jumptable_1fa3_case_4:
 @..api_idx_00b8_LTRM.l15:
     lea ax, word [bp - 0x0068]       ; 0x176b
     push ax                          ; 0x176e
-    mov ax, 0x1498                   ; 0x176f
+    mov ax, MSG_IS_BATTERED_ABOUT    ; 0x176f
     push ax                          ; 0x1772
     call load_message_string         ; 0x1773
     add sp, byte 4                   ; 0x1776
@@ -355,7 +355,7 @@ jumptable_1fa3_case_4:
 @..api_idx_00b8_LTRM.l16:
     lea ax, word [bp - 0x0068]       ; 0x17ef
     push ax                          ; 0x17f2
-    mov ax, 0x149a                   ; 0x17f3
+    mov ax, MSG_THE_DEMONIC_FORCE_SMILES ; 0x17f3
     push ax                          ; 0x17f6
     call load_message_string         ; 0x17f7
     add sp, byte 4                   ; 0x17fa
@@ -1015,13 +1015,13 @@ jumptable_1fa3_case_12:
 @..api_idx_00b8_LTRM.l50:
     lea ax, word [bp - 0x0068]       ; 0x1d7a
     push ax                          ; 0x1d7d
-    mov ax, 0x1492                   ; 0x1d7e
+    mov ax, MSG_LOST                 ; 0x1d7e
     push ax                          ; 0x1d81
     call load_message_string         ; 0x1d82
     add sp, byte 4                   ; 0x1d85
     lea ax, word [bp - 0x00b8]       ; 0x1d88
     push ax                          ; 0x1d8c
-    mov ax, 0x149c                   ; 0x1d8d
+    mov ax, MSG_MAGIC_POWER          ; 0x1d8d
     push ax                          ; 0x1d90
     call load_message_string         ; 0x1d91
     add sp, byte 4                   ; 0x1d94
@@ -1122,13 +1122,13 @@ jumptable_1fa3_case_15:
 @..api_idx_00b8_LTRM.l55:
     lea ax, word [bp - 0x0068]       ; 0x1e6d
     push ax                          ; 0x1e70
-    mov ax, 0x1492                   ; 0x1e71
+    mov ax, MSG_LOST                 ; 0x1e71
     push ax                          ; 0x1e74
     call load_message_string         ; 0x1e75
     add sp, byte 4                   ; 0x1e78
     lea ax, word [bp - 0x00b8]       ; 0x1e7b
     push ax                          ; 0x1e7f
-    mov ax, 0x1495                   ; 0x1e80
+    mov ax, MSG_HIT_POINTS_5269      ; 0x1e80
     push ax                          ; 0x1e83
     call load_message_string         ; 0x1e84
     add sp, byte 4                   ; 0x1e87
@@ -1172,13 +1172,13 @@ jumptable_1fa3_case_15:
     dec byte [bx + party_records + pc_rec.stat + 0x3] ; 0x1edf
     lea ax, word [bp - 0x0068]       ; 0x1ee3
     push ax                          ; 0x1ee6
-    mov ax, 0x1492                   ; 0x1ee7
+    mov ax, MSG_LOST                 ; 0x1ee7
     push ax                          ; 0x1eea
     call load_message_string         ; 0x1eeb
     add sp, byte 4                   ; 0x1eee
     lea ax, word [bp - 0x00b8]       ; 0x1ef1
     push ax                          ; 0x1ef5
-    mov ax, 0x1494                   ; 0x1ef6
+    mov ax, MSG_VITALITY_5268        ; 0x1ef6
     push ax                          ; 0x1ef9
     call load_message_string         ; 0x1efa
     add sp, byte 4                   ; 0x1efd

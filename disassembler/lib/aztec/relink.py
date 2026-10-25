@@ -221,28 +221,45 @@ def _put(code, offset, width, value):
     code[offset:offset + width] = value.to_bytes(width, 'little')
 
 
+def _label_at(target, index, labels_at):
+    """The build's name for *target*, or ``None`` when it has none.
+
+    The asm's own label wins; *labels_at* fills in a neighbour's label the
+    index does not carry.
+    """
+    names = sorted(name for name, addr in index.code.items() if addr == target)
+    if not names and target in labels_at:
+        names = [labels_at[target]]
+    return names[0] if names else None
+
+
+def _original_target(start, fx, original):
+    """The target address the original instruction at *fx* names, or None."""
+    site = start + fx.offset
+    if site + fx.width > len(original):
+        return None
+    disp = int.from_bytes(original[site:site + fx.width], 'little', signed=True)
+    return site + fx.width + disp
+
+
 def _neighbour_target(label, start, fx, func, index, original, labels_at):
     """``(name, address)`` of a module label outside the routine, read from
     the branch's displacement in the *original* image.  *labels_at* maps an
     address to the label the build placed there (a neighbour's own labels)."""
-    site = start + fx.offset
-    disp = int.from_bytes(original[site:site + fx.width], 'little', signed=True)
-    target = site + fx.width + disp
-    if start <= target < start + len(func.code):
+    target = _original_target(start, fx, original)
+    if target is None or start <= target < start + len(func.code):
         raise RelinkError(f'{label}: branch at +0x{fx.offset:x} targets '
                           f'undefined local label {fx.symbol}')
-    names = sorted(name for name, addr in index.code.items() if addr == target)
-    if not names and target in labels_at:
-        names = [labels_at[target]]
-    if not names:
+    name = _label_at(target, index, labels_at)
+    if name is None:
         raise RelinkError(
             f'{label}: branch at +0x{fx.offset:x} to {fx.symbol} leaves the '
             f'routine for 0x{target:x}, where the build has no label')
-    return names[0], target
+    return name, target
 
 
 def link(label, start, func, index, original, labels_in=(), labels_at=None,
-         data_spans=(), aliases=None):
+         data_spans=(), resolve_by_address=False):
     """Resolve *func*'s relocations for placement at file offset *start*.
 
     *original* is the original image: its relocated words say where the
@@ -252,19 +269,11 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
     *labels_at* (``{offset: name}``) is every label the build placed, for a
     branch that leaves the routine for a module label beside it.
     *data_spans* (``[(start, end)]`` routine offsets) are the source's data.
-    *aliases* (``{name: own}``, :func:`lib.shared.donor_aliases`) give a
-    shared source's spelling of another binary's target this image's own
-    name, used only when this image does not define the spelling itself.
+    *resolve_by_address* reads an unknown code name's target from the original
+    instruction (a shared source's caller has no other binary's names to hand).
     """
     code = bytearray(func.code)
     out = Linked(code)
-    aliases = aliases or {}
-
-    def known(name, *spaces):
-        if any(name in space for space in spaces):
-            return name
-        return aliases.get(name, name)
-
     def unknown(fx, why):
         what = fx.symbol or ' '.join(x.strip() for x in fx.expr or ())
         raise RelinkError(f'{label}: relocation at +0x{fx.offset:x} '
@@ -276,6 +285,28 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
         if canonical is None:
             unknown(fx, 'this image has no data segment')
         return canonical
+
+    def code_target(fx, name):
+        """``(target, name)`` for a code label, or ``(None, name)``.
+
+        A name this image defines is taken as it is.  Otherwise the source is
+        a shared one spelling another binary's name for the target
+        (``loc_UOPP`` here, ``loc_GPIH`` there): the original instruction says
+        where the call really goes, and the build's label at that address is
+        the name to print.  The link therefore does not depend on another
+        binary's asm being on disk.
+        """
+        target = index.code.get(name)
+        if target is not None:
+            return target, name
+        if not resolve_by_address:
+            return None, name
+        target = _original_target(start, fx, original)
+        if target is not None:
+            found = _label_at(target, index, labels_at or {})
+            if found is not None:
+                return target, found
+        return None, name
 
     def put_data(fx, name, value):
         from lib.record_layout import data_text
@@ -356,23 +387,21 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
             name = out.local_names[target]
             out.refs[site] = Ref(site, width, name, True, {name: target})
         elif fx.symbol_kind == 'GBLSYM' and fx.kind == 'WREL':
-            name = known(external_label(fx.symbol), index.code)
-            if name not in index.code:
+            target, name = code_target(fx, external_label(fx.symbol))
+            if target is None:
                 raise RelinkError(
                     f'{label}: call to unknown symbol {name!r} '
                     f'(from C identifier {fx.symbol!r}); the C must name an '
                     f'asm label')
-            target = index.code[name]
             _put(code, site, 2, target - (start + site + 2))
             out.refs[site] = Ref(site, 2, name, True, {name: target})
         elif fx.symbol_kind == 'GBLSYM' and fx.kind == 'BREL':
-            name = known(external_label(fx.symbol), index.code)
-            if name not in index.code:
+            target, name = code_target(fx, external_label(fx.symbol))
+            if target is None:
                 raise RelinkError(
                     f'{label}: branch to unknown symbol {name!r} '
                     f'(from C identifier {fx.symbol!r}); the C must name an '
                     f'asm label')
-            target = index.code[name]
             disp = target - (start + site + 1)
             if not -128 <= disp <= 127:
                 raise RelinkError(
@@ -381,9 +410,7 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
             _put(code, site, 1, disp)
             out.refs[site] = Ref(site, 1, name, True, {name: target})
         elif fx.symbol_kind == 'GBLSYM' and fx.kind == 'WABS':
-            name = known(linked_name(external_label(fx.symbol), index.places),
-                         index.places, index.data, index.code,
-                         index.named_data)
+            name = linked_name(external_label(fx.symbol), index.places)
             if name in index.places:
                 word = int.from_bytes(original[start + site:start + site + 2],
                                       'little')

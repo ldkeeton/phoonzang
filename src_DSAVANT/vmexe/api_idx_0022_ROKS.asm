@@ -135,7 +135,7 @@ api_idx_0022_ROKS:
     add sp, byte 4                   ; 0x237a
     mov ax, bss_9136                 ; 0x237d
     push ax                          ; 0x2380
-    mov ax, 0xced                    ; 0x2381
+    mov ax, MSG_DAMAGE_3309          ; 0x2381
     push ax                          ; 0x2384
     call load_message_string         ; 0x2385
     add sp, byte 4                   ; 0x2388

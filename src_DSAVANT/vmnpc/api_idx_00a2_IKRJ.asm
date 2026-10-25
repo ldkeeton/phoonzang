@@ -28,7 +28,7 @@ api_idx_00a2_IKRJ:
     pop cx                           ; 0x9889
     lea ax, word [bp - 0x00a2]       ; 0x988a
     push ax                          ; 0x988e
-    mov ax, 0x640                    ; 0x988f
+    mov ax, MSG_ARE_YOU_SPEAKING_OF  ; 0x988f
     push ax                          ; 0x9892
     call load_message_string         ; 0x9893
     add sp, byte 4                   ; 0x9896

@@ -17,8 +17,8 @@ extern struct spell_info spell_table[];
 extern struct pc_rec party_records[];
 extern int known_spell_list[];
 
-spell_select_dialog(pc, label_id, ok_enabled, limit_by_points)
-int pc, label_id, ok_enabled, limit_by_points;
+spell_select_dialog(pc, button_msg, ok_enabled, limit_by_points)
+int pc, button_msg, ok_enabled, limit_by_points;
 {
 	int i, box_x0, box_y0, box_x1, box_y1, panel_x, mouse_x, mouse_y, thumb_y,
 		thumb_travel, grab_dy, list_top, hit;
@@ -41,9 +41,9 @@ int pc, label_id, ok_enabled, limit_by_points;
 	draw_marker_glyph();
 	draw_realm_spell_points(pc);
 	draw_party_slot_letters(50, 115, 1);
-	load_message_string(label_id, label);
+	load_message_string(button_msg, label);
 	draw_button(panel_x + 6, box_y0 + 6, 8, 1, ok_enabled, label);
-	load_message_string(label_id + 1, label);
+	load_message_string(button_msg + 1, label);
 	draw_button(panel_x + 66, box_y0 + 6, 8, 1, 1, label);
 	gfx_set_text_pos(panel_x + 72, box_y0 + 20);
 	gfx_set_text_color(205, 0);

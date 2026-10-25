@@ -12,7 +12,7 @@ api_idx_00d2_SNMN:
     add sp, byte 4                   ; 0x6336
     lea ax, word [bp - 0x00ce]       ; 0x6339
     push ax                          ; 0x633d
-    mov ax, 0x5e8                    ; 0x633e
+    mov ax, MSG_GP_1512              ; 0x633e
     push ax                          ; 0x6341
     call load_message_string         ; 0x6342
     add sp, byte 4                   ; 0x6345
@@ -331,7 +331,7 @@ jumptable_6599:
     mov word [bss_9d64], ax          ; 0x663e
     lea ax, word [bp - 0x005a]       ; 0x6641
     push ax                          ; 0x6644
-    mov ax, 0x637                    ; 0x6645
+    mov ax, MSG_ENTERS_NEGOTIATIONS  ; 0x6645
     push ax                          ; 0x6648
     call load_message_string         ; 0x6649
     add sp, byte 4                   ; 0x664c

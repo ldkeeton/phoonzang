@@ -6,7 +6,7 @@ cast_spell_from_menu:
     mov ax, 1                        ; 0x45e9
     push ax                          ; 0x45ec
     push ax                          ; 0x45ed
-    mov ax, 0x7ea                    ; 0x45ee
+    mov ax, MSG_CAST                 ; 0x45ee
     push ax                          ; 0x45f1
     push word [bp + 0x4]             ; 0x45f2
     call pick_spell_dialog           ; 0x45f5

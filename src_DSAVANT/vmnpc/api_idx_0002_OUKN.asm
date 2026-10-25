@@ -98,7 +98,7 @@ api_idx_0002_OUKN:
 @..api_idx_0002_OUKN.l9:
     mov ax, bss_93f0                 ; 0x2844
     push ax                          ; 0x2847
-    mov ax, 0x75b                    ; 0x2848
+    mov ax, MSG_THE_MAP_IS_RUMORED_TO_1883 ; 0x2848
     push ax                          ; 0x284b
     call load_message_string         ; 0x284c
     add sp, byte 4                   ; 0x284f
@@ -109,7 +109,7 @@ api_idx_0002_OUKN:
     mov bx, ax                       ; 0x285c
     mov al, byte [bx + bss_84a6]     ; 0x285e
     sub ah, ah                       ; 0x2862
-    add ax, 0x6ea                    ; 0x2864
+    add ax, MSG_SLOT_KIND_BASE       ; 0x2864
     push ax                          ; 0x2867
     call load_message_string         ; 0x2868
     add sp, byte 4                   ; 0x286b

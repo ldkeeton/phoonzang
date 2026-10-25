@@ -209,7 +209,7 @@ api_idx_002c_NHRR:
     jl short @..api_idx_002c_NHRR.l2 ; 0x6c2d
     mov ax, bss_9596                 ; 0x6c2f
     push ax                          ; 0x6c32
-    mov ax, 0x453                    ; 0x6c33
+    mov ax, MSG_BONUS                ; 0x6c33
     push ax                          ; 0x6c36
     call load_message_string         ; 0x6c37
     add sp, byte 4                   ; 0x6c3a

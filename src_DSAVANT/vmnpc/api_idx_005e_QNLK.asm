@@ -195,7 +195,7 @@ api_idx_005e_QNLK:
     jg short @..api_idx_005e_QNLK.l14 ; 0x6190
     lea ax, word [bp - 0x005e]       ; 0x6192
     push ax                          ; 0x6195
-    mov ax, 0x624                    ; 0x6196
+    mov ax, MSG_PILFER_FAILED_1572   ; 0x6196
     push ax                          ; 0x6199
     call load_message_string         ; 0x619a
     add sp, byte 4                   ; 0x619d
@@ -218,7 +218,7 @@ api_idx_005e_QNLK:
     adc word [bx + party_records + pc_rec.f_0016], dx ; 0x61c2
     lea ax, word [bp - 0x005e]       ; 0x61c6
     push ax                          ; 0x61c9
-    mov ax, 0x626                    ; 0x61ca
+    mov ax, MSG_STOLE_SOME_GOLD      ; 0x61ca
     push ax                          ; 0x61cd
     call load_message_string         ; 0x61ce
     add sp, byte 4                   ; 0x61d1
@@ -259,7 +259,7 @@ api_idx_005e_QNLK:
     add sp, byte 0x0a                ; 0x6220
     lea ax, word [bp - 0x005e]       ; 0x6223
     push ax                          ; 0x6226
-    mov ax, 0x625                    ; 0x6227
+    mov ax, MSG_STOLE_AN_ITEM        ; 0x6227
     push ax                          ; 0x622a
     call load_message_string         ; 0x622b
     add sp, byte 4                   ; 0x622e
@@ -281,7 +281,7 @@ api_idx_005e_QNLK:
 @..api_idx_005e_QNLK.l19:
     lea ax, word [bp - 0x005e]       ; 0x6257
     push ax                          ; 0x625a
-    mov ax, 0x628                    ; 0x625b
+    mov ax, MSG_GOT_CAUGHT           ; 0x625b
     push ax                          ; 0x625e
     call load_message_string         ; 0x625f
     add sp, byte 4                   ; 0x6262
@@ -344,7 +344,7 @@ api_idx_005e_QNLK:
 @..api_idx_005e_QNLK.l21:
     lea ax, word [bp - 0x005e]       ; 0x62e1
     push ax                          ; 0x62e4
-    mov ax, 0x624                    ; 0x62e5
+    mov ax, MSG_PILFER_FAILED_1572   ; 0x62e5
     push ax                          ; 0x62e8
     call load_message_string         ; 0x62e9
     add sp, byte 4                   ; 0x62ec

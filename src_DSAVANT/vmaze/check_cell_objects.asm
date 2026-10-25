@@ -40,7 +40,7 @@ check_cell_objects:
     cmp word [bp + 0x4], byte 0      ; 0x8ca6
     je short @..check_cell_objects.l4 ; 0x8caa
     mov word [bp - 0x000a], 1        ; 0x8cac
-    mov ax, 0x7fb                    ; 0x8cb1
+    mov ax, MSG_SEARCHING            ; 0x8cb1
     push ax                          ; 0x8cb4
     call show_message                ; 0x8cb5
     pop cx                           ; 0x8cb8
@@ -125,7 +125,7 @@ check_cell_objects:
 @..check_cell_objects.l10:
     cmp word [bp - 0x000a], byte 2   ; 0x8d82
     jne short @..check_cell_objects.l11 ; 0x8d86
-    mov ax, 0x7fb                    ; 0x8d88
+    mov ax, MSG_SEARCHING            ; 0x8d88
     push ax                          ; 0x8d8b
     call show_message                ; 0x8d8c
     pop cx                           ; 0x8d8f
@@ -145,7 +145,7 @@ check_cell_objects:
 @..check_cell_objects.l11:
     cmp word [bp - 0x000a], byte 0   ; 0x8dae
     je short @..check_cell_objects.l12 ; 0x8db2
-    mov ax, 0x7fd                    ; 0x8db4
+    mov ax, MSG_NOTHING_2045         ; 0x8db4
     push ax                          ; 0x8db7
     call show_message                ; 0x8db8
     pop cx                           ; 0x8dbb

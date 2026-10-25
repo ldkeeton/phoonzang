@@ -144,7 +144,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1c95
     lea ax, word [bp - 0x0054]       ; 0x1c98
     push ax                          ; 0x1c9b
-    mov ax, 0xc8                     ; 0x1c9c
+    mov ax, MSG_LVL                  ; 0x1c9c
     push ax                          ; 0x1c9f
     call load_message_string         ; 0x1ca0
     add sp, byte 4                   ; 0x1ca3
@@ -257,7 +257,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1da2
     lea ax, word [bp - 0x0054]       ; 0x1da5
     push ax                          ; 0x1da8
-    mov ax, 0xc9                     ; 0x1da9
+    mov ax, MSG_RNK                  ; 0x1da9
     push ax                          ; 0x1dac
     call load_message_string         ; 0x1dad
     add sp, byte 4                   ; 0x1db0
@@ -319,7 +319,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1e32
     lea ax, word [bp - 0x0054]       ; 0x1e35
     push ax                          ; 0x1e38
-    mov ax, 0xca                     ; 0x1e39
+    mov ax, MSG_EXP                  ; 0x1e39
     push ax                          ; 0x1e3c
     call load_message_string         ; 0x1e3d
     add sp, byte 4                   ; 0x1e40
@@ -354,7 +354,7 @@ api_idx_0054_RLST:
     add sp, byte 8                   ; 0x1e88
     lea ax, word [bp - 0x0054]       ; 0x1e8b
     push ax                          ; 0x1e8e
-    mov ax, 0xcb                     ; 0x1e8f
+    mov ax, MSG_MKS                  ; 0x1e8f
     push ax                          ; 0x1e92
     call load_message_string         ; 0x1e93
     add sp, byte 4                   ; 0x1e96
@@ -395,7 +395,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1eec
     lea ax, word [bp - 0x0054]       ; 0x1eef
     push ax                          ; 0x1ef2
-    mov ax, 0xd4                     ; 0x1ef3
+    mov ax, MSG_HP                   ; 0x1ef3
     push ax                          ; 0x1ef6
     call load_message_string         ; 0x1ef7
     add sp, byte 4                   ; 0x1efa
@@ -465,7 +465,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1f96
     lea ax, word [bp - 0x0054]       ; 0x1f99
     push ax                          ; 0x1f9c
-    mov ax, 0xd5                     ; 0x1f9d
+    mov ax, MSG_ST                   ; 0x1f9d
     push ax                          ; 0x1fa0
     call load_message_string         ; 0x1fa1
     add sp, byte 4                   ; 0x1fa4

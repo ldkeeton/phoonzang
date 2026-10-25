@@ -50,7 +50,7 @@ run_state_0f_scene:
 @..run_state_0f_scene.l1:
     lea ax, word [bp - 0x0050]       ; 0x7fce
     push ax                          ; 0x7fd1
-    mov ax, 0x1388                   ; 0x7fd2
+    mov ax, MSG_YOU_DEFEATED_THE_MONSTERS ; 0x7fd2
     push ax                          ; 0x7fd5
     call load_message_string         ; 0x7fd6
     add sp, byte 4                   ; 0x7fd9

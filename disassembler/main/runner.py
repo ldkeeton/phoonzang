@@ -74,6 +74,7 @@ from .options import (
     ASM_DIR,
     AZTEC_PREBUILD_ONLY,
     DETAILED_TIMINGS,
+    PROJECT_ROOT,
     STATS,
     _DIAG,
     _ITERATIVE,
@@ -827,6 +828,21 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         a.immediate_labels, a.label_comments, a.split_functions, a.out_dir,
         a.c_overrides, a.asm_annotations)
     progress.log(f'{a.name} | verify+format')
+    from lib.msgids import (constant_names,
+                            message_bases as _message_bases,
+                            message_calls as _message_calls,
+                            project_data)
+    # The spelling of an id is a function of the message data, so rendering
+    # never reads the generated header: a tree cleaned since the last build
+    # renders exactly what a warm one does.  The names and the bases come
+    # from the same project-wide table.
+    message_names, message_bases = {}, {}
+    if a.project:
+        messages, _skipped, bases = project_data(a.project, PROJECT_ROOT)
+        if messages is not None:
+            message_names = constant_names(messages, bases)
+            message_bases = _message_bases(bases)
+    entry = a.ctx.sidecar_entry or {}
     asm_text, stats, emit_bytes, label_positions, split_sources = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
@@ -862,6 +878,9 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         ds_starts=ds_starts,
         record_layouts=record_layouts,
         foreign_pointer_params=_foreign_pointer_params(project, a.foreign_prefix),
+        message_calls=_message_calls(entry.get('message_calls') or ()),
+        message_names=message_names,
+        message_bases=message_bases,
         sidecar_use=(ctx.sidecar_entry or {}).get('use'),
         bands=(ctx.sidecar_entry or {}).get('bands') or (),
         data_modules=vendor_data_modules(project) if project else (),

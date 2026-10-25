@@ -240,7 +240,7 @@ class LinkedSymbol(str):
 
 def format_instruction(insn, label_map=None, local_labels=None, foreign_label_map=None,
                        immediate_labels=None, disp_labels=None, data_labels=None,
-                       mem_symbols=None):
+                       mem_symbols=None, message_symbols=None):
     """Return valid NASM line text for *insn*, or None if the instruction
     should stay as raw db bytes."""
     b = insn.bytes
@@ -318,6 +318,12 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
                 parts.append(label_map[target])
             elif is_flow and foreign_label_map and target in foreign_label_map:
                 parts.append(foreign_label_map[target])
+            elif (not is_flow and message_symbols
+                  and (insn.address, op_idx) in message_symbols):
+                # A message id is a game constant, not an address: the
+                # per-operand map names only the instruction that supplies
+                # the message argument, never every immediate of that value.
+                parts.append(message_symbols[(insn.address, op_idx)])
             elif not is_flow and immediate_labels and target in immediate_labels:
                 parts.append(immediate_labels[target])
             elif (not is_flow and mem_symbols

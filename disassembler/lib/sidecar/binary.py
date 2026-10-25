@@ -8,6 +8,7 @@ from .data_names import _data_names_map, _validate_data_names
 from .errors import SidecarError
 from .external_data import _external_data_map, _validate_external_data
 from .offsets import _parse_offset
+from .messages import _validate_message_calls, merge_message_calls
 from .patches import _validate_patches, parse_patches
 from .jump_tables import _validate_jump_tables, _validate_code_tables
 from .pointers import (_expand_pointer_arrays, _pointer_assertions,
@@ -71,6 +72,14 @@ def _validate_binary(name, info):
     if 'byte_patches' in info:
         _validate_patches(info['byte_patches'],
                           f'binaries.{name}.byte_patches')
+
+    if 'message_calls' in info:
+        _validate_message_calls(info['message_calls'],
+                               f'binaries.{name}.message_calls')
+
+    if 'message_bases' in info:
+        raise SidecarError(f'binaries.{name}.message_bases: the bases are '
+                           'message data, so they are project-wide only')
 
     _validate_corpus(info, f'binaries.{name}')
 
@@ -164,6 +173,7 @@ def per_binary(sidecar, short_name):
         'immediate_pointers': [],
         'ghidra_base_offset': 0,
         'entry_symbol': None,
+        'message_calls': sidecar.get('message_calls', []),
         'fingerprint-start': None,
         'fingerprint-end': None,
     }
@@ -211,6 +221,8 @@ def per_binary(sidecar, short_name):
             result['immediate_pointers'] = _pointer_assertions(
                 b.get('immediate_pointers', []),
                 f'binaries.{short_name}.immediate_pointers')
+            result['message_calls'] = merge_message_calls(
+                sidecar.get('message_calls', []), b.get('message_calls', []))
 
     validate_force_ranges(result['force_data'], result['force_code'],
                           f'binaries.{short_name}')

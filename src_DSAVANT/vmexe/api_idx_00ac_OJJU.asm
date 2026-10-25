@@ -156,7 +156,7 @@ api_idx_00ac_OJJU:
     mov word [bp - 0x0094], ax       ; 0x7b09
     mov ax, bss_9136                 ; 0x7b0d
     push ax                          ; 0x7b10
-    mov ax, 0xd38                    ; 0x7b11
+    mov ax, MSG_TH                   ; 0x7b11
     push ax                          ; 0x7b14
     call load_message_string         ; 0x7b15
     add sp, byte 4                   ; 0x7b18
@@ -223,7 +223,7 @@ jumptable_7c0e_case_28:
 @..api_idx_00ac_OJJU.l10:
     mov ax, bss_9136                 ; 0x7bb8
     push ax                          ; 0x7bbb
-    mov ax, 0xd1f                    ; 0x7bbc
+    mov ax, MSG_FIRES                ; 0x7bbc
     push ax                          ; 0x7bbf
     call load_message_string         ; 0x7bc0
     add sp, byte 4                   ; 0x7bc3
@@ -248,7 +248,7 @@ jumptable_7c0e_case_31:
 @..api_idx_00ac_OJJU.l12:
     mov ax, bss_9136                 ; 0x7bf8
     push ax                          ; 0x7bfb
-    mov ax, 0xd1f                    ; 0x7bfc
+    mov ax, MSG_FIRES                ; 0x7bfc
     push ax                          ; 0x7bff
     call load_message_string         ; 0x7c00
     add sp, byte 4                   ; 0x7c03
@@ -359,7 +359,7 @@ jumptable_7e61_case_49:
     mov word [bss_90de], 0xb         ; 0x7cf5
     mov ax, bss_9136                 ; 0x7cfb
     push ax                          ; 0x7cfe
-    mov ax, 0xd1f                    ; 0x7cff
+    mov ax, MSG_FIRES                ; 0x7cff
     push ax                          ; 0x7d02
     call load_message_string         ; 0x7d03
     add sp, byte 4                   ; 0x7d06
@@ -371,7 +371,7 @@ jumptable_7e61_case_50:
     mov word [bss_90de], 0xb         ; 0x7d1d
     mov ax, bss_9136                 ; 0x7d23
     push ax                          ; 0x7d26
-    mov ax, 0xd1f                    ; 0x7d27
+    mov ax, MSG_FIRES                ; 0x7d27
     push ax                          ; 0x7d2a
     call load_message_string         ; 0x7d2b
     add sp, byte 4                   ; 0x7d2e
@@ -382,7 +382,7 @@ jumptable_7e61_case_7:
     mov word [bss_90de], 5           ; 0x7d3f
     mov ax, bss_9136                 ; 0x7d45
     push ax                          ; 0x7d48
-    mov ax, 0xd1f                    ; 0x7d49
+    mov ax, MSG_FIRES                ; 0x7d49
     push ax                          ; 0x7d4c
     call load_message_string         ; 0x7d4d
     add sp, byte 4                   ; 0x7d50
@@ -404,7 +404,7 @@ jumptable_7e61_case_13:
     mov word [bss_90de], 0xc         ; 0x7d82
     mov ax, bss_9136                 ; 0x7d88
     push ax                          ; 0x7d8b
-    mov ax, 0xd1f                    ; 0x7d8c
+    mov ax, MSG_FIRES                ; 0x7d8c
     push ax                          ; 0x7d8f
     call load_message_string         ; 0x7d90
     add sp, byte 4                   ; 0x7d93
@@ -435,7 +435,7 @@ jumptable_7e61_case_52:
     mov word [bss_90de], 0xa         ; 0x7de0
     mov ax, bss_9136                 ; 0x7de6
     push ax                          ; 0x7de9
-    mov ax, 0xd1f                    ; 0x7dea
+    mov ax, MSG_FIRES                ; 0x7dea
     push ax                          ; 0x7ded
     call load_message_string         ; 0x7dee
     add sp, byte 4                   ; 0x7df1
@@ -447,7 +447,7 @@ jumptable_7e61_case_56:
     mov word [bss_90de], 0xc         ; 0x7e08
     mov ax, bss_9136                 ; 0x7e0e
     push ax                          ; 0x7e11
-    mov ax, 0xd1f                    ; 0x7e12
+    mov ax, MSG_FIRES                ; 0x7e12
     push ax                          ; 0x7e15
     call load_message_string         ; 0x7e16
     add sp, byte 4                   ; 0x7e19
@@ -465,7 +465,7 @@ jumptable_7e61_case_60:
     mov word [bss_90de], 0x10        ; 0x7e44
     mov ax, bss_9136                 ; 0x7e4a
     push ax                          ; 0x7e4d
-    mov ax, 0xd3c                    ; 0x7e4e
+    mov ax, MSG_CASTS_3388           ; 0x7e4e
     push ax                          ; 0x7e51
     call load_message_string         ; 0x7e52
     add sp, byte 4                   ; 0x7e55
@@ -2144,7 +2144,7 @@ jumptable_883a:
     add sp, byte 4                   ; 0x8e3f
     mov ax, bss_9186                 ; 0x8e42
     push ax                          ; 0x8e45
-    mov ax, 0xcea                    ; 0x8e46
+    mov ax, MSG_DAMAGE_3306          ; 0x8e46
     push ax                          ; 0x8e49
     call load_message_string         ; 0x8e4a
     add sp, byte 4                   ; 0x8e4d
@@ -2324,7 +2324,7 @@ jumptable_883a:
 @..api_idx_00ac_OJJU.l139:
     mov ax, bss_9136                 ; 0x8fe5
     push ax                          ; 0x8fe8
-    mov ax, 0xce7                    ; 0x8fe9
+    mov ax, MSG_NO_PENETRATION       ; 0x8fe9
     push ax                          ; 0x8fec
     call load_message_string         ; 0x8fed
     add sp, byte 4                   ; 0x8ff0

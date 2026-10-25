@@ -412,7 +412,7 @@ api_idx_0014_OSKJ:
     add sp, byte 6                   ; 0x68c8
     mov ax, bss_9136                 ; 0x68cb
     push ax                          ; 0x68ce
-    mov ax, 0xc8b                    ; 0x68cf
+    mov ax, MSG_TURNS_ON_COMRADES    ; 0x68cf
     push ax                          ; 0x68d2
     call load_message_string         ; 0x68d3
     add sp, byte 4                   ; 0x68d6

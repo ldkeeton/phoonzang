@@ -1,6 +1,7 @@
 ; auto-generated
 bits 16
 %include "include/structs.inc"
+%include "include/msg.inc"
 %ifndef VBASE
 %ifdef ELF_BUILD
 VBASE equ 0
@@ -37,17 +38,23 @@ IMAGE_BASE equ 0x0200 + VBASE
     times 476 db 0
 %endif
 
+bios_data_0410 equ 0x0410
+psp_top_of_memory equ 0x0002
+tick_counter_ptr equ __ztick_counter_ptr - __zdseg_start
 dseg_001e equ __zdseg_001e - __zdseg_start
 dseg_0022 equ __zdseg_0022 - __zdseg_start
 dseg_0024 equ __zdseg_0024 - __zdseg_start
+psp_env_segment equ 0x002c
 dseg_0030 equ __zdseg_0030 - __zdseg_start
 dseg_0038 equ __zdseg_0038 - __zdseg_start
 dseg_003c equ __zdseg_003c - __zdseg_start
 index_range2_first equ __zindex_range2_first - __zdseg_start
 index_range2_last equ __zindex_range2_last - __zdseg_start
 dseg_0044 equ __zdseg_0044 - __zdseg_start
+psp_cmd_tail_len equ 0x0080
 dseg_010c equ __zdseg_010c - __zdseg_start
 dseg_010e equ __zdseg_010e - __zdseg_start
+file_param_word equ __zfile_param_word - __zdseg_start
 dseg_0112 equ __zdseg_0112 - __zdseg_start
 dseg_0114 equ __zdseg_0114 - __zdseg_start
 dseg_0116 equ __zdseg_0116 - __zdseg_start
@@ -56,33 +63,161 @@ party_slot_y equ __zparty_slot_y - __zdseg_start
 party_slot_glyphs equ __zparty_slot_glyphs - __zdseg_start
 dseg_03ae equ __zdseg_03ae - __zdseg_start
 dseg_03dc equ __zdseg_03dc - __zdseg_start
+cell_overlay_code equ __zcell_overlay_code - __zdseg_start
+spell_table equ __zspell_table - __zdseg_start
+str_insert_savegame_disk equ __zstr_insert_savegame_disk - __zdseg_start
+monster_pic_name equ __zmonster_pic_name - __zdseg_start
+dseg_0bd7 equ __zdseg_0bd7 - __zdseg_start
 maze_blocks equ __zstr_0bd7 - __zdseg_start + 0x0003
+dseg_0be3 equ __zdseg_0be3 - __zdseg_start
+score_ext_csf equ __zscore_ext_csf - __zdseg_start
+score_ext_pbl equ __zscore_ext_pbl - __zdseg_start
+score_ext_pba equ __zscore_ext_pba - __zdseg_start
+dseg_0bfa equ __zdseg_0bfa - __zdseg_start
+dseg_0c48 equ __zdseg_0c48 - __zdseg_start
+dseg_0c4d equ __zdseg_0c4d - __zdseg_start
+endmarker equ __zendmarker - __zdseg_start
+aztec_MEMRY equ __zaztec_MEMRY - __zdseg_start
+errno equ __zerrno - __zdseg_start
+_dsval equ __z_dsval - __zdseg_start
+_csval equ __z_csval - __zdseg_start
+_mbot equ __z_mbot - __zdseg_start
+_sbot equ __z_sbot - __zdseg_start
+_mtop equ __z_mtop - __zdseg_start
+_lowwater equ __z_lowwater - __zdseg_start
+_PSP equ __z_PSP - __zdseg_start
+bad8087 equ __zbad8087 - __zdseg_start
+cls_ equ __zcls_ - __zdseg_start
+aztec_croot_empty_str equ __zaztec_croot_empty_str - __zdseg_start
+dseg_0cae equ __zdseg_0cae - __zdseg_start
+_STKSIZ equ __z_STKSIZ - __zdseg_start
+_STKRED equ __z_STKRED - __zdseg_start
+_HEAPSIZ equ __z_HEAPSIZ - __zdseg_start
+_STKLOW equ __z_STKLOW - __zdseg_start
+_ioflg equ __z_ioflg - __zdseg_start
+_ttrd equ __z_ttrd - __zdseg_start
+_ttwr equ __z_ttwr - __zdseg_start
+_Eol equ __z_Eol - __zdseg_start
+aztec_tty_wr_crbuf equ __zaztec_tty_wr_crbuf - __zdseg_start
+_Uorg equ __zbss_0cf6 - __zdseg_start
+saved_word equ __zbss_0cf6 - __zdseg_start
+saved_pair equ __zbss_0cf8 - __zdseg_start
+ovname equ __zbss_0cfa - __zdseg_start
+buff equ __zbss_0cfc - __zdseg_start
+keep equ __zbss_0cfe - __zdseg_start
+current equ __zbss_0d00 - __zdseg_start
+first equ __zbss_0d02 - __zdseg_start
+Argc equ __zbss_0d04 - __zdseg_start
+Argv equ __zbss_0d06 - __zdseg_start
+aztec_tty_rd_buffer equ __zbss_0d08 - __zdseg_start
+aztec_tty_rd_bp equ __zbss_0e0c - __zdseg_start
+bss_0e0e equ __zbss_0e0e - __zdseg_start
+bss_0e10 equ __zbss_0e10 - __zdseg_start
+maze_tables equ __zbss_0e12 - __zdseg_start
+maze_data equ __zbss_0e14 - __zdseg_start
+bss_0e16 equ __zbss_0e16 - __zdseg_start
+bss_0e18 equ __zbss_0e18 - __zdseg_start
+bss_0e1a equ __zbss_0e1a - __zdseg_start
+bss_0e1c equ __zbss_0e1c - __zdseg_start
+bss_0e1e equ __zbss_0e1e - __zdseg_start
+bss_0e20 equ __zbss_0e20 - __zdseg_start
+data_file_fd equ __zbss_0e22 - __zdseg_start
+msg_dbs_fd equ __zbss_0e24 - __zdseg_start
+bss_0e26 equ __zbss_0e26 - __zdseg_start
+bss_0e28 equ __zbss_0e28 - __zdseg_start
+mouse_pointer_shape equ __zbss_0e2a - __zdseg_start
+mouse_pointer_shape_seg equ __zbss_0e2c - __zdseg_start
+bss_0e2e equ __zbss_0e2e - __zdseg_start
+bss_0e30 equ __zbss_0e30 - __zdseg_start
+mouse_active equ __zbss_0e32 - __zdseg_start
+code_check_value equ __zbss_0e34 - __zdseg_start
 character_record_index equ __zbss_0e36 - __zdseg_start
+known_spell_names equ __zbss_0e38 - __zdseg_start
 bss_0e4c equ __zbss_0e4c - __zdseg_start
+code_char_message_index equ __zbss_0fd5 - __zdseg_start
+code_table equ __zbss_0fd6 - __zdseg_start
+answer_check_word equ __zbss_1008 - __zdseg_start
+bss_100a equ __zbss_100a - __zdseg_start
+message_directory equ __zbss_100c - __zdseg_start
 bss_2d40 equ __zbss_2d40 - __zdseg_start
 bss_2d58 equ __zbss_2d58 - __zdseg_start
+message_cache_ids equ __zbss_3e0a - __zdseg_start
+message_block_buffer equ __zbss_3e12 - __zdseg_start
+message_block_current equ __zbss_5212 - __zdseg_start
+message_cache_next equ __zbss_5214 - __zdseg_start
+message_not_found equ __zbss_5216 - __zdseg_start
+disk_header equ __zbss_5218 - __zdseg_start
+record_base equ __zbss_521c - __zdseg_start
+record_map_2 equ __zbss_5244 - __zdseg_start
+record_map_5 equ __zbss_5264 - __zdseg_start
+record_map_7 equ __zbss_52c4 - __zdseg_start
+record_map_4 equ __zbss_53c4 - __zdseg_start
+record_map_8 equ __zbss_54c4 - __zdseg_start
+record_size equ __zbss_5524 - __zdseg_start
 bss_5528 equ __zbss_5528 - __zdseg_start
 bss_552a equ __zbss_552a - __zdseg_start
+record_packed equ __zbss_556c - __zdseg_start
+sound_slot_info equ __zbss_5576 - __zdseg_start
 bss_5642 equ __zbss_5642 - __zdseg_start
 action_bitmap equ __zbss_5842 - __zdseg_start
 bss_590e equ __zbss_590e - __zdseg_start
 bss_5910 equ __zbss_5910 - __zdseg_start
+data_path_prefixes equ __zbss_5912 - __zdseg_start
+disk_drive_name equ __zbss_5926 - __zdseg_start
 bss_593a equ __zbss_593a - __zdseg_start
 bss_594e equ __zbss_594e - __zdseg_start
+screen_store_1_enabled equ __zbss_5962 - __zdseg_start
+screen_store_disk_enabled equ __zbss_5963 - __zdseg_start
+screen_store_drive equ __zbss_5964 - __zdseg_start
 bss_5978 equ __zbss_5978 - __zdseg_start
 bss_5979 equ __zbss_5979 - __zdseg_start
 bss_597a equ __zbss_597a - __zdseg_start
+bss_597c equ __zbss_597c - __zdseg_start
 bss_597d equ __zbss_597d - __zdseg_start
 bss_597e equ __zbss_597e - __zdseg_start
+music_volume equ __zbss_597f - __zdseg_start
 bss_5980 equ __zbss_5980 - __zdseg_start
 bss_5982 equ __zbss_5982 - __zdseg_start
+bss_5984 equ __zbss_5984 - __zdseg_start
+video_mode equ __zbss_5985 - __zdseg_start
 bss_5986 equ __zbss_5986 - __zdseg_start
+install_mode equ __zbss_5987 - __zdseg_start
 bss_5988 equ __zbss_5988 - __zdseg_start
 bss_5989 equ __zbss_5989 - __zdseg_start
 bss_598a equ __zbss_598a - __zdseg_start
 bss_598b equ __zbss_598b - __zdseg_start
+no_dissolve equ __zbss_598c - __zdseg_start
+loaded_sound_id equ __zbss_598e - __zdseg_start
+code_characters equ __zbss_5990 - __zdseg_start
+code_char_index equ __zbss_59f4 - __zdseg_start
+answer_length equ __zbss_59f6 - __zdseg_start
+code_check_word equ __zbss_59f8 - __zdseg_start
+bss_59fa equ __zbss_59fa - __zdseg_start
+space_key_hit equ __zbss_59fc - __zdseg_start
+hotspot_rects equ __zbss_59fe - __zdseg_start
+hotspot_keys equ __zbss_5afe - __zdseg_start
+hotspot_hit equ __zbss_5b3e - __zdseg_start
+code_index_1 equ __zbss_5b40 - __zdseg_start
+code_index_2 equ __zbss_5b42 - __zdseg_start
+code_index_3 equ __zbss_5b44 - __zdseg_start
+code_index_4 equ __zbss_5b46 - __zdseg_start
+picture_slot_number equ __zbss_5b48 - __zdseg_start
 bss_5b55 equ __zbss_5b55 - __zdseg_start
+picture_slot_used equ __zbss_5b5a - __zdseg_start
+current_maze equ __zbss_5b6c - __zdseg_start
+maze_variant equ __zbss_5b6e - __zdseg_start
+maze_state equ __zbss_5b70 - __zdseg_start
+saved_screen_kind equ __zbss_5b72 - __zdseg_start
+saved_screen_file equ __zbss_5b7c - __zdseg_start
+saved_screen_ref equ __zbss_5be0 - __zdseg_start
+party_records equ __zbss_5bf4 - __zdseg_start
+panel_area equ __zbss_69a4 - __zdseg_start
+member_icon equ __zbss_69bc - __zdseg_start
+party_char_count equ __zbss_69c8 - __zdseg_start
+data_path_buf equ __zbss_69ca - __zdseg_start
+slot_recs equ __zbss_6a1a - __zdseg_start
 glyph_x_table equ __zbss_6e6c - __zdseg_start
+glyph_y_table equ __zbss_6eb5 - __zdseg_start
 marker_x equ __zbss_7abc - __zdseg_start
 bss_7abe equ __zbss_7abe - __zdseg_start
 marker_y equ __zbss_7b04 - __zdseg_start
@@ -90,6 +225,15 @@ bss_7b05 equ __zbss_7b05 - __zdseg_start
 bss_7d3c equ __zbss_7d3c - __zdseg_start
 glyph_x_table_b equ __zbss_7ed4 - __zdseg_start
 glyph_y_table_b equ __zbss_7f1d - __zdseg_start
+loaded_score_num equ __zbss_82b6 - __zdseg_start
+answer_word equ __zbss_82b8 - __zdseg_start
+party_status_areas equ __zbss_82d0 - __zdseg_start
+party_status_frame equ __zbss_82e8 - __zdseg_start
+party_status_frame_step equ __zbss_82ea - __zdseg_start
+party_status_frame_seen equ __zbss_82ec - __zdseg_start
+party_tag equ __zbss_82ee - __zdseg_start
+party_status_heading equ __zbss_82f0 - __zdseg_start
+party_status_timer equ __zbss_82f2 - __zdseg_start
 bss_82f4 equ __zbss_82f4 - __zdseg_start
 bss_82f6 equ __zbss_82f6 - __zdseg_start
 bss_82f8 equ __zbss_82f8 - __zdseg_start
@@ -100,6 +244,8 @@ bss_8300 equ __zbss_8300 - __zdseg_start
 bss_8302 equ __zbss_8302 - __zdseg_start
 bss_8304 equ __zbss_8304 - __zdseg_start
 bss_8306 equ __zbss_8306 - __zdseg_start
+game_state equ __zbss_830a - __zdseg_start
+game_state_arg equ __zbss_830c - __zdseg_start
 party_slot_frame equ __zbss_830e - __zdseg_start
 bss_831a equ __zbss_831a - __zdseg_start
 bss_8320 equ __zbss_8320 - __zdseg_start
@@ -229,6 +375,7 @@ bss_908e equ __zbss_908e - __zdseg_start
 bss_9090 equ __zbss_9090 - __zdseg_start
 bss_9092 equ __zbss_9092 - __zdseg_start
 bss_9094 equ __zbss_9094 - __zdseg_start
+_TTrem equ __zbss_9096 - __zdseg_start
 save_location_flag equ __zbss_919e - __zdseg_start
 location_changed equ __zbss_91a8 - __zdseg_start
 known_spell_list equ __zbss_966a - __zdseg_start
@@ -264,7 +411,9 @@ scene_step_b equ __zbss_a5fa - __zdseg_start
 scene_step_c equ __zbss_a5fc - __zdseg_start
 scene_step_d equ __zbss_a5fe - __zdseg_start
 scene_clip_arg equ __zbss_a600 - __zdseg_start
+bss_b198 equ __zbss_b198 - __zdseg_start
 __zbss_size equ __zbss_end - __zimage_end
+__zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/app_malloc.asm"          ; 0x0200
 
@@ -272,30 +421,10 @@ __zbss_size equ __zbss_end - __zimage_end
 
 %include "ds/game/app_free.asm"            ; 0x022f
 
-bss_0e0e                equ __zbss_0e0e - __zdseg_start
-bss_0e10                equ __zbss_0e10 - __zdseg_start
-maze_tables             equ __zbss_0e12 - __zdseg_start
-maze_data               equ __zbss_0e14 - __zdseg_start
-bss_0e16                equ __zbss_0e16 - __zdseg_start
-bss_0e18                equ __zbss_0e18 - __zdseg_start
-bss_0e1a                equ __zbss_0e1a - __zdseg_start
-bss_0e1c                equ __zbss_0e1c - __zdseg_start
-bss_0e1e                equ __zbss_0e1e - __zdseg_start
-bss_0e20                equ __zbss_0e20 - __zdseg_start
-data_file_fd            equ __zbss_0e22 - __zdseg_start
-msg_dbs_fd              equ __zbss_0e24 - __zdseg_start
-bss_0e26                equ __zbss_0e26 - __zdseg_start
-bss_0e28                equ __zbss_0e28 - __zdseg_start
-mouse_pointer_shape     equ __zbss_0e2a - __zdseg_start
-mouse_pointer_shape_seg equ __zbss_0e2c - __zdseg_start
-bss_0e2e                equ __zbss_0e2e - __zdseg_start
-bss_0e30                equ __zbss_0e30 - __zdseg_start
-mouse_active            equ __zbss_0e32 - __zdseg_start
 %include "ds/game/release_resources.asm"   ; 0x0242
 
 %include "ds/game/release_and_exit.asm"    ; 0x03b8
 
-code_check_value equ __zbss_0e34 - __zdseg_start
 %include "ds/game/set_code_check_value.asm" ; 0x03cd
 
 %include "ds/game/ds_app_string_TVHI.asm"  ; 0x03da
@@ -310,90 +439,38 @@ code_check_value equ __zbss_0e34 - __zdseg_start
 
 %include "ds/game/str_subst_char.asm"      ; 0x0547
 
-code_char_message_index equ __zbss_0fd5 - __zdseg_start
-code_table              equ __zbss_0fd6 - __zdseg_start
-answer_check_word       equ __zbss_1008 - __zdseg_start
-bss_100a                equ __zbss_100a - __zdseg_start
 %include "ds/game/ds_app_string_MPHP.asm"  ; 0x05d0
 
-message_directory equ __zbss_100c - __zdseg_start
 %include "ds/game/find_message_record.asm" ; 0x065d
 
-; msg_dbs_fd            equ __zbss_0e24 - __zdseg_start
-message_cache_ids     equ __zbss_3e0a - __zdseg_start
-message_block_buffer  equ __zbss_3e12 - __zdseg_start
-message_block_current equ __zbss_5212 - __zdseg_start
-message_cache_next    equ __zbss_5214 - __zdseg_start
 %include "ds/game/load_message_block.asm"  ; 0x06c6
 
-; message_block_buffer  equ __zbss_3e12 - __zdseg_start
-; message_block_current equ __zbss_5212 - __zdseg_start
-message_not_found     equ __zbss_5216 - __zdseg_start
 %include "ds/game/load_message_string.asm" ; 0x0782
 
 %include "ds/game/draw_message_string.asm" ; 0x0860
 
-; data_file_fd  equ __zbss_0e22 - __zdseg_start
-record_base   equ __zbss_521c - __zdseg_start
-record_map_2  equ __zbss_5244 - __zdseg_start
-record_map_5  equ __zbss_5264 - __zdseg_start
-record_map_7  equ __zbss_52c4 - __zdseg_start
-record_map_4  equ __zbss_53c4 - __zdseg_start
-record_map_8  equ __zbss_54c4 - __zdseg_start
-record_size   equ __zbss_5524 - __zdseg_start
-record_packed equ __zbss_556c - __zdseg_start
 %include "ds/game/data_record_io.asm"      ; 0x0883
 
-tick_counter_ptr equ __ztick_counter_ptr - __zdseg_start
 %include "ds/game/wait_for_hotspot_timeout.asm" ; 0x09a5
 
 %include "ds/game/random_below.asm"        ; 0x09f0
 
 %include "ds/game/clamp_between.asm"       ; 0x0a09
 
-sound_slot_info equ __zbss_5576 - __zdseg_start
-bss_597c        equ __zbss_597c - __zdseg_start
-bss_5984        equ __zbss_5984 - __zdseg_start
-loaded_sound_id equ __zbss_598e - __zdseg_start
 %include "ds/game/play_sound_effect.asm"   ; 0x0a27
 
-; code_check_value equ __zbss_0e34 - __zdseg_start
-code_characters  equ __zbss_5990 - __zdseg_start
-code_char_index  equ __zbss_59f4 - __zdseg_start
-answer_length    equ __zbss_59f6 - __zdseg_start
-code_check_word  equ __zbss_59f8 - __zdseg_start
 %include "ds/game/ds_app_RMGT.asm"         ; 0x0ad7
 
 %include "ds/game/set_mouse_pointer_shape.asm" ; 0x0af6
 
-; mouse_active  equ __zbss_0e32 - __zdseg_start
-bss_59fa      equ __zbss_59fa - __zdseg_start
-space_key_hit equ __zbss_59fc - __zdseg_start
-hotspot_rects equ __zbss_59fe - __zdseg_start
-hotspot_keys  equ __zbss_5afe - __zdseg_start
-hotspot_hit   equ __zbss_5b3e - __zdseg_start
 %include "ds/game/poll_hotspots.asm"       ; 0x0b54
 
-; code_table      equ __zbss_0fd6 - __zdseg_start
-; code_characters equ __zbss_5990 - __zdseg_start
-; answer_length   equ __zbss_59f6 - __zdseg_start
-code_index_1    equ __zbss_5b40 - __zdseg_start
-code_index_2    equ __zbss_5b42 - __zdseg_start
-code_index_3    equ __zbss_5b44 - __zdseg_start
-code_index_4    equ __zbss_5b46 - __zdseg_start
 %include "ds/game/ds_app_string_KVNI.asm"  ; 0x0c0b
 
-; hotspot_rects equ __zbss_59fe - __zdseg_start
-; hotspot_keys  equ __zbss_5afe - __zdseg_start
 %include "ds/game/set_hotspot.asm"         ; 0x0ced
 
-; hotspot_rects equ __zbss_59fe - __zdseg_start
-; hotspot_hit   equ __zbss_5b3e - __zdseg_start
 %include "ds/game/poll_fullscreen_hotspot.asm" ; 0x0d36
 
-; mouse_pointer_shape equ __zbss_0e2a - __zdseg_start
-; mouse_active        equ __zbss_0e32 - __zdseg_start
-no_dissolve         equ __zbss_598c - __zdseg_start
 %include "ds/game/dissolve_or_show_area.asm" ; 0x0d7a
 
 %include "ds/game/draw_rect_outline.asm"   ; 0x0e03
@@ -412,7 +489,6 @@ no_dissolve         equ __zbss_598c - __zdseg_start
 
 %include "ds/game/flash_area.asm"          ; 0x10ff
 
-known_spell_names equ __zbss_0e38 - __zdseg_start
 %include "ds/game/draw_spell_list.asm"     ; 0x1138
 
 %include "ds/game/draw_text_list.asm"      ; 0x11de
@@ -421,154 +497,70 @@ known_spell_names equ __zbss_0e38 - __zdseg_start
 
 %include "ds/game/draw_button.asm"         ; 0x1308
 
-picture_slot_number equ __zbss_5b48 - __zdseg_start
-picture_slot_used   equ __zbss_5b5a - __zdseg_start
 %include "ds/game/free_picture_slot.asm"   ; 0x1371
 
-current_maze equ __zbss_5b6c - __zdseg_start
-maze_variant equ __zbss_5b6e - __zdseg_start
-maze_state   equ __zbss_5b70 - __zdseg_start
 %include "ds/game/free_current_maze.asm"   ; 0x138c
 
-screen_store_1_enabled    equ __zbss_5962 - __zdseg_start
-screen_store_disk_enabled equ __zbss_5963 - __zdseg_start
-screen_store_drive        equ __zbss_5964 - __zdseg_start
-saved_screen_kind         equ __zbss_5b72 - __zdseg_start
-saved_screen_file         equ __zbss_5b7c - __zdseg_start
-saved_screen_ref          equ __zbss_5be0 - __zdseg_start
 %include "ds/game/save_screen_area.asm"    ; 0x14ca
 
-; saved_screen_kind equ __zbss_5b72 - __zdseg_start
-; saved_screen_file equ __zbss_5b7c - __zdseg_start
-; saved_screen_ref  equ __zbss_5be0 - __zdseg_start
 %include "ds/game/restore_saved_screen.asm" ; 0x16a0
 
-cell_overlay_code equ __zcell_overlay_code - __zdseg_start
-party_records     equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/cell_power.asm"          ; 0x1741
 
-; party_records equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/sum_page_cell_values.asm" ; 0x17d6
 
-; party_records equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/reset_page_record.asm"   ; 0x184f
 
-; party_records equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/compact_grid_page.asm"   ; 0x1a23
 
-; party_records equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/clear_cell_key.asm"      ; 0x1c2f
 
-; party_records equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/ds_app_UTUH.asm"         ; 0x1c6e
 
-; code_char_message_index equ __zbss_0fd5 - __zdseg_start
-; code_characters         equ __zbss_5990 - __zdseg_start
-; code_char_index         equ __zbss_59f4 - __zdseg_start
 %include "ds/game/pick_code_char.asm"      ; 0x1cb1
 
-; party_records equ __zbss_5bf4 - __zdseg_start
 %include "ds/game/member_is_active.asm"    ; 0x1ccc
 
 %include "ds/game/draw_power_bar.asm"      ; 0x1cf8
 
-spell_table   equ __zspell_table - __zdseg_start
-; party_records equ __zbss_5bf4 - __zdseg_start
-panel_area    equ __zbss_69a4 - __zdseg_start
-member_icon   equ __zbss_69bc - __zdseg_start
 %include "ds/game/draw_party_member_panel.asm" ; 0x1d81
 
-; bss_0e2e         equ __zbss_0e2e - __zdseg_start
-; bss_0e30         equ __zbss_0e30 - __zdseg_start
-; mouse_active     equ __zbss_0e32 - __zdseg_start
-; bss_59fa         equ __zbss_59fa - __zdseg_start
-; hotspot_rects    equ __zbss_59fe - __zdseg_start
-; hotspot_hit      equ __zbss_5b3e - __zdseg_start
-party_char_count equ __zbss_69c8 - __zdseg_start
 %include "ds/game/pick_party_member.asm"   ; 0x20f8
 
 %include "ds/game/add_random_steps.asm"    ; 0x2305
 
-saved_word equ __zbss_0cf6 - __zdseg_start
-saved_pair equ __zbss_0cf8 - __zdseg_start
 %include "ds/game/store_word_and_pair.asm" ; 0x2331
 
 %include "ds/game/copy_through_char.asm"   ; 0x2359
 
-data_path_prefixes equ __zbss_5912 - __zdseg_start
-install_mode       equ __zbss_5987 - __zdseg_start
-data_path_buf      equ __zbss_69ca - __zdseg_start
 %include "ds/game/data_file_path.asm"      ; 0x23a8
 
-str_insert_savegame_disk equ __zstr_insert_savegame_disk - __zdseg_start
-; data_file_fd             equ __zbss_0e22 - __zdseg_start
-; msg_dbs_fd               equ __zbss_0e24 - __zdseg_start
-disk_header              equ __zbss_5218 - __zdseg_start
-disk_drive_name          equ __zbss_5926 - __zdseg_start
-; install_mode             equ __zbss_5987 - __zdseg_start
-; hotspot_rects            equ __zbss_59fe - __zdseg_start
-; hotspot_hit              equ __zbss_5b3e - __zdseg_start
 %include "ds/game/prompt_disk_swap.asm"    ; 0x23ef
 
-; disk_header        equ __zbss_5218 - __zdseg_start
-; data_path_prefixes equ __zbss_5912 - __zdseg_start
-; install_mode       equ __zbss_5987 - __zdseg_start
 %include "ds/game/ensure_game_disk.asm"    ; 0x27e9
 
-monster_pic_name    equ __zmonster_pic_name - __zdseg_start
-; picture_slot_number equ __zbss_5b48 - __zdseg_start
-; picture_slot_used   equ __zbss_5b5a - __zdseg_start
-slot_recs           equ __zbss_6a1a - __zdseg_start
 %include "ds/game/load_monster_picture.asm" ; 0x2863
 
 %include "ds/game/wait_and_free_sound.asm" ; 0x290d
 
-dseg_0bd7       equ __zdseg_0bd7 - __zdseg_start
-; sound_slot_info equ __zbss_5576 - __zdseg_start
 %include "ds/game/load_sound_file.asm"     ; 0x2923
 
-; loaded_sound_id equ __zbss_598e - __zdseg_start
 %include "ds/game/ds_app_QTIV.asm"         ; 0x29f1
 
-dseg_0be3        equ __zdseg_0be3 - __zdseg_start
-score_ext_csf    equ __zscore_ext_csf - __zdseg_start
-score_ext_pbl    equ __zscore_ext_pbl - __zdseg_start
-score_ext_pba    equ __zscore_ext_pba - __zdseg_start
-video_mode       equ __zbss_5985 - __zdseg_start
-loaded_score_num equ __zbss_82b6 - __zdseg_start
 %include "ds/game/load_score_files.asm"    ; 0x2a2e
 
-; loaded_score_num equ __zbss_82b6 - __zdseg_start
 %include "ds/game/app_gfx_free_score.asm"  ; 0x2b4e
 
 %include "ds/game/fade_out_music.asm"      ; 0x2b62
 
-music_volume equ __zbss_597f - __zdseg_start
 %include "ds/game/ds_app_UKGP.asm"         ; 0x2bab
 
-; music_volume equ __zbss_597f - __zdseg_start
-; video_mode   equ __zbss_5985 - __zdseg_start
 %include "ds/game/score_music_enabled.asm" ; 0x2bed
 
-; code_table        equ __zbss_0fd6 - __zdseg_start
-; answer_check_word equ __zbss_1008 - __zdseg_start
-; answer_length     equ __zbss_59f6 - __zdseg_start
-; code_check_word   equ __zbss_59f8 - __zdseg_start
-answer_word       equ __zbss_82b8 - __zdseg_start
 %include "ds/game/verify_answer_word.asm"  ; 0x2c11
 
-party_status_areas      equ __zbss_82d0 - __zdseg_start
-party_status_frame      equ __zbss_82e8 - __zdseg_start
-party_status_frame_step equ __zbss_82ea - __zdseg_start
-party_status_frame_seen equ __zbss_82ec - __zdseg_start
-party_tag               equ __zbss_82ee - __zdseg_start
-party_status_heading    equ __zbss_82f0 - __zdseg_start
-party_status_timer      equ __zbss_82f2 - __zdseg_start
 %include "ds/game/draw_party_status_glyphs.asm" ; 0x2c69
 
-dseg_0bfa      equ __zdseg_0bfa - __zdseg_start
-game_state     equ __zbss_830a - __zdseg_start
-game_state_arg equ __zbss_830c - __zdseg_start
 %include "ds/game/main.asm"                ; 0x2dd5
 
 %include "ds/data/cseg_2f35.asm"           ; 0x2f35
@@ -617,7 +609,6 @@ game_state_arg equ __zbss_830c - __zdseg_start
 
 %include "ds/library/ds_loc_IGLJ.asm"      ; 0x30a3
 
-bios_data_0410 equ 0x0410
 %include "ds/library/restore_saved_video_state.asm" ; 0x30c3
 
 %include "ds/data/random_seed_a.asm"       ; 0x30dc
@@ -630,10 +621,8 @@ bios_data_0410 equ 0x0410
 
 %include "ds/library/detect_video_adapter.asm" ; 0x30f7
 
-; bios_data_0410 equ 0x0410
 %include "ds/library/select_vga_driver.asm" ; 0x343e
 
-; bios_data_0410 equ 0x0410
 %include "ds/library/select_ega_driver.asm" ; 0x3490
 
 %include "ds/library/load_video_driver.asm" ; 0x3534
@@ -680,7 +669,6 @@ bios_data_0410 equ 0x0410
 
 %include "ds/data/font_seg_table.asm"      ; 0x384a
 
-file_param_word equ __zfile_param_word - __zdseg_start
 %include "ds/library/load_font_file.asm"   ; 0x3860
 
 %include "ds/library/font_io_error_exit.asm" ; 0x3936
@@ -689,10 +677,8 @@ file_param_word equ __zfile_param_word - __zdseg_start
 
 %include "ds/library/font_memory_error.asm" ; 0x395b
 
-; file_param_word equ __zfile_param_word - __zdseg_start
 %include "ds/library/read_font_glyph.asm"  ; 0x398a
 
-; file_param_word equ __zfile_param_word - __zdseg_start
 %include "ds/library/get_font_glyph.asm"   ; 0x39f6
 
 %include "ds/library/gfx_set_text_pos.asm" ; 0x3a50
@@ -729,7 +715,6 @@ file_param_word equ __zfile_param_word - __zdseg_start
 
 %include "ds/library/ds_loc_JRJK.asm"      ; 0x3ba3
 
-glyph_y_table equ __zbss_6eb5 - __zdseg_start
 %include "ds/library/stir_random_seeds.asm" ; 0x3c0d
 
 %include "ds/data/key_queue.asm"           ; 0x3c7f
@@ -844,19 +829,12 @@ glyph_y_table equ __zbss_6eb5 - __zdseg_start
 
 %include "ds/library/gfx_cache_screen.asm" ; 0x436c
 
-dseg_0c48   equ __zdseg_0c48 - __zdseg_start
-dseg_0c4d   equ __zdseg_0c4d - __zdseg_start
-_mbot       equ __z_mbot - __zdseg_start
-ovname      equ __zbss_0cfa - __zdseg_start
-__zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "ds/aztec/aztec_ovloader.asm"     ; 0x4379
 
 %include "ds/aztec/aztec_bdos.asm"         ; 0x4497
 
-errno equ __zerrno - __zdseg_start
 %include "ds/aztec/aztec_csread.asm"       ; 0x44b4
 
-buff equ __zbss_0cfc - __zdseg_start
 %include "ds/aztec/aztec_sprintf.asm"      ; 0x44d4
 
 %include "ds/aztec/aztec_movblock.asm"     ; 0x4517
@@ -869,86 +847,36 @@ buff equ __zbss_0cfc - __zdseg_start
 
 %include "ds/aztec/aztec_dos20_lmalloc.asm" ; 0x45d7
 
-_sbot     equ __z_sbot - __zdseg_start
-_lowwater equ __z_lowwater - __zdseg_start
 %include "ds/aztec/aztec_csav.asm"         ; 0x4650
 
-endmarker equ __zendmarker - __zdseg_start
-keep      equ __zbss_0cfe - __zdseg_start
-current   equ __zbss_0d00 - __zdseg_start
-first     equ __zbss_0d02 - __zdseg_start
 %include "shared/aztec/aztec_misc_lmalloc.asm" ; 0x467b
 
-; first equ __zbss_0d02 - __zdseg_start
 %include "shared/aztec/aztec_format.asm"       ; 0x480d
 
-; errno  equ __zerrno - __zdseg_start
-_ioflg equ __z_ioflg - __zdseg_start
 %include "shared/aztec/aztec_open.asm"         ; 0x4b39
 
 %include "shared/aztec/aztec_lsubs.asm"        ; 0x4be6
 
 %include "shared/aztec/aztec_strlen.asm"       ; 0x4cd7
 
-; errno equ __zerrno - __zdseg_start
 %include "shared/aztec/aztec_sys.asm"          ; 0x4cf4
 
-psp_top_of_memory equ 0x0002
-psp_env_segment   equ 0x002c
-psp_cmd_tail_len  equ 0x0080
-aztec_MEMRY       equ __zaztec_MEMRY - __zdseg_start
-_dsval            equ __z_dsval - __zdseg_start
-_csval            equ __z_csval - __zdseg_start
-; _mbot             equ __z_mbot - __zdseg_start
-; _sbot             equ __z_sbot - __zdseg_start
-_mtop             equ __z_mtop - __zdseg_start
-_PSP              equ __z_PSP - __zdseg_start
-bad8087           equ __zbad8087 - __zdseg_start
-_STKSIZ           equ __z_STKSIZ - __zdseg_start
-_STKRED           equ __z_STKRED - __zdseg_start
-_HEAPSIZ          equ __z_HEAPSIZ - __zdseg_start
-_STKLOW           equ __z_STKLOW - __zdseg_start
-_Uorg             equ __zbss_0cf6 - __zdseg_start
-; __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "shared/aztec/aztec_sbegin.asm"       ; 0x4d36
 
-cls_                  equ __zcls_ - __zdseg_start
-aztec_croot_empty_str equ __zaztec_croot_empty_str - __zdseg_start
-; _ioflg                equ __z_ioflg - __zdseg_start
-Argc                  equ __zbss_0d04 - __zdseg_start
-Argv                  equ __zbss_0d06 - __zdseg_start
 %include "shared/aztec/aztec_croot.asm"        ; 0x4ea3
 
 %include "shared/aztec/aztec_fltstub.asm"      ; 0x4f85
 
-dseg_0cae equ __zdseg_0cae - __zdseg_start
 %include "ds/aztec/aztec_stkover.asm"      ; 0x4f87
 
-; errno  equ __zerrno - __zdseg_start
-; _ioflg equ __z_ioflg - __zdseg_start
-_ttrd  equ __z_ttrd - __zdseg_start
-_ttwr  equ __z_ttwr - __zdseg_start
 %include "shared/aztec/aztec_io.asm"           ; 0x4fa2
 
-_Eol                equ __z_Eol - __zdseg_start
-aztec_tty_wr_crbuf  equ __zaztec_tty_wr_crbuf - __zdseg_start
-aztec_tty_rd_buffer equ __zbss_0d08 - __zdseg_start
-aztec_tty_rd_bp     equ __zbss_0e0c - __zdseg_start
-_TTrem              equ __zbss_9096 - __zdseg_start
 %include "shared/aztec/aztec_ttyio.asm"        ; 0x505c
 
 %include "shared/aztec/aztec_movmem.asm"       ; 0x5123
 
 %include "shared/aztec/aztec_isatty.asm"       ; 0x5168
 
-; aztec_MEMRY equ __zaztec_MEMRY - __zdseg_start
-; errno       equ __zerrno - __zdseg_start
-; _mbot       equ __z_mbot - __zdseg_start
-; _sbot       equ __z_sbot - __zdseg_start
-; _mtop       equ __z_mtop - __zdseg_start
-; _PSP        equ __z_PSP - __zdseg_start
-; _STKRED     equ __z_STKRED - __zdseg_start
-; _STKLOW     equ __z_STKLOW - __zdseg_start
 %include "shared/aztec/aztec_ssbrk.asm"        ; 0x5188
 
 
@@ -1005,10 +933,8 @@ __zdseg_start:
 
 %include "ds/data/dseg_0bfa.asm"           ; 0x10d5a
 
-; first equ __zbss_0d02 - __zdseg_start
 %include "shared/data/endmarker.asm"           ; 0x10dcc
 
-bss_b198 equ __zbss_b198 - __zdseg_start
 aztec_MEMRY.bss1 equ bss_b198
 %include "shared/data/aztec_MEMRY.asm"         ; 0x10dd0
 

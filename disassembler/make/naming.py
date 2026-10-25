@@ -1022,10 +1022,9 @@ def apply_names(project, binary, specs, journal=None):
 def _rename_in_masters(project, renames, journal=None):
     """Apply *renames* to the generated masters too.
 
-    The build links a shared source through the alias ``equ`` lines and
-    ``%include`` paths the masters on disk hold
-    (:func:`lib.shared.donor_aliases`); written before that build, they would
-    still carry the names this transaction replaces.  The build regenerates
+    The masters on disk hold the alias ``equ`` lines and ``%include`` paths
+    (:func:`lib.shared.include_aliases`); written before the next build, they
+    would still carry the names this transaction replaces.  The build regenerates
     the masters, so this only keeps them consistent until it does.
     """
     if not renames:
@@ -1269,8 +1268,9 @@ def _shared_aliases(project, text, sidecar):
     These are the names C cannot spell: a shared fragment that differs only
     in its data names or call targets writes ``stem.bss1``/``stem.api_idx1``,
     and every donor's master binds it to its own ``bss_XXXX`` or routine above
-    the ``%include``.  A C source may spell any donor's own name; each binary
-    links it as its own (:func:`lib.shared.donor_aliases`).  ``make name`` fans one
+    the ``%include``.  A C source may call any donor's own routine name; each
+    binary links the call by the original instruction's target
+    (:func:`lib.aztec.relink.link`).  ``make name`` fans one
     such spec out to all donors.
     """
     tokens = set(_TOKEN.findall(text))

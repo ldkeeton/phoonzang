@@ -22,13 +22,13 @@ api_idx_004e_HUKL:
     pop cx                           ; 0x38ba
     lea ax, word [bp - 0x003a]       ; 0x38bb
     push ax                          ; 0x38be
-    mov ax, 0x58c                    ; 0x38bf
+    mov ax, MSG_DISK_ERROR           ; 0x38bf
     push ax                          ; 0x38c2
     call load_message_string         ; 0x38c3
     add sp, byte 4                   ; 0x38c6
     lea ax, word [bp - 0x004e]       ; 0x38c9
     push ax                          ; 0x38cc
-    mov ax, 0x58e                    ; 0x38cd
+    mov ax, MSG_SAVING               ; 0x38cd
     push ax                          ; 0x38d0
     call load_message_string         ; 0x38d1
     add sp, byte 4                   ; 0x38d4

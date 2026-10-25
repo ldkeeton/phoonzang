@@ -47,7 +47,7 @@ api_idx_005e_SHOL:
     je short @..api_idx_005e_SHOL.l6 ; 0x145d
     lea ax, word [bp - 0x005e]       ; 0x145f
     push ax                          ; 0x1462
-    mov ax, 0x7e9                    ; 0x1463
+    mov ax, MSG_AN_ENCOUNTER         ; 0x1463
     push ax                          ; 0x1466
     call load_message_string         ; 0x1467
     add sp, byte 4                   ; 0x146a

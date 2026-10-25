@@ -1,6 +1,7 @@
 /* let pc pick a spell and, for a targeted one, pick the member it lands on */
 
 #include "structs/spell.h"
+#include "msg.h"
 
 extern struct spell_info spell_table[];
 extern char *party_char[];
@@ -16,7 +17,7 @@ int pc;
 	int result, button, power, spell, target;
 
 	wait_for_party_redraw();
-	button = action_spell_dialog(pc, 2026, 1, 1);	/* 0x7ea: button labels */
+	button = action_spell_dialog(pc, MSG_CAST, 1, 1);	/* button labels */
 	result = spell_dialog_result;
 	if (button == 1)	/* second button: cancelled */
 		return -1;

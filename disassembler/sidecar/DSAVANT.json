@@ -3,6 +3,11 @@
   "title": "Wizardry 7: Crusaders of the Dark Savant",
   "version": 1,
   "dos_compilers": ["Manx Aztec C86 v42b"],
+  "message_data": {
+    "directory": "MSG.HDR",
+    "blocks": "MSG.DBS",
+    "tree": "MISC.HDR"
+  },
   "compiler_flags": {
     "default": ["-n", "+b", "+m"],
     "asm": ["-dMODEL=0", "-l"],
@@ -112,6 +117,23 @@
     "loc_PTRP": {"name": "draw_power_digit", "note": "draws power digit i+1 at x+10*i, highlighted when selected; clears the first slot when neither"},
     "loc_SRQQ": {"name": "periodic_party_redraw", "note": "once party_redraw_interval ticks have passed, redraws the party panel and slot letters"}
   },
+  "message_calls": [
+    {"routine": "load_message_string", "arg": 1, "args": 2},
+    {"routine": "find_message_record", "arg": 1, "args": 1},
+    {"routine": "show_message", "arg": 1, "args": 1},
+    {"routine": "show_event_message", "arg": 1, "args": 1},
+    {"routine": "pick_spell_dialog", "arg": 2, "args": 4},
+    {"routine": "action_spell_dialog", "arg": 2, "args": 4},
+    {"routine": "spell_select_dialog", "arg": 2, "args": 4}
+  ],
+  "message_bases": [
+    {"value": 120, "name": "MSG_CLASS_BASE", "note": "class names, MSG_CLASS_BASE + class"},
+    {"value": 1059, "name": "MSG_ORDINAL_BASE", "note": "ordinals, MSG_ORDINAL_BASE + n"},
+    {"value": 1700, "name": "MSG_SLOT_NAME_BASE", "note": "NPC slot names, MSG_SLOT_NAME_BASE + slot"},
+    {"value": 1770, "name": "MSG_SLOT_KIND_BASE", "note": "NPC slot kinds, MSG_SLOT_KIND_BASE + kind"},
+    {"value": 2500, "name": "MSG_CODE_CHAR_BASE", "note": "code-character words, MSG_CODE_CHAR_BASE + index"},
+    {"value": 4000, "name": "MSG_SPELL_NAME_BASE", "note": "spell names, MSG_SPELL_NAME_BASE + spell"}
+  ],
   "binaries": {
     "ds": {
       "immediate_labels": {"0xff6": "__zdseg_para"},

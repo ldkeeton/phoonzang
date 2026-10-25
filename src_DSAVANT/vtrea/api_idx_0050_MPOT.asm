@@ -16,7 +16,7 @@ api_idx_0050_MPOT:
 @..api_idx_0050_MPOT.l2:
     lea ax, word [bp - 0x0050]       ; 0x140c
     push ax                          ; 0x140f
-    mov ax, 0x146b                   ; 0x1410
+    mov ax, MSG_OOPS_5227            ; 0x1410
     push ax                          ; 0x1413
     call load_message_string         ; 0x1414
     add sp, byte 4                   ; 0x1417

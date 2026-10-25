@@ -286,7 +286,7 @@ loc_HUIS:
     add sp, byte 6                   ; 0x5a37
     lea ax, word [bp - 0x00b4]       ; 0x5a3a
     push ax                          ; 0x5a3e
-    mov ax, 0x138d                   ; 0x5a3f
+    mov ax, MSG_YOU_FOUND            ; 0x5a3f
     push ax                          ; 0x5a42
     call load_message_string         ; 0x5a43
     add sp, byte 4                   ; 0x5a46
@@ -454,7 +454,7 @@ loc_HUIS:
     lea cx, word [bp - 0x0104]       ; 0x5bd3
     add ax, cx                       ; 0x5bd7
     push ax                          ; 0x5bd9
-    mov ax, 0x1398                   ; 0x5bda
+    mov ax, MSG_POTION_5016          ; 0x5bda
     push ax                          ; 0x5bdd
     call load_message_string         ; 0x5bde
     add sp, byte 4                   ; 0x5be1
@@ -464,7 +464,7 @@ loc_HUIS:
     lea cx, word [bp - 0x0104]       ; 0x5be9
     add ax, cx                       ; 0x5bed
     push ax                          ; 0x5bef
-    mov ax, 0x1399                   ; 0x5bf0
+    mov ax, MSG_SCROLL_5017          ; 0x5bf0
     push ax                          ; 0x5bf3
     call load_message_string         ; 0x5bf4
     add sp, byte 4                   ; 0x5bf7
@@ -474,7 +474,7 @@ loc_HUIS:
     lea cx, word [bp - 0x0104]       ; 0x5bff
     add ax, cx                       ; 0x5c03
     push ax                          ; 0x5c05
-    mov ax, 0x139a                   ; 0x5c06
+    mov ax, MSG_POWDER_5018          ; 0x5c06
     push ax                          ; 0x5c09
     call load_message_string         ; 0x5c0a
     add sp, byte 4                   ; 0x5c0d
@@ -513,7 +513,7 @@ loc_HUIS:
 @..loc_HUIS.l47:
     lea ax, word [bp - 0x0104]       ; 0x5c56
     push ax                          ; 0x5c5a
-    mov ax, 0x138a                   ; 0x5c5b
+    mov ax, MSG_EACH_SHARE_OF_LOOT_WOR_5002 ; 0x5c5b
     push ax                          ; 0x5c5e
     call load_message_string         ; 0x5c5f
     add sp, byte 4                   ; 0x5c62
@@ -551,7 +551,7 @@ loc_HUIS:
 @..loc_HUIS.l50:
     lea ax, word [bp - 0x0104]       ; 0x5cb5
     push ax                          ; 0x5cb9
-    mov ax, 0x138b                   ; 0x5cba
+    mov ax, MSG_EVERYONE_RECEIVES_A_EX_5003 ; 0x5cba
     push ax                          ; 0x5cbd
     call load_message_string         ; 0x5cbe
     add sp, byte 4                   ; 0x5cc1

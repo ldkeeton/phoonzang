@@ -44,7 +44,7 @@ api_idx_0080_MHMQ:
     mov word [bp - 0x0006], ax
     lea ax, word [bp - 0x0068]
     push ax
-    mov ax, 0xd8
+    mov ax, MSG_AC_216
     push ax
     call load_message_string
     add sp, byte 4

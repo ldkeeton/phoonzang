@@ -98,7 +98,7 @@ api_idx_0074_SGUS:
     mov word [bp - 0x0010], 1        ; 0x79d9
     lea ax, word [bp - 0x0074]       ; 0x79de
     push ax                          ; 0x79e1
-    mov ax, 0x808                    ; 0x79e2
+    mov ax, MSG_PROTECTED_BY_LEVITATION ; 0x79e2
     push ax                          ; 0x79e5
     call load_message_string         ; 0x79e6
     add sp, byte 4                   ; 0x79e9

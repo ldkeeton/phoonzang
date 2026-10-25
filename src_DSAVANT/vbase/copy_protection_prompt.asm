@@ -37,7 +37,7 @@ copy_protection_prompt:
     add sp, byte 4                   ; 0x633e
     lea ax, word [bp - 0x0058]       ; 0x6341
     push ax                          ; 0x6344
-    mov ax, 0x41a                    ; 0x6345
+    mov ax, MSG_SECURITY_CLEARANCE   ; 0x6345
     push ax                          ; 0x6348
     call load_message_string         ; 0x6349
     add sp, byte 4                   ; 0x634c
@@ -77,7 +77,7 @@ copy_protection_prompt:
     add sp, byte 4                   ; 0x6398
     lea ax, word [bp - 0x0058]       ; 0x639b
     push ax                          ; 0x639e
-    mov ax, 0x41b                    ; 0x639f
+    mov ax, MSG_PLEASE_TURN_TO_PAGE_OF_YOUR ; 0x639f
     push ax                          ; 0x63a2
     call load_message_string         ; 0x63a3
     add sp, byte 4                   ; 0x63a6
@@ -127,7 +127,7 @@ copy_protection_prompt:
     add sp, byte 4                   ; 0x640d
     lea ax, word [bp - 0x0058]       ; 0x6410
     push ax                          ; 0x6413
-    mov ax, 0x41c                    ; 0x6414
+    mov ax, MSG_MANUAL_AND_ENTER_THE_WORD ; 0x6414
     push ax                          ; 0x6417
     call load_message_string         ; 0x6418
     add sp, byte 4                   ; 0x641b
@@ -136,7 +136,7 @@ copy_protection_prompt:
     mov bx, word [code_index_4]      ; 0x6423
     mov al, byte [bx + code_characters] ; 0x6427
     sub ah, ah                       ; 0x642b
-    add ax, 0x423                    ; 0x642d
+    add ax, MSG_ORDINAL_BASE         ; 0x642d
     push ax                          ; 0x6430
     call load_message_string         ; 0x6431
     add sp, byte 4                   ; 0x6434
@@ -178,7 +178,7 @@ copy_protection_prompt:
     add sp, byte 4                   ; 0x6485
     lea ax, word [bp - 0x0058]       ; 0x6488
     push ax                          ; 0x648b
-    mov ax, 0x41d                    ; 0x648c
+    mov ax, MSG_LOCATED_IN_PARAGRAPH_LINE ; 0x648c
     push ax                          ; 0x648f
     call load_message_string         ; 0x6490
     add sp, byte 4                   ; 0x6493

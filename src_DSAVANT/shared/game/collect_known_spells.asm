@@ -26,7 +26,7 @@ collect_known_spells:
     add ax, known_spell_names
     push ax
     mov ax, word [bp - 0x0002]
-    add ax, 0xfa0
+    add ax, MSG_SPELL_NAME_BASE
     push ax
     call load_message_string
     add sp, byte 4

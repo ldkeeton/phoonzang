@@ -894,7 +894,7 @@ jumptable_36f8_case_32:
     inc byte [bx + party_records + pc_rec.stat] ; 0x33cf
     mov ax, bss_95a8                 ; 0x33d3
     push ax                          ; 0x33d6
-    mov ax, 0x1397                   ; 0x33d7
+    mov ax, MSG_INCREASED            ; 0x33d7
     push ax                          ; 0x33da
     call load_message_string         ; 0x33db
     add sp, byte 4                   ; 0x33de

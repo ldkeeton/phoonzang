@@ -5,7 +5,7 @@ cast_spell_from_dialog:
     mov ax, 1                        ; 0x4ade
     push ax                          ; 0x4ae1
     push ax                          ; 0x4ae2
-    mov ax, 0x7ea                    ; 0x4ae3
+    mov ax, MSG_CAST                 ; 0x4ae3
     push ax                          ; 0x4ae6
     push word [bp + 0x4]             ; 0x4ae7
     call spell_select_dialog         ; 0x4aea

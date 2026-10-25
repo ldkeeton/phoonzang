@@ -7,13 +7,13 @@ api_idx_009c_MRKK:
     mov word [bss_9d64], 0           ; 0x678c
     lea ax, word [bp - 0x0042]       ; 0x6792
     push ax                          ; 0x6795
-    mov ax, 0x5e6                    ; 0x6796
+    mov ax, MSG_THE_PARTY            ; 0x6796
     push ax                          ; 0x6799
     call load_message_string         ; 0x679a
     add sp, byte 4                   ; 0x679d
     lea ax, word [bp - 0x004c]       ; 0x67a0
     push ax                          ; 0x67a3
-    mov ax, 0x5e7                    ; 0x67a4
+    mov ax, MSG_VS_1511              ; 0x67a4
     push ax                          ; 0x67a7
     call load_message_string         ; 0x67a8
     add sp, byte 4                   ; 0x67ab
@@ -273,7 +273,7 @@ jumptable_6c16_case_0:
 @..api_idx_009c_MRKK.l21:
     lea ax, word [bp - 0x009c]       ; 0x6a2f
     push ax                          ; 0x6a33
-    mov ax, 0x604                    ; 0x6a34
+    mov ax, MSG_NOT_WITH_YOU         ; 0x6a34
     push ax                          ; 0x6a37
     call load_message_string         ; 0x6a38
     add sp, byte 4                   ; 0x6a3b

@@ -190,7 +190,7 @@ jumptable_51bc_case_0:
     mov word [glyph_painter], 1      ; 0x50c4
     lea ax, word [bp - 0x0078]       ; 0x50ca
     push ax                          ; 0x50cd
-    mov ax, 0x146d                   ; 0x50ce
+    mov ax, MSG_YOU_DISARMED_THE_TRAP ; 0x50ce
     push ax                          ; 0x50d1
     call load_message_string         ; 0x50d2
     add sp, byte 4                   ; 0x50d5

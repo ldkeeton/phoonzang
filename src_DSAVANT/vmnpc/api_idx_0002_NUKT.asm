@@ -8,7 +8,7 @@ api_idx_0002_NUKT:
     jne short @..api_idx_0002_NUKT.l1 ; 0x9bda
     mov ax, bss_95a8                 ; 0x9bdc
     push ax                          ; 0x9bdf
-    mov ax, 0x790                    ; 0x9be0
+    mov ax, MSG_WE_SHALL_BE_VICTORIOUS ; 0x9be0
     push ax                          ; 0x9be3
     call load_message_string         ; 0x9be4
     add sp, byte 4                   ; 0x9be7

@@ -1,6 +1,8 @@
 /* draws four clue lines built from the code characters and reads the answer
    word */
 
+#include "msg.h"
+
 extern char screen_temp_file[];		/* "V.$$$" */
 extern unsigned char code_characters[];	/* 100-byte clue-character table */
 extern int code_index_1, code_index_2, code_index_3, code_index_4;
@@ -21,27 +23,27 @@ copy_protection_prompt()
 		screen_temp_file);
 	draw_dialog_box(box_x0, box_y0, box_x1, box_y1);
 	gfx_set_text_color(28, 0);
-	load_message_string(1050, message);	/* heading */
+	load_message_string(MSG_SECURITY_CLEARANCE, message);	/* heading */
 	/* 21 glyph cells 6 px wide; the +2 rounds to the nearer cell */
 	gfx_set_text_pos(((21 - aztec_strlen(message)) * 6 + 2) / 2 + box_x0 + 41,
 		box_y0 + 5);
 	draw_text_glyphs(message, 0);
 	gfx_set_text_color(1, 194);
-	load_message_string(1051, message);
+	load_message_string(MSG_PLEASE_TURN_TO_PAGE_OF_YOUR, message);
 	format_int_decimal(code_characters[code_index_1],
 		clue);	/* first clue character */
 	str_subst_char(message, clue, '$');
 	gfx_set_text_pos(((21 - aztec_strlen(message)) * 6 + 2) / 2 + box_x0 + 41,
 		box_y0 + 15);
 	draw_text_glyphs(message, 0);
-	load_message_string(1052, message);
-	load_message_string(1059 + code_characters[code_index_4],
+	load_message_string(MSG_MANUAL_AND_ENTER_THE_WORD, message);
+	load_message_string(MSG_ORDINAL_BASE + code_characters[code_index_4],
 		clue);	/* word chosen by the fourth clue character */
 	str_subst_char(message, clue, '$');
 	gfx_set_text_pos(((21 - aztec_strlen(message)) * 6 + 2) / 2 + box_x0 + 41,
 		box_y0 + 21);
 	draw_text_glyphs(message, 0);
-	load_message_string(1053, message);
+	load_message_string(MSG_LOCATED_IN_PARAGRAPH_LINE, message);
 	format_int_decimal(code_characters[code_index_2],
 		clue);	/* second clue character */
 	str_subst_char(message, clue, '^');

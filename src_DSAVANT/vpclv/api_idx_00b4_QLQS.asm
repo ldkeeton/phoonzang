@@ -88,7 +88,7 @@ api_idx_00b4_QLQS:
     add sp, byte 0x14                ; 0x4d95
     lea ax, word [bp - 0x0064]       ; 0x4d98
     push ax                          ; 0x4d9b
-    mov ax, 0x1396                   ; 0x4d9c
+    mov ax, MSG_YOU_INCREASED        ; 0x4d9c
     push ax                          ; 0x4d9f
     call load_message_string         ; 0x4da0
     add sp, byte 4                   ; 0x4da3

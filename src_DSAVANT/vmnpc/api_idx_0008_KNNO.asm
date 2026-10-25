@@ -127,7 +127,7 @@ api_idx_0008_KNNO:
 @..api_idx_0008_KNNO.l10:
     mov ax, bss_95a8                 ; 0x2ae1
     push ax                          ; 0x2ae4
-    mov ax, 0x60b                    ; 0x2ae5
+    mov ax, MSG_GOT_AN_ITEM          ; 0x2ae5
     push ax                          ; 0x2ae8
     call load_message_string         ; 0x2ae9
     add sp, byte 4                   ; 0x2aec
@@ -160,7 +160,7 @@ api_idx_0008_KNNO:
     shl ax, cl                       ; 0x2b2b
     add ax, text_line_buffer         ; 0x2b2d
     push ax                          ; 0x2b30
-    mov ax, 0x5e5                    ; 0x2b31
+    mov ax, MSG_1509                 ; 0x2b31
     push ax                          ; 0x2b34
     call load_message_string         ; 0x2b35
     add sp, byte 4                   ; 0x2b38

@@ -209,7 +209,7 @@ loc_RMVR:
     add sp, byte 8                   ; 0x4ef3
     lea ax, word [bp - 0x0068]       ; 0x4ef6
     push ax                          ; 0x4ef9
-    mov ax, 0x903                    ; 0x4efa
+    mov ax, MSG_EFFECTS              ; 0x4efa
     push ax                          ; 0x4efd
     call load_message_string         ; 0x4efe
     add sp, byte 4                   ; 0x4f01
@@ -296,7 +296,7 @@ loc_RMVR:
     add sp, byte 6                   ; 0x4fbe
     lea ax, word [bp - 0x0068]       ; 0x4fc1
     push ax                          ; 0x4fc4
-    mov ax, 0x907                    ; 0x4fc5
+    mov ax, MSG_MUSIC_2311           ; 0x4fc5
     push ax                          ; 0x4fc8
     call load_message_string         ; 0x4fc9
     add sp, byte 4                   ; 0x4fcc
@@ -363,7 +363,7 @@ loc_RMVR:
     add sp, byte 8                   ; 0x5059
     lea ax, word [bp - 0x0068]       ; 0x505c
     push ax                          ; 0x505f
-    mov ax, 0x90b                    ; 0x5060
+    mov ax, MSG_MEMORY               ; 0x5060
     push ax                          ; 0x5063
     call load_message_string         ; 0x5064
     add sp, byte 4                   ; 0x5067
@@ -466,7 +466,7 @@ loc_RMVR:
     add sp, byte 8                   ; 0x514a
     lea ax, word [bp - 0x0068]       ; 0x514d
     push ax                          ; 0x5150
-    mov ax, 0x910                    ; 0x5151
+    mov ax, MSG_SAVE_2320            ; 0x5151
     push ax                          ; 0x5154
     call load_message_string         ; 0x5155
     add sp, byte 4                   ; 0x5158
@@ -487,7 +487,7 @@ loc_RMVR:
     add sp, byte 0x0c                ; 0x5179
     lea ax, word [bp - 0x0068]       ; 0x517c
     push ax                          ; 0x517f
-    mov ax, 0x911                    ; 0x5180
+    mov ax, MSG_CANCEL_2321          ; 0x5180
     push ax                          ; 0x5183
     call load_message_string         ; 0x5184
     add sp, byte 4                   ; 0x5187

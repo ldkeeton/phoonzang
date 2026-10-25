@@ -26,7 +26,7 @@ collect_known_realm_spells:
     add ax, strict word known_spell_names ; 0x26c2
     push ax                          ; 0x26c5
     mov ax, word [bp - 0x0002]       ; 0x26c6
-    add ax, 0xfa0                    ; 0x26c9
+    add ax, MSG_SPELL_NAME_BASE      ; 0x26c9
     push ax                          ; 0x26cc
     call load_message_string         ; 0x26cd
     add sp, byte 4                   ; 0x26d0

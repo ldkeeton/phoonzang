@@ -365,7 +365,7 @@ jumptable_78e5_case_5:
 @..api_idx_000a_VQTM.l15:
     mov ax, bss_9136                 ; 0x777d
     push ax                          ; 0x7780
-    mov ax, 0xea6                    ; 0x7781
+    mov ax, MSG_DRAINED              ; 0x7781
     push ax                          ; 0x7784
     call load_message_string         ; 0x7785
     add sp, byte 4                   ; 0x7788

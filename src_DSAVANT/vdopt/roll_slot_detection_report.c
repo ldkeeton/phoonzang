@@ -1,6 +1,8 @@
 /* for each of 20 slots, roll percent chances scaled by level to report it in a
    message box */
 
+#include "msg.h"
+
 struct slot_record {
 	char pad0[4];
 	unsigned char kind;		/* +4: < 25 means the slot is in use */
@@ -73,20 +75,20 @@ int level;
 		continue;
 hit:
 		found = 1;
-		load_message_string(slot + 1700, title);	/* per-slot message */
+		load_message_string(slot + MSG_SLOT_NAME_BASE, title);	/* per-slot message */
 		line1[0] = 0;
 		line2[0] = 0;
 		if (slot_records[slot].flag == 0 || (slot == 4 && test_bit(flag_bitset, 64)))
-			load_message_string(487, line1);
+			load_message_string(MSG_IS_DEAD, line1);
 		else {
-			load_message_string(485, line1);
-			load_message_string(slot_records[slot].kind + 1770,
+			load_message_string(MSG_AT, line1);
+			load_message_string(slot_records[slot].kind + MSG_SLOT_KIND_BASE,
 				line2);	/* per-kind message */
 		}
 		draw_centered_lines(title, line1, line2);
 	}
 	if (found == 0) {	/* nothing detected */
-		load_message_string(486, title);
+		load_message_string(MSG_FAILURE_486, title);
 		draw_centered_lines(title, report_line1_none, report_line2_none);
 	}
 	gfx_restore_area(saved_area_a, 1);

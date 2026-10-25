@@ -112,7 +112,7 @@ api_idx_005a_UJPS:
 @..api_idx_005a_UJPS.l5:
     mov ax, bss_9136                 ; 0xa059
     push ax                          ; 0xa05c
-    mov ax, 0xcf1                    ; 0xa05d
+    mov ax, MSG_USES                 ; 0xa05d
     push ax                          ; 0xa060
     call load_message_string         ; 0xa061
     add sp, byte 4                   ; 0xa064
@@ -120,7 +120,7 @@ api_idx_005a_UJPS:
 @..api_idx_005a_UJPS.l6:
     mov ax, bss_9136                 ; 0xa06a
     push ax                          ; 0xa06d
-    mov ax, 0xcf2                    ; 0xa06e
+    mov ax, MSG_INCANTS              ; 0xa06e
     push ax                          ; 0xa071
     call load_message_string         ; 0xa072
     add sp, byte 4                   ; 0xa075
@@ -129,7 +129,7 @@ api_idx_005a_UJPS:
 @..api_idx_005a_UJPS.l7:
     mov ax, bss_9136                 ; 0xa080
     push ax                          ; 0xa083
-    mov ax, 0xcf3                    ; 0xa084
+    mov ax, MSG_TOSSES               ; 0xa084
     push ax                          ; 0xa087
     call load_message_string         ; 0xa088
     add sp, byte 4                   ; 0xa08b
@@ -142,7 +142,7 @@ api_idx_005a_UJPS:
 @..api_idx_005a_UJPS.l9:
     mov ax, bss_9136                 ; 0xa09d
     push ax                          ; 0xa0a0
-    mov ax, 0xcf6                    ; 0xa0a1
+    mov ax, MSG_CONSUMES             ; 0xa0a1
     push ax                          ; 0xa0a4
     call load_message_string         ; 0xa0a5
     add sp, byte 4                   ; 0xa0a8
@@ -209,7 +209,7 @@ api_idx_005a_UJPS:
     jne short @..api_idx_005a_UJPS.l15 ; 0xa139
     mov ax, bss_9136                 ; 0xa13b
     push ax                          ; 0xa13e
-    mov ax, 0xce9                    ; 0xa13f
+    mov ax, MSG_ABUSES               ; 0xa13f
     push ax                          ; 0xa142
     call load_message_string         ; 0xa143
     add sp, byte 4                   ; 0xa146
@@ -217,7 +217,7 @@ api_idx_005a_UJPS:
 @..api_idx_005a_UJPS.l15:
     mov ax, bss_9136                 ; 0xa14b
     push ax                          ; 0xa14e
-    mov ax, 0xce8                    ; 0xa14f
+    mov ax, MSG_PLAYS                ; 0xa14f
     push ax                          ; 0xa152
     call load_message_string         ; 0xa153
     add sp, byte 4                   ; 0xa156
@@ -252,7 +252,7 @@ api_idx_005a_UJPS:
     jne short @..api_idx_005a_UJPS.l18 ; 0xa197
     mov ax, bss_9136                 ; 0xa199
     push ax                          ; 0xa19c
-    mov ax, 0xcf3                    ; 0xa19d
+    mov ax, MSG_TOSSES               ; 0xa19d
     push ax                          ; 0xa1a0
     call load_message_string         ; 0xa1a1
     add sp, byte 4                   ; 0xa1a4
@@ -260,7 +260,7 @@ api_idx_005a_UJPS:
 @..api_idx_005a_UJPS.l18:
     mov ax, bss_9136                 ; 0xa1a9
     push ax                          ; 0xa1ac
-    mov ax, 0xcf0                    ; 0xa1ad
+    mov ax, MSG_INVOKES_3312         ; 0xa1ad
     push ax                          ; 0xa1b0
     call load_message_string         ; 0xa1b1
     add sp, byte 4                   ; 0xa1b4
@@ -296,7 +296,7 @@ api_idx_005a_UJPS:
 @..api_idx_005a_UJPS.l26:
     mov ax, bss_9136                 ; 0xa1f7
     push ax                          ; 0xa1fa
-    mov ax, 0xcf5                    ; 0xa1fb
+    mov ax, MSG_FUMBLES_3317         ; 0xa1fb
     push ax                          ; 0xa1fe
     call load_message_string         ; 0xa1ff
     add sp, byte 4                   ; 0xa202
@@ -304,7 +304,7 @@ api_idx_005a_UJPS:
 @..api_idx_005a_UJPS.l27:
     mov ax, bss_9136                 ; 0xa207
     push ax                          ; 0xa20a
-    mov ax, 0xcf4                    ; 0xa20b
+    mov ax, MSG_FUMBLES_3316         ; 0xa20b
     push ax                          ; 0xa20e
     call load_message_string         ; 0xa20f
     add sp, byte 4                   ; 0xa212
@@ -316,7 +316,7 @@ api_idx_005a_UJPS:
     mov word [e1_event_flag], 1      ; 0xa223
     mov ax, bss_9136                 ; 0xa229
     push ax                          ; 0xa22c
-    mov ax, 0xcf0                    ; 0xa22d
+    mov ax, MSG_INVOKES_3312         ; 0xa22d
     push ax                          ; 0xa230
     call load_message_string         ; 0xa231
     add sp, byte 4                   ; 0xa234
@@ -387,7 +387,7 @@ api_idx_005a_UJPS:
     mov word [bp - 0x0012], 0x1b     ; 0xa2de
     mov ax, bss_9136                 ; 0xa2e3
     push ax                          ; 0xa2e6
-    mov ax, 0xcf2                    ; 0xa2e7
+    mov ax, MSG_INCANTS              ; 0xa2e7
     push ax                          ; 0xa2ea
     call load_message_string         ; 0xa2eb
     add sp, byte 4                   ; 0xa2ee
