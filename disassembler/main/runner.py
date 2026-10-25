@@ -106,7 +106,8 @@ def process(name, *args, **kwargs):
 
 def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
              project=None, sidecar_entry=None, foreign_label_map=None,
-             export_labels=False, host_model=None, foreign_prefix=None):
+             export_labels=False, host_model=None, foreign_prefix=None,
+             messages_only=False):
     """Classify and name one binary: everything short of rendering it.
 
     Returns a ``SimpleNamespace`` of the results, or ``None`` when the binary
@@ -284,7 +285,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
             # Only verify reads the driver's pointer-argument export, and a
             # prebuild stops before verify -- it never writes one either, so a
             # clean prebuild would otherwise fail looking for the driver's.
-            handler_params = ({} if AZTEC_PREBUILD_ONLY else
+            handler_params = ({} if AZTEC_PREBUILD_ONLY or messages_only else
                               _exported_pointer_params(project,
                                                        slots['driver']))
             ctx.driver_pointer_args.update(
@@ -591,6 +592,14 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         diag_phase('disasm')
         diag_emit('insns', len(instructions))
 
+    if messages_only:
+        # Header selection needs the classified, named instruction stream,
+        # before any C override is compiled. No render/export/source input.
+        return SimpleNamespace(ctx=ctx, label_map=label_map,
+                               instructions=instructions, data=data,
+                               start_offset=start_offset,
+                               trace_writer=trace_writer)
+
     # Resolve Aztec routines before the verify/emit window so the (potentially
     # slow) DOSBox work is reported separately instead of inflating it.
     out_dir = output_dir or ASM_DIR
@@ -809,6 +818,16 @@ def _foreign_pointer_params(project, host):
     return _exported_pointer_params(project, host)
 
 
+def _foreign_message_params(project, host):
+    """Message parameters inferred from the host's decoded instructions."""
+    if not project or not host:
+        return {}
+    from lib.cachedirs import labels_dir
+    from lib.link import read_export
+    path = os.path.join(labels_dir(project), f'{host}_msgparams.json')
+    return read_export(path)
+
+
 def _render(a, exact_bytes, show_offsets, host_data_offsets,
             ds_starts=frozenset(), final=True, record_layouts=None):
     """Render an analysed binary to assembly text; still writes no sources.
@@ -880,6 +899,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         foreign_pointer_params=_foreign_pointer_params(project, a.foreign_prefix),
         message_calls=_message_calls(entry.get('message_calls') or ()),
         message_names=message_names,
+        foreign_message_params=_foreign_message_params(project, a.foreign_prefix),
         message_bases=message_bases,
         sidecar_use=(ctx.sidecar_entry or {}).get('use'),
         bands=(ctx.sidecar_entry or {}).get('bands') or (),
@@ -904,6 +924,10 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         from lib.link import write_export
         write_export(os.path.join(labels_dir(project), f'{name}_ptrparams.json'),
                      stats.get('pointer_params', {}))
+        write_export(os.path.join(labels_dir(project), f'{name}_msgparams.json'),
+                     stats.get('message_params', {}))
+        write_export(os.path.join(labels_dir(project), f'{name}_msguses.json'),
+                     stats.get('message_uses', []))
     # The host-space DS starts this binary names; the build unites the host
     # family's exports so each binary can bind an indexed operand to an object
     # another binary names (``symbols._resolve_indexed_symbols``).

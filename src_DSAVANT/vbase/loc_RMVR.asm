@@ -75,7 +75,7 @@ loc_RMVR:
     push ax                          ; 0x4dc1
     mov ax, 0xffff                   ; 0x4dc2
     push ax                          ; 0x4dc5
-    mov ax, 0x8fc                    ; 0x4dc6
+    mov ax, MSG_CRUSADERS_OF_THE_DARK_2300 ; 0x4dc6
     push ax                          ; 0x4dc9
     call api_idx_0050_NKOU           ; 0x4dca
     add sp, byte 8                   ; 0x4dcd
@@ -87,7 +87,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x4ddb
     add ax, 0xf5                     ; 0x4dde
     push ax                          ; 0x4de1
-    mov ax, 0x8fd                    ; 0x4de2
+    mov ax, MSG_V                    ; 0x4de2
     push ax                          ; 0x4de5
     call api_idx_0050_NKOU           ; 0x4de6
     add sp, byte 8                   ; 0x4de9
@@ -145,7 +145,7 @@ loc_RMVR:
     push ax                          ; 0x4e5f
     mov ax, 0xffff                   ; 0x4e60
     push ax                          ; 0x4e63
-    mov ax, 0x8fe                    ; 0x4e64
+    mov ax, MSG_GAME_CONFIGURATION   ; 0x4e64
     push ax                          ; 0x4e67
     call api_idx_0050_NKOU           ; 0x4e68
     add sp, byte 8                   ; 0x4e6b
@@ -157,7 +157,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x4e79
     add ax, strict word 0xb          ; 0x4e7c
     push ax                          ; 0x4e7f
-    mov ax, 0x8ff                    ; 0x4e80
+    mov ax, MSG_INPUT_DEVICE         ; 0x4e80
     push ax                          ; 0x4e83
     call api_idx_0050_NKOU           ; 0x4e84
     add sp, byte 8                   ; 0x4e87
@@ -169,7 +169,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x4e95
     add ax, strict word 0xb          ; 0x4e98
     push ax                          ; 0x4e9b
-    mov ax, 0x900                    ; 0x4e9c
+    mov ax, MSG_DELAY                ; 0x4e9c
     push ax                          ; 0x4e9f
     call api_idx_0050_NKOU           ; 0x4ea0
     add sp, byte 8                   ; 0x4ea3
@@ -191,7 +191,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x4ec9
     add ax, strict word 0xb          ; 0x4ecc
     push ax                          ; 0x4ecf
-    mov ax, 0x901                    ; 0x4ed0
+    mov ax, MSG_PATH                 ; 0x4ed0
     push ax                          ; 0x4ed3
     call api_idx_0050_NKOU           ; 0x4ed4
     add sp, byte 8                   ; 0x4ed7
@@ -203,7 +203,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x4ee5
     add ax, strict word 0xb          ; 0x4ee8
     push ax                          ; 0x4eeb
-    mov ax, 0x902                    ; 0x4eec
+    mov ax, MSG_FILE                 ; 0x4eec
     push ax                          ; 0x4eef
     call api_idx_0050_NKOU           ; 0x4ef0
     add sp, byte 8                   ; 0x4ef3
@@ -236,7 +236,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x4f30
     add ax, strict word 0x11         ; 0x4f33
     push ax                          ; 0x4f36
-    mov ax, 0x904                    ; 0x4f37
+    mov ax, MSG_EFFECTS_VOL          ; 0x4f37
     push ax                          ; 0x4f3a
     call api_idx_0050_NKOU           ; 0x4f3b
     add sp, byte 8                   ; 0x4f3e
@@ -258,7 +258,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x4f64
     add ax, strict word 0x11         ; 0x4f67
     push ax                          ; 0x4f6a
-    mov ax, 0x905                    ; 0x4f6b
+    mov ax, MSG_MONSTER_VOL          ; 0x4f6b
     push ax                          ; 0x4f6e
     call api_idx_0050_NKOU           ; 0x4f6f
     add sp, byte 8                   ; 0x4f72
@@ -280,7 +280,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x4f98
     add ax, strict word 0x11         ; 0x4f9b
     push ax                          ; 0x4f9e
-    mov ax, 0x906                    ; 0x4f9f
+    mov ax, MSG_BACKGND_VOL          ; 0x4f9f
     push ax                          ; 0x4fa2
     call api_idx_0050_NKOU           ; 0x4fa3
     add sp, byte 8                   ; 0x4fa6
@@ -323,7 +323,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x4ffb
     add ax, strict word 0x1d         ; 0x4ffe
     push ax                          ; 0x5001
-    mov ax, 0x908                    ; 0x5002
+    mov ax, MSG_MUSIC_VOL            ; 0x5002
     push ax                          ; 0x5005
     call api_idx_0050_NKOU           ; 0x5006
     add sp, byte 8                   ; 0x5009
@@ -345,7 +345,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x502f
     add ax, 0xa1                     ; 0x5032
     push ax                          ; 0x5035
-    mov ax, 0x909                    ; 0x5036
+    mov ax, MSG_PLAY_LEVEL           ; 0x5036
     push ax                          ; 0x5039
     call api_idx_0050_NKOU           ; 0x503a
     add sp, byte 8                   ; 0x503d
@@ -357,7 +357,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x504b
     add ax, 0xa1                     ; 0x504e
     push ax                          ; 0x5051
-    mov ax, 0x90a                    ; 0x5052
+    mov ax, MSG_FADE                 ; 0x5052
     push ax                          ; 0x5055
     call api_idx_0050_NKOU           ; 0x5056
     add sp, byte 8                   ; 0x5059
@@ -390,7 +390,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x5096
     add ax, 0xa1                     ; 0x5099
     push ax                          ; 0x509c
-    mov ax, 0x90c                    ; 0x509d
+    mov ax, MSG_RAMNAME              ; 0x509d
     push ax                          ; 0x50a0
     call api_idx_0050_NKOU           ; 0x50a1
     add sp, byte 8                   ; 0x50a4
@@ -402,7 +402,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x50b2
     add ax, 0xa1                     ; 0x50b5
     push ax                          ; 0x50b8
-    mov ax, 0x90d                    ; 0x50b9
+    mov ax, MSG_GRAPHICS             ; 0x50b9
     push ax                          ; 0x50bc
     call api_idx_0050_NKOU           ; 0x50bd
     add sp, byte 8                   ; 0x50c0
@@ -414,7 +414,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x50ce
     add ax, 0xa1                     ; 0x50d1
     push ax                          ; 0x50d4
-    mov ax, 0x90e                    ; 0x50d5
+    mov ax, MSG_BRIGHT               ; 0x50d5
     push ax                          ; 0x50d8
     call api_idx_0050_NKOU           ; 0x50d9
     add sp, byte 8                   ; 0x50dc
@@ -436,7 +436,7 @@ loc_RMVR:
     mov ax, word [bp - 0x0008]       ; 0x5102
     add ax, 0xa1                     ; 0x5105
     push ax                          ; 0x5108
-    mov ax, 0x90f                    ; 0x5109
+    mov ax, MSG_CONTRAST             ; 0x5109
     push ax                          ; 0x510c
     call api_idx_0050_NKOU           ; 0x510d
     add sp, byte 8                   ; 0x5110
@@ -2086,7 +2086,7 @@ loc_PVJJ:
     push ax                          ; 0x5f9d
     mov al, byte [bp - 0x0018]       ; 0x5f9e
     sub ah, ah                       ; 0x5fa1
-    add ax, 0x8c                     ; 0x5fa3
+    add ax, MSG_MALE                 ; 0x5fa3
     push ax                          ; 0x5fa6
     call load_message_string         ; 0x5fa7
     add sp, byte 4                   ; 0x5faa

@@ -155,7 +155,7 @@ api_idx_00ca_HKHO:
     push ax                          ; 0x1fb3
     mov ax, 1                        ; 0x1fb4
     push ax                          ; 0x1fb7
-    mov ax, 0x7ec                    ; 0x1fb8
+    mov ax, MSG_LEARN                ; 0x1fb8
     push ax                          ; 0x1fbb
     push word [bp + 0x4]             ; 0x1fbc
     call api_idx_0050_MINM           ; 0x1fbf

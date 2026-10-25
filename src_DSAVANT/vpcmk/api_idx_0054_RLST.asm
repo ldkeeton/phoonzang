@@ -67,7 +67,7 @@ api_idx_0054_RLST:
     mov bx, ax                       ; 0x1bdc
     mov al, byte [bx + party_records + pc_rec.sound] ; 0x1bde
     sub ah, ah                       ; 0x1be2
-    add ax, 0x8c                     ; 0x1be4
+    add ax, MSG_MALE                 ; 0x1be4
     push ax                          ; 0x1be7
     call load_message_string         ; 0x1be8
     add sp, byte 4                   ; 0x1beb
@@ -288,7 +288,7 @@ api_idx_0054_RLST:
     mov cx, ax                       ; 0x1ded
     pop ax                           ; 0x1def
     add ax, cx                       ; 0x1df0
-    add ax, 0x320                    ; 0x1df2
+    add ax, MSG_NONE_800             ; 0x1df2
     push ax                          ; 0x1df5
     call load_message_string         ; 0x1df6
     add sp, byte 4                   ; 0x1df9

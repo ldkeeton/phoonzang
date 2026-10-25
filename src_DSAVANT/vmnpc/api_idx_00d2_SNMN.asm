@@ -130,7 +130,7 @@ jumptable_6599_case_3:
     mov ax, 1                        ; 0x6462
     push ax                          ; 0x6465
     push ax                          ; 0x6466
-    mov ax, 0x62f                    ; 0x6467
+    mov ax, MSG_1583                 ; 0x6467
     push ax                          ; 0x646a
     push word [bp + 0x4]             ; 0x646b
     call api_idx_0006_GQUO           ; 0x646e
@@ -374,7 +374,7 @@ jumptable_6599:
     mov ax, 1                        ; 0x66a6
     push ax                          ; 0x66a9
     push ax                          ; 0x66aa
-    mov ax, 0x638                    ; 0x66ab
+    mov ax, MSG_LOOKS_PLEASED        ; 0x66ab
     push ax                          ; 0x66ae
     call api_idx_0050_TJLH           ; 0x66af
     add sp, byte 8                   ; 0x66b2
@@ -405,7 +405,7 @@ jumptable_6599:
     mov ax, 1                        ; 0x66ef
     push ax                          ; 0x66f2
     push ax                          ; 0x66f3
-    mov ax, 0x63a                    ; 0x66f4
+    mov ax, MSG_BECOMES_ANGRY        ; 0x66f4
     push ax                          ; 0x66f7
     call api_idx_0050_TJLH           ; 0x66f8
     add sp, byte 8                   ; 0x66fb
@@ -437,7 +437,7 @@ jumptable_6599:
     mov ax, 1                        ; 0x6737
     push ax                          ; 0x673a
     push ax                          ; 0x673b
-    mov ax, 0x639                    ; 0x673c
+    mov ax, MSG_APPEARS_RESERVED     ; 0x673c
     push ax                          ; 0x673f
     call api_idx_0050_TJLH           ; 0x6740
     add sp, byte 8                   ; 0x6743

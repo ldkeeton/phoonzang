@@ -101,7 +101,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x9571
     mov ax, 0x58                     ; 0x9572
     push ax                          ; 0x9575
-    mov ax, 0x454                    ; 0x9576
+    mov ax, MSG_SELECT_PORTRAIT      ; 0x9576
     push ax                          ; 0x9579
     call api_idx_0058_GKGM           ; 0x957a
     add sp, byte 0x0c                ; 0x957d

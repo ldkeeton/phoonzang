@@ -310,10 +310,10 @@ party_screen:
     mov bx, word [bx + party_char]   ; 0x1ce6
     cmp byte [bx + member_rec.item_count], 1 ; 0x1cea
     jne short @..party_screen.l20    ; 0x1cef
-    mov ax, 0xdb6                    ; 0x1cf1
+    mov ax, MSG_ADVANCES_3510        ; 0x1cf1
     jmp short @..party_screen.l21    ; 0x1cf4
 @..party_screen.l20:
-    mov ax, 0xdb7                    ; 0x1cf6
+    mov ax, MSG_ADVANCE              ; 0x1cf6
 @..party_screen.l21:
     push ax                          ; 0x1cf9
     call load_message_string         ; 0x1cfa

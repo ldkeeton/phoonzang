@@ -74,7 +74,7 @@ jumptable_36f8_case_3:
     push ax                          ; 0x2c37
     mov ax, 1                        ; 0x2c38
     push ax                          ; 0x2c3b
-    mov ax, 0x606                    ; 0x2c3c
+    mov ax, MSG_LEAVES               ; 0x2c3c
     push ax                          ; 0x2c3f
     call api_idx_0050_TJLH           ; 0x2c40
     add sp, byte 8                   ; 0x2c43
@@ -901,7 +901,7 @@ jumptable_36f8_case_32:
     mov ax, bss_95fa                 ; 0x33e1
     push ax                          ; 0x33e4
     mov ax, word [bp - 0x003a]       ; 0x33e5
-    add ax, 0x13ba                   ; 0x33e8
+    add ax, MSG_STRENGTH_5050        ; 0x33e8
     push ax                          ; 0x33eb
     call load_message_string         ; 0x33ec
     add sp, byte 4                   ; 0x33ef

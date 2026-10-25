@@ -33,7 +33,7 @@ api_idx_0004_IHHI:
     add sp, byte 4                   ; 0x1446
     mov ax, 0                        ; 0x1449
     push ax                          ; 0x144c
-    mov ax, 0x80d                    ; 0x144d
+    mov ax, MSG_DROWNED              ; 0x144d
     push ax                          ; 0x1450
     push word [bp - 0x0002]          ; 0x1451
     call api_idx_0050_QVOG           ; 0x1454
@@ -88,7 +88,7 @@ api_idx_0004_IHHI:
     add sp, byte 4                   ; 0x14c0
     mov ax, 0                        ; 0x14c3
     push ax                          ; 0x14c6
-    mov ax, 0x80d                    ; 0x14c7
+    mov ax, MSG_DROWNED              ; 0x14c7
     push ax                          ; 0x14ca
     push word [bp - 0x0002]          ; 0x14cb
     call api_idx_0050_QVOG           ; 0x14ce

@@ -463,13 +463,13 @@ api_idx_0022_RHMN:
     jne short @..api_idx_0022_RHMN.l41 ; 0x269b
     cmp word [save_location_flag], byte 0 ; 0x269d
     je short @..api_idx_0022_RHMN.l39 ; 0x26a2
-    mov ax, 0x80e                    ; 0x26a4
+    mov ax, MSG_ABOARD_WIKUM_BOAT    ; 0x26a4
     push ax                          ; 0x26a7
     call loc_MMGL                    ; 0x26a8
     pop cx                           ; 0x26ab
     jmp short @..api_idx_0022_RHMN.l40 ; 0x26ac
 @..api_idx_0022_RHMN.l39:
-    mov ax, 0x80c                    ; 0x26ae
+    mov ax, MSG_SWIMMING_2060        ; 0x26ae
     push ax                          ; 0x26b1
     call loc_MMGL                    ; 0x26b2
     pop cx                           ; 0x26b5
@@ -479,7 +479,7 @@ api_idx_0022_RHMN:
 @..api_idx_0022_RHMN.l41:
     cmp word [bp - 0x0010], byte 3   ; 0x26bd
     jne short @..api_idx_0022_RHMN.l42 ; 0x26c1
-    mov ax, 0x80b                    ; 0x26c3
+    mov ax, MSG_WILD_ORCHIDS         ; 0x26c3
     push ax                          ; 0x26c6
     call loc_MMGL                    ; 0x26c7
     pop cx                           ; 0x26ca

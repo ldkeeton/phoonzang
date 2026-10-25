@@ -89,7 +89,7 @@ api_idx_0006_MRPM:
     push ax                          ; 0x9165
     mov ax, 0x41                     ; 0x9166
     push ax                          ; 0x9169
-    mov ax, 0xc80                    ; 0x916a
+    mov ax, MSG_SILENCED_3200        ; 0x916a
     push ax                          ; 0x916d
     call api_idx_0050_PLNP           ; 0x916e
     add sp, byte 6                   ; 0x9171

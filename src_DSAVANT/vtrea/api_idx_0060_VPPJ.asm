@@ -37,7 +37,7 @@ api_idx_0060_VPPJ:
     mov ax, bss_91d6                 ; 0x202d
     push ax                          ; 0x2030
     mov ax, word [bss_91fe]          ; 0x2031
-    add ax, 0x14b4                   ; 0x2034
+    add ax, MSG_NO_TRAP              ; 0x2034
     push ax                          ; 0x2037
     call load_message_string         ; 0x2038
     add sp, byte 4                   ; 0x203b

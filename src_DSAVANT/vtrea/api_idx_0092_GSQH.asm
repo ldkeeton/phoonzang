@@ -70,7 +70,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4c6e
     mov al, byte [bp - 0x0011]       ; 0x4c6f
     sub ah, ah                       ; 0x4c72
-    add ax, 0x1770                   ; 0x4c74
+    add ax, MSG_DAGGER_6000          ; 0x4c74
     push ax                          ; 0x4c77
     call load_message_string         ; 0x4c78
     add sp, byte 4                   ; 0x4c7b
@@ -165,7 +165,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4d52
     push ax                          ; 0x4d53
     push ax                          ; 0x4d54
-    mov ax, 0x7ee                    ; 0x4d55
+    mov ax, MSG_USE_2030             ; 0x4d55
     push ax                          ; 0x4d58
     call api_idx_0038_ULQM           ; 0x4d59
     add sp, byte 0x0c                ; 0x4d5c
@@ -209,7 +209,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4db2
     push word [bp - 0x004c]          ; 0x4db3
     mov ax, word [bp - 0x004c]       ; 0x4db6
-    add ax, 0x7ee                    ; 0x4db9
+    add ax, MSG_USE_2030             ; 0x4db9
     push ax                          ; 0x4dbc
     call api_idx_0018_RGOS           ; 0x4dbd
     add sp, byte 0x0c                ; 0x4dc0

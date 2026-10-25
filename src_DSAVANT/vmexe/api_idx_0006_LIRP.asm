@@ -30,7 +30,7 @@ api_idx_0006_LIRP:
     push ax                          ; 0x2cc8
     mov ax, 0x41                     ; 0x2cc9
     push ax                          ; 0x2ccc
-    mov ax, 0xc8c                    ; 0x2ccd
+    mov ax, MSG_SPELL_DEFLECTED      ; 0x2ccd
     push ax                          ; 0x2cd0
     call api_idx_0050_PLNP           ; 0x2cd1
     add sp, byte 6                   ; 0x2cd4

@@ -2,7 +2,7 @@
 run_state_0f_scene:
     mov ax, 0xffb0                   ; 0x7f5a
     call aztec_csav                  ; 0x7f5d
-    mov ax, 0x138c                   ; 0x7f60
+    mov ax, MSG_A_CHEST              ; 0x7f60
     push ax                          ; 0x7f63
     call loc_SNOI                    ; 0x7f64
     pop cx                           ; 0x7f67

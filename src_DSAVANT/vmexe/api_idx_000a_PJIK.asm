@@ -35,7 +35,7 @@ api_idx_000a_PJIK:
     cmp ax, word [bp + 0xa]          ; 0x2932
     je short @..api_idx_000a_PJIK.l6 ; 0x2935
 @..api_idx_000a_PJIK.l5:
-    mov ax, 0xc8d                    ; 0x2937
+    mov ax, MSG_SPELL_REDUCED        ; 0x2937
     push ax                          ; 0x293a
     call loc_PKMT                    ; 0x293b
     pop cx                           ; 0x293e

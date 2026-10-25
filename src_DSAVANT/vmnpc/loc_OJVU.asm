@@ -16,7 +16,7 @@ loc_OJVU:
     jne short @..loc_OJVU.l1         ; 0x9c9f
     mov ax, 0x9d10                   ; 0x9ca1
     push ax                          ; 0x9ca4
-    mov ax, 0x650                    ; 0x9ca5
+    mov ax, MSG_I_DON_T_KNOW_1616    ; 0x9ca5
     push ax                          ; 0x9ca8
     call api_idx_0080_TKTP           ; 0x9ca9
     add sp, byte 4                   ; 0x9cac

@@ -60,7 +60,7 @@ api_idx_00a2_IKRJ:
     pop cx                           ; 0x98d6
     lea ax, word [bp - 0x0052]       ; 0x98d7
     push ax                          ; 0x98da
-    mov ax, 0x641                    ; 0x98db
+    mov ax, MSG_OR                   ; 0x98db
     push ax                          ; 0x98de
     call api_idx_0080_TKTP           ; 0x98df
     add sp, byte 4                   ; 0x98e2
@@ -101,7 +101,7 @@ api_idx_00a2_IKRJ:
     jne short @..api_idx_00a2_IKRJ.l5 ; 0x9935
     mov ax, 0x90f4                   ; 0x9937
     push ax                          ; 0x993a
-    mov ax, 0x643                    ; 0x993b
+    mov ax, MSG_I_DON_T_KNOW_ABOUT_THAT ; 0x993b
     push ax                          ; 0x993e
     call api_idx_0080_TKTP           ; 0x993f
     add sp, byte 4                   ; 0x9942
@@ -109,7 +109,7 @@ api_idx_00a2_IKRJ:
 @..api_idx_00a2_IKRJ.l5:
     mov ax, 0x90f5                   ; 0x9947
     push ax                          ; 0x994a
-    mov ax, 0x644                    ; 0x994b
+    mov ax, MSG_I_DON_T_UNDERSTAND   ; 0x994b
     push ax                          ; 0x994e
     call api_idx_0080_TKTP           ; 0x994f
     add sp, byte 4                   ; 0x9952
@@ -138,7 +138,7 @@ api_idx_00a2_IKRJ:
     pop cx                           ; 0x9988
     lea ax, word [bp - 0x0052]       ; 0x9989
     push ax                          ; 0x998c
-    mov ax, 0x645                    ; 0x998d
+    mov ax, MSG_ARE_YOU_ASKING_ABOUT ; 0x998d
     push ax                          ; 0x9990
     call api_idx_0080_TKTP           ; 0x9991
     add sp, byte 4                   ; 0x9994
@@ -152,7 +152,7 @@ api_idx_00a2_IKRJ:
 @..api_idx_00a2_IKRJ.l8:
     mov ax, 0x90f6                   ; 0x99b1
     push ax                          ; 0x99b4
-    mov ax, 0x646                    ; 0x99b5
+    mov ax, MSG_YOUR_WORDS_ARE_CONFUSING ; 0x99b5
     push ax                          ; 0x99b8
     call api_idx_0080_TKTP           ; 0x99b9
     add sp, byte 4                   ; 0x99bc
@@ -174,7 +174,7 @@ api_idx_00a2_IKRJ:
 @..api_idx_00a2_IKRJ.l11:
     mov ax, 0x90f7                   ; 0x99ee
     push ax                          ; 0x99f1
-    mov ax, 0x647                    ; 0x99f2
+    mov ax, MSG_HUH_1607             ; 0x99f2
     push ax                          ; 0x99f5
     call api_idx_0080_TKTP           ; 0x99f6
     add sp, byte 4                   ; 0x99f9

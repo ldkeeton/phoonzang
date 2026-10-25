@@ -41,7 +41,7 @@ jumptable_3f96_case_1:
     mov bx, ax                       ; 0x3d57
     cmp word [bx + party_records + pc_rec.cell], strict word 0x1d7 ; 0x3d59
     jne short @..api_idx_009e_ITUJ.l2 ; 0x3d5f
-    mov ax, 0x4c18                   ; 0x3d61
+    mov ax, MSG_PASSING_THE_DEVICE_OV_19480 ; 0x3d61
     push ax                          ; 0x3d64
     call api_idx_0056_QRVG           ; 0x3d65
     pop cx                           ; 0x3d68

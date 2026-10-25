@@ -21,7 +21,7 @@ api_idx_006c_JNMM:
     push ax                          ; 0x46c3
     mov ax, 0x58                     ; 0x46c4
     push ax                          ; 0x46c7
-    mov ax, 0x44e                    ; 0x46c8
+    mov ax, MSG_ABILITY_BONUS_POINTS ; 0x46c8
     push ax                          ; 0x46cb
     call api_idx_0058_GKGM           ; 0x46cc
     add sp, byte 0x0c                ; 0x46cf

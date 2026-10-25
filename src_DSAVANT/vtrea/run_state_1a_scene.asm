@@ -2,10 +2,10 @@
 run_state_1a_scene:
     mov ax, 0                        ; 0x811f
     call aztec_csav                  ; 0x8122
-    mov ax, 0x138e                   ; 0x8125
+    mov ax, MSG_LOCKED_DOOR          ; 0x8125
     cmp word [maze_variant], byte 1  ; 0x8128
     jne short @..run_state_1a_scene.l1 ; 0x812d
-    mov ax, 0x138f                   ; 0x812f
+    mov ax, MSG_LOCKED_GATE          ; 0x812f
 @..run_state_1a_scene.l1:
     push ax                          ; 0x8132
     call loc_SNOI                    ; 0x8133

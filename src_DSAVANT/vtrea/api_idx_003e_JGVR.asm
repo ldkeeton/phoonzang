@@ -93,7 +93,7 @@ api_idx_003e_JGVR:
     push ax                          ; 0x1295
     mov ax, 0                        ; 0x1296
     push ax                          ; 0x1299
-    mov ax, 0x1490                   ; 0x129a
+    mov ax, MSG_DIES_5264            ; 0x129a
     push ax                          ; 0x129d
     push word [bp + 0x4]             ; 0x129e
     call api_idx_005a_SIOK           ; 0x12a1

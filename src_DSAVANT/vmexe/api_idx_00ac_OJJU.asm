@@ -34,7 +34,7 @@ api_idx_00ac_OJJU:
     mov ax, bss_9136                 ; 0x79dc
     push ax                          ; 0x79df
     mov ax, word [bp + 0x8]          ; 0x79e0
-    add ax, 0xd16                    ; 0x79e3
+    add ax, MSG_SWINGS               ; 0x79e3
     push ax                          ; 0x79e6
     call load_message_string         ; 0x79e7
     add sp, byte 4                   ; 0x79ea
@@ -81,7 +81,7 @@ api_idx_00ac_OJJU:
     push ax                          ; 0x7a5c
     call random_below                ; 0x7a5d
     pop cx                           ; 0x7a60
-    add ax, 0xd39                    ; 0x7a61
+    add ax, MSG_BACKSTAB             ; 0x7a61
     push ax                          ; 0x7a64
     call load_message_string         ; 0x7a65
     add sp, byte 4                   ; 0x7a68
@@ -133,7 +133,7 @@ api_idx_00ac_OJJU:
     push ax                          ; 0x7ad3
     mov al, byte [bp - 0x0011]       ; 0x7ad4
     sub ah, ah                       ; 0x7ad7
-    add ax, 0x1770                   ; 0x7ad9
+    add ax, MSG_DAGGER_6000          ; 0x7ad9
     push ax                          ; 0x7adc
     call load_message_string         ; 0x7add
     add sp, byte 4                   ; 0x7ae0
@@ -306,7 +306,7 @@ jumptable_7c0e_case_32:
     mov ax, bss_9136                 ; 0x7c6b
     push ax                          ; 0x7c6e
     mov ax, word [bp + 0x8]          ; 0x7c6f
-    add ax, 0xd16                    ; 0x7c72
+    add ax, MSG_SWINGS               ; 0x7c72
     push ax                          ; 0x7c75
     call load_message_string         ; 0x7c76
     add sp, byte 4                   ; 0x7c79
@@ -324,7 +324,7 @@ jumptable_7c0e_case_32:
     push ax                          ; 0x7c99
     call random_below                ; 0x7c9a
     pop cx                           ; 0x7c9d
-    add ax, 0xd39                    ; 0x7c9e
+    add ax, MSG_BACKSTAB             ; 0x7c9e
     push ax                          ; 0x7ca1
     call load_message_string         ; 0x7ca2
     add sp, byte 4                   ; 0x7ca5
@@ -1068,7 +1068,7 @@ jumptable_8145:
     push ax                          ; 0x83cb
     mov ax, 0x55                     ; 0x83cc
     push ax                          ; 0x83cf
-    mov ax, 0xc93                    ; 0x83d0
+    mov ax, MSG_NOT_LOADED           ; 0x83d0
     push ax                          ; 0x83d3
     call api_idx_0050_PLNP           ; 0x83d4
     add sp, byte 6                   ; 0x83d7
@@ -2001,7 +2001,7 @@ jumptable_883a:
     push ax                          ; 0x8cdd
     mov ax, 0x43                     ; 0x8cde
     push ax                          ; 0x8ce1
-    mov ax, 0xc8e                    ; 0x8ce2
+    mov ax, MSG_DEFLECTED            ; 0x8ce2
     push ax                          ; 0x8ce5
     call api_idx_0050_PLNP           ; 0x8ce6
     add sp, byte 6                   ; 0x8ce9
@@ -2049,7 +2049,7 @@ jumptable_883a:
     push ax                          ; 0x8d53
     mov ax, 0x16                     ; 0x8d54
     push ax                          ; 0x8d57
-    mov ax, 0xce6                    ; 0x8d58
+    mov ax, MSG_HIT                  ; 0x8d58
     push ax                          ; 0x8d5b
     call api_idx_0050_PLNP           ; 0x8d5c
     add sp, byte 6                   ; 0x8d5f
@@ -2071,7 +2071,7 @@ jumptable_883a:
     mov ax, bss_90e6                 ; 0x8d89
     push ax                          ; 0x8d8c
     mov ax, word [bp - 0x006c]       ; 0x8d8d
-    add ax, 0xd02                    ; 0x8d90
+    add ax, MSG_TRUNK_3330           ; 0x8d90
     push ax                          ; 0x8d93
     call load_message_string         ; 0x8d94
     add sp, byte 4                   ; 0x8d97
@@ -2086,7 +2086,7 @@ jumptable_883a:
     mov ax, bss_90e6                 ; 0x8dae
     push ax                          ; 0x8db1
     mov ax, word [bp - 0x006c]       ; 0x8db2
-    add ax, 0xd3e                    ; 0x8db5
+    add ax, MSG_REAR                 ; 0x8db5
     push ax                          ; 0x8db8
     call load_message_string         ; 0x8db9
     add sp, byte 4                   ; 0x8dbc
@@ -2095,7 +2095,7 @@ jumptable_883a:
     mov ax, bss_90e6                 ; 0x8dc1
     push ax                          ; 0x8dc4
     mov ax, word [bp - 0x006c]       ; 0x8dc5
-    add ax, 0xcf8                    ; 0x8dc8
+    add ax, MSG_BACK                 ; 0x8dc8
     push ax                          ; 0x8dcb
     call load_message_string         ; 0x8dcc
     add sp, byte 4                   ; 0x8dcf
@@ -2234,7 +2234,7 @@ jumptable_883a:
     push ax                          ; 0x8f18
     mov ax, 0                        ; 0x8f19
     push ax                          ; 0x8f1c
-    mov ax, 0xd9e                    ; 0x8f1d
+    mov ax, MSG_DIES_3486            ; 0x8f1d
     push ax                          ; 0x8f20
     push word [bp - 0x0050]          ; 0x8f21
     push word [bp - 0x004e]          ; 0x8f24
@@ -2313,7 +2313,7 @@ jumptable_883a:
     push ax                          ; 0x8fce
     mov ax, 4                        ; 0x8fcf
     push ax                          ; 0x8fd2
-    mov ax, 0xd93                    ; 0x8fd3
+    mov ax, MSG_PARALYZED_3475       ; 0x8fd3
     push ax                          ; 0x8fd6
     push word [bp - 0x0050]          ; 0x8fd7
     push word [bp - 0x004e]          ; 0x8fda
@@ -2350,7 +2350,7 @@ jumptable_883a:
     push ax                          ; 0x9019
     mov ax, 0x43                     ; 0x901a
     push ax                          ; 0x901d
-    mov ax, 0xce5                    ; 0x901e
+    mov ax, MSG_MISSED               ; 0x901e
     push ax                          ; 0x9021
     call api_idx_0050_PLNP           ; 0x9022
     add sp, byte 6                   ; 0x9025

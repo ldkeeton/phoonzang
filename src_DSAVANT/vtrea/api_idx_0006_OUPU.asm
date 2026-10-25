@@ -63,7 +63,7 @@ api_idx_0006_OUPU:
     push ax                          ; 0x55a5
     mov ax, 5                        ; 0x55a6
     push ax                          ; 0x55a9
-    mov ax, 0x149b                   ; 0x55aa
+    mov ax, MSG_NAUSEATED            ; 0x55aa
     push ax                          ; 0x55ad
     push word [bp - 0x0002]          ; 0x55ae
     call api_idx_0056_VTNO           ; 0x55b1

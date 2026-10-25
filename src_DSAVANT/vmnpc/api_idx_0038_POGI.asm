@@ -144,7 +144,7 @@ api_idx_0038_POGI:
     mov bx, ax                       ; 0x2611
     mov al, byte [bx + bss_882c + rec_882c.f_0001] ; 0x2613
     cbw                              ; 0x2617
-    add ax, 0x73a                    ; 0x2618
+    add ax, MSG_HAS_BEEN_FIGHTING_AT ; 0x2618
     push ax                          ; 0x261b
     call load_message_string         ; 0x261c
     add sp, byte 4                   ; 0x261f
@@ -154,11 +154,11 @@ api_idx_0038_POGI:
     cbw                              ; 0x2629
     cmp ax, word [bp - 0x0002]       ; 0x262a
     jne short @..api_idx_0038_POGI.l12 ; 0x262d
-    mov ax, 0x66a                    ; 0x262f
+    mov ax, MSG_OUR_PARTY            ; 0x262f
     jmp short @..api_idx_0038_POGI.l13 ; 0x2632
 @..api_idx_0038_POGI.l12:
     mov ax, word [bp - 0x0002]       ; 0x2634
-    add ax, 0x6a4                    ; 0x2637
+    add ax, MSG_SLOT_NAME_BASE       ; 0x2637
 @..api_idx_0038_POGI.l13:
     push ax                          ; 0x263a
     call load_message_string         ; 0x263b

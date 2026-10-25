@@ -85,7 +85,7 @@ api_idx_0094_NVHQ:
     mov bx, ax                       ; 0x3499
     mov al, byte [bx + party_records + pc_rec.cell + 0x5] ; 0x349b
     sub ah, ah                       ; 0x349f
-    add ax, 0x1770                   ; 0x34a1
+    add ax, MSG_DAGGER_6000          ; 0x34a1
     push ax                          ; 0x34a4
     call load_message_string         ; 0x34a5
     add sp, byte 4                   ; 0x34a8
@@ -185,7 +185,7 @@ api_idx_0094_NVHQ:
     push ax                          ; 0x3585
     mov ax, 0                        ; 0x3586
     push ax                          ; 0x3589
-    mov ax, 0xbd6                    ; 0x358a
+    mov ax, MSG_3030                 ; 0x358a
     push ax                          ; 0x358d
     call api_idx_0038_PVVG           ; 0x358e
     add sp, byte 0x0c                ; 0x3591
@@ -230,7 +230,7 @@ api_idx_0094_NVHQ:
     push ax                          ; 0x35ea
     push word [bp - 0x004c]          ; 0x35eb
     mov ax, word [bp - 0x004c]       ; 0x35ee
-    add ax, 0xbd6                    ; 0x35f1
+    add ax, MSG_3030                 ; 0x35f1
     push ax                          ; 0x35f4
     call api_idx_0018_RGOS           ; 0x35f5
     add sp, byte 0x0c                ; 0x35f8

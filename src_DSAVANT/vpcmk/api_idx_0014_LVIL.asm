@@ -10,7 +10,7 @@ api_idx_0014_LVIL:
     push ax                          ; 0x6685
     mov ax, 0                        ; 0x6686
     push ax                          ; 0x6689
-    mov ax, 0x47e                    ; 0x668a
+    mov ax, MSG_CREATE_NEW_CHARACTER ; 0x668a
     push ax                          ; 0x668d
     call api_idx_0026_NRVO           ; 0x668e
     add sp, byte 0x0a                ; 0x6691

@@ -32,7 +32,7 @@ api_idx_002c_JIHO:
     push ax                          ; 0x6781
     mov ax, 0x4a                     ; 0x6782
     push ax                          ; 0x6785
-    mov ax, 0x464                    ; 0x6786
+    mov ax, MSG_DELETE_THIS_CHARACTER ; 0x6786
     push ax                          ; 0x6789
     mov ax, 0x465                    ; 0x678a
     push ax                          ; 0x678d

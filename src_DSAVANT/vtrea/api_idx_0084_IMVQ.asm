@@ -13,7 +13,7 @@ api_idx_0084_IMVQ:
     shl ax, 1                        ; 0x25c5
     mov bx, ax                       ; 0x25c7
     mov ax, word [bx + bss_9342]     ; 0x25c9
-    add ax, 0x14b4                   ; 0x25cd
+    add ax, MSG_NO_TRAP              ; 0x25cd
     push ax                          ; 0x25d0
     call load_message_string         ; 0x25d1
     add sp, byte 4                   ; 0x25d4

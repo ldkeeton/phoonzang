@@ -100,7 +100,7 @@ api_idx_0002_UTVG:
     mov ax, 0                        ; 0x2086
     push ax                          ; 0x2089
     push ax                          ; 0x208a
-    mov ax, 0xd8f                    ; 0x208b
+    mov ax, MSG_UNAFFECTED_3471      ; 0x208b
     push ax                          ; 0x208e
     push word [bp + 0x6]             ; 0x208f
     push word [bp + 0x4]             ; 0x2092

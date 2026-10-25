@@ -300,7 +300,7 @@ api_idx_000e_HLRI:
     push ax                          ; 0x628d
     mov ax, 0x41                     ; 0x628e
     push ax                          ; 0x6291
-    mov ax, 0xc80                    ; 0x6292
+    mov ax, MSG_SILENCED_3200        ; 0x6292
     push ax                          ; 0x6295
     call api_idx_0050_PLNP           ; 0x6296
     add sp, byte 6                   ; 0x6299
@@ -319,7 +319,7 @@ api_idx_000e_HLRI:
     push ax                          ; 0x62b9
     mov ax, 0x41                     ; 0x62ba
     push ax                          ; 0x62bd
-    mov ax, 0xc81                    ; 0x62be
+    mov ax, MSG_FIZZLE_3201          ; 0x62be
     push ax                          ; 0x62c1
     call api_idx_0050_PLNP           ; 0x62c2
     add sp, byte 6                   ; 0x62c5
@@ -338,7 +338,7 @@ api_idx_000e_HLRI:
     push ax                          ; 0x62e4
     mov ax, 0x16                     ; 0x62e5
     push ax                          ; 0x62e8
-    mov ax, 0xc82                    ; 0x62e9
+    mov ax, MSG_BACKFIRE             ; 0x62e9
     push ax                          ; 0x62ec
     call api_idx_0050_PLNP           ; 0x62ed
     add sp, byte 6                   ; 0x62f0

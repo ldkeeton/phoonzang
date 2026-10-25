@@ -23,7 +23,7 @@ api_idx_0018_USPR:
     add sp, byte 6                   ; 0x1cc7
     mov word [bss_844c], ax          ; 0x1cca
 @..api_idx_0018_USPR.l1:
-    mov ax, 0x7f4                    ; 0x1ccd
+    mov ax, MSG_RESTING              ; 0x1ccd
     push ax                          ; 0x1cd0
     call show_message                ; 0x1cd1
     pop cx                           ; 0x1cd4

@@ -66,9 +66,9 @@ jumptable_9808_case_1:
     push ax                          ; 0x9256
     mov ax, 0x43                     ; 0x9257
     push ax                          ; 0x925a
-    mov ax, 0xe74                    ; 0x925b
+    mov ax, MSG_FIRE_3700            ; 0x925b
     push ax                          ; 0x925e
-    mov ax, 0xd0c                    ; 0x925f
+    mov ax, MSG_BREATHES             ; 0x925f
     push ax                          ; 0x9262
     call api_idx_0006_MRPM           ; 0x9263
     add sp, byte 0x0a                ; 0x9266
@@ -119,9 +119,9 @@ jumptable_9808_case_2:
     push ax                          ; 0x92cb
     mov ax, 0x43                     ; 0x92cc
     push ax                          ; 0x92cf
-    mov ax, 0xe75                    ; 0x92d0
+    mov ax, MSG_BURNING_POLLEN       ; 0x92d0
     push ax                          ; 0x92d3
-    mov ax, 0xd14                    ; 0x92d4
+    mov ax, MSG_SQUIRTS              ; 0x92d4
     push ax                          ; 0x92d7
     call api_idx_0006_MRPM           ; 0x92d8
     add sp, byte 0x0a                ; 0x92db
@@ -146,7 +146,7 @@ jumptable_9808_case_2:
     push ax                          ; 0x930b
     mov ax, 8                        ; 0x930c
     push ax                          ; 0x930f
-    mov ax, 0xd9f                    ; 0x9310
+    mov ax, MSG_IRRITATED            ; 0x9310
     push ax                          ; 0x9313
     mov ax, 0                        ; 0x9314
     sub ax, word [bp - 0x0006]       ; 0x9317
@@ -176,9 +176,9 @@ jumptable_9808_case_3:
     push ax                          ; 0x934b
     mov ax, 0x43                     ; 0x934c
     push ax                          ; 0x934f
-    mov ax, 0xe76                    ; 0x9350
+    mov ax, MSG_ICY_FROST            ; 0x9350
     push ax                          ; 0x9353
-    mov ax, 0xd0c                    ; 0x9354
+    mov ax, MSG_BREATHES             ; 0x9354
     push ax                          ; 0x9357
     call api_idx_0006_MRPM           ; 0x9358
     add sp, byte 0x0a                ; 0x935b
@@ -229,9 +229,9 @@ jumptable_9808_case_8:
     push ax                          ; 0x93c0
     mov ax, 0x43                     ; 0x93c1
     push ax                          ; 0x93c4
-    mov ax, 0xe77                    ; 0x93c5
+    mov ax, MSG_ACID_SPRAY           ; 0x93c5
     push ax                          ; 0x93c8
-    mov ax, 0xd0c                    ; 0x93c9
+    mov ax, MSG_BREATHES             ; 0x93c9
     push ax                          ; 0x93cc
     call api_idx_0006_MRPM           ; 0x93cd
     add sp, byte 0x0a                ; 0x93d0
@@ -289,7 +289,7 @@ jumptable_9808_case_10:
     push ax                          ; 0x9444
     mov ax, 0xffff                   ; 0x9445
     push ax                          ; 0x9448
-    mov ax, 0xd0e                    ; 0x9449
+    mov ax, MSG_SCREAMS              ; 0x9449
     push ax                          ; 0x944c
     call api_idx_0006_MRPM           ; 0x944d
     add sp, byte 0x0a                ; 0x9450
@@ -325,7 +325,7 @@ jumptable_9808_case_10:
     push word [bp - 0x0006]          ; 0x9495
     mov ax, 0xa                      ; 0x9498
     push ax                          ; 0x949b
-    mov ax, 0xd97                    ; 0x949c
+    mov ax, MSG_GOES_INSANE          ; 0x949c
     push ax                          ; 0x949f
     mov ax, 0                        ; 0x94a0
     mov cx, word [bp - 0x0006]       ; 0x94a3
@@ -360,9 +360,9 @@ jumptable_9808_case_4:
     push ax                          ; 0x94dd
     mov ax, 0x43                     ; 0x94de
     push ax                          ; 0x94e1
-    mov ax, 0xe78                    ; 0x94e2
+    mov ax, MSG_DEMON_POWER          ; 0x94e2
     push ax                          ; 0x94e5
-    mov ax, 0xd0f                    ; 0x94e6
+    mov ax, MSG_INVOKES_3343         ; 0x94e6
     push ax                          ; 0x94e9
     call api_idx_0006_MRPM           ; 0x94ea
     add sp, byte 0x0a                ; 0x94ed
@@ -389,7 +389,7 @@ jumptable_9808_case_4:
     push ax                          ; 0x9520
     mov ax, 4                        ; 0x9521
     push ax                          ; 0x9524
-    mov ax, 0xd93                    ; 0x9525
+    mov ax, MSG_PARALYZED_3475       ; 0x9525
     push ax                          ; 0x9528
     mov ax, 0                        ; 0x9529
     sub ax, word [bp - 0x0006]       ; 0x952c
@@ -419,9 +419,9 @@ jumptable_9808_case_5:
     push ax                          ; 0x9560
     mov ax, 0x43                     ; 0x9561
     push ax                          ; 0x9564
-    mov ax, 0xe79                    ; 0x9565
+    mov ax, MSG_HORRID_BILE          ; 0x9565
     push ax                          ; 0x9568
-    mov ax, 0xd10                    ; 0x9569
+    mov ax, MSG_SPITS                ; 0x9569
     push ax                          ; 0x956c
     call api_idx_0006_MRPM           ; 0x956d
     add sp, byte 0x0a                ; 0x9570
@@ -451,7 +451,7 @@ jumptable_9808_case_5:
     push word [bp - 0x0006]          ; 0x95a9
     mov ax, 5                        ; 0x95ac
     push ax                          ; 0x95af
-    mov ax, 0xd98                    ; 0x95b0
+    mov ax, MSG_NAUSEOUS_3480        ; 0x95b0
     push ax                          ; 0x95b3
     mov ax, 0                        ; 0x95b4
     mov cx, word [bp - 0x0006]       ; 0x95b7
@@ -483,9 +483,9 @@ jumptable_9808_case_6:
     push ax                          ; 0x95ee
     mov ax, 0x43                     ; 0x95ef
     push ax                          ; 0x95f2
-    mov ax, 0xe7a                    ; 0x95f3
+    mov ax, MSG_POISON_3706          ; 0x95f3
     push ax                          ; 0x95f6
-    mov ax, 0xd0c                    ; 0x95f7
+    mov ax, MSG_BREATHES             ; 0x95f7
     push ax                          ; 0x95fa
     call api_idx_0006_MRPM           ; 0x95fb
     add sp, byte 0x0a                ; 0x95fe
@@ -516,7 +516,7 @@ jumptable_9808_case_6:
     push word [bp - 0x0006]          ; 0x9638
     mov ax, 6                        ; 0x963b
     push ax                          ; 0x963e
-    mov ax, 0xd95                    ; 0x963f
+    mov ax, MSG_POISONED_3477        ; 0x963f
     push ax                          ; 0x9642
     mov ax, 0                        ; 0x9643
     sub ax, word [bp - 0x0006]       ; 0x9646
@@ -546,9 +546,9 @@ jumptable_9808_case_7:
     push ax                          ; 0x967a
     mov ax, 0x43                     ; 0x967b
     push ax                          ; 0x967e
-    mov ax, 0xe7b                    ; 0x967f
+    mov ax, MSG_PUTRID_BILE          ; 0x967f
     push ax                          ; 0x9682
-    mov ax, 0xd11                    ; 0x9683
+    mov ax, MSG_VOMITS               ; 0x9683
     push ax                          ; 0x9686
     call api_idx_0006_MRPM           ; 0x9687
     add sp, byte 0x0a                ; 0x968a
@@ -579,7 +579,7 @@ jumptable_9808_case_7:
     push word [bp - 0x0006]          ; 0x96c2
     mov ax, 7                        ; 0x96c5
     push ax                          ; 0x96c8
-    mov ax, 0xdaa                    ; 0x96c9
+    mov ax, MSG_DISEASED_3498        ; 0x96c9
     push ax                          ; 0x96cc
     mov ax, 0                        ; 0x96cd
     sub ax, word [bp - 0x0006]       ; 0x96d0
@@ -608,9 +608,9 @@ jumptable_9808_case_9:
     push ax                          ; 0x9701
     mov ax, 0x43                     ; 0x9702
     push ax                          ; 0x9705
-    mov ax, 0xe7c                    ; 0x9706
+    mov ax, MSG_GLOWING_AURA         ; 0x9706
     push ax                          ; 0x9709
-    mov ax, 0xd12                    ; 0x970a
+    mov ax, MSG_EMITS                ; 0x970a
     push ax                          ; 0x970d
     call api_idx_0006_MRPM           ; 0x970e
     add sp, byte 0x0a                ; 0x9711
@@ -636,7 +636,7 @@ jumptable_9808_case_9:
     push ax                          ; 0x9741
     mov ax, 9                        ; 0x9742
     push ax                          ; 0x9745
-    mov ax, 0xd92                    ; 0x9746
+    mov ax, MSG_FALLS_ASLEEP_3474    ; 0x9746
     push ax                          ; 0x9749
     mov ax, 0                        ; 0x974a
     mov cx, word [bp - 0x0006]       ; 0x974d
@@ -676,7 +676,7 @@ jumptable_9808_case_11:
     push ax                          ; 0x9793
     mov ax, 0xffff                   ; 0x9794
     push ax                          ; 0x9797
-    mov ax, 0xd13                    ; 0x9798
+    mov ax, MSG_CRIES                ; 0x9798
     push ax                          ; 0x979b
     call api_idx_0006_MRPM           ; 0x979c
     add sp, byte 0x0a                ; 0x979f
@@ -703,7 +703,7 @@ jumptable_9808_case_11:
     push ax                          ; 0x97d3
     mov ax, 0xa                      ; 0x97d4
     push ax                          ; 0x97d7
-    mov ax, 0xd91                    ; 0x97d8
+    mov ax, MSG_FRIGHTENED_3473      ; 0x97d8
     push ax                          ; 0x97db
     mov ax, 0xfff6                   ; 0x97dc
     push ax                          ; 0x97df

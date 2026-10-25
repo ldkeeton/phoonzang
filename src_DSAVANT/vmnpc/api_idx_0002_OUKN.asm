@@ -5,7 +5,7 @@ api_idx_0002_OUKN:
     mov ax, bss_9576                 ; 0x276e
     push ax                          ; 0x2771
     mov ax, word [bp + 0x4]          ; 0x2772
-    add ax, 0x708                    ; 0x2775
+    add ax, MSG_TEMPLE_1800          ; 0x2775
     push ax                          ; 0x2778
     call load_message_string         ; 0x2779
     add sp, byte 4                   ; 0x277c
@@ -44,13 +44,13 @@ api_idx_0002_OUKN:
     pop ax                           ; 0x27cc
     cmp ax, cx                       ; 0x27cd
     jne short @..api_idx_0002_OUKN.l4 ; 0x27cf
-    mov ax, 0x758                    ; 0x27d1
+    mov ax, MSG_HAS_POSSESSION_OF_THE_MAP ; 0x27d1
     jmp short @..api_idx_0002_OUKN.l5 ; 0x27d4
 @..api_idx_0002_OUKN.l4:
-    mov ax, 0x759                    ; 0x27d6
+    mov ax, MSG_IT_IS_RUMORED_THAT_POS_1881 ; 0x27d6
     cmp word [bp - 0x0002], byte 0   ; 0x27d9
     je short @..api_idx_0002_OUKN.l5 ; 0x27dd
-    mov ax, 0x75a                    ; 0x27df
+    mov ax, MSG_IT_IS_RUMORED_THAT_POS_1882 ; 0x27df
 @..api_idx_0002_OUKN.l5:
     push ax                          ; 0x27e2
     call load_message_string         ; 0x27e3
@@ -69,7 +69,7 @@ api_idx_0002_OUKN:
     pop ax                           ; 0x2802
     cmp ax, cx                       ; 0x2803
     jne short @..api_idx_0002_OUKN.l6 ; 0x2805
-    mov ax, 0x66a                    ; 0x2807
+    mov ax, MSG_OUR_PARTY            ; 0x2807
     jmp short @..api_idx_0002_OUKN.l8 ; 0x280a
 @..api_idx_0002_OUKN.l6:
     cmp word [bp - 0x0002], byte 0   ; 0x280c
@@ -81,7 +81,7 @@ api_idx_0002_OUKN:
     mov bx, ax                       ; 0x281d
     mov al, byte [bx + slot_records] ; 0x281f
     sub ah, ah                       ; 0x2823
-    add ax, 0x6d6                    ; 0x2825
+    add ax, MSG_YOU_1750             ; 0x2825
     jmp short @..api_idx_0002_OUKN.l8 ; 0x2828
 @..api_idx_0002_OUKN.l7:
     mov ax, 6                        ; 0x282a
@@ -89,7 +89,7 @@ api_idx_0002_OUKN:
     mov bx, ax                       ; 0x2830
     mov al, byte [bx + bss_84a6]     ; 0x2832
     sub ah, ah                       ; 0x2836
-    add ax, 0x6a4                    ; 0x2838
+    add ax, MSG_SLOT_NAME_BASE       ; 0x2838
 @..api_idx_0002_OUKN.l8:
     push ax                          ; 0x283b
     call load_message_string         ; 0x283c

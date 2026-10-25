@@ -191,7 +191,7 @@ loc_MIPR:
     jl short @..loc_MIPR.l5          ; 0x64d2
     cmp word [bp - 0x0004], byte 0   ; 0x64d4
     jle short @..loc_MIPR.l6         ; 0x64d8
-    mov ax, 0x25e                    ; 0x64da
+    mov ax, MSG_YOU_GET_A_SKILL_BONUS ; 0x64da
     push ax                          ; 0x64dd
     push word [bp - 0x0006]          ; 0x64de
     call api_idx_0088_QLNT           ; 0x64e1
@@ -263,7 +263,7 @@ loc_MIPR:
     push ax                          ; 0x6584
     mov ax, 0x4a                     ; 0x6585
     push ax                          ; 0x6588
-    mov ax, 0x467                    ; 0x6589
+    mov ax, MSG_SAVE_THIS_CHARACTER  ; 0x6589
     push ax                          ; 0x658c
     mov ax, 0x468                    ; 0x658d
     push ax                          ; 0x6590

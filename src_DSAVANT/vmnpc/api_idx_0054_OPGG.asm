@@ -82,7 +82,7 @@ api_idx_0054_OPGG:
     mov bx, ax                       ; 0x45ce
     mov al, byte [bx + bss_9918]     ; 0x45d0
     sub ah, ah                       ; 0x45d4
-    add ax, 0x60e                    ; 0x45d6
+    add ax, MSG_WEAPON_S             ; 0x45d6
     push ax                          ; 0x45d9
     call load_message_string         ; 0x45da
     add sp, byte 4                   ; 0x45dd

@@ -169,7 +169,7 @@ api_idx_0006_QJOL:
     mov ax, 0                        ; 0x222c
     push ax                          ; 0x222f
     push ax                          ; 0x2230
-    mov ax, 0xd8f                    ; 0x2231
+    mov ax, MSG_UNAFFECTED_3471      ; 0x2231
     push ax                          ; 0x2234
     push word [bp + 0x6]             ; 0x2235
     push word [bp + 0x4]             ; 0x2238

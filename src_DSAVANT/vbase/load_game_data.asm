@@ -63,7 +63,7 @@ load_game_data:
     push ax                          ; 0x3081
     mov ax, 0                        ; 0x3082
     push ax                          ; 0x3085
-    mov ax, 0x578                    ; 0x3086
+    mov ax, MSG_LOAD_SAVEGAME_1400   ; 0x3086
     push ax                          ; 0x3089
     call api_idx_0028_NRJN           ; 0x308a
     add sp, byte 0x0c                ; 0x308d

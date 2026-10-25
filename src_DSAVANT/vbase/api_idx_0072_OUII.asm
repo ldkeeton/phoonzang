@@ -54,7 +54,7 @@ api_idx_0072_OUII:
     push ax                          ; 0x2027
     mov ax, 0                        ; 0x2028
     push ax                          ; 0x202b
-    mov ax, 0x587                    ; 0x202c
+    mov ax, MSG_IMPORT_BANE_1415     ; 0x202c
     push ax                          ; 0x202f
     call api_idx_0028_NRJN           ; 0x2030
     add sp, byte 0x0c                ; 0x2033

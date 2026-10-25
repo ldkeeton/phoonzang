@@ -27,7 +27,7 @@ api_idx_0010_GVMH:
     push ax                          ; 0x508c
     mov ax, 0x4a                     ; 0x508d
     push ax                          ; 0x5090
-    mov ax, 0x161                    ; 0x5091
+    mov ax, MSG_INVOKE_ITS_SPECIAL_POWER ; 0x5091
     push ax                          ; 0x5094
     mov ax, 0x162                    ; 0x5095
     push ax                          ; 0x5098

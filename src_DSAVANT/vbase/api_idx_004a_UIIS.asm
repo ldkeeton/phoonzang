@@ -62,7 +62,7 @@ api_idx_004a_UIIS:
     lea ax, word [bp - 0x004a]       ; 0x694f
     push ax                          ; 0x6952
     mov ax, word [bp - 0x0002]       ; 0x6953
-    add ax, 0x898                    ; 0x6956
+    add ax, MSG_RESUME_PLAY          ; 0x6956
     push ax                          ; 0x6959
     call load_message_string         ; 0x695a
     add sp, byte 4                   ; 0x695d

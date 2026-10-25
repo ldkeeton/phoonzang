@@ -77,7 +77,7 @@ jumptable_3341_case_1:
     push ax                          ; 0x31d9
     mov ax, 2                        ; 0x31da
     push ax                          ; 0x31dd
-    mov ax, 0xd94                    ; 0x31de
+    mov ax, MSG_BLINDED_3476         ; 0x31de
     push ax                          ; 0x31e1
     push word [bp - 0x0002]          ; 0x31e2
     push word [bp + 0x4]             ; 0x31e5
@@ -97,7 +97,7 @@ jumptable_3341_case_2:
     push ax                          ; 0x3206
     mov ax, 9                        ; 0x3207
     push ax                          ; 0x320a
-    mov ax, 0xd92                    ; 0x320b
+    mov ax, MSG_FALLS_ASLEEP_3474    ; 0x320b
     push ax                          ; 0x320e
     push word [bp - 0x0002]          ; 0x320f
     push word [bp + 0x4]             ; 0x3212
@@ -118,7 +118,7 @@ jumptable_3341_case_3:
     push ax                          ; 0x3235
     mov ax, 4                        ; 0x3236
     push ax                          ; 0x3239
-    mov ax, 0xd93                    ; 0x323a
+    mov ax, MSG_PARALYZED_3475       ; 0x323a
     push ax                          ; 0x323d
     push word [bp - 0x0002]          ; 0x323e
     push word [bp + 0x4]             ; 0x3241
@@ -137,7 +137,7 @@ jumptable_3341_case_4:
     push ax                          ; 0x3261
     mov ax, 5                        ; 0x3262
     push ax                          ; 0x3265
-    mov ax, 0xd98                    ; 0x3266
+    mov ax, MSG_NAUSEOUS_3480        ; 0x3266
     push ax                          ; 0x3269
     push word [bp - 0x0002]          ; 0x326a
     push word [bp + 0x4]             ; 0x326d
@@ -158,7 +158,7 @@ jumptable_3341_case_5:
     push ax                          ; 0x328d
     mov ax, 0xb                      ; 0x328e
     push ax                          ; 0x3291
-    mov ax, 0xda1                    ; 0x3292
+    mov ax, MSG_WHITHERS_AND_DIES    ; 0x3292
     push ax                          ; 0x3295
     push word [bp - 0x0002]          ; 0x3296
     push word [bp + 0x4]             ; 0x3299
@@ -194,7 +194,7 @@ jumptable_3341_case_7:
     push ax                          ; 0x32df
     mov ax, 0xa                      ; 0x32e0
     push ax                          ; 0x32e3
-    mov ax, 0xd97                    ; 0x32e4
+    mov ax, MSG_GOES_INSANE          ; 0x32e4
     push ax                          ; 0x32e7
     push word [bp - 0x0002]          ; 0x32e8
     push word [bp + 0x4]             ; 0x32eb
@@ -215,7 +215,7 @@ jumptable_3341_case_8:
     push ax                          ; 0x330a
     mov ax, 0xb                      ; 0x330b
     push ax                          ; 0x330e
-    mov ax, 0xd9d                    ; 0x330f
+    mov ax, MSG_TURNS_TO_STONE_3485  ; 0x330f
     push ax                          ; 0x3312
     push word [bp - 0x0002]          ; 0x3313
     push word [bp + 0x4]             ; 0x3316
@@ -293,7 +293,7 @@ jumptable_3341:
     push ax                          ; 0x33b9
     mov ax, 0x41                     ; 0x33ba
     push ax                          ; 0x33bd
-    mov ax, 0xd8f                    ; 0x33be
+    mov ax, MSG_UNAFFECTED_3471      ; 0x33be
     push ax                          ; 0x33c1
     call api_idx_0050_PLNP           ; 0x33c2
     add sp, byte 6                   ; 0x33c5

@@ -41,7 +41,7 @@ show_intro_screen:
     push ax                          ; 0x8fd4
     mov ax, 0x63                     ; 0x8fd5
     push ax                          ; 0x8fd8
-    mov ax, 0x7ba2                   ; 0x8fd9
+    mov ax, MSG_INSIDE_THE_RUINS_OF_A_31650 ; 0x8fd9
     push ax                          ; 0x8fdc
     call loc_TQHJ                    ; 0x8fdd
     add sp, byte 0x0a                ; 0x8fe0
@@ -54,7 +54,7 @@ show_intro_screen:
     push ax                          ; 0x8fed
     mov ax, 0                        ; 0x8fee
     push ax                          ; 0x8ff1
-    mov ax, 0x7b0c                   ; 0x8ff2
+    mov ax, MSG_BEHOLD_THE_COSMIC_FOR_31500 ; 0x8ff2
     push ax                          ; 0x8ff5
     call loc_TQHJ                    ; 0x8ff6
     add sp, byte 0x0a                ; 0x8ff9
@@ -64,7 +64,7 @@ show_intro_screen:
     push ax                          ; 0x9000
     mov ax, 0                        ; 0x9001
     push ax                          ; 0x9004
-    mov ax, 0x7b20                   ; 0x9005
+    mov ax, MSG_IN_THE_DEEP_REGIONS_O_31520 ; 0x9005
     push ax                          ; 0x9008
     call api_idx_0002_GLIS           ; 0x9009
     add sp, byte 8                   ; 0x900c
@@ -73,19 +73,19 @@ show_intro_screen:
     push ax                          ; 0x9013
     mov ax, 0                        ; 0x9014
     push ax                          ; 0x9017
-    mov ax, 0x7b2a                   ; 0x9018
+    mov ax, MSG_EVEN_AS_I_SPEAK_AN_EV_31530 ; 0x9018
     push ax                          ; 0x901b
     call api_idx_0002_UUUJ           ; 0x901c
     add sp, byte 8                   ; 0x901f
     mov ax, 0                        ; 0x9022
     push ax                          ; 0x9025
-    mov ax, 0x7b2f                   ; 0x9026
+    mov ax, MSG_WITHIN_THE_BLACK_SHIP_31535 ; 0x9026
     push ax                          ; 0x9029
     call api_idx_0002_MIQR           ; 0x902a
     add sp, byte 4                   ; 0x902d
     mov ax, 0                        ; 0x9030
     push ax                          ; 0x9033
-    mov ax, 0x7b3e                   ; 0x9034
+    mov ax, MSG_ABOARD_THE_SHIP_OF_TH_31550 ; 0x9034
     push ax                          ; 0x9037
     call api_idx_0002_JHTS           ; 0x9038
     add sp, byte 4                   ; 0x903b
@@ -93,7 +93,7 @@ show_intro_screen:
     push ax                          ; 0x9041
     mov ax, 0                        ; 0x9042
     push ax                          ; 0x9045
-    mov ax, 0x7b48                   ; 0x9046
+    mov ax, MSG_THE_T_RANG_31560     ; 0x9046
     push ax                          ; 0x9049
     call api_idx_0002_QRJS           ; 0x904a
     add sp, byte 6                   ; 0x904d
@@ -101,7 +101,7 @@ show_intro_screen:
     push ax                          ; 0x9053
     mov ax, 0x63                     ; 0x9054
     push ax                          ; 0x9057
-    mov ax, 0x7b4d                   ; 0x9058
+    mov ax, MSG_THE_UMPANI_31565     ; 0x9058
     push ax                          ; 0x905b
     call api_idx_0002_QRJS           ; 0x905c
     add sp, byte 6                   ; 0x905f
@@ -115,7 +115,7 @@ show_intro_screen:
     mov ax, 0x63                     ; 0x9071
 @..show_intro_screen.l6:
     push ax                          ; 0x9074
-    mov ax, 0x7b52                   ; 0x9075
+    mov ax, MSG_THERE_IS_NO_MORE_TIME_31570 ; 0x9075
     push ax                          ; 0x9078
     call loc_TQHJ                    ; 0x9079
     add sp, byte 0x0a                ; 0x907c
@@ -125,19 +125,19 @@ show_intro_screen:
     push ax                          ; 0x9086
     mov ax, 1                        ; 0x9087
     push ax                          ; 0x908a
-    mov ax, 0x7b5c                   ; 0x908b
+    mov ax, MSG_INSIDE_A_TINY_BIRD_OF_31580 ; 0x908b
     push ax                          ; 0x908e
     call api_idx_0002_GLIS           ; 0x908f
     add sp, byte 8                   ; 0x9092
     mov ax, 0                        ; 0x9095
     push ax                          ; 0x9098
-    mov ax, 0x7b66                   ; 0x9099
+    mov ax, MSG_31590                ; 0x9099
     push ax                          ; 0x909c
     call loc_JTTS                    ; 0x909d
     add sp, byte 4                   ; 0x90a0
     mov ax, 0                        ; 0x90a3
     push ax                          ; 0x90a6
-    mov ax, 0x7b70                   ; 0x90a7
+    mov ax, MSG_WE_HAVE_ARRIVED_EXCLA_31600 ; 0x90a7
     push ax                          ; 0x90aa
     call api_idx_0002_GORG           ; 0x90ab
     add sp, byte 4                   ; 0x90ae
@@ -149,7 +149,7 @@ show_intro_screen:
     mov ax, 0x63                     ; 0x90b9
     push ax                          ; 0x90bc
     push ax                          ; 0x90bd
-    mov ax, 0x7bd4                   ; 0x90be
+    mov ax, MSG_PERCHED_UPON_HIS_THRO_31700 ; 0x90be
     push ax                          ; 0x90c1
     call loc_TQHJ                    ; 0x90c2
     add sp, byte 0x0a                ; 0x90c5
@@ -157,7 +157,7 @@ show_intro_screen:
     push ax                          ; 0x90cb
     mov ax, 0x63                     ; 0x90cc
     push ax                          ; 0x90cf
-    mov ax, 0x7be3                   ; 0x90d0
+    mov ax, MSG_THEY_CALL_THEMSELVES_31715 ; 0x90d0
     push ax                          ; 0x90d3
     call api_idx_0002_QRJS           ; 0x90d4
     add sp, byte 6                   ; 0x90d7
@@ -166,7 +166,7 @@ show_intro_screen:
     push ax                          ; 0x90de
     mov ax, 0                        ; 0x90df
     push ax                          ; 0x90e2
-    mov ax, 0x7be8                   ; 0x90e3
+    mov ax, MSG_SOMEWHERE_AMONG_THE_S_31720 ; 0x90e3
     push ax                          ; 0x90e6
     call api_idx_0002_GLIS           ; 0x90e7
     add sp, byte 8                   ; 0x90ea
@@ -174,7 +174,7 @@ show_intro_screen:
     push ax                          ; 0x90f0
     mov ax, 0                        ; 0x90f1
     push ax                          ; 0x90f4
-    mov ax, 0x7bf2                   ; 0x90f5
+    mov ax, MSG_THEY_ALSO_SPOKE_OF_TE_31730 ; 0x90f5
     push ax                          ; 0x90f8
     call api_idx_0002_QRJS           ; 0x90f9
     add sp, byte 6                   ; 0x90fc
@@ -183,19 +183,19 @@ show_intro_screen:
     push ax                          ; 0x9103
     mov ax, 0                        ; 0x9104
     push ax                          ; 0x9107
-    mov ax, 0x7bf7                   ; 0x9108
+    mov ax, MSG_AND_OF_A_BLACK_SHIP_A_31735 ; 0x9108
     push ax                          ; 0x910b
     call api_idx_0002_UUUJ           ; 0x910c
     add sp, byte 8                   ; 0x910f
     mov ax, 0                        ; 0x9112
     push ax                          ; 0x9115
-    mov ax, 0x7bfc                   ; 0x9116
+    mov ax, MSG_AND_WITHIN_THE_BLACK_31740 ; 0x9116
     push ax                          ; 0x9119
     call api_idx_0002_MIQR           ; 0x911a
     add sp, byte 4                   ; 0x911d
     mov ax, 0                        ; 0x9120
     push ax                          ; 0x9123
-    mov ax, 0x7c06                   ; 0x9124
+    mov ax, MSG_A_YOUNG_GIRL_VI_DOMIN_31750 ; 0x9124
     push ax                          ; 0x9127
     call api_idx_0002_JHTS           ; 0x9128
     add sp, byte 4                   ; 0x912b
@@ -205,7 +205,7 @@ show_intro_screen:
     mov ax, 0x63                     ; 0x9133
     push ax                          ; 0x9136
     push ax                          ; 0x9137
-    mov ax, 0x7c0b                   ; 0x9138
+    mov ax, MSG_AFTER_THE_VOICES_CEAS_31755 ; 0x9138
     push ax                          ; 0x913b
     call loc_TQHJ                    ; 0x913c
     add sp, byte 0x0a                ; 0x913f
@@ -216,7 +216,7 @@ show_intro_screen:
     push ax                          ; 0x914a
     mov ax, 0                        ; 0x914b
     push ax                          ; 0x914e
-    mov ax, 0x7c10                   ; 0x914f
+    mov ax, MSG_CONCEALED_NEAR_THE_CH_31760 ; 0x914f
     push ax                          ; 0x9152
     call loc_TQHJ                    ; 0x9153
     add sp, byte 0x0a                ; 0x9156
@@ -226,7 +226,7 @@ show_intro_screen:
     mov ax, 0x63                     ; 0x915e
     push ax                          ; 0x9161
     push ax                          ; 0x9162
-    mov ax, 0x7c1a                   ; 0x9163
+    mov ax, MSG_THERE_HE_IS_WHISPERS_31770 ; 0x9163
     push ax                          ; 0x9166
     call loc_TQHJ                    ; 0x9167
     add sp, byte 0x0a                ; 0x916a
@@ -236,19 +236,19 @@ show_intro_screen:
     push ax                          ; 0x9174
     mov ax, 1                        ; 0x9175
     push ax                          ; 0x9178
-    mov ax, 0x7c24                   ; 0x9179
+    mov ax, MSG_INSIDE_A_TINY_BIRD_OF_31780 ; 0x9179
     push ax                          ; 0x917c
     call api_idx_0002_GLIS           ; 0x917d
     add sp, byte 8                   ; 0x9180
     mov ax, 0                        ; 0x9183
     push ax                          ; 0x9186
-    mov ax, 0x7c38                   ; 0x9187
+    mov ax, MSG_THE_STRANGE_WORLD_LOS_31800 ; 0x9187
     push ax                          ; 0x918a
     call loc_JTTS                    ; 0x918b
     add sp, byte 4                   ; 0x918e
     mov ax, 0                        ; 0x9191
     push ax                          ; 0x9194
-    mov ax, 0x7c42                   ; 0x9195
+    mov ax, MSG_HERE_AT_LAST_BELA_YEL_31810 ; 0x9195
     push ax                          ; 0x9198
     call api_idx_0002_GORG           ; 0x9199
     add sp, byte 4                   ; 0x919c
@@ -260,7 +260,7 @@ show_intro_screen:
     push ax                          ; 0x91a9
     push ax                          ; 0x91aa
     push ax                          ; 0x91ab
-    mov ax, 0x797c                   ; 0x91ac
+    mov ax, MSG_YOU_CONFRONT_A_GIANT_31100 ; 0x91ac
     push ax                          ; 0x91af
     call loc_TQHJ                    ; 0x91b0
     add sp, byte 0x0a                ; 0x91b3
@@ -270,7 +270,7 @@ show_intro_screen:
     push ax                          ; 0x91bd
     mov ax, 0x63                     ; 0x91be
     push ax                          ; 0x91c1
-    mov ax, 0x7986                   ; 0x91c2
+    mov ax, MSG_AND_THEN_THERE_WERE_S_31110 ; 0x91c2
     push ax                          ; 0x91c5
     call api_idx_0002_GLIS           ; 0x91c6
     add sp, byte 8                   ; 0x91c9
@@ -279,19 +279,19 @@ show_intro_screen:
     push ax                          ; 0x91d0
     mov ax, 0                        ; 0x91d1
     push ax                          ; 0x91d4
-    mov ax, 0x7990                   ; 0x91d5
+    mov ax, MSG_AN_EVIL_PRESENCE_APPE_31120 ; 0x91d5
     push ax                          ; 0x91d8
     call api_idx_0002_UUUJ           ; 0x91d9
     add sp, byte 8                   ; 0x91dc
     mov ax, 0x63                     ; 0x91df
     push ax                          ; 0x91e2
-    mov ax, 0x799a                   ; 0x91e3
+    mov ax, MSG_YOU_EMERGE_FROM_YOUR_31130 ; 0x91e3
     push ax                          ; 0x91e6
     call api_idx_0002_JHTS           ; 0x91e7
     add sp, byte 4                   ; 0x91ea
     mov ax, 0                        ; 0x91ed
     push ax                          ; 0x91f0
-    mov ax, 0x79ae                   ; 0x91f1
+    mov ax, MSG_I_AM_HE_THAT_IS_CALLE_31150 ; 0x91f1
     push ax                          ; 0x91f4
     call api_idx_0002_MIQR           ; 0x91f5
     add sp, byte 4                   ; 0x91f8
@@ -300,13 +300,13 @@ show_intro_screen:
     push ax                          ; 0x91ff
     mov ax, 0                        ; 0x9200
     push ax                          ; 0x9203
-    mov ax, 0x79b8                   ; 0x9204
+    mov ax, MSG_WE_TRAVEL_TO_A_DISTAN_31160 ; 0x9204
     push ax                          ; 0x9207
     call api_idx_0002_GLIS           ; 0x9208
     add sp, byte 8                   ; 0x920b
     mov ax, 0                        ; 0x920e
     push ax                          ; 0x9211
-    mov ax, 0x79c2                   ; 0x9212
+    mov ax, MSG_WITH_IT_I_SHALL_AQUIR_31170 ; 0x9212
     push ax                          ; 0x9215
     call api_idx_0002_MIQR           ; 0x9216
     add sp, byte 4                   ; 0x9219
@@ -314,19 +314,19 @@ show_intro_screen:
     push ax                          ; 0x921f
     mov ax, 0                        ; 0x9220
     push ax                          ; 0x9223
-    mov ax, 0x79d6                   ; 0x9224
+    mov ax, MSG_I_SHALL_COMMAND_THE_T_31190 ; 0x9224
     push ax                          ; 0x9227
     call api_idx_0002_QRJS           ; 0x9228
     add sp, byte 6                   ; 0x922b
     mov ax, 0                        ; 0x922e
     push ax                          ; 0x9231
-    mov ax, 0x79e0                   ; 0x9232
+    mov ax, MSG_UNTIL_WE_ARRIVE_YOU_W_31200 ; 0x9232
     push ax                          ; 0x9235
     call api_idx_0002_MIQR           ; 0x9236
     add sp, byte 4                   ; 0x9239
     mov ax, 0                        ; 0x923c
     push ax                          ; 0x923f
-    mov ax, 0x79ea                   ; 0x9240
+    mov ax, MSG_A_YOUNG_GIRL_APPROACH_31210 ; 0x9240
     push ax                          ; 0x9243
     call api_idx_0002_JHTS           ; 0x9244
     add sp, byte 4                   ; 0x9247
@@ -336,19 +336,19 @@ show_intro_screen:
     push ax                          ; 0x9251
     mov ax, 1                        ; 0x9252
     push ax                          ; 0x9255
-    mov ax, 0x79f4                   ; 0x9256
+    mov ax, MSG_SEVERAL_DAYS_LATER_YO_31220 ; 0x9256
     push ax                          ; 0x9259
     call api_idx_0002_GLIS           ; 0x925a
     add sp, byte 8                   ; 0x925d
     mov ax, 0                        ; 0x9260
     push ax                          ; 0x9263
-    mov ax, 0x79fe                   ; 0x9264
+    mov ax, MSG_THE_PLANET_GUARDIA_31230 ; 0x9264
     push ax                          ; 0x9267
     call loc_JTTS                    ; 0x9268
     add sp, byte 4                   ; 0x926b
     mov ax, 0                        ; 0x926e
     push ax                          ; 0x9271
-    mov ax, 0x7a08                   ; 0x9272
+    mov ax, MSG_HSSST_WE_HAVE_ARRIVED_31240 ; 0x9272
     push ax                          ; 0x9275
     call api_idx_0002_GORG           ; 0x9276
     add sp, byte 4                   ; 0x9279

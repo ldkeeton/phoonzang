@@ -73,7 +73,7 @@ api_idx_0072_KTMQ:
     push ax                          ; 0x5f49
     mov ax, 1                        ; 0x5f4a
     push ax                          ; 0x5f4d
-    mov ax, 0x62c                    ; 0x5f4e
+    mov ax, MSG_1580                 ; 0x5f4e
     push ax                          ; 0x5f51
     push word [bp + 0x4]             ; 0x5f52
     call api_idx_0006_GQUO           ; 0x5f55
@@ -87,7 +87,7 @@ api_idx_0072_KTMQ:
     mov ax, 1                        ; 0x5f66
     push ax                          ; 0x5f69
     push ax                          ; 0x5f6a
-    mov ax, 0x62f                    ; 0x5f6b
+    mov ax, MSG_1583                 ; 0x5f6b
     push ax                          ; 0x5f6e
     push word [bp + 0x4]             ; 0x5f6f
     call api_idx_0006_GQUO           ; 0x5f72

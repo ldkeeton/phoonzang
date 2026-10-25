@@ -74,7 +74,7 @@ api_idx_007c_MOJH:
     mov bx, ax
     mov al, byte [bx + party_records + pc_rec.sound]
     sub ah, ah
-    add ax, 0x8c
+    add ax, MSG_MALE
     push ax
     call load_message_string
     add sp, byte 4
@@ -269,7 +269,7 @@ api_idx_007c_MOJH:
     lea ax, word [bp - 0x0058]
     push ax
     mov ax, word [bp - 0x0002]
-    add ax, 0xcc
+    add ax, MSG_STR
     push ax
     call load_message_string
     add sp, byte 4
@@ -335,7 +335,7 @@ api_idx_007c_MOJH:
     mov cx, ax
     pop ax
     add ax, cx
-    add ax, 0x320
+    add ax, MSG_NONE_800
     push ax
     call load_message_string
     add sp, byte 4

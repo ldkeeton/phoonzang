@@ -188,7 +188,7 @@ jumptable_1fa3_case_2:
     push ax                          ; 0x1681
     mov ax, 6                        ; 0x1682
     push ax                          ; 0x1685
-    mov ax, 0x1487                   ; 0x1686
+    mov ax, MSG_POISONED_5255        ; 0x1686
     push ax                          ; 0x1689
     push word [bp - 0x0002]          ; 0x168a
     call api_idx_0056_VTNO           ; 0x168d
@@ -347,7 +347,7 @@ jumptable_1fa3_case_4:
     push ax                          ; 0x17dd
     mov ax, 0xb                      ; 0x17de
     push ax                          ; 0x17e1
-    mov ax, 0x1499                   ; 0x17e2
+    mov ax, MSG_IS_RIPPED_TO_SHREADS ; 0x17e2
     push ax                          ; 0x17e5
     push word [bp - 0x0002]          ; 0x17e6
     call api_idx_005a_SIOK           ; 0x17e9
@@ -503,7 +503,7 @@ jumptable_1fa3_case_6:
     push ax                          ; 0x192b
     mov ax, 5                        ; 0x192c
     push ax                          ; 0x192f
-    mov ax, 0x149b                   ; 0x1930
+    mov ax, MSG_NAUSEATED            ; 0x1930
     push ax                          ; 0x1933
     push word [bp - 0x0002]          ; 0x1934
     call api_idx_0056_VTNO           ; 0x1937
@@ -585,7 +585,7 @@ jumptable_1fa3_case_7:
     push ax                          ; 0x19db
     mov ax, 0                        ; 0x19dc
     push ax                          ; 0x19df
-    mov ax, 0x1489                   ; 0x19e0
+    mov ax, MSG_VEGGIFIED            ; 0x19e0
     push ax                          ; 0x19e3
     push word [bp - 0x0002]          ; 0x19e4
     call api_idx_0056_VTNO           ; 0x19e7
@@ -673,7 +673,7 @@ jumptable_1b19_case_1:
     push ax                          ; 0x1a96
     mov ax, 0                        ; 0x1a97
     push ax                          ; 0x1a9a
-    mov ax, 0x1486                   ; 0x1a9b
+    mov ax, MSG_BLINDED_5254         ; 0x1a9b
     push ax                          ; 0x1a9e
     push word [bp - 0x0002]          ; 0x1a9f
     call api_idx_0056_VTNO           ; 0x1aa2
@@ -689,7 +689,7 @@ jumptable_1b19_case_2:
     push ax                          ; 0x1ab7
     mov ax, 0                        ; 0x1ab8
     push ax                          ; 0x1abb
-    mov ax, 0x1484                   ; 0x1abc
+    mov ax, MSG_FALLS_ASLEEP_5252    ; 0x1abc
     push ax                          ; 0x1abf
     push word [bp - 0x0002]          ; 0x1ac0
     call api_idx_0056_VTNO           ; 0x1ac3
@@ -705,7 +705,7 @@ jumptable_1b19_case_3:
     push ax                          ; 0x1ad7
     mov ax, 0                        ; 0x1ad8
     push ax                          ; 0x1adb
-    mov ax, 0x1485                   ; 0x1adc
+    mov ax, MSG_PARALYZED_5253       ; 0x1adc
     push ax                          ; 0x1adf
     push word [bp - 0x0002]          ; 0x1ae0
     call api_idx_0056_VTNO           ; 0x1ae3
@@ -716,7 +716,7 @@ jumptable_1b19_case_4:
     push ax                          ; 0x1aee
     mov ax, 0                        ; 0x1aef
     push ax                          ; 0x1af2
-    mov ax, 0x148c                   ; 0x1af3
+    mov ax, MSG_SL                   ; 0x1af3
     push ax                          ; 0x1af6
     push word [bp - 0x0002]          ; 0x1af7
     call api_idx_005a_SIOK           ; 0x1afa
@@ -727,7 +727,7 @@ jumptable_1b19_case_5:
     push ax                          ; 0x1b05
     mov ax, 0                        ; 0x1b06
     push ax                          ; 0x1b09
-    mov ax, 0x148f                   ; 0x1b0a
+    mov ax, MSG_TURNS_TO_STONE_5263  ; 0x1b0a
     push ax                          ; 0x1b0d
     push word [bp - 0x0002]          ; 0x1b0e
     call api_idx_005a_SIOK           ; 0x1b11
@@ -839,7 +839,7 @@ jumptable_1fa3_case_10:
     push ax                          ; 0x1bf4
     mov ax, 0                        ; 0x1bf5
     push ax                          ; 0x1bf8
-    mov ax, 0x148f                   ; 0x1bf9
+    mov ax, MSG_TURNS_TO_STONE_5263  ; 0x1bf9
     push ax                          ; 0x1bfc
     push word [bp - 0x0002]          ; 0x1bfd
     call api_idx_005a_SIOK           ; 0x1c00
@@ -889,7 +889,7 @@ jumptable_1fa3_case_11:
     mov ax, 0                        ; 0x1c60
 @..api_idx_00b8_LTRM.l43:
     push ax                          ; 0x1c63
-    mov ax, 0x1485                   ; 0x1c64
+    mov ax, MSG_PARALYZED_5253       ; 0x1c64
     push ax                          ; 0x1c67
     push cx                          ; 0x1c68
     call api_idx_0056_VTNO           ; 0x1c69
@@ -1244,7 +1244,7 @@ jumptable_1fa3_case_17:
     push ax                          ; 0x1f81
     mov ax, 0xb                      ; 0x1f82
     push ax                          ; 0x1f85
-    mov ax, 0x148c                   ; 0x1f86
+    mov ax, MSG_SL                   ; 0x1f86
     push ax                          ; 0x1f89
     push word [bp - 0x0002]          ; 0x1f8a
     call api_idx_005a_SIOK           ; 0x1f8d

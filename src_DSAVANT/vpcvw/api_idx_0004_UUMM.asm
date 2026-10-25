@@ -4,10 +4,10 @@ api_idx_0004_UUMM:
     call aztec_csav                  ; 0x3977
     push word [bp + 0x6]             ; 0x397a
     push word [bp + 0x6]             ; 0x397d
-    mov ax, 0x7f1                    ; 0x3980
+    mov ax, MSG_SPELLS_2033          ; 0x3980
     cmp word [bp + 0x6], byte 0      ; 0x3983
     je short @..api_idx_0004_UUMM.l1 ; 0x3987
-    mov ax, 0x7ea                    ; 0x3989
+    mov ax, MSG_CAST                 ; 0x3989
 @..api_idx_0004_UUMM.l1:
     push ax                          ; 0x398c
     push word [bp + 0x4]             ; 0x398d

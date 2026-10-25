@@ -198,7 +198,7 @@ api_idx_009c_MRKK:
     lea ax, word [bp - 0x009c]       ; 0x6985
     push ax                          ; 0x6989
     mov ax, word [bp - 0x0006]       ; 0x698a
-    add ax, 0x5fa                    ; 0x698d
+    add ax, MSG_TALK                 ; 0x698d
     push ax                          ; 0x6990
     call load_message_string         ; 0x6991
     add sp, byte 4                   ; 0x6994
@@ -386,10 +386,10 @@ jumptable_6c16_case_1:
     jg short @..api_idx_009c_MRKK.l37 ; 0x6b33
     mov ax, 0x93f0                   ; 0x6b35
     push ax                          ; 0x6b38
-    mov ax, 0x66d                    ; 0x6b39
+    mov ax, MSG_PERHAPS_YOU_D_LIKE_TO_1645 ; 0x6b39
     cmp word [bp - 0x0002], byte 0   ; 0x6b3c
     jne short @..api_idx_009c_MRKK.l36 ; 0x6b40
-    mov ax, 0x669                    ; 0x6b42
+    mov ax, MSG_HEH_HEH_WHY_I_HAVEN_T_1641 ; 0x6b42
 @..api_idx_009c_MRKK.l36:
     push ax                          ; 0x6b45
     call load_message_string         ; 0x6b46
@@ -578,7 +578,7 @@ jumptable_6c16:
     push ax                          ; 0x6cf0
     mov ax, 1                        ; 0x6cf1
     push ax                          ; 0x6cf4
-    mov ax, 0x606                    ; 0x6cf5
+    mov ax, MSG_LEAVES               ; 0x6cf5
     push ax                          ; 0x6cf8
     call api_idx_0050_TJLH           ; 0x6cf9
     add sp, byte 8                   ; 0x6cfc

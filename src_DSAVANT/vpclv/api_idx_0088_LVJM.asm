@@ -25,7 +25,7 @@ api_idx_0088_LVJM:
     add ax, slot_label               ; 0x3fdb
     push ax                          ; 0x3fde
     mov ax, word [bp - 0x0002]       ; 0x3fdf
-    add ax, 0x258                    ; 0x3fe2
+    add ax, MSG_WEAPONRY             ; 0x3fe2
     push ax                          ; 0x3fe5
     call load_message_string         ; 0x3fe6
     add sp, byte 4                   ; 0x3fe9

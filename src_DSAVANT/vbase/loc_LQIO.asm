@@ -7,7 +7,7 @@ loc_LQIO:
     jl short @..loc_LQIO.l2          ; 0x6078
     jmp near @..loc_LQIO.l10         ; 0x607a
 @..loc_LQIO.l2:
-    mov ax, 0x4b0                    ; 0x607d
+    mov ax, MSG_ADD_CHARACTER_1200   ; 0x607d
     push ax                          ; 0x6080
     call loc_PVJJ                    ; 0x6081
     pop cx                           ; 0x6084

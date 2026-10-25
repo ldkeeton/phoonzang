@@ -91,7 +91,7 @@ api_idx_0002_NVMN:
 jumptable_7185_case_1:
     mov ax, 1                        ; 0x7135
     push ax                          ; 0x7138
-    mov ax, 0x6e96                   ; 0x7139
+    mov ax, MSG_THERE_IS_MUCH_TO_LEAR_28310 ; 0x7139
     push ax                          ; 0x713c
     call loc_LIQV                    ; 0x713d
     add sp, byte 4                   ; 0x7140
@@ -99,7 +99,7 @@ jumptable_7185_case_1:
 jumptable_7185_case_2:
     mov ax, 1                        ; 0x7145
     push ax                          ; 0x7148
-    mov ax, 0x6fc2                   ; 0x7149
+    mov ax, MSG_UPON_A_GREAT_METAL_VE_28610 ; 0x7149
     push ax                          ; 0x714c
     call loc_LIQV                    ; 0x714d
     add sp, byte 4                   ; 0x7150
@@ -107,7 +107,7 @@ jumptable_7185_case_2:
 jumptable_7185_case_3:
     mov ax, 1                        ; 0x7155
     push ax                          ; 0x7158
-    mov ax, 0x6ffe                   ; 0x7159
+    mov ax, MSG_WITHIN_THE_CONFINES_O_28670 ; 0x7159
     push ax                          ; 0x715c
     call loc_LIQV                    ; 0x715d
     add sp, byte 4                   ; 0x7160
@@ -115,7 +115,7 @@ jumptable_7185_case_3:
 jumptable_7185_case_4:
     mov ax, 1                        ; 0x7165
     push ax                          ; 0x7168
-    mov ax, 0x6e46                   ; 0x7169
+    mov ax, MSG_THERE_IS_DARKNESS_ALL_28230 ; 0x7169
     push ax                          ; 0x716c
     call loc_LIQV                    ; 0x716d
     add sp, byte 4                   ; 0x7170

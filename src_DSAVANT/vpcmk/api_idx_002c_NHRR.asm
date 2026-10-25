@@ -199,7 +199,7 @@ api_idx_002c_NHRR:
     add ax, bss_9544                 ; 0x6c13
     push ax                          ; 0x6c16
     mov ax, word [bp - 0x0002]       ; 0x6c17
-    add ax, 0xcc                     ; 0x6c1a
+    add ax, MSG_STR                  ; 0x6c1a
     push ax                          ; 0x6c1d
     call load_message_string         ; 0x6c1e
     add sp, byte 4                   ; 0x6c21
@@ -363,7 +363,7 @@ jumptable_6e5f_case_2:
     push ax                          ; 0x6dc2
     call gfx_show_area               ; 0x6dc3
     add sp, byte 8                   ; 0x6dc6
-    mov ax, 0x482                    ; 0x6dc9
+    mov ax, MSG_DELETE_WHO           ; 0x6dc9
     push ax                          ; 0x6dcc
     call loc_PVJJ                    ; 0x6dcd
     pop cx                           ; 0x6dd0
@@ -385,7 +385,7 @@ jumptable_6e5f_case_1:
     push ax                          ; 0x6ded
     call gfx_show_area               ; 0x6dee
     add sp, byte 8                   ; 0x6df1
-    mov ax, 0x485                    ; 0x6df4
+    mov ax, MSG_REVIEW_WHO           ; 0x6df4
     push ax                          ; 0x6df7
     call loc_PVJJ                    ; 0x6df8
     pop cx                           ; 0x6dfb
@@ -407,7 +407,7 @@ jumptable_6e5f_case_3:
     push ax                          ; 0x6e17
     call gfx_show_area               ; 0x6e18
     add sp, byte 8                   ; 0x6e1b
-    mov ax, 0x488                    ; 0x6e1e
+    mov ax, MSG_RENAME_WHO           ; 0x6e1e
     push ax                          ; 0x6e21
     call loc_PVJJ                    ; 0x6e22
     pop cx                           ; 0x6e25
@@ -429,7 +429,7 @@ jumptable_6e5f_case_4:
     push ax                          ; 0x6e41
     call gfx_show_area               ; 0x6e42
     add sp, byte 8                   ; 0x6e45
-    mov ax, 0x48b                    ; 0x6e48
+    mov ax, MSG_CHANGE_WHO           ; 0x6e48
     push ax                          ; 0x6e4b
     call loc_PVJJ                    ; 0x6e4c
     pop cx                           ; 0x6e4f

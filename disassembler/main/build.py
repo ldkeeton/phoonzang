@@ -348,15 +348,17 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
     app_dir = os.path.join(APPS_DIR, project)
     out_dir = src_dir(project, PROJECT_ROOT)
     os.makedirs(out_dir, exist_ok=True)
-    # The C overrides compile before anything is rendered, so the header they
-    # include has to exist first.  Only the bases and the names the hand C
-    # uses are known that early (:func:`lib.msgids.seed_ids`), so that is what
-    # this pass writes.  Rendering then spells ids from the message data, and
-    # the header is written in full from this build's own asm before assembly
-    # (:func:`_refresh_message_headers`).  Neither pass reads a header the
-    # generator wrote, so a clean tree and a warm one emit the same text.
+    # Both headers bind names from packed data and sidecar bases.  ASM gets
+    # the full catalog; C gets proven code uses plus hand-written C uses.
+    # Install them once before workers compile or render; no ASM rescan.
     from lib import msgids
-    headers, _ = msgids.generate_project(project, PROJECT_ROOT, seed_only=True)
+    from .messages import collect_message_ids
+    used_ids = collect_message_ids(project)
+    headers, header_stats = msgids.generate_project(
+        project, PROJECT_ROOT, used_ids=used_ids)
+    if header_stats['constants']:
+        report(f"{project}: {header_stats['c_constants']} used message constants "
+               f"in C header ({header_stats['constants']} in ASM catalog)")
     # Install the self-contained header tree before any worker compiles.
     from lib.aztec import sources
     sources.install_headers(project, out_dir)
@@ -511,7 +513,6 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
             # Assembling it alone must not leave the others' stale artifacts
             # in build_out, so only this binary's scope is pruned.
             _sync(out_dir, files, report, scopes=[f'{only}.asm', only])
-            _refresh_message_headers(project)
             progress.log(f'{project} | copying assets for {only}')
             copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
                         {bins[only][0]})
@@ -562,11 +563,9 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
                                                 'code', 'data')})
 
         progress.log(f'{project} | syncing {len(files)} generated file(s)')
-        # The seed header was written before rendering; it is a build output
-        # too, so ``_sync`` must lay it out rather than prune it as stale.
+        # The headers are build outputs too; keep them through synchronization.
         files.update(headers)
         _sync(out_dir, files, report)
-        _refresh_message_headers(project)
         progress.log(f'{project} | copying assets')
         copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
                     {rel for rel, _s in bins.values()})
@@ -579,18 +578,6 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
     finally:
         if pool is not None:
             pool.shutdown(wait=True)
-
-
-def _refresh_message_headers(project):
-    """Write the message headers from the sources this build just rendered.
-
-    The start-of-build pass knows only the bases and the names the hand C uses.
-    Rendering resolves every id it spells from the message data, so scanning
-    the asm written here finds the complete set; the header must declare it
-    before assembly, which reads the include.
-    """
-    from lib import msgids
-    msgids.generate_project(project, PROJECT_ROOT)
 
 
 def _worker_kwargs(flags):

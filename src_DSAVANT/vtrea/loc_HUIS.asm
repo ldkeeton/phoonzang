@@ -329,7 +329,7 @@ loc_HUIS:
     push ax                          ; 0x5aa3
     mov al, byte [bp - 0x0049]       ; 0x5aa4
     sub ah, ah                       ; 0x5aa7
-    add ax, 0x1770                   ; 0x5aa9
+    add ax, MSG_DAGGER_6000          ; 0x5aa9
     push ax                          ; 0x5aac
     call load_message_string         ; 0x5aad
     add sp, byte 4                   ; 0x5ab0

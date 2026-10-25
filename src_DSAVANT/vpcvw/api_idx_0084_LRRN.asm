@@ -83,7 +83,7 @@ api_idx_0084_LRRN:
     lea ax, word [bp - 0x0084]       ; 0x41bf
     push ax                          ; 0x41c3
     mov ax, word [bp - 0x0004]       ; 0x41c4
-    add ax, 0x258                    ; 0x41c7
+    add ax, MSG_WEAPONRY             ; 0x41c7
     push ax                          ; 0x41ca
     call load_message_string         ; 0x41cb
     add sp, byte 4                   ; 0x41ce
@@ -112,7 +112,7 @@ api_idx_0084_LRRN:
     lea ax, word [bp - 0x0084]       ; 0x4204
     push ax                          ; 0x4208
     mov ax, word [bp - 0x000a]       ; 0x4209
-    add ax, 0x258                    ; 0x420c
+    add ax, MSG_WEAPONRY             ; 0x420c
     push ax                          ; 0x420f
     call load_message_string         ; 0x4210
     add sp, byte 4                   ; 0x4213

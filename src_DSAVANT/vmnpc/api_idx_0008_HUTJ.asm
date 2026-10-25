@@ -44,7 +44,7 @@ api_idx_0008_HUTJ:
     push ax                          ; 0x395b
     mov ax, 1                        ; 0x395c
     push ax                          ; 0x395f
-    mov ax, 0x608                    ; 0x3960
+    mov ax, MSG_IS_UNAFFECTED        ; 0x3960
     push ax                          ; 0x3963
     call api_idx_0050_TJLH           ; 0x3964
     add sp, byte 8                   ; 0x3967
@@ -56,7 +56,7 @@ api_idx_0008_HUTJ:
     push ax                          ; 0x3973
     mov ax, 1                        ; 0x3974
     push ax                          ; 0x3977
-    mov ax, 0x607                    ; 0x3978
+    mov ax, MSG_IS_CHARMED           ; 0x3978
     push ax                          ; 0x397b
     call api_idx_0050_TJLH           ; 0x397c
     add sp, byte 8                   ; 0x397f

@@ -27,7 +27,7 @@ string_loc_KUIU:
     push ax                          ; 0x3663
     mov ax, 0x41                     ; 0x3664
     push ax                          ; 0x3667
-    mov ax, 0xc91                    ; 0x3668
+    mov ax, MSG_NOTHING_APPEARS      ; 0x3668
     push ax                          ; 0x366b
     call api_idx_0050_PLNP           ; 0x366c
     add sp, byte 6                   ; 0x366f
@@ -48,7 +48,7 @@ string_loc_KUIU:
     push ax                          ; 0x3691
     mov ax, 0x41                     ; 0x3692
     push ax                          ; 0x3695
-    mov ax, 0xc91                    ; 0x3696
+    mov ax, MSG_NOTHING_APPEARS      ; 0x3696
     push ax                          ; 0x3699
     call api_idx_0050_PLNP           ; 0x369a
     add sp, byte 6                   ; 0x369d
@@ -162,7 +162,7 @@ jumptable_372d:
     push ax                          ; 0x3798
     mov ax, 0x41                     ; 0x3799
     push ax                          ; 0x379c
-    mov ax, 0xc91                    ; 0x379d
+    mov ax, MSG_NOTHING_APPEARS      ; 0x379d
     push ax                          ; 0x37a0
     call api_idx_0050_PLNP           ; 0x37a1
     add sp, byte 6                   ; 0x37a4
@@ -426,10 +426,10 @@ jumptable_372d:
     mov bx, word [bx + party_char]   ; 0x3a42
     cmp byte [bx + member_rec.item_count], 1 ; 0x3a46
     jne short @..string_loc_KUIU.l22 ; 0x3a4b
-    mov ax, 0xc8f                    ; 0x3a4d
+    mov ax, MSG_APPEARS              ; 0x3a4d
     jmp short @..string_loc_KUIU.l23 ; 0x3a50
 @..string_loc_KUIU.l22:
-    mov ax, 0xc90                    ; 0x3a52
+    mov ax, MSG_APPEAR               ; 0x3a52
 @..string_loc_KUIU.l23:
     push ax                          ; 0x3a55
     call load_message_string         ; 0x3a56

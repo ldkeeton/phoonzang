@@ -189,7 +189,7 @@ api_idx_005e_KVNO:
     push ax                          ; 0x5974
     mov ax, 0x65                     ; 0x5975
     push ax                          ; 0x5978
-    mov ax, 0x5dd                    ; 0x5979
+    mov ax, MSG_YOU_NEED_IT          ; 0x5979
     push ax                          ; 0x597c
     call api_idx_0054_LVHV           ; 0x597d
     add sp, byte 6                   ; 0x5980
@@ -215,7 +215,7 @@ api_idx_005e_KVNO:
     push ax                          ; 0x59aa
     mov ax, 0x65                     ; 0x59ab
     push ax                          ; 0x59ae
-    mov ax, 0x5de                    ; 0x59af
+    mov ax, MSG_NO_THANKS            ; 0x59af
     push ax                          ; 0x59b2
     call api_idx_0054_LVHV           ; 0x59b3
     add sp, byte 6                   ; 0x59b6
@@ -245,7 +245,7 @@ api_idx_005e_KVNO:
     push ax                          ; 0x59eb
     mov ax, 0x65                     ; 0x59ec
     push ax                          ; 0x59ef
-    mov ax, 0x5dc                    ; 0x59f0
+    mov ax, MSG_EQUIPPED             ; 0x59f0
     push ax                          ; 0x59f3
     call api_idx_0054_LVHV           ; 0x59f4
     add sp, byte 6                   ; 0x59f7

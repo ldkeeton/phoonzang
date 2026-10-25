@@ -71,7 +71,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x4224
     mov al, byte [bp - 0x0013]       ; 0x4225
     sub ah, ah                       ; 0x4228
-    add ax, 0x1770                   ; 0x422a
+    add ax, MSG_DAGGER_6000          ; 0x422a
     push ax                          ; 0x422d
     call load_message_string         ; 0x422e
     add sp, byte 4                   ; 0x4231
@@ -166,7 +166,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x4308
     push ax                          ; 0x4309
     push ax                          ; 0x430a
-    mov ax, 0x7ee                    ; 0x430b
+    mov ax, MSG_USE_2030             ; 0x430b
     push ax                          ; 0x430e
     call api_idx_0038_QQIU           ; 0x430f
     add sp, byte 0x0c                ; 0x4312
@@ -210,7 +210,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x4368
     push word [bp - 0x004e]          ; 0x4369
     mov ax, word [bp - 0x004e]       ; 0x436c
-    add ax, 0x7ee                    ; 0x436f
+    add ax, MSG_USE_2030             ; 0x436f
     push ax                          ; 0x4372
     call api_idx_0018_RGOS           ; 0x4373
     add sp, byte 0x0c                ; 0x4376

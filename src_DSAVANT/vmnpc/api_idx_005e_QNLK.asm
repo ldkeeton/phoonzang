@@ -91,7 +91,7 @@ api_idx_005e_QNLK:
     mov bx, ax                       ; 0x60a3
     mov al, byte [bx + party_records + pc_rec.sound] ; 0x60a5
     sub ah, ah                       ; 0x60a9
-    add ax, 0x622                    ; 0x60ab
+    add ax, MSG_MAKES_HIS_MOVE       ; 0x60ab
     push ax                          ; 0x60ae
     call load_message_string         ; 0x60af
     add sp, byte 4                   ; 0x60b2

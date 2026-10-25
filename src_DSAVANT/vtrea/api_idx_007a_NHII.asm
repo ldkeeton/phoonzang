@@ -87,7 +87,7 @@ api_idx_007a_NHII:
     lea ax, word [bp - 0x0078]       ; 0x4fdd
     push ax                          ; 0x4fe0
     mov ax, word [bp - 0x0008]       ; 0x4fe1
-    add ax, 0x1450                   ; 0x4fe4
+    add ax, MSG_DISARM               ; 0x4fe4
     push ax                          ; 0x4fe7
     call load_message_string         ; 0x4fe8
     add sp, byte 4                   ; 0x4feb
@@ -179,7 +179,7 @@ jumptable_51bc_case_0:
     mov ax, 1                        ; 0x50a9
     push ax                          ; 0x50ac
     push ax                          ; 0x50ad
-    mov ax, 0x145a                   ; 0x50ae
+    mov ax, MSG_INSPECT              ; 0x50ae
     push ax                          ; 0x50b1
     push word [bp - 0x0006]          ; 0x50b2
     call api_idx_0084_IMVQ           ; 0x50b5

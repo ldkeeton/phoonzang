@@ -36,7 +36,7 @@ api_idx_0008_VHMQ:
     push ax                          ; 0x4985
     mov ax, 0x70                     ; 0x4986
     push ax                          ; 0x4989
-    mov ax, 0x44c                    ; 0x498a
+    mov ax, MSG_CASTING_KARMA        ; 0x498a
     push ax                          ; 0x498d
     call api_idx_0058_GKGM           ; 0x498e
     add sp, byte 0x0c                ; 0x4991

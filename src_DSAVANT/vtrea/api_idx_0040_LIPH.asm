@@ -17,7 +17,7 @@ api_idx_0040_LIPH:
     push ax                          ; 0x5368
     mov ax, 0                        ; 0x5369
     push ax                          ; 0x536c
-    mov ax, 0x13ec                   ; 0x536d
+    mov ax, MSG_DIVVY_LOOT           ; 0x536d
     push ax                          ; 0x5370
     call api_idx_0038_ULQM           ; 0x5371
     add sp, byte 0x0c                ; 0x5374
@@ -36,7 +36,7 @@ api_idx_0040_LIPH:
     push ax                          ; 0x5395
     push word [bp - 0x0006]          ; 0x5396
     mov ax, word [bp - 0x0006]       ; 0x5399
-    add ax, 0x13ec                   ; 0x539c
+    add ax, MSG_DIVVY_LOOT           ; 0x539c
     push ax                          ; 0x539f
     call api_idx_0018_RGOS           ; 0x53a0
     add sp, byte 0x0c                ; 0x53a3

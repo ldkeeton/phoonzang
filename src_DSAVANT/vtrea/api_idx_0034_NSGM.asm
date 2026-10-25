@@ -64,7 +64,7 @@ api_idx_0034_NSGM:
     push word [bp - 0x000a]          ; 0x709b
     mov ax, 1                        ; 0x709e
     push ax                          ; 0x70a1
-    mov ax, 0x83c                    ; 0x70a2
+    mov ax, MSG_PICK_LOCK            ; 0x70a2
     push ax                          ; 0x70a5
     push word [bp + 0x4]             ; 0x70a6
     call api_idx_006a_NKMN           ; 0x70a9
@@ -82,10 +82,10 @@ api_idx_0034_NSGM:
     mov ax, 1                        ; 0x70c4
     push ax                          ; 0x70c7
     push ax                          ; 0x70c8
-    mov ax, 0x837                    ; 0x70c9
+    mov ax, MSG_FORCE_DOOR           ; 0x70c9
     cmp word [maze_variant], byte 1  ; 0x70cc
     jne short @..api_idx_0034_NSGM.l5 ; 0x70d1
-    mov ax, 0x844                    ; 0x70d3
+    mov ax, MSG_FORCE_GATE           ; 0x70d3
 @..api_idx_0034_NSGM.l5:
     push ax                          ; 0x70d6
     push word [bp + 0x4]             ; 0x70d7
@@ -113,7 +113,7 @@ api_idx_0034_NSGM:
     lea ax, word [bp - 0x0034]       ; 0x710b
     push ax                          ; 0x710e
     mov ax, word [bp - 0x0008]       ; 0x710f
-    add ax, 0x841                    ; 0x7112
+    add ax, MSG_SUCCESS              ; 0x7112
     push ax                          ; 0x7115
     call load_message_string         ; 0x7116
     add sp, byte 4                   ; 0x7119

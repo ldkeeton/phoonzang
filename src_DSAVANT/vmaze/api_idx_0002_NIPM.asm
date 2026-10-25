@@ -20,7 +20,7 @@ jumptable_741a_case_0:
     pop cx                           ; 0x73dd
     jmp short @..api_idx_0002_NIPM.l2 ; 0x73de
 jumptable_741a_case_2:
-    mov ax, 0x804                    ; 0x73e0
+    mov ax, MSG_A_CHUTE              ; 0x73e0
     push ax                          ; 0x73e3
     call show_message                ; 0x73e4
     pop cx                           ; 0x73e7

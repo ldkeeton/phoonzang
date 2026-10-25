@@ -13,7 +13,7 @@ loc_GPUL:
     mov ax, 1                        ; 0x297b
     push ax                          ; 0x297e
     push ax                          ; 0x297f
-    mov ax, 0x605                    ; 0x2980
+    mov ax, MSG_ATTACKS              ; 0x2980
     push ax                          ; 0x2983
     call api_idx_0050_TJLH           ; 0x2984
     add sp, byte 8                   ; 0x2987

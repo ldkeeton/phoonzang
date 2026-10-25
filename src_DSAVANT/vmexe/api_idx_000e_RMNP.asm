@@ -68,7 +68,7 @@ api_idx_000e_RMNP:
     cmp ax, word [bp + 0x1a]         ; 0x2b32
     je short @..api_idx_000e_RMNP.l10 ; 0x2b35
 @..api_idx_000e_RMNP.l9:
-    mov ax, 0xc8d                    ; 0x2b37
+    mov ax, MSG_SPELL_REDUCED        ; 0x2b37
     push ax                          ; 0x2b3a
     call loc_PKMT                    ; 0x2b3b
     pop cx                           ; 0x2b3e

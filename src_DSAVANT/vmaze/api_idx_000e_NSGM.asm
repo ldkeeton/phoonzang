@@ -51,7 +51,7 @@ api_idx_000e_NSGM:
     je short @..api_idx_000e_NSGM.l3 ; 0x16ac
     mov ax, 4                        ; 0x16ae
     push ax                          ; 0x16b1
-    mov ax, 0x7e6                    ; 0x16b2
+    mov ax, MSG_YOU_ARE_IN_ROCK      ; 0x16b2
     push ax                          ; 0x16b5
     call api_idx_0002_UGJG           ; 0x16b6
     add sp, byte 4                   ; 0x16b9
@@ -70,7 +70,7 @@ api_idx_000e_NSGM:
 @..api_idx_000e_NSGM.l6:
     mov ax, 4                        ; 0x16d6
     push ax                          ; 0x16d9
-    mov ax, 0x809                    ; 0x16da
+    mov ax, MSG_YOU_FELL_TO_YOUR_DEATH ; 0x16da
     push ax                          ; 0x16dd
     call api_idx_0002_UGJG           ; 0x16de
     add sp, byte 4                   ; 0x16e1
@@ -145,7 +145,7 @@ api_idx_000e_NSGM:
 @..api_idx_000e_NSGM.l12:
     mov ax, 4                        ; 0x177e
     push ax                          ; 0x1781
-    mov ax, 0x7e6                    ; 0x1782
+    mov ax, MSG_YOU_ARE_IN_ROCK      ; 0x1782
     push ax                          ; 0x1785
     call api_idx_0002_UGJG           ; 0x1786
     add sp, byte 4                   ; 0x1789

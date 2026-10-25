@@ -56,7 +56,7 @@ jumptable_78e5_case_0:
     push ax                          ; 0x74b0
     mov ax, 9                        ; 0x74b1
     push ax                          ; 0x74b4
-    mov ax, 0xd92                    ; 0x74b5
+    mov ax, MSG_FALLS_ASLEEP_3474    ; 0x74b5
     push ax                          ; 0x74b8
     push word [bp + 0xa]             ; 0x74b9
     push word [bp + 0x8]             ; 0x74bc
@@ -79,7 +79,7 @@ jumptable_78e5_case_1:
     push ax                          ; 0x74e3
     mov ax, 4                        ; 0x74e4
     push ax                          ; 0x74e7
-    mov ax, 0xd93                    ; 0x74e8
+    mov ax, MSG_PARALYZED_3475       ; 0x74e8
     push ax                          ; 0x74eb
     push word [bp + 0xa]             ; 0x74ec
     push word [bp + 0x8]             ; 0x74ef
@@ -105,7 +105,7 @@ jumptable_78e5_case_2:
     push ax                          ; 0x751d
     mov ax, 6                        ; 0x751e
     push ax                          ; 0x7521
-    mov ax, 0xd95                    ; 0x7522
+    mov ax, MSG_POISONED_3477        ; 0x7522
     push ax                          ; 0x7525
     push word [bp + 0xa]             ; 0x7526
     push word [bp + 0x8]             ; 0x7529
@@ -122,7 +122,7 @@ jumptable_78e5_case_3:
     push ax                          ; 0x7543
     mov ax, 0xb                      ; 0x7544
     push ax                          ; 0x7547
-    mov ax, 0xd9d                    ; 0x7548
+    mov ax, MSG_TURNS_TO_STONE_3485  ; 0x7548
     push ax                          ; 0x754b
     push word [bp + 0xa]             ; 0x754c
     push word [bp + 0x8]             ; 0x754f
@@ -144,7 +144,7 @@ jumptable_78e5_case_4:
     push ax                          ; 0x7572
     mov ax, 7                        ; 0x7573
     push ax                          ; 0x7576
-    mov ax, 0xdaa                    ; 0x7577
+    mov ax, MSG_DISEASED_3498        ; 0x7577
     push ax                          ; 0x757a
     push word [bp + 0xa]             ; 0x757b
     push word [bp + 0x8]             ; 0x757e
@@ -218,7 +218,7 @@ jumptable_78e5_case_5:
     push ax                          ; 0x7622
     call loc_TGJH                    ; 0x7623
     add sp, byte 4                   ; 0x7626
-    mov word [bp - 0x000a], 0xea7    ; 0x7629
+    mov word [bp - 0x000a], MSG_STAMINA_3751 ; 0x7629
 @..api_idx_000a_VQTM.l5:
     jmp near @..api_idx_000a_VQTM.l13 ; 0x762e
 @..api_idx_000a_VQTM.l6:
@@ -320,7 +320,7 @@ jumptable_78e5_case_5:
     pop ax                           ; 0x7716
     mov word [bx + party_records + pc_rec.pair_a + 0x2], ax ; 0x7717
 @..api_idx_000a_VQTM.l9:
-    mov word [bp - 0x000a], 0xea8    ; 0x771b
+    mov word [bp - 0x000a], MSG_HIT_POINTS_3752 ; 0x771b
 @..api_idx_000a_VQTM.l10:
     jmp short @..api_idx_000a_VQTM.l13 ; 0x7720
 @..api_idx_000a_VQTM.l11:
@@ -430,7 +430,7 @@ jumptable_78e5_case_5:
     push ax                          ; 0x7813
     mov ax, 0                        ; 0x7814
     push ax                          ; 0x7817
-    mov ax, 0xd9e                    ; 0x7818
+    mov ax, MSG_DIES_3486            ; 0x7818
     push ax                          ; 0x781b
     push word [bp + 0xa]             ; 0x781c
     push word [bp + 0x8]             ; 0x781f
@@ -472,7 +472,7 @@ jumptable_78e5_case_6:
     push ax                          ; 0x7871
     mov ax, 0x55                     ; 0x7872
     push ax                          ; 0x7875
-    mov ax, 0xda7                    ; 0x7876
+    mov ax, MSG_CRITICAL_3495        ; 0x7876
     push ax                          ; 0x7879
     call api_idx_0050_PLNP           ; 0x787a
     add sp, byte 6                   ; 0x787d
@@ -492,7 +492,7 @@ jumptable_78e5_case_6:
     push ax                          ; 0x789c
     mov ax, 0                        ; 0x789d
     push ax                          ; 0x78a0
-    mov ax, 0xd9e                    ; 0x78a1
+    mov ax, MSG_DIES_3486            ; 0x78a1
     push ax                          ; 0x78a4
     push word [bp + 0xa]             ; 0x78a5
     push word [bp + 0x8]             ; 0x78a8
@@ -516,7 +516,7 @@ jumptable_78e5_case_7:
     push ax                          ; 0x78ce
     mov ax, 9                        ; 0x78cf
     push ax                          ; 0x78d2
-    mov ax, 0xd9c                    ; 0x78d3
+    mov ax, MSG_FALLS_UNCONSCIOUS_3484 ; 0x78d3
     push ax                          ; 0x78d6
     push word [bp + 0xa]             ; 0x78d7
     push word [bp + 0x8]             ; 0x78da

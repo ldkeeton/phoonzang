@@ -229,7 +229,7 @@ api_idx_0014_VORK:
     add ax, bss_9616                 ; 0x638f
     push ax                          ; 0x6392
     mov ax, word [bp - 0x0002]       ; 0x6393
-    add ax, 0x12c                    ; 0x6396
+    add ax, MSG_USE_300              ; 0x6396
     push ax                          ; 0x6399
     call load_message_string         ; 0x639a
     add sp, byte 4                   ; 0x639d

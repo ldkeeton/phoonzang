@@ -198,7 +198,7 @@ jumptable_4679:
     push ax                          ; 0x4795
     mov ax, dseg_93e5                ; 0x4796
     push ax                          ; 0x4799
-    mov ax, 0xd5                     ; 0x479a
+    mov ax, MSG_ST                   ; 0x479a
     push ax                          ; 0x479d
     push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x479e
     push word [bp - 0x000a]          ; 0x47a2
@@ -242,7 +242,7 @@ jumptable_4679:
     push ax                          ; 0x47f8
     mov ax, dseg_93eb                ; 0x47f9
     push ax                          ; 0x47fc
-    mov ax, 0xd4                     ; 0x47fd
+    mov ax, MSG_HP                   ; 0x47fd
     push ax                          ; 0x4800
     mov ax, 0x248                    ; 0x4801
     imul word [bp + 0x4]             ; 0x4804
@@ -259,10 +259,10 @@ jumptable_4679:
     add sp, byte 0x14                ; 0x4820
     lea ax, word [bp - 0x005c]       ; 0x4823
     push ax                          ; 0x4826
-    mov ax, 0x1394                   ; 0x4827
+    mov ax, MSG_YOU_GAINED_HIT_POINTS ; 0x4827
     cmp word [bp - 0x0002], byte 1   ; 0x482a
     jne short @..api_idx_00ac_MSQO.l13 ; 0x482e
-    mov ax, 0x1393                   ; 0x4830
+    mov ax, MSG_YOU_GAINED_HIT_POINT ; 0x4830
 @..api_idx_00ac_MSQO.l13:
     push ax                          ; 0x4833
     call load_message_string         ; 0x4834

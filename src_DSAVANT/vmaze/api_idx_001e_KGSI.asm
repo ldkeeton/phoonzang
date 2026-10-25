@@ -189,7 +189,7 @@ api_idx_001e_KGSI:
     jne short @..api_idx_001e_KGSI.l14 ; 0x7201
     mov ax, 4                        ; 0x7203
     push ax                          ; 0x7206
-    mov ax, 0x7e6                    ; 0x7207
+    mov ax, MSG_YOU_ARE_IN_ROCK      ; 0x7207
     push ax                          ; 0x720a
     call api_idx_0002_UGJG           ; 0x720b
     add sp, byte 4                   ; 0x720e

@@ -87,7 +87,7 @@ api_idx_000c_VJPM:
     push ax                          ; 0x700d
     mov ax, 0xffff                   ; 0x700e
     push ax                          ; 0x7011
-    mov ax, 0xdbe                    ; 0x7012
+    mov ax, MSG_BLINKS_OUT           ; 0x7012
     push ax                          ; 0x7015
     call api_idx_0006_MRPM           ; 0x7016
     add sp, byte 8                   ; 0x7019
@@ -139,7 +139,7 @@ api_idx_000c_VJPM:
     push ax                          ; 0x708a
     mov ax, 0xffff                   ; 0x708b
     push ax                          ; 0x708e
-    mov ax, 0xdbf                    ; 0x708f
+    mov ax, MSG_BLINKS_IN            ; 0x708f
     push ax                          ; 0x7092
     call api_idx_0006_MRPM           ; 0x7093
     add sp, byte 6                   ; 0x7096
@@ -186,7 +186,7 @@ api_idx_000c_VJPM:
     push ax                          ; 0x70fe
     mov ax, 0xffff                   ; 0x70ff
     push ax                          ; 0x7102
-    mov ax, 0xdbf                    ; 0x7103
+    mov ax, MSG_BLINKS_IN            ; 0x7103
     push ax                          ; 0x7106
     call api_idx_0006_MRPM           ; 0x7107
     add sp, byte 6                   ; 0x710a
@@ -277,7 +277,7 @@ api_idx_000c_VJPM:
 jumptable_735e_case_0:
     mov ax, 0x43                     ; 0x71da
     push ax                          ; 0x71dd
-    mov ax, 0xc94                    ; 0x71de
+    mov ax, MSG_FIRESTORM_3220       ; 0x71de
     push ax                          ; 0x71e1
     call loc_HOUQ                    ; 0x71e2
     add sp, byte 4                   ; 0x71e5
@@ -301,7 +301,7 @@ jumptable_735e_case_0:
 jumptable_735e_case_4:
     mov ax, 0x43                     ; 0x7212
     push ax                          ; 0x7215
-    mov ax, 0xc9b                    ; 0x7216
+    mov ax, MSG_DRAINING_CLOUD_3227  ; 0x7216
     push ax                          ; 0x7219
     call loc_HOUQ                    ; 0x721a
     add sp, byte 4                   ; 0x721d
@@ -325,7 +325,7 @@ jumptable_735e_case_4:
 jumptable_735e_case_1:
     mov ax, 0x43                     ; 0x724a
     push ax                          ; 0x724d
-    mov ax, 0xc95                    ; 0x724e
+    mov ax, MSG_POISON_GAS_3221      ; 0x724e
     push ax                          ; 0x7251
     call loc_HOUQ                    ; 0x7252
     add sp, byte 4                   ; 0x7255
@@ -350,7 +350,7 @@ jumptable_735e_case_1:
     push word [bp - 0x000a]          ; 0x7280
     mov ax, 6                        ; 0x7283
     push ax                          ; 0x7286
-    mov ax, 0xd95                    ; 0x7287
+    mov ax, MSG_POISONED_3477        ; 0x7287
     push ax                          ; 0x728a
     mov ax, 0xfff6                   ; 0x728b
     push ax                          ; 0x728e
@@ -361,7 +361,7 @@ jumptable_735e_case_1:
 jumptable_735e_case_2:
     mov ax, 0x43                     ; 0x729c
     push ax                          ; 0x729f
-    mov ax, 0xc96                    ; 0x72a0
+    mov ax, MSG_TOXIC_VAPORS_3222    ; 0x72a0
     push ax                          ; 0x72a3
     call loc_HOUQ                    ; 0x72a4
     add sp, byte 4                   ; 0x72a7
@@ -384,7 +384,7 @@ jumptable_735e_case_2:
     push word [bp - 0x000a]          ; 0x72ce
     mov ax, 5                        ; 0x72d1
     push ax                          ; 0x72d4
-    mov ax, 0xd98                    ; 0x72d5
+    mov ax, MSG_NAUSEOUS_3480        ; 0x72d5
     push ax                          ; 0x72d8
     mov ax, 0xfff6                   ; 0x72d9
     push ax                          ; 0x72dc
@@ -395,7 +395,7 @@ jumptable_735e_case_2:
 jumptable_735e_case_3:
     mov ax, 0x43                     ; 0x72ea
     push ax                          ; 0x72ed
-    mov ax, 0xc97                    ; 0x72ee
+    mov ax, MSG_ACID_CLOUD           ; 0x72ee
     push ax                          ; 0x72f1
     call loc_HOUQ                    ; 0x72f2
     add sp, byte 4                   ; 0x72f5
@@ -419,7 +419,7 @@ jumptable_735e_case_3:
 jumptable_735e_case_5:
     mov ax, 0x43                     ; 0x7321
     push ax                          ; 0x7324
-    mov ax, 0xc9c                    ; 0x7325
+    mov ax, MSG_DEATH_CLOUD_3228     ; 0x7325
     push ax                          ; 0x7328
     call loc_HOUQ                    ; 0x7329
     add sp, byte 4                   ; 0x732c
@@ -436,7 +436,7 @@ jumptable_735e_case_5:
     push ax                          ; 0x7349
     mov ax, 0xb                      ; 0x734a
     push ax                          ; 0x734d
-    mov ax, 0xda9                    ; 0x734e
+    mov ax, MSG_VANISHES_3497        ; 0x734e
     push ax                          ; 0x7351
     push word [bss_8464]             ; 0x7352
     call api_idx_0006_LIRP           ; 0x7356

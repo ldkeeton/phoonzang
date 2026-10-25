@@ -24,7 +24,7 @@ api_idx_0018_MVRH:
     push ax                          ; 0x6830
     mov ax, 0                        ; 0x6831
     push ax                          ; 0x6834
-    mov ax, 0x48e                    ; 0x6835
+    mov ax, MSG_RENAME_CHARACTER_1166 ; 0x6835
     push ax                          ; 0x6838
     call api_idx_0026_NRVO           ; 0x6839
     add sp, byte 0x0a                ; 0x683c

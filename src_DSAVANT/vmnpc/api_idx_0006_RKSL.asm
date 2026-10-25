@@ -10,7 +10,7 @@ api_idx_0006_RKSL:
     mov ax, 1                        ; 0x5753
     push ax                          ; 0x5756
     push ax                          ; 0x5757
-    mov ax, 0x629                    ; 0x5758
+    mov ax, MSG_GP_1577              ; 0x5758
     push ax                          ; 0x575b
     push word [bp + 0x4]             ; 0x575c
     call api_idx_0038_LJOP           ; 0x575f

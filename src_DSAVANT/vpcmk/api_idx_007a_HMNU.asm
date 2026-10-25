@@ -36,7 +36,7 @@ api_idx_007a_HMNU:
     push ax                          ; 0x44e8
     mov ax, 0x4a                     ; 0x44e9
     push ax                          ; 0x44ec
-    mov ax, 0x451                    ; 0x44ed
+    mov ax, MSG_SELECT_CHARACTER_SEX ; 0x44ed
     push ax                          ; 0x44f0
     mov ax, 0x8c                     ; 0x44f1
     push ax                          ; 0x44f4
@@ -67,7 +67,7 @@ api_idx_007a_HMNU:
     mov bx, ax                       ; 0x452f
     mov al, byte [bx + party_records + pc_rec.sound] ; 0x4531
     sub ah, ah                       ; 0x4535
-    add ax, 0x8c                     ; 0x4537
+    add ax, MSG_MALE                 ; 0x4537
     push ax                          ; 0x453a
     call load_message_string         ; 0x453b
     add sp, byte 4                   ; 0x453e

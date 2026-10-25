@@ -143,7 +143,7 @@ api_idx_004c_LTUL:
     push ax
     mov al, byte [bp - 0x0013]
     sub ah, ah
-    add ax, 0x1770
+    add ax, MSG_DAGGER_6000
     push ax
     call load_message_string
     add sp, byte 4

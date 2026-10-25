@@ -36,7 +36,7 @@ api_idx_007a_GTOG:
     push ax                          ; 0x440b
     mov ax, 0x39                     ; 0x440c
     push ax                          ; 0x440f
-    mov ax, 0x450                    ; 0x4410
+    mov ax, MSG_SELECT_CHARACTER_RACE ; 0x4410
     push ax                          ; 0x4413
     mov ax, 0x64                     ; 0x4414
     push ax                          ; 0x4417

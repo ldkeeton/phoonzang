@@ -53,7 +53,7 @@ api_idx_0008_GUJV:
     push ax                          ; 0x55ec
     mov ax, 0x49                     ; 0x55ed
     push ax                          ; 0x55f0
-    mov ax, 0x5e2                    ; 0x55f1
+    mov ax, MSG_UNUSABLE_1506        ; 0x55f1
     push ax                          ; 0x55f4
     call api_idx_0054_LVHV           ; 0x55f5
     add sp, byte 6                   ; 0x55f8
@@ -72,7 +72,7 @@ api_idx_0008_GUJV:
     push ax                          ; 0x5617
     mov ax, 0x49                     ; 0x5618
     push ax                          ; 0x561b
-    mov ax, 0x5e1                    ; 0x561c
+    mov ax, MSG_FULL                 ; 0x561c
     push ax                          ; 0x561f
     call api_idx_0054_LVHV           ; 0x5620
     add sp, byte 6                   ; 0x5623
@@ -102,7 +102,7 @@ api_idx_0008_GUJV:
     push ax                          ; 0x565a
     mov ax, 0x49                     ; 0x565b
     push ax                          ; 0x565e
-    mov ax, 0x5df                    ; 0x565f
+    mov ax, MSG_SHORT_GP             ; 0x565f
     push ax                          ; 0x5662
     call api_idx_0054_LVHV           ; 0x5663
     add sp, byte 6                   ; 0x5666
@@ -113,7 +113,7 @@ api_idx_0008_GUJV:
     push ax                          ; 0x5670
     mov ax, 0x49                     ; 0x5671
     push ax                          ; 0x5674
-    mov ax, 0x5e3                    ; 0x5675
+    mov ax, MSG_SOLD_1507            ; 0x5675
     push ax                          ; 0x5678
     call api_idx_0054_LVHV           ; 0x5679
     add sp, byte 6                   ; 0x567c

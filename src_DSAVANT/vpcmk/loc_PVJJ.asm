@@ -48,7 +48,7 @@ loc_PVJJ:
     push ax                          ; 0x696f
     mov al, byte [bp - 0x0018]       ; 0x6970
     sub ah, ah                       ; 0x6973
-    add ax, 0x8c                     ; 0x6975
+    add ax, MSG_MALE                 ; 0x6975
     push ax                          ; 0x6978
     call load_message_string         ; 0x6979
     add sp, byte 4                   ; 0x697c

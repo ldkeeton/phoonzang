@@ -26,7 +26,7 @@ api_idx_000e_ORVT:
     push ax                          ; 0x970a
     mov ax, 0                        ; 0x970b
     push ax                          ; 0x970e
-    mov ax, 0x48e                    ; 0x970f
+    mov ax, MSG_RENAME_CHARACTER_1166 ; 0x970f
     push ax                          ; 0x9712
     call api_idx_0026_QIGS           ; 0x9713
     add sp, byte 0x0a                ; 0x9716

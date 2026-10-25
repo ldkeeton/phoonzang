@@ -10,7 +10,7 @@ api_idx_0004_GGOK:
     mov ax, 1                        ; 0x3aa7
     push ax                          ; 0x3aaa
     push ax                          ; 0x3aab
-    mov ax, 0x7ea                    ; 0x3aac
+    mov ax, MSG_CAST                 ; 0x3aac
     push ax                          ; 0x3aaf
     push word [bp + 0x4]             ; 0x3ab0
     call api_idx_0044_NORP           ; 0x3ab3

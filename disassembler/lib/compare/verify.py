@@ -326,6 +326,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            ds_starts=frozenset(), record_layouts=None,
            foreign_pointer_params=None,
            message_calls=(), message_names=None, message_bases=None,
+           foreign_message_params=None,
            sidecar_use=None, bands=(), data_modules=()):
     """Produce NASM source text from *binary_data* and *instructions*.
 
@@ -774,11 +775,11 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     message_symbols = {}
     message_equ = {}
     message_inc = None
+    message_params = {}
+    message_uses = []
     if message_calls and message_names:
-        from lib.msgids import find_message_symbols, inc_rel
-        boundaries = set(label_map) | set(local_labels)
-        if code_targets:
-            boundaries |= set(code_targets)
+        from lib.msgids import inc_rel
+        from lib.msgflow import analyze as analyze_messages
 
         def _routine(insn):
             hit = mem_symbols.get((insn.address, 0))
@@ -792,9 +793,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 name = foreign_label_map.get(target)
             return name
 
-        message_symbols, _message_uses = find_message_symbols(
+        message_symbols, message_uses, message_params = analyze_messages(
             insns, message_calls, message_names, message_bases or {},
-            _routine, boundaries=boundaries)
+            _routine, labels=label_map or {}, foreign=foreign_message_params)
         # Only the names this binary actually spells need equ lines, plus the
         # bases it computes from; the table itself is the whole database.
         used = set(message_symbols.values())
@@ -1460,6 +1461,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         # The arguments each named routine reads memory through, for the
         # overlays that call it (``lib.argpointers``).
         'pointer_params': pointer_params,
+        'message_params': message_params,
+        'message_uses': [vars(use) for use in message_uses],
         'address_records': _build_address_records(
             insns, mem_symbols, mem_equ, segment_flow, label_map, start_offset,
             data_labels=data_labels, reloc_targets=reloc_targets,

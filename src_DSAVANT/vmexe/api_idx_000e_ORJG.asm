@@ -78,7 +78,7 @@ jumptable_5eb8_case_1:
     push ax                          ; 0x3bc1
     mov ax, 2                        ; 0x3bc2
     push ax                          ; 0x3bc5
-    mov ax, 0xd94                    ; 0x3bc6
+    mov ax, MSG_BLINDED_3476         ; 0x3bc6
     push ax                          ; 0x3bc9
     mov ax, 0                        ; 0x3bca
     mov cx, word [bp + 0x8]          ; 0x3bcd
@@ -412,7 +412,7 @@ jumptable_5eb8_case_13:
     push ax                          ; 0x3eb9
     mov ax, 0xa                      ; 0x3eba
     push ax                          ; 0x3ebd
-    mov ax, 0xd91                    ; 0x3ebe
+    mov ax, MSG_FRIGHTENED_3473      ; 0x3ebe
     push ax                          ; 0x3ec1
     mov ax, 0xfff6                   ; 0x3ec2
     push ax                          ; 0x3ec5
@@ -592,7 +592,7 @@ jumptable_5eb8_case_21:
     push ax                          ; 0x4056
     mov ax, 4                        ; 0x4057
     push ax                          ; 0x405a
-    mov ax, 0xd93                    ; 0x405b
+    mov ax, MSG_PARALYZED_3475       ; 0x405b
     push ax                          ; 0x405e
     push word [bp - 0x000c]          ; 0x405f
     push word [bp - 0x000a]          ; 0x4062
@@ -810,7 +810,7 @@ jumptable_5eb8_case_26:
     push word [bp + 0x8]             ; 0x425a
     mov ax, 6                        ; 0x425d
     push ax                          ; 0x4260
-    mov ax, 0xd95                    ; 0x4261
+    mov ax, MSG_POISONED_3477        ; 0x4261
     push ax                          ; 0x4264
     push word [bp - 0x000c]          ; 0x4265
     push word [bp - 0x000a]          ; 0x4268
@@ -891,7 +891,7 @@ jumptable_5eb8_case_29:
     push word [bp + 0x8]             ; 0x4318
     mov ax, 5                        ; 0x431b
     push ax                          ; 0x431e
-    mov ax, 0xd98                    ; 0x431f
+    mov ax, MSG_NAUSEOUS_3480        ; 0x431f
     push ax                          ; 0x4322
     mov ax, 0xfffd                   ; 0x4323
     push ax                          ; 0x4326
@@ -943,7 +943,7 @@ jumptable_5eb8_case_31:
     push ax                          ; 0x4394
     mov ax, 0xc                      ; 0x4395
     push ax                          ; 0x4398
-    mov ax, 0xd90                    ; 0x4399
+    mov ax, MSG_SILENCED_3472        ; 0x4399
     push ax                          ; 0x439c
     mov ax, 0                        ; 0x439d
     mov cx, word [bp + 0x8]          ; 0x43a0
@@ -986,7 +986,7 @@ jumptable_5eb8_case_32:
     push word [bp + 0x8]             ; 0x43ef
     mov ax, 6                        ; 0x43f2
     push ax                          ; 0x43f5
-    mov ax, 0xd95                    ; 0x43f6
+    mov ax, MSG_POISONED_3477        ; 0x43f6
     push ax                          ; 0x43f9
     mov ax, 0xfff6                   ; 0x43fa
     push ax                          ; 0x43fd
@@ -1057,7 +1057,7 @@ jumptable_5eb8_case_35:
     push ax                          ; 0x4495
     mov ax, 0x41                     ; 0x4496
     push ax                          ; 0x4499
-    mov ax, 0xc98                    ; 0x449a
+    mov ax, MSG_LETHAL_CLOUDS_REDUCED ; 0x449a
     push ax                          ; 0x449d
     call api_idx_0050_PLNP           ; 0x449e
     add sp, byte 6                   ; 0x44a1
@@ -1113,10 +1113,10 @@ jumptable_5eb8_case_35:
     push ax                          ; 0x452b
     mov ax, 0x41                     ; 0x452c
     push ax                          ; 0x452f
-    mov ax, 0xc9a                    ; 0x4530
+    mov ax, MSG_AIR_BUBBLE_REDUCED   ; 0x4530
     cmp word [bp - 0x0004], byte 0   ; 0x4533
     jne short @..api_idx_000e_ORJG.l14 ; 0x4537
-    mov ax, 0xc99                    ; 0x4539
+    mov ax, MSG_AIR_BUBBLE_DESTROYED ; 0x4539
 @..api_idx_000e_ORJG.l14:
     push ax                          ; 0x453c
     call api_idx_0050_PLNP           ; 0x453d
@@ -1156,7 +1156,7 @@ jumptable_5eb8_case_36:
     push ax                          ; 0x4584
     mov ax, 6                        ; 0x4585
     push ax                          ; 0x4588
-    mov ax, 0xda1                    ; 0x4589
+    mov ax, MSG_WHITHERS_AND_DIES    ; 0x4589
     push ax                          ; 0x458c
     push word [bp - 0x000c]          ; 0x458d
     push word [bp - 0x000a]          ; 0x4590
@@ -1183,7 +1183,7 @@ jumptable_5eb8_case_36:
     push word [bp + 0x8]             ; 0x45bd
     mov ax, 6                        ; 0x45c0
     push ax                          ; 0x45c3
-    mov ax, 0xd95                    ; 0x45c4
+    mov ax, MSG_POISONED_3477        ; 0x45c4
     push ax                          ; 0x45c7
     push word [bp - 0x000c]          ; 0x45c8
     push word [bp - 0x000a]          ; 0x45cb
@@ -1219,7 +1219,7 @@ jumptable_5eb8_case_38:
     push word [bp + 0x8]             ; 0x460d
     mov ax, 5                        ; 0x4610
     push ax                          ; 0x4613
-    mov ax, 0xd98                    ; 0x4614
+    mov ax, MSG_NAUSEOUS_3480        ; 0x4614
     push ax                          ; 0x4617
     mov ax, 0xfff6                   ; 0x4618
     push ax                          ; 0x461b
@@ -1277,7 +1277,7 @@ jumptable_5eb8_case_39:
     push word [bp + 0x8]             ; 0x4698
     mov ax, 5                        ; 0x469b
     push ax                          ; 0x469e
-    mov ax, 0xd98                    ; 0x469f
+    mov ax, MSG_NAUSEOUS_3480        ; 0x469f
     push ax                          ; 0x46a2
     mov ax, 0                        ; 0x46a3
     mov cx, word [bp + 0x8]          ; 0x46a6
@@ -1389,7 +1389,7 @@ jumptable_5eb8_case_42:
     push ax                          ; 0x478e
     mov ax, 0xb                      ; 0x478f
     push ax                          ; 0x4792
-    mov ax, 0xda9                    ; 0x4793
+    mov ax, MSG_VANISHES_3497        ; 0x4793
     push ax                          ; 0x4796
     push word [bp - 0x000a]          ; 0x4797
     call api_idx_0006_LIRP           ; 0x479a
@@ -1463,7 +1463,7 @@ jumptable_5eb8_case_44:
     push ax                          ; 0x4842
     mov ax, 8                        ; 0x4843
     push ax                          ; 0x4846
-    mov ax, 0xd9f                    ; 0x4847
+    mov ax, MSG_IRRITATED            ; 0x4847
     push ax                          ; 0x484a
     mov ax, 0                        ; 0x484b
     mov cx, word [bp + 0x8]          ; 0x484e
@@ -1480,7 +1480,7 @@ jumptable_5eb8_case_45:
     jne short @..api_idx_000e_ORJG.l27 ; 0x4866
     mov ax, 0x55                     ; 0x4868
     push ax                          ; 0x486b
-    mov ax, 0xc53                    ; 0x486c
+    mov ax, MSG_PROTECTED            ; 0x486c
     push ax                          ; 0x486f
     push word [bp - 0x000c]          ; 0x4870
     push word [bp - 0x000a]          ; 0x4873
@@ -1568,7 +1568,7 @@ jumptable_5eb8_case_50:
     push ax                          ; 0x492e
     mov ax, 4                        ; 0x492f
     push ax                          ; 0x4932
-    mov ax, 0xda0                    ; 0x4933
+    mov ax, MSG_CAPTURED             ; 0x4933
     push ax                          ; 0x4936
     push word [bp - 0x000c]          ; 0x4937
     push word [bp - 0x000a]          ; 0x493a
@@ -1798,7 +1798,7 @@ jumptable_5eb8_case_57:
     push word [bp + 0x8]             ; 0x4b45
     mov ax, 0xa                      ; 0x4b48
     push ax                          ; 0x4b4b
-    mov ax, 0xd97                    ; 0x4b4c
+    mov ax, MSG_GOES_INSANE          ; 0x4b4c
     push ax                          ; 0x4b4f
     push word [bp - 0x000c]          ; 0x4b50
     push word [bp - 0x000a]          ; 0x4b53
@@ -1829,7 +1829,7 @@ jumptable_5eb8_case_58:
     push ax                          ; 0x4b8d
     mov ax, 9                        ; 0x4b8e
     push ax                          ; 0x4b91
-    mov ax, 0xd92                    ; 0x4b92
+    mov ax, MSG_FALLS_ASLEEP_3474    ; 0x4b92
     push ax                          ; 0x4b95
     mov ax, 0                        ; 0x4b96
     mov cx, word [bp + 0x8]          ; 0x4b99
@@ -1940,7 +1940,7 @@ jumptable_5eb8_case_60:
     push ax                          ; 0x4c8b
     mov ax, 9                        ; 0x4c8c
     push ax                          ; 0x4c8f
-    mov ax, 0xda8                    ; 0x4c90
+    mov ax, MSG_BEHOLDEN             ; 0x4c90
     push ax                          ; 0x4c93
     push word [bp - 0x000c]          ; 0x4c94
     push word [bp - 0x000a]          ; 0x4c97
@@ -2003,7 +2003,7 @@ jumptable_5eb8_case_67:
     push ax                          ; 0x4d1c
     mov ax, 9                        ; 0x4d1d
     push ax                          ; 0x4d20
-    mov ax, 0xda4                    ; 0x4d21
+    mov ax, MSG_HELD                 ; 0x4d21
     push ax                          ; 0x4d24
     mov ax, 0                        ; 0x4d25
     mov cx, word [bp + 0x8]          ; 0x4d28
@@ -2040,7 +2040,7 @@ jumptable_5eb8_case_65:
     push ax                          ; 0x4d6b
     mov ax, 0xa                      ; 0x4d6c
     push ax                          ; 0x4d6f
-    mov ax, 0xd8d                    ; 0x4d70
+    mov ax, MSG_BEWILDERED           ; 0x4d70
     push ax                          ; 0x4d73
     mov ax, 0                        ; 0x4d74
     mov cx, word [bp + 0x8]          ; 0x4d77
@@ -2080,7 +2080,7 @@ jumptable_5eb8_case_70:
     push word [bp + 0x8]             ; 0x4dc0
     mov ax, 0xa                      ; 0x4dc3
     push ax                          ; 0x4dc6
-    mov ax, 0xd97                    ; 0x4dc7
+    mov ax, MSG_GOES_INSANE          ; 0x4dc7
     push ax                          ; 0x4dca
     mov ax, 0                        ; 0x4dcb
     mov cx, word [bp + 0x8]          ; 0x4dce
@@ -2198,7 +2198,7 @@ jumptable_5eb8_case_74:
     push ax                          ; 0x4ebc
     mov ax, 0xb                      ; 0x4ebd
     push ax                          ; 0x4ec0
-    mov ax, 0xd9a                    ; 0x4ec1
+    mov ax, MSG_SLAIN                ; 0x4ec1
     push ax                          ; 0x4ec4
     push word [bp - 0x000c]          ; 0x4ec5
     push word [bp - 0x000a]          ; 0x4ec8
@@ -2340,7 +2340,7 @@ jumptable_5eb8_case_81:
     push ax                          ; 0x4ffe
     mov ax, 0xb                      ; 0x4fff
     push ax                          ; 0x5002
-    mov ax, 0xda5                    ; 0x5003
+    mov ax, MSG_DISPELLED            ; 0x5003
     push ax                          ; 0x5006
     mov ax, 0                        ; 0x5007
     sub ax, word [bp + 0x8]          ; 0x500a
@@ -2569,7 +2569,7 @@ jumptable_5eb8_case_90:
     push ax                          ; 0x51fc
     mov ax, 0xb                      ; 0x51fd
     push ax                          ; 0x5200
-    mov ax, 0xda9                    ; 0x5201
+    mov ax, MSG_VANISHES_3497        ; 0x5201
     push ax                          ; 0x5204
     mov ax, 0                        ; 0x5205
     sub ax, word [bp + 0x8]          ; 0x5208
@@ -2858,7 +2858,7 @@ jumptable_5eb8_case_56:
     mov byte [bx + si + member_rec.item_state], 0 ; 0x54a6
     mov ax, 0x55                     ; 0x54aa
     push ax                          ; 0x54ad
-    mov ax, 0xc4e                    ; 0x54ae
+    mov ax, MSG_REVIVED              ; 0x54ae
     push ax                          ; 0x54b1
     push word [bp - 0x000c]          ; 0x54b2
     push word [bp - 0x000a]          ; 0x54b5
@@ -2975,7 +2975,7 @@ jumptable_5eb8_case_94:
     add sp, byte 4                   ; 0x55c1
     mov ax, 0x55                     ; 0x55c4
     push ax                          ; 0x55c7
-    mov ax, 0xc4f                    ; 0x55c8
+    mov ax, MSG_LIVES                ; 0x55c8
     push ax                          ; 0x55cb
     push word [bp - 0x000c]          ; 0x55cc
     push word [bp - 0x000a]          ; 0x55cf
@@ -3079,7 +3079,7 @@ jumptable_5eb8_case_12:
     je short @..api_idx_000e_ORJG.l86 ; 0x56b9
     mov ax, 0x55                     ; 0x56bb
     push ax                          ; 0x56be
-    mov ax, 0xc52                    ; 0x56bf
+    mov ax, MSG_REPLENISHED          ; 0x56bf
     push ax                          ; 0x56c2
     push word [bp - 0x000c]          ; 0x56c3
     push word [bp - 0x000a]          ; 0x56c6
@@ -3513,7 +3513,7 @@ jumptable_5eb8_case_78:
     je short @..api_idx_000e_ORJG.l115 ; 0x5acb
     mov ax, 0x55                     ; 0x5acd
     push ax                          ; 0x5ad0
-    mov ax, 0xc50                    ; 0x5ad1
+    mov ax, MSG_HEALED               ; 0x5ad1
     push ax                          ; 0x5ad4
     push word [bp - 0x000c]          ; 0x5ad5
     push word [bp - 0x000a]          ; 0x5ad8
@@ -3767,7 +3767,7 @@ jumptable_5eb8_case_100:
     add sp, byte 4                   ; 0x5d46
     mov ax, 0x55                     ; 0x5d49
     push ax                          ; 0x5d4c
-    mov ax, 0xc54                    ; 0x5d4d
+    mov ax, MSG_RECEIVES_THE         ; 0x5d4d
     push ax                          ; 0x5d50
     push word [bp - 0x0006]          ; 0x5d51
     push word [bss_8464]             ; 0x5d54
@@ -3805,7 +3805,7 @@ jumptable_5eb8_case_101:
     add sp, byte 4                   ; 0x5da7
     mov ax, 0x55                     ; 0x5daa
     push ax                          ; 0x5dad
-    mov ax, 0xc51                    ; 0x5dae
+    mov ax, MSG_TURNS_INVISIBLE      ; 0x5dae
     push ax                          ; 0x5db1
     push word [bss_8462]             ; 0x5db2
     push word [bss_8464]             ; 0x5db6

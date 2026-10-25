@@ -61,7 +61,7 @@ api_idx_007c_MIHQ:
     push ax                          ; 0x4606
     mov ax, 0x39                     ; 0x4607
     push ax                          ; 0x460a
-    mov ax, 0x452                    ; 0x460b
+    mov ax, MSG_SELECT_CHARACTER_PROFESSION ; 0x460b
     push ax                          ; 0x460e
     mov ax, 0x78                     ; 0x460f
     push ax                          ; 0x4612

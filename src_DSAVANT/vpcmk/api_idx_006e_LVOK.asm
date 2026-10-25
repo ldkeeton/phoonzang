@@ -117,7 +117,7 @@ api_idx_006e_LVOK:
     push ax                          ; 0x3e79
     mov ax, 1                        ; 0x3e7a
     push ax                          ; 0x3e7d
-    mov ax, 0x7ec                    ; 0x3e7e
+    mov ax, MSG_LEARN                ; 0x3e7e
     push ax                          ; 0x3e81
     push word [bp + 0x4]             ; 0x3e82
     call api_idx_0050_NHHL           ; 0x3e85

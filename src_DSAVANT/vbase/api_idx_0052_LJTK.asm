@@ -9,7 +9,7 @@ jumptable_4688_case_0:
     push ax                          ; 0x4344
     mov al, byte [bss_5989]          ; 0x4345
     sub ah, ah                       ; 0x4348
-    add ax, 0x92e                    ; 0x434a
+    add ax, MSG_KEYBOARD             ; 0x434a
     push ax                          ; 0x434d
     call load_message_string         ; 0x434e
     add sp, byte 4                   ; 0x4351
@@ -75,7 +75,7 @@ jumptable_4688_case_4:
     push ax                          ; 0x43d6
     mov al, byte [bss_5984]          ; 0x43d7
     sub ah, ah                       ; 0x43da
-    add ax, 0x931                    ; 0x43dc
+    add ax, MSG_PC_SPEAKER           ; 0x43dc
     push ax                          ; 0x43df
     call load_message_string         ; 0x43e0
     add sp, byte 4                   ; 0x43e3
@@ -170,7 +170,7 @@ jumptable_4688_case_8:
     push ax                          ; 0x44b3
     mov al, byte [video_mode]        ; 0x44b4
     sub ah, ah                       ; 0x44b7
-    add ax, 0x946                    ; 0x44b9
+    add ax, MSG_NONE_2374            ; 0x44b9
     push ax                          ; 0x44bc
     call load_message_string         ; 0x44bd
     add sp, byte 4                   ; 0x44c0
@@ -205,7 +205,7 @@ jumptable_4688_case_10:
     push ax                          ; 0x4502
     mov al, byte [bss_5988]          ; 0x4503
     sub ah, ah                       ; 0x4506
-    add ax, 0x938                    ; 0x4508
+    add ax, MSG_NORMAL               ; 0x4508
     push ax                          ; 0x450b
     call load_message_string         ; 0x450c
     add sp, byte 4                   ; 0x450f
@@ -230,7 +230,7 @@ jumptable_4688_case_11:
     push ax                          ; 0x4539
     mov al, byte [no_dissolve]       ; 0x453a
     sub ah, ah                       ; 0x453d
-    add ax, 0x93b                    ; 0x453f
+    add ax, MSG_ON_2363              ; 0x453f
     push ax                          ; 0x4542
     call load_message_string         ; 0x4543
     add sp, byte 4                   ; 0x4546
@@ -299,7 +299,7 @@ jumptable_4688_case_14:
     push ax                          ; 0x45d9
     mov al, byte [bss_598a]          ; 0x45da
     sub ah, ah                       ; 0x45dd
-    add ax, 0x93f                    ; 0x45df
+    add ax, MSG_RAMDISK              ; 0x45df
     push ax                          ; 0x45e2
     call load_message_string         ; 0x45e3
     add sp, byte 4                   ; 0x45e6

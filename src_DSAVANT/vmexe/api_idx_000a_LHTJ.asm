@@ -36,7 +36,7 @@ api_idx_000a_LHTJ:
     cmp ax, word [bp + 0x14]         ; 0x29ef
     je short @..api_idx_000a_LHTJ.l6 ; 0x29f2
 @..api_idx_000a_LHTJ.l5:
-    mov ax, 0xc8d                    ; 0x29f4
+    mov ax, MSG_SPELL_REDUCED        ; 0x29f4
     push ax                          ; 0x29f7
     call loc_PKMT                    ; 0x29f8
     pop cx                           ; 0x29fb

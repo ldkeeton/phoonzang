@@ -70,7 +70,7 @@ api_idx_004c_OGSK:
     push ax                          ; 0x508c
     mov al, byte [bp - 0x0013]       ; 0x508d
     sub ah, ah                       ; 0x5090
-    add ax, 0x1770                   ; 0x5092
+    add ax, MSG_DAGGER_6000          ; 0x5092
     push ax                          ; 0x5095
     call load_message_string         ; 0x5096
     add sp, byte 4                   ; 0x5099

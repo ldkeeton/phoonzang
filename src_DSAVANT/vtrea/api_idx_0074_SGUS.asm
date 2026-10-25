@@ -437,7 +437,7 @@ api_idx_0074_SGUS:
     push word [bp - 0x0004]          ; 0x7cf7
     push word [bp - 0x000c]          ; 0x7cfa
     mov ax, word [bp - 0x0004]       ; 0x7cfd
-    add ax, 0x148d                   ; 0x7d00
+    add ax, MSG_CRITICAL_5261        ; 0x7d00
     push ax                          ; 0x7d03
     push word [bp - 0x0002]          ; 0x7d04
     call api_idx_005a_SIOK           ; 0x7d07

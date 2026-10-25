@@ -142,7 +142,7 @@ api_idx_0006_PSQH:
     push ax                          ; 0x99e8
     mov ax, 0x43                     ; 0x99e9
     push ax                          ; 0x99ec
-    mov ax, 0xdc0                    ; 0x99ed
+    mov ax, MSG_SHADOWS_3520         ; 0x99ed
     push ax                          ; 0x99f0
     call api_idx_0050_PLNP           ; 0x99f1
     add sp, byte 6                   ; 0x99f4
@@ -160,7 +160,7 @@ api_idx_0006_PSQH:
     push ax                          ; 0x9a11
     mov ax, 0x43                     ; 0x9a12
     push ax                          ; 0x9a15
-    mov ax, 0xdc1                    ; 0x9a16
+    mov ax, MSG_FAILED               ; 0x9a16
     push ax                          ; 0x9a19
     call api_idx_0050_PLNP           ; 0x9a1a
     add sp, byte 6                   ; 0x9a1d

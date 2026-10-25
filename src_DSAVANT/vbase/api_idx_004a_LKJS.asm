@@ -93,7 +93,7 @@ api_idx_004a_LKJS:
     lea ax, word [bp - 0x004a]       ; 0x6b09
     push ax                          ; 0x6b0c
     mov ax, word [bp - 0x0004]       ; 0x6b0d
-    add ax, 0x3e8                    ; 0x6b10
+    add ax, MSG_CHARACTER_MENU       ; 0x6b10
     push ax                          ; 0x6b13
     call load_message_string         ; 0x6b14
     add sp, byte 4                   ; 0x6b17

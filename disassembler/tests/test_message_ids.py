@@ -1,8 +1,13 @@
 """Message-id constants: decoding, naming, headers and the argument walker."""
 
 import os
+from pathlib import Path
 import re
+import shutil
+import subprocess
+import tempfile
 import unittest
+from unittest import mock
 
 from capstone import CS_ARCH_X86, CS_MODE_16, Cs
 
@@ -89,8 +94,8 @@ class IdentifierTest(unittest.TestCase):
         self.assertEqual(names[3], 'MSG_CAST')
 
     def test_a_name_does_not_depend_on_use(self):
-        # A cleaned tree renders before the header is complete, so two builds
-        # of the same data must spell an id the same way whatever is used.
+        # A subset header must retain the full catalog's names, regardless
+        # of which other binaries or C sources use a message.
         messages = {1: 'CANCEL', 2: 'CANCEL', 3: 'CAST'}
         only_three = msgids.build_constants(messages, [3])
         everything = msgids.build_constants(messages, [1, 2, 3])
@@ -142,22 +147,109 @@ class HeaderTest(unittest.TestCase):
         self.assertFalse(os.path.isdir(
             os.path.join(_SRC, 'include', 'msgs')))
 
+    def test_complete_catalog_has_every_decoded_id_and_unique_names(self):
+        messages, _skipped, bases = msgids.project_data('DSAVANT', _ROOT)
+        names, values = msgids.read_constants(
+            os.path.join(_SRC, msgids.inc_rel()))
+        expected = msgids.constant_names(messages, bases)
+        self.assertEqual(values, expected)
+        self.assertEqual(len(names), len(expected))
+
     def test_checked_in_headers_agree(self):
         inc = os.path.join(_SRC, msgids.inc_rel())
         header = os.path.join(_SRC, msgids.header_rel())
         inc_names, inc_values = msgids.read_constants(inc)
         header_names, header_values = msgids.read_constants(header)
         self.assertTrue(inc_names, 'include/msg.inc is missing or empty')
-        self.assertEqual(header_names, inc_names)
-        self.assertEqual(header_values, inc_values)
+        self.assertTrue(header_names)
+        self.assertTrue(header_names.items() <= inc_names.items())
+        self.assertTrue(header_values.items() <= inc_values.items())
+        self.assertLess(len(header_names), len(inc_names))
         self.assertEqual(inc_values[2026], 'MSG_CAST')
+
+
+class GenerationTest(unittest.TestCase):
+    def test_generation_needs_no_source_tree(self):
+        # With no C sources, the full ASM catalog still needs no old sources
+        # or headers, including on a clean or partial build.
+        messages = {1: 'CAST', 2: 'CANCEL', 3: 'CANCEL', 120: 'FIGHTER'}
+        bases = [{'value': 120, 'name': 'MSG_CLASS_BASE'}]
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(os.path.join(root, 'apps', 'P'))
+            with mock.patch.object(msgids, 'project_data',
+                                   return_value=(messages, [], bases)):
+                with mock.patch('builtins.open',
+                                side_effect=AssertionError('source read')):
+                    outputs, stats = msgids.generate_project(
+                        'P', root, write=False)
+        asm_names, asm_values = msgids.parse_inc(outputs[msgids.MSG_INC])
+        c_names, _ = msgids.parse_header(outputs[msgids.MSG_H])
+        self.assertEqual(c_names, {'MSG_CLASS_BASE': 120})
+        self.assertTrue(c_names.items() <= asm_names.items())
+        self.assertEqual(asm_values, msgids.constant_names(messages, bases))
+        self.assertEqual(set(asm_values), set(messages))
+        self.assertEqual(stats['constants'], len(messages))
+
+    def test_c_header_selects_names_without_changing_the_catalog(self):
+        from lib.autogen import MARKER_C
+        messages = {1: 'CAST', 2: 'CANCEL', 3: 'CANCEL'}
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(os.path.join(root, 'apps', 'P'))
+            src = Path(root) / 'src_P'
+            src.mkdir()
+            (src / 'hand.c').write_text('return MSG_CANCEL_2;')
+            (src / 'generated.c').write_text(MARKER_C + '\nreturn MSG_CAST;')
+            (src / 'ignored.asm').write_text('mov ax, MSG_CANCEL_3')
+            with mock.patch.object(msgids, 'project_data',
+                                   return_value=(messages, [], [])):
+                outputs, stats = msgids.generate_project('P', root, write=False)
+                (src / 'ignored.asm').unlink()
+                self.assertEqual(outputs, msgids.generate_project(
+                    'P', root, write=False)[0])
+        self.assertEqual(msgids.parse_header(outputs[msgids.MSG_H])[0],
+                         {'MSG_CANCEL_2': 2})
+        self.assertEqual(set(msgids.parse_inc(outputs[msgids.MSG_INC])[1]),
+                         {1, 2, 3})
+        self.assertEqual(stats['c_constants'], 1)
+
+    def test_c_header_unites_decoded_code_and_hand_c_uses(self):
+        messages = {1: 'CAST', 2: 'CANCEL', 3: 'UNUSED'}
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(os.path.join(root, 'apps', 'P'))
+            src = Path(root) / 'src_P'
+            src.mkdir()
+            (src / 'hand.c').write_text('return MSG_CANCEL;')
+            with mock.patch.object(msgids, 'project_data',
+                                   return_value=(messages, [], [])):
+                outputs, stats = msgids.generate_project(
+                    'P', root, write=False, used_ids={1})
+        self.assertEqual(msgids.parse_header(outputs[msgids.MSG_H])[0],
+                         {'MSG_CAST': 1, 'MSG_CANCEL': 2})
+        self.assertEqual(stats['c_constants'], 2)
+        self.assertEqual(stats['constants'], 3)
+
+    def test_a_literal_base_uses_the_declared_base_name(self):
+        messages = {120: 'FIGHTER'}
+        bases = [{'value': 120, 'name': 'MSG_CLASS_BASE'}]
+        names = msgids.constant_names(messages, bases)
+        symbols, _ = msgids.find_message_symbols(
+            _disassemble(bytes.fromhex('b8780050e80000')),
+            [msgids.MessageCall('show_message', 1, 1, 1)],
+            names, msgids.message_bases(bases), lambda insn: 'show_message')
+        declared, _ = msgids.parse_inc(msgids.inc_text(
+            msgids.build_constants(messages, messages, bases)))
+        self.assertEqual(symbols, {(0, 1): 'MSG_CLASS_BASE'})
+        self.assertTrue(set(symbols.values()) <= set(declared))
+
+    def test_message_text_cannot_end_a_c_comment(self):
+        text = msgids.header_text([msgids.MessageConstant(1, 'MSG_X', '*/')])
+        self.assertIn('/* "* /" */', text)
 
 
 class CleanTest(unittest.TestCase):
     def test_no_generated_file_is_exempt(self):
         # Including the message headers: the build regenerates them from the
-        # message data (and, on a cleaned tree, the names the hand C uses).
-        import tempfile
+        # message data alone.
         from lib import autogen
         with tempfile.TemporaryDirectory() as root:
             os.makedirs(os.path.join(root, 'include'))
@@ -202,11 +294,21 @@ class HandCTest(unittest.TestCase):
         self.assertEqual(sorted(used - set(names)), [])
         self.assertTrue(used)
 
-    def test_the_cold_seed_declares_every_name_it_uses(self):
-        # Nothing is rendered yet, so the header a C worker sees is only the
-        # bases and these names; the full pass comes after rendering.
+    def test_generated_asm_message_uses_are_ready_for_c(self):
+        # Verification may inspect the output; header generation must obtain
+        # this same set upstream from decoded instructions.
+        declared, _ = msgids.read_constants(os.path.join(_SRC, msgids.MSG_H))
+        used = set()
+        for path in Path(_SRC).rglob('*.asm'):
+            if 'build_out' not in path.parts:
+                used.update(re.findall(r'\bMSG_[A-Za-z0-9_]+\b', path.read_text()))
+        self.assertTrue(used)
+        self.assertEqual(sorted(used - set(declared)), [])
+
+    def test_the_data_table_declares_every_name_it_uses(self):
+        # Both headers exist before either compilation or rendering.
         outputs, _stats = msgids.generate_project(
-            'DSAVANT', _ROOT, write=False, seed_only=True)
+            'DSAVANT', _ROOT, write=False)
         names, _values = msgids.parse_inc(outputs[msgids.MSG_INC])
         self.assertEqual(sorted(_hand_c_names() - set(names)), [])
 
@@ -321,17 +423,59 @@ class WalkTest(unittest.TestCase):
             lambda insn: 'pick_spell_dialog')
         self.assertEqual(symbols, {(3, 1): 'MSG_CAST'})
 
-    def test_existing_symbol_resolves_for_the_generator(self):
-        text = ('    mov ax, 0x7ea\n'
-                '    push ax\n'
-                '    push word [bp + 4]\n'
-                '    call pick_spell_dialog\n')
-        calls = [msgids.MessageCall('pick_spell_dialog', 2, 4, 2)]
-        uses = msgids.scan_asm_text(text, calls, {2026: 'MSG_CAST'}, {})
-        self.assertEqual(len(uses), 1)
-        self.assertEqual(uses[0].kind, 'direct')
-        self.assertEqual(uses[0].value, 2026)
-        self.assertEqual(uses[0].name, 'MSG_CAST')
+
+
+class LayoutTest(unittest.TestCase):
+    @unittest.skipUnless(shutil.which('nasm'), 'NASM is required')
+    def test_insertions_move_addresses_but_keep_the_message_id(self):
+        # Assemble real symbolic references, insert bytes in code and data,
+        # then resolve the message argument from each new instruction stream.
+        # No original call-site or producer offsets are supplied to the walker.
+        for code_pad, data_pad in ((0, 0), (16, 0), (0, 16), (16, 16)):
+            with self.subTest(code_pad=code_pad, data_pad=data_pad):
+                source = f"""bits 16
+org 0
+MSG_CAST equ 2026
+mov dx, MSG_CAST
+times {code_pad} db 0x90
+producer:
+mov ax, MSG_CAST
+push ax
+mov ax, buffer
+push ax
+call show_message
+ret
+show_message:
+ret
+times {data_pad} db 0
+buffer: dw 0
+"""
+                with tempfile.TemporaryDirectory() as root:
+                    output = Path(root) / 'test.bin'
+                    asm = Path(root) / 'test.asm'
+                    asm.write_text(source)
+                    subprocess.run(['nasm', '-f', 'bin', '-o', str(output),
+                                    str(asm)], text=True, capture_output=True,
+                                   check=True)
+                    insns = _disassemble(output.read_bytes())
+                call = next(i for i in insns if i.mnemonic == 'call')
+                target = call.address + call.size + 1
+                self.assertEqual(call.operands[0].imm, target)
+                resolver = lambda i: ('show_message'
+                                     if i.operands[0].imm == target else None)
+                producer = 3 + code_pad
+                symbols, uses = msgids.find_message_symbols(
+                    insns, [msgids.MessageCall('show_message', 2, 2, 2)],
+                    {2026: 'MSG_CAST'}, {}, resolver,
+                    boundaries={producer, target})
+                self.assertEqual(symbols, {(producer, 1): 'MSG_CAST'})
+                self.assertEqual(uses[0].value, 2026)
+                destination = next(i for i in insns
+                                   if i.address == producer + 4)
+                self.assertEqual(destination.operands[1].imm,
+                                 target + 1 + data_pad)
+                self.assertNotIn('MSG_CAST', format_instruction(
+                    insns[0], message_symbols=symbols))
 
 
 class FormatTest(unittest.TestCase):

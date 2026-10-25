@@ -111,7 +111,7 @@ api_idx_0004_USIK:
     idiv cx                          ; 0x18fe
     push ax                          ; 0x1900
     push cx                          ; 0x1901
-    mov ax, 0x7e5                    ; 0x1902
+    mov ax, MSG_LOCKED               ; 0x1902
     push ax                          ; 0x1905
     call loc_LPNP                    ; 0x1906
     add sp, byte 6                   ; 0x1909

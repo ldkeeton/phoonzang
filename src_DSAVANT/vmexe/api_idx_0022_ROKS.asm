@@ -120,7 +120,7 @@ api_idx_0022_ROKS:
     push ax                          ; 0x2359
     mov ax, 0x16                     ; 0x235a
     push ax                          ; 0x235d
-    mov ax, 0xce6                    ; 0x235e
+    mov ax, MSG_HIT                  ; 0x235e
     push ax                          ; 0x2361
     call api_idx_0050_PLNP           ; 0x2362
     add sp, byte 6                   ; 0x2365
@@ -224,7 +224,7 @@ api_idx_0022_ROKS:
     push ax                          ; 0x244f
     mov ax, 0                        ; 0x2450
     push ax                          ; 0x2453
-    mov ax, 0xd9e                    ; 0x2454
+    mov ax, MSG_DIES_3486            ; 0x2454
     push ax                          ; 0x2457
     push word [bp + 0x6]             ; 0x2458
     push word [bp + 0x4]             ; 0x245b
@@ -264,7 +264,7 @@ api_idx_0022_ROKS:
     push ax                          ; 0x24a1
     mov ax, 0x41                     ; 0x24a2
     push ax                          ; 0x24a5
-    mov ax, 0xcee                    ; 0x24a6
+    mov ax, MSG_UNAFFECTED_3310      ; 0x24a6
     push ax                          ; 0x24a9
     call api_idx_0050_PLNP           ; 0x24aa
     add sp, byte 6                   ; 0x24ad

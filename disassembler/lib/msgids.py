@@ -19,18 +19,18 @@ This module owns the data side of the message-id namespace:
 * :func:`message_calls` and :func:`message_bases` read the sidecar's
   project-wide knowledge (which routines take an id, where a computed id
   starts); a binary may override one ``message_calls`` entry;
-* :func:`find_message_symbols` and :func:`scan_asm_text` are the generic
-  argument walkers for capstone instructions and rendered ``.asm`` text.
+* :func:`find_message_symbols` resolves arguments from decoded instructions.
 
-The ASM header is derived from the binary and the data; the C header is
-derived from the ASM header.  The one back edge is the cold-tree seed in
-:func:`seed_ids`: the C has to compile before anything is rendered, so the
-names it already uses are resolved against the same data-derived table.
+The ASM header describes the complete database.  The C header is a subset
+selected by proven decoded-code uses and names hand-written C uses, keeping
+the DOS compiler's macro
+table small.  Both use the same data-derived names and values; neither reads
+rendered ASM or a previously generated header.
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from functools import lru_cache
 import os
 import re
@@ -193,17 +193,15 @@ class MessageConstant:
 def _comment(text):
     """Message text made safe for an ``;`` or ``/* */`` comment."""
     cleaned = ''.join(ch if 32 <= ord(ch) <= 126 else '?' for ch in text)
-    return cleaned.replace(';', ':').replace('"', "'")
+    return cleaned.replace(';', ':').replace('"', "'").replace('*/', '* /')
 
 
 def constant_names(messages, bases=()):
     """``{id: MSG_*}`` for every message, from the data alone.
 
-    The spelling must not depend on which ids the code happens to use: a tree
-    cleaned since the last build renders its asm before the header is
-    complete, and the next build must assemble that same text.  So a collision
-    is resolved against the whole message database, and a name that repeats a
-    sidecar base's name is suffixed too -- both pure functions of the data.
+    Collisions are resolved against the whole message database.  A sidecar
+    base supplies the canonical name for its value, including literal uses,
+    so headers and instruction operands always agree.
     """
     names = {value: identifier(value, text)
              for value, text in messages.items()}
@@ -214,6 +212,7 @@ def constant_names(messages, bases=()):
     for value, name in list(names.items()):
         if counts[name] > 1 or name in base_names:
             names[value] = f'{name}_{value}'
+    names.update(message_bases(bases))
     return names
 
 
@@ -223,7 +222,7 @@ def build_constants(messages, direct_ids=(), bases=()):
     *direct_ids* are the message ids the code passes literally; *bases* are
     the sidecar's ``message_bases`` entries (``value``/``name``/``note``).
     A base value is emitted once, under its sidecar name, even if the same
-    value also reached the scan as a literal.
+    value is also requested as a literal.
     """
     entries = {}
     for entry in bases:
@@ -283,7 +282,7 @@ def header_text(constants):
     for const in constants:
         text = _comment(const.text or const.note)
         row = f'#define {const.name} {const.value}'
-        lines.append(row.ljust(38) + (f'/* "{text}" */' if text else ''))
+        lines.append(row.ljust(38) + f'/* "{text}" */' if text else row)
     lines.extend(['', '#endif', ''])
     return '\n'.join(lines)
 
@@ -372,118 +371,10 @@ class MessageUse:
     value: int | None = None
     name: str | None = None
     address: int | None = None
-    line: int | None = None
-    path: str = ''
     detail: str = ''
 
 
-@dataclass
-class _Event:
-    """A write to ``ax`` while an argument is being computed."""
-
-    kind: str                   # mov-imm | mov-other | add-imm | add-other | clobber
-    value: int | None = None
-    address: int | None = None
-    op_index: int | None = None
-    line: int | None = None
-
-
-def classify_events(events):
-    """Return ``(kind, event)`` for the immediate that carries a message id.
-
-    *kind* is ``direct`` (the value itself), ``base`` (the start of a computed
-    id) or ``unknown``.  *event* is the event whose immediate should be named.
-    """
-    mov = None
-    adds = []
-    for event in events:
-        if event.kind in ('mov-imm', 'mov-other'):
-            mov = event
-            adds = []
-        elif event.kind in ('add-imm', 'add-other'):
-            adds.append(event)
-        elif event.kind == 'clobber':
-            mov = None
-            adds = []
-    imm_adds = [event for event in adds if event.kind == 'add-imm']
-    if imm_adds:
-        return 'base', imm_adds[-1]
-    if mov is not None and mov.kind == 'mov-imm':
-        return ('base' if adds else 'direct'), mov
-    return 'unknown', None
-
-
-def _resolve_use(kind, event, names, bases):
-    """Fill in a :class:`MessageUse` from a classified event.
-
-    The kind and value survive even when the header has no name yet: the
-    generator discovers ids before it can name them.
-    """
-    if event is None or event.value is None or kind == 'unknown':
-        return 'unknown', None, None
-    table = names if kind == 'direct' else bases
-    return kind, event.value, table.get(event.value)
-
-
-# ── capstone walker ─────────────────────────────────────────────────────────
-
-def _is_flow(insn):
-    try:
-        from capstone import CS_GRP_CALL, CS_GRP_JUMP, CS_GRP_RET
-        return (insn.group(CS_GRP_JUMP) or insn.group(CS_GRP_RET)
-                or insn.group(CS_GRP_CALL))
-    except (AttributeError, ImportError):
-        return insn.mnemonic in _FLOW
-
-
-_FLOW = {
-    'jmp', 'call', 'ret', 'retf', 'iret', 'iretd', 'loop', 'loope', 'loopne',
-    'jcxz', 'jecxz',
-    *(f'j{cc}' for cc in (
-        'a', 'ae', 'b', 'be', 'c', 'cxz', 'e', 'g', 'ge', 'l', 'le', 'na',
-        'nae', 'nb', 'nbe', 'nc', 'ne', 'ng', 'nge', 'nl', 'nle', 'no', 'np',
-        'ns', 'nz', 'o', 'p', 'pe', 'po', 's', 'z')),
-}
-
-_AX_WRITERS = {
-    'mov', 'lea', 'pop', 'xchg', 'add', 'sub', 'xor', 'and', 'or', 'adc',
-    'sbb', 'neg', 'not', 'inc', 'dec', 'shl', 'shr', 'sar', 'sal', 'rol',
-    'ror', 'rcl', 'rcr', 'imul', 'mul', 'div', 'idiv', 'in', 'movzx', 'movsx',
-}
-_AX_IMPLICIT = {'cbw', 'cwd', 'lodsb', 'lodsw', 'xlatb'}
-
-
-def _writes_ax(insn):
-    if insn.mnemonic in _AX_IMPLICIT:
-        return True
-    if insn.mnemonic not in _AX_WRITERS or not insn.operands:
-        return False
-    op = insn.operands[0]
-    from capstone import CS_OP_REG
-    return (op.type == CS_OP_REG
-            and insn.reg_name(op.reg) in ('ax', 'al', 'ah'))
-
-
-def _capstone_event(insn):
-    """The :class:`_Event` for one instruction, or None if it leaves ax alone."""
-    from capstone import CS_OP_IMM, CS_OP_REG
-    mnem = insn.mnemonic
-    ops = insn.operands
-    if mnem in _AX_IMPLICIT:
-        return _Event('clobber', address=insn.address)
-    if mnem not in _AX_WRITERS or not ops:
-        return None
-    first = ops[0]
-    if not (first.type == CS_OP_REG
-            and insn.reg_name(first.reg) in ('ax', 'al', 'ah')):
-        return None
-    if mnem not in ('mov', 'add') or len(ops) < 2:
-        return _Event('clobber', address=insn.address)
-    second = ops[1]
-    if second.type == CS_OP_IMM:
-        return _Event(f'{mnem}-imm', second.imm & 0xFFFF,
-                      insn.address, 1)
-    return _Event(f'{mnem}-other', address=insn.address)
+# ── Decoded message provenance ─────────────────────────────────────────────
 
 
 def find_message_symbols(insns, calls, names, bases, resolve, boundaries=()):
@@ -493,245 +384,20 @@ def find_message_symbols(insns, calls, names, bases, resolve, boundaries=()):
     list; *names* ``{id: MSG_*}`` and *bases* ``{id: MSG_*_BASE}``;
     *resolve(insn)* returns the routine a ``call`` targets, or None.
     *boundaries* is an optional set of instruction addresses that begin a new
-    basic block.
+    basic block. Routine prologues and decoded branches define the flow;
+    forwarding wrappers are inferred from their frame-argument uses.
 
     Returns ``({(address, operand_index): name}, [MessageUse])``.  The map is
     keyed by the *producer* instruction, so an unrelated ``mov ax, 2026`` is
     never renamed.
     """
-    by_routine = {call.routine: call for call in calls}
-    symbols = {}
-    uses = []
-    if not by_routine or not insns:
-        return symbols, uses
-    insns = list(insns)
-    boundary_set = set(boundaries or ())
-    for index, insn in enumerate(insns):
-        if insn.mnemonic != 'call':
-            continue
-        routine = resolve(insn)
-        call = by_routine.get(routine)
-        if call is None:
-            continue
-        start = index - 1
-        while start >= 0:
-            prev = insns[start]
-            if prev.address in boundary_set or _is_flow(prev):
-                break
-            start -= 1
-        block = insns[start + 1:index]
-        pushes = [position for position, item in enumerate(block)
-                  if item.mnemonic == 'push']
-        use = MessageUse(routine=routine, arg=call.arg,
-                         address=insn.address)
-        if len(pushes) < call.push:
-            use.detail = f'only {len(pushes)} push(es) before the call'
-            uses.append(use)
-            continue
-        push_at = pushes[-call.push]
-        push_insn = block[push_at]
-        from capstone import CS_OP_IMM
-        if push_insn.operands and push_insn.operands[0].type == CS_OP_IMM:
-            kind, value, name = _resolve_use(
-                'direct',
-                _Event('direct', push_insn.operands[0].imm & 0xFFFF,
-                       push_insn.address, 0),
-                names, bases)
-            target, target_op = push_insn, 0
-        elif push_insn.operands and _push_is_ax(push_insn):
-            events = [event for event in
-                      (_capstone_event(item) for item in block[:push_at])
-                      if event is not None]
-            kind, event = classify_events(events)
-            kind, value, name = _resolve_use(kind, event, names, bases)
-            target = (_insn_at(insns, start + 1, push_at, event)
-                      if event is not None else None)
-            target_op = event.op_index if event else None
-            if name is None:
-                use.detail = ('producer is not a literal id' if event is None
-                              else f'0x{value:04x} has no message name'
-                              if value is not None
-                              else 'producer is not a literal id')
-        else:
-            target = None
-            target_op = None
-            kind, value, name = 'unknown', None, None
-            use.detail = 'argument is not pushed from ax'
-        use.kind, use.value, use.name = kind, value, name
-        if target is not None and target_op is not None and name:
-            symbols[(target.address, target_op)] = name
-        uses.append(use)
+    from lib.msgflow import analyze
+    symbols, uses, _params = analyze(insns, calls, names, bases, resolve,
+                                     labels=boundaries)
     return symbols, uses
 
 
-def _push_is_ax(insn):
-    from capstone import CS_OP_REG
-    op = insn.operands[0]
-    return op.type == CS_OP_REG and insn.reg_name(op.reg) == 'ax'
-
-
-def _insn_at(insns, start, push_at, event):
-    """The instruction a classified event came from."""
-    if event.address is None:
-        return None
-    for insn in insns[start:start + push_at]:
-        if insn.address == event.address:
-            return insn
-    return None
-
-
-# ── rendered-.asm walker ────────────────────────────────────────────────────
-
-@dataclass
-class AsmItem:
-    line: int
-    mnemonic: str = ''
-    operands: tuple = ()
-    label: bool = False
-    text: str = ''
-
-
-_LABEL = re.compile(r'^[A-Za-z_@.?][\w@.$#?]*:\s*(?:;.*)?$')
-_INSTRUCTION = re.compile(r'^\s+([A-Za-z][\w.]*)\s*(.*?)\s*$')
-_SIZE = re.compile(r'^(?:strict\s+)?(?:byte|word|dword|qword|short)\s+',
-                   re.IGNORECASE)
-_NUMBER = re.compile(r'^(0x[0-9a-fA-F]+|\d+)$')
-_SYMBOL = re.compile(r'^[A-Za-z_@.?][\w@.$#?]*$')
-
-
-def parse_asm(text):
-    """Split rendered assembly into :class:`AsmItem` values.
-
-    Indented lines are instructions; a non-indented line is a label or a
-    directive and acts as a block boundary.
-    """
-    items = []
-    for number, raw in enumerate(text.splitlines(), 1):
-        code = raw.split(';', 1)[0].rstrip()
-        if not code.strip():
-            continue
-        if not code[0].isspace():
-            items.append(AsmItem(number, label=True, text=code.strip()))
-            continue
-        match = _INSTRUCTION.match(code)
-        if not match:
-            items.append(AsmItem(number, label=True, text=code.strip()))
-            continue
-        operands = tuple(part.strip()
-                         for part in match.group(2).split(',')
-                         if part.strip())
-        items.append(AsmItem(number, match.group(1).lower(), operands,
-                             text=code.strip()))
-    return items
-
-
-def _text_value(text, symbol_values):
-    """``(kind, value)`` for an operand: ``imm``, ``sym`` or ``other``."""
-    stripped = _SIZE.sub('', text.strip())
-    if _NUMBER.match(stripped):
-        return 'imm', int(stripped, 0)
-    if _SYMBOL.match(stripped) and stripped in symbol_values:
-        return 'sym', symbol_values[stripped]
-    return 'other', None
-
-
-def _text_event(item, symbol_values):
-    mnem = item.mnemonic
-    if mnem in _AX_IMPLICIT:
-        return _Event('clobber', line=item.line)
-    if mnem not in _AX_WRITERS or not item.operands:
-        return None
-    if item.operands[0].lower() not in ('ax', 'al', 'ah'):
-        return None
-    if mnem not in ('mov', 'add') or len(item.operands) < 2:
-        return _Event('clobber', line=item.line)
-    kind, value = _text_value(item.operands[1], symbol_values)
-    if kind in ('imm', 'sym'):
-        return _Event(f'{mnem}-imm', value, line=item.line, op_index=1)
-    return _Event(f'{mnem}-other', line=item.line)
-
-
-def scan_asm_text(text, calls, names, bases, path=''):
-    """Find message-id uses in one rendered ``.asm`` file.
-
-    *names* is ``{id: MSG_*}`` and *bases* ``{id: MSG_*_BASE}``; the
-    name-to-value map is derived from them so a header that already spells a
-    constant keeps resolving.
-    """
-    by_routine = {call.routine: call for call in calls}
-    symbol_values = {name: value for value, name in
-                     list(names.items()) + list(bases.items())}
-    items = parse_asm(text)
-    uses = []
-    for index, item in enumerate(items):
-        if item.label or item.mnemonic != 'call' or not item.operands:
-            continue
-        routine = item.operands[0].strip()
-        if routine.startswith('far '):
-            routine = routine[4:].strip()
-        call = by_routine.get(routine)
-        if call is None:
-            continue
-        start = index - 1
-        while start >= 0:
-            prev = items[start]
-            if prev.label or _is_text_flow(prev):
-                break
-            start -= 1
-        block = items[start + 1:index]
-        pushes = [position for position, entry in enumerate(block)
-                  if entry.mnemonic == 'push']
-        use = MessageUse(routine=routine, arg=call.arg, line=item.line,
-                         path=path)
-        if len(pushes) < call.push:
-            use.detail = f'only {len(pushes)} push(es) before the call'
-            uses.append(use)
-            continue
-        push_at = pushes[-call.push]
-        push_item = block[push_at]
-        if not push_item.operands:
-            use.detail = 'push has no operand'
-            uses.append(use)
-            continue
-        kind, value = _text_value(push_item.operands[0], symbol_values)
-        if push_item.operands[0].lower() not in ('ax',):
-            if kind in ('imm', 'sym'):
-                use.kind = 'direct'
-                use.value = value
-                use.name = names.get(value)
-                use.detail = '' if use.name else (
-                    f'{value} has no message name')
-            else:
-                use.detail = 'argument is not pushed from ax'
-            uses.append(use)
-            continue
-        events = [event for event in
-                  (_text_event(entry, symbol_values)
-                   for entry in block[:push_at])
-                  if event is not None]
-        kind, event = classify_events(events)
-        use.kind, use.value, use.name = _resolve_use(
-            kind, event, names, bases)
-        if event is not None and not use.name:
-            use.detail = (f'0x{use.value:04x} has no message name'
-                          if use.value is not None
-                          else 'producer is not a literal id')
-        elif event is None:
-            use.detail = 'producer is not a literal id'
-        uses.append(use)
-    return uses
-
-
-def _is_text_flow(item):
-    return item.mnemonic in _FLOW
-
-
-# ── reports ─────────────────────────────────────────────────────────────────
-
 # ── Generation ──────────────────────────────────────────────────────────────
-
-_INCLUDE = re.compile(r'^\s*%include\s+"([^"]+)"', re.M)
-
 
 def inc_rel():
     """The game's ASM message header, relative to ``src_<project>``."""
@@ -743,32 +409,6 @@ def header_rel():
     return MSG_H
 
 
-def _included_asm(src_dir, master):
-    """Every ``.asm`` a binary's master pulls in, transitively.
-
-    ``%include`` paths resolve through the same ``-I`` the assembler uses
-    (``src_<project>`` itself), which is why ``vdopt.asm`` spells
-    ``%include "vdopt/ovmain.asm"``.  ``include/*.inc`` headers are not code
-    and are skipped.
-    """
-    seen = set()
-    out = []
-    pending = [master]
-    while pending:
-        rel = pending.pop()
-        path = os.path.join(src_dir, rel)
-        if rel in seen or not os.path.isfile(path):
-            continue
-        seen.add(rel)
-        with open(path, errors='replace') as f:
-            text = f.read()
-        out.append((rel, text))
-        for include in _INCLUDE.findall(text):
-            if include.endswith('.asm') and include not in seen:
-                pending.append(include)
-    return out
-
-
 def sidecar_calls(sidecar):
     """Every ``message_calls`` entry, a binary's own replacing the project's."""
     from lib.sidecar.messages import merge_message_calls
@@ -778,56 +418,26 @@ def sidecar_calls(sidecar):
     return message_calls(merged)
 
 
-def _binary_uses(src_dir, binary, entry, names, base_names):
-    """The message-id uses in one binary's own image.
+def c_message_ids(src_dir, names):
+    """Select catalog ids named by hand-written C, without reading ASM.
 
-    *names* is the current project-wide ``{id: MSG_*}`` and *base_names* the
-    project ``message_bases`` table, both used only to resolve a use for the
-    report; the emitted constants come from the union over every binary.
-    """
-    calls = message_calls(entry.get('message_calls') or ())
-    if not calls:
-        return []
-    uses = []
-    for rel, text in _included_asm(src_dir, f'{binary}.asm'):
-        uses.extend(scan_asm_text(text, calls, names, base_names, path=rel))
-    return uses
-
-
-def seed_ids(src_dir, messages, bases=()):
-    """Ids the hand C names, for a tree with no rendered asm.
-
-    The C override compiles before anything is rendered, so a tree cleaned
-    since the last build has no header for it.  Every ``MSG_*`` the sources
-    use is already a pure function of the data (:func:`constant_names`), so
-    the binding is exact, not a guess: a name that resolves to one id is
-    seeded, and a name that resolves to none is left for the compiler to
-    report.
+    This selects declarations, never discovers values: all bindings come
+    from the decoded catalog.  Unknown names remain compiler errors.
     """
     from lib.autogen import hand_owned
-    by_name = {}
-    for value, name in constant_names(messages, bases).items():
-        by_name.setdefault(name, []).append(value)
-    for entry in bases:
-        entry = _base_entry(entry)
-        by_name[entry.name] = [entry.value]
+    by_name = {name: value for value, name in names.items()}
     token = re.compile(r'\bMSG_[A-Za-z0-9_]+\b')
     found = set()
     for base, dirnames, filenames in os.walk(src_dir):
-        dirnames[:] = [name for name in dirnames
-                       if name not in ('include', 'build_out')]
-        for name in filenames:
-            if not name.endswith('.c'):
-                continue
-            path = os.path.join(base, name)
-            if not hand_owned(path):
+        dirnames[:] = sorted(name for name in dirnames
+                            if name not in ('include', 'build_out'))
+        for filename in sorted(filenames):
+            path = os.path.join(base, filename)
+            if not filename.endswith('.c') or not hand_owned(path):
                 continue
             with open(path, errors='replace') as f:
-                text = f.read()
-            for match in token.findall(text):
-                values = by_name.get(match)
-                if values and len(values) == 1:
-                    found.add(values[0])
+                found.update(by_name[name] for name in token.findall(f.read())
+                             if name in by_name)
     return found
 
 
@@ -851,94 +461,36 @@ def project_data(project, root):
     return messages, skipped, list(sidecar.get('message_bases') or ())
 
 
-def generate_project(project, root, write=True, dump_all=False,
-                     seed_only=False):
-    """Generate the game's message headers for *project* under *root*.
+def generate_project(project, root, write=True, used_ids=()):
+    """Generate both headers from packed message data and sidecar bases.
 
-    Returns ``({relative path: text}, stats)``.  With *write* false nothing is
-    written, so a caller can compare the text with the checked-in files.  One
-    header pair covers every binary: a message id is a property of the game's
-    data, not of the binary that happens to use it.
-
-    The constants are the bases, the ids the asm names, and the ids the hand C
-    names (:func:`seed_ids`); every name is a pure function of the message
-    data.  Nothing here reads a header this generator wrote.  *seed_only*
-    writes just the bases and the hand C's ids: that is all a C compile needs
-    before anything has been rendered.
+    Returns ``({relative path: text}, stats)``.  ASM receives every decoded
+    id; C receives decoded-code uses, hand-written C uses, and the bases.
+    *used_ids* comes from the upstream instruction analysis; this function
+    combines it with hand-written C uses. Clean, incremental and partial
+    builds share the same name/value bindings.
+    Rendered ASM and previously generated headers are never inputs.
     """
-    from lib.sidecar.binary import per_binary
-    from lib.sidecar.loader import load as load_sidecar
     app_dir = os.path.join(root, 'apps', project)
     src_dir = os.path.join(root, f'src_{project}')
     if not os.path.isdir(app_dir):
         raise FileNotFoundError(f'{project}: {app_dir} does not exist')
-
     messages, skipped, bases = project_data(project, root)
-    if messages is None:
-        # No packed-message table: the project has none, and any stale pair
-        # from an earlier layout goes.
-        if write:
-            _write_outputs(src_dir, {})
-        return {}, {'messages': 0, 'skipped': [], 'constants': 0,
-                    'binaries': 0, 'resolved': 0, 'review': 0}
-    base_names = message_bases(bases)
-    # The scan and the renderer both name an id from the data alone; there is
-    # no second naming source to consult.
-    names = constant_names(messages, bases)
-    if seed_only:
-        constants = build_constants(
-            messages, seed_ids(src_dir, messages, bases), bases)
-        outputs = {}
-        if constants:
-            outputs[MSG_INC] = inc_text(constants)
-            outputs[MSG_H] = header_text(constants)
-        if write:
-            _write_outputs(src_dir, outputs)
-        return outputs, {'messages': len(messages), 'skipped': skipped,
-                         'constants': len(constants), 'binaries': 0,
-                         'resolved': 0, 'review': 0}
-    sidecar = load_sidecar(project) or {}
-    all_uses = []
-    seen_uses = set()
-    binaries = 0
-    direct = set()
-    for binary in sorted((sidecar.get('binaries') or {})):
-        entry = per_binary(sidecar, binary) or {}
-        uses = _binary_uses(src_dir, binary, entry, names, base_names)
-        for use in uses:
-            key = (use.path, use.line, use.routine, use.arg)
-            if key not in seen_uses:
-                seen_uses.add(key)
-                all_uses.append(use)
-            if (use.kind == 'direct' and use.value is not None
-                    and use.value in messages):
-                direct.add(use.value)
-        if uses:
-            binaries += 1
-    if dump_all:
-        direct = set(messages)
-    else:
-        # The hand C compiles against this header whatever the scan found
-        # (and on a cleaned tree the scan has no asm at all), so the names
-        # the C uses are always declared.  The binding is exact: a name is
-        # seeded only when it resolves to one id in the message data.
-        direct.update(seed_ids(src_dir, messages, bases))
-    constants = build_constants(messages, direct, bases)
+    constants = (build_constants(messages, messages, bases)
+                 if messages is not None else [])
     outputs = {}
+    c_constants = []
     if constants:
+        names = constant_names(messages, bases)
+        c_constants = build_constants(
+            messages, set(used_ids) | c_message_ids(src_dir, names), bases)
         outputs[MSG_INC] = inc_text(constants)
-        outputs[MSG_H] = header_text(constants)
-    stats = {
-        'messages': len(messages),
-        'skipped': skipped,
-        'constants': len(constants),
-        'binaries': binaries,
-        'resolved': sum(1 for use in all_uses if use.name),
-        'review': sum(1 for use in all_uses if not use.name),
-    }
+        outputs[MSG_H] = header_text(c_constants)
     if write:
         _write_outputs(src_dir, outputs)
-    return outputs, stats
+    return outputs, {'messages': len(messages or {}), 'skipped': skipped,
+                     'constants': len(constants),
+                     'c_constants': len(c_constants)}
 
 
 def _write_outputs(src_dir, outputs):

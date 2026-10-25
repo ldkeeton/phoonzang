@@ -240,7 +240,7 @@ api_idx_0004_LOLJ.jumptable1:
     add ax, known_spell_names
     push ax
     mov ax, word [bp - 0x0002]
-    add ax, 0x157c
+    add ax, MSG_WAND_DAGGER
     push ax
     call load_message_string
     add sp, byte 4

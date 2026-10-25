@@ -289,7 +289,7 @@ api_idx_0010_RUQS:
     push ax                          ; 0x3105
     mov ax, 0x41                     ; 0x3106
     push ax                          ; 0x3109
-    mov ax, 0xd8f                    ; 0x310a
+    mov ax, MSG_UNAFFECTED_3471      ; 0x310a
     push ax                          ; 0x310d
     call api_idx_0050_PLNP           ; 0x310e
     add sp, byte 6                   ; 0x3111

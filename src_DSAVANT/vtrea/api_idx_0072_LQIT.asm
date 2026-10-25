@@ -111,7 +111,7 @@ api_idx_0072_LQIT:
     lea ax, word [bp - 0x0072]       ; 0x7263
     push ax                          ; 0x7266
     mov ax, word [bp - 0x001c]       ; 0x7267
-    add ax, 0x834                    ; 0x726a
+    add ax, MSG_PICK                 ; 0x726a
     push ax                          ; 0x726d
     call load_message_string         ; 0x726e
     add sp, byte 4                   ; 0x7271

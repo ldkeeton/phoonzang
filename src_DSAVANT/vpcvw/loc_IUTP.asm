@@ -343,7 +343,7 @@ jumptable_742b:
     push ax                          ; 0x7467
     mov al, byte [bp - 0x0042]       ; 0x7468
     sub ah, ah                       ; 0x746b
-    add ax, 0x60e                    ; 0x746d
+    add ax, MSG_WEAPON_S             ; 0x746d
     push ax                          ; 0x7470
     call load_message_string         ; 0x7471
     add sp, byte 4                   ; 0x7474
@@ -524,7 +524,7 @@ jumptable_742b:
     mov word [bp - 0x002e], dx       ; 0x7619
     lea ax, word [bp - 0x00f2]       ; 0x761c
     push ax                          ; 0x7620
-    add dx, strict word 0xfa0        ; 0x7621
+    add dx, MSG_SPELL_NAME_BASE      ; 0x7621
     mov ax, dx                       ; 0x7625
     push ax                          ; 0x7627
     call load_message_string         ; 0x7628
@@ -751,7 +751,7 @@ jumptable_76e2:
     lea ax, word [bp - 0x00f2]       ; 0x7818
     push ax                          ; 0x781c
     mov ax, word [bp - 0x002c]       ; 0x781d
-    add ax, 0x157c                   ; 0x7820
+    add ax, MSG_WAND_DAGGER          ; 0x7820
     push ax                          ; 0x7823
     call load_message_string         ; 0x7824
     add sp, byte 4                   ; 0x7827
@@ -855,7 +855,7 @@ jumptable_76e2:
     lea ax, word [bp - 0x00f2]       ; 0x7917
     push ax                          ; 0x791b
     mov ax, word [bp - 0x0002]       ; 0x791c
-    add ax, 0xbea                    ; 0x791f
+    add ax, MSG_SWING                ; 0x791f
     push ax                          ; 0x7922
     call load_message_string         ; 0x7923
     add sp, byte 4                   ; 0x7926
@@ -994,10 +994,10 @@ jumptable_76e2:
     sub ah, ah                       ; 0x7a5f
     test ax, 4                       ; 0x7a61
     je short @..loc_IUTP.l44         ; 0x7a64
-    mov ax, 0x1ca                    ; 0x7a66
+    mov ax, MSG_2HAND                ; 0x7a66
     jmp short @..loc_IUTP.l45        ; 0x7a69
 @..loc_IUTP.l44:
-    mov ax, 0x1c9                    ; 0x7a6b
+    mov ax, MSG_1HAND                ; 0x7a6b
 @..loc_IUTP.l45:
     push ax                          ; 0x7a6e
     call load_message_string         ; 0x7a6f
@@ -1038,7 +1038,7 @@ jumptable_76e2:
     push ax                          ; 0x7ac3
     mov al, byte [bp - 0x0042]       ; 0x7ac4
     sub ah, ah                       ; 0x7ac7
-    add ax, 0x1c6                    ; 0x7ac9
+    add ax, MSG_HEDGHFLDFRM          ; 0x7ac9
     push ax                          ; 0x7acc
     call load_message_string         ; 0x7acd
     add sp, byte 4                   ; 0x7ad0
@@ -1405,7 +1405,7 @@ jumptable_76e2:
     mov word [bp - 0x002e], dx       ; 0x7e32
     lea ax, word [bp - 0x00f2]       ; 0x7e35
     push ax                          ; 0x7e39
-    add dx, strict word 0xfa0        ; 0x7e3a
+    add dx, MSG_SPELL_NAME_BASE      ; 0x7e3a
     mov ax, dx                       ; 0x7e3e
     push ax                          ; 0x7e40
     call load_message_string         ; 0x7e41
@@ -1551,7 +1551,7 @@ jumptable_76e2:
     lea ax, word [bp - 0x0142]       ; 0x7fa0
     push ax                          ; 0x7fa4
     mov ax, word [bp - 0x0002]       ; 0x7fa5
-    add ax, 0x1db                    ; 0x7fa8
+    add ax, MSG_SLEEP_475            ; 0x7fa8
     push ax                          ; 0x7fab
     call load_message_string         ; 0x7fac
     add sp, byte 4                   ; 0x7faf
@@ -1663,10 +1663,10 @@ jumptable_76e2:
     mov bx, word [bp + 0x6]          ; 0x80aa
     cmp word [bx], strict word 0x1d5 ; 0x80ad
     jne short @..loc_IUTP.l70        ; 0x80b1
-    mov ax, 0x1e4                    ; 0x80b3
+    mov ax, MSG_UNKNOWN_484          ; 0x80b3
     jmp short @..loc_IUTP.l71        ; 0x80b6
 @..loc_IUTP.l70:
-    mov ax, 0x1e3                    ; 0x80b8
+    mov ax, MSG_NONE_483             ; 0x80b8
 @..loc_IUTP.l71:
     push ax                          ; 0x80bb
     call load_message_string         ; 0x80bc
@@ -1763,7 +1763,7 @@ jumptable_76e2:
     lea ax, word [bp - 0x00f2]       ; 0x8198
     push ax                          ; 0x819c
     mov ax, word [bp - 0x0002]       ; 0x819d
-    add ax, 0x190                    ; 0x81a0
+    add ax, MSG_400                  ; 0x81a0
     push ax                          ; 0x81a3
     call load_message_string         ; 0x81a4
     add sp, byte 4                   ; 0x81a7

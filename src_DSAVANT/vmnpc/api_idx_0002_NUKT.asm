@@ -54,7 +54,7 @@ api_idx_0002_NUKT:
     mov ax, bss_9d10                 ; 0x9c48
     push ax                          ; 0x9c4b
     mov ax, word [bp + 0x4]          ; 0x9c4c
-    add ax, 0x79e                    ; 0x9c4f
+    add ax, MSG_YOU_1950             ; 0x9c4f
     push ax                          ; 0x9c52
     call load_message_string         ; 0x9c53
     add sp, byte 4                   ; 0x9c56

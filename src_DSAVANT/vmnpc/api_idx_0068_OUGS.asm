@@ -24,7 +24,7 @@ api_idx_0068_OUGS:
     push ax                          ; 0x51ed
     mov ax, 0                        ; 0x51ee
     push ax                          ; 0x51f1
-    mov ax, 0x5ea                    ; 0x51f2
+    mov ax, MSG_USE_1514             ; 0x51f2
     push ax                          ; 0x51f5
     call api_idx_0038_IJUK           ; 0x51f6
     add sp, byte 0x0c                ; 0x51f9
@@ -67,7 +67,7 @@ api_idx_0068_OUGS:
     push ax                          ; 0x524d
     push word [bp - 0x004c]          ; 0x524e
     mov ax, word [bp - 0x004c]       ; 0x5251
-    add ax, 0x5ea                    ; 0x5254
+    add ax, MSG_USE_1514             ; 0x5254
     push ax                          ; 0x5257
     call api_idx_0018_RGOS           ; 0x5258
     add sp, byte 0x0c                ; 0x525b

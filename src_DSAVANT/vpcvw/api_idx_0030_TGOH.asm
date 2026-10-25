@@ -70,7 +70,7 @@ api_idx_0030_TGOH:
     push ax                          ; 0x9351
     mov ax, 0x39                     ; 0x9352
     push ax                          ; 0x9355
-    mov ax, 0x452                    ; 0x9356
+    mov ax, MSG_SELECT_CHARACTER_PROFESSION ; 0x9356
     push ax                          ; 0x9359
     mov ax, 0x78                     ; 0x935a
     push ax                          ; 0x935d

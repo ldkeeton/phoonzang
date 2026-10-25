@@ -25,7 +25,7 @@ api_idx_0088_QLNT:
     add ax, slot_label               ; 0x2c52
     push ax                          ; 0x2c55
     mov ax, word [bp - 0x0002]       ; 0x2c56
-    add ax, 0x258                    ; 0x2c59
+    add ax, MSG_WEAPONRY             ; 0x2c59
     push ax                          ; 0x2c5c
     call load_message_string         ; 0x2c5d
     add sp, byte 4                   ; 0x2c60

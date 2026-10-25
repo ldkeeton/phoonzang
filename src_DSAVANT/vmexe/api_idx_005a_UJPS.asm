@@ -87,7 +87,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa021
     mov al, byte [bp - 0x0021]       ; 0xa022
     sub ah, ah                       ; 0xa025
-    add ax, 0x1770                   ; 0xa027
+    add ax, MSG_DAGGER_6000          ; 0xa027
     push ax                          ; 0xa02a
     call load_message_string         ; 0xa02b
     add sp, byte 4                   ; 0xa02e
@@ -536,7 +536,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa45c
     mov ax, 0x41                     ; 0xa45d
     push ax                          ; 0xa460
-    mov ax, 0xc81                    ; 0xa461
+    mov ax, MSG_FIZZLE_3201          ; 0xa461
     push ax                          ; 0xa464
     call api_idx_0050_PLNP           ; 0xa465
     add sp, byte 6                   ; 0xa468
@@ -555,7 +555,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa487
     mov ax, 0x16                     ; 0xa488
     push ax                          ; 0xa48b
-    mov ax, 0xc82                    ; 0xa48c
+    mov ax, MSG_BACKFIRE             ; 0xa48c
     push ax                          ; 0xa48f
     call api_idx_0050_PLNP           ; 0xa490
     add sp, byte 6                   ; 0xa493

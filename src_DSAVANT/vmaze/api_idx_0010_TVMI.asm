@@ -119,10 +119,10 @@ api_idx_0010_TVMI:
     cmp ax, strict word 0xb          ; 0x8333
     jne short @..api_idx_0010_TVMI.l6 ; 0x8336
 @..api_idx_0010_TVMI.l4:
-    mov ax, 0x80a                    ; 0x8338
+    mov ax, MSG_PULL_LEVER           ; 0x8338
     cmp word [bp - 0x000c], byte 6   ; 0x833b
     jne short @..api_idx_0010_TVMI.l5 ; 0x833f
-    mov ax, 0x7fc                    ; 0x8341
+    mov ax, MSG_PRESS_BUTTON         ; 0x8341
 @..api_idx_0010_TVMI.l5:
     push ax                          ; 0x8344
     call show_message                ; 0x8345

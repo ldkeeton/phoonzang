@@ -47,7 +47,7 @@ api_idx_0014_OSKJ:
     mov bx, word [bp - 0x0002]       ; 0x64f8
     cmp byte [bx + 0x1e], 6          ; 0x64fb
     je short @..api_idx_0014_OSKJ.l3 ; 0x64ff
-    mov word [bp - 0x0004], 0xc89    ; 0x6501
+    mov word [bp - 0x0004], MSG_COWERS_IN_FEAR ; 0x6501
 @..api_idx_0014_OSKJ.l3:
     cmp word [bp - 0x0004], byte 0   ; 0x6506
     jne short @..api_idx_0014_OSKJ.l4 ; 0x650a
@@ -64,7 +64,7 @@ api_idx_0014_OSKJ:
     push ax                          ; 0x6525
     call random_below                ; 0x6526
     pop cx                           ; 0x6529
-    add ax, 0xc85                    ; 0x652a
+    add ax, MSG_BABBLES_AND_FOAMS    ; 0x652a
     mov word [bp - 0x0004], ax       ; 0x652d
     mov ax, 0x64                     ; 0x6530
     push ax                          ; 0x6533
@@ -72,7 +72,7 @@ api_idx_0014_OSKJ:
     pop cx                           ; 0x6537
     cmp ax, strict word 0x50         ; 0x6538
     jle short @..api_idx_0014_OSKJ.l4 ; 0x653b
-    mov word [bp - 0x0004], 0xc88    ; 0x653d
+    mov word [bp - 0x0004], MSG_RUNS_AMOK ; 0x653d
     mov word [bp - 0x0006], 1        ; 0x6542
 @..api_idx_0014_OSKJ.l4:
     cmp word [bp - 0x0004], byte 0   ; 0x6547
@@ -86,7 +86,7 @@ api_idx_0014_OSKJ:
     pop cx                           ; 0x655d
     cmp ax, strict word 0x50         ; 0x655e
     jle short @..api_idx_0014_OSKJ.l5 ; 0x6561
-    mov word [bp - 0x0004], 0xc84    ; 0x6563
+    mov word [bp - 0x0004], MSG_STUMBLES_BLINDLY ; 0x6563
     mov word [bp - 0x0006], 0        ; 0x6568
 @..api_idx_0014_OSKJ.l5:
     cmp word [bp - 0x0004], byte 0   ; 0x656d
@@ -100,7 +100,7 @@ api_idx_0014_OSKJ:
     pop cx                           ; 0x6583
     cmp ax, strict word 0x4b         ; 0x6584
     jle short @..api_idx_0014_OSKJ.l6 ; 0x6587
-    mov word [bp - 0x0004], 0xc83    ; 0x6589
+    mov word [bp - 0x0004], MSG_GAGS_HELPLESSLY ; 0x6589
     mov word [bp - 0x0006], 0        ; 0x658e
 @..api_idx_0014_OSKJ.l6:
     mov ax, word [bss_8464]          ; 0x6593
@@ -128,7 +128,7 @@ api_idx_0014_OSKJ:
     pop ax                           ; 0x65cc
     cmp ax, cx                       ; 0x65cd
     jge short @..api_idx_0014_OSKJ.l7 ; 0x65cf
-    mov word [bp - 0x0004], 0xc92    ; 0x65d1
+    mov word [bp - 0x0004], MSG_VANISHES_3218 ; 0x65d1
     mov word [bp - 0x0008], 1        ; 0x65d6
 @..api_idx_0014_OSKJ.l7:
     cmp word [bp - 0x0004], byte 0   ; 0x65db

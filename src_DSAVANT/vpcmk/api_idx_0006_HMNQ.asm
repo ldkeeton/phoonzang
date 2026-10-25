@@ -44,7 +44,7 @@ api_idx_0006_HMNQ:
     push ax                          ; 0x6139
     mov ax, 0x58                     ; 0x613a
     push ax                          ; 0x613d
-    mov ax, 0x454                    ; 0x613e
+    mov ax, MSG_SELECT_PORTRAIT      ; 0x613e
     push ax                          ; 0x6141
     call api_idx_0058_GKGM           ; 0x6142
     add sp, byte 0x0c                ; 0x6145

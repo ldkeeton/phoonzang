@@ -35,7 +35,7 @@ api_idx_0010_LPLH:
     cmp ax, word [bp + 0xa]          ; 0x26b0
     je short @..api_idx_0010_LPLH.l6 ; 0x26b3
 @..api_idx_0010_LPLH.l5:
-    mov ax, 0xc8d                    ; 0x26b5
+    mov ax, MSG_SPELL_REDUCED        ; 0x26b5
     push ax                          ; 0x26b8
     call loc_PKMT                    ; 0x26b9
     pop cx                           ; 0x26bc
@@ -170,7 +170,7 @@ api_idx_0010_LPLH:
     push ax                          ; 0x27ed
     mov ax, 0x41                     ; 0x27ee
     push ax                          ; 0x27f1
-    mov ax, 0xea6                    ; 0x27f2
+    mov ax, MSG_DRAINED              ; 0x27f2
     push ax                          ; 0x27f5
     call api_idx_0050_PLNP           ; 0x27f6
     add sp, byte 6                   ; 0x27f9
@@ -255,7 +255,7 @@ api_idx_0010_LPLH:
     push ax                          ; 0x28b2
     mov ax, 0x41                     ; 0x28b3
     push ax                          ; 0x28b6
-    mov ax, 0xcee                    ; 0x28b7
+    mov ax, MSG_UNAFFECTED_3310      ; 0x28b7
     push ax                          ; 0x28ba
     call api_idx_0050_PLNP           ; 0x28bb
     add sp, byte 6                   ; 0x28be

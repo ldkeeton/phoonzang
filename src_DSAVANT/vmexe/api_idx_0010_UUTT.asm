@@ -175,7 +175,7 @@ api_idx_0010_UUTT:
     push ax                          ; 0x9bd8
     mov ax, 0x43                     ; 0x9bd9
     push ax                          ; 0x9bdc
-    mov ax, 0xdc2                    ; 0x9bdd
+    mov ax, MSG_AWAY                 ; 0x9bdd
     push ax                          ; 0x9be0
     call api_idx_0050_PLNP           ; 0x9be1
     add sp, byte 6                   ; 0x9be4
@@ -347,7 +347,7 @@ api_idx_0010_UUTT:
     push ax                          ; 0x9d6f
     mov ax, 0x43                     ; 0x9d70
     push ax                          ; 0x9d73
-    mov ax, 0xdc3                    ; 0x9d74
+    mov ax, MSG_BLOCKED              ; 0x9d74
     push ax                          ; 0x9d77
     call api_idx_0050_PLNP           ; 0x9d78
     add sp, byte 6                   ; 0x9d7b

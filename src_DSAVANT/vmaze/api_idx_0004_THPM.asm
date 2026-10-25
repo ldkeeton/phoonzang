@@ -34,7 +34,7 @@ api_idx_0004_THPM:
     pop ax                           ; 0x758e
     cmp ax, cx                       ; 0x758f
     jge short @..api_idx_0004_THPM.l3 ; 0x7591
-    mov ax, 0x7f8                    ; 0x7593
+    mov ax, MSG_DETECTS_SOMETHING    ; 0x7593
     push ax                          ; 0x7596
     push word [bp - 0x0002]          ; 0x7597
     call api_idx_0050_QVOG           ; 0x759a

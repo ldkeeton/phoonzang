@@ -69,7 +69,7 @@ api_idx_00b4_QLQS:
     mov ax, dseg_93ee                ; 0x4d6a
     push ax                          ; 0x4d6d
     mov ax, word [bp - 0x0002]       ; 0x4d6e
-    add ax, 0xcc                     ; 0x4d71
+    add ax, MSG_STR                  ; 0x4d71
     push ax                          ; 0x4d74
     mov ax, 0                        ; 0x4d75
     push ax                          ; 0x4d78
@@ -95,7 +95,7 @@ api_idx_00b4_QLQS:
     lea ax, word [bp - 0x00b4]       ; 0x4da6
     push ax                          ; 0x4daa
     mov ax, word [bp - 0x0002]       ; 0x4dab
-    add ax, 0x13ba                   ; 0x4dae
+    add ax, MSG_STRENGTH_5050        ; 0x4dae
     push ax                          ; 0x4db1
     call load_message_string         ; 0x4db2
     add sp, byte 4                   ; 0x4db5

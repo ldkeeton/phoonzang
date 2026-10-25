@@ -32,7 +32,7 @@ jumptable_9baa_case_1:
 jumptable_9baa_case_2:
     mov ax, 0x90fa                   ; 0x9a59
     push ax                          ; 0x9a5c
-    mov ax, 0x648                    ; 0x9a5d
+    mov ax, MSG_VERY_WELL_THEN       ; 0x9a5d
     push ax                          ; 0x9a60
     call api_idx_0080_TKTP           ; 0x9a61
     add sp, byte 4                   ; 0x9a64
@@ -50,7 +50,7 @@ jumptable_9baa_case_2:
 jumptable_9baa_case_3:
     mov ax, 0x90fb                   ; 0x9a8a
     push ax                          ; 0x9a8d
-    mov ax, 0x649                    ; 0x9a8e
+    mov ax, MSG_SO_BE_IT_1609        ; 0x9a8e
     push ax                          ; 0x9a91
     call api_idx_0080_TKTP           ; 0x9a92
     add sp, byte 4                   ; 0x9a95
@@ -59,7 +59,7 @@ jumptable_9baa_case_3:
 jumptable_9baa_case_4:
     mov ax, 0x90fc                   ; 0x9aa1
     push ax                          ; 0x9aa4
-    mov ax, 0x64a                    ; 0x9aa5
+    mov ax, MSG_I_AM_WAITING         ; 0x9aa5
     push ax                          ; 0x9aa8
     call api_idx_0080_TKTP           ; 0x9aa9
     add sp, byte 4                   ; 0x9aac
@@ -67,7 +67,7 @@ jumptable_9baa_case_4:
 jumptable_9baa_case_5:
     mov ax, 0x90fd                   ; 0x9ab2
     push ax                          ; 0x9ab5
-    mov ax, 0x64b                    ; 0x9ab6
+    mov ax, MSG_DON_T_MENTION_IT     ; 0x9ab6
     push ax                          ; 0x9ab9
     call api_idx_0080_TKTP           ; 0x9aba
     add sp, byte 4                   ; 0x9abd
@@ -75,7 +75,7 @@ jumptable_9baa_case_5:
 jumptable_9baa_case_6:
     mov ax, 0x90fe                   ; 0x9ac3
     push ax                          ; 0x9ac6
-    mov ax, 0x64c                    ; 0x9ac7
+    mov ax, MSG_SAME_TO_YOU          ; 0x9ac7
     push ax                          ; 0x9aca
     call api_idx_0080_TKTP           ; 0x9acb
     add sp, byte 4                   ; 0x9ace
@@ -106,7 +106,7 @@ jumptable_9baa_case_6:
 jumptable_9baa_case_7:
     mov ax, 0x90ff                   ; 0x9b08
     push ax                          ; 0x9b0b
-    mov ax, 0x64d                    ; 0x9b0c
+    mov ax, MSG_CONSIDER_IT_FORGOTTEN ; 0x9b0c
     push ax                          ; 0x9b0f
     call api_idx_0080_TKTP           ; 0x9b10
     add sp, byte 4                   ; 0x9b13
@@ -121,7 +121,7 @@ jumptable_9baa_case_7:
 jumptable_9baa_case_8:
     mov ax, 0x9100                   ; 0x9b43
     push ax                          ; 0x9b46
-    mov ax, 0x64e                    ; 0x9b47
+    mov ax, MSG_HELP_WITH_WHAT       ; 0x9b47
     push ax                          ; 0x9b4a
     call api_idx_0080_TKTP           ; 0x9b4b
     add sp, byte 4                   ; 0x9b4e
@@ -129,7 +129,7 @@ jumptable_9baa_case_8:
 jumptable_9baa_case_9:
     mov ax, 0x9101                   ; 0x9b54
     push ax                          ; 0x9b57
-    mov ax, 0x64f                    ; 0x9b58
+    mov ax, MSG_HA_HA_HA_1615        ; 0x9b58
     push ax                          ; 0x9b5b
     call api_idx_0080_TKTP           ; 0x9b5c
     add sp, byte 4                   ; 0x9b5f

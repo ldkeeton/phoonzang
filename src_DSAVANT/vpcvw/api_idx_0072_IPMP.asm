@@ -177,7 +177,7 @@ api_idx_0072_IPMP:
     push ax                          ; 0x4be3
     mov ax, 0x4a                     ; 0x4be4
     push ax                          ; 0x4be7
-    mov ax, 0x15e                    ; 0x4be8
+    mov ax, MSG_SELECT_WEAPON_PRIORITY ; 0x4be8
     push ax                          ; 0x4beb
     mov ax, 0x15f                    ; 0x4bec
     push ax                          ; 0x4bef
