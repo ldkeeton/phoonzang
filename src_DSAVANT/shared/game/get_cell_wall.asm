@@ -48,7 +48,7 @@ get_cell_wall:
     push word [bp + 0x8]
     push word [bp + 0xe]
     push word [bp + 0xc]
-    call get_cell_wall.loc1
+    call get_cell_wall.get_cell_wall_variant_a1
     add sp, byte 0x0a
     ret
 @..get_cell_wall.l4:
@@ -57,7 +57,7 @@ get_cell_wall:
     push word [bp + 0x8]
     push word [bp + 0xe]
     push word [bp + 0xc]
-    call get_cell_wall.loc2
+    call get_cell_wall.get_cell_wall_variant_b1
     add sp, byte 0x0a
     ret
 @..get_cell_wall.l5:

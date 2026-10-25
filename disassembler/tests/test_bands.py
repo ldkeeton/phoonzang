@@ -5,7 +5,10 @@ import os
 import tempfile
 import unittest
 
-from lib.compare.splitting import _partition_function_records
+from lib.compare.splitting import (
+    _partition_function_records, _cap_split_ranges_to_bands,
+    _select_leftover_data_ranges,
+)
 from lib.routine_source import FragmentLengthError, owned_length
 from lib.sidecar.bands import _validate_bands, band_for, parse_bands
 from lib.sidecar.errors import SidecarError
@@ -67,6 +70,44 @@ class PartitionIntoBandsTest(unittest.TestCase):
                 self.RECORDS, [(0x210, 0x212, 'foo')], 'demo', bands)
 
 
+class BandGapTest(unittest.TestCase):
+    def test_gap_is_a_separate_data_include(self):
+        for gap_size in (1, 3):
+            with self.subTest(gap_size=gap_size):
+                next_start = 0x211 + gap_size
+                bands = [(0x200, 0x210, 'game'),
+                         (next_start, next_start, 'library')]
+                records = [
+                    {'type': 'mnem', 'text': 'ret', 'offset': 0x210,
+                     'size': 1},
+                    {'type': 'data_block', 'start': 0x211,
+                     'end': next_start, 'bytes': [0] * gap_size},
+                    {'type': 'mnem', 'text': 'ret', 'offset': next_start,
+                     'size': 1},
+                ]
+                ranges = _cap_split_ranges_to_bands(
+                    [(0x210, next_start, 'main'),
+                     (next_start, next_start + 1, 'next')], bands)
+                data = _select_leftover_data_ranges(
+                    records, ranges, lambda off: f'cseg_{off:04x}')
+                self.assertEqual(data, [(0x211, next_start, 'cseg_0211')])
+                master, sources = _partition_function_records(
+                    records, ranges + data, 'ds', bands,
+                    data_starts={start for start, _, _ in data})
+                self.assertEqual([r['text'] for r in master], [
+                    '%include "ds/game/main.asm"',
+                    '%include "ds/data/cseg_0211.asm"',
+                    '%include "ds/library/next.asm"',
+                ])
+                self.assertEqual(len(sources['ds/game/main.asm']), 1)
+                self.assertEqual(sources['ds/data/cseg_0211.asm'][0]['bytes'],
+                                 [0] * gap_size)
+
+    def test_no_bands_preserves_ranges(self):
+        ranges = [(0x200, 0x220, 'main')]
+        self.assertEqual(_cap_split_ranges_to_bands(ranges, []), ranges)
+
+
 class BandHomeTest(unittest.TestCase):
     def test_c_lives_in_its_band_folder(self):
         bands = parse_bands(BANDS)
@@ -84,7 +125,7 @@ class BandHomeTest(unittest.TestCase):
                 f.write('int mine;\n')
             with open(os.path.join(dest, 'library', 'bar.s'), 'w') as f:
                 f.write('\tret\n')
-            self.assertEqual(aztec._hand_c_tree(dest, parse_bands(BANDS)),
+            self.assertEqual(aztec._hand_source_tree(dest, parse_bands(BANDS)),
                              {'foo': os.path.join(dest, 'game', 'foo.c'),
                               'bar': os.path.join(dest, 'library', 'bar.s')})
 

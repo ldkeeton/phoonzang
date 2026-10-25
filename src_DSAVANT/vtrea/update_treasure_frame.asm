@@ -9,7 +9,7 @@ update_treasure_frame:
     shl ax, 1                        ; 0x07ec
     shl ax, 1                        ; 0x07ee
     mov bx, ax                       ; 0x07f0
-    push word [bx + screen_cache + 0x2] ; 0x07f2
+    push word [bx + screen_cache_0_seg] ; 0x07f2
     push word [bx + screen_cache]    ; 0x07f6
     call gfx_restore_screen          ; 0x07fa
     add sp, byte 8                   ; 0x07fd

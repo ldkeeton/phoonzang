@@ -460,7 +460,7 @@ main:
     mov ax, word [bp - 0x0198]       ; 0x1743
     shl ax, 1                        ; 0x1747
     mov bx, ax                       ; 0x1749
-    push word [bx + 0xa4]            ; 0x174b
+    push word [bx + sound_device_names] ; 0x174b
     mov ax, 0x29                     ; 0x174f
     push ax                          ; 0x1752
     mov ax, 0x12                     ; 0x1753
@@ -658,7 +658,7 @@ jumptable_1969_case_14:
     mov ax, word [bp - 0x0198]       ; 0x190f
     shl ax, 1                        ; 0x1913
     mov bx, ax                       ; 0x1915
-    push word [bx + 0xa4]            ; 0x1917
+    push word [bx + sound_device_names] ; 0x1917
     mov ax, 0x29                     ; 0x191b
     push ax                          ; 0x191e
     mov ax, 0x12                     ; 0x191f
@@ -871,7 +871,7 @@ jumptable_1b3c_case_13:
     mov ax, word [bp - 0x0198]       ; 0x1ae4
     shl ax, 1                        ; 0x1ae8
     mov bx, ax                       ; 0x1aea
-    push word [bx + 0xa4]            ; 0x1aec
+    push word [bx + sound_device_names] ; 0x1aec
     mov ax, 0x29                     ; 0x1af0
     push ax                          ; 0x1af3
     mov ax, 0x12                     ; 0x1af4
@@ -947,7 +947,7 @@ jumptable_1fb2_case_0:
     mov bx, ax                       ; 0x1b83
     mov ax, word [bx + 0x1dd]        ; 0x1b85
     mov word [bp - 0x019c], ax       ; 0x1b89
-    jmp near @..main.l49             ; 0x1b8d
+    jmp near jumptable_1fb2_case_4   ; 0x1b8d
 jumptable_1fb2_case_1:
     mov ax, word [bp - 0x019c]       ; 0x1b90
     mov word [bp - 0x019e], ax       ; 0x1b94
@@ -955,7 +955,7 @@ jumptable_1fb2_case_1:
     mov bx, ax                       ; 0x1b9a
     mov ax, word [bx + 0x221]        ; 0x1b9c
     mov word [bp - 0x019c], ax       ; 0x1ba0
-    jmp near @..main.l49             ; 0x1ba4
+    jmp near jumptable_1fb2_case_4   ; 0x1ba4
 jumptable_1fb2_case_2:
     mov ax, word [bp - 0x019c]       ; 0x1ba7
     mov word [bp - 0x019e], ax       ; 0x1bab
@@ -963,7 +963,7 @@ jumptable_1fb2_case_2:
     mov bx, ax                       ; 0x1bb1
     mov ax, word [bx + 0x1ff]        ; 0x1bb3
     mov word [bp - 0x019c], ax       ; 0x1bb7
-    jmp near @..main.l49             ; 0x1bbb
+    jmp near jumptable_1fb2_case_4   ; 0x1bbb
 jumptable_1fb2_case_3:
     mov ax, word [bp - 0x019c]       ; 0x1bbe
     mov word [bp - 0x019e], ax       ; 0x1bc2
@@ -971,7 +971,7 @@ jumptable_1fb2_case_3:
     mov bx, ax                       ; 0x1bc8
     mov ax, word [bx + 0x243]        ; 0x1bca
     mov word [bp - 0x019c], ax       ; 0x1bce
-    jmp near @..main.l49             ; 0x1bd2
+    jmp near jumptable_1fb2_case_4   ; 0x1bd2
 jumptable_1fb2_case_5:
     mov word [bp - 0x019e], 0xffff   ; 0x1bd5
     mov ax, word [bp - 0x019c]       ; 0x1bdb
@@ -987,7 +987,6 @@ jumptable_1f81_case_0:
     mov word [bp - 0x000e], ax       ; 0x1bf3
     jmp near @..main.l47             ; 0x1bf6
 jumptable_1f81_case_1:
-@..main.l14:
     mov ax, 2                        ; 0x1bf9
     push ax                          ; 0x1bfc
     lea ax, word [bp - 0x001c]       ; 0x1bfd
@@ -1019,7 +1018,7 @@ jumptable_1f81_case_1:
     pop cx                           ; 0x1c39
 @..main.l18:
     cmp word [bp - 0x01c2], byte 1   ; 0x1c3a
-    je short @..main.l14             ; 0x1c3f
+    je short jumptable_1f81_case_1   ; 0x1c3f
     jmp near @..main.l47             ; 0x1c41
 jumptable_1f81_case_2:
     mov ax, dseg_1ecd                ; 0x1c44
@@ -1069,7 +1068,6 @@ jumptable_1f81_case_3:
     add sp, byte 6                   ; 0x1ca7
     jmp near @..main.l47             ; 0x1caa
 jumptable_1f81_case_4:
-@..main.l19:
     mov ax, 2                        ; 0x1cad
     push ax                          ; 0x1cb0
     lea ax, word [bp - 0x003e]       ; 0x1cb1
@@ -1110,10 +1108,9 @@ jumptable_1f81_case_4:
     pop cx                           ; 0x1cff
 @..main.l24:
     cmp word [bp - 0x01c2], byte 1   ; 0x1d00
-    je short @..main.l19             ; 0x1d05
+    je short jumptable_1f81_case_4   ; 0x1d05
     jmp near @..main.l47             ; 0x1d07
 jumptable_1f81_case_5:
-@..main.l25:
     mov ax, 0x14                     ; 0x1d0a
     push ax                          ; 0x1d0d
     lea ax, word [bp - 0x0054]       ; 0x1d0e
@@ -1157,7 +1154,7 @@ jumptable_1f81_case_5:
     mov word [bp - 0x01c2], 0        ; 0x1d60
 @..main.l31:
     cmp word [bp - 0x01c2], byte 1   ; 0x1d66
-    je short @..main.l25             ; 0x1d6b
+    je short jumptable_1f81_case_5   ; 0x1d6b
     jmp near @..main.l47             ; 0x1d6d
 jumptable_1f81_case_6:
     push word [bp - 0x01a0]          ; 0x1d70
@@ -1180,7 +1177,6 @@ jumptable_1f81_case_7:
     mov word [bp - 0x01a2], ax       ; 0x1d9b
     jmp near @..main.l47             ; 0x1d9f
 jumptable_1f81_case_8:
-@..main.l32:
     mov ax, 0x14                     ; 0x1da2
     push ax                          ; 0x1da5
     lea ax, word [bp - 0x01b8]       ; 0x1da6
@@ -1217,7 +1213,7 @@ jumptable_1f81_case_8:
     pop cx                           ; 0x1dee
 @..main.l36:
     cmp word [bp - 0x01c2], byte 1   ; 0x1def
-    je short @..main.l32             ; 0x1df4
+    je short jumptable_1f81_case_8   ; 0x1df4
     jmp near @..main.l47             ; 0x1df6
 jumptable_1f81_case_9:
     push word [bp - 0x0196]          ; 0x1df9
@@ -1406,7 +1402,7 @@ jumptable_1f81:
     shl bx, 1                        ; 0x1fa9
     jmp [cs:bx + jumptable_1f81 - IMAGE_BASE] ; 0x1fab
 @..main.l47:
-    jmp short @..main.l49            ; 0x1fb0
+    jmp short jumptable_1fb2_case_4  ; 0x1fb0
 jumptable_1fb2:
     dw jumptable_1fb2_case_0 - IMAGE_BASE      ; 0x1fb2
     dw jumptable_1fb2_case_1 - IMAGE_BASE      ; 0x1fb4
@@ -1417,12 +1413,11 @@ jumptable_1fb2:
 @..main.l48:
     sub ax, strict word 8            ; 0x1fbe
     cmp ax, strict word 6            ; 0x1fc1
-    jae short @..main.l49            ; 0x1fc4
+    jae short jumptable_1fb2_case_4  ; 0x1fc4
     xchg bx, ax                      ; 0x1fc6
     shl bx, 1                        ; 0x1fc7
     jmp [cs:bx + jumptable_1fb2 - IMAGE_BASE] ; 0x1fc9
 jumptable_1fb2_case_4:
-@..main.l49:
     cmp word [bp - 0x01c0], byte 0   ; 0x1fce
     jne short @..main.l50            ; 0x1fd3
     jmp near @..main.l9              ; 0x1fd5

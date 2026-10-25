@@ -61,7 +61,7 @@ draw_spell_list: ; Aztec csav frame=0x0002
     add ax, word [bp - 0x0002]       ; 0x11bd
     mov cx, 0x14                     ; 0x11c0
     imul cx                          ; 0x11c3
-    add ax, strict word known_spell_names ; 0x11c5
+    add ax, known_spell_names        ; 0x11c5
     push ax                          ; 0x11c8
     call draw_text_glyphs            ; 0x11c9
     add sp, byte 4                   ; 0x11cc

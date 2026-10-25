@@ -10,8 +10,8 @@ close_party_screen:
     push ax                          ; 0x2ed5
     mov ax, 1                        ; 0x2ed6
     push ax                          ; 0x2ed9
-    push word [screen_cache + 0x6]   ; 0x2eda
-    push word [screen_cache + 0x4]   ; 0x2ede
+    push word [screen_cache_1_seg]   ; 0x2eda
+    push word [screen_cache_1_off]   ; 0x2ede
     call gfx_restore_screen          ; 0x2ee2
     add sp, byte 8                   ; 0x2ee5
     mov ax, screen_temp_name         ; 0x2ee8
@@ -32,7 +32,7 @@ close_party_screen:
     push ax                          ; 0x2f0e
     mov ax, 1                        ; 0x2f0f
     push ax                          ; 0x2f12
-    push word [screen_cache + 0x2]   ; 0x2f13
+    push word [screen_cache_0_seg]   ; 0x2f13
     push word [screen_cache]         ; 0x2f17
     call gfx_restore_screen          ; 0x2f1b
     add sp, byte 8                   ; 0x2f1e
@@ -90,13 +90,13 @@ close_party_screen:
     pop cx                           ; 0x2f8d
     mov ax, 1                        ; 0x2f8e
     push ax                          ; 0x2f91
-    push word [saved_area_b + 0x2]   ; 0x2f92
+    push word [saved_area_b_hi]      ; 0x2f92
     push word [saved_area_b]         ; 0x2f96
     call gfx_restore_area            ; 0x2f9a
     add sp, byte 6                   ; 0x2f9d
     mov ax, 1                        ; 0x2fa0
     push ax                          ; 0x2fa3
-    push word [saved_area_a + 0x2]   ; 0x2fa4
+    push word [saved_area_a_hi]      ; 0x2fa4
     push word [saved_area_a]         ; 0x2fa8
     call gfx_restore_area            ; 0x2fac
     add sp, byte 6                   ; 0x2faf

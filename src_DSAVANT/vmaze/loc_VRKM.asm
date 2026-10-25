@@ -11,7 +11,7 @@ jumptable_03ce_case_1:
     push ax                          ; 0x0357
     call loc_RRRG                    ; 0x0358
     add sp, byte 4                   ; 0x035b
-    jmp near @..loc_VRKM.l2          ; 0x035e
+    jmp near jumptable_03ce_case_0   ; 0x035e
 jumptable_03ce_case_2:
     mov ax, 1                        ; 0x0361
     push ax                          ; 0x0364
@@ -26,7 +26,7 @@ jumptable_03ce_case_2:
     push ax                          ; 0x0375
     call api_idx_0008_URRP           ; 0x0376
     add sp, byte 0x0c                ; 0x0379
-    jmp short @..loc_VRKM.l2         ; 0x037c
+    jmp short jumptable_03ce_case_0  ; 0x037c
 jumptable_03ce_case_3:
     mov ax, 2                        ; 0x037e
     push ax                          ; 0x0381
@@ -42,7 +42,7 @@ jumptable_03ce_case_3:
     push ax                          ; 0x0395
     call api_idx_0008_URRP           ; 0x0396
     add sp, byte 0x0c                ; 0x0399
-    jmp short @..loc_VRKM.l2         ; 0x039c
+    jmp short jumptable_03ce_case_0  ; 0x039c
 jumptable_03ce_case_5:
     mov ax, 0x18                     ; 0x039e
     push ax                          ; 0x03a1
@@ -50,7 +50,7 @@ jumptable_03ce_case_5:
     push ax                          ; 0x03a5
     call loc_RRRG                    ; 0x03a6
     add sp, byte 4                   ; 0x03a9
-    jmp short @..loc_VRKM.l2         ; 0x03ac
+    jmp short jumptable_03ce_case_0  ; 0x03ac
 jumptable_03ce_case_6:
     mov ax, 3                        ; 0x03ae
     push ax                          ; 0x03b1
@@ -66,7 +66,7 @@ jumptable_03ce_case_6:
     push ax                          ; 0x03c5
     call api_idx_0008_URRP           ; 0x03c6
     add sp, byte 0x0c                ; 0x03c9
-    jmp short @..loc_VRKM.l2         ; 0x03cc
+    jmp short jumptable_03ce_case_0  ; 0x03cc
 jumptable_03ce:
     dw jumptable_03ce_case_0 - IMAGE_BASE + __zres_end ; 0x03ce
     dw jumptable_03ce_case_1 - IMAGE_BASE + __zres_end ; 0x03d0
@@ -77,10 +77,9 @@ jumptable_03ce:
     dw jumptable_03ce_case_6 - IMAGE_BASE + __zres_end ; 0x03da
 @..loc_VRKM.l1:
     cmp ax, strict word 7            ; 0x03dc
-    jae short @..loc_VRKM.l2         ; 0x03df
+    jae short jumptable_03ce_case_0  ; 0x03df
     xchg bx, ax                      ; 0x03e1
     shl bx, 1                        ; 0x03e2
     jmp [cs:bx + jumptable_03ce - IMAGE_BASE + __zres_end] ; 0x03e4
 jumptable_03ce_case_0:
-@..loc_VRKM.l2:
     ret                              ; 0x03e9

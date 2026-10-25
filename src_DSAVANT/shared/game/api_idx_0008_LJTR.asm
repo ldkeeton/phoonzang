@@ -30,11 +30,10 @@ api_idx_0008_LJTR.jumptable_case1:
     ret
 api_idx_0008_LJTR.jumptable_case2:
     cmp word [api_idx_0008_LJTR.bss2], byte 0
-    je short @..api_idx_0008_LJTR.l2
+    je short api_idx_0008_LJTR.jumptable_case3
     mov ax, 0
     ret
 api_idx_0008_LJTR.jumptable_case3:
-@..api_idx_0008_LJTR.l2:
     mov ax, 5
     imul word [api_idx_0008_LJTR.bss3]
     add ax, word [bp + 0xe]
@@ -290,35 +289,35 @@ api_idx_0008_LJTR.jumptable3:
 @..api_idx_0008_LJTR.l22:
     cmp ax, strict word 0xb
     jg short @..api_idx_0008_LJTR.l23
-    jmp near @..api_idx_0008_LJTR.l28
+    jmp near api_idx_0008_LJTR.jumptable_case12
 @..api_idx_0008_LJTR.l23:
     mov ax, word [bp - 0x0006]
     jmp near @..api_idx_0008_LJTR.l27
-api_idx_0008_LJTR.jumptable_case12:
-    mov word [bp - 0x0004], 8
-    jmp near @..api_idx_0008_LJTR.l28
 api_idx_0008_LJTR.jumptable_case13:
-    mov word [bp - 0x0004], 9
-    jmp near @..api_idx_0008_LJTR.l28
+    mov word [bp - 0x0004], 8
+    jmp near api_idx_0008_LJTR.jumptable_case12
 api_idx_0008_LJTR.jumptable_case14:
-    mov word [bp - 0x0004], 0xa
-    jmp near @..api_idx_0008_LJTR.l28
+    mov word [bp - 0x0004], 9
+    jmp near api_idx_0008_LJTR.jumptable_case12
 api_idx_0008_LJTR.jumptable_case15:
-    mov word [bp - 0x0004], 0xb
-    jmp near @..api_idx_0008_LJTR.l28
+    mov word [bp - 0x0004], 0xa
+    jmp near api_idx_0008_LJTR.jumptable_case12
 api_idx_0008_LJTR.jumptable_case16:
+    mov word [bp - 0x0004], 0xb
+    jmp near api_idx_0008_LJTR.jumptable_case12
+api_idx_0008_LJTR.jumptable_case17:
     cmp word [api_idx_0008_LJTR.bss3], byte 0
     jne short @..api_idx_0008_LJTR.l24
     mov word [bp - 0x0004], 0xc
 @..api_idx_0008_LJTR.l24:
-    jmp near @..api_idx_0008_LJTR.l28
-api_idx_0008_LJTR.jumptable_case17:
+    jmp near api_idx_0008_LJTR.jumptable_case12
+api_idx_0008_LJTR.jumptable_case18:
     cmp word [api_idx_0008_LJTR.bss3], byte 0
     jne short @..api_idx_0008_LJTR.l25
     mov word [bp - 0x0004], 0xd
 @..api_idx_0008_LJTR.l25:
-    jmp near @..api_idx_0008_LJTR.l28
-api_idx_0008_LJTR.jumptable_case18:
+    jmp near api_idx_0008_LJTR.jumptable_case12
+api_idx_0008_LJTR.jumptable_case19:
     mov ax, word [bp - 0x0008]
     inc ax
     push ax
@@ -329,21 +328,7 @@ api_idx_0008_LJTR.jumptable_case18:
     mov bx, ax
     pop ax
     mov byte [bx + api_idx_0008_LJTR.bss8], al
-    jmp near @..api_idx_0008_LJTR.l28
-api_idx_0008_LJTR.jumptable_case19:
-    mov ax, word [bp - 0x0008]
-    inc ax
-    push ax
-    mov ax, 0xa
-    imul word [api_idx_0008_LJTR.bss3]
-    mov cx, ax
-    mov dx, word [bp + 0xe]
-    shl dx, 1
-    add ax, dx
-    mov bx, ax
-    pop ax
-    mov word [bx + api_idx_0008_LJTR.bss9], ax
-    jmp near @..api_idx_0008_LJTR.l28
+    jmp near api_idx_0008_LJTR.jumptable_case12
 api_idx_0008_LJTR.jumptable_case20:
     mov ax, word [bp - 0x0008]
     inc ax
@@ -356,29 +341,43 @@ api_idx_0008_LJTR.jumptable_case20:
     add ax, dx
     mov bx, ax
     pop ax
-    mov word [bx + api_idx_0008_LJTR.bss10], ax
-    jmp near @..api_idx_0008_LJTR.l28
+    mov word [bx + api_idx_0008_LJTR.bss9], ax
+    jmp near api_idx_0008_LJTR.jumptable_case12
 api_idx_0008_LJTR.jumptable_case21:
-    mov word [bp - 0x0004], 0xe
-    jmp near @..api_idx_0008_LJTR.l28
-api_idx_0008_LJTR.jumptable_case22:
-    mov word [bp - 0x0004], 0xf
-    jmp near @..api_idx_0008_LJTR.l28
-api_idx_0008_LJTR.jumptable_case23:
-    mov ax, 5
+    mov ax, word [bp - 0x0008]
+    inc ax
+    push ax
+    mov ax, 0xa
     imul word [api_idx_0008_LJTR.bss3]
-    add ax, word [bp + 0xe]
+    mov cx, ax
+    mov dx, word [bp + 0xe]
+    shl dx, 1
+    add ax, dx
     mov bx, ax
-    mov byte [bx + api_idx_0008_LJTR.bss11], 1
-    jmp near @..api_idx_0008_LJTR.l28
+    pop ax
+    mov word [bx + api_idx_0008_LJTR.bss10], ax
+    jmp near api_idx_0008_LJTR.jumptable_case12
+api_idx_0008_LJTR.jumptable_case22:
+    mov word [bp - 0x0004], 0xe
+    jmp near api_idx_0008_LJTR.jumptable_case12
+api_idx_0008_LJTR.jumptable_case23:
+    mov word [bp - 0x0004], 0xf
+    jmp near api_idx_0008_LJTR.jumptable_case12
 api_idx_0008_LJTR.jumptable_case24:
     mov ax, 5
     imul word [api_idx_0008_LJTR.bss3]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_LJTR.bss4], 3
-    jmp short @..api_idx_0008_LJTR.l28
+    mov byte [bx + api_idx_0008_LJTR.bss11], 1
+    jmp near api_idx_0008_LJTR.jumptable_case12
 api_idx_0008_LJTR.jumptable_case25:
+    mov ax, 5
+    imul word [api_idx_0008_LJTR.bss3]
+    add ax, word [bp + 0xe]
+    mov bx, ax
+    mov byte [bx + api_idx_0008_LJTR.bss4], 3
+    jmp short api_idx_0008_LJTR.jumptable_case12
+api_idx_0008_LJTR.jumptable_case26:
     mov ax, 0xa
     imul word [api_idx_0008_LJTR.bss3]
     mov cx, word [bp + 0xe]
@@ -386,7 +385,7 @@ api_idx_0008_LJTR.jumptable_case25:
     add ax, cx
     mov bx, ax
     mov word [bx + api_idx_0008_LJTR.bss12], 1
-api_idx_0008_LJTR.jumptable_case26:
+api_idx_0008_LJTR.jumptable_case27:
     cmp word [bp - 0x0006], byte 0x0e
     je short @..api_idx_0008_LJTR.l26
     mov ax, 0xa
@@ -397,16 +396,15 @@ api_idx_0008_LJTR.jumptable_case26:
     mov bx, ax
     mov word [bx + api_idx_0008_LJTR.bss13], 1
 @..api_idx_0008_LJTR.l26:
-    jmp short @..api_idx_0008_LJTR.l28
-api_idx_0008_LJTR.jumptable_case27:
+    jmp short api_idx_0008_LJTR.jumptable_case12
+api_idx_0008_LJTR.jumptable_case28:
     mov ax, 5
     imul word [api_idx_0008_LJTR.bss3]
     add ax, word [bp + 0xe]
     mov bx, ax
     mov byte [bx + api_idx_0008_LJTR.bss11], 2
-    jmp short @..api_idx_0008_LJTR.l28
+    jmp short api_idx_0008_LJTR.jumptable_case12
 api_idx_0008_LJTR.jumptable4:
-    dw api_idx_0008_LJTR.jumptable_case28 - IMAGE_BASE + __zres_end
     dw api_idx_0008_LJTR.jumptable_case12 - IMAGE_BASE + __zres_end
     dw api_idx_0008_LJTR.jumptable_case13 - IMAGE_BASE + __zres_end
     dw api_idx_0008_LJTR.jumptable_case14 - IMAGE_BASE + __zres_end
@@ -423,15 +421,15 @@ api_idx_0008_LJTR.jumptable4:
     dw api_idx_0008_LJTR.jumptable_case25 - IMAGE_BASE + __zres_end
     dw api_idx_0008_LJTR.jumptable_case26 - IMAGE_BASE + __zres_end
     dw api_idx_0008_LJTR.jumptable_case27 - IMAGE_BASE + __zres_end
-    dw api_idx_0008_LJTR.jumptable_case25 - IMAGE_BASE + __zres_end
+    dw api_idx_0008_LJTR.jumptable_case28 - IMAGE_BASE + __zres_end
+    dw api_idx_0008_LJTR.jumptable_case26 - IMAGE_BASE + __zres_end
 @..api_idx_0008_LJTR.l27:
     cmp ax, strict word 0x12
-    jae short @..api_idx_0008_LJTR.l28
+    jae short api_idx_0008_LJTR.jumptable_case12
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + api_idx_0008_LJTR.jumptable4 - IMAGE_BASE + __zres_end]
-api_idx_0008_LJTR.jumptable_case28:
-@..api_idx_0008_LJTR.l28:
+api_idx_0008_LJTR.jumptable_case12:
     mov ax, word [game_state_arg]
     cmp ax, word [saved_level]
     jne short @..api_idx_0008_LJTR.l29

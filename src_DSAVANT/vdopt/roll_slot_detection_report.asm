@@ -62,7 +62,7 @@ jumptable_1aa5_case_0:
     push ax                          ; 0x1ae7
     call gfx_save_area               ; 0x1ae8
     add sp, byte 8                   ; 0x1aeb
-    mov word [saved_area_a + 0x2], dx ; 0x1aee
+    mov word [saved_area_a_hi], dx   ; 0x1aee
     mov word [saved_area_a], ax      ; 0x1af2
     call restore_area_a_draw_glyph   ; 0x1af5
     mov word [bp - 0x000a], 0        ; 0x1af8
@@ -203,7 +203,7 @@ jumptable_1aa5_case_0:
 @..roll_slot_detection_report.l13:
     mov ax, 1                        ; 0x1c40
     push ax                          ; 0x1c43
-    push word [saved_area_a + 0x2]   ; 0x1c44
+    push word [saved_area_a_hi]      ; 0x1c44
     push word [saved_area_a]         ; 0x1c48
     call gfx_restore_area            ; 0x1c4c
     add sp, byte 6                   ; 0x1c4f

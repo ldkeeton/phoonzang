@@ -106,7 +106,7 @@ start_melee_battle:
     push ax                          ; 0x34c6
     call gfx_cache_area              ; 0x34c7
     add sp, byte 0x0c                ; 0x34ca
-    mov word [screen_cache + 0x2], dx ; 0x34cd
+    mov word [screen_cache_0_seg], dx ; 0x34cd
     mov word [screen_cache], ax      ; 0x34d1
     cmp word [saved_screen_pending], byte 0 ; 0x34d4
     je short @..start_melee_battle.l4 ; 0x34d9
@@ -131,8 +131,8 @@ start_melee_battle:
     push ax                          ; 0x3506
     call gfx_cache_area              ; 0x3507
     add sp, byte 0x0c                ; 0x350a
-    mov word [screen_cache + 0x6], dx ; 0x350d
-    mov word [screen_cache + 0x4], ax ; 0x3511
+    mov word [screen_cache_1_seg], dx ; 0x350d
+    mov word [screen_cache_1_off], ax ; 0x3511
     mov word [bp - 0x0002], 0        ; 0x3514
 @..start_melee_battle.l5:
     mov ax, 0xe8                     ; 0x3519
@@ -210,7 +210,7 @@ start_melee_battle:
     push ax                          ; 0x35cd
     call gfx_save_area               ; 0x35ce
     add sp, byte 8                   ; 0x35d1
-    mov word [saved_area_a + 0x2], dx ; 0x35d4
+    mov word [saved_area_a_hi], dx   ; 0x35d4
     mov word [saved_area_a], ax      ; 0x35d8
     mov ax, 0xa4                     ; 0x35db
     push ax                          ; 0x35de
@@ -222,7 +222,7 @@ start_melee_battle:
     push ax                          ; 0x35ea
     call gfx_save_area               ; 0x35eb
     add sp, byte 8                   ; 0x35ee
-    mov word [saved_area_b + 0x2], dx ; 0x35f1
+    mov word [saved_area_b_hi], dx   ; 0x35f1
     mov word [saved_area_b], ax      ; 0x35f5
     mov ax, 1                        ; 0x35f8
     push ax                          ; 0x35fb
@@ -297,7 +297,7 @@ start_melee_battle:
     les bx, word [tick_counter_ptr]  ; 0x369f
     mov ax, word [es:bx]             ; 0x36a3
     mov dx, word [es:bx + 0x2]       ; 0x36a6
-    mov word [party_redraw_last_tick + 0x2], dx ; 0x36aa
+    mov word [party_redraw_last_tick_hi], dx ; 0x36aa
     mov word [party_redraw_last_tick], ax ; 0x36ae
     mov word [game_state], 0xb       ; 0x36b1
     ret                              ; 0x36b7

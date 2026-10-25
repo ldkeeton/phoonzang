@@ -11,7 +11,7 @@ restore_saved_screen: ; Aztec csav frame=0x0002
     push ax                          ; 0x16b7
     mov ax, 0x14                     ; 0x16b8
     imul word [bp + 0x4]             ; 0x16bb
-    add ax, strict word saved_screen_file ; 0x16be
+    add ax, saved_screen_file        ; 0x16be
     push ax                          ; 0x16c1
     call aztec_open                  ; 0x16c2
     add sp, byte 4                   ; 0x16c5
@@ -55,7 +55,7 @@ restore_saved_screen: ; Aztec csav frame=0x0002
     jne short @..restore_saved_screen.l5 ; 0x1723
     mov ax, 0x14                     ; 0x1725
     imul word [bp + 0x4]             ; 0x1728
-    add ax, strict word saved_screen_file ; 0x172b
+    add ax, saved_screen_file        ; 0x172b
     push ax                          ; 0x172e
     call aztec_unlink                ; 0x172f
     pop cx                           ; 0x1732

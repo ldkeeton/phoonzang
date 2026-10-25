@@ -240,12 +240,11 @@ jumptable_36f8_case_6:
 @..api_idx_0040_LSRO.l17:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x2dcc
 jumptable_36f8_case_7:
-@..api_idx_0040_LSRO.l18:
     call poll_fullscreen_hotspot     ; 0x2dcf
     test ax, ax                      ; 0x2dd2
     jne short @..api_idx_0040_LSRO.l19 ; 0x2dd4
     call step_party_animation        ; 0x2dd6
-    jmp short @..api_idx_0040_LSRO.l18 ; 0x2dd9
+    jmp short jumptable_36f8_case_7  ; 0x2dd9
 @..api_idx_0040_LSRO.l19:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x2ddb
 jumptable_36f8_case_8:

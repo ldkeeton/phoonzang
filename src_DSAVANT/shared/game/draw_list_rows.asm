@@ -1,14 +1,14 @@
 ; auto-generated
-api_idx_0004_KHSO:
+draw_list_rows:
     mov ax, 0xfffc
     call aztec_csav
     mov word [bp - 0x0002], 0
-    jmp near @..api_idx_0004_KHSO.l8
-@..api_idx_0004_KHSO.l1:
+    jmp near @..draw_list_rows.l8
+@..draw_list_rows.l1:
     mov ax, word [bp + 0xc]
     add ax, word [bp - 0x0002]
     cmp ax, word [bp + 0xe]
-    jne short @..api_idx_0004_KHSO.l2
+    jne short @..draw_list_rows.l2
     mov ax, 1
     push ax
     mov ax, 0xe
@@ -33,10 +33,10 @@ api_idx_0004_KHSO:
     call gfx_fill_area
     add sp, byte 0x0a
     mov word [bp - 0x0004], 0
-    jmp short @..api_idx_0004_KHSO.l3
-@..api_idx_0004_KHSO.l2:
+    jmp short @..draw_list_rows.l3
+@..draw_list_rows.l2:
     mov word [bp - 0x0004], 0xb4
-@..api_idx_0004_KHSO.l3:
+@..draw_list_rows.l3:
     mov ax, 0xe
     imul word [bp - 0x0002]
     add ax, word [bp + 0x6]
@@ -53,14 +53,14 @@ api_idx_0004_KHSO:
     shl ax, 1
     mov bx, ax
     cmp word [bx + list_row_marked], byte 0
-    je short @..api_idx_0004_KHSO.l4
+    je short @..draw_list_rows.l4
     mov ax, 4
     push ax
     mov ax, 0x63
     push ax
     call draw_font_glyph
     add sp, byte 4
-@..api_idx_0004_KHSO.l4:
+@..draw_list_rows.l4:
     mov ax, 0xe
     imul word [bp - 0x0002]
     add ax, word [bp + 0x6]
@@ -105,7 +105,7 @@ api_idx_0004_KHSO:
     shl ax, 1
     mov bx, ax
     cmp word [bx + list_row_count], byte 0
-    jle short @..api_idx_0004_KHSO.l7
+    jle short @..draw_list_rows.l7
     mov ax, 0xe
     imul word [bp - 0x0002]
     add ax, word [bp + 0x6]
@@ -121,12 +121,12 @@ api_idx_0004_KHSO:
     mov ax, word [bp + 0xc]
     add ax, word [bp - 0x0002]
     cmp ax, word [bp + 0xe]
-    jne short @..api_idx_0004_KHSO.l5
+    jne short @..draw_list_rows.l5
     mov ax, word [bp - 0x0004]
-    jmp short @..api_idx_0004_KHSO.l6
-@..api_idx_0004_KHSO.l5:
+    jmp short @..draw_list_rows.l6
+@..draw_list_rows.l5:
     mov ax, 2
-@..api_idx_0004_KHSO.l6:
+@..draw_list_rows.l6:
     push ax
     call gfx_set_text_color
     add sp, byte 4
@@ -141,12 +141,12 @@ api_idx_0004_KHSO:
     push word [bx + list_row_count]
     call draw_number_field
     add sp, byte 6
-@..api_idx_0004_KHSO.l7:
+@..draw_list_rows.l7:
     inc word [bp - 0x0002]
-@..api_idx_0004_KHSO.l8:
+@..draw_list_rows.l8:
     mov ax, word [bp - 0x0002]
     cmp ax, word [bp + 0xa]
-    jge short @..api_idx_0004_KHSO.l9
-    jmp near @..api_idx_0004_KHSO.l1
-@..api_idx_0004_KHSO.l9:
+    jge short @..draw_list_rows.l9
+    jmp near @..draw_list_rows.l1
+@..draw_list_rows.l9:
     ret

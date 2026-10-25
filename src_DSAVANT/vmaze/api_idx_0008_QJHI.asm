@@ -28,11 +28,10 @@ jumptable_340d_case_0:
     ret                              ; 0x33f9
 jumptable_340d_case_3:
     cmp word [bss_91a6], byte 0      ; 0x33fa
-    je short @..api_idx_0008_QJHI.l1 ; 0x33ff
+    je short jumptable_340d_case_1   ; 0x33ff
     mov ax, 0                        ; 0x3401
     ret                              ; 0x3404
 jumptable_340d_case_1:
-@..api_idx_0008_QJHI.l1:
     mov ax, 4                        ; 0x3405
     ret                              ; 0x3408
 jumptable_340d_case_5:
@@ -156,40 +155,40 @@ jumptable_340d:
     mov word [bp - 0x0008], dx       ; 0x350c
     cmp dx, word [party_tag]         ; 0x350f
     je short @..api_idx_0008_QJHI.l13 ; 0x3513
-    jmp near @..api_idx_0008_QJHI.l17 ; 0x3515
+    jmp near jumptable_3563_case_0   ; 0x3515
 @..api_idx_0008_QJHI.l13:
     mov ax, word [bp - 0x0006]       ; 0x3518
     jmp short @..api_idx_0008_QJHI.l16 ; 0x351b
 jumptable_3563_case_1:
     mov word [bp - 0x0004], 8        ; 0x351d
-    jmp short @..api_idx_0008_QJHI.l17 ; 0x3522
+    jmp short jumptable_3563_case_0  ; 0x3522
 jumptable_3563_case_2:
     mov word [bp - 0x0004], 9        ; 0x3524
-    jmp short @..api_idx_0008_QJHI.l17 ; 0x3529
+    jmp short jumptable_3563_case_0  ; 0x3529
 jumptable_3563_case_3:
     mov word [bp - 0x0004], 0xa      ; 0x352b
-    jmp short @..api_idx_0008_QJHI.l17 ; 0x3530
+    jmp short jumptable_3563_case_0  ; 0x3530
 jumptable_3563_case_4:
     mov word [bp - 0x0004], 0xb      ; 0x3532
-    jmp short @..api_idx_0008_QJHI.l17 ; 0x3537
+    jmp short jumptable_3563_case_0  ; 0x3537
 jumptable_3563_case_5:
     cmp word [bss_91d6], byte 0      ; 0x3539
     jne short @..api_idx_0008_QJHI.l14 ; 0x353e
     mov word [bp - 0x0004], 0xc      ; 0x3540
 @..api_idx_0008_QJHI.l14:
-    jmp short @..api_idx_0008_QJHI.l17 ; 0x3545
+    jmp short jumptable_3563_case_0  ; 0x3545
 jumptable_3563_case_6:
     cmp word [bss_91d6], byte 0      ; 0x3547
     jne short @..api_idx_0008_QJHI.l15 ; 0x354c
     mov word [bp - 0x0004], 0xd      ; 0x354e
 @..api_idx_0008_QJHI.l15:
-    jmp short @..api_idx_0008_QJHI.l17 ; 0x3553
+    jmp short jumptable_3563_case_0  ; 0x3553
 jumptable_3563_case_10:
     mov word [bp - 0x0004], 0xe      ; 0x3555
-    jmp short @..api_idx_0008_QJHI.l17 ; 0x355a
+    jmp short jumptable_3563_case_0  ; 0x355a
 jumptable_3563_case_11:
     mov word [bp - 0x0004], 0xf      ; 0x355c
-    jmp short @..api_idx_0008_QJHI.l17 ; 0x3561
+    jmp short jumptable_3563_case_0  ; 0x3561
 jumptable_3563:
     dw jumptable_3563_case_0 - IMAGE_BASE + __zres_end ; 0x3563
     dw jumptable_3563_case_1 - IMAGE_BASE + __zres_end ; 0x3565
@@ -205,11 +204,10 @@ jumptable_3563:
     dw jumptable_3563_case_11 - IMAGE_BASE + __zres_end ; 0x3579
 @..api_idx_0008_QJHI.l16:
     cmp ax, strict word 0xc          ; 0x357b
-    jae short @..api_idx_0008_QJHI.l17 ; 0x357e
+    jae short jumptable_3563_case_0  ; 0x357e
     xchg bx, ax                      ; 0x3580
     shl bx, 1                        ; 0x3581
     jmp [cs:bx + jumptable_3563 - IMAGE_BASE + __zres_end] ; 0x3583
 jumptable_3563_case_0:
-@..api_idx_0008_QJHI.l17:
     mov ax, word [bp - 0x0004]       ; 0x3588
     ret                              ; 0x358b

@@ -18,7 +18,7 @@ jumptable_291f_case_33:
     call loc_QQUT                    ; 0x2225
     add sp, byte 6                   ; 0x2228
     mov word [bss_8300], ax          ; 0x222b
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x222e
+    jmp near jumptable_291f_case_46  ; 0x222e
 jumptable_291f_case_38:
     mov ax, 0x23                     ; 0x2231
     imul word [bp + 0x8]             ; 0x2234
@@ -36,7 +36,7 @@ jumptable_291f_case_38:
     call loc_QQUT                    ; 0x224f
     add sp, byte 6                   ; 0x2252
     mov word [bss_82f4], ax          ; 0x2255
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x2258
+    jmp near jumptable_291f_case_46  ; 0x2258
 jumptable_291f_case_30:
     mov ax, 0x32                     ; 0x225b
     imul word [bp + 0x8]             ; 0x225e
@@ -54,17 +54,17 @@ jumptable_291f_case_30:
     call loc_QQUT                    ; 0x2279
     add sp, byte 6                   ; 0x227c
     mov word [bss_82f8], ax          ; 0x227f
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x2282
+    jmp near jumptable_291f_case_46  ; 0x2282
 jumptable_291f_case_28:
     mov ax, 5                        ; 0x2285
     imul word [bp + 0x8]             ; 0x2288
     add word [bss_8306], ax          ; 0x228b
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x228f
+    jmp near jumptable_291f_case_46  ; 0x228f
 jumptable_291f_case_29:
     mov ax, 0x64                     ; 0x2292
     imul word [bp + 0x8]             ; 0x2295
     add word [bss_8302], ax          ; 0x2298
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x229c
+    jmp near jumptable_291f_case_46  ; 0x229c
 jumptable_291f_case_39:
     mov ax, 0x32                     ; 0x229f
     imul word [bp + 0x8]             ; 0x22a2
@@ -78,7 +78,7 @@ jumptable_291f_case_39:
     call loc_QQUT                    ; 0x22b8
     add sp, byte 6                   ; 0x22bb
     mov word [party_buff_charge], ax ; 0x22be
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x22c1
+    jmp near jumptable_291f_case_46  ; 0x22c1
 jumptable_291f_case_23:
     mov ax, 0                        ; 0x22c4
     cmp word [bp + 0x6], byte 0x13   ; 0x22c7
@@ -156,7 +156,7 @@ jumptable_291f_case_23:
     mov ax, word [bp - 0x0002]       ; 0x236c
     cmp ax, word [bp - 0x0004]       ; 0x236f
     jl short @..api_idx_0008_NOPG.l5 ; 0x2372
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x2374
+    jmp near jumptable_291f_case_46  ; 0x2374
 jumptable_291f_case_24:
     mov ax, 0x248                    ; 0x2377
     imul word [bp + 0xa]             ; 0x237a
@@ -179,7 +179,7 @@ jumptable_291f_case_24:
     push word [bp + 0xa]             ; 0x23a5
     call loc_IIRG                    ; 0x23a8
     pop cx                           ; 0x23ab
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x23ac
+    jmp near jumptable_291f_case_46  ; 0x23ac
 jumptable_291f_case_27:
     mov ax, 0x248                    ; 0x23af
     imul word [bp + 0xa]             ; 0x23b2
@@ -214,7 +214,7 @@ jumptable_291f_case_27:
     push word [bp + 0xa]             ; 0x2404
     call loc_IIRG                    ; 0x2407
     pop cx                           ; 0x240a
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x240b
+    jmp near jumptable_291f_case_46  ; 0x240b
 jumptable_291f_case_31:
     mov ax, 0x248                    ; 0x240e
     imul word [bp + 0xa]             ; 0x2411
@@ -275,7 +275,7 @@ jumptable_291f_case_31:
     call loc_IIRG                    ; 0x2496
     pop cx                           ; 0x2499
 @..api_idx_0008_NOPG.l14:
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x249a
+    jmp near jumptable_291f_case_46  ; 0x249a
 jumptable_291f_case_36:
     mov ax, 0x248                    ; 0x249d
     imul word [bp + 0xa]             ; 0x24a0
@@ -298,7 +298,7 @@ jumptable_291f_case_36:
     push word [bp + 0xa]             ; 0x24cb
     call loc_IIRG                    ; 0x24ce
     pop cx                           ; 0x24d1
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x24d2
+    jmp near jumptable_291f_case_46  ; 0x24d2
 jumptable_291f_case_26:
     mov ax, 3                        ; 0x24d5
     imul word [bp + 0x8]             ; 0x24d8
@@ -319,7 +319,7 @@ jumptable_291f_case_26:
     push word [bp + 0xa]             ; 0x24fb
     call loc_IIRG                    ; 0x24fe
     pop cx                           ; 0x2501
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x2502
+    jmp near jumptable_291f_case_46  ; 0x2502
 jumptable_291f_case_35:
     mov word [bp - 0x0002], 0        ; 0x2505
     jmp short @..api_idx_0008_NOPG.l19 ; 0x250a
@@ -352,7 +352,7 @@ jumptable_291f_case_35:
     mov ax, word [bp - 0x0002]       ; 0x2548
     cmp ax, word [party_char_count]  ; 0x254b
     jl short @..api_idx_0008_NOPG.l17 ; 0x254f
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x2551
+    jmp near jumptable_291f_case_46  ; 0x2551
 jumptable_291f_case_32:
     mov word [bp - 0x0004], 1        ; 0x2554
 @..api_idx_0008_NOPG.l20:
@@ -399,7 +399,7 @@ jumptable_291f_case_32:
     push word [bp + 0xa]             ; 0x25b9
     call loc_IIRG                    ; 0x25bc
     pop cx                           ; 0x25bf
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x25c0
+    jmp near jumptable_291f_case_46  ; 0x25c0
 jumptable_291f_case_37:
     mov ax, 0                        ; 0x25c3
     cmp word [bp + 0x6], byte 0x58   ; 0x25c6
@@ -478,7 +478,7 @@ jumptable_291f_case_37:
     mov ax, word [bp - 0x0002]       ; 0x2675
     cmp ax, word [bp - 0x0004]       ; 0x2678
     jl short @..api_idx_0008_NOPG.l28 ; 0x267b
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x267d
+    jmp near jumptable_291f_case_46  ; 0x267d
 jumptable_291f_case_43:
     mov ax, 0x248                    ; 0x2680
     imul word [bp + 0xa]             ; 0x2683
@@ -541,7 +541,7 @@ jumptable_291f_case_43:
     call loc_IIRG                    ; 0x2710
     pop cx                           ; 0x2713
 @..api_idx_0008_NOPG.l32:
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x2714
+    jmp near jumptable_291f_case_46  ; 0x2714
 jumptable_291f_case_44:
     push word [bp + 0x8]             ; 0x2717
     mov ax, 8                        ; 0x271a
@@ -604,7 +604,7 @@ jumptable_291f_case_44:
     mov ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x27a4
     mov word [bx + party_records + pc_rec.pair_a], ax ; 0x27a8
 @..api_idx_0008_NOPG.l34:
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x27ac
+    jmp near jumptable_291f_case_46  ; 0x27ac
 jumptable_291f_case_45:
     mov word [bp - 0x0002], 0        ; 0x27af
 @..api_idx_0008_NOPG.l35:
@@ -648,7 +648,7 @@ jumptable_291f_case_45:
     mov ax, word [bp - 0x0002]       ; 0x280d
     cmp ax, strict word 6            ; 0x2810
     jl short @..api_idx_0008_NOPG.l35 ; 0x2813
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x2815
+    jmp near jumptable_291f_case_46  ; 0x2815
 jumptable_291f_case_34:
     call api_idx_0012_SHRT           ; 0x2818
     mov word [bss_8aee], ax          ; 0x281b
@@ -683,7 +683,7 @@ jumptable_291f_case_34:
     call loc_IUTP                    ; 0x2864
     add sp, byte 8                   ; 0x2867
 @..api_idx_0008_NOPG.l37:
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x286a
+    jmp near jumptable_291f_case_46  ; 0x286a
 jumptable_291f_case_40:
     mov word [bp - 0x0004], 0        ; 0x286d
 @..api_idx_0008_NOPG.l38:
@@ -728,7 +728,7 @@ jumptable_291f_case_40:
     mov ax, word [bp - 0x0004]       ; 0x28c8
     cmp ax, strict word 2            ; 0x28cb
     jl short @..api_idx_0008_NOPG.l38 ; 0x28ce
-    jmp near @..api_idx_0008_NOPG.l43 ; 0x28d0
+    jmp near jumptable_291f_case_46  ; 0x28d0
 jumptable_291f_case_42:
     call api_idx_0012_SHRT           ; 0x28d3
     mov word [bss_8aee], ax          ; 0x28d6
@@ -758,7 +758,7 @@ jumptable_291f_case_42:
     call api_idx_009a_KOSH           ; 0x2911
     add sp, byte 6                   ; 0x2914
 @..api_idx_0008_NOPG.l41:
-    jmp short @..api_idx_0008_NOPG.l43 ; 0x2917
+    jmp short jumptable_291f_case_46 ; 0x2917
 @..api_idx_0008_NOPG.l42:
     mov cx, 0x18                     ; 0x2919
     call aztec_cswt                  ; 0x291c
@@ -811,5 +811,4 @@ jumptable_291f:
     dw jumptable_291f_case_45 - IMAGE_BASE + __zres_end ; 0x2979
     dw jumptable_291f_case_46 - IMAGE_BASE + __zres_end ; 0x297b
 jumptable_291f_case_46:
-@..api_idx_0008_NOPG.l43:
     ret                              ; 0x297d

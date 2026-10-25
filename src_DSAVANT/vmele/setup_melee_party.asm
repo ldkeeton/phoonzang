@@ -2,7 +2,7 @@
 setup_melee_party:
     mov ax, 0xfffc                   ; 0x3390
     call aztec_csav                  ; 0x3393
-    mov word [item_action_reward + 0x2], 0 ; 0x3396
+    mov word [item_action_reward_hi], 0 ; 0x3396
     mov word [item_action_reward], 0 ; 0x339c
     cmp word [character_record_index], strict word 0xe1 ; 0x33a2
     jne short @..setup_melee_party.l1 ; 0x33a8

@@ -243,6 +243,10 @@ def _resolve_indexed_symbols(insns, segment_flow, segments, named, ds_starts,
     from lib.compare.records import DS_INDEX_MIN
 
     starts = _object_starts(segments, named, ds_starts)
+    from lib.segdataflow import _holds_index, _join_points
+    order = sorted(insns, key=lambda insn: insn.address)
+    positions = {insn.address: k for k, insn in enumerate(order)}
+    joins = _join_points(order)
     symbols = {}
     for insn in insns:
         for idx, op in enumerate(insn.operands):
@@ -252,7 +256,14 @@ def _resolve_indexed_symbols(insns, segment_flow, segments, named, ds_starts,
                 continue
             addr = op.mem.disp & 0xFFFF
             if addr < DS_INDEX_MIN:
-                continue
+                # Small displacements usually name fields inside a pointed-to
+                # record.  A low address is a table base only when it is an
+                # explicit object start added to a scaled index.
+                if (addr < 0x80 or addr not in getattr(segments, 'data_names', {})
+                        or op.mem.index or not _holds_index(
+                            order, positions[insn.address],
+                            insn.reg_name(op.mem.base).lower(), joins)):
+                    continue
             if segment_flow.effective_segment(insn, op)[1] != DATA:
                 continue
             text = _bind_data_operand(segments, starts, addr, equ, records)
@@ -342,6 +353,80 @@ def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
             name = data_symbol(segments, value)
             mem_equ.setdefault(name, value)
             result[(addr, idx)] = name
+    return result
+
+
+def _resolve_named_data_immediates(insns, segments, label_map, resolved, equ):
+    """Bind a known DS object in pointer-producing instruction shapes.
+
+    An address-sized number alone is not evidence of a pointer.  Here the
+    value must name an explicit data object and either be returned after this
+    routine used that object, or be added to an offset that is passed to a
+    callee.  This also covers an index copied to another register before the
+    call (``add bx, table; mov ax, bx; push ax``).
+    """
+    from capstone import CS_OP_IMM, CS_OP_REG
+
+    names = getattr(segments, 'data_names', {}) if segments else {}
+    order = sorted(insns, key=lambda insn: insn.address)
+    roots = sorted(addr for addr, name in (label_map or {}).items()
+                   if getattr(name, 'kind', None) is Kind.ROUTINE)
+    from bisect import bisect_right
+
+    def same_routine(a, b):
+        return bisect_right(roots, a) == bisect_right(roots, b)
+
+    result = {}
+    for k, insn in enumerate(order):
+        ops = insn.operands
+        if (len(ops) != 2 or ops[0].type != CS_OP_REG
+                or ops[1].type != CS_OP_IMM or (insn.address, 1) in resolved):
+            continue
+        value = ops[1].imm & 0xffff
+        name = names.get(value)
+        if name is None or getattr(name, 'source', None) is not Source.SIDECAR:
+            continue
+        register = insn.reg_name(ops[0].reg).lower()
+        if insn.mnemonic == 'mov' and register == 'ax':
+            if k + 1 >= len(order) or order[k + 1].mnemonic != 'ret':
+                continue
+            # The return is an address when the same routine has already
+            # accessed this object, not merely because its value matches.
+            earlier = order[max(0, k - 80):k]
+            if not any(same_routine(prev.address, insn.address)
+                       and any(getattr(op, 'type', None) == CS_OP_IMM
+                               and (prev.address, idx) in resolved
+                               and str(resolved[(prev.address, idx)]) == str(name)
+                               or getattr(op, 'type', None) == CS_OP_MEM
+                               and (op.mem.disp & 0xffff) == value
+                               for idx, op in enumerate(prev.operands))
+                       for prev in earlier):
+                continue
+        elif insn.mnemonic == 'add':
+            if k + 1 >= len(order):
+                continue
+            following = order[k + 1]
+            direct_push = (following.mnemonic == 'push'
+                           and following.operands
+                           and following.operands[0].type == CS_OP_REG
+                           and following.reg_name(following.operands[0].reg).lower() == register)
+            copied_push = (k + 2 < len(order)
+                           and following.mnemonic == 'mov'
+                           and len(following.operands) == 2
+                           and following.operands[0].type == CS_OP_REG
+                           and following.operands[1].type == CS_OP_REG
+                           and following.reg_name(following.operands[1].reg).lower() == register
+                           and order[k + 2].mnemonic == 'push'
+                           and order[k + 2].operands[0].type == CS_OP_REG
+                           and order[k + 2].operands[0].reg == following.operands[0].reg)
+            if not (direct_push or copied_push):
+                continue
+            if not any(nxt.mnemonic == 'call' for nxt in order[k + 1:k + 9]):
+                continue
+        else:
+            continue
+        equ.setdefault(name, value)
+        result[(insn.address, 1)] = name
     return result
 
 

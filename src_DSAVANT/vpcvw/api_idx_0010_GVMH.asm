@@ -53,7 +53,7 @@ api_idx_0010_GVMH:
     jae short @..api_idx_0010_GVMH.l2 ; 0x50cc
     inc byte [bx + party_records + pc_rec.stat] ; 0x50ce
 @..api_idx_0010_GVMH.l2:
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x50d2
+    jmp near jumptable_532e_case_9   ; 0x50d2
 @..api_idx_0010_GVMH.l3:
     mov ax, word [bp + 0xa]          ; 0x50d5
     jmp near @..api_idx_0010_GVMH.l16 ; 0x50d8
@@ -65,7 +65,7 @@ jumptable_532e_case_0:
     jae short @..api_idx_0010_GVMH.l4 ; 0x50e8
     mov byte [bx + party_records + pc_rec.f_0243], 4 ; 0x50ea
 @..api_idx_0010_GVMH.l4:
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x50ef
+    jmp near jumptable_532e_case_9   ; 0x50ef
 jumptable_532e_case_1:
     mov ax, 0x248                    ; 0x50f2
     imul word [bp + 0x4]             ; 0x50f5
@@ -74,7 +74,7 @@ jumptable_532e_case_1:
     jae short @..api_idx_0010_GVMH.l5 ; 0x50ff
     mov byte [bx + party_records + pc_rec.f_0244], 4 ; 0x5101
 @..api_idx_0010_GVMH.l5:
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x5106
+    jmp near jumptable_532e_case_9   ; 0x5106
 jumptable_532e_case_2:
     mov ax, 0x248                    ; 0x5109
     imul word [bp + 0x4]             ; 0x510c
@@ -130,7 +130,7 @@ jumptable_532e_case_3:
     jae short @..api_idx_0010_GVMH.l10 ; 0x519b
     inc byte [bx + party_records + pc_rec.stat + 0x3] ; 0x519d
 @..api_idx_0010_GVMH.l10:
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x51a1
+    jmp near jumptable_532e_case_9   ; 0x51a1
 jumptable_532e_case_4:
     mov ax, 5                        ; 0x51a4
     push ax                          ; 0x51a7
@@ -146,7 +146,7 @@ jumptable_532e_case_4:
     pop ax                           ; 0x51ba
     add word [bx + party_records + pc_rec.pair_a + 0x2], ax ; 0x51bb
     add word [bx + party_records + pc_rec.pair_a], ax ; 0x51bf
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x51c3
+    jmp near jumptable_532e_case_9   ; 0x51c3
 jumptable_532e_case_5:
     mov word [bp - 0x0004], 0        ; 0x51c6
 @..api_idx_0010_GVMH.l11:
@@ -163,7 +163,7 @@ jumptable_532e_case_5:
     mov ax, word [bp - 0x0004]       ; 0x51e7
     cmp ax, strict word 6            ; 0x51ea
     jl short @..api_idx_0010_GVMH.l11 ; 0x51ed
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x51ef
+    jmp near jumptable_532e_case_9   ; 0x51ef
 jumptable_532e_case_6:
     mov ax, 0x248                    ; 0x51f2
     imul word [bp + 0x4]             ; 0x51f5
@@ -185,7 +185,7 @@ jumptable_532e_case_6:
     push word [bp + 0x4]             ; 0x521e
     call api_idx_0002_TJIU           ; 0x5221
     add sp, byte 8                   ; 0x5224
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x5227
+    jmp near jumptable_532e_case_9   ; 0x5227
 jumptable_532e_case_7:
     mov word [bp - 0x0002], 0        ; 0x522a
 @..api_idx_0010_GVMH.l14:
@@ -204,7 +204,7 @@ jumptable_532e_case_7:
     mov word [bp - 0x0002], ax       ; 0x5250
     jmp short @..api_idx_0010_GVMH.l14 ; 0x5253
 @..api_idx_0010_GVMH.l15:
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x5255
+    jmp near jumptable_532e_case_9   ; 0x5255
 jumptable_532e_case_31:
     mov ax, 4                        ; 0x5258
     push ax                          ; 0x525b
@@ -215,7 +215,7 @@ jumptable_532e_case_31:
     push word [bp + 0x4]             ; 0x5264
     call api_idx_0002_TJIU           ; 0x5267
     add sp, byte 8                   ; 0x526a
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x526d
+    jmp near jumptable_532e_case_9   ; 0x526d
 jumptable_532e_case_32:
     mov ax, 5                        ; 0x5270
     push ax                          ; 0x5273
@@ -226,7 +226,7 @@ jumptable_532e_case_32:
     push word [bp + 0x4]             ; 0x527c
     call api_idx_0002_TJIU           ; 0x527f
     add sp, byte 8                   ; 0x5282
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x5285
+    jmp near jumptable_532e_case_9   ; 0x5285
 jumptable_532e_case_33:
     mov ax, 4                        ; 0x5288
     push ax                          ; 0x528b
@@ -237,7 +237,7 @@ jumptable_532e_case_33:
     push word [bp + 0x4]             ; 0x5294
     call api_idx_0002_TJIU           ; 0x5297
     add sp, byte 8                   ; 0x529a
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x529d
+    jmp near jumptable_532e_case_9   ; 0x529d
 jumptable_532e_case_34:
     mov ax, 3                        ; 0x52a0
     push ax                          ; 0x52a3
@@ -248,7 +248,7 @@ jumptable_532e_case_34:
     push word [bp + 0x4]             ; 0x52ac
     call api_idx_0002_TJIU           ; 0x52af
     add sp, byte 8                   ; 0x52b2
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x52b5
+    jmp near jumptable_532e_case_9   ; 0x52b5
 jumptable_532e_case_35:
     mov ax, 4                        ; 0x52b8
     push ax                          ; 0x52bb
@@ -259,7 +259,7 @@ jumptable_532e_case_35:
     push word [bp + 0x4]             ; 0x52c4
     call api_idx_0002_TJIU           ; 0x52c7
     add sp, byte 8                   ; 0x52ca
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x52cd
+    jmp near jumptable_532e_case_9   ; 0x52cd
 jumptable_532e_case_36:
     mov ax, 4                        ; 0x52d0
     push ax                          ; 0x52d3
@@ -270,7 +270,7 @@ jumptable_532e_case_36:
     push word [bp + 0x4]             ; 0x52dc
     call api_idx_0002_TJIU           ; 0x52df
     add sp, byte 8                   ; 0x52e2
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x52e5
+    jmp near jumptable_532e_case_9   ; 0x52e5
 jumptable_532e_case_37:
     mov ax, 5                        ; 0x52e8
     push ax                          ; 0x52eb
@@ -281,7 +281,7 @@ jumptable_532e_case_37:
     push word [bp + 0x4]             ; 0x52f4
     call api_idx_0002_TJIU           ; 0x52f7
     add sp, byte 8                   ; 0x52fa
-    jmp near @..api_idx_0010_GVMH.l17 ; 0x52fd
+    jmp near jumptable_532e_case_9   ; 0x52fd
 jumptable_532e_case_38:
     mov ax, 5                        ; 0x5300
     push ax                          ; 0x5303
@@ -292,7 +292,7 @@ jumptable_532e_case_38:
     push word [bp + 0x4]             ; 0x530c
     call api_idx_0002_TJIU           ; 0x530f
     add sp, byte 8                   ; 0x5312
-    jmp short @..api_idx_0010_GVMH.l17 ; 0x5315
+    jmp short jumptable_532e_case_9  ; 0x5315
 jumptable_532e_case_39:
     mov ax, 4                        ; 0x5317
     push ax                          ; 0x531a
@@ -303,7 +303,7 @@ jumptable_532e_case_39:
     push word [bp + 0x4]             ; 0x5323
     call api_idx_0002_TJIU           ; 0x5326
     add sp, byte 8                   ; 0x5329
-    jmp short @..api_idx_0010_GVMH.l17 ; 0x532c
+    jmp short jumptable_532e_case_9  ; 0x532c
 jumptable_532e:
     dw jumptable_532e_case_0 - IMAGE_BASE + __zres_end ; 0x532e
     dw jumptable_532e_case_1 - IMAGE_BASE + __zres_end ; 0x5330
@@ -348,12 +348,11 @@ jumptable_532e:
 @..api_idx_0010_GVMH.l16:
     sub ax, strict word 9            ; 0x537e
     cmp ax, strict word 0x28         ; 0x5381
-    jae short @..api_idx_0010_GVMH.l17 ; 0x5384
+    jae short jumptable_532e_case_9  ; 0x5384
     xchg bx, ax                      ; 0x5386
     shl bx, 1                        ; 0x5387
     jmp [cs:bx + jumptable_532e - IMAGE_BASE + __zres_end] ; 0x5389
 jumptable_532e_case_9:
-@..api_idx_0010_GVMH.l17:
     push word [bp + 0x8]             ; 0x538e
     push word [bp + 0x6]             ; 0x5391
     push word [bp + 0x4]             ; 0x5394

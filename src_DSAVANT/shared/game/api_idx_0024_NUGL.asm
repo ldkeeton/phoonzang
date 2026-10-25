@@ -3,7 +3,7 @@ api_idx_0024_NUGL:
     mov ax, 0xffdc
     call aztec_csav
     mov ax, word [game_time]
-    mov dx, word [bss_8f1e]
+    mov dx, word [game_time_hi]
     mov cx, 0x5a0
     mov bx, 0
     call aztec_ldv
@@ -16,7 +16,7 @@ api_idx_0024_NUGL:
     idiv cx
     mov word [bp - 0x0006], dx
     mov ax, word [game_time]
-    mov dx, word [bss_8f1e]
+    mov dx, word [game_time_hi]
     mov cx, 0x5a0
     mov bx, 0
     call aztec_lrm
@@ -47,7 +47,7 @@ api_idx_0024_NUGL:
     mov cx, ax
     mov bx, dx
     mov ax, word [game_time]
-    mov dx, word [bss_8f1e]
+    mov dx, word [game_time_hi]
     sub ax, cx
     sbb dx, bx
     mov cx, 0x5a0

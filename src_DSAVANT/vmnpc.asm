@@ -288,7 +288,8 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "shared/game/api_idx_0018_RGOS.asm"     ; 0x3b9a
 
-%include "shared/game/api_idx_0004_KHSO.asm"     ; 0x3c97
+api_idx_0004_KHSO equ draw_list_rows
+%include "shared/game/draw_list_rows.asm"     ; 0x3c97
 
 loc_HTKI.draw_list_rows1 equ api_idx_0004_KHSO
 %include "shared/game/loc_HTKI.asm"              ; 0x3df9
@@ -353,8 +354,8 @@ loc_HTKI.draw_list_rows1 equ api_idx_0004_KHSO
 
 %include "shared/game/api_idx_0002_TIUI.asm"     ; 0x74d1
 
-api_idx_0004_NIJP                      equ collect_known_spells
-collect_known_spells.known_spell_list1 equ bss_9df2
+api_idx_0004_NIJP                     equ collect_known_spells
+collect_known_spells.known_spell_ids1 equ bss_9df2
 %include "shared/game/collect_known_spells.asm"     ; 0x752c
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x759d

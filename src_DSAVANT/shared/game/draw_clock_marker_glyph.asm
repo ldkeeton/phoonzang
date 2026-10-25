@@ -4,7 +4,7 @@ draw_clock_marker_glyph:
     call aztec_csav
     mov word [bp - 0x0004], 0x14a
     mov ax, word [game_time]
-    mov dx, word [game_time + 0x2]
+    mov dx, word [game_time_hi]
     push ax
     push dx
     mov ax, word [bp - 0x0004]

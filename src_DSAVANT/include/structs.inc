@@ -190,7 +190,7 @@ struc member_rec
 endstruc
 
 ; records pointed at by DS 0x8484
-struc rec_8484
+struc party_char_hi_rec
     .pad_0000: resb 417
     .f_01a1: resb 1
 endstruc

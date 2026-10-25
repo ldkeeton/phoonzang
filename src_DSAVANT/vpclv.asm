@@ -172,6 +172,7 @@ api_idx_0004_RMVO.bss2 equ bss_942a
 
 %include "shared/game/api_idx_0010_STNH.asm"     ; 0x03cd
 
+draw_title_banner.bss1 equ bss_9434
 %include "shared/game/draw_title_banner.asm"     ; 0x04ca
 
 api_idx_007c_MOJH.bss1     equ bss_9418
@@ -184,8 +185,8 @@ api_idx_007c_MOJH.api_idx1 equ api_idx_0012_RLJJ
 
 %include "vpclv/loc_MNNG.asm"              ; 0x0dc0
 
-api_idx_0004_TLJT                      equ collect_known_spells
-collect_known_spells.known_spell_list1 equ bss_943c
+api_idx_0004_TLJT                     equ collect_known_spells
+collect_known_spells.known_spell_ids1 equ bss_943c
 %include "shared/game/collect_known_spells.asm"     ; 0x0e3b
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x0eac

@@ -343,8 +343,6 @@ def _link_override(label, start, override, records, binary_data, index,
         with open(override['path'], 'w') as f:
             f.write(text)
     override.update(text=text, func=func, pristine=False)
-    print(f'  aztec relabel: {os.path.basename(override["path"])} now names '
-          'asm labels')
     return _link(label, start, override, records, binary_data, index)
 
 
@@ -365,8 +363,7 @@ def _check_publics(label, start, override, labels_at):
                          f'label there')
         elif str(have) != name:
             wrong.append(f'public {name} at 0x{addr:04x} is {have} in the '
-                         f'build; name it in the sidecar (make name ... '
-                         f'{have}={name}:\'note\')')
+                         f'build')
     if wrong:
         raise CGateError('\n'.join(
             f'{os.path.basename(override["path"])}: {w}' for w in wrong))
@@ -613,7 +610,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             compiled = linked.code
             # A DS object the C names first is defined like any operand
             # symbol: in ``mem_equ``, so an overlay exports it to the host.
-            if mem_equ is not None:
+            if mem_equ is not None and not override.get('check_only'):
                 for name, value in linked.minted.items():
                     mem_equ.setdefault(name, value)
         else:
@@ -633,6 +630,11 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                 exact=exact_bytes)
             if report:
                 raise CGateError('\n'.join(report))
+
+        # Hand-owned C is compiled and checked against the original bytes, but
+        # its records must not replace or rename the disassembly we emit.
+        if override.get('check_only'):
+            continue
 
         # Overlay the original relocation bytes.  A relocation may start on the
         # routine's last byte and run one byte past it; clamp to the code so the

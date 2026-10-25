@@ -60,7 +60,7 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     add ax, strict word 0x41         ; 0x248a
     mov byte [bp - 0x00a0], al       ; 0x248d
     mov byte [bp - 0x009f], 0        ; 0x2491
-    mov ax, str_insert_savegame_disk + 0x15 ; 0x2496
+    mov ax, str_insert_disk_n        ; 0x2496
     push ax                          ; 0x2499
     lea ax, word [bp - 0x0050]       ; 0x249a
     push ax                          ; 0x249d
@@ -114,7 +114,7 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     push ax                          ; 0x2515
     call draw_text_glyphs            ; 0x2516
     add sp, byte 4                   ; 0x2519
-    mov ax, str_insert_savegame_disk + 0x25 ; 0x251c
+    mov ax, str_into_drive           ; 0x251c
     push ax                          ; 0x251f
     lea ax, word [bp - 0x0050]       ; 0x2520
     push ax                          ; 0x2523
@@ -155,7 +155,7 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     push ax                          ; 0x2576
     call draw_text_glyphs            ; 0x2577
     add sp, byte 4                   ; 0x257a
-    mov ax, str_insert_savegame_disk + 0x32 ; 0x257d
+    mov ax, str_continue             ; 0x257d
     push ax                          ; 0x2580
     mov ax, 1                        ; 0x2581
     push ax                          ; 0x2584
@@ -282,7 +282,7 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     push ax                          ; 0x26a4
     call aztec_strcpy                ; 0x26a5
     add sp, byte 4                   ; 0x26a8
-    mov ax, str_insert_savegame_disk + 0x3b ; 0x26ab
+    mov ax, str_disk_hdr             ; 0x26ab
     push ax                          ; 0x26ae
     lea ax, word [bp - 0x00a0]       ; 0x26af
     push ax                          ; 0x26b3
@@ -372,7 +372,7 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     mov ax, 0                        ; 0x278f
     push ax                          ; 0x2792
     push ax                          ; 0x2793
-    mov ax, str_insert_savegame_disk + 0x44 ; 0x2794
+    mov ax, str_msg_dbs              ; 0x2794
     push ax                          ; 0x2797
     call data_file_path              ; 0x2798
     add sp, byte 4                   ; 0x279b
@@ -395,7 +395,7 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     mov ax, 0                        ; 0x27c3
 @..prompt_disk_swap.l18:
     push ax                          ; 0x27c6
-    mov ax, str_insert_savegame_disk + 0x4c ; 0x27c7
+    mov ax, str_scenario_dbs         ; 0x27c7
     push ax                          ; 0x27ca
     call data_file_path              ; 0x27cb
     add sp, byte 4                   ; 0x27ce

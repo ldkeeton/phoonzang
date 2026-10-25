@@ -29,7 +29,7 @@ api_idx_0018_USPR:
     pop cx                           ; 0x1cd4
     mov word [bss_91ae], 0           ; 0x1cd5
     mov ax, word [game_time]         ; 0x1cdb
-    mov dx, word [bss_8f1e]          ; 0x1cde
+    mov dx, word [game_time_hi]      ; 0x1cde
     sub ax, word [bss_8f18]          ; 0x1ce2
     sbb dx, word [bss_8f1a]          ; 0x1ce6
     add word [bss_8f14], ax          ; 0x1cea
@@ -51,7 +51,7 @@ api_idx_0018_USPR:
     jmp short @..api_idx_0018_USPR.l2 ; 0x1d22
 @..api_idx_0018_USPR.l3:
     mov ax, word [game_time]         ; 0x1d24
-    mov dx, word [bss_8f1e]          ; 0x1d27
+    mov dx, word [game_time_hi]      ; 0x1d27
     mov word [bss_8f1a], dx          ; 0x1d2b
     mov word [bss_8f18], ax          ; 0x1d2f
     cmp word [bss_8450], byte 0      ; 0x1d32
@@ -160,7 +160,7 @@ api_idx_0018_USPR:
 @..api_idx_0018_USPR.l17:
     inc word [bp - 0x0008]           ; 0x1e3d
     add word [game_time], byte 0x0a  ; 0x1e40
-    adc word [bss_8f1e], byte 0      ; 0x1e45
+    adc word [game_time_hi], byte 0  ; 0x1e45
     call api_idx_0002_ITLQ           ; 0x1e4a
     mov ax, 0xa                      ; 0x1e4d
     push ax                          ; 0x1e50

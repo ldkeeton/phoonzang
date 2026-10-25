@@ -34,7 +34,7 @@ collect_known_spells:
     mov cx, word [bp - 0x0004]
     shl cx, 1
     mov bx, cx
-    mov word [bx + collect_known_spells.known_spell_list1], ax
+    mov word [bx + collect_known_spells.known_spell_ids1], ax
     inc word [bp - 0x0004]
 @..collect_known_spells.l2:
     inc word [bp - 0x0002]

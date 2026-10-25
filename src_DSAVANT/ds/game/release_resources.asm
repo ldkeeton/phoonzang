@@ -54,13 +54,12 @@ jumptable_0363_case_0:
     jne short @..release_resources.l9 ; 0x02cc
     cmp word [bss_0e1e], byte 0      ; 0x02ce
 @..release_resources.l9:
-    je short @..release_resources.l10 ; 0x02d3
+    je short jumptable_0363_case_11  ; 0x02d3
     push word [bss_0e20]             ; 0x02d5
     push word [bss_0e1e]             ; 0x02d9
     call app_free                    ; 0x02dd
     add sp, byte 4                   ; 0x02e0
 jumptable_0363_case_11:
-@..release_resources.l10:
     push word [data_file_fd]         ; 0x02e3
     call aztec_close                 ; 0x02e7
     pop cx                           ; 0x02ea
@@ -93,13 +92,12 @@ jumptable_0363_case_7:
     jne short @..release_resources.l15 ; 0x0330
     cmp word [bss_0e2e], byte 0      ; 0x0332
 @..release_resources.l15:
-    je short @..release_resources.l16 ; 0x0337
+    je short jumptable_0363_case_4   ; 0x0337
     push word [bss_0e30]             ; 0x0339
     push word [bss_0e2e]             ; 0x033d
     call app_free                    ; 0x0341
     add sp, byte 4                   ; 0x0344
 jumptable_0363_case_4:
-@..release_resources.l16:
     mov word [bp - 0x0002], 1        ; 0x0347
     mov ax, 1                        ; 0x034c
     push ax                          ; 0x034f
@@ -107,10 +105,9 @@ jumptable_0363_case_4:
     pop cx                           ; 0x0353
     call gfx_stop_sound              ; 0x0354
     cmp word [mouse_active], byte 0  ; 0x0357
-    je short @..release_resources.l17 ; 0x035c
+    je short jumptable_0363_case_1   ; 0x035c
     call gfx_mouse_off               ; 0x035e
 jumptable_0363_case_1:
-@..release_resources.l17:
     jmp short @..release_resources.l19 ; 0x0361
 jumptable_0363:
     dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x0363

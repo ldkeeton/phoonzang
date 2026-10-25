@@ -163,7 +163,7 @@ pick_spell_dialog:
     add sp, byte 0x0a                ; 0x2b22
     push word [bp - 0x0042]          ; 0x2b25
     push word [bp + 0x4]             ; 0x2b28
-    call collect_known_realm_spells  ; 0x2b2b
+    call collect_known_spells        ; 0x2b2b
     add sp, byte 4                   ; 0x2b2e
     mov word [bp - 0x0044], ax       ; 0x2b31
     mov ax, 7                        ; 0x2b34
@@ -499,7 +499,7 @@ pick_spell_dialog:
     les bx, word [tick_counter_ptr]  ; 0x2e29
     mov ax, word [es:bx]             ; 0x2e2d
     mov dx, word [es:bx + 0x2]       ; 0x2e30
-    mov word [party_redraw_last_tick + 0x2], dx ; 0x2e34
+    mov word [party_redraw_last_tick_hi], dx ; 0x2e34
     mov word [party_redraw_last_tick], ax ; 0x2e38
     mov word [bp - 0x001c], 1        ; 0x2e3b
 @..pick_spell_dialog.l8:
@@ -1079,7 +1079,7 @@ jumptable_35d1_case_4:
     mov word [bp - 0x003c], 0xffff   ; 0x3381
     push ax                          ; 0x3386
     push word [bp + 0x4]             ; 0x3387
-    call collect_known_realm_spells  ; 0x338a
+    call collect_known_spells        ; 0x338a
     add sp, byte 4                   ; 0x338d
     mov word [bp - 0x0044], ax       ; 0x3390
     mov ax, 7                        ; 0x3393
@@ -1337,7 +1337,6 @@ jumptable_35d1:
     cmp word [bp - 0x001c], byte 0   ; 0x35eb
     je short @..pick_spell_dialog.l51 ; 0x35ef
     jmp near @..pick_spell_dialog.l8 ; 0x35f1
-@..pick_spell_dialog.l52:
 @..pick_spell_dialog.l51:
     mov ax, 1                        ; 0x35f4
     push ax                          ; 0x35f7

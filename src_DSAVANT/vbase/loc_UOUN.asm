@@ -251,12 +251,11 @@ jumptable_19de:
     dw jumptable_19de_case_12 - IMAGE_BASE + __zres_end ; 0x19f6
 @..loc_UOUN.l29:
     cmp ax, strict word 0xd          ; 0x19f8
-    jae short @..loc_UOUN.l30        ; 0x19fb
+    jae short jumptable_19de_case_0  ; 0x19fb
     xchg bx, ax                      ; 0x19fd
     shl bx, 1                        ; 0x19fe
     jmp [cs:bx + jumptable_19de - IMAGE_BASE + __zres_end] ; 0x1a00
 jumptable_19de_case_0:
-@..loc_UOUN.l30:
     mov ax, 0x13                     ; 0x1a05
     cmp word [bp + 0x6], byte 0      ; 0x1a08
     jne short @..loc_UOUN.l31        ; 0x1a0c

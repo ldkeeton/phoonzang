@@ -88,7 +88,7 @@ api_idx_00ac_OJJU:
 @..api_idx_00ac_OJJU.l3:
     cmp word [bp - 0x004c], strict word 0xff ; 0x7a6b
     jne short @..api_idx_00ac_OJJU.l4 ; 0x7a70
-    jmp near @..api_idx_00ac_OJJU.l14 ; 0x7a72
+    jmp near jumptable_7c0e_case_32  ; 0x7a72
 @..api_idx_00ac_OJJU.l4:
     mov ax, 0                        ; 0x7a75
     push ax                          ; 0x7a78
@@ -146,7 +146,7 @@ api_idx_00ac_OJJU:
     je short @..api_idx_00ac_OJJU.l7 ; 0x7aef
     cmp word [bp + 0x8], byte 8      ; 0x7af1
     je short @..api_idx_00ac_OJJU.l7 ; 0x7af5
-    jmp near @..api_idx_00ac_OJJU.l14 ; 0x7af7
+    jmp near jumptable_7c0e_case_32  ; 0x7af7
 @..api_idx_00ac_OJJU.l7:
     cmp word [bp + 0x8], byte 4      ; 0x7afa
     jne short @..api_idx_00ac_OJJU.l8 ; 0x7afe
@@ -175,34 +175,34 @@ api_idx_00ac_OJJU:
     jmp near @..api_idx_00ac_OJJU.l13 ; 0x7b36
 jumptable_7c0e_case_16:
     mov word [bp - 0x0076], 0        ; 0x7b39
-    jmp near @..api_idx_00ac_OJJU.l14 ; 0x7b3e
+    jmp near jumptable_7c0e_case_32  ; 0x7b3e
 jumptable_7c0e_case_17:
     mov word [bp - 0x0076], 0x14     ; 0x7b41
-    jmp near @..api_idx_00ac_OJJU.l14 ; 0x7b46
+    jmp near jumptable_7c0e_case_32  ; 0x7b46
 jumptable_7c0e_case_18:
     mov word [bp - 0x0076], 0x11     ; 0x7b49
-    jmp near @..api_idx_00ac_OJJU.l14 ; 0x7b4e
+    jmp near jumptable_7c0e_case_32  ; 0x7b4e
 jumptable_7c0e_case_19:
     mov word [bp - 0x0076], 2        ; 0x7b51
-    jmp near @..api_idx_00ac_OJJU.l14 ; 0x7b56
+    jmp near jumptable_7c0e_case_32  ; 0x7b56
 jumptable_7c0e_case_23:
     mov word [bp - 0x0076], 4        ; 0x7b59
-    jmp near @..api_idx_00ac_OJJU.l14 ; 0x7b5e
+    jmp near jumptable_7c0e_case_32  ; 0x7b5e
 jumptable_7c0e_case_20:
     mov word [bp - 0x0076], 0x10     ; 0x7b61
-    jmp near @..api_idx_00ac_OJJU.l14 ; 0x7b66
+    jmp near jumptable_7c0e_case_32  ; 0x7b66
 jumptable_7c0e_case_24:
     mov word [bp - 0x0076], 0x12     ; 0x7b69
-    jmp near @..api_idx_00ac_OJJU.l14 ; 0x7b6e
+    jmp near jumptable_7c0e_case_32  ; 0x7b6e
 jumptable_7c0e_case_21:
     mov word [bp - 0x0076], 0x13     ; 0x7b71
-    jmp near @..api_idx_00ac_OJJU.l14 ; 0x7b76
+    jmp near jumptable_7c0e_case_32  ; 0x7b76
 jumptable_7c0e_case_22:
     mov word [bp - 0x0076], 0x16     ; 0x7b79
-    jmp near @..api_idx_00ac_OJJU.l14 ; 0x7b7e
+    jmp near jumptable_7c0e_case_32  ; 0x7b7e
 jumptable_7c0e_case_30:
     mov word [bp - 0x0076], 6        ; 0x7b81
-    jmp near @..api_idx_00ac_OJJU.l14 ; 0x7b86
+    jmp near jumptable_7c0e_case_32  ; 0x7b86
 jumptable_7c0e_case_28:
     mov ax, 0x248                    ; 0x7b89
     imul word [bss_8462]             ; 0x7b8c
@@ -227,7 +227,7 @@ jumptable_7c0e_case_28:
     push ax                          ; 0x7bbf
     call load_message_string         ; 0x7bc0
     add sp, byte 4                   ; 0x7bc3
-    jmp near @..api_idx_00ac_OJJU.l14 ; 0x7bc6
+    jmp near jumptable_7c0e_case_32  ; 0x7bc6
 jumptable_7c0e_case_31:
     mov ax, 0x248                    ; 0x7bc9
     imul word [bss_8462]             ; 0x7bcc
@@ -252,7 +252,7 @@ jumptable_7c0e_case_31:
     push ax                          ; 0x7bff
     call load_message_string         ; 0x7c00
     add sp, byte 4                   ; 0x7c03
-    jmp short @..api_idx_00ac_OJJU.l14 ; 0x7c06
+    jmp short jumptable_7c0e_case_32 ; 0x7c06
 @..api_idx_00ac_OJJU.l13:
     mov cx, 0x11                     ; 0x7c08
     call aztec_cswt                  ; 0x7c0b
@@ -291,7 +291,6 @@ jumptable_7c0e:
     dw jumptable_7c0e_case_31 - IMAGE_BASE + __zres_end ; 0x7c4c
     dw jumptable_7c0e_case_32 - IMAGE_BASE + __zres_end ; 0x7c4e
 jumptable_7c0e_case_32:
-@..api_idx_00ac_OJJU.l14:
     jmp near @..api_idx_00ac_OJJU.l24 ; 0x7c50
 @..api_idx_00ac_OJJU.l15:
     mov ax, word [bss_8464]          ; 0x7c53
@@ -333,7 +332,7 @@ jumptable_7c0e_case_32:
     je short @..api_idx_00ac_OJJU.l18 ; 0x7cac
     cmp word [bp + 0x8], byte 8      ; 0x7cae
     je short @..api_idx_00ac_OJJU.l18 ; 0x7cb2
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7cb4
+    jmp near jumptable_7e61_case_0   ; 0x7cb4
 @..api_idx_00ac_OJJU.l18:
     mov ax, 0x12                     ; 0x7cb7
     imul word [bp + 0x6]             ; 0x7cba
@@ -352,7 +351,7 @@ jumptable_7c0e_case_32:
     jmp near @..api_idx_00ac_OJJU.l20 ; 0x7cdf
 jumptable_7e61_case_1:
     mov word [bp - 0x0076], 0x15     ; 0x7ce2
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7ce7
+    jmp near jumptable_7e61_case_0   ; 0x7ce7
 jumptable_7e61_case_49:
     mov word [bp - 0x0094], 0x714    ; 0x7cea
     mov word [bp - 0x0076], 0xa      ; 0x7cf0
@@ -364,7 +363,7 @@ jumptable_7e61_case_49:
     call load_message_string         ; 0x7d03
     add sp, byte 4                   ; 0x7d06
     mov word [bp - 0x00ac], 1        ; 0x7d09
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7d0f
+    jmp near jumptable_7e61_case_0   ; 0x7d0f
 jumptable_7e61_case_50:
     mov word [bp - 0x0094], 0x506    ; 0x7d12
     mov word [bp - 0x0076], 8        ; 0x7d18
@@ -376,7 +375,7 @@ jumptable_7e61_case_50:
     call load_message_string         ; 0x7d2b
     add sp, byte 4                   ; 0x7d2e
     mov word [bp - 0x00ac], 1        ; 0x7d31
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7d37
+    jmp near jumptable_7e61_case_0   ; 0x7d37
 jumptable_7e61_case_7:
     mov word [bp - 0x0076], 8        ; 0x7d3a
     mov word [bss_90de], 5           ; 0x7d3f
@@ -387,19 +386,18 @@ jumptable_7e61_case_7:
     call load_message_string         ; 0x7d4d
     add sp, byte 4                   ; 0x7d50
     mov word [bp - 0x00a6], 0        ; 0x7d53
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7d59
+    jmp near jumptable_7e61_case_0   ; 0x7d59
 jumptable_7e61_case_9:
     mov word [bp - 0x0076], 2        ; 0x7d5c
     mov word [bp - 0x00a6], 0        ; 0x7d61
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7d67
+    jmp near jumptable_7e61_case_0   ; 0x7d67
 jumptable_7e61_case_53:
     mov word [bp - 0x00a6], 2        ; 0x7d6a
 jumptable_7e61_case_54:
     cmp word [bp - 0x00a6], byte 1   ; 0x7d70
-    jne short @..api_idx_00ac_OJJU.l19 ; 0x7d75
+    jne short jumptable_7e61_case_13 ; 0x7d75
     mov word [bp - 0x00a6], 3        ; 0x7d77
 jumptable_7e61_case_13:
-@..api_idx_00ac_OJJU.l19:
     mov word [bp - 0x0076], 0xf      ; 0x7d7d
     mov word [bss_90de], 0xc         ; 0x7d82
     mov ax, bss_9136                 ; 0x7d88
@@ -409,26 +407,26 @@ jumptable_7e61_case_13:
     call load_message_string         ; 0x7d90
     add sp, byte 4                   ; 0x7d93
     mov word [bp - 0x00ac], 1        ; 0x7d96
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7d9c
+    jmp near jumptable_7e61_case_0   ; 0x7d9c
 jumptable_7e61_case_16:
     mov word [bp - 0x0076], 0        ; 0x7d9f
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7da4
+    jmp near jumptable_7e61_case_0   ; 0x7da4
 jumptable_7e61_case_23:
     mov word [bp - 0x0076], 0xc      ; 0x7da7
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7dac
+    jmp near jumptable_7e61_case_0   ; 0x7dac
 jumptable_7e61_case_30:
     mov word [bp - 0x0076], 0x10     ; 0x7daf
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7db4
+    jmp near jumptable_7e61_case_0   ; 0x7db4
 jumptable_7e61_case_31:
     mov word [bp - 0x0076], 6        ; 0x7db7
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7dbc
+    jmp near jumptable_7e61_case_0   ; 0x7dbc
 jumptable_7e61_case_36:
     mov word [bp - 0x0076], 0x11     ; 0x7dbf
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7dc4
+    jmp near jumptable_7e61_case_0   ; 0x7dc4
 jumptable_7e61_case_37:
     mov word [bp - 0x0076], 4        ; 0x7dc7
     mov word [bp - 0x00a6], 0        ; 0x7dcc
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7dd2
+    jmp near jumptable_7e61_case_0   ; 0x7dd2
 jumptable_7e61_case_52:
     mov word [bp - 0x0094], 0x643    ; 0x7dd5
     mov word [bp - 0x0076], 0x16     ; 0x7ddb
@@ -440,7 +438,7 @@ jumptable_7e61_case_52:
     call load_message_string         ; 0x7dee
     add sp, byte 4                   ; 0x7df1
     mov word [bp - 0x00ac], 1        ; 0x7df4
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7dfa
+    jmp near jumptable_7e61_case_0   ; 0x7dfa
 jumptable_7e61_case_56:
     mov word [bp - 0x0094], 0x702    ; 0x7dfd
     mov word [bp - 0x0076], 0xc      ; 0x7e03
@@ -452,7 +450,7 @@ jumptable_7e61_case_56:
     call load_message_string         ; 0x7e16
     add sp, byte 4                   ; 0x7e19
     mov word [bp - 0x00ac], 1        ; 0x7e1c
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7e22
+    jmp near jumptable_7e61_case_0   ; 0x7e22
 jumptable_7e61_case_60:
     mov word [bp - 0x00aa], 0xa4     ; 0x7e25
     mov word [bp - 0x0094], 0x641    ; 0x7e2b
@@ -470,7 +468,7 @@ jumptable_7e61_case_60:
     call load_message_string         ; 0x7e52
     add sp, byte 4                   ; 0x7e55
     mov word [bp - 0x00ac], 1        ; 0x7e58
-    jmp near @..api_idx_00ac_OJJU.l21 ; 0x7e5e
+    jmp near jumptable_7e61_case_0   ; 0x7e5e
 jumptable_7e61:
     dw jumptable_7e61_case_0 - IMAGE_BASE + __zres_end ; 0x7e61
     dw jumptable_7e61_case_1 - IMAGE_BASE + __zres_end ; 0x7e63
@@ -535,12 +533,11 @@ jumptable_7e61:
     dw jumptable_7e61_case_60 - IMAGE_BASE + __zres_end ; 0x7ed9
 @..api_idx_00ac_OJJU.l20:
     cmp ax, strict word 0x3d         ; 0x7edb
-    jae short @..api_idx_00ac_OJJU.l21 ; 0x7ede
+    jae short jumptable_7e61_case_0  ; 0x7ede
     xchg bx, ax                      ; 0x7ee0
     shl bx, 1                        ; 0x7ee1
     jmp [cs:bx + jumptable_7e61 - IMAGE_BASE + __zres_end] ; 0x7ee3
 jumptable_7e61_case_0:
-@..api_idx_00ac_OJJU.l21:
     mov ax, word [bss_8464]          ; 0x7ee8
     shl ax, 1                        ; 0x7eeb
     mov bx, ax                       ; 0x7eed

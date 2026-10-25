@@ -43,7 +43,7 @@ from concurrent.futures import ThreadPoolExecutor
 from lib import stagelog
 from lib import progress
 from lib import childproc
-from lib.autogen import sync, write_once
+from lib.autogen import hand_owned, sync, write_once
 from lib.cachedirs import labels_dir, src_dir
 from lib.cross_ref import detect as detect_cross_refs, read_label_json
 from lib.link import (
@@ -306,6 +306,12 @@ def _sync(out_dir, files, report, scopes=None):
     """Bring *out_dir* to this build's *files*: the tree is left alone until
     the layout is final, then only what changed is written or removed.  A
     partial build prunes only its own *scopes*."""
+    # A generated prebuild seed may have the same output path as a preserved,
+    # hand-owned C/S review source.  Keep the seed in the logical file set
+    # through sharing, then avoid replacing that hand-owned file on disk.
+    files = {rel: text for rel, text in files.items()
+             if not (rel.endswith(('.c', '.s'))
+                     and hand_owned(os.path.join(out_dir, rel)))}
     written, unchanged, removed = sync(out_dir, files, scopes,
                                        skip=('build_out',))
     report(f'  {os.path.basename(out_dir)}: {written} written, '
@@ -492,6 +498,8 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
         if failed:
             report(f'{project}: asm generation failed: '
                    f'{", ".join(sorted(set(failed)))}')
+            report(f'{project}: skipping source sync and assembly because '
+                   'ASM generation failed')
             return failed
 
         stagelog.step('project.consumers', 0, metrics={'consumers': len(targets)})
@@ -518,6 +526,13 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
                         {bins[only][0]})
             progress.log(f'{project} | assembling {only}')
             return _batch(nasm_batch, [(only, bins[only][0])])
+
+        # A batch may finish every independent worker to collect diagnostics,
+        # but a failed generation must never replace the last usable source tree.
+        if failed:
+            report(f'{project}: skipping source sync and assembly because '
+                   'ASM generation failed')
+            return failed
 
         # 4. the host declares the union of the DS offsets its consumers reference
         progress.log(f'{project} | aggregating host data from {len(targets)} consumer(s)')

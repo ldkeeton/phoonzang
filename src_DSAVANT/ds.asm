@@ -66,6 +66,12 @@ dseg_03dc equ __zdseg_03dc - __zdseg_start
 cell_overlay_code equ __zcell_overlay_code - __zdseg_start
 spell_table equ __zspell_table - __zdseg_start
 str_insert_savegame_disk equ __zstr_insert_savegame_disk - __zdseg_start
+str_insert_disk_n equ __zstr_insert_disk_n - __zdseg_start
+str_into_drive equ __zstr_into_drive - __zdseg_start
+str_continue equ __zstr_continue - __zdseg_start
+str_disk_hdr equ __zstr_disk_hdr - __zdseg_start
+str_msg_dbs equ __zstr_msg_dbs - __zdseg_start
+str_scenario_dbs equ __zstr_scenario_dbs - __zdseg_start
 monster_pic_name equ __zmonster_pic_name - __zdseg_start
 dseg_0bd7 equ __zdseg_0bd7 - __zdseg_start
 maze_blocks equ __zstr_0bd7 - __zdseg_start + 0x0003
@@ -74,6 +80,18 @@ score_ext_csf equ __zscore_ext_csf - __zdseg_start
 score_ext_pbl equ __zscore_ext_pbl - __zdseg_start
 score_ext_pba equ __zscore_ext_pba - __zdseg_start
 dseg_0bfa equ __zdseg_0bfa - __zdseg_start
+dseg_0c00 equ __zdseg_0c00 - __zdseg_start
+dseg_0c06 equ __zdseg_0c06 - __zdseg_start
+dseg_0c0c equ __zdseg_0c0c - __zdseg_start
+dseg_0c12 equ __zdseg_0c12 - __zdseg_start
+dseg_0c18 equ __zdseg_0c18 - __zdseg_start
+dseg_0c1e equ __zdseg_0c1e - __zdseg_start
+dseg_0c24 equ __zdseg_0c24 - __zdseg_start
+dseg_0c2a equ __zdseg_0c2a - __zdseg_start
+dseg_0c30 equ __zdseg_0c30 - __zdseg_start
+dseg_0c36 equ __zdseg_0c36 - __zdseg_start
+dseg_0c3c equ __zdseg_0c3c - __zdseg_start
+dseg_0c42 equ __zdseg_0c42 - __zdseg_start
 dseg_0c48 equ __zdseg_0c48 - __zdseg_start
 dseg_0c4d equ __zdseg_0c4d - __zdseg_start
 endmarker equ __zendmarker - __zdseg_start
@@ -268,6 +286,7 @@ bss_8464 equ __zbss_8464 - __zdseg_start
 party_member_count equ __zbss_8466 - __zdseg_start
 overlay_list equ __zbss_8468 - __zdseg_start
 party_char equ __zbss_8482 - __zdseg_start
+party_char_hi equ __zbss_8484 - __zdseg_start
 bss_848e equ __zbss_848e - __zdseg_start
 party_char_ext equ __zbss_8490 - __zdseg_start
 party_member_ext_1 equ __zbss_8492 - __zdseg_start
@@ -326,7 +345,7 @@ bss_8f16 equ __zbss_8f16 - __zdseg_start
 bss_8f18 equ __zbss_8f18 - __zdseg_start
 bss_8f1a equ __zbss_8f1a - __zdseg_start
 game_time equ __zbss_8f1c - __zdseg_start
-bss_8f1e equ __zbss_8f1e - __zdseg_start
+game_time_hi equ __zbss_8f1e - __zdseg_start
 marker_mode equ __zbss_8f20 - __zdseg_start
 bss_8f22 equ __zbss_8f22 - __zdseg_start
 found_object_owner equ __zbss_8f24 - __zdseg_start
@@ -621,9 +640,19 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/detect_video_adapter.asm" ; 0x30f7
 
+%include "ds/data/vga_palette.asm"         ; 0x313e
+
 %include "ds/library/select_vga_driver.asm" ; 0x343e
 
 %include "ds/library/select_ega_driver.asm" ; 0x3490
+
+%include "ds/data/ega_palette.asm"         ; 0x34f6
+
+%include "ds/data/vga_drv_name.asm"        ; 0x3507
+
+%include "ds/data/ega_drv_name.asm"        ; 0x350f
+
+%include "ds/data/drv_file_handle.asm"     ; 0x3532
 
 %include "ds/library/load_video_driver.asm" ; 0x3534
 
@@ -920,6 +949,18 @@ __zdseg_start:
 %include "ds/data/spell_table.asm"         ; 0x10780
 
 %include "ds/data/str_insert_savegame_disk.asm" ; 0x10cd4
+
+%include "ds/data/str_insert_disk_n.asm"   ; 0x10ce9
+
+%include "ds/data/str_into_drive.asm"      ; 0x10cf9
+
+%include "ds/data/str_continue.asm"        ; 0x10d06
+
+%include "ds/data/str_disk_hdr.asm"        ; 0x10d0f
+
+%include "ds/data/str_msg_dbs.asm"         ; 0x10d18
+
+%include "ds/data/str_scenario_dbs.asm"    ; 0x10d20
 
 %include "ds/data/monster_pic_name.asm"    ; 0x10d2d
 
@@ -1313,7 +1354,9 @@ __zbss_8466:
 __zbss_8468:
     resb 0x001a
 __zbss_8482:
-    resb 0x000c
+    resb 0x0002
+__zbss_8484:
+    resb 0x000a
 __zbss_848e:
     resb 0x0002
 __zbss_8490:

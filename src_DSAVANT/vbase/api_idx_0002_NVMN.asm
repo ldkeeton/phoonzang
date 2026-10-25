@@ -95,7 +95,7 @@ jumptable_7185_case_1:
     push ax                          ; 0x713c
     call loc_LIQV                    ; 0x713d
     add sp, byte 4                   ; 0x7140
-    jmp short @..api_idx_0002_NVMN.l6 ; 0x7143
+    jmp short jumptable_7185_case_0  ; 0x7143
 jumptable_7185_case_2:
     mov ax, 1                        ; 0x7145
     push ax                          ; 0x7148
@@ -103,7 +103,7 @@ jumptable_7185_case_2:
     push ax                          ; 0x714c
     call loc_LIQV                    ; 0x714d
     add sp, byte 4                   ; 0x7150
-    jmp short @..api_idx_0002_NVMN.l6 ; 0x7153
+    jmp short jumptable_7185_case_0  ; 0x7153
 jumptable_7185_case_3:
     mov ax, 1                        ; 0x7155
     push ax                          ; 0x7158
@@ -111,7 +111,7 @@ jumptable_7185_case_3:
     push ax                          ; 0x715c
     call loc_LIQV                    ; 0x715d
     add sp, byte 4                   ; 0x7160
-    jmp short @..api_idx_0002_NVMN.l6 ; 0x7163
+    jmp short jumptable_7185_case_0  ; 0x7163
 jumptable_7185_case_4:
     mov ax, 1                        ; 0x7165
     push ax                          ; 0x7168
@@ -119,7 +119,7 @@ jumptable_7185_case_4:
     push ax                          ; 0x716c
     call loc_LIQV                    ; 0x716d
     add sp, byte 4                   ; 0x7170
-    jmp short @..api_idx_0002_NVMN.l6 ; 0x7173
+    jmp short jumptable_7185_case_0  ; 0x7173
 jumptable_7185_case_5:
     mov ax, 1                        ; 0x7175
     push ax                          ; 0x7178
@@ -127,7 +127,7 @@ jumptable_7185_case_5:
     push ax                          ; 0x717c
     call loc_LIQV                    ; 0x717d
     add sp, byte 4                   ; 0x7180
-    jmp short @..api_idx_0002_NVMN.l6 ; 0x7183
+    jmp short jumptable_7185_case_0  ; 0x7183
 jumptable_7185:
     dw jumptable_7185_case_0 - IMAGE_BASE + __zres_end ; 0x7185
     dw jumptable_7185_case_1 - IMAGE_BASE + __zres_end ; 0x7187
@@ -137,12 +137,11 @@ jumptable_7185:
     dw jumptable_7185_case_5 - IMAGE_BASE + __zres_end ; 0x718f
 @..api_idx_0002_NVMN.l5:
     cmp ax, strict word 6            ; 0x7191
-    jae short @..api_idx_0002_NVMN.l6 ; 0x7194
+    jae short jumptable_7185_case_0  ; 0x7194
     xchg bx, ax                      ; 0x7196
     shl bx, 1                        ; 0x7197
     jmp [cs:bx + jumptable_7185 - IMAGE_BASE + __zres_end] ; 0x7199
 jumptable_7185_case_0:
-@..api_idx_0002_NVMN.l6:
     mov ax, 0                        ; 0x719e
     push ax                          ; 0x71a1
     push ax                          ; 0x71a2

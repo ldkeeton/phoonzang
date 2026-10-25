@@ -5,7 +5,7 @@ draw_title_banner:
     mov ax, 0
     push ax
     push ax
-    push word [saved_screen + 0x2]
+    push word [draw_title_banner.bss1]
     push word [saved_screen]
     call gfx_restore_screen
     add sp, byte 8

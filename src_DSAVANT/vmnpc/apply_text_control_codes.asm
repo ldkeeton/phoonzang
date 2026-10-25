@@ -37,7 +37,7 @@ apply_text_control_codes:
     call step_party_animation        ; 0x9437
     jmp short @..apply_text_control_codes.l4 ; 0x943a
 @..apply_text_control_codes.l5:
-    push word [mouse_pointer_shape + 0x2] ; 0x943c
+    push word [mouse_pointer_shape_seg] ; 0x943c
     push word [mouse_pointer_shape]  ; 0x9440
     call set_mouse_pointer_shape     ; 0x9444
     add sp, byte 4                   ; 0x9447
@@ -77,7 +77,7 @@ apply_text_control_codes:
     mov ax, word [text_line_index]   ; 0x949a
     mov cx, 7                        ; 0x949d
     shl ax, cl                       ; 0x94a0
-    add ax, strict word text_line_buffer ; 0x94a2
+    add ax, text_line_buffer         ; 0x94a2
     push ax                          ; 0x94a5
     call aztec_strcpy                ; 0x94a6
     add sp, byte 4                   ; 0x94a9

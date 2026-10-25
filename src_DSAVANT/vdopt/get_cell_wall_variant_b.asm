@@ -1,5 +1,5 @@
 ; auto-generated
-loc_KHGO:
+get_cell_wall_variant_b:
     mov ax, 0                        ; 0x0849
     call aztec_csav                  ; 0x084c
     push word [bp + 0x6]             ; 0x084f
@@ -15,25 +15,25 @@ loc_KHGO:
     call find_map_piece              ; 0x0863
     add sp, byte 0x0a                ; 0x0866
     test ax, ax                      ; 0x0869
-    je short @..loc_KHGO.l3          ; 0x086b
+    je short @..get_cell_wall_variant_b.l3 ; 0x086b
     mov ax, word [maze_variant]      ; 0x086d
     mov cx, 2                        ; 0x0870
     cwd                              ; 0x0873
     idiv cx                          ; 0x0874
     mov ax, dx                       ; 0x0876
     test ax, ax                      ; 0x0878
-    je short @..loc_KHGO.l1          ; 0x087a
+    je short @..get_cell_wall_variant_b.l1 ; 0x087a
     mov ax, cx                       ; 0x087c
-    jmp short @..loc_KHGO.l2         ; 0x087e
-@..loc_KHGO.l1:
+    jmp short @..get_cell_wall_variant_b.l2 ; 0x087e
+@..get_cell_wall_variant_b.l1:
     mov ax, 4                        ; 0x0880
     mov cx, word [maze_variant]      ; 0x0883
     cmp cx, byte 6                   ; 0x0887
-    jne short @..loc_KHGO.l2         ; 0x088a
+    jne short @..get_cell_wall_variant_b.l2 ; 0x088a
     mov ax, 0                        ; 0x088c
-@..loc_KHGO.l2:
+@..get_cell_wall_variant_b.l2:
     ret                              ; 0x088f
-@..loc_KHGO.l3:
+@..get_cell_wall_variant_b.l3:
     mov ax, 4                        ; 0x0890
     push ax                          ; 0x0893
     mov ax, word [bp + 0xc]          ; 0x0894

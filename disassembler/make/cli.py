@@ -8,6 +8,7 @@ from lib import buildlock, childproc
 from .build import _build_projects, cmd_build_binary, cmd_rebuild
 from .charts import cmd_charts, cmd_set_baseline
 from .clean import cmd_clean
+from .purge import cmd_purge
 from .common import _apps, _asm_one
 from .elf import cmd_elf_rebuild
 from .init import cmd_init
@@ -38,6 +39,10 @@ Commands (space-separated):
   make verify [PROJECT...]  verify one or all projects
   make clean [PROJECT...]   clean one or all projects (no args: delete .cache,
                             except the build lock and pinned baselines)
+  make purge [PROJECT...]   delete hand-owned .c/.s/.asm sources and build_out
+  make purge revert [PROJECT...]
+                            restore missing/generated hand sources from Git HEAD;
+                            untracked sources cannot be recovered
   make name PROJECT BIN SYMBOL=NAME[:NOTE] ...
                             name routines/globals as the build spells them (cseg_0d3a,
                             bss_1234, io_loc_KRUO, a routines tag, or a current name):
@@ -151,6 +156,10 @@ def main():
 
     if '--verify' in flags:
         cmd_verify(args)
+        return
+
+    if '--purge' in flags:
+        cmd_purge(args, all_projects)
         return
 
     if '--clean' in flags:

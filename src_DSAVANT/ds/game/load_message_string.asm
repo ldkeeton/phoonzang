@@ -55,7 +55,7 @@ load_message_string: ; Aztec csav frame=0x010a
     push ax                          ; 0x0803
     push word [bp - 0x000a]          ; 0x0804
     mov ax, word [bp - 0x0002]       ; 0x0807
-    add ax, strict word message_block_buffer ; 0x080a
+    add ax, message_block_buffer     ; 0x080a
     push ax                          ; 0x080d
     call aztec_movmem                ; 0x080e
     add sp, byte 6                   ; 0x0811
@@ -73,7 +73,7 @@ load_message_string: ; Aztec csav frame=0x010a
     push word [bp - 0x0004]          ; 0x082e
     push word [bp - 0x000a]          ; 0x0831
     mov ax, word [bp - 0x0002]       ; 0x0834
-    add ax, strict word message_block_buffer ; 0x0837
+    add ax, message_block_buffer     ; 0x0837
     push ax                          ; 0x083a
     call aztec_movmem                ; 0x083b
     add sp, byte 6                   ; 0x083e

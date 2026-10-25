@@ -8,7 +8,7 @@ extern struct spell_info spell_table[];
 extern char known_spell_names[][20];
 extern int known_spell_ids[];
 
-collect_known_realm_spells(pc, realm)
+collect_known_spells(pc, realm)
 int pc, realm;
 {
 	int spell, n;

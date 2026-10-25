@@ -4,13 +4,13 @@ redraw_treasure_caption:
     call aztec_csav                  ; 0x0957
     mov ax, 0                        ; 0x095a
     push ax                          ; 0x095d
-    push word [saved_area_a + 0x2]   ; 0x095e
+    push word [saved_area_a_hi]      ; 0x095e
     push word [saved_area_a]         ; 0x0962
     call gfx_restore_area            ; 0x0966
     add sp, byte 6                   ; 0x0969
     mov ax, 0                        ; 0x096c
     push ax                          ; 0x096f
-    push word [saved_area_b + 0x2]   ; 0x0970
+    push word [saved_area_b_hi]      ; 0x0970
     push word [saved_area_b]         ; 0x0974
     call gfx_restore_area            ; 0x0978
     add sp, byte 6                   ; 0x097b

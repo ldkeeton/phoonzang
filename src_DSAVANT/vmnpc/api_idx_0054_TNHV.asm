@@ -17,7 +17,7 @@ jumptable_8b35_case_1:
     push ax                          ; 0x8aa6
     call aztec_strcpy                ; 0x8aa7
     add sp, byte 4                   ; 0x8aaa
-    jmp near @..api_idx_0054_TNHV.l3 ; 0x8aad
+    jmp near jumptable_8b35_case_0   ; 0x8aad
 jumptable_8b35_case_2:
     mov ax, 0xa                      ; 0x8ab0
     imul word [bp - 0x0002]          ; 0x8ab3
@@ -27,7 +27,7 @@ jumptable_8b35_case_2:
     push ax                          ; 0x8abd
     call aztec_strcpy                ; 0x8abe
     add sp, byte 4                   ; 0x8ac1
-    jmp near @..api_idx_0054_TNHV.l3 ; 0x8ac4
+    jmp near jumptable_8b35_case_0   ; 0x8ac4
 jumptable_8b35_case_3:
     mov ax, 0xa                      ; 0x8ac7
     imul word [bp - 0x0002]          ; 0x8aca
@@ -37,7 +37,7 @@ jumptable_8b35_case_3:
     push ax                          ; 0x8ad4
     call aztec_strcpy                ; 0x8ad5
     add sp, byte 4                   ; 0x8ad8
-    jmp short @..api_idx_0054_TNHV.l3 ; 0x8adb
+    jmp short jumptable_8b35_case_0  ; 0x8adb
 jumptable_8b35_case_4:
     mov ax, 0xa                      ; 0x8add
     imul word [bp - 0x0002]          ; 0x8ae0
@@ -47,7 +47,7 @@ jumptable_8b35_case_4:
     push ax                          ; 0x8aea
     call aztec_strcpy                ; 0x8aeb
     add sp, byte 4                   ; 0x8aee
-    jmp short @..api_idx_0054_TNHV.l3 ; 0x8af1
+    jmp short jumptable_8b35_case_0  ; 0x8af1
 jumptable_8b35_case_7:
     mov ax, 0x14                     ; 0x8af3
     imul word [bp - 0x0002]          ; 0x8af6
@@ -57,7 +57,7 @@ jumptable_8b35_case_7:
     push ax                          ; 0x8b00
     call aztec_strcpy                ; 0x8b01
     add sp, byte 4                   ; 0x8b04
-    jmp short @..api_idx_0054_TNHV.l3 ; 0x8b07
+    jmp short jumptable_8b35_case_0  ; 0x8b07
 jumptable_8b35_case_8:
     mov ax, 0xa                      ; 0x8b09
     imul word [bp - 0x0002]          ; 0x8b0c
@@ -67,7 +67,7 @@ jumptable_8b35_case_8:
     push ax                          ; 0x8b16
     call aztec_strcpy                ; 0x8b17
     add sp, byte 4                   ; 0x8b1a
-    jmp short @..api_idx_0054_TNHV.l3 ; 0x8b1d
+    jmp short jumptable_8b35_case_0  ; 0x8b1d
 jumptable_8b35_case_9:
     mov ax, 0xa                      ; 0x8b1f
     imul word [bp - 0x0002]          ; 0x8b22
@@ -77,7 +77,7 @@ jumptable_8b35_case_9:
     push ax                          ; 0x8b2c
     call aztec_strcpy                ; 0x8b2d
     add sp, byte 4                   ; 0x8b30
-    jmp short @..api_idx_0054_TNHV.l3 ; 0x8b33
+    jmp short jumptable_8b35_case_0  ; 0x8b33
 jumptable_8b35:
     dw jumptable_8b35_case_0 - IMAGE_BASE + __zres_end ; 0x8b35
     dw jumptable_8b35_case_1 - IMAGE_BASE + __zres_end ; 0x8b37
@@ -91,12 +91,11 @@ jumptable_8b35:
     dw jumptable_8b35_case_9 - IMAGE_BASE + __zres_end ; 0x8b47
 @..api_idx_0054_TNHV.l2:
     cmp ax, strict word 0xa          ; 0x8b49
-    jae short @..api_idx_0054_TNHV.l3 ; 0x8b4c
+    jae short jumptable_8b35_case_0  ; 0x8b4c
     xchg bx, ax                      ; 0x8b4e
     shl bx, 1                        ; 0x8b4f
     jmp [cs:bx + jumptable_8b35 - IMAGE_BASE + __zres_end] ; 0x8b51
 jumptable_8b35_case_0:
-@..api_idx_0054_TNHV.l3:
     lea ax, word [bp - 0x0052]       ; 0x8b56
     push ax                          ; 0x8b59
     call aztec_strlen                ; 0x8b5a

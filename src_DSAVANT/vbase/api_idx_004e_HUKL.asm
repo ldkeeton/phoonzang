@@ -558,7 +558,7 @@ api_idx_004e_HUKL:
     cmp ax, strict word 6            ; 0x3daa
     jl short @..api_idx_004e_HUKL.l31 ; 0x3dad
     mov ax, word [game_time]         ; 0x3daf
-    mov dx, word [bss_8f1e]          ; 0x3db2
+    mov dx, word [game_time_hi]      ; 0x3db2
     mov word [bss_9a28], dx          ; 0x3db6
     mov word [bss_9a26], ax          ; 0x3dba
     mov ax, word [bss_8f18]          ; 0x3dbd

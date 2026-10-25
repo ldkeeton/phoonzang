@@ -136,6 +136,16 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         self.assertTrue(all(value == IS_DATA
                             for value in self.bitmap[0x2f35:0x3067]))
 
+        output = pathlib.Path(self._output.name)
+        main = (output / 'ds/game/main.asm').read_text()
+        self.assertRegex(main.rstrip(), r'ret\s*; 0x2f34$')
+        master = (output / 'ds.asm').read_text()
+        gap = re.search(
+            r'%include "ds/game/main.asm"[^\n]*\n\s*'
+            r'%include "(ds/data/[^"\n]+)"\s*; 0x2f35\b', master)
+        self.assertIsNotNone(gap)
+        self.assertIn('db 0x00', (output / gap.group(1)).read_text())
+
         # The master and its data fragments, where the bytes now are; an
         # ``%include`` line's offset is where its file starts, not code.
         output = pathlib.Path(self._output.name)

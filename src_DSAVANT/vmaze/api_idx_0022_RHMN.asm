@@ -93,7 +93,7 @@ api_idx_0022_RHMN:
     add sp, byte 8                   ; 0x2323
 @..api_idx_0022_RHMN.l8:
     add word [game_time], byte 1     ; 0x2326
-    adc word [bss_8f1e], byte 0      ; 0x232b
+    adc word [game_time_hi], byte 0  ; 0x232b
     call api_idx_0002_ITLQ           ; 0x2330
     mov ax, word [bss_9198]          ; 0x2333
     jmp short @..api_idx_0022_RHMN.l12 ; 0x2336
@@ -153,7 +153,7 @@ api_idx_0022_RHMN:
     je short @..api_idx_0022_RHMN.l11 ; 0x23a2
 @..api_idx_0022_RHMN.l13:
     mov ax, word [game_time]         ; 0x23a4
-    mov dx, word [bss_8f1e]          ; 0x23a7
+    mov dx, word [game_time_hi]      ; 0x23a7
     mov cx, 0x3c                     ; 0x23ab
     mov bx, 0                        ; 0x23ae
     call aztec_lrm                   ; 0x23b1
@@ -162,7 +162,7 @@ api_idx_0022_RHMN:
     call api_idx_0032_TNQM           ; 0x23b8
 @..api_idx_0022_RHMN.l14:
     mov ax, word [game_time]         ; 0x23bb
-    mov dx, word [bss_8f1e]          ; 0x23be
+    mov dx, word [game_time_hi]      ; 0x23be
     mov cx, 0xf0                     ; 0x23c2
     mov bx, 0                        ; 0x23c5
     call aztec_lrm                   ; 0x23c8
@@ -181,7 +181,7 @@ api_idx_0022_RHMN:
     mov byte [bx + code_characters], al ; 0x23e5
 @..api_idx_0022_RHMN.l15:
     mov ax, word [game_time]         ; 0x23e9
-    mov dx, word [bss_8f1e]          ; 0x23ec
+    mov dx, word [game_time_hi]      ; 0x23ec
     mov cx, 0xa                      ; 0x23f0
     mov bx, 0                        ; 0x23f3
     call aztec_lrm                   ; 0x23f6
@@ -203,7 +203,7 @@ api_idx_0022_RHMN:
     jmp near @..api_idx_0022_RHMN.l24 ; 0x241d
 @..api_idx_0022_RHMN.l19:
     mov ax, word [game_time]         ; 0x2420
-    mov dx, word [bss_8f1e]          ; 0x2423
+    mov dx, word [game_time_hi]      ; 0x2423
     mov cx, 0x3c                     ; 0x2427
     mov bx, 0                        ; 0x242a
     call aztec_lrm                   ; 0x242d
@@ -365,7 +365,7 @@ api_idx_0022_RHMN:
     ret                              ; 0x259f
 @..api_idx_0022_RHMN.l35:
     mov ax, word [game_time]         ; 0x25a0
-    mov dx, word [bss_8f1e]          ; 0x25a3
+    mov dx, word [game_time_hi]      ; 0x25a3
     mov cx, 0x1e                     ; 0x25a7
     mov bx, 0                        ; 0x25aa
     call aztec_lrm                   ; 0x25ad
@@ -722,7 +722,7 @@ api_idx_0022_RHMN:
     add sp, byte 6                   ; 0x28e2
     cmp word [bp - 0x001e], byte 0   ; 0x28e5
     jg short @..api_idx_0022_RHMN.l47 ; 0x28e9
-    jmp near @..api_idx_0022_RHMN.l57 ; 0x28eb
+    jmp near jumptable_2a3c_case_3   ; 0x28eb
 @..api_idx_0022_RHMN.l47:
     cmp word [bp - 0x001e], byte 0x0e ; 0x28ee
     jne short @..api_idx_0022_RHMN.l48 ; 0x28f2
@@ -743,7 +743,7 @@ api_idx_0022_RHMN:
     call set_hotspot                 ; 0x2910
     add sp, byte 0x0e                ; 0x2913
     mov word [bp - 0x001c], 3        ; 0x2916
-    jmp near @..api_idx_0022_RHMN.l57 ; 0x291b
+    jmp near jumptable_2a3c_case_3   ; 0x291b
 @..api_idx_0022_RHMN.l48:
     cmp word [bp - 0x001e], byte 8   ; 0x291e
     je short @..api_idx_0022_RHMN.l49 ; 0x2922
@@ -802,12 +802,12 @@ api_idx_0022_RHMN:
     add sp, byte 0x0e                ; 0x2991
     mov word [bp - 0x001c], 2        ; 0x2994
 @..api_idx_0022_RHMN.l51:
-    jmp near @..api_idx_0022_RHMN.l57 ; 0x2999
+    jmp near jumptable_2a3c_case_3   ; 0x2999
 @..api_idx_0022_RHMN.l52:
     mov ax, word [party_tag]         ; 0x299c
     cmp ax, word [bp - 0x0020]       ; 0x299f
     je short @..api_idx_0022_RHMN.l53 ; 0x29a2
-    jmp near @..api_idx_0022_RHMN.l57 ; 0x29a4
+    jmp near jumptable_2a3c_case_3   ; 0x29a4
 @..api_idx_0022_RHMN.l53:
     mov ax, word [bp - 0x001e]       ; 0x29a7
     jmp near @..api_idx_0022_RHMN.l56 ; 0x29aa
@@ -828,7 +828,7 @@ jumptable_2a3c_case_0:
     push ax                          ; 0x29c8
     call set_hotspot                 ; 0x29c9
     add sp, byte 0x0e                ; 0x29cc
-    jmp near @..api_idx_0022_RHMN.l57 ; 0x29cf
+    jmp near jumptable_2a3c_case_3   ; 0x29cf
 jumptable_2a3c_case_1:
     cmp word [maze_variant], byte 1  ; 0x29d2
     jne short @..api_idx_0022_RHMN.l54 ; 0x29d7
@@ -865,7 +865,7 @@ jumptable_2a3c_case_1:
     call set_hotspot                 ; 0x2a13
     add sp, byte 0x0e                ; 0x2a16
 @..api_idx_0022_RHMN.l55:
-    jmp short @..api_idx_0022_RHMN.l57 ; 0x2a19
+    jmp short jumptable_2a3c_case_3  ; 0x2a19
 jumptable_2a3c_case_6:
     mov ax, 0                        ; 0x2a1b
     push ax                          ; 0x2a1e
@@ -882,7 +882,7 @@ jumptable_2a3c_case_6:
     push ax                          ; 0x2a33
     call set_hotspot                 ; 0x2a34
     add sp, byte 0x0e                ; 0x2a37
-    jmp short @..api_idx_0022_RHMN.l57 ; 0x2a3a
+    jmp short jumptable_2a3c_case_3  ; 0x2a3a
 jumptable_2a3c:
     dw jumptable_2a3c_case_0 - IMAGE_BASE + __zres_end ; 0x2a3c
     dw jumptable_2a3c_case_1 - IMAGE_BASE + __zres_end ; 0x2a3e
@@ -895,12 +895,11 @@ jumptable_2a3c:
 @..api_idx_0022_RHMN.l56:
     sub ax, strict word 4            ; 0x2a4c
     cmp ax, strict word 8            ; 0x2a4f
-    jae short @..api_idx_0022_RHMN.l57 ; 0x2a52
+    jae short jumptable_2a3c_case_3  ; 0x2a52
     xchg bx, ax                      ; 0x2a54
     shl bx, 1                        ; 0x2a55
     jmp [cs:bx + jumptable_2a3c - IMAGE_BASE + __zres_end] ; 0x2a57
 jumptable_2a3c_case_3:
-@..api_idx_0022_RHMN.l57:
     mov ax, 0                        ; 0x2a5c
     push ax                          ; 0x2a5f
     push ax                          ; 0x2a60
@@ -1021,7 +1020,7 @@ jumptable_2d1b_case_0:
     call api_idx_0002_IPQN           ; 0x2b79
     pop cx                           ; 0x2b7c
     mov word [bss_91b0], 0           ; 0x2b7d
-    jmp near @..api_idx_0022_RHMN.l82 ; 0x2b83
+    jmp near jumptable_2d1b_case_12  ; 0x2b83
 jumptable_2d1b_case_1:
     call api_idx_0002_LMTG           ; 0x2b86
     mov ax, 1                        ; 0x2b89
@@ -1048,7 +1047,7 @@ jumptable_2d1b_case_1:
     push ax                          ; 0x2bc9
     call api_idx_0002_IPQN           ; 0x2bca
     pop cx                           ; 0x2bcd
-    jmp near @..api_idx_0022_RHMN.l82 ; 0x2bce
+    jmp near jumptable_2d1b_case_12  ; 0x2bce
 jumptable_2d1b_case_3:
     mov ax, 3                        ; 0x2bd1
     mov cx, word [bp - 0x0002]       ; 0x2bd4
@@ -1066,7 +1065,7 @@ jumptable_2d1b_case_3:
     push ax                          ; 0x2bef
     call api_idx_0002_IPQN           ; 0x2bf0
     pop cx                           ; 0x2bf3
-    jmp near @..api_idx_0022_RHMN.l82 ; 0x2bf4
+    jmp near jumptable_2d1b_case_12  ; 0x2bf4
 
     db 0xb8, 0x00, 0x00, 0x50, 0xe8, 0xe2, 0x8b, 0x59, 0xb8, 0x02, 0x00, 0x50, 0xe8, 0x2c, 0xbf, 0x59
     db 0x2a, 0xe4, 0x05, 0xd0, 0xff, 0x89, 0x46, 0xfc, 0xb8, 0x02, 0x00, 0x50, 0xe8, 0x1c, 0xbf, 0x59
@@ -1093,7 +1092,7 @@ jumptable_2d1b_case_25:
     call check_cell_objects          ; 0x2c61
     pop cx                           ; 0x2c64
 @..api_idx_0022_RHMN.l74:
-    jmp near @..api_idx_0022_RHMN.l82 ; 0x2c65
+    jmp near jumptable_2d1b_case_12  ; 0x2c65
 jumptable_2d1b_case_7:
     mov ax, 1                        ; 0x2c68
     push ax                          ; 0x2c6b
@@ -1103,7 +1102,7 @@ jumptable_2d1b_case_7:
     push ax                          ; 0x2c73
     call api_idx_0002_IPQN           ; 0x2c74
     pop cx                           ; 0x2c77
-    jmp near @..api_idx_0022_RHMN.l82 ; 0x2c78
+    jmp near jumptable_2d1b_case_12  ; 0x2c78
 jumptable_2d1b_case_8:
     call pick_party_member           ; 0x2c7b
     mov word [member_roster_index], ax ; 0x2c7e
@@ -1126,10 +1125,10 @@ jumptable_2d1b_case_8:
     mov word [game_state], ax        ; 0x2ca3
     mov word [party_return_state], 5 ; 0x2ca6
 @..api_idx_0022_RHMN.l76:
-    jmp near @..api_idx_0022_RHMN.l82 ; 0x2cac
+    jmp near jumptable_2d1b_case_12  ; 0x2cac
 jumptable_2d1b_case_10:
     call api_idx_0002_QLLK           ; 0x2caf
-    jmp near @..api_idx_0022_RHMN.l82 ; 0x2cb2
+    jmp near jumptable_2d1b_case_12  ; 0x2cb2
 jumptable_2d1b_case_6:
     cmp word [bp - 0x0022], byte 0   ; 0x2cb5
     jne short @..api_idx_0022_RHMN.l78 ; 0x2cb9
@@ -1159,10 +1158,10 @@ jumptable_2d1b_case_6:
     call play_sound_effect           ; 0x2ceb
     pop cx                           ; 0x2cee
 @..api_idx_0022_RHMN.l79:
-    jmp short @..api_idx_0022_RHMN.l82 ; 0x2cef
+    jmp short jumptable_2d1b_case_12 ; 0x2cef
 jumptable_2d1b_case_9:
     mov word [game_state], 0x18      ; 0x2cf1
-    jmp short @..api_idx_0022_RHMN.l82 ; 0x2cf7
+    jmp short jumptable_2d1b_case_12 ; 0x2cf7
 jumptable_2d1b_case_24:
     cmp word [bp - 0x001a], byte 0   ; 0x2cf9
     je short @..api_idx_0022_RHMN.l80 ; 0x2cfd
@@ -1177,7 +1176,7 @@ jumptable_2d1b_case_24:
     je short @..api_idx_0022_RHMN.l80 ; 0x2d11
     mov word [game_state], 0x1e      ; 0x2d13
 @..api_idx_0022_RHMN.l80:
-    jmp short @..api_idx_0022_RHMN.l82 ; 0x2d19
+    jmp short jumptable_2d1b_case_12 ; 0x2d19
 jumptable_2d1b:
     dw jumptable_2d1b_case_0 - IMAGE_BASE + __zres_end ; 0x2d1b
     dw jumptable_2d1b_case_1 - IMAGE_BASE + __zres_end ; 0x2d1d
@@ -1207,12 +1206,11 @@ jumptable_2d1b:
     dw jumptable_2d1b_case_25 - IMAGE_BASE + __zres_end ; 0x2d4d
 @..api_idx_0022_RHMN.l81:
     cmp ax, strict word 0x1a         ; 0x2d4f
-    jae short @..api_idx_0022_RHMN.l82 ; 0x2d52
+    jae short jumptable_2d1b_case_12 ; 0x2d52
     xchg bx, ax                      ; 0x2d54
     shl bx, 1                        ; 0x2d55
     jmp [cs:bx + jumptable_2d1b - IMAGE_BASE + __zres_end] ; 0x2d57
 jumptable_2d1b_case_12:
-@..api_idx_0022_RHMN.l82:
     cmp word [bp - 0x0002], byte 0   ; 0x2d5c
     jl short @..api_idx_0022_RHMN.l83 ; 0x2d60
     cmp word [bp - 0x0002], byte 5   ; 0x2d62

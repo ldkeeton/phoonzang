@@ -111,7 +111,7 @@ jumptable_9808_case_1:
     pop ax                           ; 0x92bb
     add ax, cx                       ; 0x92bc
     mov word [bp - 0x000e], ax       ; 0x92be
-    jmp near @..api_idx_000e_SOLJ.l12 ; 0x92c1
+    jmp near jumptable_9808_case_0   ; 0x92c1
 jumptable_9808_case_2:
     mov ax, 1                        ; 0x92c4
     push ax                          ; 0x92c7
@@ -168,7 +168,7 @@ jumptable_9808_case_2:
     pop ax                           ; 0x933b
     add ax, cx                       ; 0x933c
     mov word [bp - 0x000e], ax       ; 0x933e
-    jmp near @..api_idx_000e_SOLJ.l12 ; 0x9341
+    jmp near jumptable_9808_case_0   ; 0x9341
 jumptable_9808_case_3:
     mov ax, 1                        ; 0x9344
     push ax                          ; 0x9347
@@ -221,7 +221,7 @@ jumptable_9808_case_3:
     pop ax                           ; 0x93b0
     add ax, cx                       ; 0x93b1
     mov word [bp - 0x000e], ax       ; 0x93b3
-    jmp near @..api_idx_000e_SOLJ.l12 ; 0x93b6
+    jmp near jumptable_9808_case_0   ; 0x93b6
 jumptable_9808_case_8:
     mov ax, 1                        ; 0x93b9
     push ax                          ; 0x93bc
@@ -273,7 +273,7 @@ jumptable_9808_case_8:
     pop ax                           ; 0x9425
     add ax, cx                       ; 0x9426
     mov word [bp - 0x000e], ax       ; 0x9428
-    jmp near @..api_idx_000e_SOLJ.l12 ; 0x942b
+    jmp near jumptable_9808_case_0   ; 0x942b
 jumptable_9808_case_10:
     mov ax, 1                        ; 0x942e
     push ax                          ; 0x9431
@@ -350,9 +350,9 @@ jumptable_9808_case_10:
     pop ax                           ; 0x94ca
     add ax, cx                       ; 0x94cb
     mov word [bp - 0x000e], ax       ; 0x94cd
-    jmp near @..api_idx_000e_SOLJ.l12 ; 0x94d0
+    jmp near jumptable_9808_case_0   ; 0x94d0
 jumptable_9808_case_12:
-    jmp near @..api_idx_000e_SOLJ.l12 ; 0x94d3
+    jmp near jumptable_9808_case_0   ; 0x94d3
 jumptable_9808_case_4:
     mov ax, 1                        ; 0x94d6
     push ax                          ; 0x94d9
@@ -411,7 +411,7 @@ jumptable_9808_case_4:
     pop ax                           ; 0x9550
     add ax, cx                       ; 0x9551
     mov word [bp - 0x000e], ax       ; 0x9553
-    jmp near @..api_idx_000e_SOLJ.l12 ; 0x9556
+    jmp near jumptable_9808_case_0   ; 0x9556
 jumptable_9808_case_5:
     mov ax, 1                        ; 0x9559
     push ax                          ; 0x955c
@@ -475,7 +475,7 @@ jumptable_9808_case_5:
     pop ax                           ; 0x95de
     add ax, cx                       ; 0x95df
     mov word [bp - 0x000e], ax       ; 0x95e1
-    jmp near @..api_idx_000e_SOLJ.l12 ; 0x95e4
+    jmp near jumptable_9808_case_0   ; 0x95e4
 jumptable_9808_case_6:
     mov ax, 1                        ; 0x95e7
     push ax                          ; 0x95ea
@@ -538,7 +538,7 @@ jumptable_9808_case_6:
     pop ax                           ; 0x966a
     add ax, cx                       ; 0x966b
     mov word [bp - 0x000e], ax       ; 0x966d
-    jmp near @..api_idx_000e_SOLJ.l12 ; 0x9670
+    jmp near jumptable_9808_case_0   ; 0x9670
 jumptable_9808_case_7:
     mov ax, 1                        ; 0x9673
     push ax                          ; 0x9676
@@ -601,7 +601,7 @@ jumptable_9808_case_7:
     pop ax                           ; 0x96f4
     add ax, cx                       ; 0x96f5
     mov word [bp - 0x000e], ax       ; 0x96f7
-    jmp near @..api_idx_000e_SOLJ.l12 ; 0x96fa
+    jmp near jumptable_9808_case_0   ; 0x96fa
 jumptable_9808_case_9:
     mov ax, 0                        ; 0x96fd
     push ax                          ; 0x9700
@@ -660,7 +660,7 @@ jumptable_9808_case_9:
     pop ax                           ; 0x9774
     add ax, cx                       ; 0x9775
     mov word [bp - 0x000e], ax       ; 0x9777
-    jmp near @..api_idx_000e_SOLJ.l12 ; 0x977a
+    jmp near jumptable_9808_case_0   ; 0x977a
 jumptable_9808_case_11:
     mov ax, 1                        ; 0x977d
     push ax                          ; 0x9780
@@ -725,7 +725,7 @@ jumptable_9808_case_11:
     pop ax                           ; 0x9800
     add ax, cx                       ; 0x9801
     mov word [bp - 0x000e], ax       ; 0x9803
-    jmp short @..api_idx_000e_SOLJ.l12 ; 0x9806
+    jmp short jumptable_9808_case_0  ; 0x9806
 jumptable_9808:
     dw jumptable_9808_case_0 - IMAGE_BASE + __zres_end ; 0x9808
     dw jumptable_9808_case_1 - IMAGE_BASE + __zres_end ; 0x980a
@@ -742,12 +742,11 @@ jumptable_9808:
     dw jumptable_9808_case_12 - IMAGE_BASE + __zres_end ; 0x9820
 @..api_idx_000e_SOLJ.l11:
     cmp ax, strict word 0xd          ; 0x9822
-    jae short @..api_idx_000e_SOLJ.l12 ; 0x9825
+    jae short jumptable_9808_case_0  ; 0x9825
     xchg bx, ax                      ; 0x9827
     shl bx, 1                        ; 0x9828
     jmp [cs:bx + jumptable_9808 - IMAGE_BASE + __zres_end] ; 0x982a
 jumptable_9808_case_0:
-@..api_idx_000e_SOLJ.l12:
     cmp word [bss_90e4], byte 0      ; 0x982f
     jne short @..api_idx_000e_SOLJ.l13 ; 0x9834
     push word [bss_9058]             ; 0x9836

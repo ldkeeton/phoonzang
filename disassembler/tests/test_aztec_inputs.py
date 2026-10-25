@@ -1,9 +1,4 @@
-"""Which ``.c`` files on disk the build reads (:mod:`main.aztec`).
-
-The build leaves ``src_<project>/`` in place until it writes it, so a ``.c``
-an earlier build generated is still there: only a hand-owned one (marker
-removed) is input.
-"""
+"""Which hand-owned sources can override disassembly (:mod:`main.aztec`)."""
 
 import os
 import tempfile
@@ -32,17 +27,20 @@ class HandOwnedCTest(unittest.TestCase):
                 f.write('int mine;\n')
         return path
 
-    def test_a_generated_c_is_not_input(self):
+    def test_hand_owned_c_is_collected_for_checking(self):
         self._write(self.dest, 'aztec_chdir', generated=True)
-        self._write(self.dest, 'app_free', generated=False)
-        self.assertEqual(aztec._hand_c(self.dest), ['app_free'])
+        c_path = self._write(self.dest, 'app_free', generated=False)
+        with open(os.path.join(self.dest, 'hand_asm.s'), 'w') as f:
+            f.write('\tret\n')
+        self.assertEqual(aztec._hand_source_tree(self.dest, []), {
+            'app_free': c_path,
+            'hand_asm': os.path.join(self.dest, 'hand_asm.s')})
 
-    def test_a_generated_shared_copy_is_not_the_routines_c(self):
+    def test_hand_owned_shared_c_is_collected_for_checking(self):
         self._write(self.shared, 'aztec_io', generated=True)
-        self.assertEqual(aztec.c_path(self.dest, 'aztec_io'),
-                         os.path.join(self.dest, 'aztec_io.c'))
-        mine = self._write(self.shared, 'aztec_io', generated=False)
-        self.assertEqual(aztec.c_path(self.dest, 'aztec_io'), mine)
+        c_path = self._write(self.shared, 'app_free', generated=False)
+        self.assertEqual(aztec._hand_shared_source_tree(self.dest), {
+            'app_free': c_path})
 
     def test_a_generated_c_on_disk_is_reseeded(self):
         self._write(self.dest, 'aztec_mkdir', generated=True)
@@ -61,7 +59,7 @@ class HandOwnedCTest(unittest.TestCase):
         self._write(self.dest, 'aztec_mkdir', generated=False)
         self.assertEqual(
             aztec._seed_aztec_c(Cache, 'P', 'vinstall', 'aztec_mkdir', {},
-                                self.dest), ('int mine;\n', False))
+                                self.dest), ('seed', True))
 
 
 if __name__ == '__main__':

@@ -205,6 +205,7 @@ api_idx_0004_RMVO.bss2 equ bss_9402
 
 %include "shared/game/api_idx_0010_STNH.asm"     ; 0x0ea1
 
+draw_title_banner.bss1 equ bss_940c
 %include "shared/game/draw_title_banner.asm"     ; 0x0f9e
 
 api_idx_007c_OKMO          equ api_idx_007c_MOJH
@@ -232,8 +233,8 @@ loc_TRPK.dseg2 equ dseg_90a1
 
 %include "vpcvw/api_idx_0008_NOPG.asm"     ; 0x21fd
 
-api_idx_0004_NONK                      equ collect_known_spells
-collect_known_spells.known_spell_list1 equ bss_9512
+api_idx_0004_NONK                     equ collect_known_spells
+collect_known_spells.known_spell_ids1 equ bss_9512
 %include "shared/game/collect_known_spells.asm"     ; 0x297e
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x29ef

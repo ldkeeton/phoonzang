@@ -4,13 +4,13 @@ redraw_glyph_strip:
     call aztec_csav
     mov ax, 0
     push ax
-    push word [saved_area_a + 0x2]
+    push word [saved_area_a_hi]
     push word [saved_area_a]
     call gfx_restore_area
     add sp, byte 6
     mov ax, 0
     push ax
-    push word [saved_area_b + 0x2]
+    push word [saved_area_b_hi]
     push word [saved_area_b]
     call gfx_restore_area
     add sp, byte 6

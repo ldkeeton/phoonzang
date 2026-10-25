@@ -36,19 +36,3 @@ select_ega_driver:
     mov bx, ega_drv_name - IMAGE_BASE ; 0x34ef
     mov word [bp - 0x0004], bx       ; 0x34f2
     ret                              ; 0x34f5
-ega_palette:
-
-    db 0x00, 0x17, 0x11, 0x15, 0x14, 0x16, 0x12, 0x13, 0x10, 0x07, 0x01, 0x05, 0x04, 0x06, 0x02, 0x03
-    db 0x00
-
-vga_drv_name:
-    db 'vga.drv', 0
-ega_drv_name:
-
-    db 'ega.drv', 0
-    db 'cga.drv', 0
-    db 'herc.drv', 0
-    db 'tandy.drv', 0
-
-drv_file_handle:
-    db 0x00, 0x00

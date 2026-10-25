@@ -84,6 +84,7 @@ from lib.compare.splitting import (
     _select_split_ranges,
     _extend_split_ranges_with_local_tails,
     _split_off_foreign_objects,
+    _cap_split_ranges_to_bands,
 )
 from lib.compare.symbols import (
     _resolve_mem_symbols,
@@ -91,6 +92,7 @@ from lib.compare.symbols import (
     _resolve_index_offset_symbols,
     _resolve_declared_immediates,
     _resolve_imm_symbols,
+    _resolve_named_data_immediates,
     _build_address_records,
 )
 
@@ -316,7 +318,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            immediate_labels=None, split_functions=None, hard_data=None,
            declared_roots=None,
            function_roots=None, branch_targets=None, branch_edges=None,
-           extra_flow_edges=None, label_comments=None, c_overrides=None, asm_annotations=None,
+           extra_flow_edges=None, label_comments=None, c_overrides=None,
+           c_checks=None, asm_annotations=None,
            allow_diff=False,
            jump_tables=None, jump_table_overrides=None,
            segment_flow=None, segments=None, external_data=None,
@@ -601,6 +604,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         insns, immediate_pointers, segments, label_map, mem_equ,
         start_offset, owner=name)
     mem_symbols.update(declared)
+    mem_symbols.update(_resolve_named_data_immediates(
+        insns, segments, label_map, mem_symbols, mem_equ))
     if record_layouts:
         # A name inside a counted record array is one of its fields.
         from lib.compare.symbols import data_symbol
@@ -1193,6 +1198,20 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                          'label_map': label_map or {}},
                   metrics={'records': len(records)})
 
+    if c_checks:
+        records = _apply_c_overrides(
+            records, c_checks, binary_data, label_map, local_labels,
+            foreign_label_map, immediate_labels, exact_bytes=exact_bytes,
+            data_labels=data_labels,
+            mem_symbols=mem_symbols, mem_equ=mem_equ,
+            image_base=roundtrip_base, allow_diff=allow_diff,
+            geometry=image_geometry(
+                records, binary_data, start_offset,
+                getattr(segments, 'ds_size', None)),
+            segments=segments,
+            message_symbols=message_symbols, message_equ=message_equ,
+        )
+
     if asm_annotations:
         records = _apply_asm_annotations(
             records, asm_annotations, label_map)
@@ -1299,6 +1318,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                   track={'split_ranges': stagelog.ranges_by_start(split_ranges)})
     split_ranges = _split_off_foreign_objects(split_ranges, records, owners,
                                               fixed=c_override_lengths)
+    split_ranges = _cap_split_ranges_to_bands(split_ranges, bands)
     stagelog.step('verify.split_foreign', 2, 'repair', repairs='verify.split_select',
                   why='an unnamed tail (data blob, bare loc_ callee) is not its routine',
                   track={'split_ranges': stagelog.ranges_by_start(split_ranges)})

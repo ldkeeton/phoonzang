@@ -1,5 +1,5 @@
 ; auto-generated
-loc_UOPP:
+get_cell_wall_variant_a:
     mov ax, 0                        ; 0x07d9
     call aztec_csav                  ; 0x07dc
     mov ax, word [bp + 0x6]          ; 0x07df
@@ -15,25 +15,25 @@ loc_UOPP:
     call find_map_piece              ; 0x07f3
     add sp, byte 0x0a                ; 0x07f6
     test ax, ax                      ; 0x07f9
-    je short @..loc_UOPP.l3          ; 0x07fb
+    je short @..get_cell_wall_variant_a.l3 ; 0x07fb
     mov ax, word [maze_variant]      ; 0x07fd
     mov cx, 2                        ; 0x0800
     cwd                              ; 0x0803
     idiv cx                          ; 0x0804
     mov ax, dx                       ; 0x0806
     test ax, ax                      ; 0x0808
-    je short @..loc_UOPP.l1          ; 0x080a
+    je short @..get_cell_wall_variant_a.l1 ; 0x080a
     mov ax, cx                       ; 0x080c
-    jmp short @..loc_UOPP.l2         ; 0x080e
-@..loc_UOPP.l1:
+    jmp short @..get_cell_wall_variant_a.l2 ; 0x080e
+@..get_cell_wall_variant_a.l1:
     mov ax, 4                        ; 0x0810
     mov cx, word [maze_variant]      ; 0x0813
     cmp cx, byte 6                   ; 0x0817
-    jne short @..loc_UOPP.l2         ; 0x081a
+    jne short @..get_cell_wall_variant_a.l2 ; 0x081a
     mov ax, 0                        ; 0x081c
-@..loc_UOPP.l2:
+@..get_cell_wall_variant_a.l2:
     ret                              ; 0x081f
-@..loc_UOPP.l3:
+@..get_cell_wall_variant_a.l3:
     mov ax, 4                        ; 0x0820
     push ax                          ; 0x0823
     mov ax, word [bp + 0xc]          ; 0x0824

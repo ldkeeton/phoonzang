@@ -97,8 +97,8 @@ api_idx_0010_NIMV.jumptable_case1:
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
 @..api_idx_0010_NIMV.l13:
-    jmp near @..api_idx_0010_NIMV.l26
-api_idx_0010_NIMV.jumptable_case2:
+    jmp near api_idx_0010_NIMV.jumptable_case2
+api_idx_0010_NIMV.jumptable_case3:
     cmp word [bp - 0x0002], byte 0xff
     je short @..api_idx_0010_NIMV.l14
     mov ax, 0
@@ -124,8 +124,8 @@ api_idx_0010_NIMV.jumptable_case2:
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
 @..api_idx_0010_NIMV.l14:
-    jmp near @..api_idx_0010_NIMV.l26
-api_idx_0010_NIMV.jumptable_case3:
+    jmp near api_idx_0010_NIMV.jumptable_case2
+api_idx_0010_NIMV.jumptable_case4:
     cmp word [api_idx_0010_NIMV.location_changed1], byte 0
     jne short @..api_idx_0010_NIMV.l17
     cmp word [bp + 0x4], byte 3
@@ -253,8 +253,8 @@ api_idx_0010_NIMV.jumptable_case3:
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
 @..api_idx_0010_NIMV.l21:
-    jmp near @..api_idx_0010_NIMV.l26
-api_idx_0010_NIMV.jumptable_case4:
+    jmp near api_idx_0010_NIMV.jumptable_case2
+api_idx_0010_NIMV.jumptable_case5:
     mov ax, word [api_idx_0010_NIMV.location_changed1]
     mov cx, 2
     cwd
@@ -295,32 +295,31 @@ api_idx_0010_NIMV.jumptable_case4:
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
 @..api_idx_0010_NIMV.l24:
-    jmp short @..api_idx_0010_NIMV.l26
+    jmp short api_idx_0010_NIMV.jumptable_case2
 api_idx_0010_NIMV.jumptable1:
-    dw api_idx_0010_NIMV.jumptable_case5 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case4 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case2 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case1 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case4 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case1 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case5 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case5 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case3 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case1 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case1 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case2 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case2 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case4 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case4 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case4 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case4 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case4 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case4 - IMAGE_BASE + __zres_end
 @..api_idx_0010_NIMV.l25:
     cmp ax, strict word 0x10
-    jae short @..api_idx_0010_NIMV.l26
+    jae short api_idx_0010_NIMV.jumptable_case2
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + api_idx_0010_NIMV.jumptable1 - IMAGE_BASE + __zres_end]
-api_idx_0010_NIMV.jumptable_case5:
-@..api_idx_0010_NIMV.l26:
+api_idx_0010_NIMV.jumptable_case2:
     mov word [bp - 0x0002], 0xffff
     mov word [bp - 0x0004], 0xffff
     mov ax, word [bp + 0x4]
@@ -353,7 +352,7 @@ api_idx_0010_NIMV.jumptable_case6:
     mov word [bp - 0x0004], 0xffff
 api_idx_0010_NIMV.jumptable_case7:
     cmp word [bp + 0x6], byte 7
-    jne short @..api_idx_0010_NIMV.l30
+    jne short api_idx_0010_NIMV.jumptable_case8
     mov ax, word [bp + 0x44]
     add ax, word [bp + 0x4]
     push ax
@@ -370,7 +369,6 @@ api_idx_0010_NIMV.jumptable_case7:
     pop cx
     mov word [bp - 0x0004], ax
 api_idx_0010_NIMV.jumptable_case8:
-@..api_idx_0010_NIMV.l30:
     cmp word [api_idx_0010_NIMV.location_changed1], byte 0
     jne short @..api_idx_0010_NIMV.l31
     mov ax, 0
@@ -713,8 +711,8 @@ api_idx_0010_NIMV.jumptable_case8:
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
 @..api_idx_0010_NIMV.l41:
-    jmp near @..api_idx_0010_NIMV.l48
-api_idx_0010_NIMV.jumptable_case9:
+    jmp near api_idx_0010_NIMV.jumptable_case9
+api_idx_0010_NIMV.jumptable_case10:
     cmp word [bp + 0x4], byte 4
     jge short @..api_idx_0010_NIMV.l42
     mov ax, 0
@@ -753,16 +751,16 @@ api_idx_0010_NIMV.jumptable_case9:
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
 @..api_idx_0010_NIMV.l42:
-    jmp near @..api_idx_0010_NIMV.l48
-api_idx_0010_NIMV.jumptable_case10:
+    jmp near api_idx_0010_NIMV.jumptable_case9
+api_idx_0010_NIMV.jumptable_case11:
     mov word [bp - 0x0010], 9
     mov word [bp - 0x000c], 1
     mov ax, word [party_status_frame]
     inc ax
     inc ax
     mov word [bp - 0x000e], ax
-    jmp near @..api_idx_0010_NIMV.l48
-api_idx_0010_NIMV.jumptable_case11:
+    jmp near api_idx_0010_NIMV.jumptable_case9
+api_idx_0010_NIMV.jumptable_case12:
     mov word [bp - 0x0010], 9
     mov word [bp - 0x000c], 7
     mov ax, 0
@@ -771,8 +769,8 @@ api_idx_0010_NIMV.jumptable_case11:
     mov ax, 8
 @..api_idx_0010_NIMV.l43:
     mov word [bp - 0x000e], ax
-    jmp short @..api_idx_0010_NIMV.l48
-api_idx_0010_NIMV.jumptable_case12:
+    jmp short api_idx_0010_NIMV.jumptable_case9
+api_idx_0010_NIMV.jumptable_case13:
     mov word [bp - 0x0010], 0xa
     mov ax, 5
     cmp word [api_idx_0010_NIMV.location_changed1], byte 0
@@ -787,8 +785,8 @@ api_idx_0010_NIMV.jumptable_case12:
     add ax, cx
     mov word [bp - 0x000c], ax
     mov word [bp - 0x000e], 0
-    jmp short @..api_idx_0010_NIMV.l48
-api_idx_0010_NIMV.jumptable_case13:
+    jmp short api_idx_0010_NIMV.jumptable_case9
+api_idx_0010_NIMV.jumptable_case14:
     mov word [bp - 0x0010], 0xa
     mov word [bp - 0x000c], 9
     mov ax, 0xb
@@ -797,32 +795,31 @@ api_idx_0010_NIMV.jumptable_case13:
     mov ax, 0xa
 @..api_idx_0010_NIMV.l46:
     mov word [bp - 0x000e], ax
-    jmp short @..api_idx_0010_NIMV.l48
+    jmp short api_idx_0010_NIMV.jumptable_case9
 api_idx_0010_NIMV.jumptable2:
-    dw api_idx_0010_NIMV.jumptable_case14 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case8 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case14 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case8 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case14 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case9 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case8 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case9 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case8 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case9 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case10 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case8 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case7 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case6 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case6 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case10 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case11 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case12 - IMAGE_BASE + __zres_end
-    dw api_idx_0010_NIMV.jumptable_case12 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case13 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case13 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case14 - IMAGE_BASE + __zres_end
+    dw api_idx_0010_NIMV.jumptable_case14 - IMAGE_BASE + __zres_end
 @..api_idx_0010_NIMV.l47:
     cmp ax, strict word 0x10
-    jae short @..api_idx_0010_NIMV.l48
+    jae short api_idx_0010_NIMV.jumptable_case9
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + api_idx_0010_NIMV.jumptable2 - IMAGE_BASE + __zres_end]
-api_idx_0010_NIMV.jumptable_case14:
-@..api_idx_0010_NIMV.l48:
+api_idx_0010_NIMV.jumptable_case9:
     cmp word [bp - 0x0010], byte 0xff
     je short @..api_idx_0010_NIMV.l49
     mov ax, 2

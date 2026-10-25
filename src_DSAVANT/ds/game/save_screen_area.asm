@@ -132,7 +132,7 @@ save_screen_area: ; Aztec csav frame=0x000c
     push word [bp + 0xc]             ; 0x160a
     mov ax, 0x14                     ; 0x160d
     imul word [bp - 0x0004]          ; 0x1610
-    add ax, strict word saved_screen_file ; 0x1613
+    add ax, saved_screen_file        ; 0x1613
     push ax                          ; 0x1616
     call aztec_strcat                ; 0x1617
     add sp, byte 4                   ; 0x161a
@@ -145,7 +145,7 @@ save_screen_area: ; Aztec csav frame=0x000c
     push ax                          ; 0x162e
     mov ax, 0x14                     ; 0x162f
     imul word [bp - 0x0004]          ; 0x1632
-    add ax, strict word saved_screen_file ; 0x1635
+    add ax, saved_screen_file        ; 0x1635
     push ax                          ; 0x1638
     call aztec_open                  ; 0x1639
     add sp, byte 4                   ; 0x163c

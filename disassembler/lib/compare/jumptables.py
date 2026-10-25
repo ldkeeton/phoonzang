@@ -1,5 +1,6 @@
 """Switch/jump-table detection merging, injection and dispatcher rewriting."""
 
+import re
 import struct
 
 from capstone import CS_OP_MEM
@@ -353,6 +354,20 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
                     candidate = _case_symbol(start, index, target)
                     if _ensure_jump_case_label(records, binary_data, target,
                                                candidate):
+                        local = (local_labels or {}).pop(target, None)
+                        if local is not None:
+                            # Direct branches were formatted before table
+                            # injection.  The case is now the public name
+                            # for this address, so retire its local alias.
+                            records = [rec for rec in records if not (
+                                rec['type'] == 'label'
+                                and rec['offset'] == target
+                                and rec['name'] == local)]
+                            for rec in records:
+                                if rec['type'] == 'mnem':
+                                    rec['text'] = re.sub(
+                                        re.escape(str(local)) + r'(?![\w.])',
+                                        str(candidate), rec['text'])
                         case_names[target] = candidate
                         synthesized[candidate] = target
                         name = candidate

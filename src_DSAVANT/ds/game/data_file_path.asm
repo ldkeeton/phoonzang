@@ -16,7 +16,7 @@ data_file_path: ; Aztec csav frame=0x0000
     push ax                          ; 0x23c9
     mov ax, 0x14                     ; 0x23ca
     imul word [bp + 0x6]             ; 0x23cd
-    add ax, strict word data_path_prefixes ; 0x23d0
+    add ax, data_path_prefixes       ; 0x23d0
     push ax                          ; 0x23d3
     mov ax, data_path_buf            ; 0x23d4
     push ax                          ; 0x23d7

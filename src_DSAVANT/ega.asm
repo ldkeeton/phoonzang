@@ -404,6 +404,16 @@ draw_text.graphics_loc1 equ graphics_loc_NVPK
 
 %include "ega/print_msg_and_exit.asm"      ; 0x3a0f
 
+%include "ega/data/msg_frame_too_big.asm"  ; 0x3a18
+
+%include "ega/data/frame_digit_hi.asm"     ; 0x3a21
+
+%include "ega/data/frame_digit_lo.asm"     ; 0x3a22
+
+%include "ega/data/slot_digit_hi.asm"      ; 0x3a34
+
+%include "ega/data/slot_digit_lo.asm"      ; 0x3a35
+
 %include "shared/library/table_entry_ptr.asm"         ; 0x3a3a
 
 %include "shared/library/leaf_loc_NOSG.asm"           ; 0x3a51

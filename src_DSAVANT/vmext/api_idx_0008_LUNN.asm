@@ -155,40 +155,40 @@ jumptable_1e9c:
     mov word [bp - 0x0008], dx       ; 0x1f9b
     cmp dx, word [party_tag]         ; 0x1f9e
     je short @..api_idx_0008_LUNN.l12 ; 0x1fa2
-    jmp near @..api_idx_0008_LUNN.l16 ; 0x1fa4
+    jmp near jumptable_1ff2_case_0   ; 0x1fa4
 @..api_idx_0008_LUNN.l12:
     mov ax, word [bp - 0x0006]       ; 0x1fa7
     jmp short @..api_idx_0008_LUNN.l15 ; 0x1faa
 jumptable_1ff2_case_1:
     mov word [bp - 0x0004], 8        ; 0x1fac
-    jmp short @..api_idx_0008_LUNN.l16 ; 0x1fb1
+    jmp short jumptable_1ff2_case_0  ; 0x1fb1
 jumptable_1ff2_case_2:
     mov word [bp - 0x0004], 9        ; 0x1fb3
-    jmp short @..api_idx_0008_LUNN.l16 ; 0x1fb8
+    jmp short jumptable_1ff2_case_0  ; 0x1fb8
 jumptable_1ff2_case_3:
     mov word [bp - 0x0004], 0xa      ; 0x1fba
-    jmp short @..api_idx_0008_LUNN.l16 ; 0x1fbf
+    jmp short jumptable_1ff2_case_0  ; 0x1fbf
 jumptable_1ff2_case_4:
     mov word [bp - 0x0004], 0xb      ; 0x1fc1
-    jmp short @..api_idx_0008_LUNN.l16 ; 0x1fc6
+    jmp short jumptable_1ff2_case_0  ; 0x1fc6
 jumptable_1ff2_case_5:
     cmp word [bss_91aa], byte 0      ; 0x1fc8
     jne short @..api_idx_0008_LUNN.l13 ; 0x1fcd
     mov word [bp - 0x0004], 0xc      ; 0x1fcf
 @..api_idx_0008_LUNN.l13:
-    jmp short @..api_idx_0008_LUNN.l16 ; 0x1fd4
+    jmp short jumptable_1ff2_case_0  ; 0x1fd4
 jumptable_1ff2_case_6:
     cmp word [bss_91aa], byte 0      ; 0x1fd6
     jne short @..api_idx_0008_LUNN.l14 ; 0x1fdb
     mov word [bp - 0x0004], 0xd      ; 0x1fdd
 @..api_idx_0008_LUNN.l14:
-    jmp short @..api_idx_0008_LUNN.l16 ; 0x1fe2
+    jmp short jumptable_1ff2_case_0  ; 0x1fe2
 jumptable_1ff2_case_10:
     mov word [bp - 0x0004], 0xe      ; 0x1fe4
-    jmp short @..api_idx_0008_LUNN.l16 ; 0x1fe9
+    jmp short jumptable_1ff2_case_0  ; 0x1fe9
 jumptable_1ff2_case_11:
     mov word [bp - 0x0004], 0xf      ; 0x1feb
-    jmp short @..api_idx_0008_LUNN.l16 ; 0x1ff0
+    jmp short jumptable_1ff2_case_0  ; 0x1ff0
 jumptable_1ff2:
     dw jumptable_1ff2_case_0 - IMAGE_BASE + __zres_end ; 0x1ff2
     dw jumptable_1ff2_case_1 - IMAGE_BASE + __zres_end ; 0x1ff4
@@ -204,11 +204,10 @@ jumptable_1ff2:
     dw jumptable_1ff2_case_11 - IMAGE_BASE + __zres_end ; 0x2008
 @..api_idx_0008_LUNN.l15:
     cmp ax, strict word 0xc          ; 0x200a
-    jae short @..api_idx_0008_LUNN.l16 ; 0x200d
+    jae short jumptable_1ff2_case_0  ; 0x200d
     xchg bx, ax                      ; 0x200f
     shl bx, 1                        ; 0x2010
     jmp [cs:bx + jumptable_1ff2 - IMAGE_BASE + __zres_end] ; 0x2012
 jumptable_1ff2_case_0:
-@..api_idx_0008_LUNN.l16:
     mov ax, word [bp - 0x0004]       ; 0x2017
     ret                              ; 0x201a

@@ -3,7 +3,7 @@ api_idx_0002_ITLQ:
     mov ax, 0xfffe                   ; 0x0e5d
     call aztec_csav                  ; 0x0e60
     mov ax, word [game_time]         ; 0x0e63
-    mov dx, word [bss_8f1e]          ; 0x0e66
+    mov dx, word [game_time_hi]      ; 0x0e66
     mov cx, 0x5a0                    ; 0x0e6a
     mov bx, 0                        ; 0x0e6d
     call aztec_lrm                   ; 0x0e70

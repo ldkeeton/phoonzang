@@ -40,7 +40,7 @@ api_idx_0012_JIRG:
     add sp, byte 6                   ; 0x85c7
     mov word [bp - 0x0012], ax       ; 0x85ca
     mov ax, word [game_time]         ; 0x85cd
-    mov dx, word [bss_8f1e]          ; 0x85d0
+    mov dx, word [game_time_hi]      ; 0x85d0
     mov cx, 0x5a0                    ; 0x85d4
     mov bx, 0                        ; 0x85d7
     call aztec_lrm                   ; 0x85da

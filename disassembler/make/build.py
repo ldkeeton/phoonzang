@@ -43,14 +43,16 @@ def _generate(workers):
             futures = {ex.submit(workers.run, name, flags): name
                        for name, flags in items}
             for f in as_completed(futures):
-                status, files = f.result()
+                try:
+                    status, files = f.result()
+                except Exception as exc:
+                    print(f'  FAILED: {futures[f]} ({exc})')
+                    failed.append(futures[f])
+                    continue
                 if status != 0:
                     print(f'  FAILED: {futures[f]}')
                     failed.append(futures[f])
-                    # A failed consumer poisons the project; stop the batch.
-                    ex.shutdown(wait=False, cancel_futures=True)
-                    break
-                if files is not None:
+                elif files is not None:
                     emitted[futures[f]] = files
         return failed, emitted
     return run

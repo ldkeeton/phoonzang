@@ -165,7 +165,6 @@ jumptable_4b3c_case_13:
     mov word [bp - 0x0018], 5        ; 0x4b2e
     jmp short @..api_idx_0018_IKVK.l5 ; 0x4b33
 jumptable_4b3c_case_0:
-@..api_idx_0018_IKVK.l2:
     mov word [bp - 0x0018], 0        ; 0x4b35
     jmp short @..api_idx_0018_IKVK.l5 ; 0x4b3a
 jumptable_4b3c:
@@ -190,7 +189,7 @@ jumptable_4b3c:
     shl bx, 1                        ; 0x4b5e
     jmp [cs:bx + jumptable_4b3c - IMAGE_BASE + __zres_end] ; 0x4b60
 @..api_idx_0018_IKVK.l4:
-    jmp short @..api_idx_0018_IKVK.l2 ; 0x4b65
+    jmp short jumptable_4b3c_case_0  ; 0x4b65
 @..api_idx_0018_IKVK.l5:
     cmp word [bp - 0x0018], byte 0   ; 0x4b67
     jne short @..api_idx_0018_IKVK.l6 ; 0x4b6b

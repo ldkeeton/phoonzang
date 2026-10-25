@@ -222,6 +222,7 @@ api_idx_0004_RMVO.bss2 equ bss_9538
 
 %include "vpcmk/api_idx_0002_SSJN.asm"     ; 0x19ab
 
+draw_title_banner.bss1 equ bss_9542
 %include "shared/game/draw_title_banner.asm"     ; 0x1a98
 
 %include "vpcmk/api_idx_0054_RLST.asm"     ; 0x1b40
@@ -322,8 +323,8 @@ api_idx_0032_HGIM.api_idx1 equ api_idx_002e_JGHT
 
 %include "vpcmk/api_idx_0088_QLNT.asm"     ; 0x2c15
 
-api_idx_0004_VQQR                      equ collect_known_spells
-collect_known_spells.known_spell_list1 equ bss_971c
+api_idx_0004_VQQR                     equ collect_known_spells
+collect_known_spells.known_spell_ids1 equ bss_971c
 %include "shared/game/collect_known_spells.asm"     ; 0x2d63
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x2dd4

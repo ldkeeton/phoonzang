@@ -23,36 +23,38 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
                        function_roots=None, start_offset=0):
     """Resolve Aztec runtime routines to C and compile the current seeds.
 
-    Returns ``(overrides, entries, files)`` where *overrides* feeds the
-    byte-preserving splice in :func:`lib.compare.verify`, *entries* records the
-    winning provenance and *files* are the vendor headers the C includes
-    (``{relative path: text}``), for the build to write with the sources.
+    Returns ``(overrides, checks, entries, files)``.  Prebuild-derived
+    *overrides* feed the byte-preserving splice in :func:`lib.compare.verify`;
+    hand-owned C sources become check-only *checks*.  *entries* records the
+    winning provenance and *files* are vendor headers the C includes.
 
     ``ASM_AZTEC_PREBUILD=1`` runs the DOSBox search and writes
     ``.cache/<project>/prebuild/``; otherwise the prebuilt manifest is read and a
-    missing prebuild is a hard error.  The seed sources -- ``.c``, or ``.s``
-    for assembly (:mod:`lib.routine_source`) -- live in
-    ``<out_dir>/<binary>/``.  Only a hand-owned one (its marker line removed)
-    is read; any other module gets its seed (``generated``, written with the
-    binary's sources), so a seed an earlier build wrote is never mistaken
-    for a human's.
+    missing prebuild is a hard error.  Prebuild module C is always seeded from
+    the cached vendor source.  A hand-owned C file is compiled only for the
+    semantic gate; a hand-owned ``.s`` remains an explicit override.
     """
     if not project or AZTEC_MUX_DISABLED:
-        return {}, {}, {}
+        return {}, {}, {}, {}
     labels = [(addr, nm) for addr, nm in label_map.items()
               if getattr(nm, 'role', None) == 'aztec']
     dest = os.path.join(out_dir, name)
-    known = {nm for nm in label_map.values() if isinstance(nm, str)}
     # A binary with sidecar ``bands`` keeps each routine's source beside its
-    # .asm, in the band's folder (``ds/game/x.c``).
+    # .asm, in the band's folder (``ds/game/x.c``).  Hand-owned C is compiled
+    # as a check only; hand-owned .s remains an assembly override.
     bands = _sidecar_bands(project, name)
-    found_c = _hand_c_tree(dest, bands)
-    hand_c = sorted(found_c)
-    # C shared between binaries (lib.shared) lives in shared/ or its band
-    # folders; only the labels this binary has are its own.
-    shared_c = [label for label in _hand_shared_c(out_dir) if label in known]
-    if not labels and not hand_c and not shared_c:
-        return {}, {}, {}
+    found_local = _hand_source_tree(dest, bands)
+    found_shared = _hand_shared_source_tree(out_dir)
+    found_c = {label: path for label, path in found_local.items()
+               if path.endswith('.c')}
+    found_shared_c = {label: path for label, path in found_shared.items()
+                      if path.endswith('.c')}
+    found_sources = dict(found_local)
+    for label, path in found_shared.items():
+        found_sources.setdefault(label, path)
+    hand_sources = sorted(found_sources)
+    if not labels and not hand_sources:
+        return {}, {}, {}, {}
     from lib.aztec import cache
     from lib.aztec.objread import external_label, fixup_width
     entries = {}
@@ -84,7 +86,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         tried.update(str(nm) for _, nm in labels)
         more = True
     if AZTEC_PREBUILD_ONLY:
-        return {}, entries, {}
+        return {}, {}, entries, {}
     # Each vendor module the image holds byte-exact is one fragment with one
     # .c, both named after the vendor file (croot.c -> aztec_croot.c and
     # aztec_croot.asm): the whole module.  Its routines are labels inside
@@ -95,7 +97,6 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         print(f'  aztec module {filename}: stays assembly ({why})')
     known = {nm for nm in label_map.values() if isinstance(nm, str)}
     known |= set(spans)
-    shared_c = [label for label in _hand_shared_c(out_dir) if label in known]
 
     # The host's address-derived names carry a prefix (``ds_``) that the build
     # adds after this pass.  A source written against the current asm label
@@ -108,8 +109,10 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         stripped = label[len(prefix):] if label.startswith(prefix) else None
         return stripped if stripped in known else None
 
-    sources = sorted(set(hand_c) | set(shared_c))
-    orphans = sorted(os.path.basename(found_c[label]) for label in hand_c
+    sources = sorted(set(found_local) | {
+        label for label in found_shared if canonical(label) is not None})
+    orphans = sorted(os.path.basename(found_local[label])
+                     for label in found_local
                      if canonical(label) is None)
     if orphans:
         raise SystemExit(
@@ -125,7 +128,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         return _band_home(dest, bands,
                           starts.get(canonical(label) or label))
 
-    for label, path in sorted(found_c.items()):
+    for label, path in sorted(found_local.items()):
         if os.path.dirname(path) != home(label):
             raise SystemExit(
                 f'error: {path}: move it to {home(label)}/, beside its .asm')
@@ -152,7 +155,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
              for module, span in sorted(spans.items())]
     for label in hand:
         routine = canonical(label) or label
-        path = c_path(dest, label, home(label))
+        path = found_sources[label]
         with open(path) as f:
             batch.append((routine, cache.default_entry(
                 routine, project, os.path.splitext(path)[1]), f.read()))
@@ -161,7 +164,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     except Exception as exc:
         raise SystemExit(f'error: {exc}') from exc
 
-    overrides = {}
+    overrides, checks = {}, {}
     for module, span in sorted(spans.items()):
         entry = span.entry
         path = c_path(dest, module, home(module), cache.seed_suffix(entry))
@@ -246,8 +249,10 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
                 band_end=(band[1] + 1) if band is not None else None)
         except routine_source.FragmentLengthError as exc:
             raise SystemExit(f'error: {os.path.basename(path)}: {exc}')
-        overrides[label] = {
+        target = checks if path.endswith('.c') else overrides
+        target[label] = {
             'func': func, 'text': text, 'path': path,
+            'start': start,
             'own_keys': {cache.own_key(routine, entry): label},
             # A shared source may call a target this binary spells
             # differently; there is no other binary's asm to read, so the
@@ -273,9 +278,47 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'source_version': entry['source_version'],
             'file': entry['file'], 'compiler': entry['compiler'],
             'includes': entry['includes'],
+            'check_only': path.endswith('.c'),
+        }
+    # A hand-owned module C file is checked against the same original module
+    # span, while its prebuild seed remains the source used for ASM emission.
+    all_hand_c = dict(found_shared_c)
+    all_hand_c.update(found_c)
+    for label, path in sorted(all_hand_c.items()):
+        routine = canonical(label) or label
+        if canonical(label) is None:
+            continue
+        span = spans.get(routine)
+        if span is None:
+            continue
+        with open(path) as f:
+            text = f.read()
+        entry = span.entry
+        try:
+            compiled, func = cache.compile_source_module(
+                project, name, routine, entry, text)
+        except Exception as exc:
+            raise SystemExit(f'error: {os.path.basename(path)}: compile '
+                             f'failed ({exc})')
+        checks[label] = {
+            'func': func, 'text': text, 'path': path,
+            'start': span.start,
+            'own_keys': dict(span.keys), 'pristine': False,
+            'code': func.code,
+            'fixups': [(fx.offset, fixup_width(fx.kind))
+                       for fx in func.fixups],
+            'data_spans': cache.data_spans(project, name, routine, entry,
+                                           text),
+            'module_data': compiled.data,
+            'module_data_relocations': compiled.data_relocations,
+            'module_externals': compiled.externals,
+            'start': span.start, 'lead': span.lead, 'length': span.length,
+            'source_version': entry['source_version'],
+            'file': entry['file'], 'compiler': entry['compiler'],
+            'includes': entry['includes'], 'check_only': True,
         }
     headers = _headers(out_dir)
-    return overrides, entries, headers
+    return overrides, checks, entries, headers
 
 
 def _vendor_defines(key):
@@ -453,17 +496,14 @@ def _headers(out_dir):
     return files
 
 
-def _hand_c(folder):
-    """The labels of the hand-owned sources (``.c``, ``.s``) in *folder*,
-    sorted."""
-    return sorted(routine_source.sources_in(folder, hand_owned))
-
-
-def _hand_shared_c(out_dir):
-    """The labels of the hand-owned sources in ``shared/`` and its band
-    folders (:func:`lib.shared.shared_dirs`), sorted."""
-    return sorted({label for folder in shared_dirs(out_dir)
-                   for label in _hand_c(folder)})
+def _hand_shared_source_tree(out_dir):
+    """Hand-owned shared C/assembly sources, keyed by routine label."""
+    found = {}
+    for folder in shared_dirs(out_dir):
+        for label, filename in routine_source.sources_in(
+                folder, hand_owned).items():
+            found.setdefault(label, os.path.join(folder, filename))
+    return found
 
 
 def _recorded_spans(project, name):
@@ -501,9 +541,8 @@ def _band_home(dest, bands, start):
     return os.path.join(dest, band[2]) if band else dest
 
 
-def _hand_c_tree(dest, bands):
-    """``{label: path}`` for the hand-owned sources (``.c``, ``.s``) in *dest*
-    and in its band folders."""
+def _hand_source_tree(dest, bands):
+    """``{label: path}`` for hand-owned C/assembly sources in binary folders."""
     found = {}
     for folder in [dest] + [os.path.join(dest, b[2]) for b in bands]:
         for label, filename in routine_source.sources_in(
@@ -539,7 +578,9 @@ def _seed_aztec_c(cache, project, binary, label, entry, dest, folder=None):
     for the build to write.
     """
     path = c_path(dest, label, folder, cache.seed_suffix(entry))
-    if hand_owned(path):
+    # A hand-owned C file is never an assembly override.  A hand-owned .s
+    # remains usable for entries whose prebuild source is assembly.
+    if path.endswith('.s') and hand_owned(path):
         with open(path) as f:
             return f.read(), False
     return cache.seed_source_text(project, binary, label, entry), True

@@ -70,7 +70,7 @@ jumptable_02a3:
     mov ax, word [bp - 0x0002]       ; 0x02f7
     cmp ax, word [maze_variant]      ; 0x02fa
     jne short @..api_idx_0002_VNLG.l3 ; 0x02fe
-    jmp near @..api_idx_0002_VNLG.l5 ; 0x0300
+    jmp near jumptable_052d_case_0   ; 0x0300
 @..api_idx_0002_VNLG.l3:
     call free_current_maze           ; 0x0303
     mov ax, word [bp - 0x0002]       ; 0x0306
@@ -114,7 +114,7 @@ jumptable_052d_case_1:
     call load_monster_picture        ; 0x035d
     add sp, byte 4                   ; 0x0360
     mov word [current_maze], 0       ; 0x0363
-    jmp near @..api_idx_0002_VNLG.l5 ; 0x0369
+    jmp near jumptable_052d_case_0   ; 0x0369
 jumptable_052d_case_2:
     mov ax, 1                        ; 0x036c
     push ax                          ; 0x036f
@@ -141,7 +141,7 @@ jumptable_052d_case_2:
     call load_monster_picture        ; 0x039e
     add sp, byte 4                   ; 0x03a1
     mov word [current_maze], 1       ; 0x03a4
-    jmp near @..api_idx_0002_VNLG.l5 ; 0x03aa
+    jmp near jumptable_052d_case_0   ; 0x03aa
 jumptable_052d_case_3:
     mov ax, 2                        ; 0x03ad
     push ax                          ; 0x03b0
@@ -192,7 +192,7 @@ jumptable_052d_case_3:
     call load_monster_picture        ; 0x0417
     add sp, byte 4                   ; 0x041a
     mov word [current_maze], 2       ; 0x041d
-    jmp near @..api_idx_0002_VNLG.l5 ; 0x0423
+    jmp near jumptable_052d_case_0   ; 0x0423
 jumptable_052d_case_4:
     mov ax, 1                        ; 0x0426
     push ax                          ; 0x0429
@@ -213,7 +213,7 @@ jumptable_052d_case_4:
     call load_monster_picture        ; 0x044a
     add sp, byte 4                   ; 0x044d
     mov word [current_maze], 1       ; 0x0450
-    jmp near @..api_idx_0002_VNLG.l5 ; 0x0456
+    jmp near jumptable_052d_case_0   ; 0x0456
 jumptable_052d_case_5:
     mov ax, 2                        ; 0x0459
     push ax                          ; 0x045c
@@ -264,7 +264,7 @@ jumptable_052d_case_5:
     call load_monster_picture        ; 0x04c3
     add sp, byte 4                   ; 0x04c6
     mov word [current_maze], 2       ; 0x04c9
-    jmp short @..api_idx_0002_VNLG.l5 ; 0x04cf
+    jmp short jumptable_052d_case_0  ; 0x04cf
 jumptable_052d_case_6:
     mov ax, 1                        ; 0x04d1
     push ax                          ; 0x04d4
@@ -303,7 +303,7 @@ jumptable_052d_case_6:
     call load_monster_picture        ; 0x051f
     add sp, byte 4                   ; 0x0522
     mov word [current_maze], 1       ; 0x0525
-    jmp short @..api_idx_0002_VNLG.l5 ; 0x052b
+    jmp short jumptable_052d_case_0  ; 0x052b
 jumptable_052d:
     dw jumptable_052d_case_0 - IMAGE_BASE + __zres_end ; 0x052d
     dw jumptable_052d_case_1 - IMAGE_BASE + __zres_end ; 0x052f
@@ -314,12 +314,11 @@ jumptable_052d:
     dw jumptable_052d_case_6 - IMAGE_BASE + __zres_end ; 0x0539
 @..api_idx_0002_VNLG.l4:
     cmp ax, strict word 7            ; 0x053b
-    jae short @..api_idx_0002_VNLG.l5 ; 0x053e
+    jae short jumptable_052d_case_0  ; 0x053e
     xchg bx, ax                      ; 0x0540
     shl bx, 1                        ; 0x0541
     jmp [cs:bx + jumptable_052d - IMAGE_BASE + __zres_end] ; 0x0543
 jumptable_052d_case_0:
-@..api_idx_0002_VNLG.l5:
     mov word [maze_state], 1         ; 0x0548
     ret                              ; 0x054e
 loc_HVLG:

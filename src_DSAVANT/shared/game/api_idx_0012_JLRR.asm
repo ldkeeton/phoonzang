@@ -9,11 +9,11 @@ api_idx_0012_JLRR:
 api_idx_0012_JLRR.jumptable_case1:
     cmp word [bp + 0x26], byte 0xff
     jne short @..api_idx_0012_JLRR.l1
-    jmp near @..api_idx_0012_JLRR.l11
+    jmp near api_idx_0012_JLRR.jumptable_case2
 @..api_idx_0012_JLRR.l1:
     cmp word [bp + 0x4], byte 0
     je short @..api_idx_0012_JLRR.l2
-    jmp near @..api_idx_0012_JLRR.l11
+    jmp near api_idx_0012_JLRR.jumptable_case2
 @..api_idx_0012_JLRR.l2:
     cmp word [bp + 0x6], byte 8
     jne short @..api_idx_0012_JLRR.l3
@@ -77,7 +77,6 @@ api_idx_0012_JLRR.jumptable_case1:
     call api_idx_0012_JLRR.api_idx1
     add sp, byte 0x1c
 api_idx_0012_JLRR.jumptable_case2:
-@..api_idx_0012_JLRR.l11:
     cmp word [bp + 0x6], byte 3
     je short @..api_idx_0012_JLRR.l12
     jmp near @..api_idx_0012_JLRR.l15
@@ -143,9 +142,9 @@ api_idx_0012_JLRR.jumptable_case2:
     mov word [bp - 0x0006], ax
 @..api_idx_0012_JLRR.l15:
     cmp word [bp + 0x6], byte 6
-    jne short @..api_idx_0012_JLRR.l16
+    jne short api_idx_0012_JLRR.jumptable_case3
     cmp word [bp + 0x4], byte 4
-    jge short @..api_idx_0012_JLRR.l16
+    jge short api_idx_0012_JLRR.jumptable_case3
     mov ax, word [bp + 0x24]
     add ax, word [bp + 0x4]
     push ax
@@ -162,7 +161,6 @@ api_idx_0012_JLRR.jumptable_case2:
     pop cx
     mov word [bp - 0x0006], ax
 api_idx_0012_JLRR.jumptable_case3:
-@..api_idx_0012_JLRR.l16:
     cmp word [api_idx_0012_JLRR.location_changed1], byte 0
     jne short @..api_idx_0012_JLRR.l18
     cmp word [bp + 0x4], byte 4
@@ -286,7 +284,7 @@ api_idx_0012_JLRR.jumptable_case3:
     jmp near api_idx_0012_JLRR.jumptable_case4
 api_idx_0012_JLRR.jumptable_case5:
     cmp word [bp + 0x4], byte 4
-    jge short @..api_idx_0012_JLRR.l23
+    jge short api_idx_0012_JLRR.jumptable_case6
     mov ax, word [bp + 0x3a]
     add ax, word [bp + 0x4]
     push ax
@@ -303,7 +301,6 @@ api_idx_0012_JLRR.jumptable_case5:
     pop cx
     mov word [bp - 0x0006], ax
 api_idx_0012_JLRR.jumptable_case6:
-@..api_idx_0012_JLRR.l23:
     cmp word [api_idx_0012_JLRR.location_changed1], byte 0
     jne short @..api_idx_0012_JLRR.l25
     cmp word [bp + 0x4], byte 4

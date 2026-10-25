@@ -70,7 +70,7 @@ jumptable_042b:
     mov ax, word [bp - 0x0002]       ; 0x047f
     cmp ax, word [maze_variant]      ; 0x0482
     jne short @..api_idx_0002_TOSL.l3 ; 0x0486
-    jmp near @..api_idx_0002_TOSL.l5 ; 0x0488
+    jmp near jumptable_06b5_case_0   ; 0x0488
 @..api_idx_0002_TOSL.l3:
     call free_current_maze           ; 0x048b
     mov ax, word [bp - 0x0002]       ; 0x048e
@@ -114,7 +114,7 @@ jumptable_06b5_case_1:
     call load_monster_picture        ; 0x04e5
     add sp, byte 4                   ; 0x04e8
     mov word [current_maze], 0       ; 0x04eb
-    jmp near @..api_idx_0002_TOSL.l5 ; 0x04f1
+    jmp near jumptable_06b5_case_0   ; 0x04f1
 jumptable_06b5_case_2:
     mov ax, 1                        ; 0x04f4
     push ax                          ; 0x04f7
@@ -141,7 +141,7 @@ jumptable_06b5_case_2:
     call load_monster_picture        ; 0x0526
     add sp, byte 4                   ; 0x0529
     mov word [current_maze], 1       ; 0x052c
-    jmp near @..api_idx_0002_TOSL.l5 ; 0x0532
+    jmp near jumptable_06b5_case_0   ; 0x0532
 jumptable_06b5_case_3:
     mov ax, 2                        ; 0x0535
     push ax                          ; 0x0538
@@ -192,7 +192,7 @@ jumptable_06b5_case_3:
     call load_monster_picture        ; 0x059f
     add sp, byte 4                   ; 0x05a2
     mov word [current_maze], 2       ; 0x05a5
-    jmp near @..api_idx_0002_TOSL.l5 ; 0x05ab
+    jmp near jumptable_06b5_case_0   ; 0x05ab
 jumptable_06b5_case_4:
     mov ax, 1                        ; 0x05ae
     push ax                          ; 0x05b1
@@ -213,7 +213,7 @@ jumptable_06b5_case_4:
     call load_monster_picture        ; 0x05d2
     add sp, byte 4                   ; 0x05d5
     mov word [current_maze], 1       ; 0x05d8
-    jmp near @..api_idx_0002_TOSL.l5 ; 0x05de
+    jmp near jumptable_06b5_case_0   ; 0x05de
 jumptable_06b5_case_5:
     mov ax, 2                        ; 0x05e1
     push ax                          ; 0x05e4
@@ -264,7 +264,7 @@ jumptable_06b5_case_5:
     call load_monster_picture        ; 0x064b
     add sp, byte 4                   ; 0x064e
     mov word [current_maze], 2       ; 0x0651
-    jmp short @..api_idx_0002_TOSL.l5 ; 0x0657
+    jmp short jumptable_06b5_case_0  ; 0x0657
 jumptable_06b5_case_6:
     mov ax, 1                        ; 0x0659
     push ax                          ; 0x065c
@@ -303,7 +303,7 @@ jumptable_06b5_case_6:
     call load_monster_picture        ; 0x06a7
     add sp, byte 4                   ; 0x06aa
     mov word [current_maze], 1       ; 0x06ad
-    jmp short @..api_idx_0002_TOSL.l5 ; 0x06b3
+    jmp short jumptable_06b5_case_0  ; 0x06b3
 jumptable_06b5:
     dw jumptable_06b5_case_0 - IMAGE_BASE + __zres_end ; 0x06b5
     dw jumptable_06b5_case_1 - IMAGE_BASE + __zres_end ; 0x06b7
@@ -314,12 +314,11 @@ jumptable_06b5:
     dw jumptable_06b5_case_6 - IMAGE_BASE + __zres_end ; 0x06c1
 @..api_idx_0002_TOSL.l4:
     cmp ax, strict word 7            ; 0x06c3
-    jae short @..api_idx_0002_TOSL.l5 ; 0x06c6
+    jae short jumptable_06b5_case_0  ; 0x06c6
     xchg bx, ax                      ; 0x06c8
     shl bx, 1                        ; 0x06c9
     jmp [cs:bx + jumptable_06b5 - IMAGE_BASE + __zres_end] ; 0x06cb
 jumptable_06b5_case_0:
-@..api_idx_0002_TOSL.l5:
     call loc_VRKM                    ; 0x06d0
     mov word [maze_state], 1         ; 0x06d3
     ret                              ; 0x06d9

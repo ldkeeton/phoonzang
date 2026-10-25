@@ -325,6 +325,19 @@ def _split_off_foreign_objects(split_ranges, records, owners=None, fixed=()):
     return result
 
 
+def _cap_split_ranges_to_bands(split_ranges, bands):
+    """Leave bytes past a routine's band for the leftover-data splitter.
+
+    Band ends are inclusive; fragment ends are exclusive.  In particular,
+    linker alignment between bands belongs to neither neighbouring routine.
+    """
+    result = []
+    for start, end, name in split_ranges:
+        band = band_for(bands, start)
+        result.append((start, min(end, band[1] + 1) if band else end, name))
+    return result
+
+
 def _select_data_ranges(records, roots, binary_data=None, modules=()):
     """``[(start, end, name)]``: a file for each named data object.
 

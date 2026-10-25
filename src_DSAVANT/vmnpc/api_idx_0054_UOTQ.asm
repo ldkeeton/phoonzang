@@ -146,7 +146,7 @@ jumptable_a27d_case_0:
     mov word [bss_9e54], 1           ; 0x9e90
 @..api_idx_0054_UOTQ.l17:
     cmp word [bss_9e62], byte 1      ; 0x9e96
-    jne short @..api_idx_0054_UOTQ.l19 ; 0x9e9b
+    jne short jumptable_a27d_case_1  ; 0x9e9b
     cmp word [bss_9e5e], byte 1      ; 0x9e9d
     jne short @..api_idx_0054_UOTQ.l18 ; 0x9ea2
     mov ax, MSG_HOW_1625             ; 0x9ea4
@@ -161,7 +161,7 @@ jumptable_a27d_case_0:
     ret                              ; 0x9eb5
 @..api_idx_0054_UOTQ.l18:
     cmp word [bss_9e54], byte 1      ; 0x9eb6
-    jne short @..api_idx_0054_UOTQ.l19 ; 0x9ebb
+    jne short jumptable_a27d_case_1  ; 0x9ebb
     mov ax, MSG_WHAT_1620            ; 0x9ebd
     push ax                          ; 0x9ec0
     mov ax, word [bp - 0x0004]       ; 0x9ec1
@@ -172,7 +172,6 @@ jumptable_a27d_case_0:
     add sp, byte 4                   ; 0x9eca
     ret                              ; 0x9ecd
 jumptable_a27d_case_1:
-@..api_idx_0054_UOTQ.l19:
     cmp word [bss_9e62], byte 1      ; 0x9ece
     je short @..api_idx_0054_UOTQ.l20 ; 0x9ed3
     jmp near @..api_idx_0054_UOTQ.l31 ; 0x9ed5

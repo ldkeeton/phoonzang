@@ -94,7 +94,7 @@ advance_item_slot_action:
     mov ax, word [bx + member_ext.reward] ; 0x139c
     mov dx, word [bx + member_ext.reward + 0x2] ; 0x139f
     add word [item_action_reward], ax ; 0x13a2
-    adc word [item_action_reward + 0x2], dx ; 0x13a6
+    adc word [item_action_reward_hi], dx ; 0x13a6
 @..advance_item_slot_action.l6:
     mov bx, word [bp - 0x0004]       ; 0x13aa
     cmp byte [bx + 0x2a], 0xff       ; 0x13ad

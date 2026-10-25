@@ -499,7 +499,7 @@ spell_select_dialog:
     les bx, word [tick_counter_ptr]  ; 0x91bf
     mov ax, word [es:bx]             ; 0x91c3
     mov dx, word [es:bx + 0x2]       ; 0x91c6
-    mov word [party_redraw_last_tick + 0x2], dx ; 0x91ca
+    mov word [party_redraw_last_tick_hi], dx ; 0x91ca
     mov word [party_redraw_last_tick], ax ; 0x91ce
     mov word [bp - 0x001c], 1        ; 0x91d1
 @..spell_select_dialog.l8:

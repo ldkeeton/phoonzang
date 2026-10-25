@@ -115,12 +115,12 @@ jumptable_0457        equ log_maze_change.jumptable1
 
 %include "vdopt/roll_claim_type7_object.asm" ; 0x06e8
 
-%include "vdopt/loc_UOPP.asm"              ; 0x07d9
+%include "vdopt/get_cell_wall_variant_a.asm" ; 0x07d9
 
-%include "vdopt/loc_KHGO.asm"              ; 0x0849
+%include "vdopt/get_cell_wall_variant_b.asm" ; 0x0849
 
-get_cell_wall.loc1 equ loc_UOPP
-get_cell_wall.loc2 equ loc_KHGO
+get_cell_wall.get_cell_wall_variant_a1 equ get_cell_wall_variant_a
+get_cell_wall.get_cell_wall_variant_b1 equ get_cell_wall_variant_b
 %include "shared/game/get_cell_wall.asm"         ; 0x08b9
 
 %include "vdopt/loc_MOTJ.asm"              ; 0x095a
@@ -151,7 +151,8 @@ get_cell_wall.loc2 equ loc_KHGO
 
 %include "shared/game/api_idx_0002_TIUI.asm"     ; 0x2627
 
-%include "vdopt/collect_known_realm_spells.asm" ; 0x2682
+collect_known_spells.known_spell_ids1 equ known_spell_ids
+%include "shared/game/collect_known_spells.asm"  ; 0x2682
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x26f3
 
@@ -174,7 +175,7 @@ periodic_party_redraw.api_idx1           equ draw_realm_spell_points
 
 %include "shared/game/api_idx_0018_RGOS.asm"     ; 0x378c
 
-%include "vdopt/draw_list_rows.asm"        ; 0x3889
+%include "shared/game/draw_list_rows.asm"        ; 0x3889
 
 loc_HTKI.draw_list_rows1 equ draw_list_rows
 %include "shared/game/loc_HTKI.asm"              ; 0x39eb

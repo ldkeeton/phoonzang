@@ -11,7 +11,7 @@ load_sound_file: ; Aztec csav frame=0x0018
     push word [bp + 0x4]             ; 0x2935
     mov ax, 0xc                      ; 0x2938
     imul word [bp + 0x6]             ; 0x293b
-    add ax, strict word sound_slot_info ; 0x293e
+    add ax, sound_slot_info          ; 0x293e
     push ax                          ; 0x2941
     mov ax, 9                        ; 0x2942
     push ax                          ; 0x2945

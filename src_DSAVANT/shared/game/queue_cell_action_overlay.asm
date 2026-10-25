@@ -163,8 +163,8 @@ queue_cell_action_overlay:
     mov word [bp - 0x0010], ax
     cmp word [party_member_count], byte 1
     jne short @..queue_cell_action_overlay.l9
-    mov bx, word [party_char + 0x2]
-    cmp byte [bx + rec_8484.f_01a1], 1
+    mov bx, word [party_char_hi]
+    cmp byte [bx + party_char_hi_rec.f_01a1], 1
     jne short @..queue_cell_action_overlay.l9
     cmp word [bp + 0x4], byte 0
     jne short @..queue_cell_action_overlay.l9

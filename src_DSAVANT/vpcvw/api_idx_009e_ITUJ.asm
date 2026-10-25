@@ -46,12 +46,12 @@ jumptable_3f96_case_1:
     call api_idx_0056_QRVG           ; 0x3d65
     pop cx                           ; 0x3d68
 @..api_idx_009e_ITUJ.l2:
-    jmp near @..api_idx_009e_ITUJ.l13 ; 0x3d69
+    jmp near jumptable_3f96_case_0   ; 0x3d69
 jumptable_3f96_case_2:
     push word [bp - 0x0024]          ; 0x3d6c
     call api_idx_0056_QRVG           ; 0x3d6f
     pop cx                           ; 0x3d72
-    jmp near @..api_idx_009e_ITUJ.l13 ; 0x3d73
+    jmp near jumptable_3f96_case_0   ; 0x3d73
 jumptable_3f96_case_3:
     mov ax, 0x248                    ; 0x3d76
     imul word [bp + 0x4]             ; 0x3d79
@@ -139,7 +139,7 @@ jumptable_3f96_case_3:
     call api_idx_0004_PMIU           ; 0x3e39
     add sp, byte 4                   ; 0x3e3c
 @..api_idx_009e_ITUJ.l7:
-    jmp near @..api_idx_009e_ITUJ.l13 ; 0x3e3f
+    jmp near jumptable_3f96_case_0   ; 0x3e3f
 jumptable_3f96_case_4:
     mov ax, word [game_state_arg]    ; 0x3e42
     cmp ax, word [bp - 0x002c]       ; 0x3e45
@@ -196,7 +196,7 @@ jumptable_3f96_case_4:
     call loc_NKUR                    ; 0x3ebd
     pop cx                           ; 0x3ec0
 @..api_idx_009e_ITUJ.l8:
-    jmp near @..api_idx_009e_ITUJ.l13 ; 0x3ec1
+    jmp near jumptable_3f96_case_0   ; 0x3ec1
 jumptable_3f96_case_6:
     mov ax, 0x248                    ; 0x3ec4
     imul word [bp + 0x4]             ; 0x3ec7
@@ -249,7 +249,7 @@ jumptable_3f96_case_6:
     push ax                          ; 0x3f3c
     call play_sound_effect           ; 0x3f3d
     pop cx                           ; 0x3f40
-    jmp near @..api_idx_009e_ITUJ.l13 ; 0x3f41
+    jmp near jumptable_3f96_case_0   ; 0x3f41
 jumptable_3f96_case_10:
     mov word [bp - 0x0002], 0        ; 0x3f44
 @..api_idx_009e_ITUJ.l10:
@@ -271,7 +271,7 @@ jumptable_3f96_case_10:
     push word [bp + 0x6]             ; 0x3f6f
     call loc_NKUR                    ; 0x3f72
     pop cx                           ; 0x3f75
-    jmp short @..api_idx_009e_ITUJ.l13 ; 0x3f76
+    jmp short jumptable_3f96_case_0  ; 0x3f76
 jumptable_3f96_case_11:
     mov ax, 4                        ; 0x3f78
     push ax                          ; 0x3f7b
@@ -285,7 +285,7 @@ jumptable_3f96_case_11:
     push word [bp + 0x6]             ; 0x3f8d
     call loc_NKUR                    ; 0x3f90
     pop cx                           ; 0x3f93
-    jmp short @..api_idx_009e_ITUJ.l13 ; 0x3f94
+    jmp short jumptable_3f96_case_0  ; 0x3f94
 jumptable_3f96:
     dw jumptable_3f96_case_0 - IMAGE_BASE + __zres_end ; 0x3f96
     dw jumptable_3f96_case_1 - IMAGE_BASE + __zres_end ; 0x3f98
@@ -301,12 +301,11 @@ jumptable_3f96:
     dw jumptable_3f96_case_11 - IMAGE_BASE + __zres_end ; 0x3fac
 @..api_idx_009e_ITUJ.l12:
     cmp ax, strict word 0xc          ; 0x3fae
-    jae short @..api_idx_009e_ITUJ.l13 ; 0x3fb1
+    jae short jumptable_3f96_case_0  ; 0x3fb1
     xchg bx, ax                      ; 0x3fb3
     shl bx, 1                        ; 0x3fb4
     jmp [cs:bx + jumptable_3f96 - IMAGE_BASE + __zres_end] ; 0x3fb6
 jumptable_3f96_case_0:
-@..api_idx_009e_ITUJ.l13:
     jmp short @..api_idx_009e_ITUJ.l17 ; 0x3fbb
 @..api_idx_009e_ITUJ.l14:
     cmp word [bp - 0x0028], byte 0   ; 0x3fbd

@@ -85,12 +85,12 @@ advance_melee_item_slots:
 @..advance_melee_item_slots.l8:
     mov ax, 0x248                    ; 0x2003
     push ax                          ; 0x2006
-    add bx, strict word party_records ; 0x2007
+    add bx, party_records            ; 0x2007
     mov ax, bx                       ; 0x200b
     push ax                          ; 0x200d
     mov ax, 0x248                    ; 0x200e
     imul word [bp - 0x0002]          ; 0x2011
-    add ax, strict word party_records ; 0x2014
+    add ax, party_records            ; 0x2014
     push ax                          ; 0x2017
     call aztec_swapmem               ; 0x2018
     add sp, byte 6                   ; 0x201b

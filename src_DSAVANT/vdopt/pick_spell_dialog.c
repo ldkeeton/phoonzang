@@ -55,7 +55,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 		draw_power_digit(panel_x + 12, box_y0 + 20, i, i == power);
 	realm = 0;
 	draw_spell_cost(panel_x + 94, box_y0 + 21, realm, 0, 0);
-	spell_count = collect_known_realm_spells(pc, realm);
+	spell_count = collect_known_spells(pc, realm);
 	rows_drawn = spell_count < 7 ? spell_count : 7;
 	list_top = 0;
 	sel_row = -1;
@@ -182,7 +182,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 				} else if (hit >= 12 && hit <= 17) {	/* realm: refill the list */
 					realm = hit - 12;
 					spell = -1;
-					spell_count = collect_known_realm_spells(pc, realm);
+					spell_count = collect_known_spells(pc, realm);
 					rows_drawn = spell_count < 7 ? spell_count : 7;
 					rows_shown = spell_count < 7 ? spell_count : 7;
 					list_top = 0;

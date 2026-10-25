@@ -18,7 +18,7 @@ load_monster_picture: ; Aztec csav frame=0x0018
     push word [bp + 0x4]             ; 0x2886
     mov ax, 0x15e                    ; 0x2889
     imul bx                          ; 0x288c
-    add ax, strict word slot_recs    ; 0x288e
+    add ax, slot_recs                ; 0x288e
     push ax                          ; 0x2891
     mov ax, 8                        ; 0x2892
     push ax                          ; 0x2895

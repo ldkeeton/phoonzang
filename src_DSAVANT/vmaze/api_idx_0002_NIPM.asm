@@ -18,7 +18,7 @@ jumptable_741a_case_0:
     push word [party_region]         ; 0x73d6
     call move_party_to_dest          ; 0x73da
     pop cx                           ; 0x73dd
-    jmp short @..api_idx_0002_NIPM.l2 ; 0x73de
+    jmp short jumptable_741a_case_3  ; 0x73de
 jumptable_741a_case_2:
     mov ax, MSG_A_CHUTE              ; 0x73e0
     push ax                          ; 0x73e3
@@ -36,7 +36,7 @@ jumptable_741a_case_2:
     push word [party_region]         ; 0x73fe
     call move_party_to_dest          ; 0x7402
     pop cx                           ; 0x7405
-    jmp short @..api_idx_0002_NIPM.l2 ; 0x7406
+    jmp short jumptable_741a_case_3  ; 0x7406
 jumptable_741a_case_4:
     mov ax, 8                        ; 0x7408
     push ax                          ; 0x740b
@@ -45,7 +45,7 @@ jumptable_741a_case_4:
     push word [party_region]         ; 0x7410
     call move_party_to_dest          ; 0x7414
     pop cx                           ; 0x7417
-    jmp short @..api_idx_0002_NIPM.l2 ; 0x7418
+    jmp short jumptable_741a_case_3  ; 0x7418
 jumptable_741a:
     dw jumptable_741a_case_0 - IMAGE_BASE + __zres_end ; 0x741a
     dw jumptable_741a_case_1 - IMAGE_BASE + __zres_end ; 0x741c
@@ -56,10 +56,9 @@ jumptable_741a:
     dw jumptable_741a_case_4 - IMAGE_BASE + __zres_end ; 0x7426
 @..api_idx_0002_NIPM.l1:
     cmp ax, strict word 7            ; 0x7428
-    jae short @..api_idx_0002_NIPM.l2 ; 0x742b
+    jae short jumptable_741a_case_3  ; 0x742b
     xchg bx, ax                      ; 0x742d
     shl bx, 1                        ; 0x742e
     jmp [cs:bx + jumptable_741a - IMAGE_BASE + __zres_end] ; 0x7430
 jumptable_741a_case_3:
-@..api_idx_0002_NIPM.l2:
     ret                              ; 0x7435

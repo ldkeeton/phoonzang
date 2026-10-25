@@ -605,12 +605,13 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     out_dir = output_dir or ASM_DIR
     progress.log(f'{name} | resolving Aztec C routines')
     t_aztec = time.perf_counter()
-    c_overrides, _entries, header_files = _aztec_c_overrides(
+    c_overrides, c_checks, _entries, header_files = _aztec_c_overrides(
         project, name, data, ctx.label_map, out_dir, function_roots,
         start_offset)
     asm_annotations = _aztec_asm_annotations(_entries, ctx.label_map,
                                              c_overrides)
     stagelog.step('aztec.overrides', 1, metrics={'c': len(c_overrides),
+                                         'c_checks': len(c_checks),
                                          'asm': len(asm_annotations)})
     if project:
         # Named inside _aztec_c_overrides, with the callees, until stable.
@@ -683,7 +684,8 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         foreign_label_map=foreign_label_map, entry_symbol=entry_symbol,
         foreign_prefix=foreign_prefix, carve_1=carve_1, immediate_labels=immediate_labels,
         label_comments=label_comments, split_functions=split_functions,
-        out_dir=out_dir, c_overrides=c_overrides, entries=_entries,
+        out_dir=out_dir, c_overrides=c_overrides, c_checks=c_checks,
+        entries=_entries,
         header_files=header_files,
         asm_annotations=asm_annotations, classify_timing=classify_timing,
         code_bytes=code_bytes, data_bytes=data_bytes, pct=pct,
@@ -840,12 +842,12 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
     (name, project, data, start_offset, ctx, instructions, label_map,
      function_roots, extra_flow_edges, foreign_label_map, entry_symbol,
      carve_1, immediate_labels, label_comments, split_functions,
-     out_dir, c_overrides, asm_annotations) = (
+     out_dir, c_overrides, c_checks, asm_annotations) = (
         a.name, a.project, a.data, a.start_offset, a.ctx, a.instructions,
         a.label_map, a.function_roots, a.extra_flow_edges,
         a.foreign_label_map, a.entry_symbol, a.carve_1,
         a.immediate_labels, a.label_comments, a.split_functions, a.out_dir,
-        a.c_overrides, a.asm_annotations)
+        a.c_overrides, a.c_checks, a.asm_annotations)
     progress.log(f'{a.name} | verify+format')
     from lib.msgids import (constant_names,
                             message_bases as _message_bases,
@@ -879,6 +881,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         extra_flow_edges=extra_flow_edges,
         label_comments=label_comments,
         c_overrides=c_overrides,
+        c_checks=c_checks,
         allow_diff=ALLOW_DIFF,
         asm_annotations=asm_annotations,
         jump_tables=ctx.jump_tables,
@@ -989,15 +992,17 @@ def _emit(a, r, exact_bytes):
         a.asm_annotations)
     asm_text, stats = r.asm_text, r.stats
     split_sources = dict(r.split_sources)
-    # The new C seeds (main.aztec) are this binary's files too, with the text
-    # the render left them (a pristine seed is relabelled there).
+    # The prebuild-derived C seed participates in sharing and is returned as
+    # an output.  main.build._sync preserves any hand-owned file already at
+    # the same path instead of replacing it with this generated seed.
     seeds = {os.path.relpath(ov['path'], out_dir): ov['text']
              for ov in (a.c_overrides or {}).values() if ov.get('generated')}
     # A vendor data module's file has its vendor .c beside it; every compiled
     # source's data is checked against the named objects in the image.
     seeds.update(_data_sources(project, name, out_dir, split_sources,
                                segments=ctx.segments, data=a.data,
-                               overrides=(a.c_overrides or {}).values()))
+                               overrides=(*((a.c_overrides or {}).values()),
+                                          *((a.c_checks or {}).values()))))
     for include_path in list(split_sources):
         if include_path.endswith('.asm'):
             split_sources[include_path] = stamp(split_sources[include_path],

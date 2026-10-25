@@ -175,6 +175,7 @@ scroll_x_2 equ __zdseg_end + (__zobss_a5d4 - __zdata_start)
 scroll_x_3 equ __zdseg_end + (__zobss_a5d6 - __zdata_start)
 scroll_x_4 equ __zdseg_end + (__zobss_a5d8 - __zdata_start)
 sprite_pos equ __zdseg_end + (__zobss_a5da - __zdata_start)
+bss_a5dc equ __zdseg_end + (__zobss_a5dc - __zdata_start)
 bss_a5e0 equ __zdseg_end + (__zobss_a5e0 - __zdata_start)
 actor_x equ __zdseg_end + (__zobss_a5e2 - __zdata_start)
 trail_x equ __zdseg_end + (__zobss_a5e4 - __zdata_start)
@@ -614,7 +615,9 @@ __zobss_a5d6:
 __zobss_a5d8:
     resb 0x0002
 __zobss_a5da:
-    resb 0x0006
+    resb 0x0002
+__zobss_a5dc:
+    resb 0x0004
 __zobss_a5e0:
     resb 0x0002
 __zobss_a5e2:

@@ -6,7 +6,7 @@ dissolve_or_show_area: ; Aztec csav frame=0x0000
     jne short @..dissolve_or_show_area.l3 ; 0x0d85
     cmp word [mouse_active], byte 0  ; 0x0d87
     je short @..dissolve_or_show_area.l1 ; 0x0d8c
-    push word [mouse_pointer_shape + 0x2] ; 0x0d8e
+    push word [mouse_pointer_shape_seg] ; 0x0d8e
     push word [mouse_pointer_shape]  ; 0x0d92
     call set_mouse_pointer_shape     ; 0x0d96
     add sp, byte 4                   ; 0x0d99

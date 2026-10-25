@@ -182,8 +182,8 @@ api_idx_0004_JQTM.api_idx1 equ api_idx_0090_NPLS
 
 %include "shared/game/api_idx_0018_RGOS.asm"     ; 0x37b6
 
-api_idx_0004_SLIS equ api_idx_0004_KHSO
-%include "shared/game/api_idx_0004_KHSO.asm"     ; 0x38b3
+api_idx_0004_SLIS equ draw_list_rows
+%include "shared/game/draw_list_rows.asm"     ; 0x38b3
 
 loc_HTKI.draw_list_rows1 equ api_idx_0004_SLIS
 %include "shared/game/loc_HTKI.asm"              ; 0x3a15
@@ -282,7 +282,7 @@ jumptable_5fd3        equ log_maze_change.jumptable1
 
 %include "shared/game/api_idx_0002_TIUI.asm"     ; 0x89bd
 
-collect_known_spells.known_spell_list1 equ known_spell_list
+collect_known_spells.known_spell_ids1 equ known_spell_list
 %include "shared/game/collect_known_spells.asm"  ; 0x8a18
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x8a89

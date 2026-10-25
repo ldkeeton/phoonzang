@@ -98,8 +98,8 @@ run_party_screen_animation.api_idx1 equ api_idx_0006_IRNH
 
 %include "shared/game/api_idx_0002_TIUI.asm"     ; 0x1941
 
-api_idx_0004_OQNP                      equ collect_known_spells
-collect_known_spells.known_spell_list1 equ bss_9106
+api_idx_0004_OQNP                     equ collect_known_spells
+collect_known_spells.known_spell_ids1 equ bss_9106
 %include "shared/game/collect_known_spells.asm"     ; 0x199c
 
 %include "shared/game/draw_marker_glyph.asm"     ; 0x1a0d
@@ -122,8 +122,8 @@ periodic_party_redraw.api_idx1           equ draw_realm_spell_points
 
 %include "shared/game/api_idx_0018_RGOS.asm"     ; 0x29f2
 
-api_idx_0004_LUOM equ api_idx_0004_KHSO
-%include "shared/game/api_idx_0004_KHSO.asm"     ; 0x2aef
+api_idx_0004_LUOM equ draw_list_rows
+%include "shared/game/draw_list_rows.asm"     ; 0x2aef
 
 loc_HTKI.draw_list_rows1 equ api_idx_0004_LUOM
 %include "shared/game/loc_HTKI.asm"              ; 0x2c51

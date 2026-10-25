@@ -8,10 +8,9 @@ into one file in ``shared/`` that every binary's master ``%include``s.
 Only generated files are touched (see :mod:`lib.autogen`).  The placement is
 decided on the build's files as data (:func:`share_files`), before any is
 written, so a routine shared is written once, to ``shared/``, and its masters
-already include it there.  A routine with a source shares its ``.c`` (or
-``.s``, :mod:`lib.routine_source`) too, when every copy is generated and
-identical: ``shared/<label>.c`` is then the one source the C gate checks
-against each binary's bytes (``main.aztec`` and ``make.elf`` look there).
+already include it there.  Prebuild-derived C seeds and hand-owned ``.s``
+sources can guide sharing.  Hand-owned ``.c`` files are checked against the
+binary, but do not affect ASM sharing or emitted source layout.
 
 Copies without C that differ only in the label names they use (each binary's
 own ``bss_0d00``, ``loc_HOIR``: names its symbol table, ``.cache/<project>/
@@ -395,10 +394,11 @@ def _fragments(files, out_dir):
     """``{relative path: (asm text, source or None)}`` of generated fragments.
 
     *files* are the generated files (``{relative path: text}``); anything else
-    under *out_dir* is a human's.  The source, ``(suffix, text)``, is the
-    ``.c`` or ``.s`` beside the fragment, else ``shared/<label>.c`` or ``.s``
-    (a shared or hand-owned copy).  A fragment whose own source was taken over
-    by hand is left out: it is not ours to move.
+    under *out_dir* is a human's.  The source, ``(suffix, text)``, is a
+    prebuild-generated C/S file beside the fragment, else a generated shared
+    source or a hand-owned ``.s``.  Hand-owned C is never considered here.  A
+    fragment whose own assembly source was taken over by hand is left out: it
+    is not ours to move.
     """
     def source(base, where):
         path = beside(base, where)
@@ -422,13 +422,15 @@ def _fragments(files, out_dir):
                                               files.__contains__)
         if own:
             ctext = (own_suffix, files[own])
-        elif source(rel[:-4], lambda p: _on_disk(out_dir, p))[0]:
+        elif source(rel[:-4], lambda p: p.endswith('.s')
+                    and _on_disk(out_dir, p))[0]:
             continue
         elif shared:
             ctext = (shared_suffix, files[shared])
         else:
-            path, suffix = shared_source(shared_base,
-                                         lambda p: _on_disk(out_dir, p))
+            path, suffix = shared_source(
+                shared_base, lambda p: p.endswith('.s')
+                and _on_disk(out_dir, p))
             ctext = (suffix, _read(os.path.join(out_dir, path))) if path \
                 else None
         found[rel] = (files[rel], ctext)
@@ -442,7 +444,7 @@ def share_files(files, out_dir, tables):
     *out_dir* (which holds only the hand-owned ones); *tables* is the binaries'
     symbol tables (:func:`lib.symtab.project_tables`).  A routine with
     generated source moves its ``.c`` or ``.s`` along
-    (``shared/game/<label>.c``).
+    (``shared/game/<label>.c``); a hand-owned ``.s`` stays authoritative.
     Returns
     ``(files, shared)``: the tree's files after sharing, and ``{shared relative
     path: [replaced relative paths]}``.

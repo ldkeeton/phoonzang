@@ -15,7 +15,7 @@ jumptable_4af5_case_0:
     push ax                          ; 0x4843
     call loc_LLMG                    ; 0x4844
     add sp, byte 6                   ; 0x4847
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x484a
+    jmp near jumptable_4af5_case_14  ; 0x484a
 jumptable_4af5_case_1:
     mov ax, word [bp + 0x8]          ; 0x484d
     add ax, strict word 0x26         ; 0x4850
@@ -28,7 +28,7 @@ jumptable_4af5_case_1:
     push ax                          ; 0x4860
     call loc_GHNH                    ; 0x4861
     add sp, byte 6                   ; 0x4864
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x4867
+    jmp near jumptable_4af5_case_14  ; 0x4867
 jumptable_4af5_case_2:
     mov ax, 0x12                     ; 0x486a
     push ax                          ; 0x486d
@@ -42,7 +42,7 @@ jumptable_4af5_case_2:
     push ax                          ; 0x487f
     call loc_IIHU                    ; 0x4880
     add sp, byte 8                   ; 0x4883
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x4886
+    jmp near jumptable_4af5_case_14  ; 0x4886
 jumptable_4af5_case_3:
     mov ax, 0x12                     ; 0x4889
     push ax                          ; 0x488c
@@ -56,7 +56,7 @@ jumptable_4af5_case_3:
     push ax                          ; 0x489e
     call loc_IIHU                    ; 0x489f
     add sp, byte 8                   ; 0x48a2
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x48a5
+    jmp near jumptable_4af5_case_14  ; 0x48a5
 jumptable_4af5_case_4:
     mov ax, 7                        ; 0x48a8
     push ax                          ; 0x48ab
@@ -68,7 +68,7 @@ jumptable_4af5_case_4:
     push ax                          ; 0x48b9
     call loc_LLMG                    ; 0x48ba
     add sp, byte 6                   ; 0x48bd
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x48c0
+    jmp near jumptable_4af5_case_14  ; 0x48c0
 jumptable_4af5_case_5:
     mov ax, word [bp + 0x8]          ; 0x48c3
     add ax, strict word 0x62         ; 0x48c6
@@ -81,7 +81,7 @@ jumptable_4af5_case_5:
     push ax                          ; 0x48d6
     call loc_GHNH                    ; 0x48d7
     add sp, byte 6                   ; 0x48da
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x48dd
+    jmp near jumptable_4af5_case_14  ; 0x48dd
 jumptable_4af5_case_6:
     mov ax, word [bp + 0x8]          ; 0x48e0
     add ax, strict word 0x68         ; 0x48e3
@@ -94,7 +94,7 @@ jumptable_4af5_case_6:
     push ax                          ; 0x48f3
     call loc_GHNH                    ; 0x48f4
     add sp, byte 6                   ; 0x48f7
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x48fa
+    jmp near jumptable_4af5_case_14  ; 0x48fa
 jumptable_4af5_case_7:
     mov ax, word [bp + 0x8]          ; 0x48fd
     add ax, strict word 0x6e         ; 0x4900
@@ -107,7 +107,7 @@ jumptable_4af5_case_7:
     push ax                          ; 0x4910
     call loc_GHNH                    ; 0x4911
     add sp, byte 6                   ; 0x4914
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x4917
+    jmp near jumptable_4af5_case_14  ; 0x4917
 jumptable_4af5_case_8:
     mov ax, 7                        ; 0x491a
     push ax                          ; 0x491d
@@ -119,7 +119,7 @@ jumptable_4af5_case_8:
     push ax                          ; 0x492b
     call loc_LLMG                    ; 0x492c
     add sp, byte 6                   ; 0x492f
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x4932
+    jmp near jumptable_4af5_case_14  ; 0x4932
 jumptable_4af5_case_9:
     mov ax, word [bp + 0x8]          ; 0x4935
     add ax, 0x86                     ; 0x4938
@@ -132,7 +132,7 @@ jumptable_4af5_case_9:
     push ax                          ; 0x4948
     call loc_GHNH                    ; 0x4949
     add sp, byte 6                   ; 0x494c
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x494f
+    jmp near jumptable_4af5_case_14  ; 0x494f
 jumptable_4af5_case_10:
     mov ax, 6                        ; 0x4952
     push ax                          ; 0x4955
@@ -144,7 +144,7 @@ jumptable_4af5_case_10:
     push ax                          ; 0x4963
     call loc_LLMG                    ; 0x4964
     add sp, byte 6                   ; 0x4967
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x496a
+    jmp near jumptable_4af5_case_14  ; 0x496a
 jumptable_4af5_case_11:
     mov ax, 3                        ; 0x496d
     push ax                          ; 0x4970
@@ -156,7 +156,7 @@ jumptable_4af5_case_11:
     push ax                          ; 0x497e
     call loc_LLMG                    ; 0x497f
     add sp, byte 6                   ; 0x4982
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x4985
+    jmp near jumptable_4af5_case_14  ; 0x4985
 jumptable_4af5_case_12:
     mov ax, 6                        ; 0x4988
     push ax                          ; 0x498b
@@ -168,7 +168,7 @@ jumptable_4af5_case_12:
     push ax                          ; 0x4999
     call loc_LLMG                    ; 0x499a
     add sp, byte 6                   ; 0x499d
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x49a0
+    jmp near jumptable_4af5_case_14  ; 0x49a0
 jumptable_4af5_case_13:
     mov ax, 0xa                      ; 0x49a3
     push ax                          ; 0x49a6
@@ -182,7 +182,7 @@ jumptable_4af5_case_13:
     push ax                          ; 0x49b8
     call loc_IIHU                    ; 0x49b9
     add sp, byte 8                   ; 0x49bc
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x49bf
+    jmp near jumptable_4af5_case_14  ; 0x49bf
 jumptable_4af5_case_15:
     mov ax, 1                        ; 0x49c2
     push ax                          ; 0x49c5
@@ -237,7 +237,7 @@ jumptable_4af5_case_15:
     push ax                          ; 0x4a38
     call gfx_show_area               ; 0x4a39
     add sp, byte 8                   ; 0x4a3c
-    jmp near @..api_idx_0052_JQTP.l2 ; 0x4a3f
+    jmp near jumptable_4af5_case_14  ; 0x4a3f
 jumptable_4af5_case_16:
     mov ax, 1                        ; 0x4a42
     push ax                          ; 0x4a45
@@ -292,7 +292,7 @@ jumptable_4af5_case_16:
     push ax                          ; 0x4ab8
     call gfx_show_area               ; 0x4ab9
     add sp, byte 8                   ; 0x4abc
-    jmp short @..api_idx_0052_JQTP.l2 ; 0x4abf
+    jmp short jumptable_4af5_case_14 ; 0x4abf
 jumptable_4af5_case_17:
     mov ax, 6                        ; 0x4ac1
     push ax                          ; 0x4ac4
@@ -304,7 +304,7 @@ jumptable_4af5_case_17:
     push ax                          ; 0x4ad2
     call loc_LLMG                    ; 0x4ad3
     add sp, byte 6                   ; 0x4ad6
-    jmp short @..api_idx_0052_JQTP.l2 ; 0x4ad9
+    jmp short jumptable_4af5_case_14 ; 0x4ad9
 jumptable_4af5_case_18:
     mov ax, 6                        ; 0x4adb
     push ax                          ; 0x4ade
@@ -316,7 +316,7 @@ jumptable_4af5_case_18:
     push ax                          ; 0x4aec
     call loc_LLMG                    ; 0x4aed
     add sp, byte 6                   ; 0x4af0
-    jmp short @..api_idx_0052_JQTP.l2 ; 0x4af3
+    jmp short jumptable_4af5_case_14 ; 0x4af3
 jumptable_4af5:
     dw jumptable_4af5_case_0 - IMAGE_BASE + __zres_end ; 0x4af5
     dw jumptable_4af5_case_1 - IMAGE_BASE + __zres_end ; 0x4af7
@@ -339,10 +339,9 @@ jumptable_4af5:
     dw jumptable_4af5_case_18 - IMAGE_BASE + __zres_end ; 0x4b19
 @..api_idx_0052_JQTP.l1:
     cmp ax, strict word 0x13         ; 0x4b1b
-    jae short @..api_idx_0052_JQTP.l2 ; 0x4b1e
+    jae short jumptable_4af5_case_14 ; 0x4b1e
     xchg bx, ax                      ; 0x4b20
     shl bx, 1                        ; 0x4b21
     jmp [cs:bx + jumptable_4af5 - IMAGE_BASE + __zres_end] ; 0x4b23
 jumptable_4af5_case_14:
-@..api_idx_0052_JQTP.l2:
     ret                              ; 0x4b28

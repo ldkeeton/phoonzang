@@ -313,8 +313,8 @@ api_idx_0030_JQMM.jumptable_case1:
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-    jmp near @..api_idx_0030_JQMM.l25
-api_idx_0030_JQMM.jumptable_case2:
+    jmp near api_idx_0030_JQMM.jumptable_case2
+api_idx_0030_JQMM.jumptable_case3:
     mov word [api_idx_0030_JQMM.bss16], 1
     mov ax, 0xff
     push ax
@@ -364,8 +364,8 @@ api_idx_0030_JQMM.jumptable_case2:
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-    jmp near @..api_idx_0030_JQMM.l25
-api_idx_0030_JQMM.jumptable_case3:
+    jmp near api_idx_0030_JQMM.jumptable_case2
+api_idx_0030_JQMM.jumptable_case4:
     mov word [api_idx_0030_JQMM.bss16], 2
     mov ax, 0xff
     push ax
@@ -443,8 +443,8 @@ api_idx_0030_JQMM.jumptable_case3:
     call gfx_draw_maze_piece
     add sp, byte 8
 @..api_idx_0030_JQMM.l13:
-    jmp near @..api_idx_0030_JQMM.l25
-api_idx_0030_JQMM.jumptable_case4:
+    jmp near api_idx_0030_JQMM.jumptable_case2
+api_idx_0030_JQMM.jumptable_case5:
     mov word [api_idx_0030_JQMM.bss16], 3
     mov ax, 0xff
     push ax
@@ -501,8 +501,8 @@ api_idx_0030_JQMM.jumptable_case4:
     call gfx_draw_maze_piece
     add sp, byte 8
 @..api_idx_0030_JQMM.l15:
-    jmp near @..api_idx_0030_JQMM.l25
-api_idx_0030_JQMM.jumptable_case5:
+    jmp near api_idx_0030_JQMM.jumptable_case2
+api_idx_0030_JQMM.jumptable_case6:
     mov word [api_idx_0030_JQMM.bss16], 4
     mov ax, 0xff
     push ax
@@ -547,8 +547,8 @@ api_idx_0030_JQMM.jumptable_case5:
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-    jmp near @..api_idx_0030_JQMM.l25
-api_idx_0030_JQMM.jumptable_case6:
+    jmp near api_idx_0030_JQMM.jumptable_case2
+api_idx_0030_JQMM.jumptable_case7:
     mov word [api_idx_0030_JQMM.bss16], 5
     mov ax, 0xff
     push ax
@@ -648,23 +648,22 @@ api_idx_0030_JQMM.jumptable_case6:
     call gfx_draw_maze_piece
     add sp, byte 8
 @..api_idx_0030_JQMM.l23:
-    jmp short @..api_idx_0030_JQMM.l25
+    jmp short api_idx_0030_JQMM.jumptable_case2
 api_idx_0030_JQMM.jumptable1:
-    dw api_idx_0030_JQMM.jumptable_case7 - IMAGE_BASE + __zres_end
-    dw api_idx_0030_JQMM.jumptable_case1 - IMAGE_BASE + __zres_end
     dw api_idx_0030_JQMM.jumptable_case2 - IMAGE_BASE + __zres_end
+    dw api_idx_0030_JQMM.jumptable_case1 - IMAGE_BASE + __zres_end
     dw api_idx_0030_JQMM.jumptable_case3 - IMAGE_BASE + __zres_end
     dw api_idx_0030_JQMM.jumptable_case4 - IMAGE_BASE + __zres_end
     dw api_idx_0030_JQMM.jumptable_case5 - IMAGE_BASE + __zres_end
     dw api_idx_0030_JQMM.jumptable_case6 - IMAGE_BASE + __zres_end
+    dw api_idx_0030_JQMM.jumptable_case7 - IMAGE_BASE + __zres_end
 @..api_idx_0030_JQMM.l24:
     cmp ax, strict word 7
-    jae short @..api_idx_0030_JQMM.l25
+    jae short api_idx_0030_JQMM.jumptable_case2
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + api_idx_0030_JQMM.jumptable1 - IMAGE_BASE + __zres_end]
-api_idx_0030_JQMM.jumptable_case7:
-@..api_idx_0030_JQMM.l25:
+api_idx_0030_JQMM.jumptable_case2:
     mov word [api_idx_0030_JQMM.bss17], 0
 @..api_idx_0030_JQMM.l26:
     mov ax, word [api_idx_0030_JQMM.bss17]

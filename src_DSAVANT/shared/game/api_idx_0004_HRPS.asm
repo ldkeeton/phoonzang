@@ -20,44 +20,43 @@ api_idx_0004_HRPS:
     call test_bit
     add sp, byte 4
     test ax, ax
-    je short @..api_idx_0004_HRPS.l3
+    je short api_idx_0004_HRPS.jumptable_case1
     mov ax, word [game_state_arg]
     jmp short @..api_idx_0004_HRPS.l2
-api_idx_0004_HRPS.jumptable_case1:
+api_idx_0004_HRPS.jumptable_case2:
     cmp word [party_map_piece], byte 0x0c
     jle short @..api_idx_0004_HRPS.l1
     mov word [bp - 0x0004], 1
 @..api_idx_0004_HRPS.l1:
-    jmp short @..api_idx_0004_HRPS.l3
-api_idx_0004_HRPS.jumptable_case2:
+    jmp short api_idx_0004_HRPS.jumptable_case1
+api_idx_0004_HRPS.jumptable_case3:
     mov word [bp - 0x0004], 1
-    jmp short @..api_idx_0004_HRPS.l3
+    jmp short api_idx_0004_HRPS.jumptable_case1
 api_idx_0004_HRPS.jumptable1:
-    dw api_idx_0004_HRPS.jumptable_case2 - IMAGE_BASE + __zres_end
     dw api_idx_0004_HRPS.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_HRPS.jumptable_case2 - IMAGE_BASE + __zres_end
+    dw api_idx_0004_HRPS.jumptable_case1 - IMAGE_BASE + __zres_end
+    dw api_idx_0004_HRPS.jumptable_case3 - IMAGE_BASE + __zres_end
+    dw api_idx_0004_HRPS.jumptable_case1 - IMAGE_BASE + __zres_end
+    dw api_idx_0004_HRPS.jumptable_case1 - IMAGE_BASE + __zres_end
+    dw api_idx_0004_HRPS.jumptable_case1 - IMAGE_BASE + __zres_end
+    dw api_idx_0004_HRPS.jumptable_case1 - IMAGE_BASE + __zres_end
     dw api_idx_0004_HRPS.jumptable_case3 - IMAGE_BASE + __zres_end
     dw api_idx_0004_HRPS.jumptable_case3 - IMAGE_BASE + __zres_end
     dw api_idx_0004_HRPS.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_HRPS.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_HRPS.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_HRPS.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_HRPS.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_HRPS.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_HRPS.jumptable_case2 - IMAGE_BASE + __zres_end
     dw api_idx_0004_HRPS.jumptable_case3 - IMAGE_BASE + __zres_end
     dw api_idx_0004_HRPS.jumptable_case3 - IMAGE_BASE + __zres_end
     dw api_idx_0004_HRPS.jumptable_case1 - IMAGE_BASE + __zres_end
+    dw api_idx_0004_HRPS.jumptable_case1 - IMAGE_BASE + __zres_end
     dw api_idx_0004_HRPS.jumptable_case2 - IMAGE_BASE + __zres_end
+    dw api_idx_0004_HRPS.jumptable_case3 - IMAGE_BASE + __zres_end
 @..api_idx_0004_HRPS.l2:
     sub ax, strict word 0xf
     cmp ax, strict word 0x10
-    jae short @..api_idx_0004_HRPS.l3
+    jae short api_idx_0004_HRPS.jumptable_case1
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + api_idx_0004_HRPS.jumptable1 - IMAGE_BASE + __zres_end]
-api_idx_0004_HRPS.jumptable_case3:
-@..api_idx_0004_HRPS.l3:
+api_idx_0004_HRPS.jumptable_case1:
     push word [bp - 0x0002]
     mov ax, word [maze_data]
     add ax, 0x8b0
