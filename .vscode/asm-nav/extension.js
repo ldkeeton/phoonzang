@@ -490,7 +490,7 @@ const AGENTS = {
             return args;
         },
         format: formatCodexEvent,
-        env: {},
+        env: { CODEX_DEBUG: '1' },
         // Codex is an executable, not a shell. Run it through the user's login shell
         // so shell aliases/wrappers and the PATH used by VS Code terminals resolve.
         terminalArgs(prompt, model) {

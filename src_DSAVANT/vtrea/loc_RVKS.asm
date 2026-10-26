@@ -13,7 +13,7 @@ loc_RVKS:
     add ax, cx                       ; 0x6f5d
     add ax, 0x3c0                    ; 0x6f5f
     push ax                          ; 0x6f62
-    call api_idx_0002_OVRM           ; 0x6f63
+    call clear_bit_pair              ; 0x6f63
     add sp, byte 4                   ; 0x6f66
     mov ax, 0                        ; 0x6f69
     push ax                          ; 0x6f6c

@@ -13,7 +13,7 @@ claim_type7_object:
     add ax, cx                       ; 0x04d3
     add ax, 0x3c0                    ; 0x04d5
     push ax                          ; 0x04d8
-    call api_idx_0002_OVRM           ; 0x04d9
+    call clear_bit_pair              ; 0x04d9
     add sp, byte 4                   ; 0x04dc
     mov ax, 0                        ; 0x04df
     push ax                          ; 0x04e2

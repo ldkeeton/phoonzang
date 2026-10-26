@@ -105,7 +105,7 @@ jumptable_0457_case_6 equ log_maze_change.jumptable_case4
 jumptable_0457        equ log_maze_change.jumptable1
 %include "shared/game/log_maze_change.asm"     ; 0x0382
 
-%include "shared/game/api_idx_0002_OVRM.asm"     ; 0x0473
+%include "shared/game/clear_bit_pair.asm"        ; 0x0473
 
 %include "vdopt/claim_type7_object.asm"    ; 0x04b7
 

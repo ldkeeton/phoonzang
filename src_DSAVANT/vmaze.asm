@@ -549,7 +549,7 @@ api_idx_0004_JQTM.api_idx1 equ api_idx_0090_PNOU
 
 %include "vmaze/loc_IPSH.asm"              ; 0x8867
 
-%include "shared/game/api_idx_0002_OVRM.asm"     ; 0x89d0
+%include "shared/game/clear_bit_pair.asm"        ; 0x89d0
 
 %include "vmaze/claim_cell.asm"            ; 0x8a14
 

@@ -44,6 +44,7 @@
     "api_idx_0002_OGRO": {"name": "draw_known_spell_values", "note": "Restore the saved screen and draw known spell names with character flag values"},
     "api_idx_0002_OOKN": {"name": "load_screen_file_immediate", "note": "Loads a screen file and optionally displays the full screen immediately"},
     "api_idx_0002_OTTG": {"name": "load_maze_file", "note": "Open a maze file, load it into the requested slot, and close it"},
+    "api_idx_0002_OVRM": {"name": "clear_bit_pair", "note": "Clears two consecutive bits in a byte buffer starting at the supplied bit index"},
     "api_idx_0002_PQLV": {"name": "load_maze_file", "note": "Open a maze file, load it into the requested slot, and close it"},
     "api_idx_0002_RQOS": {"name": "evaluate_character_professions", "note": "Checks eligibility for all fourteen professions without allocating stat points"},
     "api_idx_0004_ONRQ": {"name": "add_overlay_item", "note": "inserts an overlay item in code order, hanging when the 12-slot table is full"},

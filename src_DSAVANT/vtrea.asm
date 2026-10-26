@@ -235,7 +235,7 @@ jumptable_5fd3        equ log_maze_change.jumptable1
 
 %include "vtrea/api_idx_0074_MHUG.asm"     ; 0x66eb
 
-%include "shared/game/api_idx_0002_OVRM.asm"     ; 0x6e69
+%include "shared/game/clear_bit_pair.asm"        ; 0x6e69
 
 %include "vtrea/api_idx_0004_IHLT.asm"     ; 0x6ead
 

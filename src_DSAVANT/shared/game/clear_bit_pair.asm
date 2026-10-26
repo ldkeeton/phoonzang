@@ -1,11 +1,11 @@
 ; auto-generated
-api_idx_0002_OVRM:
+clear_bit_pair:
     mov ax, 0xfffe
     call aztec_csav
     mov ax, word [bp + 0x6]
     mov word [bp - 0x0002], ax
-    jmp short @..api_idx_0002_OVRM.l2
-@..api_idx_0002_OVRM.l1:
+    jmp short @..clear_bit_pair.l2
+@..clear_bit_pair.l1:
     mov ax, word [bp - 0x0002]
     mov cx, 8
     cwd
@@ -27,10 +27,10 @@ api_idx_0002_OVRM:
     and ax, cx
     mov byte [bx + si], al
     inc word [bp - 0x0002]
-@..api_idx_0002_OVRM.l2:
+@..clear_bit_pair.l2:
     mov ax, word [bp + 0x6]
     inc ax
     inc ax
     cmp ax, word [bp - 0x0002]
-    jg short @..api_idx_0002_OVRM.l1
+    jg short @..clear_bit_pair.l1
     ret

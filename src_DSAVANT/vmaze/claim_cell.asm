@@ -109,7 +109,7 @@ claim_cell:
     add ax, cx                       ; 0x8b1a
     add ax, 0x3c0                    ; 0x8b1c
     push ax                          ; 0x8b1f
-    call api_idx_0002_OVRM           ; 0x8b20
+    call clear_bit_pair              ; 0x8b20
     add sp, byte 4                   ; 0x8b23
     mov ax, 0                        ; 0x8b26
     push ax                          ; 0x8b29
