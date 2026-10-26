@@ -6,7 +6,7 @@ loc_JTTS:
     push ax                          ; 0x8a7d
     mov ax, dseg_9158                ; 0x8a7e
     push ax                          ; 0x8a81
-    call api_idx_0002_LVPS           ; 0x8a82
+    call load_screen_file            ; 0x8a82
     add sp, byte 4                   ; 0x8a85
     mov ax, 0                        ; 0x8a88
     push ax                          ; 0x8a8b

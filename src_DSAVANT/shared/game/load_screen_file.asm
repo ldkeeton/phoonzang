@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_LVPS:
+load_screen_file:
     mov ax, 0xfffe
     call aztec_csav
     mov ax, 0
@@ -18,12 +18,12 @@ api_idx_0002_LVPS:
     add sp, byte 4
     mov word [bp - 0x0002], ax
     cmp ax, strict word 0xffff
-    jne short @..api_idx_0002_LVPS.l1
+    jne short @..load_screen_file.l1
     mov ax, 0xe
     push ax
     call release_and_exit
     pop cx
-@..api_idx_0002_LVPS.l1:
+@..load_screen_file.l1:
     mov ax, 0
     push ax
     push word [bp - 0x0002]
@@ -33,7 +33,7 @@ api_idx_0002_LVPS:
     call aztec_close
     pop cx
     cmp word [bp + 0x6], byte 1
-    jne short @..api_idx_0002_LVPS.l2
+    jne short @..load_screen_file.l2
     mov ax, 0xc7
     push ax
     mov ax, 0x13f
@@ -43,10 +43,10 @@ api_idx_0002_LVPS:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp short @..api_idx_0002_LVPS.l3
-@..api_idx_0002_LVPS.l2:
+    jmp short @..load_screen_file.l3
+@..load_screen_file.l2:
     cmp word [bp + 0x6], byte 2
-    jne short @..api_idx_0002_LVPS.l3
+    jne short @..load_screen_file.l3
     mov ax, 0
     push ax
     push ax
@@ -66,5 +66,5 @@ api_idx_0002_LVPS:
     push ax
     call gfx_fade_in
     pop cx
-@..api_idx_0002_LVPS.l3:
+@..load_screen_file.l3:
     ret

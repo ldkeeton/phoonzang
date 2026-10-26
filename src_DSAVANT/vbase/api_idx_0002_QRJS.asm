@@ -6,7 +6,7 @@ api_idx_0002_QRJS:
     push ax                          ; 0x8e74
     mov ax, dseg_919a                ; 0x8e75
     push ax                          ; 0x8e78
-    call api_idx_0002_LVPS           ; 0x8e79
+    call load_screen_file            ; 0x8e79
     add sp, byte 4                   ; 0x8e7c
     mov ax, 0                        ; 0x8e7f
     push ax                          ; 0x8e82

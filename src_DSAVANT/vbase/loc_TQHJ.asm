@@ -6,7 +6,7 @@ loc_TQHJ:
     push ax                          ; 0x863d
     mov ax, dseg_9144                ; 0x863e
     push ax                          ; 0x8641
-    call api_idx_0002_LVPS           ; 0x8642
+    call load_screen_file            ; 0x8642
     add sp, byte 4                   ; 0x8645
     mov ax, 0                        ; 0x8648
     push ax                          ; 0x864b

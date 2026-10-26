@@ -74,7 +74,7 @@ api_idx_0008_QGRM:
     push ax                          ; 0x14c6
     mov ax, dseg_91a1                ; 0x14c7
     push ax                          ; 0x14ca
-    call api_idx_0002_LVPS           ; 0x14cb
+    call load_screen_file            ; 0x14cb
     add sp, byte 4                   ; 0x14ce
     mov word [bp - 0x0002], 0        ; 0x14d1
 @..api_idx_0008_QGRM.l3:

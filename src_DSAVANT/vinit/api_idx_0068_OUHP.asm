@@ -390,7 +390,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0dfb
     mov ax, dseg_9187                ; 0x0dfc
     push ax                          ; 0x0dff
-    call api_idx_0002_LVPS           ; 0x0e00
+    call load_screen_file            ; 0x0e00
     add sp, byte 4                   ; 0x0e03
     mov ax, 5                        ; 0x0e06
     push ax                          ; 0x0e09
@@ -401,7 +401,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0e11
     mov ax, dseg_9194                ; 0x0e12
     push ax                          ; 0x0e15
-    call api_idx_0002_LVPS           ; 0x0e16
+    call load_screen_file            ; 0x0e16
     add sp, byte 4                   ; 0x0e19
     mov ax, 0xf                      ; 0x0e1c
     push ax                          ; 0x0e1f

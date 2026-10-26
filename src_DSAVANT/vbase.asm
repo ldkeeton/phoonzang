@@ -324,7 +324,7 @@ api_idx_0004_JQTM.api_idx1 equ loc_VMSS
 
 %include "vbase/loc_LIQV.asm"              ; 0x6f79
 
-%include "shared/game/api_idx_0002_LVPS.asm"     ; 0x6fda
+%include "shared/game/load_screen_file.asm"      ; 0x6fda
 
 %include "vbase/api_idx_0002_NVMN.asm"     ; 0x706d
 

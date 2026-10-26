@@ -6,7 +6,7 @@ api_idx_0002_GORG:
     push ax                          ; 0x8b72
     mov ax, dseg_9165                ; 0x8b73
     push ax                          ; 0x8b76
-    call api_idx_0002_LVPS           ; 0x8b77
+    call load_screen_file            ; 0x8b77
     add sp, byte 4                   ; 0x8b7a
     mov ax, 0                        ; 0x8b7d
     push ax                          ; 0x8b80

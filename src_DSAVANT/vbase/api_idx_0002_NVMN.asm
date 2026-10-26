@@ -61,7 +61,7 @@ api_idx_0002_NVMN:
     push ax                          ; 0x70f6
     mov ax, dseg_911e                ; 0x70f7
     push ax                          ; 0x70fa
-    call api_idx_0002_LVPS           ; 0x70fb
+    call load_screen_file            ; 0x70fb
     add sp, byte 4                   ; 0x70fe
     jmp short @..api_idx_0002_NVMN.l4 ; 0x7101
 @..api_idx_0002_NVMN.l3:
@@ -271,6 +271,6 @@ jumptable_7185_case_0:
     push ax                          ; 0x72b6
     mov ax, dseg_912b                ; 0x72b7
     push ax                          ; 0x72ba
-    call api_idx_0002_LVPS           ; 0x72bb
+    call load_screen_file            ; 0x72bb
     add sp, byte 4                   ; 0x72be
     ret                              ; 0x72c1

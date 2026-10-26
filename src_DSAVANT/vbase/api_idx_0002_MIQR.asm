@@ -6,7 +6,7 @@ api_idx_0002_MIQR:
     push ax                          ; 0x8d8d
     mov ax, dseg_9186                ; 0x8d8e
     push ax                          ; 0x8d91
-    call api_idx_0002_LVPS           ; 0x8d92
+    call load_screen_file            ; 0x8d92
     add sp, byte 4                   ; 0x8d95
     mov ax, 0                        ; 0x8d98
     push ax                          ; 0x8d9b

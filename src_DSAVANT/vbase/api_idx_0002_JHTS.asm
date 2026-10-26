@@ -6,7 +6,7 @@ api_idx_0002_JHTS:
     push ax                          ; 0x8cac
     mov ax, dseg_9172                ; 0x8cad
     push ax                          ; 0x8cb0
-    call api_idx_0002_LVPS           ; 0x8cb1
+    call load_screen_file            ; 0x8cb1
     add sp, byte 4                   ; 0x8cb4
     mov ax, 0                        ; 0x8cb7
     push ax                          ; 0x8cba
