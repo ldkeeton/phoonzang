@@ -42,6 +42,7 @@
     "api_idx_0002_LVPS": {"name": "load_screen_file", "note": "Load a screen file and optionally show it immediately or fade it in"},
     "api_idx_0002_MPHM": {"name": "evaluate_character_professions", "note": "Checks eligibility for all fourteen professions without allocating stat points"},
     "api_idx_0002_OGRO": {"name": "draw_known_spell_values", "note": "Restore the saved screen and draw known spell names with character flag values"},
+    "api_idx_0002_OOKN": {"name": "load_screen_file_immediate", "note": "Loads a screen file and optionally displays the full screen immediately"},
     "api_idx_0002_RQOS": {"name": "evaluate_character_professions", "note": "Checks eligibility for all fourteen professions without allocating stat points"},
     "api_idx_0004_ONRQ": {"name": "add_overlay_item", "note": "inserts an overlay item in code order, hanging when the 12-slot table is full"},
     "api_idx_0004_QVPP": {"name": "find_map_piece", "note": "maps world (x, y) to piece index and local x/y; 0 if found"},

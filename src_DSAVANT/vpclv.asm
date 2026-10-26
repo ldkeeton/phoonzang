@@ -155,7 +155,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpclv/ovmain.asm"                ; 0x000e
 
-%include "shared/game/api_idx_0002_OOKN.asm"     ; 0x0022
+%include "shared/game/load_screen_file_immediate.asm" ; 0x0022
 
 api_idx_0012_RLJJ equ api_idx_0012_PGSL
 %include "shared/game/api_idx_0012_PGSL.asm"     ; 0x0086

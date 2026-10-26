@@ -79,7 +79,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x6226
     mov ax, dseg_90b3                ; 0x6227
     push ax                          ; 0x622a
-    call api_idx_0002_OOKN           ; 0x622b
+    call load_screen_file_immediate  ; 0x622b
     add sp, byte 4                   ; 0x622e
     mov ax, 0                        ; 0x6231
     push ax                          ; 0x6234

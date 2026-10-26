@@ -59,7 +59,7 @@ api_idx_000c_RLGP:
     push ax                          ; 0x51fd
     mov ax, dseg_93f0                ; 0x51fe
     push ax                          ; 0x5201
-    call api_idx_0002_OOKN           ; 0x5202
+    call load_screen_file_immediate  ; 0x5202
     add sp, byte 4                   ; 0x5205
     mov ax, 0                        ; 0x5208
     push ax                          ; 0x520b

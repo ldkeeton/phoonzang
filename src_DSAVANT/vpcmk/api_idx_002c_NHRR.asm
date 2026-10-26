@@ -33,7 +33,7 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6a85
     mov ax, dseg_950c                ; 0x6a86
     push ax                          ; 0x6a89
-    call api_idx_0002_OOKN           ; 0x6a8a
+    call load_screen_file_immediate  ; 0x6a8a
     add sp, byte 4                   ; 0x6a8d
     mov word [banner_offset], 0x14   ; 0x6a90
     mov word [banner_plain_flag], 0  ; 0x6a96

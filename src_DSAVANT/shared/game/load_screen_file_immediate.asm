@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_OOKN:
+load_screen_file_immediate:
     mov ax, 0xfffe
     call aztec_csav
     mov ax, 0
@@ -18,12 +18,12 @@ api_idx_0002_OOKN:
     add sp, byte 4
     mov word [bp - 0x0002], ax
     cmp ax, strict word 0xffff
-    jne short @..api_idx_0002_OOKN.l1
+    jne short @..load_screen_file_immediate.l1
     mov ax, 0x1c
     push ax
     call release_and_exit
     pop cx
-@..api_idx_0002_OOKN.l1:
+@..load_screen_file_immediate.l1:
     mov ax, 0
     push ax
     push word [bp - 0x0002]
@@ -33,7 +33,7 @@ api_idx_0002_OOKN:
     call aztec_close
     pop cx
     cmp word [bp + 0x6], byte 0
-    je short @..api_idx_0002_OOKN.l2
+    je short @..load_screen_file_immediate.l2
     mov ax, 0xc7
     push ax
     mov ax, 0x13f
@@ -43,5 +43,5 @@ api_idx_0002_OOKN:
     push ax
     call gfx_show_area
     add sp, byte 8
-@..api_idx_0002_OOKN.l2:
+@..load_screen_file_immediate.l2:
     ret

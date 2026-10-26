@@ -174,7 +174,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcvw/ovmain.asm"                ; 0x000e
 
-%include "shared/game/api_idx_0002_OOKN.asm"     ; 0x0027
+%include "shared/game/load_screen_file_immediate.asm" ; 0x0027
 
 %include "shared/game/draw_party_glyph_row.asm"  ; 0x008b
 
