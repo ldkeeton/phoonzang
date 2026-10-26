@@ -6,14 +6,14 @@ loc_TLLM:
     jmp short @..loc_TLLM.l3         ; 0x6631
 @..loc_TLLM.l1:
     mov bx, word [bp - 0x0002]       ; 0x6633
-    cmp byte [bx + bss_9074 + 0x2], 0 ; 0x6636
+    cmp byte [bx + pc_file_record_base_hi + 0x2], 0 ; 0x6636
     jbe short @..loc_TLLM.l2         ; 0x663b
     mov ax, 0                        ; 0x663d
     push ax                          ; 0x6640
     push bx                          ; 0x6641
     lea ax, word [bp - 0x024a]       ; 0x6642
     push ax                          ; 0x6646
-    call api_idx_0002_SJMT           ; 0x6647
+    call transfer_pc_file_record     ; 0x6647
     add sp, byte 6                   ; 0x664a
     lea ax, word [bp - 0x024a]       ; 0x664d
     push ax                          ; 0x6651

@@ -21,10 +21,10 @@ loc_LQIO:
     push word [bp - 0x0002]          ; 0x6094
     lea ax, word [bp - 0x024e]       ; 0x6097
     push ax                          ; 0x609b
-    call api_idx_0002_SJMT           ; 0x609c
+    call transfer_pc_file_record     ; 0x609c
     add sp, byte 6                   ; 0x609f
     mov bx, word [bp - 0x0002]       ; 0x60a2
-    mov byte [bx + bss_9074 + 0x2], 2 ; 0x60a5
+    mov byte [bx + pc_file_record_base_hi + 0x2], 2 ; 0x60a5
     mov si, word [party_char_count]  ; 0x60aa
     shl si, 1                        ; 0x60ae
     mov word [si + member_roster_index + 0x2], bx ; 0x60b0

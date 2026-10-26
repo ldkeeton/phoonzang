@@ -57,7 +57,7 @@ api_idx_0018_MVRH:
     push word [bp + 0x4]             ; 0x6872
     mov ax, party_records            ; 0x6875
     push ax                          ; 0x6878
-    call api_idx_0002_SJMT           ; 0x6879
+    call transfer_pc_file_record     ; 0x6879
     add sp, byte 6                   ; 0x687c
     push word [bp + 0x4]             ; 0x687f
     call loc_RNSM                    ; 0x6882

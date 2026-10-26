@@ -383,10 +383,10 @@ screen_cache_1_seg equ __zbss_9066 - __zdseg_start
 saved_screen_slot equ __zbss_9068 - __zdseg_start
 saved_screen_pending equ __zbss_906a - __zdseg_start
 screen_cache_index equ __zbss_906c - __zdseg_start
-bss_906e equ __zbss_906e - __zdseg_start
+pc_file_record_size equ __zbss_906e - __zdseg_start
 bss_9070 equ __zbss_9070 - __zdseg_start
-bss_9072 equ __zbss_9072 - __zdseg_start
-bss_9074 equ __zbss_9074 - __zdseg_start
+pc_file_record_base equ __zbss_9072 - __zdseg_start
+pc_file_record_base_hi equ __zbss_9074 - __zdseg_start
 bss_9088 equ __zbss_9088 - __zdseg_start
 party_redraw_last_tick equ __zbss_908a - __zdseg_start
 party_redraw_last_tick_hi equ __zbss_908c - __zdseg_start

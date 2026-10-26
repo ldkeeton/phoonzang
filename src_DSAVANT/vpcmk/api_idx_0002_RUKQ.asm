@@ -6,7 +6,7 @@ api_idx_0002_RUKQ:
     jmp short @..api_idx_0002_RUKQ.l3 ; 0x6607
 @..api_idx_0002_RUKQ.l1:
     mov bx, word [bp - 0x0002]       ; 0x6609
-    cmp byte [bx + bss_9074 + 0x2], 0 ; 0x660c
+    cmp byte [bx + pc_file_record_base_hi + 0x2], 0 ; 0x660c
     jne short @..api_idx_0002_RUKQ.l2 ; 0x6611
     mov ax, bx                       ; 0x6613
     ret                              ; 0x6615

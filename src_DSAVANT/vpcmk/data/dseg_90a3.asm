@@ -1,6 +1,4 @@
 ; auto-generated
-__zdseg_9098:
-    db 'PCFILE.DBS', 0
 __zdseg_90a3:
     db 'V.$$$', 0
 __zdseg_90a9:

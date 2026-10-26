@@ -25,7 +25,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xe377 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+pc_file_name equ __zdseg_end + (__zpc_file_name - __zdata_start)
 dseg_90a3 equ __zdseg_end + (__zdseg_90a3 - __zdata_start)
 dseg_90a9 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
 dseg_90b6 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
@@ -190,7 +190,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vbase/ovmain.asm"                ; 0x000e
 
-%include "shared/game/api_idx_0002_SJMT.asm"     ; 0x0036
+%include "shared/game/transfer_pc_file_record.asm" ; 0x0036
 
 %include "vbase/api_idx_0004_VUIP.asm"     ; 0x00b5
 
@@ -367,7 +367,9 @@ api_idx_0004_JQTM.api_idx1 equ loc_VMSS
 %include "shared/aztec/aztec_strcmp.asm"          ; 0x9386
 
 __zdata_start:
-%include "vbase/data/dseg_9098.asm"        ; 0x93ed
+%include "shared/data/pc_file_name.asm"     ; 0x93ed
+
+%include "vbase/data/dseg_90a3.asm"        ; 0x93f8
 
 %include "vbase/data/screen_temp_file.asm" ; 0x9462
 

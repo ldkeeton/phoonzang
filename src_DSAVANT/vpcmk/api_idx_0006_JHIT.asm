@@ -43,7 +43,7 @@ api_idx_0006_JHIT:
     push word [bp + 0x4]             ; 0x68ec
     mov ax, party_records            ; 0x68ef
     push ax                          ; 0x68f2
-    call api_idx_0002_SJMT           ; 0x68f3
+    call transfer_pc_file_record     ; 0x68f3
     add sp, byte 6                   ; 0x68f6
 @..api_idx_0006_JHIT.l1:
     ret                              ; 0x68f9

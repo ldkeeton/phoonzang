@@ -297,7 +297,7 @@ api_idx_002c_NHRR:
     jmp short @..api_idx_002c_NHRR.l9 ; 0x6d2d
 @..api_idx_002c_NHRR.l7:
     mov bx, word [bp - 0x0002]       ; 0x6d2f
-    cmp byte [bx + bss_9074 + 0x2], 1 ; 0x6d32
+    cmp byte [bx + pc_file_record_base_hi + 0x2], 1 ; 0x6d32
     jne short @..api_idx_002c_NHRR.l8 ; 0x6d37
     mov word [bp - 0x002a], 1        ; 0x6d39
     mov word [bp - 0x0028], 1        ; 0x6d3e

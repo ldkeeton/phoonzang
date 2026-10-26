@@ -49,6 +49,7 @@
     "api_idx_0002_PQLV": {"name": "load_maze_file", "note": "Open a maze file, load it into the requested slot, and close it"},
     "api_idx_0002_QVIM": {"name": "assign_slot_bit", "note": "Update the bit-indexed slot record and old and new slot bitmaps"},
     "api_idx_0002_RQOS": {"name": "evaluate_character_professions", "note": "Checks eligibility for all fourteen professions without allocating stat points"},
+    "api_idx_0002_SJMT": {"name": "transfer_pc_file_record", "note": "Read or write a fixed-size PCFILE.DBS record"},
     "api_idx_0004_ONRQ": {"name": "add_overlay_item", "note": "inserts an overlay item in code order, hanging when the 12-slot table is full"},
     "api_idx_0004_QVPP": {"name": "find_map_piece", "note": "maps world (x, y) to piece index and local x/y; 0 if found"},
     "api_idx_0004_ULSR": {"name": "titlecase_string", "note": "lowercases an all-caps string but keeps the first letter of each word"},
@@ -607,6 +608,9 @@
         "9068": {"name": "saved_screen_slot", "note": "slot holding the screen area saved on leaving"},
         "906a": {"name": "saved_screen_pending", "note": "set while a saved screen area waits to be restored"},
         "906c": {"name": "screen_cache_index", "note": "selects one of the cached screens in screen_cache"},
+        "906e": {"name": "pc_file_record_size", "note": "Byte count for each PCFILE.DBS record"},
+        "9072": {"name": "pc_file_record_base", "note": "32-bit base file offset for PCFILE.DBS records"},
+        "9074": {"name": "pc_file_record_base_hi", "note": "High word of the PCFILE.DBS record base offset"},
         "908a": {"name": "party_redraw_last_tick", "note": "long: tick count at the last periodic_party_redraw refresh"},
         "908c": {"name": "party_redraw_last_tick_hi", "note": "high word of party_redraw_last_tick"},
         "919e": {"name": "save_location_flag", "note": "nonzero: record the destination as the saved location"},
@@ -848,6 +852,7 @@
     },
     "vbase": {
       "data_names": {
+        "9098": {"name": "pc_file_name", "note": "PCFILE.DBS filename"},
         "910d": {"name": "screen_temp_file", "note": "\"V.$$$\" screen-save file name"},
         "95b2": {"name": "intro_screen_number", "note": "1-4 picks the new-game intro screen; 0 skips it"},
         "a494": {"name": "copy_protection_result", "note": "nonzero when the answer word passed the copy check"}
@@ -1128,6 +1133,7 @@
         {"offset": "2936", "space": "ds", "note": "`add ax, slot_label`: base of the 20-byte label rows"}
       ],
       "data_names": {
+        "9098": {"name": "pc_file_name", "note": "PCFILE.DBS filename"},
         "92dc": {"name": "profession_0_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 0"},
         "92e5": {"name": "profession_1_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 1"},
         "92ee": {"name": "profession_2_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 2"},

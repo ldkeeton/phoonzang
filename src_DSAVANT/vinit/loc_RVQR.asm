@@ -235,7 +235,7 @@ loc_RVQR:
     add sp, byte 6                   ; 0x05e3
     mov ax, 0x18                     ; 0x05e6
     push ax                          ; 0x05e9
-    mov ax, bss_906e                 ; 0x05ea
+    mov ax, pc_file_record_size      ; 0x05ea
     push ax                          ; 0x05ed
     mov ax, dseg_9152                ; 0x05ee
     push ax                          ; 0x05f1

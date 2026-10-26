@@ -279,10 +279,10 @@ loc_MIPR:
     imul word [bp - 0x0006]          ; 0x65aa
     add ax, party_records            ; 0x65ad
     push ax                          ; 0x65b0
-    call api_idx_0002_SJMT           ; 0x65b1
+    call transfer_pc_file_record     ; 0x65b1
     add sp, byte 6                   ; 0x65b4
     mov bx, word [bp + 0x6]          ; 0x65b7
-    mov byte [bx + bss_9074 + 0x2], 1 ; 0x65ba
+    mov byte [bx + pc_file_record_base_hi + 0x2], 1 ; 0x65ba
     mov ax, 0                        ; 0x65bf
     push ax                          ; 0x65c2
     call gfx_wait_sound              ; 0x65c3
@@ -301,7 +301,7 @@ loc_MIPR:
     mov word [bp - 0x0008], ax       ; 0x65e0
     mov ax, 0x18                     ; 0x65e3
     push ax                          ; 0x65e6
-    mov ax, bss_906e                 ; 0x65e7
+    mov ax, pc_file_record_size      ; 0x65e7
     push ax                          ; 0x65ea
     push word [bp - 0x0008]          ; 0x65eb
     call aztec_write                 ; 0x65ee

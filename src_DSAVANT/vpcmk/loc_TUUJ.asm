@@ -9,7 +9,7 @@ loc_TUUJ:
     imul word [bp + 0x4]             ; 0x66d3
     add ax, party_records            ; 0x66d6
     push ax                          ; 0x66d9
-    call api_idx_0002_SJMT           ; 0x66da
+    call transfer_pc_file_record     ; 0x66da
     add sp, byte 6                   ; 0x66dd
     mov word [bss_9594], 0xffff      ; 0x66e0
     push word [bp + 0x4]             ; 0x66e6

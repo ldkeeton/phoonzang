@@ -7,7 +7,7 @@ loc_PVJJ:
     jmp near @..loc_PVJJ.l7          ; 0x690a
 @..loc_PVJJ.l1:
     mov bx, word [bp - 0x0002]       ; 0x690d
-    cmp byte [bx + bss_9074 + 0x2], 1 ; 0x6910
+    cmp byte [bx + pc_file_record_base_hi + 0x2], 1 ; 0x6910
     je short @..loc_PVJJ.l2          ; 0x6915
     jmp near @..loc_PVJJ.l6          ; 0x6917
 @..loc_PVJJ.l2:
@@ -16,7 +16,7 @@ loc_PVJJ:
     push bx                          ; 0x691e
     lea ax, word [bp - 0x0250]       ; 0x691f
     push ax                          ; 0x6923
-    call api_idx_0002_SJMT           ; 0x6924
+    call transfer_pc_file_record     ; 0x6924
     add sp, byte 6                   ; 0x6927
     lea ax, word [bp - 0x0250]       ; 0x692a
     push ax                          ; 0x692e

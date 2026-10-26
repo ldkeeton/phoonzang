@@ -6,7 +6,7 @@ api_idx_0006_MROT:
     shl ax, 1                        ; 0x61e4
     mov bx, ax                       ; 0x61e6
     mov bx, word [bx + member_roster_index + 0x2] ; 0x61e8
-    mov byte [bx + bss_9074 + 0x2], 1 ; 0x61ec
+    mov byte [bx + pc_file_record_base_hi + 0x2], 1 ; 0x61ec
     dec word [party_char_count]      ; 0x61f1
     mov ax, word [bp + 0x4]          ; 0x61f5
     mov word [bp - 0x0002], ax       ; 0x61f8
