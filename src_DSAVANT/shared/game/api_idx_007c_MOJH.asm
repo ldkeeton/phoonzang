@@ -72,7 +72,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + party_records + pc_rec.sound]
+    mov al, byte [bx + party_records + pc_rec.gender]
     sub ah, ah
     add ax, MSG_MALE
     push ax
@@ -125,7 +125,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + party_records + pc_rec.label]
+    mov al, byte [bx + party_records + pc_rec.profession]
     sub ah, ah
     add ax, strict word 0x78
     push ax
@@ -325,7 +325,7 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    mov al, byte [bx + party_records + pc_rec.label]
+    mov al, byte [bx + party_records + pc_rec.profession]
     sub ah, ah
     mov cx, 0xa
     imul cx

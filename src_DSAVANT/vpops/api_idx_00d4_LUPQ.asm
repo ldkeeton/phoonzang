@@ -237,7 +237,7 @@ api_idx_00d4_LUPQ:
     mov ax, 0x248                    ; 0x3973
     imul word [bp - 0x0006]          ; 0x3976
     mov bx, ax                       ; 0x3979
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x397b
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x397b
     cmp al, 3                        ; 0x397f
     je short @..api_idx_00d4_LUPQ.l22 ; 0x3981
     cmp al, 0xd                      ; 0x3983
@@ -1282,7 +1282,7 @@ jumptable_4058:
     mov ax, 0x248                    ; 0x43a8
     imul word [bp - 0x0006]          ; 0x43ab
     mov bx, ax                       ; 0x43ae
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x43b0
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x43b0
     sub ah, ah                       ; 0x43b4
     add ax, strict word 8            ; 0x43b6
     push ax                          ; 0x43b9

@@ -25,7 +25,7 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x18ce
     imul word [bp + 0x4]             ; 0x18d1
     mov bx, ax                       ; 0x18d4
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x18d6
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x18d6
     sub ah, ah                       ; 0x18da
     push ax                          ; 0x18dc
     lea ax, word [bp - 0x004c]       ; 0x18dd

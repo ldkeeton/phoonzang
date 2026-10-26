@@ -17,7 +17,7 @@ api_idx_0018_IKVK:
     mov al, byte [bx + party_records + pc_rec.stat + 0x6] ; 0x497e
     sub ah, ah                       ; 0x4982
     mov word [bp - 0x000a], ax       ; 0x4984
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x4987
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x4987
     sub ah, ah                       ; 0x498b
     jmp near @..api_idx_0018_IKVK.l3 ; 0x498d
 jumptable_4b3c_case_1:

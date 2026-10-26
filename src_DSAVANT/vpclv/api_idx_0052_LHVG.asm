@@ -5,7 +5,7 @@ api_idx_0052_LHVG:
     mov ax, 0x248                    ; 0x2c12
     imul word [bp + 0x4]             ; 0x2c15
     mov bx, ax                       ; 0x2c18
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x2c1a
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x2c1a
     sub ah, ah                       ; 0x2c1e
     jmp near @..api_idx_0052_LHVG.l1 ; 0x2c20
 jumptable_2ce6_case_0:
@@ -513,7 +513,7 @@ jumptable_2ebe:
     mov ax, 0x248                    ; 0x3097
     imul word [bp + 0x4]             ; 0x309a
     mov bx, ax                       ; 0x309d
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x309f
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x309f
     sub ah, ah                       ; 0x30a3
     jmp short @..api_idx_0052_LHVG.l15 ; 0x30a5
 jumptable_30fe_case_0:
@@ -656,9 +656,9 @@ jumptable_30fe:
 @..api_idx_0052_LHVG.l21:
     sub ax, cx                       ; 0x31e3
     mov byte [bx + party_records + pc_rec.count], al ; 0x31e5
-    cmp byte [bx + party_records + pc_rec.label], 0xd ; 0x31e9
+    cmp byte [bx + party_records + pc_rec.profession], 0xd ; 0x31e9
     je short @..api_idx_0052_LHVG.l22 ; 0x31ee
-    cmp byte [bx + party_records + pc_rec.label], 0xc ; 0x31f0
+    cmp byte [bx + party_records + pc_rec.profession], 0xc ; 0x31f0
     jne short @..api_idx_0052_LHVG.l24 ; 0x31f5
 @..api_idx_0052_LHVG.l22:
     mov ax, 0xa                      ; 0x31f7

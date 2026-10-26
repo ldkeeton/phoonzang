@@ -30,7 +30,7 @@ int pc, reveal;
 	draw_text_glyphs(party_records[pc].name, 0);	/* member name */
 	gfx_set_text_color(132, 0);
 	gfx_set_text_pos(x + 4, y + 38);
-	load_message_string(MSG_CLASS_BASE + party_records[pc].label,
+	load_message_string(MSG_CLASS_BASE + party_records[pc].profession,
 		name);
 	name[7] = 0;		/* keep seven characters */
 	draw_text_glyphs(name, 0);

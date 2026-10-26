@@ -3,7 +3,7 @@ api_idx_007c_MIHQ:
     mov ax, 0xff84                   ; 0x4585
     call aztec_csav                  ; 0x4588
     push word [bp + 0x4]             ; 0x458b
-    call api_idx_0002_MPHM           ; 0x458e
+    call evaluate_character_professions ; 0x458e
     pop cx                           ; 0x4591
     mov word [bp - 0x0004], 0        ; 0x4592
     mov word [bp - 0x0002], 0        ; 0x4597
@@ -11,7 +11,7 @@ api_idx_007c_MIHQ:
     mov ax, word [bp - 0x0002]       ; 0x459c
     shl ax, 1                        ; 0x459f
     mov bx, ax                       ; 0x45a1
-    cmp word [bx + bss_976e], byte 1 ; 0x45a3
+    cmp word [bx + profession_eligible], byte 1 ; 0x45a3
     jne short @..api_idx_007c_MIHQ.l2 ; 0x45a8
     mov ax, 1                        ; 0x45aa
     jmp short @..api_idx_007c_MIHQ.l3 ; 0x45ad
@@ -72,7 +72,7 @@ api_idx_007c_MIHQ:
     imul word [bp + 0x4]             ; 0x461d
     mov bx, ax                       ; 0x4620
     pop ax                           ; 0x4622
-    mov byte [bx + party_records + pc_rec.label], al ; 0x4623
+    mov byte [bx + party_records + pc_rec.profession], al ; 0x4623
     mov ax, 0                        ; 0x4627
     push ax                          ; 0x462a
     mov ax, 0x84                     ; 0x462b
@@ -90,7 +90,7 @@ api_idx_007c_MIHQ:
     mov ax, 0x248                    ; 0x4647
     imul word [bp + 0x4]             ; 0x464a
     mov bx, ax                       ; 0x464d
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x464f
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x464f
     sub ah, ah                       ; 0x4653
     add ax, strict word 0x78         ; 0x4655
     push ax                          ; 0x4658
@@ -107,11 +107,11 @@ api_idx_007c_MIHQ:
     mov ax, 0x248                    ; 0x4671
     imul word [bp + 0x4]             ; 0x4674
     mov bx, ax                       ; 0x4677
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x4679
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x4679
     sub ah, ah                       ; 0x467d
     push ax                          ; 0x467f
     push word [bp + 0x4]             ; 0x4680
-    call loc_UMTI                    ; 0x4683
+    call check_profession_requirements ; 0x4683
     add sp, byte 6                   ; 0x4686
     mov ax, 1                        ; 0x4689
     push ax                          ; 0x468c

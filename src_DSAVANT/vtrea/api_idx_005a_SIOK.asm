@@ -63,7 +63,7 @@ api_idx_005a_SIOK:
     mov bx, ax                       ; 0x118f
     cmp byte [bx + party_records + pc_rec.state], 3 ; 0x1191
     jb short @..api_idx_005a_SIOK.l4 ; 0x1196
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x1198
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x1198
     sub ah, ah                       ; 0x119c
     add ax, strict word 8            ; 0x119e
     push ax                          ; 0x11a1

@@ -13,7 +13,7 @@ api_idx_0004_KJII:
     sub ah, ah                       ; 0x489e
     mov word [bp - 0x0004], ax       ; 0x48a0
     mov word [bp - 0x0002], 0        ; 0x48a3
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x48a8
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x48a8
     sub ah, ah                       ; 0x48ac
     jmp short @..api_idx_0004_KJII.l2 ; 0x48ae
 jumptable_48eb_case_0:

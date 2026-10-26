@@ -25,7 +25,7 @@ loc_LTLR:
     mov ax, 0x248                    ; 0x4cb5
     imul word [bp + 0x4]             ; 0x4cb8
     mov bx, ax                       ; 0x4cbb
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x4cbd
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x4cbd
     sub ah, ah                       ; 0x4cc1
     jmp near @..loc_LTLR.l2          ; 0x4cc3
 jumptable_4e83_case_0:

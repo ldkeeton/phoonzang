@@ -878,9 +878,9 @@ jumptable_8145:
     mov bx, ax                       ; 0x81ff
     cmp byte [bx + party_records + pc_rec.flag + 0x9], 0 ; 0x8201
     ja short @..api_idx_00ac_OJJU.l40 ; 0x8206
-    cmp byte [bx + party_records + pc_rec.label], 0xc ; 0x8208
+    cmp byte [bx + party_records + pc_rec.profession], 0xc ; 0x8208
     je short @..api_idx_00ac_OJJU.l40 ; 0x820d
-    cmp byte [bx + party_records + pc_rec.label], 0xd ; 0x820f
+    cmp byte [bx + party_records + pc_rec.profession], 0xd ; 0x820f
     jne short @..api_idx_00ac_OJJU.l42 ; 0x8214
 @..api_idx_00ac_OJJU.l40:
     cmp word [bp - 0x007c], byte 0x12 ; 0x8216
@@ -2256,7 +2256,7 @@ jumptable_883a:
     mov ax, 0x248                    ; 0x8f53
     imul word [bp - 0x0050]          ; 0x8f56
     mov bx, ax                       ; 0x8f59
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x8f5b
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x8f5b
     sub ah, ah                       ; 0x8f5f
     inc ax                           ; 0x8f61
     inc ax                           ; 0x8f62

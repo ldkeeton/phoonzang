@@ -36,7 +36,7 @@ api_idx_0004_MMTP:
     jne short @..api_idx_0004_MMTP.l4
     dec word [bp - 0x0004]
 @..api_idx_0004_MMTP.l4:
-    mov al, byte [bx + party_records + pc_rec.label]
+    mov al, byte [bx + party_records + pc_rec.profession]
     sub ah, ah
     jmp near @..api_idx_0004_MMTP.l5
 api_idx_0004_MMTP.jumptable_case1:

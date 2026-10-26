@@ -84,7 +84,7 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     mov ax, 0x248                    ; 0x1e4a
     imul word [bp + 0x4]             ; 0x1e4d
     mov bx, ax                       ; 0x1e50
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x1e52
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x1e52
     sub ah, ah                       ; 0x1e56
     add ax, strict word 0x78         ; 0x1e58
     push ax                          ; 0x1e5b

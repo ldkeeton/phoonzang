@@ -568,7 +568,7 @@ api_idx_0084_IMVQ:
     add ax, cx                       ; 0x2af4
     mov word [bp - 0x007c], ax       ; 0x2af6
     mov word [bp - 0x007e], 0        ; 0x2af9
-    cmp byte [bx + party_records + pc_rec.label], 3 ; 0x2afe
+    cmp byte [bx + party_records + pc_rec.profession], 3 ; 0x2afe
     jne short @..api_idx_0084_IMVQ.l9 ; 0x2b03
     mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x2b05
     sub ah, ah                       ; 0x2b09
@@ -578,7 +578,7 @@ api_idx_0084_IMVQ:
     mov word [bp - 0x007e], 3        ; 0x2b13
     jmp short @..api_idx_0084_IMVQ.l11 ; 0x2b18
 @..api_idx_0084_IMVQ.l9:
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x2b1a
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x2b1a
     cmp al, 0xd                      ; 0x2b1e
     je short @..api_idx_0084_IMVQ.l10 ; 0x2b20
     cmp al, 4                        ; 0x2b22

@@ -87,9 +87,9 @@ jumptable_6599_case_0:
     pop ax                           ; 0x63f5
     add ax, cx                       ; 0x63f6
     add word [bp - 0x0002], ax       ; 0x63f8
-    cmp byte [bx + party_records + pc_rec.label], 0xa ; 0x63fb
+    cmp byte [bx + party_records + pc_rec.profession], 0xa ; 0x63fb
     je short @..api_idx_00d2_SNMN.l6 ; 0x6400
-    cmp byte [bx + party_records + pc_rec.label], 9 ; 0x6402
+    cmp byte [bx + party_records + pc_rec.profession], 9 ; 0x6402
     jne short @..api_idx_00d2_SNMN.l7 ; 0x6407
 @..api_idx_00d2_SNMN.l6:
     mov al, byte [bx + party_records + pc_rec.stat + 0x6] ; 0x6409

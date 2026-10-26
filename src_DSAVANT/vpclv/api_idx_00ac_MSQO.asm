@@ -11,7 +11,7 @@ api_idx_00ac_MSQO:
     mov al, byte [bx + party_records + pc_rec.stat + 0x3] ; 0x45f7
     sub ah, ah                       ; 0x45fb
     mov word [bp - 0x0008], ax       ; 0x45fd
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x4600
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x4600
     sub ah, ah                       ; 0x4604
     jmp near @..api_idx_00ac_MSQO.l1 ; 0x4606
 jumptable_4679_case_0:

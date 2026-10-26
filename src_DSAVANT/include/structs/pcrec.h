@@ -39,8 +39,8 @@ struct pc_rec {				/* 0x248 bytes */
 	char pad1[120];			/* +0x1be */
 	unsigned char kind;		/* +0x236: 0x13 and 0x19 use glyph base 10 */
 	unsigned char glyph_set;	/* +0x237: picks the panel's glyph base */
-	unsigned char sound;		/* +0x238: sound effect, less 8 */
-	unsigned char label;		/* +0x239: message 120 + label */
+	unsigned char gender;		/* +0x238: 0 male, 1 female (MSG_MALE + gender) */
+	unsigned char profession;	/* +0x239: class, MSG_CLASS_BASE + profession */
 	char pad2;			/* +0x23a */
 	unsigned char state;		/* +0x23b: 0 when settled */
 	unsigned char attack;		/* +0x23c: also the cells' highest low nibble */

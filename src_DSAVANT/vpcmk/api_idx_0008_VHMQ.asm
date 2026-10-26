@@ -54,7 +54,7 @@ api_idx_0008_VHMQ:
     mov bx, ax                       ; 0x49ac
     pop ax                           ; 0x49ae
     mov byte [bx + party_records + pc_rec.stat + 0x7], al ; 0x49af
-    cmp byte [bx + party_records + pc_rec.sound], 1 ; 0x49b3
+    cmp byte [bx + party_records + pc_rec.gender], 1 ; 0x49b3
     jne short @..api_idx_0008_VHMQ.l2 ; 0x49b8
     inc byte [bx + party_records + pc_rec.stat + 0x7] ; 0x49ba
 @..api_idx_0008_VHMQ.l2:

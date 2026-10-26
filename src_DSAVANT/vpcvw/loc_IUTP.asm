@@ -706,7 +706,7 @@ jumptable_76e2:
     mov ax, 0x248                    ; 0x77ae
     imul word [bp + 0x4]             ; 0x77b1
     mov bx, ax                       ; 0x77b4
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x77b6
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x77b6
     sub ah, ah                       ; 0x77ba
     push ax                          ; 0x77bc
     lea ax, word [bp - 0x0048]       ; 0x77bd
@@ -718,7 +718,7 @@ jumptable_76e2:
     mov ax, 0x248                    ; 0x77cc
     imul word [bp + 0x4]             ; 0x77cf
     mov bx, ax                       ; 0x77d2
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x77d4
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x77d4
     sub ah, ah                       ; 0x77d8
     push ax                          ; 0x77da
     lea ax, word [bp - 0x0044]       ; 0x77db

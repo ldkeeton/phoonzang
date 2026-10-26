@@ -24,7 +24,7 @@ api_idx_005e_QNLK:
     pop ax                           ; 0x6001
     add ax, cx                       ; 0x6002
     mov word [bp - 0x0002], ax       ; 0x6004
-    cmp byte [bx + party_records + pc_rec.label], 3 ; 0x6007
+    cmp byte [bx + party_records + pc_rec.profession], 3 ; 0x6007
     jne short @..api_idx_005e_QNLK.l1 ; 0x600c
     mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x600e
     sub ah, ah                       ; 0x6012
@@ -32,7 +32,7 @@ api_idx_005e_QNLK:
     add word [bp - 0x0002], ax       ; 0x6016
     jmp short @..api_idx_005e_QNLK.l3 ; 0x6019
 @..api_idx_005e_QNLK.l1:
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x601b
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x601b
     cmp al, 4                        ; 0x601f
     je short @..api_idx_005e_QNLK.l2 ; 0x6021
     cmp al, 6                        ; 0x6023
@@ -89,7 +89,7 @@ api_idx_005e_QNLK:
     mov ax, 0x248                    ; 0x609d
     imul word [bp + 0x4]             ; 0x60a0
     mov bx, ax                       ; 0x60a3
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x60a5
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x60a5
     sub ah, ah                       ; 0x60a9
     add ax, MSG_MAKES_HIS_MOVE       ; 0x60ab
     push ax                          ; 0x60ae

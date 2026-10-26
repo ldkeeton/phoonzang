@@ -90,8 +90,8 @@ struc pc_rec
     .pad_01be: resb 120
     .kind: resb 1
     .glyph_set: resb 1
-    .sound: resb 1
-    .label: resb 1
+    .gender: resb 1
+    .profession: resb 1
     .f_023a: resb 1
     .state: resb 1
     .attack: resb 1

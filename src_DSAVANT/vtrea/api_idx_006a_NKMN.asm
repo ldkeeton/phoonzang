@@ -334,7 +334,7 @@ api_idx_006a_NKMN:
     mov cx, word [bx + party_records + pc_rec.power_cap] ; 0x6307
     add ax, cx                       ; 0x630b
     mov word [bp - 0x001a], ax       ; 0x630d
-    cmp byte [bx + party_records + pc_rec.label], 3 ; 0x6310
+    cmp byte [bx + party_records + pc_rec.profession], 3 ; 0x6310
     jne short @..api_idx_006a_NKMN.l5 ; 0x6315
     mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x6317
     sub ah, ah                       ; 0x631b
@@ -342,7 +342,7 @@ api_idx_006a_NKMN:
     mov word [bp - 0x001c], 2        ; 0x6320
     jmp short @..api_idx_006a_NKMN.l7 ; 0x6325
 @..api_idx_006a_NKMN.l5:
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x6327
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x6327
     cmp al, 0xd                      ; 0x632b
     je short @..api_idx_006a_NKMN.l6 ; 0x632d
     cmp al, 4                        ; 0x632f

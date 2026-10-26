@@ -56,7 +56,7 @@ jumptable_3f96_case_3:
     mov ax, 0x248                    ; 0x3d76
     imul word [bp + 0x4]             ; 0x3d79
     mov bx, ax                       ; 0x3d7c
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x3d7e
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x3d7e
     sub ah, ah                       ; 0x3d82
     push ax                          ; 0x3d84
     lea ax, word [bp - 0x0018]       ; 0x3d85
@@ -243,7 +243,7 @@ jumptable_3f96_case_6:
     mov ax, 0x248                    ; 0x3f2b
     imul word [bp + 0x4]             ; 0x3f2e
     mov bx, ax                       ; 0x3f31
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x3f33
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x3f33
     sub ah, ah                       ; 0x3f37
     add ax, strict word 8            ; 0x3f39
     push ax                          ; 0x3f3c

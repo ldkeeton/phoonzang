@@ -25,7 +25,7 @@ api_idx_0054_OPGG:
     mov ax, 0x248                    ; 0x4547
     imul word [bp + 0x4]             ; 0x454a
     mov bx, ax                       ; 0x454d
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x454f
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x454f
     sub ah, ah                       ; 0x4553
     push ax                          ; 0x4555
     mov ax, word [bp + 0xe]          ; 0x4556
@@ -55,7 +55,7 @@ api_idx_0054_OPGG:
     mov ax, 0x248                    ; 0x4591
     imul word [bp + 0x4]             ; 0x4594
     mov bx, ax                       ; 0x4597
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x4599
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x4599
     sub ah, ah                       ; 0x459d
     push ax                          ; 0x459f
     mov ax, word [bp + 0xe]          ; 0x45a0

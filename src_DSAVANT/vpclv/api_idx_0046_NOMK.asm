@@ -7,7 +7,7 @@ api_idx_0046_NOMK:
     mov ax, 0x248                    ; 0x4fd4
     imul word [bp + 0x4]             ; 0x4fd7
     mov bx, ax                       ; 0x4fda
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x4fdc
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x4fdc
     sub ah, ah                       ; 0x4fe0
     push ax                          ; 0x4fe2
     lea ax, word [bp - 0x0044]       ; 0x4fe3

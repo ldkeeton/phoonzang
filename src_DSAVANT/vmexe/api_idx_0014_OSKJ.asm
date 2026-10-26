@@ -602,13 +602,13 @@ api_idx_0014_OSKJ:
     mov ax, 0x248                    ; 0x6ac3
     imul word [bss_8462]             ; 0x6ac6
     mov bx, ax                       ; 0x6aca
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x6acc
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x6acc
     mov bx, word [party_char_ext]    ; 0x6ad0
     mov byte [bx + member_ext.f_00dc], al ; 0x6ad4
     mov ax, 0x248                    ; 0x6ad8
     imul word [bss_8462]             ; 0x6adb
     mov bx, ax                       ; 0x6adf
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x6ae1
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x6ae1
     mov bx, word [party_char_ext]    ; 0x6ae5
     mov byte [bx + member_ext.f_00d6], al ; 0x6ae9
     jmp near @..api_idx_0014_OSKJ.l38 ; 0x6aed
@@ -735,7 +735,7 @@ api_idx_0014_OSKJ:
     sub ah, ah                       ; 0x6c30
     imul cx                          ; 0x6c32
     mov bx, ax                       ; 0x6c34
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x6c36
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x6c36
     mov bx, word [party_char_ext]    ; 0x6c3a
     mov byte [bx + member_ext.f_00dc], al ; 0x6c3e
     mov bx, word [bp - 0x0002]       ; 0x6c42
@@ -743,7 +743,7 @@ api_idx_0014_OSKJ:
     sub ah, ah                       ; 0x6c48
     imul cx                          ; 0x6c4a
     mov bx, ax                       ; 0x6c4c
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x6c4e
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x6c4e
     mov bx, word [party_char_ext]    ; 0x6c52
     mov byte [bx + member_ext.f_00d6], al ; 0x6c56
 @..api_idx_0014_OSKJ.l38:

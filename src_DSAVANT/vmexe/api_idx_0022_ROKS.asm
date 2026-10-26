@@ -237,7 +237,7 @@ api_idx_0022_ROKS:
     mov ax, 0x248                    ; 0x246c
     imul word [bp + 0x6]             ; 0x246f
     mov bx, ax                       ; 0x2472
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x2474
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x2474
     sub ah, ah                       ; 0x2478
     inc ax                           ; 0x247a
     inc ax                           ; 0x247b

@@ -7,7 +7,7 @@ loc_QTKU:
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.state], 3
     jae short @..loc_QTKU.l1
-    mov al, byte [bx + party_records + pc_rec.sound]
+    mov al, byte [bx + party_records + pc_rec.gender]
     sub ah, ah
     add ax, strict word 8
     push ax

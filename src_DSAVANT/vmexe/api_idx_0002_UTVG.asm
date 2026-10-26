@@ -80,7 +80,7 @@ api_idx_0002_UTVG:
     mov ax, 0x248                    ; 0x2054
     imul word [bp + 0x6]             ; 0x2057
     mov bx, ax                       ; 0x205a
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x205c
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x205c
     sub ah, ah                       ; 0x2060
     add ax, strict word 8            ; 0x2062
     mov word [bp - 0x0002], ax       ; 0x2065

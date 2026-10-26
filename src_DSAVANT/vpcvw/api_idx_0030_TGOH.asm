@@ -3,23 +3,23 @@ api_idx_0030_TGOH:
     mov ax, 0xffd0                   ; 0x92b3
     call aztec_csav                  ; 0x92b6
     push word [bp + 0x4]             ; 0x92b9
-    call api_idx_0002_RQOS           ; 0x92bc
+    call evaluate_character_professions ; 0x92bc
     pop cx                           ; 0x92bf
     mov ax, 0x248                    ; 0x92c0
     imul word [bp + 0x4]             ; 0x92c3
     mov bx, ax                       ; 0x92c6
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x92c8
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x92c8
     sub ah, ah                       ; 0x92cc
     shl ax, 1                        ; 0x92ce
     mov bx, ax                       ; 0x92d0
-    mov word [bx + bss_967c], 0      ; 0x92d2
+    mov word [bx + profession_eligible], 0 ; 0x92d2
     mov word [bp - 0x0006], 1        ; 0x92d8
     mov word [bp - 0x0002], 0        ; 0x92dd
 @..api_idx_0030_TGOH.l1:
     mov ax, word [bp - 0x0002]       ; 0x92e2
     shl ax, 1                        ; 0x92e5
     mov bx, ax                       ; 0x92e7
-    cmp word [bx + bss_967c], byte 1 ; 0x92e9
+    cmp word [bx + profession_eligible], byte 1 ; 0x92e9
     jne short @..api_idx_0030_TGOH.l2 ; 0x92ee
     mov ax, 1                        ; 0x92f0
     jmp short @..api_idx_0030_TGOH.l3 ; 0x92f3
@@ -87,7 +87,7 @@ api_idx_0030_TGOH:
     imul word [bp + 0x4]             ; 0x9376
     mov bx, ax                       ; 0x9379
     pop ax                           ; 0x937b
-    mov byte [bx + party_records + pc_rec.label], al ; 0x937c
+    mov byte [bx + party_records + pc_rec.profession], al ; 0x937c
     cmp word [bx + party_records + pc_rec.power_cap], strict word 0xfa ; 0x9380
     jge short @..api_idx_0030_TGOH.l7 ; 0x9386
     mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x9388
@@ -116,11 +116,11 @@ api_idx_0030_TGOH:
     mov ax, 0x248                    ; 0x93ce
     imul word [bp + 0x4]             ; 0x93d1
     mov bx, ax                       ; 0x93d4
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x93d6
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x93d6
     sub ah, ah                       ; 0x93da
     push ax                          ; 0x93dc
     push word [bp + 0x4]             ; 0x93dd
-    call loc_PGKG                    ; 0x93e0
+    call evaluate_character_profession ; 0x93e0
     add sp, byte 6                   ; 0x93e3
     mov word [bp - 0x0008], 0        ; 0x93e6
 @..api_idx_0030_TGOH.l9:

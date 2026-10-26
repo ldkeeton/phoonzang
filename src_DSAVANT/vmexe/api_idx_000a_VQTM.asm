@@ -397,7 +397,7 @@ jumptable_78e5_case_5:
     mov ax, 0x248                    ; 0x77c1
     imul word [bp + 0xa]             ; 0x77c4
     mov bx, ax                       ; 0x77c7
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x77c9
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x77c9
     sub ah, ah                       ; 0x77cd
     add ax, strict word 8            ; 0x77cf
     push ax                          ; 0x77d2

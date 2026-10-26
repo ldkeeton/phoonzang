@@ -365,7 +365,7 @@ jumptable_12fa_case_10:
     mov byte [bx + party_records + pc_rec.state], 3 ; 0x125b
     mov word [bx + party_records + pc_rec.pair_a], 0 ; 0x1260
     mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x1266
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x126c
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x126c
     sub ah, ah                       ; 0x1270
     add ax, strict word 8            ; 0x1272
     push ax                          ; 0x1275

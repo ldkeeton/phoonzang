@@ -65,7 +65,7 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1bd6
     imul word [bp + 0x4]             ; 0x1bd9
     mov bx, ax                       ; 0x1bdc
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x1bde
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x1bde
     sub ah, ah                       ; 0x1be2
     add ax, MSG_MALE                 ; 0x1be4
     push ax                          ; 0x1be7
@@ -118,7 +118,7 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1c56
     imul word [bp + 0x4]             ; 0x1c59
     mov bx, ax                       ; 0x1c5c
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x1c5e
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x1c5e
     sub ah, ah                       ; 0x1c62
     add ax, strict word 0x78         ; 0x1c64
     push ax                          ; 0x1c67
@@ -278,7 +278,7 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1dd3
     imul word [bp + 0x4]             ; 0x1dd6
     mov bx, ax                       ; 0x1dd9
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x1ddb
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x1ddb
     sub ah, ah                       ; 0x1ddf
     mov cx, 0xa                      ; 0x1de1
     imul cx                          ; 0x1de4

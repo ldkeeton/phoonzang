@@ -104,7 +104,7 @@ api_idx_003e_JGVR:
     mov ax, 0x248                    ; 0x12ab
     imul word [bp + 0x4]             ; 0x12ae
     mov bx, ax                       ; 0x12b1
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x12b3
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x12b3
     sub ah, ah                       ; 0x12b7
     inc ax                           ; 0x12b9
     inc ax                           ; 0x12ba

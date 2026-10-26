@@ -89,20 +89,20 @@ dseg_92c0 equ __zdseg_end + (__zdseg_92c0 - __zdata_start)
 dseg_92c7 equ __zdseg_end + (__zdseg_92c7 - __zdata_start)
 dseg_92d2 equ __zdseg_end + (__zdseg_92d2 - __zdata_start)
 dseg_92d6 equ __zdseg_end + (__zdseg_92d6 - __zdata_start)
-dseg_92dc equ __zdseg_end + (__zdseg_92dc - __zdata_start)
-dseg_92e5 equ __zdseg_end + (__zdseg_92e5 - __zdata_start)
-dseg_92ee equ __zdseg_end + (__zdseg_92ee - __zdata_start)
-dseg_92f7 equ __zdseg_end + (__zdseg_92f7 - __zdata_start)
-dseg_9300 equ __zdseg_end + (__zdseg_9300 - __zdata_start)
-dseg_9309 equ __zdseg_end + (__zdseg_9309 - __zdata_start)
-dseg_9312 equ __zdseg_end + (__zdseg_9312 - __zdata_start)
-dseg_931b equ __zdseg_end + (__zdseg_931b - __zdata_start)
-dseg_9324 equ __zdseg_end + (__zdseg_9324 - __zdata_start)
-dseg_932d equ __zdseg_end + (__zdseg_932d - __zdata_start)
-dseg_9336 equ __zdseg_end + (__zdseg_9336 - __zdata_start)
-dseg_933f equ __zdseg_end + (__zdseg_933f - __zdata_start)
-dseg_9348 equ __zdseg_end + (__zdseg_9348 - __zdata_start)
-dseg_9351 equ __zdseg_end + (__zdseg_9351 - __zdata_start)
+profession_0_stat_requirements equ __zdseg_end + (__zprofession_0_stat_requirements - __zdata_start)
+profession_1_stat_requirements equ __zdseg_end + (__zprofession_1_stat_requirements - __zdata_start)
+profession_2_stat_requirements equ __zdseg_end + (__zprofession_2_stat_requirements - __zdata_start)
+profession_3_stat_requirements equ __zdseg_end + (__zprofession_3_stat_requirements - __zdata_start)
+profession_4_stat_requirements equ __zdseg_end + (__zprofession_4_stat_requirements - __zdata_start)
+profession_5_stat_requirements equ __zdseg_end + (__zprofession_5_stat_requirements - __zdata_start)
+profession_6_stat_requirements equ __zdseg_end + (__zprofession_6_stat_requirements - __zdata_start)
+profession_7_stat_requirements equ __zdseg_end + (__zprofession_7_stat_requirements - __zdata_start)
+profession_8_stat_requirements equ __zdseg_end + (__zprofession_8_stat_requirements - __zdata_start)
+profession_9_stat_requirements equ __zdseg_end + (__zprofession_9_stat_requirements - __zdata_start)
+profession_10_stat_requirements equ __zdseg_end + (__zprofession_10_stat_requirements - __zdata_start)
+profession_11_stat_requirements equ __zdseg_end + (__zprofession_11_stat_requirements - __zdata_start)
+profession_12_stat_requirements equ __zdseg_end + (__zprofession_12_stat_requirements - __zdata_start)
+profession_13_stat_requirements equ __zdseg_end + (__zprofession_13_stat_requirements - __zdata_start)
 dseg_935a equ __zdseg_end + (__zdseg_935a - __zdata_start)
 dseg_9363 equ __zdseg_end + (__zdseg_9363 - __zdata_start)
 dseg_936c equ __zdseg_end + (__zdseg_936c - __zdata_start)
@@ -175,7 +175,7 @@ slot_label equ __zdseg_end + (__zobss_9610 - __zdata_start)
 slot_limit equ __zdseg_end + (__zobss_96d8 - __zdata_start)
 known_spell_ids equ __zdseg_end + (__zobss_971c - __zdata_start)
 bss_976c equ __zdseg_end + (__zobss_976c - __zdata_start)
-bss_976e equ __zdseg_end + (__zobss_976e - __zdata_start)
+profession_eligible equ __zdseg_end + (__zobss_976e - __zdata_start)
 bss_978a equ __zdseg_end + (__zobss_978a - __zdata_start)
 _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
@@ -360,12 +360,12 @@ loc_TTSP.bss2 equ bss_95ae
 
 %include "vpcmk/api_idx_0002_IRKS.asm"     ; 0x402d
 
-%include "vpcmk/api_idx_0006_SKNL.asm"     ; 0x4081
+%include "vpcmk/check_profession_stat_budget.asm" ; 0x4081
 
-%include "vpcmk/loc_UMTI.asm"              ; 0x4107
+%include "vpcmk/check_profession_requirements.asm" ; 0x4107
 
-api_idx_0002_MPHM.loc1 equ loc_UMTI
-%include "shared/game/api_idx_0002_MPHM.asm"     ; 0x4291
+evaluate_character_professions.check_profession_requirements1 equ check_profession_requirements
+%include "shared/game/evaluate_character_professions.asm" ; 0x4291
 
 loc_VQPO               equ loc_SRNN
 jumptable_436e_case_0  equ loc_SRNN.jumptable_case1
@@ -484,6 +484,36 @@ api_idx_0016_JNJG.dseg1 equ dseg_94e9
 
 __zdata_start:
 %include "vpcmk/data/dseg_9098.asm"        ; 0x7031
+
+%include "shared/data/profession_0_stat_requirements.asm" ; 0x7275
+
+%include "shared/data/profession_1_stat_requirements.asm" ; 0x727e
+
+%include "shared/data/profession_2_stat_requirements.asm" ; 0x7287
+
+%include "shared/data/profession_3_stat_requirements.asm" ; 0x7290
+
+%include "shared/data/profession_4_stat_requirements.asm" ; 0x7299
+
+%include "shared/data/profession_5_stat_requirements.asm" ; 0x72a2
+
+%include "shared/data/profession_6_stat_requirements.asm" ; 0x72ab
+
+%include "shared/data/profession_7_stat_requirements.asm" ; 0x72b4
+
+%include "shared/data/profession_8_stat_requirements.asm" ; 0x72bd
+
+%include "shared/data/profession_9_stat_requirements.asm" ; 0x72c6
+
+%include "shared/data/profession_10_stat_requirements.asm" ; 0x72cf
+
+%include "shared/data/profession_11_stat_requirements.asm" ; 0x72d8
+
+%include "shared/data/profession_12_stat_requirements.asm" ; 0x72e1
+
+%include "shared/data/profession_13_stat_requirements.asm" ; 0x72ea
+
+%include "vpcmk/data/dseg_935a.asm"        ; 0x72f3
 
 %include "shared/data/save_si.asm"          ; 0x74b3
 

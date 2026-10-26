@@ -40,6 +40,8 @@
     "api_idx_0002_KQIK": {"name": "update_party_stat_adjustments", "note": "derive bounded stat 4 and stat 5 adjustments from power and supplied ratios"},
     "api_idx_0002_KQPU": {"name": "find_object_at", "note": "returns next object index from start whose x, y, map piece match and type is nonzero (subject to a state bit), else -1"},
     "api_idx_0002_LVPS": {"name": "load_screen_file", "note": "Load a screen file and optionally show it immediately or fade it in"},
+    "api_idx_0002_MPHM": {"name": "evaluate_character_professions", "note": "Checks eligibility for all fourteen professions without allocating stat points"},
+    "api_idx_0002_RQOS": {"name": "evaluate_character_professions", "note": "Checks eligibility for all fourteen professions without allocating stat points"},
     "api_idx_0004_ONRQ": {"name": "add_overlay_item", "note": "inserts an overlay item in code order, hanging when the 12-slot table is full"},
     "api_idx_0004_QVPP": {"name": "find_map_piece", "note": "maps world (x, y) to piece index and local x/y; 0 if found"},
     "api_idx_0004_ULSR": {"name": "titlecase_string", "note": "lowercases an all-caps string but keeps the first letter of each word"},
@@ -514,7 +516,7 @@
         "5b72": {"name": "saved_screen_kind", "note": "int [] per saved-screen slot: 3 when the screen was saved to the file saved_screen_file[n], -1 once freed"},
         "5b7c": {"name": "saved_screen_file", "note": "char [][20] per saved-screen slot: file name of a screen saved to disk"},
         "5be0": {"name": "saved_screen_ref", "note": "long [] per saved-screen slot: the driver's reference passed to gfx_restore_screen"},
-        "5bf4": {"name": "party_records", "note": "six 0x248-byte party records (pc_rec); panel_area and member_icon follow", "record": {"name": "pc_rec", "size": 584, "count": 6, "fields": {"0": {"name": "name", "size": 8}, "18": {"name": "pair_a", "size": 4}, "1c": {"name": "pair_b", "size": 4}, "20": "power_total", "24": "power_cap", "28": {"name": "realm_points", "size": 24}, "40": {"name": "cell", "size": 240}, "130": {"name": "slot_info", "size": 36}, "154": {"name": "order", "size": 8}, "166": {"name": "status", "size": 10}, "170": {"name": "stat", "size": 8}, "178": {"name": "flag", "size": 34}, "19a": {"name": "prev", "size": 14}, "1a8": {"name": "cur", "size": 14}, "1b6": {"name": "count", "size": 8}, "236": "kind", "237": "glyph_set", "238": "sound", "239": "label", "23b": "state", "23c": "attack", "23d": "defense", "243": "adjusted_stat4", "244": "adjusted_stat5", "245": "stat5_plus_power", "247": "power_floor"}}},
+        "5bf4": {"name": "party_records", "note": "six 0x248-byte party records (pc_rec); panel_area and member_icon follow", "record": {"name": "pc_rec", "size": 584, "count": 6, "fields": {"0": {"name": "name", "size": 8}, "18": {"name": "pair_a", "size": 4}, "1c": {"name": "pair_b", "size": 4}, "20": "power_total", "24": "power_cap", "28": {"name": "realm_points", "size": 24}, "40": {"name": "cell", "size": 240}, "130": {"name": "slot_info", "size": 36}, "154": {"name": "order", "size": 8}, "166": {"name": "status", "size": 10}, "170": {"name": "stat", "size": 8}, "178": {"name": "flag", "size": 34}, "19a": {"name": "prev", "size": 14}, "1a8": {"name": "cur", "size": 14}, "1b6": {"name": "count", "size": 8}, "236": "kind", "237": "glyph_set", "238": "gender", "239": "profession", "23b": "state", "23c": "attack", "23d": "defense", "243": "adjusted_stat4", "244": "adjusted_stat5", "245": "stat5_plus_power", "247": "power_floor"}}},
         "69a4": {"name": "panel_area", "note": "long [] per party member: saved screen area each member panel restores"},
         "69bc": {"name": "member_icon", "note": "int [] per party member: slot icon glyph; moves with the party record when the party is reordered"},
         "69c8": {"name": "party_char_count", "note": "number of party_char records in use"},
@@ -1018,6 +1020,10 @@
       "fingerprint-end": "e0216eba09aade5df0f1a2ba3de10736eb3757014b86fde7bb218c287d1d8941"
     },
     "vpcvw": {
+      "function_names": {
+        "8faa": {"name": "evaluate_profession_stat_minimums", "note": "Compare seven encoded stat minima against the character's stats, optionally raising each short stat to its minimum"},
+        "9020": {"name": "evaluate_character_profession", "note": "Checks one profession and optionally raises stats to meet its requirements"}
+      },
       "data_names": {
         "9512": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "940a": {"name": "saved_screen", "note": "gfx_save_screen handle (long) restored before drawing the banner"},
@@ -1031,7 +1037,22 @@
         "9436": {"name": "roster_names", "note": "10 rows of 22-byte slot name strings (0x16 apart)"},
         "9600": {"name": "roster_row_attr", "note": "word per row: attribute byte read from the slot record"},
         "95ec": {"name": "roster_row_color", "note": "word per row: 0x69 by default, 0x55 for a flagged slot, or a value from the class table"},
-        "93e0": {"name": "window_record", "note": "7-word window record api_idx_0012 fills from the box arguments and returns the address of"}
+        "93e0": {"name": "window_record", "note": "7-word window record api_idx_0012 fills from the box arguments and returns the address of"},
+        "92e8": {"name": "profession_0_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 0"},
+        "92f1": {"name": "profession_1_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 1"},
+        "92fa": {"name": "profession_2_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 2"},
+        "9303": {"name": "profession_3_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 3"},
+        "930c": {"name": "profession_4_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 4"},
+        "9315": {"name": "profession_5_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 5"},
+        "931e": {"name": "profession_6_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 6"},
+        "9327": {"name": "profession_7_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 7"},
+        "9330": {"name": "profession_8_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 8"},
+        "9339": {"name": "profession_9_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 9"},
+        "9342": {"name": "profession_10_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 10"},
+        "934b": {"name": "profession_11_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 11"},
+        "9354": {"name": "profession_12_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 12"},
+        "935d": {"name": "profession_13_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 13"},
+        "967c": {"name": "profession_eligible", "note": "Word results indexed by profession indicating whether its requirements can be met"}
       },
       "immediate_pointers": [
         {"offset": "6e4b", "space": "ds", "note": "`add ax, roster_names`: base of the 22-byte slot name rows"},
@@ -1090,12 +1111,28 @@
     },
     "vpcmk": {
       "function_names": {
+        "4073": {"name": "check_profession_stat_budget", "note": "Compare eight encoded stat minima against the point budget and optionally allocate stats"},
+        "40f9": {"name": "check_profession_requirements", "note": "Dispatch one profession stat requirement check with an optional allocation mode"}
       },
       "immediate_pointers": [
         {"offset": "2907", "space": "ds", "note": "`add ax, slot_label`: base of the 20-byte label rows"},
         {"offset": "2936", "space": "ds", "note": "`add ax, slot_label`: base of the 20-byte label rows"}
       ],
       "data_names": {
+        "92dc": {"name": "profession_0_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 0"},
+        "92e5": {"name": "profession_1_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 1"},
+        "92ee": {"name": "profession_2_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 2"},
+        "92f7": {"name": "profession_3_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 3"},
+        "9300": {"name": "profession_4_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 4"},
+        "9309": {"name": "profession_5_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 5"},
+        "9312": {"name": "profession_6_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 6"},
+        "931b": {"name": "profession_7_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 7"},
+        "9324": {"name": "profession_8_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 8"},
+        "932d": {"name": "profession_9_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 9"},
+        "9336": {"name": "profession_10_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 10"},
+        "933f": {"name": "profession_11_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 11"},
+        "9348": {"name": "profession_12_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 12"},
+        "9351": {"name": "profession_13_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 13"},
         "971c": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "9540": {"name": "saved_screen", "note": "gfx_save_screen handle (long) restored before drawing the banner"},
         "95aa": {"name": "banner_offset", "note": "vertical shift of the banner text rows"},
@@ -1104,7 +1141,8 @@
         "960c": {"name": "slot_value2", "note": "word: slot_value[2], spelled by its own address; roll_slot_values counts into it"},
         "9610": {"name": "slot_label", "note": "4 rows of 20-byte label strings (0x14 apart), centred and drawn per row"},
         "96d8": {"name": "slot_limit", "note": "word per row: threshold the row byte is compared against"},
-        "95f4": {"name": "slot_prompt_text", "note": "text drawn at (6,0xae) above the slot rows"}
+        "95f4": {"name": "slot_prompt_text", "note": "text drawn at (6,0xae) above the slot rows"},
+        "976e": {"name": "profession_eligible", "note": "Word results indexed by profession indicating whether its requirements can be met"}
       },
       "file": "VPCMK.OVR",
       "type": "aztec_overlay",

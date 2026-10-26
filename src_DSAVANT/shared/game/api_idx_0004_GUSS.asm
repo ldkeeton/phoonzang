@@ -45,9 +45,9 @@ api_idx_0004_GUSS:
     cwd
     idiv cx
     mov word [bp - 0x0004], ax
-    cmp byte [bx + party_records + pc_rec.label], 0xc
+    cmp byte [bx + party_records + pc_rec.profession], 0xc
     je short @..api_idx_0004_GUSS.l2
-    cmp byte [bx + party_records + pc_rec.label], 0xd
+    cmp byte [bx + party_records + pc_rec.profession], 0xd
     jne short @..api_idx_0004_GUSS.l3
 @..api_idx_0004_GUSS.l2:
     mov ax, 0x12
@@ -116,7 +116,7 @@ api_idx_0004_GUSS:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    cmp byte [bx + party_records + pc_rec.label], 4
+    cmp byte [bx + party_records + pc_rec.profession], 4
     jne short @..api_idx_0004_GUSS.l5
     mov bx, cx
     add byte [bx + party_records + pc_rec.slot_info + 0xe], 0xf1

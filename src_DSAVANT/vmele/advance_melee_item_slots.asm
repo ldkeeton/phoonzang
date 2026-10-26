@@ -38,7 +38,7 @@ advance_melee_item_slots:
     mov ax, 0x248                    ; 0x1f94
     imul word [bp - 0x0002]          ; 0x1f97
     mov bx, ax                       ; 0x1f9a
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x1f9c
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x1f9c
     sub ah, ah                       ; 0x1fa0
     add ax, strict word 8            ; 0x1fa2
     push ax                          ; 0x1fa5

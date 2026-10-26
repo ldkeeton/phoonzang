@@ -28,7 +28,7 @@ advance_melee_item_slots()
 				copy_member_party_record(member);
 				draw_party_member_panel(member, 1);	/* reveal */
 				play_sound_effect(
-					party_records[member].sound + 8);
+					party_records[member].gender + 8);
 			}
 		}
 	}

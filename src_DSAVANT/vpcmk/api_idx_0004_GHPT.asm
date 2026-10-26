@@ -5,7 +5,7 @@ api_idx_0004_GHPT:
     mov ax, 0x248                    ; 0x508d
     imul word [bp + 0x4]             ; 0x5090
     mov bx, ax                       ; 0x5093
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x5095
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x5095
     sub ah, ah                       ; 0x5099
     jmp near @..api_idx_0004_GHPT.l1 ; 0x509b
 jumptable_5161_case_0:
@@ -408,7 +408,7 @@ jumptable_5339:
     mov ax, 0x248                    ; 0x5415
     imul word [bp + 0x4]             ; 0x5418
     mov bx, ax                       ; 0x541b
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x541d
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x541d
     sub ah, ah                       ; 0x5421
     jmp short @..api_idx_0004_GHPT.l9 ; 0x5423
 jumptable_547c_case_0:
@@ -516,9 +516,9 @@ jumptable_547c:
 @..api_idx_0004_GHPT.l14:
     sub ax, cx                       ; 0x550c
     mov byte [bx + party_records + pc_rec.count], al ; 0x550e
-    cmp byte [bx + party_records + pc_rec.label], 0xd ; 0x5512
+    cmp byte [bx + party_records + pc_rec.profession], 0xd ; 0x5512
     je short @..api_idx_0004_GHPT.l15 ; 0x5517
-    cmp byte [bx + party_records + pc_rec.label], 0xc ; 0x5519
+    cmp byte [bx + party_records + pc_rec.profession], 0xc ; 0x5519
     jne short @..api_idx_0004_GHPT.l17 ; 0x551e
 @..api_idx_0004_GHPT.l15:
     mov ax, 0xa                      ; 0x5520

@@ -28,7 +28,7 @@ api_idx_000a_HMMT:
     mov al, byte [bx + party_records + pc_rec.stat + 0x3] ; 0x5acb
     sub ah, ah                       ; 0x5acf
     mov word [bp - 0x000a], ax       ; 0x5ad1
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x5ad4
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x5ad4
     sub ah, ah                       ; 0x5ad8
     jmp near @..api_idx_000a_HMMT.l1 ; 0x5ada
 jumptable_5cb4_case_0:

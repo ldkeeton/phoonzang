@@ -78,7 +78,7 @@ jumptable_45f0:
     mov ax, 0x248                    ; 0x461f
     imul word [bp + 0x4]             ; 0x4622
     mov bx, ax                       ; 0x4625
-    mov al, byte [bx + party_records + pc_rec.label] ; 0x4627
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x4627
     sub ah, ah                       ; 0x462b
     push ax                          ; 0x462d
     mov ax, word [bp + 0x6]          ; 0x462e
@@ -104,7 +104,7 @@ jumptable_45f0:
     mov ax, 0x248                    ; 0x4661
     imul word [bp + 0x4]             ; 0x4664
     mov bx, ax                       ; 0x4667
-    mov al, byte [bx + party_records + pc_rec.sound] ; 0x4669
+    mov al, byte [bx + party_records + pc_rec.gender] ; 0x4669
     sub ah, ah                       ; 0x466d
     push ax                          ; 0x466f
     mov ax, word [bp + 0x6]          ; 0x4670
