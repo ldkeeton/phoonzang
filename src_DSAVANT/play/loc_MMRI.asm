@@ -4,7 +4,7 @@ loc_MMRI:
     mov bp, sp                       ; 0x0024
     push bx                          ; 0x0026
     mov byte [cs:music_enabled - IMAGE_BASE], 0 ; 0x0027
-    mov ax, word [bp + 0x8]          ; 0x002d
+    mov ax, word [bp + 8]            ; 0x002d
     mov word [cs:stream_offset - IMAGE_BASE], ax ; 0x0030
     mov word [cs:stream_start_offset - IMAGE_BASE], ax ; 0x0034
     mov ax, word [bp + 0xa]          ; 0x0038
@@ -17,9 +17,9 @@ loc_MMRI:
     mov bx, cseg_0d03 - IMAGE_BASE   ; 0x0058
 @..loc_MMRI.l1:
     mov byte [cs:bx], 0              ; 0x005b
-    mov byte [cs:bx + 0x1], 0        ; 0x005f
-    mov byte [cs:bx + 0x2], 0xff     ; 0x0064
-    mov word [cs:bx + 0x3], 0        ; 0x0069
+    mov byte [cs:bx + 1], 0          ; 0x005f
+    mov byte [cs:bx + 2], 0xff       ; 0x0064
+    mov word [cs:bx + 3], 0          ; 0x0069
     add bx, byte 5                   ; 0x006f
     cmp bx, opl_voice_count - IMAGE_BASE ; 0x0072
     jb short @..loc_MMRI.l1          ; 0x0076

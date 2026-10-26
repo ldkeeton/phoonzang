@@ -19,20 +19,20 @@ show_area:
     mov bx, 0x140                    ; 0x04d7
     mul bx                           ; 0x04da
     add ax, word [bp + 0xc]          ; 0x04dc
-    mov word [bp - 0x0002], ax       ; 0x04df
+    mov word [bp - 2], ax            ; 0x04df
     mov ax, word [bp + 0x10]         ; 0x04e2
     sub ax, word [bp + 0xc]          ; 0x04e5
     inc ax                           ; 0x04e8
-    mov word [bp - 0x0004], ax       ; 0x04e9
+    mov word [bp - 4], ax            ; 0x04e9
     mov ax, word [bp + 0x12]         ; 0x04ec
     sub ax, word [bp + 0xe]          ; 0x04ef
     inc ax                           ; 0x04f2
     mov dx, ax                       ; 0x04f3
 @..show_area.l1:
-    mov di, word [bp - 0x0002]       ; 0x04f5
-    add word [bp - 0x0002], strict word 0x140 ; 0x04f8
+    mov di, word [bp - 2]            ; 0x04f5
+    add word [bp - 2], strict word 0x140 ; 0x04f8
     mov si, di                       ; 0x04fd
-    mov cx, word [bp - 0x0004]       ; 0x04ff
+    mov cx, word [bp - 4]            ; 0x04ff
     rep movsb                        ; 0x0502
     dec dx                           ; 0x0504
     jne short @..show_area.l1        ; 0x0505

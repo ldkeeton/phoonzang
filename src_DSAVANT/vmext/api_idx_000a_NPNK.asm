@@ -3,15 +3,15 @@ api_idx_000a_NPNK:
     mov ax, 0xfff6                   ; 0x0b8c
     call aztec_csav                  ; 0x0b8f
     mov ax, word [party_world_x]     ; 0x0b92
-    mov word [bp - 0x0002], ax       ; 0x0b95
+    mov word [bp - 2], ax            ; 0x0b95
     mov ax, word [party_world_y]     ; 0x0b98
-    mov word [bp - 0x0004], ax       ; 0x0b9b
+    mov word [bp - 4], ax            ; 0x0b9b
     mov ax, word [party_cell_x]      ; 0x0b9e
-    mov word [bp - 0x0006], ax       ; 0x0ba1
+    mov word [bp - 6], ax            ; 0x0ba1
     mov ax, word [party_cell_y]      ; 0x0ba4
-    mov word [bp - 0x0008], ax       ; 0x0ba7
+    mov word [bp - 8], ax            ; 0x0ba7
     mov ax, word [party_map_piece]   ; 0x0baa
-    mov word [bp - 0x000a], ax       ; 0x0bad
+    mov word [bp - 0xa], ax          ; 0x0bad
     mov ax, word [bss_8f3a]          ; 0x0bb0
     mov word [party_world_x], ax     ; 0x0bb3
     mov ax, word [bss_8f38]          ; 0x0bb6
@@ -37,14 +37,14 @@ api_idx_000a_NPNK:
     push ax                          ; 0x0be9
     call wait_for_hotspot_timeout    ; 0x0bea
     pop cx                           ; 0x0bed
-    mov ax, word [bp - 0x0002]       ; 0x0bee
+    mov ax, word [bp - 2]            ; 0x0bee
     mov word [party_world_x], ax     ; 0x0bf1
-    mov ax, word [bp - 0x0004]       ; 0x0bf4
+    mov ax, word [bp - 4]            ; 0x0bf4
     mov word [party_world_y], ax     ; 0x0bf7
-    mov ax, word [bp - 0x0006]       ; 0x0bfa
+    mov ax, word [bp - 6]            ; 0x0bfa
     mov word [party_cell_x], ax      ; 0x0bfd
-    mov ax, word [bp - 0x0008]       ; 0x0c00
+    mov ax, word [bp - 8]            ; 0x0c00
     mov word [party_cell_y], ax      ; 0x0c03
-    mov ax, word [bp - 0x000a]       ; 0x0c06
+    mov ax, word [bp - 0xa]          ; 0x0c06
     mov word [party_map_piece], ax   ; 0x0c09
     ret                              ; 0x0c0c

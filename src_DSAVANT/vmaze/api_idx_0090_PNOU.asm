@@ -3,7 +3,7 @@ api_idx_0090_PNOU:
     mov ax, 0xff70                   ; 0x6cc9
     call aztec_csav                  ; 0x6ccc
 @..api_idx_0090_PNOU.l1:
-    mov bx, word [bp + 0x4]          ; 0x6ccf
+    mov bx, word [bp + 4]            ; 0x6ccf
     mov al, byte [bx]                ; 0x6cd2
     sub ah, ah                       ; 0x6cd4
     push ax                          ; 0x6cd6
@@ -11,21 +11,21 @@ api_idx_0090_PNOU:
     push ax                          ; 0x6cda
     call strpos                      ; 0x6cdb
     add sp, byte 4                   ; 0x6cde
-    mov word [bp - 0x0004], ax       ; 0x6ce1
+    mov word [bp - 4], ax            ; 0x6ce1
     cmp ax, strict word 0            ; 0x6ce4
     jge short @..api_idx_0090_PNOU.l2 ; 0x6ce7
     jmp near @..api_idx_0090_PNOU.l8 ; 0x6ce9
 @..api_idx_0090_PNOU.l2:
     jmp near @..api_idx_0090_PNOU.l6 ; 0x6cec
 jumptable_6e12_case_0:
-    inc word [bp + 0x4]              ; 0x6cef
+    inc word [bp + 4]                ; 0x6cef
     mov ax, bss_9b50                 ; 0x6cf2
     push ax                          ; 0x6cf5
     call api_idx_0004_JGSH           ; 0x6cf6
     pop cx                           ; 0x6cf9
     jmp near @..api_idx_0090_PNOU.l7 ; 0x6cfa
 jumptable_6e12_case_1:
-    inc word [bp + 0x4]              ; 0x6cfd
+    inc word [bp + 4]                ; 0x6cfd
     mov ax, bss_9b50                 ; 0x6d00
     push ax                          ; 0x6d03
     call api_idx_0004_JGSH           ; 0x6d04
@@ -53,7 +53,7 @@ jumptable_6e12_case_1:
 @..api_idx_0090_PNOU.l3:
     jmp near @..api_idx_0090_PNOU.l7 ; 0x6d41
 jumptable_6e12_case_2:
-    inc word [bp + 0x4]              ; 0x6d44
+    inc word [bp + 4]                ; 0x6d44
     mov ax, bss_9b50                 ; 0x6d47
     push ax                          ; 0x6d4a
     call api_idx_0004_JGSH           ; 0x6d4b
@@ -73,12 +73,12 @@ jumptable_6e12_case_2:
 @..api_idx_0090_PNOU.l4:
     jmp near @..api_idx_0090_PNOU.l7 ; 0x6d6c
 jumptable_6e12_case_3:
-    inc word [bp + 0x4]              ; 0x6d6f
+    inc word [bp + 4]                ; 0x6d6f
     call restore_area_a_draw_glyph   ; 0x6d72
     mov word [bss_9b4c], 0           ; 0x6d75
     jmp near @..api_idx_0090_PNOU.l7 ; 0x6d7b
 jumptable_6e12_case_4:
-    inc word [bp + 0x4]              ; 0x6d7e
+    inc word [bp + 4]                ; 0x6d7e
     mov ax, bss_9b50                 ; 0x6d81
     push ax                          ; 0x6d84
     call api_idx_0004_JGSH           ; 0x6d85
@@ -89,7 +89,7 @@ jumptable_6e12_case_4:
     pop cx                           ; 0x6d90
     jmp near @..api_idx_0090_PNOU.l7 ; 0x6d91
 jumptable_6e12_case_5:
-    inc word [bp + 0x4]              ; 0x6d94
+    inc word [bp + 4]                ; 0x6d94
     call loc_OGHL                    ; 0x6d97
     mov ax, 0x10                     ; 0x6d9a
     push ax                          ; 0x6d9d
@@ -97,12 +97,12 @@ jumptable_6e12_case_5:
     push ax                          ; 0x6da1
     call load_monster_picture        ; 0x6da2
     add sp, byte 4                   ; 0x6da5
-    mov byte [bp - 0x0090], 1        ; 0x6da8
-    mov byte [bp - 0x008f], 0        ; 0x6dad
+    mov byte [bp - 0x90], 1          ; 0x6da8
+    mov byte [bp - 0x8f], 0          ; 0x6dad
     mov ax, 0                        ; 0x6db2
     push ax                          ; 0x6db5
     push ax                          ; 0x6db6
-    lea ax, word [bp - 0x0090]       ; 0x6db7
+    lea ax, word [bp - 0x90]         ; 0x6db7
     push ax                          ; 0x6dbb
     mov ax, 0                        ; 0x6dbc
     push ax                          ; 0x6dbf
@@ -129,19 +129,19 @@ jumptable_6e12_case_5:
     call loc_VRKM                    ; 0x6dea
     jmp short @..api_idx_0090_PNOU.l7 ; 0x6ded
 jumptable_6e12_case_6:
-    inc word [bp + 0x4]              ; 0x6def
-    mov bx, word [bp + 0x4]          ; 0x6df2
+    inc word [bp + 4]                ; 0x6def
+    mov bx, word [bp + 4]            ; 0x6df2
     mov al, byte [bx]                ; 0x6df5
     sub ah, ah                       ; 0x6df7
-    mov word [bp - 0x0006], ax       ; 0x6df9
+    mov word [bp - 6], ax            ; 0x6df9
     cmp ax, strict word 0x63         ; 0x6dfc
     jne short @..api_idx_0090_PNOU.l5 ; 0x6dff
-    mov word [bp - 0x0006], 0x20     ; 0x6e01
+    mov word [bp - 6], 0x20          ; 0x6e01
 @..api_idx_0090_PNOU.l5:
-    push word [bp - 0x0006]          ; 0x6e06
+    push word [bp - 6]               ; 0x6e06
     call loc_GRON                    ; 0x6e09
     pop cx                           ; 0x6e0c
-    inc word [bp + 0x4]              ; 0x6e0d
+    inc word [bp + 4]                ; 0x6e0d
     jmp short @..api_idx_0090_PNOU.l7 ; 0x6e10
 jumptable_6e12:
     dw jumptable_6e12_case_0 - IMAGE_BASE + __zres_end ; 0x6e12
@@ -164,50 +164,50 @@ jumptable_6e12:
     je short @..api_idx_0090_PNOU.l9 ; 0x6e35
     mov ax, bss_9b50                 ; 0x6e37
     push ax                          ; 0x6e3a
-    lea ax, word [bp - 0x0086]       ; 0x6e3b
+    lea ax, word [bp - 0x86]         ; 0x6e3b
     push ax                          ; 0x6e3f
     call aztec_strcpy                ; 0x6e40
     add sp, byte 4                   ; 0x6e43
     mov ax, dseg_9186                ; 0x6e46
     push ax                          ; 0x6e49
-    lea ax, word [bp - 0x0086]       ; 0x6e4a
+    lea ax, word [bp - 0x86]         ; 0x6e4a
     push ax                          ; 0x6e4e
     call aztec_strcat                ; 0x6e4f
     add sp, byte 4                   ; 0x6e52
-    push word [bp + 0x4]             ; 0x6e55
-    lea ax, word [bp - 0x0086]       ; 0x6e58
+    push word [bp + 4]               ; 0x6e55
+    lea ax, word [bp - 0x86]         ; 0x6e58
     push ax                          ; 0x6e5c
     call aztec_strcat                ; 0x6e5d
     add sp, byte 4                   ; 0x6e60
     jmp short @..api_idx_0090_PNOU.l10 ; 0x6e63
 @..api_idx_0090_PNOU.l9:
-    push word [bp + 0x4]             ; 0x6e65
-    lea ax, word [bp - 0x0086]       ; 0x6e68
+    push word [bp + 4]               ; 0x6e65
+    lea ax, word [bp - 0x86]         ; 0x6e68
     push ax                          ; 0x6e6c
     call aztec_strcpy                ; 0x6e6d
     add sp, byte 4                   ; 0x6e70
 @..api_idx_0090_PNOU.l10:
     mov ax, 2                        ; 0x6e73
     push ax                          ; 0x6e76
-    lea ax, word [bp - 0x0086]       ; 0x6e77
+    lea ax, word [bp - 0x86]         ; 0x6e77
     push ax                          ; 0x6e7b
     call measure_text_width          ; 0x6e7c
     add sp, byte 4                   ; 0x6e7f
-    mov word [bp - 0x0002], ax       ; 0x6e82
+    mov word [bp - 2], ax            ; 0x6e82
     cmp ax, 0xb8                     ; 0x6e85
     jle short @..api_idx_0090_PNOU.l11 ; 0x6e88
     mov ax, bss_9b50                 ; 0x6e8a
     push ax                          ; 0x6e8d
     call api_idx_0004_JGSH           ; 0x6e8e
     pop cx                           ; 0x6e91
-    push word [bp + 0x4]             ; 0x6e92
+    push word [bp + 4]               ; 0x6e92
     mov ax, bss_9b50                 ; 0x6e95
     push ax                          ; 0x6e98
     call aztec_strcpy                ; 0x6e99
     add sp, byte 4                   ; 0x6e9c
     jmp short @..api_idx_0090_PNOU.l12 ; 0x6e9f
 @..api_idx_0090_PNOU.l11:
-    lea ax, word [bp - 0x0086]       ; 0x6ea1
+    lea ax, word [bp - 0x86]         ; 0x6ea1
     push ax                          ; 0x6ea5
     mov ax, bss_9b50                 ; 0x6ea6
     push ax                          ; 0x6ea9

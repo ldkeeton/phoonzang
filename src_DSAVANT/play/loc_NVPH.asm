@@ -34,18 +34,18 @@ loc_NVPH:
     mov ch, byte [cs:bx + cseg_12df - IMAGE_BASE] ; 0x17c0
     mov al, ch                       ; 0x17c5
     add al, 3                        ; 0x17c7
-    mov ah, byte [si + 0x6]          ; 0x17c9
+    mov ah, byte [si + 6]            ; 0x17c9
     call loc_QVOP                    ; 0x17cc
     mov al, byte [si + 0xa]          ; 0x17cf
     and al, 1                        ; 0x17d2
     cmp al, 1                        ; 0x17d4
     jne short @..loc_GOTP_17f0.l1    ; 0x17d6
     mov al, ch                       ; 0x17d8
-    mov ah, byte [si + 0x1]          ; 0x17da
+    mov ah, byte [si + 1]            ; 0x17da
     call loc_QVOP                    ; 0x17dd
     jmp near @..loc_GOTP_17f0.l2     ; 0x17e0
 @..loc_GOTP_17f0.l1:
-    mov al, byte [si + 0x1]          ; 0x17e3
+    mov al, byte [si + 1]            ; 0x17e3
     mov ah, 0x40                     ; 0x17e6
     add ah, ch                       ; 0x17e8
     call opl_write                   ; 0x17ea

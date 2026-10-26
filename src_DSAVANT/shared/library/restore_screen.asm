@@ -2,7 +2,7 @@
 restore_screen:
     push bp
     mov bp, sp
-    sub sp, byte 0x0e
+    sub sp, byte 0xe
     push es
     push ds
     push di
@@ -11,7 +11,7 @@ restore_screen:
     mov es, ax
     cmp word [bp + 0xe], byte 3
     jne short @..restore_screen.l2
-    lea bx, word [bp - 0x000a]
+    lea bx, word [bp - 0xa]
     mov dx, bx
     mov ax, ss
     mov ds, ax
@@ -21,12 +21,12 @@ restore_screen:
     int 0x21 ; DOS read file (handle)
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
     mov ds, ax
-    mov cx, word [bp - 0x0004]
+    mov cx, word [bp - 4]
 @..restore_screen.l1:
     push cx
-    mov dx, word [bp - 0x0002]
-    add word [bp - 0x0002], strict word 0x140
-    mov cx, word [bp - 0x0006]
+    mov dx, word [bp - 2]
+    add word [bp - 2], strict word 0x140
+    mov cx, word [bp - 6]
     mov bx, word [bp + 0x12]
     mov ah, 0x3f
     int 0x21 ; DOS read file (handle)
@@ -55,20 +55,20 @@ restore_screen:
     mov es, ax
     xor si, si
     lodsw
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     lodsw
     lodsw
-    mov word [bp - 0x0004], ax
+    mov word [bp - 4], ax
     lodsw
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     lodsw
     lodsw
 @..restore_screen.l4:
-    mov di, word [bp - 0x0002]
-    add word [bp - 0x0002], strict word 0x140
-    mov cx, word [bp - 0x0006]
+    mov di, word [bp - 2]
+    add word [bp - 2], strict word 0x140
+    mov cx, word [bp - 6]
     rep movsb
-    dec word [bp - 0x0004]
+    dec word [bp - 4]
     jne short @..restore_screen.l4
     cmp word [bp + 0x10], byte 0
     je short @..restore_screen.l5
@@ -94,12 +94,12 @@ restore_screen:
     mov bx, ems_blocks - IMAGE_BASE
     add bx, ax
     mov ax, word [cs:bx]
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     mov cl, 0xa
     shr ax, cl
     mov word [cs:ems_cur_page - IMAGE_BASE], ax
     call ems_map_pages
-    mov si, word [bp - 0x0002]
+    mov si, word [bp - 2]
     and si, strict word 0x3ff
     mov cl, 4
     shl si, cl
@@ -108,18 +108,18 @@ restore_screen:
     mov ax, word [cs:ems_frame_seg - IMAGE_BASE]
     mov ds, ax
     lodsw
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     lodsw
     lodsw
-    mov word [bp - 0x0004], ax
+    mov word [bp - 4], ax
     lodsw
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     lodsw
     lodsw
 @..restore_screen.l7:
-    mov di, word [bp - 0x0002]
-    add word [bp - 0x0002], strict word 0x140
-    mov cx, word [bp - 0x0006]
+    mov di, word [bp - 2]
+    add word [bp - 2], strict word 0x140
+    mov cx, word [bp - 6]
     rep movsb
     test si, 0xc000
     je short @..restore_screen.l8
@@ -128,7 +128,7 @@ restore_screen:
     call ems_map_pages
     and si, strict word 0x3fff
 @..restore_screen.l8:
-    dec word [bp - 0x0004]
+    dec word [bp - 4]
     jne short @..restore_screen.l7
     cmp word [bp + 0x10], byte 0
     je short @..restore_screen.l9

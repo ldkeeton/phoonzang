@@ -2,7 +2,7 @@
 reset_rgb:
     push bp                          ; 0x29f6
     mov bp, sp                       ; 0x29f7
-    sub sp, byte 0x0a                ; 0x29f9
+    sub sp, byte 0xa                 ; 0x29f9
     push ds                          ; 0x29fc
     push es                          ; 0x29fd
     push si                          ; 0x29fe
@@ -39,7 +39,7 @@ reset_rgb:
     jae short @..reset_rgb.l4        ; 0x2a3a
     jmp near dos_con_loc_HJPN        ; 0x2a3c
 @..reset_rgb.l4:
-    mov word [bp - 0x0002], ax       ; 0x2a3f
+    mov word [bp - 2], ax            ; 0x2a3f
     mov ds, ax                       ; 0x2a42
     xor di, di                       ; 0x2a44
     mov ax, word [bp + 0xc]          ; 0x2a46
@@ -48,11 +48,11 @@ reset_rgb:
     mov cx, 0x100                    ; 0x2a4f
 @..reset_rgb.l5:
     mov byte [di], al                ; 0x2a52
-    mov byte [di + 0x1], bl          ; 0x2a54
-    mov byte [di + 0x2], dl          ; 0x2a57
+    mov byte [di + 1], bl            ; 0x2a54
+    mov byte [di + 2], dl            ; 0x2a57
     add di, byte 3                   ; 0x2a5a
     loop @..reset_rgb.l5             ; 0x2a5d
-    mov ax, word [bp - 0x0002]       ; 0x2a5f
+    mov ax, word [bp - 2]            ; 0x2a5f
     mov ds, ax                       ; 0x2a62
     xor si, si                       ; 0x2a64
     mov cx, 0x300                    ; 0x2a66
@@ -73,7 +73,7 @@ reset_rgb:
     mov dx, 0x3c9                    ; 0x2a80
     out dx, al                       ; 0x2a83
     loop @..reset_rgb.l6             ; 0x2a84
-    mov bx, word [bp - 0x0002]       ; 0x2a86
+    mov bx, word [bp - 2]            ; 0x2a86
     mov es, bx                       ; 0x2a89
     mov ah, 0x49                     ; 0x2a8b
     int 0x21 ; DOS free memory

@@ -6,7 +6,7 @@ api_idx_0006_RKMN:
     push ax                          ; 0x72c8
     call redraw_area_set             ; 0x72c9
     pop cx                           ; 0x72cc
-    cmp word [game_state], byte 0x0a ; 0x72cd
+    cmp word [game_state], byte 0xa  ; 0x72cd
     je short @..api_idx_0006_RKMN.l1 ; 0x72d2
     mov ax, 3                        ; 0x72d4
     push ax                          ; 0x72d7
@@ -37,7 +37,7 @@ api_idx_0006_RKMN:
     push word [saved_area_a]         ; 0x730e
     call gfx_restore_area            ; 0x7312
     add sp, byte 6                   ; 0x7315
-    cmp word [game_state], byte 0x0a ; 0x7318
+    cmp word [game_state], byte 0xa  ; 0x7318
     je short @..api_idx_0006_RKMN.l2 ; 0x731d
     mov ax, 0xc6                     ; 0x731f
     push ax                          ; 0x7322
@@ -50,21 +50,21 @@ api_idx_0006_RKMN:
     call dissolve_or_show_area       ; 0x732f
     add sp, byte 8                   ; 0x7332
 @..api_idx_0006_RKMN.l2:
-    mov word [bp - 0x0002], 0        ; 0x7335
+    mov word [bp - 2], 0             ; 0x7335
 @..api_idx_0006_RKMN.l3:
-    mov ax, word [bp - 0x0002]       ; 0x733a
+    mov ax, word [bp - 2]            ; 0x733a
     shl ax, 1                        ; 0x733d
     mov bx, ax                       ; 0x733f
     push word [bx + overlay_list + 0x2] ; 0x7341
     call aztec_free                  ; 0x7345
     pop cx                           ; 0x7348
-    inc word [bp - 0x0002]           ; 0x7349
-    mov ax, word [bp - 0x0002]       ; 0x734c
+    inc word [bp - 2]                ; 0x7349
+    mov ax, word [bp - 2]            ; 0x734c
     cmp ax, strict word 0xc          ; 0x734f
     jl short @..api_idx_0006_RKMN.l3 ; 0x7352
-    mov word [bp - 0x0002], 0xf      ; 0x7354
+    mov word [bp - 2], 0xf           ; 0x7354
 @..api_idx_0006_RKMN.l4:
-    mov bx, word [bp - 0x0002]       ; 0x7359
+    mov bx, word [bp - 2]            ; 0x7359
     mov al, byte [bx + picture_slot_number] ; 0x735c
     sub ah, ah                       ; 0x7360
     cmp ax, 0xff                     ; 0x7362
@@ -73,8 +73,8 @@ api_idx_0006_RKMN:
     call free_picture_slot           ; 0x7368
     pop cx                           ; 0x736b
 @..api_idx_0006_RKMN.l5:
-    inc word [bp - 0x0002]           ; 0x736c
-    mov ax, word [bp - 0x0002]       ; 0x736f
+    inc word [bp - 2]                ; 0x736c
+    mov ax, word [bp - 2]            ; 0x736f
     cmp ax, strict word 0x12         ; 0x7372
     jl short @..api_idx_0006_RKMN.l4 ; 0x7375
     mov ax, 0                        ; 0x7377
@@ -120,7 +120,7 @@ api_idx_0006_RKMN:
     mov ax, 0x48                     ; 0x73d6
     push ax                          ; 0x73d9
     call save_screen_area            ; 0x73da
-    add sp, byte 0x0a                ; 0x73dd
+    add sp, byte 0xa                 ; 0x73dd
     mov word [saved_screen_slot], ax ; 0x73e0
     mov word [saved_screen_pending], 1 ; 0x73e3
     mov ax, 0                        ; 0x73e9

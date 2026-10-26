@@ -2,14 +2,14 @@
 api_idx_0008_HUTJ:
     mov ax, 0xfff8                   ; 0x3900
     call aztec_csav                  ; 0x3903
-    mov ax, word [bp + 0x6]          ; 0x3906
+    mov ax, word [bp + 6]            ; 0x3906
     jmp near @..api_idx_0008_HUTJ.l9 ; 0x3909
 @..api_idx_0008_HUTJ.l1:
-    push word [bp + 0x8]             ; 0x390c
+    push word [bp + 8]               ; 0x390c
     mov ax, 1                        ; 0x390f
     push ax                          ; 0x3912
     mov ax, 0x248                    ; 0x3913
-    imul word [bp + 0x4]             ; 0x3916
+    imul word [bp + 4]               ; 0x3916
     mov bx, ax                       ; 0x3919
     mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x391b
     push ax                          ; 0x391f
@@ -21,16 +21,16 @@ api_idx_0008_HUTJ:
     mov cx, 2                        ; 0x392a
     cwd                              ; 0x392d
     idiv cx                          ; 0x392e
-    add ax, word [bp + 0x8]          ; 0x3930
+    add ax, word [bp + 8]            ; 0x3930
     push ax                          ; 0x3933
     call clamp_between               ; 0x3934
     add sp, byte 6                   ; 0x3937
-    mov word [bp + 0x8], ax          ; 0x393a
+    mov word [bp + 8], ax            ; 0x393a
     mov al, byte [bss_91cb]          ; 0x393d
     sub ah, ah                       ; 0x3940
     test ax, 4                       ; 0x3942
     jne short @..api_idx_0008_HUTJ.l2 ; 0x3945
-    mov ax, word [bp + 0x8]          ; 0x3947
+    mov ax, word [bp + 8]            ; 0x3947
     inc ax                           ; 0x394a
     push ax                          ; 0x394b
     call random_below                ; 0x394c
@@ -60,12 +60,12 @@ api_idx_0008_HUTJ:
     push ax                          ; 0x397b
     call api_idx_0050_TJLH           ; 0x397c
     add sp, byte 8                   ; 0x397f
-    mov ax, word [bp + 0x8]          ; 0x3982
+    mov ax, word [bp + 8]            ; 0x3982
     shl ax, 1                        ; 0x3985
     push ax                          ; 0x3987
     mov ax, 6                        ; 0x3988
     push ax                          ; 0x398b
-    mov ax, word [bp + 0x8]          ; 0x398c
+    mov ax, word [bp + 8]            ; 0x398c
     shl ax, 1                        ; 0x398f
     push ax                          ; 0x3991
     call store_word_and_pair         ; 0x3992
@@ -92,19 +92,19 @@ api_idx_0008_HUTJ:
     cmp word [location_changed], byte 0 ; 0x39c0
     je short @..api_idx_0008_HUTJ.l6 ; 0x39c5
     mov ax, 0x248                    ; 0x39c7
-    imul word [bp + 0x4]             ; 0x39ca
+    imul word [bp + 4]               ; 0x39ca
     mov bx, ax                       ; 0x39cd
     mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x39cf
     push ax                          ; 0x39d3
     mov ax, 3                        ; 0x39d4
-    imul word [bp + 0x8]             ; 0x39d7
+    imul word [bp + 8]               ; 0x39d7
     mov cx, ax                       ; 0x39da
     pop ax                           ; 0x39dc
     add ax, cx                       ; 0x39dd
     push ax                          ; 0x39df
     call random_below                ; 0x39e0
     pop cx                           ; 0x39e3
-    add ax, word [bp + 0x8]          ; 0x39e4
+    add ax, word [bp + 8]            ; 0x39e4
     push ax                          ; 0x39e7
     mov al, byte [bss_91c5]          ; 0x39e8
     sub ah, ah                       ; 0x39eb

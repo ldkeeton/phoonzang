@@ -3,23 +3,23 @@ wait_ticks_or_key:
     mov ax, 0xfffa                   ; 0x0f8e
     call aztec_csav                  ; 0x0f91
     call flush_keyboard              ; 0x0f94
-    mov ax, word [bp + 0x4]          ; 0x0f97
+    mov ax, word [bp + 4]            ; 0x0f97
     cwd                              ; 0x0f9a
     les bx, word [tick_counter_ptr]  ; 0x0f9b
     mov cx, word [es:bx]             ; 0x0f9f
-    mov bx, word [es:bx + 0x2]       ; 0x0fa2
+    mov bx, word [es:bx + 2]         ; 0x0fa2
     add ax, cx                       ; 0x0fa6
     adc dx, bx                       ; 0x0fa8
-    mov word [bp - 0x0002], dx       ; 0x0faa
-    mov word [bp - 0x0004], ax       ; 0x0fad
+    mov word [bp - 2], dx            ; 0x0faa
+    mov word [bp - 4], ax            ; 0x0fad
 @..wait_ticks_or_key.l1:
     les bx, word [tick_counter_ptr]  ; 0x0fb0
     mov ax, word [es:bx]             ; 0x0fb4
-    mov dx, word [es:bx + 0x2]       ; 0x0fb7
-    cmp dx, word [bp - 0x0002]       ; 0x0fbb
+    mov dx, word [es:bx + 2]         ; 0x0fb7
+    cmp dx, word [bp - 2]            ; 0x0fbb
     jg short @..wait_ticks_or_key.l2 ; 0x0fbe
     jne short @..wait_ticks_or_key.l3 ; 0x0fc0
-    cmp ax, word [bp - 0x0004]       ; 0x0fc2
+    cmp ax, word [bp - 4]            ; 0x0fc2
     jb short @..wait_ticks_or_key.l3 ; 0x0fc5
 @..wait_ticks_or_key.l2:
     jmp short @..wait_ticks_or_key.l5 ; 0x0fc7

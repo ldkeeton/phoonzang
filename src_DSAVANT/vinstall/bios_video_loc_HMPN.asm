@@ -4,7 +4,7 @@ bios_video_loc_HMPN:
     mov bp, sp                       ; 0x25d4
     push di                          ; 0x25d6
     push si                          ; 0x25d7
-    mov bx, word [bp + 0x4]          ; 0x25d8
+    mov bx, word [bp + 4]            ; 0x25d8
 @..bios_video_loc_HMPN.l1:
     mov al, byte [bx]                ; 0x25db
     or al, al                        ; 0x25dd

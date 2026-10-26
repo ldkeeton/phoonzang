@@ -3,27 +3,27 @@ api_idx_0054_UOTQ:
     mov ax, 0xffac                   ; 0x9d30
     call aztec_csav                  ; 0x9d33
     mov ax, word [bss_9e42]          ; 0x9d36
-    mov word [bp - 0x0002], ax       ; 0x9d39
+    mov word [bp - 2], ax            ; 0x9d39
     mov cx, 0x14                     ; 0x9d3c
     imul cx                          ; 0x9d3f
     mov bx, ax                       ; 0x9d41
     cmp word [bx + bss_9e86], byte 0 ; 0x9d43
     jge short @..api_idx_0054_UOTQ.l1 ; 0x9d48
     mov ax, word [bx + bss_9e86]     ; 0x9d4a
-    add word [bp - 0x0002], ax       ; 0x9d4e
+    add word [bp - 2], ax            ; 0x9d4e
 @..api_idx_0054_UOTQ.l1:
-    push word [bp - 0x0002]          ; 0x9d51
+    push word [bp - 2]               ; 0x9d51
     call loc_UPRU                    ; 0x9d54
     pop cx                           ; 0x9d57
-    mov word [bp - 0x0004], ax       ; 0x9d58
+    mov word [bp - 4], ax            ; 0x9d58
     mov ax, 0x14                     ; 0x9d5b
-    imul word [bp - 0x0002]          ; 0x9d5e
+    imul word [bp - 2]               ; 0x9d5e
     mov bx, ax                       ; 0x9d61
     cmp word [bx + bss_9e86], byte 3 ; 0x9d63
     jne short @..api_idx_0054_UOTQ.l2 ; 0x9d68
     mov ax, MSG_HOW_1625             ; 0x9d6a
     push ax                          ; 0x9d6d
-    mov ax, word [bp - 0x0004]       ; 0x9d6e
+    mov ax, word [bp - 4]            ; 0x9d6e
     inc ax                           ; 0x9d71
     inc ax                           ; 0x9d72
     inc ax                           ; 0x9d73
@@ -39,7 +39,7 @@ jumptable_a27d_case_0:
     je short @..api_idx_0054_UOTQ.l3 ; 0x9d87
     jmp near @..api_idx_0054_UOTQ.l16 ; 0x9d89
 @..api_idx_0054_UOTQ.l3:
-    cmp word [bp - 0x0002], byte 0   ; 0x9d8c
+    cmp word [bp - 2], byte 0        ; 0x9d8c
     je short @..api_idx_0054_UOTQ.l4 ; 0x9d90
     jmp near @..api_idx_0054_UOTQ.l16 ; 0x9d92
 @..api_idx_0054_UOTQ.l4:
@@ -106,11 +106,11 @@ jumptable_a27d_case_0:
     jle short @..api_idx_0054_UOTQ.l12 ; 0x9e36
     mov ax, 0                        ; 0x9e38
     push ax                          ; 0x9e3b
-    lea ax, word [bp - 0x0054]       ; 0x9e3c
+    lea ax, word [bp - 0x54]         ; 0x9e3c
     push ax                          ; 0x9e3f
     call api_idx_0084_VMPP           ; 0x9e40
     add sp, byte 4                   ; 0x9e43
-    lea ax, word [bp - 0x0054]       ; 0x9e46
+    lea ax, word [bp - 0x54]         ; 0x9e46
     push ax                          ; 0x9e49
     mov ax, MSG_I_HEARD_A_RUMOR_ABOUT ; 0x9e4a
     push ax                          ; 0x9e4d
@@ -151,7 +151,7 @@ jumptable_a27d_case_0:
     jne short @..api_idx_0054_UOTQ.l18 ; 0x9ea2
     mov ax, MSG_HOW_1625             ; 0x9ea4
     push ax                          ; 0x9ea7
-    mov ax, word [bp - 0x0004]       ; 0x9ea8
+    mov ax, word [bp - 4]            ; 0x9ea8
     inc ax                           ; 0x9eab
     inc ax                           ; 0x9eac
     inc ax                           ; 0x9ead
@@ -164,7 +164,7 @@ jumptable_a27d_case_0:
     jne short jumptable_a27d_case_1  ; 0x9ebb
     mov ax, MSG_WHAT_1620            ; 0x9ebd
     push ax                          ; 0x9ec0
-    mov ax, word [bp - 0x0004]       ; 0x9ec1
+    mov ax, word [bp - 4]            ; 0x9ec1
     inc ax                           ; 0x9ec4
     inc ax                           ; 0x9ec5
     push ax                          ; 0x9ec6
@@ -195,17 +195,17 @@ jumptable_a27d_case_1:
     cmp word [bss_9e52], byte 1      ; 0x9f0f
     jne short @..api_idx_0054_UOTQ.l23 ; 0x9f14
     mov ax, 0x14                     ; 0x9f16
-    imul word [bp - 0x0002]          ; 0x9f19
+    imul word [bp - 2]               ; 0x9f19
     mov bx, ax                       ; 0x9f1c
     cmp word [bx + bss_9e86], byte 0 ; 0x9f1e
     je short @..api_idx_0054_UOTQ.l22 ; 0x9f23
-    lea ax, word [bp - 0x0054]       ; 0x9f25
+    lea ax, word [bp - 0x54]         ; 0x9f25
     push ax                          ; 0x9f28
     push word [bss_9e44]             ; 0x9f29
     push word [bss_9e42]             ; 0x9f2d
     call loc_UIIS                    ; 0x9f31
     add sp, byte 6                   ; 0x9f34
-    lea ax, word [bp - 0x0054]       ; 0x9f37
+    lea ax, word [bp - 0x54]         ; 0x9f37
     push ax                          ; 0x9f3a
     mov ax, MSG_I_DON_T_KNOW_ANYONE_NAMED ; 0x9f3b
     push ax                          ; 0x9f3e
@@ -215,7 +215,7 @@ jumptable_a27d_case_1:
 @..api_idx_0054_UOTQ.l22:
     mov ax, MSG_WHO_1619             ; 0x9f46
     push ax                          ; 0x9f49
-    mov ax, word [bp - 0x0004]       ; 0x9f4a
+    mov ax, word [bp - 4]            ; 0x9f4a
     inc ax                           ; 0x9f4d
     push ax                          ; 0x9f4e
     call loc_OJVU                    ; 0x9f4f
@@ -226,7 +226,7 @@ jumptable_a27d_case_1:
     jne short @..api_idx_0054_UOTQ.l24 ; 0x9f5b
     mov ax, MSG_WHAT_1620            ; 0x9f5d
     push ax                          ; 0x9f60
-    mov ax, word [bp - 0x0004]       ; 0x9f61
+    mov ax, word [bp - 4]            ; 0x9f61
     inc ax                           ; 0x9f64
     inc ax                           ; 0x9f65
     push ax                          ; 0x9f66
@@ -248,7 +248,7 @@ jumptable_a27d_case_1:
     jne short @..api_idx_0054_UOTQ.l26 ; 0x9f89
     mov ax, MSG_WHERE_1622           ; 0x9f8b
     push ax                          ; 0x9f8e
-    mov ax, word [bp - 0x0004]       ; 0x9f8f
+    mov ax, word [bp - 4]            ; 0x9f8f
     add ax, strict word 4            ; 0x9f92
     push ax                          ; 0x9f95
     call loc_OJVU                    ; 0x9f96
@@ -269,7 +269,7 @@ jumptable_a27d_case_1:
     jne short @..api_idx_0054_UOTQ.l28 ; 0x9fb8
     mov ax, MSG_WHY_1624             ; 0x9fba
     push ax                          ; 0x9fbd
-    mov ax, word [bp - 0x0004]       ; 0x9fbe
+    mov ax, word [bp - 4]            ; 0x9fbe
     inc ax                           ; 0x9fc1
     inc ax                           ; 0x9fc2
     push ax                          ; 0x9fc3
@@ -279,7 +279,7 @@ jumptable_a27d_case_1:
 @..api_idx_0054_UOTQ.l28:
     cmp word [bss_9e5e], byte 1      ; 0x9fcb
     jne short @..api_idx_0054_UOTQ.l30 ; 0x9fd0
-    cmp word [bp - 0x0002], byte 0   ; 0x9fd2
+    cmp word [bp - 2], byte 0        ; 0x9fd2
     jne short @..api_idx_0054_UOTQ.l29 ; 0x9fd6
     mov ax, 0x9107                   ; 0x9fd8
     push ax                          ; 0x9fdb
@@ -299,7 +299,7 @@ jumptable_a27d_case_1:
 @..api_idx_0054_UOTQ.l30:
     jmp short @..api_idx_0054_UOTQ.l33 ; 0x9ff6
 @..api_idx_0054_UOTQ.l31:
-    cmp word [bp - 0x0002], byte 0   ; 0x9ff8
+    cmp word [bp - 2], byte 0        ; 0x9ff8
     jne short @..api_idx_0054_UOTQ.l32 ; 0x9ffc
     mov ax, 0x9109                   ; 0x9ffe
     push ax                          ; 0xa001
@@ -365,7 +365,7 @@ jumptable_a27d_case_4:
     add sp, byte 4                   ; 0xa083
     ret                              ; 0xa086
 @..api_idx_0054_UOTQ.l39:
-    cmp word [bp - 0x0002], byte 0   ; 0xa087
+    cmp word [bp - 2], byte 0        ; 0xa087
     jne short @..api_idx_0054_UOTQ.l40 ; 0xa08b
     mov ax, 0x910f                   ; 0xa08d
     push ax                          ; 0xa090
@@ -418,7 +418,7 @@ jumptable_a27d_case_5:
     jle short @..api_idx_0054_UOTQ.l45 ; 0xa0f3
     mov ax, MSG_HOW_1625             ; 0xa0f5
     push ax                          ; 0xa0f8
-    mov ax, word [bp - 0x0004]       ; 0xa0f9
+    mov ax, word [bp - 4]            ; 0xa0f9
     inc ax                           ; 0xa0fc
     inc ax                           ; 0xa0fd
     inc ax                           ; 0xa0fe
@@ -482,7 +482,7 @@ jumptable_a27d_case_8:
     jne short @..api_idx_0054_UOTQ.l51 ; 0xa177
     mov ax, MSG_WHAT_1620            ; 0xa179
     push ax                          ; 0xa17c
-    mov ax, word [bp - 0x0004]       ; 0xa17d
+    mov ax, word [bp - 4]            ; 0xa17d
     inc ax                           ; 0xa180
     inc ax                           ; 0xa181
     push ax                          ; 0xa182
@@ -494,7 +494,7 @@ jumptable_a27d_case_8:
     jne short @..api_idx_0054_UOTQ.l52 ; 0xa18f
     mov ax, MSG_WHERE_1622           ; 0xa191
     push ax                          ; 0xa194
-    mov ax, word [bp - 0x0004]       ; 0xa195
+    mov ax, word [bp - 4]            ; 0xa195
     add ax, strict word 4            ; 0xa198
     push ax                          ; 0xa19b
     call loc_OJVU                    ; 0xa19c
@@ -523,7 +523,7 @@ jumptable_a27d_case_8:
 @..api_idx_0054_UOTQ.l54:
     mov ax, MSG_HOW_1625             ; 0xa1cf
     push ax                          ; 0xa1d2
-    mov ax, word [bp - 0x0004]       ; 0xa1d3
+    mov ax, word [bp - 4]            ; 0xa1d3
     inc ax                           ; 0xa1d6
     inc ax                           ; 0xa1d7
     inc ax                           ; 0xa1d8
@@ -571,7 +571,7 @@ jumptable_a27d_case_9:
     jne short @..api_idx_0054_UOTQ.l60 ; 0xa232
     mov ax, MSG_WHERE_1622           ; 0xa234
     push ax                          ; 0xa237
-    mov ax, word [bp - 0x0004]       ; 0xa238
+    mov ax, word [bp - 4]            ; 0xa238
     add ax, strict word 4            ; 0xa23b
     push ax                          ; 0xa23e
     call loc_OJVU                    ; 0xa23f
@@ -590,7 +590,7 @@ jumptable_a27d_case_9:
 @..api_idx_0054_UOTQ.l61:
     mov ax, MSG_HOW_1625             ; 0xa25c
     push ax                          ; 0xa25f
-    mov ax, word [bp - 0x0004]       ; 0xa260
+    mov ax, word [bp - 4]            ; 0xa260
     inc ax                           ; 0xa263
     inc ax                           ; 0xa264
     inc ax                           ; 0xa265

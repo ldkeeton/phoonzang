@@ -24,7 +24,7 @@ api_idx_0054_RLST:
     mov ax, 0x4c                     ; 0x1b77
     push ax                          ; 0x1b7a
     mov ax, 0x248                    ; 0x1b7b
-    imul word [bp + 0x4]             ; 0x1b7e
+    imul word [bp + 4]               ; 0x1b7e
     add ax, party_records            ; 0x1b81
     push ax                          ; 0x1b84
     call aztec_strlen                ; 0x1b85
@@ -43,7 +43,7 @@ api_idx_0054_RLST:
     mov ax, 0                        ; 0x1ba2
     push ax                          ; 0x1ba5
     mov ax, 0x248                    ; 0x1ba6
-    imul word [bp + 0x4]             ; 0x1ba9
+    imul word [bp + 4]               ; 0x1ba9
     add ax, party_records            ; 0x1bac
     push ax                          ; 0x1baf
     call draw_text_glyphs            ; 0x1bb0
@@ -60,10 +60,10 @@ api_idx_0054_RLST:
     push ax                          ; 0x1bcb
     call gfx_set_text_pos            ; 0x1bcc
     add sp, byte 4                   ; 0x1bcf
-    lea ax, word [bp - 0x0054]       ; 0x1bd2
+    lea ax, word [bp - 0x54]         ; 0x1bd2
     push ax                          ; 0x1bd5
     mov ax, 0x248                    ; 0x1bd6
-    imul word [bp + 0x4]             ; 0x1bd9
+    imul word [bp + 4]               ; 0x1bd9
     mov bx, ax                       ; 0x1bdc
     mov al, byte [bx + party_records + pc_rec.gender] ; 0x1bde
     sub ah, ah                       ; 0x1be2
@@ -73,7 +73,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1beb
     mov ax, 0                        ; 0x1bee
     push ax                          ; 0x1bf1
-    mov al, byte [bp - 0x0054]       ; 0x1bf2
+    mov al, byte [bp - 0x54]         ; 0x1bf2
     sub ah, ah                       ; 0x1bf5
     push ax                          ; 0x1bf7
     call draw_font_glyph             ; 0x1bf8
@@ -84,10 +84,10 @@ api_idx_0054_RLST:
     push ax                          ; 0x1c05
     call draw_font_glyph             ; 0x1c06
     add sp, byte 4                   ; 0x1c09
-    lea ax, word [bp - 0x0054]       ; 0x1c0c
+    lea ax, word [bp - 0x54]         ; 0x1c0c
     push ax                          ; 0x1c0f
     mov ax, 0x248                    ; 0x1c10
-    imul word [bp + 0x4]             ; 0x1c13
+    imul word [bp + 4]               ; 0x1c13
     mov bx, ax                       ; 0x1c16
     mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x1c18
     sub ah, ah                       ; 0x1c1c
@@ -97,7 +97,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1c25
     mov ax, 0                        ; 0x1c28
     push ax                          ; 0x1c2b
-    lea ax, word [bp - 0x0054]       ; 0x1c2c
+    lea ax, word [bp - 0x54]         ; 0x1c2c
     push ax                          ; 0x1c2f
     call draw_text_glyphs            ; 0x1c30
     add sp, byte 4                   ; 0x1c33
@@ -113,10 +113,10 @@ api_idx_0054_RLST:
     push ax                          ; 0x1c4b
     call gfx_set_text_pos            ; 0x1c4c
     add sp, byte 4                   ; 0x1c4f
-    lea ax, word [bp - 0x0054]       ; 0x1c52
+    lea ax, word [bp - 0x54]         ; 0x1c52
     push ax                          ; 0x1c55
     mov ax, 0x248                    ; 0x1c56
-    imul word [bp + 0x4]             ; 0x1c59
+    imul word [bp + 4]               ; 0x1c59
     mov bx, ax                       ; 0x1c5c
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x1c5e
     sub ah, ah                       ; 0x1c62
@@ -126,7 +126,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1c6b
     mov ax, 0                        ; 0x1c6e
     push ax                          ; 0x1c71
-    lea ax, word [bp - 0x0054]       ; 0x1c72
+    lea ax, word [bp - 0x54]         ; 0x1c72
     push ax                          ; 0x1c75
     call draw_text_glyphs            ; 0x1c76
     add sp, byte 4                   ; 0x1c79
@@ -142,7 +142,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1c91
     call gfx_set_text_pos            ; 0x1c92
     add sp, byte 4                   ; 0x1c95
-    lea ax, word [bp - 0x0054]       ; 0x1c98
+    lea ax, word [bp - 0x54]         ; 0x1c98
     push ax                          ; 0x1c9b
     mov ax, MSG_LVL                  ; 0x1c9c
     push ax                          ; 0x1c9f
@@ -150,7 +150,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1ca3
     mov ax, 0                        ; 0x1ca6
     push ax                          ; 0x1ca9
-    lea ax, word [bp - 0x0054]       ; 0x1caa
+    lea ax, word [bp - 0x54]         ; 0x1caa
     push ax                          ; 0x1cad
     call draw_text_glyphs            ; 0x1cae
     add sp, byte 4                   ; 0x1cb1
@@ -159,13 +159,13 @@ api_idx_0054_RLST:
     mov ax, 4                        ; 0x1cb8
     push ax                          ; 0x1cbb
     mov ax, 0x248                    ; 0x1cbc
-    imul word [bp + 0x4]             ; 0x1cbf
+    imul word [bp + 4]               ; 0x1cbf
     mov bx, ax                       ; 0x1cc2
     push word [bx + party_records + pc_rec.power_cap] ; 0x1cc4
     call draw_number_field           ; 0x1cc8
     add sp, byte 6                   ; 0x1ccb
     mov ax, 0x248                    ; 0x1cce
-    imul word [bp + 0x4]             ; 0x1cd1
+    imul word [bp + 4]               ; 0x1cd1
     mov bx, ax                       ; 0x1cd4
     mov ax, word [bx + party_records + pc_rec.f_0008] ; 0x1cd6
     mov dx, word [bx + party_records + pc_rec.f_000a] ; 0x1cda
@@ -180,7 +180,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1cf6
     push dx                          ; 0x1cf7
     mov ax, 0x248                    ; 0x1cf8
-    imul word [bp + 0x4]             ; 0x1cfb
+    imul word [bp + 4]               ; 0x1cfb
     mov bx, ax                       ; 0x1cfe
     mov ax, word [bx + party_records + pc_rec.f_0026] ; 0x1d00
     cwd                              ; 0x1d04
@@ -203,7 +203,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1d27
     push dx                          ; 0x1d28
     mov ax, 0x248                    ; 0x1d29
-    imul word [bp + 0x4]             ; 0x1d2c
+    imul word [bp + 4]               ; 0x1d2c
     mov bx, ax                       ; 0x1d2f
     mov al, byte [bx + party_records + pc_rec.stat + 0x3] ; 0x1d31
     sub ah, ah                       ; 0x1d35
@@ -235,7 +235,7 @@ api_idx_0054_RLST:
     add sp, byte 6                   ; 0x1d69
     mov word [banner_offset], ax     ; 0x1d6c
     mov ax, 0x248                    ; 0x1d6f
-    imul word [bp + 0x4]             ; 0x1d72
+    imul word [bp + 4]               ; 0x1d72
     mov bx, ax                       ; 0x1d75
     cmp byte [bx + party_records + pc_rec.state], 3 ; 0x1d77
     jae short @..api_idx_0054_RLST.l1 ; 0x1d7c
@@ -255,7 +255,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1d9e
     call gfx_set_text_color          ; 0x1d9f
     add sp, byte 4                   ; 0x1da2
-    lea ax, word [bp - 0x0054]       ; 0x1da5
+    lea ax, word [bp - 0x54]         ; 0x1da5
     push ax                          ; 0x1da8
     mov ax, MSG_RNK                  ; 0x1da9
     push ax                          ; 0x1dac
@@ -269,14 +269,14 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1dbe
     mov ax, 0                        ; 0x1dc1
     push ax                          ; 0x1dc4
-    lea ax, word [bp - 0x0054]       ; 0x1dc5
+    lea ax, word [bp - 0x54]         ; 0x1dc5
     push ax                          ; 0x1dc8
     call draw_text_glyphs            ; 0x1dc9
     add sp, byte 4                   ; 0x1dcc
-    lea ax, word [bp - 0x0054]       ; 0x1dcf
+    lea ax, word [bp - 0x54]         ; 0x1dcf
     push ax                          ; 0x1dd2
     mov ax, 0x248                    ; 0x1dd3
-    imul word [bp + 0x4]             ; 0x1dd6
+    imul word [bp + 4]               ; 0x1dd6
     mov bx, ax                       ; 0x1dd9
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x1ddb
     sub ah, ah                       ; 0x1ddf
@@ -294,7 +294,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1df9
     mov ax, 6                        ; 0x1dfc
     push ax                          ; 0x1dff
-    lea ax, word [bp - 0x0054]       ; 0x1e00
+    lea ax, word [bp - 0x54]         ; 0x1e00
     push ax                          ; 0x1e03
     call aztec_strlen                ; 0x1e04
     pop cx                           ; 0x1e07
@@ -307,7 +307,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1e16
     mov ax, 0                        ; 0x1e19
     push ax                          ; 0x1e1c
-    lea ax, word [bp - 0x0054]       ; 0x1e1d
+    lea ax, word [bp - 0x54]         ; 0x1e1d
     push ax                          ; 0x1e20
     call draw_text_glyphs            ; 0x1e21
     add sp, byte 4                   ; 0x1e24
@@ -317,7 +317,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1e2e
     call gfx_set_text_color          ; 0x1e2f
     add sp, byte 4                   ; 0x1e32
-    lea ax, word [bp - 0x0054]       ; 0x1e35
+    lea ax, word [bp - 0x54]         ; 0x1e35
     push ax                          ; 0x1e38
     mov ax, MSG_EXP                  ; 0x1e39
     push ax                          ; 0x1e3c
@@ -331,7 +331,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1e4e
     mov ax, 0                        ; 0x1e51
     push ax                          ; 0x1e54
-    lea ax, word [bp - 0x0054]       ; 0x1e55
+    lea ax, word [bp - 0x54]         ; 0x1e55
     push ax                          ; 0x1e58
     call draw_text_glyphs            ; 0x1e59
     add sp, byte 4                   ; 0x1e5c
@@ -346,13 +346,13 @@ api_idx_0054_RLST:
     mov ax, 0xa                      ; 0x1e71
     push ax                          ; 0x1e74
     mov ax, 0x248                    ; 0x1e75
-    imul word [bp + 0x4]             ; 0x1e78
+    imul word [bp + 4]               ; 0x1e78
     mov bx, ax                       ; 0x1e7b
     push word [bx + party_records + pc_rec.experience + 0x2] ; 0x1e7d
     push word [bx + party_records + pc_rec.experience] ; 0x1e81
     call draw_padded_number          ; 0x1e85
     add sp, byte 8                   ; 0x1e88
-    lea ax, word [bp - 0x0054]       ; 0x1e8b
+    lea ax, word [bp - 0x54]         ; 0x1e8b
     push ax                          ; 0x1e8e
     mov ax, MSG_MKS                  ; 0x1e8f
     push ax                          ; 0x1e92
@@ -366,7 +366,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1ea4
     mov ax, 0                        ; 0x1ea7
     push ax                          ; 0x1eaa
-    lea ax, word [bp - 0x0054]       ; 0x1eab
+    lea ax, word [bp - 0x54]         ; 0x1eab
     push ax                          ; 0x1eae
     call draw_text_glyphs            ; 0x1eaf
     add sp, byte 4                   ; 0x1eb2
@@ -381,7 +381,7 @@ api_idx_0054_RLST:
     mov ax, 0xa                      ; 0x1ec7
     push ax                          ; 0x1eca
     mov ax, 0x248                    ; 0x1ecb
-    imul word [bp + 0x4]             ; 0x1ece
+    imul word [bp + 4]               ; 0x1ece
     mov bx, ax                       ; 0x1ed1
     push word [bx + party_records + pc_rec.f_0012] ; 0x1ed3
     push word [bx + party_records + pc_rec.f_0010] ; 0x1ed7
@@ -393,7 +393,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1ee8
     call gfx_set_text_color          ; 0x1ee9
     add sp, byte 4                   ; 0x1eec
-    lea ax, word [bp - 0x0054]       ; 0x1eef
+    lea ax, word [bp - 0x54]         ; 0x1eef
     push ax                          ; 0x1ef2
     mov ax, MSG_HP                   ; 0x1ef3
     push ax                          ; 0x1ef6
@@ -407,7 +407,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1f08
     mov ax, 0                        ; 0x1f0b
     push ax                          ; 0x1f0e
-    lea ax, word [bp - 0x0054]       ; 0x1f0f
+    lea ax, word [bp - 0x54]         ; 0x1f0f
     push ax                          ; 0x1f12
     call draw_text_glyphs            ; 0x1f13
     add sp, byte 4                   ; 0x1f16
@@ -423,17 +423,17 @@ api_idx_0054_RLST:
     push ax                          ; 0x1f2e
     call gfx_set_text_color          ; 0x1f2f
     add sp, byte 4                   ; 0x1f32
-    lea ax, word [bp - 0x0054]       ; 0x1f35
+    lea ax, word [bp - 0x54]         ; 0x1f35
     push ax                          ; 0x1f38
     mov ax, 0x248                    ; 0x1f39
-    imul word [bp + 0x4]             ; 0x1f3c
+    imul word [bp + 4]               ; 0x1f3c
     mov bx, ax                       ; 0x1f3f
     push word [bx + party_records + pc_rec.pair_a] ; 0x1f41
     call format_int_decimal          ; 0x1f45
     add sp, byte 4                   ; 0x1f48
     mov ax, 0                        ; 0x1f4b
     push ax                          ; 0x1f4e
-    lea ax, word [bp - 0x0054]       ; 0x1f4f
+    lea ax, word [bp - 0x54]         ; 0x1f4f
     push ax                          ; 0x1f52
     call draw_text_glyphs            ; 0x1f53
     add sp, byte 4                   ; 0x1f56
@@ -443,17 +443,17 @@ api_idx_0054_RLST:
     push ax                          ; 0x1f60
     call draw_font_glyph             ; 0x1f61
     add sp, byte 4                   ; 0x1f64
-    lea ax, word [bp - 0x0054]       ; 0x1f67
+    lea ax, word [bp - 0x54]         ; 0x1f67
     push ax                          ; 0x1f6a
     mov ax, 0x248                    ; 0x1f6b
-    imul word [bp + 0x4]             ; 0x1f6e
+    imul word [bp + 4]               ; 0x1f6e
     mov bx, ax                       ; 0x1f71
     push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x1f73
     call format_int_decimal          ; 0x1f77
     add sp, byte 4                   ; 0x1f7a
     mov ax, 0                        ; 0x1f7d
     push ax                          ; 0x1f80
-    lea ax, word [bp - 0x0054]       ; 0x1f81
+    lea ax, word [bp - 0x54]         ; 0x1f81
     push ax                          ; 0x1f84
     call draw_text_glyphs            ; 0x1f85
     add sp, byte 4                   ; 0x1f88
@@ -463,7 +463,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1f92
     call gfx_set_text_color          ; 0x1f93
     add sp, byte 4                   ; 0x1f96
-    lea ax, word [bp - 0x0054]       ; 0x1f99
+    lea ax, word [bp - 0x54]         ; 0x1f99
     push ax                          ; 0x1f9c
     mov ax, MSG_ST                   ; 0x1f9d
     push ax                          ; 0x1fa0
@@ -477,7 +477,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x1fb2
     mov ax, 0                        ; 0x1fb5
     push ax                          ; 0x1fb8
-    lea ax, word [bp - 0x0054]       ; 0x1fb9
+    lea ax, word [bp - 0x54]         ; 0x1fb9
     push ax                          ; 0x1fbc
     call draw_text_glyphs            ; 0x1fbd
     add sp, byte 4                   ; 0x1fc0
@@ -494,7 +494,7 @@ api_idx_0054_RLST:
     call gfx_set_text_color          ; 0x1fd9
     add sp, byte 4                   ; 0x1fdc
     mov ax, 0x248                    ; 0x1fdf
-    imul word [bp + 0x4]             ; 0x1fe2
+    imul word [bp + 4]               ; 0x1fe2
     mov bx, ax                       ; 0x1fe5
     mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x1fe7
     mov cx, 0x64                     ; 0x1feb
@@ -502,7 +502,7 @@ api_idx_0054_RLST:
     mov cx, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x1ff0
     cwd                              ; 0x1ff4
     idiv cx                          ; 0x1ff5
-    mov word [bp - 0x0004], ax       ; 0x1ff7
+    mov word [bp - 4], ax            ; 0x1ff7
     cmp ax, strict word 1            ; 0x1ffa
     jge short @..api_idx_0054_RLST.l3 ; 0x1ffd
     cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x1fff
@@ -510,17 +510,17 @@ api_idx_0054_RLST:
     mov ax, 1                        ; 0x2006
     jmp short @..api_idx_0054_RLST.l4 ; 0x2009
 @..api_idx_0054_RLST.l3:
-    mov ax, word [bp - 0x0004]       ; 0x200b
+    mov ax, word [bp - 4]            ; 0x200b
 @..api_idx_0054_RLST.l4:
-    mov word [bp - 0x0004], ax       ; 0x200e
-    lea ax, word [bp - 0x0054]       ; 0x2011
+    mov word [bp - 4], ax            ; 0x200e
+    lea ax, word [bp - 0x54]         ; 0x2011
     push ax                          ; 0x2014
-    push word [bp - 0x0004]          ; 0x2015
+    push word [bp - 4]               ; 0x2015
     call format_int_decimal          ; 0x2018
     add sp, byte 4                   ; 0x201b
     mov ax, 0                        ; 0x201e
     push ax                          ; 0x2021
-    lea ax, word [bp - 0x0054]       ; 0x2022
+    lea ax, word [bp - 0x54]         ; 0x2022
     push ax                          ; 0x2025
     call draw_text_glyphs            ; 0x2026
     add sp, byte 4                   ; 0x2029
@@ -542,17 +542,17 @@ api_idx_0054_RLST:
     push ax                          ; 0x204f
     call draw_font_glyph             ; 0x2050
     add sp, byte 4                   ; 0x2053
-    lea ax, word [bp - 0x0054]       ; 0x2056
+    lea ax, word [bp - 0x54]         ; 0x2056
     push ax                          ; 0x2059
     mov ax, 0x248                    ; 0x205a
-    imul word [bp + 0x4]             ; 0x205d
+    imul word [bp + 4]               ; 0x205d
     mov bx, ax                       ; 0x2060
     push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x2062
     call format_int_decimal          ; 0x2066
     add sp, byte 4                   ; 0x2069
     mov ax, 0                        ; 0x206c
     push ax                          ; 0x206f
-    lea ax, word [bp - 0x0054]       ; 0x2070
+    lea ax, word [bp - 0x54]         ; 0x2070
     push ax                          ; 0x2073
     call draw_text_glyphs            ; 0x2074
     add sp, byte 4                   ; 0x2077
@@ -562,7 +562,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x2081
     call draw_font_glyph             ; 0x2082
     add sp, byte 4                   ; 0x2085
-    push word [bp + 0x4]             ; 0x2088
+    push word [bp + 4]               ; 0x2088
     call api_idx_0004_RMVO           ; 0x208b
     pop cx                           ; 0x208e
     ret                              ; 0x208f

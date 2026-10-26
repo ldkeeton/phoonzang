@@ -4,63 +4,63 @@ api_idx_0008_KNNO:
     call aztec_csav                  ; 0x29b4
     mov ax, 0                        ; 0x29b7
     push ax                          ; 0x29ba
-    push word [bp + 0x4]             ; 0x29bb
+    push word [bp + 4]               ; 0x29bb
     call api_idx_0004_PULL           ; 0x29be
     add sp, byte 4                   ; 0x29c1
-    mov word [bp - 0x0002], ax       ; 0x29c4
-    mov ax, word [bp + 0x4]          ; 0x29c7
-    mov word [bp - 0x0008], ax       ; 0x29ca
-    mov word [bp - 0x0006], 0        ; 0x29cd
+    mov word [bp - 2], ax            ; 0x29c4
+    mov ax, word [bp + 4]            ; 0x29c7
+    mov word [bp - 8], ax            ; 0x29ca
+    mov word [bp - 6], 0             ; 0x29cd
     jmp short @..api_idx_0008_KNNO.l2 ; 0x29d2
 @..api_idx_0008_KNNO.l1:
     mov ax, 0                        ; 0x29d4
     push ax                          ; 0x29d7
-    push word [bp - 0x0006]          ; 0x29d8
+    push word [bp - 6]               ; 0x29d8
     call api_idx_0004_PULL           ; 0x29db
     add sp, byte 4                   ; 0x29de
-    mov word [bp - 0x0002], ax       ; 0x29e1
-    mov ax, word [bp - 0x0006]       ; 0x29e4
-    mov word [bp - 0x0008], ax       ; 0x29e7
-    inc word [bp - 0x0006]           ; 0x29ea
+    mov word [bp - 2], ax            ; 0x29e1
+    mov ax, word [bp - 6]            ; 0x29e4
+    mov word [bp - 8], ax            ; 0x29e7
+    inc word [bp - 6]                ; 0x29ea
 @..api_idx_0008_KNNO.l2:
-    mov ax, word [bp - 0x0006]       ; 0x29ed
+    mov ax, word [bp - 6]            ; 0x29ed
     cmp ax, word [party_char_count]  ; 0x29f0
     jge short @..api_idx_0008_KNNO.l3 ; 0x29f4
-    cmp word [bp - 0x0002], byte 0xff ; 0x29f6
+    cmp word [bp - 2], byte 0xff     ; 0x29f6
     je short @..api_idx_0008_KNNO.l1 ; 0x29fa
 @..api_idx_0008_KNNO.l3:
-    cmp word [bp - 0x0002], byte 0xff ; 0x29fc
+    cmp word [bp - 2], byte 0xff     ; 0x29fc
     jne short @..api_idx_0008_KNNO.l6 ; 0x2a00
-    mov word [bp - 0x0006], 0        ; 0x2a02
+    mov word [bp - 6], 0             ; 0x2a02
     jmp short @..api_idx_0008_KNNO.l5 ; 0x2a07
 @..api_idx_0008_KNNO.l4:
     mov ax, 1                        ; 0x2a09
     push ax                          ; 0x2a0c
-    push word [bp - 0x0006]          ; 0x2a0d
+    push word [bp - 6]               ; 0x2a0d
     call api_idx_0004_PULL           ; 0x2a10
     add sp, byte 4                   ; 0x2a13
-    mov word [bp - 0x0002], ax       ; 0x2a16
-    mov ax, word [bp - 0x0006]       ; 0x2a19
-    mov word [bp - 0x0008], ax       ; 0x2a1c
-    inc word [bp - 0x0006]           ; 0x2a1f
+    mov word [bp - 2], ax            ; 0x2a16
+    mov ax, word [bp - 6]            ; 0x2a19
+    mov word [bp - 8], ax            ; 0x2a1c
+    inc word [bp - 6]                ; 0x2a1f
 @..api_idx_0008_KNNO.l5:
-    mov ax, word [bp - 0x0006]       ; 0x2a22
+    mov ax, word [bp - 6]            ; 0x2a22
     cmp ax, word [party_char_count]  ; 0x2a25
     jge short @..api_idx_0008_KNNO.l6 ; 0x2a29
-    cmp word [bp - 0x0002], byte 0xff ; 0x2a2b
+    cmp word [bp - 2], byte 0xff     ; 0x2a2b
     je short @..api_idx_0008_KNNO.l4 ; 0x2a2f
 @..api_idx_0008_KNNO.l6:
-    cmp word [bp - 0x0002], byte 0xff ; 0x2a31
+    cmp word [bp - 2], byte 0xff     ; 0x2a31
     jne short @..api_idx_0008_KNNO.l9 ; 0x2a35
-    mov word [bp - 0x0002], 0        ; 0x2a37
-    mov word [bp - 0x0006], 0        ; 0x2a3c
-    mov word [bp - 0x0008], 0        ; 0x2a41
+    mov word [bp - 2], 0             ; 0x2a37
+    mov word [bp - 6], 0             ; 0x2a3c
+    mov word [bp - 8], 0             ; 0x2a41
 @..api_idx_0008_KNNO.l7:
     mov ax, 0x78                     ; 0x2a46
-    imul word [bp - 0x0006]          ; 0x2a49
+    imul word [bp - 6]               ; 0x2a49
     push ax                          ; 0x2a4c
     mov ax, 0xc                      ; 0x2a4d
-    imul word [bp - 0x0002]          ; 0x2a50
+    imul word [bp - 2]               ; 0x2a50
     mov cx, ax                       ; 0x2a53
     pop ax                           ; 0x2a55
     add ax, cx                       ; 0x2a56
@@ -70,51 +70,51 @@ api_idx_0008_KNNO:
     pop cx                           ; 0x2a61
     test ax, ax                      ; 0x2a62
     je short @..api_idx_0008_KNNO.l9 ; 0x2a64
-    inc word [bp - 0x0002]           ; 0x2a66
-    mov ax, word [bp - 0x0002]       ; 0x2a69
+    inc word [bp - 2]                ; 0x2a66
+    mov ax, word [bp - 2]            ; 0x2a69
     cmp ax, strict word 0xa          ; 0x2a6c
     jne short @..api_idx_0008_KNNO.l8 ; 0x2a6f
-    mov word [bp - 0x0002], 0        ; 0x2a71
-    inc word [bp - 0x0006]           ; 0x2a76
+    mov word [bp - 2], 0             ; 0x2a71
+    inc word [bp - 6]                ; 0x2a76
 @..api_idx_0008_KNNO.l8:
     jmp short @..api_idx_0008_KNNO.l7 ; 0x2a79
 @..api_idx_0008_KNNO.l9:
-    mov ax, word [bp - 0x0002]       ; 0x2a7b
+    mov ax, word [bp - 2]            ; 0x2a7b
     mov cx, 0x100                    ; 0x2a7e
     cwd                              ; 0x2a81
     idiv cx                          ; 0x2a82
-    mov word [bp - 0x0004], ax       ; 0x2a84
-    mov word [bp - 0x0006], dx       ; 0x2a87
+    mov word [bp - 4], ax            ; 0x2a84
+    mov word [bp - 6], dx            ; 0x2a87
     mov ax, 1                        ; 0x2a8a
     push ax                          ; 0x2a8d
     mov ax, 0xfffe                   ; 0x2a8e
     push ax                          ; 0x2a91
     mov ax, 0x248                    ; 0x2a92
-    imul word [bp - 0x0008]          ; 0x2a95
+    imul word [bp - 8]               ; 0x2a95
     push ax                          ; 0x2a98
     mov ax, 0x78                     ; 0x2a99
-    imul word [bp - 0x0004]          ; 0x2a9c
+    imul word [bp - 4]               ; 0x2a9c
     mov cx, ax                       ; 0x2a9f
     pop ax                           ; 0x2aa1
     add ax, cx                       ; 0x2aa2
     push ax                          ; 0x2aa4
     mov ax, 0xc                      ; 0x2aa5
-    imul word [bp - 0x0006]          ; 0x2aa8
+    imul word [bp - 6]               ; 0x2aa8
     mov cx, ax                       ; 0x2aab
     pop ax                           ; 0x2aad
     add ax, cx                       ; 0x2aae
     add ax, 0x5c34                   ; 0x2ab0
     push ax                          ; 0x2ab3
-    push word [bp + 0x6]             ; 0x2ab4
-    push word [bp - 0x0008]          ; 0x2ab7
+    push word [bp + 6]               ; 0x2ab4
+    push word [bp - 8]               ; 0x2ab7
     call api_idx_004c_RQSO           ; 0x2aba
-    add sp, byte 0x0a                ; 0x2abd
-    push word [bp + 0x6]             ; 0x2ac0
+    add sp, byte 0xa                 ; 0x2abd
+    push word [bp + 6]               ; 0x2ac0
     call loc_GMVH                    ; 0x2ac3
     pop cx                           ; 0x2ac6
     test ax, ax                      ; 0x2ac7
     je short @..api_idx_0008_KNNO.l10 ; 0x2ac9
-    mov ax, word [bp + 0x6]          ; 0x2acb
+    mov ax, word [bp + 6]            ; 0x2acb
     add ax, 0xfe70                   ; 0x2ace
     push ax                          ; 0x2ad1
     mov al, byte [bss_91c6]          ; 0x2ad2
@@ -134,14 +134,14 @@ api_idx_0008_KNNO:
     mov ax, 0x5e                     ; 0x2aef
     push ax                          ; 0x2af2
     mov ax, 0x248                    ; 0x2af3
-    imul word [bp - 0x0008]          ; 0x2af6
+    imul word [bp - 8]               ; 0x2af6
     add ax, party_records            ; 0x2af9
     push ax                          ; 0x2afc
     mov ax, bss_95a8                 ; 0x2afd
     push ax                          ; 0x2b00
     call str_subst_char              ; 0x2b01
     add sp, byte 6                   ; 0x2b04
-    cmp word [bp + 0x8], byte 1      ; 0x2b07
+    cmp word [bp + 8], byte 1        ; 0x2b07
     jne short @..api_idx_0008_KNNO.l11 ; 0x2b0b
     mov ax, 1                        ; 0x2b0d
     push ax                          ; 0x2b10
@@ -153,7 +153,7 @@ api_idx_0008_KNNO:
     add sp, byte 8                   ; 0x2b1a
     jmp short @..api_idx_0008_KNNO.l12 ; 0x2b1d
 @..api_idx_0008_KNNO.l11:
-    cmp word [bp + 0x8], byte 2      ; 0x2b1f
+    cmp word [bp + 8], byte 2        ; 0x2b1f
     jne short @..api_idx_0008_KNNO.l12 ; 0x2b23
     mov ax, word [text_line_index]   ; 0x2b25
     mov cx, 7                        ; 0x2b28

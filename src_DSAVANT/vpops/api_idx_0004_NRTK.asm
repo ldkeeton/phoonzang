@@ -16,7 +16,7 @@ api_idx_0004_NRTK:
     call show_area_set               ; 0x4e6b
     pop cx                           ; 0x4e6e
     call api_idx_00d4_LUPQ           ; 0x4e6f
-    mov word [bp - 0x0004], ax       ; 0x4e72
+    mov word [bp - 4], ax            ; 0x4e72
     mov ax, 3                        ; 0x4e75
     push ax                          ; 0x4e78
     call redraw_area_set             ; 0x4e79
@@ -25,7 +25,7 @@ api_idx_0004_NRTK:
     push ax                          ; 0x4e80
     call show_area_set               ; 0x4e81
     pop cx                           ; 0x4e84
-    cmp word [bp - 0x0004], byte 0   ; 0x4e85
+    cmp word [bp - 4], byte 0        ; 0x4e85
     je short @..api_idx_0004_NRTK.l1 ; 0x4e89
     mov word [game_state], 0xe       ; 0x4e8b
     jmp short @..api_idx_0004_NRTK.l2 ; 0x4e91

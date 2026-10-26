@@ -16,7 +16,7 @@ free_screen:
     jmp near @..free_screen.l3
 @..free_screen.l1:
     shl ax, 1
-    mov word [bp - 0x0008], ax
+    mov word [bp - 8], ax
     mov bx, screen_maze_slots - IMAGE_BASE
     add bx, ax
     mov ax, word [cs:bx]

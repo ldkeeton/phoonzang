@@ -13,7 +13,7 @@ load_picture:
     shl ax, 1
     mov bx, picture_slots - IMAGE_BASE
     add bx, ax
-    mov word [bp - 0x0002], bx
+    mov word [bp - 2], bx
     mov ax, word [cs:bx]
     or ax, ax
     je short @..load_picture.l1
@@ -22,14 +22,14 @@ load_picture:
     mov ax, word [cs:maze_block_count - IMAGE_BASE]
     inc ax
     mov word [cs:maze_block_count - IMAGE_BASE], ax
-    mov bx, word [bp - 0x0002]
+    mov bx, word [bp - 2]
     mov word [cs:bx], ax
     dec ax
     mov cl, 2
     shl ax, cl
     mov bx, maze_blocks - IMAGE_BASE
     add bx, ax
-    mov word [bp - 0x0002], bx
+    mov word [bp - 2], bx
     mov ax, word [cs:maze_paras_used - IMAGE_BASE]
     mov word [cs:bx], ax
     mov ax, word [cs:scratch_buf_seg - IMAGE_BASE]
@@ -41,9 +41,9 @@ load_picture:
     int 0x21 ; DOS read file (handle)
     xor bx, bx
     mov ax, word [bx]
-    mov dx, word [bx + 0x2]
-    mov word [bp - 0x0004], ax
-    mov word [bp - 0x0006], dx
+    mov dx, word [bx + 2]
+    mov word [bp - 4], ax
+    mov word [bp - 6], dx
     mov cl, 4
     add ax, strict word 0xf
     adc dx, byte 0
@@ -51,20 +51,20 @@ load_picture:
     shl dl, cl
     or ah, dl
     add word [cs:maze_paras_used - IMAGE_BASE], ax
-    mov bx, word [bp - 0x0002]
-    mov word [cs:bx + 0x2], ax
+    mov bx, word [bp - 2]
+    mov word [cs:bx + 2], ax
     mov ax, word [cs:maze_paras_used - IMAGE_BASE]
     cmp ax, 0x4180
     jb short @..load_picture.l2
     jmp near load_picture.dos_con_loc1
 @..load_picture.l2:
-    mov bx, word [bp - 0x0002]
+    mov bx, word [bp - 2]
     mov ax, word [cs:bx]
     add ax, word [cs:maze_mem_seg - IMAGE_BASE]
     mov ds, ax
 @..load_picture.l3:
-    mov cx, word [bp - 0x0004]
-    mov dx, word [bp - 0x0006]
+    mov cx, word [bp - 4]
+    mov dx, word [bp - 6]
     mov bx, cx
     or bx, dx
     je short @..load_picture.l6
@@ -72,13 +72,13 @@ load_picture:
     jne short @..load_picture.l4
     cmp cx, strict word 0x1000
     jae short @..load_picture.l4
-    sub word [bp - 0x0004], cx
+    sub word [bp - 4], cx
     jmp short @..load_picture.l5
 @..load_picture.l4:
     sub cx, strict word 0x1000
     sbb dx, byte 0
-    mov word [bp - 0x0004], cx
-    mov word [bp - 0x0006], dx
+    mov word [bp - 4], cx
+    mov word [bp - 6], dx
     mov cx, 0x1000
 @..load_picture.l5:
     xor dx, dx

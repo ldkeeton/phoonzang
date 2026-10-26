@@ -16,7 +16,7 @@ loc_MMGL:
     push ax                          ; 0x2202
     call delay_ms                    ; 0x2203
     pop cx                           ; 0x2206
-    push word [bp + 0x4]             ; 0x2207
+    push word [bp + 4]               ; 0x2207
     call show_message                ; 0x220a
     pop cx                           ; 0x220d
     mov word [bss_91b2], 1           ; 0x220e

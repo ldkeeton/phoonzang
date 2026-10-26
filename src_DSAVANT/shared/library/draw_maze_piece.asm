@@ -2,7 +2,7 @@
 draw_maze_piece:
     push bp
     mov bp, sp
-    sub sp, byte 0x0e
+    sub sp, byte 0xe
     push ds
     push es
     push di
@@ -12,7 +12,7 @@ draw_maze_piece:
     cld
     mov ax, word [bp + 0xc]
     shl ax, 1
-    mov word [bp - 0x0004], ax
+    mov word [bp - 4], ax
     mov bx, maze_map_slots - IMAGE_BASE
     add bx, ax
     mov bx, word [cs:bx]
@@ -38,7 +38,7 @@ draw_maze_piece.cseg1:
     shl bx, cl
     add bx, maze_blocks - IMAGE_BASE
     mov ax, word [cs:bx]
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     mov ax, word [bp + 0x12]
     cmp ax, strict word 0xffff
     je short @..draw_maze_piece.l2
@@ -47,33 +47,33 @@ draw_maze_piece.cseg1:
     mov bx, word [bp + 0xe]
     mov ax, 5
     mul bx
-    mov bx, word [bp - 0x0004]
+    mov bx, word [bp - 4]
     add bx, strict word 0x27d
     add ax, word [cs:bx]
     mov si, ax
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
     mov es, ax
     mov ax, word [cs:maze_mem_seg - IMAGE_BASE]
-    add ax, word [bp - 0x0002]
+    add ax, word [bp - 2]
     mov ds, ax
     xor ah, ah
-    mov al, byte [si + 0x4]
+    mov al, byte [si + 4]
     or ax, ax
     jne short @..draw_maze_piece.l3
     jmp near @..draw_maze_piece.l22
 @..draw_maze_piece.l3:
     mov cl, 3
     shl ax, cl
-    mov word [bp - 0x0004], ax
-    mov al, byte [si + 0x1]
+    mov word [bp - 4], ax
+    mov al, byte [si + 1]
     cbw
-    mov bl, byte [si + 0x3]
+    mov bl, byte [si + 3]
     xor bh, bh
     add ax, bx
     mov cl, 3
     shl ax, cl
     mov di, ax
-    mov al, byte [si + 0x2]
+    mov al, byte [si + 2]
     mov cx, 0x140
     mul cx
     add di, ax
@@ -83,25 +83,25 @@ draw_maze_piece.cseg1:
     add ax, word [cs:maze_piece_table - IMAGE_BASE]
     mov bx, ax
     xor ax, ax
-    mov al, byte [bx + 0x4]
+    mov al, byte [bx + 4]
     mov cl, 3
     shl ax, cl
-    mov word [bp - 0x0006], ax
-    mov ax, word [bx + 0x2]
-    mov dl, byte [si + 0x3]
+    mov word [bp - 6], ax
+    mov ax, word [bx + 2]
+    mov dl, byte [si + 3]
     xor dh, dh
     shl dx, 1
     shl dx, 1
     shl dx, 1
     add ax, dx
     xor cx, cx
-    mov cl, byte [bx + 0x5]
+    mov cl, byte [bx + 5]
     mov dx, ds
     add dx, word [bx]
     mov ds, dx
 @..draw_maze_piece.l4:
     push cx
-    mov cx, word [bp - 0x0004]
+    mov cx, word [bp - 4]
     push si
     push ax
     push di
@@ -143,7 +143,7 @@ draw_maze_piece.cseg1:
     pop di
     add di, strict word 0x140
     pop ax
-    mov dx, word [bp - 0x0006]
+    mov dx, word [bp - 6]
     add ax, dx
     pop si
     pop cx
@@ -153,73 +153,73 @@ draw_maze_piece.cseg1:
     mov bx, word [bp + 0xe]
     mov ax, 5
     mul bx
-    mov bx, word [bp - 0x0004]
+    mov bx, word [bp - 4]
     add bx, strict word 0x27d
     add ax, word [cs:bx]
     mov si, ax
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
     mov es, ax
     mov ax, word [cs:maze_mem_seg - IMAGE_BASE]
-    add ax, word [bp - 0x0002]
+    add ax, word [bp - 2]
     mov ds, ax
     mov al, byte [si]
     mov bl, 6
     mul bl
     add ax, word [cs:maze_piece_table - IMAGE_BASE]
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     mov ax, word [bp + 0x12]
     mov bx, 5
     mul bx
-    mov bx, word [bp - 0x0004]
+    mov bx, word [bp - 4]
     add bx, strict word 0x27d
     add ax, word [cs:bx]
     mov si, ax
     xor ah, ah
-    mov al, byte [si + 0x4]
+    mov al, byte [si + 4]
     or ax, ax
     jne short @..draw_maze_piece.l13
     jmp near @..draw_maze_piece.l22
 @..draw_maze_piece.l13:
     mov cl, 3
     shl ax, cl
-    mov word [bp - 0x0004], ax
-    mov al, byte [si + 0x1]
+    mov word [bp - 4], ax
+    mov al, byte [si + 1]
     cbw
-    mov bl, byte [si + 0x3]
+    mov bl, byte [si + 3]
     xor bh, bh
     add ax, bx
     mov cl, 3
     shl ax, cl
     mov di, ax
-    mov al, byte [si + 0x2]
+    mov al, byte [si + 2]
     mov cx, 0x140
     mul cx
     add di, ax
-    mov bx, word [bp - 0x0002]
+    mov bx, word [bp - 2]
     xor ax, ax
-    mov al, byte [bx + 0x4]
+    mov al, byte [bx + 4]
     mov cl, 3
     shl ax, cl
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     mov cl, 3
-    mov ax, word [bx + 0x2]
+    mov ax, word [bx + 2]
     xor dh, dh
-    mov dl, byte [bx + 0x4]
+    mov dl, byte [bx + 4]
     shl dx, cl
     dec dx
     add ax, dx
     xor dx, dx
-    mov dl, byte [si + 0x3]
+    mov dl, byte [si + 3]
     shl dx, cl
     sub ax, dx
     xor cx, cx
-    mov cl, byte [bx + 0x5]
+    mov cl, byte [bx + 5]
     mov dx, ds
     add dx, word [bx]
     mov ds, dx
 @..draw_maze_piece.l14:
     push cx
-    mov cx, word [bp - 0x0004]
+    mov cx, word [bp - 4]
     push si
     push ax
     push di
@@ -267,7 +267,7 @@ draw_maze_piece.cseg1:
     pop di
     add di, strict word 0x140
     pop ax
-    mov dx, word [bp - 0x0006]
+    mov dx, word [bp - 6]
     add ax, dx
     pop si
     pop cx

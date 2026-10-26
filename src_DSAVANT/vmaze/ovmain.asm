@@ -6,14 +6,14 @@ ovmain:
     mov word [bss_9192], 5           ; 0x001a
     les bx, word [tick_counter_ptr]  ; 0x0020
     mov ax, word [es:bx]             ; 0x0024
-    mov dx, word [es:bx + 0x2]       ; 0x0027
+    mov dx, word [es:bx + 2]         ; 0x0027
     mov word [party_redraw_last_tick_hi], dx ; 0x002b
     mov word [party_redraw_last_tick], ax ; 0x002f
     mov word [bss_9194], 0           ; 0x0032
     mov word [bss_9196], 0           ; 0x0038
     mov word [bss_9198], 0           ; 0x003e
     mov ax, word [es:bx]             ; 0x0044
-    mov dx, word [es:bx + 0x2]       ; 0x0047
+    mov dx, word [es:bx + 2]         ; 0x0047
     add ax, strict word 0x24         ; 0x004b
     adc dx, byte 0                   ; 0x004e
     mov word [bss_919c], dx          ; 0x0051
@@ -67,7 +67,7 @@ ovmain:
     mov ax, 0x48                     ; 0x00d2
     push ax                          ; 0x00d5
     call save_screen_area            ; 0x00d6
-    add sp, byte 0x0a                ; 0x00d9
+    add sp, byte 0xa                 ; 0x00d9
     mov word [saved_screen_slot], ax ; 0x00dc
     mov word [saved_screen_pending], 1 ; 0x00df
     mov ax, word [party_status_frame] ; 0x00e5

@@ -15,10 +15,10 @@ api_idx_0002_SSJN:
     push ax                          ; 0x19cb
     call gfx_set_text_color          ; 0x19cc
     add sp, byte 4                   ; 0x19cf
-    mov word [bp - 0x0002], 0        ; 0x19d2
+    mov word [bp - 2], 0             ; 0x19d2
 @..api_idx_0002_SSJN.l1:
     mov ax, 6                        ; 0x19d7
-    imul word [bp - 0x0002]          ; 0x19da
+    imul word [bp - 2]               ; 0x19da
     add ax, strict word 0x23         ; 0x19dd
     push ax                          ; 0x19e0
     mov ax, 0x73                     ; 0x19e1
@@ -28,7 +28,7 @@ api_idx_0002_SSJN:
     mov ax, 0                        ; 0x19eb
     push ax                          ; 0x19ee
     mov ax, 0xa                      ; 0x19ef
-    imul word [bp - 0x0002]          ; 0x19f2
+    imul word [bp - 2]               ; 0x19f2
     add ax, bss_9544                 ; 0x19f5
     push ax                          ; 0x19f8
     call draw_text_glyphs            ; 0x19f9
@@ -38,16 +38,16 @@ api_idx_0002_SSJN:
     mov ax, 3                        ; 0x1a03
     push ax                          ; 0x1a06
     mov ax, 0x248                    ; 0x1a07
-    imul word [bp + 0x4]             ; 0x1a0a
-    add ax, word [bp - 0x0002]       ; 0x1a0d
+    imul word [bp + 4]               ; 0x1a0a
+    add ax, word [bp - 2]            ; 0x1a0d
     mov bx, ax                       ; 0x1a10
     mov al, byte [bx + party_records + pc_rec.stat] ; 0x1a12
     sub ah, ah                       ; 0x1a16
     push ax                          ; 0x1a18
     call draw_number_field           ; 0x1a19
     add sp, byte 6                   ; 0x1a1c
-    inc word [bp - 0x0002]           ; 0x1a1f
-    mov ax, word [bp - 0x0002]       ; 0x1a22
+    inc word [bp - 2]                ; 0x1a1f
+    mov ax, word [bp - 2]            ; 0x1a22
     cmp ax, strict word 8            ; 0x1a25
     jl short @..api_idx_0002_SSJN.l1 ; 0x1a28
     cmp word [bss_9594], byte 0      ; 0x1a2a
@@ -84,7 +84,7 @@ api_idx_0002_SSJN:
     call draw_number_field           ; 0x1a75
     add sp, byte 6                   ; 0x1a78
 @..api_idx_0002_SSJN.l2:
-    cmp word [bp + 0x6], byte 0      ; 0x1a7b
+    cmp word [bp + 6], byte 0        ; 0x1a7b
     je short @..api_idx_0002_SSJN.l3 ; 0x1a7f
     mov ax, 0x60                     ; 0x1a81
     push ax                          ; 0x1a84

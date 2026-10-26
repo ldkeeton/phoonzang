@@ -14,30 +14,30 @@ queue_marker_overlay:
     mov cx, 4
     cwd
     idiv cx
-    mov word [bp - 0x0002], dx
+    mov word [bp - 2], dx
     mov ax, dx
     jmp short @..queue_marker_overlay.l6
 @..queue_marker_overlay.l2:
-    mov byte [bp - 0x000e], 1
-    mov byte [bp - 0x000d], 2
+    mov byte [bp - 0xe], 1
+    mov byte [bp - 0xd], 2
     mov ax, 5
-    cmp word [bp - 0x0002], byte 0
+    cmp word [bp - 2], byte 0
     jne short @..queue_marker_overlay.l3
     mov ax, 4
 @..queue_marker_overlay.l3:
-    mov byte [bp - 0x000c], al
-    mov byte [bp - 0x000b], 0
-    mov word [bp - 0x0004], 0
+    mov byte [bp - 0xc], al
+    mov byte [bp - 0xb], 0
+    mov word [bp - 4], 0
     jmp short @..queue_marker_overlay.l7
 @..queue_marker_overlay.l4:
-    mov byte [bp - 0x000e], 3
-    mov byte [bp - 0x000d], 0
+    mov byte [bp - 0xe], 3
+    mov byte [bp - 0xd], 0
     mov ax, 0
-    cmp word [bp - 0x0002], byte 3
+    cmp word [bp - 2], byte 3
     jne short @..queue_marker_overlay.l5
     mov ax, 1
 @..queue_marker_overlay.l5:
-    mov word [bp - 0x0004], ax
+    mov word [bp - 4], ax
     jmp short @..queue_marker_overlay.l7
 @..queue_marker_overlay.l6:
     cmp ax, strict word 0
@@ -49,16 +49,16 @@ queue_marker_overlay:
     cmp ax, strict word 3
     je short @..queue_marker_overlay.l4
 @..queue_marker_overlay.l7:
-    lea ax, word [bp - 0x000e]
+    lea ax, word [bp - 0xe]
     push ax
     mov ax, 0
     push ax
-    push word [bp - 0x0004]
+    push word [bp - 4]
     mov ax, 0xf8
     push ax
     mov ax, 0x48
     push ax
-    mov al, byte [bp - 0x000e]
+    mov al, byte [bp - 0xe]
     sub ah, ah
     mov bx, ax
     mov al, byte [bx + glyph_y_table]
@@ -67,7 +67,7 @@ queue_marker_overlay:
     push ax
     shl bx, 1
     mov ax, bx
-    add ax, word [bp - 0x0004]
+    add ax, word [bp - 4]
     mov bx, ax
     mov al, byte [bx + glyph_x_table]
     sub ah, ah
@@ -82,9 +82,9 @@ queue_marker_overlay:
 @..queue_marker_overlay.l8:
     cmp word [marker_mode], byte 0xff
     jne short @..queue_marker_overlay.l9
-    mov byte [bp - 0x000e], 1
-    mov byte [bp - 0x000d], 0
-    lea ax, word [bp - 0x000e]
+    mov byte [bp - 0xe], 1
+    mov byte [bp - 0xd], 0
+    lea ax, word [bp - 0xe]
     push ax
     mov ax, 0
     push ax

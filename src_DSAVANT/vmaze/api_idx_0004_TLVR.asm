@@ -7,12 +7,12 @@ api_idx_0004_TLVR:
     mov si, ax                       ; 0x7459
     mov bx, word [maze_tables]       ; 0x745b
     mov ax, word [bx + si + 0x3c0]   ; 0x745f
-    mov word [bp - 0x0002], ax       ; 0x7463
+    mov word [bp - 2], ax            ; 0x7463
     mov ax, 1                        ; 0x7466
     push ax                          ; 0x7469
     mov ax, 0xe                      ; 0x746a
     push ax                          ; 0x746d
-    push word [bp - 0x0002]          ; 0x746e
+    push word [bp - 2]               ; 0x746e
     call get_bits                    ; 0x7471
     add sp, byte 6                   ; 0x7474
     cmp ax, strict word 1            ; 0x7477
@@ -21,7 +21,7 @@ api_idx_0004_TLVR:
     push ax                          ; 0x747f
     mov ax, 0xc                      ; 0x7480
     push ax                          ; 0x7483
-    push word [bp - 0x0002]          ; 0x7484
+    push word [bp - 2]               ; 0x7484
     call get_bits                    ; 0x7487
     add sp, byte 6                   ; 0x748a
     mov word [found_object_owner], ax ; 0x748d
@@ -45,7 +45,7 @@ api_idx_0004_TLVR:
     push ax                          ; 0x74b6
     mov ax, 8                        ; 0x74b7
     push ax                          ; 0x74ba
-    push word [bp - 0x0002]          ; 0x74bb
+    push word [bp - 2]               ; 0x74bb
     call get_bits                    ; 0x74be
     add sp, byte 6                   ; 0x74c1
     cmp ax, strict word 1            ; 0x74c4

@@ -2,7 +2,7 @@
 get_free_space:
     push bp
     mov bp, sp
-    sub sp, byte 0x0a
+    sub sp, byte 0xa
     push ds
     push es
     push si

@@ -18,9 +18,9 @@ set_rgb:
     add bx, ax                       ; 0x279e
     mov al, byte [es:bx + di]        ; 0x27a0
     mov dh, al                       ; 0x27a3
-    mov al, byte [es:bx + di + 0x1]  ; 0x27a5
+    mov al, byte [es:bx + di + 1]    ; 0x27a5
     mov ch, al                       ; 0x27a9
-    mov al, byte [es:bx + di + 0x2]  ; 0x27ab
+    mov al, byte [es:bx + di + 2]    ; 0x27ab
     mov cl, al                       ; 0x27af
     jmp short @..set_rgb.l2          ; 0x27b1
 @..set_rgb.l1:

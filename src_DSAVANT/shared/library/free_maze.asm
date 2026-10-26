@@ -15,7 +15,7 @@ free_maze:
     jmp near @..free_maze.l3
 @..free_maze.l1:
     shl ax, 1
-    mov word [bp - 0x0008], ax
+    mov word [bp - 8], ax
     mov bx, maze_map_slots - IMAGE_BASE
     add bx, ax
     mov ax, word [cs:bx]

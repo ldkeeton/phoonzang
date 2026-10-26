@@ -2,8 +2,8 @@
 format_int_decimal: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x04c4
     call aztec_csav                  ; 0x04c7
-    push word [bp + 0x6]             ; 0x04ca
-    mov ax, word [bp + 0x4]          ; 0x04cd
+    push word [bp + 6]               ; 0x04ca
+    mov ax, word [bp + 4]            ; 0x04cd
     cwd                              ; 0x04d0
     push dx                          ; 0x04d1
     push ax                          ; 0x04d2

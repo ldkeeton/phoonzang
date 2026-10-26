@@ -2,7 +2,7 @@
 loc_SSIO:
     mov ax, 0
     call aztec_csav
-    mov ax, word [bp + 0x4]
+    mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
     mov bx, word [bx + overlay_list + 0x2]
@@ -18,7 +18,7 @@ loc_SSIO:
     add bx, byte 8
     mov ax, bx
     push ax
-    mov ax, word [bp + 0x4]
+    mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
     mov bx, word [bx + overlay_list + 0x2]

@@ -23,9 +23,9 @@ loc_KPLK:
     push ax                          ; 0x1539
     mov ax, 3                        ; 0x153a
     push ax                          ; 0x153d
-    push word [bp + 0x4]             ; 0x153e
+    push word [bp + 4]               ; 0x153e
     call api_idx_0004_VUIP           ; 0x1541
-    add sp, byte 0x0e                ; 0x1544
+    add sp, byte 0xe                 ; 0x1544
     call flush_keyboard              ; 0x1547
     mov ax, 0                        ; 0x154a
     push ax                          ; 0x154d

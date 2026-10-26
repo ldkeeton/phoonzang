@@ -3,8 +3,8 @@ loc_GTJK:
     mov ax, 0                        ; 0x0ede
     call aztec_csav                  ; 0x0ee1
     mov ax, 0x24                     ; 0x0ee4
-    imul word [bp + 0x4]             ; 0x0ee7
-    mov cx, word [bp + 0x6]          ; 0x0eea
+    imul word [bp + 4]               ; 0x0ee7
+    mov cx, word [bp + 6]            ; 0x0eea
     shl cx, 1                        ; 0x0eed
     add ax, cx                       ; 0x0eef
     mov bx, ax                       ; 0x0ef1

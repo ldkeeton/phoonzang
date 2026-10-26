@@ -2,7 +2,7 @@
 graphics_loc_VNKS:
     push bp                          ; 0x0293
     mov bp, sp                       ; 0x0294
-    sub sp, byte 0x0c                ; 0x0296
+    sub sp, byte 0xc                 ; 0x0296
     push ds                          ; 0x0299
     push es                          ; 0x029a
     push si                          ; 0x029b
@@ -15,12 +15,12 @@ graphics_loc_VNKS:
     mul cx                           ; 0x02aa
     add ax, word [cs:cseg_0195 - IMAGE_BASE] ; 0x02ac
     mov di, ax                       ; 0x02b1
-    mov word [bp - 0x0006], ax       ; 0x02b3
+    mov word [bp - 6], ax            ; 0x02b3
     xor ax, ax                       ; 0x02b6
     mov al, byte [bx]                ; 0x02b8
-    mov word [bp - 0x0002], ax       ; 0x02ba
-    mov al, byte [bx + 0x1]          ; 0x02bd
-    mov word [bp - 0x0004], ax       ; 0x02c0
+    mov word [bp - 2], ax            ; 0x02ba
+    mov al, byte [bx + 1]            ; 0x02bd
+    mov word [bp - 4], ax            ; 0x02c0
     mov cx, word [bx + 0xa]          ; 0x02c3
     add bx, byte 0x10                ; 0x02c6
     mov ax, word [bp + 0xc]          ; 0x02c9
@@ -28,19 +28,19 @@ graphics_loc_VNKS:
     add bx, ax                       ; 0x02ce
     mov al, byte [bx]                ; 0x02d0
     xor ah, ah                       ; 0x02d2
-    mov word [bp - 0x000a], ax       ; 0x02d4
+    mov word [bp - 0xa], ax          ; 0x02d4
     mul cx                           ; 0x02d7
     add ax, 0x110                    ; 0x02d9
     mov si, ax                       ; 0x02dc
     xor ah, ah                       ; 0x02de
-    mov al, byte [bx + 0x1]          ; 0x02e0
+    mov al, byte [bx + 1]            ; 0x02e0
     add word [cs:cseg_0195 - IMAGE_BASE], ax ; 0x02e3
-    mov word [bp - 0x000c], ax       ; 0x02e8
+    mov word [bp - 0xc], ax          ; 0x02e8
     xor bx, bx                       ; 0x02eb
-    mov al, byte [bx + 0x7]          ; 0x02ed
+    mov al, byte [bx + 7]            ; 0x02ed
     cbw                              ; 0x02f0
     add word [cs:cseg_0195 - IMAGE_BASE], ax ; 0x02f1
-    mov al, byte [bx + 0x2]          ; 0x02f6
+    mov al, byte [bx + 2]            ; 0x02f6
     test al, 1                       ; 0x02f9
     je short @..graphics_loc_VNKS.l1 ; 0x02fb
     jmp near @..graphics_loc_VNKS.l17 ; 0x02fd
@@ -48,33 +48,33 @@ graphics_loc_VNKS:
     mov ax, word [cs:cseg_0199 - IMAGE_BASE] ; 0x0300
     or ax, ax                        ; 0x0304
     jne short @..graphics_loc_VNKS.l2 ; 0x0306
-    mov al, byte [bx + 0x6]          ; 0x0308
+    mov al, byte [bx + 6]            ; 0x0308
     test al, 2                       ; 0x030b
     jne short @..graphics_loc_VNKS.l9 ; 0x030d
 @..graphics_loc_VNKS.l2:
     xor ax, ax                       ; 0x030f
-    mov al, byte [bx + 0x3]          ; 0x0311
-    mov bx, word [bp - 0x000c]       ; 0x0314
+    mov al, byte [bx + 3]            ; 0x0311
+    mov bx, word [bp - 0xc]          ; 0x0314
     add bx, byte 7                   ; 0x0317
     mov cl, 3                        ; 0x031a
     shr bx, cl                       ; 0x031c
     sub ax, bx                       ; 0x031e
-    mov word [bp - 0x000a], ax       ; 0x0320
+    mov word [bp - 0xa], ax          ; 0x0320
     mov bx, word [cs:cseg_0191 - IMAGE_BASE] ; 0x0323
     mov dx, word [cs:cseg_0193 - IMAGE_BASE] ; 0x0328
     mov dh, bl                       ; 0x032d
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x032f
     mov es, ax                       ; 0x0333
 @..graphics_loc_VNKS.l3:
-    mov cx, word [bp - 0x000c]       ; 0x0335
+    mov cx, word [bp - 0xc]          ; 0x0335
 @..graphics_loc_VNKS.l4:
-    mov word [bp - 0x0008], cx       ; 0x0338
+    mov word [bp - 8], cx            ; 0x0338
     lodsb                            ; 0x033b
     cmp cx, byte 9                   ; 0x033c
     jb short @..graphics_loc_VNKS.l5 ; 0x033f
     mov cx, 8                        ; 0x0341
 @..graphics_loc_VNKS.l5:
-    sub word [bp - 0x0008], cx       ; 0x0344
+    sub word [bp - 8], cx            ; 0x0344
 @..graphics_loc_VNKS.l6:
     shl al, 1                        ; 0x0347
     jb short @..graphics_loc_VNKS.l7 ; 0x0349
@@ -86,17 +86,17 @@ graphics_loc_VNKS:
     inc di                           ; 0x0354
 @..graphics_loc_VNKS.l8:
     loop @..graphics_loc_VNKS.l6     ; 0x0355
-    mov cx, word [bp - 0x0008]       ; 0x0357
+    mov cx, word [bp - 8]            ; 0x0357
     or cx, cx                        ; 0x035a
     jne short @..graphics_loc_VNKS.l4 ; 0x035c
-    add si, word [bp - 0x000a]       ; 0x035e
-    add word [bp - 0x0006], strict word 0x140 ; 0x0361
-    mov di, word [bp - 0x0006]       ; 0x0366
-    dec word [bp - 0x0004]           ; 0x0369
+    add si, word [bp - 0xa]          ; 0x035e
+    add word [bp - 6], strict word 0x140 ; 0x0361
+    mov di, word [bp - 6]            ; 0x0366
+    dec word [bp - 4]                ; 0x0369
     jne short @..graphics_loc_VNKS.l3 ; 0x036c
     jmp near @..graphics_loc_VNKS.l23 ; 0x036e
 @..graphics_loc_VNKS.l9:
-    mov ax, word [bp - 0x000a]       ; 0x0371
+    mov ax, word [bp - 0xa]          ; 0x0371
     mov cx, word [bx + 0xe]          ; 0x0374
     mul cx                           ; 0x0377
     add ax, word [bx + 0xc]          ; 0x0379
@@ -107,9 +107,9 @@ graphics_loc_VNKS:
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0389
     mov es, ax                       ; 0x038d
 @..graphics_loc_VNKS.l10:
-    mov cx, word [bp - 0x0002]       ; 0x038f
+    mov cx, word [bp - 2]            ; 0x038f
 @..graphics_loc_VNKS.l11:
-    mov word [bp - 0x0008], cx       ; 0x0392
+    mov word [bp - 8], cx            ; 0x0392
     lodsb                            ; 0x0395
     mov ah, byte [bx]                ; 0x0396
     inc bx                           ; 0x0398
@@ -117,7 +117,7 @@ graphics_loc_VNKS:
     jb short @..graphics_loc_VNKS.l12 ; 0x039c
     mov cx, 8                        ; 0x039e
 @..graphics_loc_VNKS.l12:
-    sub word [bp - 0x0008], cx       ; 0x03a1
+    sub word [bp - 8], cx            ; 0x03a1
 @..graphics_loc_VNKS.l13:
     shl ah, 1                        ; 0x03a4
     jae short @..graphics_loc_VNKS.l15 ; 0x03a6
@@ -135,40 +135,40 @@ graphics_loc_VNKS:
     inc di                           ; 0x03ba
 @..graphics_loc_VNKS.l16:
     loop @..graphics_loc_VNKS.l13    ; 0x03bb
-    mov cx, word [bp - 0x0008]       ; 0x03bd
+    mov cx, word [bp - 8]            ; 0x03bd
     or cx, cx                        ; 0x03c0
     jne short @..graphics_loc_VNKS.l11 ; 0x03c2
-    add word [bp - 0x0006], strict word 0x140 ; 0x03c4
-    mov di, word [bp - 0x0006]       ; 0x03c9
-    dec word [bp - 0x0004]           ; 0x03cc
+    add word [bp - 6], strict word 0x140 ; 0x03c4
+    mov di, word [bp - 6]            ; 0x03c9
+    dec word [bp - 4]                ; 0x03cc
     jne short @..graphics_loc_VNKS.l10 ; 0x03cf
     jmp near @..graphics_loc_VNKS.l23 ; 0x03d1
 @..graphics_loc_VNKS.l17:
-    mov al, byte [bx + 0x6]          ; 0x03d4
+    mov al, byte [bx + 6]            ; 0x03d4
     test al, 2                       ; 0x03d7
     jne short @..graphics_loc_VNKS.l19 ; 0x03d9
-    mov ax, word [bp - 0x0002]       ; 0x03db
-    sub ax, word [bp - 0x000c]       ; 0x03de
-    mov word [bp - 0x000a], ax       ; 0x03e1
+    mov ax, word [bp - 2]            ; 0x03db
+    sub ax, word [bp - 0xc]          ; 0x03de
+    mov word [bp - 0xa], ax          ; 0x03e1
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x03e4
     mov es, ax                       ; 0x03e8
 @..graphics_loc_VNKS.l18:
-    mov cx, word [bp - 0x000c]       ; 0x03ea
+    mov cx, word [bp - 0xc]          ; 0x03ea
     rep movsb                        ; 0x03ed
-    add si, word [bp - 0x000a]       ; 0x03ef
-    add word [bp - 0x0006], strict word 0x140 ; 0x03f2
-    mov di, word [bp - 0x0006]       ; 0x03f7
-    dec word [bp - 0x0004]           ; 0x03fa
+    add si, word [bp - 0xa]          ; 0x03ef
+    add word [bp - 6], strict word 0x140 ; 0x03f2
+    mov di, word [bp - 6]            ; 0x03f7
+    dec word [bp - 4]                ; 0x03fa
     jne short @..graphics_loc_VNKS.l18 ; 0x03fd
     jmp near @..graphics_loc_VNKS.l23 ; 0x03ff
 @..graphics_loc_VNKS.l19:
-    mov ax, word [bp - 0x0002]       ; 0x0402
-    sub ax, word [bp - 0x000c]       ; 0x0405
-    mov word [bp - 0x000a], ax       ; 0x0408
+    mov ax, word [bp - 2]            ; 0x0402
+    sub ax, word [bp - 0xc]          ; 0x0405
+    mov word [bp - 0xa], ax          ; 0x0408
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x040b
     mov es, ax                       ; 0x040f
 @..graphics_loc_VNKS.l20:
-    mov cx, word [bp - 0x000c]       ; 0x0411
+    mov cx, word [bp - 0xc]          ; 0x0411
 @..graphics_loc_VNKS.l21:
     mov al, byte [si]                ; 0x0414
     cmp al, 0xff                     ; 0x0416
@@ -178,10 +178,10 @@ graphics_loc_VNKS:
     inc si                           ; 0x041d
     inc di                           ; 0x041e
     loop @..graphics_loc_VNKS.l21    ; 0x041f
-    add si, word [bp - 0x000a]       ; 0x0421
-    add word [bp - 0x0006], strict word 0x140 ; 0x0424
-    mov di, word [bp - 0x0006]       ; 0x0429
-    dec word [bp - 0x0004]           ; 0x042c
+    add si, word [bp - 0xa]          ; 0x0421
+    add word [bp - 6], strict word 0x140 ; 0x0424
+    mov di, word [bp - 6]            ; 0x0429
+    dec word [bp - 4]                ; 0x042c
     jne short @..graphics_loc_VNKS.l20 ; 0x042f
 @..graphics_loc_VNKS.l23:
     pop di                           ; 0x0431

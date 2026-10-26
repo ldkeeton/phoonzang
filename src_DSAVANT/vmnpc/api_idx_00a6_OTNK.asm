@@ -2,94 +2,94 @@
 api_idx_00a6_OTNK:
     mov ax, 0xff5a                   ; 0x8dbd
     call aztec_csav                  ; 0x8dc0
-    mov word [bp - 0x0002], 0        ; 0x8dc3
+    mov word [bp - 2], 0             ; 0x8dc3
 @..api_idx_00a6_OTNK.l1:
-    mov word [bp - 0x0004], 0        ; 0x8dc8
+    mov word [bp - 4], 0             ; 0x8dc8
     mov ax, 0x2f                     ; 0x8dcd
     push ax                          ; 0x8dd0
     mov ax, 0x32                     ; 0x8dd1
-    imul word [bp - 0x0002]          ; 0x8dd4
-    add ax, word [bp - 0x0004]       ; 0x8dd7
+    imul word [bp - 2]               ; 0x8dd4
+    add ax, word [bp - 4]            ; 0x8dd7
     add ax, bss_a8c4                 ; 0x8dda
     push ax                          ; 0x8ddd
     call strpos                      ; 0x8dde
     add sp, byte 4                   ; 0x8de1
-    mov word [bp - 0x0006], ax       ; 0x8de4
+    mov word [bp - 6], ax            ; 0x8de4
     push ax                          ; 0x8de7
     mov ax, 0x32                     ; 0x8de8
-    imul word [bp - 0x0002]          ; 0x8deb
-    add ax, word [bp - 0x0004]       ; 0x8dee
+    imul word [bp - 2]               ; 0x8deb
+    add ax, word [bp - 4]            ; 0x8dee
     add ax, bss_a8c4                 ; 0x8df1
     push ax                          ; 0x8df4
-    lea ax, word [bp - 0x0056]       ; 0x8df5
+    lea ax, word [bp - 0x56]         ; 0x8df5
     push ax                          ; 0x8df8
     call aztec_strncpy               ; 0x8df9
     add sp, byte 6                   ; 0x8dfc
-    mov bx, word [bp - 0x0006]       ; 0x8dff
+    mov bx, word [bp - 6]            ; 0x8dff
     add bx, bp                       ; 0x8e02
-    mov byte [bx - 0x0056], 0x20     ; 0x8e04
-    mov byte [bx - 0x0055], 0        ; 0x8e08
-    mov ax, word [bp - 0x0006]       ; 0x8e0c
+    mov byte [bx - 0x56], 0x20       ; 0x8e04
+    mov byte [bx - 0x55], 0          ; 0x8e08
+    mov ax, word [bp - 6]            ; 0x8e0c
     inc ax                           ; 0x8e0f
-    mov word [bp - 0x0004], ax       ; 0x8e10
+    mov word [bp - 4], ax            ; 0x8e10
 @..api_idx_00a6_OTNK.l2:
     mov ax, 0x2f                     ; 0x8e13
     push ax                          ; 0x8e16
     mov ax, 0x32                     ; 0x8e17
-    imul word [bp - 0x0002]          ; 0x8e1a
-    add ax, word [bp - 0x0004]       ; 0x8e1d
+    imul word [bp - 2]               ; 0x8e1a
+    add ax, word [bp - 4]            ; 0x8e1d
     add ax, bss_a8c4                 ; 0x8e20
     push ax                          ; 0x8e23
     call strpos                      ; 0x8e24
     add sp, byte 4                   ; 0x8e27
-    mov word [bp - 0x0006], ax       ; 0x8e2a
+    mov word [bp - 6], ax            ; 0x8e2a
     push ax                          ; 0x8e2d
     mov ax, 0x32                     ; 0x8e2e
-    imul word [bp - 0x0002]          ; 0x8e31
-    add ax, word [bp - 0x0004]       ; 0x8e34
+    imul word [bp - 2]               ; 0x8e31
+    add ax, word [bp - 4]            ; 0x8e34
     add ax, bss_a8c4                 ; 0x8e37
     push ax                          ; 0x8e3a
-    lea ax, word [bp - 0x00a6]       ; 0x8e3b
+    lea ax, word [bp - 0xa6]         ; 0x8e3b
     push ax                          ; 0x8e3f
     call aztec_strncpy               ; 0x8e40
     add sp, byte 6                   ; 0x8e43
-    mov bx, word [bp - 0x0006]       ; 0x8e46
+    mov bx, word [bp - 6]            ; 0x8e46
     add bx, bp                       ; 0x8e49
-    mov byte [bx - 0x00a6], 0x20     ; 0x8e4b
-    mov byte [bx - 0x00a5], 0        ; 0x8e50
-    mov ax, word [bp - 0x0004]       ; 0x8e55
-    add ax, word [bp - 0x0006]       ; 0x8e58
+    mov byte [bx - 0xa6], 0x20       ; 0x8e4b
+    mov byte [bx - 0xa5], 0          ; 0x8e50
+    mov ax, word [bp - 4]            ; 0x8e55
+    add ax, word [bp - 6]            ; 0x8e58
     inc ax                           ; 0x8e5b
-    mov word [bp - 0x0004], ax       ; 0x8e5c
-    lea ax, word [bp - 0x00a6]       ; 0x8e5f
+    mov word [bp - 4], ax            ; 0x8e5c
+    lea ax, word [bp - 0xa6]         ; 0x8e5f
     push ax                          ; 0x8e63
     call aztec_strlen                ; 0x8e64
     pop cx                           ; 0x8e67
     push ax                          ; 0x8e68
-    lea ax, word [bp - 0x00a6]       ; 0x8e69
+    lea ax, word [bp - 0xa6]         ; 0x8e69
     push ax                          ; 0x8e6d
-    push word [bp + 0x4]             ; 0x8e6e
+    push word [bp + 4]               ; 0x8e6e
     call aztec_strncmp               ; 0x8e71
     add sp, byte 6                   ; 0x8e74
     test ax, ax                      ; 0x8e77
     jne short @..api_idx_00a6_OTNK.l3 ; 0x8e79
-    lea ax, word [bp - 0x0056]       ; 0x8e7b
+    lea ax, word [bp - 0x56]         ; 0x8e7b
     push ax                          ; 0x8e7e
-    push word [bp + 0x4]             ; 0x8e7f
+    push word [bp + 4]               ; 0x8e7f
     call aztec_strcpy                ; 0x8e82
     add sp, byte 4                   ; 0x8e85
     ret                              ; 0x8e88
 @..api_idx_00a6_OTNK.l3:
     mov ax, 0x32                     ; 0x8e89
-    imul word [bp - 0x0002]          ; 0x8e8c
-    add ax, word [bp - 0x0004]       ; 0x8e8f
+    imul word [bp - 2]               ; 0x8e8c
+    add ax, word [bp - 4]            ; 0x8e8f
     mov bx, ax                       ; 0x8e92
     cmp byte [bx + bss_a8c4], 0      ; 0x8e94
     je short @..api_idx_00a6_OTNK.l4 ; 0x8e99
     jmp near @..api_idx_00a6_OTNK.l2 ; 0x8e9b
 @..api_idx_00a6_OTNK.l4:
-    inc word [bp - 0x0002]           ; 0x8e9e
-    mov ax, word [bp - 0x0002]       ; 0x8ea1
+    inc word [bp - 2]                ; 0x8e9e
+    mov ax, word [bp - 2]            ; 0x8ea1
     cmp ax, strict word 0x26         ; 0x8ea4
     jge short @..api_idx_00a6_OTNK.l5 ; 0x8ea7
     jmp near @..api_idx_00a6_OTNK.l1 ; 0x8ea9

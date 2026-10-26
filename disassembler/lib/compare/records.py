@@ -54,7 +54,7 @@ def _emit_label_record(records, off, label_map, local_labels=None,
         records.append(_label_record(loc_name(off), off))
 
 
-_BARE_MEM_RE = re.compile(r'\[(?:[a-z]+:)?0x[0-9a-f]{4}\]')
+_BARE_MEM_RE = re.compile(r'\[(?:[a-z]+:)?(?:0x[0-9a-f]+|\d)\]')
 _BARE_FLOW_RE = re.compile(
     r'\b(?:call|jmp|j[a-z]+|loop(?:e|ne)?)\s+'
     r'(?:(?:short|near|far)\s+)?(?:0x[0-9a-f]{1,4}:)?0x[0-9a-f]{1,4}\b'

@@ -4,7 +4,7 @@ api_idx_0002_VUIJ:
     call aztec_csav                  ; 0x0109
     cmp word [game_state_arg], byte 0x17 ; 0x010c
     jne short @..api_idx_0002_VUIJ.l1 ; 0x0111
-    cmp word [party_map_piece], byte 0x0f ; 0x0113
+    cmp word [party_map_piece], byte 0xf ; 0x0113
     jne short @..api_idx_0002_VUIJ.l1 ; 0x0118
     ret                              ; 0x011a
 @..api_idx_0002_VUIJ.l1:
@@ -21,7 +21,7 @@ api_idx_0002_VUIJ:
 @..api_idx_0002_VUIJ.l2:
     mov ax, 0xe                      ; 0x0134
 @..api_idx_0002_VUIJ.l3:
-    mov word [bp - 0x0002], ax       ; 0x0137
+    mov word [bp - 2], ax            ; 0x0137
     push ax                          ; 0x013a
     call play_sound_effect           ; 0x013b
     pop cx                           ; 0x013e

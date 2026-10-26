@@ -7,7 +7,7 @@ aztec_Croot:
     mov bp, sp
     push di
     push si
-    mov si, word [bp + 0x4]
+    mov si, word [bp + 4]
     mov ax, 0
     push ax
     call aztec_isatty
@@ -23,7 +23,7 @@ aztec_Croot:
     call aztec_isatty
     pop cx
     mov byte [_ioflg + 0x2], al
-    mov ax, word [bp + 0x6]
+    mov ax, word [bp + 6]
     shl ax, 1
     inc ax
     inc ax
@@ -34,7 +34,7 @@ aztec_Croot:
     mov ax, aztec_croot_empty_str
     mov bx, word [Argv]
     mov word [bx], aztec_croot_empty_str
-    mov ax, word [bp + 0x6]
+    mov ax, word [bp + 6]
     mov word [Argc], ax
     shl ax, 1
     mov di, word [Argv]
@@ -108,7 +108,7 @@ aztec_exit:
     push bp
     mov bp, sp
     call [cls_]
-    push word [bp + 0x4]
+    push word [bp + 4]
     call aztec_impl_exit
     pop cx
     mov sp, bp

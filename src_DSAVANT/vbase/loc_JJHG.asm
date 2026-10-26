@@ -2,7 +2,7 @@
 loc_JJHG:
     mov ax, 0                        ; 0x1683
     call aztec_csav                  ; 0x1686
-    mov ax, word [bp + 0x4]          ; 0x1689
+    mov ax, word [bp + 4]            ; 0x1689
     jmp short @..loc_JJHG.l1         ; 0x168c
 jumptable_1698_case_37:
     mov ax, 0                        ; 0x168e
@@ -87,71 +87,71 @@ jumptable_1698:
     dw jumptable_1698_case_37 - IMAGE_BASE + __zres_end ; 0x172a
     dw jumptable_1698_case_74 - IMAGE_BASE + __zres_end ; 0x172c
 jumptable_1698_case_74:
-    cmp word [bp + 0x4], byte 0x3c   ; 0x172e
+    cmp word [bp + 4], byte 0x3c     ; 0x172e
     jl short @..loc_JJHG.l2          ; 0x1732
-    cmp word [bp + 0x4], byte 0x78   ; 0x1734
+    cmp word [bp + 4], byte 0x78     ; 0x1734
     jge short @..loc_JJHG.l2         ; 0x1738
     mov ax, 0                        ; 0x173a
-    sub ax, word [bp + 0x4]          ; 0x173d
+    sub ax, word [bp + 4]            ; 0x173d
     ret                              ; 0x1740
 @..loc_JJHG.l2:
-    cmp word [bp + 0x4], strict word 0xb8 ; 0x1741
+    cmp word [bp + 4], strict word 0xb8 ; 0x1741
     jl short @..loc_JJHG.l3          ; 0x1746
-    cmp word [bp + 0x4], strict word 0xe3 ; 0x1748
+    cmp word [bp + 4], strict word 0xe3 ; 0x1748
     jge short @..loc_JJHG.l3         ; 0x174d
     mov ax, 0                        ; 0x174f
-    sub ax, word [bp + 0x4]          ; 0x1752
+    sub ax, word [bp + 4]            ; 0x1752
     ret                              ; 0x1755
 @..loc_JJHG.l3:
-    cmp word [bp + 0x4], strict word 0xe3 ; 0x1756
+    cmp word [bp + 4], strict word 0xe3 ; 0x1756
     jge short @..loc_JJHG.l4         ; 0x175b
-    mov ax, word [bp + 0x4]          ; 0x175d
+    mov ax, word [bp + 4]            ; 0x175d
     ret                              ; 0x1760
 @..loc_JJHG.l4:
-    cmp word [bp + 0x4], strict word 0x145 ; 0x1761
+    cmp word [bp + 4], strict word 0x145 ; 0x1761
     jne short @..loc_JJHG.l5         ; 0x1766
     mov ax, 0x13a                    ; 0x1768
     ret                              ; 0x176b
 @..loc_JJHG.l5:
-    cmp word [bp + 0x4], strict word 0x146 ; 0x176c
+    cmp word [bp + 4], strict word 0x146 ; 0x176c
     jne short @..loc_JJHG.l6         ; 0x1771
     mov ax, 0x14b                    ; 0x1773
     ret                              ; 0x1776
 @..loc_JJHG.l6:
-    cmp word [bp + 0x4], strict word 0x13c ; 0x1777
+    cmp word [bp + 4], strict word 0x13c ; 0x1777
     jl short @..loc_JJHG.l7          ; 0x177c
-    cmp word [bp + 0x4], strict word 0x14c ; 0x177e
+    cmp word [bp + 4], strict word 0x14c ; 0x177e
     jg short @..loc_JJHG.l7          ; 0x1783
-    mov ax, word [bp + 0x4]          ; 0x1785
+    mov ax, word [bp + 4]            ; 0x1785
     ret                              ; 0x1788
 @..loc_JJHG.l7:
-    cmp word [bp + 0x4], strict word 0x1ab ; 0x1789
+    cmp word [bp + 4], strict word 0x1ab ; 0x1789
     jne short @..loc_JJHG.l8         ; 0x178e
     mov ax, 0xffae                   ; 0x1790
     ret                              ; 0x1793
 @..loc_JJHG.l8:
-    cmp word [bp + 0x4], strict word 0x1d8 ; 0x1794
+    cmp word [bp + 4], strict word 0x1d8 ; 0x1794
     jne short @..loc_JJHG.l9         ; 0x1799
     mov ax, 0xf5                     ; 0x179b
     ret                              ; 0x179e
 @..loc_JJHG.l9:
-    cmp word [bp + 0x4], strict word 0x1d9 ; 0x179f
+    cmp word [bp + 4], strict word 0x1d9 ; 0x179f
     jne short @..loc_JJHG.l10        ; 0x17a4
     mov ax, 0xf4                     ; 0x17a6
     ret                              ; 0x17a9
 @..loc_JJHG.l10:
-    mov ax, word [bp + 0x4]          ; 0x17aa
+    mov ax, word [bp + 4]            ; 0x17aa
     jmp short @..loc_JJHG.l12        ; 0x17ad
 jumptable_17ce_case_19:
-    cmp word [bp + 0x4], strict word 0xe3 ; 0x17af
+    cmp word [bp + 4], strict word 0xe3 ; 0x17af
     jl short @..loc_JJHG.l11         ; 0x17b4
-    cmp word [bp + 0x4], strict word 0xfe ; 0x17b6
+    cmp word [bp + 4], strict word 0xfe ; 0x17b6
     jge short @..loc_JJHG.l11        ; 0x17bb
     mov ax, 0                        ; 0x17bd
-    sub ax, word [bp + 0x4]          ; 0x17c0
+    sub ax, word [bp + 4]            ; 0x17c0
     ret                              ; 0x17c3
 @..loc_JJHG.l11:
-    mov ax, word [bp + 0x4]          ; 0x17c4
+    mov ax, word [bp + 4]            ; 0x17c4
     ret                              ; 0x17c7
 @..loc_JJHG.l12:
     mov cx, 0x14                     ; 0x17c8

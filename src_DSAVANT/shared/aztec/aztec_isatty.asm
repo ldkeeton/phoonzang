@@ -2,7 +2,7 @@
 aztec_isatty:
     push bp
     mov bp, sp
-    mov bx, word [bp + 0x4]
+    mov bx, word [bp + 4]
     mov ax, 0x4400
     int 0x21 ; DOS function dispatcher
     jb short @..aztec_isatty.not_tty

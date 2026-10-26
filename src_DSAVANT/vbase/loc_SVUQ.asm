@@ -13,5 +13,5 @@ loc_SVUQ:
     mov ax, 0                        ; 0x6c34
     push ax                          ; 0x6c37
     call gfx_fill_area               ; 0x6c38
-    add sp, byte 0x0a                ; 0x6c3b
+    add sp, byte 0xa                 ; 0x6c3b
     ret                              ; 0x6c3e

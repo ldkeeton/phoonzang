@@ -15,11 +15,11 @@ aztec_fexec:
     push es                          ; 0x2a36
     mov word [cs:aztec_fexec_save_ss - IMAGE_BASE], ss ; 0x2a37
     mov word [cs:aztec_fexec_save_sp - IMAGE_BASE], sp ; 0x2a3c
-    mov ax, word [bp + 0x6]          ; 0x2a41
+    mov ax, word [bp + 6]            ; 0x2a41
     mov word [env], ax               ; 0x2a44
     mov ax, ds                       ; 0x2a47
     mov es, ax                       ; 0x2a49
-    mov ax, word [bp + 0x8]          ; 0x2a4b
+    mov ax, word [bp + 8]            ; 0x2a4b
     mov word [cline], ax             ; 0x2a4e
     mov word [cline + 0x2], es       ; 0x2a51
     mov ax, word [bp + 0xa]          ; 0x2a55
@@ -31,7 +31,7 @@ aztec_fexec:
     mov ax, ds                       ; 0x2a69
     mov es, ax                       ; 0x2a6b
     mov bx, env                      ; 0x2a6d
-    mov dx, word [bp + 0x4]          ; 0x2a70
+    mov dx, word [bp + 4]            ; 0x2a70
     mov ax, 0x4b00                   ; 0x2a73
     int 0x21 ; DOS function dispatcher
     mov ss, word [cs:aztec_fexec_save_ss - IMAGE_BASE] ; 0x2a78

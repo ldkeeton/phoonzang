@@ -3,20 +3,20 @@ loc_QKVM:
     push bp                          ; 0x0a0f
     mov bp, sp                       ; 0x0a10
     add sp, strict word 0xff60       ; 0x0a12
-    push word [bp + 0x6]             ; 0x0a16
-    lea ax, word [bp - 0x0050]       ; 0x0a19
+    push word [bp + 6]               ; 0x0a16
+    lea ax, word [bp - 0x50]         ; 0x0a19
     push ax                          ; 0x0a1c
     call aztec_strcpy                ; 0x0a1d
     add sp, byte 4                   ; 0x0a20
     mov ax, dseg_14ef                ; 0x0a23
     push ax                          ; 0x0a26
-    lea ax, word [bp - 0x0050]       ; 0x0a27
+    lea ax, word [bp - 0x50]         ; 0x0a27
     push ax                          ; 0x0a2a
     call aztec_strcat                ; 0x0a2b
     add sp, byte 4                   ; 0x0a2e
     mov ax, 2                        ; 0x0a31
     push ax                          ; 0x0a34
-    lea ax, word [bp - 0x0050]       ; 0x0a35
+    lea ax, word [bp - 0x50]         ; 0x0a35
     push ax                          ; 0x0a38
     call aztec_open                  ; 0x0a39
     add sp, byte 4                   ; 0x0a3c
@@ -25,23 +25,23 @@ loc_QKVM:
     jne short @..loc_QKVM.l2         ; 0x0a45
     mov ax, dseg_14fc                ; 0x0a47
     push ax                          ; 0x0a4a
-    lea ax, word [bp - 0x00a0]       ; 0x0a4b
+    lea ax, word [bp - 0xa0]         ; 0x0a4b
     push ax                          ; 0x0a4f
     call aztec_strcpy                ; 0x0a50
     add sp, byte 4                   ; 0x0a53
-    lea ax, word [bp - 0x0050]       ; 0x0a56
+    lea ax, word [bp - 0x50]         ; 0x0a56
     push ax                          ; 0x0a59
-    lea ax, word [bp - 0x00a0]       ; 0x0a5a
+    lea ax, word [bp - 0xa0]         ; 0x0a5a
     push ax                          ; 0x0a5e
     call aztec_strcat                ; 0x0a5f
     add sp, byte 4                   ; 0x0a62
     mov ax, dseg_151a                ; 0x0a65
     push ax                          ; 0x0a68
-    lea ax, word [bp - 0x00a0]       ; 0x0a69
+    lea ax, word [bp - 0xa0]         ; 0x0a69
     push ax                          ; 0x0a6d
     call aztec_strcat                ; 0x0a6e
     add sp, byte 4                   ; 0x0a71
-    lea ax, word [bp - 0x00a0]       ; 0x0a74
+    lea ax, word [bp - 0xa0]         ; 0x0a74
     push ax                          ; 0x0a78
     call loc_NNGU                    ; 0x0a79
     pop cx                           ; 0x0a7c
@@ -156,19 +156,19 @@ loc_QKVM:
     mov byte [bss_29e1], al          ; 0x0b94
     mov al, byte [bp + 0xa]          ; 0x0b97
     mov byte [bss_29df], al          ; 0x0b9a
-    push word [bp + 0x6]             ; 0x0b9d
+    push word [bp + 6]               ; 0x0b9d
     mov ax, bss_296a                 ; 0x0ba0
     push ax                          ; 0x0ba3
     call aztec_strcpy                ; 0x0ba4
     add sp, byte 4                   ; 0x0ba7
-    push word [bp + 0x6]             ; 0x0baa
+    push word [bp + 6]               ; 0x0baa
     mov ax, bss_2992                 ; 0x0bad
     push ax                          ; 0x0bb0
     call aztec_strcpy                ; 0x0bb1
     add sp, byte 4                   ; 0x0bb4
     cmp word [bp + 0xa], byte 5      ; 0x0bb7
     jne short @..loc_QKVM.l13        ; 0x0bbb
-    push word [bp + 0x8]             ; 0x0bbd
+    push word [bp + 8]               ; 0x0bbd
     mov ax, bss_297e                 ; 0x0bc0
     push ax                          ; 0x0bc3
     call aztec_strcpy                ; 0x0bc4

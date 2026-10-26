@@ -6,15 +6,15 @@ api_idx_0002_SKMG:
     mov si, word [party_map_piece]   ; 0x8f24
     mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x8f28
     sub ah, ah                       ; 0x8f2c
-    mov word [bp - 0x0002], ax       ; 0x8f2e
+    mov word [bp - 2], ax            ; 0x8f2e
 @..api_idx_0002_SKMG.l1:
-    push word [bp - 0x0002]          ; 0x8f31
+    push word [bp - 2]               ; 0x8f31
     push word [party_map_piece]      ; 0x8f34
     push word [party_cell_y]         ; 0x8f38
     push word [party_cell_x]         ; 0x8f3c
     call find_object_at              ; 0x8f40
     add sp, byte 8                   ; 0x8f43
-    mov word [bp - 0x0002], ax       ; 0x8f46
+    mov word [bp - 2], ax            ; 0x8f46
     cmp ax, strict word 0xffff       ; 0x8f49
     je short @..api_idx_0002_SKMG.l5 ; 0x8f4c
     mov bx, word [maze_tables]       ; 0x8f4e
@@ -40,12 +40,12 @@ api_idx_0002_SKMG:
     call play_sound_effect           ; 0x8f82
     pop cx                           ; 0x8f85
 @..api_idx_0002_SKMG.l3:
-    push word [bp - 0x0002]          ; 0x8f86
+    push word [bp - 2]               ; 0x8f86
     call move_party_to_dest          ; 0x8f89
     pop cx                           ; 0x8f8c
     ret                              ; 0x8f8d
 @..api_idx_0002_SKMG.l4:
-    inc word [bp - 0x0002]           ; 0x8f8e
+    inc word [bp - 2]                ; 0x8f8e
     jmp short @..api_idx_0002_SKMG.l1 ; 0x8f91
 @..api_idx_0002_SKMG.l5:
     ret                              ; 0x8f93

@@ -3,20 +3,20 @@ redraw_party_before_battle:
     mov ax, 0xfffe                   ; 0x36b8
     call aztec_csav                  ; 0x36bb
     mov word [panel_redraw_ticks], 5 ; 0x36be
-    mov word [bp - 0x0002], 0        ; 0x36c4
+    mov word [bp - 2], 0             ; 0x36c4
     jmp short @..redraw_party_before_battle.l2 ; 0x36c9
 @..redraw_party_before_battle.l1:
-    push word [bp - 0x0002]          ; 0x36cb
+    push word [bp - 2]               ; 0x36cb
     call copy_member_party_record    ; 0x36ce
     pop cx                           ; 0x36d1
     mov ax, 1                        ; 0x36d2
     push ax                          ; 0x36d5
-    push word [bp - 0x0002]          ; 0x36d6
+    push word [bp - 2]               ; 0x36d6
     call draw_active_member_panel    ; 0x36d9
     add sp, byte 4                   ; 0x36dc
-    inc word [bp - 0x0002]           ; 0x36df
+    inc word [bp - 2]                ; 0x36df
 @..redraw_party_before_battle.l2:
-    mov ax, word [bp - 0x0002]       ; 0x36e2
+    mov ax, word [bp - 2]            ; 0x36e2
     cmp ax, word [party_char_count]  ; 0x36e5
     jl short @..redraw_party_before_battle.l1 ; 0x36e9
     call fill_row_action_slots       ; 0x36eb

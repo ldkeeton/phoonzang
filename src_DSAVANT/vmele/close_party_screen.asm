@@ -25,7 +25,7 @@ close_party_screen:
     mov ax, 0x48                     ; 0x2ef8
     push ax                          ; 0x2efb
     call save_screen_area            ; 0x2efc
-    add sp, byte 0x0a                ; 0x2eff
+    add sp, byte 0xa                 ; 0x2eff
     mov word [saved_screen_slot], ax ; 0x2f02
     mov word [saved_screen_pending], 1 ; 0x2f05
     mov ax, 0                        ; 0x2f0b
@@ -113,39 +113,39 @@ close_party_screen:
     call dissolve_or_show_area       ; 0x2fc9
     add sp, byte 8                   ; 0x2fcc
 @..close_party_screen.l2:
-    mov word [bp - 0x0002], 0        ; 0x2fcf
+    mov word [bp - 2], 0             ; 0x2fcf
 @..close_party_screen.l3:
-    mov ax, word [bp - 0x0002]       ; 0x2fd4
+    mov ax, word [bp - 2]            ; 0x2fd4
     shl ax, 1                        ; 0x2fd7
     mov bx, ax                       ; 0x2fd9
     push word [bx + party_char_ext]  ; 0x2fdb
     call aztec_free                  ; 0x2fdf
     pop cx                           ; 0x2fe2
-    mov ax, word [bp - 0x0002]       ; 0x2fe3
+    mov ax, word [bp - 2]            ; 0x2fe3
     shl ax, 1                        ; 0x2fe6
     mov bx, ax                       ; 0x2fe8
     push word [bx + party_char]      ; 0x2fea
     call aztec_free                  ; 0x2fee
     pop cx                           ; 0x2ff1
-    inc word [bp - 0x0002]           ; 0x2ff2
-    mov ax, word [bp - 0x0002]       ; 0x2ff5
+    inc word [bp - 2]                ; 0x2ff2
+    mov ax, word [bp - 2]            ; 0x2ff5
     cmp ax, strict word 7            ; 0x2ff8
     jl short @..close_party_screen.l3 ; 0x2ffb
-    mov word [bp - 0x0002], 0        ; 0x2ffd
+    mov word [bp - 2], 0             ; 0x2ffd
 @..close_party_screen.l4:
-    mov ax, word [bp - 0x0002]       ; 0x3002
+    mov ax, word [bp - 2]            ; 0x3002
     shl ax, 1                        ; 0x3005
     mov bx, ax                       ; 0x3007
     push word [bx + overlay_list + 0x2] ; 0x3009
     call aztec_free                  ; 0x300d
     pop cx                           ; 0x3010
-    inc word [bp - 0x0002]           ; 0x3011
-    mov ax, word [bp - 0x0002]       ; 0x3014
+    inc word [bp - 2]                ; 0x3011
+    mov ax, word [bp - 2]            ; 0x3014
     cmp ax, strict word 0xc          ; 0x3017
     jl short @..close_party_screen.l4 ; 0x301a
-    mov word [bp - 0x0004], 0xf      ; 0x301c
+    mov word [bp - 4], 0xf           ; 0x301c
 @..close_party_screen.l5:
-    mov bx, word [bp - 0x0004]       ; 0x3021
+    mov bx, word [bp - 4]            ; 0x3021
     mov al, byte [bx + picture_slot_number] ; 0x3024
     sub ah, ah                       ; 0x3028
     cmp ax, 0xff                     ; 0x302a
@@ -154,8 +154,8 @@ close_party_screen:
     call free_picture_slot           ; 0x3030
     pop cx                           ; 0x3033
 @..close_party_screen.l6:
-    inc word [bp - 0x0004]           ; 0x3034
-    mov ax, word [bp - 0x0004]       ; 0x3037
+    inc word [bp - 4]                ; 0x3034
+    mov ax, word [bp - 4]            ; 0x3037
     cmp ax, strict word 0x12         ; 0x303a
     jl short @..close_party_screen.l5 ; 0x303d
     mov ax, 0                        ; 0x303f

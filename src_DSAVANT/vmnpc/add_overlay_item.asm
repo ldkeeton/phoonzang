@@ -2,9 +2,9 @@
 add_overlay_item:
     mov ax, 0xfffc                   ; 0x062d
     call aztec_csav                  ; 0x0630
-    mov word [bp - 0x0002], 0        ; 0x0633
+    mov word [bp - 2], 0             ; 0x0633
 @..add_overlay_item.l1:
-    mov ax, word [bp - 0x0002]       ; 0x0638
+    mov ax, word [bp - 2]            ; 0x0638
     cmp ax, word [overlay_list]      ; 0x063b
     jge short @..add_overlay_item.l2 ; 0x063f
     shl ax, 1                        ; 0x0641
@@ -12,16 +12,16 @@ add_overlay_item:
     mov bx, word [bx + overlay_list + 0x2] ; 0x0645
     mov al, byte [bx + 0x14]         ; 0x0649
     sub ah, ah                       ; 0x064c
-    cmp ax, word [bp + 0x4]          ; 0x064e
+    cmp ax, word [bp + 4]            ; 0x064e
     jg short @..add_overlay_item.l2  ; 0x0651
-    inc word [bp - 0x0002]           ; 0x0653
+    inc word [bp - 2]                ; 0x0653
     jmp short @..add_overlay_item.l1 ; 0x0656
 @..add_overlay_item.l2:
     mov ax, word [overlay_list]      ; 0x0658
-    mov word [bp - 0x0004], ax       ; 0x065b
+    mov word [bp - 4], ax            ; 0x065b
     jmp short @..add_overlay_item.l4 ; 0x065e
 @..add_overlay_item.l3:
-    mov ax, word [bp - 0x0004]       ; 0x0660
+    mov ax, word [bp - 4]            ; 0x0660
     shl ax, 1                        ; 0x0663
     mov bx, ax                       ; 0x0665
     mov si, word [bx + overlay_list] ; 0x0667
@@ -30,61 +30,61 @@ add_overlay_item:
     mov es, cx                       ; 0x0671
     mov cx, 0xc                      ; 0x0673
     rep movsw                        ; 0x0676
-    dec word [bp - 0x0004]           ; 0x0678
+    dec word [bp - 4]                ; 0x0678
 @..add_overlay_item.l4:
-    mov ax, word [bp - 0x0004]       ; 0x067b
-    cmp ax, word [bp - 0x0002]       ; 0x067e
+    mov ax, word [bp - 4]            ; 0x067b
+    cmp ax, word [bp - 2]            ; 0x067e
     jg short @..add_overlay_item.l3  ; 0x0681
-    mov al, byte [bp + 0x4]          ; 0x0683
-    mov cx, word [bp - 0x0002]       ; 0x0686
+    mov al, byte [bp + 4]            ; 0x0683
+    mov cx, word [bp - 2]            ; 0x0686
     shl cx, 1                        ; 0x0689
     mov bx, cx                       ; 0x068b
     mov bx, word [bx + overlay_list + 0x2] ; 0x068d
     mov byte [bx + overlay_list_rec.f_0014], al ; 0x0691
-    mov al, byte [bp + 0x6]          ; 0x0694
-    mov cx, word [bp - 0x0002]       ; 0x0697
+    mov al, byte [bp + 6]            ; 0x0694
+    mov cx, word [bp - 2]            ; 0x0697
     shl cx, 1                        ; 0x069a
     mov bx, cx                       ; 0x069c
     mov bx, word [bx + overlay_list + 0x2] ; 0x069e
     mov byte [bx + overlay_list_rec.f_0015], al ; 0x06a2
-    mov ax, word [bp + 0x8]          ; 0x06a5
-    mov cx, word [bp - 0x0002]       ; 0x06a8
+    mov ax, word [bp + 8]            ; 0x06a5
+    mov cx, word [bp - 2]            ; 0x06a8
     shl cx, 1                        ; 0x06ab
     mov bx, cx                       ; 0x06ad
     mov bx, word [bx + overlay_list + 0x2] ; 0x06af
     mov word [bx], ax                ; 0x06b3
     mov ax, word [bp + 0xa]          ; 0x06b5
-    mov cx, word [bp - 0x0002]       ; 0x06b8
+    mov cx, word [bp - 2]            ; 0x06b8
     shl cx, 1                        ; 0x06bb
     mov bx, cx                       ; 0x06bd
     mov bx, word [bx + overlay_list + 0x2] ; 0x06bf
     mov word [bx + overlay_list_rec.f_0002], ax ; 0x06c3
     mov ax, word [bp + 0xc]          ; 0x06c6
-    mov cx, word [bp - 0x0002]       ; 0x06c9
+    mov cx, word [bp - 2]            ; 0x06c9
     shl cx, 1                        ; 0x06cc
     mov bx, cx                       ; 0x06ce
     mov bx, word [bx + overlay_list + 0x2] ; 0x06d0
     mov word [bx + overlay_list_rec.f_0004], ax ; 0x06d4
     mov ax, word [bp + 0xe]          ; 0x06d7
-    mov cx, word [bp - 0x0002]       ; 0x06da
+    mov cx, word [bp - 2]            ; 0x06da
     shl cx, 1                        ; 0x06dd
     mov bx, cx                       ; 0x06df
     mov bx, word [bx + overlay_list + 0x2] ; 0x06e1
     mov word [bx + overlay_list_rec.f_0006], ax ; 0x06e5
     mov al, byte [bp + 0x10]         ; 0x06e8
-    mov cx, word [bp - 0x0002]       ; 0x06eb
+    mov cx, word [bp - 2]            ; 0x06eb
     shl cx, 1                        ; 0x06ee
     mov bx, cx                       ; 0x06f0
     mov bx, word [bx + overlay_list + 0x2] ; 0x06f2
     mov byte [bx + overlay_list_rec.f_0016], al ; 0x06f6
     mov al, byte [bp + 0x12]         ; 0x06f9
-    mov cx, word [bp - 0x0002]       ; 0x06fc
+    mov cx, word [bp - 2]            ; 0x06fc
     shl cx, 1                        ; 0x06ff
     mov bx, cx                       ; 0x0701
     mov bx, word [bx + overlay_list + 0x2] ; 0x0703
     mov byte [bx + overlay_list_rec.f_0017], al ; 0x0707
     push word [bp + 0x14]            ; 0x070a
-    mov ax, word [bp - 0x0002]       ; 0x070d
+    mov ax, word [bp - 2]            ; 0x070d
     shl ax, 1                        ; 0x0710
     mov bx, ax                       ; 0x0712
     mov ax, word [bx + overlay_list + 0x2] ; 0x0714

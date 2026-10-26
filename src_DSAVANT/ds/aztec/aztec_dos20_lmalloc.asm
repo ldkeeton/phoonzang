@@ -2,8 +2,8 @@
 aztec_lmalloc:
     push bp                          ; 0x45d7
     mov bp, sp                       ; 0x45d8
-    mov ax, word [bp + 0x4]          ; 0x45da
-    mov dx, word [bp + 0x6]          ; 0x45dd
+    mov ax, word [bp + 4]            ; 0x45da
+    mov dx, word [bp + 6]            ; 0x45dd
     test dx, dx                      ; 0x45e0
     js short @..aztec_dos20_lmalloc.badalloc ; 0x45e2
     add ax, strict word 0xf          ; 0x45e4
@@ -32,7 +32,7 @@ aztec_lfree:
     push bp                          ; 0x460d
     mov bp, sp                       ; 0x460e
     push es                          ; 0x4610
-    mov es, word [bp + 0x6]          ; 0x4611
+    mov es, word [bp + 6]            ; 0x4611
     mov ah, 0x49                     ; 0x4614
     int 0x21 ; DOS free memory
     jae short @..aztec_dos20_lmalloc.other_return ; 0x4618
@@ -47,7 +47,7 @@ aztec_lfree:
 aztec_lrealloc:
     push bp                          ; 0x4625
     mov bp, sp                       ; 0x4626
-    mov ax, word [bp + 0x8]          ; 0x4628
+    mov ax, word [bp + 8]            ; 0x4628
     mov dx, word [bp + 0xa]          ; 0x462b
     mov cx, 4                        ; 0x462e
 @..aztec_dos20_lmalloc.right_shift:
@@ -56,11 +56,11 @@ aztec_lrealloc:
     loop @..aztec_dos20_lmalloc.right_shift ; 0x4635
     mov bx, ax                       ; 0x4637
     mov ah, 0x4a                     ; 0x4639
-    mov es, word [bp + 0x6]          ; 0x463b
+    mov es, word [bp + 6]            ; 0x463b
     int 0x21 ; DOS resize memory block
     jb short @..aztec_dos20_lmalloc.failure ; 0x4640
-    mov ax, word [bp + 0x4]          ; 0x4642
-    mov dx, word [bp + 0x6]          ; 0x4645
+    mov ax, word [bp + 4]            ; 0x4642
+    mov dx, word [bp + 6]            ; 0x4645
 @..aztec_dos20_lmalloc.return:
     pop bp                           ; 0x4648
     ret                              ; 0x4649

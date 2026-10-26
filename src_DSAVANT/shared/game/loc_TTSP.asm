@@ -4,7 +4,7 @@ loc_TTSP:
     call aztec_csav
     les bx, word [tick_counter_ptr]
     mov ax, word [es:bx]
-    mov dx, word [es:bx + 0x2]
+    mov dx, word [es:bx + 2]
     mov word [bss_9090], dx
     mov word [bss_908e], ax
     mov ax, word [bss_908e]
@@ -54,7 +54,7 @@ loc_TTSP:
     push ax
     call advance_party_slot_frames
     pop cx
-    push word [bp + 0x4]
+    push word [bp + 4]
     call api_idx_0004_RMVO
     pop cx
     mov ax, 0xbf

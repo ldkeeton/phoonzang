@@ -14,12 +14,12 @@ redraw_treasure_caption:
     push word [saved_area_b]         ; 0x0974
     call gfx_restore_area            ; 0x0978
     add sp, byte 6                   ; 0x097b
-    mov byte [bp - 0x000a], 1        ; 0x097e
-    mov byte [bp - 0x0009], 0        ; 0x0982
+    mov byte [bp - 0xa], 1           ; 0x097e
+    mov byte [bp - 9], 0             ; 0x0982
     mov ax, 0                        ; 0x0986
     push ax                          ; 0x0989
     push ax                          ; 0x098a
-    lea ax, word [bp - 0x000a]       ; 0x098b
+    lea ax, word [bp - 0xa]          ; 0x098b
     push ax                          ; 0x098e
     mov ax, 0                        ; 0x098f
     push ax                          ; 0x0992
@@ -71,7 +71,7 @@ redraw_treasure_caption:
     call draw_text_glyphs            ; 0x09f7
     add sp, byte 4                   ; 0x09fa
 @..redraw_treasure_caption.l1:
-    cmp word [bp + 0x4], byte 0      ; 0x09fd
+    cmp word [bp + 4], byte 0        ; 0x09fd
     je short @..redraw_treasure_caption.l2 ; 0x0a01
     mov ax, 0xc6                     ; 0x0a03
     push ax                          ; 0x0a06

@@ -16,8 +16,8 @@ api_idx_0012_SHRT:
     push ax                          ; 0x07a0
     call gfx_save_area               ; 0x07a1
     add sp, byte 8                   ; 0x07a4
-    mov word [bp - 0x0010], dx       ; 0x07a7
-    mov word [bp - 0x0012], ax       ; 0x07aa
+    mov word [bp - 0x10], dx         ; 0x07a7
+    mov word [bp - 0x12], ax         ; 0x07aa
     mov ax, 0x90                     ; 0x07ad
     push ax                          ; 0x07b0
     mov ax, 0x9a                     ; 0x07b1
@@ -64,19 +64,19 @@ api_idx_0012_SHRT:
     push ax                          ; 0x0810
     call gfx_show_area               ; 0x0811
     add sp, byte 8                   ; 0x0814
-    mov word [bp - 0x0004], 0xfffe   ; 0x0817
+    mov word [bp - 4], 0xfffe        ; 0x0817
 @..api_idx_0012_SHRT.l2:
-    cmp word [bp - 0x0004], byte 0xfe ; 0x081c
+    cmp word [bp - 4], byte 0xfe     ; 0x081c
     jne short @..api_idx_0012_SHRT.l5 ; 0x0820
     mov ax, 1                        ; 0x0822
     push ax                          ; 0x0825
     call get_filtered_key            ; 0x0826
     pop cx                           ; 0x0829
     sub ah, ah                       ; 0x082a
-    mov word [bp - 0x0002], ax       ; 0x082c
+    mov word [bp - 2], ax            ; 0x082c
     cmp ax, strict word 0x1b         ; 0x082f
     jne short @..api_idx_0012_SHRT.l3 ; 0x0832
-    mov word [bp - 0x0004], 0xffff   ; 0x0834
+    mov word [bp - 4], 0xffff        ; 0x0834
 @..api_idx_0012_SHRT.l3:
     cmp ax, strict word 0x30         ; 0x0839
     jl short @..api_idx_0012_SHRT.l4 ; 0x083c
@@ -86,14 +86,14 @@ api_idx_0012_SHRT:
     mov cx, 0xa                      ; 0x0846
     cwd                              ; 0x0849
     idiv cx                          ; 0x084a
-    mov word [bp - 0x0004], dx       ; 0x084c
+    mov word [bp - 4], dx            ; 0x084c
 @..api_idx_0012_SHRT.l4:
     jmp short @..api_idx_0012_SHRT.l2 ; 0x084f
 @..api_idx_0012_SHRT.l5:
     mov ax, 1                        ; 0x0851
     push ax                          ; 0x0854
-    push word [bp - 0x0010]          ; 0x0855
-    push word [bp - 0x0012]          ; 0x0858
+    push word [bp - 0x10]            ; 0x0855
+    push word [bp - 0x12]            ; 0x0858
     call gfx_restore_area            ; 0x085b
     add sp, byte 6                   ; 0x085e
     mov ax, 0xa3                     ; 0x0861
@@ -106,18 +106,18 @@ api_idx_0012_SHRT:
     push ax                          ; 0x0870
     call gfx_show_area               ; 0x0871
     add sp, byte 8                   ; 0x0874
-    mov ax, word [bp - 0x0004]       ; 0x0877
+    mov ax, word [bp - 4]            ; 0x0877
     ret                              ; 0x087a
 @..api_idx_0012_SHRT.l6:
     push word [bss_0e28]             ; 0x087b
     push word [bss_0e26]             ; 0x087f
     call set_mouse_pointer_shape     ; 0x0883
     add sp, byte 4                   ; 0x0886
-    mov word [bp - 0x0002], 0        ; 0x0889
+    mov word [bp - 2], 0             ; 0x0889
 @..api_idx_0012_SHRT.l7:
     mov ax, 0                        ; 0x088e
     push ax                          ; 0x0891
-    mov ax, word [bp - 0x0002]       ; 0x0892
+    mov ax, word [bp - 2]            ; 0x0892
     inc ax                           ; 0x0895
     mov cx, 0xa                      ; 0x0896
     cwd                              ; 0x0899
@@ -126,7 +126,7 @@ api_idx_0012_SHRT:
     add ax, strict word 0x30         ; 0x089e
     cbw                              ; 0x08a1
     push ax                          ; 0x08a2
-    mov ax, word [bp - 0x0002]       ; 0x08a3
+    mov ax, word [bp - 2]            ; 0x08a3
     mov cx, 5                        ; 0x08a6
     cwd                              ; 0x08a9
     idiv cx                          ; 0x08aa
@@ -135,7 +135,7 @@ api_idx_0012_SHRT:
     imul cx                          ; 0x08b1
     add ax, strict word 0x7d         ; 0x08b3
     push ax                          ; 0x08b6
-    mov ax, word [bp - 0x0002]       ; 0x08b7
+    mov ax, word [bp - 2]            ; 0x08b7
     mov cx, 5                        ; 0x08ba
     cwd                              ; 0x08bd
     idiv cx                          ; 0x08be
@@ -143,7 +143,7 @@ api_idx_0012_SHRT:
     imul cx                          ; 0x08c3
     add ax, strict word 0x4e         ; 0x08c5
     push ax                          ; 0x08c8
-    mov ax, word [bp - 0x0002]       ; 0x08c9
+    mov ax, word [bp - 2]            ; 0x08c9
     mov cx, 5                        ; 0x08cc
     cwd                              ; 0x08cf
     idiv cx                          ; 0x08d0
@@ -152,7 +152,7 @@ api_idx_0012_SHRT:
     imul cx                          ; 0x08d7
     add ax, strict word 0x71         ; 0x08d9
     push ax                          ; 0x08dc
-    mov ax, word [bp - 0x0002]       ; 0x08dd
+    mov ax, word [bp - 2]            ; 0x08dd
     mov cx, 5                        ; 0x08e0
     cwd                              ; 0x08e3
     idiv cx                          ; 0x08e4
@@ -161,11 +161,11 @@ api_idx_0012_SHRT:
     inc ax                           ; 0x08eb
     inc ax                           ; 0x08ec
     push ax                          ; 0x08ed
-    push word [bp - 0x0002]          ; 0x08ee
+    push word [bp - 2]               ; 0x08ee
     call set_hotspot                 ; 0x08f1
-    add sp, byte 0x0e                ; 0x08f4
-    inc word [bp - 0x0002]           ; 0x08f7
-    mov ax, word [bp - 0x0002]       ; 0x08fa
+    add sp, byte 0xe                 ; 0x08f4
+    inc word [bp - 2]                ; 0x08f7
+    mov ax, word [bp - 2]            ; 0x08fa
     cmp ax, strict word 0xa          ; 0x08fd
     jl short @..api_idx_0012_SHRT.l7 ; 0x0900
     mov ax, 0                        ; 0x0902
@@ -179,22 +179,22 @@ api_idx_0012_SHRT:
     mov ax, 0xa                      ; 0x090e
     push ax                          ; 0x0911
     call set_hotspot                 ; 0x0912
-    add sp, byte 0x0e                ; 0x0915
-    mov word [bp - 0x0008], 0        ; 0x0918
+    add sp, byte 0xe                 ; 0x0915
+    mov word [bp - 8], 0             ; 0x0918
 @..api_idx_0012_SHRT.l8:
-    lea ax, word [bp - 0x000c]       ; 0x091d
+    lea ax, word [bp - 0xc]          ; 0x091d
     push ax                          ; 0x0920
-    lea ax, word [bp - 0x000a]       ; 0x0921
+    lea ax, word [bp - 0xa]          ; 0x0921
     push ax                          ; 0x0924
     call gfx_get_mouse               ; 0x0925
     add sp, byte 4                   ; 0x0928
-    mov word [bp - 0x0006], ax       ; 0x092b
+    mov word [bp - 6], ax            ; 0x092b
     mov ax, 0                        ; 0x092e
-    cmp word [bp - 0x0006], byte 0   ; 0x0931
+    cmp word [bp - 6], byte 0        ; 0x0931
     jne short @..api_idx_0012_SHRT.l9 ; 0x0935
     mov ax, 1                        ; 0x0937
 @..api_idx_0012_SHRT.l9:
-    or word [bp - 0x0008], ax        ; 0x093a
+    or word [bp - 8], ax             ; 0x093a
     mov ax, 0x14                     ; 0x093d
     push ax                          ; 0x0940
     call delay_ms                    ; 0x0941
@@ -204,7 +204,7 @@ api_idx_0012_SHRT:
     call poll_hotspots               ; 0x0949
     pop cx                           ; 0x094c
     dec ax                           ; 0x094d
-    mov word [bp - 0x0004], ax       ; 0x094e
+    mov word [bp - 4], ax            ; 0x094e
     cmp word [bss_59fa], byte 0      ; 0x0951
     je short @..api_idx_0012_SHRT.l10 ; 0x0956
     mov ax, 0                        ; 0x0958
@@ -224,12 +224,12 @@ api_idx_0012_SHRT:
     push ax                          ; 0x0978
     call set_mouse_pointer_shape     ; 0x0979
     add sp, byte 4                   ; 0x097c
-    mov ax, word [bp - 0x0004]       ; 0x097f
+    mov ax, word [bp - 4]            ; 0x097f
     ret                              ; 0x0982
 @..api_idx_0012_SHRT.l11:
-    cmp word [bp - 0x0006], byte 0   ; 0x0983
+    cmp word [bp - 6], byte 0        ; 0x0983
     je short @..api_idx_0012_SHRT.l8 ; 0x0987
-    cmp word [bp - 0x0008], byte 0   ; 0x0989
+    cmp word [bp - 8], byte 0        ; 0x0989
     je short @..api_idx_0012_SHRT.l8 ; 0x098d
     mov ax, 0                        ; 0x098f
     mov dx, 0                        ; 0x0992

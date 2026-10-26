@@ -35,7 +35,7 @@ loc_SNOI:
     mov ax, 0x48                     ; 0x7de1
     push ax                          ; 0x7de4
     call gfx_cache_area              ; 0x7de5
-    add sp, byte 0x0c                ; 0x7de8
+    add sp, byte 0xc                 ; 0x7de8
     mov word [screen_cache_0_seg], dx ; 0x7deb
     mov word [screen_cache], ax      ; 0x7def
     cmp word [saved_screen_pending], byte 0 ; 0x7df2
@@ -60,7 +60,7 @@ loc_SNOI:
     mov ax, 0x48                     ; 0x7e21
     push ax                          ; 0x7e24
     call gfx_cache_area              ; 0x7e25
-    add sp, byte 0x0c                ; 0x7e28
+    add sp, byte 0xc                 ; 0x7e28
     mov word [screen_cache_1_seg], dx ; 0x7e2b
     mov word [screen_cache_1_off], ax ; 0x7e2f
     call draw_party_glyph_row        ; 0x7e32
@@ -105,11 +105,11 @@ loc_SNOI:
     mov word [show_area_bottom], 0x8f ; 0x7e97
     call flush_keyboard              ; 0x7e9d
     mov word [treasure_caption_on], 0 ; 0x7ea0
-    cmp word [bp + 0x4], byte 0      ; 0x7ea6
+    cmp word [bp + 4], byte 0        ; 0x7ea6
     jle short @..loc_SNOI.l2         ; 0x7eaa
     mov ax, treasure_caption         ; 0x7eac
     push ax                          ; 0x7eaf
-    push word [bp + 0x4]             ; 0x7eb0
+    push word [bp + 4]               ; 0x7eb0
     call load_message_string         ; 0x7eb3
     add sp, byte 4                   ; 0x7eb6
 @..loc_SNOI.l2:

@@ -12,14 +12,14 @@ loc_NJKV:
     mov bp, sp                       ; 0x0453
     add sp, byte 0xfe                ; 0x0455
     call bios_video_loc_VJJP         ; 0x0458
-    mov word [bp - 0x0002], ax       ; 0x045b
+    mov word [bp - 2], ax            ; 0x045b
     mov ax, 7                        ; 0x045e
     push ax                          ; 0x0461
     mov ax, dseg_1444                ; 0x0462
     push ax                          ; 0x0465
     call aztec_printf                ; 0x0466
     add sp, byte 4                   ; 0x0469
-    push word [bp - 0x0002]          ; 0x046c
+    push word [bp - 2]               ; 0x046c
     call bios_video_loc_IVQL         ; 0x046f
     pop cx                           ; 0x0472
     mov sp, bp                       ; 0x0473
@@ -49,19 +49,19 @@ loc_GUOQ:
     mov bp, sp                       ; 0x0585
     add sp, byte 0xfc                ; 0x0587
     call bios_video_loc_VJJP         ; 0x058a
-    mov word [bp - 0x0004], ax       ; 0x058d
+    mov word [bp - 4], ax            ; 0x058d
     mov ax, 0x20                     ; 0x0590
-    cmp word [bp + 0x4], byte 1      ; 0x0593
+    cmp word [bp + 4], byte 1        ; 0x0593
     jne short @..loc_GUOQ.l1         ; 0x0597
     mov ax, 0x11                     ; 0x0599
 @..loc_GUOQ.l1:
-    mov byte [bp - 0x0002], al       ; 0x059c
-    mov byte [bp - 0x0001], 0        ; 0x059f
-    lea ax, word [bp - 0x0002]       ; 0x05a3
+    mov byte [bp - 2], al            ; 0x059c
+    mov byte [bp - 1], 0             ; 0x059f
+    lea ax, word [bp - 2]            ; 0x05a3
     push ax                          ; 0x05a6
     call bios_put_text               ; 0x05a7
     pop cx                           ; 0x05aa
-    push word [bp - 0x0004]          ; 0x05ab
+    push word [bp - 4]               ; 0x05ab
     call bios_video_loc_IVQL         ; 0x05ae
     pop cx                           ; 0x05b1
     mov sp, bp                       ; 0x05b2

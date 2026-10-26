@@ -12,22 +12,22 @@ get_font_glyph:
     mov es, ax                       ; 0x3a03
     mov ax, cs                       ; 0x3a05
     mov ds, ax                       ; 0x3a07
-    mov ax, word [bp + 0x4]          ; 0x3a09
+    mov ax, word [bp + 4]            ; 0x3a09
     mov bx, font_seg_table - IMAGE_BASE ; 0x3a0c
     shl ax, 1                        ; 0x3a0f
     add bx, ax                       ; 0x3a11
     mov ax, word [bx]                ; 0x3a13
     mov ds, ax                       ; 0x3a15
     xor bx, bx                       ; 0x3a17
-    mov di, word [bp + 0x8]          ; 0x3a19
+    mov di, word [bp + 8]            ; 0x3a19
     xor ax, ax                       ; 0x3a1c
     mov al, byte [bx]                ; 0x3a1e
     mov word [es:di], ax             ; 0x3a20
     mov di, word [bp + 0xa]          ; 0x3a23
-    mov al, byte [bx + 0x1]          ; 0x3a26
+    mov al, byte [bx + 1]            ; 0x3a26
     mov word [es:di], ax             ; 0x3a29
     xor ah, ah                       ; 0x3a2c
-    mov al, byte [bp + 0x6]          ; 0x3a2e
+    mov al, byte [bp + 6]            ; 0x3a2e
     shl al, 1                        ; 0x3a31
     add bx, byte 0x10                ; 0x3a33
     add bx, ax                       ; 0x3a36

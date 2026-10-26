@@ -2,20 +2,20 @@
 api_idx_0004_JLQH:
     mov ax, 0xfffc                   ; 0x1308
     call aztec_csav                  ; 0x130b
-    mov word [bp - 0x0004], 0        ; 0x130e
-    mov word [bp - 0x0002], 0        ; 0x1313
+    mov word [bp - 4], 0             ; 0x130e
+    mov word [bp - 2], 0             ; 0x1313
     jmp short @..api_idx_0004_JLQH.l2 ; 0x1318
 @..api_idx_0004_JLQH.l1:
-    push word [bp - 0x0002]          ; 0x131a
+    push word [bp - 2]               ; 0x131a
     call member_is_active            ; 0x131d
     pop cx                           ; 0x1320
-    or word [bp - 0x0004], ax        ; 0x1321
-    inc word [bp - 0x0002]           ; 0x1324
+    or word [bp - 4], ax             ; 0x1321
+    inc word [bp - 2]                ; 0x1324
 @..api_idx_0004_JLQH.l2:
-    mov ax, word [bp - 0x0002]       ; 0x1327
+    mov ax, word [bp - 2]            ; 0x1327
     cmp ax, word [party_char_count]  ; 0x132a
     jl short @..api_idx_0004_JLQH.l1 ; 0x132e
-    cmp word [bp - 0x0004], byte 0   ; 0x1330
+    cmp word [bp - 4], byte 0        ; 0x1330
     je short @..api_idx_0004_JLQH.l3 ; 0x1334
     jmp near @..api_idx_0004_JLQH.l5 ; 0x1336
 @..api_idx_0004_JLQH.l3:
@@ -58,7 +58,7 @@ api_idx_0004_JLQH:
     mov ax, party_cell_x             ; 0x139f
     push ax                          ; 0x13a2
     call find_map_piece              ; 0x13a3
-    add sp, byte 0x0a                ; 0x13a6
+    add sp, byte 0xa                 ; 0x13a6
     mov word [bss_91aa], 1           ; 0x13a9
     mov word [location_changed], 1   ; 0x13af
     call loc_IVLM                    ; 0x13b5

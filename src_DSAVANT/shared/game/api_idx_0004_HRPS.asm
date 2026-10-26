@@ -11,8 +11,8 @@ api_idx_0004_HRPS:
     shl cx, 1
     add ax, cx
     add ax, word [party_cell_x]
-    mov word [bp - 0x0002], ax
-    mov word [bp - 0x0004], 0
+    mov word [bp - 2], ax
+    mov word [bp - 4], 0
     push ax
     mov ax, word [maze_data]
     add ax, 0x9b0
@@ -24,13 +24,13 @@ api_idx_0004_HRPS:
     mov ax, word [game_state_arg]
     jmp short @..api_idx_0004_HRPS.l2
 api_idx_0004_HRPS.jumptable_case2:
-    cmp word [party_map_piece], byte 0x0c
+    cmp word [party_map_piece], byte 0xc
     jle short @..api_idx_0004_HRPS.l1
-    mov word [bp - 0x0004], 1
+    mov word [bp - 4], 1
 @..api_idx_0004_HRPS.l1:
     jmp short api_idx_0004_HRPS.jumptable_case1
 api_idx_0004_HRPS.jumptable_case3:
-    mov word [bp - 0x0004], 1
+    mov word [bp - 4], 1
     jmp short api_idx_0004_HRPS.jumptable_case1
 api_idx_0004_HRPS.jumptable1:
     dw api_idx_0004_HRPS.jumptable_case3 - IMAGE_BASE + __zres_end
@@ -57,7 +57,7 @@ api_idx_0004_HRPS.jumptable1:
     shl bx, 1
     jmp [cs:bx + api_idx_0004_HRPS.jumptable1 - IMAGE_BASE + __zres_end]
 api_idx_0004_HRPS.jumptable_case1:
-    push word [bp - 0x0002]
+    push word [bp - 2]
     mov ax, word [maze_data]
     add ax, 0x8b0
     push ax
@@ -68,10 +68,10 @@ api_idx_0004_HRPS.jumptable_case1:
     mov ax, word [game_state_arg]
     jmp short @..api_idx_0004_HRPS.l6
 @..api_idx_0004_HRPS.l4:
-    mov word [bp - 0x0004], 1
+    mov word [bp - 4], 1
     jmp short @..api_idx_0004_HRPS.l7
 @..api_idx_0004_HRPS.l5:
-    mov word [bp - 0x0004], 2
+    mov word [bp - 4], 2
     jmp short @..api_idx_0004_HRPS.l7
 @..api_idx_0004_HRPS.l6:
     cmp ax, strict word 8
@@ -87,7 +87,7 @@ api_idx_0004_HRPS.jumptable_case1:
     cmp ax, strict word 0x1b
     je short @..api_idx_0004_HRPS.l5
 @..api_idx_0004_HRPS.l7:
-    push word [bp - 0x0002]
+    push word [bp - 2]
     mov ax, word [maze_data]
     add ax, 0x930
     push ax
@@ -98,18 +98,18 @@ api_idx_0004_HRPS.jumptable_case1:
     mov ax, word [game_state_arg]
     jmp short @..api_idx_0004_HRPS.l13
 @..api_idx_0004_HRPS.l8:
-    mov word [bp - 0x0004], 3
+    mov word [bp - 4], 3
     jmp short @..api_idx_0004_HRPS.l14
 @..api_idx_0004_HRPS.l9:
     jmp short @..api_idx_0004_HRPS.l14
 @..api_idx_0004_HRPS.l10:
-    mov word [bp - 0x0004], 1
+    mov word [bp - 4], 1
     jmp short @..api_idx_0004_HRPS.l14
 @..api_idx_0004_HRPS.l11:
-    mov word [bp - 0x0004], 2
+    mov word [bp - 4], 2
     jmp short @..api_idx_0004_HRPS.l14
 @..api_idx_0004_HRPS.l12:
-    mov word [bp - 0x0004], 4
+    mov word [bp - 4], 4
     jmp short @..api_idx_0004_HRPS.l14
 @..api_idx_0004_HRPS.l13:
     cmp ax, strict word 0
@@ -128,5 +128,5 @@ api_idx_0004_HRPS.jumptable_case1:
     je short @..api_idx_0004_HRPS.l10
     jmp short @..api_idx_0004_HRPS.l12
 @..api_idx_0004_HRPS.l14:
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     ret

@@ -2,7 +2,7 @@
 api_idx_0004_QSNR:
     mov ax, 0xfffc                   ; 0x16c1
     call aztec_csav                  ; 0x16c4
-    mov bx, word [bp + 0x8]          ; 0x16c7
+    mov bx, word [bp + 8]            ; 0x16c7
     cmp byte [bx], 0                 ; 0x16ca
     je short @..api_idx_0004_QSNR.l1 ; 0x16cd
     mov ax, 1                        ; 0x16cf
@@ -19,12 +19,12 @@ api_idx_0004_QSNR:
     mov cx, 0                        ; 0x16e4
 @..api_idx_0004_QSNR.l4:
     add ax, cx                       ; 0x16e7
-    mov word [bp - 0x0004], ax       ; 0x16e9
-    push word [bp + 0x6]             ; 0x16ec
+    mov word [bp - 4], ax            ; 0x16e9
+    push word [bp + 6]               ; 0x16ec
     call aztec_strlen                ; 0x16ef
     pop cx                           ; 0x16f2
     push ax                          ; 0x16f3
-    push word [bp + 0x8]             ; 0x16f4
+    push word [bp + 8]               ; 0x16f4
     call aztec_strlen                ; 0x16f7
     pop cx                           ; 0x16fa
     mov cx, ax                       ; 0x16fb
@@ -38,7 +38,7 @@ api_idx_0004_QSNR:
     pop ax                           ; 0x170a
     add ax, cx                       ; 0x170b
     mov cx, ax                       ; 0x170d
-    mov ax, word [bp - 0x0004]       ; 0x170f
+    mov ax, word [bp - 4]            ; 0x170f
     add cx, ax                       ; 0x1712
     mov ax, cx                       ; 0x1714
     mov cx, 6                        ; 0x1716
@@ -49,12 +49,12 @@ api_idx_0004_QSNR:
     mov cx, ax                       ; 0x1721
     mov ax, 0xa0                     ; 0x1723
     sub ax, cx                       ; 0x1726
-    mov word [bp - 0x0002], ax       ; 0x1728
-    push word [bp + 0x4]             ; 0x172b
+    mov word [bp - 2], ax            ; 0x1728
+    push word [bp + 4]               ; 0x172b
     push ax                          ; 0x172e
     call loc_SKIP                    ; 0x172f
     add sp, byte 4                   ; 0x1732
-    mov bx, word [bp + 0x6]          ; 0x1735
+    mov bx, word [bp + 6]            ; 0x1735
     cmp byte [bx], 0                 ; 0x1738
     je short @..api_idx_0004_QSNR.l5 ; 0x173b
     push word [bp + 0xc]             ; 0x173d
@@ -62,7 +62,7 @@ api_idx_0004_QSNR:
     call loc_PHIP                    ; 0x1741
     add sp, byte 4                   ; 0x1744
 @..api_idx_0004_QSNR.l5:
-    mov bx, word [bp + 0x8]          ; 0x1747
+    mov bx, word [bp + 8]            ; 0x1747
     cmp byte [bx], 0                 ; 0x174a
     je short @..api_idx_0004_QSNR.l6 ; 0x174d
     push word [bp + 0xe]             ; 0x174f
@@ -79,13 +79,13 @@ api_idx_0004_QSNR:
     add sp, byte 4                   ; 0x1768
 @..api_idx_0004_QSNR.l7:
     mov ax, 7                        ; 0x176b
-    imul word [bp + 0x4]             ; 0x176e
+    imul word [bp + 4]               ; 0x176e
     add ax, 0xa2                     ; 0x1771
     push ax                          ; 0x1774
     mov ax, 0x13a                    ; 0x1775
     push ax                          ; 0x1778
     mov ax, 7                        ; 0x1779
-    imul word [bp + 0x4]             ; 0x177c
+    imul word [bp + 4]               ; 0x177c
     add ax, 0x9c                     ; 0x177f
     push ax                          ; 0x1782
     mov ax, 8                        ; 0x1783

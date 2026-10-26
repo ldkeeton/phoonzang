@@ -62,12 +62,12 @@ loc_GJLP:
 loc_RPSI:
     cmp byte [cs:bx], 0              ; 0x1114
     je short loc_JHMG                ; 0x1118
-    cmp byte [cs:bx + 0x1], ah       ; 0x111a
+    cmp byte [cs:bx + 1], ah         ; 0x111a
     jne short loc_JHMG               ; 0x111e
-    cmp byte [cs:bx + 0x2], dh       ; 0x1120
+    cmp byte [cs:bx + 2], dh         ; 0x1120
     jne short loc_JHMG               ; 0x1124
     mov byte [cs:bx], 0              ; 0x1126
-    mov word [cs:bx + 0x3], 0        ; 0x112a
+    mov word [cs:bx + 3], 0          ; 0x112a
     mov byte [cs:cseg_0d40 - IMAGE_BASE], al ; 0x1130
     call loc_NLST                    ; 0x1134
 loc_JHMG:

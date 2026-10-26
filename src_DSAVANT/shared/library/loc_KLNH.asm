@@ -5,19 +5,19 @@ loc_KLNH:
     shl ax, cl
     mov bx, ems_blocks - IMAGE_BASE
     add bx, ax
-    mov word [bp - 0x0004], bx
-    mov ax, word [cs:bx + 0x2]
+    mov word [bp - 4], bx
+    mov ax, word [cs:bx + 2]
     sub word [cs:ems_paras_used - IMAGE_BASE], ax
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
 @..loc_KLNH.l1:
-    mov bx, word [bp - 0x0004]
+    mov bx, word [bp - 4]
     mov di, word [cs:bx]
     mov dx, word [cs:ems_frame_seg - IMAGE_BASE]
     mov es, dx
     mov ds, dx
-    mov si, word [cs:bx + 0x4]
+    mov si, word [cs:bx + 4]
     add dx, word [cs:maze_mem_seg - IMAGE_BASE]
-    mov cx, word [cs:bx + 0x6]
+    mov cx, word [cs:bx + 6]
     or cx, cx
     jne short @..loc_KLNH.l2
     jmp near @..loc_KLNH.l8
@@ -63,21 +63,21 @@ loc_KLNH:
 @..loc_KLNH.l7:
     pop cx
     loop @..loc_KLNH.l3
-    mov bx, word [bp - 0x0004]
-    mov cx, word [bp - 0x0006]
-    mov ax, word [cs:bx + 0x4]
+    mov bx, word [bp - 4]
+    mov cx, word [bp - 6]
+    mov ax, word [cs:bx + 4]
     sub ax, cx
     mov word [cs:bx], ax
-    add ax, word [cs:bx + 0x6]
-    mov word [cs:bx + 0x4], ax
-    mov ax, word [cs:bx + 0x6]
-    mov word [cs:bx + 0x2], ax
+    add ax, word [cs:bx + 6]
+    mov word [cs:bx + 4], ax
+    mov ax, word [cs:bx + 6]
+    mov word [cs:bx + 2], ax
     add bx, byte 4
-    mov word [bp - 0x0004], bx
+    mov word [bp - 4], bx
     jmp near @..loc_KLNH.l1
 @..loc_KLNH.l8:
-    mov bx, word [bp - 0x0004]
+    mov bx, word [bp - 4]
     xor ax, ax
     mov word [cs:bx], ax
-    mov word [cs:bx + 0x2], ax
+    mov word [cs:bx + 2], ax
     ret

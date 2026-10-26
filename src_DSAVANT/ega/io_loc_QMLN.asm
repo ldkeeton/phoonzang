@@ -62,11 +62,11 @@ io_loc_QMLN:
 @..io_loc_QMLN.l4:
     push ax                          ; 0x2fe9
     mov ah, byte [bx]                ; 0x2fea
-    mov al, byte [bx + 0x1]          ; 0x2fec
+    mov al, byte [bx + 1]            ; 0x2fec
     shr ax, cl                       ; 0x2fef
     out dx, al                       ; 0x2ff1
     mov ah, byte [si]                ; 0x2ff2
-    mov al, byte [si + 0x1]          ; 0x2ff4
+    mov al, byte [si + 1]            ; 0x2ff4
     shr ax, cl                       ; 0x2ff7
     mov ah, byte [es:di]             ; 0x2ff9
     mov byte [es:di], al             ; 0x2ffc

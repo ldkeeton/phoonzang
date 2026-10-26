@@ -1,7 +1,7 @@
 ; auto-generated
 leaf_loc_NIGK:
     dec ax                           ; 0x3131
-    cmp ax, word [bp - 0x0012]       ; 0x3132
+    cmp ax, word [bp - 0x12]         ; 0x3132
     jb short table_entry_ptr         ; 0x3135
     mov bl, 0xa                      ; 0x3137
     div bl                           ; 0x3139

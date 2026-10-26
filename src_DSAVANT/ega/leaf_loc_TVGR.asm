@@ -1,7 +1,7 @@
 ; auto-generated
 leaf_loc_TVGR:
     dec ax                           ; 0x39e3
-    cmp ax, word [bp - 0x0012]       ; 0x39e4
+    cmp ax, word [bp - 0x12]         ; 0x39e4
     jb short table_entry_ptr         ; 0x39e7
     mov bl, 0xa                      ; 0x39e9
     div bl                           ; 0x39eb

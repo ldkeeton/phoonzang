@@ -7,7 +7,7 @@ loc_RVKS:
     mov bx, ax                       ; 0x6f4c
     mov word [bx + adjacent_object_type], 0 ; 0x6f4e
     push ax                          ; 0x6f54
-    mov cx, word [bp + 0x4]          ; 0x6f55
+    mov cx, word [bp + 4]            ; 0x6f55
     shl cx, 1                        ; 0x6f58
     mov ax, word [maze_tables]       ; 0x6f5a
     add ax, cx                       ; 0x6f5d
@@ -19,7 +19,7 @@ loc_RVKS:
     push ax                          ; 0x6f6c
     push ax                          ; 0x6f6d
     push ax                          ; 0x6f6e
-    mov ax, word [bp + 0x4]          ; 0x6f6f
+    mov ax, word [bp + 4]            ; 0x6f6f
     shl ax, 1                        ; 0x6f72
     mov si, ax                       ; 0x6f74
     mov bx, word [maze_tables]       ; 0x6f76
@@ -27,13 +27,13 @@ loc_RVKS:
     mov ax, 0                        ; 0x6f7e
     push ax                          ; 0x6f81
     push ax                          ; 0x6f82
-    push word [bp + 0x4]             ; 0x6f83
+    push word [bp + 4]               ; 0x6f83
     mov ax, 6                        ; 0x6f86
     push ax                          ; 0x6f89
     push word [game_state_arg]       ; 0x6f8a
     call api_idx_0004_JVLM           ; 0x6f8e
     add sp, byte 0x12                ; 0x6f91
-    mov ax, word [bp + 0x4]          ; 0x6f94
+    mov ax, word [bp + 4]            ; 0x6f94
     shl ax, 1                        ; 0x6f97
     mov si, ax                       ; 0x6f99
     mov bx, word [maze_tables]       ; 0x6f9b
@@ -51,7 +51,7 @@ loc_RVKS:
     add sp, byte 6                   ; 0x6fb9
     mov ax, 0                        ; 0x6fbc
     push ax                          ; 0x6fbf
-    mov ax, word [bp + 0x4]          ; 0x6fc0
+    mov ax, word [bp + 4]            ; 0x6fc0
     shl ax, 1                        ; 0x6fc3
     mov si, ax                       ; 0x6fc5
     mov bx, word [maze_tables]       ; 0x6fc7
@@ -63,11 +63,11 @@ loc_RVKS:
     push ax                          ; 0x6fd8
     call set_bitmap_bit              ; 0x6fd9
     add sp, byte 6                   ; 0x6fdc
-    mov ax, word [bp + 0x4]          ; 0x6fdf
+    mov ax, word [bp + 4]            ; 0x6fdf
     inc ax                           ; 0x6fe2
     mov word [party_region], ax      ; 0x6fe3
 @..loc_RVKS.l1:
-    cmp word [bp + 0x6], byte 0      ; 0x6fe6
+    cmp word [bp + 6], byte 0        ; 0x6fe6
     je short @..loc_RVKS.l2          ; 0x6fea
     mov ax, 1                        ; 0x6fec
     push ax                          ; 0x6fef

@@ -2,11 +2,11 @@
 draw_party_status_glyphs: ; Aztec csav frame=0x0014
     mov ax, 0xffec                   ; 0x2c69
     call aztec_csav                  ; 0x2c6c
-    mov word [bp - 0x0002], 0        ; 0x2c6f
+    mov word [bp - 2], 0             ; 0x2c6f
 @..draw_party_status_glyphs.l1:
     mov ax, 0                        ; 0x2c74
     push ax                          ; 0x2c77
-    mov ax, word [bp - 0x0002]       ; 0x2c78
+    mov ax, word [bp - 2]            ; 0x2c78
     shl ax, 1                        ; 0x2c7b
     shl ax, 1                        ; 0x2c7d
     mov bx, ax                       ; 0x2c7f
@@ -14,7 +14,7 @@ draw_party_status_glyphs: ; Aztec csav frame=0x0014
     push word [bx + party_status_areas] ; 0x2c85
     call gfx_restore_area            ; 0x2c89
     add sp, byte 6                   ; 0x2c8c
-    mov ax, word [bp - 0x0002]       ; 0x2c8f
+    mov ax, word [bp - 2]            ; 0x2c8f
     mov cx, 3                        ; 0x2c92
     cwd                              ; 0x2c95
     idiv cx                          ; 0x2c96
@@ -22,42 +22,42 @@ draw_party_status_glyphs: ; Aztec csav frame=0x0014
     imul cx                          ; 0x2c9b
     push ax                          ; 0x2c9d
     mov ax, 0x19                     ; 0x2c9e
-    imul word [bp - 0x0002]          ; 0x2ca1
+    imul word [bp - 2]               ; 0x2ca1
     mov cx, ax                       ; 0x2ca4
     pop ax                           ; 0x2ca6
     add ax, cx                       ; 0x2ca7
     add ax, strict word 0x45         ; 0x2ca9
-    mov word [bp - 0x0008], ax       ; 0x2cac
-    mov word [bp - 0x000a], 7        ; 0x2caf
-    mov ax, word [bp - 0x0002]       ; 0x2cb4
+    mov word [bp - 8], ax            ; 0x2cac
+    mov word [bp - 0xa], 7           ; 0x2caf
+    mov ax, word [bp - 2]            ; 0x2cb4
     jmp near @..draw_party_status_glyphs.l5 ; 0x2cb7
 jumptable_2d50_case_0:
     mov ax, word [party_status_frame] ; 0x2cba
     inc ax                           ; 0x2cbd
-    mov word [bp - 0x0004], ax       ; 0x2cbe
+    mov word [bp - 4], ax            ; 0x2cbe
     jmp near @..draw_party_status_glyphs.l6 ; 0x2cc1
 jumptable_2d50_case_1:
     mov ax, word [party_status_frame] ; 0x2cc4
     inc ax                           ; 0x2cc7
     inc ax                           ; 0x2cc8
     inc ax                           ; 0x2cc9
-    mov word [bp - 0x0004], ax       ; 0x2cca
+    mov word [bp - 4], ax            ; 0x2cca
     jmp near @..draw_party_status_glyphs.l6 ; 0x2ccd
 jumptable_2d50_case_2:
     mov ax, word [party_status_frame] ; 0x2cd0
     add ax, strict word 5            ; 0x2cd3
-    mov word [bp - 0x0004], ax       ; 0x2cd6
+    mov word [bp - 4], ax            ; 0x2cd6
     jmp near @..draw_party_status_glyphs.l6 ; 0x2cd9
 jumptable_2d50_case_3:
     mov ax, word [party_status_frame] ; 0x2cdc
     imul word [party_status_frame_step] ; 0x2cdf
     add ax, strict word 7            ; 0x2ce3
-    mov word [bp - 0x0004], ax       ; 0x2ce6
+    mov word [bp - 4], ax            ; 0x2ce6
     jmp near @..draw_party_status_glyphs.l6 ; 0x2ce9
 jumptable_2d50_case_5:
     mov ax, word [party_status_frame] ; 0x2cec
     add ax, strict word 9            ; 0x2cef
-    mov word [bp - 0x0004], ax       ; 0x2cf2
+    mov word [bp - 4], ax            ; 0x2cf2
     jmp near @..draw_party_status_glyphs.l6 ; 0x2cf5
 jumptable_2d50_case_4:
     mov ax, word [party_status_frame] ; 0x2cf8
@@ -67,8 +67,8 @@ jumptable_2d50_case_4:
     mov ax, word [party_tag]         ; 0x2d04
     shl ax, 1                        ; 0x2d07
     sub ax, word [party_status_heading] ; 0x2d09
-    mov word [bp - 0x0006], ax       ; 0x2d0d
-    cmp word [bp - 0x0006], byte 0   ; 0x2d10
+    mov word [bp - 6], ax            ; 0x2d0d
+    cmp word [bp - 6], byte 0        ; 0x2d10
     je short @..draw_party_status_glyphs.l4 ; 0x2d14
     cmp ax, strict word 0xfffc       ; 0x2d16
     jl short @..draw_party_status_glyphs.l2 ; 0x2d19
@@ -94,7 +94,7 @@ jumptable_2d50_case_4:
 @..draw_party_status_glyphs.l4:
     mov ax, word [party_status_heading] ; 0x2d45
     add ax, strict word 0xb          ; 0x2d48
-    mov word [bp - 0x0004], ax       ; 0x2d4b
+    mov word [bp - 4], ax            ; 0x2d4b
     jmp short @..draw_party_status_glyphs.l6 ; 0x2d4e
 jumptable_2d50:
     dw jumptable_2d50_case_0 - IMAGE_BASE      ; 0x2d50
@@ -110,19 +110,19 @@ jumptable_2d50:
     shl bx, 1                        ; 0x2d62
     jmp [cs:bx + jumptable_2d50 - IMAGE_BASE] ; 0x2d64
 @..draw_party_status_glyphs.l6:
-    mov ax, word [bp - 0x0002]       ; 0x2d69
+    mov ax, word [bp - 2]            ; 0x2d69
     shl ax, 1                        ; 0x2d6c
     shl ax, 1                        ; 0x2d6e
     mov bx, ax                       ; 0x2d70
     cmp word [bx + party_status_timer], byte 0 ; 0x2d72
     jle short @..draw_party_status_glyphs.l7 ; 0x2d77
-    mov al, byte [bp - 0x0004]       ; 0x2d79
-    mov byte [bp - 0x0014], al       ; 0x2d7c
-    mov byte [bp - 0x0013], 0        ; 0x2d7f
+    mov al, byte [bp - 4]            ; 0x2d79
+    mov byte [bp - 0x14], al         ; 0x2d7c
+    mov byte [bp - 0x13], 0          ; 0x2d7f
     mov ax, 0                        ; 0x2d83
     push ax                          ; 0x2d86
     push ax                          ; 0x2d87
-    lea ax, word [bp - 0x0014]       ; 0x2d88
+    lea ax, word [bp - 0x14]         ; 0x2d88
     push ax                          ; 0x2d8b
     mov ax, 0                        ; 0x2d8c
     push ax                          ; 0x2d8f
@@ -134,15 +134,15 @@ jumptable_2d50:
     push ax                          ; 0x2d9b
     mov ax, 0                        ; 0x2d9c
     push ax                          ; 0x2d9f
-    push word [bp - 0x000a]          ; 0x2da0
-    push word [bp - 0x0008]          ; 0x2da3
+    push word [bp - 0xa]             ; 0x2da0
+    push word [bp - 8]               ; 0x2da3
     mov ax, 8                        ; 0x2da6
     push ax                          ; 0x2da9
     call gfx_draw_text               ; 0x2daa
     add sp, byte 0x16                ; 0x2dad
 @..draw_party_status_glyphs.l7:
-    inc word [bp - 0x0002]           ; 0x2db0
-    mov ax, word [bp - 0x0002]       ; 0x2db3
+    inc word [bp - 2]                ; 0x2db0
+    mov ax, word [bp - 2]            ; 0x2db3
     cmp ax, strict word 6            ; 0x2db6
     jge short @..draw_party_status_glyphs.l8 ; 0x2db9
     jmp near @..draw_party_status_glyphs.l1 ; 0x2dbb

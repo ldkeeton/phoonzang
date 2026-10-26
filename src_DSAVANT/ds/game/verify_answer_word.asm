@@ -2,10 +2,10 @@
 verify_answer_word: ; Aztec csav frame=0x0002
     mov ax, 0xfffe                   ; 0x2c11
     call aztec_csav                  ; 0x2c14
-    mov word [bp - 0x0002], 0        ; 0x2c17
+    mov word [bp - 2], 0             ; 0x2c17
     jmp short @..verify_answer_word.l4 ; 0x2c1c
 @..verify_answer_word.l1:
-    mov bx, word [bp - 0x0002]       ; 0x2c1e
+    mov bx, word [bp - 2]            ; 0x2c1e
     mov al, byte [bx + answer_word]  ; 0x2c21
     sub ah, ah                       ; 0x2c25
     mov cx, 0x25                     ; 0x2c27
@@ -33,9 +33,9 @@ verify_answer_word: ; Aztec csav frame=0x0002
     mov ax, word [code_check_word]   ; 0x2c53
     mov word [answer_check_word], ax ; 0x2c56
 @..verify_answer_word.l3:
-    inc word [bp - 0x0002]           ; 0x2c59
+    inc word [bp - 2]                ; 0x2c59
 @..verify_answer_word.l4:
-    mov ax, word [bp - 0x0002]       ; 0x2c5c
+    mov ax, word [bp - 2]            ; 0x2c5c
     cmp ax, word [answer_length]     ; 0x2c5f
     jl short @..verify_answer_word.l1 ; 0x2c63
     mov ax, 1                        ; 0x2c65

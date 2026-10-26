@@ -2,18 +2,18 @@
 get_west_cell_wall:
     mov ax, 0
     call aztec_csav
-    push word [bp + 0x6]
-    mov ax, word [bp + 0x4]
+    push word [bp + 6]
+    mov ax, word [bp + 4]
     dec ax
     push ax
     lea ax, word [bp + 0xc]
     push ax
     lea ax, word [bp + 0xa]
     push ax
-    lea ax, word [bp + 0x8]
+    lea ax, word [bp + 8]
     push ax
     call find_map_piece
-    add sp, byte 0x0a
+    add sp, byte 0xa
     test ax, ax
     je short @..get_west_cell_wall.l5
     mov ax, word [maze_variant]
@@ -49,7 +49,7 @@ get_west_cell_wall:
     shl cx, 1
     shl cx, 1
     add ax, cx
-    add ax, word [bp + 0x8]
+    add ax, word [bp + 8]
     push ax
     mov ax, word [maze_data]
     add ax, 0x290

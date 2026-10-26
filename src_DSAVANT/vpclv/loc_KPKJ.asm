@@ -3,7 +3,7 @@ loc_KPKJ:
     mov ax, 0                        ; 0x4310
     call aztec_csav                  ; 0x4313
     mov ax, 0x248                    ; 0x4316
-    imul word [bp + 0x4]             ; 0x4319
+    imul word [bp + 4]               ; 0x4319
     mov bx, ax                       ; 0x431c
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x431e
     sub ah, ah                       ; 0x4322
@@ -15,7 +15,7 @@ jumptable_45b6_case_0:
     push ax                          ; 0x432e
     mov ax, 8                        ; 0x432f
     push ax                          ; 0x4332
-    push word [bp + 0x4]             ; 0x4333
+    push word [bp + 4]               ; 0x4333
     call roll_slot_values            ; 0x4336
     add sp, byte 8                   ; 0x4339
     jmp near @..loc_KPKJ.l2          ; 0x433c
@@ -25,7 +25,7 @@ jumptable_45b6_case_1:
     mov ax, 3                        ; 0x4343
     push ax                          ; 0x4346
     push ax                          ; 0x4347
-    push word [bp + 0x4]             ; 0x4348
+    push word [bp + 4]               ; 0x4348
     call roll_slot_values            ; 0x434b
     add sp, byte 8                   ; 0x434e
     mov ax, 0x20                     ; 0x4351
@@ -34,7 +34,7 @@ jumptable_45b6_case_1:
     push ax                          ; 0x4358
     mov ax, 3                        ; 0x4359
     push ax                          ; 0x435c
-    push word [bp + 0x4]             ; 0x435d
+    push word [bp + 4]               ; 0x435d
     call api_idx_0002_SLJI           ; 0x4360
     add sp, byte 8                   ; 0x4363
     jmp near @..loc_KPKJ.l2          ; 0x4366
@@ -44,7 +44,7 @@ jumptable_45b6_case_2:
     mov ax, 3                        ; 0x436d
     push ax                          ; 0x4370
     push ax                          ; 0x4371
-    push word [bp + 0x4]             ; 0x4372
+    push word [bp + 4]               ; 0x4372
     call roll_slot_values            ; 0x4375
     add sp, byte 8                   ; 0x4378
     mov ax, 0x1e                     ; 0x437b
@@ -53,7 +53,7 @@ jumptable_45b6_case_2:
     push ax                          ; 0x4382
     mov ax, 3                        ; 0x4383
     push ax                          ; 0x4386
-    push word [bp + 0x4]             ; 0x4387
+    push word [bp + 4]               ; 0x4387
     call api_idx_0002_SLJI           ; 0x438a
     add sp, byte 8                   ; 0x438d
     jmp near @..loc_KPKJ.l2          ; 0x4390
@@ -64,7 +64,7 @@ jumptable_45b6_case_3:
     push ax                          ; 0x439a
     mov ax, 4                        ; 0x439b
     push ax                          ; 0x439e
-    push word [bp + 0x4]             ; 0x439f
+    push word [bp + 4]               ; 0x439f
     call roll_slot_values            ; 0x43a2
     add sp, byte 8                   ; 0x43a5
     mov ax, 0x10                     ; 0x43a8
@@ -73,7 +73,7 @@ jumptable_45b6_case_3:
     push ax                          ; 0x43af
     mov ax, 1                        ; 0x43b0
     push ax                          ; 0x43b3
-    push word [bp + 0x4]             ; 0x43b4
+    push word [bp + 4]               ; 0x43b4
     call api_idx_0002_SLJI           ; 0x43b7
     add sp, byte 8                   ; 0x43ba
     jmp near @..loc_KPKJ.l2          ; 0x43bd
@@ -83,7 +83,7 @@ jumptable_45b6_case_4:
     push ax                          ; 0x43c4
     mov ax, 6                        ; 0x43c5
     push ax                          ; 0x43c8
-    push word [bp + 0x4]             ; 0x43c9
+    push word [bp + 4]               ; 0x43c9
     call roll_slot_values            ; 0x43cc
     add sp, byte 8                   ; 0x43cf
     mov ax, 7                        ; 0x43d2
@@ -92,7 +92,7 @@ jumptable_45b6_case_4:
     push ax                          ; 0x43d9
     mov ax, 0                        ; 0x43da
     push ax                          ; 0x43dd
-    push word [bp + 0x4]             ; 0x43de
+    push word [bp + 4]               ; 0x43de
     call api_idx_0002_SLJI           ; 0x43e1
     add sp, byte 8                   ; 0x43e4
     mov ax, 0xc                      ; 0x43e7
@@ -101,7 +101,7 @@ jumptable_45b6_case_4:
     push ax                          ; 0x43ee
     mov ax, 1                        ; 0x43ef
     push ax                          ; 0x43f2
-    push word [bp + 0x4]             ; 0x43f3
+    push word [bp + 4]               ; 0x43f3
     call api_idx_0002_SLJI           ; 0x43f6
     add sp, byte 8                   ; 0x43f9
     jmp near @..loc_KPKJ.l2          ; 0x43fc
@@ -112,7 +112,7 @@ jumptable_45b6_case_6:
     push ax                          ; 0x4406
     mov ax, 4                        ; 0x4407
     push ax                          ; 0x440a
-    push word [bp + 0x4]             ; 0x440b
+    push word [bp + 4]               ; 0x440b
     call roll_slot_values            ; 0x440e
     add sp, byte 8                   ; 0x4411
     mov ax, 0xd                      ; 0x4414
@@ -121,7 +121,7 @@ jumptable_45b6_case_6:
     push ax                          ; 0x441b
     mov ax, 1                        ; 0x441c
     push ax                          ; 0x441f
-    push word [bp + 0x4]             ; 0x4420
+    push word [bp + 4]               ; 0x4420
     call api_idx_0002_SLJI           ; 0x4423
     add sp, byte 8                   ; 0x4426
     jmp near @..loc_KPKJ.l2          ; 0x4429
@@ -131,7 +131,7 @@ jumptable_45b6_case_5:
     mov ax, 3                        ; 0x4430
     push ax                          ; 0x4433
     push ax                          ; 0x4434
-    push word [bp + 0x4]             ; 0x4435
+    push word [bp + 4]               ; 0x4435
     call roll_slot_values            ; 0x4438
     add sp, byte 8                   ; 0x443b
     mov ax, 0x1d                     ; 0x443e
@@ -140,7 +140,7 @@ jumptable_45b6_case_5:
     push ax                          ; 0x4445
     mov ax, 3                        ; 0x4446
     push ax                          ; 0x4449
-    push word [bp + 0x4]             ; 0x444a
+    push word [bp + 4]               ; 0x444a
     call api_idx_0002_SLJI           ; 0x444d
     add sp, byte 8                   ; 0x4450
     jmp near @..loc_KPKJ.l2          ; 0x4453
@@ -150,7 +150,7 @@ jumptable_45b6_case_7:
     mov ax, 3                        ; 0x445a
     push ax                          ; 0x445d
     push ax                          ; 0x445e
-    push word [bp + 0x4]             ; 0x445f
+    push word [bp + 4]               ; 0x445f
     call roll_slot_values            ; 0x4462
     add sp, byte 8                   ; 0x4465
     mov ax, 0x1f                     ; 0x4468
@@ -159,7 +159,7 @@ jumptable_45b6_case_7:
     push ax                          ; 0x446f
     mov ax, 3                        ; 0x4470
     push ax                          ; 0x4473
-    push word [bp + 0x4]             ; 0x4474
+    push word [bp + 4]               ; 0x4474
     call api_idx_0002_SLJI           ; 0x4477
     add sp, byte 8                   ; 0x447a
     jmp near @..loc_KPKJ.l2          ; 0x447d
@@ -169,7 +169,7 @@ jumptable_45b6_case_9:
     mov ax, 2                        ; 0x4484
     push ax                          ; 0x4487
     push ax                          ; 0x4488
-    push word [bp + 0x4]             ; 0x4489
+    push word [bp + 4]               ; 0x4489
     call roll_slot_values            ; 0x448c
     add sp, byte 8                   ; 0x448f
     mov ax, 0x20                     ; 0x4492
@@ -177,7 +177,7 @@ jumptable_45b6_case_9:
     mov ax, 3                        ; 0x4496
     push ax                          ; 0x4499
     push ax                          ; 0x449a
-    push word [bp + 0x4]             ; 0x449b
+    push word [bp + 4]               ; 0x449b
     call api_idx_0002_SLJI           ; 0x449e
     add sp, byte 8                   ; 0x44a1
     mov ax, 0x1e                     ; 0x44a4
@@ -186,7 +186,7 @@ jumptable_45b6_case_9:
     push ax                          ; 0x44ab
     mov ax, 3                        ; 0x44ac
     push ax                          ; 0x44af
-    push word [bp + 0x4]             ; 0x44b0
+    push word [bp + 4]               ; 0x44b0
     call api_idx_0002_SLJI           ; 0x44b3
     add sp, byte 8                   ; 0x44b6
     jmp near @..loc_KPKJ.l2          ; 0x44b9
@@ -196,7 +196,7 @@ jumptable_45b6_case_8:
     push ax                          ; 0x44c0
     mov ax, 6                        ; 0x44c1
     push ax                          ; 0x44c4
-    push word [bp + 0x4]             ; 0x44c5
+    push word [bp + 4]               ; 0x44c5
     call roll_slot_values            ; 0x44c8
     add sp, byte 8                   ; 0x44cb
     mov ax, 4                        ; 0x44ce
@@ -205,7 +205,7 @@ jumptable_45b6_case_8:
     push ax                          ; 0x44d5
     mov ax, 0                        ; 0x44d6
     push ax                          ; 0x44d9
-    push word [bp + 0x4]             ; 0x44da
+    push word [bp + 4]               ; 0x44da
     call api_idx_0002_SLJI           ; 0x44dd
     add sp, byte 8                   ; 0x44e0
     jmp near @..loc_KPKJ.l2          ; 0x44e3
@@ -216,7 +216,7 @@ jumptable_45b6_case_10:
     push ax                          ; 0x44ed
     mov ax, 7                        ; 0x44ee
     push ax                          ; 0x44f1
-    push word [bp + 0x4]             ; 0x44f2
+    push word [bp + 4]               ; 0x44f2
     call roll_slot_values            ; 0x44f5
     add sp, byte 8                   ; 0x44f8
     mov ax, 0x1c                     ; 0x44fb
@@ -224,7 +224,7 @@ jumptable_45b6_case_10:
     mov ax, 3                        ; 0x44ff
     push ax                          ; 0x4502
     push ax                          ; 0x4503
-    push word [bp + 0x4]             ; 0x4504
+    push word [bp + 4]               ; 0x4504
     call api_idx_0002_SLJI           ; 0x4507
     add sp, byte 8                   ; 0x450a
     jmp near @..loc_KPKJ.l2          ; 0x450d
@@ -235,7 +235,7 @@ jumptable_45b6_case_11:
     push ax                          ; 0x4517
     mov ax, 7                        ; 0x4518
     push ax                          ; 0x451b
-    push word [bp + 0x4]             ; 0x451c
+    push word [bp + 4]               ; 0x451c
     call roll_slot_values            ; 0x451f
     add sp, byte 8                   ; 0x4522
     mov ax, 1                        ; 0x4525
@@ -244,7 +244,7 @@ jumptable_45b6_case_11:
     push ax                          ; 0x452c
     mov ax, 0                        ; 0x452d
     push ax                          ; 0x4530
-    push word [bp + 0x4]             ; 0x4531
+    push word [bp + 4]               ; 0x4531
     call api_idx_0002_SLJI           ; 0x4534
     add sp, byte 8                   ; 0x4537
     jmp near @..loc_KPKJ.l2          ; 0x453a
@@ -254,7 +254,7 @@ jumptable_45b6_case_12:
     mov ax, 5                        ; 0x4541
     push ax                          ; 0x4544
     push ax                          ; 0x4545
-    push word [bp + 0x4]             ; 0x4546
+    push word [bp + 4]               ; 0x4546
     call roll_slot_values            ; 0x4549
     add sp, byte 8                   ; 0x454c
     mov ax, 9                        ; 0x454f
@@ -263,7 +263,7 @@ jumptable_45b6_case_12:
     push ax                          ; 0x4556
     mov ax, 0                        ; 0x4557
     push ax                          ; 0x455a
-    push word [bp + 0x4]             ; 0x455b
+    push word [bp + 4]               ; 0x455b
     call api_idx_0002_SLJI           ; 0x455e
     add sp, byte 8                   ; 0x4561
     mov ax, 0x1f                     ; 0x4564
@@ -271,7 +271,7 @@ jumptable_45b6_case_12:
     mov ax, 3                        ; 0x4568
     push ax                          ; 0x456b
     push ax                          ; 0x456c
-    push word [bp + 0x4]             ; 0x456d
+    push word [bp + 4]               ; 0x456d
     call api_idx_0002_SLJI           ; 0x4570
     add sp, byte 8                   ; 0x4573
     jmp short @..loc_KPKJ.l2         ; 0x4576
@@ -281,7 +281,7 @@ jumptable_45b6_case_13:
     mov ax, 6                        ; 0x457c
     push ax                          ; 0x457f
     push ax                          ; 0x4580
-    push word [bp + 0x4]             ; 0x4581
+    push word [bp + 4]               ; 0x4581
     call roll_slot_values            ; 0x4584
     add sp, byte 8                   ; 0x4587
     mov ax, 9                        ; 0x458a
@@ -290,7 +290,7 @@ jumptable_45b6_case_13:
     push ax                          ; 0x4591
     mov ax, 0                        ; 0x4592
     push ax                          ; 0x4595
-    push word [bp + 0x4]             ; 0x4596
+    push word [bp + 4]               ; 0x4596
     call api_idx_0002_SLJI           ; 0x4599
     add sp, byte 8                   ; 0x459c
     mov ax, 0x11                     ; 0x459f
@@ -299,7 +299,7 @@ jumptable_45b6_case_13:
     push ax                          ; 0x45a6
     mov ax, 1                        ; 0x45a7
     push ax                          ; 0x45aa
-    push word [bp + 0x4]             ; 0x45ab
+    push word [bp + 4]               ; 0x45ab
     call api_idx_0002_SLJI           ; 0x45ae
     add sp, byte 8                   ; 0x45b1
     jmp short @..loc_KPKJ.l2         ; 0x45b4

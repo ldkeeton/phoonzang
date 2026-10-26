@@ -15,26 +15,26 @@ invert_area:
     mov bx, 0x140                    ; 0x0c5d
     mul bx                           ; 0x0c60
     add ax, word [bp + 0xc]          ; 0x0c62
-    mov word [bp - 0x0002], ax       ; 0x0c65
+    mov word [bp - 2], ax            ; 0x0c65
     mov ax, word [bp + 0x12]         ; 0x0c68
     sub ax, word [bp + 0xe]          ; 0x0c6b
     inc ax                           ; 0x0c6e
-    mov word [bp - 0x0004], ax       ; 0x0c6f
+    mov word [bp - 4], ax            ; 0x0c6f
     mov ax, word [bp + 0x10]         ; 0x0c72
     sub ax, word [bp + 0xc]          ; 0x0c75
     inc ax                           ; 0x0c78
-    mov word [bp - 0x0006], ax       ; 0x0c79
+    mov word [bp - 6], ax            ; 0x0c79
 @..invert_area.l1:
-    mov di, word [bp - 0x0002]       ; 0x0c7c
+    mov di, word [bp - 2]            ; 0x0c7c
     mov si, di                       ; 0x0c7f
-    add word [bp - 0x0002], strict word 0x140 ; 0x0c81
-    mov cx, word [bp - 0x0006]       ; 0x0c86
+    add word [bp - 2], strict word 0x140 ; 0x0c81
+    mov cx, word [bp - 6]            ; 0x0c86
 @..invert_area.l2:
     lodsb                            ; 0x0c89
     not al                           ; 0x0c8a
     stosb                            ; 0x0c8c
     loop @..invert_area.l2           ; 0x0c8d
-    dec word [bp - 0x0004]           ; 0x0c8f
+    dec word [bp - 4]                ; 0x0c8f
     jne short @..invert_area.l1      ; 0x0c92
     pop di                           ; 0x0c94
     pop ds                           ; 0x0c95

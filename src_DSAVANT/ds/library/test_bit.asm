@@ -7,8 +7,8 @@ test_bit:
     push si                          ; 0x3ec0
     mov ax, ds                       ; 0x3ec1
     mov es, ax                       ; 0x3ec3
-    mov si, word [bp + 0x4]          ; 0x3ec5
-    mov bx, word [bp + 0x6]          ; 0x3ec8
+    mov si, word [bp + 4]            ; 0x3ec5
+    mov bx, word [bp + 6]            ; 0x3ec8
     mov dx, bx                       ; 0x3ecb
     mov cl, 3                        ; 0x3ecd
     shr bx, cl                       ; 0x3ecf

@@ -12,22 +12,22 @@ loc_KOGT:
     call aztec_setmem                ; 0x1258
     add sp, byte 6                   ; 0x125b
     mov word [party_status_frame_step], 0 ; 0x125e
-    mov ax, word [bp + 0x4]          ; 0x1264
+    mov ax, word [bp + 4]            ; 0x1264
     jmp short @..loc_KOGT.l5         ; 0x1267
 @..loc_KOGT.l1:
-    mov ax, word [bp + 0x6]          ; 0x1269
+    mov ax, word [bp + 6]            ; 0x1269
     add word [party_world_y], ax     ; 0x126c
     jmp short @..loc_KOGT.l6         ; 0x1270
 @..loc_KOGT.l2:
-    mov ax, word [bp + 0x6]          ; 0x1272
+    mov ax, word [bp + 6]            ; 0x1272
     add word [party_world_x], ax     ; 0x1275
     jmp short @..loc_KOGT.l6         ; 0x1279
 @..loc_KOGT.l3:
-    mov ax, word [bp + 0x6]          ; 0x127b
+    mov ax, word [bp + 6]            ; 0x127b
     sub word [party_world_y], ax     ; 0x127e
     jmp short @..loc_KOGT.l6         ; 0x1282
 @..loc_KOGT.l4:
-    mov ax, word [bp + 0x6]          ; 0x1284
+    mov ax, word [bp + 6]            ; 0x1284
     sub word [party_world_x], ax     ; 0x1287
     jmp short @..loc_KOGT.l6         ; 0x128b
 @..loc_KOGT.l5:

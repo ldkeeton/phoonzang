@@ -4,7 +4,7 @@ loc_GSUP:
     call aztec_csav                  ; 0x73bf
     les bx, word [tick_counter_ptr]  ; 0x73c2
     mov ax, word [es:bx]             ; 0x73c6
-    mov dx, word [es:bx + 0x2]       ; 0x73c9
+    mov dx, word [es:bx + 2]         ; 0x73c9
     sub ax, word [party_redraw_last_tick] ; 0x73cd
     sbb dx, word [party_redraw_last_tick_hi] ; 0x73d1
     push ax                          ; 0x73d5
@@ -31,7 +31,7 @@ loc_GSUP:
     mov word [scene_frame], dx       ; 0x73f7
     les bx, word [tick_counter_ptr]  ; 0x73fb
     mov ax, word [es:bx]             ; 0x73ff
-    mov dx, word [es:bx + 0x2]       ; 0x7402
+    mov dx, word [es:bx + 2]         ; 0x7402
     mov word [party_redraw_last_tick_hi], dx ; 0x7406
     mov word [party_redraw_last_tick], ax ; 0x740a
     mov ax, 1                        ; 0x740d

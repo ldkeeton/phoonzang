@@ -105,7 +105,7 @@ loc_LPMH:
     push dx                          ; 0x0f29
     mov bx, cseg_0d03 - IMAGE_BASE   ; 0x0f2a
 loc_MGMT:
-    inc word [cs:bx + 0x3]           ; 0x0f2d
+    inc word [cs:bx + 3]             ; 0x0f2d
     add bx, byte 5                   ; 0x0f31
     cmp bx, opl_voice_count - IMAGE_BASE ; 0x0f34
     jb short loc_MGMT                ; 0x0f38

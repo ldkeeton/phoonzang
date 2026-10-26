@@ -35,7 +35,7 @@ save_screen:
     mov ax, word [cs:maze_paras_used - IMAGE_BASE]
     mov word [cs:bx], ax
     mov cx, 0xfa0
-    mov word [cs:bx + 0x2], cx
+    mov word [cs:bx + 2], cx
     mov dx, word [cs:maze_paras_used - IMAGE_BASE]
     add dx, cx
     mov word [cs:maze_paras_used - IMAGE_BASE], dx

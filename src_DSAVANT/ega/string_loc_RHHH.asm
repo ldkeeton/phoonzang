@@ -18,26 +18,26 @@ string_loc_RHHH:
 @..string_loc_RHHH.l1:
     push cx                          ; 0x17c5
     mov cx, word [cs:cseg_248d - IMAGE_BASE] ; 0x17c6
-    mov word [bp - 0x0002], cx       ; 0x17cb
+    mov word [bp - 2], cx            ; 0x17cb
     mov al, 6                        ; 0x17ce
-    mov byte [bp - 0x0004], al       ; 0x17d0
+    mov byte [bp - 4], al            ; 0x17d0
 @..string_loc_RHHH.l2:
     lodsb                            ; 0x17d3
-    mov ah, byte [bp - 0x0004]       ; 0x17d4
+    mov ah, byte [bp - 4]            ; 0x17d4
     call leaf_loc_TTKL               ; 0x17d7
     or byte [cs:di + cseg_2902 - IMAGE_BASE], ch ; 0x17da
     or byte [cs:di + cseg_2502 - IMAGE_BASE], dl ; 0x17df
     or byte [cs:di + cseg_2602 - IMAGE_BASE], dh ; 0x17e4
     or byte [cs:di + cseg_2702 - IMAGE_BASE], al ; 0x17e9
     or byte [cs:di + cseg_2802 - IMAGE_BASE], ah ; 0x17ee
-    sub byte [bp - 0x0004], 2        ; 0x17f3
+    sub byte [bp - 4], 2             ; 0x17f3
     jae short @..string_loc_RHHH.l3  ; 0x17f7
     inc di                           ; 0x17f9
-    mov byte [bp - 0x0004], 6        ; 0x17fa
+    mov byte [bp - 4], 6             ; 0x17fa
 @..string_loc_RHHH.l3:
-    dec word [bp - 0x0002]           ; 0x17fe
+    dec word [bp - 2]                ; 0x17fe
     jne short @..string_loc_RHHH.l2  ; 0x1801
-    cmp byte [bp - 0x0004], 6        ; 0x1803
+    cmp byte [bp - 4], 6             ; 0x1803
     je short @..string_loc_RHHH.l4   ; 0x1807
     inc di                           ; 0x1809
 @..string_loc_RHHH.l4:

@@ -6,17 +6,17 @@ ovmain:
     mov word [bss_9180], 5           ; 0x001a
     les bx, word [tick_counter_ptr]  ; 0x0020
     mov ax, word [es:bx]             ; 0x0024
-    mov dx, word [es:bx + 0x2]       ; 0x0027
+    mov dx, word [es:bx + 2]         ; 0x0027
     mov word [party_redraw_last_tick_hi], dx ; 0x002b
     mov word [party_redraw_last_tick], ax ; 0x002f
-    mov word [bp - 0x0002], 0        ; 0x0032
+    mov word [bp - 2], 0             ; 0x0032
 @..ovmain.l1:
-    mov ax, word [bp - 0x0002]       ; 0x0037
+    mov ax, word [bp - 2]            ; 0x0037
     shl ax, 1                        ; 0x003a
     mov bx, ax                       ; 0x003c
     mov word [bx + bss_9182], 0      ; 0x003e
-    inc word [bp - 0x0002]           ; 0x0044
-    mov ax, word [bp - 0x0002]       ; 0x0047
+    inc word [bp - 2]                ; 0x0044
+    mov ax, word [bp - 2]            ; 0x0047
     cmp ax, strict word 3            ; 0x004a
     jl short @..ovmain.l1            ; 0x004d
     cmp word [saved_screen_pending], byte 0 ; 0x004f

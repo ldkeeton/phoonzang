@@ -3,23 +3,23 @@ api_idx_0004_UQUT:
     mov ax, 0xfffc                   ; 0x08eb
     call aztec_csav                  ; 0x08ee
     call flush_keyboard              ; 0x08f1
-    mov ax, word [bp + 0x4]          ; 0x08f4
+    mov ax, word [bp + 4]            ; 0x08f4
     cwd                              ; 0x08f7
     les bx, word [tick_counter_ptr]  ; 0x08f8
     mov cx, word [es:bx]             ; 0x08fc
-    mov bx, word [es:bx + 0x2]       ; 0x08ff
+    mov bx, word [es:bx + 2]         ; 0x08ff
     add ax, cx                       ; 0x0903
     adc dx, bx                       ; 0x0905
-    mov word [bp - 0x0002], dx       ; 0x0907
-    mov word [bp - 0x0004], ax       ; 0x090a
+    mov word [bp - 2], dx            ; 0x0907
+    mov word [bp - 4], ax            ; 0x090a
 @..api_idx_0004_UQUT.l1:
     les bx, word [tick_counter_ptr]  ; 0x090d
     mov ax, word [es:bx]             ; 0x0911
-    mov dx, word [es:bx + 0x2]       ; 0x0914
-    cmp dx, word [bp - 0x0002]       ; 0x0918
+    mov dx, word [es:bx + 2]         ; 0x0914
+    cmp dx, word [bp - 2]            ; 0x0918
     jg short @..api_idx_0004_UQUT.l2 ; 0x091b
     jne short @..api_idx_0004_UQUT.l3 ; 0x091d
-    cmp ax, word [bp - 0x0004]       ; 0x091f
+    cmp ax, word [bp - 4]            ; 0x091f
     jb short @..api_idx_0004_UQUT.l3 ; 0x0922
 @..api_idx_0004_UQUT.l2:
     jmp short @..api_idx_0004_UQUT.l7 ; 0x0924

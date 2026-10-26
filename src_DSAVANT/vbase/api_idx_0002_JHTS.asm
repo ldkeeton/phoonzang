@@ -20,7 +20,7 @@ api_idx_0002_JHTS:
     push ax                          ; 0x8cca
     push ax                          ; 0x8ccb
     call gfx_cache_area              ; 0x8ccc
-    add sp, byte 0x0c                ; 0x8ccf
+    add sp, byte 0xc                 ; 0x8ccf
     mov word [scene_backdrop_ref_hi], dx ; 0x8cd2
     mov word [scene_backdrop_ref], ax ; 0x8cd6
     mov ax, 0xf                      ; 0x8cd9
@@ -29,7 +29,7 @@ api_idx_0002_JHTS:
     push ax                          ; 0x8ce0
     call api_idx_0016_LTLN           ; 0x8ce1
     add sp, byte 4                   ; 0x8ce4
-    mov ax, word [bp + 0x6]          ; 0x8ce7
+    mov ax, word [bp + 6]            ; 0x8ce7
     mov word [scene_cue_a], ax       ; 0x8cea
     mov ax, dseg_917f                ; 0x8ced
     push ax                          ; 0x8cf0
@@ -44,7 +44,7 @@ api_idx_0002_JHTS:
     mov word [bss_a5ae], 5           ; 0x8d13
     les bx, word [tick_counter_ptr]  ; 0x8d19
     mov ax, word [es:bx]             ; 0x8d1d
-    mov dx, word [es:bx + 0x2]       ; 0x8d20
+    mov dx, word [es:bx + 2]         ; 0x8d20
     mov word [party_redraw_last_tick_hi], dx ; 0x8d24
     mov word [party_redraw_last_tick], ax ; 0x8d28
     call draw_scene_frame            ; 0x8d2b
@@ -69,7 +69,7 @@ api_idx_0002_JHTS:
     pop cx                           ; 0x8d54
     mov ax, 0                        ; 0x8d55
     push ax                          ; 0x8d58
-    push word [bp + 0x4]             ; 0x8d59
+    push word [bp + 4]               ; 0x8d59
     call loc_LIQV                    ; 0x8d5c
     add sp, byte 4                   ; 0x8d5f
     mov ax, 0xf                      ; 0x8d62

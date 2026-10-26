@@ -1,6 +1,6 @@
 ; auto-generated
 allocate_driver_blocks:
-    cmp word [bp - 0x0002], byte 0   ; 0x36f5
+    cmp word [bp - 2], byte 0        ; 0x36f5
     jne short @..allocate_driver_blocks.l1 ; 0x36f9
     jmp near ds_loc_LGTQ             ; 0x36fb
 @..allocate_driver_blocks.l1:
@@ -14,7 +14,7 @@ allocate_driver_blocks:
     int 0x21 ; DOS allocate memory
     pop si                           ; 0x370e
     jb short @..allocate_driver_blocks.l3 ; 0x370f
-    mov word [cs:si + 0x2], ax       ; 0x3711
+    mov word [cs:si + 2], ax         ; 0x3711
     add si, byte 4                   ; 0x3715
     jmp short @..allocate_driver_blocks.l2 ; 0x3718
 @..allocate_driver_blocks.l3:

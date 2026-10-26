@@ -30,7 +30,7 @@ api_idx_001e_GOQP:
     mov ax, 0x48                     ; 0x70f2
     push ax                          ; 0x70f5
     call gfx_cache_area              ; 0x70f6
-    add sp, byte 0x0c                ; 0x70f9
+    add sp, byte 0xc                 ; 0x70f9
     mov word [screen_cache_0_seg], dx ; 0x70fc
     mov word [screen_cache], ax      ; 0x7100
     cmp word [saved_screen_pending], byte 0 ; 0x7103
@@ -55,16 +55,16 @@ api_idx_001e_GOQP:
     mov ax, 0x48                     ; 0x7132
     push ax                          ; 0x7135
     call gfx_cache_area              ; 0x7136
-    add sp, byte 0x0c                ; 0x7139
+    add sp, byte 0xc                 ; 0x7139
     mov word [screen_cache_1_seg], dx ; 0x713c
     mov word [screen_cache_1_off], ax ; 0x7140
-    mov word [bp - 0x0002], 0        ; 0x7143
+    mov word [bp - 2], 0             ; 0x7143
 @..api_idx_001e_GOQP.l5:
     mov ax, 0x18                     ; 0x7148
     push ax                          ; 0x714b
     call aztec_malloc                ; 0x714c
     pop cx                           ; 0x714f
-    mov cx, word [bp - 0x0002]       ; 0x7150
+    mov cx, word [bp - 2]            ; 0x7150
     shl cx, 1                        ; 0x7153
     mov bx, cx                       ; 0x7155
     mov word [bx + overlay_list + 0x2], ax ; 0x7157
@@ -75,13 +75,13 @@ api_idx_001e_GOQP:
     call release_and_exit            ; 0x7166
     pop cx                           ; 0x7169
 @..api_idx_001e_GOQP.l6:
-    mov ax, word [bp - 0x0002]       ; 0x716a
+    mov ax, word [bp - 2]            ; 0x716a
     shl ax, 1                        ; 0x716d
     mov bx, ax                       ; 0x716f
     mov bx, word [bx + overlay_list + 0x2] ; 0x7171
     mov byte [bx + overlay_list_rec.f_0014], 0xff ; 0x7175
-    inc word [bp - 0x0002]           ; 0x7179
-    mov ax, word [bp - 0x0002]       ; 0x717c
+    inc word [bp - 2]                ; 0x7179
+    mov ax, word [bp - 2]            ; 0x717c
     cmp ax, strict word 0xc          ; 0x717f
     jl short @..api_idx_001e_GOQP.l5 ; 0x7182
     mov word [overlay_list], 0       ; 0x7184
@@ -102,18 +102,18 @@ api_idx_001e_GOQP:
     push ax                          ; 0x71ad
     call aztec_setmem                ; 0x71ae
     add sp, byte 6                   ; 0x71b1
-    mov word [bp - 0x0002], 0xf      ; 0x71b4
+    mov word [bp - 2], 0xf           ; 0x71b4
 @..api_idx_001e_GOQP.l7:
-    mov bx, word [bp - 0x0002]       ; 0x71b9
+    mov bx, word [bp - 2]            ; 0x71b9
     mov byte [bx + picture_slot_number], 0xff ; 0x71bc
     mov byte [bx + picture_slot_used], 0 ; 0x71c1
-    inc word [bp - 0x0002]           ; 0x71c6
-    mov ax, word [bp - 0x0002]       ; 0x71c9
+    inc word [bp - 2]                ; 0x71c6
+    mov ax, word [bp - 2]            ; 0x71c9
     cmp ax, strict word 0x12         ; 0x71cc
     jl short @..api_idx_001e_GOQP.l7 ; 0x71cf
     les bx, word [tick_counter_ptr]  ; 0x71d1
     mov ax, word [es:bx]             ; 0x71d5
-    mov dx, word [es:bx + 0x2]       ; 0x71d8
+    mov dx, word [es:bx + 2]         ; 0x71d8
     mov word [party_redraw_last_tick_hi], dx ; 0x71dc
     mov word [party_redraw_last_tick], ax ; 0x71e0
     mov word [bss_93d6], 5           ; 0x71e3

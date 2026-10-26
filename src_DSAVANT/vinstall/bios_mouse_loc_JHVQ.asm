@@ -11,6 +11,6 @@ bios_mouse_loc_JHVQ:
     int 0x33 ; BIOS mouse
     or al, al                        ; 0x2517
     je short @..bios_mouse_loc_JHVQ.l1 ; 0x2519
-    or word [bp - 0x0002], strict word 0x1000 ; 0x251b
+    or word [bp - 2], strict word 0x1000 ; 0x251b
 @..bios_mouse_loc_JHVQ.l1:
     ret                              ; 0x2520

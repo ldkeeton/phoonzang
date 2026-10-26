@@ -3,11 +3,11 @@ api_idx_0002_NMTS:
     mov ax, 0xfffe                   ; 0x98cc
     call aztec_csav                  ; 0x98cf
     mov ax, 0x26                     ; 0x98d2
-    imul word [bp + 0x4]             ; 0x98d5
+    imul word [bp + 4]               ; 0x98d5
     mov bx, ax                       ; 0x98d8
     mov al, byte [bx + slot_records + slot_record.f_0003] ; 0x98da
     sub ah, ah                       ; 0x98de
-    mov word [bp - 0x0002], ax       ; 0x98e0
+    mov word [bp - 2], ax            ; 0x98e0
     shl ax, 1                        ; 0x98e3
     shl ax, 1                        ; 0x98e5
     mov bx, ax                       ; 0x98e7
@@ -21,7 +21,7 @@ api_idx_0002_NMTS:
     jne short @..api_idx_0002_NMTS.l1 ; 0x98fa
     mov ax, 1                        ; 0x98fc
     push ax                          ; 0x98ff
-    mov ax, word [bp - 0x0002]       ; 0x9900
+    mov ax, word [bp - 2]            ; 0x9900
     shl ax, 1                        ; 0x9903
     shl ax, 1                        ; 0x9905
     mov bx, ax                       ; 0x9907
@@ -29,7 +29,7 @@ api_idx_0002_NMTS:
     cbw                              ; 0x990d
     push ax                          ; 0x990e
     mov ax, 0x26                     ; 0x990f
-    imul word [bp + 0x4]             ; 0x9912
+    imul word [bp + 4]               ; 0x9912
     add ax, slot_records + slot_record.selected_bits ; 0x9915
     push ax                          ; 0x9918
     call set_bitmap_bit              ; 0x9919

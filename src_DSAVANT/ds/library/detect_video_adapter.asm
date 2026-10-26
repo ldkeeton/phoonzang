@@ -3,7 +3,7 @@ detect_video_adapter:
     mov ah, 0xf                      ; 0x30f7
     int 0x10 ; BIOS video: get video mode
     mov byte [cs:saved_video_mode - IMAGE_BASE], al ; 0x30fb
-    mov ax, word [bp + 0x4]          ; 0x30ff
+    mov ax, word [bp + 4]            ; 0x30ff
     and ax, strict word 1            ; 0x3102
     jne short @..detect_video_adapter.l1 ; 0x3105
     jmp near select_ega_driver       ; 0x3107
@@ -30,5 +30,5 @@ detect_video_adapter:
 @..detect_video_adapter.l2:
     jmp near select_vga_driver       ; 0x3135
 @..detect_video_adapter.l3:
-    mov word [bp - 0x0002], 0        ; 0x3138
+    mov word [bp - 2], 0             ; 0x3138
     ret                              ; 0x313d

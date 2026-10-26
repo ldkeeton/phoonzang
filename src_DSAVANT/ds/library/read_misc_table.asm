@@ -11,7 +11,7 @@ read_misc_table:
     mov bx, word [cs:misc_table_seg - IMAGE_BASE] ; 0x3fb6
     mov ds, bx                       ; 0x3fbb
     xor dx, dx                       ; 0x3fbd
-    mov bx, word [bp + 0x4]          ; 0x3fbf
+    mov bx, word [bp + 4]            ; 0x3fbf
     mov ah, 0x3f                     ; 0x3fc2
     int 0x21 ; DOS read file (handle)
     jb short @..read_misc_table.l1   ; 0x3fc6

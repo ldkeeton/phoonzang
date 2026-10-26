@@ -13,7 +13,7 @@ load_font_file:
     mov bx, word [cs:font_header_seg - IMAGE_BASE] ; 0x386f
     mov ds, bx                       ; 0x3874
     xor dx, dx                       ; 0x3876
-    mov bx, word [bp + 0x4]          ; 0x3878
+    mov bx, word [bp + 4]            ; 0x3878
     mov cx, 0x10                     ; 0x387b
     mov ah, 0x3f                     ; 0x387e
     int 0x21 ; DOS read file (handle)
@@ -23,30 +23,30 @@ load_font_file:
     xor bx, bx                       ; 0x3887
     mov ax, word [bx + 0xa]          ; 0x3889
     xor cx, cx                       ; 0x388c
-    mov cl, byte [bx + 0x5]          ; 0x388e
+    mov cl, byte [bx + 5]            ; 0x388e
     mul cx                           ; 0x3891
-    mov word [bp - 0x0008], ax       ; 0x3893
+    mov word [bp - 8], ax            ; 0x3893
     add ax, file_param_word          ; 0x3896
-    mov word [bp - 0x0002], ax       ; 0x3899
-    mov word [bp - 0x0004], ax       ; 0x389c
-    mov al, byte [bx + 0x2]          ; 0x389f
+    mov word [bp - 2], ax            ; 0x3899
+    mov word [bp - 4], ax            ; 0x389c
+    mov al, byte [bx + 2]            ; 0x389f
     or al, al                        ; 0x38a2
     jne short @..load_font_file.l2   ; 0x38a4
-    mov dl, byte [bx + 0x6]          ; 0x38a6
+    mov dl, byte [bx + 6]            ; 0x38a6
     test dl, 2                       ; 0x38a9
     je short @..load_font_file.l2    ; 0x38ac
     mov ax, word [bx + 0xe]          ; 0x38ae
     xor ch, ch                       ; 0x38b1
-    mov cl, byte [bx + 0x5]          ; 0x38b3
+    mov cl, byte [bx + 5]            ; 0x38b3
     mul cx                           ; 0x38b6
-    add word [bp - 0x0004], ax       ; 0x38b8
-    mov dl, byte [bx + 0x6]          ; 0x38bb
+    add word [bp - 4], ax            ; 0x38b8
+    mov dl, byte [bx + 6]            ; 0x38bb
     test dl, 4                       ; 0x38be
     je short @..load_font_file.l2    ; 0x38c1
-    add word [bp - 0x0002], ax       ; 0x38c3
+    add word [bp - 2], ax            ; 0x38c3
 @..load_font_file.l2:
-    mov dx, word [bp - 0x0004]       ; 0x38c6
-    add dx, byte 0x0f                ; 0x38c9
+    mov dx, word [bp - 4]            ; 0x38c6
+    add dx, byte 0xf                 ; 0x38c9
     mov cl, 4                        ; 0x38cc
     shr dx, cl                       ; 0x38ce
     mov bx, dx                       ; 0x38d0
@@ -56,7 +56,7 @@ load_font_file:
     jmp near font_memory_error       ; 0x38d8
 @..load_font_file.l3:
     mov bx, font_seg_table - IMAGE_BASE ; 0x38db
-    mov cx, word [bp + 0x6]          ; 0x38de
+    mov cx, word [bp + 6]            ; 0x38de
     shl cx, 1                        ; 0x38e1
     add bx, cx                       ; 0x38e3
     mov word [cs:bx], ax             ; 0x38e5
@@ -67,25 +67,25 @@ load_font_file:
     rep movsb                        ; 0x38f1
     mov ds, ax                       ; 0x38f3
     mov dx, 0x10                     ; 0x38f5
-    mov bx, word [bp + 0x4]          ; 0x38f8
-    mov cx, word [bp - 0x0002]       ; 0x38fb
+    mov bx, word [bp + 4]            ; 0x38f8
+    mov cx, word [bp - 2]            ; 0x38fb
     sub cx, dx                       ; 0x38fe
     mov ah, 0x3f                     ; 0x3900
     int 0x21 ; DOS read file (handle)
     jb short @..load_font_file.l5    ; 0x3904
     xor bx, bx                       ; 0x3906
-    mov al, byte [bx + 0x6]          ; 0x3908
+    mov al, byte [bx + 6]            ; 0x3908
     and al, 6                        ; 0x390b
     cmp al, 2                        ; 0x390d
     jne short @..load_font_file.l4   ; 0x390f
-    mov al, byte [bx + 0x2]          ; 0x3911
+    mov al, byte [bx + 2]            ; 0x3911
     or al, al                        ; 0x3914
     jne short @..load_font_file.l4   ; 0x3916
     mov ax, ds                       ; 0x3918
     mov es, ax                       ; 0x391a
     mov di, word [bx + 0xc]          ; 0x391c
     mov si, 0x110                    ; 0x391f
-    mov cx, word [bp - 0x0008]       ; 0x3922
+    mov cx, word [bp - 8]            ; 0x3922
     rep movsb                        ; 0x3925
 @..load_font_file.l4:
     pop es                           ; 0x3927

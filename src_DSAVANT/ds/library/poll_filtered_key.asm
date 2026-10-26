@@ -16,12 +16,12 @@ poll_filtered_key:
     mov bx, word [si]                ; 0x3cac
     or bx, bx                        ; 0x3cae
     je short @..poll_filtered_key.l7 ; 0x3cb0
-    mov ax, word [bp + 0x4]          ; 0x3cb2
+    mov ax, word [bp + 4]            ; 0x3cb2
     cmp al, 0                        ; 0x3cb5
     je short @..poll_filtered_key.l4 ; 0x3cb7
     cmp al, 2                        ; 0x3cb9
     je short @..poll_filtered_key.l2 ; 0x3cbb
-    mov al, byte [si + 0x2]          ; 0x3cbd
+    mov al, byte [si + 2]            ; 0x3cbd
     cmp al, 8                        ; 0x3cc0
     je short @..poll_filtered_key.l4 ; 0x3cc2
     cmp al, 9                        ; 0x3cc4
@@ -40,7 +40,7 @@ poll_filtered_key:
     jae short @..poll_filtered_key.l6 ; 0x3cde
     jmp near @..poll_filtered_key.l4 ; 0x3ce0
 @..poll_filtered_key.l2:
-    mov al, byte [si + 0x2]          ; 0x3ce3
+    mov al, byte [si + 2]            ; 0x3ce3
     cmp al, 8                        ; 0x3ce6
     je short @..poll_filtered_key.l4 ; 0x3ce8
     cmp al, 0x1b                     ; 0x3cea
@@ -81,12 +81,12 @@ poll_filtered_key:
     mov ax, 0                        ; 0x3d1f
     je short @..poll_filtered_key.l5 ; 0x3d22
     mov ax, 1                        ; 0x3d24
-    cmp word [bp + 0x4], byte 0      ; 0x3d27
+    cmp word [bp + 4], byte 0        ; 0x3d27
     je short @..poll_filtered_key.l5 ; 0x3d2b
     mov ah, 7                        ; 0x3d2d
     int 0x21 ; DOS keyboard input (no echo)
     mov bx, word [si]                ; 0x3d31
-    mov byte [bx + si + 0x2], al     ; 0x3d33
+    mov byte [bx + si + 2], al       ; 0x3d33
     inc word [si]                    ; 0x3d36
     cmp al, 0                        ; 0x3d38
     je short @..poll_filtered_key.l8 ; 0x3d3a
@@ -94,24 +94,24 @@ poll_filtered_key:
     jb short @..poll_filtered_key.l3 ; 0x3d3e
     cmp al, 0x7b                     ; 0x3d40
     jae short @..poll_filtered_key.l3 ; 0x3d42
-    and word [bx + si + 0x2], strict word 0xdf ; 0x3d44
+    and word [bx + si + 2], strict word 0xdf ; 0x3d44
     jmp short @..poll_filtered_key.l3 ; 0x3d49
 @..poll_filtered_key.l8:
     mov ah, 7                        ; 0x3d4b
     int 0x21 ; DOS keyboard input (no echo)
     mov bx, word [si]                ; 0x3d4f
-    mov byte [bx + si + 0x1], 8      ; 0x3d51
+    mov byte [bx + si + 1], 8        ; 0x3d51
     cmp al, 0x4b                     ; 0x3d55
     je short @..poll_filtered_key.l3 ; 0x3d57
-    mov byte [bx + si + 0x1], 9      ; 0x3d59
+    mov byte [bx + si + 1], 9        ; 0x3d59
     cmp al, 0x48                     ; 0x3d5d
     je short @..poll_filtered_key.l3 ; 0x3d5f
-    mov byte [bx + si + 0x1], 0xa    ; 0x3d61
+    mov byte [bx + si + 1], 0xa      ; 0x3d61
     cmp al, 0x4d                     ; 0x3d65
     je short @..poll_filtered_key.l3 ; 0x3d67
-    mov byte [bx + si + 0x1], 0xb    ; 0x3d69
+    mov byte [bx + si + 1], 0xb      ; 0x3d69
     cmp al, 0x50                     ; 0x3d6d
     je short @..poll_filtered_key.l3 ; 0x3d6f
-    mov byte [bx + si + 0x1], 0      ; 0x3d71
+    mov byte [bx + si + 1], 0        ; 0x3d71
     dec word [si]                    ; 0x3d75
     jmp short @..poll_filtered_key.l7 ; 0x3d77

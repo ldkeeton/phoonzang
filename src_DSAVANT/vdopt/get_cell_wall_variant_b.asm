@@ -2,18 +2,18 @@
 get_cell_wall_variant_b:
     mov ax, 0                        ; 0x0849
     call aztec_csav                  ; 0x084c
-    push word [bp + 0x6]             ; 0x084f
-    mov ax, word [bp + 0x4]          ; 0x0852
+    push word [bp + 6]               ; 0x084f
+    mov ax, word [bp + 4]            ; 0x0852
     dec ax                           ; 0x0855
     push ax                          ; 0x0856
     lea ax, word [bp + 0xc]          ; 0x0857
     push ax                          ; 0x085a
     lea ax, word [bp + 0xa]          ; 0x085b
     push ax                          ; 0x085e
-    lea ax, word [bp + 0x8]          ; 0x085f
+    lea ax, word [bp + 8]            ; 0x085f
     push ax                          ; 0x0862
     call find_map_piece              ; 0x0863
-    add sp, byte 0x0a                ; 0x0866
+    add sp, byte 0xa                 ; 0x0866
     test ax, ax                      ; 0x0869
     je short @..get_cell_wall_variant_b.l3 ; 0x086b
     mov ax, word [maze_variant]      ; 0x086d
@@ -44,7 +44,7 @@ get_cell_wall_variant_b:
     shl cx, 1                        ; 0x08a1
     shl cx, 1                        ; 0x08a3
     add ax, cx                       ; 0x08a5
-    add ax, word [bp + 0x8]          ; 0x08a7
+    add ax, word [bp + 8]            ; 0x08a7
     push ax                          ; 0x08aa
     mov ax, word [maze_data]         ; 0x08ab
     add ax, 0x290                    ; 0x08ae

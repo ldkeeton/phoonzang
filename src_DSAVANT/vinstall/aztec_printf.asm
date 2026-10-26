@@ -2,9 +2,9 @@
 aztec_printf:
     push bp                          ; 0x2c62
     mov bp, sp                       ; 0x2c63
-    lea ax, word [bp + 0x6]          ; 0x2c65
+    lea ax, word [bp + 6]            ; 0x2c65
     push ax                          ; 0x2c68
-    push word [bp + 0x4]             ; 0x2c69
+    push word [bp + 4]               ; 0x2c69
     mov ax, aztec_putchar - IMAGE_BASE ; 0x2c6c
     push ax                          ; 0x2c6f
     call aztec_format                ; 0x2c70

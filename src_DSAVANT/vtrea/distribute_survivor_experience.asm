@@ -2,20 +2,20 @@
 distribute_survivor_experience:
     mov ax, 0xff58                   ; 0x5d80
     call aztec_csav                  ; 0x5d83
-    mov word [bp - 0x0004], 0        ; 0x5d86
-    mov word [bp - 0x0002], 0        ; 0x5d8b
+    mov word [bp - 4], 0             ; 0x5d86
+    mov word [bp - 2], 0             ; 0x5d8b
     jmp short @..distribute_survivor_experience.l3 ; 0x5d90
 @..distribute_survivor_experience.l1:
     mov ax, 0x248                    ; 0x5d92
-    imul word [bp - 0x0002]          ; 0x5d95
+    imul word [bp - 2]               ; 0x5d95
     mov bx, ax                       ; 0x5d98
     cmp byte [bx + party_records + pc_rec.state], 0 ; 0x5d9a
     jne short @..distribute_survivor_experience.l2 ; 0x5d9f
-    inc word [bp - 0x0004]           ; 0x5da1
+    inc word [bp - 4]                ; 0x5da1
 @..distribute_survivor_experience.l2:
-    inc word [bp - 0x0002]           ; 0x5da4
+    inc word [bp - 2]                ; 0x5da4
 @..distribute_survivor_experience.l3:
-    mov ax, word [bp - 0x0002]       ; 0x5da7
+    mov ax, word [bp - 2]            ; 0x5da7
     cmp ax, word [party_char_count]  ; 0x5daa
     jl short @..distribute_survivor_experience.l1 ; 0x5dae
     mov ax, word [item_action_reward] ; 0x5db0
@@ -26,7 +26,7 @@ distribute_survivor_experience:
     push ax                          ; 0x5dc0
     push dx                          ; 0x5dc1
     mov ax, word [party_char_count]  ; 0x5dc2
-    sub ax, word [bp - 0x0004]       ; 0x5dc5
+    sub ax, word [bp - 4]            ; 0x5dc5
     cwd                              ; 0x5dc8
     mov cx, ax                       ; 0x5dc9
     mov bx, dx                       ; 0x5dcb
@@ -42,42 +42,42 @@ distribute_survivor_experience:
     pop ax                           ; 0x5dda
     mul cx                           ; 0x5ddb
     add dx, bx                       ; 0x5ddd
-    mov word [bp - 0x0006], dx       ; 0x5ddf
-    mov word [bp - 0x0008], ax       ; 0x5de2
-    mov ax, word [bp - 0x0008]       ; 0x5de5
-    mov dx, word [bp - 0x0006]       ; 0x5de8
+    mov word [bp - 6], dx            ; 0x5ddf
+    mov word [bp - 8], ax            ; 0x5de2
+    mov ax, word [bp - 8]            ; 0x5de5
+    mov dx, word [bp - 6]            ; 0x5de8
     add word [item_action_reward], ax ; 0x5deb
     adc word [item_action_reward_hi], dx ; 0x5def
     mov ax, word [item_action_reward] ; 0x5df3
     mov dx, word [item_action_reward_hi] ; 0x5df6
     push ax                          ; 0x5dfa
     push dx                          ; 0x5dfb
-    mov ax, word [bp - 0x0004]       ; 0x5dfc
+    mov ax, word [bp - 4]            ; 0x5dfc
     cwd                              ; 0x5dff
     mov cx, ax                       ; 0x5e00
     mov bx, dx                       ; 0x5e02
     pop dx                           ; 0x5e04
     pop ax                           ; 0x5e05
     call aztec_ldv                   ; 0x5e06
-    mov word [bp - 0x0006], dx       ; 0x5e09
-    mov word [bp - 0x0008], ax       ; 0x5e0c
-    lea ax, word [bp - 0x0058]       ; 0x5e0f
+    mov word [bp - 6], dx            ; 0x5e09
+    mov word [bp - 8], ax            ; 0x5e0c
+    lea ax, word [bp - 0x58]         ; 0x5e0f
     push ax                          ; 0x5e12
     mov ax, MSG_EVERY_SURVIVOR_EARNS_EXP ; 0x5e13
     push ax                          ; 0x5e16
     call load_message_string         ; 0x5e17
     add sp, byte 4                   ; 0x5e1a
-    lea ax, word [bp - 0x00a8]       ; 0x5e1d
+    lea ax, word [bp - 0xa8]         ; 0x5e1d
     push ax                          ; 0x5e21
-    push word [bp - 0x0006]          ; 0x5e22
-    push word [bp - 0x0008]          ; 0x5e25
+    push word [bp - 6]               ; 0x5e22
+    push word [bp - 8]               ; 0x5e25
     call format_long_decimal         ; 0x5e28
     add sp, byte 6                   ; 0x5e2b
     mov ax, 0x24                     ; 0x5e2e
     push ax                          ; 0x5e31
-    lea ax, word [bp - 0x00a8]       ; 0x5e32
+    lea ax, word [bp - 0xa8]         ; 0x5e32
     push ax                          ; 0x5e36
-    lea ax, word [bp - 0x0058]       ; 0x5e37
+    lea ax, word [bp - 0x58]         ; 0x5e37
     push ax                          ; 0x5e3a
     call str_subst_char              ; 0x5e3b
     add sp, byte 6                   ; 0x5e3e
@@ -86,26 +86,26 @@ distribute_survivor_experience:
     mov ax, 0                        ; 0x5e45
     push ax                          ; 0x5e48
     push word [treasure_message_row] ; 0x5e49
-    lea ax, word [bp - 0x0058]       ; 0x5e4d
+    lea ax, word [bp - 0x58]         ; 0x5e4d
     push ax                          ; 0x5e50
     call show_treasure_message       ; 0x5e51
     add sp, byte 8                   ; 0x5e54
-    mov word [bp - 0x0002], 0        ; 0x5e57
+    mov word [bp - 2], 0             ; 0x5e57
     jmp short @..distribute_survivor_experience.l6 ; 0x5e5c
 @..distribute_survivor_experience.l4:
     mov ax, 0x248                    ; 0x5e5e
-    imul word [bp - 0x0002]          ; 0x5e61
+    imul word [bp - 2]               ; 0x5e61
     mov bx, ax                       ; 0x5e64
     cmp byte [bx + party_records + pc_rec.state], 0 ; 0x5e66
     jne short @..distribute_survivor_experience.l5 ; 0x5e6b
-    mov ax, word [bp - 0x0008]       ; 0x5e6d
-    mov dx, word [bp - 0x0006]       ; 0x5e70
+    mov ax, word [bp - 8]            ; 0x5e6d
+    mov dx, word [bp - 6]            ; 0x5e70
     add word [bx + party_records + pc_rec.experience], ax ; 0x5e73
     adc word [bx + party_records + pc_rec.experience + 0x2], dx ; 0x5e77
 @..distribute_survivor_experience.l5:
-    inc word [bp - 0x0002]           ; 0x5e7b
+    inc word [bp - 2]                ; 0x5e7b
 @..distribute_survivor_experience.l6:
-    mov ax, word [bp - 0x0002]       ; 0x5e7e
+    mov ax, word [bp - 2]            ; 0x5e7e
     cmp ax, word [party_char_count]  ; 0x5e81
     jl short @..distribute_survivor_experience.l4 ; 0x5e85
     ret                              ; 0x5e87

@@ -10,7 +10,7 @@ aztec_impl_tty_rd:
     push ax
     mov ax, aztec_tty_rd_buffer
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call aztec_impl_read
     add sp, byte 6
     mov si, ax
@@ -25,14 +25,14 @@ aztec_impl_tty_rd:
     mov word [aztec_tty_rd_bp], aztec_tty_rd_buffer
     mov word [_TTrem], si
 @..aztec_impl_tty_rd.l2:
-    cmp si, word [bp + 0x8]
+    cmp si, word [bp + 8]
     jle short @..aztec_impl_tty_rd.l3
-    mov si, word [bp + 0x8]
+    mov si, word [bp + 8]
 @..aztec_impl_tty_rd.l3:
     test si, si
     je short @..aztec_impl_tty_rd.l4
     push si
-    push word [bp + 0x6]
+    push word [bp + 6]
     push word [aztec_tty_rd_bp]
     call aztec_movmem
     add sp, byte 6
@@ -49,8 +49,8 @@ aztec_impl_tty_wr:
     mov bp, sp
     push di
     push si
-    mov di, word [bp + 0x6]
-    mov si, word [bp + 0x8]
+    mov di, word [bp + 6]
+    mov si, word [bp + 8]
     jmp short @..aztec_impl_tty_wr.l2
 @..aztec_impl_tty_wr.l1:
     mov bx, di
@@ -58,36 +58,36 @@ aztec_impl_tty_wr:
     cmp byte [bx], 0xa
     jne short @..aztec_impl_tty_wr.l2
     mov ax, di
-    sub ax, word [bp + 0x6]
+    sub ax, word [bp + 6]
     push ax
-    push word [bp + 0x6]
-    push word [bp + 0x4]
+    push word [bp + 6]
+    push word [bp + 4]
     call aztec_impl_write
     add sp, byte 6
     mov ax, 1
     push ax
     mov ax, aztec_tty_wr_crbuf
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call aztec_impl_write
     add sp, byte 6
-    mov word [bp + 0x6], di
+    mov word [bp + 6], di
 @..aztec_impl_tty_wr.l2:
     mov ax, si
     dec si
     test ax, ax
     jne short @..aztec_impl_tty_wr.l1
-    cmp di, word [bp + 0x6]
+    cmp di, word [bp + 6]
     je short @..aztec_impl_tty_wr.l3
     mov ax, di
-    sub ax, word [bp + 0x6]
+    sub ax, word [bp + 6]
     push ax
-    push word [bp + 0x6]
-    push word [bp + 0x4]
+    push word [bp + 6]
+    push word [bp + 4]
     call aztec_impl_write
     add sp, byte 6
 @..aztec_impl_tty_wr.l3:
-    mov ax, word [bp + 0x8]
+    mov ax, word [bp + 8]
     pop si
     pop di
     mov sp, bp

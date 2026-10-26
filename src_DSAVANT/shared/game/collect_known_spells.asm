@@ -2,19 +2,19 @@
 collect_known_spells:
     mov ax, 0xfffc
     call aztec_csav
-    mov word [bp - 0x0004], 0
-    mov word [bp - 0x0002], 0
+    mov word [bp - 4], 0
+    mov word [bp - 2], 0
 @..collect_known_spells.l1:
     mov ax, 6
-    imul word [bp - 0x0002]
+    imul word [bp - 2]
     mov bx, ax
     mov al, byte [bx + spell_table]
     sub ah, ah
-    cmp ax, word [bp + 0x6]
+    cmp ax, word [bp + 6]
     jne short @..collect_known_spells.l2
-    push word [bp - 0x0002]
+    push word [bp - 2]
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     add ax, party_records + pc_rec.pad_01be + 0x60
     push ax
     call test_bit
@@ -22,24 +22,24 @@ collect_known_spells:
     test ax, ax
     je short @..collect_known_spells.l2
     mov ax, 0x14
-    imul word [bp - 0x0004]
+    imul word [bp - 4]
     add ax, known_spell_names
     push ax
-    mov ax, word [bp - 0x0002]
+    mov ax, word [bp - 2]
     add ax, MSG_SPELL_NAME_BASE
     push ax
     call load_message_string
     add sp, byte 4
-    mov ax, word [bp - 0x0002]
-    mov cx, word [bp - 0x0004]
+    mov ax, word [bp - 2]
+    mov cx, word [bp - 4]
     shl cx, 1
     mov bx, cx
     mov word [bx + known_spell_ids], ax
-    inc word [bp - 0x0004]
+    inc word [bp - 4]
 @..collect_known_spells.l2:
-    inc word [bp - 0x0002]
-    mov ax, word [bp - 0x0002]
+    inc word [bp - 2]
+    mov ax, word [bp - 2]
     cmp ax, strict word 0x66
     jl short @..collect_known_spells.l1
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     ret

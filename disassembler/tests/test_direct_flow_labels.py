@@ -98,7 +98,7 @@ class DirectFlowLabelTests(unittest.TestCase):
             insn, label_map={}, local_labels={0x20: '@..local.l1'},
         )
 
-        self.assertEqual(text, 'mov ax, word [0x0020]')
+        self.assertEqual(text, 'mov ax, word [0x20]')
 
 
 class FunctionIncludeTests(unittest.TestCase):

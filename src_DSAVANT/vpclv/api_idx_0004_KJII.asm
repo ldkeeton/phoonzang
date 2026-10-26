@@ -3,7 +3,7 @@ api_idx_0004_KJII:
     mov ax, 0xfffc                   ; 0x4884
     call aztec_csav                  ; 0x4887
     mov ax, 0x248                    ; 0x488a
-    imul word [bp + 0x4]             ; 0x488d
+    imul word [bp + 4]               ; 0x488d
     mov bx, ax                       ; 0x4890
     cmp word [bx + party_records + pc_rec.power_cap], byte 0x14 ; 0x4892
     jle short @..api_idx_0004_KJII.l1 ; 0x4897
@@ -11,8 +11,8 @@ api_idx_0004_KJII:
 @..api_idx_0004_KJII.l1:
     mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x489a
     sub ah, ah                       ; 0x489e
-    mov word [bp - 0x0004], ax       ; 0x48a0
-    mov word [bp - 0x0002], 0        ; 0x48a3
+    mov word [bp - 4], ax            ; 0x48a0
+    mov word [bp - 2], 0             ; 0x48a3
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x48a8
     sub ah, ah                       ; 0x48ac
     jmp short @..api_idx_0004_KJII.l2 ; 0x48ae
@@ -23,7 +23,7 @@ jumptable_48eb_case_0:
     pop cx                           ; 0x48b7
     inc ax                           ; 0x48b8
     inc ax                           ; 0x48b9
-    mov word [bp - 0x0002], ax       ; 0x48ba
+    mov word [bp - 2], ax            ; 0x48ba
     jmp short @..api_idx_0004_KJII.l3 ; 0x48bd
 jumptable_48eb_case_1:
     mov ax, 3                        ; 0x48bf
@@ -31,7 +31,7 @@ jumptable_48eb_case_1:
     call random_below                ; 0x48c3
     pop cx                           ; 0x48c6
     inc ax                           ; 0x48c7
-    mov word [bp - 0x0002], ax       ; 0x48c8
+    mov word [bp - 2], ax            ; 0x48c8
     jmp short @..api_idx_0004_KJII.l3 ; 0x48cb
 jumptable_48eb_case_2:
     mov ax, 4                        ; 0x48cd
@@ -39,7 +39,7 @@ jumptable_48eb_case_2:
     call random_below                ; 0x48d1
     pop cx                           ; 0x48d4
     inc ax                           ; 0x48d5
-    mov word [bp - 0x0002], ax       ; 0x48d6
+    mov word [bp - 2], ax            ; 0x48d6
     jmp short @..api_idx_0004_KJII.l3 ; 0x48d9
 jumptable_48eb_case_11:
     mov ax, 4                        ; 0x48db
@@ -49,7 +49,7 @@ jumptable_48eb_case_11:
     inc ax                           ; 0x48e3
     inc ax                           ; 0x48e4
     inc ax                           ; 0x48e5
-    mov word [bp - 0x0002], ax       ; 0x48e6
+    mov word [bp - 2], ax            ; 0x48e6
     jmp short @..api_idx_0004_KJII.l3 ; 0x48e9
 jumptable_48eb:
     dw jumptable_48eb_case_0 - IMAGE_BASE + __zres_end ; 0x48eb
@@ -73,12 +73,12 @@ jumptable_48eb:
     shl bx, 1                        ; 0x490d
     jmp [cs:bx + jumptable_48eb - IMAGE_BASE + __zres_end] ; 0x490f
 @..api_idx_0004_KJII.l3:
-    cmp word [bp - 0x0004], byte 8   ; 0x4914
+    cmp word [bp - 4], byte 8        ; 0x4914
     jge short @..api_idx_0004_KJII.l4 ; 0x4918
-    dec word [bp - 0x0002]           ; 0x491a
+    dec word [bp - 2]                ; 0x491a
 @..api_idx_0004_KJII.l4:
     mov ax, 0x248                    ; 0x491d
-    imul word [bp + 0x4]             ; 0x4920
+    imul word [bp + 4]               ; 0x4920
     mov bx, ax                       ; 0x4923
     mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x4925
     push ax                          ; 0x4929
@@ -88,11 +88,11 @@ jumptable_48eb:
     pop ax                           ; 0x4932
     cmp ax, cx                       ; 0x4933
     jge short @..api_idx_0004_KJII.l5 ; 0x4935
-    mov word [bp - 0x0002], 0        ; 0x4937
+    mov word [bp - 2], 0             ; 0x4937
 @..api_idx_0004_KJII.l5:
     mov al, byte [bx + party_records + pc_rec.f_0246] ; 0x493c
     cbw                              ; 0x4940
-    sub ax, word [bp - 0x0002]       ; 0x4941
+    sub ax, word [bp - 2]            ; 0x4941
     mov byte [bx + party_records + pc_rec.f_0246], al ; 0x4944
     cmp byte [bx + party_records + pc_rec.f_0246], 0 ; 0x4948
     jge short @..api_idx_0004_KJII.l6 ; 0x494d

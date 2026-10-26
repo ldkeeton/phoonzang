@@ -1,6 +1,6 @@
 ; auto-generated
 dos_file_loc_VPIN:
-    mov cx, word [bp - 0x0002]
+    mov cx, word [bp - 2]
     xor bx, bx
 @..dos_file_loc_VPIN.l1:
     shl al, 1
@@ -36,12 +36,12 @@ dos_file_loc_VPIN:
     pop ax
     jmp short @..dos_file_loc_VPIN.l1
 @..dos_file_loc_VPIN.l4:
-    test word [bx + 0x2], 0x8000
+    test word [bx + 2], 0x8000
     jne short @..dos_file_loc_VPIN.l5
-    mov bx, word [bx + 0x2]
+    mov bx, word [bx + 2]
     jmp short @..dos_file_loc_VPIN.l6
 @..dos_file_loc_VPIN.l5:
-    mov bx, word [bx + 0x2]
+    mov bx, word [bx + 2]
     neg bx
     shl bx, 1
     shl bx, 1
@@ -68,5 +68,5 @@ dos_file_loc_VPIN:
     pop di
     pop ax
 @..dos_file_loc_VPIN.l7:
-    mov word [bp - 0x0002], cx
+    mov word [bp - 2], cx
     ret

@@ -3,9 +3,9 @@ loc_NPPN:
     push bp                          ; 0x06f1
     mov bp, sp                       ; 0x06f2
     add sp, byte 0xf0                ; 0x06f4
-    mov ax, word [bp + 0x4]          ; 0x06f7
-    mov word [bp - 0x0010], ax       ; 0x06fa
-    lea ax, word [bp - 0x0010]       ; 0x06fd
+    mov ax, word [bp + 4]            ; 0x06f7
+    mov word [bp - 0x10], ax         ; 0x06fa
+    lea ax, word [bp - 0x10]         ; 0x06fd
     push ax                          ; 0x0700
     push ax                          ; 0x0701
     mov ax, 0x10                     ; 0x0702

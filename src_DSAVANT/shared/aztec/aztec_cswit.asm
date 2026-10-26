@@ -10,7 +10,7 @@ aztec_cswt:
     shl bx, 1
     cld
     repne scasw
-    mov cx, word [es:bx + di - 0x0004]
+    mov cx, word [es:bx + di - 4]
     pop es
     pop di
     jmp cx

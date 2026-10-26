@@ -23,7 +23,7 @@ api_idx_0004_KVIP:
     pop ax                           ; 0x09ce
     add ax, cx                       ; 0x09cf
     add ax, strict word 6            ; 0x09d1
-    mov word [bp - 0x0002], ax       ; 0x09d4
+    mov word [bp - 2], ax            ; 0x09d4
     shl dx, 1                        ; 0x09d7
     mov ax, dx                       ; 0x09d9
     mov cx, 6                        ; 0x09db
@@ -38,9 +38,9 @@ api_idx_0004_KVIP:
     pop ax                           ; 0x09ee
     add ax, cx                       ; 0x09ef
     add ax, strict word 0x74         ; 0x09f1
-    mov word [bp - 0x0004], ax       ; 0x09f4
+    mov word [bp - 4], ax            ; 0x09f4
     push ax                          ; 0x09f7
-    push word [bp - 0x0002]          ; 0x09f8
+    push word [bp - 2]               ; 0x09f8
     call gfx_set_text_pos            ; 0x09fb
     add sp, byte 4                   ; 0x09fe
     mov ax, 4                        ; 0x0a01
@@ -51,8 +51,8 @@ api_idx_0004_KVIP:
     call draw_font_glyph             ; 0x0a0b
     add sp, byte 4                   ; 0x0a0e
     push word [bss_9412]             ; 0x0a11
-    push word [bp - 0x0004]          ; 0x0a15
-    mov ax, word [bp - 0x0002]       ; 0x0a18
+    push word [bp - 4]               ; 0x0a15
+    mov ax, word [bp - 2]            ; 0x0a18
     add ax, strict word 0xe          ; 0x0a1b
     push ax                          ; 0x0a1e
     mov ax, bss_9414                 ; 0x0a1f
@@ -62,10 +62,10 @@ api_idx_0004_KVIP:
     mov bx, word [bss_942a]          ; 0x0a29
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x0a2d
     jne short @..api_idx_0004_KVIP.l2 ; 0x0a32
-    mov ax, word [bp - 0x0004]       ; 0x0a34
+    mov ax, word [bp - 4]            ; 0x0a34
     add ax, strict word 6            ; 0x0a37
     push ax                          ; 0x0a3a
-    mov ax, word [bp - 0x0002]       ; 0x0a3b
+    mov ax, word [bp - 2]            ; 0x0a3b
     add ax, strict word 0x38         ; 0x0a3e
     push ax                          ; 0x0a41
     call gfx_set_text_pos            ; 0x0a42
@@ -90,10 +90,10 @@ api_idx_0004_KVIP:
     push ax                          ; 0x0a6f
     call gfx_set_text_color          ; 0x0a70
     add sp, byte 4                   ; 0x0a73
-    mov ax, word [bp - 0x0004]       ; 0x0a76
+    mov ax, word [bp - 4]            ; 0x0a76
     dec ax                           ; 0x0a79
     push ax                          ; 0x0a7a
-    mov ax, word [bp - 0x0002]       ; 0x0a7b
+    mov ax, word [bp - 2]            ; 0x0a7b
     dec ax                           ; 0x0a7e
     dec ax                           ; 0x0a7f
     push ax                          ; 0x0a80

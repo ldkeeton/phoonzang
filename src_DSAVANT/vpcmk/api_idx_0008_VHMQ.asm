@@ -19,11 +19,11 @@ api_idx_0008_VHMQ:
     push ax                          ; 0x495c
     call gfx_save_area               ; 0x495d
     add sp, byte 8                   ; 0x4960
-    mov word [bp - 0x0002], dx       ; 0x4963
-    mov word [bp - 0x0004], ax       ; 0x4966
+    mov word [bp - 2], dx            ; 0x4963
+    mov word [bp - 4], ax            ; 0x4966
     mov ax, 0                        ; 0x4969
     push ax                          ; 0x496c
-    push word [bp + 0x4]             ; 0x496d
+    push word [bp + 4]               ; 0x496d
     call api_idx_0002_SSJN           ; 0x4970
     add sp, byte 4                   ; 0x4973
     mov ax, 0                        ; 0x4976
@@ -39,9 +39,9 @@ api_idx_0008_VHMQ:
     mov ax, MSG_CASTING_KARMA        ; 0x498a
     push ax                          ; 0x498d
     call api_idx_0058_GKGM           ; 0x498e
-    add sp, byte 0x0c                ; 0x4991
-    mov word [bp - 0x0006], dx       ; 0x4994
-    mov word [bp - 0x0008], ax       ; 0x4997
+    add sp, byte 0xc                 ; 0x4991
+    mov word [bp - 6], dx            ; 0x4994
+    mov word [bp - 8], ax            ; 0x4997
     call flush_keyboard              ; 0x499a
 @..api_idx_0008_VHMQ.l1:
     mov ax, 0x13                     ; 0x499d
@@ -50,7 +50,7 @@ api_idx_0008_VHMQ:
     pop cx                           ; 0x49a4
     push ax                          ; 0x49a5
     mov ax, 0x248                    ; 0x49a6
-    imul word [bp + 0x4]             ; 0x49a9
+    imul word [bp + 4]               ; 0x49a9
     mov bx, ax                       ; 0x49ac
     pop ax                           ; 0x49ae
     mov byte [bx + party_records + pc_rec.stat + 0x7], al ; 0x49af
@@ -60,8 +60,8 @@ api_idx_0008_VHMQ:
 @..api_idx_0008_VHMQ.l2:
     mov ax, 0                        ; 0x49be
     push ax                          ; 0x49c1
-    push word [bp - 0x0002]          ; 0x49c2
-    push word [bp - 0x0004]          ; 0x49c5
+    push word [bp - 2]               ; 0x49c2
+    push word [bp - 4]               ; 0x49c5
     call gfx_restore_area            ; 0x49c8
     add sp, byte 6                   ; 0x49cb
     mov ax, 0x4d                     ; 0x49ce
@@ -81,7 +81,7 @@ api_idx_0008_VHMQ:
     mov ax, 2                        ; 0x49ee
     push ax                          ; 0x49f1
     mov ax, 0x248                    ; 0x49f2
-    imul word [bp + 0x4]             ; 0x49f5
+    imul word [bp + 4]               ; 0x49f5
     mov bx, ax                       ; 0x49f8
     mov al, byte [bx + party_records + pc_rec.stat + 0x7] ; 0x49fa
     sub ah, ah                       ; 0x49fe
@@ -116,7 +116,7 @@ api_idx_0008_VHMQ:
     mov ax, 0x70                     ; 0x4a3c
     push ax                          ; 0x4a3f
     call flash_button                ; 0x4a40
-    add sp, byte 0x0a                ; 0x4a43
+    add sp, byte 0xa                 ; 0x4a43
     mov ax, 0                        ; 0x4a46
     push ax                          ; 0x4a49
     mov ax, 1                        ; 0x4a4a
@@ -128,22 +128,22 @@ api_idx_0008_VHMQ:
     mov ax, 0x70                     ; 0x4a56
     push ax                          ; 0x4a59
     call flash_button                ; 0x4a5a
-    add sp, byte 0x0a                ; 0x4a5d
+    add sp, byte 0xa                 ; 0x4a5d
     mov ax, 1                        ; 0x4a60
     push ax                          ; 0x4a63
-    push word [bp - 0x0006]          ; 0x4a64
-    push word [bp - 0x0008]          ; 0x4a67
+    push word [bp - 6]               ; 0x4a64
+    push word [bp - 8]               ; 0x4a67
     call gfx_restore_area            ; 0x4a6a
     add sp, byte 6                   ; 0x4a6d
     mov ax, 1                        ; 0x4a70
     push ax                          ; 0x4a73
-    push word [bp - 0x0002]          ; 0x4a74
-    push word [bp - 0x0004]          ; 0x4a77
+    push word [bp - 2]               ; 0x4a74
+    push word [bp - 4]               ; 0x4a77
     call gfx_restore_area            ; 0x4a7a
     add sp, byte 6                   ; 0x4a7d
     mov ax, 0                        ; 0x4a80
     push ax                          ; 0x4a83
-    push word [bp + 0x4]             ; 0x4a84
+    push word [bp + 4]               ; 0x4a84
     call api_idx_0002_SSJN           ; 0x4a87
     add sp, byte 4                   ; 0x4a8a
     mov ax, 0xc7                     ; 0x4a8d

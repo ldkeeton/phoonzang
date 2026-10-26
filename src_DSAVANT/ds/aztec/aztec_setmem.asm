@@ -7,9 +7,9 @@ aztec_setmem:
     push di                          ; 0x4552
     mov di, ds                       ; 0x4553
     mov es, di                       ; 0x4555
-    mov di, word [bp + 0x4]          ; 0x4557
-    mov cx, word [bp + 0x6]          ; 0x455a
-    mov al, byte [bp + 0x8]          ; 0x455d
+    mov di, word [bp + 4]            ; 0x4557
+    mov cx, word [bp + 6]            ; 0x455a
+    mov al, byte [bp + 8]            ; 0x455d
     mov ah, al                       ; 0x4560
     mov dx, cx                       ; 0x4562
     shr cx, 1                        ; 0x4564

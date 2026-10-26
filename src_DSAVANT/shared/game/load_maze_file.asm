@@ -6,13 +6,13 @@ load_maze_file:
     push ax
     mov ax, 1
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call data_file_path
     add sp, byte 4
     push ax
     call aztec_open
     add sp, byte 4
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     cmp ax, strict word 0xffff
     jne short @..load_maze_file.l1
     mov ax, 0x1b
@@ -22,11 +22,11 @@ load_maze_file:
 @..load_maze_file.l1:
     mov ax, 0
     push ax
-    push word [bp + 0x6]
-    push word [bp - 0x0002]
+    push word [bp + 6]
+    push word [bp - 2]
     call gfx_load_maze
     add sp, byte 6
-    push word [bp - 0x0002]
+    push word [bp - 2]
     call aztec_close
     pop cx
     ret

@@ -7,12 +7,12 @@ api_idx_0002_RHUQ:
     mov si, ax                       ; 0x7ac9
     mov bx, word [maze_tables]       ; 0x7acb
     mov ax, word [bx + si + 0x3c0]   ; 0x7acf
-    mov word [bp - 0x0002], ax       ; 0x7ad3
+    mov word [bp - 2], ax            ; 0x7ad3
     mov ax, 1                        ; 0x7ad6
     push ax                          ; 0x7ad9
     mov ax, 2                        ; 0x7ada
     push ax                          ; 0x7add
-    push word [bp - 0x0002]          ; 0x7ade
+    push word [bp - 2]               ; 0x7ade
     call get_bits                    ; 0x7ae1
     add sp, byte 6                   ; 0x7ae4
     cmp ax, strict word 1            ; 0x7ae7
@@ -21,7 +21,7 @@ api_idx_0002_RHUQ:
     push ax                          ; 0x7aef
     mov ax, 0                        ; 0x7af0
     push ax                          ; 0x7af3
-    push word [bp - 0x0002]          ; 0x7af4
+    push word [bp - 2]               ; 0x7af4
     call get_bits                    ; 0x7af7
     add sp, byte 6                   ; 0x7afa
     mov word [found_object_owner], ax ; 0x7afd
@@ -39,7 +39,7 @@ api_idx_0002_RHUQ:
     push ax                          ; 0x7b1e
     mov ax, 3                        ; 0x7b1f
     push ax                          ; 0x7b22
-    push word [bp - 0x0002]          ; 0x7b23
+    push word [bp - 2]               ; 0x7b23
     call get_bits                    ; 0x7b26
     add sp, byte 6                   ; 0x7b29
     cmp ax, strict word 1            ; 0x7b2c

@@ -4,7 +4,7 @@ io_loc_QVTL:
     mov bp, sp                       ; 0x0240
     push bx                          ; 0x0242
     push dx                          ; 0x0243
-    mov bx, word [bp + 0x8]          ; 0x0244
+    mov bx, word [bp + 8]            ; 0x0244
     mov word [cs:music_tempo - IMAGE_BASE], bx ; 0x0247
     mov ax, 0x38e                    ; 0x024c
     mov dx, 0                        ; 0x024f

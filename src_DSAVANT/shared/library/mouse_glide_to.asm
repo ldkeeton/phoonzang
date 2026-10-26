@@ -2,7 +2,7 @@
 mouse_glide_to:
     push bp
     mov bp, sp
-    sub sp, byte 0x0a
+    sub sp, byte 0xa
     push ds
     push es
     push si
@@ -16,47 +16,47 @@ mouse_glide_to:
     mov byte [cs:mouse_glide_active - IMAGE_BASE], 1
     mov ax, word [bp + 0xc]
     shl ax, 1
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     mov ax, word [bp + 0xe]
-    mov word [bp - 0x0004], ax
+    mov word [bp - 4], ax
     mov ax, 3
     int 0x33 ; BIOS mouse
     and cx, strict word 0xfffe
-    mov word [bp - 0x0006], cx
-    mov word [bp - 0x0008], dx
+    mov word [bp - 6], cx
+    mov word [bp - 8], dx
 @..mouse_glide_to.l2:
-    mov cx, word [bp - 0x0006]
-    mov dx, word [bp - 0x0008]
-    cmp cx, word [bp - 0x0002]
+    mov cx, word [bp - 6]
+    mov dx, word [bp - 8]
+    cmp cx, word [bp - 2]
     jne short @..mouse_glide_to.l3
-    cmp dx, word [bp - 0x0004]
+    cmp dx, word [bp - 4]
     jne short @..mouse_glide_to.l3
     jmp short @..mouse_glide_to.l8
 @..mouse_glide_to.l3:
-    cmp cx, word [bp - 0x0002]
+    cmp cx, word [bp - 2]
     je short @..mouse_glide_to.l5
     js short @..mouse_glide_to.l4
-    sub word [bp - 0x0006], byte 2
+    sub word [bp - 6], byte 2
     jmp short @..mouse_glide_to.l5
 @..mouse_glide_to.l4:
-    add word [bp - 0x0006], byte 2
+    add word [bp - 6], byte 2
 @..mouse_glide_to.l5:
-    mov cx, word [bp - 0x0006]
-    cmp dx, word [bp - 0x0004]
+    mov cx, word [bp - 6]
+    cmp dx, word [bp - 4]
     je short @..mouse_glide_to.l7
     js short @..mouse_glide_to.l6
-    sub word [bp - 0x0008], byte 1
+    sub word [bp - 8], byte 1
     jmp short @..mouse_glide_to.l7
 @..mouse_glide_to.l6:
-    add word [bp - 0x0008], byte 1
+    add word [bp - 8], byte 1
 @..mouse_glide_to.l7:
-    mov dx, word [bp - 0x0008]
+    mov dx, word [bp - 8]
     mov ax, cs
     push ax
     mov ax, 0
     call draw_mouse_pointer_at
-    mov cx, word [bp - 0x0006]
-    mov dx, word [bp - 0x0008]
+    mov cx, word [bp - 6]
+    mov dx, word [bp - 8]
     mov ax, 4
     int 0x33 ; BIOS mouse
     mov ax, word [bp + 0x10]

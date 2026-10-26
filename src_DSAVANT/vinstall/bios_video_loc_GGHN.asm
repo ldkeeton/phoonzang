@@ -32,7 +32,7 @@ bios_video_loc_GGHN:
     xchg al, ah                      ; 0x24b2
     out dx, al                       ; 0x24b4
 @..bios_video_loc_GGHN.l2:
-    mov word [bp - 0x0002], 4        ; 0x24b5
+    mov word [bp - 2], 4             ; 0x24b5
     ret                              ; 0x24ba
 @..bios_video_loc_GGHN.l3:
     mov dx, 0x3ba                    ; 0x24bb
@@ -46,13 +46,13 @@ bios_video_loc_GGHN:
     cmp al, ah                       ; 0x24c9
     jne short @..bios_video_loc_GGHN.l5 ; 0x24cb
     loop @..bios_video_loc_GGHN.l4   ; 0x24cd
-    mov word [bp - 0x0002], 0        ; 0x24cf
+    mov word [bp - 2], 0             ; 0x24cf
     ret                              ; 0x24d4
 @..bios_video_loc_GGHN.l5:
-    mov word [bp - 0x0002], 8        ; 0x24d5
+    mov word [bp - 2], 8             ; 0x24d5
     ret                              ; 0x24da
 @..bios_video_loc_GGHN.l6:
-    mov word [bp - 0x0002], 6        ; 0x24db
+    mov word [bp - 2], 6             ; 0x24db
     xor bx, bx                       ; 0x24e0
     mov ax, 0x1a00                   ; 0x24e2
     int 0x10 ; BIOS video
@@ -65,6 +65,6 @@ bios_video_loc_GGHN:
     cmp bh, 8                        ; 0x24f6
     jne short @..bios_video_loc_GGHN.l8 ; 0x24f9
 @..bios_video_loc_GGHN.l7:
-    or word [bp - 0x0002], 1         ; 0x24fb
+    or word [bp - 2], 1              ; 0x24fb
 @..bios_video_loc_GGHN.l8:
     ret                              ; 0x2500

@@ -2,9 +2,9 @@
 loc_GRON:
     mov ax, 0                        ; 0x6ac7
     call aztec_csav                  ; 0x6aca
-    cmp word [bp + 0x4], byte 0      ; 0x6acd
+    cmp word [bp + 4], byte 0        ; 0x6acd
     jle short @..loc_GRON.l3         ; 0x6ad1
-    mov ax, word [bp + 0x4]          ; 0x6ad3
+    mov ax, word [bp + 4]            ; 0x6ad3
     cmp ax, strict word 5            ; 0x6ad6
     jl short @..loc_GRON.l1          ; 0x6ad9
     cmp ax, strict word 8            ; 0x6adb
@@ -17,7 +17,7 @@ loc_GRON:
     pop cx                           ; 0x6ae9
     jmp short @..loc_GRON.l3         ; 0x6aea
 @..loc_GRON.l2:
-    push word [bp + 0x4]             ; 0x6aec
+    push word [bp + 4]               ; 0x6aec
     call ensure_sound_loaded         ; 0x6aef
     pop cx                           ; 0x6af2
     mov ax, 0x10                     ; 0x6af3

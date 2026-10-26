@@ -12,7 +12,7 @@ api_idx_0008_OMTP:
     push ax
     call gfx_show_area
     add sp, byte 8
-    push word [bp + 0x4]
+    push word [bp + 4]
     call aztec_strlen
     pop cx
     mov cx, 6
@@ -23,26 +23,26 @@ api_idx_0008_OMTP:
     mov cx, ax
     mov ax, 0xa1
     sub ax, cx
-    mov word [bp - 0x0002], ax
-    push word [bp + 0x4]
+    mov word [bp - 2], ax
+    push word [bp + 4]
     call aztec_strlen
     pop cx
     mov cx, 6
     imul cx
     mov cx, ax
-    mov ax, word [bp - 0x0002]
+    mov ax, word [bp - 2]
     add cx, ax
-    mov word [bp - 0x0004], cx
+    mov word [bp - 4], cx
     mov ax, 0x98
     push ax
     push cx
     mov ax, 0x92
     push ax
-    push word [bp - 0x0002]
+    push word [bp - 2]
     call gfx_save_area
     add sp, byte 8
-    mov word [bp - 0x0006], dx
-    mov word [bp - 0x0008], ax
+    mov word [bp - 6], dx
+    mov word [bp - 8], ax
     mov ax, 0
     push ax
     mov ax, 0x16
@@ -51,26 +51,26 @@ api_idx_0008_OMTP:
     add sp, byte 4
     mov ax, 0x92
     push ax
-    push word [bp - 0x0002]
+    push word [bp - 2]
     call gfx_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call draw_text_glyphs
     add sp, byte 4
     mov ax, 0x98
     push ax
-    push word [bp - 0x0004]
+    push word [bp - 4]
     mov ax, 0x92
     push ax
-    push word [bp - 0x0002]
+    push word [bp - 2]
     call gfx_show_area
     add sp, byte 8
     mov ax, 1
     push ax
-    push word [bp - 0x0006]
-    push word [bp - 0x0008]
+    push word [bp - 6]
+    push word [bp - 8]
     call gfx_restore_area
     add sp, byte 6
     call flush_keyboard

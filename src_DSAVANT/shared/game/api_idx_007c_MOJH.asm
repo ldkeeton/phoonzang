@@ -20,7 +20,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0xe
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call api_idx_0010_STNH
     add sp, byte 6
     mov ax, 0
@@ -31,7 +31,7 @@ api_idx_007c_MOJH:
     mov ax, 0x4c
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     add ax, party_records
     push ax
     call aztec_strlen
@@ -50,7 +50,7 @@ api_idx_007c_MOJH:
     mov ax, 0
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     add ax, party_records
     push ax
     call draw_text_glyphs
@@ -67,10 +67,10 @@ api_idx_007c_MOJH:
     push ax
     call gfx_set_text_pos
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov al, byte [bx + party_records + pc_rec.gender]
     sub ah, ah
@@ -80,7 +80,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    mov al, byte [bp - 0x0058]
+    mov al, byte [bp - 0x58]
     sub ah, ah
     push ax
     call draw_font_glyph
@@ -91,10 +91,10 @@ api_idx_007c_MOJH:
     push ax
     call draw_font_glyph
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov al, byte [bx + party_records + pc_rec.glyph_set]
     sub ah, ah
@@ -104,7 +104,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -120,10 +120,10 @@ api_idx_007c_MOJH:
     push ax
     call gfx_set_text_pos
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov al, byte [bx + party_records + pc_rec.profession]
     sub ah, ah
@@ -133,7 +133,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -143,7 +143,7 @@ api_idx_007c_MOJH:
     push ax
     call gfx_set_text_pos
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, MSG_LVL
     push ax
@@ -151,7 +151,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -160,13 +160,13 @@ api_idx_007c_MOJH:
     mov ax, 4
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     push word [bx + party_records + pc_rec.power_cap]
     call draw_number_field
     add sp, byte 6
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov ax, word [bx + party_records + pc_rec.f_0008]
     mov dx, word [bx + party_records + pc_rec.f_000a]
@@ -181,7 +181,7 @@ api_idx_007c_MOJH:
     push ax
     push dx
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov ax, word [bx + party_records + pc_rec.f_0026]
     cwd
@@ -204,7 +204,7 @@ api_idx_007c_MOJH:
     push ax
     push dx
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov al, byte [bx + party_records + pc_rec.stat + 0x3]
     sub ah, ah
@@ -236,7 +236,7 @@ api_idx_007c_MOJH:
     add sp, byte 6
     mov word [banner_offset], ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.state], 3
     jae short @..api_idx_007c_MOJH.l1
@@ -256,26 +256,26 @@ api_idx_007c_MOJH:
     push ax
     call gfx_set_text_color
     add sp, byte 4
-    mov word [bp - 0x0002], 0
+    mov word [bp - 2], 0
 @..api_idx_007c_MOJH.l3:
     mov ax, 6
-    imul word [bp - 0x0002]
+    imul word [bp - 2]
     add ax, strict word 0x23
     push ax
     mov ax, 0x73
     push ax
     call gfx_set_text_pos
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
-    mov ax, word [bp - 0x0002]
+    mov ax, word [bp - 2]
     add ax, MSG_STR
     push ax
     call load_message_string
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -284,16 +284,16 @@ api_idx_007c_MOJH:
     mov ax, 3
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
-    add ax, word [bp - 0x0002]
+    imul word [bp + 4]
+    add ax, word [bp - 2]
     mov bx, ax
     mov al, byte [bx + party_records + pc_rec.stat]
     sub ah, ah
     push ax
     call draw_number_field
     add sp, byte 6
-    inc word [bp - 0x0002]
-    mov ax, word [bp - 0x0002]
+    inc word [bp - 2]
+    mov ax, word [bp - 2]
     cmp ax, strict word 8
     jl short @..api_idx_007c_MOJH.l3
     mov ax, 0
@@ -302,7 +302,7 @@ api_idx_007c_MOJH:
     push ax
     call gfx_set_text_color
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, MSG_RNK
     push ax
@@ -316,14 +316,14 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov al, byte [bx + party_records + pc_rec.profession]
     sub ah, ah
@@ -341,7 +341,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 6
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call aztec_strlen
     pop cx
@@ -354,7 +354,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -364,7 +364,7 @@ api_idx_007c_MOJH:
     push ax
     call gfx_set_text_color
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, MSG_EXP
     push ax
@@ -378,7 +378,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -393,13 +393,13 @@ api_idx_007c_MOJH:
     mov ax, 0xa
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     push word [bx + party_records + pc_rec.experience + 0x2]
     push word [bx + party_records + pc_rec.experience]
     call draw_padded_number
     add sp, byte 8
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, MSG_MKS
     push ax
@@ -413,7 +413,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -428,7 +428,7 @@ api_idx_007c_MOJH:
     mov ax, 0xa
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     push word [bx + party_records + pc_rec.f_0012]
     push word [bx + party_records + pc_rec.f_0010]
@@ -440,7 +440,7 @@ api_idx_007c_MOJH:
     push ax
     call gfx_set_text_color
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, MSG_HP
     push ax
@@ -454,7 +454,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -470,17 +470,17 @@ api_idx_007c_MOJH:
     push ax
     call gfx_set_text_color
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     push word [bx + party_records + pc_rec.pair_a]
     call format_int_decimal
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -490,17 +490,17 @@ api_idx_007c_MOJH:
     push ax
     call draw_font_glyph
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     push word [bx + party_records + pc_rec.pair_a + 0x2]
     call format_int_decimal
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -510,7 +510,7 @@ api_idx_007c_MOJH:
     push ax
     call gfx_set_text_color
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, MSG_ST
     push ax
@@ -524,7 +524,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -541,7 +541,7 @@ api_idx_007c_MOJH:
     call gfx_set_text_color
     add sp, byte 4
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov ax, word [bx + party_records + pc_rec.pair_b]
     mov cx, 0x64
@@ -549,7 +549,7 @@ api_idx_007c_MOJH:
     mov cx, word [bx + party_records + pc_rec.pair_b + 0x2]
     cwd
     idiv cx
-    mov word [bp - 0x0008], ax
+    mov word [bp - 8], ax
     cmp ax, strict word 1
     jge short @..api_idx_007c_MOJH.l4
     cmp word [bx + party_records + pc_rec.pair_b], byte 0
@@ -557,17 +557,17 @@ api_idx_007c_MOJH:
     mov ax, 1
     jmp short @..api_idx_007c_MOJH.l5
 @..api_idx_007c_MOJH.l4:
-    mov ax, word [bp - 0x0008]
+    mov ax, word [bp - 8]
 @..api_idx_007c_MOJH.l5:
-    mov word [bp - 0x0008], ax
-    lea ax, word [bp - 0x0058]
+    mov word [bp - 8], ax
+    lea ax, word [bp - 0x58]
     push ax
-    push word [bp - 0x0008]
+    push word [bp - 8]
     call format_int_decimal
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -589,17 +589,17 @@ api_idx_007c_MOJH:
     push ax
     call draw_font_glyph
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     push word [bx + party_records + pc_rec.pair_b + 0x2]
     call format_int_decimal
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -615,7 +615,7 @@ api_idx_007c_MOJH:
     push ax
     call gfx_set_text_color
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, MSG_GP_214
     push ax
@@ -629,7 +629,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -639,10 +639,10 @@ api_idx_007c_MOJH:
     push ax
     call draw_font_glyph
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     push word [bx + party_records + pc_rec.f_0016]
     push word [bx + party_records + pc_rec.f_0014]
@@ -650,35 +650,35 @@ api_idx_007c_MOJH:
     add sp, byte 6
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
-    push word [bp + 0x4]
+    push word [bp + 4]
     call sum_page_cell_values
     pop cx
-    push word [bp + 0x4]
+    push word [bp + 4]
     call api_idx_007c_MOJH.api_idx1
     pop cx
     mov si, ax
-    lea di, word [bp - 0x007c]
+    lea di, word [bp - 0x7c]
     mov cx, ds
     mov es, cx
     mov cx, 7
     rep movsw
-    mov al, byte [bp - 0x0072]
+    mov al, byte [bp - 0x72]
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     pop ax
     mov byte [bx + party_records + pc_rec.f_023f], al
     mov ax, 0
     push ax
-    push word [bp - 0x0070]
+    push word [bp - 0x70]
     call gfx_set_text_color
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, MSG_CC
     push ax
@@ -692,7 +692,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -702,10 +702,10 @@ api_idx_007c_MOJH:
     push ax
     call draw_font_glyph
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov ax, word [bx + party_records + pc_rec.power_total]
     mov cx, 0xa
@@ -716,7 +716,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
@@ -726,10 +726,10 @@ api_idx_007c_MOJH:
     push ax
     call draw_font_glyph
     add sp, byte 4
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov ax, word [bx + party_records + pc_rec.f_0022]
     mov cx, 0xa
@@ -740,49 +740,49 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0058]
+    lea ax, word [bp - 0x58]
     push ax
     call draw_text_glyphs
     add sp, byte 4
-    push word [bp + 0x4]
+    push word [bp + 4]
     call api_idx_0004_RMVO
     pop cx
-    mov word [bp - 0x0004], 0
+    mov word [bp - 4], 0
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov al, byte [bx + party_records + pc_rec.state]
     sub ah, ah
     shl ax, 1
     mov bx, ax
     mov ax, word [bx + spell_table + spell_table_rec_size*128]
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     cmp ax, strict word 0xffff
     jne short @..api_idx_007c_MOJH.l6
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.status + 0x2], 0
     jbe short @..api_idx_007c_MOJH.l6
     mov ax, 0
     jmp short @..api_idx_007c_MOJH.l7
 @..api_idx_007c_MOJH.l6:
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
 @..api_idx_007c_MOJH.l7:
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     cmp ax, strict word 0
     jg short @..api_idx_007c_MOJH.l8
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.status + 0x3], 0
     jbe short @..api_idx_007c_MOJH.l8
     mov ax, 1
     jmp short @..api_idx_007c_MOJH.l9
 @..api_idx_007c_MOJH.l8:
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
 @..api_idx_007c_MOJH.l9:
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     cmp ax, strict word 0xffff
     je short @..api_idx_007c_MOJH.l10
     mov ax, 0x2d
@@ -793,43 +793,43 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 6
     push ax
-    mov al, byte [bp - 0x0006]
+    mov al, byte [bp - 6]
     sub ah, ah
     push ax
     call draw_font_glyph
     add sp, byte 4
-    inc word [bp - 0x0004]
+    inc word [bp - 4]
 @..api_idx_007c_MOJH.l10:
-    mov word [bp - 0x006e], 6
-    mov word [bp - 0x006c], 7
-    mov word [bp - 0x006a], 5
-    mov word [bp - 0x0068], 4
-    mov word [bp - 0x0066], 8
-    mov word [bp - 0x0064], 9
-    mov word [bp - 0x0062], 1
-    mov word [bp - 0x0006], 0xffff
-    mov word [bp - 0x0002], 0
+    mov word [bp - 0x6e], 6
+    mov word [bp - 0x6c], 7
+    mov word [bp - 0x6a], 5
+    mov word [bp - 0x68], 4
+    mov word [bp - 0x66], 8
+    mov word [bp - 0x64], 9
+    mov word [bp - 0x62], 1
+    mov word [bp - 6], 0xffff
+    mov word [bp - 2], 0
 @..api_idx_007c_MOJH.l11:
-    mov ax, word [bp - 0x0002]
+    mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
     add bx, bp
-    mov ax, word [bx - 0x006e]
-    mov word [bp - 0x0008], ax
-    cmp word [bp - 0x0004], byte 6
+    mov ax, word [bx - 0x6e]
+    mov word [bp - 8], ax
+    cmp word [bp - 4], byte 6
     jge short @..api_idx_007c_MOJH.l12
     shl ax, 1
     mov bx, ax
     mov ax, word [bx + spell_table + spell_table_rec_size*130]
-    cmp ax, word [bp - 0x0006]
+    cmp ax, word [bp - 6]
     je short @..api_idx_007c_MOJH.l12
     mov ax, 0x248
-    imul word [bp + 0x4]
-    add ax, word [bp - 0x0008]
+    imul word [bp + 4]
+    add ax, word [bp - 8]
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.status], 0
     jbe short @..api_idx_007c_MOJH.l12
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     mov cx, 3
     cwd
     idiv cx
@@ -838,7 +838,7 @@ api_idx_007c_MOJH:
     imul cx
     add ax, strict word 0x2d
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     mov cx, 3
     cwd
     idiv cx
@@ -850,7 +850,7 @@ api_idx_007c_MOJH:
     add sp, byte 4
     mov ax, 6
     push ax
-    mov ax, word [bp - 0x0008]
+    mov ax, word [bp - 8]
     shl ax, 1
     mov bx, ax
     mov al, byte [bx + spell_table + spell_table_rec_size*130]
@@ -858,15 +858,15 @@ api_idx_007c_MOJH:
     push ax
     call draw_font_glyph
     add sp, byte 4
-    mov ax, word [bp - 0x0008]
+    mov ax, word [bp - 8]
     shl ax, 1
     mov bx, ax
     mov ax, word [bx + spell_table + spell_table_rec_size*130]
-    mov word [bp - 0x0006], ax
-    inc word [bp - 0x0004]
+    mov word [bp - 6], ax
+    inc word [bp - 4]
 @..api_idx_007c_MOJH.l12:
-    inc word [bp - 0x0002]
-    mov ax, word [bp - 0x0002]
+    inc word [bp - 2]
+    mov ax, word [bp - 2]
     cmp ax, strict word 7
     jge short @..api_idx_007c_MOJH.l13
     jmp near @..api_idx_007c_MOJH.l11

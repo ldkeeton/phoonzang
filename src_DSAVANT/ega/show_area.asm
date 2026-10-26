@@ -8,9 +8,9 @@ show_area:
     push di                          ; 0x04b9
     push si                          ; 0x04ba
     xor ax, ax                       ; 0x04bb
-    mov word [bp - 0x002e], ax       ; 0x04bd
-    mov word [bp - 0x002a], ax       ; 0x04c0
-    mov word [bp - 0x0036], ax       ; 0x04c3
+    mov word [bp - 0x2e], ax         ; 0x04bd
+    mov word [bp - 0x2a], ax         ; 0x04c0
+    mov word [bp - 0x36], ax         ; 0x04c3
     mov ax, ds                       ; 0x04c6
     mov es, ax                       ; 0x04c8
     call leaf_loc_LMQV               ; 0x04ca
@@ -26,28 +26,28 @@ show_area:
     mov cl, 2                        ; 0x04e6
     shr bx, cl                       ; 0x04e8
     add ax, bx                       ; 0x04ea
-    mov word [bp - 0x0002], ax       ; 0x04ec
+    mov word [bp - 2], ax            ; 0x04ec
     mov cx, word [bp + 0xc]          ; 0x04ef
     and cl, 3                        ; 0x04f2
     shl cl, 1                        ; 0x04f5
     mov al, 0x80                     ; 0x04f7
     shr al, cl                       ; 0x04f9
-    mov byte [bp - 0x0014], al       ; 0x04fb
+    mov byte [bp - 0x14], al         ; 0x04fb
     mov ax, word [bp + 0xe]          ; 0x04fe
     mov bx, 0x140                    ; 0x0501
     mul bx                           ; 0x0504
     add ax, word [bp + 0xc]          ; 0x0506
-    mov word [bp - 0x0012], ax       ; 0x0509
+    mov word [bp - 0x12], ax         ; 0x0509
     mov ax, word [bp + 0x10]         ; 0x050c
     sub ax, word [bp + 0xc]          ; 0x050f
     inc ax                           ; 0x0512
-    mov word [bp - 0x0004], ax       ; 0x0513
+    mov word [bp - 4], ax            ; 0x0513
     mov ax, word [bp + 0x12]         ; 0x0516
     sub ax, word [bp + 0xe]          ; 0x0519
     inc ax                           ; 0x051c
-    mov word [bp - 0x0016], ax       ; 0x051d
+    mov word [bp - 0x16], ax         ; 0x051d
     xor ax, ax                       ; 0x0520
-    mov word [bp - 0x0026], ax       ; 0x0522
+    mov word [bp - 0x26], ax         ; 0x0522
     mov ax, word [bp + 0x10]         ; 0x0525
     mov bx, word [bp + 0xc]          ; 0x0528
     mov dx, bx                       ; 0x052b
@@ -55,54 +55,54 @@ show_area:
     inc ax                           ; 0x052f
     and dx, 3                        ; 0x0530
     je short @..show_area.l1         ; 0x0534
-    inc word [bp - 0x0026]           ; 0x0536
+    inc word [bp - 0x26]             ; 0x0536
 @..show_area.l1:
     mov bx, 4                        ; 0x0539
     sub bx, dx                       ; 0x053c
     and bl, 3                        ; 0x053e
     mov dx, bx                       ; 0x0541
-    mov word [bp - 0x0028], dx       ; 0x0543
+    mov word [bp - 0x28], dx         ; 0x0543
     sub ax, dx                       ; 0x0546
     jae short @..show_area.l2        ; 0x0548
     add ax, dx                       ; 0x054a
-    mov word [bp - 0x0028], ax       ; 0x054c
-    mov byte [bp - 0x0036], 1        ; 0x054f
+    mov word [bp - 0x28], ax         ; 0x054c
+    mov byte [bp - 0x36], 1          ; 0x054f
     jmp near @..show_area.l4         ; 0x0553
 @..show_area.l2:
     mov dx, ax                       ; 0x0556
     shr ax, 1                        ; 0x0558
     shr ax, 1                        ; 0x055a
-    add word [bp - 0x0026], ax       ; 0x055c
-    mov word [bp - 0x002e], ax       ; 0x055f
+    add word [bp - 0x26], ax         ; 0x055c
+    mov word [bp - 0x2e], ax         ; 0x055f
     and dx, 3                        ; 0x0562
     je short @..show_area.l3         ; 0x0566
-    inc word [bp - 0x0026]           ; 0x0568
+    inc word [bp - 0x26]             ; 0x0568
 @..show_area.l3:
     shl dx, 1                        ; 0x056b
-    mov word [bp - 0x002a], dx       ; 0x056d
+    mov word [bp - 0x2a], dx         ; 0x056d
 @..show_area.l4:
-    mov ax, word [bp - 0x0016]       ; 0x0570
-    mov bx, word [bp - 0x0026]       ; 0x0573
+    mov ax, word [bp - 0x16]         ; 0x0570
+    mov bx, word [bp - 0x26]         ; 0x0573
     mul bx                           ; 0x0576
-    mov word [bp - 0x0024], ax       ; 0x0578
+    mov word [bp - 0x24], ax         ; 0x0578
     shl ax, 1                        ; 0x057b
-    mov word [bp - 0x0032], ax       ; 0x057d
-    add ax, word [bp - 0x0024]       ; 0x0580
-    mov word [bp - 0x0034], ax       ; 0x0583
-    add ax, word [bp - 0x0024]       ; 0x0586
+    mov word [bp - 0x32], ax         ; 0x057d
+    add ax, word [bp - 0x24]         ; 0x0580
+    mov word [bp - 0x34], ax         ; 0x0583
+    add ax, word [bp - 0x24]         ; 0x0586
     add ax, strict word 0xf          ; 0x0589
     mov cl, 4                        ; 0x058c
     shr ax, cl                       ; 0x058e
     add ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x0590
     cmp ax, 0x4180                   ; 0x0595
     jae short @..show_area.l5        ; 0x0598
-    cmp byte [bp - 0x0036], 0        ; 0x059a
+    cmp byte [bp - 0x36], 0          ; 0x059a
     jne short @..show_area.l5        ; 0x059e
     jmp near @..show_area.l11        ; 0x05a0
 @..show_area.l5:
     jmp near @..show_area.l6         ; 0x05a3
 @..show_area.l6:
-    shl word [bp - 0x0004], 1        ; 0x05a6
+    shl word [bp - 4], 1             ; 0x05a6
     mov dx, 0x3ce                    ; 0x05a9
     mov al, 5                        ; 0x05ac
     out dx, al                       ; 0x05ae
@@ -114,24 +114,24 @@ show_area:
     out dx, al                       ; 0x05b8
     inc dx                           ; 0x05b9
 @..show_area.l7:
-    mov di, word [bp - 0x0002]       ; 0x05ba
-    mov si, word [bp - 0x0012]       ; 0x05bd
+    mov di, word [bp - 2]            ; 0x05ba
+    mov si, word [bp - 0x12]         ; 0x05bd
     mov bx, cseg_32b3 - IMAGE_BASE   ; 0x05c0
     mov cl, 4                        ; 0x05c3
-    test byte [bp - 0x0014], 0xaa    ; 0x05c5
+    test byte [bp - 0x14], 0xaa      ; 0x05c5
     jne short @..show_area.l8        ; 0x05c9
     xor cl, cl                       ; 0x05cb
-    inc word [bp - 0x0012]           ; 0x05cd
+    inc word [bp - 0x12]             ; 0x05cd
 @..show_area.l8:
     mov dx, 0x3cf                    ; 0x05d0
-    mov al, byte [bp - 0x0014]       ; 0x05d3
+    mov al, byte [bp - 0x14]         ; 0x05d3
     out dx, al                       ; 0x05d6
-    ror byte [bp - 0x0014], 1        ; 0x05d7
-    cmp byte [bp - 0x0014], 0x80     ; 0x05da
+    ror byte [bp - 0x14], 1          ; 0x05d7
+    cmp byte [bp - 0x14], 0x80       ; 0x05da
     jne short @..show_area.l9        ; 0x05de
-    inc word [bp - 0x0002]           ; 0x05e0
+    inc word [bp - 2]                ; 0x05e0
 @..show_area.l9:
-    mov dx, word [bp - 0x0016]       ; 0x05e3
+    mov dx, word [bp - 0x16]         ; 0x05e3
 @..show_area.l10:
     lodsb                            ; 0x05e6
     add si, strict word 0x13f        ; 0x05e7
@@ -142,7 +142,7 @@ show_area:
     add di, byte 0x50                ; 0x05f5
     dec dx                           ; 0x05f8
     jne short @..show_area.l10       ; 0x05f9
-    dec word [bp - 0x0004]           ; 0x05fb
+    dec word [bp - 4]                ; 0x05fb
     jne short @..show_area.l7        ; 0x05fe
     mov al, 0xff                     ; 0x0600
     mov dx, 0x3cf                    ; 0x0602
@@ -169,7 +169,7 @@ show_area:
     mov ax, 0xa000                   ; 0x0629
     mov ds, ax                       ; 0x062c
     xor di, di                       ; 0x062e
-    mov cx, word [bp - 0x0032]       ; 0x0630
+    mov cx, word [bp - 0x32]         ; 0x0630
     xor ax, ax                       ; 0x0633
     rep stosw                        ; 0x0635
     mov dx, 0x3ce                    ; 0x0637
@@ -178,7 +178,7 @@ show_area:
     inc dx                           ; 0x063d
     mov al, 0                        ; 0x063e
     out dx, al                       ; 0x0640
-    mov cx, word [bp - 0x0028]       ; 0x0641
+    mov cx, word [bp - 0x28]         ; 0x0641
     or cx, cx                        ; 0x0644
     jne short @..show_area.l12       ; 0x0646
     jmp near @..show_area.l17        ; 0x0648
@@ -191,14 +191,14 @@ show_area:
     mov al, 0                        ; 0x0654
     out dx, al                       ; 0x0656
     xor di, di                       ; 0x0657
-    mov si, word [bp - 0x0002]       ; 0x0659
-    mov bx, word [bp - 0x0016]       ; 0x065c
+    mov si, word [bp - 2]            ; 0x0659
+    mov bx, word [bp - 0x16]         ; 0x065c
 @..show_area.l13:
     mov al, byte [si]                ; 0x065f
     shr al, cl                       ; 0x0661
     mov byte [es:di], al             ; 0x0663
     add si, byte 0x50                ; 0x0666
-    add di, word [bp - 0x0026]       ; 0x0669
+    add di, word [bp - 0x26]         ; 0x0669
     dec bx                           ; 0x066c
     jne short @..show_area.l13       ; 0x066d
     mov dx, 0x3ce                    ; 0x066f
@@ -207,15 +207,15 @@ show_area:
     inc dx                           ; 0x0675
     mov al, 1                        ; 0x0676
     out dx, al                       ; 0x0678
-    mov di, word [bp - 0x0024]       ; 0x0679
-    mov si, word [bp - 0x0002]       ; 0x067c
-    mov bx, word [bp - 0x0016]       ; 0x067f
+    mov di, word [bp - 0x24]         ; 0x0679
+    mov si, word [bp - 2]            ; 0x067c
+    mov bx, word [bp - 0x16]         ; 0x067f
 @..show_area.l14:
     mov al, byte [si]                ; 0x0682
     shr al, cl                       ; 0x0684
     mov byte [es:di], al             ; 0x0686
     add si, byte 0x50                ; 0x0689
-    add di, word [bp - 0x0026]       ; 0x068c
+    add di, word [bp - 0x26]         ; 0x068c
     dec bx                           ; 0x068f
     jne short @..show_area.l14       ; 0x0690
     mov dx, 0x3ce                    ; 0x0692
@@ -224,15 +224,15 @@ show_area:
     inc dx                           ; 0x0698
     mov al, 2                        ; 0x0699
     out dx, al                       ; 0x069b
-    mov di, word [bp - 0x0032]       ; 0x069c
-    mov si, word [bp - 0x0002]       ; 0x069f
-    mov bx, word [bp - 0x0016]       ; 0x06a2
+    mov di, word [bp - 0x32]         ; 0x069c
+    mov si, word [bp - 2]            ; 0x069f
+    mov bx, word [bp - 0x16]         ; 0x06a2
 @..show_area.l15:
     mov al, byte [si]                ; 0x06a5
     shr al, cl                       ; 0x06a7
     mov byte [es:di], al             ; 0x06a9
     add si, byte 0x50                ; 0x06ac
-    add di, word [bp - 0x0026]       ; 0x06af
+    add di, word [bp - 0x26]         ; 0x06af
     dec bx                           ; 0x06b2
     jne short @..show_area.l15       ; 0x06b3
     mov dx, 0x3ce                    ; 0x06b5
@@ -241,26 +241,26 @@ show_area:
     inc dx                           ; 0x06bb
     mov al, 3                        ; 0x06bc
     out dx, al                       ; 0x06be
-    mov di, word [bp - 0x0034]       ; 0x06bf
-    mov si, word [bp - 0x0002]       ; 0x06c2
-    mov bx, word [bp - 0x0016]       ; 0x06c5
+    mov di, word [bp - 0x34]         ; 0x06bf
+    mov si, word [bp - 2]            ; 0x06c2
+    mov bx, word [bp - 0x16]         ; 0x06c5
 @..show_area.l16:
     mov al, byte [si]                ; 0x06c8
     shr al, cl                       ; 0x06ca
     mov byte [es:di], al             ; 0x06cc
     add si, byte 0x50                ; 0x06cf
-    add di, word [bp - 0x0026]       ; 0x06d2
+    add di, word [bp - 0x26]         ; 0x06d2
     dec bx                           ; 0x06d5
     jne short @..show_area.l16       ; 0x06d6
 @..show_area.l17:
-    mov cx, word [bp - 0x002a]       ; 0x06d8
+    mov cx, word [bp - 0x2a]         ; 0x06d8
     or cx, cx                        ; 0x06db
     jne short @..show_area.l18       ; 0x06dd
     jmp near @..show_area.l23        ; 0x06df
 @..show_area.l18:
-    mov di, word [bp - 0x0026]       ; 0x06e2
+    mov di, word [bp - 0x26]         ; 0x06e2
     dec di                           ; 0x06e5
-    mov si, word [bp - 0x0002]       ; 0x06e6
+    mov si, word [bp - 2]            ; 0x06e6
     add si, di                       ; 0x06e9
     push si                          ; 0x06eb
     mov dx, 0x3ce                    ; 0x06ec
@@ -271,13 +271,13 @@ show_area:
     out dx, al                       ; 0x06f5
     pop si                           ; 0x06f6
     push si                          ; 0x06f7
-    mov bx, word [bp - 0x0016]       ; 0x06f8
+    mov bx, word [bp - 0x16]         ; 0x06f8
 @..show_area.l19:
     mov al, byte [si]                ; 0x06fb
     shl al, cl                       ; 0x06fd
     mov byte [es:di], al             ; 0x06ff
     add si, byte 0x50                ; 0x0702
-    add di, word [bp - 0x0026]       ; 0x0705
+    add di, word [bp - 0x26]         ; 0x0705
     dec bx                           ; 0x0708
     jne short @..show_area.l19       ; 0x0709
     mov dx, 0x3ce                    ; 0x070b
@@ -286,18 +286,18 @@ show_area:
     inc dx                           ; 0x0711
     mov al, 1                        ; 0x0712
     out dx, al                       ; 0x0714
-    mov di, word [bp - 0x0026]       ; 0x0715
+    mov di, word [bp - 0x26]         ; 0x0715
     dec di                           ; 0x0718
-    add di, word [bp - 0x0024]       ; 0x0719
+    add di, word [bp - 0x24]         ; 0x0719
     pop si                           ; 0x071c
     push si                          ; 0x071d
-    mov bx, word [bp - 0x0016]       ; 0x071e
+    mov bx, word [bp - 0x16]         ; 0x071e
 @..show_area.l20:
     mov al, byte [si]                ; 0x0721
     shl al, cl                       ; 0x0723
     mov byte [es:di], al             ; 0x0725
     add si, byte 0x50                ; 0x0728
-    add di, word [bp - 0x0026]       ; 0x072b
+    add di, word [bp - 0x26]         ; 0x072b
     dec bx                           ; 0x072e
     jne short @..show_area.l20       ; 0x072f
     mov dx, 0x3ce                    ; 0x0731
@@ -306,18 +306,18 @@ show_area:
     inc dx                           ; 0x0737
     mov al, 2                        ; 0x0738
     out dx, al                       ; 0x073a
-    mov di, word [bp - 0x0026]       ; 0x073b
+    mov di, word [bp - 0x26]         ; 0x073b
     dec di                           ; 0x073e
-    add di, word [bp - 0x0032]       ; 0x073f
+    add di, word [bp - 0x32]         ; 0x073f
     pop si                           ; 0x0742
     push si                          ; 0x0743
-    mov bx, word [bp - 0x0016]       ; 0x0744
+    mov bx, word [bp - 0x16]         ; 0x0744
 @..show_area.l21:
     mov al, byte [si]                ; 0x0747
     shl al, cl                       ; 0x0749
     mov byte [es:di], al             ; 0x074b
     add si, byte 0x50                ; 0x074e
-    add di, word [bp - 0x0026]       ; 0x0751
+    add di, word [bp - 0x26]         ; 0x0751
     dec bx                           ; 0x0754
     jne short @..show_area.l21       ; 0x0755
     mov dx, 0x3ce                    ; 0x0757
@@ -326,38 +326,38 @@ show_area:
     inc dx                           ; 0x075d
     mov al, 3                        ; 0x075e
     out dx, al                       ; 0x0760
-    mov di, word [bp - 0x0026]       ; 0x0761
+    mov di, word [bp - 0x26]         ; 0x0761
     dec di                           ; 0x0764
-    add di, word [bp - 0x0034]       ; 0x0765
+    add di, word [bp - 0x34]         ; 0x0765
     pop si                           ; 0x0768
-    mov bx, word [bp - 0x0016]       ; 0x0769
+    mov bx, word [bp - 0x16]         ; 0x0769
 @..show_area.l22:
     mov al, byte [si]                ; 0x076c
     shl al, cl                       ; 0x076e
     mov byte [es:di], al             ; 0x0770
     add si, byte 0x50                ; 0x0773
-    add di, word [bp - 0x0026]       ; 0x0776
+    add di, word [bp - 0x26]         ; 0x0776
     dec bx                           ; 0x0779
     jne short @..show_area.l22       ; 0x077a
 @..show_area.l23:
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x077c
     mov ds, ax                       ; 0x0780
     xor di, di                       ; 0x0782
-    mov cx, word [bp - 0x0016]       ; 0x0784
+    mov cx, word [bp - 0x16]         ; 0x0784
 @..show_area.l24:
     push cx                          ; 0x0787
-    mov si, word [bp - 0x0012]       ; 0x0788
-    add word [bp - 0x0012], strict word 0x140 ; 0x078b
-    mov cx, word [bp - 0x0028]       ; 0x0790
+    mov si, word [bp - 0x12]         ; 0x0788
+    add word [bp - 0x12], strict word 0x140 ; 0x078b
+    mov cx, word [bp - 0x28]         ; 0x0790
     or cx, cx                        ; 0x0793
     je short @..show_area.l26        ; 0x0795
-    mov byte [bp - 0x002c], cl       ; 0x0797
+    mov byte [bp - 0x2c], cl         ; 0x0797
     mov cl, byte [es:di]             ; 0x079a
-    mov bx, word [bp - 0x0024]       ; 0x079d
+    mov bx, word [bp - 0x24]         ; 0x079d
     mov ch, byte [es:bx + di]        ; 0x07a0
-    add bx, word [bp - 0x0024]       ; 0x07a3
+    add bx, word [bp - 0x24]         ; 0x07a3
     mov dl, byte [es:bx + di]        ; 0x07a6
-    add bx, word [bp - 0x0024]       ; 0x07a9
+    add bx, word [bp - 0x24]         ; 0x07a9
     mov dh, byte [es:bx + di]        ; 0x07ac
 @..show_area.l25:
     mov bx, cseg_32b3 - IMAGE_BASE   ; 0x07af
@@ -379,25 +379,25 @@ show_area:
     rcl ch, 1                        ; 0x07cf
     rcl al, 1                        ; 0x07d1
     rcl cl, 1                        ; 0x07d3
-    dec byte [bp - 0x002c]           ; 0x07d5
+    dec byte [bp - 0x2c]             ; 0x07d5
     jne short @..show_area.l25       ; 0x07d8
     mov byte [es:di], cl             ; 0x07da
-    mov bx, word [bp - 0x0024]       ; 0x07dd
+    mov bx, word [bp - 0x24]         ; 0x07dd
     mov byte [es:bx + di], ch        ; 0x07e0
-    add bx, word [bp - 0x0024]       ; 0x07e3
+    add bx, word [bp - 0x24]         ; 0x07e3
     mov byte [es:bx + di], dl        ; 0x07e6
-    add bx, word [bp - 0x0024]       ; 0x07e9
+    add bx, word [bp - 0x24]         ; 0x07e9
     mov byte [es:bx + di], dh        ; 0x07ec
     inc di                           ; 0x07ef
 @..show_area.l26:
-    mov ax, word [bp - 0x002e]       ; 0x07f0
+    mov ax, word [bp - 0x2e]         ; 0x07f0
     or ax, ax                        ; 0x07f3
     je short @..show_area.l29        ; 0x07f5
-    mov word [bp - 0x002c], ax       ; 0x07f7
+    mov word [bp - 0x2c], ax         ; 0x07f7
 @..show_area.l27:
     xor cx, cx                       ; 0x07fa
     xor dx, dx                       ; 0x07fc
-    mov byte [bp - 0x0030], 4        ; 0x07fe
+    mov byte [bp - 0x30], 4          ; 0x07fe
 @..show_area.l28:
     mov bx, cseg_32b3 - IMAGE_BASE   ; 0x0802
     lodsb                            ; 0x0805
@@ -418,21 +418,21 @@ show_area:
     rcl ch, 1                        ; 0x0822
     rcl al, 1                        ; 0x0824
     rcl cl, 1                        ; 0x0826
-    dec byte [bp - 0x0030]           ; 0x0828
+    dec byte [bp - 0x30]             ; 0x0828
     jne short @..show_area.l28       ; 0x082b
     mov byte [es:di], cl             ; 0x082d
-    mov bx, word [bp - 0x0024]       ; 0x0830
+    mov bx, word [bp - 0x24]         ; 0x0830
     mov byte [es:bx + di], ch        ; 0x0833
-    add bx, word [bp - 0x0024]       ; 0x0836
+    add bx, word [bp - 0x24]         ; 0x0836
     mov byte [es:bx + di], dl        ; 0x0839
-    add bx, word [bp - 0x0024]       ; 0x083c
+    add bx, word [bp - 0x24]         ; 0x083c
     mov byte [es:bx + di], dh        ; 0x083f
     inc di                           ; 0x0842
-    dec word [bp - 0x002c]           ; 0x0843
+    dec word [bp - 0x2c]             ; 0x0843
     jne short @..show_area.l27       ; 0x0846
 @..show_area.l29:
-    mov ax, word [bp - 0x002a]       ; 0x0848
-    mov byte [bp - 0x002c], al       ; 0x084b
+    mov ax, word [bp - 0x2a]         ; 0x0848
+    mov byte [bp - 0x2c], al         ; 0x084b
     or al, al                        ; 0x084e
     je short @..show_area.l31        ; 0x0850
     xor ah, ah                       ; 0x0852
@@ -440,11 +440,11 @@ show_area:
     dec ax                           ; 0x0856
     add si, ax                       ; 0x0857
     mov cl, byte [es:di]             ; 0x0859
-    mov bx, word [bp - 0x0024]       ; 0x085c
+    mov bx, word [bp - 0x24]         ; 0x085c
     mov ch, byte [es:bx + di]        ; 0x085f
-    add bx, word [bp - 0x0024]       ; 0x0862
+    add bx, word [bp - 0x24]         ; 0x0862
     mov dl, byte [es:bx + di]        ; 0x0865
-    add bx, word [bp - 0x0024]       ; 0x0868
+    add bx, word [bp - 0x24]         ; 0x0868
     mov dh, byte [es:bx + di]        ; 0x086b
 @..show_area.l30:
     mov bx, cseg_32b3 - IMAGE_BASE   ; 0x086e
@@ -467,14 +467,14 @@ show_area:
     rcr dl, 1                        ; 0x0890
     rcr al, 1                        ; 0x0892
     rcr dh, 1                        ; 0x0894
-    sub byte [bp - 0x002c], 2        ; 0x0896
+    sub byte [bp - 0x2c], 2          ; 0x0896
     jne short @..show_area.l30       ; 0x089a
     mov byte [es:di], cl             ; 0x089c
-    mov bx, word [bp - 0x0024]       ; 0x089f
+    mov bx, word [bp - 0x24]         ; 0x089f
     mov byte [es:bx + di], ch        ; 0x08a2
-    add bx, word [bp - 0x0024]       ; 0x08a5
+    add bx, word [bp - 0x24]         ; 0x08a5
     mov byte [es:bx + di], dl        ; 0x08a8
-    add bx, word [bp - 0x0024]       ; 0x08ab
+    add bx, word [bp - 0x24]         ; 0x08ab
     mov byte [es:bx + di], dh        ; 0x08ae
     inc di                           ; 0x08b1
 @..show_area.l31:
@@ -489,8 +489,8 @@ show_area:
     add ax, word [cs:maze_paras_used - IMAGE_BASE] ; 0x08c2
     mov ds, ax                       ; 0x08c7
     xor si, si                       ; 0x08c9
-    mov di, word [bp - 0x0002]       ; 0x08cb
-    mov cx, word [bp - 0x0016]       ; 0x08ce
+    mov di, word [bp - 2]            ; 0x08cb
+    mov cx, word [bp - 0x16]         ; 0x08ce
 @..show_area.l33:
     push cx                          ; 0x08d1
     mov dx, 0x3c4                    ; 0x08d2
@@ -501,7 +501,7 @@ show_area:
     out dx, al                       ; 0x08db
     push si                          ; 0x08dc
     push di                          ; 0x08dd
-    mov cx, word [bp - 0x0026]       ; 0x08de
+    mov cx, word [bp - 0x26]         ; 0x08de
     rep movsb                        ; 0x08e1
     pop di                           ; 0x08e3
     pop si                           ; 0x08e4
@@ -513,8 +513,8 @@ show_area:
     out dx, al                       ; 0x08ee
     push si                          ; 0x08ef
     push di                          ; 0x08f0
-    add si, word [bp - 0x0024]       ; 0x08f1
-    mov cx, word [bp - 0x0026]       ; 0x08f4
+    add si, word [bp - 0x24]         ; 0x08f1
+    mov cx, word [bp - 0x26]         ; 0x08f4
     rep movsb                        ; 0x08f7
     pop di                           ; 0x08f9
     pop si                           ; 0x08fa
@@ -526,8 +526,8 @@ show_area:
     out dx, al                       ; 0x0904
     push si                          ; 0x0905
     push di                          ; 0x0906
-    add si, word [bp - 0x0032]       ; 0x0907
-    mov cx, word [bp - 0x0026]       ; 0x090a
+    add si, word [bp - 0x32]         ; 0x0907
+    mov cx, word [bp - 0x26]         ; 0x090a
     rep movsb                        ; 0x090d
     pop di                           ; 0x090f
     pop si                           ; 0x0910
@@ -539,13 +539,13 @@ show_area:
     out dx, al                       ; 0x091a
     push si                          ; 0x091b
     push di                          ; 0x091c
-    add si, word [bp - 0x0034]       ; 0x091d
-    mov cx, word [bp - 0x0026]       ; 0x0920
+    add si, word [bp - 0x34]         ; 0x091d
+    mov cx, word [bp - 0x26]         ; 0x0920
     rep movsb                        ; 0x0923
     pop di                           ; 0x0925
     pop si                           ; 0x0926
     add di, byte 0x50                ; 0x0927
-    add si, word [bp - 0x0026]       ; 0x092a
+    add si, word [bp - 0x26]         ; 0x092a
     pop cx                           ; 0x092d
     loop @..show_area.l33            ; 0x092e
     mov dx, 0x3c4                    ; 0x0930

@@ -48,7 +48,7 @@ run_state_0f_scene:
     add sp, byte 6                   ; 0x7fc8
     mov word [bss_844c], ax          ; 0x7fcb
 @..run_state_0f_scene.l1:
-    lea ax, word [bp - 0x0050]       ; 0x7fce
+    lea ax, word [bp - 0x50]         ; 0x7fce
     push ax                          ; 0x7fd1
     mov ax, MSG_YOU_DEFEATED_THE_MONSTERS ; 0x7fd2
     push ax                          ; 0x7fd5
@@ -59,7 +59,7 @@ run_state_0f_scene:
     mov ax, 0xffff                   ; 0x7fe0
     push ax                          ; 0x7fe3
     push word [treasure_message_row] ; 0x7fe4
-    lea ax, word [bp - 0x0050]       ; 0x7fe8
+    lea ax, word [bp - 0x50]         ; 0x7fe8
     push ax                          ; 0x7feb
     call show_treasure_message       ; 0x7fec
     add sp, byte 8                   ; 0x7fef

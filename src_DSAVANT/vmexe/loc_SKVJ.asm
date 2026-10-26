@@ -29,7 +29,7 @@ loc_SKVJ:
     mov ax, 0                        ; 0x9882
     push ax                          ; 0x9885
     call api_idx_0004_QSNR           ; 0x9886
-    add sp, byte 0x0e                ; 0x9889
+    add sp, byte 0xe                 ; 0x9889
     mov ax, word [bss_9058]          ; 0x988c
     mov cx, 2                        ; 0x988f
     cwd                              ; 0x9892

@@ -6,7 +6,7 @@ api_idx_0004_UQRV:
     jle short @..api_idx_0004_UQRV.l1 ; 0x3ab7
     call loc_NRTK                    ; 0x3ab9
 @..api_idx_0004_UQRV.l1:
-    mov bx, word [bp + 0x4]          ; 0x3abc
+    mov bx, word [bp + 4]            ; 0x3abc
     cmp byte [bx], 0                 ; 0x3abf
     jne short @..api_idx_0004_UQRV.l2 ; 0x3ac2
     inc word [bss_9566]              ; 0x3ac4
@@ -24,29 +24,29 @@ api_idx_0004_UQRV:
     mov cx, ax                       ; 0x3adb
     mov ax, 0x54                     ; 0x3add
     sub ax, cx                       ; 0x3ae0
-    mov word [bp - 0x0002], ax       ; 0x3ae2
-    push word [bp + 0x4]             ; 0x3ae5
+    mov word [bp - 2], ax            ; 0x3ae2
+    push word [bp + 4]               ; 0x3ae5
     call aztec_strlen                ; 0x3ae8
     pop cx                           ; 0x3aeb
     dec ax                           ; 0x3aec
-    mov word [bp - 0x0004], ax       ; 0x3aed
-    mov bx, word [bp + 0x4]          ; 0x3af0
+    mov word [bp - 4], ax            ; 0x3aed
+    mov bx, word [bp + 4]            ; 0x3af0
     mov si, ax                       ; 0x3af3
     mov al, byte [bx + si]           ; 0x3af5
     sub ah, ah                       ; 0x3af7
     jmp short @..api_idx_0004_UQRV.l5 ; 0x3af9
 @..api_idx_0004_UQRV.l3:
-    mov bx, word [bp + 0x4]          ; 0x3afb
-    mov si, word [bp - 0x0004]       ; 0x3afe
+    mov bx, word [bp + 4]            ; 0x3afb
+    mov si, word [bp - 4]            ; 0x3afe
     mov byte [bx + si], 0            ; 0x3b01
-    mov word [bp - 0x0002], 4        ; 0x3b04
+    mov word [bp - 2], 4             ; 0x3b04
     jmp short @..api_idx_0004_UQRV.l6 ; 0x3b09
 @..api_idx_0004_UQRV.l4:
-    mov bx, word [bp + 0x4]          ; 0x3b0b
-    mov si, word [bp - 0x0004]       ; 0x3b0e
+    mov bx, word [bp + 4]            ; 0x3b0b
+    mov si, word [bp - 4]            ; 0x3b0e
     mov byte [bx + si], 0            ; 0x3b11
     mov ax, word [bss_9568]          ; 0x3b14
-    mov word [bp - 0x0002], ax       ; 0x3b17
+    mov word [bp - 2], ax            ; 0x3b17
     jmp short @..api_idx_0004_UQRV.l6 ; 0x3b1a
 @..api_idx_0004_UQRV.l5:
     cmp ax, strict word 0x24         ; 0x3b1c
@@ -58,7 +58,7 @@ api_idx_0004_UQRV:
     imul word [bss_9566]             ; 0x3b29
     add ax, strict word 0x70         ; 0x3b2d
     push ax                          ; 0x3b30
-    push word [bp - 0x0002]          ; 0x3b31
+    push word [bp - 2]               ; 0x3b31
     call gfx_set_text_pos            ; 0x3b34
     add sp, byte 4                   ; 0x3b37
     mov ax, 0                        ; 0x3b3a
@@ -69,12 +69,12 @@ api_idx_0004_UQRV:
     add sp, byte 4                   ; 0x3b45
     mov ax, 2                        ; 0x3b48
     push ax                          ; 0x3b4b
-    push word [bp + 0x4]             ; 0x3b4c
+    push word [bp + 4]               ; 0x3b4c
     call draw_text_glyphs            ; 0x3b4f
     add sp, byte 4                   ; 0x3b52
-    mov bx, word [bp + 0x4]          ; 0x3b55
+    mov bx, word [bp + 4]            ; 0x3b55
     mov byte [bx], 0                 ; 0x3b58
-    mov ax, word [bp - 0x0002]       ; 0x3b5b
+    mov ax, word [bp - 2]            ; 0x3b5b
     mov word [bss_9568], ax          ; 0x3b5e
     inc word [bss_9566]              ; 0x3b61
     ret                              ; 0x3b65

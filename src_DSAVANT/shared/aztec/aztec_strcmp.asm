@@ -5,10 +5,10 @@ aztec_strcmp:
     cld
     push si
     push di
-    mov si, word [bp + 0x4]
+    mov si, word [bp + 4]
     mov di, ds
     mov es, di
-    mov di, word [bp + 0x6]
+    mov di, word [bp + 6]
 @..aztec_strcmp.cmploop:
     lodsw
     scasw
@@ -21,16 +21,16 @@ aztec_strcmp:
 aztec_strncmp:
     push bp
     mov bp, sp
-    mov cx, word [bp + 0x8]
+    mov cx, word [bp + 8]
     mov dx, cx
     shr cx, 1
     cld
     push si
     push di
-    mov si, word [bp + 0x4]
+    mov si, word [bp + 4]
     mov di, ds
     mov es, di
-    mov di, word [bp + 0x6]
+    mov di, word [bp + 6]
     jcxz @..aztec_strcmp.words_equal
 @..aztec_strcmp.ncmploop:
     lodsw

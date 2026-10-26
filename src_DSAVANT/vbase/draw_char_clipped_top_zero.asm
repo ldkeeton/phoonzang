@@ -2,13 +2,13 @@
 draw_char_clipped_top_zero:
     mov ax, 0xfff6                   ; 0x7340
     call aztec_csav                  ; 0x7343
-    mov al, byte [bp + 0x6]          ; 0x7346
-    mov byte [bp - 0x000a], al       ; 0x7349
-    mov byte [bp - 0x0009], 0        ; 0x734c
+    mov al, byte [bp + 6]            ; 0x7346
+    mov byte [bp - 0xa], al          ; 0x7349
+    mov byte [bp - 9], 0             ; 0x734c
     mov ax, 0                        ; 0x7350
     push ax                          ; 0x7353
     push ax                          ; 0x7354
-    lea ax, word [bp - 0x000a]       ; 0x7355
+    lea ax, word [bp - 0xa]          ; 0x7355
     push ax                          ; 0x7358
     mov ax, 0                        ; 0x7359
     push ax                          ; 0x735c
@@ -21,8 +21,8 @@ draw_char_clipped_top_zero:
     mov ax, 0                        ; 0x7369
     push ax                          ; 0x736c
     push word [bp + 0xa]             ; 0x736d
-    push word [bp + 0x8]             ; 0x7370
-    push word [bp + 0x4]             ; 0x7373
+    push word [bp + 8]               ; 0x7370
+    push word [bp + 4]               ; 0x7373
     call gfx_draw_text               ; 0x7376
     add sp, byte 0x16                ; 0x7379
     ret                              ; 0x737c

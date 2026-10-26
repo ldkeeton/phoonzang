@@ -3,7 +3,7 @@ ensure_sound_loaded: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x29f1
     call aztec_csav                  ; 0x29f4
     mov ax, word [loaded_sound_id]   ; 0x29f7
-    cmp ax, word [bp + 0x4]          ; 0x29fa
+    cmp ax, word [bp + 4]            ; 0x29fa
     je short @..ensure_sound_loaded.l2 ; 0x29fd
     mov ax, 1                        ; 0x29ff
     push ax                          ; 0x2a02
@@ -16,13 +16,13 @@ ensure_sound_loaded: ; Aztec csav frame=0x0000
     call wait_and_free_sound         ; 0x2a12
     pop cx                           ; 0x2a15
 @..ensure_sound_loaded.l1:
-    mov ax, word [bp + 0x4]          ; 0x2a16
+    mov ax, word [bp + 4]            ; 0x2a16
     mov word [loaded_sound_id], ax   ; 0x2a19
     mov ax, 0                        ; 0x2a1c
     push ax                          ; 0x2a1f
     mov ax, 0x10                     ; 0x2a20
     push ax                          ; 0x2a23
-    push word [bp + 0x4]             ; 0x2a24
+    push word [bp + 4]               ; 0x2a24
     call load_sound_file             ; 0x2a27
     add sp, byte 6                   ; 0x2a2a
 @..ensure_sound_loaded.l2:

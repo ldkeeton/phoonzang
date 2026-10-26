@@ -6,10 +6,10 @@ api_idx_0004_GSIV:
     push ax                          ; 0x8f8e
     mov ax, 2                        ; 0x8f8f
     push ax                          ; 0x8f92
-    push word [bp + 0x4]             ; 0x8f93
+    push word [bp + 4]               ; 0x8f93
     call api_idx_0054_TNHV           ; 0x8f96
     add sp, byte 6                   ; 0x8f99
-    mov word [bp - 0x0002], ax       ; 0x8f9c
+    mov word [bp - 2], ax            ; 0x8f9c
     cmp ax, strict word 0xffff       ; 0x8f9f
     je short @..api_idx_0004_GSIV.l1 ; 0x8fa2
     mov ax, 2                        ; 0x8fa4
@@ -19,10 +19,10 @@ api_idx_0004_GSIV:
     push ax                          ; 0x8fab
     mov ax, 3                        ; 0x8fac
     push ax                          ; 0x8faf
-    push word [bp + 0x4]             ; 0x8fb0
+    push word [bp + 4]               ; 0x8fb0
     call api_idx_0054_TNHV           ; 0x8fb3
     add sp, byte 6                   ; 0x8fb6
-    mov word [bp - 0x0002], ax       ; 0x8fb9
+    mov word [bp - 2], ax            ; 0x8fb9
     cmp ax, strict word 0xffff       ; 0x8fbc
     je short @..api_idx_0004_GSIV.l4 ; 0x8fbf
     mov word [bss_9e48], ax          ; 0x8fc1
@@ -70,10 +70,10 @@ jumptable_8ffe:
     push ax                          ; 0x9020
     mov ax, 8                        ; 0x9021
     push ax                          ; 0x9024
-    push word [bp + 0x4]             ; 0x9025
+    push word [bp + 4]               ; 0x9025
     call api_idx_0054_TNHV           ; 0x9028
     add sp, byte 6                   ; 0x902b
-    mov word [bp - 0x0002], ax       ; 0x902e
+    mov word [bp - 2], ax            ; 0x902e
     cmp ax, strict word 0xffff       ; 0x9031
     je short @..api_idx_0004_GSIV.l5 ; 0x9034
     mov word [bss_9e62], 1           ; 0x9036
@@ -90,10 +90,10 @@ jumptable_8ffe:
     push ax                          ; 0x9057
     mov ax, 4                        ; 0x9058
     push ax                          ; 0x905b
-    push word [bp + 0x4]             ; 0x905c
+    push word [bp + 4]               ; 0x905c
     call api_idx_0054_TNHV           ; 0x905f
     add sp, byte 6                   ; 0x9062
-    mov word [bp - 0x0002], ax       ; 0x9065
+    mov word [bp - 2], ax            ; 0x9065
     cmp ax, strict word 0xffff       ; 0x9068
     je short @..api_idx_0004_GSIV.l9 ; 0x906b
     cmp word [bss_b030], byte 7      ; 0x906d
@@ -105,7 +105,7 @@ jumptable_8ffe:
     mov ax, word [bss_9e7c]          ; 0x9081
     mov word [bss_9e78], ax          ; 0x9084
 @..api_idx_0004_GSIV.l7:
-    cmp word [bp - 0x0002], byte 0   ; 0x9087
+    cmp word [bp - 2], byte 0        ; 0x9087
     jne short @..api_idx_0004_GSIV.l8 ; 0x908b
     mov word [bss_9e60], 1           ; 0x908d
 @..api_idx_0004_GSIV.l8:
@@ -114,10 +114,10 @@ jumptable_8ffe:
 @..api_idx_0004_GSIV.l9:
     mov ax, bss_b032                 ; 0x9097
     push ax                          ; 0x909a
-    push word [bp + 0x4]             ; 0x909b
+    push word [bp + 4]               ; 0x909b
     call api_idx_0002_NTRU           ; 0x909e
     add sp, byte 4                   ; 0x90a1
-    mov word [bp - 0x0002], ax       ; 0x90a4
+    mov word [bp - 2], ax            ; 0x90a4
     cmp ax, strict word 0xffff       ; 0x90a7
     je short @..api_idx_0004_GSIV.l10 ; 0x90aa
     mov word [bss_9e66], 1           ; 0x90ac
@@ -128,29 +128,29 @@ jumptable_8ffe:
     push ax                          ; 0x90b9
     mov ax, 1                        ; 0x90ba
     push ax                          ; 0x90bd
-    push word [bp + 0x4]             ; 0x90be
+    push word [bp + 4]               ; 0x90be
     call api_idx_0054_TNHV           ; 0x90c1
     add sp, byte 6                   ; 0x90c4
-    mov word [bp - 0x0002], ax       ; 0x90c7
+    mov word [bp - 2], ax            ; 0x90c7
     cmp ax, strict word 0xffff       ; 0x90ca
     je short @..api_idx_0004_GSIV.l15 ; 0x90cd
     cmp word [bss_b030], byte 6      ; 0x90cf
     jne short @..api_idx_0004_GSIV.l11 ; 0x90d4
     mov word [bss_9e46], 0xffff      ; 0x90d6
     mov ax, word [bss_9e78]          ; 0x90dc
-    mov word [bp - 0x0004], ax       ; 0x90df
+    mov word [bp - 4], ax            ; 0x90df
     mov ax, word [bss_9e7a]          ; 0x90e2
     mov word [bss_9e78], ax          ; 0x90e5
-    mov ax, word [bp - 0x0004]       ; 0x90e8
+    mov ax, word [bp - 4]            ; 0x90e8
     mov word [bss_9e7a], ax          ; 0x90eb
 @..api_idx_0004_GSIV.l11:
     cmp word [bss_9e46], byte 0xff   ; 0x90ee
     je short @..api_idx_0004_GSIV.l12 ; 0x90f3
-    mov ax, word [bp - 0x0002]       ; 0x90f5
+    mov ax, word [bp - 2]            ; 0x90f5
     mov word [bss_9e82], ax          ; 0x90f8
     jmp short @..api_idx_0004_GSIV.l13 ; 0x90fb
 @..api_idx_0004_GSIV.l12:
-    mov ax, word [bp - 0x0002]       ; 0x90fd
+    mov ax, word [bp - 2]            ; 0x90fd
     mov word [bss_9e46], ax          ; 0x9100
 @..api_idx_0004_GSIV.l13:
     cmp word [bss_b030], byte 7      ; 0x9103
@@ -163,10 +163,10 @@ jumptable_8ffe:
 @..api_idx_0004_GSIV.l15:
     mov ax, bss_b03c                 ; 0x9114
     push ax                          ; 0x9117
-    push word [bp + 0x4]             ; 0x9118
+    push word [bp + 4]               ; 0x9118
     call api_idx_0002_NTRU           ; 0x911b
     add sp, byte 4                   ; 0x911e
-    mov word [bp - 0x0002], ax       ; 0x9121
+    mov word [bp - 2], ax            ; 0x9121
     cmp ax, strict word 0xffff       ; 0x9124
     je short @..api_idx_0004_GSIV.l16 ; 0x9127
     mov ax, 6                        ; 0x9129
@@ -176,10 +176,10 @@ jumptable_8ffe:
     push ax                          ; 0x9130
     mov ax, 9                        ; 0x9131
     push ax                          ; 0x9134
-    push word [bp + 0x4]             ; 0x9135
+    push word [bp + 4]               ; 0x9135
     call api_idx_0054_TNHV           ; 0x9138
     add sp, byte 6                   ; 0x913b
-    mov word [bp - 0x0002], ax       ; 0x913e
+    mov word [bp - 2], ax            ; 0x913e
     cmp ax, strict word 0xffff       ; 0x9141
     je short @..api_idx_0004_GSIV.l20 ; 0x9144
     mov ax, word [bss_9e42]          ; 0x9146
@@ -213,10 +213,10 @@ jumptable_8ffe:
     mov word [bss_b048], 0           ; 0x918c
     mov ax, bss_b048                 ; 0x9192
     push ax                          ; 0x9195
-    push word [bp + 0x4]             ; 0x9196
+    push word [bp + 4]               ; 0x9196
     call api_idx_0058_PMKH           ; 0x9199
     add sp, byte 4                   ; 0x919c
-    mov word [bp - 0x0002], ax       ; 0x919f
+    mov word [bp - 2], ax            ; 0x919f
     cmp ax, strict word 0xffff       ; 0x91a2
     jne short @..api_idx_0004_GSIV.l21 ; 0x91a5
     jmp near @..api_idx_0004_GSIV.l30 ; 0x91a7
@@ -224,7 +224,7 @@ jumptable_8ffe:
     cmp word [bss_b030], byte 4      ; 0x91aa
     jne short @..api_idx_0004_GSIV.l23 ; 0x91af
     mov word [bss_9e62], 1           ; 0x91b1
-    cmp word [bp - 0x0002], byte 0   ; 0x91b7
+    cmp word [bp - 2], byte 0        ; 0x91b7
     jne short @..api_idx_0004_GSIV.l22 ; 0x91bb
     mov word [bss_9e78], 0           ; 0x91bd
 @..api_idx_0004_GSIV.l22:
@@ -232,7 +232,7 @@ jumptable_8ffe:
 @..api_idx_0004_GSIV.l23:
     cmp word [bss_b030], byte 1      ; 0x91c5
     jne short @..api_idx_0004_GSIV.l25 ; 0x91ca
-    cmp word [bp - 0x0002], byte 0   ; 0x91cc
+    cmp word [bp - 2], byte 0        ; 0x91cc
     jne short @..api_idx_0004_GSIV.l24 ; 0x91d0
     mov word [bss_9e7a], 0           ; 0x91d2
 @..api_idx_0004_GSIV.l24:
@@ -240,11 +240,11 @@ jumptable_8ffe:
 @..api_idx_0004_GSIV.l25:
     cmp word [bss_b030], byte 6      ; 0x91da
     jne short @..api_idx_0004_GSIV.l26 ; 0x91df
-    cmp word [bp - 0x0002], byte 0   ; 0x91e1
+    cmp word [bp - 2], byte 0        ; 0x91e1
     jne short @..api_idx_0004_GSIV.l26 ; 0x91e5
     mov word [bss_9e7a], 0           ; 0x91e7
 @..api_idx_0004_GSIV.l26:
-    cmp word [bp - 0x0002], byte 0   ; 0x91ed
+    cmp word [bp - 2], byte 0        ; 0x91ed
     jne short @..api_idx_0004_GSIV.l27 ; 0x91f1
     mov word [bss_9e7c], ax          ; 0x91f3
 @..api_idx_0004_GSIV.l27:
@@ -256,7 +256,7 @@ jumptable_8ffe:
     cmp ax, word [bss_b046]          ; 0x9205
     jne short @..api_idx_0004_GSIV.l29 ; 0x9209
 @..api_idx_0004_GSIV.l28:
-    mov ax, word [bp - 0x0002]       ; 0x920b
+    mov ax, word [bp - 2]            ; 0x920b
     mov word [bss_9e42], ax          ; 0x920e
     mov ax, word [bss_b048]          ; 0x9211
     mov word [bss_9e44], ax          ; 0x9214
@@ -268,10 +268,10 @@ jumptable_8ffe:
     push ax                          ; 0x921e
     mov ax, 7                        ; 0x921f
     push ax                          ; 0x9222
-    push word [bp + 0x4]             ; 0x9223
+    push word [bp + 4]               ; 0x9223
     call api_idx_0054_TNHV           ; 0x9226
     add sp, byte 6                   ; 0x9229
-    mov word [bp - 0x0002], ax       ; 0x922c
+    mov word [bp - 2], ax            ; 0x922c
     cmp ax, strict word 0xffff       ; 0x922f
     je short @..api_idx_0004_GSIV.l34 ; 0x9232
     cmp word [bss_b030], byte 4      ; 0x9234
@@ -282,16 +282,16 @@ jumptable_8ffe:
 @..api_idx_0004_GSIV.l31:
     cmp word [bss_b030], byte 1      ; 0x9246
     jne short @..api_idx_0004_GSIV.l32 ; 0x924b
-    mov ax, word [bp - 0x0002]       ; 0x924d
+    mov ax, word [bp - 2]            ; 0x924d
     mov word [bss_9e7a], ax          ; 0x9250
     jmp short @..api_idx_0004_GSIV.l33 ; 0x9253
 @..api_idx_0004_GSIV.l32:
     cmp word [bss_b030], byte 6      ; 0x9255
     jne short @..api_idx_0004_GSIV.l33 ; 0x925a
-    mov ax, word [bp - 0x0002]       ; 0x925c
+    mov ax, word [bp - 2]            ; 0x925c
     mov word [bss_9e7a], ax          ; 0x925f
 @..api_idx_0004_GSIV.l33:
-    mov ax, word [bp - 0x0002]       ; 0x9262
+    mov ax, word [bp - 2]            ; 0x9262
     mov word [bss_9e7c], ax          ; 0x9265
     mov ax, 7                        ; 0x9268
     ret                              ; 0x926b

@@ -30,7 +30,7 @@ save_level_state:
     mov ax, bss_8b7e                 ; 0x6931
     push ax                          ; 0x6934
     call app_memmove                 ; 0x6935
-    add sp, byte 0x0a                ; 0x6938
+    add sp, byte 0xa                 ; 0x6938
     mov ax, 0x80                     ; 0x693b
     push ax                          ; 0x693e
     mov ax, word [game_state_arg]    ; 0x693f
@@ -46,5 +46,5 @@ save_level_state:
     mov ax, bss_8afe                 ; 0x6955
     push ax                          ; 0x6958
     call app_memmove                 ; 0x6959
-    add sp, byte 0x0a                ; 0x695c
+    add sp, byte 0xa                 ; 0x695c
     ret                              ; 0x695f

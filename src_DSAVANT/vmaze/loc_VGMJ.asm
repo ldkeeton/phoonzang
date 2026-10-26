@@ -3,7 +3,7 @@ loc_VGMJ:
     mov ax, 0                        ; 0x0b14
     call aztec_csav                  ; 0x0b17
     call loc_OGHL                    ; 0x0b1a
-    cmp word [bp + 0x8], byte 0      ; 0x0b1d
+    cmp word [bp + 8], byte 0        ; 0x0b1d
     je short @..loc_VGMJ.l1          ; 0x0b21
     call score_music_enabled         ; 0x0b23
     mov word [bss_8450], ax          ; 0x0b26
@@ -25,9 +25,9 @@ loc_VGMJ:
     add sp, byte 6                   ; 0x0b4d
     mov word [bss_844c], ax          ; 0x0b50
 @..loc_VGMJ.l1:
-    mov ax, word [bp + 0x4]          ; 0x0b53
+    mov ax, word [bp + 4]            ; 0x0b53
     mov word [party_entry_mode], ax  ; 0x0b56
-    mov ax, word [bp + 0x6]          ; 0x0b59
+    mov ax, word [bp + 6]            ; 0x0b59
     mov word [party_entry_flag], ax  ; 0x0b5c
     mov word [game_state], 0xa       ; 0x0b5f
     ret                              ; 0x0b65

@@ -4,8 +4,8 @@ loc_HOUQ:
     call aztec_csav                  ; 0x6edf
     mov ax, 0                        ; 0x6ee2
     push ax                          ; 0x6ee5
-    push word [bp + 0x6]             ; 0x6ee6
-    push word [bp + 0x4]             ; 0x6ee9
+    push word [bp + 6]               ; 0x6ee6
+    push word [bp + 4]               ; 0x6ee9
     call api_idx_0050_PLNP           ; 0x6eec
     add sp, byte 6                   ; 0x6eef
     cmp word [bss_8464], byte 0      ; 0x6ef2

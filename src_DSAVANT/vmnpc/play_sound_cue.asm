@@ -3,9 +3,9 @@ play_sound_cue:
     mov ax, 0                        ; 0x742e
     call aztec_csav                  ; 0x7431
     mov ax, word [loaded_sound_id]   ; 0x7434
-    cmp ax, word [bp + 0x4]          ; 0x7437
+    cmp ax, word [bp + 4]            ; 0x7437
     je short @..play_sound_cue.l1    ; 0x743a
-    push word [bp + 0x4]             ; 0x743c
+    push word [bp + 4]               ; 0x743c
     call ensure_sound_loaded         ; 0x743f
     pop cx                           ; 0x7442
 @..play_sound_cue.l1:

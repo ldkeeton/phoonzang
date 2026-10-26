@@ -4,7 +4,7 @@ loc_IKLI:
     call aztec_csav                  ; 0x086e
     les bx, word [tick_counter_ptr]  ; 0x0871
     mov ax, word [es:bx]             ; 0x0875
-    mov dx, word [es:bx + 0x2]       ; 0x0878
+    mov dx, word [es:bx + 2]         ; 0x0878
     sub ax, word [party_redraw_last_tick] ; 0x087c
     sbb dx, word [party_redraw_last_tick_hi] ; 0x0880
     push ax                          ; 0x0884
@@ -46,7 +46,7 @@ loc_IKLI:
 @..loc_IKLI.l3:
     les bx, word [tick_counter_ptr]  ; 0x08ce
     mov ax, word [es:bx]             ; 0x08d2
-    mov dx, word [es:bx + 0x2]       ; 0x08d5
+    mov dx, word [es:bx + 2]         ; 0x08d5
     mov word [party_redraw_last_tick_hi], dx ; 0x08d9
     mov word [party_redraw_last_tick], ax ; 0x08dd
     call update_treasure_frame       ; 0x08e0

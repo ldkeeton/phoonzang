@@ -2,7 +2,7 @@
 loc_OIOJ:
     mov ax, 0
     call aztec_csav
-    mov ax, word [bp + 0x6]
+    mov ax, word [bp + 6]
     push ax
     cmp ax, strict word 1
     pop ax
@@ -11,11 +11,11 @@ loc_OIOJ:
 @..loc_OIOJ.l1:
     push ax
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     pop ax
     mov byte [bx + party_records + pc_rec.f_0160], al
-    mov ax, word [bp + 0x8]
+    mov ax, word [bp + 8]
     push ax
     cmp ax, strict word 1
     pop ax

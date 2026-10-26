@@ -8,7 +8,7 @@ strpos:
     mov ax, ds                       ; 0x4097
     mov es, ax                       ; 0x4099
     cld                              ; 0x409b
-    mov di, word [bp + 0x4]          ; 0x409c
+    mov di, word [bp + 4]            ; 0x409c
     mov bx, di                       ; 0x409f
     mov al, 0                        ; 0x40a1
     mov cx, 0xffff                   ; 0x40a3
@@ -17,7 +17,7 @@ strpos:
     sub cx, bx                       ; 0x40aa
     dec cx                           ; 0x40ac
     mov di, bx                       ; 0x40ad
-    mov al, byte [bp + 0x6]          ; 0x40af
+    mov al, byte [bp + 6]            ; 0x40af
     repne scasb                      ; 0x40b2
     dec di                           ; 0x40b4
     cmp al, byte [es:di]             ; 0x40b5

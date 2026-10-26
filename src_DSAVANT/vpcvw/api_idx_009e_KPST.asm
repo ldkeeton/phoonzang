@@ -2,16 +2,16 @@
 api_idx_009e_KPST:
     mov ax, 0xff62                   ; 0x1894
     call aztec_csav                  ; 0x1897
-    mov word [bp - 0x0004], 0        ; 0x189a
+    mov word [bp - 4], 0             ; 0x189a
     cmp word [mouse_active], byte 0  ; 0x189f
     je short @..api_idx_009e_KPST.l1 ; 0x18a4
-    lea ax, word [bp - 0x0008]       ; 0x18a6
+    lea ax, word [bp - 8]            ; 0x18a6
     push ax                          ; 0x18a9
-    lea ax, word [bp - 0x0006]       ; 0x18aa
+    lea ax, word [bp - 6]            ; 0x18aa
     push ax                          ; 0x18ad
     call gfx_get_mouse               ; 0x18ae
     add sp, byte 4                   ; 0x18b1
-    mov word [bp - 0x0004], ax       ; 0x18b4
+    mov word [bp - 4], ax            ; 0x18b4
 @..api_idx_009e_KPST.l1:
     mov ax, 0                        ; 0x18b7
     push ax                          ; 0x18ba
@@ -23,18 +23,18 @@ api_idx_009e_KPST:
     mov ax, 0                        ; 0x18ca
     push ax                          ; 0x18cd
     mov ax, 0x248                    ; 0x18ce
-    imul word [bp + 0x4]             ; 0x18d1
+    imul word [bp + 4]               ; 0x18d1
     mov bx, ax                       ; 0x18d4
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x18d6
     sub ah, ah                       ; 0x18da
     push ax                          ; 0x18dc
-    lea ax, word [bp - 0x004c]       ; 0x18dd
+    lea ax, word [bp - 0x4c]         ; 0x18dd
     push ax                          ; 0x18e0
     mov ax, 0                        ; 0x18e1
     push ax                          ; 0x18e4
     call data_record_io              ; 0x18e5
     add sp, byte 8                   ; 0x18e8
-    lea ax, word [bp - 0x009e]       ; 0x18eb
+    lea ax, word [bp - 0x9e]         ; 0x18eb
     push ax                          ; 0x18ef
     mov ax, MSG_AGE_217              ; 0x18f0
     push ax                          ; 0x18f3
@@ -54,7 +54,7 @@ api_idx_009e_KPST:
     add sp, byte 4                   ; 0x1913
     mov ax, 0                        ; 0x1916
     push ax                          ; 0x1919
-    lea ax, word [bp - 0x009e]       ; 0x191a
+    lea ax, word [bp - 0x9e]         ; 0x191a
     push ax                          ; 0x191e
     call draw_text_glyphs            ; 0x191f
     add sp, byte 4                   ; 0x1922
@@ -64,10 +64,10 @@ api_idx_009e_KPST:
     push ax                          ; 0x192c
     call gfx_set_text_color          ; 0x192d
     add sp, byte 4                   ; 0x1930
-    lea ax, word [bp - 0x009e]       ; 0x1933
+    lea ax, word [bp - 0x9e]         ; 0x1933
     push ax                          ; 0x1937
     mov ax, 0x248                    ; 0x1938
-    imul word [bp + 0x4]             ; 0x193b
+    imul word [bp + 4]               ; 0x193b
     mov bx, ax                       ; 0x193e
     mov ax, word [bx + party_records + pc_rec.f_0008] ; 0x1940
     mov dx, word [bx + party_records + pc_rec.f_000a] ; 0x1944
@@ -79,11 +79,11 @@ api_idx_009e_KPST:
     add sp, byte 4                   ; 0x1955
     mov ax, 0                        ; 0x1958
     push ax                          ; 0x195b
-    lea ax, word [bp - 0x009e]       ; 0x195c
+    lea ax, word [bp - 0x9e]         ; 0x195c
     push ax                          ; 0x1960
     call draw_text_glyphs            ; 0x1961
     add sp, byte 4                   ; 0x1964
-    lea ax, word [bp - 0x009e]       ; 0x1967
+    lea ax, word [bp - 0x9e]         ; 0x1967
     push ax                          ; 0x196b
     mov ax, MSG_LIFE                 ; 0x196c
     push ax                          ; 0x196f
@@ -103,7 +103,7 @@ api_idx_009e_KPST:
     add sp, byte 4                   ; 0x198f
     mov ax, 0                        ; 0x1992
     push ax                          ; 0x1995
-    lea ax, word [bp - 0x009e]       ; 0x1996
+    lea ax, word [bp - 0x9e]         ; 0x1996
     push ax                          ; 0x199a
     call draw_text_glyphs            ; 0x199b
     add sp, byte 4                   ; 0x199e
@@ -113,22 +113,22 @@ api_idx_009e_KPST:
     push ax                          ; 0x19a8
     call gfx_set_text_color          ; 0x19a9
     add sp, byte 4                   ; 0x19ac
-    lea ax, word [bp - 0x009e]       ; 0x19af
+    lea ax, word [bp - 0x9e]         ; 0x19af
     push ax                          ; 0x19b3
     mov ax, 0x248                    ; 0x19b4
-    imul word [bp + 0x4]             ; 0x19b7
+    imul word [bp + 4]               ; 0x19b7
     mov bx, ax                       ; 0x19ba
     push word [bx + party_records + pc_rec.f_0026] ; 0x19bc
     call format_int_decimal          ; 0x19c0
     add sp, byte 4                   ; 0x19c3
     mov ax, 0                        ; 0x19c6
     push ax                          ; 0x19c9
-    lea ax, word [bp - 0x009e]       ; 0x19ca
+    lea ax, word [bp - 0x9e]         ; 0x19ca
     push ax                          ; 0x19ce
     call draw_text_glyphs            ; 0x19cf
     add sp, byte 4                   ; 0x19d2
     mov ax, 0x248                    ; 0x19d5
-    imul word [bp + 0x4]             ; 0x19d8
+    imul word [bp + 4]               ; 0x19d8
     mov bx, ax                       ; 0x19db
     cmp word [bx + party_records + pc_rec.power_cap], byte 0x10 ; 0x19dd
     jge short @..api_idx_009e_KPST.l2 ; 0x19e2
@@ -137,25 +137,25 @@ api_idx_009e_KPST:
     shl ax, 1                        ; 0x19ea
     mov bx, ax                       ; 0x19ec
     add bx, bp                       ; 0x19ee
-    mov ax, word [bx - 0x0050]       ; 0x19f0
-    mov dx, word [bx - 0x004e]       ; 0x19f3
-    mov word [bp - 0x000a], dx       ; 0x19f6
-    mov word [bp - 0x000c], ax       ; 0x19f9
+    mov ax, word [bx - 0x50]         ; 0x19f0
+    mov dx, word [bx - 0x4e]         ; 0x19f3
+    mov word [bp - 0xa], dx          ; 0x19f6
+    mov word [bp - 0xc], ax          ; 0x19f9
     jmp short @..api_idx_009e_KPST.l3 ; 0x19fc
 @..api_idx_009e_KPST.l2:
     mov ax, 0x248                    ; 0x19fe
-    imul word [bp + 0x4]             ; 0x1a01
+    imul word [bp + 4]               ; 0x1a01
     mov bx, ax                       ; 0x1a04
     mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x1a06
     add ax, strict word 0xfff0       ; 0x1a0a
-    mov word [bp - 0x004e], ax       ; 0x1a0d
-    mov ax, word [bp - 0x0010]       ; 0x1a10
-    mov dx, word [bp - 0x000e]       ; 0x1a13
-    sub ax, word [bp - 0x0014]       ; 0x1a16
-    sbb dx, word [bp - 0x0012]       ; 0x1a19
+    mov word [bp - 0x4e], ax         ; 0x1a0d
+    mov ax, word [bp - 0x10]         ; 0x1a10
+    mov dx, word [bp - 0xe]          ; 0x1a13
+    sub ax, word [bp - 0x14]         ; 0x1a16
+    sbb dx, word [bp - 0x12]         ; 0x1a19
     push ax                          ; 0x1a1c
     push dx                          ; 0x1a1d
-    mov ax, word [bp - 0x004e]       ; 0x1a1e
+    mov ax, word [bp - 0x4e]         ; 0x1a1e
     cwd                              ; 0x1a21
     mov cx, ax                       ; 0x1a22
     mov bx, dx                       ; 0x1a24
@@ -171,12 +171,12 @@ api_idx_009e_KPST:
     pop ax                           ; 0x1a33
     mul cx                           ; 0x1a34
     add dx, bx                       ; 0x1a36
-    add ax, word [bp - 0x0010]       ; 0x1a38
-    adc dx, word [bp - 0x000e]       ; 0x1a3b
-    mov word [bp - 0x000a], dx       ; 0x1a3e
-    mov word [bp - 0x000c], ax       ; 0x1a41
+    add ax, word [bp - 0x10]         ; 0x1a38
+    adc dx, word [bp - 0xe]          ; 0x1a3b
+    mov word [bp - 0xa], dx          ; 0x1a3e
+    mov word [bp - 0xc], ax          ; 0x1a41
 @..api_idx_009e_KPST.l3:
-    lea ax, word [bp - 0x009e]       ; 0x1a44
+    lea ax, word [bp - 0x9e]         ; 0x1a44
     push ax                          ; 0x1a48
     mov ax, MSG_NEXT_LVL             ; 0x1a49
     push ax                          ; 0x1a4c
@@ -196,7 +196,7 @@ api_idx_009e_KPST:
     add sp, byte 4                   ; 0x1a6c
     mov ax, 0                        ; 0x1a6f
     push ax                          ; 0x1a72
-    lea ax, word [bp - 0x009e]       ; 0x1a73
+    lea ax, word [bp - 0x9e]         ; 0x1a73
     push ax                          ; 0x1a77
     call draw_text_glyphs            ; 0x1a78
     add sp, byte 4                   ; 0x1a7b
@@ -217,12 +217,12 @@ api_idx_009e_KPST:
     mov ax, 8                        ; 0x1a9e
     push ax                          ; 0x1aa1
     mov ax, 0x248                    ; 0x1aa2
-    imul word [bp + 0x4]             ; 0x1aa5
+    imul word [bp + 4]               ; 0x1aa5
     mov bx, ax                       ; 0x1aa8
     mov cx, word [bx + party_records + pc_rec.experience] ; 0x1aaa
     mov bx, word [bx + party_records + pc_rec.experience + 0x2] ; 0x1aae
-    mov ax, word [bp - 0x000c]       ; 0x1ab2
-    mov dx, word [bp - 0x000a]       ; 0x1ab5
+    mov ax, word [bp - 0xc]          ; 0x1ab2
+    mov dx, word [bp - 0xa]          ; 0x1ab5
     sub ax, cx                       ; 0x1ab8
     sbb dx, bx                       ; 0x1aba
     push dx                          ; 0x1abc
@@ -242,11 +242,11 @@ api_idx_009e_KPST:
     cmp word [mouse_active], byte 0  ; 0x1ada
     je short @..api_idx_009e_KPST.l6 ; 0x1adf
 @..api_idx_009e_KPST.l4:
-    cmp word [bp - 0x0004], byte 0   ; 0x1ae1
+    cmp word [bp - 4], byte 0        ; 0x1ae1
     je short @..api_idx_009e_KPST.l5 ; 0x1ae5
-    lea ax, word [bp - 0x0008]       ; 0x1ae7
+    lea ax, word [bp - 8]            ; 0x1ae7
     push ax                          ; 0x1aea
-    lea ax, word [bp - 0x0006]       ; 0x1aeb
+    lea ax, word [bp - 6]            ; 0x1aeb
     push ax                          ; 0x1aee
     call gfx_get_mouse               ; 0x1aef
     add sp, byte 4                   ; 0x1af2
@@ -261,10 +261,10 @@ api_idx_009e_KPST:
     call get_filtered_key            ; 0x1b01
     pop cx                           ; 0x1b04
     sub ah, ah                       ; 0x1b05
-    mov word [bp - 0x0002], ax       ; 0x1b07
-    cmp word [bp - 0x0002], byte 0x0d ; 0x1b0a
+    mov word [bp - 2], ax            ; 0x1b07
+    cmp word [bp - 2], byte 0xd      ; 0x1b0a
     je short @..api_idx_009e_KPST.l7 ; 0x1b0e
-    cmp word [bp - 0x0002], byte 0x1b ; 0x1b10
+    cmp word [bp - 2], byte 0x1b     ; 0x1b10
     jne short @..api_idx_009e_KPST.l6 ; 0x1b14
 @..api_idx_009e_KPST.l7:
     ret                              ; 0x1b16

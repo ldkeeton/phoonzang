@@ -9,7 +9,7 @@ __zinsn_18e7:
     mov ax, 0x20b0                   ; 0x18ec
     out 0x43, al                     ; 0x18ef
 __zinsn_18f1:
-    mov al, byte [0x0000]            ; 0x18f1
+    mov al, byte [0]                 ; 0x18f1
     mov bx, sample_count_table - IMAGE_BASE ; 0x18f4
     cs xlatb                         ; 0x18f7
     out 0x42, al                     ; 0x18f9

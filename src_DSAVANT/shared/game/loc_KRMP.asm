@@ -4,7 +4,7 @@ loc_KRMP:
     call aztec_csav
     les bx, word [tick_counter_ptr]
     mov ax, word [es:bx]
-    mov dx, word [es:bx + 0x2]
+    mov dx, word [es:bx + 2]
     mov word [bss_9090], dx
     mov word [bss_908e], ax
     mov ax, word [bss_908e]

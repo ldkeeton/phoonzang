@@ -6,7 +6,7 @@ ovmain:
     mov word [animation_index], 0xffff ; 0x001a
     mov word [sound_request], 0      ; 0x0020
     mov word [pending_panel_call], 0xffff ; 0x0026
-    cmp word [game_state], byte 0x0f ; 0x002c
+    cmp word [game_state], byte 0xf  ; 0x002c
     jne short @..ovmain.l1           ; 0x0031
     mov word [game_state], 0x16      ; 0x0033
     call run_state_0f_scene          ; 0x0039

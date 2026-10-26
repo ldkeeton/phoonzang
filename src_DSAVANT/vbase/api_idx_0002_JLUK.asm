@@ -17,11 +17,11 @@ api_idx_0002_JLUK:
     push word [bss_8d06]             ; 0x6829
     call gfx_restore_area            ; 0x682d
     add sp, byte 6                   ; 0x6830
-    mov word [bp - 0x0002], 0        ; 0x6833
+    mov word [bp - 2], 0             ; 0x6833
 @..api_idx_0002_JLUK.l2:
     mov ax, 1                        ; 0x6838
     push ax                          ; 0x683b
-    mov ax, word [bp - 0x0002]       ; 0x683c
+    mov ax, word [bp - 2]            ; 0x683c
     shl ax, 1                        ; 0x683f
     shl ax, 1                        ; 0x6841
     mov bx, ax                       ; 0x6843
@@ -29,15 +29,15 @@ api_idx_0002_JLUK:
     push word [bx + panel_area]      ; 0x6849
     call gfx_restore_area            ; 0x684d
     add sp, byte 6                   ; 0x6850
-    inc word [bp - 0x0002]           ; 0x6853
-    mov ax, word [bp - 0x0002]       ; 0x6856
+    inc word [bp - 2]                ; 0x6853
+    mov ax, word [bp - 2]            ; 0x6856
     cmp ax, strict word 6            ; 0x6859
     jl short @..api_idx_0002_JLUK.l2 ; 0x685c
-    mov word [bp - 0x0002], 0        ; 0x685e
+    mov word [bp - 2], 0             ; 0x685e
 @..api_idx_0002_JLUK.l3:
     mov ax, 1                        ; 0x6863
     push ax                          ; 0x6866
-    mov ax, word [bp - 0x0002]       ; 0x6867
+    mov ax, word [bp - 2]            ; 0x6867
     shl ax, 1                        ; 0x686a
     shl ax, 1                        ; 0x686c
     mov bx, ax                       ; 0x686e
@@ -45,8 +45,8 @@ api_idx_0002_JLUK:
     push word [bx + party_status_areas] ; 0x6874
     call gfx_restore_area            ; 0x6878
     add sp, byte 6                   ; 0x687b
-    inc word [bp - 0x0002]           ; 0x687e
-    mov ax, word [bp - 0x0002]       ; 0x6881
+    inc word [bp - 2]                ; 0x687e
+    mov ax, word [bp - 2]            ; 0x6881
     cmp ax, strict word 6            ; 0x6884
     jl short @..api_idx_0002_JLUK.l3 ; 0x6887
     call free_current_maze           ; 0x6889

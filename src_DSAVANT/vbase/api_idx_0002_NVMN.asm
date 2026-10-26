@@ -19,7 +19,7 @@ api_idx_0002_NVMN:
     push ax                          ; 0x708f
     push ax                          ; 0x7090
     call gfx_fill_area               ; 0x7091
-    add sp, byte 0x0a                ; 0x7094
+    add sp, byte 0xa                 ; 0x7094
     mov ax, 0xc7                     ; 0x7097
     push ax                          ; 0x709a
     mov ax, 0x13f                    ; 0x709b
@@ -55,7 +55,7 @@ api_idx_0002_NVMN:
     add sp, byte 6                   ; 0x70e7
     mov word [bss_844c], ax          ; 0x70ea
 @..api_idx_0002_NVMN.l2:
-    cmp word [bp + 0x4], byte 4      ; 0x70ed
+    cmp word [bp + 4], byte 4        ; 0x70ed
     je short @..api_idx_0002_NVMN.l3 ; 0x70f1
     mov ax, 2                        ; 0x70f3
     push ax                          ; 0x70f6
@@ -86,7 +86,7 @@ api_idx_0002_NVMN:
     pop cx                           ; 0x7129
 @..api_idx_0002_NVMN.l4:
     mov word [scene_index], 0        ; 0x712a
-    mov ax, word [bp + 0x4]          ; 0x7130
+    mov ax, word [bp + 4]            ; 0x7130
     jmp short @..api_idx_0002_NVMN.l5 ; 0x7133
 jumptable_7185_case_1:
     mov ax, 1                        ; 0x7135
@@ -159,7 +159,7 @@ jumptable_7185_case_0:
     push ax                          ; 0x71ba
     push ax                          ; 0x71bb
     call gfx_fill_area               ; 0x71bc
-    add sp, byte 0x0a                ; 0x71bf
+    add sp, byte 0xa                 ; 0x71bf
     mov ax, 0xc7                     ; 0x71c2
     push ax                          ; 0x71c5
     mov ax, 0x13f                    ; 0x71c6
@@ -209,25 +209,25 @@ jumptable_7185_case_0:
     push ax                          ; 0x7233
     call gfx_fade_in                 ; 0x7234
     pop cx                           ; 0x7237
-    mov word [bp - 0x0002], 0        ; 0x7238
+    mov word [bp - 2], 0             ; 0x7238
     jmp short @..api_idx_0002_NVMN.l11 ; 0x723d
 @..api_idx_0002_NVMN.l10:
     mov ax, 1                        ; 0x723f
     push ax                          ; 0x7242
-    mov ax, word [bp + 0x4]          ; 0x7243
+    mov ax, word [bp + 4]            ; 0x7243
     inc ax                           ; 0x7246
     inc ax                           ; 0x7247
     inc ax                           ; 0x7248
     push ax                          ; 0x7249
     mov ax, 0x248                    ; 0x724a
-    imul word [bp - 0x0002]          ; 0x724d
+    imul word [bp - 2]               ; 0x724d
     add ax, party_records + pc_rec.pad_01be + 0x74 ; 0x7250
     push ax                          ; 0x7253
     call set_bitmap_bit              ; 0x7254
     add sp, byte 6                   ; 0x7257
-    inc word [bp - 0x0002]           ; 0x725a
+    inc word [bp - 2]                ; 0x725a
 @..api_idx_0002_NVMN.l11:
-    mov ax, word [bp - 0x0002]       ; 0x725d
+    mov ax, word [bp - 2]            ; 0x725d
     cmp ax, word [party_char_count]  ; 0x7260
     jl short @..api_idx_0002_NVMN.l10 ; 0x7264
     mov ax, 1                        ; 0x7266
@@ -257,7 +257,7 @@ jumptable_7185_case_0:
     push ax                          ; 0x7298
     push ax                          ; 0x7299
     call gfx_fill_area               ; 0x729a
-    add sp, byte 0x0a                ; 0x729d
+    add sp, byte 0xa                 ; 0x729d
     mov ax, 0xc7                     ; 0x72a0
     push ax                          ; 0x72a3
     mov ax, 0x13f                    ; 0x72a4

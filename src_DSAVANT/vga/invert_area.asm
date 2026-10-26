@@ -13,26 +13,26 @@ invert_area:
     mov bx, 0x140                    ; 0x073c
     mul bx                           ; 0x073f
     add ax, word [bp + 0xc]          ; 0x0741
-    mov word [bp - 0x0002], ax       ; 0x0744
+    mov word [bp - 2], ax            ; 0x0744
     mov ax, word [bp + 0x12]         ; 0x0747
     sub ax, word [bp + 0xe]          ; 0x074a
     inc ax                           ; 0x074d
-    mov word [bp - 0x0004], ax       ; 0x074e
+    mov word [bp - 4], ax            ; 0x074e
     mov ax, word [bp + 0x10]         ; 0x0751
     sub ax, word [bp + 0xc]          ; 0x0754
     inc ax                           ; 0x0757
-    mov word [bp - 0x0006], ax       ; 0x0758
+    mov word [bp - 6], ax            ; 0x0758
 @..invert_area.l1:
-    mov di, word [bp - 0x0002]       ; 0x075b
+    mov di, word [bp - 2]            ; 0x075b
     mov si, di                       ; 0x075e
-    add word [bp - 0x0002], strict word 0x140 ; 0x0760
-    mov cx, word [bp - 0x0006]       ; 0x0765
+    add word [bp - 2], strict word 0x140 ; 0x0760
+    mov cx, word [bp - 6]            ; 0x0765
 @..invert_area.l2:
     lodsb                            ; 0x0768
     not al                           ; 0x0769
     stosb                            ; 0x076b
     loop @..invert_area.l2           ; 0x076c
-    dec word [bp - 0x0004]           ; 0x076e
+    dec word [bp - 4]                ; 0x076e
     jne short @..invert_area.l1      ; 0x0771
     pop di                           ; 0x0773
     pop ds                           ; 0x0774

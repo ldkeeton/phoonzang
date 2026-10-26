@@ -1,6 +1,6 @@
 ; auto-generated
 detect_mouse:
-    mov ax, word [bp + 0x4]          ; 0x37a5
+    mov ax, word [bp + 4]            ; 0x37a5
     cmp ax, strict word 4            ; 0x37a8
     je short @..detect_mouse.l1      ; 0x37ab
     mov ax, 0x3533                   ; 0x37ad
@@ -15,6 +15,6 @@ detect_mouse:
     mov byte [cs:mouse_button_count - IMAGE_BASE], al ; 0x37c3
     or al, al                        ; 0x37c7
     je short @..detect_mouse.l1      ; 0x37c9
-    or word [bp - 0x0002], strict word 0x1000 ; 0x37cb
+    or word [bp - 2], strict word 0x1000 ; 0x37cb
 @..detect_mouse.l1:
     ret                              ; 0x37d0

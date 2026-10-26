@@ -5,11 +5,11 @@ aztec_strncpy:
     cld
     push si
     push di
-    mov cx, word [bp + 0x8]
+    mov cx, word [bp + 8]
     mov di, ds
     mov es, di
-    mov di, word [bp + 0x4]
-    mov si, word [bp + 0x6]
+    mov di, word [bp + 4]
+    mov si, word [bp + 6]
     jcxz @..aztec_strncpy.cpydone
 @..aztec_strncpy.cpyloop:
     lodsb
@@ -23,6 +23,6 @@ aztec_strncpy:
 @..aztec_strncpy.cpydone:
     pop di
     pop si
-    mov ax, word [bp + 0x4]
+    mov ax, word [bp + 4]
     pop bp
     ret

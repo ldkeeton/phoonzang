@@ -3,7 +3,7 @@ api_idx_000a_TQHL:
     mov ax, 0xfff6                   ; 0x195c
     call aztec_csav                  ; 0x195f
     mov ax, 0x248                    ; 0x1962
-    imul word [bp + 0x4]             ; 0x1965
+    imul word [bp + 4]               ; 0x1965
     mov bx, ax                       ; 0x1968
     cmp byte [bx + party_records + pc_rec.state], 3 ; 0x196a
     jb short @..api_idx_000a_TQHL.l1 ; 0x196f
@@ -27,22 +27,22 @@ api_idx_000a_TQHL:
     pop cx                           ; 0x1994
     jmp short @..api_idx_000a_TQHL.l4 ; 0x1995
 jumptable_19c1_case_0:
-    mov word [bp - 0x0008], 3        ; 0x1997
+    mov word [bp - 8], 3             ; 0x1997
     jmp short @..api_idx_000a_TQHL.l5 ; 0x199c
 jumptable_19c1_case_1:
-    mov word [bp - 0x0008], 4        ; 0x199e
+    mov word [bp - 8], 4             ; 0x199e
     jmp short @..api_idx_000a_TQHL.l5 ; 0x19a3
 jumptable_19c1_case_2:
-    mov word [bp - 0x0008], 5        ; 0x19a5
+    mov word [bp - 8], 5             ; 0x19a5
     jmp short @..api_idx_000a_TQHL.l5 ; 0x19aa
 jumptable_19c1_case_3:
-    mov word [bp - 0x0008], 7        ; 0x19ac
+    mov word [bp - 8], 7             ; 0x19ac
     jmp short @..api_idx_000a_TQHL.l5 ; 0x19b1
 jumptable_19c1_case_4:
-    mov word [bp - 0x0008], 8        ; 0x19b3
+    mov word [bp - 8], 8             ; 0x19b3
     jmp short @..api_idx_000a_TQHL.l5 ; 0x19b8
 jumptable_19c1_case_5:
-    mov word [bp - 0x0008], 9        ; 0x19ba
+    mov word [bp - 8], 9             ; 0x19ba
     jmp short @..api_idx_000a_TQHL.l5 ; 0x19bf
 jumptable_19c1:
     dw jumptable_19c1_case_0 - IMAGE_BASE + __zres_end ; 0x19c1
@@ -59,11 +59,11 @@ jumptable_19c1:
     jmp [cs:bx + jumptable_19c1 - IMAGE_BASE + __zres_end] ; 0x19d5
 @..api_idx_000a_TQHL.l5:
     mov ax, 0x248                    ; 0x19da
-    imul word [bp + 0x4]             ; 0x19dd
-    add ax, word [bp - 0x0008]       ; 0x19e0
+    imul word [bp + 4]               ; 0x19dd
+    add ax, word [bp - 8]            ; 0x19e0
     mov bx, ax                       ; 0x19e3
     mov byte [bx + party_records + pc_rec.status], 0xff ; 0x19e5
-    cmp word [bp - 0x0008], byte 5   ; 0x19ea
+    cmp word [bp - 8], byte 5        ; 0x19ea
     jne short @..api_idx_000a_TQHL.l6 ; 0x19ee
     mov ax, 2                        ; 0x19f0
     push ax                          ; 0x19f3
@@ -71,7 +71,7 @@ jumptable_19c1:
     pop cx                           ; 0x19f7
     push ax                          ; 0x19f8
     mov ax, 0x248                    ; 0x19f9
-    imul word [bp + 0x4]             ; 0x19fc
+    imul word [bp + 4]               ; 0x19fc
     mov bx, ax                       ; 0x19ff
     mov al, byte [bx + party_records + pc_rec.f_023e] ; 0x1a01
     sub ah, ah                       ; 0x1a05
@@ -85,7 +85,7 @@ jumptable_19c1:
     push ax                          ; 0x1a14
     call random_below                ; 0x1a15
     pop cx                           ; 0x1a18
-    mov word [bp - 0x000a], ax       ; 0x1a19
+    mov word [bp - 0xa], ax          ; 0x1a19
     mov ax, 0xa                      ; 0x1a1c
     push ax                          ; 0x1a1f
     call random_below                ; 0x1a20
@@ -93,8 +93,8 @@ jumptable_19c1:
     test ax, ax                      ; 0x1a24
     jne short @..api_idx_000a_TQHL.l7 ; 0x1a26
     mov ax, 0x248                    ; 0x1a28
-    imul word [bp + 0x4]             ; 0x1a2b
-    add ax, word [bp - 0x000a]       ; 0x1a2e
+    imul word [bp + 4]               ; 0x1a2b
+    add ax, word [bp - 0xa]          ; 0x1a2e
     mov bx, ax                       ; 0x1a31
     cmp byte [bx + party_records + pc_rec.stat], 1 ; 0x1a33
     jbe short @..api_idx_000a_TQHL.l7 ; 0x1a38
@@ -107,7 +107,7 @@ jumptable_19c1:
     test ax, ax                      ; 0x1a46
     jne short @..api_idx_000a_TQHL.l8 ; 0x1a48
     mov ax, 0x248                    ; 0x1a4a
-    imul word [bp + 0x4]             ; 0x1a4d
+    imul word [bp + 4]               ; 0x1a4d
     mov bx, ax                       ; 0x1a50
     cmp word [bx + party_records + pc_rec.pair_a + 0x2], byte 2 ; 0x1a52
     jle short @..api_idx_000a_TQHL.l8 ; 0x1a57
@@ -117,13 +117,13 @@ jumptable_19c1:
     pop cx                           ; 0x1a60
     push ax                          ; 0x1a61
     mov ax, 0x248                    ; 0x1a62
-    imul word [bp + 0x4]             ; 0x1a65
+    imul word [bp + 4]               ; 0x1a65
     mov bx, ax                       ; 0x1a68
     pop ax                           ; 0x1a6a
     sub word [bx + party_records + pc_rec.pair_a + 0x2], ax ; 0x1a6b
 @..api_idx_000a_TQHL.l8:
     mov ax, 0x248                    ; 0x1a6f
-    imul word [bp + 0x4]             ; 0x1a72
+    imul word [bp + 4]               ; 0x1a72
     mov bx, ax                       ; 0x1a75
     mov al, byte [bx + party_records + pc_rec.attack] ; 0x1a77
     sub ah, ah                       ; 0x1a7b
@@ -153,18 +153,18 @@ jumptable_19c1:
     jg short @..api_idx_000a_TQHL.l10 ; 0x1ab9
     mov ax, 0                        ; 0x1abb
     push ax                          ; 0x1abe
-    push word [bp + 0x4]             ; 0x1abf
+    push word [bp + 4]               ; 0x1abf
     call loc_QTKU                    ; 0x1ac2
     add sp, byte 4                   ; 0x1ac5
 @..api_idx_000a_TQHL.l10:
     jmp near @..api_idx_000a_TQHL.l23 ; 0x1ac8
 @..api_idx_000a_TQHL.l11:
-    push word [bp + 0x6]             ; 0x1acb
+    push word [bp + 6]               ; 0x1acb
     call random_below                ; 0x1ace
     pop cx                           ; 0x1ad1
     push ax                          ; 0x1ad2
     mov ax, 0x248                    ; 0x1ad3
-    imul word [bp + 0x4]             ; 0x1ad6
+    imul word [bp + 4]               ; 0x1ad6
     mov bx, ax                       ; 0x1ad9
     mov al, byte [bx + party_records + pc_rec.attack] ; 0x1adb
     sub ah, ah                       ; 0x1adf
@@ -197,13 +197,13 @@ jumptable_19c1:
     jg short @..api_idx_000a_TQHL.l13 ; 0x1b22
     mov ax, 0                        ; 0x1b24
     push ax                          ; 0x1b27
-    push word [bp + 0x4]             ; 0x1b28
+    push word [bp + 4]               ; 0x1b28
     call loc_QTKU                    ; 0x1b2b
     add sp, byte 4                   ; 0x1b2e
     jmp near @..api_idx_000a_TQHL.l23 ; 0x1b31
 @..api_idx_000a_TQHL.l13:
     mov ax, 0x248                    ; 0x1b34
-    imul word [bp + 0x4]             ; 0x1b37
+    imul word [bp + 4]               ; 0x1b37
     mov bx, ax                       ; 0x1b3a
     cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x1b3c
     jg short @..api_idx_000a_TQHL.l14 ; 0x1b41
@@ -215,24 +215,24 @@ jumptable_19c1:
     add ax, strict word 6            ; 0x1b51
     push ax                          ; 0x1b54
     mov ax, 0x248                    ; 0x1b55
-    imul word [bp + 0x4]             ; 0x1b58
+    imul word [bp + 4]               ; 0x1b58
     mov bx, ax                       ; 0x1b5b
     pop ax                           ; 0x1b5d
     mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x1b5e
 @..api_idx_000a_TQHL.l14:
-    cmp word [bp + 0x8], byte 0      ; 0x1b62
+    cmp word [bp + 8], byte 0        ; 0x1b62
     jle short @..api_idx_000a_TQHL.l15 ; 0x1b66
     mov ax, 0x248                    ; 0x1b68
-    imul word [bp + 0x4]             ; 0x1b6b
+    imul word [bp + 4]               ; 0x1b6b
     mov bx, ax                       ; 0x1b6e
     mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x1b70
-    mov cx, word [bp + 0x8]          ; 0x1b74
+    mov cx, word [bp + 8]            ; 0x1b74
     mov bx, cx                       ; 0x1b77
     imul bx                          ; 0x1b79
     mov cx, 0x64                     ; 0x1b7b
     mov bx, 0                        ; 0x1b7e
     call aztec_ldv                   ; 0x1b81
-    mov word [bp - 0x0006], ax       ; 0x1b84
+    mov word [bp - 6], ax            ; 0x1b84
     mov cx, 2                        ; 0x1b87
     cwd                              ; 0x1b8a
     idiv cx                          ; 0x1b8b
@@ -241,13 +241,13 @@ jumptable_19c1:
     pop cx                           ; 0x1b91
     push ax                          ; 0x1b92
     mov ax, 0x248                    ; 0x1b93
-    imul word [bp + 0x4]             ; 0x1b96
+    imul word [bp + 4]               ; 0x1b96
     mov bx, ax                       ; 0x1b99
     mov cx, word [bx + party_records + pc_rec.pair_b] ; 0x1b9b
     pop ax                           ; 0x1b9f
     add ax, cx                       ; 0x1ba0
     push ax                          ; 0x1ba2
-    mov ax, word [bp - 0x0006]       ; 0x1ba3
+    mov ax, word [bp - 6]            ; 0x1ba3
     mov cx, 2                        ; 0x1ba6
     cwd                              ; 0x1ba9
     idiv cx                          ; 0x1baa
@@ -262,34 +262,34 @@ jumptable_19c1:
     mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x1bc0
     mov word [bx + party_records + pc_rec.pair_b], ax ; 0x1bc4
 @..api_idx_000a_TQHL.l15:
-    mov word [bp - 0x0004], 0        ; 0x1bc8
+    mov word [bp - 4], 0             ; 0x1bc8
 @..api_idx_000a_TQHL.l16:
     mov ax, 0x248                    ; 0x1bcd
-    imul word [bp + 0x4]             ; 0x1bd0
-    add ax, word [bp - 0x0004]       ; 0x1bd3
+    imul word [bp + 4]               ; 0x1bd0
+    add ax, word [bp - 4]            ; 0x1bd3
     mov bx, ax                       ; 0x1bd6
     mov al, byte [bx + party_records + pc_rec.status] ; 0x1bd8
     sub ah, ah                       ; 0x1bdc
-    mov word [bp - 0x0006], ax       ; 0x1bde
+    mov word [bp - 6], ax            ; 0x1bde
     cmp ax, strict word 0            ; 0x1be1
     jle short @..api_idx_000a_TQHL.l18 ; 0x1be4
     cmp ax, 0xff                     ; 0x1be6
     je short @..api_idx_000a_TQHL.l18 ; 0x1be9
     mov ax, word [bp + 0xa]          ; 0x1beb
-    sub word [bp - 0x0006], ax       ; 0x1bee
-    cmp word [bp - 0x0006], byte 0   ; 0x1bf1
+    sub word [bp - 6], ax            ; 0x1bee
+    cmp word [bp - 6], byte 0        ; 0x1bf1
     jge short @..api_idx_000a_TQHL.l17 ; 0x1bf5
-    mov word [bp - 0x0006], 0        ; 0x1bf7
+    mov word [bp - 6], 0             ; 0x1bf7
 @..api_idx_000a_TQHL.l17:
-    mov al, byte [bp - 0x0006]       ; 0x1bfc
+    mov al, byte [bp - 6]            ; 0x1bfc
     mov byte [bx + party_records + pc_rec.status], al ; 0x1bff
 @..api_idx_000a_TQHL.l18:
-    inc word [bp - 0x0004]           ; 0x1c03
-    mov ax, word [bp - 0x0004]       ; 0x1c06
+    inc word [bp - 4]                ; 0x1c03
+    mov ax, word [bp - 4]            ; 0x1c06
     cmp ax, strict word 0xa          ; 0x1c09
     jl short @..api_idx_000a_TQHL.l16 ; 0x1c0c
     mov ax, 0x248                    ; 0x1c0e
-    imul word [bp + 0x4]             ; 0x1c11
+    imul word [bp + 4]               ; 0x1c11
     mov bx, ax                       ; 0x1c14
     cmp byte [bx + party_records + pc_rec.status + 0x5], 0 ; 0x1c16
     je short @..api_idx_000a_TQHL.l19 ; 0x1c1b
@@ -301,11 +301,11 @@ jumptable_19c1:
 @..api_idx_000a_TQHL.l20:
     cmp word [bp + 0xc], byte 0      ; 0x1c2e
     jle short @..api_idx_000a_TQHL.l23 ; 0x1c32
-    mov word [bp - 0x0004], 0        ; 0x1c34
+    mov word [bp - 4], 0             ; 0x1c34
 @..api_idx_000a_TQHL.l21:
     mov ax, 0x248                    ; 0x1c39
-    imul word [bp + 0x4]             ; 0x1c3c
-    add ax, word [bp - 0x0004]       ; 0x1c3f
+    imul word [bp + 4]               ; 0x1c3c
+    add ax, word [bp - 4]            ; 0x1c3f
     mov bx, ax                       ; 0x1c42
     mov al, byte [bx + party_records + pc_rec.f_0160] ; 0x1c44
     sub ah, ah                       ; 0x1c48
@@ -315,9 +315,9 @@ jumptable_19c1:
     pop cx                           ; 0x1c4f
     push ax                          ; 0x1c50
     mov ax, 0x248                    ; 0x1c51
-    imul word [bp + 0x4]             ; 0x1c54
+    imul word [bp + 4]               ; 0x1c54
     mov cx, ax                       ; 0x1c57
-    mov dx, word [bp - 0x0004]       ; 0x1c59
+    mov dx, word [bp - 4]            ; 0x1c59
     shl dx, 1                        ; 0x1c5c
     shl dx, 1                        ; 0x1c5e
     add ax, dx                       ; 0x1c60
@@ -330,14 +330,14 @@ jumptable_19c1:
     mov ax, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x1c73
     mov word [bx + party_records + pc_rec.realm_points], ax ; 0x1c77
 @..api_idx_000a_TQHL.l22:
-    inc word [bp - 0x0004]           ; 0x1c7b
-    mov ax, word [bp - 0x0004]       ; 0x1c7e
+    inc word [bp - 4]                ; 0x1c7b
+    mov ax, word [bp - 4]            ; 0x1c7e
     cmp ax, strict word 6            ; 0x1c81
     jl short @..api_idx_000a_TQHL.l21 ; 0x1c84
 @..api_idx_000a_TQHL.l23:
     mov ax, 1                        ; 0x1c86
     push ax                          ; 0x1c89
-    push word [bp + 0x4]             ; 0x1c8a
+    push word [bp + 4]               ; 0x1c8a
     call draw_party_member_panel     ; 0x1c8d
     add sp, byte 4                   ; 0x1c90
 @..api_idx_000a_TQHL.l24:

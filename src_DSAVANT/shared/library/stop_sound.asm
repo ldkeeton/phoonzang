@@ -2,7 +2,7 @@
 stop_sound:
     push bp
     mov bp, sp
-    sub sp, byte 0x0a
+    sub sp, byte 0xa
     push ds
     push es
     push si
@@ -18,7 +18,7 @@ stop_sound:
     push ax
     push ax
     call far [cs:sound_play_far - IMAGE_BASE]
-    add sp, byte 0x0e
+    add sp, byte 0xe
     pop di
     pop si
     pop es

@@ -4,7 +4,7 @@ api_idx_0002_NUKT:
     call aztec_csav                  ; 0x9bcf
     mov al, byte [bss_91c7]          ; 0x9bd2
     sub ah, ah                       ; 0x9bd5
-    cmp ax, word [bp + 0x4]          ; 0x9bd7
+    cmp ax, word [bp + 4]            ; 0x9bd7
     jne short @..api_idx_0002_NUKT.l1 ; 0x9bda
     mov ax, bss_95a8                 ; 0x9bdc
     push ax                          ; 0x9bdf
@@ -18,19 +18,19 @@ api_idx_0002_NUKT:
     sub ah, ah                       ; 0x9bf0
     mov cx, 0xc                      ; 0x9bf2
     imul cx                          ; 0x9bf5
-    add ax, word [bp + 0x4]          ; 0x9bf7
+    add ax, word [bp + 4]            ; 0x9bf7
     mov bx, ax                       ; 0x9bfa
     mov al, byte [bx + target_weight] ; 0x9bfc
     cbw                              ; 0x9c00
-    mov word [bp - 0x0002], ax       ; 0x9c01
-    cmp word [bp + 0x4], byte 0      ; 0x9c04
+    mov word [bp - 2], ax            ; 0x9c01
+    cmp word [bp + 4], byte 0        ; 0x9c04
     jne short @..api_idx_0002_NUKT.l2 ; 0x9c08
     mov al, byte [bss_91c7]          ; 0x9c0a
     sub ah, ah                       ; 0x9c0d
     mov bx, ax                       ; 0x9c0f
     mov al, byte [bx + target_weight] ; 0x9c11
     cbw                              ; 0x9c15
-    mov word [bp - 0x0002], ax       ; 0x9c16
+    mov word [bp - 2], ax            ; 0x9c16
 @..api_idx_0002_NUKT.l2:
     mov ax, 0x95a8                   ; 0x9c19
     push ax                          ; 0x9c1c
@@ -39,10 +39,10 @@ api_idx_0002_NUKT:
     mov cx, 3                        ; 0x9c22
     imul cx                          ; 0x9c25
     mov cx, 0                        ; 0x9c27
-    cmp word [bp - 0x0002], byte 0xe7 ; 0x9c2a
+    cmp word [bp - 2], byte 0xe7     ; 0x9c2a
     jl short @..api_idx_0002_NUKT.l3 ; 0x9c2e
     mov cx, 2                        ; 0x9c30
-    cmp word [bp - 0x0002], byte 0x19 ; 0x9c33
+    cmp word [bp - 2], byte 0x19     ; 0x9c33
     jge short @..api_idx_0002_NUKT.l3 ; 0x9c37
     mov cx, 1                        ; 0x9c39
 @..api_idx_0002_NUKT.l3:
@@ -53,7 +53,7 @@ api_idx_0002_NUKT:
     add sp, byte 4                   ; 0x9c45
     mov ax, bss_9d10                 ; 0x9c48
     push ax                          ; 0x9c4b
-    mov ax, word [bp + 0x4]          ; 0x9c4c
+    mov ax, word [bp + 4]            ; 0x9c4c
     add ax, MSG_YOU_1950             ; 0x9c4f
     push ax                          ; 0x9c52
     call load_message_string         ; 0x9c53

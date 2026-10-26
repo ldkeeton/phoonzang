@@ -3,11 +3,11 @@ aztec_sprintf:
     push bp                          ; 0x44d4
     mov bp, sp                       ; 0x44d5
     push si                          ; 0x44d7
-    mov ax, word [bp + 0x4]          ; 0x44d8
+    mov ax, word [bp + 4]            ; 0x44d8
     mov word [buff], ax              ; 0x44db
-    lea ax, word [bp + 0x8]          ; 0x44de
+    lea ax, word [bp + 8]            ; 0x44de
     push ax                          ; 0x44e1
-    push word [bp + 0x6]             ; 0x44e2
+    push word [bp + 6]               ; 0x44e2
     mov ax, aztec_spsub - IMAGE_BASE ; 0x44e5
     push ax                          ; 0x44e8
     call aztec_format                ; 0x44e9
@@ -23,7 +23,7 @@ aztec_sprintf:
 aztec_spsub:
     push bp                          ; 0x44ff
     mov bp, sp                       ; 0x4500
-    mov al, byte [bp + 0x4]          ; 0x4502
+    mov al, byte [bp + 4]            ; 0x4502
     mov bx, word [buff]              ; 0x4505
     inc word [buff]                  ; 0x4509
     mov byte [bx], al                ; 0x450d

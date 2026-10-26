@@ -4,8 +4,8 @@ api_idx_004c_RQSO:
     call aztec_csav
     mov ax, 0
     push ax
-    push word [bp + 0x6]
-    lea ax, word [bp - 0x004c]
+    push word [bp + 6]
+    lea ax, word [bp - 0x4c]
     push ax
     mov ax, 1
     push ax
@@ -13,100 +13,100 @@ api_idx_004c_RQSO:
     add sp, byte 8
     cmp word [bp + 0xa], byte 0xfe
     jne short @..api_idx_004c_RQSO.l1
-    mov al, byte [bp - 0x0030]
+    mov al, byte [bp - 0x30]
     sub ah, ah
     push ax
-    mov al, byte [bp - 0x002f]
+    mov al, byte [bp - 0x2f]
     sub ah, ah
     mov cx, ax
     pop ax
     imul cx
-    add ax, word [bp - 0x0032]
-    mov bx, word [bp + 0x8]
-    mov byte [bx + 0x6], al
+    add ax, word [bp - 0x32]
+    mov bx, word [bp + 8]
+    mov byte [bx + 6], al
     jmp short @..api_idx_004c_RQSO.l3
 @..api_idx_004c_RQSO.l1:
     cmp word [bp + 0xa], byte 0xff
     jne short @..api_idx_004c_RQSO.l2
-    push word [bp - 0x0030]
-    push word [bp - 0x0032]
+    push word [bp - 0x30]
+    push word [bp - 0x32]
     call add_random_steps
     add sp, byte 4
-    mov bx, word [bp + 0x8]
-    mov byte [bx + 0x6], al
+    mov bx, word [bp + 8]
+    mov byte [bx + 6], al
     jmp short @..api_idx_004c_RQSO.l3
 @..api_idx_004c_RQSO.l2:
     mov al, byte [bp + 0xa]
-    mov bx, word [bp + 0x8]
-    mov byte [bx + 0x6], al
+    mov bx, word [bp + 8]
+    mov byte [bx + 6], al
 @..api_idx_004c_RQSO.l3:
-    mov ax, word [bp + 0x6]
-    mov bx, word [bp + 0x8]
+    mov ax, word [bp + 6]
+    mov bx, word [bp + 8]
     mov word [bx], ax
-    mov al, byte [bp - 0x0014]
-    mov bx, word [bp + 0x8]
-    mov byte [bx + 0x4], al
-    mov al, byte [bp - 0x0013]
-    mov bx, word [bp + 0x8]
-    mov byte [bx + 0x5], al
-    mov ax, word [bp - 0x0028]
-    mov bx, word [bp + 0x8]
-    mov word [bx + 0x2], ax
-    mov al, byte [bp - 0x0024]
-    mov bx, word [bp + 0x8]
-    mov byte [bx + 0x8], al
-    mov al, byte [bp - 0x0023]
-    mov bx, word [bp + 0x8]
-    mov byte [bx + 0x9], al
-    mov al, byte [bp - 0x0010]
-    mov bx, word [bp + 0x8]
+    mov al, byte [bp - 0x14]
+    mov bx, word [bp + 8]
+    mov byte [bx + 4], al
+    mov al, byte [bp - 0x13]
+    mov bx, word [bp + 8]
+    mov byte [bx + 5], al
+    mov ax, word [bp - 0x28]
+    mov bx, word [bp + 8]
+    mov word [bx + 2], ax
+    mov al, byte [bp - 0x24]
+    mov bx, word [bp + 8]
+    mov byte [bx + 8], al
+    mov al, byte [bp - 0x23]
+    mov bx, word [bp + 8]
+    mov byte [bx + 9], al
+    mov al, byte [bp - 0x10]
+    mov bx, word [bp + 8]
     mov byte [bx + 0xa], al
-    mov al, byte [bp - 0x000c]
-    mov bx, word [bp + 0x8]
+    mov al, byte [bp - 0xc]
+    mov bx, word [bp + 8]
     mov byte [bx + 0xb], al
     mov ax, 0
     cmp word [bp + 0xc], byte 0
     je short @..api_idx_004c_RQSO.l4
     mov ax, 0x80
 @..api_idx_004c_RQSO.l4:
-    mov bx, word [bp + 0x8]
-    mov byte [bx + 0x7], al
-    mov al, byte [bp - 0x0015]
+    mov bx, word [bp + 8]
+    mov byte [bx + 7], al
+    mov al, byte [bp - 0x15]
     sub ah, ah
     test ax, 8
     je short @..api_idx_004c_RQSO.l5
-    mov bx, word [bp + 0x8]
-    or byte [bx + 0x7], 4
+    mov bx, word [bp + 8]
+    or byte [bx + 7], 4
 @..api_idx_004c_RQSO.l5:
-    mov al, byte [bp - 0x0015]
+    mov al, byte [bp - 0x15]
     sub ah, ah
     test ax, 4
     je short @..api_idx_004c_RQSO.l6
-    mov bx, word [bp + 0x8]
-    or byte [bx + 0x7], 8
+    mov bx, word [bp + 8]
+    or byte [bx + 7], 8
 @..api_idx_004c_RQSO.l6:
-    mov al, byte [bp - 0x0015]
+    mov al, byte [bp - 0x15]
     sub ah, ah
     test ax, 0x10
     je short @..api_idx_004c_RQSO.l7
-    mov bx, word [bp + 0x8]
-    or byte [bx + 0x7], 0x10
+    mov bx, word [bp + 8]
+    or byte [bx + 7], 0x10
 @..api_idx_004c_RQSO.l7:
-    mov al, byte [bp - 0x0015]
+    mov al, byte [bp - 0x15]
     sub ah, ah
     test ax, 0x20
     je short @..api_idx_004c_RQSO.l8
-    mov bx, word [bp + 0x8]
-    or byte [bx + 0x7], 0x20
+    mov bx, word [bp + 8]
+    or byte [bx + 7], 0x20
 @..api_idx_004c_RQSO.l8:
-    mov al, byte [bp - 0x0015]
+    mov al, byte [bp - 0x15]
     sub ah, ah
     test ax, 2
     je short @..api_idx_004c_RQSO.l9
-    mov bx, word [bp + 0x8]
-    or byte [bx + 0x7], 0x40
+    mov bx, word [bp + 8]
+    or byte [bx + 7], 0x40
 @..api_idx_004c_RQSO.l9:
-    push word [bp + 0x4]
+    push word [bp + 4]
     call sum_page_cell_values
     pop cx
     ret

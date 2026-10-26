@@ -7,10 +7,10 @@ get_bits:
     push si                          ; 0x3f86
     mov ax, ds                       ; 0x3f87
     mov es, ax                       ; 0x3f89
-    mov bx, word [bp + 0x4]          ; 0x3f8b
-    mov cx, word [bp + 0x6]          ; 0x3f8e
+    mov bx, word [bp + 4]            ; 0x3f8b
+    mov cx, word [bp + 6]            ; 0x3f8e
     shr bx, cl                       ; 0x3f91
-    mov cx, word [bp + 0x8]          ; 0x3f93
+    mov cx, word [bp + 8]            ; 0x3f93
     mov ch, cl                       ; 0x3f96
     mov cl, 0x10                     ; 0x3f98
     sub cl, ch                       ; 0x3f9a

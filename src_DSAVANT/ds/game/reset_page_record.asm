@@ -7,10 +7,10 @@ reset_page_record: ; Aztec csav frame=0x0016
     mov ax, 0x12                     ; 0x1859
     push ax                          ; 0x185c
     mov ax, 0x248                    ; 0x185d
-    imul word [bp + 0x4]             ; 0x1860
+    imul word [bp + 4]               ; 0x1860
     push ax                          ; 0x1863
     mov ax, 0x12                     ; 0x1864
-    imul word [bp + 0x6]             ; 0x1867
+    imul word [bp + 6]               ; 0x1867
     mov cx, ax                       ; 0x186a
     pop ax                           ; 0x186c
     add ax, cx                       ; 0x186d
@@ -19,10 +19,10 @@ reset_page_record: ; Aztec csav frame=0x0016
     call aztec_setmem                ; 0x1873
     add sp, byte 6                   ; 0x1876
     mov ax, 0x248                    ; 0x1879
-    imul word [bp + 0x4]             ; 0x187c
+    imul word [bp + 4]               ; 0x187c
     push ax                          ; 0x187f
     mov ax, 0x12                     ; 0x1880
-    imul word [bp + 0x6]             ; 0x1883
+    imul word [bp + 6]               ; 0x1883
     mov cx, ax                       ; 0x1886
     pop ax                           ; 0x1888
     add ax, cx                       ; 0x1889
@@ -31,25 +31,25 @@ reset_page_record: ; Aztec csav frame=0x0016
     mov byte [bx + party_records + pc_rec.slot_info + 0x3], 2 ; 0x1892
     mov byte [bx + party_records + pc_rec.slot_info + 0xf], 0x20 ; 0x1897
     mov ax, 0x248                    ; 0x189c
-    imul word [bp + 0x4]             ; 0x189f
+    imul word [bp + 4]               ; 0x189f
     mov bx, ax                       ; 0x18a2
     mov al, byte [bx + party_records + pc_rec.flag + 0x9] ; 0x18a4
     sub ah, ah                       ; 0x18a8
     mov cx, 5                        ; 0x18aa
     cwd                              ; 0x18ad
     idiv cx                          ; 0x18ae
-    mov word [bp - 0x0002], ax       ; 0x18b0
+    mov word [bp - 2], ax            ; 0x18b0
     mov al, byte [bx + party_records + pc_rec.flag + 0x21] ; 0x18b3
     sub ah, ah                       ; 0x18b7
     cwd                              ; 0x18b9
     idiv cx                          ; 0x18ba
-    mov word [bp - 0x0004], ax       ; 0x18bc
+    mov word [bp - 4], ax            ; 0x18bc
     cmp byte [bx + party_records + pc_rec.profession], 0xd ; 0x18bf
     je short @..reset_page_record.l1 ; 0x18c4
     cmp byte [bx + party_records + pc_rec.profession], 0xc ; 0x18c6
     jne short @..reset_page_record.l2 ; 0x18cb
 @..reset_page_record.l1:
-    mov ax, word [bp - 0x0002]       ; 0x18cd
+    mov ax, word [bp - 2]            ; 0x18cd
     mov cx, 3                        ; 0x18d0
     cwd                              ; 0x18d3
     idiv cx                          ; 0x18d4
@@ -57,30 +57,30 @@ reset_page_record: ; Aztec csav frame=0x0016
     inc ax                           ; 0x18d7
     push ax                          ; 0x18d8
     mov ax, 0x12                     ; 0x18d9
-    imul word [bp + 0x6]             ; 0x18dc
+    imul word [bp + 6]               ; 0x18dc
     mov cx, ax                       ; 0x18df
     add bx, ax                       ; 0x18e1
     pop ax                           ; 0x18e3
     mov byte [bx + party_records + pc_rec.slot_info + 0x3], al ; 0x18e4
     or byte [bx + party_records + pc_rec.slot_info + 0xf], 0x40 ; 0x18e8
-    mov ax, word [bp - 0x0004]       ; 0x18ed
+    mov ax, word [bp - 4]            ; 0x18ed
     add ax, strict word 5            ; 0x18f0
     mov byte [bx + party_records + pc_rec.slot_info + 0xa], al ; 0x18f3
     jmp short @..reset_page_record.l4 ; 0x18f7
 @..reset_page_record.l2:
-    cmp word [bp - 0x0002], byte 0   ; 0x18f9
+    cmp word [bp - 2], byte 0        ; 0x18f9
     jle short @..reset_page_record.l3 ; 0x18fd
-    mov ax, word [bp - 0x0002]       ; 0x18ff
+    mov ax, word [bp - 2]            ; 0x18ff
     mov cx, 4                        ; 0x1902
     cwd                              ; 0x1905
     idiv cx                          ; 0x1906
     inc ax                           ; 0x1908
     push ax                          ; 0x1909
     mov ax, 0x248                    ; 0x190a
-    imul word [bp + 0x4]             ; 0x190d
+    imul word [bp + 4]               ; 0x190d
     mov cx, ax                       ; 0x1910
     mov ax, 0x12                     ; 0x1912
-    imul word [bp + 0x6]             ; 0x1915
+    imul word [bp + 6]               ; 0x1915
     mov dx, ax                       ; 0x1918
     add cx, ax                       ; 0x191a
     mov bx, cx                       ; 0x191c
@@ -88,26 +88,26 @@ reset_page_record: ; Aztec csav frame=0x0016
     mov byte [bx + party_records + pc_rec.slot_info + 0x3], al ; 0x191f
     or byte [bx + party_records + pc_rec.slot_info + 0xf], 0x40 ; 0x1923
 @..reset_page_record.l3:
-    cmp word [bp - 0x0004], byte 0   ; 0x1928
+    cmp word [bp - 4], byte 0        ; 0x1928
     jle short @..reset_page_record.l4 ; 0x192c
-    mov al, byte [bp - 0x0004]       ; 0x192e
+    mov al, byte [bp - 4]            ; 0x192e
     push ax                          ; 0x1931
     mov ax, 0x248                    ; 0x1932
-    imul word [bp + 0x4]             ; 0x1935
+    imul word [bp + 4]               ; 0x1935
     mov cx, ax                       ; 0x1938
     mov ax, 0x12                     ; 0x193a
-    imul word [bp + 0x6]             ; 0x193d
+    imul word [bp + 6]               ; 0x193d
     mov dx, ax                       ; 0x1940
     add cx, ax                       ; 0x1942
     mov bx, cx                       ; 0x1944
     pop ax                           ; 0x1946
     mov byte [bx + party_records + pc_rec.slot_info + 0xa], al ; 0x1947
 @..reset_page_record.l4:
-    mov ax, word [bp + 0x6]          ; 0x194b
+    mov ax, word [bp + 6]            ; 0x194b
     jmp near @..reset_page_record.l16 ; 0x194e
 @..reset_page_record.l5:
     mov ax, 0x248                    ; 0x1951
-    imul word [bp + 0x4]             ; 0x1954
+    imul word [bp + 4]               ; 0x1954
     mov bx, ax                       ; 0x1957
     cmp byte [bx + party_records + pc_rec.stat], 0xf ; 0x1959
     jbe short @..reset_page_record.l6 ; 0x195e
@@ -118,13 +118,13 @@ reset_page_record: ; Aztec csav frame=0x0016
 @..reset_page_record.l7:
     push ax                          ; 0x1968
     mov ax, 0x12                     ; 0x1969
-    imul word [bp + 0x6]             ; 0x196c
+    imul word [bp + 6]               ; 0x196c
     mov cx, ax                       ; 0x196f
     add bx, ax                       ; 0x1971
     pop ax                           ; 0x1973
     add word [bx + party_records + pc_rec.slot_info], ax ; 0x1974
     mov ax, 0x248                    ; 0x1978
-    imul word [bp + 0x4]             ; 0x197b
+    imul word [bp + 4]               ; 0x197b
     mov bx, ax                       ; 0x197e
     cmp byte [bx + party_records + pc_rec.stat], 0x11 ; 0x1980
     jbe short @..reset_page_record.l8 ; 0x1985
@@ -139,7 +139,7 @@ reset_page_record: ; Aztec csav frame=0x0016
     cbw                              ; 0x1999
     push ax                          ; 0x199a
     mov ax, 0x248                    ; 0x199b
-    imul word [bp + 0x4]             ; 0x199e
+    imul word [bp + 4]               ; 0x199e
     mov bx, ax                       ; 0x19a1
     cmp byte [bx + party_records + pc_rec.stat + 0x4], 0xf ; 0x19a3
     pop ax                           ; 0x19a8
@@ -152,7 +152,7 @@ reset_page_record: ; Aztec csav frame=0x0016
     sub ax, cx                       ; 0x19b3
     push ax                          ; 0x19b5
     mov ax, 0x12                     ; 0x19b6
-    imul word [bp + 0x6]             ; 0x19b9
+    imul word [bp + 6]               ; 0x19b9
     mov cx, ax                       ; 0x19bc
     add bx, ax                       ; 0x19be
     pop ax                           ; 0x19c0
@@ -160,7 +160,7 @@ reset_page_record: ; Aztec csav frame=0x0016
     cbw                              ; 0x19c5
     push ax                          ; 0x19c6
     mov ax, 0x248                    ; 0x19c7
-    imul word [bp + 0x4]             ; 0x19ca
+    imul word [bp + 4]               ; 0x19ca
     mov bx, ax                       ; 0x19cd
     cmp byte [bx + party_records + pc_rec.stat + 0x4], 0x11 ; 0x19cf
     pop ax                           ; 0x19d4
@@ -173,7 +173,7 @@ reset_page_record: ; Aztec csav frame=0x0016
     sub ax, cx                       ; 0x19df
     push ax                          ; 0x19e1
     mov ax, 0x12                     ; 0x19e2
-    imul word [bp + 0x6]             ; 0x19e5
+    imul word [bp + 6]               ; 0x19e5
     mov cx, ax                       ; 0x19e8
     add bx, ax                       ; 0x19ea
     pop ax                           ; 0x19ec
@@ -181,7 +181,7 @@ reset_page_record: ; Aztec csav frame=0x0016
     jmp short @..reset_page_record.l18 ; 0x19f1
 @..reset_page_record.l14:
     mov ax, 0x248                    ; 0x19f3
-    imul word [bp + 0x4]             ; 0x19f6
+    imul word [bp + 4]               ; 0x19f6
     mov bx, ax                       ; 0x19f9
     mov al, byte [bx + party_records + pc_rec.slot_info + 0x20] ; 0x19fb
     cbw                              ; 0x19ff

@@ -3,7 +3,7 @@ api_idx_0004_MMTP:
     mov ax, 0xfffc
     call aztec_csav
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov al, byte [bx + party_records + pc_rec.stat + 0x3]
     sub ah, ah
@@ -18,29 +18,29 @@ api_idx_0004_MMTP:
     mov cx, 3
     cwd
     idiv cx
-    mov word [bp - 0x0002], ax
-    mov word [bp - 0x0004], 0
+    mov word [bp - 2], ax
+    mov word [bp - 4], 0
     cmp ax, strict word 0xd
     jle short @..api_idx_0004_MMTP.l1
-    inc word [bp - 0x0004]
+    inc word [bp - 4]
 @..api_idx_0004_MMTP.l1:
     cmp ax, strict word 0x10
     jle short @..api_idx_0004_MMTP.l2
-    inc word [bp - 0x0004]
+    inc word [bp - 4]
 @..api_idx_0004_MMTP.l2:
     cmp byte [bx + party_records + pc_rec.glyph_set], 5
     jne short @..api_idx_0004_MMTP.l3
-    inc word [bp - 0x0004]
+    inc word [bp - 4]
 @..api_idx_0004_MMTP.l3:
     cmp byte [bx + party_records + pc_rec.glyph_set], 6
     jne short @..api_idx_0004_MMTP.l4
-    dec word [bp - 0x0004]
+    dec word [bp - 4]
 @..api_idx_0004_MMTP.l4:
     mov al, byte [bx + party_records + pc_rec.profession]
     sub ah, ah
     jmp near @..api_idx_0004_MMTP.l5
 api_idx_0004_MMTP.jumptable_case1:
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     push ax
     push ax
@@ -48,193 +48,193 @@ api_idx_0004_MMTP.jumptable_case1:
     push ax
     push ax
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call loc_OIOJ
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp near @..api_idx_0004_MMTP.l6
 api_idx_0004_MMTP.jumptable_case2:
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov byte [bx + party_records + pc_rec.f_015c], 2
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     inc ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
     push ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     inc ax
     push ax
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call loc_OIOJ
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp near @..api_idx_0004_MMTP.l6
 api_idx_0004_MMTP.jumptable_case3:
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov byte [bx + party_records + pc_rec.f_015d], 2
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     inc ax
     push ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     inc ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call loc_OIOJ
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp near @..api_idx_0004_MMTP.l6
 api_idx_0004_MMTP.jumptable_case4:
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
-    inc ax
-    push ax
-    push ax
-    push ax
-    mov ax, word [bp - 0x0004]
     inc ax
     push ax
     push ax
-    push word [bp + 0x4]
+    push ax
+    mov ax, word [bp - 4]
+    inc ax
+    push ax
+    push ax
+    push word [bp + 4]
     call loc_OIOJ
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp near @..api_idx_0004_MMTP.l6
 api_idx_0004_MMTP.jumptable_case5:
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov byte [bx + party_records + pc_rec.f_015e], 2
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     inc ax
     push ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     inc ax
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call loc_OIOJ
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp near @..api_idx_0004_MMTP.l6
 api_idx_0004_MMTP.jumptable_case6:
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     push ax
-    mov ax, word [bp - 0x0004]
-    inc ax
-    inc ax
-    push ax
-    mov ax, word [bp - 0x0004]
-    inc ax
-    push ax
-    push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
+    mov ax, word [bp - 4]
+    inc ax
     push ax
-    push word [bp + 0x4]
+    push ax
+    mov ax, word [bp - 4]
+    inc ax
+    inc ax
+    push ax
+    push ax
+    push word [bp + 4]
     call loc_OIOJ
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp near @..api_idx_0004_MMTP.l6
 api_idx_0004_MMTP.jumptable_case7:
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov byte [bx + party_records + pc_rec.f_015f], 2
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     add ax, strict word 4
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
     push ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     inc ax
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call loc_OIOJ
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp near @..api_idx_0004_MMTP.l6
 api_idx_0004_MMTP.jumptable_case8:
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     push ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call loc_OIOJ
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp near @..api_idx_0004_MMTP.l6
 api_idx_0004_MMTP.jumptable_case9:
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, ax
     mov byte [bx + party_records + pc_rec.f_015c], 1
     mov byte [bx + party_records + pc_rec.f_015d], 1
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     inc ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
@@ -242,92 +242,92 @@ api_idx_0004_MMTP.jumptable_case9:
     push ax
     push ax
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call loc_OIOJ
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp near @..api_idx_0004_MMTP.l6
 api_idx_0004_MMTP.jumptable_case10:
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     push ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call loc_OIOJ
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp near @..api_idx_0004_MMTP.l6
 api_idx_0004_MMTP.jumptable_case11:
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     push ax
     push ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call loc_OIOJ
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp short @..api_idx_0004_MMTP.l6
 api_idx_0004_MMTP.jumptable_case12:
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
-    inc ax
-    inc ax
-    push ax
-    mov ax, word [bp - 0x0004]
-    inc ax
-    push ax
-    push ax
-    push ax
-    mov ax, word [bp - 0x0004]
     inc ax
     inc ax
     push ax
-    push word [bp + 0x4]
+    mov ax, word [bp - 4]
+    inc ax
+    push ax
+    push ax
+    push ax
+    mov ax, word [bp - 4]
+    inc ax
+    inc ax
+    push ax
+    push word [bp + 4]
     call loc_OIOJ
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp short @..api_idx_0004_MMTP.l6
 api_idx_0004_MMTP.jumptable_case13:
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     push ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     push ax
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     inc ax
     inc ax
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call loc_OIOJ
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp short @..api_idx_0004_MMTP.l6
 api_idx_0004_MMTP.jumptable1:
     dw api_idx_0004_MMTP.jumptable_case1 - IMAGE_BASE + __zres_end

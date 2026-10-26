@@ -4,15 +4,15 @@ loc_GPOQ:
     mov bp, sp                       ; 0x05b7
     add sp, byte 0xf6                ; 0x05b9
     push si                          ; 0x05bc
-    mov byte [bp - 0x0002], 0        ; 0x05bd
-    mov byte [bp - 0x0001], 0        ; 0x05c1
-    push word [bp + 0x8]             ; 0x05c5
+    mov byte [bp - 2], 0             ; 0x05bd
+    mov byte [bp - 1], 0             ; 0x05c1
+    push word [bp + 8]               ; 0x05c5
     call aztec_strlen                ; 0x05c8
     pop cx                           ; 0x05cb
-    mov word [bp - 0x0006], ax       ; 0x05cc
-    add word [bp + 0x6], ax          ; 0x05cf
-    push word [bp + 0x6]             ; 0x05d2
-    push word [bp + 0x4]             ; 0x05d5
+    mov word [bp - 6], ax            ; 0x05cc
+    add word [bp + 6], ax            ; 0x05cf
+    push word [bp + 6]               ; 0x05d2
+    push word [bp + 4]               ; 0x05d5
     call bios_set_cursor             ; 0x05d8
     add sp, byte 4                   ; 0x05db
     mov ax, 1                        ; 0x05de
@@ -24,7 +24,7 @@ loc_GPOQ:
     push ax                          ; 0x05e9
     call loc_MPRS                    ; 0x05ea
     pop cx                           ; 0x05ed
-    mov word [bp - 0x0004], ax       ; 0x05ee
+    mov word [bp - 4], ax            ; 0x05ee
     cmp ax, strict word 0xd          ; 0x05f1
     jne short @..loc_GPOQ.l2         ; 0x05f4
     jmp near @..loc_GPOQ.l9          ; 0x05f6
@@ -33,29 +33,29 @@ loc_GPOQ:
     push ax                          ; 0x05fc
     call loc_GUOQ                    ; 0x05fd
     pop cx                           ; 0x0600
-    cmp word [bp - 0x0004], byte 8   ; 0x0601
+    cmp word [bp - 4], byte 8        ; 0x0601
     je short @..loc_GPOQ.l3          ; 0x0605
-    cmp word [bp - 0x0004], byte 8   ; 0x0607
+    cmp word [bp - 4], byte 8        ; 0x0607
     jne short @..loc_GPOQ.l6         ; 0x060b
 @..loc_GPOQ.l3:
-    cmp word [bp - 0x0006], byte 0   ; 0x060d
+    cmp word [bp - 6], byte 0        ; 0x060d
     jle short @..loc_GPOQ.l4         ; 0x0611
-    dec word [bp - 0x0006]           ; 0x0613
-    mov bx, word [bp + 0x8]          ; 0x0616
-    mov si, word [bp - 0x0006]       ; 0x0619
+    dec word [bp - 6]                ; 0x0613
+    mov bx, word [bp + 8]            ; 0x0616
+    mov si, word [bp - 6]            ; 0x0619
     mov byte [bx + si], 0            ; 0x061c
-    dec word [bp + 0x6]              ; 0x061f
-    push word [bp + 0x6]             ; 0x0622
-    push word [bp + 0x4]             ; 0x0625
+    dec word [bp + 6]                ; 0x061f
+    push word [bp + 6]               ; 0x0622
+    push word [bp + 4]               ; 0x0625
     call bios_set_cursor             ; 0x0628
     add sp, byte 4                   ; 0x062b
-    mov byte [bp - 0x0002], 0x20     ; 0x062e
-    lea ax, word [bp - 0x0002]       ; 0x0632
+    mov byte [bp - 2], 0x20          ; 0x062e
+    lea ax, word [bp - 2]            ; 0x0632
     push ax                          ; 0x0635
     call bios_put_text               ; 0x0636
     pop cx                           ; 0x0639
-    push word [bp + 0x6]             ; 0x063a
-    push word [bp + 0x4]             ; 0x063d
+    push word [bp + 6]               ; 0x063a
+    push word [bp + 4]               ; 0x063d
     call bios_set_cursor             ; 0x0640
     add sp, byte 4                   ; 0x0643
     jmp short @..loc_GPOQ.l5         ; 0x0646
@@ -64,31 +64,31 @@ loc_GPOQ:
 @..loc_GPOQ.l5:
     jmp short @..loc_GPOQ.l8         ; 0x064b
 @..loc_GPOQ.l6:
-    mov ax, word [bp - 0x0006]       ; 0x064d
+    mov ax, word [bp - 6]            ; 0x064d
     cmp ax, word [bp + 0xa]          ; 0x0650
     jl short @..loc_GPOQ.l7          ; 0x0653
     call loc_NJKV                    ; 0x0655
     jmp short @..loc_GPOQ.l8         ; 0x0658
 @..loc_GPOQ.l7:
-    cmp word [bp - 0x0004], byte 0x20 ; 0x065a
+    cmp word [bp - 4], byte 0x20     ; 0x065a
     jl short @..loc_GPOQ.l8          ; 0x065e
-    cmp word [bp - 0x0004], byte 0x7f ; 0x0660
+    cmp word [bp - 4], byte 0x7f     ; 0x0660
     jg short @..loc_GPOQ.l8          ; 0x0664
-    mov al, byte [bp - 0x0004]       ; 0x0666
-    mov bx, word [bp + 0x8]          ; 0x0669
-    mov si, word [bp - 0x0006]       ; 0x066c
+    mov al, byte [bp - 4]            ; 0x0666
+    mov bx, word [bp + 8]            ; 0x0669
+    mov si, word [bp - 6]            ; 0x066c
     mov byte [bx + si], al           ; 0x066f
-    inc word [bp - 0x0006]           ; 0x0671
-    mov bx, word [bp + 0x8]          ; 0x0674
-    mov si, word [bp - 0x0006]       ; 0x0677
+    inc word [bp - 6]                ; 0x0671
+    mov bx, word [bp + 8]            ; 0x0674
+    mov si, word [bp - 6]            ; 0x0677
     mov byte [bx + si], 0            ; 0x067a
-    mov al, byte [bp - 0x0004]       ; 0x067d
-    mov byte [bp - 0x0002], al       ; 0x0680
-    lea ax, word [bp - 0x0002]       ; 0x0683
+    mov al, byte [bp - 4]            ; 0x067d
+    mov byte [bp - 2], al            ; 0x0680
+    lea ax, word [bp - 2]            ; 0x0683
     push ax                          ; 0x0686
     call bios_put_text               ; 0x0687
     pop cx                           ; 0x068a
-    inc word [bp + 0x6]              ; 0x068b
+    inc word [bp + 6]                ; 0x068b
 @..loc_GPOQ.l8:
     mov ax, 1                        ; 0x068e
     push ax                          ; 0x0691
@@ -108,10 +108,10 @@ loc_MPRS:
     push bp                          ; 0x06a6
     mov bp, sp                       ; 0x06a7
     add sp, byte 0xfe                ; 0x06a9
-    cmp word [bp + 0x4], byte 0      ; 0x06ac
+    cmp word [bp + 4], byte 0        ; 0x06ac
     jne short @..loc_MPRS.l7         ; 0x06b0
     call dos_con_in_noecho           ; 0x06b2
-    mov word [bp - 0x0002], ax       ; 0x06b5
+    mov word [bp - 2], ax            ; 0x06b5
     jmp short @..loc_MPRS.l6         ; 0x06b8
 @..loc_MPRS.l1:
     mov ax, 8                        ; 0x06ba
@@ -139,7 +139,7 @@ loc_MPRS:
     je short @..loc_MPRS.l5          ; 0x06e2
     jmp short @..loc_MPRS.l8         ; 0x06e4
 @..loc_MPRS.l7:
-    push word [bp + 0x4]             ; 0x06e6
+    push word [bp + 4]               ; 0x06e6
     call aztec_toupper               ; 0x06e9
     pop cx                           ; 0x06ec
     jmp short @..loc_MPRS.l2         ; 0x06ed

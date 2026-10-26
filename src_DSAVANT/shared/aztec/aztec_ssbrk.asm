@@ -3,7 +3,7 @@ aztec_sbrk:
     push bp
     mov bp, sp
     push di
-    mov ax, word [bp + 0x4]
+    mov ax, word [bp + 4]
     mov di, word [aztec_MEMRY]
     test ax, ax
     jge short @..aztec_ssbrk.addok
@@ -32,7 +32,7 @@ aztec_sbrk:
 aztec_brk:
     push bp
     mov bp, sp
-    mov ax, word [bp + 0x4]
+    mov ax, word [bp + 4]
     inc ax
     and al, 0xfe
     cmp ax, word [_mbot]
@@ -96,7 +96,7 @@ aztec_rsvstk:
     push bp
     mov bp, sp
     mov ax, sp
-    sub ax, word [bp + 0x4]
+    sub ax, word [bp + 4]
     mov word [_STKRED], ax
     pop bp
     ret

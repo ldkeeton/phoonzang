@@ -6,15 +6,15 @@ find_party_type7_object:
     mov si, word [party_map_piece]   ; 0x0665
     mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x0669
     sub ah, ah                       ; 0x066d
-    mov word [bp - 0x0002], ax       ; 0x066f
+    mov word [bp - 2], ax            ; 0x066f
 @..find_party_type7_object.l1:
-    push word [bp - 0x0002]          ; 0x0672
+    push word [bp - 2]               ; 0x0672
     push word [party_map_piece]      ; 0x0675
     push word [party_cell_y]         ; 0x0679
     push word [party_cell_x]         ; 0x067d
     call find_object_at              ; 0x0681
     add sp, byte 8                   ; 0x0684
-    mov word [bp - 0x0002], ax       ; 0x0687
+    mov word [bp - 2], ax            ; 0x0687
     cmp ax, strict word 0xffff       ; 0x068a
     je short @..find_party_type7_object.l4 ; 0x068d
     mov bx, word [maze_tables]       ; 0x068f
@@ -37,7 +37,7 @@ find_party_type7_object:
     mov ax, word [party_tag]         ; 0x06bb
     shl ax, 1                        ; 0x06be
     push ax                          ; 0x06c0
-    mov ax, word [bp - 0x0002]       ; 0x06c1
+    mov ax, word [bp - 2]            ; 0x06c1
     shl ax, 1                        ; 0x06c4
     mov si, ax                       ; 0x06c6
     mov bx, word [maze_tables]       ; 0x06c8
@@ -47,10 +47,10 @@ find_party_type7_object:
     cmp ax, strict word 2            ; 0x06d6
     jne short @..find_party_type7_object.l3 ; 0x06d9
 @..find_party_type7_object.l2:
-    mov ax, word [bp - 0x0002]       ; 0x06db
+    mov ax, word [bp - 2]            ; 0x06db
     ret                              ; 0x06de
 @..find_party_type7_object.l3:
-    inc word [bp - 0x0002]           ; 0x06df
+    inc word [bp - 2]                ; 0x06df
     jmp short @..find_party_type7_object.l1 ; 0x06e2
 @..find_party_type7_object.l4:
     mov ax, 0xffff                   ; 0x06e4

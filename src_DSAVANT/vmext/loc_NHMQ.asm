@@ -2,9 +2,9 @@
 loc_NHMQ:
     mov ax, 0                        ; 0x0836
     call aztec_csav                  ; 0x0839
-    mov ax, word [bp + 0x4]          ; 0x083c
+    mov ax, word [bp + 4]            ; 0x083c
     mov word [party_world_x], ax     ; 0x083f
-    mov ax, word [bp + 0x6]          ; 0x0842
+    mov ax, word [bp + 6]            ; 0x0842
     mov word [party_world_y], ax     ; 0x0845
     push ax                          ; 0x0848
     push word [party_world_x]        ; 0x0849
@@ -15,5 +15,5 @@ loc_NHMQ:
     mov ax, party_cell_x             ; 0x0855
     push ax                          ; 0x0858
     call find_map_piece              ; 0x0859
-    add sp, byte 0x0a                ; 0x085c
+    add sp, byte 0xa                 ; 0x085c
     ret                              ; 0x085f

@@ -12,25 +12,25 @@ loc_KVVL:
     push ax                          ; 0x0a6b
     push ax                          ; 0x0a6c
     call gfx_fill_area               ; 0x0a6d
-    add sp, byte 0x0a                ; 0x0a70
+    add sp, byte 0xa                 ; 0x0a70
     mov ax, 0                        ; 0x0a73
     push ax                          ; 0x0a76
-    push word [bp + 0x4]             ; 0x0a77
+    push word [bp + 4]               ; 0x0a77
     call api_idx_000e_JRRT           ; 0x0a7a
     add sp, byte 4                   ; 0x0a7d
-    cmp word [bp + 0x6], byte 0      ; 0x0a80
+    cmp word [bp + 6], byte 0        ; 0x0a80
     je short @..loc_KVVL.l1          ; 0x0a84
     mov ax, 0                        ; 0x0a86
     push ax                          ; 0x0a89
-    push word [bp + 0x6]             ; 0x0a8a
+    push word [bp + 6]               ; 0x0a8a
     call api_idx_000e_JRRT           ; 0x0a8d
     add sp, byte 4                   ; 0x0a90
 @..loc_KVVL.l1:
-    cmp word [bp + 0x8], byte 0      ; 0x0a93
+    cmp word [bp + 8], byte 0        ; 0x0a93
     je short @..loc_KVVL.l2          ; 0x0a97
     mov ax, 0                        ; 0x0a99
     push ax                          ; 0x0a9c
-    push word [bp + 0x8]             ; 0x0a9d
+    push word [bp + 8]               ; 0x0a9d
     call api_idx_000e_JRRT           ; 0x0aa0
     add sp, byte 4                   ; 0x0aa3
 @..loc_KVVL.l2:

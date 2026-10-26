@@ -164,10 +164,8 @@ def sync(root, files, scopes=None, skip=()):
             unchanged += 1
             continue
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        tmp = path + '.tmp'
-        with open(tmp, 'wb') as f:
+        with open(path, 'wb') as f:
             f.write(data)
-        os.replace(tmp, path)
         written += 1
 
     wanted = {os.path.abspath(os.path.join(root, rel)) for rel in files}

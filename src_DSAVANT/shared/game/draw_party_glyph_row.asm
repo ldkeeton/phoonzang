@@ -14,30 +14,30 @@ draw_party_glyph_row:
     mov cx, 4
     cwd
     idiv cx
-    mov word [bp - 0x0002], dx
+    mov word [bp - 2], dx
     mov ax, dx
     jmp short @..draw_party_glyph_row.l6
 @..draw_party_glyph_row.l2:
-    mov byte [bp - 0x000e], 1
-    mov byte [bp - 0x000d], 2
+    mov byte [bp - 0xe], 1
+    mov byte [bp - 0xd], 2
     mov ax, 5
-    cmp word [bp - 0x0002], byte 0
+    cmp word [bp - 2], byte 0
     jne short @..draw_party_glyph_row.l3
     mov ax, 4
 @..draw_party_glyph_row.l3:
-    mov byte [bp - 0x000c], al
-    mov byte [bp - 0x000b], 0
-    mov word [bp - 0x0004], 0
+    mov byte [bp - 0xc], al
+    mov byte [bp - 0xb], 0
+    mov word [bp - 4], 0
     jmp short @..draw_party_glyph_row.l7
 @..draw_party_glyph_row.l4:
-    mov byte [bp - 0x000e], 3
-    mov byte [bp - 0x000d], 0
+    mov byte [bp - 0xe], 3
+    mov byte [bp - 0xd], 0
     mov ax, 0
-    cmp word [bp - 0x0002], byte 3
+    cmp word [bp - 2], byte 3
     jne short @..draw_party_glyph_row.l5
     mov ax, 1
 @..draw_party_glyph_row.l5:
-    mov word [bp - 0x0004], ax
+    mov word [bp - 4], ax
     jmp short @..draw_party_glyph_row.l7
 @..draw_party_glyph_row.l6:
     cmp ax, strict word 0
@@ -52,9 +52,9 @@ draw_party_glyph_row:
     mov ax, 0
     push ax
     push ax
-    lea ax, word [bp - 0x000e]
+    lea ax, word [bp - 0xe]
     push ax
-    push word [bp - 0x0004]
+    push word [bp - 4]
     mov ax, 0x8f
     push ax
     mov ax, 0x21
@@ -63,7 +63,7 @@ draw_party_glyph_row:
     push ax
     mov ax, 0x48
     push ax
-    mov al, byte [bp - 0x000e]
+    mov al, byte [bp - 0xe]
     sub ah, ah
     mov bx, ax
     mov al, byte [bx + glyph_y_table]
@@ -72,7 +72,7 @@ draw_party_glyph_row:
     push ax
     shl bx, 1
     mov ax, bx
-    add ax, word [bp - 0x0004]
+    add ax, word [bp - 4]
     mov bx, ax
     mov al, byte [bx + glyph_x_table]
     sub ah, ah

@@ -6,7 +6,7 @@ api_idx_0004_UJRL:
     push ax
     call api_idx_0008_RQRL
     pop cx
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     cmp ax, strict word 0xffff
     jne short @..api_idx_0004_UJRL.l4
     cmp word [bss_5910], byte 0x7f
@@ -15,7 +15,7 @@ api_idx_0004_UJRL:
     push ax
     call api_idx_0008_RQRL
     pop cx
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     cmp ax, strict word 0xffff
     jne short @..api_idx_0004_UJRL.l2
 @..api_idx_0004_UJRL.l1:
@@ -28,23 +28,23 @@ api_idx_0004_UJRL:
     jmp short @..api_idx_0004_UJRL.l4
 @..api_idx_0004_UJRL.l3:
     mov ax, word [bss_5910]
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     inc word [bss_5910]
 @..api_idx_0004_UJRL.l4:
-    mov cx, word [bp - 0x0002]
+    mov cx, word [bp - 2]
     shl cx, 1
     shl cx, 1
     shl cx, 1
     mov ax, word [bss_0e0e]
     add ax, cx
-    mov word [bp - 0x0004], ax
+    mov word [bp - 4], ax
     mov al, byte [game_state_arg]
-    mov bx, word [bp - 0x0004]
+    mov bx, word [bp - 4]
     mov byte [bx], al
-    mov bx, word [bp + 0x4]
-    mov al, byte [bx + 0x7]
-    mov bx, word [bp - 0x0004]
-    mov byte [bx + 0x1], al
+    mov bx, word [bp + 4]
+    mov al, byte [bx + 7]
+    mov bx, word [bp - 4]
+    mov byte [bx + 1], al
     mov ax, word [party_map_piece]
     xchg al, ah
     sub al, al
@@ -54,20 +54,20 @@ api_idx_0004_UJRL:
     mov cx, dx
     add ax, cx
     add ax, word [party_cell_y]
-    mov bx, word [bp - 0x0004]
-    mov word [bx + 0x2], ax
-    mov bx, word [bp + 0x4]
+    mov bx, word [bp - 4]
+    mov word [bx + 2], ax
+    mov bx, word [bp + 4]
     mov ax, word [bx]
-    mov bx, word [bp - 0x0004]
-    mov word [bx + 0x4], ax
-    mov bx, word [bp + 0x4]
-    mov al, byte [bx + 0x5]
-    mov bx, word [bp - 0x0004]
-    mov byte [bx + 0x7], al
-    mov bx, word [bp + 0x4]
-    mov al, byte [bx + 0x6]
-    mov bx, word [bp - 0x0004]
-    mov byte [bx + 0x6], al
+    mov bx, word [bp - 4]
+    mov word [bx + 4], ax
+    mov bx, word [bp + 4]
+    mov al, byte [bx + 5]
+    mov bx, word [bp - 4]
+    mov byte [bx + 7], al
+    mov bx, word [bp + 4]
+    mov al, byte [bx + 6]
+    mov bx, word [bp - 4]
+    mov byte [bx + 6], al
     mov ax, 1
     push ax
     mov ax, word [party_map_piece]

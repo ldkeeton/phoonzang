@@ -11,8 +11,8 @@ strstr:
     mov ax, ds                       ; 0x40d5
     mov es, ax                       ; 0x40d7
     cld                              ; 0x40d9
-    mov di, word [bp + 0x4]          ; 0x40da
-    mov si, word [bp + 0x6]          ; 0x40dd
+    mov di, word [bp + 4]            ; 0x40da
+    mov si, word [bp + 6]            ; 0x40dd
     mov bx, di                       ; 0x40e0
     mov al, 0                        ; 0x40e2
     mov cx, 0xffff                   ; 0x40e4
@@ -20,7 +20,7 @@ strstr:
     mov cx, di                       ; 0x40e9
     sub cx, bx                       ; 0x40eb
     dec cx                           ; 0x40ed
-    mov word [bp - 0x0002], cx       ; 0x40ee
+    mov word [bp - 2], cx            ; 0x40ee
     mov di, bx                       ; 0x40f1
 @..strstr.l1:
     mov al, byte [si]                ; 0x40f3
@@ -46,7 +46,7 @@ strstr:
     pop di                           ; 0x4116
     pop si                           ; 0x4117
     inc di                           ; 0x4118
-    mov cx, word [bp - 0x0002]       ; 0x4119
+    mov cx, word [bp - 2]            ; 0x4119
     sub cx, dx                       ; 0x411c
     dec cx                           ; 0x411e
     je short @..strstr.l5            ; 0x411f

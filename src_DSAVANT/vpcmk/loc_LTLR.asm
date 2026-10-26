@@ -3,7 +3,7 @@ loc_LTLR:
     mov ax, 0                        ; 0x4c82
     call aztec_csav                  ; 0x4c85
     mov ax, 0x248                    ; 0x4c88
-    imul word [bp + 0x4]             ; 0x4c8b
+    imul word [bp + 4]               ; 0x4c8b
     mov bx, ax                       ; 0x4c8e
     cmp byte [bx + party_records + pc_rec.glyph_set], 5 ; 0x4c90
     jne short @..loc_LTLR.l1         ; 0x4c95
@@ -17,13 +17,13 @@ loc_LTLR:
     push ax                          ; 0x4ca6
     mov ax, 0x18d                    ; 0x4ca7
     push ax                          ; 0x4caa
-    push word [bp + 0x4]             ; 0x4cab
+    push word [bp + 4]               ; 0x4cab
     call loc_VPRH                    ; 0x4cae
-    add sp, byte 0x0c                ; 0x4cb1
+    add sp, byte 0xc                 ; 0x4cb1
     ret                              ; 0x4cb4
 @..loc_LTLR.l1:
     mov ax, 0x248                    ; 0x4cb5
-    imul word [bp + 0x4]             ; 0x4cb8
+    imul word [bp + 4]               ; 0x4cb8
     mov bx, ax                       ; 0x4cbb
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x4cbd
     sub ah, ah                       ; 0x4cc1
@@ -39,9 +39,9 @@ jumptable_4e83_case_0:
     push ax                          ; 0x4cd5
     mov ax, 8                        ; 0x4cd6
     push ax                          ; 0x4cd9
-    push word [bp + 0x4]             ; 0x4cda
+    push word [bp + 4]               ; 0x4cda
     call loc_VPRH                    ; 0x4cdd
-    add sp, byte 0x0c                ; 0x4ce0
+    add sp, byte 0xc                 ; 0x4ce0
     jmp near @..loc_LTLR.l3          ; 0x4ce3
 jumptable_4e83_case_1:
     mov ax, 0x14f                    ; 0x4ce6
@@ -54,9 +54,9 @@ jumptable_4e83_case_1:
     push ax                          ; 0x4cf5
     mov ax, 0x12                     ; 0x4cf6
     push ax                          ; 0x4cf9
-    push word [bp + 0x4]             ; 0x4cfa
+    push word [bp + 4]               ; 0x4cfa
     call loc_VPRH                    ; 0x4cfd
-    add sp, byte 0x0c                ; 0x4d00
+    add sp, byte 0xc                 ; 0x4d00
     jmp near @..loc_LTLR.l3          ; 0x4d03
 jumptable_4e83_case_2:
     mov ax, 0x13c                    ; 0x4d06
@@ -69,9 +69,9 @@ jumptable_4e83_case_2:
     push ax                          ; 0x4d15
     mov ax, 0x18                     ; 0x4d16
     push ax                          ; 0x4d19
-    push word [bp + 0x4]             ; 0x4d1a
+    push word [bp + 4]               ; 0x4d1a
     call loc_VPRH                    ; 0x4d1d
-    add sp, byte 0x0c                ; 0x4d20
+    add sp, byte 0xc                 ; 0x4d20
     jmp near @..loc_LTLR.l3          ; 0x4d23
 jumptable_4e83_case_3:
     mov ax, 0x1b                     ; 0x4d26
@@ -84,9 +84,9 @@ jumptable_4e83_case_3:
     push ax                          ; 0x4d35
     mov ax, 6                        ; 0x4d36
     push ax                          ; 0x4d39
-    push word [bp + 0x4]             ; 0x4d3a
+    push word [bp + 4]               ; 0x4d3a
     call loc_VPRH                    ; 0x4d3d
-    add sp, byte 0x0c                ; 0x4d40
+    add sp, byte 0xc                 ; 0x4d40
     jmp near @..loc_LTLR.l3          ; 0x4d43
 jumptable_4e83_case_4:
     mov ax, 0x83                     ; 0x4d46
@@ -99,9 +99,9 @@ jumptable_4e83_case_4:
     push ax                          ; 0x4d55
     mov ax, 0x1f                     ; 0x4d56
     push ax                          ; 0x4d59
-    push word [bp + 0x4]             ; 0x4d5a
+    push word [bp + 4]               ; 0x4d5a
     call loc_VPRH                    ; 0x4d5d
-    add sp, byte 0x0c                ; 0x4d60
+    add sp, byte 0xc                 ; 0x4d60
     jmp near @..loc_LTLR.l3          ; 0x4d63
 jumptable_4e83_case_5:
     mov ax, 0x147                    ; 0x4d66
@@ -114,9 +114,9 @@ jumptable_4e83_case_5:
     push ax                          ; 0x4d75
     mov ax, 0x12                     ; 0x4d76
     push ax                          ; 0x4d79
-    push word [bp + 0x4]             ; 0x4d7a
+    push word [bp + 4]               ; 0x4d7a
     call loc_VPRH                    ; 0x4d7d
-    add sp, byte 0x0c                ; 0x4d80
+    add sp, byte 0xc                 ; 0x4d80
     jmp near @..loc_LTLR.l3          ; 0x4d83
 jumptable_4e83_case_6:
     mov ax, 0x37                     ; 0x4d86
@@ -129,9 +129,9 @@ jumptable_4e83_case_6:
     push ax                          ; 0x4d95
     mov ax, 0x1d                     ; 0x4d96
     push ax                          ; 0x4d99
-    push word [bp + 0x4]             ; 0x4d9a
+    push word [bp + 4]               ; 0x4d9a
     call loc_VPRH                    ; 0x4d9d
-    add sp, byte 0x0c                ; 0x4da0
+    add sp, byte 0xc                 ; 0x4da0
     jmp near @..loc_LTLR.l3          ; 0x4da3
 jumptable_4e83_case_7:
     mov ax, 0xf1                     ; 0x4da6
@@ -144,9 +144,9 @@ jumptable_4e83_case_7:
     push ax                          ; 0x4db5
     mov ax, 1                        ; 0x4db6
     push ax                          ; 0x4db9
-    push word [bp + 0x4]             ; 0x4dba
+    push word [bp + 4]               ; 0x4dba
     call loc_VPRH                    ; 0x4dbd
-    add sp, byte 0x0c                ; 0x4dc0
+    add sp, byte 0xc                 ; 0x4dc0
     jmp near @..loc_LTLR.l3          ; 0x4dc3
 jumptable_4e83_case_8:
     mov ax, 0x8a                     ; 0x4dc6
@@ -159,9 +159,9 @@ jumptable_4e83_case_8:
     push ax                          ; 0x4dd5
     mov ax, 0x16                     ; 0x4dd6
     push ax                          ; 0x4dd9
-    push word [bp + 0x4]             ; 0x4dda
+    push word [bp + 4]               ; 0x4dda
     call loc_VPRH                    ; 0x4ddd
-    add sp, byte 0x0c                ; 0x4de0
+    add sp, byte 0xc                 ; 0x4de0
     jmp near @..loc_LTLR.l3          ; 0x4de3
 jumptable_4e83_case_9:
     mov ax, 0xa3                     ; 0x4de6
@@ -174,9 +174,9 @@ jumptable_4e83_case_9:
     push ax                          ; 0x4df5
     mov ax, 0x18                     ; 0x4df6
     push ax                          ; 0x4df9
-    push word [bp + 0x4]             ; 0x4dfa
+    push word [bp + 4]               ; 0x4dfa
     call loc_VPRH                    ; 0x4dfd
-    add sp, byte 0x0c                ; 0x4e00
+    add sp, byte 0xc                 ; 0x4e00
     jmp near @..loc_LTLR.l3          ; 0x4e03
 jumptable_4e83_case_10:
     mov ax, 0x8f                     ; 0x4e06
@@ -189,9 +189,9 @@ jumptable_4e83_case_10:
     push ax                          ; 0x4e15
     mov ax, 9                        ; 0x4e16
     push ax                          ; 0x4e19
-    push word [bp + 0x4]             ; 0x4e1a
+    push word [bp + 4]               ; 0x4e1a
     call loc_VPRH                    ; 0x4e1d
-    add sp, byte 0x0c                ; 0x4e20
+    add sp, byte 0xc                 ; 0x4e20
     jmp near @..loc_LTLR.l3          ; 0x4e23
 jumptable_4e83_case_11:
     mov ax, 0x82                     ; 0x4e26
@@ -204,9 +204,9 @@ jumptable_4e83_case_11:
     push ax                          ; 0x4e35
     mov ax, 0xa                      ; 0x4e36
     push ax                          ; 0x4e39
-    push word [bp + 0x4]             ; 0x4e3a
+    push word [bp + 4]               ; 0x4e3a
     call loc_VPRH                    ; 0x4e3d
-    add sp, byte 0x0c                ; 0x4e40
+    add sp, byte 0xc                 ; 0x4e40
     jmp short @..loc_LTLR.l3         ; 0x4e43
 jumptable_4e83_case_12:
     mov ax, 0x82                     ; 0x4e45
@@ -219,9 +219,9 @@ jumptable_4e83_case_12:
     push ax                          ; 0x4e54
     mov ax, 0x19                     ; 0x4e55
     push ax                          ; 0x4e58
-    push word [bp + 0x4]             ; 0x4e59
+    push word [bp + 4]               ; 0x4e59
     call loc_VPRH                    ; 0x4e5c
-    add sp, byte 0x0c                ; 0x4e5f
+    add sp, byte 0xc                 ; 0x4e5f
     jmp short @..loc_LTLR.l3         ; 0x4e62
 jumptable_4e83_case_13:
     mov ax, 0xa1                     ; 0x4e64
@@ -234,9 +234,9 @@ jumptable_4e83_case_13:
     push ax                          ; 0x4e73
     mov ax, 0x2f                     ; 0x4e74
     push ax                          ; 0x4e77
-    push word [bp + 0x4]             ; 0x4e78
+    push word [bp + 4]               ; 0x4e78
     call loc_VPRH                    ; 0x4e7b
-    add sp, byte 0x0c                ; 0x4e7e
+    add sp, byte 0xc                 ; 0x4e7e
     jmp short @..loc_LTLR.l3         ; 0x4e81
 jumptable_4e83:
     dw jumptable_4e83_case_0 - IMAGE_BASE + __zres_end ; 0x4e83

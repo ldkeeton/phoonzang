@@ -16,8 +16,8 @@ pick_party_member: ; Aztec csav frame=0x0012
     push ax                          ; 0x2117
     call gfx_save_area               ; 0x2118
     add sp, byte 8                   ; 0x211b
-    mov word [bp - 0x0010], dx       ; 0x211e
-    mov word [bp - 0x0012], ax       ; 0x2121
+    mov word [bp - 0x10], dx         ; 0x211e
+    mov word [bp - 0x12], ax         ; 0x2121
     mov ax, 0x90                     ; 0x2124
     push ax                          ; 0x2127
     mov ax, 0x9a                     ; 0x2128
@@ -64,19 +64,19 @@ pick_party_member: ; Aztec csav frame=0x0012
     push ax                          ; 0x2187
     call gfx_show_area               ; 0x2188
     add sp, byte 8                   ; 0x218b
-    mov word [bp - 0x0004], 0xfffe   ; 0x218e
+    mov word [bp - 4], 0xfffe        ; 0x218e
 @..pick_party_member.l2:
-    cmp word [bp - 0x0004], byte 0xfe ; 0x2193
+    cmp word [bp - 4], byte 0xfe     ; 0x2193
     jne short @..pick_party_member.l5 ; 0x2197
     mov ax, 1                        ; 0x2199
     push ax                          ; 0x219c
     call get_filtered_key            ; 0x219d
     pop cx                           ; 0x21a0
     sub ah, ah                       ; 0x21a1
-    mov word [bp - 0x0002], ax       ; 0x21a3
+    mov word [bp - 2], ax            ; 0x21a3
     cmp ax, strict word 0x1b         ; 0x21a6
     jne short @..pick_party_member.l3 ; 0x21a9
-    mov word [bp - 0x0004], 0xffff   ; 0x21ab
+    mov word [bp - 4], 0xffff        ; 0x21ab
 @..pick_party_member.l3:
     cmp ax, strict word 0x31         ; 0x21b0
     jl short @..pick_party_member.l4 ; 0x21b3
@@ -85,14 +85,14 @@ pick_party_member: ; Aztec csav frame=0x0012
     cmp cx, ax                       ; 0x21bc
     jle short @..pick_party_member.l4 ; 0x21be
     add ax, strict word 0xffcf       ; 0x21c0
-    mov word [bp - 0x0004], ax       ; 0x21c3
+    mov word [bp - 4], ax            ; 0x21c3
 @..pick_party_member.l4:
     jmp short @..pick_party_member.l2 ; 0x21c6
 @..pick_party_member.l5:
     mov ax, 1                        ; 0x21c8
     push ax                          ; 0x21cb
-    push word [bp - 0x0010]          ; 0x21cc
-    push word [bp - 0x0012]          ; 0x21cf
+    push word [bp - 0x10]            ; 0x21cc
+    push word [bp - 0x12]            ; 0x21cf
     call gfx_restore_area            ; 0x21d2
     add sp, byte 6                   ; 0x21d5
     mov ax, 0xa3                     ; 0x21d8
@@ -105,17 +105,17 @@ pick_party_member: ; Aztec csav frame=0x0012
     push ax                          ; 0x21e7
     call gfx_show_area               ; 0x21e8
     add sp, byte 8                   ; 0x21eb
-    mov ax, word [bp - 0x0004]       ; 0x21ee
+    mov ax, word [bp - 4]            ; 0x21ee
     ret                              ; 0x21f1
 @..pick_party_member.l6:
     push word [bss_0e30]             ; 0x21f2
     push word [bss_0e2e]             ; 0x21f6
     call set_mouse_pointer_shape     ; 0x21fa
     add sp, byte 4                   ; 0x21fd
-    mov word [bp - 0x0002], 0        ; 0x2200
+    mov word [bp - 2], 0             ; 0x2200
     jmp short @..pick_party_member.l8 ; 0x2205
 @..pick_party_member.l7:
-    mov ax, word [bp - 0x0002]       ; 0x2207
+    mov ax, word [bp - 2]            ; 0x2207
     mov cx, 2                        ; 0x220a
     cwd                              ; 0x220d
     idiv cx                          ; 0x220e
@@ -123,35 +123,35 @@ pick_party_member: ; Aztec csav frame=0x0012
     mov cx, 0xfc                     ; 0x2212
     imul cx                          ; 0x2215
     add ax, strict word 5            ; 0x2217
-    mov word [bp - 0x000a], ax       ; 0x221a
-    mov ax, word [bp - 0x0002]       ; 0x221d
+    mov word [bp - 0xa], ax          ; 0x221a
+    mov ax, word [bp - 2]            ; 0x221d
     mov cx, 2                        ; 0x2220
     cwd                              ; 0x2223
     idiv cx                          ; 0x2224
     mov cx, 0x2d                     ; 0x2226
     imul cx                          ; 0x2229
     add ax, strict word 0x12         ; 0x222b
-    mov word [bp - 0x000c], ax       ; 0x222e
+    mov word [bp - 0xc], ax          ; 0x222e
     mov ax, 0                        ; 0x2231
     push ax                          ; 0x2234
-    mov ax, word [bp - 0x0002]       ; 0x2235
+    mov ax, word [bp - 2]            ; 0x2235
     add ax, strict word 0x31         ; 0x2238
     cbw                              ; 0x223b
     push ax                          ; 0x223c
-    mov ax, word [bp - 0x000c]       ; 0x223d
+    mov ax, word [bp - 0xc]          ; 0x223d
     add ax, strict word 0x2b         ; 0x2240
     push ax                          ; 0x2243
-    mov ax, word [bp - 0x000a]       ; 0x2244
+    mov ax, word [bp - 0xa]          ; 0x2244
     add ax, strict word 0x3b         ; 0x2247
     push ax                          ; 0x224a
-    push word [bp - 0x000c]          ; 0x224b
-    push word [bp - 0x000a]          ; 0x224e
-    push word [bp - 0x0002]          ; 0x2251
+    push word [bp - 0xc]             ; 0x224b
+    push word [bp - 0xa]             ; 0x224e
+    push word [bp - 2]               ; 0x2251
     call set_hotspot                 ; 0x2254
-    add sp, byte 0x0e                ; 0x2257
-    inc word [bp - 0x0002]           ; 0x225a
+    add sp, byte 0xe                 ; 0x2257
+    inc word [bp - 2]                ; 0x225a
 @..pick_party_member.l8:
-    mov ax, word [bp - 0x0002]       ; 0x225d
+    mov ax, word [bp - 2]            ; 0x225d
     cmp ax, word [party_char_count]  ; 0x2260
     jl short @..pick_party_member.l7 ; 0x2264
     mov ax, 0                        ; 0x2266
@@ -164,22 +164,22 @@ pick_party_member: ; Aztec csav frame=0x0012
     push ax                          ; 0x2271
     push word [party_char_count]     ; 0x2272
     call set_hotspot                 ; 0x2276
-    add sp, byte 0x0e                ; 0x2279
-    mov word [bp - 0x0008], 0        ; 0x227c
+    add sp, byte 0xe                 ; 0x2279
+    mov word [bp - 8], 0             ; 0x227c
 @..pick_party_member.l9:
-    lea ax, word [bp - 0x000c]       ; 0x2281
+    lea ax, word [bp - 0xc]          ; 0x2281
     push ax                          ; 0x2284
-    lea ax, word [bp - 0x000a]       ; 0x2285
+    lea ax, word [bp - 0xa]          ; 0x2285
     push ax                          ; 0x2288
     call gfx_get_mouse               ; 0x2289
     add sp, byte 4                   ; 0x228c
-    mov word [bp - 0x0006], ax       ; 0x228f
+    mov word [bp - 6], ax            ; 0x228f
     mov ax, 0                        ; 0x2292
-    cmp word [bp - 0x0006], byte 0   ; 0x2295
+    cmp word [bp - 6], byte 0        ; 0x2295
     jne short @..pick_party_member.l10 ; 0x2299
     mov ax, 1                        ; 0x229b
 @..pick_party_member.l10:
-    or word [bp - 0x0008], ax        ; 0x229e
+    or word [bp - 8], ax             ; 0x229e
     mov ax, 0x14                     ; 0x22a1
     push ax                          ; 0x22a4
     call delay_ms                    ; 0x22a5
@@ -189,7 +189,7 @@ pick_party_member: ; Aztec csav frame=0x0012
     call poll_hotspots               ; 0x22ad
     pop cx                           ; 0x22b0
     dec ax                           ; 0x22b1
-    mov word [bp - 0x0004], ax       ; 0x22b2
+    mov word [bp - 4], ax            ; 0x22b2
     cmp word [bss_59fa], byte 0      ; 0x22b5
     je short @..pick_party_member.l11 ; 0x22ba
     mov ax, 0                        ; 0x22bc
@@ -209,12 +209,12 @@ pick_party_member: ; Aztec csav frame=0x0012
     push ax                          ; 0x22dc
     call set_mouse_pointer_shape     ; 0x22dd
     add sp, byte 4                   ; 0x22e0
-    mov ax, word [bp - 0x0004]       ; 0x22e3
+    mov ax, word [bp - 4]            ; 0x22e3
     ret                              ; 0x22e6
 @..pick_party_member.l12:
-    cmp word [bp - 0x0006], byte 0   ; 0x22e7
+    cmp word [bp - 6], byte 0        ; 0x22e7
     je short @..pick_party_member.l9 ; 0x22eb
-    cmp word [bp - 0x0008], byte 0   ; 0x22ed
+    cmp word [bp - 8], byte 0        ; 0x22ed
     je short @..pick_party_member.l9 ; 0x22f1
     mov ax, 0                        ; 0x22f3
     mov dx, 0                        ; 0x22f6

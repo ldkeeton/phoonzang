@@ -10,16 +10,16 @@ set_bitfield:
     mov ax, ds                       ; 0x3ef5
     mov es, ax                       ; 0x3ef7
     mov ax, 0xffff                   ; 0x3ef9
-    mov cx, word [bp + 0x8]          ; 0x3efc
+    mov cx, word [bp + 8]            ; 0x3efc
     mov ch, cl                       ; 0x3eff
     mov cl, 0x10                     ; 0x3f01
     sub cl, ch                       ; 0x3f03
     shr ax, cl                       ; 0x3f05
-    mov word [bp - 0x0002], ax       ; 0x3f07
+    mov word [bp - 2], ax            ; 0x3f07
     and word [bp + 0xa], ax          ; 0x3f0a
-    mov si, word [bp + 0x4]          ; 0x3f0d
-    mov bx, word [bp + 0x6]          ; 0x3f10
-    mov ax, word [bp + 0x8]          ; 0x3f13
+    mov si, word [bp + 4]            ; 0x3f0d
+    mov bx, word [bp + 6]            ; 0x3f10
+    mov ax, word [bp + 8]            ; 0x3f13
     mul bx                           ; 0x3f16
     mov dx, ax                       ; 0x3f18
     mov bx, ax                       ; 0x3f1a
@@ -27,7 +27,7 @@ set_bitfield:
     shr bx, cl                       ; 0x3f1e
     mov cx, 7                        ; 0x3f20
     and cx, dx                       ; 0x3f23
-    mov ax, word [bp - 0x0002]       ; 0x3f25
+    mov ax, word [bp - 2]            ; 0x3f25
     shl ax, cl                       ; 0x3f28
     shl word [bp + 0xa], cl          ; 0x3f2a
     mov dx, word [bp + 0xa]          ; 0x3f2d

@@ -2,7 +2,7 @@
 redraw_area_set:
     mov ax, 0xfffa
     call aztec_csav
-    mov ax, word [bp + 0x4]
+    mov ax, word [bp + 4]
     jmp near @..redraw_area_set.l5
 @..redraw_area_set.l1:
     mov ax, dseg_9098
@@ -16,15 +16,15 @@ redraw_area_set:
     mov ax, 0x62
     push ax
     call save_screen_area
-    add sp, byte 0x0a
-    mov word [bp - 0x0002], ax
+    add sp, byte 0xa
+    mov word [bp - 2], ax
     mov ax, 0
     push ax
     call redraw_glyph_strip
     pop cx
     mov ax, 1
     push ax
-    push word [bp - 0x0002]
+    push word [bp - 2]
     call restore_saved_screen
     add sp, byte 4
     jmp near @..redraw_area_set.l8
@@ -40,8 +40,8 @@ redraw_area_set:
     mov ax, 8
     push ax
     call save_screen_area
-    add sp, byte 0x0a
-    mov word [bp - 0x0002], ax
+    add sp, byte 0xa
+    mov word [bp - 2], ax
     mov ax, dseg_90a6
     push ax
     mov ax, 0xc2
@@ -53,8 +53,8 @@ redraw_area_set:
     mov ax, 0xe7
     push ax
     call save_screen_area
-    add sp, byte 0x0a
-    mov word [bp - 0x0004], ax
+    add sp, byte 0xa
+    mov word [bp - 4], ax
     mov ax, dseg_90ad
     push ax
     mov ax, 0x9f
@@ -66,25 +66,25 @@ redraw_area_set:
     mov ax, 0x73
     push ax
     call save_screen_area
-    add sp, byte 0x0a
-    mov word [bp - 0x0006], ax
+    add sp, byte 0xa
+    mov word [bp - 6], ax
     mov ax, 0
     push ax
     call redraw_glyph_strip
     pop cx
     mov ax, 1
     push ax
-    push word [bp - 0x0006]
+    push word [bp - 6]
     call restore_saved_screen
     add sp, byte 4
     mov ax, 1
     push ax
-    push word [bp - 0x0004]
+    push word [bp - 4]
     call restore_saved_screen
     add sp, byte 4
     mov ax, 1
     push ax
-    push word [bp - 0x0002]
+    push word [bp - 2]
     call restore_saved_screen
     add sp, byte 4
     jmp short @..redraw_area_set.l8
@@ -100,15 +100,15 @@ redraw_area_set:
     mov ax, 8
     push ax
     call save_screen_area
-    add sp, byte 0x0a
-    mov word [bp - 0x0002], ax
+    add sp, byte 0xa
+    mov word [bp - 2], ax
     mov ax, 0
     push ax
     call redraw_glyph_strip
     pop cx
     mov ax, 1
     push ax
-    push word [bp - 0x0002]
+    push word [bp - 2]
     call restore_saved_screen
     add sp, byte 4
     jmp short @..redraw_area_set.l8

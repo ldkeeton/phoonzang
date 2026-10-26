@@ -23,18 +23,18 @@ api_idx_0002_IRNO:
     mov ax, 0x48                     ; 0x678a
     push ax                          ; 0x678d
     call gfx_fill_area               ; 0x678e
-    add sp, byte 0x0a                ; 0x6791
+    add sp, byte 0xa                 ; 0x6791
     mov ax, 0                        ; 0x6794
     push ax                          ; 0x6797
     push word [bss_8d08]             ; 0x6798
     push word [bss_8d06]             ; 0x679c
     call gfx_restore_area            ; 0x67a0
     add sp, byte 6                   ; 0x67a3
-    mov word [bp - 0x0002], 0        ; 0x67a6
+    mov word [bp - 2], 0             ; 0x67a6
 @..api_idx_0002_IRNO.l2:
     mov ax, 0                        ; 0x67ab
     push ax                          ; 0x67ae
-    mov ax, word [bp - 0x0002]       ; 0x67af
+    mov ax, word [bp - 2]            ; 0x67af
     shl ax, 1                        ; 0x67b2
     shl ax, 1                        ; 0x67b4
     mov bx, ax                       ; 0x67b6
@@ -42,8 +42,8 @@ api_idx_0002_IRNO:
     push word [bx + panel_area]      ; 0x67bc
     call gfx_restore_area            ; 0x67c0
     add sp, byte 6                   ; 0x67c3
-    inc word [bp - 0x0002]           ; 0x67c6
-    mov ax, word [bp - 0x0002]       ; 0x67c9
+    inc word [bp - 2]                ; 0x67c6
+    mov ax, word [bp - 2]            ; 0x67c9
     cmp ax, strict word 6            ; 0x67cc
     jl short @..api_idx_0002_IRNO.l2 ; 0x67cf
     cmp word [dest_alt_arg], byte 0  ; 0x67d1

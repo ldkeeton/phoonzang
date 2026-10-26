@@ -6,12 +6,12 @@ loc_LRGG:
     je short @..loc_LRGG.l1          ; 0x247d
     call loc_USTG                    ; 0x247f
 @..loc_LRGG.l1:
-    push word [bp + 0x4]             ; 0x2482
+    push word [bp + 4]               ; 0x2482
     call loc_IPHP                    ; 0x2485
     pop cx                           ; 0x2488
     call reveal_text_line            ; 0x2489
     call next_text_line              ; 0x248c
-    cmp word [bp + 0x6], byte 0      ; 0x248f
+    cmp word [bp + 6], byte 0        ; 0x248f
     je short @..loc_LRGG.l2          ; 0x2493
     mov ax, 1                        ; 0x2495
     push ax                          ; 0x2498

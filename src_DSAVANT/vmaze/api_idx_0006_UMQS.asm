@@ -10,18 +10,18 @@ api_idx_0006_UMQS:
     push ax                          ; 0x9220
     call aztec_setmem                ; 0x9221
     add sp, byte 6                   ; 0x9224
-    mov word [bp - 0x0002], 0        ; 0x9227
+    mov word [bp - 2], 0             ; 0x9227
 @..api_idx_0006_UMQS.l1:
     mov ax, 6                        ; 0x922c
-    imul word [bp - 0x0002]          ; 0x922f
+    imul word [bp - 2]               ; 0x922f
     mov bx, ax                       ; 0x9232
     cmp byte [bx + slot_bit_states + slot_bit_state.f_0003], 0xff ; 0x9234
     je short @..api_idx_0006_UMQS.l2 ; 0x9239
-    mov ax, word [bp - 0x0002]       ; 0x923b
+    mov ax, word [bp - 2]            ; 0x923b
     add ax, strict word 0xc          ; 0x923e
     push ax                          ; 0x9241
     mov ax, 0x26                     ; 0x9242
-    imul word [bp + 0x4]             ; 0x9245
+    imul word [bp + 4]               ; 0x9245
     add ax, slot_records + slot_record.marked_bits ; 0x9248
     push ax                          ; 0x924b
     call test_bit                    ; 0x924c
@@ -29,7 +29,7 @@ api_idx_0006_UMQS:
     test ax, ax                      ; 0x9252
     je short @..api_idx_0006_UMQS.l2 ; 0x9254
     mov ax, 6                        ; 0x9256
-    imul word [bp - 0x0002]          ; 0x9259
+    imul word [bp - 2]               ; 0x9259
     mov bx, ax                       ; 0x925c
     mov al, byte [bx + slot_bit_states + slot_bit_state.f_0003] ; 0x925e
     cbw                              ; 0x9262
@@ -37,14 +37,14 @@ api_idx_0006_UMQS:
     mov bx, ax                       ; 0x9265
     mov word [bx + bss_9bd2], 1      ; 0x9267
 @..api_idx_0006_UMQS.l2:
-    inc word [bp - 0x0002]           ; 0x926d
-    mov ax, word [bp - 0x0002]       ; 0x9270
+    inc word [bp - 2]                ; 0x926d
+    mov ax, word [bp - 2]            ; 0x9270
     cmp ax, strict word 0xb          ; 0x9273
     jl short @..api_idx_0006_UMQS.l1 ; 0x9276
     mov ax, 0xe                      ; 0x9278
     push ax                          ; 0x927b
     mov ax, 0x26                     ; 0x927c
-    imul word [bp + 0x4]             ; 0x927f
+    imul word [bp + 4]               ; 0x927f
     add ax, slot_records + slot_record.selected_bits + 0x2 ; 0x9282
     push ax                          ; 0x9285
     call test_bit                    ; 0x9286
@@ -57,7 +57,7 @@ api_idx_0006_UMQS:
     mov ax, 0xd                      ; 0x929b
     push ax                          ; 0x929e
     mov ax, 0x26                     ; 0x929f
-    imul word [bp + 0x4]             ; 0x92a2
+    imul word [bp + 4]               ; 0x92a2
     add ax, slot_records + slot_record.selected_bits + 0x2 ; 0x92a5
     push ax                          ; 0x92a8
     call test_bit                    ; 0x92a9
@@ -66,20 +66,20 @@ api_idx_0006_UMQS:
     je short @..api_idx_0006_UMQS.l4 ; 0x92b1
     mov word [bss_9bde], 1           ; 0x92b3
 @..api_idx_0006_UMQS.l4:
-    mov word [bp - 0x0006], 1        ; 0x92b9
-    mov word [bp - 0x0002], 0        ; 0x92be
+    mov word [bp - 6], 1             ; 0x92b9
+    mov word [bp - 2], 0             ; 0x92be
 @..api_idx_0006_UMQS.l5:
-    mov ax, word [bp - 0x0002]       ; 0x92c3
+    mov ax, word [bp - 2]            ; 0x92c3
     shl ax, 1                        ; 0x92c6
     shl ax, 1                        ; 0x92c8
     mov bx, ax                       ; 0x92ca
     mov al, byte [bx + bss_8a6e]     ; 0x92cc
     sub ah, ah                       ; 0x92d0
-    cmp ax, word [bp + 0x8]          ; 0x92d2
+    cmp ax, word [bp + 8]            ; 0x92d2
     je short @..api_idx_0006_UMQS.l6 ; 0x92d5
     mov al, byte [bx + bss_8a6e + rec_8a6e.f_0001] ; 0x92d7
     sub ah, ah                       ; 0x92db
-    cmp ax, word [bp + 0x8]          ; 0x92dd
+    cmp ax, word [bp + 8]            ; 0x92dd
     jne short @..api_idx_0006_UMQS.l8 ; 0x92e0
 @..api_idx_0006_UMQS.l6:
     cmp byte [bx + bss_8a6e + rec_8a6e.f_0002], 0xff ; 0x92e2
@@ -91,13 +91,13 @@ api_idx_0006_UMQS:
     cmp word [bx + bss_9bd2], byte 1 ; 0x92f2
     jne short @..api_idx_0006_UMQS.l8 ; 0x92f7
 @..api_idx_0006_UMQS.l7:
-    mov word [bp - 0x0006], 0        ; 0x92f9
+    mov word [bp - 6], 0             ; 0x92f9
 @..api_idx_0006_UMQS.l8:
-    inc word [bp - 0x0002]           ; 0x92fe
-    mov ax, word [bp - 0x0002]       ; 0x9301
+    inc word [bp - 2]                ; 0x92fe
+    mov ax, word [bp - 2]            ; 0x9301
     cmp ax, strict word 0x20         ; 0x9304
     jl short @..api_idx_0006_UMQS.l5 ; 0x9307
-    cmp word [bp - 0x0006], byte 0   ; 0x9309
+    cmp word [bp - 6], byte 0        ; 0x9309
     je short @..api_idx_0006_UMQS.l9 ; 0x930d
     mov ax, 0                        ; 0x930f
     ret                              ; 0x9312
@@ -118,8 +118,8 @@ api_idx_0006_UMQS:
     push ax                          ; 0x9338
     mov ax, 1                        ; 0x9339
     push ax                          ; 0x933c
-    push word [bp + 0x8]             ; 0x933d
-    push word [bp + 0x6]             ; 0x9340
+    push word [bp + 8]               ; 0x933d
+    push word [bp + 6]               ; 0x9340
     call api_idx_0048_OSRI           ; 0x9343
     add sp, byte 8                   ; 0x9346
     test ax, ax                      ; 0x9349
@@ -132,31 +132,31 @@ api_idx_0006_UMQS:
     mov ax, 0                        ; 0x935b
     ret                              ; 0x935e
 @..api_idx_0006_UMQS.l12:
-    mov word [bp - 0x0002], 0        ; 0x935f
+    mov word [bp - 2], 0             ; 0x935f
     jmp short @..api_idx_0006_UMQS.l14 ; 0x9364
 @..api_idx_0006_UMQS.l13:
-    mov ax, word [bp - 0x0002]       ; 0x9366
+    mov ax, word [bp - 2]            ; 0x9366
     shl ax, 1                        ; 0x9369
     mov bx, ax                       ; 0x936b
     mov al, byte [bx + bss_9be8]     ; 0x936d
     push ax                          ; 0x9371
     mov ax, 0x26                     ; 0x9372
-    imul word [bp + 0x4]             ; 0x9375
+    imul word [bp + 4]               ; 0x9375
     mov cx, ax                       ; 0x9378
-    add ax, word [bp - 0x0002]       ; 0x937a
+    add ax, word [bp - 2]            ; 0x937a
     mov bx, ax                       ; 0x937d
     pop ax                           ; 0x937f
     mov byte [bx + slot_records + slot_record.f_0008], al ; 0x9380
-    inc word [bp - 0x0002]           ; 0x9384
+    inc word [bp - 2]                ; 0x9384
 @..api_idx_0006_UMQS.l14:
-    mov ax, word [bp - 0x0002]       ; 0x9387
+    mov ax, word [bp - 2]            ; 0x9387
     cmp ax, word [bss_9be6]          ; 0x938a
     jl short @..api_idx_0006_UMQS.l13 ; 0x938e
     mov ax, word [bss_9be6]          ; 0x9390
     dec ax                           ; 0x9393
     push ax                          ; 0x9394
     mov ax, 0x26                     ; 0x9395
-    imul word [bp + 0x4]             ; 0x9398
+    imul word [bp + 4]               ; 0x9398
     mov bx, ax                       ; 0x939b
     pop ax                           ; 0x939d
     mov byte [bx + slot_records + slot_record.f_0007], al ; 0x939e

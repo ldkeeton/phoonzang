@@ -7,7 +7,7 @@ api_idx_0006_OUPU:
     mov si, ax                       ; 0x5519
     mov bx, word [maze_tables]       ; 0x551b
     mov ax, word [bx + si + 0x3c0]   ; 0x551f
-    mov word [bp - 0x0004], ax       ; 0x5523
+    mov word [bp - 4], ax            ; 0x5523
     cmp word [bx + si + 0x1e0], byte 0 ; 0x5526
     jle short @..api_idx_0006_OUPU.l1 ; 0x552b
     mov ax, 0                        ; 0x552d
@@ -16,7 +16,7 @@ api_idx_0006_OUPU:
     call loc_KIOQ                    ; 0x5535
     add sp, byte 4                   ; 0x5538
 @..api_idx_0006_OUPU.l1:
-    cmp word [game_state_arg], byte 0x0e ; 0x553b
+    cmp word [game_state_arg], byte 0xe ; 0x553b
     je short @..api_idx_0006_OUPU.l2 ; 0x5540
     jmp near @..api_idx_0006_OUPU.l7 ; 0x5542
 @..api_idx_0006_OUPU.l2:
@@ -32,11 +32,11 @@ api_idx_0006_OUPU:
     push ax                          ; 0x5560
     call redraw_treasure_caption     ; 0x5561
     pop cx                           ; 0x5564
-    mov word [bp - 0x0002], 0        ; 0x5565
+    mov word [bp - 2], 0             ; 0x5565
     jmp short @..api_idx_0006_OUPU.l6 ; 0x556a
 @..api_idx_0006_OUPU.l4:
     mov ax, 0x248                    ; 0x556c
-    imul word [bp - 0x0002]          ; 0x556f
+    imul word [bp - 2]               ; 0x556f
     mov bx, ax                       ; 0x5572
     cmp byte [bx + party_records + pc_rec.state], 3 ; 0x5574
     jae short @..api_idx_0006_OUPU.l5 ; 0x5579
@@ -46,7 +46,7 @@ api_idx_0006_OUPU:
     pop cx                           ; 0x5582
     push ax                          ; 0x5583
     mov ax, 0x248                    ; 0x5584
-    imul word [bp - 0x0002]          ; 0x5587
+    imul word [bp - 2]               ; 0x5587
     mov bx, ax                       ; 0x558a
     mov al, byte [bx + party_records + pc_rec.cur + 0x5] ; 0x558c
     sub ah, ah                       ; 0x5590
@@ -65,13 +65,13 @@ api_idx_0006_OUPU:
     push ax                          ; 0x55a9
     mov ax, MSG_NAUSEATED            ; 0x55aa
     push ax                          ; 0x55ad
-    push word [bp - 0x0002]          ; 0x55ae
+    push word [bp - 2]               ; 0x55ae
     call api_idx_0056_VTNO           ; 0x55b1
-    add sp, byte 0x0e                ; 0x55b4
+    add sp, byte 0xe                 ; 0x55b4
 @..api_idx_0006_OUPU.l5:
-    inc word [bp - 0x0002]           ; 0x55b7
+    inc word [bp - 2]                ; 0x55b7
 @..api_idx_0006_OUPU.l6:
-    mov ax, word [bp - 0x0002]       ; 0x55ba
+    mov ax, word [bp - 2]            ; 0x55ba
     cmp ax, word [party_char_count]  ; 0x55bd
     jl short @..api_idx_0006_OUPU.l4 ; 0x55c1
 @..api_idx_0006_OUPU.l7:
@@ -79,13 +79,13 @@ api_idx_0006_OUPU:
     push ax                          ; 0x55c6
     mov ax, 0                        ; 0x55c7
     push ax                          ; 0x55ca
-    push word [bp - 0x0004]          ; 0x55cb
+    push word [bp - 4]               ; 0x55cb
     call get_bits                    ; 0x55ce
     add sp, byte 6                   ; 0x55d1
-    mov word [bp - 0x0006], ax       ; 0x55d4
+    mov word [bp - 6], ax            ; 0x55d4
     mov ax, 0                        ; 0x55d7
     push ax                          ; 0x55da
-    push word [bp - 0x0006]          ; 0x55db
+    push word [bp - 6]               ; 0x55db
     mov ax, word [game_state_arg]    ; 0x55de
     mov cx, 4                        ; 0x55e1
     shl ax, cl                       ; 0x55e4
@@ -97,14 +97,14 @@ api_idx_0006_OUPU:
     push ax                          ; 0x55f3
     mov ax, 0xb                      ; 0x55f4
     push ax                          ; 0x55f7
-    push word [bp - 0x0004]          ; 0x55f8
+    push word [bp - 4]               ; 0x55f8
     call get_bits                    ; 0x55fb
     add sp, byte 6                   ; 0x55fe
     cmp ax, strict word 1            ; 0x5601
     jne short @..api_idx_0006_OUPU.l8 ; 0x5604
     mov ax, 0                        ; 0x5606
     push ax                          ; 0x5609
-    push word [bp - 0x0006]          ; 0x560a
+    push word [bp - 6]               ; 0x560a
     mov ax, word [game_state_arg]    ; 0x560d
     mov cx, 4                        ; 0x5610
     shl ax, cl                       ; 0x5613
@@ -117,10 +117,10 @@ api_idx_0006_OUPU:
     push ax                          ; 0x5622
     mov ax, 9                        ; 0x5623
     push ax                          ; 0x5626
-    push word [bp - 0x0004]          ; 0x5627
+    push word [bp - 4]               ; 0x5627
     call get_bits                    ; 0x562a
     add sp, byte 6                   ; 0x562d
-    mov word [bp - 0x0006], ax       ; 0x5630
+    mov word [bp - 6], ax            ; 0x5630
     cmp ax, strict word 0            ; 0x5633
     jle short @..api_idx_0006_OUPU.l9 ; 0x5636
     mov ax, 1                        ; 0x5638
@@ -137,7 +137,7 @@ api_idx_0006_OUPU:
     push ax                          ; 0x5656
     call set_bitmap_bit              ; 0x5657
     add sp, byte 6                   ; 0x565a
-    cmp word [bp - 0x0006], byte 1   ; 0x565d
+    cmp word [bp - 6], byte 1        ; 0x565d
     jle short @..api_idx_0006_OUPU.l9 ; 0x5661
     mov ax, 1                        ; 0x5663
     push ax                          ; 0x5666

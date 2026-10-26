@@ -5,22 +5,22 @@ api_idx_0004_MIQG:
     call loc_QSOL                    ; 0x6cd6
     les bx, word [tick_counter_ptr]  ; 0x6cd9
     mov ax, word [es:bx]             ; 0x6cdd
-    mov dx, word [es:bx + 0x2]       ; 0x6ce0
+    mov dx, word [es:bx + 2]         ; 0x6ce0
     add ax, 0x10e                    ; 0x6ce4
     adc dx, byte 0                   ; 0x6ce7
-    mov word [bp - 0x0002], dx       ; 0x6cea
-    mov word [bp - 0x0004], ax       ; 0x6ced
+    mov word [bp - 2], dx            ; 0x6cea
+    mov word [bp - 4], ax            ; 0x6ced
 @..api_idx_0004_MIQG.l1:
     call poll_fullscreen_hotspot     ; 0x6cf0
     test ax, ax                      ; 0x6cf3
     jne short @..api_idx_0004_MIQG.l4 ; 0x6cf5
     les bx, word [tick_counter_ptr]  ; 0x6cf7
     mov ax, word [es:bx]             ; 0x6cfb
-    mov dx, word [es:bx + 0x2]       ; 0x6cfe
-    cmp dx, word [bp - 0x0002]       ; 0x6d02
+    mov dx, word [es:bx + 2]         ; 0x6cfe
+    cmp dx, word [bp - 2]            ; 0x6d02
     jg short @..api_idx_0004_MIQG.l2 ; 0x6d05
     jne short @..api_idx_0004_MIQG.l3 ; 0x6d07
-    cmp ax, word [bp - 0x0004]       ; 0x6d09
+    cmp ax, word [bp - 4]            ; 0x6d09
     jb short @..api_idx_0004_MIQG.l3 ; 0x6d0c
 @..api_idx_0004_MIQG.l2:
     jmp short @..api_idx_0004_MIQG.l4 ; 0x6d0e

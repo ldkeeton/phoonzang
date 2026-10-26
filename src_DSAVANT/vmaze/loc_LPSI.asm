@@ -33,7 +33,7 @@ loc_LPSI:
     push dx                          ; 0x0a19
     push ax                          ; 0x0a1a
     call app_memmove                 ; 0x0a1b
-    add sp, byte 0x0a                ; 0x0a1e
+    add sp, byte 0xa                 ; 0x0a1e
     mov ax, 0x80                     ; 0x0a21
     push ax                          ; 0x0a24
     push ds                          ; 0x0a25
@@ -49,7 +49,7 @@ loc_LPSI:
     push dx                          ; 0x0a3d
     push ax                          ; 0x0a3e
     call app_memmove                 ; 0x0a3f
-    add sp, byte 0x0a                ; 0x0a42
+    add sp, byte 0xa                 ; 0x0a42
     call api_idx_0014_LHRI           ; 0x0a45
     mov bx, word [maze_data]         ; 0x0a48
     mov si, word [party_map_piece]   ; 0x0a4c

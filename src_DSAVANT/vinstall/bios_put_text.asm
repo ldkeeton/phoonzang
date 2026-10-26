@@ -4,7 +4,7 @@ bios_put_text:
     mov bp, sp                       ; 0x2622
     push di                          ; 0x2624
     push si                          ; 0x2625
-    mov bx, word [bp + 0x4]          ; 0x2626
+    mov bx, word [bp + 4]            ; 0x2626
 @..bios_put_text.l1:
     mov al, byte [bx]                ; 0x2629
     or al, al                        ; 0x262b

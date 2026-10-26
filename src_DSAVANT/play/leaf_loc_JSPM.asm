@@ -3,7 +3,7 @@ leaf_loc_JSPM:
     mov bx, cseg_0d03 - IMAGE_BASE   ; 0x0f55
     mov al, byte [cs:cseg_0d3e - IMAGE_BASE] ; 0x0f58
 @..leaf_loc_JSPM.l1:
-    cmp al, byte [cs:bx + 0x2]       ; 0x0f5c
+    cmp al, byte [cs:bx + 2]         ; 0x0f5c
     jne short @..leaf_loc_JSPM.l2    ; 0x0f60
     jmp near loc_RUNQ                ; 0x0f62
 @..leaf_loc_JSPM.l2:
@@ -20,9 +20,9 @@ loc_GLKJ:
 loc_OIUN:
     cmp byte [cs:bx], 0              ; 0x0f81
     jne short loc_KRQV               ; 0x0f85
-    cmp dx, word [cs:bx + 0x3]       ; 0x0f87
+    cmp dx, word [cs:bx + 3]         ; 0x0f87
     ja short loc_KRQV                ; 0x0f8b
-    mov dx, word [cs:bx + 0x3]       ; 0x0f8d
+    mov dx, word [cs:bx + 3]         ; 0x0f8d
     mov byte [cs:cseg_0d4d - IMAGE_BASE], al ; 0x0f91
     mov word [cs:cseg_0d4e - IMAGE_BASE], bx ; 0x0f95
 loc_KRQV:
@@ -43,11 +43,11 @@ loc_VJMI:
     mov ah, byte [cs:cseg_0d3e - IMAGE_BASE] ; 0x0fc3
     mov byte [cs:cseg_0d4d - IMAGE_BASE], 0xff ; 0x0fc8
 loc_KQGN:
-    cmp ah, byte [cs:bx + 0x2]       ; 0x0fce
+    cmp ah, byte [cs:bx + 2]         ; 0x0fce
     jne short loc_LGMV               ; 0x0fd2
-    cmp dx, word [cs:bx + 0x3]       ; 0x0fd4
+    cmp dx, word [cs:bx + 3]         ; 0x0fd4
     ja short loc_LGMV                ; 0x0fd8
-    mov dx, word [cs:bx + 0x3]       ; 0x0fda
+    mov dx, word [cs:bx + 3]         ; 0x0fda
     mov byte [cs:cseg_0d4d - IMAGE_BASE], al ; 0x0fde
     mov word [cs:cseg_0d4e - IMAGE_BASE], bx ; 0x0fe2
 loc_LGMV:
@@ -67,9 +67,9 @@ loc_NGKV:
     mov word [cs:cseg_0d4e - IMAGE_BASE], bx ; 0x100c
     mov ah, byte [cs:cseg_0d3e - IMAGE_BASE] ; 0x1011
 loc_ILTG:
-    cmp dx, word [cs:bx + 0x3]       ; 0x1016
+    cmp dx, word [cs:bx + 3]         ; 0x1016
     ja short loc_JHLQ                ; 0x101a
-    mov dx, word [cs:bx + 0x3]       ; 0x101c
+    mov dx, word [cs:bx + 3]         ; 0x101c
     mov byte [cs:cseg_0d4d - IMAGE_BASE], al ; 0x1020
     mov word [cs:cseg_0d4e - IMAGE_BASE], bx ; 0x1024
 loc_JHLQ:
@@ -81,18 +81,18 @@ loc_JHLQ:
     mov al, byte [cs:cseg_0d4d - IMAGE_BASE] ; 0x103a
 loc_VQRR:
     mov byte [cs:cseg_0d40 - IMAGE_BASE], al ; 0x103e
-    mov al, byte [cs:bx + 0x2]       ; 0x1042
+    mov al, byte [cs:bx + 2]         ; 0x1042
     cmp al, byte [cs:cseg_0d3e - IMAGE_BASE] ; 0x1046
     je short loc_RUNQ                ; 0x104b
     call loc_IMHI                    ; 0x104d
 loc_RUNQ:
     mov al, byte [cs:cseg_0d3f - IMAGE_BASE] ; 0x1050
     mov byte [cs:bx], al             ; 0x1054
-    mov word [cs:bx + 0x3], 0        ; 0x1057
+    mov word [cs:bx + 3], 0          ; 0x1057
     mov al, byte [cs:cseg_0d3c - IMAGE_BASE] ; 0x105d
-    mov byte [cs:bx + 0x1], al       ; 0x1061
+    mov byte [cs:bx + 1], al         ; 0x1061
     mov al, byte [cs:si]             ; 0x1065
-    mov byte [cs:bx + 0x2], al       ; 0x1068
+    mov byte [cs:bx + 2], al         ; 0x1068
     call loc_ONLU                    ; 0x106c
     mov byte [cs:note_started - IMAGE_BASE], 1 ; 0x106f
     inc si                           ; 0x1075

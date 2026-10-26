@@ -6,22 +6,22 @@ fade_out_music: ; Aztec csav frame=0x0000
     test ax, ax                      ; 0x2b6b
     je short @..fade_out_music.l3    ; 0x2b6d
 @..fade_out_music.l1:
-    cmp word [bp + 0x6], byte 0      ; 0x2b6f
+    cmp word [bp + 6], byte 0        ; 0x2b6f
     jle short @..fade_out_music.l2   ; 0x2b73
     call gfx_is_music_playing        ; 0x2b75
     test ax, ax                      ; 0x2b78
     je short @..fade_out_music.l2    ; 0x2b7a
-    push word [bp + 0x6]             ; 0x2b7c
+    push word [bp + 6]               ; 0x2b7c
     mov ax, 0                        ; 0x2b7f
     push ax                          ; 0x2b82
-    mov ax, word [bp + 0x6]          ; 0x2b83
+    mov ax, word [bp + 6]            ; 0x2b83
     add ax, strict word 0xfff6       ; 0x2b86
     push ax                          ; 0x2b89
     call clamp_between               ; 0x2b8a
     add sp, byte 6                   ; 0x2b8d
-    mov word [bp + 0x6], ax          ; 0x2b90
+    mov word [bp + 6], ax            ; 0x2b90
     push ax                          ; 0x2b93
-    push word [bp + 0x4]             ; 0x2b94
+    push word [bp + 4]               ; 0x2b94
     call gfx_set_music_tempo_volume  ; 0x2b97
     add sp, byte 4                   ; 0x2b9a
     mov ax, 0x19                     ; 0x2b9d

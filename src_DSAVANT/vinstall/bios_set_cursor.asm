@@ -4,8 +4,8 @@ bios_set_cursor:
     mov bp, sp                       ; 0x2552
     push di                          ; 0x2554
     push si                          ; 0x2555
-    mov bx, word [bp + 0x4]          ; 0x2556
-    mov dx, word [bp + 0x6]          ; 0x2559
+    mov bx, word [bp + 4]            ; 0x2556
+    mov dx, word [bp + 6]            ; 0x2559
     mov dh, bl                       ; 0x255c
     mov bh, 0                        ; 0x255e
     mov ah, 2                        ; 0x2560

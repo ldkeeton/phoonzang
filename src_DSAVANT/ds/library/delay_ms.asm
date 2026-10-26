@@ -17,7 +17,7 @@ delay_ms:
 @..delay_ms.l3:
     cmp cx, word [bx]                ; 0x36e6
     jne short @..delay_ms.l2         ; 0x36e8
-    dec word [bp + 0x4]              ; 0x36ea
+    dec word [bp + 4]                ; 0x36ea
     jne short @..delay_ms.l1         ; 0x36ed
     pop si                           ; 0x36ef
     pop ds                           ; 0x36f0

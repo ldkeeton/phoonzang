@@ -39,13 +39,13 @@ api_idx_0018_USPR:
     mov cx, 0x3c                     ; 0x1cf9
     mov bx, 0                        ; 0x1cfc
     call aztec_ldv                   ; 0x1cff
-    mov word [bp - 0x000c], ax       ; 0x1d02
-    mov word [bp - 0x000e], 0        ; 0x1d05
+    mov word [bp - 0xc], ax          ; 0x1d02
+    mov word [bp - 0xe], 0           ; 0x1d05
 @..api_idx_0018_USPR.l2:
-    cmp word [bp - 0x000c], byte 4   ; 0x1d0a
+    cmp word [bp - 0xc], byte 4      ; 0x1d0a
     jl short @..api_idx_0018_USPR.l3 ; 0x1d0e
-    inc word [bp - 0x000e]           ; 0x1d10
-    add word [bp - 0x000c], byte 0xfc ; 0x1d13
+    inc word [bp - 0xe]              ; 0x1d10
+    add word [bp - 0xc], byte 0xfc   ; 0x1d13
     add word [bss_8f14], strict word 0xff10 ; 0x1d17
     adc word [bss_8f16], byte 0xff   ; 0x1d1d
     jmp short @..api_idx_0018_USPR.l2 ; 0x1d22
@@ -61,10 +61,10 @@ api_idx_0018_USPR:
 @..api_idx_0018_USPR.l4:
     mov ax, 0                        ; 0x1d3e
 @..api_idx_0018_USPR.l5:
-    mov word [bp - 0x0012], ax       ; 0x1d41
-    mov word [bp - 0x0008], 0        ; 0x1d44
-    mov word [bp - 0x0014], 0        ; 0x1d49
-    mov word [bp - 0x0016], 0        ; 0x1d4e
+    mov word [bp - 0x12], ax         ; 0x1d41
+    mov word [bp - 8], 0             ; 0x1d44
+    mov word [bp - 0x14], 0          ; 0x1d49
+    mov word [bp - 0x16], 0          ; 0x1d4e
     cmp word [game_state_arg], byte 0 ; 0x1d53
     jne short @..api_idx_0018_USPR.l6 ; 0x1d58
     mov ax, word [party_map_piece]   ; 0x1d5a
@@ -76,17 +76,17 @@ api_idx_0018_USPR:
     shl cx, 1                        ; 0x1d6a
     add ax, cx                       ; 0x1d6c
     add ax, word [party_cell_x]      ; 0x1d6e
-    mov word [bp - 0x0018], ax       ; 0x1d72
+    mov word [bp - 0x18], ax         ; 0x1d72
     push ax                          ; 0x1d75
     mov ax, word [maze_data]         ; 0x1d76
     add ax, 0x930                    ; 0x1d79
     push ax                          ; 0x1d7c
     call test_bit                    ; 0x1d7d
     add sp, byte 4                   ; 0x1d80
-    mov word [bp - 0x0014], ax       ; 0x1d83
+    mov word [bp - 0x14], ax         ; 0x1d83
 @..api_idx_0018_USPR.l6:
-    mov ax, word [bp - 0x0008]       ; 0x1d86
-    cmp ax, word [bp - 0x0012]       ; 0x1d89
+    mov ax, word [bp - 8]            ; 0x1d86
+    cmp ax, word [bp - 0x12]         ; 0x1d89
     jl short @..api_idx_0018_USPR.l7 ; 0x1d8c
     call gfx_is_music_playing        ; 0x1d8e
     test ax, ax                      ; 0x1d91
@@ -106,28 +106,28 @@ api_idx_0018_USPR:
     jne short @..api_idx_0018_USPR.l10 ; 0x1db1
     jmp short @..api_idx_0018_USPR.l9 ; 0x1db3
 @..api_idx_0018_USPR.l10:
-    mov word [bp - 0x0002], 0        ; 0x1db5
+    mov word [bp - 2], 0             ; 0x1db5
     jmp short @..api_idx_0018_USPR.l12 ; 0x1dba
 @..api_idx_0018_USPR.l11:
     mov ax, 0x248                    ; 0x1dbc
-    imul word [bp - 0x0002]          ; 0x1dbf
+    imul word [bp - 2]               ; 0x1dbf
     mov bx, ax                       ; 0x1dc2
     mov byte [bx + party_records + pc_rec.status + 0x2], 0xa ; 0x1dc4
     mov ax, 1                        ; 0x1dc9
     push ax                          ; 0x1dcc
-    push word [bp - 0x0002]          ; 0x1dcd
+    push word [bp - 2]               ; 0x1dcd
     call draw_party_member_panel     ; 0x1dd0
     add sp, byte 4                   ; 0x1dd3
-    inc word [bp - 0x0002]           ; 0x1dd6
+    inc word [bp - 2]                ; 0x1dd6
 @..api_idx_0018_USPR.l12:
-    mov ax, word [bp - 0x0002]       ; 0x1dd9
+    mov ax, word [bp - 2]            ; 0x1dd9
     cmp ax, word [party_char_count]  ; 0x1ddc
     jl short @..api_idx_0018_USPR.l11 ; 0x1de0
-    cmp word [bp - 0x0014], byte 0   ; 0x1de2
+    cmp word [bp - 0x14], byte 0     ; 0x1de2
     je short @..api_idx_0018_USPR.l13 ; 0x1de6
-    cmp word [bp - 0x0016], byte 0   ; 0x1de8
+    cmp word [bp - 0x16], byte 0     ; 0x1de8
     jne short @..api_idx_0018_USPR.l13 ; 0x1dec
-    mov word [bp - 0x0016], 1        ; 0x1dee
+    mov word [bp - 0x16], 1          ; 0x1dee
     call api_idx_0004_JLQH           ; 0x1df3
     test ax, ax                      ; 0x1df6
     je short @..api_idx_0018_USPR.l13 ; 0x1df8
@@ -150,7 +150,7 @@ api_idx_0018_USPR:
     call delay_ms                    ; 0x1e23
     pop cx                           ; 0x1e26
 @..api_idx_0018_USPR.l15:
-    cmp word [bp - 0x0014], byte 0   ; 0x1e27
+    cmp word [bp - 0x14], byte 0     ; 0x1e27
     je short @..api_idx_0018_USPR.l16 ; 0x1e2b
     mov word [bss_91ae], 0           ; 0x1e2d
 @..api_idx_0018_USPR.l16:
@@ -158,32 +158,32 @@ api_idx_0018_USPR:
     je short @..api_idx_0018_USPR.l17 ; 0x1e38
     jmp near @..api_idx_0018_USPR.l31 ; 0x1e3a
 @..api_idx_0018_USPR.l17:
-    inc word [bp - 0x0008]           ; 0x1e3d
-    add word [game_time], byte 0x0a  ; 0x1e40
+    inc word [bp - 8]                ; 0x1e3d
+    add word [game_time], byte 0xa   ; 0x1e40
     adc word [game_time_hi], byte 0  ; 0x1e45
     call api_idx_0002_ITLQ           ; 0x1e4a
     mov ax, 0xa                      ; 0x1e4d
     push ax                          ; 0x1e50
     call api_idx_0002_IPQN           ; 0x1e51
     pop cx                           ; 0x1e54
-    cmp word [bp - 0x0008], byte 0x18 ; 0x1e55
+    cmp word [bp - 8], byte 0x18     ; 0x1e55
     jne short @..api_idx_0018_USPR.l18 ; 0x1e59
     mov ax, 0x64                     ; 0x1e5b
     push ax                          ; 0x1e5e
     call random_below                ; 0x1e5f
     pop cx                           ; 0x1e62
-    mov word [bp - 0x0002], ax       ; 0x1e63
+    mov word [bp - 2], ax            ; 0x1e63
     mov ax, 0x64                     ; 0x1e66
     push ax                          ; 0x1e69
     call random_below                ; 0x1e6a
     pop cx                           ; 0x1e6d
-    mov bx, word [bp - 0x0002]       ; 0x1e6e
+    mov bx, word [bp - 2]            ; 0x1e6e
     mov byte [bx + code_characters], al ; 0x1e71
 @..api_idx_0018_USPR.l18:
-    mov word [bp - 0x0002], 0        ; 0x1e75
+    mov word [bp - 2], 0             ; 0x1e75
     jmp near @..api_idx_0018_USPR.l27 ; 0x1e7a
 @..api_idx_0018_USPR.l19:
-    mov ax, word [bp - 0x0008]       ; 0x1e7d
+    mov ax, word [bp - 8]            ; 0x1e7d
     mov cx, 6                        ; 0x1e80
     cwd                              ; 0x1e83
     idiv cx                          ; 0x1e84
@@ -201,7 +201,7 @@ api_idx_0018_USPR:
     test dx, dx                      ; 0x1e99
     jne short @..api_idx_0018_USPR.l22 ; 0x1e9b
     mov ax, 0x248                    ; 0x1e9d
-    imul word [bp - 0x0002]          ; 0x1ea0
+    imul word [bp - 2]               ; 0x1ea0
     mov bx, ax                       ; 0x1ea3
     mov al, byte [bx + party_records + pc_rec.f_0241] ; 0x1ea5
     sub ah, ah                       ; 0x1ea9
@@ -210,16 +210,16 @@ api_idx_0018_USPR:
     mov ax, 0                        ; 0x1ead
 @..api_idx_0018_USPR.l23:
     push ax                          ; 0x1eb0
-    mov ax, word [bp - 0x0008]       ; 0x1eb1
+    mov ax, word [bp - 8]            ; 0x1eb1
     cwd                              ; 0x1eb4
     idiv cx                          ; 0x1eb5
     mov ax, dx                       ; 0x1eb7
     test ax, ax                      ; 0x1eb9
     jne short @..api_idx_0018_USPR.l24 ; 0x1ebb
-    cmp word [bp - 0x000e], byte 0   ; 0x1ebd
+    cmp word [bp - 0xe], byte 0      ; 0x1ebd
     jle short @..api_idx_0018_USPR.l24 ; 0x1ec1
     mov ax, 0x248                    ; 0x1ec3
-    imul word [bp - 0x0002]          ; 0x1ec6
+    imul word [bp - 2]               ; 0x1ec6
     mov bx, ax                       ; 0x1ec9
     mov al, byte [bx + party_records + pc_rec.f_0240] ; 0x1ecb
     sub ah, ah                       ; 0x1ecf
@@ -229,20 +229,20 @@ api_idx_0018_USPR:
     mov ax, 0                        ; 0x1ed4
 @..api_idx_0018_USPR.l25:
     push ax                          ; 0x1ed7
-    push word [bp - 0x0002]          ; 0x1ed8
+    push word [bp - 2]               ; 0x1ed8
     call api_idx_000a_TQHL           ; 0x1edb
-    add sp, byte 0x0a                ; 0x1ede
+    add sp, byte 0xa                 ; 0x1ede
     mov ax, 5                        ; 0x1ee1
     push ax                          ; 0x1ee4
     call random_below                ; 0x1ee5
     pop cx                           ; 0x1ee8
     push ax                          ; 0x1ee9
     mov ax, 0x248                    ; 0x1eea
-    imul word [bp - 0x0002]          ; 0x1eed
+    imul word [bp - 2]               ; 0x1eed
     mov bx, ax                       ; 0x1ef0
     pop ax                           ; 0x1ef2
     mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x1ef3
-    mov ax, word [bp - 0x0008]       ; 0x1ef7
+    mov ax, word [bp - 8]            ; 0x1ef7
     mov cx, 6                        ; 0x1efa
     cwd                              ; 0x1efd
     idiv cx                          ; 0x1efe
@@ -253,9 +253,9 @@ api_idx_0018_USPR:
     jbe short @..api_idx_0018_USPR.l26 ; 0x1f0b
     dec byte [bx + party_records + pc_rec.f_023e] ; 0x1f0d
 @..api_idx_0018_USPR.l26:
-    inc word [bp - 0x0002]           ; 0x1f11
+    inc word [bp - 2]                ; 0x1f11
 @..api_idx_0018_USPR.l27:
-    mov ax, word [bp - 0x0002]       ; 0x1f14
+    mov ax, word [bp - 2]            ; 0x1f14
     cmp ax, word [party_char_count]  ; 0x1f17
     jge short @..api_idx_0018_USPR.l28 ; 0x1f1b
     jmp near @..api_idx_0018_USPR.l19 ; 0x1f1d
@@ -267,7 +267,7 @@ api_idx_0018_USPR:
     imul cx                          ; 0x1f2b
     mov bx, ax                       ; 0x1f2d
     mov byte [bx + party_records + pc_rec.status + 0x2], 0 ; 0x1f2f
-    mov ax, word [bp - 0x0008]       ; 0x1f34
+    mov ax, word [bp - 8]            ; 0x1f34
     mov cx, 6                        ; 0x1f37
     cwd                              ; 0x1f3a
     idiv cx                          ; 0x1f3b
@@ -275,23 +275,23 @@ api_idx_0018_USPR:
     test ax, ax                      ; 0x1f3f
     jne short @..api_idx_0018_USPR.l31 ; 0x1f41
     call api_idx_0032_TNQM           ; 0x1f43
-    dec word [bp - 0x000e]           ; 0x1f46
+    dec word [bp - 0xe]              ; 0x1f46
     mov ax, 0x3cf                    ; 0x1f49
     cmp byte [bss_5988], 1           ; 0x1f4c
     jne short @..api_idx_0018_USPR.l29 ; 0x1f51
     mov ax, 0x3de                    ; 0x1f53
 @..api_idx_0018_USPR.l29:
-    mov word [bp - 0x0010], ax       ; 0x1f56
+    mov word [bp - 0x10], ax         ; 0x1f56
     cmp word [bss_91b0], byte 0      ; 0x1f59
     jne short @..api_idx_0018_USPR.l31 ; 0x1f5e
-    cmp word [bp - 0x0014], byte 0   ; 0x1f60
+    cmp word [bp - 0x14], byte 0     ; 0x1f60
     jne short @..api_idx_0018_USPR.l31 ; 0x1f64
     mov ax, 0x3e8                    ; 0x1f66
     push ax                          ; 0x1f69
     call random_below                ; 0x1f6a
     pop cx                           ; 0x1f6d
     mov cx, ax                       ; 0x1f6e
-    mov ax, word [bp - 0x0010]       ; 0x1f70
+    mov ax, word [bp - 0x10]         ; 0x1f70
     cmp cx, ax                       ; 0x1f73
     jl short @..api_idx_0018_USPR.l31 ; 0x1f75
     cmp word [bss_8450], byte 0      ; 0x1f77
@@ -321,20 +321,20 @@ api_idx_0018_USPR:
     push ax                          ; 0x1fa9
     call random_below                ; 0x1faa
     pop cx                           ; 0x1fad
-    mov word [bp - 0x0004], ax       ; 0x1fae
-    mov word [bp - 0x0002], 0        ; 0x1fb1
+    mov word [bp - 4], ax            ; 0x1fae
+    mov word [bp - 2], 0             ; 0x1fb1
     jmp short @..api_idx_0018_USPR.l36 ; 0x1fb6
 @..api_idx_0018_USPR.l33:
-    cmp word [bp - 0x0004], byte 0   ; 0x1fb8
+    cmp word [bp - 4], byte 0        ; 0x1fb8
     je short @..api_idx_0018_USPR.l34 ; 0x1fbc
     mov ax, 0x248                    ; 0x1fbe
-    imul word [bp - 0x0002]          ; 0x1fc1
+    imul word [bp - 2]               ; 0x1fc1
     mov bx, ax                       ; 0x1fc4
     add word [bx + party_records + pc_rec.f_0008], byte 1 ; 0x1fc6
     adc word [bx + party_records + pc_rec.f_000a], byte 0 ; 0x1fcb
 @..api_idx_0018_USPR.l34:
     mov ax, 0x248                    ; 0x1fd0
-    imul word [bp - 0x0002]          ; 0x1fd3
+    imul word [bp - 2]               ; 0x1fd3
     mov bx, ax                       ; 0x1fd6
     mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x1fd8
     push ax                          ; 0x1fdc
@@ -350,12 +350,12 @@ api_idx_0018_USPR:
 @..api_idx_0018_USPR.l35:
     mov ax, 1                        ; 0x1ff3
     push ax                          ; 0x1ff6
-    push word [bp - 0x0002]          ; 0x1ff7
+    push word [bp - 2]               ; 0x1ff7
     call draw_party_member_panel     ; 0x1ffa
     add sp, byte 4                   ; 0x1ffd
-    inc word [bp - 0x0002]           ; 0x2000
+    inc word [bp - 2]                ; 0x2000
 @..api_idx_0018_USPR.l36:
-    mov ax, word [bp - 0x0002]       ; 0x2003
+    mov ax, word [bp - 2]            ; 0x2003
     cmp ax, word [party_char_count]  ; 0x2006
     jl short @..api_idx_0018_USPR.l33 ; 0x200a
     call loc_QQOI                    ; 0x200c

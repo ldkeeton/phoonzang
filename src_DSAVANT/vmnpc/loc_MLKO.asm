@@ -16,10 +16,10 @@ loc_MLKO:
     call gfx_set_text_color          ; 0x1328
     add sp, byte 4                   ; 0x132b
     mov ax, 7                        ; 0x132e
-    imul word [bp + 0x6]             ; 0x1331
+    imul word [bp + 6]               ; 0x1331
     add ax, 0x9c                     ; 0x1334
     push ax                          ; 0x1337
-    push word [bp + 0x4]             ; 0x1338
+    push word [bp + 4]               ; 0x1338
     call aztec_strlen                ; 0x133b
     pop cx                           ; 0x133e
     mov cx, 6                        ; 0x133f
@@ -35,24 +35,24 @@ loc_MLKO:
     add sp, byte 4                   ; 0x1355
     mov ax, 0                        ; 0x1358
     push ax                          ; 0x135b
-    push word [bp + 0x4]             ; 0x135c
+    push word [bp + 4]               ; 0x135c
     call draw_text_glyphs            ; 0x135f
     add sp, byte 4                   ; 0x1362
     mov ax, 7                        ; 0x1365
-    imul word [bp + 0x6]             ; 0x1368
+    imul word [bp + 6]               ; 0x1368
     add ax, 0xa2                     ; 0x136b
     push ax                          ; 0x136e
     mov ax, 0x127                    ; 0x136f
     push ax                          ; 0x1372
     mov ax, 7                        ; 0x1373
-    imul word [bp + 0x6]             ; 0x1376
+    imul word [bp + 6]               ; 0x1376
     add ax, 0x9c                     ; 0x1379
     push ax                          ; 0x137c
     mov ax, 0x19                     ; 0x137d
     push ax                          ; 0x1380
     call gfx_show_area               ; 0x1381
     add sp, byte 8                   ; 0x1384
-    cmp word [bp + 0x8], byte 0      ; 0x1387
+    cmp word [bp + 8], byte 0        ; 0x1387
     je short @..loc_MLKO.l1          ; 0x138b
     mov ax, 0                        ; 0x138d
     push ax                          ; 0x1390

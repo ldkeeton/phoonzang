@@ -13,7 +13,7 @@ api_idx_0002_QMUL:
     push word [bx + si + 0x3c0]      ; 0x8712
     call get_bits                    ; 0x8716
     add sp, byte 6                   ; 0x8719
-    mov word [bp - 0x0002], ax       ; 0x871c
+    mov word [bp - 2], ax            ; 0x871c
     mov ax, 1                        ; 0x871f
     push ax                          ; 0x8722
     mov ax, 2                        ; 0x8723
@@ -27,7 +27,7 @@ api_idx_0002_QMUL:
     add sp, byte 6                   ; 0x8739
     test ax, ax                      ; 0x873c
     jne short @..api_idx_0002_QMUL.l1 ; 0x873e
-    push word [bp - 0x0002]          ; 0x8740
+    push word [bp - 2]               ; 0x8740
     mov si, word [party_region]      ; 0x8743
     mov bx, word [maze_tables]       ; 0x8747
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x874b
@@ -42,7 +42,7 @@ api_idx_0002_QMUL:
     add sp, byte 4                   ; 0x8760
     jmp short @..api_idx_0002_QMUL.l4 ; 0x8763
 @..api_idx_0002_QMUL.l1:
-    push word [bp - 0x0002]          ; 0x8765
+    push word [bp - 2]               ; 0x8765
     mov bx, word [maze_tables]       ; 0x8768
     mov si, word [party_region]      ; 0x876c
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x8770

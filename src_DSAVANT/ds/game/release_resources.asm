@@ -2,8 +2,8 @@
 release_resources: ; Aztec csav frame=0x0002
     mov ax, 0xfffe                   ; 0x0242
     call aztec_csav                  ; 0x0245
-    mov word [bp - 0x0002], 0        ; 0x0248
-    mov ax, word [bp + 0x4]          ; 0x024d
+    mov word [bp - 2], 0             ; 0x0248
+    mov ax, word [bp + 4]            ; 0x024d
     jmp near @..release_resources.l18 ; 0x0250
 jumptable_0363_case_0:
     cmp word [bss_0e0e], byte 0      ; 0x0253
@@ -98,7 +98,7 @@ jumptable_0363_case_7:
     call app_free                    ; 0x0341
     add sp, byte 4                   ; 0x0344
 jumptable_0363_case_4:
-    mov word [bp - 0x0002], 1        ; 0x0347
+    mov word [bp - 2], 1             ; 0x0347
     mov ax, 1                        ; 0x034c
     push ax                          ; 0x034f
     call gfx_wait_sound              ; 0x0350
@@ -148,7 +148,7 @@ jumptable_0363:
     shl bx, 1                        ; 0x03a7
     jmp [cs:bx + jumptable_0363 - IMAGE_BASE] ; 0x03a9
 @..release_resources.l19:
-    cmp word [bp - 0x0002], byte 1   ; 0x03ae
+    cmp word [bp - 2], byte 1        ; 0x03ae
     jne short @..release_resources.l20 ; 0x03b2
     call ds_loc_IGLJ                 ; 0x03b4
 @..release_resources.l20:

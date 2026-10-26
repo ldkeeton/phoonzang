@@ -4,12 +4,12 @@ api_idx_0004_USIK:
     call aztec_csav                  ; 0x17f1
     mov word [bss_91ac], 0x7e4       ; 0x17f4
     mov ax, word [party_tag]         ; 0x17fa
-    add ax, word [bp + 0x4]          ; 0x17fd
+    add ax, word [bp + 4]            ; 0x17fd
     add ax, strict word 4            ; 0x1800
     mov cx, 4                        ; 0x1803
     cwd                              ; 0x1806
     idiv cx                          ; 0x1807
-    mov word [bp - 0x0004], dx       ; 0x1809
+    mov word [bp - 4], dx            ; 0x1809
     push word [party_world_y]        ; 0x180c
     push word [party_world_x]        ; 0x1810
     push word [party_cell_y]         ; 0x1814
@@ -17,20 +17,20 @@ api_idx_0004_USIK:
     push word [party_map_piece]      ; 0x181c
     push dx                          ; 0x1820
     call get_cell_wall               ; 0x1821
-    add sp, byte 0x0c                ; 0x1824
-    mov word [bp - 0x0002], ax       ; 0x1827
-    mov ax, word [bp - 0x0004]       ; 0x182a
+    add sp, byte 0xc                 ; 0x1824
+    mov word [bp - 2], ax            ; 0x1827
+    mov ax, word [bp - 4]            ; 0x182a
     shl ax, 1                        ; 0x182d
     mov bx, ax                       ; 0x182f
     mov ax, word [bx + adjacent_object_type] ; 0x1831
     jmp near @..api_idx_0004_USIK.l16 ; 0x1835
 @..api_idx_0004_USIK.l1:
-    cmp word [bp - 0x0002], byte 2   ; 0x1838
+    cmp word [bp - 2], byte 2        ; 0x1838
     jl short @..api_idx_0004_USIK.l2 ; 0x183c
-    cmp word [bp - 0x0002], byte 5   ; 0x183e
+    cmp word [bp - 2], byte 5        ; 0x183e
     jne short @..api_idx_0004_USIK.l4 ; 0x1842
 @..api_idx_0004_USIK.l2:
-    push word [bp - 0x0004]          ; 0x1844
+    push word [bp - 4]               ; 0x1844
     call api_idx_000e_NSGM           ; 0x1847
     pop cx                           ; 0x184a
     test ax, ax                      ; 0x184b
@@ -39,9 +39,9 @@ api_idx_0004_USIK:
 @..api_idx_0004_USIK.l3:
     jmp short @..api_idx_0004_USIK.l5 ; 0x1850
 @..api_idx_0004_USIK.l4:
-    cmp word [bp - 0x0002], byte 3   ; 0x1852
+    cmp word [bp - 2], byte 3        ; 0x1852
     jne short @..api_idx_0004_USIK.l5 ; 0x1856
-    mov ax, word [bp - 0x0004]       ; 0x1858
+    mov ax, word [bp - 4]            ; 0x1858
     cmp ax, word [party_tag]         ; 0x185b
     jne short @..api_idx_0004_USIK.l5 ; 0x185f
     mov ax, 0xf                      ; 0x1861
@@ -74,7 +74,7 @@ api_idx_0004_USIK:
     call wait_for_hotspot_timeout    ; 0x18a5
     pop cx                           ; 0x18a8
     mov word [bss_831a], 0           ; 0x18a9
-    push word [bp - 0x0004]          ; 0x18af
+    push word [bp - 4]               ; 0x18af
     call api_idx_000e_NSGM           ; 0x18b2
     pop cx                           ; 0x18b5
     test ax, ax                      ; 0x18b6
@@ -97,12 +97,12 @@ api_idx_0004_USIK:
 @..api_idx_0004_USIK.l7:
     jmp near @..api_idx_0004_USIK.l18 ; 0x18df
 @..api_idx_0004_USIK.l8:
-    cmp word [bp - 0x0002], byte 6   ; 0x18e2
+    cmp word [bp - 2], byte 6        ; 0x18e2
     je short @..api_idx_0004_USIK.l9 ; 0x18e6
-    cmp word [bp - 0x0002], byte 3   ; 0x18e8
+    cmp word [bp - 2], byte 3        ; 0x18e8
     jne short @..api_idx_0004_USIK.l10 ; 0x18ec
 @..api_idx_0004_USIK.l9:
-    mov ax, word [bp - 0x0004]       ; 0x18ee
+    mov ax, word [bp - 4]            ; 0x18ee
     cmp ax, word [party_tag]         ; 0x18f1
     jne short @..api_idx_0004_USIK.l10 ; 0x18f5
     mov ax, word [message_delay]     ; 0x18f7
@@ -126,9 +126,9 @@ api_idx_0004_USIK:
 @..api_idx_0004_USIK.l11:
     jmp short @..api_idx_0004_USIK.l18 ; 0x191d
 @..api_idx_0004_USIK.l12:
-    cmp word [bp - 0x0002], byte 2   ; 0x191f
+    cmp word [bp - 2], byte 2        ; 0x191f
     jne short @..api_idx_0004_USIK.l14 ; 0x1923
-    push word [bp - 0x0004]          ; 0x1925
+    push word [bp - 4]               ; 0x1925
     call api_idx_000e_NSGM           ; 0x1928
     pop cx                           ; 0x192b
     test ax, ax                      ; 0x192c

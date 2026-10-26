@@ -4,12 +4,12 @@ loc_OJVU:
     call aztec_csav                  ; 0x9c7d
     mov ax, bss_95fa                 ; 0x9c80
     push ax                          ; 0x9c83
-    push word [bp + 0x4]             ; 0x9c84
+    push word [bp + 4]               ; 0x9c84
     call load_message_string         ; 0x9c87
     add sp, byte 4                   ; 0x9c8a
     mov ax, bss_9d10                 ; 0x9c8d
     push ax                          ; 0x9c90
-    push word [bp + 0x6]             ; 0x9c91
+    push word [bp + 6]               ; 0x9c91
     call load_message_string         ; 0x9c94
     add sp, byte 4                   ; 0x9c97
     cmp byte [bss_95fa], 0           ; 0x9c9a
@@ -50,11 +50,11 @@ loc_OJVU:
     jne short @..loc_OJVU.l5         ; 0x9cee
     mov al, byte [bss_95fb]          ; 0x9cf0
     sub ah, ah                       ; 0x9cf3
-    sub word [bp + 0x4], ax          ; 0x9cf5
+    sub word [bp + 4], ax            ; 0x9cf5
 @..loc_OJVU.l5:
     mov ax, 0x9102                   ; 0x9cf8
     push ax                          ; 0x9cfb
-    push word [bp + 0x4]             ; 0x9cfc
+    push word [bp + 4]               ; 0x9cfc
     call api_idx_0080_TKTP           ; 0x9cff
     add sp, byte 4                   ; 0x9d02
 @..loc_OJVU.l6:

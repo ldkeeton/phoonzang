@@ -15,18 +15,18 @@ api_idx_0006_PSQH:
     pop ax                           ; 0x98be
     add ax, cx                       ; 0x98bf
     add ax, strict word 0x32         ; 0x98c1
-    mov word [bp - 0x0006], ax       ; 0x98c4
-    mov word [bp - 0x0002], 1        ; 0x98c7
+    mov word [bp - 6], ax            ; 0x98c4
+    mov word [bp - 2], 1             ; 0x98c7
     jmp short @..api_idx_0006_PSQH.l2 ; 0x98cc
 @..api_idx_0006_PSQH.l1:
-    mov ax, word [bp - 0x0002]       ; 0x98ce
+    mov ax, word [bp - 2]            ; 0x98ce
     shl ax, 1                        ; 0x98d1
     mov bx, ax                       ; 0x98d3
     mov bx, word [bx + party_char]   ; 0x98d5
     mov al, byte [bx + member_rec.item_count] ; 0x98d9
     sub ah, ah                       ; 0x98dd
     push ax                          ; 0x98df
-    mov ax, word [bp - 0x0002]       ; 0x98e0
+    mov ax, word [bp - 2]            ; 0x98e0
     shl ax, 1                        ; 0x98e3
     mov bx, ax                       ; 0x98e5
     mov bx, word [bx + party_char_ext] ; 0x98e7
@@ -42,20 +42,20 @@ api_idx_0006_PSQH:
     pop ax                           ; 0x98ff
     add ax, cx                       ; 0x9900
     add ax, strict word 0xfff7       ; 0x9902
-    sub word [bp - 0x0006], ax       ; 0x9905
-    inc word [bp - 0x0002]           ; 0x9908
+    sub word [bp - 6], ax            ; 0x9905
+    inc word [bp - 2]                ; 0x9908
 @..api_idx_0006_PSQH.l2:
-    mov ax, word [bp - 0x0002]       ; 0x990b
+    mov ax, word [bp - 2]            ; 0x990b
     cmp ax, word [party_member_count] ; 0x990e
     jle short @..api_idx_0006_PSQH.l1 ; 0x9912
     jmp short @..api_idx_0006_PSQH.l7 ; 0x9914
 @..api_idx_0006_PSQH.l3:
-    mov bx, word [bp + 0x4]          ; 0x9916
+    mov bx, word [bp + 4]            ; 0x9916
     mov ax, word [bx]                ; 0x9919
     mov cx, 5                        ; 0x991b
     imul cx                          ; 0x991e
     add ax, strict word 0x32         ; 0x9920
-    mov word [bp - 0x0006], ax       ; 0x9923
+    mov word [bp - 6], ax            ; 0x9923
     mov ax, word [party_char_count]  ; 0x9926
     push ax                          ; 0x9929
     cmp ax, strict word 3            ; 0x992a
@@ -63,12 +63,12 @@ api_idx_0006_PSQH:
     jle short @..api_idx_0006_PSQH.l4 ; 0x992e
     mov ax, 3                        ; 0x9930
 @..api_idx_0006_PSQH.l4:
-    mov word [bp - 0x0004], ax       ; 0x9933
-    mov word [bp - 0x0002], 0        ; 0x9936
+    mov word [bp - 4], ax            ; 0x9933
+    mov word [bp - 2], 0             ; 0x9936
     jmp short @..api_idx_0006_PSQH.l6 ; 0x993b
 @..api_idx_0006_PSQH.l5:
     mov ax, 0x248                    ; 0x993d
-    imul word [bp - 0x0002]          ; 0x9940
+    imul word [bp - 2]               ; 0x9940
     mov bx, ax                       ; 0x9943
     mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x9945
     push ax                          ; 0x9949
@@ -78,11 +78,11 @@ api_idx_0006_PSQH:
     pop ax                           ; 0x9952
     add ax, cx                       ; 0x9953
     add ax, strict word 0xfff7       ; 0x9955
-    sub word [bp - 0x0006], ax       ; 0x9958
-    inc word [bp - 0x0002]           ; 0x995b
+    sub word [bp - 6], ax            ; 0x9958
+    inc word [bp - 2]                ; 0x995b
 @..api_idx_0006_PSQH.l6:
-    mov ax, word [bp - 0x0002]       ; 0x995e
-    cmp ax, word [bp - 0x0004]       ; 0x9961
+    mov ax, word [bp - 2]            ; 0x995e
+    cmp ax, word [bp - 4]            ; 0x9961
     jl short @..api_idx_0006_PSQH.l5 ; 0x9964
 @..api_idx_0006_PSQH.l7:
     push word [bss_8462]             ; 0x9966
@@ -115,7 +115,7 @@ api_idx_0006_PSQH:
     mov ax, 0                        ; 0x99a7
     push ax                          ; 0x99aa
     call api_idx_0004_QSNR           ; 0x99ab
-    add sp, byte 0x0e                ; 0x99ae
+    add sp, byte 0xe                 ; 0x99ae
     mov ax, word [bss_9058]          ; 0x99b1
     mov cx, 2                        ; 0x99b4
     cwd                              ; 0x99b7
@@ -127,9 +127,9 @@ api_idx_0006_PSQH:
     push ax                          ; 0x99c2
     call random_below                ; 0x99c3
     pop cx                           ; 0x99c6
-    cmp ax, word [bp - 0x0006]       ; 0x99c7
+    cmp ax, word [bp - 6]            ; 0x99c7
     jge short @..api_idx_0006_PSQH.l10 ; 0x99ca
-    mov bx, word [bp + 0x4]          ; 0x99cc
+    mov bx, word [bp + 4]            ; 0x99cc
     mov byte [bx + 0x2b], 1          ; 0x99cf
     mov ax, 1                        ; 0x99d3
     push ax                          ; 0x99d6

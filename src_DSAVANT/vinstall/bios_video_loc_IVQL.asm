@@ -4,7 +4,7 @@ bios_video_loc_IVQL:
     mov bp, sp                       ; 0x2734
     push di                          ; 0x2736
     push si                          ; 0x2737
-    mov dx, word [bp + 0x4]          ; 0x2738
+    mov dx, word [bp + 4]            ; 0x2738
     mov bh, 0                        ; 0x273b
     mov ah, 2                        ; 0x273d
     int 0x10 ; BIOS video: set cursor position

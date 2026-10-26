@@ -11,14 +11,14 @@ dos_con_loc_GNNJ.loc1:
     mov ax, word [cs:maze_block_count - IMAGE_BASE]
     inc ax
     mov word [cs:maze_block_count - IMAGE_BASE], ax
-    mov bx, word [bp - 0x0002]
+    mov bx, word [bp - 2]
     mov word [cs:bx], ax
     dec ax
     mov cl, 2
     shl ax, cl
     mov bx, maze_blocks - IMAGE_BASE
     add bx, ax
-    mov word [bp - 0x0002], bx
+    mov word [bp - 2], bx
     mov ax, word [cs:maze_paras_used - IMAGE_BASE]
     mov word [cs:bx], ax
     mov ax, word [bp + 0x10]
@@ -40,17 +40,17 @@ loc_NTVL:
     mov cx, 6
     mul cx
     add ax, strict word 4
-    mov bx, word [bp - 0x0008]
+    mov bx, word [bp - 8]
     add bx, strict word 0x27d
     mov word [cs:bx], ax
     mov bx, ax
     sub bx, byte 6
-    mov cl, byte [bx + 0x5]
-    mov al, byte [bx + 0x4]
+    mov cl, byte [bx + 5]
+    mov al, byte [bx + 4]
     mul cl
     mov cl, 3
     shl ax, cl
-    mov cx, word [bx + 0x2]
+    mov cx, word [bx + 2]
     add ax, cx
     push ax
     xor dx, dx
@@ -64,16 +64,16 @@ loc_NTVL:
     push dx
     sub ax, 0x1000
     sbb dx, byte 0
-    mov word [bp - 0x0008], ax
-    mov word [bp - 0x0006], dx
+    mov word [bp - 8], ax
+    mov word [bp - 6], dx
     pop dx
     pop ax
     add ax, strict word 0xf
     adc dx, byte 0
     mov bx, 0x10
     div bx
-    mov bx, word [bp - 0x0002]
-    mov word [cs:bx + 0x2], ax
+    mov bx, word [bp - 2]
+    mov word [cs:bx + 2], ax
     add word [cs:maze_paras_used - IMAGE_BASE], ax
     mov ax, word [cs:maze_paras_used - IMAGE_BASE]
     cmp ax, 0x4180
@@ -83,9 +83,9 @@ loc_NTVL:
     mov ds, ax
     mov dx, 0
 loc_OTIL:
-    cmp word [bp - 0x0006], byte 0
+    cmp word [bp - 6], byte 0
     je short loc_PQKR
-    dec word [bp - 0x0006]
+    dec word [bp - 6]
     mov cx, 0x8000
     xor dx, dx
     mov bx, word [bp + 0xc]
@@ -104,7 +104,7 @@ loc_OTIL:
     mov ds, ax
     jmp short loc_OTIL
 loc_PQKR:
-    mov cx, word [bp - 0x0008]
+    mov cx, word [bp - 8]
     xor dx, dx
     mov bx, word [bp + 0xc]
     mov ah, 0x3f

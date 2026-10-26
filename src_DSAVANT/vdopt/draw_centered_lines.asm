@@ -10,7 +10,7 @@ draw_centered_lines:
     add sp, byte 4                   ; 0x196c
     mov ax, 2                        ; 0x196f
     push ax                          ; 0x1972
-    push word [bp + 0x4]             ; 0x1973
+    push word [bp + 4]               ; 0x1973
     call measure_text_width          ; 0x1976
     add sp, byte 4                   ; 0x1979
     inc ax                           ; 0x197c
@@ -20,18 +20,18 @@ draw_centered_lines:
     mov cx, ax                       ; 0x1983
     mov ax, 0xa0                     ; 0x1985
     sub ax, cx                       ; 0x1988
-    mov word [bp - 0x0002], ax       ; 0x198a
+    mov word [bp - 2], ax            ; 0x198a
     mov ax, 0x9e                     ; 0x198d
     push ax                          ; 0x1990
-    push word [bp - 0x0002]          ; 0x1991
+    push word [bp - 2]               ; 0x1991
     call gfx_set_text_pos            ; 0x1994
     add sp, byte 4                   ; 0x1997
     mov ax, 2                        ; 0x199a
     push ax                          ; 0x199d
-    push word [bp + 0x4]             ; 0x199e
+    push word [bp + 4]               ; 0x199e
     call draw_text_glyphs            ; 0x19a1
     add sp, byte 4                   ; 0x19a4
-    push word [bp + 0x6]             ; 0x19a7
+    push word [bp + 6]               ; 0x19a7
     call aztec_strlen                ; 0x19aa
     pop cx                           ; 0x19ad
     cmp ax, strict word 0            ; 0x19ae
@@ -40,7 +40,7 @@ draw_centered_lines:
 @..draw_centered_lines.l1:
     mov ax, 2                        ; 0x19b6
     push ax                          ; 0x19b9
-    push word [bp + 0x6]             ; 0x19ba
+    push word [bp + 6]               ; 0x19ba
     call measure_text_width          ; 0x19bd
     add sp, byte 4                   ; 0x19c0
     inc ax                           ; 0x19c3
@@ -50,25 +50,25 @@ draw_centered_lines:
     mov cx, ax                       ; 0x19ca
     mov ax, 0xa0                     ; 0x19cc
     sub ax, cx                       ; 0x19cf
-    mov word [bp - 0x0002], ax       ; 0x19d1
+    mov word [bp - 2], ax            ; 0x19d1
     mov ax, 0xaa                     ; 0x19d4
     push ax                          ; 0x19d7
-    push word [bp - 0x0002]          ; 0x19d8
+    push word [bp - 2]               ; 0x19d8
     call gfx_set_text_pos            ; 0x19db
     add sp, byte 4                   ; 0x19de
     mov ax, 2                        ; 0x19e1
     push ax                          ; 0x19e4
-    push word [bp + 0x6]             ; 0x19e5
+    push word [bp + 6]               ; 0x19e5
     call draw_text_glyphs            ; 0x19e8
     add sp, byte 4                   ; 0x19eb
-    push word [bp + 0x8]             ; 0x19ee
+    push word [bp + 8]               ; 0x19ee
     call aztec_strlen                ; 0x19f1
     pop cx                           ; 0x19f4
     cmp ax, strict word 0            ; 0x19f5
     jle short @..draw_centered_lines.l2 ; 0x19f8
     mov ax, 2                        ; 0x19fa
     push ax                          ; 0x19fd
-    push word [bp + 0x8]             ; 0x19fe
+    push word [bp + 8]               ; 0x19fe
     call measure_text_width          ; 0x1a01
     add sp, byte 4                   ; 0x1a04
     inc ax                           ; 0x1a07
@@ -78,15 +78,15 @@ draw_centered_lines:
     mov cx, ax                       ; 0x1a0e
     mov ax, 0xa0                     ; 0x1a10
     sub ax, cx                       ; 0x1a13
-    mov word [bp - 0x0002], ax       ; 0x1a15
+    mov word [bp - 2], ax            ; 0x1a15
     mov ax, 0xb6                     ; 0x1a18
     push ax                          ; 0x1a1b
-    push word [bp - 0x0002]          ; 0x1a1c
+    push word [bp - 2]               ; 0x1a1c
     call gfx_set_text_pos            ; 0x1a1f
     add sp, byte 4                   ; 0x1a22
     mov ax, 2                        ; 0x1a25
     push ax                          ; 0x1a28
-    push word [bp + 0x8]             ; 0x1a29
+    push word [bp + 8]               ; 0x1a29
     call draw_text_glyphs            ; 0x1a2c
     add sp, byte 4                   ; 0x1a2f
 @..draw_centered_lines.l2:

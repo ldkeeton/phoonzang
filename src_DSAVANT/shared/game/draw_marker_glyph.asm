@@ -2,12 +2,12 @@
 draw_marker_glyph:
     mov ax, 0xfff6
     call aztec_csav
-    mov byte [bp - 0x000a], 1
-    mov byte [bp - 0x0009], 0
+    mov byte [bp - 0xa], 1
+    mov byte [bp - 9], 0
     mov ax, 0
     push ax
     push ax
-    lea ax, word [bp - 0x000a]
+    lea ax, word [bp - 0xa]
     push ax
     mov ax, 0
     push ax

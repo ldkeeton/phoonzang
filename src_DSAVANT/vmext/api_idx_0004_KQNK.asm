@@ -3,23 +3,23 @@ api_idx_0004_KQNK:
     mov ax, 0xfffc                   ; 0x05e6
     call aztec_csav                  ; 0x05e9
     call flush_keyboard              ; 0x05ec
-    mov ax, word [bp + 0x4]          ; 0x05ef
+    mov ax, word [bp + 4]            ; 0x05ef
     cwd                              ; 0x05f2
     les bx, word [tick_counter_ptr]  ; 0x05f3
     mov cx, word [es:bx]             ; 0x05f7
-    mov bx, word [es:bx + 0x2]       ; 0x05fa
+    mov bx, word [es:bx + 2]         ; 0x05fa
     add ax, cx                       ; 0x05fe
     adc dx, bx                       ; 0x0600
-    mov word [bp - 0x0002], dx       ; 0x0602
-    mov word [bp - 0x0004], ax       ; 0x0605
+    mov word [bp - 2], dx            ; 0x0602
+    mov word [bp - 4], ax            ; 0x0605
 @..api_idx_0004_KQNK.l1:
     les bx, word [tick_counter_ptr]  ; 0x0608
     mov ax, word [es:bx]             ; 0x060c
-    mov dx, word [es:bx + 0x2]       ; 0x060f
-    cmp dx, word [bp - 0x0002]       ; 0x0613
+    mov dx, word [es:bx + 2]         ; 0x060f
+    cmp dx, word [bp - 2]            ; 0x0613
     jg short @..api_idx_0004_KQNK.l2 ; 0x0616
     jne short @..api_idx_0004_KQNK.l3 ; 0x0618
-    cmp ax, word [bp - 0x0004]       ; 0x061a
+    cmp ax, word [bp - 4]            ; 0x061a
     jb short @..api_idx_0004_KQNK.l3 ; 0x061d
 @..api_idx_0004_KQNK.l2:
     jmp short @..api_idx_0004_KQNK.l6 ; 0x061f

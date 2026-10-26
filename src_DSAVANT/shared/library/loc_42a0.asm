@@ -15,14 +15,14 @@ loc_42a0:
     mov si, 0x400
     mov di, 0
     lodsw
-    mov word [bp - 0x0004], ax
-    mov bx, word [bp - 0x0002]
-    mov word [cs:bx + 0x2], ax
+    mov word [bp - 4], ax
+    mov bx, word [bp - 2]
+    mov word [cs:bx + 2], ax
     add ax, strict word 0xf
     mov cl, 4
     shr ax, cl
-    mov bx, word [bp - 0x000a]
-    mov word [cs:bx + 0x2], ax
+    mov bx, word [bp - 0xa]
+    mov word [cs:bx + 2], ax
     add ax, word [cs:maze_paras_used - IMAGE_BASE]
     cmp ax, 0x4180
     jb short loc_42a0.loc1

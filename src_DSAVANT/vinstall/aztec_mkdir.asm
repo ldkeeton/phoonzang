@@ -4,7 +4,7 @@ aztec_mkdir:
     mov bp, sp                       ; 0x29ff
     mov ah, 0x39                     ; 0x2a01
 @..aztec_mkdir.dircommon:
-    mov dx, word [bp + 0x4]          ; 0x2a03
+    mov dx, word [bp + 4]            ; 0x2a03
     int 0x21 ; DOS create directory
     mov ax, 0                        ; 0x2a08
     jae short @..aztec_mkdir.ok      ; 0x2a0b

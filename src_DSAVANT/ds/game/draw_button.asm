@@ -6,11 +6,11 @@ draw_button: ; Aztec csav frame=0x0000
     je short @..draw_button.l1       ; 0x1312
     push word [bp + 0xe]             ; 0x1314
     push word [bp + 0xa]             ; 0x1317
-    push word [bp + 0x8]             ; 0x131a
-    push word [bp + 0x6]             ; 0x131d
-    push word [bp + 0x4]             ; 0x1320
+    push word [bp + 8]               ; 0x131a
+    push word [bp + 6]               ; 0x131d
+    push word [bp + 4]               ; 0x1320
     call draw_framed_button          ; 0x1323
-    add sp, byte 0x0a                ; 0x1326
+    add sp, byte 0xa                 ; 0x1326
     jmp short @..draw_button.l2      ; 0x1329
 @..draw_button.l1:
     mov ax, 0xc2                     ; 0x132b
@@ -19,7 +19,7 @@ draw_button: ; Aztec csav frame=0x0000
     push ax                          ; 0x1332
     call gfx_set_text_color          ; 0x1333
     add sp, byte 4                   ; 0x1336
-    mov ax, word [bp + 0x6]          ; 0x1339
+    mov ax, word [bp + 6]            ; 0x1339
     inc ax                           ; 0x133c
     inc ax                           ; 0x133d
     push ax                          ; 0x133e
@@ -27,14 +27,14 @@ draw_button: ; Aztec csav frame=0x0000
     call aztec_strlen                ; 0x1342
     pop cx                           ; 0x1345
     mov cx, ax                       ; 0x1346
-    mov ax, word [bp + 0x8]          ; 0x1348
+    mov ax, word [bp + 8]            ; 0x1348
     sub ax, cx                       ; 0x134b
     mov cx, 6                        ; 0x134d
     imul cx                          ; 0x1350
     mov cx, 2                        ; 0x1352
     cwd                              ; 0x1355
     idiv cx                          ; 0x1356
-    add ax, word [bp + 0x4]          ; 0x1358
+    add ax, word [bp + 4]            ; 0x1358
     inc ax                           ; 0x135b
     push ax                          ; 0x135c
     call gfx_set_text_pos            ; 0x135d

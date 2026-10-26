@@ -13,12 +13,12 @@ get_relative_cell_wall:
     push ax
     lea ax, word [bp + 0xa]
     push ax
-    lea ax, word [bp + 0x8]
+    lea ax, word [bp + 8]
     push ax
-    lea ax, word [bp + 0x6]
+    lea ax, word [bp + 6]
     push ax
     call offset_relative_map_position
-    add sp, byte 0x0e
+    add sp, byte 0xe
     test ax, ax
     je short @..get_relative_cell_wall.l3
     mov ax, word [boundary_wall_variant]
@@ -60,7 +60,7 @@ get_relative_cell_wall.jumptable1:
     shl cx, 1
     add ax, cx
     add ax, word [bp + 0xa]
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     push ax
     mov ax, word [maze_data]
     add ax, 0x8b0
@@ -81,7 +81,7 @@ get_relative_cell_wall.jumptable1:
     je short @..get_relative_cell_wall.l4
 @..get_relative_cell_wall.l6:
     mov ax, word [party_tag]
-    add ax, word [bp + 0x4]
+    add ax, word [bp + 4]
     mov cx, 4
     cwd
     idiv cx
@@ -91,43 +91,43 @@ get_relative_cell_wall.jumptable1:
     push word [bp + 0xe]
     push word [bp + 0xc]
     push word [bp + 0xa]
-    push word [bp + 0x8]
-    push word [bp + 0x6]
+    push word [bp + 8]
+    push word [bp + 6]
     call get_west_cell_wall
-    add sp, byte 0x0a
-    mov word [bp - 0x0004], ax
+    add sp, byte 0xa
+    mov word [bp - 4], ax
     jmp short @..get_relative_cell_wall.l12
 @..get_relative_cell_wall.l8:
     mov ax, 4
     push ax
-    push word [bp - 0x0002]
+    push word [bp - 2]
     mov ax, word [maze_data]
     add ax, 0x90
     push ax
     call read_packed_field
     add sp, byte 6
-    mov word [bp - 0x0004], ax
+    mov word [bp - 4], ax
     jmp short @..get_relative_cell_wall.l12
 @..get_relative_cell_wall.l9:
     mov ax, 4
     push ax
-    push word [bp - 0x0002]
+    push word [bp - 2]
     mov ax, word [maze_data]
     add ax, 0x290
     push ax
     call read_packed_field
     add sp, byte 6
-    mov word [bp - 0x0004], ax
+    mov word [bp - 4], ax
     jmp short @..get_relative_cell_wall.l12
 @..get_relative_cell_wall.l10:
     push word [bp + 0xe]
     push word [bp + 0xc]
     push word [bp + 0xa]
-    push word [bp + 0x8]
-    push word [bp + 0x6]
+    push word [bp + 8]
+    push word [bp + 6]
     call get_north_cell_wall
-    add sp, byte 0x0a
-    mov word [bp - 0x0004], ax
+    add sp, byte 0xa
+    mov word [bp - 4], ax
     jmp short @..get_relative_cell_wall.l12
 @..get_relative_cell_wall.l11:
     cmp ax, strict word 0
@@ -139,55 +139,55 @@ get_relative_cell_wall.jumptable1:
     cmp ax, strict word 3
     je short @..get_relative_cell_wall.l10
 @..get_relative_cell_wall.l12:
-    lea ax, word [bp - 0x0008]
+    lea ax, word [bp - 8]
     push ax
-    lea ax, word [bp - 0x0006]
+    lea ax, word [bp - 6]
     push ax
-    push word [bp - 0x0002]
+    push word [bp - 2]
     call read_cell_kind_direction
     add sp, byte 6
-    mov ax, word [bp - 0x0008]
-    add ax, word [bp + 0x4]
+    mov ax, word [bp - 8]
+    add ax, word [bp + 4]
     inc ax
     mov cx, 4
     cwd
     idiv cx
-    mov word [bp - 0x0008], dx
+    mov word [bp - 8], dx
     cmp dx, word [party_tag]
     je short @..get_relative_cell_wall.l13
     jmp near get_relative_cell_wall.jumptable_case5
 @..get_relative_cell_wall.l13:
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
     jmp short @..get_relative_cell_wall.l16
 get_relative_cell_wall.jumptable_case6:
-    mov word [bp - 0x0004], 8
+    mov word [bp - 4], 8
     jmp short get_relative_cell_wall.jumptable_case5
 get_relative_cell_wall.jumptable_case7:
-    mov word [bp - 0x0004], 9
+    mov word [bp - 4], 9
     jmp short get_relative_cell_wall.jumptable_case5
 get_relative_cell_wall.jumptable_case8:
-    mov word [bp - 0x0004], 0xa
+    mov word [bp - 4], 0xa
     jmp short get_relative_cell_wall.jumptable_case5
 get_relative_cell_wall.jumptable_case9:
-    mov word [bp - 0x0004], 0xb
+    mov word [bp - 4], 0xb
     jmp short get_relative_cell_wall.jumptable_case5
 get_relative_cell_wall.jumptable_case10:
     cmp word [cell_wall_override_disabled], byte 0
     jne short @..get_relative_cell_wall.l14
-    mov word [bp - 0x0004], 0xc
+    mov word [bp - 4], 0xc
 @..get_relative_cell_wall.l14:
     jmp short get_relative_cell_wall.jumptable_case5
 get_relative_cell_wall.jumptable_case11:
     cmp word [cell_wall_override_disabled], byte 0
     jne short @..get_relative_cell_wall.l15
-    mov word [bp - 0x0004], 0xd
+    mov word [bp - 4], 0xd
 @..get_relative_cell_wall.l15:
     jmp short get_relative_cell_wall.jumptable_case5
 get_relative_cell_wall.jumptable_case12:
-    mov word [bp - 0x0004], 0xe
+    mov word [bp - 4], 0xe
     jmp short get_relative_cell_wall.jumptable_case5
 get_relative_cell_wall.jumptable_case13:
-    mov word [bp - 0x0004], 0xf
+    mov word [bp - 4], 0xf
     jmp short get_relative_cell_wall.jumptable_case5
 get_relative_cell_wall.jumptable2:
     dw get_relative_cell_wall.jumptable_case5 - IMAGE_BASE + __zres_end
@@ -209,5 +209,5 @@ get_relative_cell_wall.jumptable2:
     shl bx, 1
     jmp [cs:bx + get_relative_cell_wall.jumptable2 - IMAGE_BASE + __zres_end]
 get_relative_cell_wall.jumptable_case5:
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     ret

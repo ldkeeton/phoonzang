@@ -6,7 +6,7 @@ wait_and_free_sound: ; Aztec csav frame=0x0000
     push ax                          ; 0x2916
     call gfx_wait_sound              ; 0x2917
     pop cx                           ; 0x291a
-    push word [bp + 0x4]             ; 0x291b
+    push word [bp + 4]               ; 0x291b
     call gfx_free_sound              ; 0x291e
     pop cx                           ; 0x2921
     ret                              ; 0x2922

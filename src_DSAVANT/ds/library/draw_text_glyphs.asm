@@ -9,16 +9,16 @@ draw_text_glyphs:
     push ds                          ; 0x3a9e
     mov ax, ds                       ; 0x3a9f
     mov es, ax                       ; 0x3aa1
-    mov si, word [bp + 0x4]          ; 0x3aa3
-    mov word [bp - 0x0002], si       ; 0x3aa6
+    mov si, word [bp + 4]            ; 0x3aa3
+    mov word [bp - 2], si            ; 0x3aa6
 @..draw_text_glyphs.l1:
-    mov si, word [bp - 0x0002]       ; 0x3aa9
-    add word [bp - 0x0002], byte 1   ; 0x3aac
+    mov si, word [bp - 2]            ; 0x3aa9
+    add word [bp - 2], byte 1        ; 0x3aac
     xor ax, ax                       ; 0x3ab0
     lodsb                            ; 0x3ab2
     or al, al                        ; 0x3ab3
     je short @..draw_text_glyphs.l2  ; 0x3ab5
-    push word [bp + 0x6]             ; 0x3ab7
+    push word [bp + 6]               ; 0x3ab7
     push ax                          ; 0x3aba
     call draw_font_glyph             ; 0x3abb
     add sp, byte 4                   ; 0x3abe

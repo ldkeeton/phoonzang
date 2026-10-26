@@ -2,7 +2,7 @@
 leaf_loc_IUKK:
     push bp                          ; 0x0183
     mov bp, sp                       ; 0x0184
-    cmp word [bp + 0x8], byte 0      ; 0x0186
+    cmp word [bp + 8], byte 0        ; 0x0186
     je short @..leaf_loc_IUKK.l3     ; 0x018a
 @..leaf_loc_IUKK.l1:
     cmp byte [cs:timer_handler_installed - IMAGE_BASE], 0 ; 0x018c

@@ -10,7 +10,7 @@ select_ega_driver:
     je short @..select_ega_driver.l1 ; 0x349e
     jmp near @..select_ega_driver.l2 ; 0x34a0
 @..select_ega_driver.l1:
-    mov word [bp - 0x0002], 0        ; 0x34a3
+    mov word [bp - 2], 0             ; 0x34a3
     ret                              ; 0x34a8
 @..select_ega_driver.l2:
     mov byte [cs:video_is_cga - IMAGE_BASE], 0 ; 0x34a9
@@ -32,7 +32,7 @@ select_ega_driver:
     mov dx, ega_palette - IMAGE_BASE ; 0x34e2
     mov ax, 0x1002                   ; 0x34e5
     int 0x10 ; BIOS video
-    mov word [bp - 0x0002], 2        ; 0x34ea
+    mov word [bp - 2], 2             ; 0x34ea
     mov bx, ega_drv_name - IMAGE_BASE ; 0x34ef
-    mov word [bp - 0x0004], bx       ; 0x34f2
+    mov word [bp - 4], bx            ; 0x34f2
     ret                              ; 0x34f5

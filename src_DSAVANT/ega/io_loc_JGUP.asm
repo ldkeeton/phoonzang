@@ -65,7 +65,7 @@ io_loc_JGUP:
 @..io_loc_JGUP.l4:
     push ax                          ; 0x2efd
     mov ah, byte [bx]                ; 0x2efe
-    mov al, byte [bx + 0x1]          ; 0x2f00
+    mov al, byte [bx + 1]            ; 0x2f00
     not ax                           ; 0x2f03
     shr ax, cl                       ; 0x2f05
     out dx, al                       ; 0x2f07

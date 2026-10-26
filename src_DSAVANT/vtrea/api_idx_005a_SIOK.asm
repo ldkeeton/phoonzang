@@ -2,7 +2,7 @@
 api_idx_005a_SIOK:
     mov ax, 0xffa6                   ; 0x10fb
     call aztec_csav                  ; 0x10fe
-    cmp word [bp + 0x8], byte 0      ; 0x1101
+    cmp word [bp + 8], byte 0        ; 0x1101
     je short @..api_idx_005a_SIOK.l1 ; 0x1105
     mov ax, 0x64                     ; 0x1107
     push ax                          ; 0x110a
@@ -10,8 +10,8 @@ api_idx_005a_SIOK:
     pop cx                           ; 0x110e
     push ax                          ; 0x110f
     mov ax, 0x248                    ; 0x1110
-    imul word [bp + 0x4]             ; 0x1113
-    add ax, word [bp + 0x8]          ; 0x1116
+    imul word [bp + 4]               ; 0x1113
+    add ax, word [bp + 8]            ; 0x1116
     mov bx, ax                       ; 0x1119
     mov al, byte [bx + party_records + pc_rec.cur] ; 0x111b
     sub ah, ah                       ; 0x111f
@@ -22,7 +22,7 @@ api_idx_005a_SIOK:
     jmp near @..api_idx_005a_SIOK.l5 ; 0x1128
 @..api_idx_005a_SIOK.l1:
     mov ax, 0x248                    ; 0x112b
-    imul word [bp + 0x4]             ; 0x112e
+    imul word [bp + 4]               ; 0x112e
     mov bx, ax                       ; 0x1131
     mov al, byte [bx + party_records + pc_rec.state] ; 0x1133
     sub ah, ah                       ; 0x1137
@@ -37,9 +37,9 @@ api_idx_005a_SIOK:
     mov word [bx + party_records + pc_rec.pair_a], 0 ; 0x114e
     mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x1154
 @..api_idx_005a_SIOK.l3:
-    lea ax, word [bp - 0x0050]       ; 0x115a
+    lea ax, word [bp - 0x50]         ; 0x115a
     push ax                          ; 0x115d
-    push word [bp + 0x6]             ; 0x115e
+    push word [bp + 6]               ; 0x115e
     call load_message_string         ; 0x1161
     add sp, byte 4                   ; 0x1164
     mov ax, 0                        ; 0x1167
@@ -53,13 +53,13 @@ api_idx_005a_SIOK:
     push ax                          ; 0x1177
     mov ax, dseg_90b0                ; 0x1178
     push ax                          ; 0x117b
-    lea ax, word [bp - 0x0050]       ; 0x117c
+    lea ax, word [bp - 0x50]         ; 0x117c
     push ax                          ; 0x117f
-    push word [bp + 0x4]             ; 0x1180
+    push word [bp + 4]               ; 0x1180
     call api_idx_0002_RJQH           ; 0x1183
     add sp, byte 0x10                ; 0x1186
     mov ax, 0x248                    ; 0x1189
-    imul word [bp + 0x4]             ; 0x118c
+    imul word [bp + 4]               ; 0x118c
     mov bx, ax                       ; 0x118f
     cmp byte [bx + party_records + pc_rec.state], 3 ; 0x1191
     jb short @..api_idx_005a_SIOK.l4 ; 0x1196
@@ -72,7 +72,7 @@ api_idx_005a_SIOK:
 @..api_idx_005a_SIOK.l4:
     mov ax, 1                        ; 0x11a6
     push ax                          ; 0x11a9
-    push word [bp + 0x4]             ; 0x11aa
+    push word [bp + 4]               ; 0x11aa
     call draw_party_member_panel     ; 0x11ad
     add sp, byte 4                   ; 0x11b0
     push word [message_delay]        ; 0x11b3

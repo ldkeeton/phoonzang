@@ -4,7 +4,7 @@ periodic_party_redraw:
     call aztec_csav
     les bx, word [tick_counter_ptr]
     mov ax, word [es:bx]
-    mov dx, word [es:bx + 0x2]
+    mov dx, word [es:bx + 2]
     mov word [bss_9090], dx
     mov word [bss_908e], ax
     mov ax, word [bss_908e]
@@ -32,10 +32,10 @@ periodic_party_redraw:
     mov word [party_redraw_last_tick_hi], dx
     mov word [party_redraw_last_tick], ax
     call draw_marker_glyph
-    push word [bp + 0x4]
+    push word [bp + 4]
     call periodic_party_redraw.api_idx1
     pop cx
-    push word [bp + 0x6]
+    push word [bp + 6]
     call advance_party_slot_frames
     pop cx
     mov ax, 1

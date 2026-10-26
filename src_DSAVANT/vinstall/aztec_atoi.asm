@@ -5,7 +5,7 @@ aztec_atoi:
     add sp, byte 0xfe                ; 0x2809
     push di                          ; 0x280c
     push si                          ; 0x280d
-    mov si, word [bp + 0x4]          ; 0x280e
+    mov si, word [bp + 4]            ; 0x280e
 @..aztec_atoi.l1:
     cmp byte [si], 0x20              ; 0x2811
     je short @..aztec_atoi.l2        ; 0x2814
@@ -15,10 +15,10 @@ aztec_atoi:
     inc si                           ; 0x281b
     jmp short @..aztec_atoi.l1       ; 0x281c
 @..aztec_atoi.l3:
-    mov word [bp - 0x0002], 0        ; 0x281e
+    mov word [bp - 2], 0             ; 0x281e
     cmp byte [si], 0x2d              ; 0x2823
     jne short @..aztec_atoi.l4       ; 0x2826
-    mov word [bp - 0x0002], 1        ; 0x2828
+    mov word [bp - 2], 1             ; 0x2828
     inc si                           ; 0x282d
     jmp short @..aztec_atoi.l5       ; 0x282e
 @..aztec_atoi.l4:
@@ -54,7 +54,7 @@ aztec_atoi:
     test ax, 4                       ; 0x2862
     jne short @..aztec_atoi.l6       ; 0x2865
     mov ax, di                       ; 0x2867
-    cmp word [bp - 0x0002], byte 0   ; 0x2869
+    cmp word [bp - 2], byte 0        ; 0x2869
     je short @..aztec_atoi.l8        ; 0x286d
     neg ax                           ; 0x286f
 @..aztec_atoi.l8:

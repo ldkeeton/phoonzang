@@ -29,10 +29,10 @@ show_intro_screen:
     add sp, byte 6                   ; 0x8fba
     mov word [bss_844c], ax          ; 0x8fbd
 @..show_intro_screen.l2:
-    mov ax, word [bp + 0x4]          ; 0x8fc0
+    mov ax, word [bp + 4]            ; 0x8fc0
     jmp near @..show_intro_screen.l9 ; 0x8fc3
 @..show_intro_screen.l3:
-    cmp word [bp + 0x4], byte 4      ; 0x8fc6
+    cmp word [bp + 4], byte 4        ; 0x8fc6
     jne short @..show_intro_screen.l4 ; 0x8fca
     mov ax, 0x63                     ; 0x8fcc
     push ax                          ; 0x8fcf
@@ -44,7 +44,7 @@ show_intro_screen:
     mov ax, MSG_INSIDE_THE_RUINS_OF_A_31650 ; 0x8fd9
     push ax                          ; 0x8fdc
     call loc_TQHJ                    ; 0x8fdd
-    add sp, byte 0x0a                ; 0x8fe0
+    add sp, byte 0xa                 ; 0x8fe0
     jmp short @..show_intro_screen.l5 ; 0x8fe3
 @..show_intro_screen.l4:
     mov ax, 0x63                     ; 0x8fe5
@@ -57,7 +57,7 @@ show_intro_screen:
     mov ax, MSG_BEHOLD_THE_COSMIC_FOR_31500 ; 0x8ff2
     push ax                          ; 0x8ff5
     call loc_TQHJ                    ; 0x8ff6
-    add sp, byte 0x0a                ; 0x8ff9
+    add sp, byte 0xa                 ; 0x8ff9
 @..show_intro_screen.l5:
     mov ax, 0x63                     ; 0x8ffc
     push ax                          ; 0x8fff
@@ -110,7 +110,7 @@ show_intro_screen:
     push ax                          ; 0x9066
     mov ax, 0                        ; 0x9067
     push ax                          ; 0x906a
-    cmp word [bp + 0x4], byte 4      ; 0x906b
+    cmp word [bp + 4], byte 4        ; 0x906b
     jne short @..show_intro_screen.l6 ; 0x906f
     mov ax, 0x63                     ; 0x9071
 @..show_intro_screen.l6:
@@ -118,7 +118,7 @@ show_intro_screen:
     mov ax, MSG_THERE_IS_NO_MORE_TIME_31570 ; 0x9075
     push ax                          ; 0x9078
     call loc_TQHJ                    ; 0x9079
-    add sp, byte 0x0a                ; 0x907c
+    add sp, byte 0xa                 ; 0x907c
     mov ax, 0x63                     ; 0x907f
     push ax                          ; 0x9082
     mov ax, 0                        ; 0x9083
@@ -152,7 +152,7 @@ show_intro_screen:
     mov ax, MSG_PERCHED_UPON_HIS_THRO_31700 ; 0x90be
     push ax                          ; 0x90c1
     call loc_TQHJ                    ; 0x90c2
-    add sp, byte 0x0a                ; 0x90c5
+    add sp, byte 0xa                 ; 0x90c5
     mov ax, 0                        ; 0x90c8
     push ax                          ; 0x90cb
     mov ax, 0x63                     ; 0x90cc
@@ -208,7 +208,7 @@ show_intro_screen:
     mov ax, MSG_AFTER_THE_VOICES_CEAS_31755 ; 0x9138
     push ax                          ; 0x913b
     call loc_TQHJ                    ; 0x913c
-    add sp, byte 0x0a                ; 0x913f
+    add sp, byte 0xa                 ; 0x913f
     mov ax, 0x63                     ; 0x9142
     push ax                          ; 0x9145
     push ax                          ; 0x9146
@@ -219,7 +219,7 @@ show_intro_screen:
     mov ax, MSG_CONCEALED_NEAR_THE_CH_31760 ; 0x914f
     push ax                          ; 0x9152
     call loc_TQHJ                    ; 0x9153
-    add sp, byte 0x0a                ; 0x9156
+    add sp, byte 0xa                 ; 0x9156
     mov ax, 0                        ; 0x9159
     push ax                          ; 0x915c
     push ax                          ; 0x915d
@@ -229,7 +229,7 @@ show_intro_screen:
     mov ax, MSG_THERE_HE_IS_WHISPERS_31770 ; 0x9163
     push ax                          ; 0x9166
     call loc_TQHJ                    ; 0x9167
-    add sp, byte 0x0a                ; 0x916a
+    add sp, byte 0xa                 ; 0x916a
     mov ax, 0x63                     ; 0x916d
     push ax                          ; 0x9170
     mov ax, 0                        ; 0x9171
@@ -263,7 +263,7 @@ show_intro_screen:
     mov ax, MSG_YOU_CONFRONT_A_GIANT_31100 ; 0x91ac
     push ax                          ; 0x91af
     call loc_TQHJ                    ; 0x91b0
-    add sp, byte 0x0a                ; 0x91b3
+    add sp, byte 0xa                 ; 0x91b3
     mov ax, 0x63                     ; 0x91b6
     push ax                          ; 0x91b9
     mov ax, 0                        ; 0x91ba
@@ -397,17 +397,17 @@ show_intro_screen:
     push ax                          ; 0x92e1
     call load_screen_file            ; 0x92e2
     add sp, byte 4                   ; 0x92e5
-    mov word [bp - 0x0002], 0        ; 0x92e8
+    mov word [bp - 2], 0             ; 0x92e8
     jmp short @..show_intro_screen.l18 ; 0x92ed
 @..show_intro_screen.l17:
     mov ax, 0                        ; 0x92ef
     push ax                          ; 0x92f2
-    push word [bp - 0x0002]          ; 0x92f3
+    push word [bp - 2]               ; 0x92f3
     call draw_party_member_panel     ; 0x92f6
     add sp, byte 4                   ; 0x92f9
-    inc word [bp - 0x0002]           ; 0x92fc
+    inc word [bp - 2]                ; 0x92fc
 @..show_intro_screen.l18:
-    mov ax, word [bp - 0x0002]       ; 0x92ff
+    mov ax, word [bp - 2]            ; 0x92ff
     cmp ax, word [party_char_count]  ; 0x9302
     jl short @..show_intro_screen.l17 ; 0x9306
     mov ax, 0                        ; 0x9308

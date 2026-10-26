@@ -13,16 +13,16 @@ next_text_line:
     push ax                          ; 0x0e2e
     call redraw_area_set             ; 0x0e2f
     pop cx                           ; 0x0e32
-    mov word [bp - 0x0004], 0        ; 0x0e33
+    mov word [bp - 4], 0             ; 0x0e33
 @..next_text_line.l3:
-    mov ax, word [bp - 0x0004]       ; 0x0e38
+    mov ax, word [bp - 4]            ; 0x0e38
     shl ax, 1                        ; 0x0e3b
     mov bx, ax                       ; 0x0e3d
     cmp word [bx + text_line_color], byte 0 ; 0x0e3f
     je short @..next_text_line.l4    ; 0x0e44
     mov ax, 2                        ; 0x0e46
     push ax                          ; 0x0e49
-    mov ax, word [bp - 0x0004]       ; 0x0e4a
+    mov ax, word [bp - 4]            ; 0x0e4a
     mov cx, 7                        ; 0x0e4d
     shl ax, cl                       ; 0x0e50
     add ax, text_line_buffer         ; 0x0e52
@@ -36,14 +36,14 @@ next_text_line:
     mov cx, ax                       ; 0x0e63
     mov ax, 0xa0                     ; 0x0e65
     sub ax, cx                       ; 0x0e68
-    mov word [bp - 0x0002], ax       ; 0x0e6a
+    mov word [bp - 2], ax            ; 0x0e6a
     jmp short @..next_text_line.l5   ; 0x0e6d
 @..next_text_line.l4:
-    mov word [bp - 0x0002], 0x44     ; 0x0e6f
+    mov word [bp - 2], 0x44          ; 0x0e6f
 @..next_text_line.l5:
     mov ax, 0xc                      ; 0x0e74
-    imul word [bp - 0x0004]          ; 0x0e77
-    mov cx, word [bp - 0x0004]       ; 0x0e7a
+    imul word [bp - 4]               ; 0x0e77
+    mov cx, word [bp - 4]            ; 0x0e7a
     shl cx, 1                        ; 0x0e7d
     mov bx, cx                       ; 0x0e7f
     cmp word [bx + text_line_color], byte 0 ; 0x0e81
@@ -55,12 +55,12 @@ next_text_line:
 @..next_text_line.l7:
     add ax, cx                       ; 0x0e90
     push ax                          ; 0x0e92
-    push word [bp - 0x0002]          ; 0x0e93
+    push word [bp - 2]               ; 0x0e93
     call gfx_set_text_pos            ; 0x0e96
     add sp, byte 4                   ; 0x0e99
     mov ax, 0                        ; 0x0e9c
     push ax                          ; 0x0e9f
-    mov ax, word [bp - 0x0004]       ; 0x0ea0
+    mov ax, word [bp - 4]            ; 0x0ea0
     shl ax, 1                        ; 0x0ea3
     mov bx, ax                       ; 0x0ea5
     cmp word [bx + text_line_color], byte 0 ; 0x0ea7
@@ -73,19 +73,19 @@ next_text_line:
     push ax                          ; 0x0eb6
     call gfx_set_text_color          ; 0x0eb7
     add sp, byte 4                   ; 0x0eba
-    mov ax, word [bp - 0x0004]       ; 0x0ebd
+    mov ax, word [bp - 4]            ; 0x0ebd
     shl ax, 1                        ; 0x0ec0
     mov bx, ax                       ; 0x0ec2
     push word [bx + text_line_color] ; 0x0ec4
-    mov ax, word [bp - 0x0004]       ; 0x0ec8
+    mov ax, word [bp - 4]            ; 0x0ec8
     mov cx, 7                        ; 0x0ecb
     shl ax, cl                       ; 0x0ece
     add ax, text_line_buffer         ; 0x0ed0
     push ax                          ; 0x0ed3
     call draw_text_glyphs            ; 0x0ed4
     add sp, byte 4                   ; 0x0ed7
-    inc word [bp - 0x0004]           ; 0x0eda
-    mov ax, word [bp - 0x0004]       ; 0x0edd
+    inc word [bp - 4]                ; 0x0eda
+    mov ax, word [bp - 4]            ; 0x0edd
     cmp ax, strict word 4            ; 0x0ee0
     jge short @..next_text_line.l10  ; 0x0ee3
     jmp near @..next_text_line.l3    ; 0x0ee5

@@ -18,11 +18,11 @@ api_idx_0002_SKSN:
     call gfx_restore_area            ; 0x136a
     add sp, byte 6                   ; 0x136d
     mov word [party_char_count], 0   ; 0x1370
-    mov word [bp - 0x0002], 0        ; 0x1376
+    mov word [bp - 2], 0             ; 0x1376
 @..api_idx_0002_SKSN.l2:
     mov ax, 1                        ; 0x137b
     push ax                          ; 0x137e
-    mov ax, word [bp - 0x0002]       ; 0x137f
+    mov ax, word [bp - 2]            ; 0x137f
     shl ax, 1                        ; 0x1382
     shl ax, 1                        ; 0x1384
     mov bx, ax                       ; 0x1386
@@ -30,15 +30,15 @@ api_idx_0002_SKSN:
     push word [bx + panel_area]      ; 0x138c
     call gfx_restore_area            ; 0x1390
     add sp, byte 6                   ; 0x1393
-    inc word [bp - 0x0002]           ; 0x1396
-    mov ax, word [bp - 0x0002]       ; 0x1399
+    inc word [bp - 2]                ; 0x1396
+    mov ax, word [bp - 2]            ; 0x1399
     cmp ax, strict word 6            ; 0x139c
     jl short @..api_idx_0002_SKSN.l2 ; 0x139f
-    mov word [bp - 0x0002], 0        ; 0x13a1
+    mov word [bp - 2], 0             ; 0x13a1
 @..api_idx_0002_SKSN.l3:
     mov ax, 1                        ; 0x13a6
     push ax                          ; 0x13a9
-    mov ax, word [bp - 0x0002]       ; 0x13aa
+    mov ax, word [bp - 2]            ; 0x13aa
     shl ax, 1                        ; 0x13ad
     shl ax, 1                        ; 0x13af
     mov bx, ax                       ; 0x13b1
@@ -46,8 +46,8 @@ api_idx_0002_SKSN:
     push word [bx + party_status_areas] ; 0x13b7
     call gfx_restore_area            ; 0x13bb
     add sp, byte 6                   ; 0x13be
-    inc word [bp - 0x0002]           ; 0x13c1
-    mov ax, word [bp - 0x0002]       ; 0x13c4
+    inc word [bp - 2]                ; 0x13c1
+    mov ax, word [bp - 2]            ; 0x13c4
     cmp ax, strict word 6            ; 0x13c7
     jl short @..api_idx_0002_SKSN.l3 ; 0x13ca
     call free_current_maze           ; 0x13cc

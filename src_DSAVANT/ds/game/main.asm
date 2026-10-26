@@ -18,7 +18,7 @@ jumptable_2edc_case_0:
     push ax                          ; 0x2df8
     call aztec_ovloader              ; 0x2df9
     pop cx                           ; 0x2dfc
-    mov word [bp - 0x0002], ax       ; 0x2dfd
+    mov word [bp - 2], ax            ; 0x2dfd
     jmp near jumptable_2edc_case_9   ; 0x2e00
 jumptable_2edc_case_7:
     mov ax, 0                        ; 0x2e03
@@ -32,28 +32,28 @@ jumptable_2edc_case_4:
     push ax                          ; 0x2e14
     call aztec_ovloader              ; 0x2e15
     pop cx                           ; 0x2e18
-    mov word [bp - 0x0002], ax       ; 0x2e19
+    mov word [bp - 2], ax            ; 0x2e19
     jmp near jumptable_2edc_case_9   ; 0x2e1c
 jumptable_2edc_case_17:
     mov ax, dseg_0c06                ; 0x2e1f
     push ax                          ; 0x2e22
     call aztec_ovloader              ; 0x2e23
     pop cx                           ; 0x2e26
-    mov word [bp - 0x0002], ax       ; 0x2e27
+    mov word [bp - 2], ax            ; 0x2e27
     jmp near jumptable_2edc_case_9   ; 0x2e2a
 jumptable_2edc_case_22:
     mov ax, dseg_0c0c                ; 0x2e2d
     push ax                          ; 0x2e30
     call aztec_ovloader              ; 0x2e31
     pop cx                           ; 0x2e34
-    mov word [bp - 0x0002], ax       ; 0x2e35
+    mov word [bp - 2], ax            ; 0x2e35
     jmp near jumptable_2edc_case_9   ; 0x2e38
 jumptable_2edc_case_16:
     mov ax, dseg_0c12                ; 0x2e3b
     push ax                          ; 0x2e3e
     call aztec_ovloader              ; 0x2e3f
     pop cx                           ; 0x2e42
-    mov word [bp - 0x0002], ax       ; 0x2e43
+    mov word [bp - 2], ax            ; 0x2e43
     jmp near jumptable_2edc_case_9   ; 0x2e46
 jumptable_2edc_case_25:
     push word [game_state_arg]       ; 0x2e49
@@ -67,56 +67,56 @@ jumptable_2edc_case_5:
     push ax                          ; 0x2e60
     call aztec_ovloader              ; 0x2e61
     pop cx                           ; 0x2e64
-    mov word [bp - 0x0002], ax       ; 0x2e65
+    mov word [bp - 2], ax            ; 0x2e65
     jmp near jumptable_2edc_case_9   ; 0x2e68
 jumptable_2edc_case_23:
     mov ax, dseg_0c1e                ; 0x2e6b
     push ax                          ; 0x2e6e
     call aztec_ovloader              ; 0x2e6f
     pop cx                           ; 0x2e72
-    mov word [bp - 0x0002], ax       ; 0x2e73
+    mov word [bp - 2], ax            ; 0x2e73
     jmp near jumptable_2edc_case_9   ; 0x2e76
 jumptable_2edc_case_10:
     mov ax, dseg_0c24                ; 0x2e79
     push ax                          ; 0x2e7c
     call aztec_ovloader              ; 0x2e7d
     pop cx                           ; 0x2e80
-    mov word [bp - 0x0002], ax       ; 0x2e81
+    mov word [bp - 2], ax            ; 0x2e81
     jmp near jumptable_2edc_case_9   ; 0x2e84
 jumptable_2edc_case_12:
     mov ax, dseg_0c2a                ; 0x2e87
     push ax                          ; 0x2e8a
     call aztec_ovloader              ; 0x2e8b
     pop cx                           ; 0x2e8e
-    mov word [bp - 0x0002], ax       ; 0x2e8f
+    mov word [bp - 2], ax            ; 0x2e8f
     jmp near jumptable_2edc_case_9   ; 0x2e92
 jumptable_2edc_case_13:
     mov ax, dseg_0c30                ; 0x2e95
     push ax                          ; 0x2e98
     call aztec_ovloader              ; 0x2e99
     pop cx                           ; 0x2e9c
-    mov word [bp - 0x0002], ax       ; 0x2e9d
+    mov word [bp - 2], ax            ; 0x2e9d
     jmp near jumptable_2edc_case_9   ; 0x2ea0
 jumptable_2edc_case_19:
     mov ax, dseg_0c36                ; 0x2ea3
     push ax                          ; 0x2ea6
     call aztec_ovloader              ; 0x2ea7
     pop cx                           ; 0x2eaa
-    mov word [bp - 0x0002], ax       ; 0x2eab
+    mov word [bp - 2], ax            ; 0x2eab
     jmp short jumptable_2edc_case_9  ; 0x2eae
 jumptable_2edc_case_15:
     mov ax, dseg_0c3c                ; 0x2eb0
     push ax                          ; 0x2eb3
     call aztec_ovloader              ; 0x2eb4
     pop cx                           ; 0x2eb7
-    mov word [bp - 0x0002], ax       ; 0x2eb8
+    mov word [bp - 2], ax            ; 0x2eb8
     jmp short jumptable_2edc_case_9  ; 0x2ebb
 jumptable_2edc_case_18:
     mov ax, dseg_0c42                ; 0x2ebd
     push ax                          ; 0x2ec0
     call aztec_ovloader              ; 0x2ec1
     pop cx                           ; 0x2ec4
-    mov word [bp - 0x0002], ax       ; 0x2ec5
+    mov word [bp - 2], ax            ; 0x2ec5
     jmp short jumptable_2edc_case_9  ; 0x2ec8
 jumptable_2edc_case_3:
     mov ax, 0                        ; 0x2eca

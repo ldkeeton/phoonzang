@@ -3,20 +3,20 @@ api_idx_0002_UGJG:
     mov ax, 0xfffe                   ; 0x110e
     call aztec_csav                  ; 0x1111
     call redraw_maze_view            ; 0x1114
-    push word [bp + 0x4]             ; 0x1117
+    push word [bp + 4]               ; 0x1117
     call show_message                ; 0x111a
     pop cx                           ; 0x111d
-    mov word [bp - 0x0002], 0        ; 0x111e
+    mov word [bp - 2], 0             ; 0x111e
     jmp short @..api_idx_0002_UGJG.l2 ; 0x1123
 @..api_idx_0002_UGJG.l1:
     mov ax, 2                        ; 0x1125
     push ax                          ; 0x1128
-    push word [bp - 0x0002]          ; 0x1129
+    push word [bp - 2]               ; 0x1129
     call loc_QTKU                    ; 0x112c
     add sp, byte 4                   ; 0x112f
-    inc word [bp - 0x0002]           ; 0x1132
+    inc word [bp - 2]                ; 0x1132
 @..api_idx_0002_UGJG.l2:
-    mov ax, word [bp - 0x0002]       ; 0x1135
+    mov ax, word [bp - 2]            ; 0x1135
     cmp ax, word [party_char_count]  ; 0x1138
     jl short @..api_idx_0002_UGJG.l1 ; 0x113c
     mov ax, word [message_delay]     ; 0x113e

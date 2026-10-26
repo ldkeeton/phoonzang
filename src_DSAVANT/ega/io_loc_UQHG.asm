@@ -75,20 +75,20 @@ io_loc_UQHG:
 @..io_loc_UQHG.l5:
     add ax, word [cs:cseg_1ae3 - IMAGE_BASE] ; 0x2b37
     dec ax                           ; 0x2b3c
-    mov word [bp - 0x0002], ax       ; 0x2b3d
+    mov word [bp - 2], ax            ; 0x2b3d
     mov ax, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x2b40
     mov cl, 2                        ; 0x2b44
     shr ax, cl                       ; 0x2b46
     add ax, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x2b48
     dec ax                           ; 0x2b4d
-    mov word [bp - 0x0004], ax       ; 0x2b4e
+    mov word [bp - 4], ax            ; 0x2b4e
     mov cx, word [cs:cseg_1aeb - IMAGE_BASE] ; 0x2b51
     shr cx, 1                        ; 0x2b56
     shr cx, 1                        ; 0x2b58
     mov dx, word [cs:cseg_1aed - IMAGE_BASE] ; 0x2b5a
-    cmp word [bp - 0x0004], cx       ; 0x2b5f
+    cmp word [bp - 4], cx            ; 0x2b5f
     jb short @..io_loc_UQHG.l6       ; 0x2b62
-    cmp word [bp - 0x0002], dx       ; 0x2b64
+    cmp word [bp - 2], dx            ; 0x2b64
     jb short @..io_loc_UQHG.l6       ; 0x2b67
     add cx, word [cs:cseg_1af3 - IMAGE_BASE] ; 0x2b69
     dec cx                           ; 0x2b6e
@@ -119,90 +119,90 @@ io_loc_UQHG:
     shr ax, 1                        ; 0x2bb3
     shr ax, 1                        ; 0x2bb5
 @..io_loc_UQHG.l8:
-    mov word [bp - 0x0006], ax       ; 0x2bb7
+    mov word [bp - 6], ax            ; 0x2bb7
     mov dx, word [cs:cseg_1aed - IMAGE_BASE] ; 0x2bba
     mov bx, dx                       ; 0x2bbf
     cmp word [cs:mouse_drawn_y - IMAGE_BASE], dx ; 0x2bc1
     jb short @..io_loc_UQHG.l9       ; 0x2bc6
     mov bx, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x2bc8
 @..io_loc_UQHG.l9:
-    mov word [bp - 0x0008], bx       ; 0x2bcd
+    mov word [bp - 8], bx            ; 0x2bcd
     sub ax, cx                       ; 0x2bd0
     sub bx, dx                       ; 0x2bd2
-    mov word [bp - 0x000a], ax       ; 0x2bd4
-    mov word [bp - 0x000c], bx       ; 0x2bd7
+    mov word [bp - 0xa], ax          ; 0x2bd4
+    mov word [bp - 0xc], bx          ; 0x2bd7
     mov cx, word [cs:cseg_1af3 - IMAGE_BASE] ; 0x2bda
     mov dx, word [cs:cseg_1af5 - IMAGE_BASE] ; 0x2bdf
     sub cx, ax                       ; 0x2be4
-    mov word [bp - 0x000e], cx       ; 0x2be6
+    mov word [bp - 0xe], cx          ; 0x2be6
     sub dx, bx                       ; 0x2be9
-    mov word [bp - 0x0010], dx       ; 0x2beb
-    mov ax, word [bp - 0x0006]       ; 0x2bee
-    add ax, word [bp - 0x000e]       ; 0x2bf1
+    mov word [bp - 0x10], dx         ; 0x2beb
+    mov ax, word [bp - 6]            ; 0x2bee
+    add ax, word [bp - 0xe]          ; 0x2bf1
     dec ax                           ; 0x2bf4
-    cmp ax, word [bp - 0x0004]       ; 0x2bf5
+    cmp ax, word [bp - 4]            ; 0x2bf5
     jb short @..io_loc_UQHG.l10      ; 0x2bf8
-    mov ax, word [bp - 0x0004]       ; 0x2bfa
-    sub ax, word [bp - 0x0006]       ; 0x2bfd
+    mov ax, word [bp - 4]            ; 0x2bfa
+    sub ax, word [bp - 6]            ; 0x2bfd
     inc ax                           ; 0x2c00
-    mov word [bp - 0x000e], ax       ; 0x2c01
+    mov word [bp - 0xe], ax          ; 0x2c01
 @..io_loc_UQHG.l10:
-    mov ax, word [bp - 0x0008]       ; 0x2c04
-    add ax, word [bp - 0x0010]       ; 0x2c07
+    mov ax, word [bp - 8]            ; 0x2c04
+    add ax, word [bp - 0x10]         ; 0x2c07
     dec ax                           ; 0x2c0a
-    cmp ax, word [bp - 0x0002]       ; 0x2c0b
+    cmp ax, word [bp - 2]            ; 0x2c0b
     jb short @..io_loc_UQHG.l11      ; 0x2c0e
-    mov ax, word [bp - 0x0002]       ; 0x2c10
-    sub ax, word [bp - 0x0008]       ; 0x2c13
+    mov ax, word [bp - 2]            ; 0x2c10
+    sub ax, word [bp - 8]            ; 0x2c13
     inc ax                           ; 0x2c16
-    mov word [bp - 0x0010], ax       ; 0x2c17
+    mov word [bp - 0x10], ax         ; 0x2c17
 @..io_loc_UQHG.l11:
-    mov ax, word [bp - 0x0008]       ; 0x2c1a
+    mov ax, word [bp - 8]            ; 0x2c1a
     sub ax, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x2c1d
     mov bx, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x2c22
     mul bx                           ; 0x2c27
-    add ax, word [bp - 0x0006]       ; 0x2c29
+    add ax, word [bp - 6]            ; 0x2c29
     mov bx, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x2c2c
     shr bx, 1                        ; 0x2c31
     shr bx, 1                        ; 0x2c33
     sub ax, bx                       ; 0x2c35
     add ax, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x2c37
     mov si, ax                       ; 0x2c3c
-    mov ax, word [bp - 0x000c]       ; 0x2c3e
+    mov ax, word [bp - 0xc]          ; 0x2c3e
     mov bx, word [cs:cseg_1af3 - IMAGE_BASE] ; 0x2c41
     mul bx                           ; 0x2c46
-    add ax, word [bp - 0x000a]       ; 0x2c48
+    add ax, word [bp - 0xa]          ; 0x2c48
     add ax, word [cs:cseg_1ad7 - IMAGE_BASE] ; 0x2c4b
     mov di, ax                       ; 0x2c50
     mov ax, cs                       ; 0x2c52
     mov ds, ax                       ; 0x2c54
     mov es, ax                       ; 0x2c56
-    mov cx, word [bp - 0x0010]       ; 0x2c58
+    mov cx, word [bp - 0x10]         ; 0x2c58
 @..io_loc_UQHG.l12:
     push cx                          ; 0x2c5b
     push si                          ; 0x2c5c
     push di                          ; 0x2c5d
     mov ax, si                       ; 0x2c5e
     mov bx, di                       ; 0x2c60
-    mov cx, word [bp - 0x000e]       ; 0x2c62
+    mov cx, word [bp - 0xe]          ; 0x2c62
     rep movsb                        ; 0x2c65
     add ax, 0x120                    ; 0x2c67
     add bx, strict word 0x120        ; 0x2c6a
     mov si, ax                       ; 0x2c6e
     mov di, bx                       ; 0x2c70
-    mov cx, word [bp - 0x000e]       ; 0x2c72
+    mov cx, word [bp - 0xe]          ; 0x2c72
     rep movsb                        ; 0x2c75
     add ax, 0x120                    ; 0x2c77
     add bx, strict word 0x120        ; 0x2c7a
     mov si, ax                       ; 0x2c7e
     mov di, bx                       ; 0x2c80
-    mov cx, word [bp - 0x000e]       ; 0x2c82
+    mov cx, word [bp - 0xe]          ; 0x2c82
     rep movsb                        ; 0x2c85
     add ax, 0x120                    ; 0x2c87
     add bx, strict word 0x120        ; 0x2c8a
     mov si, ax                       ; 0x2c8e
     mov di, bx                       ; 0x2c90
-    mov cx, word [bp - 0x000e]       ; 0x2c92
+    mov cx, word [bp - 0xe]          ; 0x2c92
     rep movsb                        ; 0x2c95
     pop di                           ; 0x2c97
     add di, word [cs:cseg_1af3 - IMAGE_BASE] ; 0x2c98
@@ -280,18 +280,18 @@ io_loc_UQHG:
     add ax, strict word 7            ; 0x2d38
     mov cl, 3                        ; 0x2d3b
     shr ax, cl                       ; 0x2d3d
-    mov word [bp - 0x0002], ax       ; 0x2d3f
+    mov word [bp - 2], ax            ; 0x2d3f
     cmp byte [cs:cseg_249d - IMAGE_BASE], 0 ; 0x2d42
     jne short @..io_loc_UQHG.l15     ; 0x2d48
     jmp near @..io_loc_UQHG.l22      ; 0x2d4a
 @..io_loc_UQHG.l15:
-    mov ax, word [bp - 0x0008]       ; 0x2d4d
+    mov ax, word [bp - 8]            ; 0x2d4d
     sub ax, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x2d50
-    mov bx, word [bp - 0x0002]       ; 0x2d55
+    mov bx, word [bp - 2]            ; 0x2d55
     mul bx                           ; 0x2d58
     mov di, ax                       ; 0x2d5a
     add di, cseg_23fd - IMAGE_BASE   ; 0x2d5c
-    mov ax, word [bp - 0x0006]       ; 0x2d60
+    mov ax, word [bp - 6]            ; 0x2d60
     mov bx, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x2d63
     shr bx, 1                        ; 0x2d68
     shr bx, 1                        ; 0x2d6a
@@ -307,7 +307,7 @@ io_loc_UQHG:
     mov cx, ax                       ; 0x2d7c
     mov ah, 0xff                     ; 0x2d7e
     shr ah, cl                       ; 0x2d80
-    mov dx, word [bp - 0x000e]       ; 0x2d82
+    mov dx, word [bp - 0xe]          ; 0x2d82
     add dx, cx                       ; 0x2d85
 @..io_loc_UQHG.l18:
     cmp dx, byte 8                   ; 0x2d87
@@ -330,16 +330,16 @@ io_loc_UQHG:
     inc bx                           ; 0x2da9
 @..io_loc_UQHG.l20:
     sub bx, cseg_247d - IMAGE_BASE   ; 0x2daa
-    mov word [bp - 0x0004], bx       ; 0x2dae
-    mov cx, word [bp - 0x0010]       ; 0x2db1
+    mov word [bp - 4], bx            ; 0x2dae
+    mov cx, word [bp - 0x10]         ; 0x2db1
 @..io_loc_UQHG.l21:
     push cx                          ; 0x2db4
     push di                          ; 0x2db5
     mov si, cseg_247d - IMAGE_BASE   ; 0x2db6
-    mov cx, word [bp - 0x0004]       ; 0x2db9
+    mov cx, word [bp - 4]            ; 0x2db9
     rep movsb                        ; 0x2dbc
     pop di                           ; 0x2dbe
-    add di, word [bp - 0x0002]       ; 0x2dbf
+    add di, word [bp - 2]            ; 0x2dbf
     pop cx                           ; 0x2dc2
     loop @..io_loc_UQHG.l21          ; 0x2dc3
 @..io_loc_UQHG.l22:

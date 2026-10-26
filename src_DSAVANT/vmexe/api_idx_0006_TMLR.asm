@@ -39,7 +39,7 @@ api_idx_0006_TMLR:
 @..api_idx_0006_TMLR.l3:
     les bx, word [tick_counter_ptr]  ; 0x18ff
     mov ax, word [es:bx]             ; 0x1903
-    mov dx, word [es:bx + 0x2]       ; 0x1906
+    mov dx, word [es:bx + 2]         ; 0x1906
     sub ax, word [party_redraw_last_tick] ; 0x190a
     sbb dx, word [party_redraw_last_tick_hi] ; 0x190e
     push ax                          ; 0x1912
@@ -76,34 +76,34 @@ api_idx_0006_TMLR:
     push word [bx + screen_cache]    ; 0x194a
     call gfx_restore_screen          ; 0x194e
     add sp, byte 8                   ; 0x1951
-    mov word [bp - 0x0002], 0        ; 0x1954
+    mov word [bp - 2], 0             ; 0x1954
 @..api_idx_0006_TMLR.l7:
-    mov ax, word [bp - 0x0002]       ; 0x1959
+    mov ax, word [bp - 2]            ; 0x1959
     shl ax, 1                        ; 0x195c
     mov bx, ax                       ; 0x195e
     mov bx, word [bx + overlay_list + 0x2] ; 0x1960
     mov byte [bx + overlay_list_rec.f_0014], 0xff ; 0x1964
-    inc word [bp - 0x0002]           ; 0x1968
-    mov ax, word [bp - 0x0002]       ; 0x196b
+    inc word [bp - 2]                ; 0x1968
+    mov ax, word [bp - 2]            ; 0x196b
     cmp ax, strict word 0xc          ; 0x196e
     jl short @..api_idx_0006_TMLR.l7 ; 0x1971
     mov word [overlay_list], 0       ; 0x1973
     jmp near @..api_idx_0006_TMLR.l17 ; 0x1979
 @..api_idx_0006_TMLR.l8:
     call loc_KRMP                    ; 0x197c
-    mov word [bp - 0x0006], ax       ; 0x197f
-    mov word [bp - 0x0002], 0        ; 0x1982
+    mov word [bp - 6], ax            ; 0x197f
+    mov word [bp - 2], 0             ; 0x1982
 @..api_idx_0006_TMLR.l9:
-    mov word [bp - 0x0004], 0        ; 0x1987
+    mov word [bp - 4], 0             ; 0x1987
 @..api_idx_0006_TMLR.l10:
-    push word [bp - 0x0006]          ; 0x198c
+    push word [bp - 6]               ; 0x198c
     mov ax, 0xf8                     ; 0x198f
     push ax                          ; 0x1992
     mov ax, 0x48                     ; 0x1993
     push ax                          ; 0x1996
     mov ax, 6                        ; 0x1997
-    imul word [bp - 0x0002]          ; 0x199a
-    mov cx, word [bp - 0x0004]       ; 0x199d
+    imul word [bp - 2]               ; 0x199a
+    mov cx, word [bp - 4]            ; 0x199d
     shl cx, 1                        ; 0x19a0
     add ax, cx                       ; 0x19a2
     mov bx, ax                       ; 0x19a4
@@ -113,24 +113,24 @@ api_idx_0006_TMLR:
     push ax                          ; 0x19af
     mov ax, 0                        ; 0x19b0
     push ax                          ; 0x19b3
-    push word [bp - 0x0004]          ; 0x19b4
-    push word [bp - 0x0002]          ; 0x19b7
+    push word [bp - 4]               ; 0x19b4
+    push word [bp - 2]               ; 0x19b7
     call queue_cell_action_overlay   ; 0x19ba
-    add sp, byte 0x0e                ; 0x19bd
-    push word [bp - 0x0004]          ; 0x19c0
-    push word [bp - 0x0002]          ; 0x19c3
+    add sp, byte 0xe                 ; 0x19bd
+    push word [bp - 4]               ; 0x19c0
+    push word [bp - 2]               ; 0x19c3
     call api_idx_0016_MUKH           ; 0x19c6
     add sp, byte 4                   ; 0x19c9
-    inc word [bp - 0x0004]           ; 0x19cc
-    mov ax, word [bp - 0x0004]       ; 0x19cf
+    inc word [bp - 4]                ; 0x19cc
+    mov ax, word [bp - 4]            ; 0x19cf
     cmp ax, strict word 3            ; 0x19d2
     jl short @..api_idx_0006_TMLR.l10 ; 0x19d5
-    inc word [bp - 0x0002]           ; 0x19d7
-    mov ax, word [bp - 0x0002]       ; 0x19da
+    inc word [bp - 2]                ; 0x19d7
+    mov ax, word [bp - 2]            ; 0x19da
     cmp ax, strict word 3            ; 0x19dd
     jl short @..api_idx_0006_TMLR.l9 ; 0x19e0
     call queue_marker_overlay        ; 0x19e2
-    cmp word [bp - 0x0006], byte 0   ; 0x19e5
+    cmp word [bp - 6], byte 0        ; 0x19e5
     je short @..api_idx_0006_TMLR.l11 ; 0x19e9
     mov ax, word [party_status_frame] ; 0x19eb
     inc ax                           ; 0x19ee

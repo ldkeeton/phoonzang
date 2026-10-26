@@ -59,7 +59,7 @@ class ClassBTests(unittest.TestCase):
     def test_push_disp16(self):
         insn = _insn('ff b7 06 00')
         text = format_instruction(insn, {}, {})
-        self.assertEqual(text, 'push word [word bx + 0x6]')
+        self.assertEqual(text, 'push word [word bx + 6]')
         self.assertEqual(micro_assemble(text, 0), bytes.fromhex('ff b7 06 00'))
 
     def test_disp8_stays_disp8(self):

@@ -14,13 +14,13 @@ api_idx_0068_OUHP:
     mov ax, word [dseg_010c]         ; 0x0ae2
     mov word [bss_844e], ax          ; 0x0ae5
 @..api_idx_0068_OUHP.l1:
-    mov word [bp - 0x0008], 0        ; 0x0ae8
+    mov word [bp - 8], 0             ; 0x0ae8
 @..api_idx_0068_OUHP.l2:
-    mov bx, word [bp - 0x0008]       ; 0x0aed
+    mov bx, word [bp - 8]            ; 0x0aed
     mov byte [bx + picture_slot_number], 0xff ; 0x0af0
     mov byte [bx + picture_slot_used], 0 ; 0x0af5
-    inc word [bp - 0x0008]           ; 0x0afa
-    mov ax, word [bp - 0x0008]       ; 0x0afd
+    inc word [bp - 8]                ; 0x0afa
+    mov ax, word [bp - 8]            ; 0x0afd
     cmp ax, strict word 0x12         ; 0x0b00
     jl short @..api_idx_0068_OUHP.l2 ; 0x0b03
     mov ax, 0xf                      ; 0x0b05
@@ -39,7 +39,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0b22
     push ax                          ; 0x0b23
     call gfx_fill_area               ; 0x0b24
-    add sp, byte 0x0a                ; 0x0b27
+    add sp, byte 0xa                 ; 0x0b27
     mov ax, 0                        ; 0x0b2a
     push ax                          ; 0x0b2d
     mov ax, 1                        ; 0x0b2e
@@ -319,7 +319,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0d6b
     push ax                          ; 0x0d6c
     call gfx_fill_area               ; 0x0d6d
-    add sp, byte 0x0a                ; 0x0d70
+    add sp, byte 0xa                 ; 0x0d70
 @..api_idx_0068_OUHP.l21:
     call api_idx_0002_PUOP           ; 0x0d73
     test ax, ax                      ; 0x0d76
@@ -440,19 +440,19 @@ api_idx_0068_OUHP:
     mov ax, 0x37                     ; 0x0e63
     push ax                          ; 0x0e66
     call gfx_cache_area              ; 0x0e67
-    add sp, byte 0x0c                ; 0x0e6a
-    mov word [bp - 0x000a], dx       ; 0x0e6d
-    mov word [bp - 0x000c], ax       ; 0x0e70
-    mov word [bp - 0x0002], 0x5f     ; 0x0e73
+    add sp, byte 0xc                 ; 0x0e6a
+    mov word [bp - 0xa], dx          ; 0x0e6d
+    mov word [bp - 0xc], ax          ; 0x0e70
+    mov word [bp - 2], 0x5f          ; 0x0e73
 @..api_idx_0068_OUHP.l30:
     mov ax, 0                        ; 0x0e78
     push ax                          ; 0x0e7b
     push ax                          ; 0x0e7c
-    push word [bp - 0x000a]          ; 0x0e7d
-    push word [bp - 0x000c]          ; 0x0e80
+    push word [bp - 0xa]             ; 0x0e7d
+    push word [bp - 0xc]             ; 0x0e80
     call gfx_restore_screen          ; 0x0e83
     add sp, byte 8                   ; 0x0e86
-    push word [bp - 0x0002]          ; 0x0e89
+    push word [bp - 2]               ; 0x0e89
     mov ax, 1                        ; 0x0e8c
     push ax                          ; 0x0e8f
     call api_idx_000e_JRRT           ; 0x0e90
@@ -467,15 +467,15 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0ea5
     call gfx_show_area               ; 0x0ea6
     add sp, byte 8                   ; 0x0ea9
-    add word [bp - 0x0002], byte 0xfb ; 0x0eac
-    cmp word [bp - 0x0002], byte 0   ; 0x0eb0
+    add word [bp - 2], byte 0xfb     ; 0x0eac
+    cmp word [bp - 2], byte 0        ; 0x0eb0
     jge short @..api_idx_0068_OUHP.l30 ; 0x0eb4
     mov ax, 0                        ; 0x0eb6
     push ax                          ; 0x0eb9
     mov ax, 1                        ; 0x0eba
     push ax                          ; 0x0ebd
-    push word [bp - 0x000a]          ; 0x0ebe
-    push word [bp - 0x000c]          ; 0x0ec1
+    push word [bp - 0xa]             ; 0x0ebe
+    push word [bp - 0xc]             ; 0x0ec1
     call gfx_restore_screen          ; 0x0ec4
     add sp, byte 8                   ; 0x0ec7
     jmp short @..api_idx_0068_OUHP.l32 ; 0x0eca
@@ -513,47 +513,47 @@ api_idx_0068_OUHP:
     mov ax, 0                        ; 0x0f09
     push ax                          ; 0x0f0c
     call gfx_cache_area              ; 0x0f0d
-    add sp, byte 0x0c                ; 0x0f10
-    mov word [bp - 0x000a], dx       ; 0x0f13
-    mov word [bp - 0x000c], ax       ; 0x0f16
+    add sp, byte 0xc                 ; 0x0f10
+    mov word [bp - 0xa], dx          ; 0x0f13
+    mov word [bp - 0xc], ax          ; 0x0f16
     call api_idx_0002_PUOP           ; 0x0f19
     mov ax, 0xb54                    ; 0x0f1c
     cmp word [bss_91b8], byte 0      ; 0x0f1f
     je short @..api_idx_0068_OUHP.l33 ; 0x0f24
     mov ax, 0xb69                    ; 0x0f26
 @..api_idx_0068_OUHP.l33:
-    mov word [bp - 0x0060], ax       ; 0x0f29
-    lea ax, word [bp - 0x005c]       ; 0x0f2c
+    mov word [bp - 0x60], ax         ; 0x0f29
+    lea ax, word [bp - 0x5c]         ; 0x0f2c
     push ax                          ; 0x0f2f
-    push word [bp - 0x0060]          ; 0x0f30
+    push word [bp - 0x60]            ; 0x0f30
     call load_message_string         ; 0x0f33
     add sp, byte 4                   ; 0x0f36
-    lea ax, word [bp - 0x005c]       ; 0x0f39
-    mov word [bp - 0x005e], ax       ; 0x0f3c
-    mov word [bp - 0x0002], 0        ; 0x0f3f
+    lea ax, word [bp - 0x5c]         ; 0x0f39
+    mov word [bp - 0x5e], ax         ; 0x0f3c
+    mov word [bp - 2], 0             ; 0x0f3f
 @..api_idx_0068_OUHP.l34:
-    mov ax, word [bp - 0x0002]       ; 0x0f44
-    mov word [bp - 0x0066], ax       ; 0x0f47
-    mov bx, word [bp - 0x005e]       ; 0x0f4a
+    mov ax, word [bp - 2]            ; 0x0f44
+    mov word [bp - 0x66], ax         ; 0x0f47
+    mov bx, word [bp - 0x5e]         ; 0x0f4a
     mov al, byte [bx]                ; 0x0f4d
     sub ah, ah                       ; 0x0f4f
-    mov word [bp - 0x0002], ax       ; 0x0f51
-    inc word [bp - 0x005e]           ; 0x0f54
-    mov word [bp - 0x0004], 0        ; 0x0f57
+    mov word [bp - 2], ax            ; 0x0f51
+    inc word [bp - 0x5e]             ; 0x0f54
+    mov word [bp - 4], 0             ; 0x0f57
     jmp near @..api_idx_0068_OUHP.l46 ; 0x0f5c
 @..api_idx_0068_OUHP.l35:
-    mov bx, word [bp - 0x005e]       ; 0x0f5f
+    mov bx, word [bp - 0x5e]         ; 0x0f5f
     mov al, byte [bx]                ; 0x0f62
     sub ah, ah                       ; 0x0f64
-    mov word [bp - 0x0062], ax       ; 0x0f66
-    inc word [bp - 0x005e]           ; 0x0f69
+    mov word [bp - 0x62], ax         ; 0x0f66
+    inc word [bp - 0x5e]             ; 0x0f69
     cmp ax, strict word 2            ; 0x0f6c
     je short @..api_idx_0068_OUHP.l36 ; 0x0f6f
     jmp near @..api_idx_0068_OUHP.l37 ; 0x0f71
 @..api_idx_0068_OUHP.l36:
     mov ax, 2                        ; 0x0f74
     push ax                          ; 0x0f77
-    push word [bp - 0x005e]          ; 0x0f78
+    push word [bp - 0x5e]            ; 0x0f78
     call measure_text_width          ; 0x0f7b
     add sp, byte 4                   ; 0x0f7e
     inc ax                           ; 0x0f81
@@ -563,12 +563,12 @@ api_idx_0068_OUHP:
     mov cx, ax                       ; 0x0f88
     mov ax, 0xa0                     ; 0x0f8a
     sub ax, cx                       ; 0x0f8d
-    mov word [bp - 0x0064], ax       ; 0x0f8f
+    mov word [bp - 0x64], ax         ; 0x0f8f
     mov ax, 0xc                      ; 0x0f92
-    imul word [bp - 0x0004]          ; 0x0f95
+    imul word [bp - 4]               ; 0x0f95
     add ax, strict word 0x66         ; 0x0f98
     push ax                          ; 0x0f9b
-    mov ax, word [bp - 0x0064]       ; 0x0f9c
+    mov ax, word [bp - 0x64]         ; 0x0f9c
     dec ax                           ; 0x0f9f
     push ax                          ; 0x0fa0
     call gfx_set_text_pos            ; 0x0fa1
@@ -581,14 +581,14 @@ api_idx_0068_OUHP:
     add sp, byte 4                   ; 0x0fb2
     mov ax, 2                        ; 0x0fb5
     push ax                          ; 0x0fb8
-    push word [bp - 0x005e]          ; 0x0fb9
+    push word [bp - 0x5e]            ; 0x0fb9
     call draw_text_glyphs            ; 0x0fbc
     add sp, byte 4                   ; 0x0fbf
     mov ax, 0xc                      ; 0x0fc2
-    imul word [bp - 0x0004]          ; 0x0fc5
+    imul word [bp - 4]               ; 0x0fc5
     add ax, strict word 0x66         ; 0x0fc8
     push ax                          ; 0x0fcb
-    mov ax, word [bp - 0x0064]       ; 0x0fcc
+    mov ax, word [bp - 0x64]         ; 0x0fcc
     inc ax                           ; 0x0fcf
     push ax                          ; 0x0fd0
     call gfx_set_text_pos            ; 0x0fd1
@@ -601,14 +601,14 @@ api_idx_0068_OUHP:
     add sp, byte 4                   ; 0x0fe2
     mov ax, 2                        ; 0x0fe5
     push ax                          ; 0x0fe8
-    push word [bp - 0x005e]          ; 0x0fe9
+    push word [bp - 0x5e]            ; 0x0fe9
     call draw_text_glyphs            ; 0x0fec
     add sp, byte 4                   ; 0x0fef
     mov ax, 0xc                      ; 0x0ff2
-    imul word [bp - 0x0004]          ; 0x0ff5
+    imul word [bp - 4]               ; 0x0ff5
     add ax, strict word 0x67         ; 0x0ff8
     push ax                          ; 0x0ffb
-    push word [bp - 0x0064]          ; 0x0ffc
+    push word [bp - 0x64]            ; 0x0ffc
     call gfx_set_text_pos            ; 0x0fff
     add sp, byte 4                   ; 0x1002
     mov ax, 0                        ; 0x1005
@@ -619,14 +619,14 @@ api_idx_0068_OUHP:
     add sp, byte 4                   ; 0x1010
     mov ax, 2                        ; 0x1013
     push ax                          ; 0x1016
-    push word [bp - 0x005e]          ; 0x1017
+    push word [bp - 0x5e]            ; 0x1017
     call draw_text_glyphs            ; 0x101a
     add sp, byte 4                   ; 0x101d
     mov ax, 0xc                      ; 0x1020
-    imul word [bp - 0x0004]          ; 0x1023
+    imul word [bp - 4]               ; 0x1023
     add ax, strict word 0x65         ; 0x1026
     push ax                          ; 0x1029
-    push word [bp - 0x0064]          ; 0x102a
+    push word [bp - 0x64]            ; 0x102a
     call gfx_set_text_pos            ; 0x102d
     add sp, byte 4                   ; 0x1030
     mov ax, 0                        ; 0x1033
@@ -637,14 +637,14 @@ api_idx_0068_OUHP:
     add sp, byte 4                   ; 0x103e
     mov ax, 2                        ; 0x1041
     push ax                          ; 0x1044
-    push word [bp - 0x005e]          ; 0x1045
+    push word [bp - 0x5e]            ; 0x1045
     call draw_text_glyphs            ; 0x1048
     add sp, byte 4                   ; 0x104b
     mov ax, 0xc                      ; 0x104e
-    imul word [bp - 0x0004]          ; 0x1051
+    imul word [bp - 4]               ; 0x1051
     add ax, strict word 0x66         ; 0x1054
     push ax                          ; 0x1057
-    push word [bp - 0x0064]          ; 0x1058
+    push word [bp - 0x64]            ; 0x1058
     call gfx_set_text_pos            ; 0x105b
     add sp, byte 4                   ; 0x105e
     mov ax, 0                        ; 0x1061
@@ -655,14 +655,14 @@ api_idx_0068_OUHP:
     add sp, byte 4                   ; 0x106c
     mov ax, 2                        ; 0x106f
     push ax                          ; 0x1072
-    push word [bp - 0x005e]          ; 0x1073
+    push word [bp - 0x5e]            ; 0x1073
     call draw_text_glyphs            ; 0x1076
     add sp, byte 4                   ; 0x1079
     jmp near @..api_idx_0068_OUHP.l45 ; 0x107c
 @..api_idx_0068_OUHP.l37:
-    cmp word [bp - 0x0062], byte 3   ; 0x107f
+    cmp word [bp - 0x62], byte 3     ; 0x107f
     jne short @..api_idx_0068_OUHP.l38 ; 0x1083
-    push word [bp - 0x005e]          ; 0x1085
+    push word [bp - 0x5e]            ; 0x1085
     call aztec_strlen                ; 0x1088
     pop cx                           ; 0x108b
     mov cx, 6                        ; 0x108c
@@ -673,13 +673,13 @@ api_idx_0068_OUHP:
     mov cx, ax                       ; 0x1097
     mov ax, 0xa0                     ; 0x1099
     sub ax, cx                       ; 0x109c
-    mov word [bp - 0x0064], ax       ; 0x109e
-    mov word [bp - 0x0068], 0        ; 0x10a1
+    mov word [bp - 0x64], ax         ; 0x109e
+    mov word [bp - 0x68], 0          ; 0x10a1
     jmp short @..api_idx_0068_OUHP.l39 ; 0x10a6
 @..api_idx_0068_OUHP.l38:
     mov ax, 2                        ; 0x10a8
     push ax                          ; 0x10ab
-    push word [bp - 0x005e]          ; 0x10ac
+    push word [bp - 0x5e]            ; 0x10ac
     call measure_text_width          ; 0x10af
     add sp, byte 4                   ; 0x10b2
     inc ax                           ; 0x10b5
@@ -689,141 +689,141 @@ api_idx_0068_OUHP:
     mov cx, ax                       ; 0x10bc
     mov ax, 0xa0                     ; 0x10be
     sub ax, cx                       ; 0x10c1
-    mov word [bp - 0x0064], ax       ; 0x10c3
-    mov word [bp - 0x0068], 2        ; 0x10c6
+    mov word [bp - 0x64], ax         ; 0x10c3
+    mov word [bp - 0x68], 2          ; 0x10c6
 @..api_idx_0068_OUHP.l39:
     mov ax, 0xc                      ; 0x10cb
-    imul word [bp - 0x0004]          ; 0x10ce
+    imul word [bp - 4]               ; 0x10ce
     add ax, strict word 0x66         ; 0x10d1
     push ax                          ; 0x10d4
-    mov ax, word [bp - 0x0064]       ; 0x10d5
+    mov ax, word [bp - 0x64]         ; 0x10d5
     dec ax                           ; 0x10d8
     push ax                          ; 0x10d9
     call gfx_set_text_pos            ; 0x10da
     add sp, byte 4                   ; 0x10dd
     mov ax, 0                        ; 0x10e0
     push ax                          ; 0x10e3
-    cmp word [bp - 0x0062], byte 1   ; 0x10e4
+    cmp word [bp - 0x62], byte 1     ; 0x10e4
     jne short @..api_idx_0068_OUHP.l40 ; 0x10e8
     mov ax, 0x22                     ; 0x10ea
 @..api_idx_0068_OUHP.l40:
     push ax                          ; 0x10ed
     call gfx_set_text_color          ; 0x10ee
     add sp, byte 4                   ; 0x10f1
-    push word [bp - 0x0068]          ; 0x10f4
-    push word [bp - 0x005e]          ; 0x10f7
+    push word [bp - 0x68]            ; 0x10f4
+    push word [bp - 0x5e]            ; 0x10f7
     call draw_text_glyphs            ; 0x10fa
     add sp, byte 4                   ; 0x10fd
     mov ax, 0xc                      ; 0x1100
-    imul word [bp - 0x0004]          ; 0x1103
+    imul word [bp - 4]               ; 0x1103
     add ax, strict word 0x66         ; 0x1106
     push ax                          ; 0x1109
-    mov ax, word [bp - 0x0064]       ; 0x110a
+    mov ax, word [bp - 0x64]         ; 0x110a
     inc ax                           ; 0x110d
     push ax                          ; 0x110e
     call gfx_set_text_pos            ; 0x110f
     add sp, byte 4                   ; 0x1112
     mov ax, 0                        ; 0x1115
     push ax                          ; 0x1118
-    cmp word [bp - 0x0062], byte 1   ; 0x1119
+    cmp word [bp - 0x62], byte 1     ; 0x1119
     jne short @..api_idx_0068_OUHP.l41 ; 0x111d
     mov ax, 0x22                     ; 0x111f
 @..api_idx_0068_OUHP.l41:
     push ax                          ; 0x1122
     call gfx_set_text_color          ; 0x1123
     add sp, byte 4                   ; 0x1126
-    push word [bp - 0x0068]          ; 0x1129
-    push word [bp - 0x005e]          ; 0x112c
+    push word [bp - 0x68]            ; 0x1129
+    push word [bp - 0x5e]            ; 0x112c
     call draw_text_glyphs            ; 0x112f
     add sp, byte 4                   ; 0x1132
     mov ax, 0xc                      ; 0x1135
-    imul word [bp - 0x0004]          ; 0x1138
+    imul word [bp - 4]               ; 0x1138
     add ax, strict word 0x67         ; 0x113b
     push ax                          ; 0x113e
-    push word [bp - 0x0064]          ; 0x113f
+    push word [bp - 0x64]            ; 0x113f
     call gfx_set_text_pos            ; 0x1142
     add sp, byte 4                   ; 0x1145
     mov ax, 0                        ; 0x1148
     push ax                          ; 0x114b
-    cmp word [bp - 0x0062], byte 1   ; 0x114c
+    cmp word [bp - 0x62], byte 1     ; 0x114c
     jne short @..api_idx_0068_OUHP.l42 ; 0x1150
     mov ax, 0x22                     ; 0x1152
 @..api_idx_0068_OUHP.l42:
     push ax                          ; 0x1155
     call gfx_set_text_color          ; 0x1156
     add sp, byte 4                   ; 0x1159
-    push word [bp - 0x0068]          ; 0x115c
-    push word [bp - 0x005e]          ; 0x115f
+    push word [bp - 0x68]            ; 0x115c
+    push word [bp - 0x5e]            ; 0x115f
     call draw_text_glyphs            ; 0x1162
     add sp, byte 4                   ; 0x1165
     mov ax, 0xc                      ; 0x1168
-    imul word [bp - 0x0004]          ; 0x116b
+    imul word [bp - 4]               ; 0x116b
     add ax, strict word 0x65         ; 0x116e
     push ax                          ; 0x1171
-    push word [bp - 0x0064]          ; 0x1172
+    push word [bp - 0x64]            ; 0x1172
     call gfx_set_text_pos            ; 0x1175
     add sp, byte 4                   ; 0x1178
     mov ax, 0                        ; 0x117b
     push ax                          ; 0x117e
-    cmp word [bp - 0x0062], byte 1   ; 0x117f
+    cmp word [bp - 0x62], byte 1     ; 0x117f
     jne short @..api_idx_0068_OUHP.l43 ; 0x1183
     mov ax, 0x22                     ; 0x1185
 @..api_idx_0068_OUHP.l43:
     push ax                          ; 0x1188
     call gfx_set_text_color          ; 0x1189
     add sp, byte 4                   ; 0x118c
-    push word [bp - 0x0068]          ; 0x118f
-    push word [bp - 0x005e]          ; 0x1192
+    push word [bp - 0x68]            ; 0x118f
+    push word [bp - 0x5e]            ; 0x1192
     call draw_text_glyphs            ; 0x1195
     add sp, byte 4                   ; 0x1198
     mov ax, 0xc                      ; 0x119b
-    imul word [bp - 0x0004]          ; 0x119e
+    imul word [bp - 4]               ; 0x119e
     add ax, strict word 0x66         ; 0x11a1
     push ax                          ; 0x11a4
-    push word [bp - 0x0064]          ; 0x11a5
+    push word [bp - 0x64]            ; 0x11a5
     call gfx_set_text_pos            ; 0x11a8
     add sp, byte 4                   ; 0x11ab
     mov ax, 0                        ; 0x11ae
     push ax                          ; 0x11b1
     mov ax, 0x55                     ; 0x11b2
-    cmp word [bp - 0x0062], byte 1   ; 0x11b5
+    cmp word [bp - 0x62], byte 1     ; 0x11b5
     jne short @..api_idx_0068_OUHP.l44 ; 0x11b9
     mov ax, 0x16                     ; 0x11bb
 @..api_idx_0068_OUHP.l44:
     push ax                          ; 0x11be
     call gfx_set_text_color          ; 0x11bf
     add sp, byte 4                   ; 0x11c2
-    push word [bp - 0x0068]          ; 0x11c5
-    push word [bp - 0x005e]          ; 0x11c8
+    push word [bp - 0x68]            ; 0x11c5
+    push word [bp - 0x5e]            ; 0x11c8
     call draw_text_glyphs            ; 0x11cb
     add sp, byte 4                   ; 0x11ce
 @..api_idx_0068_OUHP.l45:
-    inc word [bp - 0x0060]           ; 0x11d1
-    lea ax, word [bp - 0x005c]       ; 0x11d4
+    inc word [bp - 0x60]             ; 0x11d1
+    lea ax, word [bp - 0x5c]         ; 0x11d4
     push ax                          ; 0x11d7
-    push word [bp - 0x0060]          ; 0x11d8
+    push word [bp - 0x60]            ; 0x11d8
     call load_message_string         ; 0x11db
     add sp, byte 4                   ; 0x11de
-    lea ax, word [bp - 0x005c]       ; 0x11e1
-    mov word [bp - 0x005e], ax       ; 0x11e4
-    inc word [bp - 0x0004]           ; 0x11e7
+    lea ax, word [bp - 0x5c]         ; 0x11e1
+    mov word [bp - 0x5e], ax         ; 0x11e4
+    inc word [bp - 4]                ; 0x11e7
 @..api_idx_0068_OUHP.l46:
-    mov ax, word [bp - 0x0004]       ; 0x11ea
-    cmp ax, word [bp - 0x0002]       ; 0x11ed
+    mov ax, word [bp - 4]            ; 0x11ea
+    cmp ax, word [bp - 2]            ; 0x11ed
     jge short @..api_idx_0068_OUHP.l47 ; 0x11f0
     jmp near @..api_idx_0068_OUHP.l35 ; 0x11f2
 @..api_idx_0068_OUHP.l47:
     mov ax, 0                        ; 0x11f5
     push ax                          ; 0x11f8
-    mov ax, word [bp - 0x0002]       ; 0x11f9
-    cmp ax, word [bp - 0x0066]       ; 0x11fc
+    mov ax, word [bp - 2]            ; 0x11f9
+    cmp ax, word [bp - 0x66]         ; 0x11fc
     jle short @..api_idx_0068_OUHP.l48 ; 0x11ff
     mov cx, 0xc                      ; 0x1201
     imul cx                          ; 0x1204
     jmp short @..api_idx_0068_OUHP.l49 ; 0x1206
 @..api_idx_0068_OUHP.l48:
     mov ax, 0xc                      ; 0x1208
-    imul word [bp - 0x0066]          ; 0x120b
+    imul word [bp - 0x66]            ; 0x120b
 @..api_idx_0068_OUHP.l49:
     add ax, strict word 0x66         ; 0x120e
     push ax                          ; 0x1211
@@ -834,7 +834,7 @@ api_idx_0068_OUHP:
     mov ax, 0x32                     ; 0x121a
     push ax                          ; 0x121d
     call gfx_dissolve_area           ; 0x121e
-    add sp, byte 0x0a                ; 0x1221
+    add sp, byte 0xa                 ; 0x1221
     mov ax, 0x10                     ; 0x1224
     push ax                          ; 0x1227
     call api_idx_0004_OIGN           ; 0x1228
@@ -842,23 +842,23 @@ api_idx_0068_OUHP:
     mov ax, 0                        ; 0x122c
     push ax                          ; 0x122f
     push ax                          ; 0x1230
-    push word [bp - 0x000a]          ; 0x1231
-    push word [bp - 0x000c]          ; 0x1234
+    push word [bp - 0xa]             ; 0x1231
+    push word [bp - 0xc]             ; 0x1234
     call gfx_restore_screen          ; 0x1237
     add sp, byte 8                   ; 0x123a
     call api_idx_0002_PUOP           ; 0x123d
     test ax, ax                      ; 0x1240
     je short @..api_idx_0068_OUHP.l50 ; 0x1242
-    cmp word [bp - 0x0060], strict word 0xb69 ; 0x1244
+    cmp word [bp - 0x60], strict word 0xb69 ; 0x1244
     jge short @..api_idx_0068_OUHP.l50 ; 0x1249
-    mov word [bp - 0x0060], 0xb69    ; 0x124b
-    lea ax, word [bp - 0x005c]       ; 0x1250
+    mov word [bp - 0x60], 0xb69      ; 0x124b
+    lea ax, word [bp - 0x5c]         ; 0x1250
     push ax                          ; 0x1253
-    push word [bp - 0x0060]          ; 0x1254
+    push word [bp - 0x60]            ; 0x1254
     call load_message_string         ; 0x1257
     add sp, byte 4                   ; 0x125a
-    lea ax, word [bp - 0x005c]       ; 0x125d
-    mov word [bp - 0x005e], ax       ; 0x1260
+    lea ax, word [bp - 0x5c]         ; 0x125d
+    mov word [bp - 0x5e], ax         ; 0x1260
 @..api_idx_0068_OUHP.l50:
     cmp word [message_not_found], byte 0 ; 0x1263
     jne short @..api_idx_0068_OUHP.l51 ; 0x1268
@@ -877,8 +877,8 @@ api_idx_0068_OUHP:
     push ax                          ; 0x1285
     mov ax, 1                        ; 0x1286
     push ax                          ; 0x1289
-    push word [bp - 0x000a]          ; 0x128a
-    push word [bp - 0x000c]          ; 0x128d
+    push word [bp - 0xa]             ; 0x128a
+    push word [bp - 0xc]             ; 0x128d
     call gfx_restore_screen          ; 0x1290
     add sp, byte 8                   ; 0x1293
     cmp word [bss_8450], byte 0      ; 0x1296
@@ -924,7 +924,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x12ed
     push ax                          ; 0x12ee
     call gfx_fill_area               ; 0x12ef
-    add sp, byte 0x0a                ; 0x12f2
+    add sp, byte 0xa                 ; 0x12f2
     mov ax, 0xc7                     ; 0x12f5
     push ax                          ; 0x12f8
     mov ax, 0x13f                    ; 0x12f9

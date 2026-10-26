@@ -12,11 +12,11 @@ api_idx_0004_PMIU:
     push ax
     call gfx_save_area
     add sp, byte 8
-    mov word [bp - 0x0002], dx
-    mov word [bp - 0x0004], ax
+    mov word [bp - 2], dx
+    mov word [bp - 4], ax
     mov ax, 0xbc
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call aztec_strlen
     pop cx
     mov cx, 6
@@ -38,7 +38,7 @@ api_idx_0004_PMIU:
     add sp, byte 4
     mov ax, 0
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call draw_text_glyphs
     add sp, byte 4
     mov ax, 0xc2
@@ -51,7 +51,7 @@ api_idx_0004_PMIU:
     push ax
     call gfx_show_area
     add sp, byte 8
-    cmp word [bp + 0x6], byte 0
+    cmp word [bp + 6], byte 0
     jle short @..api_idx_0004_PMIU.l1
     mov ax, 0
     push ax
@@ -63,8 +63,8 @@ api_idx_0004_PMIU:
     pop cx
     mov ax, 1
     push ax
-    push word [bp - 0x0002]
-    push word [bp - 0x0004]
+    push word [bp - 2]
+    push word [bp - 4]
     call gfx_restore_area
     add sp, byte 6
     mov ax, 0xc2

@@ -25,7 +25,7 @@ jumptable_03ce_case_2:
     mov ax, 0x15                     ; 0x0372
     push ax                          ; 0x0375
     call api_idx_0008_URRP           ; 0x0376
-    add sp, byte 0x0c                ; 0x0379
+    add sp, byte 0xc                 ; 0x0379
     jmp short jumptable_03ce_case_0  ; 0x037c
 jumptable_03ce_case_3:
     mov ax, 2                        ; 0x037e
@@ -41,7 +41,7 @@ jumptable_03ce_case_3:
     mov ax, 0xe                      ; 0x0392
     push ax                          ; 0x0395
     call api_idx_0008_URRP           ; 0x0396
-    add sp, byte 0x0c                ; 0x0399
+    add sp, byte 0xc                 ; 0x0399
     jmp short jumptable_03ce_case_0  ; 0x039c
 jumptable_03ce_case_5:
     mov ax, 0x18                     ; 0x039e
@@ -65,7 +65,7 @@ jumptable_03ce_case_6:
     mov ax, 0x1b                     ; 0x03c2
     push ax                          ; 0x03c5
     call api_idx_0008_URRP           ; 0x03c6
-    add sp, byte 0x0c                ; 0x03c9
+    add sp, byte 0xc                 ; 0x03c9
     jmp short jumptable_03ce_case_0  ; 0x03cc
 jumptable_03ce:
     dw jumptable_03ce_case_0 - IMAGE_BASE + __zres_end ; 0x03ce

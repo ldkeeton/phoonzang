@@ -30,54 +30,54 @@ api_idx_001e_KGSI:
     mov si, ax                       ; 0x7073
     mov bx, word [maze_tables]       ; 0x7075
     mov ax, word [bx + si + 0x1e0]   ; 0x7079
-    mov word [bp - 0x001e], ax       ; 0x707d
+    mov word [bp - 0x1e], ax         ; 0x707d
     mov ax, word [bx + si + 0x3c0]   ; 0x7080
-    mov word [bp - 0x000e], ax       ; 0x7084
-    mov word [bp - 0x0002], 0        ; 0x7087
+    mov word [bp - 0xe], ax          ; 0x7084
+    mov word [bp - 2], 0             ; 0x7087
 @..api_idx_001e_KGSI.l2:
     mov ax, 1                        ; 0x708c
     push ax                          ; 0x708f
-    mov ax, word [bp - 0x0002]       ; 0x7090
+    mov ax, word [bp - 2]            ; 0x7090
     add ax, strict word 8            ; 0x7093
     push ax                          ; 0x7096
-    push word [bp - 0x000e]          ; 0x7097
+    push word [bp - 0xe]             ; 0x7097
     call get_bits                    ; 0x709a
     add sp, byte 6                   ; 0x709d
-    mov cx, word [bp - 0x0002]       ; 0x70a0
+    mov cx, word [bp - 2]            ; 0x70a0
     shl cx, 1                        ; 0x70a3
     mov bx, cx                       ; 0x70a5
     add bx, bp                       ; 0x70a7
-    mov word [bx - 0x000c], ax       ; 0x70a9
-    inc word [bp - 0x0002]           ; 0x70ac
-    mov ax, word [bp - 0x0002]       ; 0x70af
+    mov word [bx - 0xc], ax          ; 0x70a9
+    inc word [bp - 2]                ; 0x70ac
+    mov ax, word [bp - 2]            ; 0x70af
     cmp ax, strict word 4            ; 0x70b2
     jl short @..api_idx_001e_KGSI.l2 ; 0x70b5
     mov ax, 8                        ; 0x70b7
     push ax                          ; 0x70ba
     mov ax, 0                        ; 0x70bb
     push ax                          ; 0x70be
-    push word [bp - 0x000e]          ; 0x70bf
+    push word [bp - 0xe]             ; 0x70bf
     call get_bits                    ; 0x70c2
     add sp, byte 6                   ; 0x70c5
-    mov word [bp - 0x0010], ax       ; 0x70c8
+    mov word [bp - 0x10], ax         ; 0x70c8
     mov bx, word [maze_tables]       ; 0x70cb
     mov si, word [party_region]      ; 0x70cf
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x70d3
     sub ah, ah                       ; 0x70d7
-    mov word [bp - 0x0012], ax       ; 0x70d9
+    mov word [bp - 0x12], ax         ; 0x70d9
     mov ax, 1                        ; 0x70dc
     push ax                          ; 0x70df
     mov ax, 0xc                      ; 0x70e0
     push ax                          ; 0x70e3
-    push word [bp - 0x000e]          ; 0x70e4
+    push word [bp - 0xe]             ; 0x70e4
     call get_bits                    ; 0x70e7
     add sp, byte 6                   ; 0x70ea
-    mov word [bp - 0x0018], ax       ; 0x70ed
+    mov word [bp - 0x18], ax         ; 0x70ed
     mov ax, 1                        ; 0x70f0
     push ax                          ; 0x70f3
     mov ax, 0xd                      ; 0x70f4
     push ax                          ; 0x70f7
-    push word [bp - 0x000e]          ; 0x70f8
+    push word [bp - 0xe]             ; 0x70f8
     call get_bits                    ; 0x70fb
     add sp, byte 6                   ; 0x70fe
     cmp ax, strict word 1            ; 0x7101
@@ -87,80 +87,80 @@ api_idx_001e_KGSI:
 @..api_idx_001e_KGSI.l3:
     mov ax, 0xffff                   ; 0x710b
 @..api_idx_001e_KGSI.l4:
-    mov word [bp - 0x001a], ax       ; 0x710e
+    mov word [bp - 0x1a], ax         ; 0x710e
     mov ax, 1                        ; 0x7111
     push ax                          ; 0x7114
     mov ax, 0xe                      ; 0x7115
     push ax                          ; 0x7118
-    push word [bp - 0x000e]          ; 0x7119
+    push word [bp - 0xe]             ; 0x7119
     call get_bits                    ; 0x711c
     add sp, byte 6                   ; 0x711f
-    mov word [bp - 0x001c], ax       ; 0x7122
-    mov word [bp - 0x0002], 0        ; 0x7125
+    mov word [bp - 0x1c], ax         ; 0x7122
+    mov word [bp - 2], 0             ; 0x7125
     jmp near @..api_idx_001e_KGSI.l16 ; 0x712a
 @..api_idx_001e_KGSI.l5:
-    lea ax, word [bp - 0x000c]       ; 0x712d
+    lea ax, word [bp - 0xc]          ; 0x712d
     push ax                          ; 0x7130
     call api_idx_0002_KUOJ           ; 0x7131
     pop cx                           ; 0x7134
-    mov word [bp - 0x0016], ax       ; 0x7135
-    cmp word [bp - 0x0018], byte 1   ; 0x7138
+    mov word [bp - 0x16], ax         ; 0x7135
+    cmp word [bp - 0x18], byte 1     ; 0x7138
     jne short @..api_idx_001e_KGSI.l11 ; 0x713c
     cmp ax, word [party_tag]         ; 0x713e
     je short @..api_idx_001e_KGSI.l11 ; 0x7142
-    cmp word [bp - 0x001a], byte 1   ; 0x7144
+    cmp word [bp - 0x1a], byte 1     ; 0x7144
     jne short @..api_idx_001e_KGSI.l6 ; 0x7148
     sub ax, word [party_tag]         ; 0x714a
     add ax, strict word 4            ; 0x714e
     mov cx, 4                        ; 0x7151
     cwd                              ; 0x7154
     idiv cx                          ; 0x7155
-    mov word [bp - 0x0014], dx       ; 0x7157
+    mov word [bp - 0x14], dx         ; 0x7157
     jmp short @..api_idx_001e_KGSI.l7 ; 0x715a
 @..api_idx_001e_KGSI.l6:
     mov ax, word [party_tag]         ; 0x715c
-    sub ax, word [bp - 0x0016]       ; 0x715f
+    sub ax, word [bp - 0x16]         ; 0x715f
     add ax, strict word 4            ; 0x7162
     mov cx, 4                        ; 0x7165
     cwd                              ; 0x7168
     idiv cx                          ; 0x7169
-    mov word [bp - 0x0014], dx       ; 0x716b
+    mov word [bp - 0x14], dx         ; 0x716b
 @..api_idx_001e_KGSI.l7:
-    cmp word [bp - 0x0012], byte 0   ; 0x716e
+    cmp word [bp - 0x12], byte 0     ; 0x716e
     jne short @..api_idx_001e_KGSI.l8 ; 0x7172
-    dec word [bp - 0x0014]           ; 0x7174
+    dec word [bp - 0x14]             ; 0x7174
 @..api_idx_001e_KGSI.l8:
-    mov word [bp - 0x0004], 0        ; 0x7177
+    mov word [bp - 4], 0             ; 0x7177
     jmp short @..api_idx_001e_KGSI.l10 ; 0x717c
 @..api_idx_001e_KGSI.l9:
-    push word [bp - 0x001e]          ; 0x717e
+    push word [bp - 0x1e]            ; 0x717e
     call wait_ticks_or_key           ; 0x7181
     pop cx                           ; 0x7184
     mov ax, word [party_tag]         ; 0x7185
-    add ax, word [bp - 0x001a]       ; 0x7188
+    add ax, word [bp - 0x1a]         ; 0x7188
     add ax, strict word 4            ; 0x718b
     mov cx, 4                        ; 0x718e
     cwd                              ; 0x7191
     idiv cx                          ; 0x7192
     mov word [party_tag], dx         ; 0x7194
     call redraw_maze_view            ; 0x7198
-    inc word [bp - 0x0004]           ; 0x719b
+    inc word [bp - 4]                ; 0x719b
 @..api_idx_001e_KGSI.l10:
-    mov ax, word [bp - 0x0004]       ; 0x719e
-    cmp ax, word [bp - 0x0014]       ; 0x71a1
+    mov ax, word [bp - 4]            ; 0x719e
+    cmp ax, word [bp - 0x14]         ; 0x71a1
     jl short @..api_idx_001e_KGSI.l9 ; 0x71a4
 @..api_idx_001e_KGSI.l11:
-    push word [bp - 0x001e]          ; 0x71a6
+    push word [bp - 0x1e]            ; 0x71a6
     call wait_ticks_or_key           ; 0x71a9
     pop cx                           ; 0x71ac
-    mov ax, word [bp - 0x0016]       ; 0x71ad
+    mov ax, word [bp - 0x16]         ; 0x71ad
     mov word [party_tag], ax         ; 0x71b0
-    cmp word [bp - 0x0012], byte 0   ; 0x71b3
+    cmp word [bp - 0x12], byte 0     ; 0x71b3
     jle short @..api_idx_001e_KGSI.l15 ; 0x71b7
     call loc_IVLM                    ; 0x71b9
-    cmp word [bp - 0x001c], byte 1   ; 0x71bc
+    cmp word [bp - 0x1c], byte 1     ; 0x71bc
     jne short @..api_idx_001e_KGSI.l12 ; 0x71c0
-    push word [bp - 0x0012]          ; 0x71c2
+    push word [bp - 0x12]            ; 0x71c2
     call random_below                ; 0x71c5
     pop cx                           ; 0x71c8
     inc ax                           ; 0x71c9
@@ -170,7 +170,7 @@ api_idx_001e_KGSI:
     add sp, byte 4                   ; 0x71d2
     jmp short @..api_idx_001e_KGSI.l13 ; 0x71d5
 @..api_idx_001e_KGSI.l12:
-    push word [bp - 0x0012]          ; 0x71d7
+    push word [bp - 0x12]            ; 0x71d7
     push word [party_tag]            ; 0x71da
     call loc_KOGT                    ; 0x71de
     add sp, byte 4                   ; 0x71e1
@@ -184,7 +184,7 @@ api_idx_001e_KGSI:
     mov ax, party_cell_x             ; 0x71f4
     push ax                          ; 0x71f7
     call find_map_piece              ; 0x71f8
-    add sp, byte 0x0a                ; 0x71fb
+    add sp, byte 0xa                 ; 0x71fb
     cmp ax, strict word 1            ; 0x71fe
     jne short @..api_idx_001e_KGSI.l14 ; 0x7201
     mov ax, 4                        ; 0x7203
@@ -203,14 +203,14 @@ api_idx_001e_KGSI:
     mov word [region_step_flag], 0   ; 0x7223
 @..api_idx_001e_KGSI.l15:
     call redraw_maze_view            ; 0x7229
-    inc word [bp - 0x0002]           ; 0x722c
+    inc word [bp - 2]                ; 0x722c
 @..api_idx_001e_KGSI.l16:
-    mov ax, word [bp - 0x0002]       ; 0x722f
-    cmp ax, word [bp - 0x0010]       ; 0x7232
+    mov ax, word [bp - 2]            ; 0x722f
+    cmp ax, word [bp - 0x10]         ; 0x7232
     jge short @..api_idx_001e_KGSI.l17 ; 0x7235
     jmp near @..api_idx_001e_KGSI.l5 ; 0x7237
 @..api_idx_001e_KGSI.l17:
-    push word [bp - 0x001e]          ; 0x723a
+    push word [bp - 0x1e]            ; 0x723a
     call wait_ticks_or_key           ; 0x723d
     pop cx                           ; 0x7240
     ret                              ; 0x7241

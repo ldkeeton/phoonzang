@@ -2,15 +2,15 @@
 loc_JTQP:
     mov ax, 0                        ; 0x40b7
     call aztec_csav                  ; 0x40ba
-    push word [bp + 0x4]             ; 0x40bd
+    push word [bp + 4]               ; 0x40bd
     call api_idx_007c_OKMO           ; 0x40c0
     pop cx                           ; 0x40c3
-    push word [bp + 0x4]             ; 0x40c4
+    push word [bp + 4]               ; 0x40c4
     call api_idx_0080_MHMQ           ; 0x40c7
     pop cx                           ; 0x40ca
-    cmp word [bp + 0x6], byte 0      ; 0x40cb
+    cmp word [bp + 6], byte 0        ; 0x40cb
     jne short @..loc_JTQP.l1         ; 0x40cf
-    push word [bp + 0x4]             ; 0x40d1
+    push word [bp + 4]               ; 0x40d1
     call api_idx_004c_LTUL           ; 0x40d4
     pop cx                           ; 0x40d7
     call api_idx_0004_KVIP           ; 0x40d8

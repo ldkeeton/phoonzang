@@ -2,35 +2,35 @@
 draw_spell_cost:
     mov ax, 0
     call aztec_csav
-    mov ax, word [bp + 0x6]
+    mov ax, word [bp + 6]
     add ax, strict word 6
     push ax
-    mov ax, word [bp + 0x4]
+    mov ax, word [bp + 4]
     add ax, strict word 0x14
     push ax
-    push word [bp + 0x6]
-    push word [bp + 0x4]
+    push word [bp + 6]
+    push word [bp + 4]
     call draw_inset_panel
     add sp, byte 8
-    mov ax, word [bp + 0x8]
+    mov ax, word [bp + 8]
     shl ax, 1
     shl ax, 1
     mov bx, ax
-    push word [word bx + 0x8]
-    mov ax, word [bp + 0x6]
+    push word [word bx + 8]
+    mov ax, word [bp + 6]
     add ax, strict word 6
     push ax
-    mov ax, word [bp + 0x4]
+    mov ax, word [bp + 4]
     add ax, strict word 0x14
     push ax
-    push word [bp + 0x6]
-    push word [bp + 0x4]
+    push word [bp + 6]
+    push word [bp + 4]
     call gfx_fill_area
-    add sp, byte 0x0a
-    mov ax, word [bp + 0x6]
+    add sp, byte 0xa
+    mov ax, word [bp + 6]
     inc ax
     push ax
-    mov ax, word [bp + 0x4]
+    mov ax, word [bp + 4]
     inc ax
     inc ax
     push ax

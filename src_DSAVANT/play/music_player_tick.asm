@@ -103,7 +103,7 @@ loc_VHVP:
     lodsw                            ; 0x0bfb
     jmp near loc_MRJU                ; 0x0bfc
 loc_PLOS:
-    mov al, byte [cs:bx + 0x1]       ; 0x0bff
+    mov al, byte [cs:bx + 1]         ; 0x0bff
     mov byte [si], al                ; 0x0c03
 loc_TVJU:
     mov bl, byte [cs:event_command - IMAGE_BASE] ; 0x0c05

@@ -47,10 +47,10 @@ loc_RVQR:
     pop cx                           ; 0x042c
     jmp short @..loc_RVQR.l7         ; 0x042d
 @..loc_RVQR.l3:
-    mov word [bp - 0x0002], 1        ; 0x042f
+    mov word [bp - 2], 1             ; 0x042f
     jmp short @..loc_RVQR.l7         ; 0x0434
 @..loc_RVQR.l4:
-    mov word [bp - 0x0002], 2        ; 0x0436
+    mov word [bp - 2], 2             ; 0x0436
     jmp short @..loc_RVQR.l7         ; 0x043b
 @..loc_RVQR.l5:
     mov ax, 2                        ; 0x043d
@@ -67,7 +67,7 @@ loc_RVQR:
     je short @..loc_RVQR.l2          ; 0x0454
     jmp short @..loc_RVQR.l5         ; 0x0456
 @..loc_RVQR.l7:
-    push word [bp - 0x0002]          ; 0x0458
+    push word [bp - 2]               ; 0x0458
     call init_system_hardware        ; 0x045b
     pop cx                           ; 0x045e
     mov word [bss_9056], ax          ; 0x045f
@@ -86,34 +86,34 @@ loc_RVQR:
     mov word [code_check_value], 0x905c ; 0x0476
     mov al, byte [bss_5984]          ; 0x047c
     sub ah, ah                       ; 0x047f
-    mov word [bp - 0x000a], ax       ; 0x0481
+    mov word [bp - 0xa], ax          ; 0x0481
     cmp ax, strict word 6            ; 0x0484
     jne short @..loc_RVQR.l11        ; 0x0487
-    mov word [bp - 0x000a], 4        ; 0x0489
+    mov word [bp - 0xa], 4           ; 0x0489
 @..loc_RVQR.l11:
     mov ax, word [bss_5980]          ; 0x048e
-    cmp word [bp - 0x000a], byte 0   ; 0x0491
+    cmp word [bp - 0xa], byte 0      ; 0x0491
     jne short @..loc_RVQR.l12        ; 0x0495
     mov ax, 0                        ; 0x0497
 @..loc_RVQR.l12:
-    mov word [bp - 0x000c], ax       ; 0x049a
-    push word [bp - 0x000a]          ; 0x049d
+    mov word [bp - 0xc], ax          ; 0x049a
+    push word [bp - 0xa]             ; 0x049d
     push ax                          ; 0x04a0
     call ds_loc_QURR                 ; 0x04a1
     add sp, byte 4                   ; 0x04a4
     mov word [code_check_word], 0x905c ; 0x04a7
     mov word [mouse_active], 0       ; 0x04ad
     mov word [hotspot_hit], 0        ; 0x04b3
-    mov word [bp - 0x0006], 0        ; 0x04b9
+    mov word [bp - 6], 0             ; 0x04b9
 @..loc_RVQR.l13:
     mov ax, 0x64                     ; 0x04be
     push ax                          ; 0x04c1
     call random_below                ; 0x04c2
     pop cx                           ; 0x04c5
-    mov bx, word [bp - 0x0006]       ; 0x04c6
+    mov bx, word [bp - 6]            ; 0x04c6
     mov byte [bx + code_characters], al ; 0x04c9
-    inc word [bp - 0x0006]           ; 0x04cd
-    mov ax, word [bp - 0x0006]       ; 0x04d0
+    inc word [bp - 6]                ; 0x04cd
+    mov ax, word [bp - 6]            ; 0x04d0
     cmp ax, strict word 0x64         ; 0x04d3
     jl short @..loc_RVQR.l13         ; 0x04d6
     call set_code_check_value        ; 0x04d8
@@ -275,24 +275,24 @@ loc_RVQR:
     cmp ax, strict word 4            ; 0x0646
     jl short @..loc_RVQR.l18         ; 0x0649
     mov word [message_cache_next], 0 ; 0x064b
-    mov word [bp - 0x0006], 0        ; 0x0651
+    mov word [bp - 6], 0             ; 0x0651
 @..loc_RVQR.l19:
-    mov ax, word [bp - 0x0006]       ; 0x0656
+    mov ax, word [bp - 6]            ; 0x0656
     shl ax, 1                        ; 0x0659
     mov bx, ax                       ; 0x065b
     mov word [bx + saved_screen_kind], 0xffff ; 0x065d
     mov ax, 0x14                     ; 0x0663
-    imul word [bp - 0x0006]          ; 0x0666
+    imul word [bp - 6]               ; 0x0666
     mov bx, ax                       ; 0x0669
     mov byte [bx + saved_screen_file], 0 ; 0x066b
-    mov ax, word [bp - 0x0006]       ; 0x0670
+    mov ax, word [bp - 6]            ; 0x0670
     shl ax, 1                        ; 0x0673
     shl ax, 1                        ; 0x0675
     mov bx, ax                       ; 0x0677
     mov word [bx + saved_screen_ref + 0x2], 0 ; 0x0679
     mov word [bx + saved_screen_ref], 0 ; 0x067f
-    inc word [bp - 0x0006]           ; 0x0685
-    mov ax, word [bp - 0x0006]       ; 0x0688
+    inc word [bp - 6]                ; 0x0685
+    mov ax, word [bp - 6]            ; 0x0688
     cmp ax, strict word 5            ; 0x068b
     jl short @..loc_RVQR.l19         ; 0x068e
     mov ax, 0                        ; 0x0690
@@ -486,7 +486,7 @@ loc_RVQR:
     push ax                          ; 0x086b
     call aztec_open                  ; 0x086c
     add sp, byte 4                   ; 0x086f
-    mov word [bp - 0x0004], ax       ; 0x0872
+    mov word [bp - 4], ax            ; 0x0872
     cmp ax, strict word 0xffff       ; 0x0875
     jne short @..loc_RVQR.l31        ; 0x0878
     mov ax, 0xe                      ; 0x087a
@@ -496,15 +496,15 @@ loc_RVQR:
 @..loc_RVQR.l31:
     mov ax, 0x300                    ; 0x0882
     push ax                          ; 0x0885
-    lea ax, word [bp - 0x031a]       ; 0x0886
+    lea ax, word [bp - 0x31a]        ; 0x0886
     push ax                          ; 0x088a
-    push word [bp - 0x0004]          ; 0x088b
+    push word [bp - 4]               ; 0x088b
     call aztec_read                  ; 0x088e
     add sp, byte 6                   ; 0x0891
-    push word [bp - 0x0004]          ; 0x0894
+    push word [bp - 4]               ; 0x0894
     call aztec_close                 ; 0x0897
     pop cx                           ; 0x089a
-    lea ax, word [bp - 0x031a]       ; 0x089b
+    lea ax, word [bp - 0x31a]        ; 0x089b
     push ax                          ; 0x089f
     mov al, byte [bss_5979]          ; 0x08a0
     cbw                              ; 0x08a3

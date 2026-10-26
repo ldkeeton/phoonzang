@@ -6,7 +6,7 @@ free_driver_blocks:
     mov bx, word [cs:si]             ; 0x3764
     or bx, bx                        ; 0x3767
     je short @..free_driver_blocks.l2 ; 0x3769
-    mov bx, word [cs:si + 0x2]       ; 0x376b
+    mov bx, word [cs:si + 2]         ; 0x376b
     mov es, bx                       ; 0x376f
     mov ah, 0x49                     ; 0x3771
     push si                          ; 0x3773

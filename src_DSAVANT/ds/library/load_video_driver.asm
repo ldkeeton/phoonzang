@@ -6,7 +6,7 @@ load_video_driver:
     mov al, 0                        ; 0x3538
     mov bx, cs                       ; 0x353a
     mov ds, bx                       ; 0x353c
-    mov dx, word [bp - 0x0004]       ; 0x353e
+    mov dx, word [bp - 4]            ; 0x353e
     int 0x21 ; DOS open file handle
     jb short @..load_video_driver.l3 ; 0x3543
     mov word [cs:drv_file_handle - IMAGE_BASE], ax ; 0x3545

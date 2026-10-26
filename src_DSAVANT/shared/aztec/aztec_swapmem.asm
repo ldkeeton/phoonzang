@@ -6,9 +6,9 @@ aztec_swapmem:
     push di
     mov di, ds
     mov es, di
-    mov si, word [bp + 0x4]
-    mov di, word [bp + 0x6]
-    mov cx, word [bp + 0x8]
+    mov si, word [bp + 4]
+    mov di, word [bp + 6]
+    mov cx, word [bp + 8]
     jcxz @..aztec_swapmem.done
     cmp di, si
     je short @..aztec_swapmem.done

@@ -4,7 +4,7 @@ loc_LMUG:
     call aztec_csav                  ; 0x0ea9
     les bx, word [tick_counter_ptr]  ; 0x0eac
     mov ax, word [es:bx]             ; 0x0eb0
-    mov dx, word [es:bx + 0x2]       ; 0x0eb3
+    mov dx, word [es:bx + 2]         ; 0x0eb3
     cmp dx, word [bss_919c]          ; 0x0eb7
     jl short @..loc_LMUG.l1          ; 0x0ebb
     jne short @..loc_LMUG.l2         ; 0x0ebd
@@ -40,14 +40,14 @@ loc_LMUG:
     adc dx, bx                       ; 0x0ef4
     les bx, word [tick_counter_ptr]  ; 0x0ef6
     mov cx, word [es:bx]             ; 0x0efa
-    mov bx, word [es:bx + 0x2]       ; 0x0efd
+    mov bx, word [es:bx + 2]         ; 0x0efd
     add ax, cx                       ; 0x0f01
     adc dx, bx                       ; 0x0f03
     mov word [bss_919c], dx          ; 0x0f05
     mov word [bss_919a], ax          ; 0x0f09
     jmp short @..loc_LMUG.l7         ; 0x0f0c
 @..loc_LMUG.l6:
-    cmp word [bp + 0x4], byte 0      ; 0x0f0e
+    cmp word [bp + 4], byte 0        ; 0x0f0e
     je short @..loc_LMUG.l7          ; 0x0f12
     mov ax, 0xa                      ; 0x0f14
     push ax                          ; 0x0f17
@@ -60,7 +60,7 @@ loc_HVLG:
     call aztec_csav                  ; 0x0f20
     les bx, word [tick_counter_ptr]  ; 0x0f23
     mov ax, word [es:bx]             ; 0x0f27
-    mov dx, word [es:bx + 0x2]       ; 0x0f2a
+    mov dx, word [es:bx + 2]         ; 0x0f2a
     sub ax, word [party_redraw_last_tick] ; 0x0f2e
     sbb dx, word [party_redraw_last_tick_hi] ; 0x0f32
     push ax                          ; 0x0f36
@@ -81,7 +81,7 @@ loc_HVLG:
 @..loc_HVLG.l2:
     les bx, word [tick_counter_ptr]  ; 0x0f4e
     mov ax, word [es:bx]             ; 0x0f52
-    mov dx, word [es:bx + 0x2]       ; 0x0f55
+    mov dx, word [es:bx + 2]         ; 0x0f55
     mov word [party_redraw_last_tick_hi], dx ; 0x0f59
     mov word [party_redraw_last_tick], ax ; 0x0f5d
     mov ax, 1                        ; 0x0f60

@@ -8,7 +8,7 @@ __zinsn_09a3:
     mov ax, 0                        ; 0x09a3
     mov ds, ax                       ; 0x09a6
 __zinsn_09a8:
-    mov al, byte [0x0000]            ; 0x09a8
+    mov al, byte [0]                 ; 0x09a8
     mov dx, word [cs:cseg_0a8d - IMAGE_BASE] ; 0x09ab
     mov bx, sample_count_table - IMAGE_BASE ; 0x09b0
     cs xlatb                         ; 0x09b3

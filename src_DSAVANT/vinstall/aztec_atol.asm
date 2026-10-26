@@ -5,7 +5,7 @@ aztec_atol:
     add sp, byte 0xfc                ; 0x287a
     push di                          ; 0x287d
     push si                          ; 0x287e
-    mov si, word [bp + 0x4]          ; 0x287f
+    mov si, word [bp + 4]            ; 0x287f
 @..aztec_atol.l1:
     cmp byte [si], 0x20              ; 0x2882
     je short @..aztec_atol.l2        ; 0x2885
@@ -26,12 +26,12 @@ aztec_atol:
     jne short @..aztec_atol.l5       ; 0x28a0
     inc si                           ; 0x28a2
 @..aztec_atol.l5:
-    mov word [bp - 0x0002], 0        ; 0x28a3
-    mov word [bp - 0x0004], 0        ; 0x28a8
+    mov word [bp - 2], 0             ; 0x28a3
+    mov word [bp - 4], 0             ; 0x28a8
     jmp short @..aztec_atol.l7       ; 0x28ad
 @..aztec_atol.l6:
-    mov ax, word [bp - 0x0004]       ; 0x28af
-    mov dx, word [bp - 0x0002]       ; 0x28b2
+    mov ax, word [bp - 4]            ; 0x28af
+    mov dx, word [bp - 2]            ; 0x28b2
     push ax                          ; 0x28b5
     xchg dx, ax                      ; 0x28b6
     mov bx, 0xa                      ; 0x28b7
@@ -55,8 +55,8 @@ aztec_atol:
     adc dx, bx                       ; 0x28d4
     add ax, strict word 0xffd0       ; 0x28d6
     adc dx, byte 0xff                ; 0x28d9
-    mov word [bp - 0x0002], dx       ; 0x28dc
-    mov word [bp - 0x0004], ax       ; 0x28df
+    mov word [bp - 2], dx            ; 0x28dc
+    mov word [bp - 4], ax            ; 0x28df
 @..aztec_atol.l7:
     mov al, byte [si]                ; 0x28e2
     cbw                              ; 0x28e4
@@ -65,8 +65,8 @@ aztec_atol:
     cbw                              ; 0x28eb
     test ax, 4                       ; 0x28ec
     jne short @..aztec_atol.l6       ; 0x28ef
-    mov ax, word [bp - 0x0004]       ; 0x28f1
-    mov dx, word [bp - 0x0002]       ; 0x28f4
+    mov ax, word [bp - 4]            ; 0x28f1
+    mov dx, word [bp - 2]            ; 0x28f4
     test di, di                      ; 0x28f7
     je short @..aztec_atol.l8        ; 0x28f9
     neg dx                           ; 0x28fb

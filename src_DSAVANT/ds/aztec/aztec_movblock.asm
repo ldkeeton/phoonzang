@@ -9,8 +9,8 @@ aztec_movblock:
     pushf                            ; 0x451e
     cld                              ; 0x451f
     mov cx, word [bp + 0xc]          ; 0x4520
-    les di, word [bp + 0x8]          ; 0x4523
-    lds si, word [bp + 0x4]          ; 0x4526
+    les di, word [bp + 8]            ; 0x4523
+    lds si, word [bp + 4]            ; 0x4526
     cmp cx, byte 4                   ; 0x4529
     jne short @..aztec_movblock.not_int ; 0x452c
     cli                              ; 0x452e

@@ -61,7 +61,7 @@ string_loc_SLGG:
     jmp short @..string_loc_SLGG.l5  ; 0x0dec
 @..string_loc_SLGG.l6:
     mov byte [cs:cseg_0d45 - IMAGE_BASE], 1 ; 0x0dee
-    mov al, byte [cs:bx + 0x1]       ; 0x0df4
+    mov al, byte [cs:bx + 1]         ; 0x0df4
     mov byte [cs:cseg_0d46 - IMAGE_BASE], al ; 0x0df8
 @..string_loc_SLGG.l7:
     pop es                           ; 0x0dfc

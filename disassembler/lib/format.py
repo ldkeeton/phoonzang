@@ -123,16 +123,13 @@ def _has_prefix(insn, prefix_byte):
     return insn.bytes[0] == prefix_byte
 
 
+def _fmt_num(v):
+    """Decimal below 10, otherwise ``0x`` + unpadded hex (matches deziggler ``num``)."""
+    return str(v) if v < 10 else f'0x{v:x}'
+
+
 def _fmt_imm(val, bits=16):
-    mask = (1 << bits) - 1
-    uval = val & mask
-    if uval <= 9:
-        return str(uval)
-    if bits <= 8:
-        return f'0x{uval:02x}'
-    if uval < 0x1000:
-        return f'0x{uval:x}'
-    return f'0x{uval:04x}'
+    return _fmt_num(val & ((1 << bits) - 1))
 
 
 def _fmt_mem(op, insn, op_index=None, data_labels=None, foreign_label_map=None,
@@ -188,11 +185,11 @@ def _fmt_mem(op, insn, op_index=None, data_labels=None, foreign_label_map=None,
         elif foreign_label_map and addr in foreign_label_map:
             ea = foreign_label_map[addr]
         else:
-            ea = f'0x{addr:04x}'
+            ea = _fmt_num(addr)
     elif disp < 0:
-        ea = f'{inner} - 0x{(-disp & 0xFFFF):04x}'
+        ea = f'{inner} - {_fmt_num(-disp & 0xFFFF)}'
     elif disp > 0:
-        ea = f'{inner} + 0x{disp:x}'
+        ea = f'{inner} + {_fmt_num(disp)}'
     else:
         ea = inner
 

@@ -2,7 +2,7 @@
 cache_area:
     push bp
     mov bp, sp
-    sub sp, byte 0x0e
+    sub sp, byte 0xe
     push es
     push ds
     push di
@@ -14,20 +14,20 @@ cache_area:
     mov ax, word [bp + 0x10]
     sub ax, word [bp + 0xc]
     inc ax
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     mov bx, word [bp + 0x12]
     sub bx, word [bp + 0xe]
     inc bx
-    mov word [bp - 0x0004], bx
+    mov word [bp - 4], bx
     mul bx
-    mov word [bp - 0x0008], ax
-    mov word [bp - 0x000a], dx
+    mov word [bp - 8], ax
+    mov word [bp - 0xa], dx
     mov ax, word [bp + 0xe]
     mov bx, 0x140
     mul bx
     add ax, word [bp + 0xc]
-    mov word [bp - 0x0002], ax
-    lea bx, word [bp - 0x000a]
+    mov word [bp - 2], ax
+    lea bx, word [bp - 0xa]
     mov dx, bx
     mov ax, ss
     mov ds, ax
@@ -40,19 +40,19 @@ cache_area:
 @..cache_area.l1:
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
     mov ds, ax
-    mov cx, word [bp - 0x0004]
+    mov cx, word [bp - 4]
 @..cache_area.l2:
     push cx
-    mov dx, word [bp - 0x0002]
-    add word [bp - 0x0002], strict word 0x140
-    mov cx, word [bp - 0x0006]
+    mov dx, word [bp - 2]
+    add word [bp - 2], strict word 0x140
+    mov cx, word [bp - 6]
     mov bx, word [bp + 0x16]
     mov ah, 0x40
     int 0x21 ; DOS write file (handle)
     jae short @..cache_area.l3
     jmp near cache_area_disk_error
 @..cache_area.l3:
-    cmp ax, word [bp - 0x0006]
+    cmp ax, word [bp - 6]
     je short @..cache_area.l4
     jmp near cache_area_disk_error
 @..cache_area.l4:
@@ -69,26 +69,26 @@ cache_area:
     mov ax, word [bp + 0x10]
     sub ax, word [bp + 0xc]
     inc ax
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     mov bx, word [bp + 0x12]
     sub bx, word [bp + 0xe]
     inc bx
-    mov word [bp - 0x0004], bx
+    mov word [bp - 4], bx
     mul bx
-    mov word [bp - 0x0008], ax
-    mov word [bp - 0x000a], dx
+    mov word [bp - 8], ax
+    mov word [bp - 0xa], dx
     add ax, strict word 0xc
     add ax, strict word 0xf
     mov cl, 4
     shr ax, cl
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     add ax, word [cs:maze_paras_used - IMAGE_BASE]
     cmp ax, 0x4180
     jbe short @..cache_area.l7
     jmp near cache_area_maze_mem_full
 @..cache_area.l7:
     mov bx, word [cs:maze_paras_used - IMAGE_BASE]
-    mov word [bp - 0x000e], bx
+    mov word [bp - 0xe], bx
     mov word [cs:maze_paras_used - IMAGE_BASE], ax
     mov bx, maze_slots - IMAGE_BASE
     mov cx, 0x10
@@ -102,7 +102,7 @@ cache_area:
     loop @..cache_area.l8
     jmp near cache_area_maze_slots_full
 @..cache_area.l9:
-    mov word [bp - 0x000c], dx
+    mov word [bp - 0xc], dx
     mov ax, word [cs:maze_block_count - IMAGE_BASE]
     inc ax
     mov word [cs:maze_block_count - IMAGE_BASE], ax
@@ -112,65 +112,65 @@ cache_area:
     shl ax, cl
     mov bx, maze_blocks - IMAGE_BASE
     add bx, ax
-    mov ax, word [bp - 0x000e]
+    mov ax, word [bp - 0xe]
     mov word [cs:bx], ax
     add ax, word [cs:maze_mem_seg - IMAGE_BASE]
     mov es, ax
-    mov ax, word [bp - 0x0002]
-    mov word [cs:bx + 0x2], ax
+    mov ax, word [bp - 2]
+    mov word [cs:bx + 2], ax
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
     mov ds, ax
     mov ax, word [bp + 0xe]
     mov bx, 0x140
     mul bx
     add ax, word [bp + 0xc]
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     xor di, di
     stosw
     xor ax, ax
     stosw
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     stosw
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
     stosw
-    mov ax, word [bp - 0x0008]
+    mov ax, word [bp - 8]
     stosw
-    mov ax, word [bp - 0x000a]
+    mov ax, word [bp - 0xa]
     stosw
 @..cache_area.l10:
-    mov si, word [bp - 0x0002]
-    add word [bp - 0x0002], strict word 0x140
-    mov cx, word [bp - 0x0006]
+    mov si, word [bp - 2]
+    add word [bp - 2], strict word 0x140
+    mov cx, word [bp - 6]
     rep movsb
-    dec word [bp - 0x0004]
+    dec word [bp - 4]
     jne short @..cache_area.l10
-    mov ax, word [bp - 0x000c]
+    mov ax, word [bp - 0xc]
     mov dx, word [bp + 0x14]
     jmp near cache_area_restore_and_return
 @..cache_area.l11:
     mov ax, word [bp + 0x10]
     sub ax, word [bp + 0xc]
     inc ax
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     mov bx, word [bp + 0x12]
     sub bx, word [bp + 0xe]
     inc bx
-    mov word [bp - 0x0004], bx
+    mov word [bp - 4], bx
     mul bx
-    mov word [bp - 0x0008], ax
-    mov word [bp - 0x000a], dx
+    mov word [bp - 8], ax
+    mov word [bp - 0xa], dx
     add ax, strict word 0xc
     add ax, strict word 0xf
     mov cl, 4
     shr ax, cl
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     add ax, word [cs:ems_paras_used - IMAGE_BASE]
     cmp ax, word [cs:ems_para_limit - IMAGE_BASE]
     jbe short @..cache_area.l12
     jmp near cache_area_out_of_ems
 @..cache_area.l12:
     mov bx, word [cs:ems_paras_used - IMAGE_BASE]
-    mov word [bp - 0x000e], bx
+    mov word [bp - 0xe], bx
     mov word [cs:ems_paras_used - IMAGE_BASE], ax
     mov bx, ems_slots - IMAGE_BASE
     mov cx, 0x14
@@ -184,7 +184,7 @@ cache_area:
     loop @..cache_area.l13
     jmp near cache_area_ems_slots_full
 @..cache_area.l14:
-    mov word [bp - 0x000c], dx
+    mov word [bp - 0xc], dx
     mov ax, word [cs:ems_block_count - IMAGE_BASE]
     inc ax
     mov word [cs:ems_block_count - IMAGE_BASE], ax
@@ -194,13 +194,13 @@ cache_area:
     shl ax, cl
     mov bx, ems_blocks - IMAGE_BASE
     add bx, ax
-    mov ax, word [bp - 0x000e]
+    mov ax, word [bp - 0xe]
     mov word [cs:bx], ax
-    mov ax, word [bp - 0x0002]
-    mov word [cs:bx + 0x2], ax
+    mov ax, word [bp - 2]
+    mov word [cs:bx + 2], ax
     mov ax, word [cs:ems_frame_seg - IMAGE_BASE]
     mov es, ax
-    mov ax, word [bp - 0x000e]
+    mov ax, word [bp - 0xe]
     mov di, ax
     and di, strict word 0x3ff
     mov cl, 4
@@ -215,22 +215,22 @@ cache_area:
     mov bx, 0x140
     mul bx
     add ax, word [bp + 0xc]
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     stosw
     xor ax, ax
     stosw
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     stosw
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
     stosw
-    mov ax, word [bp - 0x0008]
+    mov ax, word [bp - 8]
     stosw
-    mov ax, word [bp - 0x000a]
+    mov ax, word [bp - 0xa]
     stosw
 @..cache_area.l15:
-    mov si, word [bp - 0x0002]
-    add word [bp - 0x0002], strict word 0x140
-    mov cx, word [bp - 0x0006]
+    mov si, word [bp - 2]
+    add word [bp - 2], strict word 0x140
+    mov cx, word [bp - 6]
     rep movsb
     test di, 0xc000
     je short @..cache_area.l16
@@ -239,8 +239,8 @@ cache_area:
     call ems_map_pages
     and di, strict word 0x3fff
 @..cache_area.l16:
-    dec word [bp - 0x0004]
+    dec word [bp - 4]
     jne short @..cache_area.l15
-    mov ax, word [bp - 0x000c]
+    mov ax, word [bp - 0xc]
     mov dx, word [bp + 0x14]
     jmp near cache_area_restore_and_return

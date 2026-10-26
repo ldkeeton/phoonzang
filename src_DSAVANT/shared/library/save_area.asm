@@ -2,7 +2,7 @@
 save_area:
     push bp
     mov bp, sp
-    sub sp, byte 0x0a
+    sub sp, byte 0xa
     push es
     push ds
     push di
@@ -12,14 +12,14 @@ save_area:
     mov ax, word [bp + 0x10]
     sub ax, word [bp + 0xc]
     inc ax
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     mov bx, word [bp + 0x12]
     sub bx, word [bp + 0xe]
     inc bx
-    mov word [bp - 0x0004], bx
+    mov word [bp - 4], bx
     mul bx
-    mov word [bp - 0x0008], ax
-    mov word [bp - 0x000a], dx
+    mov word [bp - 8], ax
+    mov word [bp - 0xa], dx
     add ax, strict word 0xc
     add ax, strict word 0xf
     mov cl, 4
@@ -38,24 +38,24 @@ save_area:
     mov bx, 0x140
     mul bx
     add ax, word [bp + 0xc]
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     stosw
     xor ax, ax
     stosw
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     stosw
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
     stosw
-    mov ax, word [bp - 0x0008]
+    mov ax, word [bp - 8]
     stosw
-    mov ax, word [bp - 0x000a]
+    mov ax, word [bp - 0xa]
     stosw
 @..save_area.l2:
-    mov si, word [bp - 0x0002]
-    add word [bp - 0x0002], strict word 0x140
-    mov cx, word [bp - 0x0006]
+    mov si, word [bp - 2]
+    add word [bp - 2], strict word 0x140
+    mov cx, word [bp - 6]
     rep movsb
-    dec word [bp - 0x0004]
+    dec word [bp - 4]
     jne short @..save_area.l2
     mov dx, es
     xor ax, ax

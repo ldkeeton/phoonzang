@@ -13,22 +13,22 @@ fill_area:
     mov bx, 0x140
     mul bx
     add ax, word [bp + 0xc]
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     mov ax, word [bp + 0x12]
     sub ax, word [bp + 0xe]
     inc ax
-    mov word [bp - 0x0004], ax
+    mov word [bp - 4], ax
     mov ax, word [bp + 0x10]
     sub ax, word [bp + 0xc]
     inc ax
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     mov ax, word [bp + 0x14]
 @..fill_area.l1:
-    mov di, word [bp - 0x0002]
-    add word [bp - 0x0002], strict word 0x140
-    mov cx, word [bp - 0x0006]
+    mov di, word [bp - 2]
+    add word [bp - 2], strict word 0x140
+    mov cx, word [bp - 6]
     rep stosb
-    dec word [bp - 0x0004]
+    dec word [bp - 4]
     jne short @..fill_area.l1
     pop di
     pop es

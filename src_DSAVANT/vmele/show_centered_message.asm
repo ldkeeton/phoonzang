@@ -8,10 +8,10 @@ show_centered_message:
     pop cx                           ; 0x0317
     mov ax, 2                        ; 0x0318
     push ax                          ; 0x031b
-    push word [bp + 0x4]             ; 0x031c
+    push word [bp + 4]               ; 0x031c
     call measure_text_width          ; 0x031f
     add sp, byte 4                   ; 0x0322
-    mov word [bp - 0x0006], ax       ; 0x0325
+    mov word [bp - 6], ax            ; 0x0325
     inc ax                           ; 0x0328
     mov cx, 2                        ; 0x0329
     cwd                              ; 0x032c
@@ -19,9 +19,9 @@ show_centered_message:
     mov cx, ax                       ; 0x032f
     mov ax, 0xa0                     ; 0x0331
     sub ax, cx                       ; 0x0334
-    mov word [bp - 0x0002], ax       ; 0x0336
-    add ax, word [bp - 0x0006]       ; 0x0339
-    mov word [bp - 0x0004], ax       ; 0x033c
+    mov word [bp - 2], ax            ; 0x0336
+    add ax, word [bp - 6]            ; 0x0339
+    mov word [bp - 4], ax            ; 0x033c
     mov ax, 0                        ; 0x033f
     push ax                          ; 0x0342
     mov ax, 0x55                     ; 0x0343
@@ -30,34 +30,34 @@ show_centered_message:
     add sp, byte 4                   ; 0x034a
     mov ax, 0xa4                     ; 0x034d
     push ax                          ; 0x0350
-    push word [bp - 0x0002]          ; 0x0351
+    push word [bp - 2]               ; 0x0351
     call gfx_set_text_pos            ; 0x0354
     add sp, byte 4                   ; 0x0357
     mov ax, 2                        ; 0x035a
     push ax                          ; 0x035d
-    push word [bp + 0x4]             ; 0x035e
+    push word [bp + 4]               ; 0x035e
     call draw_text_glyphs            ; 0x0361
     add sp, byte 4                   ; 0x0364
     mov ax, word [loaded_sound_id]   ; 0x0367
-    mov word [bp - 0x000c], ax       ; 0x036a
-    push word [bp + 0x6]             ; 0x036d
+    mov word [bp - 0xc], ax          ; 0x036a
+    push word [bp + 6]               ; 0x036d
     call ensure_sound_loaded         ; 0x0370
     pop cx                           ; 0x0373
     mov ax, 0xb0                     ; 0x0374
     push ax                          ; 0x0377
-    push word [bp - 0x0004]          ; 0x0378
+    push word [bp - 4]               ; 0x0378
     mov ax, 0xa4                     ; 0x037b
     push ax                          ; 0x037e
-    push word [bp - 0x0002]          ; 0x037f
+    push word [bp - 2]               ; 0x037f
     call gfx_show_area               ; 0x0382
     add sp, byte 8                   ; 0x0385
     mov ax, 0x10                     ; 0x0388
     push ax                          ; 0x038b
     call play_sound_effect           ; 0x038c
     pop cx                           ; 0x038f
-    cmp word [bp - 0x000c], byte 0xff ; 0x0390
+    cmp word [bp - 0xc], byte 0xff   ; 0x0390
     je short @..show_centered_message.l1 ; 0x0394
-    push word [bp - 0x000c]          ; 0x0396
+    push word [bp - 0xc]             ; 0x0396
     call ensure_sound_loaded         ; 0x0399
     pop cx                           ; 0x039c
     jmp short @..show_centered_message.l2 ; 0x039d

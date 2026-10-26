@@ -18,7 +18,7 @@ loc_GOTP_17f0:
     sar ax, 1                        ; 0x1808
     mov cx, ax                       ; 0x180a
     mov bx, word [cs:cseg_0d43 - IMAGE_BASE] ; 0x180c
-    cmp bx, byte 0x0c                ; 0x1811
+    cmp bx, byte 0xc                 ; 0x1811
     jb short @..loc_GOTP_17f0.l3     ; 0x1814
     mov bx, 0xa                      ; 0x1816
 @..loc_GOTP_17f0.l3:

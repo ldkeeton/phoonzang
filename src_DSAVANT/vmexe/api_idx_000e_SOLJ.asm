@@ -3,38 +3,38 @@ api_idx_000e_SOLJ:
     mov ax, 0xfff2                   ; 0x91b5
     call aztec_csav                  ; 0x91b8
     mov word [bss_90e4], 0           ; 0x91bb
-    mov bx, word [bp + 0x4]          ; 0x91c1
+    mov bx, word [bp + 4]            ; 0x91c1
     mov al, byte [bx + 0x1f]         ; 0x91c4
     sub ah, ah                       ; 0x91c7
-    mov word [bp - 0x0002], ax       ; 0x91c9
+    mov word [bp - 2], ax            ; 0x91c9
     mov al, byte [bx + 0x20]         ; 0x91cc
     sub ah, ah                       ; 0x91cf
-    mov word [bp - 0x0004], ax       ; 0x91d1
-    mov word [bp - 0x0006], 1        ; 0x91d4
-    mov word [bp - 0x000a], 0        ; 0x91d9
+    mov word [bp - 4], ax            ; 0x91d1
+    mov word [bp - 6], 1             ; 0x91d4
+    mov word [bp - 0xa], 0           ; 0x91d9
 @..api_idx_000e_SOLJ.l1:
     mov ax, 0x19                     ; 0x91de
-    imul word [bp - 0x000a]          ; 0x91e1
+    imul word [bp - 0xa]             ; 0x91e1
     add ax, strict word 0x19         ; 0x91e4
-    mov bx, word [bp + 0x4]          ; 0x91e7
-    mov cx, word [bx + 0x2]          ; 0x91ea
+    mov bx, word [bp + 4]            ; 0x91e7
+    mov cx, word [bx + 2]            ; 0x91ea
     cmp ax, cx                       ; 0x91ed
     jge short @..api_idx_000e_SOLJ.l2 ; 0x91ef
-    inc word [bp - 0x0006]           ; 0x91f1
+    inc word [bp - 6]                ; 0x91f1
 @..api_idx_000e_SOLJ.l2:
-    inc word [bp - 0x000a]           ; 0x91f4
-    mov ax, word [bp - 0x000a]       ; 0x91f7
+    inc word [bp - 0xa]              ; 0x91f4
+    mov ax, word [bp - 0xa]          ; 0x91f7
     cmp ax, strict word 6            ; 0x91fa
     jl short @..api_idx_000e_SOLJ.l1 ; 0x91fd
-    mov ax, word [bp - 0x0006]       ; 0x91ff
-    mov bx, word [bp + 0x4]          ; 0x9202
-    mov cx, word [bx + 0x6]          ; 0x9205
+    mov ax, word [bp - 6]            ; 0x91ff
+    mov bx, word [bp + 4]            ; 0x9202
+    mov cx, word [bx + 6]            ; 0x9205
     mov bx, cx                       ; 0x9208
     imul bx                          ; 0x920a
     push ax                          ; 0x920c
     push dx                          ; 0x920d
-    mov bx, word [bp + 0x4]          ; 0x920e
-    mov ax, word [bx + 0x8]          ; 0x9211
+    mov bx, word [bp + 4]            ; 0x920e
+    mov ax, word [bx + 8]            ; 0x9211
     cwd                              ; 0x9214
     mov cx, ax                       ; 0x9215
     mov bx, dx                       ; 0x9217
@@ -42,21 +42,21 @@ api_idx_000e_SOLJ:
     pop ax                           ; 0x921a
     call aztec_ldv                   ; 0x921b
     inc ax                           ; 0x921e
-    mov word [bp - 0x0006], ax       ; 0x921f
+    mov word [bp - 6], ax            ; 0x921f
     cmp ax, strict word 1            ; 0x9222
     jge short @..api_idx_000e_SOLJ.l3 ; 0x9225
-    mov word [bp - 0x0006], 1        ; 0x9227
+    mov word [bp - 6], 1             ; 0x9227
 @..api_idx_000e_SOLJ.l3:
-    cmp word [bp - 0x0006], byte 6   ; 0x922c
+    cmp word [bp - 6], byte 6        ; 0x922c
     jle short @..api_idx_000e_SOLJ.l4 ; 0x9230
-    mov word [bp - 0x0006], 6        ; 0x9232
+    mov word [bp - 6], 6             ; 0x9232
 @..api_idx_000e_SOLJ.l4:
-    mov ax, word [bp - 0x0006]       ; 0x9237
+    mov ax, word [bp - 6]            ; 0x9237
     shl ax, 1                        ; 0x923a
     shl ax, 1                        ; 0x923c
-    mov word [bp - 0x0008], ax       ; 0x923e
-    mov word [bp - 0x000e], 0        ; 0x9241
-    mov bx, word [bp + 0x4]          ; 0x9246
+    mov word [bp - 8], ax            ; 0x923e
+    mov word [bp - 0xe], 0           ; 0x9241
+    mov bx, word [bp + 4]            ; 0x9246
     mov ax, word [bx + 0xa]          ; 0x9249
     jmp near @..api_idx_000e_SOLJ.l11 ; 0x924c
 jumptable_9808_case_1:
@@ -71,7 +71,7 @@ jumptable_9808_case_1:
     mov ax, MSG_BREATHES             ; 0x925f
     push ax                          ; 0x9262
     call api_idx_0006_MRPM           ; 0x9263
-    add sp, byte 0x0a                ; 0x9266
+    add sp, byte 0xa                 ; 0x9266
     mov ax, 0xb                      ; 0x9269
     push ax                          ; 0x926c
     mov ax, 1                        ; 0x926d
@@ -80,37 +80,37 @@ jumptable_9808_case_1:
     push ax                          ; 0x9274
     mov ax, 0                        ; 0x9275
     push ax                          ; 0x9278
-    push word [bp - 0x0002]          ; 0x9279
+    push word [bp - 2]               ; 0x9279
     call api_idx_0004_PMSR           ; 0x927c
-    add sp, byte 0x0a                ; 0x927f
-    push word [bp - 0x0008]          ; 0x9282
+    add sp, byte 0xa                 ; 0x927f
+    push word [bp - 8]               ; 0x9282
     mov ax, 1                        ; 0x9285
     push ax                          ; 0x9288
-    push word [bp - 0x0006]          ; 0x9289
+    push word [bp - 6]               ; 0x9289
     mov ax, 5                        ; 0x928c
     push ax                          ; 0x928f
     mov ax, 2                        ; 0x9290
     push ax                          ; 0x9293
     mov ax, 0                        ; 0x9294
-    sub ax, word [bp - 0x0006]       ; 0x9297
+    sub ax, word [bp - 6]            ; 0x9297
     push ax                          ; 0x929a
-    push word [bp - 0x0002]          ; 0x929b
+    push word [bp - 2]               ; 0x929b
     call api_idx_000a_PJIK           ; 0x929e
-    add sp, byte 0x0e                ; 0x92a1
+    add sp, byte 0xe                 ; 0x92a1
     mov ax, 4                        ; 0x92a4
     push ax                          ; 0x92a7
     call random_below                ; 0x92a8
     pop cx                           ; 0x92ab
     push ax                          ; 0x92ac
-    mov bx, word [bp + 0x4]          ; 0x92ad
-    mov ax, word [bx + 0x8]          ; 0x92b0
+    mov bx, word [bp + 4]            ; 0x92ad
+    mov ax, word [bx + 8]            ; 0x92b0
     mov cx, 6                        ; 0x92b3
     cwd                              ; 0x92b6
     idiv cx                          ; 0x92b7
     mov cx, ax                       ; 0x92b9
     pop ax                           ; 0x92bb
     add ax, cx                       ; 0x92bc
-    mov word [bp - 0x000e], ax       ; 0x92be
+    mov word [bp - 0xe], ax          ; 0x92be
     jmp near jumptable_9808_case_0   ; 0x92c1
 jumptable_9808_case_2:
     mov ax, 1                        ; 0x92c4
@@ -124,7 +124,7 @@ jumptable_9808_case_2:
     mov ax, MSG_SQUIRTS              ; 0x92d4
     push ax                          ; 0x92d7
     call api_idx_0006_MRPM           ; 0x92d8
-    add sp, byte 0x0a                ; 0x92db
+    add sp, byte 0xa                 ; 0x92db
     push word [bss_90de]             ; 0x92de
     mov ax, 0                        ; 0x92e2
     push ax                          ; 0x92e5
@@ -132,16 +132,16 @@ jumptable_9808_case_2:
     push ax                          ; 0x92e9
     mov ax, 0                        ; 0x92ea
     push ax                          ; 0x92ed
-    push word [bp - 0x0002]          ; 0x92ee
+    push word [bp - 2]               ; 0x92ee
     call api_idx_0004_PMSR           ; 0x92f1
-    add sp, byte 0x0a                ; 0x92f4
-    push word [bp - 0x0006]          ; 0x92f7
+    add sp, byte 0xa                 ; 0x92f4
+    push word [bp - 6]               ; 0x92f7
     mov ax, 2                        ; 0x92fa
     push ax                          ; 0x92fd
-    push word [bp - 0x0006]          ; 0x92fe
+    push word [bp - 6]               ; 0x92fe
     mov ax, 0                        ; 0x9301
     push ax                          ; 0x9304
-    push word [bp - 0x0008]          ; 0x9305
+    push word [bp - 8]               ; 0x9305
     mov ax, 9                        ; 0x9308
     push ax                          ; 0x930b
     mov ax, 8                        ; 0x930c
@@ -149,9 +149,9 @@ jumptable_9808_case_2:
     mov ax, MSG_IRRITATED            ; 0x9310
     push ax                          ; 0x9313
     mov ax, 0                        ; 0x9314
-    sub ax, word [bp - 0x0006]       ; 0x9317
+    sub ax, word [bp - 6]            ; 0x9317
     push ax                          ; 0x931a
-    push word [bp - 0x0002]          ; 0x931b
+    push word [bp - 2]               ; 0x931b
     call api_idx_000a_LHTJ           ; 0x931e
     add sp, byte 0x14                ; 0x9321
     mov ax, 4                        ; 0x9324
@@ -160,14 +160,14 @@ jumptable_9808_case_2:
     pop cx                           ; 0x932b
     push ax                          ; 0x932c
     mov cx, 8                        ; 0x932d
-    mov bx, word [bp + 0x4]          ; 0x9330
-    mov ax, word [bx + 0x8]          ; 0x9333
+    mov bx, word [bp + 4]            ; 0x9330
+    mov ax, word [bx + 8]            ; 0x9333
     cwd                              ; 0x9336
     idiv cx                          ; 0x9337
     mov cx, ax                       ; 0x9339
     pop ax                           ; 0x933b
     add ax, cx                       ; 0x933c
-    mov word [bp - 0x000e], ax       ; 0x933e
+    mov word [bp - 0xe], ax          ; 0x933e
     jmp near jumptable_9808_case_0   ; 0x9341
 jumptable_9808_case_3:
     mov ax, 1                        ; 0x9344
@@ -181,7 +181,7 @@ jumptable_9808_case_3:
     mov ax, MSG_BREATHES             ; 0x9354
     push ax                          ; 0x9357
     call api_idx_0006_MRPM           ; 0x9358
-    add sp, byte 0x0a                ; 0x935b
+    add sp, byte 0xa                 ; 0x935b
     mov ax, 0xb                      ; 0x935e
     push ax                          ; 0x9361
     mov ax, 1                        ; 0x9362
@@ -190,37 +190,37 @@ jumptable_9808_case_3:
     push ax                          ; 0x9369
     mov ax, 0                        ; 0x936a
     push ax                          ; 0x936d
-    push word [bp - 0x0002]          ; 0x936e
+    push word [bp - 2]               ; 0x936e
     call api_idx_0004_PMSR           ; 0x9371
-    add sp, byte 0x0a                ; 0x9374
-    push word [bp - 0x0008]          ; 0x9377
+    add sp, byte 0xa                 ; 0x9374
+    push word [bp - 8]               ; 0x9377
     mov ax, 3                        ; 0x937a
     push ax                          ; 0x937d
-    push word [bp - 0x0006]          ; 0x937e
+    push word [bp - 6]               ; 0x937e
     mov ax, 4                        ; 0x9381
     push ax                          ; 0x9384
     mov ax, 3                        ; 0x9385
     push ax                          ; 0x9388
     mov ax, 0                        ; 0x9389
-    sub ax, word [bp - 0x0006]       ; 0x938c
+    sub ax, word [bp - 6]            ; 0x938c
     push ax                          ; 0x938f
-    push word [bp - 0x0002]          ; 0x9390
+    push word [bp - 2]               ; 0x9390
     call api_idx_000a_PJIK           ; 0x9393
-    add sp, byte 0x0e                ; 0x9396
+    add sp, byte 0xe                 ; 0x9396
     mov ax, 4                        ; 0x9399
     push ax                          ; 0x939c
     call random_below                ; 0x939d
     pop cx                           ; 0x93a0
     push ax                          ; 0x93a1
-    mov bx, word [bp + 0x4]          ; 0x93a2
-    mov ax, word [bx + 0x8]          ; 0x93a5
+    mov bx, word [bp + 4]            ; 0x93a2
+    mov ax, word [bx + 8]            ; 0x93a5
     mov cx, 6                        ; 0x93a8
     cwd                              ; 0x93ab
     idiv cx                          ; 0x93ac
     mov cx, ax                       ; 0x93ae
     pop ax                           ; 0x93b0
     add ax, cx                       ; 0x93b1
-    mov word [bp - 0x000e], ax       ; 0x93b3
+    mov word [bp - 0xe], ax          ; 0x93b3
     jmp near jumptable_9808_case_0   ; 0x93b6
 jumptable_9808_case_8:
     mov ax, 1                        ; 0x93b9
@@ -234,7 +234,7 @@ jumptable_9808_case_8:
     mov ax, MSG_BREATHES             ; 0x93c9
     push ax                          ; 0x93cc
     call api_idx_0006_MRPM           ; 0x93cd
-    add sp, byte 0x0a                ; 0x93d0
+    add sp, byte 0xa                 ; 0x93d0
     push word [bss_90de]             ; 0x93d3
     mov ax, 1                        ; 0x93d7
     push ax                          ; 0x93da
@@ -242,42 +242,42 @@ jumptable_9808_case_8:
     push ax                          ; 0x93de
     mov ax, 0                        ; 0x93df
     push ax                          ; 0x93e2
-    push word [bp - 0x0002]          ; 0x93e3
+    push word [bp - 2]               ; 0x93e3
     call api_idx_0004_PMSR           ; 0x93e6
-    add sp, byte 0x0a                ; 0x93e9
-    push word [bp - 0x0008]          ; 0x93ec
+    add sp, byte 0xa                 ; 0x93e9
+    push word [bp - 8]               ; 0x93ec
     mov ax, 8                        ; 0x93ef
     push ax                          ; 0x93f2
-    push word [bp - 0x0006]          ; 0x93f3
+    push word [bp - 6]               ; 0x93f3
     mov ax, 7                        ; 0x93f6
     push ax                          ; 0x93f9
     mov ax, 1                        ; 0x93fa
     push ax                          ; 0x93fd
     mov ax, 0                        ; 0x93fe
-    sub ax, word [bp - 0x0006]       ; 0x9401
+    sub ax, word [bp - 6]            ; 0x9401
     push ax                          ; 0x9404
-    push word [bp - 0x0002]          ; 0x9405
+    push word [bp - 2]               ; 0x9405
     call api_idx_000a_PJIK           ; 0x9408
-    add sp, byte 0x0e                ; 0x940b
+    add sp, byte 0xe                 ; 0x940b
     mov ax, 6                        ; 0x940e
     push ax                          ; 0x9411
     call random_below                ; 0x9412
     pop cx                           ; 0x9415
     push ax                          ; 0x9416
-    mov bx, word [bp + 0x4]          ; 0x9417
-    mov ax, word [bx + 0x8]          ; 0x941a
+    mov bx, word [bp + 4]            ; 0x9417
+    mov ax, word [bx + 8]            ; 0x941a
     mov cx, 4                        ; 0x941d
     cwd                              ; 0x9420
     idiv cx                          ; 0x9421
     mov cx, ax                       ; 0x9423
     pop ax                           ; 0x9425
     add ax, cx                       ; 0x9426
-    mov word [bp - 0x000e], ax       ; 0x9428
+    mov word [bp - 0xe], ax          ; 0x9428
     jmp near jumptable_9808_case_0   ; 0x942b
 jumptable_9808_case_10:
     mov ax, 1                        ; 0x942e
     push ax                          ; 0x9431
-    mov bx, word [bp + 0x4]          ; 0x9432
+    mov bx, word [bp + 4]            ; 0x9432
     cmp byte [bx + 0xe], 0           ; 0x9435
     jbe short @..api_idx_000e_SOLJ.l5 ; 0x9439
     jmp short @..api_idx_000e_SOLJ.l6 ; 0x943b
@@ -292,7 +292,7 @@ jumptable_9808_case_10:
     mov ax, MSG_SCREAMS              ; 0x9449
     push ax                          ; 0x944c
     call api_idx_0006_MRPM           ; 0x944d
-    add sp, byte 0x0a                ; 0x9450
+    add sp, byte 0xa                 ; 0x9450
     test ax, ax                      ; 0x9453
     jne short @..api_idx_000e_SOLJ.l7 ; 0x9455
     push word [bss_90de]             ; 0x9457
@@ -302,16 +302,16 @@ jumptable_9808_case_10:
     push ax                          ; 0x9462
     mov ax, 0                        ; 0x9463
     push ax                          ; 0x9466
-    push word [bp - 0x0002]          ; 0x9467
+    push word [bp - 2]               ; 0x9467
     call api_idx_0004_PMSR           ; 0x946a
-    add sp, byte 0x0a                ; 0x946d
+    add sp, byte 0xa                 ; 0x946d
     mov ax, 0xa                      ; 0x9470
-    imul word [bp - 0x0006]          ; 0x9473
+    imul word [bp - 6]               ; 0x9473
     push ax                          ; 0x9476
     mov ax, 2                        ; 0x9477
     push ax                          ; 0x947a
     mov ax, 0xa                      ; 0x947b
-    imul word [bp - 0x0006]          ; 0x947e
+    imul word [bp - 6]               ; 0x947e
     push ax                          ; 0x9481
     mov ax, 0                        ; 0x9482
     push ax                          ; 0x9485
@@ -321,18 +321,18 @@ jumptable_9808_case_10:
     push ax                          ; 0x948d
     mov ax, 1                        ; 0x948e
     push ax                          ; 0x9491
-    push word [bp - 0x0008]          ; 0x9492
-    push word [bp - 0x0006]          ; 0x9495
+    push word [bp - 8]               ; 0x9492
+    push word [bp - 6]               ; 0x9495
     mov ax, 0xa                      ; 0x9498
     push ax                          ; 0x949b
     mov ax, MSG_GOES_INSANE          ; 0x949c
     push ax                          ; 0x949f
     mov ax, 0                        ; 0x94a0
-    mov cx, word [bp - 0x0006]       ; 0x94a3
+    mov cx, word [bp - 6]            ; 0x94a3
     inc cx                           ; 0x94a6
     sub ax, cx                       ; 0x94a7
     push ax                          ; 0x94a9
-    push word [bp - 0x0002]          ; 0x94aa
+    push word [bp - 2]               ; 0x94aa
     call api_idx_000e_RMNP           ; 0x94ad
     add sp, byte 0x1a                ; 0x94b0
 @..api_idx_000e_SOLJ.l7:
@@ -341,15 +341,15 @@ jumptable_9808_case_10:
     call random_below                ; 0x94b7
     pop cx                           ; 0x94ba
     push ax                          ; 0x94bb
-    mov bx, word [bp + 0x4]          ; 0x94bc
-    mov ax, word [bx + 0x8]          ; 0x94bf
+    mov bx, word [bp + 4]            ; 0x94bc
+    mov ax, word [bx + 8]            ; 0x94bf
     mov cx, 0xa                      ; 0x94c2
     cwd                              ; 0x94c5
     idiv cx                          ; 0x94c6
     mov cx, ax                       ; 0x94c8
     pop ax                           ; 0x94ca
     add ax, cx                       ; 0x94cb
-    mov word [bp - 0x000e], ax       ; 0x94cd
+    mov word [bp - 0xe], ax          ; 0x94cd
     jmp near jumptable_9808_case_0   ; 0x94d0
 jumptable_9808_case_12:
     jmp near jumptable_9808_case_0   ; 0x94d3
@@ -365,7 +365,7 @@ jumptable_9808_case_4:
     mov ax, MSG_INVOKES_3343         ; 0x94e6
     push ax                          ; 0x94e9
     call api_idx_0006_MRPM           ; 0x94ea
-    add sp, byte 0x0a                ; 0x94ed
+    add sp, byte 0xa                 ; 0x94ed
     push word [bss_90de]             ; 0x94f0
     mov ax, 0                        ; 0x94f4
     push ax                          ; 0x94f7
@@ -373,18 +373,18 @@ jumptable_9808_case_4:
     push ax                          ; 0x94fb
     mov ax, 0                        ; 0x94fc
     push ax                          ; 0x94ff
-    push word [bp - 0x0002]          ; 0x9500
+    push word [bp - 2]               ; 0x9500
     call api_idx_0004_PMSR           ; 0x9503
-    add sp, byte 0x0a                ; 0x9506
-    push word [bp - 0x0006]          ; 0x9509
+    add sp, byte 0xa                 ; 0x9506
+    push word [bp - 6]               ; 0x9509
     mov ax, 1                        ; 0x950c
     push ax                          ; 0x950f
-    mov ax, word [bp - 0x0006]       ; 0x9510
+    mov ax, word [bp - 6]            ; 0x9510
     shl ax, 1                        ; 0x9513
     push ax                          ; 0x9515
     mov ax, 0                        ; 0x9516
     push ax                          ; 0x9519
-    push word [bp - 0x0008]          ; 0x951a
+    push word [bp - 8]               ; 0x951a
     mov ax, 3                        ; 0x951d
     push ax                          ; 0x9520
     mov ax, 4                        ; 0x9521
@@ -392,9 +392,9 @@ jumptable_9808_case_4:
     mov ax, MSG_PARALYZED_3475       ; 0x9525
     push ax                          ; 0x9528
     mov ax, 0                        ; 0x9529
-    sub ax, word [bp - 0x0006]       ; 0x952c
+    sub ax, word [bp - 6]            ; 0x952c
     push ax                          ; 0x952f
-    push word [bp - 0x0002]          ; 0x9530
+    push word [bp - 2]               ; 0x9530
     call api_idx_000a_LHTJ           ; 0x9533
     add sp, byte 0x14                ; 0x9536
     mov ax, 4                        ; 0x9539
@@ -402,15 +402,15 @@ jumptable_9808_case_4:
     call random_below                ; 0x953d
     pop cx                           ; 0x9540
     push ax                          ; 0x9541
-    mov bx, word [bp + 0x4]          ; 0x9542
-    mov ax, word [bx + 0x8]          ; 0x9545
+    mov bx, word [bp + 4]            ; 0x9542
+    mov ax, word [bx + 8]            ; 0x9545
     mov cx, 0xa                      ; 0x9548
     cwd                              ; 0x954b
     idiv cx                          ; 0x954c
     mov cx, ax                       ; 0x954e
     pop ax                           ; 0x9550
     add ax, cx                       ; 0x9551
-    mov word [bp - 0x000e], ax       ; 0x9553
+    mov word [bp - 0xe], ax          ; 0x9553
     jmp near jumptable_9808_case_0   ; 0x9556
 jumptable_9808_case_5:
     mov ax, 1                        ; 0x9559
@@ -424,7 +424,7 @@ jumptable_9808_case_5:
     mov ax, MSG_SPITS                ; 0x9569
     push ax                          ; 0x956c
     call api_idx_0006_MRPM           ; 0x956d
-    add sp, byte 0x0a                ; 0x9570
+    add sp, byte 0xa                 ; 0x9570
     push word [bss_90de]             ; 0x9573
     mov ax, 0                        ; 0x9577
     push ax                          ; 0x957a
@@ -432,13 +432,13 @@ jumptable_9808_case_5:
     push ax                          ; 0x957e
     mov ax, 0                        ; 0x957f
     push ax                          ; 0x9582
-    push word [bp - 0x0002]          ; 0x9583
+    push word [bp - 2]               ; 0x9583
     call api_idx_0004_PMSR           ; 0x9586
-    add sp, byte 0x0a                ; 0x9589
-    push word [bp - 0x0006]          ; 0x958c
+    add sp, byte 0xa                 ; 0x9589
+    push word [bp - 6]               ; 0x958c
     mov ax, 4                        ; 0x958f
     push ax                          ; 0x9592
-    push word [bp - 0x0006]          ; 0x9593
+    push word [bp - 6]               ; 0x9593
     mov ax, 0                        ; 0x9596
     push ax                          ; 0x9599
     mov ax, 8                        ; 0x959a
@@ -447,18 +447,18 @@ jumptable_9808_case_5:
     push ax                          ; 0x95a1
     mov ax, 1                        ; 0x95a2
     push ax                          ; 0x95a5
-    push word [bp - 0x0008]          ; 0x95a6
-    push word [bp - 0x0006]          ; 0x95a9
+    push word [bp - 8]               ; 0x95a6
+    push word [bp - 6]               ; 0x95a9
     mov ax, 5                        ; 0x95ac
     push ax                          ; 0x95af
     mov ax, MSG_NAUSEOUS_3480        ; 0x95b0
     push ax                          ; 0x95b3
     mov ax, 0                        ; 0x95b4
-    mov cx, word [bp - 0x0006]       ; 0x95b7
+    mov cx, word [bp - 6]            ; 0x95b7
     inc cx                           ; 0x95ba
     sub ax, cx                       ; 0x95bb
     push ax                          ; 0x95bd
-    push word [bp - 0x0002]          ; 0x95be
+    push word [bp - 2]               ; 0x95be
     call api_idx_000e_RMNP           ; 0x95c1
     add sp, byte 0x1a                ; 0x95c4
     mov ax, 4                        ; 0x95c7
@@ -466,15 +466,15 @@ jumptable_9808_case_5:
     call random_below                ; 0x95cb
     pop cx                           ; 0x95ce
     push ax                          ; 0x95cf
-    mov bx, word [bp + 0x4]          ; 0x95d0
-    mov ax, word [bx + 0x8]          ; 0x95d3
+    mov bx, word [bp + 4]            ; 0x95d0
+    mov ax, word [bx + 8]            ; 0x95d3
     mov cx, 6                        ; 0x95d6
     cwd                              ; 0x95d9
     idiv cx                          ; 0x95da
     mov cx, ax                       ; 0x95dc
     pop ax                           ; 0x95de
     add ax, cx                       ; 0x95df
-    mov word [bp - 0x000e], ax       ; 0x95e1
+    mov word [bp - 0xe], ax          ; 0x95e1
     jmp near jumptable_9808_case_0   ; 0x95e4
 jumptable_9808_case_6:
     mov ax, 1                        ; 0x95e7
@@ -488,7 +488,7 @@ jumptable_9808_case_6:
     mov ax, MSG_BREATHES             ; 0x95f7
     push ax                          ; 0x95fa
     call api_idx_0006_MRPM           ; 0x95fb
-    add sp, byte 0x0a                ; 0x95fe
+    add sp, byte 0xa                 ; 0x95fe
     push word [bss_90de]             ; 0x9601
     mov ax, 0                        ; 0x9605
     push ax                          ; 0x9608
@@ -496,14 +496,14 @@ jumptable_9808_case_6:
     push ax                          ; 0x960c
     mov ax, 0                        ; 0x960d
     push ax                          ; 0x9610
-    push word [bp - 0x0002]          ; 0x9611
+    push word [bp - 2]               ; 0x9611
     call api_idx_0004_PMSR           ; 0x9614
-    add sp, byte 0x0a                ; 0x9617
-    push word [bp - 0x0006]          ; 0x961a
+    add sp, byte 0xa                 ; 0x9617
+    push word [bp - 6]               ; 0x961a
     mov ax, 2                        ; 0x961d
     push ax                          ; 0x9620
     mov ax, 0xa                      ; 0x9621
-    imul word [bp - 0x0006]          ; 0x9624
+    imul word [bp - 6]               ; 0x9624
     push ax                          ; 0x9627
     mov ax, 0                        ; 0x9628
     push ax                          ; 0x962b
@@ -512,16 +512,16 @@ jumptable_9808_case_6:
     push ax                          ; 0x9630
     mov ax, 1                        ; 0x9631
     push ax                          ; 0x9634
-    push word [bp - 0x0008]          ; 0x9635
-    push word [bp - 0x0006]          ; 0x9638
+    push word [bp - 8]               ; 0x9635
+    push word [bp - 6]               ; 0x9638
     mov ax, 6                        ; 0x963b
     push ax                          ; 0x963e
     mov ax, MSG_POISONED_3477        ; 0x963f
     push ax                          ; 0x9642
     mov ax, 0                        ; 0x9643
-    sub ax, word [bp - 0x0006]       ; 0x9646
+    sub ax, word [bp - 6]            ; 0x9646
     push ax                          ; 0x9649
-    push word [bp - 0x0002]          ; 0x964a
+    push word [bp - 2]               ; 0x964a
     call api_idx_000e_RMNP           ; 0x964d
     add sp, byte 0x1a                ; 0x9650
     mov ax, 3                        ; 0x9653
@@ -530,14 +530,14 @@ jumptable_9808_case_6:
     pop cx                           ; 0x965a
     push ax                          ; 0x965b
     mov cx, 8                        ; 0x965c
-    mov bx, word [bp + 0x4]          ; 0x965f
-    mov ax, word [bx + 0x8]          ; 0x9662
+    mov bx, word [bp + 4]            ; 0x965f
+    mov ax, word [bx + 8]            ; 0x9662
     cwd                              ; 0x9665
     idiv cx                          ; 0x9666
     mov cx, ax                       ; 0x9668
     pop ax                           ; 0x966a
     add ax, cx                       ; 0x966b
-    mov word [bp - 0x000e], ax       ; 0x966d
+    mov word [bp - 0xe], ax          ; 0x966d
     jmp near jumptable_9808_case_0   ; 0x9670
 jumptable_9808_case_7:
     mov ax, 1                        ; 0x9673
@@ -551,7 +551,7 @@ jumptable_9808_case_7:
     mov ax, MSG_VOMITS               ; 0x9683
     push ax                          ; 0x9686
     call api_idx_0006_MRPM           ; 0x9687
-    add sp, byte 0x0a                ; 0x968a
+    add sp, byte 0xa                 ; 0x968a
     push word [bss_90de]             ; 0x968d
     mov ax, 0                        ; 0x9691
     push ax                          ; 0x9694
@@ -559,9 +559,9 @@ jumptable_9808_case_7:
     push ax                          ; 0x9698
     mov ax, 0                        ; 0x9699
     push ax                          ; 0x969c
-    push word [bp - 0x0002]          ; 0x969d
+    push word [bp - 2]               ; 0x969d
     call api_idx_0004_PMSR           ; 0x96a0
-    add sp, byte 0x0a                ; 0x96a3
+    add sp, byte 0xa                 ; 0x96a3
     mov ax, 0xff                     ; 0x96a6
     push ax                          ; 0x96a9
     mov ax, 1                        ; 0x96aa
@@ -575,16 +575,16 @@ jumptable_9808_case_7:
     push ax                          ; 0x96ba
     mov ax, 1                        ; 0x96bb
     push ax                          ; 0x96be
-    push word [bp - 0x0008]          ; 0x96bf
-    push word [bp - 0x0006]          ; 0x96c2
+    push word [bp - 8]               ; 0x96bf
+    push word [bp - 6]               ; 0x96c2
     mov ax, 7                        ; 0x96c5
     push ax                          ; 0x96c8
     mov ax, MSG_DISEASED_3498        ; 0x96c9
     push ax                          ; 0x96cc
     mov ax, 0                        ; 0x96cd
-    sub ax, word [bp - 0x0006]       ; 0x96d0
+    sub ax, word [bp - 6]            ; 0x96d0
     push ax                          ; 0x96d3
-    push word [bp - 0x0002]          ; 0x96d4
+    push word [bp - 2]               ; 0x96d4
     call api_idx_000e_RMNP           ; 0x96d7
     add sp, byte 0x1a                ; 0x96da
     mov ax, 5                        ; 0x96dd
@@ -592,15 +592,15 @@ jumptable_9808_case_7:
     call random_below                ; 0x96e1
     pop cx                           ; 0x96e4
     push ax                          ; 0x96e5
-    mov bx, word [bp + 0x4]          ; 0x96e6
-    mov ax, word [bx + 0x8]          ; 0x96e9
+    mov bx, word [bp + 4]            ; 0x96e6
+    mov ax, word [bx + 8]            ; 0x96e9
     mov cx, 6                        ; 0x96ec
     cwd                              ; 0x96ef
     idiv cx                          ; 0x96f0
     mov cx, ax                       ; 0x96f2
     pop ax                           ; 0x96f4
     add ax, cx                       ; 0x96f5
-    mov word [bp - 0x000e], ax       ; 0x96f7
+    mov word [bp - 0xe], ax          ; 0x96f7
     jmp near jumptable_9808_case_0   ; 0x96fa
 jumptable_9808_case_9:
     mov ax, 0                        ; 0x96fd
@@ -613,7 +613,7 @@ jumptable_9808_case_9:
     mov ax, MSG_EMITS                ; 0x970a
     push ax                          ; 0x970d
     call api_idx_0006_MRPM           ; 0x970e
-    add sp, byte 0x0a                ; 0x9711
+    add sp, byte 0xa                 ; 0x9711
     mov ax, 0xa                      ; 0x9714
     push ax                          ; 0x9717
     mov ax, 0                        ; 0x9718
@@ -622,16 +622,16 @@ jumptable_9808_case_9:
     push ax                          ; 0x971f
     mov ax, 0                        ; 0x9720
     push ax                          ; 0x9723
-    push word [bp - 0x0002]          ; 0x9724
+    push word [bp - 2]               ; 0x9724
     call api_idx_0004_PMSR           ; 0x9727
-    add sp, byte 0x0a                ; 0x972a
-    push word [bp - 0x0006]          ; 0x972d
+    add sp, byte 0xa                 ; 0x972a
+    push word [bp - 6]               ; 0x972d
     mov ax, 2                        ; 0x9730
     push ax                          ; 0x9733
-    push word [bp - 0x0006]          ; 0x9734
+    push word [bp - 6]               ; 0x9734
     mov ax, 0                        ; 0x9737
     push ax                          ; 0x973a
-    push word [bp - 0x0008]          ; 0x973b
+    push word [bp - 8]               ; 0x973b
     mov ax, 2                        ; 0x973e
     push ax                          ; 0x9741
     mov ax, 9                        ; 0x9742
@@ -639,11 +639,11 @@ jumptable_9808_case_9:
     mov ax, MSG_FALLS_ASLEEP_3474    ; 0x9746
     push ax                          ; 0x9749
     mov ax, 0                        ; 0x974a
-    mov cx, word [bp - 0x0006]       ; 0x974d
+    mov cx, word [bp - 6]            ; 0x974d
     inc cx                           ; 0x9750
     sub ax, cx                       ; 0x9751
     push ax                          ; 0x9753
-    push word [bp - 0x0002]          ; 0x9754
+    push word [bp - 2]               ; 0x9754
     call api_idx_000a_LHTJ           ; 0x9757
     add sp, byte 0x14                ; 0x975a
     mov ax, 3                        ; 0x975d
@@ -651,20 +651,20 @@ jumptable_9808_case_9:
     call random_below                ; 0x9761
     pop cx                           ; 0x9764
     push ax                          ; 0x9765
-    mov bx, word [bp + 0x4]          ; 0x9766
-    mov ax, word [bx + 0x8]          ; 0x9769
+    mov bx, word [bp + 4]            ; 0x9766
+    mov ax, word [bx + 8]            ; 0x9769
     mov cx, 0xa                      ; 0x976c
     cwd                              ; 0x976f
     idiv cx                          ; 0x9770
     mov cx, ax                       ; 0x9772
     pop ax                           ; 0x9774
     add ax, cx                       ; 0x9775
-    mov word [bp - 0x000e], ax       ; 0x9777
+    mov word [bp - 0xe], ax          ; 0x9777
     jmp near jumptable_9808_case_0   ; 0x977a
 jumptable_9808_case_11:
     mov ax, 1                        ; 0x977d
     push ax                          ; 0x9780
-    mov bx, word [bp + 0x4]          ; 0x9781
+    mov bx, word [bp + 4]            ; 0x9781
     cmp byte [bx + 0xe], 0           ; 0x9784
     jbe short @..api_idx_000e_SOLJ.l8 ; 0x9788
     jmp short @..api_idx_000e_SOLJ.l9 ; 0x978a
@@ -679,7 +679,7 @@ jumptable_9808_case_11:
     mov ax, MSG_CRIES                ; 0x9798
     push ax                          ; 0x979b
     call api_idx_0006_MRPM           ; 0x979c
-    add sp, byte 0x0a                ; 0x979f
+    add sp, byte 0xa                 ; 0x979f
     test ax, ax                      ; 0x97a2
     jne short @..api_idx_000e_SOLJ.l10 ; 0x97a4
     push word [bss_90de]             ; 0x97a6
@@ -689,16 +689,16 @@ jumptable_9808_case_11:
     push ax                          ; 0x97b1
     mov ax, 0                        ; 0x97b2
     push ax                          ; 0x97b5
-    push word [bp - 0x0002]          ; 0x97b6
+    push word [bp - 2]               ; 0x97b6
     call api_idx_0004_PMSR           ; 0x97b9
-    add sp, byte 0x0a                ; 0x97bc
-    push word [bp - 0x0006]          ; 0x97bf
+    add sp, byte 0xa                 ; 0x97bc
+    push word [bp - 6]               ; 0x97bf
     mov ax, 1                        ; 0x97c2
     push ax                          ; 0x97c5
-    push word [bp - 0x0006]          ; 0x97c6
+    push word [bp - 6]               ; 0x97c6
     mov ax, 0                        ; 0x97c9
     push ax                          ; 0x97cc
-    push word [bp - 0x0008]          ; 0x97cd
+    push word [bp - 8]               ; 0x97cd
     mov ax, 1                        ; 0x97d0
     push ax                          ; 0x97d3
     mov ax, 0xa                      ; 0x97d4
@@ -707,7 +707,7 @@ jumptable_9808_case_11:
     push ax                          ; 0x97db
     mov ax, 0xfff6                   ; 0x97dc
     push ax                          ; 0x97df
-    push word [bp - 0x0002]          ; 0x97e0
+    push word [bp - 2]               ; 0x97e0
     call api_idx_000a_LHTJ           ; 0x97e3
     add sp, byte 0x14                ; 0x97e6
 @..api_idx_000e_SOLJ.l10:
@@ -717,14 +717,14 @@ jumptable_9808_case_11:
     pop cx                           ; 0x97f0
     push ax                          ; 0x97f1
     mov cx, 8                        ; 0x97f2
-    mov bx, word [bp + 0x4]          ; 0x97f5
-    mov ax, word [bx + 0x8]          ; 0x97f8
+    mov bx, word [bp + 4]            ; 0x97f5
+    mov ax, word [bx + 8]            ; 0x97f8
     cwd                              ; 0x97fb
     idiv cx                          ; 0x97fc
     mov cx, ax                       ; 0x97fe
     pop ax                           ; 0x9800
     add ax, cx                       ; 0x9801
-    mov word [bp - 0x000e], ax       ; 0x9803
+    mov word [bp - 0xe], ax          ; 0x9803
     jmp short jumptable_9808_case_0  ; 0x9806
 jumptable_9808:
     dw jumptable_9808_case_0 - IMAGE_BASE + __zres_end ; 0x9808
@@ -753,5 +753,5 @@ jumptable_9808_case_0:
     call api_idx_0004_QUPL           ; 0x983a
     pop cx                           ; 0x983d
 @..api_idx_000e_SOLJ.l13:
-    mov ax, word [bp - 0x000e]       ; 0x983e
+    mov ax, word [bp - 0xe]          ; 0x983e
     ret                              ; 0x9841

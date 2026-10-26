@@ -4,21 +4,21 @@ loc_TUUJ:
     call aztec_csav                  ; 0x66c6
     mov ax, 0                        ; 0x66c9
     push ax                          ; 0x66cc
-    push word [bp + 0x6]             ; 0x66cd
+    push word [bp + 6]               ; 0x66cd
     mov ax, 0x248                    ; 0x66d0
-    imul word [bp + 0x4]             ; 0x66d3
+    imul word [bp + 4]               ; 0x66d3
     add ax, party_records            ; 0x66d6
     push ax                          ; 0x66d9
     call transfer_pc_file_record     ; 0x66da
     add sp, byte 6                   ; 0x66dd
     mov word [bss_9594], 0xffff      ; 0x66e0
-    push word [bp + 0x4]             ; 0x66e6
+    push word [bp + 4]               ; 0x66e6
     call api_idx_0054_RLST           ; 0x66e9
     pop cx                           ; 0x66ec
     mov ax, 0                        ; 0x66ed
     push ax                          ; 0x66f0
     mov ax, 0x248                    ; 0x66f1
-    imul word [bp + 0x4]             ; 0x66f4
+    imul word [bp + 4]               ; 0x66f4
     mov bx, ax                       ; 0x66f7
     mov al, byte [bx + party_records + pc_rec.kind] ; 0x66f9
     sub ah, ah                       ; 0x66fd
@@ -29,12 +29,12 @@ loc_TUUJ:
     push ax                          ; 0x6709
     mov ax, 0xe                      ; 0x670a
     push ax                          ; 0x670d
-    push word [bp + 0x4]             ; 0x670e
+    push word [bp + 4]               ; 0x670e
     call api_idx_0010_GGGV           ; 0x6711
     add sp, byte 6                   ; 0x6714
     mov ax, 0                        ; 0x6717
     push ax                          ; 0x671a
-    push word [bp + 0x4]             ; 0x671b
+    push word [bp + 4]               ; 0x671b
     call api_idx_0002_SSJN           ; 0x671e
     add sp, byte 4                   ; 0x6721
     mov ax, 0xc7                     ; 0x6724

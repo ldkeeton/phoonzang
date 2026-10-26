@@ -14,12 +14,12 @@ restore_areas_redraw_glyph:
     push word [saved_area_b]
     call gfx_restore_area
     add sp, byte 6
-    mov byte [bp - 0x000a], 1
-    mov byte [bp - 0x0009], 0
+    mov byte [bp - 0xa], 1
+    mov byte [bp - 9], 0
     mov ax, 0
     push ax
     push ax
-    lea ax, word [bp - 0x000a]
+    lea ax, word [bp - 0xa]
     push ax
     mov ax, 0
     push ax
@@ -39,7 +39,7 @@ restore_areas_redraw_glyph:
     push ax
     call gfx_draw_text
     add sp, byte 0x16
-    cmp word [bp + 0x4], byte 0
+    cmp word [bp + 4], byte 0
     je short @..restore_areas_redraw_glyph.l1
     mov ax, 0xc2
     push ax

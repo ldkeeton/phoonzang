@@ -5,13 +5,13 @@ replace_slashes_with_spaces:
 @..replace_slashes_with_spaces.l1:
     mov ax, 0x2f
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call strpos
     add sp, byte 4
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     cmp ax, strict word 0xffff
     je short @..replace_slashes_with_spaces.l2
-    mov bx, word [bp + 0x4]
+    mov bx, word [bp + 4]
     mov si, ax
     mov byte [bx + si], 0x20
     jmp short @..replace_slashes_with_spaces.l1

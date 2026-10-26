@@ -3,7 +3,7 @@ api_idx_0006_KPLV:
     mov ax, 0xfffa
     call aztec_csav
     call api_idx_0006_TMNI
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     test ax, ax
     je short @..api_idx_0006_KPLV.l1
     mov ax, 0
@@ -20,8 +20,8 @@ api_idx_0006_KPLV:
     add sp, byte 4
     mov ax, 4
     push ax
-    mov bx, word [bp - 0x0002]
-    mov al, byte [bx + 0x7]
+    mov bx, word [bp - 2]
+    mov al, byte [bx + 7]
     sub ah, ah
     push ax
     call draw_font_glyph

@@ -2,36 +2,36 @@
 api_idx_0010_LPLH:
     mov ax, 0xfff0                   ; 0x265f
     call aztec_csav                  ; 0x2662
-    cmp word [bp + 0x8], byte 0      ; 0x2665
+    cmp word [bp + 8], byte 0        ; 0x2665
     jle short @..api_idx_0010_LPLH.l1 ; 0x2669
-    push word [bp + 0x8]             ; 0x266b
+    push word [bp + 8]               ; 0x266b
     push word [bp + 0xe]             ; 0x266e
-    push word [bp + 0x4]             ; 0x2671
+    push word [bp + 4]               ; 0x2671
     call loc_QUJT                    ; 0x2674
     add sp, byte 6                   ; 0x2677
-    mov word [bp - 0x0008], ax       ; 0x267a
+    mov word [bp - 8], ax            ; 0x267a
     jmp short @..api_idx_0010_LPLH.l2 ; 0x267d
 @..api_idx_0010_LPLH.l1:
-    mov ax, word [bp + 0x8]          ; 0x267f
-    mov word [bp - 0x0008], ax       ; 0x2682
+    mov ax, word [bp + 8]            ; 0x267f
+    mov word [bp - 8], ax            ; 0x2682
 @..api_idx_0010_LPLH.l2:
     cmp word [bp + 0xa], byte 0      ; 0x2685
     jle short @..api_idx_0010_LPLH.l3 ; 0x2689
     push word [bp + 0xa]             ; 0x268b
     push word [bp + 0xe]             ; 0x268e
-    push word [bp + 0x4]             ; 0x2691
+    push word [bp + 4]               ; 0x2691
     call loc_QUJT                    ; 0x2694
     add sp, byte 6                   ; 0x2697
-    mov word [bp - 0x000a], ax       ; 0x269a
+    mov word [bp - 0xa], ax          ; 0x269a
     jmp short @..api_idx_0010_LPLH.l4 ; 0x269d
 @..api_idx_0010_LPLH.l3:
     mov ax, word [bp + 0xa]          ; 0x269f
-    mov word [bp - 0x000a], ax       ; 0x26a2
+    mov word [bp - 0xa], ax          ; 0x26a2
 @..api_idx_0010_LPLH.l4:
-    mov ax, word [bp - 0x0008]       ; 0x26a5
-    cmp ax, word [bp + 0x8]          ; 0x26a8
+    mov ax, word [bp - 8]            ; 0x26a5
+    cmp ax, word [bp + 8]            ; 0x26a8
     jne short @..api_idx_0010_LPLH.l5 ; 0x26ab
-    mov ax, word [bp - 0x000a]       ; 0x26ad
+    mov ax, word [bp - 0xa]          ; 0x26ad
     cmp ax, word [bp + 0xa]          ; 0x26b0
     je short @..api_idx_0010_LPLH.l6 ; 0x26b3
 @..api_idx_0010_LPLH.l5:
@@ -40,20 +40,20 @@ api_idx_0010_LPLH:
     call loc_PKMT                    ; 0x26b9
     pop cx                           ; 0x26bc
 @..api_idx_0010_LPLH.l6:
-    lea ax, word [bp - 0x0004]       ; 0x26bd
+    lea ax, word [bp - 4]            ; 0x26bd
     push ax                          ; 0x26c0
-    lea ax, word [bp - 0x0006]       ; 0x26c1
+    lea ax, word [bp - 6]            ; 0x26c1
     push ax                          ; 0x26c4
-    push word [bp + 0x6]             ; 0x26c5
-    push word [bp + 0x4]             ; 0x26c8
+    push word [bp + 6]               ; 0x26c5
+    push word [bp + 4]               ; 0x26c8
     call api_idx_0006_OMUL           ; 0x26cb
     add sp, byte 8                   ; 0x26ce
     mov word [bss_91d6], 4           ; 0x26d1
-    mov ax, word [bp - 0x0006]       ; 0x26d7
-    mov word [bp - 0x0002], ax       ; 0x26da
+    mov ax, word [bp - 6]            ; 0x26d7
+    mov word [bp - 2], ax            ; 0x26da
     jmp near @..api_idx_0010_LPLH.l23 ; 0x26dd
 @..api_idx_0010_LPLH.l7:
-    cmp word [bp + 0x4], byte 0      ; 0x26e0
+    cmp word [bp + 4], byte 0        ; 0x26e0
     jne short @..api_idx_0010_LPLH.l8 ; 0x26e4
     mov ax, 0xe                      ; 0x26e6
     push ax                          ; 0x26e9
@@ -61,16 +61,16 @@ api_idx_0010_LPLH:
     add ax, 0x9a                     ; 0x26ed
     push ax                          ; 0x26f0
     mov ax, 0x248                    ; 0x26f1
-    imul word [bp - 0x0002]          ; 0x26f4
+    imul word [bp - 2]               ; 0x26f4
     add ax, party_records + pc_rec.cur ; 0x26f7
     push ax                          ; 0x26fa
     call aztec_movmem                ; 0x26fb
     add sp, byte 6                   ; 0x26fe
 @..api_idx_0010_LPLH.l8:
     mov ax, 0x2c                     ; 0x2701
-    imul word [bp - 0x0002]          ; 0x2704
+    imul word [bp - 2]               ; 0x2704
     mov si, ax                       ; 0x2707
-    mov ax, word [bp + 0x4]          ; 0x2709
+    mov ax, word [bp + 4]            ; 0x2709
     shl ax, 1                        ; 0x270c
     mov bx, ax                       ; 0x270e
     mov bx, word [bx + party_char]   ; 0x2710
@@ -78,35 +78,35 @@ api_idx_0010_LPLH:
     jb short @..api_idx_0010_LPLH.l9 ; 0x2718
     jmp near @..api_idx_0010_LPLH.l22 ; 0x271a
 @..api_idx_0010_LPLH.l9:
-    push word [bp - 0x0002]          ; 0x271d
-    push word [bp + 0x4]             ; 0x2720
+    push word [bp - 2]               ; 0x271d
+    push word [bp + 4]               ; 0x2720
     call item_slot_usable            ; 0x2723
     add sp, byte 4                   ; 0x2726
     test ax, ax                      ; 0x2729
     je short @..api_idx_0010_LPLH.l10 ; 0x272b
     jmp near @..api_idx_0010_LPLH.l22 ; 0x272d
 @..api_idx_0010_LPLH.l10:
-    mov word [bp - 0x000c], 0        ; 0x2730
+    mov word [bp - 0xc], 0           ; 0x2730
     mov ax, word [bp + 0xc]          ; 0x2735
-    mov word [bp - 0x0010], ax       ; 0x2738
+    mov word [bp - 0x10], ax         ; 0x2738
 @..api_idx_0010_LPLH.l11:
-    cmp word [bp - 0x0010], byte 0   ; 0x273b
+    cmp word [bp - 0x10], byte 0     ; 0x273b
     jle short @..api_idx_0010_LPLH.l14 ; 0x273f
-    mov ax, word [bp - 0x0008]       ; 0x2741
-    mov word [bp - 0x000e], ax       ; 0x2744
+    mov ax, word [bp - 8]            ; 0x2741
+    mov word [bp - 0xe], ax          ; 0x2744
 @..api_idx_0010_LPLH.l12:
-    cmp word [bp - 0x000e], byte 0   ; 0x2747
+    cmp word [bp - 0xe], byte 0      ; 0x2747
     jle short @..api_idx_0010_LPLH.l13 ; 0x274b
-    push word [bp - 0x000a]          ; 0x274d
+    push word [bp - 0xa]             ; 0x274d
     call random_below                ; 0x2750
     pop cx                           ; 0x2753
-    add ax, word [bp - 0x000c]       ; 0x2754
+    add ax, word [bp - 0xc]          ; 0x2754
     inc ax                           ; 0x2757
-    mov word [bp - 0x000c], ax       ; 0x2758
-    dec word [bp - 0x000e]           ; 0x275b
+    mov word [bp - 0xc], ax          ; 0x2758
+    dec word [bp - 0xe]              ; 0x275b
     jmp short @..api_idx_0010_LPLH.l12 ; 0x275e
 @..api_idx_0010_LPLH.l13:
-    dec word [bp - 0x0010]           ; 0x2760
+    dec word [bp - 0x10]             ; 0x2760
     jmp short @..api_idx_0010_LPLH.l11 ; 0x2763
 @..api_idx_0010_LPLH.l14:
     mov ax, 0x64                     ; 0x2765
@@ -114,7 +114,7 @@ api_idx_0010_LPLH:
     call random_below                ; 0x2769
     pop cx                           ; 0x276c
     push ax                          ; 0x276d
-    mov ax, word [bp + 0x4]          ; 0x276e
+    mov ax, word [bp + 4]            ; 0x276e
     shl ax, 1                        ; 0x2771
     mov bx, ax                       ; 0x2773
     mov bx, word [bx + party_char_ext] ; 0x2775
@@ -129,14 +129,14 @@ api_idx_0010_LPLH:
     jle short @..api_idx_0010_LPLH.l15 ; 0x278c
     push word [bp + 0x10]            ; 0x278e
     push si                          ; 0x2791
-    push word [bp - 0x000c]          ; 0x2792
-    push word [bp + 0x4]             ; 0x2795
+    push word [bp - 0xc]             ; 0x2792
+    push word [bp + 4]               ; 0x2795
     call api_idx_0002_NHHH           ; 0x2798
     add sp, byte 8                   ; 0x279b
-    mov word [bp - 0x000c], ax       ; 0x279e
+    mov word [bp - 0xc], ax          ; 0x279e
     jmp short @..api_idx_0010_LPLH.l16 ; 0x27a1
 @..api_idx_0010_LPLH.l15:
-    mov word [bp - 0x000c], 0        ; 0x27a3
+    mov word [bp - 0xc], 0           ; 0x27a3
 @..api_idx_0010_LPLH.l16:
     mov ax, 4                        ; 0x27a8
     push ax                          ; 0x27ab
@@ -144,8 +144,8 @@ api_idx_0010_LPLH:
     push ax                          ; 0x27af
     call api_idx_0004_UONH           ; 0x27b0
     add sp, byte 4                   ; 0x27b3
-    push word [bp - 0x0002]          ; 0x27b6
-    push word [bp + 0x4]             ; 0x27b9
+    push word [bp - 2]               ; 0x27b6
+    push word [bp + 4]               ; 0x27b9
     mov ax, bss_90e6                 ; 0x27bc
     push ax                          ; 0x27bf
     call loc_HJSG                    ; 0x27c0
@@ -153,7 +153,7 @@ api_idx_0010_LPLH:
     mov ax, 2                        ; 0x27c6
     push ax                          ; 0x27c9
     mov ax, 0x43                     ; 0x27ca
-    cmp word [bp + 0x4], byte 0      ; 0x27cd
+    cmp word [bp + 4], byte 0        ; 0x27cd
     jne short @..api_idx_0010_LPLH.l17 ; 0x27d1
     mov ax, 1                        ; 0x27d3
 @..api_idx_0010_LPLH.l17:
@@ -162,7 +162,7 @@ api_idx_0010_LPLH:
     push ax                          ; 0x27da
     call api_idx_0002_TMNV           ; 0x27db
     add sp, byte 6                   ; 0x27de
-    cmp word [bp - 0x000c], byte 0   ; 0x27e1
+    cmp word [bp - 0xc], byte 0      ; 0x27e1
     jg short @..api_idx_0010_LPLH.l18 ; 0x27e5
     jmp near @..api_idx_0010_LPLH.l20 ; 0x27e7
 @..api_idx_0010_LPLH.l18:
@@ -180,7 +180,7 @@ api_idx_0010_LPLH:
     pop cx                           ; 0x2803
     mov ax, bss_9136                 ; 0x2804
     push ax                          ; 0x2807
-    push word [bp - 0x000c]          ; 0x2808
+    push word [bp - 0xc]             ; 0x2808
     call format_int_decimal          ; 0x280b
     add sp, byte 4                   ; 0x280e
     mov ax, bss_90e6                 ; 0x2811
@@ -212,12 +212,12 @@ api_idx_0010_LPLH:
     mov ax, 4                        ; 0x284d
     push ax                          ; 0x2850
     call api_idx_0004_QSNR           ; 0x2851
-    add sp, byte 0x0e                ; 0x2854
-    push word [bp - 0x000c]          ; 0x2857
+    add sp, byte 0xe                 ; 0x2854
+    push word [bp - 0xc]             ; 0x2857
     mov ax, 0x2c                     ; 0x285a
-    imul word [bp - 0x0002]          ; 0x285d
+    imul word [bp - 2]               ; 0x285d
     mov cx, ax                       ; 0x2860
-    mov ax, word [bp + 0x4]          ; 0x2862
+    mov ax, word [bp + 4]            ; 0x2862
     shl ax, 1                        ; 0x2865
     mov bx, ax                       ; 0x2867
     mov ax, word [bx + party_char]   ; 0x2869
@@ -225,10 +225,10 @@ api_idx_0010_LPLH:
     push ax                          ; 0x286f
     call loc_TGJH                    ; 0x2870
     add sp, byte 4                   ; 0x2873
-    cmp word [bp + 0x4], byte 0      ; 0x2876
+    cmp word [bp + 4], byte 0        ; 0x2876
     jne short @..api_idx_0010_LPLH.l19 ; 0x287a
     mov ax, 0x248                    ; 0x287c
-    imul word [bp - 0x0002]          ; 0x287f
+    imul word [bp - 2]               ; 0x287f
     mov bx, ax                       ; 0x2882
     mov al, byte [bx + party_records + pc_rec.gender] ; 0x2884
     sub ah, ah                       ; 0x2888
@@ -238,7 +238,7 @@ api_idx_0010_LPLH:
     pop cx                           ; 0x2891
     mov ax, 1                        ; 0x2892
     push ax                          ; 0x2895
-    push word [bp - 0x0002]          ; 0x2896
+    push word [bp - 2]               ; 0x2896
     call api_idx_0004_MLLS           ; 0x2899
     add sp, byte 4                   ; 0x289c
 @..api_idx_0010_LPLH.l19:
@@ -268,11 +268,11 @@ api_idx_0010_LPLH:
     call api_idx_0004_QUPL           ; 0x28cb
     pop cx                           ; 0x28ce
 @..api_idx_0010_LPLH.l22:
-    inc word [bp - 0x0002]           ; 0x28cf
+    inc word [bp - 2]                ; 0x28cf
 @..api_idx_0010_LPLH.l23:
-    mov ax, word [bp - 0x0006]       ; 0x28d2
-    add ax, word [bp - 0x0004]       ; 0x28d5
-    cmp ax, word [bp - 0x0002]       ; 0x28d8
+    mov ax, word [bp - 6]            ; 0x28d2
+    add ax, word [bp - 4]            ; 0x28d5
+    cmp ax, word [bp - 2]            ; 0x28d8
     jle short @..api_idx_0010_LPLH.l24 ; 0x28db
     jmp near @..api_idx_0010_LPLH.l7 ; 0x28dd
 @..api_idx_0010_LPLH.l24:

@@ -2,7 +2,7 @@
 loc_GLHQ:
     mov ax, 0                        ; 0x1a12
     call aztec_csav                  ; 0x1a15
-    mov ax, word [bp + 0x4]          ; 0x1a18
+    mov ax, word [bp + 4]            ; 0x1a18
     jmp near @..loc_GLHQ.l1          ; 0x1a1b
 jumptable_1b5a_case_0:
     mov ax, 0                        ; 0x1a1e

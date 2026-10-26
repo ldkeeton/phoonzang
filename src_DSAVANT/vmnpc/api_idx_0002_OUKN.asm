@@ -4,13 +4,13 @@ api_idx_0002_OUKN:
     call aztec_csav                  ; 0x276b
     mov ax, bss_9576                 ; 0x276e
     push ax                          ; 0x2771
-    mov ax, word [bp + 0x4]          ; 0x2772
+    mov ax, word [bp + 4]            ; 0x2772
     add ax, MSG_TEMPLE_1800          ; 0x2775
     push ax                          ; 0x2778
     call load_message_string         ; 0x2779
     add sp, byte 4                   ; 0x277c
     mov ax, 6                        ; 0x277f
-    imul word [bp + 0x4]             ; 0x2782
+    imul word [bp + 4]               ; 0x2782
     mov bx, ax                       ; 0x2785
     cmp byte [bx + slot_bit_states + slot_bit_state.status], 0 ; 0x2787
     je short @..api_idx_0002_OUKN.l1 ; 0x278c
@@ -29,11 +29,11 @@ api_idx_0002_OUKN:
 @..api_idx_0002_OUKN.l2:
     mov ax, 1                        ; 0x27ad
 @..api_idx_0002_OUKN.l3:
-    mov word [bp - 0x0002], ax       ; 0x27b0
+    mov word [bp - 2], ax            ; 0x27b0
     mov ax, 0x93f0                   ; 0x27b3
     push ax                          ; 0x27b6
     mov ax, 6                        ; 0x27b7
-    imul word [bp + 0x4]             ; 0x27ba
+    imul word [bp + 4]               ; 0x27ba
     mov bx, ax                       ; 0x27bd
     mov al, byte [bx + slot_bit_states] ; 0x27bf
     sub ah, ah                       ; 0x27c3
@@ -48,7 +48,7 @@ api_idx_0002_OUKN:
     jmp short @..api_idx_0002_OUKN.l5 ; 0x27d4
 @..api_idx_0002_OUKN.l4:
     mov ax, MSG_IT_IS_RUMORED_THAT_POS_1881 ; 0x27d6
-    cmp word [bp - 0x0002], byte 0   ; 0x27d9
+    cmp word [bp - 2], byte 0        ; 0x27d9
     je short @..api_idx_0002_OUKN.l5 ; 0x27dd
     mov ax, MSG_IT_IS_RUMORED_THAT_POS_1882 ; 0x27df
 @..api_idx_0002_OUKN.l5:
@@ -58,7 +58,7 @@ api_idx_0002_OUKN:
     mov ax, 0x958e                   ; 0x27e9
     push ax                          ; 0x27ec
     mov ax, 6                        ; 0x27ed
-    imul word [bp + 0x4]             ; 0x27f0
+    imul word [bp + 4]               ; 0x27f0
     mov bx, ax                       ; 0x27f3
     mov al, byte [bx + slot_bit_states] ; 0x27f5
     sub ah, ah                       ; 0x27f9
@@ -72,7 +72,7 @@ api_idx_0002_OUKN:
     mov ax, MSG_OUR_PARTY            ; 0x2807
     jmp short @..api_idx_0002_OUKN.l8 ; 0x280a
 @..api_idx_0002_OUKN.l6:
-    cmp word [bp - 0x0002], byte 0   ; 0x280c
+    cmp word [bp - 2], byte 0        ; 0x280c
     je short @..api_idx_0002_OUKN.l7 ; 0x2810
     mov al, byte [bx + slot_bit_states] ; 0x2812
     sub ah, ah                       ; 0x2816
@@ -85,7 +85,7 @@ api_idx_0002_OUKN:
     jmp short @..api_idx_0002_OUKN.l8 ; 0x2828
 @..api_idx_0002_OUKN.l7:
     mov ax, 6                        ; 0x282a
-    imul word [bp + 0x4]             ; 0x282d
+    imul word [bp + 4]               ; 0x282d
     mov bx, ax                       ; 0x2830
     mov al, byte [bx + slot_bit_states] ; 0x2832
     sub ah, ah                       ; 0x2836
@@ -105,7 +105,7 @@ api_idx_0002_OUKN:
     mov ax, bss_958e                 ; 0x2852
     push ax                          ; 0x2855
     mov ax, 6                        ; 0x2856
-    imul word [bp + 0x4]             ; 0x2859
+    imul word [bp + 4]               ; 0x2859
     mov bx, ax                       ; 0x285c
     mov al, byte [bx + slot_bit_states] ; 0x285e
     sub ah, ah                       ; 0x2862

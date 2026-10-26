@@ -12,7 +12,7 @@ api_idx_0004_GGOK:
     push ax                          ; 0x3aab
     mov ax, MSG_CAST                 ; 0x3aac
     push ax                          ; 0x3aaf
-    push word [bp + 0x4]             ; 0x3ab0
+    push word [bp + 4]               ; 0x3ab0
     call api_idx_0044_NORP           ; 0x3ab3
     add sp, byte 8                   ; 0x3ab6
     test ax, ax                      ; 0x3ab9
@@ -23,8 +23,8 @@ api_idx_0004_GGOK:
     mov cx, 0x100                    ; 0x3ac3
     cwd                              ; 0x3ac6
     idiv cx                          ; 0x3ac7
-    mov word [bp - 0x0004], ax       ; 0x3ac9
-    mov word [bp - 0x0002], dx       ; 0x3acc
+    mov word [bp - 4], ax            ; 0x3ac9
+    mov word [bp - 2], dx            ; 0x3acc
     mov ax, 6                        ; 0x3acf
     imul dx                          ; 0x3ad2
     mov bx, ax                       ; 0x3ad4
@@ -34,21 +34,21 @@ api_idx_0004_GGOK:
     mov word [bss_9650], ax          ; 0x3ae0
     cmp ax, strict word 0xffff       ; 0x3ae3
     jne short @..api_idx_0004_GGOK.l2 ; 0x3ae6
-    mov word [bp - 0x0002], 0xffff   ; 0x3ae8
+    mov word [bp - 2], 0xffff        ; 0x3ae8
 @..api_idx_0004_GGOK.l2:
-    cmp word [bp - 0x0002], byte 0   ; 0x3aed
+    cmp word [bp - 2], byte 0        ; 0x3aed
     jge short @..api_idx_0004_GGOK.l3 ; 0x3af1
     jmp near @..api_idx_0004_GGOK.l5 ; 0x3af3
 @..api_idx_0004_GGOK.l3:
     mov ax, 6                        ; 0x3af6
-    imul word [bp - 0x0002]          ; 0x3af9
+    imul word [bp - 2]               ; 0x3af9
     mov bx, ax                       ; 0x3afc
     mov al, byte [bx + spell_table + spell_table_rec.f_0002] ; 0x3afe
     sub ah, ah                       ; 0x3b02
-    imul word [bp - 0x0004]          ; 0x3b04
+    imul word [bp - 4]               ; 0x3b04
     push ax                          ; 0x3b07
     mov ax, 0x248                    ; 0x3b08
-    imul word [bp + 0x4]             ; 0x3b0b
+    imul word [bp + 4]               ; 0x3b0b
     mov cx, ax                       ; 0x3b0e
     mov al, byte [bx + spell_table]  ; 0x3b10
     sub ah, ah                       ; 0x3b14
@@ -61,27 +61,27 @@ api_idx_0004_GGOK:
     pop ax                           ; 0x3b22
     sub word [bx + party_records + pc_rec.realm_points], ax ; 0x3b23
     push word [bss_9650]             ; 0x3b27
-    push word [bp - 0x0004]          ; 0x3b2b
-    push word [bp - 0x0002]          ; 0x3b2e
-    push word [bp + 0x4]             ; 0x3b31
+    push word [bp - 4]               ; 0x3b2b
+    push word [bp - 2]               ; 0x3b2e
+    push word [bp + 4]               ; 0x3b31
     call api_idx_0008_HUTJ           ; 0x3b34
     add sp, byte 8                   ; 0x3b37
-    push word [bp - 0x0004]          ; 0x3b3a
+    push word [bp - 4]               ; 0x3b3a
     call random_below                ; 0x3b3d
     pop cx                           ; 0x3b40
     push ax                          ; 0x3b41
     mov ax, 6                        ; 0x3b42
-    imul word [bp - 0x0002]          ; 0x3b45
+    imul word [bp - 2]               ; 0x3b45
     mov bx, ax                       ; 0x3b48
     mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x3b4a
     sub ah, ah                       ; 0x3b4e
     mov cx, ax                       ; 0x3b50
     pop ax                           ; 0x3b52
     add ax, cx                       ; 0x3b53
-    add ax, word [bp - 0x0004]       ; 0x3b55
+    add ax, word [bp - 4]            ; 0x3b55
     push ax                          ; 0x3b58
     mov ax, 0x248                    ; 0x3b59
-    imul word [bp + 0x4]             ; 0x3b5c
+    imul word [bp + 4]               ; 0x3b5c
     mov bx, ax                       ; 0x3b5f
     pop ax                           ; 0x3b61
     sub word [bx + party_records + pc_rec.pair_b], ax ; 0x3b62
@@ -95,14 +95,14 @@ api_idx_0004_GGOK:
     add ax, strict word 6            ; 0x3b7b
     push ax                          ; 0x3b7e
     mov ax, 0x248                    ; 0x3b7f
-    imul word [bp + 0x4]             ; 0x3b82
+    imul word [bp + 4]               ; 0x3b82
     mov bx, ax                       ; 0x3b85
     pop ax                           ; 0x3b87
     mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x3b88
 @..api_idx_0004_GGOK.l4:
     mov ax, 1                        ; 0x3b8c
     push ax                          ; 0x3b8f
-    push word [bp + 0x4]             ; 0x3b90
+    push word [bp + 4]               ; 0x3b90
     call draw_party_member_panel     ; 0x3b93
     add sp, byte 4                   ; 0x3b96
 @..api_idx_0004_GGOK.l5:

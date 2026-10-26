@@ -11,22 +11,22 @@ loc_VJNU:
     call aztec_setmem                ; 0x0648
     add sp, byte 6                   ; 0x064b
     mov word [party_status_frame_step], 0 ; 0x064e
-    mov ax, word [bp + 0x4]          ; 0x0654
+    mov ax, word [bp + 4]            ; 0x0654
     jmp short @..loc_VJNU.l5         ; 0x0657
 @..loc_VJNU.l1:
-    mov ax, word [bp + 0x6]          ; 0x0659
+    mov ax, word [bp + 6]            ; 0x0659
     add word [party_world_y], ax     ; 0x065c
     jmp short @..loc_VJNU.l6         ; 0x0660
 @..loc_VJNU.l2:
-    mov ax, word [bp + 0x6]          ; 0x0662
+    mov ax, word [bp + 6]            ; 0x0662
     add word [party_world_x], ax     ; 0x0665
     jmp short @..loc_VJNU.l6         ; 0x0669
 @..loc_VJNU.l3:
-    mov ax, word [bp + 0x6]          ; 0x066b
+    mov ax, word [bp + 6]            ; 0x066b
     sub word [party_world_y], ax     ; 0x066e
     jmp short @..loc_VJNU.l6         ; 0x0672
 @..loc_VJNU.l4:
-    mov ax, word [bp + 0x6]          ; 0x0674
+    mov ax, word [bp + 6]            ; 0x0674
     sub word [party_world_x], ax     ; 0x0677
     jmp short @..loc_VJNU.l6         ; 0x067b
 @..loc_VJNU.l5:

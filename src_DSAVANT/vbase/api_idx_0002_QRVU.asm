@@ -37,7 +37,7 @@ api_idx_0002_QRVU:
     push word [bss_9088]             ; 0x3ff9
     call aztec_write                 ; 0x3ffd
     add sp, byte 6                   ; 0x4000
-    mov word [bp - 0x0002], ax       ; 0x4003
+    mov word [bp - 2], ax            ; 0x4003
     cmp ax, strict word 0xffff       ; 0x4006
     jne short @..api_idx_0002_QRVU.l2 ; 0x4009
     mov ax, 0x14                     ; 0x400b

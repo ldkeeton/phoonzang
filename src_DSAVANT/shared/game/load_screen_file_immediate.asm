@@ -10,13 +10,13 @@ load_screen_file_immediate:
     push ax
     mov ax, 1
     push ax
-    push word [bp + 0x4]
+    push word [bp + 4]
     call data_file_path
     add sp, byte 4
     push ax
     call aztec_open
     add sp, byte 4
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     cmp ax, strict word 0xffff
     jne short @..load_screen_file_immediate.l1
     mov ax, 0x1c
@@ -26,13 +26,13 @@ load_screen_file_immediate:
 @..load_screen_file_immediate.l1:
     mov ax, 0
     push ax
-    push word [bp - 0x0002]
+    push word [bp - 2]
     call gfx_load_screen
     add sp, byte 4
-    push word [bp - 0x0002]
+    push word [bp - 2]
     call aztec_close
     pop cx
-    cmp word [bp + 0x6], byte 0
+    cmp word [bp + 6], byte 0
     je short @..load_screen_file_immediate.l2
     mov ax, 0xc7
     push ax

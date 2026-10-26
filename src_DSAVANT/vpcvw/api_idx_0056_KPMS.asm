@@ -2,13 +2,13 @@
 api_idx_0056_KPMS:
     mov ax, 0xffaa                   ; 0x468b
     call aztec_csav                  ; 0x468e
-    lea ax, word [bp - 0x0056]       ; 0x4691
+    lea ax, word [bp - 0x56]         ; 0x4691
     push ax                          ; 0x4694
     mov ax, MSG_CURSED_356           ; 0x4695
     push ax                          ; 0x4698
     call load_message_string         ; 0x4699
     add sp, byte 4                   ; 0x469c
-    lea ax, word [bp - 0x0056]       ; 0x469f
+    lea ax, word [bp - 0x56]         ; 0x469f
     push ax                          ; 0x46a2
     call aztec_strlen                ; 0x46a3
     pop cx                           ; 0x46a6
@@ -20,21 +20,21 @@ api_idx_0056_KPMS:
     mov cx, ax                       ; 0x46b2
     mov ax, 0x10f                    ; 0x46b4
     sub ax, cx                       ; 0x46b7
-    mov word [bp - 0x0002], ax       ; 0x46b9
+    mov word [bp - 2], ax            ; 0x46b9
     mov ax, 0x3e                     ; 0x46bc
     push ax                          ; 0x46bf
     mov ax, 0x13f                    ; 0x46c0
     push ax                          ; 0x46c3
     mov ax, 0x39                     ; 0x46c4
     push ax                          ; 0x46c7
-    push word [bp - 0x0002]          ; 0x46c8
+    push word [bp - 2]               ; 0x46c8
     call gfx_save_area               ; 0x46cb
     add sp, byte 8                   ; 0x46ce
-    mov word [bp - 0x0004], dx       ; 0x46d1
-    mov word [bp - 0x0006], ax       ; 0x46d4
+    mov word [bp - 4], dx            ; 0x46d1
+    mov word [bp - 6], ax            ; 0x46d4
     mov ax, 0x39                     ; 0x46d7
     push ax                          ; 0x46da
-    push word [bp - 0x0002]          ; 0x46db
+    push word [bp - 2]               ; 0x46db
     call gfx_set_text_pos            ; 0x46de
     add sp, byte 4                   ; 0x46e1
     mov ax, 0                        ; 0x46e4
@@ -45,7 +45,7 @@ api_idx_0056_KPMS:
     add sp, byte 4                   ; 0x46ef
     mov ax, 0                        ; 0x46f2
     push ax                          ; 0x46f5
-    lea ax, word [bp - 0x0056]       ; 0x46f6
+    lea ax, word [bp - 0x56]         ; 0x46f6
     push ax                          ; 0x46f9
     call draw_text_glyphs            ; 0x46fa
     add sp, byte 4                   ; 0x46fd
@@ -55,7 +55,7 @@ api_idx_0056_KPMS:
     push ax                          ; 0x4707
     mov ax, 0x39                     ; 0x4708
     push ax                          ; 0x470b
-    push word [bp - 0x0002]          ; 0x470c
+    push word [bp - 2]               ; 0x470c
     call gfx_show_area               ; 0x470f
     add sp, byte 8                   ; 0x4712
     mov ax, 0                        ; 0x4715
@@ -67,8 +67,8 @@ api_idx_0056_KPMS:
     pop cx                           ; 0x4724
     mov ax, 1                        ; 0x4725
     push ax                          ; 0x4728
-    push word [bp - 0x0004]          ; 0x4729
-    push word [bp - 0x0006]          ; 0x472c
+    push word [bp - 4]               ; 0x4729
+    push word [bp - 6]               ; 0x472c
     call gfx_restore_area            ; 0x472f
     add sp, byte 6                   ; 0x4732
     mov ax, 0x3e                     ; 0x4735
@@ -77,7 +77,7 @@ api_idx_0056_KPMS:
     push ax                          ; 0x473c
     mov ax, 0x39                     ; 0x473d
     push ax                          ; 0x4740
-    push word [bp - 0x0002]          ; 0x4741
+    push word [bp - 2]               ; 0x4741
     call gfx_show_area               ; 0x4744
     add sp, byte 8                   ; 0x4747
     ret                              ; 0x474a

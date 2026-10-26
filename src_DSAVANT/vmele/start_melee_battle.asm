@@ -105,7 +105,7 @@ start_melee_battle:
     mov ax, 0x48                     ; 0x34c3
     push ax                          ; 0x34c6
     call gfx_cache_area              ; 0x34c7
-    add sp, byte 0x0c                ; 0x34ca
+    add sp, byte 0xc                 ; 0x34ca
     mov word [screen_cache_0_seg], dx ; 0x34cd
     mov word [screen_cache], ax      ; 0x34d1
     cmp word [saved_screen_pending], byte 0 ; 0x34d4
@@ -130,16 +130,16 @@ start_melee_battle:
     mov ax, 0x48                     ; 0x3503
     push ax                          ; 0x3506
     call gfx_cache_area              ; 0x3507
-    add sp, byte 0x0c                ; 0x350a
+    add sp, byte 0xc                 ; 0x350a
     mov word [screen_cache_1_seg], dx ; 0x350d
     mov word [screen_cache_1_off], ax ; 0x3511
-    mov word [bp - 0x0002], 0        ; 0x3514
+    mov word [bp - 2], 0             ; 0x3514
 @..start_melee_battle.l5:
     mov ax, 0xe8                     ; 0x3519
     push ax                          ; 0x351c
     call aztec_malloc                ; 0x351d
     pop cx                           ; 0x3520
-    mov cx, word [bp - 0x0002]       ; 0x3521
+    mov cx, word [bp - 2]            ; 0x3521
     shl cx, 1                        ; 0x3524
     mov bx, cx                       ; 0x3526
     mov word [bx + party_char_ext], ax ; 0x3528
@@ -147,7 +147,7 @@ start_melee_battle:
     push ax                          ; 0x352f
     call aztec_malloc                ; 0x3530
     pop cx                           ; 0x3533
-    mov cx, word [bp - 0x0002]       ; 0x3534
+    mov cx, word [bp - 2]            ; 0x3534
     shl cx, 1                        ; 0x3537
     mov bx, cx                       ; 0x3539
     mov word [bx + party_char], ax   ; 0x353b
@@ -161,17 +161,17 @@ start_melee_battle:
     call release_and_exit            ; 0x3551
     pop cx                           ; 0x3554
 @..start_melee_battle.l7:
-    inc word [bp - 0x0002]           ; 0x3555
-    mov ax, word [bp - 0x0002]       ; 0x3558
+    inc word [bp - 2]                ; 0x3555
+    mov ax, word [bp - 2]            ; 0x3558
     cmp ax, strict word 7            ; 0x355b
     jl short @..start_melee_battle.l5 ; 0x355e
-    mov word [bp - 0x0002], 0        ; 0x3560
+    mov word [bp - 2], 0             ; 0x3560
 @..start_melee_battle.l8:
     mov ax, 0x18                     ; 0x3565
     push ax                          ; 0x3568
     call aztec_malloc                ; 0x3569
     pop cx                           ; 0x356c
-    mov cx, word [bp - 0x0002]       ; 0x356d
+    mov cx, word [bp - 2]            ; 0x356d
     shl cx, 1                        ; 0x3570
     mov bx, cx                       ; 0x3572
     mov word [bx + overlay_list + 0x2], ax ; 0x3574
@@ -182,22 +182,22 @@ start_melee_battle:
     call release_and_exit            ; 0x3583
     pop cx                           ; 0x3586
 @..start_melee_battle.l9:
-    mov ax, word [bp - 0x0002]       ; 0x3587
+    mov ax, word [bp - 2]            ; 0x3587
     shl ax, 1                        ; 0x358a
     mov bx, ax                       ; 0x358c
     mov bx, word [bx + overlay_list + 0x2] ; 0x358e
     mov byte [bx + overlay_list_rec.f_0014], 0xff ; 0x3592
-    inc word [bp - 0x0002]           ; 0x3596
-    mov ax, word [bp - 0x0002]       ; 0x3599
+    inc word [bp - 2]                ; 0x3596
+    mov ax, word [bp - 2]            ; 0x3599
     cmp ax, strict word 0xc          ; 0x359c
     jl short @..start_melee_battle.l8 ; 0x359f
-    mov word [bp - 0x0002], 0xf      ; 0x35a1
+    mov word [bp - 2], 0xf           ; 0x35a1
 @..start_melee_battle.l10:
-    mov bx, word [bp - 0x0002]       ; 0x35a6
+    mov bx, word [bp - 2]            ; 0x35a6
     mov byte [bx + picture_slot_number], 0xff ; 0x35a9
     mov byte [bx + picture_slot_used], 0 ; 0x35ae
-    inc word [bp - 0x0002]           ; 0x35b3
-    mov ax, word [bp - 0x0002]       ; 0x35b6
+    inc word [bp - 2]                ; 0x35b3
+    mov ax, word [bp - 2]            ; 0x35b6
     cmp ax, strict word 0x12         ; 0x35b9
     jl short @..start_melee_battle.l10 ; 0x35bc
     mov ax, 0xc6                     ; 0x35be
@@ -266,20 +266,20 @@ start_melee_battle:
     call wait_for_hotspot_timeout    ; 0x3659
     pop cx                           ; 0x365c
     push word [party_member_ext_1]   ; 0x365d
-    lea ax, word [bp - 0x0056]       ; 0x3661
+    lea ax, word [bp - 0x56]         ; 0x3661
     push ax                          ; 0x3664
     call aztec_strcpy                ; 0x3665
     add sp, byte 4                   ; 0x3668
-    lea ax, word [bp - 0x0056]       ; 0x366b
+    lea ax, word [bp - 0x56]         ; 0x366b
     push ax                          ; 0x366e
     call titlecase_string            ; 0x366f
     pop cx                           ; 0x3672
-    lea ax, word [bp - 0x0056]       ; 0x3673
+    lea ax, word [bp - 0x56]         ; 0x3673
     push ax                          ; 0x3676
     call aztec_strlen                ; 0x3677
     pop cx                           ; 0x367a
-    mov word [bp - 0x0004], ax       ; 0x367b
-    lea cx, word [bp - 0x0056]       ; 0x367e
+    mov word [bp - 4], ax            ; 0x367b
+    lea cx, word [bp - 0x56]         ; 0x367e
     add ax, cx                       ; 0x3681
     push ax                          ; 0x3683
     mov ax, MSG_CALLS_FOR_HELP       ; 0x3684
@@ -288,7 +288,7 @@ start_melee_battle:
     add sp, byte 4                   ; 0x368b
     mov ax, 0x11                     ; 0x368e
     push ax                          ; 0x3691
-    lea ax, word [bp - 0x0056]       ; 0x3692
+    lea ax, word [bp - 0x56]         ; 0x3692
     push ax                          ; 0x3695
     call show_centered_message       ; 0x3696
     add sp, byte 4                   ; 0x3699
@@ -296,7 +296,7 @@ start_melee_battle:
     call advance_melee_item_slots    ; 0x369c
     les bx, word [tick_counter_ptr]  ; 0x369f
     mov ax, word [es:bx]             ; 0x36a3
-    mov dx, word [es:bx + 0x2]       ; 0x36a6
+    mov dx, word [es:bx + 2]         ; 0x36a6
     mov word [party_redraw_last_tick_hi], dx ; 0x36aa
     mov word [party_redraw_last_tick], ax ; 0x36ae
     mov word [game_state], 0xb       ; 0x36b1

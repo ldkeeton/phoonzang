@@ -22,7 +22,7 @@ init_system_hardware:
     push ax                          ; 0x3091
     call gfx_fill_screen_buffer      ; 0x3092
     add sp, byte 2                   ; 0x3095
-    mov ax, word [bp - 0x0002]       ; 0x3098
+    mov ax, word [bp - 2]            ; 0x3098
     pop di                           ; 0x309b
     pop si                           ; 0x309c
     pop es                           ; 0x309d

@@ -12,7 +12,7 @@ loc_PKMT:
     push ax                          ; 0x24d9
     mov ax, 0x41                     ; 0x24da
     push ax                          ; 0x24dd
-    push word [bp + 0x4]             ; 0x24de
+    push word [bp + 4]               ; 0x24de
     call api_idx_0050_PLNP           ; 0x24e1
     add sp, byte 6                   ; 0x24e4
     push word [bss_9058]             ; 0x24e7

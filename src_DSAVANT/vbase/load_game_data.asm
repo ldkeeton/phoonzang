@@ -2,9 +2,9 @@
 load_game_data:
     mov ax, 0xffc8                   ; 0x2fef
     call aztec_csav                  ; 0x2ff2
-    mov word [bp - 0x000c], 0        ; 0x2ff5
+    mov word [bp - 0xc], 0           ; 0x2ff5
     mov ax, word [disk_header]       ; 0x2ffa
-    mov word [bp - 0x000e], ax       ; 0x2ffd
+    mov word [bp - 0xe], ax          ; 0x2ffd
     cmp byte [install_mode], 5       ; 0x3000
     jne short @..load_game_data.l1   ; 0x3005
     cmp ax, strict word 0            ; 0x3007
@@ -13,29 +13,29 @@ load_game_data:
     inc ax                           ; 0x300d
     jmp short @..load_game_data.l2   ; 0x300e
 @..load_game_data.l1:
-    mov ax, word [bp - 0x000e]       ; 0x3010
+    mov ax, word [bp - 0xe]          ; 0x3010
 @..load_game_data.l2:
-    mov word [bp - 0x000e], ax       ; 0x3013
+    mov word [bp - 0xe], ax          ; 0x3013
     mov ax, 0                        ; 0x3016
     push ax                          ; 0x3019
     call gfx_wait_sound              ; 0x301a
     pop cx                           ; 0x301d
-    lea ax, word [bp - 0x0024]       ; 0x301e
+    lea ax, word [bp - 0x24]         ; 0x301e
     push ax                          ; 0x3021
     mov ax, MSG_DISK_ERROR           ; 0x3022
     push ax                          ; 0x3025
     call load_message_string         ; 0x3026
     add sp, byte 4                   ; 0x3029
-    lea ax, word [bp - 0x0038]       ; 0x302c
+    lea ax, word [bp - 0x38]         ; 0x302c
     push ax                          ; 0x302f
     mov ax, MSG_LOADING              ; 0x3030
     push ax                          ; 0x3033
     call load_message_string         ; 0x3034
     add sp, byte 4                   ; 0x3037
-    mov word [bp - 0x0010], 1        ; 0x303a
-    cmp word [bp + 0x4], byte 0      ; 0x303f
+    mov word [bp - 0x10], 1          ; 0x303a
+    cmp word [bp + 4], byte 0        ; 0x303f
     je short @..load_game_data.l3    ; 0x3043
-    mov ax, word [bp + 0x4]          ; 0x3045
+    mov ax, word [bp + 4]            ; 0x3045
     cmp ax, strict word 2            ; 0x3048
     jne short @..load_game_data.l4   ; 0x304b
 @..load_game_data.l3:
@@ -66,7 +66,7 @@ load_game_data:
     mov ax, MSG_LOAD_SAVEGAME_1400   ; 0x3086
     push ax                          ; 0x3089
     call api_idx_0028_NRJN           ; 0x308a
-    add sp, byte 0x0c                ; 0x308d
+    add sp, byte 0xc                 ; 0x308d
     cmp ax, strict word 2            ; 0x3090
     jne short @..load_game_data.l5   ; 0x3093
     mov ax, 0xffff                   ; 0x3095
@@ -105,7 +105,7 @@ load_game_data:
     call aztec_strlen                ; 0x30dc
     pop cx                           ; 0x30df
     dec ax                           ; 0x30e0
-    mov word [bp - 0x0002], ax       ; 0x30e1
+    mov word [bp - 2], ax            ; 0x30e1
     mov bx, ax                       ; 0x30e4
     cmp byte [bx + bss_91ee], 0x5c   ; 0x30e6
     je short @..load_game_data.l6    ; 0x30eb
@@ -147,11 +147,11 @@ load_game_data:
     cmp byte [install_mode], 5       ; 0x3140
     jne short @..load_game_data.l9   ; 0x3145
 @..load_game_data.l8:
-    mov word [bp - 0x000c], 1        ; 0x3147
+    mov word [bp - 0xc], 1           ; 0x3147
 @..load_game_data.l9:
     mov ax, 0                        ; 0x314c
     push ax                          ; 0x314f
-    push word [bp - 0x000c]          ; 0x3150
+    push word [bp - 0xc]             ; 0x3150
     mov ax, 0xffff                   ; 0x3153
     push ax                          ; 0x3156
     mov ax, bss_91da                 ; 0x3157
@@ -159,19 +159,19 @@ load_game_data:
     call prompt_disk_swap            ; 0x315b
     add sp, byte 8                   ; 0x315e
     mov ax, 1                        ; 0x3161
-    cmp word [bp - 0x000c], byte 0   ; 0x3164
+    cmp word [bp - 0xc], byte 0      ; 0x3164
     je short @..load_game_data.l10   ; 0x3168
     mov ax, 0                        ; 0x316a
 @..load_game_data.l10:
-    mov word [bp - 0x0010], ax       ; 0x316d
+    mov word [bp - 0x10], ax         ; 0x316d
     jmp short @..load_game_data.l13  ; 0x3170
 @..load_game_data.l11:
     cmp byte [install_mode], 1       ; 0x3172
     jbe short @..load_game_data.l13  ; 0x3177
-    mov word [bp - 0x000c], 1        ; 0x3179
+    mov word [bp - 0xc], 1           ; 0x3179
     mov ax, 0                        ; 0x317e
     push ax                          ; 0x3181
-    push word [bp - 0x000c]          ; 0x3182
+    push word [bp - 0xc]             ; 0x3182
     mov ax, 0xffff                   ; 0x3185
     push ax                          ; 0x3188
     mov ax, bss_91c6                 ; 0x3189
@@ -179,13 +179,13 @@ load_game_data:
     call prompt_disk_swap            ; 0x318d
     add sp, byte 8                   ; 0x3190
     mov ax, 1                        ; 0x3193
-    cmp word [bp - 0x000c], byte 0   ; 0x3196
+    cmp word [bp - 0xc], byte 0      ; 0x3196
     je short @..load_game_data.l12   ; 0x319a
     mov ax, 0                        ; 0x319c
 @..load_game_data.l12:
-    mov word [bp - 0x0010], ax       ; 0x319f
+    mov word [bp - 0x10], ax         ; 0x319f
 @..load_game_data.l13:
-    cmp word [bp + 0x4], byte 2      ; 0x31a2
+    cmp word [bp + 4], byte 2        ; 0x31a2
     je short @..load_game_data.l14   ; 0x31a6
     mov ax, 0xc7                     ; 0x31a8
     push ax                          ; 0x31ab
@@ -203,19 +203,19 @@ load_game_data:
     push ax                          ; 0x31c2
     call aztec_open                  ; 0x31c3
     add sp, byte 4                   ; 0x31c6
-    mov word [bp - 0x000a], ax       ; 0x31c9
+    mov word [bp - 0xa], ax          ; 0x31c9
     cmp ax, strict word 0xffff       ; 0x31cc
     jne short @..load_game_data.l16  ; 0x31cf
-    lea ax, word [bp - 0x0024]       ; 0x31d1
+    lea ax, word [bp - 0x24]         ; 0x31d1
     push ax                          ; 0x31d4
     call loc_KPLK                    ; 0x31d5
     pop cx                           ; 0x31d8
-    cmp word [bp - 0x000c], byte 0   ; 0x31d9
+    cmp word [bp - 0xc], byte 0      ; 0x31d9
     je short @..load_game_data.l15   ; 0x31dd
     mov ax, 1                        ; 0x31df
     push ax                          ; 0x31e2
-    push word [bp - 0x0010]          ; 0x31e3
-    push word [bp - 0x000e]          ; 0x31e6
+    push word [bp - 0x10]            ; 0x31e3
+    push word [bp - 0xe]             ; 0x31e6
     mov ax, bss_91c6                 ; 0x31e9
     push ax                          ; 0x31ec
     call prompt_disk_swap            ; 0x31ed
@@ -224,9 +224,9 @@ load_game_data:
     mov ax, 0xffff                   ; 0x31f3
     ret                              ; 0x31f6
 @..load_game_data.l16:
-    cmp word [bp + 0x4], byte 0      ; 0x31f7
+    cmp word [bp + 4], byte 0        ; 0x31f7
     je short @..load_game_data.l17   ; 0x31fb
-    mov ax, word [bp + 0x4]          ; 0x31fd
+    mov ax, word [bp + 4]            ; 0x31fd
     cmp ax, strict word 2            ; 0x3200
     jne short @..load_game_data.l18  ; 0x3203
 @..load_game_data.l17:
@@ -253,10 +253,10 @@ load_game_data:
     push ax                          ; 0x322d
     mov ax, 3                        ; 0x322e
     push ax                          ; 0x3231
-    lea ax, word [bp - 0x0038]       ; 0x3232
+    lea ax, word [bp - 0x38]         ; 0x3232
     push ax                          ; 0x3235
     call api_idx_0004_VUIP           ; 0x3236
-    add sp, byte 0x0e                ; 0x3239
+    add sp, byte 0xe                 ; 0x3239
 @..load_game_data.l19:
     mov si, bss_5642                 ; 0x323c
     mov di, bss_95b4                 ; 0x323f
@@ -270,32 +270,32 @@ load_game_data:
     mov dx, 0                        ; 0x3252
     push dx                          ; 0x3255
     push ax                          ; 0x3256
-    push word [bp - 0x000a]          ; 0x3257
+    push word [bp - 0xa]             ; 0x3257
     call aztec_lseek                 ; 0x325a
     add sp, byte 8                   ; 0x325d
     mov ax, 0x34c                    ; 0x3260
     push ax                          ; 0x3263
     mov ax, bss_5642                 ; 0x3264
     push ax                          ; 0x3267
-    push word [bp - 0x000a]          ; 0x3268
+    push word [bp - 0xa]             ; 0x3268
     call aztec_read                  ; 0x326b
     add sp, byte 6                   ; 0x326e
-    mov word [bp - 0x0008], ax       ; 0x3271
+    mov word [bp - 8], ax            ; 0x3271
     cmp ax, strict word 0            ; 0x3274
     jg short @..load_game_data.l21   ; 0x3277
-    lea ax, word [bp - 0x0024]       ; 0x3279
+    lea ax, word [bp - 0x24]         ; 0x3279
     push ax                          ; 0x327c
     call loc_KPLK                    ; 0x327d
     pop cx                           ; 0x3280
-    push word [bp - 0x000a]          ; 0x3281
+    push word [bp - 0xa]             ; 0x3281
     call aztec_close                 ; 0x3284
     pop cx                           ; 0x3287
-    cmp word [bp - 0x000c], byte 0   ; 0x3288
+    cmp word [bp - 0xc], byte 0      ; 0x3288
     je short @..load_game_data.l20   ; 0x328c
     mov ax, 1                        ; 0x328e
     push ax                          ; 0x3291
-    push word [bp - 0x0010]          ; 0x3292
-    push word [bp - 0x000e]          ; 0x3295
+    push word [bp - 0x10]            ; 0x3292
+    push word [bp - 0xe]             ; 0x3295
     mov ax, bss_91c6                 ; 0x3298
     push ax                          ; 0x329b
     call prompt_disk_swap            ; 0x329c
@@ -304,20 +304,20 @@ load_game_data:
     mov ax, 0xffff                   ; 0x32a2
     ret                              ; 0x32a5
 @..load_game_data.l21:
-    mov word [bp - 0x0002], 0        ; 0x32a6
+    mov word [bp - 2], 0             ; 0x32a6
 @..load_game_data.l22:
     mov ax, 0x14                     ; 0x32ab
-    imul word [bp - 0x0002]          ; 0x32ae
+    imul word [bp - 2]               ; 0x32ae
     add ax, bss_9884                 ; 0x32b1
     push ax                          ; 0x32b4
     mov ax, 0x14                     ; 0x32b5
-    imul word [bp - 0x0002]          ; 0x32b8
+    imul word [bp - 2]               ; 0x32b8
     add ax, data_path_prefixes       ; 0x32bb
     push ax                          ; 0x32be
     call aztec_strcpy                ; 0x32bf
     add sp, byte 4                   ; 0x32c2
-    inc word [bp - 0x0002]           ; 0x32c5
-    mov ax, word [bp - 0x0002]       ; 0x32c8
+    inc word [bp - 2]                ; 0x32c5
+    mov ax, word [bp - 2]            ; 0x32c8
     cmp ax, strict word 4            ; 0x32cb
     jl short @..load_game_data.l22   ; 0x32ce
     mov al, byte [bss_98d4]          ; 0x32d0
@@ -334,13 +334,13 @@ load_game_data:
     mov byte [bss_5978], al          ; 0x32ed
     mov al, byte [bss_98eb]          ; 0x32f0
     mov byte [bss_5979], al          ; 0x32f3
-    mov word [bp - 0x0002], 0        ; 0x32f6
+    mov word [bp - 2], 0             ; 0x32f6
 @..load_game_data.l23:
-    mov bx, word [bp - 0x0002]       ; 0x32fb
+    mov bx, word [bp - 2]            ; 0x32fb
     mov al, byte [bx + bss_98ee]     ; 0x32fe
     mov byte [bx + bss_597c], al     ; 0x3302
-    inc word [bp - 0x0002]           ; 0x3306
-    mov ax, word [bp - 0x0002]       ; 0x3309
+    inc word [bp - 2]                ; 0x3306
+    mov ax, word [bp - 2]            ; 0x3309
     cmp ax, strict word 4            ; 0x330c
     jl short @..load_game_data.l23   ; 0x330f
     mov al, byte [bss_98f6]          ; 0x3311
@@ -370,30 +370,30 @@ load_game_data:
     mov word [bss_9058], ax          ; 0x3358
     mov ax, 6                        ; 0x335b
     imul word [bss_590e]             ; 0x335e
-    mov word [bp - 0x0006], ax       ; 0x3362
+    mov word [bp - 6], ax            ; 0x3362
     cmp ax, strict word 0            ; 0x3365
     jle short @..load_game_data.l25  ; 0x3368
     push ax                          ; 0x336a
     push word [bss_0e10]             ; 0x336b
-    push word [bp - 0x000a]          ; 0x336f
+    push word [bp - 0xa]             ; 0x336f
     call aztec_read                  ; 0x3372
     add sp, byte 6                   ; 0x3375
-    mov word [bp - 0x0008], ax       ; 0x3378
+    mov word [bp - 8], ax            ; 0x3378
     cmp ax, strict word 0            ; 0x337b
     jg short @..load_game_data.l25   ; 0x337e
-    lea ax, word [bp - 0x0024]       ; 0x3380
+    lea ax, word [bp - 0x24]         ; 0x3380
     push ax                          ; 0x3383
     call loc_KPLK                    ; 0x3384
     pop cx                           ; 0x3387
-    push word [bp - 0x000a]          ; 0x3388
+    push word [bp - 0xa]             ; 0x3388
     call aztec_close                 ; 0x338b
     pop cx                           ; 0x338e
-    cmp word [bp - 0x000c], byte 0   ; 0x338f
+    cmp word [bp - 0xc], byte 0      ; 0x338f
     je short @..load_game_data.l24   ; 0x3393
     mov ax, 1                        ; 0x3395
     push ax                          ; 0x3398
-    push word [bp - 0x0010]          ; 0x3399
-    push word [bp - 0x000e]          ; 0x339c
+    push word [bp - 0x10]            ; 0x3399
+    push word [bp - 0xe]             ; 0x339c
     mov ax, bss_91c6                 ; 0x339f
     push ax                          ; 0x33a2
     call prompt_disk_swap            ; 0x33a3
@@ -406,30 +406,30 @@ load_game_data:
     shl ax, 1                        ; 0x33b0
     shl ax, 1                        ; 0x33b2
     shl ax, 1                        ; 0x33b4
-    mov word [bp - 0x0006], ax       ; 0x33b6
+    mov word [bp - 6], ax            ; 0x33b6
     cmp ax, strict word 0            ; 0x33b9
     jle short @..load_game_data.l27  ; 0x33bc
     push ax                          ; 0x33be
     push word [bss_0e0e]             ; 0x33bf
-    push word [bp - 0x000a]          ; 0x33c3
+    push word [bp - 0xa]             ; 0x33c3
     call aztec_read                  ; 0x33c6
     add sp, byte 6                   ; 0x33c9
-    mov word [bp - 0x0008], ax       ; 0x33cc
+    mov word [bp - 8], ax            ; 0x33cc
     cmp ax, strict word 0            ; 0x33cf
     jg short @..load_game_data.l27   ; 0x33d2
-    lea ax, word [bp - 0x0024]       ; 0x33d4
+    lea ax, word [bp - 0x24]         ; 0x33d4
     push ax                          ; 0x33d7
     call loc_KPLK                    ; 0x33d8
     pop cx                           ; 0x33db
-    push word [bp - 0x000a]          ; 0x33dc
+    push word [bp - 0xa]             ; 0x33dc
     call aztec_close                 ; 0x33df
     pop cx                           ; 0x33e2
-    cmp word [bp - 0x000c], byte 0   ; 0x33e3
+    cmp word [bp - 0xc], byte 0      ; 0x33e3
     je short @..load_game_data.l26   ; 0x33e7
     mov ax, 1                        ; 0x33e9
     push ax                          ; 0x33ec
-    push word [bp - 0x0010]          ; 0x33ed
-    push word [bp - 0x000e]          ; 0x33f0
+    push word [bp - 0x10]            ; 0x33ed
+    push word [bp - 0xe]             ; 0x33f0
     mov ax, bss_91c6                 ; 0x33f3
     push ax                          ; 0x33f6
     call prompt_disk_swap            ; 0x33f7
@@ -438,31 +438,31 @@ load_game_data:
     mov ax, 0xffff                   ; 0x33fd
     ret                              ; 0x3400
 @..load_game_data.l27:
-    mov word [bp - 0x0004], 0        ; 0x3401
+    mov word [bp - 4], 0             ; 0x3401
 @..load_game_data.l28:
     mov ax, 0x80                     ; 0x3406
     push ax                          ; 0x3409
     mov ax, bss_9900                 ; 0x340a
     push ax                          ; 0x340d
-    push word [bp - 0x000a]          ; 0x340e
+    push word [bp - 0xa]             ; 0x340e
     call aztec_read                  ; 0x3411
     add sp, byte 6                   ; 0x3414
-    mov word [bp - 0x0008], ax       ; 0x3417
+    mov word [bp - 8], ax            ; 0x3417
     cmp ax, strict word 0            ; 0x341a
     jg short @..load_game_data.l30   ; 0x341d
-    lea ax, word [bp - 0x0024]       ; 0x341f
+    lea ax, word [bp - 0x24]         ; 0x341f
     push ax                          ; 0x3422
     call loc_KPLK                    ; 0x3423
     pop cx                           ; 0x3426
-    push word [bp - 0x000a]          ; 0x3427
+    push word [bp - 0xa]             ; 0x3427
     call aztec_close                 ; 0x342a
     pop cx                           ; 0x342d
-    cmp word [bp - 0x000c], byte 0   ; 0x342e
+    cmp word [bp - 0xc], byte 0      ; 0x342e
     je short @..load_game_data.l29   ; 0x3432
     mov ax, 1                        ; 0x3434
     push ax                          ; 0x3437
-    push word [bp - 0x0010]          ; 0x3438
-    push word [bp - 0x000e]          ; 0x343b
+    push word [bp - 0x10]            ; 0x3438
+    push word [bp - 0xe]             ; 0x343b
     mov ax, bss_91c6                 ; 0x343e
     push ax                          ; 0x3441
     call prompt_disk_swap            ; 0x3442
@@ -475,25 +475,25 @@ load_game_data:
     push ax                          ; 0x344f
     mov ax, bss_9980                 ; 0x3450
     push ax                          ; 0x3453
-    push word [bp - 0x000a]          ; 0x3454
+    push word [bp - 0xa]             ; 0x3454
     call aztec_read                  ; 0x3457
     add sp, byte 6                   ; 0x345a
-    mov word [bp - 0x0008], ax       ; 0x345d
+    mov word [bp - 8], ax            ; 0x345d
     cmp ax, strict word 0            ; 0x3460
     jg short @..load_game_data.l32   ; 0x3463
-    lea ax, word [bp - 0x0024]       ; 0x3465
+    lea ax, word [bp - 0x24]         ; 0x3465
     push ax                          ; 0x3468
     call loc_KPLK                    ; 0x3469
     pop cx                           ; 0x346c
-    push word [bp - 0x000a]          ; 0x346d
+    push word [bp - 0xa]             ; 0x346d
     call aztec_close                 ; 0x3470
     pop cx                           ; 0x3473
-    cmp word [bp - 0x000c], byte 0   ; 0x3474
+    cmp word [bp - 0xc], byte 0      ; 0x3474
     je short @..load_game_data.l31   ; 0x3478
     mov ax, 1                        ; 0x347a
     push ax                          ; 0x347d
-    push word [bp - 0x0010]          ; 0x347e
-    push word [bp - 0x000e]          ; 0x3481
+    push word [bp - 0x10]            ; 0x347e
+    push word [bp - 0xe]             ; 0x3481
     mov ax, bss_91c6                 ; 0x3484
     push ax                          ; 0x3487
     call prompt_disk_swap            ; 0x3488
@@ -504,7 +504,7 @@ load_game_data:
 @..load_game_data.l32:
     mov ax, 0x80                     ; 0x3492
     push ax                          ; 0x3495
-    mov ax, word [bp - 0x0004]       ; 0x3496
+    mov ax, word [bp - 4]            ; 0x3496
     mov cx, 7                        ; 0x3499
     shl ax, cl                       ; 0x349c
     mov cx, ax                       ; 0x349e
@@ -517,10 +517,10 @@ load_game_data:
     mov ax, bss_9900                 ; 0x34ac
     push ax                          ; 0x34af
     call app_memmove                 ; 0x34b0
-    add sp, byte 0x0a                ; 0x34b3
+    add sp, byte 0xa                 ; 0x34b3
     mov ax, 0x80                     ; 0x34b6
     push ax                          ; 0x34b9
-    mov ax, word [bp - 0x0004]       ; 0x34ba
+    mov ax, word [bp - 4]            ; 0x34ba
     mov cx, 7                        ; 0x34bd
     shl ax, cl                       ; 0x34c0
     mov cx, ax                       ; 0x34c2
@@ -533,9 +533,9 @@ load_game_data:
     mov ax, bss_9980                 ; 0x34d0
     push ax                          ; 0x34d3
     call app_memmove                 ; 0x34d4
-    add sp, byte 0x0a                ; 0x34d7
-    inc word [bp - 0x0004]           ; 0x34da
-    mov ax, word [bp - 0x0004]       ; 0x34dd
+    add sp, byte 0xa                 ; 0x34d7
+    inc word [bp - 4]                ; 0x34da
+    mov ax, word [bp - 4]            ; 0x34dd
     cmp ax, strict word 0x20         ; 0x34e0
     jge short @..load_game_data.l33  ; 0x34e3
     jmp near @..load_game_data.l28   ; 0x34e5
@@ -544,25 +544,25 @@ load_game_data:
     push ax                          ; 0x34eb
     mov ax, bss_9a00                 ; 0x34ec
     push ax                          ; 0x34ef
-    push word [bp - 0x000a]          ; 0x34f0
+    push word [bp - 0xa]             ; 0x34f0
     call aztec_read                  ; 0x34f3
     add sp, byte 6                   ; 0x34f6
-    mov word [bp - 0x0008], ax       ; 0x34f9
+    mov word [bp - 8], ax            ; 0x34f9
     cmp ax, strict word 0            ; 0x34fc
     jg short @..load_game_data.l35   ; 0x34ff
-    lea ax, word [bp - 0x0024]       ; 0x3501
+    lea ax, word [bp - 0x24]         ; 0x3501
     push ax                          ; 0x3504
     call loc_KPLK                    ; 0x3505
     pop cx                           ; 0x3508
-    push word [bp - 0x000a]          ; 0x3509
+    push word [bp - 0xa]             ; 0x3509
     call aztec_close                 ; 0x350c
     pop cx                           ; 0x350f
-    cmp word [bp - 0x000c], byte 0   ; 0x3510
+    cmp word [bp - 0xc], byte 0      ; 0x3510
     je short @..load_game_data.l34   ; 0x3514
     mov ax, 1                        ; 0x3516
     push ax                          ; 0x3519
-    push word [bp - 0x0010]          ; 0x351a
-    push word [bp - 0x000e]          ; 0x351d
+    push word [bp - 0x10]            ; 0x351a
+    push word [bp - 0xe]             ; 0x351d
     mov ax, bss_91c6                 ; 0x3520
     push ax                          ; 0x3523
     call prompt_disk_swap            ; 0x3524
@@ -573,19 +573,19 @@ load_game_data:
 @..load_game_data.l35:
     cmp word [bss_9a00], byte 0xff   ; 0x352e
     jne short @..load_game_data.l37  ; 0x3533
-    lea ax, word [bp - 0x0024]       ; 0x3535
+    lea ax, word [bp - 0x24]         ; 0x3535
     push ax                          ; 0x3538
     call loc_KPLK                    ; 0x3539
     pop cx                           ; 0x353c
-    push word [bp - 0x000a]          ; 0x353d
+    push word [bp - 0xa]             ; 0x353d
     call aztec_close                 ; 0x3540
     pop cx                           ; 0x3543
-    cmp word [bp - 0x000c], byte 0   ; 0x3544
+    cmp word [bp - 0xc], byte 0      ; 0x3544
     je short @..load_game_data.l36   ; 0x3548
     mov ax, 1                        ; 0x354a
     push ax                          ; 0x354d
-    push word [bp - 0x0010]          ; 0x354e
-    push word [bp - 0x000e]          ; 0x3551
+    push word [bp - 0x10]            ; 0x354e
+    push word [bp - 0xe]             ; 0x3551
     mov ax, bss_91c6                 ; 0x3554
     push ax                          ; 0x3557
     call prompt_disk_swap            ; 0x3558
@@ -632,9 +632,9 @@ load_game_data:
     mov word [saved_level], ax       ; 0x35cb
     mov ax, word [bss_9a24]          ; 0x35ce
     mov word [bss_8f26], ax          ; 0x35d1
-    mov word [bp - 0x0002], 0        ; 0x35d4
+    mov word [bp - 2], 0             ; 0x35d4
 @..load_game_data.l38:
-    mov ax, word [bp - 0x0002]       ; 0x35d9
+    mov ax, word [bp - 2]            ; 0x35d9
     shl ax, 1                        ; 0x35dc
     shl ax, 1                        ; 0x35de
     mov bx, ax                       ; 0x35e0
@@ -642,8 +642,8 @@ load_game_data:
     mov word [bx + party_status_timer], ax ; 0x35e6
     mov ax, word [bx + bss_9a34]     ; 0x35ea
     mov word [bx + bss_82f4], ax     ; 0x35ee
-    inc word [bp - 0x0002]           ; 0x35f2
-    mov ax, word [bp - 0x0002]       ; 0x35f5
+    inc word [bp - 2]                ; 0x35f2
+    mov ax, word [bp - 2]            ; 0x35f5
     cmp ax, strict word 6            ; 0x35f8
     jl short @..load_game_data.l38   ; 0x35fb
     mov ax, word [bss_9a26]          ; 0x35fd
@@ -662,65 +662,65 @@ load_game_data:
     push ax                          ; 0x362a
     mov ax, bss_8a6e                 ; 0x362b
     push ax                          ; 0x362e
-    push word [bp - 0x000a]          ; 0x362f
+    push word [bp - 0xa]             ; 0x362f
     call aztec_read                  ; 0x3632
     add sp, byte 6                   ; 0x3635
-    mov word [bp - 0x0008], ax       ; 0x3638
+    mov word [bp - 8], ax            ; 0x3638
     mov ax, 0x90                     ; 0x363b
     push ax                          ; 0x363e
     mov ax, target_weight            ; 0x363f
     push ax                          ; 0x3642
-    push word [bp - 0x000a]          ; 0x3643
+    push word [bp - 0xa]             ; 0x3643
     call aztec_read                  ; 0x3646
     add sp, byte 6                   ; 0x3649
-    mov word [bp - 0x0008], ax       ; 0x364c
+    mov word [bp - 8], ax            ; 0x364c
     mov ax, 0x68                     ; 0x364f
     push ax                          ; 0x3652
     mov ax, bss_8976                 ; 0x3653
     push ax                          ; 0x3656
-    push word [bp - 0x000a]          ; 0x3657
+    push word [bp - 0xa]             ; 0x3657
     call aztec_read                  ; 0x365a
     add sp, byte 6                   ; 0x365d
-    mov word [bp - 0x0008], ax       ; 0x3660
+    mov word [bp - 8], ax            ; 0x3660
     mov ax, 0x14a                    ; 0x3663
     push ax                          ; 0x3666
     mov ax, bss_882c                 ; 0x3667
     push ax                          ; 0x366a
-    push word [bp - 0x000a]          ; 0x366b
+    push word [bp - 0xa]             ; 0x366b
     call aztec_read                  ; 0x366e
     add sp, byte 6                   ; 0x3671
-    mov word [bp - 0x0008], ax       ; 0x3674
+    mov word [bp - 8], ax            ; 0x3674
     mov ax, 0x344                    ; 0x3677
     push ax                          ; 0x367a
     mov ax, slot_records             ; 0x367b
     push ax                          ; 0x367e
-    push word [bp - 0x000a]          ; 0x367f
+    push word [bp - 0xa]             ; 0x367f
     call aztec_read                  ; 0x3682
     add sp, byte 6                   ; 0x3685
-    mov word [bp - 0x0008], ax       ; 0x3688
+    mov word [bp - 8], ax            ; 0x3688
     mov ax, 0x42                     ; 0x368b
     push ax                          ; 0x368e
     mov ax, slot_bit_states          ; 0x368f
     push ax                          ; 0x3692
-    push word [bp - 0x000a]          ; 0x3693
+    push word [bp - 0xa]             ; 0x3693
     call aztec_read                  ; 0x3696
     add sp, byte 6                   ; 0x3699
-    mov word [bp - 0x0008], ax       ; 0x369c
+    mov word [bp - 8], ax            ; 0x369c
     cmp ax, strict word 0            ; 0x369f
     jg short @..load_game_data.l40   ; 0x36a2
-    lea ax, word [bp - 0x0024]       ; 0x36a4
+    lea ax, word [bp - 0x24]         ; 0x36a4
     push ax                          ; 0x36a7
     call loc_KPLK                    ; 0x36a8
     pop cx                           ; 0x36ab
-    push word [bp - 0x000a]          ; 0x36ac
+    push word [bp - 0xa]             ; 0x36ac
     call aztec_close                 ; 0x36af
     pop cx                           ; 0x36b2
-    cmp word [bp - 0x000c], byte 0   ; 0x36b3
+    cmp word [bp - 0xc], byte 0      ; 0x36b3
     je short @..load_game_data.l39   ; 0x36b7
     mov ax, 1                        ; 0x36b9
     push ax                          ; 0x36bc
-    push word [bp - 0x0010]          ; 0x36bd
-    push word [bp - 0x000e]          ; 0x36c0
+    push word [bp - 0x10]            ; 0x36bd
+    push word [bp - 0xe]             ; 0x36c0
     mov ax, bss_91c6                 ; 0x36c3
     push ax                          ; 0x36c6
     call prompt_disk_swap            ; 0x36c7
@@ -729,19 +729,19 @@ load_game_data:
     mov ax, 0xffff                   ; 0x36cd
     ret                              ; 0x36d0
 @..load_game_data.l40:
-    mov word [bp - 0x0002], 0        ; 0x36d1
+    mov word [bp - 2], 0             ; 0x36d1
 @..load_game_data.l41:
     mov ax, 0x64                     ; 0x36d6
     push ax                          ; 0x36d9
     call random_below                ; 0x36da
     pop cx                           ; 0x36dd
-    mov bx, word [bp - 0x0002]       ; 0x36de
+    mov bx, word [bp - 2]            ; 0x36de
     mov byte [bx + code_characters], al ; 0x36e1
-    inc word [bp - 0x0002]           ; 0x36e5
-    mov ax, word [bp - 0x0002]       ; 0x36e8
+    inc word [bp - 2]                ; 0x36e5
+    mov ax, word [bp - 2]            ; 0x36e8
     cmp ax, strict word 0x64         ; 0x36eb
     jl short @..load_game_data.l41   ; 0x36ee
-    cmp word [bp + 0x4], byte 1      ; 0x36f0
+    cmp word [bp + 4], byte 1        ; 0x36f0
     je short @..load_game_data.l42   ; 0x36f4
     jmp near @..load_game_data.l49   ; 0x36f6
 @..load_game_data.l42:
@@ -749,25 +749,25 @@ load_game_data:
     push ax                          ; 0x36fc
     mov ax, code_characters          ; 0x36fd
     push ax                          ; 0x3700
-    push word [bp - 0x000a]          ; 0x3701
+    push word [bp - 0xa]             ; 0x3701
     call aztec_read                  ; 0x3704
     add sp, byte 6                   ; 0x3707
-    mov word [bp - 0x0008], ax       ; 0x370a
+    mov word [bp - 8], ax            ; 0x370a
     cmp ax, strict word 0            ; 0x370d
     jg short @..load_game_data.l44   ; 0x3710
-    lea ax, word [bp - 0x0024]       ; 0x3712
+    lea ax, word [bp - 0x24]         ; 0x3712
     push ax                          ; 0x3715
     call loc_KPLK                    ; 0x3716
     pop cx                           ; 0x3719
-    push word [bp - 0x000a]          ; 0x371a
+    push word [bp - 0xa]             ; 0x371a
     call aztec_close                 ; 0x371d
     pop cx                           ; 0x3720
-    cmp word [bp - 0x000c], byte 0   ; 0x3721
+    cmp word [bp - 0xc], byte 0      ; 0x3721
     je short @..load_game_data.l43   ; 0x3725
     mov ax, 1                        ; 0x3727
     push ax                          ; 0x372a
-    push word [bp - 0x0010]          ; 0x372b
-    push word [bp - 0x000e]          ; 0x372e
+    push word [bp - 0x10]            ; 0x372b
+    push word [bp - 0xe]             ; 0x372e
     mov ax, bss_91c6                 ; 0x3731
     push ax                          ; 0x3734
     call prompt_disk_swap            ; 0x3735
@@ -777,32 +777,32 @@ load_game_data:
     ret                              ; 0x373e
 @..load_game_data.l44:
     mov word [party_char_count], 0   ; 0x373f
-    mov word [bp - 0x0002], 0        ; 0x3745
+    mov word [bp - 2], 0             ; 0x3745
     jmp near @..load_game_data.l48   ; 0x374a
 @..load_game_data.l45:
     mov ax, 0x248                    ; 0x374d
     push ax                          ; 0x3750
     mov ax, bss_9a4c                 ; 0x3751
     push ax                          ; 0x3754
-    push word [bp - 0x000a]          ; 0x3755
+    push word [bp - 0xa]             ; 0x3755
     call aztec_read                  ; 0x3758
     add sp, byte 6                   ; 0x375b
-    mov word [bp - 0x0008], ax       ; 0x375e
+    mov word [bp - 8], ax            ; 0x375e
     cmp ax, strict word 0            ; 0x3761
     jg short @..load_game_data.l47   ; 0x3764
-    lea ax, word [bp - 0x0024]       ; 0x3766
+    lea ax, word [bp - 0x24]         ; 0x3766
     push ax                          ; 0x3769
     call loc_KPLK                    ; 0x376a
     pop cx                           ; 0x376d
-    push word [bp - 0x000a]          ; 0x376e
+    push word [bp - 0xa]             ; 0x376e
     call aztec_close                 ; 0x3771
     pop cx                           ; 0x3774
-    cmp word [bp - 0x000c], byte 0   ; 0x3775
+    cmp word [bp - 0xc], byte 0      ; 0x3775
     je short @..load_game_data.l46   ; 0x3779
     mov ax, 1                        ; 0x377b
     push ax                          ; 0x377e
-    push word [bp - 0x0010]          ; 0x377f
-    push word [bp - 0x000e]          ; 0x3782
+    push word [bp - 0x10]            ; 0x377f
+    push word [bp - 0xe]             ; 0x3782
     mov ax, bss_91c6                 ; 0x3785
     push ax                          ; 0x3788
     call prompt_disk_swap            ; 0x3789
@@ -829,43 +829,43 @@ load_game_data:
     mov cx, 0x124                    ; 0x37bc
     rep movsw                        ; 0x37bf
     inc word [party_char_count]      ; 0x37c1
-    inc word [bp - 0x0002]           ; 0x37c5
+    inc word [bp - 2]                ; 0x37c5
 @..load_game_data.l48:
-    mov ax, word [bp - 0x0002]       ; 0x37c8
+    mov ax, word [bp - 2]            ; 0x37c8
     cmp ax, word [bss_9a4a]          ; 0x37cb
     jge short @..load_game_data.l49  ; 0x37cf
     jmp near @..load_game_data.l45   ; 0x37d1
 @..load_game_data.l49:
-    push word [bp - 0x000a]          ; 0x37d4
+    push word [bp - 0xa]             ; 0x37d4
     call aztec_close                 ; 0x37d7
     pop cx                           ; 0x37da
-    cmp word [bp - 0x000c], byte 0   ; 0x37db
+    cmp word [bp - 0xc], byte 0      ; 0x37db
     je short @..load_game_data.l50   ; 0x37df
     mov ax, 1                        ; 0x37e1
     push ax                          ; 0x37e4
-    push word [bp - 0x0010]          ; 0x37e5
-    push word [bp - 0x000e]          ; 0x37e8
+    push word [bp - 0x10]            ; 0x37e5
+    push word [bp - 0xe]             ; 0x37e8
     mov ax, bss_91c6                 ; 0x37eb
     push ax                          ; 0x37ee
     call prompt_disk_swap            ; 0x37ef
     add sp, byte 8                   ; 0x37f2
 @..load_game_data.l50:
-    cmp word [bp + 0x4], byte 2      ; 0x37f5
+    cmp word [bp + 4], byte 2        ; 0x37f5
     jne short @..load_game_data.l52  ; 0x37f9
-    mov word [bp - 0x0002], 0        ; 0x37fb
+    mov word [bp - 2], 0             ; 0x37fb
 @..load_game_data.l51:
     mov ax, 0                        ; 0x3800
     push ax                          ; 0x3803
     mov ax, 0x248                    ; 0x3804
     push ax                          ; 0x3807
     mov ax, 0x248                    ; 0x3808
-    imul word [bp - 0x0002]          ; 0x380b
+    imul word [bp - 2]               ; 0x380b
     add ax, party_records            ; 0x380e
     push ax                          ; 0x3811
     call aztec_setmem                ; 0x3812
     add sp, byte 6                   ; 0x3815
-    inc word [bp - 0x0002]           ; 0x3818
-    mov ax, word [bp - 0x0002]       ; 0x381b
+    inc word [bp - 2]                ; 0x3818
+    mov ax, word [bp - 2]            ; 0x381b
     cmp ax, strict word 6            ; 0x381e
     jl short @..load_game_data.l51   ; 0x3821
     call api_idx_0072_OUII           ; 0x3823
@@ -874,32 +874,32 @@ load_game_data:
     mov ax, 0xffff                   ; 0x382b
     ret                              ; 0x382e
 @..load_game_data.l52:
-    mov word [bp - 0x0002], 0        ; 0x382f
+    mov word [bp - 2], 0             ; 0x382f
     jmp short @..load_game_data.l55  ; 0x3834
 @..load_game_data.l53:
-    mov ax, word [bp - 0x0002]       ; 0x3836
+    mov ax, word [bp - 2]            ; 0x3836
     shl ax, 1                        ; 0x3839
     mov bx, ax                       ; 0x383b
     push word [bx + member_icon]     ; 0x383d
     mov ax, 0x248                    ; 0x3841
-    imul word [bp - 0x0002]          ; 0x3844
+    imul word [bp - 2]               ; 0x3844
     mov bx, ax                       ; 0x3847
     mov al, byte [bx + party_records + pc_rec.kind] ; 0x3849
     sub ah, ah                       ; 0x384d
     push ax                          ; 0x384f
     call api_idx_0016_KOOO           ; 0x3850
     add sp, byte 4                   ; 0x3853
-    cmp word [bp + 0x4], byte 2      ; 0x3856
+    cmp word [bp + 4], byte 2        ; 0x3856
     je short @..load_game_data.l54   ; 0x385a
     mov ax, 0                        ; 0x385c
     push ax                          ; 0x385f
-    push word [bp - 0x0002]          ; 0x3860
+    push word [bp - 2]               ; 0x3860
     call draw_party_member_panel     ; 0x3863
     add sp, byte 4                   ; 0x3866
 @..load_game_data.l54:
-    inc word [bp - 0x0002]           ; 0x3869
+    inc word [bp - 2]                ; 0x3869
 @..load_game_data.l55:
-    mov ax, word [bp - 0x0002]       ; 0x386c
+    mov ax, word [bp - 2]            ; 0x386c
     cmp ax, word [party_char_count]  ; 0x386f
     jl short @..load_game_data.l53   ; 0x3873
     mov ax, 0xc7                     ; 0x3875

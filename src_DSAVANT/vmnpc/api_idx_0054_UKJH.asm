@@ -17,7 +17,7 @@ api_idx_0054_UKJH:
     mov ax, 0x62                     ; 0x0d64
     push ax                          ; 0x0d67
     call gfx_fill_area               ; 0x0d68
-    add sp, byte 0x0a                ; 0x0d6b
+    add sp, byte 0xa                 ; 0x0d6b
     mov ax, 0x5f                     ; 0x0d6e
     push ax                          ; 0x0d71
     mov ax, 1                        ; 0x0d72

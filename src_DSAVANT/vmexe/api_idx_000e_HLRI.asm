@@ -5,22 +5,22 @@ api_idx_000e_HLRI:
     mov al, byte [party_char_count]  ; 0x5fa7
     mov bx, word [party_char]        ; 0x5faa
     mov byte [bx + member_rec.item_count], al ; 0x5fae
-    mov bx, word [bp + 0x4]          ; 0x5fb2
+    mov bx, word [bp + 4]            ; 0x5fb2
     mov al, byte [bx + 0x1f]         ; 0x5fb5
     sub ah, ah                       ; 0x5fb8
-    mov word [bp - 0x0008], ax       ; 0x5fba
+    mov word [bp - 8], ax            ; 0x5fba
     mov al, byte [bx + 0x20]         ; 0x5fbd
     sub ah, ah                       ; 0x5fc0
-    mov word [bp - 0x000a], ax       ; 0x5fc2
+    mov word [bp - 0xa], ax          ; 0x5fc2
     mov ax, word [bx + 0xa]          ; 0x5fc5
     mov cx, 0x100                    ; 0x5fc8
     cwd                              ; 0x5fcb
     idiv cx                          ; 0x5fcc
-    mov word [bp - 0x0004], ax       ; 0x5fce
+    mov word [bp - 4], ax            ; 0x5fce
     mov ax, word [bx + 0xa]          ; 0x5fd1
     cwd                              ; 0x5fd4
     idiv cx                          ; 0x5fd5
-    mov word [bp - 0x0006], dx       ; 0x5fd7
+    mov word [bp - 6], dx            ; 0x5fd7
     push word [bss_8462]             ; 0x5fda
     push word [bss_8464]             ; 0x5fde
     mov ax, bss_90e6                 ; 0x5fe2
@@ -35,20 +35,20 @@ api_idx_000e_HLRI:
     add sp, byte 4                   ; 0x5ff7
     mov ax, bss_9186                 ; 0x5ffa
     push ax                          ; 0x5ffd
-    mov ax, word [bp - 0x0006]       ; 0x5ffe
+    mov ax, word [bp - 6]            ; 0x5ffe
     add ax, MSG_SPELL_NAME_BASE      ; 0x6001
     push ax                          ; 0x6004
     call load_message_string         ; 0x6005
     add sp, byte 4                   ; 0x6008
     mov ax, 6                        ; 0x600b
-    imul word [bp - 0x0006]          ; 0x600e
+    imul word [bp - 6]               ; 0x600e
     mov bx, ax                       ; 0x6011
     mov al, byte [bx + spell_table]  ; 0x6013
     sub ah, ah                       ; 0x6017
     shl ax, 1                        ; 0x6019
     shl ax, 1                        ; 0x601b
     mov bx, ax                       ; 0x601d
-    push word [word bx + 0x6]        ; 0x601f
+    push word [word bx + 6]          ; 0x601f
     mov ax, 0x43                     ; 0x6023
     push ax                          ; 0x6026
     cmp word [bss_8464], byte 0      ; 0x6027
@@ -65,7 +65,7 @@ api_idx_000e_HLRI:
     mov ax, 0                        ; 0x603e
     push ax                          ; 0x6041
     call api_idx_0004_QSNR           ; 0x6042
-    add sp, byte 0x0e                ; 0x6045
+    add sp, byte 0xe                 ; 0x6045
     mov word [bss_91d8], 0           ; 0x6048
     mov word [bss_91da], 0           ; 0x604e
     mov ax, word [bss_8464]          ; 0x6054
@@ -74,7 +74,7 @@ api_idx_000e_HLRI:
     mov bx, word [bx + party_char]   ; 0x605b
     mov al, byte [bx + 0x191]        ; 0x605f
     sub ah, ah                       ; 0x6063
-    mov bx, word [bp + 0x4]          ; 0x6065
+    mov bx, word [bp + 4]            ; 0x6065
     mov cx, word [bx]                ; 0x6068
     add ax, cx                       ; 0x606a
     inc ax                           ; 0x606c
@@ -117,15 +117,15 @@ api_idx_000e_HLRI:
     add ax, strict word 0x5a         ; 0x60c0
     push ax                          ; 0x60c3
     mov ax, 6                        ; 0x60c4
-    imul word [bp - 0x0006]          ; 0x60c7
+    imul word [bp - 6]               ; 0x60c7
     mov bx, ax                       ; 0x60ca
     mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x60cc
     sub ah, ah                       ; 0x60d0
-    imul word [bp - 0x0004]          ; 0x60d2
+    imul word [bp - 4]               ; 0x60d2
     mov cx, ax                       ; 0x60d5
     pop ax                           ; 0x60d7
     sub ax, cx                       ; 0x60d8
-    mov word [bp - 0x000e], ax       ; 0x60da
+    mov word [bp - 0xe], ax          ; 0x60da
     jmp short @..api_idx_000e_HLRI.l6 ; 0x60dd
 @..api_idx_000e_HLRI.l5:
     mov ax, 0x248                    ; 0x60df
@@ -139,15 +139,15 @@ api_idx_000e_HLRI:
     add ax, strict word 0x5a         ; 0x60f4
     push ax                          ; 0x60f7
     mov ax, 6                        ; 0x60f8
-    imul word [bp - 0x0006]          ; 0x60fb
+    imul word [bp - 6]               ; 0x60fb
     mov bx, ax                       ; 0x60fe
     mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x6100
     sub ah, ah                       ; 0x6104
-    imul word [bp - 0x0004]          ; 0x6106
+    imul word [bp - 4]               ; 0x6106
     mov cx, ax                       ; 0x6109
     pop ax                           ; 0x610b
     sub ax, cx                       ; 0x610c
-    mov word [bp - 0x000e], ax       ; 0x610e
+    mov word [bp - 0xe], ax          ; 0x610e
     mov ax, 2                        ; 0x6111
     push ax                          ; 0x6114
     mov ax, 0xe                      ; 0x6115
@@ -160,7 +160,7 @@ api_idx_000e_HLRI:
     push ax                          ; 0x6126
     call random_below                ; 0x6127
     pop cx                           ; 0x612a
-    cmp ax, word [bp - 0x000e]       ; 0x612b
+    cmp ax, word [bp - 0xe]          ; 0x612b
     jle short @..api_idx_000e_HLRI.l8 ; 0x612e
     cmp byte [bss_5988], 1           ; 0x6130
     je short @..api_idx_000e_HLRI.l7 ; 0x6135
@@ -201,21 +201,21 @@ api_idx_000e_HLRI:
     add ax, strict word 0x58         ; 0x618c
     push ax                          ; 0x618f
     mov ax, 6                        ; 0x6190
-    imul word [bp - 0x0006]          ; 0x6193
+    imul word [bp - 6]               ; 0x6193
     mov bx, ax                       ; 0x6196
     mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x6198
     sub ah, ah                       ; 0x619c
-    imul word [bp - 0x0004]          ; 0x619e
+    imul word [bp - 4]               ; 0x619e
     mov cx, ax                       ; 0x61a1
     pop ax                           ; 0x61a3
     sub ax, cx                       ; 0x61a4
-    mov word [bp - 0x000e], ax       ; 0x61a6
+    mov word [bp - 0xe], ax          ; 0x61a6
     mov ax, 0x64                     ; 0x61a9
     push ax                          ; 0x61ac
     call random_below                ; 0x61ad
     pop cx                           ; 0x61b0
     mov cx, ax                       ; 0x61b1
-    mov ax, word [bp - 0x000e]       ; 0x61b3
+    mov ax, word [bp - 0xe]          ; 0x61b3
     cmp cx, ax                       ; 0x61b6
     jle short @..api_idx_000e_HLRI.l11 ; 0x61b8
     cmp byte [bss_5988], 2           ; 0x61ba
@@ -232,7 +232,7 @@ api_idx_000e_HLRI:
 @..api_idx_000e_HLRI.l10:
     mov word [bss_91da], 1           ; 0x61db
 @..api_idx_000e_HLRI.l11:
-    mov word [bp - 0x000c], 1        ; 0x61e1
+    mov word [bp - 0xc], 1           ; 0x61e1
     cmp word [bss_8464], byte 0      ; 0x61e6
     jne short @..api_idx_000e_HLRI.l14 ; 0x61eb
     mov ax, 0x248                    ; 0x61ed
@@ -246,7 +246,7 @@ api_idx_000e_HLRI:
     cmp al, 0xd                      ; 0x6202
     jne short @..api_idx_000e_HLRI.l13 ; 0x6204
 @..api_idx_000e_HLRI.l12:
-    mov word [bp - 0x000c], 0        ; 0x6206
+    mov word [bp - 0xc], 0           ; 0x6206
 @..api_idx_000e_HLRI.l13:
     jmp short @..api_idx_000e_HLRI.l16 ; 0x620b
 @..api_idx_000e_HLRI.l14:
@@ -262,12 +262,12 @@ api_idx_000e_HLRI:
     cmp al, 0xd                      ; 0x6224
     jne short @..api_idx_000e_HLRI.l16 ; 0x6226
 @..api_idx_000e_HLRI.l15:
-    mov word [bp - 0x000c], 0        ; 0x6228
+    mov word [bp - 0xc], 0           ; 0x6228
 @..api_idx_000e_HLRI.l16:
     cmp word [bss_91d8], byte 1      ; 0x622d
     jne short @..api_idx_000e_HLRI.l17 ; 0x6232
     mov ax, 6                        ; 0x6234
-    imul word [bp - 0x0006]          ; 0x6237
+    imul word [bp - 6]               ; 0x6237
     mov bx, ax                       ; 0x623a
     mov al, byte [bx + spell_table + spell_table_rec.f_0003] ; 0x623c
     sub ah, ah                       ; 0x6240
@@ -279,7 +279,7 @@ api_idx_000e_HLRI:
     cmp word [bss_91da], byte 1      ; 0x6253
     jne short @..api_idx_000e_HLRI.l18 ; 0x6258
     mov ax, 6                        ; 0x625a
-    imul word [bp - 0x0006]          ; 0x625d
+    imul word [bp - 6]               ; 0x625d
     mov bx, ax                       ; 0x6260
     mov al, byte [bx + spell_table + spell_table_rec.f_0003] ; 0x6262
     sub ah, ah                       ; 0x6266
@@ -287,9 +287,9 @@ api_idx_000e_HLRI:
     jne short @..api_idx_000e_HLRI.l18 ; 0x626b
     mov word [bss_91da], 0           ; 0x626d
 @..api_idx_000e_HLRI.l18:
-    cmp word [bp - 0x000c], byte 1   ; 0x6273
+    cmp word [bp - 0xc], byte 1      ; 0x6273
     jne short @..api_idx_000e_HLRI.l19 ; 0x6277
-    mov bx, word [bp + 0x4]          ; 0x6279
+    mov bx, word [bp + 4]            ; 0x6279
     cmp byte [bx + 0xe], 0           ; 0x627c
     jbe short @..api_idx_000e_HLRI.l19 ; 0x6280
     mov ax, 4                        ; 0x6282
@@ -346,26 +346,26 @@ api_idx_000e_HLRI:
     call api_idx_0004_QUPL           ; 0x62f7
     pop cx                           ; 0x62fa
     mov al, byte [bss_8464]          ; 0x62fb
-    mov bx, word [bp + 0x4]          ; 0x62fe
+    mov bx, word [bp + 4]            ; 0x62fe
     mov byte [bx + 0x1f], al         ; 0x6301
     mov al, byte [bss_8462]          ; 0x6304
-    mov bx, word [bp + 0x4]          ; 0x6307
+    mov bx, word [bp + 4]            ; 0x6307
     mov byte [bx + 0x20], al         ; 0x630a
 @..api_idx_000e_HLRI.l21:
-    push word [bp - 0x0004]          ; 0x630d
-    push word [bp - 0x0006]          ; 0x6310
-    push word [bp + 0x4]             ; 0x6313
+    push word [bp - 4]               ; 0x630d
+    push word [bp - 6]               ; 0x6310
+    push word [bp + 4]               ; 0x6313
     call api_idx_000e_ORJG           ; 0x6316
     add sp, byte 6                   ; 0x6319
 @..api_idx_000e_HLRI.l22:
     cmp word [bss_8464], byte 0      ; 0x631c
     jne short @..api_idx_000e_HLRI.l23 ; 0x6321
     mov ax, 6                        ; 0x6323
-    imul word [bp - 0x0006]          ; 0x6326
+    imul word [bp - 6]               ; 0x6326
     mov bx, ax                       ; 0x6329
     mov al, byte [bx + spell_table + spell_table_rec.f_0002] ; 0x632b
     sub ah, ah                       ; 0x632f
-    imul word [bp - 0x0004]          ; 0x6331
+    imul word [bp - 4]               ; 0x6331
     push ax                          ; 0x6334
     mov ax, 0x248                    ; 0x6335
     imul word [bss_8462]             ; 0x6338
@@ -381,17 +381,17 @@ api_idx_000e_HLRI:
     pop ax                           ; 0x6350
     sub word [bx + party_records + pc_rec.realm_points], ax ; 0x6351
 @..api_idx_000e_HLRI.l23:
-    push word [bp - 0x0004]          ; 0x6355
+    push word [bp - 4]               ; 0x6355
     call random_below                ; 0x6358
     pop cx                           ; 0x635b
     push ax                          ; 0x635c
     mov ax, 6                        ; 0x635d
-    imul word [bp - 0x0006]          ; 0x6360
+    imul word [bp - 6]               ; 0x6360
     mov bx, ax                       ; 0x6363
     mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x6365
     sub ah, ah                       ; 0x6369
     mov cx, ax                       ; 0x636b
     pop ax                           ; 0x636d
     add ax, cx                       ; 0x636e
-    add ax, word [bp - 0x0004]       ; 0x6370
+    add ax, word [bp - 4]            ; 0x6370
     ret                              ; 0x6373

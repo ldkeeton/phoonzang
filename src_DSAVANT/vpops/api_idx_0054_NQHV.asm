@@ -6,21 +6,21 @@ api_idx_0054_NQHV:
     push ax                          ; 0x0368
     call redraw_area_set             ; 0x0369
     pop cx                           ; 0x036c
-    mov word [bp - 0x0002], 1        ; 0x036d
+    mov word [bp - 2], 1             ; 0x036d
     jmp near @..api_idx_0054_NQHV.l9 ; 0x0372
 @..api_idx_0054_NQHV.l1:
-    mov ax, word [bp - 0x0002]       ; 0x0375
+    mov ax, word [bp - 2]            ; 0x0375
     shl ax, 1                        ; 0x0378
     mov bx, ax                       ; 0x037a
     mov bx, word [bx + party_char]   ; 0x037c
     mov byte [bx + member_rec.f_01a2], 0 ; 0x0380
-    mov word [bp - 0x0004], 0        ; 0x0385
+    mov word [bp - 4], 0             ; 0x0385
     jmp short @..api_idx_0054_NQHV.l4 ; 0x038a
 @..api_idx_0054_NQHV.l2:
     mov ax, 0x2c                     ; 0x038c
-    imul word [bp - 0x0004]          ; 0x038f
+    imul word [bp - 4]               ; 0x038f
     mov si, ax                       ; 0x0392
-    mov ax, word [bp - 0x0002]       ; 0x0394
+    mov ax, word [bp - 2]            ; 0x0394
     shl ax, 1                        ; 0x0397
     mov bx, ax                       ; 0x0399
     mov bx, word [bx + party_char]   ; 0x039b
@@ -32,35 +32,35 @@ api_idx_0054_NQHV:
     jne short @..api_idx_0054_NQHV.l3 ; 0x03af
     inc byte [bx + 0x1a2]            ; 0x03b1
 @..api_idx_0054_NQHV.l3:
-    inc word [bp - 0x0004]           ; 0x03b5
+    inc word [bp - 4]                ; 0x03b5
 @..api_idx_0054_NQHV.l4:
-    mov ax, word [bp - 0x0002]       ; 0x03b8
+    mov ax, word [bp - 2]            ; 0x03b8
     shl ax, 1                        ; 0x03bb
     mov bx, ax                       ; 0x03bd
     mov bx, word [bx + party_char]   ; 0x03bf
     mov al, byte [bx + member_rec.item_count] ; 0x03c3
     sub ah, ah                       ; 0x03c7
-    cmp ax, word [bp - 0x0004]       ; 0x03c9
+    cmp ax, word [bp - 4]            ; 0x03c9
     jg short @..api_idx_0054_NQHV.l2 ; 0x03cc
-    mov ax, word [bp - 0x0002]       ; 0x03ce
-    cmp ax, word [bp + 0x4]          ; 0x03d1
+    mov ax, word [bp - 2]            ; 0x03ce
+    cmp ax, word [bp + 4]            ; 0x03d1
     jne short @..api_idx_0054_NQHV.l5 ; 0x03d4
     mov ax, 0x5f                     ; 0x03d6
     push ax                          ; 0x03d9
     mov ax, 6                        ; 0x03da
-    imul word [bp - 0x0002]          ; 0x03dd
+    imul word [bp - 2]               ; 0x03dd
     add ax, 0xa2                     ; 0x03e0
     push ax                          ; 0x03e3
     mov ax, 0xdd                     ; 0x03e4
     push ax                          ; 0x03e7
     mov ax, 6                        ; 0x03e8
-    imul word [bp - 0x0002]          ; 0x03eb
+    imul word [bp - 2]               ; 0x03eb
     add ax, 0x9e                     ; 0x03ee
     push ax                          ; 0x03f1
     mov ax, 0x62                     ; 0x03f2
     push ax                          ; 0x03f5
     call gfx_fill_area               ; 0x03f6
-    add sp, byte 0x0a                ; 0x03f9
+    add sp, byte 0xa                 ; 0x03f9
     mov ax, 0x5f                     ; 0x03fc
     push ax                          ; 0x03ff
     mov ax, 1                        ; 0x0400
@@ -77,7 +77,7 @@ api_idx_0054_NQHV:
     add sp, byte 4                   ; 0x0417
 @..api_idx_0054_NQHV.l6:
     mov ax, 6                        ; 0x041a
-    imul word [bp - 0x0002]          ; 0x041d
+    imul word [bp - 2]               ; 0x041d
     add ax, 0x9e                     ; 0x0420
     push ax                          ; 0x0423
     mov ax, 0x63                     ; 0x0424
@@ -88,7 +88,7 @@ api_idx_0054_NQHV:
     push ax                          ; 0x0431
     mov ax, 1                        ; 0x0432
     push ax                          ; 0x0435
-    mov ax, word [bp - 0x0002]       ; 0x0436
+    mov ax, word [bp - 2]            ; 0x0436
     shl ax, 1                        ; 0x0439
     mov bx, ax                       ; 0x043b
     mov bx, word [bx + party_char]   ; 0x043d
@@ -105,7 +105,7 @@ api_idx_0054_NQHV:
     add sp, byte 4                   ; 0x0459
     mov ax, 0                        ; 0x045c
     push ax                          ; 0x045f
-    mov ax, word [bp - 0x0002]       ; 0x0460
+    mov ax, word [bp - 2]            ; 0x0460
     shl ax, 1                        ; 0x0463
     mov bx, ax                       ; 0x0465
     mov bx, word [bx + party_char]   ; 0x0467
@@ -126,7 +126,7 @@ api_idx_0054_NQHV:
     shl ax, cl                       ; 0x048b
     pop cx                           ; 0x048d
     add cx, ax                       ; 0x048e
-    mov ax, word [bp - 0x0002]       ; 0x0490
+    mov ax, word [bp - 2]            ; 0x0490
     shl ax, 1                        ; 0x0493
     mov bx, ax                       ; 0x0495
     mov ax, word [bx + party_char_ext] ; 0x0497
@@ -135,7 +135,7 @@ api_idx_0054_NQHV:
     call draw_text_glyphs            ; 0x049e
     add sp, byte 4                   ; 0x04a1
     mov ax, 6                        ; 0x04a4
-    imul word [bp - 0x0002]          ; 0x04a7
+    imul word [bp - 2]               ; 0x04a7
     add ax, 0x9e                     ; 0x04aa
     push ax                          ; 0x04ad
     mov ax, 0xce                     ; 0x04ae
@@ -152,7 +152,7 @@ api_idx_0054_NQHV:
     push ax                          ; 0x04c9
     mov ax, 1                        ; 0x04ca
     push ax                          ; 0x04cd
-    mov ax, word [bp - 0x0002]       ; 0x04ce
+    mov ax, word [bp - 2]            ; 0x04ce
     shl ax, 1                        ; 0x04d1
     mov bx, ax                       ; 0x04d3
     mov bx, word [bx + party_char]   ; 0x04d5
@@ -167,9 +167,9 @@ api_idx_0054_NQHV:
     push ax                          ; 0x04ed
     call draw_font_glyph             ; 0x04ee
     add sp, byte 4                   ; 0x04f1
-    inc word [bp - 0x0002]           ; 0x04f4
+    inc word [bp - 2]                ; 0x04f4
 @..api_idx_0054_NQHV.l9:
-    mov ax, word [bp - 0x0002]       ; 0x04f7
+    mov ax, word [bp - 2]            ; 0x04f7
     cmp ax, word [party_member_count] ; 0x04fa
     jg short @..api_idx_0054_NQHV.l10 ; 0x04fe
     jmp near @..api_idx_0054_NQHV.l1 ; 0x0500

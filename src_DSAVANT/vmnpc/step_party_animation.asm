@@ -18,7 +18,7 @@ step_party_animation:
 @..step_party_animation.l2:
     les bx, word [tick_counter_ptr]  ; 0x0f75
     mov ax, word [es:bx]             ; 0x0f79
-    mov dx, word [es:bx + 0x2]       ; 0x0f7c
+    mov dx, word [es:bx + 2]         ; 0x0f7c
     sub ax, word [party_redraw_last_tick] ; 0x0f80
     sbb dx, word [party_redraw_last_tick_hi] ; 0x0f84
     push ax                          ; 0x0f88
@@ -55,34 +55,34 @@ step_party_animation:
     push word [bx + screen_cache]    ; 0x0fc0
     call gfx_restore_screen          ; 0x0fc4
     add sp, byte 8                   ; 0x0fc7
-    mov word [bp - 0x0002], 0        ; 0x0fca
+    mov word [bp - 2], 0             ; 0x0fca
 @..step_party_animation.l6:
-    mov ax, word [bp - 0x0002]       ; 0x0fcf
+    mov ax, word [bp - 2]            ; 0x0fcf
     shl ax, 1                        ; 0x0fd2
     mov bx, ax                       ; 0x0fd4
     mov bx, word [bx + overlay_list + 0x2] ; 0x0fd6
     mov byte [bx + overlay_list_rec.f_0014], 0xff ; 0x0fda
-    inc word [bp - 0x0002]           ; 0x0fde
-    mov ax, word [bp - 0x0002]       ; 0x0fe1
+    inc word [bp - 2]                ; 0x0fde
+    mov ax, word [bp - 2]            ; 0x0fe1
     cmp ax, strict word 0xc          ; 0x0fe4
     jl short @..step_party_animation.l6 ; 0x0fe7
     mov word [overlay_list], 0       ; 0x0fe9
     jmp near @..step_party_animation.l16 ; 0x0fef
 @..step_party_animation.l7:
     call loc_KRMP                    ; 0x0ff2
-    mov word [bp - 0x0006], ax       ; 0x0ff5
-    mov word [bp - 0x0002], 0        ; 0x0ff8
+    mov word [bp - 6], ax            ; 0x0ff5
+    mov word [bp - 2], 0             ; 0x0ff8
 @..step_party_animation.l8:
-    mov word [bp - 0x0004], 0        ; 0x0ffd
+    mov word [bp - 4], 0             ; 0x0ffd
 @..step_party_animation.l9:
-    push word [bp - 0x0006]          ; 0x1002
+    push word [bp - 6]               ; 0x1002
     mov ax, 0xf8                     ; 0x1005
     push ax                          ; 0x1008
     mov ax, 0x48                     ; 0x1009
     push ax                          ; 0x100c
     mov ax, 6                        ; 0x100d
-    imul word [bp - 0x0002]          ; 0x1010
-    mov cx, word [bp - 0x0004]       ; 0x1013
+    imul word [bp - 2]               ; 0x1010
+    mov cx, word [bp - 4]            ; 0x1013
     shl cx, 1                        ; 0x1016
     add ax, cx                       ; 0x1018
     mov bx, ax                       ; 0x101a
@@ -92,20 +92,20 @@ step_party_animation:
     push ax                          ; 0x1025
     mov ax, 0                        ; 0x1026
     push ax                          ; 0x1029
-    push word [bp - 0x0004]          ; 0x102a
-    push word [bp - 0x0002]          ; 0x102d
+    push word [bp - 4]               ; 0x102a
+    push word [bp - 2]               ; 0x102d
     call api_idx_0018_TROH           ; 0x1030
-    add sp, byte 0x0e                ; 0x1033
-    inc word [bp - 0x0004]           ; 0x1036
-    mov ax, word [bp - 0x0004]       ; 0x1039
+    add sp, byte 0xe                 ; 0x1033
+    inc word [bp - 4]                ; 0x1036
+    mov ax, word [bp - 4]            ; 0x1039
     cmp ax, strict word 3            ; 0x103c
     jl short @..step_party_animation.l9 ; 0x103f
-    inc word [bp - 0x0002]           ; 0x1041
-    mov ax, word [bp - 0x0002]       ; 0x1044
+    inc word [bp - 2]                ; 0x1041
+    mov ax, word [bp - 2]            ; 0x1044
     cmp ax, strict word 3            ; 0x1047
     jl short @..step_party_animation.l8 ; 0x104a
     call queue_marker_overlay        ; 0x104c
-    cmp word [bp - 0x0006], byte 0   ; 0x104f
+    cmp word [bp - 6], byte 0        ; 0x104f
     je short @..step_party_animation.l10 ; 0x1053
     mov ax, word [party_status_frame] ; 0x1055
     inc ax                           ; 0x1058

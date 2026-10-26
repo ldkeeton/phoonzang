@@ -8,16 +8,16 @@ api_idx_0002_UUUJ:
     push ax                          ; 0x888e
     call api_idx_0016_LTLN           ; 0x888f
     add sp, byte 4                   ; 0x8892
-    mov word [bp - 0x0002], 0        ; 0x8895
+    mov word [bp - 2], 0             ; 0x8895
 @..api_idx_0002_UUUJ.l1:
     mov ax, 0x50                     ; 0x889a
-    imul word [bp - 0x0002]          ; 0x889d
-    mov cx, word [bp - 0x0002]       ; 0x88a0
+    imul word [bp - 2]               ; 0x889d
+    mov cx, word [bp - 2]            ; 0x88a0
     shl cx, 1                        ; 0x88a3
     mov bx, cx                       ; 0x88a5
     mov word [bx + scroll_x], ax     ; 0x88a7
-    inc word [bp - 0x0002]           ; 0x88ab
-    mov ax, word [bp - 0x0002]       ; 0x88ae
+    inc word [bp - 2]                ; 0x88ab
+    mov ax, word [bp - 2]            ; 0x88ae
     cmp ax, strict word 5            ; 0x88b1
     jl short @..api_idx_0002_UUUJ.l1 ; 0x88b4
     mov ax, 6                        ; 0x88b6
@@ -81,7 +81,7 @@ api_idx_0002_UUUJ:
     push ax                          ; 0x893f
     push ax                          ; 0x8940
     call gfx_cache_area              ; 0x8941
-    add sp, byte 0x0c                ; 0x8944
+    add sp, byte 0xc                 ; 0x8944
     mov word [scene_backdrop_ref_hi], dx ; 0x8947
     mov word [scene_backdrop_ref], ax ; 0x894b
     mov ax, 0xf                      ; 0x894e
@@ -102,15 +102,15 @@ api_idx_0002_UUUJ:
     push ax                          ; 0x8971
     call api_idx_0016_LTLN           ; 0x8972
     add sp, byte 4                   ; 0x8975
-    mov ax, word [bp + 0x6]          ; 0x8978
+    mov ax, word [bp + 6]            ; 0x8978
     mov word [scene_cue_b], ax       ; 0x897b
-    mov ax, word [bp + 0x8]          ; 0x897e
+    mov ax, word [bp + 8]            ; 0x897e
     mov word [scene_cue_d], ax       ; 0x8981
     mov ax, word [bp + 0xa]          ; 0x8984
     mov word [scene_cue_e], ax       ; 0x8987
-    mov word [bp - 0x0002], 0        ; 0x898a
+    mov word [bp - 2], 0             ; 0x898a
 @..api_idx_0002_UUUJ.l2:
-    mov ax, word [bp - 0x0002]       ; 0x898f
+    mov ax, word [bp - 2]            ; 0x898f
     shl ax, 1                        ; 0x8992
     mov bx, ax                       ; 0x8994
     mov word [bx + sprite_pos], 0x140 ; 0x8996
@@ -119,12 +119,12 @@ api_idx_0002_UUUJ:
     call random_below                ; 0x89a0
     pop cx                           ; 0x89a3
     add ax, strict word 0x28         ; 0x89a4
-    mov cx, word [bp - 0x0002]       ; 0x89a7
+    mov cx, word [bp - 2]            ; 0x89a7
     shl cx, 1                        ; 0x89aa
     mov bx, cx                       ; 0x89ac
     mov word [bx + bss_a5ea], ax     ; 0x89ae
-    inc word [bp - 0x0002]           ; 0x89b2
-    mov ax, word [bp - 0x0002]       ; 0x89b5
+    inc word [bp - 2]                ; 0x89b2
+    mov ax, word [bp - 2]            ; 0x89b5
     cmp ax, strict word 8            ; 0x89b8
     jl short @..api_idx_0002_UUUJ.l2 ; 0x89bb
     mov word [bss_a5e0], 0x13e       ; 0x89bd
@@ -139,7 +139,7 @@ api_idx_0002_UUUJ:
     mov word [bss_a5ae], 5           ; 0x89f3
     les bx, word [tick_counter_ptr]  ; 0x89f9
     mov ax, word [es:bx]             ; 0x89fd
-    mov dx, word [es:bx + 0x2]       ; 0x8a00
+    mov dx, word [es:bx + 2]         ; 0x8a00
     mov word [party_redraw_last_tick_hi], dx ; 0x8a04
     mov word [party_redraw_last_tick], ax ; 0x8a08
     call draw_scene_frame            ; 0x8a0b
@@ -164,7 +164,7 @@ api_idx_0002_UUUJ:
     pop cx                           ; 0x8a34
     mov ax, 0                        ; 0x8a35
     push ax                          ; 0x8a38
-    push word [bp + 0x4]             ; 0x8a39
+    push word [bp + 4]               ; 0x8a39
     call loc_LIQV                    ; 0x8a3c
     add sp, byte 4                   ; 0x8a3f
     mov ax, 0x11                     ; 0x8a42

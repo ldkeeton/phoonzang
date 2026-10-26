@@ -2,15 +2,15 @@
 api_idx_002c_JIHO:
     mov ax, 0xffd4                   ; 0x6738
     call aztec_csav                  ; 0x673b
-    push word [bp + 0x4]             ; 0x673e
+    push word [bp + 4]               ; 0x673e
     mov ax, 0                        ; 0x6741
     push ax                          ; 0x6744
     call loc_TUUJ                    ; 0x6745
     add sp, byte 4                   ; 0x6748
-    mov word [bp - 0x002c], 1        ; 0x674b
-    mov word [bp - 0x002a], 1        ; 0x6750
-    mov word [bp - 0x0028], 0xffff   ; 0x6755
-    lea ax, word [bp - 0x002c]       ; 0x675a
+    mov word [bp - 0x2c], 1          ; 0x674b
+    mov word [bp - 0x2a], 1          ; 0x6750
+    mov word [bp - 0x28], 0xffff     ; 0x6755
+    lea ax, word [bp - 0x2c]         ; 0x675a
     push ax                          ; 0x675d
     mov ax, 0                        ; 0x675e
     push ax                          ; 0x6761
@@ -38,10 +38,10 @@ api_idx_002c_JIHO:
     push ax                          ; 0x678d
     call loc_TRPK                    ; 0x678e
     add sp, byte 0x1a                ; 0x6791
-    mov word [bp - 0x0002], ax       ; 0x6794
-    cmp word [bp - 0x0002], byte 0   ; 0x6797
+    mov word [bp - 2], ax            ; 0x6794
+    cmp word [bp - 2], byte 0        ; 0x6797
     jne short @..api_idx_002c_JIHO.l1 ; 0x679b
-    mov bx, word [bp + 0x4]          ; 0x679d
+    mov bx, word [bp + 4]            ; 0x679d
     mov byte [bx + pc_file_record_base_hi + 0x2], 0 ; 0x67a0
     mov ax, 0                        ; 0x67a5
     push ax                          ; 0x67a8
@@ -58,15 +58,15 @@ api_idx_002c_JIHO:
     push ax                          ; 0x67bf
     call aztec_open                  ; 0x67c0
     add sp, byte 4                   ; 0x67c3
-    mov word [bp - 0x0004], ax       ; 0x67c6
+    mov word [bp - 4], ax            ; 0x67c6
     mov ax, 0x18                     ; 0x67c9
     push ax                          ; 0x67cc
     mov ax, pc_file_record_size      ; 0x67cd
     push ax                          ; 0x67d0
-    push word [bp - 0x0004]          ; 0x67d1
+    push word [bp - 4]               ; 0x67d1
     call aztec_write                 ; 0x67d4
     add sp, byte 6                   ; 0x67d7
-    push word [bp - 0x0004]          ; 0x67da
+    push word [bp - 4]               ; 0x67da
     call aztec_close                 ; 0x67dd
     pop cx                           ; 0x67e0
 @..api_idx_002c_JIHO.l1:

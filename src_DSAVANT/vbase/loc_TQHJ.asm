@@ -20,7 +20,7 @@ loc_TQHJ:
     push ax                          ; 0x865b
     push ax                          ; 0x865c
     call gfx_cache_area              ; 0x865d
-    add sp, byte 0x0c                ; 0x8660
+    add sp, byte 0xc                 ; 0x8660
     mov word [scene_backdrop_ref_hi], dx ; 0x8663
     mov word [scene_backdrop_ref], ax ; 0x8667
     mov ax, 0xf                      ; 0x866a
@@ -41,9 +41,9 @@ loc_TQHJ:
     push ax                          ; 0x868d
     call api_idx_0016_LTLN           ; 0x868e
     add sp, byte 4                   ; 0x8691
-    mov ax, word [bp + 0x6]          ; 0x8694
+    mov ax, word [bp + 6]            ; 0x8694
     mov word [scene_cue_a], ax       ; 0x8697
-    mov ax, word [bp + 0x8]          ; 0x869a
+    mov ax, word [bp + 8]            ; 0x869a
     mov word [scene_cue_b], ax       ; 0x869d
     mov ax, word [bp + 0xa]          ; 0x86a0
     mov word [scene_cue_c], ax       ; 0x86a3
@@ -52,7 +52,7 @@ loc_TQHJ:
     mov word [scene_frame], 0        ; 0x86ac
     mov word [scene_index], 1        ; 0x86b2
     mov ax, 0                        ; 0x86b8
-    cmp word [bp + 0x8], byte 0      ; 0x86bb
+    cmp word [bp + 8], byte 0        ; 0x86bb
     jne short @..loc_TQHJ.l1         ; 0x86bf
     mov ax, 0x14                     ; 0x86c1
 @..loc_TQHJ.l1:
@@ -66,7 +66,7 @@ loc_TQHJ:
     mov word [bss_a5ae], 5           ; 0x86d5
     les bx, word [tick_counter_ptr]  ; 0x86db
     mov ax, word [es:bx]             ; 0x86df
-    mov dx, word [es:bx + 0x2]       ; 0x86e2
+    mov dx, word [es:bx + 2]         ; 0x86e2
     mov word [party_redraw_last_tick_hi], dx ; 0x86e6
     mov word [party_redraw_last_tick], ax ; 0x86ea
     call draw_scene_frame            ; 0x86ed
@@ -91,7 +91,7 @@ loc_TQHJ:
     pop cx                           ; 0x8716
     mov ax, 0                        ; 0x8717
     push ax                          ; 0x871a
-    push word [bp + 0x4]             ; 0x871b
+    push word [bp + 4]               ; 0x871b
     call loc_LIQV                    ; 0x871e
     add sp, byte 4                   ; 0x8721
     mov ax, 0x11                     ; 0x8724

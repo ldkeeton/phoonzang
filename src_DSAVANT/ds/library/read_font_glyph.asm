@@ -12,7 +12,7 @@ read_font_glyph:
     mov es, ax                       ; 0x3997
     mov ax, cs                       ; 0x3999
     mov ds, ax                       ; 0x399b
-    mov ax, word [bp + 0x6]          ; 0x399d
+    mov ax, word [bp + 6]            ; 0x399d
     mov bx, font_seg_table - IMAGE_BASE ; 0x39a0
     shl ax, 1                        ; 0x39a3
     add bx, ax                       ; 0x39a5
@@ -20,14 +20,14 @@ read_font_glyph:
     mov ds, ax                       ; 0x39a9
     xor bx, bx                       ; 0x39ab
     xor ah, ah                       ; 0x39ad
-    mov al, byte [bp + 0x8]          ; 0x39af
+    mov al, byte [bp + 8]            ; 0x39af
     mov cx, word [bx + 0xa]          ; 0x39b2
     mul cx                           ; 0x39b5
     mov cx, dx                       ; 0x39b7
     mov dx, ax                       ; 0x39b9
     mov ah, 0x42                     ; 0x39bb
     mov al, 0                        ; 0x39bd
-    mov bx, word [bp + 0x4]          ; 0x39bf
+    mov bx, word [bp + 4]            ; 0x39bf
     int 0x21 ; DOS seek file (lseek)
     xor bx, bx                       ; 0x39c4
     xor ah, ah                       ; 0x39c6
@@ -43,7 +43,7 @@ read_font_glyph:
     add ax, file_param_word          ; 0x39dd
     mov dx, ax                       ; 0x39e0
     mov cx, word [bx + 0xa]          ; 0x39e2
-    mov bx, word [bp + 0x4]          ; 0x39e5
+    mov bx, word [bp + 4]            ; 0x39e5
     mov ah, 0x3f                     ; 0x39e8
     int 0x21 ; DOS read file (handle)
     xor bx, bx                       ; 0x39ec

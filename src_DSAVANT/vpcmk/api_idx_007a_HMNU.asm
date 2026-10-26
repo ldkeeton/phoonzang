@@ -2,19 +2,19 @@
 api_idx_007a_HMNU:
     mov ax, 0xff86                   ; 0x4498
     call aztec_csav                  ; 0x449b
-    mov word [bp - 0x0002], 0        ; 0x449e
+    mov word [bp - 2], 0             ; 0x449e
 @..api_idx_007a_HMNU.l1:
-    mov ax, word [bp - 0x0002]       ; 0x44a3
+    mov ax, word [bp - 2]            ; 0x44a3
     shl ax, 1                        ; 0x44a6
     mov bx, ax                       ; 0x44a8
     add bx, bp                       ; 0x44aa
-    mov word [bx - 0x007a], 1        ; 0x44ac
-    inc word [bp - 0x0002]           ; 0x44b1
-    mov ax, word [bp - 0x0002]       ; 0x44b4
+    mov word [bx - 0x7a], 1          ; 0x44ac
+    inc word [bp - 2]                ; 0x44b1
+    mov ax, word [bp - 2]            ; 0x44b4
     cmp ax, strict word 1            ; 0x44b7
     jle short @..api_idx_007a_HMNU.l1 ; 0x44ba
-    mov word [bp - 0x0076], 0xffff   ; 0x44bc
-    lea ax, word [bp - 0x007a]       ; 0x44c1
+    mov word [bp - 0x76], 0xffff     ; 0x44bc
+    lea ax, word [bp - 0x7a]         ; 0x44c1
     push ax                          ; 0x44c4
     mov ax, 0                        ; 0x44c5
     push ax                          ; 0x44c8
@@ -44,7 +44,7 @@ api_idx_007a_HMNU:
     add sp, byte 0x1a                ; 0x44f8
     push ax                          ; 0x44fb
     mov ax, 0x248                    ; 0x44fc
-    imul word [bp + 0x4]             ; 0x44ff
+    imul word [bp + 4]               ; 0x44ff
     mov bx, ax                       ; 0x4502
     pop ax                           ; 0x4504
     mov byte [bx + party_records + pc_rec.gender], al ; 0x4505
@@ -60,10 +60,10 @@ api_idx_007a_HMNU:
     push ax                          ; 0x451e
     call gfx_set_text_pos            ; 0x451f
     add sp, byte 4                   ; 0x4522
-    lea ax, word [bp - 0x0052]       ; 0x4525
+    lea ax, word [bp - 0x52]         ; 0x4525
     push ax                          ; 0x4528
     mov ax, 0x248                    ; 0x4529
-    imul word [bp + 0x4]             ; 0x452c
+    imul word [bp + 4]               ; 0x452c
     mov bx, ax                       ; 0x452f
     mov al, byte [bx + party_records + pc_rec.gender] ; 0x4531
     sub ah, ah                       ; 0x4535
@@ -73,7 +73,7 @@ api_idx_007a_HMNU:
     add sp, byte 4                   ; 0x453e
     mov ax, 0                        ; 0x4541
     push ax                          ; 0x4544
-    mov al, byte [bp - 0x0052]       ; 0x4545
+    mov al, byte [bp - 0x52]         ; 0x4545
     sub ah, ah                       ; 0x4548
     push ax                          ; 0x454a
     call draw_font_glyph             ; 0x454b
@@ -85,17 +85,17 @@ api_idx_007a_HMNU:
     call draw_font_glyph             ; 0x4559
     add sp, byte 4                   ; 0x455c
     mov ax, 0x248                    ; 0x455f
-    imul word [bp + 0x4]             ; 0x4562
+    imul word [bp + 4]               ; 0x4562
     mov bx, ax                       ; 0x4565
     mov al, byte [bx + party_records + pc_rec.gender] ; 0x4567
     sub ah, ah                       ; 0x456b
     push ax                          ; 0x456d
-    push word [bp + 0x4]             ; 0x456e
+    push word [bp + 4]               ; 0x456e
     call loc_HGUJ                    ; 0x4571
     add sp, byte 4                   ; 0x4574
     mov ax, 1                        ; 0x4577
     push ax                          ; 0x457a
-    push word [bp + 0x4]             ; 0x457b
+    push word [bp + 4]               ; 0x457b
     call api_idx_0002_SSJN           ; 0x457e
     add sp, byte 4                   ; 0x4581
     ret                              ; 0x4584

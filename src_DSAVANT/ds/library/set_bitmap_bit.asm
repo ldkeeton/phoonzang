@@ -7,8 +7,8 @@ set_bitmap_bit:
     push si                          ; 0x3e8d
     mov ax, ds                       ; 0x3e8e
     mov es, ax                       ; 0x3e90
-    mov si, word [bp + 0x4]          ; 0x3e92
-    mov bx, word [bp + 0x6]          ; 0x3e95
+    mov si, word [bp + 4]            ; 0x3e92
+    mov bx, word [bp + 6]            ; 0x3e95
     mov dx, bx                       ; 0x3e98
     mov cl, 3                        ; 0x3e9a
     shr bx, cl                       ; 0x3e9c
@@ -19,7 +19,7 @@ set_bitmap_bit:
     mov ah, al                       ; 0x3ea7
     not ah                           ; 0x3ea9
     and byte [bx + si], ah           ; 0x3eab
-    cmp word [bp + 0x8], byte 0      ; 0x3ead
+    cmp word [bp + 8], byte 0        ; 0x3ead
     je short @..set_bitmap_bit.l1    ; 0x3eb1
     or byte [bx + si], al            ; 0x3eb3
 @..set_bitmap_bit.l1:

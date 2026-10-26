@@ -17,7 +17,7 @@ api_idx_0006_HMNQ:
     mov ax, 0                        ; 0x60fe
     push ax                          ; 0x6101
     call set_hotspot                 ; 0x6102
-    add sp, byte 0x0e                ; 0x6105
+    add sp, byte 0xe                 ; 0x6105
     mov ax, 0xa                      ; 0x6108
     push ax                          ; 0x610b
     mov ax, 9                        ; 0x610c
@@ -33,7 +33,7 @@ api_idx_0006_HMNQ:
     mov ax, 1                        ; 0x6120
     push ax                          ; 0x6123
     call set_hotspot                 ; 0x6124
-    add sp, byte 0x0e                ; 0x6127
+    add sp, byte 0xe                 ; 0x6127
     mov ax, 2                        ; 0x612a
     push ax                          ; 0x612d
     mov ax, 1                        ; 0x612e
@@ -47,21 +47,21 @@ api_idx_0006_HMNQ:
     mov ax, MSG_SELECT_PORTRAIT      ; 0x613e
     push ax                          ; 0x6141
     call api_idx_0058_GKGM           ; 0x6142
-    add sp, byte 0x0c                ; 0x6145
-    mov word [bp - 0x0004], dx       ; 0x6148
-    mov word [bp - 0x0006], ax       ; 0x614b
+    add sp, byte 0xc                 ; 0x6145
+    mov word [bp - 4], dx            ; 0x6148
+    mov word [bp - 6], ax            ; 0x614b
     call flush_keyboard              ; 0x614e
 @..api_idx_0006_HMNQ.l1:
     mov ax, 0                        ; 0x6151
     push ax                          ; 0x6154
-    push word [bp + 0x8]             ; 0x6155
-    push word [bp + 0x6]             ; 0x6158
+    push word [bp + 8]               ; 0x6155
+    push word [bp + 6]               ; 0x6158
     call gfx_restore_area            ; 0x615b
     add sp, byte 6                   ; 0x615e
     mov ax, 0                        ; 0x6161
     push ax                          ; 0x6164
     mov ax, 0x248                    ; 0x6165
-    imul word [bp + 0x4]             ; 0x6168
+    imul word [bp + 4]               ; 0x6168
     mov bx, ax                       ; 0x616b
     mov al, byte [bx + party_records + pc_rec.kind] ; 0x616d
     sub ah, ah                       ; 0x6171
@@ -72,7 +72,7 @@ api_idx_0006_HMNQ:
     push ax                          ; 0x617d
     mov ax, 0xe                      ; 0x617e
     push ax                          ; 0x6181
-    push word [bp + 0x4]             ; 0x6182
+    push word [bp + 4]               ; 0x6182
     call api_idx_0010_GGGV           ; 0x6185
     add sp, byte 6                   ; 0x6188
     mov ax, 0x4a                     ; 0x618b
@@ -91,14 +91,14 @@ api_idx_0006_HMNQ:
     call poll_hotspots               ; 0x61a5
     pop cx                           ; 0x61a8
     dec ax                           ; 0x61a9
-    mov word [bp - 0x0002], ax       ; 0x61aa
+    mov word [bp - 2], ax            ; 0x61aa
     cmp word [hotspot_hit], byte 0   ; 0x61ad
     je short @..api_idx_0006_HMNQ.l2 ; 0x61b2
-    mov ax, word [bp - 0x0002]       ; 0x61b4
+    mov ax, word [bp - 2]            ; 0x61b4
     jmp short @..api_idx_0006_HMNQ.l5 ; 0x61b7
 @..api_idx_0006_HMNQ.l3:
     mov ax, 0x248                    ; 0x61b9
-    imul word [bp + 0x4]             ; 0x61bc
+    imul word [bp + 4]               ; 0x61bc
     mov bx, ax                       ; 0x61bf
     mov al, byte [bx + party_records + pc_rec.kind] ; 0x61c1
     sub ah, ah                       ; 0x61c5
@@ -111,7 +111,7 @@ api_idx_0006_HMNQ:
     jmp short @..api_idx_0006_HMNQ.l6 ; 0x61d6
 @..api_idx_0006_HMNQ.l4:
     mov ax, 0x248                    ; 0x61d8
-    imul word [bp + 0x4]             ; 0x61db
+    imul word [bp + 4]               ; 0x61db
     mov bx, ax                       ; 0x61de
     mov al, byte [bx + party_records + pc_rec.kind] ; 0x61e0
     sub ah, ah                       ; 0x61e4
@@ -128,7 +128,7 @@ api_idx_0006_HMNQ:
     cmp ax, strict word 1            ; 0x61fa
     je short @..api_idx_0006_HMNQ.l4 ; 0x61fd
 @..api_idx_0006_HMNQ.l6:
-    cmp word [bp - 0x0002], byte 2   ; 0x61ff
+    cmp word [bp - 2], byte 2        ; 0x61ff
     je short @..api_idx_0006_HMNQ.l7 ; 0x6203
     jmp near @..api_idx_0006_HMNQ.l1 ; 0x6205
 @..api_idx_0006_HMNQ.l7:
@@ -142,7 +142,7 @@ api_idx_0006_HMNQ:
     mov ax, 0x58                     ; 0x6215
     push ax                          ; 0x6218
     call flash_button                ; 0x6219
-    add sp, byte 0x0a                ; 0x621c
+    add sp, byte 0xa                 ; 0x621c
     mov ax, 0                        ; 0x621f
     push ax                          ; 0x6222
     mov ax, 1                        ; 0x6223
@@ -154,18 +154,18 @@ api_idx_0006_HMNQ:
     mov ax, 0x58                     ; 0x622f
     push ax                          ; 0x6232
     call flash_button                ; 0x6233
-    add sp, byte 0x0a                ; 0x6236
+    add sp, byte 0xa                 ; 0x6236
     mov ax, 1                        ; 0x6239
     push ax                          ; 0x623c
-    push word [bp - 0x0004]          ; 0x623d
-    push word [bp - 0x0006]          ; 0x6240
+    push word [bp - 4]               ; 0x623d
+    push word [bp - 6]               ; 0x6240
     call gfx_restore_area            ; 0x6243
     add sp, byte 6                   ; 0x6246
     mov ax, 0x12                     ; 0x6249
     push ax                          ; 0x624c
     mov ax, 0xe                      ; 0x624d
     push ax                          ; 0x6250
-    push word [bp + 0x4]             ; 0x6251
+    push word [bp + 4]               ; 0x6251
     call api_idx_0010_GGGV           ; 0x6254
     add sp, byte 6                   ; 0x6257
     mov ax, 0xc7                     ; 0x625a

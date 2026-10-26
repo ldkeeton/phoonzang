@@ -2,15 +2,15 @@
 api_idx_0080_TKTP:
     mov ax, 0xff80                   ; 0x96c7
     call aztec_csav                  ; 0x96ca
-    lea ax, word [bp - 0x0080]       ; 0x96cd
+    lea ax, word [bp - 0x80]         ; 0x96cd
     push ax                          ; 0x96d0
-    push word [bp + 0x4]             ; 0x96d1
+    push word [bp + 4]               ; 0x96d1
     call load_message_string         ; 0x96d4
     add sp, byte 4                   ; 0x96d7
     mov ax, 0x5e                     ; 0x96da
     push ax                          ; 0x96dd
-    push word [bp + 0x6]             ; 0x96de
-    lea ax, word [bp - 0x0080]       ; 0x96e1
+    push word [bp + 6]               ; 0x96de
+    lea ax, word [bp - 0x80]         ; 0x96e1
     push ax                          ; 0x96e4
     call str_subst_char              ; 0x96e5
     add sp, byte 6                   ; 0x96e8
@@ -28,7 +28,7 @@ api_idx_0080_TKTP:
     call aztec_strcat                ; 0x9707
     add sp, byte 4                   ; 0x970a
 @..api_idx_0080_TKTP.l1:
-    lea ax, word [bp - 0x0080]       ; 0x970d
+    lea ax, word [bp - 0x80]         ; 0x970d
     push ax                          ; 0x9710
     mov ax, word [text_line_index]   ; 0x9711
     mov cx, 7                        ; 0x9714
@@ -42,11 +42,11 @@ api_idx_0080_TKTP:
     shl ax, cl                       ; 0x9729
     add ax, text_line_buffer         ; 0x972b
     push ax                          ; 0x972e
-    lea ax, word [bp - 0x0080]       ; 0x972f
+    lea ax, word [bp - 0x80]         ; 0x972f
     push ax                          ; 0x9732
     call aztec_strcpy                ; 0x9733
     add sp, byte 4                   ; 0x9736
-    lea ax, word [bp - 0x0080]       ; 0x9739
+    lea ax, word [bp - 0x80]         ; 0x9739
     push ax                          ; 0x973c
     call loc_IPHP                    ; 0x973d
     pop cx                           ; 0x9740

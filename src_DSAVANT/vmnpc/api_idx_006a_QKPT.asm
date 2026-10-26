@@ -2,7 +2,7 @@
 api_idx_006a_QKPT:
     mov ax, 0xff96                   ; 0xab8d
     call aztec_csav                  ; 0xab90
-    mov ax, word [bp + 0x4]          ; 0xab93
+    mov ax, word [bp + 4]            ; 0xab93
     mov word [bss_b04e], ax          ; 0xab96
     mov word [bss_93ee], 0           ; 0xab99
     mov ax, 0                        ; 0xab9f
@@ -33,7 +33,7 @@ api_idx_006a_QKPT:
     cmp ax, strict word 4            ; 0xabf2
     jl short @..api_idx_006a_QKPT.l1 ; 0xabf5
     mov word [text_line_index], 0    ; 0xabf7
-    lea ax, word [bp - 0x006a]       ; 0xabfd
+    lea ax, word [bp - 0x6a]         ; 0xabfd
     push ax                          ; 0xac00
     mov ax, MSG_1513                 ; 0xac01
     push ax                          ; 0xac04
@@ -42,10 +42,10 @@ api_idx_006a_QKPT:
     mov ax, 0x5e                     ; 0xac0b
     push ax                          ; 0xac0e
     mov ax, 0x248                    ; 0xac0f
-    imul word [bp + 0x4]             ; 0xac12
+    imul word [bp + 4]               ; 0xac12
     add ax, party_records            ; 0xac15
     push ax                          ; 0xac18
-    lea ax, word [bp - 0x006a]       ; 0xac19
+    lea ax, word [bp - 0x6a]         ; 0xac19
     push ax                          ; 0xac1c
     call str_subst_char              ; 0xac1d
     add sp, byte 6                   ; 0xac20
@@ -70,30 +70,30 @@ api_idx_006a_QKPT:
     call show_area_set               ; 0xac4f
     pop cx                           ; 0xac52
 @..api_idx_006a_QKPT.l2:
-    lea ax, word [bp - 0x006a]       ; 0xac53
+    lea ax, word [bp - 0x6a]         ; 0xac53
     push ax                          ; 0xac56
-    lea ax, word [bp - 0x0056]       ; 0xac57
+    lea ax, word [bp - 0x56]         ; 0xac57
     push ax                          ; 0xac5a
     call api_idx_00b0_KPHQ           ; 0xac5b
     add sp, byte 4                   ; 0xac5e
-    lea ax, word [bp - 0x0056]       ; 0xac61
+    lea ax, word [bp - 0x56]         ; 0xac61
     push ax                          ; 0xac64
     call api_idx_0004_JVTH           ; 0xac65
     pop cx                           ; 0xac68
-    lea ax, word [bp - 0x0056]       ; 0xac69
+    lea ax, word [bp - 0x56]         ; 0xac69
     push ax                          ; 0xac6c
     call aztec_strlen                ; 0xac6d
     pop cx                           ; 0xac70
-    mov word [bp - 0x0002], ax       ; 0xac71
+    mov word [bp - 2], ax            ; 0xac71
     mov bx, ax                       ; 0xac74
     add bx, bp                       ; 0xac76
-    mov byte [bx - 0x0056], 0x20     ; 0xac78
-    mov byte [bx - 0x0055], 0        ; 0xac7c
+    mov byte [bx - 0x56], 0x20       ; 0xac78
+    mov byte [bx - 0x55], 0          ; 0xac7c
     mov ax, 9                        ; 0xac80
     push ax                          ; 0xac83
     mov ax, dseg_9120                ; 0xac84
     push ax                          ; 0xac87
-    lea ax, word [bp - 0x0056]       ; 0xac88
+    lea ax, word [bp - 0x56]         ; 0xac88
     push ax                          ; 0xac8b
     call aztec_strncmp               ; 0xac8c
     add sp, byte 6                   ; 0xac8f
@@ -104,12 +104,12 @@ api_idx_006a_QKPT:
 @..api_idx_006a_QKPT.l3:
     mov ax, 1                        ; 0xac9b
 @..api_idx_006a_QKPT.l4:
-    mov word [bp - 0x0006], ax       ; 0xac9e
-    lea ax, word [bp - 0x0056]       ; 0xaca1
+    mov word [bp - 6], ax            ; 0xac9e
+    lea ax, word [bp - 0x56]         ; 0xaca1
     push ax                          ; 0xaca4
     call api_idx_00a8_PUTL           ; 0xaca5
     pop cx                           ; 0xaca8
-    mov word [bp - 0x0002], 0        ; 0xaca9
+    mov word [bp - 2], 0             ; 0xaca9
     mov word [bss_9e42], 0xffff      ; 0xacae
     mov word [bss_9e44], 0           ; 0xacb4
     mov word [bss_9e46], 0xffff      ; 0xacba
@@ -142,26 +142,26 @@ api_idx_006a_QKPT:
     mov word [bss_9e82], 0xffff      ; 0xad56
     mov word [bss_b030], 0xa         ; 0xad5c
 @..api_idx_006a_QKPT.l5:
-    mov bx, word [bp - 0x0002]       ; 0xad62
+    mov bx, word [bp - 2]            ; 0xad62
     add bx, bp                       ; 0xad65
-    cmp byte [bx - 0x0056], 0x20     ; 0xad67
+    cmp byte [bx - 0x56], 0x20       ; 0xad67
     jne short @..api_idx_006a_QKPT.l6 ; 0xad6b
-    inc word [bp - 0x0002]           ; 0xad6d
+    inc word [bp - 2]                ; 0xad6d
     jmp short @..api_idx_006a_QKPT.l5 ; 0xad70
 @..api_idx_006a_QKPT.l6:
-    mov ax, word [bp - 0x0002]       ; 0xad72
-    lea cx, word [bp - 0x0056]       ; 0xad75
+    mov ax, word [bp - 2]            ; 0xad72
+    lea cx, word [bp - 0x56]         ; 0xad75
     add ax, cx                       ; 0xad78
     push ax                          ; 0xad7a
     call api_idx_0004_GSIV           ; 0xad7b
     pop cx                           ; 0xad7e
     mov word [bss_b030], ax          ; 0xad7f
-    push word [bp - 0x0002]          ; 0xad82
-    lea ax, word [bp - 0x0056]       ; 0xad85
+    push word [bp - 2]               ; 0xad82
+    lea ax, word [bp - 0x56]         ; 0xad85
     push ax                          ; 0xad88
     call api_idx_0002_MRKH           ; 0xad89
     add sp, byte 4                   ; 0xad8c
-    mov word [bp - 0x0002], ax       ; 0xad8f
+    mov word [bp - 2], ax            ; 0xad8f
     cmp ax, strict word 0xffff       ; 0xad92
     jne short @..api_idx_006a_QKPT.l5 ; 0xad95
     mov ax, word [bss_9136]          ; 0xad97
@@ -173,12 +173,12 @@ api_idx_006a_QKPT:
     je short @..api_idx_006a_QKPT.l7 ; 0xada7
     cmp ax, strict word 0x4d         ; 0xada9
     jne short @..api_idx_006a_QKPT.l8 ; 0xadac
-    cmp word [bp - 0x0006], byte 0   ; 0xadae
+    cmp word [bp - 6], byte 0        ; 0xadae
     jne short @..api_idx_006a_QKPT.l8 ; 0xadb2
 @..api_idx_006a_QKPT.l7:
-    mov byte [bp - 0x0056], 0        ; 0xadb4
+    mov byte [bp - 0x56], 0          ; 0xadb4
 @..api_idx_006a_QKPT.l8:
-    lea ax, word [bp - 0x0056]       ; 0xadb8
+    lea ax, word [bp - 0x56]         ; 0xadb8
     push ax                          ; 0xadbb
     call aztec_strlen                ; 0xadbc
     pop cx                           ; 0xadbf

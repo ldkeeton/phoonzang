@@ -2,12 +2,12 @@
 api_idx_0008_NUPQ:
     mov ax, 0xfff8                   ; 0x63cd
     call aztec_csav                  ; 0x63d0
-    mov word [bp - 0x0002], 0        ; 0x63d3
+    mov word [bp - 2], 0             ; 0x63d3
 @..api_idx_0008_NUPQ.l1:
-    mov word [bp - 0x0004], 0        ; 0x63d8
+    mov word [bp - 4], 0             ; 0x63d8
 @..api_idx_0008_NUPQ.l2:
     mov ax, 6                        ; 0x63dd
-    imul word [bp - 0x0002]          ; 0x63e0
+    imul word [bp - 2]               ; 0x63e0
     push ax                          ; 0x63e3
     mov ax, word [bss_8462]          ; 0x63e4
     mov cx, 6                        ; 0x63e7
@@ -16,7 +16,7 @@ api_idx_0008_NUPQ:
     mov ax, dx                       ; 0x63ed
     imul cx                          ; 0x63ef
     mov cx, ax                       ; 0x63f1
-    mov dx, word [bp - 0x0004]       ; 0x63f3
+    mov dx, word [bp - 4]            ; 0x63f3
     shl dx, 1                        ; 0x63f6
     add ax, dx                       ; 0x63f8
     mov bx, ax                       ; 0x63fa
@@ -29,45 +29,45 @@ api_idx_0008_NUPQ:
     mov cx, 0xa                      ; 0x640b
     cwd                              ; 0x640e
     idiv cx                          ; 0x640f
-    mov word [bp - 0x0008], ax       ; 0x6411
-    mov word [bp - 0x0006], dx       ; 0x6414
-    cmp ax, word [bp + 0x4]          ; 0x6417
+    mov word [bp - 8], ax            ; 0x6411
+    mov word [bp - 6], dx            ; 0x6414
+    cmp ax, word [bp + 4]            ; 0x6417
     jne short @..api_idx_0008_NUPQ.l3 ; 0x641a
     mov ax, dx                       ; 0x641c
     ret                              ; 0x641e
 @..api_idx_0008_NUPQ.l3:
-    inc word [bp - 0x0004]           ; 0x641f
-    mov ax, word [bp - 0x0004]       ; 0x6422
+    inc word [bp - 4]                ; 0x641f
+    mov ax, word [bp - 4]            ; 0x6422
     cmp ax, strict word 3            ; 0x6425
     jl short @..api_idx_0008_NUPQ.l2 ; 0x6428
-    inc word [bp - 0x0002]           ; 0x642a
-    mov ax, word [bp - 0x0002]       ; 0x642d
+    inc word [bp - 2]                ; 0x642a
+    mov ax, word [bp - 2]            ; 0x642d
     cmp ax, strict word 3            ; 0x6430
     jl short @..api_idx_0008_NUPQ.l1 ; 0x6433
-    mov word [bp - 0x0006], 0        ; 0x6435
+    mov word [bp - 6], 0             ; 0x6435
     jmp short @..api_idx_0008_NUPQ.l6 ; 0x643a
 @..api_idx_0008_NUPQ.l4:
     mov ax, 0x2c                     ; 0x643c
-    imul word [bp - 0x0006]          ; 0x643f
+    imul word [bp - 6]               ; 0x643f
     mov si, ax                       ; 0x6442
-    mov ax, word [bp + 0x4]          ; 0x6444
+    mov ax, word [bp + 4]            ; 0x6444
     shl ax, 1                        ; 0x6447
     mov bx, ax                       ; 0x6449
     mov bx, word [bx + party_char]   ; 0x644b
     cmp byte [bx + si + member_rec.item_state], 3 ; 0x644f
     jae short @..api_idx_0008_NUPQ.l5 ; 0x6453
-    mov ax, word [bp - 0x0006]       ; 0x6455
+    mov ax, word [bp - 6]            ; 0x6455
     ret                              ; 0x6458
 @..api_idx_0008_NUPQ.l5:
-    inc word [bp - 0x0006]           ; 0x6459
+    inc word [bp - 6]                ; 0x6459
 @..api_idx_0008_NUPQ.l6:
-    mov ax, word [bp + 0x4]          ; 0x645c
+    mov ax, word [bp + 4]            ; 0x645c
     shl ax, 1                        ; 0x645f
     mov bx, ax                       ; 0x6461
     mov bx, word [bx + party_char]   ; 0x6463
     mov al, byte [bx + member_rec.item_count] ; 0x6467
     sub ah, ah                       ; 0x646b
-    cmp ax, word [bp - 0x0006]       ; 0x646d
+    cmp ax, word [bp - 6]            ; 0x646d
     jg short @..api_idx_0008_NUPQ.l4 ; 0x6470
-    mov ax, word [bp + 0x6]          ; 0x6472
+    mov ax, word [bp + 6]            ; 0x6472
     ret                              ; 0x6475

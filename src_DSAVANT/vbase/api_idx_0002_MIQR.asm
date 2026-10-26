@@ -20,7 +20,7 @@ api_idx_0002_MIQR:
     push ax                          ; 0x8dab
     push ax                          ; 0x8dac
     call gfx_cache_area              ; 0x8dad
-    add sp, byte 0x0c                ; 0x8db0
+    add sp, byte 0xc                 ; 0x8db0
     mov word [scene_backdrop_ref_hi], dx ; 0x8db3
     mov word [scene_backdrop_ref], ax ; 0x8db7
     mov ax, 0xf                      ; 0x8dba
@@ -44,7 +44,7 @@ api_idx_0002_MIQR:
     mov word [bss_a5ae], 5           ; 0x8dfa
     les bx, word [tick_counter_ptr]  ; 0x8e00
     mov ax, word [es:bx]             ; 0x8e04
-    mov dx, word [es:bx + 0x2]       ; 0x8e07
+    mov dx, word [es:bx + 2]         ; 0x8e07
     mov word [party_redraw_last_tick_hi], dx ; 0x8e0b
     mov word [party_redraw_last_tick], ax ; 0x8e0f
     call draw_scene_frame            ; 0x8e12
@@ -69,7 +69,7 @@ api_idx_0002_MIQR:
     pop cx                           ; 0x8e3b
     mov ax, 0                        ; 0x8e3c
     push ax                          ; 0x8e3f
-    push word [bp + 0x4]             ; 0x8e40
+    push word [bp + 4]               ; 0x8e40
     call loc_LIQV                    ; 0x8e43
     add sp, byte 4                   ; 0x8e46
     mov ax, 0xf                      ; 0x8e49

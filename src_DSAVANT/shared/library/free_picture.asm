@@ -15,7 +15,7 @@ free_picture:
     jmp near @..free_picture.l3
 @..free_picture.l1:
     shl ax, 1
-    mov word [bp - 0x0008], ax
+    mov word [bp - 8], ax
     mov bx, picture_slots - IMAGE_BASE
     add bx, ax
     mov ax, word [cs:bx]

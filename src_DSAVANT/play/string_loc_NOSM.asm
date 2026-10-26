@@ -45,7 +45,7 @@ string_loc_NOSM:
     mov si, dx                       ; 0x13e4
     add si, ax                       ; 0x13e6
     lodsb                            ; 0x13e8
-    mov ah, byte [cs:bx + 0x1]       ; 0x13e9
+    mov ah, byte [cs:bx + 1]         ; 0x13e9
     add ah, ch                       ; 0x13ed
     call opl_write                   ; 0x13ef
     add bx, byte 2                   ; 0x13f2

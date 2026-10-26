@@ -23,12 +23,12 @@ cache_maze:
     call loc_KLNH
     jmp near cache_maze_restore_and_return
 @..cache_maze.l1:
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     mov ax, word [bp + 0x10]
     or ax, ax
     je short @..cache_maze.l2
     mov ax, word [bp + 0xe]
-    mov word [bp - 0x0004], ax
+    mov word [bp - 4], ax
     call dos_file_loc_MUHV
     jmp near cache_maze_restore_and_return
 @..cache_maze.l2:
@@ -49,7 +49,7 @@ cache_maze:
     shl ax, cl
     mov bx, ems_blocks - IMAGE_BASE
     add bx, ax
-    mov word [bp - 0x0002], bx
+    mov word [bp - 2], bx
     mov ax, word [cs:ems_paras_used - IMAGE_BASE]
     mov word [cs:bx], ax
     mov ax, word [cs:scratch_buf_seg - IMAGE_BASE]
@@ -66,12 +66,12 @@ cache_maze:
     add ax, strict word 4
     mov bx, ax
     sub bx, byte 6
-    mov cl, byte [bx + 0x5]
-    mov al, byte [bx + 0x4]
+    mov cl, byte [bx + 5]
+    mov al, byte [bx + 4]
     mul cl
     mov cl, 3
     shl ax, cl
-    mov cx, word [bx + 0x2]
+    mov cx, word [bx + 2]
     add ax, cx
     push ax
     xor dx, dx
@@ -79,16 +79,16 @@ cache_maze:
     mov cx, 0x10
     mul cx
     pop cx
-    add cx, byte 0x0f
+    add cx, byte 0xf
     add ax, cx
     adc dx, byte 0
-    mov word [bp - 0x0006], ax
-    mov word [bp - 0x0008], dx
+    mov word [bp - 6], ax
+    mov word [bp - 8], dx
     mov cx, 0x10
     div cx
     mov di, word [cs:ems_paras_used - IMAGE_BASE]
-    mov bx, word [bp - 0x0002]
-    mov word [cs:bx + 0x2], ax
+    mov bx, word [bp - 2]
+    mov word [cs:bx + 2], ax
     add word [cs:ems_paras_used - IMAGE_BASE], ax
     mov ax, word [cs:ems_paras_used - IMAGE_BASE]
     cmp ax, word [cs:ems_para_limit - IMAGE_BASE]
@@ -110,12 +110,12 @@ cache_maze:
     mov es, ax
     mov cx, 0x1000
     rep movsb
-    mov ax, word [bp - 0x0006]
-    mov dx, word [bp - 0x0008]
+    mov ax, word [bp - 6]
+    mov dx, word [bp - 8]
     sub ax, 0x1000
     sbb dx, byte 0
-    mov word [bp - 0x0006], ax
-    mov word [bp - 0x0008], dx
+    mov word [bp - 6], ax
+    mov word [bp - 8], dx
 @..cache_maze.l5:
     mov dx, di
     test dx, 0xc000
@@ -125,12 +125,12 @@ cache_maze:
     mov ax, word [cs:ems_cur_page - IMAGE_BASE]
     call ems_map_pages
 @..cache_maze.l6:
-    mov ax, word [bp - 0x0006]
-    mov dx, word [bp - 0x0008]
+    mov ax, word [bp - 6]
+    mov dx, word [bp - 8]
     or ax, dx
     je short cache_maze_restore_and_return
     mov cx, 0x1000
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
     or dx, dx
     jne short @..cache_maze.l7
     cmp ax, cx
@@ -139,8 +139,8 @@ cache_maze:
 @..cache_maze.l7:
     sub ax, cx
     sbb dx, byte 0
-    mov word [bp - 0x0006], ax
-    mov word [bp - 0x0008], dx
+    mov word [bp - 6], ax
+    mov word [bp - 8], dx
     mov dx, 0
     mov bx, word [bp + 0xc]
     mov ah, 0x3f

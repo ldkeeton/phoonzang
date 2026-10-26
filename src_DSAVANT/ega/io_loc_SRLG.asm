@@ -33,7 +33,7 @@ io_loc_SRLG:
     pop di                           ; 0x2e6b
     add di, byte 0x50                ; 0x2e6c
     pop bx                           ; 0x2e6f
-    add bx, word [bp - 0x0002]       ; 0x2e70
+    add bx, word [bp - 2]            ; 0x2e70
     pop si                           ; 0x2e73
     add si, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x2e74
     pop cx                           ; 0x2e79

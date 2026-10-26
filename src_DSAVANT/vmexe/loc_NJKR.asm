@@ -2,15 +2,15 @@
 loc_NJKR:
     mov ax, 0                        ; 0x1e35
     call aztec_csav                  ; 0x1e38
-    push word [bp + 0x6]             ; 0x1e3b
-    push word [bp + 0x4]             ; 0x1e3e
+    push word [bp + 6]               ; 0x1e3b
+    push word [bp + 4]               ; 0x1e3e
     mov ax, bss_90e6                 ; 0x1e41
     push ax                          ; 0x1e44
     call loc_HJSG                    ; 0x1e45
     add sp, byte 6                   ; 0x1e48
     mov ax, bss_9136                 ; 0x1e4b
     push ax                          ; 0x1e4e
-    push word [bp + 0x8]             ; 0x1e4f
+    push word [bp + 8]               ; 0x1e4f
     call load_message_string         ; 0x1e52
     add sp, byte 4                   ; 0x1e55
     mov byte [bss_9186], 0           ; 0x1e58
@@ -25,7 +25,7 @@ loc_NJKR:
     mov ax, 2                        ; 0x1e72
     push ax                          ; 0x1e75
     mov ax, 0x43                     ; 0x1e76
-    cmp word [bp + 0x4], byte 0      ; 0x1e79
+    cmp word [bp + 4], byte 0        ; 0x1e79
     jne short @..loc_NJKR.l1         ; 0x1e7d
     mov ax, 1                        ; 0x1e7f
 @..loc_NJKR.l1:
@@ -52,7 +52,7 @@ loc_NJKR:
     mov ax, 0x41                     ; 0x1eac
     push ax                          ; 0x1eaf
     push ax                          ; 0x1eb0
-    cmp word [bp + 0x4], byte 0      ; 0x1eb1
+    cmp word [bp + 4], byte 0        ; 0x1eb1
     jne short @..loc_NJKR.l3         ; 0x1eb5
     mov ax, 1                        ; 0x1eb7
 @..loc_NJKR.l3:
@@ -66,11 +66,11 @@ loc_NJKR:
     mov ax, 4                        ; 0x1ec7
     push ax                          ; 0x1eca
     call api_idx_0004_QSNR           ; 0x1ecb
-    add sp, byte 0x0e                ; 0x1ece
+    add sp, byte 0xe                 ; 0x1ece
 @..loc_NJKR.l4:
     cmp word [bp + 0xa], byte 1      ; 0x1ed1
     jne short @..loc_NJKR.l6         ; 0x1ed5
-    cmp word [bp + 0x4], byte 0      ; 0x1ed7
+    cmp word [bp + 4], byte 0        ; 0x1ed7
     jne short @..loc_NJKR.l6         ; 0x1edb
     cmp word [bp + 0xc], byte 0      ; 0x1edd
     jle short @..loc_NJKR.l5         ; 0x1ee1
@@ -80,7 +80,7 @@ loc_NJKR:
 @..loc_NJKR.l5:
     mov ax, 1                        ; 0x1eea
     push ax                          ; 0x1eed
-    push word [bp + 0x6]             ; 0x1eee
+    push word [bp + 6]               ; 0x1eee
     call api_idx_0004_MLLS           ; 0x1ef1
     add sp, byte 4                   ; 0x1ef4
 @..loc_NJKR.l6:

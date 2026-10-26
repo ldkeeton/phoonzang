@@ -23,46 +23,46 @@ api_idx_004a_LKJS:
     jl short @..api_idx_004a_LKJS.l4 ; 0x6a4f
     jmp near @..api_idx_004a_LKJS.l20 ; 0x6a51
 @..api_idx_004a_LKJS.l4:
-    mov word [bp - 0x0002], 0        ; 0x6a54
+    mov word [bp - 2], 0             ; 0x6a54
 @..api_idx_004a_LKJS.l5:
-    mov ax, word [bp - 0x0002]       ; 0x6a59
+    mov ax, word [bp - 2]            ; 0x6a59
     shl ax, 1                        ; 0x6a5c
     mov bx, ax                       ; 0x6a5e
     add bx, bp                       ; 0x6a60
-    mov word [bx - 0x0022], 1        ; 0x6a62
-    inc word [bp - 0x0002]           ; 0x6a67
-    mov ax, word [bp - 0x0002]       ; 0x6a6a
+    mov word [bx - 0x22], 1          ; 0x6a62
+    inc word [bp - 2]                ; 0x6a67
+    mov ax, word [bp - 2]            ; 0x6a6a
     cmp ax, strict word 9            ; 0x6a6d
     jl short @..api_idx_004a_LKJS.l5 ; 0x6a70
-    mov word [bp - 0x0010], 0xffff   ; 0x6a72
+    mov word [bp - 0x10], 0xffff     ; 0x6a72
     cmp word [party_char_count], byte 1 ; 0x6a77
     jge short @..api_idx_004a_LKJS.l6 ; 0x6a7c
-    mov word [bp - 0x001e], 0        ; 0x6a7e
-    mov word [bp - 0x001c], 0        ; 0x6a83
-    mov word [bp - 0x001a], 0        ; 0x6a88
+    mov word [bp - 0x1e], 0          ; 0x6a7e
+    mov word [bp - 0x1c], 0          ; 0x6a83
+    mov word [bp - 0x1a], 0          ; 0x6a88
 @..api_idx_004a_LKJS.l6:
-    mov word [bp - 0x0020], 0        ; 0x6a8d
-    mov word [bp - 0x0002], 0        ; 0x6a92
+    mov word [bp - 0x20], 0          ; 0x6a8d
+    mov word [bp - 2], 0             ; 0x6a92
     jmp short @..api_idx_004a_LKJS.l9 ; 0x6a97
 @..api_idx_004a_LKJS.l7:
-    mov bx, word [bp - 0x0002]       ; 0x6a99
+    mov bx, word [bp - 2]            ; 0x6a99
     cmp byte [bx + pc_file_record_base_hi + 0x2], 1 ; 0x6a9c
     jne short @..api_idx_004a_LKJS.l8 ; 0x6aa1
-    mov word [bp - 0x0020], 1        ; 0x6aa3
+    mov word [bp - 0x20], 1          ; 0x6aa3
 @..api_idx_004a_LKJS.l8:
-    inc word [bp - 0x0002]           ; 0x6aa8
+    inc word [bp - 2]                ; 0x6aa8
 @..api_idx_004a_LKJS.l9:
-    mov ax, word [bp - 0x0002]       ; 0x6aab
+    mov ax, word [bp - 2]            ; 0x6aab
     cmp ax, word [bss_9070]          ; 0x6aae
     jl short @..api_idx_004a_LKJS.l7 ; 0x6ab2
     cmp word [party_char_count], byte 5 ; 0x6ab4
     jle short @..api_idx_004a_LKJS.l10 ; 0x6ab9
-    mov word [bp - 0x0020], 0        ; 0x6abb
+    mov word [bp - 0x20], 0          ; 0x6abb
 @..api_idx_004a_LKJS.l10:
     cmp word [party_char_count], byte 0 ; 0x6ac0
     jle short @..api_idx_004a_LKJS.l11 ; 0x6ac5
-    mov word [bp - 0x0018], 0        ; 0x6ac7
-    mov word [bp - 0x0014], 0        ; 0x6acc
+    mov word [bp - 0x18], 0          ; 0x6ac7
+    mov word [bp - 0x14], 0          ; 0x6acc
 @..api_idx_004a_LKJS.l11:
     cmp word [copy_protection_result], byte 0 ; 0x6ad1
     jne short @..api_idx_004a_LKJS.l12 ; 0x6ad6
@@ -71,7 +71,7 @@ api_idx_004a_LKJS:
     call release_and_exit            ; 0x6adc
     pop cx                           ; 0x6adf
 @..api_idx_004a_LKJS.l12:
-    lea ax, word [bp - 0x0022]       ; 0x6ae0
+    lea ax, word [bp - 0x22]         ; 0x6ae0
     push ax                          ; 0x6ae3
     mov ax, 1                        ; 0x6ae4
     push ax                          ; 0x6ae7
@@ -89,10 +89,10 @@ api_idx_004a_LKJS:
     push ax                          ; 0x6aff
     call loc_LSRQ                    ; 0x6b00
     add sp, byte 0x10                ; 0x6b03
-    mov word [bp - 0x0004], ax       ; 0x6b06
-    lea ax, word [bp - 0x004a]       ; 0x6b09
+    mov word [bp - 4], ax            ; 0x6b06
+    lea ax, word [bp - 0x4a]         ; 0x6b09
     push ax                          ; 0x6b0c
-    mov ax, word [bp - 0x0004]       ; 0x6b0d
+    mov ax, word [bp - 4]            ; 0x6b0d
     add ax, MSG_CHARACTER_MENU       ; 0x6b10
     push ax                          ; 0x6b13
     call load_message_string         ; 0x6b14
@@ -108,11 +108,11 @@ api_idx_004a_LKJS:
     mov ax, 0x61                     ; 0x6b2a
     push ax                          ; 0x6b2d
     push word [bss_9052]             ; 0x6b2e
-    lea ax, word [bp - 0x004a]       ; 0x6b32
+    lea ax, word [bp - 0x4a]         ; 0x6b32
     push ax                          ; 0x6b35
     call api_idx_0004_VUIP           ; 0x6b36
-    add sp, byte 0x0e                ; 0x6b39
-    mov ax, word [bp - 0x0004]       ; 0x6b3c
+    add sp, byte 0xe                 ; 0x6b39
+    mov ax, word [bp - 4]            ; 0x6b3c
     jmp near @..api_idx_004a_LKJS.l18 ; 0x6b3f
 jumptable_6bfb_case_1:
     call loc_LQIO                    ; 0x6b42
@@ -143,17 +143,17 @@ jumptable_6bfb_case_0:
     mov word [game_state], 0x10      ; 0x6b81
     jmp near @..api_idx_004a_LKJS.l19 ; 0x6b87
 jumptable_6bfb_case_4:
-    mov word [bp - 0x0002], 0        ; 0x6b8a
+    mov word [bp - 2], 0             ; 0x6b8a
     jmp short @..api_idx_004a_LKJS.l16 ; 0x6b8f
 @..api_idx_004a_LKJS.l15:
-    mov ax, word [bp - 0x0002]       ; 0x6b91
+    mov ax, word [bp - 2]            ; 0x6b91
     shl ax, 1                        ; 0x6b94
     mov bx, ax                       ; 0x6b96
     mov bx, word [bx + member_roster_index + 0x2] ; 0x6b98
     mov byte [bx + pc_file_record_base_hi + 0x2], 1 ; 0x6b9c
-    inc word [bp - 0x0002]           ; 0x6ba1
+    inc word [bp - 2]                ; 0x6ba1
 @..api_idx_004a_LKJS.l16:
-    mov ax, word [bp - 0x0002]       ; 0x6ba4
+    mov ax, word [bp - 2]            ; 0x6ba4
     cmp ax, word [party_char_count]  ; 0x6ba7
     jl short @..api_idx_004a_LKJS.l15 ; 0x6bab
     mov ax, 0                        ; 0x6bad

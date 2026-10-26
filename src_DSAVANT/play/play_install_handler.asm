@@ -30,7 +30,7 @@ play_install_handler:
     mov byte [cs:saved_pic_mask - IMAGE_BASE], al ; 0x042b
     mov ax, word [es:di]             ; 0x042f
     mov word [cs:cseg_0b10 - IMAGE_BASE], ax ; 0x0432
-    mov ax, word [es:di + 0x2]       ; 0x0436
+    mov ax, word [es:di + 2]         ; 0x0436
     mov word [cs:cseg_0b12 - IMAGE_BASE], ax ; 0x043a
 @..play_install_handler.l5:
     mov al, 0x34                     ; 0x043e
@@ -106,7 +106,7 @@ jumptable_0495:
     call leaf_loc_JKKL               ; 0x04ea
     mov al, 0xfe                     ; 0x04ed
     out 0x21, al                     ; 0x04ef
-    mov ax, word [bp + 0x8]          ; 0x04f1
+    mov ax, word [bp + 8]            ; 0x04f1
     add ax, word [bp + 0xe]          ; 0x04f4
     mov cl, 4                        ; 0x04f7
     shr ax, cl                       ; 0x04f9

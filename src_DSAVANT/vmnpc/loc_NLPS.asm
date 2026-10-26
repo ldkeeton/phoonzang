@@ -3,7 +3,7 @@ loc_NLPS:
     mov ax, 0                        ; 0x86c6
     call aztec_csav                  ; 0x86c9
     mov word [bss_9e62], 1           ; 0x86cc
-    mov ax, word [bp + 0x4]          ; 0x86d2
+    mov ax, word [bp + 4]            ; 0x86d2
     jmp short @..loc_NLPS.l1         ; 0x86d5
 jumptable_8717_case_0:
     mov word [bss_9e62], 0           ; 0x86d7

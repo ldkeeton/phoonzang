@@ -12,21 +12,21 @@ api_idx_00a2_IKRJ:
     jne short @..api_idx_00a2_IKRJ.l2 ; 0x9863
     jmp near @..api_idx_00a2_IKRJ.l3 ; 0x9865
 @..api_idx_00a2_IKRJ.l2:
-    lea ax, word [bp - 0x0052]       ; 0x9868
+    lea ax, word [bp - 0x52]         ; 0x9868
     push ax                          ; 0x986b
     push word [bss_9e44]             ; 0x986c
     push word [bss_9e42]             ; 0x9870
     call loc_UIIS                    ; 0x9874
     add sp, byte 6                   ; 0x9877
-    lea ax, word [bp - 0x0052]       ; 0x987a
+    lea ax, word [bp - 0x52]         ; 0x987a
     push ax                          ; 0x987d
     call api_idx_0002_UHGS           ; 0x987e
     pop cx                           ; 0x9881
-    lea ax, word [bp - 0x0052]       ; 0x9882
+    lea ax, word [bp - 0x52]         ; 0x9882
     push ax                          ; 0x9885
     call titlecase_string            ; 0x9886
     pop cx                           ; 0x9889
-    lea ax, word [bp - 0x00a2]       ; 0x988a
+    lea ax, word [bp - 0xa2]         ; 0x988a
     push ax                          ; 0x988e
     mov ax, MSG_ARE_YOU_SPEAKING_OF  ; 0x988f
     push ax                          ; 0x9892
@@ -34,31 +34,31 @@ api_idx_00a2_IKRJ:
     add sp, byte 4                   ; 0x9896
     mov ax, 0x5e                     ; 0x9899
     push ax                          ; 0x989c
-    lea ax, word [bp - 0x0052]       ; 0x989d
+    lea ax, word [bp - 0x52]         ; 0x989d
     push ax                          ; 0x98a0
-    lea ax, word [bp - 0x00a2]       ; 0x98a1
+    lea ax, word [bp - 0xa2]         ; 0x98a1
     push ax                          ; 0x98a5
     call str_subst_char              ; 0x98a6
     add sp, byte 6                   ; 0x98a9
-    lea ax, word [bp - 0x00a2]       ; 0x98ac
+    lea ax, word [bp - 0xa2]         ; 0x98ac
     push ax                          ; 0x98b0
     call loc_IPHP                    ; 0x98b1
     pop cx                           ; 0x98b4
-    lea ax, word [bp - 0x0052]       ; 0x98b5
+    lea ax, word [bp - 0x52]         ; 0x98b5
     push ax                          ; 0x98b8
     push word [bss_9e80]             ; 0x98b9
     push word [bss_9e7e]             ; 0x98bd
     call loc_UIIS                    ; 0x98c1
     add sp, byte 6                   ; 0x98c4
-    lea ax, word [bp - 0x0052]       ; 0x98c7
+    lea ax, word [bp - 0x52]         ; 0x98c7
     push ax                          ; 0x98ca
     call api_idx_0002_UHGS           ; 0x98cb
     pop cx                           ; 0x98ce
-    lea ax, word [bp - 0x0052]       ; 0x98cf
+    lea ax, word [bp - 0x52]         ; 0x98cf
     push ax                          ; 0x98d2
     call titlecase_string            ; 0x98d3
     pop cx                           ; 0x98d6
-    lea ax, word [bp - 0x0052]       ; 0x98d7
+    lea ax, word [bp - 0x52]         ; 0x98d7
     push ax                          ; 0x98da
     mov ax, MSG_OR                   ; 0x98db
     push ax                          ; 0x98de
@@ -77,15 +77,15 @@ api_idx_00a2_IKRJ:
     imul word [bss_9e46]             ; 0x9901
     add ax, bss_a658                 ; 0x9905
     push ax                          ; 0x9908
-    lea ax, word [bp - 0x0052]       ; 0x9909
+    lea ax, word [bp - 0x52]         ; 0x9909
     push ax                          ; 0x990c
     call aztec_strcpy                ; 0x990d
     add sp, byte 4                   ; 0x9910
-    lea ax, word [bp - 0x0052]       ; 0x9913
+    lea ax, word [bp - 0x52]         ; 0x9913
     push ax                          ; 0x9916
     call titlecase_string            ; 0x9917
     pop cx                           ; 0x991a
-    lea ax, word [bp - 0x0052]       ; 0x991b
+    lea ax, word [bp - 0x52]         ; 0x991b
     push ax                          ; 0x991e
     mov ax, 0x642                    ; 0x991f
     push ax                          ; 0x9922
@@ -121,22 +121,22 @@ api_idx_00a2_IKRJ:
     je short @..api_idx_00a2_IKRJ.l10 ; 0x995e
     cmp word [bss_9e42], byte 0xff   ; 0x9960
     je short @..api_idx_00a2_IKRJ.l8 ; 0x9965
-    lea ax, word [bp - 0x0052]       ; 0x9967
+    lea ax, word [bp - 0x52]         ; 0x9967
     push ax                          ; 0x996a
     mov ax, 1                        ; 0x996b
     push ax                          ; 0x996e
     push word [bss_9e42]             ; 0x996f
     call loc_UIIS                    ; 0x9973
     add sp, byte 6                   ; 0x9976
-    lea ax, word [bp - 0x0052]       ; 0x9979
+    lea ax, word [bp - 0x52]         ; 0x9979
     push ax                          ; 0x997c
     call api_idx_0002_UHGS           ; 0x997d
     pop cx                           ; 0x9980
-    lea ax, word [bp - 0x0052]       ; 0x9981
+    lea ax, word [bp - 0x52]         ; 0x9981
     push ax                          ; 0x9984
     call titlecase_string            ; 0x9985
     pop cx                           ; 0x9988
-    lea ax, word [bp - 0x0052]       ; 0x9989
+    lea ax, word [bp - 0x52]         ; 0x9989
     push ax                          ; 0x998c
     mov ax, MSG_ARE_YOU_ASKING_ABOUT ; 0x998d
     push ax                          ; 0x9990

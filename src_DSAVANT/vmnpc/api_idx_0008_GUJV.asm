@@ -2,18 +2,18 @@
 api_idx_0008_GUJV:
     mov ax, 0xfff8                   ; 0x5571
     call aztec_csav                  ; 0x5574
-    mov ax, word [bp + 0x6]          ; 0x5577
+    mov ax, word [bp + 6]            ; 0x5577
     shl ax, 1                        ; 0x557a
     mov bx, ax                       ; 0x557c
     mov ax, word [bx + bss_9cd4]     ; 0x557e
-    mov word [bp - 0x0004], ax       ; 0x5582
+    mov word [bp - 4], ax            ; 0x5582
     mov ax, 0x248                    ; 0x5585
-    imul word [bp + 0x4]             ; 0x5588
+    imul word [bp + 4]               ; 0x5588
     mov bx, ax                       ; 0x558b
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x558d
     sub ah, ah                       ; 0x5591
     push ax                          ; 0x5593
-    mov ax, word [bp + 0x6]          ; 0x5594
+    mov ax, word [bp + 6]            ; 0x5594
     shl ax, 1                        ; 0x5597
     add ax, bss_9882                 ; 0x5599
     push ax                          ; 0x559c
@@ -22,12 +22,12 @@ api_idx_0008_GUJV:
     test ax, ax                      ; 0x55a3
     je short @..api_idx_0008_GUJV.l1 ; 0x55a5
     mov ax, 0x248                    ; 0x55a7
-    imul word [bp + 0x4]             ; 0x55aa
+    imul word [bp + 4]               ; 0x55aa
     mov bx, ax                       ; 0x55ad
     mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x55af
     sub ah, ah                       ; 0x55b3
     push ax                          ; 0x55b5
-    mov ax, word [bp + 0x6]          ; 0x55b6
+    mov ax, word [bp + 6]            ; 0x55b6
     shl ax, 1                        ; 0x55b9
     add ax, bss_98be                 ; 0x55bb
     push ax                          ; 0x55be
@@ -36,12 +36,12 @@ api_idx_0008_GUJV:
     test ax, ax                      ; 0x55c5
     je short @..api_idx_0008_GUJV.l1 ; 0x55c7
     mov ax, 0x248                    ; 0x55c9
-    imul word [bp + 0x4]             ; 0x55cc
+    imul word [bp + 4]               ; 0x55cc
     mov bx, ax                       ; 0x55cf
     mov al, byte [bx + party_records + pc_rec.gender] ; 0x55d1
     sub ah, ah                       ; 0x55d5
     push ax                          ; 0x55d7
-    mov ax, word [bp + 0x6]          ; 0x55d8
+    mov ax, word [bp + 6]            ; 0x55d8
     add ax, 0x98fa                   ; 0x55db
     push ax                          ; 0x55de
     call test_bit                    ; 0x55df
@@ -62,10 +62,10 @@ api_idx_0008_GUJV:
 @..api_idx_0008_GUJV.l2:
     mov ax, 0                        ; 0x55ff
     push ax                          ; 0x5602
-    push word [bp + 0x4]             ; 0x5603
+    push word [bp + 4]               ; 0x5603
     call api_idx_0004_PULL           ; 0x5606
     add sp, byte 4                   ; 0x5609
-    mov word [bp - 0x0002], ax       ; 0x560c
+    mov word [bp - 2], ax            ; 0x560c
     cmp ax, strict word 0xffff       ; 0x560f
     jne short @..api_idx_0008_GUJV.l3 ; 0x5612
     mov ax, 0x9b                     ; 0x5614
@@ -80,11 +80,11 @@ api_idx_0008_GUJV:
     ret                              ; 0x5629
 @..api_idx_0008_GUJV.l3:
     mov ax, 0x248                    ; 0x562a
-    imul word [bp + 0x4]             ; 0x562d
+    imul word [bp + 4]               ; 0x562d
     mov bx, ax                       ; 0x5630
     mov ax, word [bx + party_records + pc_rec.f_0014] ; 0x5632
     mov dx, word [bx + party_records + pc_rec.f_0016] ; 0x5636
-    mov cx, word [bp + 0x6]          ; 0x563a
+    mov cx, word [bp + 6]            ; 0x563a
     shl cx, 1                        ; 0x563d
     shl cx, 1                        ; 0x563f
     mov bx, cx                       ; 0x5641
@@ -117,12 +117,12 @@ api_idx_0008_GUJV:
     push ax                          ; 0x5678
     call api_idx_0054_LVHV           ; 0x5679
     add sp, byte 6                   ; 0x567c
-    push word [bp - 0x0004]          ; 0x567f
+    push word [bp - 4]               ; 0x567f
     call loc_GMVH                    ; 0x5682
     pop cx                           ; 0x5685
     test ax, ax                      ; 0x5686
     je short @..api_idx_0008_GUJV.l7 ; 0x5688
-    mov ax, word [bp - 0x0004]       ; 0x568a
+    mov ax, word [bp - 4]            ; 0x568a
     add ax, 0xfe70                   ; 0x568d
     push ax                          ; 0x5690
     mov al, byte [bss_91c6]          ; 0x5691
@@ -133,42 +133,42 @@ api_idx_0008_GUJV:
     call assign_slot_bit             ; 0x569a
     add sp, byte 6                   ; 0x569d
 @..api_idx_0008_GUJV.l7:
-    mov ax, word [bp - 0x0002]       ; 0x56a0
+    mov ax, word [bp - 2]            ; 0x56a0
     mov cx, 0x100                    ; 0x56a3
     cwd                              ; 0x56a6
     idiv cx                          ; 0x56a7
-    mov word [bp - 0x0006], ax       ; 0x56a9
-    mov word [bp - 0x0008], dx       ; 0x56ac
+    mov word [bp - 6], ax            ; 0x56a9
+    mov word [bp - 8], dx            ; 0x56ac
     mov ax, 1                        ; 0x56af
     push ax                          ; 0x56b2
-    mov ax, word [bp + 0x6]          ; 0x56b3
+    mov ax, word [bp + 6]            ; 0x56b3
     shl ax, 1                        ; 0x56b6
     mov bx, ax                       ; 0x56b8
     push word [bx + bss_9c6a]        ; 0x56ba
     mov ax, 0x248                    ; 0x56be
-    imul word [bp + 0x4]             ; 0x56c1
+    imul word [bp + 4]               ; 0x56c1
     push ax                          ; 0x56c4
     mov ax, 0x78                     ; 0x56c5
-    imul word [bp - 0x0006]          ; 0x56c8
+    imul word [bp - 6]               ; 0x56c8
     mov cx, ax                       ; 0x56cb
     pop ax                           ; 0x56cd
     add ax, cx                       ; 0x56ce
     push ax                          ; 0x56d0
     mov ax, 0xc                      ; 0x56d1
-    imul word [bp - 0x0008]          ; 0x56d4
+    imul word [bp - 8]               ; 0x56d4
     mov cx, ax                       ; 0x56d7
     pop ax                           ; 0x56d9
     add ax, cx                       ; 0x56da
     add ax, 0x5c34                   ; 0x56dc
     push ax                          ; 0x56df
-    push word [bp - 0x0004]          ; 0x56e0
-    push word [bp + 0x4]             ; 0x56e3
+    push word [bp - 4]               ; 0x56e0
+    push word [bp + 4]               ; 0x56e3
     call api_idx_004c_RQSO           ; 0x56e6
-    add sp, byte 0x0a                ; 0x56e9
-    push word [bp + 0x4]             ; 0x56ec
+    add sp, byte 0xa                 ; 0x56e9
+    push word [bp + 4]               ; 0x56ec
     call api_idx_004c_OGSK           ; 0x56ef
     pop cx                           ; 0x56f2
-    mov ax, word [bp + 0x6]          ; 0x56f3
+    mov ax, word [bp + 6]            ; 0x56f3
     shl ax, 1                        ; 0x56f6
     shl ax, 1                        ; 0x56f8
     mov bx, ax                       ; 0x56fa
@@ -177,13 +177,13 @@ api_idx_0008_GUJV:
     push ax                          ; 0x5704
     push dx                          ; 0x5705
     mov ax, 0x248                    ; 0x5706
-    imul word [bp + 0x4]             ; 0x5709
+    imul word [bp + 4]               ; 0x5709
     mov bx, ax                       ; 0x570c
     pop dx                           ; 0x570e
     pop ax                           ; 0x570f
     sub word [bx + party_records + pc_rec.f_0014], ax ; 0x5710
     sbb word [bx + party_records + pc_rec.f_0016], dx ; 0x5714
-    mov ax, word [bp + 0x6]          ; 0x5718
+    mov ax, word [bp + 6]            ; 0x5718
     shl ax, 1                        ; 0x571b
     mov bx, ax                       ; 0x571d
     mov word [bx + bss_9cd4], 0      ; 0x571f
@@ -191,10 +191,10 @@ api_idx_0008_GUJV:
     mov ax, 0                        ; 0x5728
     push ax                          ; 0x572b
     push ax                          ; 0x572c
-    push word [bp - 0x0004]          ; 0x572d
+    push word [bp - 4]               ; 0x572d
     mov ax, 4                        ; 0x5730
     push ax                          ; 0x5733
-    push word [bp + 0x4]             ; 0x5734
+    push word [bp + 4]               ; 0x5734
     call api_idx_0006_SRQN           ; 0x5737
-    add sp, byte 0x0a                ; 0x573a
+    add sp, byte 0xa                 ; 0x573a
     ret                              ; 0x573d

@@ -20,7 +20,7 @@ api_idx_0002_QRJS:
     push ax                          ; 0x8e92
     push ax                          ; 0x8e93
     call gfx_cache_area              ; 0x8e94
-    add sp, byte 0x0c                ; 0x8e97
+    add sp, byte 0xc                 ; 0x8e97
     mov word [scene_backdrop_ref_hi], dx ; 0x8e9a
     mov word [scene_backdrop_ref], ax ; 0x8e9e
     mov ax, 0xf                      ; 0x8ea1
@@ -35,9 +35,9 @@ api_idx_0002_QRJS:
     push ax                          ; 0x8eb6
     call api_idx_0016_LTLN           ; 0x8eb7
     add sp, byte 4                   ; 0x8eba
-    mov ax, word [bp + 0x6]          ; 0x8ebd
+    mov ax, word [bp + 6]            ; 0x8ebd
     mov word [scene_cue_b], ax       ; 0x8ec0
-    mov ax, word [bp + 0x8]          ; 0x8ec3
+    mov ax, word [bp + 8]            ; 0x8ec3
     mov word [scene_cue_c], ax       ; 0x8ec6
     mov ax, dseg_91a7                ; 0x8ec9
     push ax                          ; 0x8ecc
@@ -54,7 +54,7 @@ api_idx_0002_QRJS:
     mov word [bss_a5ae], 5           ; 0x8efb
     les bx, word [tick_counter_ptr]  ; 0x8f01
     mov ax, word [es:bx]             ; 0x8f05
-    mov dx, word [es:bx + 0x2]       ; 0x8f08
+    mov dx, word [es:bx + 2]         ; 0x8f08
     mov word [party_redraw_last_tick_hi], dx ; 0x8f0c
     mov word [party_redraw_last_tick], ax ; 0x8f10
     call draw_scene_frame            ; 0x8f13
@@ -79,7 +79,7 @@ api_idx_0002_QRJS:
     pop cx                           ; 0x8f3c
     mov ax, 0                        ; 0x8f3d
     push ax                          ; 0x8f40
-    push word [bp + 0x4]             ; 0x8f41
+    push word [bp + 4]               ; 0x8f41
     call loc_LIQV                    ; 0x8f44
     add sp, byte 4                   ; 0x8f47
     mov ax, 0xf                      ; 0x8f4a

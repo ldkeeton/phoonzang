@@ -2,13 +2,13 @@
 loc_MJMJ:
     mov ax, 0                        ; 0x1f0e
     call aztec_csav                  ; 0x1f11
-    mov al, byte [bp + 0x4]          ; 0x1f14
+    mov al, byte [bp + 4]            ; 0x1f14
     mov byte [bss_89df], al          ; 0x1f17
     mov byte [bss_89ea], al          ; 0x1f1a
-    mov al, byte [bp + 0x6]          ; 0x1f1d
+    mov al, byte [bp + 6]            ; 0x1f1d
     mov byte [bss_89e0], al          ; 0x1f20
     mov byte [bss_89f6], al          ; 0x1f23
-    mov al, byte [bp + 0x8]          ; 0x1f26
+    mov al, byte [bp + 8]            ; 0x1f26
     mov byte [bss_89e1], al          ; 0x1f29
     mov byte [bss_8a02], al          ; 0x1f2c
     mov al, byte [bp + 0xa]          ; 0x1f2f

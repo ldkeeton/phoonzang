@@ -11,12 +11,12 @@ loc_LQTO:
     mov di, ems_blocks - IMAGE_BASE
     add di, ax
     mov si, word [cs:di]
-    mov ax, word [cs:di + 0x2]
-    mov word [cs:bx + 0x2], ax
-    mov word [bp - 0x0004], ax
+    mov ax, word [cs:di + 2]
+    mov word [cs:bx + 2], ax
+    mov word [bp - 4], ax
     mov dx, word [cs:maze_mem_seg - IMAGE_BASE]
     add dx, word [cs:maze_paras_used - IMAGE_BASE]
-    mov word [bp - 0x000a], dx
+    mov word [bp - 0xa], dx
     mov es, dx
     add word [cs:maze_paras_used - IMAGE_BASE], ax
     mov ax, word [cs:ems_frame_seg - IMAGE_BASE]
@@ -43,16 +43,16 @@ loc_IGPS:
     mov ax, es
     inc ax
     mov es, ax
-    dec word [bp - 0x0004]
+    dec word [bp - 4]
     jne short loc_SMRK
-    mov ax, word [bp - 0x000a]
+    mov ax, word [bp - 0xa]
     mov ds, ax
     mov bx, 0
     mov ax, word [bx]
     mov cx, 6
     mul cx
     add ax, strict word 4
-    mov bx, word [bp - 0x0008]
+    mov bx, word [bp - 8]
     add bx, strict word 0x27d
     mov word [cs:bx], ax
     jmp near loc_JKVR

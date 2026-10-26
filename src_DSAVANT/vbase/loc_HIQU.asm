@@ -8,8 +8,8 @@ loc_HIQU:
     push ax                          ; 0x4252
     call gfx_set_text_color          ; 0x4253
     add sp, byte 4                   ; 0x4256
-    push word [bp + 0x6]             ; 0x4259
-    push word [bp + 0x4]             ; 0x425c
+    push word [bp + 6]               ; 0x4259
+    push word [bp + 4]               ; 0x425c
     call gfx_set_text_pos            ; 0x425f
     add sp, byte 4                   ; 0x4262
     mov ax, 0                        ; 0x4265
@@ -18,9 +18,9 @@ loc_HIQU:
     push ax                          ; 0x426c
     call draw_font_glyph             ; 0x426d
     add sp, byte 4                   ; 0x4270
-    push word [bp + 0x6]             ; 0x4273
-    mov ax, word [bp + 0x4]          ; 0x4276
-    add ax, word [bp + 0x8]          ; 0x4279
+    push word [bp + 6]               ; 0x4273
+    mov ax, word [bp + 4]            ; 0x4276
+    add ax, word [bp + 8]            ; 0x4279
     push ax                          ; 0x427c
     call gfx_set_text_pos            ; 0x427d
     add sp, byte 4                   ; 0x4280

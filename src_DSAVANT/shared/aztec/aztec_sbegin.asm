@@ -59,7 +59,7 @@ aztec_begin:
     mov bx, 0xffff
 @..aztec_sbegin.heapok:
     mov word [es:_mtop], bx
-    add bx, byte 0x0f
+    add bx, byte 0xf
     shr bx, cl
     mov ax, es
     add bx, ax

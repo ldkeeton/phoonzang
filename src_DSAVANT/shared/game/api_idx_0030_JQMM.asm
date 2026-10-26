@@ -2,22 +2,22 @@
 api_idx_0030_JQMM:
     mov ax, 0xffd0
     call aztec_csav
-    mov word [bp - 0x0024], 0
-    mov word [bp - 0x0022], 4
-    mov word [bp - 0x0020], 1
-    mov word [bp - 0x001e], 3
-    mov word [bp - 0x001c], 2
+    mov word [bp - 0x24], 0
+    mov word [bp - 0x22], 4
+    mov word [bp - 0x20], 1
+    mov word [bp - 0x1e], 3
+    mov word [bp - 0x1c], 2
     mov word [marker_mode], 0
     mov ax, word [party_world_x]
-    mov word [bp - 0x000a], ax
+    mov word [bp - 0xa], ax
     mov ax, word [party_world_y]
-    mov word [bp - 0x000c], ax
+    mov word [bp - 0xc], ax
     mov ax, word [party_cell_x]
-    mov word [bp - 0x000e], ax
+    mov word [bp - 0xe], ax
     mov ax, word [party_cell_y]
-    mov word [bp - 0x0010], ax
+    mov word [bp - 0x10], ax
     mov ax, word [party_map_piece]
-    mov word [bp - 0x0012], ax
+    mov word [bp - 0x12], ax
     mov word [bss_8f48], 0
     mov word [requested_row_limit], 0
     mov ax, 0
@@ -31,18 +31,18 @@ api_idx_0030_JQMM:
     mov ax, 0x48
     push ax
     call gfx_fill_area
-    add sp, byte 0x0a
-    mov ax, word [bp - 0x0012]
+    add sp, byte 0xa
+    mov ax, word [bp - 0x12]
     mov cx, 6
     shl ax, cl
-    mov cx, word [bp - 0x0010]
+    mov cx, word [bp - 0x10]
     shl cx, 1
     shl cx, 1
     shl cx, 1
     add ax, cx
-    add ax, word [bp - 0x000e]
-    mov word [bp - 0x0008], ax
-    cmp word [game_state_arg], byte 0x0a
+    add ax, word [bp - 0xe]
+    mov word [bp - 8], ax
+    cmp word [game_state_arg], byte 0xa
     je short @..api_idx_0030_JQMM.l1
     cmp word [game_state_arg], byte 0x19
     je short @..api_idx_0030_JQMM.l1
@@ -69,29 +69,29 @@ api_idx_0030_JQMM:
     mov ax, 0x48
     push ax
     call gfx_fill_area
-    add sp, byte 0x0a
+    add sp, byte 0xa
     mov ax, word [game_state_arg]
     cmp ax, word [saved_level]
     jne short @..api_idx_0030_JQMM.l4
-    mov ax, word [bp - 0x0012]
+    mov ax, word [bp - 0x12]
     cmp ax, word [saved_map_piece]
     jne short @..api_idx_0030_JQMM.l4
-    mov ax, word [bp - 0x000e]
+    mov ax, word [bp - 0xe]
     cmp ax, word [saved_cell_x]
     jne short @..api_idx_0030_JQMM.l4
-    mov ax, word [bp - 0x0010]
+    mov ax, word [bp - 0x10]
     cmp ax, word [saved_cell_y]
     jne short @..api_idx_0030_JQMM.l4
     cmp word [bss_8f22], byte 0
     je short @..api_idx_0030_JQMM.l3
     mov word [marker_mode], 0xffff
 @..api_idx_0030_JQMM.l3:
-    mov byte [bp - 0x0030], 2
-    mov byte [bp - 0x002f], 0
+    mov byte [bp - 0x30], 2
+    mov byte [bp - 0x2f], 0
     mov ax, 0
     push ax
     push ax
-    lea ax, word [bp - 0x0030]
+    lea ax, word [bp - 0x30]
     push ax
     mov ax, 0
     push ax
@@ -124,7 +124,7 @@ api_idx_0030_JQMM:
     cmp word [boundary_wall_open], byte 0
     je short @..api_idx_0030_JQMM.l8
 @..api_idx_0030_JQMM.l6:
-    push word [bp - 0x0008]
+    push word [bp - 8]
     mov ax, word [maze_data]
     add ax, 0x8b0
     push ax
@@ -145,7 +145,7 @@ api_idx_0030_JQMM:
     mov ax, 0x48
     push ax
     call gfx_fill_area
-    add sp, byte 0x0a
+    add sp, byte 0xa
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
 @..api_idx_0030_JQMM.l7:
@@ -241,24 +241,24 @@ api_idx_0030_JQMM:
     call aztec_setmem
     add sp, byte 6
     mov word [api_idx_0030_JQMM.bss12], 0
-    mov ax, word [bp - 0x0012]
-    mov word [bp - 0x0014], ax
+    mov ax, word [bp - 0x12]
+    mov word [bp - 0x14], ax
     mov ax, 0xffff
     push ax
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0014]
+    lea ax, word [bp - 0x14]
     push ax
-    lea ax, word [bp - 0x0010]
+    lea ax, word [bp - 0x10]
     push ax
-    lea ax, word [bp - 0x000e]
+    lea ax, word [bp - 0xe]
     push ax
-    lea ax, word [bp - 0x000c]
+    lea ax, word [bp - 0xc]
     push ax
-    lea ax, word [bp - 0x000a]
+    lea ax, word [bp - 0xa]
     push ax
     call offset_relative_map_position
-    add sp, byte 0x0e
+    add sp, byte 0xe
     mov word [api_idx_0030_JQMM.bss13], 5
     mov ax, word [party_world_x]
     add ax, word [party_world_y]
@@ -327,7 +327,7 @@ api_idx_0030_JQMM.jumptable_case3:
     mov ax, 0x48
     push ax
     call gfx_fill_area
-    add sp, byte 0x0a
+    add sp, byte 0xa
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
     mov ax, 4
@@ -378,14 +378,14 @@ api_idx_0030_JQMM.jumptable_case4:
     mov ax, 0x48
     push ax
     call gfx_fill_area
-    add sp, byte 0x0a
+    add sp, byte 0xa
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
-    cmp word [game_state_arg], byte 0x0e
+    cmp word [game_state_arg], byte 0xe
     jne short @..api_idx_0030_JQMM.l12
     cmp word [party_map_piece], byte 9
     jle short @..api_idx_0030_JQMM.l12
-    cmp word [party_map_piece], byte 0x0a
+    cmp word [party_map_piece], byte 0xa
     jg short @..api_idx_0030_JQMM.l11
     mov ax, word [party_tag]
     cmp ax, strict word 2
@@ -405,7 +405,7 @@ api_idx_0030_JQMM.jumptable_case4:
     push ax
     push ax
     call gfx_fill_area
-    add sp, byte 0x0a
+    add sp, byte 0xa
     jmp short @..api_idx_0030_JQMM.l13
 @..api_idx_0030_JQMM.l12:
     mov ax, 4
@@ -461,7 +461,7 @@ api_idx_0030_JQMM.jumptable_case5:
     mov ax, 0x48
     push ax
     call gfx_fill_area
-    add sp, byte 0x0a
+    add sp, byte 0xa
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
     mov ax, 4
@@ -515,7 +515,7 @@ api_idx_0030_JQMM.jumptable_case6:
     mov ax, 0x48
     push ax
     call gfx_fill_area
-    add sp, byte 0x0a
+    add sp, byte 0xa
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
     mov ax, 0
@@ -529,7 +529,7 @@ api_idx_0030_JQMM.jumptable_case6:
     mov ax, 0x48
     push ax
     call gfx_fill_area
-    add sp, byte 0x0a
+    add sp, byte 0xa
     mov ax, 0x2a
     push ax
     call api_idx_0030_JQMM.loc1
@@ -561,7 +561,7 @@ api_idx_0030_JQMM.jumptable_case7:
     mov ax, 0x48
     push ax
     call gfx_fill_area
-    add sp, byte 0x0a
+    add sp, byte 0xa
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
     mov ax, 0x3e
@@ -619,11 +619,11 @@ api_idx_0030_JQMM.jumptable_case7:
     push ax
     push ax
     call gfx_fill_area
-    add sp, byte 0x0a
+    add sp, byte 0xa
 @..api_idx_0030_JQMM.l21:
     cmp word [game_state_arg], byte 8
     je short @..api_idx_0030_JQMM.l22
-    cmp word [game_state_arg], byte 0x0b
+    cmp word [game_state_arg], byte 0xb
     jne short @..api_idx_0030_JQMM.l23
     cmp word [party_map_piece], byte 6
     jne short @..api_idx_0030_JQMM.l23
@@ -686,18 +686,18 @@ api_idx_0030_JQMM.jumptable_case2:
     push ax
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0012]
+    lea ax, word [bp - 0x12]
     push ax
-    lea ax, word [bp - 0x0010]
+    lea ax, word [bp - 0x10]
     push ax
-    lea ax, word [bp - 0x000e]
+    lea ax, word [bp - 0xe]
     push ax
-    lea ax, word [bp - 0x000c]
+    lea ax, word [bp - 0xc]
     push ax
-    lea ax, word [bp - 0x000a]
+    lea ax, word [bp - 0xa]
     push ax
     call offset_relative_map_position
-    add sp, byte 0x0e
+    add sp, byte 0xe
     test ax, ax
     je short @..api_idx_0030_JQMM.l34
     mov ax, word [boundary_wall_variant]
@@ -740,103 +740,103 @@ api_idx_0030_JQMM.jumptable_case2:
 @..api_idx_0030_JQMM.l34:
     mov ax, 0
     push ax
-    push word [bp - 0x0012]
-    push word [bp - 0x0010]
-    push word [bp - 0x000e]
-    push word [bp - 0x000c]
-    push word [bp - 0x000a]
+    push word [bp - 0x12]
+    push word [bp - 0x10]
+    push word [bp - 0xe]
+    push word [bp - 0xc]
+    push word [bp - 0xa]
     call api_idx_0030_JQMM.api_idx1
-    add sp, byte 0x0c
+    add sp, byte 0xc
     mov word [api_idx_0030_JQMM.bss16], ax
     mov ax, 0
     push ax
-    push word [bp - 0x0012]
-    push word [bp - 0x0010]
-    push word [bp - 0x000e]
-    push word [bp - 0x000c]
-    push word [bp - 0x000a]
+    push word [bp - 0x12]
+    push word [bp - 0x10]
+    push word [bp - 0xe]
+    push word [bp - 0xc]
+    push word [bp - 0xa]
     push ax
     call get_relative_cell_wall
-    add sp, byte 0x0e
+    add sp, byte 0xe
     mov word [api_idx_0030_JQMM.bss18], ax
     mov ax, 0
     push ax
-    push word [bp - 0x0012]
-    push word [bp - 0x0010]
-    push word [bp - 0x000e]
-    push word [bp - 0x000c]
-    push word [bp - 0x000a]
+    push word [bp - 0x12]
+    push word [bp - 0x10]
+    push word [bp - 0xe]
+    push word [bp - 0xc]
+    push word [bp - 0xa]
     mov ax, 2
     push ax
     call get_relative_cell_wall
-    add sp, byte 0x0e
+    add sp, byte 0xe
     mov word [api_idx_0030_JQMM.bss19], ax
 @..api_idx_0030_JQMM.l35:
     mov ax, 0xffff
     push ax
-    push word [bp - 0x0012]
-    push word [bp - 0x0010]
-    push word [bp - 0x000e]
-    push word [bp - 0x000c]
-    push word [bp - 0x000a]
+    push word [bp - 0x12]
+    push word [bp - 0x10]
+    push word [bp - 0xe]
+    push word [bp - 0xc]
+    push word [bp - 0xa]
     call api_idx_0030_JQMM.api_idx1
-    add sp, byte 0x0c
+    add sp, byte 0xc
     mov word [api_idx_0030_JQMM.bss20], ax
     mov ax, 1
     push ax
-    push word [bp - 0x0012]
-    push word [bp - 0x0010]
-    push word [bp - 0x000e]
-    push word [bp - 0x000c]
-    push word [bp - 0x000a]
+    push word [bp - 0x12]
+    push word [bp - 0x10]
+    push word [bp - 0xe]
+    push word [bp - 0xc]
+    push word [bp - 0xa]
     call api_idx_0030_JQMM.api_idx1
-    add sp, byte 0x0c
+    add sp, byte 0xc
     mov word [api_idx_0030_JQMM.bss21], ax
     cmp word [cell_wall_override_disabled], byte 1
     jle short @..api_idx_0030_JQMM.l36
     mov ax, 0xfffe
     push ax
-    push word [bp - 0x0012]
-    push word [bp - 0x0010]
-    push word [bp - 0x000e]
-    push word [bp - 0x000c]
-    push word [bp - 0x000a]
+    push word [bp - 0x12]
+    push word [bp - 0x10]
+    push word [bp - 0xe]
+    push word [bp - 0xc]
+    push word [bp - 0xa]
     call api_idx_0030_JQMM.api_idx1
-    add sp, byte 0x0c
+    add sp, byte 0xc
     mov word [api_idx_0030_JQMM.bss22], ax
     mov ax, 2
     push ax
-    push word [bp - 0x0012]
-    push word [bp - 0x0010]
-    push word [bp - 0x000e]
-    push word [bp - 0x000c]
-    push word [bp - 0x000a]
+    push word [bp - 0x12]
+    push word [bp - 0x10]
+    push word [bp - 0xe]
+    push word [bp - 0xc]
+    push word [bp - 0xa]
     call api_idx_0030_JQMM.api_idx1
-    add sp, byte 0x0c
+    add sp, byte 0xc
     mov word [api_idx_0030_JQMM.bss23], ax
     mov ax, 0xffff
     push ax
-    push word [bp - 0x0012]
-    push word [bp - 0x0010]
-    push word [bp - 0x000e]
-    push word [bp - 0x000c]
-    push word [bp - 0x000a]
+    push word [bp - 0x12]
+    push word [bp - 0x10]
+    push word [bp - 0xe]
+    push word [bp - 0xc]
+    push word [bp - 0xa]
     mov ax, 0
     push ax
     call get_relative_cell_wall
-    add sp, byte 0x0e
+    add sp, byte 0xe
     mov word [api_idx_0030_JQMM.bss24], ax
     mov ax, 1
     push ax
-    push word [bp - 0x0012]
-    push word [bp - 0x0010]
-    push word [bp - 0x000e]
-    push word [bp - 0x000c]
-    push word [bp - 0x000a]
+    push word [bp - 0x12]
+    push word [bp - 0x10]
+    push word [bp - 0xe]
+    push word [bp - 0xc]
+    push word [bp - 0xa]
     mov ax, 2
     push ax
     call get_relative_cell_wall
-    add sp, byte 0x0e
+    add sp, byte 0xe
     mov word [api_idx_0030_JQMM.bss25], ax
     jmp short @..api_idx_0030_JQMM.l37
 @..api_idx_0030_JQMM.l36:
@@ -1742,17 +1742,17 @@ api_idx_0030_JQMM.jumptable_case2:
     mov word [cell_wall_override_disabled], ax
     jmp near @..api_idx_0030_JQMM.l92
 @..api_idx_0030_JQMM.l40:
-    mov word [bp - 0x0004], 0xff
+    mov word [bp - 4], 0xff
 @..api_idx_0030_JQMM.l41:
     mov ax, word [api_idx_0030_JQMM.bss12]
     dec ax
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     jmp short @..api_idx_0030_JQMM.l45
 @..api_idx_0030_JQMM.l42:
     mov ax, 0x11
-    imul word [bp - 0x0002]
+    imul word [bp - 2]
     add ax, api_idx_0030_JQMM.bss11
-    mov word [bp - 0x0026], ax
+    mov word [bp - 0x26], ax
     mov bx, ax
     mov al, byte [bx + 0xd]
     sub ah, ah
@@ -1760,12 +1760,12 @@ api_idx_0030_JQMM.jumptable_case2:
     jne short @..api_idx_0030_JQMM.l44
     mov al, byte [bx + 0xc]
     sub ah, ah
-    cmp ax, word [bp - 0x0004]
+    cmp ax, word [bp - 4]
     jne short @..api_idx_0030_JQMM.l44
     cmp word [bx], byte 0xff
     je short @..api_idx_0030_JQMM.l43
-    push word [bx + 0x4]
-    mov al, byte [bx + 0x8]
+    push word [bx + 4]
+    mov al, byte [bx + 8]
     sub ah, ah
     push ax
     push word [bx]
@@ -1775,46 +1775,46 @@ api_idx_0030_JQMM.jumptable_case2:
     call gfx_draw_maze_piece
     add sp, byte 8
 @..api_idx_0030_JQMM.l43:
-    mov bx, word [bp - 0x0026]
-    cmp word [bx + 0x2], byte 0xff
+    mov bx, word [bp - 0x26]
+    cmp word [bx + 2], byte 0xff
     je short @..api_idx_0030_JQMM.l44
-    push word [bx + 0x6]
-    mov al, byte [bx + 0x9]
+    push word [bx + 6]
+    mov al, byte [bx + 9]
     sub ah, ah
     push ax
-    push word [bx + 0x2]
+    push word [bx + 2]
     mov al, byte [bx + 0xe]
     sub ah, ah
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
 @..api_idx_0030_JQMM.l44:
-    dec word [bp - 0x0002]
+    dec word [bp - 2]
 @..api_idx_0030_JQMM.l45:
-    cmp word [bp - 0x0002], byte 0
+    cmp word [bp - 2], byte 0
     jge short @..api_idx_0030_JQMM.l42
     mov ax, 0
-    cmp word [bp - 0x0004], strict word 0xff
+    cmp word [bp - 4], strict word 0xff
     je short @..api_idx_0030_JQMM.l46
     mov ax, 0xffff
-    cmp word [bp - 0x0004], strict word 0xfb
+    cmp word [bp - 4], strict word 0xfb
     jne short @..api_idx_0030_JQMM.l46
     mov ax, 1
 @..api_idx_0030_JQMM.l46:
-    mov word [bp - 0x0018], ax
+    mov word [bp - 0x18], ax
     cmp ax, strict word 0xffff
     jne short @..api_idx_0030_JQMM.l47
     jmp near @..api_idx_0030_JQMM.l55
 @..api_idx_0030_JQMM.l47:
     mov ax, word [api_idx_0030_JQMM.bss12]
     dec ax
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     jmp near @..api_idx_0030_JQMM.l54
 @..api_idx_0030_JQMM.l48:
     mov ax, 0x11
-    imul word [bp - 0x0002]
+    imul word [bp - 2]
     add ax, api_idx_0030_JQMM.bss11
-    mov word [bp - 0x0026], ax
+    mov word [bp - 0x26], ax
     mov bx, ax
     mov al, byte [bx + 0xd]
     sub ah, ah
@@ -1830,37 +1830,37 @@ api_idx_0030_JQMM.jumptable_case2:
 @..api_idx_0030_JQMM.l50:
     mov al, byte [bx + 0x10]
     sub ah, ah
-    cmp ax, word [bp - 0x0018]
+    cmp ax, word [bp - 0x18]
     jne short @..api_idx_0030_JQMM.l53
     cmp byte [bx + 0xc], 4
     jne short @..api_idx_0030_JQMM.l51
-    cmp byte [bx + 0x9], 1
+    cmp byte [bx + 9], 1
     jne short @..api_idx_0030_JQMM.l51
     push bx
     call api_idx_0016_LHKK
     pop cx
     jmp short @..api_idx_0030_JQMM.l53
 @..api_idx_0030_JQMM.l51:
-    mov word [bp - 0x0006], 0
+    mov word [bp - 6], 0
 @..api_idx_0030_JQMM.l52:
-    mov bx, word [bp - 0x0026]
-    mov si, word [bp - 0x0006]
-    mov al, byte [bx + si + 0x8]
+    mov bx, word [bp - 0x26]
+    mov si, word [bp - 6]
+    mov al, byte [bx + si + 8]
     mov bx, si
     add bx, bp
-    mov byte [bx - 0x0030], al
-    inc word [bp - 0x0006]
-    mov ax, word [bp - 0x0006]
+    mov byte [bx - 0x30], al
+    inc word [bp - 6]
+    mov ax, word [bp - 6]
     cmp ax, strict word 4
     jl short @..api_idx_0030_JQMM.l52
-    mov byte [bp - 0x002c], 0
-    mov bx, word [bp - 0x0026]
+    mov byte [bp - 0x2c], 0
+    mov bx, word [bp - 0x26]
     mov al, byte [bx + 0xe]
     sub ah, ah
     push ax
     mov ax, 0
     push ax
-    lea ax, word [bp - 0x0030]
+    lea ax, word [bp - 0x30]
     push ax
     mov al, byte [bx + 0xf]
     sub ah, ah
@@ -1869,9 +1869,9 @@ api_idx_0030_JQMM.jumptable_case2:
     push ax
     mov ax, 0x20
     push ax
-    push word [bx + 0x6]
-    push word [bx + 0x4]
-    push word [bx + 0x2]
+    push word [bx + 6]
+    push word [bx + 4]
+    push word [bx + 2]
     push word [bx]
     mov al, byte [bx + 0xc]
     sub ah, ah
@@ -1879,14 +1879,14 @@ api_idx_0030_JQMM.jumptable_case2:
     call gfx_draw_text
     add sp, byte 0x16
 @..api_idx_0030_JQMM.l53:
-    dec word [bp - 0x0002]
+    dec word [bp - 2]
 @..api_idx_0030_JQMM.l54:
-    cmp word [bp - 0x0002], byte 0
+    cmp word [bp - 2], byte 0
     jl short @..api_idx_0030_JQMM.l55
     jmp near @..api_idx_0030_JQMM.l48
 @..api_idx_0030_JQMM.l55:
-    dec word [bp - 0x0004]
-    mov ax, word [bp - 0x0004]
+    dec word [bp - 4]
+    mov ax, word [bp - 4]
     cmp ax, 0xfb
     jl short @..api_idx_0030_JQMM.l56
     jmp near @..api_idx_0030_JQMM.l41
@@ -1918,9 +1918,9 @@ api_idx_0030_JQMM.jumptable_case2:
     jg short @..api_idx_0030_JQMM.l60
     jmp near @..api_idx_0030_JQMM.l77
 @..api_idx_0030_JQMM.l60:
-    mov word [bp - 0x0006], 0
+    mov word [bp - 6], 0
 @..api_idx_0030_JQMM.l61:
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
     shl ax, 1
     mov bx, ax
     cmp word [bx + api_idx_0030_JQMM.bss28], byte 0
@@ -1928,12 +1928,12 @@ api_idx_0030_JQMM.jumptable_case2:
     jmp near @..api_idx_0030_JQMM.l66
 @..api_idx_0030_JQMM.l62:
     mov al, byte [bx + api_idx_0030_JQMM.bss28]
-    mov byte [bp - 0x0030], al
-    mov byte [bp - 0x002f], 0
+    mov byte [bp - 0x30], al
+    mov byte [bp - 0x2f], 0
     mov ax, 0
     push ax
     push ax
-    lea ax, word [bp - 0x0030]
+    lea ax, word [bp - 0x30]
     push ax
     push word [bx + api_idx_0030_JQMM.bss29]
     mov ax, 0x90
@@ -1947,7 +1947,7 @@ api_idx_0030_JQMM.jumptable_case2:
     mov bx, word [bx + api_idx_0030_JQMM.bss28]
     mov al, byte [bx + bss_7b05 + 0x15c]
     sub ah, ah
-    mov cx, word [bp - 0x0006]
+    mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
     add ax, word [bx + api_idx_0030_JQMM.bss30]
@@ -1965,7 +1965,7 @@ api_idx_0030_JQMM.jumptable_case2:
     push ax
     call gfx_draw_text
     add sp, byte 0x16
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
     shl ax, 1
     mov bx, ax
     cmp word [bx + api_idx_0030_JQMM.bss32], byte 0
@@ -1991,7 +1991,7 @@ api_idx_0030_JQMM.jumptable_case2:
     push ax
     call random_below
     pop cx
-    cmp ax, word [bp - 0x0006]
+    cmp ax, word [bp - 6]
     jle short @..api_idx_0030_JQMM.l68
     jmp near @..api_idx_0030_JQMM.l76
 @..api_idx_0030_JQMM.l68:
@@ -1999,7 +1999,7 @@ api_idx_0030_JQMM.jumptable_case2:
     push ax
     call random_below
     pop cx
-    mov cx, word [bp - 0x0006]
+    mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
     mov word [bx + api_idx_0030_JQMM.bss29], ax
@@ -2017,7 +2017,7 @@ api_idx_0030_JQMM.jumptable_case2:
 @..api_idx_0030_JQMM.l69:
     mov ax, 0
 @..api_idx_0030_JQMM.l70:
-    mov cx, word [bp - 0x0006]
+    mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
     mov word [bx + api_idx_0030_JQMM.bss32], ax
@@ -2040,7 +2040,7 @@ api_idx_0030_JQMM.jumptable_case2:
 @..api_idx_0030_JQMM.l72:
     mov ax, 0xa
 @..api_idx_0030_JQMM.l73:
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     cmp word [bx + api_idx_0030_JQMM.bss29], byte 0
     je short @..api_idx_0030_JQMM.l74
     push ax
@@ -2048,14 +2048,14 @@ api_idx_0030_JQMM.jumptable_case2:
     pop cx
     jmp short @..api_idx_0030_JQMM.l75
 @..api_idx_0030_JQMM.l74:
-    push word [bp - 0x0002]
+    push word [bp - 2]
     call random_below
     pop cx
     mov cx, ax
     mov ax, 0
     sub ax, cx
 @..api_idx_0030_JQMM.l75:
-    mov cx, word [bp - 0x0006]
+    mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
     mov word [bx + api_idx_0030_JQMM.bss31], ax
@@ -2063,13 +2063,13 @@ api_idx_0030_JQMM.jumptable_case2:
     push ax
     call random_below
     pop cx
-    mov cx, word [bp - 0x0006]
+    mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
     mov word [bx + api_idx_0030_JQMM.bss30], ax
 @..api_idx_0030_JQMM.l76:
-    inc word [bp - 0x0006]
-    mov ax, word [bp - 0x0006]
+    inc word [bp - 6]
+    mov ax, word [bp - 6]
     cmp ax, strict word 3
     jge short @..api_idx_0030_JQMM.l77
     jmp near @..api_idx_0030_JQMM.l61
@@ -2081,30 +2081,30 @@ api_idx_0030_JQMM.jumptable_case2:
     jg short @..api_idx_0030_JQMM.l78
     jmp near @..api_idx_0030_JQMM.l91
 @..api_idx_0030_JQMM.l78:
-    mov word [bp - 0x0014], 0
+    mov word [bp - 0x14], 0
 @..api_idx_0030_JQMM.l79:
-    mov ax, word [bp - 0x0014]
+    mov ax, word [bp - 0x14]
     shl ax, 1
     mov bx, ax
     add bx, bp
-    mov ax, word [bx - 0x0024]
-    mov word [bp - 0x0002], ax
+    mov ax, word [bx - 0x24]
+    mov word [bp - 2], ax
     mov ax, 5
     imul word [cell_wall_override_disabled]
     mov cx, ax
-    mov ax, word [bp - 0x0002]
+    mov ax, word [bp - 2]
     add cx, ax
     mov bx, cx
     mov al, byte [bx + api_idx_0030_JQMM.bss1]
     sub ah, ah
-    mov word [bp - 0x001a], ax
+    mov word [bp - 0x1a], ax
     test ax, ax
     jne short @..api_idx_0030_JQMM.l80
     jmp near @..api_idx_0030_JQMM.l90
 @..api_idx_0030_JQMM.l80:
     mov ax, 0x28
     imul word [cell_wall_override_disabled]
-    mov cx, word [bp - 0x0002]
+    mov cx, word [bp - 2]
     shl cx, 1
     shl cx, 1
     shl cx, 1
@@ -2114,7 +2114,7 @@ api_idx_0030_JQMM.jumptable_case2:
     jne short @..api_idx_0030_JQMM.l81
     jmp near @..api_idx_0030_JQMM.l90
 @..api_idx_0030_JQMM.l81:
-    cmp word [bp - 0x001a], byte 1
+    cmp word [bp - 0x1a], byte 1
     je short @..api_idx_0030_JQMM.l82
     cmp word [boundary_wall_open], byte 0
     je short @..api_idx_0030_JQMM.l84
@@ -2130,14 +2130,14 @@ api_idx_0030_JQMM.jumptable_case2:
     push word [bx + 0x2a8]
     push word [bx + 0x2a6]
     call gfx_fill_area
-    add sp, byte 0x0a
+    add sp, byte 0xa
     jmp near @..api_idx_0030_JQMM.l89
 @..api_idx_0030_JQMM.l84:
     cmp word [cell_wall_override_disabled], byte 0
     jg short @..api_idx_0030_JQMM.l85
     jmp near @..api_idx_0030_JQMM.l89
 @..api_idx_0030_JQMM.l85:
-    mov ax, word [bp - 0x0002]
+    mov ax, word [bp - 2]
     shl ax, 1
     shl ax, 1
     add ax, word [cell_wall_override_disabled]
@@ -2160,9 +2160,9 @@ api_idx_0030_JQMM.jumptable_case2:
     idiv cx
     mov word [api_idx_0030_JQMM.bss15], dx
     mov al, byte [cell_wall_override_disabled]
-    mov byte [bp - 0x0030], al
-    mov byte [bp - 0x002f], 0
-    mov ax, word [bp - 0x0002]
+    mov byte [bp - 0x30], al
+    mov byte [bp - 0x2f], 0
+    mov ax, word [bp - 2]
     shl ax, 1
     shl ax, 1
     add ax, word [cell_wall_override_disabled]
@@ -2171,7 +2171,7 @@ api_idx_0030_JQMM.jumptable_case2:
     mov bx, ax
     mov al, byte [bx + glyph_y_table + 0x7eb]
     sub ah, ah
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     cmp ax, 0xff
     jne short @..api_idx_0030_JQMM.l88
     mov ax, 0xffee
@@ -2179,12 +2179,12 @@ api_idx_0030_JQMM.jumptable_case2:
     je short @..api_idx_0030_JQMM.l87
     mov ax, 0xffea
 @..api_idx_0030_JQMM.l87:
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
 @..api_idx_0030_JQMM.l88:
     mov ax, 0
     push ax
     push ax
-    lea ax, word [bp - 0x0030]
+    lea ax, word [bp - 0x30]
     push ax
     push dx
     mov ax, 0x90
@@ -2195,7 +2195,7 @@ api_idx_0030_JQMM.jumptable_case2:
     push ax
     mov ax, 0x48
     push ax
-    mov ax, word [bp - 0x0002]
+    mov ax, word [bp - 2]
     shl ax, 1
     shl ax, 1
     add ax, word [cell_wall_override_disabled]
@@ -2203,7 +2203,7 @@ api_idx_0030_JQMM.jumptable_case2:
     mov al, byte [bx + glyph_y_table + 0x834]
     sub ah, ah
     push ax
-    push word [bp - 0x0006]
+    push word [bp - 6]
     mov ax, 9
     push ax
     call gfx_draw_text
@@ -2214,8 +2214,8 @@ api_idx_0030_JQMM.jumptable_case2:
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
 @..api_idx_0030_JQMM.l90:
-    inc word [bp - 0x0014]
-    mov ax, word [bp - 0x0014]
+    inc word [bp - 0x14]
+    mov ax, word [bp - 0x14]
     cmp ax, strict word 5
     jge short @..api_idx_0030_JQMM.l91
     jmp near @..api_idx_0030_JQMM.l79

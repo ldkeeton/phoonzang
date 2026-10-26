@@ -4,9 +4,9 @@ aztec_aputc:
     mov bp, sp                       ; 0x2c8f
     push di                          ; 0x2c91
     push si                          ; 0x2c92
-    mov si, word [bp + 0x4]          ; 0x2c93
-    mov di, word [bp + 0x6]          ; 0x2c96
-    cmp si, byte 0x0a                ; 0x2c99
+    mov si, word [bp + 4]            ; 0x2c93
+    mov di, word [bp + 6]            ; 0x2c96
+    cmp si, byte 0xa                 ; 0x2c99
     jne short @..aztec_aputc.l2      ; 0x2c9c
     push di                          ; 0x2c9e
     mov ax, 0xd                      ; 0x2c9f

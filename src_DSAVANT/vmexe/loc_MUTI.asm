@@ -3,14 +3,14 @@ loc_MUTI:
     mov ax, 0                        ; 0x1c36
     call aztec_csav                  ; 0x1c39
     mov ax, 6                        ; 0x1c3c
-    imul word [bp + 0x4]             ; 0x1c3f
+    imul word [bp + 4]               ; 0x1c3f
     mov bx, ax                       ; 0x1c42
     mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x1c44
     sub ah, ah                       ; 0x1c48
     mov cx, 3                        ; 0x1c4a
     imul cx                          ; 0x1c4d
     push ax                          ; 0x1c4f
-    mov ax, word [bp + 0x6]          ; 0x1c50
+    mov ax, word [bp + 6]            ; 0x1c50
     imul cx                          ; 0x1c53
     mov cx, ax                       ; 0x1c55
     pop ax                           ; 0x1c57

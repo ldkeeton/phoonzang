@@ -3,7 +3,7 @@ draw_font_glyph:
     push bp                          ; 0x3a77
     mov bp, sp                       ; 0x3a78
     cld                              ; 0x3a7a
-    mov ax, word [bp + 0x6]          ; 0x3a7b
+    mov ax, word [bp + 6]            ; 0x3a7b
     mov bx, font_seg_table - IMAGE_BASE ; 0x3a7e
     shl ax, 1                        ; 0x3a81
     add bx, ax                       ; 0x3a83

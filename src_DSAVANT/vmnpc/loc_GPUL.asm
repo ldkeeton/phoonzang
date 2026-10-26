@@ -6,7 +6,7 @@ loc_GPUL:
     push ax                          ; 0x296c
     call gfx_wait_sound              ; 0x296d
     pop cx                           ; 0x2970
-    cmp word [bp + 0x4], byte 0      ; 0x2971
+    cmp word [bp + 4], byte 0        ; 0x2971
     je short @..loc_GPUL.l1          ; 0x2975
     mov ax, 0x55                     ; 0x2977
     push ax                          ; 0x297a

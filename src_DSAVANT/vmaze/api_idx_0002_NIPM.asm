@@ -7,7 +7,7 @@ api_idx_0002_NIPM:
     mov si, ax                       ; 0x73c1
     mov bx, word [maze_tables]       ; 0x73c3
     mov ax, word [bx + si]           ; 0x73c7
-    mov word [bp - 0x0002], ax       ; 0x73c9
+    mov word [bp - 2], ax            ; 0x73c9
     jmp short @..api_idx_0002_NIPM.l1 ; 0x73cc
 jumptable_741a_case_1:
     mov ax, 0x11                     ; 0x73ce

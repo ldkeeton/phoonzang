@@ -2,12 +2,12 @@
 next_sound_device:
     push bp                          ; 0x0d12
     mov bp, sp                       ; 0x0d13
-    mov ax, word [bp + 0x4]          ; 0x0d15
+    mov ax, word [bp + 4]            ; 0x0d15
     inc ax                           ; 0x0d18
     mov cx, 8                        ; 0x0d19
     cwd                              ; 0x0d1c
     idiv cx                          ; 0x0d1d
-    mov word [bp + 0x4], dx          ; 0x0d1f
+    mov word [bp + 4], dx            ; 0x0d1f
     shl dx, 1                        ; 0x0d22
     mov bx, dx                       ; 0x0d24
     push word [bx + sound_device_names] ; 0x0d26
@@ -17,7 +17,7 @@ next_sound_device:
     push ax                          ; 0x0d31
     call put_text_at                 ; 0x0d32
     add sp, byte 6                   ; 0x0d35
-    mov ax, word [bp + 0x4]          ; 0x0d38
+    mov ax, word [bp + 4]            ; 0x0d38
     mov sp, bp                       ; 0x0d3b
     pop bp                           ; 0x0d3d
     ret                              ; 0x0d3e

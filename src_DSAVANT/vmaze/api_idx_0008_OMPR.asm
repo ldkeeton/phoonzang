@@ -2,10 +2,10 @@
 api_idx_0008_OMPR:
     mov ax, 0xfff8                   ; 0xa5ba
     call aztec_csav                  ; 0xa5bd
-    mov word [bp - 0x0006], 0        ; 0xa5c0
+    mov word [bp - 6], 0             ; 0xa5c0
 @..api_idx_0008_OMPR.l1:
-    mov ax, word [bp - 0x0006]       ; 0xa5c5
-    cmp ax, word [bp + 0x4]          ; 0xa5c8
+    mov ax, word [bp - 6]            ; 0xa5c5
+    cmp ax, word [bp + 4]            ; 0xa5c8
     jne short @..api_idx_0008_OMPR.l2 ; 0xa5cb
     jmp near @..api_idx_0008_OMPR.l16 ; 0xa5cd
 @..api_idx_0008_OMPR.l2:
@@ -17,19 +17,19 @@ api_idx_0008_OMPR:
     jmp near @..api_idx_0008_OMPR.l16 ; 0xa5de
 @..api_idx_0008_OMPR.l3:
     mov ax, 0x16                     ; 0xa5e1
-    imul word [bp + 0x4]             ; 0xa5e4
-    add ax, word [bp - 0x0006]       ; 0xa5e7
+    imul word [bp + 4]               ; 0xa5e4
+    add ax, word [bp - 6]            ; 0xa5e7
     mov bx, ax                       ; 0xa5ea
     cmp byte [bx + bss_9c42], 0      ; 0xa5ec
     je short @..api_idx_0008_OMPR.l4 ; 0xa5f1
     jmp near @..api_idx_0008_OMPR.l16 ; 0xa5f3
 @..api_idx_0008_OMPR.l4:
-    mov ax, word [bp + 0x4]          ; 0xa5f6
+    mov ax, word [bp + 4]            ; 0xa5f6
     imul cx                          ; 0xa5f9
     mov bx, ax                       ; 0xa5fb
     mov al, byte [bx + slot_records + slot_record.kind] ; 0xa5fd
     push ax                          ; 0xa601
-    mov ax, word [bp - 0x0006]       ; 0xa602
+    mov ax, word [bp - 6]            ; 0xa602
     imul cx                          ; 0xa605
     mov bx, ax                       ; 0xa607
     mov cl, byte [bx + slot_records + slot_record.kind] ; 0xa609
@@ -38,11 +38,11 @@ api_idx_0008_OMPR:
     je short @..api_idx_0008_OMPR.l5 ; 0xa610
     jmp near @..api_idx_0008_OMPR.l16 ; 0xa612
 @..api_idx_0008_OMPR.l5:
-    mov ax, word [bp - 0x0006]       ; 0xa615
-    cmp ax, word [bp + 0x6]          ; 0xa618
+    mov ax, word [bp - 6]            ; 0xa615
+    cmp ax, word [bp + 6]            ; 0xa618
     je short @..api_idx_0008_OMPR.l8 ; 0xa61b
     mov ax, 0x26                     ; 0xa61d
-    imul word [bp + 0x4]             ; 0xa620
+    imul word [bp + 4]               ; 0xa620
     mov bx, ax                       ; 0xa623
     mov al, byte [bx + slot_records + slot_record.map_piece] ; 0xa625
     sub ah, ah                       ; 0xa629
@@ -51,7 +51,7 @@ api_idx_0008_OMPR:
     pop cx                           ; 0xa62f
     push ax                          ; 0xa630
     mov ax, 0x26                     ; 0xa631
-    imul word [bp - 0x0006]          ; 0xa634
+    imul word [bp - 6]               ; 0xa634
     mov bx, ax                       ; 0xa637
     mov al, byte [bx + slot_records + slot_record.map_piece] ; 0xa639
     sub ah, ah                       ; 0xa63d
@@ -65,7 +65,7 @@ api_idx_0008_OMPR:
     jmp near @..api_idx_0008_OMPR.l16 ; 0xa64b
 @..api_idx_0008_OMPR.l6:
     mov ax, 0x26                     ; 0xa64e
-    imul word [bp - 0x0006]          ; 0xa651
+    imul word [bp - 6]               ; 0xa651
     mov bx, ax                       ; 0xa654
     mov al, byte [bx + slot_records + slot_record.f_0002] ; 0xa656
     cmp al, 3                        ; 0xa65a
@@ -73,14 +73,14 @@ api_idx_0008_OMPR:
     cmp byte [bx + slot_records + slot_record.f_0002], 0 ; 0xa65e
     je short @..api_idx_0008_OMPR.l8 ; 0xa663
     mov ax, 0x26                     ; 0xa665
-    imul word [bp + 0x4]             ; 0xa668
+    imul word [bp + 4]               ; 0xa668
     mov bx, ax                       ; 0xa66b
     cmp byte [bx + slot_records + slot_record.f_0002], 6 ; 0xa66d
     je short @..api_idx_0008_OMPR.l7 ; 0xa672
     jmp near @..api_idx_0008_OMPR.l16 ; 0xa674
 @..api_idx_0008_OMPR.l7:
     mov ax, 0x26                     ; 0xa677
-    imul word [bp - 0x0006]          ; 0xa67a
+    imul word [bp - 6]               ; 0xa67a
     mov bx, ax                       ; 0xa67d
     mov al, byte [bx + slot_records + slot_record.f_0002] ; 0xa67f
     cmp al, 1                        ; 0xa683
@@ -88,7 +88,7 @@ api_idx_0008_OMPR:
     jmp near @..api_idx_0008_OMPR.l16 ; 0xa687
 @..api_idx_0008_OMPR.l8:
     mov ax, 0x26                     ; 0xa68a
-    imul word [bp + 0x4]             ; 0xa68d
+    imul word [bp + 4]               ; 0xa68d
     mov bx, ax                       ; 0xa690
     mov al, byte [bx + slot_records] ; 0xa692
     sub ah, ah                       ; 0xa696
@@ -96,7 +96,7 @@ api_idx_0008_OMPR:
     imul cx                          ; 0xa69b
     push ax                          ; 0xa69d
     mov ax, 0x26                     ; 0xa69e
-    imul word [bp - 0x0006]          ; 0xa6a1
+    imul word [bp - 6]               ; 0xa6a1
     mov bx, ax                       ; 0xa6a4
     mov al, byte [bx + slot_records] ; 0xa6a6
     sub ah, ah                       ; 0xa6aa
@@ -106,7 +106,7 @@ api_idx_0008_OMPR:
     mov bx, ax                       ; 0xa6b1
     mov al, byte [bx + target_weight] ; 0xa6b3
     cbw                              ; 0xa6b7
-    mov word [bp - 0x0008], ax       ; 0xa6b8
+    mov word [bp - 8], ax            ; 0xa6b8
     mov ax, 0xa                      ; 0xa6bb
     push ax                          ; 0xa6be
     call random_below                ; 0xa6bf
@@ -114,18 +114,18 @@ api_idx_0008_OMPR:
     mov cx, ax                       ; 0xa6c3
     add ax, strict word 0x19         ; 0xa6c5
     mov cx, ax                       ; 0xa6c8
-    mov ax, word [bp - 0x0008]       ; 0xa6ca
+    mov ax, word [bp - 8]            ; 0xa6ca
     cmp cx, ax                       ; 0xa6cd
     jg short @..api_idx_0008_OMPR.l10 ; 0xa6cf
     push ax                          ; 0xa6d1
-    push word [bp - 0x0006]          ; 0xa6d2
-    push word [bp + 0x4]             ; 0xa6d5
+    push word [bp - 6]               ; 0xa6d2
+    push word [bp + 4]               ; 0xa6d5
     call api_idx_0010_IOJT           ; 0xa6d8
     add sp, byte 6                   ; 0xa6db
-    mov ax, word [bp - 0x0006]       ; 0xa6de
-    cmp ax, word [bp + 0x6]          ; 0xa6e1
+    mov ax, word [bp - 6]            ; 0xa6de
+    cmp ax, word [bp + 6]            ; 0xa6e1
     jne short @..api_idx_0008_OMPR.l9 ; 0xa6e4
-    push word [bp + 0x4]             ; 0xa6e6
+    push word [bp + 4]               ; 0xa6e6
     call api_idx_003a_HOUV           ; 0xa6e9
     pop cx                           ; 0xa6ec
 @..api_idx_0008_OMPR.l9:
@@ -137,13 +137,13 @@ api_idx_0008_OMPR:
     pop cx                           ; 0xa6f7
     mov cx, ax                       ; 0xa6f8
     mov ax, 0x26                     ; 0xa6fa
-    imul word [bp + 0x4]             ; 0xa6fd
+    imul word [bp + 4]               ; 0xa6fd
     mov bx, ax                       ; 0xa700
     mov al, byte [bx + slot_records + slot_record.flag] ; 0xa702
     cbw                              ; 0xa706
     push ax                          ; 0xa707
     mov ax, 0x26                     ; 0xa708
-    imul word [bp - 0x0006]          ; 0xa70b
+    imul word [bp - 6]               ; 0xa70b
     mov bx, ax                       ; 0xa70e
     mov al, byte [bx + slot_records + slot_record.flag] ; 0xa710
     cbw                              ; 0xa714
@@ -152,12 +152,12 @@ api_idx_0008_OMPR:
     sub ax, dx                       ; 0xa718
     add ax, strict word 0xffdd       ; 0xa71a
     sub ax, cx                       ; 0xa71d
-    cmp ax, word [bp - 0x0008]       ; 0xa71f
+    cmp ax, word [bp - 8]            ; 0xa71f
     jge short @..api_idx_0008_OMPR.l11 ; 0xa722
     jmp near @..api_idx_0008_OMPR.l15 ; 0xa724
 @..api_idx_0008_OMPR.l11:
-    mov ax, word [bp - 0x0006]       ; 0xa727
-    cmp ax, word [bp + 0x6]          ; 0xa72a
+    mov ax, word [bp - 6]            ; 0xa727
+    cmp ax, word [bp + 6]            ; 0xa72a
     je short @..api_idx_0008_OMPR.l12 ; 0xa72d
     mov ax, 3                        ; 0xa72f
     push ax                          ; 0xa732
@@ -166,7 +166,7 @@ api_idx_0008_OMPR:
     test ax, ax                      ; 0xa737
     je short @..api_idx_0008_OMPR.l14 ; 0xa739
     mov ax, 0x26                     ; 0xa73b
-    imul word [bp + 0x4]             ; 0xa73e
+    imul word [bp + 4]               ; 0xa73e
     mov bx, ax                       ; 0xa741
     mov al, byte [bx + slot_records + slot_record.flag] ; 0xa743
     cbw                              ; 0xa747
@@ -179,15 +179,15 @@ api_idx_0008_OMPR:
     cmp ax, cx                       ; 0xa752
     jle short @..api_idx_0008_OMPR.l14 ; 0xa754
 @..api_idx_0008_OMPR.l12:
-    push word [bp - 0x0006]          ; 0xa756
-    push word [bp + 0x4]             ; 0xa759
+    push word [bp - 6]               ; 0xa756
+    push word [bp + 4]               ; 0xa759
     call api_idx_0012_NJUH           ; 0xa75c
     add sp, byte 4                   ; 0xa75f
-    mov word [bp - 0x0002], ax       ; 0xa762
-    mov ax, word [bp - 0x0006]       ; 0xa765
-    cmp ax, word [bp + 0x6]          ; 0xa768
+    mov word [bp - 2], ax            ; 0xa762
+    mov ax, word [bp - 6]            ; 0xa765
+    cmp ax, word [bp + 6]            ; 0xa768
     jne short @..api_idx_0008_OMPR.l13 ; 0xa76b
-    cmp word [bp - 0x0002], byte 1   ; 0xa76d
+    cmp word [bp - 2], byte 1        ; 0xa76d
     jne short @..api_idx_0008_OMPR.l13 ; 0xa771
     mov ax, 3                        ; 0xa773
     push ax                          ; 0xa776
@@ -196,24 +196,24 @@ api_idx_0008_OMPR:
     test ax, ax                      ; 0xa77b
     jne short @..api_idx_0008_OMPR.l13 ; 0xa77d
     mov ax, 0x26                     ; 0xa77f
-    imul word [bp + 0x4]             ; 0xa782
+    imul word [bp + 4]               ; 0xa782
     mov bx, ax                       ; 0xa785
     mov byte [bx + slot_records + slot_record.f_0002], 0 ; 0xa787
     jmp short @..api_idx_0008_OMPR.l14 ; 0xa78c
 @..api_idx_0008_OMPR.l13:
-    cmp word [bp - 0x0002], byte 0xff ; 0xa78e
+    cmp word [bp - 2], byte 0xff     ; 0xa78e
     jne short @..api_idx_0008_OMPR.l14 ; 0xa792
     ret                              ; 0xa794
 @..api_idx_0008_OMPR.l14:
     jmp short @..api_idx_0008_OMPR.l16 ; 0xa795
 @..api_idx_0008_OMPR.l15:
-    push word [bp - 0x0006]          ; 0xa797
-    push word [bp + 0x4]             ; 0xa79a
+    push word [bp - 6]               ; 0xa797
+    push word [bp + 4]               ; 0xa79a
     call loc_KHPH                    ; 0xa79d
     add sp, byte 4                   ; 0xa7a0
 @..api_idx_0008_OMPR.l16:
-    inc word [bp - 0x0006]           ; 0xa7a3
-    mov ax, word [bp - 0x0006]       ; 0xa7a6
+    inc word [bp - 6]                ; 0xa7a3
+    mov ax, word [bp - 6]            ; 0xa7a6
     cmp ax, strict word 0x16         ; 0xa7a9
     jge short @..api_idx_0008_OMPR.l17 ; 0xa7ac
     jmp near @..api_idx_0008_OMPR.l1 ; 0xa7ae

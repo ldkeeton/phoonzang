@@ -15,7 +15,7 @@ poll_fullscreen_hotspot: ; Aztec csav frame=0x0000
     push ax                          ; 0x0d50
     push ax                          ; 0x0d51
     call set_hotspot                 ; 0x0d52
-    add sp, byte 0x0e                ; 0x0d55
+    add sp, byte 0xe                 ; 0x0d55
     mov ax, 0                        ; 0x0d58
     push ax                          ; 0x0d5b
     push ax                          ; 0x0d5c
@@ -27,7 +27,7 @@ poll_fullscreen_hotspot: ; Aztec csav frame=0x0000
     mov ax, 1                        ; 0x0d64
     push ax                          ; 0x0d67
     call set_hotspot                 ; 0x0d68
-    add sp, byte 0x0e                ; 0x0d6b
+    add sp, byte 0xe                 ; 0x0d6b
     mov ax, hotspot_rects            ; 0x0d6e
     push ax                          ; 0x0d71
     call poll_hotspots               ; 0x0d72

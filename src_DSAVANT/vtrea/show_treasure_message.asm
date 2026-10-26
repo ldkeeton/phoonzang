@@ -2,8 +2,8 @@
 show_treasure_message:
     mov ax, 0                        ; 0x0eb2
     call aztec_csav                  ; 0x0eb5
-    push word [bp + 0x6]             ; 0x0eb8
-    push word [bp + 0x6]             ; 0x0ebb
+    push word [bp + 6]               ; 0x0eb8
+    push word [bp + 6]               ; 0x0ebb
     call api_idx_0004_VQUG           ; 0x0ebe
     add sp, byte 4                   ; 0x0ec1
     mov ax, 0                        ; 0x0ec4
@@ -12,10 +12,10 @@ show_treasure_message:
     call gfx_set_text_color          ; 0x0ecb
     add sp, byte 4                   ; 0x0ece
     mov ax, 7                        ; 0x0ed1
-    imul word [bp + 0x6]             ; 0x0ed4
+    imul word [bp + 6]               ; 0x0ed4
     add ax, 0x9c                     ; 0x0ed7
     push ax                          ; 0x0eda
-    push word [bp + 0x4]             ; 0x0edb
+    push word [bp + 4]               ; 0x0edb
     call aztec_strlen                ; 0x0ede
     pop cx                           ; 0x0ee1
     mov cx, 6                        ; 0x0ee2
@@ -31,26 +31,26 @@ show_treasure_message:
     add sp, byte 4                   ; 0x0ef8
     mov ax, 0                        ; 0x0efb
     push ax                          ; 0x0efe
-    push word [bp + 0x4]             ; 0x0eff
+    push word [bp + 4]               ; 0x0eff
     call draw_text_glyphs            ; 0x0f02
     add sp, byte 4                   ; 0x0f05
     mov ax, 7                        ; 0x0f08
-    imul word [bp + 0x6]             ; 0x0f0b
+    imul word [bp + 6]               ; 0x0f0b
     add ax, 0xa2                     ; 0x0f0e
     push ax                          ; 0x0f11
     mov ax, 0x127                    ; 0x0f12
     push ax                          ; 0x0f15
     mov ax, 7                        ; 0x0f16
-    imul word [bp + 0x6]             ; 0x0f19
+    imul word [bp + 6]               ; 0x0f19
     add ax, 0x9c                     ; 0x0f1c
     push ax                          ; 0x0f1f
     mov ax, 0x19                     ; 0x0f20
     push ax                          ; 0x0f23
     call gfx_show_area               ; 0x0f24
     add sp, byte 8                   ; 0x0f27
-    cmp word [bp + 0x8], byte 0      ; 0x0f2a
+    cmp word [bp + 8], byte 0        ; 0x0f2a
     jle short @..show_treasure_message.l1 ; 0x0f2e
-    mov ax, word [bp + 0x8]          ; 0x0f30
+    mov ax, word [bp + 8]            ; 0x0f30
     dec ax                           ; 0x0f33
     push ax                          ; 0x0f34
     call play_sound_effect           ; 0x0f35
@@ -59,10 +59,10 @@ show_treasure_message:
     push word [message_delay]        ; 0x0f39
     call api_idx_0004_UQUT           ; 0x0f3d
     pop cx                           ; 0x0f40
-    cmp word [bp + 0x8], byte 0xff   ; 0x0f41
+    cmp word [bp + 8], byte 0xff     ; 0x0f41
     je short @..show_treasure_message.l2 ; 0x0f45
-    push word [bp + 0x6]             ; 0x0f47
-    push word [bp + 0x6]             ; 0x0f4a
+    push word [bp + 6]               ; 0x0f47
+    push word [bp + 6]               ; 0x0f4a
     call api_idx_0004_VQUG           ; 0x0f4d
     add sp, byte 4                   ; 0x0f50
 @..show_treasure_message.l2:

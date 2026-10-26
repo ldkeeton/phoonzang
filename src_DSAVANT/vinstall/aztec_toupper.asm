@@ -2,7 +2,7 @@
 aztec_toupper:
     push bp                          ; 0x2bb2
     mov bp, sp                       ; 0x2bb3
-    mov al, byte [bp + 0x4]          ; 0x2bb5
+    mov al, byte [bp + 4]            ; 0x2bb5
     sub ah, ah                       ; 0x2bb8
     cmp al, 0x61                     ; 0x2bba
     jl short @..aztec_toupper.tu_done ; 0x2bbc
@@ -15,7 +15,7 @@ aztec_toupper:
 aztec_tolower:
     push bp                          ; 0x2bc6
     mov bp, sp                       ; 0x2bc7
-    mov al, byte [bp + 0x4]          ; 0x2bc9
+    mov al, byte [bp + 4]            ; 0x2bc9
     sub ah, ah                       ; 0x2bcc
     cmp al, 0x41                     ; 0x2bce
     jl short @..aztec_toupper.skip   ; 0x2bd0

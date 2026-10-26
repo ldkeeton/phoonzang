@@ -20,7 +20,7 @@ blank_scene_screen:
     push ax                          ; 0x8618
     push ax                          ; 0x8619
     call gfx_fill_area               ; 0x861a
-    add sp, byte 0x0a                ; 0x861d
+    add sp, byte 0xa                 ; 0x861d
     mov ax, 0xc7                     ; 0x8620
     push ax                          ; 0x8623
     mov ax, 0x13f                    ; 0x8624

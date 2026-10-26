@@ -27,65 +27,65 @@ clip_mouse_pointer_to_area:
     jb short @..clip_mouse_pointer_to_area.l3 ; 0x0561
     mov ax, word [bp + 0xc]          ; 0x0563
 @..clip_mouse_pointer_to_area.l3:
-    mov word [bp - 0x0006], ax       ; 0x0566
+    mov word [bp - 6], ax            ; 0x0566
     mov dx, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x0569
     mov bx, dx                       ; 0x056e
     cmp word [bp + 0xe], dx          ; 0x0570
     jb short @..clip_mouse_pointer_to_area.l4 ; 0x0573
     mov bx, word [bp + 0xe]          ; 0x0575
 @..clip_mouse_pointer_to_area.l4:
-    mov word [bp - 0x0008], bx       ; 0x0578
+    mov word [bp - 8], bx            ; 0x0578
     sub ax, cx                       ; 0x057b
     sub bx, dx                       ; 0x057d
-    mov word [bp - 0x000a], ax       ; 0x057f
-    mov word [bp - 0x000c], bx       ; 0x0582
+    mov word [bp - 0xa], ax          ; 0x057f
+    mov word [bp - 0xc], bx          ; 0x0582
     mov cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x0585
     mov dx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x058a
     sub cx, ax                       ; 0x058f
-    mov word [bp - 0x000e], cx       ; 0x0591
+    mov word [bp - 0xe], cx          ; 0x0591
     sub dx, bx                       ; 0x0594
-    mov word [bp - 0x0010], dx       ; 0x0596
-    mov ax, word [bp - 0x0006]       ; 0x0599
-    add ax, word [bp - 0x000e]       ; 0x059c
+    mov word [bp - 0x10], dx         ; 0x0596
+    mov ax, word [bp - 6]            ; 0x0599
+    add ax, word [bp - 0xe]          ; 0x059c
     dec ax                           ; 0x059f
     cmp ax, word [bp + 0x10]         ; 0x05a0
     jb short @..clip_mouse_pointer_to_area.l5 ; 0x05a3
     mov ax, word [bp + 0x10]         ; 0x05a5
-    sub ax, word [bp - 0x0006]       ; 0x05a8
+    sub ax, word [bp - 6]            ; 0x05a8
     inc ax                           ; 0x05ab
-    mov word [bp - 0x000e], ax       ; 0x05ac
+    mov word [bp - 0xe], ax          ; 0x05ac
 @..clip_mouse_pointer_to_area.l5:
-    mov ax, word [bp - 0x0008]       ; 0x05af
-    add ax, word [bp - 0x0010]       ; 0x05b2
+    mov ax, word [bp - 8]            ; 0x05af
+    add ax, word [bp - 0x10]         ; 0x05b2
     dec ax                           ; 0x05b5
     cmp ax, word [bp + 0x12]         ; 0x05b6
     jb short @..clip_mouse_pointer_to_area.l6 ; 0x05b9
     mov ax, word [bp + 0x12]         ; 0x05bb
-    sub ax, word [bp - 0x0008]       ; 0x05be
+    sub ax, word [bp - 8]            ; 0x05be
     inc ax                           ; 0x05c1
-    mov word [bp - 0x0010], ax       ; 0x05c2
+    mov word [bp - 0x10], ax         ; 0x05c2
 @..clip_mouse_pointer_to_area.l6:
-    mov ax, word [bp - 0x0008]       ; 0x05c5
+    mov ax, word [bp - 8]            ; 0x05c5
     mov bx, 0x140                    ; 0x05c8
     mul bx                           ; 0x05cb
-    add ax, word [bp - 0x0006]       ; 0x05cd
+    add ax, word [bp - 6]            ; 0x05cd
     mov si, ax                       ; 0x05d0
-    mov ax, word [bp - 0x000c]       ; 0x05d2
+    mov ax, word [bp - 0xc]          ; 0x05d2
     mov bx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x05d5
     mul bx                           ; 0x05da
-    add ax, word [bp - 0x000a]       ; 0x05dc
+    add ax, word [bp - 0xa]          ; 0x05dc
     add ax, word [cs:cseg_14b4 - IMAGE_BASE] ; 0x05df
     mov di, ax                       ; 0x05e4
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x05e6
     mov ds, ax                       ; 0x05ea
     mov ax, cs                       ; 0x05ec
     mov es, ax                       ; 0x05ee
-    mov cx, word [bp - 0x0010]       ; 0x05f0
+    mov cx, word [bp - 0x10]         ; 0x05f0
 @..clip_mouse_pointer_to_area.l7:
     push cx                          ; 0x05f3
     push si                          ; 0x05f4
     push di                          ; 0x05f5
-    mov cx, word [bp - 0x000e]       ; 0x05f6
+    mov cx, word [bp - 0xe]          ; 0x05f6
     rep movsb                        ; 0x05f9
     pop di                           ; 0x05fb
     add di, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x05fc

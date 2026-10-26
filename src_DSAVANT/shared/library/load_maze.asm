@@ -15,10 +15,10 @@ load_maze:
     jmp near load_maze.dos_con_loc1
 @..load_maze.l1:
     shl ax, 1
-    mov word [bp - 0x0008], ax
+    mov word [bp - 8], ax
     mov bx, maze_map_slots - IMAGE_BASE
     add bx, ax
-    mov word [bp - 0x0002], bx
+    mov word [bp - 2], bx
     mov ax, word [cs:bx]
     or ax, ax
     jne short load_maze.dos_con_loc2

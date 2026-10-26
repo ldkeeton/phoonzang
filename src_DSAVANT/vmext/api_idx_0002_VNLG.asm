@@ -6,24 +6,24 @@ api_idx_0002_VNLG:
     mov ax, word [game_state_arg]    ; 0x026e
     jmp short @..api_idx_0002_VNLG.l1 ; 0x0271
 jumptable_02a3_case_15:
-    mov word [bp - 0x0002], 1        ; 0x0273
+    mov word [bp - 2], 1             ; 0x0273
     jmp short @..api_idx_0002_VNLG.l2 ; 0x0278
 jumptable_02a3_case_0:
-    mov word [bp - 0x0002], 2        ; 0x027a
+    mov word [bp - 2], 2             ; 0x027a
     jmp short @..api_idx_0002_VNLG.l2 ; 0x027f
 jumptable_02a3_case_14:
-    mov word [bp - 0x0002], 3        ; 0x0281
+    mov word [bp - 2], 3             ; 0x0281
     jmp short @..api_idx_0002_VNLG.l2 ; 0x0286
 jumptable_02a3_case_27:
     mov word [boundary_wall_open], 1 ; 0x0288
 jumptable_02a3_case_7:
-    mov word [bp - 0x0002], 4        ; 0x028e
+    mov word [bp - 2], 4             ; 0x028e
     jmp short @..api_idx_0002_VNLG.l2 ; 0x0293
 jumptable_02a3_case_22:
-    mov word [bp - 0x0002], 5        ; 0x0295
+    mov word [bp - 2], 5             ; 0x0295
     jmp short @..api_idx_0002_VNLG.l2 ; 0x029a
 jumptable_02a3_case_8:
-    mov word [bp - 0x0002], 6        ; 0x029c
+    mov word [bp - 2], 6             ; 0x029c
     jmp short @..api_idx_0002_VNLG.l2 ; 0x02a1
 jumptable_02a3:
     dw jumptable_02a3_case_0 - IMAGE_BASE + __zres_end ; 0x02a3
@@ -67,13 +67,13 @@ jumptable_02a3:
 @..api_idx_0002_VNLG.l2:
     cmp word [maze_state], byte 0    ; 0x02f0
     je short @..api_idx_0002_VNLG.l3 ; 0x02f5
-    mov ax, word [bp - 0x0002]       ; 0x02f7
+    mov ax, word [bp - 2]            ; 0x02f7
     cmp ax, word [maze_variant]      ; 0x02fa
     jne short @..api_idx_0002_VNLG.l3 ; 0x02fe
     jmp near jumptable_052d_case_0   ; 0x0300
 @..api_idx_0002_VNLG.l3:
     call free_current_maze           ; 0x0303
-    mov ax, word [bp - 0x0002]       ; 0x0306
+    mov ax, word [bp - 2]            ; 0x0306
     mov word [maze_variant], ax      ; 0x0309
     jmp near @..api_idx_0002_VNLG.l4 ; 0x030c
 jumptable_052d_case_1:
@@ -326,7 +326,7 @@ loc_HVLG:
     call aztec_csav                  ; 0x0552
     les bx, word [tick_counter_ptr]  ; 0x0555
     mov ax, word [es:bx]             ; 0x0559
-    mov dx, word [es:bx + 0x2]       ; 0x055c
+    mov dx, word [es:bx + 2]         ; 0x055c
     sub ax, word [party_redraw_last_tick] ; 0x0560
     sbb dx, word [party_redraw_last_tick_hi] ; 0x0564
     push ax                          ; 0x0568
@@ -347,7 +347,7 @@ loc_HVLG:
 @..loc_HVLG.l2:
     les bx, word [tick_counter_ptr]  ; 0x0580
     mov ax, word [es:bx]             ; 0x0584
-    mov dx, word [es:bx + 0x2]       ; 0x0587
+    mov dx, word [es:bx + 2]         ; 0x0587
     mov word [party_redraw_last_tick_hi], dx ; 0x058b
     mov word [party_redraw_last_tick], ax ; 0x058f
     mov ax, 1                        ; 0x0592

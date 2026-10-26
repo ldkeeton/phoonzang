@@ -7,7 +7,7 @@ api_idx_0002_RJQH:
     push ax                          ; 0x0fa0
     call api_idx_0004_VQUG           ; 0x0fa1
     add sp, byte 4                   ; 0x0fa4
-    mov bx, word [bp + 0x6]          ; 0x0fa7
+    mov bx, word [bp + 6]            ; 0x0fa7
     cmp byte [bx], 0                 ; 0x0faa
     je short @..api_idx_0002_RJQH.l1 ; 0x0fad
     mov ax, 1                        ; 0x0faf
@@ -15,7 +15,7 @@ api_idx_0002_RJQH:
 @..api_idx_0002_RJQH.l1:
     mov ax, 0                        ; 0x0fb4
 @..api_idx_0002_RJQH.l2:
-    mov bx, word [bp + 0x8]          ; 0x0fb7
+    mov bx, word [bp + 8]            ; 0x0fb7
     cmp byte [bx], 0                 ; 0x0fba
     je short @..api_idx_0002_RJQH.l3 ; 0x0fbd
     mov cx, 1                        ; 0x0fbf
@@ -33,24 +33,24 @@ api_idx_0002_RJQH:
     mov cx, 0                        ; 0x0fd6
 @..api_idx_0002_RJQH.l6:
     add ax, cx                       ; 0x0fd9
-    mov word [bp - 0x0002], ax       ; 0x0fdb
+    mov word [bp - 2], ax            ; 0x0fdb
     mov ax, 0xa3                     ; 0x0fde
     push ax                          ; 0x0fe1
     mov ax, 0x248                    ; 0x0fe2
-    imul word [bp + 0x4]             ; 0x0fe5
+    imul word [bp + 4]               ; 0x0fe5
     add ax, party_records            ; 0x0fe8
     push ax                          ; 0x0feb
     call aztec_strlen                ; 0x0fec
     pop cx                           ; 0x0fef
     push ax                          ; 0x0ff0
-    push word [bp + 0x6]             ; 0x0ff1
+    push word [bp + 6]               ; 0x0ff1
     call aztec_strlen                ; 0x0ff4
     pop cx                           ; 0x0ff7
     mov cx, ax                       ; 0x0ff8
     pop ax                           ; 0x0ffa
     add ax, cx                       ; 0x0ffb
     push ax                          ; 0x0ffd
-    push word [bp + 0x8]             ; 0x0ffe
+    push word [bp + 8]               ; 0x0ffe
     call aztec_strlen                ; 0x1001
     pop cx                           ; 0x1004
     mov cx, ax                       ; 0x1005
@@ -63,7 +63,7 @@ api_idx_0002_RJQH:
     mov cx, ax                       ; 0x1012
     pop ax                           ; 0x1014
     add ax, cx                       ; 0x1015
-    add ax, word [bp - 0x0002]       ; 0x1017
+    add ax, word [bp - 2]            ; 0x1017
     mov cx, 6                        ; 0x101a
     imul cx                          ; 0x101d
     mov cx, 2                        ; 0x101f
@@ -83,7 +83,7 @@ api_idx_0002_RJQH:
     mov ax, 0                        ; 0x1040
     push ax                          ; 0x1043
     mov ax, 0x248                    ; 0x1044
-    imul word [bp + 0x4]             ; 0x1047
+    imul word [bp + 4]               ; 0x1047
     add ax, party_records            ; 0x104a
     push ax                          ; 0x104d
     call draw_text_glyphs            ; 0x104e
@@ -94,7 +94,7 @@ api_idx_0002_RJQH:
     push ax                          ; 0x105b
     call draw_font_glyph             ; 0x105c
     add sp, byte 4                   ; 0x105f
-    mov bx, word [bp + 0x6]          ; 0x1062
+    mov bx, word [bp + 6]            ; 0x1062
     cmp byte [bx], 0                 ; 0x1065
     je short @..api_idx_0002_RJQH.l7 ; 0x1068
     mov ax, 0                        ; 0x106a
@@ -104,7 +104,7 @@ api_idx_0002_RJQH:
     add sp, byte 4                   ; 0x1074
     mov ax, 0                        ; 0x1077
     push ax                          ; 0x107a
-    push word [bp + 0x6]             ; 0x107b
+    push word [bp + 6]               ; 0x107b
     call draw_text_glyphs            ; 0x107e
     add sp, byte 4                   ; 0x1081
     mov ax, 0                        ; 0x1084
@@ -114,7 +114,7 @@ api_idx_0002_RJQH:
     call draw_font_glyph             ; 0x108c
     add sp, byte 4                   ; 0x108f
 @..api_idx_0002_RJQH.l7:
-    mov bx, word [bp + 0x8]          ; 0x1092
+    mov bx, word [bp + 8]            ; 0x1092
     cmp byte [bx], 0                 ; 0x1095
     je short @..api_idx_0002_RJQH.l8 ; 0x1098
     mov ax, 0                        ; 0x109a
@@ -124,7 +124,7 @@ api_idx_0002_RJQH:
     add sp, byte 4                   ; 0x10a4
     mov ax, 0                        ; 0x10a7
     push ax                          ; 0x10aa
-    push word [bp + 0x8]             ; 0x10ab
+    push word [bp + 8]               ; 0x10ab
     call draw_text_glyphs            ; 0x10ae
     add sp, byte 4                   ; 0x10b1
     mov ax, 0                        ; 0x10b4

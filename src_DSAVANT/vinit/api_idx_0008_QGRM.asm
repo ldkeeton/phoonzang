@@ -17,13 +17,13 @@ api_idx_0008_QGRM:
     push ax                          ; 0x1429
     call gfx_set_text_pos            ; 0x142a
     add sp, byte 4                   ; 0x142d
-    mov word [bp - 0x0004], 0        ; 0x1430
+    mov word [bp - 4], 0             ; 0x1430
 @..api_idx_0008_QGRM.l1:
-    mov bx, word [bp - 0x0004]       ; 0x1435
+    mov bx, word [bp - 4]            ; 0x1435
     mov byte [bx + picture_slot_number], 0xff ; 0x1438
     mov byte [bx + picture_slot_used], 0 ; 0x143d
-    inc word [bp - 0x0004]           ; 0x1442
-    mov ax, word [bp - 0x0004]       ; 0x1445
+    inc word [bp - 4]                ; 0x1442
+    mov ax, word [bp - 4]            ; 0x1445
     cmp ax, strict word 0x12         ; 0x1448
     jl short @..api_idx_0008_QGRM.l1 ; 0x144b
     mov word [saved_screen_pending], 0 ; 0x144d
@@ -76,9 +76,9 @@ api_idx_0008_QGRM:
     push ax                          ; 0x14ca
     call load_screen_file            ; 0x14cb
     add sp, byte 4                   ; 0x14ce
-    mov word [bp - 0x0002], 0        ; 0x14d1
+    mov word [bp - 2], 0             ; 0x14d1
 @..api_idx_0008_QGRM.l3:
-    mov ax, word [bp - 0x0002]       ; 0x14d6
+    mov ax, word [bp - 2]            ; 0x14d6
     mov cx, 3                        ; 0x14d9
     cwd                              ; 0x14dc
     idiv cx                          ; 0x14dd
@@ -86,42 +86,42 @@ api_idx_0008_QGRM:
     imul cx                          ; 0x14e2
     push ax                          ; 0x14e4
     mov ax, 0x19                     ; 0x14e5
-    imul word [bp - 0x0002]          ; 0x14e8
+    imul word [bp - 2]               ; 0x14e8
     mov cx, ax                       ; 0x14eb
     pop ax                           ; 0x14ed
     add ax, cx                       ; 0x14ee
     add ax, strict word 0x44         ; 0x14f0
-    mov word [bp - 0x0006], ax       ; 0x14f3
-    mov word [bp - 0x0008], 6        ; 0x14f6
-    mov ax, word [bp - 0x0008]       ; 0x14fb
+    mov word [bp - 6], ax            ; 0x14f3
+    mov word [bp - 8], 6             ; 0x14f6
+    mov ax, word [bp - 8]            ; 0x14fb
     add ax, strict word 0xe          ; 0x14fe
     push ax                          ; 0x1501
-    mov ax, word [bp - 0x0006]       ; 0x1502
+    mov ax, word [bp - 6]            ; 0x1502
     add ax, strict word 0x11         ; 0x1505
     push ax                          ; 0x1508
-    push word [bp - 0x0008]          ; 0x1509
-    push word [bp - 0x0006]          ; 0x150c
+    push word [bp - 8]               ; 0x1509
+    push word [bp - 6]               ; 0x150c
     call gfx_save_area               ; 0x150f
     add sp, byte 8                   ; 0x1512
-    mov cx, word [bp - 0x0002]       ; 0x1515
+    mov cx, word [bp - 2]            ; 0x1515
     shl cx, 1                        ; 0x1518
     shl cx, 1                        ; 0x151a
     mov bx, cx                       ; 0x151c
     mov word [bx + party_status_areas + 0x2], dx ; 0x151e
     mov word [bx + party_status_areas], ax ; 0x1522
-    inc word [bp - 0x0002]           ; 0x1526
-    mov ax, word [bp - 0x0002]       ; 0x1529
+    inc word [bp - 2]                ; 0x1526
+    mov ax, word [bp - 2]            ; 0x1529
     cmp ax, strict word 6            ; 0x152c
     jl short @..api_idx_0008_QGRM.l3 ; 0x152f
     mov word [message_block_current], 0xffff ; 0x1531
     mov word [party_char_count], 0   ; 0x1537
-    mov word [bp - 0x0002], 0        ; 0x153d
+    mov word [bp - 2], 0             ; 0x153d
 @..api_idx_0008_QGRM.l4:
-    mov ax, word [bp - 0x0002]       ; 0x1542
+    mov ax, word [bp - 2]            ; 0x1542
     shl ax, 1                        ; 0x1545
     mov bx, ax                       ; 0x1547
     mov word [bx + member_roster_index + 0x2], 0xffff ; 0x1549
-    mov ax, word [bp - 0x0002]       ; 0x154f
+    mov ax, word [bp - 2]            ; 0x154f
     mov cx, 2                        ; 0x1552
     cwd                              ; 0x1555
     idiv cx                          ; 0x1556
@@ -129,33 +129,33 @@ api_idx_0008_QGRM:
     mov cx, 0xfc                     ; 0x155a
     imul cx                          ; 0x155d
     add ax, strict word 5            ; 0x155f
-    mov word [bp - 0x0006], ax       ; 0x1562
-    mov ax, word [bp - 0x0002]       ; 0x1565
+    mov word [bp - 6], ax            ; 0x1562
+    mov ax, word [bp - 2]            ; 0x1565
     mov cx, 2                        ; 0x1568
     cwd                              ; 0x156b
     idiv cx                          ; 0x156c
     mov cx, 0x2d                     ; 0x156e
     imul cx                          ; 0x1571
     add ax, strict word 0x12         ; 0x1573
-    mov word [bp - 0x0008], ax       ; 0x1576
-    mov ax, word [bp - 0x0008]       ; 0x1579
+    mov word [bp - 8], ax            ; 0x1576
+    mov ax, word [bp - 8]            ; 0x1579
     add ax, strict word 0x2b         ; 0x157c
     push ax                          ; 0x157f
-    mov ax, word [bp - 0x0006]       ; 0x1580
+    mov ax, word [bp - 6]            ; 0x1580
     add ax, strict word 0x3b         ; 0x1583
     push ax                          ; 0x1586
-    push word [bp - 0x0008]          ; 0x1587
-    push word [bp - 0x0006]          ; 0x158a
+    push word [bp - 8]               ; 0x1587
+    push word [bp - 6]               ; 0x158a
     call gfx_save_area               ; 0x158d
     add sp, byte 8                   ; 0x1590
-    mov cx, word [bp - 0x0002]       ; 0x1593
+    mov cx, word [bp - 2]            ; 0x1593
     shl cx, 1                        ; 0x1596
     shl cx, 1                        ; 0x1598
     mov bx, cx                       ; 0x159a
     mov word [bx + panel_area + 0x2], dx ; 0x159c
     mov word [bx + panel_area], ax   ; 0x15a0
-    inc word [bp - 0x0002]           ; 0x15a4
-    mov ax, word [bp - 0x0002]       ; 0x15a7
+    inc word [bp - 2]                ; 0x15a4
+    mov ax, word [bp - 2]            ; 0x15a7
     cmp ax, strict word 6            ; 0x15aa
     jl short @..api_idx_0008_QGRM.l4 ; 0x15ad
     mov ax, 0xc4                     ; 0x15af

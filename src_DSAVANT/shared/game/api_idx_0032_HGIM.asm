@@ -2,13 +2,13 @@
 api_idx_0032_HGIM:
     mov ax, 0xffce
     call aztec_csav
-    mov ax, word [bp + 0x6]
+    mov ax, word [bp + 6]
     shl ax, 1
     mov bx, ax
     mov ax, word [bx + slot_value]
-    mov word [bp - 0x000c], ax
-    mov word [bp - 0x000a], 0
-    mov word [bp - 0x0028], 0xffff
+    mov word [bp - 0xc], ax
+    mov word [bp - 0xa], 0
+    mov word [bp - 0x28], 0xffff
     mov ax, 0xc6
     push ax
     mov ax, 0x13c
@@ -19,17 +19,17 @@ api_idx_0032_HGIM:
     push ax
     call gfx_save_area
     add sp, byte 8
-    mov word [bp - 0x002c], dx
-    mov word [bp - 0x002e], ax
+    mov word [bp - 0x2c], dx
+    mov word [bp - 0x2e], ax
 @..api_idx_0032_HGIM.l1:
     push word [bp + 0xa]
-    push word [bp + 0x8]
-    push word [bp + 0x6]
-    push word [bp + 0x4]
+    push word [bp + 8]
+    push word [bp + 6]
+    push word [bp + 4]
     call draw_known_spell_values
     add sp, byte 8
-    push word [bp - 0x000c]
-    push word [bp + 0x6]
+    push word [bp - 0xc]
+    push word [bp + 6]
     call api_idx_0032_HGIM.api_idx1
     add sp, byte 4
     mov ax, 0
@@ -39,7 +39,7 @@ api_idx_0032_HGIM:
     call gfx_set_text_color
     add sp, byte 4
     mov ax, 6
-    imul word [bp - 0x000a]
+    imul word [bp - 0xa]
     add ax, strict word 0x72
     push ax
     mov ax, 0x7f
@@ -53,7 +53,7 @@ api_idx_0032_HGIM:
     call draw_font_glyph
     add sp, byte 4
     mov ax, 6
-    imul word [bp - 0x000a]
+    imul word [bp - 0xa]
     add ax, strict word 0x72
     push ax
     mov ax, 0x97
@@ -66,60 +66,60 @@ api_idx_0032_HGIM:
     push ax
     call draw_font_glyph
     add sp, byte 4
-    mov word [bp - 0x0002], 0
+    mov word [bp - 2], 0
     jmp near @..api_idx_0032_HGIM.l7
 @..api_idx_0032_HGIM.l2:
-    mov ax, word [bp - 0x0002]
-    cmp ax, word [bp - 0x000a]
+    mov ax, word [bp - 2]
+    cmp ax, word [bp - 0xa]
     jne short @..api_idx_0032_HGIM.l3
     mov ax, 0
     push ax
     mov ax, 0x2d
     push ax
     mov ax, 6
-    imul word [bp - 0x000a]
+    imul word [bp - 0xa]
     add ax, strict word 0x76
     push ax
     mov ax, 0x84
     push ax
     mov ax, 6
-    imul word [bp - 0x000a]
+    imul word [bp - 0xa]
     add ax, strict word 0x71
     push ax
     mov ax, 0x7f
     push ax
-    push word [bp - 0x0002]
+    push word [bp - 2]
     call set_hotspot
-    add sp, byte 0x0e
+    add sp, byte 0xe
     mov ax, 0x3d
     push ax
     mov ax, 0x2b
     push ax
     mov ax, 6
-    imul word [bp - 0x000a]
+    imul word [bp - 0xa]
     add ax, strict word 0x76
     push ax
     mov ax, 0x9c
     push ax
     mov ax, 6
-    imul word [bp - 0x000a]
+    imul word [bp - 0xa]
     add ax, strict word 0x71
     push ax
     mov ax, 0x97
     push ax
-    push word [bp + 0x8]
+    push word [bp + 8]
     call set_hotspot
-    add sp, byte 0x0e
+    add sp, byte 0xe
     jmp short @..api_idx_0032_HGIM.l6
 @..api_idx_0032_HGIM.l3:
     mov ax, 0
     push ax
-    mov ax, word [bp - 0x000a]
+    mov ax, word [bp - 0xa]
     inc ax
     cwd
-    idiv word [bp + 0x8]
+    idiv word [bp + 8]
     mov ax, dx
-    cmp ax, word [bp - 0x0002]
+    cmp ax, word [bp - 2]
     jne short @..api_idx_0032_HGIM.l4
     mov al, 0x20
     jmp short @..api_idx_0032_HGIM.l5
@@ -129,61 +129,61 @@ api_idx_0032_HGIM:
     cbw
     push ax
     mov ax, 6
-    imul word [bp - 0x0002]
+    imul word [bp - 2]
     add ax, strict word 0x76
     push ax
     mov ax, 0x9c
     push ax
     mov ax, 6
-    imul word [bp - 0x0002]
+    imul word [bp - 2]
     add ax, strict word 0x71
     push ax
     mov ax, 6
     push ax
-    push word [bp - 0x0002]
+    push word [bp - 2]
     call set_hotspot
-    add sp, byte 0x0e
+    add sp, byte 0xe
 @..api_idx_0032_HGIM.l6:
-    inc word [bp - 0x0002]
+    inc word [bp - 2]
 @..api_idx_0032_HGIM.l7:
-    mov ax, word [bp - 0x0002]
-    cmp ax, word [bp + 0x8]
+    mov ax, word [bp - 2]
+    cmp ax, word [bp + 8]
     jge short @..api_idx_0032_HGIM.l8
     jmp near @..api_idx_0032_HGIM.l2
 @..api_idx_0032_HGIM.l8:
     mov ax, 0
     push ax
-    push word [bp - 0x002c]
-    push word [bp - 0x002e]
+    push word [bp - 0x2c]
+    push word [bp - 0x2e]
     call gfx_restore_area
     add sp, byte 6
-    mov ax, word [bp - 0x000c]
-    mov word [bp - 0x0004], ax
-    mov word [bp - 0x0002], 0
+    mov ax, word [bp - 0xc]
+    mov word [bp - 4], ax
+    mov word [bp - 2], 0
 @..api_idx_0032_HGIM.l9:
-    mov ax, word [bp - 0x0002]
-    cmp ax, word [bp + 0x6]
+    mov ax, word [bp - 2]
+    cmp ax, word [bp + 6]
     je short @..api_idx_0032_HGIM.l10
     shl ax, 1
     mov bx, ax
     mov ax, word [bx + slot_value]
-    add word [bp - 0x0004], ax
+    add word [bp - 4], ax
 @..api_idx_0032_HGIM.l10:
-    inc word [bp - 0x0002]
-    mov ax, word [bp - 0x0002]
+    inc word [bp - 2]
+    mov ax, word [bp - 2]
     cmp ax, strict word 4
     jl short @..api_idx_0032_HGIM.l9
     mov ax, 1
-    cmp word [bp - 0x0004], byte 0
+    cmp word [bp - 4], byte 0
     jle short @..api_idx_0032_HGIM.l11
     mov ax, 0
 @..api_idx_0032_HGIM.l11:
     mov bx, word [bp + 0xc]
-    mov word [bx + 0x8], ax
-    mov word [bp - 0x000e], 0
-    mov word [bp - 0x0002], 0
+    mov word [bx + 8], ax
+    mov word [bp - 0xe], 0
+    mov word [bp - 2], 0
 @..api_idx_0032_HGIM.l12:
-    mov ax, word [bp - 0x0002]
+    mov ax, word [bp - 2]
     shl ax, 1
     mov si, ax
     mov bx, word [bp + 0xc]
@@ -192,26 +192,26 @@ api_idx_0032_HGIM:
     jmp near @..api_idx_0032_HGIM.l16
 @..api_idx_0032_HGIM.l13:
     mov ax, 0x3a
-    imul word [bp - 0x000e]
+    imul word [bp - 0xe]
     add ax, strict word 4
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     mov ax, 0
     push ax
     mov ax, 0xc4
     push ax
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
     add ax, strict word 0x36
     push ax
     mov ax, 0xbc
     push ax
-    push word [bp - 0x0006]
+    push word [bp - 6]
     call draw_bevel_frame
-    add sp, byte 0x0a
+    add sp, byte 0xa
     mov ax, 0xc0
     push ax
     mov ax, 1
-    mov cx, word [bp - 0x0002]
-    cmp cx, word [bp + 0x6]
+    mov cx, word [bp - 2]
+    cmp cx, word [bp + 6]
     jne short @..api_idx_0032_HGIM.l14
     mov ax, 0x1a
 @..api_idx_0032_HGIM.l14:
@@ -221,7 +221,7 @@ api_idx_0032_HGIM:
     mov ax, 0xbe
     push ax
     mov ax, 0x14
-    imul word [bp - 0x0002]
+    imul word [bp - 2]
     add ax, slot_label
     push ax
     call aztec_strlen
@@ -234,7 +234,7 @@ api_idx_0032_HGIM:
     mov cx, 2
     cwd
     idiv cx
-    add ax, word [bp - 0x0006]
+    add ax, word [bp - 6]
     inc ax
     push ax
     call gfx_set_text_pos
@@ -242,7 +242,7 @@ api_idx_0032_HGIM:
     mov ax, 0
     push ax
     mov ax, 0x14
-    imul word [bp - 0x0002]
+    imul word [bp - 2]
     add ax, slot_label
     push ax
     call draw_text_glyphs
@@ -252,47 +252,47 @@ api_idx_0032_HGIM:
     push ax
     mov ax, 0xc4
     push ax
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
     add ax, strict word 0x36
     push ax
     mov ax, 0xbc
     push ax
-    push word [bp - 0x0006]
-    mov ax, word [bp + 0x8]
-    add ax, word [bp - 0x000e]
+    push word [bp - 6]
+    mov ax, word [bp + 8]
+    add ax, word [bp - 0xe]
     inc ax
     push ax
     call set_hotspot
-    add sp, byte 0x0e
-    mov ax, word [bp - 0x0002]
-    mov cx, word [bp - 0x000e]
+    add sp, byte 0xe
+    mov ax, word [bp - 2]
+    mov cx, word [bp - 0xe]
     shl cx, 1
     mov bx, cx
     add bx, bp
-    mov word [bx - 0x0026], ax
-    cmp ax, word [bp + 0x6]
+    mov word [bx - 0x26], ax
+    cmp ax, word [bp + 6]
     jne short @..api_idx_0032_HGIM.l15
-    mov ax, word [bp - 0x000e]
-    mov word [bp - 0x0032], ax
+    mov ax, word [bp - 0xe]
+    mov word [bp - 0x32], ax
     cmp word [mouse_active], byte 0
     jne short @..api_idx_0032_HGIM.l15
     mov ax, 0x16
     push ax
     mov ax, 0xc4
     push ax
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
     add ax, strict word 0x36
     push ax
     mov ax, 0xbc
     push ax
-    push word [bp - 0x0006]
+    push word [bp - 6]
     call loc_MNNG
-    add sp, byte 0x0a
+    add sp, byte 0xa
 @..api_idx_0032_HGIM.l15:
-    inc word [bp - 0x000e]
+    inc word [bp - 0xe]
 @..api_idx_0032_HGIM.l16:
-    inc word [bp - 0x0002]
-    mov ax, word [bp - 0x0002]
+    inc word [bp - 2]
+    mov ax, word [bp - 2]
     cmp ax, strict word 4
     jg short @..api_idx_0032_HGIM.l17
     jmp near @..api_idx_0032_HGIM.l12
@@ -305,12 +305,12 @@ api_idx_0032_HGIM:
     push ax
     mov ax, 0xffff
     push ax
-    mov ax, word [bp + 0x8]
-    add ax, word [bp - 0x000e]
+    mov ax, word [bp + 8]
+    add ax, word [bp - 0xe]
     inc ax
     push ax
     call set_hotspot
-    add sp, byte 0x0e
+    add sp, byte 0xe
     mov ax, 0xc6
     push ax
     mov ax, 0x13c
@@ -329,31 +329,31 @@ api_idx_0032_HGIM:
     call poll_hotspots
     pop cx
     dec ax
-    mov word [bp - 0x0008], ax
+    mov word [bp - 8], ax
     cmp word [hotspot_hit], byte 0
     je short @..api_idx_0032_HGIM.l18
     jmp near @..api_idx_0032_HGIM.l31
 @..api_idx_0032_HGIM.l19:
-    mov word [bp - 0x0008], 0xffff
-    mov ax, word [bp - 0x0032]
-    mov word [bp - 0x0002], ax
+    mov word [bp - 8], 0xffff
+    mov ax, word [bp - 0x32]
+    mov word [bp - 2], ax
 @..api_idx_0032_HGIM.l20:
     mov ax, 0x3a
-    imul word [bp - 0x0002]
+    imul word [bp - 2]
     add ax, strict word 4
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     mov ax, 0x16
     push ax
     mov ax, 0xc4
     push ax
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
     add ax, strict word 0x36
     push ax
     mov ax, 0xbc
     push ax
-    push word [bp - 0x0006]
+    push word [bp - 6]
     call loc_MNNG
-    add sp, byte 0x0a
+    add sp, byte 0xa
     mov ax, 0xc7
     push ax
     mov ax, 0x13d
@@ -368,14 +368,14 @@ api_idx_0032_HGIM:
     push ax
     mov ax, 0xc4
     push ax
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
     add ax, strict word 0x36
     push ax
     mov ax, 0xbc
     push ax
-    push word [bp - 0x0006]
+    push word [bp - 6]
     call loc_MNNG
-    add sp, byte 0x0a
+    add sp, byte 0xa
 @..api_idx_0032_HGIM.l21:
     mov ax, 1
     push ax
@@ -390,43 +390,43 @@ api_idx_0032_HGIM:
     call get_filtered_key
     pop cx
     sub ah, ah
-    mov word [bp - 0x0030], ax
+    mov word [bp - 0x30], ax
     jmp short @..api_idx_0032_HGIM.l29
 @..api_idx_0032_HGIM.l23:
-    mov ax, word [bp - 0x0002]
-    add ax, word [bp - 0x000e]
+    mov ax, word [bp - 2]
+    add ax, word [bp - 0xe]
     dec ax
     cwd
-    idiv word [bp - 0x000e]
-    mov word [bp - 0x0002], dx
+    idiv word [bp - 0xe]
+    mov word [bp - 2], dx
     jmp short @..api_idx_0032_HGIM.l30
 @..api_idx_0032_HGIM.l24:
-    mov ax, word [bp - 0x0002]
+    mov ax, word [bp - 2]
     inc ax
     cwd
-    idiv word [bp - 0x000e]
-    mov word [bp - 0x0002], dx
+    idiv word [bp - 0xe]
+    mov word [bp - 2], dx
     jmp short @..api_idx_0032_HGIM.l30
 @..api_idx_0032_HGIM.l25:
-    mov ax, word [bp + 0x8]
-    add ax, word [bp - 0x0002]
+    mov ax, word [bp + 8]
+    add ax, word [bp - 2]
     inc ax
-    mov word [bp - 0x0008], ax
+    mov word [bp - 8], ax
     jmp short @..api_idx_0032_HGIM.l30
 @..api_idx_0032_HGIM.l26:
-    mov ax, word [bp - 0x000a]
-    mov word [bp - 0x0008], ax
+    mov ax, word [bp - 0xa]
+    mov word [bp - 8], ax
     jmp short @..api_idx_0032_HGIM.l30
 @..api_idx_0032_HGIM.l27:
-    mov ax, word [bp + 0x8]
-    mov word [bp - 0x0008], ax
+    mov ax, word [bp + 8]
+    mov word [bp - 8], ax
     jmp short @..api_idx_0032_HGIM.l30
 @..api_idx_0032_HGIM.l28:
-    mov ax, word [bp - 0x000a]
+    mov ax, word [bp - 0xa]
     inc ax
     cwd
-    idiv word [bp + 0x8]
-    mov word [bp - 0x0008], dx
+    idiv word [bp + 8]
+    mov word [bp - 8], dx
     jmp short @..api_idx_0032_HGIM.l30
 @..api_idx_0032_HGIM.l29:
     cmp ax, strict word 8
@@ -444,24 +444,24 @@ api_idx_0032_HGIM:
     cmp ax, strict word 0x3d
     je short @..api_idx_0032_HGIM.l27
 @..api_idx_0032_HGIM.l30:
-    cmp word [bp - 0x0008], byte 0xff
+    cmp word [bp - 8], byte 0xff
     jne short @..api_idx_0032_HGIM.l31
     jmp near @..api_idx_0032_HGIM.l20
 @..api_idx_0032_HGIM.l31:
-    mov ax, word [bp - 0x0008]
-    cmp ax, word [bp + 0x8]
+    mov ax, word [bp - 8]
+    cmp ax, word [bp + 8]
     jge short @..api_idx_0032_HGIM.l32
-    cmp ax, word [bp - 0x000a]
+    cmp ax, word [bp - 0xa]
     je short @..api_idx_0032_HGIM.l32
-    mov word [bp - 0x000a], ax
+    mov word [bp - 0xa], ax
     jmp near @..api_idx_0032_HGIM.l39
 @..api_idx_0032_HGIM.l32:
-    mov ax, word [bp - 0x0008]
-    cmp ax, word [bp - 0x000a]
+    mov ax, word [bp - 8]
+    cmp ax, word [bp - 0xa]
     jne short @..api_idx_0032_HGIM.l35
     mov ax, 0x248
-    imul word [bp + 0x4]
-    mov cx, word [bp - 0x000a]
+    imul word [bp + 4]
+    mov cx, word [bp - 0xa]
     shl cx, 1
     mov si, cx
     mov bx, word [bp + 0xa]
@@ -476,13 +476,13 @@ api_idx_0032_HGIM:
     cmp ax, cx
     jle short @..api_idx_0032_HGIM.l33
     mov ax, 0x248
-    imul word [bp + 0x4]
+    imul word [bp + 4]
     mov bx, word [bp + 0xa]
     mov cx, word [bx + si]
     add ax, cx
     mov bx, ax
     dec byte [bx + party_records + pc_rec.flag]
-    inc word [bp - 0x000c]
+    inc word [bp - 0xc]
     jmp short @..api_idx_0032_HGIM.l34
 @..api_idx_0032_HGIM.l33:
     mov ax, 0
@@ -492,12 +492,12 @@ api_idx_0032_HGIM:
 @..api_idx_0032_HGIM.l34:
     jmp short @..api_idx_0032_HGIM.l39
 @..api_idx_0032_HGIM.l35:
-    mov ax, word [bp - 0x0008]
-    cmp ax, word [bp + 0x8]
+    mov ax, word [bp - 8]
+    cmp ax, word [bp + 8]
     jne short @..api_idx_0032_HGIM.l38
     mov ax, 0x248
-    imul word [bp + 0x4]
-    mov cx, word [bp - 0x000a]
+    imul word [bp + 4]
+    mov cx, word [bp - 0xa]
     shl cx, 1
     mov si, cx
     mov bx, word [bp + 0xa]
@@ -506,10 +506,10 @@ api_idx_0032_HGIM:
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.flag], 0x64
     jae short @..api_idx_0032_HGIM.l36
-    cmp word [bp - 0x000c], byte 0
+    cmp word [bp - 0xc], byte 0
     jle short @..api_idx_0032_HGIM.l36
     inc byte [bx + party_records + pc_rec.flag]
-    dec word [bp - 0x000c]
+    dec word [bp - 0xc]
     jmp short @..api_idx_0032_HGIM.l37
 @..api_idx_0032_HGIM.l36:
     mov ax, 0
@@ -519,22 +519,22 @@ api_idx_0032_HGIM:
 @..api_idx_0032_HGIM.l37:
     jmp short @..api_idx_0032_HGIM.l39
 @..api_idx_0032_HGIM.l38:
-    mov ax, word [bp - 0x0008]
-    sub ax, word [bp + 0x8]
+    mov ax, word [bp - 8]
+    sub ax, word [bp + 8]
     dec ax
-    mov word [bp - 0x0028], ax
+    mov word [bp - 0x28], ax
     shl ax, 1
     mov bx, ax
     add bx, bp
-    mov ax, word [bx - 0x0026]
-    mov word [bp - 0x002a], ax
+    mov ax, word [bx - 0x26]
+    mov word [bp - 0x2a], ax
 @..api_idx_0032_HGIM.l39:
-    cmp word [bp - 0x0028], byte 0xff
+    cmp word [bp - 0x28], byte 0xff
     jne short @..api_idx_0032_HGIM.l40
     jmp near @..api_idx_0032_HGIM.l1
 @..api_idx_0032_HGIM.l40:
-    mov ax, word [bp - 0x000c]
-    mov cx, word [bp + 0x6]
+    mov ax, word [bp - 0xc]
+    mov cx, word [bp + 6]
     shl cx, 1
     mov bx, cx
     mov word [bx + slot_value], ax
@@ -546,11 +546,11 @@ api_idx_0032_HGIM:
     mov ax, 0xbc
     push ax
     mov ax, 0x3a
-    imul word [bp - 0x0028]
+    imul word [bp - 0x28]
     add ax, strict word 4
     push ax
     call flash_button
-    add sp, byte 0x0a
+    add sp, byte 0xa
     mov ax, 0
     push ax
     mov ax, 1
@@ -560,16 +560,16 @@ api_idx_0032_HGIM:
     mov ax, 0xbc
     push ax
     mov ax, 0x3a
-    imul word [bp - 0x0028]
+    imul word [bp - 0x28]
     add ax, strict word 4
     push ax
     call flash_button
-    add sp, byte 0x0a
+    add sp, byte 0xa
     mov ax, 1
     push ax
-    push word [bp - 0x002c]
-    push word [bp - 0x002e]
+    push word [bp - 0x2c]
+    push word [bp - 0x2e]
     call gfx_restore_area
     add sp, byte 6
-    mov ax, word [bp - 0x002a]
+    mov ax, word [bp - 0x2a]
     ret

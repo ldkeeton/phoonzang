@@ -19,7 +19,7 @@ api_idx_0006_IRNH:
 @..api_idx_0006_IRNH.l2:
     les bx, word [tick_counter_ptr]
     mov ax, word [es:bx]
-    mov dx, word [es:bx + 0x2]
+    mov dx, word [es:bx + 2]
     sub ax, word [party_redraw_last_tick]
     sbb dx, word [party_redraw_last_tick_hi]
     push ax
@@ -56,34 +56,34 @@ api_idx_0006_IRNH:
     push word [bx + screen_cache]
     call gfx_restore_screen
     add sp, byte 8
-    mov word [bp - 0x0002], 0
+    mov word [bp - 2], 0
 @..api_idx_0006_IRNH.l6:
-    mov ax, word [bp - 0x0002]
+    mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
     mov bx, word [bx + overlay_list + 0x2]
     mov byte [bx + overlay_list_rec.f_0014], 0xff
-    inc word [bp - 0x0002]
-    mov ax, word [bp - 0x0002]
+    inc word [bp - 2]
+    mov ax, word [bp - 2]
     cmp ax, strict word 0xc
     jl short @..api_idx_0006_IRNH.l6
     mov word [overlay_list], 0
     jmp near @..api_idx_0006_IRNH.l16
 @..api_idx_0006_IRNH.l7:
     call loc_KRMP
-    mov word [bp - 0x0006], ax
-    mov word [bp - 0x0002], 0
+    mov word [bp - 6], ax
+    mov word [bp - 2], 0
 @..api_idx_0006_IRNH.l8:
-    mov word [bp - 0x0004], 0
+    mov word [bp - 4], 0
 @..api_idx_0006_IRNH.l9:
-    push word [bp - 0x0006]
+    push word [bp - 6]
     mov ax, 0xf8
     push ax
     mov ax, 0x48
     push ax
     mov ax, 6
-    imul word [bp - 0x0002]
-    mov cx, word [bp - 0x0004]
+    imul word [bp - 2]
+    mov cx, word [bp - 4]
     shl cx, 1
     add ax, cx
     mov bx, ax
@@ -93,20 +93,20 @@ api_idx_0006_IRNH:
     push ax
     mov ax, 0
     push ax
-    push word [bp - 0x0004]
-    push word [bp - 0x0002]
+    push word [bp - 4]
+    push word [bp - 2]
     call queue_cell_action_overlay
-    add sp, byte 0x0e
-    inc word [bp - 0x0004]
-    mov ax, word [bp - 0x0004]
+    add sp, byte 0xe
+    inc word [bp - 4]
+    mov ax, word [bp - 4]
     cmp ax, strict word 3
     jl short @..api_idx_0006_IRNH.l9
-    inc word [bp - 0x0002]
-    mov ax, word [bp - 0x0002]
+    inc word [bp - 2]
+    mov ax, word [bp - 2]
     cmp ax, strict word 3
     jl short @..api_idx_0006_IRNH.l8
     call queue_marker_overlay
-    cmp word [bp - 0x0006], byte 0
+    cmp word [bp - 6], byte 0
     je short @..api_idx_0006_IRNH.l10
     mov ax, word [party_status_frame]
     inc ax

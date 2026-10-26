@@ -9,16 +9,16 @@ api_idx_0012_GQSK:
     push word [roster_screen_b]      ; 0x0530
     call gfx_restore_screen          ; 0x0534
     add sp, byte 8                   ; 0x0537
-    mov word [bp - 0x0002], 0        ; 0x053a
+    mov word [bp - 2], 0             ; 0x053a
     jmp short @..api_idx_0012_GQSK.l2 ; 0x053f
 @..api_idx_0012_GQSK.l1:
     mov ax, 0                        ; 0x0541
     push ax                          ; 0x0544
     push ax                          ; 0x0545
-    push word [bp - 0x0002]          ; 0x0546
+    push word [bp - 2]               ; 0x0546
     call api_idx_000c_JRTV           ; 0x0549
     add sp, byte 6                   ; 0x054c
-    mov ax, word [bp - 0x0002]       ; 0x054f
+    mov ax, word [bp - 2]            ; 0x054f
     mov cx, 3                        ; 0x0552
     cwd                              ; 0x0555
     idiv cx                          ; 0x0556
@@ -26,35 +26,35 @@ api_idx_0012_GQSK:
     mov cx, 0x32                     ; 0x055a
     imul cx                          ; 0x055d
     add ax, strict word 4            ; 0x055f
-    mov word [bp - 0x000a], ax       ; 0x0562
-    mov ax, word [bp - 0x0002]       ; 0x0565
+    mov word [bp - 0xa], ax          ; 0x0562
+    mov ax, word [bp - 2]            ; 0x0565
     mov cx, 3                        ; 0x0568
     cwd                              ; 0x056b
     idiv cx                          ; 0x056c
     mov cx, 0x27                     ; 0x056e
     imul cx                          ; 0x0571
     add ax, strict word 0x70         ; 0x0573
-    mov word [bp - 0x000c], ax       ; 0x0576
+    mov word [bp - 0xc], ax          ; 0x0576
     mov ax, 0                        ; 0x0579
     push ax                          ; 0x057c
-    mov ax, word [bp - 0x0002]       ; 0x057d
+    mov ax, word [bp - 2]            ; 0x057d
     add ax, strict word 0x31         ; 0x0580
     cbw                              ; 0x0583
     push ax                          ; 0x0584
-    mov ax, word [bp - 0x000c]       ; 0x0585
+    mov ax, word [bp - 0xc]          ; 0x0585
     add ax, strict word 0x26         ; 0x0588
     push ax                          ; 0x058b
-    mov ax, word [bp - 0x000a]       ; 0x058c
+    mov ax, word [bp - 0xa]          ; 0x058c
     add ax, strict word 0x2e         ; 0x058f
     push ax                          ; 0x0592
-    push word [bp - 0x000c]          ; 0x0593
-    push word [bp - 0x000a]          ; 0x0596
-    push word [bp - 0x0002]          ; 0x0599
+    push word [bp - 0xc]             ; 0x0593
+    push word [bp - 0xa]             ; 0x0596
+    push word [bp - 2]               ; 0x0599
     call set_hotspot                 ; 0x059c
-    add sp, byte 0x0e                ; 0x059f
-    inc word [bp - 0x0002]           ; 0x05a2
+    add sp, byte 0xe                 ; 0x059f
+    inc word [bp - 2]                ; 0x05a2
 @..api_idx_0012_GQSK.l2:
-    mov ax, word [bp - 0x0002]       ; 0x05a5
+    mov ax, word [bp - 2]            ; 0x05a5
     cmp ax, word [party_char_count]  ; 0x05a8
     jl short @..api_idx_0012_GQSK.l1 ; 0x05ac
     mov ax, 0                        ; 0x05ae
@@ -67,7 +67,7 @@ api_idx_0012_GQSK:
     push ax                          ; 0x05b9
     push word [party_char_count]     ; 0x05ba
     call set_hotspot                 ; 0x05be
-    add sp, byte 0x0e                ; 0x05c1
+    add sp, byte 0xe                 ; 0x05c1
     mov ax, 0xbb                     ; 0x05c4
     push ax                          ; 0x05c7
     mov ax, 0xab                     ; 0x05c8
@@ -92,8 +92,8 @@ api_idx_0012_GQSK:
     push ax                          ; 0x05f3
     call gfx_save_area               ; 0x05f4
     add sp, byte 8                   ; 0x05f7
-    mov word [bp - 0x0010], dx       ; 0x05fa
-    mov word [bp - 0x0012], ax       ; 0x05fd
+    mov word [bp - 0x10], dx         ; 0x05fa
+    mov word [bp - 0x12], ax         ; 0x05fd
     mov ax, 0x90                     ; 0x0600
     push ax                          ; 0x0603
     mov ax, 0x9a                     ; 0x0604
@@ -140,19 +140,19 @@ api_idx_0012_GQSK:
     push ax                          ; 0x0663
     call gfx_show_area               ; 0x0664
     add sp, byte 8                   ; 0x0667
-    mov word [bp - 0x0004], 0xfffe   ; 0x066a
+    mov word [bp - 4], 0xfffe        ; 0x066a
 @..api_idx_0012_GQSK.l4:
-    cmp word [bp - 0x0004], byte 0xfe ; 0x066f
+    cmp word [bp - 4], byte 0xfe     ; 0x066f
     jne short @..api_idx_0012_GQSK.l7 ; 0x0673
     mov ax, 1                        ; 0x0675
     push ax                          ; 0x0678
     call get_filtered_key            ; 0x0679
     pop cx                           ; 0x067c
     sub ah, ah                       ; 0x067d
-    mov word [bp - 0x0002], ax       ; 0x067f
+    mov word [bp - 2], ax            ; 0x067f
     cmp ax, strict word 0x1b         ; 0x0682
     jne short @..api_idx_0012_GQSK.l5 ; 0x0685
-    mov word [bp - 0x0004], 0xffff   ; 0x0687
+    mov word [bp - 4], 0xffff        ; 0x0687
 @..api_idx_0012_GQSK.l5:
     cmp ax, strict word 0x31         ; 0x068c
     jl short @..api_idx_0012_GQSK.l6 ; 0x068f
@@ -161,11 +161,11 @@ api_idx_0012_GQSK:
     cmp cx, ax                       ; 0x0698
     jle short @..api_idx_0012_GQSK.l6 ; 0x069a
     add ax, strict word 0xffcf       ; 0x069c
-    mov word [bp - 0x0004], ax       ; 0x069f
+    mov word [bp - 4], ax            ; 0x069f
     mov ax, 1                        ; 0x06a2
     push ax                          ; 0x06a5
     push ax                          ; 0x06a6
-    push word [bp - 0x0004]          ; 0x06a7
+    push word [bp - 4]               ; 0x06a7
     call api_idx_000c_JRTV           ; 0x06aa
     add sp, byte 6                   ; 0x06ad
 @..api_idx_0012_GQSK.l6:
@@ -173,8 +173,8 @@ api_idx_0012_GQSK:
 @..api_idx_0012_GQSK.l7:
     mov ax, 1                        ; 0x06b2
     push ax                          ; 0x06b5
-    push word [bp - 0x0010]          ; 0x06b6
-    push word [bp - 0x0012]          ; 0x06b9
+    push word [bp - 0x10]            ; 0x06b6
+    push word [bp - 0x12]            ; 0x06b9
     call gfx_restore_area            ; 0x06bc
     add sp, byte 6                   ; 0x06bf
     mov ax, 0xa3                     ; 0x06c2
@@ -187,28 +187,28 @@ api_idx_0012_GQSK:
     push ax                          ; 0x06d1
     call gfx_show_area               ; 0x06d2
     add sp, byte 8                   ; 0x06d5
-    mov ax, word [bp - 0x0004]       ; 0x06d8
+    mov ax, word [bp - 4]            ; 0x06d8
     ret                              ; 0x06db
 @..api_idx_0012_GQSK.l8:
     push word [bss_0e30]             ; 0x06dc
     push word [bss_0e2e]             ; 0x06e0
     call set_mouse_pointer_shape     ; 0x06e4
     add sp, byte 4                   ; 0x06e7
-    mov word [bp - 0x0008], 0        ; 0x06ea
+    mov word [bp - 8], 0             ; 0x06ea
 @..api_idx_0012_GQSK.l9:
-    lea ax, word [bp - 0x000c]       ; 0x06ef
+    lea ax, word [bp - 0xc]          ; 0x06ef
     push ax                          ; 0x06f2
-    lea ax, word [bp - 0x000a]       ; 0x06f3
+    lea ax, word [bp - 0xa]          ; 0x06f3
     push ax                          ; 0x06f6
     call gfx_get_mouse               ; 0x06f7
     add sp, byte 4                   ; 0x06fa
-    mov word [bp - 0x0006], ax       ; 0x06fd
+    mov word [bp - 6], ax            ; 0x06fd
     mov ax, 0                        ; 0x0700
-    cmp word [bp - 0x0006], byte 0   ; 0x0703
+    cmp word [bp - 6], byte 0        ; 0x0703
     jne short @..api_idx_0012_GQSK.l10 ; 0x0707
     mov ax, 1                        ; 0x0709
 @..api_idx_0012_GQSK.l10:
-    or word [bp - 0x0008], ax        ; 0x070c
+    or word [bp - 8], ax             ; 0x070c
     mov ax, 0x14                     ; 0x070f
     push ax                          ; 0x0712
     call delay_ms                    ; 0x0713
@@ -218,7 +218,7 @@ api_idx_0012_GQSK:
     call poll_hotspots               ; 0x071b
     pop cx                           ; 0x071e
     dec ax                           ; 0x071f
-    mov word [bp - 0x0004], ax       ; 0x0720
+    mov word [bp - 4], ax            ; 0x0720
     cmp word [bss_59fa], byte 0      ; 0x0723
     je short @..api_idx_0012_GQSK.l11 ; 0x0728
     mov ax, 0                        ; 0x072a
@@ -235,7 +235,7 @@ api_idx_0012_GQSK:
     mov ax, 1                        ; 0x0743
     push ax                          ; 0x0746
     push ax                          ; 0x0747
-    push word [bp - 0x0004]          ; 0x0748
+    push word [bp - 4]               ; 0x0748
     call api_idx_000c_JRTV           ; 0x074b
     add sp, byte 6                   ; 0x074e
     mov ax, 0                        ; 0x0751
@@ -244,12 +244,12 @@ api_idx_0012_GQSK:
     push ax                          ; 0x0758
     call set_mouse_pointer_shape     ; 0x0759
     add sp, byte 4                   ; 0x075c
-    mov ax, word [bp - 0x0004]       ; 0x075f
+    mov ax, word [bp - 4]            ; 0x075f
     ret                              ; 0x0762
 @..api_idx_0012_GQSK.l12:
-    cmp word [bp - 0x0006], byte 0   ; 0x0763
+    cmp word [bp - 6], byte 0        ; 0x0763
     je short @..api_idx_0012_GQSK.l9 ; 0x0767
-    cmp word [bp - 0x0008], byte 0   ; 0x0769
+    cmp word [bp - 8], byte 0        ; 0x0769
     je short @..api_idx_0012_GQSK.l9 ; 0x076d
     mov ax, 0                        ; 0x076f
     mov dx, 0                        ; 0x0772

@@ -3,16 +3,16 @@ api_idx_0006_QJOL:
     mov ax, 0xfffa                   ; 0x209c
     call aztec_csav                  ; 0x209f
     mov ax, 0x2c                     ; 0x20a2
-    imul word [bp + 0x6]             ; 0x20a5
+    imul word [bp + 6]               ; 0x20a5
     mov si, ax                       ; 0x20a8
-    mov ax, word [bp + 0x4]          ; 0x20aa
+    mov ax, word [bp + 4]            ; 0x20aa
     shl ax, 1                        ; 0x20ad
     mov bx, ax                       ; 0x20af
     mov bx, word [bx + party_char]   ; 0x20b1
     cmp byte [bx + si + member_rec.item_state], 2 ; 0x20b5
     jae short @..api_idx_0006_QJOL.l1 ; 0x20b9
-    push word [bp + 0x6]             ; 0x20bb
-    push word [bp + 0x4]             ; 0x20be
+    push word [bp + 6]               ; 0x20bb
+    push word [bp + 4]               ; 0x20be
     call item_slot_usable            ; 0x20c1
     add sp, byte 4                   ; 0x20c4
     test ax, ax                      ; 0x20c7
@@ -20,7 +20,7 @@ api_idx_0006_QJOL:
 @..api_idx_0006_QJOL.l1:
     ret                              ; 0x20cb
 @..api_idx_0006_QJOL.l2:
-    cmp word [bp + 0x4], byte 0      ; 0x20cc
+    cmp word [bp + 4], byte 0        ; 0x20cc
     jne short @..api_idx_0006_QJOL.l4 ; 0x20d0
     mov ax, 0xe                      ; 0x20d2
     push ax                          ; 0x20d5
@@ -28,7 +28,7 @@ api_idx_0006_QJOL:
     add ax, 0x9a                     ; 0x20d9
     push ax                          ; 0x20dc
     mov ax, 0x248                    ; 0x20dd
-    imul word [bp + 0x6]             ; 0x20e0
+    imul word [bp + 6]               ; 0x20e0
     add ax, party_records + pc_rec.cur ; 0x20e3
     push ax                          ; 0x20e6
     call aztec_movmem                ; 0x20e7
@@ -39,7 +39,7 @@ api_idx_0006_QJOL:
     jne short @..api_idx_0006_QJOL.l4 ; 0x20f7
 @..api_idx_0006_QJOL.l3:
     mov ax, 0x248                    ; 0x20f9
-    imul word [bp + 0x6]             ; 0x20fc
+    imul word [bp + 6]               ; 0x20fc
     mov bx, ax                       ; 0x20ff
     mov al, byte [bx + party_records + pc_rec.flag + 0x17] ; 0x2101
     sub ah, ah                       ; 0x2105
@@ -64,14 +64,14 @@ api_idx_0006_QJOL:
     movsw                            ; 0x212f
     call add_random_steps            ; 0x2130
     add sp, byte 4                   ; 0x2133
-    mov word [bp - 0x0006], ax       ; 0x2136
+    mov word [bp - 6], ax            ; 0x2136
     push word [bp + 0xe]             ; 0x2139
     push word [bp + 0xa]             ; 0x213c
     push ax                          ; 0x213f
-    push word [bp + 0x4]             ; 0x2140
+    push word [bp + 4]               ; 0x2140
     call api_idx_0002_NHHH           ; 0x2143
     add sp, byte 8                   ; 0x2146
-    mov word [bp - 0x0006], ax       ; 0x2149
+    mov word [bp - 6], ax            ; 0x2149
     cmp ax, strict word 0            ; 0x214c
     jg short @..api_idx_0006_QJOL.l5 ; 0x214f
     jmp near @..api_idx_0006_QJOL.l11 ; 0x2151
@@ -81,7 +81,7 @@ api_idx_0006_QJOL:
     call random_below                ; 0x2158
     pop cx                           ; 0x215b
     push ax                          ; 0x215c
-    mov ax, word [bp + 0x4]          ; 0x215d
+    mov ax, word [bp + 4]            ; 0x215d
     shl ax, 1                        ; 0x2160
     mov bx, ax                       ; 0x2162
     mov bx, word [bx + party_char_ext] ; 0x2164
@@ -99,10 +99,10 @@ api_idx_0006_QJOL:
     cmp word [bp + 0x14], strict word 0xff ; 0x2180
     jne short @..api_idx_0006_QJOL.l7 ; 0x2185
     mov ax, 0x2c                     ; 0x2187
-    imul word [bp + 0x6]             ; 0x218a
+    imul word [bp + 6]               ; 0x218a
     add ax, word [bp + 0xc]          ; 0x218d
     mov si, ax                       ; 0x2190
-    mov ax, word [bp + 0x4]          ; 0x2192
+    mov ax, word [bp + 4]            ; 0x2192
     shl ax, 1                        ; 0x2195
     mov bx, ax                       ; 0x2197
     mov bx, word [bx + party_char]   ; 0x2199
@@ -110,29 +110,29 @@ api_idx_0006_QJOL:
     jmp short @..api_idx_0006_QJOL.l9 ; 0x21a1
 @..api_idx_0006_QJOL.l7:
     mov ax, 0x2c                     ; 0x21a3
-    imul word [bp + 0x6]             ; 0x21a6
+    imul word [bp + 6]               ; 0x21a6
     add ax, word [bp + 0xc]          ; 0x21a9
     mov si, ax                       ; 0x21ac
-    mov ax, word [bp + 0x4]          ; 0x21ae
+    mov ax, word [bp + 4]            ; 0x21ae
     shl ax, 1                        ; 0x21b1
     mov bx, ax                       ; 0x21b3
     mov bx, word [bx + party_char]   ; 0x21b5
     mov al, byte [bx + si + member_rec.item_counter] ; 0x21b9
     sub ah, ah                       ; 0x21bc
-    add ax, word [bp - 0x0006]       ; 0x21be
+    add ax, word [bp - 6]            ; 0x21be
     cmp ax, 0xfa                     ; 0x21c1
     jle short @..api_idx_0006_QJOL.l8 ; 0x21c4
     mov byte [bx + si + 0xe], 0xfa   ; 0x21c6
     jmp short @..api_idx_0006_QJOL.l9 ; 0x21ca
 @..api_idx_0006_QJOL.l8:
-    mov al, byte [bp - 0x0006]       ; 0x21cc
+    mov al, byte [bp - 6]            ; 0x21cc
     push ax                          ; 0x21cf
     mov ax, 0x2c                     ; 0x21d0
-    imul word [bp + 0x6]             ; 0x21d3
+    imul word [bp + 6]               ; 0x21d3
     mov cx, ax                       ; 0x21d6
     add ax, word [bp + 0xc]          ; 0x21d8
     mov si, ax                       ; 0x21db
-    mov ax, word [bp + 0x4]          ; 0x21dd
+    mov ax, word [bp + 4]            ; 0x21dd
     shl ax, 1                        ; 0x21e0
     mov bx, ax                       ; 0x21e2
     mov bx, word [bx + party_char]   ; 0x21e4
@@ -144,9 +144,9 @@ api_idx_0006_QJOL:
     mov al, byte [bp + 0x14]         ; 0x21f2
     push ax                          ; 0x21f5
     mov ax, 0x2c                     ; 0x21f6
-    imul word [bp + 0x6]             ; 0x21f9
+    imul word [bp + 6]               ; 0x21f9
     mov si, ax                       ; 0x21fc
-    mov ax, word [bp + 0x4]          ; 0x21fe
+    mov ax, word [bp + 4]            ; 0x21fe
     shl ax, 1                        ; 0x2201
     mov bx, ax                       ; 0x2203
     mov bx, word [bx + party_char]   ; 0x2205
@@ -157,11 +157,11 @@ api_idx_0006_QJOL:
     push ax                          ; 0x2210
     mov ax, 1                        ; 0x2211
     push ax                          ; 0x2214
-    push word [bp + 0x8]             ; 0x2215
-    push word [bp + 0x6]             ; 0x2218
-    push word [bp + 0x4]             ; 0x221b
+    push word [bp + 8]               ; 0x2215
+    push word [bp + 6]               ; 0x2218
+    push word [bp + 4]               ; 0x221b
     call loc_NJKR                    ; 0x221e
-    add sp, byte 0x0a                ; 0x2221
+    add sp, byte 0xa                 ; 0x2221
     jmp short @..api_idx_0006_QJOL.l12 ; 0x2224
 @..api_idx_0006_QJOL.l11:
     cmp word [bp + 0x18], byte 1     ; 0x2226
@@ -171,9 +171,9 @@ api_idx_0006_QJOL:
     push ax                          ; 0x2230
     mov ax, MSG_UNAFFECTED_3471      ; 0x2231
     push ax                          ; 0x2234
-    push word [bp + 0x6]             ; 0x2235
-    push word [bp + 0x4]             ; 0x2238
+    push word [bp + 6]               ; 0x2235
+    push word [bp + 4]               ; 0x2238
     call loc_NJKR                    ; 0x223b
-    add sp, byte 0x0a                ; 0x223e
+    add sp, byte 0xa                 ; 0x223e
 @..api_idx_0006_QJOL.l12:
     ret                              ; 0x2241

@@ -18,9 +18,9 @@ api_idx_0002_PUOP:
     call get_filtered_key            ; 0x096b
     pop cx                           ; 0x096e
     sub ah, ah                       ; 0x096f
-    mov word [bp - 0x0002], ax       ; 0x0971
+    mov word [bp - 2], ax            ; 0x0971
     mov ax, 0                        ; 0x0974
-    cmp word [bp - 0x0002], byte 0x1b ; 0x0977
+    cmp word [bp - 2], byte 0x1b     ; 0x0977
     jne short @..api_idx_0002_PUOP.l2 ; 0x097b
     mov ax, 1                        ; 0x097d
 @..api_idx_0002_PUOP.l2:

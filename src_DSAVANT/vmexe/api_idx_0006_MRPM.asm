@@ -23,16 +23,16 @@ api_idx_0006_MRPM:
     mov cx, 0xa                      ; 0x90c6
     cwd                              ; 0x90c9
     idiv cx                          ; 0x90ca
-    mov word [bp - 0x0004], ax       ; 0x90cc
+    mov word [bp - 4], ax            ; 0x90cc
     mov al, byte [bx + si + 0x2a]    ; 0x90cf
     cbw                              ; 0x90d2
     cwd                              ; 0x90d3
     idiv cx                          ; 0x90d4
-    mov word [bp - 0x0006], dx       ; 0x90d6
+    mov word [bp - 6], dx            ; 0x90d6
     mov ax, 1                        ; 0x90d9
     push ax                          ; 0x90dc
     push dx                          ; 0x90dd
-    push word [bp - 0x0004]          ; 0x90de
+    push word [bp - 4]               ; 0x90de
     push word [bss_8464]             ; 0x90e1
     call fill_action_slot_table      ; 0x90e5
     add sp, byte 8                   ; 0x90e8
@@ -49,20 +49,20 @@ api_idx_0006_MRPM:
     add sp, byte 6                   ; 0x9102
     mov ax, bss_9136                 ; 0x9105
     push ax                          ; 0x9108
-    push word [bp + 0x4]             ; 0x9109
+    push word [bp + 4]               ; 0x9109
     call load_message_string         ; 0x910c
     add sp, byte 4                   ; 0x910f
     mov byte [bss_9186], 0           ; 0x9112
-    cmp word [bp + 0x6], byte 0      ; 0x9117
+    cmp word [bp + 6], byte 0        ; 0x9117
     jl short @..api_idx_0006_MRPM.l2 ; 0x911b
     mov ax, bss_9186                 ; 0x911d
     push ax                          ; 0x9120
-    push word [bp + 0x6]             ; 0x9121
+    push word [bp + 6]               ; 0x9121
     call load_message_string         ; 0x9124
     add sp, byte 4                   ; 0x9127
 @..api_idx_0006_MRPM.l2:
-    push word [bp + 0x8]             ; 0x912a
-    push word [bp + 0x8]             ; 0x912d
+    push word [bp + 8]               ; 0x912a
+    push word [bp + 8]               ; 0x912d
     mov ax, 0x43                     ; 0x9130
     cmp word [bss_8464], byte 0      ; 0x9133
     jne short @..api_idx_0006_MRPM.l3 ; 0x9138
@@ -78,7 +78,7 @@ api_idx_0006_MRPM:
     mov ax, 0                        ; 0x914a
     push ax                          ; 0x914d
     call api_idx_0004_QSNR           ; 0x914e
-    add sp, byte 0x0e                ; 0x9151
+    add sp, byte 0xe                 ; 0x9151
     cmp word [bp + 0xa], byte 1      ; 0x9154
     jne short @..api_idx_0006_MRPM.l4 ; 0x9158
     mov ax, 4                        ; 0x915a

@@ -1,5 +1,7 @@
 """``make rebuild`` selector: a binary, or a routine gated against its donors."""
 
+import io
+import contextlib
 import unittest
 from unittest import mock
 

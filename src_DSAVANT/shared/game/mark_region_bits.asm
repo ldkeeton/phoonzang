@@ -2,7 +2,7 @@
 mark_region_bits:
     mov ax, 0
     call aztec_csav
-    cmp word [bp + 0x4], byte 0
+    cmp word [bp + 4], byte 0
     jle short @..mark_region_bits.l1
     mov bx, word [maze_tables]
     mov si, word [party_region]
@@ -20,7 +20,7 @@ mark_region_bits:
     push ax
     call set_bitmap_bit
     add sp, byte 6
-    cmp word [bp + 0x4], byte 1
+    cmp word [bp + 4], byte 1
     jle short @..mark_region_bits.l1
     mov ax, 1
     push ax

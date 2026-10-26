@@ -3,19 +3,19 @@ api_idx_007a_NHII:
     mov ax, 0xff86                   ; 0x4f0c
     call aztec_csav                  ; 0x4f0f
     mov word [animation_frame], 0    ; 0x4f12
-    push word [bp + 0x4]             ; 0x4f18
+    push word [bp + 4]               ; 0x4f18
     call api_idx_0060_VPPJ           ; 0x4f1b
     pop cx                           ; 0x4f1e
-    mov word [bp - 0x007a], ax       ; 0x4f1f
-    mov bx, word [bp + 0x4]          ; 0x4f22
+    mov word [bp - 0x7a], ax         ; 0x4f1f
+    mov bx, word [bp + 4]            ; 0x4f22
     cmp byte [bx + 0x35], 2          ; 0x4f25
     jne short @..api_idx_007a_NHII.l2 ; 0x4f29
 @..api_idx_007a_NHII.l1:
     push word [party_char_count]     ; 0x4f2b
     call random_below                ; 0x4f2f
     pop cx                           ; 0x4f32
-    mov word [bp - 0x0006], ax       ; 0x4f33
-    push word [bp - 0x0006]          ; 0x4f36
+    mov word [bp - 6], ax            ; 0x4f33
+    push word [bp - 6]               ; 0x4f36
     call member_is_active            ; 0x4f39
     pop cx                           ; 0x4f3c
     test ax, ax                      ; 0x4f3d
@@ -25,29 +25,29 @@ api_idx_007a_NHII:
     push ax                          ; 0x4f4a
     call play_sound_effect           ; 0x4f4b
     pop cx                           ; 0x4f4e
-    mov bx, word [bp + 0x4]          ; 0x4f4f
+    mov bx, word [bp + 4]            ; 0x4f4f
     mov al, byte [bx + 0x34]         ; 0x4f52
     sub ah, ah                       ; 0x4f55
     push ax                          ; 0x4f57
-    push word [bp - 0x0006]          ; 0x4f58
+    push word [bp - 6]               ; 0x4f58
     push word [bss_91fe]             ; 0x4f5b
     call api_idx_00b8_LTRM           ; 0x4f5f
     add sp, byte 6                   ; 0x4f62
     mov ax, 0                        ; 0x4f65
     ret                              ; 0x4f68
 @..api_idx_007a_NHII.l2:
-    mov word [bp - 0x0002], 0        ; 0x4f69
+    mov word [bp - 2], 0             ; 0x4f69
 @..api_idx_007a_NHII.l3:
-    mov ax, word [bp - 0x0002]       ; 0x4f6e
+    mov ax, word [bp - 2]            ; 0x4f6e
     shl ax, 1                        ; 0x4f71
     mov bx, ax                       ; 0x4f73
     add bx, bp                       ; 0x4f75
-    mov word [bx - 0x001c], 1        ; 0x4f77
-    inc word [bp - 0x0002]           ; 0x4f7c
-    mov ax, word [bp - 0x0002]       ; 0x4f7f
+    mov word [bx - 0x1c], 1          ; 0x4f77
+    inc word [bp - 2]                ; 0x4f7c
+    mov ax, word [bp - 2]            ; 0x4f7f
     cmp ax, strict word 5            ; 0x4f82
     jle short @..api_idx_007a_NHII.l3 ; 0x4f85
-    mov word [bp - 0x0012], 0xffff   ; 0x4f87
+    mov word [bp - 0x12], 0xffff     ; 0x4f87
 @..api_idx_007a_NHII.l4:
     mov word [treasure_caption_on], 1 ; 0x4f8c
     mov ax, 0                        ; 0x4f92
@@ -55,7 +55,7 @@ api_idx_007a_NHII:
     call redraw_treasure_caption     ; 0x4f96
     pop cx                           ; 0x4f99
     mov word [treasure_caption_on], 0 ; 0x4f9a
-    lea ax, word [bp - 0x001c]       ; 0x4fa0
+    lea ax, word [bp - 0x1c]         ; 0x4fa0
     push ax                          ; 0x4fa3
     mov ax, 0                        ; 0x4fa4
     push ax                          ; 0x4fa7
@@ -83,10 +83,10 @@ api_idx_007a_NHII:
     push ax                          ; 0x4fd3
     call loc_IOMS                    ; 0x4fd4
     add sp, byte 0x1a                ; 0x4fd7
-    mov word [bp - 0x0008], ax       ; 0x4fda
-    lea ax, word [bp - 0x0078]       ; 0x4fdd
+    mov word [bp - 8], ax            ; 0x4fda
+    lea ax, word [bp - 0x78]         ; 0x4fdd
     push ax                          ; 0x4fe0
-    mov ax, word [bp - 0x0008]       ; 0x4fe1
+    mov ax, word [bp - 8]            ; 0x4fe1
     add ax, MSG_DISARM               ; 0x4fe4
     push ax                          ; 0x4fe7
     call load_message_string         ; 0x4fe8
@@ -106,11 +106,11 @@ api_idx_007a_NHII:
     mov ax, 0x52                     ; 0x5006
     push ax                          ; 0x5009
     push word [bss_9052]             ; 0x500a
-    lea ax, word [bp - 0x0078]       ; 0x500e
+    lea ax, word [bp - 0x78]         ; 0x500e
     push ax                          ; 0x5011
     call api_idx_0008_JJHR           ; 0x5012
     add sp, byte 0x12                ; 0x5015
-    mov ax, word [bp - 0x0008]       ; 0x5018
+    mov ax, word [bp - 8]            ; 0x5018
     jmp near @..api_idx_007a_NHII.l18 ; 0x501b
 jumptable_51bc_case_1:
     cmp word [mouse_active], byte 0  ; 0x501e
@@ -121,7 +121,7 @@ jumptable_51bc_case_1:
     pop cx                           ; 0x502c
 @..api_idx_007a_NHII.l5:
     call pick_party_member           ; 0x502d
-    mov word [bp - 0x0006], ax       ; 0x5030
+    mov word [bp - 6], ax            ; 0x5030
     cmp ax, strict word 0xffff       ; 0x5033
     je short @..api_idx_007a_NHII.l6 ; 0x5036
     push ax                          ; 0x5038
@@ -134,11 +134,11 @@ jumptable_51bc_case_1:
     push ax                          ; 0x504a
     call play_sound_effect           ; 0x504b
     pop cx                           ; 0x504e
-    mov bx, word [bp + 0x4]          ; 0x504f
+    mov bx, word [bp + 4]            ; 0x504f
     mov al, byte [bx + 0x34]         ; 0x5052
     sub ah, ah                       ; 0x5055
     push ax                          ; 0x5057
-    push word [bp - 0x0006]          ; 0x5058
+    push word [bp - 6]               ; 0x5058
     push word [bss_91fe]             ; 0x505b
     call api_idx_00b8_LTRM           ; 0x505f
     add sp, byte 6                   ; 0x5062
@@ -155,7 +155,7 @@ jumptable_51bc_case_0:
     pop cx                           ; 0x507a
 @..api_idx_007a_NHII.l7:
     call pick_party_member           ; 0x507b
-    mov word [bp - 0x0006], ax       ; 0x507e
+    mov word [bp - 6], ax            ; 0x507e
     cmp ax, strict word 0xffff       ; 0x5081
     jne short @..api_idx_007a_NHII.l8 ; 0x5084
     jmp near @..api_idx_007a_NHII.l11 ; 0x5086
@@ -171,24 +171,24 @@ jumptable_51bc_case_0:
     push ax                          ; 0x5098
     call redraw_treasure_caption     ; 0x5099
     pop cx                           ; 0x509c
-    mov bx, word [bp + 0x4]          ; 0x509d
+    mov bx, word [bp + 4]            ; 0x509d
     mov al, byte [bx + 0x34]         ; 0x50a0
     sub ah, ah                       ; 0x50a3
     push ax                          ; 0x50a5
-    push word [bp - 0x007a]          ; 0x50a6
+    push word [bp - 0x7a]            ; 0x50a6
     mov ax, 1                        ; 0x50a9
     push ax                          ; 0x50ac
     push ax                          ; 0x50ad
     mov ax, MSG_INSPECT              ; 0x50ae
     push ax                          ; 0x50b1
-    push word [bp - 0x0006]          ; 0x50b2
+    push word [bp - 6]               ; 0x50b2
     call api_idx_0084_IMVQ           ; 0x50b5
-    add sp, byte 0x0c                ; 0x50b8
-    mov word [bp - 0x0002], ax       ; 0x50bb
-    cmp word [bp - 0x0002], byte 0   ; 0x50be
+    add sp, byte 0xc                 ; 0x50b8
+    mov word [bp - 2], ax            ; 0x50bb
+    cmp word [bp - 2], byte 0        ; 0x50be
     jne short @..api_idx_007a_NHII.l10 ; 0x50c2
     mov word [glyph_painter], 1      ; 0x50c4
-    lea ax, word [bp - 0x0078]       ; 0x50ca
+    lea ax, word [bp - 0x78]         ; 0x50ca
     push ax                          ; 0x50cd
     mov ax, MSG_YOU_DISARMED_THE_TRAP ; 0x50ce
     push ax                          ; 0x50d1
@@ -199,25 +199,25 @@ jumptable_51bc_case_0:
     mov ax, 2                        ; 0x50dc
     push ax                          ; 0x50df
     push word [treasure_message_row] ; 0x50e0
-    lea ax, word [bp - 0x0078]       ; 0x50e4
+    lea ax, word [bp - 0x78]         ; 0x50e4
     push ax                          ; 0x50e7
     call show_treasure_message       ; 0x50e8
     add sp, byte 8                   ; 0x50eb
     mov ax, 0                        ; 0x50ee
     ret                              ; 0x50f1
 @..api_idx_007a_NHII.l10:
-    cmp word [bp - 0x0002], byte 1   ; 0x50f2
+    cmp word [bp - 2], byte 1        ; 0x50f2
     jne short @..api_idx_007a_NHII.l11 ; 0x50f6
     mov word [glyph_painter], 1      ; 0x50f8
     mov ax, 1                        ; 0x50fe
     push ax                          ; 0x5101
     call play_sound_effect           ; 0x5102
     pop cx                           ; 0x5105
-    mov bx, word [bp + 0x4]          ; 0x5106
+    mov bx, word [bp + 4]            ; 0x5106
     mov al, byte [bx + 0x34]         ; 0x5109
     sub ah, ah                       ; 0x510c
     push ax                          ; 0x510e
-    push word [bp - 0x0006]          ; 0x510f
+    push word [bp - 6]               ; 0x510f
     push word [bss_91fe]             ; 0x5112
     call api_idx_00b8_LTRM           ; 0x5116
     add sp, byte 6                   ; 0x5119
@@ -234,7 +234,7 @@ jumptable_51bc_case_2:
     pop cx                           ; 0x5131
 @..api_idx_007a_NHII.l12:
     call pick_party_member           ; 0x5132
-    mov word [bp - 0x0006], ax       ; 0x5135
+    mov word [bp - 6], ax            ; 0x5135
     cmp ax, strict word 0xffff       ; 0x5138
     jne short @..api_idx_007a_NHII.l13 ; 0x513b
     jmp near @..api_idx_007a_NHII.l17 ; 0x513d
@@ -245,20 +245,20 @@ jumptable_51bc_case_2:
     test ax, ax                      ; 0x5145
     je short @..api_idx_007a_NHII.l17 ; 0x5147
     mov word [bss_95e0], 0           ; 0x5149
-    mov bx, word [bp + 0x4]          ; 0x514f
+    mov bx, word [bp + 4]            ; 0x514f
     mov al, byte [bx + 0x34]         ; 0x5152
     sub ah, ah                       ; 0x5155
     mov word [bss_95de], ax          ; 0x5157
-    cmp word [bp - 0x0008], byte 2   ; 0x515a
+    cmp word [bp - 8], byte 2        ; 0x515a
     jne short @..api_idx_007a_NHII.l14 ; 0x515e
-    push word [bp - 0x0006]          ; 0x5160
+    push word [bp - 6]               ; 0x5160
     call cast_spell_from_dialog      ; 0x5163
     pop cx                           ; 0x5166
     jmp short @..api_idx_007a_NHII.l15 ; 0x5167
 @..api_idx_007a_NHII.l14:
-    cmp word [bp - 0x0008], byte 3   ; 0x5169
+    cmp word [bp - 8], byte 3        ; 0x5169
     jne short @..api_idx_007a_NHII.l15 ; 0x516d
-    push word [bp - 0x0006]          ; 0x516f
+    push word [bp - 6]               ; 0x516f
     call api_idx_0092_GSQH           ; 0x5172
     pop cx                           ; 0x5175
 @..api_idx_007a_NHII.l15:
@@ -275,11 +275,11 @@ jumptable_51bc_case_2:
     push ax                          ; 0x5197
     call play_sound_effect           ; 0x5198
     pop cx                           ; 0x519b
-    mov bx, word [bp + 0x4]          ; 0x519c
+    mov bx, word [bp + 4]            ; 0x519c
     mov al, byte [bx + 0x34]         ; 0x519f
     sub ah, ah                       ; 0x51a2
     push ax                          ; 0x51a4
-    push word [bp - 0x0006]          ; 0x51a5
+    push word [bp - 6]               ; 0x51a5
     push word [bss_91fe]             ; 0x51a8
     call api_idx_00b8_LTRM           ; 0x51ac
     add sp, byte 6                   ; 0x51af

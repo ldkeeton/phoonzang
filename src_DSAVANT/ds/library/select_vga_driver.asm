@@ -21,7 +21,7 @@ select_vga_driver:
     mov cx, 0x100                    ; 0x347c
     mov ax, 0x1012                   ; 0x347f
     int 0x10 ; BIOS video
-    mov word [bp - 0x0002], 1        ; 0x3484
+    mov word [bp - 2], 1             ; 0x3484
     mov bx, vga_drv_name - IMAGE_BASE ; 0x3489
-    mov word [bp - 0x0004], bx       ; 0x348c
+    mov word [bp - 4], bx            ; 0x348c
     ret                              ; 0x348f

@@ -7,7 +7,7 @@ claim_type7_object:
     mov bx, ax                       ; 0x04c2
     mov word [bx + adjacent_object_type], 0 ; 0x04c4
     push ax                          ; 0x04ca
-    mov cx, word [bp + 0x4]          ; 0x04cb
+    mov cx, word [bp + 4]            ; 0x04cb
     shl cx, 1                        ; 0x04ce
     mov ax, word [maze_tables]       ; 0x04d0
     add ax, cx                       ; 0x04d3
@@ -19,7 +19,7 @@ claim_type7_object:
     push ax                          ; 0x04e2
     push ax                          ; 0x04e3
     push ax                          ; 0x04e4
-    mov ax, word [bp + 0x4]          ; 0x04e5
+    mov ax, word [bp + 4]            ; 0x04e5
     shl ax, 1                        ; 0x04e8
     mov si, ax                       ; 0x04ea
     mov bx, word [maze_tables]       ; 0x04ec
@@ -27,13 +27,13 @@ claim_type7_object:
     mov ax, 0                        ; 0x04f4
     push ax                          ; 0x04f7
     push ax                          ; 0x04f8
-    push word [bp + 0x4]             ; 0x04f9
+    push word [bp + 4]               ; 0x04f9
     mov ax, 6                        ; 0x04fc
     push ax                          ; 0x04ff
     push word [game_state_arg]       ; 0x0500
     call api_idx_0004_PSJH           ; 0x0504
     add sp, byte 0x12                ; 0x0507
-    mov ax, word [bp + 0x4]          ; 0x050a
+    mov ax, word [bp + 4]            ; 0x050a
     shl ax, 1                        ; 0x050d
     mov si, ax                       ; 0x050f
     mov bx, word [maze_tables]       ; 0x0511
@@ -51,7 +51,7 @@ claim_type7_object:
     add sp, byte 6                   ; 0x052f
     mov ax, 0                        ; 0x0532
     push ax                          ; 0x0535
-    mov ax, word [bp + 0x4]          ; 0x0536
+    mov ax, word [bp + 4]            ; 0x0536
     shl ax, 1                        ; 0x0539
     mov si, ax                       ; 0x053b
     mov bx, word [maze_tables]       ; 0x053d
@@ -63,7 +63,7 @@ claim_type7_object:
     push ax                          ; 0x054e
     call set_bitmap_bit              ; 0x054f
     add sp, byte 6                   ; 0x0552
-    mov ax, word [bp + 0x4]          ; 0x0555
+    mov ax, word [bp + 4]            ; 0x0555
     inc ax                           ; 0x0558
     mov word [party_region], ax      ; 0x0559
 @..claim_type7_object.l1:

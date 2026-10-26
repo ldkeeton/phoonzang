@@ -29,7 +29,7 @@ set_rgb:
     sub si, byte 2                   ; 0x322c
     loop @..set_rgb.l2               ; 0x322f
 @..set_rgb.l3:
-    mov al, byte [cs:si + 0x1]       ; 0x3231
+    mov al, byte [cs:si + 1]         ; 0x3231
     mov byte [cs:bx], al             ; 0x3235
 @..set_rgb.l4:
     pop di                           ; 0x3238

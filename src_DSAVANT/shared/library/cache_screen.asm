@@ -23,12 +23,12 @@ cache_screen:
     call loc_KLNH
     jmp near cache_screen_restore_and_return
 @..cache_screen.l1:
-    mov word [bp - 0x0002], ax
+    mov word [bp - 2], ax
     mov ax, word [bp + 0x10]
     or ax, ax
     je short @..cache_screen.l2
     mov ax, word [bp + 0xe]
-    mov word [bp - 0x0004], ax
+    mov word [bp - 4], ax
     call dos_file_loc_MUHV
     jmp near cache_screen_restore_and_return
 @..cache_screen.l2:
@@ -49,11 +49,11 @@ cache_screen:
     shl ax, cl
     mov bx, ems_blocks - IMAGE_BASE
     add bx, ax
-    mov word [bp - 0x0002], bx
+    mov word [bp - 2], bx
     mov ax, word [cs:ems_paras_used - IMAGE_BASE]
     mov word [cs:bx], ax
     mov ax, 0xfa0
-    mov word [cs:bx + 0x2], ax
+    mov word [cs:bx + 2], ax
     mov di, word [cs:ems_paras_used - IMAGE_BASE]
     add word [cs:ems_paras_used - IMAGE_BASE], ax
     mov ax, word [cs:ems_paras_used - IMAGE_BASE]
@@ -62,7 +62,7 @@ cache_screen:
     jmp near cache_screen_out_of_ems
 @..cache_screen.l4:
     mov ax, 0xfa00
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     mov ax, di
     mov cl, 0xa
     shr ax, cl
@@ -80,7 +80,7 @@ cache_screen:
     mov ax, word [cs:ems_cur_page - IMAGE_BASE]
     call ems_map_pages
 @..cache_screen.l6:
-    mov ax, word [bp - 0x0006]
+    mov ax, word [bp - 6]
     or ax, ax
     je short cache_screen_restore_and_return
     mov cx, 0x1000
@@ -89,7 +89,7 @@ cache_screen:
     mov cx, ax
 @..cache_screen.l7:
     sub ax, cx
-    mov word [bp - 0x0006], ax
+    mov word [bp - 6], ax
     mov ax, word [cs:ems_frame_seg - IMAGE_BASE]
     mov es, ax
     mov ax, word [cs:scratch_buf_seg - IMAGE_BASE]

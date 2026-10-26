@@ -11,11 +11,11 @@ claim_cell:
     shl cx, 1                        ; 0x8a2a
     add ax, cx                       ; 0x8a2c
     add ax, word [party_cell_x]      ; 0x8a2e
-    mov word [bp - 0x0002], ax       ; 0x8a32
+    mov word [bp - 2], ax            ; 0x8a32
     mov ax, 6                        ; 0x8a35
     push ax                          ; 0x8a38
     push ax                          ; 0x8a39
-    push word [bp - 0x0002]          ; 0x8a3a
+    push word [bp - 2]               ; 0x8a3a
     mov ax, word [maze_data]         ; 0x8a3d
     add ax, 0x4b0                    ; 0x8a40
     push ax                          ; 0x8a43
@@ -24,7 +24,7 @@ claim_cell:
     push word [party_tag]            ; 0x8a4a
     mov ax, 2                        ; 0x8a4e
     push ax                          ; 0x8a51
-    push word [bp - 0x0002]          ; 0x8a52
+    push word [bp - 2]               ; 0x8a52
     mov ax, word [maze_data]         ; 0x8a55
     add ax, 0x7b0                    ; 0x8a58
     push ax                          ; 0x8a5b
@@ -60,7 +60,7 @@ claim_cell:
     push ax                          ; 0x8aa2
     push word [party_tag]            ; 0x8aa3
     call set_cell_wall               ; 0x8aa7
-    add sp, byte 0x0a                ; 0x8aaa
+    add sp, byte 0xa                 ; 0x8aaa
     mov ax, 0                        ; 0x8aad
     push ax                          ; 0x8ab0
     push ax                          ; 0x8ab1
@@ -78,7 +78,7 @@ claim_cell:
     push ax                          ; 0x8ad1
     mov ax, 6                        ; 0x8ad2
     push ax                          ; 0x8ad5
-    push word [bp - 0x0002]          ; 0x8ad6
+    push word [bp - 2]               ; 0x8ad6
     mov ax, word [maze_data]         ; 0x8ad9
     add ax, 0x4b0                    ; 0x8adc
     push ax                          ; 0x8adf
@@ -88,7 +88,7 @@ claim_cell:
     push ax                          ; 0x8ae9
     mov ax, 2                        ; 0x8aea
     push ax                          ; 0x8aed
-    push word [bp - 0x0002]          ; 0x8aee
+    push word [bp - 2]               ; 0x8aee
     mov ax, word [maze_data]         ; 0x8af1
     add ax, 0x7b0                    ; 0x8af4
     push ax                          ; 0x8af7
@@ -103,7 +103,7 @@ claim_cell:
     shl ax, 1                        ; 0x8b0c
     add ax, strict word 8            ; 0x8b0e
     push ax                          ; 0x8b11
-    mov cx, word [bp + 0x4]          ; 0x8b12
+    mov cx, word [bp + 4]            ; 0x8b12
     shl cx, 1                        ; 0x8b15
     mov ax, word [maze_tables]       ; 0x8b17
     add ax, cx                       ; 0x8b1a
@@ -115,7 +115,7 @@ claim_cell:
     push ax                          ; 0x8b29
     push ax                          ; 0x8b2a
     push ax                          ; 0x8b2b
-    mov ax, word [bp + 0x4]          ; 0x8b2c
+    mov ax, word [bp + 4]            ; 0x8b2c
     shl ax, 1                        ; 0x8b2f
     mov si, ax                       ; 0x8b31
     mov bx, word [maze_tables]       ; 0x8b33
@@ -123,7 +123,7 @@ claim_cell:
     mov ax, 0                        ; 0x8b3b
     push ax                          ; 0x8b3e
     push ax                          ; 0x8b3f
-    push word [bp + 0x4]             ; 0x8b40
+    push word [bp + 4]               ; 0x8b40
     mov ax, 6                        ; 0x8b43
     push ax                          ; 0x8b46
     push word [game_state_arg]       ; 0x8b47

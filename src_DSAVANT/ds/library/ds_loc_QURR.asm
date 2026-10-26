@@ -9,11 +9,11 @@ ds_loc_QURR:
     push di                          ; 0x417c
     mov ax, ds                       ; 0x417d
     mov es, ax                       ; 0x417f
-    mov ax, word [bp + 0x6]          ; 0x4181
+    mov ax, word [bp + 6]            ; 0x4181
     mov ah, al                       ; 0x4184
     mov al, 0xff                     ; 0x4186
     push ax                          ; 0x4188
-    push word [bp + 0x4]             ; 0x4189
+    push word [bp + 4]               ; 0x4189
     xor ax, ax                       ; 0x418c
     push ax                          ; 0x418e
     push ax                          ; 0x418f
@@ -21,7 +21,7 @@ ds_loc_QURR:
     push ax                          ; 0x4191
     push ax                          ; 0x4192
     call far [cs:cseg_2f7b - IMAGE_BASE] ; 0x4193
-    add sp, byte 0x0e                ; 0x4198
+    add sp, byte 0xe                 ; 0x4198
     pop di                           ; 0x419b
     pop si                           ; 0x419c
     pop es                           ; 0x419d

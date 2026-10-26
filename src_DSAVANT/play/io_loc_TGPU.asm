@@ -12,7 +12,7 @@ __zinsn_08be:
     mov ax, 0                        ; 0x08be
     mov ds, ax                       ; 0x08c1
 __zinsn_08c3:
-    mov al, byte [0x0000]            ; 0x08c3
+    mov al, byte [0]                 ; 0x08c3
     mov dx, 0x389                    ; 0x08c6
     mov bx, sample_count_table - IMAGE_BASE ; 0x08c9
     cs xlatb                         ; 0x08cc

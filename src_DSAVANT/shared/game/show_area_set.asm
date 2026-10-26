@@ -2,7 +2,7 @@
 show_area_set:
     mov ax, 0
     call aztec_csav
-    mov ax, word [bp + 0x4]
+    mov ax, word [bp + 4]
     jmp near @..show_area_set.l5
 @..show_area_set.l1:
     mov ax, 0x9f

@@ -26,7 +26,7 @@ ds_app_string_KVNI: ; Aztec csav frame=0x0054
     pop cx                           ; 0x0c40
     add ax, strict word 0x4b         ; 0x0c41
     mov word [code_index_4], ax      ; 0x0c44
-    lea ax, word [bp - 0x0054]       ; 0x0c47
+    lea ax, word [bp - 0x54]         ; 0x0c47
     push ax                          ; 0x0c4a
     mov al, byte [code_characters]   ; 0x0c4b
     sub ah, ah                       ; 0x0c4e
@@ -34,39 +34,39 @@ ds_app_string_KVNI: ; Aztec csav frame=0x0054
     push ax                          ; 0x0c53
     call load_message_string         ; 0x0c54
     add sp, byte 4                   ; 0x0c57
-    mov al, byte [bp - 0x0054]       ; 0x0c5a
+    mov al, byte [bp - 0x54]         ; 0x0c5a
     mov bx, word [code_index_1]      ; 0x0c5d
     mov byte [bx + code_characters], al ; 0x0c61
-    mov al, byte [bp - 0x0053]       ; 0x0c65
+    mov al, byte [bp - 0x53]         ; 0x0c65
     mov bx, word [code_index_2]      ; 0x0c68
     mov byte [bx + code_characters], al ; 0x0c6c
-    mov al, byte [bp - 0x0052]       ; 0x0c70
+    mov al, byte [bp - 0x52]         ; 0x0c70
     mov bx, word [code_index_3]      ; 0x0c73
     mov byte [bx + code_characters], al ; 0x0c77
-    mov al, byte [bp - 0x0051]       ; 0x0c7b
+    mov al, byte [bp - 0x51]         ; 0x0c7b
     mov bx, word [code_index_4]      ; 0x0c7e
     mov byte [bx + code_characters], al ; 0x0c82
-    mov word [bp - 0x0002], 0        ; 0x0c86
-    lea ax, word [bp - 0x0054]       ; 0x0c8b
+    mov word [bp - 2], 0             ; 0x0c86
+    lea ax, word [bp - 0x54]         ; 0x0c8b
     push ax                          ; 0x0c8e
     call aztec_strlen                ; 0x0c8f
     pop cx                           ; 0x0c92
     add ax, strict word 0xfffc       ; 0x0c93
-    mov word [bp - 0x0004], ax       ; 0x0c96
+    mov word [bp - 4], ax            ; 0x0c96
     mov word [answer_length], ax     ; 0x0c99
 @..ds_app_string_KVNI.l1:
-    cmp word [bp - 0x0004], byte 0   ; 0x0c9c
+    cmp word [bp - 4], byte 0        ; 0x0c9c
     jle short @..ds_app_string_KVNI.l2 ; 0x0ca0
-    dec word [bp - 0x0004]           ; 0x0ca2
-    mov bx, word [bp - 0x0004]       ; 0x0ca5
+    dec word [bp - 4]                ; 0x0ca2
+    mov bx, word [bp - 4]            ; 0x0ca5
     add bx, bp                       ; 0x0ca8
-    mov al, byte [bx - 0x0050]       ; 0x0caa
+    mov al, byte [bx - 0x50]         ; 0x0caa
     sub ah, ah                       ; 0x0cad
     mov cx, 0x25                     ; 0x0caf
     imul cx                          ; 0x0cb2
     push ax                          ; 0x0cb4
     mov ax, 0x11                     ; 0x0cb5
-    imul word [bp - 0x0004]          ; 0x0cb8
+    imul word [bp - 4]               ; 0x0cb8
     mov cx, ax                       ; 0x0cbb
     pop ax                           ; 0x0cbd
     add ax, cx                       ; 0x0cbe
@@ -74,19 +74,19 @@ ds_app_string_KVNI: ; Aztec csav frame=0x0054
     cwd                              ; 0x0cc3
     idiv cx                          ; 0x0cc4
     mov ax, dx                       ; 0x0cc6
-    mov bx, word [bp - 0x0004]       ; 0x0cc8
+    mov bx, word [bp - 4]            ; 0x0cc8
     mov byte [bx + code_table + 0x1a], al ; 0x0ccb
     add bx, bp                       ; 0x0ccf
-    mov al, byte [bx - 0x0050]       ; 0x0cd1
+    mov al, byte [bx - 0x50]         ; 0x0cd1
     sub ah, ah                       ; 0x0cd4
-    mov bx, word [bp - 0x0004]       ; 0x0cd6
+    mov bx, word [bp - 4]            ; 0x0cd6
     imul bx                          ; 0x0cd9
-    add ax, word [bp - 0x0002]       ; 0x0cdb
+    add ax, word [bp - 2]            ; 0x0cdb
     cwd                              ; 0x0cde
     idiv cx                          ; 0x0cdf
-    mov word [bp - 0x0002], dx       ; 0x0ce1
+    mov word [bp - 2], dx            ; 0x0ce1
     jmp short @..ds_app_string_KVNI.l1 ; 0x0ce4
 @..ds_app_string_KVNI.l2:
-    mov al, byte [bp - 0x0002]       ; 0x0ce6
+    mov al, byte [bp - 2]            ; 0x0ce6
     mov byte [code_table], al        ; 0x0ce9
     ret                              ; 0x0cec

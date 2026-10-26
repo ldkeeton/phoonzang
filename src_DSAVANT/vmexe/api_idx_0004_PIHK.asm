@@ -2,7 +2,7 @@
 api_idx_0004_PIHK:
     mov ax, 0xfffc                   ; 0x1c5e
     call aztec_csav                  ; 0x1c61
-    cmp word [bp + 0x4], byte 0      ; 0x1c64
+    cmp word [bp + 4], byte 0        ; 0x1c64
     jne short @..api_idx_0004_PIHK.l1 ; 0x1c68
     jmp near @..api_idx_0004_PIHK.l5 ; 0x1c6a
 @..api_idx_0004_PIHK.l1:
@@ -19,7 +19,7 @@ api_idx_0004_PIHK:
     add word [bx + party_records + pc_rec.f_0010], byte 1 ; 0x1c8b
     adc word [bx + party_records + pc_rec.f_0012], byte 0 ; 0x1c90
 @..api_idx_0004_PIHK.l2:
-    mov ax, word [bp + 0x4]          ; 0x1c95
+    mov ax, word [bp + 4]            ; 0x1c95
     shl ax, 1                        ; 0x1c98
     mov bx, ax                       ; 0x1c9a
     mov bx, word [bx + party_char_ext] ; 0x1c9c
@@ -37,7 +37,7 @@ api_idx_0004_PIHK:
     call set_bitmap_bit              ; 0x1cba
     add sp, byte 6                   ; 0x1cbd
 @..api_idx_0004_PIHK.l3:
-    mov ax, word [bp + 0x4]          ; 0x1cc0
+    mov ax, word [bp + 4]            ; 0x1cc0
     shl ax, 1                        ; 0x1cc3
     mov bx, ax                       ; 0x1cc5
     mov bx, word [bx + party_char_ext] ; 0x1cc7
@@ -49,7 +49,7 @@ api_idx_0004_PIHK:
     imul cx                          ; 0x1cda
     mov bx, ax                       ; 0x1cdc
     mov byte [bx + slot_records + slot_record.flag], 0 ; 0x1cde
-    mov ax, word [bp + 0x4]          ; 0x1ce3
+    mov ax, word [bp + 4]            ; 0x1ce3
     shl ax, 1                        ; 0x1ce6
     mov bx, ax                       ; 0x1ce8
     mov bx, word [bx + party_char_ext] ; 0x1cea
@@ -58,9 +58,9 @@ api_idx_0004_PIHK:
     mov word [selected_item_slot], ax ; 0x1cf3
 @..api_idx_0004_PIHK.l4:
     mov ax, 0x2c                     ; 0x1cf6
-    imul word [bp + 0x6]             ; 0x1cf9
+    imul word [bp + 6]               ; 0x1cf9
     mov si, ax                       ; 0x1cfc
-    mov ax, word [bp + 0x4]          ; 0x1cfe
+    mov ax, word [bp + 4]            ; 0x1cfe
     shl ax, 1                        ; 0x1d01
     mov bx, ax                       ; 0x1d03
     mov bx, word [bx + party_char]   ; 0x1d05
@@ -71,15 +71,15 @@ api_idx_0004_PIHK:
     mov cx, 0xa                      ; 0x1d13
     cwd                              ; 0x1d16
     idiv cx                          ; 0x1d17
-    mov word [bp - 0x0002], ax       ; 0x1d19
+    mov word [bp - 2], ax            ; 0x1d19
     mov al, byte [bx + si + 0x2a]    ; 0x1d1c
     cbw                              ; 0x1d1f
     cwd                              ; 0x1d20
     idiv cx                          ; 0x1d21
-    mov word [bp - 0x0004], dx       ; 0x1d23
+    mov word [bp - 4], dx            ; 0x1d23
     mov ax, 6                        ; 0x1d26
-    imul word [bp - 0x0002]          ; 0x1d29
-    mov cx, word [bp - 0x0004]       ; 0x1d2c
+    imul word [bp - 2]               ; 0x1d29
+    mov cx, word [bp - 4]            ; 0x1d2c
     shl cx, 1                        ; 0x1d2f
     add ax, cx                       ; 0x1d31
     mov bx, ax                       ; 0x1d33
@@ -87,81 +87,81 @@ api_idx_0004_PIHK:
     mov word [bss_8320], 0           ; 0x1d3b
     call run_party_screen_animation  ; 0x1d41
     mov ax, 6                        ; 0x1d44
-    imul word [bp - 0x0002]          ; 0x1d47
-    mov cx, word [bp - 0x0004]       ; 0x1d4a
+    imul word [bp - 2]               ; 0x1d47
+    mov cx, word [bp - 4]            ; 0x1d4a
     shl cx, 1                        ; 0x1d4d
     add ax, cx                       ; 0x1d4f
     mov bx, ax                       ; 0x1d51
     mov word [bx + cell_slot_ref], 0 ; 0x1d53
 @..api_idx_0004_PIHK.l5:
     mov ax, 0x2c                     ; 0x1d59
-    imul word [bp + 0x6]             ; 0x1d5c
+    imul word [bp + 6]               ; 0x1d5c
     mov si, ax                       ; 0x1d5f
-    mov ax, word [bp + 0x4]          ; 0x1d61
+    mov ax, word [bp + 4]            ; 0x1d61
     shl ax, 1                        ; 0x1d64
     mov bx, ax                       ; 0x1d66
     mov bx, word [bx + party_char]   ; 0x1d68
     mov byte [bx + si + member_rec.item_cell], 0xff ; 0x1d6c
     mov ax, 0x2c                     ; 0x1d70
-    imul word [bp + 0x6]             ; 0x1d73
+    imul word [bp + 6]               ; 0x1d73
     mov si, ax                       ; 0x1d76
-    mov ax, word [bp + 0x4]          ; 0x1d78
+    mov ax, word [bp + 4]            ; 0x1d78
     shl ax, 1                        ; 0x1d7b
     mov bx, ax                       ; 0x1d7d
     mov bx, word [bx + party_char]   ; 0x1d7f
     mov byte [bx + si + member_rec.item_state], 3 ; 0x1d83
     mov ax, 0x2c                     ; 0x1d87
-    imul word [bp + 0x6]             ; 0x1d8a
+    imul word [bp + 6]               ; 0x1d8a
     mov si, ax                       ; 0x1d8d
-    mov ax, word [bp + 0x4]          ; 0x1d8f
+    mov ax, word [bp + 4]            ; 0x1d8f
     shl ax, 1                        ; 0x1d92
     mov bx, ax                       ; 0x1d94
     mov bx, word [bx + party_char]   ; 0x1d96
     mov word [bx + si + member_rec.item_charges], 0 ; 0x1d9a
     mov ax, 0x2c                     ; 0x1d9f
-    imul word [bp + 0x6]             ; 0x1da2
+    imul word [bp + 6]               ; 0x1da2
     mov si, ax                       ; 0x1da5
-    mov ax, word [bp + 0x4]          ; 0x1da7
+    mov ax, word [bp + 4]            ; 0x1da7
     shl ax, 1                        ; 0x1daa
     mov bx, ax                       ; 0x1dac
     mov bx, word [bx + party_char]   ; 0x1dae
     mov word [bx + si + member_rec.item_timer], 0 ; 0x1db2
     mov ax, 0x2c                     ; 0x1db7
-    imul word [bp + 0x6]             ; 0x1dba
+    imul word [bp + 6]               ; 0x1dba
     mov si, ax                       ; 0x1dbd
-    mov ax, word [bp + 0x4]          ; 0x1dbf
+    mov ax, word [bp + 4]            ; 0x1dbf
     shl ax, 1                        ; 0x1dc2
     mov bx, ax                       ; 0x1dc4
     mov bx, word [bx + party_char]   ; 0x1dc6
     mov byte [bx + si + member_rec.item_countdown], 0 ; 0x1dca
     mov ax, 0x2c                     ; 0x1dce
-    imul word [bp + 0x6]             ; 0x1dd1
+    imul word [bp + 6]               ; 0x1dd1
     mov si, ax                       ; 0x1dd4
-    mov ax, word [bp + 0x4]          ; 0x1dd6
+    mov ax, word [bp + 4]            ; 0x1dd6
     shl ax, 1                        ; 0x1dd9
     mov bx, ax                       ; 0x1ddb
     mov bx, word [bx + party_char]   ; 0x1ddd
     mov byte [bx + si + member_rec.f_0025], 0 ; 0x1de1
-    mov word [bp - 0x0002], 0        ; 0x1de5
+    mov word [bp - 2], 0             ; 0x1de5
 @..api_idx_0004_PIHK.l6:
     mov ax, 0x2c                     ; 0x1dea
-    imul word [bp + 0x6]             ; 0x1ded
-    add ax, word [bp - 0x0002]       ; 0x1df0
+    imul word [bp + 6]               ; 0x1ded
+    add ax, word [bp - 2]            ; 0x1df0
     mov si, ax                       ; 0x1df3
-    mov ax, word [bp + 0x4]          ; 0x1df5
+    mov ax, word [bp + 4]            ; 0x1df5
     shl ax, 1                        ; 0x1df8
     mov bx, ax                       ; 0x1dfa
     mov bx, word [bx + party_char]   ; 0x1dfc
     mov byte [bx + si + member_rec.f_0018], 0 ; 0x1e00
-    inc word [bp - 0x0002]           ; 0x1e04
-    mov ax, word [bp - 0x0002]       ; 0x1e07
+    inc word [bp - 2]                ; 0x1e04
+    mov ax, word [bp - 2]            ; 0x1e07
     cmp ax, strict word 4            ; 0x1e0a
     jl short @..api_idx_0004_PIHK.l6 ; 0x1e0d
-    cmp word [bp + 0x4], byte 1      ; 0x1e0f
+    cmp word [bp + 4], byte 1        ; 0x1e0f
     jl short @..api_idx_0004_PIHK.l7 ; 0x1e13
-    cmp word [bp + 0x4], byte 5      ; 0x1e15
+    cmp word [bp + 4], byte 5        ; 0x1e15
     jg short @..api_idx_0004_PIHK.l7 ; 0x1e19
-    mov ax, word [bp + 0x4]          ; 0x1e1b
+    mov ax, word [bp + 4]            ; 0x1e1b
     shl ax, 1                        ; 0x1e1e
     mov bx, ax                       ; 0x1e20
     mov bx, word [bx + party_char_ext] ; 0x1e22

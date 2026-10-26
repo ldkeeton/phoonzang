@@ -11,12 +11,12 @@ draw_title_banner:
     add sp, byte 8
     cmp word [banner_offset], byte 0
     jle short @..draw_title_banner.l1
-    mov byte [bp - 0x000a], 1
-    mov byte [bp - 0x0009], 0
+    mov byte [bp - 0xa], 1
+    mov byte [bp - 9], 0
     mov ax, 0
     push ax
     push ax
-    lea ax, word [bp - 0x000a]
+    lea ax, word [bp - 0xa]
     push ax
     mov ax, 0
     push ax
@@ -41,16 +41,16 @@ draw_title_banner:
     mov ax, 5
     cmp word [banner_plain_flag], byte 0
     jne short @..draw_title_banner.l2
-    mov ax, word [bp + 0x4]
+    mov ax, word [bp + 4]
     inc ax
     inc ax
 @..draw_title_banner.l2:
-    mov byte [bp - 0x000a], al
-    mov byte [bp - 0x0009], 0
+    mov byte [bp - 0xa], al
+    mov byte [bp - 9], 0
     mov ax, 0
     push ax
     push ax
-    lea ax, word [bp - 0x000a]
+    lea ax, word [bp - 0xa]
     push ax
     mov ax, 0
     push ax

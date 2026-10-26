@@ -23,14 +23,14 @@ loc_MVHP:
     cwd                              ; 0x6b86
     les bx, word [tick_counter_ptr]  ; 0x6b87
     mov cx, word [es:bx]             ; 0x6b8b
-    mov bx, word [es:bx + 0x2]       ; 0x6b8e
+    mov bx, word [es:bx + 2]         ; 0x6b8e
     add ax, cx                       ; 0x6b92
     adc dx, bx                       ; 0x6b94
     add ax, strict word 0x24         ; 0x6b96
     adc dx, byte 0                   ; 0x6b99
     mov word [bss_919c], dx          ; 0x6b9c
     mov word [bss_919a], ax          ; 0x6ba0
-    cmp word [bp + 0x4], byte 0      ; 0x6ba3
+    cmp word [bp + 4], byte 0        ; 0x6ba3
     je short @..loc_MVHP.l3          ; 0x6ba7
     mov ax, word [message_delay]     ; 0x6ba9
     cmp byte [no_dissolve], 0        ; 0x6bac

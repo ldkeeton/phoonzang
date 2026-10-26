@@ -2,7 +2,7 @@
 api_idx_000c_JRTV:
     mov ax, 0xfff4                   ; 0x037b
     call aztec_csav                  ; 0x037e
-    mov ax, word [bp + 0x4]          ; 0x0381
+    mov ax, word [bp + 4]            ; 0x0381
     mov cx, 3                        ; 0x0384
     cwd                              ; 0x0387
     idiv cx                          ; 0x0388
@@ -10,22 +10,22 @@ api_idx_000c_JRTV:
     mov cx, 0x32                     ; 0x038c
     imul cx                          ; 0x038f
     add ax, strict word 4            ; 0x0391
-    mov word [bp - 0x0006], ax       ; 0x0394
-    mov ax, word [bp + 0x4]          ; 0x0397
+    mov word [bp - 6], ax            ; 0x0394
+    mov ax, word [bp + 4]            ; 0x0397
     mov cx, 3                        ; 0x039a
     cwd                              ; 0x039d
     idiv cx                          ; 0x039e
     mov cx, 0x27                     ; 0x03a0
     imul cx                          ; 0x03a3
     add ax, strict word 0x70         ; 0x03a5
-    mov word [bp - 0x0008], ax       ; 0x03a8
+    mov word [bp - 8], ax            ; 0x03a8
     push ax                          ; 0x03ab
-    push word [bp - 0x0006]          ; 0x03ac
+    push word [bp - 6]               ; 0x03ac
     call gfx_set_text_pos            ; 0x03af
     add sp, byte 4                   ; 0x03b2
     mov ax, 5                        ; 0x03b5
     push ax                          ; 0x03b8
-    mov ax, word [bp + 0x4]          ; 0x03b9
+    mov ax, word [bp + 4]            ; 0x03b9
     shl ax, 1                        ; 0x03bc
     mov bx, ax                       ; 0x03be
     mov al, byte [bx + member_icon]  ; 0x03c0
@@ -33,33 +33,33 @@ api_idx_000c_JRTV:
     push ax                          ; 0x03c6
     call draw_font_glyph             ; 0x03c7
     add sp, byte 4                   ; 0x03ca
-    cmp word [bp + 0x8], byte 0      ; 0x03cd
+    cmp word [bp + 8], byte 0        ; 0x03cd
     je short @..api_idx_000c_JRTV.l1 ; 0x03d1
     mov ax, 0x18                     ; 0x03d3
     push ax                          ; 0x03d6
-    mov ax, word [bp - 0x0008]       ; 0x03d7
+    mov ax, word [bp - 8]            ; 0x03d7
     add ax, strict word 0x24         ; 0x03da
     push ax                          ; 0x03dd
     mov ax, 0x248                    ; 0x03de
-    imul word [bp + 0x4]             ; 0x03e1
+    imul word [bp + 4]               ; 0x03e1
     add ax, party_records            ; 0x03e4
     push ax                          ; 0x03e7
     call aztec_strlen                ; 0x03e8
     pop cx                           ; 0x03eb
     mov cx, 6                        ; 0x03ec
     imul cx                          ; 0x03ef
-    add ax, word [bp - 0x0006]       ; 0x03f1
+    add ax, word [bp - 6]            ; 0x03f1
     inc ax                           ; 0x03f4
     inc ax                           ; 0x03f5
     push ax                          ; 0x03f6
-    mov ax, word [bp - 0x0008]       ; 0x03f7
+    mov ax, word [bp - 8]            ; 0x03f7
     add ax, strict word 0x20         ; 0x03fa
     push ax                          ; 0x03fd
-    mov ax, word [bp - 0x0006]       ; 0x03fe
+    mov ax, word [bp - 6]            ; 0x03fe
     add ax, strict word 4            ; 0x0401
     push ax                          ; 0x0404
     call gfx_fill_area               ; 0x0405
-    add sp, byte 0x0a                ; 0x0408
+    add sp, byte 0xa                 ; 0x0408
 @..api_idx_000c_JRTV.l1:
     mov ax, 0                        ; 0x040b
     push ax                          ; 0x040e
@@ -67,10 +67,10 @@ api_idx_000c_JRTV:
     push ax                          ; 0x0412
     call gfx_set_text_color          ; 0x0413
     add sp, byte 4                   ; 0x0416
-    mov ax, word [bp - 0x0008]       ; 0x0419
+    mov ax, word [bp - 8]            ; 0x0419
     add ax, strict word 0x20         ; 0x041c
     push ax                          ; 0x041f
-    mov ax, word [bp - 0x0006]       ; 0x0420
+    mov ax, word [bp - 6]            ; 0x0420
     add ax, strict word 4            ; 0x0423
     push ax                          ; 0x0426
     call gfx_set_text_pos            ; 0x0427
@@ -78,7 +78,7 @@ api_idx_000c_JRTV:
     mov ax, 0                        ; 0x042d
     push ax                          ; 0x0430
     mov ax, 0x248                    ; 0x0431
-    imul word [bp + 0x4]             ; 0x0434
+    imul word [bp + 4]               ; 0x0434
     add ax, party_records            ; 0x0437
     push ax                          ; 0x043a
     call draw_text_glyphs            ; 0x043b
@@ -86,7 +86,7 @@ api_idx_000c_JRTV:
     mov ax, 0x1b                     ; 0x0441
     push ax                          ; 0x0444
     mov ax, 0x248                    ; 0x0445
-    imul word [bp + 0x4]             ; 0x0448
+    imul word [bp + 4]               ; 0x0448
     mov bx, ax                       ; 0x044b
     push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x044d
     push word [bx + party_records + pc_rec.pair_a] ; 0x0451
@@ -94,18 +94,18 @@ api_idx_000c_JRTV:
     push ax                          ; 0x0458
     mov ax, 3                        ; 0x0459
     push ax                          ; 0x045c
-    mov ax, word [bp - 0x0008]       ; 0x045d
+    mov ax, word [bp - 8]            ; 0x045d
     add ax, strict word 7            ; 0x0460
     push ax                          ; 0x0463
-    mov ax, word [bp - 0x0006]       ; 0x0464
+    mov ax, word [bp - 6]            ; 0x0464
     add ax, strict word 0x22         ; 0x0467
     push ax                          ; 0x046a
     call draw_power_bar              ; 0x046b
-    add sp, byte 0x0e                ; 0x046e
+    add sp, byte 0xe                 ; 0x046e
     mov ax, 0x56                     ; 0x0471
     push ax                          ; 0x0474
     mov ax, 0x248                    ; 0x0475
-    imul word [bp + 0x4]             ; 0x0478
+    imul word [bp + 4]               ; 0x0478
     mov bx, ax                       ; 0x047b
     push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x047d
     push word [bx + party_records + pc_rec.pair_b] ; 0x0481
@@ -113,59 +113,59 @@ api_idx_000c_JRTV:
     push ax                          ; 0x0488
     mov ax, 3                        ; 0x0489
     push ax                          ; 0x048c
-    mov ax, word [bp - 0x0008]       ; 0x048d
+    mov ax, word [bp - 8]            ; 0x048d
     add ax, strict word 7            ; 0x0490
     push ax                          ; 0x0493
-    mov ax, word [bp - 0x0006]       ; 0x0494
+    mov ax, word [bp - 6]            ; 0x0494
     add ax, strict word 0x26         ; 0x0497
     push ax                          ; 0x049a
     call draw_power_bar              ; 0x049b
-    add sp, byte 0x0e                ; 0x049e
-    mov word [bp - 0x000a], 0        ; 0x04a1
-    mov word [bp - 0x000c], 0        ; 0x04a6
-    mov word [bp - 0x0002], 0        ; 0x04ab
+    add sp, byte 0xe                 ; 0x049e
+    mov word [bp - 0xa], 0           ; 0x04a1
+    mov word [bp - 0xc], 0           ; 0x04a6
+    mov word [bp - 2], 0             ; 0x04ab
 @..api_idx_000c_JRTV.l2:
     mov ax, 0x248                    ; 0x04b0
-    imul word [bp + 0x4]             ; 0x04b3
-    mov cx, word [bp - 0x0002]       ; 0x04b6
+    imul word [bp + 4]               ; 0x04b3
+    mov cx, word [bp - 2]            ; 0x04b6
     shl cx, 1                        ; 0x04b9
     shl cx, 1                        ; 0x04bb
     add ax, cx                       ; 0x04bd
     mov bx, ax                       ; 0x04bf
     mov ax, word [bx + party_records + pc_rec.realm_points] ; 0x04c1
-    add word [bp - 0x000a], ax       ; 0x04c5
+    add word [bp - 0xa], ax          ; 0x04c5
     mov ax, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x04c8
-    add word [bp - 0x000c], ax       ; 0x04cc
-    inc word [bp - 0x0002]           ; 0x04cf
-    mov ax, word [bp - 0x0002]       ; 0x04d2
+    add word [bp - 0xc], ax          ; 0x04cc
+    inc word [bp - 2]                ; 0x04cf
+    mov ax, word [bp - 2]            ; 0x04d2
     cmp ax, strict word 6            ; 0x04d5
     jl short @..api_idx_000c_JRTV.l2 ; 0x04d8
     mov ax, 0x98                     ; 0x04da
     push ax                          ; 0x04dd
-    push word [bp - 0x000c]          ; 0x04de
-    push word [bp - 0x000a]          ; 0x04e1
+    push word [bp - 0xc]             ; 0x04de
+    push word [bp - 0xa]             ; 0x04e1
     mov ax, 0x16                     ; 0x04e4
     push ax                          ; 0x04e7
     mov ax, 3                        ; 0x04e8
     push ax                          ; 0x04eb
-    mov ax, word [bp - 0x0008]       ; 0x04ec
+    mov ax, word [bp - 8]            ; 0x04ec
     add ax, strict word 7            ; 0x04ef
     push ax                          ; 0x04f2
-    mov ax, word [bp - 0x0006]       ; 0x04f3
+    mov ax, word [bp - 6]            ; 0x04f3
     add ax, strict word 0x2a         ; 0x04f6
     push ax                          ; 0x04f9
     call draw_power_bar              ; 0x04fa
-    add sp, byte 0x0e                ; 0x04fd
-    cmp word [bp + 0x6], byte 0      ; 0x0500
+    add sp, byte 0xe                 ; 0x04fd
+    cmp word [bp + 6], byte 0        ; 0x0500
     je short @..api_idx_000c_JRTV.l3 ; 0x0504
-    mov ax, word [bp - 0x0008]       ; 0x0506
+    mov ax, word [bp - 8]            ; 0x0506
     add ax, strict word 0x26         ; 0x0509
     push ax                          ; 0x050c
-    mov ax, word [bp - 0x0006]       ; 0x050d
+    mov ax, word [bp - 6]            ; 0x050d
     add ax, strict word 0x2e         ; 0x0510
     push ax                          ; 0x0513
-    push word [bp - 0x0008]          ; 0x0514
-    push word [bp - 0x0006]          ; 0x0517
+    push word [bp - 8]               ; 0x0514
+    push word [bp - 6]               ; 0x0517
     call gfx_show_area               ; 0x051a
     add sp, byte 8                   ; 0x051d
 @..api_idx_000c_JRTV.l3:

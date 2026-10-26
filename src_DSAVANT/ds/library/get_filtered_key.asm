@@ -15,12 +15,12 @@ get_filtered_key:
     mov bx, word [si]                ; 0x3d8b
     or bx, bx                        ; 0x3d8d
     je short @..get_filtered_key.l7  ; 0x3d8f
-    mov ax, word [bp + 0x4]          ; 0x3d91
+    mov ax, word [bp + 4]            ; 0x3d91
     cmp al, 0                        ; 0x3d94
     je short @..get_filtered_key.l4  ; 0x3d96
     cmp al, 2                        ; 0x3d98
     je short @..get_filtered_key.l2  ; 0x3d9a
-    mov al, byte [si + 0x2]          ; 0x3d9c
+    mov al, byte [si + 2]            ; 0x3d9c
     cmp al, 8                        ; 0x3d9f
     je short @..get_filtered_key.l4  ; 0x3da1
     cmp al, 9                        ; 0x3da3
@@ -39,7 +39,7 @@ get_filtered_key:
     jae short @..get_filtered_key.l6 ; 0x3dbd
     jmp near @..get_filtered_key.l4  ; 0x3dbf
 @..get_filtered_key.l2:
-    mov al, byte [si + 0x2]          ; 0x3dc2
+    mov al, byte [si + 2]            ; 0x3dc2
     cmp al, 8                        ; 0x3dc5
     je short @..get_filtered_key.l4  ; 0x3dc7
     cmp al, 0x1b                     ; 0x3dc9
@@ -55,7 +55,7 @@ get_filtered_key:
     jmp short @..get_filtered_key.l1 ; 0x3ddb
 @..get_filtered_key.l4:
     dec word [si]                    ; 0x3ddd
-    mov al, byte [si + 0x2]          ; 0x3ddf
+    mov al, byte [si + 2]            ; 0x3ddf
     mov ah, 0                        ; 0x3de2
 @..get_filtered_key.l5:
     pop es                           ; 0x3de4
@@ -84,10 +84,10 @@ get_filtered_key:
     mov ah, 7                        ; 0x3e07
     int 0x21 ; DOS keyboard input (no echo)
     mov ah, 0                        ; 0x3e0b
-    cmp word [bp + 0x4], byte 0      ; 0x3e0d
+    cmp word [bp + 4], byte 0        ; 0x3e0d
     je short @..get_filtered_key.l5  ; 0x3e11
     mov bx, word [si]                ; 0x3e13
-    mov byte [bx + si + 0x2], al     ; 0x3e15
+    mov byte [bx + si + 2], al       ; 0x3e15
     inc word [si]                    ; 0x3e18
     cmp al, 0                        ; 0x3e1a
     je short @..get_filtered_key.l8  ; 0x3e1c
@@ -95,25 +95,25 @@ get_filtered_key:
     jb short @..get_filtered_key.l3  ; 0x3e20
     cmp al, 0x7b                     ; 0x3e22
     jae short @..get_filtered_key.l3 ; 0x3e24
-    and word [bx + si + 0x2], strict word 0xdf ; 0x3e26
+    and word [bx + si + 2], strict word 0xdf ; 0x3e26
     jmp short @..get_filtered_key.l3 ; 0x3e2b
 @..get_filtered_key.l8:
     mov ah, 7                        ; 0x3e2d
     int 0x21 ; DOS keyboard input (no echo)
     mov bx, word [si]                ; 0x3e31
-    mov byte [bx + si + 0x1], 8      ; 0x3e33
+    mov byte [bx + si + 1], 8        ; 0x3e33
     cmp al, 0x4b                     ; 0x3e37
     je short @..get_filtered_key.l9  ; 0x3e39
-    mov byte [bx + si + 0x1], 9      ; 0x3e3b
+    mov byte [bx + si + 1], 9        ; 0x3e3b
     cmp al, 0x48                     ; 0x3e3f
     je short @..get_filtered_key.l9  ; 0x3e41
-    mov byte [bx + si + 0x1], 0xa    ; 0x3e43
+    mov byte [bx + si + 1], 0xa      ; 0x3e43
     cmp al, 0x4d                     ; 0x3e47
     je short @..get_filtered_key.l9  ; 0x3e49
-    mov byte [bx + si + 0x1], 0xb    ; 0x3e4b
+    mov byte [bx + si + 1], 0xb      ; 0x3e4b
     cmp al, 0x50                     ; 0x3e4f
     je short @..get_filtered_key.l9  ; 0x3e51
-    mov byte [bx + si + 0x1], 0      ; 0x3e53
+    mov byte [bx + si + 1], 0        ; 0x3e53
     dec word [si]                    ; 0x3e57
     jmp short @..get_filtered_key.l7 ; 0x3e59
 @..get_filtered_key.l9:

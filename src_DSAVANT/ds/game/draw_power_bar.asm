@@ -2,7 +2,7 @@
 draw_power_bar: ; Aztec csav frame=0x0002
     mov ax, 0xfffe                   ; 0x1cf8
     call aztec_csav                  ; 0x1cfb
-    mov word [bp - 0x0002], 0        ; 0x1cfe
+    mov word [bp - 2], 0             ; 0x1cfe
     cmp word [bp + 0xe], byte 0      ; 0x1d03
     jle short @..draw_power_bar.l1   ; 0x1d07
     mov ax, word [bp + 0xc]          ; 0x1d09
@@ -29,7 +29,7 @@ draw_power_bar: ; Aztec csav frame=0x0002
     call aztec_ldv                   ; 0x1d30
     add ax, strict word 1            ; 0x1d33
     adc dx, byte 0                   ; 0x1d36
-    mov word [bp - 0x0002], ax       ; 0x1d39
+    mov word [bp - 2], ax            ; 0x1d39
 @..draw_power_bar.l1:
     mov ax, word [bp + 0xa]          ; 0x1d3c
     mov cx, word [bp + 0xc]          ; 0x1d3f
@@ -38,26 +38,26 @@ draw_power_bar: ; Aztec csav frame=0x0002
     mov ax, 0                        ; 0x1d47
     cmp cx, byte 0                   ; 0x1d4a
     jle short @..draw_power_bar.l2   ; 0x1d4d
-    mov ax, word [bp - 0x0002]       ; 0x1d4f
+    mov ax, word [bp - 2]            ; 0x1d4f
 @..draw_power_bar.l2:
-    mov word [bp - 0x0002], ax       ; 0x1d52
+    mov word [bp - 2], ax            ; 0x1d52
     cmp ax, strict word 0            ; 0x1d55
     jle short @..draw_power_bar.l3   ; 0x1d58
     push word [bp + 0x10]            ; 0x1d5a
-    mov ax, word [bp + 0x6]          ; 0x1d5d
+    mov ax, word [bp + 6]            ; 0x1d5d
     add ax, word [bp + 0xa]          ; 0x1d60
     dec ax                           ; 0x1d63
     push ax                          ; 0x1d64
-    mov ax, word [bp + 0x4]          ; 0x1d65
-    add ax, word [bp + 0x8]          ; 0x1d68
+    mov ax, word [bp + 4]            ; 0x1d65
+    add ax, word [bp + 8]            ; 0x1d68
     dec ax                           ; 0x1d6b
     push ax                          ; 0x1d6c
-    mov ax, word [bp + 0x6]          ; 0x1d6d
+    mov ax, word [bp + 6]            ; 0x1d6d
     add ax, word [bp + 0xa]          ; 0x1d70
-    sub ax, word [bp - 0x0002]       ; 0x1d73
+    sub ax, word [bp - 2]            ; 0x1d73
     push ax                          ; 0x1d76
-    push word [bp + 0x4]             ; 0x1d77
+    push word [bp + 4]               ; 0x1d77
     call gfx_fill_area               ; 0x1d7a
-    add sp, byte 0x0a                ; 0x1d7d
+    add sp, byte 0xa                 ; 0x1d7d
 @..draw_power_bar.l3:
     ret                              ; 0x1d80

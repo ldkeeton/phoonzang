@@ -20,27 +20,27 @@ api_idx_0002_GLIS:
     push ax                          ; 0x877f
     call api_idx_0016_LTLN           ; 0x8780
     add sp, byte 4                   ; 0x8783
-    mov ax, word [bp + 0x6]          ; 0x8786
+    mov ax, word [bp + 6]            ; 0x8786
     mov word [scene_cue_a], ax       ; 0x8789
-    mov ax, word [bp + 0x8]          ; 0x878c
+    mov ax, word [bp + 8]            ; 0x878c
     mov word [scene_cue_b], ax       ; 0x878f
     mov ax, word [bp + 0xa]          ; 0x8792
     mov word [scene_cue_c], ax       ; 0x8795
-    mov word [bp - 0x0002], 0        ; 0x8798
+    mov word [bp - 2], 0             ; 0x8798
 @..api_idx_0002_GLIS.l1:
     mov ax, 0x50                     ; 0x879d
-    imul word [bp - 0x0002]          ; 0x87a0
-    mov cx, word [bp - 0x0002]       ; 0x87a3
+    imul word [bp - 2]               ; 0x87a0
+    mov cx, word [bp - 2]            ; 0x87a3
     shl cx, 1                        ; 0x87a6
     mov bx, cx                       ; 0x87a8
     mov word [bx + scroll_x], ax     ; 0x87aa
-    inc word [bp - 0x0002]           ; 0x87ae
-    mov ax, word [bp - 0x0002]       ; 0x87b1
+    inc word [bp - 2]                ; 0x87ae
+    mov ax, word [bp - 2]            ; 0x87b1
     cmp ax, strict word 5            ; 0x87b4
     jl short @..api_idx_0002_GLIS.l1 ; 0x87b7
-    mov word [bp - 0x0002], 0        ; 0x87b9
+    mov word [bp - 2], 0             ; 0x87b9
 @..api_idx_0002_GLIS.l2:
-    mov ax, word [bp - 0x0002]       ; 0x87be
+    mov ax, word [bp - 2]            ; 0x87be
     shl ax, 1                        ; 0x87c1
     mov bx, ax                       ; 0x87c3
     mov word [bx + sprite_pos], 0x140 ; 0x87c5
@@ -49,12 +49,12 @@ api_idx_0002_GLIS:
     call random_below                ; 0x87cf
     pop cx                           ; 0x87d2
     add ax, strict word 0x28         ; 0x87d3
-    mov cx, word [bp - 0x0002]       ; 0x87d6
+    mov cx, word [bp - 2]            ; 0x87d6
     shl cx, 1                        ; 0x87d9
     mov bx, cx                       ; 0x87db
     mov word [bx + bss_a5ea], ax     ; 0x87dd
-    inc word [bp - 0x0002]           ; 0x87e1
-    mov ax, word [bp - 0x0002]       ; 0x87e4
+    inc word [bp - 2]                ; 0x87e1
+    mov ax, word [bp - 2]            ; 0x87e4
     cmp ax, strict word 8            ; 0x87e7
     jl short @..api_idx_0002_GLIS.l2 ; 0x87ea
     mov word [bss_a5e0], 0x13e       ; 0x87ec
@@ -67,7 +67,7 @@ api_idx_0002_GLIS:
     mov word [bss_a5ae], 3           ; 0x8816
     les bx, word [tick_counter_ptr]  ; 0x881c
     mov ax, word [es:bx]             ; 0x8820
-    mov dx, word [es:bx + 0x2]       ; 0x8823
+    mov dx, word [es:bx + 2]         ; 0x8823
     mov word [party_redraw_last_tick_hi], dx ; 0x8827
     mov word [party_redraw_last_tick], ax ; 0x882b
     call draw_scene_frame            ; 0x882e
@@ -92,7 +92,7 @@ api_idx_0002_GLIS:
     pop cx                           ; 0x8857
     mov ax, 0                        ; 0x8858
     push ax                          ; 0x885b
-    push word [bp + 0x4]             ; 0x885c
+    push word [bp + 4]               ; 0x885c
     call loc_LIQV                    ; 0x885f
     add sp, byte 4                   ; 0x8862
     mov ax, 0x11                     ; 0x8865

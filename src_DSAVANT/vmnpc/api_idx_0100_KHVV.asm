@@ -3,9 +3,9 @@ api_idx_0100_KHVV:
     mov ax, 0xff00                   ; 0x9748
     call aztec_csav                  ; 0x974b
 @..api_idx_0100_KHVV.l1:
-    lea ax, word [bp - 0x00ff]       ; 0x974e
+    lea ax, word [bp - 0xff]         ; 0x974e
     push ax                          ; 0x9752
-    push word [bp + 0x4]             ; 0x9753
+    push word [bp + 4]               ; 0x9753
     call load_message_string         ; 0x9756
     add sp, byte 4                   ; 0x9759
     cmp word [message_not_found], byte 0 ; 0x975c
@@ -24,7 +24,7 @@ api_idx_0100_KHVV:
     call aztec_strcat                ; 0x977f
     add sp, byte 4                   ; 0x9782
 @..api_idx_0100_KHVV.l2:
-    lea ax, word [bp - 0x00ff]       ; 0x9785
+    lea ax, word [bp - 0xff]         ; 0x9785
     push ax                          ; 0x9789
     mov ax, word [text_line_index]   ; 0x978a
     mov cx, 7                        ; 0x978d
@@ -38,20 +38,20 @@ api_idx_0100_KHVV:
     shl ax, cl                       ; 0x97a2
     add ax, text_line_buffer         ; 0x97a4
     push ax                          ; 0x97a7
-    lea ax, word [bp - 0x00ff]       ; 0x97a8
+    lea ax, word [bp - 0xff]         ; 0x97a8
     push ax                          ; 0x97ac
     call aztec_strcpy                ; 0x97ad
     add sp, byte 4                   ; 0x97b0
-    lea ax, word [bp - 0x00ff]       ; 0x97b3
+    lea ax, word [bp - 0xff]         ; 0x97b3
     push ax                          ; 0x97b7
     call loc_IPHP                    ; 0x97b8
     pop cx                           ; 0x97bb
-    inc word [bp + 0x4]              ; 0x97bc
+    inc word [bp + 4]                ; 0x97bc
 @..api_idx_0100_KHVV.l3:
     cmp word [message_not_found], byte 0 ; 0x97bf
     je short @..api_idx_0100_KHVV.l1 ; 0x97c4
     call reveal_text_line            ; 0x97c6
-    mov ax, word [bp + 0x6]          ; 0x97c9
+    mov ax, word [bp + 6]            ; 0x97c9
     jmp short @..api_idx_0100_KHVV.l9 ; 0x97cc
 @..api_idx_0100_KHVV.l4:
     call next_text_line              ; 0x97ce

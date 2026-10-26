@@ -2,17 +2,17 @@
 api_idx_0002_NGNS:
     mov ax, 0xfffe                   ; 0x8de9
     call aztec_csav                  ; 0x8dec
-    mov ax, word [bp + 0x4]          ; 0x8def
+    mov ax, word [bp + 4]            ; 0x8def
     shl ax, 1                        ; 0x8df2
     mov si, ax                       ; 0x8df4
     mov bx, word [maze_tables]       ; 0x8df6
     mov ax, word [bx + si + maze_tables_rec.f_03c0] ; 0x8dfa
-    mov word [bp - 0x0002], ax       ; 0x8dfe
+    mov word [bp - 2], ax            ; 0x8dfe
     mov ax, 1                        ; 0x8e01
     push ax                          ; 0x8e04
     mov ax, 0xe                      ; 0x8e05
     push ax                          ; 0x8e08
-    push word [bp - 0x0002]          ; 0x8e09
+    push word [bp - 2]               ; 0x8e09
     call get_bits                    ; 0x8e0c
     add sp, byte 6                   ; 0x8e0f
     cmp ax, strict word 1            ; 0x8e12
@@ -21,7 +21,7 @@ api_idx_0002_NGNS:
     push ax                          ; 0x8e1a
     mov ax, 0xc                      ; 0x8e1b
     push ax                          ; 0x8e1e
-    push word [bp - 0x0002]          ; 0x8e1f
+    push word [bp - 2]               ; 0x8e1f
     call get_bits                    ; 0x8e22
     add sp, byte 6                   ; 0x8e25
     cmp ax, word [party_tag]         ; 0x8e28
@@ -33,7 +33,7 @@ api_idx_0002_NGNS:
     push ax                          ; 0x8e35
     mov ax, 8                        ; 0x8e36
     push ax                          ; 0x8e39
-    push word [bp - 0x0002]          ; 0x8e3a
+    push word [bp - 2]               ; 0x8e3a
     call get_bits                    ; 0x8e3d
     add sp, byte 6                   ; 0x8e40
     test ax, ax                      ; 0x8e43
@@ -41,7 +41,7 @@ api_idx_0002_NGNS:
     mov ax, 0                        ; 0x8e47
     ret                              ; 0x8e4a
 @..api_idx_0002_NGNS.l2:
-    mov ax, word [bp + 0x4]          ; 0x8e4b
+    mov ax, word [bp + 4]            ; 0x8e4b
     mov word [party_region], ax      ; 0x8e4e
     mov bx, word [maze_tables]       ; 0x8e51
     mov si, ax                       ; 0x8e55

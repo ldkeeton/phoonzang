@@ -2,7 +2,7 @@
 play_sound:
     push bp
     mov bp, sp
-    sub sp, byte 0x0a
+    sub sp, byte 0xa
     push ds
     push es
     push si
@@ -18,24 +18,24 @@ play_sound:
     shl ax, 1
     mov bx, sound_slots - IMAGE_BASE
     add bx, ax
-    mov ax, word [cs:bx + 0x2]
-    mov word [bp - 0x0002], ax
+    mov ax, word [cs:bx + 2]
+    mov word [bp - 2], ax
     mov ax, word [cs:bx]
     or ax, ax
     jne short @..play_sound.l2
     jmp near @..play_sound.l3
 @..play_sound.l2:
     dec ax
-    mov word [bp - 0x0004], ax
+    mov word [bp - 4], ax
     push word [bp + 0x12]
     push word [bp + 0x10]
     push word [bp + 0xe]
-    mov ax, word [bp - 0x0002]
+    mov ax, word [bp - 2]
     push ax
     xor ax, ax
     push ax
     mov bx, maze_blocks - IMAGE_BASE
-    mov ax, word [bp - 0x0004]
+    mov ax, word [bp - 4]
     shl ax, 1
     shl ax, 1
     add bx, ax
@@ -45,7 +45,7 @@ play_sound:
     xor ax, ax
     push ax
     call far [cs:sound_play_far - IMAGE_BASE]
-    add sp, byte 0x0e
+    add sp, byte 0xe
 @..play_sound.l3:
     pop di
     pop si
