@@ -1,7 +1,9 @@
 /* sets the 4-bit wall value on one edge of cell (x, y) in map piece map,
    logging the change; side 2/3 address the y-1/x-1 edge via the neighbour */
 
-extern unsigned char *maze_data;
+#include "structs/mazecell.h"
+
+extern struct maze_cells *maze_data;
 extern int game_state_arg;
 
 set_cell_wall(side, value, map, x, y)
@@ -10,8 +12,8 @@ int side, value, map, x, y;
 	int plane, kind, wx, wy, cell;
 
 	/* piece origin tables at +0x490 (x) and +0x4a0 (y) give world coords */
-	wx = maze_data[map + 1168] + x;
-	wy = maze_data[map + 1184] + y;
+	wx = maze_data->origin_x[map] + x;
+	wy = maze_data->origin_y[map] + y;
 	cell = (map << 6) + (y << 3) + x;	/* 8x8 cells per piece */
 	plane = -1;				/* -1: unknown side, nothing written */
 	switch (side) {
@@ -42,8 +44,8 @@ int side, value, map, x, y;
 		log_maze_change(game_state_arg, kind, map, x, y, value, 0, 0, 0);
 		/* 4-bit fields: plane 0 at +0x90, plane 1 at +0x290 */
 		if (plane == 0)
-			set_bitfield(maze_data + 144, cell, 4, value);
+			set_bitfield(maze_data->wall_a, cell, 4, value);
 		else
-			set_bitfield(maze_data + 656, cell, 4, value);
+			set_bitfield(maze_data->wall_b, cell, 4, value);
 	}
 }

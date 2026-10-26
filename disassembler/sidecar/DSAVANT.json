@@ -44,7 +44,9 @@
     "api_idx_0004_ULSR": {"name": "titlecase_string", "note": "lowercases an all-caps string but keeps the first letter of each word"},
     "api_idx_0006_SHUK": {"name": "redraw_area_set", "note": "repaints one of four fixed screen-area sets around the glyph strip"},
     "api_idx_0008_LLVT": {"name": "input_text_field", "note": "reads up to max_len characters into buf at x,y until Enter; the last argument 1 accepts only digits"},
+    "api_idx_0008_LUNN": {"name": "get_relative_cell_wall", "note": "Resolve a party-relative wall and apply facing-dependent cell kind overrides"},
     "api_idx_0008_MNJN": {"name": "draw_active_member_panel", "note": "draws an active member panel and level glyph; arg 2 also draws its stat box"},
+    "api_idx_0008_QJHI": {"name": "get_relative_cell_wall", "note": "Resolve a party-relative wall and apply facing-dependent cell kind overrides"},
     "api_idx_000a_GGLT": {"name": "draw_marker_glyph", "note": "draws glyph 1 at (50,115) in color 1, clipped to the full screen"},
     "api_idx_000a_IQHO": {
       "name": "fill_action_slot_table"
@@ -92,6 +94,8 @@
       "name": "dos_con_in_noecho",
       "note": "vinstall: INT 21h AH=7, returns the key"
     },
+    "loc_GPIH": {"name": "get_north_cell_wall", "note": "Resolve the y-minus-one map piece and read its first wall plane"},
+    "loc_MMMO": {"name": "get_west_cell_wall", "note": "Resolve the x-minus-one map piece and read its second wall plane"},
     "loc_RPUI": {"name": "run_party_screen_animation", "note": "runs one full 12-step pass of the party screen state machine"},
     "loc_TJJR": {"name": "draw_spell_cost", "note": "clears the spell cost box and prints the cost in up to three digits, else ***"},
     "loc_UQOV": {"name": "get_font_glyph", "note": "returns dx:ax = the glyph record in the font segment and copies the font header bytes 0 and 1 into the caller's width and height words"},
@@ -358,6 +362,7 @@
         },
         "3ebb": {"name": "test_bit", "note": "returns 1 if bit n of the byte bitset is set"},
         "3eeb": {"name": "set_bitfield", "note": "stores value into the width-bit field at index of a packed bit array"},
+        "3f3d": {"name": "read_packed_field", "note": "Extract an indexed fixed-width bit field from a byte buffer"},
         "3f81": {"name": "get_bits", "note": "returns (value >> shift) masked to width bits"},
         "3fa9": {"name": "read_misc_table", "note": "hand-written asm: reads 0x400 bytes from handle [bp+4] to misc_table_seg:0; a read error prints misc_table_io_error_msg and falls into the DOS print/exit code"},
         "3fd5": {"name": "misc_table_io_error_exit", "note": "prints the misc table read error and exits; entered from read_misc_table's l1 tail with ds:dx set"},
@@ -449,7 +454,7 @@
         "0e0c": {"name": "aztec_tty_rd_bp", "note": "ttyio.c's `static char *bp` in impl_tty_rd: the read cursor into buffer"},
         "0cf5": {"name": "aztec_tty_wr_crbuf", "note": "ttyio.c's `static char crbuf = '\r'` in impl_tty_wr"},
         "0e12": {"name": "maze_tables", "note": "pointer to loaded maze tables (destinations, per-piece data)"},
-        "0e14": {"name": "maze_data", "note": "pointer to loaded maze data: wall planes at +0x90/+0x290, piece origins at +0x490/+0x4a0"},
+        "0e14": {"name": "maze_data", "note": "pointer to loaded maze data: wall planes at +0x90/+0x290, piece origins at +0x490/+0x4a0", "record": {"name": "maze_cells", "size": 2352, "fields": {"90": {"name": "wall_a", "size": 512}, "290": {"name": "wall_b", "size": 512}, "490": {"name": "origin_x", "size": 16}, "4a0": {"name": "origin_y", "size": 16}, "4b0": {"name": "cell_kind", "size": 768}, "7b0": {"name": "cell_direction", "size": 256}, "8b0": {"name": "cell_flags", "size": 128}}}},
         "0e22": {"name": "data_file_fd", "note": "int: handle of the open game data file that data_record_io seeks, reads and writes"},
         "0e24": {"name": "msg_dbs_fd", "note": "file handle of MSG.DBS"},
         "0e2a": {"name": "mouse_pointer_shape", "note": "far pointer to the mouse pointer shape loaded from the pointer file; NULL means the default pointer"},
@@ -948,10 +953,18 @@
       "fingerprint-end": "cf3c207601279bfa68168f45b79aa45735dc9eff5a68d2e974ab3260440c4fd3"
     },
     "vmaze": {
+      "data_names": {
+        "91a8": {"name": "location_changed", "note": "set when the party is placed at a new location"},
+        "91a6": {"name": "boundary_wall_open", "note": "Nonzero makes the out-of-map variant 3 wall return zero"},
+        "91d4": {"name": "boundary_wall_variant", "note": "Variant selecting boundary wall return values"},
+        "91d6": {"name": "cell_wall_override_disabled", "note": "Nonzero suppresses wall overrides for cell kinds 5 and 6"}
+      },
       "function_names": {
         "0ca7": {"name": "enter_level", "note": "sets game_state_arg to the level and loads it"},
         "0f80": {"name": "wait_ticks_or_key", "note": "flushes keys, then waits the given tick count or until input"},
         "1086": {"name": "show_message", "note": "loads message string by number and prints it"},
+        "2ec6": {"name": "offset_relative_map_position", "note": "Apply party-facing relative offsets and resolve the resulting map piece"},
+        "2f47": {"name": "read_cell_kind_direction", "note": "Read the packed six-bit cell kind and two-bit direction"},
         "68e4": {"name": "save_level_state", "note": "copies the current level per-level state to its stores"},
         "69c8": {"name": "log_maze_change", "note": "appends a 6-byte maze change record to the change log"},
         "6afc": {"name": "restore_area_a_draw_glyph", "note": "restores saved screen area a and redraws glyph 1 in color 14 at (0x37,0x9a)"},
@@ -1178,6 +1191,15 @@
       ]
     },
     "vmext": {
+      "data_names": {
+        "91a8": {"name": "boundary_wall_variant", "note": "Variant selecting boundary wall return values"},
+        "9188": {"name": "boundary_wall_open", "note": "Nonzero makes the out-of-map variant 3 wall return zero"},
+        "91aa": {"name": "cell_wall_override_disabled", "note": "Nonzero suppresses wall overrides for cell kinds 5 and 6"}
+      },
+      "function_names": {
+        "1955": {"name": "offset_relative_map_position", "note": "Apply party-facing relative offsets and resolve the resulting map piece"},
+        "19d6": {"name": "read_cell_kind_direction", "note": "Read the packed six-bit cell kind and two-bit direction"}
+      },
       "file": "VMEXT.OVR",
       "type": "aztec_overlay",
       "start_offset": 14,

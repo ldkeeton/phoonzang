@@ -758,7 +758,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/set_bitfield.asm"     ; 0x3eeb
 
-%include "ds/library/ds_leaf_loc_NPSL.asm" ; 0x3f3d
+%include "ds/library/read_packed_field.asm" ; 0x3f3d
 
 %include "ds/library/get_bits.asm"         ; 0x3f81
 

@@ -1,5 +1,5 @@
 ; auto-generated
-loc_MMMO:
+get_west_cell_wall:
     mov ax, 0
     call aztec_csav
     push word [bp + 0x6]
@@ -15,30 +15,30 @@ loc_MMMO:
     call find_map_piece
     add sp, byte 0x0a
     test ax, ax
-    je short @..loc_MMMO.l5
+    je short @..get_west_cell_wall.l5
     mov ax, word [maze_variant]
     mov cx, 2
     cwd
     idiv cx
     mov ax, dx
     test ax, ax
-    je short @..loc_MMMO.l1
+    je short @..get_west_cell_wall.l1
     mov ax, cx
-    jmp short @..loc_MMMO.l4
-@..loc_MMMO.l1:
+    jmp short @..get_west_cell_wall.l4
+@..get_west_cell_wall.l1:
     mov ax, word [maze_variant]
     cmp ax, strict word 6
-    je short @..loc_MMMO.l2
-    cmp word [loc_MMMO.bss1], byte 0
-    je short @..loc_MMMO.l3
-@..loc_MMMO.l2:
+    je short @..get_west_cell_wall.l2
+    cmp word [boundary_wall_open], byte 0
+    je short @..get_west_cell_wall.l3
+@..get_west_cell_wall.l2:
     mov ax, 0
-    jmp short @..loc_MMMO.l4
-@..loc_MMMO.l3:
+    jmp short @..get_west_cell_wall.l4
+@..get_west_cell_wall.l3:
     mov ax, 4
-@..loc_MMMO.l4:
+@..get_west_cell_wall.l4:
     ret
-@..loc_MMMO.l5:
+@..get_west_cell_wall.l5:
     mov ax, 4
     push ax
     mov ax, word [bp + 0xc]
@@ -54,6 +54,6 @@ loc_MMMO:
     mov ax, word [maze_data]
     add ax, 0x290
     push ax
-    call ds_leaf_loc_NPSL
+    call read_packed_field
     add sp, byte 6
     ret

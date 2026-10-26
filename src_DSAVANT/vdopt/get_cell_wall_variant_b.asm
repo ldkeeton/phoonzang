@@ -49,6 +49,6 @@ get_cell_wall_variant_b:
     mov ax, word [maze_data]         ; 0x08ab
     add ax, 0x290                    ; 0x08ae
     push ax                          ; 0x08b1
-    call ds_leaf_loc_NPSL            ; 0x08b2
+    call read_packed_field           ; 0x08b2
     add sp, byte 6                   ; 0x08b5
     ret                              ; 0x08b8

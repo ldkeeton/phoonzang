@@ -2,7 +2,7 @@
 api_idx_0002_VNLG:
     mov ax, 0xfffe                   ; 0x0262
     call aztec_csav                  ; 0x0265
-    mov word [bss_9188], 0           ; 0x0268
+    mov word [boundary_wall_open], 0 ; 0x0268
     mov ax, word [game_state_arg]    ; 0x026e
     jmp short @..api_idx_0002_VNLG.l1 ; 0x0271
 jumptable_02a3_case_15:
@@ -15,7 +15,7 @@ jumptable_02a3_case_14:
     mov word [bp - 0x0002], 3        ; 0x0281
     jmp short @..api_idx_0002_VNLG.l2 ; 0x0286
 jumptable_02a3_case_27:
-    mov word [bss_9188], 1           ; 0x0288
+    mov word [boundary_wall_open], 1 ; 0x0288
 jumptable_02a3_case_7:
     mov word [bp - 0x0002], 4        ; 0x028e
     jmp short @..api_idx_0002_VNLG.l2 ; 0x0293

@@ -2,8 +2,10 @@
    (map, x, y) with world coords (wx, wy); sides 0/1 read the plane 0/1 field
    (at +0x90/+0x290), sides 2/3 resolve the shared edge's neighbour piece */
 
-extern unsigned char *maze_data;
-extern int ds_leaf_loc_NPSL();
+#include "structs/mazecell.h"
+
+extern struct maze_cells *maze_data;
+extern int read_packed_field();
 extern int loc_UOPP();
 extern int loc_KHGO();
 
@@ -12,10 +14,10 @@ int selector, map, x, y, wx, wy;
 {
 	switch (selector) {
 	case 0:
-		return ds_leaf_loc_NPSL(maze_data + 144,
+		return read_packed_field(maze_data->wall_a,
 			(map << 6) + (y << 3) + x, 4);	/* 8x8 cells per piece, 4-bit field */
 	case 1:
-		return ds_leaf_loc_NPSL(maze_data + 656,
+		return read_packed_field(maze_data->wall_b,
 			(map << 6) + (y << 3) + x, 4);
 	case 2:
 		return loc_UOPP(wx, wy, x, y, map);

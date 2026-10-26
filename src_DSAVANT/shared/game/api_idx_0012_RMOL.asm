@@ -221,7 +221,7 @@ api_idx_0012_RMOL:
     sub ah, ah
     jmp near @..api_idx_0012_RMOL.l36
 @..api_idx_0012_RMOL.l21:
-    cmp word [api_idx_0012_RMOL.bss5], byte 2
+    cmp word [boundary_wall_variant], byte 2
     je short @..api_idx_0012_RMOL.l22
     jmp near @..api_idx_0012_RMOL.l32
 @..api_idx_0012_RMOL.l22:
@@ -336,7 +336,7 @@ api_idx_0012_RMOL:
     jne short @..api_idx_0012_RMOL.l27
     jmp near @..api_idx_0012_RMOL.l31
 @..api_idx_0012_RMOL.l27:
-    cmp word [api_idx_0012_RMOL.bss5], byte 0
+    cmp word [boundary_wall_variant], byte 0
     jne short @..api_idx_0012_RMOL.l28
     jmp near @..api_idx_0012_RMOL.l31
 @..api_idx_0012_RMOL.l28:
@@ -418,7 +418,7 @@ api_idx_0012_RMOL:
 @..api_idx_0012_RMOL.l31:
     jmp near @..api_idx_0012_RMOL.l35
 @..api_idx_0012_RMOL.l32:
-    cmp word [api_idx_0012_RMOL.bss5], byte 4
+    cmp word [boundary_wall_variant], byte 4
     je short @..api_idx_0012_RMOL.l33
     jmp near @..api_idx_0012_RMOL.l35
 @..api_idx_0012_RMOL.l33:
@@ -497,7 +497,7 @@ api_idx_0012_RMOL:
     imul word [bp + 0x4]
     add ax, word [bp + 0x6]
     mov bx, ax
-    mov al, byte [bx + api_idx_0012_RMOL.bss6]
+    mov al, byte [bx + api_idx_0012_RMOL.bss5]
     sub ah, ah
     jmp near @..api_idx_0012_RMOL.l45
 api_idx_0012_RMOL.jumptable_case1:
@@ -553,7 +553,7 @@ api_idx_0012_RMOL.jumptable_case2:
 api_idx_0012_RMOL.jumptable_case3:
     cmp word [bp + 0x4], byte 5
     jge short @..api_idx_0012_RMOL.l44
-    mov ax, word [api_idx_0012_RMOL.bss7]
+    mov ax, word [api_idx_0012_RMOL.bss6]
     add ax, word [party_status_frame]
     mov cx, 2
     cwd
@@ -611,9 +611,9 @@ api_idx_0012_RMOL.jumptable1:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    cmp word [bx + api_idx_0012_RMOL.bss8], byte 0
+    cmp word [bx + api_idx_0012_RMOL.bss7], byte 0
     jne short @..api_idx_0012_RMOL.l48
-    cmp word [bx + api_idx_0012_RMOL.bss9], byte 0
+    cmp word [bx + api_idx_0012_RMOL.bss8], byte 0
     jne short @..api_idx_0012_RMOL.l48
     jmp near @..api_idx_0012_RMOL.l60
 @..api_idx_0012_RMOL.l48:
@@ -674,11 +674,11 @@ api_idx_0012_RMOL.jumptable1:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    cmp word [bx + api_idx_0012_RMOL.bss8], byte 0
+    cmp word [bx + api_idx_0012_RMOL.bss7], byte 0
     jne short @..api_idx_0012_RMOL.l54
     jmp near @..api_idx_0012_RMOL.l60
 @..api_idx_0012_RMOL.l54:
-    mov cx, word [bx + api_idx_0012_RMOL.bss8]
+    mov cx, word [bx + api_idx_0012_RMOL.bss7]
     dec cx
     mov ax, word [party_tag]
     sub ax, cx
@@ -759,7 +759,7 @@ api_idx_0012_RMOL.jumptable1:
     imul word [bp + 0x4]
     add ax, word [bp + 0x6]
     mov bx, ax
-    cmp byte [bx + api_idx_0012_RMOL.bss10], 3
+    cmp byte [bx + api_idx_0012_RMOL.bss9], 3
     je short @..api_idx_0012_RMOL.l62
     jmp near @..api_idx_0012_RMOL.l68
 @..api_idx_0012_RMOL.l62:
@@ -833,9 +833,9 @@ api_idx_0012_RMOL.jumptable1:
     imul word [bp + 0x4]
     add ax, word [bp + 0x6]
     mov bx, ax
-    cmp byte [bx + api_idx_0012_RMOL.bss10], 1
+    cmp byte [bx + api_idx_0012_RMOL.bss9], 1
     je short @..api_idx_0012_RMOL.l69
-    cmp byte [bx + api_idx_0012_RMOL.bss10], 2
+    cmp byte [bx + api_idx_0012_RMOL.bss9], 2
     jne short @..api_idx_0012_RMOL.l71
 @..api_idx_0012_RMOL.l69:
     mov ax, word [bp + 0x4]
@@ -867,7 +867,7 @@ api_idx_0012_RMOL.jumptable1:
     imul word [bp + 0x4]
     add ax, word [bp + 0x6]
     mov bx, ax
-    mov al, byte [bx + api_idx_0012_RMOL.bss10]
+    mov al, byte [bx + api_idx_0012_RMOL.bss9]
     sub ah, ah
     push ax
     mov ax, word [bp + 0x4]
@@ -890,7 +890,7 @@ api_idx_0012_RMOL.jumptable1:
     imul word [bp + 0x4]
     add ax, word [bp + 0x6]
     mov bx, ax
-    cmp byte [bx + api_idx_0012_RMOL.bss11], 0
+    cmp byte [bx + api_idx_0012_RMOL.bss10], 0
     jne short @..api_idx_0012_RMOL.l72
     jmp near @..api_idx_0012_RMOL.l82
 @..api_idx_0012_RMOL.l72:
@@ -901,7 +901,7 @@ api_idx_0012_RMOL.jumptable1:
     jne short @..api_idx_0012_RMOL.l73
     cmp word [bss_8f22], byte 0
     je short @..api_idx_0012_RMOL.l73
-    mov al, byte [bx + api_idx_0012_RMOL.bss11]
+    mov al, byte [bx + api_idx_0012_RMOL.bss10]
     sub ah, ah
     mov word [marker_mode], ax
     jmp near @..api_idx_0012_RMOL.l82
@@ -914,7 +914,7 @@ api_idx_0012_RMOL.jumptable1:
     je short @..api_idx_0012_RMOL.l74
     jmp near @..api_idx_0012_RMOL.l82
 @..api_idx_0012_RMOL.l74:
-    mov al, byte [bx + api_idx_0012_RMOL.bss11]
+    mov al, byte [bx + api_idx_0012_RMOL.bss10]
     sub ah, ah
     mov cx, ax
     dec ax

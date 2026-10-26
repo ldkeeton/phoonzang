@@ -3,14 +3,14 @@ api_idx_0010_NIMV:
     mov ax, 0xfff0
     call aztec_csav
     mov ax, 4
-    cmp word [api_idx_0010_NIMV.location_changed1], byte 0
+    cmp word [boundary_wall_variant], byte 0
     jne short @..api_idx_0010_NIMV.l1
     mov ax, 3
 @..api_idx_0010_NIMV.l1:
     mov word [bp - 0x000a], ax
     mov word [bp - 0x0002], 0xffff
     mov word [bp - 0x0004], 0xffff
-    cmp word [api_idx_0010_NIMV.location_changed1], byte 0
+    cmp word [boundary_wall_variant], byte 0
     jg short @..api_idx_0010_NIMV.l2
     jmp near @..api_idx_0010_NIMV.l11
 @..api_idx_0010_NIMV.l2:
@@ -18,7 +18,7 @@ api_idx_0010_NIMV:
     je short @..api_idx_0010_NIMV.l3
     jmp near @..api_idx_0010_NIMV.l11
 @..api_idx_0010_NIMV.l3:
-    mov ax, word [api_idx_0010_NIMV.location_changed1]
+    mov ax, word [boundary_wall_variant]
     cmp ax, strict word 3
     jl short @..api_idx_0010_NIMV.l4
     cmp ax, strict word 5
@@ -30,9 +30,9 @@ api_idx_0010_NIMV:
     mov ax, 0x14
 @..api_idx_0010_NIMV.l6:
     mov word [bp - 0x000c], ax
-    cmp word [api_idx_0010_NIMV.location_changed1], byte 3
+    cmp word [boundary_wall_variant], byte 3
     jl short @..api_idx_0010_NIMV.l7
-    cmp word [api_idx_0010_NIMV.location_changed1], byte 5
+    cmp word [boundary_wall_variant], byte 5
     jne short @..api_idx_0010_NIMV.l8
 @..api_idx_0010_NIMV.l7:
     mov ax, 0x16
@@ -126,7 +126,7 @@ api_idx_0010_NIMV.jumptable_case3:
 @..api_idx_0010_NIMV.l14:
     jmp near api_idx_0010_NIMV.jumptable_case2
 api_idx_0010_NIMV.jumptable_case4:
-    cmp word [api_idx_0010_NIMV.location_changed1], byte 0
+    cmp word [boundary_wall_variant], byte 0
     jne short @..api_idx_0010_NIMV.l17
     cmp word [bp + 0x4], byte 3
     jge short @..api_idx_0010_NIMV.l16
@@ -172,9 +172,9 @@ api_idx_0010_NIMV.jumptable_case4:
 @..api_idx_0010_NIMV.l16:
     jmp near @..api_idx_0010_NIMV.l21
 @..api_idx_0010_NIMV.l17:
-    cmp word [api_idx_0010_NIMV.location_changed1], byte 3
+    cmp word [boundary_wall_variant], byte 3
     jl short @..api_idx_0010_NIMV.l18
-    cmp word [api_idx_0010_NIMV.location_changed1], byte 5
+    cmp word [boundary_wall_variant], byte 5
     jne short @..api_idx_0010_NIMV.l20
 @..api_idx_0010_NIMV.l18:
     cmp word [bp + 0x4], byte 4
@@ -215,7 +215,7 @@ api_idx_0010_NIMV.jumptable_case4:
 @..api_idx_0010_NIMV.l19:
     jmp short @..api_idx_0010_NIMV.l21
 @..api_idx_0010_NIMV.l20:
-    cmp word [api_idx_0010_NIMV.location_changed1], byte 5
+    cmp word [boundary_wall_variant], byte 5
     jge short @..api_idx_0010_NIMV.l21
     cmp word [bp + 0x4], byte 4
     jge short @..api_idx_0010_NIMV.l21
@@ -255,7 +255,7 @@ api_idx_0010_NIMV.jumptable_case4:
 @..api_idx_0010_NIMV.l21:
     jmp near api_idx_0010_NIMV.jumptable_case2
 api_idx_0010_NIMV.jumptable_case5:
-    mov ax, word [api_idx_0010_NIMV.location_changed1]
+    mov ax, word [boundary_wall_variant]
     mov cx, 2
     cwd
     idiv cx
@@ -369,7 +369,7 @@ api_idx_0010_NIMV.jumptable_case7:
     pop cx
     mov word [bp - 0x0004], ax
 api_idx_0010_NIMV.jumptable_case8:
-    cmp word [api_idx_0010_NIMV.location_changed1], byte 0
+    cmp word [boundary_wall_variant], byte 0
     jne short @..api_idx_0010_NIMV.l31
     mov ax, 0
     push ax
@@ -406,7 +406,7 @@ api_idx_0010_NIMV.jumptable_case8:
     add sp, byte 0x1c
     jmp short @..api_idx_0010_NIMV.l32
 @..api_idx_0010_NIMV.l31:
-    cmp word [api_idx_0010_NIMV.location_changed1], byte 2
+    cmp word [boundary_wall_variant], byte 2
     jne short @..api_idx_0010_NIMV.l32
     mov ax, 0
     push ax
@@ -582,7 +582,7 @@ api_idx_0010_NIMV.jumptable_case8:
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
 @..api_idx_0010_NIMV.l37:
-    cmp word [api_idx_0010_NIMV.location_changed1], byte 0
+    cmp word [boundary_wall_variant], byte 0
     jne short @..api_idx_0010_NIMV.l38
     mov ax, 0
     push ax
@@ -632,7 +632,7 @@ api_idx_0010_NIMV.jumptable_case8:
     add sp, byte 0x1c
     jmp short @..api_idx_0010_NIMV.l39
 @..api_idx_0010_NIMV.l38:
-    cmp word [api_idx_0010_NIMV.location_changed1], byte 2
+    cmp word [boundary_wall_variant], byte 2
     jne short @..api_idx_0010_NIMV.l39
     mov ax, 0
     push ax
@@ -773,7 +773,7 @@ api_idx_0010_NIMV.jumptable_case12:
 api_idx_0010_NIMV.jumptable_case13:
     mov word [bp - 0x0010], 0xa
     mov ax, 5
-    cmp word [api_idx_0010_NIMV.location_changed1], byte 0
+    cmp word [boundary_wall_variant], byte 0
     jne short @..api_idx_0010_NIMV.l44
     mov ax, 1
 @..api_idx_0010_NIMV.l44:

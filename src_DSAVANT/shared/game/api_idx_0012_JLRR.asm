@@ -161,7 +161,7 @@ api_idx_0012_JLRR.jumptable_case2:
     pop cx
     mov word [bp - 0x0006], ax
 api_idx_0012_JLRR.jumptable_case3:
-    cmp word [api_idx_0012_JLRR.location_changed1], byte 0
+    cmp word [boundary_wall_variant], byte 0
     jne short @..api_idx_0012_JLRR.l18
     cmp word [bp + 0x4], byte 4
     jge short @..api_idx_0012_JLRR.l17
@@ -203,7 +203,7 @@ api_idx_0012_JLRR.jumptable_case3:
 @..api_idx_0012_JLRR.l17:
     jmp short @..api_idx_0012_JLRR.l19
 @..api_idx_0012_JLRR.l18:
-    cmp word [api_idx_0012_JLRR.location_changed1], byte 2
+    cmp word [boundary_wall_variant], byte 2
     jne short @..api_idx_0012_JLRR.l19
     cmp word [bp + 0x4], byte 5
     jge short @..api_idx_0012_JLRR.l19
@@ -301,7 +301,7 @@ api_idx_0012_JLRR.jumptable_case5:
     pop cx
     mov word [bp - 0x0006], ax
 api_idx_0012_JLRR.jumptable_case6:
-    cmp word [api_idx_0012_JLRR.location_changed1], byte 0
+    cmp word [boundary_wall_variant], byte 0
     jne short @..api_idx_0012_JLRR.l25
     cmp word [bp + 0x4], byte 4
     jge short @..api_idx_0012_JLRR.l24
@@ -343,9 +343,9 @@ api_idx_0012_JLRR.jumptable_case6:
 @..api_idx_0012_JLRR.l24:
     jmp near @..api_idx_0012_JLRR.l31
 @..api_idx_0012_JLRR.l25:
-    cmp word [api_idx_0012_JLRR.location_changed1], byte 3
+    cmp word [boundary_wall_variant], byte 3
     jl short @..api_idx_0012_JLRR.l26
-    cmp word [api_idx_0012_JLRR.location_changed1], byte 5
+    cmp word [boundary_wall_variant], byte 5
     je short @..api_idx_0012_JLRR.l26
     jmp near @..api_idx_0012_JLRR.l30
 @..api_idx_0012_JLRR.l26:
@@ -353,7 +353,7 @@ api_idx_0012_JLRR.jumptable_case6:
     jl short @..api_idx_0012_JLRR.l27
     jmp near @..api_idx_0012_JLRR.l29
 @..api_idx_0012_JLRR.l27:
-    cmp word [api_idx_0012_JLRR.location_changed1], byte 2
+    cmp word [boundary_wall_variant], byte 2
     jne short @..api_idx_0012_JLRR.l28
     cmp word [bp - 0x0004], byte 0xff
     je short @..api_idx_0012_JLRR.l28
@@ -422,7 +422,7 @@ api_idx_0012_JLRR.jumptable_case6:
 @..api_idx_0012_JLRR.l29:
     jmp short @..api_idx_0012_JLRR.l31
 @..api_idx_0012_JLRR.l30:
-    cmp word [api_idx_0012_JLRR.location_changed1], byte 5
+    cmp word [boundary_wall_variant], byte 5
     jge short @..api_idx_0012_JLRR.l31
     cmp word [bp + 0x4], byte 4
     jge short @..api_idx_0012_JLRR.l31
@@ -650,7 +650,7 @@ api_idx_0012_JLRR.jumptable_case10:
     jmp near @..api_idx_0012_JLRR.l49
 api_idx_0012_JLRR.jumptable_case11:
     mov word [bp - 0x000c], 0xa
-    cmp word [api_idx_0012_JLRR.location_changed1], byte 0
+    cmp word [boundary_wall_variant], byte 0
     jne short @..api_idx_0012_JLRR.l41
     mov ax, word [bp + 0x4]
     mov cx, 4
@@ -684,7 +684,7 @@ api_idx_0012_JLRR.jumptable_case11:
     mov ax, word [bx + 0x4d6]
 @..api_idx_0012_JLRR.l42:
     mov word [bp - 0x000e], ax
-    cmp word [api_idx_0012_JLRR.location_changed1], byte 0
+    cmp word [boundary_wall_variant], byte 0
     jne short @..api_idx_0012_JLRR.l43
     mov ax, word [bp + 0x4]
     mov cx, 4
@@ -719,7 +719,7 @@ api_idx_0012_JLRR.jumptable_case11:
 @..api_idx_0012_JLRR.l44:
     mov word [bp - 0x0010], ax
     mov ax, 7
-    cmp word [api_idx_0012_JLRR.location_changed1], byte 0
+    cmp word [boundary_wall_variant], byte 0
     jne short @..api_idx_0012_JLRR.l45
     mov ax, 3
 @..api_idx_0012_JLRR.l45:

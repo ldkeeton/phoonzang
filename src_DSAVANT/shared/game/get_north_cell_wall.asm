@@ -1,5 +1,5 @@
 ; auto-generated
-loc_GPIH:
+get_north_cell_wall:
     mov ax, 0
     call aztec_csav
     mov ax, word [bp + 0x6]
@@ -15,30 +15,30 @@ loc_GPIH:
     call find_map_piece
     add sp, byte 0x0a
     test ax, ax
-    je short @..loc_GPIH.l5
+    je short @..get_north_cell_wall.l5
     mov ax, word [maze_variant]
     mov cx, 2
     cwd
     idiv cx
     mov ax, dx
     test ax, ax
-    je short @..loc_GPIH.l1
+    je short @..get_north_cell_wall.l1
     mov ax, cx
-    jmp short @..loc_GPIH.l4
-@..loc_GPIH.l1:
+    jmp short @..get_north_cell_wall.l4
+@..get_north_cell_wall.l1:
     mov ax, word [maze_variant]
     cmp ax, strict word 6
-    je short @..loc_GPIH.l2
-    cmp word [loc_GPIH.bss1], byte 0
-    je short @..loc_GPIH.l3
-@..loc_GPIH.l2:
+    je short @..get_north_cell_wall.l2
+    cmp word [boundary_wall_open], byte 0
+    je short @..get_north_cell_wall.l3
+@..get_north_cell_wall.l2:
     mov ax, 0
-    jmp short @..loc_GPIH.l4
-@..loc_GPIH.l3:
+    jmp short @..get_north_cell_wall.l4
+@..get_north_cell_wall.l3:
     mov ax, 4
-@..loc_GPIH.l4:
+@..get_north_cell_wall.l4:
     ret
-@..loc_GPIH.l5:
+@..get_north_cell_wall.l5:
     mov ax, 4
     push ax
     mov ax, word [bp + 0xc]
@@ -54,6 +54,6 @@ loc_GPIH:
     mov ax, word [maze_data]
     add ax, 0x90
     push ax
-    call ds_leaf_loc_NPSL
+    call read_packed_field
     add sp, byte 6
     ret

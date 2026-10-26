@@ -37,7 +37,7 @@ ovmain:
     cmp word [game_state], byte 5    ; 0x0085
     jne short @..ovmain.l3           ; 0x008a
     call api_idx_0002_TOSL           ; 0x008c
-    call api_idx_0022_RHMN           ; 0x008f
+    call api_idx_0022_MNNV           ; 0x008f
 @..ovmain.l3:
     call loc_OGHL                    ; 0x0092
     call api_idx_0002_LMTG           ; 0x0095

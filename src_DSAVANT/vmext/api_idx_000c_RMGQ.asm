@@ -19,7 +19,7 @@ api_idx_000c_RMGQ:
     mov ax, word [maze_data]         ; 0x09e9
     add ax, 0x4b0                    ; 0x09ec
     push ax                          ; 0x09ef
-    call ds_leaf_loc_NPSL            ; 0x09f0
+    call read_packed_field           ; 0x09f0
     add sp, byte 6                   ; 0x09f3
     mov word [bp - 0x0008], ax       ; 0x09f6
     cmp ax, strict word 1            ; 0x09f9
@@ -33,7 +33,7 @@ api_idx_000c_RMGQ:
     mov ax, word [maze_data]         ; 0x0a0a
     add ax, 0x7b0                    ; 0x0a0d
     push ax                          ; 0x0a10
-    call ds_leaf_loc_NPSL            ; 0x0a11
+    call read_packed_field           ; 0x0a11
     add sp, byte 6                   ; 0x0a14
     cmp ax, word [bp + 0x4]          ; 0x0a17
     jne short @..api_idx_000c_RMGQ.l2 ; 0x0a1a

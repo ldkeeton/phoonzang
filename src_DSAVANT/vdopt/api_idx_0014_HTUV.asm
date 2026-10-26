@@ -129,7 +129,7 @@ api_idx_0014_HTUV:
     mov ax, word [maze_data]         ; 0x0b00
     add ax, 0x4b0                    ; 0x0b03
     push ax                          ; 0x0b06
-    call ds_leaf_loc_NPSL            ; 0x0b07
+    call read_packed_field           ; 0x0b07
     add sp, byte 6                   ; 0x0b0a
     mov word [bp - 0x0004], ax       ; 0x0b0d
     mov ax, 2                        ; 0x0b10
@@ -138,7 +138,7 @@ api_idx_0014_HTUV:
     mov ax, word [maze_data]         ; 0x0b17
     add ax, 0x7b0                    ; 0x0b1a
     push ax                          ; 0x0b1d
-    call ds_leaf_loc_NPSL            ; 0x0b1e
+    call read_packed_field           ; 0x0b1e
     add sp, byte 6                   ; 0x0b21
     mov word [bp - 0x0006], ax       ; 0x0b24
     cmp word [bp - 0x0004], byte 1   ; 0x0b27

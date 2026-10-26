@@ -2,7 +2,7 @@
 api_idx_0002_TOSL:
     mov ax, 0xfffe                   ; 0x03ea
     call aztec_csav                  ; 0x03ed
-    mov word [bss_91a6], 0           ; 0x03f0
+    mov word [boundary_wall_open], 0 ; 0x03f0
     mov ax, word [game_state_arg]    ; 0x03f6
     jmp short @..api_idx_0002_TOSL.l1 ; 0x03f9
 jumptable_042b_case_15:
@@ -15,7 +15,7 @@ jumptable_042b_case_14:
     mov word [bp - 0x0002], 3        ; 0x0409
     jmp short @..api_idx_0002_TOSL.l2 ; 0x040e
 jumptable_042b_case_27:
-    mov word [bss_91a6], 1           ; 0x0410
+    mov word [boundary_wall_open], 1 ; 0x0410
 jumptable_042b_case_7:
     mov word [bp - 0x0002], 4        ; 0x0416
     jmp short @..api_idx_0002_TOSL.l2 ; 0x041b

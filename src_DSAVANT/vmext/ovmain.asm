@@ -47,7 +47,7 @@ ovmain:
     cmp word [game_state], byte 0x1e ; 0x008e
     jne short @..ovmain.l5           ; 0x0093
     push word [member_roster_index]  ; 0x0095
-    call api_idx_0008_OTKN           ; 0x0099
+    call api_idx_0008_OKSM           ; 0x0099
     pop cx                           ; 0x009c
 @..ovmain.l5:
     cmp word [game_state], byte 0x1f ; 0x009d

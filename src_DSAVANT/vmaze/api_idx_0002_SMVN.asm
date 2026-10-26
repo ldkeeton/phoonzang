@@ -44,7 +44,7 @@ api_idx_0002_SMVN:
     mov ax, word [maze_data]         ; 0x0bc7
     add ax, 0x90                     ; 0x0bca
     push ax                          ; 0x0bcd
-    call ds_leaf_loc_NPSL            ; 0x0bce
+    call read_packed_field           ; 0x0bce
     add sp, byte 6                   ; 0x0bd1
     test ax, ax                      ; 0x0bd4
     jne short @..api_idx_0002_SMVN.l2 ; 0x0bd6
@@ -65,7 +65,7 @@ api_idx_0002_SMVN:
     mov ax, word [maze_data]         ; 0x0bf9
     add ax, 0x290                    ; 0x0bfc
     push ax                          ; 0x0bff
-    call ds_leaf_loc_NPSL            ; 0x0c00
+    call read_packed_field           ; 0x0c00
     add sp, byte 6                   ; 0x0c03
     test ax, ax                      ; 0x0c06
     jne short @..api_idx_0002_SMVN.l3 ; 0x0c08
@@ -98,7 +98,7 @@ api_idx_0002_SMVN:
     mov ax, word [maze_data]         ; 0x0c48
     add ax, 0x90                     ; 0x0c4b
     push ax                          ; 0x0c4e
-    call ds_leaf_loc_NPSL            ; 0x0c4f
+    call read_packed_field           ; 0x0c4f
     add sp, byte 6                   ; 0x0c52
     test ax, ax                      ; 0x0c55
     jne short @..api_idx_0002_SMVN.l4 ; 0x0c57
@@ -129,7 +129,7 @@ api_idx_0002_SMVN:
     mov ax, word [maze_data]         ; 0x0c8f
     add ax, 0x290                    ; 0x0c92
     push ax                          ; 0x0c95
-    call ds_leaf_loc_NPSL            ; 0x0c96
+    call read_packed_field           ; 0x0c96
     add sp, byte 6                   ; 0x0c99
     test ax, ax                      ; 0x0c9c
     jne short @..api_idx_0002_SMVN.l5 ; 0x0c9e

@@ -9,7 +9,9 @@ struct tbl {
 	unsigned char piece_region[1];	/* +0xb40, per map piece */
 };
 extern struct tbl *maze_tables;
-extern unsigned char *maze_data;
+#include "structs/mazecell.h"
+
+extern struct maze_cells *maze_data;
 extern int game_state_arg;
 extern int party_cell_x, party_cell_y, party_map_piece, dest_alt_arg,
 	save_location_flag;
@@ -41,8 +43,8 @@ int dest;
 		saved_cell_y = party_cell_y;
 	}
 	/* piece origin tables at +0x490 (x) and +0x4a0 (y) give world coords */
-	party_world_x = maze_data[party_map_piece + 1168] + party_cell_x;
-	party_world_y = maze_data[party_map_piece + 1184] + party_cell_y;
+	party_world_x = maze_data->origin_x[party_map_piece] + party_cell_x;
+	party_world_y = maze_data->origin_y[party_map_piece] + party_cell_y;
 	party_region = maze_tables->piece_region[party_map_piece];
 	region_step_flag = 0;
 	if (level == game_state_arg)

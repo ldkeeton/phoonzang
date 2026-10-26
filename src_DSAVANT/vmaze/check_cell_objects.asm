@@ -17,7 +17,7 @@ check_cell_objects:
     lea ax, word [bp - 0x0006]       ; 0x8c6c
     push ax                          ; 0x8c6f
     push word [bp - 0x0002]          ; 0x8c70
-    call loc_RRJG                    ; 0x8c73
+    call read_cell_kind_direction    ; 0x8c73
     add sp, byte 6                   ; 0x8c76
     mov word [bp - 0x000a], 0        ; 0x8c79
     mov ax, word [bp - 0x0006]       ; 0x8c7e

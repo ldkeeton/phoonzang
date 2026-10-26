@@ -30,6 +30,6 @@ api_idx_0002_TOSS:
     add bx, strict word 0xab0        ; 0x0b06
     mov ax, bx                       ; 0x0b0a
     push ax                          ; 0x0b0c
-    call ds_leaf_loc_NPSL            ; 0x0b0d
+    call read_packed_field           ; 0x0b0d
     add sp, byte 6                   ; 0x0b10
     ret                              ; 0x0b13

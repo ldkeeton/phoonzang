@@ -20,7 +20,7 @@ api_idx_000e_NSGM:
     lea ax, word [bp - 0x000a]       ; 0x165c
     push ax                          ; 0x165f
     push word [bp - 0x0002]          ; 0x1660
-    call loc_RRJG                    ; 0x1663
+    call read_cell_kind_direction    ; 0x1663
     add sp, byte 6                   ; 0x1666
     cmp word [bp - 0x000a], byte 1   ; 0x1669
     je short @..api_idx_000e_NSGM.l1 ; 0x166d

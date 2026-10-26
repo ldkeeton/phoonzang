@@ -16,7 +16,7 @@ int announce;
 
 	cell = (party_map_piece << 6) + (party_cell_y << 3) + party_cell_x;
 		/* 8x8 cells per piece */
-	loc_RRJG(cell, &kind, &tag);
+	read_cell_kind_direction(cell, &kind, &tag);
 	shown = 0;
 	/* kinds 5, 10, 11 already tagged with party_tag: defer the message */
 	if ((kind == 5 || kind == 10 || kind == 11) && tag == party_tag) {

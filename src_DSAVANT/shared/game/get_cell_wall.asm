@@ -20,7 +20,7 @@ get_cell_wall:
     mov ax, word [maze_data]
     add ax, 0x90
     push ax
-    call ds_leaf_loc_NPSL
+    call read_packed_field
     add sp, byte 6
     ret
 @..get_cell_wall.l2:
@@ -39,7 +39,7 @@ get_cell_wall:
     mov ax, word [maze_data]
     add ax, 0x290
     push ax
-    call ds_leaf_loc_NPSL
+    call read_packed_field
     add sp, byte 6
     ret
 @..get_cell_wall.l3:
