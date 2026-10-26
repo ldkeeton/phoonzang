@@ -26,7 +26,7 @@ api_idx_0032_HGIM:
     push word [bp + 0x8]
     push word [bp + 0x6]
     push word [bp + 0x4]
-    call api_idx_0002_OGRO
+    call draw_known_spell_values
     add sp, byte 8
     push word [bp - 0x000c]
     push word [bp + 0x6]

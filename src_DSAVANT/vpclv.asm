@@ -329,9 +329,7 @@ api_idx_0004_LOLJ.bss2              equ bss_9598
 api_idx_0004_LOLJ.slot_prompt_text1 equ slot_prompt_text
 %include "shared/game/api_idx_0004_LOLJ.asm"     ; 0x35fc
 
-api_idx_0002_OGRO.roster_screen_a1 equ roster_screen_a
-api_idx_0002_OGRO.roster_screen_b1 equ roster_screen_b
-%include "shared/game/api_idx_0002_OGRO.asm"     ; 0x3851
+%include "shared/game/draw_known_spell_values.asm" ; 0x3851
 
 %include "shared/game/api_idx_002e_ILPL.asm"     ; 0x390b
 

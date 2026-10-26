@@ -421,9 +421,7 @@ api_idx_0004_LOLJ.bss2              equ bss_9698
 api_idx_0004_LOLJ.slot_prompt_text1 equ bss_96dc
 %include "shared/game/api_idx_0004_LOLJ.asm"     ; 0x8421
 
-api_idx_0002_OGRO.roster_screen_a1 equ roster_screen_a
-api_idx_0002_OGRO.roster_screen_b1 equ roster_screen_b
-%include "shared/game/api_idx_0002_OGRO.asm"     ; 0x8676
+%include "shared/game/draw_known_spell_values.asm" ; 0x8676
 
 %include "shared/game/api_idx_0058_GKGM.asm"     ; 0x8730
 

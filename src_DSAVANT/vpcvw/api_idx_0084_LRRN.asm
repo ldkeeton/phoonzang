@@ -36,7 +36,7 @@ api_idx_0084_LRRN:
     push word [bp - 0x0006]          ; 0x414b
     push word [bp - 0x0004]          ; 0x414e
     push word [bp + 0x4]             ; 0x4151
-    call api_idx_0002_OGRO           ; 0x4154
+    call draw_known_spell_values     ; 0x4154
     add sp, byte 8                   ; 0x4157
     mov word [bp - 0x0002], 0        ; 0x415a
 @..api_idx_0084_LRRN.l5:

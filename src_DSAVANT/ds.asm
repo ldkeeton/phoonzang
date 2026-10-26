@@ -45,7 +45,7 @@ dseg_001e equ __zdseg_001e - __zdseg_start
 dseg_0022 equ __zdseg_0022 - __zdseg_start
 dseg_0024 equ __zdseg_0024 - __zdseg_start
 psp_env_segment equ 0x002c
-dseg_0030 equ __zdseg_0030 - __zdseg_start
+realm_text_colors equ __zrealm_text_colors - __zdseg_start
 dseg_0038 equ __zdseg_0038 - __zdseg_start
 dseg_003c equ __zdseg_003c - __zdseg_start
 index_range2_first equ __zindex_range2_first - __zdseg_start
@@ -923,6 +923,10 @@ __zdseg_start:
 %include "ds/data/tick_counter_ptr.asm"    ; 0x10162
 
 %include "ds/data/dseg_001e.asm"           ; 0x1017e
+
+%include "ds/data/realm_text_colors.asm"   ; 0x10190
+
+%include "ds/data/dseg_0038.asm"           ; 0x10198
 
 %include "ds/data/index_range2_first.asm"  ; 0x101a0
 

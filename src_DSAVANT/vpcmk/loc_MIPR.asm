@@ -199,8 +199,8 @@ loc_MIPR:
     mov ax, 0                        ; 0x64e7
     push ax                          ; 0x64ea
     push ax                          ; 0x64eb
-    push word [bss_952e]             ; 0x64ec
-    push word [bss_952c]             ; 0x64f0
+    push word [roster_screen_a]      ; 0x64ec
+    push word [roster_screen_b]      ; 0x64f0
     call gfx_restore_screen          ; 0x64f4
     add sp, byte 8                   ; 0x64f7
     mov ax, 0xc6                     ; 0x64fa

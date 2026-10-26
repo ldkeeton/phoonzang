@@ -91,7 +91,7 @@ api_idx_0088_LVJM:
     push word [bp - 0x0008]          ; 0x4084
     push word [bp - 0x0006]          ; 0x4087
     push word [bp + 0x4]             ; 0x408a
-    call api_idx_0002_OGRO           ; 0x408d
+    call draw_known_spell_values     ; 0x408d
     add sp, byte 8                   ; 0x4090
     mov word [bp - 0x0004], 0        ; 0x4093
 @..api_idx_0088_LVJM.l7:

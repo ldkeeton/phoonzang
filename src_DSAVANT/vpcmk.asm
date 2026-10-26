@@ -148,8 +148,8 @@ bss_9524 equ __zdseg_end + (__zobss_9524 - __zdata_start)
 bss_9526 equ __zdseg_end + (__zobss_9526 - __zdata_start)
 bss_9528 equ __zdseg_end + (__zobss_9528 - __zdata_start)
 bss_952a equ __zdseg_end + (__zobss_952a - __zdata_start)
-bss_952c equ __zdseg_end + (__zobss_952c - __zdata_start)
-bss_952e equ __zdseg_end + (__zobss_952e - __zdata_start)
+roster_screen_b equ __zdseg_end + (__zobss_952c - __zdata_start)
+roster_screen_a equ __zdseg_end + (__zobss_952e - __zdata_start)
 bss_9530 equ __zdseg_end + (__zobss_9530 - __zdata_start)
 bss_9532 equ __zdseg_end + (__zobss_9532 - __zdata_start)
 bss_9534 equ __zdseg_end + (__zobss_9534 - __zdata_start)
@@ -311,9 +311,7 @@ api_idx_0004_LOLJ.bss2              equ bss_95b0
 api_idx_0004_LOLJ.slot_prompt_text1 equ slot_prompt_text
 %include "shared/game/api_idx_0004_LOLJ.asm"     ; 0x2273
 
-api_idx_0002_OGRO.roster_screen_a1 equ bss_952e
-api_idx_0002_OGRO.roster_screen_b1 equ bss_952c
-%include "shared/game/api_idx_0002_OGRO.asm"     ; 0x24c8
+%include "shared/game/draw_known_spell_values.asm" ; 0x24c8
 
 api_idx_002e_JGHT equ api_idx_002e_ILPL
 %include "shared/game/api_idx_002e_ILPL.asm"     ; 0x2582

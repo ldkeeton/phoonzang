@@ -58,7 +58,7 @@ api_idx_0088_QLNT:
     push word [bp - 0x0008]          ; 0x2ca7
     push word [bp - 0x0006]          ; 0x2caa
     push word [bp + 0x4]             ; 0x2cad
-    call api_idx_0002_OGRO           ; 0x2cb0
+    call draw_known_spell_values     ; 0x2cb0
     add sp, byte 8                   ; 0x2cb3
     mov word [bp - 0x0004], 0        ; 0x2cb6
 @..api_idx_0088_QLNT.l4:

@@ -1,17 +1,17 @@
 ; auto-generated
-api_idx_0002_OGRO:
+draw_known_spell_values:
     mov ax, 0xfffe
     call aztec_csav
     mov ax, 0
     push ax
     push ax
-    push word [api_idx_0002_OGRO.roster_screen_a1]
-    push word [api_idx_0002_OGRO.roster_screen_b1]
+    push word [roster_screen_a]
+    push word [roster_screen_b]
     call gfx_restore_screen
     add sp, byte 8
     mov word [bp - 0x0002], 0
-    jmp near @..api_idx_0002_OGRO.l2
-@..api_idx_0002_OGRO.l1:
+    jmp near @..draw_known_spell_values.l2
+@..draw_known_spell_values.l1:
     mov ax, 0
     push ax
     mov ax, word [bp + 0x6]
@@ -69,10 +69,10 @@ api_idx_0002_OGRO:
     call draw_number_field
     add sp, byte 6
     inc word [bp - 0x0002]
-@..api_idx_0002_OGRO.l2:
+@..draw_known_spell_values.l2:
     mov ax, word [bp - 0x0002]
     cmp ax, word [bp + 0x8]
-    jge short @..api_idx_0002_OGRO.l3
-    jmp near @..api_idx_0002_OGRO.l1
-@..api_idx_0002_OGRO.l3:
+    jge short @..draw_known_spell_values.l3
+    jmp near @..draw_known_spell_values.l1
+@..draw_known_spell_values.l3:
     ret

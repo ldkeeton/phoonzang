@@ -763,7 +763,7 @@ jumptable_76e2:
     add sp, byte 4                   ; 0x7837
     mov ax, 0                        ; 0x783a
     push ax                          ; 0x783d
-    push word [dseg_0030]            ; 0x783e
+    push word [realm_text_colors]    ; 0x783e
     call gfx_set_text_color          ; 0x7842
     add sp, byte 4                   ; 0x7845
 @..loc_IUTP.l31:
