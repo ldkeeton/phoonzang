@@ -245,7 +245,25 @@ jumptable_1de5_case_16  equ api_idx_0008_LJTR.jumptable_case28
 jumptable_1de5          equ api_idx_0008_LJTR.jumptable4
 %include "shared/game/api_idx_0008_LJTR.asm"     ; 0x1a1d
 
-%include "vmext/api_idx_0008_LUNN.asm"     ; 0x1e4f
+api_idx_0008_LUNN.location_changed1 equ location_changed
+jumptable_1e9c_case_0               equ api_idx_0008_LUNN.jumptable_case1
+jumptable_1e9c_case_3               equ api_idx_0008_LUNN.jumptable_case2
+api_idx_0008_LUNN.bss1              equ bss_9188
+jumptable_1e9c_case_1               equ api_idx_0008_LUNN.jumptable_case3
+jumptable_1e9c_case_5               equ api_idx_0008_LUNN.jumptable_case4
+jumptable_1e9c                      equ api_idx_0008_LUNN.jumptable1
+jumptable_1ff2_case_0               equ api_idx_0008_LUNN.jumptable_case5
+jumptable_1ff2_case_1               equ api_idx_0008_LUNN.jumptable_case6
+jumptable_1ff2_case_2               equ api_idx_0008_LUNN.jumptable_case7
+jumptable_1ff2_case_3               equ api_idx_0008_LUNN.jumptable_case8
+jumptable_1ff2_case_4               equ api_idx_0008_LUNN.jumptable_case9
+jumptable_1ff2_case_5               equ api_idx_0008_LUNN.jumptable_case10
+api_idx_0008_LUNN.bss2              equ bss_91aa
+jumptable_1ff2_case_6               equ api_idx_0008_LUNN.jumptable_case11
+jumptable_1ff2_case_10              equ api_idx_0008_LUNN.jumptable_case12
+jumptable_1ff2_case_11              equ api_idx_0008_LUNN.jumptable_case13
+jumptable_1ff2                      equ api_idx_0008_LUNN.jumptable2
+%include "shared/game/api_idx_0008_LUNN.asm"     ; 0x1e4f
 
 api_idx_0004_RTNM       equ api_idx_0004_OVUO
 api_idx_0004_OVUO.bss1  equ bss_92f2

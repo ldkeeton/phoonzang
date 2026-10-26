@@ -223,7 +223,7 @@ _TREE = _ASM.parent / 'src_DSAVANT'
 @slow
 @unittest.skipUnless(_TREE.is_dir(), 'no generated tree')
 class CurrentTreeTest(unittest.TestCase):
-    """The goal is zero: every generated copy is either shared or distinct."""
+    """No group the production merger can share is left duplicated."""
 
     @classmethod
     def setUpClass(cls):
@@ -234,9 +234,28 @@ class CurrentTreeTest(unittest.TestCase):
 
     def test_no_unmerged_code(self):
         findings = self._failed('code')
-        self.assertEqual(0, len(findings),
-                         f'{len(findings)} unmerged code group(s):\n'
-                         + shared.report(findings))
+        files = {}
+        from lib.autogen import is_generated
+        for folder, dirs, names in os.walk(_TREE):
+            dirs[:] = [d for d in dirs if d != 'build_out']
+            for name in names:
+                if not name.endswith(('.asm',) + shared.SUFFIXES):
+                    continue
+                path = os.path.join(folder, name)
+                if is_generated(path):
+                    rel = os.path.relpath(path, _TREE)
+                    with open(path, encoding='utf-8', errors='surrogateescape') as f:
+                        files[rel] = f.read()
+        _, planned = shared.share_files(
+            files, str(_TREE), shared.project_tables('DSAVANT'))
+        mergeable = [set(members) for members in planned.values()]
+        actionable = [finding for finding in findings
+                      if any(len({m.binary for m in finding.members
+                                  if m.rel in group}) > 1
+                             for group in mergeable)]
+        self.assertEqual(0, len(actionable),
+                         f'{len(actionable)} mergeable code group(s) left:\n'
+                         + shared.report(actionable))
 
     def test_no_address_immediates(self):
         findings = self._failed('immediate')

@@ -55,7 +55,18 @@ def _code_key(text):
         code = line.split(';', 1)[0].rstrip()
         if code.strip():
             lines.append(code.strip())
-    return _LOCAL_LABEL.sub(r'@L\1', '\n'.join(lines))
+    local_ids = {}
+
+    def number_local(match):
+        number = match.group(1)
+        if number not in local_ids:
+            local_ids[number] = len(local_ids) + 1
+        return f'@L{local_ids[number]}'
+
+    # Local labels are allocated from addresses and can have different numbers
+    # in identical routines from different overlays.  Preserve which branches
+    # land at the same label while ignoring those address-derived numbers.
+    return _LOCAL_LABEL.sub(number_local, '\n'.join(lines))
 
 
 _TOKEN = re.compile(r'[A-Za-z_][\w.]*|0[xX][0-9a-fA-F]+|\d+|\n|\S')

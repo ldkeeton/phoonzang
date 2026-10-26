@@ -374,7 +374,7 @@ class RenderTest(unittest.TestCase):
         self.assertEqual(text, [
             'mov ax, word [bss_0cfa]',
             'mov word [bss_0cfa], dseg_0d10',
-            'cmp ax, strict word dseg_0d10 + 0x2'])
+            'cmp ax, dseg_0d10 + 0x2'])
         self.assertFalse(linked.failed)
 
     def test_local_branch_renders_a_derived_label(self):

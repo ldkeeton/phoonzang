@@ -363,7 +363,8 @@ def _check_publics(label, start, override, labels_at):
                          f'label there')
         elif str(have) != name:
             wrong.append(f'public {name} at 0x{addr:04x} is {have} in the '
-                         f'build')
+                         f'build; name it in the sidecar (make name ... '
+                         f'{have}={name}:\'note\')')
     if wrong:
         raise CGateError('\n'.join(
             f'{os.path.basename(override["path"])}: {w}' for w in wrong))

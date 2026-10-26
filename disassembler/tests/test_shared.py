@@ -22,6 +22,31 @@ def _read(root, rel):
         return f.read()
 
 
+class CodeKeyTest(unittest.TestCase):
+    def test_local_label_numbers_are_renamed_by_use_order(self):
+        first = '''\
+            je short @..first.l8
+            jmp short @..first.l3
+        @..first.l8:
+            ret
+        @..first.l3:
+            ret
+        '''
+        renamed = '''\
+            je short @..second.l4
+            jmp short @..second.l9
+        @..second.l4:
+            ret
+        @..second.l9:
+            ret
+        '''
+        different_flow = renamed.replace('@..second.l9', '@..second.l4')
+
+        self.assertEqual(shared._code_key(first), shared._code_key(renamed))
+        self.assertNotEqual(shared._code_key(first),
+                            shared._code_key(different_flow))
+
+
 class ShareIdenticalTest(unittest.TestCase):
     def _tree(self, root):
         _put(root, 'a/f.asm', BODY.format(name='f', a='0100', b='0101', c='0103'))

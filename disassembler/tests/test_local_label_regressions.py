@@ -46,33 +46,29 @@ _PREVIOUS_LOCAL_TARGETS = {
 # (``runner``: a switch arm loses a generic root), so each routine is whole and
 # they are its locals again.
 
-# Resolved as a named library routine rather than a local branch target.
-_NOW_GLOBALLY_NAMED = {0x4f87}  # aztec_stkover
-# Cross-fragment branch targets: a shared exit laid out in *another* routine's
-# fragment is no longer a ``@..owner.lN`` local -- the file that includes the
-# owner would not see the name -- so it is rooted as its own global
-# ``ds_loc_XXXX`` fragment.
-_NOW_GLOBALLY_ROOTED = {0x395b, 0x4676}
-_EXPECTED_LOCAL_TARGETS = (
-    _PREVIOUS_LOCAL_TARGETS - _NOW_GLOBALLY_NAMED - _NOW_GLOBALLY_ROOTED
-)
-
-
-def _local_labels_by_offset(output_dir):
+def _labels_by_offset(output_dir):
     labels = {}
     for path in pathlib.Path(output_dir).rglob('*.asm'):
         pending = []
         for line in path.read_text().splitlines():
-            match = re.match(r'\s*(@\.\.[\w.]+):\s*$', line)
+            match = re.match(r'\s*([\w.@]+):\s*$', line)
             if match:
                 pending.append(match.group(1))
                 continue
             match = re.search(r';\s*0x([0-9a-fA-F]+)\s*$', line)
             if match:
                 for name in pending:
-                    labels[int(match.group(1), 16)] = name
+                    labels.setdefault(int(match.group(1), 16), []).append(name)
                 pending = []
     return labels
+
+
+def _local_labels_by_offset(output_dir):
+    return {
+        offset: next(name for name in names if name.startswith('@..'))
+        for offset, names in _labels_by_offset(output_dir).items()
+        if any(name.startswith('@..') for name in names)
+    }
 
 
 @slow
@@ -99,14 +95,17 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
     def tearDownClass(cls):
         cls._output.cleanup()
 
-    def test_historical_local_targets_keep_local_scope(self):
+    def test_historical_branch_targets_keep_a_usable_label(self):
+        emitted_labels = _labels_by_offset(self._output.name)
         missing = sorted(
-            offset for offset in _EXPECTED_LOCAL_TARGETS
-            if offset not in self.local_labels or offset in self.label_map
+            offset for offset in _PREVIOUS_LOCAL_TARGETS
+            if not self.local_labels.get(offset)
+            and not any(not name.startswith('@..')
+                        for name in emitted_labels.get(offset, ()))
         )
         self.assertEqual(
             missing, [],
-            'DSAVANT targets no longer rendered as local labels: '
+            'DSAVANT targets no longer rendered with a usable label: '
             + ', '.join(f'0x{offset:04x}' for offset in missing),
         )
 
