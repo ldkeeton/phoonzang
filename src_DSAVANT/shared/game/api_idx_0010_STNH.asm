@@ -36,7 +36,7 @@ api_idx_0010_STNH:
     mov ax, 0xffff
     push ax
     push word [bp - 0x0010]
-    call api_idx_0002_UIHS
+    call clamp_value_to_range
     add sp, byte 4
     push ax
     mov ax, word [bp - 0x0004]
@@ -76,7 +76,7 @@ api_idx_0010_STNH:
     mov ax, 1
     push ax
     push word [bp - 0x0010]
-    call api_idx_0002_UIHS
+    call clamp_value_to_range
     add sp, byte 4
     push ax
     mov ax, word [bp - 0x0004]

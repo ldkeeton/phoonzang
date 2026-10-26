@@ -216,7 +216,7 @@ api_idx_0004_RMVO.bss2 equ bss_9538
 
 %include "shared/game/advance_party_slot_frames.asm" ; 0x1819
 
-%include "shared/game/api_idx_0002_UIHS.asm"     ; 0x1874
+%include "shared/game/clamp_value_to_range.asm"  ; 0x1874
 
 %include "vpcmk/api_idx_0010_GGGV.asm"     ; 0x18b5
 

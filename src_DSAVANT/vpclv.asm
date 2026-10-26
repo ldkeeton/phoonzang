@@ -168,7 +168,7 @@ api_idx_0004_RMVO.bss2 equ bss_942a
 
 %include "shared/game/advance_party_slot_frames.asm" ; 0x0331
 
-%include "shared/game/api_idx_0002_UIHS.asm"     ; 0x038c
+%include "shared/game/clamp_value_to_range.asm"  ; 0x038c
 
 %include "shared/game/api_idx_0010_STNH.asm"     ; 0x03cd
 

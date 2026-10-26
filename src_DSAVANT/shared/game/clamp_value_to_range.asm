@@ -1,19 +1,19 @@
 ; auto-generated
-api_idx_0002_UIHS:
+clamp_value_to_range:
     mov ax, 0xfffe
     call aztec_csav
     mov word [bp - 0x0002], 0
-@..api_idx_0002_UIHS.l1:
+@..clamp_value_to_range.l1:
     mov ax, word [bp - 0x0002]
     shl ax, 1
     shl ax, 1
     mov bx, ax
     mov ax, word [word bx + 0x4a]
     cmp ax, word [bp + 0x4]
-    jge short @..api_idx_0002_UIHS.l2
+    jge short @..clamp_value_to_range.l2
     inc word [bp - 0x0002]
-    jmp short @..api_idx_0002_UIHS.l1
-@..api_idx_0002_UIHS.l2:
+    jmp short @..clamp_value_to_range.l1
+@..clamp_value_to_range.l2:
     mov ax, word [bp - 0x0002]
     shl ax, 1
     shl ax, 1

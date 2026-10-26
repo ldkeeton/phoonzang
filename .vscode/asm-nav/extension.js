@@ -498,7 +498,8 @@ const AGENTS = {
             if (model) args.push('--model', model);
             args.push(prompt);
             const quote = (s) => `'${String(s).replace(/'/g, `'\\''`)}'`;
-            const command = `${quote(cfg().get('codex'))} ${args.map(quote).join(' ')}`;
+            const cleanEnvironment = `for var in $(env | grep -E 'PROXY|proxy|npm_config|YARN|BUNDLE|CARGO' | cut -d= -f1); do unset "$var"; done; `;
+            const command = `${process.platform === 'win32' ? '' : cleanEnvironment}${quote(cfg().get('codex'))} ${args.map(quote).join(' ')}`;
             return process.platform === 'win32'
                 ? { shellPath: process.env.COMSPEC || 'cmd.exe',
                     shellArgs: ['/d', '/s', '/c', `${command} & set codex_status=%errorlevel% & echo. & echo Codex exited with status %codex_status%. & pause`] }
@@ -715,6 +716,11 @@ function makeCBatch(kind, uris) {
     let child = null, stopped = false;
     // The extension host's PWD is wherever VS Code was launched; match it to the cwd.
     const env = { ...process.env, PWD: root() };
+    if (kind === 'codex') {
+        for (const key of Object.keys(env)) {
+            if (/PROXY|proxy|npm_config|YARN|BUNDLE|CARGO/.test(key)) delete env[key];
+        }
+    }
     for (const [k, v] of Object.entries(agent.env)) {
         if (v === null) delete env[k]; else env[k] = v;
     }

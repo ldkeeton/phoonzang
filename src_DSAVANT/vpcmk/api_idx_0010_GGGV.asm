@@ -34,7 +34,7 @@ api_idx_0010_GGGV:
     mov ax, 0xffff                   ; 0x1903
     push ax                          ; 0x1906
     push word [bp - 0x0010]          ; 0x1907
-    call api_idx_0002_UIHS           ; 0x190a
+    call clamp_value_to_range        ; 0x190a
     add sp, byte 4                   ; 0x190d
     push ax                          ; 0x1910
     mov ax, word [bp - 0x0004]       ; 0x1911
@@ -74,7 +74,7 @@ api_idx_0010_GGGV:
     mov ax, 1                        ; 0x1961
     push ax                          ; 0x1964
     push word [bp - 0x0010]          ; 0x1965
-    call api_idx_0002_UIHS           ; 0x1968
+    call clamp_value_to_range        ; 0x1968
     add sp, byte 4                   ; 0x196b
     push ax                          ; 0x196e
     mov ax, word [bp - 0x0004]       ; 0x196f

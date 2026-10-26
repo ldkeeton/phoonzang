@@ -1,7 +1,5 @@
 """``make rebuild`` selector: a binary, or a routine gated against its donors."""
 
-import contextlib
-import io
 import unittest
 from unittest import mock
 
@@ -29,14 +27,6 @@ class RebuildTargetsTest(unittest.TestCase):
         with mock.patch.object(build, '_routine_donors', return_value=[]):
             with self.assertRaises(SystemExit):
                 build._rebuild_targets('P', self.BINS, 'r', None)
-
-    def test_shared_is_not_a_binary(self):
-        out = io.StringIO()
-        with contextlib.redirect_stdout(out):
-            with self.assertRaises(SystemExit):
-                build._rebuild_targets('P', self.BINS, 'shared', 'r')
-        self.assertIn('source folder, not a binary', out.getvalue())
-        self.assertIn('make rebuild P r', out.getvalue())
 
     def test_shared_alone_is_not_a_routine(self):
         out = io.StringIO()

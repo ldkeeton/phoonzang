@@ -162,13 +162,14 @@ def _rebuild_targets(app, bins, binary, only):
         return sorted(bins), None
     if binary in bins:
         return [binary], only
+    if binary == 'shared' and only is not None:
+        # Older invocations may put the source folder in the binary slot.
+        # Interpret the following argument as the routine selector, matching
+        # `make rebuild PROJECT ROUTINE`.
+        binary, only = only, None
     if only is not None:
         print(f'Unknown binary "{binary}" in {app}')
-        if binary == 'shared':
-            print('shared/ is a source folder, not a binary; pass the '
-                  f'routine instead: make rebuild {app} {only}')
-        else:
-            print(f'Known: {", ".join(sorted(bins))}')
+        print(f'Known: {", ".join(sorted(bins))}')
         raise SystemExit(1)
     if binary == 'shared':
         print('shared/ is a source folder, not a binary; pass the routine '

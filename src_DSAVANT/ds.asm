@@ -51,6 +51,7 @@ dseg_003c equ __zdseg_003c - __zdseg_start
 index_range2_first equ __zindex_range2_first - __zdseg_start
 index_range2_last equ __zindex_range2_last - __zdseg_start
 dseg_0044 equ __zdseg_0044 - __zdseg_start
+value_clamp_ranges equ __zvalue_clamp_ranges - __zdseg_start
 psp_cmd_tail_len equ 0x0080
 dseg_010c equ __zdseg_010c - __zdseg_start
 dseg_010e equ __zdseg_010e - __zdseg_start
@@ -933,6 +934,10 @@ __zdseg_start:
 %include "ds/data/index_range2_last.asm"   ; 0x101a2
 
 %include "ds/data/dseg_0044.asm"           ; 0x101a4
+
+%include "ds/data/value_clamp_ranges.asm"  ; 0x101a8
+
+%include "ds/data/dseg_010c.asm"           ; 0x1026c
 
 %include "ds/data/file_param_word.asm"     ; 0x10270
 
